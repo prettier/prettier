@@ -2,7 +2,6 @@ import fs from "node:fs";
 import path from "node:path";
 import url from "node:url";
 import createEsmUtils from "esm-utils";
-import * as prettierPluginOxc from "../../packages/plugin-oxc/index.js";
 import getPrettier from "./get-prettier.js";
 import checkParsers from "./utils/check-parsers.js";
 import consistentEndOfLine from "./utils/consistent-end-of-line.js";
@@ -12,7 +11,8 @@ import visualizeEndOfLine from "./utils/visualize-end-of-line.js";
 
 const { __dirname } = createEsmUtils(import.meta);
 
-const { FULL_TEST, TEST_STANDALONE } = process.env;
+const { FULL_TEST, TEST_STANDALONE, NODE_ENV } = process.env;
+const isProduction = NODE_ENV === "production";
 const BOM = "\uFEFF";
 
 const CURSOR_PLACEHOLDER = "<|>";
@@ -570,7 +570,14 @@ async function format(originalText, originalOptions) {
 function loadPlugins(options) {
   if (options.parser === "oxc") {
     const plugins = options.plugins ?? [];
-    plugins.push(prettierPluginOxc);
+    plugins.push(
+      new URL(
+        isProduction
+          ? "../../dist/plugin-oxc/index.mjs"
+          : "../../packages/plugin-oxc/index.js",
+        import.meta.url,
+      ),
+    );
     return { ...options, plugins };
   }
 

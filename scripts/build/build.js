@@ -7,7 +7,7 @@ import createEsmUtils from "esm-utils";
 import styleText from "node-style-text";
 import prettyBytes from "pretty-bytes";
 import { DIST_DIR } from "../utils/index.js";
-import packageConfig from "./config.js";
+import packageConfigs from "./config.js";
 import parseArguments from "./parse-arguments.js";
 
 const { require } = createEsmUtils(import.meta);
@@ -149,17 +149,21 @@ async function run() {
     }
   }
 
-  console.log(styleText.inverse(" Building packages "));
+  for (const packageConfig of packageConfigs) {
+    console.log(
+      styleText.inverse(` Building package '${packageConfig.packageName}'`),
+    );
 
-  const results = [];
-  for (const file of packageConfig.files) {
-    const result = await buildFile({
-      packageConfig,
-      file,
-      cliOptions,
-      results,
-    });
-    results.push(result);
+    const results = [];
+    for (const file of packageConfig.files) {
+      const result = await buildFile({
+        packageConfig,
+        file,
+        cliOptions,
+        results,
+      });
+      results.push(result);
+    }
   }
 }
 

@@ -919,8 +919,41 @@ const metaFiles = [
 
 /** @type {Files[]} */
 const files = [...nodejsFiles, ...universalFiles, ...metaFiles].filter(Boolean);
-export default {
-  packageName: "prettier",
-  distDirectory: path.join(DIST_DIR, "prettier"),
-  files,
-};
+export default [
+  {
+    packageName: "prettier",
+    distDirectory: path.join(DIST_DIR, "prettier"),
+    files,
+  },
+  {
+    packageName: "@prettier/plugin-oxc",
+    distDirectory: path.join(DIST_DIR, "plugin-oxc"),
+    files: [
+      {
+        input: "packages/plugin-oxc/index.js",
+        addDefaultExport: true,
+        external: ["oxc-parser"],
+      },
+    ].flatMap((file) => {
+      let { input, output, outputBaseName, ...buildOptions } = file;
+
+      const format = input.endsWith(".cjs") ? "cjs" : "esm";
+      outputBaseName ??= path.basename(input, path.extname(input));
+
+      return [
+        {
+          input,
+          output: {
+            format,
+            file: `${outputBaseName}${extensions[format]}`,
+          },
+          platform: "node",
+          buildOptions,
+          build: buildJavascriptModule,
+          kind: "javascript",
+        },
+        // getTypesFileConfig({ input, outputBaseName }),
+      ];
+    }),
+  },
+];
