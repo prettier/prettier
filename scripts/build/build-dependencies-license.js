@@ -42,11 +42,11 @@ function getDependencies(results) {
   return dependencies;
 }
 
-function getLicenseText(dependencies) {
+function getLicenseText(packageConfig, dependencies) {
   dependencies = dependencies.filter(
     (dependency, index) =>
-      // Exclude ourself
-      dependency.name !== "prettier" &&
+      // Exclude self
+      dependency.name !== packageConfig.packageName &&
       // Unique by `name` and `version`
       index ===
         dependencies.findIndex(
@@ -72,7 +72,7 @@ function getLicenseText(dependencies) {
   const head = outdent`
     # Licenses of bundled dependencies
 
-    The published Prettier artifact additionally contains code with the following licenses:
+    The published ${packageConfig.packageDisplayName ?? packageConfig.packageName} artifact additionally contains code with the following licenses:
     ${new Intl.ListFormat("en-US", { type: "conjunction" }).format(licenses)}.
   `;
 
@@ -149,7 +149,7 @@ async function buildDependenciesLicense({
     throw new Error("Fail to collect dependencies.");
   }
 
-  const text = getLicenseText(dependencies);
+  const text = getLicenseText(packageConfig, dependencies);
 
   await fs.writeFile(path.join(distDirectory, fileName), text);
 }

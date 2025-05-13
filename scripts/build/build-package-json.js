@@ -20,7 +20,7 @@ const keysToKeep = [
   "preferUnplugged",
 ];
 
-async function buildPackageJson({ packageConfig, file }) {
+async function buildPrettierPackageJson({ packageConfig, file }) {
   const { distDirectory, files } = packageConfig;
   const packageJson = await readJson(path.join(PROJECT_ROOT, file.input));
 
@@ -108,6 +108,27 @@ async function buildPackageJson({ packageConfig, file }) {
   );
 }
 
+async function buildPluginOxcPackageJson({ packageConfig, file }) {
+  const { distDirectory, files } = packageConfig;
+  const packageJson = await readJson(path.join(PROJECT_ROOT, file.input));
+
+  const overrides = {
+    engines: {
+      ...packageJson.engines,
+      // https://github.com/prettier/prettier/pull/13118#discussion_r922708068
+      // Don't delete, comment out if we don't want override
+      node: ">=14",
+    },
+    type: "commonjs",
+    files: files.map(({ output: { file } }) => file).sort(),
+  };
+
+  await writeJson(
+    path.join(distDirectory, file.output.file),
+    Object.assign(pick(packageJson, keysToKeep), overrides),
+  );
+}
+
 function pick(object, keys) {
   keys = new Set(keys);
   return Object.fromEntries(
@@ -115,4 +136,4 @@ function pick(object, keys) {
   );
 }
 
-export default buildPackageJson;
+export { buildPluginOxcPackageJson, buildPrettierPackageJson };
