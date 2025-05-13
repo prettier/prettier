@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import url from "node:url";
 import createEsmUtils from "esm-utils";
+import * as prettierPluginOxc from "../../packages/plugin-oxc/index.js";
 import getPrettier from "./get-prettier.js";
 import checkParsers from "./utils/check-parsers.js";
 import consistentEndOfLine from "./utils/consistent-end-of-line.js";
@@ -520,10 +521,11 @@ const insertCursor = (text, cursorOffset) =>
       text.slice(cursorOffset)
     : text;
 async function format(originalText, originalOptions) {
-  const { text: input, options } = replacePlaceholders(
+  let { text: input, options } = replacePlaceholders(
     originalText,
     originalOptions,
   );
+  options = loadPlugins(options);
   const inputWithCursor = insertCursor(input, options.cursorOffset);
   const prettier = await getPrettier();
 
@@ -544,6 +546,16 @@ async function format(originalText, originalOptions) {
     outputWithCursor,
     eolVisualizedOutput,
   };
+}
+
+function loadPlugins(options) {
+  if (options.parser === "oxc") {
+    const plugins = options.plugins ?? [];
+    plugins.push(prettierPluginOxc);
+    return { ...options, plugins };
+  }
+
+  return options;
 }
 
 export default runFormatTest;
