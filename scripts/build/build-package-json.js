@@ -125,7 +125,10 @@ async function buildPluginOxcPackageJson({ packageConfig, file }) {
 
   await writeJson(
     path.join(distDirectory, file.output.file),
-    Object.assign(pick(packageJson, keysToKeep), overrides),
+    Object.assign(
+      pick(packageJson, [...keysToKeep, "dependencies"]),
+      overrides,
+    ),
   );
 }
 
