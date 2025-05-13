@@ -144,19 +144,6 @@ function postprocess(ast, options) {
           return node.types[0];
         }
         break;
-
-      // OXC bug?
-      case "JSXText":
-        if (parser === "oxc" && node.raw === undefined) {
-          node.raw ??= text.slice(locStart(node), locEnd(node));
-        }
-        break;
-      // OXC bug?
-      case "JSXNamespacedName":
-        if (parser === "oxc" && node.property) {
-          node.name ??= node.property;
-        }
-        break;
     }
 
     /* c8 ignore next 3 */
