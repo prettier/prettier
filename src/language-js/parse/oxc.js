@@ -38,6 +38,7 @@ async function parseWithOptions(filename, text, sourceType) {
     sourceType,
     lang: "jsx",
     preserveParens: false,
+    // @ts-expect-error -- missing
     experimentalRawTransfer: isRawTransferSupported(),
   });
 
@@ -76,6 +77,7 @@ async function parse(text, options = {}) {
   }
 
   const { program: ast, comments } = result;
+  // @ts-expect-error -- expected
   ast.comments = comments;
 
   return postprocess(ast, { text, parser: "oxc" });

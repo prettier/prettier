@@ -21,7 +21,7 @@ function tryCombinations(combinations) {
 /**
  * @template {function} T
  * @param {T[]} combinations
- * @returns {ReturnType<T>}
+ * @returns {Promise<ReturnType<T>>}
  */
 async function tryCombinationsAsync(combinations) {
   const errors = [];
