@@ -191,7 +191,7 @@ async function run() {
       results.push(result);
     }
     console.log(
-      `Build '${packageConfig.packageName}' success in ${prettyMilliseconds(performance.now() - startTime)}`,
+      `Build package '${packageConfig.packageName}' success in ${prettyMilliseconds(performance.now() - startTime)}`,
     );
   }
 }
