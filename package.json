@@ -150,6 +150,7 @@
     "npm-run-all2": "8.0.1",
     "prettier": "3.5.3",
     "pretty-bytes": "7.0.0",
+    "pretty-ms": "9.2.0",
     "rollup-plugin-license": "3.6.0",
     "semver": "7.7.1",
     "serialize-javascript": "6.0.2",
