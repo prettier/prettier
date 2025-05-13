@@ -544,7 +544,7 @@ async function format(originalText, originalOptions) {
     originalText,
     originalOptions,
   );
-  options = loadPlugins(options);
+  options = await loadPlugins(options);
   const inputWithCursor = insertCursor(input, options.cursorOffset);
   const prettier = await getPrettier();
 
@@ -567,17 +567,16 @@ async function format(originalText, originalOptions) {
   };
 }
 
-function loadPlugins(options) {
+async function loadPlugins(options) {
   if (options.parser === "oxc") {
     const plugins = options.plugins ?? [];
-    plugins.push(
-      new URL(
-        isProduction
-          ? "../../dist/plugin-oxc/index.mjs"
-          : "../../packages/plugin-oxc/index.js",
-        import.meta.url,
-      ),
+    const url = new URL(
+      isProduction
+        ? "../../dist/plugin-oxc/index.mjs"
+        : "../../packages/plugin-oxc/index.js",
+      import.meta.url,
     );
+    plugins.push(TEST_STANDALONE ? await import(url) : url);
     return { ...options, plugins };
   }
 
