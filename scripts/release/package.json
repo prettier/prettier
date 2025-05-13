@@ -10,7 +10,7 @@
     "nano-spawn": "1.0.1",
     "node-style-text": "0.0.8",
     "outdent": "0.8.0",
-    "semver": "7.7.1"
+    "semver": "7.7.2"
   },
   "engines": {
     "node": ">=20"
