@@ -176,5 +176,4 @@ jobs:
 
       - name: Release
         run: |
-          npx pkg-pr-new publish --compact
-        working-directory: dist/prettier
+          npx pkg-pr-new publish "./dist/prettier" "./dist/plugin-oxc" --compact
