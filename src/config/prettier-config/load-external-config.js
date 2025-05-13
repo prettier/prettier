@@ -19,6 +19,7 @@ async function loadExternalConfig(externalConfig, configFile) {
     const required = requireFromFile(externalConfig, configFile);
     // Since Node.js v22.12 onwards, it is possible to load ESM via `require()`.
     // If that feature is enabled, it is necessary to return the default.
+    // @ts-expect-error -- missing?
     if (process.features.require_module && required.__esModule) {
       return required.default;
     }
