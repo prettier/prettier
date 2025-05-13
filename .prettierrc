@@ -1,9 +1,7 @@
 overrides:
   - files: "**/*.{js,mjs,cjs}"
     options:
-      parser: oxc
-      plugins:
-        - ./packages/plugin-oxc/index.js
+      parser: meriyah
   - files: "bin/prettier.cjs"
     options:
       trailingComma: none
