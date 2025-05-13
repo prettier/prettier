@@ -37,14 +37,14 @@ Cause: [4:2-4:3]: Unexpected token: '>'"
 `;
 
 exports[`pipeline_own_line.js [oxc] format 1`] = `
-"Unexpected token (3:3)
-  1 | function pipeline() {
+"Unexpected token (4:3)
   2 | 	0
-> 3 | 	// Comment
+  3 | 	// Comment
+> 4 | 	|> x
     | 	 ^
-  4 | 	|> x
   5 | }
-  6 |"
+  6 |
+  7 | bifornCringerMoshedPerplexSawder("
 `;
 
 exports[`pipeline_own_line.js format 1`] = `

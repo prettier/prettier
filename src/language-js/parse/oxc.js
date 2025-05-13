@@ -12,11 +12,9 @@ function createParseError(error, { text }) {
     labels: [{ start: startIndex, end: endIndex }],
   } = error;
 
-  const [start, end] = [startIndex, endIndex].map((index) => {
-    const loc = indexToPosition(text, index);
-    loc.column += 1;
-    return loc;
-  });
+  const [start, end] = [startIndex, endIndex].map((index) =>
+    indexToPosition(text, index, { oneBased: true }),
+  );
 
   return createError(message, {
     loc: {

@@ -34,12 +34,13 @@ Cause: [2:3-2:5]: Unexpected token: 'do'"
 `;
 
 exports[`do.js [oxc] format 1`] = `
-"Unexpected token (1:4)
-> 1 | <div>
+"Unexpected token (2:4)
+  1 | <div>
+> 2 |   {do {
     |    ^^
-  2 |   {do {
   3 | 	  1
-  4 |   }}"
+  4 |   }}
+  5 | </div>"
 `;
 
 exports[`do.js format 1`] = `

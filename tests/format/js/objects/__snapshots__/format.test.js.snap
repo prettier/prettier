@@ -118,14 +118,14 @@ Cause: [5:3-5:4]: Expected ')'"
 `;
 
 exports[`expression.js [oxc] format 1`] = `
-"Expected \`,\` but found \`:\` (4:4)
-  2 | ({})\`\`;
+"Expected \`,\` but found \`:\` (5:4)
   3 | a = () => ({}).x;
-> 4 | ({} && a, b);
+  4 | ({} && a, b);
+> 5 | ({}::b, 0);
     |    ^
-  5 | ({}::b, 0);
   6 | ({}::b()\`\`[''].c++ && 0 ? 0 : 0, 0);
-  7 | ({}(), 0);"
+  7 | ({}(), 0);
+  8 | ({} = 0);"
 `;
 
 exports[`expression.js [typescript] format 1`] = `

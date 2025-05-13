@@ -28,10 +28,10 @@ Cause: [2:0-2:2]: No line break is allowed after '=>'"
 `;
 
 exports[`newline-before-arrow.js [oxc] format 1`] = `
-"Line terminator not permitted before arrow (1:1)
-> 1 | async x
+"Line terminator not permitted before arrow (2:1)
+  1 | async x
+> 2 | => x
     | ^^
-  2 | => x
   3 |"
 `;
 
