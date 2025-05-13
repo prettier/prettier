@@ -18,7 +18,7 @@ Create or modify your [prettier configuration file](https://prettier.io/docs/en/
     {
       "files": ["**/*.{js,mjs,cjs}"],
       "plugins": ["@prettier/plugin-oxc"],
-      "parser": "oxc",
+      "parser": "oxc"
     }
   ]
 }
