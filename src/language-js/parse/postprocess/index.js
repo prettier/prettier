@@ -34,6 +34,7 @@ const isNodeWithRaw = createTypeCheckFunction([
  * @param {{
  *   text: string,
  *   parser?: string,
+ *   oxcAstType?: "js" | "ts",
  * }} options
  */
 function postprocess(ast, options) {

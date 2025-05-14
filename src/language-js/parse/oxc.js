@@ -34,7 +34,6 @@ const isRawTransferSupported = () => {
 async function parseWithOptions(filename, text, options) {
   const result = await oxcParse(filename, text, {
     preserveParens: false,
-    // @ts-expect-error -- missing
     experimentalRawTransfer: isRawTransferSupported(),
     ...options,
   });
@@ -82,18 +81,20 @@ async function parseJs(text, options = {}) {
 }
 
 function getTsParseOptionsCombinations(text, options) {
-  const extension = options.filepath?.toLowerCase().split(".").at(-1);
-
-  let combinations = [
-    (extension === "jsx") | (extension === "tsx") ? { lang: extension } : {},
-  ];
-
   const sourceType = getSourceType(options);
   /** @type {("module" | "script") []} */
   const sourceTypes = sourceType ? [sourceType] : ["module", "script"];
-  combinations = sourceTypes.flatMap((sourceType) =>
-    combinations.map((parseOptions) => ({ ...parseOptions, sourceType })),
-  );
+  const combinations = sourceTypes.map((sourceType) => [{ sourceType }]);
+
+  const extension = options.filepath?.toLowerCase().split(".").at(-1);
+  const isKnownJsx = extension === "jsx" || extension === "tsx";
+
+  if (isKnownJsx) {
+    return combinations.map((parseOptions) => ({
+      ...parseOptions,
+      lang: extension,
+    }));
+  }
 
   const shouldEnableJsx = isProbablyJsx(text);
   return [shouldEnableJsx, !shouldEnableJsx].flatMap((jsx) =>
