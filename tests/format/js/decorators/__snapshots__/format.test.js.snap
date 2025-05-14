@@ -22,7 +22,7 @@ Cause: Unexpected character '@'"
 
 exports[`classes.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -93,7 +93,7 @@ Cause: Unexpected character '@'"
 
 exports[`comments.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -198,7 +198,7 @@ Cause: Unexpected character '@'"
 
 exports[`member-expression.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -366,7 +366,7 @@ Cause: Unexpected character '@'"
 
 exports[`methods.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -422,7 +422,7 @@ Cause: Unexpected character '@'"
 
 exports[`mixed.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -472,7 +472,7 @@ Cause: Unexpected character '@'"
 
 exports[`mobx.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -586,7 +586,7 @@ Cause: Unexpected character '@'"
 
 exports[`multiline.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -647,7 +647,7 @@ Cause: Unexpected character '@'"
 
 exports[`multiple.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -718,7 +718,7 @@ Cause: Unexpected character '@'"
 
 exports[`parens.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -758,7 +758,7 @@ Cause: Unexpected character '@'"
 
 exports[`redux.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
