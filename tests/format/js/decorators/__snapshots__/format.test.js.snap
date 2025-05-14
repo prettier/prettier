@@ -20,6 +20,17 @@ exports[`classes.js [espree] format 1`] = `
 Cause: Unexpected character '@'"
 `;
 
+exports[`classes.js [flow] format 1`] = `
+"Unexpected token \`@\` (7:13)
+   5 | @deco export default class Baz {}
+   6 |
+>  7 | const foo = @deco class {
+     |             ^
+   8 |   //
+   9 | };
+  10 |"
+`;
+
 exports[`classes.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
