@@ -84,7 +84,7 @@ function getTsParseOptionsCombinations(text, options) {
   const sourceType = getSourceType(options);
   /** @type {("module" | "script") []} */
   const sourceTypes = sourceType ? [sourceType] : ["module", "script"];
-  const combinations = sourceTypes.map((sourceType) => [{ sourceType }]);
+  const combinations = sourceTypes.map((sourceType) => ({ sourceType }));
 
   const extension = options.filepath?.toLowerCase().split(".").at(-1);
   const isKnownJsx = extension === "jsx" || extension === "tsx";
@@ -97,8 +97,8 @@ function getTsParseOptionsCombinations(text, options) {
   }
 
   const shouldEnableJsx = isProbablyJsx(text);
-  return [shouldEnableJsx, !shouldEnableJsx].flatMap((jsx) =>
-    combinations.flatMap((parseOptions) =>
+  return combinations.flatMap((parseOptions) =>
+    [shouldEnableJsx, !shouldEnableJsx].map((jsx) =>
       jsx ? { ...parseOptions, lang: "tsx" } : parseOptions,
     ),
   );
