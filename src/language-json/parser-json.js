@@ -172,18 +172,16 @@ function assertJsonNode(node) {
   }
 }
 
-const jsonParsers = {
-  json: createParser({
-    parse: (text) => parseJson(text),
-    hasPragma: () => true,
-    hasIgnorePragma: () => false,
-  }),
-  json5: createParser((text) => parseJson(text)),
-  jsonc: createParser((text) => parseJson(text, { allowEmpty: true })),
-  "json-stringify": createParser({
-    parse: (text) => parseJson(text, { allowComments: false }),
-    astFormat: "estree-json",
-  }),
-};
+const json = createParser({
+  parse: (text) => parseJson(text),
+  hasPragma: () => true,
+  hasIgnorePragma: () => false,
+});
+const json5 = createParser((text) => parseJson(text));
+const jsonc = createParser((text) => parseJson(text, { allowEmpty: true }));
+const jsonStringify = createParser({
+  parse: (text) => parseJson(text, { allowComments: false }),
+  astFormat: "estree-json",
+});
 
-export default jsonParsers;
+export { json, json5, jsonc, jsonStringify as "json-stringify" };
