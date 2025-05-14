@@ -92,7 +92,7 @@ function getTsParseOptionsCombinations(text, options) {
   if (isKnownJsx) {
     return combinations.map((parseOptions) => ({
       ...parseOptions,
-      lang: extension,
+      lang: "tsx",
     }));
   }
 
