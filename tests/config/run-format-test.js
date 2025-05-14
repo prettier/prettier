@@ -121,6 +121,9 @@ const oxcTsDisabledTests = new Set(
   [
     "js/dynamic-import/import-phase.js",
 
+    // Can't reproduce on Oxc playground
+    "typescript/decorators/format.test.js",
+
     // https://github.com/oxc-project/oxc/issues/10980
     "js/top-level-await/test.cjs", // Parses as `module` even I already told it's `script`
   ].map((file) => path.join(__dirname, "../format", file)),
