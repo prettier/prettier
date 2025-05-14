@@ -122,7 +122,7 @@ const oxcTsDisabledTests = new Set(
     "js/dynamic-import/import-phase.js",
 
     // Can't reproduce on Oxc playground
-    "typescript/decorators/format.test.js",
+    "typescript/decorators/abstract-method.ts",
 
     // https://github.com/oxc-project/oxc/issues/10980
     "js/top-level-await/test.cjs", // Parses as `module` even I already told it's `script`
