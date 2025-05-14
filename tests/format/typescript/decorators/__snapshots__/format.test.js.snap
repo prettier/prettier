@@ -20,6 +20,8 @@ class A {
 ================================================================================
 `;
 
+exports[`abstract-method.ts [oxc-ts] format 1`] = `"Calling \`print()\` on non-node object."`;
+
 exports[`abstract-method.ts [typescript] format 1`] = `
 "A decorator can only decorate a method implementation, not an overload. (2:5)
   1 | class A {

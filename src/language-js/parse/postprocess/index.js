@@ -166,9 +166,7 @@ function postprocess(ast, options) {
 
       // Legacy shape, already fixed in #15157
       case "TSEnumDeclaration":
-        if (!node.members) {
-          node.members = node.body.members;
-        }
+        node.members ??= node.body.members;
         break;
     }
 
