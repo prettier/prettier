@@ -70,6 +70,7 @@ function isStringKeySafeToUnquote(node, options) {
     (options.parser === "babel" ||
       options.parser === "acorn" ||
       options.parser === "oxc" ||
+      options.parser === "oxc-ts" ||
       options.parser === "espree" ||
       options.parser === "meriyah" ||
       options.parser === "__babel_estree")

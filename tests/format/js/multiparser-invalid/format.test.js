@@ -6,5 +6,6 @@ runFormatTest(import.meta, ["babel", "flow", "typescript"], {
     typescript: true,
     meriyah: true,
     oxc: true,
+    "oxc-ts": true,
   },
 });
