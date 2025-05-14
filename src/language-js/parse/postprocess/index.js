@@ -150,6 +150,19 @@ function postprocess(ast, options) {
           return node.types[0];
         }
         break;
+
+      // TODO: Remove this legacy node, it will also be used for Babel8
+      case "TSMappedType":
+        if (!node.typeParameter && node.key && node.constraint) {
+          const { key: name, constraint } = node;
+          node.typeParameter = {
+            type: "TSTypeParameter",
+            constraint,
+            name,
+            range: [locStart(name), locEnd(constraint)],
+          };
+        }
+        break;
     }
 
     /* c8 ignore next 3 */

@@ -98,7 +98,7 @@ function getTsParseOptionsCombinations(text, options) {
   const shouldEnableJsx = isProbablyJsx(text);
   return [shouldEnableJsx, !shouldEnableJsx].flatMap((jsx) =>
     combinations.flatMap((parseOptions) =>
-      jsx ? { ...parseOptions, lang: "tsx" } : [],
+      jsx ? { ...parseOptions, lang: "tsx" } : parseOptions,
     ),
   );
 }
