@@ -237,21 +237,21 @@ const babelEstree = createBabelParser({
   ),
 });
 
-export default {
-  babel,
-  "babel-flow": babelFlow,
-  "babel-ts": babelTs,
-  /** @internal */
-  __js_expression: babelExpression,
-  __ts_expression: babelTSExpression,
-  /** for vue filter */
-  __vue_expression: babelExpression,
-  /** for vue filter written in TS */
-  __vue_ts_expression: babelTSExpression,
-  /** for vue event binding to handle semicolon */
-  __vue_event_binding: babel,
-  /** for vue event binding written in TS to handle semicolon */
-  __vue_ts_event_binding: babelTs,
+export {
   /** verify that we can print this AST */
-  __babel_estree: babelEstree,
+  babelEstree as __babel_estree,
+  /** @internal */
+  babelExpression as __js_expression,
+  babelTSExpression as __ts_expression,
+  /** for vue event binding to handle semicolon */
+  babel as __vue_event_binding,
+  /** for vue filter */
+  babelExpression as __vue_expression,
+  /** for vue event binding written in TS to handle semicolon */
+  babelTs as __vue_ts_event_binding,
+  /** for vue filter written in TS */
+  babelTSExpression as __vue_ts_expression,
+  babel,
+  babelFlow as "babel-flow",
+  babelTs as "babel-ts",
 };
