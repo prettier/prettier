@@ -20,6 +20,7 @@ import {
   isNumericLiteral,
   isObjectProperty,
   isStringLiteral,
+  isTemplateWithLineBreaks,
   isUnionType,
 } from "../utils/index.js";
 import { shouldInlineLogicalExpression } from "./binaryish.js";
@@ -178,8 +179,7 @@ function chooseLayout(path, options, print, leftDoc, rightPropertyName) {
   if (
     !canBreakLeftDoc &&
     (hasShortKey ||
-      rightNode.type === "TemplateLiteral" ||
-      rightNode.type === "TaggedTemplateExpression" ||
+      isTemplateWithLineBreaks(rightNode) ||
       rightNode.type === "BooleanLiteral" ||
       isNumericLiteral(rightNode) ||
       rightNode.type === "ClassExpression")
