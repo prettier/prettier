@@ -114,15 +114,6 @@ export default function esbuildPluginThrowWarnings({
             continue;
           }
 
-          if (
-            warning.location.file ===
-              /* cspell:disable-next-line */
-              "node_modules/diff/libesm/diff/sentence.js" &&
-            warning.id === "unsupported-regexp"
-          ) {
-            continue;
-          }
-
           console.log(warning);
           throw new Error(warning.text);
         }
