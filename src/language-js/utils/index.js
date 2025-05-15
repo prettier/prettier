@@ -127,6 +127,13 @@ function isNumericLiteral(node) {
   );
 }
 
+function isBooleanLiteral(node) {
+  return (
+    node.type === "BooleanLiteral" ||
+    (node.type === "Literal" && typeof node.value === "boolean")
+  );
+}
+
 function isSignedNumericLiteral(node) {
   return (
     node.type === "UnaryExpression" &&
@@ -1091,6 +1098,7 @@ export {
   isBinaryCastExpression,
   isBinaryish,
   isBitwiseOperator,
+  isBooleanLiteral,
   isCallExpression,
   isCallLikeExpression,
   isConditionalType,
