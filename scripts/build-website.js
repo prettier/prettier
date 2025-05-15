@@ -43,7 +43,7 @@ async function buildPrettier() {
   });
 
   try {
-    await runYarn("build", ["--playground", "--clean"], {
+    await runYarn("build", ["--package=prettier", "--clean", "--playground"], {
       cwd: PROJECT_ROOT,
     });
   } finally {

@@ -1,0 +1,22 @@
+{
+  "name": "@prettier/plugin-oxc",
+  "version": "0.0.1",
+  "description": "Prettier Oxc plugin.",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./index.d.js",
+      "default": "./index.mjs"
+    },
+    "./*": "./*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/prettier/prettier.git",
+    "directory": "packages/plugin-oxc"
+  },
+  "funding": "https://github.com/prettier/prettier?sponsor=1",
+  "homepage": "https://github.com/prettier/prettier/packages/plugin-oxc",
+  "author": "fisker Cheung <lionkay@gmail.com>",
+  "license": "MIT"
+}

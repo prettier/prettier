@@ -33,6 +33,16 @@ exports[`block-comments.js [meriyah] format 1`] = `
 Cause: [2:1-2:2]: Unexpected token: '>'"
 `;
 
+exports[`block-comments.js [oxc] format 1`] = `
+"Unexpected token (2:2)
+  1 | bifornCringerMoshedPerplexSawder
+> 2 | |> foo1
+    |  ^
+  3 | |> foo2 /* comment1 */
+  4 | |> foo3 /* comment2 */
+  5 | |> kochabCooieGameOnOboleUnweave"
+`;
+
 exports[`block-comments.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
@@ -88,6 +98,16 @@ exports[`fsharp_style_pipeline_operator.js [meriyah] format 1`] = `
   4 |   |> capitalize
   5 |   |> x => x + '!'
 Cause: [2:3-2:4]: Unexpected token: '>'"
+`;
+
+exports[`fsharp_style_pipeline_operator.js [oxc] format 1`] = `
+"Unexpected token (2:4)
+  1 | promise
+> 2 |   |> await
+    |    ^
+  3 |   |> x => doubleSay(x, ', ')
+  4 |   |> capitalize
+  5 |   |> x => x + '!'"
 `;
 
 exports[`fsharp_style_pipeline_operator.js format 1`] = `
@@ -213,6 +233,15 @@ exports[`hack_pipeline_operator.js [meriyah] format 1`] = `
   3 | foo
   4 |   |> await %
 Cause: [1:3-1:4]: Unexpected token: '>'"
+`;
+
+exports[`hack_pipeline_operator.js [oxc] format 1`] = `
+"Unexpected token (1:4)
+> 1 | a |> await % |> % * 3;
+    |    ^
+  2 |
+  3 | foo
+  4 |   |> await %"
 `;
 
 exports[`hack_pipeline_operator.js format 1`] = `
@@ -357,6 +386,15 @@ exports[`minimal_pipeline_operator.js [meriyah] format 1`] = `
   3 | a |> (b |> c);
   4 |
 Cause: [1:3-1:4]: Unexpected token: '>'"
+`;
+
+exports[`minimal_pipeline_operator.js [oxc] format 1`] = `
+"Unexpected token (1:4)
+> 1 | a |> b |> c;
+    |    ^
+  2 |
+  3 | a |> (b |> c);
+  4 |"
 `;
 
 exports[`minimal_pipeline_operator.js format 1`] = `

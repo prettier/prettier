@@ -8,7 +8,13 @@ export default async function generateBundles({ dry, version, manual }) {
 
   await logPromise(
     "Generating bundles",
-    runYarn(["build", "--clean", "--print-size", "--compare-size"]),
+    runYarn([
+      "build",
+      "--package=prettier",
+      "--clean",
+      "--print-size",
+      "--compare-size",
+    ]),
   );
 
   const builtPkg = await readJson("dist/prettier/package.json");

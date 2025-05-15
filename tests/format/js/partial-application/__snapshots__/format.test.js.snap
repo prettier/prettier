@@ -30,6 +30,15 @@ exports[`test.js [meriyah] format 1`] = `
 Cause: [1:22-1:23]: Unexpected token: '?'"
 `;
 
+exports[`test.js [oxc] format 1`] = `
+"Unexpected token (1:23)
+> 1 | const addOne = add(1, ?); // apply from the left
+    |                       ^
+  2 | addOne(2); // 3
+  3 |
+  4 | const addTen = add(?, 10); // apply from the right"
+`;
+
 exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
