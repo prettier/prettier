@@ -3505,10 +3505,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"diff@npm:7.0.0":
-  version: 7.0.0
-  resolution: "diff@npm:7.0.0"
-  checksum: 10/e9b8e48d054c9c0c093c65ce8e2637af94b35f2427001607b14e5e0589e534ea3413a7f91ebe6d7c5a1494ace49cb7c7c3972f442ddd96a4767ff091999a082e
+"diff@npm:8.0.1":
+  version: 8.0.1
+  resolution: "diff@npm:8.0.1"
+  checksum: 10/1f56c913dc48ad85dcd83ac374d43b0acda6c4a25dc32660f65988fcd2c2f2d8f6cc9cddb58a268513e0bf1bff139b028c42cabec5dfeeb7e0af68830ce8787a
   languageName: node
   linkType: hard
 
@@ -7428,7 +7428,7 @@ __metadata:
     cspell: "npm:9.0.0"
     css-units-list: "npm:2.1.0"
     dashify: "npm:2.0.0"
-    diff: "npm:7.0.0"
+    diff: "npm:8.0.1"
     editorconfig: "npm:0.15.3"
     emoji-regex: "npm:10.4.0"
     enquirer: "npm:2.4.1"
