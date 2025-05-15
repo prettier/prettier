@@ -24,6 +24,13 @@ exports[`async-do-expressions.js [meriyah] format 1`] = `
 Cause: [1:6-1:8]: Unexpected token: 'do'"
 `;
 
+exports[`async-do-expressions.js [oxc] format 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found none (1:6)
+> 1 | async do { await requestAPI().json() };
+    |      ^
+  2 |"
+`;
+
 exports[`async-do-expressions.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "babel-ts", "babel-flow"]
@@ -636,6 +643,17 @@ exports[`destructuring-private.js [meriyah] format 1`] = `
 Cause: [5:12-5:13]: Unexpected token: 'PrivateField'"
 `;
 
+exports[`destructuring-private.js [oxc] format 1`] = `
+"Unexpected token (5:13)
+  3 |   constructor() {
+  4 |     console.log(this.#x); // => 1
+> 5 |     const { #x: x } = this;
+    |             ^^
+  6 |     console.log(x); // => 1
+  7 |   }
+  8 |   equals({ #x: otherX }) {"
+`;
+
 exports[`destructuring-private.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "babel-ts", "babel-flow"]
@@ -706,6 +724,17 @@ exports[`do-expressions.js [meriyah] format 1`] = `
   5 |     'big';
   6 |   } else {
 Cause: [3:8-3:10]: Unexpected token: 'do'"
+`;
+
+exports[`do-expressions.js [oxc] format 1`] = `
+"Unexpected token (3:9)
+  1 | // https://babeljs.io/docs/babel-plugin-proposal-do-expressions
+  2 |
+> 3 | let a = do {
+    |         ^^
+  4 |   if(x > 10) {
+  5 |     'big';
+  6 |   } else {"
 `;
 
 exports[`do-expressions.js format 1`] = `
@@ -869,6 +898,15 @@ exports[`export-default-from.js [meriyah] format 1`] = `
 Cause: [4:7-4:8]: Unexpected token: 'identifier'"
 `;
 
+exports[`export-default-from.js [oxc] format 1`] = `
+"Unexpected token (4:8)
+  2 |
+  3 |
+> 4 | export v from 'mod';
+    |        ^
+  5 |"
+`;
+
 exports[`export-default-from.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "babel-ts", "babel-flow"]
@@ -992,6 +1030,15 @@ exports[`flow.js [meriyah] format 1`] = `
 Cause: [3:16-3:17]: Expected ')'"
 `;
 
+exports[`flow.js [oxc] format 1`] = `
+"Expected \`,\` but found \`:\` (3:17)
+  1 | // https://babeljs.io/docs/babel-preset-flow
+  2 |
+> 3 | function foo(one: any, two: number, three?): string {}
+    |                 ^
+  4 |"
+`;
+
 exports[`function-bind.js [acorn] format 1`] = `
 "Unexpected token (3:5)
   1 | // https://babeljs.io/docs/babel-plugin-proposal-function-bind
@@ -1026,6 +1073,17 @@ exports[`function-bind.js [meriyah] format 1`] = `
   5 | func.bind(obj)
   6 |
 Cause: [3:4-3:5]: Unexpected token: ':'"
+`;
+
+exports[`function-bind.js [oxc] format 1`] = `
+"Unexpected token (3:5)
+  1 | // https://babeljs.io/docs/babel-plugin-proposal-function-bind
+  2 |
+> 3 | obj::func
+    |     ^
+  4 | // is equivalent to:
+  5 | func.bind(obj)
+  6 |"
 `;
 
 exports[`function-bind.js format 1`] = `
@@ -1107,6 +1165,17 @@ exports[`function-sent.js [meriyah] format 1`] = `
   6 | }
   7 |
 Cause: [4:32-4:33]: Expected '('"
+`;
+
+exports[`function-sent.js [oxc] format 1`] = `
+"Expected \`(\` but found \`.\` (4:33)
+  2 |
+  3 | function* generator() {
+> 4 |     console.log("Sent", function.sent);
+    |                                 ^
+  5 |     console.log("Yield", yield);
+  6 | }
+  7 |"
 `;
 
 exports[`function-sent.js format 1`] = `
@@ -1349,6 +1418,15 @@ exports[`module-blocks.js [meriyah] format 1`] = `
   3 |   export let n = 3;
   4 | };
 Cause: [1:15-1:16]: Unexpected token: '{'"
+`;
+
+exports[`module-blocks.js [oxc] format 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found none (1:15)
+> 1 | let m = module {
+    |               ^
+  2 |   export let m = 2;
+  3 |   export let n = 3;
+  4 | };"
 `;
 
 exports[`module-blocks.js format 1`] = `
@@ -1720,6 +1798,13 @@ exports[`optional-chaining-assignment.js [meriyah] format 1`] = `
 Cause: [1:17-1:18]: Invalid left-hand side in assignment"
 `;
 
+exports[`optional-chaining-assignment.js [oxc] format 1`] = `
+"Cannot assign to this expression (1:1)
+> 1 | maybeAnObj?.prop = theValue;
+    | ^^^^^^^^^^^^^^^^
+  2 |"
+`;
+
 exports[`optional-chaining-assignment.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "babel-ts", "babel-flow"]
@@ -1768,6 +1853,17 @@ exports[`partial-application.js [meriyah] format 1`] = `
   7 |
   8 | const addTen = add(?, 10); // apply from the right
 Cause: [5:22-5:23]: Unexpected token: '?'"
+`;
+
+exports[`partial-application.js [oxc] format 1`] = `
+"Unexpected token (5:23)
+  3 | function add(x, y) { return x + y; }
+  4 |
+> 5 | const addOne = add(1, ?); // apply from the left
+    |                       ^
+  6 | addOne(2); // 3
+  7 |
+  8 | const addTen = add(?, 10); // apply from the right"
 `;
 
 exports[`partial-application.js format 1`] = `
@@ -1858,6 +1954,17 @@ exports[`pipeline-operator-fsharp.js [meriyah] format 1`] = `
   7 |   |> capitalize
   8 |   |> x => x + '!'
 Cause: [5:3-5:4]: Unexpected token: '>'"
+`;
+
+exports[`pipeline-operator-fsharp.js [oxc] format 1`] = `
+"Unexpected token (5:4)
+  3 |
+  4 | promise
+> 5 |   |> await
+    |    ^
+  6 |   |> x => doubleSay(x, ', ')
+  7 |   |> capitalize
+  8 |   |> x => x + '!'"
 `;
 
 exports[`pipeline-operator-fsharp.js format 1`] = `
@@ -1971,6 +2078,17 @@ exports[`pipeline-operator-hack.js [meriyah] format 1`] = `
 Cause: [5:2-5:3]: Unexpected token: '>'"
 `;
 
+exports[`pipeline-operator-hack.js [oxc] format 1`] = `
+"Unexpected token (5:3)
+  3 |
+  4 | return list
+> 5 |  |> take(prefix.length, %)
+    |   ^
+  6 |  |> equals(%, prefix);
+  7 |
+  8 | // (The % token isn't final; it might instead be @ or ? or #.)"
+`;
+
 exports[`pipeline-operator-hack.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "babel-ts", "babel-flow"]
@@ -2031,6 +2149,17 @@ exports[`pipeline-operator-minimal.js [meriyah] format 1`] = `
   10 |   |> exclaim;
   11 |
 Cause: [8:3-8:4]: Unexpected token: '>'"
+`;
+
+exports[`pipeline-operator-minimal.js [oxc] format 1`] = `
+"Unexpected token (8:4)
+   6 |
+   7 | let result = "hello"
+>  8 |   |> doubleSay
+     |    ^
+   9 |   |> capitalize
+  10 |   |> exclaim;
+  11 |"
 `;
 
 exports[`pipeline-operator-minimal.js format 1`] = `
@@ -2346,6 +2475,17 @@ exports[`throw-expressions.js [meriyah] format 1`] = `
 Cause: [3:22-3:27]: Unexpected token: 'throw'"
 `;
 
+exports[`throw-expressions.js [oxc] format 1`] = `
+"Unexpected token (3:23)
+  1 | // https://babeljs.io/docs/babel-plugin-proposal-throw-expressions
+  2 |
+> 3 | function test(param = throw new Error('required!')) {
+    |                       ^^^^^
+  4 |   const test = param === true || throw new Error('Falsy!');
+  5 | }
+  6 |"
+`;
+
 exports[`throw-expressions.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "babel-ts", "babel-flow"]
@@ -2454,6 +2594,15 @@ exports[`typescript.js [meriyah] format 1`] = `
 Cause: [3:7-3:8]: Missing initializer in const declaration"
 `;
 
+exports[`typescript.js [oxc] format 1`] = `
+"Missing initializer in const declaration (3:7)
+  1 | // https://babeljs.io/docs/babel-preset-typescript
+  2 |
+> 3 | const x: number = 0;
+    |       ^
+  4 |"
+`;
+
 exports[`v8intrinsic.js [acorn] format 1`] = `
 "Unexpected token (3:1)
   1 | // https://github.com/babel/babel/pull/10148
@@ -2488,6 +2637,17 @@ exports[`v8intrinsic.js [meriyah] format 1`] = `
   5 |
   6 | // Invalid code https://github.com/JLHwung/babel/blob/c1a3cbfd65e08b7013fd6f8c62add8cb10b4b169/packages/babel-parser/test/fixtures/v8intrinsic/_errors/in-bind-expression/options.json
 Cause: [3:0-3:1]: Unexpected token: '%'"
+`;
+
+exports[`v8intrinsic.js [oxc] format 1`] = `
+"Unexpected token (3:1)
+  1 | // https://github.com/babel/babel/pull/10148
+  2 |
+> 3 | %DebugPrint(foo);
+    | ^
+  4 |
+  5 |
+  6 | // Invalid code https://github.com/JLHwung/babel/blob/c1a3cbfd65e08b7013fd6f8c62add8cb10b4b169/packages/babel-parser/test/fixtures/v8intrinsic/_errors/in-bind-expression/options.json"
 `;
 
 exports[`v8intrinsic.js format 1`] = `

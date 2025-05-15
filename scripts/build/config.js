@@ -6,7 +6,10 @@ import { outdent } from "outdent";
 import { copyFile, DIST_DIR, PROJECT_ROOT } from "../utils/index.js";
 import buildDependenciesLicense from "./build-dependencies-license.js";
 import buildJavascriptModule from "./build-javascript-module.js";
-import buildPackageJson from "./build-package-json.js";
+import {
+  buildPluginOxcPackageJson,
+  buildPrettierPackageJson,
+} from "./build-package-json.js";
 import buildTypes from "./build-types.js";
 import esmifyTypescriptEslint from "./esmify-typescript-eslint.js";
 import modifyTypescriptModule from "./modify-typescript-module.js";
@@ -895,7 +898,7 @@ const metaFiles = [
     output: {
       format: "json",
     },
-    build: buildPackageJson,
+    build: buildPrettierPackageJson,
   },
   {
     input: "README.md",
@@ -919,8 +922,79 @@ const metaFiles = [
 
 /** @type {Files[]} */
 const files = [...nodejsFiles, ...universalFiles, ...metaFiles].filter(Boolean);
-export default {
-  packageName: "prettier",
-  distDirectory: path.join(DIST_DIR, "prettier"),
-  files,
-};
+export default [
+  {
+    packageName: "prettier",
+    // Used in THIRD-PARTY-NOTICES.md
+    packageDisplayName: "Prettier",
+    distDirectory: path.join(DIST_DIR, "prettier"),
+    files,
+  },
+  {
+    packageName: "@prettier/plugin-oxc",
+    distDirectory: path.join(DIST_DIR, "plugin-oxc"),
+    files: [
+      ...[
+        {
+          input: "packages/plugin-oxc/index.js",
+          addDefaultExport: true,
+          external: ["oxc-parser"],
+        },
+      ].flatMap((file) => {
+        let { input, output, outputBaseName, ...buildOptions } = file;
+
+        const format = input.endsWith(".cjs") ? "cjs" : "esm";
+        outputBaseName ??= path.basename(input, path.extname(input));
+
+        return [
+          {
+            input,
+            output: {
+              format,
+              file: `${outputBaseName}${extensions[format]}`,
+            },
+            platform: "node",
+            buildOptions,
+            build: buildJavascriptModule,
+            kind: "javascript",
+          },
+          getTypesFileConfig({ input, outputBaseName, isPlugin: true }),
+        ];
+      }),
+      ...[
+        {
+          input: "packages/plugin-oxc/package.json",
+          output: {
+            file: "package.json",
+            format: "json",
+          },
+          build: buildPluginOxcPackageJson,
+        },
+        {
+          input: "packages/plugin-oxc/README.md",
+          output: {
+            file: "README.md",
+          },
+          build: copyFileBuilder,
+        },
+        {
+          input: "LICENSE",
+          output: {
+            file: "LICENSE",
+          },
+          build: copyFileBuilder,
+        },
+        {
+          output: {
+            file: "THIRD-PARTY-NOTICES.md",
+          },
+          build: buildDependenciesLicense,
+        },
+      ].map((file) => ({
+        ...file,
+        output: { file: file.input, ...file.output },
+        kind: "meta",
+      })),
+    ],
+  },
+];

@@ -192,6 +192,13 @@ exports[`no-default.js [meriyah] format 1`] = `
 Cause: [1:13-1:14]: Expected 'from'"
 `;
 
+exports[`no-default.js [oxc] format 1`] = `
+"Expected \`from\` but found \`Identifier\` (1:14)
+> 1 | import defer x from "x";
+    |              ^
+  2 |"
+`;
+
 exports[`no-named.js [__babel_estree] format 1`] = `
 "Only \`import defer * as x from "./module"\` is valid. (1:16)
 > 1 | import defer { x } from "x";
@@ -230,4 +237,11 @@ exports[`no-named.js [meriyah] format 1`] = `
     |              ^
   2 |
 Cause: [1:13-1:14]: Expected 'from'"
+`;
+
+exports[`no-named.js [oxc] format 1`] = `
+"Expected \`from\` but found \`{\` (1:14)
+> 1 | import defer { x } from "x";
+    |              ^
+  2 |"
 `;

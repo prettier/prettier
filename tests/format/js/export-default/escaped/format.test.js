@@ -1,3 +1,10 @@
 runFormatTest(import.meta, ["babel", "flow"], {
-  errors: { acorn: true, espree: true, meriyah: true, flow: true },
+  errors: {
+    acorn: true,
+    espree: true,
+    meriyah: true,
+    flow: true,
+    oxc: true,
+    "oxc-ts": true,
+  },
 });

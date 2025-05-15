@@ -509,6 +509,15 @@ exports[`readonlyReadonly.ts [babel-ts] format 1`] = `
 Cause: Duplicate modifier: 'readonly'. (2:13)"
 `;
 
+exports[`readonlyReadonly.ts [oxc-ts] format 1`] = `
+"readonly' modifier already seen. (2:14)
+  1 | class C {
+> 2 |     readonly readonly x: number;
+    |              ^^^^^^^^
+  3 |     constructor(readonly readonly y: number) {}
+  4 | }"
+`;
+
 exports[`readonlyReadonly.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]

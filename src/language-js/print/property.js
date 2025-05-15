@@ -56,7 +56,8 @@ function isStringKeySafeToUnquote(node, options) {
     // See https://github.com/microsoft/TypeScript/pull/20075
     !(
       (options.parser === "babel-ts" && node.type === "ClassProperty") ||
-      (options.parser === "typescript" && node.type === "PropertyDefinition")
+      ((options.parser === "typescript" || options.parser === "oxc-ts") &&
+        node.type === "PropertyDefinition")
     )
   ) {
     return true;
@@ -69,6 +70,7 @@ function isStringKeySafeToUnquote(node, options) {
     node.type !== "ImportAttribute" &&
     (options.parser === "babel" ||
       options.parser === "acorn" ||
+      options.parser === "oxc" ||
       options.parser === "espree" ||
       options.parser === "meriyah" ||
       options.parser === "__babel_estree")
@@ -89,7 +91,11 @@ function shouldQuotePropertyKey(path, options) {
         String(key.value) === printNumber(getRaw(key)) &&
         // Quoting number keys is safe in JS and Flow, but not in TypeScript (as
         // mentioned in `isStringKeySafeToUnquote`).
-        !(options.parser === "typescript" || options.parser === "babel-ts"))) &&
+        !(
+          options.parser === "typescript" ||
+          options.parser === "babel-ts" ||
+          options.parser === "oxc-ts"
+        ))) &&
     (options.parser === "json" ||
       options.parser === "jsonc" ||
       (options.quoteProps === "consistent" && needsQuoteProps.get(path.parent)))

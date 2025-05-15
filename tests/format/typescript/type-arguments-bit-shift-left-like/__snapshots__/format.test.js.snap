@@ -42,6 +42,13 @@ printWidth: 80
 ================================================================================
 `;
 
+exports[`3.ts [oxc-ts] format 1`] = `
+"Expected \`{\` but found \`<<\` (1:17)
+> 1 | (class extends f<<T>(v: T) => void> {});
+    |                 ^^
+  2 |"
+`;
+
 exports[`3.ts [typescript] format 1`] = `
 "',' expected. (1:17)
 > 1 | (class extends f<<T>(v: T) => void> {});
@@ -79,6 +86,13 @@ printWidth: 80
 <Component<<T>(v: T) => void> />;
 
 ================================================================================
+`;
+
+exports[`5.tsx [oxc-ts] format 1`] = `
+"Unexpected token (1:11)
+> 1 | <Component<<T>(v: T) => void> />
+    |           ^^
+  2 |"
 `;
 
 exports[`5.tsx [typescript] format 1`] = `
