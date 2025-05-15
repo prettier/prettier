@@ -10,6 +10,14 @@ import isNonEmptyArray from "./is-non-empty-array.js";
  */
 const getFileBasename = (file) => String(file).split(/[/\\]/u).pop();
 
+/*
+We can't use `url.fileURLToPath` here since this module should work in browsers too
+`URL#pathname` won't work either since `new URL('file:///C:/path/to/file').pathname`
+equals to `/C:/path/to/file`, for now, we just simply coercion to string.
+Try to improve this part in future
+*/
+const stringifyFilename = String;
+
 /**
  * @param {SupportLanguage[]} languages
  * @param {string | URL | undefined} [file]
@@ -93,14 +101,17 @@ function getLanguageByIsSupported(languages, file) {
     return;
   }
 
-  /*
-  We can't use `url.fileURLToPath` here since this module should work in browsers too
-  `URL#pathname` won't work either since `new URL('file:///C:/path/to/file').pathname`
-  equals to `/C:/path/to/file`, try to improve this part in future
-  */
-  file = String(file);
+  file = stringifyFilename(file);
 
   return languages.find(({ isSupported }) => isSupported?.(file));
+}
+
+function languageIgnoresFile({ shouldIgnoreByDefault }, file) {
+  if (!file || !shouldIgnoreByDefault) {
+    return false;
+  }
+
+  return shouldIgnoreByDefault(stringifyFilename(file));
 }
 
 /**
@@ -109,11 +120,22 @@ function getLanguageByIsSupported(languages, file) {
  * @returns {string | undefined} matched parser name if found
  */
 function inferParser(options, fileInfo) {
-  const languages = options.plugins.flatMap(
+  let languages = options.plugins.flatMap(
     (plugin) =>
       // @ts-expect-error -- Safe
       plugin.languages ?? [],
   );
+
+  languages =
+    fileInfo.physicalFile || fileInfo.file
+      ? language.filter(
+          (language) =>
+            !(
+              languageIgnoresFile(language, fileInfo.physicalFile) ||
+              languageIgnoresFile(language, fileInfo.file)
+            ),
+        )
+      : languages;
 
   // If the file has no extension, we can try to infer the language from the
   // interpreter in the shebang line, if any; but since this requires FS access,
