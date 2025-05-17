@@ -82,16 +82,6 @@ function postprocess(ast, options) {
     }
   }
 
-  // Keep ParenthesizedExpression nodes only if they have Closure-style type cast comments.
-  const typeCastCommentsEnds = [];
-  if (parser === "babel" || parser === "__babel_estree" || parser === "acorn") {
-    for (const comment of ast.comments) {
-      if (isTypeCastComment(comment)) {
-        typeCastCommentsEnds.push(locEnd(comment));
-      }
-    }
-  }
-
   ast = visitNode(ast, (node) => {
     switch (node.type) {
       case "ParenthesizedExpression": {
@@ -103,14 +93,16 @@ function postprocess(ast, options) {
           return expression;
         }
 
-        const closestTypeCastCommentEnd = typeCastCommentsEnds.findLast(
-          (end) => end <= locStart(node),
+        // Keep ParenthesizedExpression nodes only if they have Closure-style type cast comments.
+        const previousComment = ast.comments.findLast(
+          (comment) => locEnd(comment) <= locStart(node),
         );
         const keepTypeCast =
-          closestTypeCastCommentEnd !== undefined &&
+          previousComment !== undefined &&
+          isTypeCastComment(previousComment) &&
           // check that there are only white spaces between the comment and the parenthesis
-          text.slice(closestTypeCastCommentEnd, locStart(node)).trim()
-            .length === 0;
+          text.slice(locEnd(previousComment), locStart(node)).trim().length ===
+            0;
 
         if (!keepTypeCast) {
           expression.extra = { ...expression.extra, parenthesized: true };
