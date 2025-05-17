@@ -17,7 +17,7 @@ const baseParseOptions = {
   loc: true,
   range: true,
   comment: true,
-  tokens: true,
+  tokens: false,
   loggerFn: false,
   project: false,
   jsDocParsingMode: "none",

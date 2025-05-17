@@ -47,8 +47,9 @@ const parseOptions = {
     "deferredImportEvaluation",
     ["optionalChainingAssign", { version: "2023-07" }],
   ],
-  tokens: true,
-  ranges: true,
+  tokens: false,
+  // Ranges not available on comments, so we use location instead
+  ranges: false,
 };
 
 /** @type {ParserPlugin} */

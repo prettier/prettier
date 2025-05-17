@@ -2,7 +2,6 @@ import flowParser from "flow-parser";
 import createError from "../../common/parser-create-error.js";
 import postprocess from "./postprocess/index.js";
 import createParser from "./utils/create-parser.js";
-import replaceHashbang from "./utils/replace-hashbang.js";
 
 // https://github.com/facebook/flow/tree/main/packages/flow-parser#options
 // Keep this sync with `/scripts/sync-flow-test.js`
@@ -24,7 +23,7 @@ const parseOptions = {
   // `use_strict` (boolean, default `false`) - treat the file as strict, without needing a "use strict" directive
   // use_strict: false,
   // `tokens` (boolean, default `false`) - include a list of all parsed tokens in a top-level `tokens` property
-  tokens: true,
+  tokens: false,
 };
 
 function createParseError(error) {
@@ -43,7 +42,7 @@ function createParseError(error) {
 }
 
 function parse(text) {
-  const ast = flowParser.parse(replaceHashbang(text), parseOptions);
+  const ast = flowParser.parse(text, parseOptions);
   const [error] = ast.errors;
   if (error) {
     throw createParseError(error);

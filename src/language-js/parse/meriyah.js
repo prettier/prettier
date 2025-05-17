@@ -16,7 +16,7 @@ const parseOptions = {
   // Enable web compatibility
   webcompat: true,
   // Enable line/column location information to each node
-  loc: true,
+  loc: false,
   // Attach raw property to each literal and identifier node
   raw: true,
   // Enabled directives
@@ -39,17 +39,14 @@ const parseOptions = {
 
 function parseWithOptions(text, sourceType) {
   const comments = [];
-  const tokens = [];
 
   /** @type {any} */
   const ast = meriyahParse(text, {
     ...parseOptions,
     module: sourceType === "module",
     onComment: comments,
-    onToken: tokens,
   });
   ast.comments = comments;
-  ast.tokens = tokens;
 
   return ast;
 }
