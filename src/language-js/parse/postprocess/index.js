@@ -51,41 +51,34 @@ function postprocess(ast, options) {
     comments.unshift(interpreter);
   }
 
-  // Keep Babel's non-standard ParenthesizedExpression nodes only if they have Closure-style type cast comments.
-  if (parser === "babel") {
-    const startOffsetsOfTypeCastedNodes = new Set();
-
-    // Comments might be attached not directly to ParenthesizedExpression but to its ancestor.
-    // E.g.: /** @type {Foo} */ (foo).bar();
-    // Let's use the fact that those ancestors and ParenthesizedExpression have the same start offset.
-
-    ast = visitNode(ast, (node) => {
-      if (node.leadingComments?.some(isTypeCastComment)) {
-        startOffsetsOfTypeCastedNodes.add(locStart(node));
+  // Keep ParenthesizedExpression nodes only if they have Closure-style type cast comments.
+  const typeCastCommentsEnds = [];
+  if (parser === "babel" || parser === "meriyah") {
+    for (const comment of ast.comments) {
+      if (isTypeCastComment(comment)) {
+        typeCastCommentsEnds.push(comment.end);
       }
-    });
-
-    ast = visitNode(ast, (node) => {
-      if (node.type === "ParenthesizedExpression") {
-        const { expression } = node;
-
-        // Align range with `flow`
-        if (expression.type === "TypeCastExpression") {
-          expression.range = [...node.range];
-          return expression;
-        }
-
-        const start = locStart(node);
-        if (!startOffsetsOfTypeCastedNodes.has(start)) {
-          expression.extra = { ...expression.extra, parenthesized: true };
-          return expression;
-        }
-      }
-    });
+    }
   }
 
   ast = visitNode(ast, (node) => {
     switch (node.type) {
+      case "ParenthesizedExpression": {
+        const { expression } = node;
+        const closestTypeCastCommentEnd = typeCastCommentsEnds.findLast(
+          (end) => end <= node.start,
+        );
+        const keepTypeCast =
+          closestTypeCastCommentEnd !== undefined &&
+          // check that there are only white spaces between the comment and the parenthesis
+          text.slice(closestTypeCastCommentEnd, node.start).trim().length === 0;
+        if (!keepTypeCast) {
+          expression.extra = { ...expression.extra, parenthesized: true };
+          return expression;
+        }
+        break;
+      }
+
       case "LogicalExpression":
         // We remove unneeded parens around same-operator LogicalExpressions
         if (isUnbalancedLogicalTree(node)) {
