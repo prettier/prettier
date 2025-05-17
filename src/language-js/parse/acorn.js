@@ -17,6 +17,7 @@ const parseOptions = {
   allowSuperOutsideMethod: true,
   locations: true,
   ranges: true,
+  preserveParens: true,
 };
 
 function createParseError(error) {
@@ -79,7 +80,7 @@ function parse(text, options = {}) {
     throw createParseError(error);
   }
 
-  return postprocess(ast, { text });
+  return postprocess(ast, { parser: "acorn", text });
 }
 
 export const acorn = createParser(parse);
