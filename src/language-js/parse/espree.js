@@ -11,9 +11,9 @@ import getSourceType from "./utils/get-source-type.js";
 const parseOptions = {
   ecmaVersion: "latest",
   range: true,
-  loc: true,
+  loc: false,
   comment: true,
-  tokens: true,
+  tokens: false,
   sourceType: "module",
   ecmaFeatures: {
     jsx: true,

@@ -24,7 +24,7 @@ const parseOptions = {
   // `use_strict` (boolean, default `false`) - treat the file as strict, without needing a "use strict" directive
   // use_strict: false,
   // `tokens` (boolean, default `false`) - include a list of all parsed tokens in a top-level `tokens` property
-  tokens: true,
+  tokens: false,
 };
 
 function createParseError(error) {

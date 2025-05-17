@@ -6,8 +6,10 @@ import wrapBabelExpression from "../language-js/parse/utils/wrap-babel-expressio
 import isNonEmptyArray from "../utils/is-non-empty-array.js";
 
 const babelParseOptions = {
-  tokens: true,
-  ranges: true,
+  tokens: false,
+  // Ranges not available on comments, so we use `Node#{start,end}` instead
+  // https://github.com/babel/babel/issues/15115
+  ranges: false,
   attachComment: false,
 };
 
