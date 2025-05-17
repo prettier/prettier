@@ -17,7 +17,10 @@ function printComment(commentPath, options) {
 
   if (isBlockComment(comment)) {
     if (isIndentableBlockComment(comment)) {
-      return printIndentableBlockComment(comment);
+      const inJsxEmptyExpression =
+        commentPath.parent?.type === "JSXEmptyExpression";
+      const leadingWhitespace = inJsxEmptyExpression ? "  " : " ";
+      return printIndentableBlockComment(comment, leadingWhitespace);
     }
 
     return ["/*", replaceEndOfLine(comment.value), "*/"];
@@ -27,7 +30,7 @@ function printComment(commentPath, options) {
   throw new Error("Not a comment: " + JSON.stringify(comment));
 }
 
-function printIndentableBlockComment(comment) {
+function printIndentableBlockComment(comment, leadingWhitespace) {
   const lines = comment.value.split("\n");
 
   return [
@@ -37,7 +40,8 @@ function printIndentableBlockComment(comment) {
       lines.map((line, index) =>
         index === 0
           ? line.trimEnd()
-          : " " + (index < lines.length - 1 ? line.trim() : line.trimStart()),
+          : leadingWhitespace +
+            (index < lines.length - 1 ? line.trim() : line.trimStart()),
       ),
     ),
     "*/",
