@@ -94,15 +94,15 @@ function postprocess(ast, options) {
         }
 
         // Keep ParenthesizedExpression nodes only if they have Closure-style type cast comments.
+        const nodeStart = locStart(node);
         const previousComment = ast.comments.findLast(
-          (comment) => locEnd(comment) <= locStart(node),
+          (comment) => locEnd(comment) <= nodeStart,
         );
         const keepTypeCast =
           previousComment !== undefined &&
           isTypeCastComment(previousComment) &&
           // check that there are only white spaces between the comment and the parenthesis
-          text.slice(locEnd(previousComment), locStart(node)).trim().length ===
-            0;
+          text.slice(locEnd(previousComment), nodeStart).trim().length === 0;
 
         if (!keepTypeCast) {
           expression.extra = { ...expression.extra, parenthesized: true };
