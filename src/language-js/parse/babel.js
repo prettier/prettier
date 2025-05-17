@@ -48,7 +48,8 @@ const parseOptions = {
     ["optionalChainingAssign", { version: "2023-07" }],
   ],
   tokens: false,
-  // Ranges not available on comments, so we use location instead
+  // Ranges not available on comments, so we use `Node#{start,end}` instead
+  // https://github.com/babel/babel/issues/15115
   ranges: false,
 };
 
