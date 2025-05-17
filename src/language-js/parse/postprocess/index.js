@@ -84,7 +84,7 @@ function postprocess(ast, options) {
 
   // Keep ParenthesizedExpression nodes only if they have Closure-style type cast comments.
   const typeCastCommentsEnds = [];
-  if (parser === "babel" || parser === "acorn") {
+  if (parser === "babel" || parser === "__babel_estree" || parser === "acorn") {
     for (const comment of ast.comments) {
       if (isTypeCastComment(comment)) {
         typeCastCommentsEnds.push(locEnd(comment));

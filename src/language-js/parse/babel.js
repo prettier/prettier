@@ -151,7 +151,7 @@ function createParse({ isExpression = false, optionsCombinations }) {
       ast = wrapBabelExpression(ast, { text, rootMarker: options.rootMarker });
     }
 
-    return postprocess(ast, { parser: "babel", text });
+    return postprocess(ast, { parser: options.parser, text });
   };
 }
 
