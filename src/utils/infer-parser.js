@@ -1,5 +1,6 @@
 import getInterpreter from "./get-interpreter.js";
 import isNonEmptyArray from "./is-non-empty-array.js";
+import toPath from "./universal-to-path.js";
 
 /** @import {Options, SupportLanguage} from "../index.js" */
 
@@ -93,14 +94,20 @@ function getLanguageByIsSupported(languages, file) {
     return;
   }
 
-  /*
-  We can't use `url.fileURLToPath` here since this module should work in browsers too
-  `URL#pathname` won't work either since `new URL('file:///C:/path/to/file').pathname`
-  equals to `/C:/path/to/file`, try to improve this part in future
-  */
-  file = String(file);
+  if (
+    (file instanceof URL && file.protocol === "file:") ||
+    (typeof file === "string" && file.startsWith("file:"))
+  ) {
+    try {
+      file = toPath(file);
+    } catch {
+      return;
+    }
+  } else {
+    file = String(file);
+  }
 
-  return languages.find(({ isSupported }) => isSupported?.(file));
+  return languages.find(({ isSupported }) => isSupported?.({ filepath: file }));
 }
 
 /**
