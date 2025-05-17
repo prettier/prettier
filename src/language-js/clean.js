@@ -3,7 +3,6 @@ import {
   isNumericLiteral,
   isStringLiteral,
 } from "./utils/index.js";
-import isBlockComment from "./utils/is-block-comment.js";
 
 const ignoredProperties = new Set([
   "range",
@@ -27,7 +26,7 @@ const removeTemplateElementsValue = (node) => {
   }
 };
 
-function clean(original, cloned, parent) {
+function clean(original, cloned) {
   if (original.type === "Program") {
     delete cloned.sourceType;
   }
@@ -174,27 +173,7 @@ function clean(original, cloned, parent) {
     removeTemplateElementsValue(cloned.quasi);
   }
   if (original.type === "TemplateLiteral") {
-    // This checks for a leading comment that is exactly `/* GraphQL */`
-    // In order to be in line with other implementations of this comment tag
-    // we will not trim the comment value and we will expect exactly one space on
-    // either side of the GraphQL string
-    // Also see ./embed.js
-    const hasLanguageComment = original.leadingComments?.some(
-      (comment) =>
-        isBlockComment(comment) &&
-        ["GraphQL", "HTML"].some(
-          (languageName) => comment.value === ` ${languageName} `,
-        ),
-    );
-    if (
-      hasLanguageComment ||
-      (parent.type === "CallExpression" && parent.callee.name === "graphql") ||
-      // TODO: check parser
-      // `flow` and `typescript` don't have `leadingComments`
-      !original.leadingComments
-    ) {
-      removeTemplateElementsValue(cloned);
-    }
+    removeTemplateElementsValue(cloned);
   }
 
   // We print `(a?.b!).c` as `(a?.b)!.c`, but `typescript` parse them differently
