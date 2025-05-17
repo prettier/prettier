@@ -187,6 +187,40 @@ const style2 = /**
 ================================================================================
 `;
 
+exports[`comment-in-the-middle.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+var a =
+/**
+ * bla bla bla
+ * @type {string |
+  * number
+ * }
+* bla bla bla
+ */
+//2
+ ((window['s'])).toString();
+console.log(a.foo());
+
+=====================================output=====================================
+var a =
+  /**
+   * bla bla bla
+   * @type {string |
+   * number
+   * }
+   * bla bla bla
+   */
+  //2
+  window["s"].toString();
+console.log(a.foo());
+
+================================================================================
+`;
+
 exports[`comment-placement.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
