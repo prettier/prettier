@@ -65,7 +65,6 @@ const espreeDisabledTests = new Set(
 );
 const acornDisabledTests = espreeDisabledTests;
 const meriyahDisabledTests = new Set([
-  ...espreeDisabledTests,
   ...[
     // Parsing to different ASTs
     "js/decorators/member-expression.js",

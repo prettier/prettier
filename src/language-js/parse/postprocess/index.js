@@ -51,12 +51,43 @@ function postprocess(ast, options) {
     comments.unshift(interpreter);
   }
 
+  if (isNonEmptyArray(ast.comments)) {
+    let followingComment;
+    for (let i = ast.comments.length - 1; i >= 0; i--) {
+      const comment = ast.comments[i];
+
+      if (
+        followingComment &&
+        locEnd(comment) === locStart(followingComment) &&
+        isBlockComment(comment) &&
+        isBlockComment(followingComment) &&
+        isIndentableBlockComment(comment) &&
+        isIndentableBlockComment(followingComment)
+      ) {
+        ast.comments.splice(i + 1, 1);
+        comment.value += "*//*" + followingComment.value;
+        comment.range = [locStart(comment), locEnd(followingComment)];
+      }
+
+      if (!isLineComment(comment) && !isBlockComment(comment)) {
+        throw new TypeError(`Unknown comment type: "${comment.type}".`);
+      }
+
+      /* c8 ignore next 3 */
+      if (process.env.NODE_ENV !== "production") {
+        assertComment(comment, text);
+      }
+
+      followingComment = comment;
+    }
+  }
+
   // Keep ParenthesizedExpression nodes only if they have Closure-style type cast comments.
   const typeCastCommentsEnds = [];
   if (parser === "babel" || parser === "meriyah") {
     for (const comment of ast.comments) {
       if (isTypeCastComment(comment)) {
-        typeCastCommentsEnds.push(comment.end);
+        typeCastCommentsEnds.push(locEnd(comment));
       }
     }
   }
@@ -66,12 +97,14 @@ function postprocess(ast, options) {
       case "ParenthesizedExpression": {
         const { expression } = node;
         const closestTypeCastCommentEnd = typeCastCommentsEnds.findLast(
-          (end) => end <= node.start,
+          (end) => end <= locStart(node),
         );
         const keepTypeCast =
           closestTypeCastCommentEnd !== undefined &&
           // check that there are only white spaces between the comment and the parenthesis
-          text.slice(closestTypeCastCommentEnd, node.start).trim().length === 0;
+          text.slice(closestTypeCastCommentEnd, locStart(node)).trim()
+            .length === 0;
+
         if (!keepTypeCast) {
           expression.extra = { ...expression.extra, parenthesized: true };
           return expression;
@@ -144,37 +177,6 @@ function postprocess(ast, options) {
       assertRaw(node, text);
     }
   });
-
-  if (isNonEmptyArray(ast.comments)) {
-    let followingComment;
-    for (let i = ast.comments.length - 1; i >= 0; i--) {
-      const comment = ast.comments[i];
-
-      if (
-        followingComment &&
-        locEnd(comment) === locStart(followingComment) &&
-        isBlockComment(comment) &&
-        isBlockComment(followingComment) &&
-        isIndentableBlockComment(comment) &&
-        isIndentableBlockComment(followingComment)
-      ) {
-        ast.comments.splice(i + 1, 1);
-        comment.value += "*//*" + followingComment.value;
-        comment.range = [locStart(comment), locEnd(followingComment)];
-      }
-
-      if (!isLineComment(comment) && !isBlockComment(comment)) {
-        throw new TypeError(`Unknown comment type: "${comment.type}".`);
-      }
-
-      /* c8 ignore next 3 */
-      if (process.env.NODE_ENV !== "production") {
-        assertComment(comment, text);
-      }
-
-      followingComment = comment;
-    }
-  }
 
   // In `typescript`/`espree`/`flow`, `Program` doesn't count whitespace and comments
   // See https://github.com/eslint/espree/issues/488

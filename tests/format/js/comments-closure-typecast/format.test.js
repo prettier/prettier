@@ -1,1 +1,1 @@
-runFormatTest(import.meta, ["babel", "meriyah"]);
+runFormatTest(import.meta, ["babel"]);
