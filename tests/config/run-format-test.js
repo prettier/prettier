@@ -64,8 +64,8 @@ const espreeDisabledTests = new Set(
   ].map((directory) => path.join(__dirname, "../format/js", directory)),
 );
 const acornDisabledTests = espreeDisabledTests;
-const meriyahDisabledTests = new Set([
-  ...[
+const meriyahDisabledTests = new Set(
+  [
     // Parsing to different ASTs
     "js/decorators/member-expression.js",
     // Meriyah parse RegExp relay on runtime behavior
@@ -76,7 +76,7 @@ const meriyahDisabledTests = new Set([
     "js/babel-plugins/regexp-modifiers.js",
     "js/regex/regexp-modifiers.js",
   ].map((file) => path.join(__dirname, "../format", file)),
-]);
+);
 const babelTsDisabledTest = new Set(
   ["conformance/types/moduleDeclaration/kind-detection.ts"].map((file) =>
     path.join(__dirname, "../format/typescript", file),
