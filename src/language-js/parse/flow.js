@@ -2,6 +2,7 @@ import flowParser from "flow-parser";
 import createError from "../../common/parser-create-error.js";
 import postprocess from "./postprocess/index.js";
 import createParser from "./utils/create-parser.js";
+import replaceHashbang from "./utils/replace-hashbang.js";
 
 // https://github.com/facebook/flow/tree/main/packages/flow-parser#options
 // Keep this sync with `/scripts/sync-flow-test.js`
@@ -42,7 +43,7 @@ function createParseError(error) {
 }
 
 function parse(text) {
-  const ast = flowParser.parse(text, parseOptions);
+  const ast = flowParser.parse(replaceHashbang(text), parseOptions);
   const [error] = ast.errors;
   if (error) {
     throw createParseError(error);
