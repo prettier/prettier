@@ -96,6 +96,13 @@ function postprocess(ast, options) {
     switch (node.type) {
       case "ParenthesizedExpression": {
         const { expression } = node;
+
+        // Align range with `flow`
+        if (expression.type === "TypeCastExpression") {
+          expression.range = [...node.range];
+          return expression;
+        }
+
         const closestTypeCastCommentEnd = typeCastCommentsEnds.findLast(
           (end) => end <= locStart(node),
         );
