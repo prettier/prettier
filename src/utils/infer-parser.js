@@ -90,10 +90,6 @@ function getLanguageByInterpreter(languages, file) {
  * @returns {SupportLanguage | undefined}
  */
 function getLanguageByIsSupported(languages, file) {
-  if (!file) {
-    return;
-  }
-
   if (
     (file instanceof URL && file.protocol === "file:") ||
     (typeof file === "string" && file.startsWith("file:"))
@@ -103,8 +99,10 @@ function getLanguageByIsSupported(languages, file) {
     } catch {
       return;
     }
-  } else {
-    file = String(file);
+  }
+
+  if (typeof file !== "string") {
+    return;
   }
 
   return languages.find(({ isSupported }) => isSupported?.({ filepath: file }));

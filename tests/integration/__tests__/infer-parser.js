@@ -1,7 +1,9 @@
+import url from "node:url";
 import prettier from "../../config/prettier-entry.js";
 import jestPathSerializer from "../path-serializer.js";
 
 expect.addSnapshotSerializer(jestPathSerializer);
+const isWindows = process.platform === "win32";
 
 describe("stdin no path and no parser", () => {
   describe("logs error and exits with 2", () => {
@@ -236,4 +238,69 @@ describe("isSupported", () => {
     stderr: "",
     write: [],
   });
+
+  test("API", async () => {
+    const fileUrl = new URL("foo.unknown", import.meta.url);
+    const filePath = url.fileURLToPath(fileUrl);
+    expect(await getIsSupportedReceivedFilepath({ filepath: fileUrl })).toBe(
+      filePath,
+    );
+    expect(
+      await getIsSupportedReceivedFilepath({ filepath: fileUrl.href }),
+    ).toBe(filePath);
+    expect(await getIsSupportedReceivedFilepath({ filepath: filePath })).toBe(
+      filePath,
+    );
+
+    expect(
+      await getIsSupportedReceivedFilepath({
+        filepath: Buffer.from("foo.unknown"),
+      }),
+    ).toBeUndefined();
+
+    expect(
+      await getIsSupportedReceivedFilepath({
+        filepath: { toString: () => "foo.unknown" },
+      }),
+    ).toBeUndefined();
+
+    expect(
+      await getIsSupportedReceivedFilepath({
+        filepath: new (class {
+          toString() {
+            return "foo.unknown";
+          }
+        })(),
+      }),
+    ).toBeUndefined();
+
+    expect(
+      await getIsSupportedReceivedFilepath({ filepath: "file://%0" }),
+    ).toBeUndefined();
+  });
 });
+
+const getIsSupportedReceivedFilepath = async (options) => {
+  let received;
+  try {
+    await prettier.format("foo", {
+      plugins: [
+        {
+          languages: [
+            {
+              isSupported({ filepath }) {
+                received = filepath;
+              },
+            },
+          ],
+        },
+      ],
+      ...options,
+    });
+  } catch (error) {
+    if (error.name !== "UndefinedParserError") {
+      throw error;
+    }
+  }
+  return received;
+};
