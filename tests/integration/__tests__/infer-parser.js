@@ -258,6 +258,12 @@ describe("isSupported", () => {
 
     expect(
       await getIsSupportedReceivedFilepath({
+        filepath: "",
+      }),
+    ).toBeUndefined();
+
+    expect(
+      await getIsSupportedReceivedFilepath({
         filepath: Buffer.from("foo.unknown"),
       }),
     ).toBeUndefined();
