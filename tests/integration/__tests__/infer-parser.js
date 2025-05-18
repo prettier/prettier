@@ -252,6 +252,11 @@ describe("isSupported", () => {
       filePath,
     );
 
+    // Relative path
+    expect(
+      await getIsSupportedReceivedFilepath({ filepath: "./foo.unknown" }),
+    ).toBe("./foo.unknown");
+
     expect(
       await getIsSupportedReceivedFilepath({
         filepath: Buffer.from("foo.unknown"),
