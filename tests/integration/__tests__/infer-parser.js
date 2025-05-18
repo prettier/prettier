@@ -287,6 +287,18 @@ describe("isSupported", () => {
     expect(
       await getIsSupportedReceivedFilepath({ filepath: "file://%0" }),
     ).toBeUndefined();
+
+    expect(
+      await getIsSupportedReceivedFilepath({
+        filepath: new URL("https://example.com/foo.unknown"),
+      }),
+    ).toBeUndefined();
+
+    expect(
+      await getIsSupportedReceivedFilepath({
+        filepath: "https://example.com/foo.unknown",
+      }),
+    ).toBe("https://example.com/foo.unknown");
   });
 });
 
