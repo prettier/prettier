@@ -132,7 +132,7 @@ The support information looks like this:
 :::note
 
 Prettier can not ensure that `filepath` exists on disk.\
-When using from APIs(eg: `prettier.format()`), Prettier can not ensure it's an absolute path either.
+When using from APIs(eg: `prettier.format()`), Prettier can not ensure it's a valid path either.
 
 :::
 
