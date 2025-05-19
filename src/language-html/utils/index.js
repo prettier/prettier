@@ -343,6 +343,7 @@ function inferParserByTypeAttribute(type) {
     case "module":
     case "text/javascript":
     case "text/babel":
+    case "text/jsx":
     case "application/javascript":
       return "babel";
 

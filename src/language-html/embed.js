@@ -91,7 +91,8 @@ function embed(path, options) {
               if (
                 attrMap &&
                 (attrMap.type === "module" ||
-                  (attrMap.type === "text/babel" &&
+                  ((attrMap.type === "text/babel" ||
+                    attrMap.type === "text/jsx") &&
                     attrMap["data-type"] === "module"))
               ) {
                 sourceType = "module";
