@@ -30,6 +30,15 @@ exports[`throw_expression.js [meriyah] format 1`] = `
 Cause: [1:25-1:30]: Unexpected token: 'throw'"
 `;
 
+exports[`throw_expression.js [oxc] format 1`] = `
+"Unexpected token (1:26)
+> 1 | function save(filename = throw new TypeError("Argument required")) {}
+    |                          ^^^^^
+  2 |
+  3 | lint(ast, {
+  4 |   with: () => throw new Error("avoid using 'with' statements.")"
+`;
+
 exports[`throw_expression.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]

@@ -33,6 +33,16 @@ exports[`arrow-params.js [meriyah] format 1`] = `
 Cause: [3:10-3:11]: Unexpected token: 'PrivateField'"
 `;
 
+exports[`arrow-params.js [oxc] format 1`] = `
+"Unexpected token (3:11)
+  1 | class C {
+  2 |   #x = 1;
+> 3 |   #p = ({ #x: x }) => {}
+    |           ^^
+  4 | }
+  5 |"
+`;
+
 exports[`arrow-params.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "babel-flow", "babel-ts"]
@@ -87,6 +97,17 @@ exports[`assignment.js [meriyah] format 1`] = `
   7 | }
   8 |
 Cause: [5:7-5:8]: Unexpected token: 'PrivateField'"
+`;
+
+exports[`assignment.js [oxc] format 1`] = `
+"Unexpected token (5:8)
+  3 |   m() {
+  4 |     let x;
+> 5 |     ({ #x: x } = this);
+    |        ^^
+  6 |   }
+  7 | }
+  8 |"
 `;
 
 exports[`assignment.js format 1`] = `
@@ -148,6 +169,16 @@ exports[`async-arrow-params.js [meriyah] format 1`] = `
 Cause: [3:16-3:17]: Unexpected token: 'PrivateField'"
 `;
 
+exports[`async-arrow-params.js [oxc] format 1`] = `
+"Unexpected token (3:17)
+  1 | class C {
+  2 |   #x = 1;
+> 3 |   #p = async ({ #x: x }) => {}
+    |                 ^^
+  4 | }
+  5 |"
+`;
+
 exports[`async-arrow-params.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "babel-flow", "babel-ts"]
@@ -202,6 +233,17 @@ exports[`bindings.js [meriyah] format 1`] = `
   6 | }
   7 |
 Cause: [4:11-4:12]: Unexpected token: 'PrivateField'"
+`;
+
+exports[`bindings.js [oxc] format 1`] = `
+"Unexpected token (4:12)
+  2 |   #x = 1;
+  3 |   m() {
+> 4 |     const {#x: x} = this;
+    |            ^^
+  5 |   }
+  6 | }
+  7 |"
 `;
 
 exports[`bindings.js format 1`] = `
@@ -264,6 +306,17 @@ exports[`for-lhs.js [meriyah] format 1`] = `
 Cause: [5:10-5:11]: Unexpected token: 'PrivateField'"
 `;
 
+exports[`for-lhs.js [oxc] format 1`] = `
+"Unexpected token (5:11)
+  3 |   m() {
+  4 |     let x;
+> 5 |     for ({#x: x} of [this]);
+    |           ^^
+  6 |   }
+  7 | }
+  8 |"
+`;
+
 exports[`for-lhs.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "babel-flow", "babel-ts"]
@@ -324,6 +377,17 @@ exports[`nested-bindings.js [meriyah] format 1`] = `
   6 | }
   7 |
 Cause: [4:16-4:17]: Unexpected token: 'PrivateField'"
+`;
+
+exports[`nested-bindings.js [oxc] format 1`] = `
+"Unexpected token (4:17)
+  2 |   #x = 1;
+  3 |   m() {
+> 4 |     const {x: { #x: [x] }, y: [...{ #x: y }]} = this;
+    |                 ^^
+  5 |   }
+  6 | }
+  7 |"
 `;
 
 exports[`nested-bindings.js format 1`] = `
@@ -389,6 +453,17 @@ exports[`valid-multiple-bindings.js [meriyah] format 1`] = `
   6 | }
   7 |
 Cause: [4:11-4:12]: Unexpected token: 'PrivateField'"
+`;
+
+exports[`valid-multiple-bindings.js [oxc] format 1`] = `
+"Unexpected token (4:12)
+  2 |   #x = 1;
+  3 |   m() {
+> 4 |     const {#x: x1, #x: x2 = x1 } = this;
+    |            ^^
+  5 |   }
+  6 | }
+  7 |"
 `;
 
 exports[`valid-multiple-bindings.js format 1`] = `

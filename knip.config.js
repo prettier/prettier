@@ -8,6 +8,7 @@ export default {
         // so there is no actual use of the CLI files
         "src/cli/index.js",
         "src/experimental-cli/index.js",
+        "packages/plugin-oxc/index.js",
       ],
       project: ["src/**", "scripts/**"],
       ignore: [
