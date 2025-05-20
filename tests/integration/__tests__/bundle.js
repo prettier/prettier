@@ -78,7 +78,7 @@ test("global objects", async () => {
     absolute: true,
   });
 
-  const allowedGlobalObjects = new Set(["prettier", "prettierPlugins"]);
+  const allowedGlobalObjects = new Set(["prettier", "prettierPlugins", "URL"]);
   const getGlobalObjects = (file) => {
     const sandbox = createSandBox({ files: [file] });
     return Object.fromEntries(
