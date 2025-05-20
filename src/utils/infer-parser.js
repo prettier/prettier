@@ -95,7 +95,9 @@ function getLanguageByIsSupported(languages, file) {
   }
 
   if (
-    (file instanceof URL && file.protocol === "file:") ||
+    (typeof URL !== "undefined" && // In `node:vm`, `URL` is not available
+      file instanceof URL &&
+      file.protocol === "file:") ||
     (typeof file === "string" && file.startsWith("file:"))
   ) {
     try {
