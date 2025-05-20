@@ -47,8 +47,10 @@ const parseOptions = {
     "deferredImportEvaluation",
     ["optionalChainingAssign", { version: "2023-07" }],
   ],
-  tokens: true,
-  ranges: true,
+  tokens: false,
+  // Ranges not available on comments, so we use `Node#{start,end}` instead
+  // https://github.com/babel/babel/issues/15115
+  ranges: false,
 };
 
 /** @type {ParserPlugin} */
