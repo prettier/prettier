@@ -69,6 +69,7 @@ function postprocess(ast, options) {
         comment.range = [locStart(comment), locEnd(followingComment)];
       }
 
+      /* c8 ignore next 3 */
       if (!isLineComment(comment) && !isBlockComment(comment)) {
         throw new TypeError(`Unknown comment type: "${comment.type}".`);
       }
@@ -99,7 +100,7 @@ function postprocess(ast, options) {
           (comment) => locEnd(comment) <= nodeStart,
         );
         const keepTypeCast =
-          previousComment !== undefined &&
+          previousComment &&
           isTypeCastComment(previousComment) &&
           // check that there are only white spaces between the comment and the parenthesis
           text.slice(locEnd(previousComment), nodeStart).trim().length === 0;

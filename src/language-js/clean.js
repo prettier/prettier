@@ -172,6 +172,10 @@ function clean(original, cloned) {
   ) {
     removeTemplateElementsValue(cloned.quasi);
   }
+
+  // TODO: Only delete value when there is leading comment which is exactly
+  // `/* GraphQL */` or `/* HTML */`
+  // Also see ./embed.js
   if (original.type === "TemplateLiteral") {
     removeTemplateElementsValue(cloned);
   }

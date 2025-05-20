@@ -80,7 +80,7 @@ function parse(text, options = {}) {
     throw createParseError(error);
   }
 
-  return postprocess(ast, { parser: "acorn", text });
+  return postprocess(ast, { text });
 }
 
 export const acorn = createParser(parse);
