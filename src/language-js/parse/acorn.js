@@ -17,6 +17,7 @@ const parseOptions = {
   allowSuperOutsideMethod: true,
   locations: true,
   ranges: true,
+  preserveParens: true,
 };
 
 function createParseError(error) {

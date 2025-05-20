@@ -63,7 +63,7 @@ const espreeDisabledTests = new Set(
     "comments-closure-typecast",
   ].map((directory) => path.join(__dirname, "../format/js", directory)),
 );
-const acornDisabledTests = espreeDisabledTests;
+const acornDisabledTests = new Set();
 const meriyahDisabledTests = new Set([
   ...espreeDisabledTests,
   ...[
