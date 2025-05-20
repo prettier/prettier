@@ -4,7 +4,10 @@ const fs = require("fs");
 
 function createSandBox({ files }) {
   const source = files.map((file) => fs.readFileSync(file, "utf8")).join(";");
-  const sandbox = vm.createContext({ URL });
+  const sandbox = vm.createContext({
+    // https://github.com/nodejs/node/issues/46558
+    URL,
+  });
 
   vm.runInContext(source, sandbox);
 
