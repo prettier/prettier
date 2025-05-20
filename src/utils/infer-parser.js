@@ -94,10 +94,7 @@ function getLanguageByIsSupported(languages, file) {
     return;
   }
 
-  if (
-    (file instanceof URL && file.protocol === "file:") ||
-    (typeof file === "string" && file.startsWith("file:"))
-  ) {
+  if (String(file).startsWith("file:")) {
     try {
       file = toPath(file);
     } catch {
