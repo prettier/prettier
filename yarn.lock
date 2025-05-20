@@ -3470,6 +3470,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"deno-path-from-file-url@npm:0.0.2":
+  version: 0.0.2
+  resolution: "deno-path-from-file-url@npm:0.0.2"
+  checksum: 10/d2204f36d0b3b88c22c4fa0f6d2000c837d2915cb6d7dc48e20a0ee20881646343fa0b580b646596a039d6c386124b14b3bc9534b42e62a01ec991a3d3a674b0
+  languageName: node
+  linkType: hard
+
 "depd@npm:2.0.0, depd@npm:^2.0.0":
   version: 2.0.0
   resolution: "depd@npm:2.0.0"
@@ -7428,6 +7435,7 @@ __metadata:
     cspell: "npm:9.0.0"
     css-units-list: "npm:2.1.0"
     dashify: "npm:2.0.0"
+    deno-path-from-file-url: "npm:0.0.2"
     diff: "npm:8.0.1"
     editorconfig: "npm:0.15.3"
     emoji-regex: "npm:10.4.0"
