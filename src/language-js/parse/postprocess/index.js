@@ -34,6 +34,7 @@ const isNodeWithRaw = createTypeCheckFunction([
  * @param {{
  *   text: string,
  *   parser?: string,
+ *   oxcAstType?: "js" | "ts",
  * }} options
  */
 function postprocess(ast, options) {
@@ -49,6 +50,11 @@ function postprocess(ast, options) {
     } = ast;
     delete ast.program.interpreter;
     comments.unshift(interpreter);
+  }
+
+  if (parser === "oxc" && options.oxcAstType === "ts" && ast.hashbang) {
+    const { comments, hashbang } = ast;
+    comments.unshift(hashbang);
   }
 
   // Keep Babel's non-standard ParenthesizedExpression nodes only if they have Closure-style type cast comments.
@@ -94,12 +100,13 @@ function postprocess(ast, options) {
         break;
 
       case "TemplateElement":
-        // `flow` and `typescript` follows the `espree` style positions
+        // `flow`, `typescript`, and `oxc`(with `{astType: 'ts'}`) follows the `espree` style positions
         // https://github.com/eslint/js/blob/5826877f7b33548e5ba984878dd4a8eac8448f87/packages/espree/lib/espree.js#L213
         if (
           parser === "flow" ||
           parser === "espree" ||
-          parser === "typescript"
+          parser === "typescript" ||
+          (parser === "oxc" && options.oxcAstType === "ts")
         ) {
           const start = locStart(node) + 1;
           const end = locEnd(node) - (node.tail ? 1 : 2);
@@ -143,6 +150,24 @@ function postprocess(ast, options) {
         if (node.types.length === 1) {
           return node.types[0];
         }
+        break;
+
+      // TODO: Remove this legacy node, it will also be used for Babel8
+      case "TSMappedType":
+        if (!node.typeParameter && node.key && node.constraint) {
+          const { key: name, constraint } = node;
+          node.typeParameter = {
+            type: "TSTypeParameter",
+            constraint,
+            name,
+            range: [locStart(name), locEnd(constraint)],
+          };
+        }
+        break;
+
+      // Legacy shape, already fixed in #15157
+      case "TSEnumDeclaration":
+        node.members ??= node.body.members;
         break;
     }
 

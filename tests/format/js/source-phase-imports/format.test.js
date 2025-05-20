@@ -13,6 +13,8 @@ runFormatTest(import.meta, ["babel"], {
     acorn: [...importSourceTests, ...invalidSyntaxTests],
     espree: [...importSourceTests, ...invalidSyntaxTests],
     meriyah: [...importSourceTests, ...invalidSyntaxTests],
+    oxc: invalidSyntaxTests,
+    "oxc-ts": invalidSyntaxTests,
     babel: invalidSyntaxTests,
     __babel_estree: invalidSyntaxTests,
   },

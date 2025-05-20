@@ -33,6 +33,16 @@ exports[`export.js [meriyah] format 1`] = `
 Cause: [2:7-2:8]: Unexpected token: 'identifier'"
 `;
 
+exports[`export.js [oxc] format 1`] = `
+"Unexpected token (2:8)
+  1 | export * as ns from 'mod';
+> 2 | export v from 'mod';
+    |        ^
+  3 | export a, * as b from 'mod';
+  4 | export c, { foo } from 'mod';
+  5 | export * as d from 'mod';"
+`;
+
 exports[`export.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]

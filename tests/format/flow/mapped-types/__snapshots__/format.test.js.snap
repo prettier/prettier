@@ -24,6 +24,15 @@ exports[`comments.js [babel-ts] format 1`] = `
 Cause: Unexpected token (3:2)"
 `;
 
+exports[`comments.js [oxc-ts] format 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found none (1:5)
+> 1 | type Type = {
+    |     ^
+  2 |   // comment
+  3 |   +[T in number]: number;
+  4 | };"
+`;
+
 exports[`comments.js [typescript] format 1`] = `
 "Property or signature expected. (3:3)
   1 | type Type = {
@@ -149,6 +158,15 @@ exports[`mapped-types.js [babel-ts] format 1`] = `
   7 | type MappedWithPlusOptional = {[key in keyof O]+?: number};
   8 | type MappedWithMinusOptional = {[key in keyof O]-?: number};
 Cause: Unexpected token (5:27)"
+`;
+
+exports[`mapped-types.js [oxc-ts] format 1`] = `
+"Flow is not supported (1:1)
+> 1 | //@flow
+    | ^^^^^^^
+  2 |
+  3 | type Mapped = {[key in keyof O]: O[key]};
+  4 | type MappedLong = {[key in keyof AReallyLongNameThatShouldReallyMostDefinitelyCauseALineWrap]: number};"
 `;
 
 exports[`mapped-types.js [typescript] format 1`] = `

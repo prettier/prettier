@@ -36,6 +36,17 @@ exports[`call-arguments.js [meriyah] format 1`] = `
 Cause: [3:2-3:4]: Unexpected token: 'do'"
 `;
 
+exports[`call-arguments.js [oxc] format 1`] = `
+"Unexpected token (3:3)
+  1 | // from https://github.com/babel/babel/pull/13122/
+  2 | expect(
+> 3 |   do {
+    |   ^^
+  4 |     var bar = "foo";
+  5 |     if (!bar) throw new Error(
+  6 |       "unreachable""
+`;
+
 exports[`call-arguments.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
@@ -156,6 +167,17 @@ exports[`do.js [meriyah] format 1`] = `
   5 |       else if(env === 'development') 'http://localhost:4000';
   6 |     }
 Cause: [3:4-3:6]: Unexpected token: 'do'"
+`;
+
+exports[`do.js [oxc] format 1`] = `
+"Unexpected token (3:5)
+  1 | const envSpecific = {
+  2 |   domain:
+> 3 |     do {
+    |     ^^
+  4 |       if(env === 'production') 'https://abc.mno.com/';
+  5 |       else if(env === 'development') 'http://localhost:4000';
+  6 |     }"
 `;
 
 exports[`do.js format 1`] = `

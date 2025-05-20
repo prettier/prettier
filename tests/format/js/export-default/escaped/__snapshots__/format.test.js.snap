@@ -31,6 +31,13 @@ exports[`default-escaped.js [meriyah] format 1`] = `
 Cause: [2:7-2:12]: Unexpected token: 'identifier'"
 `;
 
+exports[`default-escaped.js [oxc] format 1`] = `
+"Unexpected token (2:8)
+  1 | // export asyn\\u{63} from "async";
+> 2 | export n\\u{63} from "async";
+    |        ^^^^^^^"
+`;
+
 exports[`default-escaped.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow"]
