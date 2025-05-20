@@ -94,6 +94,9 @@ function getLanguageByIsSupported(languages, file) {
     return;
   }
 
+  // Ideally, we should only allow `URL` with `file:` protocol and
+  // string starts with `file:`, but `URL` is missing in some environments
+  // eg: `node:vm`
   if (String(file).startsWith("file:")) {
     try {
       file = toPath(file);
