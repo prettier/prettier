@@ -906,8 +906,7 @@ function handleIgnoreComments({ comment, enclosingNode, followingNode }) {
   if (
     isPrettierIgnoreComment(comment) &&
     enclosingNode?.type === "TSMappedType" &&
-    followingNode?.type === "TSTypeParameter" &&
-    followingNode.constraint
+    followingNode === enclosingNode.key
   ) {
     enclosingNode.prettierIgnore = true;
     comment.unignore = true;
@@ -915,14 +914,9 @@ function handleIgnoreComments({ comment, enclosingNode, followingNode }) {
   }
 }
 
-function handleTSMappedTypeComments({
-  comment,
-  precedingNode,
-  enclosingNode,
-  followingNode,
-}) {
+function handleTSMappedTypeComments({ comment, precedingNode, enclosingNode }) {
   if (
-    enclosingNode?.type !== "TSMappedType" &&
+    enclosingNode?.type === "TSMappedType" &&
     comment.placement === "ownLine" &&
     !precedingNode
   ) {

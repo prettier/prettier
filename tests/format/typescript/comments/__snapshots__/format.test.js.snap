@@ -845,7 +845,8 @@ type A = {
 };
 
 type B = {
-  /* commentB */ [b in B]: string;
+  /* commentB */
+  [b in B]: string;
 };
 
 type C = {
