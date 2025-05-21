@@ -173,6 +173,7 @@ function postprocess(ast, options) {
         break;
 
       // Remove this when update `@babel/parser` to v8
+      // https://github.com/typescript-eslint/typescript-eslint/pull/8920
       case "TSEnumDeclaration":
         if (!node.body) {
           const declarationStart = locStart(node);
