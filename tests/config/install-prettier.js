@@ -7,18 +7,22 @@ import { performance } from "node:perf_hooks";
 import { outdent } from "outdent";
 import picocolors from "picocolors";
 
+const isWindows = process.platform === "win32";
 // https://github.com/sindresorhus/nano-spawn/blob/7f3fbe6590eec44f7e90f7735d173258dd80b420/source/windows.js#L71
-const escapeFile = (file) =>
-  file.replaceAll(/([()\][%!^"`<>&|;, *?])/gu, "^$1");
+const escapeFile = isWindows
+  ? (file) => file.replaceAll(/([()\][%!^"`<>&|;, *?])/gu, "^$1")
+  : (file) => file;
 // https://github.com/sindresorhus/nano-spawn/blob/7f3fbe6590eec44f7e90f7735d173258dd80b420/source/windows.js#L66
-const escapeArgument = (argument) =>
-  escapeFile(
-    escapeFile(
-      `"${argument
-        .replaceAll(/(\\*)"/gu, String.raw`$1$1\"`)
-        .replace(/(\\*)$/u, "$1$1")}"`,
-    ),
-  );
+const escapeArgument = isWindows
+  ? (argument) =>
+      escapeFile(
+        escapeFile(
+          `"${argument
+            .replaceAll(/(\\*)"/gu, String.raw`$1$1\"`)
+            .replace(/(\\*)$/u, "$1$1")}"`,
+        ),
+      )
+  : (argument) => argument;
 const spawn = (command, args, options) =>
   spawnSync(
     [
