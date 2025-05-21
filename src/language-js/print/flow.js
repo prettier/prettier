@@ -166,7 +166,19 @@ function printFlow(path, options, print) {
     case "EnumBigIntBody":
     case "EnumStringBody":
     case "EnumSymbolBody":
-      return printFlowEnumBody(path, options, print);
+      return [
+        node.type === "EnumSymbolBody" || node.explicitType
+          ? `of ${node.type
+              .slice(
+                // `Enum`
+                4,
+                // `Body`
+                -4,
+              )
+              .toLowerCase()} `
+          : "",
+        printEnumBody(path, options, print),
+      ];
 
     case "EnumBooleanMember":
     case "EnumNumberMember":
@@ -312,40 +324,6 @@ function printFlow(path, options, print) {
     case "SatisfiesExpression":
       return printBinaryCastExpression(path, options, print);
   }
-}
-
-/*
-- `EnumBooleanBody`(flow)
-- `EnumNumberBody`(flow)
-- `EnumBigIntBody`(flow)
-- `EnumStringBody`(flow)
-- `EnumSymbolBody`(flow)
-*/
-function printFlowEnumBody(path, options, print) {
-  const { node } = path;
-  let type;
-
-  if (node.type === "EnumSymbolBody" || node.explicitType) {
-    switch (node.type) {
-      case "EnumBooleanBody":
-        type = "boolean";
-        break;
-      case "EnumNumberBody":
-        type = "number";
-        break;
-      case "EnumBigIntBody":
-        type = "bigint";
-        break;
-      case "EnumStringBody":
-        type = "string";
-        break;
-      case "EnumSymbolBody":
-        type = "symbol";
-        break;
-    }
-  }
-
-  return [type ? `of ${type} ` : "", printEnumBody(path, options, print)];
 }
 
 export { printFlow };
