@@ -7,6 +7,33 @@ import { performance } from "node:perf_hooks";
 import { outdent } from "outdent";
 import picocolors from "picocolors";
 
+const isWindows = process.platform === "win32";
+// https://github.com/sindresorhus/nano-spawn/blob/7f3fbe6590eec44f7e90f7735d173258dd80b420/source/windows.js#L71
+const escapeFile = isWindows
+  ? (file) => file.replace(/([()\][%!^"`<>&|;, *?])/gu, "^$1")
+  : (file) => file;
+// https://github.com/sindresorhus/nano-spawn/blob/7f3fbe6590eec44f7e90f7735d173258dd80b420/source/windows.js#L66
+const escapeArgument = isWindows
+  ? (argument) =>
+      escapeFile(
+        escapeFile(
+          `"${argument
+            .replace(/(\\*)"/gu, String.raw`$1$1\"`)
+            .replace(/(\\*)$/u, "$1$1")}"`,
+        ),
+      )
+  : (argument) => argument;
+const spawn = (command, args, options) =>
+  spawnSync(
+    [
+      escapeFile(command),
+      ...args.map((argument) => escapeArgument(argument)),
+    ].join(" "),
+    {
+      ...options,
+      shell: true,
+    },
+  );
 const createTemporaryDirectory = () => {
   const directory = path.join(
     // The following quoted from https://github.com/es-tooling/module-replacements/blob/27d1acd38f19741e31d2eae561a5c8a914373fc5/docs/modules/tempy.md?plain=1#L20-L21, not sure if it's true
@@ -56,9 +83,8 @@ function installPrettier(packageDirectory) {
   const start = performance.now();
   const temporaryDirectory = createTemporaryDirectory();
   directoriesToClean.add(temporaryDirectory);
-  const fileName = spawnSync("npm", ["pack"], {
+  const fileName = spawn("npm", ["pack"], {
     cwd: packageDirectory,
-    shell: true,
     encoding: "utf8",
   }).stdout.trim();
   const file = path.join(packageDirectory, fileName);
@@ -67,7 +93,7 @@ function installPrettier(packageDirectory) {
   fs.unlinkSync(file);
 
   const runNpmClient = (args) =>
-    spawnSync(client, args, { cwd: temporaryDirectory, shell: true });
+    spawn(client, args, { cwd: temporaryDirectory });
 
   runNpmClient(client === "pnpm" ? ["init"] : ["init", "-y"]);
 
