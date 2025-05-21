@@ -94,6 +94,7 @@ jobs:
         if: ${{ matrix.node == '14' || matrix.node == '16' }}
         run: |
           yarn set version 3
+          yarn config set httpRetry 10
           cat .yarnrc.yml
 
       - name: Setup Node.js

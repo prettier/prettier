@@ -215,7 +215,7 @@ var a =
    * bla bla bla
    */
   //2
-  (window["s"]).toString();
+  window["s"].toString();
 console.log(a.foo());
 
 ================================================================================
@@ -361,14 +361,14 @@ const prop = /** @type {Object} */(myObject.property).someProp;
 const test = /** @type (function (*): ?|undefined) */
       (goog.partial(NewThing.onTemplateChange, rationaleField, typeField));
 
-const test = /** @type (function (*): ?|undefined) */ (goog.partial(NewThing.onTemplateChange, rationaleField, typeField));
+const foo1 = /** @type (function (*): ?|undefined) */ (goog.partial(NewThing.onTemplateChange, rationaleField, typeField));
 
 const model = /** @type {?{getIndex: Function}} */ (model);
 
 const foo = /** @type {string} */
   (bar);
 
-const test = /** @type (function (*): ?|undefined) */ (foo);
+const foo2 = /** @type (function (*): ?|undefined) */ (foo);
 
 =====================================output=====================================
 /** @type {Object} */ (myObject.property).someProp = true;
@@ -380,7 +380,7 @@ const test =
   /** @type (function (*): ?|undefined) */
   (goog.partial(NewThing.onTemplateChange, rationaleField, typeField));
 
-const test = /** @type (function (*): ?|undefined) */ (
+const foo1 = /** @type (function (*): ?|undefined) */ (
   goog.partial(NewThing.onTemplateChange, rationaleField, typeField)
 );
 
@@ -388,7 +388,7 @@ const model = /** @type {?{getIndex: Function}} */ (model);
 
 const foo = /** @type {string} */ (bar);
 
-const test = /** @type (function (*): ?|undefined) */ (foo);
+const foo2 = /** @type (function (*): ?|undefined) */ (foo);
 
 ================================================================================
 `;
@@ -405,7 +405,7 @@ function jsdocCastInReturn() {
   return /** @type {ThisIsAVeryLongTypeThatShouldTriggerLineWrapping} */ (fooBarBaz);
 }
 
-const myLongVariableName = /** @type {ThisIsAVeryLongTypeThatShouldTriggerLineWrapping} */
+const myLongVariableFoo1 = /** @type {ThisIsAVeryLongTypeThatShouldTriggerLineWrapping} */
       (fooBarBaz);
 
 function jsdocCastInReturn() {
@@ -413,7 +413,7 @@ function jsdocCastInReturn() {
     (fooBarBaz));
 }
 
-const myLongVariableName = /** @type {ThisIsAVeryLongTypeThatShouldTriggerLineWrapping} */
+const myLongVariableFoo2 = /** @type {ThisIsAVeryLongTypeThatShouldTriggerLineWrapping} */
       (fooBarBaz);
 
 function jsdocCastInReturn() {
@@ -431,7 +431,7 @@ function jsdocCastInReturn() {
   );
 }
 
-const myLongVariableName =
+const myLongVariableFoo1 =
   /** @type {ThisIsAVeryLongTypeThatShouldTriggerLineWrapping} */
   (fooBarBaz);
 
@@ -442,7 +442,7 @@ function jsdocCastInReturn() {
   );
 }
 
-const myLongVariableName =
+const myLongVariableFoo2 =
   /** @type {ThisIsAVeryLongTypeThatShouldTriggerLineWrapping} */
   (fooBarBaz);
 

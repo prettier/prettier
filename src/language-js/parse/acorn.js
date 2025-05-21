@@ -15,8 +15,9 @@ const parseOptions = {
   allowReturnOutsideFunction: true,
   // allowImportExportEverywhere: true,
   allowSuperOutsideMethod: true,
-  locations: true,
+  locations: false,
   ranges: true,
+  preserveParens: true,
 };
 
 function createParseError(error) {
@@ -48,20 +49,16 @@ function parseWithOptions(text, sourceType) {
   const parser = getParser();
 
   const comments = [];
-  const tokens = [];
 
   const ast = parser.parse(text, {
     ...parseOptions,
     sourceType,
     allowImportExportEverywhere: sourceType === "module",
     onComment: comments,
-    onToken: tokens,
   });
 
   // @ts-expect-error -- expected
   ast.comments = comments;
-  // @ts-expect-error -- expected
-  ast.tokens = tokens;
 
   return ast;
 }

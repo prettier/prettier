@@ -13,6 +13,7 @@ import {
   getCallArguments,
   hasLeadingOwnLineComment,
   isBinaryish,
+  isBooleanLiteral,
   isCallExpression,
   isIntersectionType,
   isLoneShortArgument,
@@ -180,7 +181,7 @@ function chooseLayout(path, options, print, leftDoc, rightPropertyName) {
     (hasShortKey ||
       rightNode.type === "TemplateLiteral" ||
       rightNode.type === "TaggedTemplateExpression" ||
-      rightNode.type === "BooleanLiteral" ||
+      isBooleanLiteral(rightNode) ||
       isNumericLiteral(rightNode) ||
       rightNode.type === "ClassExpression")
   ) {

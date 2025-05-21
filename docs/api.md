@@ -124,10 +124,17 @@ The support information looks like this:
     filenames?: string[];
     linguistLanguageId?: number;
     vscodeLanguageIds?: string[];
-    isSupported?(file: string): boolean;
+    isSupported?({ filepath: string }): boolean;
   }>;
 }
 ```
+
+:::note
+
+Prettier can not ensure that `filepath` exists on disk.\
+When using from APIs(eg: `prettier.format()`), Prettier can not ensure it's a valid path either.
+
+:::
 
 <a name="custom-parser-api"></a>
 

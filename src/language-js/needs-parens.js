@@ -718,7 +718,7 @@ function needsParens(path, options) {
       if (
         typeof node.value === "string" &&
         parent.type === "ExpressionStatement" &&
-        !parent.directive
+        typeof parent.directive !== "string"
       ) {
         // To avoid becoming a directive
         const grandParent = path.grandparent;
