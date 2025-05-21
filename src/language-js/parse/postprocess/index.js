@@ -190,9 +190,10 @@ function postprocess(ast, options) {
           const start = declarationStart + textWithoutComments.indexOf("{");
           node.body = {
             type: "TSEnumBody",
-            members: node.members,
+            members,
             range: [start, locEnd(node)],
           };
+          delete node.members;
         }
         break;
     }
