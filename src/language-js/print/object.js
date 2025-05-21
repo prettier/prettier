@@ -107,8 +107,7 @@ function printObject(path, options, print) {
     : node.type === "TSInterfaceBody" || node.type === "TSTypeLiteral"
       ? ifBreak(semi, ";")
       : ",";
-  const leftBrace =
-    node.type === "RecordExpression" ? "#{" : node.exact ? "{|" : "{";
+  const leftBrace = node.exact ? "{|" : "{";
   const rightBrace = node.exact ? "|}" : "}";
 
   /** @type {Doc[]} */

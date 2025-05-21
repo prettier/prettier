@@ -25,8 +25,8 @@ function printHook(path, options, print) {
 
   const parametersDoc = printFunctionParameters(
     path,
-    print,
     options,
+    print,
     false,
     true,
   );
@@ -90,8 +90,8 @@ function printHookTypeAnnotation(path, options, print) {
 
   let parametersDoc = printFunctionParameters(
     path,
-    print,
     options,
+    print,
     /* expandArg */ false,
     /* printTypeParams */ true,
   );

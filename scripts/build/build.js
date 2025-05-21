@@ -7,7 +7,7 @@ import createEsmUtils from "esm-utils";
 import styleText from "node-style-text";
 import prettyBytes from "pretty-bytes";
 import { DIST_DIR } from "../utils/index.js";
-import files from "./config.js";
+import packageConfig from "./config.js";
 import parseArguments from "./parse-arguments.js";
 
 const { require } = createEsmUtils(import.meta);
@@ -44,7 +44,8 @@ const clear = () => {
   readline.cursorTo(process.stdout, 0, null);
 };
 
-async function buildFile({ file, files, cliOptions, results }) {
+async function buildFile({ packageConfig, file, cliOptions, results }) {
+  const { distDirectory } = packageConfig;
   let displayName = file.output.file;
   if (
     (file.platform === "universal" && file.output.format !== "esm") ||
@@ -69,7 +70,7 @@ async function buildFile({ file, files, cliOptions, results }) {
 
   let result;
   try {
-    result = await file.build({ file, files, cliOptions, results });
+    result = await file.build({ packageConfig, file, cliOptions, results });
   } catch (error) {
     console.log(status.FAIL + "\n");
     console.error(error);
@@ -87,7 +88,7 @@ async function buildFile({ file, files, cliOptions, results }) {
 
   const sizeMessages = [];
   if (cliOptions.printSize) {
-    const { size } = await fs.stat(path.join(DIST_DIR, outputFile));
+    const { size } = await fs.stat(path.join(distDirectory, outputFile));
     sizeMessages.push(prettyBytes(size));
   }
 
@@ -103,7 +104,7 @@ async function buildFile({ file, files, cliOptions, results }) {
     }
 
     if (stableSize) {
-      const { size } = await fs.stat(path.join(DIST_DIR, outputFile));
+      const { size } = await fs.stat(path.join(distDirectory, outputFile));
       const sizeDiff = size - stableSize;
       const message = styleText[sizeDiff > 0 ? "yellow" : "green"](
         prettyBytes(sizeDiff),
@@ -151,8 +152,13 @@ async function run() {
   console.log(styleText.inverse(" Building packages "));
 
   const results = [];
-  for (const file of files) {
-    const result = await buildFile({ file, files, cliOptions, results });
+  for (const file of packageConfig.files) {
+    const result = await buildFile({
+      packageConfig,
+      file,
+      cliOptions,
+      results,
+    });
     results.push(result);
   }
 }

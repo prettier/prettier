@@ -1,5 +1,35 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`array-and-tuple.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+a = [
+  [1,2],
+  [1,2],
+]
+
+a = [
+  {a, b},
+  {a, b},
+]
+
+=====================================output=====================================
+a = [
+  [1, 2],
+  [1, 2],
+];
+
+a = [
+  { a, b },
+  { a, b },
+];
+
+================================================================================
+`;
+
 exports[`empty.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -999,115 +1029,6 @@ _ = [
 _ = [
   (a = b),
   b, //
-];
-
-================================================================================
-`;
-
-exports[`tuple-and-record.js [acorn] format 1`] = `
-"Unexpected character '[' (7:4)
-   5 |
-   6 | a = [
->  7 |   #[1,2],
-     |    ^
-   8 |   #[1,2],
-   9 | ]
-  10 |
-Cause: Unexpected character '[' (7:3)"
-`;
-
-exports[`tuple-and-record.js [espree] format 1`] = `
-"Unexpected character '[' (7:4)
-   5 |
-   6 | a = [
->  7 |   #[1,2],
-     |    ^
-   8 |   #[1,2],
-   9 | ]
-  10 |
-Cause: Unexpected character '['"
-`;
-
-exports[`tuple-and-record.js [flow] format 1`] = `
-"Unexpected token \`#\`, expected an identifier (7:3)
-   5 |
-   6 | a = [
->  7 |   #[1,2],
-     |   ^
-   8 |   #[1,2],
-   9 | ]
-  10 |"
-`;
-
-exports[`tuple-and-record.js [meriyah] format 1`] = `
-"'#' not followed by identifier (7:3)
-   5 |
-   6 | a = [
->  7 |   #[1,2],
-     |   ^
-   8 |   #[1,2],
-   9 | ]
-  10 |
-Cause: [7:2-7:3]: '#' not followed by identifier"
-`;
-
-exports[`tuple-and-record.js [typescript] format 1`] = `
-"Invalid character. (7:3)
-   5 |
-   6 | a = [
->  7 |   #[1,2],
-     |   ^
-   8 |   #[1,2],
-   9 | ]
-  10 |
-Cause: Invalid character."
-`;
-
-exports[`tuple-and-record.js format 1`] = `
-====================================options=====================================
-parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-a = [
-  [1,2],
-  [1,2],
-]
-
-a = [
-  #[1,2],
-  #[1,2],
-]
-
-a = [
-  {a, b},
-  {a, b},
-]
-
-a = [
-  #{a, b},
-  #{a, b},
-]
-
-=====================================output=====================================
-a = [
-  [1, 2],
-  [1, 2],
-];
-
-a = [
-  #[1, 2],
-  #[1, 2],
-];
-
-a = [
-  { a, b },
-  { a, b },
-];
-
-a = [
-  #{ a, b },
-  #{ a, b },
 ];
 
 ================================================================================

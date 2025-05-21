@@ -56,6 +56,7 @@ function getMarkdownSyntax(options) {
       return "hbs";
     case "angular":
     case "lwc":
+    case "mjml":
       return "html";
     default:
       return options.parser;

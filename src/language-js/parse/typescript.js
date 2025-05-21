@@ -17,7 +17,7 @@ const baseParseOptions = {
   loc: true,
   range: true,
   comment: true,
-  tokens: true,
+  tokens: false,
   loggerFn: false,
   project: false,
   jsDocParsingMode: "none",
@@ -99,7 +99,7 @@ function parse(text, options = {}) {
     throw createParseError(error);
   }
 
-  return postprocess(ast, { text });
+  return postprocess(ast, { parser: "typescript", text });
 }
 
 /**

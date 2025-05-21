@@ -1,17 +1,49 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`infer file ext that supported by only plugins basic (stderr) 1`] = `""`;
+exports[`infer file ext that supported by only plugins basic  1`] = `
+{
+  "stderr": "",
+}
+`;
 
-exports[`infer file ext that supported by only plugins with config option (stderr) 1`] = `""`;
+exports[`infer file ext that supported by only plugins with config option  1`] = `
+{
+  "stderr": "",
+}
+`;
 
-exports[`infer file ext that supported by only plugins with defaultOptions (stderr) 1`] = `""`;
+exports[`infer file ext that supported by only plugins with defaultOptions  1`] = `
+{
+  "stderr": "",
+}
+`;
 
-exports[`infer file ext that supported by only plugins with multiple config for nested dir (stderr) 1`] = `""`;
+exports[`infer file ext that supported by only plugins with multiple config for nested dir  1`] = `
+{
+  "stderr": "",
+}
+`;
 
-exports[`infer file ext that supported by only plugins with multiple config for nested dir 2 (stderr) 1`] = `""`;
+exports[`infer file ext that supported by only plugins with multiple config for nested dir 2  1`] = `
+{
+  "stderr": "",
+}
+`;
 
-exports[`infer file ext that supported by only plugins with multiple config for nested dir 2 (stderr) 2`] = `""`;
+exports[`infer file ext that supported by only plugins with multiple config for nested dir 2  2`] = `
+{
+  "stderr": "",
+}
+`;
 
-exports[`infer file ext that supported by only plugins with overrides and defaultOptions (stderr) 1`] = `""`;
+exports[`infer file ext that supported by only plugins with overrides and defaultOptions  1`] = `
+{
+  "stderr": "",
+}
+`;
 
-exports[`infer file ext that supported by only plugins with overrides options (stderr) 1`] = `""`;
+exports[`infer file ext that supported by only plugins with overrides options  1`] = `
+{
+  "stderr": "",
+}
+`;

@@ -55,7 +55,10 @@ function isDirective(path) {
   }
 
   const { parent } = path;
-  return parent.type === "ExpressionStatement" && parent.directive;
+  return (
+    parent.type === "ExpressionStatement" &&
+    typeof parent.directive === "string"
+  );
 }
 
 function printBigInt(raw) {

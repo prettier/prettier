@@ -79,17 +79,17 @@ function print(path, options, print) {
       if (isElseIfLike(path)) {
         return [
           printElseIfLikeBlock(path, print),
-          printProgram(path, print, options),
-          printInverse(path, print, options),
+          printProgram(path, options, print),
+          printInverse(path, options, print),
         ];
       }
 
       return [
         printOpenBlock(path, print),
         group([
-          printProgram(path, print, options),
-          printInverse(path, print, options),
-          printCloseBlock(path, print, options),
+          printProgram(path, options, print),
+          printInverse(path, options, print),
+          printCloseBlock(path, options, print),
         ]),
       ];
 
@@ -573,7 +573,7 @@ function printElseIfLikeBlock(path, print) {
   ]);
 }
 
-function printCloseBlock(path, print, options) {
+function printCloseBlock(path, options, print) {
   const { node } = path;
 
   if (options.htmlWhitespaceSensitivity === "ignore") {
@@ -616,7 +616,7 @@ function blockStatementHasElse(node) {
   return node.type === "BlockStatement" && node.inverse;
 }
 
-function printProgram(path, print, options) {
+function printProgram(path, options, print) {
   const { node } = path;
 
   if (blockStatementHasOnlyWhitespaceInProgram(node)) {
@@ -632,7 +632,7 @@ function printProgram(path, print, options) {
   return indent(program);
 }
 
-function printInverse(path, print, options) {
+function printInverse(path, options, print) {
   const { node } = path;
 
   const inverse = print("inverse");

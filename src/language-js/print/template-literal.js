@@ -22,7 +22,7 @@ import {
   isMemberExpression,
 } from "../utils/index.js";
 
-function printTemplateLiteral(path, print, options) {
+function printTemplateLiteral(path, options, print) {
   const { node } = path;
   const isTemplateLiteral = node.type === "TemplateLiteral";
 

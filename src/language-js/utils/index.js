@@ -102,15 +102,11 @@ const isExportDeclaration = createTypeCheckFunction([
   "DeclareExportAllDeclaration",
 ]);
 
-const isArrayOrTupleExpression = createTypeCheckFunction([
-  "ArrayExpression",
-  "TupleExpression",
-]);
-
-const isObjectOrRecordExpression = createTypeCheckFunction([
-  "ObjectExpression",
-  "RecordExpression",
-]);
+// These two functions exists because we used support `recordAndTuple`
+// Feel free to check `node.type` instead
+// https://github.com/prettier/prettier/pull/17363
+const isArrayExpression = createTypeCheckFunction(["ArrayExpression"]);
+const isObjectExpression = createTypeCheckFunction(["ObjectExpression"]);
 
 /**
  * @param {Estree.Node} node
@@ -128,6 +124,13 @@ function isNumericLiteral(node) {
   return (
     node.type === "NumericLiteral" ||
     (node.type === "Literal" && typeof node.value === "number")
+  );
+}
+
+function isBooleanLiteral(node) {
+  return (
+    node.type === "BooleanLiteral" ||
+    (node.type === "Literal" && typeof node.value === "boolean")
   );
 }
 
@@ -615,14 +618,14 @@ function isSimpleCallArgument(node, depth = 2) {
     );
   }
 
-  if (isObjectOrRecordExpression(node)) {
+  if (isObjectExpression(node)) {
     return node.properties.every(
       (p) =>
         !p.computed && (p.shorthand || (p.value && isChildSimple(p.value))),
     );
   }
 
-  if (isArrayOrTupleExpression(node)) {
+  if (isArrayExpression(node)) {
     return node.elements.every((x) => x === null || isChildSimple(x));
   }
 
@@ -1091,10 +1094,11 @@ export {
   hasNodeIgnoreComment,
   hasRestParameter,
   identity,
-  isArrayOrTupleExpression,
+  isArrayExpression,
   isBinaryCastExpression,
   isBinaryish,
   isBitwiseOperator,
+  isBooleanLiteral,
   isCallExpression,
   isCallLikeExpression,
   isConditionalType,
@@ -1113,7 +1117,7 @@ export {
   isNextLineEmpty,
   isNullishCoalescing,
   isNumericLiteral,
-  isObjectOrRecordExpression,
+  isObjectExpression,
   isObjectProperty,
   isObjectType,
   isPrettierIgnoreComment,

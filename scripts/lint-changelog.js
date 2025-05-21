@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import fs from "node:fs";
-import { LinesAndColumns } from "lines-and-columns";
+import indexToPosition from "index-to-position";
 import { outdent } from "outdent";
 import { CHANGELOG_CATEGORIES } from "./utils/changelog-categories.js";
 
@@ -142,9 +142,8 @@ for (const category of CHANGELOG_CATEGORIES) {
 function getCommentDescription(content, comment) {
   const start = content.indexOf(comment);
   const end = start + comment.length;
-  const linesAndColumns = new LinesAndColumns(content);
   const [startLine, endLine] = [start, end].map(
-    (index) => linesAndColumns.locationForIndex(index).line + 1,
+    (index) => indexToPosition(content, index, { oneBased: true }).line,
   );
 
   if (startLine === endLine) {

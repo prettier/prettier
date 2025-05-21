@@ -63,7 +63,7 @@ const espreeDisabledTests = new Set(
     "comments-closure-typecast",
   ].map((directory) => path.join(__dirname, "../format/js", directory)),
 );
-const acornDisabledTests = espreeDisabledTests;
+const acornDisabledTests = new Set();
 const meriyahDisabledTests = new Set([
   ...espreeDisabledTests,
   ...[
@@ -438,8 +438,8 @@ function shouldSkipEolTest(code, options) {
   if (code.includes("\r")) {
     return true;
   }
-  const { requirePragma, rangeStart, rangeEnd } = options;
-  if (requirePragma) {
+  const { requirePragma, checkIgnorePragma, rangeStart, rangeEnd } = options;
+  if (requirePragma || checkIgnorePragma) {
     return true;
   }
 

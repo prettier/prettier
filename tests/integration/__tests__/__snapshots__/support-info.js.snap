@@ -62,6 +62,9 @@ exports[`API getSupportInfo() 1`] = `
     "MDX": [
       "mdx",
     ],
+    "MJML": [
+      "mjml",
+    ],
     "Markdown": [
       "markdown",
     ],
@@ -101,6 +104,10 @@ exports[`API getSupportInfo() 1`] = `
     },
     "bracketSpacing": {
       "default": true,
+      "type": "boolean",
+    },
+    "checkIgnorePragma": {
+      "default": false,
       "type": "boolean",
     },
     "cursorOffset": {
@@ -197,6 +204,7 @@ exports[`API getSupportInfo() 1`] = `
         "html",
         "angular",
         "lwc",
+        "mjml",
       ],
       "default": undefined,
       "type": "choice",
@@ -296,10 +304,10 @@ exports[`API getSupportInfo() 1`] = `
 }
 `;
 
-exports[`CLI --support-info (stderr) 1`] = `""`;
-
-exports[`CLI --support-info (stdout) 1`] = `
-"{
+exports[`CLI --support-info  1`] = `
+{
+  "stderr": "",
+  "stdout": "{
   "languages": [
     {
       "aceMode": "html",
@@ -392,8 +400,7 @@ exports[`CLI --support-info (stdout) 1`] = `
         ".html.hl",
         ".inc",
         ".xht",
-        ".xhtml",
-        ".mjml"
+        ".xhtml"
       ],
       "linguistLanguageId": 146,
       "name": "HTML",
@@ -505,12 +512,6 @@ exports[`CLI --support-info (stdout) 1`] = `
         ".tern-config",
         ".tern-project",
         ".watchmanconfig",
-        "MODULE.bazel.lock",
-        "Pipfile.lock",
-        "composer.lock",
-        "deno.lock",
-        "flake.lock",
-        "mcmod.info",
         ".babelrc",
         ".jscsrc",
         ".jshintrc",
@@ -681,6 +682,21 @@ exports[`CLI --support-info (stdout) 1`] = `
       "wrap": true
     },
     {
+      "aceMode": "html",
+      "aliases": ["MJML", "mjml"],
+      "codemirrorMimeType": "text/html",
+      "codemirrorMode": "htmlmixed",
+      "color": "#e34c26",
+      "extensions": [".mjml"],
+      "filenames": [],
+      "linguistLanguageId": 146,
+      "name": "MJML",
+      "parsers": ["mjml"],
+      "tmScope": "text.mjml.basic",
+      "type": "markup",
+      "vscodeLanguageIds": ["mjml"]
+    },
+    {
       "aceMode": "text",
       "color": "#dc3a0c",
       "extensions": [".pcss", ".postcss"],
@@ -726,7 +742,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       "codemirrorMode": "javascript",
       "color": "#3178c6",
       "extensions": [".ts", ".cts", ".mts"],
-      "interpreters": ["deno", "ts-node", "tsx"],
+      "interpreters": ["bun", "deno", "ts-node", "tsx"],
       "linguistLanguageId": 378,
       "name": "TypeScript",
       "parsers": ["typescript", "babel-ts"],
@@ -822,6 +838,14 @@ exports[`CLI --support-info (stdout) 1`] = `
       "description": "Print spaces between brackets.",
       "name": "bracketSpacing",
       "oppositeDescription": "Do not print spaces between brackets.",
+      "pluginDefaults": {},
+      "type": "boolean"
+    },
+    {
+      "category": "Special",
+      "default": false,
+      "description": "Check whether the file's first docblock comment contains '@noprettier' or '@noformat' to determine if it should be formatted.",
+      "name": "checkIgnorePragma",
       "pluginDefaults": {},
       "type": "boolean"
     },
@@ -994,7 +1018,8 @@ exports[`CLI --support-info (stdout) 1`] = `
         { "description": "Ember / Handlebars", "value": "glimmer" },
         { "description": "HTML", "value": "html" },
         { "description": "Angular", "value": "angular" },
-        { "description": "Lightning Web Components", "value": "lwc" }
+        { "description": "Lightning Web Components", "value": "lwc" },
+        { "description": "MJML", "value": "mjml" }
       ],
       "description": "Which parser to use.",
       "name": "parser",
@@ -1078,7 +1103,7 @@ exports[`CLI --support-info (stdout) 1`] = `
     {
       "category": "Special",
       "default": false,
-      "description": "Require either '@prettier' or '@format' to be present in the file's first docblock comment\\nin order for it to be formatted.",
+      "description": "Require either '@prettier' or '@format' to be present in the file's first docblock comment in order for it to be formatted.",
       "name": "requirePragma",
       "pluginDefaults": {},
       "type": "boolean"
@@ -1153,8 +1178,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       "type": "boolean"
     }
   ]
+}",
+  "write": [],
 }
-"
 `;
-
-exports[`CLI --support-info (write) 1`] = `[]`;

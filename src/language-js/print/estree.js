@@ -15,13 +15,13 @@ import { locEnd, locStart } from "../loc.js";
 import {
   CommentCheckFlags,
   hasComment,
-  isArrayOrTupleExpression,
+  isArrayExpression,
   isCallExpression,
   isLiteral,
   isMemberExpression,
   isMethod,
   isNextLineEmpty,
-  isObjectOrRecordExpression,
+  isObjectExpression,
   needsHardlineAfterDanglingComment,
   startsWithNoLookaheadToken,
 } from "../utils/index.js";
@@ -101,7 +101,7 @@ function printEstree(path, options, print, args) {
     case "JsExpressionRoot":
       return print("node");
     case "JsonRoot":
-      return [print("node"), hardline];
+      return [printDanglingComments(path, options), print("node"), hardline];
     case "File":
       return printHtmlBinding(path, options, print) ?? print("program");
     // Babel extension.
@@ -117,8 +117,8 @@ function printEstree(path, options, print, args) {
     case "ParenthesizedExpression": {
       const shouldHug =
         !hasComment(node.expression) &&
-        (isObjectOrRecordExpression(node.expression) ||
-          isArrayOrTupleExpression(node.expression));
+        (isObjectExpression(node.expression) ||
+          isArrayExpression(node.expression));
       if (shouldHug) {
         return ["(", print("expression"), ")"];
       }
@@ -173,7 +173,7 @@ function printEstree(path, options, print, args) {
       return printRestSpread(path, print);
     case "FunctionDeclaration":
     case "FunctionExpression":
-      return printFunction(path, print, options, args);
+      return printFunction(path, options, print, args);
     case "ArrowFunctionExpression":
       return printArrowFunction(path, options, print, args);
     case "YieldExpression":
@@ -249,7 +249,6 @@ function printEstree(path, options, print, args) {
 
     case "ObjectExpression":
     case "ObjectPattern":
-    case "RecordExpression":
       return printObject(path, options, print);
     case "Property":
       if (isMethod(node)) {
@@ -266,7 +265,6 @@ function printEstree(path, options, print, args) {
       return ["@", print("expression")];
     case "ArrayExpression":
     case "ArrayPattern":
-    case "TupleExpression":
       return printArray(path, options, print);
     case "SequenceExpression": {
       const { parent } = path;
@@ -632,7 +630,7 @@ function printEstree(path, options, print, args) {
     case "TemplateElement":
       return replaceEndOfLine(node.value.raw);
     case "TemplateLiteral":
-      return printTemplateLiteral(path, print, options);
+      return printTemplateLiteral(path, options, print);
     case "TaggedTemplateExpression":
       return printTaggedTemplateLiteral(path, print);
     case "PrivateIdentifier":

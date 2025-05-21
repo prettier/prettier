@@ -1,0 +1,157 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`module-with-noformat-pragma.js - {"checkIgnorePragma":true} format 1`] = `
+====================================options=====================================
+checkIgnorePragma: true
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/**
+ * @flow
+ * @noformat
+ */
+
+function      foo(bar)
+
+
+{
+
+  return bar +
+    3 +
+  4;
+}
+
+=====================================output=====================================
+/**
+ * @flow
+ * @noformat
+ */
+
+function      foo(bar)
+
+
+{
+
+  return bar +
+    3 +
+  4;
+}
+
+================================================================================
+`;
+
+exports[`module-with-noprettier-pragma.js - {"checkIgnorePragma":true} format 1`] = `
+====================================options=====================================
+checkIgnorePragma: true
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/**
+ * @flow
+ * @noprettier
+ */
+
+function      foo(bar)
+
+
+{
+
+  return bar +
+    3 +
+  4;
+}
+
+=====================================output=====================================
+/**
+ * @flow
+ * @noprettier
+ */
+
+function      foo(bar)
+
+
+{
+
+  return bar +
+    3 +
+  4;
+}
+
+================================================================================
+`;
+
+exports[`module-with-noprettier-pragma-comments.js - {"checkIgnorePragma":true} format 1`] = `
+====================================options=====================================
+checkIgnorePragma: true
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/**
+ * @flow
+ * @noprettier -- reason to not format
+ */
+
+function      foo(bar)
+
+
+{
+
+  return bar +
+    3 +
+  4;
+}
+
+=====================================output=====================================
+/**
+ * @flow
+ * @noprettier -- reason to not format
+ */
+
+function      foo(bar)
+
+
+{
+
+  return bar +
+    3 +
+  4;
+}
+
+================================================================================
+`;
+
+exports[`module-without-pragma.js - {"checkIgnorePragma":true} format 1`] = `
+====================================options=====================================
+checkIgnorePragma: true
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/**
+ * @flow
+ */
+
+function      foo(bar)
+
+
+{
+
+  return bar +
+    3 +
+  4;
+}
+
+=====================================output=====================================
+/**
+ * @flow
+ */
+
+function foo(bar) {
+  return bar + 3 + 4;
+}
+
+================================================================================
+`;

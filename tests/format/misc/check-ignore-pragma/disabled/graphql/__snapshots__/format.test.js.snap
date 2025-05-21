@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`with-noformat-pragma.graphql - {"checkIgnorePragma":false} format 1`] = `
+====================================options=====================================
+checkIgnorePragma: false
+parsers: ["graphql"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+# @noformat
+
+query Browse($offset:Int){browse(offset:$offset)}
+
+=====================================output=====================================
+# @noformat
+
+query Browse($offset: Int) {
+  browse(offset: $offset)
+}
+
+================================================================================
+`;
+
+exports[`with-noprettier-pragma.graphql - {"checkIgnorePragma":false} format 1`] = `
+====================================options=====================================
+checkIgnorePragma: false
+parsers: ["graphql"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+# @noprettier
+
+query Browse($offset:Int){browse(offset:$offset)}
+
+=====================================output=====================================
+# @noprettier
+
+query Browse($offset: Int) {
+  browse(offset: $offset)
+}
+
+================================================================================
+`;

@@ -1,5 +1,4 @@
 import { preprocess as parseGlimmer } from "@glimmer/syntax";
-import { LinesAndColumns } from "lines-and-columns";
 import createError from "../common/parser-create-error.js";
 import { locEnd, locStart } from "./loc.js";
 
@@ -24,37 +23,44 @@ function addBackslash(node) {
   }
 }
 
+const isIndex = (value) => Number.isInteger(value) && value >= 0;
+// Add `offset` to `loc.{start,end}`
+const setOffset = (node) => {
+  const { start, end } = node.loc;
+
+  start.offset = node.loc.getStart().offset;
+  end.offset = node.loc.getEnd().offset;
+
+  /* c8 ignore next 6 */
+  if (
+    process.env.NODE_ENV !== "production" &&
+    (!isIndex(start.offset) || !isIndex(end.offset))
+  ) {
+    throw new TypeError("Can't not locate node.");
+  }
+};
+
 // Combine plugins to reduce traverse https://github.com/glimmerjs/glimmer-vm/blob/cdfb8f93d7ff0b504c8e9eab293f656a9b942025/packages/%40glimmer/syntax/lib/parser/tokenizer-event-handlers.ts#L442-L451
-function createPlugin(text) {
-  const lines = new LinesAndColumns(text);
-  const calculateOffset = ({ line, column }) =>
-    lines.indexForLocation({ line: line - 1, column });
-
-  // Add `loc.{start,end}.offset`
-  const addOffset = (node) => {
-    const { start, end } = node.loc;
-    start.offset = calculateOffset(start);
-    end.offset = calculateOffset(end);
-  };
-
-  return (/* options*/) => ({
-    name: "prettierParsePlugin",
-    visitor: {
-      All(node) {
-        addOffset(node);
-        addBackslash(node);
-      },
+const glimmerPrettierParsePlugin = (/* options*/) => ({
+  name: "glimmerPrettierParsePlugin",
+  visitor: {
+    All(node) {
+      setOffset(node);
+      addBackslash(node);
     },
-  });
-}
+  },
+});
+
+/** @type {import("@glimmer/syntax").PreprocessOptions} */
+const glimmerParseOptions = {
+  mode: "codemod",
+  plugins: { ast: [glimmerPrettierParsePlugin] },
+};
 
 function parse(text /*, options */) {
   let ast;
   try {
-    ast = parseGlimmer(text, {
-      mode: "codemod",
-      plugins: { ast: [createPlugin(text)] },
-    });
+    ast = parseGlimmer(text, glimmerParseOptions);
   } catch (error) {
     const location = getErrorLocation(error);
 

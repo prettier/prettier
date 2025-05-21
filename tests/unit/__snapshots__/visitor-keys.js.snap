@@ -696,9 +696,6 @@ exports[`visitor keys estree 1`] = `
     "id",
     "qualification",
   ],
-  "RecordExpression": [
-    "properties",
-  ],
   "RegExpLiteral": [],
   "RestElement": [
     "argument",
@@ -1023,9 +1020,6 @@ exports[`visitor keys estree 1`] = `
     "block",
     "finalizer",
     "handler",
-  ],
-  "TupleExpression": [
-    "elements",
   ],
   "TupleTypeAnnotation": [
     "elementTypes",

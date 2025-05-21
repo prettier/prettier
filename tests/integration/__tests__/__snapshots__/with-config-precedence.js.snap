@@ -1,63 +1,78 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CLI --stdin-filepath works with --config-precedence cli-override (stdout) 1`] = `"let x: keyof Y = foo<typeof X>()"`;
-
-exports[`CLI --stdin-filepath works with --config-precedence cli-override (write) 1`] = `[]`;
-
-exports[`CLI --stdin-filepath works with --config-precedence file-override (stdout) 1`] = `"let x: keyof Y = foo<typeof X>();"`;
-
-exports[`CLI --stdin-filepath works with --config-precedence file-override (write) 1`] = `[]`;
-
-exports[`CLI --stdin-filepath works with --config-precedence prefer-file (stdout) 1`] = `"let x: keyof Y = foo<typeof X>();"`;
-
-exports[`CLI --stdin-filepath works with --config-precedence prefer-file (write) 1`] = `[]`;
-
-exports[`CLI overrides are still applied when no config is found with --config-precedence file-override (stderr) 1`] = `""`;
-
-exports[`CLI overrides are still applied when no config is found with --config-precedence file-override (stdout) 1`] = `
-"function noConfigJs() {
-      console.log("no-config/file.js should have no semicolons")
-}"
+exports[`CLI --stdin-filepath works with --config-precedence cli-override  1`] = `
+{
+  "stdout": "let x: keyof Y = foo<typeof X>()",
+  "write": [],
+}
 `;
 
-exports[`CLI overrides are still applied when no config is found with --config-precedence file-override (write) 1`] = `[]`;
+exports[`CLI --stdin-filepath works with --config-precedence file-override  1`] = `
+{
+  "stdout": "let x: keyof Y = foo<typeof X>();",
+  "write": [],
+}
+`;
 
-exports[`CLI overrides gets applied when no config exists with --config-precedence prefer-file (stderr) 1`] = `""`;
+exports[`CLI --stdin-filepath works with --config-precedence prefer-file  1`] = `
+{
+  "stdout": "let x: keyof Y = foo<typeof X>();",
+  "write": [],
+}
+`;
 
-exports[`CLI overrides gets applied when no config exists with --config-precedence prefer-file (stdout) 1`] = `
-"function noConfigJs() {
+exports[`CLI overrides are still applied when no config is found with --config-precedence file-override  1`] = `
+{
+  "stderr": "",
+  "stdout": "function noConfigJs() {
+      console.log("no-config/file.js should have no semicolons")
+}",
+  "write": [],
+}
+`;
+
+exports[`CLI overrides gets applied when no config exists with --config-precedence prefer-file  1`] = `
+{
+  "stderr": "",
+  "stdout": "function noConfigJs() {
        console.log(
               "no-config/file.js should have no semicolons",
        );
-}"
+}",
+  "write": [],
+}
 `;
 
-exports[`CLI overrides gets applied when no config exists with --config-precedence prefer-file (write) 1`] = `[]`;
-
-exports[`CLI overrides gets ignored when config exists with --config-precedence prefer-file (stderr) 1`] = `""`;
-
-exports[`CLI overrides gets ignored when config exists with --config-precedence prefer-file (stdout) 1`] = `
-"function js() {
+exports[`CLI overrides gets ignored when config exists with --config-precedence prefer-file  1`] = `
+{
+  "stderr": "",
+  "stdout": "function js() {
         console.log("js/file.js should have tab width 8 (1 if CLI)");
-}"
+}",
+  "write": [],
+}
 `;
 
-exports[`CLI overrides gets ignored when config exists with --config-precedence prefer-file (write) 1`] = `[]`;
+exports[`CLI validate options with --config-precedence cli-override  1`] = `
+{
+  "stderr": "[error] Invalid printWidth value. Expected an integer, but received 0.5.",
+  "stdout": "",
+  "write": [],
+}
+`;
 
-exports[`CLI validate options with --config-precedence cli-override (stderr) 1`] = `"[error] Invalid printWidth value. Expected an integer, but received 0.5."`;
+exports[`CLI validate options with --config-precedence file-override  1`] = `
+{
+  "stderr": "[error] Invalid printWidth value. Expected an integer, but received 0.5.",
+  "stdout": "",
+  "write": [],
+}
+`;
 
-exports[`CLI validate options with --config-precedence cli-override (stdout) 1`] = `""`;
-
-exports[`CLI validate options with --config-precedence cli-override (write) 1`] = `[]`;
-
-exports[`CLI validate options with --config-precedence file-override (stderr) 1`] = `"[error] Invalid printWidth value. Expected an integer, but received 0.5."`;
-
-exports[`CLI validate options with --config-precedence file-override (stdout) 1`] = `""`;
-
-exports[`CLI validate options with --config-precedence file-override (write) 1`] = `[]`;
-
-exports[`CLI validate options with --config-precedence prefer-file (stderr) 1`] = `"[error] Invalid printWidth value. Expected an integer, but received 0.5."`;
-
-exports[`CLI validate options with --config-precedence prefer-file (stdout) 1`] = `""`;
-
-exports[`CLI validate options with --config-precedence prefer-file (write) 1`] = `[]`;
+exports[`CLI validate options with --config-precedence prefer-file  1`] = `
+{
+  "stderr": "[error] Invalid printWidth value. Expected an integer, but received 0.5.",
+  "stdout": "",
+  "write": [],
+}
+`;

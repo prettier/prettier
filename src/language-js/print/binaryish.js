@@ -19,12 +19,12 @@ import {
   CommentCheckFlags,
   hasComment,
   hasLeadingOwnLineComment,
-  isArrayOrTupleExpression,
+  isArrayExpression,
   isBinaryish,
   isCallExpression,
   isJsxElement,
   isMemberExpression,
-  isObjectOrRecordExpression,
+  isObjectExpression,
   isObjectProperty,
   shouldFlatten,
 } from "../utils/index.js";
@@ -51,8 +51,8 @@ function printBinaryishExpression(path, options, print) {
 
   const parts = printBinaryishExpressions(
     path,
-    print,
     options,
+    print,
     /* isNested */ false,
     isInsideParenthesis,
   );
@@ -193,8 +193,8 @@ function printBinaryishExpression(path, options, print) {
 // broken before `+`.
 function printBinaryishExpressions(
   path,
-  print,
   options,
+  print,
   isNested,
   isInsideParenthesis,
 ) {
@@ -225,8 +225,8 @@ function printBinaryishExpressions(
       (left) =>
         printBinaryishExpressions(
           left,
-          print,
           options,
+          print,
           /* isNested */ true,
           isInsideParenthesis,
         ),
@@ -283,8 +283,8 @@ function printBinaryishExpressions(
           (left) =>
             printBinaryishExpressions(
               left,
-              print,
               options,
+              print,
               /* isNested */ true,
               isInsideParenthesis,
             ),
@@ -359,14 +359,11 @@ function shouldInlineLogicalExpression(node) {
     return false;
   }
 
-  if (
-    isObjectOrRecordExpression(node.right) &&
-    node.right.properties.length > 0
-  ) {
+  if (isObjectExpression(node.right) && node.right.properties.length > 0) {
     return true;
   }
 
-  if (isArrayOrTupleExpression(node.right) && node.right.elements.length > 0) {
+  if (isArrayExpression(node.right) && node.right.elements.length > 0) {
     return true;
   }
 

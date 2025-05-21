@@ -1,3 +1,4 @@
+import url from "node:url";
 import prettier from "../../config/prettier-entry.js";
 import jestPathSerializer from "../path-serializer.js";
 
@@ -199,3 +200,129 @@ describe("Interpreters", () => {
     write: [],
   });
 });
+
+describe("isSupported", () => {
+  runCli("cli/infer-parser", [
+    "--plugin",
+    "../../plugins/languages/is-supported.js",
+    "--file-info",
+    ".husky/pre-commit",
+  ]).test({
+    status: 0,
+    stderr: "",
+    write: [],
+  });
+
+  runCli("cli/infer-parser", [
+    "--plugin",
+    "../../plugins/languages/is-supported.js",
+    ".husky/pre-commit",
+  ]).test({
+    status: 0,
+    stderr: "",
+    write: [],
+  });
+
+  runCli(
+    "cli/infer-parser",
+    [
+      "--plugin",
+      "../../plugins/languages/is-supported.js",
+      "--stdin-filepath",
+      ".husky/pre-commit",
+    ],
+    { input: "content from stdin" },
+  ).test({
+    status: 0,
+    stderr: "",
+    write: [],
+  });
+
+  test("API", async () => {
+    const fileUrl = new URL("foo.unknown", import.meta.url);
+    const filePath = url.fileURLToPath(fileUrl);
+    expect(await getIsSupportedReceivedFilepath({ filepath: fileUrl })).toBe(
+      filePath,
+    );
+    expect(
+      await getIsSupportedReceivedFilepath({ filepath: fileUrl.href }),
+    ).toBe(filePath);
+    expect(await getIsSupportedReceivedFilepath({ filepath: filePath })).toBe(
+      filePath,
+    );
+
+    // Relative path
+    expect(
+      await getIsSupportedReceivedFilepath({ filepath: "./foo.unknown" }),
+    ).toBe("./foo.unknown");
+
+    expect(
+      await getIsSupportedReceivedFilepath({
+        filepath: "",
+      }),
+    ).toBeUndefined();
+
+    expect(
+      await getIsSupportedReceivedFilepath({
+        filepath: Buffer.from("foo.unknown"),
+      }),
+    ).toBeUndefined();
+
+    expect(
+      await getIsSupportedReceivedFilepath({
+        filepath: { toString: () => "foo.unknown" },
+      }),
+    ).toBeUndefined();
+
+    expect(
+      await getIsSupportedReceivedFilepath({
+        filepath: new (class {
+          toString() {
+            return "foo.unknown";
+          }
+        })(),
+      }),
+    ).toBeUndefined();
+
+    expect(
+      await getIsSupportedReceivedFilepath({ filepath: "file://%0" }),
+    ).toBeUndefined();
+
+    expect(
+      await getIsSupportedReceivedFilepath({
+        filepath: new URL("https://example.com/foo.unknown"),
+      }),
+    ).toBeUndefined();
+
+    expect(
+      await getIsSupportedReceivedFilepath({
+        filepath: "https://example.com/foo.unknown",
+      }),
+    ).toBe("https://example.com/foo.unknown");
+  });
+});
+
+const getIsSupportedReceivedFilepath = async (options) => {
+  let received;
+  try {
+    await prettier.format("foo", {
+      plugins: [
+        {
+          languages: [
+            {
+              isSupported({ filepath }) {
+                received = filepath;
+              },
+            },
+          ],
+        },
+      ],
+      ...options,
+    });
+  } catch (error) {
+    if (error.name !== "UndefinedParserError") {
+      throw error;
+    }
+  }
+  return received;
+};

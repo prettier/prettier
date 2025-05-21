@@ -11,6 +11,7 @@ export const CHANGELOG_CATEGORIES = [
   "json",
   "less",
   "lwc",
+  "mjml",
   "markdown",
   "mdx",
   "scss",

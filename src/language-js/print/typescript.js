@@ -8,8 +8,8 @@ import {
 } from "../../document/builders.js";
 import UnexpectedNodeError from "../../utils/unexpected-node-error.js";
 import {
-  isArrayOrTupleExpression,
-  isObjectOrRecordExpression,
+  isArrayExpression,
+  isObjectExpression,
   shouldPrintComma,
 } from "../utils/index.js";
 import isTsKeywordType from "../utils/is-ts-keyword-type.js";
@@ -79,8 +79,8 @@ function printTypescript(path, options, print) {
       return "this";
     case "TSTypeAssertion": {
       const shouldBreakAfterCast = !(
-        isArrayOrTupleExpression(node.expression) ||
-        isObjectOrRecordExpression(node.expression)
+        isArrayExpression(node.expression) ||
+        isObjectExpression(node.expression)
       );
 
       const castGroup = group([
@@ -107,7 +107,7 @@ function printTypescript(path, options, print) {
       return group([castGroup, print("expression")]);
     }
     case "TSDeclareFunction":
-      return printFunction(path, print, options);
+      return printFunction(path, options, print);
     case "TSExportAssignment":
       return ["export = ", print("expression"), semi];
     case "TSModuleBlock":
@@ -137,7 +137,7 @@ function printTypescript(path, options, print) {
         ),
       ];
     case "TSTemplateLiteralType":
-      return printTemplateLiteral(path, print, options);
+      return printTemplateLiteral(path, options, print);
     case "TSNamedTupleMember":
       return printNamedTupleMember(path, options, print);
     case "TSRestType":
@@ -249,8 +249,8 @@ function printTypescript(path, options, print) {
 
       const parametersDoc = printFunctionParameters(
         path,
-        print,
         options,
+        print,
         /* expandArg */ false,
         /* printTypeParams */ true,
       );
@@ -281,6 +281,7 @@ function printTypescript(path, options, print) {
       return printEnumDeclaration(path, print);
     case "TSEnumBody":
       return printEnumBody(path, print, options);
+
     case "TSEnumMember":
       return printEnumMember(path, print);
 

@@ -15,7 +15,6 @@ function parseArguments() {
       "save-as": { type: "string" },
       report: { type: "string", multiple: true },
     },
-    strict: true,
   });
 
   if (values.minify && values["no-minify"]) {
@@ -40,7 +39,9 @@ function parseArguments() {
       );
     }
 
-    if (!path.join(DIST_DIR, result.saveAs).startsWith(DIST_DIR)) {
+    // TODO: Support package name
+    const distDirectory = path.join(DIST_DIR, "prettier");
+    if (!path.join(distDirectory, result.saveAs).startsWith(distDirectory)) {
       throw new Error("'--save-as' can only relative path");
     }
   }
