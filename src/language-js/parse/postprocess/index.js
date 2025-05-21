@@ -3,6 +3,7 @@ import isNonEmptyArray from "../../../utils/is-non-empty-array.js";
 import { locEnd, locStart } from "../../loc.js";
 import createTypeCheckFunction from "../../utils/create-type-check-function.js";
 import getRaw from "../../utils/get-raw.js";
+import getTextWithoutComments from "../../utils/get-text-without-comments.js";
 import isBlockComment from "../../utils/is-block-comment.js";
 import isIndentableBlockComment from "../../utils/is-indentable-block-comment.js";
 import isLineComment from "../../utils/is-line-comment.js";
@@ -168,6 +169,28 @@ function postprocess(ast, options) {
       case "TSIntersectionType":
         if (node.types.length === 1) {
           return node.types[0];
+        }
+        break;
+
+      // Remove this when update `@babel/parser` to v8
+      case "TSEnumDeclaration":
+        if (!node.body) {
+          const declarationStart = locStart(node);
+          const { members } = node;
+          const textWithoutComments = getTextWithoutComments(
+            {
+              originalText: text,
+              [Symbol.for("comments")]: ast.comments,
+            },
+            declarationStart,
+            locEnd(members[0] ?? node),
+          );
+          const start = declarationStart + textWithoutComments.indexOf("{");
+          node.body = {
+            type: "TSEnumBody",
+            members: node.members,
+            range: [start, locEnd(node)],
+          };
         }
         break;
     }
