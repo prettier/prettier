@@ -179,17 +179,17 @@ function postprocess(ast, options) {
       // https://github.com/typescript-eslint/typescript-eslint/pull/8920
       case "TSEnumDeclaration":
         if (!node.body) {
-          const declarationStart = locStart(node);
+          const idEnd = locEnd(node.id);
           const { members } = node;
           const textWithoutComments = getTextWithoutComments(
             {
               originalText: text,
               [Symbol.for("comments")]: ast.comments,
             },
-            declarationStart,
-            locEnd(members[0] ?? node),
+            idEnd,
+            members[0] ? locStart(members[0]) : locEnd(node),
           );
-          const start = declarationStart + textWithoutComments.indexOf("{");
+          const start = idEnd + textWithoutComments.indexOf("{");
           node.body = {
             type: "TSEnumBody",
             members,
