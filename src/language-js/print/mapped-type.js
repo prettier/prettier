@@ -63,18 +63,13 @@ function printTypeScriptMappedType(path, options, print) {
   let shouldBreak = false;
   if (options.objectWrap === "preserve") {
     const start = locStart(node);
-    const textWithoutComments = getTextWithoutComments(
+    const textAfter = getTextWithoutComments(
       options,
-      start,
+      start + 1,
       locStart(node.key),
     );
-    const openingBraceIndex = start + textWithoutComments.indexOf("{");
-    const nextTokenIndex =
-      start + textWithoutComments.indexOf(node.readonly ? "readonly" : "[");
-
-    if (
-      hasNewlineInRange(options.originalText, openingBraceIndex, nextTokenIndex)
-    ) {
+    const nextTokenIndex = start + 1 + textAfter.search(/\S/u);
+    if (hasNewlineInRange(options.originalText, start, nextTokenIndex)) {
       shouldBreak = true;
     }
   }
