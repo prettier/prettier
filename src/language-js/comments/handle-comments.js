@@ -69,6 +69,7 @@ function handleOwnLineComment(context) {
     handleBreakAndContinueStatementComments,
     handleNestedConditionalExpressionComments,
     handleCommentsInDestructuringPattern,
+    handleTSMappedTypeComments,
   ].some((fn) => fn(context));
 }
 
@@ -113,7 +114,6 @@ function handleRemainingComment(context) {
     handleOnlyComments,
     handleCommentAfterArrowParams,
     handleFunctionNameComments,
-    handleTSMappedTypeComments,
     handleBreakAndContinueStatementComments,
     handleTSFunctionTrailingComments,
   ].some((fn) => fn(context));
@@ -921,21 +921,14 @@ function handleTSMappedTypeComments({
   enclosingNode,
   followingNode,
 }) {
-  if (enclosingNode?.type !== "TSMappedType") {
-    return false;
-  }
-
-  if (followingNode?.type === "TSTypeParameter" && followingNode.name) {
-    addLeadingComment(followingNode.name, comment);
+  if (
+    enclosingNode?.type !== "TSMappedType" &&
+    comment.placement === "ownLine" &&
+    !precedingNode
+  ) {
+    addDanglingComment(enclosingNode, comment);
     return true;
   }
-
-  if (precedingNode?.type === "TSTypeParameter" && precedingNode.constraint) {
-    addTrailingComment(precedingNode.constraint, comment);
-    return true;
-  }
-
-  return false;
 }
 
 function handleSwitchDefaultCaseComments({

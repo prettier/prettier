@@ -9,6 +9,7 @@ import { printDanglingComments } from "../../main/comments/print.js";
 import hasNewlineInRange from "../../utils/has-newline-in-range.js";
 import { locStart } from "../loc.js";
 import getTextWithoutComments from "../utils/get-text-without-comments.js";
+import { CommentCheckFlags, hasComment } from "../utils/index.js";
 
 /**
  * @param {string | null} optional
@@ -81,6 +82,9 @@ function printTypeScriptMappedType(path, options, print) {
       "{",
       indent([
         options.bracketSpacing ? line : softline,
+        hasComment(node, CommentCheckFlags.Dangling)
+          ? [printDanglingComments(path, options), softline]
+          : [],
         group([
           node.readonly
             ? [
@@ -102,7 +106,6 @@ function printTypeScriptMappedType(path, options, print) {
         ]),
         options.semi ? ifBreak(";") : "",
       ]),
-      printDanglingComments(path, options),
       options.bracketSpacing ? line : softline,
       "}",
     ],
