@@ -280,7 +280,7 @@ function printTypescript(path, options, print) {
     case "TSEnumDeclaration":
       return printEnumDeclaration(path, print);
     case "TSEnumBody":
-      return printEnumBody(path, print, options);
+      return printEnumBody(path, options, print);
 
     case "TSEnumMember":
       return printEnumMember(path, print);
