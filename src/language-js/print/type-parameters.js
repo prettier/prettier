@@ -20,7 +20,6 @@ import {
   shouldPrintComma,
 } from "../utils/index.js";
 import { isArrowFunctionVariableDeclarator } from "./assignment.js";
-import { printTypeScriptMappedTypeModifier } from "./mapped-type.js";
 import {
   printTypeAnnotationProperty,
   shouldHugType,

@@ -113,8 +113,4 @@ function printTypeScriptMappedType(path, options, print) {
   );
 }
 
-export {
-  printFlowMappedTypeProperty,
-  printTypeScriptMappedType,
-  printTypeScriptMappedTypeModifier,
-};
+export { printFlowMappedTypeProperty, printTypeScriptMappedType };
