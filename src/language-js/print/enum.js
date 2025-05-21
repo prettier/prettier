@@ -55,7 +55,15 @@ function printEnumMember(path, print) {
 - `TSEnumDeclaration`(TypeScript)
 */
 function printEnumDeclaration(path, print) {
-  return [printDeclareToken(path), "enum ", print("id"), " ", print("body")];
+  const { node } = path;
+  return [
+    printDeclareToken(path),
+    node.const ? "const " : "",
+    "enum ",
+    print("id"),
+    " ",
+    print("body"),
+  ];
 }
 
 export { printEnumBody, printEnumDeclaration, printEnumMember };
