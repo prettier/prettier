@@ -136,26 +136,26 @@ function printTypeParameter(path, options, print) {
 
   const name = node.type === "TSTypeParameter" ? print("name") : node.name;
 
-  if (parent.type === "TSMappedType") {
-    if (parent.readonly) {
-      parts.push(
-        printTypeScriptMappedTypeModifier(parent.readonly, "readonly"),
-        " ",
-      );
-    }
-    parts.push("[", name);
-    if (node.constraint) {
-      parts.push(" in ", print("constraint"));
-    }
-    if (parent.nameType) {
-      parts.push(
-        " as ",
-        path.callParent(() => print("nameType")),
-      );
-    }
-    parts.push("]");
-    return parts;
-  }
+  // if (parent.type === "TSMappedType") {
+  //   if (parent.readonly) {
+  //     parts.push(
+  //       printTypeScriptMappedTypeModifier(parent.readonly, "readonly"),
+  //       " ",
+  //     );
+  //   }
+  //   parts.push("[", name);
+  //   if (node.constraint) {
+  //     parts.push(" in ", print("constraint"));
+  //   }
+  //   if (parent.nameType) {
+  //     parts.push(
+  //       " as ",
+  //       path.callParent(() => print("nameType")),
+  //     );
+  //   }
+  //   parts.push("]");
+  //   return parts;
+  // }
 
   if (node.variance) {
     parts.push(print("variance"));

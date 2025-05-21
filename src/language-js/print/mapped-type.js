@@ -8,6 +8,7 @@ import {
 import { printDanglingComments } from "../../main/comments/print.js";
 import hasNewlineInRange from "../../utils/has-newline-in-range.js";
 import { locStart } from "../loc.js";
+import getTextWithoutComments from "../utils/get-text-without-comments.js";
 
 /**
  * @param {string | null} optional
@@ -52,17 +53,28 @@ function printTypeScriptMappedTypeModifier(tokenNode, keyword) {
   return keyword;
 }
 
-function printTypescriptMappedType(path, options, print) {
+function printTypeScriptMappedType(path, options, print) {
   const { node } = path;
+
   // Break after `{` like `printObject`
-  const shouldBreak =
-    options.objectWrap === "preserve" &&
-    hasNewlineInRange(
-      options.originalText,
-      locStart(node),
-      // Ideally, this should be the next token after `{`, but there is no node starts with it.
-      locStart(node.typeParameter),
+  let shouldBreak = false;
+  if (options.objectWrap === "preserve") {
+    const start = locStart(node);
+    const textWithoutComments = getTextWithoutComments(
+      options,
+      start,
+      locStart(node.key),
     );
+    const openingBraceIndex = start + textWithoutComments.indexOf("{");
+    const nextTokenIndex =
+      start + textWithoutComments.indexOf(node.readonly ? "readonly" : "[");
+
+    if (
+      hasNewlineInRange(options.originalText, openingBraceIndex, nextTokenIndex)
+    ) {
+      shouldBreak = true;
+    }
+  }
 
   return group(
     [
@@ -70,7 +82,18 @@ function printTypescriptMappedType(path, options, print) {
       indent([
         options.bracketSpacing ? line : softline,
         group([
-          print("typeParameter"),
+          node.readonly
+            ? [
+                printTypeScriptMappedTypeModifier(node.readonly, "readonly"),
+                " ",
+              ]
+            : "",
+          "[",
+          print("key"),
+          " in ",
+          print("constraint"),
+          node.nameType ? [" as ", print("nameType")] : "",
+          "]",
           node.optional
             ? printTypeScriptMappedTypeModifier(node.optional, "?")
             : "",
@@ -89,6 +112,6 @@ function printTypescriptMappedType(path, options, print) {
 
 export {
   printFlowMappedTypeProperty,
-  printTypescriptMappedType,
+  printTypeScriptMappedType,
   printTypeScriptMappedTypeModifier,
 };
