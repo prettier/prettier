@@ -7,8 +7,29 @@ import { performance } from "node:perf_hooks";
 import { outdent } from "outdent";
 import picocolors from "picocolors";
 
+// https://github.com/sindresorhus/nano-spawn/blob/7f3fbe6590eec44f7e90f7735d173258dd80b420/source/windows.js#L71
+const escapeFile = (file) =>
+  file.replaceAll(/([()\][%!^"`<>&|;, *?])/gu, "^$1");
+// https://github.com/sindresorhus/nano-spawn/blob/7f3fbe6590eec44f7e90f7735d173258dd80b420/source/windows.js#L66
+const escapeArgument = (argument) =>
+  escapeFile(
+    escapeFile(
+      `"${argument
+        .replaceAll(/(\\*)"/gu, String.raw`$1$1\"`)
+        .replace(/(\\*)$/u, "$1$1")}"`,
+    ),
+  );
 const spawn = (command, args, options) =>
-  spawnSync([command, ...args].join(" "), { ...options, shell: true });
+  spawnSync(
+    [
+      escapeFile(command),
+      ...args.map((argument) => escapeArgument(argument)),
+    ].join(" "),
+    {
+      ...options,
+      shell: true,
+    },
+  );
 const createTemporaryDirectory = () => {
   const directory = path.join(
     // The following quoted from https://github.com/es-tooling/module-replacements/blob/27d1acd38f19741e31d2eae561a5c8a914373fc5/docs/modules/tempy.md?plain=1#L20-L21, not sure if it's true
@@ -75,16 +96,16 @@ function installPrettier(packageDirectory) {
   switch (client) {
     case "npm":
       // npm fails when engine requirement only with `--engine-strict`
-      runNpmClient(["install", JSON.stringify(packed), "--engine-strict"]);
+      runNpmClient(["install", packed, "--engine-strict"]);
       break;
     case "pnpm":
       // Note: current pnpm can't work with `--engine-strict` and engineStrict setting in `.npmrc`
-      runNpmClient(["add", JSON.stringify(packed), "--engine-strict"]);
+      runNpmClient(["add", packed, "--engine-strict"]);
       break;
     case "yarn":
       // yarn fails when engine requirement not compatible by default
       runNpmClient(["config", "set", "nodeLinker", "node-modules"]);
-      runNpmClient(["add", JSON.stringify(`prettier@file:${packed}`)]);
+      runNpmClient(["add", `prettier@file:${packed}`]);
     // No default
   }
 
