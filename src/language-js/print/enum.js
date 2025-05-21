@@ -9,7 +9,7 @@ import { printObject as printEnumMembers } from "./object.js";
 - `EnumSymbolBody`(flow)
 - `TSEnumBody`(TypeScript)
 */
-function printEnumBody(path, print, options) {
+function printEnumBody(path, options, print) {
   return printEnumMembers(path, options, print);
 }
 
@@ -56,7 +56,7 @@ function printEnumMember(path, print) {
 - `EnumStringBody`(flow)
 - `EnumSymbolBody`(flow)
 */
-function printFlowEnumBody(path, print, options) {
+function printFlowEnumBody(path, options, print) {
   const { node } = path;
   let type;
 
@@ -80,7 +80,7 @@ function printFlowEnumBody(path, print, options) {
     }
   }
 
-  return [type ? `of ${type} ` : "", printEnumBody(path, print)];
+  return [type ? `of ${type} ` : "", printEnumBody(path, options, print)];
 }
 
 /*
@@ -89,7 +89,6 @@ function printFlowEnumBody(path, print, options) {
 - `TSEnumDeclaration`(TypeScript)
 */
 function printEnumDeclaration(path, print) {
-  const { node } = path;
   return [printDeclareToken(path), "enum ", print("id"), " ", print("body")];
 }
 
