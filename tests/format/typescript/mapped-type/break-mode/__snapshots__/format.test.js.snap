@@ -38,6 +38,7 @@ type D2 = {-
 readonly [A in B]: T}
 type D3 = {
 -readonly [A in B]: T}
+
 =====================================output=====================================
 type A1 = { readonly [A in B]: T };
 type A2 = {
