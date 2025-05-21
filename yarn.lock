@@ -6553,9 +6553,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"npm-run-all2@npm:8.0.1":
-  version: 8.0.1
-  resolution: "npm-run-all2@npm:8.0.1"
+"npm-run-all2@npm:8.0.3":
+  version: 8.0.3
+  resolution: "npm-run-all2@npm:8.0.3"
   dependencies:
     ansi-styles: "npm:^6.2.1"
     cross-spawn: "npm:^7.0.6"
@@ -6570,7 +6570,7 @@ __metadata:
     npm-run-all2: bin/npm-run-all/index.js
     run-p: bin/run-p/index.js
     run-s: bin/run-s/index.js
-  checksum: 10/afa8edf143bd2767a8a884379f52364b6cf465b0c6219f035a730b279397a459d7215d110204ff6089ca160492d8120763cd84880e07c0f4d0cc8e6ef3fb218a
+  checksum: 10/0d381ae684c41f78f607e2a55826e480bda1b8e489bbebf4aa3f89c393e12f97a4f5cbc94a9653702497b6ae1f45b8ec01dd5f70fa6b1881c0696bbb451f0fe5
   languageName: node
   linkType: hard
 
@@ -7079,7 +7079,7 @@ __metadata:
     n-readlines: "npm:1.0.1"
     nano-spawn: "npm:1.0.1"
     node-style-text: "npm:0.0.8"
-    npm-run-all2: "npm:8.0.1"
+    npm-run-all2: "npm:8.0.3"
     outdent: "npm:0.8.0"
     parse-json: "npm:8.3.0"
     picocolors: "npm:1.1.1"
