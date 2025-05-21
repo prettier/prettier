@@ -57,7 +57,6 @@ function printTypeScriptMappedTypeModifier(tokenNode, keyword) {
 
 function printTypeScriptMappedType(path, options, print) {
   const { node } = path;
-
   // Break after `{` like `printObject`
   let shouldBreak = false;
   if (options.objectWrap === "preserve") {
