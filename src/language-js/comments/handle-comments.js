@@ -96,6 +96,7 @@ function handleEndOfLineComment(context) {
     handleSwitchDefaultCaseComments,
     handleLastUnionElementInExpression,
     handleLastBinaryOperatorOperand,
+    handleTSMappedTypeComments,
   ].some((fn) => fn(context));
 }
 
@@ -915,11 +916,11 @@ function handleIgnoreComments({ comment, enclosingNode, followingNode }) {
 }
 
 function handleTSMappedTypeComments({ comment, precedingNode, enclosingNode }) {
-  if (
-    enclosingNode?.type === "TSMappedType" &&
-    comment.placement === "ownLine" &&
-    !precedingNode
-  ) {
+  if (enclosingNode?.type !== "TSMappedType") {
+    return;
+  }
+
+  if (!precedingNode) {
     addDanglingComment(enclosingNode, comment);
     return true;
   }
