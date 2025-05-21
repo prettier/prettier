@@ -1,5 +1,6 @@
 import {
   group,
+  hardline,
   ifBreak,
   indent,
   line,
@@ -83,7 +84,15 @@ function printTypeScriptMappedType(path, options, print) {
       indent([
         options.bracketSpacing ? line : softline,
         hasComment(node, CommentCheckFlags.Dangling)
-          ? [printDanglingComments(path, options), softline]
+          ? group([
+              printDanglingComments(path, options),
+              hasComment(
+                node,
+                CommentCheckFlags.Dangling | CommentCheckFlags.Line,
+              )
+                ? hardline
+                : line,
+            ])
           : [],
         group([
           node.readonly

@@ -128,8 +128,7 @@ type Type = {
 };
 
 type Type = {
-  /* bar */
-  readonly [// foo
+  /* bar */ readonly [// foo
   T in number];
 };
 
