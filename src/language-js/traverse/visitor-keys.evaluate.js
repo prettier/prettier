@@ -73,24 +73,7 @@ const excludeKeys = {
   TSEnumDeclaration: ["body"],
 };
 
-const visitorKeys = Object.fromEntries(
-  Object.entries(
-    unionVisitorKeys([
-      babelVisitorKeys,
-      tsVisitorKeys,
-      flowVisitorKeys,
-      angularVisitorKeys,
-      additionalVisitorKeys,
-    ]),
-  ).map(([type, keys]) => [
-    type,
-    excludeKeys[type]
-      ? keys.filter((key) => !excludeKeys[type].includes(key))
-      : keys,
-  ]),
-);
-
-for (const type of [
+const excludeNodeTypes = new Set([
   // Babel will remove in v8
   // https://github.com/babel/babel/pull/17242
   "TupleExpression",
@@ -116,8 +99,25 @@ for (const type of [
   "MatchStatementCase",
   "MatchUnaryPattern",
   "MatchWildcardPattern",
-]) {
-  delete visitorKeys[type];
-}
+]);
+
+const visitorKeys = Object.fromEntries(
+  Object.entries(
+    unionVisitorKeys([
+      babelVisitorKeys,
+      tsVisitorKeys,
+      flowVisitorKeys,
+      angularVisitorKeys,
+      additionalVisitorKeys,
+    ]),
+  )
+    .filter(([type]) => !excludeNodeTypes.has(type))
+    .map(([type, keys]) => [
+      type,
+      excludeKeys[type]
+        ? keys.filter((key) => !excludeKeys[type].includes(key))
+        : keys,
+    ]),
+);
 
 export default visitorKeys;
