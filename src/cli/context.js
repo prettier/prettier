@@ -36,7 +36,6 @@ class Context {
     await this.pushContextPlugins(plugins);
 
     const argv = parseArgv(rawArguments, this.detailedOptions, logger);
-
     this.argv = argv;
     this.filePatterns = argv._;
   }
