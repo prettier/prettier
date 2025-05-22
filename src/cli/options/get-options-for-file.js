@@ -1,18 +1,15 @@
-"use strict";
-
-const dashify = require("dashify");
-const chalk = require("chalk");
-// eslint-disable-next-line no-restricted-modules
-const prettier = require("../../index.js");
-const { optionsNormalizer } = require("../prettier-internal.js");
-const minimist = require("./minimist.js");
-const createMinimistOptions = require("./create-minimist-options.js");
+import dashify from "dashify";
+import { resolveConfig } from "../../index.js";
+import { normalizeOptions as normalizeApiOptions } from "../prettier-internal.js";
+import createMinimistOptions from "./create-minimist-options.js";
+import minimist from "./minimist.js";
+import normalizeCliOptions from "./normalize-cli-options.js";
 
 function getOptions(argv, detailedOptions) {
   return Object.fromEntries(
     detailedOptions
       .filter(({ forwardToApi }) => forwardToApi)
-      .map(({ forwardToApi, name }) => [forwardToApi, argv[name]])
+      .map(({ forwardToApi, name }) => [forwardToApi, argv[name]]),
   );
 }
 
@@ -23,7 +20,7 @@ function cliifyOptions(object, apiDetailedOptionMap) {
       const cliKey = apiOption ? apiOption.name : key;
 
       return [dashify(cliKey), value];
-    })
+    }),
   );
 }
 
@@ -31,28 +28,28 @@ function createApiDetailedOptionMap(detailedOptions) {
   return Object.fromEntries(
     detailedOptions
       .filter(
-        (option) => option.forwardToApi && option.forwardToApi !== option.name
+        (option) => option.forwardToApi && option.forwardToApi !== option.name,
       )
-      .map((option) => [option.forwardToApi, option])
+      .map((option) => [option.forwardToApi, option]),
   );
 }
 
 function parseArgsToOptions(context, overrideDefaults) {
   const minimistOptions = createMinimistOptions(context.detailedOptions);
   const apiDetailedOptionMap = createApiDetailedOptionMap(
-    context.detailedOptions
+    context.detailedOptions,
   );
   return getOptions(
-    optionsNormalizer.normalizeCliOptions(
+    normalizeCliOptions(
       minimist(context.rawArguments, {
         string: minimistOptions.string,
         boolean: minimistOptions.boolean,
         default: cliifyOptions(overrideDefaults, apiDetailedOptionMap),
       }),
       context.detailedOptions,
-      { logger: false, colorsModule: chalk }
+      { logger: false },
     ),
-    context.detailedOptions
+    context.detailedOptions,
   );
 }
 
@@ -60,7 +57,7 @@ async function getOptionsOrDie(context, filePath) {
   try {
     if (context.argv.config === false) {
       context.logger.debug(
-        "'--no-config' option found, skip loading config file."
+        "'--no-config' option found, skip loading config file.",
       );
       return null;
     }
@@ -68,10 +65,10 @@ async function getOptionsOrDie(context, filePath) {
     context.logger.debug(
       context.argv.config
         ? `load config file from '${context.argv.config}'`
-        : `resolve config from '${filePath}'`
+        : `resolve config from '${filePath}'`,
     );
 
-    const options = await prettier.resolveConfig(filePath, {
+    const options = await resolveConfig(filePath, {
       editorconfig: context.argv.editorconfig,
       config: context.argv.config,
     });
@@ -80,7 +77,8 @@ async function getOptionsOrDie(context, filePath) {
     return options;
   } catch (error) {
     context.logger.error(
-      `Invalid configuration file \`${filePath}\`: ` + error.message
+      `Invalid configuration${filePath ? ` for file "${filePath}"` : ""}:\n` +
+        error.message,
     );
     process.exit(2);
   }
@@ -97,20 +95,18 @@ function applyConfigPrecedence(context, options) {
         return options || parseArgsToOptions(context);
     }
   } catch (error) {
-    /* istanbul ignore next */
+    /* c8 ignore start */
     context.logger.error(error.toString());
-
-    /* istanbul ignore next */
     process.exit(2);
+    /* c8 ignore stop */
   }
 }
 
 async function getOptionsForFile(context, filepath) {
   const options = await getOptionsOrDie(context, filepath);
-
-  const hasPlugins = options && options.plugins;
+  const hasPlugins = options?.plugins;
   if (hasPlugins) {
-    context.pushContextPlugins(options.plugins);
+    await context.pushContextPlugins(options.plugins);
   }
 
   const appliedOptions = {
@@ -118,15 +114,15 @@ async function getOptionsForFile(context, filepath) {
     ...applyConfigPrecedence(
       context,
       options &&
-        optionsNormalizer.normalizeApiOptions(options, context.supportOptions, {
+        normalizeApiOptions(options, context.supportOptions, {
           logger: context.logger,
-        })
+        }),
     ),
   };
 
   context.logger.debug(
     `applied config-precedence (${context.argv.configPrecedence}): ` +
-      `${JSON.stringify(appliedOptions)}`
+      `${JSON.stringify(appliedOptions)}`,
   );
 
   if (hasPlugins) {
@@ -136,4 +132,4 @@ async function getOptionsForFile(context, filepath) {
   return appliedOptions;
 }
 
-module.exports = getOptionsForFile;
+export default getOptionsForFile;

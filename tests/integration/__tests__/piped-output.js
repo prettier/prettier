@@ -1,20 +1,16 @@
-"use strict";
-
-const runPrettier = require("../run-prettier.js");
-
 describe("output with --check + unformatted differs when piped", () => {
-  const cli0 = runPrettier(
+  const cli0 = runCli(
     "cli/write",
     ["--write", "--check", "--no-color", "unformatted.js"],
-    { stdoutIsTTY: true }
+    { stdoutIsTTY: true },
   ).test({
     status: 0,
   });
 
-  const cli1 = runPrettier(
+  const cli1 = runCli(
     "cli/write",
     ["--write", "--check", "--no-color", "unformatted.js"],
-    { stdoutIsTTY: false }
+    { stdoutIsTTY: false },
   ).test({
     status: 0,
   });
@@ -29,18 +25,18 @@ describe("output with --check + unformatted differs when piped", () => {
 });
 
 describe("no file diffs with --check + formatted file", () => {
-  const cli0 = runPrettier(
+  const cli0 = runCli(
     "cli/write",
     ["--write", "--check", "--no-color", "formatted.js"],
-    { stdoutIsTTY: true }
+    { stdoutIsTTY: true },
   ).test({
     status: 0,
   });
 
-  const cli1 = runPrettier(
+  const cli1 = runCli(
     "cli/write",
     ["--write", "--check", "--no-color", "formatted.js"],
-    { stdoutIsTTY: false }
+    { stdoutIsTTY: false },
   ).test({
     status: 0,
   });
@@ -56,18 +52,18 @@ describe("no file diffs with --check + formatted file", () => {
 });
 
 describe("output with --list-different + unformatted differs when piped", () => {
-  const cli0 = runPrettier(
+  const cli0 = runCli(
     "cli/write",
     ["--write", "--list-different", "--no-color", "unformatted.js"],
-    { stdoutIsTTY: true }
+    { stdoutIsTTY: true },
   ).test({
     status: 0,
   });
 
-  const cli1 = runPrettier(
+  const cli1 = runCli(
     "cli/write",
     ["--write", "--list-different", "--no-color", "unformatted.js"],
-    { stdoutIsTTY: false }
+    { stdoutIsTTY: false },
   ).test({
     status: 0,
   });
@@ -82,18 +78,18 @@ describe("output with --list-different + unformatted differs when piped", () => 
 });
 
 describe("no file diffs with --list-different + formatted file", () => {
-  const cli0 = runPrettier(
+  const cli0 = runCli(
     "cli/write",
     ["--write", "--list-different", "--no-color", "formatted.js"],
-    { stdoutIsTTY: true }
+    { stdoutIsTTY: true },
   ).test({
     status: 0,
   });
 
-  const cli1 = runPrettier(
+  const cli1 = runCli(
     "cli/write",
     ["--write", "--list-different", "--no-color", "formatted.js"],
-    { stdoutIsTTY: false }
+    { stdoutIsTTY: false },
   ).test({
     status: 0,
   });

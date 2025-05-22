@@ -3,21 +3,24 @@
     "allowJs": true,
     "checkJs": true,
     "noEmit": true,
-    "target": "es2015",
-    "module": "commonjs",
+    "target": "esnext",
+    "module": "NodeNext",
     "resolveJsonModule": true,
+    "strict": true,
+    "skipLibCheck": true,
     // TBD it is desired to enabled strict type checking at some point:
-    "strict": false,
-    "typeRoots": ["./types", "./node_modules/@types"]
+    "noImplicitAny": false,
+    "strictNullChecks": false,
+
+    "typeRoots": ["./types", "./node_modules/@types"],
   },
   "exclude": [
     "coverage/",
     "test*.*",
-    "vendors/*.js",
+    "jest.config.js",
     // [TBD] JavaScript sources *not* affected by src/language-*:
     "src/main/ast-to-doc.js",
     "src/main/core.js",
-    "src/common/create-ignorer.js",
     "src/config/resolve-config.js",
     "src/main/options-normalizer.js",
     "src/common/get-file-info.js",
@@ -33,6 +36,7 @@
     "src/cli/options/get-options-for-file.js",
     "src/cli/options/option-map.js",
     "src/cli/options/parse-cli-arguments.js",
+    "src/cli/options/normalize-cli-options.js",
     "src/cli/usage.js",
     "src/cli/constant.js",
     "src/cli/prettier-internal.js",
@@ -41,13 +45,14 @@
     "src/index.js",
     "src/standalone.js",
     "index.js",
+    "src/index.cjs",
     "standalone.js",
     "bin/",
-    "dist/",
+    "dist*/",
     "docs/",
     "scripts/",
     "tests/",
     "website/",
-    "types/"
-  ]
+    "types/",
+  ],
 }

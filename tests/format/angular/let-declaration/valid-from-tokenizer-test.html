@@ -1,0 +1,49 @@
+<!-- import from https://github.com/angular/angular/commit/62c5b66b4119b7e1dfaf1e28c100e5f8431cb05b -->
+
+@let foo = 123 + 456;
+
+@let               foo       =          123 + 456;
+@let foo=123 + 456;
+@let foo =123 + 456;
+@let foo=   123 + 456;
+
+@let
+foo = 123;
+@let    
+foo = 123;
+@let    
+              foo = 123;
+@let foo
+= 123;
+@let foo
+       = 123;
+@let foo   
+   = 123;
+@let  
+   foo   
+      = 123;
+
+@let foo = 
+123 + 
+ 456 + 
+ 789
+ ;
+
+@block {@let foo = 123 + 456;}
+
+@let foo = 'a; b';
+@let foo = "';'";
+
+@let foo = '\';\'' + "\",";
+
+@let foo = fn(a, b) + fn2(c, d, e);
+
+@let foo = [1, 2, 3];
+
+@let foo = [0, [foo[1]], 3];
+
+@let foo = {a: 1, b: {c: something + 2}};
+@let foo = {};
+@let foo = {foo: ";"};
+
+@let foo = fn({a: 1, b: [otherFn([{c: ";"}], 321, {d: [',']})]});

@@ -5,12 +5,15 @@ on:
     types:
       - created
 
+permissions:
+  issues: write
+
 jobs:
   mark-duplicate:
     runs-on: ubuntu-latest
     if: ${{ !github.event.issue.pull_request && startsWith(github.event.comment.body, 'Duplicate of ') }}
     steps:
-      - uses: actions-cool/issues-helper@v2.5.0
+      - uses: actions-cool/issues-helper@v3.6.0
         with:
           actions: "mark-duplicate"
           token: ${{ secrets.GITHUB_TOKEN }}

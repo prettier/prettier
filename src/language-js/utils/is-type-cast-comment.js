@@ -1,9 +1,7 @@
-"use strict";
-
-const isBlockComment = require("./is-block-comment.js");
+import isBlockComment from "./is-block-comment.js";
 
 /**
- * @typedef {import("../types/estree").Comment} Comment
+ * @import {Comment} from "../types/estree.js"
  */
 
 /**
@@ -16,9 +14,9 @@ function isTypeCastComment(comment) {
     comment.value[0] === "*" &&
     // TypeScript expects the type to be enclosed in curly brackets, however
     // Closure Compiler accepts types in parens and even without any delimiters at all.
-    // That's why we just search for "@type".
-    /@type\b/.test(comment.value)
+    // That's why we just search for "@type" and "@satisfies".
+    /@(?:type|satisfies)\b/u.test(comment.value)
   );
 }
 
-module.exports = isTypeCastComment;
+export default isTypeCastComment;

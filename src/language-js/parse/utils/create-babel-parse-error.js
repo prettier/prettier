@@ -1,18 +1,29 @@
-"use strict";
-
-const createError = require("../../../common/parser-create-error.js");
+import createError from "../../../common/parser-create-error.js";
 
 function createBabelParseError(error) {
-  // babel error prints (l:c) with cols that are zero indexed
+  // babel error prints (line:column) with cols that are zero indexed
   // so we need our custom error
-  const { message, loc } = error;
+  let {
+    message,
+    loc: { line, column },
+    reasonCode,
+  } = error;
 
-  return createError(message.replace(/ \(.*\)/, ""), {
-    start: {
-      line: loc ? loc.line : 0,
-      column: loc ? loc.column + 1 : 0,
-    },
+  let cause = error;
+  if (reasonCode === "MissingPlugin" || reasonCode === "MissingOneOfPlugins") {
+    message = "Unexpected token.";
+    cause = undefined;
+  }
+
+  const suffix = ` (${line}:${column})`;
+  if (message.endsWith(suffix)) {
+    message = message.slice(0, -suffix.length);
+  }
+
+  return createError(message, {
+    loc: { start: { line, column: column + 1 } },
+    cause,
   });
 }
 
-module.exports = createBabelParseError;
+export default createBabelParseError;

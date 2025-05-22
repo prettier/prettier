@@ -1,13 +1,15 @@
-"use strict";
+import {
+  hardline,
+  ifBreak,
+  join,
+  line,
+  softline,
+} from "../../document/builders.js";
+import { hasEndComments, isEmptyNode } from "../utils.js";
+import { alignWithSpaces, printNextEmptyLine } from "./misc.js";
 
-const {
-  builders: { ifBreak, line, softline, hardline, join },
-} = require("../../document/index.js");
-const { isEmptyNode, getLast, hasEndComments } = require("../utils.js");
-const { printNextEmptyLine, alignWithSpaces } = require("./misc.js");
-
-function printFlowMapping(path, print, options) {
-  const node = path.getValue();
+function printFlowMapping(path, options, print) {
+  const { node } = path;
   const isMapping = node.type === "flowMapping";
   const openMarker = isMapping ? "{" : "[";
   const closeMarker = isMapping ? "}" : "]";
@@ -17,10 +19,9 @@ function printFlowMapping(path, print, options) {
   if (isMapping && node.children.length > 0 && options.bracketSpacing) {
     bracketSpacing = line;
   }
-  const lastItem = getLast(node.children);
+  const lastItem = node.children.at(-1);
   const isLastItemEmptyMappingItem =
-    lastItem &&
-    lastItem.type === "flowMappingItem" &&
+    lastItem?.type === "flowMappingItem" &&
     isEmptyNode(lastItem.key) &&
     isEmptyNode(lastItem.value);
 
@@ -28,7 +29,7 @@ function printFlowMapping(path, print, options) {
     openMarker,
     alignWithSpaces(options.tabWidth, [
       bracketSpacing,
-      printChildren(path, print, options),
+      printChildren(path, options, print),
       options.trailingComma === "none" ? "" : ifBreak(","),
       hasEndComments(node)
         ? [hardline, join(hardline, path.map(print, "endComments"))]
@@ -39,29 +40,26 @@ function printFlowMapping(path, print, options) {
   ];
 }
 
-function printChildren(path, print, options) {
-  const node = path.getValue();
-  const parts = path.map(
-    (childPath, index) => [
+function printChildren(path, options, print) {
+  return path.map(
+    ({ isLast, node, next }) => [
       print(),
-      index === node.children.length - 1
+      isLast
         ? ""
         : [
             ",",
             line,
-            node.children[index].position.start.line !==
-            node.children[index + 1].position.start.line
-              ? printNextEmptyLine(childPath, options.originalText)
+            node.position.start.line !== next.position.start.line
+              ? printNextEmptyLine(path, options.originalText)
               : "",
           ],
     ],
-    "children"
+    "children",
   );
-  return parts;
 }
 
-module.exports = {
+export {
   printFlowMapping,
   // Alias
-  printFlowSequence: printFlowMapping,
+  printFlowMapping as printFlowSequence,
 };

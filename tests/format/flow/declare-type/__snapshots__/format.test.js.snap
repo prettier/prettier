@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`declare-type.js [babel-flow] format 1`] = `
+"\`declare export type\` is not supported. Use \`export type\` instead. (1:16)
+> 1 | declare export type DeclareExportType = number
+    |                ^
+  2 | ;
+  3 |
+Cause: \`declare export type\` is not supported. Use \`export type\` instead. (1:15)"
+`;
+
+exports[`declare-type.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+declare export type DeclareExportType = number
+;
+
+=====================================output=====================================
+declare export type DeclareExportType = number;
+
+================================================================================
+`;

@@ -1,0 +1,114 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`front-matter-with-noformat-pragma.md - {"checkIgnorePragma":true} format 1`] = `
+====================================options=====================================
+checkIgnorePragma: true
+parsers: ["markdown"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+---
+something
+---
+
+<!-- @noformat -->
+
+I     won't       format       !!
+
+=====================================output=====================================
+---
+something
+---
+
+<!-- @noformat -->
+
+I     won't       format       !!
+
+================================================================================
+`;
+
+exports[`front-matter-with-noprettier-pragma.md - {"checkIgnorePragma":true} format 1`] = `
+====================================options=====================================
+checkIgnorePragma: true
+parsers: ["markdown"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+---
+something
+---
+
+<!-- @noprettier -->
+
+I     won't       format       !!
+
+
+=====================================output=====================================
+---
+something
+---
+
+<!-- @noprettier -->
+
+I     won't       format       !!
+
+
+================================================================================
+`;
+
+exports[`with-noformat-pragma.md - {"checkIgnorePragma":true} format 1`] = `
+====================================options=====================================
+checkIgnorePragma: true
+parsers: ["markdown"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<!-- @noformat -->
+
+I     won't       format       !!
+
+
+=====================================output=====================================
+<!-- @noformat -->
+
+I     won't       format       !!
+
+
+================================================================================
+`;
+
+exports[`with-noprettier-pragma.md - {"checkIgnorePragma":true} format 1`] = `
+====================================options=====================================
+checkIgnorePragma: true
+parsers: ["markdown"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<!-- @noprettier -->
+
+I     won't       format       !!
+
+
+=====================================output=====================================
+<!-- @noprettier -->
+
+I     won't       format       !!
+
+
+================================================================================
+`;
+
+exports[`without-pragma.md - {"checkIgnorePragma":true} format 1`] = `
+====================================options=====================================
+checkIgnorePragma: true
+parsers: ["markdown"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+I     will      format   !!
+
+=====================================output=====================================
+I will format !!
+
+================================================================================
+`;

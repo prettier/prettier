@@ -1,22 +1,17 @@
-"use strict";
-
-const snapshotDiff = require("snapshot-diff");
-const runPrettier = require("../run-prettier.js");
-
+import snapshotDiff from "snapshot-diff";
 test("show external options with `--help`", async () => {
-  const originalStdout = await runPrettier("plugins/options", ["--help"])
-    .stdout;
-  const pluggedStdout = await runPrettier("plugins/options", [
+  const originalStdout = await runCli("plugins/options", ["--help"]).stdout;
+  const pluggedStdout = await runCli("plugins/options", [
     "--help",
-    "--plugin=./plugin",
+    "--plugin=./plugin.cjs",
   ]).stdout;
 
   expect(snapshotDiff(originalStdout, pluggedStdout)).toMatchSnapshot();
 });
 
 describe("show detailed external option with `--help foo-option`", () => {
-  runPrettier("plugins/options", [
-    "--plugin=./plugin",
+  runCli("plugins/options", [
+    "--plugin=./plugin.cjs",
     "--help",
     "foo-option",
   ]).test({
@@ -25,26 +20,24 @@ describe("show detailed external option with `--help foo-option`", () => {
 });
 
 describe("include plugin's parsers to the values of the `parser` option`", () => {
-  runPrettier("plugins/options", [
-    "--plugin=./plugin",
-    "--help",
-    "parser",
-  ]).test({
-    status: 0,
-  });
+  runCli("plugins/options", ["--plugin=./plugin.cjs", "--help", "parser"]).test(
+    {
+      status: 0,
+    },
+  );
 });
 
 describe("external options from CLI should work", () => {
-  runPrettier(
+  runCli(
     "plugins/options",
     [
-      "--plugin=./plugin",
+      "--plugin=./plugin.cjs",
       "--stdin-filepath",
       "example.foo",
       "--foo-option",
       "baz",
     ],
-    { input: "hello-world" }
+    { input: "hello-world" },
   ).test({
     stdout: "foo:baz",
     stderr: "",
@@ -54,10 +47,10 @@ describe("external options from CLI should work", () => {
 });
 
 describe("external options from config file should work", () => {
-  runPrettier(
+  runCli(
     "plugins/options",
     ["--config=./config.json", "--stdin-filepath", "example.foo"],
-    { input: "hello-world" }
+    { input: "hello-world" },
   ).test({
     stdout: "foo:baz",
     stderr: "",

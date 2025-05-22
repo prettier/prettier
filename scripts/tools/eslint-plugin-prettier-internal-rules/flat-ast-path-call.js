@@ -1,5 +1,3 @@
-"use strict";
-
 // This rule only work for nested `AstPath#call()` for now
 
 function astPathCallSelector(path) {
@@ -29,12 +27,9 @@ const selector = [
 
 const MESSAGE_ID = "flat-ast-path-call";
 
-module.exports = {
+export default {
   meta: {
     type: "suggestion",
-    docs: {
-      url: "https://github.com/prettier/prettier/blob/main/scripts/tools/eslint-plugin-prettier-internal-rules/flat-ast-path-call.js",
-    },
     messages: {
       [MESSAGE_ID]: "Do not use nested `AstPath#{{method}}(…)`.",
     },
@@ -83,7 +78,7 @@ module.exports = {
                 //                                        ^
                 innerCallback.range[0],
               ],
-              ""
+              "",
             );
 
             // path.call((childPath) => childPath.call(print, "b"), "a")
@@ -96,17 +91,17 @@ module.exports = {
 
             let innerNamesText = sourceCode.text.slice(
               innerNamesStart,
-              innerNamesEnd
+              innerNamesEnd,
             );
 
             yield fixer.replaceTextRange(
               [innerNamesStart, innerNamesEnd + 1],
-              ""
+              "",
             );
 
             const [penultimateToken, lastToken] = sourceCode.getLastTokens(
               outerCall,
-              2
+              2,
             );
 
             // `outer` call has `trailing comma`

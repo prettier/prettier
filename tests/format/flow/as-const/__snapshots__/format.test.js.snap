@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`embedded.js [babel-flow] format 1`] = `
+"Unexpected token (3:11)
+  1 | const GQL_QUERY_WITH_CONST = /* GraphQL */ \`
+  2 |   query S { shop }
+> 3 | \` as const;
+    |           ^
+  4 |
+  5 | const HTML_WITH_CONST = /* HTML */ \`
+  6 | <div>
+Cause: Unexpected token (3:10)"
+`;
+
+exports[`embedded.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const GQL_QUERY_WITH_CONST = /* GraphQL */ \`
+  query S { shop }
+\` as const;
+
+const HTML_WITH_CONST = /* HTML */ \`
+<div>
+<h1>foo</h1>
+  <p>foo</p>
+</div>
+\` as const;
+
+=====================================output=====================================
+const GQL_QUERY_WITH_CONST = /* GraphQL */ \`
+  query S {
+    shop
+  }
+\` as const;
+
+const HTML_WITH_CONST = /* HTML */ \`
+  <div>
+    <h1>foo</h1>
+    <p>foo</p>
+  </div>
+\` as const;
+
+================================================================================
+`;

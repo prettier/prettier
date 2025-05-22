@@ -1,5 +1,3 @@
-"use strict";
-
 function isUnknownNamespace(node) {
   return (
     node.type === "element" &&
@@ -8,4 +6,4 @@ function isUnknownNamespace(node) {
   );
 }
 
-module.exports = isUnknownNamespace;
+export default isUnknownNamespace;

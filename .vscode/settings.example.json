@@ -1,0 +1,19 @@
+{
+  "[javascript][typescript][json][jsonc][markdown][yaml]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+  },
+  "[javascript][typescript]": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit",
+    },
+  },
+  "prettier.requireConfig": true,
+  "files.exclude": {
+    "dist*": true,
+    "website/.docusaurus": true,
+    "website/build": true,
+    "website/static/playground": true,
+    "website/static/lib": true,
+  },
+}

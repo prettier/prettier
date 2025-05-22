@@ -1,9 +1,10 @@
-"use strict";
-const fs = require("fs");
-const { prettierCli } = require("../env.js");
+import fs from "node:fs";
+import { prettierCliEntry } from "../env.js";
 
 describe("CLI", () => {
   test("CLI should be executable.", () => {
-    expect(() => fs.accessSync(prettierCli, fs.constants.X_OK)).not.toThrow();
+    expect(() =>
+      fs.accessSync(prettierCliEntry, fs.constants.X_OK),
+    ).not.toThrow();
   });
 });

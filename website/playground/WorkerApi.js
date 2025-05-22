@@ -1,5 +1,5 @@
-export default function WorkerApi(source) {
-  const worker = new Worker(source);
+export default function WorkerApi() {
+  const worker = new Worker("/worker.mjs", { type: "module" });
   let counter = 0;
   const handlers = {};
 
@@ -32,9 +32,8 @@ export default function WorkerApi(source) {
     getMetadata() {
       return postMessage({ type: "meta" });
     },
-    format(code, options, debug) {
+    format(code, options, debug = {}) {
       return postMessage({ type: "format", code, options, debug });
     },
-    postMessage,
   };
 }

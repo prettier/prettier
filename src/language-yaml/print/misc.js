@@ -1,15 +1,9 @@
-"use strict";
-
-const {
-  builders: { softline, align },
-} = require("../../document/index.js");
-
-const { hasEndComments, isNextLineEmpty, isNode } = require("../utils.js");
+import { align, softline } from "../../document/builders.js";
+import { hasEndComments, isNextLineEmpty, isNode } from "../utils.js";
 
 const printedEmptyLineCache = new WeakMap();
 function printNextEmptyLine(path, originalText) {
-  const node = path.getValue();
-  const root = path.stack[0];
+  const { node, root } = path;
 
   let isNextEmptyLinePrintedSet;
   if (printedEmptyLineCache.has(root)) {
@@ -23,7 +17,7 @@ function printNextEmptyLine(path, originalText) {
     isNextEmptyLinePrintedSet.add(node.position.end.line);
     if (
       isNextLineEmpty(node, originalText) &&
-      !shouldPrintEndComments(path.getParentNode())
+      !shouldPrintEndComments(path.parent)
     ) {
       return softline;
     }
@@ -48,8 +42,4 @@ function alignWithSpaces(width, doc) {
   return align(" ".repeat(width), doc);
 }
 
-module.exports = {
-  alignWithSpaces,
-  shouldPrintEndComments,
-  printNextEmptyLine,
-};
+export { alignWithSpaces, printNextEmptyLine, shouldPrintEndComments };

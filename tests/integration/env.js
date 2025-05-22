@@ -1,23 +1,30 @@
-"use strict";
+import path from "node:path";
+import createEsmUtils from "esm-utils";
 
-const path = require("path");
+const { __dirname, require } = createEsmUtils(import.meta);
+
 const isProduction = process.env.NODE_ENV === "production";
 const { PRETTIER_DIR } = process.env;
 const { bin } = require(path.join(PRETTIER_DIR, "package.json"));
-const prettierCli = path.join(
+const prettierCliEntry = path.join(
   PRETTIER_DIR,
-  typeof bin === "object" ? bin.prettier : bin
+  typeof bin === "object" ? bin.prettier : bin,
 );
 
-const thirdParty = isProduction
-  ? path.join(PRETTIER_DIR, "./third-party")
-  : path.join(PRETTIER_DIR, "./src/common/third-party");
+const prettierMainEntry = isProduction
+  ? path.join(PRETTIER_DIR, "./index.mjs")
+  : path.join(PRETTIER_DIR, "./src/index.js");
 
 const projectRoot = path.join(__dirname, "../..");
 
-module.exports = {
+const prettierCliMockableEntry = isProduction
+  ? path.join(PRETTIER_DIR, "./internal/legacy-cli.mjs")
+  : path.join(PRETTIER_DIR, "./src/cli/index.js");
+
+export {
   isProduction,
-  thirdParty,
-  prettierCli,
+  prettierCliEntry,
+  prettierCliMockableEntry,
+  prettierMainEntry,
   projectRoot,
 };

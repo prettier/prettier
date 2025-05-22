@@ -1,21 +1,17 @@
-"use strict";
-
-const snapshotDiff = require("snapshot-diff");
-const runPrettier = require("../run-prettier.js");
-
+import snapshotDiff from "snapshot-diff";
 test("show external options with `--help`", async () => {
-  const originalStdout = await runPrettier("plugins/options-string", ["--help"])
+  const originalStdout = await runCli("plugins/options-string", ["--help"])
     .stdout;
-  const pluggedStdout = await runPrettier("plugins/options-string", [
+  const pluggedStdout = await runCli("plugins/options-string", [
     "--help",
-    "--plugin=./plugin",
+    "--plugin=./plugin.cjs",
   ]).stdout;
   expect(snapshotDiff(originalStdout, pluggedStdout)).toMatchSnapshot();
 });
 
 describe("show detailed external option with `--help foo-string`", () => {
-  runPrettier("plugins/options-string", [
-    "--plugin=./plugin",
+  runCli("plugins/options-string", [
+    "--plugin=./plugin.cjs",
     "--help",
     "foo-string",
   ]).test({
@@ -24,16 +20,16 @@ describe("show detailed external option with `--help foo-string`", () => {
 });
 
 describe("external options from CLI should work", () => {
-  runPrettier(
+  runCli(
     "plugins/options-string",
     [
-      "--plugin=./plugin",
+      "--plugin=./plugin.cjs",
       "--stdin-filepath",
       "example.foo",
       "--foo-string",
       "baz",
     ],
-    { input: "hello-world" }
+    { input: "hello-world" },
   ).test({
     stdout: "foo:baz",
     stderr: "",
@@ -43,10 +39,10 @@ describe("external options from CLI should work", () => {
 });
 
 describe("external options from config file should work", () => {
-  runPrettier(
+  runCli(
     "plugins/options-string",
     ["--config=./config.json", "--stdin-filepath", "example.foo"],
-    { input: "hello-world" }
+    { input: "hello-world" },
   ).test({
     stdout: "foo:baz",
     stderr: "",
@@ -56,15 +52,13 @@ describe("external options from config file should work", () => {
 });
 
 describe("Non exists plugin", () => {
-  runPrettier(
+  runCli(
     "plugins/options-string",
     ["--plugin=--invalid--", "--stdin-filepath", "example.foo"],
-    { input: "hello-world" }
+    { input: "hello-world" },
   ).test({
     stdout: "",
-    stderr: expect.stringMatching(
-      /Cannot (?:resolve|find) module '--invalid--' from/
-    ),
+    stderr: expect.stringMatching(/Cannot find package '--invalid--'/u),
     status: 1,
     write: [],
   });

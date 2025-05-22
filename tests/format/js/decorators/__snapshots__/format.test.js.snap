@@ -1,0 +1,779 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`classes.js [acorn] format 1`] = `
+"Unexpected character '@' (1:1)
+> 1 | @deco class Foo {}
+    | ^
+  2 |
+  3 | @deco export class Bar {}
+  4 |
+Cause: Unexpected character '@' (1:0)"
+`;
+
+exports[`classes.js [espree] format 1`] = `
+"Unexpected character '@' (1:1)
+> 1 | @deco class Foo {}
+    | ^
+  2 |
+  3 | @deco export class Bar {}
+  4 |
+Cause: Unexpected character '@'"
+`;
+
+exports[`classes.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+@deco class Foo {}
+
+@deco export class Bar {}
+
+@deco export default class Baz {}
+
+const foo = @deco class {
+  //
+};
+
+const bar =
+  @deco
+  class {
+    //
+  };
+
+=====================================output=====================================
+@deco
+class Foo {}
+
+@deco
+export class Bar {}
+
+@deco
+export default class Baz {}
+
+const foo =
+  @deco
+  class {
+    //
+  };
+
+const bar =
+  @deco
+  class {
+    //
+  };
+
+================================================================================
+`;
+
+exports[`comments.js [acorn] format 1`] = `
+"Unexpected character '@' (3:1)
+  1 | var x = 100
+  2 |
+> 3 | @Hello({
+    | ^
+  4 |   a: 'a', // Comment is in the wrong place
+  5 |   // test
+  6 |   b: '2'
+Cause: Unexpected character '@' (3:0)"
+`;
+
+exports[`comments.js [espree] format 1`] = `
+"Unexpected character '@' (3:1)
+  1 | var x = 100
+  2 |
+> 3 | @Hello({
+    | ^
+  4 |   a: 'a', // Comment is in the wrong place
+  5 |   // test
+  6 |   b: '2'
+Cause: Unexpected character '@'"
+`;
+
+exports[`comments.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+var x = 100
+
+@Hello({
+  a: 'a', // Comment is in the wrong place
+  // test
+  b: '2'
+})
+class X {
+
+}
+
+
+@NgModule({
+  // Imports.
+  imports: [
+    // Angular modules.
+    BrowserModule,
+
+    // App modules.
+    CoreModule,
+    SharedModule,
+  ],
+})
+export class AppModule {}
+
+// A
+@Foo()
+// B
+@Bar()
+// C
+export class Bar{}
+
+class Something {
+    @Annotateme()
+    property;
+}
+
+=====================================output=====================================
+var x = 100;
+
+@Hello({
+  a: "a", // Comment is in the wrong place
+  // test
+  b: "2",
+})
+class X {}
+
+@NgModule({
+  // Imports.
+  imports: [
+    // Angular modules.
+    BrowserModule,
+
+    // App modules.
+    CoreModule,
+    SharedModule,
+  ],
+})
+export class AppModule {}
+
+// A
+@Foo()
+// B
+@Bar()
+// C
+export class Bar {}
+
+class Something {
+  @Annotateme()
+  property;
+}
+
+================================================================================
+`;
+
+exports[`member-expression.js [acorn] format 1`] = `
+"Unexpected character '@' (3:5)
+  1 | [
+  2 |   class {
+> 3 |     @(decorator)
+    |     ^
+  4 |     method() {}
+  5 |   },
+  6 |   class {
+Cause: Unexpected character '@' (3:4)"
+`;
+
+exports[`member-expression.js [espree] format 1`] = `
+"Unexpected character '@' (3:5)
+  1 | [
+  2 |   class {
+> 3 |     @(decorator)
+    |     ^
+  4 |     method() {}
+  5 |   },
+  6 |   class {
+Cause: Unexpected character '@'"
+`;
+
+exports[`member-expression.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+[
+  class {
+    @(decorator)
+    method() {}
+  },
+  class {
+    @(decorator())
+    method() {}
+  },
+  class {
+    @(decorator?.())
+    method() {}
+  },
+  class {
+    @(decorators[0])
+    method() {}
+  },
+  class {
+    @decorators[0]
+    method() {}
+  },
+  class {
+    @(decorators?.[0])
+    method() {}
+  },
+  class {
+    @(decorators.at(0))
+    method() {}
+  },
+  class {
+    @(decorators?.at(0))
+    method() {}
+  },
+  class {
+    @(decorators.at?.(0))
+    method() {}
+  },
+  class {
+    @(decorators.first)
+    method() {}
+  },
+  class {
+    @(decorators?.first)
+    method() {}
+  },
+  class {
+    @(decorators[first])
+    method() {}
+  },
+  class {
+    @decorators[first]
+    method() {}
+  },
+  class {
+    @(decorators["first"])
+    method() {}
+  },
+  @(decorators[first])
+  class {
+    method() {}
+  },
+  @(decorators[0])
+  class {
+    method() {}
+  },
+]
+
+=====================================output=====================================
+[
+  class {
+    @decorator
+    method() {}
+  },
+  class {
+    @decorator()
+    method() {}
+  },
+  class {
+    @(decorator?.())
+    method() {}
+  },
+  class {
+    @(decorators[0])
+    method() {}
+  },
+  class {
+    @decorators [0];
+    method() {}
+  },
+  class {
+    @(decorators?.[0])
+    method() {}
+  },
+  class {
+    @decorators.at(0)
+    method() {}
+  },
+  class {
+    @(decorators?.at(0))
+    method() {}
+  },
+  class {
+    @(decorators.at?.(0))
+    method() {}
+  },
+  class {
+    @decorators.first
+    method() {}
+  },
+  class {
+    @(decorators?.first)
+    method() {}
+  },
+  class {
+    @(decorators[first])
+    method() {}
+  },
+  class {
+    @decorators [first];
+    method() {}
+  },
+  class {
+    @(decorators["first"])
+    method() {}
+  },
+  @(decorators[first])
+  class {
+    method() {}
+  },
+  @(decorators[0])
+  class {
+    method() {}
+  },
+];
+
+================================================================================
+`;
+
+exports[`methods.js [acorn] format 1`] = `
+"Unexpected character '@' (3:3)
+  1 |
+  2 | class Yo {
+> 3 |   @foo("hello")
+    |   ^
+  4 |   async plop() {}
+  5 |
+  6 |   @anotherDecoratorWithALongName("and a very long string as a first argument")
+Cause: Unexpected character '@' (3:2)"
+`;
+
+exports[`methods.js [espree] format 1`] = `
+"Unexpected character '@' (3:3)
+  1 |
+  2 | class Yo {
+> 3 |   @foo("hello")
+    |   ^
+  4 |   async plop() {}
+  5 |
+  6 |   @anotherDecoratorWithALongName("and a very long string as a first argument")
+Cause: Unexpected character '@'"
+`;
+
+exports[`methods.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+
+class Yo {
+  @foo("hello")
+  async plop() {}
+
+  @anotherDecoratorWithALongName("and a very long string as a first argument")
+  async plip() {}
+
+  @anotherDecoratorWithALongName("another very long string, but now inline") async plip() {}
+}
+
+=====================================output=====================================
+class Yo {
+  @foo("hello")
+  async plop() {}
+
+  @anotherDecoratorWithALongName("and a very long string as a first argument")
+  async plip() {}
+
+  @anotherDecoratorWithALongName("another very long string, but now inline")
+  async plip() {}
+}
+
+================================================================================
+`;
+
+exports[`mixed.js [acorn] format 1`] = `
+"Unexpected character '@' (3:1)
+  1 | // https://github.com/prettier/prettier/issues/6747
+  2 |
+> 3 | @foo
+    | ^
+  4 | export default class MyComponent {
+  5 |   @task
+  6 |   *foo() {
+Cause: Unexpected character '@' (3:0)"
+`;
+
+exports[`mixed.js [espree] format 1`] = `
+"Unexpected character '@' (3:1)
+  1 | // https://github.com/prettier/prettier/issues/6747
+  2 |
+> 3 | @foo
+    | ^
+  4 | export default class MyComponent {
+  5 |   @task
+  6 |   *foo() {
+Cause: Unexpected character '@'"
+`;
+
+exports[`mixed.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// https://github.com/prettier/prettier/issues/6747
+
+@foo
+export default class MyComponent {
+  @task
+  *foo() {
+  }
+}
+=====================================output=====================================
+// https://github.com/prettier/prettier/issues/6747
+
+@foo
+export default class MyComponent {
+  @task
+  *foo() {}
+}
+
+================================================================================
+`;
+
+exports[`mobx.js [acorn] format 1`] = `
+"Unexpected character '@' (3:1)
+  1 | import {observable} from "mobx";
+  2 |
+> 3 | @observer class OrderLine {
+    | ^
+  4 |   @observable price = 0;
+  5 |   @observable amount = 1;
+  6 |
+Cause: Unexpected character '@' (3:0)"
+`;
+
+exports[`mobx.js [espree] format 1`] = `
+"Unexpected character '@' (3:1)
+  1 | import {observable} from "mobx";
+  2 |
+> 3 | @observer class OrderLine {
+    | ^
+  4 |   @observable price = 0;
+  5 |   @observable amount = 1;
+  6 |
+Cause: Unexpected character '@'"
+`;
+
+exports[`mobx.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import {observable} from "mobx";
+
+@observer class OrderLine {
+  @observable price = 0;
+  @observable amount = 1;
+
+  constructor(price) {
+    this.price = price;
+  }
+
+  @computed get total() {
+    return this.price * this.amount;
+  }
+
+  @action.bound setPrice(price) {
+    this.price = price;
+  }
+
+  @computed
+  get total() {
+    return this.price * this.amount;
+  }
+
+  @action.bound
+  setPrice(price) {
+    this.price = price;
+  }
+
+  @computed @computed @computed @computed @computed @computed @computed get total() {
+    return this.price * this.amount;
+  }
+
+  @action handleDecrease = (event) => this.count--;
+
+  @action handleSomething = (event) => doSomething();
+}
+
+=====================================output=====================================
+import { observable } from "mobx";
+
+@observer
+class OrderLine {
+  @observable price = 0;
+  @observable amount = 1;
+
+  constructor(price) {
+    this.price = price;
+  }
+
+  @computed get total() {
+    return this.price * this.amount;
+  }
+
+  @action.bound setPrice(price) {
+    this.price = price;
+  }
+
+  @computed
+  get total() {
+    return this.price * this.amount;
+  }
+
+  @action.bound
+  setPrice(price) {
+    this.price = price;
+  }
+
+  @computed
+  @computed
+  @computed
+  @computed
+  @computed
+  @computed
+  @computed
+  get total() {
+    return this.price * this.amount;
+  }
+
+  @action handleDecrease = (event) => this.count--;
+
+  @action handleSomething = (event) => doSomething();
+}
+
+================================================================================
+`;
+
+exports[`multiline.js [acorn] format 1`] = `
+"Unexpected character '@' (2:3)
+  1 | class Foo {
+> 2 |   @deco([
+    |   ^
+  3 |     foo,
+  4 |     bar
+  5 |   ]) prop = value;
+Cause: Unexpected character '@' (2:2)"
+`;
+
+exports[`multiline.js [espree] format 1`] = `
+"Unexpected character '@' (2:3)
+  1 | class Foo {
+> 2 |   @deco([
+    |   ^
+  3 |     foo,
+  4 |     bar
+  5 |   ]) prop = value;
+Cause: Unexpected character '@'"
+`;
+
+exports[`multiline.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class Foo {
+  @deco([
+    foo,
+    bar
+  ]) prop = value;
+
+  @decorator([]) method() {}
+
+  @decorator([
+  ]) method() {}
+
+  @decorator({}) method() {}
+
+  @decorator({
+  }) method() {}
+}
+
+=====================================output=====================================
+class Foo {
+  @deco([foo, bar]) prop = value;
+
+  @decorator([]) method() {}
+
+  @decorator([]) method() {}
+
+  @decorator({}) method() {}
+
+  @decorator({}) method() {}
+}
+
+================================================================================
+`;
+
+exports[`multiple.js [acorn] format 1`] = `
+"Unexpected character '@' (2:3)
+  1 | const dog = class {
+> 2 |   @readonly
+    |   ^
+  3 |   @nonenumerable
+  4 |   @doubledValue
+  5 |   legs = 4;
+Cause: Unexpected character '@' (2:2)"
+`;
+
+exports[`multiple.js [espree] format 1`] = `
+"Unexpected character '@' (2:3)
+  1 | const dog = class {
+> 2 |   @readonly
+    |   ^
+  3 |   @nonenumerable
+  4 |   @doubledValue
+  5 |   legs = 4;
+Cause: Unexpected character '@'"
+`;
+
+exports[`multiple.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const dog = class {
+  @readonly
+  @nonenumerable
+  @doubledValue
+  legs = 4;
+
+  @readonly
+  @nonenumerable
+  @doubledValue
+  eyes() {return 2}
+};
+
+const foo = class {
+  @multipleDecorators @inline @theyWontAllFitInOneline aVeryLongPropName = "A very long string as value"
+  @multipleDecorators @inline @theyWontAllFitInOneline aVeryLongPropName() { "A very long string as value"}
+};
+
+=====================================output=====================================
+const dog = class {
+  @readonly
+  @nonenumerable
+  @doubledValue
+  legs = 4;
+
+  @readonly
+  @nonenumerable
+  @doubledValue
+  eyes() {
+    return 2;
+  }
+};
+
+const foo = class {
+  @multipleDecorators @inline @theyWontAllFitInOneline aVeryLongPropName =
+    "A very long string as value";
+  @multipleDecorators @inline @theyWontAllFitInOneline aVeryLongPropName() {
+    "A very long string as value";
+  }
+};
+
+================================================================================
+`;
+
+exports[`parens.js [acorn] format 1`] = `
+"Unexpected character '@' (2:3)
+  1 | class X {
+> 2 |   @(computed().volatile())
+    |   ^
+  3 |   x
+  4 | }
+  5 |
+Cause: Unexpected character '@' (2:2)"
+`;
+
+exports[`parens.js [espree] format 1`] = `
+"Unexpected character '@' (2:3)
+  1 | class X {
+> 2 |   @(computed().volatile())
+    |   ^
+  3 |   x
+  4 | }
+  5 |
+Cause: Unexpected character '@'"
+`;
+
+exports[`parens.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class X {
+  @(computed().volatile())
+  x
+}
+
+=====================================output=====================================
+class X {
+  @(computed().volatile())
+  x;
+}
+
+================================================================================
+`;
+
+exports[`redux.js [acorn] format 1`] = `
+"Unexpected character '@' (1:1)
+> 1 | @connect(mapStateToProps, mapDispatchToProps)
+    | ^
+  2 | export class MyApp extends React.Component {}
+  3 |
+  4 | @connect(state => ({ todos: state.todos }))
+Cause: Unexpected character '@' (1:0)"
+`;
+
+exports[`redux.js [espree] format 1`] = `
+"Unexpected character '@' (1:1)
+> 1 | @connect(mapStateToProps, mapDispatchToProps)
+    | ^
+  2 | export class MyApp extends React.Component {}
+  3 |
+  4 | @connect(state => ({ todos: state.todos }))
+Cause: Unexpected character '@'"
+`;
+
+exports[`redux.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+@connect(mapStateToProps, mapDispatchToProps)
+export class MyApp extends React.Component {}
+
+@connect(state => ({ todos: state.todos }))
+export class Home extends React.Component {}
+
+=====================================output=====================================
+@connect(mapStateToProps, mapDispatchToProps)
+export class MyApp extends React.Component {}
+
+@connect((state) => ({ todos: state.todos }))
+export class Home extends React.Component {}
+
+================================================================================
+`;

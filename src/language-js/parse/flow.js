@@ -1,9 +1,7 @@
-"use strict";
-
-const createError = require("../../common/parser-create-error.js");
-const createParser = require("./utils/create-parser.js");
-const replaceHashbang = require("./utils/replace-hashbang.js");
-const postprocess = require("./postprocess/index.js");
+import flowParser from "flow-parser";
+import createError from "../../common/parser-create-error.js";
+import postprocess from "./postprocess/index.js";
+import createParser from "./utils/create-parser.js";
 
 // https://github.com/facebook/flow/tree/main/packages/flow-parser#options
 // Keep this sync with `/scripts/sync-flow-test.js`
@@ -12,6 +10,8 @@ const parseOptions = {
   // all_comments: true,
   // `comments` (boolean, default `true`) - attach comments to AST nodes (`leadingComments` and `trailingComments`)
   comments: false,
+  // `components` (boolean, default `false`) - enable parsing of Flow component syntax
+  components: true,
   // `enums` (boolean, default `false`) - enable parsing of Flow enums
   enums: true,
   // `esproposal_decorators` (boolean, default `false`) - enable parsing of decorators
@@ -23,7 +23,7 @@ const parseOptions = {
   // `use_strict` (boolean, default `false`) - treat the file as strict, without needing a "use strict" directive
   // use_strict: false,
   // `tokens` (boolean, default `false`) - include a list of all parsed tokens in a top-level `tokens` property
-  tokens: true,
+  tokens: false,
 };
 
 function createParseError(error) {
@@ -33,27 +33,22 @@ function createParseError(error) {
   } = error;
 
   return createError(message, {
-    start: { line: start.line, column: start.column + 1 },
-    end: { line: end.line, column: end.column + 1 },
+    loc: {
+      start: { line: start.line, column: start.column + 1 },
+      end: { line: end.line, column: end.column + 1 },
+    },
+    cause: error,
   });
 }
 
-function parse(text, parsers, options = {}) {
-  // Inline the require to avoid loading all the JS if we don't use it
-  const { parse } = require("flow-parser");
-  const ast = parse(replaceHashbang(text), parseOptions);
+function parse(text) {
+  const ast = flowParser.parse(text, parseOptions);
   const [error] = ast.errors;
   if (error) {
     throw createParseError(error);
   }
 
-  options.originalText = text;
-  return postprocess(ast, options);
+  return postprocess(ast, { parser: "flow", text });
 }
 
-// Export as a plugin so we can reuse the same bundle for UMD loading
-module.exports = {
-  parsers: {
-    flow: createParser(parse),
-  },
-};
+export const flow = createParser(parse);

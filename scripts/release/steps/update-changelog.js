@@ -1,27 +1,24 @@
 import fs from "node:fs";
-import { execa } from "execa";
-import chalk from "chalk";
-import outdent from "outdent";
+import spawn from "nano-spawn";
+import styleText from "node-style-text";
 import semver from "semver";
 import {
-  waitForEnter,
-  runYarn,
-  logPromise,
   getBlogPostInfo,
   getChangelogContent,
+  logPromise,
+  runYarn,
+  waitForEnter,
 } from "../utils.js";
 
-const outdentString = outdent.string;
-
 function writeChangelog(params) {
-  const changelog = fs.readFileSync("CHANGELOG.md", "utf-8");
+  const changelog = fs.readFileSync("CHANGELOG.md", "utf8");
   const newEntry = `# ${params.version}\n\n` + getChangelogContent(params);
   fs.writeFileSync("CHANGELOG.md", newEntry + "\n\n" + changelog);
 }
 
 async function getChangelogForPatch({ version, previousVersion }) {
-  const { stdout: changelog } = await execa("node", [
-    "scripts/changelog-for-patch.mjs",
+  const { stdout: changelog } = await spawn(process.execPath, [
+    "scripts/changelog-for-patch.js",
     "--prev-version",
     previousVersion,
     "--new-version",
@@ -30,7 +27,16 @@ async function getChangelogForPatch({ version, previousVersion }) {
   return changelog;
 }
 
-export default async function updateChangelog({ version, previousVersion }) {
+export default async function updateChangelog({
+  dry,
+  version,
+  previousVersion,
+  next,
+}) {
+  if (dry || next) {
+    return;
+  }
+
   const semverDiff = semver.diff(version, previousVersion);
 
   if (semverDiff !== "patch") {
@@ -45,11 +51,11 @@ export default async function updateChangelog({ version, previousVersion }) {
       return;
     }
     console.warn(
-      outdentString(chalk`
-        {yellow warning} The file {bold ${blogPost.file}} doesn't exist, but it will be referenced in {bold CHANGELOG.md}. Make sure to create it later.
-
-        Press ENTER to continue.
-      `)
+      `${styleText.yellow("warning")} The file ${styleText.bold(
+        blogPost.file,
+      )} doesn't exist, but it will be referenced in ${styleText.bold(
+        "CHANGELOG.md",
+      )}. Make sure to create it later.`,
     );
   } else {
     const body = await getChangelogForPatch({
@@ -61,12 +67,11 @@ export default async function updateChangelog({ version, previousVersion }) {
       previousVersion,
       body,
     });
-    console.log("Press ENTER to continue.");
   }
 
   await waitForEnter();
   await logPromise(
     "Re-running Prettier on docs",
-    runYarn(["lint:prettier", "--write"])
+    runYarn(["lint:prettier", "--write"]),
   );
 }

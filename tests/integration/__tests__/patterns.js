@@ -1,11 +1,5 @@
-"use strict";
-
-const runPrettier = require("../run-prettier.js");
-
-expect.addSnapshotSerializer(require("../path-serializer.js"));
-
 describe("multiple patterns", () => {
-  runPrettier("cli/patterns", [
+  runCli("cli/patterns", [
     "directory/**/*.js",
     "other-directory/**/*.js",
     "-l",
@@ -15,39 +9,31 @@ describe("multiple patterns", () => {
 });
 
 describe("multiple patterns with non exists pattern", () => {
-  runPrettier("cli/patterns", [
-    "directory/**/*.js",
-    "non-existent.js",
-    "-l",
-  ]).test({
+  runCli("cli/patterns", ["directory/**/*.js", "non-existent.js", "-l"]).test({
     status: 2,
   });
 });
 
 describe("multiple patterns with ignore nested directories pattern", () => {
-  runPrettier("cli/patterns", [
-    "**/*.js",
-    "!**/nested-directory/**",
-    "-l",
-  ]).test({
+  runCli("cli/patterns", ["**/*.js", "!**/nested-directory/**", "-l"]).test({
     status: 1,
   });
 });
 
 describe("multiple patterns by with ignore pattern, ignores node_modules by default", () => {
-  runPrettier("cli/patterns", ["**/*.js", "!directory/**", "-l"]).test({
+  runCli("cli/patterns", ["**/*.js", "!directory/**", "-l"]).test({
     status: 1,
   });
 });
 
 describe("multiple patterns by with ignore pattern, ignores node_modules by with ./**/*.js", () => {
-  runPrettier("cli/patterns", ["./**/*.js", "!./directory/**", "-l"]).test({
+  runCli("cli/patterns", ["./**/*.js", "!./directory/**", "-l"]).test({
     status: 1,
   });
 });
 
 describe("multiple patterns by with ignore pattern, doesn't ignore node_modules with --with-node-modules flag", () => {
-  runPrettier("cli/patterns", [
+  runCli("cli/patterns", [
     "**/*.js",
     "!directory/**",
     "-l",
@@ -59,17 +45,38 @@ describe("multiple patterns by with ignore pattern, doesn't ignore node_modules 
 
 describe("no errors on empty patterns", () => {
   // --parser is mandatory if no filepath is passed
-  runPrettier("cli/patterns", ["--parser", "babel"]).test({
+  runCli("cli/patterns", ["--parser", "babel"]).test({
     status: 0,
   });
 });
 
 describe("multiple patterns, throw error and exit with non zero code on non existing files", () => {
-  runPrettier("cli/patterns", [
+  runCli("cli/patterns", [
     "non-existent.js",
     "other-non-existent.js",
     "-l",
   ]).test({
     status: 2,
+  });
+});
+
+describe("file names with special characters", () => {
+  runCli("cli/patterns-special-characters/square-brackets/", [
+    "[with-square-brackets].js",
+    "-l",
+  ]).test({
+    status: 1,
+    write: [],
+    stderr: "",
+    stdout: "[with-square-brackets].js",
+  });
+  runCli("cli/patterns-special-characters/dots/", [
+    "[...with-square-and-dots-brackets].js",
+    "-l",
+  ]).test({
+    status: 1,
+    write: [],
+    stderr: "",
+    stdout: "[...with-square-and-dots-brackets].js",
   });
 });

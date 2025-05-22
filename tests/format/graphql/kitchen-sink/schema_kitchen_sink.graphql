@@ -8,6 +8,10 @@ schema {
   mutation: MutationType
 }
 
+extend schema @directive {
+  subscription: Subscription
+}
+
 """
 This is a description
 of the `Foo` type.

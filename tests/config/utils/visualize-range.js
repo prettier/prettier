@@ -1,7 +1,5 @@
-"use strict";
-
-const { LinesAndColumns } = require("lines-and-columns");
-const { codeFrameColumns } = require("@babel/code-frame");
+import { codeFrameColumns } from "@babel/code-frame";
+import indexToPosition from "index-to-position";
 const codeFrameColumnsOptions = {
   linesAbove: Number.POSITIVE_INFINITY,
   linesBelow: Number.POSITIVE_INFINITY,
@@ -11,15 +9,11 @@ const locationForRange = (text, rangeStart, rangeEnd) => {
   if (rangeStart > rangeEnd) {
     [rangeStart, rangeEnd] = [rangeEnd, rangeStart];
   }
-  const lines = new LinesAndColumns(text);
-  const start = lines.locationForIndex(rangeStart);
-  const end = lines.locationForIndex(rangeEnd);
 
-  start.line += 1;
-  start.column += 1;
-  end.line += 1;
-  if (start.line === end.line) {
-    end.column += 1;
+  const start = indexToPosition(text, rangeStart, { oneBased: true });
+  const end = indexToPosition(text, rangeEnd, { oneBased: true });
+  if (start.line !== end.line) {
+    end.column -= 1;
   }
 
   return {
@@ -34,7 +28,7 @@ const visualizeRange = (text, { rangeStart = 0, rangeEnd = text.length }) =>
     locationForRange(text, rangeStart, rangeEnd),
     rangeStart > rangeEnd
       ? { ...codeFrameColumnsOptions, message: "[Reversed range]" }
-      : codeFrameColumnsOptions
+      : codeFrameColumnsOptions,
   );
 
-module.exports = visualizeRange;
+export default visualizeRange;

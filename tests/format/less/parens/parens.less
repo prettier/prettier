@@ -259,3 +259,20 @@ a {
     unicode-range: U+4??;              /* wildcard range */
     unicode-range: U+0025-00FF, U+4??; /* multiple values */
 }
+
+// no space after unary minus when followed by opening parenthesis, #13998
+.unary_minus_single {
+  margin: -(@a);
+}
+
+.unary_minus_multi_1 {
+  margin: 0 -(@a);
+}
+
+.unary_minus_multi_2 {
+  margin: 0  -( @a + @b );
+}
+
+.binary_minus {
+  margin: 0 - (@a);
+}

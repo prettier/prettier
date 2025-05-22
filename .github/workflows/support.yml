@@ -4,11 +4,14 @@ on:
   issues:
     types: [labeled, unlabeled, reopened]
 
+permissions:
+  issues: write
+
 jobs:
   support:
     runs-on: ubuntu-latest
     steps:
-      - uses: dessant/support-requests@v2
+      - uses: dessant/support-requests@v4.0.0
         with:
           github-token: ${{ github.token }}
           support-label: "type:question"

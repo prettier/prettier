@@ -1,5 +1,3 @@
-"use strict";
-
 /**
  * modified from https://github.com/mdx-js/mdx/blob/master/packages/mdx
  *
@@ -24,11 +22,11 @@
  * THE SOFTWARE.
  */
 
-const IMPORT_REGEX = /^import\s/;
-const EXPORT_REGEX = /^export\s/;
-const BLOCKS_REGEX = "[a-z][a-z0-9]*(\\.[a-z][a-z0-9]*)*|";
-const COMMENT_REGEX = /<!---->|<!---?[^>-](?:-?[^-])*-->/;
-const ES_COMMENT_REGEX = /^{\s*\/\*(.*)\*\/\s*}/;
+const IMPORT_REGEX = /^import\s/u;
+const EXPORT_REGEX = /^export\s/u;
+const BLOCKS_REGEX = String.raw`[a-z][a-z0-9]*(\.[a-z][a-z0-9]*)*|`;
+const COMMENT_REGEX = /<!---->|<!---?[^>-](?:-?[^-])*-->/u;
+const ES_COMMENT_REGEX = /^\{\s*\/\*(.*)\*\/\s*\}/u;
 const EMPTY_NEWLINE = "\n\n";
 
 const isImport = (text) => IMPORT_REGEX.test(text);
@@ -57,13 +55,18 @@ const tokenizeEsComment = (eat, value) => {
   }
 };
 
-/* istanbul ignore next */
+/* c8 ignore next 2 */
 tokenizeEsSyntax.locator = (value /*, fromIndex*/) =>
   isExport(value) || isImport(value) ? -1 : 1;
 
 tokenizeEsComment.locator = (value, fromIndex) => value.indexOf("{", fromIndex);
 
-function esSyntax() {
+/** @import {Plugin, Settings} from "unified" */
+
+/**
+ * @type {Plugin<[], Settings>}
+ */
+const esSyntax = function () {
   const { Parser } = this;
   const { blockTokenizers, blockMethods, inlineTokenizers, inlineMethods } =
     Parser.prototype;
@@ -73,10 +76,6 @@ function esSyntax() {
 
   blockMethods.splice(blockMethods.indexOf("paragraph"), 0, "esSyntax");
   inlineMethods.splice(inlineMethods.indexOf("text"), 0, "esComment");
-}
-
-module.exports = {
-  esSyntax,
-  BLOCKS_REGEX,
-  COMMENT_REGEX,
 };
+
+export { BLOCKS_REGEX, COMMENT_REGEX, esSyntax };

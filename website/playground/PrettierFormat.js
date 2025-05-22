@@ -1,4 +1,4 @@
-import * as React from "react";
+const { React } = window;
 
 export default class PrettierFormat extends React.Component {
   constructor() {
@@ -12,12 +12,15 @@ export default class PrettierFormat extends React.Component {
 
   componentDidUpdate(prevProps) {
     for (const key of [
+      "enabled",
       "code",
       "options",
       "debugAst",
+      "debugPreprocessedAst",
       "debugDoc",
       "debugComments",
       "reformat",
+      "rethrowEmbedErrors",
     ]) {
       if (prevProps[key] !== this.props[key]) {
         this.format();
@@ -26,20 +29,34 @@ export default class PrettierFormat extends React.Component {
     }
   }
 
-  format() {
+  async format() {
     const {
+      enabled,
       worker,
       code,
       options,
       debugAst: ast,
+      debugPreprocessedAst: preprocessedAst,
       debugDoc: doc,
       debugComments: comments,
       reformat,
+      rethrowEmbedErrors,
     } = this.props;
 
-    worker
-      .format(code, options, { ast, doc, comments, reformat })
-      .then((result) => this.setState(result));
+    if (!enabled) {
+      return;
+    }
+
+    const result = await worker.format(code, options, {
+      ast,
+      preprocessedAst,
+      doc,
+      comments,
+      reformat,
+      rethrowEmbedErrors,
+    });
+
+    this.setState(result);
   }
 
   render() {

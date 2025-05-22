@@ -1,45 +1,52 @@
-"use strict";
-
-const { isNonEmptyArray } = require("../common/util.js");
-const getLast = require("../utils/get-last.js");
-
 const NODES_KEYS = {
   attrs: true,
   children: true,
+  cases: true, // plural and select
+  expression: true, // for expansionCase
 };
+
+const NON_ENUMERABLE_PROPERTIES = new Set(["parent"]);
 
 // TODO: typechecking is problematic for this class because of this issue:
 // https://github.com/microsoft/TypeScript/issues/26811
 
 class Node {
-  constructor(props = {}) {
-    for (const [key, value] of Object.entries(props)) {
-      if (key in NODES_KEYS) {
-        this._setNodes(key, value);
-      } else {
-        this[key] = value;
-      }
+  type;
+  parent;
+
+  constructor(nodeOrProperties = {}) {
+    for (const property of new Set([
+      ...NON_ENUMERABLE_PROPERTIES,
+      ...Object.keys(nodeOrProperties),
+    ])) {
+      this.setProperty(property, nodeOrProperties[property]);
     }
   }
 
-  _setNodes(key, nodes) {
-    if (nodes !== this[key]) {
-      this[key] = cloneAndUpdateNodes(nodes, this);
-      if (key === "attrs") {
-        setNonEnumerableProperty(
-          this,
-          "attrMap",
-          Object.fromEntries(
-            this[key].map((attr) => [attr.fullName, attr.value])
-          )
-        );
-      }
+  setProperty(property, value) {
+    if (this[property] === value) {
+      return;
     }
+
+    if (property in NODES_KEYS) {
+      value = value.map((node) => this.createChild(node));
+    }
+
+    if (!NON_ENUMERABLE_PROPERTIES.has(property)) {
+      this[property] = value;
+      return;
+    }
+
+    Object.defineProperty(this, property, {
+      value,
+      enumerable: false,
+      configurable: true,
+    });
   }
 
   map(fn) {
     /** @type{any} */
-    let newNode = null;
+    let newNode;
 
     for (const NODES_KEY in NODES_KEYS) {
       const nodes = this[NODES_KEY];
@@ -47,10 +54,9 @@ class Node {
         const mappedNodes = mapNodesIfChanged(nodes, (node) => node.map(fn));
         if (newNode !== nodes) {
           if (!newNode) {
-            // @ts-expect-error
             newNode = new Node({ parent: this.parent });
           }
-          newNode._setNodes(NODES_KEY, mappedNodes);
+          newNode.setProperty(NODES_KEY, mappedNodes);
         }
       }
     }
@@ -78,23 +84,30 @@ class Node {
     fn(this);
   }
 
+  createChild(nodeOrProperties) {
+    const node =
+      nodeOrProperties instanceof Node
+        ? nodeOrProperties.clone()
+        : new Node(nodeOrProperties);
+    node.setProperty("parent", this);
+    return node;
+  }
+
   /**
    * @param {Node} [target]
    * @param {Object} [node]
    */
   insertChildBefore(target, node) {
-    const newNode = new Node({ ...node, parent: this });
-
-    // @ts-expect-error
-    this.children.splice(this.children.indexOf(target), 0, newNode);
+    const children = this.$children;
+    children.splice(children.indexOf(target), 0, this.createChild(node));
   }
 
   /**
    * @param {Node} [child]
    */
   removeChild(child) {
-    // @ts-expect-error
-    this.children.splice(this.children.indexOf(child), 1);
+    const children = this.$children;
+    children.splice(children.indexOf(child), 1);
   }
 
   /**
@@ -102,49 +115,57 @@ class Node {
    * @param {Object} [node]
    */
   replaceChild(target, node) {
-    const newNode = new Node({ ...node, parent: this });
-
-    // @ts-expect-error
-    this.children[this.children.indexOf(target)] = newNode;
+    const children = this.$children;
+    children[children.indexOf(target)] = this.createChild(node);
   }
 
   clone() {
     return new Node(this);
   }
 
-  /**
-   * @param {Array} [children]
-   */
-  setChildren(children) {
-    this._setNodes("children", children);
+  get #childrenProperty() {
+    if (this.type === "angularIcuCase") {
+      return "expression";
+    }
+
+    if (this.type === "angularIcuExpression") {
+      return "cases";
+    }
+
+    return "children";
+  }
+
+  // Use `$` prefix since `children` already exits in the original AST,
+  // Can't use `#children` either, since it need be public
+  // There are other children in different Node, see `#childrenProperty`
+  get $children() {
+    return this[this.#childrenProperty];
+  }
+
+  set $children(value) {
+    this[this.#childrenProperty] = value;
   }
 
   get firstChild() {
-    // @ts-expect-error
-    return isNonEmptyArray(this.children) ? this.children[0] : null;
+    return this.$children?.[0];
   }
 
   get lastChild() {
-    // @ts-expect-error
-    return isNonEmptyArray(this.children) ? getLast(this.children) : null;
+    return this.$children?.at(-1);
+  }
+
+  get #siblings() {
+    return this.parent?.$children ?? [];
   }
 
   get prev() {
-    // @ts-expect-error
-    if (!this.parent) {
-      return null;
-    }
-    // @ts-expect-error
-    return this.parent.children[this.parent.children.indexOf(this) - 1];
+    const siblings = this.#siblings;
+    return siblings[siblings.indexOf(this) - 1];
   }
 
   get next() {
-    // @ts-expect-error
-    if (!this.parent) {
-      return null;
-    }
-    // @ts-expect-error
-    return this.parent.children[this.parent.children.indexOf(this) + 1];
+    const siblings = this.#siblings;
+    return siblings[siblings.indexOf(this) + 1];
   }
 
   // for element and attribute
@@ -152,9 +173,17 @@ class Node {
     // @ts-expect-error
     return this.hasExplicitNamespace ? this.fullName : this.name;
   }
+
   get fullName() {
     // @ts-expect-error
     return this.namespace ? this.namespace + ":" + this.name : this.name;
+  }
+
+  get attrMap() {
+    return Object.fromEntries(
+      // @ts-expect-error
+      this.attrs.map((attr) => [attr.fullName, attr.value]),
+    );
   }
 }
 
@@ -165,22 +194,4 @@ function mapNodesIfChanged(nodes, fn) {
     : nodes;
 }
 
-function cloneAndUpdateNodes(nodes, parent) {
-  const siblings = nodes.map((node) =>
-    node instanceof Node ? node.clone() : new Node({ ...node, parent })
-  );
-
-  for (const sibling of siblings) {
-    sibling.parent = parent;
-  }
-
-  return siblings;
-}
-
-function setNonEnumerableProperty(obj, key, value) {
-  Object.defineProperty(obj, key, { value, enumerable: false });
-}
-
-module.exports = {
-  Node,
-};
+export { Node };

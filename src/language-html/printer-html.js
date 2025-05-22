@@ -1,48 +1,75 @@
-"use strict";
-
 /**
- * @typedef {import("../document").Doc} Doc
+ * @import {Doc} from "../document/builders.js"
  */
 
-const {
-  builders: { fill, group, hardline, literalline },
-  utils: { cleanDoc, getDocParts, isConcat, replaceTextEndOfLine },
-} = require("../document/index.js");
-const clean = require("./clean.js");
-const {
-  countChars,
-  unescapeQuoteEntities,
-  getTextValueParts,
-} = require("./utils/index.js");
-const preprocess = require("./print-preprocess.js");
-const { insertPragma } = require("./pragma.js");
-const { locStart, locEnd } = require("./loc.js");
-const embed = require("./embed.js");
-const {
-  printClosingTagSuffix,
+import { fill, group, hardline, indent, line } from "../document/builders.js";
+import { replaceEndOfLine } from "../document/utils.js";
+import getPreferredQuote from "../utils/get-preferred-quote.js";
+import htmlWhitespaceUtils from "../utils/html-whitespace-utils.js";
+import UnexpectedNodeError from "../utils/unexpected-node-error.js";
+import clean from "./clean.js";
+import embed from "./embed.js";
+import getVisitorKeys from "./get-visitor-keys.js";
+import { locEnd, locStart } from "./loc.js";
+import { insertPragma } from "./pragma.js";
+import {
+  printAngularControlFlowBlock,
+  printAngularControlFlowBlockParameters,
+} from "./print/angular-control-flow-block.js";
+import {
+  printAngularIcuCase,
+  printAngularIcuExpression,
+} from "./print/angular-icu-expression.js";
+import { printChildren } from "./print/children.js";
+import { printElement } from "./print/element.js";
+import {
   printClosingTagEnd,
+  printClosingTagSuffix,
   printOpeningTagPrefix,
   printOpeningTagStart,
-} = require("./print/tag.js");
-const { printElement } = require("./print/element.js");
-const { printChildren } = require("./print/children.js");
+} from "./print/tag.js";
+import preprocess from "./print-preprocess.js";
+import { getTextValueParts, unescapeQuoteEntities } from "./utils/index.js";
 
 function genericPrint(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
 
   switch (node.type) {
     case "front-matter":
-      return replaceTextEndOfLine(node.raw);
+      return replaceEndOfLine(node.raw);
     case "root":
       if (options.__onHtmlRoot) {
         options.__onHtmlRoot(node);
       }
-      // use original concat to not break stripTrailingHardline
       return [group(printChildren(path, options, print)), hardline];
     case "element":
-    case "ieConditionalComment": {
+    case "ieConditionalComment":
       return printElement(path, options, print);
-    }
+
+    case "angularControlFlowBlock":
+      return printAngularControlFlowBlock(path, options, print);
+    case "angularControlFlowBlockParameters":
+      return printAngularControlFlowBlockParameters(path, options, print);
+    case "angularControlFlowBlockParameter":
+      return htmlWhitespaceUtils.trim(node.expression);
+
+    case "angularLetDeclaration":
+      // print like "break-after-operator" layout assignment in estree printer
+      return group([
+        "@let ",
+        group([node.id, " =", group(indent([line, print("init")]))]),
+        // semicolon is required
+        ";",
+      ]);
+    case "angularLetDeclarationInitializer":
+      // basically printed via embedded formatting
+      return node.value;
+
+    case "angularIcuExpression":
+      return printAngularIcuExpression(path, options, print);
+    case "angularIcuCase":
+      return printAngularIcuCase(path, options, print);
+
     case "ieConditionalStartComment":
     case "ieConditionalEndComment":
       return [printOpeningTagStart(node), printClosingTagEnd(node)];
@@ -55,79 +82,74 @@ function genericPrint(path, options, print) {
     case "text": {
       if (node.parent.type === "interpolation") {
         // replace the trailing literalline with hardline for better readability
-        const trailingNewlineRegex = /\n[^\S\n]*$/;
+        const trailingNewlineRegex = /\n[^\S\n]*$/u;
         const hasTrailingNewline = trailingNewlineRegex.test(node.value);
         const value = hasTrailingNewline
           ? node.value.replace(trailingNewlineRegex, "")
           : node.value;
-        return [
-          ...replaceTextEndOfLine(value),
-          hasTrailingNewline ? hardline : "",
-        ];
+        return [replaceEndOfLine(value), hasTrailingNewline ? hardline : ""];
       }
 
-      const printed = cleanDoc([
-        printOpeningTagPrefix(node, options),
-        ...getTextValueParts(node),
-        printClosingTagSuffix(node, options),
-      ]);
-      if (isConcat(printed) || printed.type === "fill") {
-        return fill(getDocParts(printed));
-      }
-      /* istanbul ignore next */
-      return printed;
+      const prefix = printOpeningTagPrefix(node, options);
+      const printed = getTextValueParts(node);
+
+      const suffix = printClosingTagSuffix(node, options);
+      // We cant use `fill([prefix, printed, suffix])` because it violates rule of fill: elements with odd indices must be line break
+      printed[0] = [prefix, printed[0]];
+      printed.push([printed.pop(), suffix]);
+
+      return fill(printed);
     }
     case "docType":
       return [
         group([
           printOpeningTagStart(node, options),
           " ",
-          node.value.replace(/^html\b/i, "html").replace(/\s+/g, " "),
+          node.value.replace(/^html\b/iu, "html").replaceAll(/\s+/gu, " "),
         ]),
         printClosingTagEnd(node, options),
       ];
-    case "comment": {
+    case "comment":
       return [
         printOpeningTagPrefix(node, options),
-        ...replaceTextEndOfLine(
+        replaceEndOfLine(
           options.originalText.slice(locStart(node), locEnd(node)),
-          literalline
         ),
         printClosingTagSuffix(node, options),
       ];
-    }
+
     case "attribute": {
       if (node.value === null) {
         return node.rawName;
       }
       const value = unescapeQuoteEntities(node.value);
-      const singleQuoteCount = countChars(value, "'");
-      const doubleQuoteCount = countChars(value, '"');
-      const quote = singleQuoteCount < doubleQuoteCount ? "'" : '"';
+      const quote = getPreferredQuote(value, '"');
       return [
         node.rawName,
-
         "=",
         quote,
-
-        ...replaceTextEndOfLine(
+        replaceEndOfLine(
           quote === '"'
-            ? value.replace(/"/g, "&quot;")
-            : value.replace(/'/g, "&apos;")
+            ? value.replaceAll('"', "&quot;")
+            : value.replaceAll("'", "&apos;"),
         ),
         quote,
       ];
     }
+    case "cdata": // Transformed into `text`
     default:
-      /* istanbul ignore next */
-      throw new Error(`Unexpected node type ${node.type}`);
+      /* c8 ignore next */
+      throw new UnexpectedNodeError(node, "HTML");
   }
 }
 
-module.exports = {
+const printer = {
   preprocess,
   print: genericPrint,
   insertPragma,
   massageAstNode: clean,
   embed,
+  getVisitorKeys,
 };
+
+export default printer;

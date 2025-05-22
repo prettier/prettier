@@ -1,17 +1,14 @@
-"use strict";
-
-const remarkParse = require("remark-parse");
-const unified = require("unified");
-const remarkMath = require("remark-math");
-const footnotes = require("remark-footnotes");
-const pragma = require("./pragma.js");
-const { locStart, locEnd } = require("./loc.js");
-const mdx = require("./mdx.js");
-const htmlToJsx = require("./unified-plugins/html-to-jsx.js");
-const frontMatter = require("./unified-plugins/front-matter.js");
-const liquid = require("./unified-plugins/liquid.js");
-const wikiLink = require("./unified-plugins/wiki-link.js");
-const looseItems = require("./unified-plugins/loose-items.js");
+import footnotes from "remark-footnotes";
+import remarkMath from "remark-math";
+import remarkParse from "remark-parse";
+import unified from "unified";
+import { locEnd, locStart } from "./loc.js";
+import { BLOCKS_REGEX, esSyntax } from "./mdx.js";
+import { hasIgnorePragma, hasPragma } from "./pragma.js";
+import frontMatter from "./unified-plugins/front-matter.js";
+import htmlToJsx from "./unified-plugins/html-to-jsx.js";
+import liquid from "./unified-plugins/liquid.js";
+import wikiLink from "./unified-plugins/wiki-link.js";
 
 /**
  * based on [MDAST](https://github.com/syntax-tree/mdast) with following modifications:
@@ -32,39 +29,29 @@ function createParse({ isMDX }) {
     const processor = unified()
       .use(remarkParse, {
         commonmark: true,
-        ...(isMDX && { blocks: [mdx.BLOCKS_REGEX] }),
+        ...(isMDX && { blocks: [BLOCKS_REGEX] }),
       })
       .use(footnotes)
       .use(frontMatter)
       .use(remarkMath)
-      .use(isMDX ? mdx.esSyntax : identity)
+      .use(isMDX ? esSyntax : noop)
       .use(liquid)
-      .use(isMDX ? htmlToJsx : identity)
-      .use(wikiLink)
-      .use(looseItems);
-    return processor.runSync(processor.parse(text));
+      .use(isMDX ? htmlToJsx : noop)
+      .use(wikiLink);
+    return processor.run(processor.parse(text));
   };
 }
 
-function identity(x) {
-  return x;
-}
+function noop() {}
 
 const baseParser = {
   astFormat: "mdast",
-  hasPragma: pragma.hasPragma,
+  hasPragma,
+  hasIgnorePragma,
   locStart,
   locEnd,
 };
 
-const markdownParser = { ...baseParser, parse: createParse({ isMDX: false }) };
-
-const mdxParser = { ...baseParser, parse: createParse({ isMDX: true }) };
-
-module.exports = {
-  parsers: {
-    remark: markdownParser,
-    markdown: markdownParser,
-    mdx: mdxParser,
-  },
-};
+export const markdown = { ...baseParser, parse: createParse({ isMDX: false }) };
+export const mdx = { ...baseParser, parse: createParse({ isMDX: true }) };
+export { markdown as remark };

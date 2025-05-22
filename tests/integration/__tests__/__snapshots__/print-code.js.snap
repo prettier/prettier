@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Line breaking after filepath with errors  1`] = `
+{
+  "stdout": "ignored.js
+[[Clear text(process.stdout): ignored.js]]
+foo(
+)",
+}
+`;
+
+exports[`Line breaking after filepath with errors  2`] = `
+{
+  "stdout": "not-ignored.js
+[[Clear text(process.stdout): not-ignored.js]]
+foo();",
+}
+`;

@@ -1,19 +1,13 @@
-"use strict";
-
-const commonOptions = require("../common/common-options.js");
+import commonOptions from "../common/common-options.evaluate.js";
 
 const CATEGORY_JAVASCRIPT = "JavaScript";
 
-// format based on https://github.com/prettier/prettier/blob/main/src/main/core-options.js
-module.exports = {
+// format based on https://github.com/prettier/prettier/blob/main/src/main/core-options.evaluate.js
+const options = {
   arrowParens: {
-    since: "1.9.0",
     category: CATEGORY_JAVASCRIPT,
     type: "choice",
-    default: [
-      { since: "1.9.0", value: "avoid" },
-      { since: "2.0.0", value: "always" },
-    ],
+    default: "always",
     description: "Include parentheses around a sole arrow function parameter.",
     choices: [
       {
@@ -27,16 +21,15 @@ module.exports = {
     ],
   },
   bracketSameLine: commonOptions.bracketSameLine,
+  objectWrap: commonOptions.objectWrap,
   bracketSpacing: commonOptions.bracketSpacing,
   jsxBracketSameLine: {
-    since: "0.17.0",
     category: CATEGORY_JAVASCRIPT,
     type: "boolean",
     description: "Put > on the last line instead of at a new line.",
     deprecated: "2.4.0",
   },
   semi: {
-    since: "1.0.0",
     category: CATEGORY_JAVASCRIPT,
     type: "boolean",
     default: true,
@@ -44,16 +37,39 @@ module.exports = {
     oppositeDescription:
       "Do not print semicolons, except at the beginning of lines which may need them.",
   },
+  experimentalOperatorPosition: {
+    category: CATEGORY_JAVASCRIPT,
+    type: "choice",
+    default: "end",
+    description: "Where to print operators when binary expressions wrap lines.",
+    choices: [
+      {
+        value: "start",
+        description: "Print operators at the start of new lines.",
+      },
+      {
+        value: "end",
+        description: "Print operators at the end of previous lines.",
+      },
+    ],
+  },
+  experimentalTernaries: {
+    category: CATEGORY_JAVASCRIPT,
+    type: "boolean",
+    default: false,
+    description:
+      "Use curious ternaries, with the question mark after the condition.",
+    oppositeDescription:
+      "Default behavior of ternaries; keep question marks on the same line as the consequent.",
+  },
   singleQuote: commonOptions.singleQuote,
   jsxSingleQuote: {
-    since: "1.15.0",
     category: CATEGORY_JAVASCRIPT,
     type: "boolean",
     default: false,
     description: "Use single quotes in JSX.",
   },
   quoteProps: {
-    since: "1.17.0",
     category: CATEGORY_JAVASCRIPT,
     type: "choice",
     default: "as-needed",
@@ -75,28 +91,25 @@ module.exports = {
     ],
   },
   trailingComma: {
-    since: "0.0.0",
     category: CATEGORY_JAVASCRIPT,
     type: "choice",
-    default: [
-      { since: "0.0.0", value: false },
-      { since: "0.19.0", value: "none" },
-      { since: "2.0.0", value: "es5" },
-    ],
+    default: "all",
     description: "Print trailing commas wherever possible when multi-line.",
     choices: [
+      {
+        value: "all",
+        description:
+          "Trailing commas wherever possible (including function arguments).",
+      },
       {
         value: "es5",
         description:
           "Trailing commas where valid in ES5 (objects, arrays, etc.)",
       },
       { value: "none", description: "No trailing commas." },
-      {
-        value: "all",
-        description:
-          "Trailing commas wherever possible (including function arguments).",
-      },
     ],
   },
   singleAttributePerLine: commonOptions.singleAttributePerLine,
 };
+
+export default options;

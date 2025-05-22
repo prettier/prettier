@@ -1,4 +1,4 @@
-// https://babeljs.io/docs/en/babel-plugin-proposal-partial-application
+// https://babeljs.io/docs/babel-plugin-proposal-partial-application
 
 function add(x, y) { return x + y; }
 

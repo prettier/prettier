@@ -1,0 +1,138 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`no-pragma.html - {"insertPragma":true} format 1`] = `
+====================================options=====================================
+insertPragma: true
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+
+
+<!-- @not-a-pragma -->
+<!doctype html>
+<html>
+            </html>
+
+=====================================output=====================================
+<!-- @format -->
+
+<!-- @not-a-pragma -->
+<!doctype html>
+<html></html>
+
+================================================================================
+`;
+
+exports[`no-pragma.html - {"requirePragma":true} format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+requirePragma: true
+                                                                                | printWidth
+=====================================input======================================
+
+
+<!-- @not-a-pragma -->
+<!doctype html>
+<html>
+            </html>
+
+=====================================output=====================================
+
+
+<!-- @not-a-pragma -->
+<!doctype html>
+<html>
+            </html>
+
+================================================================================
+`;
+
+exports[`with-pragma.html - {"insertPragma":true} format 1`] = `
+====================================options=====================================
+insertPragma: true
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+
+
+<!-- @format -->
+<!doctype html>
+<html>
+            </html>
+
+=====================================output=====================================
+<!-- @format -->
+<!doctype html>
+<html></html>
+
+================================================================================
+`;
+
+exports[`with-pragma.html - {"requirePragma":true} format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+requirePragma: true
+                                                                                | printWidth
+=====================================input======================================
+
+
+<!-- @format -->
+<!doctype html>
+<html>
+            </html>
+
+=====================================output=====================================
+<!-- @format -->
+<!doctype html>
+<html></html>
+
+================================================================================
+`;
+
+exports[`with-pragma-2.html - {"insertPragma":true} format 1`] = `
+====================================options=====================================
+insertPragma: true
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+
+
+<!-- @prettier -->
+<!doctype html>
+<html>
+            </html>
+
+=====================================output=====================================
+<!-- @prettier -->
+<!doctype html>
+<html></html>
+
+================================================================================
+`;
+
+exports[`with-pragma-2.html - {"requirePragma":true} format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+requirePragma: true
+                                                                                | printWidth
+=====================================input======================================
+
+
+<!-- @prettier -->
+<!doctype html>
+<html>
+            </html>
+
+=====================================output=====================================
+<!-- @prettier -->
+<!doctype html>
+<html></html>
+
+================================================================================
+`;

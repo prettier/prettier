@@ -1,7 +1,6 @@
 ---
-id: version-stable-options
+id: options
 title: Options
-original_id: options
 ---
 
 Prettier ships with a handful of format options.
@@ -10,23 +9,53 @@ Prettier ships with a handful of format options.
 
 If you change any options, it’s recommended to do it via a [configuration file](configuration.md). This way the Prettier CLI, [editor integrations](editors.md) and other tooling knows what options you use.
 
+## Experimental Ternaries
+
+Try prettier's [new ternary formatting](https://github.com/prettier/prettier/pull/13183) before it becomes the default behavior.
+
+Valid options:
+
+- `true` - Use curious ternaries, with the question mark after the condition.
+- `false` - Retain the default behavior of ternaries; keep question marks on the same line as the consequent.
+
+| Default | CLI Override               | API Override                    |
+| ------- | -------------------------- | ------------------------------- |
+| `false` | `--experimental-ternaries` | `experimentalTernaries: <bool>` |
+
+## Experimental Operator Position
+
+Valid options:
+
+- `"start"` - When binary expressions wrap lines, print operators at the start of new lines.
+- `"end"` - Default behavior; when binary expressions wrap lines, print operators at the end of previous lines.
+
+| Default | CLI Override                                                    | API Override                                                   |
+| ------- | --------------------------------------------------------------- | -------------------------------------------------------------- |
+| `"end"` | <code>--experimental-operator-position \<start&#124;end></code> | <code>experimentalOperatorPosition: "\<start&#124;end>"</code> |
+
 ## Print Width
 
 Specify the line length that the printer will wrap on.
 
-> **For readability we recommend against using more than 80 characters:**
->
-> In code styleguides, maximum line length rules are often set to 100 or 120. However, when humans write code, they don’t strive to reach the maximum number of columns on every line. Developers often use whitespace to break up long lines for readability. In practice, the average line length often ends up well below the maximum.
->
-> Prettier’s printWidth option does not work the same way. It is not the hard upper allowed line length limit. It is a way to say to Prettier roughly how long you’d like lines to be. Prettier will make both shorter and longer lines, but generally strive to meet the specified printWidth.
->
-> Remember, computers are dumb. You need to explicitly tell them what to do, while humans can make their own (implicit) judgements, for example on when to break a line.
->
-> In other words, don’t try to use printWidth as if it was ESLint’s [max-len](https://eslint.org/docs/rules/max-len) – they’re not the same. max-len just says what the maximum allowed line length is, but not what the generally preferred length is – which is what printWidth specifies.
+:::warning
+
+**For readability we recommend against using more than 80 characters:**
+
+In code styleguides, maximum line length rules are often set to 100 or 120. However, when humans write code, they don’t strive to reach the maximum number of columns on every line. Developers often use whitespace to break up long lines for readability. In practice, the average line length often ends up well below the maximum.
+
+Prettier’s printWidth option does not work the same way. It is not the hard upper allowed line length limit. It is a way to say to Prettier roughly how long you’d like lines to be. Prettier will make both shorter and longer lines, but generally strive to meet the specified printWidth.
+
+Remember, computers are dumb. You need to explicitly tell them what to do, while humans can make their own (implicit) judgements, for example on when to break a line.
+
+In other words, don’t try to use printWidth as if it was ESLint’s [max-len](https://eslint.org/docs/rules/max-len) – they’re not the same. max-len just says what the maximum allowed line length is, but not what the generally preferred length is – which is what printWidth specifies.
+
+:::
 
 | Default | CLI Override          | API Override        |
 | ------- | --------------------- | ------------------- |
 | `80`    | `--print-width <int>` | `printWidth: <int>` |
+
+Setting `max_line_length` in an [`.editorconfig` file](https://editorconfig.org/) will configure Prettier’s print width, unless overridden.
 
 (If you don’t want line wrapping when formatting Markdown, you can set the [Prose Wrap](#prose-wrap) option to disable it.)
 
@@ -38,6 +67,8 @@ Specify the number of spaces per indentation-level.
 | ------- | ------------------- | ----------------- |
 | `2`     | `--tab-width <int>` | `tabWidth: <int>` |
 
+Setting `indent_size` or `tab_width` in an [`.editorconfig` file](https://editorconfig.org/) will configure Prettier’s tab width, unless overridden.
+
 ## Tabs
 
 Indent lines with tabs instead of spaces.
@@ -46,7 +77,9 @@ Indent lines with tabs instead of spaces.
 | ------- | ------------ | ----------------- |
 | `false` | `--use-tabs` | `useTabs: <bool>` |
 
-(Tabs will be used for _indentation_ but Prettier uses spaces to _align_ things, such as in ternaries.)
+Setting `indent_style` in an [`.editorconfig` file](https://editorconfig.org/) will configure Prettier’s tab usage, unless overridden.
+
+(Tabs will be used for _indentation_ but Prettier uses spaces to _align_ things, such as in ternaries. This behavior is known as [SmartTabs](https://www.emacswiki.org/emacs/SmartTabs).)
 
 ## Semicolons
 
@@ -86,9 +119,9 @@ Valid options:
 - `"consistent"` - If at least one property in an object requires quotes, quote all properties.
 - `"preserve"` - Respect the input use of quotes in object properties.
 
-| Default       | CLI Override                                                         | API Override                                                         |
-| ------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- |
-| `"as-needed"` | <code>--quote-props <as-needed&#124;consistent&#124;preserve></code> | <code>quoteProps: "<as-needed&#124;consistent&#124;preserve>"</code> |
+| Default       | CLI Override                                                          | API Override                                                          |
+| ------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| `"as-needed"` | <code>--quote-props \<as-needed&#124;consistent&#124;preserve></code> | <code>quoteProps: "\<as-needed&#124;consistent&#124;preserve>"</code> |
 
 Note that Prettier never unquotes numeric property names in Angular expressions, TypeScript, and Flow because the distinction between string and numeric keys is significant in these languages. See: [Angular][quote-props-angular], [TypeScript][quote-props-typescript], [Flow][quote-props-flow]. Also Prettier doesn’t unquote numeric properties for Vue (see the [issue][quote-props-vue] about that).
 
@@ -96,8 +129,6 @@ Note that Prettier never unquotes numeric property names in Angular expressions,
 [quote-props-typescript]: https://www.typescriptlang.org/play?#code/DYUwLgBAhhC8EG8IEYBcKA0EBM7sQF8AoUSAIzkQgHJlr1ktrt6dCiiATEAY2CgBOICKWhR0AaxABPAPYAzCGGkAHEAugBuLr35CR4CGTKSZG5Wo1ltRKDHjHtQA
 [quote-props-flow]: https://flow.org/try/#0PQKgBAAgZgNg9gdzCYAoVBjOA7AzgFzAA8wBeMAb1TDAAYAuMARlQF8g
 [quote-props-vue]: https://github.com/prettier/prettier/issues/10127
-
-If this option is set to `preserve`, `singleQuote` to `false` (default value), and `parser` to `json5`, double quotes are always used for strings. This effectively allows using the `json5` parser for “JSON with comments and trailing commas”.
 
 ## JSX Quotes
 
@@ -109,19 +140,19 @@ Use single quotes instead of double quotes in JSX.
 
 ## Trailing Commas
 
-_Default value changed from `none` to `es5` in v2.0.0_
+_Default value changed from `es5` to `all` in v3.0.0_
 
 Print trailing commas wherever possible in multi-line comma-separated syntactic structures. (A single-line array, for example, never gets trailing commas.)
 
 Valid options:
 
-- `"es5"` - Trailing commas where valid in ES5 (objects, arrays, etc.). No trailing commas in type parameters in TypeScript.
+- `"all"` - Trailing commas wherever possible (including [function parameters and calls](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Trailing_commas#Trailing_commas_in_functions)). To run, JavaScript code formatted this way needs an engine that supports ES2017 (Node.js 8+ or a modern browser) or [downlevel compilation](https://babeljs.io/docs/index). This also enables trailing commas in type parameters in TypeScript (supported since TypeScript 2.7 released in January 2018).
+- `"es5"` - Trailing commas where valid in ES5 (objects, arrays, etc.). Trailing commas in type parameters in TypeScript and Flow.
 - `"none"` - No trailing commas.
-- `"all"` - Trailing commas wherever possible (including [function parameters and calls](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Trailing_commas#Trailing_commas_in_functions)). To run, JavaScript code formatted this way needs an engine that supports ES2017 (Node.js 8+ or a modern browser) or [downlevel compilation](https://babeljs.io/docs/en/index). This also enables trailing commas in type parameters in TypeScript (supported since TypeScript 2.7 released in January 2018).
 
-| Default | CLI Override                                           | API Override                                           |
-| ------- | ------------------------------------------------------ | ------------------------------------------------------ |
-| `"es5"` | <code>--trailing-comma <es5&#124;none&#124;all></code> | <code>trailingComma: "<es5&#124;none&#124;all>"</code> |
+| Default | CLI Override                                            | API Override                                            |
+| ------- | ------------------------------------------------------- | ------------------------------------------------------- |
+| `"all"` | <code>--trailing-comma \<all&#124;es5&#124;none></code> | <code>trailingComma: "\<all&#124;es5&#124;none>"</code> |
 
 ## Bracket Spacing
 
@@ -135,6 +166,23 @@ Valid options:
 | Default | CLI Override           | API Override             |
 | ------- | ---------------------- | ------------------------ |
 | `true`  | `--no-bracket-spacing` | `bracketSpacing: <bool>` |
+
+## Object Wrap
+
+_First available in v3.5.0_
+
+Configure how Prettier wraps object literals when they could fit on one line or span multiple lines.
+
+By default, Prettier formats objects as multi-line if there is a newline prior to the first property. Authors can use this heuristic to contextually improve readability, though it has some downsides. See [Multi-line objects](rationale.md#multi-line-objects).
+
+Valid options:
+
+- `"preserve"` - Keep as multi-line, if there is a newline between the opening brace and first property.
+- `"collapse"` - Fit to a single line when possible.
+
+| Default      | CLI Override                                         | API Override                                         |
+| ------------ | ---------------------------------------------------- | ---------------------------------------------------- |
+| `"preserve"` | <code>--object-wrap \<preserve&#124;collapse></code> | <code>objectWrap: "\<preserve&#124;collapse>"</code> |
 
 ## Bracket Line
 
@@ -173,7 +221,11 @@ Valid options:
 
 ## [Deprecated] JSX Brackets
 
-_This option has been deprecated in v2.4.0, use --bracket-same-line instead_
+:::danger
+
+This option has been deprecated in v2.4.0, use --bracket-same-line instead.
+
+:::
 
 Put the `>` of a multi-line JSX element at the end of the last line instead of being alone on the next line (does not apply to self closing elements).
 
@@ -219,9 +271,9 @@ Valid options:
 - `"always"` - Always include parens. Example: `(x) => x`
 - `"avoid"` - Omit parens when possible. Example: `x => x`
 
-| Default    | CLI Override                                    | API Override                                    |
-| ---------- | ----------------------------------------------- | ----------------------------------------------- |
-| `"always"` | <code>--arrow-parens <always&#124;avoid></code> | <code>arrowParens: "<always&#124;avoid>"</code> |
+| Default    | CLI Override                                     | API Override                                     |
+| ---------- | ------------------------------------------------ | ------------------------------------------------ |
+| `"always"` | <code>--arrow-parens \<always&#124;avoid></code> | <code>arrowParens: "\<always&#124;avoid>"</code> |
 
 At first glance, avoiding parentheses may look like a better choice because of less visual noise.
 However, when Prettier removes parentheses, it becomes harder to add type annotations, extra arguments or default values as well as making other changes.
@@ -235,8 +287,6 @@ These two options can be used to format code starting and ending at a given char
 
 - Backwards to the start of the first line containing the selected statement.
 - Forwards to the end of the selected statement.
-
-These options cannot be used with `cursorOffset`.
 
 | Default    | CLI Override          | API Override        |
 | ---------- | --------------------- | ------------------- |
@@ -260,11 +310,13 @@ Valid options:
 - `"typescript"` (via [@typescript-eslint/typescript-estree](https://github.com/typescript-eslint/typescript-eslint)) _First available in v1.4.0_
 - `"espree"` (via [espree](https://github.com/eslint/espree)) _First available in v2.2.0_
 - `"meriyah"` (via [meriyah](https://github.com/meriyah/meriyah)) _First available in v2.2.0_
-- `"css"` (via [postcss-scss](https://github.com/postcss/postcss-scss) and [postcss-less](https://github.com/shellscape/postcss-less), autodetects which to use) _First available in v1.7.1_
-- `"scss"` (same parsers as `"css"`, prefers postcss-scss) _First available in v1.7.1_
-- `"less"` (same parsers as `"css"`, prefers postcss-less) _First available in v1.7.1_
-- `"json"` (via [@babel/parser parseExpression](https://babeljs.io/docs/en/next/babel-parser.html#babelparserparseexpressioncode-options)) _First available in v1.5.0_
+- `"acorn"` (via [acorn](https://github.com/acornjs/acorn)) _First available in v2.6.0_
+- `"css"` (via [postcss](https://github.com/postcss/postcss)) _First available in v1.7.1_
+- `"scss"` (via [postcss-scss](https://github.com/postcss/postcss-scss)) _First available in v1.7.1_
+- `"less"` (via [postcss-less](https://github.com/shellscape/postcss-less)) _First available in v1.7.1_
+- `"json"` (via [@babel/parser parseExpression](https://babeljs.io/docs/babel-parser#babelparserparseexpressioncode-options)) _First available in v1.5.0_
 - `"json5"` (same parser as `"json"`, but outputs as [json5](https://json5.org/)) _First available in v1.13.0_
+- `"jsonc"` (same parser as `"json"`, but outputs as "JSON with Comments") _First available in v3.2.0_
 - `"json-stringify"` (same parser as `"json"`, but outputs like `JSON.stringify`) _First available in v1.13.0_
 - `"graphql"` (via [graphql/language](https://github.com/graphql/graphql-js/tree/master/src/language)) _First available in v1.5.0_
 - `"markdown"` (via [remark-parse](https://github.com/wooorm/remark/tree/main/packages/remark-parse)) _First available in v1.8.0_
@@ -275,13 +327,13 @@ Valid options:
 - `"lwc"` (same parser as `"html"`, but also formats LWC-specific syntax for unquoted template attributes) _First available in 1.17.0_
 - `"yaml"` (via [yaml](https://github.com/eemeli/yaml) and [yaml-unist-parser](https://github.com/ikatyang/yaml-unist-parser)) _First available in 1.14.0_
 
-[Custom parsers](api.md#custom-parser-api) are also supported. _First available in v1.5.0_
-
-| Default | CLI Override                                    | API Override                                               |
-| ------- | ----------------------------------------------- | ---------------------------------------------------------- |
-| None    | `--parser <string>`<br />`--parser ./my-parser` | `parser: "<string>"`<br />`parser: require("./my-parser")` |
+| Default | CLI Override        | API Override         |
+| ------- | ------------------- | -------------------- |
+| None    | `--parser <string>` | `parser: "<string>"` |
 
 Note: the default value was `"babylon"` until v1.13.0.
+
+Note: the Custom parser API has been removed in v3.0.0. Use [plugins](plugins.md) instead ([how to migrate](api.md#custom-parser-api-removed)).
 
 <a name="filepath"></a>
 
@@ -353,9 +405,9 @@ Valid options:
 - `"never"` - Un-wrap each block of prose into one line.
 - `"preserve"` - Do nothing, leave prose as-is. _First available in v1.9.0_
 
-| Default      | CLI Override                                                | API Override                                                |
-| ------------ | ----------------------------------------------------------- | ----------------------------------------------------------- |
-| `"preserve"` | <code>--prose-wrap <always&#124;never&#124;preserve></code> | <code>proseWrap: "<always&#124;never&#124;preserve>"</code> |
+| Default      | CLI Override                                                 | API Override                                                 |
+| ------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| `"preserve"` | <code>--prose-wrap \<always&#124;never&#124;preserve></code> | <code>proseWrap: "\<always&#124;never&#124;preserve>"</code> |
 
 ## HTML Whitespace Sensitivity
 
@@ -371,20 +423,20 @@ Valid options:
 - `"strict"` - Whitespace (or the lack of it) around all tags is considered significant.
 - `"ignore"` - Whitespace (or the lack of it) around all tags is considered insignificant.
 
-| Default | CLI Override                                                             | API Override                                                            |
-| ------- | ------------------------------------------------------------------------ | ----------------------------------------------------------------------- |
-| `"css"` | <code>--html-whitespace-sensitivity <css&#124;strict&#124;ignore></code> | <code>htmlWhitespaceSensitivity: "<css&#124;strict&#124;ignore>"</code> |
+| Default | CLI Override                                                              | API Override                                                             |
+| ------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
+| `"css"` | <code>--html-whitespace-sensitivity \<css&#124;strict&#124;ignore></code> | <code>htmlWhitespaceSensitivity: "\<css&#124;strict&#124;ignore>"</code> |
 
 ## Vue files script and style tags indentation
 
 _First available in v1.19.0_
 
-Whether or not to indent the code inside `<script>` and `<style>` tags in Vue files. Some people (like [the creator of Vue](https://github.com/prettier/prettier/issues/3888#issuecomment-459521863)) don’t indent to save an indentation level, but this might break code folding in your editor.
+Whether or not to indent the code inside `<script>` and `<style>` tags in Vue files.
 
 Valid options:
 
-- `"false"` - Do not indent script and style tags in Vue files.
-- `"true"` - Indent script and style tags in Vue files.
+- `false` - Do not indent script and style tags in Vue files.
+- `true` - Indent script and style tags in Vue files.
 
 | Default | CLI Override                    | API Override                      |
 | ------- | ------------------------------- | --------------------------------- |
@@ -422,9 +474,11 @@ Valid options:
 - `"auto"` - Maintain existing line endings
   (mixed values within one file are normalised by looking at what’s used after the first line)
 
-| Default | CLI Override                                                | API Override                                               |
-| ------- | ----------------------------------------------------------- | ---------------------------------------------------------- |
-| `"lf"`  | <code>--end-of-line <lf&#124;crlf&#124;cr&#124;auto></code> | <code>endOfLine: "<lf&#124;crlf&#124;cr&#124;auto>"</code> |
+| Default | CLI Override                                                 | API Override                                                |
+| ------- | ------------------------------------------------------------ | ----------------------------------------------------------- |
+| `"lf"`  | <code>--end-of-line \<lf&#124;crlf&#124;cr&#124;auto></code> | <code>endOfLine: "\<lf&#124;crlf&#124;cr&#124;auto>"</code> |
+
+Setting `end_of_line` in an [`.editorconfig` file](https://editorconfig.org/) will configure Prettier’s end of line usage, unless overridden.
 
 ## Embedded Language Formatting
 
@@ -441,6 +495,21 @@ Valid options:
 - `"auto"` – Format embedded code if Prettier can automatically identify it.
 - `"off"` - Never automatically format embedded code.
 
-| Default  | CLI Override                         | API Override                        |
-| -------- | ------------------------------------ | ----------------------------------- |
-| `"auto"` | `--embedded-language-formatting=off` | `embeddedLanguageFormatting: "off"` |
+| Default  | CLI Override                                                 | API Override                                                |
+| -------- | ------------------------------------------------------------ | ----------------------------------------------------------- |
+| `"auto"` | <code>--embedded-language-formatting=\<off&#124;auto></code> | <code>embeddedLanguageFormatting: "\<off&#124;auto>"</code> |
+
+## Single Attribute Per Line
+
+_First available in v2.6.0_
+
+Enforce single attribute per line in HTML, Vue, and JSX.
+
+Valid options:
+
+- `false` - Do not enforce single attribute per line.
+- `true` - Enforce single attribute per line.
+
+| Default | CLI Override                  | API Override                     |
+| ------- | ----------------------------- | -------------------------------- |
+| `false` | `--single-attribute-per-line` | `singleAttributePerLine: <bool>` |

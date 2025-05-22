@@ -1,9 +1,5 @@
-"use strict";
-
-const runPrettier = require("../run-prettier.js");
-
 describe("flush all line-suffix content", () => {
-  runPrettier("plugins/flushLineSuffix", ["*.foo", "--plugin=./plugin"], {
+  runCli("plugins/flushLineSuffix", ["*.foo", "--plugin=./plugin.cjs"], {
     ignoreLineEndings: true,
   }).test({
     stdout: "contents",

@@ -1,18 +1,19 @@
-"use strict";
+import { parse as espreeParse } from "espree";
+import createError from "../../common/parser-create-error.js";
+import tryCombinations from "../../utils/try-combinations.js";
+import postprocess from "./postprocess/index.js";
+import createParser from "./utils/create-parser.js";
+import getSourceType from "./utils/get-source-type.js";
 
-const createError = require("../../common/parser-create-error.js");
-const tryCombinations = require("../../utils/try-combinations.js");
-const createParser = require("./utils/create-parser.js");
-const replaceHashbang = require("./utils/replace-hashbang.js");
-const postprocess = require("./postprocess/index.js");
+/** @import {Options} from "espree" */
 
-/** @type {import("espree").Options} */
+/** @type {Options} */
 const parseOptions = {
   ecmaVersion: "latest",
   range: true,
-  loc: true,
+  loc: false,
   comment: true,
-  tokens: true,
+  tokens: false,
   sourceType: "module",
   ecmaFeatures: {
     jsx: true,
@@ -24,30 +25,36 @@ const parseOptions = {
 function createParseError(error) {
   const { message, lineNumber, column } = error;
 
-  /* istanbul ignore next */
+  /* c8 ignore next 3 */
   if (typeof lineNumber !== "number") {
     return error;
   }
 
-  return createError(message, { start: { line: lineNumber, column } });
+  return createError(message, {
+    loc: { start: { line: lineNumber, column } },
+    cause: error,
+  });
 }
 
-function parse(originalText, parsers, options = {}) {
-  const { parse } = require("espree");
-
-  const textToParse = replaceHashbang(originalText);
-  const { result: ast, error: moduleParseError } = tryCombinations(
-    () => parse(textToParse, { ...parseOptions, sourceType: "module" }),
-    () => parse(textToParse, { ...parseOptions, sourceType: "script" })
+function parse(text, options = {}) {
+  const sourceType = getSourceType(options);
+  // prettier-ignore
+  const combinations = (
+    sourceType
+      ? /** @type {const} */([sourceType])
+      : /** @type {const} */(["module", "script"])
+  ).map(
+    (sourceType) => () => espreeParse(text, { ...parseOptions, sourceType })
   );
 
-  if (!ast) {
-    // throw the error for `module` parsing
-    throw createParseError(moduleParseError);
+  let ast;
+  try {
+    ast = tryCombinations(combinations);
+  } catch (/** @type {any} */ { errors: [error] }) {
+    throw createParseError(error);
   }
 
-  options.originalText = originalText;
-  return postprocess(ast, options);
+  return postprocess(ast, { parser: "espree", text });
 }
 
-module.exports = createParser(parse);
+export const espree = createParser(parse);

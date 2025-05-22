@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`schema.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+"""Schema definition description"""
+schema {
+  query: Root
+  mutation: Mutation
+  subscription: Subscription
+}
+
+extend schema { subscription: Subscription }
+
+# \`SchemaExtension\`s don't require any operation types and doesn't print
+# curlies in their abscence.
+extend schema
+  @directive
+
+=====================================output=====================================
+"""
+Schema definition description
+"""
+schema {
+  query: Root
+  mutation: Mutation
+  subscription: Subscription
+}
+
+extend schema {
+  subscription: Subscription
+}
+
+# \`SchemaExtension\`s don't require any operation types and doesn't print
+# curlies in their abscence.
+extend schema @directive
+
+================================================================================
+`;

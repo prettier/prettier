@@ -1,7 +1,6 @@
 ---
-id: version-stable-related-projects
+id: related-projects
 title: Related Projects
-original_id: related-projects
 ---
 
 ## ESLint Integrations
@@ -17,12 +16,6 @@ original_id: related-projects
 - [stylelint-prettier](https://github.com/prettier/stylelint-prettier) runs Prettier as a stylelint rule and reports differences as individual stylelint issues
 - [prettier-stylelint](https://github.com/hugomrdias/prettier-stylelint) passes `prettier` output to `stylelint --fix`
 
-## TSLint Integrations
-
-- [tslint-config-prettier](https://github.com/alexjoverm/tslint-config-prettier) use TSLint with Prettier without any conflict
-- [tslint-plugin-prettier](https://github.com/ikatyang/tslint-plugin-prettier) runs Prettier as a TSLint rule and reports differences as individual TSLint issues
-- [prettier-tslint](https://github.com/azz/prettier-tslint) passes `prettier` output to `tslint --fix`
-
 ## Forks
 
 - [prettierx](https://github.com/brodybits/prettierx) less opinionated fork of Prettier
@@ -37,3 +30,4 @@ original_id: related-projects
 - [prettier-chrome](https://github.com/u3u/prettier-chrome) is an extension that runs Prettier in the browser
 - [spotless](https://github.com/diffplug/spotless) lets you run prettier from [gradle](https://github.com/diffplug/spotless/tree/main/plugin-gradle#prettier) or [maven](https://github.com/diffplug/spotless/tree/main/plugin-maven#prettier).
 - [csharpier](https://github.com/belav/csharpier) is a port of Prettier for C#
+- [reviewdog-action-prettier](https://github.com/EPMatt/reviewdog-action-prettier) runs Prettier in GitHub Actions CI/CD workflows

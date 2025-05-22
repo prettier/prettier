@@ -1,0 +1,160 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`conditional.js [babel-flow] format 1`] = `
+"Unexpected token (2:43)
+  1 | type FallbackFlags<F: Flags | void> =
+> 2 |   Equals<NonNullableFlag<F>["flags"], {}> extends true
+    |                                           ^
+  3 |     ? Dict<any>
+  4 |     : NonNullableFlag<F>["flags"];
+  5 |
+Cause: Unexpected token (2:42)"
+`;
+
+exports[`conditional.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+type FallbackFlags<F: Flags | void> =
+  Equals<NonNullableFlag<F>["flags"], {}> extends true
+    ? Dict<any>
+    : NonNullableFlag<F>["flags"];
+
+    export type UnPromise<Type: Promise<mixed>> =
+    Type extends Promise<infer Generic>
+      ? Generic
+      : empty;
+
+export type Equals<X, Y> =
+  (<T>() => T extends X ? 1 : 2) extends
+  (<T>() => T extends Y ? 1 : 2)
+    ? true
+    : false;
+
+export type _Repeat<A: any, N: number, L: List = []> =
+  __Repeat<N, A, L> extends infer X
+  ? Cast<X, List>
+  : empty
+
+export type Repeat<A: any, N: number, L: List = []> =
+  N extends mixed
+  ? L extends mixed
+    ? _Repeat<A, N, L>
+    : empty
+  : empty
+
+export type Intersect<U1: any, U2: any> =
+  U1 extends mixed
+  ? U2 extends mixed
+    ? {1: U1, 0: empty}[Equals<U1, U2>]
+    : empty
+  : empty
+
+=====================================output=====================================
+type FallbackFlags<F: Flags | void> =
+  Equals<NonNullableFlag<F>["flags"], {}> extends true
+    ? Dict<any>
+    : NonNullableFlag<F>["flags"];
+
+export type UnPromise<Type: Promise<mixed>> =
+  Type extends Promise<infer Generic> ? Generic : empty;
+
+export type Equals<X, Y> =
+  (<T>() => T extends X ? 1 : 2) extends <T>() => T extends Y ? 1 : 2
+    ? true
+    : false;
+
+export type _Repeat<A: any, N: number, L: List = []> =
+  __Repeat<N, A, L> extends infer X ? Cast<X, List> : empty;
+
+export type Repeat<A: any, N: number, L: List = []> = N extends mixed
+  ? L extends mixed
+    ? _Repeat<A, N, L>
+    : empty
+  : empty;
+
+export type Intersect<U1: any, U2: any> = U1 extends mixed
+  ? U2 extends mixed
+    ? { 1: U1, 0: empty }[Equals<U1, U2>]
+    : empty
+  : empty;
+
+================================================================================
+`;
+
+exports[`issue-100857.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+type FieldLayoutWith<
+  T : string,
+  S : unknown = { xxxxxxxx: number; y: string; }
+> = {
+  type: T;
+  code: string;
+  size: S;
+};
+
+type FieldLayoutWith<
+  T : string,
+  S : unknown,
+> = {
+  type: T;
+  code: string;
+  size: S;
+};
+
+type FieldLayoutWith<
+  T : string,
+> = {
+  type: T;
+  code: string;
+  size: S;
+};
+
+type FieldLayoutWith<
+  T : stringgggggggggggggggggg,
+  S : stringgggggggggggggggggg
+> = {
+  type: T;
+  code: string;
+  size: S;
+};
+
+=====================================output=====================================
+type FieldLayoutWith<
+  T: string,
+  S: unknown = { xxxxxxxx: number, y: string },
+> = {
+  type: T,
+  code: string,
+  size: S,
+};
+
+type FieldLayoutWith<T: string, S: unknown> = {
+  type: T,
+  code: string,
+  size: S,
+};
+
+type FieldLayoutWith<T: string> = {
+  type: T,
+  code: string,
+  size: S,
+};
+
+type FieldLayoutWith<
+  T: stringgggggggggggggggggg,
+  S: stringgggggggggggggggggg,
+> = {
+  type: T,
+  code: string,
+  size: S,
+};
+
+================================================================================
+`;

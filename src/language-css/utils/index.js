@@ -1,5 +1,3 @@
-"use strict";
-
 const colorAdjusterFunctions = new Set([
   "red",
   "green",
@@ -28,48 +26,23 @@ const colorAdjusterFunctions = new Set([
   "hwba",
 ]);
 
-function getAncestorCounter(path, typeOrTypes) {
-  const types = Array.isArray(typeOrTypes) ? typeOrTypes : [typeOrTypes];
-
-  let counter = -1;
-  let ancestorNode;
-
-  while ((ancestorNode = path.getParentNode(++counter))) {
-    if (types.includes(ancestorNode.type)) {
-      return counter;
-    }
-  }
-
-  return -1;
-}
-
-function getAncestorNode(path, typeOrTypes) {
-  const counter = getAncestorCounter(path, typeOrTypes);
-  return counter === -1 ? null : path.getParentNode(counter);
-}
-
 function getPropOfDeclNode(path) {
-  const declAncestorNode = getAncestorNode(path, "css-decl");
-
-  return (
-    declAncestorNode &&
-    declAncestorNode.prop &&
-    declAncestorNode.prop.toLowerCase()
-  );
+  return path
+    .findAncestor((node) => node.type === "css-decl")
+    ?.prop?.toLowerCase();
 }
 
+const wideKeywords = new Set(["initial", "inherit", "unset", "revert"]);
 function isWideKeywords(value) {
-  return ["initial", "inherit", "unset", "revert"].includes(
-    value.toLowerCase()
-  );
+  return wideKeywords.has(value.toLowerCase());
 }
 
 function isKeyframeAtRuleKeywords(path, value) {
-  const atRuleAncestorNode = getAncestorNode(path, "css-atrule");
+  const atRuleAncestorNode = path.findAncestor(
+    (node) => node.type === "css-atrule",
+  );
   return (
-    atRuleAncestorNode &&
-    atRuleAncestorNode.name &&
-    atRuleAncestorNode.name.toLowerCase().endsWith("keyframes") &&
+    atRuleAncestorNode?.name?.toLowerCase().endsWith("keyframes") &&
     ["from", "to"].includes(value.toLowerCase())
   );
 }
@@ -87,23 +60,21 @@ function maybeToLowerCase(value) {
 }
 
 function insideValueFunctionNode(path, functionName) {
-  const funcAncestorNode = getAncestorNode(path, "value-func");
-  return (
-    funcAncestorNode &&
-    funcAncestorNode.value &&
-    funcAncestorNode.value.toLowerCase() === functionName
+  const funcAncestorNode = path.findAncestor(
+    (node) => node.type === "value-func",
   );
+  return funcAncestorNode?.value?.toLowerCase() === functionName;
 }
 
 function insideICSSRuleNode(path) {
-  const ruleAncestorNode = getAncestorNode(path, "css-rule");
+  const ruleAncestorNode = path.findAncestor(
+    (node) => node.type === "css-rule",
+  );
+  const selector = ruleAncestorNode?.raws?.selector;
 
   return (
-    ruleAncestorNode &&
-    ruleAncestorNode.raws &&
-    ruleAncestorNode.raws.selector &&
-    (ruleAncestorNode.raws.selector.startsWith(":import") ||
-      ruleAncestorNode.raws.selector.startsWith(":export"))
+    selector &&
+    (selector.startsWith(":import") || selector.startsWith(":export"))
   );
 }
 
@@ -111,7 +82,9 @@ function insideAtRuleNode(path, atRuleNameOrAtRuleNames) {
   const atRuleNames = Array.isArray(atRuleNameOrAtRuleNames)
     ? atRuleNameOrAtRuleNames
     : [atRuleNameOrAtRuleNames];
-  const atRuleAncestorNode = getAncestorNode(path, "css-atrule");
+  const atRuleAncestorNode = path.findAncestor(
+    (node) => node.type === "css-atrule",
+  );
 
   return (
     atRuleAncestorNode &&
@@ -120,14 +93,11 @@ function insideAtRuleNode(path, atRuleNameOrAtRuleNames) {
 }
 
 function insideURLFunctionInImportAtRuleNode(path) {
-  const node = path.getValue();
-  const atRuleAncestorNode = getAncestorNode(path, "css-atrule");
-
+  const { node } = path;
   return (
-    atRuleAncestorNode &&
-    atRuleAncestorNode.name === "import" &&
     node.groups[0].value === "url" &&
-    node.groups.length === 2
+    node.groups.length === 2 &&
+    path.findAncestor((node) => node.type === "css-atrule")?.name === "import"
   );
 }
 
@@ -135,29 +105,23 @@ function isURLFunctionNode(node) {
   return node.type === "value-func" && node.value.toLowerCase() === "url";
 }
 
-function isLastNode(path, node) {
-  const parentNode = path.getParentNode();
-
-  /* istanbul ignore next */
-  if (!parentNode) {
-    return false;
-  }
-  const { nodes } = parentNode;
-  return nodes && nodes.indexOf(node) === nodes.length - 1;
+function isVarFunctionNode(node) {
+  return node.type === "value-func" && node.value.toLowerCase() === "var";
 }
 
 function isDetachedRulesetDeclarationNode(node) {
+  const { selector } = node;
   // If a Less file ends up being parsed with the SCSS parser, Less
   // variable declarations will be parsed as atrules with names ending
   // with a colon, so keep the original case then.
-  /* istanbul ignore next */
-  if (!node.selector) {
+  /* c8 ignore next 3 */
+  if (!selector) {
     return false;
   }
 
   return (
-    (typeof node.selector === "string" && /^@.+:.*$/.test(node.selector)) ||
-    (node.selector.value && /^@.+:.*$/.test(node.selector.value))
+    (typeof selector === "string" && /^@.+:.*$/u.test(selector)) ||
+    (selector.value && /^@.+:.*$/u.test(selector.value))
   );
 }
 
@@ -218,15 +182,16 @@ function isRelationalOperatorNode(node) {
   );
 }
 
-function isSCSSControlDirectiveNode(node) {
+function isSCSSControlDirectiveNode(node, options) {
   return (
+    options.parser === "scss" &&
     node.type === "css-atrule" &&
     ["if", "else", "for", "each", "while"].includes(node.name)
   );
 }
 
 function isDetachedRulesetCallNode(node) {
-  return node.raws && node.raws.params && /^\(\s*\)$/.test(node.raws.params);
+  return node.raws?.params && /^\(\s*\)$/u.test(node.raws.params);
 }
 
 function isTemplatePlaceholderNode(node) {
@@ -241,64 +206,59 @@ function isPostcssSimpleVarNode(currentNode, nextNode) {
   return (
     currentNode.value === "$$" &&
     currentNode.type === "value-func" &&
-    nextNode &&
-    nextNode.type === "value-word" &&
+    nextNode?.type === "value-word" &&
     !nextNode.raws.before
   );
 }
 
 function hasComposesNode(node) {
   return (
-    node.value &&
-    node.value.type === "value-root" &&
-    node.value.group &&
-    node.value.group.type === "value-value" &&
+    node.value?.type === "value-root" &&
+    node.value.group?.type === "value-value" &&
     node.prop.toLowerCase() === "composes"
   );
 }
 
 function hasParensAroundNode(node) {
   return (
-    node.value &&
-    node.value.group &&
-    node.value.group.group &&
-    node.value.group.group.type === "value-paren_group" &&
+    node.value?.group?.group?.type === "value-paren_group" &&
     node.value.group.group.open !== null &&
     node.value.group.group.close !== null
   );
 }
 
 function hasEmptyRawBefore(node) {
-  return node.raws && node.raws.before === "";
+  return node.raws?.before === "";
 }
 
 function isKeyValuePairNode(node) {
   return (
     node.type === "value-comma_group" &&
-    node.groups &&
-    node.groups[1] &&
-    node.groups[1].type === "value-colon"
+    node.groups?.[1]?.type === "value-colon"
   );
 }
 
 function isKeyValuePairInParenGroupNode(node) {
   return (
     node.type === "value-paren_group" &&
-    node.groups &&
-    node.groups[0] &&
+    node.groups?.[0] &&
     isKeyValuePairNode(node.groups[0])
   );
 }
 
-function isSCSSMapItemNode(path) {
-  const node = path.getValue();
+function isSCSSMapItemNode(path, options) {
+  if (options.parser !== "scss") {
+    return false;
+  }
+
+  const { node } = path;
 
   // Ignore empty item (i.e. `$key: ()`)
   if (node.groups.length === 0) {
     return false;
   }
 
-  const parentParentNode = path.getParentNode(1);
+  const parentParentNode = path.grandparent;
 
   // Check open parens contain key/value pair (i.e. `(key: value)` and `(key: (value, other-value)`)
   if (
@@ -308,10 +268,10 @@ function isSCSSMapItemNode(path) {
     return false;
   }
 
-  const declNode = getAncestorNode(path, "css-decl");
+  const declNode = path.findAncestor((node) => node.type === "css-decl");
 
   // SCSS map declaration (i.e. `$map: (key: value, other-key: other-value)`)
-  if (declNode && declNode.prop && declNode.prop.startsWith("$")) {
+  if (declNode?.prop?.startsWith("$")) {
     return true;
   }
 
@@ -349,7 +309,7 @@ function isWordNode(node) {
 }
 
 function isColonNode(node) {
-  return node && node.type === "value-colon";
+  return node?.type === "value-colon";
 }
 
 function isKeyInValuePairNode(node, parentNode) {
@@ -360,6 +320,7 @@ function isKeyInValuePairNode(node, parentNode) {
   const { groups } = parentNode;
   const index = groups.indexOf(node);
 
+  /* c8 ignore next 3 */
   if (index === -1) {
     return false;
   }
@@ -380,23 +341,20 @@ function isColorAdjusterFuncNode(node) {
 }
 
 function lastLineHasInlineComment(text) {
-  return /\/\//.test(text.split(/[\n\r]/).pop());
+  return /\/\//u.test(text.split(/[\n\r]/u).pop());
 }
 
 function isAtWordPlaceholderNode(node) {
   return (
-    node &&
-    node.type === "value-atword" &&
+    node?.type === "value-atword" &&
     node.value.startsWith("prettier-placeholder-")
   );
 }
 
 function isConfigurationNode(node, parentNode) {
   if (
-    !node.open ||
-    node.open.value !== "(" ||
-    !node.close ||
-    node.close.value !== ")" ||
+    node.open?.value !== "(" ||
+    node.close?.value !== ")" ||
     node.groups.some((group) => group.type !== "value-comma_group")
   ) {
     return false;
@@ -405,8 +363,7 @@ function isConfigurationNode(node, parentNode) {
     const prevIdx = parentNode.groups.indexOf(node) - 1;
     const maybeWithNode = parentNode.groups[prevIdx];
     if (
-      maybeWithNode &&
-      maybeWithNode.type === "value-word" &&
+      maybeWithNode?.type === "value-word" &&
       maybeWithNode.value === "with"
     ) {
       return true;
@@ -418,60 +375,54 @@ function isConfigurationNode(node, parentNode) {
 function isParenGroupNode(node) {
   return (
     node.type === "value-paren_group" &&
-    node.open &&
-    node.open.value === "(" &&
-    node.close &&
-    node.close.value === ")"
+    node.open?.value === "(" &&
+    node.close?.value === ")"
   );
 }
 
-module.exports = {
-  getAncestorCounter,
-  getAncestorNode,
+export {
   getPropOfDeclNode,
-  maybeToLowerCase,
-  insideValueFunctionNode,
-  insideICSSRuleNode,
-  insideAtRuleNode,
-  insideURLFunctionInImportAtRuleNode,
-  isKeyframeAtRuleKeywords,
-  isWideKeywords,
-  isLastNode,
-  isSCSSControlDirectiveNode,
-  isDetachedRulesetDeclarationNode,
-  isRelationalOperatorNode,
-  isEqualityOperatorNode,
-  isMultiplicationNode,
-  isDivisionNode,
-  isAdditionNode,
-  isSubtractionNode,
-  isModuloNode,
-  isMathOperatorNode,
-  isEachKeywordNode,
-  isForKeywordNode,
-  isURLFunctionNode,
-  isIfElseKeywordNode,
   hasComposesNode,
-  hasParensAroundNode,
   hasEmptyRawBefore,
+  hasParensAroundNode,
+  insideAtRuleNode,
+  insideICSSRuleNode,
+  insideURLFunctionInImportAtRuleNode,
+  insideValueFunctionNode,
+  isAdditionNode,
+  isAtWordPlaceholderNode,
+  isColonNode,
+  isColorAdjusterFuncNode,
+  isConfigurationNode,
   isDetachedRulesetCallNode,
+  isDetachedRulesetDeclarationNode,
+  isDivisionNode,
+  isEachKeywordNode,
+  isEqualityOperatorNode,
+  isForKeywordNode,
+  isHashNode,
+  isIfElseKeywordNode,
+  isInlineValueCommentNode,
+  isKeyframeAtRuleKeywords,
+  isKeyInValuePairNode,
+  isKeyValuePairNode,
+  isLeftCurlyBraceNode,
+  isMathOperatorNode,
+  isMediaAndSupportsKeywords,
+  isMultiplicationNode,
+  isParenGroupNode,
+  isPostcssSimpleVarNode,
+  isRelationalOperatorNode,
+  isRightCurlyBraceNode,
+  isSCSSControlDirectiveNode,
+  isSCSSMapItemNode,
+  isSubtractionNode,
   isTemplatePlaceholderNode,
   isTemplatePropNode,
-  isPostcssSimpleVarNode,
-  isKeyValuePairNode,
-  isKeyValuePairInParenGroupNode,
-  isKeyInValuePairNode,
-  isSCSSMapItemNode,
-  isInlineValueCommentNode,
-  isHashNode,
-  isLeftCurlyBraceNode,
-  isRightCurlyBraceNode,
+  isURLFunctionNode,
+  isVarFunctionNode,
+  isWideKeywords,
   isWordNode,
-  isColonNode,
-  isMediaAndSupportsKeywords,
-  isColorAdjusterFuncNode,
   lastLineHasInlineComment,
-  isAtWordPlaceholderNode,
-  isConfigurationNode,
-  isParenGroupNode,
+  maybeToLowerCase,
 };

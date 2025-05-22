@@ -1,61 +1,43 @@
-"use strict";
+import * as prettier from "../index.js";
+import Context from "./context.js";
+import logFileInfoOrDie from "./file-info.js";
+import logResolvedConfigPathOrDie from "./find-config-path.js";
+import { formatFiles, formatStdin } from "./format.js";
+import createLogger from "./logger.js";
+import mockable from "./mockable.js";
+import { parseArgvWithoutPlugins } from "./options/parse-cli-arguments.js";
+import printSupportInfo from "./print-support-info.js";
+import { createDetailedUsage, createUsage } from "./usage.js";
+import { printToScreen } from "./utils.js";
 
-// eslint-disable-next-line no-restricted-modules
-const packageJson = require("../../package.json");
-require("please-upgrade-node")(packageJson);
-
-// eslint-disable-next-line import/order
-const stringify = require("fast-json-stable-stringify");
-// eslint-disable-next-line no-restricted-modules
-const prettier = require("../index.js");
-const createLogger = require("./logger.js");
-const Context = require("./context.js");
-const { parseArgvWithoutPlugins } = require("./options/parse-cli-arguments.js");
-const { createDetailedUsage, createUsage } = require("./usage.js");
-const { formatStdin, formatFiles } = require("./format.js");
-const logFileInfoOrDie = require("./file-info.js");
-const logResolvedConfigPathOrDie = require("./find-config-path.js");
-const {
-  utils: { isNonEmptyArray },
-} = require("./prettier-internal.js");
-
-async function run(rawArguments) {
+async function run(rawArguments = process.argv.slice(2)) {
   // Create a default level logger, so we can log errors during `logLevel` parsing
   let logger = createLogger();
 
   try {
-    const logLevel = parseArgvWithoutPlugins(
+    const { logLevel } = parseArgvWithoutPlugins(
       rawArguments,
       logger,
-      "loglevel"
-    ).loglevel;
+      "log-level",
+    );
     if (logLevel !== logger.logLevel) {
       logger = createLogger(logLevel);
     }
+    const context = new Context({ rawArguments, logger });
+    await context.init();
+    if (logger.logLevel !== "debug" && context.performanceTestFlag) {
+      context.logger = createLogger("debug");
+    }
 
-    await main(rawArguments, logger);
+    await main(context);
   } catch (error) {
     logger.error(error.message);
     process.exitCode = 1;
   }
 }
 
-async function main(rawArguments, logger) {
-  const context = new Context({ rawArguments, logger });
-
-  logger.debug(`normalized argv: ${JSON.stringify(context.argv)}`);
-
-  if (context.argv.pluginSearch === false) {
-    const rawPluginSearchDirs = context.argv.__raw["plugin-search-dir"];
-    if (
-      typeof rawPluginSearchDirs === "string" ||
-      isNonEmptyArray(rawPluginSearchDirs)
-    ) {
-      throw new Error(
-        "Cannot use --no-plugin-search and --plugin-search-dir together."
-      );
-    }
-  }
+async function main(context) {
+  context.logger.debug(`normalized argv: ${JSON.stringify(context.argv)}`);
 
   if (context.argv.config === false) {
     const rawPluginSearchDirs = context.argv.__raw.config;
@@ -85,47 +67,61 @@ async function main(rawArguments, logger) {
     throw new Error("Cannot use --file-info with multiple files");
   }
 
+  if (!context.argv.cache && context.argv.cacheStrategy) {
+    throw new Error("`--cache-strategy` cannot be used without `--cache`.");
+  }
+
   if (context.argv.version) {
-    logger.log(prettier.version);
+    printToScreen(prettier.version);
     return;
   }
 
   if (context.argv.help !== undefined) {
-    logger.log(
+    printToScreen(
       typeof context.argv.help === "string" && context.argv.help !== ""
         ? createDetailedUsage(context, context.argv.help)
-        : createUsage(context)
+        : createUsage(context),
     );
     return;
   }
 
   if (context.argv.supportInfo) {
-    logger.log(
-      prettier.format(stringify(prettier.getSupportInfo()), {
-        parser: "json",
-      })
-    );
+    return printSupportInfo();
+  }
+
+  if (context.argv.findConfigPath) {
+    await logResolvedConfigPathOrDie(context);
+    return;
+  }
+
+  if (context.argv.fileInfo) {
+    await logFileInfoOrDie(context);
     return;
   }
 
   const hasFilePatterns = context.filePatterns.length > 0;
   const useStdin =
-    !hasFilePatterns && (!process.stdin.isTTY || context.argv.filePath);
+    !hasFilePatterns &&
+    (!mockable.isStreamTTY(process.stdin) || context.argv.filepath);
 
-  if (context.argv.findConfigPath) {
-    await logResolvedConfigPathOrDie(context);
-  } else if (context.argv.fileInfo) {
-    await logFileInfoOrDie(context);
-  } else if (useStdin) {
+  if (useStdin) {
+    if (context.argv.cache) {
+      throw new Error("`--cache` cannot be used when formatting stdin.");
+    }
+
     await formatStdin(context);
-  } else if (hasFilePatterns) {
-    await formatFiles(context);
-  } else {
-    logger.log(createUsage(context));
-    process.exitCode = 1;
+    return;
   }
+
+  if (hasFilePatterns) {
+    await formatFiles(context);
+    return;
+  }
+
+  process.exitCode = 1;
+  printToScreen(createUsage(context));
 }
 
-module.exports = {
-  run,
-};
+export { run };
+// Exposed for tests
+export { mockable } from "./mockable.js";

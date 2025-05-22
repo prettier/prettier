@@ -1,43 +1,47 @@
-"use strict";
-
-const { promises: fs } = require("fs");
-const path = require("path");
-
-const chalk = require("chalk");
-
-// eslint-disable-next-line no-restricted-modules
-const prettier = require("../index.js");
-// eslint-disable-next-line no-restricted-modules
-const { getStdin } = require("../common/third-party.js");
-
-const { createIgnorer, errors } = require("./prettier-internal.js");
-const { expandPatterns, fixWindowsSlashes } = require("./expand-patterns.js");
-const getOptionsForFile = require("./options/get-options-for-file.js");
-const isTTY = require("./is-tty.js");
+import fs from "node:fs/promises";
+import path from "node:path";
+import getStdin from "get-stdin";
+import * as prettier from "../index.js";
+import { expandPatterns } from "./expand-patterns.js";
+import findCacheFile from "./find-cache-file.js";
+import FormatResultsCache from "./format-results-cache.js";
+import mockable from "./mockable.js";
+import getOptionsForFile from "./options/get-options-for-file.js";
+import {
+  createIsIgnoredFunction,
+  createTwoFilesPatch,
+  errors,
+  picocolors,
+} from "./prettier-internal.js";
+import { normalizeToPosix, statSafe } from "./utils.js";
 
 function diff(a, b) {
-  // Use `diff/lib/patch/create.js` instead of `diff` to reduce bundle size
-  return require("diff/lib/patch/create.js").createTwoFilesPatch(
-    "",
-    "",
-    a,
-    b,
-    "",
-    "",
-    {
-      context: 2,
-    }
-  );
+  return createTwoFilesPatch("", "", a, b, "", "", { context: 2 });
 }
 
-function handleError(context, filename, error, printedFilename) {
-  if (error instanceof errors.UndefinedParserError) {
-    // Can't test on CI, `isTTY()` is always false, see ./is-tty.js
-    /* istanbul ignore next */
-    if ((context.argv.write || context.argv.ignoreUnknown) && printedFilename) {
+class DebugError extends Error {
+  name = "DebugError";
+}
+
+function handleError(context, filename, error, printedFilename, ignoreUnknown) {
+  ignoreUnknown ||= context.argv.ignoreUnknown;
+
+  const errorIsUndefinedParseError =
+    error instanceof errors.UndefinedParserError;
+
+  if (printedFilename) {
+    // Can't test on CI, `isTTY` is always false, see comments in `formatFiles`
+    /* c8 ignore next 3 */
+    if ((context.argv.write || ignoreUnknown) && errorIsUndefinedParseError) {
       printedFilename.clear();
+    } else {
+      // Add newline to split errors from filename line.
+      process.stdout.write("\n");
     }
-    if (context.argv.ignoreUnknown) {
+  }
+
+  if (errorIsUndefinedParseError) {
+    if (ignoreUnknown) {
       return;
     }
     if (!context.argv.check && !context.argv.listDifferent) {
@@ -47,13 +51,8 @@ function handleError(context, filename, error, printedFilename) {
     return;
   }
 
-  if (context.argv.write) {
-    // Add newline to split errors from filename line.
-    process.stdout.write("\n");
-  }
-
-  const isParseError = Boolean(error && error.loc);
-  const isValidationError = /^Invalid \S+ value\./.test(error && error.message);
+  const isParseError = Boolean(error?.loc);
+  const isValidationError = /^Invalid \S+ value\./u.test(error?.message);
 
   if (isParseError) {
     // `invalid.js: SyntaxError: Unexpected token (1:1)`.
@@ -63,12 +62,12 @@ function handleError(context, filename, error, printedFilename) {
     context.logger.error(error.message);
     // If validation fails for one file, it will fail for all of them.
     process.exit(1);
-  } else if (error instanceof errors.DebugError) {
+  } else if (error instanceof DebugError) {
     // `invalid.js: Some debug error message`
     context.logger.error(`${filename}: ${error.message}`);
   } else {
     // `invalid.js: Error: Some unexpected error\n[stack trace]`
-    /* istanbul ignore next */
+    /* c8 ignore next */
     context.logger.error(filename + ": " + (error.stack || error));
   }
 
@@ -79,7 +78,7 @@ function handleError(context, filename, error, printedFilename) {
 function writeOutput(context, result, options) {
   // Don't use `console.log` here since it adds an extra newline at the end.
   process.stdout.write(
-    context.argv.debugCheck ? result.filepath : result.formatted
+    context.argv.debugCheck ? result.filepath : result.formatted,
   );
 
   if (options && options.cursorOffset >= 0) {
@@ -87,22 +86,15 @@ function writeOutput(context, result, options) {
   }
 }
 
-function listDifferent(context, input, options, filename) {
+async function listDifferent(context, input, options, filename) {
   if (!context.argv.check && !context.argv.listDifferent) {
     return;
   }
 
   try {
-    if (!options.filepath && !options.parser) {
-      throw new errors.UndefinedParserError(
-        "No parser and no file path given, couldn't infer a parser."
-      );
-    }
-    if (!prettier.check(input, options)) {
-      if (!context.argv.write) {
-        context.logger.log(filename);
-        process.exitCode = 1;
-      }
+    if (!(await prettier.check(input, options)) && !context.argv.write) {
+      context.logger.log(filename);
+      process.exitCode = 1;
     }
   } catch (error) {
     context.logger.error(error.message);
@@ -111,134 +103,122 @@ function listDifferent(context, input, options, filename) {
   return true;
 }
 
-function format(context, input, opt) {
-  if (!opt.parser && !opt.filepath) {
-    throw new errors.UndefinedParserError(
-      "No parser and no file path given, couldn't infer a parser."
-    );
-  }
-
+async function format(context, input, opt) {
   if (context.argv.debugPrintDoc) {
-    const doc = prettier.__debug.printToDoc(input, opt);
-    return { formatted: prettier.__debug.formatDoc(doc) + "\n" };
+    const doc = await prettier.__debug.printToDoc(input, opt);
+    return { formatted: (await prettier.__debug.formatDoc(doc)) + "\n" };
   }
 
   if (context.argv.debugPrintComments) {
     return {
-      formatted: prettier.format(
-        JSON.stringify(prettier.formatWithCursor(input, opt).comments || []),
-        { parser: "json" }
+      formatted: await prettier.format(
+        JSON.stringify(
+          (await prettier.formatWithCursor(input, opt)).comments || [],
+        ),
+        { parser: "json" },
       ),
     };
   }
 
   if (context.argv.debugPrintAst) {
-    const { ast } = prettier.__debug.parse(input, opt);
+    const { ast } = await prettier.__debug.parse(input, opt);
     return {
       formatted: JSON.stringify(ast),
     };
   }
 
   if (context.argv.debugCheck) {
-    const pp = prettier.format(input, opt);
-    const pppp = prettier.format(pp, opt);
+    const pp = await prettier.format(input, opt);
+    const pppp = await prettier.format(pp, opt);
     if (pp !== pppp) {
-      throw new errors.DebugError(
-        "prettier(input) !== prettier(prettier(input))\n" + diff(pp, pppp)
+      throw new DebugError(
+        "prettier(input) !== prettier(prettier(input))\n" + diff(pp, pppp),
       );
     } else {
       const stringify = (obj) => JSON.stringify(obj, null, 2);
       const ast = stringify(
-        prettier.__debug.parse(input, opt, /* massage */ true).ast
+        (await prettier.__debug.parse(input, opt, { massage: true })).ast,
       );
       const past = stringify(
-        prettier.__debug.parse(pp, opt, /* massage */ true).ast
+        (await prettier.__debug.parse(pp, opt, { massage: true })).ast,
       );
 
-      /* istanbul ignore next */
+      /* c8 ignore start */
       if (ast !== past) {
         const MAX_AST_SIZE = 2097152; // 2MB
         const astDiff =
           ast.length > MAX_AST_SIZE || past.length > MAX_AST_SIZE
             ? "AST diff too large to render"
             : diff(ast, past);
-        throw new errors.DebugError(
+        throw new DebugError(
           "ast(input) !== ast(prettier(input))\n" +
             astDiff +
             "\n" +
-            diff(input, pp)
+            diff(input, pp),
         );
       }
+      /* c8 ignore end */
     }
     return { formatted: pp, filepath: opt.filepath || "(stdin)\n" };
   }
 
-  /* istanbul ignore next */
-  if (context.argv.debugBenchmark) {
-    let benchmark;
+  const { performanceTestFlag } = context;
+  if (performanceTestFlag?.debugBenchmark) {
+    let Bench;
     try {
-      // eslint-disable-next-line import/no-extraneous-dependencies
-      benchmark = require("benchmark");
+      ({ Bench } = await import("tinybench"));
     } catch {
       context.logger.debug(
-        "'--debug-benchmark' requires the 'benchmark' package to be installed."
+        "'--debug-benchmark' requires the 'tinybench' package to be installed.",
       );
       process.exit(2);
     }
     context.logger.debug(
-      "'--debug-benchmark' option found, measuring formatWithCursor with 'benchmark' module."
+      "'--debug-benchmark' option found, measuring formatWithCursor with 'tinybench' module.",
     );
-    const suite = new benchmark.Suite();
-    suite
-      .add("format", () => {
-        prettier.formatWithCursor(input, opt);
-      })
-      .on("cycle", (event) => {
-        const results = {
-          benchmark: String(event.target),
-          hz: event.target.hz,
-          ms: event.target.times.cycle * 1000,
-        };
-        context.logger.debug(
-          "'--debug-benchmark' measurements for formatWithCursor: " +
-            JSON.stringify(results, null, 2)
-        );
-      })
-      .run({ async: false });
-  } else if (context.argv.debugRepeat > 0) {
-    const repeat = context.argv.debugRepeat;
+    const bench = new Bench();
+    bench.add("Format", () => prettier.formatWithCursor(input, opt));
+    await bench.run();
+
+    const [result] = bench.table();
     context.logger.debug(
-      "'--debug-repeat' option found, running formatWithCursor " +
-        repeat +
-        " times."
+      "'--debug-benchmark' measurements for formatWithCursor: " +
+        JSON.stringify(result, undefined, 2),
     );
-    let totalMs = 0;
+  } else if (performanceTestFlag?.debugRepeat) {
+    const repeat = performanceTestFlag.debugRepeat;
+    context.logger.debug(
+      `'${performanceTestFlag.name}' found, running formatWithCursor ${repeat} times.`,
+    );
+    const start = mockable.getTimestamp();
     for (let i = 0; i < repeat; ++i) {
-      // should be using `performance.now()`, but only `Date` is cross-platform enough
-      const startMs = Date.now();
-      prettier.formatWithCursor(input, opt);
-      totalMs += Date.now() - startMs;
+      await prettier.formatWithCursor(input, opt);
     }
-    const averageMs = totalMs / repeat;
+    const averageMs = (mockable.getTimestamp() - start) / repeat;
     const results = {
       repeat,
       hz: 1000 / averageMs,
       ms: averageMs,
     };
     context.logger.debug(
-      "'--debug-repeat' measurements for formatWithCursor: " +
-        JSON.stringify(results, null, 2)
+      `'${
+        performanceTestFlag.name
+      }' measurements for formatWithCursor: ${JSON.stringify(
+        results,
+        null,
+        2,
+      )}`,
     );
   }
 
   return prettier.formatWithCursor(input, opt);
 }
 
-async function createIgnorerFromContextOrDie(context) {
+async function createIsIgnoredFromContextOrDie(context) {
   try {
-    return await createIgnorer(
+    return await createIsIgnoredFunction(
       context.argv.ignorePath,
-      context.argv.withNodeModules
+      context.argv.withNodeModules,
     );
   } catch (e) {
     context.logger.error(e.message);
@@ -247,69 +227,97 @@ async function createIgnorerFromContextOrDie(context) {
 }
 
 async function formatStdin(context) {
-  const filepath = context.argv.filepath
-    ? path.resolve(process.cwd(), context.argv.filepath)
-    : process.cwd();
-
-  const ignorer = await createIgnorerFromContextOrDie(context);
-  // If there's an ignore-path set, the filename must be relative to the
-  // ignore path, not the current working directory.
-  const relativeFilepath = context.argv.ignorePath
-    ? path.relative(path.dirname(context.argv.ignorePath), filepath)
-    : path.relative(process.cwd(), filepath);
+  const { filepath } = context.argv;
 
   try {
     const input = await getStdin();
+    // TODO[@fisker]: Exit if no input.
+    // `prettier --config-precedence cli-override`
 
-    if (
-      relativeFilepath &&
-      ignorer.ignores(fixWindowsSlashes(relativeFilepath))
-    ) {
+    const absoluteFilepath = filepath ? path.resolve(filepath) : undefined;
+
+    let isFileIgnored = false;
+    if (absoluteFilepath) {
+      const isIgnored = await createIsIgnoredFromContextOrDie(context);
+      isFileIgnored = isIgnored(absoluteFilepath);
+    }
+
+    if (isFileIgnored) {
       writeOutput(context, { formatted: input });
       return;
     }
 
-    const options = await getOptionsForFile(context, filepath);
+    const options = {
+      ...(await getOptionsForFile(context, absoluteFilepath)),
+      // `getOptionsForFile` forwards `--stdin-filepath` directly, which can be a relative path
+      filepath: absoluteFilepath,
+    };
 
-    if (listDifferent(context, input, options, "(stdin)")) {
+    if (await listDifferent(context, input, options, "(stdin)")) {
       return;
     }
 
-    writeOutput(context, format(context, input, options), options);
+    const formatted = await format(context, input, options);
+
+    const { performanceTestFlag } = context;
+    if (performanceTestFlag) {
+      context.logger.log(
+        `'${performanceTestFlag.name}' option found, skipped print code to screen.`,
+      );
+      return;
+    }
+
+    writeOutput(context, formatted, options);
   } catch (error) {
-    handleError(context, relativeFilepath || "stdin", error);
+    handleError(context, filepath || "stdin", error);
   }
 }
 
 async function formatFiles(context) {
-  // The ignorer will be used to filter file paths after the glob is checked,
+  // This will be used to filter file paths after the glob is checked,
   // before any files are actually written
-  const ignorer = await createIgnorerFromContextOrDie(context);
+  const isIgnored = await createIsIgnoredFromContextOrDie(context);
+  const cwd = process.cwd();
 
   let numberOfUnformattedFilesFound = 0;
+  const { performanceTestFlag } = context;
 
-  if (context.argv.check) {
+  if (context.argv.check && !performanceTestFlag) {
     context.logger.log("Checking formatting...");
   }
 
-  for await (const pathOrError of expandPatterns(context)) {
-    if (typeof pathOrError === "object") {
-      context.logger.error(pathOrError.error);
+  let formatResultsCache;
+  const cacheFilePath = await findCacheFile(context.argv.cacheLocation);
+  if (context.argv.cache) {
+    formatResultsCache = new FormatResultsCache(
+      cacheFilePath,
+      context.argv.cacheStrategy || "content",
+    );
+  } else if (!context.argv.cacheLocation) {
+    const stat = await statSafe(cacheFilePath);
+    if (stat) {
+      await fs.unlink(cacheFilePath);
+    }
+  }
+
+  // Some CI pipelines incorrectly report process.stdout.isTTY status,
+  // which causes unwanted lines in the output. An additional check for isCI() helps.
+  // See https://github.com/prettier/prettier/issues/5801
+  const isTTY = mockable.isStreamTTY(process.stdout) && !mockable.isCI();
+
+  for await (const { error, filename, ignoreUnknown } of expandPatterns(
+    context,
+  )) {
+    if (error) {
+      context.logger.error(error);
       // Don't exit, but set the exit code to 2
       process.exitCode = 2;
       continue;
     }
 
-    const filename = pathOrError;
-    // If there's an ignore-path set, the filename must be relative to the
-    // ignore path, not the current working directory.
-    const ignoreFilename = context.argv.ignorePath
-      ? path.relative(path.dirname(context.argv.ignorePath), filename)
-      : filename;
-
-    const fileIgnored = ignorer.ignores(fixWindowsSlashes(ignoreFilename));
+    const isFileIgnored = isIgnored(filename);
     if (
-      fileIgnored &&
+      isFileIgnored &&
       (context.argv.debugCheck ||
         context.argv.write ||
         context.argv.check ||
@@ -323,9 +331,10 @@ async function formatFiles(context) {
       filepath: filename,
     };
 
+    const fileNameToDisplay = normalizeToPosix(path.relative(cwd, filename));
     let printedFilename;
-    if (isTTY()) {
-      printedFilename = context.logger.log(filename, {
+    if (isTTY) {
+      printedFilename = context.logger.log(fileNameToDisplay, {
         newline: false,
         clearable: true,
       });
@@ -336,100 +345,139 @@ async function formatFiles(context) {
       input = await fs.readFile(filename, "utf8");
     } catch (error) {
       // Add newline to split errors from filename line.
-      /* istanbul ignore next */
+      /* c8 ignore start */
       context.logger.log("");
 
-      /* istanbul ignore next */
       context.logger.error(
-        `Unable to read file: ${filename}\n${error.message}`
+        `Unable to read file "${fileNameToDisplay}":\n${error.message}`,
       );
 
       // Don't exit the process if one file failed
-      /* istanbul ignore next */
       process.exitCode = 2;
 
-      /* istanbul ignore next */
       continue;
+      /* c8 ignore stop */
     }
 
-    if (fileIgnored) {
+    if (isFileIgnored) {
+      printedFilename?.clear();
       writeOutput(context, { formatted: input }, options);
       continue;
     }
 
-    const start = Date.now();
+    const start = mockable.getTimestamp();
+
+    const isCacheExists = formatResultsCache?.existsAvailableFormatResultsCache(
+      filename,
+      options,
+    );
 
     let result;
     let output;
 
     try {
-      result = format(context, input, options);
+      if (isCacheExists) {
+        result = { formatted: input };
+      } else {
+        result = await format(context, input, options);
+      }
       output = result.formatted;
     } catch (error) {
-      handleError(context, filename, error, printedFilename);
+      handleError(
+        context,
+        fileNameToDisplay,
+        error,
+        printedFilename,
+        ignoreUnknown,
+      );
       continue;
     }
 
     const isDifferent = output !== input;
+    let shouldSetCache = !isDifferent;
 
-    if (printedFilename) {
-      // Remove previously printed filename to log it with duration.
-      printedFilename.clear();
+    // Remove previously printed filename to log it with duration.
+    printedFilename?.clear();
+
+    if (performanceTestFlag) {
+      context.logger.log(
+        `'${performanceTestFlag.name}' option found, skipped print code or write files.`,
+      );
+      return;
     }
 
     if (context.argv.write) {
+      const timeToDisplay = `${Math.round(mockable.getTimestamp() - start)}ms`;
       // Don't write the file if it won't change in order not to invalidate
       // mtime based caches.
       if (isDifferent) {
         if (!context.argv.check && !context.argv.listDifferent) {
-          context.logger.log(`${filename} ${Date.now() - start}ms`);
+          context.logger.log(`${fileNameToDisplay} ${timeToDisplay}`);
         }
 
         try {
-          await fs.writeFile(filename, output, "utf8");
+          await mockable.writeFormattedFile(filename, output);
+
+          // Set cache if format succeeds
+          shouldSetCache = true;
         } catch (error) {
-          /* istanbul ignore next */
           context.logger.error(
-            `Unable to write file: ${filename}\n${error.message}`
+            `Unable to write file "${fileNameToDisplay}":\n${error.message}`,
           );
 
           // Don't exit the process if one file failed
-          /* istanbul ignore next */
           process.exitCode = 2;
         }
       } else if (!context.argv.check && !context.argv.listDifferent) {
-        context.logger.log(`${chalk.grey(filename)} ${Date.now() - start}ms`);
+        const message = `${picocolors.gray(fileNameToDisplay)} ${timeToDisplay} (unchanged)`;
+        if (isCacheExists) {
+          context.logger.log(`${message} (cached)`);
+        } else {
+          context.logger.log(message);
+        }
       }
     } else if (context.argv.debugCheck) {
-      /* istanbul ignore else */
       if (result.filepath) {
-        context.logger.log(result.filepath);
+        context.logger.log(fileNameToDisplay);
       } else {
+        /* c8 ignore next */
         process.exitCode = 2;
       }
     } else if (!context.argv.check && !context.argv.listDifferent) {
       writeOutput(context, result, options);
     }
 
+    if (shouldSetCache) {
+      formatResultsCache?.setFormatResultsCache(filename, options);
+    } else {
+      formatResultsCache?.removeFormatResultsCache(filename);
+    }
+
     if (isDifferent) {
       if (context.argv.check) {
-        context.logger.warn(filename);
+        context.logger.warn(fileNameToDisplay);
       } else if (context.argv.listDifferent) {
-        context.logger.log(filename);
+        context.logger.log(fileNameToDisplay);
       }
       numberOfUnformattedFilesFound += 1;
     }
   }
+
+  formatResultsCache?.reconcile();
 
   // Print check summary based on expected exit code
   if (context.argv.check) {
     if (numberOfUnformattedFilesFound === 0) {
       context.logger.log("All matched files use Prettier code style!");
     } else {
+      const files =
+        numberOfUnformattedFilesFound === 1
+          ? "the above file"
+          : `${numberOfUnformattedFilesFound} files`;
       context.logger.warn(
         context.argv.write
-          ? "Code style issues fixed in the above file(s)."
-          : "Code style issues found in the above file(s). Forgot to run Prettier?"
+          ? `Code style issues fixed in ${files}.`
+          : `Code style issues found in ${files}. Run Prettier with --write to fix.`,
       );
     }
   }
@@ -445,4 +493,4 @@ async function formatFiles(context) {
   }
 }
 
-module.exports = { formatStdin, formatFiles };
+export { formatFiles, formatStdin };

@@ -1,4 +1,4 @@
-The core of the algorithm is implemented in `src/document/doc-{printer,builders,utils}.js`. The printer uses the basic formatting abstractions provided to construct a format when printing a node.
+The core of the algorithm is implemented in `src/document/{printer,builders,utils}.js`. The printer uses the basic formatting abstractions provided to construct a format when printing a node.
 
 ## Prettier's intermediate representation: `Doc`
 
@@ -24,7 +24,7 @@ declare function group(doc: Doc, options?: GroupOptions): Doc;
 
 Mark a group of items which the printer should try to fit on one line. This is the basic command to tell the printer when to break. Groups are usually nested, and the printer will try to fit everything on one line, but if it doesn't fit it will break the outermost group first and try again. It will continue breaking groups until everything fits (or there are no more groups to break).
 
-A group is forced to break if it's created with the `shouldBreak` option set to `true` or if it includes [`breakParent`](#breakParent). A [hard](#hardline) and [literal](#literalline) line breaks automatically include this so they always break parent groups. Breaks are propagated to all parent groups, so if a deeply nested expression has a hard break, everything will break. This only matters for "hard" breaks, i.e. newlines that are printed no matter what and can be statically analyzed.
+A group is forced to break if it's created with the `shouldBreak` option set to `true` or if it includes [`breakParent`](#breakparent). A [hard](#hardline) and [literal](#literalline) line breaks automatically include this so they always break parent groups. Breaks are propagated to all parent groups, so if a deeply nested expression has a hard break, everything will break. This only matters for "hard" breaks, i.e. newlines that are printed no matter what and can be statically analyzed.
 
 For example, an array will try to fit on one line:
 
@@ -46,7 +46,7 @@ However, if any of the items inside the array have a hard break, the array will 
 
 Functions always break after the opening curly brace no matter what, so the array breaks as well for consistent formatting. See [the implementation of `ArrayExpression`](#example) for an example.
 
-The `id` option can be used in [`ifBreak`](#ifBreak) checks.
+The `id` option can be used in [`ifBreak`](#ifbreak) checks.
 
 ### `conditionalGroup`
 
@@ -55,7 +55,7 @@ This should be used as **last resort** as it triggers an exponential complexity 
 ```ts
 declare function conditionalGroup(
   alternatives: Doc[],
-  options?: GroupOptions
+  options?: GroupOptions,
 ): Doc;
 ```
 
@@ -83,9 +83,9 @@ Expects the `docs` argument to be an array of alternating content and line break
 
 ```ts
 declare function ifBreak(
-  ifBreak: Doc,
-  noBreak?: Doc,
-  options?: { groupId?: symbol }
+  breakContents: Doc,
+  flatContents?: Doc,
+  options?: { groupId?: symbol },
 ): Doc;
 ```
 
@@ -96,6 +96,10 @@ ifBreak(";", " ");
 ```
 
 `groupId` can be used to check another _already printed_ group instead of the current group.
+
+If a [`hardline`](#hardline) or [`breakParent`](#breakParent) is present within the possible contents, the parent groups will be broken regardless of said content being printed, which might not be desirable. This behaviour is a design limitation. Usually the desired result can be achieved in a different way.
+
+In the rare case that `hardline` is definitely needed, consider using [`hardlineWithoutBreakParent`](#hardlinewithoutbreakparent-and-literallinewithoutbreakparent) instead to avoid an unwanted group break propagation.
 
 ### `breakParent`
 
@@ -173,7 +177,7 @@ a; // comment
 declare const lineSuffixBoundary: Doc;
 ```
 
-In cases where you embed code inside of templates, comments shouldn't be able to leave the code part. `lineSuffixBoundary` is an explicit marker you can use to flush the [`lineSuffix`](#lineSuffix) buffer in addition to line breaks.
+In cases where you embed code inside of templates, comments shouldn't be able to leave the code part. `lineSuffixBoundary` is an explicit marker you can use to flush the [`lineSuffix`](#linesuffix) buffer in addition to line breaks.
 
 ```js
 ["{", lineSuffix(" // comment"), lineSuffixBoundary, "}", hardline];
@@ -236,7 +240,7 @@ For example:
 declare function markAsRoot(doc: Doc): Doc;
 ```
 
-Mark the current indentation as root for [`dedentToRoot`](#dedentToRoot) and [`literalline`](#literalline)s.
+Mark the current indentation as root for [`dedentToRoot`](#dedenttoroot) and [`literalline`](#literalline)s.
 
 ### `dedentToRoot`
 
@@ -244,7 +248,7 @@ Mark the current indentation as root for [`dedentToRoot`](#dedentToRoot) and [`l
 declare function dedentToRoot(doc: Doc): Doc;
 ```
 
-Decrease the current indentation to the root marked by [`markAsRoot`](#markAsRoot).
+Decrease the current indentation to the root marked by [`markAsRoot`](#markasroot).
 
 ### `trim`
 
@@ -261,7 +265,7 @@ _Added in v2.3.0_
 ```ts
 declare function indentIfBreak(
   doc: Doc,
-  opts: { groupId: symbol; negate?: boolean }
+  opts: { groupId: symbol; negate?: boolean },
 ): Doc;
 ```
 
@@ -276,12 +280,14 @@ It doesn't make sense to apply `indentIfBreak` to the current group because "ind
 _Added in v2.3.0_
 
 ```ts
-declare function label(label: string, doc: Doc): Doc;
+declare function label(label: any, doc: Doc): Doc;
 ```
 
-Mark a doc with a string label. This doesn't affect how the doc is printed, but can be useful for heuristics based on doc introspection.
+Mark a doc with an arbitrary truthy value. This doesn't affect how the doc is printed, but can be useful for heuristics based on doc introspection.
 
 E.g., to decide how to print an assignment expression, we might want to know whether its right-hand side has been printed as a method call chain, not as a plain function call. If the method chain printing code uses `label` to mark its result, checking that condition can be as easy as `rightHandSideDoc.label === 'method-chain'`.
+
+If the `label` argument is falsy, `doc` is returned as is, without wrapping.
 
 ### `hardlineWithoutBreakParent` and `literallineWithoutBreakParent`
 
@@ -292,7 +298,7 @@ declare const hardlineWithoutBreakParent: Doc;
 declare const literallineWithoutBreakParent: Doc;
 ```
 
-These are used very rarely, for advanced formatting tricks. Unlike their "normal" counterparts, they don't include an implicit [`breakParent`](#breakParent).
+These are used very rarely, for advanced formatting tricks. Unlike their "normal" counterparts, they don't include an implicit [`breakParent`](#breakparent).
 
 Examples:
 
@@ -306,16 +312,6 @@ declare const cursor: Doc;
 ```
 
 This is a placeholder value where the cursor is in the original input in order to find where it would be printed.
-
-### [Deprecated] `concat`
-
-_This command has been deprecated in v2.3.0, use `Doc[]` instead_
-
-```ts
-declare function concat(docs: Doc[]): Doc;
-```
-
-Combine an array into a single doc.
 
 ## Example
 

@@ -1,90 +1,146 @@
-"use strict";
+/*
+The following are bundled here since they are used in API too
+- fast-glob
+- createTwoFilesPatch
+- leven
+- picocolors
+*/
+import { createTwoFilesPatch } from "diff/lib/patch/create.js";
+import fastGlob from "fast-glob";
+import leven from "leven";
+import picocolors from "picocolors";
+import * as vnopts from "vnopts";
+import * as errors from "./common/errors.js";
+import getFileInfoWithoutPlugins from "./common/get-file-info.js";
+import { mockable } from "./common/mockable.js";
+import {
+  clearCache as clearConfigCache,
+  resolveConfig,
+  resolveConfigFile,
+} from "./config/resolve-config.js";
+import * as core from "./main/core.js";
+import { formatOptionsHiddenDefaults } from "./main/normalize-format-options.js";
+import normalizeOptions from "./main/normalize-options.js";
+import * as optionCategories from "./main/option-categories.js";
+import {
+  clearCache as clearPluginCache,
+  loadBuiltinPlugins,
+  loadPlugins,
+} from "./main/plugins/index.js";
+import {
+  getSupportInfo as getSupportInfoWithoutPlugins,
+  normalizeOptionSettings,
+} from "./main/support.js";
+import createMockable from "./utils/create-mockable.js";
+import { createIsIgnoredFunction } from "./utils/ignore.js";
+import inferParserWithoutPlugins from "./utils/infer-parser.js";
+import omit from "./utils/object-omit.js";
 
-const { version } = require("../package.json");
-
-const core = require("./main/core.js");
-const { getSupportInfo } = require("./main/support.js");
-const getFileInfo = require("./common/get-file-info.js");
-const sharedUtil = require("./common/util-shared.js");
-const plugins = require("./common/load-plugins.js");
-const config = require("./config/resolve-config.js");
-const doc = require("./document/index.js");
-
-function _withPlugins(
+/**
+ * @param {*} fn
+ * @param {number} [optionsArgumentIndex]
+ * @returns {*}
+ */
+function withPlugins(
   fn,
-  optsArgIdx = 1 // Usually `opts` is the 2nd argument
+  optionsArgumentIndex = 1, // Usually `options` is the 2nd argument
 ) {
-  return (...args) => {
-    const opts = args[optsArgIdx] || {};
-    args[optsArgIdx] = {
-      ...opts,
-      plugins: plugins.loadPlugins(opts.plugins, opts.pluginSearchDirs),
+  return async (...args) => {
+    const options = args[optionsArgumentIndex] ?? {};
+    const { plugins = [] } = options;
+
+    args[optionsArgumentIndex] = {
+      ...options,
+      plugins: (
+        await Promise.all([
+          loadBuiltinPlugins(),
+          // TODO: standalone version allow `plugins` to be `prettierPlugins` which is an object, should allow that too
+          loadPlugins(plugins),
+        ])
+      ).flat(),
     };
+
     return fn(...args);
   };
 }
 
-function withPlugins(fn, optsArgIdx) {
-  const resultingFn = _withPlugins(fn, optsArgIdx);
-  if (fn.sync) {
-    // @ts-expect-error
-    resultingFn.sync = _withPlugins(fn.sync, optsArgIdx);
-  }
-  return resultingFn;
-}
-
 const formatWithCursor = withPlugins(core.formatWithCursor);
 
-module.exports = {
-  formatWithCursor,
+async function format(text, options) {
+  const { formatted } = await formatWithCursor(text, {
+    ...options,
+    cursorOffset: -1,
+  });
+  return formatted;
+}
 
-  format(text, opts) {
-    return formatWithCursor(text, opts).formatted;
+async function check(text, options) {
+  return (await format(text, options)) === text;
+}
+
+// eslint-disable-next-line require-await
+async function clearCache() {
+  clearConfigCache();
+  clearPluginCache();
+}
+
+/** @type {typeof getFileInfoWithoutPlugins} */
+const getFileInfo = withPlugins(getFileInfoWithoutPlugins);
+
+/** @type {typeof getSupportInfoWithoutPlugins} */
+const getSupportInfo = withPlugins(getSupportInfoWithoutPlugins, 0);
+
+const inferParser = withPlugins((file, options) =>
+  inferParserWithoutPlugins(options, { physicalFile: file }),
+);
+
+// Internal shared with cli
+const sharedWithCli = {
+  errors,
+  optionCategories,
+  createIsIgnoredFunction,
+  formatOptionsHiddenDefaults,
+  normalizeOptions,
+  getSupportInfoWithoutPlugins,
+  normalizeOptionSettings,
+  inferParser: (file, options) =>
+    Promise.resolve(options?.parser ?? inferParser(file, options)),
+  vnopts: {
+    ChoiceSchema: vnopts.ChoiceSchema,
+    apiDescriptor: vnopts.apiDescriptor,
   },
-
-  check(text, opts) {
-    const { formatted } = formatWithCursor(text, opts);
-    return formatted === text;
-  },
-
-  doc,
-
-  resolveConfig: config.resolveConfig,
-  resolveConfigFile: config.resolveConfigFile,
-  clearConfigCache() {
-    config.clearCache();
-    plugins.clearCache();
-  },
-
-  /** @type {typeof getFileInfo} */
-  getFileInfo: withPlugins(getFileInfo),
-  /** @type {typeof getSupportInfo} */
-  getSupportInfo: withPlugins(getSupportInfo, 0),
-
-  version,
-
-  util: sharedUtil,
-
-  // Internal shared
-  __internal: {
-    errors: require("./common/errors.js"),
-    coreOptions: require("./main/core-options.js"),
-    createIgnorer: require("./common/create-ignorer.js"),
-    optionsModule: require("./main/options.js"),
-    optionsNormalizer: require("./main/options-normalizer.js"),
-    utils: {
-      arrayify: require("./utils/arrayify.js"),
-      getLast: require("./utils/get-last.js"),
-      isNonEmptyArray: require("./common/util.js").isNonEmptyArray,
-    },
-  },
-
-  /* istanbul ignore next */
-  __debug: {
-    parse: withPlugins(core.parse),
-    formatAST: withPlugins(core.formatAST),
-    formatDoc: withPlugins(core.formatDoc),
-    printToDoc: withPlugins(core.printToDoc),
-    printDocToString: withPlugins(core.printDocToString),
+  fastGlob,
+  createTwoFilesPatch,
+  picocolors,
+  leven,
+  utils: {
+    omit,
+    createMockable,
   },
 };
+
+const debugApis = {
+  parse: withPlugins(core.parse),
+  formatAST: withPlugins(core.formatAst),
+  formatDoc: withPlugins(core.formatDoc),
+  printToDoc: withPlugins(core.printToDoc),
+  printDocToString: withPlugins(core.printDocToString),
+  // Exposed for tests
+  mockable,
+};
+
+export {
+  debugApis as __debug,
+  sharedWithCli as __internal,
+  check,
+  clearCache as clearConfigCache,
+  format,
+  formatWithCursor,
+  getFileInfo,
+  getSupportInfo,
+  resolveConfig,
+  resolveConfigFile,
+};
+export * as doc from "./document/public.js";
+export { default as version } from "./main/version.evaluate.js";
+export * as util from "./utils/public.js";

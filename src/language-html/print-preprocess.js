@@ -1,20 +1,15 @@
-"use strict";
-
-const {
-  ParseSourceSpan,
-} = require("angular-html-parser/lib/compiler/src/parse_util");
-const {
-  htmlTrim,
-  getLeadingAndTrailingHtmlWhitespace,
-  hasHtmlWhitespace,
+import { ParseSourceSpan } from "angular-html-parser/lib/compiler/src/parse_util.js";
+import htmlWhitespaceUtils from "../utils/html-whitespace-utils.js";
+import {
   canHaveInterpolation,
+  getLeadingAndTrailingHtmlWhitespace,
   getNodeCssStyleDisplay,
   isDanglingSpaceSensitiveNode,
   isIndentationSensitiveNode,
   isLeadingSpaceSensitiveNode,
   isTrailingSpaceSensitiveNode,
   isWhitespaceSensitiveNode,
-} = require("./utils/index.js");
+} from "./utils/index.js";
 
 const PREPROCESS_PIPELINE = [
   removeIgnorableFirstLf,
@@ -33,6 +28,7 @@ function preprocess(ast, options) {
   for (const fn of PREPROCESS_PIPELINE) {
     fn(ast, options);
   }
+
   return ast;
 }
 
@@ -56,18 +52,16 @@ function removeIgnorableFirstLf(ast /*, options */) {
 }
 
 function mergeIfConditionalStartEndCommentIntoElementOpeningTag(
-  ast /*, options */
+  ast /*, options */,
 ) {
   /**
    *     <!--[if ...]><!--><target><!--<![endif]-->
    */
   const isTarget = (node) =>
     node.type === "element" &&
-    node.prev &&
-    node.prev.type === "ieConditionalStartComment" &&
+    node.prev?.type === "ieConditionalStartComment" &&
     node.prev.sourceSpan.end.offset === node.startSourceSpan.start.offset &&
-    node.firstChild &&
-    node.firstChild.type === "ieConditionalEndComment" &&
+    node.firstChild?.type === "ieConditionalEndComment" &&
     node.firstChild.sourceSpan.start.offset === node.startSourceSpan.end.offset;
   ast.walk((node) => {
     if (node.children) {
@@ -86,11 +80,11 @@ function mergeIfConditionalStartEndCommentIntoElementOpeningTag(
 
         const startSourceSpan = new ParseSourceSpan(
           ieConditionalStartComment.sourceSpan.start,
-          ieConditionalEndComment.sourceSpan.end
+          ieConditionalEndComment.sourceSpan.end,
         );
         const sourceSpan = new ParseSourceSpan(
           startSourceSpan.start,
-          child.sourceSpan.end
+          child.sourceSpan.end,
         );
 
         child.condition = ieConditionalStartComment.condition;
@@ -125,7 +119,7 @@ function mergeNodeIntoText(ast, shouldMerge, getValue) {
         prevChild.value += child.value;
         prevChild.sourceSpan = new ParseSourceSpan(
           prevChild.sourceSpan.start,
-          child.sourceSpan.end
+          child.sourceSpan.end,
         );
 
         node.removeChild(child);
@@ -139,7 +133,7 @@ function mergeCdataIntoText(ast /*, options */) {
   return mergeNodeIntoText(
     ast,
     (node) => node.type === "cdata",
-    (node) => `<![CDATA[${node.value}]]>`
+    (node) => `<![CDATA[${node.value}]]>`,
   );
 }
 
@@ -149,17 +143,15 @@ function mergeSimpleElementIntoText(ast /*, options */) {
     node.attrs.length === 0 &&
     node.children.length === 1 &&
     node.firstChild.type === "text" &&
-    !hasHtmlWhitespace(node.children[0].value) &&
+    !htmlWhitespaceUtils.hasWhitespaceCharacter(node.children[0].value) &&
     !node.firstChild.hasLeadingSpaces &&
     !node.firstChild.hasTrailingSpaces &&
     node.isLeadingSpaceSensitive &&
     !node.hasLeadingSpaces &&
     node.isTrailingSpaceSensitive &&
     !node.hasTrailingSpaces &&
-    node.prev &&
-    node.prev.type === "text" &&
-    node.next &&
-    node.next.type === "text";
+    node.prev?.type === "text" &&
+    node.next?.type === "text";
   ast.walk((node) => {
     if (node.children) {
       for (let i = 0; i < node.children.length; i++) {
@@ -177,7 +169,7 @@ function mergeSimpleElementIntoText(ast /*, options */) {
           nextChild.value;
         prevChild.sourceSpan = new ParseSourceSpan(
           prevChild.sourceSpan.start,
-          nextChild.sourceSpan.end
+          nextChild.sourceSpan.end,
         );
         prevChild.isTrailingSpaceSensitive = nextChild.isTrailingSpaceSensitive;
         prevChild.hasTrailingSpaces = nextChild.hasTrailingSpaces;
@@ -195,9 +187,9 @@ function extractInterpolation(ast, options) {
     return;
   }
 
-  const interpolationRegex = /{{(.+?)}}/s;
+  const interpolationRegex = /\{\{(.+?)\}\}/su;
   ast.walk((node) => {
-    if (!canHaveInterpolation(node)) {
+    if (!canHaveInterpolation(node, options)) {
       return;
     }
 
@@ -241,7 +233,7 @@ function extractInterpolation(ast, options) {
                     value,
                     sourceSpan: new ParseSourceSpan(
                       startSourceSpan.moveBy(2),
-                      endSourceSpan.moveBy(-2)
+                      endSourceSpan.moveBy(-2),
                     ),
                   },
                 ],
@@ -260,29 +252,31 @@ function extractInterpolation(ast, options) {
  * - add `isWhitespaceSensitive`, `isIndentationSensitive` field for text nodes
  * - remove insensitive whitespaces
  */
-function extractWhitespaces(ast /*, options*/) {
+function extractWhitespaces(ast, options) {
   ast.walk((node) => {
-    if (!node.children) {
+    const children = node.$children;
+
+    if (!children) {
       return;
     }
 
     if (
-      node.children.length === 0 ||
-      (node.children.length === 1 &&
-        node.children[0].type === "text" &&
-        htmlTrim(node.children[0].value).length === 0)
+      children.length === 0 ||
+      (children.length === 1 &&
+        children[0].type === "text" &&
+        htmlWhitespaceUtils.trim(children[0].value).length === 0)
     ) {
-      node.hasDanglingSpaces = node.children.length > 0;
-      node.children = [];
+      node.hasDanglingSpaces = children.length > 0;
+      node.$children = [];
       return;
     }
 
-    const isWhitespaceSensitive = isWhitespaceSensitiveNode(node);
+    const isWhitespaceSensitive = isWhitespaceSensitiveNode(node, options);
     const isIndentationSensitive = isIndentationSensitiveNode(node);
 
     if (!isWhitespaceSensitive) {
-      for (let i = 0; i < node.children.length; i++) {
-        const child = node.children[i];
+      for (let i = 0; i < children.length; i++) {
+        const child = children[i];
         if (child.type !== "text") {
           continue;
         }
@@ -309,7 +303,7 @@ function extractWhitespaces(ast /*, options*/) {
           child.value = text;
           child.sourceSpan = new ParseSourceSpan(
             child.sourceSpan.start.moveBy(leadingWhitespace.length),
-            child.sourceSpan.end.moveBy(-trailingWhitespace.length)
+            child.sourceSpan.end.moveBy(-trailingWhitespace.length),
           );
 
           if (leadingWhitespace) {
@@ -340,7 +334,9 @@ function addIsSelfClosing(ast /*, options */) {
       (node.type === "element" &&
         (node.tagDefinition.isVoid ||
           // self-closing
-          node.startSourceSpan === node.endSourceSpan));
+          (node.endSourceSpan &&
+            node.startSourceSpan.start === node.endSourceSpan.start &&
+            node.startSourceSpan.end === node.endSourceSpan.end)));
   });
 }
 
@@ -352,11 +348,11 @@ function addHasHtmComponentClosingTag(ast, options) {
 
     node.hasHtmComponentClosingTag =
       node.endSourceSpan &&
-      /^<\s*\/\s*\/\s*>$/.test(
+      /^<\s*\/\s*\/\s*>$/u.test(
         options.originalText.slice(
           node.endSourceSpan.start.offset,
-          node.endSourceSpan.end.offset
-        )
+          node.endSourceSpan.end.offset,
+        ),
       );
   });
 }
@@ -379,17 +375,20 @@ function addIsSpaceSensitive(ast, options) {
       return;
     }
     if (children.length === 0) {
-      node.isDanglingSpaceSensitive = isDanglingSpaceSensitiveNode(node);
+      node.isDanglingSpaceSensitive = isDanglingSpaceSensitiveNode(
+        node,
+        options,
+      );
       return;
     }
     for (const child of children) {
       child.isLeadingSpaceSensitive = isLeadingSpaceSensitiveNode(
         child,
-        options
+        options,
       );
       child.isTrailingSpaceSensitive = isTrailingSpaceSensitiveNode(
         child,
-        options
+        options,
       );
     }
     for (let index = 0; index < children.length; index++) {
@@ -408,4 +407,4 @@ function addIsSpaceSensitive(ast, options) {
   });
 }
 
-module.exports = preprocess;
+export default preprocess;

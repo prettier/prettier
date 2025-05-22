@@ -1,17 +1,9 @@
-"use strict";
-
-function locStart(node) {
-  if (typeof node.start === "number") {
-    return node.start;
-  }
-  return node.loc && node.loc.start;
+function locStart(nodeOrToken) {
+  return nodeOrToken.loc.start;
 }
 
-function locEnd(node) {
-  if (typeof node.end === "number") {
-    return node.end;
-  }
-  return node.loc && node.loc.end;
+function locEnd(nodeOrToken) {
+  return nodeOrToken.loc.end;
 }
 
-module.exports = { locStart, locEnd };
+export { locEnd, locStart };

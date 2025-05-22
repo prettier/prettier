@@ -1,47 +1,81 @@
-"use strict";
-// eslint-disable-next-line no-restricted-modules
-const prettier = require("../../index.js");
-const {
-  optionsModule,
-  utils: { arrayify },
-} = require("../prettier-internal.js");
-const constant = require("../constant.js");
-const {
-  normalizeDetailedOptionMap,
-  createDetailedOptionMap,
-} = require("./option-map.js");
+import dashify from "dashify";
+import { getSupportInfo } from "../../index.js";
+import cliOptions from "../cli-options.evaluate.js";
+import {
+  getSupportInfoWithoutPlugins,
+  normalizeOptionSettings,
+  optionCategories,
+} from "../prettier-internal.js";
 
-function getContextOptions(plugins, pluginSearchDirs) {
-  const { options: supportOptions, languages } = prettier.getSupportInfo({
-    showDeprecated: true,
-    showUnreleased: true,
-    showInternal: true,
-    plugins,
-    pluginSearchDirs,
-  });
-  const detailedOptionMap = normalizeDetailedOptionMap({
-    ...createDetailedOptionMap(supportOptions),
-    ...constant.options,
-  });
+const detailedCliOptions = normalizeOptionSettings(cliOptions).map((option) =>
+  normalizeDetailedOption(option),
+);
 
-  const detailedOptions = arrayify(detailedOptionMap, "name");
-
-  const apiDefaultOptions = {
-    ...optionsModule.hiddenDefaults,
-    ...Object.fromEntries(
-      supportOptions
-        .filter(({ deprecated }) => !deprecated)
-        .map((option) => [option.name, option.default])
-    ),
+function apiOptionToCliOption(apiOption) {
+  const cliOption = {
+    ...apiOption,
+    description: apiOption.cliDescription ?? apiOption.description,
+    category: apiOption.cliCategory ?? optionCategories.CATEGORY_FORMAT,
+    forwardToApi: apiOption.name,
   };
 
+  /* c8 ignore start */
+  if (apiOption.deprecated) {
+    delete cliOption.forwardToApi;
+    delete cliOption.description;
+    delete cliOption.oppositeDescription;
+    cliOption.deprecated = true;
+  }
+  /* c8 ignore stop */
+
+  return normalizeDetailedOption(cliOption);
+}
+
+function normalizeDetailedOption(option) {
   return {
-    supportOptions,
-    detailedOptions,
-    detailedOptionMap,
-    apiDefaultOptions,
-    languages,
+    category: optionCategories.CATEGORY_OTHER,
+    ...option,
+    name: option.cliName ?? dashify(option.name),
+    choices: option.choices?.map((choice) => {
+      const newChoice = {
+        description: "",
+        deprecated: false,
+        ...(typeof choice === "object" ? choice : { value: choice }),
+      };
+      /* c8 ignore next 3 */
+      if (newChoice.value === true) {
+        newChoice.value = ""; // backward compatibility for original boolean option
+      }
+      return newChoice;
+    }),
   };
 }
 
-module.exports = getContextOptions;
+function supportInfoToContextOptions({ options: supportOptions, languages }) {
+  const detailedOptions = [
+    ...detailedCliOptions,
+    ...supportOptions.map((apiOption) => apiOptionToCliOption(apiOption)),
+  ];
+
+  return {
+    supportOptions,
+    languages,
+    detailedOptions,
+  };
+}
+
+async function getContextOptions(plugins) {
+  const supportInfo = await getSupportInfo({
+    showDeprecated: true,
+    plugins,
+  });
+
+  return supportInfoToContextOptions(supportInfo);
+}
+
+function getContextOptionsWithoutPlugins() {
+  const supportInfo = getSupportInfoWithoutPlugins();
+  return supportInfoToContextOptions(supportInfo);
+}
+
+export { getContextOptions, getContextOptionsWithoutPlugins };

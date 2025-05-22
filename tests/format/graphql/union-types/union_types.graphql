@@ -8,6 +8,8 @@ union myThirdUnion = AVeryVeryVeryLongNamedTypeName | ASecondVeryVeryVeryLongedN
 
 union longUnion = A | B | C | D | E | F | G | H | I | J | K | L |  A | B | C | D | E | F | G | H | I | J | K | L
 
+union SearchResult = Conference| Festival | Concert | Venue | Conference| Festival | Concert | Venue
+
 # comment
 # comment2
 union union = B | C | D

@@ -1,7 +1,5 @@
-"use strict";
-
-const mdx = require("../mdx.js");
-const { mapAst, INLINE_NODE_WRAPPER_TYPES } = require("../utils.js");
+import { COMMENT_REGEX } from "../mdx.js";
+import { INLINE_NODE_WRAPPER_TYPES, mapAst } from "../utils.js";
 
 function htmlToJsx() {
   return (ast) =>
@@ -9,8 +7,8 @@ function htmlToJsx() {
       if (
         node.type !== "html" ||
         // Keep HTML-style comments (legacy MDX)
-        mdx.COMMENT_REGEX.test(node.value) ||
-        INLINE_NODE_WRAPPER_TYPES.includes(parent.type)
+        COMMENT_REGEX.test(node.value) ||
+        INLINE_NODE_WRAPPER_TYPES.has(parent.type)
       ) {
         return node;
       }
@@ -18,4 +16,4 @@ function htmlToJsx() {
     });
 }
 
-module.exports = htmlToJsx;
+export default htmlToJsx;

@@ -1,11 +1,5 @@
-"use strict";
-
-const runPrettier = require("../run-prettier.js");
-
-expect.addSnapshotSerializer(require("../path-serializer.js"));
-
 describe("ignores files when executing in a subdirectory", () => {
-  runPrettier("cli/ignore-in-subdirectories/web1", [
+  runCli("cli/ignore-in-subdirectories/web1", [
     "ignore-me/should-ignore.js",
     "--ignore-path",
     "../.prettierignore",
@@ -14,7 +8,7 @@ describe("ignores files when executing in a subdirectory", () => {
     status: 0,
   });
 
-  runPrettier("cli/ignore-in-subdirectories/web1", [
+  runCli("cli/ignore-in-subdirectories/web1", [
     "ignore-me/subdirectory/should-ignore.js",
     "--ignore-path",
     "../.prettierignore",
@@ -25,7 +19,7 @@ describe("ignores files when executing in a subdirectory", () => {
 });
 
 describe("formats files when executing in a subdirectory", () => {
-  runPrettier("cli/ignore-in-subdirectories/web1", [
+  runCli("cli/ignore-in-subdirectories/web1", [
     "should-not-ignore.js",
     "--ignore-path",
     "../.prettierignore",
@@ -34,7 +28,7 @@ describe("formats files when executing in a subdirectory", () => {
     status: 1,
   });
 
-  runPrettier("cli/ignore-in-subdirectories/web2", [
+  runCli("cli/ignore-in-subdirectories/web2", [
     "should-not-ignore.js",
     "--ignore-path",
     "../.prettierignore",
@@ -45,7 +39,7 @@ describe("formats files when executing in a subdirectory", () => {
 });
 
 describe("ignore files when executing in a subdirectory and using stdin", () => {
-  runPrettier(
+  runCli(
     "cli/ignore-in-subdirectories/web1",
     [
       "--ignore-path",
@@ -55,7 +49,7 @@ describe("ignore files when executing in a subdirectory and using stdin", () => 
     ],
     {
       input: "hello_world( );",
-    }
+    },
   ).test({
     stdout: "hello_world( );",
     status: 0,
@@ -63,15 +57,14 @@ describe("ignore files when executing in a subdirectory and using stdin", () => 
 });
 
 describe("formats files when executing in a subdirectory and using stdin", () => {
-  runPrettier(
+  runCli(
     "cli/ignore-in-subdirectories/web1",
     ["--ignore-path", "../.prettierignore", "--stdin-filepath", "example.js"],
     {
       input: "hello_world( );",
-    }
+    },
   ).test({
-    stdout: `hello_world();
-`,
+    stdout: "hello_world();",
     status: 0,
   });
 });

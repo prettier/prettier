@@ -1,56 +1,75 @@
-"use strict";
+import { outdent } from "outdent";
 
-const runPrettier = require("../run-prettier.js");
+const TAB_WIDTH_3_OUTPUT = outdent`
+  function foo() {
+  ${" ".repeat(3)}return bar;
+  }
+`;
+const TAB_WIDTH_5_OUTPUT = outdent`
+  function foo() {
+  ${" ".repeat(5)}return bar;
+  }
+`;
 
-describe("CLI overrides take precedence without --config-precedence", () => {
-  runPrettier("cli/config/", [
-    "--end-of-line",
-    "lf",
-    "--print-width",
-    "1",
-    "**/*.js",
-  ]).test({
-    status: 0,
-  });
+test("CLI overrides take precedence --config-precedence", async () => {
+  const withoutFlag = await runCli("cli/config-precedence/valid-config", [
+    "foo.js",
+  ]).stdout;
+  expect(withoutFlag).toBe(TAB_WIDTH_3_OUTPUT);
+
+  const withFlag = await runCli("cli/config-precedence/valid-config", [
+    "--tab-width",
+    "5",
+    "foo.js",
+  ]).stdout;
+  expect(withFlag).toBe(TAB_WIDTH_5_OUTPUT);
 });
 
-describe("CLI overrides take precedence with --config-precedence cli-override", () => {
-  runPrettier("cli/config/", [
-    "--end-of-line",
-    "lf",
-    "--print-width",
-    "1",
+test("CLI overrides take precedence with --config-precedence cli-override", async () => {
+  const withoutFlag = await runCli("cli/config-precedence/valid-config", [
     "--config-precedence",
     "cli-override",
-    "**/*.js",
-  ]).test({
-    status: 0,
-  });
+    "foo.js",
+  ]).stdout;
+  expect(withoutFlag).toBe(TAB_WIDTH_3_OUTPUT);
+
+  const withFlag = await runCli("cli/config-precedence/valid-config", [
+    "--config-precedence",
+    "cli-override",
+    "--tab-width",
+    "5",
+    "foo.js",
+  ]).stdout;
+  expect(withFlag).toBe(TAB_WIDTH_5_OUTPUT);
 });
 
-describe("CLI overrides take lower precedence with --config-precedence file-override", () => {
-  runPrettier("cli/config/js/", [
-    "--end-of-line",
-    "crlf",
-    "--tab-width",
-    "1",
+test("CLI overrides take lower precedence with --config-precedence file-override", async () => {
+  const withoutFlag = await runCli("cli/config-precedence/valid-config", [
     "--config-precedence",
     "file-override",
-    "**/*.js",
-  ]).test({
-    status: 0,
-  });
+    "foo.js",
+  ]).stdout;
+  expect(withoutFlag).toBe(TAB_WIDTH_3_OUTPUT);
+
+  const withFlag = await runCli("cli/config-precedence/valid-config", [
+    "--config-precedence",
+    "file-override",
+    "--tab-width",
+    "5",
+    "foo.js",
+  ]).stdout;
+  expect(withFlag).toBe(TAB_WIDTH_3_OUTPUT);
 });
 
 describe("CLI overrides are still applied when no config is found with --config-precedence file-override", () => {
-  runPrettier("cli/config/no-config/", [
+  runCli("cli/config/no-config/", [
     "--end-of-line",
     "lf",
     "--tab-width",
     "6",
     "--config-precedence",
     "file-override",
-    "**/*.js",
+    "file.js",
     "--no-editorconfig",
   ]).test({
     status: 0,
@@ -58,21 +77,21 @@ describe("CLI overrides are still applied when no config is found with --config-
 });
 
 describe("CLI overrides gets ignored when config exists with --config-precedence prefer-file", () => {
-  runPrettier("cli/config/js/", [
+  runCli("cli/config/js/", [
     "--print-width",
     "1",
     "--tab-width",
     "1",
     "--config-precedence",
     "prefer-file",
-    "**/*.js",
+    "file.js",
   ]).test({
     status: 0,
   });
 });
 
 describe("CLI overrides gets applied when no config exists with --config-precedence prefer-file", () => {
-  runPrettier("cli/config/no-config/", [
+  runCli("cli/config/no-config/", [
     "--end-of-line",
     "lf",
     "--print-width",
@@ -82,14 +101,14 @@ describe("CLI overrides gets applied when no config exists with --config-precede
     "--no-config",
     "--config-precedence",
     "prefer-file",
-    "**/*.js",
+    "file.js",
   ]).test({
     status: 0,
   });
 });
 
 describe("CLI validate options with --config-precedence cli-override", () => {
-  runPrettier("cli/config-precedence", [
+  runCli("cli/config-precedence/invalid-config", [
     "--config-precedence",
     "cli-override",
   ]).test({
@@ -98,7 +117,7 @@ describe("CLI validate options with --config-precedence cli-override", () => {
 });
 
 describe("CLI validate options with --config-precedence file-override", () => {
-  runPrettier("cli/config-precedence", [
+  runCli("cli/config-precedence/invalid-config", [
     "--config-precedence",
     "file-override",
   ]).test({
@@ -107,7 +126,7 @@ describe("CLI validate options with --config-precedence file-override", () => {
 });
 
 describe("CLI validate options with --config-precedence prefer-file", () => {
-  runPrettier("cli/config-precedence", [
+  runCli("cli/config-precedence/invalid-config", [
     "--config-precedence",
     "prefer-file",
   ]).test({
@@ -116,10 +135,10 @@ describe("CLI validate options with --config-precedence prefer-file", () => {
 });
 
 describe("CLI --stdin-filepath works with --config-precedence prefer-file", () => {
-  runPrettier(
-    "cli/config/",
+  runCli(
+    "cli/config-precedence/overrides",
     ["--stdin-filepath=abc.ts", "--no-semi", "--config-precedence=prefer-file"],
-    { input: "let x: keyof Y = foo<typeof X>()" } // typescript
+    { input: "let x: keyof Y = foo<typeof X>()" }, // typescript
   ).test({
     stderr: "",
     status: 0,
@@ -127,14 +146,14 @@ describe("CLI --stdin-filepath works with --config-precedence prefer-file", () =
 });
 
 describe("CLI --stdin-filepath works with --config-precedence file-override", () => {
-  runPrettier(
-    "cli/config/",
+  runCli(
+    "cli/config-precedence/overrides",
     [
       "--stdin-filepath=abc.ts",
       "--no-semi",
       "--config-precedence=file-override",
     ],
-    { input: "let x: keyof Y = foo<typeof X>()" } // typescript
+    { input: "let x: keyof Y = foo<typeof X>()" }, // typescript
   ).test({
     stderr: "",
     status: 0,
@@ -142,14 +161,14 @@ describe("CLI --stdin-filepath works with --config-precedence file-override", ()
 });
 
 describe("CLI --stdin-filepath works with --config-precedence cli-override", () => {
-  runPrettier(
-    "cli/config/",
+  runCli(
+    "cli/config-precedence/overrides",
     [
       "--stdin-filepath=abc.ts",
       "--no-semi",
       "--config-precedence=cli-override",
     ],
-    { input: "let x: keyof Y = foo<typeof X>()" } // typescript
+    { input: "let x: keyof Y = foo<typeof X>()" }, // typescript
   ).test({
     stderr: "",
     status: 0,

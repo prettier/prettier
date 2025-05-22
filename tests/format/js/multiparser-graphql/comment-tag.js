@@ -7,3 +7,14 @@ const query = /* GraphQL */`
     }
   }
 `;
+
+/* GraphQL */`
+      {
+    user(   id :   5 , type:
+    "without variable assignment"  )  {
+      firstName
+
+      lastName
+    }
+  }
+`;

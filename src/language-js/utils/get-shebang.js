@@ -1,5 +1,3 @@
-"use strict";
-
 function getShebang(text) {
   if (!text.startsWith("#!")) {
     return "";
@@ -11,4 +9,4 @@ function getShebang(text) {
   return text.slice(0, index);
 }
 
-module.exports = getShebang;
+export default getShebang;

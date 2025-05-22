@@ -4,8 +4,19 @@ defaults:
   run:
     working-directory: scripts/release
 
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 on:
   push:
+    branches:
+      - main
+      - patch-release
+      - next
     paths:
       - "scripts/release/**"
       - ".github/workflows/release-script-test.yml"
@@ -20,16 +31,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2.4.0
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v2.5.1
+        uses: actions/setup-node@v4
         with:
-          version: "14"
+          # Minimal version the release script required
+          node-version: "20"
           cache: "yarn"
 
       - name: Install Dependencies
-        run: yarn install --frozen-lockfile
+        run: yarn install --immutable
 
       - name: Test
         run: yarn test

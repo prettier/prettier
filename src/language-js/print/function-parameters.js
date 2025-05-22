@@ -1,36 +1,44 @@
-"use strict";
-
-const { getNextNonSpaceNonCommentCharacter } = require("../../common/util.js");
-const { printDanglingComments } = require("../../main/comments.js");
-const {
-  builders: { line, hardline, softline, group, indent, ifBreak },
-  utils: { removeLines, willBreak },
-} = require("../../document/index.js");
-const {
+import { ArgExpansionBailout } from "../../common/errors.js";
+import {
+  group,
+  hardline,
+  ifBreak,
+  indent,
+  line,
+  softline,
+} from "../../document/builders.js";
+import { removeLines, willBreak } from "../../document/utils.js";
+import { printDanglingComments } from "../../main/comments/print.js";
+import getNextNonSpaceNonCommentCharacter from "../../utils/get-next-non-space-non-comment-character.js";
+import isNonEmptyArray from "../../utils/is-non-empty-array.js";
+import { locEnd } from "../loc.js";
+import {
   getFunctionParameters,
-  iterateFunctionParametersPath,
+  hasComment,
+  hasRestParameter,
+  isArrayExpression,
+  isFlowObjectTypePropertyAFunction,
+  isNextLineEmpty,
+  isObjectExpression,
+  isObjectType,
   isSimpleType,
   isTestCall,
   isTypeAnnotationAFunction,
-  isObjectType,
-  isObjectTypePropertyAFunction,
-  hasRestParameter,
+  iterateFunctionParametersPath,
   shouldPrintComma,
-  hasComment,
-  isNextLineEmpty,
-} = require("../utils/index.js");
-const { locEnd } = require("../loc.js");
-const { ArgExpansionBailout } = require("../../common/errors.js");
-const { printFunctionTypeParameters } = require("./misc.js");
+} from "../utils/index.js";
+import { printFunctionTypeParameters } from "./misc.js";
+
+/** @import AstPath from "../../common/ast-path.js" */
 
 function printFunctionParameters(
   path,
-  print,
   options,
+  print,
   expandArg,
-  printTypeParams
+  printTypeParams,
 ) {
-  const functionNode = path.getValue();
+  const functionNode = path.node;
   const parameters = getFunctionParameters(functionNode);
   const typeParams = printTypeParams
     ? printFunctionTypeParameters(path, options, print)
@@ -40,24 +48,20 @@ function printFunctionParameters(
     return [
       typeParams,
       "(",
-      printDanglingComments(
-        path,
-        options,
-        /* sameIndent */ true,
-        (comment) =>
+      printDanglingComments(path, options, {
+        filter: (comment) =>
           getNextNonSpaceNonCommentCharacter(
             options.originalText,
-            comment,
-            locEnd
-          ) === ")"
-      ),
+            locEnd(comment),
+          ) === ")",
+      }),
       ")",
     ];
   }
 
-  const parent = path.getParentNode();
+  const { parent } = path;
   const isParametersInTestCall = isTestCall(parent);
-  const shouldHugParameters = shouldHugFunctionParameters(functionNode);
+  const shouldHugParameters = shouldHugTheOnlyFunctionParameter(functionNode);
   const printed = [];
   iterateFunctionParametersPath(path, (parameterPath, index) => {
     const isLastParameter = index === parameters.length - 1;
@@ -88,7 +92,7 @@ function printFunctionParameters(
   //     }                     b,
   //   )                     ) => {
   //                         })
-  if (expandArg) {
+  if (expandArg && !isDecoratedFunction(path)) {
     if (willBreak(typeParams) || willBreak(printed)) {
       // Removing lines in this case leads to broken or ugly output
       throw new ArgExpansionBailout();
@@ -103,7 +107,9 @@ function printFunctionParameters(
   //   b,
   //   c
   // }) {}
-  const hasNotParameterDecorator = parameters.every((node) => !node.decorators);
+  const hasNotParameterDecorator = parameters.every(
+    (node) => !isNonEmptyArray(node.decorators),
+  );
   if (shouldHugParameters && hasNotParameterDecorator) {
     return [typeParams, "(", ...printed, ")"];
   }
@@ -114,11 +120,10 @@ function printFunctionParameters(
   }
 
   const isFlowShorthandWithOneArg =
-    (isObjectTypePropertyAFunction(parent) ||
+    (isFlowObjectTypePropertyAFunction(parent) ||
       isTypeAnnotationAFunction(parent) ||
       parent.type === "TypeAlias" ||
       parent.type === "UnionTypeAnnotation" ||
-      parent.type === "TSUnionType" ||
       parent.type === "IntersectionTypeAnnotation" ||
       (parent.type === "FunctionTypeAnnotation" &&
         parent.returnType === functionNode)) &&
@@ -132,7 +137,10 @@ function printFunctionParameters(
     !functionNode.rest;
 
   if (isFlowShorthandWithOneArg) {
-    if (options.arrowParens === "always") {
+    if (
+      options.arrowParens === "always" ||
+      functionNode.type === "HookTypeAnnotation"
+    ) {
       return ["(", ...printed, ")"];
     }
     return printed;
@@ -145,14 +153,14 @@ function printFunctionParameters(
     ifBreak(
       !hasRestParameter(functionNode) && shouldPrintComma(options, "all")
         ? ","
-        : ""
+        : "",
     ),
     softline,
     ")",
   ];
 }
 
-function shouldHugFunctionParameters(node) {
+function shouldHugTheOnlyFunctionParameter(node) {
   if (!node) {
     return false;
   }
@@ -171,14 +179,15 @@ function shouldHugFunctionParameters(node) {
           parameter.typeAnnotation.type === "TSTypeAnnotation") &&
         isObjectType(parameter.typeAnnotation.typeAnnotation)) ||
       (parameter.type === "FunctionTypeParam" &&
-        isObjectType(parameter.typeAnnotation)) ||
+        isObjectType(parameter.typeAnnotation) &&
+        parameter !== node.rest) ||
       (parameter.type === "AssignmentPattern" &&
         (parameter.left.type === "ObjectPattern" ||
           parameter.left.type === "ArrayPattern") &&
         (parameter.right.type === "Identifier" ||
-          (parameter.right.type === "ObjectExpression" &&
+          (isObjectExpression(parameter.right) &&
             parameter.right.properties.length === 0) ||
-          (parameter.right.type === "ArrayExpression" &&
+          (isArrayExpression(parameter.right) &&
             parameter.right.elements.length === 0))))
   );
 }
@@ -203,8 +212,7 @@ function shouldGroupFunctionParameters(functionNode, returnTypeDoc) {
     return false;
   }
 
-  const typeParameters =
-    functionNode.typeParameters && functionNode.typeParameters.params;
+  const typeParameters = functionNode.typeParameters?.params;
   if (typeParameters) {
     if (typeParameters.length > 1) {
       return false;
@@ -223,8 +231,70 @@ function shouldGroupFunctionParameters(functionNode, returnTypeDoc) {
   );
 }
 
-module.exports = {
+/**
+ * The "decorated function" pattern.
+ * The arrow function should be kept hugged even if its signature breaks.
+ *
+ * ```
+ * const decoratedFn = decorator(param1, param2)((
+ *   ...
+ * ) => {
+ *   ...
+ * });
+ * ```
+ * @param {AstPath} path
+ */
+function isDecoratedFunction(path) {
+  return path.match(
+    (node) =>
+      node.type === "ArrowFunctionExpression" &&
+      node.body.type === "BlockStatement",
+    (node, name) => {
+      if (
+        node.type === "CallExpression" &&
+        name === "arguments" &&
+        node.arguments.length === 1 &&
+        node.callee.type === "CallExpression"
+      ) {
+        const decorator = node.callee.callee;
+        return (
+          decorator.type === "Identifier" ||
+          (decorator.type === "MemberExpression" &&
+            !decorator.computed &&
+            decorator.object.type === "Identifier" &&
+            decorator.property.type === "Identifier")
+        );
+      }
+      return false;
+    },
+    (node, name) =>
+      (node.type === "VariableDeclarator" && name === "init") ||
+      (node.type === "ExportDefaultDeclaration" && name === "declaration") ||
+      (node.type === "TSExportAssignment" && name === "expression") ||
+      (node.type === "AssignmentExpression" &&
+        name === "right" &&
+        node.left.type === "MemberExpression" &&
+        node.left.object.type === "Identifier" &&
+        node.left.object.name === "module" &&
+        node.left.property.type === "Identifier" &&
+        node.left.property.name === "exports"),
+    (node) =>
+      node.type !== "VariableDeclaration" ||
+      (node.kind === "const" && node.declarations.length === 1),
+  );
+}
+
+function shouldBreakFunctionParameters(functionNode) {
+  const parameters = getFunctionParameters(functionNode);
+  return (
+    parameters.length > 1 &&
+    parameters.some((parameter) => parameter.type === "TSParameterProperty")
+  );
+}
+
+export {
   printFunctionParameters,
-  shouldHugFunctionParameters,
+  shouldBreakFunctionParameters,
   shouldGroupFunctionParameters,
+  shouldHugTheOnlyFunctionParameter,
 };

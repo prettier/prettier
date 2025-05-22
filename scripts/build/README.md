@@ -2,7 +2,7 @@
 
 ## Requirements
 
-- Node.js version `>= 14.18`.
+- Node.js version `>= 16.16`.
 
 ## Usage
 
@@ -75,11 +75,9 @@ Available reporter formats:
 - `stdout` Log report information in console.
 
 ```sh
-yarn build --report
+yarn build --report=all
 yarn build --report=stdout --report=text --report=html
 ```
-
-**`--report` equals to `--report=html`**
 
 ### `--minify` and `--no-minify`
 
@@ -97,22 +95,4 @@ Disable minify files:
 
 ```sh
 yarn build --file=parser-babel.js --no-minify
-```
-
-### `--no-babel`
-
-Currently, we need babel to transform/shim following new language features:
-
-- `Array#flat()` for Node.js 10
-- `Array#flatMap()` for Node.js 10
-- `Object.fromEntries()` for Node.js 10
-
-When debugging the build script, we may want skip this step, so the build process can be faster.
-
-Playground use this flag to speed up the build too.
-
-`--babel` have no effect, don't use.
-
-```sh
-yarn build --file=index.js --no-babel
 ```

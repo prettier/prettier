@@ -29,3 +29,8 @@ export class AppModule {}
 @Bar()
 // C
 export class Bar{}
+
+class Something {
+    @Annotateme()
+    property;
+}

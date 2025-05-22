@@ -1,13 +1,16 @@
-"use strict";
+/** @import {Plugin, Settings} from "unified" */
 
-function liquid() {
+/**
+ * @type {Plugin<[], Settings>}
+ */
+const liquid = function () {
   const proto = this.Parser.prototype;
   const methods = proto.inlineMethods;
   methods.splice(methods.indexOf("text"), 0, "liquid");
   proto.inlineTokenizers.liquid = tokenizer;
 
   function tokenizer(eat, value) {
-    const match = value.match(/^({%.*?%}|{{.*?}})/s);
+    const match = value.match(/^(\{%.*?%\}|\{\{.*?\}\})/su);
 
     if (match) {
       return eat(match[0])({
@@ -19,6 +22,6 @@ function liquid() {
   tokenizer.locator = function (value, fromIndex) {
     return value.indexOf("{", fromIndex);
   };
-}
+};
 
-module.exports = liquid;
+export default liquid;

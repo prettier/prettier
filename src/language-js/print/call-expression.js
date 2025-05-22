@@ -1,76 +1,55 @@
-"use strict";
-
-const {
-  builders: { join, group },
-} = require("../../document/index.js");
-const pathNeedsParens = require("../needs-parens.js");
-const {
+import { group, join } from "../../document/builders.js";
+import pathNeedsParens from "../needs-parens.js";
+import {
   getCallArguments,
-  hasFlowAnnotationComment,
   isCallExpression,
   isMemberish,
   isStringLiteral,
   isTemplateOnItsOwnLine,
   isTestCall,
   iterateCallArgumentsPath,
-} = require("../utils/index.js");
-const printMemberChain = require("./member-chain.js");
-const printCallArguments = require("./call-arguments.js");
-const {
-  printOptionalToken,
-  printFunctionTypeParameters,
-} = require("./misc.js");
+} from "../utils/index.js";
+import printCallArguments from "./call-arguments.js";
+import printMemberChain from "./member-chain.js";
+import { printFunctionTypeParameters, printOptionalToken } from "./misc.js";
 
 function printCallExpression(path, options, print) {
-  const node = path.getValue();
-  const parentNode = path.getParentNode();
+  const { node } = path;
   const isNew = node.type === "NewExpression";
   const isDynamicImport = node.type === "ImportExpression";
 
   const optional = printOptionalToken(path);
   const args = getCallArguments(node);
+
+  const isTemplateLiteralSingleArg =
+    args.length === 1 && isTemplateOnItsOwnLine(args[0], options.originalText);
+
   if (
+    isTemplateLiteralSingleArg ||
     // Dangling comments are not handled, all these special cases should have arguments #9668
-    args.length > 0 &&
     // We want to keep CommonJS- and AMD-style require calls, and AMD-style
     // define calls, as a unit.
     // e.g. `define(["some/lib"], (lib) => {`
-    ((!isDynamicImport && !isNew && isCommonsJsOrAmdCall(node, parentNode)) ||
-      // Template literals as single arguments
-      (args.length === 1 &&
-        isTemplateOnItsOwnLine(args[0], options.originalText)) ||
-      // Keep test declarations on a single line
-      // e.g. `it('long name', () => {`
-      (!isNew && isTestCall(node, parentNode)))
+    isCommonsJsOrAmdModuleDefinition(path) ||
+    // Keep test declarations on a single line
+    // e.g. `it('long name', () => {`
+    isTestCall(node, path.parent)
   ) {
     const printed = [];
     iterateCallArgumentsPath(path, () => {
       printed.push(print());
     });
-    return [
-      isNew ? "new " : "",
-      print("callee"),
-      optional,
-      printFunctionTypeParameters(path, options, print),
-      "(",
-      join(", ", printed),
-      ")",
-    ];
-  }
-
-  // Inline Flow annotation comments following Identifiers in Call nodes need to
-  // stay with the Identifier. For example:
-  //
-  // foo /*:: <SomeGeneric> */(bar);
-  //
-  // Here, we ensure that such comments stay between the Identifier and the Callee.
-  const isIdentifierWithFlowAnnotation =
-    (options.parser === "babel" || options.parser === "babel-flow") &&
-    node.callee &&
-    node.callee.type === "Identifier" &&
-    hasFlowAnnotationComment(node.callee.trailingComments);
-  if (isIdentifierWithFlowAnnotation) {
-    node.callee.trailingComments[0].printed = true;
+    if (!(isTemplateLiteralSingleArg && printed[0].label?.embed)) {
+      return [
+        isNew ? "new " : "",
+        printCallee(path, print),
+        optional,
+        printFunctionTypeParameters(path, options, print),
+        "(",
+        join(", ", printed),
+        ")",
+      ];
+    }
   }
 
   // We detect calls on member lookups and possibly print them in a
@@ -79,18 +58,19 @@ function printCallExpression(path, options, print) {
     !isDynamicImport &&
     !isNew &&
     isMemberish(node.callee) &&
-    !path.call((path) => pathNeedsParens(path, options), "callee")
+    !path.call(
+      (path) => pathNeedsParens(path, options),
+      "callee",
+      ...(node.callee.type === "ChainExpression" ? ["expression"] : []),
+    )
   ) {
     return printMemberChain(path, options, print);
   }
 
   const contents = [
     isNew ? "new " : "",
-    isDynamicImport ? "import" : print("callee"),
+    printCallee(path, print),
     optional,
-    isIdentifierWithFlowAnnotation
-      ? `/*:: ${node.callee.trailingComments[0].value.slice(2).trim()} */`
-      : "",
     printFunctionTypeParameters(path, options, print),
     printCallArguments(path, options, print),
   ];
@@ -104,28 +84,49 @@ function printCallExpression(path, options, print) {
   return contents;
 }
 
-function isCommonsJsOrAmdCall(node, parentNode) {
+function printCallee(path, print) {
+  const { node } = path;
+
+  if (node.type === "ImportExpression") {
+    return `import${node.phase ? `.${node.phase}` : ""}`;
+  }
+
+  return print("callee");
+}
+
+function isCommonsJsOrAmdModuleDefinition(path) {
+  const { node } = path;
+
+  if (node.type !== "CallExpression" || node.optional) {
+    return false;
+  }
+
   if (node.callee.type !== "Identifier") {
     return false;
   }
 
+  const args = getCallArguments(node);
+
+  // AMD module
   if (node.callee.name === "require") {
-    return true;
+    return (args.length === 1 && isStringLiteral(args[0])) || args.length > 1;
   }
 
-  if (node.callee.name === "define") {
-    const args = getCallArguments(node);
+  // CommonJS module
+  if (
+    node.callee.name === "define" &&
+    path.parent.type === "ExpressionStatement"
+  ) {
     return (
-      parentNode.type === "ExpressionStatement" &&
-      (args.length === 1 ||
-        (args.length === 2 && args[0].type === "ArrayExpression") ||
-        (args.length === 3 &&
-          isStringLiteral(args[0]) &&
-          args[1].type === "ArrayExpression"))
+      args.length === 1 ||
+      (args.length === 2 && args[0].type === "ArrayExpression") ||
+      (args.length === 3 &&
+        isStringLiteral(args[0]) &&
+        args[1].type === "ArrayExpression")
     );
   }
 
   return false;
 }
 
-module.exports = { printCallExpression };
+export { printCallExpression };

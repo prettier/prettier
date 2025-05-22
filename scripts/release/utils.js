@@ -1,40 +1,57 @@
 import fs from "node:fs";
+import path from "node:path";
 import readline from "node:readline";
-import chalk from "chalk";
-import { execa } from "execa";
-import stringWidth from "string-width";
-import fetch from "node-fetch";
+import url from "node:url";
+import spawn from "nano-spawn";
+import styleText from "node-style-text";
 import outdent from "outdent";
 import getFormattedDate from "./get-formatted-date.js";
 
 readline.emitKeypressEvents(process.stdin);
 
-const OK = chalk.bgGreen.black(" DONE ");
-const FAIL = chalk.bgRed.black(" FAIL ");
+const statusConfig = [
+  { color: "bgGreen", text: "DONE" },
+  { color: "bgRed", text: "FAIL" },
+  { color: "bgGray", text: "SKIPPED" },
+];
+const maxLength = Math.max(...statusConfig.map(({ text }) => text.length)) + 2;
+const padStatusText = (text) => {
+  while (text.length < maxLength) {
+    text = text.length % 2 ? `${text} ` : ` ${text}`;
+  }
+  return text;
+};
+const status = {};
+for (const { color, text } of statusConfig) {
+  status[text] = styleText[color].black(padStatusText(text));
+}
 
-function fitTerminal(input) {
-  const columns = Math.min(process.stdout.columns, 80);
-  const WIDTH = columns - stringWidth(OK) + 1;
+function fitTerminal(input, suffix = "") {
+  const columns = Math.min(process.stdout.columns || 40, 80);
+  const WIDTH = columns - maxLength + 1;
   if (input.length < WIDTH) {
-    input += chalk.dim(".").repeat(WIDTH - input.length - 1);
+    const repeatCount = Math.max(WIDTH - input.length - 1 - suffix.length, 0);
+    input += styleText.dim(".").repeat(repeatCount) + suffix;
   }
   return input;
 }
 
-async function logPromise(name, promiseOrAsyncFunction) {
-  const promise =
-    typeof promiseOrAsyncFunction === "function"
-      ? promiseOrAsyncFunction()
-      : promiseOrAsyncFunction;
-
+async function logPromise(name, promiseOrAsyncFunction, shouldSkip = false) {
   process.stdout.write(fitTerminal(name));
 
+  if (shouldSkip) {
+    process.stdout.write(`${status.SKIPPED}\n`);
+    return;
+  }
+
   try {
-    const result = await promise;
-    process.stdout.write(`${OK}\n`);
+    const result = await (typeof promiseOrAsyncFunction === "function"
+      ? promiseOrAsyncFunction()
+      : promiseOrAsyncFunction);
+    process.stdout.write(`${status.DONE}\n`);
     return result;
   } catch (error) {
-    process.stdout.write(`${FAIL}\n`);
+    process.stdout.write(`${status.FAIL}\n`);
     throw error;
   }
 }
@@ -43,7 +60,7 @@ async function runYarn(args, options) {
   args = Array.isArray(args) ? args : [args];
 
   try {
-    return await execa("yarn", ["--silent", ...args], options);
+    return await spawn("yarn", [...args], options);
   } catch (error) {
     throw new Error(`\`yarn ${args.join(" ")}\` failed\n${error.stdout}`);
   }
@@ -51,10 +68,13 @@ async function runYarn(args, options) {
 
 function runGit(args, options) {
   args = Array.isArray(args) ? args : [args];
-  return execa("git", args, options);
+  return spawn("git", args, options);
 }
 
 function waitForEnter() {
+  console.log();
+  console.log(styleText.gray("Press ENTER to continue."));
+
   process.stdin.setRawMode(true);
 
   return new Promise((resolve, reject) => {
@@ -78,12 +98,24 @@ function readJson(filename) {
   return JSON.parse(fs.readFileSync(filename));
 }
 
-function writeJson(filename, content) {
-  fs.writeFileSync(filename, JSON.stringify(content, null, 2) + "\n");
+function writeJson(file, content) {
+  writeFile(file, JSON.stringify(content, null, 2) + "\n");
+}
+
+const toPath = (urlOrPath) =>
+  urlOrPath instanceof URL ? url.fileURLToPath(urlOrPath) : urlOrPath;
+function writeFile(file, content) {
+  try {
+    fs.mkdirSync(path.dirname(toPath(file)), { recursive: true });
+  } catch {
+    // noop
+  }
+
+  fs.writeFileSync(file, content);
 }
 
 function processFile(filename, fn) {
-  const content = fs.readFileSync(filename, "utf-8");
+  const content = fs.readFileSync(filename, "utf8");
   fs.writeFileSync(filename, fn(content));
 }
 
@@ -97,27 +129,28 @@ function getBlogPostInfo(version) {
 
   return {
     file: `website/blog/${year}-${month}-${day}-${version}.md`,
-    path: `blog/${year}/${month}/${day}/${version}.html`,
+    path: `blog/${year}/${month}/${day}/${version}`,
   };
 }
 
 function getChangelogContent({ version, previousVersion, body }) {
   return outdent`
-  [diff](https://github.com/prettier/prettier/compare/${previousVersion}...${version})
+    [diff](https://github.com/prettier/prettier/compare/${previousVersion}...${version})
 
-  ${body}
+    ${body}
   `;
 }
 
 export {
-  runYarn,
-  runGit,
   fetchText,
+  getBlogPostInfo,
+  getChangelogContent,
   logPromise,
   processFile,
   readJson,
-  writeJson,
+  runGit,
+  runYarn,
   waitForEnter,
-  getBlogPostInfo,
-  getChangelogContent,
+  writeFile,
+  writeJson,
 };

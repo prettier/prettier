@@ -1,34 +1,27 @@
-"use strict";
+/** @import {Doc} from "../../document/builders.js" */
 
-/** @typedef {import("../../document").Doc} Doc */
-
-const {
-  builders: {
-    dedent,
-    dedentToRoot,
-    fill,
-    hardline,
-    join,
-    line,
-    literalline,
-    markAsRoot,
-  },
-  utils: { getDocParts },
-} = require("../../document/index.js");
-const {
-  getAncestorCount,
+import {
+  dedent,
+  dedentToRoot,
+  fill,
+  hardline,
+  join,
+  line,
+  literalline,
+  markAsRoot,
+} from "../../document/builders.js";
+import {
   getBlockValueLineContents,
   hasIndicatorComment,
   isLastDescendantNode,
-  isNode,
-} = require("../utils.js");
-const { alignWithSpaces } = require("./misc.js");
+} from "../utils.js";
+import { alignWithSpaces } from "./misc.js";
 
-function printBlock(path, print, options) {
-  const node = path.getValue();
-  const parentIndent = getAncestorCount(path, (ancestorNode) =>
-    isNode(ancestorNode, ["sequence", "mapping"])
-  );
+function printBlock(path, options, print) {
+  const { node } = path;
+  const parentIndent = path.ancestors.filter(
+    (node) => node.type === "sequence" || node.type === "mapping",
+  ).length;
   const isLastDescendant = isLastDescendantNode(path);
   /** @type {Doc[]} */
   const parts = [node.type === "blockFolded" ? ">" : "|"];
@@ -55,14 +48,14 @@ function printBlock(path, print, options) {
     if (index === 0) {
       contentsParts.push(hardline);
     }
-    contentsParts.push(fill(getDocParts(join(line, lineWords))));
+    contentsParts.push(fill(join(line, lineWords)));
     if (index !== lineContents.length - 1) {
       contentsParts.push(
-        lineWords.length === 0 ? hardline : markAsRoot(literalline)
+        lineWords.length === 0 ? hardline : markAsRoot(literalline),
       );
     } else if (node.chomping === "keep" && isLastDescendant) {
       contentsParts.push(
-        dedentToRoot(lineWords.length === 0 ? hardline : literalline)
+        dedentToRoot(lineWords.length === 0 ? hardline : literalline),
       );
     }
   }
@@ -71,12 +64,12 @@ function printBlock(path, print, options) {
   } else {
     parts.push(
       dedentToRoot(
-        alignWithSpaces(node.indent - 1 + parentIndent, contentsParts)
-      )
+        alignWithSpaces(node.indent - 1 + parentIndent, contentsParts),
+      ),
     );
   }
 
   return parts;
 }
 
-module.exports = printBlock;
+export default printBlock;

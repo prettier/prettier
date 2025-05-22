@@ -1,9 +1,3 @@
-- image: /images/editors/editor_atom.svg
-  name: Atom
-  content: |
-    [`prettier-atom`](https://github.com/prettier/prettier-atom)
-    [`mprettier`](https://github.com/t9md/atom-mprettier)
-    [`miniprettier`](https://github.com/duailibe/atom-miniprettier)
 - image: "/images/editors/editor_emacs.svg"
   name: Emacs
   content: |
@@ -17,7 +11,8 @@
 - image: /images/editors/editor_nova.svg
   name: Nova
   content: |
-    [`Prettier`](https://extensions.panic.com/extensions/alexanderweiss/alexanderweiss.prettier)
+    [`Prettier`](https://extensions.panic.com/extensions/alexanderweiss/alexanderweiss.prettier/)
+    [`Prettier⁺`](https://extensions.panic.com/extensions/stonerl/stonerl.prettier/)
 - image: /images/editors/editor_sublime.svg
   name: Sublime Text
   content: |
@@ -40,4 +35,4 @@
 - image: /images/editors/editor_webstorm.svg
   name: WebStorm
   content: |
-    [Built-in support](https://prettier.io/docs/en/webstorm.html)
+    [Built-in support](https://prettier.io/docs/webstorm)

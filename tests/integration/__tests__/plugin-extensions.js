@@ -1,13 +1,8 @@
-"use strict";
-
-const runPrettier = require("../run-prettier.js");
-const EOL = "\n";
-
 describe("uses 'extensions' from languages to determine parser", () => {
-  runPrettier("plugins/extensions", ["*.foo", "--plugin=./plugin"], {
+  runCli("plugins/extensions", ["*.foo", "--plugin=./plugin.cjs"], {
     ignoreLineEndings: true,
   }).test({
-    stdout: "!contents" + EOL,
+    stdout: "!contents",
     stderr: "",
     status: 0,
     write: [],

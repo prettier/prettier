@@ -1,7 +1,6 @@
 ---
-id: version-stable-editors
+id: editors
 title: Editor Integration
-original_id: editors
 ---
 
 To get the most out of Prettier, it’s recommended to run it from your editor.
@@ -26,6 +25,12 @@ Check out the [prettier-emacs](https://github.com/prettier/prettier-emacs) repo,
 
 For more details see [the Vim setup guide](vim.md).
 
+## Helix
+
+A formatter can be specified in your [Helix language configuration](https://docs.helix-editor.com/languages.html#language-configuration), which will take precedence over any language servers.
+
+For more details see the [Helix external binary formatter configuration for Prettier](https://github.com/helix-editor/helix/wiki/External-formatter-configuration#prettier).
+
 ## Sublime Text
 
 Sublime Text support is available through Package Control and the [JsPrettier](https://packagecontrol.io/packages/JsPrettier) plug-in.
@@ -37,11 +42,6 @@ See the [WebStorm setup guide](webstorm.md).
 ## Visual Studio
 
 Install the [JavaScript Prettier extension](https://github.com/madskristensen/JavaScriptPrettier).
-
-## Atom
-
-Atom users can install the [prettier-atom](https://github.com/prettier/prettier-atom) package, or one of the more minimalistic [mprettier](https://github.com/t9md/atom-mprettier) and
-[miniprettier](https://github.com/duailibe/atom-miniprettier) packages.
 
 ## Espresso
 

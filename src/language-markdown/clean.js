@@ -1,72 +1,84 @@
-"use strict";
-
-const { isFrontMatterNode } = require("../common/util.js");
-const { startWithPragma } = require("./pragma.js");
+import collapseWhiteSpace from "collapse-white-space";
+import isFrontMatter from "../utils/front-matter/is-front-matter.js";
+import { FORMAT_PRAGMAS } from "../utils/pragma/pragma.evaluate.js";
+import { startWithPragma } from "./pragma.js";
 
 const ignoredProperties = new Set([
   "position",
   "raw", // front-matter
 ]);
-function clean(ast, newObj, parent) {
+function clean(original, cloned, parent) {
   // for codeblock
   if (
-    ast.type === "front-matter" ||
-    ast.type === "code" ||
-    ast.type === "yaml" ||
-    ast.type === "import" ||
-    ast.type === "export" ||
-    ast.type === "jsx"
+    original.type === "front-matter" ||
+    original.type === "code" ||
+    original.type === "yaml" ||
+    original.type === "import" ||
+    original.type === "export" ||
+    original.type === "jsx"
   ) {
-    delete newObj.value;
+    delete cloned.value;
   }
 
-  if (ast.type === "list") {
-    delete newObj.isAligned;
+  if (original.type === "list") {
+    delete cloned.isAligned;
   }
 
-  if (ast.type === "list" || ast.type === "listItem") {
-    delete newObj.spread;
-    delete newObj.loose;
+  if (original.type === "list" || original.type === "listItem") {
+    delete cloned.spread;
   }
 
   // texts can be splitted or merged
-  if (ast.type === "text") {
+  if (original.type === "text") {
     return null;
   }
 
-  if (ast.type === "inlineCode") {
-    newObj.value = ast.value.replace(/[\t\n ]+/g, " ");
+  if (original.type === "inlineCode") {
+    cloned.value = original.value.replaceAll("\n", " ");
   }
 
-  if (ast.type === "wikiLink") {
-    newObj.value = ast.value.trim().replace(/[\t\n]+/g, " ");
-  }
-
-  if (ast.type === "definition" || ast.type === "linkReference") {
-    newObj.label = ast.label
-      .trim()
-      .replace(/[\t\n ]+/g, " ")
-      .toLowerCase();
+  if (original.type === "wikiLink") {
+    cloned.value = original.value.trim().replaceAll(/[\t\n]+/gu, " ");
   }
 
   if (
-    (ast.type === "definition" ||
-      ast.type === "link" ||
-      ast.type === "image") &&
-    ast.title
+    original.type === "definition" ||
+    original.type === "linkReference" ||
+    original.type === "imageReference"
   ) {
-    newObj.title = ast.title.replace(/\\(["')])/g, "$1");
+    cloned.label = collapseWhiteSpace(original.label);
+  }
+
+  if (
+    (original.type === "link" || original.type === "image") &&
+    original.url &&
+    original.url.includes("(")
+  ) {
+    for (const character of "<>") {
+      cloned.url = original.url.replaceAll(
+        character,
+        encodeURIComponent(character),
+      );
+    }
+  }
+
+  if (
+    (original.type === "definition" ||
+      original.type === "link" ||
+      original.type === "image") &&
+    original.title
+  ) {
+    cloned.title = original.title.replaceAll(/\\(?=["')])/gu, "");
   }
 
   // for insert pragma
   if (
-    parent &&
-    parent.type === "root" &&
+    parent?.type === "root" &&
     parent.children.length > 0 &&
-    (parent.children[0] === ast ||
-      (isFrontMatterNode(parent.children[0]) && parent.children[1] === ast)) &&
-    ast.type === "html" &&
-    startWithPragma(ast.value)
+    (parent.children[0] === original ||
+      (isFrontMatter(parent.children[0]) && parent.children[1] === original)) &&
+    original.type === "html" &&
+    startWithPragma(original.value, FORMAT_PRAGMAS)
   ) {
     return null;
   }
@@ -74,4 +86,4 @@ function clean(ast, newObj, parent) {
 
 clean.ignoredProperties = ignoredProperties;
 
-module.exports = clean;
+export default clean;

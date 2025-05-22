@@ -1,96 +1,148 @@
-"use strict";
+import assert from "node:assert";
+import { locEnd, locStart } from "../../loc.js";
+import createTypeCheckFunction from "../../utils/create-type-check-function.js";
+import getRaw from "../../utils/get-raw.js";
+import isBlockComment from "../../utils/is-block-comment.js";
+import isIndentableBlockComment from "../../utils/is-indentable-block-comment.js";
+import isLineComment from "../../utils/is-line-comment.js";
+import isTypeCastComment from "../../utils/is-type-cast-comment.js";
+import visitNode from "./visit-node.js";
 
-const { locStart, locEnd } = require("../../loc.js");
-const isTsKeywordType = require("../../utils/is-ts-keyword-type.js");
-const isTypeCastComment = require("../../utils/is-type-cast-comment.js");
-const getLast = require("../../../utils/get-last.js");
-const visitNode = require("./visit-node.js");
-const { throwErrorForInvalidNodes } = require("./typescript.js");
+const isNodeWithRaw = createTypeCheckFunction([
+  // Babel
+  "RegExpLiteral",
+  "BigIntLiteral",
+  "NumericLiteral",
+  "StringLiteral",
+  // "NullLiteral",
+  // "BooleanLiteral",
+  "DirectiveLiteral",
 
+  // ESTree
+  "Literal",
+  "JSXText",
+  "TemplateElement",
+
+  // Flow
+  "StringLiteralTypeAnnotation",
+  "NumberLiteralTypeAnnotation",
+  "BigIntLiteralTypeAnnotation",
+]);
+
+/**
+ * @param {{
+ *   text: string,
+ *   parser?: string,
+ * }} options
+ */
 function postprocess(ast, options) {
-  if (
-    options.parser === "typescript" &&
-    // decorators or abstract properties
-    /@|abstract/.test(options.originalText)
-  ) {
-    throwErrorForInvalidNodes(ast, options);
+  const { parser, text } = options;
+
+  // `InterpreterDirective` from babel parser and flow parser
+  // Other parsers parse it as comment, babel treat it as comment too
+  // https://github.com/babel/babel/issues/15116
+  const program = ast.type === "File" ? ast.program : ast;
+  const { interpreter } = program;
+  if (interpreter) {
+    ast.comments.unshift(interpreter);
+    delete program.interpreter;
   }
 
-  // Keep Babel's non-standard ParenthesizedExpression nodes only if they have Closure-style type cast comments.
-  if (
-    options.parser !== "typescript" &&
-    options.parser !== "flow" &&
-    options.parser !== "acorn" &&
-    options.parser !== "espree" &&
-    options.parser !== "meriyah"
-  ) {
-    const startOffsetsOfTypeCastedNodes = new Set();
+  if (ast.comments.length > 0) {
+    let followingComment;
+    for (let i = ast.comments.length - 1; i >= 0; i--) {
+      const comment = ast.comments[i];
 
-    // Comments might be attached not directly to ParenthesizedExpression but to its ancestor.
-    // E.g.: /** @type {Foo} */ (foo).bar();
-    // Let's use the fact that those ancestors and ParenthesizedExpression have the same start offset.
-
-    ast = visitNode(ast, (node) => {
       if (
-        node.leadingComments &&
-        node.leadingComments.some(isTypeCastComment)
+        followingComment &&
+        locEnd(comment) === locStart(followingComment) &&
+        isBlockComment(comment) &&
+        isBlockComment(followingComment) &&
+        isIndentableBlockComment(comment) &&
+        isIndentableBlockComment(followingComment)
       ) {
-        startOffsetsOfTypeCastedNodes.add(locStart(node));
+        ast.comments.splice(i + 1, 1);
+        comment.value += "*//*" + followingComment.value;
+        comment.range = [locStart(comment), locEnd(followingComment)];
       }
-    });
 
-    ast = visitNode(ast, (node) => {
-      if (node.type === "ParenthesizedExpression") {
-        const { expression } = node;
-
-        // Align range with `flow`
-        if (expression.type === "TypeCastExpression") {
-          expression.range = node.range;
-          return expression;
-        }
-
-        const start = locStart(node);
-        if (!startOffsetsOfTypeCastedNodes.has(start)) {
-          expression.extra = { ...expression.extra, parenthesized: true };
-          return expression;
-        }
+      /* c8 ignore next 3 */
+      if (!isLineComment(comment) && !isBlockComment(comment)) {
+        throw new TypeError(`Unknown comment type: "${comment.type}".`);
       }
-    });
+
+      /* c8 ignore next 3 */
+      if (process.env.NODE_ENV !== "production") {
+        assertComment(comment, text);
+      }
+
+      followingComment = comment;
+    }
   }
 
   ast = visitNode(ast, (node) => {
     switch (node.type) {
-      // Espree
-      case "ChainExpression": {
-        return transformChainExpression(node.expression);
+      case "ParenthesizedExpression": {
+        const { expression } = node;
+        const start = locStart(node);
+
+        // Align range with `flow`
+        if (expression.type === "TypeCastExpression") {
+          expression.range = [start, locEnd(node)];
+          return expression;
+        }
+
+        // Keep ParenthesizedExpression nodes only if they have Closure-style type cast comments.
+        const previousComment = ast.comments.findLast(
+          (comment) => locEnd(comment) <= start,
+        );
+        const keepTypeCast =
+          previousComment &&
+          isTypeCastComment(previousComment) &&
+          // check that there are only white spaces between the comment and the parenthesis
+          text.slice(locEnd(previousComment), start).trim().length === 0;
+
+        if (!keepTypeCast) {
+          expression.extra = { ...expression.extra, parenthesized: true };
+          return expression;
+        }
+        break;
       }
-      case "LogicalExpression": {
+
+      case "LogicalExpression":
         // We remove unneeded parens around same-operator LogicalExpressions
         if (isUnbalancedLogicalTree(node)) {
           return rebalanceLogicalTree(node);
         }
         break;
-      }
+
+      case "TemplateElement":
+        // `flow` and `typescript` follows the `espree` style positions
+        // https://github.com/eslint/js/blob/5826877f7b33548e5ba984878dd4a8eac8448f87/packages/espree/lib/espree.js#L213
+        if (
+          parser === "flow" ||
+          parser === "espree" ||
+          parser === "typescript"
+        ) {
+          const start = locStart(node) + 1;
+          const end = locEnd(node) - (node.tail ? 1 : 2);
+
+          node.range = [start, end];
+        }
+        break;
+
       // fix unexpected locEnd caused by --no-semi style
       case "VariableDeclaration": {
-        const lastDeclaration = getLast(node.declarations);
-        if (lastDeclaration && lastDeclaration.init) {
-          overrideLocEnd(node, lastDeclaration);
+        const lastDeclaration = node.declarations.at(-1);
+        if (lastDeclaration?.init && text[locEnd(lastDeclaration)] !== ";") {
+          node.range = [locStart(node), locEnd(lastDeclaration)];
         }
         break;
       }
       // remove redundant TypeScript nodes
-      case "TSParenthesizedType": {
-        if (
-          !(
-            isTsKeywordType(node.typeAnnotation) ||
-            node.typeAnnotation.type === "TSThisType"
-          )
-        ) {
-          node.typeAnnotation.range = [locStart(node), locEnd(node)];
-        }
+      case "TSParenthesizedType":
         return node.typeAnnotation;
-      }
+
       case "TSTypeParameter":
         // babel-ts
         if (typeof node.name === "string") {
@@ -102,83 +154,33 @@ function postprocess(ast, options) {
           };
         }
         break;
-      case "SequenceExpression": {
-        // Babel (unlike other parsers) includes spaces and comments in the range. Let's unify this.
-        const lastExpression = getLast(node.expressions);
-        node.range = [
-          locStart(node),
-          Math.min(locEnd(lastExpression), locEnd(node)),
-        ];
-        break;
-      }
+
       // For hack-style pipeline
       case "TopicReference":
-        options.__isUsingHackPipeline = true;
+        ast.extra = { ...ast.extra, __isUsingHackPipeline: true };
         break;
-      // TODO: Remove this when https://github.com/meriyah/meriyah/issues/200 get fixed
-      case "ExportAllDeclaration": {
-        const { exported } = node;
-        if (
-          options.parser === "meriyah" &&
-          exported &&
-          exported.type === "Identifier"
-        ) {
-          const raw = options.originalText.slice(
-            locStart(exported),
-            locEnd(exported)
-          );
-          if (raw.startsWith('"') || raw.startsWith("'")) {
-            node.exported = {
-              ...node.exported,
-              type: "Literal",
-              value: node.exported.name,
-              raw,
-            };
-          }
+
+      // In Flow parser, it doesn't generate union/intersection types for single type
+      case "TSUnionType":
+      case "TSIntersectionType":
+        if (node.types.length === 1) {
+          return node.types[0];
         }
         break;
-      }
+    }
+
+    /* c8 ignore next 3 */
+    if (process.env.NODE_ENV !== "production") {
+      assertRaw(node, text);
     }
   });
 
+  // In `typescript`/`espree`/`flow`, `Program` doesn't count whitespace and comments
+  // See https://github.com/eslint/espree/issues/488
+  if (ast.type === "Program") {
+    ast.range = [0, text.length];
+  }
   return ast;
-
-  /**
-   * - `toOverrideNode` must be the last thing in `toBeOverriddenNode`
-   * - do nothing if there's a semicolon on `toOverrideNode.end` (no need to fix)
-   */
-  function overrideLocEnd(toBeOverriddenNode, toOverrideNode) {
-    if (options.originalText[locEnd(toOverrideNode)] === ";") {
-      return;
-    }
-    toBeOverriddenNode.range = [
-      locStart(toBeOverriddenNode),
-      locEnd(toOverrideNode),
-    ];
-  }
-}
-
-// This is a workaround to transform `ChainExpression` from `acorn`, `espree`,
-// `meriyah`, and `typescript` into `babel` shape AST, we should do the opposite,
-// since `ChainExpression` is the standard `estree` AST for `optional chaining`
-// https://github.com/estree/estree/blob/master/es2020.md
-function transformChainExpression(node) {
-  switch (node.type) {
-    case "CallExpression":
-      node.type = "OptionalCallExpression";
-      node.callee = transformChainExpression(node.callee);
-      break;
-    case "MemberExpression":
-      node.type = "OptionalMemberExpression";
-      node.object = transformChainExpression(node.object);
-      break;
-    // typescript
-    case "TSNonNullExpression":
-      node.expression = transformChainExpression(node.expression);
-      break;
-    // No default
-  }
-  return node;
 }
 
 function isUnbalancedLogicalTree(node) {
@@ -209,4 +211,34 @@ function rebalanceLogicalTree(node) {
   });
 }
 
-module.exports = postprocess;
+/* c8 ignore next */
+function assertComment(comment, text) {
+  const commentText = text.slice(locStart(comment), locEnd(comment));
+
+  if (isLineComment(comment)) {
+    const openingMark = text.slice(
+      0,
+      text.startsWith("<--") || text.startsWith("-->") ? 3 : 2,
+    );
+    assert.ok(openingMark + comment.value, commentText);
+    return;
+  }
+
+  if (isBlockComment(comment)) {
+    // Flow
+    const closingMark = commentText.endsWith("*-/") ? "*-/" : "*/";
+    assert.equal("/*" + comment.value + closingMark, commentText);
+  }
+}
+
+/* c8 ignore next */
+function assertRaw(node, text) {
+  if (!isNodeWithRaw(node)) {
+    return;
+  }
+
+  const raw = node.type === "TemplateElement" ? node.value.raw : getRaw(node);
+  assert.equal(raw, text.slice(locStart(node), locEnd(node)));
+}
+
+export default postprocess;

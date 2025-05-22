@@ -1,47 +1,41 @@
-"use strict";
-
 /**
- * @typedef {import("../../common/ast-path")} AstPath
+ * @import AstPath from "../../common/ast-path.js"
  */
 
-const {
-  inferParserByLanguage,
-  isFrontMatterNode,
-} = require("../../common/util.js");
-const {
-  builders: { line, hardline, join },
-  utils: { getDocParts, replaceTextEndOfLine },
-} = require("../../document/index.js");
-const {
-  CSS_DISPLAY_TAGS,
+import { hardline, join, line } from "../../document/builders.js";
+import { replaceEndOfLine } from "../../document/utils.js";
+import isFrontMatter from "../../utils/front-matter/is-front-matter.js";
+import htmlWhitespaceUtils from "../../utils/html-whitespace-utils.js";
+import inferParser from "../../utils/infer-parser.js";
+import {
   CSS_DISPLAY_DEFAULT,
-  CSS_WHITE_SPACE_TAGS,
+  CSS_DISPLAY_TAGS,
   CSS_WHITE_SPACE_DEFAULT,
-} = require("../constants.evaluate.js");
-const isUnknownNamespace = require("./is-unknown-namespace.js");
+  CSS_WHITE_SPACE_TAGS,
+} from "../constants.evaluate.js";
+import isUnknownNamespace from "./is-unknown-namespace.js";
 
-// https://infra.spec.whatwg.org/#ascii-whitespace
-const HTML_WHITESPACE = new Set(["\t", "\n", "\f", "\r", " "]);
-const htmlTrimStart = (string) => string.replace(/^[\t\n\f\r ]+/, "");
-const htmlTrimEnd = (string) => string.replace(/[\t\n\f\r ]+$/, "");
-const htmlTrim = (string) => htmlTrimStart(htmlTrimEnd(string));
 const htmlTrimLeadingBlankLines = (string) =>
-  string.replace(/^[\t\f\r ]*\n/g, "");
+  string.replaceAll(/^[\t\f\r ]*\n/gu, "");
 const htmlTrimPreserveIndentation = (string) =>
-  htmlTrimLeadingBlankLines(htmlTrimEnd(string));
-const splitByHtmlWhitespace = (string) => string.split(/[\t\n\f\r ]+/);
-const getLeadingHtmlWhitespace = (string) => string.match(/^[\t\n\f\r ]*/)[0];
+  htmlTrimLeadingBlankLines(htmlWhitespaceUtils.trimEnd(string));
 const getLeadingAndTrailingHtmlWhitespace = (string) => {
-  const [, leadingWhitespace, text, trailingWhitespace] = string.match(
-    /^([\t\n\f\r ]*)(.*?)([\t\n\f\r ]*)$/s
-  );
+  let text = string;
+  const leadingWhitespace = htmlWhitespaceUtils.getLeadingWhitespace(text);
+  if (leadingWhitespace) {
+    text = text.slice(leadingWhitespace.length);
+  }
+  const trailingWhitespace = htmlWhitespaceUtils.getTrailingWhitespace(text);
+  if (trailingWhitespace) {
+    text = text.slice(0, -trailingWhitespace.length);
+  }
+
   return {
     leadingWhitespace,
     trailingWhitespace,
     text,
   };
 };
-const hasHtmlWhitespace = (string) => /[\t\n\f\r ]/.test(string);
 
 function shouldPreserveContent(node, options) {
   // unterminated node in ie conditional comment
@@ -65,7 +59,7 @@ function shouldPreserveContent(node, options) {
   if (
     isPreLikeNode(node) &&
     node.children.some(
-      (child) => child.type !== "text" && child.type !== "interpolation"
+      (child) => child.type !== "text" && child.type !== "interpolation",
     )
   ) {
     return true;
@@ -73,7 +67,7 @@ function shouldPreserveContent(node, options) {
 
   if (
     isVueNonHtmlBlock(node, options) &&
-    !isScriptLikeTag(node) &&
+    !isScriptLikeTag(node, options) &&
     node.type !== "interpolation"
   ) {
     return true;
@@ -83,12 +77,12 @@ function shouldPreserveContent(node, options) {
 }
 
 function hasPrettierIgnore(node) {
-  /* istanbul ignore next */
+  /* c8 ignore next 3 */
   if (node.type === "attribute") {
     return false;
   }
 
-  /* istanbul ignore next */
+  /* c8 ignore next 3 */
   if (!node.parent) {
     return false;
   }
@@ -109,24 +103,26 @@ function isTextLikeNode(node) {
   return node.type === "text" || node.type === "comment";
 }
 
-function isScriptLikeTag(node) {
+function isScriptLikeTag(node, options) {
   return (
     node.type === "element" &&
     (node.fullName === "script" ||
       node.fullName === "style" ||
       node.fullName === "svg:style" ||
+      node.fullName === "svg:script" ||
+      (node.fullName === "mj-style" && options.parser === "mjml") ||
       (isUnknownNamespace(node) &&
         (node.name === "script" || node.name === "style")))
   );
 }
 
-function canHaveInterpolation(node) {
-  return node.children && !isScriptLikeTag(node);
+function canHaveInterpolation(node, options) {
+  return node.children && !isScriptLikeTag(node, options);
 }
 
-function isWhitespaceSensitiveNode(node) {
+function isWhitespaceSensitiveNode(node, options) {
   return (
-    isScriptLikeTag(node) ||
+    isScriptLikeTag(node, options) ||
     node.type === "interpolation" ||
     isIndentationSensitiveNode(node)
   );
@@ -142,9 +138,7 @@ function isLeadingSpaceSensitiveNode(node, options) {
   if (
     isLeadingSpaceSensitive &&
     !node.prev &&
-    node.parent &&
-    node.parent.tagDefinition &&
-    node.parent.tagDefinition.ignoreFirstLf
+    node.parent?.tagDefinition?.ignoreFirstLf
   ) {
     return node.type === "interpolation";
   }
@@ -152,7 +146,7 @@ function isLeadingSpaceSensitiveNode(node, options) {
   return isLeadingSpaceSensitive;
 
   function _isLeadingSpaceSensitiveNode() {
-    if (isFrontMatterNode(node)) {
+    if (isFrontMatter(node) || node.type === "angularControlFlowBlock") {
       return false;
     }
 
@@ -176,7 +170,7 @@ function isLeadingSpaceSensitiveNode(node, options) {
       !node.prev &&
       (node.parent.type === "root" ||
         (isPreLikeNode(node) && node.parent) ||
-        isScriptLikeTag(node.parent) ||
+        isScriptLikeTag(node.parent, options) ||
         isVueCustomBlock(node.parent, options) ||
         !isFirstChildLeadingSpaceSensitiveCssDisplay(node.parent.cssDisplay))
     ) {
@@ -195,7 +189,7 @@ function isLeadingSpaceSensitiveNode(node, options) {
 }
 
 function isTrailingSpaceSensitiveNode(node, options) {
-  if (isFrontMatterNode(node)) {
+  if (isFrontMatter(node) || node.type === "angularControlFlowBlock") {
     return false;
   }
 
@@ -219,7 +213,7 @@ function isTrailingSpaceSensitiveNode(node, options) {
     !node.next &&
     (node.parent.type === "root" ||
       (isPreLikeNode(node) && node.parent) ||
-      isScriptLikeTag(node.parent) ||
+      isScriptLikeTag(node.parent, options) ||
       isVueCustomBlock(node.parent, options) ||
       !isLastChildTrailingSpaceSensitiveCssDisplay(node.parent.cssDisplay))
   ) {
@@ -236,16 +230,16 @@ function isTrailingSpaceSensitiveNode(node, options) {
   return true;
 }
 
-function isDanglingSpaceSensitiveNode(node) {
+function isDanglingSpaceSensitiveNode(node, options) {
   return (
     isDanglingSpaceSensitiveCssDisplay(node.cssDisplay) &&
-    !isScriptLikeTag(node)
+    !isScriptLikeTag(node, options)
   );
 }
 
 function forceNextEmptyLine(node) {
   return (
-    isFrontMatterNode(node) ||
+    isFrontMatter(node) ||
     (node.next &&
       node.sourceSpan.end &&
       node.sourceSpan.end.line + 1 < node.next.sourceSpan.start.line)
@@ -337,76 +331,96 @@ function getLastDescendant(node) {
 }
 
 function hasNonTextChild(node) {
-  return node.children && node.children.some((child) => child.type !== "text");
+  return node.children?.some((child) => child.type !== "text");
 }
 
-function _inferScriptParser(node) {
-  const { type, lang } = node.attrMap;
-  if (
-    type === "module" ||
-    type === "text/javascript" ||
-    type === "text/babel" ||
-    type === "application/javascript" ||
-    lang === "jsx"
-  ) {
-    return "babel";
+function inferParserByTypeAttribute(type) {
+  if (!type) {
+    return;
   }
 
-  if (type === "application/x-typescript" || lang === "ts" || lang === "tsx") {
-    return "typescript";
-  }
+  switch (type) {
+    case "module":
+    case "text/javascript":
+    case "text/babel":
+    case "application/javascript":
+      return "babel";
 
-  if (type === "text/markdown") {
-    return "markdown";
-  }
+    case "application/x-typescript":
+      return "typescript";
 
-  if (type === "text/html") {
-    return "html";
-  }
+    case "text/markdown":
+      return "markdown";
 
-  if (type && (type.endsWith("json") || type.endsWith("importmap"))) {
-    return "json";
-  }
+    case "text/html":
+      return "html";
 
-  if (type === "text/x-handlebars-template") {
-    return "glimmer";
-  }
-}
+    case "text/x-handlebars-template":
+      return "glimmer";
 
-function inferStyleParser(node) {
-  const { lang } = node.attrMap;
-  if (!lang || lang === "postcss" || lang === "css") {
-    return "css";
-  }
-
-  if (lang === "scss") {
-    return "scss";
-  }
-
-  if (lang === "less") {
-    return "less";
+    default:
+      if (
+        type.endsWith("json") ||
+        type.endsWith("importmap") ||
+        type === "speculationrules"
+      ) {
+        return "json";
+      }
   }
 }
 
 function inferScriptParser(node, options) {
-  if (node.name === "script" && !node.attrMap.src) {
-    if (!node.attrMap.lang && !node.attrMap.type) {
-      return "babel";
-    }
-    return _inferScriptParser(node);
+  const { name, attrMap } = node;
+
+  if (name !== "script" || Object.hasOwn(attrMap, "src")) {
+    return;
   }
 
+  const { type, lang } = node.attrMap;
+
+  if (!lang && !type) {
+    return "babel";
+  }
+
+  return (
+    inferParser(options, { language: lang }) ?? inferParserByTypeAttribute(type)
+  );
+}
+
+function inferVueSfcBlockParser(node, options) {
+  if (!isVueNonHtmlBlock(node, options)) {
+    return;
+  }
+  const { attrMap } = node;
+
+  if (Object.hasOwn(attrMap, "src")) {
+    return;
+  }
+
+  const { type, lang } = attrMap;
+
+  return (
+    inferParser(options, { language: lang }) ?? inferParserByTypeAttribute(type)
+  );
+}
+
+function inferStyleParser(node, options) {
   if (node.name === "style") {
-    return inferStyleParser(node);
+    const { lang } = node.attrMap;
+    return lang ? inferParser(options, { language: lang }) : "css";
   }
 
-  if (options && isVueNonHtmlBlock(node, options)) {
-    return (
-      _inferScriptParser(node) ||
-      (!("src" in node.attrMap) &&
-        inferParserByLanguage(node.attrMap.lang, options))
-    );
+  if (node.name === "mj-style" && options.parser === "mjml") {
+    return "css";
   }
+}
+
+function inferElementParser(node, options) {
+  return (
+    inferScriptParser(node, options) ??
+    inferStyleParser(node, options) ??
+    inferVueSfcBlockParser(node, options)
+  );
 }
 
 function isBlockLikeCssDisplay(cssDisplay) {
@@ -441,26 +455,6 @@ function isPreLikeNode(node) {
   return getNodeCssStyleWhiteSpace(node).startsWith("pre");
 }
 
-/**
- * @param {AstPath} path
- * @param {(any) => boolean} predicate
- */
-function countParents(path, predicate) {
-  let counter = 0;
-  for (let i = path.stack.length - 1; i >= 0; i--) {
-    const value = path.stack[i];
-    if (
-      value &&
-      typeof value === "object" &&
-      !Array.isArray(value) &&
-      predicate(value)
-    ) {
-      counter++;
-    }
-  }
-  return counter;
-}
-
 function hasParent(node, fn) {
   let current = node;
 
@@ -476,9 +470,14 @@ function hasParent(node, fn) {
 }
 
 function getNodeCssStyleDisplay(node, options) {
-  if (node.prev && node.prev.type === "comment") {
+  // Every root block in Vue SFC is a block
+  if (isVueSfcBlock(node, options)) {
+    return "block";
+  }
+
+  if (node.prev?.type === "comment") {
     // <!-- display: block -->
-    const match = node.prev.value.match(/^\s*display:\s*([a-z]+)\s*$/);
+    const match = node.prev.value.match(/^\s*display:\s*([a-z]+)\s*$/u);
     if (match) {
       return match[1];
     }
@@ -498,15 +497,7 @@ function getNodeCssStyleDisplay(node, options) {
       return "inline";
     case "ignore":
       return "block";
-    default: {
-      // See https://github.com/prettier/prettier/issues/8151
-      if (
-        options.parser === "vue" &&
-        node.parent &&
-        node.parent.type === "root"
-      ) {
-        return "block";
-      }
+    default:
       return (
         (node.type === "element" &&
           (!node.namespace ||
@@ -515,7 +506,6 @@ function getNodeCssStyleDisplay(node, options) {
           CSS_DISPLAY_TAGS[node.name]) ||
         CSS_DISPLAY_DEFAULT
       );
-    }
   }
 }
 
@@ -536,11 +526,10 @@ function getMinIndentation(text) {
       continue;
     }
 
-    if (!HTML_WHITESPACE.has(lineText[0])) {
+    const indentation = htmlWhitespaceUtils.getLeadingWhitespaceCount(lineText);
+    if (indentation === 0) {
       return 0;
     }
-
-    const indentation = getLeadingHtmlWhitespace(lineText).length;
 
     if (lineText.length === indentation) {
       continue;
@@ -563,18 +552,12 @@ function dedentString(text, minIndent = getMinIndentation(text)) {
         .join("\n");
 }
 
-function countChars(text, char) {
-  let counter = 0;
-  for (let i = 0; i < text.length; i++) {
-    if (text[i] === char) {
-      counter++;
-    }
-  }
-  return counter;
+function unescapeQuoteEntities(text) {
+  return text.replaceAll("&apos;", "'").replaceAll("&quot;", '"');
 }
 
-function unescapeQuoteEntities(text) {
-  return text.replace(/&apos;/g, "'").replace(/&quot;/g, '"');
+function getUnescapedAttributeValue(node) {
+  return unescapeQuoteEntities(node.value);
 }
 
 // top-level elements (excluding <template>, <style> and <script>) in Vue SFC are considered custom block
@@ -630,35 +613,32 @@ function isVueSfcBindingsAttribute(attribute, options) {
 function getTextValueParts(node, value = node.value) {
   return node.parent.isWhitespaceSensitive
     ? node.parent.isIndentationSensitive
-      ? replaceTextEndOfLine(value)
-      : replaceTextEndOfLine(
+      ? replaceEndOfLine(value)
+      : replaceEndOfLine(
           dedentString(htmlTrimPreserveIndentation(value)),
-          hardline
+          hardline,
         )
-    : getDocParts(join(line, splitByHtmlWhitespace(value)));
+    : join(line, htmlWhitespaceUtils.split(value));
 }
 
-module.exports = {
-  htmlTrim,
-  htmlTrimPreserveIndentation,
-  hasHtmlWhitespace,
-  getLeadingAndTrailingHtmlWhitespace,
+function isVueScriptTag(node, options) {
+  return isVueSfcBlock(node, options) && node.name === "script";
+}
+
+export {
   canHaveInterpolation,
-  countChars,
-  countParents,
   dedentString,
   forceBreakChildren,
   forceBreakContent,
   forceNextEmptyLine,
   getLastDescendant,
+  getLeadingAndTrailingHtmlWhitespace,
   getNodeCssStyleDisplay,
-  getNodeCssStyleWhiteSpace,
+  getTextValueParts,
+  getUnescapedAttributeValue,
   hasPrettierIgnore,
-  inferScriptParser,
-  isVueCustomBlock,
-  isVueNonHtmlBlock,
-  isVueSlotAttribute,
-  isVueSfcBindingsAttribute,
+  htmlTrimPreserveIndentation,
+  inferElementParser,
   isDanglingSpaceSensitiveNode,
   isIndentationSensitiveNode,
   isLeadingSpaceSensitiveNode,
@@ -666,11 +646,14 @@ module.exports = {
   isScriptLikeTag,
   isTextLikeNode,
   isTrailingSpaceSensitiveNode,
+  isVueCustomBlock,
+  isVueNonHtmlBlock,
+  isVueScriptTag,
+  isVueSfcBindingsAttribute,
+  isVueSfcBlock,
+  isVueSlotAttribute,
   isWhitespaceSensitiveNode,
-  isUnknownNamespace,
   preferHardlineAsLeadingSpaces,
-  preferHardlineAsTrailingSpaces,
   shouldPreserveContent,
   unescapeQuoteEntities,
-  getTextValueParts,
 };

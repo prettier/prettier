@@ -1,8 +1,11 @@
-"use strict";
-
-const { parseWithComments, strip, extract, print } = require("jest-docblock");
-const { normalizeEndOfLine } = require("../common/end-of-line.js");
-const getShebang = require("./utils/get-shebang.js");
+import { extract, parseWithComments, print, strip } from "jest-docblock";
+import { normalizeEndOfLine } from "../common/end-of-line.js";
+import {
+  FORMAT_IGNORE_PRAGMAS,
+  FORMAT_PRAGMA_TO_INSERT,
+  FORMAT_PRAGMAS,
+} from "../utils/pragma/pragma.evaluate.js";
+import getShebang from "./utils/get-shebang.js";
 
 function parseDocBlock(text) {
   const shebang = getShebang(text);
@@ -17,32 +20,40 @@ function parseDocBlock(text) {
 }
 
 function hasPragma(text) {
-  const pragmas = Object.keys(parseDocBlock(text).pragmas);
-  return pragmas.includes("prettier") || pragmas.includes("format");
+  const { pragmas } = parseDocBlock(text);
+  return FORMAT_PRAGMAS.some((pragma) => Object.hasOwn(pragmas, pragma));
+}
+
+function hasIgnorePragma(text) {
+  const { pragmas } = parseDocBlock(text);
+  return FORMAT_IGNORE_PRAGMAS.some((pragma) => Object.hasOwn(pragmas, pragma));
 }
 
 function insertPragma(originalText) {
   const { shebang, text, pragmas, comments } = parseDocBlock(originalText);
   const strippedText = strip(text);
 
-  const docBlock = print({
+  let docBlock = print({
     pragmas: {
-      format: "",
+      [FORMAT_PRAGMA_TO_INSERT]: "",
       ...pragmas,
     },
     comments: comments.trimStart(),
   });
 
+  // normalise newlines (mitigate use of os.EOL by jest-docblock)
+  // Only needed in development version on Windows,
+  // bundler will hack `jest-docblock` enforce it to use `\n` in production
+  if (process.env.NODE_ENV !== "production") {
+    docBlock = normalizeEndOfLine(docBlock);
+  }
+
   return (
     (shebang ? `${shebang}\n` : "") +
-    // normalise newlines (mitigate use of os.EOL by jest-docblock)
-    normalizeEndOfLine(docBlock) +
+    docBlock +
     (strippedText.startsWith("\n") ? "\n" : "\n\n") +
     strippedText
   );
 }
 
-module.exports = {
-  hasPragma,
-  insertPragma,
-};
+export { hasIgnorePragma, hasPragma, insertPragma };

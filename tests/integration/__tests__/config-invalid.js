@@ -1,11 +1,11 @@
-"use strict";
+import fs from "node:fs/promises";
+import outdent from "outdent";
+import jestPathSerializer from "../path-serializer.js";
 
-const runPrettier = require("../run-prettier.js");
-
-expect.addSnapshotSerializer(require("../path-serializer.js"));
+expect.addSnapshotSerializer(jestPathSerializer);
 
 describe("throw error for unsupported extension", () => {
-  runPrettier("cli/config/invalid", [
+  runCli("cli/config/invalid", [
     "--config",
     "file/.prettierrc.unsupported",
   ]).test({
@@ -14,28 +14,23 @@ describe("throw error for unsupported extension", () => {
 });
 
 describe("throw error with invalid config format", () => {
-  runPrettier("cli/config/invalid", ["--config", "file/.prettierrc"]).test({
+  runCli("cli/config/invalid", ["--config", "file/.prettierrc"]).test({
     status: "non-zero",
-    stderr: expect.stringMatching(
-      /Cannot (?:resolve|find) module '--invalid--' from/
-    ),
+    stderr: expect.stringMatching(/Cannot find package '--invalid--'/u),
   });
 });
 
 describe("throw error with invalid config format", () => {
-  runPrettier("cli/config/invalid", [
-    "--config",
-    "type-error/.prettierrc",
-  ]).test({
+  runCli("cli/config/invalid", ["--config", "type-error/.prettierrc"]).test({
     status: "non-zero",
-    stderr: expect.stringMatching(
-      "Config is only allowed to be an object, but received number in"
+    stderr: expect.stringContaining(
+      "Config is only allowed to be an object, but received number in",
     ),
   });
 });
 
 describe("throw error with invalid config target (directory)", () => {
-  runPrettier("cli/config/invalid", [
+  runCli("cli/config/invalid", [
     "--config",
     "folder/.prettierrc", // this is a directory
   ]).test({
@@ -44,19 +39,19 @@ describe("throw error with invalid config target (directory)", () => {
 });
 
 describe("throw error with invalid config option (int)", () => {
-  runPrettier("cli/config/invalid", ["--config", "option/int"]).test({
+  runCli("cli/config/invalid", ["--config", "option/int"]).test({
     status: "non-zero",
   });
 });
 
 describe("throw error with invalid config option (trailingComma)", () => {
-  runPrettier("cli/config/invalid", ["--config", "option/trailingComma"]).test({
+  runCli("cli/config/invalid", ["--config", "option/trailingComma"]).test({
     status: "non-zero",
   });
 });
 
 describe("throw error with invalid config precedence option (configPrecedence)", () => {
-  runPrettier("cli/config/invalid", [
+  runCli("cli/config/invalid", [
     "--config-precedence",
     "option/configPrecedence",
   ]).test({
@@ -65,15 +60,13 @@ describe("throw error with invalid config precedence option (configPrecedence)",
 });
 
 describe("resolves external configuration from package.json", () => {
-  runPrettier("cli/config-external-config-syntax-error", [
-    "syntax-error.js",
-  ]).test({
+  runCli("cli/config-external-config-syntax-error", ["syntax-error.js"]).test({
     status: 2,
   });
 });
 
 describe("throw error if both --config and --no-config are submitted", () => {
-  runPrettier("cli/config/invalid", ["--config", "abc", "--no-config"]).test({
+  runCli("cli/config/invalid", ["--config", "abc", "--no-config"]).test({
     status: "non-zero",
   });
 });
@@ -81,7 +74,7 @@ describe("throw error if both --config and --no-config are submitted", () => {
 // Tests below require --parser to prevent an error (no parser/filepath specified)
 
 describe("show warning with unknown option", () => {
-  runPrettier("cli/config/invalid", [
+  runCli("cli/config/invalid", [
     "--config",
     "option/unknown",
     "--parser",
@@ -92,7 +85,7 @@ describe("show warning with unknown option", () => {
 });
 
 describe("show warning with kebab-case option key", () => {
-  runPrettier("cli/config/invalid", [
+  runCli("cli/config/invalid", [
     "--config",
     "option/kebab-case",
     "--parser",
@@ -100,4 +93,117 @@ describe("show warning with kebab-case option key", () => {
   ]).test({
     status: 0,
   });
+});
+
+// #8815, please make sure this error contains code frame
+describe("Invalid json file", () => {
+  runCli("cli/config/invalid", [
+    "--config",
+    "broken-json/.prettierrc.json",
+    "--parser",
+    "babel",
+  ]).test({
+    status: 2,
+    stdout: "",
+    write: [],
+    stderr: expect.stringContaining(
+      outdent`
+        > 1 | {a':}
+            |  ^
+          2 |
+      `
+        .split("\n")
+        .map((line) => `[error] ${line}`)
+        .join("\n"),
+    ),
+  });
+});
+
+describe("Invalid toml file", () => {
+  runCli("cli/config/invalid", [
+    "--config",
+    "broken-toml/.prettierrc.toml",
+    "--parser",
+    "babel",
+  ]).test({
+    status: 2,
+    stdout: "",
+    write: [],
+    stderr: expect.stringContaining(
+      outdent`
+        Invalid TOML document: incomplete key-value declaration: no value specified
+
+        1:  a=
+              ^
+        2:    b!=
+      `
+        .split("\n")
+        .map((line) => `[error] ${line}`)
+        .join("\n"),
+    ),
+  });
+});
+
+describe("Invalid yaml file", () => {
+  runCli("cli/config/invalid", [
+    "--config",
+    "broken-yaml/.prettierrc.yaml",
+    "--parser",
+    "babel",
+  ]).test({
+    status: 2,
+    stdout: "",
+    write: [],
+    stderr: expect.stringContaining(
+      // Keep the outdent, since error message changes between versions
+      outdent`
+        Map keys must be unique; "a" is repeated
+      `
+        .split("\n")
+        .map((line) => `[error] ${line}`)
+        .join("\n"),
+    ),
+  });
+});
+
+describe("Invalid config value", () => {
+  runCli("cli/config/invalid", [
+    "--config",
+    "invalid-config-value/prettier.config.mjs",
+    "--parser",
+    "babel",
+  ]).test({
+    status: 0,
+    stdout: "",
+    write: [],
+    stderr: "",
+  });
+});
+
+// Can't put a invalid `package.json` file in the test dir
+test("Invalid package.json", async () => {
+  const packageJsonFile = new URL(
+    "../cli/config/invalid/broken-package-json/package.json",
+    import.meta.url,
+  );
+
+  try {
+    await fs.writeFile(packageJsonFile, '{"prettier":{}}');
+    const { stdout: configFileForValidPackageJson } = await runCli(
+      "cli/config/invalid/broken-package-json",
+      ["--find-config-path", "foo.js"],
+    );
+
+    expect(configFileForValidPackageJson).toBe("package.json");
+
+    await fs.writeFile(packageJsonFile, '{"prettier":{');
+    const { stdout: configFileForInvalidPackageJson } = await runCli(
+      "cli/config/invalid/broken-package-json",
+      ["--find-config-path", "foo.js"],
+    );
+
+    expect(configFileForInvalidPackageJson).toBe(".prettierrc");
+  } finally {
+    await fs.rm(packageJsonFile, { force: true });
+  }
 });

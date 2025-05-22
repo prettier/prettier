@@ -1,31 +1,21 @@
-"use strict";
+import mockable from "./mockable.js";
+import { picocolors } from "./prettier-internal.js";
 
-const readline = require("readline");
-const chalk = require("chalk");
-const stripAnsi = require("strip-ansi");
-const wcwidth = require("wcwidth");
-
-const countLines = (stream, text) => {
-  const columns = stream.columns || 80;
-  let lineCount = 0;
-  for (const line of stripAnsi(text).split("\n")) {
-    lineCount += Math.max(1, Math.ceil(wcwidth(line) / columns));
-  }
-  return lineCount;
-};
-
-const clear = (stream, text) => () => {
-  const lineCount = countLines(stream, text);
-
-  for (let line = 0; line < lineCount; line++) {
-    if (line > 0) {
-      readline.moveCursor(stream, 0, -1);
-    }
-
-    readline.clearLine(stream, 0);
-    readline.cursorTo(stream, 0);
-  }
-};
+const { argv, env } = process;
+// https://github.com/alexeyraspopov/picocolors/blob/0e7c4af2de299dd7bc5916f2bddd151fa2f66740/picocolors.js#L2
+// Not working on Windows, but this is how `picocolors` works for stdout, let's keep it this way for now
+const isStderrColorSupported =
+  !(Boolean(env.NO_COLOR) || argv.includes("--no-color")) &&
+  (Boolean(env.FORCE_COLOR) ||
+    argv.includes("--color") ||
+    process.platform === "win32" ||
+    (process.stderr.isTTY && env.TERM !== "dumb") ||
+    Boolean(env.CI));
+// To test this feature,
+// run `echo foo | node bin/prettier --unknown-flag --log-level=debug 2>error.log`
+// open error.log check if `[warn]` or `[debug]` is colored
+// https://github.com/prettier/prettier/issues/13097
+const picocolorsStderr = picocolors.createColors(isStderrColorSupported);
 
 const emptyLogResult = { clear() {} };
 function createLogger(logLevel = "log") {
@@ -42,8 +32,9 @@ function createLogger(logLevel = "log") {
       return () => emptyLogResult;
     }
 
-    const prefix = color ? `[${chalk[color](loggerName)}] ` : "";
     const stream = process[loggerName === "log" ? "stdout" : "stderr"];
+    const colors = loggerName === "log" ? picocolors : picocolorsStderr;
+    const prefix = color ? `[${colors[color](loggerName)}] ` : "";
 
     return (message, options) => {
       options = {
@@ -51,12 +42,13 @@ function createLogger(logLevel = "log") {
         clearable: false,
         ...options,
       };
-      message = message.replace(/^/gm, prefix) + (options.newline ? "\n" : "");
+      message =
+        message.replaceAll(/^/gmu, prefix) + (options.newline ? "\n" : "");
       stream.write(message);
 
       if (options.clearable) {
         return {
-          clear: clear(stream, message),
+          clear: () => mockable.clearStreamText(stream, message),
         };
       }
     };
@@ -87,4 +79,4 @@ function createLogger(logLevel = "log") {
   }
 }
 
-module.exports = createLogger;
+export default createLogger;
