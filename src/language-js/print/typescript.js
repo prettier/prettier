@@ -18,7 +18,11 @@ import { printBlock } from "./block.js";
 import printCallArguments from "./call-arguments.js";
 import { printBinaryCastExpression } from "./cast-expression.js";
 import { printClassMethod, printClassProperty } from "./class.js";
-import { printEnumDeclaration, printEnumMember } from "./enum.js";
+import {
+  printEnumBody,
+  printEnumDeclaration,
+  printEnumMember,
+} from "./enum.js";
 import { printFunction, printMethodValue } from "./function.js";
 import {
   printFunctionParameters,
@@ -274,7 +278,9 @@ function printTypescript(path, options, print) {
     case "TSNamespaceExportDeclaration":
       return ["export as namespace ", print("id"), options.semi ? ";" : ""];
     case "TSEnumDeclaration":
-      return printEnumDeclaration(path, options, print);
+      return printEnumDeclaration(path, print);
+    case "TSEnumBody":
+      return printEnumBody(path, options, print);
 
     case "TSEnumMember":
       return printEnumMember(path, print);
@@ -338,13 +344,7 @@ function printTypescript(path, options, print) {
     case "TSTypeReference":
       return [
         print("typeName"),
-        printTypeParameters(
-          path,
-          options,
-          print,
-          // TODO: Use `typeArguments` only when babel align with TS.
-          node.typeArguments ? "typeArguments" : "typeParameters",
-        ),
+        printTypeParameters(path, options, print, "typeArguments"),
       ];
     case "TSTypeAnnotation":
       return printTypeAnnotation(path, options, print);

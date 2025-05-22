@@ -143,18 +143,6 @@ function postprocess(ast, options) {
       case "TSParenthesizedType":
         return node.typeAnnotation;
 
-      case "TSTypeParameter":
-        // babel-ts
-        if (typeof node.name === "string") {
-          const start = locStart(node);
-          node.name = {
-            type: "Identifier",
-            name: node.name,
-            range: [start, start + node.name.length],
-          };
-        }
-        break;
-
       // For hack-style pipeline
       case "TopicReference":
         ast.extra = { ...ast.extra, __isUsingHackPipeline: true };
@@ -165,6 +153,19 @@ function postprocess(ast, options) {
       case "TSIntersectionType":
         if (node.types.length === 1) {
           return node.types[0];
+        }
+        break;
+
+      // TODO: Remove this when babel release v8 stable
+      case "TSMappedType":
+        if (!node.typeParameter && node.key && node.constraint) {
+          const { key: name, constraint } = node;
+          node.typeParameter = {
+            type: "TSTypeParameter",
+            constraint,
+            name,
+            range: [locStart(name), locEnd(constraint)],
+          };
         }
         break;
     }
