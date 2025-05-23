@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ignores file name contains emoji  1`] = `
+{
+  "stderr": "",
+  "stdout": "not-ignored.js",
+  "write": [],
+}
+`;
+
+exports[`square-brackets-and-dash  1`] = `
+{
+  "status": 2,
+  "stderr": "[error] Invalid configuration for file "<cli>/special-characters-in-path/square-brackets-and-dash/test/username[repo-name]/.editorconfig":
+[error] Invalid regular expression: /^(?=.)username[repo-name]$/: Range out of order in character class",
+  "stdout": "",
+  "write": [],
+}
+`;
+
+exports[`stdin  1`] = `
+{
+  "stderr": "",
+  "stdout": ".name {                         display: none; }",
+  "write": [],
+}
+`;
