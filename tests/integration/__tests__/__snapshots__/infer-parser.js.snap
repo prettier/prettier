@@ -3,9 +3,9 @@
 exports[`--check with unknown path and no parser multiple files  1`] = `
 {
   "stderr": "[error] No parser could be inferred for file "<cli>/infer-parser/FOO".
-[warn] foo.js
-[warn] Code style issues found in the above file. Run Prettier with --write to fix.",
-  "stdout": "Checking formatting...",
+[warn] foo.js",
+  "stdout": "Checking formatting...
+Error occurred when checking code style in the above file.",
 }
 `;
 
@@ -13,7 +13,7 @@ exports[`--check with unknown path and no parser specific file  1`] = `
 {
   "stderr": "[error] No parser could be inferred for file "<cli>/infer-parser/FOO".",
   "stdout": "Checking formatting...
-All matched files use Prettier code style!",
+Error occurred when checking code style in the above file.",
 }
 `;
 
@@ -32,9 +32,9 @@ exports[`--list-different with unknown path and no parser specific file  1`] = `
 exports[`--write and --check with unknown path and no parser multiple files  1`] = `
 {
   "stderr": "[error] No parser could be inferred for file "<cli>/infer-parser/FOO".
-[warn] foo.js
-[warn] Code style issues fixed in the above file.",
-  "stdout": "Checking formatting...",
+[warn] foo.js",
+  "stdout": "Checking formatting...
+Error occurred when checking code style in the above file.",
   "write": [
     {
       "content": "foo();
@@ -49,7 +49,7 @@ exports[`--write and --check with unknown path and no parser specific file  1`] 
 {
   "stderr": "[error] No parser could be inferred for file "<cli>/infer-parser/FOO".",
   "stdout": "Checking formatting...
-All matched files use Prettier code style!",
+Error occurred when checking code style in the above file.",
 }
 `;
 

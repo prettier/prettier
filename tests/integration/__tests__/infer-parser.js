@@ -88,14 +88,14 @@ describe("unknown path and no parser", () => {
 describe("--check with unknown path and no parser", () => {
   describe("specific file", () => {
     runCli("cli/infer-parser/", ["--check", "FOO"]).test({
-      status: 0,
+      status: 2,
       write: [],
     });
   });
 
   describe("multiple files", () => {
     runCli("cli/infer-parser/", ["--check", "*"]).test({
-      status: 1,
+      status: 2,
       write: [],
     });
   });
@@ -104,7 +104,7 @@ describe("--check with unknown path and no parser", () => {
 describe("--list-different with unknown path and no parser", () => {
   describe("specific file", () => {
     runCli("cli/infer-parser/", ["--list-different", "FOO"]).test({
-      status: 0,
+      status: 2,
       stdout: "",
       write: [],
     });
@@ -112,7 +112,7 @@ describe("--list-different with unknown path and no parser", () => {
 
   describe("multiple files", () => {
     runCli("cli/infer-parser/", ["--list-different", "*"]).test({
-      status: 1,
+      status: 2,
       stdout: "foo.js",
       write: [],
     });
@@ -138,14 +138,14 @@ describe("--write with unknown path and no parser", () => {
 describe("--write and --check with unknown path and no parser", () => {
   describe("specific file", () => {
     runCli("cli/infer-parser/", ["--check", "--write", "FOO"]).test({
-      status: 0,
+      status: 2,
       write: [],
     });
   });
 
   describe("multiple files", () => {
     runCli("cli/infer-parser/", ["--check", "--write", "*"]).test({
-      status: 0,
+      status: 2,
     });
   });
 });
@@ -153,7 +153,7 @@ describe("--write and --check with unknown path and no parser", () => {
 describe("--write and --list-different with unknown path and no parser", () => {
   describe("specific file", () => {
     runCli("cli/infer-parser/", ["--list-different", "--write", "FOO"]).test({
-      status: 0,
+      status: 2,
       stdout: "",
       write: [],
     });
@@ -161,7 +161,7 @@ describe("--write and --list-different with unknown path and no parser", () => {
 
   describe("multiple files", () => {
     runCli("cli/infer-parser/", ["--list-different", "--write", "*"]).test({
-      status: 0,
+      status: 2,
     });
   });
 });
