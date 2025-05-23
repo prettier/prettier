@@ -177,5 +177,4 @@ jobs:
 
       - name: Release
         run: |
-          npx pkg-pr-new publish --compact --packageManager=yarn
-        working-directory: dist/prettier
+          npx pkg-pr-new publish "./dist/*" --compact --packageManager=yarn
