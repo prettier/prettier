@@ -5,7 +5,7 @@ The following are bundled here since they are used in API too
 - leven
 - picocolors
 */
-import { createTwoFilesPatch } from "diff/lib/patch/create.js";
+import { createTwoFilesPatch } from "diff";
 import fastGlob from "fast-glob";
 import leven from "leven";
 import picocolors from "picocolors";
