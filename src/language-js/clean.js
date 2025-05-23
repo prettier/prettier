@@ -195,11 +195,6 @@ function clean(original, cloned) {
     delete cloned.key;
     delete cloned.constraint;
   }
-
-  // `@typescript-eslint/typescript-estree` v8
-  if (original.type === "TSEnumDeclaration") {
-    delete cloned.body;
-  }
 }
 
 clean.ignoredProperties = ignoredProperties;

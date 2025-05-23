@@ -818,8 +818,8 @@ exports[`visitor keys estree 1`] = `
     "members",
   ],
   "TSEnumDeclaration": [
+    "body",
     "id",
-    "members",
   ],
   "TSEnumMember": [
     "id",
