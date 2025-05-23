@@ -44,10 +44,8 @@ function handleError(context, filename, error, printedFilename, ignoreUnknown) {
     if (ignoreUnknown) {
       return;
     }
-    if (!context.argv.check && !context.argv.listDifferent) {
-      process.exitCode = 2;
-    }
     context.logger.error(error.message);
+    process.exitCode = 2;
     return;
   }
 
