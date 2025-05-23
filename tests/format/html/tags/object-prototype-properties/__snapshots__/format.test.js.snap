@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`object-prototype-properties.html format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<constructor>constructor</constructor>
+<hasOwnProperty>hasOwnProperty</hasOwnProperty>
+<isPrototypeOf>isPrototypeOf</isPrototypeOf>
+<propertyIsEnumerable>propertyIsEnumerable</propertyIsEnumerable>
+<toLocaleString>toLocaleString</toLocaleString>
+<toString>toString</toString>
+<valueOf>valueOf</valueOf>
+<!-- <__defineGetter__>__defineGetter__</__defineGetter__> -->
+<!-- <__defineSetter__>__defineSetter__</__defineSetter__> -->
+<!-- <__lookupGetter__>__lookupGetter__</__lookupGetter__> -->
+<!-- <__lookupSetter__>__lookupSetter__</__lookupSetter__> -->
+<!-- <__proto__>__proto__</__proto__> -->
+
+=====================================output=====================================
+<constructor>constructor</constructor>
+<hasOwnProperty>hasOwnProperty</hasOwnProperty>
+<isPrototypeOf>isPrototypeOf</isPrototypeOf>
+<propertyIsEnumerable>propertyIsEnumerable</propertyIsEnumerable>
+<toLocaleString>toLocaleString</toLocaleString>
+<toString>toString</toString>
+<valueOf>valueOf</valueOf>
+<!-- <__defineGetter__>__defineGetter__</__defineGetter__> -->
+<!-- <__defineSetter__>__defineSetter__</__defineSetter__> -->
+<!-- <__lookupGetter__>__lookupGetter__</__lookupGetter__> -->
+<!-- <__lookupSetter__>__lookupSetter__</__lookupSetter__> -->
+<!-- <__proto__>__proto__</__proto__> -->
+
+================================================================================
+`;
