@@ -78,10 +78,16 @@ const meriyahDisabledTests = new Set([
     "js/regex/regexp-modifiers.js",
   ].map((file) => path.join(__dirname, "../format", file)),
 ]);
-const babelTsDisabledTest = new Set(
+const babelTsDisabledTests = new Set(
   ["conformance/types/moduleDeclaration/kind-detection.ts"].map((file) =>
     path.join(__dirname, "../format/typescript", file),
   ),
+);
+const flowDisabledTests = new Set(
+  [
+    // Parsing to different ASTs
+    "js/decorators/member-expression.js",
+  ].map((file) => path.join(__dirname, "../format", file)),
 );
 
 const isUnstable = (filename, options) => {
@@ -288,7 +294,9 @@ function runFormatTest(fixtures, parsers, options) {
           (currentParser === "espree" && espreeDisabledTests.has(filename)) ||
           (currentParser === "meriyah" && meriyahDisabledTests.has(filename)) ||
           (currentParser === "acorn" && acornDisabledTests.has(filename)) ||
-          (currentParser === "babel-ts" && babelTsDisabledTest.has(filename))
+          (currentParser === "babel-ts" &&
+            babelTsDisabledTests.has(filename)) ||
+          (currentParser === "flow" && flowDisabledTests.has(filename))
         ) {
           continue;
         }
