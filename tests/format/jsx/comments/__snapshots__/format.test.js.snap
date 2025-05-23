@@ -280,6 +280,59 @@ printWidth: 80
 ================================================================================
 `;
 
+exports[`indentable.js - {"bracketSameLine":true} format 1`] = `
+====================================options=====================================
+bracketSameLine: true
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<div>
+  {/*
+     * an indentable comment
+      * on several lines
+       */}
+</div>;
+
+<div>
+  {/* an indentable comment
+    * with compact start
+    * and end */}
+</div>;
+
+<div>
+  {999 /* another indentable comment
+    * with something on
+    * the first line
+    */}
+</div>;
+
+=====================================output=====================================
+<div>
+  {/*
+    * an indentable comment
+    * on several lines
+    */}
+</div>;
+
+<div>
+  {/* an indentable comment
+    * with compact start
+    * and end */}
+</div>;
+
+<div>
+  {
+    999 /* another indentable comment
+     * with something on
+     * the first line
+     */
+  }
+</div>;
+
+================================================================================
+`;
+
 exports[`jsx-tag-comment-after-prop.js - {"bracketSameLine":true} format 1`] = `
 ====================================options=====================================
 bracketSameLine: true
