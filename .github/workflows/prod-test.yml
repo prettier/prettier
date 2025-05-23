@@ -155,7 +155,7 @@ jobs:
         run: node dist/prettier/bin/prettier.cjs --version 2>&1 >/dev/null | grep "prettier requires at least version 14 of Node, please upgrade" || exit 1
 
   preview:
-    if: github.event_name == 'pull_request' && github.repository == 'prettier/prettier'
+    if: github.repository == 'prettier/prettier'
     name: Preview release
     runs-on: ubuntu-latest
     needs: [build]
@@ -177,5 +177,4 @@ jobs:
 
       - name: Release
         run: |
-          npx pkg-pr-new publish --compact
-        working-directory: dist/prettier
+          npx pkg-pr-new publish "./dist/*" --compact --packageManager=yarn
