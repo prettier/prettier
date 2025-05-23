@@ -3412,10 +3412,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"diff@npm:8.0.1":
-  version: 8.0.1
-  resolution: "diff@npm:8.0.1"
-  checksum: 10/1f56c913dc48ad85dcd83ac374d43b0acda6c4a25dc32660f65988fcd2c2f2d8f6cc9cddb58a268513e0bf1bff139b028c42cabec5dfeeb7e0af68830ce8787a
+"diff@npm:8.0.2":
+  version: 8.0.2
+  resolution: "diff@npm:8.0.2"
+  checksum: 10/82a2120d3418f97822e17a6044ccd4b99a91e26e145e8698353673d7146bd2d092bbebb79c112aae7badc7b9c526f9098cbe342f96174feb6beabdd2587b3c42
   languageName: node
   linkType: hard
 
@@ -7027,7 +7027,7 @@ __metadata:
     css-units-list: "npm:2.1.0"
     dashify: "npm:2.0.0"
     deno-path-from-file-url: "npm:0.0.2"
-    diff: "npm:8.0.1"
+    diff: "npm:8.0.2"
     editorconfig: "npm:0.15.3"
     emoji-regex: "npm:10.4.0"
     enquirer: "npm:2.4.1"
