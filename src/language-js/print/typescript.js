@@ -25,7 +25,7 @@ import {
   shouldGroupFunctionParameters,
 } from "./function-parameters.js";
 import { printInterface } from "./interface.js";
-import { printTypescriptMappedType } from "./mapped-type.js";
+import { printTypeScriptMappedType } from "./mapped-type.js";
 import {
   printDeclareToken,
   printOptionalToken,
@@ -230,7 +230,7 @@ function printTypescript(path, options, print) {
       return [node.operator, " ", print("typeAnnotation")];
 
     case "TSMappedType":
-      return printTypescriptMappedType(path, options, print);
+      return printTypeScriptMappedType(path, options, print);
 
     case "TSMethodSignature": {
       const kind = node.kind && node.kind !== "method" ? `${node.kind} ` : "";

@@ -38,3 +38,9 @@ type K = { [k in /* commentK */ K]: string }
 type L = { [l in L /* commentL */]: string }
 
 type M = { [m in M] /* commentG */: string }
+
+// https://github.com/excalidraw/excalidraw/blob/712f2675195ace8d507f563ec4306efe319b3c84/packages/common/src/utility-types.ts#L61-L64
+type MakeBrand<T extends string> = {
+  /** @private using ~ to sort last in intellisense */
+  [K in `~brand~${T}`]: T;
+};
