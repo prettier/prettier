@@ -124,9 +124,10 @@ function printTemplateLiteral(path, options, print) {
   return parts;
 }
 
-function printTaggedTemplateLiteral(path, print) {
+function printTaggedTemplateLiteral(path, options, print) {
   const quasiDoc = print("quasi");
   const { node } = path;
+
   let space = "";
   const quasiLeadingComment = getComments(
     node.quasi,
@@ -135,8 +136,9 @@ function printTaggedTemplateLiteral(path, print) {
   if (quasiLeadingComment) {
     if (
       hasNewlineInRange(
-        node.typeArguments ?? node.typeParameters ?? node.tag,
-        quasiLeadingComment,
+        options.originalText,
+        locEnd(node.typeArguments ?? node.typeParameters ?? node.tag),
+        locStart(quasiLeadingComment),
       )
     ) {
       space = softline;
