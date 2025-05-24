@@ -16,11 +16,12 @@ import getStringWidth from "../../utils/get-string-width.js";
 import hasNewlineInRange from "../../utils/has-newline-in-range.js";
 import { locEnd, locStart } from "../loc.js";
 import {
+  CommentCheckFlags,
+  getComments,
   hasComment,
   isBinaryCastExpression,
   isBinaryish,
   isMemberExpression,
-  CommentCheckFlags,
 } from "../utils/index.js";
 
 function printTemplateLiteral(path, options, print) {
@@ -126,10 +127,28 @@ function printTemplateLiteral(path, options, print) {
 function printTaggedTemplateLiteral(path, print) {
   const quasiDoc = print("quasi");
   const { node } = path;
+  let space = "";
+  const quasiLeadingComment = getComments(
+    node.quasi,
+    CommentCheckFlags.Leading,
+  )?.[0];
+  if (quasiLeadingComment) {
+    if (
+      hasNewlineInRange(
+        node.typeArguments ?? node.typeParameters ?? node.tag,
+        quasiLeadingComment,
+      )
+    ) {
+      space = softline;
+    } else {
+      space = " ";
+    }
+  }
+
   return label(quasiDoc.label && { tagged: true, ...quasiDoc.label }, [
     print("tag"),
     print(node.typeArguments ? "typeArguments" : "typeParameters"),
-    hasComment(node.quasi, CommentCheckFlags.Leading) ? softline : "",
+    space,
     lineSuffixBoundary,
     quasiDoc,
   ]);
