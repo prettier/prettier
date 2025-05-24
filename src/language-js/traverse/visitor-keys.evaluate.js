@@ -21,12 +21,6 @@ const additionalVisitorKeys = {
   JsExpressionRoot: ["node"],
   JsonRoot: ["node"],
 
-  // TypeScript
-  TSJSDocAllType: [],
-  TSJSDocUnknownType: [],
-  TSJSDocNullableType: ["typeAnnotation"],
-  TSJSDocNonNullableType: ["typeAnnotation"],
-
   // `@typescript-eslint/typescript-estree` v6 renamed `typeParameters` to `typeArguments`
   // Remove those when babel update AST
   JSXOpeningElement: ["typeParameters"],

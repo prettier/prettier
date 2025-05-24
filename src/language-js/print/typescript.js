@@ -42,7 +42,6 @@ import {
   printIndexedAccessType,
   printInferType,
   printIntersectionType,
-  printJSDocType,
   printNamedTupleMember,
   printRestType,
   printTypeAlias,
@@ -351,15 +350,6 @@ function printTypescript(path, options, print) {
     case "TSEmptyBodyFunctionExpression":
       return printMethodValue(path, options, print);
 
-    // These are not valid TypeScript. Printing them just for the sake of error recovery.
-    case "TSJSDocAllType":
-      return "*";
-    case "TSJSDocUnknownType":
-      return "?";
-    case "TSJSDocNullableType":
-      return printJSDocType(path, print, /* token */ "?");
-    case "TSJSDocNonNullableType":
-      return printJSDocType(path, print, /* token */ "!");
     case "TSParenthesizedType": // Removed in `../parse/postprocess.js`
     default:
       /* c8 ignore next */
