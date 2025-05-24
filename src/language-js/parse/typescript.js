@@ -21,6 +21,7 @@ const baseParseOptions = {
   loggerFn: false,
   project: false,
   jsDocParsingMode: "none",
+  errorOnUnknownASTType: true,
   // TODO: Use new properties when update printer
   suppressDeprecatedPropertyWarnings: true,
 };
