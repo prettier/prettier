@@ -1,4 +1,4 @@
-const isDefined = (value) => value !== undefined && value !== "unset";
+const isPositiveInteger = (value) => Number.isSafeInteger(value) && value > 0;
 
 function editorConfigToPrettier(editorConfig) {
   if (!editorConfig) {
@@ -16,29 +16,23 @@ function editorConfigToPrettier(editorConfig) {
     end_of_line,
   } = editorConfig;
 
-  if (isDefined(indent_style)) {
-    result.useTabs = indent_style === "tab";
-  }
-
-  if (indent_size === "tab") {
+  if (indent_style === "space") {
+    result.useTabs = false;
+  } else if (indent_style === "tab" || indent_size === "tab") {
     result.useTabs = true;
   }
 
-  if (result.useTabs && isDefined(tab_width)) {
-    result.tabWidth = tab_width;
-  } else if (
-    indent_style === "space" &&
-    isDefined(indent_size) &&
-    indent_size !== "tab"
-  ) {
+  // This part not strictly following https://github.com/editorconfig/editorconfig/wiki/EditorConfig-Properties
+  if (result.useTabs === false && isPositiveInteger(indent_size)) {
     result.tabWidth = indent_size;
-  } else if (isDefined(tab_width)) {
+  } else if (isPositiveInteger(tab_width)) {
     result.tabWidth = tab_width;
   }
 
-  if (isDefined(max_line_length)) {
-    result.printWidth =
-      max_line_length === "off" ? Number.POSITIVE_INFINITY : max_line_length;
+  if (max_line_length === "off") {
+    result.printWidth = Number.POSITIVE_INFINITY;
+  } else if (isPositiveInteger(max_line_length)) {
+    result.printWidth = max_line_length;
   }
 
   // Undocumented feature, https://github.com/prettier/prettier/pull/12780
