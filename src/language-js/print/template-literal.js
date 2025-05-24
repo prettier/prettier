@@ -20,6 +20,7 @@ import {
   isBinaryCastExpression,
   isBinaryish,
   isMemberExpression,
+  CommentCheckFlags,
 } from "../utils/index.js";
 
 function printTemplateLiteral(path, options, print) {
@@ -124,9 +125,11 @@ function printTemplateLiteral(path, options, print) {
 
 function printTaggedTemplateLiteral(path, print) {
   const quasiDoc = print("quasi");
+  const { node } = path;
   return label(quasiDoc.label && { tagged: true, ...quasiDoc.label }, [
     print("tag"),
-    print(path.node.typeArguments ? "typeArguments" : "typeParameters"),
+    print(node.typeArguments ? "typeArguments" : "typeParameters"),
+    hasComment(node.quasi, CommentCheckFlags.Leading) ? softline : "",
     lineSuffixBoundary,
     quasiDoc,
   ]);
