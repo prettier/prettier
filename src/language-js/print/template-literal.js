@@ -24,6 +24,10 @@ import {
   isMemberExpression,
 } from "../utils/index.js";
 
+/**
+ * @import {Doc} from "../../document/builders.js"
+ */
+
 function printTemplateLiteral(path, options, print) {
   const { node } = path;
   const isTemplateLiteral = node.type === "TemplateLiteral";
@@ -128,6 +132,7 @@ function printTaggedTemplateLiteral(path, options, print) {
   const quasiDoc = print("quasi");
   const { node } = path;
 
+  /** @type {Doc} */
   let space = "";
   const quasiLeadingComment = getComments(
     node.quasi,
