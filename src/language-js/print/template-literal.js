@@ -132,7 +132,7 @@ function printTaggedTemplateLiteral(path, options, print) {
   const quasiLeadingComment = getComments(
     node.quasi,
     CommentCheckFlags.Leading,
-  )?.[0];
+  )[0];
   if (quasiLeadingComment) {
     if (
       hasNewlineInRange(
