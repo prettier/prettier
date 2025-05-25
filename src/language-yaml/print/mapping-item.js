@@ -98,11 +98,17 @@ function printMappingItem(path, options, print) {
   // as part of the mapping value
   const implicitMappingValueParts = [spaceBeforeColon, ":"];
   if (
+    hasEndComments(value) &&
+    value.content &&
+    isNode(value.content, ["flowMapping", "flowSequence"]) &&
+    value.content.children.length === 0
+  ) {
+    implicitMappingValueParts.push(" ");
+  } else if (
     hasLeadingComments(value.content) ||
     (hasEndComments(value) &&
       value.content &&
-      !isNode(value.content, ["mapping", "sequence"]) &&
-      value.content.children?.length > 0) ||
+      !isNode(value.content, ["mapping", "sequence"])) ||
     (parent.type === "mapping" &&
       hasTrailingComment(key.content) &&
       isInlineNode(value.content)) ||
