@@ -101,7 +101,8 @@ function printMappingItem(path, options, print) {
     hasLeadingComments(value.content) ||
     (hasEndComments(value) &&
       value.content &&
-      !isNode(value.content, ["mapping", "sequence"])) ||
+      !isNode(value.content, ["mapping", "sequence"]) &&
+      value.content.children?.length > 0) ||
     (parent.type === "mapping" &&
       hasTrailingComment(key.content) &&
       isInlineNode(value.content)) ||
