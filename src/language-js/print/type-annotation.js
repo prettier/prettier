@@ -313,13 +313,7 @@ function printFunctionType(path, options, print) {
       print("returnType"),
     );
   } else {
-    returnTypeDoc.push(
-      printTypeAnnotationProperty(
-        path,
-        print,
-        node.returnType ? "returnType" : "typeAnnotation",
-      ),
-    );
+    returnTypeDoc.push(printTypeAnnotationProperty(path, print, "returnType"));
   }
 
   if (shouldGroupFunctionParameters(node, returnTypeDoc)) {
@@ -553,12 +547,7 @@ function printArrayType(print) {
 function printTypeQuery({ node }, print) {
   const argumentPropertyName =
     node.type === "TSTypeQuery" ? "exprName" : "argument";
-  const typeArgsPropertyName =
-    // TODO: Use `typeArguments` only when babel align with TS.
-    node.type === "TypeofTypeAnnotation" || node.typeArguments
-      ? "typeArguments"
-      : "typeParameters";
-  return ["typeof ", print(argumentPropertyName), print(typeArgsPropertyName)];
+  return ["typeof ", print(argumentPropertyName), print("typeArguments")];
 }
 
 /*
