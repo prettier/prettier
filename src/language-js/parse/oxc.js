@@ -8,7 +8,7 @@ import getSourceType from "./utils/get-source-type.js";
 
 function createParseError(error, { text }) {
   /* c8 ignore next 3 */
-  if (!error?.labels[0]) {
+  if (!error?.labels?.[0]) {
     return error;
   }
 
