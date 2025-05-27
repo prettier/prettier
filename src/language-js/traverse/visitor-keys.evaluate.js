@@ -40,16 +40,6 @@ const additionalVisitorKeys = {
   TypePredicate: ["asserts"],
   UndefinedTypeAnnotation: [],
   UnknownTypeAnnotation: [],
-<<<<<<< HEAD
-  AsExpression: ["expression", "typeAnnotation"],
-  AsConstExpression: ["expression"],
-  SatisfiesExpression: ["expression", "typeAnnotation"],
-  TypeofTypeAnnotation: ["argument", "typeArguments"],
-
-  // TODO: Remove this when babel release v8 stable
-  TSMappedType: ["typeParameter"],
-=======
->>>>>>> main
 };
 
 const excludeKeys = {
