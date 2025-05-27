@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`newline-before-arrow.js [babel] format 1`] = `
+"No line break is allowed before '=>'. (2:3)
+  1 | async x
+> 2 | => x
+    |   ^
+  3 |
+Cause: No line break is allowed before '=>'. (2:2)"
+`;
+
+exports[`newline-before-arrow.js [flow] format 1`] = `
+"Illegal newline before arrow (2:1)
+  1 | async x
+> 2 | => x
+    | ^^
+  3 |"
+`;
+
+exports[`newline-before-arrow.js [typescript] format 1`] = `
+"Unexpected keyword or identifier. (1:1)
+> 1 | async x
+    | ^
+  2 | => x
+  3 |
+Cause: Unexpected keyword or identifier."
+`;
