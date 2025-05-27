@@ -9,6 +9,7 @@ export default {
         "src/cli/index.js",
         "src/experimental-cli/index.js",
         "packages/plugin-oxc/index.js",
+        "packages/plugin-hermes/index.js",
       ],
       project: ["src/**", "scripts/**"],
       ignore: [
