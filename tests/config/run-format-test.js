@@ -59,7 +59,7 @@ const unstableTests = new Map(
 const unstableAstTests = new Map();
 const commentClosureTypecaseTests = new Set(
   [
-    // These tests only work for `babel`
+    // These tests only work for `babel`, `acorn`, and `oxc`
     "comments-closure-typecast",
   ].map((directory) => path.join(__dirname, "../format/js", directory)),
 );
@@ -85,9 +85,8 @@ const babelTsDisabledTests = new Set(
     path.join(__dirname, "../format/typescript", file),
   ),
 );
-const oxcDisabledTests = new Set([
-  ...commentClosureTypecaseTests,
-  ...[
+const oxcDisabledTests = new Set(
+  [
     // Missing `.decorators`
     // https://github.com/oxc-project/oxc/issues/10921
     "js/babel-plugins/decorators.js",
@@ -97,7 +96,7 @@ const oxcDisabledTests = new Set([
     "js/decorator-auto-accessors",
     "js/ignore/class-expression-decorator.js",
   ].map((file) => path.join(__dirname, "../format", file)),
-]);
+);
 
 const isUnstable = (filename, options) => {
   const testFunction = unstableTests.get(filename);
