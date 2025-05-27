@@ -738,6 +738,7 @@ const universalFiles = [...nonPluginUniversalFiles, ...pluginFiles].flatMap(
         isPlugin,
         build: buildJavascriptModule,
         kind: "javascript",
+        playground: output.format === "esm" && outputBaseName !== "doc",
       })),
       getTypesFileConfig({ input, outputBaseName, isPlugin }),
     ];
@@ -1037,6 +1038,7 @@ export default [
             },
             isPlugin: true,
             build: buildJavascriptModule,
+            playground: true,
             kind: "javascript",
           },
           getTypesFileConfig({ input, outputBaseName, isPlugin: true }),
