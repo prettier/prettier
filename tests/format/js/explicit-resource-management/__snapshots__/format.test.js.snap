@@ -1287,16 +1287,6 @@ exports[`valid-using-binding-using.js [meriyah] format 1`] = `
 Cause: [2:8-2:13]: Unexpected token: 'identifier'"
 `;
 
-exports[`valid-using-binding-using.js [oxc] format 1`] = `
-"Expected \`;\` but found \`using\` (3:14)
-  1 | {
-  2 |   using using = of;
-> 3 |   for (using using of of);
-    |              ^^^^^
-  4 | }
-  5 |"
-`;
-
 exports[`valid-using-binding-using.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
