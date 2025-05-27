@@ -514,9 +514,13 @@ function shouldSkipEolTest(code, options) {
 
 async function parse(source, options) {
   const prettier = await getPrettier();
-  const { ast } = await prettier.__debug.parse(source, options, {
-    massage: true,
-  });
+  const { ast } = await prettier.__debug.parse(
+    source,
+    await loadPlugins(options),
+    {
+      massage: true,
+    },
+  );
   return ast;
 }
 
@@ -561,16 +565,15 @@ const insertCursor = (text, cursorOffset) =>
       text.slice(cursorOffset)
     : text;
 async function format(originalText, originalOptions) {
-  let { text: input, options } = replacePlaceholders(
+  const { text: input, options } = replacePlaceholders(
     originalText,
     originalOptions,
   );
-  options = await loadPlugins(options);
   const inputWithCursor = insertCursor(input, options.cursorOffset);
   const prettier = await getPrettier();
 
   const { formatted: output, cursorOffset } = await ensurePromise(
-    prettier.formatWithCursor(input, options),
+    prettier.formatWithCursor(input, await loadPlugins(options)),
   );
   const outputWithCursor = insertCursor(output, cursorOffset);
   const eolVisualizedOutput = visualizeEndOfLine(outputWithCursor);
