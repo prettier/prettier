@@ -1006,43 +1006,29 @@ export default [
         {
           input: "packages/plugin-hermes/index.js",
           addDefaultExport: true,
-          umdPropertyName: "hermes",
         },
       ].flatMap((file) => {
-        let {
-          input,
-          output,
-          umdPropertyName,
-          outputBaseName,
-          ...buildOptions
-        } = file;
+        let { input, output, outputBaseName, ...buildOptions } = file;
 
-        const umdVariableName = `prettierPlugins.${umdPropertyName}`;
         outputBaseName ??= path.basename(input, path.extname(input));
+        const format = input.endsWith(".cjs") ? "cjs" : "esm";
 
         return [
-          ...[
-            {
-              format: "esm",
-              file: `${outputBaseName}${extensions.esm}`,
-            },
-            {
-              format: "umd",
-              file: `${outputBaseName}${extensions.umd}`,
-              umdVariableName,
-            },
-          ].map((output) => ({
+          {
             input,
-            output,
+            output: {
+              format,
+              file: `${outputBaseName}${extensions[format]}`,
+            },
             platform: "universal",
             buildOptions: {
-              addDefaultExport: output.format === "esm",
+              addDefaultExport: true,
               ...buildOptions,
             },
             isPlugin: true,
             build: buildJavascriptModule,
             kind: "javascript",
-          })),
+          },
           getTypesFileConfig({ input, outputBaseName, isPlugin: true }),
         ];
       }),
