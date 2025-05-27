@@ -74,16 +74,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/generator@npm:7.27.1, @babel/generator@npm:^7.27.1, @babel/generator@npm:^7.7.2":
-  version: 7.27.1
-  resolution: "@babel/generator@npm:7.27.1"
+"@babel/generator@npm:7.27.3, @babel/generator@npm:^7.27.1, @babel/generator@npm:^7.7.2":
+  version: 7.27.3
+  resolution: "@babel/generator@npm:7.27.3"
   dependencies:
-    "@babel/parser": "npm:^7.27.1"
-    "@babel/types": "npm:^7.27.1"
+    "@babel/parser": "npm:^7.27.3"
+    "@babel/types": "npm:^7.27.3"
     "@jridgewell/gen-mapping": "npm:^0.3.5"
     "@jridgewell/trace-mapping": "npm:^0.3.25"
     jsesc: "npm:^3.0.2"
-  checksum: 10/6101825922a8a116e64b507d9309b38c5bc027b333d7111fcb760422741d3c72bd8f8e5aa935c2944c434ffe376353a27afa3a25a8526dc2ef90743d266770db
+  checksum: 10/3b8477ae0c305639f86aeb553115535b103626008945462d32171fa4ebd77f2a0345600dc5baee7ced98d54cc7da9c806808a04b555c75136f42e0e9d7794bdf
   languageName: node
   linkType: hard
 
@@ -173,14 +173,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/parser@npm:7.27.2, @babel/parser@npm:^7.1.0, @babel/parser@npm:^7.14.7, @babel/parser@npm:^7.20.7, @babel/parser@npm:^7.23.9, @babel/parser@npm:^7.27.1, @babel/parser@npm:^7.27.2":
-  version: 7.27.2
-  resolution: "@babel/parser@npm:7.27.2"
+"@babel/parser@npm:7.27.3, @babel/parser@npm:^7.1.0, @babel/parser@npm:^7.14.7, @babel/parser@npm:^7.20.7, @babel/parser@npm:^7.23.9, @babel/parser@npm:^7.27.1, @babel/parser@npm:^7.27.2, @babel/parser@npm:^7.27.3":
+  version: 7.27.3
+  resolution: "@babel/parser@npm:7.27.3"
   dependencies:
-    "@babel/types": "npm:^7.27.1"
+    "@babel/types": "npm:^7.27.3"
   bin:
     parser: ./bin/babel-parser.js
-  checksum: 10/133b4ccfbc01d4f36b0945937aabff87026c29fda6dcd3c842053a672e50f2487a101a3acd150bbaa2eecd33f3bd35650f95b806567c926f93b2af35c2b615c9
+  checksum: 10/ea5a0cd55e18f905d4c732b009ca0f66b0e5580f0d2af82643c26ef0909a16704778f59b7a2959096e9cf881b6291da747bfd29e400422e04d9074eb1f80983e
   languageName: node
   linkType: hard
 
@@ -397,13 +397,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/types@npm:7.27.1, @babel/types@npm:^7.0.0, @babel/types@npm:^7.20.7, @babel/types@npm:^7.27.1, @babel/types@npm:^7.3.3":
-  version: 7.27.1
-  resolution: "@babel/types@npm:7.27.1"
+"@babel/types@npm:7.27.3, @babel/types@npm:^7.0.0, @babel/types@npm:^7.20.7, @babel/types@npm:^7.27.1, @babel/types@npm:^7.27.3, @babel/types@npm:^7.3.3":
+  version: 7.27.3
+  resolution: "@babel/types@npm:7.27.3"
   dependencies:
     "@babel/helper-string-parser": "npm:^7.27.1"
     "@babel/helper-validator-identifier": "npm:^7.27.1"
-  checksum: 10/81f8ada28c4b29695d7d4c4cbfaa5ec3138ccebbeb26628c7c3cc570fdc84f28967c9e68caf4977d51ff4f4d3159c88857ef278317f84f3515dd65e5b8a74995
+  checksum: 10/a24e6accd85c4747b974b3d68a3210d0aa1180c1a77b287ffcb7401cd2edad7bdecadaeb40fe5191be3990c3a5252943f7de7c09da13ed269adbb054b97056ee
   languageName: node
   linkType: hard
 
@@ -7212,9 +7212,9 @@ __metadata:
   dependencies:
     "@angular/compiler": "npm:19.2.8"
     "@babel/code-frame": "npm:7.27.1"
-    "@babel/generator": "npm:7.27.1"
-    "@babel/parser": "npm:7.27.2"
-    "@babel/types": "npm:7.27.1"
+    "@babel/generator": "npm:7.27.3"
+    "@babel/parser": "npm:7.27.3"
+    "@babel/types": "npm:7.27.3"
     "@eslint-react/eslint-plugin": "npm:1.49.0"
     "@eslint/js": "npm:9.27.0"
     "@glimmer/syntax": "npm:0.94.9"
