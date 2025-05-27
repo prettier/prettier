@@ -38,6 +38,10 @@ printWidth: 80
 <script type="text/babel">
             const    someJS    =   'this should be formatted'
 </script>
+<script type="text/jsx">
+            const    someJS    =   'this should be formatted'
+</script>
+
 <script type="module">
       import lib from './lib.js';
   
@@ -63,6 +67,10 @@ printWidth: 80
 <script type="text/babel">
   const someJS = "this should be formatted";
 </script>
+<script type="text/jsx">
+  const someJS = "this should be formatted";
+</script>
+
 <script type="module">
   import lib from "./lib.js";
 
