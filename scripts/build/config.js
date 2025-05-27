@@ -7,6 +7,7 @@ import { copyFile, DIST_DIR, PROJECT_ROOT } from "../utils/index.js";
 import buildDependenciesLicense from "./build-dependencies-license.js";
 import buildJavascriptModule from "./build-javascript-module.js";
 import {
+  buildPluginHermesPackageJson,
   buildPluginOxcPackageJson,
   buildPrettierPackageJson,
 } from "./build-package-json.js";
@@ -972,6 +973,73 @@ export default [
         },
         {
           input: "packages/plugin-oxc/README.md",
+          output: {
+            file: "README.md",
+          },
+          build: copyFileBuilder,
+        },
+        {
+          input: "LICENSE",
+          output: {
+            file: "LICENSE",
+          },
+          build: copyFileBuilder,
+        },
+        {
+          output: {
+            file: "THIRD-PARTY-NOTICES.md",
+          },
+          build: buildDependenciesLicense,
+        },
+      ].map((file) => ({
+        ...file,
+        output: { file: file.input, ...file.output },
+        kind: "meta",
+      })),
+    ],
+  },
+  {
+    packageName: "@prettier/plugin-hermes",
+    distDirectory: path.join(DIST_DIR, "plugin-hermes"),
+    files: [
+      ...[
+        {
+          input: "packages/plugin-hermes/index.js",
+          addDefaultExport: true,
+          external: ["hermes-parser"],
+        },
+      ].flatMap((file) => {
+        let { input, output, outputBaseName, ...buildOptions } = file;
+
+        const format = input.endsWith(".cjs") ? "cjs" : "esm";
+        outputBaseName ??= path.basename(input, path.extname(input));
+
+        return [
+          {
+            input,
+            output: {
+              format,
+              file: `${outputBaseName}${extensions[format]}`,
+            },
+            platform: "node",
+            buildOptions,
+            build: buildJavascriptModule,
+            kind: "javascript",
+          },
+          getTypesFileConfig({ input, outputBaseName, isPlugin: true }),
+        ];
+      }),
+      ...[
+        {
+          input: "packages/plugin-hermes/package.json",
+          output: {
+            file: "package.json",
+            format: "json",
+          },
+          build: buildPluginHermesPackageJson,
+        },
+        {
+          input: "packages/plugin-hermes/README.md",
           output: {
             file: "README.md",
           },
