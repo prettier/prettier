@@ -57,21 +57,17 @@ const unstableTests = new Map(
 );
 
 const unstableAstTests = new Map();
-const babelOnlyTests = new Set(
+const commentClosureTypecaseTests = new Set(
   [
     // These tests only work for `babel`
     "comments-closure-typecast",
   ].map((directory) => path.join(__dirname, "../format/js", directory)),
 );
-<<<<<<< HEAD
 
-const espreeDisabledTests = babelOnlyTests;
-const acornDisabledTests = babelOnlyTests;
-=======
+const espreeDisabledTests = commentClosureTypecaseTests;
 const acornDisabledTests = new Set();
->>>>>>> main
 const meriyahDisabledTests = new Set([
-  ...babelOnlyTests,
+  ...commentClosureTypecaseTests,
   ...[
     // Parsing to different ASTs
     "js/decorators/member-expression.js",
@@ -90,7 +86,7 @@ const babelTsDisabledTests = new Set(
   ),
 );
 const oxcDisabledTests = new Set([
-  ...babelOnlyTests,
+  ...commentClosureTypecaseTests,
   ...[
     // Missing `.phase`
     // https://github.com/oxc-project/oxc/issues/10978
