@@ -632,7 +632,7 @@ function printEstree(path, options, print, args) {
     case "TemplateLiteral":
       return printTemplateLiteral(path, options, print);
     case "TaggedTemplateExpression":
-      return printTaggedTemplateLiteral(path, print);
+      return printTaggedTemplateLiteral(path, options, print);
     case "PrivateIdentifier":
       return ["#", node.name];
     case "PrivateName":
