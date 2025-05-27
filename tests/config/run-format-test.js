@@ -110,6 +110,7 @@ const hermesDisabledTests = new Set([
     // Need update L183 to use `replaceAll`
     // https://app.unpkg.com/hermes-parser@0.28.1/files/dist/HermesASTAdapter.js
     "js/call/first-argument-expansion/expression-2nd-arg.js",
+    "js/directives/escaped.js",
   ].map((file) => path.join(__dirname, "../format", file)),
 ]);
 

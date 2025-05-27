@@ -99,6 +99,16 @@ exports[`template-literal-types.ts [flow] format 1`] = `
   2 |"
 `;
 
+exports[`template-literal-types.ts [hermes] format 1`] = `
+"unexpected token in type annotation (1:83)
+> 1 | const foo1: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo<\`Hello, \${keyof World}\`> = a;
+    |                                                                                   ^
+  2 |
+Cause: unexpected token in type annotation (1:83)
+const foo1: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo<\`Hello, \${keyof World}\`> = a;
+                                                                                   ^"
+`;
+
 exports[`template-literal-types.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow"]
