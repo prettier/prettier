@@ -85,6 +85,10 @@
       matchPackageNames: ["react", "react-dom"],
       allowedVersions: "^18.0.0",
     },
+    {
+      groupName: "docusaurus",
+      matchPackageNames: ["@docusaurus/*"],
+    },
   ],
   ignoreDeps: [
     // It's a dependency of `remark-parse`, use same version to reduce size
