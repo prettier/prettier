@@ -35,21 +35,6 @@ exports[`const-type-params.js [babel-flow] format 1`] = `
 Cause: Unexpected token, expected "," (2:13)"
 `;
 
-exports[`const-type-params.js [hermes] format 1`] = `
-"Identifier 'C' is already declared (11:6)
-   9 | function f<const +T>(): void {}
-  10 | <const +T>(x: T) => {}
-> 11 | class C<const +T>{}
-     |      ^
-  12 |
-Cause: Identifier 'C' is already declared (11:6)
-class C<const +T>{}
-      ^
-note: previous declaration (5:6)
-class C<const T>{}
-      ^"
-`;
-
 exports[`const-type-params.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
@@ -66,7 +51,7 @@ class C<const T>{}
 type T<const +X> = X;
 function f<const +T>(): void {}
 <const +T>(x: T) => {}
-class C<const +T>{}
+class D<const +T>{}
 
 =====================================output=====================================
 // Simple
@@ -79,7 +64,7 @@ class C<const T> {}
 type T<const +X> = X;
 function f<const +T>(): void {}
 <const +T>(x: T) => {};
-class C<const +T> {}
+class D<const +T> {}
 
 ================================================================================
 `;
