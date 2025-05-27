@@ -111,6 +111,8 @@ const hermesDisabledTests = new Set([
     // https://app.unpkg.com/hermes-parser@0.28.1/files/dist/HermesASTAdapter.js
     "js/call/first-argument-expansion/expression-2nd-arg.js",
     "js/directives/escaped.js",
+    "flow/comments",
+    "flow-repo/union_new",
   ].map((file) => path.join(__dirname, "../format", file)),
 ]);
 
@@ -284,7 +286,11 @@ function runFormatTest(fixtures, parsers, options) {
       allParsers.push("babel-flow");
     }
 
-    if (parsers.includes("flow") && !parsers.includes("hermes")) {
+    if (
+      parsers.includes("flow") &&
+      !parsers.includes("hermes") &&
+      !hermesDisabledTests.has(dirname)
+    ) {
       allParsers.push("hermes");
     }
 
