@@ -124,6 +124,15 @@ function postprocess(ast, options) {
         }
         break;
 
+      // This happens when use `oxc-parser` to parse ````
+      // https://github.com/oxc-project/oxc/issues/11313
+      case "TemplateLiteral":
+        /* c8 ignore next 3 */
+        if (node.expressions.length !== node.quasis.length - 1) {
+          throw new Error("Malformed template literal.");
+        }
+        break;
+
       case "TemplateElement":
         // `flow`, `typescript`, and `oxc`(with `{astType: 'ts'}`) follows the `espree` style positions
         // https://github.com/eslint/js/blob/5826877f7b33548e5ba984878dd4a8eac8448f87/packages/espree/lib/espree.js#L213
