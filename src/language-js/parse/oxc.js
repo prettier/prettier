@@ -35,7 +35,7 @@ async function parseWithOptions(filename, text, sourceType) {
   const result = await oxcParse(filename, text, {
     sourceType,
     lang: "jsx",
-    preserveParens: false,
+    preserveParens: true,
     // @ts-expect-error -- missing
     experimentalRawTransfer: isRawTransferSupported(),
   });
