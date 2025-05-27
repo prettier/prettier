@@ -21,8 +21,7 @@ class B {
   static [a?.b]?() {};
   static [a?.b]?= function () {};
 
-  // https://github.com/babel/babel/issues/17310
-  // static *[a?.b]?() {};
+  static *[a?.b]?() {};
   static [a?.b]?= function *() {};
 
   static async [a?.b]?() {};
