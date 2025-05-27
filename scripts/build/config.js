@@ -1006,6 +1006,9 @@ export default [
         {
           input: "packages/plugin-hermes/index.js",
           addDefaultExport: true,
+          define: {
+            "process.argv": [],
+          },
         },
       ].flatMap((file) => {
         let { input, output, outputBaseName, ...buildOptions } = file;
