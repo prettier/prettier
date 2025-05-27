@@ -44,6 +44,7 @@ function getCommentChildNodes(node, options) {
   if (
     (options.parser === "typescript" ||
       options.parser === "flow" ||
+      options.parser === "hermes" ||
       options.parser === "acorn" ||
       options.parser === "oxc" ||
       options.parser === "oxc-ts" ||
@@ -81,7 +82,7 @@ function willPrintOwnComments(path) {
 }
 
 function isGap(text, { parser }) {
-  if (parser === "flow" || parser === "babel-flow") {
+  if (parser === "flow" || parser === "hermes" || parser === "babel-flow") {
     // Example: (a /* b */ /* : c */)
     //                gap ^^^^
     text = text.replaceAll(/[\s(]/gu, "");
