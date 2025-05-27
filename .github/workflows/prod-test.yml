@@ -178,6 +178,6 @@ jobs:
       - name: Release
         # Use `--compact` after we publish `@prettier/plugin-oxc`
         # run: |
-        #   npx pkg-pr-new publish --compact "./dist/prettier" "./dist/plugin-oxc"
+        #   npx pkg-pr-new publish "./dist/*" --compact --packageManager=yarn
         run: |
           npx pkg-pr-new publish "./dist/*" --packageManager=yarn
