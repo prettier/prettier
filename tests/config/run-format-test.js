@@ -118,6 +118,7 @@ const hermesDisabledTests = new Set([
     "js/sloppy-mode/function-declaration-in-if.js",
     // Wrong location of `Property.value`
     "js/classes/method.js",
+    "js/comments/function-declaration.js",
   ].map((file) => path.join(__dirname, "../format", file)),
 ]);
 
