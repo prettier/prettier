@@ -88,22 +88,6 @@ const babelTsDisabledTests = new Set(
 const oxcDisabledTests = new Set([
   ...commentClosureTypecaseTests,
   ...[
-    // Missing `.phase`
-    // https://github.com/oxc-project/oxc/issues/10978
-    "js/babel-plugins/deferred-import-evaluation.js",
-    "js/babel-plugins/source-phase-imports.js",
-    "js/deferred-import-evaluation/dynamic-import-attributes-expression.js",
-    "js/deferred-import-evaluation/dynamic-import.js",
-    "js/deferred-import-evaluation/import-defer-attributes-declaration.js",
-    "js/deferred-import-evaluation/import-defer.js",
-    "js/dynamic-import/import-phase.js",
-    "js/source-phase-imports/import-source-attributes-expression.js",
-    "js/source-phase-imports/import-source-dynamic-import.js",
-    "js/source-phase-imports/import-source-attributes-declaration.js",
-    "js/source-phase-imports/import-source-binding-from.js",
-    "js/source-phase-imports/import-source-binding-source.js",
-    "js/source-phase-imports/import-source.js",
-
     // Missing `.decorators`
     // https://github.com/oxc-project/oxc/issues/10921
     "js/babel-plugins/decorators.js",
@@ -112,9 +96,6 @@ const oxcDisabledTests = new Set([
     "js/decorators-export",
     "js/decorator-auto-accessors",
     "js/ignore/class-expression-decorator.js",
-
-    // https://github.com/oxc-project/oxc/issues/10980
-    "js/top-level-await/test.cjs", // Parses as `module` even I already told it's `script`
   ].map((file) => path.join(__dirname, "../format", file)),
 ]);
 
