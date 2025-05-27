@@ -28,9 +28,10 @@ function createParseError(error) {
   });
 }
 
-/** @type */
 const parseOptions = {
   flow: "all",
+  // TODO[@fisker]: Try to enable
+  // babel: false,
   // Not supported yet
   enableExperimentalFlowMatchSyntax: false,
   tokens: false,

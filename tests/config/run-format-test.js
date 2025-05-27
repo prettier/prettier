@@ -105,9 +105,12 @@ const oxcTsDisabledTests = new Set(
 );
 const hermesDisabledTests = new Set([
   ...commentClosureTypecaseTests,
-  ...["js/dynamic-import/assertions.js"].map((file) =>
-    path.join(__dirname, "../format", file),
-  ),
+  ...[
+    "js/dynamic-import/assertions.js",
+    // Need update L183 to use `replaceAll`
+    // https://app.unpkg.com/hermes-parser@0.28.1/files/dist/HermesASTAdapter.js
+    "js/call/first-argument-expansion/expression-2nd-arg.js",
+  ].map((file) => path.join(__dirname, "../format", file)),
 ]);
 
 const isUnstable = (filename, options) => {
