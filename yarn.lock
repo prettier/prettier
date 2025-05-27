@@ -2201,15 +2201,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@stylistic/eslint-plugin-js@npm:4.4.0":
+"@stylistic/eslint-plugin@npm:4.4.0":
   version: 4.4.0
-  resolution: "@stylistic/eslint-plugin-js@npm:4.4.0"
+  resolution: "@stylistic/eslint-plugin@npm:4.4.0"
   dependencies:
+    "@typescript-eslint/utils": "npm:^8.32.1"
     eslint-visitor-keys: "npm:^4.2.0"
     espree: "npm:^10.3.0"
+    estraverse: "npm:^5.3.0"
+    picomatch: "npm:^4.0.2"
   peerDependencies:
     eslint: ">=9.0.0"
-  checksum: 10/ca3c4be073537933e21aa58987392225e4bdc23b76002078a7a8d3a6d2f03048e5e0f973c715f0251a3eca64941b531db14b0c826222698bfaafbacbb0fd6721
+  checksum: 10/d6e90d59e88e666623f5203b65dd072dec092e93478f2216f8b6206b644ccba20fb2bf9fd8ba996f87b55976a55daf2d56d70179f1211d0ad45d89a2ab6237ca
   languageName: node
   linkType: hard
 
@@ -4312,7 +4315,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"estraverse@npm:^5.1.0, estraverse@npm:^5.2.0":
+"estraverse@npm:^5.1.0, estraverse@npm:^5.2.0, estraverse@npm:^5.3.0":
   version: 5.3.0
   resolution: "estraverse@npm:5.3.0"
   checksum: 10/37cbe6e9a68014d34dbdc039f90d0baf72436809d02edffcc06ba3c2a12eb298048f877511353b130153e532aac8d68ba78430c0dd2f44806ebc7c014b01585e
@@ -7218,7 +7221,7 @@ __metadata:
     "@prettier/cli": "npm:0.8.0"
     "@prettier/html-tags": "npm:1.0.0"
     "@prettier/parse-srcset": "npm:3.1.0"
-    "@stylistic/eslint-plugin-js": "npm:4.4.0"
+    "@stylistic/eslint-plugin": "npm:4.4.0"
     "@types/estree": "npm:1.0.7"
     "@typescript-eslint/eslint-plugin": "npm:8.33.0"
     "@typescript-eslint/parser": "npm:8.33.0"
