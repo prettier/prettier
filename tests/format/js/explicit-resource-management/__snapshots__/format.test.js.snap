@@ -866,6 +866,15 @@ exports[`valid-module-block-top-level-await-using-binding.js [oxc] format 1`] = 
   4 |"
 `;
 
+exports[`valid-module-block-top-level-await-using-binding.js [oxc-ts] format 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found none (1:17)
+> 1 | const m = module {
+    |                 ^
+  2 |   await using foo = bar();
+  3 | }
+  4 |"
+`;
+
 exports[`valid-module-block-top-level-await-using-binding.js [typescript] format 1`] = `
 "',' expected. (1:18)
 > 1 | const m = module {
@@ -934,6 +943,15 @@ Cause: [1:7-1:8]: Unexpected token: '{'"
 `;
 
 exports[`valid-module-block-top-level-using-binding.js [oxc] format 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found none (1:7)
+> 1 | module {
+    |       ^
+  2 |   using foo = bar();
+  3 | }
+  4 |"
+`;
+
+exports[`valid-module-block-top-level-using-binding.js [oxc-ts] format 1`] = `
 "Expected a semicolon or an implicit semicolon after a statement, but found none (1:7)
 > 1 | module {
     |       ^

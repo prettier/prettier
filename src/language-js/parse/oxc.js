@@ -31,13 +31,11 @@ const isRawTransferSupported = () => {
   return cachedIsRawTransferSupported;
 };
 
-async function parseWithOptions(filename, text, sourceType) {
+async function parseWithOptions(filename, text, options) {
   const result = await oxcParse(filename, text, {
-    sourceType,
-    lang: "jsx",
     preserveParens: true,
-    // @ts-expect-error -- missing
     experimentalRawTransfer: isRawTransferSupported(),
+    ...options,
   });
 
   const { errors } = result;
@@ -56,7 +54,7 @@ async function parseWithOptions(filename, text, sourceType) {
   return result;
 }
 
-async function parse(text, options = {}) {
+async function parseJs(text, options = {}) {
   const sourceType = getSourceType(options);
   let { filepath } = options;
   if (typeof filepath !== "string") {
@@ -64,7 +62,8 @@ async function parse(text, options = {}) {
   }
 
   const combinations = (sourceType ? [sourceType] : ["module", "script"]).map(
-    (sourceType) => () => parseWithOptions(filepath, text, sourceType),
+    (sourceType) => () =>
+      parseWithOptions(filepath, text, { sourceType, lang: "jsx" }),
   );
 
   let result;
@@ -81,4 +80,75 @@ async function parse(text, options = {}) {
   return postprocess(ast, { text, parser: "oxc" });
 }
 
-export const oxc = createParser(parse);
+function getTsParseOptionsCombinations(text, options) {
+  const sourceType = getSourceType(options);
+  /** @type {("module" | "script") []} */
+  const sourceTypes = sourceType ? [sourceType] : ["module", "script"];
+  const combinations = sourceTypes.map((sourceType) => ({ sourceType }));
+
+  const extension = options.filepath?.toLowerCase().split(".").at(-1);
+  const isKnownJsx = extension === "jsx" || extension === "tsx";
+
+  if (isKnownJsx) {
+    return combinations.map((parseOptions) => ({
+      ...parseOptions,
+      lang: "tsx",
+    }));
+  }
+
+  const shouldEnableJsx = isProbablyJsx(text);
+  return combinations.flatMap((parseOptions) =>
+    [shouldEnableJsx, !shouldEnableJsx].map((jsx) =>
+      jsx ? { ...parseOptions, lang: "tsx" } : { ...parseOptions, lang: "ts" },
+    ),
+  );
+}
+
+async function parseTs(text, options = {}) {
+  const parseOptionsCombinations = getTsParseOptionsCombinations(text, options);
+  let { filepath } = options;
+  if (typeof filepath !== "string") {
+    filepath = "prettier.tsx";
+  }
+
+  let result;
+  try {
+    result = await tryCombinationsAsync(
+      parseOptionsCombinations.map(
+        (parseOptions) => () =>
+          parseWithOptions(filepath, text, { ...parseOptions, astType: "ts" }),
+      ),
+    );
+  } catch ({
+    // @ts-expect-error -- expected
+    errors: [error],
+  }) {
+    throw error;
+  }
+
+  const { program: ast, comments } = result;
+  // @ts-expect-error -- expected
+  ast.comments = comments;
+  return postprocess(ast, { text, parser: "oxc", oxcAstType: "ts" });
+}
+
+/**
+ * Use a naive regular expression to detect JSX
+ * copied from typescript.js
+ */
+function isProbablyJsx(text) {
+  return new RegExp(
+    // eslint-disable-next-line regexp/no-useless-non-capturing-group -- possible bug
+    [
+      "(?:^[^\"'`]*</)", // Contains "</" when probably not in a string
+      "|",
+      "(?:^[^/]{2}.*/>)", // Contains "/>" on line not starting with "//"
+    ].join(""),
+    "mu",
+  ).test(text);
+}
+
+const oxc = createParser(parseJs);
+const oxcTs = createParser(parseTs);
+
+export { oxc, oxcTs as "oxc-ts" };

@@ -109,5 +109,11 @@ runFormatTest(import.meta, ["babel", "flow", "typescript"], {
       "valid-module-block-top-level-using-binding.js",
       "valid-module-block-top-level-await-using-binding.js",
     ],
+    "oxc-ts": [
+      // "invalid-duplicate-using-bindings.js",
+      // "invalid-script-top-level-using-binding.js",
+      "valid-module-block-top-level-using-binding.js",
+      "valid-module-block-top-level-await-using-binding.js",
+    ],
   },
 });
