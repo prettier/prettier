@@ -126,12 +126,12 @@ function postprocess(ast, options) {
 
       // This happens when use `oxc-parser` to parse `` `${foo satisfies bar}`; ``
       // https://github.com/oxc-project/oxc/issues/11313
-      // case "TemplateLiteral":
-      //   /* c8 ignore next 3 */
-      //   if (node.expressions.length !== node.quasis.length - 1) {
-      //     throw new Error("Malformed template literal.");
-      //   }
-      //   break;
+      case "TemplateLiteral":
+        /* c8 ignore next 3 */
+        if (node.expressions.length !== node.quasis.length - 1) {
+          throw new Error("Malformed template literal.");
+        }
+        break;
 
       case "TemplateElement":
         // `flow`, `typescript`, and `oxc`(with `{astType: 'ts'}`) follows the `espree` style positions
