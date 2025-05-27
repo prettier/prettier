@@ -100,7 +100,7 @@ function getTsParseOptionsCombinations(text, options) {
   const shouldEnableJsx = isProbablyJsx(text);
   return combinations.flatMap((parseOptions) =>
     [shouldEnableJsx, !shouldEnableJsx].map((jsx) =>
-      jsx ? { ...parseOptions, lang: "tsx" } : parseOptions,
+      jsx ? { ...parseOptions, lang: "tsx" } : { ...parseOptions, lang: "ts" },
     ),
   );
 }
@@ -130,7 +130,6 @@ async function parseTs(text, options = {}) {
   const { program: ast, comments } = result;
   // @ts-expect-error -- expected
   ast.comments = comments;
-
   return postprocess(ast, { text, parser: "oxc", oxcAstType: "ts" });
 }
 

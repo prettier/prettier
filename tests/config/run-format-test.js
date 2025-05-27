@@ -98,15 +98,7 @@ const oxcDisabledTests = new Set(
   ].map((file) => path.join(__dirname, "../format", file)),
 );
 const oxcTsDisabledTests = new Set(
-  [
-    "js/dynamic-import/import-phase.js",
-
-    // Can't reproduce on Oxc playground
-    "typescript/decorators/abstract-method.ts",
-
-    // https://github.com/oxc-project/oxc/issues/10980
-    "js/top-level-await/test.cjs", // Parses as `module` even I already told it's `script`
-  ].map((file) => path.join(__dirname, "../format", file)),
+  [].map((file) => path.join(__dirname, "../format", file)),
 );
 
 const isUnstable = (filename, options) => {

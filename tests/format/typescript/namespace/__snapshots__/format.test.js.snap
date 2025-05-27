@@ -11,10 +11,10 @@ Cause: 'await' is only allowed within async functions and at the top levels of m
 `;
 
 exports[`invalid-await.ts [oxc-ts] format 1`] = `
-"\`await\` is only allowed within async functions and at the top levels of modules (2:13)
-  1 | namespace N {
-> 2 |   const x = await 42;
-    |             ^^^^^
+"Expected a semicolon or an implicit semicolon after a statement, but found none (1:10)
+> 1 | namespace N {
+    |          ^
+  2 |   const x = await 42;
   3 | }
   4 |"
 `;
