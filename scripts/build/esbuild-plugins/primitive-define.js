@@ -1,9 +1,7 @@
 function stringify(value) {
   if (
     value !== null &&
-    !["boolean", "number", "string", "undefined"].includes(typeof value) &&
-    // This is not primitive, but `@prettier/plugin-hermes` need it
-    !(Array.isArray(value) && value.length === 0)
+    !["boolean", "number", "string", "undefined"].includes(typeof value)
   ) {
     throw Object.assign(new TypeError("value not allowed"), { value });
   }

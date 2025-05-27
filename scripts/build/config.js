@@ -1006,9 +1006,16 @@ export default [
         {
           input: "packages/plugin-hermes/index.js",
           addDefaultExport: true,
-          define: {
-            "process.argv": [],
-          },
+          replaceModule: [
+            {
+              module: require.resolve("hermes-parser/dist/HermesParserWASM.js"),
+              process: (text) =>
+                text
+                  .replaceAll("process.argv", "[]")
+                  .replaceAll('require("fs")', "undefined")
+                  .replaceAll('require("path")', "undefined"),
+            },
+          ],
         },
       ].flatMap((file) => {
         let { input, output, outputBaseName, ...buildOptions } = file;
