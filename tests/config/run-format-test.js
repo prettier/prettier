@@ -103,6 +103,7 @@ const oxcTsDisabledTests = new Set(
     "typescript/decorators/abstract-method.ts",
   ].map((file) => path.join(__dirname, "../format", file)),
 );
+const hermesDisabledTests = new Set(commentClosureTypecaseTests);
 
 const isUnstable = (filename, options) => {
   const testFunction = unstableTests.get(filename);
@@ -274,6 +275,10 @@ function runFormatTest(fixtures, parsers, options) {
       allParsers.push("babel-flow");
     }
 
+    if (parsers.includes("flow") && !parsers.includes("hermes")) {
+      allParsers.push("hermes");
+    }
+
     if (parsers.includes("babel") && !parsers.includes("__babel_estree")) {
       allParsers.push("__babel_estree");
     }
@@ -314,6 +319,7 @@ function runFormatTest(fixtures, parsers, options) {
           (currentParser === "meriyah" && meriyahDisabledTests.has(filename)) ||
           (currentParser === "oxc" && oxcDisabledTests.has(filename)) ||
           (currentParser === "oxc-ts" && oxcTsDisabledTests.has(filename)) ||
+          (currentParser === "hermes" && hermesDisabledTests.has(filename)) ||
           (currentParser === "babel-ts" && babelTsDisabledTests.has(filename))
         ) {
           continue;
@@ -561,13 +567,20 @@ async function format(originalText, originalOptions) {
   };
 }
 
+const externalPlugins = new Map([
+  ["oxc", "plugin-oxc"],
+  ["oxc-ts", "plugin-oxc"],
+  ["hermes", "plugin-hermes"],
+]);
 async function loadPlugins(options) {
-  if (options.parser === "oxc" || options.parser === "oxc-ts") {
+  const { parser } = options;
+  if (externalPlugins.has(options.parser)) {
     const plugins = options.plugins ?? [];
+    const pluginName = externalPlugins.get(parser);
     const url = new URL(
       isProduction
-        ? "../../dist/plugin-oxc/index.mjs"
-        : "../../packages/plugin-oxc/index.js",
+        ? `../../dist/${pluginName}/index.mjs`
+        : `../../packages/${pluginName}/index.js`,
       import.meta.url,
     );
     plugins.push(TEST_STANDALONE ? await import(url) : url);
