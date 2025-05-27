@@ -33,7 +33,6 @@ const isRawTransferSupported = () => {
 
 async function parseWithOptions(filename, text, options) {
   const result = await oxcParse(filename, text, {
-    lang: "jsx",
     preserveParens: true,
     experimentalRawTransfer: isRawTransferSupported(),
     ...options,
