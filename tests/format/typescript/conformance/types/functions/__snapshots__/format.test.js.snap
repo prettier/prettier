@@ -604,13 +604,13 @@ Cause: Rest element must be last element. (9:35)"
 `;
 
 exports[`functionOverloadErrorsSyntax.ts [oxc-ts] format 1`] = `
-"Expected \`,\` but found \`?\` (2:16)
-  1 | //Function overload signature with optional parameter followed by non-optional parameter
-> 2 | function fn4a(x?: number, y: string);
-    |                ^
-  3 | function fn4a() { }
-  4 |
-  5 | function fn4b(n: string, x?: number, y: string);"
+"A rest parameter must be last in a parameter list (9:25)
+   7 |
+   8 | //Function overload signature with rest param followed by non-optional parameter
+>  9 | function fn5(x: string, ...y: any[], z: string);
+     |                         ^^^^^^^^^^^
+  10 | function fn5() { }
+  11 |"
 `;
 
 exports[`functionOverloadErrorsSyntax.ts format 1`] = `
