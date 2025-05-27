@@ -360,7 +360,7 @@ async function formatFiles(context) {
     }
 
     if (isFileIgnored) {
-      // printedFilename?.clear();
+      printedFilename?.clear();
       writeOutput(context, { formatted: input }, options);
       continue;
     }
@@ -397,7 +397,7 @@ async function formatFiles(context) {
     let shouldSetCache = !isDifferent;
 
     // Remove previously printed filename to log it with duration.
-    // printedFilename?.clear();
+    printedFilename?.clear();
 
     if (performanceTestFlag) {
       context.logger.log(
