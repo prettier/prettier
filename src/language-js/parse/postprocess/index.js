@@ -216,6 +216,13 @@ function postprocess(ast, options) {
           delete node.members;
         }
         break;
+
+      // https://github.com/facebook/hermes/issues/1712
+      case "ImportExpression":
+        if (parser === "hermes" && node.attributes && !node.options) {
+          node.options = node.attributes;
+        }
+        break;
     }
 
     /* c8 ignore next 3 */
