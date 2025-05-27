@@ -111,8 +111,13 @@ const hermesDisabledTests = new Set([
     // https://app.unpkg.com/hermes-parser@0.28.1/files/dist/HermesASTAdapter.js
     "js/call/first-argument-expansion/expression-2nd-arg.js",
     "js/directives/escaped.js",
+    // Not supported
     "flow/comments",
     "flow-repo/union_new",
+    // Wrongly parsed
+    "js/sloppy-mode/function-declaration-in-if.js",
+    // Wrong location of `Property.value`
+    "js/classes/method.js",
   ].map((file) => path.join(__dirname, "../format", file)),
 ]);
 
