@@ -159,7 +159,8 @@ const pluginFiles = [
             .replace(
               'require("node:path")',
               '{extname: file => "." + file.split(".").pop()}',
-            );
+            )
+            .replace('require("@typescript-eslint/project-service")', "{}");
         },
       },
       {
@@ -228,8 +229,8 @@ const pluginFiles = [
           `,
         },
         {
-          file: "@typescript-eslint/typescript-estree/dist/create-program/createProjectService.js",
-          text: "export const createProjectService = () => {};",
+          file: "@typescript-eslint/typescript-estree/dist/create-program/validateDefaultProjectForFilesGlob.js",
+          text: "export const validateDefaultProjectForFilesGlob = () => {};",
         },
         {
           file: "@typescript-eslint/typescript-estree/dist/create-program/getWatchProgramsForProjects.js",
