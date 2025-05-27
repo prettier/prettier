@@ -1,3 +1,5 @@
 runFormatTest(import.meta, ["babel", "flow", "typescript"], {
-  hermes: ["binaryish.js"],
+  errors: {
+    hermes: ["binaryish.js"],
+  },
 });
