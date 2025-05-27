@@ -325,7 +325,7 @@ export default [
       globals: eslintPluginJest.environments.globals.globals,
     },
     rules: {
-      "@stylistic/js/quotes": [
+      "@stylistic/quotes": [
         "error",
         "double",
         {
