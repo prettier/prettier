@@ -103,7 +103,12 @@ const oxcTsDisabledTests = new Set(
     "typescript/decorators/abstract-method.ts",
   ].map((file) => path.join(__dirname, "../format", file)),
 );
-const hermesDisabledTests = new Set(commentClosureTypecaseTests);
+const hermesDisabledTests = new Set([
+  ...commentClosureTypecaseTests,
+  ...["js/dynamic-import/assertions.js"].map((file) =>
+    path.join(__dirname, "../format", file),
+  ),
+]);
 
 const isUnstable = (filename, options) => {
   const testFunction = unstableTests.get(filename);

@@ -23,6 +23,16 @@ exports[`default-escaped.js [flow] format 1`] = `
     |        ^^^^^^^"
 `;
 
+exports[`default-escaped.js [hermes] format 1`] = `
+"expected declaration in export (2:7)
+  1 | // export asyn\\u{63} from "async";
+> 2 | export n\\u{63} from "async";
+    |       ^
+Cause: expected declaration in export (2:7)
+export n\\u{63} from "async";
+       ^~~~~~~"
+`;
+
 exports[`default-escaped.js [meriyah] format 1`] = `
 "Unexpected token: 'identifier' (2:8)
   1 | // export asyn\\u{63} from "async";

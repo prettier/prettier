@@ -1,5 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`bigint-key.js [hermes] format 1`] = `
+"invalid property name - must be a string, number or identifier (1:5)
+> 1 | a = {1n: ""}
+    |     ^
+  2 | a = {1n() {}}
+  3 | a = {get 1n() {}}
+  4 |
+Cause: invalid property name - must be a string, number or identifier (1:5)
+a = {1n: ""}
+     ^~"
+`;
+
 exports[`bigint-key.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
@@ -103,6 +115,20 @@ exports[`expression.js [flow] format 1`] = `
   6 | ({}::b()\`\`[''].c++ && 0 ? 0 : 0, 0);
   7 | ({}(), 0);
   8 | ({} = 0);"
+`;
+
+exports[`expression.js [hermes] format 1`] = `
+"unexpected token in type annotation (5:4)
+  3 | a = () => ({}).x;
+  4 | ({} && a, b);
+> 5 | ({}::b, 0);
+    |    ^
+  6 | ({}::b()\`\`[''].c++ && 0 ? 0 : 0, 0);
+  7 | ({}(), 0);
+  8 | ({} = 0);
+Cause: unexpected token in type annotation (5:4)
+({}::b, 0);
+    ^"
 `;
 
 exports[`expression.js [meriyah] format 1`] = `

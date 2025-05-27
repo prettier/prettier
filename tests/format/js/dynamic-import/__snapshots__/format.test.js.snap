@@ -50,6 +50,21 @@ exports[`import-phase.js [flow] format 1`] = `
   4 |"
 `;
 
+exports[`import-phase.js [hermes] format 1`] = `
+"'meta' expected in member expression (1:7)
+> 1 | import.source(\`data:text/javascript,
+    |       ^
+  2 |     console.log("RUN");
+  3 | \`)
+  4 |
+Cause: 'meta' expected in member expression (1:7)
+import.source(\`data:text/javascript,
+       ^~~~~~
+note: start of member expression (1:0)
+import.source(\`data:text/javascript,
+^"
+`;
+
 exports[`import-phase.js [meriyah] format 1`] = `
 "The only valid meta property for import is 'import.meta' (1:8)
 > 1 | import.source(\`data:text/javascript,
@@ -93,6 +108,18 @@ exports[`template-literal.js [flow] format 1`] = `
   2 |     console.log("RUN");
   3 | \`);
   4 |"
+`;
+
+exports[`template-literal.js [hermes] format 1`] = `
+"unexpected token after assignment expression (1:19)
+> 1 | module   =   await import(\`data:text/javascript,
+    |                   ^
+  2 |     console.log("RUN");
+  3 | \`);
+  4 |
+Cause: unexpected token after assignment expression (1:19)
+module   =   await import(\`data:text/javascript,
+                   ^"
 `;
 
 exports[`template-literal.js format 1`] = `
