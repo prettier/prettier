@@ -124,7 +124,7 @@ function postprocess(ast, options) {
         }
         break;
 
-      // This happens when use `oxc-parser` to parse ````
+      // This happens when use `oxc-parser` to parse `` `${foo satisfies bar}`; ``
       // https://github.com/oxc-project/oxc/issues/11313
       // case "TemplateLiteral":
       //   /* c8 ignore next 3 */

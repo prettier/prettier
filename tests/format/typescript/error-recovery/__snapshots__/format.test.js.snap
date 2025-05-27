@@ -1,21 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`generic.ts [oxc-ts] format 1`] = `
-"Unexpected token (1:4)
-> 1 | f1<>();
-    |    ^
-  2 |
-  3 | new f2<>();
-  4 |"
+"Type parameters cannot appear on a constructor declaration (8:16)
+   6 |
+   7 | class f4 {
+>  8 |     constructor<>() {}
+     |                ^^
+   9 | }
+  10 |
+  11 | const f5 = function<>() {}"
 `;
 
 exports[`generic.ts - {"trailingComma":"all"} [oxc-ts] format 1`] = `
-"Unexpected token (1:4)
-> 1 | f1<>();
-    |    ^
-  2 |
-  3 | new f2<>();
-  4 |"
+"Type parameters cannot appear on a constructor declaration (8:16)
+   6 |
+   7 | class f4 {
+>  8 |     constructor<>() {}
+     |                ^^
+   9 | }
+  10 |
+  11 | const f5 = function<>() {}"
 `;
 
 exports[`generic.ts - {"trailingComma":"all"} format 1`] = `
@@ -70,12 +74,14 @@ class f7<> {
 `;
 
 exports[`generic.ts - {"trailingComma":"es5"} [oxc-ts] format 1`] = `
-"Unexpected token (1:4)
-> 1 | f1<>();
-    |    ^
-  2 |
-  3 | new f2<>();
-  4 |"
+"Type parameters cannot appear on a constructor declaration (8:16)
+   6 |
+   7 | class f4 {
+>  8 |     constructor<>() {}
+     |                ^^
+   9 | }
+  10 |
+  11 | const f5 = function<>() {}"
 `;
 
 exports[`generic.ts - {"trailingComma":"es5"} format 1`] = `
@@ -192,9 +198,9 @@ Cause: Unexpected token, expected "]" (4:12)"
 `;
 
 exports[`index-signature.ts [oxc-ts] format 1`] = `
-"Expected a semicolon or an implicit semicolon after a statement, but found none (1:5)
+"Unexpected token (1:26)
 > 1 | type A = { [key: string] };
-    |     ^
+    |                          ^
   2 |
   3 | type TwoParams = {
   4 |   [a: string, b: string]: string;"
@@ -213,9 +219,9 @@ Cause: Unexpected token, expected "]" (4:12)"
 `;
 
 exports[`index-signature.ts - {"trailingComma":"all"} [oxc-ts] format 1`] = `
-"Expected a semicolon or an implicit semicolon after a statement, but found none (1:5)
+"Unexpected token (1:26)
 > 1 | type A = { [key: string] };
-    |     ^
+    |                          ^
   2 |
   3 | type TwoParams = {
   4 |   [a: string, b: string]: string;"
@@ -297,9 +303,9 @@ Cause: Unexpected token, expected "]" (4:12)"
 `;
 
 exports[`index-signature.ts - {"trailingComma":"es5"} [oxc-ts] format 1`] = `
-"Expected a semicolon or an implicit semicolon after a statement, but found none (1:5)
+"Unexpected token (1:26)
 > 1 | type A = { [key: string] };
-    |     ^
+    |                          ^
   2 |
   3 | type TwoParams = {
   4 |   [a: string, b: string]: string;"
@@ -441,9 +447,9 @@ Cause: Unexpected token (1:7)"
 `;
 
 exports[`jsdoc_only_types.ts [oxc-ts] format 1`] = `
-"Expected a semicolon or an implicit semicolon after a statement, but found none (1:6)
+"Unexpected token (1:8)
 > 1 | let a: *;
-    |      ^
+    |        ^
   2 | function b(x: ?) {}
   3 | let c: ?string;
   4 | let d: string?;"
@@ -460,9 +466,9 @@ Cause: Unexpected token (1:7)"
 `;
 
 exports[`jsdoc_only_types.ts - {"trailingComma":"all"} [oxc-ts] format 1`] = `
-"Expected a semicolon or an implicit semicolon after a statement, but found none (1:6)
+"Unexpected token (1:8)
 > 1 | let a: *;
-    |      ^
+    |        ^
   2 | function b(x: ?) {}
   3 | let c: ?string;
   4 | let d: string?;"
@@ -508,9 +514,9 @@ Cause: Unexpected token (1:7)"
 `;
 
 exports[`jsdoc_only_types.ts - {"trailingComma":"es5"} [oxc-ts] format 1`] = `
-"Expected a semicolon or an implicit semicolon after a statement, but found none (1:6)
+"Unexpected token (1:8)
 > 1 | let a: *;
-    |      ^
+    |        ^
   2 | function b(x: ?) {}
   3 | let c: ?string;
   4 | let d: string?;"
