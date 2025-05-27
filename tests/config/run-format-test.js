@@ -98,7 +98,10 @@ const oxcDisabledTests = new Set(
   ].map((file) => path.join(__dirname, "../format", file)),
 );
 const oxcTsDisabledTests = new Set(
-  [].map((file) => path.join(__dirname, "../format", file)),
+  [
+    // https://github.com/oxc-project/oxc/issues/11029
+    "typescript/decorators/abstract-method.ts",
+  ].map((file) => path.join(__dirname, "../format", file)),
 );
 
 const isUnstable = (filename, options) => {
