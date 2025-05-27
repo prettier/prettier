@@ -11,7 +11,8 @@ import visualizeEndOfLine from "./utils/visualize-end-of-line.js";
 
 const { __dirname } = createEsmUtils(import.meta);
 
-const { FULL_TEST, TEST_STANDALONE } = process.env;
+const { FULL_TEST, TEST_STANDALONE, NODE_ENV } = process.env;
+const isProduction = NODE_ENV === "production";
 const BOM = "\uFEFF";
 
 const CURSOR_PLACEHOLDER = "<|>";
@@ -56,16 +57,17 @@ const unstableTests = new Map(
 );
 
 const unstableAstTests = new Map();
-
-const espreeDisabledTests = new Set(
+const commentClosureTypecaseTests = new Set(
   [
     // These tests only work for `babel`
     "comments-closure-typecast",
   ].map((directory) => path.join(__dirname, "../format/js", directory)),
 );
+
+const espreeDisabledTests = commentClosureTypecaseTests;
 const acornDisabledTests = new Set();
 const meriyahDisabledTests = new Set([
-  ...espreeDisabledTests,
+  ...commentClosureTypecaseTests,
   ...[
     // Parsing to different ASTs
     "js/decorators/member-expression.js",
@@ -78,11 +80,43 @@ const meriyahDisabledTests = new Set([
     "js/regex/regexp-modifiers.js",
   ].map((file) => path.join(__dirname, "../format", file)),
 ]);
-const babelTsDisabledTest = new Set(
+const babelTsDisabledTests = new Set(
   ["conformance/types/moduleDeclaration/kind-detection.ts"].map((file) =>
     path.join(__dirname, "../format/typescript", file),
   ),
 );
+const oxcDisabledTests = new Set([
+  ...commentClosureTypecaseTests,
+  ...[
+    // Missing `.phase`
+    // https://github.com/oxc-project/oxc/issues/10978
+    "js/babel-plugins/deferred-import-evaluation.js",
+    "js/babel-plugins/source-phase-imports.js",
+    "js/deferred-import-evaluation/dynamic-import-attributes-expression.js",
+    "js/deferred-import-evaluation/dynamic-import.js",
+    "js/deferred-import-evaluation/import-defer-attributes-declaration.js",
+    "js/deferred-import-evaluation/import-defer.js",
+    "js/dynamic-import/import-phase.js",
+    "js/source-phase-imports/import-source-attributes-expression.js",
+    "js/source-phase-imports/import-source-dynamic-import.js",
+    "js/source-phase-imports/import-source-attributes-declaration.js",
+    "js/source-phase-imports/import-source-binding-from.js",
+    "js/source-phase-imports/import-source-binding-source.js",
+    "js/source-phase-imports/import-source.js",
+
+    // Missing `.decorators`
+    // https://github.com/oxc-project/oxc/issues/10921
+    "js/babel-plugins/decorators.js",
+    "js/decorators",
+    "js/decorators/class-expression",
+    "js/decorators-export",
+    "js/decorator-auto-accessors",
+    "js/ignore/class-expression-decorator.js",
+
+    // https://github.com/oxc-project/oxc/issues/10980
+    "js/top-level-await/test.cjs", // Parses as `module` even I already told it's `script`
+  ].map((file) => path.join(__dirname, "../format", file)),
+]);
 
 const isUnstable = (filename, options) => {
   const testFunction = unstableTests.get(filename);
@@ -236,6 +270,9 @@ function runFormatTest(fixtures, parsers, options) {
       if (!parsers.includes("meriyah") && !meriyahDisabledTests.has(dirname)) {
         allParsers.push("meriyah");
       }
+      if (!parsers.includes("acorn") && !oxcDisabledTests.has(dirname)) {
+        allParsers.push("oxc");
+      }
     }
 
     if (
@@ -285,10 +322,11 @@ function runFormatTest(fixtures, parsers, options) {
 
       for (const currentParser of allParsers) {
         if (
+          (currentParser === "acorn" && acornDisabledTests.has(filename)) ||
           (currentParser === "espree" && espreeDisabledTests.has(filename)) ||
           (currentParser === "meriyah" && meriyahDisabledTests.has(filename)) ||
-          (currentParser === "acorn" && acornDisabledTests.has(filename)) ||
-          (currentParser === "babel-ts" && babelTsDisabledTest.has(filename))
+          (currentParser === "oxc" && oxcDisabledTests.has(filename)) ||
+          (currentParser === "babel-ts" && babelTsDisabledTests.has(filename))
         ) {
           continue;
         }
@@ -508,10 +546,11 @@ const insertCursor = (text, cursorOffset) =>
       text.slice(cursorOffset)
     : text;
 async function format(originalText, originalOptions) {
-  const { text: input, options } = replacePlaceholders(
+  let { text: input, options } = replacePlaceholders(
     originalText,
     originalOptions,
   );
+  options = await loadPlugins(options);
   const inputWithCursor = insertCursor(input, options.cursorOffset);
   const prettier = await getPrettier();
 
@@ -532,6 +571,22 @@ async function format(originalText, originalOptions) {
     outputWithCursor,
     eolVisualizedOutput,
   };
+}
+
+async function loadPlugins(options) {
+  if (options.parser === "oxc") {
+    const plugins = options.plugins ?? [];
+    const url = new URL(
+      isProduction
+        ? "../../dist/plugin-oxc/index.mjs"
+        : "../../packages/plugin-oxc/index.js",
+      import.meta.url,
+    );
+    plugins.push(TEST_STANDALONE ? await import(url) : url);
+    return { ...options, plugins };
+  }
+
+  return options;
 }
 
 export default runFormatTest;

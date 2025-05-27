@@ -972,6 +972,34 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@emnapi/core@npm:^1.4.3":
+  version: 1.4.3
+  resolution: "@emnapi/core@npm:1.4.3"
+  dependencies:
+    "@emnapi/wasi-threads": "npm:1.0.2"
+    tslib: "npm:^2.4.0"
+  checksum: 10/b511f66b897d2019835391544fdf11f4fa0ce06cc1181abfa17c7d4cf03aaaa4fc8a64fcd30bb3f901de488d0a6f370b53a8de2215a898f5a4ac98015265b3b7
+  languageName: node
+  linkType: hard
+
+"@emnapi/runtime@npm:^1.4.3":
+  version: 1.4.3
+  resolution: "@emnapi/runtime@npm:1.4.3"
+  dependencies:
+    tslib: "npm:^2.4.0"
+  checksum: 10/4f90852a1a5912982cc4e176b6420556971bcf6a85ee23e379e2455066d616219751367dcf43e6a6eaf41ea7e95ba9dc830665a52b5d979dfe074237d19578f8
+  languageName: node
+  linkType: hard
+
+"@emnapi/wasi-threads@npm:1.0.2":
+  version: 1.0.2
+  resolution: "@emnapi/wasi-threads@npm:1.0.2"
+  dependencies:
+    tslib: "npm:^2.4.0"
+  checksum: 10/e82941776665eb958c2084728191d6b15a94383449975c4621b67a1c8217e1c0ec11056a693906c76863cb96f782f8be500510ecec6874e3f5da35a8e7968cfd
+  languageName: node
+  linkType: hard
+
 "@esbuild/aix-ppc64@npm:0.25.4":
   version: 0.25.4
   resolution: "@esbuild/aix-ppc64@npm:0.25.4"
@@ -1890,6 +1918,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@napi-rs/wasm-runtime@npm:^0.2.9":
+  version: 0.2.10
+  resolution: "@napi-rs/wasm-runtime@npm:0.2.10"
+  dependencies:
+    "@emnapi/core": "npm:^1.4.3"
+    "@emnapi/runtime": "npm:^1.4.3"
+    "@tybys/wasm-util": "npm:^0.9.0"
+  checksum: 10/1e4cf77891390825b1756eb5e302035b80c9dd21959417c4e4ed063eacfb6df9f42dfc001bf0fa9c9dbd0a7374342502feaa0a59103e7ea9aa5b318732280a49
+  languageName: node
+  linkType: hard
+
 "@nodelib/fs.scandir@npm:2.1.5":
   version: 2.1.5
   resolution: "@nodelib/fs.scandir@npm:2.1.5"
@@ -1936,6 +1975,106 @@ __metadata:
   dependencies:
     semver: "npm:^7.3.5"
   checksum: 10/405c4490e1ff11cf299775449a3c254a366a4b1ffc79d87159b0ee7d5558ac9f6a2f8c0735fd6ff3873cef014cb1a44a5f9127cb6a1b2dbc408718cca9365b5a
+  languageName: node
+  linkType: hard
+
+"@oxc-parser/binding-darwin-arm64@npm:0.69.0":
+  version: 0.69.0
+  resolution: "@oxc-parser/binding-darwin-arm64@npm:0.69.0"
+  conditions: os=darwin & cpu=arm64
+  languageName: node
+  linkType: hard
+
+"@oxc-parser/binding-darwin-x64@npm:0.69.0":
+  version: 0.69.0
+  resolution: "@oxc-parser/binding-darwin-x64@npm:0.69.0"
+  conditions: os=darwin & cpu=x64
+  languageName: node
+  linkType: hard
+
+"@oxc-parser/binding-freebsd-x64@npm:0.69.0":
+  version: 0.69.0
+  resolution: "@oxc-parser/binding-freebsd-x64@npm:0.69.0"
+  conditions: os=freebsd & cpu=x64
+  languageName: node
+  linkType: hard
+
+"@oxc-parser/binding-linux-arm-gnueabihf@npm:0.69.0":
+  version: 0.69.0
+  resolution: "@oxc-parser/binding-linux-arm-gnueabihf@npm:0.69.0"
+  conditions: os=linux & cpu=arm
+  languageName: node
+  linkType: hard
+
+"@oxc-parser/binding-linux-arm64-gnu@npm:0.69.0":
+  version: 0.69.0
+  resolution: "@oxc-parser/binding-linux-arm64-gnu@npm:0.69.0"
+  conditions: os=linux & cpu=arm64 & libc=glibc
+  languageName: node
+  linkType: hard
+
+"@oxc-parser/binding-linux-arm64-musl@npm:0.69.0":
+  version: 0.69.0
+  resolution: "@oxc-parser/binding-linux-arm64-musl@npm:0.69.0"
+  conditions: os=linux & cpu=arm64 & libc=musl
+  languageName: node
+  linkType: hard
+
+"@oxc-parser/binding-linux-riscv64-gnu@npm:0.69.0":
+  version: 0.69.0
+  resolution: "@oxc-parser/binding-linux-riscv64-gnu@npm:0.69.0"
+  conditions: os=linux & cpu=riscv64 & libc=glibc
+  languageName: node
+  linkType: hard
+
+"@oxc-parser/binding-linux-s390x-gnu@npm:0.69.0":
+  version: 0.69.0
+  resolution: "@oxc-parser/binding-linux-s390x-gnu@npm:0.69.0"
+  conditions: os=linux & cpu=s390x & libc=glibc
+  languageName: node
+  linkType: hard
+
+"@oxc-parser/binding-linux-x64-gnu@npm:0.69.0":
+  version: 0.69.0
+  resolution: "@oxc-parser/binding-linux-x64-gnu@npm:0.69.0"
+  conditions: os=linux & cpu=x64 & libc=glibc
+  languageName: node
+  linkType: hard
+
+"@oxc-parser/binding-linux-x64-musl@npm:0.69.0":
+  version: 0.69.0
+  resolution: "@oxc-parser/binding-linux-x64-musl@npm:0.69.0"
+  conditions: os=linux & cpu=x64 & libc=musl
+  languageName: node
+  linkType: hard
+
+"@oxc-parser/binding-wasm32-wasi@npm:0.69.0":
+  version: 0.69.0
+  resolution: "@oxc-parser/binding-wasm32-wasi@npm:0.69.0"
+  dependencies:
+    "@napi-rs/wasm-runtime": "npm:^0.2.9"
+  conditions: cpu=wasm32
+  languageName: node
+  linkType: hard
+
+"@oxc-parser/binding-win32-arm64-msvc@npm:0.69.0":
+  version: 0.69.0
+  resolution: "@oxc-parser/binding-win32-arm64-msvc@npm:0.69.0"
+  conditions: os=win32 & cpu=arm64
+  languageName: node
+  linkType: hard
+
+"@oxc-parser/binding-win32-x64-msvc@npm:0.69.0":
+  version: 0.69.0
+  resolution: "@oxc-parser/binding-win32-x64-msvc@npm:0.69.0"
+  conditions: os=win32 & cpu=x64
+  languageName: node
+  linkType: hard
+
+"@oxc-project/types@npm:^0.69.0":
+  version: 0.69.0
+  resolution: "@oxc-project/types@npm:0.69.0"
+  checksum: 10/fed6ca8401b7b9ba29fdf271a933093ef84b24c8f88077b0edbaeca4d2084bde0f157acd7fc8e3a5957041966bd106e5c61fab5818ad68d06cd8eca60269c8f9
   languageName: node
   linkType: hard
 
@@ -2050,6 +2189,15 @@ __metadata:
   peerDependencies:
     eslint: ">=9.0.0"
   checksum: 10/129cb1a9adeaebd71997fe5ba036ee751326abff37bc3c697a48d1edb8c7b8d3bedb4cac373278d4c712237fad3dba8c11e23f0efb1dcd1068d688c46a3dcdf0
+  languageName: node
+  linkType: hard
+
+"@tybys/wasm-util@npm:^0.9.0":
+  version: 0.9.0
+  resolution: "@tybys/wasm-util@npm:0.9.0"
+  dependencies:
+    tslib: "npm:^2.4.0"
+  checksum: 10/aa58e64753a420ad1eefaf7bacef3dda61d74f9336925943d9244132d5b48d9242f734f1e707fd5ccfa6dd1d8ec8e6debc234b4dedb3a5b0d8486d1f373350b2
   languageName: node
   linkType: hard
 
@@ -6633,6 +6781,55 @@ __metadata:
   languageName: node
   linkType: hard
 
+"oxc-parser@npm:0.69.0":
+  version: 0.69.0
+  resolution: "oxc-parser@npm:0.69.0"
+  dependencies:
+    "@oxc-parser/binding-darwin-arm64": "npm:0.69.0"
+    "@oxc-parser/binding-darwin-x64": "npm:0.69.0"
+    "@oxc-parser/binding-freebsd-x64": "npm:0.69.0"
+    "@oxc-parser/binding-linux-arm-gnueabihf": "npm:0.69.0"
+    "@oxc-parser/binding-linux-arm64-gnu": "npm:0.69.0"
+    "@oxc-parser/binding-linux-arm64-musl": "npm:0.69.0"
+    "@oxc-parser/binding-linux-riscv64-gnu": "npm:0.69.0"
+    "@oxc-parser/binding-linux-s390x-gnu": "npm:0.69.0"
+    "@oxc-parser/binding-linux-x64-gnu": "npm:0.69.0"
+    "@oxc-parser/binding-linux-x64-musl": "npm:0.69.0"
+    "@oxc-parser/binding-wasm32-wasi": "npm:0.69.0"
+    "@oxc-parser/binding-win32-arm64-msvc": "npm:0.69.0"
+    "@oxc-parser/binding-win32-x64-msvc": "npm:0.69.0"
+    "@oxc-project/types": "npm:^0.69.0"
+  dependenciesMeta:
+    "@oxc-parser/binding-darwin-arm64":
+      optional: true
+    "@oxc-parser/binding-darwin-x64":
+      optional: true
+    "@oxc-parser/binding-freebsd-x64":
+      optional: true
+    "@oxc-parser/binding-linux-arm-gnueabihf":
+      optional: true
+    "@oxc-parser/binding-linux-arm64-gnu":
+      optional: true
+    "@oxc-parser/binding-linux-arm64-musl":
+      optional: true
+    "@oxc-parser/binding-linux-riscv64-gnu":
+      optional: true
+    "@oxc-parser/binding-linux-s390x-gnu":
+      optional: true
+    "@oxc-parser/binding-linux-x64-gnu":
+      optional: true
+    "@oxc-parser/binding-linux-x64-musl":
+      optional: true
+    "@oxc-parser/binding-wasm32-wasi":
+      optional: true
+    "@oxc-parser/binding-win32-arm64-msvc":
+      optional: true
+    "@oxc-parser/binding-win32-x64-msvc":
+      optional: true
+  checksum: 10/9908d21ec5ad4661a2f52b7a036d0dafad1354cd61f5796d097914b71db972e7b12d47696b4047d46ffacf5fa02b874699ff3a51b784bf840741a2015f6484c9
+  languageName: node
+  linkType: hard
+
 "p-limit@npm:^2.2.0":
   version: 2.3.0
   resolution: "p-limit@npm:2.3.0"
@@ -7081,6 +7278,7 @@ __metadata:
     node-style-text: "npm:0.0.8"
     npm-run-all2: "npm:8.0.3"
     outdent: "npm:0.8.0"
+    oxc-parser: "npm:0.69.0"
     parse-json: "npm:8.3.0"
     picocolors: "npm:1.1.1"
     please-upgrade-node: "npm:3.2.0"
@@ -7092,6 +7290,7 @@ __metadata:
     postcss-values-parser: "npm:2.0.1"
     prettier: "npm:3.5.3"
     pretty-bytes: "npm:7.0.0"
+    pretty-ms: "npm:9.2.0"
     regexp-util: "npm:2.0.3"
     remark-footnotes: "npm:2.0.0"
     remark-math: "npm:3.0.1"
@@ -7151,7 +7350,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pretty-ms@npm:^9.0.0":
+"pretty-ms@npm:9.2.0, pretty-ms@npm:^9.0.0":
   version: 9.2.0
   resolution: "pretty-ms@npm:9.2.0"
   dependencies:
@@ -8277,7 +8476,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:^2.3.0, tslib@npm:^2.6.2":
+"tslib@npm:^2.3.0, tslib@npm:^2.4.0, tslib@npm:^2.6.2":
   version: 2.8.1
   resolution: "tslib@npm:2.8.1"
   checksum: 10/3e2e043d5c2316461cb54e5c7fe02c30ef6dccb3384717ca22ae5c6b5bc95232a6241df19c622d9c73b809bea33b187f6dbc73030963e29950c2141bc32a79f7

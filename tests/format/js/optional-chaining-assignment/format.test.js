@@ -31,6 +31,7 @@ runFormatTest(import.meta, ["babel"], {
       ),
       ...invalidSyntaxTests,
     ],
+    oxc: [...optionalChainingAssignTests, ...invalidSyntaxTests],
     babel: invalidSyntaxTests,
     __babel_estree: invalidSyntaxTests,
   },
