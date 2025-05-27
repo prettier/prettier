@@ -140,6 +140,7 @@ function postprocess(ast, options) {
           parser === "flow" ||
           parser === "espree" ||
           parser === "typescript" ||
+          parser === "hermes" ||
           (parser === "oxc" && options.oxcAstType === "ts")
         ) {
           const start = locStart(node) + 1;
