@@ -166,7 +166,19 @@ function printFlow(path, options, print) {
     case "EnumBigIntBody":
     case "EnumStringBody":
     case "EnumSymbolBody":
-      return printFlowEnumBody(path, options, print);
+      return [
+        node.type === "EnumSymbolBody" || node.explicitType
+          ? `of ${node.type
+              .slice(
+                // `Enum`
+                4,
+                // `Body`
+                -4,
+              )
+              .toLowerCase()} `
+          : "",
+        printEnumBody(path, options, print),
+      ];
 
     case "EnumBooleanMember":
     case "EnumNumberMember":

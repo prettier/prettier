@@ -26,6 +26,7 @@ const additionalVisitorKeys = {
   TSJSDocUnknownType: [],
   TSJSDocNullableType: ["typeAnnotation"],
   TSJSDocNonNullableType: ["typeAnnotation"],
+
   // `@typescript-eslint/typescript-estree` v6 renamed `typeParameters` to `typeArguments`
   // Remove those when babel update AST
   JSXOpeningElement: ["typeParameters"],
@@ -33,13 +34,13 @@ const additionalVisitorKeys = {
   TSInterfaceHeritage: ["typeParameters"],
 
   // Flow, missed in `flowVisitorKeys`
-  ClassPrivateProperty: ["variance"],
-  ClassProperty: ["variance"],
   NeverTypeAnnotation: [],
+  SatisfiesExpression: ["expression", "typeAnnotation"],
   TupleTypeAnnotation: ["elementTypes"],
   TypePredicate: ["asserts"],
   UndefinedTypeAnnotation: [],
   UnknownTypeAnnotation: [],
+<<<<<<< HEAD
   AsExpression: ["expression", "typeAnnotation"],
   AsConstExpression: ["expression"],
   SatisfiesExpression: ["expression", "typeAnnotation"],
@@ -47,6 +48,8 @@ const additionalVisitorKeys = {
 
   // TODO: Remove this when babel release v8 stable
   TSMappedType: ["typeParameter"],
+=======
+>>>>>>> main
 };
 
 const excludeKeys = {
@@ -69,40 +72,20 @@ const excludeKeys = {
   ExportNamedDeclaration: ["assertions"],
   ImportDeclaration: ["assertions"],
   ImportExpression: ["attributes"],
-
-  // `key` and `constraint` added in `@typescript-eslint/typescript-estree` v8
-  // https://github.com/typescript-eslint/typescript-eslint/pull/7065
-  // TODO: Use the new AST properties instead
-  TSMappedType: ["key", "constraint"],
+  TSMappedType: ["typeParameter"],
+  TSEnumDeclaration: ["members"],
 };
 
-const visitorKeys = Object.fromEntries(
-  Object.entries(
-    unionVisitorKeys([
-      babelVisitorKeys,
-      tsVisitorKeys,
-      flowVisitorKeys,
-      angularVisitorKeys,
-      additionalVisitorKeys,
-    ]),
-  ).map(([type, keys]) => [
-    type,
-    excludeKeys[type]
-      ? keys.filter((key) => !excludeKeys[type].includes(key))
-      : keys,
-  ]),
-);
+const excludeNodeTypes = new Set([
+  // Babel will remove in v8
+  // https://github.com/babel/babel/pull/17242
+  "TupleExpression",
+  "RecordExpression",
+  "DecimalLiteral",
+  // Babel, Won't exist since we use `createImportExpressions` when parsing with babel
+  "Import",
 
-// Babel will remove these in v8 https://github.com/babel/babel/pull/17242
-delete visitorKeys.TupleExpression;
-delete visitorKeys.RecordExpression;
-// Babel will remove this in v8
-delete visitorKeys.DecimalLiteral;
-// Won't exist since we use `createImportExpressions` when parsing with babel
-delete visitorKeys.Import;
-
-// Flow, not supported
-for (const type of [
+  // Flow, not supported
   "MatchArrayPattern",
   "MatchAsPattern",
   "MatchBindingPattern",
@@ -119,8 +102,25 @@ for (const type of [
   "MatchStatementCase",
   "MatchUnaryPattern",
   "MatchWildcardPattern",
-]) {
-  delete visitorKeys[type];
-}
+]);
+
+const visitorKeys = Object.fromEntries(
+  Object.entries(
+    unionVisitorKeys([
+      babelVisitorKeys,
+      tsVisitorKeys,
+      flowVisitorKeys,
+      angularVisitorKeys,
+      additionalVisitorKeys,
+    ]),
+  )
+    .filter(([type]) => !excludeNodeTypes.has(type))
+    .map(([type, keys]) => [
+      type,
+      excludeKeys[type]
+        ? keys.filter((key) => !excludeKeys[type].includes(key))
+        : keys,
+    ]),
+);
 
 export default visitorKeys;

@@ -1,5 +1,4 @@
 import assert from "node:assert";
-import isNonEmptyArray from "../../../utils/is-non-empty-array.js";
 import { locEnd, locStart } from "../../loc.js";
 import createTypeCheckFunction from "../../utils/create-type-check-function.js";
 import getRaw from "../../utils/get-raw.js";
@@ -39,19 +38,17 @@ const isNodeWithRaw = createTypeCheckFunction([
 function postprocess(ast, options) {
   const { parser, text } = options;
 
-  // `InterpreterDirective` from babel parser
+  // `InterpreterDirective` from babel parser and flow parser
   // Other parsers parse it as comment, babel treat it as comment too
   // https://github.com/babel/babel/issues/15116
-  if (ast.type === "File" && ast.program.interpreter) {
-    const {
-      program: { interpreter },
-      comments,
-    } = ast;
-    delete ast.program.interpreter;
-    comments.unshift(interpreter);
+  const program = ast.type === "File" ? ast.program : ast;
+  const { interpreter } = program;
+  if (interpreter) {
+    ast.comments.unshift(interpreter);
+    delete program.interpreter;
   }
 
-  if (isNonEmptyArray(ast.comments)) {
+  if (ast.comments.length > 0) {
     let followingComment;
     for (let i = ast.comments.length - 1; i >= 0; i--) {
       const comment = ast.comments[i];
@@ -156,19 +153,6 @@ function postprocess(ast, options) {
       case "TSIntersectionType":
         if (node.types.length === 1) {
           return node.types[0];
-        }
-        break;
-
-      // TODO: Remove this when babel release v8 stable
-      case "TSMappedType":
-        if (!node.typeParameter && node.key && node.constraint) {
-          const { key: name, constraint } = node;
-          node.typeParameter = {
-            type: "TSTypeParameter",
-            constraint,
-            name,
-            range: [locStart(name), locEnd(constraint)],
-          };
         }
         break;
     }

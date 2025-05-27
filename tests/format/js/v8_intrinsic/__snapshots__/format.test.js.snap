@@ -27,6 +27,14 @@ exports[`avoid-conflicts-to-pipeline.js [meriyah] format 1`] = `
 Cause: [2:15-2:16]: Unexpected token: '%'"
 `;
 
+exports[`avoid-conflicts-to-pipeline.js [oxc] format 1`] = `
+"Unexpected token (2:16)
+  1 | // |>
+> 2 | const status = %GetOptimizationStatus(fn);
+    |                ^
+  3 |"
+`;
+
 exports[`avoid-conflicts-to-pipeline.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
@@ -74,6 +82,16 @@ exports[`intrinsic_call.js [meriyah] format 1`] = `
   4 |                 foo )
   5 |   }
 Cause: [2:12-2:13]: Unexpected token: '%'"
+`;
+
+exports[`intrinsic_call.js [oxc] format 1`] = `
+"Unexpected token (2:13)
+  1 | function doSmth()     {
+> 2 |             %DebugPrint
+    |             ^
+  3 |         (
+  4 |                 foo )
+  5 |   }"
 `;
 
 exports[`intrinsic_call.js format 1`] = `

@@ -1,4 +1,4 @@
-import { diffArrays } from "diff/lib/diff/array.js";
+import { diffArrays } from "diff";
 import {
   convertEndOfLineToChars,
   countEndOfLineChars,

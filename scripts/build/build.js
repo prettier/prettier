@@ -6,8 +6,9 @@ import readline from "node:readline";
 import createEsmUtils from "esm-utils";
 import styleText from "node-style-text";
 import prettyBytes from "pretty-bytes";
+import prettyMilliseconds from "pretty-ms";
 import { DIST_DIR } from "../utils/index.js";
-import packageConfig from "./config.js";
+import packageConfigs from "./config.js";
 import parseArguments from "./parse-arguments.js";
 
 const { require } = createEsmUtils(import.meta);
@@ -132,6 +133,24 @@ async function buildFile({ packageConfig, file, cliOptions, results }) {
 async function run() {
   const cliOptions = parseArguments();
 
+  let packagesToBuild = [];
+  if (cliOptions.packages) {
+    for (const packageName of cliOptions.packages) {
+      const packageConfig = packageConfigs.find(
+        (packageConfig) => packageConfig.packageName === packageName,
+      );
+
+      if (!packageConfig) {
+        throw new Error(`Unknown package "${packageName}"`);
+      }
+
+      packagesToBuild.push(packageConfig);
+    }
+  } else {
+    packagesToBuild = packageConfigs;
+  }
+
+  // TODO: Clear package dist directory instead
   if (cliOptions.clean) {
     let stat;
     try {
@@ -149,17 +168,31 @@ async function run() {
     }
   }
 
-  console.log(styleText.inverse(" Building packages "));
+  for (const [index, packageConfig] of packagesToBuild.entries()) {
+    if (index > 0) {
+      console.log();
+    }
 
-  const results = [];
-  for (const file of packageConfig.files) {
-    const result = await buildFile({
-      packageConfig,
-      file,
-      cliOptions,
-      results,
-    });
-    results.push(result);
+    console.log(
+      styleText.inverse(
+        `[${index + 1}/${packagesToBuild.length}] Building package '${packageConfig.packageName}'`,
+      ),
+    );
+
+    const startTime = performance.now();
+    const results = [];
+    for (const file of packageConfig.files) {
+      const result = await buildFile({
+        packageConfig,
+        file,
+        cliOptions,
+        results,
+      });
+      results.push(result);
+    }
+    console.log(
+      `Build package '${packageConfig.packageName}' success in ${prettyMilliseconds(performance.now() - startTime)}`,
+    );
   }
 }
 

@@ -33,6 +33,16 @@ exports[`no-semi.js [meriyah] format 1`] = `
 Cause: [2:1-2:2]: Unexpected token: ':'"
 `;
 
+exports[`no-semi.js [oxc] format 1`] = `
+"Unexpected token (2:2)
+  1 | a
+> 2 | ;::b.c
+    |  ^
+  3 |
+  4 | class A {
+  5 |   a = b;"
+`;
+
 exports[`no-semi.js - {"semi":false} [acorn] format 1`] = `
 "Unexpected token (2:2)
   1 | a
@@ -64,6 +74,16 @@ exports[`no-semi.js - {"semi":false} [meriyah] format 1`] = `
   4 | class A {
   5 |   a = b;
 Cause: [2:1-2:2]: Unexpected token: ':'"
+`;
+
+exports[`no-semi.js - {"semi":false} [oxc] format 1`] = `
+"Unexpected token (2:2)
+  1 | a
+> 2 | ;::b.c
+    |  ^
+  3 |
+  4 | class A {
+  5 |   a = b;"
 `;
 
 exports[`no-semi.js - {"semi":false} format 1`] = `

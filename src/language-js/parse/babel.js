@@ -187,7 +187,6 @@ const allowedReasonCodes = new Set([
   "UnterminatedJsxContent",
   "UnexpectedReservedWord",
   "ModuleAttributesWithDuplicateKeys",
-  "LineTerminatorBeforeArrow",
   "InvalidEscapeSequenceTemplate",
   "NonAbstractClassHasAbstractMethod",
   "OptionalTypeBeforeRequired",
