@@ -108,8 +108,6 @@ runFormatTest(import.meta, ["babel", "flow", "typescript"], {
       // "invalid-script-top-level-using-binding.js",
       "valid-module-block-top-level-using-binding.js",
       "valid-module-block-top-level-await-using-binding.js",
-
-      "valid-using-binding-using.js",
     ],
   },
 });
