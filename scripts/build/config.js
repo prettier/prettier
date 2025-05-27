@@ -1009,12 +1009,26 @@ export default [
           addDefaultExport: true,
           replaceModule: [
             {
+              module: require.resolve("hermes-parser/dist/HermesParser.js"),
+              process(text) {
+                text =
+                  'const Buffer = globalThis.Buffer ?? require("buffer/").Buffer;' +
+                  text;
+                return text;
+              },
+            },
+            {
               module: require.resolve("hermes-parser/dist/HermesParserWASM.js"),
-              process: (text) =>
-                text
-                  .replaceAll("process.argv", "[]")
-                  .replaceAll('require("fs")', "undefined")
-                  .replaceAll('require("path")', "undefined"),
+              process(text) {
+                text = text.replaceAll("process.argv", "[]");
+                text = text.replaceAll('require("fs")', "undefined");
+                text = text.replaceAll('require("path")', "undefined");
+                text =
+                  'const Buffer = globalThis.Buffer ?? require("buffer/").Buffer;' +
+                  text;
+
+                return text;
+              },
             },
           ],
         },
