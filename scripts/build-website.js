@@ -67,11 +67,11 @@ async function buildPlaygroundFiles() {
 
   // TODO: Support stable version
   if (IS_PULL_REQUEST) {
-    const fileName = "hermes.mjs";
+    const fileName = "plugins/hermes.mjs";
     files.push({
       fileName,
       file: path.join(DIST_DIR, "plugin-hermes/index.mjs"),
-      dist: path.join(PLAYGROUND_PRETTIER_DIR, `plugins/${fileName}`),
+      dist: path.join(PLAYGROUND_PRETTIER_DIR, fileName),
     });
   }
 
