@@ -18,7 +18,7 @@ export default {
         "scripts/tools/**",
         "src/experimental-cli/**",
       ],
-      ignoreDependencies: ["eslint-formatter-friendly", "ts-expect"],
+      ignoreDependencies: ["eslint-formatter-friendly", "ts-expect", "buffer"],
       ignoreBinaries: [
         "test-coverage",
         "renovate-config-validator",
