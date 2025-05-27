@@ -63,9 +63,13 @@ const babelOnlyTests = new Set(
     "comments-closure-typecast",
   ].map((directory) => path.join(__dirname, "../format/js", directory)),
 );
+<<<<<<< HEAD
 
 const espreeDisabledTests = babelOnlyTests;
 const acornDisabledTests = babelOnlyTests;
+=======
+const acornDisabledTests = new Set();
+>>>>>>> main
 const meriyahDisabledTests = new Set([
   ...babelOnlyTests,
   ...[
@@ -423,6 +427,12 @@ async function runTest({
       formatOptions,
     );
     if (isUnstableTest) {
+      if (secondOutput === firstOutput) {
+        throw new Error(
+          `Unstable file '${filename}' is stable now, please remove from the 'unstableTests' list.`,
+        );
+      }
+
       // To keep eye on failed tests, this assert never supposed to pass,
       // if it fails, just remove the file from `unstableTests`
       expect(secondOutput).not.toEqual(firstOutput);

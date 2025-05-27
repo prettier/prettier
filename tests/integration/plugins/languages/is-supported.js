@@ -8,12 +8,13 @@ const languages = [
   {
     name: "language-name-does-not-matter",
     parsers: [PARSER_NAME],
-    isSupported(file) {
-      if (!path.isAbsolute(file)) {
+    isSupported({filepath}) {
+      // This is only true when running from CLI
+      if (!path.isAbsolute(filepath)) {
         throw new Error("Unexpected non absolute path");
       }
 
-      return /(?<separator>[\\/])\.husky\k<separator>[^\\/]+$/u.test(file);
+      return /(?<separator>[\\/])\.husky\k<separator>[^\\/]+$/u.test(filepath);
     },
   },
 ];

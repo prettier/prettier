@@ -58,9 +58,9 @@ function printMemberChain(path, options, print) {
     );
   }
 
-  const { parent } = path;
   const isExpressionStatement =
-    !parent || parent.type === "ExpressionStatement";
+    (path.parent.type === "ChainExpression" ? path.grandparent : path.parent)
+      .type === "ExpressionStatement";
 
   // The first phase is to linearize the AST by traversing it down.
   //

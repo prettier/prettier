@@ -145,7 +145,6 @@ function callPluginPrintFunction(path, options, printPath, args, embeds) {
 async function prepareToPrint(ast, options) {
   const comments = ast.comments ?? [];
   options[Symbol.for("comments")] = comments;
-  options[Symbol.for("tokens")] = ast.tokens ?? [];
   // For JS printer to ignore attached comments
   options[Symbol.for("printedComments")] = new Set();
 

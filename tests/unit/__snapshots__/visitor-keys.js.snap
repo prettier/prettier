@@ -900,9 +900,10 @@ exports[`visitor keys estree 1`] = `
     "literal",
   ],
   "TSMappedType": [
+    "constraint",
+    "key",
     "nameType",
     "typeAnnotation",
-    "typeParameter",
   ],
   "TSMethodSignature": [
     "key",

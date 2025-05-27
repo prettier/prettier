@@ -69,6 +69,7 @@ function handleOwnLineComment(context) {
     handleBreakAndContinueStatementComments,
     handleNestedConditionalExpressionComments,
     handleCommentsInDestructuringPattern,
+    handleTSMappedTypeComments,
   ].some((fn) => fn(context));
 }
 
@@ -95,6 +96,7 @@ function handleEndOfLineComment(context) {
     handleSwitchDefaultCaseComments,
     handleLastUnionElementInExpression,
     handleLastBinaryOperatorOperand,
+    handleTSMappedTypeComments,
   ].some((fn) => fn(context));
 }
 
@@ -113,7 +115,6 @@ function handleRemainingComment(context) {
     handleOnlyComments,
     handleCommentAfterArrowParams,
     handleFunctionNameComments,
-    handleTSMappedTypeComments,
     handleBreakAndContinueStatementComments,
     handleTSFunctionTrailingComments,
   ].some((fn) => fn(context));
@@ -906,8 +907,7 @@ function handleIgnoreComments({ comment, enclosingNode, followingNode }) {
   if (
     isPrettierIgnoreComment(comment) &&
     enclosingNode?.type === "TSMappedType" &&
-    followingNode?.type === "TSTypeParameter" &&
-    followingNode.constraint
+    followingNode === enclosingNode.key
   ) {
     enclosingNode.prettierIgnore = true;
     comment.unignore = true;
@@ -915,27 +915,15 @@ function handleIgnoreComments({ comment, enclosingNode, followingNode }) {
   }
 }
 
-function handleTSMappedTypeComments({
-  comment,
-  precedingNode,
-  enclosingNode,
-  followingNode,
-}) {
+function handleTSMappedTypeComments({ comment, precedingNode, enclosingNode }) {
   if (enclosingNode?.type !== "TSMappedType") {
-    return false;
+    return;
   }
 
-  if (followingNode?.type === "TSTypeParameter" && followingNode.name) {
-    addLeadingComment(followingNode.name, comment);
+  if (!precedingNode) {
+    addDanglingComment(enclosingNode, comment);
     return true;
   }
-
-  if (precedingNode?.type === "TSTypeParameter" && precedingNode.constraint) {
-    addTrailingComment(precedingNode.constraint, comment);
-    return true;
-  }
-
-  return false;
 }
 
 function handleSwitchDefaultCaseComments({

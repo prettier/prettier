@@ -1,5 +1,4 @@
 import assert from "node:assert";
-import isNonEmptyArray from "../../../utils/is-non-empty-array.js";
 import { locEnd, locStart } from "../../loc.js";
 import createTypeCheckFunction from "../../utils/create-type-check-function.js";
 import getRaw from "../../utils/get-raw.js";
@@ -39,53 +38,77 @@ const isNodeWithRaw = createTypeCheckFunction([
 function postprocess(ast, options) {
   const { parser, text } = options;
 
-  // `InterpreterDirective` from babel parser
+  // `InterpreterDirective` from babel parser and flow parser
   // Other parsers parse it as comment, babel treat it as comment too
   // https://github.com/babel/babel/issues/15116
-  if (ast.type === "File" && ast.program.interpreter) {
-    const {
-      program: { interpreter },
-      comments,
-    } = ast;
-    delete ast.program.interpreter;
-    comments.unshift(interpreter);
+  const program = ast.type === "File" ? ast.program : ast;
+  const { interpreter } = program;
+  if (interpreter) {
+    ast.comments.unshift(interpreter);
+    delete program.interpreter;
   }
 
-  // Keep Babel's non-standard ParenthesizedExpression nodes only if they have Closure-style type cast comments.
-  if (parser === "babel") {
-    const startOffsetsOfTypeCastedNodes = new Set();
+  if (ast.comments.length > 0) {
+    let followingComment;
+    for (let i = ast.comments.length - 1; i >= 0; i--) {
+      const comment = ast.comments[i];
 
-    // Comments might be attached not directly to ParenthesizedExpression but to its ancestor.
-    // E.g.: /** @type {Foo} */ (foo).bar();
-    // Let's use the fact that those ancestors and ParenthesizedExpression have the same start offset.
-
-    ast = visitNode(ast, (node) => {
-      if (node.leadingComments?.some(isTypeCastComment)) {
-        startOffsetsOfTypeCastedNodes.add(locStart(node));
+      if (
+        followingComment &&
+        locEnd(comment) === locStart(followingComment) &&
+        isBlockComment(comment) &&
+        isBlockComment(followingComment) &&
+        isIndentableBlockComment(comment) &&
+        isIndentableBlockComment(followingComment)
+      ) {
+        ast.comments.splice(i + 1, 1);
+        comment.value += "*//*" + followingComment.value;
+        comment.range = [locStart(comment), locEnd(followingComment)];
       }
-    });
 
-    ast = visitNode(ast, (node) => {
-      if (node.type === "ParenthesizedExpression") {
-        const { expression } = node;
-
-        // Align range with `flow`
-        if (expression.type === "TypeCastExpression") {
-          expression.range = [...node.range];
-          return expression;
-        }
-
-        const start = locStart(node);
-        if (!startOffsetsOfTypeCastedNodes.has(start)) {
-          expression.extra = { ...expression.extra, parenthesized: true };
-          return expression;
-        }
+      /* c8 ignore next 3 */
+      if (!isLineComment(comment) && !isBlockComment(comment)) {
+        throw new TypeError(`Unknown comment type: "${comment.type}".`);
       }
-    });
+
+      /* c8 ignore next 3 */
+      if (process.env.NODE_ENV !== "production") {
+        assertComment(comment, text);
+      }
+
+      followingComment = comment;
+    }
   }
 
   ast = visitNode(ast, (node) => {
     switch (node.type) {
+      case "ParenthesizedExpression": {
+        const { expression } = node;
+        const start = locStart(node);
+
+        // Align range with `flow`
+        if (expression.type === "TypeCastExpression") {
+          expression.range = [start, locEnd(node)];
+          return expression;
+        }
+
+        // Keep ParenthesizedExpression nodes only if they have Closure-style type cast comments.
+        const previousComment = ast.comments.findLast(
+          (comment) => locEnd(comment) <= start,
+        );
+        const keepTypeCast =
+          previousComment &&
+          isTypeCastComment(previousComment) &&
+          // check that there are only white spaces between the comment and the parenthesis
+          text.slice(locEnd(previousComment), start).trim().length === 0;
+
+        if (!keepTypeCast) {
+          expression.extra = { ...expression.extra, parenthesized: true };
+          return expression;
+        }
+        break;
+      }
+
       case "LogicalExpression":
         // We remove unneeded parens around same-operator LogicalExpressions
         if (isUnbalancedLogicalTree(node)) {
@@ -122,14 +145,7 @@ function postprocess(ast, options) {
 
       case "TSTypeParameter":
         // babel-ts
-        if (typeof node.name === "string") {
-          const start = locStart(node);
-          node.name = {
-            type: "Identifier",
-            name: node.name,
-            range: [start, start + node.name.length],
-          };
-        }
+        fixBabelTSTypeParameter(node);
         break;
 
       // For hack-style pipeline
@@ -144,6 +160,19 @@ function postprocess(ast, options) {
           return node.types[0];
         }
         break;
+
+      // Remove this when update `@babel/parser` to v8
+      // https://github.com/typescript-eslint/typescript-eslint/pull/7065
+      case "TSMappedType":
+        if (!node.constraint && !node.key) {
+          const { name: key, constraint } = fixBabelTSTypeParameter(
+            node.typeParameter,
+          );
+          node.constraint = constraint;
+          node.key = key;
+          delete node.typeParameter;
+        }
+        break;
     }
 
     /* c8 ignore next 3 */
@@ -152,43 +181,25 @@ function postprocess(ast, options) {
     }
   });
 
-  if (isNonEmptyArray(ast.comments)) {
-    let followingComment;
-    for (let i = ast.comments.length - 1; i >= 0; i--) {
-      const comment = ast.comments[i];
-
-      if (
-        followingComment &&
-        locEnd(comment) === locStart(followingComment) &&
-        isBlockComment(comment) &&
-        isBlockComment(followingComment) &&
-        isIndentableBlockComment(comment) &&
-        isIndentableBlockComment(followingComment)
-      ) {
-        ast.comments.splice(i + 1, 1);
-        comment.value += "*//*" + followingComment.value;
-        comment.range = [locStart(comment), locEnd(followingComment)];
-      }
-
-      if (!isLineComment(comment) && !isBlockComment(comment)) {
-        throw new TypeError(`Unknown comment type: "${comment.type}".`);
-      }
-
-      /* c8 ignore next 3 */
-      if (process.env.NODE_ENV !== "production") {
-        assertComment(comment, text);
-      }
-
-      followingComment = comment;
-    }
-  }
-
   // In `typescript`/`espree`/`flow`, `Program` doesn't count whitespace and comments
   // See https://github.com/eslint/espree/issues/488
   if (ast.type === "Program") {
     ast.range = [0, text.length];
   }
   return ast;
+}
+
+function fixBabelTSTypeParameter(node) {
+  if (node.type === "TSTypeParameter" && typeof node.name === "string") {
+    const start = locStart(node);
+    node.name = {
+      type: "Identifier",
+      name: node.name,
+      range: [start, start + node.name.length],
+    };
+  }
+
+  return node;
 }
 
 function isUnbalancedLogicalTree(node) {

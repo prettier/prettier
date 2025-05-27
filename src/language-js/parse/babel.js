@@ -27,6 +27,7 @@ const parseOptions = {
   errorRecovery: true,
   createParenthesizedExpressions: true,
   createImportExpressions: true,
+  attachComment: false,
   plugins: [
     // When adding a plugin, please add a test in `tests/format/js/babel-plugins`,
     // To remove plugins, remove it here and run `yarn test tests/format/js/babel-plugins` to verify
@@ -46,8 +47,10 @@ const parseOptions = {
     "deferredImportEvaluation",
     ["optionalChainingAssign", { version: "2023-07" }],
   ],
-  tokens: true,
-  ranges: true,
+  tokens: false,
+  // Ranges not available on comments, so we use `Node#{start,end}` instead
+  // https://github.com/babel/babel/issues/15115
+  ranges: false,
 };
 
 /** @type {ParserPlugin} */
@@ -151,7 +154,7 @@ function createParse({ isExpression = false, optionsCombinations }) {
       ast = wrapBabelExpression(ast, { text, rootMarker: options.rootMarker });
     }
 
-    return postprocess(ast, { parser: "babel", text });
+    return postprocess(ast, { text });
   };
 }
 
@@ -237,21 +240,21 @@ const babelEstree = createBabelParser({
   ),
 });
 
-export default {
-  babel,
-  "babel-flow": babelFlow,
-  "babel-ts": babelTs,
-  /** @internal */
-  __js_expression: babelExpression,
-  __ts_expression: babelTSExpression,
+export { babel, babelFlow as "babel-flow", babelTs as "babel-ts" };
+
+/** @internal */
+// eslint-disable-next-line simple-import-sort/exports
+export {
+  babelExpression as __js_expression,
+  babelTSExpression as __ts_expression,
   /** for vue filter */
-  __vue_expression: babelExpression,
+  babelExpression as __vue_expression,
   /** for vue filter written in TS */
-  __vue_ts_expression: babelTSExpression,
+  babelTSExpression as __vue_ts_expression,
   /** for vue event binding to handle semicolon */
-  __vue_event_binding: babel,
+  babel as __vue_event_binding,
   /** for vue event binding written in TS to handle semicolon */
-  __vue_ts_event_binding: babelTs,
+  babelTs as __vue_ts_event_binding,
   /** verify that we can print this AST */
-  __babel_estree: babelEstree,
+  babelEstree as __babel_estree,
 };

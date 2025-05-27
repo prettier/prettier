@@ -34,6 +34,18 @@ exports[`throw error for unsupported extension  1`] = `
 }
 `;
 
+exports[`throw error if both --config and --no-config are submitted  1`] = `
+{
+  "stderr": "[error] Cannot use --no-config and --config together.",
+}
+`;
+
+exports[`throw error if both --config and --no-config are submitted  2`] = `
+{
+  "stderr": "[error] Cannot use --no-config and --config together.",
+}
+`;
+
 exports[`throw error with invalid config format  1`] = `
 {
   "stdout": "",
