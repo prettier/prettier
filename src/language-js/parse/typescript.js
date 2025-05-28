@@ -83,6 +83,7 @@ function parse(text, options = {}) {
   if (typeof filepath !== "string") {
     filepath = undefined;
   }
+
   const textToParse = replaceHashbang(text);
   const parseOptionsCombinations = getParseOptionsCombinations(text, filepath);
 
