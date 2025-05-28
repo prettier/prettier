@@ -25,16 +25,11 @@ function createParseError(error, { text }) {
   });
 }
 
-let cachedIsRawTransferSupported;
-const isRawTransferSupported = () => {
-  cachedIsRawTransferSupported ??= rawTransferSupported();
-  return cachedIsRawTransferSupported;
-};
-
 async function parseWithOptions(filename, text, options) {
   const result = await oxcParse(filename, text, {
     preserveParens: true,
-    experimentalRawTransfer: isRawTransferSupported(),
+    experimentalRawTransfer: rawTransferSupported(),
+    showSemanticErrors: false,
     ...options,
   });
 
@@ -61,62 +56,47 @@ async function parseJs(text, options = {}) {
     filepath = "prettier.jsx";
   }
 
-  const combinations = (sourceType ? [sourceType] : ["module", "script"]).map(
-    (sourceType) => () =>
-      parseWithOptions(filepath, text, { sourceType, lang: "jsx" }),
-  );
+  const { program: ast, comments } = await parseWithOptions(filepath, text, {
+    sourceType,
+    lang: "jsx",
+  });
 
-  let result;
-  try {
-    result = await tryCombinationsAsync(combinations);
-  } catch (/** @type {any} */ { errors: [error] }) {
-    throw error;
-  }
-
-  const { program: ast, comments } = result;
   // @ts-expect-error -- expected
   ast.comments = comments;
 
   return postprocess(ast, { text, parser: "oxc" });
 }
 
-function getTsParseOptionsCombinations(text, options) {
+async function parseTs(text, options = {}) {
   const sourceType = getSourceType(options);
-  /** @type {("module" | "script") []} */
-  const sourceTypes = sourceType ? [sourceType] : ["module", "script"];
-  const combinations = sourceTypes.map((sourceType) => ({ sourceType }));
-
-  const extension = options.filepath?.toLowerCase().split(".").at(-1);
-  const isKnownJsx = extension === "jsx" || extension === "tsx";
-
-  if (isKnownJsx) {
-    return combinations.map((parseOptions) => ({
-      ...parseOptions,
-      lang: "tsx",
-    }));
+  const parseOptions = { sourceType, astType: "ts" };
+  let { filepath } = options;
+  let isKnownJsx;
+  if (typeof filepath === "string") {
+    const extension = filepath.toLowerCase().split(".").at(-1);
+    isKnownJsx = extension === "jsx" || extension === "tsx";
+  } else {
+    filepath = "prettier.tsx";
   }
 
-  const shouldEnableJsx = isProbablyJsx(text);
-  return combinations.flatMap((parseOptions) =>
-    [shouldEnableJsx, !shouldEnableJsx].map((jsx) =>
-      jsx ? { ...parseOptions, lang: "tsx" } : { ...parseOptions, lang: "ts" },
-    ),
-  );
-}
-
-async function parseTs(text, options = {}) {
-  const parseOptionsCombinations = getTsParseOptionsCombinations(text, options);
-  let { filepath } = options;
-  if (typeof filepath !== "string") {
-    filepath = "prettier.tsx";
+  let parseOptionsCombinations = [];
+  if (isKnownJsx) {
+    parseOptionsCombinations = [{ ...parseOptions, lang: "tsx" }];
+  } else {
+    const shouldEnableJsx = isProbablyJsx(text);
+    parseOptionsCombinations = [shouldEnableJsx, !shouldEnableJsx].map(
+      (shouldEnableJsx) => ({
+        ...parseOptions,
+        lang: shouldEnableJsx ? "tsx" : "ts",
+      }),
+    );
   }
 
   let result;
   try {
     result = await tryCombinationsAsync(
       parseOptionsCombinations.map(
-        (parseOptions) => () =>
-          parseWithOptions(filepath, text, { ...parseOptions, astType: "ts" }),
+        (parseOptions) => () => parseWithOptions(filepath, text, parseOptions),
       ),
     );
   } catch ({

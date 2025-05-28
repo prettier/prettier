@@ -1,9 +1,10 @@
 /** @returns {"module" | "script" | undefined} */
 function getSourceType(options) {
   let { filepath } = options;
-  if (!filepath) {
+  if (typeof filepath !== "string") {
     return;
   }
+
   filepath = filepath.toLowerCase();
 
   if (filepath.endsWith(".cjs") || filepath.endsWith(".cts")) {
