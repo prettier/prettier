@@ -74,7 +74,7 @@ async function parseTs(text, options) {
   const sourceType = getSourceType(filepath);
   const parseOptions = { sourceType, astType: "ts" };
   const isKnownJsx =
-    typeof filepath === "string" && /\.[jt]sx$/iu.test(filepath);
+    typeof filepath === "string" && /\.(?:jsx|tsx)$/iu.test(filepath);
 
   let parseOptionsCombinations = [];
   if (isKnownJsx) {
