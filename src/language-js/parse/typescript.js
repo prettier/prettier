@@ -78,8 +78,8 @@ function getParseOptionsCombinations(text, filepath) {
   );
 }
 
-function parse(text, options = {}) {
-  let { filepath } = options;
+function parse(text, options) {
+  let filepath = options?.filepath;
   if (typeof filepath !== "string") {
     filepath = undefined;
   }
