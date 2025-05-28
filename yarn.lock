@@ -15,12 +15,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@angular/compiler@npm:19.2.8":
-  version: 19.2.8
-  resolution: "@angular/compiler@npm:19.2.8"
+"@angular/compiler@npm:19.2.14":
+  version: 19.2.14
+  resolution: "@angular/compiler@npm:19.2.14"
   dependencies:
     tslib: "npm:^2.3.0"
-  checksum: 10/829585e245591d84ac2369c1e3089216b2c393e41b7eb5efc527b30404b7b70bdb62b10f36e3cbdbfdc714692a1973eaa51588fddf60b34198322b2f7035b153
+  checksum: 10/15938090b64caa0bacd3c14a09a382106c3821266c100990186077076fb2cbe324364b7706e1579d18ed9025e3a2d1ad2cc1e04c7d8134725e82cc14434aea26
   languageName: node
   linkType: hard
 
@@ -2538,12 +2538,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"angular-estree-parser@npm:11.1.1":
-  version: 11.1.1
-  resolution: "angular-estree-parser@npm:11.1.1"
+"angular-estree-parser@npm:11.2.0":
+  version: 11.2.0
+  resolution: "angular-estree-parser@npm:11.2.0"
   peerDependencies:
-    "@angular/compiler": ">=19.2.2"
-  checksum: 10/b1a6dfc7761de40814e1d85f773ac0aaef4e7ed0e4f94f905d1b460cc91c0e94005e85d47d3e99f6bc0f12433291e556d3cbf198339ce3fb7d888e1f5699f036
+    "@angular/compiler": ">=19.2.2 || ^20.0.0"
+  checksum: 10/3ed1a5ed870d7c7e1493057eafc4522342b3f8038a0dc5089e5df539c424d10d98f9a062f2f6f009aa002f97ffdb7609912313b7b56be083bbf4fa9a13ff87af
   languageName: node
   linkType: hard
 
@@ -7210,7 +7210,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "prettier@workspace:."
   dependencies:
-    "@angular/compiler": "npm:19.2.8"
+    "@angular/compiler": "npm:19.2.14"
     "@babel/code-frame": "npm:7.27.1"
     "@babel/generator": "npm:7.27.3"
     "@babel/parser": "npm:7.27.3"
@@ -7229,7 +7229,7 @@ __metadata:
     "@typescript-eslint/visitor-keys": "npm:8.33.0"
     acorn: "npm:8.14.1"
     acorn-jsx: "npm:5.3.2"
-    angular-estree-parser: "npm:11.1.1"
+    angular-estree-parser: "npm:11.2.0"
     angular-html-parser: "npm:8.1.0"
     browserslist: "npm:4.24.5"
     browserslist-to-esbuild: "npm:2.1.1"
