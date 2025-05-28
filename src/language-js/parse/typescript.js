@@ -53,12 +53,7 @@ function createParseError(error) {
 const isKnownFileType = (filepath) =>
   filepath && /\.(?:js|mjs|cjs|jsx|ts|mts|cts|tsx)$/iu.test(filepath);
 
-function getParseOptionsCombinations(text, options) {
-  let { filepath } = options;
-  if (typeof filepath !== "string") {
-    filepath = undefined;
-  }
-
+function getParseOptionsCombinations(text, filepath) {
   let combinations = [{ ...baseParseOptions, filePath: filepath }];
 
   const sourceType = getSourceType(filepath);
@@ -84,8 +79,12 @@ function getParseOptionsCombinations(text, options) {
 }
 
 function parse(text, options = {}) {
+  let { filepath } = options;
+  if (typeof filepath !== "string") {
+    filepath = undefined;
+  }
   const textToParse = replaceHashbang(text);
-  const parseOptionsCombinations = getParseOptionsCombinations(text, options);
+  const parseOptionsCombinations = getParseOptionsCombinations(text, filepath);
 
   let ast;
   try {
