@@ -5,7 +5,11 @@ import getShebang from "../utils/get-shebang.js";
 import postprocess from "./postprocess/index.js";
 import createBabelParseError from "./utils/create-babel-parse-error.js";
 import createParser from "./utils/create-parser.js";
-import getSourceType from "./utils/get-source-type.js";
+import {
+  getSourceType,
+  SOURCE_TYPE_MODULE,
+  SOURCE_TYPE_SCRIPT,
+} from "./utils/source-types.js";
 import wrapBabelExpression from "./utils/wrap-babel-expression.js";
 
 const createBabelParser = (options) => createParser(createParse(options));
@@ -18,7 +22,7 @@ const createBabelParser = (options) => createParser(createParse(options));
 
 /** @type {ParserOptions} */
 const parseOptions = {
-  sourceType: "module",
+  sourceType: SOURCE_TYPE_MODULE,
   allowImportExportEverywhere: true,
   allowReturnOutsideFunction: true,
   allowNewTargetOutsideFunction: true,
@@ -113,10 +117,10 @@ function createParse({ isExpression = false, optionsCombinations }) {
 
     let combinations = optionsCombinations;
     const sourceType = options.__babelSourceType ?? getSourceType(options);
-    if (sourceType === "script") {
+    if (sourceType === SOURCE_TYPE_SCRIPT) {
       combinations = combinations.map((options) => ({
         ...options,
-        sourceType: "script",
+        sourceType,
       }));
     }
 

@@ -4,7 +4,8 @@ import createError from "../../common/parser-create-error.js";
 import { tryCombinationsAsync } from "../../utils/try-combinations.js";
 import postprocess from "./postprocess/index.js";
 import createParser from "./utils/create-parser.js";
-import getSourceType from "./utils/get-source-type.js";
+import jsxRegexp from "./utils/jsx-regexp.evaluate.js";
+import { getSourceType } from "./utils/source-types.js";
 
 function createParseError(error, { text }) {
   const {
@@ -83,7 +84,7 @@ async function parseTs(text, options = {}) {
   if (isKnownJsx) {
     parseOptionsCombinations = [{ ...parseOptions, lang: "tsx" }];
   } else {
-    const shouldEnableJsx = isProbablyJsx(text);
+    const shouldEnableJsx = jsxRegexp.test(text);
     parseOptionsCombinations = [shouldEnableJsx, !shouldEnableJsx].map(
       (shouldEnableJsx) => ({
         ...parseOptions,
@@ -110,22 +111,6 @@ async function parseTs(text, options = {}) {
   // @ts-expect-error -- expected
   ast.comments = comments;
   return postprocess(ast, { text, parser: "oxc", oxcAstType: "ts" });
-}
-
-/**
- * Use a naive regular expression to detect JSX
- * copied from typescript.js
- */
-function isProbablyJsx(text) {
-  return new RegExp(
-    // eslint-disable-next-line regexp/no-useless-non-capturing-group -- possible bug
-    [
-      "(?:^[^\"'`]*</)", // Contains "</" when probably not in a string
-      "|",
-      "(?:^[^/]{2}.*/>)", // Contains "/>" on line not starting with "//"
-    ].join(""),
-    "mu",
-  ).test(text);
 }
 
 const oxc = createParser(parseJs);
