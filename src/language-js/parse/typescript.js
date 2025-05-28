@@ -3,8 +3,12 @@ import createError from "../../common/parser-create-error.js";
 import tryCombinations from "../../utils/try-combinations.js";
 import postprocess from "./postprocess/index.js";
 import createParser from "./utils/create-parser.js";
-import getSourceType from "./utils/get-source-type.js";
+import jsxRegexp from "./utils/jsx-regexp.evaluate.js";
 import replaceHashbang from "./utils/replace-hashbang.js";
+import {
+  getSourceType,
+  SOURCE_TYPE_COMBINATIONS,
+} from "./utils/source-types.js";
 
 /** @import {TSESTreeOptions} from "@typescript-eslint/typescript-estree" */
 
@@ -47,40 +51,41 @@ function createParseError(error) {
 
 // https://typescript-eslint.io/packages/parser/#jsx
 const isKnownFileType = (filepath) =>
-  /\.(?:js|mjs|cjs|jsx|ts|mts|cts|tsx)$/iu.test(filepath);
+  filepath && /\.(?:js|mjs|cjs|jsx|ts|mts|cts|tsx)$/iu.test(filepath);
 
-function getParseOptionsCombinations(text, options) {
-  const filepath = options?.filepath;
-
+function getParseOptionsCombinations(text, filepath) {
   let combinations = [{ ...baseParseOptions, filePath: filepath }];
 
-  const sourceType = getSourceType(options);
+  const sourceType = getSourceType(filepath);
   if (sourceType) {
     combinations = combinations.map((parseOptions) => ({
       ...parseOptions,
       sourceType,
     }));
   } else {
-    /** @type {("module" | "script") []} */
-    const sourceTypes = ["module", "script"];
-    combinations = sourceTypes.flatMap((sourceType) =>
+    combinations = SOURCE_TYPE_COMBINATIONS.flatMap((sourceType) =>
       combinations.map((parseOptions) => ({ ...parseOptions, sourceType })),
     );
   }
 
-  if (filepath && isKnownFileType(filepath)) {
+  if (isKnownFileType(filepath)) {
     return combinations;
   }
 
-  const shouldEnableJsx = isProbablyJsx(text);
+  const shouldEnableJsx = jsxRegexp.test(text);
   return [shouldEnableJsx, !shouldEnableJsx].flatMap((jsx) =>
     combinations.map((parseOptions) => ({ ...parseOptions, jsx })),
   );
 }
 
-function parse(text, options = {}) {
+function parse(text, options) {
+  let filepath = options?.filepath;
+  if (typeof filepath !== "string") {
+    filepath = undefined;
+  }
+
   const textToParse = replaceHashbang(text);
-  const parseOptionsCombinations = getParseOptionsCombinations(text, options);
+  const parseOptionsCombinations = getParseOptionsCombinations(text, filepath);
 
   let ast;
   try {
@@ -100,21 +105,6 @@ function parse(text, options = {}) {
   }
 
   return postprocess(ast, { parser: "typescript", text });
-}
-
-/**
- * Use a naive regular expression to detect JSX
- */
-function isProbablyJsx(text) {
-  return new RegExp(
-    // eslint-disable-next-line regexp/no-useless-non-capturing-group -- possible bug
-    [
-      "(?:^[^\"'`]*</)", // Contains "</" when probably not in a string
-      "|",
-      "(?:^[^/]{2}.*/>)", // Contains "/>" on line not starting with "//"
-    ].join(""),
-    "mu",
-  ).test(text);
 }
 
 export const typescript = createParser(parse);

@@ -3,7 +3,11 @@ import createError from "../../common/parser-create-error.js";
 import tryCombinations from "../../utils/try-combinations.js";
 import postprocess from "./postprocess/index.js";
 import createParser from "./utils/create-parser.js";
-import getSourceType from "./utils/get-source-type.js";
+import {
+  getSourceType,
+  SOURCE_TYPE_COMBINATIONS,
+  SOURCE_TYPE_MODULE,
+} from "./utils/source-types.js";
 
 // https://github.com/meriyah/meriyah/blob/4676f60b6c149d7082bde2c9147f9ae2359c8075/src/parser.ts#L185
 const parseOptions = {
@@ -43,7 +47,7 @@ function parseWithOptions(text, sourceType) {
   /** @type {any} */
   const ast = meriyahParse(text, {
     ...parseOptions,
-    module: sourceType === "module",
+    module: sourceType === SOURCE_TYPE_MODULE,
     onComment: comments,
   });
   ast.comments = comments;
@@ -79,11 +83,11 @@ function createParseError(error) {
   });
 }
 
-function parse(text, options = {}) {
-  const sourceType = getSourceType(options);
-  const combinations = (sourceType ? [sourceType] : ["module", "script"]).map(
-    (sourceType) => () => parseWithOptions(text, sourceType),
-  );
+function parse(text, options) {
+  const sourceType = getSourceType(options?.filepath);
+  const combinations = (
+    sourceType ? [sourceType] : SOURCE_TYPE_COMBINATIONS
+  ).map((sourceType) => () => parseWithOptions(text, sourceType));
 
   let ast;
   try {
