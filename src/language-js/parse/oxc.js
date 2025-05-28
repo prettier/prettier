@@ -26,8 +26,8 @@ function createParseError(error, { text }) {
   });
 }
 
-async function parseWithOptions(filename, text, options) {
-  const result = await oxcParse(filename, text, {
+async function parseWithOptions(filepath, text, options) {
+  const result = await oxcParse(filepath, text, {
     preserveParens: true,
     experimentalRawTransfer: rawTransferSupported(),
     showSemanticErrors: false,
@@ -50,17 +50,18 @@ async function parseWithOptions(filename, text, options) {
   return result;
 }
 
-async function parseJs(text, options = {}) {
-  const sourceType = getSourceType(options);
-  let { filepath } = options;
-  if (typeof filepath !== "string") {
-    filepath = "prettier.jsx";
-  }
+async function parseJs(text, options) {
+  const filepath = options?.filepath;
+  const sourceType = getSourceType(filepath);
 
-  const { program: ast, comments } = await parseWithOptions(filepath, text, {
-    sourceType,
-    lang: "jsx",
-  });
+  const { program: ast, comments } = await parseWithOptions(
+    filepath === "string" ? filepath : "prettier.jsx",
+    text,
+    {
+      sourceType,
+      lang: "jsx",
+    },
+  );
 
   // @ts-expect-error -- expected
   ast.comments = comments;
@@ -68,17 +69,12 @@ async function parseJs(text, options = {}) {
   return postprocess(ast, { text, parser: "oxc" });
 }
 
-async function parseTs(text, options = {}) {
-  const sourceType = getSourceType(options);
+async function parseTs(text, options) {
+  let filepath = options?.filepath;
+  const sourceType = getSourceType(filepath);
   const parseOptions = { sourceType, astType: "ts" };
-  let { filepath } = options;
-  let isKnownJsx;
-  if (typeof filepath === "string") {
-    const extension = filepath.toLowerCase().split(".").at(-1);
-    isKnownJsx = extension === "jsx" || extension === "tsx";
-  } else {
-    filepath = "prettier.tsx";
-  }
+  const isKnownJsx =
+    typeof filepath === "string" && /\.[jt]sx$/iu.test(filepath);
 
   let parseOptionsCombinations = [];
   if (isKnownJsx) {
@@ -91,6 +87,10 @@ async function parseTs(text, options = {}) {
         lang: shouldEnableJsx ? "tsx" : "ts",
       }),
     );
+  }
+
+  if (typeof filepath !== "string") {
+    filepath = "prettier.tsx";
   }
 
   let result;

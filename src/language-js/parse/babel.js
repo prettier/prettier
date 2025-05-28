@@ -74,8 +74,8 @@ const appendPlugins = (plugins, options = parseOptions) => ({
 // Similar to babel
 // https://github.com/babel/babel/pull/7934/files#diff-a739835084910b0ee3ea649df5a4d223R67
 const FLOW_PRAGMA_REGEX = /@(?:no)?flow\b/u;
-function isFlowFile(text, options) {
-  if (options.filepath?.endsWith(".js.flow")) {
+function isFlowFile(text, filepath) {
+  if (filepath?.endsWith(".js.flow")) {
     return true;
   }
 
@@ -107,16 +107,21 @@ function parseWithOptions(parse, text, options) {
 
 function createParse({ isExpression = false, optionsCombinations }) {
   return (text, options = {}) => {
+    let { filepath } = options;
+    if (typeof filepath !== "string") {
+      filepath = undefined;
+    }
+
     if (
       (options.parser === "babel" || options.parser === "__babel_estree") &&
-      isFlowFile(text, options)
+      isFlowFile(text, filepath)
     ) {
       options.parser = "babel-flow";
       return babelFlow.parse(text, options);
     }
 
     let combinations = optionsCombinations;
-    const sourceType = options.__babelSourceType ?? getSourceType(options);
+    const sourceType = options.__babelSourceType ?? getSourceType(filepath);
     if (sourceType === SOURCE_TYPE_SCRIPT) {
       combinations = combinations.map((options) => ({
         ...options,

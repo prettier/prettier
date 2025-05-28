@@ -51,16 +51,17 @@ function createParseError(error) {
 
 // https://typescript-eslint.io/packages/parser/#jsx
 const isKnownFileType = (filepath) =>
-  typeof filepath === "string" &&
-  /\.(?:js|mjs|cjs|jsx|ts|mts|cts|tsx)$/iu.test(filepath);
+  filepath && /\.(?:js|mjs|cjs|jsx|ts|mts|cts|tsx)$/iu.test(filepath);
 
 function getParseOptionsCombinations(text, options) {
-  const filepath =
-    typeof options?.filepath === "string" ? options.filepath : undefined;
+  let { filepath } = options;
+  if (typeof filepath !== "string") {
+    filepath = undefined;
+  }
 
   let combinations = [{ ...baseParseOptions, filePath: filepath }];
 
-  const sourceType = getSourceType(options);
+  const sourceType = getSourceType(filepath);
   if (sourceType) {
     combinations = combinations.map((parseOptions) => ({
       ...parseOptions,

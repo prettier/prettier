@@ -67,8 +67,8 @@ function parseWithOptions(text, sourceType) {
   return ast;
 }
 
-function parse(text, options = {}) {
-  const sourceType = getSourceType(options);
+function parse(text, options) {
+  const sourceType = getSourceType(options?.filepath);
   const combinations = (
     sourceType ? [sourceType] : SOURCE_TYPE_COMBINATIONS
   ).map((sourceType) => () => parseWithOptions(text, sourceType));
