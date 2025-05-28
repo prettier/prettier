@@ -55,7 +55,7 @@ async function parseJs(text, options) {
   const sourceType = getSourceType(filepath);
 
   const { program: ast, comments } = await parseWithOptions(
-    filepath === "string" ? filepath : "prettier.jsx",
+    typeof filepath === "string" ? filepath : "prettier.jsx",
     text,
     {
       sourceType,
