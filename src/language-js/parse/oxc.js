@@ -7,7 +7,8 @@ import createParser from "./utils/create-parser.js";
 import jsxRegexp from "./utils/jsx-regexp.evaluate.js";
 import { getSourceType } from "./utils/source-types.js";
 
-/** @import {ParseResult, ParserOptions} from "oxc-parser" */
+/** @import {ParseResult, ParserOptions as ParserOptionsWithoutExperimentalRawTransfer} from "oxc-parser" */
+/** @typedef {ParserOptionsWithoutExperimentalRawTransfer & {experimentalRawTransfer?: boolean}} ParserOptions */
 
 function createParseError(error, { text }) {
   /* c8 ignore next 3 */
