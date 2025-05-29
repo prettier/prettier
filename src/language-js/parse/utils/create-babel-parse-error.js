@@ -1,13 +1,16 @@
 import createError from "../../../common/parser-create-error.js";
 
 function createBabelParseError(error) {
+  let { message, loc, reasonCode } = error;
+
+  /* c8 ignore next 3 */
+  if (!loc) {
+    return error;
+  }
+
   // babel error prints (line:column) with cols that are zero indexed
   // so we need our custom error
-  let {
-    message,
-    loc: { line, column },
-    reasonCode,
-  } = error;
+  const { line, column } = loc;
 
   let cause = error;
   if (reasonCode === "MissingPlugin" || reasonCode === "MissingOneOfPlugins") {

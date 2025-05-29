@@ -1,6 +1,6 @@
 # @prettier/plugin-oxc
 
-> Prettier Oxc plugin.
+> Prettier [Oxc](https://oxc.rs/) plugin.
 
 ## Install
 
@@ -32,7 +32,3 @@ Create or modify your [prettier configuration file](https://prettier.io/docs/en/
   ]
 }
 ```
-
-## Related
-
-- [Oxc](https://oxc.rs/) - The JavaScript Oxidation Compiler

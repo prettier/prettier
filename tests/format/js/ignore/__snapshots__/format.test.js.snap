@@ -35,6 +35,20 @@ exports[`class-expression-decorator.js [flow] format 1`] = `
   6 |"
 `;
 
+exports[`class-expression-decorator.js [hermes] format 1`] = `
+"unrecognized character '@' (3:2)
+  1 | (
+  2 |   // prettier-ignore
+> 3 |   @decorator
+    |  ^
+  4 |   class {}
+  5 | );
+  6 |
+Cause: unrecognized character '@' (3:2)
+  @decorator
+  ^"
+`;
+
 exports[`class-expression-decorator.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -75,6 +89,17 @@ exports[`decorator.js [espree] format 1`] = `
   3 | class A {}
   4 |
 Cause: Unexpected character '@'"
+`;
+
+exports[`decorator.js [hermes] format 1`] = `
+"unrecognized character '@' (2:0)
+  1 | // prettier-ignore
+> 2 | @decorator
+  3 | class A {}
+  4 |
+Cause: unrecognized character '@' (2:0)
+@decorator
+^"
 `;
 
 exports[`decorator.js format 1`] = `

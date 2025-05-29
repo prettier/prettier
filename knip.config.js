@@ -9,6 +9,7 @@ export default {
         "src/cli/index.js",
         "src/experimental-cli/index.js",
         "packages/plugin-oxc/index.js",
+        "packages/plugin-hermes/index.js",
       ],
       project: ["src/**", "scripts/**"],
       ignore: [
@@ -17,7 +18,7 @@ export default {
         "scripts/tools/**",
         "src/experimental-cli/**",
       ],
-      ignoreDependencies: ["eslint-formatter-friendly", "ts-expect"],
+      ignoreDependencies: ["eslint-formatter-friendly", "ts-expect", "buffer"],
       ignoreBinaries: [
         "test-coverage",
         "renovate-config-validator",

@@ -1,5 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`binaryish.js [hermes] format 1`] = `
+"invalid assignment left-hand side (6:0)
+  4 |   descriptionLines;
+  5 |
+> 6 | computedDescriptionLines = (focused &&
+  7 |   !loading &&
+  8 |   descriptionLinesFocused) ||
+  9 |   descriptionLines;
+Cause: invalid assignment left-hand side (6:0)
+computedDescriptionLines = (focused &&
+^~~~~~~~~~~~~~~~~~~~~~~~"
+`;
+
 exports[`binaryish.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]

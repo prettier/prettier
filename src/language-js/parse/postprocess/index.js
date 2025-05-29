@@ -134,10 +134,11 @@ function postprocess(ast, options) {
         break;
 
       case "TemplateElement":
-        // `flow`, `typescript`, and `oxc`(with `{astType: 'ts'}`) follows the `espree` style positions
+        // `flow`, `hermes`, `typescript`, and `oxc`(with `{astType: 'ts'}`) follows the `espree` style positions
         // https://github.com/eslint/js/blob/5826877f7b33548e5ba984878dd4a8eac8448f87/packages/espree/lib/espree.js#L213
         if (
           parser === "flow" ||
+          parser === "hermes" ||
           parser === "espree" ||
           parser === "typescript" ||
           (parser === "oxc" && options.oxcAstType === "ts")
@@ -213,6 +214,13 @@ function postprocess(ast, options) {
             range: [start, locEnd(node)],
           };
           delete node.members;
+        }
+        break;
+
+      // https://github.com/facebook/hermes/issues/1712
+      case "ImportExpression":
+        if (parser === "hermes" && node.attributes && !node.options) {
+          node.options = node.attributes;
         }
         break;
     }

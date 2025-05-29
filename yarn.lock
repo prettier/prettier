@@ -2902,7 +2902,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"buffer@npm:^6.0.3":
+"buffer@npm:6.0.3, buffer@npm:^6.0.3":
   version: 6.0.3
   resolution: "buffer@npm:6.0.3"
   dependencies:
@@ -7233,6 +7233,7 @@ __metadata:
     angular-html-parser: "npm:8.1.0"
     browserslist: "npm:4.24.5"
     browserslist-to-esbuild: "npm:2.1.1"
+    buffer: "npm:6.0.3"
     c8: "npm:10.1.3"
     camelcase: "npm:8.0.0"
     ci-info: "npm:4.2.0"

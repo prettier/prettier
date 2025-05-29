@@ -224,7 +224,7 @@ function getEsbuildOptions({ packageConfig, file, cliOptions }) {
     bundle: true,
     metafile: true,
     plugins: [
-      esbuildPluginPrimitiveDefine(define),
+      esbuildPluginPrimitiveDefine({ ...define, ...buildOptions.define }),
       esbuildPluginEvaluate(),
       esbuildPluginStripNodeProtocol(),
       esbuildPluginReplaceModule({

@@ -4,6 +4,7 @@ runFormatTest(import.meta, ["babel", "flow"], {
     espree: true,
     meriyah: true,
     flow: true,
+    hermes: true,
     oxc: true,
     "oxc-ts": true,
   },

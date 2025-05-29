@@ -8,6 +8,11 @@ import jsxRegexp from "./utils/jsx-regexp.evaluate.js";
 import { getSourceType } from "./utils/source-types.js";
 
 function createParseError(error, { text }) {
+  /* c8 ignore next 3 */
+  if (!error?.labels?.[0]) {
+    return error;
+  }
+
   const {
     message,
     labels: [{ start: startIndex, end: endIndex }],

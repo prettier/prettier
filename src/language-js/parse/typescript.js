@@ -30,15 +30,14 @@ const baseParseOptions = {
 };
 
 function createParseError(error) {
+  const { message, location } = error;
+
   /* c8 ignore next 3 -- not a parse error */
-  if (!error?.location) {
+  if (!location) {
     return error;
   }
 
-  const {
-    message,
-    location: { start, end },
-  } = error;
+  const { start, end } = location;
 
   return createError(message, {
     loc: {

@@ -135,9 +135,7 @@ async function buildDependenciesLicense({
   }
 
   const shouldBuildLicense =
-    !cliOptions.playground &&
-    !cliOptions.files &&
-    typeof cliOptions.minify !== "boolean";
+    !cliOptions.files && typeof cliOptions.minify !== "boolean";
 
   if (!shouldBuildLicense) {
     return { skipped: true };

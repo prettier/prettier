@@ -1,0 +1,22 @@
+{
+  "name": "@prettier/plugin-hermes",
+  "version": "0.0.1",
+  "description": "Prettier Hermes plugin.",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./index.d.js",
+      "default": "./index.mjs"
+    },
+    "./*": "./*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/prettier/prettier.git",
+    "directory": "packages/plugin-hermes"
+  },
+  "funding": "https://github.com/prettier/prettier?sponsor=1",
+  "homepage": "https://github.com/prettier/prettier/packages/plugin-hermes",
+  "author": "fisker Cheung <lionkay@gmail.com>",
+  "license": "MIT"
+}

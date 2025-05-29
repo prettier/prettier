@@ -60,10 +60,7 @@ async function buildFile({ packageConfig, file, cliOptions, results }) {
 
   if (
     (cliOptions.files && !cliOptions.files.has(file.output.file)) ||
-    (cliOptions.playground &&
-      (file.output.format !== "esm" ||
-        file.platform !== "universal" ||
-        file.output.file === "doc.mjs"))
+    (cliOptions.playground && !file.playground)
   ) {
     console.log(status.SKIPPED);
     return;

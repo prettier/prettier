@@ -23,6 +23,16 @@ exports[`for-await-using-of-comments.js [flow] format 1`] = `
   2 |"
 `;
 
+exports[`for-await-using-of-comments.js [hermes] format 1`] = `
+"'(' expected after 'for' (1:18)
+> 1 | /*1*/ for /* 2 */ await /*3*/ ( /*4*/ using /*5*/ fo /*6*/ of /*7*/ of /*8*/) /*9*/;
+    |                  ^
+  2 |
+Cause: '(' expected after 'for' (1:18)
+/*1*/ for /* 2 */ await /*3*/ ( /*4*/ using /*5*/ fo /*6*/ of /*7*/ of /*8*/) /*9*/;
+      ~~~~~~~~~~~~^"
+`;
+
 exports[`for-await-using-of-comments.js [meriyah] format 1`] = `
 "for await (... of ...) is only valid in async functions and async generators (1:51)
 > 1 | /*1*/ for /* 2 */ await /*3*/ ( /*4*/ using /*5*/ fo /*6*/ of /*7*/ of /*8*/) /*9*/;
@@ -75,6 +85,19 @@ exports[`invalid-duplicate-using-bindings.js [flow] format 1`] = `
   3 | }
   4 | {
   5 |   using g = foo();"
+`;
+
+exports[`invalid-duplicate-using-bindings.js [hermes] format 1`] = `
+"';' expected (2:8)
+  1 | {
+> 2 |   using f = foo(), f = foo();
+    |        ^
+  3 | }
+  4 | {
+  5 |   using g = foo();
+Cause: ';' expected (2:8)
+  using f = foo(), f = foo();
+        ^"
 `;
 
 exports[`invalid-duplicate-using-bindings.js [meriyah] format 1`] = `
@@ -138,6 +161,16 @@ exports[`invalid-script-top-level-using-binding.js [flow] format 1`] = `
   2 |"
 `;
 
+exports[`invalid-script-top-level-using-binding.js [hermes] format 1`] = `
+"';' expected (1:6)
+> 1 | using x = bar();
+    |      ^
+  2 |
+Cause: ';' expected (1:6)
+using x = bar();
+      ^"
+`;
+
 exports[`invalid-script-top-level-using-binding.js [meriyah] format 1`] = `
 "Unexpected token: 'identifier' (1:7)
 > 1 | using x = bar();
@@ -190,6 +223,19 @@ exports[`using-declarations.js [flow] format 1`] = `
   3 | }
   4 |
   5 | for(using /* 1 */ a = foo(), /* 2 */ b = foo();;);"
+`;
+
+exports[`using-declarations.js [hermes] format 1`] = `
+"';' expected (2:16)
+  1 | {
+> 2 |   using /* 1 */ a = foo(), /* 2 */ b = foo()
+    |                ^
+  3 | }
+  4 |
+  5 | for(using /* 1 */ a = foo(), /* 2 */ b = foo();;);
+Cause: ';' expected (2:16)
+  using /* 1 */ a = foo(), /* 2 */ b = foo()
+                ^"
 `;
 
 exports[`using-declarations.js [meriyah] format 1`] = `
@@ -347,6 +393,18 @@ exports[`valid-await-using-binding-basic.js [flow] format 1`] = `
   4 |"
 `;
 
+exports[`valid-await-using-binding-basic.js [hermes] format 1`] = `
+"';' expected (2:14)
+  1 | async function f() {
+> 2 |   await using basic = getReader();
+    |              ^
+  3 | }
+  4 |
+Cause: ';' expected (2:14)
+  await using basic = getReader();
+              ^"
+`;
+
 exports[`valid-await-using-binding-basic.js [meriyah] format 1`] = `
 "Unexpected token: 'identifier' (2:15)
   1 | async function f() {
@@ -404,6 +462,18 @@ exports[`valid-await-using-binding-escaped.js [flow] format 1`] = `
   4 |"
 `;
 
+exports[`valid-await-using-binding-escaped.js [hermes] format 1`] = `
+"';' expected (2:14)
+  1 | async function f() {
+> 2 |   await using \\u0061b = c;
+    |              ^
+  3 | }
+  4 |
+Cause: ';' expected (2:14)
+  await using \\u0061b = c;
+              ^"
+`;
+
 exports[`valid-await-using-binding-escaped.js [meriyah] format 1`] = `
 "Unexpected token: 'identifier' (2:15)
   1 | async function f() {
@@ -459,6 +529,17 @@ exports[`valid-await-using-binding-non-bmp.js [flow] format 1`] = `
     |               ^
   3 | }
   4 |"
+`;
+
+exports[`valid-await-using-binding-non-bmp.js [hermes] format 1`] = `
+"';' expected (2:14)
+  1 | async function f() {
+> 2 |   await using 𠮷 = foo();
+    |              ^
+  3 | }
+  4 |
+Cause: ';' expected (2:14)
+  await using 𠮷 = foo();"
 `;
 
 exports[`valid-await-using-binding-non-bmp.js [meriyah] format 1`] = `
@@ -519,6 +600,19 @@ exports[`valid-await-using-binding-using.js [flow] format 1`] = `
   3 |   for (await using using of of);
   4 | }
   5 |"
+`;
+
+exports[`valid-await-using-binding-using.js [hermes] format 1`] = `
+"';' expected (2:14)
+  1 | async function f() {
+> 2 |   await using using = of;
+    |              ^
+  3 |   for (await using using of of);
+  4 | }
+  5 |
+Cause: ';' expected (2:14)
+  await using using = of;
+              ^"
 `;
 
 exports[`valid-await-using-binding-using.js [meriyah] format 1`] = `
@@ -585,6 +679,20 @@ exports[`valid-await-using-comments.js [flow] format 1`] = `
   4 | }
   5 | {
   6 |   /*0*/for/*1*/(/*2*/await/*3*/using/*4*/b/*5*/=/*6*/x/*7*/;/*8*/;/*9*/)/*10*/;"
+`;
+
+exports[`valid-await-using-comments.js [hermes] format 1`] = `
+"';' expected (3:27)
+  1 | async function f() {
+  2 | {
+> 3 |   /*0*/await/*1*/using/*2*/b/*3*/=/*4*/f()/*5*/;
+    |                           ^
+  4 | }
+  5 | {
+  6 |   /*0*/for/*1*/(/*2*/await/*3*/using/*4*/b/*5*/=/*6*/x/*7*/;/*8*/;/*9*/)/*10*/;
+Cause: ';' expected (3:27)
+  /*0*/await/*1*/using/*2*/b/*3*/=/*4*/f()/*5*/;
+                           ^"
 `;
 
 exports[`valid-await-using-comments.js [meriyah] format 1`] = `
@@ -720,6 +828,19 @@ exports[`valid-for-using-binding-of-of.js [flow] format 1`] = `
   5 |"
 `;
 
+exports[`valid-for-using-binding-of-of.js [hermes] format 1`] = `
+"')' expected after 'for(... in/of ...' (2:25)
+  1 | async function f() {
+> 2 |   for (await using of of of);
+    |                         ^
+  3 |   for await (await using of of of);
+  4 | }
+  5 |
+Cause: ')' expected after 'for(... in/of ...' (2:25)
+  for (await using of of of);
+      ~~~~~~~~~~~~~~~~~~~^"
+`;
+
 exports[`valid-for-using-binding-of-of.js [meriyah] format 1`] = `
 "Invalid left-hand side in for-of (2:20)
   1 | async function f() {
@@ -778,6 +899,18 @@ exports[`valid-for-using-declaration.js [flow] format 1`] = `
     |                    ^^^^^
   3 | }
   4 |"
+`;
+
+exports[`valid-for-using-declaration.js [hermes] format 1`] = `
+"';' or 'in' expected inside 'for' (2:19)
+  1 | async function f() {
+> 2 |   for (await using basic = reader();;);
+    |                   ^
+  3 | }
+  4 |
+Cause: ';' or 'in' expected inside 'for' (2:19)
+  for (await using basic = reader();;);
+  ~~~~~~~~~~~~~~~~~^"
 `;
 
 exports[`valid-for-using-declaration.js [meriyah] format 1`] = `
@@ -845,6 +978,18 @@ exports[`valid-module-block-top-level-await-using-binding.js [flow] format 1`] =
   2 |   await using foo = bar();
   3 | }
   4 |"
+`;
+
+exports[`valid-module-block-top-level-await-using-binding.js [hermes] format 1`] = `
+"';' expected (1:17)
+> 1 | const m = module {
+    |                 ^
+  2 |   await using foo = bar();
+  3 | }
+  4 |
+Cause: ';' expected (1:17)
+const m = module {
+                 ^"
 `;
 
 exports[`valid-module-block-top-level-await-using-binding.js [meriyah] format 1`] = `
@@ -930,6 +1075,18 @@ exports[`valid-module-block-top-level-using-binding.js [flow] format 1`] = `
   2 |   using foo = bar();
   3 | }
   4 |"
+`;
+
+exports[`valid-module-block-top-level-using-binding.js [hermes] format 1`] = `
+"';' expected (1:7)
+> 1 | module {
+    |       ^
+  2 |   using foo = bar();
+  3 | }
+  4 |
+Cause: ';' expected (1:7)
+module {
+       ^"
 `;
 
 exports[`valid-module-block-top-level-using-binding.js [meriyah] format 1`] = `
@@ -1025,6 +1182,16 @@ exports[`valid-using-as-identifier-for-await-of.js [flow] format 1`] = `
 > 1 | for await (using of of);
     |     ^^^^^
   2 |"
+`;
+
+exports[`valid-using-as-identifier-for-await-of.js [hermes] format 1`] = `
+"'(' expected after 'for' (1:4)
+> 1 | for await (using of of);
+    |    ^
+  2 |
+Cause: '(' expected after 'for' (1:4)
+for await (using of of);
+~~~~^"
 `;
 
 exports[`valid-using-as-identifier-for-await-of.js format 1`] = `
@@ -1140,6 +1307,18 @@ exports[`valid-using-binding-basic.js [flow] format 1`] = `
   4 |"
 `;
 
+exports[`valid-using-binding-basic.js [hermes] format 1`] = `
+"';' expected (2:8)
+  1 | {
+> 2 |   using basic = getReader();
+    |        ^
+  3 | }
+  4 |
+Cause: ';' expected (2:8)
+  using basic = getReader();
+        ^"
+`;
+
 exports[`valid-using-binding-basic.js [meriyah] format 1`] = `
 "Unexpected token: 'identifier' (2:9)
   1 | {
@@ -1191,6 +1370,16 @@ exports[`valid-using-binding-escaped.js [flow] format 1`] = `
   2 |"
 `;
 
+exports[`valid-using-binding-escaped.js [hermes] format 1`] = `
+"';' expected (1:8)
+> 1 | { using \\u0061b = c; }
+    |        ^
+  2 |
+Cause: ';' expected (1:8)
+{ using \\u0061b = c; }
+        ^"
+`;
+
 exports[`valid-using-binding-escaped.js [meriyah] format 1`] = `
 "Unexpected token: 'identifier' (1:9)
 > 1 | { using \\u0061b = c; }
@@ -1236,6 +1425,15 @@ exports[`valid-using-binding-non-bmp.js [flow] format 1`] = `
 > 1 | { using 𠮷 = foo(); }
     |         ^
   2 |"
+`;
+
+exports[`valid-using-binding-non-bmp.js [hermes] format 1`] = `
+"';' expected (1:8)
+> 1 | { using 𠮷 = foo(); }
+    |        ^
+  2 |
+Cause: ';' expected (1:8)
+{ using 𠮷 = foo(); }"
 `;
 
 exports[`valid-using-binding-non-bmp.js [meriyah] format 1`] = `
@@ -1292,6 +1490,19 @@ exports[`valid-using-binding-using.js [flow] format 1`] = `
   3 |   for (using using of of);
   4 | }
   5 |"
+`;
+
+exports[`valid-using-binding-using.js [hermes] format 1`] = `
+"';' expected (2:8)
+  1 | {
+> 2 |   using using = of;
+    |        ^
+  3 |   for (using using of of);
+  4 | }
+  5 |
+Cause: ';' expected (2:8)
+  using using = of;
+        ^"
 `;
 
 exports[`valid-using-binding-using.js [meriyah] format 1`] = `

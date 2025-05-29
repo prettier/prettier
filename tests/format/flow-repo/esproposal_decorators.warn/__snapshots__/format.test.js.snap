@@ -1,5 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`test.js [hermes] format 1`] = `
+"unrecognized character '@' (3:0)
+  1 | /* @flow */
+  2 |
+> 3 | @decorator4
+  4 | class Foo {
+  5 |   @decorator1
+  6 |   method1() {}
+Cause: unrecognized character '@' (3:0)
+@decorator4
+^"
+`;
+
 exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
