@@ -30,7 +30,7 @@ function createParseError(error) {
 
 const parseOptions = {
   flow: "all",
-  // babel: false,
+  babel: false,
   // Not supported yet
   enableExperimentalFlowMatchSyntax: false,
   tokens: false,
