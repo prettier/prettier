@@ -1,6 +1,6 @@
 # @prettier/plugin-hermes
 
-> Prettier Hermes plugin.
+> Prettier [Hermes](https://github.com/facebook/hermes/blob/main/README.md) plugin.
 
 ## Install
 
@@ -25,7 +25,3 @@ Create or modify your [prettier configuration file](https://prettier.io/docs/en/
   ]
 }
 ```
-
-## Related
-
-- [Hermes](https://github.com/facebook/hermes/blob/main/README.md) - The JavaScript Oxidation Compiler
