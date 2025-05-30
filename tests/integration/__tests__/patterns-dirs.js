@@ -45,7 +45,7 @@ testPatterns("1b - special characters in dir name", ["dir1", "!dir"], {
 });
 testPatterns("1c", ["dir1", "empty"], { status: 1 });
 
-testPatterns("2", ["dir1", "dir2/**/*"], { status: 1 });
+testPatterns("2", ["dir1", "dir2/**/*"], { status: 2 });
 
 testPatterns("3", ["nonexistent-dir", "dir2/**/*"], { status: 2 });
 
@@ -122,7 +122,7 @@ describe("plugins `*`", () => {
     uppercaseRocksPlugin,
   ]).test({
     write: [],
-    status: 1,
+    status: 2,
   });
 });
 

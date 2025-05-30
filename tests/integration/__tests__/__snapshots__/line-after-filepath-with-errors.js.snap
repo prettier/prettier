@@ -58,7 +58,7 @@ invalid-2.js
 invalid-2.unknown
 valid-1.js
 [[Clear text(process.stdout): valid-1.js]]
-All matched files use Prettier code style!",
+Error occurred when checking code style in 3 files.",
   "write": [],
 }
 `;
@@ -77,7 +77,6 @@ exports[`Line breaking after filepath with errors  4`] = `
   "stdout": "invalid-1.js
 invalid-2.js
 invalid-2.unknown
-[[Clear text(process.stdout): invalid-2.unknown]]
 valid-1.js
 [[Clear text(process.stdout): valid-1.js]]
 valid-1.js 0ms (unchanged)",
