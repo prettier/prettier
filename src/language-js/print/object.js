@@ -159,7 +159,8 @@ function printObject(path, options, print) {
         ((lastElem.type === "TSPropertySignature" ||
           lastElem.type === "TSCallSignatureDeclaration" ||
           lastElem.type === "TSMethodSignature" ||
-          lastElem.type === "TSConstructSignatureDeclaration") &&
+          lastElem.type === "TSConstructSignatureDeclaration" ||
+          lastElem.type === "TSIndexSignature") &&
           hasComment(lastElem, CommentCheckFlags.PrettierIgnore))))
   );
 
