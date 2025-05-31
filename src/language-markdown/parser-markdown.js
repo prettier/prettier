@@ -1,3 +1,4 @@
+import definitionList from "remark-definition-list";
 import footnotes from "remark-footnotes";
 import remarkMath from "remark-math";
 import remarkParse from "remark-parse";
@@ -31,6 +32,7 @@ function createParse({ isMDX }) {
         commonmark: true,
         ...(isMDX && { blocks: [BLOCKS_REGEX] }),
       })
+      .use(definitionList)
       .use(footnotes)
       .use(frontMatter)
       .use(remarkMath)

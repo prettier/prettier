@@ -388,6 +388,48 @@ function genericPrint(path, options, print) {
         ]),
       ]);
     }
+    case "defList": {
+      const nthSiblingIndex = getNthListSiblingIndex(node, path.parent);
+
+      const isGitDiffFriendlyOrderedList = hasGitDiffFriendlyOrderedList(
+        node,
+        options,
+      );
+
+      return printChildren(path, options, print, {
+        processor(childPath) {
+          const prefix = getPrefix();
+          const childNode = childPath.node;
+
+          if (
+            childNode.children.length === 2 &&
+            childNode.children[1].type === "html" &&
+            childNode.children[0].position.start.column !==
+              childNode.children[1].position.start.column
+          ) {
+            return [prefix, printListItem(childPath, options, print, prefix)];
+          }
+
+          return [
+            prefix,
+            align(
+              " ".repeat(prefix.length),
+              printListItem(childPath, options, print, prefix),
+            ),
+          ];
+
+          function getPrefix() {
+            if (childNode.type === "defListTerm") {
+              return "";
+            }
+
+            const rawPrefix = ": ";
+
+            return alignListPrefix(rawPrefix, options);
+          }
+        },
+      });
+    }
     // `footnote` requires `.use(footnotes, {inlineNotes: true})`, we are not using this option
     // https://github.com/remarkjs/remark-footnotes#optionsinlinenotes
     /* c8 ignore next 2 */
@@ -450,6 +492,8 @@ function genericPrint(path, options, print) {
       // since it's very possible that it's recognized as math accidentally
       return options.originalText.slice(locStart(node), locEnd(node));
 
+    case "defListTerm": // handled in "defList"
+    case "defListDescription": // handled in "defList"
     case "tableRow": // handled in "table"
     case "listItem": // handled in "list"
     case "text": // handled in other types
