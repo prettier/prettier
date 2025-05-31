@@ -358,7 +358,7 @@ function genericPrint(path, options, print) {
       ]);
 
     case "selector-selector": {
-      const shouldIndent = node.nodes.length > 1;
+      const shouldIndent = node.nodes.length > 2;
       return group(
         (shouldIndent ? indent : (x) => x)(path.map(print, "nodes")),
       );
