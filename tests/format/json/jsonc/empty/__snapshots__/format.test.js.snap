@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snippet: #0 [json] format 1`] = `
+"Unexpected token (4:29)
+  2 |     /** Block comment 1 */
+  3 |     // Line comment 2
+> 4 |       /** Block comment 3 */
+    |                             ^
+Cause: Unexpected token (4:28)"
+`;
+
+exports[`snippet: #0 [json-stringify] format 1`] = `
+"Unexpected token (4:29)
+  2 |     /** Block comment 1 */
+  3 |     // Line comment 2
+> 4 |       /** Block comment 3 */
+    |                             ^
+Cause: Unexpected token (4:28)"
+`;
+
+exports[`snippet: #0 [json5] format 1`] = `
+"Unexpected token (4:29)
+  2 |     /** Block comment 1 */
+  3 |     // Line comment 2
+> 4 |       /** Block comment 3 */
+    |                             ^
+Cause: Unexpected token (4:28)"
+`;
+
+exports[`snippet: #0 format 1`] = `
+====================================options=====================================
+parsers: ["jsonc", "json", "json5", "json-stringify"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// Line comment 1
+    /** Block comment 1 */
+    // Line comment 2
+      /** Block comment 3 */
+=====================================output=====================================
+// Line comment 1
+/** Block comment 1 */
+// Line comment 2
+/** Block comment 3 */
+
+================================================================================
+`;

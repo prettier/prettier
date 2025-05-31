@@ -1,6 +1,6 @@
 import path from "node:path";
 
-const namespace = "with-default-export";
+const PLUGIN_NAMESPACE = "with-default-export";
 export default function esbuildPluginAddDefaultExport() {
   return {
     name: "addDefaultExport",
@@ -10,31 +10,32 @@ export default function esbuildPluginAddDefaultExport() {
         return;
       }
 
-      let entry;
-
-      build.onResolve({ filter: /./u }, (module) => {
+      build.onResolve({ filter: /./, namespace: "file" }, (module) => {
         if (module.kind === "entry-point") {
-          const relativePath = module.path
-            .slice(module.resolveDir.length + 1)
+          const file = module.path;
+          const relativePath = path
+            .relative(module.resolveDir, file)
             .replaceAll("\\", "/");
-
-          entry = module.path;
-          return { path: relativePath, namespace };
+          return {
+            path: relativePath,
+            namespace: PLUGIN_NAMESPACE,
+            pluginData: { file },
+          };
         }
       });
 
-      build.onLoad({ filter: /./u, namespace }, () => {
-        const directory = path.dirname(entry);
-        const source = `./${path.basename(entry)}`;
+      build.onLoad({ filter: /./, namespace: PLUGIN_NAMESPACE }, (module) => {
+        const { file } = module.pluginData;
+        const source = JSON.stringify(`./${path.basename(file)}`);
 
         return {
           contents: /* indent */ `
-            import * as namespace from "${source}";
+            import * as namespace from ${source};
 
-            export * from "${source}";
+            export * from ${source};
             export default namespace;
           `,
-          resolveDir: directory,
+          resolveDir: path.dirname(file),
         };
       });
     },

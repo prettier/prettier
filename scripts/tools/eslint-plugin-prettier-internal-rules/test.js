@@ -1,12 +1,10 @@
-"use strict";
-
-const path = require("path");
-const { outdent } = require("outdent");
-const { RuleTester } = require("eslint");
-const { rules } = require("./index.js");
+import path from "node:path";
+import { RuleTester } from "eslint";
+import { outdent } from "outdent";
+import plugin from "./index.js";
 
 const test = (ruleId, tests) => {
-  new RuleTester().run(ruleId, rules[ruleId], tests);
+  new RuleTester().run(ruleId, plugin.rules[ruleId], tests);
 };
 
 test("await-cli-tests", {
@@ -254,7 +252,7 @@ test("no-identifier-n", {
         },
       ],
     },
-    // ESLint 8 doesn't allow suggest invalid code
+    // ESLint>=8 doesn't allow suggest invalid code
     // {
     //   code: "const n = 1;const node = 2;",
     //   output: null,
@@ -308,12 +306,12 @@ test("no-node-comments", {
     "const comments = node.notComments",
     {
       code: "function functionName() {return node.comments;}",
-      filename: path.join(__dirname, "../../..", "a.js"),
+      filename: path.join(import.meta.dirname, "../../..", "a.js"),
       options: ["a.js"],
     },
     {
       code: "function functionName() {return node.comments;}",
-      filename: path.join(__dirname, "../../..", "a.js"),
+      filename: path.join(import.meta.dirname, "../../..", "a.js"),
       options: [{ file: "a.js", functions: ["functionName"] }],
     },
   ],
@@ -330,7 +328,7 @@ test("no-node-comments", {
     {
       code: "function notFunctionName() {return node.comments;}",
       output: null,
-      filename: path.join(__dirname, "../../..", "a.js"),
+      filename: path.join(import.meta.dirname, "../../..", "a.js"),
       options: [{ file: "a.js", functions: ["functionName"] }],
       errors: [{ message: "Do not access node.comments." }],
     },
@@ -640,6 +638,31 @@ test("prefer-is-non-empty-array", {
       errors: 1,
     })),
   ],
+});
+
+test("print-function-parameter-order", {
+  valid: [
+    "function printFoo(path, options, print) {}",
+    "function printFoo(path, opts, print) {}",
+    "function printFoo(path, options, printPath) {}",
+    "function printFoo() {}",
+    "function printFoo(path, print) {}",
+    "function printFoo(path, options) {}",
+    "function printFoo(print, options) {}",
+    "function embed(path, print, textToDoc, options) {}",
+  ],
+  invalid: [
+    "function printFoo(path, print, options) {}",
+    "function printFoo(path, print, options, args) {}",
+    "function printFoo(options, print, path) {}",
+    "const printFoo = function (path, print, options) {}",
+    "const printFoo = function printFoo(path, print, options) {}",
+    "const printFoo = (path, print, options) => {}",
+  ].map((code) => ({
+    code,
+    output: null,
+    errors: 1,
+  })),
 });
 
 test("no-empty-flat-contents-for-if-break", {

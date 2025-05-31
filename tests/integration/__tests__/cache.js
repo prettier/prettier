@@ -445,7 +445,7 @@ describe("--cache option", () => {
       );
     });
 
-    it("doesn't re-format when timestamp has been updated", async () => {
+    it("doesn't when timestamp has been updated", async () => {
       const cliArguments = [
         "--cache",
         "--cache-strategy",

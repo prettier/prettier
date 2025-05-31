@@ -15,6 +15,7 @@ import htmlWhitespaceUtils from "../utils/html-whitespace-utils.js";
 import isNonEmptyArray from "../utils/is-non-empty-array.js";
 import UnexpectedNodeError from "../utils/unexpected-node-error.js";
 import clean from "./clean.js";
+import embed from "./embed.js";
 import getVisitorKeys from "./get-visitor-keys.js";
 import { locEnd, locStart } from "./loc.js";
 import { hasPrettierIgnore, isVoidElement, isWhitespaceNode } from "./utils.js";
@@ -78,17 +79,17 @@ function print(path, options, print) {
       if (isElseIfLike(path)) {
         return [
           printElseIfLikeBlock(path, print),
-          printProgram(path, print, options),
-          printInverse(path, print, options),
+          printProgram(path, options, print),
+          printInverse(path, options, print),
         ];
       }
 
       return [
         printOpenBlock(path, print),
         group([
-          printProgram(path, print, options),
-          printInverse(path, print, options),
-          printCloseBlock(path, print, options),
+          printProgram(path, options, print),
+          printInverse(path, options, print),
+          printCloseBlock(path, options, print),
         ]),
       ];
 
@@ -156,6 +157,14 @@ function print(path, options, print) {
       return [node.key, "=", print("value")];
 
     case "TextNode": {
+      // Don't format content:
+      // 1. in `<pre>`,
+      // 2. in `<style>`
+
+      if (path.parent.tag === "pre" || path.parent.tag === "style") {
+        return node.chars;
+      }
+
       /* if `{{my-component}}` (or any text containing "{{")
        * makes it to the TextNode, it means it was escaped,
        * so let's print it escaped, ie.; `\{{my-component}}` */
@@ -564,7 +573,7 @@ function printElseIfLikeBlock(path, print) {
   ]);
 }
 
-function printCloseBlock(path, print, options) {
+function printCloseBlock(path, options, print) {
   const { node } = path;
 
   if (options.htmlWhitespaceSensitivity === "ignore") {
@@ -607,7 +616,7 @@ function blockStatementHasElse(node) {
   return node.type === "BlockStatement" && node.inverse;
 }
 
-function printProgram(path, print, options) {
+function printProgram(path, options, print) {
   const { node } = path;
 
   if (blockStatementHasOnlyWhitespaceInProgram(node)) {
@@ -623,7 +632,7 @@ function printProgram(path, print, options) {
   return indent(program);
 }
 
-function printInverse(path, print, options) {
+function printInverse(path, options, print) {
   const { node } = path;
 
   const inverse = print("inverse");
@@ -816,6 +825,7 @@ const printer = {
   massageAstNode: clean,
   hasPrettierIgnore,
   getVisitorKeys,
+  embed,
 };
 
 export default printer;

@@ -1,6 +1,5 @@
 ---
-author: "Christopher Chedeau (@vjeux)"
-authorURL: "https://github.com/vjeux"
+authors: "vjeux"
 title: "$20k Bounty was Claimed!"
 ---
 

@@ -1,23 +1,12 @@
 import { VISITOR_KEYS as babelVisitorKeys } from "@babel/types";
 import { visitorKeys as tsVisitorKeys } from "@typescript-eslint/visitor-keys";
+import { visitorKeys as angularVisitorKeys } from "angular-estree-parser";
 import flowVisitorKeys from "hermes-parser/dist/generated/ESTreeVisitorKeys.js";
 import unionVisitorKeys from "./union-visitor-keys.js";
 
-const angularVisitorKeys = {
-  NGRoot: ["node"],
-  NGPipeExpression: ["left", "right", "arguments"],
-  NGChainedExpression: ["expressions"],
-  NGEmptyExpression: [],
-  NGMicrosyntax: ["body"],
-  NGMicrosyntaxKey: [],
-  NGMicrosyntaxExpression: ["expression", "alias"],
-  NGMicrosyntaxKeyedExpression: ["key", "expression"],
-  NGMicrosyntaxLet: ["key", "value"],
-  NGMicrosyntaxAs: ["key", "alias"],
-};
-
 const additionalVisitorKeys = {
   // Prettier
+  NGRoot: ["node"],
   JsExpressionRoot: ["node"],
   JsonRoot: ["node"],
 
@@ -26,6 +15,7 @@ const additionalVisitorKeys = {
   TSJSDocUnknownType: [],
   TSJSDocNullableType: ["typeAnnotation"],
   TSJSDocNonNullableType: ["typeAnnotation"],
+
   // `@typescript-eslint/typescript-estree` v6 renamed `typeParameters` to `typeArguments`
   // Remove those when babel update AST
   JSXOpeningElement: ["typeParameters"],
@@ -33,17 +23,12 @@ const additionalVisitorKeys = {
   TSInterfaceHeritage: ["typeParameters"],
 
   // Flow, missed in `flowVisitorKeys`
-  ClassPrivateProperty: ["variance"],
-  ClassProperty: ["variance"],
   NeverTypeAnnotation: [],
+  SatisfiesExpression: ["expression", "typeAnnotation"],
   TupleTypeAnnotation: ["elementTypes"],
   TypePredicate: ["asserts"],
   UndefinedTypeAnnotation: [],
   UnknownTypeAnnotation: [],
-  AsExpression: ["expression", "typeAnnotation"],
-  AsConstExpression: ["expression"],
-  SatisfiesExpression: ["expression", "typeAnnotation"],
-  TypeofTypeAnnotation: ["argument", "typeArguments"],
 };
 
 const excludeKeys = {
@@ -65,16 +50,38 @@ const excludeKeys = {
   ExportAllDeclaration: ["assertions"],
   ExportNamedDeclaration: ["assertions"],
   ImportDeclaration: ["assertions"],
-
-  // `key` and `constraint` added in `@typescript-eslint/typescript-estree` v8
-  // https://github.com/typescript-eslint/typescript-eslint/pull/7065
-  // TODO: Use the new AST properties instead
-  TSMappedType: ["key", "constraint"],
-  // `body` added in `@typescript-eslint/typescript-estree` v8
-  // https://github.com/typescript-eslint/typescript-eslint/pull/8920
-  // TODO: Use the new AST properties instead
-  TSEnumDeclaration: ["body"],
+  ImportExpression: ["attributes"],
+  TSMappedType: ["typeParameter"],
+  TSEnumDeclaration: ["members"],
 };
+
+const excludeNodeTypes = new Set([
+  // Babel will remove in v8
+  // https://github.com/babel/babel/pull/17242
+  "TupleExpression",
+  "RecordExpression",
+  "DecimalLiteral",
+  // Babel, Won't exist since we use `createImportExpressions` when parsing with babel
+  "Import",
+
+  // Flow, not supported
+  "MatchArrayPattern",
+  "MatchAsPattern",
+  "MatchBindingPattern",
+  "MatchExpression",
+  "MatchExpressionCase",
+  "MatchIdentifierPattern",
+  "MatchLiteralPattern",
+  "MatchMemberPattern",
+  "MatchObjectPattern",
+  "MatchObjectPatternProperty",
+  "MatchOrPattern",
+  "MatchRestPattern",
+  "MatchStatement",
+  "MatchStatementCase",
+  "MatchUnaryPattern",
+  "MatchWildcardPattern",
+]);
 
 const visitorKeys = Object.fromEntries(
   Object.entries(
@@ -85,15 +92,14 @@ const visitorKeys = Object.fromEntries(
       angularVisitorKeys,
       additionalVisitorKeys,
     ]),
-  ).map(([type, keys]) => [
-    type,
-    excludeKeys[type]
-      ? keys.filter((key) => !excludeKeys[type].includes(key))
-      : keys,
-  ]),
+  )
+    .filter(([type]) => !excludeNodeTypes.has(type))
+    .map(([type, keys]) => [
+      type,
+      excludeKeys[type]
+        ? keys.filter((key) => !excludeKeys[type].includes(key))
+        : keys,
+    ]),
 );
-
-// Babel will remove this in v8
-delete visitorKeys.DecimalLiteral;
 
 export default visitorKeys;

@@ -3,11 +3,12 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import readline from "node:readline";
-import chalk from "chalk";
 import createEsmUtils from "esm-utils";
+import styleText from "node-style-text";
 import prettyBytes from "pretty-bytes";
+import prettyMilliseconds from "pretty-ms";
 import { DIST_DIR } from "../utils/index.js";
-import files from "./config.js";
+import packageConfigs from "./config.js";
 import parseArguments from "./parse-arguments.js";
 
 const { require } = createEsmUtils(import.meta);
@@ -26,7 +27,7 @@ const padStatusText = (text) => {
 };
 const status = {};
 for (const { color, text } of statusConfig) {
-  status[text] = chalk[color].black(padStatusText(text));
+  status[text] = styleText[color].black(padStatusText(text));
 }
 
 function fitTerminal(input, suffix = "") {
@@ -34,7 +35,7 @@ function fitTerminal(input, suffix = "") {
   const WIDTH = columns - maxLength + 1;
   if (input.length < WIDTH) {
     const repeatCount = Math.max(WIDTH - input.length - 1 - suffix.length, 0);
-    input += chalk.dim(".").repeat(repeatCount) + suffix;
+    input += styleText.dim(".").repeat(repeatCount) + suffix;
   }
   return input;
 }
@@ -44,7 +45,8 @@ const clear = () => {
   readline.cursorTo(process.stdout, 0, null);
 };
 
-async function buildFile({ file, files, cliOptions, results }) {
+async function buildFile({ packageConfig, file, cliOptions, results }) {
+  const { distDirectory } = packageConfig;
   let displayName = file.output.file;
   if (
     (file.platform === "universal" && file.output.format !== "esm") ||
@@ -58,8 +60,7 @@ async function buildFile({ file, files, cliOptions, results }) {
 
   if (
     (cliOptions.files && !cliOptions.files.has(file.output.file)) ||
-    (cliOptions.playground &&
-      (file.output.format !== "umd" || file.output.file === "doc.js"))
+    (cliOptions.playground && !file.playground)
   ) {
     console.log(status.SKIPPED);
     return;
@@ -67,7 +68,7 @@ async function buildFile({ file, files, cliOptions, results }) {
 
   let result;
   try {
-    result = await file.build({ file, files, cliOptions, results });
+    result = await file.build({ packageConfig, file, cliOptions, results });
   } catch (error) {
     console.log(status.FAIL + "\n");
     console.error(error);
@@ -85,7 +86,7 @@ async function buildFile({ file, files, cliOptions, results }) {
 
   const sizeMessages = [];
   if (cliOptions.printSize) {
-    const { size } = await fs.stat(path.join(DIST_DIR, outputFile));
+    const { size } = await fs.stat(path.join(distDirectory, outputFile));
     sizeMessages.push(prettyBytes(size));
   }
 
@@ -101,15 +102,15 @@ async function buildFile({ file, files, cliOptions, results }) {
     }
 
     if (stableSize) {
-      const { size } = await fs.stat(path.join(DIST_DIR, outputFile));
+      const { size } = await fs.stat(path.join(distDirectory, outputFile));
       const sizeDiff = size - stableSize;
-      const message = chalk[sizeDiff > 0 ? "yellow" : "green"](
+      const message = styleText[sizeDiff > 0 ? "yellow" : "green"](
         prettyBytes(sizeDiff),
       );
 
       sizeMessages.push(`${message}`);
     } else {
-      sizeMessages.push(chalk.blue("[NEW FILE]"));
+      sizeMessages.push(styleText.blue("[NEW FILE]"));
     }
   }
 
@@ -129,6 +130,24 @@ async function buildFile({ file, files, cliOptions, results }) {
 async function run() {
   const cliOptions = parseArguments();
 
+  let packagesToBuild = [];
+  if (cliOptions.packages) {
+    for (const packageName of cliOptions.packages) {
+      const packageConfig = packageConfigs.find(
+        (packageConfig) => packageConfig.packageName === packageName,
+      );
+
+      if (!packageConfig) {
+        throw new Error(`Unknown package "${packageName}"`);
+      }
+
+      packagesToBuild.push(packageConfig);
+    }
+  } else {
+    packagesToBuild = packageConfigs;
+  }
+
+  // TODO: Clear package dist directory instead
   if (cliOptions.clean) {
     let stat;
     try {
@@ -146,12 +165,31 @@ async function run() {
     }
   }
 
-  console.log(chalk.inverse(" Building packages "));
+  for (const [index, packageConfig] of packagesToBuild.entries()) {
+    if (index > 0) {
+      console.log();
+    }
 
-  const results = [];
-  for (const file of files) {
-    const result = await buildFile({ file, files, cliOptions, results });
-    results.push(result);
+    console.log(
+      styleText.inverse(
+        `[${index + 1}/${packagesToBuild.length}] Building package '${packageConfig.packageName}'`,
+      ),
+    );
+
+    const startTime = performance.now();
+    const results = [];
+    for (const file of packageConfig.files) {
+      const result = await buildFile({
+        packageConfig,
+        file,
+        cliOptions,
+        results,
+      });
+      results.push(result);
+    }
+    console.log(
+      `Build package '${packageConfig.packageName}' success in ${prettyMilliseconds(performance.now() - startTime)}`,
+    );
   }
 }
 

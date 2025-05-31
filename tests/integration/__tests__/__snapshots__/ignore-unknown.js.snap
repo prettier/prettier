@@ -1,64 +1,75 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Ignored file (stderr) 1`] = `""`;
-
-exports[`Ignored file (stdout) 1`] = `""`;
-
-exports[`Ignored file (write) 1`] = `[]`;
-
-exports[`None exist file (stderr) 1`] = `"[error] No files matching the pattern were found: "non-exist-file"."`;
-
-exports[`None exist file (stdout) 1`] = `""`;
-
-exports[`None exist file (write) 1`] = `[]`;
-
-exports[`Not matching pattern (stderr) 1`] = `"[error] No files matching the pattern were found: "*.non-exist-pattern"."`;
-
-exports[`Not matching pattern (stdout) 1`] = `""`;
-
-exports[`Not matching pattern (write) 1`] = `[]`;
-
-exports[`ignore-unknown alias (stdout) 1`] = `
-"javascript.js
-override.as-js-file"
+exports[`Ignored file  1`] = `
+{
+  "stderr": "",
+  "stdout": "",
+  "write": [],
+}
 `;
 
-exports[`ignore-unknown check (stderr) 1`] = `
-"[warn] javascript.js
+exports[`None exist file  1`] = `
+{
+  "stderr": "[error] No files matching the pattern were found: "non-exist-file".",
+  "stdout": "",
+  "write": [],
+}
+`;
+
+exports[`Not matching pattern  1`] = `
+{
+  "stderr": "[error] No files matching the pattern were found: "*.non-exist-pattern".",
+  "stdout": "",
+  "write": [],
+}
+`;
+
+exports[`ignore-unknown alias  1`] = `
+{
+  "stdout": "javascript.js
+override.as-js-file",
+}
+`;
+
+exports[`ignore-unknown check  1`] = `
+{
+  "stderr": "[warn] javascript.js
 [warn] override.as-js-file
-[warn] Code style issues found in 2 files. Run Prettier with --write to fix."
+[warn] Code style issues found in 2 files. Run Prettier with --write to fix.",
+  "stdout": "Checking formatting...",
+  "write": [],
+}
 `;
 
-exports[`ignore-unknown check (stdout) 1`] = `"Checking formatting..."`;
-
-exports[`ignore-unknown check (write) 1`] = `[]`;
-
-exports[`ignore-unknown dir (stdout) 1`] = `
-"javascript.js
-override.as-js-file"
+exports[`ignore-unknown dir  1`] = `
+{
+  "stdout": "javascript.js
+override.as-js-file",
+}
 `;
 
-exports[`ignore-unknown pattern (stdout) 1`] = `
-"javascript.js
-override.as-js-file"
+exports[`ignore-unknown pattern  1`] = `
+{
+  "stdout": "javascript.js
+override.as-js-file",
+}
 `;
 
-exports[`ignore-unknown write (stdout) 1`] = `
-"javascript.js
-override.as-js-file"
-`;
-
-exports[`ignore-unknown write (write) 1`] = `
-[
-  {
-    "content": "const foo = "bar";
+exports[`ignore-unknown write  1`] = `
+{
+  "stdout": "javascript.js
+override.as-js-file",
+  "write": [
+    {
+      "content": "const foo = "bar";
 ",
-    "filename": "javascript.js",
-  },
-  {
-    "content": "const foo = "bar";
+      "filename": "javascript.js",
+    },
+    {
+      "content": "const foo = "bar";
 ",
-    "filename": "override.as-js-file",
-  },
-]
+      "filename": "override.as-js-file",
+    },
+  ],
+}
 `;

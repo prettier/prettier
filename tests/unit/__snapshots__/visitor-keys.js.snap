@@ -411,7 +411,6 @@ exports[`visitor keys estree 1`] = `
     "consequent",
     "test",
   ],
-  "Import": [],
   "ImportAttribute": [
     "key",
     "value",
@@ -425,7 +424,6 @@ exports[`visitor keys estree 1`] = `
     "local",
   ],
   "ImportExpression": [
-    "attributes",
     "options",
     "source",
   ],
@@ -702,9 +700,6 @@ exports[`visitor keys estree 1`] = `
     "id",
     "qualification",
   ],
-  "RecordExpression": [
-    "properties",
-  ],
   "RegExpLiteral": [],
   "RestElement": [
     "argument",
@@ -823,8 +818,8 @@ exports[`visitor keys estree 1`] = `
     "members",
   ],
   "TSEnumDeclaration": [
+    "body",
     "id",
-    "members",
   ],
   "TSEnumMember": [
     "id",
@@ -854,6 +849,7 @@ exports[`visitor keys estree 1`] = `
   ],
   "TSImportType": [
     "argument",
+    "options",
     "qualifier",
     "typeArguments",
     "typeParameters",
@@ -904,9 +900,10 @@ exports[`visitor keys estree 1`] = `
     "literal",
   ],
   "TSMappedType": [
+    "constraint",
+    "key",
     "nameType",
     "typeAnnotation",
-    "typeParameter",
   ],
   "TSMethodSignature": [
     "key",
@@ -1047,9 +1044,6 @@ exports[`visitor keys estree 1`] = `
     "block",
     "finalizer",
     "handler",
-  ],
-  "TupleExpression": [
-    "elements",
   ],
   "TupleTypeAnnotation": [
     "elementTypes",

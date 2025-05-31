@@ -30,16 +30,6 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`regexp-modifiers.js [meriyah] format 1`] = `
-"Unterminated regular expression (1:1)
-> 1 | /(?ims:^[a-z])/u;
-    | ^^^^^^^^^^^^^^^^
-  2 | /(?-ims:^[a-z].)(^[a-z].)/uims;
-  3 | /(?ims:^[a-z].1$)/;
-  4 |
-Cause: [1:0-1:16]: Unterminated regular expression"
-`;
-
 exports[`regexp-modifiers.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]

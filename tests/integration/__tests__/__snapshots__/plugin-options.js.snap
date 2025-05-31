@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`include plugin's parsers to the values of the \`parser\` option\` (stderr) 1`] = `""`;
-
-exports[`include plugin's parsers to the values of the \`parser\` option\` (stdout) 1`] = `
-"--parser <flow|babel|babel-flow|babel-ts|typescript|acorn|espree|meriyah|css|less|scss|json|json5|jsonc|json-stringify|graphql|markdown|mdx|vue|yaml|glimmer|html|angular|lwc|foo-parser>
+exports[`include plugin's parsers to the values of the \`parser\` option\`  1`] = `
+{
+  "stderr": "",
+  "stdout": "--parser <flow|babel|babel-flow|babel-ts|typescript|acorn|espree|meriyah|css|less|scss|json|json5|jsonc|json-stringify|graphql|markdown|mdx|vue|yaml|glimmer|html|angular|lwc|mjml|foo-parser>
 
   Which parser to use.
 
@@ -33,15 +33,16 @@ Valid options:
   html             HTML
   angular          Angular
   lwc              Lightning Web Components
-  foo-parser       foo (plugin: ./plugin.cjs)"
+  mjml             MJML
+  foo-parser       foo (plugin: ./plugin.cjs)",
+  "write": [],
+}
 `;
 
-exports[`include plugin's parsers to the values of the \`parser\` option\` (write) 1`] = `[]`;
-
-exports[`show detailed external option with \`--help foo-option\` (stderr) 1`] = `""`;
-
-exports[`show detailed external option with \`--help foo-option\` (stdout) 1`] = `
-"--foo-option <bar|baz>
+exports[`show detailed external option with \`--help foo-option\`  1`] = `
+{
+  "stderr": "",
+  "stdout": "--foo-option <bar|baz>
 
   foo description
 
@@ -50,20 +51,20 @@ Valid options:
   bar   bar description
   baz   baz description
 
-Default: bar"
+Default: bar",
+  "write": [],
+}
 `;
-
-exports[`show detailed external option with \`--help foo-option\` (write) 1`] = `[]`;
 
 exports[`show external options with \`--help\` 1`] = `
 "Snapshot Diff:
 - First value
 + Second value
 
-@@ -24,16 +24,18 @@
-    --end-of-line <lf|crlf|cr|auto>
-                             Which end of line characters to apply.
-                             Defaults to lf.
+@@ -27,19 +27,21 @@
+    --experimental-operator-position <start|end>
+                             Where to print operators when binary expressions wrap lines.
+                             Defaults to end.
     --no-experimental-ternaries
                              Default behavior of ternaries; keep question marks on the same line as the consequent.
 +   --foo-option <bar|baz>   foo description
@@ -73,8 +74,11 @@ exports[`show external options with \`--help\` 1`] = `
                              Defaults to css.
     --jsx-single-quote       Use single quotes in JSX.
                              Defaults to false.
--   --parser <flow|babel|babel-flow|babel-ts|typescript|acorn|espree|meriyah|css|less|scss|json|json5|jsonc|json-stringify|graphql|markdown|mdx|vue|yaml|glimmer|html|angular|lwc>
-+   --parser <flow|babel|babel-flow|babel-ts|typescript|acorn|espree|meriyah|css|less|scss|json|json5|jsonc|json-stringify|graphql|markdown|mdx|vue|yaml|glimmer|html|angular|lwc|foo-parser>
+    --object-wrap <preserve|collapse>
+                             How to wrap object literals.
+                             Defaults to preserve.
+-   --parser <flow|babel|babel-flow|babel-ts|typescript|acorn|espree|meriyah|css|less|scss|json|json5|jsonc|json-stringify|graphql|markdown|mdx|vue|yaml|glimmer|html|angular|lwc|mjml>
++   --parser <flow|babel|babel-flow|babel-ts|typescript|acorn|espree|meriyah|css|less|scss|json|json5|jsonc|json-stringify|graphql|markdown|mdx|vue|yaml|glimmer|html|angular|lwc|mjml|foo-parser>
                              Which parser to use.
     --print-width <int>      The line length where Prettier will try wrap.
                              Defaults to 80.

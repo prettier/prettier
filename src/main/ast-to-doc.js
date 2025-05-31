@@ -51,11 +51,13 @@ async function printAstToDoc(ast, options) {
 
   ensureAllCommentsPrinted(options);
 
-  if (options.nodeAfterCursor && !options.nodeBeforeCursor) {
-    return [cursor, doc];
-  }
-  if (options.nodeBeforeCursor && !options.nodeAfterCursor) {
-    return [doc, cursor];
+  if (options.cursorOffset >= 0) {
+    if (options.nodeAfterCursor && !options.nodeBeforeCursor) {
+      return [cursor, doc];
+    }
+    if (options.nodeBeforeCursor && !options.nodeAfterCursor) {
+      return [doc, cursor];
+    }
   }
 
   return doc;
@@ -143,7 +145,6 @@ function callPluginPrintFunction(path, options, printPath, args, embeds) {
 async function prepareToPrint(ast, options) {
   const comments = ast.comments ?? [];
   options[Symbol.for("comments")] = comments;
-  options[Symbol.for("tokens")] = ast.tokens ?? [];
   // For JS printer to ignore attached comments
   options[Symbol.for("printedComments")] = new Set();
 

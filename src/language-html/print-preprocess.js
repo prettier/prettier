@@ -28,6 +28,7 @@ function preprocess(ast, options) {
   for (const fn of PREPROCESS_PIPELINE) {
     fn(ast, options);
   }
+
   return ast;
 }
 
@@ -188,7 +189,7 @@ function extractInterpolation(ast, options) {
 
   const interpolationRegex = /\{\{(.+?)\}\}/su;
   ast.walk((node) => {
-    if (!canHaveInterpolation(node)) {
+    if (!canHaveInterpolation(node, options)) {
       return;
     }
 
@@ -251,29 +252,31 @@ function extractInterpolation(ast, options) {
  * - add `isWhitespaceSensitive`, `isIndentationSensitive` field for text nodes
  * - remove insensitive whitespaces
  */
-function extractWhitespaces(ast /*, options*/) {
+function extractWhitespaces(ast, options) {
   ast.walk((node) => {
-    if (!node.children) {
+    const children = node.$children;
+
+    if (!children) {
       return;
     }
 
     if (
-      node.children.length === 0 ||
-      (node.children.length === 1 &&
-        node.children[0].type === "text" &&
-        htmlWhitespaceUtils.trim(node.children[0].value).length === 0)
+      children.length === 0 ||
+      (children.length === 1 &&
+        children[0].type === "text" &&
+        htmlWhitespaceUtils.trim(children[0].value).length === 0)
     ) {
-      node.hasDanglingSpaces = node.children.length > 0;
-      node.children = [];
+      node.hasDanglingSpaces = children.length > 0;
+      node.$children = [];
       return;
     }
 
-    const isWhitespaceSensitive = isWhitespaceSensitiveNode(node);
+    const isWhitespaceSensitive = isWhitespaceSensitiveNode(node, options);
     const isIndentationSensitive = isIndentationSensitiveNode(node);
 
     if (!isWhitespaceSensitive) {
-      for (let i = 0; i < node.children.length; i++) {
-        const child = node.children[i];
+      for (let i = 0; i < children.length; i++) {
+        const child = children[i];
         if (child.type !== "text") {
           continue;
         }
@@ -372,7 +375,10 @@ function addIsSpaceSensitive(ast, options) {
       return;
     }
     if (children.length === 0) {
-      node.isDanglingSpaceSensitive = isDanglingSpaceSensitiveNode(node);
+      node.isDanglingSpaceSensitive = isDanglingSpaceSensitiveNode(
+        node,
+        options,
+      );
       return;
     }
     for (const child of children) {

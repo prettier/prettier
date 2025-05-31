@@ -35,6 +35,11 @@ exports[`schema 1`] = `
           "description": "Print spaces between brackets.",
           "type": "boolean",
         },
+        "checkIgnorePragma": {
+          "default": false,
+          "description": "Check whether the file's first docblock comment contains '@noprettier' or '@noformat' to determine if it should be formatted.",
+          "type": "boolean",
+        },
         "cursorOffset": {
           "default": -1,
           "description": "Print (to stderr) where a cursor at the given position would move to after formatting.",
@@ -89,6 +94,24 @@ exports[`schema 1`] = `
             },
           ],
         },
+        "experimentalOperatorPosition": {
+          "default": "end",
+          "description": "Where to print operators when binary expressions wrap lines.",
+          "oneOf": [
+            {
+              "description": "Print operators at the start of new lines.",
+              "enum": [
+                "start",
+              ],
+            },
+            {
+              "description": "Print operators at the end of previous lines.",
+              "enum": [
+                "end",
+              ],
+            },
+          ],
+        },
         "experimentalTernaries": {
           "default": false,
           "description": "Use curious ternaries, with the question mark after the condition.",
@@ -132,6 +155,24 @@ exports[`schema 1`] = `
           "default": false,
           "description": "Use single quotes in JSX.",
           "type": "boolean",
+        },
+        "objectWrap": {
+          "default": "preserve",
+          "description": "How to wrap object literals.",
+          "oneOf": [
+            {
+              "description": "Keep as multi-line, if there is a newline between the opening brace and first property.",
+              "enum": [
+                "preserve",
+              ],
+            },
+            {
+              "description": "Fit to a single line when possible.",
+              "enum": [
+                "collapse",
+              ],
+            },
+          ],
         },
         "parser": {
           "anyOf": [
@@ -280,6 +321,12 @@ exports[`schema 1`] = `
               ],
             },
             {
+              "description": "MJML",
+              "enum": [
+                "mjml",
+              ],
+            },
+            {
               "description": "Custom parser",
               "type": "string",
             },
@@ -362,8 +409,7 @@ The range will extend backwards to the start of the first line containing the se
         },
         "requirePragma": {
           "default": false,
-          "description": "Require either '@prettier' or '@format' to be present in the file's first docblock comment
-in order for it to be formatted.",
+          "description": "Require either '@prettier' or '@format' to be present in the file's first docblock comment in order for it to be formatted.",
           "type": "boolean",
         },
         "semi": {

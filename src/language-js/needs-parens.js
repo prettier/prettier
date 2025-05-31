@@ -6,14 +6,18 @@ import {
   getPrecedence,
   hasNakedLeftSide,
   hasNode,
-  isArrayOrTupleExpression,
+  isArrayExpression,
   isBinaryCastExpression,
   isBitwiseOperator,
   isCallExpression,
+  isConditionalType,
+  isIntersectionType,
   isMemberExpression,
   isNullishCoalescing,
-  isObjectOrRecordExpression,
+  isNumericLiteral,
+  isObjectExpression,
   isObjectProperty,
+  isUnionType,
   shouldFlatten,
   startsWithNoLookaheadToken,
 } from "./utils/index.js";
@@ -445,30 +449,17 @@ function needsParens(path, options) {
       }
 
     case "SequenceExpression":
-      switch (parent.type) {
-        case "ReturnStatement":
-          return false;
-
-        case "ForStatement":
-          // Although parentheses wouldn't hurt around sequence
-          // expressions in the head of for loops, traditional style
-          // dictates that e.g. i++, j++ should not be wrapped with
-          // parentheses.
-          return false;
-
-        case "ExpressionStatement":
-          return key !== "expression";
-
-        case "ArrowFunctionExpression":
-          // We do need parentheses, but SequenceExpressions are handled
-          // specially when printing bodies of arrow functions.
-          return key !== "body";
-
-        default:
-          // Otherwise err on the side of overparenthesization, adding
-          // explicit exceptions above if this proves overzealous.
-          return true;
+      // Although parentheses wouldn't hurt around sequence
+      // expressions in the head of for loops, traditional style
+      // dictates that e.g. i++, j++ should not be wrapped with
+      // parentheses.
+      if (parent.type === "ForStatement") {
+        return false;
       }
+
+      // Otherwise err on the side of overparenthesization, adding
+      // explicit exceptions above if this proves overzealous.
+      return true;
 
     case "YieldExpression":
       if (
@@ -531,11 +522,20 @@ function needsParens(path, options) {
     // fallthrough
     case "TSConditionalType":
     case "TSConstructorType":
-      if (key === "extendsType" && parent.type === "TSConditionalType") {
-        if (node.type === "TSConditionalType") {
-          return true;
-        }
+    case "ConditionalTypeAnnotation":
+      if (
+        key === "extendsType" &&
+        isConditionalType(node) &&
+        parent.type === node.type
+      ) {
+        return true;
+      }
 
+      if (key === "checkType" && isConditionalType(parent)) {
+        return true;
+      }
+
+      if (key === "extendsType" && parent.type === "TSConditionalType") {
         let { typeAnnotation } = node.returnType || node.typeAnnotation;
 
         if (
@@ -553,15 +553,11 @@ function needsParens(path, options) {
         }
       }
 
-      if (key === "checkType" && parent.type === "TSConditionalType") {
-        return true;
-      }
     // fallthrough
     case "TSUnionType":
     case "TSIntersectionType":
       if (
-        (parent.type === "TSUnionType" ||
-          parent.type === "TSIntersectionType") &&
+        (isUnionType(parent) || isIntersectionType(parent)) &&
         parent.types.length > 1 &&
         (!node.types || node.types.length > 1)
       ) {
@@ -712,19 +708,6 @@ function needsParens(path, options) {
       );
     }
 
-    case "ConditionalTypeAnnotation":
-      if (
-        key === "extendsType" &&
-        parent.type === "ConditionalTypeAnnotation" &&
-        node.type === "ConditionalTypeAnnotation"
-      ) {
-        return true;
-      }
-
-      if (key === "checkType" && parent.type === "ConditionalTypeAnnotation") {
-        return true;
-      }
-
     // fallthrough
     case "OptionalIndexedAccessType":
       return key === "objectType" && parent.type === "IndexedAccessType";
@@ -735,7 +718,7 @@ function needsParens(path, options) {
       if (
         typeof node.value === "string" &&
         parent.type === "ExpressionStatement" &&
-        !parent.directive
+        typeof parent.directive !== "string"
       ) {
         // To avoid becoming a directive
         const grandParent = path.grandparent;
@@ -747,27 +730,10 @@ function needsParens(path, options) {
       }
 
       return (
-        key === "object" &&
-        parent.type === "MemberExpression" &&
-        typeof node.value === "number"
+        key === "object" && isMemberExpression(parent) && isNumericLiteral(node)
       );
 
-    case "AssignmentExpression": {
-      const grandParent = path.grandparent;
-
-      if (key === "body" && parent.type === "ArrowFunctionExpression") {
-        return true;
-      }
-
-      if (
-        key === "key" &&
-        (parent.type === "ClassProperty" ||
-          parent.type === "PropertyDefinition") &&
-        parent.computed
-      ) {
-        return false;
-      }
-
+    case "AssignmentExpression":
       if (
         (key === "init" || key === "update") &&
         parent.type === "ForStatement"
@@ -775,8 +741,12 @@ function needsParens(path, options) {
         return false;
       }
 
-      if (parent.type === "ExpressionStatement") {
-        return node.left.type === "ObjectPattern";
+      if (
+        key === "expression" &&
+        node.left.type !== "ObjectPattern" &&
+        parent.type === "ExpressionStatement"
+      ) {
+        return false;
       }
 
       if (key === "key" && parent.type === "TSPropertySignature") {
@@ -788,9 +758,15 @@ function needsParens(path, options) {
       }
 
       if (
+        key === "expressions" &&
         parent.type === "SequenceExpression" &&
-        grandParent.type === "ForStatement" &&
-        (grandParent.init === parent || grandParent.update === parent)
+        path.match(
+          undefined,
+          undefined,
+          (node, name) =>
+            (name === "init" || name === "update") &&
+            node.type === "ForStatement",
+        )
       ) {
         return false;
       }
@@ -798,8 +774,12 @@ function needsParens(path, options) {
       if (
         key === "value" &&
         parent.type === "Property" &&
-        grandParent.type === "ObjectPattern" &&
-        grandParent.properties.includes(parent)
+        path.match(
+          undefined,
+          undefined,
+          (node, name) =>
+            name === "properties" && node.type === "ObjectPattern",
+        )
       ) {
         return false;
       }
@@ -808,8 +788,12 @@ function needsParens(path, options) {
         return false;
       }
 
+      if (key === "node" && parent.type === "JsExpressionRoot") {
+        return false;
+      }
+
       return true;
-    }
+
     case "ConditionalExpression":
       switch (parent.type) {
         case "TaggedTemplateExpression":
@@ -962,7 +946,7 @@ function needsParens(path, options) {
         (parent.type === "ObjectProperty" &&
           // Preserve parens for compatibility with AngularJS expressions
           !node.extra?.parenthesized) ||
-        isArrayOrTupleExpression(parent) ||
+        isArrayExpression(parent) ||
         (key === "arguments" && isCallExpression(parent)) ||
         (key === "right" && parent.type === "NGPipeExpression") ||
         (key === "property" && parent.type === "MemberExpression") ||
@@ -978,7 +962,7 @@ function needsParens(path, options) {
         (key === "left" &&
           parent.type === "BinaryExpression" &&
           parent.operator === "<") ||
-        (!isArrayOrTupleExpression(parent) &&
+        (!isArrayExpression(parent) &&
           parent.type !== "ArrowFunctionExpression" &&
           parent.type !== "AssignmentExpression" &&
           parent.type !== "AssignmentPattern" &&
@@ -1092,7 +1076,7 @@ function includesFunctionTypeInObjectType(node) {
 }
 
 function endsWithRightBracket(node) {
-  return isObjectOrRecordExpression(node);
+  return isObjectExpression(node);
 }
 
 /**

@@ -1,0 +1,80 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`newline-before-arrow.js [acorn] format 1`] = `
+"Unexpected token (2:1)
+  1 | async x
+> 2 | => x
+    | ^
+  3 |
+Cause: Unexpected token (2:0)"
+`;
+
+exports[`newline-before-arrow.js [babel] format 1`] = `
+"No line break is allowed before '=>'. (2:3)
+  1 | async x
+> 2 | => x
+    |   ^
+  3 |
+Cause: No line break is allowed before '=>'. (2:2)"
+`;
+
+exports[`newline-before-arrow.js [babel-ts] format 1`] = `
+"No line break is allowed before '=>'. (2:3)
+  1 | async x
+> 2 | => x
+    |   ^
+  3 |
+Cause: No line break is allowed before '=>'. (2:2)"
+`;
+
+exports[`newline-before-arrow.js [babel-ts] format 2`] = `
+"No line break is allowed before '=>'. (2:3)
+  1 | async x
+> 2 | => x
+    |   ^
+  3 |
+Cause: No line break is allowed before '=>'. (2:2)"
+`;
+
+exports[`newline-before-arrow.js [espree] format 1`] = `
+"Unexpected token => (2:1)
+  1 | async x
+> 2 | => x
+    | ^
+  3 |
+Cause: Unexpected token =>"
+`;
+
+exports[`newline-before-arrow.js [flow] format 1`] = `
+"Illegal newline before arrow (2:1)
+  1 | async x
+> 2 | => x
+    | ^^
+  3 |"
+`;
+
+exports[`newline-before-arrow.js [meriyah] format 1`] = `
+"No line break is allowed after '=>' (2:1)
+  1 | async x
+> 2 | => x
+    | ^^
+  3 |
+Cause: [2:0-2:2]: No line break is allowed after '=>'"
+`;
+
+exports[`newline-before-arrow.js [oxc] format 1`] = `
+"Line terminator not permitted before arrow (2:1)
+  1 | async x
+> 2 | => x
+    | ^^
+  3 |"
+`;
+
+exports[`newline-before-arrow.js [typescript] format 1`] = `
+"Unexpected keyword or identifier. (1:1)
+> 1 | async x
+    | ^
+  2 | => x
+  3 |
+Cause: Unexpected keyword or identifier."
+`;

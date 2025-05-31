@@ -1,4 +1,4 @@
-import { htmlTagNames } from "html-tag-names";
+import htmlTags from "@prettier/html-tags";
 import {
   CSS_DISPLAY_DEFAULT,
   CSS_DISPLAY_TAGS,
@@ -8,7 +8,7 @@ import {
 
 // Snapshot to notify changes
 test("htmlTagNames", () => {
-  const data = htmlTagNames.map((tagName) => ({
+  const data = htmlTags.map((tagName) => ({
     tagName,
     display: CSS_DISPLAY_TAGS[tagName] ?? CSS_DISPLAY_DEFAULT,
     whiteSpace: CSS_WHITE_SPACE_TAGS[tagName] ?? CSS_WHITE_SPACE_DEFAULT,

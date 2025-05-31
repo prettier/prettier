@@ -8,23 +8,28 @@ import {
 } from "../../document/builders.js";
 import UnexpectedNodeError from "../../utils/unexpected-node-error.js";
 import {
-  isArrayOrTupleExpression,
-  isObjectOrRecordExpression,
+  isArrayExpression,
+  isObjectExpression,
   shouldPrintComma,
 } from "../utils/index.js";
 import isTsKeywordType from "../utils/is-ts-keyword-type.js";
 import { printArray } from "./array.js";
 import { printBlock } from "./block.js";
+import printCallArguments from "./call-arguments.js";
 import { printBinaryCastExpression } from "./cast-expression.js";
 import { printClassMethod, printClassProperty } from "./class.js";
-import { printEnumDeclaration, printEnumMember } from "./enum.js";
+import {
+  printEnumBody,
+  printEnumDeclaration,
+  printEnumMember,
+} from "./enum.js";
 import { printFunction, printMethodValue } from "./function.js";
 import {
   printFunctionParameters,
   shouldGroupFunctionParameters,
 } from "./function-parameters.js";
 import { printInterface } from "./interface.js";
-import { printTypescriptMappedType } from "./mapped-type.js";
+import { printTypeScriptMappedType } from "./mapped-type.js";
 import {
   printDeclareToken,
   printOptionalToken,
@@ -74,8 +79,8 @@ function printTypescript(path, options, print) {
       return "this";
     case "TSTypeAssertion": {
       const shouldBreakAfterCast = !(
-        isArrayOrTupleExpression(node.expression) ||
-        isObjectOrRecordExpression(node.expression)
+        isArrayExpression(node.expression) ||
+        isObjectExpression(node.expression)
       );
 
       const castGroup = group([
@@ -102,7 +107,7 @@ function printTypescript(path, options, print) {
       return group([castGroup, print("expression")]);
     }
     case "TSDeclareFunction":
-      return printFunction(path, print, options);
+      return printFunction(path, options, print);
     case "TSExportAssignment":
       return ["export = ", print("expression"), semi];
     case "TSModuleBlock":
@@ -132,7 +137,7 @@ function printTypescript(path, options, print) {
         ),
       ];
     case "TSTemplateLiteralType":
-      return printTemplateLiteral(path, print, options);
+      return printTemplateLiteral(path, options, print);
     case "TSNamedTupleMember":
       return printNamedTupleMember(path, options, print);
     case "TSRestType":
@@ -210,10 +215,8 @@ function printTypescript(path, options, print) {
       return [print("expression"), "!"];
     case "TSImportType":
       return [
-        !node.isTypeOf ? "" : "typeof ",
-        "import(",
-        print("argument"),
-        ")",
+        "import",
+        printCallArguments(path, options, print),
         !node.qualifier ? "" : [".", print("qualifier")],
         printTypeParameters(
           path,
@@ -231,7 +234,7 @@ function printTypescript(path, options, print) {
       return [node.operator, " ", print("typeAnnotation")];
 
     case "TSMappedType":
-      return printTypescriptMappedType(path, options, print);
+      return printTypeScriptMappedType(path, options, print);
 
     case "TSMethodSignature": {
       const kind = node.kind && node.kind !== "method" ? `${node.kind} ` : "";
@@ -246,8 +249,8 @@ function printTypescript(path, options, print) {
 
       const parametersDoc = printFunctionParameters(
         path,
-        print,
         options,
+        print,
         /* expandArg */ false,
         /* printTypeParams */ true,
       );
@@ -275,8 +278,9 @@ function printTypescript(path, options, print) {
     case "TSNamespaceExportDeclaration":
       return ["export as namespace ", print("id"), options.semi ? ";" : ""];
     case "TSEnumDeclaration":
-      return printEnumDeclaration(path, print, options);
-
+      return printEnumDeclaration(path, print);
+    case "TSEnumBody":
+      return printEnumBody(path, options, print);
     case "TSEnumMember":
       return printEnumMember(path, print);
 

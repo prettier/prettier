@@ -49,3 +49,12 @@ exports[`null-arguments-item.js [meriyah] format 1`] = `
   4 |     //1
 Cause: [1:10-1:11]: Unexpected token: ','"
 `;
+
+exports[`null-arguments-item.js [oxc] format 1`] = `
+"Unexpected token (1:11)
+> 1 | foor('a', , 'b');
+    |           ^
+  2 | foo('looooooooooooooooooooooooooooooooooooooooooooooong', , 'looooooooooooooooooooooooooooooooooooooooooooooong');
+  3 | foo("a",
+  4 |     //1"
+`;

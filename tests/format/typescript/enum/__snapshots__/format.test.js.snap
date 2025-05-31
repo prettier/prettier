@@ -11,6 +11,16 @@ exports[`computed-members.ts [babel-ts] format 1`] = `
 Cause: Unexpected token (2:2)"
 `;
 
+exports[`computed-members.ts [oxc-ts] format 1`] = `
+"Computed property names are not allowed in enums. (2:4)
+  1 | enum A {
+> 2 |   [i++],
+    |    ^^^
+  3 | }
+  4 |
+  5 | const bar = "bar""
+`;
+
 exports[`computed-members.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]

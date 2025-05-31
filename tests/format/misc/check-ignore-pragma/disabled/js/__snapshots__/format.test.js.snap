@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`module-with-noformat-pragma.js - {"checkIgnorePragma":false} format 1`] = `
+====================================options=====================================
+checkIgnorePragma: false
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/**
+ * @flow
+ * @noformat
+ */
+
+function      foo(bar)
+
+
+{
+
+  return bar +
+    3 +
+  4;
+}
+
+=====================================output=====================================
+/**
+ * @flow
+ * @noformat
+ */
+
+function foo(bar) {
+  return bar + 3 + 4;
+}
+
+================================================================================
+`;
+
+exports[`module-with-noprettier-pragma.js - {"checkIgnorePragma":false} format 1`] = `
+====================================options=====================================
+checkIgnorePragma: false
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/**
+ * @flow
+ * @noprettier
+ */
+
+function      foo(bar)
+
+
+{
+
+  return bar +
+    3 +
+  4;
+}
+
+=====================================output=====================================
+/**
+ * @flow
+ * @noprettier
+ */
+
+function foo(bar) {
+  return bar + 3 + 4;
+}
+
+================================================================================
+`;

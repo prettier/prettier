@@ -1,0 +1,125 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`mj-style.mjml format 1`] = `
+====================================options=====================================
+parsers: ["mjml"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<mjml>
+    <mj-style>
+.some-class {
+  color: red;
+      background-color: blue;
+padding:10px;
+}
+    </mj-style>
+  </mjml>
+
+=====================================output=====================================
+<mjml>
+  <mj-style>
+    .some-class {
+      color: red;
+      background-color: blue;
+      padding: 10px;
+    }
+  </mj-style>
+</mjml>
+
+================================================================================
+`;
+
+exports[`mj-style-complex.mjml format 1`] = `
+====================================options=====================================
+parsers: ["mjml"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<mjml>
+    <mj-style>
+      @media only screen and (max-width: 480px) {
+        .mobile-full-width {
+        width: 100% !important;
+        }
+      .mobile-center {
+    text-align:center!important;
+      }
+}
+
+      .custom-btn {
+        background-color: #FF5733;
+        border-radius: 5px;
+                             padding: 10px 20px;
+margin:0px;
+transform: translateY(0);
+      }
+    </mj-style>
+</mjml>
+
+=====================================output=====================================
+<mjml>
+  <mj-style>
+    @media only screen and (max-width: 480px) {
+      .mobile-full-width {
+        width: 100% !important;
+      }
+      .mobile-center {
+        text-align: center !important;
+      }
+    }
+
+    .custom-btn {
+      background-color: #ff5733;
+      border-radius: 5px;
+      padding: 10px 20px;
+      margin: 0px;
+      transform: translateY(0);
+    }
+  </mj-style>
+</mjml>
+
+================================================================================
+`;
+
+exports[`namespace.mjml format 1`] = `
+====================================options=====================================
+parsers: ["mjml"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<mjml>
+
+<mj-style> .should-format{
+  as: 'css'
+}</mj-style>
+
+<unknown:mj-style> .should-not-format{
+  as: 'css'
+}</unknown:mj-style>
+
+    <unknown:mj-section>
+<mj-style> .should-not-format{
+  as: 'css'
+}</mj-style>
+    </unknown:mj-section>
+
+</mjml>
+
+=====================================output=====================================
+<mjml>
+  <mj-style>
+    .should-format {
+      as: "css";
+    }
+  </mj-style>
+
+  <unknown:mj-style> .should-not-format{ as: 'css' }</unknown:mj-style>
+
+  <unknown:mj-section>
+    <mj-style> .should-not-format{ as: 'css' }</mj-style>
+  </unknown:mj-section>
+</mjml>
+
+================================================================================
+`;

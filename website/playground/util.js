@@ -65,6 +65,7 @@ const astAutoFold = {
 export function getAstAutoFold(parser) {
   switch (parser) {
     case "flow":
+    case "hermes":
     case "babel":
     case "babel-flow":
     case "babel-ts":
@@ -84,6 +85,7 @@ export function getAstAutoFold(parser) {
     case "angular":
     case "vue":
     case "lwc":
+    case "mjml":
       return astAutoFold.html;
     case "markdown":
     case "mdx":

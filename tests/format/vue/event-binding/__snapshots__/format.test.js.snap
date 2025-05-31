@@ -1,5 +1,85 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`assignment.vue format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<template>
+  <div>
+    <button @click="  foo   =   1  "></button>
+    <button @click="  foo   =   1;  "></button>
+    <button @click="  foo   +=   1  "></button>
+    <button @click="  foo   +=   1;  "></button>
+    <button @click="  foo   -=   1  "></button>
+    <button @click="  foo   -=   1;  "></button>
+    <button @click="  foo   *=   1  "></button>
+    <button @click="  foo   *=   1;  "></button>
+    <button @click="  foo   /=   1  "></button>
+    <button @click="  foo   /=   1;  "></button>
+    <button @click="  foo   %=   1  "></button>
+    <button @click="  foo   %=   1;  "></button>
+    <button @click="  foo   <<=   1  "></button>
+    <button @click="  foo   <<=   1;  "></button>
+    <button @click="  foo   >>=   1  "></button>
+    <button @click="  foo   >>=   1;  "></button>
+    <button @click="  foo   >>>=   1  "></button>
+    <button @click="  foo   >>>=   1;  "></button>
+    <button @click="  foo   |=   1  "></button>
+    <button @click="  foo   |=   1;  "></button>
+    <button @click="  foo   ^=   1  "></button>
+    <button @click="  foo   ^=   1;  "></button>
+    <button @click="  foo   &=   1  "></button>
+    <button @click="  foo   &=   1;  "></button>
+    <button @click="  foo   ||=   1  "></button>
+    <button @click="  foo   ||=   1;  "></button>
+    <button @click="  foo   &&=   1  "></button>
+    <button @click="  foo   &&=   1;  "></button>
+    <button @click="  foo   ??=   1  "></button>
+    <button @click="  foo   ??=   1;  "></button>
+  </div>
+</template>
+
+=====================================output=====================================
+<template>
+  <div>
+    <button @click="foo = 1"></button>
+    <button @click="foo = 1"></button>
+    <button @click="foo += 1"></button>
+    <button @click="foo += 1"></button>
+    <button @click="foo -= 1"></button>
+    <button @click="foo -= 1"></button>
+    <button @click="foo *= 1"></button>
+    <button @click="foo *= 1"></button>
+    <button @click="foo /= 1"></button>
+    <button @click="foo /= 1"></button>
+    <button @click="foo %= 1"></button>
+    <button @click="foo %= 1"></button>
+    <button @click="foo <<= 1"></button>
+    <button @click="foo <<= 1"></button>
+    <button @click="foo >>= 1"></button>
+    <button @click="foo >>= 1"></button>
+    <button @click="foo >>>= 1"></button>
+    <button @click="foo >>>= 1"></button>
+    <button @click="foo |= 1"></button>
+    <button @click="foo |= 1"></button>
+    <button @click="foo ^= 1"></button>
+    <button @click="foo ^= 1"></button>
+    <button @click="foo &= 1"></button>
+    <button @click="foo &= 1"></button>
+    <button @click="foo ||= 1"></button>
+    <button @click="foo ||= 1"></button>
+    <button @click="foo &&= 1"></button>
+    <button @click="foo &&= 1"></button>
+    <button @click="foo ??= 1"></button>
+    <button @click="foo ??= 1"></button>
+  </div>
+</template>
+
+================================================================================
+`;
+
 exports[`basic-ts.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]

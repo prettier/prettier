@@ -17,7 +17,7 @@ import {
   getCallArgumentSelector,
   getFunctionParameters,
   hasComment,
-  isArrayOrTupleExpression,
+  isArrayExpression,
   isBinaryCastExpression,
   isBinaryish,
   isCallExpression,
@@ -26,7 +26,7 @@ import {
   isJsxElement,
   isLongCurriedCallExpression,
   isNextLineEmpty,
-  isObjectOrRecordExpression,
+  isObjectExpression,
   isObjectProperty,
   isRegExpLiteral,
   isSimpleCallArgument,
@@ -78,13 +78,12 @@ function printCallArguments(path, options, print) {
     printedArguments.push(argDoc);
   });
 
-  // Dynamic imports cannot have trailing commas
-  const isDynamicImport =
-    node.type === "ImportExpression" || node.callee.type === "Import";
   const maybeTrailingComma =
     // Angular does not allow trailing comma
     !options.parser.startsWith("__ng_") &&
-    !isDynamicImport &&
+    // Dynamic imports cannot have trailing commas
+    node.type !== "ImportExpression" &&
+    node.type !== "TSImportType" &&
     shouldPrintComma(options, "all")
       ? ","
       : "";
@@ -193,10 +192,9 @@ function printCallArguments(path, options, print) {
 
 function couldExpandArg(arg, arrowChainRecursion = false) {
   return (
-    (isObjectOrRecordExpression(arg) &&
+    (isObjectExpression(arg) &&
       (arg.properties.length > 0 || hasComment(arg))) ||
-    (isArrayOrTupleExpression(arg) &&
-      (arg.elements.length > 0 || hasComment(arg))) ||
+    (isArrayExpression(arg) && (arg.elements.length > 0 || hasComment(arg))) ||
     (arg.type === "TSTypeAssertion" && couldExpandArg(arg.expression)) ||
     (isBinaryCastExpression(arg) && couldExpandArg(arg.expression)) ||
     arg.type === "FunctionExpression" ||
@@ -220,8 +218,8 @@ function couldExpandArg(arg, arrowChainRecursion = false) {
       (arg.body.type === "BlockStatement" ||
         (arg.body.type === "ArrowFunctionExpression" &&
           couldExpandArg(arg.body, true)) ||
-        isObjectOrRecordExpression(arg.body) ||
-        isArrayOrTupleExpression(arg.body) ||
+        isObjectExpression(arg.body) ||
+        isArrayExpression(arg.body) ||
         (!arrowChainRecursion &&
           (isCallExpression(arg.body) ||
             arg.body.type === "ConditionalExpression")) ||
@@ -252,7 +250,7 @@ function shouldExpandLastArg(args, argDocs, options) {
     // useMemo(() => func(), [foo, bar, baz])
     (args.length !== 2 ||
       penultimateArg.type !== "ArrowFunctionExpression" ||
-      !isArrayOrTupleExpression(lastArg)) &&
+      !isArrayExpression(lastArg)) &&
     !(args.length > 1 && isConciselyPrintedArray(lastArg, options))
   );
 }

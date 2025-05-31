@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`mj-style.mjml - {"embeddedLanguageFormatting":"off"} format 1`] = `
+====================================options=====================================
+embeddedLanguageFormatting: "off"
+parsers: ["mjml"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<mjml>
+
+<mj-style> .should-not-format{
+  as: 'css'
+}</mj-style>
+
+</mjml>
+
+=====================================output=====================================
+<mjml>
+  <mj-style>
+     .should-not-format{
+      as: 'css'
+    }
+  </mj-style>
+</mjml>
+
+================================================================================
+`;

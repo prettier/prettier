@@ -33,12 +33,11 @@ jobs:
           - "20"
         NPM_CLIENT:
           - "yarn"
-          # Disabled temporarily #13151
-          # - "npm"
+          - "npm"
           - "pnpm"
     env:
       INSTALL_PACKAGE: true
-      NPM_CLIENT: ${{ matrix.NPM_CLIENT }}
+      PRETTIER_INSTALL_NPM_CLIENT: ${{ matrix.NPM_CLIENT }}
     name: Test with ${{ matrix.NPM_CLIENT }}
     runs-on: ${{ matrix.os }}
     steps:

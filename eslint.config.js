@@ -1,12 +1,12 @@
 import url from "node:url";
 import eslintPluginJs from "@eslint/js";
-import eslintPluginStylisticJs from "@stylistic/eslint-plugin-js";
+import eslintPluginEslintReact from "@eslint-react/eslint-plugin";
+import eslintPluginStylistic from "@stylistic/eslint-plugin";
 import eslintPluginTypescriptEslint from "@typescript-eslint/eslint-plugin";
 import { isCI } from "ci-info";
 import eslintConfigPrettier from "eslint-config-prettier";
 import eslintPluginJest from "eslint-plugin-jest";
 import eslintPluginN from "eslint-plugin-n";
-import eslintPluginReact from "eslint-plugin-react";
 import eslintPluginRegexp from "eslint-plugin-regexp";
 import eslintPluginSimpleImportSort from "eslint-plugin-simple-import-sort";
 import eslintPluginUnicorn from "eslint-plugin-unicorn";
@@ -20,19 +20,18 @@ const ignores = `
 test*.*
 # Ignore directories and files in 'tests/format'
 tests/format/**/*
-# Unignore directories and 'jsfmt.spec.js', 'format.test.js' file
+# Unignore directories and 'format.test.js' file
 !tests/format/**/
 !tests/format/**/format.test.js
-# TODO: Remove this in 2025, somehow '!tests/format/**/jsfmt.spec.js' does not work
-!tests/format/**/jsfmt.*.js
 tests/integration/cli/
 scripts/release/node_modules
 coverage/
 dist*/
 **/node_modules/**
 website/build/
-website/static/playground.js
 website/static/lib/
+website/static/playground/
+website/.docusaurus
 scripts/benchmark/*/
 **/.yarn/**
 **/.pnp.*
@@ -50,7 +49,7 @@ export default [
       globals: { ...globals.builtin, ...globals.node },
     },
     plugins: {
-      "@stylistic/js": eslintPluginStylisticJs,
+      "@stylistic": eslintPluginStylistic,
       "@typescript-eslint": eslintPluginTypescriptEslint,
       n: eslintPluginN,
       "prettier-internal-rules": eslintPluginPrettierInternalRules,
@@ -143,8 +142,8 @@ export default [
       "prettier-internal-rules/no-identifier-n": "error",
       "prettier-internal-rules/prefer-fs-promises-submodule": "error",
 
-      /* @stylistic/eslint-plugin-js */
-      "@stylistic/js/quotes": [
+      /* @stylistic/eslint-plugin */
+      "@stylistic/quotes": [
         "error",
         "double",
         {
@@ -290,11 +289,7 @@ export default [
   },
   // CommonJS modules
   {
-    files: [
-      "**/*.cjs",
-      "scripts/tools/eslint-plugin-prettier-internal-rules/**/*.js",
-      "website/**/*.js",
-    ],
+    files: ["**/*.cjs", "website/**/*.js"],
     languageOptions: {
       sourceType: "script",
     },
@@ -330,7 +325,7 @@ export default [
       globals: eslintPluginJest.environments.globals.globals,
     },
     rules: {
-      "@stylistic/js/quotes": [
+      "@stylistic/quotes": [
         "error",
         "double",
         {
@@ -418,6 +413,7 @@ export default [
     files: ["src/language-*/**/*.js"],
     rules: {
       "prettier-internal-rules/directly-loc-start-end": "error",
+      "prettier-internal-rules/print-function-parameter-order": "error",
     },
   },
   {
@@ -435,6 +431,7 @@ export default [
         "src/language-js/parse/meriyah.js",
         "src/language-js/parse/json.js",
         "src/language-js/parse/acorn.js",
+        "src/language-js/parse/oxc.js",
         "src/language-js/parse/utils/wrap-babel-expression.js",
       ],
       "prettier-internal-rules/prefer-create-type-check-function": [
@@ -448,27 +445,29 @@ export default [
   },
   {
     files: ["website/**/*"],
-    ...eslintPluginReact.configs.flat.recommended,
+    ...eslintPluginEslintReact.configs.recommended,
   },
   {
     files: ["website/**/*"],
     languageOptions: {
       globals: { ...globals.browser, ...globals.worker },
+      parserOptions: {
+        ecmaFeatures: {
+          jsx: true,
+        },
+      },
     },
     settings: {
-      react: {
+      "react-x": {
         version: "18",
       },
     },
     rules: {
-      "react/display-name": "off",
-      "react/no-deprecated": "off",
-      "react/prop-types": "off",
       "unicorn/filename-case": "off",
     },
   },
   {
-    files: ["website/playground/**/*"],
+    files: ["website/docusaurus.config.js", "website/playground/**/*"],
     languageOptions: {
       sourceType: "module",
     },
@@ -482,5 +481,11 @@ export default [
       "no-var": "off",
       "prefer-arrow-callback": "off",
     },
+  },
+  // ESBuild doesn't support regular expressions with `u` flag
+  // https://github.com/evanw/esbuild/issues/4128
+  {
+    files: ["scripts/build/esbuild-plugins/**/*"],
+    rules: { "require-unicode-regexp": "off" },
   },
 ];

@@ -1,5 +1,194 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`4594.scss format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+.foo,
+// Comment
+.bar {
+  // Comment
+  color: red; // Comment
+}
+
+$my-list:
+  'foo', // Comment
+  'bar'; // Comment
+
+$my-map: (
+  'foo': 1, // Comment
+  'bar': 2, // Comment
+  'buz': calc(1 + 2), // Buz
+  'baz': 4, // Baz
+);
+
+[href]:hover &, // Comment
+[href]:focus &, // Comment
+[href]:active & {
+  .tooltip {
+    opacity: 1;
+  }
+}
+
+@import
+  // Comment
+  'mixins',
+  'variables',
+  // Comment
+  'reset',
+  'scaffolding',
+  'type',
+  // Comment
+  'bar',
+  'tabs';
+
+=====================================output=====================================
+.foo,
+// Comment
+.bar {
+  // Comment
+  color: red; // Comment
+}
+
+$my-list:
+  "foo",
+  // Comment
+  "bar"; // Comment
+
+$my-map: (
+  "foo": 1,
+  // Comment
+  "bar": 2,
+  // Comment
+  "buz": calc(1 + 2),
+  // Buz
+  "baz": 4, // Baz
+);
+
+[href]:hover &, // Comment
+[href]:focus &, // Comment
+[href]:active & {
+  .tooltip {
+    opacity: 1;
+  }
+}
+
+@import // Comment
+  "mixins",
+  "variables",
+  // Comment
+  "reset",
+  "scaffolding", "type",
+  // Comment
+  "bar",
+  "tabs";
+
+================================================================================
+`;
+
+exports[`4878.scss format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+@function someVeryLongFunctionNameForJustAPow($base, $exponent) {
+  $result: 1;
+  @for $_ from 1 through $exponent {
+    $result: $result * $base;
+  }
+  @return $result;
+}
+
+@function pow($base, $exponent){
+  @return someVeryLongFunctionNameForJustAPow($base,$exponent);
+}
+
+.foo{
+  width: someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2,
+  // This next pow is really powerful
+  someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, 2))))))))))))
+}
+
+.bar{
+  width: pow(2, pow(2, pow(2,
+  // This next pow is really powerful
+  pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, 2))))))))))))
+}
+
+=====================================output=====================================
+@function someVeryLongFunctionNameForJustAPow($base, $exponent) {
+  $result: 1;
+  @for $_ from 1 through $exponent {
+    $result: $result * $base;
+  }
+  @return $result;
+}
+
+@function pow($base, $exponent) {
+  @return someVeryLongFunctionNameForJustAPow($base, $exponent);
+}
+
+.foo {
+  width: someVeryLongFunctionNameForJustAPow(
+    2,
+    someVeryLongFunctionNameForJustAPow(
+      2,
+      someVeryLongFunctionNameForJustAPow(
+        2,
+        // This next pow is really powerful
+        someVeryLongFunctionNameForJustAPow(
+            2,
+            someVeryLongFunctionNameForJustAPow(
+              2,
+              someVeryLongFunctionNameForJustAPow(
+                2,
+                someVeryLongFunctionNameForJustAPow(
+                  2,
+                  someVeryLongFunctionNameForJustAPow(
+                    2,
+                    someVeryLongFunctionNameForJustAPow(
+                      2,
+                      someVeryLongFunctionNameForJustAPow(
+                        2,
+                        someVeryLongFunctionNameForJustAPow(
+                          2,
+                          someVeryLongFunctionNameForJustAPow(2, 2)
+                        )
+                      )
+                    )
+                  )
+                )
+              )
+            )
+          )
+      )
+    )
+  );
+}
+
+.bar {
+  width: pow(
+    2,
+    pow(
+      2,
+      pow(
+        2,
+        // This next pow is really powerful
+        pow(
+            2,
+            pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, 2))))))))
+          )
+      )
+    )
+  );
+}
+
+================================================================================
+`;
+
 exports[`CRLF.scss format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
@@ -303,6 +492,42 @@ printWidth: 80
 /* Catchall baseclass */
 .glyphicon {
 }
+
+================================================================================
+`;
+
+exports[`comments.scss format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// This comment won't be included in the CSS. 
+//This comment won't be included in the CSS.
+//     This comment won't be included in the CSS.     
+
+/* But this comment will, except in compressed mode. */
+/*     But this comment will, except in compressed mode.     */
+/*But this comment will, except in compressed mode.*/
+
+/*! This comment will be included even in compressed mode. */
+
+/// Computes an exponent.
+///// Computes an exponent.
+
+=====================================output=====================================
+// This comment won't be included in the CSS.
+//This comment won't be included in the CSS.
+//     This comment won't be included in the CSS.
+
+/* But this comment will, except in compressed mode. */
+/*     But this comment will, except in compressed mode.     */
+/*But this comment will, except in compressed mode.*/
+
+/*! This comment will be included even in compressed mode. */
+
+/// Computes an exponent.
+///// Computes an exponent.
 
 ================================================================================
 `;

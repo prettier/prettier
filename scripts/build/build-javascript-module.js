@@ -4,7 +4,10 @@ import browserslistToEsbuild from "browserslist-to-esbuild";
 import esbuild from "esbuild";
 import { nodeModulesPolyfillPlugin as esbuildPluginNodeModulePolyfills } from "esbuild-plugins-node-modules-polyfill";
 import createEsmUtils from "esm-utils";
-import { DIST_DIR, PROJECT_ROOT } from "../utils/index.js";
+import {
+  PRODUCTION_MINIMAL_NODE_JS_VERSION,
+  PROJECT_ROOT,
+} from "../utils/index.js";
 import esbuildPluginAddDefaultExport from "./esbuild-plugins/add-default-export.js";
 import esbuildPluginEvaluate from "./esbuild-plugins/evaluate.js";
 import esbuildPluginPrimitiveDefine from "./esbuild-plugins/primitive-define.js";
@@ -35,23 +38,13 @@ const getRelativePath = (from, to) => {
   return relativePath;
 };
 
-function getEsbuildOptions({ file, files, cliOptions }) {
+function getEsbuildOptions({ packageConfig, file, cliOptions }) {
+  const { distDirectory, files } = packageConfig;
+
   // Save dependencies to file
   file.dependencies = [];
 
   const replaceModule = [
-    // Use `require` directly
-    {
-      module: "*",
-      find: "const require = createRequire(import.meta.url);",
-      replacement: "",
-    },
-    // Use `__dirname` directly
-    {
-      module: "*",
-      find: "const __dirname = path.dirname(fileURLToPath(import.meta.url));",
-      replacement: "",
-    },
     /*
     `jest-docblock` try to detect new line in code, and it will fallback to `os.EOL`,
     We already replaced line end to `\n` before calling it
@@ -212,6 +205,16 @@ function getEsbuildOptions({ file, files, cliOptions }) {
     );
   }
 
+  // Current version of `yaml` is not tree-shakable,
+  // but when we update it, we may reduce size,
+  // since the UMD version don't need expose `__parsePrettierYamlConfig`
+  if (file.output.format === "umd" && file.output.file === "plugins/yaml.js") {
+    replaceModule.push({
+      module: path.join(PROJECT_ROOT, file.input),
+      text: 'export * from "../language-yaml/index.js";',
+    });
+  }
+
   const { buildOptions } = file;
   const shouldMinify =
     cliOptions.minify ?? buildOptions.minify ?? file.platform === "universal";
@@ -221,7 +224,7 @@ function getEsbuildOptions({ file, files, cliOptions }) {
     bundle: true,
     metafile: true,
     plugins: [
-      esbuildPluginPrimitiveDefine(define),
+      esbuildPluginPrimitiveDefine({ ...define, ...buildOptions.define }),
       esbuildPluginEvaluate(),
       esbuildPluginStripNodeProtocol(),
       esbuildPluginReplaceModule({
@@ -241,10 +244,12 @@ function getEsbuildOptions({ file, files, cliOptions }) {
     external: ["pnpapi", ...(buildOptions.external ?? [])],
     // Disable esbuild auto discover `tsconfig.json` file
     tsconfigRaw: JSON.stringify({}),
-    target: [...(buildOptions.target ?? ["node14"])],
+    target: [
+      ...(buildOptions.target ?? [`node${PRODUCTION_MINIMAL_NODE_JS_VERSION}`]),
+    ],
     logLevel: "error",
     format: file.output.format,
-    outfile: path.join(DIST_DIR, cliOptions.saveAs ?? file.output.file),
+    outfile: path.join(distDirectory, cliOptions.saveAs ?? file.output.file),
     // https://esbuild.github.io/api/#main-fields
     mainFields: file.platform === "node" ? ["module", "main"] : undefined,
     supported: {

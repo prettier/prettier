@@ -3,5 +3,7 @@ runFormatTest(import.meta, ["babel"], {
     acorn: ["do.js"],
     espree: ["do.js"],
     meriyah: ["do.js"],
+    oxc: ["do.js"],
+    "oxc-ts": ["do.js"],
   },
 });

@@ -7,8 +7,10 @@ import printString from "../../utils/print-string.js";
 import { hasSameLocStart, locEnd, locStart } from "../loc.js";
 import getVisitorKeys from "../traverse/get-visitor-keys.js";
 import createTypeCheckFunction from "./create-type-check-function.js";
+import getRaw from "./get-raw.js";
 import isBlockComment from "./is-block-comment.js";
 import isFlowKeywordType from "./is-flow-keyword-type.js";
+import isLineComment from "./is-line-comment.js";
 import isNodeMatches from "./is-node-matches.js";
 import isTsKeywordType from "./is-ts-keyword-type.js";
 
@@ -92,24 +94,6 @@ function getLeftSidePathName(node) {
   throw new Error("Unexpected node has no left side.");
 }
 
-/**
- * @param {Estree.Comment} comment
- * @returns {boolean}
- */
-const isLineComment = createTypeCheckFunction([
-  "Line",
-  "CommentLine",
-  // `meriyah` has `SingleLine`, `HashbangComment`, `HTMLOpen`, and `HTMLClose`
-  "SingleLine",
-  "HashbangComment",
-  "HTMLOpen",
-  "HTMLClose",
-  // `espree`
-  "Hashbang",
-  // Babel hashbang
-  "InterpreterDirective",
-]);
-
 const isExportDeclaration = createTypeCheckFunction([
   "ExportDefaultDeclaration",
   "DeclareExportDeclaration",
@@ -118,15 +102,11 @@ const isExportDeclaration = createTypeCheckFunction([
   "DeclareExportAllDeclaration",
 ]);
 
-const isArrayOrTupleExpression = createTypeCheckFunction([
-  "ArrayExpression",
-  "TupleExpression",
-]);
-
-const isObjectOrRecordExpression = createTypeCheckFunction([
-  "ObjectExpression",
-  "RecordExpression",
-]);
+// These two functions exists because we used support `recordAndTuple`
+// Feel free to check `node.type` instead
+// https://github.com/prettier/prettier/pull/17363
+const isArrayExpression = createTypeCheckFunction(["ArrayExpression"]);
+const isObjectExpression = createTypeCheckFunction(["ObjectExpression"]);
 
 /**
  * @param {Estree.Node} node
@@ -144,6 +124,13 @@ function isNumericLiteral(node) {
   return (
     node.type === "NumericLiteral" ||
     (node.type === "Literal" && typeof node.value === "number")
+  );
+}
+
+function isBooleanLiteral(node) {
+  return (
+    node.type === "BooleanLiteral" ||
+    (node.type === "Literal" && typeof node.value === "boolean")
   );
 }
 
@@ -191,7 +178,6 @@ const isSingleWordType = createTypeCheckFunction([
   "Super",
   "PrivateName",
   "PrivateIdentifier",
-  "Import",
 ]);
 
 const isObjectType = createTypeCheckFunction([
@@ -472,7 +458,7 @@ function isLoneShortArgument(node, options) {
   }
 
   if (isStringLiteral(node)) {
-    return printString(rawText(node), options).length <= threshold;
+    return printString(getRaw(node), options).length <= threshold;
   }
 
   if (node.type === "TemplateLiteral") {
@@ -632,14 +618,14 @@ function isSimpleCallArgument(node, depth = 2) {
     );
   }
 
-  if (isObjectOrRecordExpression(node)) {
+  if (isObjectExpression(node)) {
     return node.properties.every(
       (p) =>
         !p.computed && (p.shorthand || (p.value && isChildSimple(p.value))),
     );
   }
 
-  if (isArrayOrTupleExpression(node)) {
+  if (isArrayExpression(node)) {
     return node.elements.every((x) => x === null || isChildSimple(x));
   }
 
@@ -670,10 +656,6 @@ function isSimpleCallArgument(node, depth = 2) {
   }
 
   return false;
-}
-
-function rawText(node) {
-  return node.extra?.raw ?? node.raw;
 }
 
 function identity(x) {
@@ -902,15 +884,9 @@ function getCallArguments(node) {
   }
 
   let args = node.arguments;
-  if (node.type === "ImportExpression") {
-    args = [node.source];
+  if (node.type === "ImportExpression" || node.type === "TSImportType") {
+    args = [node.type === "ImportExpression" ? node.source : node.argument];
 
-    // import attributes
-    if (node.attributes) {
-      args.push(node.attributes);
-    }
-
-    // deprecated import assertions
     if (node.options) {
       args.push(node.options);
     }
@@ -930,15 +906,12 @@ function iterateCallArgumentsPath(path, iteratee) {
     );
   }
 
-  if (node.type === "ImportExpression") {
-    path.call((sourcePath) => iteratee(sourcePath, 0), "source");
+  if (node.type === "ImportExpression" || node.type === "TSImportType") {
+    path.call(
+      (sourcePath) => iteratee(sourcePath, 0),
+      node.type === "ImportExpression" ? "source" : "argument",
+    );
 
-    // import attributes
-    if (node.attributes) {
-      path.call((sourcePath) => iteratee(sourcePath, 1), "attributes");
-    }
-
-    // deprecated import assertions
     if (node.options) {
       path.call((sourcePath) => iteratee(sourcePath, 1), "options");
     }
@@ -954,15 +927,13 @@ function getCallArgumentSelector(node, index) {
     selectors.push("expression");
   }
 
-  if (node.type === "ImportExpression") {
-    if (index === 0 || index === (node.attributes || node.options ? -2 : -1)) {
-      return [...selectors, "source"];
+  if (node.type === "ImportExpression" || node.type === "TSImportType") {
+    if (index === 0 || index === (node.options ? -2 : -1)) {
+      return [
+        ...selectors,
+        node.type === "ImportExpression" ? "source" : "argument",
+      ];
     }
-    // import attributes
-    if (node.attributes && (index === 1 || index === -1)) {
-      return [...selectors, "attributes"];
-    }
-    // deprecated import assertions
     if (node.options && (index === 1 || index === -1)) {
       return [...selectors, "options"];
     }
@@ -1092,13 +1063,18 @@ const isBinaryCastExpression = createTypeCheckFunction([
 ]);
 
 const isUnionType = createTypeCheckFunction([
-  "UnionTypeAnnotation",
   "TSUnionType",
+  "UnionTypeAnnotation",
 ]);
 
 const isIntersectionType = createTypeCheckFunction([
-  "IntersectionTypeAnnotation",
   "TSIntersectionType",
+  "IntersectionTypeAnnotation",
+]);
+
+const isConditionalType = createTypeCheckFunction([
+  "TSConditionalType",
+  "ConditionalTypeAnnotation",
 ]);
 
 export {
@@ -1118,19 +1094,20 @@ export {
   hasNodeIgnoreComment,
   hasRestParameter,
   identity,
-  isArrayOrTupleExpression,
+  isArrayExpression,
   isBinaryCastExpression,
   isBinaryish,
   isBitwiseOperator,
+  isBooleanLiteral,
   isCallExpression,
   isCallLikeExpression,
+  isConditionalType,
   isExportDeclaration,
   isFlowObjectTypePropertyAFunction,
   isFunctionCompositionArgs,
   isFunctionOrArrowExpression,
   isIntersectionType,
   isJsxElement,
-  isLineComment,
   isLiteral,
   isLoneShortArgument,
   isLongCurriedCallExpression,
@@ -1140,7 +1117,7 @@ export {
   isNextLineEmpty,
   isNullishCoalescing,
   isNumericLiteral,
-  isObjectOrRecordExpression,
+  isObjectExpression,
   isObjectProperty,
   isObjectType,
   isPrettierIgnoreComment,
@@ -1157,7 +1134,6 @@ export {
   iterateCallArgumentsPath,
   iterateFunctionParametersPath,
   needsHardlineAfterDanglingComment,
-  rawText,
   shouldFlatten,
   shouldPrintComma,
   startsWithNoLookaheadToken,

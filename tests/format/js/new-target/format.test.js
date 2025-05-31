@@ -4,5 +4,6 @@ runFormatTest(import.meta, ["babel", "flow", "typescript"], {
     espree: true,
     meriyah: true,
     flow: true,
+    hermes: true,
   },
 });

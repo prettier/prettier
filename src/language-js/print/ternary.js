@@ -18,6 +18,7 @@ import {
   hasComment,
   isBinaryCastExpression,
   isCallExpression,
+  isConditionalType,
   isJsxElement,
   isLoneShortArgument,
   isMemberExpression,
@@ -153,9 +154,7 @@ function printTernary(path, options, print, args) {
 
   const { node } = path;
   const isConditionalExpression = node.type === "ConditionalExpression";
-  const isTSConditional =
-    node.type === "TSConditionalType" ||
-    node.type === "ConditionalTypeAnnotation"; // For Flow.
+  const isTSConditional = isConditionalType(node);
   const consequentNodePropertyName = isConditionalExpression
     ? "consequent"
     : "trueType";
@@ -322,8 +321,7 @@ function printTernary(path, options, print, args) {
         " ",
         "extends",
         " ",
-        node.extendsType.type === "TSConditionalType" ||
-        node.extendsType.type === "ConditionalTypeAnnotation" ||
+        isConditionalType(node.extendsType) ||
         node.extendsType.type === "TSMappedType"
           ? print("extendsType")
           : group(wrapInParens(print("extendsType"))),
