@@ -41,7 +41,7 @@ import {
  * @import {Doc} from "../document/builders.js"
  */
 
-const SIBLING_NODE_TYPES = new Set(["listItem", "definition"]);
+const SIBLING_NODE_TYPES = new Set(["listItem", "defListTerm", "defListDescription", "definition"]);
 
 function prevOrNextWord(path) {
   const { previous, next } = path;
@@ -388,6 +388,41 @@ function genericPrint(path, options, print) {
         ]),
       ]);
     }
+    case "defList":
+      return printChildren(path, options, print, {
+        processor(childPath) {
+          const prefix = getPrefix();
+          const childNode = childPath.node;
+
+          if (
+            childNode.children.length === 2 &&
+            childNode.children[1].type === "html" &&
+            childNode.children[0].position.start.column !==
+              childNode.children[1].position.start.column
+          ) {
+            return [prefix, printListItem(childPath, options, print, prefix)];
+          }
+
+          return [
+            prefix,
+            align(
+              " ".repeat(prefix.length),
+              printListItem(childPath, options, print, prefix),
+            ),
+          ];
+
+          function getPrefix() {
+            if (childNode.type === "defListTerm") {
+              return "";
+            }
+
+            const rawPrefix = ": ";
+
+            return alignListPrefix(rawPrefix, options);
+          }
+        },
+      });
+
     // `footnote` requires `.use(footnotes, {inlineNotes: true})`, we are not using this option
     // https://github.com/remarkjs/remark-footnotes#optionsinlinenotes
     /* c8 ignore next 2 */
@@ -450,6 +485,8 @@ function genericPrint(path, options, print) {
       // since it's very possible that it's recognized as math accidentally
       return options.originalText.slice(locStart(node), locEnd(node));
 
+    case "defListTerm": // handled in "defList"
+    case "defListDescription": // handled in "defList"
     case "tableRow": // handled in "table"
     case "listItem": // handled in "list"
     case "text": // handled in other types
@@ -461,7 +498,12 @@ function genericPrint(path, options, print) {
 
 function printListItem(path, options, print, listPrefix) {
   const { node } = path;
-  const prefix = node.checked === null ? "" : node.checked ? "[x] " : "[ ] ";
+  const prefix =
+    node.checked === null || node.checked === undefined
+      ? ""
+      : node.checked
+        ? "[x] "
+        : "[ ] ";
   return [
     prefix,
     printChildren(path, options, print, {
@@ -663,6 +705,10 @@ function shouldPrePrintHardline({ node, parent }) {
   return !isInlineNode && !isInlineHTML;
 }
 
+function isListItem(node) {
+  return node.type === "listItem" || node.type == "defListDescription"|| node.type == "defListTerm";
+}
+
 function isLooseListItem(node, options) {
   return (
     node.type === "listItem" &&
@@ -683,7 +729,7 @@ function shouldPrePrintDoubleHardline({ node, previous, parent }, options) {
   const isSequence = previous.type === node.type;
   const isSiblingNode = isSequence && SIBLING_NODE_TYPES.has(node.type);
   const isInTightListItem =
-    parent.type === "listItem" && !isLooseListItem(parent, options);
+    isListItem(parent) && !isLooseListItem(parent, options);
   const isPrevNodePrettierIgnore = isPrettierIgnore(previous) === "next";
   const isBlockHtmlWithoutBlankLineBetweenPrevHtml =
     node.type === "html" &&
@@ -691,7 +737,7 @@ function shouldPrePrintDoubleHardline({ node, previous, parent }, options) {
     previous.position.end.line + 1 === node.position.start.line;
   const isHtmlDirectAfterListItem =
     node.type === "html" &&
-    parent.type === "listItem" &&
+    isListItem(parent) &&
     previous.type === "paragraph" &&
     previous.position.end.line + 1 === node.position.start.line;
 
