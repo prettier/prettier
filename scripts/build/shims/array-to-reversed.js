@@ -10,4 +10,4 @@ const arrayToReversed = (isOptionalObject, array) => {
   return [...array].reverse();
 };
 
-export default arrayFindLast;
+export default arrayToReversed;
