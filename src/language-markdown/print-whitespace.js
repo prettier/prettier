@@ -43,10 +43,11 @@ const lineBreakBetweenTheseAndCJConvertsToSpace = new Set(
  * - not comma (`,`) to avoid lists being splayed across many lines
  * - not emdash (`—`) because linebreak after emdash may cause space to be
  *   added in markdown
+ * - not colon (`:`) to avoid interfering with link definitions
  *
  * Note: we will not force newline after these symbols if they are in CJK text.
  */
-const sembrBreakAfter = ".!?;:";
+const sembrBreakAfter = ".!?;";
 
 /**
  * Determine the preferred style of spacing between Chinese or Japanese and non-CJK
