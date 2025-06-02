@@ -3,6 +3,7 @@ import transformArrayFindLastIndex from "./transform-array-find-last-index.js";
 import transformObjectHasOwnCall from "./transform-object-has-own.js";
 import transformRelativeIndexing from "./transform-relative-indexing.js";
 import transformStringReplaceAll from "./transform-string-replace-all.js";
+import transformArrayToReversed from "./transform-array-to-reversed.js";
 
 // These transforms are like Babel and core-js
 // Allow us to use JavaScript features in our source code that are not yet
@@ -18,4 +19,6 @@ export default [
   transformRelativeIndexing,
   // Node.js 15.0.0
   transformStringReplaceAll,
+  // Node.js 20
+  transformArrayToReversed,
 ];

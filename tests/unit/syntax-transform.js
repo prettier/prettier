@@ -92,3 +92,20 @@ test("Array#findLastIndex", () => {
     transform("foo.findLastIndex(callback, thisArgument)"),
   ).toMatchInlineSnapshot(`"foo.findLastIndex(callback, thisArgument)"`);
 });
+
+test("Array#toReversed", () => {
+  expect(transform("foo.toReversed()")).toMatchInlineSnapshot(`
+    "import __arrayToReversed from "<SHIMS>/array-to-reversed.js";
+
+    __arrayToReversed(/* isOptionalObject */false,foo)"
+  `);
+  expect(transform("foo?.toReversed()")).toMatchInlineSnapshot(`
+    "import __arrayToReversed from "<SHIMS>/array-to-reversed.js";
+
+    __arrayToReversed(/* isOptionalObject */true,foo)"
+  `);
+
+  expect(transform("foo.toReversed(extraArgument)")).toMatchInlineSnapshot(
+    `"foo.toReversed(extraArgument)"`,
+  );
+});
