@@ -1,12 +1,10 @@
 import path from "node:path";
-import babelGenerator from "@babel/generator";
+import generate from "@babel/generator";
 import { parse } from "@babel/parser";
 import { traverseFast as traverse } from "@babel/types";
 import { outdent } from "outdent";
 import { PROJECT_ROOT, SOURCE_DIR } from "../../utils/index.js";
 import allTransforms from "./transforms/index.js";
-
-const generate = babelGenerator.default;
 
 /* Doesn't work for dependencies, optional call, computed property, and spread arguments */
 
@@ -20,6 +18,7 @@ function transform(original, file) {
       ) ||
       file.startsWith(path.join(PROJECT_ROOT, "node_modules/jest-docblock/")) ||
       file.startsWith(path.join(PROJECT_ROOT, "node_modules/espree/")) ||
+      file.startsWith(path.join(PROJECT_ROOT, "node_modules/@babel/parser/")) ||
       file.startsWith(
         path.join(
           PROJECT_ROOT,

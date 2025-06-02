@@ -572,7 +572,7 @@ exports[`snippet: #11 [json] format 1`] = `
 `;
 
 exports[`snippet: #11 [json] format 2`] = `
-"'CallExpression' is not allowed in JSON. (1:2)
+"'ImportExpression' is not allowed in JSON. (1:2)
 > 1 | [import('a', {type:'json'})]
     |  ^^^^^^^^^^^^^^^^^^^^^^^^^^"
 `;
@@ -596,9 +596,10 @@ exports[`snippet: #12 [json] format 1`] = `
 `;
 
 exports[`snippet: #12 [json] format 2`] = `
-"Unexpected token. (1:3)
+"Identifier directly after number. (1:3)
 > 1 | [1m]
-    |   ^"
+    |   ^
+Cause: Identifier directly after number. (1:2)"
 `;
 
 exports[`snippet: #12 [json-stringify] format 1`] = `
@@ -740,7 +741,7 @@ exports[`snippet: #18 [json] format 1`] = `
 `;
 
 exports[`snippet: #18 [json] format 2`] = `
-"'CallExpression' is not allowed in JSON. (1:2)
+"'ImportExpression' is not allowed in JSON. (1:2)
 > 1 | [import('a', {reflect: 'module'})]
     |  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
 `;
@@ -876,9 +877,10 @@ Cause: Unexpected parseExpression() input: The input is empty or contains only c
 `;
 
 exports[`snippet: #23 [json] format 2`] = `
-"Unexpected token. (1:2)
+"Unexpected token (1:2)
 > 1 | [#{}]
-    |  ^"
+    |  ^
+Cause: Unexpected token (1:1)"
 `;
 
 exports[`snippet: #23 [json-stringify] format 1`] = `
