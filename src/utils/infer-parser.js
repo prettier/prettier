@@ -118,7 +118,7 @@ function getLanguageByIsSupported(languages, file) {
  * @returns {string | undefined} matched parser name if found
  */
 function inferParser(options, fileInfo) {
-  const languages = options.plugins.flatMap(
+  const languages = options.plugins.toReversed().flatMap(
     (plugin) =>
       // @ts-expect-error -- Safe
       plugin.languages ?? [],
