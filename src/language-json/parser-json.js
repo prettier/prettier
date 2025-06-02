@@ -43,8 +43,7 @@ function parseJson(text, options = {}) {
     if (
       allowEmpty &&
       error.code === "BABEL_PARSER_SYNTAX_ERROR" &&
-      error.reasonCode === "UnexpectedToken" &&
-      error.pos === text.length
+      error.reasonCode === "ParseExpressionEmptyInput"
     ) {
       try {
         ast = parseEmptyJson(text);

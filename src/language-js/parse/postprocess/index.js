@@ -33,6 +33,7 @@ const isNodeWithRaw = createTypeCheckFunction([
  * @param {{
  *   text: string,
  *   parser?: string,
+ *   oxcAstType?: string,
  * }} options
  */
 function postprocess(ast, options) {
@@ -46,6 +47,12 @@ function postprocess(ast, options) {
   if (interpreter) {
     ast.comments.unshift(interpreter);
     delete program.interpreter;
+  }
+
+  if (parser === "oxc" && options.oxcAstType === "ts" && ast.hashbang) {
+    const { comments, hashbang } = ast;
+    comments.unshift(hashbang);
+    delete program.hashbang;
   }
 
   if (ast.comments.length > 0) {
@@ -116,13 +123,24 @@ function postprocess(ast, options) {
         }
         break;
 
+      // This happens when use `oxc-parser` to parse `` `${foo satisfies bar}`; ``
+      // https://github.com/oxc-project/oxc/issues/11313
+      case "TemplateLiteral":
+        /* c8 ignore next 3 */
+        if (node.expressions.length !== node.quasis.length - 1) {
+          throw new Error("Malformed template literal.");
+        }
+        break;
+
       case "TemplateElement":
-        // `flow` and `typescript` follows the `espree` style positions
+        // `flow`, `hermes`, `typescript`, and `oxc`(with `{astType: 'ts'}`) follows the `espree` style positions
         // https://github.com/eslint/js/blob/5826877f7b33548e5ba984878dd4a8eac8448f87/packages/espree/lib/espree.js#L213
         if (
           parser === "flow" ||
+          parser === "hermes" ||
           parser === "espree" ||
-          parser === "typescript"
+          parser === "typescript" ||
+          (parser === "oxc" && options.oxcAstType === "ts")
         ) {
           const start = locStart(node) + 1;
           const end = locEnd(node) - (node.tail ? 1 : 2);
@@ -153,6 +171,13 @@ function postprocess(ast, options) {
       case "TSIntersectionType":
         if (node.types.length === 1) {
           return node.types[0];
+        }
+        break;
+
+      // https://github.com/facebook/hermes/issues/1712
+      case "ImportExpression":
+        if (parser === "hermes" && node.attributes && !node.options) {
+          node.options = node.attributes;
         }
         break;
     }

@@ -71,6 +71,16 @@ exports[`export-star-as-string.js [flow] format 1`] = `
   2 |"
 `;
 
+exports[`export-star-as-string.js [hermes] format 1`] = `
+"'identifier' expected in export clause (1:12)
+> 1 | export * as 'foo' from 'foo'
+    |            ^
+  2 |
+Cause: 'identifier' expected in export clause (1:12)
+export * as 'foo' from 'foo'
+~~~~~~~~~~~~^"
+`;
+
 exports[`export-star-as-string.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -90,6 +100,16 @@ exports[`export-star-as-string2.js [flow] format 1`] = `
 > 1 | export * as "foo" from 'foo'
     |             ^^^^^
   2 |"
+`;
+
+exports[`export-star-as-string2.js [hermes] format 1`] = `
+"'identifier' expected in export clause (1:12)
+> 1 | export * as "foo" from 'foo'
+    |            ^
+  2 |
+Cause: 'identifier' expected in export clause (1:12)
+export * as "foo" from 'foo'
+~~~~~~~~~~~~^"
 `;
 
 exports[`export-star-as-string2.js format 1`] = `

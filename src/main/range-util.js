@@ -170,6 +170,7 @@ function isSourceElement(opts, node, parentNode) {
   }
   switch (opts.parser) {
     case "flow":
+    case "hermes":
     case "babel":
     case "babel-flow":
     case "babel-ts":
@@ -178,6 +179,7 @@ function isSourceElement(opts, node, parentNode) {
     case "espree":
     case "meriyah":
     case "oxc":
+    case "oxc-ts":
     case "__babel_estree":
       return isJsSourceElement(node.type, parentNode?.type);
     case "json":

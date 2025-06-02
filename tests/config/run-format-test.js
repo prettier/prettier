@@ -97,6 +97,29 @@ const oxcDisabledTests = new Set(
     "js/ignore/class-expression-decorator.js",
   ].map((file) => path.join(__dirname, "../format", file)),
 );
+const oxcTsDisabledTests = new Set(
+  [
+    // https://github.com/oxc-project/oxc/issues/11029
+    "typescript/decorators/abstract-method.ts",
+  ].map((file) => path.join(__dirname, "../format", file)),
+);
+const hermesDisabledTests = new Set([
+  ...commentClosureTypecaseTests,
+  ...[
+    // Need update L183 to use `replaceAll`
+    // https://app.unpkg.com/hermes-parser@0.28.1/files/dist/HermesASTAdapter.js
+    "js/call/first-argument-expansion/expression-2nd-arg.js",
+    "js/directives/escaped.js",
+    // Not supported
+    "flow/comments",
+    "flow-repo/union_new",
+    // Wrongly parsed
+    "js/sloppy-mode/function-declaration-in-if.js",
+    // Wrong location of `Property.value`
+    "js/classes/method.js",
+    "js/comments/function-declaration.js",
+  ].map((file) => path.join(__dirname, "../format", file)),
+]);
 
 const isUnstable = (filename, options) => {
   const testFunction = unstableTests.get(filename);
@@ -255,16 +278,25 @@ function runFormatTest(fixtures, parsers, options) {
       }
     }
 
-    if (
-      parsers.includes("typescript") &&
-      !parsers.includes("babel-ts") &&
-      !IS_TYPESCRIPT_ONLY_TEST
-    ) {
-      allParsers.push("babel-ts");
+    if (parsers.includes("typescript") && !IS_TYPESCRIPT_ONLY_TEST) {
+      if (!parsers.includes("babel-ts")) {
+        allParsers.push("babel-ts");
+      }
+      if (!parsers.includes("oxc-ts")) {
+        allParsers.push("oxc-ts");
+      }
     }
 
     if (parsers.includes("flow") && !parsers.includes("babel-flow")) {
       allParsers.push("babel-flow");
+    }
+
+    if (
+      parsers.includes("flow") &&
+      !parsers.includes("hermes") &&
+      !hermesDisabledTests.has(dirname)
+    ) {
+      allParsers.push("hermes");
     }
 
     if (parsers.includes("babel") && !parsers.includes("__babel_estree")) {
@@ -306,6 +338,8 @@ function runFormatTest(fixtures, parsers, options) {
           (currentParser === "espree" && espreeDisabledTests.has(filename)) ||
           (currentParser === "meriyah" && meriyahDisabledTests.has(filename)) ||
           (currentParser === "oxc" && oxcDisabledTests.has(filename)) ||
+          (currentParser === "oxc-ts" && oxcTsDisabledTests.has(filename)) ||
+          (currentParser === "hermes" && hermesDisabledTests.has(filename)) ||
           (currentParser === "babel-ts" && babelTsDisabledTests.has(filename))
         ) {
           continue;
@@ -479,9 +513,11 @@ function shouldSkipEolTest(code, options) {
 
 async function parse(source, options) {
   const prettier = await getPrettier();
-  const { ast } = await prettier.__debug.parse(source, options, {
-    massage: true,
-  });
+  const { ast } = await ensurePromise(
+    prettier.__debug.parse(source, await loadPlugins(options), {
+      massage: true,
+    }),
+  );
   return ast;
 }
 
@@ -526,16 +562,15 @@ const insertCursor = (text, cursorOffset) =>
       text.slice(cursorOffset)
     : text;
 async function format(originalText, originalOptions) {
-  let { text: input, options } = replacePlaceholders(
+  const { text: input, options } = replacePlaceholders(
     originalText,
     originalOptions,
   );
-  options = await loadPlugins(options);
   const inputWithCursor = insertCursor(input, options.cursorOffset);
   const prettier = await getPrettier();
 
   const { formatted: output, cursorOffset } = await ensurePromise(
-    prettier.formatWithCursor(input, options),
+    prettier.formatWithCursor(input, await loadPlugins(options)),
   );
   const outputWithCursor = insertCursor(output, cursorOffset);
   const eolVisualizedOutput = visualizeEndOfLine(outputWithCursor);
@@ -553,13 +588,20 @@ async function format(originalText, originalOptions) {
   };
 }
 
+const externalPlugins = new Map([
+  ["oxc", "plugin-oxc"],
+  ["oxc-ts", "plugin-oxc"],
+  ["hermes", "plugin-hermes"],
+]);
 async function loadPlugins(options) {
-  if (options.parser === "oxc") {
+  const { parser } = options;
+  if (externalPlugins.has(options.parser)) {
     const plugins = options.plugins ?? [];
+    const pluginName = externalPlugins.get(parser);
     const url = new URL(
       isProduction
-        ? "../../dist/plugin-oxc/index.mjs"
-        : "../../packages/plugin-oxc/index.js",
+        ? `../../dist/${pluginName}/index.mjs`
+        : `../../packages/${pluginName}/index.js`,
       import.meta.url,
     );
     plugins.push(TEST_STANDALONE ? await import(url) : url);

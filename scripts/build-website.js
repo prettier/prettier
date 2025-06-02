@@ -43,7 +43,7 @@ async function buildPrettier() {
   });
 
   try {
-    await runYarn("build", ["--package=prettier", "--clean", "--playground"], {
+    await runYarn("build", ["--clean", "--playground"], {
       cwd: PROJECT_ROOT,
     });
   } finally {
@@ -55,16 +55,30 @@ async function buildPrettier() {
 async function buildPlaygroundFiles() {
   const patterns = ["standalone.mjs", "plugins/*.mjs"];
 
-  const files = await fastGlob(patterns, {
+  let files = await fastGlob(patterns, {
     cwd: PRETTIER_DIR,
   });
+
+  files = files.map((fileName) => ({
+    fileName,
+    file: path.join(PRETTIER_DIR, fileName),
+    dist: path.join(PLAYGROUND_PRETTIER_DIR, fileName),
+  }));
+
+  // TODO: Support stable version
+  if (IS_PULL_REQUEST) {
+    const fileName = "plugins/hermes.mjs";
+    files.push({
+      fileName,
+      file: path.join(DIST_DIR, "plugin-hermes/index.mjs"),
+      dist: path.join(PLAYGROUND_PRETTIER_DIR, fileName),
+    });
+  }
 
   const packageManifest = {
     builtinPlugins: [],
   };
-  for (const fileName of files) {
-    const file = path.join(PRETTIER_DIR, fileName);
-    const dist = path.join(PLAYGROUND_PRETTIER_DIR, fileName);
+  for (const { fileName, file, dist } of files) {
     await copyFile(file, dist);
 
     if (fileName === "standalone.mjs") {

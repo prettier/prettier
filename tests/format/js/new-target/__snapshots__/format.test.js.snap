@@ -23,6 +23,16 @@ exports[`outside-functions.js [flow] format 1`] = `
   2 |"
 `;
 
+exports[`outside-functions.js [hermes] format 1`] = `
+"'new.target' not in a function (1:10)
+> 1 | const x = new.target;
+    |          ^
+  2 |
+Cause: 'new.target' not in a function (1:10)
+const x = new.target;
+          ^~~~~~~~~~"
+`;
+
 exports[`outside-functions.js [meriyah] format 1`] = `
 "new.target only allowed within functions or static blocks (1:15)
 > 1 | const x = new.target;
@@ -66,6 +76,15 @@ exports[`range.js [flow] format 1`] = `
   1 | const x =
 > 2 | new.target;
     |    ^"
+`;
+
+exports[`range.js [hermes] format 1`] = `
+"'new.target' not in a function (2:0)
+  1 | const x =
+> 2 | new.target;
+Cause: 'new.target' not in a function (2:0)
+new.target;
+^~~~~~~~~~"
 `;
 
 exports[`range.js [meriyah] format 1`] = `

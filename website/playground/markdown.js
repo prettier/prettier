@@ -41,6 +41,7 @@ function getMarkdownSyntax(options) {
     case "babel":
     case "babel-flow":
     case "flow":
+    case "hermes":
     case "acorn":
     case "espree":
     case "meriyah":

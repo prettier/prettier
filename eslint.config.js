@@ -1,7 +1,7 @@
 import url from "node:url";
 import eslintPluginJs from "@eslint/js";
 import eslintPluginEslintReact from "@eslint-react/eslint-plugin";
-import eslintPluginStylisticJs from "@stylistic/eslint-plugin-js";
+import eslintPluginStylistic from "@stylistic/eslint-plugin";
 import eslintPluginTypescriptEslint from "@typescript-eslint/eslint-plugin";
 import { isCI } from "ci-info";
 import eslintConfigPrettier from "eslint-config-prettier";
@@ -49,7 +49,7 @@ export default [
       globals: { ...globals.builtin, ...globals.node },
     },
     plugins: {
-      "@stylistic/js": eslintPluginStylisticJs,
+      "@stylistic": eslintPluginStylistic,
       "@typescript-eslint": eslintPluginTypescriptEslint,
       n: eslintPluginN,
       "prettier-internal-rules": eslintPluginPrettierInternalRules,
@@ -142,8 +142,8 @@ export default [
       "prettier-internal-rules/no-identifier-n": "error",
       "prettier-internal-rules/prefer-fs-promises-submodule": "error",
 
-      /* @stylistic/eslint-plugin-js */
-      "@stylistic/js/quotes": [
+      /* @stylistic/eslint-plugin */
+      "@stylistic/quotes": [
         "error",
         "double",
         {
@@ -325,7 +325,7 @@ export default [
       globals: eslintPluginJest.environments.globals.globals,
     },
     rules: {
-      "@stylistic/js/quotes": [
+      "@stylistic/quotes": [
         "error",
         "double",
         {

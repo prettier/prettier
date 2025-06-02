@@ -1,10 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`snippet: #0 [babel-ts] format 1`] = `
-"Accessibility modifier already seen. (1:18)
+"Accessibility modifier already seen: 'protected'. (1:18)
 > 1 | class A {private protected method(){}}
     |                  ^
-Cause: Accessibility modifier already seen. (1:17)"
+Cause: Accessibility modifier already seen: 'protected'. (1:17)"
 `;
 
 exports[`snippet: #0 [typescript] format 1`] = `
@@ -15,10 +15,10 @@ Cause: Accessibility modifier already seen."
 `;
 
 exports[`snippet: #1 [babel-ts] format 1`] = `
-"Accessibility modifier already seen. (1:20)
+"Accessibility modifier already seen: 'public'. (1:20)
 > 1 | class A {protected public method(){}}
     |                    ^
-Cause: Accessibility modifier already seen. (1:19)"
+Cause: Accessibility modifier already seen: 'public'. (1:19)"
 `;
 
 exports[`snippet: #1 [typescript] format 1`] = `
@@ -29,10 +29,10 @@ Cause: Accessibility modifier already seen."
 `;
 
 exports[`snippet: #2 [babel-ts] format 1`] = `
-"Accessibility modifier already seen. (1:18)
+"Accessibility modifier already seen: 'private'. (1:18)
 > 1 | class A {private private method(){}}
     |                  ^
-Cause: Accessibility modifier already seen. (1:17)"
+Cause: Accessibility modifier already seen: 'private'. (1:17)"
 `;
 
 exports[`snippet: #2 [typescript] format 1`] = `
@@ -43,10 +43,10 @@ Cause: Accessibility modifier already seen."
 `;
 
 exports[`snippet: #3 [babel-ts] format 1`] = `
-"Accessibility modifier already seen. (1:18)
+"Accessibility modifier already seen: 'protected'. (1:18)
 > 1 | class A {private protected property}
     |                  ^
-Cause: Accessibility modifier already seen. (1:17)"
+Cause: Accessibility modifier already seen: 'protected'. (1:17)"
 `;
 
 exports[`snippet: #3 [typescript] format 1`] = `
@@ -57,10 +57,10 @@ Cause: Accessibility modifier already seen."
 `;
 
 exports[`snippet: #4 [babel-ts] format 1`] = `
-"Accessibility modifier already seen. (1:20)
+"Accessibility modifier already seen: 'public'. (1:20)
 > 1 | class A {protected public property}
     |                    ^
-Cause: Accessibility modifier already seen. (1:19)"
+Cause: Accessibility modifier already seen: 'public'. (1:19)"
 `;
 
 exports[`snippet: #4 [typescript] format 1`] = `
@@ -71,10 +71,10 @@ Cause: Accessibility modifier already seen."
 `;
 
 exports[`snippet: #5 [babel-ts] format 1`] = `
-"Accessibility modifier already seen. (1:18)
+"Accessibility modifier already seen: 'private'. (1:18)
 > 1 | class A {private private property}
     |                  ^
-Cause: Accessibility modifier already seen. (1:17)"
+Cause: Accessibility modifier already seen: 'private'. (1:17)"
 `;
 
 exports[`snippet: #5 [typescript] format 1`] = `

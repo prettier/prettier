@@ -1,1 +1,6 @@
-runFormatTest(import.meta, ["flow"], { errors: { "babel-flow": true } });
+runFormatTest(import.meta, ["flow"], {
+  errors: {
+    "babel-flow": true,
+    hermes: ["satisfies.js", "ternary.js"],
+  },
+});

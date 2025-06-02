@@ -141,6 +141,34 @@ async function buildPluginOxcPackageJson({ packageConfig, file }) {
   );
 }
 
+async function buildPluginHermesPackageJson({ packageConfig, file }) {
+  const { distDirectory, files } = packageConfig;
+  const packageJson = await readJson(path.join(PROJECT_ROOT, file.input));
+  const projectPackageJson = await readJson(
+    path.join(PROJECT_ROOT, "package.json"),
+  );
+
+  const overrides = {
+    engines: {
+      ...packageJson.engines,
+      // https://github.com/prettier/prettier/pull/13118#discussion_r922708068
+      // Don't delete, event it's the same in package.json
+      node: `>=${PRODUCTION_MINIMAL_NODE_JS_VERSION}`,
+    },
+    // Use `commonjs` since we may provide browser build in future.
+    type: "commonjs",
+    files: files.map(({ output: { file } }) => file).sort(),
+    dependencies: {
+      "hermes-parser": projectPackageJson.dependencies["hermes-parser"],
+    },
+  };
+
+  await writeJson(
+    path.join(distDirectory, file.output.file),
+    Object.assign(pick(packageJson, keysToKeep), overrides),
+  );
+}
+
 function pick(object, keys) {
   keys = new Set(keys);
   return Object.fromEntries(
@@ -148,4 +176,8 @@ function pick(object, keys) {
   );
 }
 
-export { buildPluginOxcPackageJson, buildPrettierPackageJson };
+export {
+  buildPluginHermesPackageJson,
+  buildPluginOxcPackageJson,
+  buildPrettierPackageJson,
+};

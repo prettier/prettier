@@ -12,6 +12,19 @@ exports[`await-keywords.js [babel-flow] format 1`] = `
 Cause: 'await' is only allowed within async functions and at the top levels of modules. (12:6)"
 `;
 
+exports[`await-keywords.js [hermes] format 1`] = `
+"'await' not in an async function (2:6)
+  1 | export class C1 {
+> 2 |   p = await (0);
+    |      ^
+  3 | }
+  4 |
+  5 | await (0);
+Cause: 'await' not in an async function (2:6)
+  p = await (0);
+      ^~~~~~~~~"
+`;
+
 exports[`await-keywords.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]

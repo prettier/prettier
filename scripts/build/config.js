@@ -7,6 +7,7 @@ import { copyFile, DIST_DIR, PROJECT_ROOT } from "../utils/index.js";
 import buildDependenciesLicense from "./build-dependencies-license.js";
 import buildJavascriptModule from "./build-javascript-module.js";
 import {
+  buildPluginHermesPackageJson,
   buildPluginOxcPackageJson,
   buildPrettierPackageJson,
 } from "./build-package-json.js";
@@ -159,7 +160,8 @@ const pluginFiles = [
             .replace(
               'require("node:path")',
               '{extname: file => "." + file.split(".").pop()}',
-            );
+            )
+            .replace('require("@typescript-eslint/project-service")', "{}");
         },
       },
       {
@@ -228,8 +230,8 @@ const pluginFiles = [
           `,
         },
         {
-          file: "@typescript-eslint/typescript-estree/dist/create-program/createProjectService.js",
-          text: "export const createProjectService = () => {};",
+          file: "@typescript-eslint/typescript-estree/dist/create-program/validateDefaultProjectForFilesGlob.js",
+          text: "export const validateDefaultProjectForFilesGlob = () => {};",
         },
         {
           file: "@typescript-eslint/typescript-estree/dist/create-program/getWatchProgramsForProjects.js",
@@ -737,6 +739,7 @@ const universalFiles = [...nonPluginUniversalFiles, ...pluginFiles].flatMap(
         isPlugin,
         build: buildJavascriptModule,
         kind: "javascript",
+        playground: output.format === "esm" && outputBaseName !== "doc",
       })),
       getTypesFileConfig({ input, outputBaseName, isPlugin }),
     ];
@@ -972,6 +975,101 @@ export default [
         },
         {
           input: "packages/plugin-oxc/README.md",
+          output: {
+            file: "README.md",
+          },
+          build: copyFileBuilder,
+        },
+        {
+          input: "LICENSE",
+          output: {
+            file: "LICENSE",
+          },
+          build: copyFileBuilder,
+        },
+        {
+          output: {
+            file: "THIRD-PARTY-NOTICES.md",
+          },
+          build: buildDependenciesLicense,
+        },
+      ].map((file) => ({
+        ...file,
+        output: { file: file.input, ...file.output },
+        kind: "meta",
+      })),
+    ],
+  },
+  {
+    packageName: "@prettier/plugin-hermes",
+    distDirectory: path.join(DIST_DIR, "plugin-hermes"),
+    files: [
+      ...[
+        {
+          input: "packages/plugin-hermes/index.js",
+          addDefaultExport: true,
+          replaceModule: [
+            {
+              module: require.resolve("hermes-parser/dist/HermesParser.js"),
+              process(text) {
+                text =
+                  'const Buffer = globalThis.Buffer ?? require("buffer/").Buffer;' +
+                  text;
+                return text;
+              },
+            },
+            {
+              module: require.resolve("hermes-parser/dist/HermesParserWASM.js"),
+              process(text) {
+                text = text.replaceAll("process.argv", "[]");
+                text = text.replaceAll('require("fs")', "undefined");
+                text = text.replaceAll('require("path")', "undefined");
+                text =
+                  'const Buffer = globalThis.Buffer ?? require("buffer/").Buffer;' +
+                  text;
+
+                return text;
+              },
+            },
+          ],
+        },
+      ].flatMap((file) => {
+        let { input, output, outputBaseName, ...buildOptions } = file;
+
+        outputBaseName ??= path.basename(input, path.extname(input));
+        const format = input.endsWith(".cjs") ? "cjs" : "esm";
+
+        return [
+          {
+            input,
+            output: {
+              format,
+              file: `${outputBaseName}${extensions[format]}`,
+            },
+            platform: "universal",
+            buildOptions: {
+              addDefaultExport: true,
+              ...buildOptions,
+            },
+            isPlugin: true,
+            build: buildJavascriptModule,
+            playground: true,
+            kind: "javascript",
+          },
+          getTypesFileConfig({ input, outputBaseName, isPlugin: true }),
+        ];
+      }),
+      ...[
+        {
+          input: "packages/plugin-hermes/package.json",
+          output: {
+            file: "package.json",
+            format: "json",
+          },
+          build: buildPluginHermesPackageJson,
+        },
+        {
+          input: "packages/plugin-hermes/README.md",
           output: {
             file: "README.md",
           },

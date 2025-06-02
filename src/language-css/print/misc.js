@@ -1,6 +1,5 @@
 import printNumber from "../../utils/print-number.js";
 import printString from "../../utils/print-string.js";
-import { maybeToLowerCase } from "../utils/index.js";
 import CSS_UNITS from "./css-units.evaluate.js";
 
 function printUnit(unit) {
@@ -36,10 +35,23 @@ function quoteAttributeValue(value, options) {
 function adjustNumbers(value) {
   return value.replaceAll(
     ADJUST_NUMBERS_REGEX,
-    (match, quote, wordPart, number, unit) =>
-      !wordPart && number
-        ? printCssNumber(number) + maybeToLowerCase(unit || "")
-        : match,
+    (match, quote, wordPart, number, unit) => {
+      if (!wordPart && number) {
+        unit ??= "";
+        unit = unit.toLowerCase();
+
+        if (
+          !unit ||
+          // `2n + 1`
+          unit === "n" ||
+          CSS_UNITS.has(unit)
+        ) {
+          return printCssNumber(number) + (unit ? printUnit(unit) : "");
+        }
+      }
+
+      return match;
+    },
   );
 }
 
