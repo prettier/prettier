@@ -11,7 +11,6 @@ import leven from "leven";
 import picocolors from "picocolors";
 import * as vnopts from "vnopts";
 import * as errors from "./common/errors.js";
-import getFileInfo from "./common/get-file-info.js";
 import { mockable } from "./common/mockable.js";
 import {
   clearCache as clearConfigCache,
@@ -133,11 +132,11 @@ export {
   clearCache as clearConfigCache,
   format,
   formatWithCursor,
-  getFileInfo,
   getSupportInfo,
   resolveConfig,
   resolveConfigFile,
 };
+export { default as getFileInfo } from "./common/get-file-info.js";
 export * as doc from "./document/public.js";
 export { default as version } from "./main/version.evaluate.js";
 export * as util from "./utils/public.js";

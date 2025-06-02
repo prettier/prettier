@@ -1,12 +1,11 @@
 import { resolveConfig } from "../config/resolve-config.js";
-import { isIgnored } from "../utils/ignore.js";
-import inferParser from "../utils/infer-parser.js";
-
 import {
   clearCache as clearPluginCache,
   loadBuiltinPlugins,
   loadPlugins,
 } from "../main/plugins/index.js";
+import { isIgnored } from "../utils/ignore.js";
+import inferParser from "../utils/infer-parser.js";
 
 /**
  * @typedef {{ ignorePath?: string | URL | (string | URL)[], withNodeModules?: boolean, plugins: object, resolveConfig?: boolean }} FileInfoOptions
