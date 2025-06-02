@@ -11,7 +11,7 @@ import leven from "leven";
 import picocolors from "picocolors";
 import * as vnopts from "vnopts";
 import * as errors from "./common/errors.js";
-import getFileInfoWithoutPlugins from "./common/get-file-info.js";
+import getFileInfo from "./common/get-file-info.js";
 import { mockable } from "./common/mockable.js";
 import {
   clearCache as clearConfigCache,
@@ -83,9 +83,6 @@ async function clearCache() {
   clearConfigCache();
   clearPluginCache();
 }
-
-/** @type {typeof getFileInfoWithoutPlugins} */
-const getFileInfo = withPlugins(getFileInfoWithoutPlugins);
 
 /** @type {typeof getSupportInfoWithoutPlugins} */
 const getSupportInfo = withPlugins(getSupportInfoWithoutPlugins, 0);
