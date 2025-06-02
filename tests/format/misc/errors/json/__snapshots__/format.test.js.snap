@@ -877,9 +877,10 @@ Cause: Unexpected parseExpression() input: The input is empty or contains only c
 `;
 
 exports[`snippet: #23 [json] format 2`] = `
-"Unexpected token. (1:2)
+"Unexpected token (1:2)
 > 1 | [#{}]
-    |  ^"
+    |  ^
+Cause: Unexpected token (1:1)"
 `;
 
 exports[`snippet: #23 [json-stringify] format 1`] = `
