@@ -4,14 +4,16 @@ const parseExpressionErrorMessagePrefix =
   "Unexpected parseExpression() input: ";
 
 function createBabelParseError(error) {
-  // babel error prints (line:column) with cols that are zero indexed
-  // so we need our custom error
-  const { line, column } = loc;
+  let { message, loc, reasonCode } = error;
 
   /* c8 ignore next 3 -- not a babel parse error */
   if (!loc) {
     return error;
   }
+
+  // babel error prints (line:column) with cols that are zero indexed
+  // so we need our custom error
+  const { line, column } = loc;
 
   let cause = error;
   if (reasonCode === "MissingPlugin" || reasonCode === "MissingOneOfPlugins") {
