@@ -300,9 +300,8 @@ function printWhitespace(path, value, proseWrap, isLink) {
   if (isBreakable(path, value, proseWrap, isLink)) {
     if (canBeSpace) {
       return isSemanticBreak(path, proseWrap, isLink) ? hardline : line;
-    } else {
-      return softline;
     }
+    return softline;
   }
 
   return canBeSpace ? " " : "";
