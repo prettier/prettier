@@ -14,9 +14,7 @@ Create or modify your [prettier configuration file](https://prettier.io/docs/en/
 
 ```json
 {
-  "plugins": [
-    "@prettier/plugin-oxc"
-  ]
+  "plugins": ["@prettier/plugin-oxc"]
 }
 ```
 
