@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`snippet: #0 [json] format 1`] = `
 "Shorthand property is not allowed in JSON. (1:2)
@@ -120,10 +120,10 @@ Cause: 'await' is only allowed within async functions and at the top levels of m
 `;
 
 exports[`snippet: #2 [json] format 3`] = `
-"Unexpected token (1:9)
+"The input should contain exactly one expression, but the first expression is followed by the unexpected character \`;\`. (1:9)
 > 1 | "string";
     |         ^
-Cause: Unexpected token (1:8)"
+Cause: Unexpected parseExpression() input: The input should contain exactly one expression, but the first expression is followed by the unexpected character \`;\`. (1:8)"
 `;
 
 exports[`snippet: #2 [json-stringify] format 1`] = `
@@ -133,10 +133,10 @@ exports[`snippet: #2 [json-stringify] format 1`] = `
 `;
 
 exports[`snippet: #2 [json-stringify] format 2`] = `
-"Unexpected token (1:9)
+"The input should contain exactly one expression, but the first expression is followed by the unexpected character \`;\`. (1:9)
 > 1 | "string";
     |         ^
-Cause: Unexpected token (1:8)"
+Cause: Unexpected parseExpression() input: The input should contain exactly one expression, but the first expression is followed by the unexpected character \`;\`. (1:8)"
 `;
 
 exports[`snippet: #2 [json5] format 1`] = `
@@ -146,17 +146,17 @@ exports[`snippet: #2 [json5] format 1`] = `
 `;
 
 exports[`snippet: #2 [json5] format 2`] = `
-"Unexpected token (1:9)
+"The input should contain exactly one expression, but the first expression is followed by the unexpected character \`;\`. (1:9)
 > 1 | "string";
     |         ^
-Cause: Unexpected token (1:8)"
+Cause: Unexpected parseExpression() input: The input should contain exactly one expression, but the first expression is followed by the unexpected character \`;\`. (1:8)"
 `;
 
 exports[`snippet: #2 [jsonc] format 1`] = `
-"Unexpected token (1:9)
+"The input should contain exactly one expression, but the first expression is followed by the unexpected character \`;\`. (1:9)
 > 1 | "string";
     |         ^
-Cause: Unexpected token (1:8)"
+Cause: Unexpected parseExpression() input: The input should contain exactly one expression, but the first expression is followed by the unexpected character \`;\`. (1:8)"
 `;
 
 exports[`snippet: #3 [json] format 1`] = `
@@ -172,11 +172,11 @@ exports[`snippet: #3 [json] format 2`] = `
 `;
 
 exports[`snippet: #3 [json] format 3`] = `
-"Unexpected token (2:1)
+"The input should contain exactly one expression, but the first expression is followed by the unexpected character \`;\`. (2:1)
   1 | "string"
 > 2 | ;
     | ^
-Cause: Unexpected token (2:0)"
+Cause: Unexpected parseExpression() input: The input should contain exactly one expression, but the first expression is followed by the unexpected character \`;\`. (2:0)"
 `;
 
 exports[`snippet: #3 [json-stringify] format 1`] = `
@@ -186,11 +186,11 @@ exports[`snippet: #3 [json-stringify] format 1`] = `
 `;
 
 exports[`snippet: #3 [json-stringify] format 2`] = `
-"Unexpected token (2:1)
+"The input should contain exactly one expression, but the first expression is followed by the unexpected character \`;\`. (2:1)
   1 | "string"
 > 2 | ;
     | ^
-Cause: Unexpected token (2:0)"
+Cause: Unexpected parseExpression() input: The input should contain exactly one expression, but the first expression is followed by the unexpected character \`;\`. (2:0)"
 `;
 
 exports[`snippet: #3 [json5] format 1`] = `
@@ -200,19 +200,19 @@ exports[`snippet: #3 [json5] format 1`] = `
 `;
 
 exports[`snippet: #3 [json5] format 2`] = `
-"Unexpected token (2:1)
+"The input should contain exactly one expression, but the first expression is followed by the unexpected character \`;\`. (2:1)
   1 | "string"
 > 2 | ;
     | ^
-Cause: Unexpected token (2:0)"
+Cause: Unexpected parseExpression() input: The input should contain exactly one expression, but the first expression is followed by the unexpected character \`;\`. (2:0)"
 `;
 
 exports[`snippet: #3 [jsonc] format 1`] = `
-"Unexpected token (2:1)
+"The input should contain exactly one expression, but the first expression is followed by the unexpected character \`;\`. (2:1)
   1 | "string"
 > 2 | ;
     | ^
-Cause: Unexpected token (2:0)"
+Cause: Unexpected parseExpression() input: The input should contain exactly one expression, but the first expression is followed by the unexpected character \`;\`. (2:0)"
 `;
 
 exports[`snippet: #4 [json] format 1`] = `
@@ -338,10 +338,10 @@ Cause: Unexpected token, expected "," (1:2)"
 `;
 
 exports[`snippet: #6 [json] format 3`] = `
-"Unexpected token (1:22)
+"The input should contain exactly one expression, but the first expression is followed by the unexpected character \`;\`. (1:22)
 > 1 | /* comment */"string";
     |                      ^
-Cause: Unexpected token (1:21)"
+Cause: Unexpected parseExpression() input: The input should contain exactly one expression, but the first expression is followed by the unexpected character \`;\`. (1:21)"
 `;
 
 exports[`snippet: #6 [json-stringify] format 1`] = `
@@ -351,10 +351,10 @@ exports[`snippet: #6 [json-stringify] format 1`] = `
 `;
 
 exports[`snippet: #6 [json-stringify] format 2`] = `
-"Unexpected token (1:22)
+"The input should contain exactly one expression, but the first expression is followed by the unexpected character \`;\`. (1:22)
 > 1 | /* comment */"string";
     |                      ^
-Cause: Unexpected token (1:21)"
+Cause: Unexpected parseExpression() input: The input should contain exactly one expression, but the first expression is followed by the unexpected character \`;\`. (1:21)"
 `;
 
 exports[`snippet: #6 [json5] format 1`] = `
@@ -364,17 +364,17 @@ exports[`snippet: #6 [json5] format 1`] = `
 `;
 
 exports[`snippet: #6 [json5] format 2`] = `
-"Unexpected token (1:22)
+"The input should contain exactly one expression, but the first expression is followed by the unexpected character \`;\`. (1:22)
 > 1 | /* comment */"string";
     |                      ^
-Cause: Unexpected token (1:21)"
+Cause: Unexpected parseExpression() input: The input should contain exactly one expression, but the first expression is followed by the unexpected character \`;\`. (1:21)"
 `;
 
 exports[`snippet: #6 [jsonc] format 1`] = `
-"Unexpected token (1:22)
+"The input should contain exactly one expression, but the first expression is followed by the unexpected character \`;\`. (1:22)
 > 1 | /* comment */"string";
     |                      ^
-Cause: Unexpected token (1:21)"
+Cause: Unexpected parseExpression() input: The input should contain exactly one expression, but the first expression is followed by the unexpected character \`;\`. (1:21)"
 `;
 
 exports[`snippet: #7 [json] format 1`] = `
@@ -390,11 +390,11 @@ exports[`snippet: #7 [json] format 2`] = `
 `;
 
 exports[`snippet: #7 [json] format 3`] = `
-"Unexpected token (2:1)
+"The input should contain exactly one expression, but the first expression is followed by the unexpected character \`;\`. (2:1)
   1 | /* comment */"string"
 > 2 | ;
     | ^
-Cause: Unexpected token (2:0)"
+Cause: Unexpected parseExpression() input: The input should contain exactly one expression, but the first expression is followed by the unexpected character \`;\`. (2:0)"
 `;
 
 exports[`snippet: #7 [json-stringify] format 1`] = `
@@ -404,11 +404,11 @@ exports[`snippet: #7 [json-stringify] format 1`] = `
 `;
 
 exports[`snippet: #7 [json-stringify] format 2`] = `
-"Unexpected token (2:1)
+"The input should contain exactly one expression, but the first expression is followed by the unexpected character \`;\`. (2:1)
   1 | /* comment */"string"
 > 2 | ;
     | ^
-Cause: Unexpected token (2:0)"
+Cause: Unexpected parseExpression() input: The input should contain exactly one expression, but the first expression is followed by the unexpected character \`;\`. (2:0)"
 `;
 
 exports[`snippet: #7 [json5] format 1`] = `
@@ -418,19 +418,19 @@ exports[`snippet: #7 [json5] format 1`] = `
 `;
 
 exports[`snippet: #7 [json5] format 2`] = `
-"Unexpected token (2:1)
+"The input should contain exactly one expression, but the first expression is followed by the unexpected character \`;\`. (2:1)
   1 | /* comment */"string"
 > 2 | ;
     | ^
-Cause: Unexpected token (2:0)"
+Cause: Unexpected parseExpression() input: The input should contain exactly one expression, but the first expression is followed by the unexpected character \`;\`. (2:0)"
 `;
 
 exports[`snippet: #7 [jsonc] format 1`] = `
-"Unexpected token (2:1)
+"The input should contain exactly one expression, but the first expression is followed by the unexpected character \`;\`. (2:1)
   1 | /* comment */"string"
 > 2 | ;
     | ^
-Cause: Unexpected token (2:0)"
+Cause: Unexpected parseExpression() input: The input should contain exactly one expression, but the first expression is followed by the unexpected character \`;\`. (2:0)"
 `;
 
 exports[`snippet: #8 [json] format 1`] = `
@@ -838,11 +838,11 @@ Cause: Unexpected token (1:0)"
 `;
 
 exports[`snippet: #22 [json] format 1`] = `
-"Unexpected token (2:1)
+"The input should contain exactly one expression, but the first expression is followed by the unexpected character \`{\`. (2:1)
   1 | "use strict"
 > 2 | {}
     | ^
-Cause: Unexpected token (2:0)"
+Cause: Unexpected parseExpression() input: The input should contain exactly one expression, but the first expression is followed by the unexpected character \`{\`. (2:0)"
 `;
 
 exports[`snippet: #22 [json] format 2`] = `
@@ -853,26 +853,26 @@ Cause: Unexpected token (1:1)"
 `;
 
 exports[`snippet: #22 [json-stringify] format 1`] = `
-"Unexpected token (2:1)
+"The input should contain exactly one expression, but the first expression is followed by the unexpected character \`{\`. (2:1)
   1 | "use strict"
 > 2 | {}
     | ^
-Cause: Unexpected token (2:0)"
+Cause: Unexpected parseExpression() input: The input should contain exactly one expression, but the first expression is followed by the unexpected character \`{\`. (2:0)"
 `;
 
 exports[`snippet: #22 [json5] format 1`] = `
-"Unexpected token (2:1)
+"The input should contain exactly one expression, but the first expression is followed by the unexpected character \`{\`. (2:1)
   1 | "use strict"
 > 2 | {}
     | ^
-Cause: Unexpected token (2:0)"
+Cause: Unexpected parseExpression() input: The input should contain exactly one expression, but the first expression is followed by the unexpected character \`{\`. (2:0)"
 `;
 
 exports[`snippet: #23 [json] format 1`] = `
-"Unexpected token (1:14)
+"The input is empty or contains only comments. (1:14)
 > 1 | /* comment */
     |              ^
-Cause: Unexpected token (1:13)"
+Cause: Unexpected parseExpression() input: The input is empty or contains only comments. (1:13)"
 `;
 
 exports[`snippet: #23 [json] format 2`] = `
@@ -882,24 +882,24 @@ exports[`snippet: #23 [json] format 2`] = `
 `;
 
 exports[`snippet: #23 [json-stringify] format 1`] = `
-"Unexpected token (1:14)
+"The input is empty or contains only comments. (1:14)
 > 1 | /* comment */
     |              ^
-Cause: Unexpected token (1:13)"
+Cause: Unexpected parseExpression() input: The input is empty or contains only comments. (1:13)"
 `;
 
 exports[`snippet: #23 [json5] format 1`] = `
-"Unexpected token (1:14)
+"The input is empty or contains only comments. (1:14)
 > 1 | /* comment */
     |              ^
-Cause: Unexpected token (1:13)"
+Cause: Unexpected parseExpression() input: The input is empty or contains only comments. (1:13)"
 `;
 
 exports[`snippet: #24 [json] format 1`] = `
-"Unexpected token (1:11)
+"The input is empty or contains only comments. (1:11)
 > 1 | // comment
     |           ^
-Cause: Unexpected token (1:10)"
+Cause: Unexpected parseExpression() input: The input is empty or contains only comments. (1:10)"
 `;
 
 exports[`snippet: #24 [json] format 2`] = `
@@ -909,17 +909,17 @@ exports[`snippet: #24 [json] format 2`] = `
 `;
 
 exports[`snippet: #24 [json-stringify] format 1`] = `
-"Unexpected token (1:11)
+"The input is empty or contains only comments. (1:11)
 > 1 | // comment
     |           ^
-Cause: Unexpected token (1:10)"
+Cause: Unexpected parseExpression() input: The input is empty or contains only comments. (1:10)"
 `;
 
 exports[`snippet: #24 [json5] format 1`] = `
-"Unexpected token (1:11)
+"The input is empty or contains only comments. (1:11)
 > 1 | // comment
     |           ^
-Cause: Unexpected token (1:10)"
+Cause: Unexpected parseExpression() input: The input is empty or contains only comments. (1:10)"
 `;
 
 exports[`snippet: #25 [json] format 1`] = `

@@ -1,5 +1,8 @@
 import createError from "../../../common/parser-create-error.js";
 
+const parseExpressionErrorMessagePrefix =
+  "Unexpected parseExpression() input: ";
+
 function createBabelParseError(error) {
   let { message, loc, reasonCode } = error;
 
@@ -21,6 +24,10 @@ function createBabelParseError(error) {
   const suffix = ` (${line}:${column})`;
   if (message.endsWith(suffix)) {
     message = message.slice(0, -suffix.length);
+  }
+
+  if (message.startsWith(parseExpressionErrorMessagePrefix)) {
+    message = message.slice(parseExpressionErrorMessagePrefix.length);
   }
 
   return createError(message, {
