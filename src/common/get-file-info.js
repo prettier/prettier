@@ -58,8 +58,6 @@ async function getParser(file, options) {
     return config.parser;
   }
 
-  // This not work with `--config-precedence`
-  // In CLI the plugins should already set in `options`
   let plugins = options.plugins ?? config?.plugins ?? [];
   plugins = (
     await Promise.all([loadBuiltinPlugins(), loadPlugins(plugins)])

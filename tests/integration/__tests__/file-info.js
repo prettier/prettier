@@ -397,7 +397,7 @@ test("API getFileInfo accepts path or URL", async () => {
   expect(resultByRelativePath).toEqual(expectedResult);
 });
 
-test("API getFileInfo should support `parser` and `plugins` in options", async () => {
+test("getFileInfo should support `parser` and `plugins` in options", async () => {
   {
     const { inferredParser: parser } = await prettier.getFileInfo(
       new URL("../cli/file-info/empty-config/foo.js", import.meta.url),
@@ -426,6 +426,15 @@ test("API getFileInfo should support `parser` and `plugins` in options", async (
     const { inferredParser: parser } = await prettier.getFileInfo(
       new URL("../cli/file-info/config-with-plugin/file.foo", import.meta.url),
     );
+    expect(parser).toBe("parser-for-foo-file-from-plugin");
+  }
+
+  {
+    const { stdout } = await runCli("cli/file-info/config-with-plugin", [
+      "--file-info",
+      "file.foo",
+    ]);
+    const { inferredParser: parser } = JSON.parse(stdout);
     expect(parser).toBe("parser-for-foo-file-from-plugin");
   }
 
