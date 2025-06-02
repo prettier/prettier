@@ -14,6 +14,16 @@ Create or modify your [prettier configuration file](https://prettier.io/docs/en/
 
 ```json
 {
+  "plugins": [
+    "@prettier/plugin-oxc"
+  ]
+}
+```
+
+Or config explicitly
+
+```json
+{
   "overrides": [
     {
       "files": ["**/*.{js,mjs,cjs,jsx}"],
