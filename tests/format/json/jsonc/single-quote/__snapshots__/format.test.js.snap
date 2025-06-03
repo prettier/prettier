@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`test.jsonc - {"singleQuote":false} format 1`] = `
 ====================================options=====================================
@@ -19,7 +19,7 @@ singleQuote: false
   "Should always use double quote",
   "Even it is single quoted originally",
   "Or contains double quotes \\"\\"\\"\\"\\"\\"\\"\\"\\"\\"\\"",
-  { "object-key-should-also-double-quoted": "" },
+  { "object-key-should-also-double-quoted": "" }
 ]
 
 ================================================================================
@@ -44,7 +44,7 @@ singleQuote: true
   "Should always use double quote",
   "Even it is single quoted originally",
   "Or contains double quotes \\"\\"\\"\\"\\"\\"\\"\\"\\"\\"\\"",
-  { "object-key-should-also-double-quoted": "" },
+  { "object-key-should-also-double-quoted": "" }
 ]
 
 ================================================================================

@@ -85,7 +85,7 @@ async function normalizeFormatOptions(options, opts = {}) {
     }
   }
 
-  if (rawOptions.parser === "json") {
+  if (rawOptions.parser === "json" || rawOptions.parser === "jsonc") {
     rawOptions.trailingComma = "none";
   }
 

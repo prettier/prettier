@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`test.jsonc - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
@@ -29,7 +29,7 @@ trailingComma: "all"
     "break",
     "into",
     "multiple",
-    "lines",
+    "lines"
   ],
   { "short": "object" },
   {
@@ -39,8 +39,8 @@ trailingComma: "all"
     "break": "",
     "into": "",
     "multiple": "",
-    "lines": "",
-  },
+    "lines": ""
+  }
 ]
 
 ================================================================================
@@ -75,7 +75,7 @@ trailingComma: "es5"
     "break",
     "into",
     "multiple",
-    "lines",
+    "lines"
   ],
   { "short": "object" },
   {
@@ -85,8 +85,8 @@ trailingComma: "es5"
     "break": "",
     "into": "",
     "multiple": "",
-    "lines": "",
-  },
+    "lines": ""
+  }
 ]
 
 ================================================================================
