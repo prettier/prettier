@@ -108,7 +108,7 @@ function parseValueNode(valueNode, options) {
       parenGroupStack.pop();
       parenGroup = parenGroupStack.at(-1);
     } else if (node.type === "comma") {
-      // Trialing comma
+      // Trailing comma
       if (
         i === nodes.length - 3 &&
         nodes[i + 1].type === "comment" &&

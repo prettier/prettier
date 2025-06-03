@@ -24,7 +24,7 @@ async function readBunPackageJson(file) {
     return await readJson(file);
   } catch (error) {
     // TODO: Add tests for this
-    // Bun supports comments and trialing comma in `package.json`
+    // Bun supports comments and trailing comma in `package.json`
     // And it can load via `import()`
     // https://bun.sh/blog/bun-v1.2#jsonc-support-in-package-json
     try {
