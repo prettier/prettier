@@ -46,7 +46,7 @@ function postprocess(ast, options) {
   // Other parsers parse it as comment, babel treat it as comment too
   // https://github.com/babel/babel/issues/15116
   const program = ast.type === "File" ? ast.program : ast;
-  if (ast.type === "File" && program.interpreter) {
+  if (program.interpreter) {
     comments.unshift(program.interpreter);
     delete program.interpreter;
   }
