@@ -64,8 +64,6 @@ function postprocess(ast, options) {
       if (
         followingComment &&
         locEnd(comment) === locStart(followingComment) &&
-        isBlockComment(comment) &&
-        isBlockComment(followingComment) &&
         isIndentableBlockComment(comment) &&
         isIndentableBlockComment(followingComment)
       ) {
