@@ -4,23 +4,27 @@ import assert from "node:assert";
 /**
 @typedef {{
   name: string;
-  parsers: BuiltInParserName[] | string[];
+  parsers?: readonly string[];
   group?: string | undefined;
   tmScope?: string | undefined;
   aceMode?: string | undefined;
   codemirrorMode?: string | undefined;
   codemirrorMimeType?: string | undefined;
-  aliases?: string[] | undefined;
-  extensions?: string[] | undefined;
-  filenames?: string[] | undefined;
+  aliases?: readonly string[] | undefined;
+  extensions?: readonly string[] | undefined;
+  filenames?: readonly string[] | undefined;
   linguistLanguageId?: number | undefined;
-  vscodeLanguageIds?: string[] | undefined;
-  interpreters?: string[] | undefined;
-  isSupported?: (({ filepath: string }) => boolean) | undefined;
+  vscodeLanguageIds?: readonly string[] | undefined;
+  interpreters?: readonly string[] | undefined;
+  isSupported?: ((options: {filepath: string}) => boolean) | undefined;
 }} Language
 */
 
-const excludedFields = new Set(["color"]);
+const excludedFields = new Set([
+  "color",
+  // Rename as `linguistLanguageId`
+  "languageId",
+]);
 
 const arrayTypeFields = new Set([
   "parsers",
@@ -33,11 +37,16 @@ const arrayTypeFields = new Set([
 
 /**
  * @param {LinguistLanguage} linguistLanguage
- * @param {(data: LinguistLanguage) => LinguistLanguage & Language} getOverrides
+ * @param {(data: LinguistLanguage) => Partial<LinguistLanguage & Language>} getOverrides
  * @returns {Language}
  */
 function createLanguage(linguistLanguage, getOverrides) {
-  const language = getOverrides(linguistLanguage);
+  const language = { ...linguistLanguage, ...getOverrides(linguistLanguage) };
+  language.linguistLanguageId = language.languageId;
+
+  for (const field of excludedFields) {
+    delete language[field];
+  }
 
   for (const property of arrayTypeFields) {
     const value = language[property];
@@ -49,12 +58,7 @@ function createLanguage(linguistLanguage, getOverrides) {
     );
   }
 
-  const { languageId: linguistLanguageId, ...restData } = language;
-  for (const field of excludedFields) {
-    delete restData[field];
-  }
-
-  return { linguistLanguageId, ...restData };
+  return language;
 }
 
 export default createLanguage;
