@@ -34,11 +34,12 @@ const isNodeWithRaw = createTypeCheckFunction([
  * @param {{
  *   text: string,
  *   parser?: string,
+ *   supportTypeCastComments?: boolean,
  *   oxcAstType?: string,
  * }} options
  */
 function postprocess(ast, options) {
-  const { parser, text } = options;
+  const { parser, text, supportTypeCastComments } = options;
 
   // `InterpreterDirective` from babel parser and flow parser
   // Other parsers parse it as comment, babel treat it as comment too
@@ -88,6 +89,15 @@ function postprocess(ast, options) {
     }
   }
 
+  const typeCastCommentsEnds = [];
+  if (supportTypeCastComments) {
+    for (const comment of ast.comments) {
+      if (isTypeCastComment(comment)) {
+        typeCastCommentsEnds.push(locEnd(comment));
+      }
+    }
+  }
+
   ast = visitNode(ast, (node) => {
     switch (node.type) {
       case "ParenthesizedExpression": {
@@ -101,14 +111,13 @@ function postprocess(ast, options) {
         }
 
         // Keep ParenthesizedExpression nodes only if they have Closure-style type cast comments.
-        const previousComment = ast.comments.findLast(
-          (comment) => locEnd(comment) <= start,
+        const previousCommentEnd = typeCastCommentsEnds.findLast(
+          (end) => end <= start,
         );
         const keepTypeCast =
-          previousComment &&
-          isTypeCastComment(previousComment) &&
+          previousCommentEnd &&
           // check that there are only white spaces between the comment and the parenthesis
-          text.slice(locEnd(previousComment), start).trim().length === 0;
+          text.slice(previousCommentEnd, start).trim().length === 0;
 
         if (!keepTypeCast) {
           expression.extra = { ...expression.extra, parenthesized: true };
