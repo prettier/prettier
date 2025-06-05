@@ -1,6 +1,15 @@
 import isBlockComment from "./is-block-comment.js";
 
 function isIndentableBlockCommentInternal(comment) {
+  /*
+  In postprocess.js
+  this only called when two comments are next to each other,
+  since it's not possible for line comments.
+
+  In printComment
+  It's the line comment is checked first, it can't be a line comment either.
+  */
+  /* c8 ignore next 3 */
   if (!isBlockComment(comment)) {
     return false;
   }
