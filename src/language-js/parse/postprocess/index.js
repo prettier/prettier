@@ -56,7 +56,7 @@ function postprocess(ast, options) {
     delete ast.hashbang;
   }
 
-  if (comments.length > 0) {
+  if (comments.length > 1) {
     let followingComment;
     for (let i = comments.length - 1; i >= 0; i--) {
       const comment = comments[i];
@@ -64,8 +64,6 @@ function postprocess(ast, options) {
       if (
         followingComment &&
         locEnd(comment) === locStart(followingComment) &&
-        isBlockComment(comment) &&
-        isBlockComment(followingComment) &&
         isIndentableBlockComment(comment) &&
         isIndentableBlockComment(followingComment)
       ) {
