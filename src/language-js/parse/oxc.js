@@ -98,12 +98,7 @@ async function parseTs(text, options) {
   let filepath = options?.filepath;
   const sourceType = getSourceType(filepath);
   /** @type {ParserOptions} */
-  const parseOptions = {
-    sourceType,
-    astType: "ts",
-    // https://github.com/prettier/prettier/issues/17140#issuecomment-2912011221
-    experimentalRawTransfer: false,
-  };
+  const parseOptions = { sourceType, astType: "ts" };
   const isKnownJsx =
     typeof filepath === "string" && /\.(?:jsx|tsx)$/iu.test(filepath);
 
