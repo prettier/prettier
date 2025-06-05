@@ -40,27 +40,25 @@ const isNodeWithRaw = createTypeCheckFunction([
  */
 function postprocess(ast, options) {
   const { parser, text, supportTypeCastComments } = options;
+  const { comments } = ast;
 
   // `InterpreterDirective` from babel parser and flow parser
   // Other parsers parse it as comment, babel treat it as comment too
   // https://github.com/babel/babel/issues/15116
-  const program = ast.type === "File" ? ast.program : ast;
-  const { interpreter } = program;
-  if (interpreter) {
-    ast.comments.unshift(interpreter);
-    delete program.interpreter;
+  if (ast.type === "File" && ast.program.interpreter) {
+    comments.unshift(ast.program.interpreter);
+    delete ast.program.interpreter;
   }
 
   if (parser === "oxc" && options.oxcAstType === "ts" && ast.hashbang) {
-    const { comments, hashbang } = ast;
-    comments.unshift(hashbang);
-    delete program.hashbang;
+    comments.unshift(ast.hashbang);
+    delete ast.hashbang;
   }
 
-  if (ast.comments.length > 0) {
+  if (comments.length > 0) {
     let followingComment;
-    for (let i = ast.comments.length - 1; i >= 0; i--) {
-      const comment = ast.comments[i];
+    for (let i = comments.length - 1; i >= 0; i--) {
+      const comment = comments[i];
 
       if (
         followingComment &&
@@ -70,7 +68,7 @@ function postprocess(ast, options) {
         isIndentableBlockComment(comment) &&
         isIndentableBlockComment(followingComment)
       ) {
-        ast.comments.splice(i + 1, 1);
+        comments.splice(i + 1, 1);
         comment.value += "*//*" + followingComment.value;
         comment.range = [locStart(comment), locEnd(followingComment)];
       }
@@ -91,7 +89,7 @@ function postprocess(ast, options) {
 
   const typeCastCommentsEnds = [];
   if (supportTypeCastComments) {
-    for (const comment of ast.comments) {
+    for (const comment of comments) {
       if (isTypeCastComment(comment)) {
         typeCastCommentsEnds.push(locEnd(comment));
       }
@@ -211,7 +209,7 @@ function postprocess(ast, options) {
           const textWithoutComments = getTextWithoutComments(
             {
               originalText: text,
-              [Symbol.for("comments")]: ast.comments,
+              [Symbol.for("comments")]: comments,
             },
             idEnd,
             members[0] ? locStart(members[0]) : locEnd(node),
