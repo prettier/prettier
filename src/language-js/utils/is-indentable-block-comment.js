@@ -2,7 +2,7 @@ import isBlockComment from "./is-block-comment.js";
 
 function isIndentableBlockCommentInternal(comment) {
   if (!isBlockComment(comment)) {
-    return;
+    return false;
   }
 
   // If the comment has multiple lines and every line starts with a star
