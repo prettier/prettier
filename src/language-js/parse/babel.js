@@ -163,7 +163,7 @@ function createParse({ isExpression = false, optionsCombinations }) {
       ast = wrapBabelExpression(ast, { text, rootMarker: options.rootMarker });
     }
 
-    return postprocess(ast, { text });
+    return postprocess(ast, { text, supportTypeCastComments: true });
   };
 }
 
