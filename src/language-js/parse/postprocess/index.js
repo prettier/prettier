@@ -45,9 +45,10 @@ function postprocess(ast, options) {
   // `InterpreterDirective` from babel parser and flow parser
   // Other parsers parse it as comment, babel treat it as comment too
   // https://github.com/babel/babel/issues/15116
-  if (ast.type === "File" && ast.program.interpreter) {
-    comments.unshift(ast.program.interpreter);
-    delete ast.program.interpreter;
+  const program = ast.type === "File" ? ast.program : ast;
+  if (ast.type === "File" && program.interpreter) {
+    comments.unshift(program.interpreter);
+    delete program.interpreter;
   }
 
   if (parser === "oxc" && options.oxcAstType === "ts" && ast.hashbang) {
