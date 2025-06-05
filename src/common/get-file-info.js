@@ -1,4 +1,5 @@
 import { resolveConfig } from "../config/resolve-config.js";
+import { loadBuiltinPlugins, loadPlugins } from "../main/plugins/index.js";
 import { isIgnored } from "../utils/ignore.js";
 import inferParser from "../utils/infer-parser.js";
 
@@ -13,10 +14,9 @@ import inferParser from "../utils/infer-parser.js";
  * @returns {Promise<FileInfoResult>}
  *
  * Please note that prettier.getFileInfo() expects options.plugins to be an array of paths,
- * not an object. A transformation from this array to an object is automatically done
- * internally by the method wrapper. See withPlugins() in index.js.
+ * not an object.
  */
-async function getFileInfo(file, options) {
+async function getFileInfo(file, options = {}) {
   if (typeof file !== "string" && !(file instanceof URL)) {
     throw new TypeError(
       `expect \`file\` to be a string or URL, got \`${typeof file}\``,
@@ -30,10 +30,9 @@ async function getFileInfo(file, options) {
   }
 
   const ignored = await isIgnored(file, { ignorePath, withNodeModules });
-
   let inferredParser;
   if (!ignored) {
-    inferredParser = await getParser(file, options);
+    inferredParser = options.parser ?? (await getParser(file, options));
   }
 
   return {
@@ -51,7 +50,16 @@ async function getParser(file, options) {
     });
   }
 
-  return config?.parser ?? inferParser(options, { physicalFile: file });
+  if (config?.parser) {
+    return config.parser;
+  }
+
+  let plugins = options.plugins ?? config?.plugins ?? [];
+  plugins = (
+    await Promise.all([loadBuiltinPlugins(), loadPlugins(plugins)])
+  ).flat();
+
+  return inferParser({ plugins }, { physicalFile: file });
 }
 
 export default getFileInfo;

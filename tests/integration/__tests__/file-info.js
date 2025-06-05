@@ -397,6 +397,58 @@ test("API getFileInfo accepts path or URL", async () => {
   expect(resultByRelativePath).toEqual(expectedResult);
 });
 
+test("getFileInfo should support `parser` and `plugins` in options", async () => {
+  {
+    const { inferredParser: parser } = await prettier.getFileInfo(
+      new URL("../cli/file-info/empty-config/foo.js", import.meta.url),
+      {
+        parser: "parser-from-options",
+      },
+    );
+    expect(parser).toBe("parser-from-options");
+  }
+
+  {
+    const { inferredParser: parser } = await prettier.getFileInfo(
+      new URL("../cli/file-info/empty-config/foo.js", import.meta.url),
+    );
+    expect(parser).toBe("babel");
+  }
+
+  {
+    const { inferredParser: parser } = await prettier.getFileInfo(
+      new URL("../cli/file-info/config-with-parser/foo.js", import.meta.url),
+    );
+    expect(parser).toBe("parser-from-prettierrc");
+  }
+
+  {
+    const { inferredParser: parser } = await prettier.getFileInfo(
+      new URL("../cli/file-info/config-with-plugin/file.foo", import.meta.url),
+    );
+    expect(parser).toBe("parser-for-foo-file-from-plugin");
+  }
+
+  {
+    const { stdout } = await runCli("cli/file-info/config-with-plugin", [
+      "--file-info",
+      "file.foo",
+    ]);
+    const { inferredParser: parser } = JSON.parse(stdout);
+    expect(parser).toBe("parser-for-foo-file-from-plugin");
+  }
+
+  {
+    const { inferredParser: parser } = await prettier.getFileInfo(
+      new URL("../cli/file-info/empty-config/file.bar", import.meta.url),
+      {
+        plugins: [new URL("../cli/file-info/plugin.js", import.meta.url)],
+      },
+    );
+    expect(parser).toBe("parser-for-bar-file-from-plugin");
+  }
+});
+
 test("API getFileInfo accepts path or URL as ignorePath", async () => {
   const file = new URL(
     "../cli/ignore-path/file-info-test/ignored-by-customignore.js",
