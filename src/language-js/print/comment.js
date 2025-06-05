@@ -15,11 +15,11 @@ function printComment(commentPath, options) {
       .trimEnd();
   }
 
-  if (isBlockComment(comment)) {
-    if (isIndentableBlockComment(comment)) {
-      return printIndentableBlockComment(comment);
-    }
+  if (isIndentableBlockComment(comment)) {
+    return printIndentableBlockComment(comment);
+  }
 
+  if (isBlockComment(comment)) {
     return ["/*", replaceEndOfLine(comment.value), "*/"];
   }
 
