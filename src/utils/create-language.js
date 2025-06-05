@@ -24,9 +24,11 @@ const excludedFields = new Set(["color"]);
 
 const arrayTypeFields = new Set([
   "parsers",
+  "aliases",
   "extensions",
   "interpreters",
   "filenames",
+  "vscodeLanguageIds",
 ]);
 
 /**
