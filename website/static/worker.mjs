@@ -62,13 +62,6 @@ const plugins = [
     createPlugin(plugin),
   ),
   docExplorerPlugin,
-  prettierPackageManifest.builtinPlugins.some((plugin) =>
-    plugin.parsers?.includes("hermes"),
-  )
-    ? {
-        languages: [{ name: "hermes", parsers: ["hermes"] }],
-      }
-    : {},
 ];
 
 self.onmessage = async function (event) {

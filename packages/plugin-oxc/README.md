@@ -12,23 +12,25 @@ yarn add --dev prettier @prettier/plugin-oxc
 
 Create or modify your [prettier configuration file](https://prettier.io/docs/en/configuration) to use the plugin:
 
-```json
-{
-  "overrides": [
-    {
-      "files": ["**/*.{js,mjs,cjs,jsx}"],
-      "options": {
-        "plugins": ["@prettier/plugin-oxc"],
-        "parser": "oxc"
-      }
-    },
-    {
-      "files": ["**/*.{ts,mts,cts,tsx}"],
-      "options": {
-        "plugins": ["@prettier/plugin-oxc"],
-        "parser": "oxc-ts"
-      }
-    }
-  ]
-}
+```yaml
+plugins:
+  - "@prettier/plugin-oxc"
+```
+
+Or config explicitly
+
+```yaml
+overrides:
+  - files:
+      - "**/*.{js,mjs,cjs,jsx}"
+    options:
+      plugins:
+        - "@prettier/plugin-oxc"
+      parser: oxc
+  - files:
+      - "**/*.{ts,mts,cts,tsx}"
+    options:
+      plugins:
+        - "@prettier/plugin-oxc"
+      parser: oxc-ts
 ```

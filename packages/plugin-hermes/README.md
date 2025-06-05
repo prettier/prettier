@@ -12,16 +12,19 @@ yarn add --dev prettier @prettier/plugin-hermes
 
 Create or modify your [prettier configuration file](https://prettier.io/docs/en/configuration) to use the plugin:
 
-```json
-{
-  "overrides": [
-    {
-      "files": ["**/*.{js.flow,js,mjs,cjs}"],
-      "options": {
-        "plugins": ["@prettier/plugin-hermes"],
-        "parser": "hermes"
-      }
-    }
-  ]
-}
+```yaml
+plugins:
+  - "@prettier/plugin-hermes"
+```
+
+Or config explicitly
+
+```yaml
+overrides:
+  - files:
+      - "**/*.{js.flow,js,mjs,cjs}"
+    options:
+      plugins:
+        - "@prettier/plugin-hermes"
+      parser: hermes
 ```
