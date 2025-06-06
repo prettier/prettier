@@ -122,6 +122,9 @@ jobs:
           name: dist
           path: dist
 
+      - run: |
+          sed -i 's/trackUnmanagedFds: false,/ /' node_modules/jest-light-runner/src/index.js
+
       - name: Run Tests
         run: yarn test:dist
 
