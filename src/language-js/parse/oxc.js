@@ -50,8 +50,8 @@ async function parseWithOptions(filepath, text, options) {
   const result = await oxcParser.parseAsync(filepath, text, {
     preserveParens: true,
     showSemanticErrors: false,
-    ...options,
     experimentalRawTransfer: oxcParser.rawTransferSupported(),
+    ...options,
   });
 
   const { errors } = result;
