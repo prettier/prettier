@@ -51,8 +51,7 @@ async function parseWithOptions(filepath, text, options) {
     preserveParens: true,
     showSemanticErrors: false,
     ...options,
-    experimentalRawTransfer:
-      options.experimentalRawTransfer ?? oxcParser.rawTransferSupported(),
+    experimentalRawTransfer: oxcParser.rawTransferSupported(),
   });
 
   const { errors } = result;
