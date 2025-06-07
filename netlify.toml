@@ -9,5 +9,4 @@
 [[headers]]
   for = "/worker.mjs"
   [headers.values]
-    Access-Control-Allow-Origin = "*"
-    Content-Security-Policy = "default-src 'self' unpkg.com; script-src 'self' unpkg.com 'unsafe-eval'; worker-src 'self' unpkg.com"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-eval'"
