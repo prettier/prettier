@@ -63,6 +63,7 @@ async function buildPlaygroundFiles() {
   }
 
   // TODO: Support stable version
+  // External plugins
   if (IS_PULL_REQUEST) {
     for (const pluginName of ["plugin-hermes"]) {
       pluginFiles.push(`${pluginName}/index.mjs`);
