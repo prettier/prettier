@@ -1,11 +1,14 @@
+import os from "node:os";
 import indexToPosition from "index-to-position";
-import { parseAsync as oxcParse, rawTransferSupported } from "oxc-parser";
 import createError from "../../common/parser-create-error.js";
 import { tryCombinationsAsync } from "../../utils/try-combinations.js";
 import postprocess from "./postprocess/index.js";
 import createParser from "./utils/create-parser.js";
 import jsxRegexp from "./utils/jsx-regexp.evaluate.js";
 import { getSourceType } from "./utils/source-types.js";
+
+/** @import {ParseResult, ParserOptions as ParserOptionsWithoutExperimentalRawTransfer} from "oxc-parser" */
+/** @typedef {ParserOptionsWithoutExperimentalRawTransfer & {experimentalRawTransfer?: boolean}} ParserOptions */
 
 function createParseError(error, { text }) {
   /* c8 ignore next 3 */
@@ -31,11 +34,23 @@ function createParseError(error, { text }) {
   });
 }
 
+let oxcParser;
+/**
+@param {string} filepath
+@param {string} text
+@param {ParserOptions} options
+@returns {Promise<ParseResult>}
+*/
 async function parseWithOptions(filepath, text, options) {
-  const result = await oxcParse(filepath, text, {
+  if (!oxcParser) {
+    os.availableParallelism ??= () => os.cpus().length;
+    oxcParser = await import("oxc-parser");
+  }
+
+  const result = await oxcParser.parseAsync(filepath, text, {
     preserveParens: true,
-    experimentalRawTransfer: rawTransferSupported(),
     showSemanticErrors: false,
+    experimentalRawTransfer: oxcParser.rawTransferSupported(),
     ...options,
   });
 
@@ -81,10 +96,12 @@ async function parseJs(text, options) {
 async function parseTs(text, options) {
   let filepath = options?.filepath;
   const sourceType = getSourceType(filepath);
+  /** @type {ParserOptions} */
   const parseOptions = { sourceType, astType: "ts" };
   const isKnownJsx =
     typeof filepath === "string" && /\.(?:jsx|tsx)$/iu.test(filepath);
 
+  /** @type {ParserOptions[]} */
   let parseOptionsCombinations = [];
   if (isKnownJsx) {
     parseOptionsCombinations = [{ ...parseOptions, lang: "tsx" }];
