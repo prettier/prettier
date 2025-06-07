@@ -11,6 +11,7 @@
   [headers.values]
     Cross-Origin-Opener-Policy-Report-Only = "same-origin"
     Cross-Origin-Embedder-Policy-Report-Onl = "require-corp"
+    Permissions-Policy = "cross-origin-isolated=*"
 
 # [[headers]]
 #   for = "/worker.mjs"
