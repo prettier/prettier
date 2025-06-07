@@ -9,4 +9,4 @@
 [[headers]]
   for = "/worker.js"
   [headers.values]
-    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-eval'; worker-src 'self' 'https://unpkg.com/'"
+  Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-eval'; worker-src 'self' 'https://unpkg.com/'"
