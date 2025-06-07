@@ -1,14 +1,12 @@
-import prettierPackageManifest from "./lib/package-manifest.js";
+import "https://cdnjs.cloudflare.com/ajax/libs/sw-toolbox/3.6.0/sw-toolbox.js";
 
-importScripts(
-  "https://cdnjs.cloudflare.com/ajax/libs/sw-toolbox/3.6.0/sw-toolbox.js",
-);
+import prettierPackageManifest from "./lib/package-manifest.mjs";
 
 const { toolbox } = self;
 const packageFiles = [
   prettierPackageManifest.prettier,
   ...prettierPackageManifest.plugins,
-].map(({ file }) => `lib/${file}`);
+].map(({ file }) => `./lib/${file}`);
 
 toolbox.precache([
   // Scripts
