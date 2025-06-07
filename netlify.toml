@@ -6,7 +6,7 @@
   NODE_VERSION = "lts/*"
   YARN_VERSION = "1.22.22"
 
-[[headers]]
-  for = "/worker.mjs"
-  [headers.values]
-    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-eval'"
+# [[headers]]
+#   for = "/worker.mjs"
+#   [headers.values]
+#     Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-eval'"
