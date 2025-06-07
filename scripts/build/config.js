@@ -976,10 +976,17 @@ export default [
               ...buildJavascriptModule,
               replaceModule: [
                 {
-                  module: require.resolve("oxc-parser/wasm.mjs"),
-                  text: outdent`
-                    export * from "https://unpkg.com/@oxc-parser/binding-wasm32-wasi@${projectPackageJson.dependencies["oxc-parser"]}/browser-bundle.mjs"
-                  `,
+                  module: path.join(
+                    PROJECT_ROOT,
+                    "src/language-js/parse/oxc.js",
+                  ),
+                  process(text) {
+                    text = text.replace(
+                      /async function importOxcParser\(\) \{.*?\}/su,
+                      `const importOxcParser = () => import("https://unpkg.com/@oxc-parser/binding-wasm32-wasi@${projectPackageJson.dependencies["oxc-parser"]}/browser-bundle.mjs")`,
+                    );
+                    return text;
+                  },
                 },
               ],
             },
