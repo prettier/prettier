@@ -6,6 +6,12 @@
   NODE_VERSION = "lts/*"
   YARN_VERSION = "1.22.22"
 
+[[redirects]]
+  from = "/unpkg.com"
+  to = "https://unpkg.com"
+  status = 200
+  force = true # COMMENT: ensure that we always redirect
+
 [[headers]]
   for = "/worker.mjs"
   [headers.values]
