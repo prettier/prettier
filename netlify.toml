@@ -10,7 +10,7 @@
   for = "/playground/"
   [headers.values]
     Cross-Origin-Opener-Policy-Report-Only = "same-origin"
-    Cross-Origin-Embedder-Policy-Report-Onl = "require-corp"
+    Cross-Origin-Embedder-Policy-Report-Only = "require-corp"
     Permissions-Policy = "cross-origin-isolated=(*)"
 
 # [[headers]]
