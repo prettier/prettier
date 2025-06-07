@@ -102,10 +102,10 @@ async function buildPlaygroundFiles() {
   );
 
   await Promise.all([
-    ...[packageManifest.prettier.file, ...pluginFiles].map((fileName) =>
+    ...[packageManifest.prettier, ...packageManifest.plugins].map(({ file }) =>
       copyFile(
-        path.join(PACKAGES_DIRECTORY, fileName),
-        path.join(PLAYGROUND_LIB_DIRECTORY, fileName),
+        path.join(PACKAGES_DIRECTORY, file),
+        path.join(PLAYGROUND_LIB_DIRECTORY, file),
       ),
     ),
     writeScript(
