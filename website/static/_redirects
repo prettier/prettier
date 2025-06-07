@@ -14,4 +14,3 @@
 
 # Proxy `@oxc-parser/binding-wasm32-wasi`
 /unpkg.com/@oxc-parser/binding-wasm32-wasi@*  https://unpkg.com/@oxc-parser/binding-wasm32-wasi@:splat 200
-/cdn.jsdelivr.net/npm/@oxc-parser/binding-wasm32-wasi@ https://cdn.jsdelivr.net@:splat 200

@@ -984,7 +984,7 @@ export default [
                     text = text.replace(
                       /async function importOxcParser\(\) \{.*?\}/su,
                       outdent`
-                        const OXC_PARSER_URL = "/cdn.jsdelivr.net/npm/@oxc-parser/binding-wasm32-wasi@${projectPackageJson.dependencies["oxc-parser"]}/browser-bundle.mjs"
+                        const OXC_PARSER_URL = "/unpkg.com/@oxc-parser/binding-wasm32-wasi@${projectPackageJson.dependencies["oxc-parser"]}/browser-bundle.mjs"
                         const importOxcParser = () => import(OXC_PARSER_URL)
                       `,
                     );
