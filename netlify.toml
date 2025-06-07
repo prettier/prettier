@@ -7,6 +7,14 @@
   YARN_VERSION = "1.22.22"
 
 [[headers]]
-  for = "/worker.js"
+  for = "/playground/"
+  [headers.values]
+    Cross-Origin-Opener-Policy = "same-origin"
+    Cross-Origin-Embedder-Policy = "require-corp"
+    Permissions-Policy = "cross-origin-isolated=(*)"
+
+[[headers]]
+  for = "/worker.mjs"
   [headers.values]
     Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-eval'"
+    Cross-Origin-Embedder-Policy = "require-corp"

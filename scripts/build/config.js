@@ -3,6 +3,7 @@ import path from "node:path";
 import url from "node:url";
 import createEsmUtils from "esm-utils";
 import { outdent } from "outdent";
+import projectPackageJson from "../../package.json" with { type: "json" };
 import { copyFile, DIST_DIR, PROJECT_ROOT } from "../utils/index.js";
 import buildDependenciesLicense from "./build-dependencies-license.js";
 import buildJavascriptModule from "./build-javascript-module.js";
@@ -71,6 +72,7 @@ function getTypesFileConfig({ input: jsFileInput, outputBaseName, isPlugin }) {
  * @property {BuildOptions} buildOptions - ESBuild options
  * @property {boolean?} isPlugin - file is a plugin
  * @property {boolean?} addDefaultExport - add default export to bundle
+ * @property {boolean?} playgroundOnly - only build for playground
  */
 
 const extensions = {
@@ -940,11 +942,13 @@ export default [
       ...[
         {
           input: "packages/plugin-oxc/index.js",
-          addDefaultExport: true,
-          external: ["oxc-parser"],
         },
       ].flatMap((file) => {
         let { input, output, outputBaseName, ...buildOptions } = file;
+        buildOptions = {
+          addDefaultExport: true,
+          ...buildOptions,
+        };
 
         const format = input.endsWith(".cjs") ? "cjs" : "esm";
         outputBaseName ??= path.basename(input, path.extname(input));
@@ -957,9 +961,43 @@ export default [
               file: `${outputBaseName}${extensions[format]}`,
             },
             platform: "node",
-            buildOptions,
+            buildOptions: { ...buildOptions, external: ["oxc-parser"] },
             build: buildJavascriptModule,
             kind: "javascript",
+          },
+          {
+            input,
+            output: {
+              format,
+              file: `${outputBaseName}${extensions[format]}`,
+            },
+            platform: "universal",
+            buildOptions: {
+              ...buildJavascriptModule,
+              replaceModule: [
+                {
+                  module: path.join(
+                    PROJECT_ROOT,
+                    "src/language-js/parse/oxc.js",
+                  ),
+                  process(text) {
+                    text = text.replace(
+                      /async function importOxcParser\(\) \{.*?\}/su,
+                      outdent`
+                        const OXC_PARSER_URL = "/unpkg.com/@oxc-parser/binding-wasm32-wasi@${projectPackageJson.dependencies["oxc-parser"]}/browser-bundle.mjs"
+                        const importOxcParser = () => import(OXC_PARSER_URL)
+                      `,
+                    );
+                    return text;
+                  },
+                },
+              ],
+              allowDynamicImport: true,
+            },
+            build: buildJavascriptModule,
+            kind: "javascript",
+            playground: true,
+            playgroundOnly: true,
           },
           getTypesFileConfig({ input, outputBaseName, isPlugin: true }),
         ];

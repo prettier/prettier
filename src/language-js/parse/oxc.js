@@ -34,6 +34,13 @@ function createParseError(error, { text }) {
   });
 }
 
+// This function will be replaced on playground
+async function importOxcParser() {
+  os.availableParallelism ??= () => os.cpus().length;
+  oxcParser = await import("oxc-parser");
+  return oxcParser;
+}
+
 let oxcParser;
 /**
 @param {string} filepath
@@ -42,10 +49,7 @@ let oxcParser;
 @returns {Promise<ParseResult>}
 */
 async function parseWithOptions(filepath, text, options) {
-  if (!oxcParser) {
-    os.availableParallelism ??= () => os.cpus().length;
-    oxcParser = await import("oxc-parser");
-  }
+  oxcParser ??= await importOxcParser();
 
   const result = await oxcParser.parseAsync(filepath, text, {
     preserveParens: true,
