@@ -1,39 +1,64 @@
-function assertUniqueArray(array, message) {
-  if (new Set(array).size === array.length) {
-    return;
+import assert from "node:assert";
+
+/** @import {Language as LinguistLanguage} from 'linguist-languages' */
+/**
+@typedef {{
+  name: string;
+  parsers?: readonly string[];
+  group?: string | undefined;
+  tmScope?: string | undefined;
+  aceMode?: string | undefined;
+  codemirrorMode?: string | undefined;
+  codemirrorMimeType?: string | undefined;
+  aliases?: readonly string[] | undefined;
+  extensions?: readonly string[] | undefined;
+  filenames?: readonly string[] | undefined;
+  linguistLanguageId?: number | undefined;
+  vscodeLanguageIds?: readonly string[] | undefined;
+  interpreters?: readonly string[] | undefined;
+  isSupported?: ((options: {filepath: string}) => boolean) | undefined;
+}} Language
+*/
+
+const excludedFields = new Set([
+  "color",
+  // Rename as `linguistLanguageId`
+  "languageId",
+]);
+
+const arrayTypeFields = new Set([
+  "parsers",
+  "aliases",
+  "extensions",
+  "interpreters",
+  "filenames",
+  "vscodeLanguageIds",
+]);
+
+/**
+ * @param {LinguistLanguage} linguistLanguage
+ * @param {(data: LinguistLanguage) => Partial<LinguistLanguage & Language>} getOverrides
+ * @returns {Language}
+ */
+function createLanguage(linguistLanguage, getOverrides) {
+  const language = { ...linguistLanguage, ...getOverrides(linguistLanguage) };
+  language.linguistLanguageId = language.languageId;
+
+  for (const field of excludedFields) {
+    delete language[field];
   }
 
-  /* c8 ignore next */
-  throw new Error(message);
-}
+  for (const property of arrayTypeFields) {
+    const value = language[property];
 
-function createLanguage(linguistData, getOverrides) {
-  const { languageId, ...restData } = linguistData;
-  const overrides = getOverrides(linguistData);
-
-  if (process.env.NODE_ENV !== "production" && overrides) {
-    for (const property of [
-      "parsers",
-      "extensions",
-      "interpreters",
-      "filenames",
-    ]) {
-      const value = overrides[property];
-
-      if (value) {
-        assertUniqueArray(
-          value,
-          `Language property '${property}' should be unique.`,
-        );
-      }
-    }
+    assert.ok(
+      value === undefined ||
+        (Array.isArray(value) && new Set(value).size === value.length),
+      `Language property '${property}' should be 'undefined' or unique array.`,
+    );
   }
 
-  return {
-    linguistLanguageId: languageId,
-    ...restData,
-    ...overrides,
-  };
+  return language;
 }
 
 export default createLanguage;
