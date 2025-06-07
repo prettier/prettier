@@ -58,9 +58,7 @@ const docExplorerPlugin = {
 };
 
 const plugins = [
-  ...prettierPackageManifest.builtinPlugins.map((plugin) =>
-    createPlugin(plugin),
-  ),
+  ...prettierPackageManifest.plugins.map((plugin) => createPlugin(plugin)),
   docExplorerPlugin,
 ];
 

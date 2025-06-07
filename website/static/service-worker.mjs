@@ -1,21 +1,19 @@
-"use strict";
+import prettierPackageManifest from "./lib/package-manifest.js";
 
 importScripts(
-  "lib/package-manifest.js",
   "https://cdnjs.cloudflare.com/ajax/libs/sw-toolbox/3.6.0/sw-toolbox.js",
 );
 
-const { toolbox, prettierPackageManifest } = self;
-const pluginFiles = prettierPackageManifest.builtinPlugins.map(
-  ({ file }) => `lib/${file}`,
-);
+const { toolbox } = self;
+const packageFiles = [
+  prettierPackageManifest.prettier,
+  ...prettierPackageManifest.plugins,
+].map(({ file }) => `lib/${file}`);
 
 toolbox.precache([
   // Scripts
-  "lib/standalone.mjs",
-  "lib/package-manifest.js",
   "lib/package-manifest.mjs",
-  ...pluginFiles,
+  ...packageFiles,
   "https://cdnjs.cloudflare.com/ajax/libs/sw-toolbox/3.6.0/sw-toolbox.js",
 
   // CodeMirror; keep this in sync with website/pages/playground/index.html
