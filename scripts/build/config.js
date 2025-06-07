@@ -992,6 +992,7 @@ export default [
                   },
                 },
               ],
+              allowDynamicImport: true,
             },
             build: buildJavascriptModule,
             kind: "javascript",

@@ -235,7 +235,8 @@ function getEsbuildOptions({ packageConfig, file, cliOptions }) {
         esbuildPluginVisualizer({ formats: cliOptions.reports }),
       esbuildPluginThrowWarnings({
         allowDynamicRequire: file.platform === "node",
-        allowDynamicImport: file.platform === "node",
+        allowDynamicImport:
+          buildOptions.allowDynamicImport ?? file.platform === "node",
       }),
       buildOptions.addDefaultExport && esbuildPluginAddDefaultExport(),
     ].filter(Boolean),
