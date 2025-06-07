@@ -983,7 +983,10 @@ export default [
                   process(text) {
                     text = text.replace(
                       /async function importOxcParser\(\) \{.*?\}/su,
-                      `const importOxcParser = () => import("/unpkg.com/@oxc-parser/binding-wasm32-wasi@${projectPackageJson.dependencies["oxc-parser"]}/browser-bundle.mjs")`,
+                      outdent`
+                        const OXC_PARSER_URL = "/unpkg.com/@oxc-parser/binding-wasm32-wasi@${projectPackageJson.dependencies["oxc-parser"]}/browser-bundle.mjs"
+                        const importOxcParser = () => import(OXC_PARSER_URL)
+                      `,
                     );
                     return text;
                   },
