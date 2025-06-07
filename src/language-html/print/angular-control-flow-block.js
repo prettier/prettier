@@ -14,7 +14,7 @@ function printAngularControlFlowBlock(path, options, print) {
   const { node } = path;
   const docs = [];
 
-  if (isPreviousBlockUnClosed(path)) {
+  if (isPreviousBlockUnClosed(path, options)) {
     docs.push("} ");
   }
 
@@ -26,13 +26,21 @@ function printAngularControlFlowBlock(path, options, print) {
 
   docs.push(" {");
 
-  const shouldPrintCloseBracket = shouldCloseBlock(node);
+  const shouldPrintCloseBracket = shouldCloseBlock(node, options);
   if (node.children.length > 0) {
     node.firstChild.hasLeadingSpaces = true;
     node.lastChild.hasTrailingSpaces = true;
-    docs.push(indent([hardline, printChildren(path, options, print)]));
+    docs.push(
+      indent([
+        shouldBreakLineWithinBrackets(node, options, "open") ? hardline : "",
+        printChildren(path, options, print),
+      ]),
+    );
     if (shouldPrintCloseBracket) {
-      docs.push(hardline, "}");
+      docs.push(
+        shouldBreakLineWithinBrackets(node, options, "close") ? hardline : "",
+        "}",
+      );
     }
   } else if (shouldPrintCloseBracket) {
     docs.push("}");
@@ -41,19 +49,25 @@ function printAngularControlFlowBlock(path, options, print) {
   return group(docs, { shouldBreak: true });
 }
 
-function shouldCloseBlock(node) {
-  return !(
-    node.next?.type === "angularControlFlowBlock" &&
-    ANGULAR_CONTROL_FLOW_BLOCK_SETTINGS.get(node.name)?.has(node.next.name)
-  );
+function shouldCloseBlock(node, options) {
+  if (shouldBreakLineWithinBrackets(node, options, "close") === false) {
+    return true;
+  }
+  if (
+    node.next?.type !== "angularControlFlowBlock" ||
+    !ANGULAR_CONTROL_FLOW_BLOCK_SETTINGS.get(node.name)?.has(node.next.name)
+  ) {
+    return true;
+  }
+  return false;
 }
 
-function isPreviousBlockUnClosed(path) {
+function isPreviousBlockUnClosed(path, options) {
   const { previous } = path;
   return (
     previous?.type === "angularControlFlowBlock" &&
     !hasPrettierIgnore(previous) &&
-    !shouldCloseBlock(previous)
+    !shouldCloseBlock(previous, options)
   );
 }
 
@@ -62,6 +76,83 @@ function printAngularControlFlowBlockParameters(path, options, print) {
     indent([softline, join([";", line], path.map(print, "children"))]),
     softline,
   ];
+}
+
+function lineStart(node) {
+  return node.sourceSpan.start.line;
+}
+
+function lineEnd(node) {
+  return node.sourceSpan.end.line;
+}
+
+function isWhitespaceSensitiveNodeInBlock(node) {
+  return node.type === "text" || node.type === "interpolation";
+}
+
+function allSiblingsSpaceSensitive(block, child) {
+  for (const ch of block.children) {
+    if (ch === child) {
+      continue;
+    }
+    if (!isWhitespaceSensitiveNodeInBlock(ch)) {
+      return false;
+    }
+  }
+  return true;
+}
+
+/**
+ * Returns whether to print a hardline inside the brackets of a control flow block.
+ *
+ * The inside of Angular control flow blocks is space-sensitive,
+ * meaning the following two pieces of code produce different outputs:
+ *
+ * 1:
+ *   @if (true) {foo}
+ *
+ * 2:
+ *   @if (true) {
+ *     foo
+ *   }
+ *
+ * So, when the --html-whitespace-sensitivity option is not set to `ignore`,
+ * we should control line breaks to ensure consistent rendering.
+ * For more details, please read https://github.com/prettier/prettier/issues/16577.
+ *
+ * @param {any} block
+ * @param {any} options
+ * @param {"open" | "close"} kind
+ * @returns {boolean}
+ */
+function shouldBreakLineWithinBrackets(block, options, kind) {
+  if (options.htmlWhitespaceSensitivity === "ignore") {
+    return true;
+  }
+  const child = kind === "open" ? block.firstChild : block.lastChild;
+  if (
+    !child ||
+    (!isWhitespaceSensitiveNodeInBlock(child) &&
+      //   @if (true) {foo <span>bar</span>}
+      //
+      // should be preserved as is, should not be formatted as:
+      //
+      //   @if (true) {foo <span>bar</span>
+      //   }
+      //
+      !(
+        kind === "close" &&
+        block.children.length > 1 &&
+        allSiblingsSpaceSensitive(block, child)
+      ))
+  ) {
+    return true;
+  }
+  const lineFn = kind === "open" ? lineStart : lineEnd;
+  if (!child || lineFn(block) !== lineFn(child)) {
+    return true;
+  }
+  return false;
 }
 
 export { printAngularControlFlowBlock, printAngularControlFlowBlockParameters };
