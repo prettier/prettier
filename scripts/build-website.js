@@ -71,7 +71,7 @@ async function buildPlaygroundFiles() {
       const fileName = `plugins/${pluginName}.mjs`;
       files.push({
         fileName,
-        file: path.join(DIST_DIR, "plugin-${pluginName}/index.mjs"),
+        file: path.join(DIST_DIR, `plugin-${pluginName}/index.mjs`),
         dist: path.join(PLAYGROUND_PRETTIER_DIR, fileName),
       });
     }
