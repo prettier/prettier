@@ -1,0 +1,18 @@
+---
+myDict: {}
+  # exampleKey1: value
+  # exampleKey2: value
+
+myList: []
+  # - name: example
+  #   value: example
+
+myOtherMap:
+  1: example
+  2: example
+  # 3: example
+
+myOtherList:
+  - example1
+  - example2
+  # - example3
