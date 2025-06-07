@@ -1,5 +1,5 @@
 import "codemirror-graphql/cm6-legacy/mode.esm.js";
-import "./install-service-worker.js";
+// import "./install-service-worker.js";
 
 import Playground from "./Playground.jsx";
 import { fixPrettierVersion } from "./util.js";
