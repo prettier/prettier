@@ -109,13 +109,12 @@ const plugin: prettier.Plugin<PluginAST> = {
     },
     testChoiceComplexOption: {
       type: "choice",
-      default: [{ since: "1.0.7", value: "banana" }, { value: "apple" }],
+      default: [{ value: "banana" }, { value: "apple" }],
       choices: [
         { value: "apple", description: "A fruit." },
-        { value: "orange", since: "1.0.6", description: "A different fruit." },
+        { value: "orange", description: "A different fruit." },
         {
           value: "banana",
-          since: "1.0.5",
           description: "Added in 1.0.5, made default in 1.0.7.",
         },
       ],
