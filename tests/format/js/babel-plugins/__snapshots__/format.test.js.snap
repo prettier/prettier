@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`async-do-expressions.js [acorn] format 1`] = `
 "Unexpected token (1:7)
@@ -797,17 +797,6 @@ import("./prettier.mjs").then((module) => console.log(module));
 import(prettier).then((module) => console.log(module));
 
 ================================================================================
-`;
-
-exports[`explicit-resource-management.js [acorn] format 1`] = `
-"Unexpected token (2:9)
-  1 | function * g() {
-> 2 |   using handle = acquireFileHandle(); // block-scoped critical resource
-    |         ^
-  3 | } // cleanup
-  4 |
-  5 | {
-Cause: Unexpected token (2:8)"
 `;
 
 exports[`explicit-resource-management.js [espree] format 1`] = `
