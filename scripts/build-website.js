@@ -19,17 +19,17 @@ import {
 const runYarn = (command, args, options) =>
   spawn("yarn", [command, ...args], { stdio: "inherit", ...options });
 const IS_PULL_REQUEST = process.env.PULL_REQUEST === "true";
-const PRETTIER_DIR = IS_PULL_REQUEST
-  ? path.join(DIST_DIR, "prettier")
-  : url.fileURLToPath(new URL("../node_modules/prettier", import.meta.url));
-const PLAYGROUND_PRETTIER_DIR = path.join(WEBSITE_DIR, "static/lib");
+const PACKAGES_DIRECTORY = IS_PULL_REQUEST
+  ? DIST_DIR
+  : url.fileURLToPath(new URL("../node_modules", import.meta.url));
+const PLAYGROUND_LIB_DIRECTORY = path.join(WEBSITE_DIR, "static/lib");
 
 async function writeScript(file, code) {
   const { code: minified } = await esbuild.transform(code, {
     loader: "js",
     minify: true,
   });
-  await writeFile(path.join(PLAYGROUND_PRETTIER_DIR, file), minified.trim());
+  await writeFile(path.join(PLAYGROUND_LIB_DIRECTORY, file), minified.trim());
 }
 
 async function buildPrettier() {
@@ -53,73 +53,65 @@ async function buildPrettier() {
 }
 
 async function buildPlaygroundFiles() {
-  const patterns = ["standalone.mjs", "plugins/*.mjs"];
+  const pluginFiles = [];
 
-  let files = await fastGlob(patterns, {
-    cwd: PRETTIER_DIR,
-  });
-
-  files = files.map((fileName) => ({
-    fileName,
-    file: path.join(PRETTIER_DIR, fileName),
-    dist: path.join(PLAYGROUND_PRETTIER_DIR, fileName),
-  }));
+  // Builtin plugins
+  for (const fileName of await fastGlob(["plugins/*.mjs"], {
+    cwd: path.join(PACKAGES_DIRECTORY, "prettier"),
+  })) {
+    pluginFiles.push(`prettier/${fileName}`);
+  }
 
   // TODO: Support stable version
+  // External plugins
   if (IS_PULL_REQUEST) {
-    const fileName = "plugins/hermes.mjs";
-    files.push({
-      fileName,
-      file: path.join(DIST_DIR, "plugin-hermes/index.mjs"),
-      dist: path.join(PLAYGROUND_PRETTIER_DIR, fileName),
-    });
+    for (const pluginName of ["plugin-hermes"]) {
+      pluginFiles.push(`${pluginName}/index.mjs`);
+    }
   }
 
   const packageManifest = {
-    builtinPlugins: [],
+    prettier: {
+      file: "prettier/standalone.mjs",
+    },
   };
-  for (const { fileName, file, dist } of files) {
-    await copyFile(file, dist);
 
-    if (fileName === "standalone.mjs") {
-      continue;
-    }
+  packageManifest.plugins = await Promise.all(
+    pluginFiles.map(async (file) => {
+      const plugin = { file };
 
-    const pluginModule = await import(url.pathToFileURL(dist));
+      const pluginModule = await import(
+        url.pathToFileURL(path.join(PACKAGES_DIRECTORY, file))
+      );
 
-    const plugin = {
-      name: path.basename(fileName, ".js"),
-      file: fileName,
-    };
-
-    for (const property of ["languages", "options", "defaultOptions"]) {
-      const value = pluginModule[property];
-      if (value !== undefined) {
-        plugin[property] = value;
+      for (const property of ["languages", "options", "defaultOptions"]) {
+        const value = pluginModule[property];
+        if (value !== undefined) {
+          plugin[property] = value;
+        }
       }
-    }
 
-    for (const property of ["parsers", "printers"]) {
-      const value = pluginModule[property];
-      if (value !== undefined) {
-        plugin[property] = Object.keys(value);
+      for (const property of ["parsers", "printers"]) {
+        const value = pluginModule[property];
+        if (value !== undefined) {
+          plugin[property] = Object.keys(value);
+        }
       }
-    }
 
-    packageManifest.builtinPlugins.push(plugin);
-  }
-
-  const serialized = serialize(packageManifest, { space: 2 });
+      return plugin;
+    }),
+  );
 
   await Promise.all([
-    writeScript("package-manifest.mjs", `export default ${serialized};`),
+    ...[packageManifest.prettier, ...packageManifest.plugins].map(({ file }) =>
+      copyFile(
+        path.join(PACKAGES_DIRECTORY, file),
+        path.join(PLAYGROUND_LIB_DIRECTORY, file),
+      ),
+    ),
     writeScript(
-      "package-manifest.js",
-      /* Indent */ `
-        "use strict";
-
-        self.prettierPackageManifest = ${serialized};
-      `,
+      "package-manifest.mjs",
+      `export default ${serialize(packageManifest, { space: 2 })};`,
     ),
   ]);
 }
