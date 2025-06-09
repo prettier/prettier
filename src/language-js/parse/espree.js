@@ -66,10 +66,7 @@ const overrideAcornDefaultOptions =
   (function_) =>
   (...arguments_) => {
     const preserveParensOriginalValue = acornDefaultOptions.preserveParens;
-
-    if (preserveParensOriginalValue !== true) {
-      acornDefaultOptions.preserveParens = true;
-    }
+    acornDefaultOptions.preserveParens = true;
 
     try {
       return function_(...arguments_);
