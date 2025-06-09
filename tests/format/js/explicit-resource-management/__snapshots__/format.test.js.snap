@@ -1,13 +1,5 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`for-await-using-of-comments.js [espree] format 1`] = `
-"Unexpected token await (1:19)
-> 1 | /*1*/ for /* 2 */ await /*3*/ ( /*4*/ using /*5*/ fo /*6*/ of /*7*/ of /*8*/) /*9*/;
-    |                   ^
-  2 |
-Cause: Unexpected token await"
-`;
-
 exports[`for-await-using-of-comments.js [flow] format 1`] = `
 "Unexpected token \`await\`, expected the token \`(\` (1:19)
 > 1 | /*1*/ for /* 2 */ await /*3*/ ( /*4*/ using /*5*/ fo /*6*/ of /*7*/ of /*8*/) /*9*/;
@@ -59,14 +51,14 @@ Cause: Identifier 'f' has already been declared (2:19)"
 `;
 
 exports[`invalid-duplicate-using-bindings.js [espree] format 1`] = `
-"Unexpected token f (2:9)
+"Identifier 'f' has already been declared (2:20)
   1 | {
 > 2 |   using f = foo(), f = foo();
-    |         ^
+    |                    ^
   3 | }
   4 | {
   5 |   using g = foo();
-Cause: Unexpected token f"
+Cause: Identifier 'f' has already been declared"
 `;
 
 exports[`invalid-duplicate-using-bindings.js [flow] format 1`] = `
@@ -130,14 +122,6 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`invalid-script-top-level-using-binding.js [espree] format 1`] = `
-"Unexpected token x (1:7)
-> 1 | using x = bar();
-    |       ^
-  2 |
-Cause: Unexpected token x"
-`;
-
 exports[`invalid-script-top-level-using-binding.js [flow] format 1`] = `
 "Unexpected identifier, expected the end of an expression statement (\`;\`) (1:7)
 > 1 | using x = bar();
@@ -175,17 +159,6 @@ using x = bar();
 using x = bar();
 
 ================================================================================
-`;
-
-exports[`using-declarations.js [espree] format 1`] = `
-"Unexpected token a (2:17)
-  1 | {
-> 2 |   using /* 1 */ a = foo(), /* 2 */ b = foo()
-    |                 ^
-  3 | }
-  4 |
-  5 | for(using /* 1 */ a = foo(), /* 2 */ b = foo();;);
-Cause: Unexpected token a"
 `;
 
 exports[`using-declarations.js [flow] format 1`] = `
@@ -272,6 +245,17 @@ exports[`valid-await-expr-using.js [acorn] format 1`] = `
 Cause: Unexpected token (2:13)"
 `;
 
+exports[`valid-await-expr-using.js [espree] format 1`] = `
+"Unexpected token [ (2:14)
+  1 | async function f() {
+> 2 |   await using[x];
+    |              ^
+  3 |   await using.x + await using(x) ? await using?.x : await using\`x\`;
+  4 | }
+  5 |
+Cause: Unexpected token ["
+`;
+
 exports[`valid-await-expr-using.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -302,6 +286,16 @@ exports[`valid-await-expr-using-in.js [acorn] format 1`] = `
 Cause: Unexpected keyword 'in' (2:14)"
 `;
 
+exports[`valid-await-expr-using-in.js [espree] format 1`] = `
+"Unexpected keyword 'in' (2:15)
+  1 | async function f() {
+> 2 |   await using in foo;
+    |               ^
+  3 | }
+  4 |
+Cause: Unexpected keyword 'in'"
+`;
+
 exports[`valid-await-expr-using-in.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -328,6 +322,16 @@ exports[`valid-await-expr-using-instanceof.js [acorn] format 1`] = `
   3 | }
   4 |
 Cause: Unexpected keyword 'instanceof' (2:14)"
+`;
+
+exports[`valid-await-expr-using-instanceof.js [espree] format 1`] = `
+"Unexpected keyword 'instanceof' (2:15)
+  1 | async function f() {
+> 2 |   await using instanceof foo;
+    |               ^
+  3 | }
+  4 |
+Cause: Unexpected keyword 'instanceof'"
 `;
 
 exports[`valid-await-expr-using-instanceof.js format 1`] = `
@@ -366,16 +370,6 @@ async function f() {
 }
 
 ================================================================================
-`;
-
-exports[`valid-await-using-binding-basic.js [espree] format 1`] = `
-"Unexpected token basic (2:15)
-  1 | async function f() {
-> 2 |   await using basic = getReader();
-    |               ^
-  3 | }
-  4 |
-Cause: Unexpected token basic"
 `;
 
 exports[`valid-await-using-binding-basic.js [flow] format 1`] = `
@@ -427,16 +421,6 @@ async function f() {
 ================================================================================
 `;
 
-exports[`valid-await-using-binding-escaped.js [espree] format 1`] = `
-"Unexpected token \\u0061b (2:15)
-  1 | async function f() {
-> 2 |   await using \\u0061b = c;
-    |               ^
-  3 | }
-  4 |
-Cause: Unexpected token \\u0061b"
-`;
-
 exports[`valid-await-using-binding-escaped.js [flow] format 1`] = `
 "Unexpected identifier, expected the end of an expression statement (\`;\`) (2:15)
   1 | async function f() {
@@ -486,16 +470,6 @@ async function f() {
 ================================================================================
 `;
 
-exports[`valid-await-using-binding-non-bmp.js [espree] format 1`] = `
-"Unexpected token 𠮷 (2:15)
-  1 | async function f() {
-> 2 |   await using 𠮷 = foo();
-    |               ^
-  3 | }
-  4 |
-Cause: Unexpected token 𠮷"
-`;
-
 exports[`valid-await-using-binding-non-bmp.js [flow] format 1`] = `
 "Unexpected identifier, expected the end of an expression statement (\`;\`) (2:15)
   1 | async function f() {
@@ -542,17 +516,6 @@ async function f() {
 }
 
 ================================================================================
-`;
-
-exports[`valid-await-using-binding-using.js [espree] format 1`] = `
-"Unexpected token using (2:15)
-  1 | async function f() {
-> 2 |   await using using = of;
-    |               ^
-  3 |   for (await using using of of);
-  4 | }
-  5 |
-Cause: Unexpected token using"
 `;
 
 exports[`valid-await-using-binding-using.js [flow] format 1`] = `
@@ -607,18 +570,6 @@ async function f() {
 }
 
 ================================================================================
-`;
-
-exports[`valid-await-using-comments.js [espree] format 1`] = `
-"Unexpected token b (3:28)
-  1 | async function f() {
-  2 | {
-> 3 |   /*0*/await/*1*/using/*2*/b/*3*/=/*4*/f()/*5*/;
-    |                            ^
-  4 | }
-  5 | {
-  6 |   /*0*/for/*1*/(/*2*/await/*3*/using/*4*/b/*5*/=/*6*/x/*7*/;/*8*/;/*9*/)/*10*/;
-Cause: Unexpected token b"
 `;
 
 exports[`valid-await-using-comments.js [flow] format 1`] = `
@@ -747,17 +698,6 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`valid-for-using-binding-of-of.js [espree] format 1`] = `
-"Assigning to rvalue (2:8)
-  1 | async function f() {
-> 2 |   for (await using of of of);
-    |        ^
-  3 |   for await (await using of of of);
-  4 | }
-  5 |
-Cause: Assigning to rvalue"
-`;
-
 exports[`valid-for-using-binding-of-of.js [flow] format 1`] = `
 "Invalid left-hand side in for-of (2:8)
   1 | async function f() {
@@ -810,16 +750,6 @@ async function f() {
 }
 
 ================================================================================
-`;
-
-exports[`valid-for-using-declaration.js [espree] format 1`] = `
-"Unexpected token basic (2:20)
-  1 | async function f() {
-> 2 |   for (await using basic = reader();;);
-    |                    ^
-  3 | }
-  4 |
-Cause: Unexpected token basic"
 `;
 
 exports[`valid-for-using-declaration.js [flow] format 1`] = `
@@ -1148,6 +1078,16 @@ exports[`valid-using-as-identifier-for-in.js [acorn] format 1`] = `
 Cause: Unexpected keyword 'in' (1:11)"
 `;
 
+exports[`valid-using-as-identifier-for-in.js [espree] format 1`] = `
+"Unexpected keyword 'in' (1:12)
+> 1 | for (using in []);
+    |            ^
+  2 | for (using.foo in []);
+  3 | for (using().foo in []);
+  4 | for (using\`\`.foo in []);
+Cause: Unexpected keyword 'in'"
+`;
+
 exports[`valid-using-as-identifier-for-in.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -1212,6 +1152,14 @@ exports[`valid-using-as-identifier-in.js [acorn] format 1`] = `
 Cause: Unexpected keyword 'in' (1:6)"
 `;
 
+exports[`valid-using-as-identifier-in.js [espree] format 1`] = `
+"Unexpected keyword 'in' (1:7)
+> 1 | using in using instanceof using;
+    |       ^
+  2 |
+Cause: Unexpected keyword 'in'"
+`;
+
 exports[`valid-using-as-identifier-in.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -1224,16 +1172,6 @@ using in using instanceof using;
 using in using instanceof using;
 
 ================================================================================
-`;
-
-exports[`valid-using-binding-basic.js [espree] format 1`] = `
-"Unexpected token basic (2:9)
-  1 | {
-> 2 |   using basic = getReader();
-    |         ^
-  3 | }
-  4 |
-Cause: Unexpected token basic"
 `;
 
 exports[`valid-using-binding-basic.js [flow] format 1`] = `
@@ -1283,14 +1221,6 @@ printWidth: 80
 }
 
 ================================================================================
-`;
-
-exports[`valid-using-binding-escaped.js [espree] format 1`] = `
-"Unexpected token \\u0061b (1:9)
-> 1 | { using \\u0061b = c; }
-    |         ^
-  2 |
-Cause: Unexpected token \\u0061b"
 `;
 
 exports[`valid-using-binding-escaped.js [flow] format 1`] = `
@@ -1388,17 +1318,6 @@ printWidth: 80
 }
 
 ================================================================================
-`;
-
-exports[`valid-using-binding-using.js [espree] format 1`] = `
-"Unexpected token using (2:9)
-  1 | {
-> 2 |   using using = of;
-    |         ^
-  3 |   for (using using of of);
-  4 | }
-  5 |
-Cause: Unexpected token using"
 `;
 
 exports[`valid-using-binding-using.js [flow] format 1`] = `
