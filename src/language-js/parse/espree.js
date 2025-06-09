@@ -1,3 +1,4 @@
+import { defaultOptions as acornDefaultOptions } from "acorn";
 import { parse as espreeParse } from "espree";
 import createError from "../../common/parser-create-error.js";
 import tryCombinations from "../../utils/try-combinations.js";
@@ -56,4 +57,21 @@ function parse(text, options) {
   return postprocess(ast, { parser: "espree", text });
 }
 
-export const espree = createParser(parse);
+// Workaround fom https://github.com/eslint/js/issues/661
+function overrideAcornDefaultOptions(function_) {
+  return (...arguments_) => {
+    const preserveParensOriginalValue = acornDefaultOptions;
+
+    if (preserveParensOriginalValue !== true) {
+      acornDefaultOptions.preserveParens = true;
+    }
+
+    try {
+      return function_(...arguments_);
+    } finally {
+      acornDefaultOptions.preserveParens = preserveParensOriginalValue;
+    }
+  };
+}
+
+export const espree = createParser(overrideAcornDefaultOptions(parse));
