@@ -109,6 +109,12 @@ const hermesDisabledTests = new Set([
     "js/comments/function-declaration.js",
   ].map((file) => path.join(__dirname, "../format", file)),
 ]);
+const flowDisabledTests = new Set(
+  [
+    // Parsing to different ASTs
+    "js/decorators/member-expression.js",
+  ].map((file) => path.join(__dirname, "../format", file)),
+);
 
 const isUnstable = (filename, options) => {
   const testFunction = unstableTests.get(filename);
@@ -329,6 +335,7 @@ function runFormatTest(fixtures, parsers, options) {
           (currentParser === "oxc" && oxcDisabledTests.has(filename)) ||
           (currentParser === "oxc-ts" && oxcTsDisabledTests.has(filename)) ||
           (currentParser === "hermes" && hermesDisabledTests.has(filename)) ||
+          (currentParser === "flow" && flowDisabledTests.has(filename)) ||
           (currentParser === "babel-ts" && babelTsDisabledTests.has(filename))
         ) {
           continue;
