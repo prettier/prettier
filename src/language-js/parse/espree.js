@@ -65,7 +65,7 @@ function parse(text, options) {
 const overrideAcornDefaultOptions =
   (function_) =>
   (...arguments_) => {
-    const preserveParensOriginalValue = acornDefaultOptions;
+    const preserveParensOriginalValue = acornDefaultOptions.preserveParens;
 
     if (preserveParensOriginalValue !== true) {
       acornDefaultOptions.preserveParens = true;
