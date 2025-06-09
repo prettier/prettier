@@ -332,17 +332,11 @@ function runFormatTest(fixtures, parsers, options) {
           (currentParser === "acorn" && acornDisabledTests.has(filename)) ||
           (currentParser === "espree" && espreeDisabledTests.has(filename)) ||
           (currentParser === "meriyah" && meriyahDisabledTests.has(filename)) ||
-<<<<<<< HEAD
           (currentParser === "oxc" && oxcDisabledTests.has(filename)) ||
           (currentParser === "oxc-ts" && oxcTsDisabledTests.has(filename)) ||
           (currentParser === "hermes" && hermesDisabledTests.has(filename)) ||
+          (currentParser === "flow" && flowDisabledTests.has(filename)) ||
           (currentParser === "babel-ts" && babelTsDisabledTests.has(filename))
-=======
-          (currentParser === "acorn" && acornDisabledTests.has(filename)) ||
-          (currentParser === "babel-ts" &&
-            babelTsDisabledTests.has(filename)) ||
-          (currentParser === "flow" && flowDisabledTests.has(filename))
->>>>>>> 6fff6bcc39 (Enable decorators tests on `flow` and `typescript` parser)
         ) {
           continue;
         }
