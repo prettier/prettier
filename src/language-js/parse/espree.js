@@ -54,12 +54,17 @@ function parse(text, options) {
     throw createParseError(error);
   }
 
-  return postprocess(ast, { parser: "espree", text });
+  return postprocess(ast, {
+    parser: "espree",
+    text,
+    supportTypeCastComments: true,
+  });
 }
 
 // Workaround fom https://github.com/eslint/js/issues/661
-function overrideAcornDefaultOptions(function_) {
-  return (...arguments_) => {
+const overrideAcornDefaultOptions =
+  (function_) =>
+  (...arguments_) => {
     const preserveParensOriginalValue = acornDefaultOptions;
 
     if (preserveParensOriginalValue !== true) {
@@ -72,6 +77,5 @@ function overrideAcornDefaultOptions(function_) {
       acornDefaultOptions.preserveParens = preserveParensOriginalValue;
     }
   };
-}
 
 export const espree = createParser(overrideAcornDefaultOptions(parse));
