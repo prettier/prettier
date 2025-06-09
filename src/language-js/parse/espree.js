@@ -61,7 +61,7 @@ function parse(text, options) {
   });
 }
 
-// Workaround fom https://github.com/eslint/js/issues/661
+// Workaround for https://github.com/eslint/js/issues/661
 const overrideAcornDefaultOptions =
   (function_) =>
   (...arguments_) => {
