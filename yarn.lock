@@ -1624,7 +1624,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jest/expect@npm:30.0.0, @jest/expect@npm:^30.0.0-alpha.1":
+"@jest/expect@npm:30.0.0, @jest/expect@npm:^30.0.0":
   version: 30.0.0
   resolution: "@jest/expect@npm:30.0.0"
   dependencies:
@@ -1634,7 +1634,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jest/fake-timers@npm:30.0.0, @jest/fake-timers@npm:^30.0.0-alpha.1":
+"@jest/fake-timers@npm:30.0.0, @jest/fake-timers@npm:^30.0.0":
   version: 30.0.0
   resolution: "@jest/fake-timers@npm:30.0.0"
   dependencies:
@@ -5532,7 +5532,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-circus@npm:30.0.0, jest-circus@npm:^30.0.0-alpha.1":
+"jest-circus@npm:30.0.0, jest-circus@npm:^30.0.0":
   version: 30.0.0
   resolution: "jest-circus@npm:30.0.0"
   dependencies:
@@ -5661,7 +5661,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-each@npm:30.0.0, jest-each@npm:^30.0.0-alpha.1":
+"jest-each@npm:30.0.0, jest-each@npm:^30.0.0":
   version: 30.0.0
   resolution: "jest-each@npm:30.0.0"
   dependencies:
@@ -5751,22 +5751,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-light-runner@npm:0.7.8":
-  version: 0.7.8
-  resolution: "jest-light-runner@npm:0.7.8"
+"jest-light-runner@npm:0.7.9":
+  version: 0.7.9
+  resolution: "jest-light-runner@npm:0.7.9"
   dependencies:
-    "@jest/expect": "npm:^30.0.0-alpha.1"
-    "@jest/fake-timers": "npm:^30.0.0-alpha.1"
-    jest-circus: "npm:^30.0.0-alpha.1"
-    jest-each: "npm:^30.0.0-alpha.1"
-    jest-mock: "npm:^30.0.0-alpha.1"
-    jest-snapshot: "npm:^30.0.0-alpha.1"
+    "@jest/expect": "npm:^30.0.0"
+    "@jest/fake-timers": "npm:^30.0.0"
+    jest-circus: "npm:^30.0.0"
+    jest-each: "npm:^30.0.0"
+    jest-mock: "npm:^30.0.0"
+    jest-snapshot: "npm:^30.0.0"
     p-limit: "npm:^6.2.0"
     supports-color: "npm:^9.2.1"
     tinypool: "npm:0.8.4"
   peerDependencies:
-    jest: ^27.5.0 || ^28.0.0 || ^29.0.0|| ^30.0.0-0
-  checksum: 10/e0e4057c7f5bbf3fcb559b1aa92966ec4323df94af3f00c8306426c1a92e5eca3106c8ea737a46c47baf4ea8da0255330f6e1bf0c107fec52a8e6dc5a02a6067
+    jest: ^27.5.0 || ^28.0.0 || ^29.0.0|| ^30.0.0
+  checksum: 10/60b81b73de6e0b78dbf8c6edae7309e047af8cbce0d7e76ea1ef42b709ae27311f18af21b898b7ea9054c0d1c04dbc6d46a05ead6b86859c0f63e7d7eca7a6a3
   languageName: node
   linkType: hard
 
@@ -5828,7 +5828,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-mock@npm:30.0.0, jest-mock@npm:^30.0.0-alpha.1":
+"jest-mock@npm:30.0.0, jest-mock@npm:^30.0.0":
   version: 30.0.0
   resolution: "jest-mock@npm:30.0.0"
   dependencies:
@@ -5968,7 +5968,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-snapshot@npm:30.0.0, jest-snapshot@npm:^30.0.0-alpha.1":
+"jest-snapshot@npm:30.0.0, jest-snapshot@npm:^30.0.0":
   version: 30.0.0
   resolution: "jest-snapshot@npm:30.0.0"
   dependencies:
@@ -7373,7 +7373,7 @@ __metadata:
     is-es5-identifier-name: "npm:1.0.0"
     jest: "npm:30.0.0"
     jest-docblock: "npm:30.0.0"
-    jest-light-runner: "npm:0.7.8"
+    jest-light-runner: "npm:0.7.9"
     jest-snapshot-serializer-ansi: "npm:2.2.1"
     jest-snapshot-serializer-raw: "npm:2.0.0"
     jest-watch-typeahead: "npm:2.2.2"
