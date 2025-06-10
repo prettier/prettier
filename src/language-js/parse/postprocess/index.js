@@ -40,6 +40,7 @@ const isNodeWithRaw = createTypeCheckFunction([
 function postprocess(ast, options) {
   const { parser, text } = options;
   const { comments } = ast;
+  const isOxcTs = parser === "oxc" && options.oxcAstType === "ts";
 
   // `InterpreterDirective` from babel parser and flow parser
   // Other parsers parse it as comment, babel treat it as comment too
@@ -99,24 +100,27 @@ function postprocess(ast, options) {
           return expression;
         }
 
-        if (!typeCastCommentsEnds) {
-          typeCastCommentsEnds = [];
+        let keepTypeCast = false;
+        if (!isOxcTs) {
+          if (!typeCastCommentsEnds) {
+            typeCastCommentsEnds = [];
 
-          for (const comment of comments) {
-            if (isTypeCastComment(comment)) {
-              typeCastCommentsEnds.push(locEnd(comment));
+            for (const comment of comments) {
+              if (isTypeCastComment(comment)) {
+                typeCastCommentsEnds.push(locEnd(comment));
+              }
             }
           }
-        }
 
-        // Keep ParenthesizedExpression nodes only if they have Closure-style type cast comments.
-        const previousCommentEnd = typeCastCommentsEnds.findLast(
-          (end) => end <= start,
-        );
-        const keepTypeCast =
-          previousCommentEnd &&
-          // check that there are only white spaces between the comment and the parenthesis
-          text.slice(previousCommentEnd, start).trim().length === 0;
+          // Keep ParenthesizedExpression nodes only if they have Closure-style type cast comments.
+          const previousCommentEnd = typeCastCommentsEnds.findLast(
+            (end) => end <= start,
+          );
+          keepTypeCast =
+            previousCommentEnd &&
+            // check that there are only white spaces between the comment and the parenthesis
+            text.slice(previousCommentEnd, start).trim().length === 0;
+        }
 
         if (!keepTypeCast) {
           expression.extra = { ...expression.extra, parenthesized: true };
@@ -149,7 +153,7 @@ function postprocess(ast, options) {
           parser === "hermes" ||
           parser === "espree" ||
           parser === "typescript" ||
-          (parser === "oxc" && options.oxcAstType === "ts")
+          isOxcTs
         ) {
           const start = locStart(node) + 1;
           const end = locEnd(node) - (node.tail ? 1 : 2);
