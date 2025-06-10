@@ -4,9 +4,9 @@ import createTypeCheckFunction from "../../utils/create-type-check-function.js";
 import getRaw from "../../utils/get-raw.js";
 import getTextWithoutComments from "../../utils/get-text-without-comments.js";
 import isBlockComment from "../../utils/is-block-comment.js";
-import isIndentableBlockComment from "../../utils/is-indentable-block-comment.js";
 import isLineComment from "../../utils/is-line-comment.js";
 import isTypeCastComment from "../../utils/is-type-cast-comment.js";
+import mergeNestledJsdocComments from "./merge-nestled-jsdoc-comments.js";
 import visitNode from "./visit-node.js";
 
 const isNodeWithRaw = createTypeCheckFunction([
@@ -42,49 +42,7 @@ function postprocess(ast, options) {
   const { comments } = ast;
   const isOxcTs = parser === "oxc" && options.oxcAstType === "ts";
 
-  // `InterpreterDirective` from babel parser and flow parser
-  // Other parsers parse it as comment, babel treat it as comment too
-  // https://github.com/babel/babel/issues/15116
-  const program = ast.type === "File" ? ast.program : ast;
-  if (program.interpreter) {
-    comments.unshift(program.interpreter);
-    delete program.interpreter;
-  }
-
-  if (parser === "oxc" && options.oxcAstType === "ts" && ast.hashbang) {
-    comments.unshift(ast.hashbang);
-    delete ast.hashbang;
-  }
-
-  if (comments.length > 1) {
-    let followingComment;
-    for (let i = comments.length - 1; i >= 0; i--) {
-      const comment = comments[i];
-
-      if (
-        followingComment &&
-        locEnd(comment) === locStart(followingComment) &&
-        isIndentableBlockComment(comment) &&
-        isIndentableBlockComment(followingComment)
-      ) {
-        comments.splice(i + 1, 1);
-        comment.value += "*//*" + followingComment.value;
-        comment.range = [locStart(comment), locEnd(followingComment)];
-      }
-
-      /* c8 ignore next 3 */
-      if (!isLineComment(comment) && !isBlockComment(comment)) {
-        throw new TypeError(`Unknown comment type: "${comment.type}".`);
-      }
-
-      /* c8 ignore next 3 */
-      if (process.env.NODE_ENV !== "production") {
-        assertComment(comment, text);
-      }
-
-      followingComment = comment;
-    }
-  }
+  mergeNestledJsdocComments(comments);
 
   let typeCastCommentsEnds;
 
@@ -243,6 +201,25 @@ function postprocess(ast, options) {
     }
   });
 
+  // `InterpreterDirective` from babel parser and flow parser
+  // Other parsers parse it as comment, babel treat it as comment too
+  // https://github.com/babel/babel/issues/15116
+  const program = ast.type === "File" ? ast.program : ast;
+  if (program.interpreter) {
+    comments.unshift(program.interpreter);
+    delete program.interpreter;
+  }
+
+  if (parser === "oxc" && options.oxcAstType === "ts" && ast.hashbang) {
+    comments.unshift(ast.hashbang);
+    delete ast.hashbang;
+  }
+
+  /* c8 ignore next 3 */
+  if (process.env.NODE_ENV !== "production") {
+    assertComments(comments, text);
+  }
+
   // In `typescript`/`espree`/`flow`, `Program` doesn't count whitespace and comments
   // See https://github.com/eslint/espree/issues/488
   if (ast.type === "Program") {
@@ -293,22 +270,24 @@ function rebalanceLogicalTree(node) {
 }
 
 /* c8 ignore next */
-function assertComment(comment, text) {
-  const commentText = text.slice(locStart(comment), locEnd(comment));
+function assertComments(comments, text) {
+  for (const comment of comments) {
+    const commentText = text.slice(locStart(comment), locEnd(comment));
 
-  if (isLineComment(comment)) {
-    const openingMark = text.slice(
-      0,
-      text.startsWith("<--") || text.startsWith("-->") ? 3 : 2,
-    );
-    assert.ok(openingMark + comment.value, commentText);
-    return;
-  }
+    if (isLineComment(comment)) {
+      const openingMark = text.slice(
+        0,
+        text.startsWith("<--") || text.startsWith("-->") ? 3 : 2,
+      );
+      assert.ok(openingMark + comment.value, commentText);
+      return;
+    }
 
-  if (isBlockComment(comment)) {
-    // Flow
-    const closingMark = commentText.endsWith("*-/") ? "*-/" : "*/";
-    assert.equal("/*" + comment.value + closingMark, commentText);
+    if (isBlockComment(comment)) {
+      // Flow
+      const closingMark = commentText.endsWith("*-/") ? "*-/" : "*/";
+      assert.equal("/*" + comment.value + closingMark, commentText);
+    }
   }
 }
 
