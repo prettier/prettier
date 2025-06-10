@@ -86,11 +86,7 @@ async function parseJs(text, options) {
   // @ts-expect-error -- expected
   ast.comments = comments;
 
-  return postprocess(ast, {
-    text,
-    parser: "oxc",
-    supportTypeCastComments: true,
-  });
+  return postprocess(ast, { text, parser: "oxc" });
 }
 
 async function parseTs(text, options) {
