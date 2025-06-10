@@ -11,6 +11,16 @@ exports[`catch-clause-with-initializer.ts [babel-ts] format 1`] = `
 Cause: Unexpected token, expected ")" (3:9)"
 `;
 
+exports[`catch-clause-with-initializer.ts [oxc-ts] format 1`] = `
+"Expected \`)\` but found \`=\` (3:10)
+  1 | try {
+  2 | }
+> 3 | catch (e = 1) {
+    |          ^
+  4 | }
+  5 |"
+`;
+
 exports[`catch-clause-with-initializer.ts [typescript] format 1`] = `
 "Catch clause variable cannot have an initializer. (3:12)
   1 | try {
