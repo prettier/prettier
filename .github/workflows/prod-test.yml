@@ -105,7 +105,7 @@ jobs:
 
       - name: Downgrade Jest
         if: ${{ matrix.node == '14' || matrix.node == '16' }}
-        run: node ./scripts/prepare-test-for-legacy-nodejs.js
+        run: node ./scripts/prepare-test-for-legacy-nodejs.js --node-version ${{ matrix.node }}
 
       - name: Install Dependencies(yarn@3,mutable)
         if: ${{ matrix.node == '14' || matrix.node == '16' }}
