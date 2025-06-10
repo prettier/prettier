@@ -35,6 +35,12 @@ exports[`snippet: #2 [babel-ts] format 1`] = `
 Cause: Accessibility modifier already seen: 'private'. (1:17)"
 `;
 
+exports[`snippet: #2 [oxc-ts] format 1`] = `
+"private' modifier already seen. (1:18)
+> 1 | class A {private private method(){}}
+    |                  ^^^^^^^"
+`;
+
 exports[`snippet: #2 [typescript] format 1`] = `
 "Accessibility modifier already seen. (1:18)
 > 1 | class A {private private method(){}}
@@ -75,6 +81,12 @@ exports[`snippet: #5 [babel-ts] format 1`] = `
 > 1 | class A {private private property}
     |                  ^
 Cause: Accessibility modifier already seen: 'private'. (1:17)"
+`;
+
+exports[`snippet: #5 [oxc-ts] format 1`] = `
+"private' modifier already seen. (1:18)
+> 1 | class A {private private property}
+    |                  ^^^^^^^"
 `;
 
 exports[`snippet: #5 [typescript] format 1`] = `

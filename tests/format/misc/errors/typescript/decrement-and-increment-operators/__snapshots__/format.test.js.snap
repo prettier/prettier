@@ -7,6 +7,12 @@ exports[`snippet: #0 [babel-ts] format 1`] = `
 Cause: Invalid left-hand side in postfix operation. (1:0)"
 `;
 
+exports[`snippet: #0 [oxc-ts] format 1`] = `
+"Cannot assign to this expression (1:1)
+> 1 | 1 ++
+    | ^"
+`;
+
 exports[`snippet: #0 [typescript] format 1`] = `
 "Invalid left-hand side expression in unary operation (1:1)
 > 1 | 1 ++
@@ -19,6 +25,12 @@ exports[`snippet: #1 [babel-ts] format 1`] = `
 > 1 | (1)++
     |  ^
 Cause: Invalid left-hand side in postfix operation. (1:1)"
+`;
+
+exports[`snippet: #1 [oxc-ts] format 1`] = `
+"Cannot assign to this expression (1:2)
+> 1 | (1)++
+    |  ^"
 `;
 
 exports[`snippet: #1 [typescript] format 1`] = `
@@ -35,6 +47,12 @@ exports[`snippet: #2 [babel-ts] format 1`] = `
 Cause: Invalid left-hand side in postfix operation. (1:1)"
 `;
 
+exports[`snippet: #2 [oxc-ts] format 1`] = `
+"Cannot assign to this expression (1:2)
+> 1 | (1)--
+    |  ^"
+`;
+
 exports[`snippet: #2 [typescript] format 1`] = `
 "Invalid left-hand side expression in unary operation (1:1)
 > 1 | (1)--
@@ -47,6 +65,12 @@ exports[`snippet: #3 [babel-ts] format 1`] = `
 > 1 | ++(1)
     |    ^
 Cause: Invalid left-hand side in prefix operation. (1:3)"
+`;
+
+exports[`snippet: #3 [oxc-ts] format 1`] = `
+"Cannot assign to this expression (1:4)
+> 1 | ++(1)
+    |    ^"
 `;
 
 exports[`snippet: #3 [typescript] format 1`] = `
@@ -63,6 +87,12 @@ exports[`snippet: #4 [babel-ts] format 1`] = `
 Cause: Invalid left-hand side in prefix operation. (1:3)"
 `;
 
+exports[`snippet: #4 [oxc-ts] format 1`] = `
+"Cannot assign to this expression (1:4)
+> 1 | --(1)
+    |    ^"
+`;
+
 exports[`snippet: #4 [typescript] format 1`] = `
 "Invalid left-hand side expression in unary operation (1:3)
 > 1 | --(1)
@@ -75,6 +105,12 @@ exports[`snippet: #5 [babel-ts] format 1`] = `
 > 1 | (1 + 2)++
     |  ^
 Cause: Invalid left-hand side in postfix operation. (1:1)"
+`;
+
+exports[`snippet: #5 [oxc-ts] format 1`] = `
+"Cannot assign to this expression (1:2)
+> 1 | (1 + 2)++
+    |  ^^^^^"
 `;
 
 exports[`snippet: #5 [typescript] format 1`] = `
@@ -91,6 +127,12 @@ exports[`snippet: #6 [babel-ts] format 1`] = `
 Cause: Invalid left-hand side in postfix operation. (1:1)"
 `;
 
+exports[`snippet: #6 [oxc-ts] format 1`] = `
+"Cannot assign to this expression (1:2)
+> 1 | (1 + 2)--
+    |  ^^^^^"
+`;
+
 exports[`snippet: #6 [typescript] format 1`] = `
 "Invalid left-hand side expression in unary operation (1:1)
 > 1 | (1 + 2)--
@@ -103,6 +145,12 @@ exports[`snippet: #7 [babel-ts] format 1`] = `
 > 1 | ++(1 + 2)
     |    ^
 Cause: Invalid left-hand side in prefix operation. (1:3)"
+`;
+
+exports[`snippet: #7 [oxc-ts] format 1`] = `
+"Cannot assign to this expression (1:4)
+> 1 | ++(1 + 2)
+    |    ^^^^^"
 `;
 
 exports[`snippet: #7 [typescript] format 1`] = `
@@ -119,6 +167,12 @@ exports[`snippet: #8 [babel-ts] format 1`] = `
 Cause: Invalid left-hand side in prefix operation. (1:3)"
 `;
 
+exports[`snippet: #8 [oxc-ts] format 1`] = `
+"Cannot assign to this expression (1:4)
+> 1 | --(1 + 2)
+    |    ^^^^^"
+`;
+
 exports[`snippet: #8 [typescript] format 1`] = `
 "Invalid left-hand side expression in unary operation (1:3)
 > 1 | --(1 + 2)
@@ -131,6 +185,12 @@ exports[`snippet: #9 [babel-ts] format 1`] = `
 > 1 | (x + x)++
     |  ^
 Cause: Invalid left-hand side in postfix operation. (1:1)"
+`;
+
+exports[`snippet: #9 [oxc-ts] format 1`] = `
+"Cannot assign to this expression (1:2)
+> 1 | (x + x)++
+    |  ^^^^^"
 `;
 
 exports[`snippet: #9 [typescript] format 1`] = `
@@ -147,6 +207,12 @@ exports[`snippet: #10 [babel-ts] format 1`] = `
 Cause: Invalid left-hand side in postfix operation. (1:1)"
 `;
 
+exports[`snippet: #10 [oxc-ts] format 1`] = `
+"Cannot assign to this expression (1:2)
+> 1 | (x + x)--
+    |  ^^^^^"
+`;
+
 exports[`snippet: #10 [typescript] format 1`] = `
 "Invalid left-hand side expression in unary operation (1:1)
 > 1 | (x + x)--
@@ -159,6 +225,12 @@ exports[`snippet: #11 [babel-ts] format 1`] = `
 > 1 | ++(x + x)
     |    ^
 Cause: Invalid left-hand side in prefix operation. (1:3)"
+`;
+
+exports[`snippet: #11 [oxc-ts] format 1`] = `
+"Cannot assign to this expression (1:4)
+> 1 | ++(x + x)
+    |    ^^^^^"
 `;
 
 exports[`snippet: #11 [typescript] format 1`] = `
@@ -175,6 +247,12 @@ exports[`snippet: #12 [babel-ts] format 1`] = `
 Cause: Invalid left-hand side in prefix operation. (1:3)"
 `;
 
+exports[`snippet: #12 [oxc-ts] format 1`] = `
+"Cannot assign to this expression (1:4)
+> 1 | --(x + x)
+    |    ^^^^^"
+`;
+
 exports[`snippet: #12 [typescript] format 1`] = `
 "Invalid left-hand side expression in unary operation (1:3)
 > 1 | --(x + x)
@@ -187,6 +265,12 @@ exports[`snippet: #13 [babel-ts] format 1`] = `
 > 1 | a()++
     | ^
 Cause: Invalid left-hand side in postfix operation. (1:0)"
+`;
+
+exports[`snippet: #13 [oxc-ts] format 1`] = `
+"Cannot assign to this expression (1:1)
+> 1 | a()++
+    | ^^^"
 `;
 
 exports[`snippet: #13 [typescript] format 1`] = `
@@ -203,6 +287,12 @@ exports[`snippet: #14 [babel-ts] format 1`] = `
 Cause: Invalid optional chaining in the left-hand side of postfix operation. (1:0)"
 `;
 
+exports[`snippet: #14 [oxc-ts] format 1`] = `
+"Cannot assign to this expression (1:1)
+> 1 | x?.y++
+    | ^^^^"
+`;
+
 exports[`snippet: #14 [typescript] format 1`] = `
 "Invalid left-hand side expression in unary operation (1:1)
 > 1 | x?.y++
@@ -215,6 +305,12 @@ exports[`snippet: #15 [babel-ts] format 1`] = `
 > 1 | x?.y.z++
     | ^
 Cause: Invalid optional chaining in the left-hand side of postfix operation. (1:0)"
+`;
+
+exports[`snippet: #15 [oxc-ts] format 1`] = `
+"Cannot assign to this expression (1:1)
+> 1 | x?.y.z++
+    | ^^^^^^"
 `;
 
 exports[`snippet: #15 [typescript] format 1`] = `
@@ -231,6 +327,12 @@ exports[`snippet: #16 [babel-ts] format 1`] = `
 Cause: Invalid optional chaining in the left-hand side of postfix operation. (1:0)"
 `;
 
+exports[`snippet: #16 [oxc-ts] format 1`] = `
+"Cannot assign to this expression (1:1)
+> 1 | x?.y().z++
+    | ^^^^^^^^"
+`;
+
 exports[`snippet: #16 [typescript] format 1`] = `
 "Invalid left-hand side expression in unary operation (1:1)
 > 1 | x?.y().z++
@@ -243,6 +345,12 @@ exports[`snippet: #17 [babel-ts] format 1`] = `
 > 1 | (a())++
     |  ^
 Cause: Invalid left-hand side in postfix operation. (1:1)"
+`;
+
+exports[`snippet: #17 [oxc-ts] format 1`] = `
+"Cannot assign to this expression (1:2)
+> 1 | (a())++
+    |  ^^^"
 `;
 
 exports[`snippet: #17 [typescript] format 1`] = `
