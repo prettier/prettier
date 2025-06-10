@@ -7,6 +7,12 @@ exports[`snippet: #0 [babel-ts] format 1`] = `
 Cause: Missing semicolon. (1:11)"
 `;
 
+exports[`snippet: #0 [oxc-ts] format 1`] = `
+"Expected \`;\` but found \`Identifier\` (1:13)
+> 1 | for (var of X);
+    |             ^"
+`;
+
 exports[`snippet: #0 [typescript] format 1`] = `
 "Only a single variable declaration is allowed in a 'for...of' statement. (1:6)
 > 1 | for (var of X);
@@ -21,6 +27,12 @@ exports[`snippet: #1 [babel-ts] format 1`] = `
 Cause: Unexpected token (1:14)"
 `;
 
+exports[`snippet: #1 [oxc-ts] format 1`] = `
+"Unexpected token (1:15)
+> 1 | for (var of of);
+    |               ^"
+`;
+
 exports[`snippet: #1 [typescript] format 1`] = `
 "Only a single variable declaration is allowed in a 'for...of' statement. (1:6)
 > 1 | for (var of of);
@@ -33,6 +45,12 @@ exports[`snippet: #2 [babel-ts] format 1`] = `
 > 1 | for (var in X);
     |          ^
 Cause: Unexpected keyword 'in'. (1:9)"
+`;
+
+exports[`snippet: #2 [oxc-ts] format 1`] = `
+"Identifier expected. 'in' is a reserved word that cannot be used here. (1:10)
+> 1 | for (var in X);
+    |          ^^"
 `;
 
 exports[`snippet: #2 [typescript] format 1`] = `
