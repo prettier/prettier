@@ -210,7 +210,7 @@ function postprocess(ast, options) {
     delete program.interpreter;
   }
 
-  if (parser === "oxc" && options.oxcAstType === "ts" && ast.hashbang) {
+  if (isOxcTs && ast.hashbang) {
     comments.unshift(ast.hashbang);
     delete ast.hashbang;
   }
