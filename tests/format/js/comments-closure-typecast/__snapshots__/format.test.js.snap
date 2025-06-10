@@ -1,8 +1,8 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`array-and-object.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel", "oxc-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -40,7 +40,7 @@ foo = /** @type A */ ([
 
 exports[`binary-expr.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel", "oxc-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -55,7 +55,7 @@ var a = b || /** @type {string} */ (c);
 
 exports[`closure-compiler-type-cast.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel", "oxc-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -189,7 +189,7 @@ const style2 = /**
 
 exports[`comment-in-the-middle.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel", "oxc-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -223,7 +223,7 @@ console.log(a.foo());
 
 exports[`comment-placement.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel", "oxc-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -268,7 +268,7 @@ const foo5 = /** @type {string} */ (value);
 
 exports[`extra-spaces-and-asterisks.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel", "oxc-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -296,7 +296,7 @@ const foo8 = /** @type {!Foo}    ** *   *   */ (bar);
 
 exports[`iife.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel", "oxc-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -334,7 +334,7 @@ const helpers = /** @type {Helpers} */ (
 
 exports[`iife-issue-5850-isolated.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel", "oxc-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -349,7 +349,7 @@ const a = /** @param {*} b */ ((b) => {})();
 
 exports[`issue-4124.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel", "oxc-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -395,7 +395,7 @@ const foo2 = /** @type (function (*): ?|undefined) */ (foo);
 
 exports[`issue-8045.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel", "oxc-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -458,7 +458,7 @@ function jsdocCastInReturn() {
 
 exports[`issue-9358.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel", "oxc-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -489,7 +489,7 @@ const fooooba4 =
 
 exports[`member.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel", "oxc-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -503,7 +503,7 @@ foo = /** @type {!Baz} */ (baz).bar;
 
 exports[`nested.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel", "oxc-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -533,7 +533,7 @@ const BarImpl = /** @type {BarConstructor} */ (
 
 exports[`non-casts.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel", "oxc-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -581,7 +581,7 @@ const w1 = /** @typefoo Foo */ value;
 
 exports[`object-with-comment.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel", "oxc-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -616,7 +616,7 @@ const objectWithComment2 = /** @type MyType */ (
 
 exports[`satisfies.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel", "oxc-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -634,7 +634,7 @@ module.exports = /** @satisfies {Record<string, string>} */ ({
 
 exports[`styled-components.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel", "oxc-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -666,7 +666,7 @@ const OverlapWrapper =
 
 exports[`superclass.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel", "oxc-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -680,7 +680,7 @@ class Foo extends /** @type {string} */ (Bar) {}
 
 exports[`ways-to-specify-type.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel", "oxc-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

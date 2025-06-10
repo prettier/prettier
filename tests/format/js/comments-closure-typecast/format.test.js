@@ -1,1 +1,1 @@
-runFormatTest(import.meta, ["babel"]);
+runFormatTest(import.meta, ["babel", "oxc-ts"]);
