@@ -3683,7 +3683,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"detect-newline@npm:^3.0.0, detect-newline@npm:^3.1.0":
+"detect-newline@npm:^3.1.0":
   version: 3.1.0
   resolution: "detect-newline@npm:3.1.0"
   checksum: 10/ae6cd429c41ad01b164c59ea36f264a2c479598e61cba7c99da24175a7ab80ddf066420f2bec9a1c57a6bead411b4655ff15ad7d281c000a89791f48cbe939e7
@@ -5652,12 +5652,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-docblock@npm:30.0.0-beta.3":
-  version: 30.0.0-beta.3
-  resolution: "jest-docblock@npm:30.0.0-beta.3"
+"jest-docblock@npm:30.0.0":
+  version: 30.0.0
+  resolution: "jest-docblock@npm:30.0.0"
   dependencies:
-    detect-newline: "npm:^3.0.0"
-  checksum: 10/7ab42217fc32947389cac231c3e9e8ee11c9a3b68f5944ac01f7f7c3d1d14dcdf9eb5fab3707f10703794d1574c0f7f3a9a243f36e7b766aac64fb49a746524e
+    detect-newline: "npm:^3.1.0"
+  checksum: 10/c81850951c832a8aea4d5f8cbd48f25c5bb6a3c6efc735da47d32ba8be9741b0fbbf4d908934a3a299f72c794311d250453eec924f722b8e4700663f9a74270a
   languageName: node
   linkType: hard
 
@@ -7381,7 +7381,7 @@ __metadata:
     index-to-position: "npm:1.1.0"
     is-es5-identifier-name: "npm:1.0.0"
     jest: "npm:30.0.0-rc.1"
-    jest-docblock: "npm:30.0.0-beta.3"
+    jest-docblock: "npm:30.0.0"
     jest-light-runner: "npm:0.7.8"
     jest-snapshot-serializer-ansi: "npm:2.2.1"
     jest-snapshot-serializer-raw: "npm:2.0.0"
