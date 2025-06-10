@@ -80,7 +80,7 @@ function parse(text, options) {
     throw createParseError(error);
   }
 
-  return postprocess(ast, { text, supportTypeCastComments: true });
+  return postprocess(ast, { text });
 }
 
 export const acorn = createParser(parse);
