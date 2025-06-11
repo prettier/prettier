@@ -23,7 +23,7 @@ const parseOptions = {
   // allowImportExportEverywhere: true,
   // allowAwaitOutsideFunction: null,
   allowSuperOutsideMethod: true,
-  allowHashBang: true,
+  // allowHashBang: true,
   checkPrivateFields: false,
   locations: false,
   ranges: true,
