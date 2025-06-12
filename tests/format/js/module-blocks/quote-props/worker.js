@@ -1,11 +1,18 @@
-let worker = new Worker(module {
+worker = new Worker(module {
   onmessage = function({data}) {
     let mod = import(data);
     postMessage(mod.fn());
   }
 }, {type: "module"});
 
-let worker = new Worker(module {
+worker = new Worker(module {
+  onmessage = function({data}) {
+    let mod = import(data);
+    postMessage(mod.fn());
+  }
+}, {'type': "module"});
+
+worker = new Worker(module {
   onmessage = function({data}) {
     let mod = import(data);
     postMessage(mod.fn());
