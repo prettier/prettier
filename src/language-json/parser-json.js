@@ -11,6 +11,7 @@ const babelParseOptions = {
   // https://github.com/babel/babel/issues/15115
   ranges: false,
   attachComment: false,
+  createParenthesizedExpressions: true,
 };
 
 function parseEmptyJson(text) {
