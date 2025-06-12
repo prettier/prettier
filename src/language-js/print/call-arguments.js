@@ -387,7 +387,7 @@ function isTypeModuleObjectExpression(node) {
   const [property] = node.properties;
 
   if (!isObjectProperty(property)) {
-    return;
+    return false;
   }
 
   return (
