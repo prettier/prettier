@@ -1103,20 +1103,92 @@ exports[`snippet: #33 [json5] format 1`] = `
 `;
 
 exports[`snippet: #34 [json] format 1`] = `
-"Invalid left-hand side in prefix operation. (1:5)
-> 1 | ----123
-    |     ^
-Cause: Invalid left-hand side in prefix operation. (1:4)"
+"'ParenthesizedExpression' is not allowed in JSON. (1:1)
+> 1 | (1)
+    | ^^^"
 `;
 
 exports[`snippet: #34 [json-stringify] format 1`] = `
+"'ParenthesizedExpression' is not allowed in JSON. (1:1)
+> 1 | (1)
+    | ^^^"
+`;
+
+exports[`snippet: #34 [json5] format 1`] = `
+"'ParenthesizedExpression' is not allowed in JSON. (1:1)
+> 1 | (1)
+    | ^^^"
+`;
+
+exports[`snippet: #35 [json] format 1`] = `
+"Operator '+' before 'ParenthesizedExpression' is not allowed in JSON. (1:2)
+> 1 | +(1)
+    |  ^^^"
+`;
+
+exports[`snippet: #35 [json-stringify] format 1`] = `
+"Operator '+' before 'ParenthesizedExpression' is not allowed in JSON. (1:2)
+> 1 | +(1)
+    |  ^^^"
+`;
+
+exports[`snippet: #35 [json5] format 1`] = `
+"Operator '+' before 'ParenthesizedExpression' is not allowed in JSON. (1:2)
+> 1 | +(1)
+    |  ^^^"
+`;
+
+exports[`snippet: #36 [json] format 1`] = `
+"'ParenthesizedExpression' is not allowed in JSON. (1:1)
+> 1 | ([1,])
+    | ^^^^^^"
+`;
+
+exports[`snippet: #36 [json-stringify] format 1`] = `
+"'ParenthesizedExpression' is not allowed in JSON. (1:1)
+> 1 | ([1,])
+    | ^^^^^^"
+`;
+
+exports[`snippet: #36 [json5] format 1`] = `
+"'ParenthesizedExpression' is not allowed in JSON. (1:1)
+> 1 | ([1,])
+    | ^^^^^^"
+`;
+
+exports[`snippet: #37 [json] format 1`] = `
+"'ParenthesizedExpression' is not allowed in JSON. (1:5)
+> 1 | [1, (2)]
+    |     ^^^"
+`;
+
+exports[`snippet: #37 [json-stringify] format 1`] = `
+"'ParenthesizedExpression' is not allowed in JSON. (1:5)
+> 1 | [1, (2)]
+    |     ^^^"
+`;
+
+exports[`snippet: #37 [json5] format 1`] = `
+"'ParenthesizedExpression' is not allowed in JSON. (1:5)
+> 1 | [1, (2)]
+    |     ^^^"
+`;
+
+exports[`snippet: #38 [json] format 1`] = `
 "Invalid left-hand side in prefix operation. (1:5)
 > 1 | ----123
     |     ^
 Cause: Invalid left-hand side in prefix operation. (1:4)"
 `;
 
-exports[`snippet: #34 [json5] format 1`] = `
+exports[`snippet: #38 [json-stringify] format 1`] = `
+"Invalid left-hand side in prefix operation. (1:5)
+> 1 | ----123
+    |     ^
+Cause: Invalid left-hand side in prefix operation. (1:4)"
+`;
+
+exports[`snippet: #38 [json5] format 1`] = `
 "Invalid left-hand side in prefix operation. (1:5)
 > 1 | ----123
     |     ^
