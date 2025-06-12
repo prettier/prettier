@@ -54,11 +54,7 @@ function parse(text, options) {
     throw createParseError(error);
   }
 
-  return postprocess(ast, {
-    parser: "espree",
-    text,
-    supportTypeCastComments: true,
-  });
+  return postprocess(ast, { parser: "espree", text });
 }
 
 // Workaround for https://github.com/eslint/js/issues/661
