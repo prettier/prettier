@@ -30,7 +30,7 @@ const parseOptions = {
   // Enable implied strict mode
   impliedStrict: false,
   // Enable non-standard parenthesized expression node
-  preserveParens: false,
+  preserveParens: true,
   // Enable lexical binding and scope tracking
   lexical: false,
   // Adds a source attribute in every node’s loc object when the locations option is `true`
