@@ -59,7 +59,7 @@ const unstableTests = new Map(
 const unstableAstTests = new Map();
 const commentClosureTypecaseTests = new Set(
   [
-    // These tests only work for `babel`, `acorn`, and `oxc`
+    // These tests works on `babel`, `acorn`, `espree`, `oxc`, and `meriyah`
     "comments-closure-typecast",
   ].map((directory) => path.join(__dirname, "../format/js", directory)),
 );
