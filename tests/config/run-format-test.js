@@ -59,16 +59,15 @@ const unstableTests = new Map(
 const unstableAstTests = new Map();
 const commentClosureTypecaseTests = new Set(
   [
-    // These tests only work for `babel`, `acorn`, and `oxc`
+    // These tests works on `babel`, `acorn`, `espree`, `oxc`, and `meriyah`
     "comments-closure-typecast",
   ].map((directory) => path.join(__dirname, "../format/js", directory)),
 );
 
 const espreeDisabledTests = new Set();
 const acornDisabledTests = new Set();
-const meriyahDisabledTests = new Set([
-  ...commentClosureTypecaseTests,
-  ...[
+const meriyahDisabledTests = new Set(
+  [
     // Parsing to different ASTs
     "js/decorators/member-expression.js",
     // Meriyah parse RegExp relay on runtime behavior
@@ -79,7 +78,7 @@ const meriyahDisabledTests = new Set([
     "js/babel-plugins/regexp-modifiers.js",
     "js/regex/regexp-modifiers.js",
   ].map((file) => path.join(__dirname, "../format", file)),
-]);
+);
 const babelTsDisabledTests = new Set(
   ["conformance/types/moduleDeclaration/kind-detection.ts"].map((file) =>
     path.join(__dirname, "../format/typescript", file),
