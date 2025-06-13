@@ -46,7 +46,7 @@ jobs:
         run: yarn test:dist-lint
 
   test:
-    timeout-minutes: 90
+    timeout-minutes: 15
     strategy:
       fail-fast: false
       matrix:
