@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`export-declare.ts [babel-ts] format 1`] = `
 "'export declare' must be followed by an ambient declaration. (1:16)
