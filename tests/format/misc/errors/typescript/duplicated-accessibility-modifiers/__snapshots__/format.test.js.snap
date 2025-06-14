@@ -36,7 +36,7 @@ Cause: Accessibility modifier already seen: 'private'. (1:17)"
 `;
 
 exports[`snippet: #2 [oxc-ts] format 1`] = `
-"private' modifier already seen. (1:18)
+"'private' modifier already seen. (1:18)
 > 1 | class A {private private method(){}}
     |                  ^^^^^^^"
 `;
@@ -84,7 +84,7 @@ Cause: Accessibility modifier already seen: 'private'. (1:17)"
 `;
 
 exports[`snippet: #5 [oxc-ts] format 1`] = `
-"private' modifier already seen. (1:18)
+"'private' modifier already seen. (1:18)
 > 1 | class A {private private property}
     |                  ^^^^^^^"
 `;

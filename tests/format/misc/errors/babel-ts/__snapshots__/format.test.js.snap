@@ -8,21 +8,6 @@ exports[`export-declare.ts [babel-ts] format 1`] = `
 Cause: 'export declare' must be followed by an ambient declaration. (1:15)"
 `;
 
-exports[`export-declare.ts [oxc-ts] format 1`] = `
-"Unexpected token (1:16)
-> 1 | export declare foo;
-    |                ^^^
-  2 |"
-`;
-
-exports[`export-declare.ts [typescript] format 1`] = `
-"Declaration or statement expected. (1:1)
-> 1 | export declare foo;
-    | ^
-  2 |
-Cause: Declaration or statement expected."
-`;
-
 exports[`multiline-declaration-abstract-class.ts [babel-ts] format 1`] = `
 "Missing semicolon. (1:8)
 > 1 | declare abstract
@@ -30,14 +15,6 @@ exports[`multiline-declaration-abstract-class.ts [babel-ts] format 1`] = `
   2 | class A {}
   3 |
 Cause: Missing semicolon. (1:7)"
-`;
-
-exports[`multiline-declaration-abstract-class.ts [oxc-ts] format 1`] = `
-"Expected a semicolon or an implicit semicolon after a statement, but found none (1:8)
-> 1 | declare abstract
-    |        ^
-  2 | class A {}
-  3 |"
 `;
 
 exports[`multiline-declaration-interface.ts [babel-ts] format 1`] = `
@@ -50,15 +27,6 @@ exports[`multiline-declaration-interface.ts [babel-ts] format 1`] = `
 Cause: Missing semicolon. (1:7)"
 `;
 
-exports[`multiline-declaration-interface.ts [oxc-ts] format 1`] = `
-"Expected a semicolon or an implicit semicolon after a statement, but found none (1:8)
-> 1 | declare interface
-    |        ^
-  2 | I
-  3 | {}
-  4 |"
-`;
-
 exports[`multiline-declaration-module.ts [babel-ts] format 1`] = `
 "Missing semicolon. (1:8)
 > 1 | declare module
@@ -69,15 +37,6 @@ exports[`multiline-declaration-module.ts [babel-ts] format 1`] = `
 Cause: Missing semicolon. (1:7)"
 `;
 
-exports[`multiline-declaration-module.ts [oxc-ts] format 1`] = `
-"Expected a semicolon or an implicit semicolon after a statement, but found none (1:8)
-> 1 | declare module
-    |        ^
-  2 | 'bar'
-  3 | {}
-  4 |"
-`;
-
 exports[`multiline-declaration-type.ts [babel-ts] format 1`] = `
 "Missing semicolon. (1:8)
 > 1 | declare type
@@ -85,23 +44,6 @@ exports[`multiline-declaration-type.ts [babel-ts] format 1`] = `
   2 | T = number
   3 |
 Cause: Missing semicolon. (1:7)"
-`;
-
-exports[`multiline-declaration-type.ts [oxc-ts] format 1`] = `
-"Expected a semicolon or an implicit semicolon after a statement, but found none (1:8)
-> 1 | declare type
-    |        ^
-  2 | T = number
-  3 |"
-`;
-
-exports[`multiline-declaration-type.ts [typescript] format 1`] = `
-"Line break not permitted here. (2:1)
-  1 | declare type
-> 2 | T = number
-    | ^
-  3 |
-Cause: Line break not permitted here."
 `;
 
 exports[`parenthesized-decorators-tagged-template.ts [babel-ts] format 1`] = `
@@ -123,42 +65,12 @@ exports[`type-annotation-expr-statement.ts [babel-ts] format 1`] = `
 Cause: Did not expect a type annotation here. (1:2)"
 `;
 
-exports[`type-annotation-expr-statement.ts [oxc-ts] format 1`] = `
-"Expected \`=>\` but found \`;\` (1:7)
-> 1 | (a: T);
-    |       ^
-  2 |"
-`;
-
-exports[`type-annotation-expr-statement.ts [typescript] format 1`] = `
-"'=>' expected. (1:7)
-> 1 | (a: T);
-    |       ^
-  2 |
-Cause: '=>' expected."
-`;
-
 exports[`type-annotation-func.ts [babel-ts] format 1`] = `
 "Did not expect a type annotation here. (1:10)
 > 1 | func<T>(a: T);
     |          ^
   2 |
 Cause: Did not expect a type annotation here. (1:9)"
-`;
-
-exports[`type-annotation-func.ts [oxc-ts] format 1`] = `
-"Expected \`,\` but found \`:\` (1:10)
-> 1 | func<T>(a: T);
-    |          ^
-  2 |"
-`;
-
-exports[`type-annotation-func.ts [typescript] format 1`] = `
-"',' expected. (1:10)
-> 1 | func<T>(a: T);
-    |          ^
-  2 |
-Cause: ',' expected."
 `;
 
 exports[`type-annotation-in-jsx.tsx [babel-ts] format 1`] = `
@@ -171,27 +83,4 @@ exports[`type-annotation-in-jsx.tsx [babel-ts] format 1`] = `
   5 | }
   6 |
 Cause: Did not expect a type annotation here. (3:21)"
-`;
-
-exports[`type-annotation-in-jsx.tsx [oxc-ts] format 1`] = `
-"Expected \`,\` but found \`:\` (3:22)
-  1 | function Foo() {
-  2 |   return (
-> 3 |     <div propA={[ key: value ]} propsB={(a: b)} />
-    |                      ^
-  4 |   );
-  5 | }
-  6 |"
-`;
-
-exports[`type-annotation-in-jsx.tsx [typescript] format 1`] = `
-"',' expected. (3:22)
-  1 | function Foo() {
-  2 |   return (
-> 3 |     <div propA={[ key: value ]} propsB={(a: b)} />
-    |                      ^
-  4 |   );
-  5 | }
-  6 |
-Cause: ',' expected."
 `;

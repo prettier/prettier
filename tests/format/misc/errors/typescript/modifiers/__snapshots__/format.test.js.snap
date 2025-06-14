@@ -133,6 +133,14 @@ exports[`snippet: #6 [babel-ts] format 1`] = `
 Cause: Unexpected token, expected ";" (2:11)"
 `;
 
+exports[`snippet: #6 [oxc-ts] format 1`] = `
+"'accessor' modifier cannot appear on an index signature. (2:3)
+  1 | interface Foo {
+> 2 |   accessor [index: string]: number
+    |   ^^^^^^^^
+  3 | }"
+`;
+
 exports[`snippet: #6 [typescript] format 1`] = `
 "'accessor' modifier cannot appear on an index signature (2:3)
   1 | interface Foo {
@@ -149,6 +157,14 @@ exports[`snippet: #7 [babel-ts] format 1`] = `
     |            ^
   3 | } = {};
 Cause: Unexpected token, expected ";" (2:11)"
+`;
+
+exports[`snippet: #7 [oxc-ts] format 1`] = `
+"'accessor' modifier cannot appear on an index signature. (2:3)
+  1 | const foo: {
+> 2 |   accessor [index: string] : string
+    |   ^^^^^^^^
+  3 | } = {};"
 `;
 
 exports[`snippet: #7 [typescript] format 1`] = `
@@ -205,6 +221,14 @@ exports[`snippet: #10 [babel-ts] format 1`] = `
 Cause: Unexpected token, expected ";" (2:8)"
 `;
 
+exports[`snippet: #10 [oxc-ts] format 1`] = `
+"'async' modifier cannot appear on an index signature. (2:3)
+  1 | interface Foo {
+> 2 |   async [index: string]: number
+    |   ^^^^^
+  3 | }"
+`;
+
 exports[`snippet: #10 [typescript] format 1`] = `
 "'async' modifier cannot appear on an index signature (2:3)
   1 | interface Foo {
@@ -221,6 +245,14 @@ exports[`snippet: #11 [babel-ts] format 1`] = `
     |         ^
   3 | } = {};
 Cause: Unexpected token, expected ";" (2:8)"
+`;
+
+exports[`snippet: #11 [oxc-ts] format 1`] = `
+"'async' modifier cannot appear on an index signature. (2:3)
+  1 | const foo: {
+> 2 |   async [index: string] : string
+    |   ^^^^^
+  3 | } = {};"
 `;
 
 exports[`snippet: #11 [typescript] format 1`] = `
@@ -509,14 +541,6 @@ exports[`snippet: #26 [babel-ts] format 1`] = `
 Cause: Unexpected token, expected ";" (2:9)"
 `;
 
-exports[`snippet: #26 [oxc-ts] format 1`] = `
-"Expected \`[\` but found \`export\` (2:3)
-  1 | interface Foo {
-> 2 |   export [index: string]: number
-    |   ^^^^^^
-  3 | }"
-`;
-
 exports[`snippet: #26 [typescript] format 1`] = `
 "'export' modifier cannot appear on an index signature (2:3)
   1 | interface Foo {
@@ -533,14 +557,6 @@ exports[`snippet: #27 [babel-ts] format 1`] = `
     |          ^
   3 | } = {};
 Cause: Unexpected token, expected ";" (2:9)"
-`;
-
-exports[`snippet: #27 [oxc-ts] format 1`] = `
-"Expected \`[\` but found \`export\` (2:3)
-  1 | const foo: {
-> 2 |   export [index: string] : string
-    |   ^^^^^^
-  3 | } = {};"
 `;
 
 exports[`snippet: #27 [typescript] format 1`] = `
@@ -597,6 +613,14 @@ exports[`snippet: #30 [babel-ts] format 1`] = `
 Cause: Unexpected token, expected ";" (2:5)"
 `;
 
+exports[`snippet: #30 [oxc-ts] format 1`] = `
+"'in' modifier cannot appear on an index signature. (2:3)
+  1 | interface Foo {
+> 2 |   in [index: string]: number
+    |   ^^
+  3 | }"
+`;
+
 exports[`snippet: #30 [typescript] format 1`] = `
 "'in' modifier cannot appear on an index signature (2:3)
   1 | interface Foo {
@@ -613,6 +637,14 @@ exports[`snippet: #31 [babel-ts] format 1`] = `
     |      ^
   3 | } = {};
 Cause: Unexpected token, expected ";" (2:5)"
+`;
+
+exports[`snippet: #31 [oxc-ts] format 1`] = `
+"'in' modifier cannot appear on an index signature. (2:3)
+  1 | const foo: {
+> 2 |   in [index: string] : string
+    |   ^^
+  3 | } = {};"
 `;
 
 exports[`snippet: #31 [typescript] format 1`] = `
@@ -669,6 +701,14 @@ exports[`snippet: #34 [babel-ts] format 1`] = `
 Cause: Unexpected token, expected ";" (2:6)"
 `;
 
+exports[`snippet: #34 [oxc-ts] format 1`] = `
+"'out' modifier cannot appear on an index signature. (2:3)
+  1 | interface Foo {
+> 2 |   out [index: string]: number
+    |   ^^^
+  3 | }"
+`;
+
 exports[`snippet: #34 [typescript] format 1`] = `
 "'out' modifier cannot appear on an index signature (2:3)
   1 | interface Foo {
@@ -685,6 +725,14 @@ exports[`snippet: #35 [babel-ts] format 1`] = `
     |       ^
   3 | } = {};
 Cause: Unexpected token, expected ";" (2:6)"
+`;
+
+exports[`snippet: #35 [oxc-ts] format 1`] = `
+"'out' modifier cannot appear on an index signature. (2:3)
+  1 | const foo: {
+> 2 |   out [index: string] : string
+    |   ^^^
+  3 | } = {};"
 `;
 
 exports[`snippet: #35 [typescript] format 1`] = `
@@ -2518,9 +2566,9 @@ Cause: Unexpected token, expected "," (1:22)"
 `;
 
 exports[`snippet: #126 [oxc-ts] format 1`] = `
-"Expected \`,\` but found \`Identifier\` (1:23)
+"'accessor' modifier cannot appear on a parameter. (1:14)
 > 1 | function foo(accessor parameter) {}
-    |                       ^^^^^^^^^"
+    |              ^^^^^^^^"
 `;
 
 exports[`snippet: #126 [typescript] format 1`] = `
@@ -2538,9 +2586,9 @@ Cause: Unexpected token, expected "," (1:28)"
 `;
 
 exports[`snippet: #127 [oxc-ts] format 1`] = `
-"Expected \`,\` but found \`Identifier\` (1:29)
+"'accessor' modifier cannot appear on a parameter. (1:20)
 > 1 | class Foo { method(accessor parameter) {} }
-    |                             ^^^^^^^^^"
+    |                    ^^^^^^^^"
 `;
 
 exports[`snippet: #127 [typescript] format 1`] = `
@@ -2558,9 +2606,9 @@ Cause: Unexpected token, expected "," (1:19)"
 `;
 
 exports[`snippet: #128 [oxc-ts] format 1`] = `
-"Expected \`,\` but found \`Identifier\` (1:20)
+"'async' modifier cannot appear on a parameter. (1:14)
 > 1 | function foo(async parameter) {}
-    |                    ^^^^^^^^^"
+    |              ^^^^^"
 `;
 
 exports[`snippet: #128 [typescript] format 1`] = `
@@ -2578,9 +2626,9 @@ Cause: Unexpected token, expected "," (1:25)"
 `;
 
 exports[`snippet: #129 [oxc-ts] format 1`] = `
-"Expected \`,\` but found \`Identifier\` (1:26)
+"'async' modifier cannot appear on a parameter. (1:20)
 > 1 | class Foo { method(async parameter) {} }
-    |                          ^^^^^^^^^"
+    |                    ^^^^^"
 `;
 
 exports[`snippet: #129 [typescript] format 1`] = `
@@ -2718,7 +2766,7 @@ Cause: Unexpected token, expected "," (1:20)"
 `;
 
 exports[`snippet: #136 [oxc-ts] format 1`] = `
-"'export' modifier cannot appear on a parameter. (1:14)
+"Identifier expected. 'export' is a reserved word that cannot be used here. (1:14)
 > 1 | function foo(export parameter) {}
     |              ^^^^^^"
 `;
@@ -2738,7 +2786,7 @@ Cause: Unexpected token, expected "," (1:26)"
 `;
 
 exports[`snippet: #137 [oxc-ts] format 1`] = `
-"'export' modifier cannot appear on a parameter. (1:20)
+"Identifier expected. 'export' is a reserved word that cannot be used here. (1:20)
 > 1 | class Foo { method(export parameter) {} }
     |                    ^^^^^^"
 `;
@@ -2758,7 +2806,7 @@ Cause: Unexpected token, expected "," (1:16)"
 `;
 
 exports[`snippet: #138 [oxc-ts] format 1`] = `
-"Identifier expected. 'in' is a reserved word that cannot be used here. (1:14)
+"'in' modifier cannot appear on a parameter. (1:14)
 > 1 | function foo(in parameter) {}
     |              ^^"
 `;
@@ -2778,7 +2826,7 @@ Cause: Unexpected token, expected "," (1:22)"
 `;
 
 exports[`snippet: #139 [oxc-ts] format 1`] = `
-"Identifier expected. 'in' is a reserved word that cannot be used here. (1:20)
+"'in' modifier cannot appear on a parameter. (1:20)
 > 1 | class Foo { method(in parameter) {} }
     |                    ^^"
 `;
@@ -2798,9 +2846,9 @@ Cause: Unexpected token, expected "," (1:17)"
 `;
 
 exports[`snippet: #140 [oxc-ts] format 1`] = `
-"Expected \`,\` but found \`Identifier\` (1:18)
+"'out' modifier cannot appear on a parameter. (1:14)
 > 1 | function foo(out parameter) {}
-    |                  ^^^^^^^^^"
+    |              ^^^"
 `;
 
 exports[`snippet: #140 [typescript] format 1`] = `
@@ -2818,9 +2866,9 @@ Cause: Unexpected token, expected "," (1:23)"
 `;
 
 exports[`snippet: #141 [oxc-ts] format 1`] = `
-"Expected \`,\` but found \`Identifier\` (1:24)
+"'out' modifier cannot appear on a parameter. (1:20)
 > 1 | class Foo { method(out parameter) {} }
-    |                        ^^^^^^^^^"
+    |                    ^^^"
 `;
 
 exports[`snippet: #141 [typescript] format 1`] = `
@@ -3038,9 +3086,9 @@ Cause: Unexpected token, expected "," (1:33)"
 `;
 
 exports[`snippet: #155 [oxc-ts] format 1`] = `
-"Expected \`,\` but found \`Identifier\` (1:34)
+"'accessor' modifier cannot appear on a parameter. (1:25)
 > 1 | class Foo { constructor(accessor parameter) {} }
-    |                                  ^^^^^^^^^"
+    |                         ^^^^^^^^"
 `;
 
 exports[`snippet: #155 [typescript] format 1`] = `
@@ -3058,9 +3106,9 @@ Cause: Unexpected token, expected "," (1:30)"
 `;
 
 exports[`snippet: #156 [oxc-ts] format 1`] = `
-"Expected \`,\` but found \`Identifier\` (1:31)
+"'async' modifier cannot appear on a parameter. (1:25)
 > 1 | class Foo { constructor(async parameter) {} }
-    |                               ^^^^^^^^^"
+    |                         ^^^^^"
 `;
 
 exports[`snippet: #156 [typescript] format 1`] = `
@@ -3138,7 +3186,7 @@ Cause: Unexpected token, expected "," (1:31)"
 `;
 
 exports[`snippet: #160 [oxc-ts] format 1`] = `
-"'export' modifier cannot appear on a parameter. (1:25)
+"Identifier expected. 'export' is a reserved word that cannot be used here. (1:25)
 > 1 | class Foo { constructor(export parameter) {} }
     |                         ^^^^^^"
 `;
@@ -3158,7 +3206,7 @@ Cause: Unexpected token, expected "," (1:27)"
 `;
 
 exports[`snippet: #161 [oxc-ts] format 1`] = `
-"Identifier expected. 'in' is a reserved word that cannot be used here. (1:25)
+"'in' modifier cannot appear on a parameter. (1:25)
 > 1 | class Foo { constructor(in parameter) {} }
     |                         ^^"
 `;
@@ -3178,9 +3226,9 @@ Cause: Unexpected token, expected "," (1:28)"
 `;
 
 exports[`snippet: #162 [oxc-ts] format 1`] = `
-"Expected \`,\` but found \`Identifier\` (1:29)
+"'out' modifier cannot appear on a parameter. (1:25)
 > 1 | class Foo { constructor(out parameter) {} }
-    |                             ^^^^^^^^^"
+    |                         ^^^"
 `;
 
 exports[`snippet: #162 [typescript] format 1`] = `
