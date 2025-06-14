@@ -24,6 +24,17 @@ exports[`comments.js [babel-ts] format 1`] = `
 Cause: Unexpected token (3:2)"
 `;
 
+exports[`comments.js [oxc-ts] format 1`] = `
+"Unexpected token (3:3)
+  1 | type Type = {
+  2 |   // comment
+> 3 |   +[T in number]: number;
+    |   ^
+  4 | };
+  5 |
+  6 | type Type = {"
+`;
+
 exports[`comments.js [typescript] format 1`] = `
 "Property or signature expected. (3:3)
   1 | type Type = {
@@ -149,6 +160,17 @@ exports[`mapped-types.js [babel-ts] format 1`] = `
   7 | type MappedWithPlusOptional = {[key in keyof O]+?: number};
   8 | type MappedWithMinusOptional = {[key in keyof O]-?: number};
 Cause: Unexpected token (5:27)"
+`;
+
+exports[`mapped-types.js [oxc-ts] format 1`] = `
+"Unexpected token (5:28)
+  3 | type Mapped = {[key in keyof O]: O[key]};
+  4 | type MappedLong = {[key in keyof AReallyLongNameThatShouldReallyMostDefinitelyCauseALineWrap]: number};
+> 5 | type MappedWithVariance = {+[key in keyof O]: number};
+    |                            ^
+  6 | type MappedWithVarianceLong = {-[key in keyof AReallyLongNameThatShouldReallyMostDefinitelyCauseALineWrap]: number};
+  7 | type MappedWithPlusOptional = {[key in keyof O]+?: number};
+  8 | type MappedWithMinusOptional = {[key in keyof O]-?: number};"
 `;
 
 exports[`mapped-types.js [typescript] format 1`] = `

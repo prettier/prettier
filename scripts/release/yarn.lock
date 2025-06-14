@@ -145,10 +145,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nano-spawn@npm:1.0.1":
-  version: 1.0.1
-  resolution: "nano-spawn@npm:1.0.1"
-  checksum: 10/be4a26653e356eabf27c53bddc2205d38f4631523b08e7edc1c64d838320f191b96bd28a570dc939b29f7b036fc06f78f6b70f2341ba9221e2e677548220191b
+"nano-spawn@npm:1.0.2":
+  version: 1.0.2
+  resolution: "nano-spawn@npm:1.0.2"
+  checksum: 10/6ce9e60846d2e37c0e3cd048472683c81dbcaadef9ebe73bfc8754ee7da2a574f724436d3dcdeda5d807aedc857cc8cbc278a9882529164b5ef4b170b95cfe0b
   languageName: node
   linkType: hard
 
@@ -193,7 +193,7 @@ __metadata:
   dependencies:
     enquirer: "npm:2.4.1"
     fast-glob: "npm:3.3.3"
-    nano-spawn: "npm:1.0.1"
+    nano-spawn: "npm:1.0.2"
     node-style-text: "npm:0.0.8"
     outdent: "npm:0.8.0"
     semver: "npm:7.7.2"

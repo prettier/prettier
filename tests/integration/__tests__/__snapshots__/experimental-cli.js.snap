@@ -1,12 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`experimental cli  1`] = `
-{
-  "stdout": "foo();",
-}
-`;
-
-exports[`experimental cli '--check --no-parallel' 1`] = `
+exports[`experimental cli --check --no-parallel 1`] = `
 {
   "status": 1,
   "stderr": "[warn] test-1/should-format.js
@@ -17,7 +11,7 @@ exports[`experimental cli '--check --no-parallel' 1`] = `
 }
 `;
 
-exports[`experimental cli '--check' 1`] = `
+exports[`experimental cli --check 1`] = `
 {
   "status": 1,
   "stderr": "[warn] test-0/should-format.js
@@ -28,7 +22,13 @@ exports[`experimental cli '--check' 1`] = `
 }
 `;
 
-exports[`experimental cli '--write --no-parallel' 1`] = `
+exports[`experimental cli --parser=meriyah 1`] = `
+{
+  "stdout": "foo();",
+}
+`;
+
+exports[`experimental cli --write --no-parallel 1`] = `
 {
   "status": 0,
   "stderr": "",
@@ -37,7 +37,7 @@ exports[`experimental cli '--write --no-parallel' 1`] = `
 }
 `;
 
-exports[`experimental cli '--write' 1`] = `
+exports[`experimental cli --write 1`] = `
 {
   "status": 0,
   "stderr": "",

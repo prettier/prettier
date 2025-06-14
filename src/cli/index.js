@@ -39,6 +39,13 @@ async function run(rawArguments = process.argv.slice(2)) {
 async function main(context) {
   context.logger.debug(`normalized argv: ${JSON.stringify(context.argv)}`);
 
+  if (
+    (context.argv.config === false && context.argv.__raw.config !== false) ||
+    (context.argv.config && context.rawArguments.includes("--no-config"))
+  ) {
+    throw new Error("Cannot use --no-config and --config together.");
+  }
+
   if (context.argv.check && context.argv.listDifferent) {
     throw new Error("Cannot use --check and --list-different together.");
   }

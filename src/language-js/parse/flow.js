@@ -27,10 +27,14 @@ const parseOptions = {
 };
 
 function createParseError(error) {
-  const {
-    message,
-    loc: { start, end },
-  } = error;
+  const { message, loc } = error;
+
+  /* c8 ignore next 3 */
+  if (!loc) {
+    return error;
+  }
+
+  const { start, end } = loc;
 
   return createError(message, {
     loc: {

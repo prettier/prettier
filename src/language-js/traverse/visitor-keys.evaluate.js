@@ -1,23 +1,12 @@
 import { VISITOR_KEYS as babelVisitorKeys } from "@babel/types";
 import { visitorKeys as tsVisitorKeys } from "@typescript-eslint/visitor-keys";
+import { visitorKeys as angularVisitorKeys } from "angular-estree-parser";
 import flowVisitorKeys from "hermes-parser/dist/generated/ESTreeVisitorKeys.js";
 import unionVisitorKeys from "./union-visitor-keys.js";
 
-const angularVisitorKeys = {
-  NGRoot: ["node"],
-  NGPipeExpression: ["left", "right", "arguments"],
-  NGChainedExpression: ["expressions"],
-  NGEmptyExpression: [],
-  NGMicrosyntax: ["body"],
-  NGMicrosyntaxKey: [],
-  NGMicrosyntaxExpression: ["expression", "alias"],
-  NGMicrosyntaxKeyedExpression: ["key", "expression"],
-  NGMicrosyntaxLet: ["key", "value"],
-  NGMicrosyntaxAs: ["key", "alias"],
-};
-
 const additionalVisitorKeys = {
   // Prettier
+  NGRoot: ["node"],
   JsExpressionRoot: ["node"],
   JsonRoot: ["node"],
 
@@ -62,15 +51,8 @@ const excludeKeys = {
   ExportNamedDeclaration: ["assertions"],
   ImportDeclaration: ["assertions"],
   ImportExpression: ["attributes"],
-
-  // `key` and `constraint` added in `@typescript-eslint/typescript-estree` v8
-  // https://github.com/typescript-eslint/typescript-eslint/pull/7065
-  // TODO: Use the new AST properties instead
-  TSMappedType: ["key", "constraint"],
-  // `body` added in `@typescript-eslint/typescript-estree` v8
-  // https://github.com/typescript-eslint/typescript-eslint/pull/8920
-  // TODO: Use the new AST properties instead
-  TSEnumDeclaration: ["body"],
+  TSMappedType: ["typeParameter"],
+  TSEnumDeclaration: ["members"],
 };
 
 const excludeNodeTypes = new Set([

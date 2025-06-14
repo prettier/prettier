@@ -343,6 +343,7 @@ function inferParserByTypeAttribute(type) {
     case "module":
     case "text/javascript":
     case "text/babel":
+    case "text/jsx":
     case "application/javascript":
       return "babel";
 
@@ -498,24 +499,28 @@ function getNodeCssStyleDisplay(node, options) {
     case "ignore":
       return "block";
     default:
-      return (
-        (node.type === "element" &&
-          (!node.namespace ||
-            isInSvgForeignObject ||
-            isUnknownNamespace(node)) &&
-          CSS_DISPLAY_TAGS[node.name]) ||
-        CSS_DISPLAY_DEFAULT
-      );
+      if (
+        node.type === "element" &&
+        (!node.namespace || isInSvgForeignObject || isUnknownNamespace(node)) &&
+        Object.hasOwn(CSS_DISPLAY_TAGS, node.name)
+      ) {
+        return CSS_DISPLAY_TAGS[node.name];
+      }
   }
+
+  return CSS_DISPLAY_DEFAULT;
 }
 
 function getNodeCssStyleWhiteSpace(node) {
-  return (
-    (node.type === "element" &&
-      (!node.namespace || isUnknownNamespace(node)) &&
-      CSS_WHITE_SPACE_TAGS[node.name]) ||
-    CSS_WHITE_SPACE_DEFAULT
-  );
+  if (
+    node.type === "element" &&
+    (!node.namespace || isUnknownNamespace(node)) &&
+    Object.hasOwn(CSS_WHITE_SPACE_TAGS, node.name)
+  ) {
+    return CSS_WHITE_SPACE_TAGS[node.name];
+  }
+
+  return CSS_WHITE_SPACE_DEFAULT;
 }
 
 function getMinIndentation(text) {

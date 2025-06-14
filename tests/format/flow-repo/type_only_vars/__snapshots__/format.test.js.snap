@@ -38,6 +38,23 @@ module.exports = {
 ================================================================================
 `;
 
+exports[`bad_shadowing.js [hermes] format 1`] = `
+"Identifier 'A' is already declared (13:4)
+  11 |
+  12 | // These string types should confict with the imported types
+> 13 | var A: string = "Hello";
+     |    ^
+  14 | var Foo: string = "Goodbye";
+  15 | var Baz: string = "Go away please";
+  16 |
+Cause: Identifier 'A' is already declared (13:4)
+var A: string = "Hello";
+    ^~~~~~~~~
+note: previous declaration (5:14)
+import typeof A from "./A.js";
+              ^"
+`;
+
 exports[`bad_shadowing.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
@@ -84,6 +101,23 @@ var Baz: string = "Go away please";
 var duck: string = "quack";
 
 ================================================================================
+`;
+
+exports[`good_shadowing.js [hermes] format 1`] = `
+"Identifier 'A' is already declared (8:4)
+   6 | import type {Foo, Bar as Baz} from "./A.js";
+   7 |
+>  8 | var A = require('./A.js');
+     |    ^
+   9 | var Foo = A.Foo;
+  10 | var Baz = A.Bar;
+  11 |
+Cause: Identifier 'A' is already declared (8:4)
+var A = require('./A.js');
+    ^
+note: previous declaration (5:14)
+import typeof A from "./A.js";
+              ^"
 `;
 
 exports[`good_shadowing.js format 1`] = `

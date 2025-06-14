@@ -6,7 +6,11 @@ import { outdent } from "outdent";
 import { copyFile, DIST_DIR, PROJECT_ROOT } from "../utils/index.js";
 import buildDependenciesLicense from "./build-dependencies-license.js";
 import buildJavascriptModule from "./build-javascript-module.js";
-import buildPackageJson from "./build-package-json.js";
+import {
+  buildPluginHermesPackageJson,
+  buildPluginOxcPackageJson,
+  buildPrettierPackageJson,
+} from "./build-package-json.js";
 import buildTypes from "./build-types.js";
 import esmifyTypescriptEslint from "./esmify-typescript-eslint.js";
 import modifyTypescriptModule from "./modify-typescript-module.js";
@@ -156,7 +160,8 @@ const pluginFiles = [
             .replace(
               'require("node:path")',
               '{extname: file => "." + file.split(".").pop()}',
-            );
+            )
+            .replace('require("@typescript-eslint/project-service")', "{}");
         },
       },
       {
@@ -225,8 +230,8 @@ const pluginFiles = [
           `,
         },
         {
-          file: "@typescript-eslint/typescript-estree/dist/create-program/createProjectService.js",
-          text: "export const createProjectService = () => {};",
+          file: "@typescript-eslint/typescript-estree/dist/create-program/validateDefaultProjectForFilesGlob.js",
+          text: "export const validateDefaultProjectForFilesGlob = () => {};",
         },
         {
           file: "@typescript-eslint/typescript-estree/dist/create-program/getWatchProgramsForProjects.js",
@@ -353,14 +358,9 @@ const pluginFiles = [
   {
     input: "src/plugins/meriyah.js",
     replaceModule: [
-      // Use non-minified version so we can replace code easier
-      {
-        module: resolveEsmModulePath("meriyah"),
-        path: getPackageFile("meriyah/dist/meriyah.mjs"),
-      },
       // We don't use value of JSXText
       {
-        module: getPackageFile("meriyah/dist/meriyah.mjs"),
+        module: resolveEsmModulePath("meriyah"),
         find: "parser.tokenValue = decodeHTMLStrict(raw);",
         replacement: "parser.tokenValue = raw;",
       },
@@ -734,6 +734,7 @@ const universalFiles = [...nonPluginUniversalFiles, ...pluginFiles].flatMap(
         isPlugin,
         build: buildJavascriptModule,
         kind: "javascript",
+        playground: output.format === "esm" && outputBaseName !== "doc",
       })),
       getTypesFileConfig({ input, outputBaseName, isPlugin }),
     ];
@@ -895,7 +896,7 @@ const metaFiles = [
     output: {
       format: "json",
     },
-    build: buildPackageJson,
+    build: buildPrettierPackageJson,
   },
   {
     input: "README.md",
@@ -919,8 +920,174 @@ const metaFiles = [
 
 /** @type {Files[]} */
 const files = [...nodejsFiles, ...universalFiles, ...metaFiles].filter(Boolean);
-export default {
-  packageName: "prettier",
-  distDirectory: path.join(DIST_DIR, "prettier"),
-  files,
-};
+export default [
+  {
+    packageName: "prettier",
+    // Used in THIRD-PARTY-NOTICES.md
+    packageDisplayName: "Prettier",
+    distDirectory: path.join(DIST_DIR, "prettier"),
+    files,
+  },
+  {
+    packageName: "@prettier/plugin-oxc",
+    distDirectory: path.join(DIST_DIR, "plugin-oxc"),
+    files: [
+      ...[
+        {
+          input: "packages/plugin-oxc/index.js",
+          addDefaultExport: true,
+          external: ["oxc-parser"],
+        },
+      ].flatMap((file) => {
+        let { input, output, outputBaseName, ...buildOptions } = file;
+
+        const format = input.endsWith(".cjs") ? "cjs" : "esm";
+        outputBaseName ??= path.basename(input, path.extname(input));
+
+        return [
+          {
+            input,
+            output: {
+              format,
+              file: `${outputBaseName}${extensions[format]}`,
+            },
+            platform: "node",
+            buildOptions,
+            build: buildJavascriptModule,
+            kind: "javascript",
+          },
+          getTypesFileConfig({ input, outputBaseName, isPlugin: true }),
+        ];
+      }),
+      ...[
+        {
+          input: "packages/plugin-oxc/package.json",
+          output: {
+            file: "package.json",
+            format: "json",
+          },
+          build: buildPluginOxcPackageJson,
+        },
+        {
+          input: "packages/plugin-oxc/README.md",
+          output: {
+            file: "README.md",
+          },
+          build: copyFileBuilder,
+        },
+        {
+          input: "LICENSE",
+          output: {
+            file: "LICENSE",
+          },
+          build: copyFileBuilder,
+        },
+        {
+          output: {
+            file: "THIRD-PARTY-NOTICES.md",
+          },
+          build: buildDependenciesLicense,
+        },
+      ].map((file) => ({
+        ...file,
+        output: { file: file.input, ...file.output },
+        kind: "meta",
+      })),
+    ],
+  },
+  {
+    packageName: "@prettier/plugin-hermes",
+    distDirectory: path.join(DIST_DIR, "plugin-hermes"),
+    files: [
+      ...[
+        {
+          input: "packages/plugin-hermes/index.js",
+          addDefaultExport: true,
+          replaceModule: [
+            {
+              module: require.resolve("hermes-parser/dist/HermesParser.js"),
+              process(text) {
+                text =
+                  'const Buffer = globalThis.Buffer ?? require("buffer/").Buffer;' +
+                  text;
+                return text;
+              },
+            },
+            {
+              module: require.resolve("hermes-parser/dist/HermesParserWASM.js"),
+              process(text) {
+                text = text.replaceAll("process.argv", "[]");
+                text = text.replaceAll('require("fs")', "undefined");
+                text = text.replaceAll('require("path")', "undefined");
+                text =
+                  'const Buffer = globalThis.Buffer ?? require("buffer/").Buffer;' +
+                  text;
+
+                return text;
+              },
+            },
+          ],
+        },
+      ].flatMap((file) => {
+        let { input, output, outputBaseName, ...buildOptions } = file;
+
+        outputBaseName ??= path.basename(input, path.extname(input));
+        const format = input.endsWith(".cjs") ? "cjs" : "esm";
+
+        return [
+          {
+            input,
+            output: {
+              format,
+              file: `${outputBaseName}${extensions[format]}`,
+            },
+            platform: "universal",
+            buildOptions: {
+              addDefaultExport: true,
+              ...buildOptions,
+            },
+            isPlugin: true,
+            build: buildJavascriptModule,
+            playground: true,
+            kind: "javascript",
+          },
+          getTypesFileConfig({ input, outputBaseName, isPlugin: true }),
+        ];
+      }),
+      ...[
+        {
+          input: "packages/plugin-hermes/package.json",
+          output: {
+            file: "package.json",
+            format: "json",
+          },
+          build: buildPluginHermesPackageJson,
+        },
+        {
+          input: "packages/plugin-hermes/README.md",
+          output: {
+            file: "README.md",
+          },
+          build: copyFileBuilder,
+        },
+        {
+          input: "LICENSE",
+          output: {
+            file: "LICENSE",
+          },
+          build: copyFileBuilder,
+        },
+        {
+          output: {
+            file: "THIRD-PARTY-NOTICES.md",
+          },
+          build: buildDependenciesLicense,
+        },
+      ].map((file) => ({
+        ...file,
+        output: { file: file.input, ...file.output },
+        kind: "meta",
+      })),
+    ],
+  },
+];

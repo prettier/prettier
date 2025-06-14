@@ -11,6 +11,7 @@ const babelParseOptions = {
   // https://github.com/babel/babel/issues/15115
   ranges: false,
   attachComment: false,
+  createParenthesizedExpressions: true,
 };
 
 function parseEmptyJson(text) {
@@ -43,8 +44,7 @@ function parseJson(text, options = {}) {
     if (
       allowEmpty &&
       error.code === "BABEL_PARSER_SYNTAX_ERROR" &&
-      error.reasonCode === "UnexpectedToken" &&
-      error.pos === text.length
+      error.reasonCode === "ParseExpressionEmptyInput"
     ) {
       try {
         ast = parseEmptyJson(text);

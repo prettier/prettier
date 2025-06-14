@@ -159,14 +159,26 @@ function printFlow(path, options, print) {
 
     case "DeclareEnum":
     case "EnumDeclaration":
-      return printEnumDeclaration(path, options, print);
+      return printEnumDeclaration(path, print);
 
     case "EnumBooleanBody":
     case "EnumNumberBody":
     case "EnumBigIntBody":
     case "EnumStringBody":
     case "EnumSymbolBody":
-      return printEnumBody(path, options, print);
+      return [
+        node.type === "EnumSymbolBody" || node.explicitType
+          ? `of ${node.type
+              .slice(
+                // `Enum`
+                4,
+                // `Body`
+                -4,
+              )
+              .toLowerCase()} `
+          : "",
+        printEnumBody(path, options, print),
+      ];
 
     case "EnumBooleanMember":
     case "EnumNumberMember":

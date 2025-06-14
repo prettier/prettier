@@ -428,6 +428,20 @@ exports[`satisfies.js [babel-flow] format 1`] = `
 Cause: Unexpected token, expected "type" (32:7)"
 `;
 
+exports[`satisfies.js [hermes] format 1`] = `
+"';' expected (3:12)
+  1 | // @flow
+  2 |
+> 3 | const x = y satisfies T;
+    |            ^
+  4 |
+  5 | // demonstrating how "satisfies" expression can be practically used as expression statement.
+  6 | const _ = (type: 'foo' | 'bar') => {
+Cause: ';' expected (3:12)
+const x = y satisfies T;
+            ^"
+`;
+
 exports[`satisfies.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
@@ -530,6 +544,19 @@ exports[`ternary.js [babel-flow] format 1`] = `
   30 |
   31 | bifornCringerMoshedPerplexSawder =
 Cause: Unexpected token, expected "," (28:31)"
+`;
+
+exports[`ternary.js [hermes] format 1`] = `
+"invalid assignment left-hand side (3:0)
+  1 | // @flow
+  2 |
+> 3 | foo = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+  4 |     ? baaaaaaaaaaaaaaaaaaaaar
+  5 |     : baaaaaaaaaaaaaaaaaaaaaz) as Fooooooooooo;
+  6 |
+Cause: invalid assignment left-hand side (3:0)
+foo = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+^~~"
 `;
 
 exports[`ternary.js format 1`] = `

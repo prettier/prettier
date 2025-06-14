@@ -32,7 +32,7 @@ function printObject(path, options, print) {
 
   const isTypeAnnotation = node.type === "ObjectTypeAnnotation";
   const isEnumBody =
-    node.type === "TSEnumDeclaration" ||
+    node.type === "TSEnumBody" ||
     node.type === "EnumBooleanBody" ||
     node.type === "EnumNumberBody" ||
     node.type === "EnumBigIntBody" ||
@@ -159,7 +159,8 @@ function printObject(path, options, print) {
         ((lastElem.type === "TSPropertySignature" ||
           lastElem.type === "TSCallSignatureDeclaration" ||
           lastElem.type === "TSMethodSignature" ||
-          lastElem.type === "TSConstructSignatureDeclaration") &&
+          lastElem.type === "TSConstructSignatureDeclaration" ||
+          lastElem.type === "TSIndexSignature") &&
           hasComment(lastElem, CommentCheckFlags.PrettierIgnore))))
   );
 

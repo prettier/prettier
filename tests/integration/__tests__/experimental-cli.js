@@ -6,6 +6,7 @@ const require = createRequire(import.meta.url);
 
 function runExperimentalCli(args, options) {
   return runCli("cli/experimental-cli", [...args, "--no-cache"], {
+    title: args.join(" "),
     ...options,
     env: { ...options?.env, PRETTIER_EXPERIMENTAL_CLI: 1 },
   });
@@ -59,7 +60,7 @@ describe("experimental cli", () => {
   ]
     .flatMap((args) => [args, [...args, "--no-parallel"]])
     .entries()) {
-    test(`'${args.join(" ")}'`, async () => {
+    test(args.join(" "), async () => {
       // Since we are not able to mock file write, so we just let the CLI actually write it
       const directory = new URL(
         `../cli/experimental-cli/test-${index}/`,

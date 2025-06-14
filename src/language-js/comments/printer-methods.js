@@ -44,7 +44,10 @@ function getCommentChildNodes(node, options) {
   if (
     (options.parser === "typescript" ||
       options.parser === "flow" ||
+      options.parser === "hermes" ||
       options.parser === "acorn" ||
+      options.parser === "oxc" ||
+      options.parser === "oxc-ts" ||
       options.parser === "espree" ||
       options.parser === "meriyah" ||
       options.parser === "__babel_estree") &&
@@ -79,7 +82,7 @@ function willPrintOwnComments(path) {
 }
 
 function isGap(text, { parser }) {
-  if (parser === "flow" || parser === "babel-flow") {
+  if (parser === "flow" || parser === "hermes" || parser === "babel-flow") {
     // Example: (a /* b */ /* : c */)
     //                gap ^^^^
     text = text.replaceAll(/[\s(]/gu, "");

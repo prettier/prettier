@@ -19,6 +19,19 @@ function foo() {
 ================================================================================
 `;
 
+exports[`eval-arguments.js [hermes] format 1`] = `
+"invalid assignment left-hand side (3:2)
+  1 | function myfunc() {
+  2 |   eval = 1
+> 3 |   arguments = arguments;
+    |  ^
+  4 | }
+  5 |
+Cause: invalid assignment left-hand side (3:2)
+  arguments = arguments;
+  ^~~~~~~~~"
+`;
+
 exports[`eval-arguments.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -96,6 +109,16 @@ exports[`function-declaration-in-while.js [flow] format 1`] = `
   2 |"
 `;
 
+exports[`function-declaration-in-while.js [hermes] format 1`] = `
+"declaration not allowed as expression statement (1:14)
+> 1 | while (false) function foo(){}
+    |              ^
+  2 |
+Cause: declaration not allowed as expression statement (1:14)
+while (false) function foo(){}
+              ^~~~~~~~"
+`;
+
 exports[`function-declaration-in-while.js [meriyah] format 1`] = `
 "In strict mode code, functions can only be declared at top level or inside a block (1:15)
 > 1 | while (false) function foo(){}
@@ -116,6 +139,16 @@ while (false) function foo(){}
 while (false) function foo() {}
 
 ================================================================================
+`;
+
+exports[`labeled-function-declaration.js [hermes] format 1`] = `
+"Function declaration not allowed as body of labeled statement (1:5)
+> 1 | foo: function bar() {}
+    |     ^
+  2 |
+Cause: Function declaration not allowed as body of labeled statement (1:5)
+foo: function bar() {}
+     ^"
 `;
 
 exports[`labeled-function-declaration.js format 1`] = `

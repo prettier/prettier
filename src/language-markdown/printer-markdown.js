@@ -683,7 +683,8 @@ function shouldPrePrintDoubleHardline({ node, previous, parent }, options) {
   const isSequence = previous.type === node.type;
   const isSiblingNode = isSequence && SIBLING_NODE_TYPES.has(node.type);
   const isInTightListItem =
-    parent.type === "listItem" && !isLooseListItem(parent, options);
+    parent.type === "listItem" &&
+    (node.type === "list" || !isLooseListItem(parent, options));
   const isPrevNodePrettierIgnore = isPrettierIgnore(previous) === "next";
   const isBlockHtmlWithoutBlankLineBetweenPrevHtml =
     node.type === "html" &&

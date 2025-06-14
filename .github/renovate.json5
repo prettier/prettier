@@ -34,7 +34,7 @@
         "eslint",
         "@eslint/*",
         "@eslint-react/eslint-plugin",
-        "@stylistic/eslint-plugin-js",
+        "@stylistic/eslint-plugin",
         "eslint-config-prettier",
         "eslint-plugin-compat",
         "eslint-plugin-jest",
@@ -84,6 +84,10 @@
     {
       matchPackageNames: ["react", "react-dom"],
       allowedVersions: "^18.0.0",
+    },
+    {
+      groupName: "docusaurus",
+      matchPackageNames: ["@docusaurus/*"],
     },
   ],
   ignoreDeps: [
