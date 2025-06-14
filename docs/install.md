@@ -130,7 +130,7 @@ What is `bunx` doing at the start? `bunx prettier` runs the locally installed ve
 
 :::warning
 
-If you forget to install Prettier first, `npx` will temporarily download the latest version. That’s not a good idea when using Prettier, because we change how code is formatted in each release! It’s important to have a locked down version of Prettier in your `package.json`. And it’s faster, too.
+If you forget to install Prettier first, `bunx` will temporarily download the latest version. That’s not a good idea when using Prettier, because we change how code is formatted in each release! It’s important to have a locked down version of Prettier in your `package.json`. And it’s faster, too.
 
 :::
 
