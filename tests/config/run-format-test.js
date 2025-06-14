@@ -85,12 +85,7 @@ const babelTsDisabledTests = new Set(
   ),
 );
 const oxcDisabledTests = new Set();
-const oxcTsDisabledTests = new Set(
-  [
-    // https://github.com/oxc-project/oxc/issues/11029
-    "typescript/decorators/abstract-method.ts",
-  ].map((file) => path.join(__dirname, "../format", file)),
-);
+const oxcTsDisabledTests = new Set();
 const hermesDisabledTests = new Set([
   ...commentClosureTypecaseTests,
   ...[

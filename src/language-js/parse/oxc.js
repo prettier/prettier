@@ -1,5 +1,5 @@
-import os from "node:os";
 import indexToPosition from "index-to-position";
+import * as oxcParser from "oxc-parser";
 import createError from "../../common/parser-create-error.js";
 import { tryCombinationsAsync } from "../../utils/try-combinations.js";
 import postprocess from "./postprocess/index.js";
@@ -34,7 +34,6 @@ function createParseError(error, { text }) {
   });
 }
 
-let oxcParser;
 /**
 @param {string} filepath
 @param {string} text
@@ -42,11 +41,6 @@ let oxcParser;
 @returns {Promise<ParseResult>}
 */
 async function parseWithOptions(filepath, text, options) {
-  if (!oxcParser) {
-    os.availableParallelism ??= () => os.cpus().length;
-    oxcParser = await import("oxc-parser");
-  }
-
   const result = await oxcParser.parseAsync(filepath, text, {
     preserveParens: true,
     showSemanticErrors: false,

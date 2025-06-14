@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`arrow-functions.tsx - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
@@ -64,11 +64,11 @@ const f2 = <
 `;
 
 exports[`trailing.ts - {"trailingComma":"all"} [oxc-ts] format 1`] = `
-"Unexpected trailing comma after rest element (15:10)
+"A rest element must be last in a destructuring pattern (15:3)
   13 |   longKeySoThisWillGoOnMultipleLines2,
   14 |   longKeySoThisWillGoOnMultipleLines3,
 > 15 |   ...rest,
-     |          ^
+     |   ^^^^^^^
   16 | } = something;
   17 |"
 `;
@@ -118,11 +118,11 @@ const {
 `;
 
 exports[`trailing.ts - {"trailingComma":"es5"} [oxc-ts] format 1`] = `
-"Unexpected trailing comma after rest element (15:10)
+"A rest element must be last in a destructuring pattern (15:3)
   13 |   longKeySoThisWillGoOnMultipleLines2,
   14 |   longKeySoThisWillGoOnMultipleLines3,
 > 15 |   ...rest,
-     |          ^
+     |   ^^^^^^^
   16 | } = something;
   17 |"
 `;
@@ -172,11 +172,11 @@ const {
 `;
 
 exports[`trailing.ts - {"trailingComma":"none"} [oxc-ts] format 1`] = `
-"Unexpected trailing comma after rest element (15:10)
+"A rest element must be last in a destructuring pattern (15:3)
   13 |   longKeySoThisWillGoOnMultipleLines2,
   14 |   longKeySoThisWillGoOnMultipleLines3,
 > 15 |   ...rest,
-     |          ^
+     |   ^^^^^^^
   16 | } = something;
   17 |"
 `;
