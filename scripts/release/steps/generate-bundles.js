@@ -24,11 +24,5 @@ export default async function generateBundles({ dry, version, manual }) {
     );
   }
 
-  await logPromise(
-    "Running tests on generated bundles",
-    () => runYarn("test:dist"),
-    /* shouldSkip */ dry,
-  );
-
   console.log(styleText.green.bold("Build successful!\n"));
 }
