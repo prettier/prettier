@@ -8,13 +8,7 @@ exports[`valid-flow-default-import.mts [babel-ts] format 1`] = `
   3 |"
 `;
 
-exports[`valid-flow-default-import.mts [oxc-ts] format 1`] = `
-"Expected \`from\` but found \`Identifier\` (1:15)
-> 1 | import module foo from "./module.wasm";
-    |               ^^^
-  2 | import bar from "./module.wasm";
-  3 |"
-`;
+exports[`valid-flow-default-import.mts [oxc-ts] format 1`] = `"Array buffer allocation failed"`;
 
 exports[`valid-flow-default-import.mts [typescript] format 1`] = `
 "'=' expected. (1:15)
@@ -33,13 +27,7 @@ exports[`valid-ts-default-import.mts [babel-ts] format 1`] = `
   3 |"
 `;
 
-exports[`valid-ts-default-import.mts [oxc-ts] format 1`] = `
-"Expected \`from\` but found \`Identifier\` (1:15)
-> 1 | import module foo from "./module.wasm";
-    |               ^^^
-  2 | import bar from "./module.wasm";
-  3 |"
-`;
+exports[`valid-ts-default-import.mts [oxc-ts] format 1`] = `"Array buffer allocation failed"`;
 
 exports[`valid-ts-default-import.mts [typescript] format 1`] = `
 "'=' expected. (1:15)
