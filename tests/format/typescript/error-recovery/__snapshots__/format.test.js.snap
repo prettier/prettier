@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`generic.ts [oxc-ts] format 1`] = `
 "Type parameters cannot appear on a constructor declaration (8:16)
@@ -198,9 +198,9 @@ Cause: Unexpected token, expected "]" (4:12)"
 `;
 
 exports[`index-signature.ts [oxc-ts] format 1`] = `
-"Unexpected token (1:26)
+"An index signature must have a type annotation. (1:12)
 > 1 | type A = { [key: string] };
-    |                          ^
+    |            ^^^^^^^^^^^^^
   2 |
   3 | type TwoParams = {
   4 |   [a: string, b: string]: string;"
@@ -219,9 +219,9 @@ Cause: Unexpected token, expected "]" (4:12)"
 `;
 
 exports[`index-signature.ts - {"trailingComma":"all"} [oxc-ts] format 1`] = `
-"Unexpected token (1:26)
+"An index signature must have a type annotation. (1:12)
 > 1 | type A = { [key: string] };
-    |                          ^
+    |            ^^^^^^^^^^^^^
   2 |
   3 | type TwoParams = {
   4 |   [a: string, b: string]: string;"
@@ -303,9 +303,9 @@ Cause: Unexpected token, expected "]" (4:12)"
 `;
 
 exports[`index-signature.ts - {"trailingComma":"es5"} [oxc-ts] format 1`] = `
-"Unexpected token (1:26)
+"An index signature must have a type annotation. (1:12)
 > 1 | type A = { [key: string] };
-    |                          ^
+    |            ^^^^^^^^^^^^^
   2 |
   3 | type TwoParams = {
   4 |   [a: string, b: string]: string;"
