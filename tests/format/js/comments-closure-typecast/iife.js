@@ -6,8 +6,21 @@ const helpers2 = /** @type {Helpers} */ ((
   function() { return something }
 )());
 
-// TODO: @param is misplaced https://github.com/prettier/prettier/issues/5850
 const helpers = /** @type {Helpers} */ ((
   /** @param {Partial<Helpers>} helpers */
   (helpers = {}) => helpers
 )());
+
+!(/** @param {number} x */ (x) => x);
+
+(/** @param {string} x */ function (x) {});
+
+
+( /** @param {string} x */// another comment
+  function (x){ });
+
+( /** @param {string} x */// prettier-ignore
+  function (x){    });
+
+// valid use-case with TypeScript's stripInternal option
+( /** @param {string} x */ /* @internal */ function (x){    });
