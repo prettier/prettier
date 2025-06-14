@@ -1,0 +1,137 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`worker.js [acorn] format 1`] = `
+"Unexpected token (1:28)
+> 1 | worker = new Worker(module {
+    |                            ^
+  2 |   onmessage = function({data}) {
+  3 |     let mod = import(data);
+  4 |     postMessage(mod.fn());
+Cause: Unexpected token (1:27)"
+`;
+
+exports[`worker.js [espree] format 1`] = `
+"Unexpected token { (1:28)
+> 1 | worker = new Worker(module {
+    |                            ^
+  2 |   onmessage = function({data}) {
+  3 |     let mod = import(data);
+  4 |     postMessage(mod.fn());
+Cause: Unexpected token {"
+`;
+
+exports[`worker.js [meriyah] format 1`] = `
+"Expected ')' (1:28)
+> 1 | worker = new Worker(module {
+    |                            ^
+  2 |   onmessage = function({data}) {
+  3 |     let mod = import(data);
+  4 |     postMessage(mod.fn());
+Cause: [1:27-1:28]: Expected ')'"
+`;
+
+exports[`worker.js [oxc] format 1`] = `
+"Expected \`,\` but found \`{\` (1:28)
+> 1 | worker = new Worker(module {
+    |                            ^
+  2 |   onmessage = function({data}) {
+  3 |     let mod = import(data);
+  4 |     postMessage(mod.fn());"
+`;
+
+exports[`worker.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+worker = new Worker(module {
+  onmessage = function({data}) {
+    let mod = import(data);
+    postMessage(mod.fn());
+  }
+}, {type: "module"});
+
+worker = new Worker(module {
+  onmessage = function({data}) {
+    let mod = import(data);
+    postMessage(mod.fn());
+  }
+}, {'type': "module"});
+
+worker = new Worker(module {
+  onmessage = function({data}) {
+    let mod = import(data);
+    postMessage(mod.fn());
+  }
+}, {type: "module", foo: "bar" });
+
+worker = new Worker(module {
+  onmessage = function({data}) {
+    let mod = import(data);
+    postMessage(mod.fn());
+  }
+}, {...{type: "module"}});
+
+worker = new Worker(module {
+  onmessage = function({data}) {
+    let mod = import(data);
+    postMessage(mod.fn());
+  }
+}, {[type]: "module"});
+
+worker.postMessage(module { export function fn() { return "hello!" } });
+
+=====================================output=====================================
+worker = new Worker(module {
+  onmessage = function ({ data }) {
+    let mod = import(data);
+    postMessage(mod.fn());
+  };
+}, { type: "module" });
+
+worker = new Worker(module {
+  onmessage = function ({ data }) {
+    let mod = import(data);
+    postMessage(mod.fn());
+  };
+}, { type: "module" });
+
+worker = new Worker(
+  module {
+    onmessage = function ({ data }) {
+      let mod = import(data);
+      postMessage(mod.fn());
+    };
+  },
+  { type: "module", foo: "bar" },
+);
+
+worker = new Worker(
+  module {
+    onmessage = function ({ data }) {
+      let mod = import(data);
+      postMessage(mod.fn());
+    };
+  },
+  { ...{ type: "module" } },
+);
+
+worker = new Worker(
+  module {
+    onmessage = function ({ data }) {
+      let mod = import(data);
+      postMessage(mod.fn());
+    };
+  },
+  { [type]: "module" },
+);
+
+worker.postMessage(module {
+  export function fn() {
+    return "hello!";
+  }
+});
+
+================================================================================
+`;
