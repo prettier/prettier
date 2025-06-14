@@ -2111,16 +2111,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@prettier/cli@npm:0.8.0":
-  version: 0.8.0
-  resolution: "@prettier/cli@npm:0.8.0"
+"@prettier/cli@npm:0.9.0":
+  version: 0.9.0
+  resolution: "@prettier/cli@npm:0.9.0"
   dependencies:
     atomically: "npm:^2.0.3"
     fast-ignore: "npm:^1.1.3"
     find-up-json: "npm:^2.0.5"
     function-once: "npm:^3.0.1"
     import-meta-resolve: "npm:^4.1.0"
-    is-binary-path: "npm:^3.0.0"
+    is-binary-path: "npm:^2.0.0"
     js-yaml: "npm:^4.1.0"
     json-sorted-stringify: "npm:^1.0.1"
     json5: "npm:^2.2.3"
@@ -2134,15 +2134,15 @@ __metadata:
     tiny-readdir: "npm:^2.7.4"
     tiny-readdir-glob: "npm:^1.23.2"
     tiny-spinner: "npm:^2.0.5"
-    worktank: "npm:^2.7.3"
-    zeptomatch: "npm:^2.0.1"
+    worktank: "npm:^3.0.2"
+    zeptomatch: "npm:^2.0.2"
     zeptomatch-escape: "npm:^1.0.1"
     zeptomatch-is-static: "npm:^1.0.1"
   peerDependencies:
     prettier: ^3.1.0 || ^4.0.0-alpha
   bin:
     prettier-next: dist/bin.js
-  checksum: 10/753832b6404659c19e88725d99cb650e4cadcc012f5a64fb29c02c52f68307e9c1d17e86a3677b766a19d3ce4733a09d4d3a0092edd064123abcd8e5548e0b0a
+  checksum: 10/79ab9229388419f9c002401d0f2485c8a89b06a89b0496bd050fbf1d9351f0b061f0e7320651ad45540fadec4cc04f47eaf70e99275f48333e63c2f5b8d3b51f
   languageName: node
   linkType: hard
 
@@ -2938,10 +2938,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"binary-extensions@npm:^3.0.0":
-  version: 3.1.0
-  resolution: "binary-extensions@npm:3.1.0"
-  checksum: 10/43983ac60c0d14511f5b2045cd5942d27aa945c48669ac06fca59d4edfe901a3916a5033b7de339616d9c0c10ec7efc8da397c038cf98cc5d86260dabee3e3ce
+"binary-extensions@npm:^2.0.0":
+  version: 2.3.0
+  resolution: "binary-extensions@npm:2.3.0"
+  checksum: 10/bcad01494e8a9283abf18c1b967af65ee79b0c6a9e6fcfafebfe91dbe6e0fc7272bafb73389e198b310516ae04f7ad17d79aacf6cb4c0d5d5202a7e2e52c7d98
   languageName: node
   linkType: hard
 
@@ -5141,6 +5141,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"immediato@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "immediato@npm:1.1.0"
+  checksum: 10/229072894ebc6afdcf659f80c6a0aab8680885cfbe0edea32ff3187c620efe56ff645f2f874ee59602ffa7ffb7b4d4f615c094654afdf10a3039e7c9114cfa7d
+  languageName: node
+  linkType: hard
+
 "import-fresh@npm:^3.2.1, import-fresh@npm:^3.3.1":
   version: 3.3.1
   resolution: "import-fresh@npm:3.3.1"
@@ -5270,12 +5277,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-binary-path@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "is-binary-path@npm:3.0.0"
+"is-binary-path@npm:^2.0.0":
+  version: 2.1.0
+  resolution: "is-binary-path@npm:2.1.0"
   dependencies:
-    binary-extensions: "npm:^3.0.0"
-  checksum: 10/3b2ff558f3f14cc90a7311638b787ed1ebb964dff5b8fb310b8e4f986d9718f9c14885c6963219186c8916a53c6fda4c7884f478c4b8293660d9493230998fa9
+    binary-extensions: "npm:^2.0.0"
+  checksum: 10/078e51b4f956c2c5fd2b26bb2672c3ccf7e1faff38e0ebdba45612265f4e3d9fc3127a1fa8370bbf09eab61339203c3d3b7af5662cbf8be4030f8fac37745b0e
   languageName: node
   linkType: hard
 
@@ -5431,6 +5438,22 @@ __metadata:
   version: 3.1.1
   resolution: "isexe@npm:3.1.1"
   checksum: 10/7fe1931ee4e88eb5aa524cd3ceb8c882537bc3a81b02e438b240e47012eef49c86904d0f0e593ea7c3a9996d18d0f1f3be8d3eaa92333977b0c3a9d353d5563e
+  languageName: node
+  linkType: hard
+
+"isoconcurrency@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "isoconcurrency@npm:1.0.0"
+  checksum: 10/deb49535eba24bf45845815395abfc70dc8bab9bcfc2a039415fab65029ad155454404621e493bd5eb7d8abb513f4b6ffc2ad9ef92ae45037a9ff4d142044f3a
+  languageName: node
+  linkType: hard
+
+"isotimer@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "isotimer@npm:1.0.0"
+  dependencies:
+    immediato: "npm:^1.1.0"
+  checksum: 10/fb9a863fc80d15959b9ccab3f4ca0779f9c27a8329a6dba4ffde6f135396b05527d009ae6120ac0927ff7a1b63e7c8862568ec366caa65513df137f6b6964645
   languageName: node
   linkType: hard
 
@@ -7310,7 +7333,7 @@ __metadata:
     "@eslint-react/eslint-plugin": "npm:1.52.2"
     "@eslint/js": "npm:9.29.0"
     "@glimmer/syntax": "npm:0.94.9"
-    "@prettier/cli": "npm:0.8.0"
+    "@prettier/cli": "npm:0.9.0"
     "@prettier/html-tags": "npm:1.0.0"
     "@prettier/parse-srcset": "npm:3.1.0"
     "@stylistic/eslint-plugin": "npm:4.4.1"
@@ -7484,13 +7507,6 @@ __metadata:
   dependencies:
     promise-make-naked: "npm:^3.0.2"
   checksum: 10/6cad1af50601ed71070054ccef186fc7fd475ca9ed17f9f5c104b35f550eb32654a6df048b5165e4089bf4d6f4e51a26877a3d7ca53f8b13e0cb800379e73a4a
-  languageName: node
-  linkType: hard
-
-"promise-make-naked@npm:^2.0.0":
-  version: 2.1.2
-  resolution: "promise-make-naked@npm:2.1.2"
-  checksum: 10/6120cf7fdd826668d02b48e7645c37cb46b8d0457c00c78771e7860d7438831f59bb2924f297763e8dc866d0ae79162bd16b76074c9c1ebe5363181f098f8ca6
   languageName: node
   linkType: hard
 
@@ -8932,10 +8948,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webworker-shim@npm:^1.1.0":
-  version: 1.1.1
-  resolution: "webworker-shim@npm:1.1.1"
-  checksum: 10/8876155d3b8b200b1409581ca8fff313439c53c1db8265ea4bb11f7db8a51aba79c82d472a3ec6a79af96e1d5387948ac1e4a8f64fc4205e4c2fa69c57b61715
+"webworker-shim@npm:^1.1.4":
+  version: 1.1.4
+  resolution: "webworker-shim@npm:1.1.4"
+  checksum: 10/de931e66bab9bb7be2a242fb12e17ce071713c91ce97e3bc93cca545b16ec54ffd30d5df6bae14e683b008e46643893e4ad46984f25f033ae91fe55ca63c83c7
   languageName: node
   linkType: hard
 
@@ -8975,13 +8991,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"worktank@npm:^2.7.3":
-  version: 2.7.3
-  resolution: "worktank@npm:2.7.3"
+"worktank@npm:^3.0.2":
+  version: 3.0.2
+  resolution: "worktank@npm:3.0.2"
   dependencies:
-    promise-make-naked: "npm:^2.0.0"
-    webworker-shim: "npm:^1.1.0"
-  checksum: 10/8b402ed1ebfeb07b80189b12e9cc1da5a2e9fc900144a365396876062bbea665566bb1f6f36ea5382734a74e1c0c60c1d747dcd29d8987b9b2d9ddf45cf94f32
+    isoconcurrency: "npm:^1.0.0"
+    isotimer: "npm:^1.0.0"
+    promise-make-naked: "npm:^3.0.2"
+    webworker-shim: "npm:^1.1.4"
+  checksum: 10/12be3b9948f83c392a92986a9de57fdb421045982464c00f8f80218bb9215634ac58960ca324753e3e630e86cade86cb044a113d7fa007cb4f47cb8718aafff3
   languageName: node
   linkType: hard
 
@@ -9181,12 +9199,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"zeptomatch@npm:^2.0.1":
-  version: 2.0.1
-  resolution: "zeptomatch@npm:2.0.1"
+"zeptomatch@npm:^2.0.1, zeptomatch@npm:^2.0.2":
+  version: 2.0.2
+  resolution: "zeptomatch@npm:2.0.2"
   dependencies:
     grammex: "npm:^3.1.10"
-  checksum: 10/a0e6d499491dbbe7e893e01a76322053104864d049f6efe7574bb9a433c81488214c8ded2eb52d1573a65bbabd32ae4f1c1ca1e87feb418b49e9ef53cbb69a21
+  checksum: 10/1ed533338d16693410ca0a8026a2a44f38db6a67e2f1eb1b4e24dbdab2d6a86756933d152d189f1daa4910af800a4f633c4b2520a246b84ba0f8eff4a86a864a
   languageName: node
   linkType: hard
 
