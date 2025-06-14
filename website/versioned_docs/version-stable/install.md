@@ -95,12 +95,12 @@ If you forget to install Prettier first, `npx` will temporarily download the lat
 <TabItem value="yarn">
 
 ```bash
-yarn exec prettier . --write
+yarn prettier . --write
 ```
 
 :::info
 
-What is `yarn exec` doing at the start? `yarn exec prettier` runs the locally installed version of Prettier. We’ll leave off the `yarn exec` part for brevity throughout the rest of this file!
+What is `yarn` doing at the start? `yarn prettier` runs the locally installed version of Prettier. We’ll leave off the `yarn` part for brevity throughout the rest of this file!
 
 :::
 
@@ -108,12 +108,12 @@ What is `yarn exec` doing at the start? `yarn exec prettier` runs the locally in
 <TabItem value="pnpm">
 
 ```bash
-pnpm exec prettier . --write
+pnpm prettier . --write
 ```
 
 :::info
 
-What is `pnpm exec` doing at the start? `pnpm exec prettier` runs the locally installed version of Prettier. We’ll leave off the `pnpm exec` part for brevity throughout the rest of this file!
+What is `pnpm` doing at the start? `pnpm prettier` runs the locally installed version of Prettier. We’ll leave off the `pnpm` part for brevity throughout the rest of this file!
 
 :::
 
@@ -206,8 +206,8 @@ If you use Yarn 2, see https://typicode.github.io/husky/#/?id=yarn-2
 
 ```bash
 pnpm add --save-dev husky lint-staged
-pnpm exec husky init
-node --eval "fs.writeFileSync('.husky/pre-commit','pnpm exec lint-staged\n')"
+pnpm husky init
+node --eval "fs.writeFileSync('.husky/pre-commit','pnpm lint-staged\n')"
 ```
 
 </TabItem>

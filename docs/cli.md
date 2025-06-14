@@ -11,7 +11,7 @@ prettier [options] [file/dir/glob ...]
 
 :::note
 
-To run your locally installed version of Prettier, prefix the command with `npx`, `yarn exec`, `pnpm exec`, or `bunx`, i.e. `npx prettier --help`, `yarn exec prettier --help`, `pnpm exec prettier --help`, or `bunx prettier --help`.
+To run your locally installed version of Prettier, prefix the command with `npx`, `yarn`, `pnpm`, or `bunx`, i.e. `npx prettier --help`, `yarn prettier --help`, `pnpm prettier --help`, or `bunx prettier --help`.
 
 :::
 
