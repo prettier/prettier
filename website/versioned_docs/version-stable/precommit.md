@@ -125,7 +125,7 @@ node --eval "fs.writeFileSync('.husky/pre-commit', 'git-format-staged -f \'prett
 <TabItem value="pnpm">
 
 ```bash
-pnpm exec husky init
+pnpm husky init
 pnpm add --save-dev git-format-staged
 node --eval "fs.writeFileSync('.husky/pre-commit', 'git-format-staged -f \'prettier --ignore-unknown --stdin --stdin-filepath \"{}\"\' .\n')"
 ```
