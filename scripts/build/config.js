@@ -853,16 +853,7 @@ const nodejsFiles = [
           "src/experimental-cli/constants.evaluate.js",
         ),
       },
-      ...[
-        "package.json",
-        "index.mjs",
-        ...universalFiles
-          .filter(
-            ({ kind, output }) =>
-              kind === "javascript" && output.format === "esm",
-          )
-          .map(({ output }) => output.file),
-      ].map((file) => ({
+      ...["package.json", "index.mjs"].map((file) => ({
         module: getPackageFile(`prettier/${file}`),
         external: `../${file}`,
       })),
