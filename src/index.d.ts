@@ -667,7 +667,6 @@ export function clearConfigCache(): Promise<void>;
 
 export interface SupportLanguage {
   name: string;
-  since?: string | undefined;
   parsers: BuiltInParserName[] | string[];
   group?: string | undefined;
   tmScope?: string | undefined;
@@ -772,7 +771,6 @@ export interface ChoiceSupportOption<Value = any>
   default?: Value | Array<{ value: Value }> | undefined;
   description: string;
   choices: Array<{
-    since?: string | undefined;
     value: Value;
     description: string;
   }>;
