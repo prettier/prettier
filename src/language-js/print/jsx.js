@@ -496,6 +496,7 @@ const NO_WRAP_PARENTS = new Set([
   "OptionalCallExpression",
   "ConditionalExpression",
   "JsExpressionRoot",
+  "MatchExpressionCase",
 ]);
 function maybeWrapJsxElementInParens(path, elem, options) {
   const { parent } = path;
