@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`asi.js format 1`] = `
 ====================================options=====================================
@@ -172,6 +172,36 @@ class Foo {
   #render() {
     this.textContent = this.#x.toString();
   }
+}
+
+================================================================================
+`;
+
+exports[`constructor.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// Literal
+class A {
+  "constructor"() { }
+}
+
+// Identifier
+class B {
+  constructor() { }
+}
+
+=====================================output=====================================
+// Literal
+class A {
+  constructor() {}
+}
+
+// Identifier
+class B {
+  constructor() {}
 }
 
 ================================================================================
