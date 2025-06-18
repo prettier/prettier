@@ -1,25 +1,25 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`generic.ts [oxc-ts] format 1`] = `
-"Type parameters cannot appear on a constructor declaration (8:16)
-   6 |
-   7 | class f4 {
->  8 |     constructor<>() {}
-     |                ^^
-   9 | }
-  10 |
-  11 | const f5 = function<>() {}"
+"Type parameter list cannot be empty. (5:12)
+  3 | new f2<>();
+  4 |
+> 5 | function f3<>() {}
+    |            ^^
+  6 |
+  7 | class f4 {
+  8 |     constructor<>() {}"
 `;
 
 exports[`generic.ts - {"trailingComma":"all"} [oxc-ts] format 1`] = `
-"Type parameters cannot appear on a constructor declaration (8:16)
-   6 |
-   7 | class f4 {
->  8 |     constructor<>() {}
-     |                ^^
-   9 | }
-  10 |
-  11 | const f5 = function<>() {}"
+"Type parameter list cannot be empty. (5:12)
+  3 | new f2<>();
+  4 |
+> 5 | function f3<>() {}
+    |            ^^
+  6 |
+  7 | class f4 {
+  8 |     constructor<>() {}"
 `;
 
 exports[`generic.ts - {"trailingComma":"all"} format 1`] = `
@@ -74,14 +74,14 @@ class f7<> {
 `;
 
 exports[`generic.ts - {"trailingComma":"es5"} [oxc-ts] format 1`] = `
-"Type parameters cannot appear on a constructor declaration (8:16)
-   6 |
-   7 | class f4 {
->  8 |     constructor<>() {}
-     |                ^^
-   9 | }
-  10 |
-  11 | const f5 = function<>() {}"
+"Type parameter list cannot be empty. (5:12)
+  3 | new f2<>();
+  4 |
+> 5 | function f3<>() {}
+    |            ^^
+  6 |
+  7 | class f4 {
+  8 |     constructor<>() {}"
 `;
 
 exports[`generic.ts - {"trailingComma":"es5"} format 1`] = `
