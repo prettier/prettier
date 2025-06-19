@@ -504,21 +504,7 @@ function maybeWrapJsxElementInParens(path, elem, options) {
     return elem;
   }
 
-  const shouldBreak =
-    path.match(
-      undefined,
-      (node) => node.type === "ArrowFunctionExpression",
-      isCallExpression,
-      (node) => node.type === "JSXExpressionContainer",
-    ) ||
-    path.match(
-      undefined,
-      (node) => node.type === "ArrowFunctionExpression",
-      isCallExpression,
-      (node) => node.type === "ChainExpression",
-      (node) => node.type === "JSXExpressionContainer",
-    );
-
+  const shouldBreak = shouldBreakJsxElement(path);
   const needsParens = pathNeedsParens(path, options);
 
   return group(
@@ -530,6 +516,16 @@ function maybeWrapJsxElementInParens(path, elem, options) {
     ],
     { shouldBreak },
   );
+}
+
+function shouldBreakJsxElement(path) {
+  const { parent, grandparent } = path;
+  if (parent?.type !== "ArrowFunctionExpression") return false;
+  if (!isCallExpression(grandparent)) return false;
+  const callParent = path.getParentNode(
+    path.getParentNode(2).type === "ChainExpression" ? 3 : 2,
+  );
+  return callParent?.type === "JSXExpressionContainer";
 }
 
 function printJsxAttribute(path, options, print) {
