@@ -17,6 +17,8 @@ plugins:
   - "@prettier/plugin-oxc"
 ```
 
+**Requires prettier >= 3.6**
+
 Or config explicitly
 
 ```yaml
