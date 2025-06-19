@@ -5381,17 +5381,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"codemirror-graphql@npm:2.2.0":
-  version: 2.2.0
-  resolution: "codemirror-graphql@npm:2.2.0"
+"codemirror-graphql@npm:2.2.2":
+  version: 2.2.2
+  resolution: "codemirror-graphql@npm:2.2.2"
   dependencies:
     "@types/codemirror": "npm:^0.0.90"
-    graphql-language-service: "npm:5.3.0"
+    graphql-language-service: "npm:5.4.0"
   peerDependencies:
     "@codemirror/language": 6.0.0
     codemirror: ^5.65.3
     graphql: ^15.5.0 || ^16.0.0 || ^17.0.0
-  checksum: 10/050ab5205aded4b34f654622ea9f2f413680d76103683958b0958e2e92eb7b7c62afb25d018cf0c1c3ef88c7dd10561003e0b732609cfafa911c4d9b56b919f1
+  checksum: 10/91376251edc9e831f3b42ebe1374a94bda6d7290c4abda51d5d4187d1ff49c6922dfaff76af4505a48024639a1b3e01b0e37d98a6d061b4625e3da9e92fa6fc2
   languageName: node
   linkType: hard
 
@@ -7287,18 +7287,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"graphql-language-service@npm:5.3.0":
-  version: 5.3.0
-  resolution: "graphql-language-service@npm:5.3.0"
+"graphql-language-service@npm:5.4.0":
+  version: 5.4.0
+  resolution: "graphql-language-service@npm:5.4.0"
   dependencies:
     debounce-promise: "npm:^3.1.2"
     nullthrows: "npm:^1.0.0"
     vscode-languageserver-types: "npm:^3.17.1"
   peerDependencies:
-    graphql: ^15.5.0 || ^16.0.0 || ^17.0.0-alpha.2
+    graphql: ^15.5.0 || ^16.0.0 || ^17.0.0
   bin:
     graphql: dist/temp-bin.js
-  checksum: 10/461a3d9135e1076f667ef83522db63906e902f4403486addd7a958c128c34e85ec3f74c2b22dc394ad0538e5189bbfc989ec78fae452958a31648f98596431cb
+  checksum: 10/d1489f40a67c45f1e3888cc0779d339dbc1eb409e12fe5961abb68ec2a7036eeef3532b355a34da87d45df7ac46b9b817f165d745178df6c657152c3d2a0aa7d
   languageName: node
   linkType: hard
 
@@ -12021,7 +12021,7 @@ __metadata:
     "@types/js-yaml": "npm:4.0.9"
     "@vitejs/plugin-react": "npm:4.3.4"
     clsx: "npm:2.1.1"
-    codemirror-graphql: "npm:2.2.0"
+    codemirror-graphql: "npm:2.2.2"
     concurrently: "npm:9.1.2"
     js-yaml: "npm:4.1.0"
     prism-react-renderer: "npm:2.4.1"
