@@ -5691,6 +5691,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"jest-docblock@npm:30.0.1":
+  version: 30.0.1
+  resolution: "jest-docblock@npm:30.0.1"
+  dependencies:
+    detect-newline: "npm:^3.1.0"
+  checksum: 10/92ebee39282e764cd64bbfffe4a1bbae323e3b01684028c7206aada198314522a8ebe6892660d2ddeeb9a4b8d270a90da8af0fc654502a428e412867d732a459
+  languageName: node
+  linkType: hard
+
 "jest-each@npm:30.0.0, jest-each@npm:^30.0.0":
   version: 30.0.0
   resolution: "jest-each@npm:30.0.0"
@@ -7405,7 +7414,7 @@ __metadata:
     index-to-position: "npm:1.1.0"
     is-es5-identifier-name: "npm:1.0.0"
     jest: "npm:30.0.0"
-    jest-docblock: "npm:30.0.0"
+    jest-docblock: "npm:30.0.1"
     jest-light-runner: "npm:0.7.9"
     jest-snapshot-serializer-ansi: "npm:2.2.1"
     jest-snapshot-serializer-raw: "npm:2.0.0"
