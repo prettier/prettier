@@ -9,3 +9,23 @@ function foo() {
       </TableCell>
   )
 }
+
+function Component( ) {
+  return (
+    <div>
+      {aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa?.bbbbbbbbbbbbbbbbbbbbbbbbb.map(
+        (p, i) => <p key={i}>{p}</p>
+      )}
+    </div>
+  );
+}
+
+function Component() {
+  return (
+    <div>
+      {aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa?.bbbbbbbbbbbbbbbbbbbbbbbbb().map(
+        (p, i) => <p key={i}>{p}</p>
+      )}
+    </div>
+  );
+}
