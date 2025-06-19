@@ -659,12 +659,15 @@ function needsParens(path, options) {
         return true;
       }
 
-      /* Matches the following case in Flow:
-         ```
-         const a = (x: any): x is (number => string) => true;
-         ```
-         This case is not necessary in TS since `number => string` is not a valid
-         arrow type there.
+      /*
+      Matches the following case in Flow:
+
+      ```
+      const a = (x: any): x is (number => string) => true;
+      ```
+
+      This case is not necessary in TS since `number => string` is not a valid
+      arrow type there.
       */
       if (
         path.match(
