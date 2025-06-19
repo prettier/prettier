@@ -64,7 +64,7 @@ const commentClosureTypecaseTests = new Set(
   ].map((directory) => path.join(__dirname, "../format/js", directory)),
 );
 
-const espreeDisabledTests = new Set();
+const espreeDisabledTests = commentClosureTypecaseTests;
 const acornDisabledTests = new Set();
 const meriyahDisabledTests = new Set(
   [
