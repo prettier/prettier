@@ -253,6 +253,54 @@ printWidth: 80
 ================================================================================
 `;
 
+exports[`issue-16074.yml format 1`] = `
+====================================options=====================================
+parsers: ["yaml"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+---
+myDict: {}
+  # exampleKey1: value
+  # exampleKey2: value
+
+myList: []
+  # - name: example
+  #   value: example
+
+myOtherMap:
+  1: example
+  2: example
+  # 3: example
+
+myOtherList:
+  - example1
+  - example2
+  # - example3
+
+=====================================output=====================================
+---
+myDict: {}
+  # exampleKey1: value
+  # exampleKey2: value
+
+myList: []
+  # - name: example
+  #   value: example
+
+myOtherMap:
+  1: example
+  2: example
+  # 3: example
+
+myOtherList:
+  - example1
+  - example2
+  # - example3
+
+================================================================================
+`;
+
 exports[`map.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
