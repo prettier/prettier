@@ -504,12 +504,20 @@ function maybeWrapJsxElementInParens(path, elem, options) {
     return elem;
   }
 
-  const shouldBreak = path.match(
-    undefined,
-    (node) => node.type === "ArrowFunctionExpression",
-    isCallExpression,
-    (node) => node.type === "JSXExpressionContainer",
-  );
+  const shouldBreak =
+    path.match(
+      undefined,
+      (node) => node.type === "ArrowFunctionExpression",
+      isCallExpression,
+      (node) => node.type === "JSXExpressionContainer",
+    ) ||
+    path.match(
+      undefined,
+      (node) => node.type === "ArrowFunctionExpression",
+      isCallExpression,
+      (node) => node.type === "ChainExpression",
+      (node) => node.type === "JSXExpressionContainer",
+    );
 
   const needsParens = pathNeedsParens(path, options);
 
