@@ -124,7 +124,7 @@
     "buffer": "6.0.3",
     "c8": "10.1.3",
     "cross-env": "7.0.3",
-    "cspell": "9.0.0",
+    "cspell": "9.1.1",
     "enquirer": "2.4.1",
     "esbuild": "0.25.5",
     "esbuild-plugins-node-modules-polyfill": "1.7.0",
