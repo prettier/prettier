@@ -3887,16 +3887,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esbuild-plugins-node-modules-polyfill@npm:1.7.0":
-  version: 1.7.0
-  resolution: "esbuild-plugins-node-modules-polyfill@npm:1.7.0"
+"esbuild-plugins-node-modules-polyfill@npm:1.7.1":
+  version: 1.7.1
+  resolution: "esbuild-plugins-node-modules-polyfill@npm:1.7.1"
   dependencies:
     "@jspm/core": "npm:^2.1.0"
-    local-pkg: "npm:^1.0.0"
+    local-pkg: "npm:^1.1.1"
     resolve.exports: "npm:^2.0.3"
   peerDependencies:
     esbuild: ">=0.14.0 <=0.25.x"
-  checksum: 10/25a405fa2d65effc4920d9cf17254384c32f63b68d80d0d7a2c822422304de935a845d91f82e127973a1c401514e39ed32f3cac8fa826fe2902241db6c85dbe8
+  checksum: 10/bcc44ea64e49e3f5dad2853416229b5e551aeb32ca98849a03ed68b1875369afb47114a09edc410517a024c561be8bc7e0013f6dc0f4d95888160aeb960c3cff
   languageName: node
   linkType: hard
 
@@ -6447,7 +6447,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"local-pkg@npm:^1.0.0":
+"local-pkg@npm:^1.1.1":
   version: 1.1.1
   resolution: "local-pkg@npm:1.1.1"
   dependencies:
@@ -7466,7 +7466,7 @@ __metadata:
     emoji-regex: "npm:10.4.0"
     enquirer: "npm:2.4.1"
     esbuild: "npm:0.25.5"
-    esbuild-plugins-node-modules-polyfill: "npm:1.7.0"
+    esbuild-plugins-node-modules-polyfill: "npm:1.7.1"
     esbuild-visualizer: "npm:0.7.0"
     escape-string-regexp: "npm:5.0.0"
     eslint: "npm:9.29.0"
