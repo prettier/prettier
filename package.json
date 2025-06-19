@@ -35,7 +35,7 @@
     "@angular/compiler": "20.0.4",
     "@babel/code-frame": "7.27.1",
     "@babel/parser": "7.27.5",
-    "@babel/types": "7.27.3",
+    "@babel/types": "7.27.6",
     "@glimmer/syntax": "0.94.9",
     "@prettier/cli": "0.9.0",
     "@prettier/html-tags": "1.0.0",
