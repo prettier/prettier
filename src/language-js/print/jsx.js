@@ -520,8 +520,12 @@ function maybeWrapJsxElementInParens(path, elem, options) {
 
 function shouldBreakJsxElement(path) {
   const { parent, grandparent } = path;
-  if (parent?.type !== "ArrowFunctionExpression") return false;
-  if (!isCallExpression(grandparent)) return false;
+  if (parent?.type !== "ArrowFunctionExpression") {
+    return false;
+  }
+  if (!isCallExpression(grandparent)) {
+    return false;
+  }
   const callParent = path.getParentNode(
     path.getParentNode(2).type === "ChainExpression" ? 3 : 2,
   );
