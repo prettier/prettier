@@ -519,17 +519,28 @@ function maybeWrapJsxElementInParens(path, elem, options) {
 }
 
 function shouldBreakJsxElement(path) {
-  const { parent, grandparent } = path;
-  if (parent?.type !== "ArrowFunctionExpression") {
-    return false;
-  }
-  if (!isCallExpression(grandparent)) {
-    return false;
-  }
-  const callParent = path.getParentNode(
-    path.getParentNode(2).type === "ChainExpression" ? 3 : 2,
+  return (
+    path.match(
+      undefined,
+      (node) => node.type === "ArrowFunctionExpression",
+      isCallExpression,
+    ) &&
+    // Babel
+    (path.match(
+      undefined,
+      undefined,
+      undefined,
+      (node) => node.type === "JSXExpressionContainer",
+    ) ||
+      // Estree
+      path.match(
+        undefined,
+        undefined,
+        undefined,
+        (node) => node.type === "ChainExpression",
+        (node) => node.type === "JSXExpressionContainer",
+      ))
   );
-  return callParent?.type === "JSXExpressionContainer";
 }
 
 function printJsxAttribute(path, options, print) {
