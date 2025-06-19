@@ -43,7 +43,7 @@ jobs:
           path: dist
 
       - name: Lint Code
-        run: yarn test:dist-lint
+        run: yarn test:production-lint
 
   test:
     timeout-minutes: 15
@@ -123,10 +123,10 @@ jobs:
           path: dist
 
       - name: Run Tests
-        run: yarn test:dist
+        run: yarn test:production
 
       - name: Run Format Tests (standalone)
-        run: yarn test:dist-standalone
+        run: yarn test:production-standalone
 
   cli:
     name: CLI
