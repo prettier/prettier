@@ -27,7 +27,8 @@ function transform(original, file) {
         ),
       ) ||
       file.startsWith(path.join(PROJECT_ROOT, "node_modules/meriyah/")) ||
-      file.startsWith(path.join(PROJECT_ROOT, "node_modules/@glimmer/"))
+      file.startsWith(path.join(PROJECT_ROOT, "node_modules/@glimmer/")) ||
+      file.startsWith(path.join(PROJECT_ROOT, "node_modules/hermes-parser/"))
     )
   ) {
     return original;
