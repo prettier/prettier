@@ -1,6 +1,7 @@
 **/.yarn/*
 
 /tests/format/**/*.*
+!/tests/format/**/*.*/
 !/tests/format/**/format.test.js
 /tests/integration/cli/
 /tests/integration/plugins/**/*.*
