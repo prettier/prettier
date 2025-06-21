@@ -17,6 +17,8 @@ plugins:
   - "@prettier/plugin-hermes"
 ```
 
+**Requires prettier >= 3.6**
+
 Or config explicitly
 
 ```yaml
