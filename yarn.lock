@@ -6611,10 +6611,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"meriyah@npm:6.1.1":
-  version: 6.1.1
-  resolution: "meriyah@npm:6.1.1"
-  checksum: 10/adc25c3c692b5e9eb02bb52cb103275556ca31b36a203263b30542044ceb7daffb4ceae52a97351fff9760e50ececf3e6b5ef18f09de9928d9ba1fc044f7232e
+"meriyah@npm:6.1.2":
+  version: 6.1.2
+  resolution: "meriyah@npm:6.1.2"
+  checksum: 10/cf473a42fc819a5d49e38abb1130c4c99ace055a9e028ecf186a776dc295f9be7d7ed02e7856ba50835ababafe3d2f6caad274cf74165f37a805cc374fa4ac1b
   languageName: node
   linkType: hard
 
@@ -7507,7 +7507,7 @@ __metadata:
     leven: "npm:4.0.0"
     linguist-languages: "npm:8.0.0"
     magic-string: "npm:0.30.17"
-    meriyah: "npm:6.1.1"
+    meriyah: "npm:6.1.2"
     micromatch: "npm:4.0.8"
     minimist: "npm:1.2.8"
     n-readlines: "npm:1.0.1"
