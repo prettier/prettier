@@ -504,13 +504,7 @@ function maybeWrapJsxElementInParens(path, elem, options) {
     return elem;
   }
 
-  const shouldBreak = path.match(
-    undefined,
-    (node) => node.type === "ArrowFunctionExpression",
-    isCallExpression,
-    (node) => node.type === "JSXExpressionContainer",
-  );
-
+  const shouldBreak = shouldBreakJsxElement(path);
   const needsParens = pathNeedsParens(path, options);
 
   return group(
@@ -521,6 +515,31 @@ function maybeWrapJsxElementInParens(path, elem, options) {
       needsParens ? "" : ifBreak(")"),
     ],
     { shouldBreak },
+  );
+}
+
+function shouldBreakJsxElement(path) {
+  return (
+    path.match(
+      undefined,
+      (node) => node.type === "ArrowFunctionExpression",
+      isCallExpression,
+    ) &&
+    // Babel
+    (path.match(
+      undefined,
+      undefined,
+      undefined,
+      (node) => node.type === "JSXExpressionContainer",
+    ) ||
+      // Estree
+      path.match(
+        undefined,
+        undefined,
+        undefined,
+        (node) => node.type === "ChainExpression",
+        (node) => node.type === "JSXExpressionContainer",
+      ))
   );
 }
 
