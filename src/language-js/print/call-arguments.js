@@ -94,6 +94,7 @@ function printCallArguments(path, options, print) {
     node.type === "TSImportType" &&
     args.length === 1 &&
     ((args[0].type === "TSLiteralType" && isStringLiteral(args[0].literal)) ||
+      // TODO: Remove this when update Babel to v8
       isStringLiteral(args[0])) &&
     !hasComment(args[0])
   ) {
