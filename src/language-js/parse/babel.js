@@ -223,11 +223,11 @@ const babelParserOptionsCombinations = [appendPlugins(["jsx"])];
 const babel = createBabelParser({
   optionsCombinations: babelParserOptionsCombinations,
 });
-const typescriptPluginWithDtsOptions = ["typescript", { dts: true }];
+const typescriptPluginWithDtsOption = ["typescript", { dts: true }];
 const babelTs = createBabelParser({
   optionsCombinations: [
-    appendPlugins(["jsx", typescriptPluginWithDtsOptions]),
-    appendPlugins([typescriptPluginWithDtsOptions]),
+    appendPlugins(["jsx", typescriptPluginWithDtsOption]),
+    appendPlugins([typescriptPluginWithDtsOption]),
   ],
 });
 const babelExpression = createBabelParser({
