@@ -225,8 +225,8 @@ const babel = createBabelParser({
 });
 const babelTs = createBabelParser({
   optionsCombinations: [
-    appendPlugins(["jsx", "typescript"]),
-    appendPlugins(["typescript"]),
+    appendPlugins(["jsx", ["typescript", { dts: true }]]),
+    appendPlugins([["typescript", { dts: true }]]),
   ],
 });
 const babelExpression = createBabelParser({

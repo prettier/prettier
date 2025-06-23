@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`const-without-initializer.d.ts [oxc-ts] format 1`] = `
+"Missing initializer in const declaration (1:14)
+> 1 | export const version: string;
+    |              ^^^^^^^^^^^^^^^
+  2 |"
+`;
+
+exports[`const-without-initializer.d.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+export const version: string;
+
+=====================================output=====================================
+export const version: string;
+
+================================================================================
+`;
