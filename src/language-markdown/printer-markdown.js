@@ -474,7 +474,7 @@ function printListItem(path, options, print, listPrefix) {
           clamp(options.tabWidth - listPrefix.length, 0, 3), // 4+ will cause indented code block
         );
 
-        if(node.type === "list"){
+        if (node.type === "list") {
           return print();
         }
         return [alignment, align(alignment, print())];
