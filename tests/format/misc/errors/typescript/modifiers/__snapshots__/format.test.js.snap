@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`snippet: #0 [babel-ts] format 1`] = `
 "'abstract' modifier cannot appear on a type member. (2:3)
@@ -1069,10 +1069,10 @@ Cause: 'async' modifier cannot be used here."
 `;
 
 exports[`snippet: #60 [babel-ts] format 1`] = `
-"Missing initializer in const declaration. (1:16)
+"Missing semicolon. (1:16)
 > 1 | const interface Foo {}
     |                ^
-Cause: Missing initializer in const declaration. (1:15)"
+Cause: Missing semicolon. (1:15)"
 `;
 
 exports[`snippet: #60 [typescript] format 1`] = `
@@ -1533,10 +1533,10 @@ Cause: 'async' modifier cannot be used here."
 `;
 
 exports[`snippet: #92 [babel-ts] format 1`] = `
-"Missing initializer in const declaration. (1:13)
+"Missing semicolon. (1:13)
 > 1 | const module Foo {}
     |             ^
-Cause: Missing initializer in const declaration. (1:12)"
+Cause: Missing semicolon. (1:12)"
 `;
 
 exports[`snippet: #92 [typescript] format 1`] = `
@@ -1547,10 +1547,10 @@ Cause: ',' expected."
 `;
 
 exports[`snippet: #93 [babel-ts] format 1`] = `
-"Missing initializer in const declaration. (1:16)
+"Missing semicolon. (1:16)
 > 1 | const namespace Foo {}
     |                ^
-Cause: Missing initializer in const declaration. (1:15)"
+Cause: Missing semicolon. (1:15)"
 `;
 
 exports[`snippet: #93 [typescript] format 1`] = `
