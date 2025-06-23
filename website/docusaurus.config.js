@@ -201,8 +201,8 @@ const config = {
                 href: "http://stackoverflow.com/questions/tagged/prettier",
               },
               {
-                label: "@PrettierCode on Twitter",
-                href: "https://twitter.com/PrettierCode",
+                label: "@PrettierCode on X",
+                href: "https://x.com/PrettierCode",
               },
             ],
           },
