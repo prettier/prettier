@@ -161,7 +161,12 @@ function printObject(path, options, print) {
           lastElem.type === "TSMethodSignature" ||
           lastElem.type === "TSConstructSignatureDeclaration" ||
           lastElem.type === "TSIndexSignature") &&
-          hasComment(lastElem, CommentCheckFlags.PrettierIgnore))))
+          hasComment(lastElem, CommentCheckFlags.PrettierIgnore)))) ||
+    // https://github.com/microsoft/TypeScript/issues/61916
+    path.match(
+      undefined,
+      (node, key) => node.type === "TSImportType" && key === "options",
+    )
   );
 
   let content;
