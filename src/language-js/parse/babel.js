@@ -217,17 +217,26 @@ const allowedReasonCodes = new Set([
   ```
   */
   "ImportAttributesUseAssert",
+
+  /*
+  Allow const without initializer in `.d.ts` files
+  https://github.com/prettier/prettier/issues/17649
+
+  ```
+  export const version: string;
+  ```
+  */
+  "DeclarationMissingInitializer",
 ]);
 
 const babelParserOptionsCombinations = [appendPlugins(["jsx"])];
 const babel = createBabelParser({
   optionsCombinations: babelParserOptionsCombinations,
 });
-const typescriptPluginWithDtsOption = ["typescript", { dts: true }];
 const babelTs = createBabelParser({
   optionsCombinations: [
-    appendPlugins(["jsx", typescriptPluginWithDtsOption]),
-    appendPlugins([typescriptPluginWithDtsOption]),
+    appendPlugins(["jsx", "typescript"]),
+    appendPlugins(["typescript"]),
   ],
 });
 const babelExpression = createBabelParser({
