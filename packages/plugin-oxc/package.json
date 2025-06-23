@@ -1,6 +1,6 @@
 {
   "name": "@prettier/plugin-oxc",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Prettier Oxc plugin.",
   "type": "module",
   "exports": {
