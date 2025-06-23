@@ -99,9 +99,12 @@ async function parseTs(text, options) {
     filepathCombinations = ["prettier.d.ts"];
   } else if (!isKnownJsx) {
     const shouldEnableJsx = jsxRegexp.test(text);
-    filepathCombinations = [shouldEnableJsx, !shouldEnableJsx].map(
-      (shouldEnableJsx) => (shouldEnableJsx ? "prettier.tsx" : "prettier.ts"),
-    );
+    filepathCombinations = [
+      ...[shouldEnableJsx, !shouldEnableJsx].map((shouldEnableJsx) =>
+        shouldEnableJsx ? "prettier.tsx" : "prettier.ts",
+      ),
+      "prettier.d.ts",
+    ];
   }
 
   let result;
