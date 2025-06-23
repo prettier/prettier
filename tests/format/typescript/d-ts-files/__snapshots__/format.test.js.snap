@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`const-without-initializer.d.ts [oxc-ts] format 1`] = `
-"Missing initializer in const declaration (1:14)
-> 1 | export const version: string;
-    |              ^^^^^^^^^^^^^^^
+"Missing initializer in const declaration (1:17)
+> 1 | export const    version: string;
+    |                 ^^^^^^^^^^^^^^^
   2 |"
 `;
 
@@ -13,10 +13,37 @@ parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-export const version: string;
+export const    version: string;
 
 =====================================output=====================================
 export const version: string;
+
+================================================================================
+`;
+
+exports[`const-without-initializer-in-namespace.d.ts [oxc-ts] format 1`] = `
+"Missing initializer in const declaration (2:12)
+  1 | export namespace builders {
+> 2 |   const    breakParent: string;
+    |            ^^^^^^^^^^^^^^^^^^^
+  3 | }
+  4 |"
+`;
+
+exports[`const-without-initializer-in-namespace.d.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+export namespace builders {
+  const    breakParent: string;
+}
+
+=====================================output=====================================
+export namespace builders {
+  const breakParent: string;
+}
 
 ================================================================================
 `;
