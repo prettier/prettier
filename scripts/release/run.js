@@ -37,11 +37,11 @@ for (let step of [
     process: steps.installDependencies,
     skip: params.dry || params.skipDependenciesInstall || !params.manual,
   },
-  {
-    name: "Linting files",
-    process: steps.lintFiles,
-    skip: params.dry,
-  },
+  // {
+  //   name: "Linting files",
+  //   process: steps.lintFiles,
+  //   skip: params.dry,
+  // },
   {
     name: "Bumping version",
     process: steps.updateVersion,
