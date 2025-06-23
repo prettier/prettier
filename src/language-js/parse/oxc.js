@@ -94,10 +94,10 @@ async function parseTs(text, options) {
     typeof filepath === "string" && filepath.toLowerCase().endsWith(".d.ts");
 
   /** @type {string[]} */
-  let filepathCombinations = [isDtsFile ? "prettier.d.ts" : "prettier.tsx"];
+  let filenameCombinations = [isDtsFile ? "prettier.d.ts" : "prettier.tsx"];
   if (!isDtsFile && !isKnownJsx) {
     const shouldEnableJsx = jsxRegexp.test(text);
-    filepathCombinations = [
+    filenameCombinations = [
       ...[shouldEnableJsx, !shouldEnableJsx].map((shouldEnableJsx) =>
         shouldEnableJsx ? "prettier.tsx" : "prettier.ts",
       ),
@@ -108,8 +108,8 @@ async function parseTs(text, options) {
   let result;
   try {
     result = await tryCombinationsAsync(
-      filepathCombinations.map(
-        (filepath) => () => parseWithOptions(filepath, text, parseOptions),
+      filenameCombinations.map(
+        (filename) => () => parseWithOptions(filename, text, parseOptions),
       ),
     );
   } catch ({
