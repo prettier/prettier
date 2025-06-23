@@ -217,6 +217,16 @@ const allowedReasonCodes = new Set([
   ```
   */
   "ImportAttributesUseAssert",
+
+  /*
+  Allow const without initializer in `.d.ts` files
+  https://github.com/prettier/prettier/issues/17649
+
+  ```
+  export const version: string;
+  ```
+  */
+  "DeclarationMissingInitializer",
 ]);
 
 const babelParserOptionsCombinations = [appendPlugins(["jsx"])];
