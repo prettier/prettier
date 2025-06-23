@@ -94,10 +94,8 @@ async function parseTs(text, options) {
     typeof filepath === "string" && filepath.toLowerCase().endsWith(".d.ts");
 
   /** @type {string[]} */
-  let filepathCombinations = ["prettier.tsx"];
-  if (isDtsFile) {
-    filepathCombinations = ["prettier.d.ts"];
-  } else if (!isKnownJsx) {
+  let filepathCombinations = [isDtsFile ? "prettier.d.ts" : "prettier.tsx"];
+  if (!isDtsFile && !isKnownJsx) {
     const shouldEnableJsx = jsxRegexp.test(text);
     filepathCombinations = [
       ...[shouldEnableJsx, !shouldEnableJsx].map((shouldEnableJsx) =>
