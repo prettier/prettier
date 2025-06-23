@@ -93,7 +93,7 @@ async function parseTs(text, options) {
   const isDtsFile =
     typeof filepath === "string" && filepath.toLowerCase().endsWith(".d.ts");
 
-  /** @type {ParserOptions[]} */
+  /** @type {string[]} */
   let filepathCombinations = ["prettier.tsx"];
   if (isDtsFile) {
     filepathCombinations = ["prettier.d.ts"];
