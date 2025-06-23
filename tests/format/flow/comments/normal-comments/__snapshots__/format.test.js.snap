@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`11526.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+type Foo = {
+  bar: // test
+    | {loooooooooooooooooongPropName1: string}
+    | {loooooooooooooooooongPropName2: string},
+};
+
+=====================================output=====================================
+type Foo = {
+  bar:  // test
+    | { loooooooooooooooooongPropName1: string }
+    | { loooooooooooooooooongPropName2: string },
+};
+
+================================================================================
+`;

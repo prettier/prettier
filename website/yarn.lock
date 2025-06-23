@@ -5534,9 +5534,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"concurrently@npm:9.1.2":
-  version: 9.1.2
-  resolution: "concurrently@npm:9.1.2"
+"concurrently@npm:9.2.0":
+  version: 9.2.0
+  resolution: "concurrently@npm:9.2.0"
   dependencies:
     chalk: "npm:^4.1.2"
     lodash: "npm:^4.17.21"
@@ -5548,7 +5548,7 @@ __metadata:
   bin:
     conc: dist/bin/concurrently.js
     concurrently: dist/bin/concurrently.js
-  checksum: 10/52f20653db53e25950e84026d153177af976d6d0e139b95fc5983c684221cc20ef5548ad5dc8885f146fff2c87bc7f7beb18f5fa54eee3bb62b5e795234d6cbc
+  checksum: 10/fdf5d3b583640b11ef84fab3ffdf77ed9c6878fa0a56f6787b6cd46b7011305c71d9e0067a814ca4fa52bea6f20ddb466bb97a13d61999628e43e550ddad7c93
   languageName: node
   linkType: hard
 
@@ -12059,7 +12059,7 @@ __metadata:
     "@vitejs/plugin-react": "npm:4.5.2"
     clsx: "npm:2.1.1"
     codemirror-graphql: "npm:2.2.2"
-    concurrently: "npm:9.1.2"
+    concurrently: "npm:9.2.0"
     js-yaml: "npm:4.1.0"
     prism-react-renderer: "npm:2.4.1"
     react: "npm:18.3.1"
