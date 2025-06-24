@@ -11,7 +11,7 @@ function getInterpreter(file) {
     const firstLineBuffer = liner.next();
 
     if (firstLineBuffer === false) {
-      return undefined;
+      return;
     }
 
     liner.close();
@@ -31,7 +31,6 @@ function getInterpreter(file) {
     }
   } catch {
     // couldn't open the file
-    return;
   }
 }
 
