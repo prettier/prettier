@@ -45,10 +45,12 @@ function createParseError(error) {
   });
 }
 
-function parse(text, options = {}) {
+function parse(text, options) {
   const ast = flowParser.parse(
     text,
-    options.__collect_tokens ? { ...parseOptions, tokens: true } : parse,
+    options?.__collect_tokens
+      ? { ...parseOptions, tokens: true }
+      : parseOptions,
   );
   const [error] = ast.errors;
   if (error) {
