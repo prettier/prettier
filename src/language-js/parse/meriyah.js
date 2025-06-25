@@ -98,7 +98,7 @@ function parse(text, options) {
     sourceType ? [sourceType] : SOURCE_TYPE_COMBINATIONS
   ).map(
     (sourceType) => () =>
-      parseWithOptions(text, { sourceType, tokens: options.__collect_tokens }),
+      parseWithOptions(text, { sourceType, tokens: options?.__collect_tokens }),
   );
 
   let ast;

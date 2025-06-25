@@ -47,7 +47,7 @@ function parse(text, options) {
       espreeParse(text, {
         ...parseOptions,
         sourceType,
-        tokens: options.__collect_tokens ?? parseOptions.tokens,
+        tokens: options?.__collect_tokens ?? parseOptions.tokens,
       }),
   );
 

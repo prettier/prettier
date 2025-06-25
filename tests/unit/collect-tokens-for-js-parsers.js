@@ -1,6 +1,6 @@
 import loadBuiltinPlugins from "../../src/main/plugins/load-builtin-plugins.js";
 
-// https://github.com/hosseinmd//issues/245
+// https://github.com/hosseinmd/prettier-plugin-jsdoc/issues/247
 test("Collect tokens for prettier-plugin-jsdoc", async () => {
   const [{ parsers }] = await loadBuiltinPlugins();
 
