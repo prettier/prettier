@@ -9,7 +9,8 @@ test("Collect tokens for prettier-plugin-jsdoc", async () => {
       continue;
     }
 
-    const parser = await getParser();
+    const parser =
+      typeof getParser === "function" ? await getParser() : getParser;
     if (parser.astFormat !== "estree") {
       continue;
     }
