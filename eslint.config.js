@@ -16,7 +16,7 @@ import eslintPluginPrettierInternalRules from "./scripts/tools/eslint-plugin-pre
 const toPath = (file) => url.fileURLToPath(new URL(file, import.meta.url));
 
 const ignores = `
-.tmp
+**/.tmp
 test*.*
 # Ignore directories and files in 'tests/format'
 tests/format/**/*
