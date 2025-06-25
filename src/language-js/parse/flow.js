@@ -45,8 +45,11 @@ function createParseError(error) {
   });
 }
 
-function parse(text) {
-  const ast = flowParser.parse(text, parseOptions);
+function parse(text, options = {}) {
+  const ast = flowParser.parse(
+    text,
+    options.__collect_tokens ? { ...parseOptions, tokens: true } : parse,
+  );
   const [error] = ast.errors;
   if (error) {
     throw createParseError(error);

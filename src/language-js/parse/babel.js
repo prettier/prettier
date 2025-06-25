@@ -145,6 +145,13 @@ function createParse({ isExpression = false, optionsCombinations }) {
       );
     }
 
+    if (options.__collect_tokens) {
+      combinations = combinations.map((options) => ({
+        ...options,
+        tokens: true,
+      }));
+    }
+
     /** @type {Parse} */
     const parseFunction = isExpression ? parseExpression : babelParse;
 

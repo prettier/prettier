@@ -43,7 +43,12 @@ function parse(text, options) {
   const combinations = (
     sourceType ? [sourceType] : SOURCE_TYPE_COMBINATIONS
   ).map(
-    (sourceType) => () => espreeParse(text, { ...parseOptions, sourceType }),
+    (sourceType) => () =>
+      espreeParse(text, {
+        ...parseOptions,
+        sourceType,
+        tokens: options.__collect_tokens ?? parseOptions.tokens,
+      }),
   );
 
   let ast;

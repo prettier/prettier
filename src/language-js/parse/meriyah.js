@@ -9,6 +9,14 @@ import {
   SOURCE_TYPE_MODULE,
 } from "./utils/source-types.js";
 
+/** @import {ESTree as MeriyahEstree} from "meriyah"; */
+/** @typedef {
+  MeriyahEstree.Program & {
+    comments?: MeriyahEstree.Comment[],
+    tokens?: any[],
+  }
+} MeriyahAst */
+
 // https://github.com/meriyah/meriyah/blob/4676f60b6c149d7082bde2c9147f9ae2359c8075/src/parser.ts#L185
 const parseOptions = {
   // Allow module code
@@ -41,16 +49,22 @@ const parseOptions = {
   uniqueKeyInPattern: false,
 };
 
-function parseWithOptions(text, sourceType) {
+function parseWithOptions(text, options) {
   const comments = [];
+  const tokens = options.tokens ? [] : undefined;
 
-  /** @type {any} */
+  /** @type {MeriyahAst} */
   const ast = meriyahParse(text, {
     ...parseOptions,
-    module: sourceType === SOURCE_TYPE_MODULE,
+    module: options.sourceType === SOURCE_TYPE_MODULE,
     onComment: comments,
+    onToken: tokens,
   });
   ast.comments = comments;
+
+  if (options.tokens) {
+    ast.tokens = tokens;
+  }
 
   return ast;
 }
@@ -82,7 +96,10 @@ function parse(text, options) {
   const sourceType = getSourceType(options?.filepath);
   const combinations = (
     sourceType ? [sourceType] : SOURCE_TYPE_COMBINATIONS
-  ).map((sourceType) => () => parseWithOptions(text, sourceType));
+  ).map(
+    (sourceType) => () =>
+      parseWithOptions(text, { sourceType, tokens: options.__collect_tokens }),
+  );
 
   let ast;
   try {

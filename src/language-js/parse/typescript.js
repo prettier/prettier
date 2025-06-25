@@ -84,7 +84,14 @@ function parse(text, options) {
   }
 
   const textToParse = replaceHashbang(text);
-  const parseOptionsCombinations = getParseOptionsCombinations(text, filepath);
+  let parseOptionsCombinations = getParseOptionsCombinations(text, filepath);
+
+  if (options?.__collect_tokens) {
+    parseOptionsCombinations = parseOptionsCombinations.map((options) => ({
+      ...options,
+      tokens: true,
+    }));
+  }
 
   let ast;
   try {

@@ -55,20 +55,27 @@ const getParser = () => {
   return parser;
 };
 
-function parseWithOptions(text, sourceType) {
+function parseWithOptions(text, options) {
   const parser = getParser();
 
   const comments = [];
+  const tokens = options.tokens ? [] : undefined;
 
   const ast = parser.parse(text, {
     ...parseOptions,
-    sourceType,
-    allowImportExportEverywhere: sourceType === SOURCE_TYPE_MODULE,
+    sourceType: options.sourceType,
+    allowImportExportEverywhere: options.sourceType === SOURCE_TYPE_MODULE,
     onComment: comments,
+    onToken: tokens,
   });
 
   // @ts-expect-error -- expected
   ast.comments = comments;
+
+  if (options.tokens) {
+    // @ts-expect-error -- expected
+    ast.tokens = tokens;
+  }
 
   return ast;
 }
@@ -77,7 +84,10 @@ function parse(text, options) {
   const sourceType = getSourceType(options?.filepath);
   const combinations = (
     sourceType ? [sourceType] : SOURCE_TYPE_COMBINATIONS
-  ).map((sourceType) => () => parseWithOptions(text, sourceType));
+  ).map(
+    (sourceType) => () =>
+      parseWithOptions(text, { sourceType, tokens: options.__collect_tokens }),
+  );
 
   let ast;
   try {
