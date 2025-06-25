@@ -1,6 +1,6 @@
 {
   "name": "prettier",
-  "version": "3.6.1",
+  "version": "3.7.0-dev",
   "description": "Prettier is an opinionated code formatter",
   "bin": "./bin/prettier.cjs",
   "repository": "prettier/prettier",
@@ -150,7 +150,7 @@
     "nano-spawn": "1.0.2",
     "node-style-text": "0.0.8",
     "npm-run-all2": "8.0.4",
-    "prettier": "3.6.0",
+    "prettier": "3.6.1",
     "pretty-bytes": "7.0.0",
     "pretty-ms": "9.2.0",
     "rollup-plugin-license": "3.6.0",
