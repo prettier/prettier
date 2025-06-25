@@ -27,7 +27,7 @@ The options you can use in the configuration file are the same as the [API optio
 
 ### TypeScript Configuration Files
 
-TypeScript support for Node.js is currently experimental, Node.js>=22.6.0 is required and `--experimental-strip-types` is required to run Node.js.
+TypeScript support requires Node.js>=22.6.0, and `--experimental-strip-types` is required before Node.js v24.3.0 to run Node.js.
 
 ```sh
 node --experimental-strip-types node_modules/prettier/bin/prettier.cjs . --write
