@@ -1,3 +1,37 @@
+# 3.6.1
+
+[diff](https://github.com/prettier/prettier/compare/3.6.0...3.6.1)
+
+#### TypeScript: Allow const without initializer ([#17650](https://github.com/prettier/prettier/pull/17650), [#17654](https://github.com/prettier/prettier/pull/17654) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```jsx
+// Input
+export const version: string;
+
+// Prettier 3.6.0 (--parser=babel-ts)
+SyntaxError: Unexpected token (1:21)
+> 1 | export const version: string;
+    |                     ^
+
+// Prettier 3.6.0 (--parser=oxc-ts)
+SyntaxError: Missing initializer in const declaration (1:14)
+> 1 | export const version: string;
+    |              ^^^^^^^^^^^^^^^
+
+// Prettier 3.6.1
+export const version: string;
+```
+
+#### Miscellaneous: Avoid closing files multiple times ([#17665](https://github.com/prettier/prettier/pull/17665) by [@43081j](https://github.com/43081j))
+
+When reading a file to infer the interpreter from a shebang, we use the
+`n-readlines` library to read the first line in order to get the shebang.
+
+This library closes files when it reaches EOF, and we later try close the same
+files again. We now close files only if `n-readlines` did not already close
+them.
+
 # 3.6.0
 
 [diff](https://github.com/prettier/prettier/compare/3.5.3...3.6.0)
