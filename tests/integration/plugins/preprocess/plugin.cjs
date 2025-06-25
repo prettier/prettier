@@ -11,14 +11,14 @@ module.exports = {
   ],
   parsers: {
     "foo-parser": {
-      preprocess: (text) => `preprocessed:${text}`,
+      preprocess: (text) => Promise.resolve(`preprocessed:${text}`),
       parse: (text) => ({ text }),
       astFormat: "foo-ast",
     },
   },
   printers: {
     "foo-ast": {
-      print: (path) => path.getValue().text,
+      print: ({ node }) => node.text,
     },
   },
 };
