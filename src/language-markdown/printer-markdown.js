@@ -676,7 +676,9 @@ function isLooseListItem(node, options) {
 function shouldPrePrintDoubleHardline({ node, previous, parent }, options) {
   if (
     isLooseListItem(previous, options) ||
-    (parent.type === "listItem" && previous.type === "code")
+    (node.type === "list" &&
+      parent.type === "listItem" &&
+      previous.type === "code")
   ) {
     return true;
   }
