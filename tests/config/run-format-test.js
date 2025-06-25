@@ -85,11 +85,7 @@ const babelTsDisabledTests = new Set(
   ),
 );
 const oxcDisabledTests = new Set();
-const oxcTsDisabledTests = new Set(
-  [
-    "typescript/conformance/types/functions/functionOverloadErrorsSyntax.ts",
-  ].map((file) => path.join(__dirname, "../format", file)),
-);
+const oxcTsDisabledTests = new Set();
 const hermesDisabledTests = new Set([
   ...commentClosureTypecaseTests,
   ...[
