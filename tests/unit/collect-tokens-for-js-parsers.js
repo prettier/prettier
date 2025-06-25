@@ -15,8 +15,12 @@ test("Collect tokens for prettier-plugin-jsdoc", async () => {
       continue;
     }
 
-    const ast = await parser.parse("1", { __collect_tokens: true });
+    const astWithTokens = await parser.parse("1", { __collect_tokens: true });
+    expect(
+      Array.isArray(astWithTokens.tokens) && astWithTokens.tokens.length > 0,
+    ).toBe(true);
 
-    expect(Array.isArray(ast.tokens) && ast.tokens.length > 0).toBe(true);
+    const astWithoutTokens = await parser.parse("1");
+    expect(astWithoutTokens.tokens).toBeUndefined();
   }
 });
