@@ -52,27 +52,29 @@ body:before {
   white-space: pre-wrap;
 }
 
-width: ((100% - (($numPerRow - 1) * $margin)) / $numPerRow);
-width
-:
-(
-(
-100%
--
-(
-(
-$numPerRow
--
-1
-)
-*
-$margin
-)
-)
-/
-$numPerRow
-)
-;
+.a {
+  width: ((100% - (($numPerRow - 1) * $margin)) / $numPerRow);
+  width
+  :
+  (
+  (
+  100%
+  -
+  (
+  (
+  $numPerRow
+  -
+  1
+  )
+  *
+  $margin
+  )
+  )
+  /
+  $numPerRow
+  )
+  ;
+}
 
 a:nth-child(#{$numPerRow}n) {
   margin-right: 0;

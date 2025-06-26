@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`require.js format 1`] = `
 ====================================options=====================================
@@ -23,6 +23,8 @@ const plugin2 = require(
     global.STANDALONE ? "../standalone.js" : '..'
   )
 );
+
+const plugin3 = require('./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module')
 
 =====================================output=====================================
 const {
@@ -62,6 +64,8 @@ const plugin = require(
 const plugin2 = require(
   path.join(__dirname, global.STANDALONE ? "../standalone.js" : ".."),
 );
+
+const plugin3 = require("./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
 
 ================================================================================
 `;

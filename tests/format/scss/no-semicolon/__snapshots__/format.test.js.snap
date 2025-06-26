@@ -1,8 +1,8 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`include.scss format 1`] = `
 ====================================options=====================================
-parsers: ["scss"]
+parsers: ["sassparser"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -28,7 +28,7 @@ printWidth: 80
 
 exports[`include-2.scss format 1`] = `
 ====================================options=====================================
-parsers: ["scss"]
+parsers: ["sassparser"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -54,16 +54,15 @@ printWidth: 80
 
 exports[`url.scss format 1`] = `
 ====================================options=====================================
-parsers: ["scss"]
+parsers: ["sassparser"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-@import ur
-  l(//fonts.googleapis.com/css?family=Open+Sans:400,400italic);
+@import url(
+  //fonts.googleapis.com/css?family=Open+Sans:400,400italic);
 
 =====================================output=====================================
-@import ur
-  l(; //fonts.googleapis.com/css?family=Open+Sans:400,400italic);
+@import url(//fonts.googleapis.com/css?family=Open+Sans:400,400italic);
 
 ================================================================================
 `;

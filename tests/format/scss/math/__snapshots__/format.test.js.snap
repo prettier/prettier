@@ -1,8 +1,8 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`3945.scss - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
-parsers: ["scss"]
+parsers: ["sassparser"]
 printWidth: 80
 trailingComma: "es5"
                                                                                 | printWidth
@@ -61,27 +61,29 @@ body:before {
   white-space: pre-wrap;
 }
 
-width: ((100% - (($numPerRow - 1) * $margin)) / $numPerRow);
-width
-:
-(
-(
-100%
--
-(
-(
-$numPerRow
--
-1
-)
-*
-$margin
-)
-)
-/
-$numPerRow
-)
-;
+.a {
+  width: ((100% - (($numPerRow - 1) * $margin)) / $numPerRow);
+  width
+  :
+  (
+  (
+  100%
+  -
+  (
+  (
+  $numPerRow
+  -
+  1
+  )
+  *
+  $margin
+  )
+  )
+  /
+  $numPerRow
+  )
+  ;
+}
 
 a:nth-child(#{$numPerRow}n) {
   margin-right: 0;
@@ -192,8 +194,10 @@ body:before {
   white-space: pre-wrap;
 }
 
-width: ((100% - (($numPerRow - 1) * $margin)) / $numPerRow);
-width: ((100% - (($numPerRow - 1) * $margin)) / $numPerRow);
+.a {
+  width: ((100% - (($numPerRow - 1) * $margin)) / $numPerRow);
+  width: ((100% - (($numPerRow - 1) * $margin)) / $numPerRow);
+}
 
 a:nth-child(#{$numPerRow}n) {
   margin-right: 0;
@@ -264,7 +268,7 @@ $colors: (
 
 exports[`3945.scss - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
-parsers: ["scss"]
+parsers: ["sassparser"]
 printWidth: 80
 trailingComma: "none"
                                                                                 | printWidth
@@ -323,27 +327,29 @@ body:before {
   white-space: pre-wrap;
 }
 
-width: ((100% - (($numPerRow - 1) * $margin)) / $numPerRow);
-width
-:
-(
-(
-100%
--
-(
-(
-$numPerRow
--
-1
-)
-*
-$margin
-)
-)
-/
-$numPerRow
-)
-;
+.a {
+  width: ((100% - (($numPerRow - 1) * $margin)) / $numPerRow);
+  width
+  :
+  (
+  (
+  100%
+  -
+  (
+  (
+  $numPerRow
+  -
+  1
+  )
+  *
+  $margin
+  )
+  )
+  /
+  $numPerRow
+  )
+  ;
+}
 
 a:nth-child(#{$numPerRow}n) {
   margin-right: 0;
@@ -454,8 +460,10 @@ body:before {
   white-space: pre-wrap;
 }
 
-width: ((100% - (($numPerRow - 1) * $margin)) / $numPerRow);
-width: ((100% - (($numPerRow - 1) * $margin)) / $numPerRow);
+.a {
+  width: ((100% - (($numPerRow - 1) * $margin)) / $numPerRow);
+  width: ((100% - (($numPerRow - 1) * $margin)) / $numPerRow);
+}
 
 a:nth-child(#{$numPerRow}n) {
   margin-right: 0;

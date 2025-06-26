@@ -28,6 +28,7 @@ import {
 import { printInterface } from "./interface.js";
 import { printBigInt } from "./literal.js";
 import { printFlowMappedTypeProperty } from "./mapped-type.js";
+import { printMatch, printMatchCase, printMatchPattern } from "./match.js";
 import {
   printDeclareToken,
   printOptionalToken,
@@ -323,6 +324,26 @@ function printFlow(path, options, print) {
     case "AsConstExpression":
     case "SatisfiesExpression":
       return printBinaryCastExpression(path, options, print);
+
+    case "MatchExpression":
+    case "MatchStatement":
+      return printMatch(path, options, print);
+    case "MatchExpressionCase":
+    case "MatchStatementCase":
+      return printMatchCase(path, options, print);
+    case "MatchOrPattern":
+    case "MatchAsPattern":
+    case "MatchWildcardPattern":
+    case "MatchLiteralPattern":
+    case "MatchUnaryPattern":
+    case "MatchIdentifierPattern":
+    case "MatchMemberPattern":
+    case "MatchBindingPattern":
+    case "MatchObjectPattern":
+    case "MatchObjectPatternProperty":
+    case "MatchRestPattern":
+    case "MatchArrayPattern":
+      return printMatchPattern(path, options, print);
   }
 }
 

@@ -1,8 +1,8 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`2.scss format 1`] = `
 ====================================options=====================================
-parsers: ["scss"]
+parsers: ["sassparser"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -41,7 +41,7 @@ $icons: (
 
 exports[`issue-16594.scss format 1`] = `
 ====================================options=====================================
-parsers: ["scss"]
+parsers: ["sassparser"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -63,7 +63,7 @@ printWidth: 80
 
 exports[`parens.scss format 1`] = `
 ====================================options=====================================
-parsers: ["scss"]
+parsers: ["sassparser"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -215,10 +215,6 @@ a {
   prop18: 2/$width 2 /$width 2/ $width 2 / $width;
   prop19: ($width/2) ($width /2) ($width/ 2) ($width / 2);
   prop20: (2/$width) (2 /$width) (2/ $width) (2 / $width);
-  prop21: @width/2 @width /2 @width/ 2 @width / 2;
-  prop22: 2/@width 2 /@width 2/ @width 2 / @width;
-  prop23: (@width/2) (@width /2) (@width/ 2) (@width / 2);
-  prop24: (2/@width) (2 /@width) (2/ @width) (2 / @width);
   prop25-1: #{$width}/#{$width} #{$width} /#{$width} #{$width}/ #{$width} #{$width} / #{$width};
   prop25-2: #{$width}*#{$width} #{$width} *#{$width} #{$width}* #{$width} #{$width} * #{$width};
   prop25-3: #{$width}+#{$width} #{$width} +#{$width} #{$width}+ #{$width} #{$width} + #{$width};
@@ -461,10 +457,6 @@ a {
   prop18: 2 / $width 2 / $width 2 / $width 2 / $width;
   prop19: ($width/2) ($width / 2) ($width/ 2) ($width / 2);
   prop20: (2 / $width) (2 / $width) (2 / $width) (2 / $width);
-  prop21: @width / 2 @width / 2 @width / 2 @width / 2;
-  prop22: 2 / @width 2 / @width 2 / @width 2 / @width;
-  prop23: (@width / 2) (@width / 2) (@width / 2) (@width / 2);
-  prop24: (2 / @width) (2 / @width) (2 / @width) (2 / @width);
   prop25-1: #{$width}/#{$width} #{$width} /#{$width} #{$width}/ #{$width}
     #{$width} / #{$width};
   prop25-2: #{$width}*#{$width} #{$width} *#{$width} #{$width}* #{$width}

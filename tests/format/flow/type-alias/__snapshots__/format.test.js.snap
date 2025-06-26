@@ -1,15 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`conditional.js [babel-flow] format 1`] = `
-"Unexpected token (2:43)
-  1 | type FallbackFlags<F: Flags | void> =
-> 2 |   Equals<NonNullableFlag<F>["flags"], {}> extends true
-    |                                           ^
-  3 |     ? Dict<any>
-  4 |     : NonNullableFlag<F>["flags"];
-  5 |
-Cause: Unexpected token (2:42)"
-`;
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`conditional.js format 1`] = `
 ====================================options=====================================

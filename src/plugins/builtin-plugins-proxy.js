@@ -10,6 +10,8 @@ import jsOptions from "../language-js/options.js";
 import jsonLanguages from "../language-json/languages.evaluate.js";
 import markdownLanguages from "../language-markdown/languages.evaluate.js";
 import markdownOptions from "../language-markdown/options.js";
+import sassparserLanguages from "../language-sassparser/languages.evaluate.js";
+import sassparserOptions from "../language-sassparser/options.js";
 import yamlLanguages from "../language-yaml/languages.evaluate.js";
 import yamlOptions from "../language-yaml/options.js";
 
@@ -45,6 +47,7 @@ function createParsersAndPrinters(modules) {
 
 export const options = {
   ...cssOptions,
+  ...sassparserOptions,
   ...graphqlOptions,
   ...htmlOptions,
   ...jsOptions,
@@ -54,6 +57,7 @@ export const options = {
 
 export const languages = [
   ...cssLanguages,
+  ...sassparserLanguages,
   ...graphqlLanguages,
   ...handlebarsLanguages,
   ...htmlLanguages,
@@ -132,6 +136,11 @@ export const { parsers, printers } = createParsersAndPrinters([
   {
     importPlugin: () => import("./postcss.js"),
     parsers: ["css", "less", "scss"],
+    printers: ["postcss"],
+  },
+  {
+    importPlugin: () => import("./sassparser.js"),
+    parsers: ["sassparser"],
     printers: ["postcss"],
   },
   {

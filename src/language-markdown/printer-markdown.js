@@ -297,9 +297,9 @@ function genericPrint(path, options, print) {
       );
 
       return printChildren(path, options, print, {
-        processor(childPath) {
+        processor() {
           const prefix = getPrefix();
-          const childNode = childPath.node;
+          const { node: childNode } = path;
 
           if (
             childNode.children.length === 2 &&
@@ -307,24 +307,24 @@ function genericPrint(path, options, print) {
             childNode.children[0].position.start.column !==
               childNode.children[1].position.start.column
           ) {
-            return [prefix, printListItem(childPath, options, print, prefix)];
+            return [prefix, printListItem(path, options, print, prefix)];
           }
 
           return [
             prefix,
             align(
               " ".repeat(prefix.length),
-              printListItem(childPath, options, print, prefix),
+              printListItem(path, options, print, prefix),
             ),
           ];
 
           function getPrefix() {
             const rawPrefix = node.ordered
-              ? (childPath.isFirst
+              ? (path.isFirst
                   ? node.start
                   : isGitDiffFriendlyOrderedList
                     ? 1
-                    : node.start + childPath.index) +
+                    : node.start + path.index) +
                 (nthSiblingIndex % 2 === 0 ? ". " : ") ")
               : nthSiblingIndex % 2 === 0
                 ? "- "
@@ -674,9 +674,12 @@ function isLooseListItem(node, options) {
 }
 
 function shouldPrePrintDoubleHardline({ node, previous, parent }, options) {
-  const isPrevNodeLooseListItem = isLooseListItem(previous, options);
-
-  if (isPrevNodeLooseListItem) {
+  if (
+    isLooseListItem(previous, options) ||
+    (node.type === "list" &&
+      parent.type === "listItem" &&
+      previous.type === "code")
+  ) {
     return true;
   }
 

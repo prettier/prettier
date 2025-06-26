@@ -46,10 +46,10 @@ const parseOptions = {
     "asyncDoExpressions",
     "destructuringPrivate",
     "decoratorAutoAccessors",
-    "explicitResourceManagement",
     "sourcePhaseImports",
     "deferredImportEvaluation",
     ["optionalChainingAssign", { version: "2023-07" }],
+    ["discardBinding", { syntaxType: "void" }],
   ],
   tokens: false,
   // Ranges not available on comments, so we use `Node#{start,end}` instead
@@ -182,8 +182,6 @@ const allowedReasonCodes = new Set([
   "StrictFunction",
   "ForInOfLoopInitializer",
 
-  "EmptyTypeArguments",
-  "EmptyTypeParameters",
   "ConstructorHasTypeParameters",
 
   "UnsupportedParameterPropertyKind",

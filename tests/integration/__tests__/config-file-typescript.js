@@ -16,18 +16,13 @@ const TAB_WIDTH_3_OUTPUT = outdent`
   }
 `;
 
-// Node.js>=22 supports ts files, 22 requires experimental flag, 23 doesn't
+// Node.js>=22 supports ts files
 if (NODE_JS_MAJOR_VERSION >= 22) {
-  const nodeOptions = NODE_JS_MAJOR_VERSION === 22 ? NODE_TS_SUPPORT_FLAGS : [];
-
   test("Should support typescript config files", async () => {
     const output = await runCli(
       "cli/config/ts/auto-discovery/",
       ["--stdin-filepath", "foo.js"],
-      {
-        input: code,
-        nodeOptions,
-      },
+      { input: code },
     ).stdout;
 
     expect(output).toBe(TAB_WIDTH_3_OUTPUT);
@@ -46,28 +41,12 @@ if (NODE_JS_MAJOR_VERSION >= 22) {
         const output = await runCli(
           "cli/config/ts/config-file-names/",
           ["--stdin-filepath", "foo.js", "--config", configFileName],
-          {
-            input: code,
-            nodeOptions,
-          },
+          { input: code },
         ).stdout;
 
         expect(getOutputTabWidth(output)).toBe(expectedTabWidth);
       });
     }
-  });
-}
-
-if (NODE_JS_MAJOR_VERSION === 22) {
-  test("Should throw errors when flags are missing", () => {
-    runCli("cli/config/ts/auto-discovery/", ["--stdin-filepath", "foo.js"], {
-      input: code,
-    }).test({
-      status: "non-zero",
-      stdout: "",
-      write: [],
-      stderr: expect.stringMatching(/Unknown file extension ".ts" for/u),
-    });
   });
 }
 

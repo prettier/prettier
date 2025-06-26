@@ -145,14 +145,21 @@ const pluginFiles = [
       },
       {
         module: getPackageFile(
+          "@typescript-eslint/typescript-estree/dist/parseSettings/candidateTSConfigRootDirs.js",
+        ),
+        process(text) {
+          return text.replace(
+            "process.cwd()",
+            JSON.stringify("/prettier-security-dirname-placeholder"),
+          );
+        },
+      },
+      {
+        module: getPackageFile(
           "@typescript-eslint/typescript-estree/dist/parseSettings/createParseSettings.js",
         ),
         process(text) {
           return text
-            .replace(
-              "process.cwd()",
-              JSON.stringify("/prettier-security-dirname-placeholder"),
-            )
             .replace(
               "parseSettings.projects = ",
               "parseSettings.projects = true ? new Map() : ",
@@ -161,7 +168,11 @@ const pluginFiles = [
               'require("node:path")',
               '{extname: file => "." + file.split(".").pop()}',
             )
-            .replace('require("@typescript-eslint/project-service")', "{}");
+            .replace('require("@typescript-eslint/project-service")', "{}")
+            .replace(
+              "const tsconfigRootDir =",
+              "const tsconfigRootDir = undefined && ",
+            );
         },
       },
       {

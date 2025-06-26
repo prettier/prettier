@@ -1,8 +1,8 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`3719.scss - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
-parsers: ["scss"]
+parsers: ["sassparser"]
 printWidth: 80
 trailingComma: "es5"
                                                                                 | printWidth
@@ -11,7 +11,9 @@ $sm-only: '(min-width: 768px) and (max-width: 991px)';
 $lg-and-up: '(min-width: 1200px)';
 
 @media screen and #{$sm-only, $lg-and-up} {
-  color: #000;
+  .a {
+    color: #000; 
+  }
 }
 
 =====================================output=====================================
@@ -19,7 +21,9 @@ $sm-only: "(min-width: 768px) and (max-width: 991px)";
 $lg-and-up: "(min-width: 1200px)";
 
 @media screen and #{$sm-only, $lg-and-up} {
-  color: #000;
+  .a {
+    color: #000; 
+  }
 }
 
 ================================================================================
@@ -27,7 +31,7 @@ $lg-and-up: "(min-width: 1200px)";
 
 exports[`3719.scss - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
-parsers: ["scss"]
+parsers: ["sassparser"]
 printWidth: 80
 trailingComma: "none"
                                                                                 | printWidth
@@ -36,7 +40,9 @@ $sm-only: '(min-width: 768px) and (max-width: 991px)';
 $lg-and-up: '(min-width: 1200px)';
 
 @media screen and #{$sm-only, $lg-and-up} {
-  color: #000;
+  .a {
+    color: #000; 
+  }
 }
 
 =====================================output=====================================
@@ -44,7 +50,9 @@ $sm-only: "(min-width: 768px) and (max-width: 991px)";
 $lg-and-up: "(min-width: 1200px)";
 
 @media screen and #{$sm-only, $lg-and-up} {
-  color: #000;
+  .a {
+    color: #000; 
+  }
 }
 
 ================================================================================
@@ -52,7 +60,7 @@ $lg-and-up: "(min-width: 1200px)";
 
 exports[`3943.scss - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
-parsers: ["scss"]
+parsers: ["sassparser"]
 printWidth: 80
 trailingComma: "es5"
                                                                                 | printWidth
@@ -263,7 +271,7 @@ $icons:
 
 exports[`3943.scss - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
-parsers: ["scss"]
+parsers: ["sassparser"]
 printWidth: 80
 trailingComma: "none"
                                                                                 | printWidth
@@ -474,7 +482,7 @@ $icons:
 
 exports[`4294.scss - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
-parsers: ["scss"]
+parsers: ["sassparser"]
 printWidth: 80
 trailingComma: "es5"
                                                                                 | printWidth
@@ -578,7 +586,7 @@ a {
 
 exports[`4294.scss - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
-parsers: ["scss"]
+parsers: ["sassparser"]
 printWidth: 80
 trailingComma: "none"
                                                                                 | printWidth

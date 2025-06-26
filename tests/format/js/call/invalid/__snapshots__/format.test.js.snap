@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`null-arguments-item.js [__babel_estree] format 1`] = `
 "Unexpected token ','. (1:12)

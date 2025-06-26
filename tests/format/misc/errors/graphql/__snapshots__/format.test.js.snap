@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`type-interfaces.graphql [graphql] format 1`] = `
 "Syntax Error: Unexpected "|". (5:21)

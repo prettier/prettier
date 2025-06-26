@@ -34,8 +34,6 @@ body {
   background-color: rgba(50, 50, 50, 50);
   background-color: rgba(50 50 50 50...);
   background-color: rgba(50 50 .50 50...);
-  background-color: rgba(50 50 50. .50...);
-  // Input is not technically valid ( output is ), but still nice to know that the `.` gets dropped as it would for `50.`
-  background-color: rgba(50 50 50 50....);
+  background-color: rgba(50 50 50.0 .50...);
   width: min(50px 20px 30px...);
 }

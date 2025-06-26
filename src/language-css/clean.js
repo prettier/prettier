@@ -120,7 +120,22 @@ function clean(original, cloned, parent) {
     }
 
     if (original.value) {
-      cloned.value = cloned.value.trim().replaceAll(/^["']|["']$/gu, "");
+      let { value } = cloned;
+      // Parser only understands the `i` flag
+      if (/\s[a-zA-Z]$/u.test(value)) {
+        // Add an extra property to make sure flag is preserved
+        cloned.__prettier_attribute_selector_flag = value.at(-1);
+        value = value.slice(0, -1);
+      }
+
+      value = value.trim();
+
+      value = value.replace(
+        /^(?<quote>["'])(?<value>.*?)\k<quote>$/u,
+        "$<value>",
+      );
+
+      cloned.value = value;
       delete cloned.quoted;
     }
   }

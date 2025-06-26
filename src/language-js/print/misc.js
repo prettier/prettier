@@ -91,13 +91,21 @@ function printAbstractToken({ node }) {
 }
 
 function printFunctionTypeParameters(path, options, print) {
-  const fun = path.node;
-  if (fun.typeArguments) {
+  const { node } = path;
+
+  // `TSImportType.typeArguments` is after `qualifier`, not before the "arguments"
+  if (node.type === "TSImportType") {
+    return "";
+  }
+
+  if (node.typeArguments) {
     return print("typeArguments");
   }
-  if (fun.typeParameters) {
+
+  if (node.typeParameters) {
     return print("typeParameters");
   }
+
   return "";
 }
 

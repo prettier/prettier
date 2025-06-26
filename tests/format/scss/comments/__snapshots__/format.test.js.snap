@@ -1,8 +1,8 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`4594.scss format 1`] = `
 ====================================options=====================================
-parsers: ["scss"]
+parsers: ["sassparser"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -90,7 +90,7 @@ $my-map: (
 
 exports[`4878.scss format 1`] = `
 ====================================options=====================================
-parsers: ["scss"]
+parsers: ["sassparser"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -191,7 +191,7 @@ printWidth: 80
 
 exports[`CRLF.scss format 1`] = `
 ====================================options=====================================
-parsers: ["scss"]
+parsers: ["sassparser"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -207,7 +207,7 @@ $light-blue: $nice-blue + #111;
     /*
      * Comment 4
      */
-    color: @light-blue;
+    color: $light-blue;
 }
 
 @media only screen and (max-width: 600px) {
@@ -249,7 +249,7 @@ $light-blue: $nice-blue + #111;
   /*
      * Comment 4
      */
-  color: @light-blue;
+  color: $light-blue;
 }
 
 @media only screen and (max-width: 600px) {
@@ -283,7 +283,7 @@ $light-blue: $nice-blue + #111;
 
 exports[`at-rule.scss format 1`] = `
 ====================================options=====================================
-parsers: ["scss"]
+parsers: ["sassparser"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -314,7 +314,7 @@ printWidth: 80
 
 exports[`between-decl.scss format 1`] = `
 ====================================options=====================================
-parsers: ["scss"]
+parsers: ["sassparser"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -462,7 +462,7 @@ selector {
 
 exports[`bug.scss format 1`] = `
 ====================================options=====================================
-parsers: ["scss"]
+parsers: ["sassparser"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -498,7 +498,7 @@ printWidth: 80
 
 exports[`comments.scss format 1`] = `
 ====================================options=====================================
-parsers: ["scss"]
+parsers: ["sassparser"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -534,7 +534,7 @@ printWidth: 80
 
 exports[`custom-properties.scss format 1`] = `
 ====================================options=====================================
-parsers: ["scss"]
+parsers: ["sassparser"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -563,7 +563,7 @@ printWidth: 80
 
 exports[`if-eslit-at-rule-decloration.scss format 1`] = `
 ====================================options=====================================
-parsers: ["scss"]
+parsers: ["sassparser"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -600,7 +600,7 @@ printWidth: 80
 
 exports[`in-value.scss format 1`] = `
 ====================================options=====================================
-parsers: ["scss"]
+parsers: ["sassparser"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -640,7 +640,7 @@ printWidth: 80
 
 exports[`lists.scss format 1`] = `
 ====================================options=====================================
-parsers: ["scss"]
+parsers: ["sassparser"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -667,7 +667,7 @@ $my-list2: a // a
 
 exports[`maps.scss format 1`] = `
 ====================================options=====================================
-parsers: ["scss"]
+parsers: ["sassparser"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -688,7 +688,7 @@ $my-map: (
 
 exports[`mixed.scss format 1`] = `
 ====================================options=====================================
-parsers: ["scss"]
+parsers: ["sassparser"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -718,7 +718,7 @@ printWidth: 80
 
 exports[`mixed-2.scss format 1`] = `
 ====================================options=====================================
-parsers: ["scss"]
+parsers: ["sassparser"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -742,7 +742,7 @@ printWidth: 80
 
 exports[`mixed-block.scss format 1`] = `
 ====================================options=====================================
-parsers: ["scss"]
+parsers: ["sassparser"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -772,7 +772,7 @@ printWidth: 80
 
 exports[`prettier-ignore.scss format 1`] = `
 ====================================options=====================================
-parsers: ["scss"]
+parsers: ["sassparser"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -795,7 +795,7 @@ foo {
 
 exports[`selectors.scss format 1`] = `
 ====================================options=====================================
-parsers: ["scss"]
+parsers: ["sassparser"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -934,7 +934,7 @@ printWidth: 80
 
 exports[`trailing_star_slash.scss format 1`] = `
 ====================================options=====================================
-parsers: ["scss"]
+parsers: ["sassparser"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -955,7 +955,7 @@ a {
 
 exports[`variable-declaration.scss format 1`] = `
 ====================================options=====================================
-parsers: ["scss"]
+parsers: ["sassparser"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

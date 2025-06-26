@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`invalid-await.ts [babel-ts] format 1`] = `
 "'await' is only allowed within async functions and at the top levels of modules. (2:13)

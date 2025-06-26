@@ -362,7 +362,7 @@ exports[`CLI --support-info  1`] = `
       "vscodeLanguageIds": ["javascript"]
     },
     {
-      "aceMode": "text",
+      "aceMode": "graphqlschema",
       "extensions": [".graphql", ".gql", ".graphqls"],
       "linguistLanguageId": 139,
       "name": "GraphQL",
@@ -565,7 +565,7 @@ exports[`CLI --support-info  1`] = `
       "vscodeLanguageIds": ["json"]
     },
     {
-      "aceMode": "javascript",
+      "aceMode": "json5",
       "codemirrorMimeType": "application/json",
       "codemirrorMode": "javascript",
       "extensions": [".json5"],
@@ -600,7 +600,7 @@ exports[`CLI --support-info  1`] = `
     {
       "aceMode": "less",
       "aliases": ["less-css"],
-      "codemirrorMimeType": "text/css",
+      "codemirrorMimeType": "text/x-less",
       "codemirrorMode": "css",
       "extensions": [".less"],
       "linguistLanguageId": 198,
@@ -704,8 +704,8 @@ exports[`CLI --support-info  1`] = `
       "vscodeLanguageIds": ["scss"]
     },
     {
-      "aceMode": "javascript",
-      "codemirrorMimeType": "text/jsx",
+      "aceMode": "tsx",
+      "codemirrorMimeType": "text/typescript-jsx",
       "codemirrorMode": "jsx",
       "extensions": [".tsx"],
       "group": "TypeScript",
@@ -731,7 +731,9 @@ exports[`CLI --support-info  1`] = `
       "vscodeLanguageIds": ["typescript"]
     },
     {
-      "aceMode": "html",
+      "aceMode": "vue",
+      "codemirrorMimeType": "text/x-vue",
+      "codemirrorMode": "vue",
       "extensions": [".vue"],
       "linguistLanguageId": 391,
       "name": "Vue",
