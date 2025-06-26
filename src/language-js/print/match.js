@@ -22,8 +22,8 @@ import {
 } from "../utils/index.js";
 
 /*
-- "MatchExpression"
-- "MatchStatement"
+- `MatchExpression` (Flow)
+- `MatchStatement` (Flow)
 */
 export function printMatch(path, options, print) {
   const { node } = path;
@@ -51,8 +51,8 @@ export function printMatch(path, options, print) {
 }
 
 /*
-- "MatchExpressionCase"
-- "MatchStatementCase"
+- `MatchExpressionCase` (Flow)
+- `MatchStatementCase` (Flow)
 */
 export function printMatchCase(path, options, print) {
   const { node } = path;
@@ -74,18 +74,18 @@ export function printMatchCase(path, options, print) {
 }
 
 /*
-- "MatchOrPattern"
-- "MatchAsPattern"
-- "MatchWildcardPattern"
-- "MatchLiteralPattern"
-- "MatchUnaryPattern"
-- "MatchIdentifierPattern"
-- "MatchMemberPattern"
-- "MatchBindingPattern"
-- "MatchObjectPattern"
-- "MatchArrayPattern"
-- "MatchObjectPatternProperty"
-- "MatchRestPattern"
+- `MatchOrPattern` (Flow)
+- `MatchAsPattern` (Flow)
+- `MatchWildcardPattern` (Flow)
+- `MatchLiteralPattern` (Flow)
+- `MatchUnaryPattern` (Flow)
+- `MatchIdentifierPattern` (Flow)
+- `MatchMemberPattern` (Flow)
+- `MatchBindingPattern` (Flow)
+- `MatchObjectPattern` (Flow)
+- `MatchArrayPattern` (Flow)
+- `MatchObjectPatternProperty` (Flow)
+- `MatchRestPattern` (Flow)
 */
 export function printMatchPattern(path, options, print) {
   const { node } = path;
