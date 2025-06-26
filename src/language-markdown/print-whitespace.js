@@ -37,7 +37,7 @@ const lineBreakBetweenTheseAndCJConvertsToSpace = new Set(
  * distinguishes between independent and dependent clauses, however we cannot
  * do that so we rely on punctuation and `MAY` in the spec.
  *
- * To avoid comma-separated lists being splayed across many lines We use a more
+ * To avoid comma-separated lists being splayed across many lines we use a more
  * conservative list of characters to split on:
  *
  * - not comma (`,`) to avoid lists being splayed across many lines
