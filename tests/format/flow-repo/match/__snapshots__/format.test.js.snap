@@ -1,8 +1,20 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`expression.js [babel-flow] format 1`] = `
+"Unexpected token (13:7)
+  11 | {
+  12 |   const out = match (x) {
+> 13 |     1 => true,
+     |       ^
+  14 |     2 => false,
+  15 |   };
+  16 |
+Cause: Unexpected token (13:6)"
+`;
+
 exports[`expression.js format 1`] = `
 ====================================options=====================================
-parsers: ["hermes"]
+parsers: ["flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -322,9 +334,21 @@ function f2() {
 ================================================================================
 `;
 
+exports[`hints.js [babel-flow] format 1`] = `
+"Unexpected token (7:11)
+   5 |
+   6 |   const out: F = match (x) {
+>  7 |       'a' => (y => true), // OK
+     |           ^
+   8 |   };
+   9 | }
+  10 |
+Cause: Unexpected token (7:10)"
+`;
+
 exports[`hints.js format 1`] = `
 ====================================options=====================================
-parsers: ["hermes"]
+parsers: ["flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -504,9 +528,21 @@ type F = (string) => boolean;
 ================================================================================
 `;
 
+exports[`matching.js [babel-flow] format 1`] = `
+"Unexpected token (6:7)
+  4 |
+  5 |   const e1 = match (x) {
+> 6 |     1 => 0,
+    |       ^
+  7 |     -2 => 0,
+  8 |     3n => 0,
+  9 |     's' => 0,
+Cause: Unexpected token (6:6)"
+`;
+
 exports[`matching.js format 1`] = `
 ====================================options=====================================
-parsers: ["hermes"]
+parsers: ["flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -1344,9 +1380,21 @@ printWidth: 80
 ================================================================================
 `;
 
+exports[`pattern-errors.js [babel-flow] format 1`] = `
+"Unexpected token, expected "," (6:14)
+  4 |
+  5 |   const e1 = match (x) {
+> 6 |      [...let a] => 0, // ERROR
+    |              ^
+  7 |      {let a, ...let b} => 0, // ERROR
+  8 |      0 as let a => 0, // ERROR
+  9 |      let a => 0, // ERROR
+Cause: Unexpected token, expected "," (6:13)"
+`;
+
 exports[`pattern-errors.js format 1`] = `
 ====================================options=====================================
-parsers: ["hermes"]
+parsers: ["flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -1738,9 +1786,21 @@ printWidth: 80
 ================================================================================
 `;
 
+exports[`patterns.js [babel-flow] format 1`] = `
+"Unexpected token (6:13)
+  4 |
+  5 |   const out = match (x) {
+> 6 |     const a => a,
+    |             ^
+  7 |   };
+  8 |   out as number; // OK
+  9 |   out as empty; // ERROR
+Cause: Unexpected token (6:12)"
+`;
+
 exports[`patterns.js format 1`] = `
 ====================================options=====================================
-parsers: ["hermes"]
+parsers: ["flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -2144,9 +2204,21 @@ printWidth: 80
 ================================================================================
 `;
 
+exports[`rules-of-hooks.js [babel-flow] format 1`] = `
+"Unexpected token (7:7)
+   5 | component WithMatchStatement() {
+   6 |   match (x) {
+>  7 |     1 => {
+     |       ^
+   8 |       useHook(); // ERROR
+   9 |     }
+  10 |     2 => {}
+Cause: Unexpected token (7:6)"
+`;
+
 exports[`rules-of-hooks.js format 1`] = `
 ====================================options=====================================
-parsers: ["hermes"]
+parsers: ["flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -2216,9 +2288,21 @@ match (x) {
 ================================================================================
 `;
 
+exports[`statement.js [babel-flow] format 1`] = `
+"Unexpected token (9:5)
+   7 |
+   8 | match (x) {
+>  9 |   1 => {}
+     |     ^
+  10 |   2 => {}
+  11 | }
+  12 |
+Cause: Unexpected token (9:4)"
+`;
+
 exports[`statement.js format 1`] = `
 ====================================options=====================================
-parsers: ["hermes"]
+parsers: ["flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

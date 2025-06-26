@@ -8,5 +8,5 @@ runFormatTest(
       "match (...b) {}",
     ],
   },
-  ["hermes"],
+  ["flow", "hermes"],
 );
