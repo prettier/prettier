@@ -1,9 +1,7 @@
 type match = number;
-
 {
   const match = 1;
 }
-
 function match(match: match) {}
 const a = match(1);
 const b = match(1).f();

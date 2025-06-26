@@ -1,3 +1,3 @@
 const e = match (a) {
-  1 if b: true,
+  1 if (b) => true,
 };

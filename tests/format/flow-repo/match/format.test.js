@@ -1,1 +1,1 @@
-runFormatTest(import.meta, ["hermes"]);
+runFormatTest(import.meta, ["flow"]);

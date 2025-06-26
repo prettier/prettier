@@ -1,11 +1,11 @@
 match (a) {
-  1 if b: {
+  1 if (b) => {
     const x = 1;
   },
-  'foo' if f(): {
+  'foo' if (f()) => {
     const x = 2;
   },
-  2 if x < y: {
+  2 if (x < y) => {
     const x = 3;
   },
 }

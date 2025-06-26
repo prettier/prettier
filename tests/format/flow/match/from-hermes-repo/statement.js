@@ -1,12 +1,12 @@
 match (a) {
-  1: {
+  1 => {
     const x = 1;
     f(x);
   },
-  'foo': {
+  'foo' => {
     // empty
   },
-  2: {
+  2 => {
     label: 'literal'
   },
 }
