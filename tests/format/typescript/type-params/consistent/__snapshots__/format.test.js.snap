@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`flow-only.ts format 1`] = `
 ====================================options=====================================
@@ -82,14 +82,6 @@ const foo12: Foooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
   a;
 
 ================================================================================
-`;
-
-exports[`template-literal-types.ts [babel-flow] format 1`] = `
-"Unexpected token (1:84)
-> 1 | const foo1: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo<\`Hello, \${keyof World}\`> = a;
-    |                                                                                    ^
-  2 |
-Cause: Unexpected token (1:83)"
 `;
 
 exports[`template-literal-types.ts [flow] format 1`] = `
