@@ -31,8 +31,8 @@ function createParseError(error) {
 const parseOptions = {
   flow: "all",
   babel: false,
-  // Not supported yet
-  enableExperimentalFlowMatchSyntax: false,
+  // enableExperimentalComponentSyntax: true, // Enable by default
+  // enableExperimentalFlowMatchSyntax: true, // Enable by default
   tokens: false,
   allowReturnOutsideFunction: true,
 };
