@@ -10,11 +10,11 @@ import {
   softline,
 } from "../document/builders.js";
 import { replaceEndOfLine } from "../document/utils.js";
+import { isVoidElement } from "../language-handlebars/utils.js";
 import getPreferredQuote from "../utils/get-preferred-quote.js";
 import htmlWhitespaceUtils from "../utils/html-whitespace-utils.js";
 import isNonEmptyArray from "../utils/is-non-empty-array.js";
 import UnexpectedNodeError from "../utils/unexpected-node-error.js";
-import { isVoidElement } from "../language-handlebars/utils.js";
 import clean from "./clean.js";
 import embed from "./embed.js";
 import getVisitorKeys from "./get-visitor-keys.js";
@@ -26,9 +26,33 @@ import { locEnd, locStart } from "./loc.js";
 
 const NEWLINES_TO_PRESERVE_MAX = 2;
 
+const MAP = {
+  AttrNode: "attribute",
+  ElementNode: "element",
+  TextNode: "text",
+  ConcatStatement: "concat",
+  MustacheStatement: "mustache",
+  BlockStatement: "block",
+  PartialStatement: "partial",
+  SubExpression: "subexpression",
+};
+
+function log(...args) {
+  // console.log(...args);
+}
+
 // Printer for native handlebars AST
 function print(path, options, print) {
   const { node } = path;
+
+  log("node", node.type, node.tag, node.name);
+
+  // TextNode are just string
+  if (typeof node === "string") {
+    // HTML text nodes should use the same logic as TextNode
+    const textNode = { chars: node || "", type: "TextNode" };
+    return printTextNode(textNode, path, options);
+  }
 
   switch (node.type) {
     case "Program":
@@ -69,8 +93,16 @@ function print(path, options, print) {
     }
 
     case "element": {
-      // HTML element from Prettier's parser - use same logic as ElementNode
+      // HTML element from Prettier's parser - use same logic as glimmer ElementNode
       const startingTag = group(printStartingTag(path, print));
+
+      // log("path.next", path.next);
+
+      const escapeNextElementNode =
+        options.htmlWhitespaceSensitivity === "ignore" &&
+        path.next?.type === "element"
+          ? softline
+          : "";
 
       // Create a normalized node for isVoidElement that always has .tag property
       const normalizedNode = {
@@ -80,19 +112,30 @@ function print(path, options, print) {
       };
 
       if (isVoidElement(normalizedNode)) {
-        return [startingTag];
+        return [startingTag, escapeNextElementNode];
       }
 
       const endingTag = ["</", node.name, ">"];
 
       if (node.children.length === 0) {
-        return [startingTag, endingTag];
+        return [startingTag, indent(endingTag), escapeNextElementNode];
+      }
+
+      if (options.htmlWhitespaceSensitivity === "ignore") {
+        return [
+          startingTag,
+          indent(printChildren(path, options, print)),
+          hardline,
+          indent(endingTag),
+          escapeNextElementNode,
+        ];
       }
 
       return [
         startingTag,
-        indent(printChildren(path, options, print)),
-        endingTag,
+        indent(group(printChildren(path, options, print))),
+        indent(endingTag),
+        escapeNextElementNode,
       ];
     }
 
@@ -102,66 +145,56 @@ function print(path, options, print) {
       return printTextNode(textNode, path, options);
     }
 
-    case "attribute": {
+    case MAP.AttrNode: {
       // HTML attribute from HTML parser
-      const { name, value } = node;
-      // Debug: Check if case is preserved
-      // console.log(`DEBUG: attribute name="${name}"`);
+      const { name } = node;
+      log("value.chars", `"${node.value}"`, node.type);
+      const isText = typeof node.value === "string"; // TODO: Figure if this is ok
+      const isEmptyText = isText && !node.value;
 
-      if (value === null || value === undefined) {
+      // If the text is empty and the value's loc start and end offsets are the
+      // same, there is no value for this AttrNode and it should be printed
+      // without the `=""`. Example: `<img data-test>` -> `<img data-test>`
+      if (isEmptyText && locStart(node) === locEnd(node)) {
         return name;
       }
 
-      // For HTML attributes, value can be either:
-      // 1. A simple string (for pure text attributes)
-      // 2. A complex AST node (for attributes with handlebars expressions)
-      if (typeof value === "string") {
-        // Simple string value
-        let processedValue = value;
+      log("value", node.value);
 
-        // Apply class normalization like glimmer printer does
-        const isClassAttr = name.toLowerCase() === "class";
-        if (isClassAttr) {
-          processedValue = value.trim().split(/\s+/u).join(" ");
-        }
-
-        const quote = getPreferredQuote(processedValue, options.singleQuote);
-        return [
-          name,
-          "=",
-          quote,
-          isClassAttr && quote ? group(indent(processedValue)) : processedValue,
-          quote,
-        ];
-      } else {
-        // Complex AST node - use the print function to render it
-        const valueDoc = print("value");
-
-        // For complex values, we need to determine quotes based on the rendered content
-        // We'll extract text content for quote preference detection
-        let textContent = "";
-        if (value.type === "ConcatStatement" && value.parts) {
-          textContent = value.parts
-            .filter((part) => part.type === "text")
-            .map((part) => part.value)
-            .join("");
-        }
-
-        const quote = getPreferredQuote(textContent, options.singleQuote);
-
-        return [
-          name,
-          "=",
-          quote,
-          name === "class" && quote ? group(indent(valueDoc)) : valueDoc,
-          quote,
-        ];
+      let quote = '"';
+      // TODO: Figure if this is ok
+      // Let's assume quotes inside the content of text nodes are already
+      // properly escaped with entities, otherwise the parse wouldn't have parsed them.
+      try {
+        quote = isText
+          ? getPreferredQuote(node.value ?? "", options.singleQuote)
+          : node.type === MAP.ConcatStatement
+            ? getPreferredQuote(
+                node.parts
+                  .map((part) => (part.type === MAP.TextNode ? part.chars : ""))
+                  .join(""),
+                options.singleQuote,
+              )
+            : "";
+      } catch (error) {
+        console.log("error", node);
       }
+
+      log("quote", { isText, quote });
+
+      const valueDoc = print("value");
+
+      return [
+        name,
+        "=",
+        quote,
+        name === "class" && quote ? group(indent(valueDoc)) : valueDoc,
+        quote,
+      ];
     }
 
-    case "comment": {
+    case "comment":
       return `<!--${node.value || ""}-->`;
-    }
 
     case "ContentStatement":
       return printContentStatement(node, path, options);
@@ -230,47 +263,8 @@ function print(path, options, print) {
     case "CommentStatement":
       return printCommentStatement(node, path, options);
 
-    case "AttrNode": {
-      const { name, value } = node;
-      const isText = value.type === "TextNode";
-      const isEmptyText = isText && value.chars === "";
-
-      // If the text is empty and the value's loc start and end offsets are the
-      // same, there is no value for this AttrNode and it should be printed
-      // without the `=""`. Example: `<img data-test>` -> `<img data-test>`
-      if (isEmptyText && locStart(value) === locEnd(value)) {
-        return name;
-      }
-
-      // Let's assume quotes inside the content of text nodes are already
-      // properly escaped with entities, otherwise the parse wouldn't have parsed them.
-      const quote = isText
-        ? getPreferredQuote(value.chars, options.singleQuote)
-        : value.type === "ConcatStatement"
-          ? getPreferredQuote(
-              value.parts
-                .map((part) => (part.type === "TextNode" ? part.chars : ""))
-                .join(""),
-              options.singleQuote,
-            )
-          : "";
-
-      const valueDoc = print("value");
-
-      return [
-        name,
-        "=",
-        quote,
-        name === "class" && quote ? group(indent(valueDoc)) : valueDoc,
-        quote,
-      ];
-    }
-
     case "ConcatStatement":
       return path.map(print, "parts");
-
-    case "TextNode":
-      return printTextNode(node, path, options);
 
     case "ElementNode": {
       const startingTag = group(printStartingTag(path, print));
@@ -317,7 +311,7 @@ function printContentStatement(node, path, options) {
   let isAtDocumentEnd = false;
 
   while (currentPath && currentPath.parent) {
-    const parent = currentPath.parent;
+    const { parent } = currentPath;
     const isLastInParent =
       (parent.body && parent.body.at(-1) === currentPath.node) ||
       (parent.children && parent.children.at(-1) === currentPath.node);
@@ -520,19 +514,25 @@ function printTextNode(node, path, options) {
   /* if `{{my-component}}` (or any text containing "{{")
    * makes it to the TextNode, it means it was escaped,
    * so let's print it escaped, ie.; `\{{my-component}}` */
-  let text = node.chars.replaceAll("{{", String.raw`\{{`);
+  const text = node.chars.replaceAll("{{", String.raw`\{{`);
 
   const attrName = getCurrentAttributeName(path);
 
   if (attrName) {
     // TODO: format style and srcset attributes
     if (attrName === "class") {
-      console.log(`DEBUG: Processing class attr "${attrName}"`);
-
       const formattedClasses = text.trim().split(/\s+/u).join(" ");
 
       let leadingSpace = false;
       let trailingSpace = false;
+
+      log("path.parent.type", path.parent.type);
+
+      log("--->", {
+        parent: path.parent,
+        previous: path.previous,
+        next: path.next,
+      });
 
       if (path.parent.type === "ConcatStatement") {
         if (path.previous?.type === "MustacheStatement" && /^\s/u.test(text)) {
@@ -554,23 +554,170 @@ function printTextNode(node, path, options) {
       ];
     }
 
-    return replaceEndOfLine(text);
+    const val = replaceEndOfLine(text);
+    log("retval", val);
+    return val;
   }
 
-  return text;
+  const isWhitespaceOnly = htmlWhitespaceUtils.isWhitespaceOnly(text);
+  const { isFirst, isLast } = path;
+
+  if (options.htmlWhitespaceSensitivity !== "ignore") {
+    // let's remove the file's final newline
+    // https://github.com/ember-cli/ember-new-output/blob/1a04c67ddd02ccb35e0ff41bb5cbce34b31173ef/.editorconfig#L16
+    const shouldTrimTrailingNewlines =
+      isLast && path.parent.type === MAP.Template;
+    const shouldTrimLeadingNewlines =
+      isFirst && path.parent.type === MAP.Template;
+
+    if (isWhitespaceOnly) {
+      if (shouldTrimLeadingNewlines || shouldTrimTrailingNewlines) {
+        return "";
+      }
+
+      let breaks = [line];
+
+      const newlines = countNewLines(text);
+      if (newlines) {
+        breaks = generateHardlines(newlines);
+      }
+
+      if (isLast) {
+        breaks = breaks.map((newline) => dedent(newline));
+      }
+
+      return breaks;
+    }
+
+    const leadingWhitespace = htmlWhitespaceUtils.getLeadingWhitespace(text);
+
+    let leadBreaks = [];
+    if (leadingWhitespace) {
+      leadBreaks = [line];
+
+      const leadingNewlines = countNewLines(leadingWhitespace);
+      if (leadingNewlines) {
+        leadBreaks = generateHardlines(leadingNewlines);
+      }
+
+      text = text.slice(leadingWhitespace.length);
+    }
+
+    const tailingWhitespace = htmlWhitespaceUtils.getTrailingWhitespace(text);
+    let trailBreaks = [];
+    if (tailingWhitespace) {
+      if (!shouldTrimTrailingNewlines) {
+        trailBreaks = [line];
+
+        const trailingNewlines = countNewLines(tailingWhitespace);
+        if (trailingNewlines) {
+          trailBreaks = generateHardlines(trailingNewlines);
+        }
+
+        if (isLast) {
+          trailBreaks = trailBreaks.map((hardline) => dedent(hardline));
+        }
+      }
+
+      text = text.slice(0, -tailingWhitespace.length);
+    }
+
+    return [...leadBreaks, fill(getTextValueParts(text)), ...trailBreaks];
+  }
+
+  const lineBreaksCount = countNewLines(text);
+
+  let leadingLineBreaksCount = countLeadingNewLines(text);
+  let trailingLineBreaksCount = countTrailingNewLines(text);
+
+  if (
+    (isFirst || isLast) &&
+    isWhitespaceOnly &&
+    (path.parent.type === "Block" ||
+      path.parent.type === "ElementNode" ||
+      path.parent.type === "Template")
+  ) {
+    return "";
+  }
+
+  if (isWhitespaceOnly && lineBreaksCount) {
+    leadingLineBreaksCount = Math.min(
+      lineBreaksCount,
+      NEWLINES_TO_PRESERVE_MAX,
+    );
+    trailingLineBreaksCount = 0;
+  } else {
+    if (
+      path.next?.type === "BlockStatement" ||
+      path.next?.type === "ElementNode"
+    ) {
+      trailingLineBreaksCount = Math.max(trailingLineBreaksCount, 1);
+    }
+
+    if (
+      path.previous?.type === "BlockStatement" ||
+      path.previous?.type === "ElementNode"
+    ) {
+      leadingLineBreaksCount = Math.max(leadingLineBreaksCount, 1);
+    }
+  }
+
+  let leadingSpace = "";
+  let trailingSpace = "";
+
+  if (
+    trailingLineBreaksCount === 0 &&
+    path.next?.type === "MustacheStatement"
+  ) {
+    trailingSpace = " ";
+  }
+
+  if (
+    leadingLineBreaksCount === 0 &&
+    path.previous?.type === "MustacheStatement"
+  ) {
+    leadingSpace = " ";
+  }
+
+  if (isFirst) {
+    leadingLineBreaksCount = 0;
+    leadingSpace = "";
+  }
+
+  if (isLast) {
+    trailingLineBreaksCount = 0;
+    trailingSpace = "";
+  }
+
+  if (htmlWhitespaceUtils.hasLeadingWhitespace(text)) {
+    text = leadingSpace + htmlWhitespaceUtils.trimStart(text);
+  }
+
+  if (htmlWhitespaceUtils.hasTrailingWhitespace(text)) {
+    text = htmlWhitespaceUtils.trimEnd(text) + trailingSpace;
+  }
+
+  return [
+    ...generateHardlines(leadingLineBreaksCount),
+    fill(getTextValueParts(text)),
+    ...generateHardlines(trailingLineBreaksCount),
+  ];
 }
 
 function getCurrentAttributeName(path) {
   for (let depth = 0; depth < 2; depth++) {
     const parentNode = path.getParentNode(depth);
-    if (parentNode?.type === "AttrNode") {
+    log("parentNode", parentNode);
+    if (parentNode?.type === MAP.AttrNode) {
       return parentNode.name.toLowerCase();
     }
   }
 }
 
 function getAttrValueText(value) {
-  if (!value) return "";
+  if (!value) {
+    return "";
+  }
 
   // Handle different types of attribute values
   switch (value.type) {
@@ -622,23 +769,14 @@ function printStartingTag(path, print) {
     }
   } else if (node.attrs) {
     // HTML element node - process similar to ElementNode
-    attributes = node.attrs.slice(); // Start with a copy of the attrs array
+    attributes = [...node.attrs]; // Start with a copy of the attrs array
 
     // Replace each attribute with [line, print()] pattern like ElementNode does
-    // But check if class attributes should be handled differently
     path.each(({ node: attrNode }) => {
       const index = attributes.indexOf(attrNode);
       if (index !== -1) {
-        // For class attributes, check if we should force single-line
-        const isClassAttr =
-          attrNode.name && attrNode.name.toLowerCase() === "class";
-        if (isClassAttr && typeof attrNode.value === "string") {
-          // Class attributes with simple string values should stay inline
-          attributes.splice(index, 1, [" ", print()]);
-        } else {
-          // Other attributes get normal line breaking
-          attributes.splice(index, 1, [line, print()]);
-        }
+        // Use consistent line breaking for all attributes
+        attributes.splice(index, 1, [line, print()]);
       }
     }, "attrs");
   }
@@ -676,9 +814,7 @@ function printStartingTagEndMarker(node) {
 
   const shouldSelfClose =
     isVoidElement(normalizedNode) ||
-    (tagName &&
-      /^[A-Z]/.test(tagName) &&
-      (!node.children || node.children.length === 0));
+    (tagName && /^[A-Z]/.test(tagName) && !isNonEmptyArray(node.children));
 
   if (shouldSelfClose) {
     return ifBreak([softline, "/>"], [" />", softline]);
@@ -703,10 +839,63 @@ function isWhitespaceNode(node) {
   );
 }
 
+function getStack() {
+  try {
+    throw new Error("test");
+  } catch (error) {
+    return error.stack;
+  }
+}
+
 export default {
-  print,
+  print: (...args) => {
+    const val = print(...args);
+
+    log(
+      "ret:",
+      {
+        node: args[0]?.node,
+        type: args[0]?.node?.type,
+        tag: args[0]?.node?.tag,
+        name: args[0]?.node?.name,
+        stack: getStack(),
+      },
+      JSON.stringify(val, null, 2),
+    );
+
+    return val;
+  },
   embed,
-  insertPragma: () => {},
+  insertPragma() {},
   massageAstNode: clean,
   getVisitorKeys,
 };
+
+function countNewLines(string) {
+  /* c8 ignore next */
+  string = typeof string === "string" ? string : "";
+  return string.split("\n").length - 1;
+}
+
+function generateHardlines(number = 0) {
+  return Array.from({
+    length: Math.min(number, NEWLINES_TO_PRESERVE_MAX),
+  }).fill(hardline);
+}
+
+function getTextValueParts(value) {
+  return join(line, htmlWhitespaceUtils.split(value));
+}
+function countLeadingNewLines(string) {
+  /* c8 ignore next */
+  string = typeof string === "string" ? string : "";
+  const newLines = (string.match(/^([^\S\n\r]*[\n\r])+/gu) || [])[0] || "";
+  return countNewLines(newLines);
+}
+
+function countTrailingNewLines(string) {
+  /* c8 ignore next */
+  string = typeof string === "string" ? string : "";
+  const newLines = (string.match(/([\n\r][^\S\n\r]*)+$/gu) || [])[0] || "";
+  return countNewLines(newLines);
+}

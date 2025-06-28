@@ -29,8 +29,14 @@ const NEWLINES_TO_PRESERVE_MAX = 2;
 // Formatter based on @glimmerjs/syntax's built-in test formatter:
 // https://github.com/glimmerjs/glimmer-vm/blob/master/packages/%40glimmer/syntax/lib/generation/print.ts
 
+function log(...args) {
+  // console.log(...args);
+}
+
 function print(path, options, print) {
   const { node } = path;
+
+  log("node", node.type, node.tag, node.name);
 
   switch (node.type) {
     case "Block":
@@ -40,6 +46,8 @@ function print(path, options, print) {
 
     case "ElementNode": {
       const startingTag = group(printStartingTag(path, print));
+
+      // log("path.next", path.next);
 
       const escapeNextElementNode =
         options.htmlWhitespaceSensitivity === "ignore" &&
@@ -113,6 +121,7 @@ function print(path, options, print) {
 
     case "AttrNode": {
       const { name, value } = node;
+      log("value.chars", `"${value.chars}"`, value.type);
       const isText = value.type === "TextNode";
       const isEmptyText = isText && value.chars === "";
 
@@ -135,6 +144,8 @@ function print(path, options, print) {
               options.singleQuote,
             )
           : "";
+
+      log("quote", { isText, quote });
 
       const valueDoc = print("value");
 
@@ -180,6 +191,14 @@ function print(path, options, print) {
           let leadingSpace = false;
           let trailingSpace = false;
 
+          log("path.parent.type", path.parent.type);
+
+          log("--->", {
+            parent: path.parent,
+            previous: path.previous,
+            next: path.next,
+          });
+
           if (path.parent.type === "ConcatStatement") {
             if (
               path.previous?.type === "MustacheStatement" &&
@@ -203,7 +222,9 @@ function print(path, options, print) {
           ];
         }
 
-        return replaceEndOfLine(text);
+        const val = replaceEndOfLine(text);
+        log("retval", val);
+        return val;
       }
 
       const isWhitespaceOnly = htmlWhitespaceUtils.isWhitespaceOnly(text);
@@ -661,6 +682,7 @@ function getTextValueParts(value) {
 function getCurrentAttributeName(path) {
   for (let depth = 0; depth < 2; depth++) {
     const parentNode = path.getParentNode(depth);
+    log("parentNode", parentNode);
     if (parentNode?.type === "AttrNode") {
       return parentNode.name.toLowerCase();
     }
@@ -821,7 +843,22 @@ function printPathExpression(node) {
 }
 
 const printer = {
-  print,
+  print: (...args) => {
+    const val = print(...args);
+
+    log(
+      "ret:",
+      {
+        node: args[0]?.node,
+        type: args[0]?.node?.type,
+        tag: args[0]?.node?.tag,
+        name: args[0]?.node?.name,
+      },
+      JSON.stringify(val, null, 2),
+    );
+
+    return val;
+  },
   massageAstNode: clean,
   hasPrettierIgnore,
   getVisitorKeys,
