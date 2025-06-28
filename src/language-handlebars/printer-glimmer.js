@@ -55,6 +55,9 @@ function print(path, options, print) {
           ? softline
           : "";
 
+      const isvoid = isVoidElement(node);
+      console.log("isvoid", isvoid);
+
       if (isVoidElement(node)) {
         return [startingTag, escapeNextElementNode];
       }
@@ -121,7 +124,7 @@ function print(path, options, print) {
 
     case "AttrNode": {
       const { name, value } = node;
-      log("value.chars", `"${value.chars}"`, value.type);
+      log("value.chars", `"${value.chars}"`, value.type, value);
       const isText = value.type === "TextNode";
       const isEmptyText = isText && value.chars === "";
 

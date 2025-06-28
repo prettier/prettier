@@ -10,7 +10,7 @@ import {
   softline,
 } from "../document/builders.js";
 import { replaceEndOfLine } from "../document/utils.js";
-import { isVoidElement } from "../language-handlebars/utils.js";
+import htmlVoidElements from "../language-handlebars/html-void-elements.evaluate.js";
 import getPreferredQuote from "../utils/get-preferred-quote.js";
 import htmlWhitespaceUtils from "../utils/html-whitespace-utils.js";
 import isNonEmptyArray from "../utils/is-non-empty-array.js";
@@ -57,7 +57,7 @@ function print(path, options, print) {
 
   switch (node.type) {
     case "Program":
-    case "Template":
+    case "Template": // remove template
     case "root": {
       const body =
         node.type === "root"
@@ -68,27 +68,82 @@ function print(path, options, print) {
         return "";
       }
 
-      const result = join("", body);
+      let result = join("", body);
 
-      // For documents, we need to trim trailing whitespace manually
-      // by checking the last element and trimming it if it's a string
-      if (isNonEmptyArray(result)) {
-        const lastElement = result.at(-1);
-        if (typeof lastElement === "string") {
-          const trimmed = lastElement.replace(/\s+$/u, "");
-          if (trimmed === "") {
-            // If the last element becomes empty after trimming, remove it
-            return result.slice(0, -1);
-          }
-          // Replace the last element with the trimmed version
-          return [...result.slice(0, -1), trimmed];
+      // Helper function to recursively trim trailing whitespace from document structures
+      function deepTrimTrailingWhitespace(doc) {
+        if (typeof doc === "string") {
+          return doc.replace(/\s+$/u, "");
         }
+        if (Array.isArray(doc)) {
+          if (doc.length === 0) {
+            return doc;
+          }
+
+          // Work backwards to remove trailing whitespace elements
+          let result = [...doc];
+          for (let i = result.length - 1; i >= 0; i--) {
+            const element = result[i];
+
+            // Check if this element represents whitespace/formatting that should be trimmed
+            if (isWhitespaceFormatting(element)) {
+              result.splice(i, 1);
+              continue;
+            }
+
+            // If it's an array, recursively trim it
+            if (Array.isArray(element)) {
+              const trimmed = deepTrimTrailingWhitespace(element);
+              if (trimmed.length === 0) {
+                result.splice(i, 1);
+                continue;
+              }
+              result[i] = trimmed;
+              break; // Stop at the first non-whitespace element
+            }
+
+            // If it's a string, trim trailing whitespace
+            if (typeof element === "string") {
+              const trimmed = element.replace(/\s+$/u, "");
+              if (trimmed === "") {
+                result.splice(i, 1);
+                continue;
+              }
+              result[i] = trimmed;
+              break; // Stop at the first non-whitespace element
+            }
+
+            // For any other type, stop here
+            break;
+          }
+
+          return result;
+        }
+        return doc;
       }
 
-      // Always trim trailing whitespace/newlines to match glimmer behavior
-      if (typeof result === "string") {
-        return result.replace(/\s+$/u, "");
+      // Helper function to check if a doc element represents whitespace/formatting
+      function isWhitespaceFormatting(element) {
+        if (typeof element === "string" && /^\s*$/u.test(element)) {
+          return true;
+        }
+        if (element && typeof element === "object") {
+          // Check for Prettier document formatting objects
+          if (element.type === "line" || element.type === "break-parent") {
+            return true;
+          }
+          if (element.type === "align" && element.contents) {
+            // An align is whitespace if all its contents are whitespace
+            return (
+              Array.isArray(element.contents) &&
+              element.contents.every(isWhitespaceFormatting)
+            );
+          }
+        }
+        return false;
       }
+
+      result = deepTrimTrailingWhitespace(result);
 
       return result;
     }
@@ -112,7 +167,10 @@ function print(path, options, print) {
         selfClosing: node.selfClosing,
       };
 
-      if (isVoidElement(normalizedNode)) {
+      const isvoid = isVoidElement(normalizedNode);
+      log("isvoid", isvoid);
+
+      if (isvoid) {
         return [startingTag, escapeNextElementNode];
       }
 
@@ -149,8 +207,9 @@ function print(path, options, print) {
     case MAP.AttrNode: {
       // HTML attribute from HTML parser
       const { name } = node;
-      log("value.chars", `"${node.value}"`, node.type);
-      const isText = typeof node.value === "string"; // TODO: Figure if this is ok
+      log("value.chars", `"${node.value}"`, node);
+      // !node.value since it can be null
+      const isText = typeof node.value === "string" || !node.value; // TODO: Figure if this is ok
       const isEmptyText = isText && !node.value;
 
       // If the text is empty and the value's loc start and end offsets are the
@@ -176,16 +235,10 @@ function print(path, options, print) {
             )
           : "";
 
-      const vava = isText
-        ? null
-        : node.value.parts
-            .map((part) => (part.type === MAP.TextNode ? part.value : ""))
-            .join("");
-
       log(
         "quote",
 
-        { "node?.type": node?.type, isText, quote, vava },
+        { "node?.type": node?.type, isText, quote },
         JSON.stringify(node.value, null, 2),
       );
 
@@ -201,7 +254,7 @@ function print(path, options, print) {
     }
 
     case "comment":
-      return `<!--${node.value || ""}-->`;
+      return ["<!--", node.value || "", "-->"];
 
     case "ContentStatement":
       return printContentStatement(node, path, options);
@@ -319,12 +372,16 @@ function printContentStatement(node, path, options) {
 
   while (currentPath && currentPath.parent) {
     const { parent } = currentPath;
-    const isLastInParent =
-      (parent.body && parent.body.at(-1) === currentPath.node) ||
-      (parent.children && parent.children.at(-1) === currentPath.node);
 
-    if (!isLastInParent) {
-      break; // Not the last child, so not at document end
+    // Check if this node is the last meaningful child
+    // (comments don't count as meaningful for whitespace trimming)
+    const isLastMeaningfulChild = isLastMeaningfulChildInParent(
+      currentPath.node,
+      parent,
+    );
+
+    if (!isLastMeaningfulChild) {
+      break; // Not the last meaningful child, so not at document end
     }
 
     // If we reached Program/Template/root, we're at document end
@@ -340,6 +397,8 @@ function printContentStatement(node, path, options) {
     currentPath = currentPath.parent;
   }
 
+  log("isAtDocumentEnd", isAtDocumentEnd);
+
   // If this is at the document end and contains only whitespace, return empty
   if (isAtDocumentEnd && /^\s*$/u.test(text)) {
     return "";
@@ -353,24 +412,68 @@ function printContentStatement(node, path, options) {
   return text;
 }
 
+// Helper function to determine if a node is the last meaningful child
+// Comments are not considered meaningful for whitespace trimming purposes
+function isLastMeaningfulChildInParent(node, parent) {
+  const children = parent.body || parent.children || parent.parts;
+  if (!children) {
+    return false;
+  }
+
+  // Find the last non-comment child
+  for (let i = children.length - 1; i >= 0; i--) {
+    const child = children[i];
+    // Skip HTML comments and Mustache comments
+    if (child.type === "comment" || child.type === "CommentStatement") {
+      continue;
+    }
+    // This is the last meaningful child
+    return child === node;
+  }
+
+  // If all children after this node are comments, consider this the last meaningful child
+  const nodeIndex = children.indexOf(node);
+  if (nodeIndex === -1) {
+    return false;
+  }
+
+  for (let i = nodeIndex + 1; i < children.length; i++) {
+    const child = children[i];
+    if (child.type !== "comment" && child.type !== "CommentStatement") {
+      return false;
+    }
+  }
+
+  return true;
+}
+
 function printCommentStatement(node, path, options) {
-  const value = node.value || "";
+  const start = locStart(node);
+  const end = locEnd(node);
 
-  // Detect if this was originally a long-form comment
-  let needsLongForm = value.includes("}}");
+  log({
+    start,
+    end,
+  });
 
-  // If we have access to the original text, check if it was long-form
-  if (options.originalText && node.loc) {
-    const start = node.loc.start.offset || 0;
-    const end = node.loc.end.offset || 0;
-    const originalText = options.originalText.slice(start, end);
-    needsLongForm = originalText.includes("{{!--");
-  }
+  // Starts with `{{~`
+  const isLeftWhiteSpaceSensitive =
+    options.originalText.charAt(start + 2) === "~";
+  // Ends with `{{~`
+  const isRightWhitespaceSensitive =
+    options.originalText.charAt(end - 3) === "~";
 
-  if (needsLongForm) {
-    return [`{{!--${value}--}}`];
-  }
-  return [`{{!${value}}}`];
+  const dashes = node.value.includes("}}") ? "--" : "";
+  return [
+    "{{",
+    isLeftWhiteSpaceSensitive ? "~" : "",
+    "!",
+    dashes,
+    node.value,
+    dashes,
+    isRightWhitespaceSensitive ? "~" : "",
+    "}}",
+  ];
 }
 
 function printOpeningMustache(node) {
@@ -521,7 +624,7 @@ function printTextNode(node, path, options) {
   /* if `{{my-component}}` (or any text containing "{{")
    * makes it to the TextNode, it means it was escaped,
    * so let's print it escaped, ie.; `\{{my-component}}` */
-  const text = node.chars.replaceAll("{{", String.raw`\{{`);
+  let text = node.chars.replaceAll("{{", String.raw`\{{`);
 
   const attrName = getCurrentAttributeName(path);
 
@@ -722,35 +825,6 @@ function getCurrentAttributeName(path) {
   }
 }
 
-function getAttrValueText(value) {
-  if (!value) {
-    return "";
-  }
-
-  // Handle different types of attribute values
-  switch (value.type) {
-    case "TextNode":
-    case "ContentStatement":
-      return value.original || value.value || value.chars || "";
-    case "ConcatStatement":
-      // For concat statements, extract text from all parts
-      if (value.parts) {
-        return value.parts
-          .map((part) => {
-            if (part.type === "TextNode" || part.type === "ContentStatement") {
-              return part.original || part.value || part.chars || "";
-            }
-            // For handlebars expressions, just return a placeholder for quote detection
-            return "{{}}";
-          })
-          .join("");
-      }
-      return "";
-    default:
-      return String(value);
-  }
-}
-
 function printStartingTag(path, print) {
   const { node } = path;
 
@@ -906,4 +980,32 @@ function countTrailingNewLines(string) {
   string = typeof string === "string" ? string : "";
   const newLines = (string.match(/([\n\r][^\S\n\r]*)+$/gu) || [])[0] || "";
   return countNewLines(newLines);
+}
+
+// from utils
+function isGlimmerComponent(node) {
+  return (
+    node.type === MAP.ElementNode &&
+    typeof node.name === "string" &&
+    !node.name.startsWith(":") &&
+    (isUppercase(node.name[0]) || node.name.includes("."))
+  );
+}
+
+// https://github.com/glimmerjs/glimmer-vm/blob/ec5648f3895b9ab8d085523be001553746221449/packages/%40glimmer/syntax/lib/generation/printer.ts#L44-L46
+function isVoidTag(tag) {
+  return htmlVoidElements.has(tag.toLowerCase()) && !isUppercase(tag[0]);
+}
+
+function isVoidElement(node) {
+  return (
+    node.tagDefinition.canSelfClose === true ||
+    isVoidTag(node.tag) ||
+    (isGlimmerComponent(node) &&
+      node.children.every((node) => isWhitespaceNode(node)))
+  );
+}
+
+function isUppercase(string) {
+  return string.toUpperCase() === string;
 }
