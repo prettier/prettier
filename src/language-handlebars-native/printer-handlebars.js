@@ -30,7 +30,7 @@ const MAP = {
   AttrNode: "attribute",
   ElementNode: "element",
   TextNode: "text",
-  ConcatStatement: "concat",
+  ConcatStatement: "ConcatStatement",
   MustacheStatement: "mustache",
   BlockStatement: "block",
   PartialStatement: "partial",
@@ -38,7 +38,7 @@ const MAP = {
 };
 
 function log(...args) {
-  // console.log(...args);
+  console.log(...args);
 }
 
 // Printer for native handlebars AST
@@ -161,26 +161,32 @@ function print(path, options, print) {
 
       log("value", node.value);
 
-      let quote = '"';
       // TODO: Figure if this is ok
       // Let's assume quotes inside the content of text nodes are already
       // properly escaped with entities, otherwise the parse wouldn't have parsed them.
-      try {
-        quote = isText
-          ? getPreferredQuote(node.value ?? "", options.singleQuote)
-          : node.type === MAP.ConcatStatement
-            ? getPreferredQuote(
-                node.parts
-                  .map((part) => (part.type === MAP.TextNode ? part.chars : ""))
-                  .join(""),
-                options.singleQuote,
-              )
-            : "";
-      } catch (error) {
-        console.log("error", node);
-      }
+      const quote = isText
+        ? getPreferredQuote(node.value, options.singleQuote)
+        : node.value.type === MAP.ConcatStatement
+          ? getPreferredQuote(
+              node.value.parts
+                .map((part) => (part.type === MAP.TextNode ? part.value : ""))
+                .join(""),
+              options.singleQuote,
+            )
+          : "";
 
-      log("quote", { isText, quote });
+      const vava = isText
+        ? null
+        : node.value.parts
+            .map((part) => (part.type === MAP.TextNode ? part.value : ""))
+            .join("");
+
+      log(
+        "quote",
+
+        { "node?.type": node?.type, isText, quote, vava },
+        JSON.stringify(node.value, null, 2),
+      );
 
       const valueDoc = print("value");
 

@@ -30,7 +30,7 @@ const NEWLINES_TO_PRESERVE_MAX = 2;
 // https://github.com/glimmerjs/glimmer-vm/blob/master/packages/%40glimmer/syntax/lib/generation/print.ts
 
 function log(...args) {
-  // console.log(...args);
+  console.log(...args);
 }
 
 function print(path, options, print) {
