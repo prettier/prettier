@@ -229,6 +229,7 @@ function print(path, options, print) {
 
       const isWhitespaceOnly = htmlWhitespaceUtils.isWhitespaceOnly(text);
       const { isFirst, isLast } = path;
+      log("first/last", { isFirst, isLast, "path.parent": path.parent });
 
       if (options.htmlWhitespaceSensitivity !== "ignore") {
         // let's remove the file's final newline

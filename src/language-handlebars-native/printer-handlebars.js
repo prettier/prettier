@@ -35,6 +35,7 @@ const MAP = {
   BlockStatement: "block",
   PartialStatement: "partial",
   SubExpression: "subexpression",
+  Template: "root",
 };
 
 function log(...args) {
@@ -567,6 +568,7 @@ function printTextNode(node, path, options) {
 
   const isWhitespaceOnly = htmlWhitespaceUtils.isWhitespaceOnly(text);
   const { isFirst, isLast } = path;
+  log("first/last", { isFirst, isLast, "path.parent": path.parent });
 
   if (options.htmlWhitespaceSensitivity !== "ignore") {
     // let's remove the file's final newline
