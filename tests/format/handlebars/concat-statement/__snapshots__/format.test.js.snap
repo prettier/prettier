@@ -1,8 +1,8 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`concat-statement.hbs - {"singleQuote":true} format 1`] = `
 ====================================options=====================================
-parsers: ["glimmer"]
+parsers: ["glimmer", "hbs"]
 printWidth: 80
 singleQuote: true
                                                                                 | printWidth
@@ -60,7 +60,7 @@ singleQuote: true
 
 exports[`concat-statement.hbs format 1`] = `
 ====================================options=====================================
-parsers: ["glimmer"]
+parsers: ["glimmer", "hbs"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -117,7 +117,7 @@ printWidth: 80
 
 exports[`in-attr-node.hbs - {"singleQuote":true} format 1`] = `
 ====================================options=====================================
-parsers: ["glimmer"]
+parsers: ["glimmer", "hbs"]
 printWidth: 80
 singleQuote: true
                                                                                 | printWidth
@@ -150,7 +150,7 @@ singleQuote: true
 
 exports[`in-attr-node.hbs format 1`] = `
 ====================================options=====================================
-parsers: ["glimmer"]
+parsers: ["glimmer", "hbs"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

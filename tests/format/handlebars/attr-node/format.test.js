@@ -1,1 +1,1 @@
-runFormatTest(import.meta, ["glimmer", "handlebars"]);
+runFormatTest(import.meta, ["glimmer", "hbs"]);
