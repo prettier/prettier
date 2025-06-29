@@ -20,7 +20,7 @@ exports[`API getSupportInfo() 1`] = `
       "html",
     ],
     "Handlebars": [
-      "glimmer",
+      "hbs",
     ],
     "JSON": [
       "json",
@@ -205,6 +205,7 @@ exports[`API getSupportInfo() 1`] = `
         "angular",
         "lwc",
         "mjml",
+        "hbs",
       ],
       "default": undefined,
       "type": "choice",
@@ -378,6 +379,17 @@ exports[`CLI --support-info  1`] = `
       "linguistLanguageId": 155,
       "name": "Handlebars",
       "parsers": ["glimmer"],
+      "tmScope": "text.html.handlebars",
+      "type": "markup",
+      "vscodeLanguageIds": ["handlebars"]
+    },
+    {
+      "aceMode": "handlebars",
+      "aliases": ["hbs", "htmlbars"],
+      "extensions": [".handlebars", ".hbs"],
+      "linguistLanguageId": 155,
+      "name": "Handlebars",
+      "parsers": ["hbs"],
       "tmScope": "text.html.handlebars",
       "type": "markup",
       "vscodeLanguageIds": ["handlebars"]
@@ -997,7 +1009,8 @@ exports[`CLI --support-info  1`] = `
         { "description": "HTML", "value": "html" },
         { "description": "Angular", "value": "angular" },
         { "description": "Lightning Web Components", "value": "lwc" },
-        { "description": "MJML", "value": "mjml" }
+        { "description": "MJML", "value": "mjml" },
+        { "description": "Handlebars", "value": "hbs" }
       ],
       "description": "Which parser to use.",
       "name": "parser",
