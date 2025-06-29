@@ -1,4 +1,4 @@
-import printer from "./printer-glimmer.js";
+import printer from "./printer-hbs.js";
 
 export { default as getVisitorKeys } from "./get-visitor-keys.js";
 export const options = {};
