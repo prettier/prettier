@@ -597,6 +597,62 @@ const pluginFiles = [
       },
     ],
   },
+  {
+    input: "src/plugins/hbs.js",
+    replaceModule: [
+      ...["@glimmer/util", "@glimmer/wire-format", "@glimmer/syntax"].map(
+        (packageName) => ({
+          module: getPackageFile(`${packageName}/dist/prod/index.js`),
+          path: getPackageFile(`${packageName}/dist/dev/index.js`),
+        }),
+      ),
+      {
+        module: getPackageFile("@glimmer/syntax/dist/dev/index.js"),
+        process(text) {
+          text = text.replace(
+            'import { DEBUG } from "@glimmer/env";',
+            "const DEBUG = false;",
+          );
+
+          // This passed to plugins, our plugin don't need access to the options
+          text = text.replace(/(?<=\sconst syntax = )\{.*?\n\}(?=;\n)/su, "{}");
+
+          text = text.replaceAll(
+            /\sclass \S+ extends[(\s]+node\(.*?\).*?\{(?:\n.*?\n)?\}\n/gsu,
+            "\n",
+          );
+
+          text = text.replaceAll(
+            /\nvar api\S* = \s*(?:\/\*#__PURE__\*\/)?\s*Object\.freeze\(\{.*?\n\}\);/gsu,
+            "",
+          );
+
+          text = text.replace(
+            "const ARGUMENT_RESOLUTION = ",
+            "const ARGUMENT_RESOLUTION = undefined &&",
+          );
+
+          text = text.replace(
+            "const HTML_RESOLUTION = ",
+            "const HTML_RESOLUTION = undefined &&",
+          );
+
+          text = text.replace(
+            "const LOCAL_DEBUG = ",
+            "const LOCAL_DEBUG = false &&",
+          );
+
+          text = text.replace(/(?<=\n)export .*?;/u, "export { preprocess };");
+
+          return text;
+        },
+      },
+      {
+        module: getPackageFile("@handlebars/parser/dist/esm/index.js"),
+        path: getPackageFile("@handlebars/parser/dist/esm/parse.js"),
+      },
+    ],
+  },
   "src/plugins/html.js",
   "src/plugins/yaml.js",
 ].map((file) => {
