@@ -1,9 +1,9 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`option.hbs - {"htmlWhitespaceSensitivity":"ignore","printWidth":40} format 1`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
-parsers: ["glimmer"]
+parsers: ["glimmer", "hbs"]
 printWidth: 40
                                         | printWidth
 =====================================input======================================
@@ -313,7 +313,7 @@ expressions. sometimes{{nogaps}}areimportant
 exports[`option.hbs - {"htmlWhitespaceSensitivity":"strict","printWidth":40} format 1`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "strict"
-parsers: ["glimmer"]
+parsers: ["glimmer", "hbs"]
 printWidth: 40
                                         | printWidth
 =====================================input======================================
@@ -592,7 +592,7 @@ is your name
 exports[`snippet: #12 - {"htmlWhitespaceSensitivity":"strict","printWidth":40} format 1`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "strict"
-parsers: ["glimmer"]
+parsers: ["glimmer", "hbs"]
 printWidth: 40
                                         | printWidth
 =====================================input======================================
@@ -605,7 +605,7 @@ printWidth: 40
 exports[`snippet: #13 - {"htmlWhitespaceSensitivity":"strict","printWidth":40} format 1`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "strict"
-parsers: ["glimmer"]
+parsers: ["glimmer", "hbs"]
 printWidth: 40
                                         | printWidth
 =====================================input======================================
@@ -618,7 +618,7 @@ printWidth: 40
 exports[`snippet: #14 - {"htmlWhitespaceSensitivity":"strict","printWidth":40} format 1`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "strict"
-parsers: ["glimmer"]
+parsers: ["glimmer", "hbs"]
 printWidth: 40
                                         | printWidth
 =====================================input======================================
@@ -631,7 +631,7 @@ printWidth: 40
 exports[`snippet: #15 - {"htmlWhitespaceSensitivity":"strict","printWidth":40} format 1`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "strict"
-parsers: ["glimmer"]
+parsers: ["glimmer", "hbs"]
 printWidth: 40
                                         | printWidth
 =====================================input======================================
@@ -644,7 +644,7 @@ printWidth: 40
 exports[`snippet: #16 - {"htmlWhitespaceSensitivity":"strict","printWidth":40} format 1`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "strict"
-parsers: ["glimmer"]
+parsers: ["glimmer", "hbs"]
 printWidth: 40
                                         | printWidth
 =====================================input======================================
@@ -657,7 +657,7 @@ printWidth: 40
 exports[`snippet: #17 - {"htmlWhitespaceSensitivity":"strict","printWidth":40} format 1`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "strict"
-parsers: ["glimmer"]
+parsers: ["glimmer", "hbs"]
 printWidth: 40
                                         | printWidth
 =====================================input======================================
@@ -670,7 +670,7 @@ printWidth: 40
 exports[`snippet: #18 - {"htmlWhitespaceSensitivity":"strict","printWidth":40} format 1`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "strict"
-parsers: ["glimmer"]
+parsers: ["glimmer", "hbs"]
 printWidth: 40
                                         | printWidth
 =====================================input======================================
@@ -683,7 +683,7 @@ printWidth: 40
 exports[`snippet: #19 - {"htmlWhitespaceSensitivity":"strict","printWidth":40} format 1`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "strict"
-parsers: ["glimmer"]
+parsers: ["glimmer", "hbs"]
 printWidth: 40
                                         | printWidth
 =====================================input======================================
@@ -696,7 +696,7 @@ printWidth: 40
 exports[`snippet: #20 - {"htmlWhitespaceSensitivity":"strict","printWidth":40} format 1`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "strict"
-parsers: ["glimmer"]
+parsers: ["glimmer", "hbs"]
 printWidth: 40
                                         | printWidth
 =====================================input======================================
@@ -709,7 +709,7 @@ printWidth: 40
 exports[`snippet: #21 - {"htmlWhitespaceSensitivity":"strict","printWidth":40} format 1`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "strict"
-parsers: ["glimmer"]
+parsers: ["glimmer", "hbs"]
 printWidth: 40
                                         | printWidth
 =====================================input======================================
@@ -724,7 +724,7 @@ printWidth: 40
 exports[`snippet: \`U+2005\` should format like \`U+005F\` not like \`U+0020\` - {"htmlWhitespaceSensitivity":"strict","printWidth":40} format 1`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "strict"
-parsers: ["glimmer"]
+parsers: ["glimmer", "hbs"]
 printWidth: 40
                                         | printWidth
 =====================================input======================================

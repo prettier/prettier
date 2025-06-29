@@ -1,6 +1,6 @@
 import { outdent } from "outdent";
 
-runFormatTest(import.meta, ["glimmer"], {
+runFormatTest(import.meta, ["glimmer", "hbs"], {
   htmlWhitespaceSensitivity: "ignore",
   printWidth: 40,
 });
@@ -77,7 +77,7 @@ runFormatTest(
       },
     ],
   },
-  ["glimmer"],
+  ["glimmer", "hbs"],
   {
     htmlWhitespaceSensitivity: "strict",
     printWidth: 40,

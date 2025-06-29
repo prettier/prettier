@@ -2,7 +2,7 @@
 
 exports[`keyword-expressions.hbs format 1`] = `
 ====================================options=====================================
-parsers: ["glimmer"]
+parsers: ["glimmer", "hbs"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -33,7 +33,7 @@ printWidth: 80
 
 exports[`literal-expressions.hbs format 1`] = `
 ====================================options=====================================
-parsers: ["glimmer"]
+parsers: ["glimmer", "hbs"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -71,7 +71,7 @@ printWidth: 80
 
 exports[`numeric-expressions.hbs format 1`] = `
 ====================================options=====================================
-parsers: ["glimmer"]
+parsers: ["glimmer", "hbs"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

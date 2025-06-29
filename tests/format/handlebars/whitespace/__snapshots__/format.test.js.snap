@@ -1,8 +1,8 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`basics.hbs - {"printWidth":40} format 1`] = `
 ====================================options=====================================
-parsers: ["glimmer"]
+parsers: ["glimmer", "hbs"]
 printWidth: 40
                                         | printWidth
 =====================================input======================================
@@ -71,7 +71,7 @@ printWidth: 40
 
 exports[`boss.hbs - {"printWidth":40} format 1`] = `
 ====================================options=====================================
-parsers: ["glimmer"]
+parsers: ["glimmer", "hbs"]
 printWidth: 40
                                         | printWidth
 =====================================input======================================
@@ -122,7 +122,7 @@ hey
 
 exports[`curly.hbs - {"printWidth":40} format 1`] = `
 ====================================options=====================================
-parsers: ["glimmer"]
+parsers: ["glimmer", "hbs"]
 printWidth: 40
                                         | printWidth
 =====================================input======================================
@@ -136,7 +136,7 @@ printWidth: 40
 
 exports[`display-inline-block.hbs - {"printWidth":40} format 1`] = `
 ====================================options=====================================
-parsers: ["glimmer"]
+parsers: ["glimmer", "hbs"]
 printWidth: 40
                                         | printWidth
 =====================================input======================================
@@ -182,7 +182,7 @@ Click here! Click here! Click here! Click here! Click here! Click here!
 
 exports[`display-none.hbs - {"printWidth":40} format 1`] = `
 ====================================options=====================================
-parsers: ["glimmer"]
+parsers: ["glimmer", "hbs"]
 printWidth: 40
                                         | printWidth
 =====================================input======================================
@@ -201,7 +201,7 @@ printWidth: 40
 
 exports[`fill.hbs - {"printWidth":40} format 1`] = `
 ====================================options=====================================
-parsers: ["glimmer"]
+parsers: ["glimmer", "hbs"]
 printWidth: 40
                                         | printWidth
 =====================================input======================================
@@ -240,7 +240,7 @@ printWidth: 40
 
 exports[`inline-element.hbs - {"printWidth":40} format 1`] = `
 ====================================options=====================================
-parsers: ["glimmer"]
+parsers: ["glimmer", "hbs"]
 printWidth: 40
                                         | printWidth
 =====================================input======================================
@@ -305,7 +305,7 @@ conubia nostra, per inceptos himenaeos. Donec in ornare velit.</p>
 
 exports[`non-breaking-whitespace.hbs - {"printWidth":40} format 1`] = `
 ====================================options=====================================
-parsers: ["glimmer"]
+parsers: ["glimmer", "hbs"]
 printWidth: 40
                                         | printWidth
 =====================================input======================================
@@ -332,7 +332,7 @@ printWidth: 40
 
 exports[`preformatted.hbs - {"printWidth":40} format 1`] = `
 ====================================options=====================================
-parsers: ["glimmer"]
+parsers: ["glimmer", "hbs"]
 printWidth: 40
                                         | printWidth
 =====================================input======================================
@@ -353,7 +353,7 @@ printWidth: 40
 
 exports[`preserved-spaces-and-breaks.hbs - {"printWidth":40} format 1`] = `
 ====================================options=====================================
-parsers: ["glimmer"]
+parsers: ["glimmer", "hbs"]
 printWidth: 40
                                         | printWidth
 =====================================input======================================
@@ -451,7 +451,7 @@ is your name
 
 exports[`punctuation.hbs - {"printWidth":40} format 1`] = `
 ====================================options=====================================
-parsers: ["glimmer"]
+parsers: ["glimmer", "hbs"]
 printWidth: 40
                                         | printWidth
 =====================================input======================================
@@ -473,7 +473,7 @@ printWidth: 40
 
 exports[`surrounding-linebreak.hbs - {"printWidth":40} format 1`] = `
 ====================================options=====================================
-parsers: ["glimmer"]
+parsers: ["glimmer", "hbs"]
 printWidth: 40
                                         | printWidth
 =====================================input======================================
@@ -518,7 +518,7 @@ printWidth: 40
 
 exports[`table.hbs - {"printWidth":40} format 1`] = `
 ====================================options=====================================
-parsers: ["glimmer"]
+parsers: ["glimmer", "hbs"]
 printWidth: 40
                                         | printWidth
 =====================================input======================================
@@ -579,7 +579,7 @@ printWidth: 40
 
 exports[`textarea.hbs - {"printWidth":40} format 1`] = `
 ====================================options=====================================
-parsers: ["glimmer"]
+parsers: ["glimmer", "hbs"]
 printWidth: 40
                                         | printWidth
 =====================================input======================================
@@ -625,7 +625,7 @@ printWidth: 40
 
 exports[`whitespace-control.hbs - {"printWidth":40} format 1`] = `
 ====================================options=====================================
-parsers: ["glimmer"]
+parsers: ["glimmer", "hbs"]
 printWidth: 40
                                         | printWidth
 =====================================input======================================

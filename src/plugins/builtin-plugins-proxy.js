@@ -3,6 +3,7 @@ import cssOptions from "../language-css/options.js";
 import graphqlLanguages from "../language-graphql/languages.evaluate.js";
 import graphqlOptions from "../language-graphql/options.js";
 import handlebarsLanguages from "../language-handlebars/languages.evaluate.js";
+import hbsLanguages from "../language-hbs/languages.evaluate.js";
 import htmlLanguages from "../language-html/languages.evaluate.js";
 import htmlOptions from "../language-html/options.js";
 import jsLanguages from "../language-js/languages.evaluate.js";
@@ -56,6 +57,7 @@ export const languages = [
   ...cssLanguages,
   ...graphqlLanguages,
   ...handlebarsLanguages,
+  ...hbsLanguages,
   ...htmlLanguages,
   ...jsLanguages,
   ...jsonLanguages,
@@ -109,6 +111,11 @@ export const { parsers, printers } = createParsersAndPrinters([
     importPlugin: () => import("./glimmer.js"),
     parsers: ["glimmer"],
     printers: ["glimmer"],
+  },
+  {
+    importPlugin: () => import("./hbs.js"),
+    parsers: ["hbs"],
+    printers: ["hbs"],
   },
   {
     importPlugin: () => import("./graphql.js"),

@@ -1,8 +1,8 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`arguments.hbs - {"singleQuote":false} format 1`] = `
 ====================================options=====================================
-parsers: ["glimmer"]
+parsers: ["glimmer", "hbs"]
 printWidth: 80
 singleQuote: false
                                                                                 | printWidth
@@ -36,7 +36,7 @@ singleQuote: false
 
 exports[`arguments.hbs - {"singleQuote":true} format 1`] = `
 ====================================options=====================================
-parsers: ["glimmer"]
+parsers: ["glimmer", "hbs"]
 printWidth: 80
 singleQuote: true
                                                                                 | printWidth
@@ -70,7 +70,7 @@ singleQuote: true
 
 exports[`attributes.hbs - {"singleQuote":false} format 1`] = `
 ====================================options=====================================
-parsers: ["glimmer"]
+parsers: ["glimmer", "hbs"]
 printWidth: 80
 singleQuote: false
                                                                                 | printWidth
@@ -132,7 +132,7 @@ singleQuote: false
 
 exports[`attributes.hbs - {"singleQuote":true} format 1`] = `
 ====================================options=====================================
-parsers: ["glimmer"]
+parsers: ["glimmer", "hbs"]
 printWidth: 80
 singleQuote: true
                                                                                 | printWidth
@@ -194,7 +194,7 @@ singleQuote: true
 
 exports[`string-literals.hbs - {"singleQuote":false} format 1`] = `
 ====================================options=====================================
-parsers: ["glimmer"]
+parsers: ["glimmer", "hbs"]
 printWidth: 80
 singleQuote: false
                                                                                 | printWidth
@@ -218,7 +218,7 @@ singleQuote: false
 
 exports[`string-literals.hbs - {"singleQuote":true} format 1`] = `
 ====================================options=====================================
-parsers: ["glimmer"]
+parsers: ["glimmer", "hbs"]
 printWidth: 80
 singleQuote: true
                                                                                 | printWidth

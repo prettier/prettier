@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`schema 1`] = `
 {
@@ -324,6 +324,12 @@ exports[`schema 1`] = `
               "description": "MJML",
               "enum": [
                 "mjml",
+              ],
+            },
+            {
+              "description": "Handlebars",
+              "enum": [
+                "hbs",
               ],
             },
             {

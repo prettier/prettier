@@ -3,7 +3,7 @@
 exports[`test.hbs - {"embeddedLanguageFormatting":"off"} format 1`] = `
 ====================================options=====================================
 embeddedLanguageFormatting: "off"
-parsers: ["glimmer"]
+parsers: ["glimmer", "hbs"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

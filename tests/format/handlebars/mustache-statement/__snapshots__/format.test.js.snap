@@ -1,8 +1,8 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`basics.hbs - {"singleQuote":true} format 1`] = `
 ====================================options=====================================
-parsers: ["glimmer"]
+parsers: ["glimmer", "hbs"]
 printWidth: 80
 singleQuote: true
                                                                                 | printWidth
@@ -164,7 +164,7 @@ singleQuote: true
 
 exports[`basics.hbs format 1`] = `
 ====================================options=====================================
-parsers: ["glimmer"]
+parsers: ["glimmer", "hbs"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -325,7 +325,7 @@ printWidth: 80
 
 exports[`element-modifier-statement.hbs - {"singleQuote":true} format 1`] = `
 ====================================options=====================================
-parsers: ["glimmer"]
+parsers: ["glimmer", "hbs"]
 printWidth: 80
 singleQuote: true
                                                                                 | printWidth
@@ -402,7 +402,7 @@ singleQuote: true
 
 exports[`element-modifier-statement.hbs format 1`] = `
 ====================================options=====================================
-parsers: ["glimmer"]
+parsers: ["glimmer", "hbs"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -478,7 +478,7 @@ printWidth: 80
 
 exports[`escaped.hbs - {"singleQuote":true} format 1`] = `
 ====================================options=====================================
-parsers: ["glimmer"]
+parsers: ["glimmer", "hbs"]
 printWidth: 80
 singleQuote: true
                                                                                 | printWidth
@@ -500,7 +500,7 @@ another non-escaped mustache: \\\\\\{{my-component}}
 
 exports[`escaped.hbs format 1`] = `
 ====================================options=====================================
-parsers: ["glimmer"]
+parsers: ["glimmer", "hbs"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -521,7 +521,7 @@ another non-escaped mustache: \\\\\\{{my-component}}
 
 exports[`issue-8691.hbs - {"singleQuote":true} format 1`] = `
 ====================================options=====================================
-parsers: ["glimmer"]
+parsers: ["glimmer", "hbs"]
 printWidth: 80
 singleQuote: true
                                                                                 | printWidth
@@ -610,7 +610,7 @@ foo{{/if}}
 
 exports[`issue-8691.hbs format 1`] = `
 ====================================options=====================================
-parsers: ["glimmer"]
+parsers: ["glimmer", "hbs"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

@@ -18,5 +18,5 @@ runFormatTest(
       "nextid",
     ].map((tag) => ({ name: tag, code: `<${tag}> text </${tag}>` })),
   },
-  ["glimmer"],
+  ["glimmer", "hbs"],
 );

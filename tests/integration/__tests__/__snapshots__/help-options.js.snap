@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`show detailed usage with --help arrow-parens  1`] = `
 {
@@ -450,7 +450,7 @@ Default: preserve",
 exports[`show detailed usage with --help parser  1`] = `
 {
   "stderr": "",
-  "stdout": "--parser <flow|babel|babel-flow|babel-ts|typescript|acorn|espree|meriyah|css|less|scss|json|json5|jsonc|json-stringify|graphql|markdown|mdx|vue|yaml|glimmer|html|angular|lwc|mjml>
+  "stdout": "--parser <flow|babel|babel-flow|babel-ts|typescript|acorn|espree|meriyah|css|less|scss|json|json5|jsonc|json-stringify|graphql|markdown|mdx|vue|yaml|glimmer|html|angular|lwc|mjml|hbs>
 
   Which parser to use.
 
@@ -480,7 +480,8 @@ Valid options:
   html             HTML
   angular          Angular
   lwc              Lightning Web Components
-  mjml             MJML",
+  mjml             MJML
+  hbs              Handlebars",
   "write": [],
 }
 `;

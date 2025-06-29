@@ -2,7 +2,7 @@
 
 exports[`block-param.hbs format 1`] = `
 ====================================options=====================================
-parsers: ["glimmer"]
+parsers: ["glimmer", "hbs"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

@@ -1,1 +1,1 @@
-runFormatTest(import.meta, ["glimmer"], { printWidth: 5 });
+runFormatTest(import.meta, ["glimmer", "hbs"], { printWidth: 5 });
