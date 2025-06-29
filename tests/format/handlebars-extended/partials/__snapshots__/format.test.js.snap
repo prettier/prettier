@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`partial.hbs format 1`] = `
+====================================options=====================================
+parsers: ["hbs"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+{{!-- Basic partial --}}
+{{> myPartial }}
+
+{{!-- Dynamic partial --}}
+{{> (whichPartial) }}
+{{> (lookup . 'myVariable') }}
+
+{{!-- Partial context --}}
+{{> myPartial myOtherContext }}
+
+{{!-- Partial parameters --}}
+{{> myPartial parameter=favoriteNumber }}
+
+{{!-- Partial blocks --}}
+{{#> myPartial }} {{!-- This is a partial block --}}
+  Failover content
+{{/myPartial}}
+
+{{!-- Inline partials --}}
+{{#*inline "myPartial"}} {{!-- This is a decorator block --}}
+  My Content
+{{/inline}}
+{{#each people}}
+  {{> myPartial}}
+{{/each}}
+=====================================output=====================================
+{{! Basic partial }}
+{{> myPartial }}
+
+{{! Dynamic partial }}
+{{> (whichPartial) }}
+{{> (lookup  "myVariable") }}
+
+{{! Partial context }}
+{{> myPartial myOtherContext }}
+
+{{! Partial parameters }}
+{{> myPartial parameter=favoriteNumber }}
+
+{{! Partial blocks }}
+{{#> myPartial }} {{!-- This is a partial block --}}
+  Failover content
+{{/myPartial}}
+
+{{! Inline partials }}
+{{*inline "myPartial" }} {{!-- This is a decorator block --}}
+  My Content
+{{/inline}}
+{{#each people}}
+  {{> myPartial }}
+{{/each}}
+================================================================================
+`;

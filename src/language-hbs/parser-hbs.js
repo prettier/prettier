@@ -6,7 +6,8 @@ import { locEnd, locStart } from "../language-handlebars/loc.js";
 // Constructs that glimmer doesn't support and need to be replaced with placeholders
 const UNSUPPORTED_BY_GLIMMER = new Set([
   "PartialStatement",
-  // Add other unsupported constructs here as needed
+  "PartialBlockStatement",
+  "DecoratorBlock",
 ]);
 
 // Safe placeholder system to avoid collisions with user content
@@ -198,59 +199,132 @@ function replaceUnsupportedConstructs(text, handlebarsAst, placeholderSystem) {
 }
 
 function mergeAsts(glimmerAst, placeholderMap) {
-  // For now, we'll just remove the placeholders entirely since
-  // we're not adding printer support for partials yet
-  // Walk through the glimmer AST and remove placeholder text nodes
-  function removePlaceholders(node) {
+  // Restore original handlebars nodes that were replaced with placeholders
+  function restorePlaceholders(node) {
     if (!node || typeof node !== "object") {
       return node;
     }
 
-    // Handle text nodes - remove if they contain placeholders
+    // Handle text nodes - check if they contain placeholders to restore
     if (node.type === "TextNode" && node.chars) {
-      // Check if this text node contains a placeholder
-      for (const [placeholder] of placeholderMap.entries()) {
-        if (node.chars === placeholder) {
-          // Remove the entire text node (return null to be filtered out)
-          return null;
+      // Check if this text node is exactly a placeholder
+      if (placeholderMap.has(node.chars)) {
+        // Replace the entire text node with the original handlebars node
+        const originalNode = placeholderMap.get(node.chars);
+        return originalNode;
+      }
+
+      // Handle mixed content with placeholders
+      let currentText = node.chars;
+      const restoredNodes = [];
+      let hasPlaceholders = false;
+
+      // Process text by finding and replacing placeholders one by one
+      while (currentText) {
+        let foundPlaceholder = false;
+        let earliestPos = currentText.length;
+        let earliestPlaceholder = null;
+
+        // Find the earliest placeholder in the remaining text
+        for (const placeholder of placeholderMap.keys()) {
+          const pos = currentText.indexOf(placeholder);
+          if (pos !== -1 && pos < earliestPos) {
+            earliestPos = pos;
+            earliestPlaceholder = placeholder;
+          }
         }
-        if (node.chars.includes(placeholder)) {
-          // For mixed content, remove the placeholder part
-          let remainingText = node.chars;
 
-          // Find all placeholders in this text and remove them
-          for (const ph of placeholderMap.keys()) {
-            remainingText = remainingText.replace(ph, "");
+        if (earliestPlaceholder) {
+          foundPlaceholder = true;
+          hasPlaceholders = true;
+
+          // Add text before placeholder if any
+          if (earliestPos > 0) {
+            const beforeText = currentText.slice(0, earliestPos);
+            restoredNodes.push({
+              type: "TextNode",
+              chars: beforeText,
+              loc: node.loc,
+            });
           }
 
-          // If there's still content, keep it
-          if (remainingText.trim()) {
-            return {
-              ...node,
-              chars: remainingText,
-            };
+          // Add the restored original node
+          const originalNode = placeholderMap.get(earliestPlaceholder);
+          restoredNodes.push(originalNode);
+
+          // Continue with text after the placeholder
+          currentText = currentText.slice(
+            earliestPos + earliestPlaceholder.length,
+          );
+        }
+
+        if (!foundPlaceholder) {
+          // No more placeholders, add remaining text if any
+          if (currentText) {
+            restoredNodes.push({
+              type: "TextNode",
+              chars: currentText,
+              loc: node.loc,
+            });
           }
-          // If only placeholder content, remove the node
-          return null;
+          break;
         }
       }
+
+      // If we had placeholders, return the array of restored nodes
+      // Otherwise return the original node
+      return hasPlaceholders ? restoredNodes : node;
     }
 
     // Recursively process child nodes
     const newNode = { ...node };
 
     if (Array.isArray(node.children)) {
-      newNode.children = node.children.map(removePlaceholders).filter(Boolean);
+      newNode.children = processChildArray(node.children);
     }
 
     if (Array.isArray(node.body)) {
-      newNode.body = node.body.map(removePlaceholders).filter(Boolean);
+      newNode.body = processChildArray(node.body);
+    }
+
+    // Handle BlockStatement program blocks
+    if (node.program && node.program.body && Array.isArray(node.program.body)) {
+      newNode.program = {
+        ...node.program,
+        body: processChildArray(node.program.body),
+      };
+    }
+
+    // Handle inverse blocks
+    if (node.inverse && node.inverse.body && Array.isArray(node.inverse.body)) {
+      newNode.inverse = {
+        ...node.inverse,
+        body: processChildArray(node.inverse.body),
+      };
     }
 
     return newNode;
   }
 
-  const result = removePlaceholders(glimmerAst);
+  // Helper function to process arrays of child nodes
+  function processChildArray(children) {
+    const result = [];
+
+    for (const child of children) {
+      const restored = restorePlaceholders(child);
+
+      // If restoration returned an array (from mixed content), spread it
+      if (Array.isArray(restored)) {
+        result.push(...restored);
+      } else if (restored !== null && restored !== undefined) {
+        result.push(restored);
+      }
+    }
+
+    return result;
+  }
+
+  const result = restorePlaceholders(glimmerAst);
   return result;
 }
 
@@ -363,7 +437,7 @@ const glimmerPrettierParsePlugin = (/* options*/) => ({
 
 export const hbs = {
   parse,
-  astFormat: "glimmer", // Use glimmer format since that's what the result will be
+  astFormat: "hbs", // Use hbs format for separate HBS functionality
   locStart,
   locEnd,
 };

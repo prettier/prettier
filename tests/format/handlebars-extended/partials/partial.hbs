@@ -1,0 +1,25 @@
+{{!-- Basic partial --}}
+{{> myPartial }}
+
+{{!-- Dynamic partial --}}
+{{> (whichPartial) }}
+{{> (lookup . 'myVariable') }}
+
+{{!-- Partial context --}}
+{{> myPartial myOtherContext }}
+
+{{!-- Partial parameters --}}
+{{> myPartial parameter=favoriteNumber }}
+
+{{!-- Partial blocks --}}
+{{#> myPartial }} {{!-- This is a partial block --}}
+  Failover content
+{{/myPartial}}
+
+{{!-- Inline partials --}}
+{{#*inline "myPartial"}} {{!-- This is a decorator block --}}
+  My Content
+{{/inline}}
+{{#each people}}
+  {{> myPartial}}
+{{/each}}

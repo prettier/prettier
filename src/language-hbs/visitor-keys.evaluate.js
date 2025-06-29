@@ -2,7 +2,10 @@ import { visitorKeys as glimmerVisitorKeys } from "@glimmer/syntax";
 
 const additionalHandlebarsKeys = {
   PartialStatement: ["name", "params", "hash"],
-  // Add other handlebars-specific node types here if needed
+  PartialBlockStatement: ["name", "params", "hash", "program", "inverse"],
+  DecoratorBlock: ["path", "params", "hash", "program"],
+  Program: ["body"], // Handlebars Program node uses only "body"
+  ContentStatement: [], // Handlebars text content node
 };
 
 const visitorKeys = {

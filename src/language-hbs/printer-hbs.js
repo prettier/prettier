@@ -385,7 +385,8 @@ function print(path, options, print) {
       return String(node.value);
 
     case "CommentStatement":
-      return ["<!--", node.value, "-->"];
+      // Preserve handlebars comments in their original format
+      return ["{{!--", node.value, "--}}"];
 
     case "StringLiteral":
       return printStringLiteral(path, options);
@@ -398,6 +399,38 @@ function print(path, options, print) {
 
     case "NullLiteral":
       return "null";
+
+    case "PartialStatement":
+      return group([
+        "{{>",
+        " ",
+        print("name"), // PartialStatement uses 'name' instead of 'path'
+        printParams(path, print) ? [" ", printParams(path, print)] : "",
+        " }}",
+      ]);
+
+    case "PartialBlockStatement":
+      return [
+        printOpenPartialBlock(path, print),
+        group([
+          printProgram(path, options, print),
+          printInverse(path, options, print),
+          printClosePartialBlock(path, print),
+        ]),
+      ];
+
+    case "DecoratorBlock":
+      return [
+        printOpenDecoratorBlock(path, print),
+        group([
+          printProgram(path, options, print),
+          printCloseDecoratorBlock(path, print),
+        ]),
+      ];
+
+    case "ContentStatement":
+      // Similar to TextNode but from handlebars parser
+      return node.value || "";
 
     case "AtHead": // Handled in `printPathExpression`
     case "VarHead": // Handled in `printPathExpression`
@@ -512,6 +545,41 @@ function printInverseBlockClosingMustache(node) {
   const closing = printClosingMustache(node);
   const strip = node.inverseStrip.close ? "~" : "";
   return [strip, closing];
+}
+
+/* PartialBlockStatement print helpers */
+
+function printOpenPartialBlock(path, print) {
+  const paramsDoc = printParams(path, print);
+
+  return group([
+    "{{#>",
+    " ",
+    print("name"), // PartialBlockStatement uses 'name' instead of 'path'
+    paramsDoc ? [" ", paramsDoc] : "",
+    " }}",
+  ]);
+}
+
+function printClosePartialBlock(path, print) {
+  return ["{{/", print("name"), "}}"]; // PartialBlockStatement uses 'name' instead of 'path'
+}
+
+/* DecoratorBlock print helpers */
+
+function printOpenDecoratorBlock(path, print) {
+  const paramsDoc = printParams(path, print);
+
+  return group([
+    "{{*",
+    printPath(path, print),
+    paramsDoc ? [" ", paramsDoc] : "",
+    " }}",
+  ]);
+}
+
+function printCloseDecoratorBlock(path, print) {
+  return ["{{/", printPath(path, print), "}}"];
 }
 
 function printOpenBlock(path, print) {
@@ -810,18 +878,38 @@ const isPathExpressionPartNeedBrackets = (part, index) => {
   );
 };
 function printPathExpression(node) {
-  // check if node is a legacy path expression and leave it alone
-  if (node.tail.length === 0 && node.original.includes("/")) {
-    return node.original;
+  // Handle handlebars PathExpression (uses 'parts' array)
+  if (node.parts) {
+    // check if node is a legacy path expression and leave it alone
+    if (node.parts.length === 1 && node.original.includes("/")) {
+      return node.original;
+    }
+
+    return node.parts
+      .map((part, index) =>
+        isPathExpressionPartNeedBrackets(part, index) ? `[${part}]` : part,
+      )
+      .join(".");
   }
 
-  const parts = [node.head.original, ...node.tail];
+  // Handle glimmer PathExpression (uses 'head' and 'tail')
+  if (node.tail && node.head) {
+    // check if node is a legacy path expression and leave it alone
+    if (node.tail.length === 0 && node.original.includes("/")) {
+      return node.original;
+    }
 
-  return parts
-    .map((part, index) =>
-      isPathExpressionPartNeedBrackets(part, index) ? `[${part}]` : part,
-    )
-    .join(".");
+    const parts = [node.head.original, ...node.tail];
+
+    return parts
+      .map((part, index) =>
+        isPathExpressionPartNeedBrackets(part, index) ? `[${part}]` : part,
+      )
+      .join(".");
+  }
+
+  // Fallback to original if neither format matches
+  return node.original || "";
 }
 
 const printer = {
