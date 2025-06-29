@@ -6,6 +6,7 @@ import {
   hasPrettierIgnore,
   isWhitespaceNode,
 } from "../language-handlebars/utils.js";
+import isNonEmptyArray from "../utils/is-non-empty-array.js";
 import getVisitorKeys from "./get-visitor-keys.js";
 
 /**
@@ -14,7 +15,7 @@ import getVisitorKeys from "./get-visitor-keys.js";
 
 function print(path, options, print) {
   switch (path.node.type) {
-    case "PartialStatement":
+    case "Handlebar_PartialStatement":
       return group([
         "{{>",
         " ",
@@ -23,7 +24,7 @@ function print(path, options, print) {
         " }}",
       ]);
 
-    case "PartialBlockStatement":
+    case "Handlebar_PartialBlockStatement":
       return [
         printOpenPartialBlock(path, print),
         group([
@@ -33,7 +34,7 @@ function print(path, options, print) {
         ]),
       ];
 
-    case "DecoratorBlock":
+    case "Handlebar_DecoratorBlock":
       return [
         printOpenDecoratorBlock(path, print),
         group([
@@ -42,7 +43,7 @@ function print(path, options, print) {
         ]),
       ];
 
-    case "Decorator":
+    case "Handlebar_Decorator":
       // Standalone decorators like {{* decorator}}
       return group([
         "{{*",
@@ -51,8 +52,72 @@ function print(path, options, print) {
         " }}",
       ]);
 
+    case "Handlebar_PathExpression":
+      return printHandlebarPathExpression(path.node);
+
+    case "Handlebar_SubExpression":
+      return group([
+        "(",
+        print("path"),
+        printParams(path, print) ? [" ", printParams(path, print)] : "",
+        ")",
+      ]);
+
+    case "Handlebar_StringLiteral":
+    case "Handlebar_NumberLiteral":
+    case "Handlebar_BooleanLiteral":
+    case "Handlebar_UndefinedLiteral":
+    case "Handlebar_NullLiteral":
+    case "Handlebar_Hash":
+    case "Handlebar_HashPair":
+    case "Handlebar_Program":
+    case "Handlebar_ContentStatement":
+      // These nodes have the same structure as Glimmer equivalents
+      // (ContentStatement gets special handling in delegateToGlimmerPrinter)
+      return delegateToGlimmerPrinter(path, options, print);
+
+    case "Handlebar_CommentStatement":
+      // Handlebars comments should stay as Handlebars comments, not HTML comments
+      return ["{{!--", path.node.value, "--}}"];
+
     default:
       return printerGlimmer.print(path, options, print);
+  }
+}
+
+function delegateToGlimmerPrinter(path, options, print) {
+  // Temporarily modify the node type to remove the prefix
+  const originalType = path.node.type;
+  let unprefixedType = originalType.replace("Handlebar_", "");
+
+  // Special case: ContentStatement in Handlebars.js maps to TextNode in Glimmer
+  if (unprefixedType === "ContentStatement") {
+    unprefixedType = "TextNode";
+    // Also need to map the value property to chars
+    const originalValue = path.node.value;
+    path.node.chars = originalValue;
+    path.node.type = unprefixedType;
+
+    try {
+      const result = printerGlimmer.print(path, options, print);
+      return result;
+    } finally {
+      // Restore original properties
+      path.node.type = originalType;
+      delete path.node.chars;
+    }
+  }
+
+  // Temporarily modify the node type
+  path.node.type = unprefixedType;
+
+  try {
+    // Delegate to the Glimmer printer
+    const result = printerGlimmer.print(path, options, print);
+    return result;
+  } finally {
+    // Always restore the original type
+    path.node.type = originalType;
   }
 }
 
@@ -218,6 +283,16 @@ function printParams(path, print) {
   }
 
   return join(line, parts);
+}
+
+function printHandlebarPathExpression(node) {
+  // Handle Handlebars.js style PathExpression with 'parts' and 'original'
+  if (isNonEmptyArray(node.parts)) {
+    return node.parts.join(".");
+  }
+
+  // Fallback to original if parts are not available
+  return node.original || "";
 }
 
 const printer = {

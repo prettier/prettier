@@ -200,6 +200,36 @@ function replaceUnsupportedConstructs(text, handlebarsAst, placeholderSystem) {
 }
 
 function mergeAsts(glimmerAst, placeholderMap) {
+  // Add prefix to distinguish Handlebars AST nodes from Glimmer AST nodes
+  function addHandlebarPrefix(node) {
+    if (!node || typeof node !== "object") {
+      return node;
+    }
+
+    // Create a new node with prefixed type
+    const newNode = { ...node };
+    if (newNode.type) {
+      newNode.type = `Handlebar_${newNode.type}`;
+    }
+
+    // Recursively process child nodes - all children of unsupported constructs
+    // are also from Handlebars.js parser and need prefixing
+    for (const key in newNode) {
+      if (key === "loc" || key === "parent") {
+        continue;
+      }
+
+      const value = newNode[key];
+      if (Array.isArray(value)) {
+        newNode[key] = value.map((child) => addHandlebarPrefix(child));
+      } else if (value && typeof value === "object") {
+        newNode[key] = addHandlebarPrefix(value);
+      }
+    }
+
+    return newNode;
+  }
+
   // Restore original handlebars nodes that were replaced with placeholders
   function restorePlaceholders(node) {
     if (!node || typeof node !== "object") {
@@ -210,9 +240,9 @@ function mergeAsts(glimmerAst, placeholderMap) {
     if (node.type === "TextNode" && node.chars) {
       // Check if this text node is exactly a placeholder
       if (placeholderMap.has(node.chars)) {
-        // Replace the entire text node with the original handlebars node
+        // Replace the entire text node with the original handlebars node with prefix
         const originalNode = placeholderMap.get(node.chars);
-        return originalNode;
+        return addHandlebarPrefix(originalNode);
       }
 
       // Handle mixed content with placeholders
@@ -249,9 +279,9 @@ function mergeAsts(glimmerAst, placeholderMap) {
             });
           }
 
-          // Add the restored original node
+          // Add the restored original node with Handlebar prefix
           const originalNode = placeholderMap.get(earliestPlaceholder);
-          restoredNodes.push(originalNode);
+          restoredNodes.push(addHandlebarPrefix(originalNode));
 
           // Continue with text after the placeholder
           currentText = currentText.slice(

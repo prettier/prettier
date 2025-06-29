@@ -37,7 +37,7 @@ printWidth: 80
 
 {{! Dynamic partial }}
 {{> (whichPartial) }}
-{{> (lookup  "myVariable") }}
+{{> (lookup . "myVariable") }}
 
 {{! Partial context }}
 {{> myPartial myOtherContext }}
@@ -46,12 +46,14 @@ printWidth: 80
 {{> myPartial parameter=favoriteNumber }}
 
 {{! Partial blocks }}
-{{#> myPartial }} {{!-- This is a partial block --}}
+{{#> myPartial }}
+  {{!-- This is a partial block --}}
   Failover content
 {{/myPartial}}
 
 {{! Inline partials }}
-{{*inline "myPartial" }} {{!-- This is a decorator block --}}
+{{*inline "myPartial" }}
+  {{!-- This is a decorator block --}}
   My Content
 {{/inline}}
 {{#each people}}
