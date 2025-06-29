@@ -8,6 +8,7 @@ const UNSUPPORTED_BY_GLIMMER = new Set([
   "PartialStatement",
   "PartialBlockStatement",
   "DecoratorBlock",
+  "Decorator", // Standalone decorators like {{* decorator}}
 ]);
 
 // Safe placeholder system to avoid collisions with user content

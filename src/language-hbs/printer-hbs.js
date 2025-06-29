@@ -428,6 +428,15 @@ function print(path, options, print) {
         ]),
       ];
 
+    case "Decorator":
+      // Standalone decorators like {{* decorator}}
+      return group([
+        "{{*",
+        printPath(path, print),
+        printParams(path, print) ? [" ", printParams(path, print)] : "",
+        " }}",
+      ]);
+
     case "ContentStatement":
       // Similar to TextNode but from handlebars parser
       return node.value || "";
