@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`snippet: #0 [flow] format 1`] = `
+"\`match\` argument must not be empty (1:7)
+> 1 | match () {}
+    |       ^^"
+`;
+
+exports[`snippet: #0 [hermes] format 1`] = `
+"'match' argument must not be empty (1:6)
+> 1 | match () {}
+    |      ^
+Cause: 'match' argument must not be empty (1:6)
+match () {}
+      ^~"
+`;
+
+exports[`snippet: #1 [flow] format 1`] = `
+"\`match\` argument cannot contain spread elements (1:8)
+> 1 | match (...b) {}
+    |        ^^^^"
+`;
+
+exports[`snippet: #1 [hermes] format 1`] = `
+"'match' argument cannot contain spread elements (1:7)
+> 1 | match (...b) {}
+    |       ^
+Cause: 'match' argument cannot contain spread elements (1:7)
+match (...b) {}
+       ^~~~"
+`;

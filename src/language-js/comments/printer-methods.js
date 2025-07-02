@@ -74,6 +74,7 @@ function willPrintOwnComments(path) {
         (parent.type === "JSXSpreadAttribute" ||
           parent.type === "JSXSpreadChild" ||
           isUnionType(parent) ||
+          parent.type === "MatchOrPattern" ||
           ((parent.type === "ClassDeclaration" ||
             parent.type === "ClassExpression") &&
             parent.superClass === node)))) &&
