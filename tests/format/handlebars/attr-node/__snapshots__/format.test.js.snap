@@ -1,8 +1,8 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`attribute.hbs format 1`] = `
 ====================================options=====================================
-parsers: ["glimmer"]
+parsers: ["glimmer", "hbs"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -87,7 +87,7 @@ printWidth: 80
 
 exports[`class-name.hbs format 1`] = `
 ====================================options=====================================
-parsers: ["glimmer"]
+parsers: ["glimmer", "hbs"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -133,7 +133,7 @@ weirdly formatted
 
 exports[`order.hbs format 1`] = `
 ====================================options=====================================
-parsers: ["glimmer"]
+parsers: ["glimmer", "hbs"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -168,7 +168,7 @@ printWidth: 80
 
 exports[`quotes.hbs format 1`] = `
 ====================================options=====================================
-parsers: ["glimmer"]
+parsers: ["glimmer", "hbs"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

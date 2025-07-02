@@ -1,1 +1,3 @@
-runFormatTest(import.meta, ["glimmer"], { embeddedLanguageFormatting: "off" });
+runFormatTest(import.meta, ["glimmer", "hbs"], {
+  embeddedLanguageFormatting: "off",
+});
