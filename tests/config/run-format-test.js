@@ -577,18 +577,27 @@ const externalPlugins = new Map([
   ["oxc-ts", "plugin-oxc"],
   ["hermes", "plugin-hermes"],
 ]);
+const loadedPlugins = new Map();
+function loadPlugin(pluginName) {
+  if (loadedPlugins.has(pluginName)) {
+    return loadedPlugins.get(pluginName);
+  }
+  const url = new URL(
+    isProduction
+      ? `../../dist/${pluginName}/index.mjs`
+      : `../../packages/${pluginName}/index.js`,
+    import.meta.url,
+  );
+  const plugin = TEST_STANDALONE ? import(url) : url;
+  loadedPlugins.set(pluginName, plugin);
+  return plugin;
+}
 async function loadPlugins(options) {
   const { parser } = options;
   if (externalPlugins.has(options.parser)) {
     const plugins = options.plugins ?? [];
     const pluginName = externalPlugins.get(parser);
-    const url = new URL(
-      isProduction
-        ? `../../dist/${pluginName}/index.mjs`
-        : `../../packages/${pluginName}/index.js`,
-      import.meta.url,
-    );
-    plugins.push(TEST_STANDALONE ? await import(url) : url);
+    plugins.push(await loadPlugin(pluginName));
     return { ...options, plugins };
   }
 
