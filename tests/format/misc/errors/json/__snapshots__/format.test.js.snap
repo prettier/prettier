@@ -789,9 +789,9 @@ exports[`snippet: #20 [json] format 1`] = `
 `;
 
 exports[`snippet: #20 [json] format 2`] = `
-"Unexpected token. (1:16)
+"'FunctionExpression' is not allowed in JSON. (1:2)
 > 1 | [function() { {using a = b} }]
-    |                ^"
+    |  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
 `;
 
 exports[`snippet: #20 [json-stringify] format 1`] = `
