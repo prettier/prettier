@@ -81,6 +81,10 @@ const excludeNodeTypes = new Set([
   "MatchStatementCase",
   "MatchUnaryPattern",
   "MatchWildcardPattern",
+
+  // Babel v7.28.0
+  // https://github.com/prettier/prettier/pull/17696
+  "VoidPattern",
 ]);
 
 const visitorKeys = Object.fromEntries(
