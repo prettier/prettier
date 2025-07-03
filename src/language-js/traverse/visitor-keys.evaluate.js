@@ -84,7 +84,7 @@ const excludeNodeTypes = new Set([
 
   // Babel v7.28.0
   // https://github.com/prettier/prettier/pull/17696
-  'VoidPattern',
+  "VoidPattern",
 ]);
 
 const visitorKeys = Object.fromEntries(
