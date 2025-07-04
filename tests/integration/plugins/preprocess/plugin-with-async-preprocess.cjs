@@ -11,7 +11,7 @@ module.exports = {
   ],
   parsers: {
     "foo-parser": {
-      preprocess: (text) => `preprocessed:${text}`,
+      preprocess: (text) => Promise.resolve(`preprocessed:async:${text}`),
       parse: (text) => ({ text }),
       astFormat: "foo-ast",
     },
