@@ -1,12 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`comments-in-type-annotation.js [babel-flow] format 1`] = `
-"Unexpected token (1:24)
-> 1 | type A = () => infer R extends/* comment */ string
-    |                        ^
-  2 |
-Cause: Unexpected token (1:23)"
-`;
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`comments-in-type-annotation.js format 1`] = `
 ====================================options=====================================
@@ -20,18 +12,6 @@ type A = () => infer R extends/* comment */ string
 type A = () => infer R extends /* comment */ string;
 
 ================================================================================
-`;
-
-exports[`conditional-types.js [babel-flow] format 1`] = `
-"Unexpected token (3:33)
-  1 | // @flow
-  2 |
-> 3 | export type DeepReadonly<T> = T extends any[] ? DeepReadonlyArray<T[number]> : T extends object ? DeepReadonlyObject<T> : T;
-    |                                 ^
-  4 |
-  5 | interface DeepReadonlyArray<T> extends ReadonlyArray<DeepReadonly<T>> {}
-  6 |
-Cause: Unexpected token (3:32)"
 `;
 
 exports[`conditional-types.js format 1`] = `
@@ -108,14 +88,6 @@ type T2 = (() => void) extends T ? U : V;
 ================================================================================
 `;
 
-exports[`cursor.js [babel-flow] format 1`] = `
-"Unexpected token (1:24)
-> 1 | type A = () => infer R extends string
-    |                        ^
-  2 |
-Cause: Unexpected token (1:23)"
-`;
-
 exports[`cursor.js format 1`] = `
 ====================================options=====================================
 cursorOffset: 31
@@ -129,18 +101,6 @@ type A = () => infer R extends <|>string
 type A = () => infer R extends <|>string;
 
 ================================================================================
-`;
-
-exports[`infer-type.js [babel-flow] format 1`] = `
-"Unexpected token, expected "," (3:23)
-  1 | // @flow
-  2 |
-> 3 | type TestReturnType<T extends (...args: any[]) => any> = T extends (...args: any[]) => infer R ? R : any;
-    |                       ^
-  4 |
-  5 | type Unpacked<T> =
-  6 |   T extends (infer U)[] ? U :
-Cause: Unexpected token, expected "," (3:22)"
 `;
 
 exports[`infer-type.js format 1`] = `
@@ -177,18 +137,6 @@ type Unpacked<T> = T extends (infer U)[]
       : T;
 
 ================================================================================
-`;
-
-exports[`nested-in-condition.js [babel-flow] format 1`] = `
-"Unexpected token, expected ")" (4:26)
-  2 |
-  3 | type Foo =
-> 4 |   (ThingamabobberFactory extends AbstractThingamabobberFactory ? GobbledygookProvider : CompositeGobbledygookProvider) extends
-    |                          ^
-  5 |   DoubleGobbledygookProvider
-  6 |     ? UniqueDalgametreService
-  7 |     : CompositeZamazingoResolver;
-Cause: Unexpected token, expected ")" (4:25)"
 `;
 
 exports[`nested-in-condition.js format 1`] = `
@@ -251,18 +199,6 @@ type Foo3 = (
 ================================================================================
 `;
 
-exports[`new-ternary-spec.js [babel-flow] format 1`] = `
-"Unexpected token (5:5)
-  3 | // TypeScript examples:
-  4 | type TypeName<T> =
-> 5 |   T extends string ? "string"
-    |     ^
-  6 |   : T extends number ? "number"
-  7 |   : T extends boolean ? "boolean"
-  8 |   : T extends undefined ? "undefined"
-Cause: Unexpected token (5:4)"
-`;
-
 exports[`new-ternary-spec.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
@@ -312,16 +248,6 @@ type Unpacked<T> = T extends (infer U)[]
       : T;
 
 ================================================================================
-`;
-
-exports[`parentheses.js [babel-flow] format 1`] = `
-"Unexpected token (4:17)
-  2 |
-  3 | // #13275
-> 4 | type Foo<T> = T extends ((...a: any[]) => infer R extends string) ? R : never;
-    |                 ^
-  5 |
-Cause: Unexpected token (4:16)"
 `;
 
 exports[`parentheses.js format 1`] = `

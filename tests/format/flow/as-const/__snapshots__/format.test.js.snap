@@ -1,16 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`embedded.js [babel-flow] format 1`] = `
-"Unexpected token (3:11)
-  1 | const GQL_QUERY_WITH_CONST = /* GraphQL */ \`
-  2 |   query S { shop }
-> 3 | \` as const;
-    |           ^
-  4 |
-  5 | const HTML_WITH_CONST = /* HTML */ \`
-  6 | <div>
-Cause: Unexpected token (3:10)"
-`;
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`embedded.js format 1`] = `
 ====================================options=====================================

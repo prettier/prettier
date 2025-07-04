@@ -1,16 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`as.js [babel-flow] format 1`] = `
-"Unexpected token, expected "," (3:27)
-  1 | // @flow
-  2 |
-> 3 | const name = (description as Description).name || (description as string);
-    |                           ^
-  4 | this.isTabActionBar((e.target || e.srcElement) as HTMLElement);
-  5 | (originalError ? wrappedError(errMsg, originalError) : Error(errMsg)) as InjectionError;
-  6 | 'current' in (props.pagination as {...});
-Cause: Unexpected token, expected "," (3:26)"
-`;
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`as.js format 1`] = `
 ====================================options=====================================
@@ -131,18 +119,6 @@ x as any as T;
 ================================================================================
 `;
 
-exports[`as-const.js [babel-flow] format 1`] = `
-"Unexpected token (12:11)
-  10 |     INFO: 6,
-  11 |     DEBUG: 7,
-> 12 | } as const;
-     |           ^
-  13 |
-  14 | (type) as const;
-  15 |
-Cause: Unexpected token (12:10)"
-`;
-
 exports[`as-const.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
@@ -181,18 +157,6 @@ export const LOG_LEVEL = {
 (type) as const;
 
 ================================================================================
-`;
-
-exports[`assignment.js [babel-flow] format 1`] = `
-"Unexpected token, expected "," (17:23)
-  15 |     this.currentPreviewIndex++;
-  16 |   }
-> 17 | }, this.refreshDelay) as any);
-     |                       ^
-  18 |
-  19 | this.intervalID = (setInterval(() => {
-  20 |   self.step();
-Cause: Unexpected token, expected "," (17:22)"
 `;
 
 exports[`assignment.js format 1`] = `
@@ -249,16 +213,6 @@ this.intervalID = setInterval(() => {
 ================================================================================
 `;
 
-exports[`export_default_as.js [babel-flow] format 1`] = `
-"Unexpected token, expected "," (3:35)
-  1 | // @flow
-  2 |
-> 3 | export default (function log() {} as typeof console.log)
-    |                                   ^
-  4 |
-Cause: Unexpected token, expected "," (3:34)"
-`;
-
 exports[`export_default_as.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
@@ -275,18 +229,6 @@ export default (function log() {} as typeof console.log)
 export default (function log() {} as typeof console.log);
 
 ================================================================================
-`;
-
-exports[`long-identifiers.js [babel-flow] format 1`] = `
-"Unexpected token, expected "," (11:37)
-   9 | averredBathersBoxroomBuggyNurl = {
-  10 |   anodyneCondosMalateOverateRetinol:
-> 11 |     annularCooeedSplicesWalksWayWay as kochabCooieGameOnOboleUnweave
-     |                                     ^
-  12 | };
-  13 |
-  14 | averredBathersBoxroomBuggyNurl(
-Cause: Unexpected token, expected "," (11:36)"
 `;
 
 exports[`long-identifiers.js format 1`] = `
@@ -334,18 +276,6 @@ averredBathersBoxroomBuggyNurl(
 ================================================================================
 `;
 
-exports[`nested-await-and-as.js [babel-flow] format 1`] = `
-"Unexpected token, expected "," (7:33)
-   5 |     ((await (
-   6 |       await focusOnSection(BOOKMARKED_PROJECTS_SECTION_NAME)
->  7 |     ).findItem("My bookmarks")) as TreeItem
-     |                                 ^
-   8 |   ).getChildren()
-   9 |   ).length
-  10 |
-Cause: Unexpected token, expected "," (7:32)"
-`;
-
 exports[`nested-await-and-as.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
@@ -377,17 +307,6 @@ const getAccountCount = async () =>
 ================================================================================
 `;
 
-exports[`return.js [babel-flow] format 1`] = `
-"Missing semicolon. (7:4)
-  5 |     foo: 1,
-  6 |     bar: 2,
-> 7 |   } as Foo;
-    |    ^
-  8 | }
-  9 |
-Cause: Missing semicolon. (7:3)"
-`;
-
 exports[`return.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
@@ -414,18 +333,6 @@ function foo() {
 }
 
 ================================================================================
-`;
-
-exports[`satisfies.js [babel-flow] format 1`] = `
-"Unexpected token, expected "type" (32:8)
-  30 | satisfies satisfies mixed;
-  31 | as satisfies mixed;
-> 32 | opaque satisfies mixed;
-     |        ^
-  33 |
-  34 | abc satisfies mixed; // not a keyword
-  35 | }
-Cause: Unexpected token, expected "type" (32:7)"
 `;
 
 exports[`satisfies.js [hermes] format 1`] = `
@@ -532,18 +439,6 @@ function satisfiesChain() {
 }
 
 ================================================================================
-`;
-
-exports[`ternary.js [babel-flow] format 1`] = `
-"Unexpected token, expected "," (28:32)
-  26 |   void ((coooooooooooooooooooooooooooooooooooooooooooooooooooond
-  27 |     ? baaaaaaaaaaaaaaaaaaaaar
-> 28 |     : baaaaaaaaaaaaaaaaaaaaaz) as Fooooooooooo);
-     |                                ^
-  29 | }
-  30 |
-  31 | bifornCringerMoshedPerplexSawder =
-Cause: Unexpected token, expected "," (28:31)"
 `;
 
 exports[`ternary.js [hermes] format 1`] = `
