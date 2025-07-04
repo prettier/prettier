@@ -354,16 +354,6 @@ function printInferType(path, options, print) {
   return ["infer ", print("typeParameter")];
 }
 
-// `TSJSDocNullableType`, `TSJSDocNonNullableType`
-function printJSDocType(path, print, token) {
-  const { node } = path;
-  return [
-    node.postfix ? "" : token,
-    printTypeAnnotationProperty(path, print),
-    node.postfix ? token : "",
-  ];
-}
-
 /*
 - `TSRestType`(TypeScript)
 - `TupleTypeSpreadElement`(flow)
@@ -588,7 +578,6 @@ export {
   printIndexedAccessType,
   printInferType,
   printIntersectionType,
-  printJSDocType,
   printNamedTupleMember,
   printOpaqueType,
   printRestType,
