@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`0-indent-js.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
@@ -96,7 +96,8 @@ proseWrap: "always"
 
    Note: Replace \`<your_username>\` with your GitHub username
 
-2. Run \`yarn install\`. On Windows: To install
+2. Run \`yarn install\`.
+   On Windows: To install
    [Yarn](https://yarnpkg.com/en/docs/install#windows-tab) on Windows you may
    need to download either node.js or Chocolatey<br />
 
