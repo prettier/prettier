@@ -3,7 +3,7 @@ id: for-enterprise
 title: For Enterprise
 ---
 
-## Available as part of the Tidelift Subscription
+## Available as part of the Tidelift Subscription 
 
 Tidelift is working with the maintainers of Prettier and thousands of other open source projects to deliver commercial support and maintenance for the open source dependencies you use to build your applications. Save time, reduce risk, and improve code health, while paying the maintainers of the exact dependencies you use.
 
@@ -46,3 +46,4 @@ The end result? All of the capabilities you expect from commercial-grade softwar
 
 <a class="button button--primary" href="https://tidelift.com/subscription/pkg/npm-prettier?utm_source=npm-prettier&utm_medium=referral&utm_campaign=enterprise">Learn more</a>
 <a class="button button--primary" href="https://tidelift.com/subscription/request-a-demo?utm_source=npm-prettier&utm_medium=referral&utm_campaign=enterprise">Request a demo</a>
+(/)
