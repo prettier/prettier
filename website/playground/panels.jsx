@@ -215,7 +215,7 @@ export function InputPanel(props) {
       matchBrackets={true}
       showCursorWhenSelecting={true}
       tabSize={4}
-      rulerColor="color-mix(in srgb, currentColor 10%, transparent)"
+      rulerColor="color-mix(in oklab, currentColor 10%, transparent)"
       {...props}
     />
   );

@@ -4,13 +4,14 @@
 }
 
 html {
-  background-color: #fafafa;
-  color: #6a6a6a;
-  --color-border: #ddd;
-  @media (prefers-color-scheme: dark) {
-    background-color: #1b1b1d;
-    color: #e3e3e3;
-    --color-border: #606770;
+  background-color: light-dark(#fafafa, #1b1b1d);
+  color: light-dark(#6a6a6a, #e3e3e3);
+  --color-border: light-dark(#ddd, #606770);
+  color-scheme: light dark;
+  &[data-theme="light"] {
+    color-scheme: light;
+  }
+  &[data-theme="dark"] {
     color-scheme: dark;
   }
   font-family:
@@ -94,10 +95,12 @@ header h1 {
 
 .links {
   display: flex;
+  gap: 8px;
   font-size: 16px;
+  align-items: center;
 }
-.links > * + * {
-  margin-left: 15px;
+.links > * {
+  display: flex;
 }
 
 .editors-container {
@@ -173,7 +176,7 @@ header h1 {
   line-height: 1.6;
   font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
 
-  @media (prefers-color-scheme: dark) {
+  &:is([data-theme="dark"] *) {
     /* Credit: Chris Kempson, Gerard Braad */
     background: #000000;
     color: #eaeaea;
@@ -350,12 +353,11 @@ input[type="number"] {
   padding: 0 5px;
   border-radius: 0.25em;
   background-image: linear-gradient(to bottom, #fafbfc, #e4ebf0);
-  color: #24292e;
-  border: 1px solid var(--color-border);
-  @media (prefers-color-scheme: dark) {
+  &:is([data-theme="dark"] *) {
     background-image: linear-gradient(to bottom, #090a11, #000);
-    color: #ffffff;
   }
+  color: light-dark(#24292e, #fff);
+  border: 1px solid var(--color-border);
   font-size: 11px;
   line-height: 18px;
   font-weight: 600;
@@ -366,27 +368,20 @@ input[type="number"] {
 }
 
 .btn:enabled:is(:hover, :active) {
-  border-color: #afb1b2;
-  @media (prefers-color-scheme: dark) {
-    border-color: #6f7b81;
-  }
+  border-color: light-dark(#afb1b2, #6f7b81);
 }
 
 .btn:enabled:hover {
-  background-color: #e6ebf1;
+  background-color: light-dark(#e6ebf1, #2c3a44);
   background-image: linear-gradient(to bottom, #f0f3f6, #dce3ec);
-  @media (prefers-color-scheme: dark) {
-    background-color: #2c3a44;
+  &:is([data-theme="dark"] *) {
     background-image: linear-gradient(to bottom, #1a2b34, #090a11);
   }
 }
 
 .btn:enabled:active {
-  background-color: #e9ecef;
+  background-color: light-dark(#e9ecef, #1a2b34);
   background-image: none;
-  @media (prefers-color-scheme: dark) {
-    background-color: #1a2b34;
-  }
   box-shadow: inset 0 0.15em 0.3em rgba(27, 31, 35, 0.15);
 }
 

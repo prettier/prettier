@@ -11,6 +11,41 @@ const {
   ReactDOM: { createRoot },
 } = window;
 
+function getInitialTheme() {
+  const saved = localStorage.getItem("theme");
+  if (saved) return saved;
+
+  return window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? "dark"
+    : "light";
+}
+
+function applyTheme(theme) {
+  document.documentElement.setAttribute("data-theme", theme);
+}
+
+function ThemeToggle() {
+  const [theme, setTheme] = React.useState(getInitialTheme);
+
+  const toggleTheme = () => {
+    const newTheme = theme === "dark" ? "light" : "dark";
+    setTheme(newTheme);
+    localStorage.setItem("theme", theme);
+    applyTheme(newTheme);
+  };
+  applyTheme(theme);
+
+  return React.createElement(
+    "button",
+    {
+      onClick: toggleTheme,
+      className: "btn",
+      "aria-label": `Switch to ${theme === "dark" ? "light" : "dark"} theme`,
+    },
+    theme === "dark" ? "☀️" : "🌙",
+  );
+}
+
 class App extends React.Component {
   constructor() {
     super();
@@ -60,6 +95,14 @@ function augmentOption(option) {
     option.name.replaceAll(/(?<=[a-z])(?=[A-Z])/gu, "-").toLowerCase();
 
   return option;
+}
+
+const linksContainer = document.querySelector(".links");
+if (linksContainer) {
+  const themeToggleContainer = document.createElement("div");
+  linksContainer.appendChild(themeToggleContainer);
+  const themeToggleRoot = createRoot(themeToggleContainer);
+  themeToggleRoot.render(<ThemeToggle />);
 }
 
 const container = document.getElementById("root");
