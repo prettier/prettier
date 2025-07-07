@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`visitor keys estree 1`] = `
 {
@@ -1113,6 +1113,7 @@ exports[`visitor keys estree 1`] = `
     "init",
   ],
   "Variance": [],
+  "VoidPattern": [],
   "VoidTypeAnnotation": [],
   "WhileStatement": [
     "body",
