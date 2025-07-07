@@ -1,16 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`comments.js [babel-flow] format 1`] = `
-"Unexpected token, expected "]" (3:7)
-  1 | type Type = {
-  2 |   // comment
-> 3 |   +[T in number]: number;
-    |       ^
-  4 | };
-  5 |
-  6 | type Type = {
-Cause: Unexpected token, expected "]" (3:6)"
-`;
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`comments.js [babel-ts] format 1`] = `
 "Unexpected token (3:3)
@@ -138,18 +126,6 @@ type Type = {
 ================================================================================
 `;
 
-exports[`mapped-types.js [babel-flow] format 1`] = `
-"Unexpected token, expected "]" (3:21)
-  1 | //@flow
-  2 |
-> 3 | type Mapped = {[key in keyof O]: O[key]};
-    |                     ^
-  4 | type MappedLong = {[key in keyof AReallyLongNameThatShouldReallyMostDefinitelyCauseALineWrap]: number};
-  5 | type MappedWithVariance = {+[key in keyof O]: number};
-  6 | type MappedWithVarianceLong = {-[key in keyof AReallyLongNameThatShouldReallyMostDefinitelyCauseALineWrap]: number};
-Cause: Unexpected token, expected "]" (3:20)"
-`;
-
 exports[`mapped-types.js [babel-ts] format 1`] = `
 "Unexpected token (5:28)
   3 | type Mapped = {[key in keyof O]: O[key]};
@@ -239,18 +215,6 @@ type MappedWithComments = {
 };
 
 ================================================================================
-`;
-
-exports[`ts-compatibility.js [babel-flow] format 1`] = `
-"Unexpected token, expected "]" (3:19)
-  1 | // Tests that on single-line mapped types Flow and TS make the same formatting decisions
-  2 |
-> 3 | type Test = {[key in T]: number};
-    |                   ^
-  4 | type Test = {[key in keyof T]: number};
-  5 | type Test = {[otherKeyName     in keyof T]: number};
-  6 | type Test = {[key in T]:number};
-Cause: Unexpected token, expected "]" (3:18)"
 `;
 
 exports[`ts-compatibility.js format 1`] = `
