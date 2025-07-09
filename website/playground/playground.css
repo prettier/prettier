@@ -352,7 +352,11 @@ input[type="number"] {
   height: 18px;
   padding: 0 5px;
   border-radius: 0.25em;
-  background-image: linear-gradient(to bottom, light-dark(#fafbfc, #090a11), light-dark(#e4ebf0, #000));
+  background-image: linear-gradient(
+    to bottom,
+    light-dark(#fafbfc, #090a11),
+    light-dark(#e4ebf0, #000)
+  );
   color: light-dark(#24292e, #fff);
   border: 1px solid var(--color-border);
   font-size: 11px;
@@ -370,7 +374,11 @@ input[type="number"] {
 
 .btn:enabled:hover {
   background-color: light-dark(#e6ebf1, #2c3a44);
-  background-image: linear-gradient(to bottom, light-dark(#f0f3f6, #1a2b34), light-dark(#dce3ec, #090a11));
+  background-image: linear-gradient(
+    to bottom,
+    light-dark(#f0f3f6, #1a2b34),
+    light-dark(#dce3ec, #090a11)
+  );
 }
 
 .btn:enabled:active {
