@@ -102,6 +102,9 @@ header h1 {
 .links > * {
   display: flex;
 }
+.theme-icon {
+  padding-block: 2px;
+}
 
 .editors-container {
   display: flex;
