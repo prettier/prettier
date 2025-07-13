@@ -48,9 +48,9 @@ Cause: Unexpected token, expected "{" (1:12)"
 `;
 
 exports[`snippet: #2 [oxc-ts] format 1`] = `
-"Interface declaration cannot have 'implements' clause. (1:24)
+"Interface declaration cannot have 'implements' clause. (1:13)
 > 1 | interface A implements B {}
-    |                        ^"
+    |             ^^^^^^^^^^"
 `;
 
 exports[`snippet: #2 [typescript] format 1`] = `
