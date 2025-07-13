@@ -44,7 +44,7 @@
     "@typescript-eslint/visitor-keys": "8.35.1",
     "acorn": "8.15.0",
     "acorn-jsx": "5.3.2",
-    "angular-estree-parser": "13.0.0",
+    "angular-estree-parser": "13.0.1",
     "angular-html-parser": "8.1.0",
     "camelcase": "8.0.0",
     "ci-info": "4.3.0",
