@@ -879,6 +879,9 @@ function needsParens(path, options) {
         case "TSTypeAssertion":
           return true;
 
+        case "TSInstantiationExpression":
+          return key === "expression";
+
         case "ConditionalExpression":
           return key === "test";
 
