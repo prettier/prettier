@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`example.html format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<![CDATA[<app-alert>
+  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+</app-alert>]]>
+
+=====================================output=====================================
+<![CDATA[<app-alert>
+  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+</app-alert>]]>
+
+================================================================================
+`;
