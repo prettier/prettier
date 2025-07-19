@@ -16,7 +16,7 @@
     "directory": "packages/plugin-hermes"
   },
   "funding": "https://github.com/prettier/prettier?sponsor=1",
-  "homepage": "https://github.com/prettier/prettier/packages/plugin-hermes",
+  "homepage": "https://github.com/prettier/prettier/tree/main/packages/plugin-hermes",
   "author": "fisker Cheung <lionkay@gmail.com>",
   "license": "MIT"
 }
