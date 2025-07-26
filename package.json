@@ -68,7 +68,7 @@
     "graphql": "16.11.0",
     "hermes-parser": "0.29.1",
     "html-element-attributes": "3.4.0",
-    "html-ua-styles": "0.0.8",
+    "html-ua-styles": "0.0.9",
     "ignore": "7.0.5",
     "import-meta-resolve": "4.1.0",
     "index-to-position": "1.1.0",
