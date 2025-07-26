@@ -664,6 +664,18 @@ function shouldPrePrintHardline({ node, parent }) {
 }
 
 function isLooseListItem(referenceNode, path) {
+  const { node, previous, parent } = path;
+
+  const isListInListItem = parent.type === "listItem" && node.type === "list";
+
+  if (isListInListItem && previous.type === "code") {
+    return true;
+  }
+
+  if (isListInListItem) {
+    return false;
+  }
+
   // uses ancestor `list.spread`, aligning with markdown spec.
   const listAncestor = path.findAncestor((node) => node.type === "list");
 
@@ -675,20 +687,14 @@ function isLooseListItem(referenceNode, path) {
 
 function shouldPrePrintDoubleHardline(path) {
   const { node, previous, parent } = path;
-  if (
-    isLooseListItem(previous, path) ||
-    (node.type === "list" &&
-      parent.type === "listItem" &&
-      previous.type === "code")
-  ) {
+  if (isLooseListItem(previous, path)) {
     return true;
   }
 
   const isSequence = previous.type === node.type;
   const isSiblingNode = isSequence && SIBLING_NODE_TYPES.has(node.type);
   const isInTightListItem =
-    parent.type === "listItem" &&
-    (node.type === "list" || !isLooseListItem(parent, path));
+    parent.type === "listItem" && !isLooseListItem(parent, path);
   const isPrevNodePrettierIgnore = isPrettierIgnore(previous) === "next";
   const isBlockHtmlWithoutBlankLineBetweenPrevHtml =
     node.type === "html" &&
