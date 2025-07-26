@@ -1,14 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`declare-interface.js [babel-flow] format 1`] = `
-"\`declare export interface\` is not supported. Use \`export interface\` instead. (1:16)
-> 1 | declare export interface A {
-    |                ^
-  2 |
-  3 |
-  4 | }
-Cause: \`declare export interface\` is not supported. Use \`export interface\` instead. (1:15)"
-`;
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`declare-interface.js format 1`] = `
 ====================================options=====================================

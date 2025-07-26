@@ -1,16 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`component-declaration.js [babel-flow] format 1`] = `
-"Unexpected token, expected "{" (15:8)
-  13 | }
-  14 |
-> 15 | export component MyComponent() {}
-     |        ^
-  16 |
-  17 | export default component MyComponent() {}
-  18 |
-Cause: Unexpected token, expected "{" (15:7)"
-`;
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`component-declaration.js format 1`] = `
 ====================================options=====================================
@@ -190,16 +178,6 @@ component MyComponent() /* Trailing comment */ {}
 ================================================================================
 `;
 
-exports[`component-type-annotation.js [babel-flow] format 1`] = `
-"Unexpected token (1:20)
-> 1 | type T = component();
-    |                    ^
-  2 |
-  3 | type T = component() renders SomeComponent;
-  4 |
-Cause: Unexpected token (1:19)"
-`;
-
 exports[`component-type-annotation.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
@@ -337,16 +315,6 @@ function A(
 ) {}
 
 ================================================================================
-`;
-
-exports[`declare-component.js [babel-flow] format 1`] = `
-"Unexpected token (1:9)
-> 1 | declare component MyComponent();
-    |         ^
-  2 |
-  3 | declare component MyComponent() renders SomeComponent;
-  4 |
-Cause: Unexpected token (1:8)"
 `;
 
 exports[`declare-component.js format 1`] = `

@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`declare_export.js - {"semi":false} format 1`] = `
 ====================================options=====================================
@@ -74,26 +74,6 @@ declare module baz {
 }
 
 ================================================================================
-`;
-
-exports[`declare_namespace.js [babel-flow] format 1`] = `
-"Unexpected token (1:9)
-> 1 | declare namespace foo {
-    |         ^
-  2 |   declare var bar: string;
-  3 | }
-  4 |
-Cause: Unexpected token (1:8)"
-`;
-
-exports[`declare_namespace.js - {"semi":false} [babel-flow] format 1`] = `
-"Unexpected token (1:9)
-> 1 | declare namespace foo {
-    |         ^
-  2 |   declare var bar: string;
-  3 | }
-  4 |
-Cause: Unexpected token (1:8)"
 `;
 
 exports[`declare_namespace.js - {"semi":false} format 1`] = `
