@@ -92,9 +92,6 @@ const hermesDisabledTests = new Set([
     // Not supported
     "flow/comments",
     "flow-repo/union_new",
-    // Wrong location of `Property.value`
-    "js/classes/method.js",
-    "js/comments/function-declaration.js",
   ].map((file) => path.join(__dirname, "../format", file)),
 ]);
 const flowDisabledTests = new Set(
