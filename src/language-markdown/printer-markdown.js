@@ -592,7 +592,7 @@ function printChildren(path, options, print, events = {}) {
         parts.push(hardline);
 
         if (
-          shouldPrePrintDoubleHardline(path, options) ||
+          shouldPrePrintDoubleHardline(path) ||
           shouldPrePrintTripleHardline(path)
         ) {
           parts.push(hardline);
@@ -663,19 +663,20 @@ function shouldPrePrintHardline({ node, parent }) {
   return !isInlineNode && !isInlineHTML;
 }
 
-function isLooseListItem(node, options) {
+function isLooseListItem(referenceNode, path) {
+  // uses ancestor `list.spread`, aligning with markdown spec.
+  const listAncestor = path.findAncestor((node) => node.type === "list");
+
   return (
-    node.type === "listItem" &&
-    (node.spread ||
-      // Check if `listItem` ends with `\n`
-      // since it can't be empty, so we only need check the last character
-      options.originalText.charAt(node.position.end.offset - 1) === "\n")
+    referenceNode.type === "listItem" &&
+    (referenceNode.spread || listAncestor?.spread)
   );
 }
 
-function shouldPrePrintDoubleHardline({ node, previous, parent }, options) {
+function shouldPrePrintDoubleHardline(path) {
+  const { node, previous, parent } = path;
   if (
-    isLooseListItem(previous, options) ||
+    isLooseListItem(previous, path) ||
     (node.type === "list" &&
       parent.type === "listItem" &&
       previous.type === "code")
@@ -687,7 +688,7 @@ function shouldPrePrintDoubleHardline({ node, previous, parent }, options) {
   const isSiblingNode = isSequence && SIBLING_NODE_TYPES.has(node.type);
   const isInTightListItem =
     parent.type === "listItem" &&
-    (node.type === "list" || !isLooseListItem(parent, options));
+    (node.type === "list" || !isLooseListItem(parent, path));
   const isPrevNodePrettierIgnore = isPrettierIgnore(previous) === "next";
   const isBlockHtmlWithoutBlankLineBetweenPrevHtml =
     node.type === "html" &&
