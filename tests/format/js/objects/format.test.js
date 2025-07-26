@@ -7,6 +7,6 @@ runFormatTest(import.meta, ["babel", "typescript", "flow"], {
     oxc: ["expression.js"],
     "oxc-ts": ["expression.js"],
     flow: ["expression.js"],
-    hermes: ["expression.js", "bigint-key.js"],
+    hermes: ["expression.js"],
   },
 });
