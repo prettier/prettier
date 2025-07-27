@@ -666,19 +666,17 @@ function shouldPrePrintHardline({ node, parent }) {
 function isLooseListItem(referenceNode, path) {
   const { node, previous, parent } = path;
 
-  const isListInListItem = parent.type === "listItem" && node.type === "list";
-
-  if (isListInListItem && previous.type === "code") {
-    return true;
+  if (!referenceNode || referenceNode.type !== "listItem") {
+    return false;
   }
 
+  const isListInListItem = parent?.type === "listItem" && node?.type === "list";
   if (isListInListItem) {
-    return false;
+    return previous?.type === "code";
   }
 
   // uses ancestor `list.spread`, aligning with markdown spec.
   const listAncestor = path.findAncestor((node) => node.type === "list");
-
   return (
     referenceNode.type === "listItem" &&
     (referenceNode.spread || listAncestor?.spread)
