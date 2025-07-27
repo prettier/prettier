@@ -666,10 +666,6 @@ function shouldPrePrintHardline({ node, parent }) {
 function isLooseListItem(referenceNode, path) {
   const { node, previous, parent } = path;
 
-  if (!referenceNode || referenceNode.type !== "listItem") {
-    return false;
-  }
-
   const isListInListItem = parent?.type === "listItem" && node?.type === "list";
   if (isListInListItem) {
     return previous?.type === "code";
@@ -679,7 +675,7 @@ function isLooseListItem(referenceNode, path) {
   const listAncestor = path.findAncestor((node) => node.type === "list");
   return (
     referenceNode.type === "listItem" &&
-    (referenceNode.spread || listAncestor?.spread)
+    (referenceNode.spread || Boolean(listAncestor?.spread))
   );
 }
 

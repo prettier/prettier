@@ -8,6 +8,7 @@ import { hasIgnorePragma, hasPragma } from "./pragma.js";
 import frontMatter from "./unified-plugins/front-matter.js";
 import htmlToJsx from "./unified-plugins/html-to-jsx.js";
 import liquid from "./unified-plugins/liquid.js";
+import looseItems from "./unified-plugins/loose-items.js";
 import wikiLink from "./unified-plugins/wiki-link.js";
 
 /**
@@ -37,7 +38,8 @@ function createParse({ isMDX }) {
       .use(isMDX ? esSyntax : noop)
       .use(liquid)
       .use(isMDX ? htmlToJsx : noop)
-      .use(wikiLink);
+      .use(wikiLink)
+      .use(looseItems);
     return processor.run(processor.parse(text));
   };
 }
