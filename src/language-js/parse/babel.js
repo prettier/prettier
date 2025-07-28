@@ -46,7 +46,6 @@ const parseOptions = {
     "asyncDoExpressions",
     "destructuringPrivate",
     "decoratorAutoAccessors",
-    "explicitResourceManagement",
     "sourcePhaseImports",
     "deferredImportEvaluation",
     ["optionalChainingAssign", { version: "2023-07" }],

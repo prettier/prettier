@@ -1,3 +1,44 @@
+# 3.6.2
+
+[diff](https://github.com/prettier/prettier/compare/3.6.1...3.6.2)
+
+#### Markdown: Add missing blank line around code block ([#17675](https://github.com/prettier/prettier/pull/17675) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+````md
+<!-- Input -->
+1. Some text, and code block below, with newline after code block
+
+   ```yaml
+   ---
+   foo: bar
+   ```
+
+   1. Another
+   2. List
+
+<!-- Prettier 3.6.1 -->
+1. Some text, and code block below, with newline after code block
+
+   ```yaml
+   ---
+   foo: bar
+   ```
+   1. Another
+   2. List
+
+<!-- Prettier 3.6.2 -->
+1. Some text, and code block below, with newline after code block
+
+   ```yaml
+   ---
+   foo: bar
+   ```
+
+   1. Another
+   2. List
+````
+
 # 3.6.1
 
 [diff](https://github.com/prettier/prettier/compare/3.6.0...3.6.1)

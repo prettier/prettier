@@ -92,9 +92,6 @@ const hermesDisabledTests = new Set([
     // Not supported
     "flow/comments",
     "flow-repo/union_new",
-    // Wrong location of `Property.value`
-    "js/classes/method.js",
-    "js/comments/function-declaration.js",
   ].map((file) => path.join(__dirname, "../format", file)),
 ]);
 const flowDisabledTests = new Set(
@@ -268,10 +265,6 @@ function runFormatTest(fixtures, parsers, options) {
       if (!parsers.includes("oxc-ts")) {
         allParsers.push("oxc-ts");
       }
-    }
-
-    if (parsers.includes("flow") && !parsers.includes("babel-flow")) {
-      allParsers.push("babel-flow");
     }
 
     if (
