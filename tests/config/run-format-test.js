@@ -267,10 +267,6 @@ function runFormatTest(fixtures, parsers, options) {
       }
     }
 
-    if (parsers.includes("flow") && !parsers.includes("babel-flow")) {
-      allParsers.push("babel-flow");
-    }
-
     if (
       parsers.includes("flow") &&
       !parsers.includes("hermes") &&
