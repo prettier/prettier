@@ -1,13 +1,5 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`export.js [babel-flow] format 1`] = `
-"Missing semicolon. (1:25)
-> 1 | export default match (a) {}
-    |                         ^
-  2 |
-Cause: Missing semicolon. (1:24)"
-`;
-
 exports[`export.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
@@ -21,17 +13,6 @@ export default match (a) {
 };
 
 ================================================================================
-`;
-
-exports[`expression.js [babel-flow] format 1`] = `
-"Unexpected token (2:5)
-  1 | const e = match (a) {
-> 2 |   1 => true,
-    |     ^
-  3 |   'foo' => false,
-  4 |   2 => {obj: 'literal'},
-  5 | };
-Cause: Unexpected token (2:4)"
 `;
 
 exports[`expression.js format 1`] = `
@@ -56,14 +37,6 @@ const e = match (a) {
 ================================================================================
 `;
 
-exports[`expression-empty.js [babel-flow] format 1`] = `
-"Missing semicolon. (1:20)
-> 1 | const e = match (a) {};
-    |                    ^
-  2 |
-Cause: Missing semicolon. (1:19)"
-`;
-
 exports[`expression-empty.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
@@ -77,16 +50,6 @@ const e = match (a) {
 };
 
 ================================================================================
-`;
-
-exports[`expression-guards.js [babel-flow] format 1`] = `
-"Unexpected token (2:12)
-  1 | const e = match (a) {
-> 2 |   1 if (b) => true,
-    |            ^
-  3 | };
-  4 |
-Cause: Unexpected token (2:11)"
 `;
 
 exports[`expression-guards.js format 1`] = `
@@ -105,17 +68,6 @@ const e = match (a) {
 };
 
 ================================================================================
-`;
-
-exports[`pattern-array.js [babel-flow] format 1`] = `
-"Unexpected token (2:8)
-  1 | const e = match (x) {
-> 2 |   [10] => 1,
-    |        ^
-  3 |   [const y, 1] => y,
-  4 |   [1, ...] => 1,
-  5 |   [1, 2, ...const rest] => rest,
-Cause: Unexpected token (2:7)"
 `;
 
 exports[`pattern-array.js format 1`] = `
@@ -146,17 +98,6 @@ const e = match (x) {
 };
 
 ================================================================================
-`;
-
-exports[`pattern-core.js [babel-flow] format 1`] = `
-"Unexpected token (2:7)
-  1 | const e = match (x) {
-> 2 |   "s" => 1,
-    |       ^
-  3 |   true => 1,
-  4 |   null => 1,
-  5 |   3 => 1,
-Cause: Unexpected token (2:6)"
 `;
 
 exports[`pattern-core.js format 1`] = `
@@ -205,17 +146,6 @@ const e = match (x) {
 ================================================================================
 `;
 
-exports[`pattern-member.js [babel-flow] format 1`] = `
-"Unexpected token (2:11)
-  1 | const e = match (x) {
-> 2 |   foo.bar => true,
-    |           ^
-  3 |   foo[1] => true,
-  4 |   foo[1n] => true,
-  5 |   foo["bar"] => true,
-Cause: Unexpected token (2:10)"
-`;
-
 exports[`pattern-member.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
@@ -242,17 +172,6 @@ const e = match (x) {
 };
 
 ================================================================================
-`;
-
-exports[`pattern-object.js [babel-flow] format 1`] = `
-"Unexpected token (2:15)
-  1 | const e = match (x) {
-> 2 |   {foo: 1, bar: 2} => 1,
-    |               ^
-  3 |   {'foo': 1} => 1,
-  4 |   {111: true} => 1,
-  5 |   {foo: const y} => y,
-Cause: Unexpected token (2:14)"
 `;
 
 exports[`pattern-object.js format 1`] = `
@@ -285,17 +204,6 @@ const e = match (x) {
 };
 
 ================================================================================
-`;
-
-exports[`pattern-or-as.js [babel-flow] format 1`] = `
-"Unexpected token (2:21)
-  1 | const e = match (x) {
-> 2 |   "s" | true | null => 1,
-    |                     ^
-  3 |   | "s"
-  4 |   | true
-  5 |   | null => 1,
-Cause: Unexpected token (2:20)"
 `;
 
 exports[`pattern-or-as.js format 1`] = `
@@ -407,17 +315,6 @@ match(...b);
 ================================================================================
 `;
 
-exports[`statement.js [babel-flow] format 1`] = `
-"Unexpected token (2:5)
-  1 | match (a) {
-> 2 |   1 => {
-    |     ^
-  3 |     const x = 1;
-  4 |     f(x);
-  5 |   },
-Cause: Unexpected token (2:4)"
-`;
-
 exports[`statement.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
@@ -454,14 +351,6 @@ match (a) {
 ================================================================================
 `;
 
-exports[`statement-empty.js [babel-flow] format 1`] = `
-"Missing semicolon. (1:10)
-> 1 | match (a) {}
-    |          ^
-  2 |
-Cause: Missing semicolon. (1:9)"
-`;
-
 exports[`statement-empty.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
@@ -475,17 +364,6 @@ match (a) {
 }
 
 ================================================================================
-`;
-
-exports[`statement-guards.js [babel-flow] format 1`] = `
-"Unexpected token (2:12)
-  1 | match (a) {
-> 2 |   1 if (b) => {
-    |            ^
-  3 |     const x = 1;
-  4 |   },
-  5 |   'foo' if (f()) => {
-Cause: Unexpected token (2:11)"
 `;
 
 exports[`statement-guards.js format 1`] = `
@@ -520,14 +398,6 @@ match (a) {
 }
 
 ================================================================================
-`;
-
-exports[`statement-sequence-arg.js [babel-flow] format 1`] = `
-"Missing semicolon. (1:13)
-> 1 | match (a, b) {}
-    |             ^
-  2 |
-Cause: Missing semicolon. (1:12)"
 `;
 
 exports[`statement-sequence-arg.js format 1`] = `
