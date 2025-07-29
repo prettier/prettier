@@ -690,6 +690,51 @@ class Foo {
 ================================================================================
 `;
 
+exports[`discard-binding.js [acorn] format 1`] = `
+"Unexpected keyword 'void' (1:11)
+> 1 | const [a, void] = iter;
+    |           ^
+  2 |
+Cause: Unexpected keyword 'void' (1:10)"
+`;
+
+exports[`discard-binding.js [espree] format 1`] = `
+"Unexpected keyword 'void' (1:11)
+> 1 | const [a, void] = iter;
+    |           ^
+  2 |
+Cause: Unexpected keyword 'void'"
+`;
+
+exports[`discard-binding.js [meriyah] format 1`] = `
+"Unexpected token: ']' (1:15)
+> 1 | const [a, void] = iter;
+    |               ^
+  2 |
+Cause: [1:14-1:15]: Unexpected token: ']'"
+`;
+
+exports[`discard-binding.js [oxc] format 1`] = `
+"Identifier expected. 'void' is a reserved word that cannot be used here. (1:11)
+> 1 | const [a, void] = iter;
+    |           ^^^^
+  2 |"
+`;
+
+exports[`discard-binding.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "babel-flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const [a, void] = iter;
+
+=====================================output=====================================
+const [a, void] = iter;
+
+================================================================================
+`;
+
 exports[`do-expressions.js [acorn] format 1`] = `
 "Unexpected token (3:9)
   1 | // https://babeljs.io/docs/babel-plugin-proposal-do-expressions
