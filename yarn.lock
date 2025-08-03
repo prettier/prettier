@@ -1394,16 +1394,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@glimmer/syntax@npm:0.94.9":
-  version: 0.94.9
-  resolution: "@glimmer/syntax@npm:0.94.9"
+"@glimmer/syntax@npm:0.95.0":
+  version: 0.95.0
+  resolution: "@glimmer/syntax@npm:0.95.0"
   dependencies:
     "@glimmer/interfaces": "npm:0.94.6"
     "@glimmer/util": "npm:0.94.8"
     "@glimmer/wire-format": "npm:0.94.8"
-    "@handlebars/parser": "npm:~2.0.0"
+    "@handlebars/parser": "npm:~2.2.0"
     simple-html-tokenizer: "npm:^0.5.11"
-  checksum: 10/b2ed32fc4614b609f6088f8be74cad163b78835f69661a7b111c98e8a4de0e9eab481026f908e6cfd79408806a7f5f49aff08deeba859e9fcec3bef2a515154f
+  checksum: 10/bc773a7a6fb1d1fe13a4df4d86296c1a5128bc14062f7fc0be3943d7bf67939e5ca35bba74f2646531c2e0ba156db2e78b82e1ef2c5fa846715f6133fb8beee9
   languageName: node
   linkType: hard
 
@@ -1425,10 +1425,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@handlebars/parser@npm:~2.0.0":
-  version: 2.0.0
-  resolution: "@handlebars/parser@npm:2.0.0"
-  checksum: 10/1c7c7fbe5dac683483fc963a932bfa856429342ac55c4f41c91a519cb7bb0ccb81259c0aadb8b1bbe59600c8050502bec0d493fbd497ce6e310c60f2aebec58f
+"@handlebars/parser@npm:~2.2.0":
+  version: 2.2.1
+  resolution: "@handlebars/parser@npm:2.2.1"
+  checksum: 10/14126dd5d0f185f4121d6ad81f88939294e9d4a539f10e2e5772c1b9cd6b610949595f15e106315cfe9fedbcc22d8cf93242ee0c5c002699e4b672fe379d83e4
   languageName: node
   linkType: hard
 
@@ -7443,7 +7443,7 @@ __metadata:
     "@babel/types": "npm:7.28.0"
     "@eslint-react/eslint-plugin": "npm:1.52.3"
     "@eslint/js": "npm:9.32.0"
-    "@glimmer/syntax": "npm:0.94.9"
+    "@glimmer/syntax": "npm:0.95.0"
     "@prettier/cli": "npm:0.9.0"
     "@prettier/html-tags": "npm:1.1.0"
     "@prettier/parse-srcset": "npm:3.1.0"
