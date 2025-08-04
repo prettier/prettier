@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`htmlTagNames 1`] = `
 [
@@ -580,6 +580,11 @@ exports[`htmlTagNames 1`] = `
   {
     "display": "inline-block",
     "tagName": "select",
+    "whiteSpace": "normal",
+  },
+  {
+    "display": "inline",
+    "tagName": "selectedcontent",
     "whiteSpace": "normal",
   },
   {
