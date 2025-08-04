@@ -1170,6 +1170,7 @@ exports[`visitor keys estree 1`] = `
     "init",
   ],
   "Variance": [],
+  "VoidPattern": [],
   "VoidTypeAnnotation": [],
   "WhileStatement": [
     "body",
