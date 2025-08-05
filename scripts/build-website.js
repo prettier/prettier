@@ -81,7 +81,9 @@ async function buildPlaygroundFiles() {
       const plugin = { file };
 
       const pluginModule = await import(
-        url.pathToFileURL(path.join(PACKAGES_DIRECTORY, file))
+        file === "plugin-oxc/index.mjs"
+          ? "../packages/plugin-oxc/index.js"
+          : url.pathToFileURL(path.join(PACKAGES_DIRECTORY, file))
       );
 
       for (const property of ["languages", "options", "defaultOptions"]) {
