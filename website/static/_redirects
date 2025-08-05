@@ -11,6 +11,3 @@
 /en         /
 /en/*       /:splat
 /docs/en/*  /docs/:splat
-
-# Proxy `@oxc-parser/binding-wasm32-wasi`
-/unpkg.com/@oxc-parser/binding-wasm32-wasi@*  https://unpkg.com/@oxc-parser/binding-wasm32-wasi@:splat 200

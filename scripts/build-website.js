@@ -66,7 +66,7 @@ async function buildPlaygroundFiles() {
   // External plugins
   if (IS_PULL_REQUEST) {
     for (const pluginName of ["hermes", "oxc"]) {
-      pluginFiles.push(`${pluginName}/index.mjs`);
+      pluginFiles.push(`plugin-${pluginName}/index.mjs`);
     }
   }
 
