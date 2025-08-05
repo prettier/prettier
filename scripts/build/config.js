@@ -976,7 +976,7 @@ export default [
                   process(text) {
                     text = text.replace(
                       'import * as oxcParser from "oxc-parser";',
-                      `import * as oxcParser from "/unpkg.com/@oxc-parser/binding-wasm32-wasi@${projectPackageJson.dependencies["oxc-parser"]}/browser-bundle.mjs";`,
+                      `import * as oxcParser from "https://deploy-preview-17575--prettier.netlify.app/unpkg.com/@oxc-parser/binding-wasm32-wasi@${projectPackageJson.dependencies["oxc-parser"]}/browser-bundle.mjs";`,
                     );
                     return text;
                   },
