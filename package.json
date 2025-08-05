@@ -102,7 +102,7 @@
     "strip-ansi": "7.1.0",
     "to-fast-properties": "4.0.0",
     "trim-newlines": "5.0.0",
-    "typescript": "5.8.3",
+    "typescript": "5.9.2",
     "unicode-regex": "4.1.2",
     "unified": "9.2.2",
     "url-or-path": "2.6.1",
