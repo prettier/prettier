@@ -16,9 +16,15 @@ import {
 const parseOptions = {
   ecmaVersion: "latest",
   // sourceType: "module",
+  // onInsertedSemicolon: null,
+  // onTrailingComma: null,
+  allowReserved: true,
   allowReturnOutsideFunction: true,
   // allowImportExportEverywhere: true,
+  // allowAwaitOutsideFunction: null,
   allowSuperOutsideMethod: true,
+  // allowHashBang: true,
+  checkPrivateFields: false,
   locations: false,
   ranges: true,
   preserveParens: true,
@@ -80,7 +86,7 @@ function parse(text, options) {
     throw createParseError(error);
   }
 
-  return postprocess(ast, { text, supportTypeCastComments: true });
+  return postprocess(ast, { text });
 }
 
 export const acorn = createParser(parse);

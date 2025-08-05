@@ -1,14 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`optional-chaining.js [acorn] format 1`] = `
-"Private field '#x' must be declared in an enclosing class (3:13)
-  1 | // https://github.com/babel/babel/pull/11669
-  2 |
-> 3 | delete obj?.#x.a
-    |             ^
-  4 |
-Cause: Private field '#x' must be declared in an enclosing class (3:12)"
-`;
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`optional-chaining.js [espree] format 1`] = `
 "Private field '#x' must be declared in an enclosing class (3:13)
@@ -18,16 +8,6 @@ exports[`optional-chaining.js [espree] format 1`] = `
     |             ^
   4 |
 Cause: Private field '#x' must be declared in an enclosing class"
-`;
-
-exports[`optional-chaining.js - {"semi":false} [acorn] format 1`] = `
-"Private field '#x' must be declared in an enclosing class (3:13)
-  1 | // https://github.com/babel/babel/pull/11669
-  2 |
-> 3 | delete obj?.#x.a
-    |             ^
-  4 |
-Cause: Private field '#x' must be declared in an enclosing class (3:12)"
 `;
 
 exports[`optional-chaining.js - {"semi":false} [espree] format 1`] = `

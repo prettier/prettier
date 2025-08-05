@@ -16,7 +16,7 @@ import eslintPluginPrettierInternalRules from "./scripts/tools/eslint-plugin-pre
 const toPath = (file) => url.fileURLToPath(new URL(file, import.meta.url));
 
 const ignores = `
-.tmp
+**/.tmp
 test*.*
 # Ignore directories and files in 'tests/format'
 tests/format/**/*
@@ -231,6 +231,7 @@ export default [
       "unicorn/no-array-callback-reference": "off",
       "unicorn/no-array-method-this-argument": "off",
       "unicorn/no-array-reduce": "off",
+      "unicorn/no-array-reverse": "off",
       "unicorn/no-await-expression-member": "off",
       "unicorn/no-for-loop": "off",
       "unicorn/no-hex-escape": "off",

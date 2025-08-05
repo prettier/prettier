@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`visitor keys estree 1`] = `
 {
@@ -523,6 +523,63 @@ exports[`visitor keys estree 1`] = `
     "left",
     "right",
   ],
+  "MatchArrayPattern": [
+    "elements",
+    "rest",
+  ],
+  "MatchAsPattern": [
+    "pattern",
+    "target",
+  ],
+  "MatchBindingPattern": [
+    "id",
+  ],
+  "MatchExpression": [
+    "argument",
+    "cases",
+  ],
+  "MatchExpressionCase": [
+    "body",
+    "guard",
+    "pattern",
+  ],
+  "MatchIdentifierPattern": [
+    "id",
+  ],
+  "MatchLiteralPattern": [
+    "literal",
+  ],
+  "MatchMemberPattern": [
+    "base",
+    "property",
+  ],
+  "MatchObjectPattern": [
+    "properties",
+    "rest",
+  ],
+  "MatchObjectPatternProperty": [
+    "key",
+    "pattern",
+  ],
+  "MatchOrPattern": [
+    "patterns",
+  ],
+  "MatchRestPattern": [
+    "argument",
+  ],
+  "MatchStatement": [
+    "argument",
+    "cases",
+  ],
+  "MatchStatementCase": [
+    "body",
+    "guard",
+    "pattern",
+  ],
+  "MatchUnaryPattern": [
+    "argument",
+  ],
+  "MatchWildcardPattern": [],
   "MemberExpression": [
     "object",
     "property",
@@ -1113,6 +1170,7 @@ exports[`visitor keys estree 1`] = `
     "init",
   ],
   "Variance": [],
+  "VoidPattern": [],
   "VoidTypeAnnotation": [],
   "WhileStatement": [
     "body",

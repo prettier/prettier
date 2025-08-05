@@ -147,14 +147,21 @@ const pluginFiles = [
       },
       {
         module: getPackageFile(
+          "@typescript-eslint/typescript-estree/dist/parseSettings/candidateTSConfigRootDirs.js",
+        ),
+        process(text) {
+          return text.replace(
+            "process.cwd()",
+            JSON.stringify("/prettier-security-dirname-placeholder"),
+          );
+        },
+      },
+      {
+        module: getPackageFile(
           "@typescript-eslint/typescript-estree/dist/parseSettings/createParseSettings.js",
         ),
         process(text) {
           return text
-            .replace(
-              "process.cwd()",
-              JSON.stringify("/prettier-security-dirname-placeholder"),
-            )
             .replace(
               "parseSettings.projects = ",
               "parseSettings.projects = true ? new Map() : ",
@@ -360,14 +367,9 @@ const pluginFiles = [
   {
     input: "src/plugins/meriyah.js",
     replaceModule: [
-      // Use non-minified version so we can replace code easier
-      {
-        module: resolveEsmModulePath("meriyah"),
-        path: getPackageFile("meriyah/dist/meriyah.mjs"),
-      },
       // We don't use value of JSXText
       {
-        module: getPackageFile("meriyah/dist/meriyah.mjs"),
+        module: resolveEsmModulePath("meriyah"),
         find: "parser.tokenValue = decodeHTMLStrict(raw);",
         replacement: "parser.tokenValue = raw;",
       },
@@ -860,16 +862,7 @@ const nodejsFiles = [
           "src/experimental-cli/constants.evaluate.js",
         ),
       },
-      ...[
-        "package.json",
-        "index.mjs",
-        ...universalFiles
-          .filter(
-            ({ kind, output }) =>
-              kind === "javascript" && output.format === "esm",
-          )
-          .map(({ output }) => output.file),
-      ].map((file) => ({
+      ...["package.json", "index.mjs"].map((file) => ({
         module: getPackageFile(`prettier/${file}`),
         external: `../${file}`,
       })),
@@ -982,11 +975,8 @@ export default [
                   ),
                   process(text) {
                     text = text.replace(
-                      /async function importOxcParser\(\) \{.*?\}/su,
-                      outdent`
-                        const OXC_PARSER_URL = "/unpkg.com/@oxc-parser/binding-wasm32-wasi@${projectPackageJson.dependencies["oxc-parser"]}/browser-bundle.mjs"
-                        const importOxcParser = () => import(OXC_PARSER_URL)
-                      `,
+                      'import * as oxcParser from "oxc-parser";',
+                      `import * as oxcParser from "https://unpkg.com/@oxc-parser/binding-wasm32-wasi@${projectPackageJson.dependencies["oxc-parser"]}/browser-bundle.mjs";`,
                     );
                     return text;
                   },

@@ -88,6 +88,19 @@ function printCallArguments(path, options, print) {
       ? ","
       : "";
 
+  // TODO: Don't break long `ImportExpression` too
+  // Don't break simple import with long module name
+  if (
+    node.type === "TSImportType" &&
+    args.length === 1 &&
+    ((args[0].type === "TSLiteralType" && isStringLiteral(args[0].literal)) ||
+      // TODO: Remove this when update Babel to v8
+      isStringLiteral(args[0])) &&
+    !hasComment(args[0])
+  ) {
+    return group(["(", ...printedArguments, ifBreak(maybeTrailingComma), ")"]);
+  }
+
   function allArgsBrokenOut() {
     return group(
       ["(", indent([line, ...printedArguments]), maybeTrailingComma, line, ")"],
@@ -378,16 +391,24 @@ function isNonEmptyBlockStatement(node) {
   );
 }
 
-// { type: "module" }
+// `{ type: "module" }` and `{"type": "module"}`
 function isTypeModuleObjectExpression(node) {
+  if (!(node.type === "ObjectExpression" && node.properties.length === 1)) {
+    return false;
+  }
+
+  const [property] = node.properties;
+
+  if (!isObjectProperty(property)) {
+    return false;
+  }
+
   return (
-    node.type === "ObjectExpression" &&
-    node.properties.length === 1 &&
-    isObjectProperty(node.properties[0]) &&
-    node.properties[0].key.type === "Identifier" &&
-    node.properties[0].key.name === "type" &&
-    isStringLiteral(node.properties[0].value) &&
-    node.properties[0].value.value === "module"
+    !property.computed &&
+    ((property.key.type === "Identifier" && property.key.name === "type") ||
+      (isStringLiteral(property.key) && property.key.value === "type")) &&
+    isStringLiteral(property.value) &&
+    property.value.value === "module"
   );
 }
 

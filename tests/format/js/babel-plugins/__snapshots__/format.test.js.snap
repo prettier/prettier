@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`async-do-expressions.js [acorn] format 1`] = `
 "Unexpected token (1:7)
@@ -690,6 +690,51 @@ class Foo {
 ================================================================================
 `;
 
+exports[`discard-binding.js [acorn] format 1`] = `
+"Unexpected keyword 'void' (1:11)
+> 1 | const [a, void] = iter;
+    |           ^
+  2 |
+Cause: Unexpected keyword 'void' (1:10)"
+`;
+
+exports[`discard-binding.js [espree] format 1`] = `
+"Unexpected keyword 'void' (1:11)
+> 1 | const [a, void] = iter;
+    |           ^
+  2 |
+Cause: Unexpected keyword 'void'"
+`;
+
+exports[`discard-binding.js [meriyah] format 1`] = `
+"Unexpected token: ']' (1:15)
+> 1 | const [a, void] = iter;
+    |               ^
+  2 |
+Cause: [1:14-1:15]: Unexpected token: ']'"
+`;
+
+exports[`discard-binding.js [oxc] format 1`] = `
+"Identifier expected. 'void' is a reserved word that cannot be used here. (1:11)
+> 1 | const [a, void] = iter;
+    |           ^^^^
+  2 |"
+`;
+
+exports[`discard-binding.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "babel-flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const [a, void] = iter;
+
+=====================================output=====================================
+const [a, void] = iter;
+
+================================================================================
+`;
+
 exports[`do-expressions.js [acorn] format 1`] = `
 "Unexpected token (3:9)
   1 | // https://babeljs.io/docs/babel-plugin-proposal-do-expressions
@@ -797,28 +842,6 @@ import("./prettier.mjs").then((module) => console.log(module));
 import(prettier).then((module) => console.log(module));
 
 ================================================================================
-`;
-
-exports[`explicit-resource-management.js [acorn] format 1`] = `
-"Unexpected token (2:9)
-  1 | function * g() {
-> 2 |   using handle = acquireFileHandle(); // block-scoped critical resource
-    |         ^
-  3 | } // cleanup
-  4 |
-  5 | {
-Cause: Unexpected token (2:8)"
-`;
-
-exports[`explicit-resource-management.js [espree] format 1`] = `
-"Unexpected token handle (2:9)
-  1 | function * g() {
-> 2 |   using handle = acquireFileHandle(); // block-scoped critical resource
-    |         ^
-  3 | } // cleanup
-  4 |
-  5 | {
-Cause: Unexpected token handle"
 `;
 
 exports[`explicit-resource-management.js [meriyah] format 1`] = `

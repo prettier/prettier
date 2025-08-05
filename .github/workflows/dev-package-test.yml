@@ -22,7 +22,7 @@ concurrency:
 jobs:
   test:
     if: github.event_name != 'schedule' || github.repository == 'prettier/prettier'
-    timeout-minutes: 60
+    timeout-minutes: 15
     strategy:
       fail-fast: false
       matrix:

@@ -43,10 +43,10 @@ jobs:
           path: dist
 
       - name: Lint Code
-        run: yarn test:dist-lint
+        run: yarn test:production-lint
 
   test:
-    timeout-minutes: 90
+    timeout-minutes: 15
     strategy:
       fail-fast: false
       matrix:
@@ -105,7 +105,7 @@ jobs:
 
       - name: Downgrade Jest
         if: ${{ matrix.node == '14' || matrix.node == '16' }}
-        run: node ./scripts/prepare-test-for-legacy-nodejs.js
+        run: node ./scripts/prepare-test-for-legacy-nodejs.js --node-version ${{ matrix.node }}
 
       - name: Install Dependencies(yarn@3,mutable)
         if: ${{ matrix.node == '14' || matrix.node == '16' }}
@@ -123,10 +123,10 @@ jobs:
           path: dist
 
       - name: Run Tests
-        run: yarn test:dist
+        run: yarn test:production
 
       - name: Run Format Tests (standalone)
-        run: yarn test:dist-standalone
+        run: yarn test:production-standalone
 
   cli:
     name: CLI

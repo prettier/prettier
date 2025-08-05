@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`comments.js format 1`] = `
 ====================================options=====================================
@@ -22,17 +22,6 @@ type A<T /* comment */ : string> = B;
 type A</* comment */ T: string> = B;
 
 ================================================================================
-`;
-
-exports[`const-type-params.js [babel-flow] format 1`] = `
-"Unexpected token, expected "," (2:14)
-  1 | // Simple
-> 2 | type T<const X> = X;
-    |              ^
-  3 | function f<const T>(): void {}
-  4 | <const T>(x: T) => {}
-  5 | class C<const T>{}
-Cause: Unexpected token, expected "," (2:13)"
 `;
 
 exports[`const-type-params.js format 1`] = `

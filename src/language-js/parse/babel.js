@@ -46,10 +46,10 @@ const parseOptions = {
     "asyncDoExpressions",
     "destructuringPrivate",
     "decoratorAutoAccessors",
-    "explicitResourceManagement",
     "sourcePhaseImports",
     "deferredImportEvaluation",
     ["optionalChainingAssign", { version: "2023-07" }],
+    ["discardBinding", { syntaxType: "void" }],
   ],
   tokens: false,
   // Ranges not available on comments, so we use `Node#{start,end}` instead
@@ -163,7 +163,7 @@ function createParse({ isExpression = false, optionsCombinations }) {
       ast = wrapBabelExpression(ast, { text, rootMarker: options.rootMarker });
     }
 
-    return postprocess(ast, { text, supportTypeCastComments: true });
+    return postprocess(ast, { text });
   };
 }
 
@@ -217,6 +217,16 @@ const allowedReasonCodes = new Set([
   ```
   */
   "ImportAttributesUseAssert",
+
+  /*
+  Allow const without initializer in `.d.ts` files
+  https://github.com/prettier/prettier/issues/17649
+
+  ```
+  export const version: string;
+  ```
+  */
+  "DeclarationMissingInitializer",
 ]);
 
 const babelParserOptionsCombinations = [appendPlugins(["jsx"])];
