@@ -6,6 +6,7 @@ import pathNeedsParens from "../needs-parens.js";
 import { createTypeCheckFunction } from "../utils/index.js";
 import isIgnored from "../utils/is-ignored.js";
 import { printAngular } from "./angular.js";
+import { printUnmovableComments } from "./comment.js";
 import { printDecorators } from "./decorators.js";
 import { printEstree } from "./estree.js";
 import { printFlow } from "./flow.js";
@@ -95,7 +96,7 @@ function print(path, options, print, args) {
     needsParens ? "(" : "",
     needsParens && isClassExpression && hasDecorators
       ? [indent([line, decoratorsDoc, doc]), line]
-      : [decoratorsDoc, doc],
+      : [decoratorsDoc, printUnmovableComments(path, doc, options)],
     needsParens ? ")" : "",
   ]);
 }
