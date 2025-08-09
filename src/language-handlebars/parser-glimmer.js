@@ -1,5 +1,6 @@
 import { preprocess as parseGlimmer } from "@glimmer/syntax";
 import createError from "../common/parser-create-error.js";
+import parseFrontMatter from "../utils/front-matter/parse.js";
 import { locEnd, locStart } from "./loc.js";
 
 /* from the following template: `non-escaped mustache \\{{helper}}`
@@ -58,9 +59,11 @@ const glimmerParseOptions = {
 };
 
 function parse(text /*, options */) {
+  const { frontMatter, content } = parseFrontMatter(text);
+
   let ast;
   try {
-    ast = parseGlimmer(text, glimmerParseOptions);
+    ast = parseGlimmer(content, glimmerParseOptions);
   } catch (error) {
     const location = getErrorLocation(error);
 
@@ -72,6 +75,28 @@ function parse(text /*, options */) {
 
     /* c8 ignore next */
     throw error;
+  }
+
+  if (frontMatter) {
+    const { raw } = frontMatter;
+    const endLine = raw.split("\n").length;
+    const endCol = raw.length - raw.lastIndexOf("\n") - 1;
+    const frontMatterNode = {
+      type: "CommentStatement",
+      value: raw,
+      language: frontMatter.language,
+      isFrontMatter: true,
+      loc: {
+        startPosition: { line: 1, column: 0 },
+        endPosition: {
+          line: endLine,
+          column: endCol,
+        },
+      },
+    };
+
+    //@ts-ignore
+    ast.body.unshift(frontMatterNode);
   }
 
   return ast;

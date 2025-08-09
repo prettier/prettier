@@ -381,6 +381,8 @@ function print(path, options, print) {
       return String(node.value);
 
     case "CommentStatement":
+      if (node.isFrontMatter) return replaceEndOfLine(node.value);
+
       return ["<!--", node.value, "-->"];
 
     case "StringLiteral":
