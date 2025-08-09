@@ -95,7 +95,7 @@ function parse(text /*, options */) {
       },
     };
 
-    //@ts-ignore
+    //@ts-expect-error
     ast.body.unshift(frontMatterNode);
   }
 

@@ -11,7 +11,9 @@ function embed(path /*, options*/) {
     return async (textToDoc) => {
       const doc = await textToDoc(node.value, { parser: "yaml" });
 
-      if (!doc) return [];
+      if (!doc) {
+        return [];
+      }
 
       return [doc];
     };
