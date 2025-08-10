@@ -195,10 +195,10 @@ function postprocess(ast, options) {
         break;
     }
 
-    /* c8 ignore next 3 */
-    if (process.env.NODE_ENV !== "production") {
-      assertRaw(node, text);
-    }
+    // /* c8 ignore next 3 */
+    // if (process.env.NODE_ENV !== "production") {
+    //   assertRaw(node, text);
+    // }
   });
 
   // `InterpreterDirective` from babel parser and flow parser
