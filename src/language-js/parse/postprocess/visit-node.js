@@ -15,6 +15,8 @@ function visitNode(node, fn) {
     return node;
   }
 
+  node = fn(node) || node;
+
   const keys = getVisitorKeys(node);
   node = fn(node) || node;
   for (let i = 0; i < keys.length; i++) {
