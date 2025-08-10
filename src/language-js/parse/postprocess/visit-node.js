@@ -18,7 +18,6 @@ function visitNode(node, fn) {
   node = fn(node) || node;
 
   const keys = getVisitorKeys(node);
-  node = fn(node) || node;
   for (let i = 0; i < keys.length; i++) {
     node[keys[i]] = visitNode(node[keys[i]], fn);
   }
