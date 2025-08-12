@@ -55,7 +55,7 @@ jobs:
       - name: Lint docs code block
         run: yarn prettier "{docs,website/versioned_docs/version-stable}/**/*.md" --check
         env:
-          # Make Prettier throws on embeded format
+          # Make Prettier throws on embedded format
           PRETTIER_DEBUG: true
 
       - name: Lint workflow files
