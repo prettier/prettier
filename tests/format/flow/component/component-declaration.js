@@ -49,7 +49,7 @@ component MyComponent(bar: string, 'data-baz' as baz: $ReadOnly<{k: string, real
 // Attached comment
 component MyComponent(
   /**
-   * Commet block
+   * Comment block
    */
   bar: string, // Trailing comment
 

@@ -35,7 +35,7 @@ declare hook useFoo(bar: string, baz: $ReadOnly<{k: string}>, realllllllllllllll
 // Attached comment
 declare hook useFoo(
   /**
-   * Commet block
+   * Comment block
    */
   bar: string, // Trailing comment
 
@@ -94,7 +94,7 @@ declare hook useFoo(
 // Attached comment
 declare hook useFoo(
   /**
-   * Commet block
+   * Comment block
    */
   bar: string, // Trailing comment
 
@@ -266,7 +266,7 @@ type ExtractType = hook <A>(B<C>) => D
 // Attached comment
 type T = hook (
   /**
-   * Commet block
+   * Comment block
    */
   bar: string, // Trailing comment
 
@@ -357,7 +357,7 @@ type ExtractType = hook <A>(B<C>) => D;
 // Attached comment
 type T = hook (
   /**
-   * Commet block
+   * Comment block
    */
   bar: string, // Trailing comment
 

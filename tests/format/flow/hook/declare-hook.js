@@ -27,7 +27,7 @@ declare hook useFoo(bar: string, baz: $ReadOnly<{k: string}>, realllllllllllllll
 // Attached comment
 declare hook useFoo(
   /**
-   * Commet block
+   * Comment block
    */
   bar: string, // Trailing comment
 

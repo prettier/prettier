@@ -60,11 +60,11 @@ compose((a) => {
   return a.thing;
 }, b => b * b);
 
-somthing.reduce(function(item, thing) {
+something.reduce(function(item, thing) {
   return thing.blah =  item;
 }, {})
 
-somthing.reduce(function(item, thing) {
+something.reduce(function(item, thing) {
   return thing.push(item);
 }, [])
 

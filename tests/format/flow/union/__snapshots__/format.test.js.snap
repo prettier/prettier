@@ -8,7 +8,7 @@ printWidth: 80
 =====================================input======================================
 const myValue = (callcallcallcallcallcall(87689769876876897698768768976987687689769876):
                  // Comment
-                 one | two| thre | jdkxhflksjdhfglkjsdhfglkjhsdkfljghskdjhfgkljshdfgkjhsdkljfhgkljshdfgjdfklgjhklj );
+                 one | two| three | jdkxhflksjdhfglkjsdhfglkjhsdkfljghskdjhfgkljshdfgkjhsdkljfhgkljshdfgjdfklgjhklj );
 
 =====================================output=====================================
 const myValue = (callcallcallcallcallcall(
@@ -16,7 +16,7 @@ const myValue = (callcallcallcallcallcall(
 ): // Comment
 | one
   | two
-  | thre
+  | three
   | jdkxhflksjdhfglkjsdhfglkjhsdkfljghskdjhfgkljshdfgkjhsdkljfhgkljshdfgjdfklgjhklj);
 
 ================================================================================

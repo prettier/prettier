@@ -1,4 +1,4 @@
-const randomFuncion = (value) => {
+const randomFunction = (value) => {
     if (value.a) {
         funcA(
             "",

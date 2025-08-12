@@ -19,6 +19,6 @@ function doSmth()     {
 
     console.log
     (%
-        GetFunctioName(f)
+        GetFunctionName(f)
         );
 }

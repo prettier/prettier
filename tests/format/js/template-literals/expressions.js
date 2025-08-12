@@ -39,7 +39,7 @@ console.log(`brew cask audit --download ${_.map(definitions, 'caskName').join(' 
 
 console.log(`\nApparently jetbrains changed the release artifact for ${app.name}@${app.jetbrains.version}.\n`);
 
-descirbe('something', () => {
+describe('something', () => {
   test(`{pass: false} expect(${small}).toBeGreaterThanOrEqual(${big})`, () => {});
 })
 

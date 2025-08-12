@@ -51,7 +51,7 @@ printWidth: 80
 }
 @import url(https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900&display=swap);
 
-.validUnqotedUrlsThatAreParsedByLess {
+.validUnquotedUrlsThatAreParsedByLess {
   background: url(@foo);
 }
 
@@ -101,7 +101,7 @@ printWidth: 80
 }
 @import url(https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900&display=swap);
 
-.validUnqotedUrlsThatAreParsedByLess {
+.validUnquotedUrlsThatAreParsedByLess {
   background: url(@foo);
 }
 

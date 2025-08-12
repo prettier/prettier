@@ -8,6 +8,6 @@ schema {
 extend schema { subscription: Subscription }
 
 # `SchemaExtension`s don't require any operation types and doesn't print
-# curlies in their abscence.
+# curlies in their absence.
 extend schema
   @directive

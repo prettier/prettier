@@ -1,5 +1,5 @@
 
-// concatened string in consequent should be visually distinguishable from alternate
+// concatenated string in consequent should be visually distinguishable from alternate
 // … or maybe this is okay, because the colon is enough?
 const avatar = has_ordered ?
     'https://marmelab.com/posters/avatar/longer-word-that-breaks-consequent-' +
@@ -72,7 +72,7 @@ const obj = {
       : null,
 }
 
-// I think we should indent after the inner || on this, and do better wtih the parens around the &&
+// I think we should indent after the inner || on this, and do better with the parens around the &&
 const obj2 = {
   warning:
     matchingReferencesError ||

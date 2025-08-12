@@ -31,9 +31,9 @@ parsers: ["glimmer"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-a bare string to hightlight eol last handling
+a bare string to highlight eol last handling
 
 =====================================output=====================================
-a bare string to hightlight eol last handling
+a bare string to highlight eol last handling
 ================================================================================
 `;

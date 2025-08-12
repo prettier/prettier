@@ -14,7 +14,8 @@ function F(props: { foo: string }) {}
 <F foo="" />; // ok
 
 // props subtyping is property-wise covariant
-function G(props: { foo: string|numner }) {}
+function G(props: { foo: string|number }) {}
+<G foo={0} />; // ok
 <G foo="" />; // ok
 
 var Z = 0;
@@ -29,7 +30,8 @@ function F(props: { foo: string }) {}
 <F foo="" />; // ok
 
 // props subtyping is property-wise covariant
-function G(props: { foo: string | numner }) {}
+function G(props: { foo: string | number }) {}
+<G foo={0} />; // ok
 <G foo="" />; // ok
 
 var Z = 0;

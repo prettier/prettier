@@ -87,13 +87,13 @@
 '\\'
 "\\"
 
-// Backslases.
+// Backslashes.
 "\"\\\"\\\\\" '\'\\'\\\'\\\\'"
 '\'\\\'\\\\\' "\"\\"\\\"\\\\"'
 
 // Somewhat more real-word example.
-"He's sayin': \"How's it goin'?\" Don't ask me why."
-'He\'s sayin\': "How\'s it goin\'?" Don\'t ask me why.'
+"He's saying': \"How's it going'?\" Don't ask me why."
+'He\'s saying\': "How\'s it going\'?" Don\'t ask me why.'
 
 // Somewhat more real-word example 2.
 "var backslash = \"\\\", doubleQuote = '\"';"

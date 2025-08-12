@@ -25,7 +25,7 @@ type T = component(bar: string, baz: $ReadOnly<{k: string}>, reallllllllllllllll
 // Attached comment
 type T = component(
   /**
-   * Commet block
+   * Comment block
    */
   bar: string, // Trailing comment
 

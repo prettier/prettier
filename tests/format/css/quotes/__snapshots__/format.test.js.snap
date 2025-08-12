@@ -62,13 +62,13 @@ singleQuote: true
     content: '\\\\';
     content: "\\\\";
 
-    /* Backslases. */
+    /* Backslashes. */
     content: "\\"\\\\\\"\\\\\\\\\\" '\\'\\\\'\\\\\\'\\\\\\\\'";
     content: '\\'\\\\\\'\\\\\\\\\\' "\\"\\\\"\\\\\\"\\\\\\\\"';
 
     /* Somewhat more real-word example. */
-    content: "He's sayin': \\"How's it goin'?\\" Don't ask me why.";
-    content: 'He\\'s sayin\\': "How\\'s it goin\\'?" Don\\'t ask me why.';
+    content: "He's saying': \\"How's it going'?\\" Don't ask me why.";
+    content: 'He\\'s saying\\': "How\\'s it going\\'?" Don\\'t ask me why.';
 
     /* Somewhat more real-word example 2. */
     content: "var backslash = \\"\\\\\\", doubleQuote = '\\"';";
@@ -155,13 +155,13 @@ one 'two' three {}
     content: '\\\\';
     content: '\\\\';
 
-    /* Backslases. */
+    /* Backslashes. */
     content: "\\"\\\\\\"\\\\\\\\\\" '\\'\\\\'\\\\\\'\\\\\\\\'";
     content: '\\'\\\\\\'\\\\\\\\\\' "\\"\\\\"\\\\\\"\\\\\\\\"';
 
     /* Somewhat more real-word example. */
-    content: "He's sayin': \\"How's it goin'?\\" Don't ask me why.";
-    content: "He's sayin': \\"How's it goin'?\\" Don't ask me why.";
+    content: "He's saying': \\"How's it going'?\\" Don't ask me why.";
+    content: "He's saying': \\"How's it going'?\\" Don't ask me why.";
 
     /* Somewhat more real-word example 2. */
     content: 'var backslash = "\\\\", doubleQuote = \\'"\\';';
@@ -258,13 +258,13 @@ printWidth: 80
     content: '\\\\';
     content: "\\\\";
 
-    /* Backslases. */
+    /* Backslashes. */
     content: "\\"\\\\\\"\\\\\\\\\\" '\\'\\\\'\\\\\\'\\\\\\\\'";
     content: '\\'\\\\\\'\\\\\\\\\\' "\\"\\\\"\\\\\\"\\\\\\\\"';
 
     /* Somewhat more real-word example. */
-    content: "He's sayin': \\"How's it goin'?\\" Don't ask me why.";
-    content: 'He\\'s sayin\\': "How\\'s it goin\\'?" Don\\'t ask me why.';
+    content: "He's saying': \\"How's it going'?\\" Don't ask me why.";
+    content: 'He\\'s saying\\': "How\\'s it going\\'?" Don\\'t ask me why.';
 
     /* Somewhat more real-word example 2. */
     content: "var backslash = \\"\\\\\\", doubleQuote = '\\"';";
@@ -351,13 +351,13 @@ one 'two' three {}
     content: "\\\\";
     content: "\\\\";
 
-    /* Backslases. */
+    /* Backslashes. */
     content: "\\"\\\\\\"\\\\\\\\\\" '\\'\\\\'\\\\\\'\\\\\\\\'";
     content: '\\'\\\\\\'\\\\\\\\\\' "\\"\\\\"\\\\\\"\\\\\\\\"';
 
     /* Somewhat more real-word example. */
-    content: "He's sayin': \\"How's it goin'?\\" Don't ask me why.";
-    content: "He's sayin': \\"How's it goin'?\\" Don't ask me why.";
+    content: "He's saying': \\"How's it going'?\\" Don't ask me why.";
+    content: "He's saying': \\"How's it going'?\\" Don't ask me why.";
 
     /* Somewhat more real-word example 2. */
     content: 'var backslash = "\\\\", doubleQuote = \\'"\\';';

@@ -25,7 +25,7 @@ declare component MyComponent(bar: string, baz: $ReadOnly<{k: string}>, realllll
 // Attached comment
 declare component MyComponent(
   /**
-   * Commet block
+   * Comment block
    */
   bar: string, // Trailing comment
 

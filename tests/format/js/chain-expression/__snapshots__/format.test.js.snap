@@ -157,7 +157,7 @@ parsers: ["babel", "typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-const randomFuncion = (value) => {
+const randomFunction = (value) => {
     if (value.a) {
         funcA(
             "",
@@ -171,7 +171,7 @@ const randomFuncion = (value) => {
 };
 
 =====================================output=====================================
-const randomFuncion = (value) => {
+const randomFunction = (value) => {
   if (value.a) {
     funcA("", funcB(dayjs(value.a?.toString()).add(1, "day").toISOString()));
   }

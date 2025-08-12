@@ -9,7 +9,7 @@ type duck = {
   quack: () => string;
 }
 
-// These string types should confict with the imported types
+// These string types should conflict with the imported types
 var A: string = "Hello";
 var Foo: string = "Goodbye";
 var Baz: string = "Go away please";

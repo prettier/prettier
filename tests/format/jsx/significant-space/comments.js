@@ -1,6 +1,6 @@
 <div>
   {
-    // TODO: don't harcode this space! not all locales use whitespace
+    // TODO: don't hardcode this space! not all locales use whitespace
     // in the same way
     ' '
   }

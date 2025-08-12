@@ -16,7 +16,7 @@ function division() {
 	/ x
 }
 
-function substraction() {
+function subtraction() {
 	0
 	// Comment
 	- x

@@ -57,7 +57,7 @@ component MyComponent(bar: string, 'data-baz' as baz: $ReadOnly<{k: string, real
 // Attached comment
 component MyComponent(
   /**
-   * Commet block
+   * Comment block
    */
   bar: string, // Trailing comment
 
@@ -153,7 +153,7 @@ component MyComponent(
 // Attached comment
 component MyComponent(
   /**
-   * Commet block
+   * Comment block
    */
   bar: string, // Trailing comment
 
@@ -211,7 +211,7 @@ type T = component(bar: string, baz: $ReadOnly<{k: string}>, reallllllllllllllll
 // Attached comment
 type T = component(
   /**
-   * Commet block
+   * Comment block
    */
   bar: string, // Trailing comment
 
@@ -270,7 +270,7 @@ type T = component(
 // Attached comment
 type T = component(
   /**
-   * Commet block
+   * Comment block
    */
   bar: string, // Trailing comment
 
@@ -350,7 +350,7 @@ declare component MyComponent(bar: string, baz: $ReadOnly<{k: string}>, realllll
 // Attached comment
 declare component MyComponent(
   /**
-   * Commet block
+   * Comment block
    */
   bar: string, // Trailing comment
 
@@ -404,7 +404,7 @@ declare component MyComponent(
 // Attached comment
 declare component MyComponent(
   /**
-   * Commet block
+   * Comment block
    */
   bar: string, // Trailing comment
 

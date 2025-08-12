@@ -41,7 +41,7 @@ module.exports = {
 exports[`bad_shadowing.js [hermes] format 1`] = `
 "Identifier 'A' is already declared (13:4)
   11 |
-  12 | // These string types should confict with the imported types
+  12 | // These string types should conflict with the imported types
 > 13 | var A: string = "Hello";
      |    ^
   14 | var Foo: string = "Goodbye";
@@ -72,7 +72,7 @@ type duck = {
   quack: () => string;
 }
 
-// These string types should confict with the imported types
+// These string types should conflict with the imported types
 var A: string = "Hello";
 var Foo: string = "Goodbye";
 var Baz: string = "Go away please";
@@ -92,7 +92,7 @@ type duck = {
   quack: () => string,
 };
 
-// These string types should confict with the imported types
+// These string types should conflict with the imported types
 var A: string = "Hello";
 var Foo: string = "Goodbye";
 var Baz: string = "Go away please";

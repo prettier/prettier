@@ -470,7 +470,7 @@ trailingComma: "es5"
 }
 
 a {
- backround: url(concat('http://', 'example.com', '/image.png'));
+ background: url(concat('http://', 'example.com', '/image.png'));
 }
 
 =====================================output=====================================
@@ -483,7 +483,7 @@ a {
 }
 
 a {
-  backround: url(concat("http://", "example.com", "/image.png"));
+  background: url(concat("http://", "example.com", "/image.png"));
 }
 
 ================================================================================
@@ -505,7 +505,7 @@ trailingComma: "none"
 }
 
 a {
- backround: url(concat('http://', 'example.com', '/image.png'));
+ background: url(concat('http://', 'example.com', '/image.png'));
 }
 
 =====================================output=====================================
@@ -518,7 +518,7 @@ a {
 }
 
 a {
-  backround: url(concat("http://", "example.com", "/image.png"));
+  background: url(concat("http://", "example.com", "/image.png"));
 }
 
 ================================================================================

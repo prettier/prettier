@@ -31,12 +31,12 @@ test("`printDocToString` should not manipulate docs", () => {
         () => WORD,
       ),
     );
-    const orignalLength = hugeParts.length;
+    const originalLength = hugeParts.length;
 
     const startTime = performance.now();
     const { formatted } = printDocToString(fill(hugeParts), printOptions);
     const endTime = performance.now();
-    expect(hugeParts.length).toBe(orignalLength);
+    expect(hugeParts.length).toBe(originalLength);
 
     const lines = formatted.split("\n");
     expect(lines.length).toBeGreaterThan(1000);
@@ -50,9 +50,9 @@ describe("`printDocToString` has linear time complexity at most to print fill()"
   const baseTime = time(makeFill(baseSize));
   test.each([20_000, 40_000, 60_000])("numWords=%d", (numWords) => {
     const doc = makeFill(numWords);
-    const ellapsed = time(doc);
+    const elapsed = time(doc);
     const ratio = numWords / baseSize;
-    expect(ellapsed).toBeLessThan(baseTime * ratio * (1 + relativeMargin));
+    expect(elapsed).toBeLessThan(baseTime * ratio * (1 + relativeMargin));
   });
 
   function makeFill(numWords) {

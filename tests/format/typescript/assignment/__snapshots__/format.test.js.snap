@@ -119,20 +119,20 @@ parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-export const enviromentProdValues: EnvironmentValues = assign<EnvironmentValues>(
+export const environmentProdValues: EnvironmentValues = assign<EnvironmentValues>(
   {
     apiURL: '/api',
   },
-  enviromentBaseValues
+  environmentBaseValues
 );
 
 =====================================output=====================================
-export const enviromentProdValues: EnvironmentValues =
+export const environmentProdValues: EnvironmentValues =
   assign<EnvironmentValues>(
     {
       apiURL: "/api",
     },
-    enviromentBaseValues,
+    environmentBaseValues,
   );
 
 ================================================================================

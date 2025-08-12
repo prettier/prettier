@@ -55,7 +55,7 @@ type ExtractType = hook <A>(B<C>) => D
 // Attached comment
 type T = hook (
   /**
-   * Commet block
+   * Comment block
    */
   bar: string, // Trailing comment
 

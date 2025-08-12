@@ -1,6 +1,6 @@
 // @declaration: true
 module M {
-    module P.Q { } // This shouldnt be emitted
+    module P.Q { } // This shouldn't be emitted
 }
 
 module M {

@@ -299,7 +299,7 @@ printWidth: 80
 =====================================input======================================
 // @declaration: true
 module M {
-    module P.Q { } // This shouldnt be emitted
+    module P.Q { } // This shouldn't be emitted
 }
 
 module M {
@@ -311,7 +311,7 @@ module T.U { // This needs to be emitted
 =====================================output=====================================
 // @declaration: true
 module M {
-  module P.Q {} // This shouldnt be emitted
+  module P.Q {} // This shouldn't be emitted
 }
 
 module M {

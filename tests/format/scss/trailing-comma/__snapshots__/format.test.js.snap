@@ -713,13 +713,13 @@ trailingComma: "es5"
 =====================================input======================================
 $z-indexes: (
     header: 1035,
-    overlay: 1202 // The comma shoud be printed before the comment when trailing-comma = es5
+    overlay: 1202 // The comma should be printed before the comment when trailing-comma = es5
 );
 
 =====================================output=====================================
 $z-indexes: (
   header: 1035,
-  overlay: 1202, // The comma shoud be printed before the comment when trailing-comma = es5
+  overlay: 1202, // The comma should be printed before the comment when trailing-comma = es5
 );
 
 ================================================================================
@@ -734,13 +734,13 @@ trailingComma: "none"
 =====================================input======================================
 $z-indexes: (
     header: 1035,
-    overlay: 1202 // The comma shoud be printed before the comment when trailing-comma = es5
+    overlay: 1202 // The comma should be printed before the comment when trailing-comma = es5
 );
 
 =====================================output=====================================
 $z-indexes: (
   header: 1035,
-  overlay: 1202 // The comma shoud be printed before the comment when trailing-comma = es5
+  overlay: 1202 // The comma should be printed before the comment when trailing-comma = es5
 );
 
 ================================================================================

@@ -1,4 +1,4 @@
-1.  Some test text, the goal is to have the html table below nested within this number. When formating on save Prettier will continue to add an indent each time pushing the table further and further out of sync. 
+1.  Some test text, the goal is to have the html table below nested within this number. When formatting on save Prettier will continue to add an indent each time pushing the table further and further out of sync. 
 
     <table class="table table-striped">
     <tr>

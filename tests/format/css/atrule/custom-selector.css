@@ -60,5 +60,5 @@ h6
 @custom-selector :--enter :hover, :focus;
 @custom-selector :--visible :global.visible;
 @custom-selector :--icon i[class^='icon-'], i[class*=' icon-'];
-@custom-selector :--placeholder :placehoder-shown, ::-webkit-input-placeholder, ::-moz-placeholder, :-ms-input-placeholder;
+@custom-selector :--placeholder :placeholder-shown, ::-webkit-input-placeholder, ::-moz-placeholder, :-ms-input-placeholder;
 @custom-selector :--enter :matches(:hover, :focus, :active);

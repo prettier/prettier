@@ -54,5 +54,5 @@ foo.goodSetterWithAnnotation = "hello"; // Error string ~> number
 
 var testSubtypingGetterAndSetter: number = foo.propWithSubtypingGetterAndSetter; // Error ?number ~> number
 
-var testPropOverridenWithGetter: number = foo.propOverriddenWithGetter; // Error string ~> number
+var testPropOverriddenWithGetter: number = foo.propOverriddenWithGetter; // Error string ~> number
 foo.propOverriddenWithSetter = 123; // Error number ~> string

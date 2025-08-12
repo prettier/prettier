@@ -37,7 +37,7 @@ type FooBar2 =
   ;
 
 type UploadState<E, EM, D>
-  // The upload hasnt begun yet
+  // The upload hasn't begun yet
   = {type: "Not_begun"}
   // The upload timed out
   | {type: "Timed_out"}
@@ -47,7 +47,7 @@ type UploadState<E, EM, D>
   | {type: "Success", data: D};
 
 type UploadState2<E, EM, D>
-  // The upload hasnt begun yet
+  // The upload hasn't begun yet
   = A
   // The upload timed out
   | B
