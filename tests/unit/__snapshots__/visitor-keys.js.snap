@@ -238,8 +238,10 @@ exports[`visitor keys estree 1`] = `
   ],
   "DeclareOpaqueType": [
     "id",
+    "lowerBound",
     "supertype",
     "typeParameters",
+    "upperBound",
   ],
   "DeclareTypeAlias": [
     "id",
@@ -702,8 +704,10 @@ exports[`visitor keys estree 1`] = `
   "OpaqueType": [
     "id",
     "impltype",
+    "lowerBound",
     "supertype",
     "typeParameters",
+    "upperBound",
   ],
   "OptionalCallExpression": [
     "arguments",

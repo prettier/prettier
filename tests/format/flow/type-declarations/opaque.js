@@ -14,3 +14,14 @@ opaque type union =
 opaque type overloads =
   & ((x: string) => number)
   & ((x: number) => string);
+
+opaque type Counter super empty extends Box<T> = Container<T>;
+opaque type Counter super Box<T> = Container<T>;
+
+opaque type Counter super Looooooooooooooooooog extends BoxLooooooooooooooooooog<T> = Container<T>;
+opaque type Counter super BoxLooooooooooooooooooooooooooooooooog<T> = Container<T>;
+
+declare opaque type Counter super empty extends Box<T>;
+declare opaque type Counter super Box<T>;
+declare opaque type Counter super Looooooooooooooooooog extends BoxLooooooooooooooooooog<T>;
+declare opaque type Counter super BoxLooooooooooooooooooooooooooooooooooooooooooooooog<T>;
