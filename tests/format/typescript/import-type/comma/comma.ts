@@ -4,7 +4,7 @@ type A = import("foo", {
 type A = import("foo", {
   with: {
   type: "json"},})
-// Not supported
+// Not supported, https://github.com/microsoft/TypeScript/issues/61489
 // type A = import("foo", {
 //   with: {
 //   type: "json"}},)
