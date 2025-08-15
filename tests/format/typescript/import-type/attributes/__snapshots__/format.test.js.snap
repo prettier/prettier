@@ -7,8 +7,16 @@ printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
 type A = import("foo", {with: {type: "json"}})
+type A = import("foo", {with: {type: "json",}})
+type A = import("foo", {with: {type: "json"},})
+// type A = import("foo", {with: {type: "json"}},)
+type A = import("foo", {with: {type: "json",},})
 
 =====================================output=====================================
+type A = import("foo", { with: { type: "json" } });
+type A = import("foo", { with: { type: "json" } });
+type A = import("foo", { with: { type: "json" } });
+// type A = import("foo", {with: {type: "json"}},)
 type A = import("foo", { with: { type: "json" } });
 
 ================================================================================
