@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`comma.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+type A = import("foo", {
+  with: {
+  type: "json",}})
+type A = import("foo", {
+  with: {
+  type: "json"},})
+// type A = import("foo", {
+//   with: {
+//   type: "json"}},)
+
+=====================================output=====================================
+type A = import("foo", {
+  with: {
+    type: "json",
+  }
+});
+type A = import("foo", {
+  with: {
+    type: "json",
+  }
+});
+// type A = import("foo", {
+//   with: {
+//   type: "json"}},)
+
+================================================================================
+`;
