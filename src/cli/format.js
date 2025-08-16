@@ -1,6 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import getStdin from "get-stdin";
+import * as streamConsumers from "node:stream/consumers"
 import * as prettier from "../index.js";
 import { expandPatterns } from "./expand-patterns.js";
 import findCacheFile from "./find-cache-file.js";
@@ -148,9 +148,9 @@ async function format(context, input, opt) {
             : diff(ast, past);
         throw new DebugError(
           "ast(input) !== ast(prettier(input))\n" +
-            astDiff +
-            "\n" +
-            diff(input, pp),
+          astDiff +
+          "\n" +
+          diff(input, pp),
         );
       }
       /* c8 ignore end */
@@ -179,7 +179,7 @@ async function format(context, input, opt) {
     const [result] = bench.table();
     context.logger.debug(
       "'--debug-benchmark' measurements for formatWithCursor: " +
-        JSON.stringify(result, undefined, 2),
+      JSON.stringify(result, undefined, 2),
     );
   } else if (performanceTestFlag?.debugRepeat) {
     const repeat = performanceTestFlag.debugRepeat;
@@ -197,8 +197,7 @@ async function format(context, input, opt) {
       ms: averageMs,
     };
     context.logger.debug(
-      `'${
-        performanceTestFlag.name
+      `'${performanceTestFlag.name
       }' measurements for formatWithCursor: ${JSON.stringify(
         results,
         null,
@@ -226,7 +225,7 @@ async function formatStdin(context) {
   const { filepath } = context.argv;
 
   try {
-    const input = await getStdin();
+    const input = await streamConsumers.text(process.stdin);
     // TODO[@fisker]: Exit if no input.
     // `prettier --config-precedence cli-override`
 
