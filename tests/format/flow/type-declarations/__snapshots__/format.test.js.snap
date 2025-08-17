@@ -258,6 +258,17 @@ opaque type overloads =
   & ((x: string) => number)
   & ((x: number) => string);
 
+opaque type Counter super empty extends Box<T> = Container<T>;
+opaque type Counter super Box<T> = Container<T>;
+
+opaque type Counter super Looooooooooooooooooog extends BoxLooooooooooooooooooog<T> = Container<T>;
+opaque type Counter super BoxLooooooooooooooooooooooooooooooooog<T> = Container<T>;
+
+declare opaque type Counter super empty extends Box<T>;
+declare opaque type Counter super Box<T>;
+declare opaque type Counter super Looooooooooooooooooog extends BoxLooooooooooooooooooog<T>;
+declare opaque type Counter super BoxLooooooooooooooooooooooooooooooooooooooooooooooog<T>;
+
 =====================================output=====================================
 declare export opaque type Foo
 declare export opaque type Bar<T>
@@ -271,6 +282,23 @@ opaque type Maybe<T> = _Maybe<T, *>
 export opaque type Foo5 = number
 opaque type union = { type: "A" } | { type: "B" }
 opaque type overloads = ((x: string) => number) & ((x: number) => string)
+
+opaque type Counter super empty extends Box<T> = Container<T>
+opaque type Counter super Box<T> = Container<T>
+
+opaque type Counter
+  super Looooooooooooooooooog
+  extends BoxLooooooooooooooooooog<T> = Container<T>
+opaque type Counter
+  super BoxLooooooooooooooooooooooooooooooooog<T> = Container<T>
+
+declare opaque type Counter super empty extends Box<T>
+declare opaque type Counter super Box<T>
+declare opaque type Counter
+  super Looooooooooooooooooog
+  extends BoxLooooooooooooooooooog<T>
+declare opaque type Counter
+  super BoxLooooooooooooooooooooooooooooooooooooooooooooooog<T>
 
 ================================================================================
 `;
@@ -298,6 +326,17 @@ opaque type overloads =
   & ((x: string) => number)
   & ((x: number) => string);
 
+opaque type Counter super empty extends Box<T> = Container<T>;
+opaque type Counter super Box<T> = Container<T>;
+
+opaque type Counter super Looooooooooooooooooog extends BoxLooooooooooooooooooog<T> = Container<T>;
+opaque type Counter super BoxLooooooooooooooooooooooooooooooooog<T> = Container<T>;
+
+declare opaque type Counter super empty extends Box<T>;
+declare opaque type Counter super Box<T>;
+declare opaque type Counter super Looooooooooooooooooog extends BoxLooooooooooooooooooog<T>;
+declare opaque type Counter super BoxLooooooooooooooooooooooooooooooooooooooooooooooog<T>;
+
 =====================================output=====================================
 declare export opaque type Foo;
 declare export opaque type Bar<T>;
@@ -311,6 +350,23 @@ opaque type Maybe<T> = _Maybe<T, *>;
 export opaque type Foo5 = number;
 opaque type union = { type: "A" } | { type: "B" };
 opaque type overloads = ((x: string) => number) & ((x: number) => string);
+
+opaque type Counter super empty extends Box<T> = Container<T>;
+opaque type Counter super Box<T> = Container<T>;
+
+opaque type Counter
+  super Looooooooooooooooooog
+  extends BoxLooooooooooooooooooog<T> = Container<T>;
+opaque type Counter
+  super BoxLooooooooooooooooooooooooooooooooog<T> = Container<T>;
+
+declare opaque type Counter super empty extends Box<T>;
+declare opaque type Counter super Box<T>;
+declare opaque type Counter
+  super Looooooooooooooooooog
+  extends BoxLooooooooooooooooooog<T>;
+declare opaque type Counter
+  super BoxLooooooooooooooooooooooooooooooooooooooooooooooog<T>;
 
 ================================================================================
 `;
