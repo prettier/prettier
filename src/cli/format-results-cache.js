@@ -13,25 +13,22 @@ const nodeVersion = process.version;
 
 /**
  * @param {*} options
- * @param {Array<object>=} plugins - Array of loaded plugins for signature generation
  * @returns {string}
  */
-function getHashOfOptions(options, plugins) {
-  // Create a cache key that includes plugins for proper cache invalidation
-  const cacheKey = plugins ? { options, plugins } : options;
-  
-  if (optionsHashCache.has(cacheKey)) {
-    return optionsHashCache.get(cacheKey);
+function getHashOfOptions(options) {
+  if (optionsHashCache.has(options)) {
+    return optionsHashCache.get(options);
   }
   
-  // Generate plugin signature for cache key
+  // Extract plugins from options for signature generation
+  const plugins = options.plugins;
   const pluginSignature = plugins ? createPluginSignature(plugins) : "";
   const pluginPart = pluginSignature ? `_plugins:${pluginSignature}` : "";
   
   const hash = createHash(
     `${prettierVersion}_${nodeVersion}_${stringify(options)}${pluginPart}`,
   );
-  optionsHashCache.set(cacheKey, hash);
+  optionsHashCache.set(options, hash);
   return hash;
 }
 
@@ -81,9 +78,8 @@ class FormatResultsCache {
   /**
    * @param {string} filePath
    * @param {any} options
-   * @param {Array<object>=} plugins - Array of loaded plugins for signature generation
    */
-  existsAvailableFormatResultsCache(filePath, options, plugins) {
+  existsAvailableFormatResultsCache(filePath, options) {
     const fileDescriptor = this.#getFileDescriptor(filePath);
     if (fileDescriptor.notFound || fileDescriptor.changed) {
       return false;
@@ -91,19 +87,18 @@ class FormatResultsCache {
 
     const hashOfOptions =
       getMetadataFromFileDescriptor(fileDescriptor).data?.hashOfOptions;
-    return hashOfOptions && hashOfOptions === getHashOfOptions(options, plugins);
+    return hashOfOptions && hashOfOptions === getHashOfOptions(options);
   }
 
   /**
    * @param {string} filePath
    * @param {any} options
-   * @param {Array<object>=} plugins - Array of loaded plugins for signature generation
    */
-  setFormatResultsCache(filePath, options, plugins) {
+  setFormatResultsCache(filePath, options) {
     const fileDescriptor = this.#getFileDescriptor(filePath);
     if (!fileDescriptor.notFound) {
       const meta = getMetadataFromFileDescriptor(fileDescriptor);
-      meta.data = { ...meta.data, hashOfOptions: getHashOfOptions(options, plugins) };
+      meta.data = { ...meta.data, hashOfOptions: getHashOfOptions(options) };
     }
   }
 

@@ -78,28 +78,17 @@ Prettier plugins are regular JavaScript modules with the following five exports 
 
 ### Plugin Metadata (Optional)
 
-To enable proper cache invalidation when your plugin is updated, Prettier uses a hybrid approach:
-
-#### 1. Explicit Metadata (Recommended)
-
-Export metadata about your plugin for the fastest and most reliable cache invalidation:
+For easier debugging and more effective caching of plugins, it's recommended to provide a `name`, `version`, and optionally `namespace` in a `meta` object at the root of your plugin, like this:
 
 ```js
-export const prettierPluginMeta = {
+export const meta = {
   name: "prettier-plugin-example",
-  version: "1.2.3"
+  version: "1.2.3",
+  namespace: "example"
 };
 ```
 
-#### 2. Package.json Fallback (Automatic)
-
-If your plugin doesn't export metadata, Prettier will automatically read your plugin's `package.json` to get the name and version for cache invalidation. This works out of the box for most npm-published plugins.
-
-#### 3. Legacy Behavior
-
-For plugins without either explicit metadata or a readable `package.json`, cache behavior remains unchanged for backward compatibility.
-
-**Recommendation**: Add explicit metadata for optimal performance, or ensure your plugin has a proper `package.json` with name and version fields.
+This metadata enables proper cache invalidation when your plugin version changes. Without this metadata, Prettier will consider plugins to be the same across different versions, which may lead to stale cache issues.
 
 - `languages`
 - `parsers`

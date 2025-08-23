@@ -237,12 +237,9 @@ Also, since the cache file is stored in `./node_modules/.cache/prettier/.prettie
 
 :::info
 
-Plugin identity is included in cache keys using a hybrid approach:
-1. **Explicit metadata**: When plugins export `prettierPluginMeta` with name/version
-2. **Package.json fallback**: When plugins don't have metadata, Prettier reads their package.json for name/version
-3. **Legacy behavior**: For plugins without either, cache behavior remains unchanged for backward compatibility
+Plugin identity is included in cache keys when plugins export a `meta` object with `name` and `version` properties. Plugins without metadata are considered the same across different versions, which may lead to stale cache issues.
 
-We recommend that plugin authors add explicit metadata for the fastest and most reliable cache invalidation.
+We recommend that plugin authors add explicit metadata for proper cache invalidation.
 
 :::
 

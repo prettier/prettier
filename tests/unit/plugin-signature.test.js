@@ -1,19 +1,13 @@
 import {
   createPluginSignature,
   extractPluginMetadata,
-  packageJsonCache,
 } from "../../src/main/plugins/plugin-signature.js";
 
 describe("plugin-signature", () => {
-  beforeEach(() => {
-    // Clear the package.json cache between tests
-    packageJsonCache.clear();
-  });
-
   describe("extractPluginMetadata", () => {
-    test("extracts metadata from prettierPluginMeta", () => {
+    test("extracts metadata from meta object", () => {
       const plugin = {
-        prettierPluginMeta: {
+        meta: {
           name: "prettier-plugin-example",
           version: "1.2.3",
         },
@@ -27,47 +21,6 @@ describe("plugin-signature", () => {
       });
     });
 
-    test("falls back to package.json when prettierPluginMeta is not available", () => {
-      const plugin = {
-        name: "/path/to/plugin.js",
-        parsers: {},
-      };
-
-      // Mock fs module
-      const mockFs = {
-        readFileSync: () => JSON.stringify({
-          name: "prettier-plugin-from-package",
-          version: "2.1.0"
-        })
-      };
-
-      const result = extractPluginMetadata(plugin, "/path/to/plugin.js", mockFs);
-      expect(result).toEqual({
-        name: "prettier-plugin-from-package",
-        version: "2.1.0",
-      });
-    });
-
-    test("falls back to plugin.name when package.json is not available", () => {
-      const plugin = {
-        name: "legacy-plugin",
-        parsers: {},
-      };
-
-      // Mock fs module to throw (package.json not found)
-      const mockFs = {
-        readFileSync: () => {
-          throw new Error("ENOENT");
-        }
-      };
-
-      const result = extractPluginMetadata(plugin, "/path/to/plugin.js", mockFs);
-      expect(result).toEqual({
-        name: "legacy-plugin",
-        version: "unknown",
-      });
-    });
-
     test("returns null when no metadata is available", () => {
       const plugin = {
         parsers: {},
@@ -77,14 +30,14 @@ describe("plugin-signature", () => {
       expect(result).toBeNull();
     });
 
-    test("validates prettierPluginMeta structure", () => {
+    test("validates meta structure", () => {
       const invalidPlugins = [
-        { prettierPluginMeta: { name: 123, version: "1.0.0" } },
-        { prettierPluginMeta: { name: "test", version: 456 } },
-        { prettierPluginMeta: { name: "test" } },
-        { prettierPluginMeta: { version: "1.0.0" } },
-        { prettierPluginMeta: "invalid" },
-        { prettierPluginMeta: null },
+        { meta: { name: 123, version: "1.0.0" } },
+        { meta: { name: "test", version: 456 } },
+        { meta: { name: "test" } },
+        { meta: { version: "1.0.0" } },
+        { meta: "invalid" },
+        { meta: null },
       ];
 
       for (const plugin of invalidPlugins) {
@@ -92,42 +45,14 @@ describe("plugin-signature", () => {
       }
     });
 
-    test("handles invalid package.json gracefully", () => {
+    test("ignores plugins without meta object", () => {
       const plugin = {
-        name: "plugin-with-invalid-package",
+        name: "legacy-plugin",
         parsers: {},
       };
 
-      // Mock fs module to return invalid JSON
-      const mockFs = {
-        readFileSync: () => "invalid json"
-      };
-
-      const result = extractPluginMetadata(plugin, "/path/to/plugin.js", mockFs);
-      expect(result).toEqual({
-        name: "plugin-with-invalid-package",
-        version: "unknown",
-      });
-    });
-
-    test("handles package.json without name or version", () => {
-      const plugin = {
-        name: "plugin-incomplete-package",
-        parsers: {},
-      };
-
-      // Mock fs module to return package.json without name/version
-      const mockFs = {
-        readFileSync: () => JSON.stringify({
-          description: "A plugin without name or version"
-        })
-      };
-
-      const result = extractPluginMetadata(plugin, "/path/to/plugin.js", mockFs);
-      expect(result).toEqual({
-        name: "plugin-incomplete-package",
-        version: "unknown",
-      });
+      const result = extractPluginMetadata(plugin);
+      expect(result).toBeNull();
     });
   });
 
@@ -141,7 +66,7 @@ describe("plugin-signature", () => {
     test("creates signature for single plugin with metadata", () => {
       const plugins = [
         {
-          prettierPluginMeta: {
+          meta: {
             name: "prettier-plugin-example",
             version: "1.2.3",
           },
@@ -155,13 +80,13 @@ describe("plugin-signature", () => {
     test("creates signature for multiple plugins with metadata", () => {
       const plugins = [
         {
-          prettierPluginMeta: {
+          meta: {
             name: "prettier-plugin-b",
             version: "2.0.0",
           },
         },
         {
-          prettierPluginMeta: {
+          meta: {
             name: "prettier-plugin-a",
             version: "1.0.0",
           },
@@ -169,14 +94,14 @@ describe("plugin-signature", () => {
       ];
 
       const result = createPluginSignature(plugins);
-      // Should be sorted alphabetically by name
-      expect(result).toBe("prettier-plugin-a@1.0.0,prettier-plugin-b@2.0.0");
+      // Should preserve original order, not sort
+      expect(result).toBe("prettier-plugin-b@2.0.0,prettier-plugin-a@1.0.0");
     });
 
     test("handles mix of plugins with and without metadata", () => {
       const plugins = [
         {
-          prettierPluginMeta: {
+          meta: {
             name: "prettier-plugin-with-meta",
             version: "1.0.0",
           },
@@ -190,11 +115,8 @@ describe("plugin-signature", () => {
       ];
 
       const result = createPluginSignature(plugins);
-      // The result should contain the plugin with metadata and may contain
-      // package.json fallback results, so we check for the expected plugin
-      expect(result).toContain("prettier-plugin-with-meta@1.0.0");
-      // The result should be deterministic and non-empty
-      expect(result.length).toBeGreaterThan(0);
+      // Only plugins with meta should be included
+      expect(result).toBe("prettier-plugin-with-meta@1.0.0");
     });
 
     test("creates empty signature when no plugins have metadata", () => {
@@ -207,30 +129,32 @@ describe("plugin-signature", () => {
       expect(result).toBe("");
     });
 
-    test("ensures deterministic ordering", () => {
+    test("preserves original ordering", () => {
       const plugins1 = [
-        { prettierPluginMeta: { name: "plugin-z", version: "1.0.0" } },
-        { prettierPluginMeta: { name: "plugin-a", version: "2.0.0" } },
-        { prettierPluginMeta: { name: "plugin-m", version: "3.0.0" } },
+        { meta: { name: "plugin-z", version: "1.0.0" } },
+        { meta: { name: "plugin-a", version: "2.0.0" } },
+        { meta: { name: "plugin-m", version: "3.0.0" } },
       ];
 
       const plugins2 = [
-        { prettierPluginMeta: { name: "plugin-a", version: "2.0.0" } },
-        { prettierPluginMeta: { name: "plugin-m", version: "3.0.0" } },
-        { prettierPluginMeta: { name: "plugin-z", version: "1.0.0" } },
+        { meta: { name: "plugin-a", version: "2.0.0" } },
+        { meta: { name: "plugin-m", version: "3.0.0" } },
+        { meta: { name: "plugin-z", version: "1.0.0" } },
       ];
 
       const result1 = createPluginSignature(plugins1);
       const result2 = createPluginSignature(plugins2);
       
-      expect(result1).toBe(result2);
-      expect(result1).toBe("plugin-a@2.0.0,plugin-m@3.0.0,plugin-z@1.0.0");
+      // Results should be different due to different ordering
+      expect(result1).toBe("plugin-z@1.0.0,plugin-a@2.0.0,plugin-m@3.0.0");
+      expect(result2).toBe("plugin-a@2.0.0,plugin-m@3.0.0,plugin-z@1.0.0");
+      expect(result1).not.toBe(result2);
     });
 
     test("handles duplicate plugin names", () => {
       const plugins = [
-        { prettierPluginMeta: { name: "same-plugin", version: "1.0.0" } },
-        { prettierPluginMeta: { name: "same-plugin", version: "2.0.0" } },
+        { meta: { name: "same-plugin", version: "1.0.0" } },
+        { meta: { name: "same-plugin", version: "2.0.0" } },
       ];
 
       const result = createPluginSignature(plugins);
@@ -240,7 +164,7 @@ describe("plugin-signature", () => {
     test("handles special characters in plugin names and versions", () => {
       const plugins = [
         {
-          prettierPluginMeta: {
+          meta: {
             name: "@scope/plugin-name",
             version: "1.0.0-beta.1",
           },

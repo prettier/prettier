@@ -24,7 +24,7 @@ describe("--cache with plugin version changes", () => {
 
   // Mock plugin with version 1.0.0
   const pluginV1Content = `
-export const prettierPluginMeta = {
+export const meta = {
   name: "test-plugin",
   version: "1.0.0"
 };
@@ -53,7 +53,7 @@ export const printers = {
 
   // Mock plugin with version 2.0.0 (same functionality, different version)
   const pluginV2Content = `
-export const prettierPluginMeta = {
+export const meta = {
   name: "test-plugin",
   version: "2.0.0"
 };
@@ -284,7 +284,7 @@ export const printers = {
     const plugin2Path = path.join(dir, "plugin2.js");
 
     const plugin1V1 = `
-export const prettierPluginMeta = {
+export const meta = {
   name: "plugin-1",
   version: "1.0.0"
 };
@@ -292,7 +292,7 @@ export const parsers = {};
 `;
 
     const plugin1V2 = `
-export const prettierPluginMeta = {
+export const meta = {
   name: "plugin-1",
   version: "2.0.0"
 };
@@ -300,7 +300,7 @@ export const parsers = {};
 `;
 
     const plugin2V1 = `
-export const prettierPluginMeta = {
+export const meta = {
   name: "plugin-2",
   version: "1.0.0"
 };
@@ -358,95 +358,5 @@ export const parsers = {};
     // Cleanup
     await fs.rm(plugin1Path, { force: true });
     await fs.rm(plugin2Path, { force: true });
-  });
-
-  it("uses package.json fallback when plugin has no metadata", async () => {
-    const pluginDir = path.join(dir, "plugin-with-package");
-    const pluginPath = path.join(pluginDir, "index.js");
-    const packageJsonPath = path.join(pluginDir, "package.json");
-
-    // Create plugin directory
-    await fs.mkdir(pluginDir, { recursive: true });
-
-    // Plugin without prettierPluginMeta
-    const pluginWithoutMeta = `
-export const languages = [
-  {
-    name: "test-lang",
-    parsers: ["test-parser"],
-    extensions: [".js"]
-  }
-];
-
-export const parsers = {
-  "test-parser": {
-    parse: (text) => ({ type: "Program", body: text }),
-    astFormat: "test-ast"
-  }
-};
-
-export const printers = {
-  "test-ast": {
-    print: (path) => path.getValue().body
-  }
-};
-`;
-
-    // Package.json v1
-    const packageV1 = {
-      name: "test-plugin-package",
-      version: "1.0.0"
-    };
-
-    // Package.json v2
-    const packageV2 = {
-      name: "test-plugin-package",
-      version: "2.0.0"
-    };
-
-    // Create plugin and package.json v1
-    await fs.writeFile(pluginPath, pluginWithoutMeta);
-    await fs.writeFile(packageJsonPath, JSON.stringify(packageV1, null, 2));
-
-    // First run with package.json v1
-    const { stdout: firstStdout } = await runCliWithoutGitignore(dir, [
-      "--cache",
-      "--write",
-      "--plugin",
-      "./plugin-with-package/index.js",
-      "test.js",
-    ]);
-
-    expect(firstStdout).toMatch(/test\.js \d+ms/);
-    expect(firstStdout).not.toMatch(/\(cached\)/);
-
-    // Second run with same package.json (should use cache)
-    const { stdout: secondStdout } = await runCliWithoutGitignore(dir, [
-      "--cache",
-      "--write",
-      "--plugin",
-      "./plugin-with-package/index.js",
-      "test.js",
-    ]);
-
-    expect(secondStdout).toMatch(/test\.js \d+ms \(unchanged\) \(cached\)/);
-
-    // Update package.json to v2
-    await fs.writeFile(packageJsonPath, JSON.stringify(packageV2, null, 2));
-
-    // Third run with updated package.json (should NOT use cache)
-    const { stdout: thirdStdout } = await runCliWithoutGitignore(dir, [
-      "--cache",
-      "--write",
-      "--plugin",
-      "./plugin-with-package/index.js",
-      "test.js",
-    ]);
-
-    expect(thirdStdout).toMatch(/test\.js \d+ms/);
-    expect(thirdStdout).not.toMatch(/\(cached\)/);
-
-    // Cleanup
-    await fs.rm(pluginDir, { force: true, recursive: true });
   });
 });

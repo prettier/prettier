@@ -23,37 +23,41 @@ describe("FormatResultsCache with plugin signatures", () => {
     }
   });
 
+
   const sampleOptions = {
     printWidth: 80,
     tabWidth: 2,
     semi: true,
+    plugins: [
+      {
+        meta: {
+          name: "prettier-plugin-example",
+          version: "1.0.0",
+        },
+        parsers: {},
+      },
+    ],
   };
 
-  const samplePlugins = [
-    {
-      prettierPluginMeta: {
-        name: "prettier-plugin-example",
-        version: "1.0.0",
+  const updatedOptions = {
+    printWidth: 80,
+    tabWidth: 2,
+    semi: true,
+    plugins: [
+      {
+        meta: {
+          name: "prettier-plugin-example",
+          version: "2.0.0", // Version changed
+        },
+        parsers: {},
       },
-      parsers: {},
-    },
-  ];
-
-  const updatedPlugins = [
-    {
-      prettierPluginMeta: {
-        name: "prettier-plugin-example",
-        version: "2.0.0", // Version changed
-      },
-      parsers: {},
-    },
-  ];
+    ],
+  };
 
   test("cache miss when no cache exists", () => {
     const exists = cache.existsAvailableFormatResultsCache(
       "test.js",
       sampleOptions,
-      samplePlugins,
     );
     expect(exists).toBe(false);
   });
@@ -64,14 +68,13 @@ describe("FormatResultsCache with plugin signatures", () => {
     await fs.writeFile(testFile, "console.log('test');");
     
     // Set cache
-    cache.setFormatResultsCache(testFile, sampleOptions, samplePlugins);
+    cache.setFormatResultsCache(testFile, sampleOptions);
     cache.reconcile();
 
     // Check cache
     const exists = cache.existsAvailableFormatResultsCache(
       testFile,
       sampleOptions,
-      samplePlugins,
     );
     expect(exists).toBe(true);
   });
@@ -81,15 +84,14 @@ describe("FormatResultsCache with plugin signatures", () => {
     const testFile = path.join(tempDir, "test.js");
     await fs.writeFile(testFile, "console.log('test');");
     
-    // Set cache with original plugins
-    cache.setFormatResultsCache(testFile, sampleOptions, samplePlugins);
+    // Set cache with original options
+    cache.setFormatResultsCache(testFile, sampleOptions);
     cache.reconcile();
 
-    // Check cache with updated plugins (different version)
+    // Check cache with updated options (different plugin version)
     const exists = cache.existsAvailableFormatResultsCache(
       testFile,
-      sampleOptions,
-      updatedPlugins,
+      updatedOptions,
     );
     expect(exists).toBe(false);
   });
@@ -99,14 +101,20 @@ describe("FormatResultsCache with plugin signatures", () => {
     const testFile = path.join(tempDir, "test.js");
     await fs.writeFile(testFile, "console.log('test');");
     
+    const optionsWithoutPlugins = {
+      printWidth: 80,
+      tabWidth: 2,
+      semi: true,
+    };
+    
     // Set cache without plugins
-    cache.setFormatResultsCache(testFile, sampleOptions);
+    cache.setFormatResultsCache(testFile, optionsWithoutPlugins);
     cache.reconcile();
 
     // Check cache without plugins
     const exists = cache.existsAvailableFormatResultsCache(
       testFile,
-      sampleOptions,
+      optionsWithoutPlugins,
     );
     expect(exists).toBe(true);
   });
@@ -116,15 +124,20 @@ describe("FormatResultsCache with plugin signatures", () => {
     const testFile = path.join(tempDir, "test.js");
     await fs.writeFile(testFile, "console.log('test');");
     
+    const optionsWithoutPlugins = {
+      printWidth: 80,
+      tabWidth: 2,
+      semi: true,
+    };
+    
     // Set cache without plugins
-    cache.setFormatResultsCache(testFile, sampleOptions);
+    cache.setFormatResultsCache(testFile, optionsWithoutPlugins);
     cache.reconcile();
 
     // Check cache with plugins
     const exists = cache.existsAvailableFormatResultsCache(
       testFile,
       sampleOptions,
-      samplePlugins,
     );
     expect(exists).toBe(false);
   });
@@ -134,52 +147,67 @@ describe("FormatResultsCache with plugin signatures", () => {
     const testFile = path.join(tempDir, "test.js");
     await fs.writeFile(testFile, "console.log('test');");
     
+    const optionsWithoutPlugins = {
+      printWidth: 80,
+      tabWidth: 2,
+      semi: true,
+    };
+    
     // Set cache with plugins
-    cache.setFormatResultsCache(testFile, sampleOptions, samplePlugins);
+    cache.setFormatResultsCache(testFile, sampleOptions);
     cache.reconcile();
 
     // Check cache without plugins
     const exists = cache.existsAvailableFormatResultsCache(
       testFile,
-      sampleOptions,
+      optionsWithoutPlugins,
     );
     expect(exists).toBe(false);
   });
 
-  test("cache hit with multiple plugins in different order", async () => {
+  test("cache miss with multiple plugins in different order", async () => {
     // Create a test file first
     const testFile = path.join(tempDir, "test.js");
     await fs.writeFile(testFile, "console.log('test');");
     
-    const plugins1 = [
-      {
-        prettierPluginMeta: { name: "plugin-b", version: "1.0.0" },
-      },
-      {
-        prettierPluginMeta: { name: "plugin-a", version: "2.0.0" },
-      },
-    ];
+    const options1 = {
+      printWidth: 80,
+      tabWidth: 2,
+      semi: true,
+      plugins: [
+        {
+          meta: { name: "plugin-b", version: "1.0.0" },
+        },
+        {
+          meta: { name: "plugin-a", version: "2.0.0" },
+        },
+      ],
+    };
 
-    const plugins2 = [
-      {
-        prettierPluginMeta: { name: "plugin-a", version: "2.0.0" },
-      },
-      {
-        prettierPluginMeta: { name: "plugin-b", version: "1.0.0" },
-      },
-    ];
+    const options2 = {
+      printWidth: 80,
+      tabWidth: 2,
+      semi: true,
+      plugins: [
+        {
+          meta: { name: "plugin-a", version: "2.0.0" },
+        },
+        {
+          meta: { name: "plugin-b", version: "1.0.0" },
+        },
+      ],
+    };
 
     // Set cache with first order
-    cache.setFormatResultsCache(testFile, sampleOptions, plugins1);
+    cache.setFormatResultsCache(testFile, options1);
     cache.reconcile();
 
-    // Check cache with second order (should hit due to deterministic sorting)
+    // Check cache with second order (should miss due to different order)
     const exists = cache.existsAvailableFormatResultsCache(
       testFile,
-      sampleOptions,
-      plugins2,
+      options2,
     );
-    expect(exists).toBe(true);
+    expect(exists).toBe(false);
   });
 
   test("cache miss when plugin added to existing plugin set", async () => {
@@ -187,30 +215,39 @@ describe("FormatResultsCache with plugin signatures", () => {
     const testFile = path.join(tempDir, "test.js");
     await fs.writeFile(testFile, "console.log('test');");
     
-    const originalPlugins = [
-      {
-        prettierPluginMeta: { name: "plugin-a", version: "1.0.0" },
-      },
-    ];
+    const originalOptions = {
+      printWidth: 80,
+      tabWidth: 2,
+      semi: true,
+      plugins: [
+        {
+          meta: { name: "plugin-a", version: "1.0.0" },
+        },
+      ],
+    };
 
-    const expandedPlugins = [
-      {
-        prettierPluginMeta: { name: "plugin-a", version: "1.0.0" },
-      },
-      {
-        prettierPluginMeta: { name: "plugin-b", version: "1.0.0" },
-      },
-    ];
+    const expandedOptions = {
+      printWidth: 80,
+      tabWidth: 2,
+      semi: true,
+      plugins: [
+        {
+          meta: { name: "plugin-a", version: "1.0.0" },
+        },
+        {
+          meta: { name: "plugin-b", version: "1.0.0" },
+        },
+      ],
+    };
 
-    // Set cache with original plugins
-    cache.setFormatResultsCache(testFile, sampleOptions, originalPlugins);
+    // Set cache with original options
+    cache.setFormatResultsCache(testFile, originalOptions);
     cache.reconcile();
 
-    // Check cache with expanded plugins
+    // Check cache with expanded options
     const exists = cache.existsAvailableFormatResultsCache(
       testFile,
-      sampleOptions,
-      expandedPlugins,
+      expandedOptions,
     );
     expect(exists).toBe(false);
   });
@@ -220,20 +257,24 @@ describe("FormatResultsCache with plugin signatures", () => {
     const testFile = path.join(tempDir, "test.js");
     await fs.writeFile(testFile, "console.log('test');");
     
-    const pluginsWithoutMeta = [
-      { parsers: {} }, // No metadata
-      { name: "legacy-plugin" }, // Legacy name only
-    ];
+    const optionsWithPluginsWithoutMeta = {
+      printWidth: 80,
+      tabWidth: 2,
+      semi: true,
+      plugins: [
+        { parsers: {} }, // No metadata
+        { name: "legacy-plugin" }, // Legacy name only
+      ],
+    };
 
     // Set cache
-    cache.setFormatResultsCache(testFile, sampleOptions, pluginsWithoutMeta);
+    cache.setFormatResultsCache(testFile, optionsWithPluginsWithoutMeta);
     cache.reconcile();
 
     // Check cache
     const exists = cache.existsAvailableFormatResultsCache(
       testFile,
-      sampleOptions,
-      pluginsWithoutMeta,
+      optionsWithPluginsWithoutMeta,
     );
     expect(exists).toBe(true);
   });
@@ -249,14 +290,13 @@ describe("FormatResultsCache with plugin signatures", () => {
     };
 
     // Set cache with original options
-    cache.setFormatResultsCache(testFile, sampleOptions, samplePlugins);
+    cache.setFormatResultsCache(testFile, sampleOptions);
     cache.reconcile();
 
     // Check cache with different options
     const exists = cache.existsAvailableFormatResultsCache(
       testFile,
       differentOptions,
-      samplePlugins,
     );
     expect(exists).toBe(false);
   });
