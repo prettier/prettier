@@ -76,6 +76,21 @@ Strings provided to `plugins` are ultimately passed to [`import()` expression](h
 
 Prettier plugins are regular JavaScript modules with the following five exports or default export with the following properties:
 
+### Plugin Metadata (Optional)
+
+To enable proper cache invalidation when your plugin is updated, you can export metadata about your plugin:
+
+```js
+export const prettierPluginMeta = {
+  name: "prettier-plugin-example",
+  version: "1.2.3"
+};
+```
+
+This metadata is used by Prettier's `--cache` option to invalidate cached results when plugin versions change. Without this metadata, cache behavior remains unchanged for backward compatibility, but users may need to manually clear the cache when updating plugins.
+
+**Recommendation**: All plugin authors should add this metadata to enable proper cache invalidation for their users.
+
 - `languages`
 - `parsers`
 - `printers`

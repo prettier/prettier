@@ -223,6 +223,7 @@ If this option is enabled, the following values are used as cache keys and the f
 - Prettier version
 - Options
 - Node.js version
+- Plugin identity (name and version, when provided by plugins)
 - (if `--cache-strategy` is `metadata`) file metadata, such as timestamps
 - (if `--cache-strategy` is `content`) content of the file
 
@@ -234,9 +235,9 @@ Running Prettier without `--cache` will delete the cache.
 
 Also, since the cache file is stored in `./node_modules/.cache/prettier/.prettier-cache`, so you can use `rm ./node_modules/.cache/prettier/.prettier-cache` to remove it manually.
 
-:::warning
+:::info
 
-Plugins version and implementation are not used as cache keys. We recommend that you delete the cache when updating plugins.
+Plugin identity is included in cache keys when plugins provide metadata via the `prettierPluginMeta` export. For plugins without metadata, cache behavior remains unchanged for backward compatibility. We recommend that plugin authors add metadata to enable proper cache invalidation.
 
 :::
 

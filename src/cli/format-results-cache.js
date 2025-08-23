@@ -6,22 +6,32 @@ import stringify from "fast-json-stable-stringify";
 import fileEntryCache from "file-entry-cache";
 import { version as prettierVersion } from "../index.js";
 import { createHash } from "./utils.js";
+import { createPluginSignature } from "../main/plugins/plugin-signature.js";
 
 const optionsHashCache = new WeakMap();
 const nodeVersion = process.version;
 
 /**
  * @param {*} options
+ * @param {Array<object>=} plugins - Array of loaded plugins for signature generation
  * @returns {string}
  */
-function getHashOfOptions(options) {
-  if (optionsHashCache.has(options)) {
-    return optionsHashCache.get(options);
+function getHashOfOptions(options, plugins) {
+  // Create a cache key that includes plugins for proper cache invalidation
+  const cacheKey = plugins ? { options, plugins } : options;
+  
+  if (optionsHashCache.has(cacheKey)) {
+    return optionsHashCache.get(cacheKey);
   }
+  
+  // Generate plugin signature for cache key
+  const pluginSignature = plugins ? createPluginSignature(plugins) : "";
+  const pluginPart = pluginSignature ? `_plugins:${pluginSignature}` : "";
+  
   const hash = createHash(
-    `${prettierVersion}_${nodeVersion}_${stringify(options)}`,
+    `${prettierVersion}_${nodeVersion}_${stringify(options)}${pluginPart}`,
   );
-  optionsHashCache.set(options, hash);
+  optionsHashCache.set(cacheKey, hash);
   return hash;
 }
 
@@ -71,8 +81,9 @@ class FormatResultsCache {
   /**
    * @param {string} filePath
    * @param {any} options
+   * @param {Array<object>=} plugins - Array of loaded plugins for signature generation
    */
-  existsAvailableFormatResultsCache(filePath, options) {
+  existsAvailableFormatResultsCache(filePath, options, plugins) {
     const fileDescriptor = this.#getFileDescriptor(filePath);
     if (fileDescriptor.notFound || fileDescriptor.changed) {
       return false;
@@ -80,18 +91,19 @@ class FormatResultsCache {
 
     const hashOfOptions =
       getMetadataFromFileDescriptor(fileDescriptor).data?.hashOfOptions;
-    return hashOfOptions && hashOfOptions === getHashOfOptions(options);
+    return hashOfOptions && hashOfOptions === getHashOfOptions(options, plugins);
   }
 
   /**
    * @param {string} filePath
    * @param {any} options
+   * @param {Array<object>=} plugins - Array of loaded plugins for signature generation
    */
-  setFormatResultsCache(filePath, options) {
+  setFormatResultsCache(filePath, options, plugins) {
     const fileDescriptor = this.#getFileDescriptor(filePath);
     if (!fileDescriptor.notFound) {
       const meta = getMetadataFromFileDescriptor(fileDescriptor);
-      meta.data = { ...meta.data, hashOfOptions: getHashOfOptions(options) };
+      meta.data = { ...meta.data, hashOfOptions: getHashOfOptions(options, plugins) };
     }
   }
 

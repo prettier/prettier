@@ -367,6 +367,7 @@ async function formatFiles(context) {
     const isCacheExists = formatResultsCache?.existsAvailableFormatResultsCache(
       filename,
       options,
+      context.loadedPlugins,
     );
 
     let result;
@@ -450,7 +451,7 @@ async function formatFiles(context) {
     }
 
     if (shouldSetCache) {
-      formatResultsCache?.setFormatResultsCache(filename, options);
+      formatResultsCache?.setFormatResultsCache(filename, options, context.loadedPlugins);
     } else {
       formatResultsCache?.removeFormatResultsCache(filename);
     }
