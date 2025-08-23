@@ -11,9 +11,10 @@ const packageJsonCache = new Map();
 /**
  * Read package.json from a plugin's directory
  * @param {string} pluginPath - Path to the plugin file
+ * @param {object=} fsModule - Optional fs module for testing (defaults to node:fs)
  * @returns {object|null} Package.json content or null if not found
  */
-function readPluginPackageJson(pluginPath) {
+function readPluginPackageJson(pluginPath, fsModule = fs) {
   if (!pluginPath || typeof pluginPath !== "string") {
     return null;
   }
@@ -32,7 +33,7 @@ function readPluginPackageJson(pluginPath) {
       const packageJsonPath = path.join(currentDir, "package.json");
       
       try {
-        const packageJsonContent = fs.readFileSync(packageJsonPath, "utf8");
+        const packageJsonContent = fsModule.readFileSync(packageJsonPath, "utf8");
         const packageJson = JSON.parse(packageJsonContent);
         
         // Cache the result
@@ -56,9 +57,10 @@ function readPluginPackageJson(pluginPath) {
  * Extract plugin metadata for cache signature
  * @param {object} plugin - Loaded plugin object
  * @param {string=} pluginPath - Optional path to the plugin file for package.json fallback
+ * @param {object=} fsModule - Optional fs module for testing (defaults to node:fs)
  * @returns {object|null} Plugin metadata or null if not available
  */
-function extractPluginMetadata(plugin, pluginPath) {
+function extractPluginMetadata(plugin, pluginPath, fsModule = fs) {
   // 1. Prefer explicit plugin metadata
   if (plugin.prettierPluginMeta && typeof plugin.prettierPluginMeta === "object") {
     const { name, version } = plugin.prettierPluginMeta;
@@ -69,7 +71,7 @@ function extractPluginMetadata(plugin, pluginPath) {
   
   // 2. Fallback to package.json when metadata is absent
   if (pluginPath) {
-    const packageJson = readPluginPackageJson(pluginPath);
+    const packageJson = readPluginPackageJson(pluginPath, fsModule);
     if (packageJson && packageJson.name && packageJson.version) {
       return { 
         name: packageJson.name, 
@@ -119,4 +121,4 @@ function createPluginSignature(plugins) {
     .join(",");
 }
 
-export { createPluginSignature, extractPluginMetadata };
+export { createPluginSignature, extractPluginMetadata, packageJsonCache };
