@@ -78,7 +78,11 @@ Prettier plugins are regular JavaScript modules with the following five exports 
 
 ### Plugin Metadata (Optional)
 
-To enable proper cache invalidation when your plugin is updated, you can export metadata about your plugin:
+To enable proper cache invalidation when your plugin is updated, Prettier uses a hybrid approach:
+
+#### 1. Explicit Metadata (Recommended)
+
+Export metadata about your plugin for the fastest and most reliable cache invalidation:
 
 ```js
 export const prettierPluginMeta = {
@@ -87,9 +91,15 @@ export const prettierPluginMeta = {
 };
 ```
 
-This metadata is used by Prettier's `--cache` option to invalidate cached results when plugin versions change. Without this metadata, cache behavior remains unchanged for backward compatibility, but users may need to manually clear the cache when updating plugins.
+#### 2. Package.json Fallback (Automatic)
 
-**Recommendation**: All plugin authors should add this metadata to enable proper cache invalidation for their users.
+If your plugin doesn't export metadata, Prettier will automatically read your plugin's `package.json` to get the name and version for cache invalidation. This works out of the box for most npm-published plugins.
+
+#### 3. Legacy Behavior
+
+For plugins without either explicit metadata or a readable `package.json`, cache behavior remains unchanged for backward compatibility.
+
+**Recommendation**: Add explicit metadata for optimal performance, or ensure your plugin has a proper `package.json` with name and version fields.
 
 - `languages`
 - `parsers`

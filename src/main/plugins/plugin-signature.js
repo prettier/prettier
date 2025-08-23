@@ -1,15 +1,65 @@
 /**
  * Utilities for creating plugin signatures for cache invalidation
  */
+import fs from "node:fs";
+import path from "node:path";
 import stringify from "fast-json-stable-stringify";
+
+// Cache for package.json reads to avoid repeated I/O
+const packageJsonCache = new Map();
+
+/**
+ * Read package.json from a plugin's directory
+ * @param {string} pluginPath - Path to the plugin file
+ * @returns {object|null} Package.json content or null if not found
+ */
+function readPluginPackageJson(pluginPath) {
+  if (!pluginPath || typeof pluginPath !== "string") {
+    return null;
+  }
+
+  // Use cached result if available
+  if (packageJsonCache.has(pluginPath)) {
+    return packageJsonCache.get(pluginPath);
+  }
+
+  try {
+    // Find package.json by walking up from plugin file
+    let currentDir = path.dirname(path.resolve(pluginPath));
+    const root = path.parse(currentDir).root;
+
+    while (currentDir !== root) {
+      const packageJsonPath = path.join(currentDir, "package.json");
+      
+      try {
+        const packageJsonContent = fs.readFileSync(packageJsonPath, "utf8");
+        const packageJson = JSON.parse(packageJsonContent);
+        
+        // Cache the result
+        packageJsonCache.set(pluginPath, packageJson);
+        return packageJson;
+      } catch {
+        // Continue searching in parent directory
+        currentDir = path.dirname(currentDir);
+      }
+    }
+  } catch {
+    // Ignore errors and continue
+  }
+
+  // Cache null result to avoid repeated failed attempts
+  packageJsonCache.set(pluginPath, null);
+  return null;
+}
 
 /**
  * Extract plugin metadata for cache signature
  * @param {object} plugin - Loaded plugin object
+ * @param {string=} pluginPath - Optional path to the plugin file for package.json fallback
  * @returns {object|null} Plugin metadata or null if not available
  */
-function extractPluginMetadata(plugin) {
-  // Check for optional prettierPluginMeta export
+function extractPluginMetadata(plugin, pluginPath) {
+  // 1. Prefer explicit plugin metadata
   if (plugin.prettierPluginMeta && typeof plugin.prettierPluginMeta === "object") {
     const { name, version } = plugin.prettierPluginMeta;
     if (typeof name === "string" && typeof version === "string") {
@@ -17,7 +67,18 @@ function extractPluginMetadata(plugin) {
     }
   }
   
-  // Fallback to plugin.name if available (for backward compatibility)
+  // 2. Fallback to package.json when metadata is absent
+  if (pluginPath) {
+    const packageJson = readPluginPackageJson(pluginPath);
+    if (packageJson && packageJson.name && packageJson.version) {
+      return { 
+        name: packageJson.name, 
+        version: packageJson.version 
+      };
+    }
+  }
+  
+  // 3. Legacy fallback to plugin.name (for backward compatibility)
   if (typeof plugin.name === "string") {
     return { name: plugin.name, version: "unknown" };
   }
@@ -38,7 +99,8 @@ function createPluginSignature(plugins) {
   const pluginMetadata = [];
   
   for (const plugin of plugins) {
-    const metadata = extractPluginMetadata(plugin);
+    // Pass the plugin.name (original path/name) for package.json fallback
+    const metadata = extractPluginMetadata(plugin, plugin.name);
     if (metadata) {
       pluginMetadata.push(metadata);
     }

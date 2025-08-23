@@ -1,9 +1,19 @@
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import {
   createPluginSignature,
   extractPluginMetadata,
 } from "../../src/main/plugins/plugin-signature.js";
 
+// Mock fs for package.json tests
+jest.mock("node:fs");
+
 describe("plugin-signature", () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
   describe("extractPluginMetadata", () => {
     test("extracts metadata from prettierPluginMeta", () => {
       const plugin = {
@@ -21,13 +31,37 @@ describe("plugin-signature", () => {
       });
     });
 
-    test("falls back to plugin.name when prettierPluginMeta is not available", () => {
+    test("falls back to package.json when prettierPluginMeta is not available", () => {
+      const plugin = {
+        name: "/path/to/plugin.js",
+        parsers: {},
+      };
+
+      // Mock fs.readFileSync to return a package.json
+      fs.readFileSync.mockReturnValue(JSON.stringify({
+        name: "prettier-plugin-from-package",
+        version: "2.1.0"
+      }));
+
+      const result = extractPluginMetadata(plugin, "/path/to/plugin.js");
+      expect(result).toEqual({
+        name: "prettier-plugin-from-package",
+        version: "2.1.0",
+      });
+    });
+
+    test("falls back to plugin.name when package.json is not available", () => {
       const plugin = {
         name: "legacy-plugin",
         parsers: {},
       };
 
-      const result = extractPluginMetadata(plugin);
+      // Mock fs.readFileSync to throw (package.json not found)
+      fs.readFileSync.mockImplementation(() => {
+        throw new Error("ENOENT");
+      });
+
+      const result = extractPluginMetadata(plugin, "/path/to/plugin.js");
       expect(result).toEqual({
         name: "legacy-plugin",
         version: "unknown",
@@ -38,6 +72,11 @@ describe("plugin-signature", () => {
       const plugin = {
         parsers: {},
       };
+
+      // Mock fs.readFileSync to throw (package.json not found)
+      fs.readFileSync.mockImplementation(() => {
+        throw new Error("ENOENT");
+      });
 
       const result = extractPluginMetadata(plugin);
       expect(result).toBeNull();
@@ -56,6 +95,40 @@ describe("plugin-signature", () => {
       for (const plugin of invalidPlugins) {
         expect(extractPluginMetadata(plugin)).toBeNull();
       }
+    });
+
+    test("handles invalid package.json gracefully", () => {
+      const plugin = {
+        name: "plugin-with-invalid-package",
+        parsers: {},
+      };
+
+      // Mock fs.readFileSync to return invalid JSON
+      fs.readFileSync.mockReturnValue("invalid json");
+
+      const result = extractPluginMetadata(plugin, "/path/to/plugin.js");
+      expect(result).toEqual({
+        name: "plugin-with-invalid-package",
+        version: "unknown",
+      });
+    });
+
+    test("handles package.json without name or version", () => {
+      const plugin = {
+        name: "plugin-incomplete-package",
+        parsers: {},
+      };
+
+      // Mock fs.readFileSync to return package.json without name/version
+      fs.readFileSync.mockReturnValue(JSON.stringify({
+        description: "A plugin without name or version"
+      }));
+
+      const result = extractPluginMetadata(plugin, "/path/to/plugin.js");
+      expect(result).toEqual({
+        name: "plugin-incomplete-package",
+        version: "unknown",
+      });
     });
   });
 
