@@ -52,6 +52,14 @@ function getStringWidth(text) {
   return width;
 }
 
+/**
+ * How the narrow emoji list was generated:
+ * 1. Start with Unicode's official emoji list https://unicode.org/Public/emoji/latest/emoji-test.txt
+ * 2. Select emojis that:
+ *     - consist of a single code point, and
+ *     - also have a variant with U+FE0F.
+ * 3. Manually remove any false positives.
+ */
 const narrowEmojis = new Set([
   "\u{263A}", // ☺
   "\u{2639}", // ☹
