@@ -70,7 +70,19 @@ async function getContextOptions(plugins) {
     plugins,
   });
 
-  return supportInfoToContextOptions(supportInfo);
+  // Load the actual plugin objects for cache signature generation
+  const { loadBuiltinPlugins, loadPlugins } = await import("../../main/plugins/index.js");
+  const loadedPlugins = (
+    await Promise.all([
+      loadBuiltinPlugins(),
+      loadPlugins(plugins),
+    ])
+  ).flat();
+
+  return {
+    ...supportInfoToContextOptions(supportInfo),
+    loadedPlugins,
+  };
 }
 
 function getContextOptionsWithoutPlugins() {
