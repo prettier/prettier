@@ -331,7 +331,7 @@ export default [
         "double",
         {
           avoidEscape: true,
-          allowTemplateLiterals: true,
+          allowTemplateLiterals: "always",
         },
       ],
       "jest/valid-expect": [
