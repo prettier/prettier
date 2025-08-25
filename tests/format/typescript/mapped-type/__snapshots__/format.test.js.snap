@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`intersection.ts format 1`] = `
 ====================================options=====================================
@@ -132,6 +132,20 @@ type Type = {
   /* bar */
   readonly [T in number];
 };
+
+================================================================================
+`;
+
+exports[`issue-17784.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+export type A = B extends { C?: { [D in infer E]?: F } } ? G : H
+
+=====================================output=====================================
+export type A = B extends { C?: { [D in infer E]?: F } } ? G : H;
 
 ================================================================================
 `;
