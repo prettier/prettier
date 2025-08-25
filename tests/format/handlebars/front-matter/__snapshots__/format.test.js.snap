@@ -1,0 +1,123 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`close.hbs format 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+---
+title: An ancient philosophy...
+keywords:
+- ancient
+- philosophy
+---
+<h1>{{title}}</h1>
+<p>
+  Keywords: {{#each keywords}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}
+</p>
+
+=====================================output=====================================
+---
+title: An ancient philosophy...
+keywords:
+  - ancient
+  - philosophy
+---
+
+<h1>{{title}}</h1>
+<p>
+  Keywords:
+  {{#each keywords}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}
+</p>
+================================================================================
+`;
+
+exports[`spaced.hbs format 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+---
+title: An ancient philosophy...
+keywords:
+  - ancient
+  - philosophy
+---
+
+<h1>{{title}}</h1>
+<p>
+  Keywords: {{#each keywords}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}
+</p>
+
+=====================================output=====================================
+---
+title: An ancient philosophy...
+keywords:
+  - ancient
+  - philosophy
+---
+
+<h1>{{title}}</h1>
+<p>
+  Keywords:
+  {{#each keywords}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}
+</p>
+================================================================================
+`;
+
+exports[`yaml-format.hbs format 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+---
+title: "Example Document"
+date: 1993-02-01
+author:
+  name: Arthur Mitchell
+tags:
+- tutorial
+- example
+summary: >
+  A very long example document written for a person other than me, I don't know
+  why this is so long. Very good example... Yes!
+---
+
+<html lang="en">
+<head>
+  <title>{{title}}</title>
+</head>
+<body>
+  {{! comment --- }}
+  {{summary}}
+</body>
+</html>
+
+=====================================output=====================================
+---
+title: "Example Document"
+date: 1993-02-01
+author:
+  name: Arthur Mitchell
+tags:
+  - tutorial
+  - example
+summary: >
+  A very long example document written for a person other than me, I don't know
+  why this is so long. Very good example... Yes!
+---
+
+<html lang="en">
+  <head>
+    <title>{{title}}</title>
+  </head>
+  <body>
+    {{! comment --- }}
+    {{summary}}
+  </body>
+</html>
+================================================================================
+`;
