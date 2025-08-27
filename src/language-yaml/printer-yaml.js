@@ -95,12 +95,7 @@ function genericPrint(path, options, print) {
     ]);
   }
 
-  if (
-    (!isNode(node, ["mapping", "sequence"]) && hasPrettierIgnore(path)) ||
-    (path.isFirst &&
-      isNode(node, ["mappingItem", "sequenceItem"]) &&
-      path.callParent((path) => hasPrettierIgnore(path)))
-  ) {
+  if (hasPrettierIgnore(path)) {
     parts.push(
       replaceEndOfLine(
         options.originalText
