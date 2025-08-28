@@ -1,14 +1,18 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`variable-selector.less format 1`] = `
+exports[`variables.less format 1`] = `
 ====================================options=====================================
 parsers: ["less"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
+@fooBackground:rgba(255, 255, 255, 1);
+
 @{selector}{}
 
 =====================================output=====================================
+@fooBackground: rgba(255, 255, 255, 1);
+
 @{selector} {
 }
 
