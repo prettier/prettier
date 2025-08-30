@@ -119,7 +119,7 @@
     "@types/estree": "1.0.8",
     "@typescript-eslint/eslint-plugin": "8.41.0",
     "@typescript-eslint/parser": "8.41.0",
-    "browserslist": "4.25.1",
+    "browserslist": "4.25.4",
     "browserslist-to-esbuild": "2.1.1",
     "buffer": "6.0.3",
     "c8": "10.1.3",
