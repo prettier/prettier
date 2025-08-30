@@ -5254,10 +5254,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"import-meta-resolve@npm:4.1.0, import-meta-resolve@npm:^4.1.0":
-  version: 4.1.0
-  resolution: "import-meta-resolve@npm:4.1.0"
-  checksum: 10/40162f67eb406c8d5d49266206ef12ff07b54f5fad8cfd806db9efe3a055958e9969be51d6efaf82e34b8bea6758113dcc17bb79ff148292a4badcabc3472f22
+"import-meta-resolve@npm:4.2.0, import-meta-resolve@npm:^4.1.0":
+  version: 4.2.0
+  resolution: "import-meta-resolve@npm:4.2.0"
+  checksum: 10/3499ee8b7eddb79be77067b368bcdf39e6f144306dea4686d08071ae7e65a2e3bdca3f98f2a0f4babdcd4ba9d9e7d379ae7e27c4b9bf8b08c1e812a28c674bf3
   languageName: node
   linkType: hard
 
@@ -7509,7 +7509,7 @@ __metadata:
     html-element-attributes: "npm:3.5.0"
     html-ua-styles: "npm:0.0.9"
     ignore: "npm:7.0.5"
-    import-meta-resolve: "npm:4.1.0"
+    import-meta-resolve: "npm:4.2.0"
     index-to-position: "npm:1.1.0"
     is-es5-identifier-name: "npm:1.0.0"
     jest: "npm:30.0.5"
