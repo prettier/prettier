@@ -881,6 +881,9 @@ function needsParens(path, options) {
         case "MatchExpressionCase":
           return true;
 
+        case "TSInstantiationExpression":
+          return key === "expression";
+
         case "ConditionalExpression":
           return key === "test";
 
