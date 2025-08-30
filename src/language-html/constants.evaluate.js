@@ -12,15 +12,16 @@ const getCssStyleTags = (property) =>
         return [];
       }
 
-      const tagNames = selectors.flatMap((selector) =>
-        selector === ":heading"
-          ? ["h1", "h2", "h3", "h4", "h5", "h6"]
-          : /^[\da-z]+$/iu.test(selector)
-            ? [selector]
-            : [],
-      );
+      return selectors.flatMap((selector) => {
+        const tagNames =
+          selector === ":heading"
+            ? ["h1", "h2", "h3", "h4", "h5", "h6"]
+            : /^[\da-z]+$/iu.test(selector)
+              ? [selector]
+              : [];
 
-      return tagNames.map((tagName) => [tagName, style.value]);
+        return tagNames.map((tagName) => [tagName, style.value]);
+      });
     }),
   );
 
