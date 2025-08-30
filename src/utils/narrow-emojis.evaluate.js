@@ -1,3 +1,5 @@
+import assert from "node:assert";
+
 /**
  * How the narrow emoji list was generated:
  * 1. Start with Unicode's official emoji list https://unicode.org/Public/emoji/latest/emoji-test.txt
@@ -109,4 +111,6 @@ const narrowEmojis = [
   "\u{25AB}", // ▫
 ];
 
-export default narrowEmojis.join("");
+assert.equal(new Set(narrowEmojis).size, narrowEmojis.length);
+
+export default narrowEmojis.sort().join("");
