@@ -168,7 +168,11 @@ const pluginFiles = [
               'require("node:path")',
               '{extname: file => "." + file.split(".").pop()}',
             )
-            .replace('require("@typescript-eslint/project-service")', "{}");
+            .replace('require("@typescript-eslint/project-service")', "{}")
+            .replace(
+              "const tsconfigRootDir =",
+              "const tsconfigRootDir = undefined && ",
+            );
         },
       },
       {
