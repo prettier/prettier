@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`number.js [typescript] format 1`] = `
 "Decimals with leading zeros are not allowed. (3:5)

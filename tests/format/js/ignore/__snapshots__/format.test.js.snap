@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`class-expression-decorator.js [acorn] format 1`] = `
 "Unexpected character '@' (3:3)

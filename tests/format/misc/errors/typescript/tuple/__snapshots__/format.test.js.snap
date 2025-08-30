@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`snippet: #0 [babel-ts] format 1`] = `
 "Tuple members must be labeled with a simple identifier. (1:11)
