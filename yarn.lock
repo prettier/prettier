@@ -3305,13 +3305,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cjk-regex@npm:3.3.0":
-  version: 3.3.0
-  resolution: "cjk-regex@npm:3.3.0"
+"cjk-regex@npm:3.4.0":
+  version: 3.4.0
+  resolution: "cjk-regex@npm:3.4.0"
   dependencies:
-    regexp-util: "npm:^2.0.1"
-    unicode-regex: "npm:^4.1.0"
-  checksum: 10/fd0a69db662ee99a383d134311f2099acf87b716ce94b2ea29b27f0d49070497bba314c0c7c1c5d6bbfe8cc08d268775b7e4ad8feb8e7b1aa5b049b62344150d
+    regexp-util: "npm:^2.0.3"
+    unicode-regex: "npm:^4.2.0"
+  checksum: 10/930de9aa96a7b6195515abcf549743c149a4dcfed9b6b07a1f13e1f3376c2bdb4d16460bbff9038f1d63c59c5635d654a4792c273443beae2fd77a7e665b59a1
   languageName: node
   linkType: hard
 
@@ -7470,7 +7470,7 @@ __metadata:
     c8: "npm:10.1.3"
     camelcase: "npm:8.0.0"
     ci-info: "npm:4.3.0"
-    cjk-regex: "npm:3.3.0"
+    cjk-regex: "npm:3.4.0"
     collapse-white-space: "npm:1.0.6"
     cross-env: "npm:10.0.0"
     cspell: "npm:9.1.1"
@@ -7562,7 +7562,7 @@ __metadata:
     trim-newlines: "npm:5.0.0"
     ts-expect: "npm:1.3.0"
     typescript: "npm:5.9.2"
-    unicode-regex: "npm:4.1.2"
+    unicode-regex: "npm:4.2.0"
     unified: "npm:9.2.2"
     url-or-path: "npm:2.6.1"
     vnopts: "npm:2.0.2"
@@ -7741,7 +7741,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"regexp-util@npm:2.0.3, regexp-util@npm:^2.0.1":
+"regexp-util@npm:2.0.3, regexp-util@npm:^2.0.3":
   version: 2.0.3
   resolution: "regexp-util@npm:2.0.3"
   checksum: 10/8380aa27dc61013b21a01ce1679d61323e6930ce0d3776171045c1ed73e3ba70c5da1cf02d65d9f1f97d1b944de617ff0d609eadce7832344ed8f096919a55ba
@@ -8782,12 +8782,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"unicode-regex@npm:4.1.2, unicode-regex@npm:^4.1.0":
-  version: 4.1.2
-  resolution: "unicode-regex@npm:4.1.2"
+"unicode-regex@npm:4.2.0, unicode-regex@npm:^4.2.0":
+  version: 4.2.0
+  resolution: "unicode-regex@npm:4.2.0"
   dependencies:
-    regexp-util: "npm:^2.0.1"
-  checksum: 10/c2611ab760cd6a76ab775edc47a7d68827a413fd9057f501ea051015f2573322699242b15db83199c28cdabe16428e97927ec874c2567f3bb1065d209ee74e7d
+    regexp-util: "npm:^2.0.3"
+  checksum: 10/0ac31e030817e2596cd5f5476a4c450edc4a25e0db00a77b69769cc747ec66d03a76fa9687c7c5e8029d316a18eb0d5564569e71a8d7e66db68d0697be588946
   languageName: node
   linkType: hard
 
