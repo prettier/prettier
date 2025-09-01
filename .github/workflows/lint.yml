@@ -70,7 +70,7 @@ jobs:
         uses: actions/dependency-review-action@v4
 
       - name: Validate renovate config
-        run: npx --package renovate --call renovate-config-validator
+        run: npx --package renovate@latest --call renovate-config-validator
 
       - name: Run yarn (/)
         run: |
