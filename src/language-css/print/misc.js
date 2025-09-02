@@ -27,8 +27,15 @@ function adjustStrings(value, options) {
 
 function quoteAttributeValue(value, options) {
   const quote = options.singleQuote ? "'" : '"';
-  return value.includes('"') || value.includes("'")
-    ? value
+
+  if (value.includes('"') || value.includes("'")) {
+    return value;
+  }
+
+  // Check if the value ends with `s`, `i` can be solved by postcss
+  const hasCaseFlag = /\s+s$/u.test(value);
+  return hasCaseFlag ?
+    value.replace(/^(.+?)\s+(s)$/u, `${quote}$1${quote} $2`)
     : quote + value + quote;
 }
 
@@ -75,3 +82,4 @@ export {
   quoteAttributeValue,
   shouldPrintTrailingComma,
 };
+
