@@ -2,3 +2,5 @@ ol[type=a s] {}
 ol[type=as] {}
 ol[type="a" s] {}
 ol[type="a s"] {}
+ol[type=a       s] {}
+ol[type="a"         s] {}
