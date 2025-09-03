@@ -11,3 +11,7 @@ A:
   B:
  #A
    #A
+
+foo: bar
+
+# End Comment - Don't remove previous empty line

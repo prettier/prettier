@@ -218,7 +218,18 @@ function printNode(path, options, print) {
       return [
         join(hardline, path.map(print, "children")),
         separator,
-        join(hardline, path.map(print, "endComments")),
+        join(
+          hardline,
+          path.map(
+            ({ node }) => [
+              isPreviousLineEmpty(options.originalText, locStart(node))
+                ? hardline
+                : "",
+              print(),
+            ],
+            "endComments",
+          ),
+        ),
       ];
     }
     case "directive":
