@@ -28,18 +28,17 @@ function adjustStrings(value, options) {
 function quoteAttributeValue(value, options) {
   const quote = options.singleQuote ? "'" : '"';
 
-  // Check if the value ends with `s`, `i` can be solved by postcss
-  if (/\s+s$/u.test(value)) {
-    value = value.replace(/^(.+?)\s+(s)$/u, (_, content, flag) =>
-      content.includes('"') || content.includes("'")
-        ? `${content} ${flag}`
-        : `${quote}${content}${quote} ${flag}`
-    );
+  let flag = ""
+  const match = value.match(/^(?<value>.+?)\s+(?<flag>s)$/u)
+  if (match) {
+    ({value, flag} = match.groups)
   }
 
-  return value.includes('"') || value.includes("'")
-    ? value
-    : quote + value + quote;
+  return (
+    value.includes('"') || value.includes("'")
+      ? value
+      : quote + value + quote
+  ) + (flag ? ` ${flag}` : "");
 }
 
 function adjustNumbers(value) {
