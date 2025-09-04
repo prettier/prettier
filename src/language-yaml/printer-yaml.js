@@ -211,25 +211,20 @@ function printNode(path, options, print) {
             separator = [hardline, hardline];
           }
         } else {
-          separator = hardline;
+          // Check if we need to preserve empty line before end comments
+          const lastChild = children.at(-1);
+          const shouldPreserveEmptyLine =
+            isNode(lastChild, ["mapping"]) &&
+            isPreviousLineEmpty(options.originalText, locStart(endComments[0]));
+
+          separator = shouldPreserveEmptyLine ? [hardline, hardline] : hardline;
         }
       }
 
       return [
         join(hardline, path.map(print, "children")),
         separator,
-        join(
-          hardline,
-          path.map(
-            ({ node }) => [
-              isPreviousLineEmpty(options.originalText, locStart(node))
-                ? hardline
-                : "",
-              print(),
-            ],
-            "endComments",
-          ),
-        ),
+        join(hardline, path.map(print, "endComments")),
       ];
     }
     case "directive":
