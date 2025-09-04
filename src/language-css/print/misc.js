@@ -28,17 +28,17 @@ function adjustStrings(value, options) {
 function quoteAttributeValue(value, options) {
   const quote = options.singleQuote ? "'" : '"';
 
-  let flag = ""
-  const match = value.match(/^(?<value>.+?)\s+(?<flag>s)$/u)
+  let flag = "";
+  const match = value.match(/^(?<value>.+?)\s+(?<flag>s)$/u);
   if (match) {
-    ({value, flag} = match.groups)
+    ({ value, flag } = match.groups);
   }
 
   return (
-    value.includes('"') || value.includes("'")
+    (value.includes('"') || value.includes("'")
       ? value
-      : quote + value + quote
-  ) + (flag ? ` ${flag}` : "");
+      : quote + value + quote) + (flag ? ` ${flag}` : "")
+  );
 }
 
 function adjustNumbers(value) {
@@ -84,4 +84,3 @@ export {
   quoteAttributeValue,
   shouldPrintTrailingComma,
 };
-
