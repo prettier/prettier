@@ -4,8 +4,16 @@
 }
 
 html {
-  background-color: #fafafa;
-  color: #6a6a6a;
+  background-color: light-dark(#fafafa, #1b1b1d);
+  color: light-dark(#6a6a6a, #e3e3e3);
+  --color-border: light-dark(#ddd, #606770);
+  color-scheme: light dark;
+  &[data-theme="light"] {
+    color-scheme: light;
+  }
+  &[data-theme="dark"] {
+    color-scheme: dark;
+  }
   font-family:
     -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial,
@@ -87,10 +95,15 @@ header h1 {
 
 .links {
   display: flex;
+  gap: 8px;
   font-size: 16px;
+  align-items: center;
 }
-.links > * + * {
-  margin-left: 15px;
+.links > * {
+  display: flex;
+}
+.theme-icon {
+  padding-block: 2px;
 }
 
 .editors-container {
@@ -110,7 +123,7 @@ header h1 {
   display: flex;
   flex: 1 1 100%;
   position: relative;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .disabled-output-panel {
@@ -140,7 +153,7 @@ header h1 {
 
   .editor {
     flex-basis: 50%;
-    border-left: 1px solid #ddd;
+    border-left: 1px solid var(--color-border);
     margin-left: -1px;
   }
 }
@@ -165,6 +178,83 @@ header h1 {
   bottom: 0;
   line-height: 1.6;
   font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+
+  &:is([data-theme="dark"] *) {
+    /* Credit: Chris Kempson, Gerard Braad */
+    background: #000000;
+    color: #eaeaea;
+    div.CodeMirror-selected {
+      background: #424242;
+    }
+    .CodeMirror-gutters {
+      background: #000000;
+      border-right: 0px;
+    }
+    .CodeMirror-guttermarker {
+      color: #e78c45;
+    }
+    .CodeMirror-guttermarker-subtle {
+      color: #777;
+    }
+    .CodeMirror-linenumber {
+      color: #424242;
+    }
+    .CodeMirror-cursor {
+      border-left: 1px solid #6a6a6a;
+    }
+
+    span.cm-comment {
+      color: #d27b53;
+    }
+    span.cm-atom {
+      color: #a16a94;
+    }
+    span.cm-number {
+      color: #a16a94;
+    }
+
+    span.cm-property,
+    span.cm-attribute {
+      color: #99cc99;
+    }
+    span.cm-keyword {
+      color: #d54e53;
+    }
+    span.cm-string {
+      color: #e7c547;
+    }
+
+    span.cm-variable {
+      color: #b9ca4a;
+    }
+    span.cm-variable-2 {
+      color: #7aa6da;
+    }
+    span.cm-def {
+      color: #e78c45;
+    }
+    span.cm-bracket {
+      color: #eaeaea;
+    }
+    span.cm-tag {
+      color: #d54e53;
+    }
+    span.cm-link {
+      color: #a16a94;
+    }
+    span.cm-error {
+      background: #d54e53;
+      color: #6a6a6a;
+    }
+
+    .CodeMirror-activeline-background {
+      background: #2a2a2a;
+    }
+    .CodeMirror-matchingbracket {
+      text-decoration: underline;
+      color: white !important;
+    }
+  }
 }
 
 .bottom-bar {
@@ -203,8 +293,8 @@ header h1 {
   box-sizing: border-box;
   width: 225px;
   overflow-y: auto;
-  border-bottom: 1px solid #ddd;
-  border-right: 1px solid #ddd;
+  border-bottom: 1px solid var(--color-border);
+  border-right: 1px solid var(--color-border);
   flex: 0 1 auto;
 }
 
@@ -222,7 +312,7 @@ header h1 {
 .sub-options {
   flex: 1;
   padding: 15px 0 10px;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .sub-options:last-child {
@@ -264,39 +354,44 @@ input[type="number"] {
   display: inline-block;
   height: 18px;
   padding: 0 5px;
-  border: 1px solid #d1d2d3;
   border-radius: 0.25em;
-  background-image: linear-gradient(to bottom, #fafbfc, #e4ebf0);
+  background-image: linear-gradient(
+    to bottom,
+    light-dark(#fafbfc, #090a11),
+    light-dark(#e4ebf0, #000)
+  );
+  color: light-dark(#24292e, #fff);
+  border: 1px solid var(--color-border);
   font-size: 11px;
   line-height: 18px;
   font-weight: 600;
   font-family: inherit;
-  color: #24292e;
   text-decoration: none;
   cursor: pointer;
-  outline: none;
   position: relative;
 }
 
-.btn:focus {
-  border-color: #c8e1ff;
+.btn:enabled:is(:hover, :active) {
+  border-color: light-dark(#afb1b2, #6f7b81);
 }
 
-.btn:hover:enabled {
-  background-color: #e6ebf1;
-  background-image: linear-gradient(to bottom, #f0f3f6, #dce3ec);
-  border-color: #afb1b2;
+.btn:enabled:hover {
+  background-color: light-dark(#e6ebf1, #2c3a44);
+  background-image: linear-gradient(
+    to bottom,
+    light-dark(#f0f3f6, #1a2b34),
+    light-dark(#dce3ec, #090a11)
+  );
 }
 
-.btn:active {
-  background-color: #e9ecef;
+.btn:enabled:active {
+  background-color: light-dark(#e9ecef, #1a2b34);
   background-image: none;
-  border-color: #afb1b2;
   box-shadow: inset 0 0.15em 0.3em rgba(27, 31, 35, 0.15);
 }
 
 .btn:disabled {
-  color: #afb1b2;
+  opacity: 0.5;
 }
 
 .tooltip {
