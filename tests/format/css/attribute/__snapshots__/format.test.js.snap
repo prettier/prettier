@@ -239,25 +239,28 @@ printWidth: 80
 singleQuote: true
                                                                                 | printWidth
 =====================================input======================================
-ol[type=a s] {}
-ol[type=as] {}
-ol[type="a" s] {}
-ol[type="a s"] {}
-ol[type=a       s] {}
-ol[type="a"         s] {}
+[type=a s],
+[type=as],
+[type="a" s] ,
+[type="a s"],
+[type=a   s],
+[type="a"   s]{}
+
+[type=a   x] {}
+[type='a'   x] {}
 
 =====================================output=====================================
-ol[type='a' s] {
+[type='a' s],
+[type='as'],
+[type='a' s],
+[type='a s'],
+[type='a' s],
+[type='a' s] {
 }
-ol[type='as'] {
+
+[type='a   x'] {
 }
-ol[type='a' s] {
-}
-ol[type='a s'] {
-}
-ol[type='a' s] {
-}
-ol[type='a' s] {
+[type='a'   x] {
 }
 
 ================================================================================
@@ -269,25 +272,28 @@ parsers: ["css"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-ol[type=a s] {}
-ol[type=as] {}
-ol[type="a" s] {}
-ol[type="a s"] {}
-ol[type=a       s] {}
-ol[type="a"         s] {}
+[type=a s],
+[type=as],
+[type="a" s] ,
+[type="a s"],
+[type=a   s],
+[type="a"   s]{}
+
+[type=a   x] {}
+[type='a'   x] {}
 
 =====================================output=====================================
-ol[type="a" s] {
+[type="a" s],
+[type="as"],
+[type="a" s],
+[type="a s"],
+[type="a" s],
+[type="a" s] {
 }
-ol[type="as"] {
+
+[type="a   x"] {
 }
-ol[type="a" s] {
-}
-ol[type="a s"] {
-}
-ol[type="a" s] {
-}
-ol[type="a" s] {
+[type="a"   x] {
 }
 
 ================================================================================

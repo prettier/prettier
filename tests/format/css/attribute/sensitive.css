@@ -1,6 +1,9 @@
-ol[type=a s] {}
-ol[type=as] {}
-ol[type="a" s] {}
-ol[type="a s"] {}
-ol[type=a       s] {}
-ol[type="a"         s] {}
+[type=a s],
+[type=as],
+[type="a" s] ,
+[type="a s"],
+[type=a   s],
+[type="a"   s]{}
+
+[type=a   x] {}
+[type='a'   x] {}
