@@ -246,6 +246,7 @@ singleQuote: true
 [type=a   s],
 [type="a"   s]{}
 
+[type=a   S] {}
 [type=a   x] {}
 [type='a'   x] {}
 
@@ -258,6 +259,8 @@ singleQuote: true
 [type='a' s] {
 }
 
+[type='a   S'] {
+}
 [type='a   x'] {
 }
 [type='a'   x] {
@@ -279,6 +282,7 @@ printWidth: 80
 [type=a   s],
 [type="a"   s]{}
 
+[type=a   S] {}
 [type=a   x] {}
 [type='a'   x] {}
 
@@ -291,6 +295,8 @@ printWidth: 80
 [type="a" s] {
 }
 
+[type="a   S"] {
+}
 [type="a   x"] {
 }
 [type="a"   x] {
