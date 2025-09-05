@@ -2,7 +2,7 @@ import { hardline, line } from "../../document/builders.js";
 import isFrontMatter from "../../utils/front-matter/is-front-matter.js";
 import hasNewline from "../../utils/has-newline.js";
 import isNextLineEmpty from "../../utils/is-next-line-empty.js";
-import { locEnd, locStart } from "../loc.js";
+import { areNodesOnSameLine, locEnd, locStart } from "../loc.js";
 
 function printSequence(path, options, print) {
   const parts = [];
@@ -14,6 +14,14 @@ function printSequence(path, options, print) {
     ) {
       parts.push(options.originalText.slice(locStart(node), locEnd(node)));
     } else {
+      // If we have two comments in a row, we need to add a hardline
+      if(
+        previous?.type === "css-comment"
+        && node.type === "css-comment"
+        && areNodesOnSameLine(node, previous)
+      ) {
+          parts.push(hardline);
+        }
       parts.push(print());
     }
 
