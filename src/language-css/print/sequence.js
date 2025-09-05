@@ -15,13 +15,13 @@ function printSequence(path, options, print) {
       parts.push(options.originalText.slice(locStart(node), locEnd(node)));
     } else {
       // If we have two comments in a row, we need to add a hardline
-      if(
-        previous?.type === "css-comment"
-        && node.type === "css-comment"
-        && areNodesOnSameLine(node, previous)
+      if (
+        previous?.type === "css-comment" &&
+        node.type === "css-comment" &&
+        areNodesOnSameLine(node, previous)
       ) {
-          parts.push(hardline);
-        }
+        parts.push(hardline);
+      }
       parts.push(print());
     }
 

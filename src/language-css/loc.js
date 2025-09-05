@@ -257,4 +257,10 @@ function areNodesOnSameLine(firstNode, secondNode) {
   return firstNode.source?.start.line === secondNode.source?.end.line;
 }
 
-export { areNodesOnSameLine, calculateLoc, locEnd, locStart, replaceQuotesInInlineComments };
+export {
+  areNodesOnSameLine,
+  calculateLoc,
+  locEnd,
+  locStart,
+  replaceQuotesInInlineComments,
+};
