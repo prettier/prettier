@@ -253,4 +253,14 @@ function locEnd(node) {
   return node.source?.endOffset;
 }
 
-export { calculateLoc, locEnd, locStart, replaceQuotesInInlineComments };
+function areNodesOnSameLine(firstNode, secondNode) {
+  return firstNode.source?.start.line === secondNode.source?.end.line;
+}
+
+export {
+  areNodesOnSameLine,
+  calculateLoc,
+  locEnd,
+  locStart,
+  replaceQuotesInInlineComments,
+};
