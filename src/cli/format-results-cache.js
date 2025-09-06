@@ -6,6 +6,7 @@ import stringify from "fast-json-stable-stringify";
 import fileEntryCache from "file-entry-cache";
 import { version as prettierVersion } from "../index.js";
 import { createHash } from "./utils.js";
+import { createPluginSignature } from "../main/plugins/plugin-signature.js";
 
 const optionsHashCache = new WeakMap();
 const nodeVersion = process.version;
@@ -18,8 +19,14 @@ function getHashOfOptions(options) {
   if (optionsHashCache.has(options)) {
     return optionsHashCache.get(options);
   }
+  
+  // Extract plugins from options for signature generation
+  const plugins = options.plugins;
+  const pluginSignature = plugins ? createPluginSignature(plugins) : "";
+  const pluginPart = pluginSignature ? `_plugins:${pluginSignature}` : "";
+  
   const hash = createHash(
-    `${prettierVersion}_${nodeVersion}_${stringify(options)}`,
+    `${prettierVersion}_${nodeVersion}_${stringify(options)}${pluginPart}`,
   );
   optionsHashCache.set(options, hash);
   return hash;
