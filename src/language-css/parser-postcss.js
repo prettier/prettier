@@ -243,11 +243,18 @@ function parseNestedCSS(node, options) {
         // `@color: blue;` is recognized fine, but the cases below aren't:
 
         // `@color:blue;`
-        if (node.name.includes(":") && !node.params) {
+        if (node.name.includes(":")) {
           node.variable = true;
           const parts = node.name.split(":");
           node.name = parts[0];
-          node.value = parseValue(parts.slice(1).join(":"), options);
+          let value = parts.slice(1).join(":");
+
+          // `@fooBackground:rgba(255, 255, 255, 1);`
+          if (node.params) {
+            value += node.params;
+          }
+
+          node.value = parseValue(value, options);
         }
 
         // `@color :blue;`
