@@ -124,7 +124,7 @@ function clean(original, cloned, parent) {
       // Parser doesn't understand `s` flag
       if (/\ss$/.test(value)) {
         // Add an extra property to make sure flag is preserved
-        node.__prettier_attribute_selector_flag = "s";
+        cloned.__prettier_attribute_selector_flag = "s";
         value = value.slice(0, -1);
       }
 
