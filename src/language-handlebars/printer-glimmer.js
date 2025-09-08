@@ -560,9 +560,13 @@ function isElseIfPattern(pathA, pathB) {
 
 function isElseIfLike(path) {
   const { grandparent, node } = path;
+
   return (
-    grandparent?.inverse?.body.length === 1 &&
+    grandparent?.type === "BlockStatement" &&
+    node.type === "BlockStatement" &&
+    grandparent.inverse?.body.length === 1 &&
     grandparent.inverse.body[0] === node &&
+    grandparent.inverse.body[0].type === "BlockStatement" &&
     isElseIfPattern(grandparent.inverse.body[0].path, grandparent.path)
   );
 }
@@ -614,15 +618,6 @@ function blockStatementHasOnlyWhitespaceInProgram(node) {
   );
 }
 
-function blockStatementHasElseIfLike(path) {
-  return (
-    blockStatementHasElse(path) &&
-    path.node.inverse.body.length === 1 &&
-    path.node.inverse.body[0].type === "BlockStatement" &&
-    isElseIfPattern(path.node.inverse.body[0].path, path.node.path)
-  );
-}
-
 function blockStatementHasElse({ node }) {
   return node.type === "BlockStatement" && node.inverse;
 }
@@ -652,11 +647,14 @@ function printInverse(path, options, print) {
       ? [hardline, inverse]
       : inverse;
 
-  if (blockStatementHasElseIfLike(path)) {
-    return printed;
-  }
-
   if (blockStatementHasElse(path)) {
+    if (
+      node.inverse.body?.[0] &&
+      path.call(isElseIfLike, "inverse", "body", 0)
+    ) {
+      return printed;
+    }
+
     return [printElseBlock(node, options), indent(printed)];
   }
 
