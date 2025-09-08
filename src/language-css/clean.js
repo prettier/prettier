@@ -120,15 +120,16 @@ function clean(original, cloned, parent) {
     }
 
     if (original.value) {
-      let flag = "";
       let { value } = cloned;
-      const match = value.match(/^(?<value>.+?)\s+(?<flag>s)$/u);
-      if (match) {
-        ({ value, flag } = match.groups);
+      // Parser doesn't understand `s` flag
+      if (/\ss$/.test(value)) {
+        // Add an extra property to make sure flag is preserved
+        node.__prettier_attribute_selector_flag = "s";
+        value = value.slice(0, -1);
       }
 
-      cloned.value =
-        value.trim().replaceAll(/^["']|["']$/gu, "") + (flag ? ` ${flag}` : "");
+      // TODO[@fisker]: fix the unquote logic, should use back reference
+      cloned.value = value.trim().replaceAll(/^["']|["']$/gu, "");
       delete cloned.quoted;
     }
   }
