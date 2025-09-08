@@ -77,9 +77,9 @@ function print(path, options, print) {
     }
 
     case "BlockStatement":
-      if (isElseIfLike(path)) {
+      if (isElseIfBlock(path)) {
         return [
-          printElseIfLikeBlock(path, print),
+          printElseIfBlock(path, print),
           printProgram(path, options, print),
           printInverse(path, options, print),
         ];
@@ -555,7 +555,7 @@ const hasSamePathHeadName = ({ path: pathA }, { path: pathB }) =>
   // @ts-expect-error -- safe
   pathA.head.name === pathA.head.name;
 
-function isElseIfLike(path) {
+function isElseIfBlock(path) {
   // `{{if a}} a {{else if}} b {{/if}}`
   // `{{unknown a}} a {{else if}} b {{/unknown}}`
   if (
@@ -582,7 +582,7 @@ function isElseIfLike(path) {
   );
 }
 
-function printElseIfLikeBlock(path, print) {
+function printElseIfBlock(path, print) {
   const { node, grandparent } = path;
   return group([
     printInverseBlockOpeningMustache(grandparent),
@@ -658,7 +658,10 @@ function printInverse(path, options, print) {
       ? [hardline, inverse]
       : inverse;
 
-  if (node.inverse.body?.[0] && path.call(isElseIfLike, "inverse", "body", 0)) {
+  if (
+    node.inverse.body?.[0] &&
+    path.call(isElseIfBlock, "inverse", "body", 0)
+  ) {
     return printed;
   }
 
