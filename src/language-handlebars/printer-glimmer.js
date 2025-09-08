@@ -614,16 +614,16 @@ function blockStatementHasOnlyWhitespaceInProgram(node) {
   );
 }
 
-function blockStatementHasElseIfLike(node) {
+function blockStatementHasElseIfLike(path) {
   return (
-    blockStatementHasElse(node) &&
-    node.inverse.body.length === 1 &&
-    node.inverse.body[0].type === "BlockStatement" &&
-    isElseIfPattern(node.inverse.body[0].path, node.path)
+    blockStatementHasElse(path) &&
+    path.node.inverse.body.length === 1 &&
+    path.node.inverse.body[0].type === "BlockStatement" &&
+    isElseIfPattern(path.node.inverse.body[0].path, path.node.path)
   );
 }
 
-function blockStatementHasElse(node) {
+function blockStatementHasElse({ node }) {
   return node.type === "BlockStatement" && node.inverse;
 }
 
@@ -652,11 +652,11 @@ function printInverse(path, options, print) {
       ? [hardline, inverse]
       : inverse;
 
-  if (blockStatementHasElseIfLike(node)) {
+  if (blockStatementHasElseIfLike(path)) {
     return printed;
   }
 
-  if (blockStatementHasElse(node)) {
+  if (blockStatementHasElse(path)) {
     return [printElseBlock(node, options), indent(printed)];
   }
 
