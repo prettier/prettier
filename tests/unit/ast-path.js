@@ -11,6 +11,8 @@ describe("AstPath", () => {
       deep: { name: "deep" },
     },
     children: [{ index: 0 }, { index: 1 }],
+    propertyWithUndefinedValue: undefined,
+    propertyWithNullValue: null,
   };
 
   test("AstPath#call()", () => {
@@ -19,6 +21,22 @@ describe("AstPath", () => {
     expect(path.call(() => path.getValue(), "property")).toBe(ast.property);
     expect(() => path.call(throwError, "property")).toThrow(error);
     expect(path.stack.length).toBe(1);
+    expect(
+      path.call(() => path.getValue(), "noneExitsProperty"),
+    ).toBeUndefined();
+    expect(
+      path.call(() => path.getValue(), "propertyWithUndefinedValue"),
+    ).toBeUndefined();
+    expect(
+      path.call(() => path.getValue(), "propertyWithNullValue"),
+    ).toBeNull();
+    expect(
+      path.call(
+        () => path.getValue(),
+        "noneExitsProperty",
+        "noneExitsPropertyChild",
+      ),
+    ).toBeUndefined();
   });
 
   test("AstPath#callParent()", () => {
