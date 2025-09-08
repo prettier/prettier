@@ -542,22 +542,6 @@ function printElseBlock(node, options) {
   ];
 }
 
-function isElseIfPattern(pathA, pathB) {
-  // Standard if helper
-  const isPathWithSameHead =
-    pathA.head.type === "VarHead" &&
-    pathB.head.type === "VarHead" &&
-    pathA.head.name === pathB.head.name;
-
-  // Custom helper with {{else if}} syntax
-  const isPathWithIfHead =
-    pathA.head.type === "VarHead" &&
-    pathA.head.name === "if" &&
-    pathB.head.name.endsWith("-if");
-
-  return isPathWithSameHead || isPathWithIfHead;
-}
-
 const isPathWithSameHead = (pathA, pathB) =>
   [pathA, pathB].every(
     (node) => node.type === "PathExpression" && node.head.type === "VarHead",
