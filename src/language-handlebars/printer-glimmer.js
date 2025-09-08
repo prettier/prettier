@@ -588,20 +588,16 @@ function isElseIfLike(path) {
     return false;
   }
 
-  if (
-    node.path.type === "PathExpression" &&
-    node.path.head.type === "VarHead" &&
-    node.path.head.name === "if"
-  ) {
-    return true;
-  }
-
-  return isPathWithSameHead(elseBlock.body[0].path, grandparent.path);
+  return (
+    (node.path.type === "PathExpression" &&
+      node.path.head.type === "VarHead" &&
+      node.path.head.name === "if") ||
+    isPathWithSameHead(elseBlock.body[0].path, grandparent.path)
+  );
 }
 
 function printElseIfLikeBlock(path, print) {
   const { node, grandparent } = path;
-
   return group([
     printInverseBlockOpeningMustache(grandparent),
     ["else", " ", grandparent.inverse.body[0].path.head.name],
