@@ -492,50 +492,53 @@ parsers: ["glimmer"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-{{#animated-if a}}
-a
-{{else if (b)}}
-b
-{{/animated-if}}
+<!-- foo-if -->
+{{#animated-if a}} a {{/animated-if}}
 
-{{#animated-if a}}
-a
-{{else if (b)}}
-b
-{{else if (c)}}
-c
-{{/animated-if}}
+{{#animated-if a}} a {{else}} else {{/animated-if}}
 
-{{#animated-if a}}
-a
-{{else if (b)}}
-b
-{{else}}
-else
-{{/animated-if}}
+{{#animated-if a}} a {{else if (b)}} b {{/animated-if}}
+{{#animated-if a}} a {{else if (b)}} b {{else if (c)}} c {{/animated-if}}
+
+{{#animated-if a}} a {{else if (b)}} b {{else}} else {{/animated-if}}
+{{#animated-if a}} a {{else if (b)}} b {{else if (c)}} c {{else}} else {{/animated-if}}
+
+<!-- unknown-->
+{{#unknown a}} a {{/unknown}}
+
+{{#unknown a}} a {{else}} else {{/unknown}}
+
+{{#unknown a}} a {{else if (b)}} b {{/unknown}}
+{{#unknown a}} a {{else if (b)}} b {{else if (c)}} c {{/unknown}}
+
+{{#unknown a}} a {{else if (b)}} b {{else}} else {{/unknown}}
+{{#unknown a}} a {{else if (b)}} b {{else if (c)}} c {{else}} else {{/unknown}}
+
 
 =====================================output=====================================
-{{#animated-if a}}
-  a
-{{else if (b)}}
-  b
-{{/animated-if}}
+<!-- foo-if -->
+{{#animated-if a}} a {{/animated-if}}
 
-{{#animated-if a}}
-  a
-{{else if (b)}}
-  b
-{{else if (c)}}
-  c
-{{/animated-if}}
+{{#animated-if a}} a {{else}} else {{/animated-if}}
 
-{{#animated-if a}}
-  a
-{{else if (b)}}
-  b
-{{else}}
+{{#animated-if a}} a {{else if (b)}} b {{/animated-if}}
+{{#animated-if a}} a {{else if (b)}} b {{else if (c)}} c {{/animated-if}}
+
+{{#animated-if a}} a {{else if (b)}} b {{else}} else {{/animated-if}}
+{{#animated-if a}} a {{else if (b)}} b {{else if (c)}} c {{else}}
   else
 {{/animated-if}}
+
+<!-- unknown-->
+{{#unknown a}} a {{/unknown}}
+
+{{#unknown a}} a {{else}} else {{/unknown}}
+
+{{#unknown a}} a {{else if (b)}} b {{/unknown}}
+{{#unknown a}} a {{else if (b)}} b {{else if (c)}} c {{/unknown}}
+
+{{#unknown a}} a {{else if (b)}} b {{else}} else {{/unknown}}
+{{#unknown a}} a {{else if (b)}} b {{else if (c)}} c {{else}} else {{/unknown}}
 ================================================================================
 `;
 
