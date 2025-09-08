@@ -127,7 +127,8 @@ function clean(original, cloned, parent) {
         ({ value, flag } = match.groups);
       }
 
-      cloned.value = value.trim().replaceAll(/^["']|["']$/gu, "") + (flag ? ` ${flag}` : "");
+      cloned.value =
+        value.trim().replaceAll(/^["']|["']$/gu, "") + (flag ? ` ${flag}` : "");
       delete cloned.quoted;
     }
   }
