@@ -551,14 +551,12 @@ function isElseIfPattern(pathA, pathB) {
 
   // Custom helper with {{else if}} syntax
   const isPathWithIfHead =
-    pathA.head.type === "VarHead"
-    && pathA.head.name === "if"
-    && pathB.head.name.endsWith("-if")
-
+    pathA.head.type === "VarHead" &&
+    pathA.head.name === "if" &&
+    pathB.head.name.endsWith("-if");
 
   return isPathWithSameHead || isPathWithIfHead;
 }
-
 
 function isElseIfLike(path) {
   const { grandparent, node } = path;
@@ -622,7 +620,7 @@ function blockStatementHasElseIfLike(node) {
     node.inverse.body.length === 1 &&
     node.inverse.body[0].type === "BlockStatement" &&
     isElseIfPattern(node.inverse.body[0].path, node.path)
-  )
+  );
 }
 
 function blockStatementHasElse(node) {
