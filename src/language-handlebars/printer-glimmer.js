@@ -564,20 +564,39 @@ const isPathWithSameHead = (pathA, pathB) =>
   ) && pathA.head.name === pathB.head.name;
 
 function isElseIfLike(path) {
-  const { node, grandparent } = path;
+  const { node } = path;
+  if (node.type !== "BlockStatement") {
+    return false;
+  }
 
-  return (
-    node.type === "BlockStatement" &&
-    blockStatementHasElse(grandparent) &&
-    grandparent.inverse.type === "Block" &&
-    grandparent.inverse.body.length === 1 &&
-    grandparent.inverse.body[0] === node &&
-    grandparent.inverse.body[0].type === "BlockStatement" &&
-    ((node.path.type === "PathExpression" &&
-      node.path.head.type === "VarHead" &&
-      node.path.head.name === "if") ||
-      isPathWithSameHead(grandparent.inverse.body[0].path, grandparent.path))
-  );
+  const { grandparent } = path;
+
+  if (!blockStatementHasElse(grandparent)) {
+    return false;
+  }
+
+  const elseBlock = grandparent.inverse;
+
+  if (
+    !(
+      elseBlock.type === "Block" &&
+      elseBlock.body.length === 1 &&
+      elseBlock.body[0] === node &&
+      elseBlock.body[0].type === "BlockStatement"
+    )
+  ) {
+    return false;
+  }
+
+  if (
+    node.path.type === "PathExpression" &&
+    node.path.head.type === "VarHead" &&
+    node.path.head.name === "if"
+  ) {
+    return true;
+  }
+
+  return isPathWithSameHead(elseBlock.body[0].path, grandparent.path);
 }
 
 function printElseIfLikeBlock(path, print) {
