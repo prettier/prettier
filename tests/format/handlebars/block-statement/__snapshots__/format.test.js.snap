@@ -624,6 +624,12 @@ printWidth: 80
   Another thing
 {{~/if~}}
 
+{{#animated-if this.foo}}
+foo content
+{{else if (this.bar)}}
+bar content
+{{/animated-if}}
+
 =====================================output=====================================
 <h1>
   {{#if isAtWork}}
@@ -731,6 +737,12 @@ printWidth: 80
 {{~else if anotherCondition~}}
   Another thing
 {{~/if~}}
+
+{{#animated-if this.foo}}
+  foo content
+{{else if (this.bar)}}
+  bar content
+{{/animated-if}}
 ================================================================================
 `;
 

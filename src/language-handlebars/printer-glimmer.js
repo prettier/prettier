@@ -542,17 +542,30 @@ function printElseBlock(node, options) {
   ];
 }
 
-const isPathWithSameHead = (pathA, pathB) =>
-  pathA.head.type === "VarHead" &&
-  pathB.head.type === "VarHead" &&
-  pathA.head.name === pathB.head.name;
+function isElseIfPattern(pathA, pathB) {
+  // Standard if helper
+  const isPathWithSameHead =
+    pathA.head.type === "VarHead" &&
+    pathB.head.type === "VarHead" &&
+    pathA.head.name === pathB.head.name;
+
+  // Custom helper with {{else if}} syntax
+  const isPathWithIfHead =
+    pathA.head.type === "VarHead"
+    && pathA.head.name === "if"
+    && pathB.head.name.endsWith("-if")
+
+
+  return isPathWithSameHead || isPathWithIfHead;
+}
+
 
 function isElseIfLike(path) {
   const { grandparent, node } = path;
   return (
     grandparent?.inverse?.body.length === 1 &&
     grandparent.inverse.body[0] === node &&
-    isPathWithSameHead(grandparent.inverse.body[0].path, grandparent.path)
+    isElseIfPattern(grandparent.inverse.body[0].path, grandparent.path)
   );
 }
 
@@ -608,8 +621,8 @@ function blockStatementHasElseIfLike(node) {
     blockStatementHasElse(node) &&
     node.inverse.body.length === 1 &&
     node.inverse.body[0].type === "BlockStatement" &&
-    isPathWithSameHead(node.inverse.body[0].path, node.path)
-  );
+    isElseIfPattern(node.inverse.body[0].path, node.path)
+  )
 }
 
 function blockStatementHasElse(node) {

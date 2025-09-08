@@ -106,3 +106,9 @@
 {{~else if anotherCondition~}}
   Another thing
 {{~/if~}}
+
+{{#animated-if this.foo}}
+foo content
+{{else if (this.bar)}}
+bar content
+{{/animated-if}}
