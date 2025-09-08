@@ -658,10 +658,7 @@ function printInverse(path, options, print) {
       ? [hardline, inverse]
       : inverse;
 
-  if (
-    node.inverse.body?.[0] &&
-    path.call(isElseIfBlock, "inverse", "body", 0)
-  ) {
+  if (path.call(isElseIfBlock, "inverse", "body", 0)) {
     return printed;
   }
 
