@@ -120,7 +120,14 @@ function clean(original, cloned, parent) {
     }
 
     if (original.value) {
-      cloned.value = cloned.value.trim().replaceAll(/^["']|["']$/gu, "");
+      let flag = "";
+      let { value } = cloned;
+      const match = value.match(/^(?<value>.+?)\s+(?<flag>s)$/u);
+      if (match) {
+        ({ value, flag } = match.groups);
+      }
+
+      cloned.value = value.trim().replaceAll(/^["']|["']$/gu, "") + (flag ? ` ${flag}` : "");
       delete cloned.quoted;
     }
   }
