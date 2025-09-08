@@ -683,6 +683,31 @@ function shouldPrePrintDoubleHardline({ node, previous, parent }, options) {
     return true;
   }
 
+  // Check if there's a blank line that should be preserved in the original
+  const hasOriginalBlankLine =
+    previous && previous.position.end.line + 1 < node.position.start.line;
+
+  if (hasOriginalBlankLine) {
+    // Blank line before nested list within listItem (issue #17746)
+    if (
+      node.type === "list" &&
+      parent.type === "listItem" &&
+      previous.type === "paragraph"
+    ) {
+      return true;
+    }
+
+    // Blank lines between sibling listItems - always preserve if original had blank line
+    if (node.type === "listItem" && previous.type === "listItem") {
+      return true;
+    }
+
+    // General case: listItem following any content with original blank line
+    if (node.type === "listItem") {
+      return true;
+    }
+  }
+
   const isSequence = previous.type === node.type;
   const isSiblingNode = isSequence && SIBLING_NODE_TYPES.has(node.type);
   const isInTightListItem =
@@ -699,9 +724,15 @@ function shouldPrePrintDoubleHardline({ node, previous, parent }, options) {
     previous.type === "paragraph" &&
     previous.position.end.line + 1 === node.position.start.line;
 
+  // Don't let tight list logic override legitimate blank line preservation
+  const shouldPreserveBlankLine =
+    hasOriginalBlankLine &&
+    (node.type === "listItem" ||
+      (node.type === "list" && parent.type === "listItem"));
+
   return !(
-    isSiblingNode ||
-    isInTightListItem ||
+    (isSiblingNode && !shouldPreserveBlankLine) ||
+    (isInTightListItem && !shouldPreserveBlankLine) ||
     isPrevNodePrettierIgnore ||
     isBlockHtmlWithoutBlankLineBetweenPrevHtml ||
     isHtmlDirectAfterListItem
