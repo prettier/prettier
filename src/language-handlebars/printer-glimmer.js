@@ -558,6 +558,11 @@ function isElseIfPattern(pathA, pathB) {
   return isPathWithSameHead || isPathWithIfHead;
 }
 
+const isPathWithSameHead = (pathA, pathB) =>
+  [pathA, pathB].every(
+    (node) => node.type === "PathExpression" && node.head.type === "VarHead",
+  ) && pathA.head.name === pathB.head.name;
+
 function isElseIfLike(path) {
   const { node, grandparent } = path;
 
@@ -568,12 +573,16 @@ function isElseIfLike(path) {
     grandparent.inverse.body.length === 1 &&
     grandparent.inverse.body[0] === node &&
     grandparent.inverse.body[0].type === "BlockStatement" &&
-    isElseIfPattern(grandparent.inverse.body[0].path, grandparent.path)
+    ((node.path.type === "PathExpression" &&
+      node.path.head.type === "VarHead" &&
+      node.path.head.name === "if") ||
+      isPathWithSameHead(grandparent.inverse.body[0].path, grandparent.path))
   );
 }
 
 function printElseIfLikeBlock(path, print) {
   const { node, grandparent } = path;
+
   return group([
     printInverseBlockOpeningMustache(grandparent),
     ["else", " ", grandparent.inverse.body[0].path.head.name],
