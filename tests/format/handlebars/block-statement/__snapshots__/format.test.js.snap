@@ -492,17 +492,49 @@ parsers: ["glimmer"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-{{#animated-if this.foo}}
-foo content
-{{else if (this.bar)}}
-bar content
+{{#animated-if a}}
+a
+{{else if (b)}}
+b
+{{/animated-if}}
+
+{{#animated-if a}}
+a
+{{else if (b)}}
+b
+{{else if (c)}}
+c
+{{/animated-if}}
+
+{{#animated-if a}}
+a
+{{else if (b)}}
+b
+{{else}}
+else
 {{/animated-if}}
 
 =====================================output=====================================
-{{#animated-if this.foo}}
-  foo content
-{{else if (this.bar)}}
-  bar content
+{{#animated-if a}}
+  a
+{{else if (b)}}
+  b
+{{/animated-if}}
+
+{{#animated-if a}}
+  a
+{{else if (b)}}
+  b
+{{else if (c)}}
+  c
+{{/animated-if}}
+
+{{#animated-if a}}
+  a
+{{else if (b)}}
+  b
+{{else}}
+  else
 {{/animated-if}}
 ================================================================================
 `;
