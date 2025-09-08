@@ -21,8 +21,9 @@ import { locEnd, locStart } from "./loc.js";
 import { hasPrettierIgnore, isVoidElement, isWhitespaceNode } from "./utils.js";
 
 /**
- * @import {Doc} from "../document/builders.js"
- */
+@import {Doc} from "../document/builders.js"
+@import {AST} from "@glimmer/syntax"
+*/
 
 const NEWLINES_TO_PRESERVE_MAX = 2;
 
@@ -542,41 +543,40 @@ function printElseBlock(node, options) {
   ];
 }
 
-const isPathWithSameHead = (pathA, pathB) =>
+/**
+@param {AST.BlockStatement} param0
+@param {AST.BlockStatement} param1
+@returns {boolean}
+*/
+const hasSamePathHead = ({ path: pathA }, { path: pathB }) =>
   [pathA, pathB].every(
     (node) => node.type === "PathExpression" && node.head.type === "VarHead",
   ) && pathA.head.name === pathB.head.name;
 
 function isElseIfLike(path) {
-  const { node } = path;
-  if (node.type !== "BlockStatement") {
-    return false;
-  }
-
-  const { grandparent } = path;
-
-  if (!blockStatementHasElse(grandparent)) {
-    return false;
-  }
-
-  const elseBlock = grandparent.inverse;
-
+  // `{{if a}} a {{else if}} b {{/if}}`
+  // `{{unknown a}} a {{else if}} b {{/unknown}}`
   if (
-    !(
-      elseBlock.type === "Block" &&
-      elseBlock.body.length === 1 &&
-      elseBlock.body[0] === node &&
-      elseBlock.body[0].type === "BlockStatement"
+    !path.match(
+      (node) => node.type === "BlockStatement",
+      (node, key) =>
+        key === "body" && node.type === "Block" && node.body.length === 1,
+      (node, key) => key === "inverse" && node.type === "BlockStatement",
     )
   ) {
     return false;
   }
 
+  const { node } = path;
+
   return (
+    // `{{#if a}} a {{else if b}} b {{/if}}`
+    // `{{#unknown a}} a {{else if b}} b {{/unknown}}`
     (node.path.type === "PathExpression" &&
       node.path.head.type === "VarHead" &&
       node.path.head.name === "if") ||
-    isPathWithSameHead(elseBlock.body[0].path, grandparent.path)
+    // `{{#unknown a}} a {{else unknown b}} b {{/unknown}}`
+    hasSamePathHead(path.parent.body[0], path.grandparent)
   );
 }
 
@@ -627,10 +627,6 @@ function blockStatementHasOnlyWhitespaceInProgram(node) {
   );
 }
 
-function blockStatementHasElse(node) {
-  return node?.type === "BlockStatement" && node.inverse;
-}
-
 function printProgram(path, options, print) {
   const { node } = path;
 
@@ -650,24 +646,21 @@ function printProgram(path, options, print) {
 function printInverse(path, options, print) {
   const { node } = path;
 
+  if (!node.inverse) {
+    return "";
+  }
+
   const inverse = print("inverse");
   const printed =
     options.htmlWhitespaceSensitivity === "ignore"
       ? [hardline, inverse]
       : inverse;
 
-  if (blockStatementHasElse(node)) {
-    if (
-      node.inverse.body?.[0] &&
-      path.call(isElseIfLike, "inverse", "body", 0)
-    ) {
-      return printed;
-    }
-
-    return [printElseBlock(node, options), indent(printed)];
+  if (node.inverse.body?.[0] && path.call(isElseIfLike, "inverse", "body", 0)) {
+    return printed;
   }
 
-  return "";
+  return [printElseBlock(node, options), indent(printed)];
 }
 
 /* TextNode print helpers */
