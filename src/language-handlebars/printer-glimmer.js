@@ -548,7 +548,7 @@ function printElseBlock(node, options) {
 @param {AST.BlockStatement} param1
 @returns {boolean}
 */
-const hasSamePathHead = ({ path: pathA }, { path: pathB }) =>
+const hasSamePathHeadName = ({ path: pathA }, { path: pathB }) =>
   [pathA, pathB].every(
     (node) => node.type === "PathExpression" && node.head.type === "VarHead",
   ) &&
@@ -578,7 +578,7 @@ function isElseIfLike(path) {
       node.path.head.type === "VarHead" &&
       node.path.head.name === "if") ||
     // `{{#unknown a}} a {{else unknown b}} b {{/unknown}}`
-    hasSamePathHead(path.parent.body[0], path.grandparent)
+    hasSamePathHeadName(path.parent.body[0], path.grandparent)
   );
 }
 
