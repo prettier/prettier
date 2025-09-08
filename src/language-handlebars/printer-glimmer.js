@@ -551,7 +551,9 @@ function printElseBlock(node, options) {
 const hasSamePathHead = ({ path: pathA }, { path: pathB }) =>
   [pathA, pathB].every(
     (node) => node.type === "PathExpression" && node.head.type === "VarHead",
-  ) && pathA.head.name === pathB.head.name;
+  ) &&
+  // @ts-expect-error -- safe
+  pathA.head.name === pathA.head.name;
 
 function isElseIfLike(path) {
   // `{{if a}} a {{else if}} b {{/if}}`
