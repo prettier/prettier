@@ -26,8 +26,8 @@ runFormatTest(
   },
   [
     "typescript",
-    // TODO[@fisker]: Unable on these parsers
-    //"babel-ts",
+    "babel-ts",
+    // TODO[@fisker]: Unable on this parser
     // "oxc-ts",
   ],
 );
