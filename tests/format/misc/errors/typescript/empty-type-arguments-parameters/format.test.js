@@ -1,0 +1,33 @@
+runFormatTest(
+  {
+    importMeta: import.meta,
+    snippets: [
+      "foo<>()",
+      "(foo<>())",
+      "new Foo<>()",
+      "function foo<>(){}",
+      "(function foo<>(){})",
+      "class Foo<> {}",
+      "(class Foo<> {})",
+      "class Foo {constructor<>()}",
+      "(class Foo {constructor<>()})",
+      "class Foo {method<>()}",
+      "(class Foo {method<>()})",
+      "class Foo {get getter<>()}",
+      "(class Foo {get getter<>()})",
+      "class Foo {bar: Baz<> = 1}",
+      "(class Foo {bar: Baz<> = 1})",
+      "interface Foo<> {}",
+      "interface Foo {bar<>()}",
+      "interface Foo {<>(): boolean}",
+      "const foo: Foo<> = 1",
+      "type Foo = <>() => {}",
+    ],
+  },
+  [
+    "typescript",
+    // TODO[@fisker]: Unable on these parsers
+    //"babel-ts",
+    // "oxc-ts",
+  ],
+);
