@@ -570,12 +570,24 @@ function isElseIfBlock(path) {
   const { node } = path;
 
   return (
-    // `{{#if a}} a {{else if b}} b {{/if}}`
-    // `{{#unknown a}} a {{else if b}} b {{/unknown}}`
+    /*
+    ```
+    {{#if a}} a {{else if b}} b {{/if}}
+    <!--               ^^ -->
+
+    {{#unknown a}} a {{else if b}} b {{/unknown}}
+    <!--                    ^^ -->
+    ```
+    */
     (node.path.type === "PathExpression" &&
       node.path.head.type === "VarHead" &&
       node.path.head.name === "if") ||
-    // `{{#unknown a}} a {{else unknown b}} b {{/unknown}}`
+    /*
+    ```
+      {{#unknown a}} a {{else unknown b}} b {{/unknown}}
+    <!-- ^^^^^^^              ^^^^^^^ -->
+    ```
+    */
     hasSamePathHeadName(node, path.grandparent)
   );
 }
