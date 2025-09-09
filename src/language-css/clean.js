@@ -121,8 +121,8 @@ function clean(original, cloned, parent) {
 
     if (original.value) {
       let { value } = cloned;
-      // Parser doesn't understand `s` or `S` flag
-      if (/\s[sS]$/u.test(value)) {
+      // Parser only understands the `i` flag
+      if (/\s[a-zA-Z]$/u.test(value)) {
         // Add an extra property to make sure flag is preserved
         cloned.__prettier_attribute_selector_flag = value.at(-1);
         value = value.slice(0, -1);

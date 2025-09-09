@@ -28,9 +28,9 @@ function adjustStrings(value, options) {
 function quoteAttributeValue(value, options) {
   const quote = options.singleQuote ? "'" : '"';
 
-  // Check if the value ends with `s` or `S`, `i` can be solved by postcss
+  // Check if the value ends with `a-zA-Z`, `i` can be solved by postcss
   let flag = "";
-  const match = value.match(/^(?<value>.+?)\s+(?<flag>s|S)$/u);
+  const match = value.match(/^(?<value>.+?)\s+(?<flag>[a-zA-Z])$/u);
   if (match) {
     ({ value, flag } = match.groups);
   }
