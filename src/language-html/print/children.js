@@ -220,7 +220,7 @@ function printChildren(path, options, print) {
       ...prevParts,
       group([
         ...leadingParts,
-        group([printChild(childPath, options, print), ...trailingParts], {
+        group([printChild(path, options, print), ...trailingParts], {
           id: groupIds[childIndex],
         }),
       ]),
