@@ -574,7 +574,6 @@ function isElseIfBlock(path) {
     ```
     {{#if a}} a {{else if b}} b {{/if}}
     <!--               ^^ -->
-
     {{#unknown a}} a {{else if b}} b {{/unknown}}
     <!--                    ^^ -->
     ```
