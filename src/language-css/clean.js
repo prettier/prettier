@@ -128,8 +128,14 @@ function clean(original, cloned, parent) {
         value = value.slice(0, -1);
       }
 
-      // TODO[@fisker]: fix the unquote logic, should use back reference
-      cloned.value = value.trim().replaceAll(/^["']|["']$/gu, "");
+      value = value.trim();
+
+      value = value.replace(
+        /^(?<quote>["'])(?<value>.*?)\k<quote>$/u,
+        "$<value>",
+      );
+
+      cloned.value = value;
       delete cloned.quoted;
     }
   }
