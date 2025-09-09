@@ -313,29 +313,11 @@ printWidth: 80
  * Kikoo
  */
 
-
- /*
- * First Comment
- *//*
- * Second Comment
- */ .foo {
-  display: block;
-}
-
 =====================================output=====================================
 /* Kikoo */
 /**
  * Kikoo
  */
-
-/*
- * First Comment
- */ /*
- * Second Comment
- */
-.foo {
-  display: block;
-}
 
 ================================================================================
 `;
@@ -564,6 +546,34 @@ body {
 
   /* comment 84 */
   background: #000;
+}
+
+================================================================================
+`;
+
+exports[`nestled.css format 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/*
+ * First comment
+ *//*!
+ * Second glued comment start with ! and followed with CSS Rule
+ */
+.foo {
+  display: block;
+}
+
+=====================================output=====================================
+/*
+ * First comment
+ */ /*!
+ * Second glued comment start with ! and followed with CSS Rule
+ */
+.foo {
+  display: block;
 }
 
 ================================================================================
