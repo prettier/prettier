@@ -576,7 +576,7 @@ function isElseIfBlock(path) {
       node.path.head.type === "VarHead" &&
       node.path.head.name === "if") ||
     // `{{#unknown a}} a {{else unknown b}} b {{/unknown}}`
-    hasSamePathHeadName(path.parent.body[0], path.grandparent)
+    hasSamePathHeadName(node, path.grandparent)
   );
 }
 
