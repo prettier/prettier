@@ -21,8 +21,9 @@ import { locEnd, locStart } from "./loc.js";
 import { hasPrettierIgnore, isVoidElement, isWhitespaceNode } from "./utils.js";
 
 /**
- * @import {Doc} from "../document/builders.js"
- */
+@import {Doc} from "../document/builders.js"
+@import {AST} from "@glimmer/syntax"
+*/
 
 const NEWLINES_TO_PRESERVE_MAX = 2;
 
@@ -76,9 +77,9 @@ function print(path, options, print) {
     }
 
     case "BlockStatement":
-      if (isElseIfLike(path)) {
+      if (isElseIfBlock(path)) {
         return [
-          printElseIfLikeBlock(path, print),
+          printElseIfBlock(path, print),
           printProgram(path, options, print),
           printInverse(path, options, print),
         ];
@@ -542,21 +543,55 @@ function printElseBlock(node, options) {
   ];
 }
 
-const isPathWithSameHead = (pathA, pathB) =>
-  pathA.head.type === "VarHead" &&
-  pathB.head.type === "VarHead" &&
+/**
+@param {AST.BlockStatement} param0
+@param {AST.BlockStatement} param1
+@returns {boolean}
+*/
+const hasSamePathHeadName = ({ path: pathA }, { path: pathB }) =>
+  [pathA, pathB].every(
+    (node) => node.type === "PathExpression" && node.head.type === "VarHead",
+  ) &&
+  // @ts-expect-error -- safe
   pathA.head.name === pathB.head.name;
 
-function isElseIfLike(path) {
-  const { grandparent, node } = path;
+function isElseIfBlock(path) {
+  if (
+    !path.match(
+      (node) => node.type === "BlockStatement",
+      (node, key) =>
+        key === "body" && node.type === "Block" && node.body.length === 1,
+      (node, key) => key === "inverse" && node.type === "BlockStatement",
+    )
+  ) {
+    return false;
+  }
+
+  const { node } = path;
+
   return (
-    grandparent?.inverse?.body.length === 1 &&
-    grandparent.inverse.body[0] === node &&
-    isPathWithSameHead(grandparent.inverse.body[0].path, grandparent.path)
+    /*
+    ```
+    {{#if a}} a {{else if b}} b {{/if}}
+    <!--               ^^ -->
+    {{#unknown a}} a {{else if b}} b {{/unknown}}
+    <!--                    ^^ -->
+    ```
+    */
+    (node.path.type === "PathExpression" &&
+      node.path.head.type === "VarHead" &&
+      node.path.head.name === "if") ||
+    /*
+    ```
+      {{#unknown a}} a {{else unknown b}} b {{/unknown}}
+    <!-- ^^^^^^^              ^^^^^^^ -->
+    ```
+    */
+    hasSamePathHeadName(node, path.grandparent)
   );
 }
 
-function printElseIfLikeBlock(path, print) {
+function printElseIfBlock(path, print) {
   const { node, grandparent } = path;
   return group([
     printInverseBlockOpeningMustache(grandparent),
@@ -603,19 +638,6 @@ function blockStatementHasOnlyWhitespaceInProgram(node) {
   );
 }
 
-function blockStatementHasElseIfLike(node) {
-  return (
-    blockStatementHasElse(node) &&
-    node.inverse.body.length === 1 &&
-    node.inverse.body[0].type === "BlockStatement" &&
-    isPathWithSameHead(node.inverse.body[0].path, node.path)
-  );
-}
-
-function blockStatementHasElse(node) {
-  return node.type === "BlockStatement" && node.inverse;
-}
-
 function printProgram(path, options, print) {
   const { node } = path;
 
@@ -635,21 +657,21 @@ function printProgram(path, options, print) {
 function printInverse(path, options, print) {
   const { node } = path;
 
+  if (!node.inverse) {
+    return "";
+  }
+
   const inverse = print("inverse");
   const printed =
     options.htmlWhitespaceSensitivity === "ignore"
       ? [hardline, inverse]
       : inverse;
 
-  if (blockStatementHasElseIfLike(node)) {
+  if (path.call(isElseIfBlock, "inverse", "body", 0)) {
     return printed;
   }
 
-  if (blockStatementHasElse(node)) {
-    return [printElseBlock(node, options), indent(printed)];
-  }
-
-  return "";
+  return [printElseBlock(node, options), indent(printed)];
 }
 
 /* TextNode print helpers */
