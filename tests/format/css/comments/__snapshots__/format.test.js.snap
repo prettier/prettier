@@ -313,11 +313,29 @@ printWidth: 80
  * Kikoo
  */
 
+
+ /*
+ * First Comment
+ *//*
+ * Second Comment
+ */ .foo {
+  display: block;
+}
+
 =====================================output=====================================
 /* Kikoo */
 /**
  * Kikoo
  */
+
+/*
+ * First Comment
+ */ /*
+ * Second Comment
+ */
+.foo {
+  display: block;
+}
 
 ================================================================================
 `;
