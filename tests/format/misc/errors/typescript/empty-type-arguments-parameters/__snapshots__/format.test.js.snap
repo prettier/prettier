@@ -92,16 +92,16 @@ Cause: Type parameter list cannot be empty."
 `;
 
 exports[`snippet: #13 [typescript] format 1`] = `
-"Type argument list cannot be empty. (1:20)
-> 1 | class Foo {bar: Baz<> = 1}
-    |                    ^^
+"Type argument list cannot be empty. (1:25)
+> 1 | class Foo {property: Bar<> = 1}
+    |                         ^^
 Cause: Type argument list cannot be empty."
 `;
 
 exports[`snippet: #14 [typescript] format 1`] = `
-"Type argument list cannot be empty. (1:21)
-> 1 | (class Foo {bar: Baz<> = 1})
-    |                     ^^
+"Type argument list cannot be empty. (1:26)
+> 1 | (class Foo {property: Bar<> = 1})
+    |                          ^^
 Cause: Type argument list cannot be empty."
 `;
 
