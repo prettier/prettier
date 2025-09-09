@@ -120,7 +120,16 @@ function clean(original, cloned, parent) {
     }
 
     if (original.value) {
-      cloned.value = cloned.value.trim().replaceAll(/^["']|["']$/gu, "");
+      let { value } = cloned;
+      // Parser doesn't understand `s` or `S` flag
+      if (/\s[sS]$/u.test(value)) {
+        // Add an extra property to make sure flag is preserved
+        cloned.__prettier_attribute_selector_flag = value.at(-1);
+        value = value.slice(0, -1);
+      }
+
+      // TODO[@fisker]: fix the unquote logic, should use back reference
+      cloned.value = value.trim().replaceAll(/^["']|["']$/gu, "");
       delete cloned.quoted;
     }
   }
