@@ -556,8 +556,6 @@ const hasSamePathHeadName = ({ path: pathA }, { path: pathB }) =>
   pathA.head.name === pathB.head.name;
 
 function isElseIfBlock(path) {
-  // `{{if a}} a {{else if}} b {{/if}}`
-  // `{{unknown a}} a {{else if}} b {{/unknown}}`
   if (
     !path.match(
       (node) => node.type === "BlockStatement",
@@ -573,6 +571,7 @@ function isElseIfBlock(path) {
 
   return (
     // `{{#if a}} a {{else if b}} b {{/if}}`
+    // `{{#unknown a}} a {{else if b}} b {{/unknown}}`
     (node.path.type === "PathExpression" &&
       node.path.head.type === "VarHead" &&
       node.path.head.name === "if") ||
