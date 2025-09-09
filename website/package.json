@@ -35,7 +35,7 @@
     "@vitejs/plugin-react": "5.0.2",
     "concurrently": "9.2.0",
     "js-yaml": "4.1.0",
-    "vite": "7.1.4"
+    "vite": "7.1.5"
   },
   "browserslist": {
     "production": [
