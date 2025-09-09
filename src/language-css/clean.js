@@ -122,7 +122,7 @@ function clean(original, cloned, parent) {
     if (original.value) {
       let { value } = cloned;
       // Parser doesn't understand `s` or `S` flag
-      if (/\s[s|S]$/u.test(value)) {
+      if (/\s[sS]$/u.test(value)) {
         const flag = value.slice(-1);
         // Add an extra property to make sure flag is preserved
         cloned.__prettier_attribute_selector_flag = flag;
