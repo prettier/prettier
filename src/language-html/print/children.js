@@ -159,7 +159,7 @@ function printChildren(path, options, print) {
   }
 
   const groupIds = node.children.map(() => Symbol(""));
-  return path.map(({node: childNode, index: childIndex}) => {
+  return path.map(({ node: childNode, index: childIndex }) => {
     if (isTextLikeNode(childNode)) {
       if (childNode.prev && isTextLikeNode(childNode.prev)) {
         const prevBetweenLine = printBetweenLine(childNode.prev, childNode);
