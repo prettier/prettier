@@ -553,7 +553,7 @@ const hasSamePathHeadName = ({ path: pathA }, { path: pathB }) =>
     (node) => node.type === "PathExpression" && node.head.type === "VarHead",
   ) &&
   // @ts-expect-error -- safe
-  pathA.head.name === pathA.head.name;
+  pathA.head.name === pathB.head.name;
 
 function isElseIfBlock(path) {
   // `{{if a}} a {{else if}} b {{/if}}`
@@ -573,7 +573,6 @@ function isElseIfBlock(path) {
 
   return (
     // `{{#if a}} a {{else if b}} b {{/if}}`
-    // `{{#unknown a}} a {{else if b}} b {{/unknown}}`
     (node.path.type === "PathExpression" &&
       node.path.head.type === "VarHead" &&
       node.path.head.name === "if") ||
