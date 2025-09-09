@@ -8,9 +8,6 @@ printWidth: 80
 trailingComma: "all"
                                                                                 | printWidth
 =====================================input======================================
-// We used allow empty type argument list in TypeScript
-// The original issue is invalid now, but still allowed in Flow
-
 const xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx1: xxxxxxxxxxxxxxxxxxxxxx<> =
   arg => null;
 
@@ -24,9 +21,6 @@ const xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx3: xxxxxxxxxxxxxxxxxxxxxx<
   arg => null;
 
 =====================================output=====================================
-// We used allow empty type argument list in TypeScript
-// The original issue is invalid now, but still allowed in Flow
-
 const xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx1: xxxxxxxxxxxxxxxxxxxxxx<> =
   arg => null;
 
