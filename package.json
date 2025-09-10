@@ -52,7 +52,7 @@
     "collapse-white-space": "1.0.6",
     "css-units-list": "2.1.0",
     "dashify": "2.0.0",
-    "deno-path-from-file-url": "0.0.3",
+    "deno-path-from-file-url": "0.0.4",
     "diff": "8.0.2",
     "editorconfig": "0.15.3",
     "emoji-regex": "10.5.0",
