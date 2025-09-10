@@ -74,12 +74,31 @@ input[type="radio" i] {}
 img[alt~="person" i][src*="lorem" i] {}
 section:has(:not([type="radio" i], [type="checkbox" i])) {}
 
+input[type="radio" I] {}
+img[alt~="person" I][src*="lorem" I] {}
+section:has(:not([type="radio" I], [type="checkbox" I])) {}
+
+[type=a   I] {}
+[type="a"   I] {}
+
 =====================================output=====================================
 input[type='radio' i] {
 }
 img[alt~='person' i][src*='lorem' i] {
 }
 section:has(:not([type='radio' i], [type='checkbox' i])) {
+}
+
+input[type='radio' I] {
+}
+img[alt~='person' I][src*='lorem' I] {
+}
+section:has(:not([type='radio' I], [type='checkbox' I])) {
+}
+
+[type='a' I] {
+}
+[type='a' I] {
 }
 
 ================================================================================
@@ -95,12 +114,31 @@ input[type="radio" i] {}
 img[alt~="person" i][src*="lorem" i] {}
 section:has(:not([type="radio" i], [type="checkbox" i])) {}
 
+input[type="radio" I] {}
+img[alt~="person" I][src*="lorem" I] {}
+section:has(:not([type="radio" I], [type="checkbox" I])) {}
+
+[type=a   I] {}
+[type="a"   I] {}
+
 =====================================output=====================================
 input[type="radio" i] {
 }
 img[alt~="person" i][src*="lorem" i] {
 }
 section:has(:not([type="radio" i], [type="checkbox" i])) {
+}
+
+input[type="radio" I] {
+}
+img[alt~="person" I][src*="lorem" I] {
+}
+section:has(:not([type="radio" I], [type="checkbox" I])) {
+}
+
+[type="a" I] {
+}
+[type="a" I] {
 }
 
 ================================================================================
@@ -266,9 +304,9 @@ singleQuote: true
 [type='a' S] {
 }
 
-[type='a   x'] {
+[type='a' x] {
 }
-[type='a'   x] {
+[type='a' x] {
 }
 
 ================================================================================
@@ -307,9 +345,9 @@ printWidth: 80
 [type="a" S] {
 }
 
-[type="a   x"] {
+[type="a" x] {
 }
-[type="a"   x] {
+[type="a" x] {
 }
 
 ================================================================================
