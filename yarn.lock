@@ -4912,10 +4912,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"get-east-asian-width@npm:1.3.1":
-  version: 1.3.1
-  resolution: "get-east-asian-width@npm:1.3.1"
-  checksum: 10/b9a5e2e42f5fc29c073595e15e245f0e9c7ac8d50388f36adef24fbb6bb7c1775392967bc78d96ce84cffb33b1a7bbec88d2b608130a99c35e148a99a60a8ad4
+"get-east-asian-width@npm:1.4.0":
+  version: 1.4.0
+  resolution: "get-east-asian-width@npm:1.4.0"
+  checksum: 10/c9ae85bfc2feaf4cc71cdb236e60f1757ae82281964c206c6aa89a25f1987d326ddd8b0de9f9ccd56e37711b9fcd988f7f5137118b49b0b45e19df93c3be8f45
   languageName: node
   linkType: hard
 
@@ -7483,7 +7483,7 @@ __metadata:
     file-entry-cache: "npm:10.1.4"
     find-cache-directory: "npm:6.0.0"
     flow-parser: "npm:0.279.0"
-    get-east-asian-width: "npm:1.3.1"
+    get-east-asian-width: "npm:1.4.0"
     get-stdin: "npm:9.0.0"
     globals: "npm:16.3.0"
     graphql: "npm:16.11.0"
