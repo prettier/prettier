@@ -28,7 +28,10 @@ function adjustStrings(value, options) {
 function quoteAttributeValue(value, options) {
   const quote = options.singleQuote ? "'" : '"';
 
-  // Check if the value ends with `a-zA-Z`, `i` can be solved by postcss
+  // The selector parser currently only understand `i` flag,
+  // but not `s`, `S`, and `I`
+  // To support future flags, we simply check if it's an alphabet letter
+  // https://github.com/prettier/prettier/pull/17865#discussion_r2332698101
   let flag = "";
   const match = value.match(/^(?<value>.+?)\s+(?<flag>[a-zA-Z])$/u);
   if (match) {
