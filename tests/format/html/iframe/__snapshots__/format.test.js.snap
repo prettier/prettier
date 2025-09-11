@@ -35,6 +35,9 @@ printWidth: 80
   <!-- Single long permission -->
   <iframe allow="camera https://subdomain1.example.com https://subdomain2.example.com https://subdomain3.example.com https://subdomain4.example.com https://subdomain5.example.com"></iframe>
 
+  <!-- Duplicate permissions -->
+  <iframe allow="camera 'none'; camera 'self'"></iframe>
+
   <!-- Empty and whitespace -->
   <iframe allow="   "></iframe>
 </body>
@@ -113,6 +116,9 @@ printWidth: 80
         camera https://subdomain1.example.com https://subdomain2.example.com https://subdomain3.example.com https://subdomain4.example.com https://subdomain5.example.com;
       "
     ></iframe>
+
+    <!-- Duplicate permissions -->
+    <iframe allow="camera 'none'; camera 'self'"></iframe>
 
     <!-- Empty and whitespace -->
     <iframe allow=""></iframe>
