@@ -78,16 +78,6 @@ function printCallArguments(path, options, print) {
     printedArguments.push(argDoc);
   });
 
-  const maybeTrailingComma =
-    // Angular does not allow trailing comma
-    !options.parser.startsWith("__ng_") &&
-    // Dynamic imports cannot have trailing commas
-    node.type !== "ImportExpression" &&
-    node.type !== "TSImportType" &&
-    shouldPrintComma(options, "all")
-      ? ","
-      : "";
-
   // Don't break simple import with long module name
   if (
     (node.type === "TSImportType" || node.type === "ImportExpression") &&
@@ -105,6 +95,16 @@ function printCallArguments(path, options, print) {
       return group(["(", printedArguments, ")"]);
     }
   }
+
+  const maybeTrailingComma =
+    // Angular does not allow trailing comma
+    !options.parser.startsWith("__ng_") &&
+    // Dynamic imports cannot have trailing commas
+    node.type !== "ImportExpression" &&
+    node.type !== "TSImportType" &&
+    shouldPrintComma(options, "all")
+      ? ","
+      : "";
 
   function allArgsBrokenOut() {
     return group(
