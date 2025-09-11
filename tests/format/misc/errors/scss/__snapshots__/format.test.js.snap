@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`less-syntax.less [scss] format 1`] = `
 "CssSyntaxError: Unknown word .bordered (1:4)

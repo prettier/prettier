@@ -648,6 +648,9 @@ function printEstree(path, options, print, args) {
     case "ModuleExpression":
       return ["module ", print("body")];
 
+    case "VoidPattern":
+      return "void";
+
     case "InterpreterDirective": // Printed as comment
     default:
       /* c8 ignore next */

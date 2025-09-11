@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`abstract-method.ts format 1`] = `
 ====================================options=====================================
@@ -64,9 +64,6 @@ class A {
     }
 }
 
-class B {
-  constructor<>() {}
-}
 
 =====================================output=====================================
 class C {
@@ -90,10 +87,6 @@ class A {
   static Foo() {
     return new A();
   }
-}
-
-class B {
-  constructor<>() {}
 }
 
 ================================================================================

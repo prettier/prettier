@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`snippet: #0 [acorn] format 1`] = `
 "Optional chaining cannot appear in the callee of new expressions (1:21)

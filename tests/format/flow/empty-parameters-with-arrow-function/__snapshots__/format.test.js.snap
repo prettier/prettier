@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`issue-13817.js - {"arrowParens":"avoid","trailingComma":"all"} format 1`] = `
+====================================options=====================================
+arrowParens: "avoid"
+parsers: ["flow"]
+printWidth: 80
+trailingComma: "all"
+                                                                                | printWidth
+=====================================input======================================
+const xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx1: xxxxxxxxxxxxxxxxxxxxxx<> =
+  arg => null;
+
+const xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx2: xxxxxxxxxxxxxxxxxxxxxx</* comment */> =
+  arg => null;
+
+
+const xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx3: xxxxxxxxxxxxxxxxxxxxxx<
+  // comment
+> =
+  arg => null;
+
+=====================================output=====================================
+const xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx1: xxxxxxxxxxxxxxxxxxxxxx<> =
+  arg => null;
+
+const xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx2: xxxxxxxxxxxxxxxxxxxxxx</* comment */> =
+  arg => null;
+
+const xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx3: xxxxxxxxxxxxxxxxxxxxxx<
+  // comment
+> = arg => null;
+
+================================================================================
+`;

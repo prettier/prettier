@@ -1,6 +1,10 @@
 import emojiRegex from "emoji-regex";
-// @ts-expect-error -- Special export for us, https://github.com/sindresorhus/get-east-asian-width/pull/6
-import { _isNarrowWidth as isNarrowWidth } from "get-east-asian-width";
+import {
+  // @ts-expect-error -- Private
+  _isFullWidth as isFullWidth,
+  // @ts-expect-error -- Private
+  _isWide as isWide,
+} from "get-east-asian-width";
 
 const notAsciiRegex = /[^\x20-\x7F]/u;
 
@@ -39,7 +43,7 @@ function getStringWidth(text) {
       continue;
     }
 
-    width += isNarrowWidth(codePoint) ? 1 : 2;
+    width += isFullWidth(codePoint) || isWide(codePoint) ? 2 : 1;
   }
 
   return width;

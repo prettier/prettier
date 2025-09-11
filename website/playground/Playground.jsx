@@ -97,10 +97,9 @@ class Playground extends React.Component {
     const codeSample = getCodeSample(options.parser);
     const content = original.content || codeSample;
     const isDocExplorer = options.parser === "doc-explorer";
-    const needsClickForFirstRun = isDocExplorer && content !== codeSample;
     const selection = {};
 
-    this.state = { content, options, selection, needsClickForFirstRun };
+    this.state = { content, options, selection };
 
     this.handleOptionValueChange = this.handleOptionValueChange.bind(this);
 
@@ -170,10 +169,6 @@ class Playground extends React.Component {
         state.content === getCodeSample(state.options.parser)
           ? getCodeSample(options.parser)
           : state.content;
-
-      if (option.name === "parser") {
-        state.needsClickForFirstRun = false;
-      }
 
       return { options, content };
     });
@@ -251,7 +246,6 @@ class Playground extends React.Component {
       <EditorState>
         {(editorState) => (
           <PrettierFormat
-            enabled={!this.state.needsClickForFirstRun}
             worker={worker}
             code={content}
             options={options}
@@ -465,42 +459,17 @@ class Playground extends React.Component {
                         />
                       ) : null}
                       {editorState.showOutput ? (
-                        this.state.needsClickForFirstRun ? (
-                          <div className="editor disabled-output-panel">
-                            <div className="explanation">
-                              <code>doc-explorer</code> involves running code
-                              provided by users.
-                            </div>
-                            <div className="explanation">
-                              To stay on the safe side and prevent abuse, an
-                              explicit user action is required when a direct
-                              link to a <code>doc-explorer</code> playground is
-                              opened.
-                            </div>
-                            <div className="explanation">
-                              Click the button below to start the playground.
-                            </div>
-                            <Button
-                              onClick={() =>
-                                this.setState({ needsClickForFirstRun: false })
-                              }
-                            >
-                              Start
-                            </Button>
-                          </div>
-                        ) : (
-                          <OutputPanel
-                            mode={util.getCodemirrorMode(options.parser)}
-                            value={formatted}
-                            ruler={options.printWidth}
-                            overlayStart={
-                              cursorOffset === -1 ? undefined : cursorOffset
-                            }
-                            overlayEnd={
-                              cursorOffset === -1 ? undefined : cursorOffset + 1
-                            }
-                          />
-                        )
+                        <OutputPanel
+                          mode={util.getCodemirrorMode(options.parser)}
+                          value={formatted}
+                          ruler={options.printWidth}
+                          overlayStart={
+                            cursorOffset === -1 ? undefined : cursorOffset
+                          }
+                          overlayEnd={
+                            cursorOffset === -1 ? undefined : cursorOffset + 1
+                          }
+                        />
                       ) : null}
                       {editorState.showSecondFormat && !isDocExplorer ? (
                         <OutputPanel

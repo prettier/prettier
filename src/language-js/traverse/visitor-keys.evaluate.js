@@ -37,7 +37,6 @@ const excludeKeys = {
 
   // From `flowVisitorKeys`
   ArrowFunctionExpression: ["id"],
-  DeclareOpaqueType: ["impltype"],
   FunctionExpression: ["predicate"],
   // Flow don't use it, but `typescript-eslint` v6 switched to `typeArguments`
   // JSXOpeningElement: ["typeArguments"],
@@ -45,6 +44,9 @@ const excludeKeys = {
   // Flow parser changed `.types` to `.elementTypes` https://github.com/facebook/flow/commit/5b60e6a81dc277dfab2e88fa3737a4dc9aafdcab
   // TupleTypeAnnotation: ["types"],
   PropertyDefinition: ["tsModifiers"],
+  // Not supported yet.
+  // https://github.com/facebook/hermes/commit/55a5f881361ef15fd4f7b558166d80e7b9086550
+  DeclareOpaqueType: ["impltype"],
 
   // Legacy property
   ExportAllDeclaration: ["assertions"],
@@ -63,28 +65,6 @@ const excludeNodeTypes = new Set([
   "DecimalLiteral",
   // Babel, Won't exist since we use `createImportExpressions` when parsing with babel
   "Import",
-
-  // Flow, not supported
-  "MatchArrayPattern",
-  "MatchAsPattern",
-  "MatchBindingPattern",
-  "MatchExpression",
-  "MatchExpressionCase",
-  "MatchIdentifierPattern",
-  "MatchLiteralPattern",
-  "MatchMemberPattern",
-  "MatchObjectPattern",
-  "MatchObjectPatternProperty",
-  "MatchOrPattern",
-  "MatchRestPattern",
-  "MatchStatement",
-  "MatchStatementCase",
-  "MatchUnaryPattern",
-  "MatchWildcardPattern",
-
-  // Babel v7.28.0
-  // https://github.com/prettier/prettier/pull/17696
-  "VoidPattern",
 ]);
 
 const visitorKeys = Object.fromEntries(

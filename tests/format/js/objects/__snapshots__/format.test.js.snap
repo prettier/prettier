@@ -1,16 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`bigint-key.js [hermes] format 1`] = `
-"invalid property name - must be a string, number or identifier (1:5)
-> 1 | a = {1n: ""}
-    |     ^
-  2 | a = {1n() {}}
-  3 | a = {get 1n() {}}
-  4 |
-Cause: invalid property name - must be a string, number or identifier (1:5)
-a = {1n: ""}
-     ^~"
-`;
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`bigint-key.js format 1`] = `
 ====================================options=====================================

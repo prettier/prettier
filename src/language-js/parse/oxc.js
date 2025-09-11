@@ -82,33 +82,45 @@ async function parseJs(text, options) {
   return postprocess(ast, { text, parser: "oxc" });
 }
 
-async function parseTs(text, options) {
+/**
+@returns {ParserOptions["lang"][]}
+*/
+function getLanguageCombinations(text, options) {
   const filepath = options?.filepath;
-  const sourceType = getSourceType(filepath);
-  /** @type {ParserOptions} */
-  const parseOptions = { sourceType, astType: "ts" };
-  const isKnownJsx =
-    typeof filepath === "string" && /\.(?:jsx|tsx)$/iu.test(filepath);
-  const isDtsFile =
-    typeof filepath === "string" && filepath.toLowerCase().endsWith(".d.ts");
 
-  /** @type {string[]} */
-  let filenameCombinations = [isDtsFile ? "prettier.d.ts" : "prettier.tsx"];
-  if (!isDtsFile && !isKnownJsx) {
-    const shouldEnableJsx = jsxRegexp.test(text);
-    filenameCombinations = [
-      ...[shouldEnableJsx, !shouldEnableJsx].map((shouldEnableJsx) =>
-        shouldEnableJsx ? "prettier.tsx" : "prettier.ts",
-      ),
-      "prettier.d.ts",
-    ];
+  if (typeof filepath === "string") {
+    if (/\.(?:jsx|tsx)$/iu.test(filepath)) {
+      return ["tsx"];
+    }
+
+    if (filepath.toLowerCase().endsWith(".d.ts")) {
+      return ["dts"];
+    }
+  }
+
+  const shouldEnableJsx = jsxRegexp.test(text);
+  return shouldEnableJsx ? ["tsx", "ts", "dts"] : ["ts", "tsx", "dts"];
+}
+
+async function parseTs(text, options) {
+  let filepath = options?.filepath;
+  const sourceType = getSourceType(filepath);
+  const languageCombinations = getLanguageCombinations(text, options);
+
+  if (typeof filepath !== "string") {
+    filepath = "prettier.tsx";
   }
 
   let result;
   try {
     result = await tryCombinationsAsync(
-      filenameCombinations.map(
-        (filename) => () => parseWithOptions(filename, text, parseOptions),
+      languageCombinations.map(
+        (language) => () =>
+          parseWithOptions(filepath, text, {
+            sourceType,
+            astType: "ts",
+            lang: language,
+          }),
       ),
     );
   } catch ({

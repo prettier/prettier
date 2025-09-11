@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`valid-flow-default-import.mts [typescript] format 1`] = `
 "'=' expected. (1:15)

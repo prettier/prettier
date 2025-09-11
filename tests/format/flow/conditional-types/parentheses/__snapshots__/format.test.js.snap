@@ -1,13 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`union.js [babel-flow] format 1`] = `
-"Unexpected token, expected ")" (1:24)
-> 1 | type T<U> = 'a' | ('b' extends U ? 'c' : empty);
-    |                        ^
-  2 | type T<U> = 'a' & ('b' extends U ? 'c' : empty);
-  3 |
-Cause: Unexpected token, expected ")" (1:23)"
-`;
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`union.js format 1`] = `
 ====================================options=====================================
