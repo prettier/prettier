@@ -92,14 +92,23 @@ function printCallArguments(path, options, print) {
   if (
     (node.type === "TSImportType" || node.type === "ImportExpression") &&
     args.length === 1 &&
-    ((((node.type === "TSImportType" && args[0].type === "TSLiteralType") ||
-      (node.type === "ImportExpression" && args[0].type === "Literal")) &&
-      isStringLiteral(args[0].literal)) ||
-      // TODO: Remove this when update Babel to v8
-      isStringLiteral(args[0])) &&
     !hasComment(args[0])
   ) {
-    return group(["(", ...printedArguments, ifBreak(maybeTrailingComma), ")"]);
+    let source = args[0];
+
+    // TODO: remove this once https://github.com/typescript-eslint/typescript-eslint/issues/11583 get fixed
+    if (node.type === "TSImportType" && source.type === "TSLiteralType") {
+      source = source.literal;
+    }
+
+    if (isStringLiteral(source)) {
+      return group([
+        "(",
+        ...printedArguments,
+        ifBreak(maybeTrailingComma),
+        ")",
+      ]);
+    }
   }
 
   function allArgsBrokenOut() {
