@@ -1,21 +1,18 @@
-import parseContentSecurityPolicy from "content-security-policy-parser";
 import { ifBreak, join, softline } from "../../document/builders.js";
+import parseContentSecurityPolicy from "../utils/content-security-policy-parser.js";
 import { getUnescapedAttributeValue } from "../utils/index.js";
 import { printExpand } from "./utils.js";
 
 function printIframeAttribute(path, options) {
   const { node } = path;
 
+  if(node.fullName !== "allow" || options.parentParser) {
+    return
+  }
+
   const text = getUnescapedAttributeValue(node).trim();
-  if (
-    node.fullName === "allow" &&
-    !options.parentParser &&
-    !text.includes("{{")
-  ) {
-    const permissions = Array.from(
-      parseContentSecurityPolicy(text).entries(),
-      ([name, value]) => ({ name, value }),
-    );
+  if (!text.includes("{{")) {
+    const permissions = parseContentSecurityPolicy(text)
 
     return () =>
       printExpand(
