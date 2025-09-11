@@ -11,7 +11,7 @@ const ignoredFilenames = new Set([
   "Package.resolved",
   // Pipenv
   "Pipfile.lock",
-  // Bun's text lockfile is in TOML format.
+  // Bun's text lockfile
   "bun.lock",
   // Composer
   "composer.lock",
