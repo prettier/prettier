@@ -6,13 +6,13 @@ import { printExpand } from "./utils.js";
 function printIframeAttribute(path, options) {
   const { node } = path;
 
-  if(node.fullName !== "allow" || options.parentParser) {
-    return
+  if (node.fullName !== "allow" || options.parentParser) {
+    return;
   }
 
   const text = getUnescapedAttributeValue(node).trim();
   if (!text.includes("{{")) {
-    const permissions = parseContentSecurityPolicy(text)
+    const permissions = parseContentSecurityPolicy(text);
 
     return () =>
       printExpand(

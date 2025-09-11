@@ -4,8 +4,8 @@ import { printExpand } from "./utils.js";
 function printStyleAttribute(path, options) {
   const { node } = path;
 
-  if(node.fullName !== "style" || options.parentParser) {
-    return
+  if (node.fullName !== "style" || options.parentParser) {
+    return;
   }
 
   const text = getUnescapedAttributeValue(path.node).trim();
