@@ -149,7 +149,7 @@ function hasIgnorePragma(text: string): boolean;
 _(Optional)_ The preprocess function can process the input text before passing into `parse` function.
 
 ```ts
-function preprocess(text: string, options: object): string;
+function preprocess(text: string, options: object): string | Promise<string>;
 ```
 
 ### `printers`
