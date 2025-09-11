@@ -88,12 +88,13 @@ function printCallArguments(path, options, print) {
       ? ","
       : "";
 
-  // TODO: Don't break long `ImportExpression` too
   // Don't break simple import with long module name
   if (
-    node.type === "TSImportType" &&
+    (node.type === "TSImportType" || node.type === "ImportExpression") &&
     args.length === 1 &&
-    ((args[0].type === "TSLiteralType" && isStringLiteral(args[0].literal)) ||
+    ((((node.type === "TSImportType" && args[0].type === "TSLiteralType") ||
+      (node.type === "ImportExpression" && args[0].type === "Literal")) &&
+      isStringLiteral(args[0].literal)) ||
       // TODO: Remove this when update Babel to v8
       isStringLiteral(args[0])) &&
     !hasComment(args[0])
