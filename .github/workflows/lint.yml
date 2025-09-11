@@ -60,8 +60,8 @@ jobs:
 
       - name: Lint workflow files
         run: |
-          pacman -S actionlint
-          actionlint -color
+          bash <(curl https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash)
+          ./actionlint -color
         shell: bash
 
       - name: Dependency Review
