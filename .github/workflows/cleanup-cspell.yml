@@ -31,7 +31,7 @@ jobs:
         run: node scripts/clean-cspell.js
 
       - name: Set current date env
-        run: echo CURRENT_DATE=$(date +'%Y-%m-%d') >> $GITHUB_ENV
+        run: echo "CURRENT_DATE=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
 
       - uses: peter-evans/create-pull-request@v7
         with:
