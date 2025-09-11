@@ -3662,6 +3662,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"content-security-policy-parser@npm:0.6.0":
+  version: 0.6.0
+  resolution: "content-security-policy-parser@npm:0.6.0"
+  checksum: 10/8488f3fd13fead300f9cc21ebc15c68317e2407c2ddfaebe4026dcad91195e99bd56c71d985a578d695bba915e443f86bdf658fa3d64878e04fffe6882e9f9a9
+  languageName: node
+  linkType: hard
+
 "convert-source-map@npm:^2.0.0":
   version: 2.0.0
   resolution: "convert-source-map@npm:2.0.0"
@@ -7638,6 +7645,7 @@ __metadata:
     ci-info: "npm:4.3.0"
     cjk-regex: "npm:3.4.0"
     collapse-white-space: "npm:1.0.6"
+    content-security-policy-parser: "npm:0.6.0"
     cross-env: "npm:10.0.0"
     cspell: "npm:9.2.1"
     css-units-list: "npm:2.1.0"
