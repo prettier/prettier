@@ -472,6 +472,63 @@ printWidth: 80
 ================================================================================
 `;
 
+exports[`chain-expression.js - {"experimentalOperatorPosition":"start"} format 1`] = `
+====================================options=====================================
+experimentalOperatorPosition: "start"
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+if (
+  true
+  // This is a really complicated part of the condition, so we need a big ol'
+  // comment here to explain it.
+  && flibble.blibble.blobble?.bloo
+) {
+  doThings();
+}
+
+=====================================output=====================================
+if (
+  true
+  // This is a really complicated part of the condition, so we need a big ol'
+  // comment here to explain it.
+  && flibble.blibble.blobble?.bloo
+) {
+  doThings();
+}
+
+================================================================================
+`;
+
+exports[`chain-expression.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+if (
+  true
+  // This is a really complicated part of the condition, so we need a big ol'
+  // comment here to explain it.
+  && flibble.blibble.blobble?.bloo
+) {
+  doThings();
+}
+
+=====================================output=====================================
+if (
+  true &&
+  // This is a really complicated part of the condition, so we need a big ol'
+  // comment here to explain it.
+  flibble.blibble.blobble?.bloo
+) {
+  doThings();
+}
+
+================================================================================
+`;
+
 exports[`comment.js - {"experimentalOperatorPosition":"start"} format 1`] = `
 ====================================options=====================================
 experimentalOperatorPosition: "start"
