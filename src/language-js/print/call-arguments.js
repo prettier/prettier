@@ -102,12 +102,7 @@ function printCallArguments(path, options, print) {
     }
 
     if (isStringLiteral(source)) {
-      return group([
-        "(",
-        ...printedArguments,
-        ifBreak(maybeTrailingComma),
-        ")",
-      ]);
+      return group(["(", printedArguments, ")"]);
     }
   }
 
