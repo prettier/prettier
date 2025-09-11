@@ -78,6 +78,24 @@ function printCallArguments(path, options, print) {
     printedArguments.push(argDoc);
   });
 
+  // Don't break simple import with long module name
+  if (
+    (node.type === "TSImportType" || node.type === "ImportExpression") &&
+    args.length === 1 &&
+    !hasComment(args[0])
+  ) {
+    let source = args[0];
+
+    // TODO: remove this once https://github.com/typescript-eslint/typescript-eslint/issues/11583 get fixed
+    if (node.type === "TSImportType" && source.type === "TSLiteralType") {
+      source = source.literal;
+    }
+
+    if (isStringLiteral(source)) {
+      return group(["(", printedArguments, ")"]);
+    }
+  }
+
   const maybeTrailingComma =
     // Angular does not allow trailing comma
     !options.parser.startsWith("__ng_") &&
@@ -87,19 +105,6 @@ function printCallArguments(path, options, print) {
     shouldPrintComma(options, "all")
       ? ","
       : "";
-
-  // TODO: Don't break long `ImportExpression` too
-  // Don't break simple import with long module name
-  if (
-    node.type === "TSImportType" &&
-    args.length === 1 &&
-    ((args[0].type === "TSLiteralType" && isStringLiteral(args[0].literal)) ||
-      // TODO: Remove this when update Babel to v8
-      isStringLiteral(args[0])) &&
-    !hasComment(args[0])
-  ) {
-    return group(["(", ...printedArguments, ifBreak(maybeTrailingComma), ")"]);
-  }
 
   function allArgsBrokenOut() {
     return group(
