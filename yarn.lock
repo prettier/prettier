@@ -15,12 +15,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@angular/compiler@npm:20.2.1":
-  version: 20.2.1
-  resolution: "@angular/compiler@npm:20.2.1"
+"@angular/compiler@npm:20.3.0":
+  version: 20.3.0
+  resolution: "@angular/compiler@npm:20.3.0"
   dependencies:
     tslib: "npm:^2.3.0"
-  checksum: 10/6cb64a80815aca4b460b20cd8de3a3afd82e82f45d7cd0b25cc4052a19f7660916b4afdc22b5a39af1696bb7dda10daa6ff5e94dd44a9e7d71d160cd1ba4bdbe
+  checksum: 10/f249f32e84a7e744ead737464c4c6d4ddc27f111f0ba04cc24b86e19357616f7cb68acb8449ccdb56fad7a54f2669455d830bf72cfd8b2904f419e478935efaf
   languageName: node
   linkType: hard
 
@@ -7425,7 +7425,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "prettier@workspace:."
   dependencies:
-    "@angular/compiler": "npm:20.2.1"
+    "@angular/compiler": "npm:20.3.0"
     "@babel/code-frame": "npm:7.27.1"
     "@babel/generator": "npm:7.28.3"
     "@babel/parser": "npm:7.28.4"
