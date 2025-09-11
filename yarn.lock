@@ -6407,10 +6407,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"leven@npm:4.0.0, leven@npm:^4.0.0":
-  version: 4.0.0
-  resolution: "leven@npm:4.0.0"
-  checksum: 10/d70b9fef4cca487a38021bb173a5cae98d39b1c7f4a5b2439763bd89df8e389f178a3c941b6fc3fab1582f5052b5e8c91353d9607799a2ad3841e7ea22f9720f
+"leven@npm:4.1.0, leven@npm:^4.1.0":
+  version: 4.1.0
+  resolution: "leven@npm:4.1.0"
+  checksum: 10/ab6c1af4a44e9cd83d3fba79a36ed405afce146e7f12c6653d3ac02f17d3d6de0ace0e0d2728b38446e7f40c1df7692352d8b1278cb3ff0dfb868324219636e5
   languageName: node
   linkType: hard
 
@@ -7502,7 +7502,7 @@ __metadata:
     jest-watch-typeahead: "npm:3.0.1"
     json5: "npm:2.2.3"
     knip: "npm:5.61.2"
-    leven: "npm:4.0.0"
+    leven: "npm:4.1.0"
     linguist-languages: "npm:9.0.0"
     magic-string: "npm:0.30.18"
     meriyah: "npm:6.1.4"
@@ -7547,7 +7547,7 @@ __metadata:
     unicode-regex: "npm:4.2.0"
     unified: "npm:9.2.2"
     url-or-path: "npm:2.6.1"
-    vnopts: "npm:2.0.2"
+    vnopts: "npm:2.0.3"
     wcwidth.js: "npm:2.0.0"
     yaml: "npm:1.10.2"
     yaml-unist-parser: "npm:2.0.5"
@@ -8998,13 +8998,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vnopts@npm:2.0.2":
-  version: 2.0.2
-  resolution: "vnopts@npm:2.0.2"
+"vnopts@npm:2.0.3":
+  version: 2.0.3
+  resolution: "vnopts@npm:2.0.3"
   dependencies:
-    leven: "npm:^4.0.0"
+    leven: "npm:^4.1.0"
     picocolors: "npm:^1.1.1"
-  checksum: 10/aec69bf34f4cbb4cd426641ec30489945e823ba1e2f20d8cffa08ad82f4b05ebc92c20958c3c88b745d0ee2df588aad81cf14825c6fb77776a76a137564256c8
+  checksum: 10/afcbd467bc1bef0e39c5210647556979dc5cddcfc37fb4e7d33176943bd9e215d94c08e59c58db69e745bd65b66ed9bf76510a168cf3a0baa9c218169ab4b90d
   languageName: node
   linkType: hard
 
