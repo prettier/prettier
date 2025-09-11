@@ -6,10 +6,28 @@
   <title>Document</title>
 </head>
 <body>
-  <iframe src="https://prettier.io/" allow="layout-animations 'none'; unoptimized-images 'none'; oversized-images 'none'; sync-script 'none'; sync-xhr 'none'; unsized-media 'none';"></iframe>
+  <!-- Invalid syntax -->
+  <iframe allow="camera;; microphone;;;"></iframe>
 
-  <iframe src="https://prettier.io/" allow="camera 'self'"></iframe>
+  <!-- Uppercase directives -->
+  <iframe allow="CAMERA 'self'; MICROPHONE 'none'; GEOLOCATION https://example.com"></iframe>
 
-  <iframe src="https://prettier.io/" allow=""></iframe>
+  <!-- Long allowlist with many permissions -->
+  <iframe allow="accelerometer 'self'; ambient-light-sensor 'self'; autoplay 'self'; battery 'self'; camera 'self'; cross-origin-isolated 'self'; display-capture 'self'; encrypted-media 'self'; execution-while-not-rendered 'self'; execution-while-out-of-viewport 'self'; fullscreen 'self'; geolocation 'self'; gyroscope 'self'; magnetometer 'self'; microphone 'self'; midi 'self'; navigation-override 'self'; payment 'self'; picture-in-picture 'self'; publickey-credentials-get 'self'; screen-wake-lock 'self'; sync-xhr 'self'; usb 'self'; web-share 'self'; xr-spatial-tracking 'self'"></iframe>
+
+  <!-- Long domains -->
+  <iframe allow="camera https://very-long-subdomain.very-long-domain-name.example.com https://another-very-long-subdomain.another-very-long-domain.example.org; microphone https://extremely-long-subdomain-name.extremely-long-domain-name.example.net"></iframe>
+
+  <!-- Special characters in URLs -->
+  <iframe allow="camera https://sub-domain.example.com:8080/path?query=value#fragment; microphone 'self'"></iframe>
+
+  <!-- Permissions without values -->
+  <iframe allow="payment; usb; serial"></iframe>
+
+  <!-- Single long permission -->
+  <iframe allow="camera https://subdomain1.example.com https://subdomain2.example.com https://subdomain3.example.com https://subdomain4.example.com https://subdomain5.example.com"></iframe>
+
+  <!-- Empty and whitespace -->
+  <iframe allow="   "></iframe>
 </body>
 </html>

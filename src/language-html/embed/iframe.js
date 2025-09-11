@@ -20,7 +20,7 @@ function printIframeAttribute(path, options) {
     return () =>
       printExpand(
         join(
-          softline,
+          ifBreak(softline, "; "),
           permissions.map((permission) => [
             permission.name,
             ...(permission.value.length > 0
