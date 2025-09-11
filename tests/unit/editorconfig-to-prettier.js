@@ -63,9 +63,7 @@ test("editorconfigToPrettier", () => {
       tab_width: 0,
       indent_size: 0,
     }),
-  ).toStrictEqual({
-    tabWidth: 0,
-  });
+  ).toBeUndefined();
 
   expect(
     editorconfigToPrettier({
@@ -121,7 +119,7 @@ test("editorconfigToPrettier", () => {
     editorconfigToPrettier({
       endOfLine: 123,
     }),
-  ).toStrictEqual({});
+  ).toBeUndefined();
 
   expect(
     editorconfigToPrettier({
@@ -134,6 +132,6 @@ test("editorconfigToPrettier", () => {
     tabWidth: 2,
   });
 
-  expect(editorconfigToPrettier({})).toBeNull();
-  expect(editorconfigToPrettier(null)).toBeNull();
+  expect(editorconfigToPrettier({})).toBeUndefined();
+  expect(editorconfigToPrettier(null)).toBeUndefined();
 });
