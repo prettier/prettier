@@ -5402,17 +5402,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"codemirror-graphql@npm:2.2.2":
-  version: 2.2.2
-  resolution: "codemirror-graphql@npm:2.2.2"
+"codemirror-graphql@npm:2.2.4":
+  version: 2.2.4
+  resolution: "codemirror-graphql@npm:2.2.4"
   dependencies:
     "@types/codemirror": "npm:^0.0.90"
-    graphql-language-service: "npm:5.4.0"
+    graphql-language-service: "npm:5.5.0"
   peerDependencies:
     "@codemirror/language": 6.0.0
     codemirror: ^5.65.3
     graphql: ^15.5.0 || ^16.0.0 || ^17.0.0
-  checksum: 10/91376251edc9e831f3b42ebe1374a94bda6d7290c4abda51d5d4187d1ff49c6922dfaff76af4505a48024639a1b3e01b0e37d98a6d061b4625e3da9e92fa6fc2
+  checksum: 10/89e8994588c6145578b707694509854ccdff40c19e82d15dff832c152cadc8978f3688b804b8e75f656d3b7dfa5dc5e6344e854eda5141f0d92c0a505fda1371
   languageName: node
   linkType: hard
 
@@ -7320,9 +7320,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"graphql-language-service@npm:5.4.0":
-  version: 5.4.0
-  resolution: "graphql-language-service@npm:5.4.0"
+"graphql-language-service@npm:5.5.0":
+  version: 5.5.0
+  resolution: "graphql-language-service@npm:5.5.0"
   dependencies:
     debounce-promise: "npm:^3.1.2"
     nullthrows: "npm:^1.0.0"
@@ -7331,7 +7331,7 @@ __metadata:
     graphql: ^15.5.0 || ^16.0.0 || ^17.0.0
   bin:
     graphql: dist/temp-bin.js
-  checksum: 10/d1489f40a67c45f1e3888cc0779d339dbc1eb409e12fe5961abb68ec2a7036eeef3532b355a34da87d45df7ac46b9b817f165d745178df6c657152c3d2a0aa7d
+  checksum: 10/7f398395cab50faaad717d107413df5424ac102bf33ac4a5e4ef34bf7c2e13a27d51fd93456601f560874801bf93bec281589164d901bab3aef56f4518782f60
   languageName: node
   linkType: hard
 
@@ -12067,7 +12067,7 @@ __metadata:
     "@types/js-yaml": "npm:4.0.9"
     "@vitejs/plugin-react": "npm:5.0.2"
     clsx: "npm:2.1.1"
-    codemirror-graphql: "npm:2.2.2"
+    codemirror-graphql: "npm:2.2.4"
     concurrently: "npm:9.2.0"
     js-yaml: "npm:4.1.0"
     prism-react-renderer: "npm:2.4.1"
