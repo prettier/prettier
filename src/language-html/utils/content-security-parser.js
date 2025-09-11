@@ -6,8 +6,14 @@
 // See <https://infra.spec.whatwg.org/#ascii-whitespace>.
 const ASCII_WHITESPACE_CHARS = "\t\n\f\r ";
 const ASCII_WHITESPACE = new RegExp(`[${ASCII_WHITESPACE_CHARS}]+`, "u");
-const ASCII_WHITESPACE_AT_START = new RegExp(`^[${ASCII_WHITESPACE_CHARS}]+`, "u");
-const ASCII_WHITESPACE_AT_END = new RegExp(`[${ASCII_WHITESPACE_CHARS}]+$`, "u");
+const ASCII_WHITESPACE_AT_START = new RegExp(
+  `^[${ASCII_WHITESPACE_CHARS}]+`,
+  "u",
+);
+const ASCII_WHITESPACE_AT_END = new RegExp(
+  `[${ASCII_WHITESPACE_CHARS}]+$`,
+  "u",
+);
 
 // "An ASCII code point is a code point in the range U+0000 NULL to
 // U+007F DELETE, inclusive." See <https://infra.spec.whatwg.org/#ascii-string>.
@@ -44,9 +50,7 @@ const ASCII = /^[\x00-\x7f]*$/u;
  * //      }
  * //    ]
  */
-export default function parseContentSecurityPolicy(
-  policy,
-) {
+export default function parseContentSecurityPolicy(policy) {
   const result = [];
 
   // "For each token returned by strictly splitting serialized on the
@@ -59,7 +63,9 @@ export default function parseContentSecurityPolicy(
 
     // "2. If token is an empty string, or if token is not an ASCII string,
     //     continue."
-    if (!token || !ASCII.test(token)) {continue;}
+    if (!token || !ASCII.test(token)) {
+      continue;
+    }
 
     // We do these at the same time:
     // "3. Let directive name be the result of collecting a sequence of
