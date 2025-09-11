@@ -141,7 +141,7 @@
     "esm-utils": "4.4.2",
     "globals": "16.4.0",
     "jest": "30.1.3",
-    "jest-light-runner": "0.7.9",
+    "jest-light-runner": "0.7.10",
     "jest-snapshot-serializer-ansi": "2.2.1",
     "jest-snapshot-serializer-raw": "2.0.0",
     "jest-watch-typeahead": "3.0.1",
