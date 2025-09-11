@@ -17,7 +17,7 @@
   "dependencies": {
     "@docusaurus/core": "3.8.1",
     "@docusaurus/preset-classic": "3.8.1",
-    "@mdx-js/react": "3.1.0",
+    "@mdx-js/react": "3.1.1",
     "@sandhose/prettier-animated-logo": "1.0.3",
     "clsx": "2.1.1",
     "codemirror-graphql": "2.2.2",
