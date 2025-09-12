@@ -27,13 +27,13 @@ function printCallExpression(path, options, print) {
 
   if (
     isTemplateLiteralSingleArg ||
+    // Don't break simple `import()` with long module name
+    isSimpleImportExpression(path) ||
     // Dangling comments are not handled, all these special cases should have arguments #9668
     // We want to keep CommonJS- and AMD-style require calls, and AMD-style
     // define calls, as a unit.
     // e.g. `define(["some/lib"], (lib) => {`
     isCommonsJsOrAmdModuleDefinition(path) ||
-    // Don't break simple import with long module name
-    isImportDefinition(path) ||
     // Keep test declarations on a single line
     // e.g. `it('long name', () => {`
     isTestCall(node, path.parent)
@@ -42,7 +42,6 @@ function printCallExpression(path, options, print) {
     iterateCallArgumentsPath(path, () => {
       printed.push(print());
     });
-
     if (!(isTemplateLiteralSingleArg && printed[0].label?.embed)) {
       return [
         isNew ? "new " : "",
@@ -98,13 +97,21 @@ function printCallee(path, print) {
   return print("callee");
 }
 
-function isImportDefinition(path) {
+function isSimpleImportExpression(path) {
   const { node } = path;
 
   const args = getCallArguments(node);
 
   if (
-    (node.type === "ImportExpression" || node.type === "TSImportType") &&
+    // `import("foo")`
+    (node.type === "ImportExpression" ||
+      // `type foo = import("foo")`
+      node.type === "TSImportType" ||
+      // `require("foo")`
+      (node.type === "CallExpression" &&
+        node.callee.type === "Identifier" &&
+        node.optional &&
+        node.callee.name === "require")) &&
     args.length === 1 &&
     !hasComment(args[0])
   ) {
