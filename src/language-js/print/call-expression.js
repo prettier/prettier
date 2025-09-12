@@ -118,7 +118,7 @@ function isSimpleImportExpression(path) {
     let source = args[0];
 
     // TODO: remove this once https://github.com/typescript-eslint/typescript-eslint/issues/11583 get fixed
-    if (source.type === "TSLiteralType") {
+    if (node.type === "TSImportType" && source.type === "TSLiteralType") {
       source = source.literal;
     }
 
