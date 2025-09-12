@@ -16,8 +16,7 @@ import { printFunctionTypeParameters, printOptionalToken } from "./misc.js";
 
 function printCallExpression(path, options, print) {
   const { node } = path;
-  const isNew = node.type === "NewExpression";
-  const isDynamicImport = node.type === "ImportExpression";
+  const isNewExpression = node.type === "NewExpression";
 
   const optional = printOptionalToken(path);
   const args = getCallArguments(node);
@@ -44,7 +43,7 @@ function printCallExpression(path, options, print) {
     });
     if (!(isTemplateLiteralSingleArg && printed[0].label?.embed)) {
       return [
-        isNew ? "new " : "",
+        isNewExpression ? "new " : "",
         printCallee(path, print),
         optional,
         printFunctionTypeParameters(path, options, print),
@@ -55,11 +54,14 @@ function printCallExpression(path, options, print) {
     }
   }
 
+  const isDynamicImport =
+    node.type === "ImportExpression" || node.type === "TSImportType";
+
   // We detect calls on member lookups and possibly print them in a
   // special chain format. See `printMemberChain` for more info.
   if (
     !isDynamicImport &&
-    !isNew &&
+    !isNewExpression &&
     isMemberish(node.callee) &&
     !path.call(
       (path) => pathNeedsParens(path, options),
@@ -71,7 +73,7 @@ function printCallExpression(path, options, print) {
   }
 
   const contents = [
-    isNew ? "new " : "",
+    isNewExpression ? "new " : "",
     printCallee(path, print),
     optional,
     printFunctionTypeParameters(path, options, print),
@@ -120,7 +122,7 @@ function isSimpleModuleImport(path) {
 
   const args = getCallArguments(node);
 
-  if (args.length !== 1 || !hasComment(args[0])) {
+  if (args.length !== 1 || hasComment(args[0])) {
     return false;
   }
 
