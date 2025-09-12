@@ -211,7 +211,13 @@ function printNode(path, options, print) {
             separator = [hardline, hardline];
           }
         } else {
-          separator = hardline;
+          // Check if we need to preserve empty line before end comments
+          const lastChild = children.at(-1);
+          const shouldPreserveEmptyLine =
+            isNode(lastChild, ["mapping"]) &&
+            isPreviousLineEmpty(options.originalText, locStart(endComments[0]));
+
+          separator = shouldPreserveEmptyLine ? [hardline, hardline] : hardline;
         }
       }
 
