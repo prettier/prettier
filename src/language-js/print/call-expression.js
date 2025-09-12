@@ -27,10 +27,9 @@ function printCallExpression(path, options, print) {
   if (
     isTemplateLiteralSingleArg ||
     // Dangling comments are not handled, all these special cases should have arguments #9668
-    // We want to keep CommonJS- and AMD-style require calls, and AMD-style
-    // define calls, as a unit.
+    // We want to keep AMD-style define calls as a unit.
     // e.g. `define(["some/lib"], (lib) => {`
-    isCommonsJsOrAmdModuleDefinition(path) ||
+    isAmdModuleDefinition(path) ||
     // Keep test declarations on a single line
     // e.g. `it('long name', () => {`
     isTestCall(node, path.parent)
@@ -94,7 +93,7 @@ function printCallee(path, print) {
   return print("callee");
 }
 
-function isCommonsJsOrAmdModuleDefinition(path) {
+function isAmdModuleDefinition(path) {
   const { node } = path;
 
   if (node.type !== "CallExpression" || node.optional) {
@@ -107,12 +106,6 @@ function isCommonsJsOrAmdModuleDefinition(path) {
 
   const args = getCallArguments(node);
 
-  // AMD module
-  if (node.callee.name === "require") {
-    return (args.length === 1 && isStringLiteral(args[0])) || args.length > 1;
-  }
-
-  // CommonJS module
   if (
     node.callee.name === "define" &&
     path.parent.type === "ExpressionStatement"

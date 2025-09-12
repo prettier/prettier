@@ -78,9 +78,12 @@ function printCallArguments(path, options, print) {
     printedArguments.push(argDoc);
   });
 
-  // Don't break simple import with long module name
+  // Don't break simple import/require with long module name
   if (
-    (node.type === "TSImportType" || node.type === "ImportExpression") &&
+    (node.type === "TSImportType" ||
+     node.type === "ImportExpression" ||
+     (node.type === "CallExpression" &&
+      node.callee.name === "require")) &&
     args.length === 1 &&
     !hasComment(args[0])
   ) {
