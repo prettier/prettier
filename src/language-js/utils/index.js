@@ -274,7 +274,7 @@ const isBinaryish = createTypeCheckFunction([
 function isMemberish(node) {
   return (
     isMemberExpression(node) ||
-    (node?.type === "BindExpression" && Boolean(node.object))
+    (node.type === "BindExpression" && Boolean(node.object))
   );
 }
 
