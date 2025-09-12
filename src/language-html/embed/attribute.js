@@ -2,6 +2,7 @@ import { group } from "../../document/builders.js";
 import { mapDoc } from "../../document/utils.js";
 import printAngularAttribute from "./angular-attributes.js";
 import printClassNames from "./class-names.js";
+import { printIframeAttribute } from "./iframe.js";
 import printSrcset from "./srcset.js";
 import { printStyleAttribute } from "./style.js";
 import printVueAttribute from "./vue-attributes.js";
@@ -35,6 +36,7 @@ function printAttribute(path, options) {
 
   for (const getValuePrinter of [
     printSrcset,
+    printIframeAttribute,
     printStyleAttribute,
     printClassNames,
     printVueAttribute,
