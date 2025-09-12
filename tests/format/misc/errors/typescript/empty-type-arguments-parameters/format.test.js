@@ -24,10 +24,5 @@ runFormatTest(
       "type Foo = <>() => {}",
     ],
   },
-  [
-    "typescript",
-    "babel-ts",
-    // TODO[@fisker]: Unable on this parser
-    // "oxc-ts",
-  ],
+  ["typescript", "babel-ts", "oxc-ts"],
 );
