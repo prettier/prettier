@@ -111,7 +111,7 @@ function isSimpleModuleImport(path) {
         node.type === "TSImportType" ||
         // `require("foo")`
         (node.type === "CallExpression" &&
-          node.optional &&
+          !node.optional &&
           node.callee.type === "Identifier" &&
           node.callee.name === "require")
       )
