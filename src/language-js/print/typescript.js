@@ -214,7 +214,16 @@ function printTypescript(path, options, print) {
     case "TSNonNullExpression":
       return [print("expression"), "!"];
     case "TSImportType":
-      return printCallExpression(path, options, print);
+      return [
+        printCallExpression(path, options, print),
+        !node.qualifier ? "" : [".", print("qualifier")],
+        printTypeParameters(
+          path,
+          options,
+          print,
+          node.typeArguments ? "typeArguments" : "typeParameters",
+        ),
+      ];
     case "TSLiteralType":
       return print("literal");
     case "TSIndexedAccessType":

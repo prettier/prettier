@@ -13,13 +13,11 @@ import {
 import printCallArguments from "./call-arguments.js";
 import printMemberChain from "./member-chain.js";
 import { printFunctionTypeParameters, printOptionalToken } from "./misc.js";
-import { printTypeParameters } from "./type-parameters.js";
 
 function printCallExpression(path, options, print) {
   const { node } = path;
   const isNew = node.type === "NewExpression";
   const isDynamicImport = node.type === "ImportExpression";
-  const isTSImport = node.type === "TSImportType";
 
   const optional = printOptionalToken(path);
   const args = getCallArguments(node);
@@ -46,20 +44,6 @@ function printCallExpression(path, options, print) {
     });
 
     if (!(isTemplateLiteralSingleArg && printed[0].label?.embed)) {
-      if (isTSImport) {
-        return [
-          "import",
-          group(["(", printed, ")"]),
-          !node.qualifier ? "" : [".", print("qualifier")],
-          printTypeParameters(
-            path,
-            options,
-            print,
-            node.typeArguments ? "typeArguments" : "typeParameters",
-          ),
-        ];
-      }
-
       return [
         isNew ? "new " : "",
         printCallee(path, print),
@@ -70,20 +54,6 @@ function printCallExpression(path, options, print) {
         ")",
       ];
     }
-  }
-
-  if (isTSImport) {
-    return [
-      "import",
-      printCallArguments(path, options, print),
-      !node.qualifier ? "" : [".", print("qualifier")],
-      printTypeParameters(
-        path,
-        options,
-        print,
-        node.typeArguments ? "typeArguments" : "typeParameters",
-      ),
-    ];
   }
 
   // We detect calls on member lookups and possibly print them in a
@@ -121,7 +91,7 @@ function printCallExpression(path, options, print) {
 function printCallee(path, print) {
   const { node } = path;
 
-  if (node.type === "ImportExpression") {
+  if (node.type === "ImportExpression" || node.type === "TSImportType") {
     return `import${node.phase ? `.${node.phase}` : ""}`;
   }
 

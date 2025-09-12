@@ -91,12 +91,16 @@ function printAbstractToken({ node }) {
 }
 
 function printFunctionTypeParameters(path, options, print) {
-  const fun = path.node;
-  if (fun.typeArguments) {
-    return print("typeArguments");
-  }
-  if (fun.typeParameters) {
-    return print("typeParameters");
+  const { node } = path;
+
+  if (node.type !== "TSImportType") {
+    if (node.typeArguments) {
+      return print("typeArguments");
+    }
+
+    if (node.typeParameters) {
+      return print("typeParameters");
+    }
   }
   return "";
 }
