@@ -28,7 +28,7 @@ function printCallExpression(path, options, print) {
   if (
     isTemplateLiteralSingleArg ||
     // Don't break simple `import()` with long module name
-    isSimpleImportExpression(path) ||
+    isSimpleModuleImport(path) ||
     // Dangling comments are not handled, all these special cases should have arguments #9668
     // We want to keep CommonJS- and AMD-style require calls, and AMD-style
     // define calls, as a unit.
@@ -97,37 +97,41 @@ function printCallee(path, print) {
   return print("callee");
 }
 
-function isSimpleImportExpression(path) {
+function isSimpleModuleImport(path) {
   const { node } = path;
+
+  if (
+    !(
+      // `import("foo")`
+      (
+        node.type === "ImportExpression" ||
+        // `type foo = import("foo")`
+        node.type === "TSImportType" ||
+        // `require("foo")`
+        (node.type === "CallExpression" &&
+          node.callee.type === "Identifier" &&
+          node.optional &&
+          node.callee.name === "require")
+      )
+    )
+  ) {
+    return false;
+  }
 
   const args = getCallArguments(node);
 
-  if (
-    // `import("foo")`
-    (node.type === "ImportExpression" ||
-      // `type foo = import("foo")`
-      node.type === "TSImportType" ||
-      // `require("foo")`
-      (node.type === "CallExpression" &&
-        node.callee.type === "Identifier" &&
-        node.optional &&
-        node.callee.name === "require")) &&
-    args.length === 1 &&
-    !hasComment(args[0])
-  ) {
-    let source = args[0];
-
-    // TODO: remove this once https://github.com/typescript-eslint/typescript-eslint/issues/11583 get fixed
-    if (node.type === "TSImportType" && source.type === "TSLiteralType") {
-      source = source.literal;
-    }
-
-    if (isStringLiteral(source)) {
-      return true;
-    }
+  if (args.length !== 1 || !hasComment(args[0])) {
+    return false;
   }
 
-  return false;
+  let source = args[0];
+
+  // TODO: remove this once https://github.com/typescript-eslint/typescript-eslint/issues/11583 get fixed
+  if (node.type === "TSImportType" && source.type === "TSLiteralType") {
+    source = source.literal;
+  }
+
+  return isStringLiteral(source);
 }
 
 function isCommonsJsOrAmdModuleDefinition(path) {
