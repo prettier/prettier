@@ -2,6 +2,7 @@ import { group, join } from "../../document/builders.js";
 import pathNeedsParens from "../needs-parens.js";
 import {
   getCallArguments,
+  hasComment,
   isCallExpression,
   isMemberish,
   isStringLiteral,
@@ -12,11 +13,13 @@ import {
 import printCallArguments from "./call-arguments.js";
 import printMemberChain from "./member-chain.js";
 import { printFunctionTypeParameters, printOptionalToken } from "./misc.js";
+import { printTypeParameters } from "./type-parameters.js";
 
 function printCallExpression(path, options, print) {
   const { node } = path;
   const isNew = node.type === "NewExpression";
   const isDynamicImport = node.type === "ImportExpression";
+  const isTSImport = node.type === "TSImportType";
 
   const optional = printOptionalToken(path);
   const args = getCallArguments(node);
@@ -29,7 +32,9 @@ function printCallExpression(path, options, print) {
     // Dangling comments are not handled, all these special cases should have arguments #9668
     // We want to keep AMD-style define calls as a unit.
     // e.g. `define(["some/lib"], (lib) => {`
-    isAmdModuleDefinition(path) ||
+    isCommonsJsOrAmdModuleDefinition(path) ||
+    // Don't break simple import with long module name
+    isImportDefinition(path) ||
     // Keep test declarations on a single line
     // e.g. `it('long name', () => {`
     isTestCall(node, path.parent)
@@ -38,7 +43,22 @@ function printCallExpression(path, options, print) {
     iterateCallArgumentsPath(path, () => {
       printed.push(print());
     });
+
     if (!(isTemplateLiteralSingleArg && printed[0].label?.embed)) {
+      if (isTSImport) {
+        return [
+          "import",
+          group(["(", printed, ")"]),
+          !node.qualifier ? "" : [".", print("qualifier")],
+          printTypeParameters(
+            path,
+            options,
+            print,
+            node.typeArguments ? "typeArguments" : "typeParameters",
+          ),
+        ];
+      }
+
       return [
         isNew ? "new " : "",
         printCallee(path, print),
@@ -49,6 +69,20 @@ function printCallExpression(path, options, print) {
         ")",
       ];
     }
+  }
+
+  if (isTSImport) {
+    return [
+      "import",
+      printCallArguments(path, options, print),
+      !node.qualifier ? "" : [".", print("qualifier")],
+      printTypeParameters(
+        path,
+        options,
+        print,
+        node.typeArguments ? "typeArguments" : "typeParameters",
+      ),
+    ];
   }
 
   // We detect calls on member lookups and possibly print them in a
@@ -93,7 +127,32 @@ function printCallee(path, print) {
   return print("callee");
 }
 
-function isAmdModuleDefinition(path) {
+function isImportDefinition(path) {
+  const { node } = path;
+
+  const args = getCallArguments(node);
+
+  if (
+    (node.type === "ImportExpression" || node.type === "TSImportType") &&
+    args.length === 1 &&
+    !hasComment(args[0])
+  ) {
+    let source = args[0];
+
+    // TODO: remove this once https://github.com/typescript-eslint/typescript-eslint/issues/11583 get fixed
+    if (source.type === "TSLiteralType") {
+      source = source.literal;
+    }
+
+    if (isStringLiteral(source)) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+function isCommonsJsOrAmdModuleDefinition(path) {
   const { node } = path;
 
   if (node.type !== "CallExpression" || node.optional) {
@@ -106,6 +165,12 @@ function isAmdModuleDefinition(path) {
 
   const args = getCallArguments(node);
 
+  // AMD module
+  if (node.callee.name === "require") {
+    return (args.length === 1 && isStringLiteral(args[0])) || args.length > 1;
+  }
+
+  // CommonJS module
   if (
     node.callee.name === "define" &&
     path.parent.type === "ExpressionStatement"
