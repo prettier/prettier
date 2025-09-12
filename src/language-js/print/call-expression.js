@@ -30,7 +30,8 @@ function printCallExpression(path, options, print) {
   if (
     isTemplateLiteralSingleArg ||
     // Dangling comments are not handled, all these special cases should have arguments #9668
-    // We want to keep AMD-style define calls as a unit.
+    // We want to keep CommonJS- and AMD-style require calls, and AMD-style
+    // define calls, as a unit.
     // e.g. `define(["some/lib"], (lib) => {`
     isCommonsJsOrAmdModuleDefinition(path) ||
     // Don't break simple import with long module name
