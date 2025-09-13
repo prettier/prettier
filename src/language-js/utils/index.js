@@ -354,6 +354,15 @@ function isTestCallCallee(node) {
   return isNodeMatches(node, testCallCalleePatterns);
 }
 
+const requirePatterns = [
+  "require.resolve",
+  "require.resolve.paths",
+];
+
+function isRequireCall(node) {
+  return isNodeMatches(node, requirePatterns);
+}
+
 // eg; `describe("some string", (done) => {})`
 function isTestCall(node, parent) {
   if (node?.type !== "CallExpression" || node.optional) {
@@ -1125,6 +1134,7 @@ export {
   isObjectType,
   isPrettierIgnoreComment,
   isRegExpLiteral,
+  isRequireCall,
   isSignedNumericLiteral,
   isSimpleCallArgument,
   isSimpleExpressionByNodeCount,
