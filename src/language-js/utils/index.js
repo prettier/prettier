@@ -390,23 +390,23 @@ function isTestCall(node, parent) {
   return false;
 }
 
-const requirePatterns = [
+const moduleImportPatterns = [
   "require",
   "require.resolve",
   "require.resolve.paths",
   "import.meta.resolve",
 ];
 
-function isRequireCallCallee(node) {
-  return isNodeMatches(node, requirePatterns);
+function isModuleImportCallCallee(node) {
+  return isNodeMatches(node, moduleImportPatterns);
 }
 
-function isRequireCall(node) {
+function isModuleImportCall(node) {
   if (node?.type !== "CallExpression" || node.optional) {
     return false;
   }
 
-  return isRequireCallCallee(node.callee);
+  return isModuleImportCallCallee(node.callee);
 }
 
 /** @return {(node: Estree.Node) => boolean} */
@@ -1136,6 +1136,7 @@ export {
   isMemberExpression,
   isMemberish,
   isMethod,
+  isModuleImportCall,
   isNextLineEmpty,
   isNullishCoalescing,
   isNumericLiteral,
@@ -1144,7 +1145,6 @@ export {
   isObjectType,
   isPrettierIgnoreComment,
   isRegExpLiteral,
-  isRequireCall,
   isSignedNumericLiteral,
   isSimpleCallArgument,
   isSimpleExpressionByNodeCount,
