@@ -340,16 +340,10 @@ function genericPrint(path, options, print) {
       });
     }
     case "thematicBreak": {
-      const { ancestors } = path;
-      const counter = ancestors.findIndex((node) => node.type === "list");
-      if (counter === -1) {
-        return "---";
-      }
-      const nthSiblingIndex = getNthListSiblingIndex(
-        ancestors[counter],
-        ancestors[counter + 1],
-      );
-      return nthSiblingIndex % 2 === 0 ? "***" : "---";
+      const depth = Array.isArray(path.ancestors)
+        ? path.ancestors.filter((node) => node && node.type === "list").length
+        : 0;
+      return depth % 2 === 0 ? "***" : "---";
     }
     case "linkReference":
       return [
