@@ -17,10 +17,7 @@ function isNodeMatchesNameOrPath(node, nameOrPath) {
     const name = names[index];
 
     if (index === 0) {
-      return (
-        (node.type === "Identifier" && node.name === name) ||
-        (node.type === "MetaProperty" && node.meta.name === name)
-      );
+      return node.type === "Identifier" && node.name === name;
     }
 
     if (node.type === "MetaProperty") {

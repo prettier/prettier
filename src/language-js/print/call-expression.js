@@ -5,7 +5,7 @@ import {
   hasComment,
   isCallExpression,
   isMemberish,
-  isRequireCall,
+  isModuleImportCall,
   isStringLiteral,
   isTemplateOnItsOwnLine,
   isTestCall,
@@ -110,8 +110,9 @@ function isSimpleModuleImport(path) {
         node.type === "ImportExpression" ||
         // `type foo = import("foo")`
         node.type === "TSImportType" ||
-        // `require("foo")`
-        isRequireCall(node)
+        // `require("foo")`, `require.resolve("foo")`, `require.resolve.paths("foo")`
+        // `import.meta.resolve("foo")`
+        isModuleImportCall(node)
       )
     )
   ) {
