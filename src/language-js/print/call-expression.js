@@ -5,6 +5,7 @@ import {
   hasComment,
   isCallExpression,
   isMemberish,
+  isRequireCall,
   isStringLiteral,
   isTemplateOnItsOwnLine,
   isTestCall,
@@ -112,8 +113,7 @@ function isSimpleModuleImport(path) {
         // `require("foo")`
         (node.type === "CallExpression" &&
           !node.optional &&
-          node.callee.type === "Identifier" &&
-          node.callee.name === "require")
+          isRequireCall(node.callee))
       )
     )
   ) {
