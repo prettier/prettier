@@ -354,12 +354,6 @@ function isTestCallCallee(node) {
   return isNodeMatches(node, testCallCalleePatterns);
 }
 
-const requirePatterns = ["require", "require.resolve", "require.resolve.paths"];
-
-function isRequireCall(node) {
-  return isNodeMatches(node, requirePatterns);
-}
-
 // eg; `describe("some string", (done) => {})`
 function isTestCall(node, parent) {
   if (node?.type !== "CallExpression" || node.optional) {
@@ -394,6 +388,25 @@ function isTestCall(node, parent) {
     );
   }
   return false;
+}
+
+const requirePatterns = [
+  "require",
+  "require.resolve",
+  "require.resolve.paths",
+  "import.meta.resolve",
+];
+
+function isRequireCallCallee(node) {
+  return isNodeMatches(node, requirePatterns);
+}
+
+function isRequireCall(node) {
+  if (node?.type !== "CallExpression" || node.optional) {
+    return false;
+  }
+
+  return isRequireCallCallee(node.callee);
 }
 
 /** @return {(node: Estree.Node) => boolean} */
