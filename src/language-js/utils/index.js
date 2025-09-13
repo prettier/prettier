@@ -354,10 +354,7 @@ function isTestCallCallee(node) {
   return isNodeMatches(node, testCallCalleePatterns);
 }
 
-const requirePatterns = [
-  "require.resolve",
-  "require.resolve.paths",
-];
+const requirePatterns = ["require.resolve", "require.resolve.paths"];
 
 function isRequireCall(node) {
   return isNodeMatches(node, requirePatterns);
