@@ -5178,6 +5178,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"html-event-attributes@npm:2.2.0":
+  version: 2.2.0
+  resolution: "html-event-attributes@npm:2.2.0"
+  checksum: 10/65a52d3a5aaa07e247ac118e5eca592ed617b777870fe6542dbedb18cbbb386cc002b45233379d6b64603d5fa0063e104a7c8142eee8db02ee9fec84878c4c11
+  languageName: node
+  linkType: hard
+
 "html-ua-styles@npm:0.1.0":
   version: 0.1.0
   resolution: "html-ua-styles@npm:0.1.0"
@@ -7559,6 +7566,7 @@ __metadata:
     graphql: "npm:16.11.0"
     hermes-parser: "npm:0.32.0"
     html-element-attributes: "npm:3.5.0"
+    html-event-attributes: "npm:2.2.0"
     html-ua-styles: "npm:0.1.0"
     ignore: "npm:7.0.5"
     import-meta-resolve: "npm:4.2.0"
