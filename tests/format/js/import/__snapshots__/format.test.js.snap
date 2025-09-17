@@ -524,6 +524,51 @@ import {
 ================================================================================
 `;
 
+exports[`log-module-name.js - {"bracketSpacing":false} format 1`] = `
+====================================options=====================================
+bracketSpacing: false
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import("./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module")
+import(
+  // Comment
+  "./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module"
+)
+
+=====================================output=====================================
+import("./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
+import(
+  // Comment
+  "./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module"
+);
+
+================================================================================
+`;
+
+exports[`log-module-name.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import("./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module")
+import(
+  // Comment
+  "./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module"
+)
+
+=====================================output=====================================
+import("./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
+import(
+  // Comment
+  "./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module"
+);
+
+================================================================================
+`;
+
 exports[`long-line.js - {"bracketSpacing":false} format 1`] = `
 ====================================options=====================================
 bracketSpacing: false

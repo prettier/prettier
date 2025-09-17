@@ -1,15 +1,18 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`variable-selector.less format 1`] = `
+exports[`17806.css format 1`] = `
 ====================================options=====================================
-parsers: ["less"]
+parsers: ["css", "scss", "less"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-@{selector}{}
+:root {
+  --l: , #000;
+}
 
 =====================================output=====================================
-@{selector} {
+:root {
+  --l: , #000;
 }
 
 ================================================================================

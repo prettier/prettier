@@ -232,6 +232,7 @@ export default [
       "unicorn/no-array-method-this-argument": "off",
       "unicorn/no-array-reduce": "off",
       "unicorn/no-array-reverse": "off",
+      "unicorn/no-array-sort": "off",
       "unicorn/no-await-expression-member": "off",
       "unicorn/no-for-loop": "off",
       "unicorn/no-hex-escape": "off",
@@ -356,7 +357,7 @@ export default [
     },
   },
   {
-    files: ["tests/**/*.js"],
+    files: ["tests/**/*.{js,cjs}"],
     rules: {
       // TODO: Enable this when we drop support for Node.js v14
       "logical-assignment-operators": "off",
