@@ -1,1 +1,1 @@
-runFormatTest(import.meta, ["scss"]);
+runFormatTest(import.meta, ["sassparser"]);
