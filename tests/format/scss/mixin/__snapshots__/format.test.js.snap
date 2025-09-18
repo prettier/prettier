@@ -141,8 +141,6 @@ trailingComma: "es5"
   @include transition(min-height, $spacer/2, ease-in-out);
 }
 
-
-
 =====================================output=====================================
 .foo {
   @include transition(min-height ($spacer/2) ease-in-out);
@@ -169,8 +167,6 @@ trailingComma: "none"
 .bar {
   @include transition(min-height, $spacer/2, ease-in-out);
 }
-
-
 
 =====================================output=====================================
 .foo {
