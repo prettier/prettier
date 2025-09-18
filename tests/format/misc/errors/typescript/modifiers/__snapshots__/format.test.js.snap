@@ -62,7 +62,7 @@ Cause: 'abstract' modifier cannot appear on a type member. (2:2)"
 `;
 
 exports[`snippet: #2 [oxc-ts] format 1`] = `
-"'abstract' modifier cannot appear on a type member. (2:3)
+"'abstract' modifier cannot appear on an index signature. (2:3)
   1 | interface Foo {
 > 2 |   abstract [index: string]: number
     |   ^^^^^^^^
@@ -88,7 +88,7 @@ Cause: 'abstract' modifier cannot appear on a type member. (2:2)"
 `;
 
 exports[`snippet: #3 [oxc-ts] format 1`] = `
-"'abstract' modifier cannot appear on a type member. (2:3)
+"'abstract' modifier cannot appear on an index signature. (2:3)
   1 | const foo: {
 > 2 |   abstract [index: string] : string
     |   ^^^^^^^^
@@ -166,7 +166,7 @@ Cause: Unexpected token, expected ";" (2:11)"
 `;
 
 exports[`snippet: #6 [oxc-ts] format 1`] = `
-"'accessor' modifier cannot appear on a type member. (2:3)
+"'accessor' modifier cannot appear on an index signature. (2:3)
   1 | interface Foo {
 > 2 |   accessor [index: string]: number
     |   ^^^^^^^^
@@ -192,7 +192,7 @@ Cause: Unexpected token, expected ";" (2:11)"
 `;
 
 exports[`snippet: #7 [oxc-ts] format 1`] = `
-"'accessor' modifier cannot appear on a type member. (2:3)
+"'accessor' modifier cannot appear on an index signature. (2:3)
   1 | const foo: {
 > 2 |   accessor [index: string] : string
     |   ^^^^^^^^
@@ -270,7 +270,7 @@ Cause: Unexpected token, expected ";" (2:8)"
 `;
 
 exports[`snippet: #10 [oxc-ts] format 1`] = `
-"'async' modifier cannot appear on a type member. (2:3)
+"'async' modifier cannot appear on an index signature. (2:3)
   1 | interface Foo {
 > 2 |   async [index: string]: number
     |   ^^^^^
@@ -296,7 +296,7 @@ Cause: Unexpected token, expected ";" (2:8)"
 `;
 
 exports[`snippet: #11 [oxc-ts] format 1`] = `
-"'async' modifier cannot appear on a type member. (2:3)
+"'async' modifier cannot appear on an index signature. (2:3)
   1 | const foo: {
 > 2 |   async [index: string] : string
     |   ^^^^^
@@ -374,7 +374,7 @@ Cause: Unexpected token, expected ";" (2:8)"
 `;
 
 exports[`snippet: #14 [oxc-ts] format 1`] = `
-"'const' modifier cannot appear on a type member. (2:3)
+"'const' modifier cannot appear on an index signature. (2:3)
   1 | interface Foo {
 > 2 |   const [index: string]: number
     |   ^^^^^
@@ -400,7 +400,7 @@ Cause: Unexpected token, expected ";" (2:8)"
 `;
 
 exports[`snippet: #15 [oxc-ts] format 1`] = `
-"'const' modifier cannot appear on a type member. (2:3)
+"'const' modifier cannot appear on an index signature. (2:3)
   1 | const foo: {
 > 2 |   const [index: string] : string
     |   ^^^^^
@@ -478,7 +478,7 @@ Cause: 'declare' modifier cannot appear on a type member. (2:2)"
 `;
 
 exports[`snippet: #18 [oxc-ts] format 1`] = `
-"'declare' modifier cannot appear on a type member. (2:3)
+"'declare' modifier cannot appear on an index signature. (2:3)
   1 | interface Foo {
 > 2 |   declare [index: string]: number
     |   ^^^^^^^
@@ -504,7 +504,7 @@ Cause: 'declare' modifier cannot appear on a type member. (2:2)"
 `;
 
 exports[`snippet: #19 [oxc-ts] format 1`] = `
-"'declare' modifier cannot appear on a type member. (2:3)
+"'declare' modifier cannot appear on an index signature. (2:3)
   1 | const foo: {
 > 2 |   declare [index: string] : string
     |   ^^^^^^^
@@ -582,7 +582,7 @@ Cause: Unexpected token, expected ";" (2:10)"
 `;
 
 exports[`snippet: #22 [oxc-ts] format 1`] = `
-"'default' modifier cannot appear on a type member. (2:3)
+"'default' modifier cannot appear on an index signature. (2:3)
   1 | interface Foo {
 > 2 |   default [index: string]: number
     |   ^^^^^^^
@@ -608,7 +608,7 @@ Cause: Unexpected token, expected ";" (2:10)"
 `;
 
 exports[`snippet: #23 [oxc-ts] format 1`] = `
-"'default' modifier cannot appear on a type member. (2:3)
+"'default' modifier cannot appear on an index signature. (2:3)
   1 | const foo: {
 > 2 |   default [index: string] : string
     |   ^^^^^^^
@@ -686,7 +686,7 @@ Cause: Unexpected token, expected ";" (2:9)"
 `;
 
 exports[`snippet: #26 [oxc-ts] format 1`] = `
-"'export' modifier cannot appear on a type member. (2:3)
+"'export' modifier cannot appear on an index signature. (2:3)
   1 | interface Foo {
 > 2 |   export [index: string]: number
     |   ^^^^^^
@@ -712,7 +712,7 @@ Cause: Unexpected token, expected ";" (2:9)"
 `;
 
 exports[`snippet: #27 [oxc-ts] format 1`] = `
-"'export' modifier cannot appear on a type member. (2:3)
+"'export' modifier cannot appear on an index signature. (2:3)
   1 | const foo: {
 > 2 |   export [index: string] : string
     |   ^^^^^^
@@ -790,7 +790,7 @@ Cause: Unexpected token, expected ";" (2:5)"
 `;
 
 exports[`snippet: #30 [oxc-ts] format 1`] = `
-"'in' modifier cannot appear on a type member. (2:3)
+"'in' modifier cannot appear on an index signature. (2:3)
   1 | interface Foo {
 > 2 |   in [index: string]: number
     |   ^^
@@ -816,7 +816,7 @@ Cause: Unexpected token, expected ";" (2:5)"
 `;
 
 exports[`snippet: #31 [oxc-ts] format 1`] = `
-"'in' modifier cannot appear on a type member. (2:3)
+"'in' modifier cannot appear on an index signature. (2:3)
   1 | const foo: {
 > 2 |   in [index: string] : string
     |   ^^
@@ -894,7 +894,7 @@ Cause: Unexpected token, expected ";" (2:6)"
 `;
 
 exports[`snippet: #34 [oxc-ts] format 1`] = `
-"'out' modifier cannot appear on a type member. (2:3)
+"'out' modifier cannot appear on an index signature. (2:3)
   1 | interface Foo {
 > 2 |   out [index: string]: number
     |   ^^^
@@ -920,7 +920,7 @@ Cause: Unexpected token, expected ";" (2:6)"
 `;
 
 exports[`snippet: #35 [oxc-ts] format 1`] = `
-"'out' modifier cannot appear on a type member. (2:3)
+"'out' modifier cannot appear on an index signature. (2:3)
   1 | const foo: {
 > 2 |   out [index: string] : string
     |   ^^^
@@ -998,7 +998,7 @@ Cause: 'override' modifier cannot appear on a type member. (2:2)"
 `;
 
 exports[`snippet: #38 [oxc-ts] format 1`] = `
-"'override' modifier cannot appear on a type member. (2:3)
+"'override' modifier cannot appear on an index signature. (2:3)
   1 | interface Foo {
 > 2 |   override [index: string]: number
     |   ^^^^^^^^
@@ -1024,7 +1024,7 @@ Cause: 'override' modifier cannot appear on a type member. (2:2)"
 `;
 
 exports[`snippet: #39 [oxc-ts] format 1`] = `
-"'override' modifier cannot appear on a type member. (2:3)
+"'override' modifier cannot appear on an index signature. (2:3)
   1 | const foo: {
 > 2 |   override [index: string] : string
     |   ^^^^^^^^
@@ -1102,7 +1102,7 @@ Cause: 'private' modifier cannot appear on a type member. (2:2)"
 `;
 
 exports[`snippet: #42 [oxc-ts] format 1`] = `
-"'private' modifier cannot appear on a type member. (2:3)
+"'private' modifier cannot appear on an index signature. (2:3)
   1 | interface Foo {
 > 2 |   private [index: string]: number
     |   ^^^^^^^
@@ -1128,7 +1128,7 @@ Cause: 'private' modifier cannot appear on a type member. (2:2)"
 `;
 
 exports[`snippet: #43 [oxc-ts] format 1`] = `
-"'private' modifier cannot appear on a type member. (2:3)
+"'private' modifier cannot appear on an index signature. (2:3)
   1 | const foo: {
 > 2 |   private [index: string] : string
     |   ^^^^^^^
@@ -1206,7 +1206,7 @@ Cause: 'protected' modifier cannot appear on a type member. (2:2)"
 `;
 
 exports[`snippet: #46 [oxc-ts] format 1`] = `
-"'protected' modifier cannot appear on a type member. (2:3)
+"'protected' modifier cannot appear on an index signature. (2:3)
   1 | interface Foo {
 > 2 |   protected [index: string]: number
     |   ^^^^^^^^^
@@ -1232,7 +1232,7 @@ Cause: 'protected' modifier cannot appear on a type member. (2:2)"
 `;
 
 exports[`snippet: #47 [oxc-ts] format 1`] = `
-"'protected' modifier cannot appear on a type member. (2:3)
+"'protected' modifier cannot appear on an index signature. (2:3)
   1 | const foo: {
 > 2 |   protected [index: string] : string
     |   ^^^^^^^^^
@@ -1310,7 +1310,7 @@ Cause: 'public' modifier cannot appear on a type member. (2:2)"
 `;
 
 exports[`snippet: #50 [oxc-ts] format 1`] = `
-"'public' modifier cannot appear on a type member. (2:3)
+"'public' modifier cannot appear on an index signature. (2:3)
   1 | interface Foo {
 > 2 |   public [index: string]: number
     |   ^^^^^^
@@ -1336,7 +1336,7 @@ Cause: 'public' modifier cannot appear on a type member. (2:2)"
 `;
 
 exports[`snippet: #51 [oxc-ts] format 1`] = `
-"'public' modifier cannot appear on a type member. (2:3)
+"'public' modifier cannot appear on an index signature. (2:3)
   1 | const foo: {
 > 2 |   public [index: string] : string
     |   ^^^^^^
@@ -1414,7 +1414,7 @@ Cause: 'static' modifier cannot appear on a type member. (2:2)"
 `;
 
 exports[`snippet: #54 [oxc-ts] format 1`] = `
-"'static' modifier cannot appear on a type member. (2:3)
+"'static' modifier cannot appear on an index signature. (2:3)
   1 | interface Foo {
 > 2 |   static [index: string]: number
     |   ^^^^^^
@@ -1440,7 +1440,7 @@ Cause: 'static' modifier cannot appear on a type member. (2:2)"
 `;
 
 exports[`snippet: #55 [oxc-ts] format 1`] = `
-"'static' modifier cannot appear on a type member. (2:3)
+"'static' modifier cannot appear on an index signature. (2:3)
   1 | const foo: {
 > 2 |   static [index: string] : string
     |   ^^^^^^
@@ -1463,6 +1463,14 @@ exports[`snippet: #56 [babel-ts] format 1`] = `
     |   ^
   3 | }
 Cause: 'readonly' modifier can only appear on a property declaration or index signature. (2:2)"
+`;
+
+exports[`snippet: #56 [oxc-ts] format 1`] = `
+"'readonly' modifier can only appear on a property declaration or index signature. (2:3)
+  1 | interface Foo {
+> 2 |   readonly method();
+    |   ^^^^^^^^
+  3 | }"
 `;
 
 exports[`snippet: #56 [typescript] format 1`] = `
@@ -1983,6 +1991,14 @@ exports[`snippet: #82 [babel-ts] format 1`] = `
 Cause: Class methods cannot have the 'declare' modifier. (2:2)"
 `;
 
+exports[`snippet: #82 [oxc-ts] format 1`] = `
+"'declare' modifier cannot appear on class elements of this kind. (2:3)
+  1 | class Foo {
+> 2 |   declare method() {}
+    |   ^^^^^^^
+  3 | }"
+`;
+
 exports[`snippet: #82 [typescript] format 1`] = `
 "'declare' modifier cannot appear on class elements of this kind. (2:3)
   1 | class Foo {
@@ -1999,6 +2015,14 @@ exports[`snippet: #83 [babel-ts] format 1`] = `
     |   ^
   3 | }
 Cause: Class methods cannot have the 'readonly' modifier. (2:2)"
+`;
+
+exports[`snippet: #83 [oxc-ts] format 1`] = `
+"'readonly' modifier can only appear on a property declaration or index signature. (2:3)
+  1 | class Foo {
+> 2 |   readonly method() {}
+    |   ^^^^^^^^
+  3 | }"
 `;
 
 exports[`snippet: #83 [typescript] format 1`] = `
