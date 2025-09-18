@@ -7601,7 +7601,7 @@ __metadata:
     remark-math: "npm:3.0.1"
     remark-parse: "npm:8.0.3"
     rollup-plugin-license: "npm:3.6.0"
-    sdbm: "npm:2.0.0"
+    sdbm: "npm:3.0.0"
     search-closest: "npm:1.1.0"
     semver: "npm:7.7.2"
     serialize-javascript: "npm:6.0.2"
@@ -7966,10 +7966,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sdbm@npm:2.0.0":
-  version: 2.0.0
-  resolution: "sdbm@npm:2.0.0"
-  checksum: 10/1a07754d5ae809230e865f54afc82c774188781c591bd19412d1f4095e43ea158e0791cb0cf66be5063d230439c67df38db56bcfebc1bfb9833dd3be604bb3fc
+"sdbm@npm:3.0.0":
+  version: 3.0.0
+  resolution: "sdbm@npm:3.0.0"
+  checksum: 10/77c2e9e04d78f468252a64f571c3763fcde5c200c963cc7ba4b7b51ad44b3905d5775a9c68c172d17b45111a26b4ff96d12168972e856ed0631997e6a21de07f
   languageName: node
   linkType: hard
 

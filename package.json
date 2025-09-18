@@ -96,7 +96,7 @@
     "remark-footnotes": "2.0.0",
     "remark-math": "3.0.1",
     "remark-parse": "8.0.3",
-    "sdbm": "2.0.0",
+    "sdbm": "3.0.0",
     "search-closest": "1.1.0",
     "smol-toml": "1.4.2",
     "strip-ansi": "7.1.2",
