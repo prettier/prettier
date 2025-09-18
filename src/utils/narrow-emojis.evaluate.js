@@ -112,5 +112,6 @@ const narrowEmojis = [
 ];
 
 assert.equal(new Set(narrowEmojis).size, narrowEmojis.length);
+assert.equal(narrowEmojis.join("").length, narrowEmojis.length);
 
 export default narrowEmojis.sort().join("");
