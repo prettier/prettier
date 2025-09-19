@@ -468,7 +468,9 @@ printWidth: 80
   [target]="!x"
   [target]="a"
   [target]="a"
-  [target]="a // hello"
+  [target]="
+    a // hello
+  "
   [target]="a.b"
   [target]="a?.b"
   [target]="a?.[b]"
@@ -480,7 +482,9 @@ printWidth: 80
   (target)="a = 1"
   (target)="a.b = 1"
   (target)="a[b] = 1"
-  (target)="(a) // hello"
+  (target)="
+    (a) // hello
+  "
   (target)="(a); (b)"
   (event)="(0)"
   (event)="(a.b)"
@@ -747,7 +751,9 @@ printWidth: 80
   [target]="!x"
   [target]="a"
   [target]="a"
-  [target]="a // hello"
+  [target]="
+    a // hello
+  "
   [target]="a.b"
   [target]="a?.b"
   [target]="a?.[b]"
@@ -759,7 +765,9 @@ printWidth: 80
   (target)="a = 1"
   (target)="a.b = 1"
   (target)="a[b] = 1"
-  (target)="(a) // hello"
+  (target)="
+    (a) // hello
+  "
   (target)="(a); (b)"
   (event)="(0)"
   (event)="(a.b)"
@@ -1653,7 +1661,9 @@ trailingComma: "es5"
   [target]="!x"
   [target]="a"
   [target]="a"
-  [target]="a // hello"
+  [target]="
+    a // hello
+  "
   [target]="a.b"
   [target]="a?.b"
   [target]="a?.[b]"
@@ -1665,7 +1675,9 @@ trailingComma: "es5"
   (target)="a = 1"
   (target)="a.b = 1"
   (target)="a[b] = 1"
-  (target)="(a) // hello"
+  (target)="
+    (a) // hello
+  "
   (target)="(a); (b)"
   (event)="(0)"
   (event)="(a.b)"
@@ -1932,7 +1944,9 @@ trailingComma: "none"
   [target]="!x"
   [target]="a"
   [target]="a"
-  [target]="a // hello"
+  [target]="
+    a // hello
+  "
   [target]="a.b"
   [target]="a?.b"
   [target]="a?.[b]"
@@ -1944,7 +1958,9 @@ trailingComma: "none"
   (target)="a = 1"
   (target)="a.b = 1"
   (target)="a[b] = 1"
-  (target)="(a) // hello"
+  (target)="
+    (a) // hello
+  "
   (target)="(a); (b)"
   (event)="(0)"
   (event)="(a.b)"
@@ -3027,11 +3043,19 @@ printWidth: 80
 <div>{{ !x }}</div>
 <div>{{ a }}</div>
 <div>{{ a }}</div>
-<div>{{ a // hello }}</div>
+<div>
+  {{
+    a // hello
+  }}
+</div>
 <div>{{ a.b }}</div>
 <div>{{ a?.b() }}</div>
 <div>{{ a?.b }}</div>
-<div>{{ a // hello }}</div>
+<div>
+  {{
+    a // hello
+  }}
+</div>
 <label for="transmissionLayoutRadioButton">{{
   "SearchSelection.transmissionLayoutRadioButton"
     | localize: localizationSection
@@ -3194,11 +3218,19 @@ printWidth: 80
 <div>{{ !x }}</div>
 <div>{{ a }}</div>
 <div>{{ a }}</div>
-<div>{{ a // hello }}</div>
+<div>
+  {{
+    a // hello
+  }}
+</div>
 <div>{{ a.b }}</div>
 <div>{{ a?.b() }}</div>
 <div>{{ a?.b }}</div>
-<div>{{ a // hello }}</div>
+<div>
+  {{
+    a // hello
+  }}
+</div>
 <label for="transmissionLayoutRadioButton">
   {{
     "SearchSelection.transmissionLayoutRadioButton"
@@ -3740,11 +3772,19 @@ trailingComma: "es5"
 <div>{{ !x }}</div>
 <div>{{ a }}</div>
 <div>{{ a }}</div>
-<div>{{ a // hello }}</div>
+<div>
+  {{
+    a // hello
+  }}
+</div>
 <div>{{ a.b }}</div>
 <div>{{ a?.b() }}</div>
 <div>{{ a?.b }}</div>
-<div>{{ a // hello }}</div>
+<div>
+  {{
+    a // hello
+  }}
+</div>
 <label for="transmissionLayoutRadioButton">{{
   "SearchSelection.transmissionLayoutRadioButton"
     | localize: localizationSection
@@ -3907,11 +3947,19 @@ trailingComma: "none"
 <div>{{ !x }}</div>
 <div>{{ a }}</div>
 <div>{{ a }}</div>
-<div>{{ a // hello }}</div>
+<div>
+  {{
+    a // hello
+  }}
+</div>
 <div>{{ a.b }}</div>
 <div>{{ a?.b() }}</div>
 <div>{{ a?.b }}</div>
-<div>{{ a // hello }}</div>
+<div>
+  {{
+    a // hello
+  }}
+</div>
 <label for="transmissionLayoutRadioButton">{{
   "SearchSelection.transmissionLayoutRadioButton"
     | localize: localizationSection
