@@ -12,9 +12,7 @@ import(
 );
 
 =====================================output=====================================
-import(
-  "myreallylongdynamicallyloadedmodulenamemyreallylongdynamicallyloadedmodulename"
-);
+import("myreallylongdynamicallyloadedmodulenamemyreallylongdynamicallyloadedmodulename");
 
 ================================================================================
 `;
@@ -31,9 +29,7 @@ import(
 );
 
 =====================================output=====================================
-import(
-  "myreallylongdynamicallyloadedmodulenamemyreallylongdynamicallyloadedmodulename"
-);
+import("myreallylongdynamicallyloadedmodulenamemyreallylongdynamicallyloadedmodulename");
 
 ================================================================================
 `;
@@ -50,9 +46,7 @@ import(
 );
 
 =====================================output=====================================
-import(
-  "myreallylongdynamicallyloadedmodulenamemyreallylongdynamicallyloadedmodulename"
-);
+import("myreallylongdynamicallyloadedmodulenamemyreallylongdynamicallyloadedmodulename");
 
 ================================================================================
 `;

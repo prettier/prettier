@@ -42,8 +42,8 @@ function getEndLocation(node) {
   return endLocation;
 }
 
-function printChild(childPath, options, print) {
-  const child = childPath.node;
+function printChild(path, options, print) {
+  const child = path.node;
 
   if (hasPrettierIgnore(child)) {
     const endLocation = getEndLocation(child);
@@ -140,8 +140,8 @@ function printChildren(path, options, print) {
     return [
       breakParent,
 
-      ...path.map((childPath) => {
-        const childNode = childPath.node;
+      ...path.map(() => {
+        const childNode = path.node;
         const prevBetweenLine = !childNode.prev
           ? ""
           : printBetweenLine(childNode.prev, childNode);
@@ -152,27 +152,25 @@ function printChildren(path, options, print) {
                 prevBetweenLine,
                 forceNextEmptyLine(childNode.prev) ? hardline : "",
               ],
-          printChild(childPath, options, print),
+          printChild(path, options, print),
         ];
       }, "children"),
     ];
   }
 
   const groupIds = node.children.map(() => Symbol(""));
-  return path.map((childPath, childIndex) => {
-    const childNode = childPath.node;
-
+  return path.map(({ node: childNode, index: childIndex }) => {
     if (isTextLikeNode(childNode)) {
       if (childNode.prev && isTextLikeNode(childNode.prev)) {
         const prevBetweenLine = printBetweenLine(childNode.prev, childNode);
         if (prevBetweenLine) {
           if (forceNextEmptyLine(childNode.prev)) {
-            return [hardline, hardline, printChild(childPath, options, print)];
+            return [hardline, hardline, printChild(path, options, print)];
           }
-          return [prevBetweenLine, printChild(childPath, options, print)];
+          return [prevBetweenLine, printChild(path, options, print)];
         }
       }
-      return printChild(childPath, options, print);
+      return printChild(path, options, print);
     }
 
     const prevParts = [];
@@ -222,7 +220,7 @@ function printChildren(path, options, print) {
       ...prevParts,
       group([
         ...leadingParts,
-        group([printChild(childPath, options, print), ...trailingParts], {
+        group([printChild(path, options, print), ...trailingParts], {
           id: groupIds[childIndex],
         }),
       ]),

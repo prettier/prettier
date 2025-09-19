@@ -182,8 +182,6 @@ const allowedReasonCodes = new Set([
   "StrictFunction",
   "ForInOfLoopInitializer",
 
-  "EmptyTypeArguments",
-  "EmptyTypeParameters",
   "ConstructorHasTypeParameters",
 
   "UnsupportedParameterPropertyKind",

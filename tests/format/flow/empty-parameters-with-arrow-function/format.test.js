@@ -1,6 +1,6 @@
 runFormatTest(
   import.meta,
-  ["typescript", "flow"],
+  ["flow"],
   // #13817 require those options to reproduce
   { arrowParens: "avoid", trailingComma: "all" },
 );

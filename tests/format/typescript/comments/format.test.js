@@ -1,3 +1,1 @@
-runFormatTest(import.meta, ["typescript"], {
-  errors: { "oxc-ts": ["type-parameters.ts"] },
-});
+runFormatTest(import.meta, ["typescript"]);

@@ -125,3 +125,57 @@ label {
 
 ================================================================================
 `;
+
+exports[`5636.scss - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+.foo {
+  @include transition(min-height ($spacer/2) ease-in-out);
+}
+
+.bar {
+  @include transition(min-height, $spacer/2, ease-in-out);
+}
+
+=====================================output=====================================
+.foo {
+  @include transition(min-height ($spacer/2) ease-in-out);
+}
+
+.bar {
+  @include transition(min-height, $spacer/2, ease-in-out);
+}
+
+================================================================================
+`;
+
+exports[`5636.scss - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+.foo {
+  @include transition(min-height ($spacer/2) ease-in-out);
+}
+
+.bar {
+  @include transition(min-height, $spacer/2, ease-in-out);
+}
+
+=====================================output=====================================
+.foo {
+  @include transition(min-height ($spacer/2) ease-in-out);
+}
+
+.bar {
+  @include transition(min-height, $spacer/2, ease-in-out);
+}
+
+================================================================================
+`;

@@ -451,8 +451,7 @@ function canAttachComment(node) {
   return node.kind !== "Comment";
 }
 
-function printComment(commentPath) {
-  const comment = commentPath.node;
+function printComment({ node: comment }) {
   if (comment.kind === "Comment") {
     return "#" + comment.value.trimEnd();
   }

@@ -57,3 +57,22 @@ class D<const +T> {}
 
 ================================================================================
 `;
+
+exports[`empty_generic_break.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class X {
+	a: B<> = SuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperLong;
+}
+
+=====================================output=====================================
+class X {
+  a: B<> =
+    SuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperLong;
+}
+
+================================================================================
+`;

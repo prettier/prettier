@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`issue-13817.ts - {"arrowParens":"avoid","trailingComma":"all"} format 1`] = `
+exports[`issue-13817.js - {"arrowParens":"avoid","trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
-parsers: ["typescript", "flow"]
+parsers: ["flow"]
 printWidth: 80
 trailingComma: "all"
                                                                                 | printWidth

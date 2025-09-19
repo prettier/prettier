@@ -551,6 +551,34 @@ body {
 ================================================================================
 `;
 
+exports[`nestled.css format 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/*
+ * First comment
+ *//*!
+ * Second glued comment start with ! and followed with CSS Rule
+ */
+.foo {
+  display: block;
+}
+
+=====================================output=====================================
+/*
+ * First comment
+ */ /*!
+ * Second glued comment start with ! and followed with CSS Rule
+ */
+.foo {
+  display: block;
+}
+
+================================================================================
+`;
+
 exports[`prettier-ignore.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]

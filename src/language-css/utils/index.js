@@ -95,7 +95,7 @@ function insideAtRuleNode(path, atRuleNameOrAtRuleNames) {
 function insideURLFunctionInImportAtRuleNode(path) {
   const { node } = path;
   return (
-    node.groups[0].value === "url" &&
+    node.groups[0]?.value === "url" &&
     node.groups.length === 2 &&
     path.findAncestor((node) => node.type === "css-atrule")?.name === "import"
   );
