@@ -638,10 +638,11 @@ Since plugins can be resolved using relative paths, when working on one you can 
 
 ```js
 import * as prettier from "prettier";
+
 const code = "(add 1 2)";
 await prettier.format(code, {
   parser: "lisp",
-  plugins: ["."],
+  plugins: ["./index.js"],
 });
 ```
 
