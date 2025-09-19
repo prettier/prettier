@@ -460,15 +460,15 @@ At the time of dispatching, Prettier will have annotated each AST comment node (
 
 #### Manually attaching a comment
 
-The `util.addTrailingComment`/`addLeadingComment`/`addDanglingComment` functions can be used to manually attach a comment to an AST node. An example `ownLine` function that ensures a comment does not follow a "punctuation" node (made up for demonstration purposes) might look like:
+The `prettier.util.addTrailingComment`/`addLeadingComment`/`addDanglingComment` functions can be used to manually attach a comment to an AST node. An example `ownLine` function that ensures a comment does not follow a "punctuation" node (made up for demonstration purposes) might look like:
 
 ```js
-import { util } from "prettier";
+import * as prettier from "prettier";
 
 function ownLine(comment, text, options, ast, isLastComment) {
   const { precedingNode } = comment;
   if (precedingNode && precedingNode.type === "punctuation") {
-    util.addTrailingComment(precedingNode, comment);
+    prettier.util.addTrailingComment(precedingNode, comment);
     return true;
   }
   return false;
@@ -479,7 +479,7 @@ Nodes with comments are expected to have a `comments` property containing an arr
 
 <!-- TODO: add a note that this might change in the future -->
 
-The example above uses `util.addTrailingComment`, which automatically sets `comment.leading`/`trailing`/`printed` to appropriate values and adds the comment to the AST node's `comments` array.
+The example above uses `prettier.util.addTrailingComment`, which automatically sets `comment.leading`/`trailing`/`printed` to appropriate values and adds the comment to the AST node's `comments` array.
 
 The `--debug-print-comments` CLI flag can help with debugging comment attachment issues. It prints a detailed list of comments, which includes information on how every comment was classified (`ownLine`/`endOfLine`/`remaining`, `leading`/`trailing`/`dangling`) and to which node it was attached. For Prettier’s built-in languages, this information is also available on the Playground (the 'show comments' checkbox in the Debug section).
 
