@@ -588,9 +588,9 @@ printWidth: 80
 
 =====================================output=====================================
 <menu>
-  <li><button onclick="copy();">Copy</button></li>
-  <li><button onclick="cut();">Cut</button></li>
-  <li><button onclick="paste();">Paste</button></li>
+  <li><button onclick="copy()">Copy</button></li>
+  <li><button onclick="cut()">Cut</button></li>
+  <li><button onclick="paste()">Paste</button></li>
 </menu>
 
 ================================================================================
@@ -611,9 +611,9 @@ printWidth: 80
 
 =====================================output=====================================
 <menu>
-  <li><button onclick="copy();">Copy</button></li>
-  <li><button onclick="cut();">Cut</button></li>
-  <li><button onclick="paste();">Paste</button></li>
+  <li><button onclick="copy()">Copy</button></li>
+  <li><button onclick="cut()">Cut</button></li>
+  <li><button onclick="paste()">Paste</button></li>
 </menu>
 
 ================================================================================
@@ -632,9 +632,9 @@ printWidth: Infinity
 
 =====================================output=====================================
 <menu>
-  <li><button onclick="copy();">Copy</button></li>
-  <li><button onclick="cut();">Cut</button></li>
-  <li><button onclick="paste();">Paste</button></li>
+  <li><button onclick="copy()">Copy</button></li>
+  <li><button onclick="cut()">Cut</button></li>
+  <li><button onclick="paste()">Paste</button></li>
 </menu>
 
 ================================================================================
@@ -657,7 +657,7 @@ printWidth: 1
   <li>
     <button
       onclick="
-        copy();
+        copy()
       "
     >
       Copy
@@ -666,7 +666,7 @@ printWidth: 1
   <li>
     <button
       onclick="
-        cut();
+        cut()
       "
     >
       Cut
@@ -675,7 +675,7 @@ printWidth: 1
   <li>
     <button
       onclick="
-        paste();
+        paste()
       "
     >
       Paste
@@ -700,9 +700,9 @@ printWidth: 80
 
 =====================================output=====================================
 <menu>
-  <li><button onclick="copy();">Copy</button></li>
-  <li><button onclick="cut();">Cut</button></li>
-  <li><button onclick="paste();">Paste</button></li>
+  <li><button onclick="copy()">Copy</button></li>
+  <li><button onclick="cut()">Cut</button></li>
+  <li><button onclick="paste()">Paste</button></li>
 </menu>
 
 ================================================================================

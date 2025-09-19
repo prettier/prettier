@@ -269,6 +269,8 @@ export {
   babelTSExpression as __vue_ts_expression,
   /** for vue event binding to handle semicolon */
   babel as __vue_event_binding,
+  /** for html event binding to handle semicolon */
+  babel as __html_event_binding,
   /** for vue event binding written in TS to handle semicolon */
   babelTs as __vue_ts_event_binding,
   /** verify that we can print this AST */

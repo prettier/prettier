@@ -2,7 +2,7 @@ import { group } from "../../document/builders.js";
 import { mapDoc } from "../../document/utils.js";
 import printAngularAttribute from "./angular-attributes.js";
 import printClassNames from "./class-names.js";
-import { printEventAttribute } from "./event.js";
+import printEventAttribute from "./event.js";
 import printSrcset from "./srcset.js";
 import { printStyleAttribute } from "./style.js";
 import printVueAttribute from "./vue-attributes.js";

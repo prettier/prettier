@@ -9,6 +9,7 @@ test("builtin parsers", async () => {
   expect(parserNames).toMatchInlineSnapshot(`
     [
       "__babel_estree",
+      "__html_event_binding",
       "__js_expression",
       "__ng_action",
       "__ng_binding",
