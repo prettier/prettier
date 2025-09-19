@@ -1,4 +1,4 @@
-import { htmlEventAttributes } from "html-event-attributes";
+import htmlEventAttributes from "@prettier/html-event-attributes";
 import { getUnescapedAttributeValue } from "../utils/index.js";
 import { formatAttributeValue, shouldHugJsExpression } from "./utils.js";
 
