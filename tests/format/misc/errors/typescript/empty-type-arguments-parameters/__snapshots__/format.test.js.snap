@@ -49,6 +49,12 @@ exports[`snippet: #3 [babel-ts] format 1`] = `
 Cause: Type parameter list cannot be empty. (1:12)"
 `;
 
+exports[`snippet: #3 [oxc-ts] format 1`] = `
+"Type parameter list cannot be empty. (1:13)
+> 1 | function foo<>(){}
+    |             ^^"
+`;
+
 exports[`snippet: #3 [typescript] format 1`] = `
 "Type parameter list cannot be empty. (1:13)
 > 1 | function foo<>(){}
@@ -61,6 +67,12 @@ exports[`snippet: #4 [babel-ts] format 1`] = `
 > 1 | (function foo<>(){})
     |              ^
 Cause: Type parameter list cannot be empty. (1:13)"
+`;
+
+exports[`snippet: #4 [oxc-ts] format 1`] = `
+"Type parameter list cannot be empty. (1:14)
+> 1 | (function foo<>(){})
+    |              ^^"
 `;
 
 exports[`snippet: #4 [typescript] format 1`] = `
@@ -77,6 +89,12 @@ exports[`snippet: #5 [babel-ts] format 1`] = `
 Cause: Type parameter list cannot be empty. (1:9)"
 `;
 
+exports[`snippet: #5 [oxc-ts] format 1`] = `
+"Type parameter list cannot be empty. (1:10)
+> 1 | class Foo<> {}
+    |          ^^"
+`;
+
 exports[`snippet: #5 [typescript] format 1`] = `
 "Type parameter list cannot be empty. (1:10)
 > 1 | class Foo<> {}
@@ -89,6 +107,12 @@ exports[`snippet: #6 [babel-ts] format 1`] = `
 > 1 | (class Foo<> {})
     |           ^
 Cause: Type parameter list cannot be empty. (1:10)"
+`;
+
+exports[`snippet: #6 [oxc-ts] format 1`] = `
+"Type parameter list cannot be empty. (1:11)
+> 1 | (class Foo<> {})
+    |           ^^"
 `;
 
 exports[`snippet: #6 [typescript] format 1`] = `
@@ -105,6 +129,12 @@ exports[`snippet: #7 [babel-ts] format 1`] = `
 Cause: Type parameter list cannot be empty. (1:22)"
 `;
 
+exports[`snippet: #7 [oxc-ts] format 1`] = `
+"Type parameter list cannot be empty. (1:23)
+> 1 | class Foo {constructor<>()}
+    |                       ^^"
+`;
+
 exports[`snippet: #7 [typescript] format 1`] = `
 "Type parameter list cannot be empty. (1:23)
 > 1 | class Foo {constructor<>()}
@@ -117,6 +147,12 @@ exports[`snippet: #8 [babel-ts] format 1`] = `
 > 1 | (class Foo {constructor<>()})
     |                        ^
 Cause: Type parameter list cannot be empty. (1:23)"
+`;
+
+exports[`snippet: #8 [oxc-ts] format 1`] = `
+"Type parameter list cannot be empty. (1:24)
+> 1 | (class Foo {constructor<>()})
+    |                        ^^"
 `;
 
 exports[`snippet: #8 [typescript] format 1`] = `
@@ -133,6 +169,12 @@ exports[`snippet: #9 [babel-ts] format 1`] = `
 Cause: Type parameter list cannot be empty. (1:17)"
 `;
 
+exports[`snippet: #9 [oxc-ts] format 1`] = `
+"Type parameter list cannot be empty. (1:18)
+> 1 | class Foo {method<>()}
+    |                  ^^"
+`;
+
 exports[`snippet: #9 [typescript] format 1`] = `
 "Type parameter list cannot be empty. (1:18)
 > 1 | class Foo {method<>()}
@@ -145,6 +187,12 @@ exports[`snippet: #10 [babel-ts] format 1`] = `
 > 1 | (class Foo {method<>()})
     |                   ^
 Cause: Type parameter list cannot be empty. (1:18)"
+`;
+
+exports[`snippet: #10 [oxc-ts] format 1`] = `
+"Type parameter list cannot be empty. (1:19)
+> 1 | (class Foo {method<>()})
+    |                   ^^"
 `;
 
 exports[`snippet: #10 [typescript] format 1`] = `
@@ -161,6 +209,12 @@ exports[`snippet: #11 [babel-ts] format 1`] = `
 Cause: Type parameter list cannot be empty. (1:21)"
 `;
 
+exports[`snippet: #11 [oxc-ts] format 1`] = `
+"Type parameter list cannot be empty. (1:22)
+> 1 | class Foo {get getter<>()}
+    |                      ^^"
+`;
+
 exports[`snippet: #11 [typescript] format 1`] = `
 "Type parameter list cannot be empty. (1:22)
 > 1 | class Foo {get getter<>()}
@@ -173,6 +227,12 @@ exports[`snippet: #12 [babel-ts] format 1`] = `
 > 1 | (class Foo {get getter<>()})
     |                       ^
 Cause: Type parameter list cannot be empty. (1:22)"
+`;
+
+exports[`snippet: #12 [oxc-ts] format 1`] = `
+"Type parameter list cannot be empty. (1:23)
+> 1 | (class Foo {get getter<>()})
+    |                       ^^"
 `;
 
 exports[`snippet: #12 [typescript] format 1`] = `
@@ -217,6 +277,12 @@ exports[`snippet: #15 [babel-ts] format 1`] = `
 Cause: Type parameter list cannot be empty. (1:13)"
 `;
 
+exports[`snippet: #15 [oxc-ts] format 1`] = `
+"Type parameter list cannot be empty. (1:14)
+> 1 | interface Foo<> {}
+    |              ^^"
+`;
+
 exports[`snippet: #15 [typescript] format 1`] = `
 "Type parameter list cannot be empty. (1:14)
 > 1 | interface Foo<> {}
@@ -231,6 +297,12 @@ exports[`snippet: #16 [babel-ts] format 1`] = `
 Cause: Type parameter list cannot be empty. (1:18)"
 `;
 
+exports[`snippet: #16 [oxc-ts] format 1`] = `
+"Type parameter list cannot be empty. (1:19)
+> 1 | interface Foo {bar<>()}
+    |                   ^^"
+`;
+
 exports[`snippet: #16 [typescript] format 1`] = `
 "Type parameter list cannot be empty. (1:19)
 > 1 | interface Foo {bar<>()}
@@ -243,6 +315,12 @@ exports[`snippet: #17 [babel-ts] format 1`] = `
 > 1 | interface Foo {<>(): boolean}
     |                ^
 Cause: Type parameter list cannot be empty. (1:15)"
+`;
+
+exports[`snippet: #17 [oxc-ts] format 1`] = `
+"Type parameter list cannot be empty. (1:16)
+> 1 | interface Foo {<>(): boolean}
+    |                ^^"
 `;
 
 exports[`snippet: #17 [typescript] format 1`] = `
@@ -271,6 +349,12 @@ exports[`snippet: #19 [babel-ts] format 1`] = `
 > 1 | type Foo = <>() => {}
     |            ^
 Cause: Type parameter list cannot be empty. (1:11)"
+`;
+
+exports[`snippet: #19 [oxc-ts] format 1`] = `
+"Type parameter list cannot be empty. (1:12)
+> 1 | type Foo = <>() => {}
+    |            ^^"
 `;
 
 exports[`snippet: #19 [typescript] format 1`] = `
