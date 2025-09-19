@@ -518,7 +518,7 @@ export default {
 
 ### Utility functions
 
-A `util` module from Prettier core is considered a private API and is not meant to be consumed by plugins. Instead, the `util` object from Prettier provides the following limited set of utility functions as properties for plugins:
+`prettier.util` provides the following limited set of utility functions for plugins:
 
 ```ts
 type Quote = '"' | "'";
