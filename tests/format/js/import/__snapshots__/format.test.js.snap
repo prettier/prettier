@@ -524,69 +524,6 @@ import {
 ================================================================================
 `;
 
-exports[`log-module-name.js - {"bracketSpacing":false} format 1`] = `
-====================================options=====================================
-bracketSpacing: false
-parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-import("./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module")
-import(
-  // Comment
-  "./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module"
-)
-import.meta.resolve("./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
-// TODO: Test these when it's supported
-// import.defer("./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
-// import.source("./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
-
-=====================================output=====================================
-import("./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
-import(
-  // Comment
-  "./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module"
-);
-import.meta
-  .resolve("./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
-// TODO: Test these when it's supported
-// import.defer("./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
-// import.source("./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
-
-================================================================================
-`;
-
-exports[`log-module-name.js format 1`] = `
-====================================options=====================================
-parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-import("./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module")
-import(
-  // Comment
-  "./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module"
-)
-import.meta.resolve("./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
-// TODO: Test these when it's supported
-// import.defer("./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
-// import.source("./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
-
-=====================================output=====================================
-import("./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
-import(
-  // Comment
-  "./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module"
-);
-import.meta
-  .resolve("./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
-// TODO: Test these when it's supported
-// import.defer("./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
-// import.source("./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
-
-================================================================================
-`;
-
 exports[`long-line.js - {"bracketSpacing":false} format 1`] = `
 ====================================options=====================================
 bracketSpacing: false
@@ -612,6 +549,57 @@ import someCoolUtilWithARatherLongName from '../../../../utils/someCoolUtilWithA
 
 =====================================output=====================================
 import someCoolUtilWithARatherLongName from "../../../../utils/someCoolUtilWithARatherLongName";
+
+================================================================================
+`;
+
+exports[`long-module-name.js - {"bracketSpacing":false} format 1`] = `
+====================================options=====================================
+bracketSpacing: false
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import("./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module")
+import(
+  // Comment
+  "./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module"
+)
+import.meta.resolve("./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
+
+=====================================output=====================================
+import("./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
+import(
+  // Comment
+  "./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module"
+);
+import.meta
+  .resolve("./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
+
+================================================================================
+`;
+
+exports[`long-module-name.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import("./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module")
+import(
+  // Comment
+  "./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module"
+)
+import.meta.resolve("./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
+
+=====================================output=====================================
+import("./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
+import(
+  // Comment
+  "./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module"
+);
+import.meta
+  .resolve("./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
 
 ================================================================================
 `;

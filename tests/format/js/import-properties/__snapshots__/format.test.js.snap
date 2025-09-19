@@ -1,0 +1,211 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`import-defer.js [acorn] format 1`] = `
+"The only valid meta property for import is 'import.meta' (1:8)
+> 1 | import.defer("./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
+    |        ^
+  2 | import.defer(
+  3 |   // Comment
+  4 |   "./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module"
+Cause: The only valid meta property for import is 'import.meta' (1:7)"
+`;
+
+exports[`import-defer.js [espree] format 1`] = `
+"The only valid meta property for import is 'import.meta' (1:8)
+> 1 | import.defer("./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
+    |        ^
+  2 | import.defer(
+  3 |   // Comment
+  4 |   "./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module"
+Cause: The only valid meta property for import is 'import.meta'"
+`;
+
+exports[`import-defer.js [meriyah] format 1`] = `
+"The only valid meta property for import is 'import.meta' (1:8)
+> 1 | import.defer("./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
+    |        ^^^^^
+  2 | import.defer(
+  3 |   // Comment
+  4 |   "./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module"
+Cause: [1:7-1:12]: The only valid meta property for import is 'import.meta'"
+`;
+
+exports[`import-defer.js - {"bracketSpacing":false} [acorn] format 1`] = `
+"The only valid meta property for import is 'import.meta' (1:8)
+> 1 | import.defer("./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
+    |        ^
+  2 | import.defer(
+  3 |   // Comment
+  4 |   "./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module"
+Cause: The only valid meta property for import is 'import.meta' (1:7)"
+`;
+
+exports[`import-defer.js - {"bracketSpacing":false} [espree] format 1`] = `
+"The only valid meta property for import is 'import.meta' (1:8)
+> 1 | import.defer("./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
+    |        ^
+  2 | import.defer(
+  3 |   // Comment
+  4 |   "./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module"
+Cause: The only valid meta property for import is 'import.meta'"
+`;
+
+exports[`import-defer.js - {"bracketSpacing":false} [meriyah] format 1`] = `
+"The only valid meta property for import is 'import.meta' (1:8)
+> 1 | import.defer("./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
+    |        ^^^^^
+  2 | import.defer(
+  3 |   // Comment
+  4 |   "./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module"
+Cause: [1:7-1:12]: The only valid meta property for import is 'import.meta'"
+`;
+
+exports[`import-defer.js - {"bracketSpacing":false} format 1`] = `
+====================================options=====================================
+bracketSpacing: false
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import.defer("./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
+import.defer(
+  // Comment
+  "./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module"
+)
+
+=====================================output=====================================
+import.defer("./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
+import.defer(
+  // Comment
+  "./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module"
+);
+
+================================================================================
+`;
+
+exports[`import-defer.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import.defer("./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
+import.defer(
+  // Comment
+  "./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module"
+)
+
+=====================================output=====================================
+import.defer("./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
+import.defer(
+  // Comment
+  "./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module"
+);
+
+================================================================================
+`;
+
+exports[`import-source.js [acorn] format 1`] = `
+"The only valid meta property for import is 'import.meta' (1:8)
+> 1 | import.source("./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
+    |        ^
+  2 | import.source(
+  3 |   // Comment
+  4 |   "./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module"
+Cause: The only valid meta property for import is 'import.meta' (1:7)"
+`;
+
+exports[`import-source.js [espree] format 1`] = `
+"The only valid meta property for import is 'import.meta' (1:8)
+> 1 | import.source("./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
+    |        ^
+  2 | import.source(
+  3 |   // Comment
+  4 |   "./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module"
+Cause: The only valid meta property for import is 'import.meta'"
+`;
+
+exports[`import-source.js [meriyah] format 1`] = `
+"The only valid meta property for import is 'import.meta' (1:8)
+> 1 | import.source("./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
+    |        ^^^^^^
+  2 | import.source(
+  3 |   // Comment
+  4 |   "./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module"
+Cause: [1:7-1:13]: The only valid meta property for import is 'import.meta'"
+`;
+
+exports[`import-source.js - {"bracketSpacing":false} [acorn] format 1`] = `
+"The only valid meta property for import is 'import.meta' (1:8)
+> 1 | import.source("./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
+    |        ^
+  2 | import.source(
+  3 |   // Comment
+  4 |   "./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module"
+Cause: The only valid meta property for import is 'import.meta' (1:7)"
+`;
+
+exports[`import-source.js - {"bracketSpacing":false} [espree] format 1`] = `
+"The only valid meta property for import is 'import.meta' (1:8)
+> 1 | import.source("./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
+    |        ^
+  2 | import.source(
+  3 |   // Comment
+  4 |   "./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module"
+Cause: The only valid meta property for import is 'import.meta'"
+`;
+
+exports[`import-source.js - {"bracketSpacing":false} [meriyah] format 1`] = `
+"The only valid meta property for import is 'import.meta' (1:8)
+> 1 | import.source("./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
+    |        ^^^^^^
+  2 | import.source(
+  3 |   // Comment
+  4 |   "./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module"
+Cause: [1:7-1:13]: The only valid meta property for import is 'import.meta'"
+`;
+
+exports[`import-source.js - {"bracketSpacing":false} format 1`] = `
+====================================options=====================================
+bracketSpacing: false
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import.source("./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
+import.source(
+  // Comment
+  "./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module"
+)
+
+=====================================output=====================================
+import.source("./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
+import.source(
+  // Comment
+  "./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module"
+);
+
+================================================================================
+`;
+
+exports[`import-source.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import.source("./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
+import.source(
+  // Comment
+  "./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module"
+)
+
+=====================================output=====================================
+import.source("./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
+import.source(
+  // Comment
+  "./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module"
+);
+
+================================================================================
+`;
