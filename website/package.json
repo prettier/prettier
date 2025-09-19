@@ -32,7 +32,7 @@
     "@docusaurus/module-type-aliases": "3.8.1",
     "@docusaurus/types": "3.8.1",
     "@types/js-yaml": "4.0.9",
-    "@vitejs/plugin-react": "5.0.2",
+    "@vitejs/plugin-react": "5.0.3",
     "concurrently": "9.2.1",
     "js-yaml": "4.1.0",
     "vite": "7.1.5"
@@ -49,5 +49,5 @@
       "last 5 safari version"
     ]
   },
-  "packageManager": "yarn@4.9.4"
+  "packageManager": "yarn@4.10.2"
 }
