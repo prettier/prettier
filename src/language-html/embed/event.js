@@ -1,6 +1,6 @@
 import { htmlEventAttributes } from "html-event-attributes";
 import { getUnescapedAttributeValue } from "../utils/index.js";
-import { formatAttributeValue } from "./utils.js";
+import { formatAttributeValue, shouldHugJsExpression } from "./utils.js";
 
 function printEventAttribute(path, options) {
   const { node } = path;
@@ -13,7 +13,7 @@ function printEventAttribute(path, options) {
 
   if (!text.includes("{{")) {
     return (textToDoc) =>
-      formatAttributeValue(text, textToDoc, { parser: "__js_expression" });
+      formatAttributeValue(text, textToDoc, { parser: "babel" }, shouldHugJsExpression);
   }
 }
 
