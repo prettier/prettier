@@ -819,7 +819,7 @@ const nodejsFiles = [
     // TODO: Remove this when we drop support for Node.js v16
     replaceModule: [
       {
-        module: resolveEsmModulePath("cacheable"),
+        module: resolveEsmModulePath("@cacheable/memory"),
         process: (text) =>
           outdent`
             const structuredClone =
