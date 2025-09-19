@@ -13,7 +13,12 @@ function printEventAttribute(path, options) {
 
   if (!text.includes("{{")) {
     return (textToDoc) =>
-      formatAttributeValue(text, textToDoc, { parser: "babel" }, shouldHugJsExpression);
+      formatAttributeValue(
+        text,
+        textToDoc,
+        { parser: "babel" },
+        shouldHugJsExpression,
+      );
   }
 }
 
