@@ -30,7 +30,7 @@ export default function printEventAttribute(path, options) {
       return formatAttributeValue(
         text,
         textToDoc,
-        { parser: "__html_event_binding" },
+        { parser: "__html_event_handler" },
         shouldHugJsExpression,
       );
     };

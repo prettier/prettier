@@ -4,7 +4,7 @@ import {
   unwrapVueEventBindingTsNode,
 } from "../utils/vue-event-binding.js";
 import {
-  isSingleHTMLEventBindingExpressionStatement,
+  isSingleHtmlEventHandlerExpressionStatement,
   isSingleJsxExpressionStatementInMarkdown,
   isSingleVueEventBindingExpressionStatement,
 } from "./semicolon.js";
@@ -22,7 +22,7 @@ function printExpressionStatement(path, options, print) {
     }
   } else if (isSingleJsxExpressionStatementInMarkdown(path, options)) {
     // Do not append semicolon after the only JSX element in a program
-  } else if (isSingleHTMLEventBindingExpressionStatement(path, options)) {
+  } else if (isSingleHtmlEventHandlerExpressionStatement(path, options)) {
     // Do not append semicolon after the only HTML event binding expression in a program
   } else if (options.semi) {
     parts.push(";");

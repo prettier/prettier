@@ -11,7 +11,7 @@ function shouldPrintLeadingSemicolon(path, options) {
     options.semi ||
     isSingleJsxExpressionStatementInMarkdown(path, options) ||
     isSingleVueEventBindingExpressionStatement(path, options) ||
-    isSingleHTMLEventBindingExpressionStatement(path, options)
+    isSingleHtmlEventHandlerExpressionStatement(path, options)
   ) {
     return false;
   }
@@ -100,12 +100,12 @@ function isSingleJsxExpressionStatementInMarkdown({ node, parent }, options) {
   );
 }
 
-function isSingleHTMLEventBindingExpressionStatement(
+function isSingleHtmlEventHandlerExpressionStatement(
   { node, parent },
   options,
 ) {
   return (
-    options.parser === "__html_event_binding" &&
+    options.parser === "__html_event_handler" &&
     node.type === "ExpressionStatement" &&
     parent.type === "Program" &&
     parent.body.length === 1
@@ -123,7 +123,7 @@ function isSingleVueEventBindingExpressionStatement({ node, parent }, options) {
 }
 
 export {
-  isSingleHTMLEventBindingExpressionStatement,
+  isSingleHtmlEventHandlerExpressionStatement,
   isSingleJsxExpressionStatementInMarkdown,
   isSingleVueEventBindingExpressionStatement,
   shouldPrintLeadingSemicolon,
