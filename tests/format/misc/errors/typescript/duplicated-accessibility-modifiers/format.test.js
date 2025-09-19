@@ -10,5 +10,5 @@ runFormatTest(
       "class A {private private property}",
     ],
   },
-  ["typescript", "babel-ts"],
+  ["typescript", "babel-ts", "oxc-ts"],
 );

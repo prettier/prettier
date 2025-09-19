@@ -7,6 +7,12 @@ exports[`snippet: #0 [babel-ts] format 1`] = `
 Cause: Missing semicolon. (1:9)"
 `;
 
+exports[`snippet: #0 [oxc-ts] format 1`] = `
+"Unexpected token (1:11)
+> 1 | namespace "a" {}
+    |           ^^^"
+`;
+
 exports[`snippet: #0 [typescript] format 1`] = `
 "Identifier expected. (1:11)
 > 1 | namespace "a" {}
@@ -21,6 +27,12 @@ exports[`snippet: #1 [babel-ts] format 1`] = `
 Cause: Missing semicolon. (1:9)"
 `;
 
+exports[`snippet: #1 [oxc-ts] format 1`] = `
+"Unexpected token (1:11)
+> 1 | namespace "a";
+    |           ^^^"
+`;
+
 exports[`snippet: #1 [typescript] format 1`] = `
 "Identifier expected. (1:11)
 > 1 | namespace "a";
@@ -33,6 +45,12 @@ exports[`snippet: #2 [babel-ts] format 1`] = `
 > 1 | namespace a;
     |            ^
 Cause: Unexpected token, expected "{" (1:11)"
+`;
+
+exports[`snippet: #2 [oxc-ts] format 1`] = `
+"Expected \`{\` but found \`;\` (1:12)
+> 1 | namespace a;
+    |            ^"
 `;
 
 exports[`snippet: #2 [typescript] format 1`] = `
