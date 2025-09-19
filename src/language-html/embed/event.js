@@ -14,11 +14,12 @@ export default function printEventAttribute(path, options) {
   const text = getUnescapedAttributeValue(path.node).trim();
 
   if (!text.includes("{{")) {
-    return (textToDoc) => formatAttributeValue(
+    return (textToDoc) =>
+      formatAttributeValue(
         text,
         textToDoc,
         { parser: "__html_event_handler" },
         shouldHugJsExpression,
       );
-  };
+  }
 }
