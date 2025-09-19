@@ -2815,9 +2815,9 @@ __metadata:
   linkType: hard
 
 "ansi-purge@npm:^1.0.1":
-  version: 1.0.1
-  resolution: "ansi-purge@npm:1.0.1"
-  checksum: 10/5268048a4696876bfad93e33b11968ee14316667693d0909f67b3ce75c5f631d70abd11f69c5bb88654c42efb71c68cd15a6f3c3d2d96d5796acbf9a8434af36
+  version: 1.1.0
+  resolution: "ansi-purge@npm:1.1.0"
+  checksum: 10/ccbf7bc63e9c053a32623509cb4f8ee2eed86ebc07afdbbccbdb2cb66330cb0413f95a8108ffb6826cc792efd902821ea257319c1d391198d675d5205cbb6f45
   languageName: node
   linkType: hard
 
@@ -2874,12 +2874,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ansi-truncate@npm:^1.2.0":
-  version: 1.2.0
-  resolution: "ansi-truncate@npm:1.2.0"
+"ansi-truncate@npm:^1.4.0":
+  version: 1.4.0
+  resolution: "ansi-truncate@npm:1.4.0"
   dependencies:
-    fast-string-truncated-width: "npm:^1.2.0"
-  checksum: 10/1ea8c12863c63f989e407bd8455bfd47a0fa1e9c400770a751249ac963f86c41e33bdf953fa37de50170b0c9dee9a4041aba9dbd2601dd5b1d3013ffa6d0810a
+    fast-string-truncated-width: "npm:^3.0.1"
+  checksum: 10/26d4fdd0a52858c7462d1cdc035c94d496453f1118f371055c47c4cf3bd9f79a48b5ef1e7f3309af13f9082a432dc8b2c16eb9930d3cff87646aaa3b93842d59
   languageName: node
   linkType: hard
 
@@ -4685,19 +4685,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fast-string-truncated-width@npm:^1.2.0":
-  version: 1.2.1
-  resolution: "fast-string-truncated-width@npm:1.2.1"
-  checksum: 10/062ef2137af59da5717efee18797961974e8b73bc69a16dea286bf56a5cb11e1d8089cd704c6eb0a5eca35fb9ffb1454b37e6dbd40a705a03f41a7d685df908c
+"fast-string-truncated-width@npm:^3.0.1":
+  version: 3.0.1
+  resolution: "fast-string-truncated-width@npm:3.0.1"
+  checksum: 10/736ee06f5173017d9edf43c4905ed9d5caf72f2bd7b37e7dc6727695cc4842c31d50b09c00c0f930ee7162c832a709ba20c4838483fa5eff378df1d5d290205f
   languageName: node
   linkType: hard
 
-"fast-string-width@npm:^1.1.0":
-  version: 1.1.0
-  resolution: "fast-string-width@npm:1.1.0"
+"fast-string-width@npm:^3.0.1":
+  version: 3.0.1
+  resolution: "fast-string-width@npm:3.0.1"
   dependencies:
-    fast-string-truncated-width: "npm:^1.2.0"
-  checksum: 10/0ea18158bf754e3fb613258e5a7f3adc8dced823180bda25b756b8d6849e31b4bea72175606836d64c8b2c2ce876fc02981361744742c56cac9a547be4fbefb4
+    fast-string-truncated-width: "npm:^3.0.1"
+  checksum: 10/5ae14899f67fe12e442b2252eeca2aba450fdf5eb2553434415dc871c34f5463a1917492829b307d8525b8a0beba3fc9b629c5c0a21af229a4fba4dd521dc5dc
   languageName: node
   linkType: hard
 
@@ -6385,9 +6385,9 @@ __metadata:
   linkType: hard
 
 "json-sorted-stringify@npm:^1.0.1":
-  version: 1.0.1
-  resolution: "json-sorted-stringify@npm:1.0.1"
-  checksum: 10/5d23777e2d9114d9b242a1ccda1041d2639ad0db7a4178abd6937ffebf1efb18b018208b29c4ec0f78632d82c64815ec73e53d96fae63930aa7ab5c216e0ad8e
+  version: 1.0.2
+  resolution: "json-sorted-stringify@npm:1.0.2"
+  checksum: 10/7ca7b1471c9f7491129b5ab0a57dbae11dda237a80deab9a2b6e11cb446e1ef343e96a2c462b09fa26dea95b36d23b99ae7569e5e4a8ca38503d74bd4be4063c
   languageName: node
   linkType: hard
 
@@ -8532,17 +8532,17 @@ __metadata:
   linkType: hard
 
 "tiny-bin@npm:^1.10.3":
-  version: 1.11.1
-  resolution: "tiny-bin@npm:1.11.1"
+  version: 1.11.3
+  resolution: "tiny-bin@npm:1.11.3"
   dependencies:
     ansi-purge: "npm:^1.0.1"
-    fast-string-width: "npm:^1.1.0"
+    fast-string-width: "npm:^3.0.1"
     get-current-package: "npm:^1.0.1"
     tiny-colors: "npm:^2.2.2"
-    tiny-levenshtein: "npm:^1.0.1"
+    tiny-levenshtein: "npm:^1.1.0"
     tiny-parse-argv: "npm:^2.8.2"
     tiny-updater: "npm:^3.5.3"
-  checksum: 10/064b3fd325e06e49633f89fc7376dc89f6708f4831a9e3e20c447a76ce06760765ce80c2c91551f87baada1eb65c9d9706adf0a8643626fa85b00a811d7f5a3e
+  checksum: 10/f43c8751b7ae864083c2c6a2b346fbcc5e9118465623eb30eaba77eb1bf62d15c555accb2e5533a8fba13cc9741a3cf3494d3af8c3510166f68bf18e00dea75d
   languageName: node
   linkType: hard
 
@@ -8572,10 +8572,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tiny-levenshtein@npm:^1.0.1":
-  version: 1.0.1
-  resolution: "tiny-levenshtein@npm:1.0.1"
-  checksum: 10/179d18bebc973b6d4b0415c9fcfca049b98279a2b74255a352d7de53cc6e7c52ad4e90caabc7f84c6c0ffbfded39fe8f8c011964e3ec6a101a7237b1eb08ec1e
+"tiny-levenshtein@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "tiny-levenshtein@npm:1.1.0"
+  checksum: 10/aa5c50a8a1f117e6eb665f3d7fbdde17266b7874c279c09aaaa804b7d0964a2b0109a3a709ede4080550d7a852bd2e6bb30152389f10b66faaa45d955bda5b3d
   languageName: node
   linkType: hard
 
@@ -8621,11 +8621,11 @@ __metadata:
   linkType: hard
 
 "tiny-truncate@npm:^1.0.3":
-  version: 1.0.3
-  resolution: "tiny-truncate@npm:1.0.3"
+  version: 1.0.5
+  resolution: "tiny-truncate@npm:1.0.5"
   dependencies:
-    ansi-truncate: "npm:^1.2.0"
-  checksum: 10/fa494ab5a4efa27a2cf3dd73dd462318bdaf2e3f96552110f3ff1d40b47f168aba2da76b1d0b8869b78d7ad7fda9768d0e8d4bcf4e4553781da8eba7eb6434ca
+    ansi-truncate: "npm:^1.4.0"
+  checksum: 10/812b17e8c217b119942efc0addb664ee624333299c8a4773c2fc28b74bc810cd9dbfa346a35d33c5300e76bfb1450fdf5ba435f6ab4d96fdcfdcb2ce765b508d
   languageName: node
   linkType: hard
 
