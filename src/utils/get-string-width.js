@@ -5,8 +5,10 @@ import {
   // @ts-expect-error -- Private
   _isWide as isWide,
 } from "get-east-asian-width";
+import narrowEmojis from "./narrow-emojis.evaluate.js";
 
 const notAsciiRegex = /[^\x20-\x7F]/u;
+const narrowEmojisSet = new Set(narrowEmojis);
 
 // Similar to https://github.com/sindresorhus/string-width
 // We don't strip ansi, always treat ambiguous width characters as having narrow width.
@@ -24,7 +26,9 @@ function getStringWidth(text) {
     return text.length;
   }
 
-  text = text.replace(emojiRegex(), "  ");
+  text = text.replace(emojiRegex(), (match) =>
+    narrowEmojisSet.has(match) ? " " : "  ",
+  );
   let width = 0;
 
   // Use `Intl.Segmenter` when we drop support for Node.js v14
@@ -40,6 +44,11 @@ function getStringWidth(text) {
 
     // Ignore combining characters
     if (codePoint >= 0x300 && codePoint <= 0x36f) {
+      continue;
+    }
+
+    // Ignore Variation Selectors
+    if (codePoint >= 0xfe00 && codePoint <= 0xfe0f) {
       continue;
     }
 

@@ -24,7 +24,7 @@ jobs:
         uses: actions/checkout@v5
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           cache: "yarn"
 
@@ -70,7 +70,7 @@ jobs:
         uses: actions/dependency-review-action@v4
 
       - name: Validate renovate config
-        run: npx --package renovate --call renovate-config-validator
+        run: npx --package renovate@latest --call renovate-config-validator
 
       - name: Run yarn (/)
         run: |

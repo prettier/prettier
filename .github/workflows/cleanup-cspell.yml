@@ -1,0 +1,41 @@
+name: Cleanup cspell.json
+
+on:
+  workflow_dispatch:
+  schedule:
+    # “At 00:00 on day-of-month 1 in July.” https://crontab.guru/#0_0_1_7_*
+    - cron: "0 0 1 7 *"
+
+permissions:
+  pull-requests: write
+  contents: write
+
+jobs:
+  run:
+    name: Cleanup cspell.json
+    if: github.event_name != 'schedule' || github.repository == 'prettier/prettier'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          cache: "yarn"
+
+      - name: Install Dependencies
+        run: yarn install --immutable
+
+      - name: Run script
+        run: node scripts/clean-cspell.js
+
+      - name: Set current date env
+        run: echo "CURRENT_DATE=$(date +'%Y-%m-%d')" >> "$GITHUB_ENV"
+
+      - uses: peter-evans/create-pull-request@v7
+        with:
+          commit-message: Cleanup cspell.json (${{ env.CURRENT_DATE }})
+          branch: automated-cleanup-cspell-${{ env.CURRENT_DATE }}
+          branch-suffix: timestamp
+          title: Cleanup cspell.json (${{ env.CURRENT_DATE }})
