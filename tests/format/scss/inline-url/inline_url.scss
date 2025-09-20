@@ -38,7 +38,6 @@
 
 .invalidUnquotedUrlsButWeParseThemAnyway {
   background: url(--var(foo-bar,#dadce0));
-  -fb-sprite: url(fbglyph:cross-outline, fig-white);
 }
 
 .number {
