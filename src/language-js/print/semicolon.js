@@ -10,7 +10,8 @@ function shouldPrintLeadingSemicolon(path, options) {
   if (
     options.semi ||
     isSingleJsxExpressionStatementInMarkdown(path, options) ||
-    isSingleVueEventBindingExpressionStatement(path, options)
+    isSingleVueEventBindingExpressionStatement(path, options) ||
+    isSingleHtmlEventHandlerExpressionStatement(path, options)
   ) {
     return false;
   }
@@ -99,6 +100,18 @@ function isSingleJsxExpressionStatementInMarkdown({ node, parent }, options) {
   );
 }
 
+function isSingleHtmlEventHandlerExpressionStatement(
+  { node, parent },
+  options,
+) {
+  return (
+    options.parser === "__html_event_handler" &&
+    node.type === "ExpressionStatement" &&
+    parent.type === "Program" &&
+    parent.body.length === 1
+  );
+}
+
 function isSingleVueEventBindingExpressionStatement({ node, parent }, options) {
   return (
     (options.parser === "__vue_event_binding" ||
@@ -110,6 +123,7 @@ function isSingleVueEventBindingExpressionStatement({ node, parent }, options) {
 }
 
 export {
+  isSingleHtmlEventHandlerExpressionStatement,
   isSingleJsxExpressionStatementInMarkdown,
   isSingleVueEventBindingExpressionStatement,
   shouldPrintLeadingSemicolon,
