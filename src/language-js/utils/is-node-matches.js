@@ -20,6 +20,11 @@ function isNodeMatchesNameOrPath(node, nameOrPath) {
       return node.type === "Identifier" && node.name === name;
     }
 
+    if (node.type === "MetaProperty") {
+      node = node.meta;
+      continue;
+    }
+
     if (
       node.type !== "MemberExpression" ||
       node.optional ||
