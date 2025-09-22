@@ -5,7 +5,6 @@ class F {constructor(public a: number) {}}
 class G {constructor(readonly a: number) {}}
 
 class A {
-    'constructor': typeof A
     static Foo() {
         return new A()
     }
