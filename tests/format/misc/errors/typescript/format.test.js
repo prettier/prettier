@@ -10,5 +10,9 @@ runFormatTest(
       'let x6 = <div>>{"foo"}</div>;',
     ],
   },
-  ["typescript"],
+  [
+    "typescript",
+    //"babel-ts",
+    "oxc-ts",
+  ],
 );
