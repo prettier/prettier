@@ -151,7 +151,7 @@
     "node-style-text": "1.0.0",
     "npm-run-all2": "8.0.4",
     "prettier": "3.6.2",
-    "pretty-bytes": "7.0.1",
+    "pretty-bytes": "7.1.0",
     "pretty-ms": "9.2.0",
     "rollup-plugin-license": "3.6.0",
     "semver": "7.7.2",
