@@ -62,6 +62,13 @@ printWidth: 80
   }
 }
 
+:export {
+  nest: {
+    myColor: blue;
+  }
+  myColor: red;
+}
+
 =====================================output=====================================
 @value colors: './colors.css';
 @value first, second, third from colors;
@@ -117,6 +124,13 @@ printWidth: 80
   to {
     transform: rotate(360deg);
   }
+}
+
+:export {
+  nest: {
+    myColor: blue;
+  }
+  myColor: red;
 }
 
 ================================================================================
