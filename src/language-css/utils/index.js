@@ -67,15 +67,17 @@ function insideValueFunctionNode(path, functionName) {
 }
 
 function insideICSSRuleNode(path) {
-  const ruleAncestorNode = path.findAncestor(
-    (node) => node.type === "css-rule",
-  );
-  const selector = ruleAncestorNode?.raws?.selector;
+  return path.hasAncestor((node) => {
+    if (node.type !== "css-rule") {
+      return false;
+    }
 
-  return (
-    selector &&
-    (selector.startsWith(":import") || selector.startsWith(":export"))
-  );
+    const selector = node.raws?.selector;
+    return (
+      selector &&
+      (selector.startsWith(":import") || selector.startsWith(":export"))
+    );
+  });
 }
 
 function insideAtRuleNode(path, atRuleNameOrAtRuleNames) {
