@@ -553,57 +553,6 @@ import someCoolUtilWithARatherLongName from "../../../../utils/someCoolUtilWithA
 ================================================================================
 `;
 
-exports[`long-module-name.js - {"bracketSpacing":false} format 1`] = `
-====================================options=====================================
-bracketSpacing: false
-parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-import("./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module")
-import(
-  // Comment
-  "./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module"
-)
-import.meta.resolve("./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
-
-=====================================output=====================================
-import("./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
-import(
-  // Comment
-  "./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module"
-);
-import.meta
-  .resolve("./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
-
-================================================================================
-`;
-
-exports[`long-module-name.js format 1`] = `
-====================================options=====================================
-parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-import("./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module")
-import(
-  // Comment
-  "./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module"
-)
-import.meta.resolve("./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
-
-=====================================output=====================================
-import("./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
-import(
-  // Comment
-  "./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module"
-);
-import.meta
-  .resolve("./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
-
-================================================================================
-`;
-
 exports[`multiple_standalones.js - {"bracketSpacing":false} format 1`] = `
 ====================================options=====================================
 bracketSpacing: false
