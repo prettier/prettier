@@ -6470,9 +6470,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"knip@npm:5.63.1":
-  version: 5.63.1
-  resolution: "knip@npm:5.63.1"
+"knip@npm:5.64.0":
+  version: 5.64.0
+  resolution: "knip@npm:5.64.0"
   dependencies:
     "@nodelib/fs.walk": "npm:^1.2.3"
     fast-glob: "npm:^3.3.3"
@@ -6480,7 +6480,7 @@ __metadata:
     jiti: "npm:^2.5.1"
     js-yaml: "npm:^4.1.0"
     minimist: "npm:^1.2.8"
-    oxc-resolver: "npm:^11.6.2"
+    oxc-resolver: "npm:^11.8.2"
     picocolors: "npm:^1.1.1"
     picomatch: "npm:^4.0.1"
     smol-toml: "npm:^1.4.1"
@@ -6493,7 +6493,7 @@ __metadata:
   bin:
     knip: bin/knip.js
     knip-bun: bin/knip-bun.js
-  checksum: 10/4c36c4286aa18568896c9d470ce2f3e05de6c41f4d4ba59d0921268fbb7644cadcc067d7284fb490444d755cb020936ba921020ddbe79d2a5f2797387ce5ca06
+  checksum: 10/8811a8558a313ce7b4281fe4b38639e3b9cb2c1dd34d15c8a3c2fb224ea7702c54288ce4cc1492b49350ae3cd11f61f28b3c7fffcfa48f90e15cdda738303c5d
   languageName: node
   linkType: hard
 
@@ -7106,7 +7106,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"oxc-resolver@npm:^11.6.2":
+"oxc-resolver@npm:^11.8.2":
   version: 11.8.2
   resolution: "oxc-resolver@npm:11.8.2"
   dependencies:
@@ -7603,7 +7603,7 @@ __metadata:
     jest-snapshot-serializer-raw: "npm:2.0.0"
     jest-watch-typeahead: "npm:3.0.1"
     json5: "npm:2.2.3"
-    knip: "npm:5.63.1"
+    knip: "npm:5.64.0"
     leven: "npm:4.1.0"
     linguist-languages: "npm:9.0.0"
     magic-string: "npm:0.30.19"
