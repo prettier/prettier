@@ -1,14 +1,8 @@
-const unsupportedParsers = ["import-defer.js", "import-source.js"];
-
-const errors = {
-  acorn: unsupportedParsers,
-  espree: unsupportedParsers,
-  meriyah: unsupportedParsers,
-  hermes: unsupportedParsers,
-};
-
-runFormatTest(import.meta, ["babel"], { errors });
 runFormatTest(import.meta, ["babel"], {
-  errors,
-  bracketSpacing: false,
+  errors: {
+    acorn: ["import-defer.js", "import-source.js"],
+    espree: ["import-defer.js", "import-source.js"],
+    meriyah: ["import-defer.js", "import-source.js"],
+    hermes: ["import-defer.js", "import-source.js"],
+  },
 });
