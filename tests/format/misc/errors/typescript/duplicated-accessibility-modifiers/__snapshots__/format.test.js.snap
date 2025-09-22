@@ -8,7 +8,7 @@ Cause: Accessibility modifier already seen: 'protected'. (1:17)"
 `;
 
 exports[`snippet: #0 [oxc-ts] format 1`] = `
-"'protected' modifier already seen. (1:18)
+"Accessibility modifier already seen. (1:18)
 > 1 | class A {private protected method(){}}
     |                  ^^^^^^^^^"
 `;
@@ -28,7 +28,7 @@ Cause: Accessibility modifier already seen: 'public'. (1:19)"
 `;
 
 exports[`snippet: #1 [oxc-ts] format 1`] = `
-"'public' modifier already seen. (1:20)
+"Accessibility modifier already seen. (1:20)
 > 1 | class A {protected public method(){}}
     |                    ^^^^^^"
 `;
@@ -48,7 +48,7 @@ Cause: Accessibility modifier already seen: 'private'. (1:17)"
 `;
 
 exports[`snippet: #2 [oxc-ts] format 1`] = `
-"'private' modifier already seen. (1:18)
+"Accessibility modifier already seen. (1:18)
 > 1 | class A {private private method(){}}
     |                  ^^^^^^^"
 `;
@@ -68,7 +68,7 @@ Cause: Accessibility modifier already seen: 'protected'. (1:17)"
 `;
 
 exports[`snippet: #3 [oxc-ts] format 1`] = `
-"'protected' modifier already seen. (1:18)
+"Accessibility modifier already seen. (1:18)
 > 1 | class A {private protected property}
     |                  ^^^^^^^^^"
 `;
@@ -88,7 +88,7 @@ Cause: Accessibility modifier already seen: 'public'. (1:19)"
 `;
 
 exports[`snippet: #4 [oxc-ts] format 1`] = `
-"'public' modifier already seen. (1:20)
+"Accessibility modifier already seen. (1:20)
 > 1 | class A {protected public property}
     |                    ^^^^^^"
 `;
@@ -108,7 +108,7 @@ Cause: Accessibility modifier already seen: 'private'. (1:17)"
 `;
 
 exports[`snippet: #5 [oxc-ts] format 1`] = `
-"'private' modifier already seen. (1:18)
+"Accessibility modifier already seen. (1:18)
 > 1 | class A {private private property}
     |                  ^^^^^^^"
 `;

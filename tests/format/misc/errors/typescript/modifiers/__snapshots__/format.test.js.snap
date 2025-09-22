@@ -3373,6 +3373,12 @@ exports[`snippet: #150 [babel-ts] format 1`] = `
 Cause: A parameter property is only allowed in a constructor implementation. (1:13)"
 `;
 
+exports[`snippet: #150 [oxc-ts] format 1`] = `
+"'readonly' modifier cannot appear on a parameter. (1:14)
+> 1 | function foo(readonly parameter) {}
+    |              ^^^^^^^^"
+`;
+
 exports[`snippet: #150 [typescript] format 1`] = `
 "A parameter property is only allowed in a constructor implementation. (1:14)
 > 1 | function foo(readonly parameter) {}
@@ -3385,6 +3391,12 @@ exports[`snippet: #151 [babel-ts] format 1`] = `
 > 1 | class Foo { method(readonly parameter) {} }
     |                    ^
 Cause: A parameter property is only allowed in a constructor implementation. (1:19)"
+`;
+
+exports[`snippet: #151 [oxc-ts] format 1`] = `
+"'readonly' modifier cannot appear on a parameter. (1:20)
+> 1 | class Foo { method(readonly parameter) {} }
+    |                    ^^^^^^^^"
 `;
 
 exports[`snippet: #151 [typescript] format 1`] = `
