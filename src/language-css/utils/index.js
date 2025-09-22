@@ -66,6 +66,7 @@ function insideValueFunctionNode(path, functionName) {
   return funcAncestorNode?.value?.toLowerCase() === functionName;
 }
 
+// https://github.com/css-modules/icss
 function insideIcssRuleNode(path) {
   return path.hasAncestor((node) => {
     if (node.type !== "css-rule") {
