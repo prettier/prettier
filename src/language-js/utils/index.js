@@ -390,25 +390,6 @@ function isTestCall(node, parent) {
   return false;
 }
 
-const moduleImportPatterns = [
-  "require",
-  "require.resolve",
-  "require.resolve.paths",
-  "import.meta.resolve",
-];
-
-function isModuleImportCallCallee(node) {
-  return isNodeMatches(node, moduleImportPatterns);
-}
-
-function isModuleImportCall(node) {
-  if (node?.type !== "CallExpression" || node.optional) {
-    return false;
-  }
-
-  return isModuleImportCallCallee(node.callee);
-}
-
 /** @return {(node: Estree.Node) => boolean} */
 const skipChainExpression = (fn) => (node) => {
   if (node?.type === "ChainExpression") {
@@ -1136,7 +1117,6 @@ export {
   isMemberExpression,
   isMemberish,
   isMethod,
-  isModuleImportCall,
   isNextLineEmpty,
   isNullishCoalescing,
   isNumericLiteral,
@@ -1161,3 +1141,4 @@ export {
   shouldPrintComma,
   startsWithNoLookaheadToken,
 };
+export { default as isNodeMatches } from "./is-node-matches.js";

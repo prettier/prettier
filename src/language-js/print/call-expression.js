@@ -5,7 +5,7 @@ import {
   hasComment,
   isCallExpression,
   isMemberish,
-  isModuleImportCall,
+  isNodeMatches,
   isStringLiteral,
   isTemplateOnItsOwnLine,
   isTestCall,
@@ -100,6 +100,12 @@ function printCallee(path, print) {
   return print("callee");
 }
 
+const moduleImportCallees = [
+  "require",
+  "require.resolve",
+  "require.resolve.paths",
+  "import.meta.resolve",
+];
 function isSimpleModuleImport(path) {
   const { node } = path;
 
@@ -110,9 +116,13 @@ function isSimpleModuleImport(path) {
         node.type === "ImportExpression" ||
         // `type foo = import("foo")`
         node.type === "TSImportType" ||
-        // `require("foo")`, `require.resolve("foo")`, `require.resolve.paths("foo")`
+        // `require("foo")`
+        // `require.resolve("foo")`
+        // `require.resolve.paths("foo")`
         // `import.meta.resolve("foo")`
-        isModuleImportCall(node)
+        (node.type === "CallExpression" &&
+          !node.optional &&
+          isNodeMatches(node.callee, moduleImportCallees))
       )
     )
   ) {
