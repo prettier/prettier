@@ -201,7 +201,6 @@ const allowedReasonCodes = new Set([
   "OptionalBindingPattern",
   "DeclareClassFieldHasInitializer",
   "TypeImportCannotSpecifyDefaultAndNamed",
-  "ConstructorClassField",
 
   "VarRedeclaration",
   "InvalidPrivateFieldResolution",

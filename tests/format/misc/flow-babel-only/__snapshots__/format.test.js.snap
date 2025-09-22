@@ -31,26 +31,6 @@ class Component extends React.Component<Props, State> {}
 ================================================================================
 `;
 
-exports[`constructor-field-override.js format 1`] = `
-====================================options=====================================
-parsers: ["babel-flow"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-// https://github.com/prettier/prettier/issues/1481
-class Foo {
-  constructor: () => this;
-}
-
-=====================================output=====================================
-// https://github.com/prettier/prettier/issues/1481
-class Foo {
-  constructor: () => this;
-}
-
-================================================================================
-`;
-
 exports[`functions.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel-flow"]

@@ -34,17 +34,6 @@ abstract class Bar {
 ================================================================================
 `;
 
-exports[`constructor.ts [oxc-ts] format 1`] = `
-"Classes can't have a field named 'constructor' (8:5)
-   6 |
-   7 | class A {
->  8 |     'constructor': typeof A
-     |     ^^^^^^^^^^^^^
-   9 |     static Foo() {
-  10 |         return new A()
-  11 |     }"
-`;
-
 exports[`constructor.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
@@ -58,7 +47,6 @@ class F {constructor(public a: number) {}}
 class G {constructor(readonly a: number) {}}
 
 class A {
-    'constructor': typeof A
     static Foo() {
         return new A()
     }
@@ -83,7 +71,6 @@ class G {
 }
 
 class A {
-  "constructor": typeof A;
   static Foo() {
     return new A();
   }
