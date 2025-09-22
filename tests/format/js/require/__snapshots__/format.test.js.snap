@@ -1,5 +1,24 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`long-module-name.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+require("./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
+require.resolve("./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
+require.resolve.paths("./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
+
+=====================================output=====================================
+require("./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
+require.resolve("./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
+require.resolve
+  .paths("./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
+
+================================================================================
+`;
+
 exports[`require.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]

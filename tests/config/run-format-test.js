@@ -100,6 +100,13 @@ const flowDisabledTests = new Set(
     "js/decorators/member-expression.js",
   ].map((file) => path.join(__dirname, "../format", file)),
 );
+const typescriptDisabledTests = new Set(
+  [
+    // https://github.com/typescript-eslint/typescript-eslint/issues/11389
+    "js/import/long-module-name/import-defer.js",
+    "js/import/long-module-name/import-source.js",
+  ].map((file) => path.join(__dirname, "../format", file)),
+);
 
 const isUnstable = (filename, options) => {
   const testFunction = unstableTests.get(filename);
@@ -317,7 +324,10 @@ function runFormatTest(fixtures, parsers, options) {
           (currentParser === "oxc-ts" && oxcTsDisabledTests.has(filename)) ||
           (currentParser === "hermes" && hermesDisabledTests.has(filename)) ||
           (currentParser === "flow" && flowDisabledTests.has(filename)) ||
-          (currentParser === "babel-ts" && babelTsDisabledTests.has(filename))
+          (currentParser === "babel-ts" &&
+            babelTsDisabledTests.has(filename)) ||
+          (currentParser === "typescript" &&
+            typescriptDisabledTests.has(filename))
         ) {
           continue;
         }

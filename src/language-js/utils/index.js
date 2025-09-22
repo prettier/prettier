@@ -1141,3 +1141,4 @@ export {
   shouldPrintComma,
   startsWithNoLookaheadToken,
 };
+export { default as isNodeMatches } from "./is-node-matches.js";
