@@ -66,7 +66,7 @@ function insideValueFunctionNode(path, functionName) {
   return funcAncestorNode?.value?.toLowerCase() === functionName;
 }
 
-function insideICSSRuleNode(path) {
+function insideIcssRuleNode(path) {
   return path.hasAncestor((node) => {
     if (node.type !== "css-rule") {
       return false;
@@ -388,7 +388,7 @@ export {
   hasEmptyRawBefore,
   hasParensAroundNode,
   insideAtRuleNode,
-  insideICSSRuleNode,
+  insideIcssRuleNode,
   insideURLFunctionInImportAtRuleNode,
   insideValueFunctionNode,
   isAdditionNode,
