@@ -48,6 +48,8 @@ runFormatTest(
     // https://github.com/oxc-project/oxc/issues/14014
     // "oxc",
     // "oxc-ts",
+    "flow",
+    "hermes",
   ],
 );
 

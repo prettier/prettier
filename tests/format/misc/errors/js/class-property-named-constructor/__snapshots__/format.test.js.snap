@@ -45,6 +45,25 @@ exports[`snippet: #0 [espree] format 1`] = `
 Cause: Classes can't have a field named 'constructor'"
 `;
 
+exports[`snippet: #0 [flow] format 1`] = `
+"Classes may not have fields named \`constructor\`. (2:3)
+  1 | class Foo {
+> 2 |   constructor
+    |   ^^^^^^^^^^^
+  3 | }"
+`;
+
+exports[`snippet: #0 [hermes] format 1`] = `
+"invalid class property name (2:2)
+  1 | class Foo {
+> 2 |   constructor
+    |  ^
+  3 | }
+Cause: invalid class property name (2:2)
+  constructor
+  ^~~~~~~~~~~"
+`;
+
 exports[`snippet: #0 [meriyah] format 1`] = `
 "Classes may not have a field called constructor (3:1)
   1 | class Foo {
@@ -115,6 +134,25 @@ exports[`snippet: #1 [espree] format 1`] = `
     |   ^
   3 | }
 Cause: Classes can't have a field named 'constructor'"
+`;
+
+exports[`snippet: #1 [flow] format 1`] = `
+"Classes may not have fields named \`constructor\`. (2:3)
+  1 | class Foo {
+> 2 |   'constructor'
+    |   ^^^^^^^^^^^^^
+  3 | }"
+`;
+
+exports[`snippet: #1 [hermes] format 1`] = `
+"invalid class property name (2:2)
+  1 | class Foo {
+> 2 |   'constructor'
+    |  ^
+  3 | }
+Cause: invalid class property name (2:2)
+  'constructor'
+  ^~~~~~~~~~~~~"
 `;
 
 exports[`snippet: #1 [meriyah] format 1`] = `
@@ -189,6 +227,25 @@ exports[`snippet: #2 [espree] format 1`] = `
 Cause: Classes can't have a field named 'constructor'"
 `;
 
+exports[`snippet: #2 [flow] format 1`] = `
+"Classes may not have fields named \`constructor\`. (2:3)
+  1 | class Foo {
+> 2 |   'constructor'
+    |   ^^^^^^^^^^^^^
+  3 | }"
+`;
+
+exports[`snippet: #2 [hermes] format 1`] = `
+"invalid class property name (2:2)
+  1 | class Foo {
+> 2 |   'constructor'
+    |  ^
+  3 | }
+Cause: invalid class property name (2:2)
+  'constructor'
+  ^~~~~~~~~~~~~"
+`;
+
 exports[`snippet: #2 [meriyah] format 1`] = `
 "Classes may not have a field called constructor (3:1)
   1 | class Foo {
@@ -259,6 +316,25 @@ exports[`snippet: #3 [espree] format 1`] = `
     |            ^
   3 | }
 Cause: Unexpected token 'constructor'"
+`;
+
+exports[`snippet: #3 [flow] format 1`] = `
+"Unexpected string, expected the token \`(\` (2:12)
+  1 | class Foo {
+> 2 |   accessor 'constructor'
+    |            ^^^^^^^^^^^^^
+  3 | }"
+`;
+
+exports[`snippet: #3 [hermes] format 1`] = `
+"';' expected after class property (2:11)
+  1 | class Foo {
+> 2 |   accessor 'constructor'
+    |           ^
+  3 | }
+Cause: ';' expected after class property (2:11)
+  accessor 'constructor'
+  ~~~~~~~~~^"
 `;
 
 exports[`snippet: #3 [meriyah] format 1`] = `
@@ -333,6 +409,25 @@ exports[`snippet: #4 [espree] format 1`] = `
 Cause: Unexpected token 'constructor'"
 `;
 
+exports[`snippet: #4 [flow] format 1`] = `
+"Unexpected string, expected the token \`(\` (2:12)
+  1 | class Foo {
+> 2 |   accessor 'constructor'
+    |            ^^^^^^^^^^^^^
+  3 | }"
+`;
+
+exports[`snippet: #4 [hermes] format 1`] = `
+"';' expected after class property (2:11)
+  1 | class Foo {
+> 2 |   accessor 'constructor'
+    |           ^
+  3 | }
+Cause: ';' expected after class property (2:11)
+  accessor 'constructor'
+  ~~~~~~~~~^"
+`;
+
 exports[`snippet: #4 [meriyah] format 1`] = `
 "Classes may not have a field called constructor (3:1)
   1 | class Foo {
@@ -403,6 +498,25 @@ exports[`snippet: #5 [espree] format 1`] = `
     |            ^
   3 | }
 Cause: Unexpected token constructor"
+`;
+
+exports[`snippet: #5 [flow] format 1`] = `
+"Unexpected identifier, expected the token \`(\` (2:12)
+  1 | class Foo {
+> 2 |   accessor constructor
+    |            ^^^^^^^^^^^
+  3 | }"
+`;
+
+exports[`snippet: #5 [hermes] format 1`] = `
+"';' expected after class property (2:11)
+  1 | class Foo {
+> 2 |   accessor constructor
+    |           ^
+  3 | }
+Cause: ';' expected after class property (2:11)
+  accessor constructor
+  ~~~~~~~~~^"
 `;
 
 exports[`snippet: #5 [meriyah] format 1`] = `
