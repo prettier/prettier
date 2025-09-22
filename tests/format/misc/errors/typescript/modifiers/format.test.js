@@ -144,5 +144,5 @@ runFormatTest(
       ...["abstract"].map((modifier) => `({${modifier} method(){}})`),
     ],
   },
-  ["babel-ts", "typescript", "oxc-ts"],
+  ["typescript", "babel-ts", "oxc-ts"],
 );
