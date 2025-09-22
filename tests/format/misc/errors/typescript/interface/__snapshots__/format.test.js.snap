@@ -7,6 +7,12 @@ exports[`snippet: #0 [babel-ts] format 1`] = `
 Cause: Unexpected token, expected ";" (1:24)"
 `;
 
+exports[`snippet: #0 [oxc-ts] format 1`] = `
+"Unexpected token (1:25)
+> 1 | interface I { x: number = 1;}
+    |                         ^"
+`;
+
 exports[`snippet: #0 [typescript] format 1`] = `
 "A property signature cannot have an initializer. (1:27)
 > 1 | interface I { x: number = 1;}
@@ -21,6 +27,12 @@ exports[`snippet: #1 [babel-ts] format 1`] = `
 Cause: Unexpected token, expected "{" (1:12)"
 `;
 
+exports[`snippet: #1 [oxc-ts] format 1`] = `
+"Expected \`{\` but found \`Identifier\` (1:13)
+> 1 | interface A mixins B {}
+    |             ^^^^^^"
+`;
+
 exports[`snippet: #1 [typescript] format 1`] = `
 "'{' expected. (1:13)
 > 1 | interface A mixins B {}
@@ -33,6 +45,12 @@ exports[`snippet: #2 [babel-ts] format 1`] = `
 > 1 | interface A implements B {}
     |             ^
 Cause: Unexpected token, expected "{" (1:12)"
+`;
+
+exports[`snippet: #2 [oxc-ts] format 1`] = `
+"Interface declaration cannot have 'implements' clause. (1:13)
+> 1 | interface A implements B {}
+    |             ^^^^^^^^^^"
 `;
 
 exports[`snippet: #2 [typescript] format 1`] = `

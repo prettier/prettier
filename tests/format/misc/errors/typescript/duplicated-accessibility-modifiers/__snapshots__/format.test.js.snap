@@ -7,6 +7,12 @@ exports[`snippet: #0 [babel-ts] format 1`] = `
 Cause: Accessibility modifier already seen: 'protected'. (1:17)"
 `;
 
+exports[`snippet: #0 [oxc-ts] format 1`] = `
+"Accessibility modifier already seen. (1:18)
+> 1 | class A {private protected method(){}}
+    |                  ^^^^^^^^^"
+`;
+
 exports[`snippet: #0 [typescript] format 1`] = `
 "Accessibility modifier already seen. (1:18)
 > 1 | class A {private protected method(){}}
@@ -19,6 +25,12 @@ exports[`snippet: #1 [babel-ts] format 1`] = `
 > 1 | class A {protected public method(){}}
     |                    ^
 Cause: Accessibility modifier already seen: 'public'. (1:19)"
+`;
+
+exports[`snippet: #1 [oxc-ts] format 1`] = `
+"Accessibility modifier already seen. (1:20)
+> 1 | class A {protected public method(){}}
+    |                    ^^^^^^"
 `;
 
 exports[`snippet: #1 [typescript] format 1`] = `
@@ -35,6 +47,12 @@ exports[`snippet: #2 [babel-ts] format 1`] = `
 Cause: Accessibility modifier already seen: 'private'. (1:17)"
 `;
 
+exports[`snippet: #2 [oxc-ts] format 1`] = `
+"Accessibility modifier already seen. (1:18)
+> 1 | class A {private private method(){}}
+    |                  ^^^^^^^"
+`;
+
 exports[`snippet: #2 [typescript] format 1`] = `
 "Accessibility modifier already seen. (1:18)
 > 1 | class A {private private method(){}}
@@ -47,6 +65,12 @@ exports[`snippet: #3 [babel-ts] format 1`] = `
 > 1 | class A {private protected property}
     |                  ^
 Cause: Accessibility modifier already seen: 'protected'. (1:17)"
+`;
+
+exports[`snippet: #3 [oxc-ts] format 1`] = `
+"Accessibility modifier already seen. (1:18)
+> 1 | class A {private protected property}
+    |                  ^^^^^^^^^"
 `;
 
 exports[`snippet: #3 [typescript] format 1`] = `
@@ -63,6 +87,12 @@ exports[`snippet: #4 [babel-ts] format 1`] = `
 Cause: Accessibility modifier already seen: 'public'. (1:19)"
 `;
 
+exports[`snippet: #4 [oxc-ts] format 1`] = `
+"Accessibility modifier already seen. (1:20)
+> 1 | class A {protected public property}
+    |                    ^^^^^^"
+`;
+
 exports[`snippet: #4 [typescript] format 1`] = `
 "Accessibility modifier already seen. (1:20)
 > 1 | class A {protected public property}
@@ -75,6 +105,12 @@ exports[`snippet: #5 [babel-ts] format 1`] = `
 > 1 | class A {private private property}
     |                  ^
 Cause: Accessibility modifier already seen: 'private'. (1:17)"
+`;
+
+exports[`snippet: #5 [oxc-ts] format 1`] = `
+"Accessibility modifier already seen. (1:18)
+> 1 | class A {private private property}
+    |                  ^^^^^^^"
 `;
 
 exports[`snippet: #5 [typescript] format 1`] = `

@@ -11,6 +11,16 @@ exports[`mapped-type.ts [babel-ts] format 1`] = `
 Cause: Unexpected token, expected "}" (3:2)"
 `;
 
+exports[`mapped-type.ts [oxc-ts] format 1`] = `
+"Expected \`}\` but found \`Identifier\` (3:3)
+  1 | type Mapped = {
+  2 |   [key in keyof O]: number;
+> 3 |   extra_member: should_not_allowed
+    |   ^^^^^^^^^^^^
+  4 | };
+  5 |"
+`;
+
 exports[`mapped-type.ts [typescript] format 1`] = `
 "A mapped type may not declare properties or methods. (3:3)
   1 | type Mapped = {

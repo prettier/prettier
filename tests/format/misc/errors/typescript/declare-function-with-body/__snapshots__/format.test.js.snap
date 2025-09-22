@@ -7,6 +7,12 @@ exports[`snippet: #0 [babel-ts] format 1`] = `
 Cause: An implementation cannot be declared in ambient contexts. (1:0)"
 `;
 
+exports[`snippet: #0 [oxc-ts] format 1`] = `
+"An implementation cannot be declared in ambient contexts. (1:24)
+> 1 | declare function foo() {}
+    |                        ^"
+`;
+
 exports[`snippet: #0 [typescript] format 1`] = `
 "An implementation cannot be declared in ambient contexts. (1:1)
 > 1 | declare function foo() {}
