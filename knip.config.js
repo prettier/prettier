@@ -19,7 +19,12 @@ export default {
         "src/experimental-cli/**",
         "src/universal/*.browser.js",
       ],
-      ignoreDependencies: ["eslint-formatter-friendly", "ts-expect", "buffer"],
+      ignoreDependencies: [
+        "eslint-formatter-friendly",
+        "ts-expect",
+        "buffer",
+        "deno-path-from-file-url",
+      ],
       ignoreBinaries: [
         "test-coverage",
         "renovate-config-validator",
