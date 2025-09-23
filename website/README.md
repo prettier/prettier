@@ -11,7 +11,7 @@ https://prettier.io/
    yarn build:website
    ```
 
-   To build for the current branch, use `yarn build:website:pr` (or `PULL_REQUEST=true yarn build:website` in non-Windows OSes). Otherwise, a release version of Prettier from `node_modules` is used.
+   To build for the current branch, use `yarn build:website:pr` (or `PULL_REQUEST=true yarn build:website` in non-Windows OSes). Otherwise, a release version of Prettier from `node_modules` is used. (Caution: `node --run build:website:pr` does not work in Windows)
 
 2. Switch to the `website` directory and start the development server:
 
