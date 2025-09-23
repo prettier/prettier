@@ -90,7 +90,7 @@ function genericPrint(path, options, print) {
 
   switch (node.type) {
     case "front-matter":
-      return options.raw;
+      return node.raw;
     case "root":
       /* c8 ignore next 3 */
       if (node.children.length === 0) {
