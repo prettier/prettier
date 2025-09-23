@@ -47,11 +47,11 @@ export const [MARKDOWN_HAS_PRAGMA_REGEXP, MARKDOWN_HAS_IGNORE_PRAGMA_REGEXP] = [
 ].map((pragmas) => {
   const pragma = `@(?:${pragmas.join("|")})`;
   return new RegExp(
-    String.raw`^(?:${[
+    [
       `<!--\\s*${pragma}\\s*-->`,
       `\\{\\s*\\/\\*\\s*${pragma}\\s*\\*\\/\\s*\\}`,
       `<!--.*\r?\n[\\s\\S]*(^|\n)[^\\S\n]*${pragma}[^\\S\n]*($|\n)[\\s\\S]*\n.*-->`,
-    ].join("|")})`,
+    ].join("|"),
     "mu",
   );
 });
