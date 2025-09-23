@@ -69,7 +69,7 @@ function getFrontMatter(text) {
   };
 }
 
-function parseFrontMatter(text) {
+function parse(text) {
   const frontMatter = getFrontMatter(text);
 
   if (!frontMatter) {
@@ -84,4 +84,4 @@ function parseFrontMatter(text) {
   };
 }
 
-export default parseFrontMatter;
+export default parse;

@@ -1,4 +1,5 @@
 import collapseWhiteSpace from "collapse-white-space";
+import cleanFrontMatter from "../utils/front-matter/clean.js";
 import isFrontMatter from "../utils/front-matter/is-front-matter.js";
 import { FORMAT_PRAGMAS } from "../utils/pragma/pragma.evaluate.js";
 import { startWithPragma } from "./pragma.js";
@@ -19,10 +20,7 @@ function clean(original, cloned, parent) {
     delete cloned.value;
   }
 
-  if (isFrontMatter(original) && original.language === "yaml") {
-    delete cloned.end;
-    delete cloned.value;
-  }
+  cleanFrontMatter(original, cloned);
 
   if (original.type === "list") {
     delete cloned.isAligned;

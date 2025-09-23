@@ -1,3 +1,4 @@
+import cleanFrontMatter from "../utils/front-matter/clean.js";
 import isFrontMatter from "../utils/front-matter/is-front-matter.js";
 
 const ignoredProperties = new Set([
@@ -12,10 +13,7 @@ const ignoredProperties = new Set([
 ]);
 
 function clean(original, cloned, parent) {
-  if (isFrontMatter(original) && original.language === "yaml") {
-    delete cloned.end;
-    delete cloned.value;
-  }
+  cleanFrontMatter(original, cloned);
 
   if (
     original.type === "css-comment" &&
