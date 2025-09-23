@@ -576,6 +576,11 @@ printWidth: 80
   console.log(onclick)
   ">Click</button>
 
+<button onclick="
+  'use strict'
+  console.log(onclick)
+  ">Click</button>
+
 =====================================output=====================================
 <button onclick="alert('1')">click me!</button>
 
@@ -625,6 +630,15 @@ printWidth: 80
 <button onclick="console.log(arguments)">Click</button>
 
 <button onclick="console.log(onclick)">Click</button>
+
+<button
+  onclick="
+    &quot;use strict&quot;;
+    console.log(onclick)
+  "
+>
+  Click
+</button>
 
 ================================================================================
 `;
