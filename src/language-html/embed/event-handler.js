@@ -4,7 +4,7 @@ import { formatAttributeValue, shouldHugJsExpression } from "./utils.js";
 
 const eventAttributes = new Set(htmlEventAttributes);
 
-function printEventAttribute(path, options) {
+function printEventHandler(path, options) {
   const { node } = path;
 
   if (
@@ -24,4 +24,4 @@ function printEventAttribute(path, options) {
     );
 }
 
-export default printEventAttribute;
+export default printEventHandler;
