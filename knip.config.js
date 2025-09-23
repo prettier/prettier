@@ -17,6 +17,7 @@ export default {
         "scripts/build/build-javascript-module.js",
         "scripts/tools/**",
         "src/experimental-cli/**",
+        "src/universal/*.browser.js",
       ],
       ignoreDependencies: ["eslint-formatter-friendly", "ts-expect", "buffer"],
       ignoreBinaries: [
