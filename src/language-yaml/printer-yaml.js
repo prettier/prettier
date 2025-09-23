@@ -408,7 +408,7 @@ function printFlowScalarContent(nodeType, content, options) {
   );
 }
 
-function clean(original, cloned /*, parent */) {
+function clean(original, cloned /* , parent */) {
   if (isNode(original)) {
     switch (original.type) {
       case "comment":

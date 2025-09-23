@@ -5,7 +5,7 @@ import { printExpand } from "./utils.js";
 
 /** @import {Doc} from "../../document/builders.js" */
 
-function printSrcset(path /*, options*/) {
+function printSrcset(path /* , options*/) {
   if (
     path.node.fullName === "srcset" &&
     (path.parent.fullName === "img" || path.parent.fullName === "source")

@@ -14,7 +14,7 @@ import {
 } from "./utils.js";
 
 function createAngularPrinter({ parser }) {
-  return (textToDoc, print, path /*, options*/) =>
+  return (textToDoc, print, path /* , options*/) =>
     formatAttributeValue(
       getUnescapedAttributeValue(path.node),
       textToDoc,

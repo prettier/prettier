@@ -56,7 +56,7 @@ const tokenizeEsComment = (eat, value) => {
 };
 
 /* c8 ignore next 2 */
-tokenizeEsSyntax.locator = (value /*, fromIndex*/) =>
+tokenizeEsSyntax.locator = (value /* , fromIndex*/) =>
   isExport(value) || isImport(value) ? -1 : 1;
 
 tokenizeEsComment.locator = (value, fromIndex) => value.indexOf("{", fromIndex);

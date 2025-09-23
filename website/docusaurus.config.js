@@ -181,7 +181,7 @@ const config = {
                 to: "/docs/install",
               },
               {
-                html: /*html*/ `
+                html: /* html */ `
                   <a href="https://www.netlify.com" target="_blank" rel="noreferrer noopener" aria-label="Deploys by Netlify">
                     <img src="https://www.netlify.com/img/global/badges/netlify-color-accent.svg" alt="Deploys by Netlify" width="114" height="51" style="margin-top: 8px;" />
                   </a>
@@ -222,7 +222,7 @@ const config = {
                 href: `${GITHUB_URL}/issues`,
               },
               {
-                html: /*html*/ `
+                html: /* html*/ `
                   <a
                     href="https://github.com/prettier/prettier"
                     target="_blank"

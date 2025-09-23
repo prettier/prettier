@@ -80,7 +80,7 @@ const ignoredProperties = new Set([
   "tokens",
 ]);
 
-function clean(original, cloned /*, parent*/) {
+function clean(original, cloned /* , parent*/) {
   const { type } = original;
   // We print quoted key
   if (type === "ObjectProperty") {

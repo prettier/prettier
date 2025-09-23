@@ -4,7 +4,7 @@ import isNonEmptyArray from "../../utils/is-non-empty-array.js";
 import { printTemplateExpressions } from "../print/template-literal.js";
 import { isAngularComponentStyles } from "./utils.js";
 
-async function printEmbedCss(textToDoc, print, path /*, options*/) {
+async function printEmbedCss(textToDoc, print, path /* , options*/) {
   const { node } = path;
 
   // Get full template literal with expressions replaced by placeholders
@@ -157,7 +157,7 @@ function isCssProp({ parent, grandparent }) {
   );
 }
 
-function printCss(path /*, options*/) {
+function printCss(path /* , options*/) {
   if (
     isStyledJsx(path) ||
     isStyledComponents(path) ||
