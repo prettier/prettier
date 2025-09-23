@@ -42,7 +42,7 @@ function clean(original, cloned) {
   }
 
   if (original.type === "docType") {
-    delete cloned.value;
+    cloned.value = original.value.toLowerCase().replaceAll(/\s+/gu, " ");
   }
 
   if (
