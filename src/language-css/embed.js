@@ -1,10 +1,11 @@
 import { hardline } from "../document/builders.js";
+import isFrontMatter from "../utils/front-matter/is-front-matter.js";
 import printFrontMatter from "../utils/front-matter/print.js";
 
 function embed(path) {
   const { node } = path;
 
-  if (node.type === "front-matter") {
+  if (isFrontMatter(node) && node.language === "yaml") {
     return async (textToDoc) => {
       const doc = await printFrontMatter(node, textToDoc);
       return doc ? [doc, hardline] : undefined;
