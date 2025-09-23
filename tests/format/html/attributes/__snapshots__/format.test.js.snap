@@ -634,7 +634,7 @@ printWidth: 80
 <button
   onclick="
     &quot;use strict&quot;;
-    console.log(onclick)
+    console.log(onclick);
   "
 >
   Click

@@ -93,7 +93,10 @@ function expressionNeedsASIProtection(path, options) {
 const isSingleExpressionStatement = ({ node, parent }) =>
   node.type === "ExpressionStatement" &&
   parent.type === "Program" &&
-  parent.body.length === 1;
+  parent.body.length === 1 &&
+  // In non-Babel parser, directives are `ExpressionStatement`s
+  ((Array.isArray(parent.directives) && parent.directives.length === 0) ||
+    !parent.directives);
 
 function isSingleJsxExpressionStatementInMarkdown(path, options) {
   return (
