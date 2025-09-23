@@ -17,7 +17,7 @@ function printEventAttribute(path, options) {
 
   return (textToDoc) =>
     formatAttributeValue(
-      getUnescapedAttributeValue(node).trim(),
+      getUnescapedAttributeValue(node),
       textToDoc,
       { parser: "babel", __isHtmlEventHandler: true },
       shouldHugJsExpression,

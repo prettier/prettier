@@ -13,7 +13,7 @@ function printStyleAttribute(path, options) {
 
   return async (textToDoc) =>
     printExpand(
-      await textToDoc(getUnescapedAttributeValue(node).trim(), {
+      await textToDoc(getUnescapedAttributeValue(node), {
         parser: "css",
         __isHTMLStyleAttribute: true,
       }),
