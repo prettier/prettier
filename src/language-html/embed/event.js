@@ -4,22 +4,24 @@ import { formatAttributeValue, shouldHugJsExpression } from "./utils.js";
 
 const eventAttributes = new Set(htmlEventAttributes);
 
-export default function printEventAttribute(path, options) {
+function printEventAttribute(path, options) {
   const { node } = path;
 
-  if (!eventAttributes.has(node.fullName) || options.parentParser) {
+  if (
+    options.parentParser ||
+    !eventAttributes.has(node.fullName) ||
+    node.value.includes("{{")
+  ) {
     return;
   }
 
-  const text = getUnescapedAttributeValue(path.node).trim();
-
-  if (!text.includes("{{")) {
-    return (textToDoc) =>
-      formatAttributeValue(
-        text,
-        textToDoc,
-        { parser: "__html_event_handler" },
-        shouldHugJsExpression,
-      );
-  }
+  return (textToDoc) =>
+    formatAttributeValue(
+      getUnescapedAttributeValue(node).trim(),
+      textToDoc,
+      { parser: "__html_event_handler" },
+      shouldHugJsExpression,
+    );
 }
+
+export default printEventAttribute;
