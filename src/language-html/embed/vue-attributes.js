@@ -15,6 +15,30 @@ import { printVueVForDirective } from "./vue-v-for-directive.js";
  * @import AstPath from "../../common/ast-path.js"
  */
 
+// https://vuejs.org/api/built-in-directives.html
+const VUE_BUILTIN_DIRECTIVES = new Set([
+  "v-text",
+  "v-html",
+  "v-show",
+  "v-if",
+  // Does not expect expression
+  // "v-else",
+  "v-else-if",
+  // Handled in `printVueVForDirective`
+  // "v-for",
+  "v-on",
+  "v-bind",
+  "v-model",
+  "v-slot",
+  // Does not expect expression
+  // "v-pre",
+  // Does not expect expression
+  // "v-once",
+  "v-memo",
+  // Does not expect expression
+  // "v-cloak",
+]);
+
 function printVueAttribute(path, options) {
   if (options.parser !== "vue") {
     return;
@@ -65,7 +89,7 @@ function printVueAttribute(path, options) {
   /**
    *     v-if="jsExpression"
    */
-  if (attributeName.startsWith("v-")) {
+  if (VUE_BUILTIN_DIRECTIVES.has(attributeName)) {
     return (textToDoc) => printExpression(value, textToDoc, { parseWithTs });
   }
 }
