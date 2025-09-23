@@ -34,7 +34,8 @@ function clean(original, cloned) {
     original.type === "yaml" ||
     original.type === "toml"
   ) {
-    return null;
+    delete cloned.raw;
+    delete cloned.value;
   }
 
   if (original.type === "attribute") {
