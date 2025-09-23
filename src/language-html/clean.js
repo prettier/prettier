@@ -41,8 +41,8 @@ function clean(original, cloned) {
     delete cloned.value;
   }
 
-  if (original.type === "docType") {
-    delete cloned.value;
+  if (original.type === "docType" && original.value) {
+    cloned.value = original.value.toLowerCase().replaceAll(/\s+/gu, " ");
   }
 
   if (
