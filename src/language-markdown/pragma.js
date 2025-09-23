@@ -6,13 +6,13 @@ import {
 } from "../utils/pragma/pragma.evaluate.js";
 
 const hasPragma = (text) =>
-  MARKDOWN_HAS_PRAGMA_REGEXP.match(parseFrontMatter(text).content.trimStart())
+  parseFrontMatter(text).content.trimStart().match(MARKDOWN_HAS_PRAGMA_REGEXP)
     ?.index === 0;
 
 const hasIgnorePragma = (text) =>
-  MARKDOWN_HAS_IGNORE_PRAGMA_REGEXP.match(
-    parseFrontMatter(text).content.trimStart(),
-  )?.index === 0;
+  parseFrontMatter(text)
+    .content.trimStart()
+    .match(MARKDOWN_HAS_IGNORE_PRAGMA_REGEXP)?.index === 0;
 
 const insertPragma = (text) => {
   const { frontMatter } = parseFrontMatter(text);
