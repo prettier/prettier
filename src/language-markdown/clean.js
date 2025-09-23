@@ -10,13 +10,17 @@ const ignoredProperties = new Set([
 function clean(original, cloned, parent) {
   // for codeblock
   if (
-    original.type === "front-matter" ||
     original.type === "code" ||
     original.type === "yaml" ||
     original.type === "import" ||
     original.type === "export" ||
     original.type === "jsx"
   ) {
+    delete cloned.value;
+  }
+
+  if (isFrontMatter(original) && original.language === "yaml") {
+    delete cloned.end;
     delete cloned.value;
   }
 
