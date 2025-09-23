@@ -30,11 +30,13 @@ function printVueAttribute(path, options) {
     return printVueScriptGenericAttributeValue;
   }
 
-  const value = getUnescapedAttributeValue(node);
   const parseWithTs = isVueSfcWithTypescriptScript(path, options);
 
   if (isVueSlotAttribute(node) || isVueSfcBindingsAttribute(node, options)) {
-    return (textToDoc) => printVueBindings(value, textToDoc, { parseWithTs });
+    return (textToDoc) =>
+      printVueBindings(getUnescapedAttributeValue(node), textToDoc, {
+        parseWithTs,
+      });
   }
 
   /**
@@ -45,7 +47,9 @@ function printVueAttribute(path, options) {
    */
   if (attributeName.startsWith("@") || attributeName.startsWith("v-on:")) {
     return (textToDoc) =>
-      printVueVOnDirective(value, textToDoc, { parseWithTs });
+      printVueVOnDirective(getUnescapedAttributeValue(node), textToDoc, {
+        parseWithTs,
+      });
   }
 
   /**
@@ -59,14 +63,19 @@ function printVueAttribute(path, options) {
     attributeName.startsWith("v-bind:")
   ) {
     return (textToDoc) =>
-      printVueVBindDirective(value, textToDoc, { parseWithTs });
+      printVueVBindDirective(getUnescapedAttributeValue(node), textToDoc, {
+        parseWithTs,
+      });
   }
 
   /**
    *     v-if="jsExpression"
    */
   if (attributeName.startsWith("v-")) {
-    return (textToDoc) => printExpression(value, textToDoc, { parseWithTs });
+    return (textToDoc) =>
+      printExpression(getUnescapedAttributeValue(node), textToDoc, {
+        parseWithTs,
+      });
   }
 }
 

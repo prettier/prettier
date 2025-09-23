@@ -68,22 +68,23 @@ function printAngularAttribute(path, options) {
     return printNgDirective;
   }
 
-  const value = getUnescapedAttributeValue(node);
-
   /**
    *     i18n="longDescription"
    *     i18n-attr="longDescription"
    */
   if (/^i18n(?:-.+)?$/u.test(attributeName)) {
-    return () =>
-      printExpand(
+    return () => {
+      const value = getUnescapedAttributeValue(node);
+      return printExpand(
         fill(getTextValueParts(node, value.trim())),
         !value.includes("@@"),
       );
+    };
   }
 
-  if (angularInterpolationRegex.test(value)) {
-    return (textToDoc) => printAngularInterpolation(value, textToDoc);
+  if (angularInterpolationRegex.test(node.value)) {
+    return (textToDoc) =>
+      printAngularInterpolation(getUnescapedAttributeValue(node), textToDoc);
   }
 }
 
