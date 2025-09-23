@@ -57,10 +57,19 @@ function getFrontMatter(text) {
     startDelimiter,
     endDelimiter: raw.slice(-DELIMITER_LENGTH),
     raw,
+    start: { line: 1, column: 0, index: 0 },
+    get end() {
+      const lines = raw.split("\n");
+      return {
+        line: lines.length,
+        column: lines.at(-1).length,
+        index: raw.length,
+      };
+    },
   };
 }
 
-function parse(text) {
+function parseFrontMatter(text) {
   const frontMatter = getFrontMatter(text);
 
   if (!frontMatter) {
@@ -75,4 +84,4 @@ function parse(text) {
   };
 }
 
-export default parse;
+export default parseFrontMatter;

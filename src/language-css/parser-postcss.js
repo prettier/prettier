@@ -408,8 +408,8 @@ function parseWithParser(parse, text, options) {
 
   if (frontMatter) {
     frontMatter.source = {
-      startOffset: 0,
-      endOffset: frontMatter.raw.length,
+      startOffset: frontMatter.start.index,
+      endOffset: frontMatter.end.index,
     };
     result.frontMatter = frontMatter;
   }

@@ -362,8 +362,15 @@ function parse(
   };
 
   if (frontMatter) {
-    const start = new ParseLocation(file, 0, 0, 0);
-    const end = start.moveBy(frontMatter.raw.length);
+    const [start, end] = [frontMatter.start, frontMatter.end].map(
+      (location) =>
+        new ParseLocation(
+          file,
+          location.index,
+          location.line - 1,
+          location.column,
+        ),
+    );
     frontMatter.sourceSpan = new ParseSourceSpan(start, end);
     // @ts-expect-error -- not a real AstNode
     rawAst.children.unshift(frontMatter);
