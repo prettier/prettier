@@ -564,6 +564,18 @@ printWidth: 80
    alert(1);           alert(2);
  ">Click</button>
 
+<button onclick="
+    return false
+  ">Click</button>
+
+<button onclick="
+  console.log(arguments)
+  ">Click</button>
+
+<button onclick="
+  console.log(onclick)
+  ">Click</button>
+
 =====================================output=====================================
 <button onclick="alert('1')">click me!</button>
 
@@ -607,6 +619,12 @@ printWidth: 80
 >
   Click
 </button>
+
+<button onclick="return false;">Click</button>
+
+<button onclick="console.log(arguments)">Click</button>
+
+<button onclick="console.log(onclick)">Click</button>
 
 ================================================================================
 `;
