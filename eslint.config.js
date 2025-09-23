@@ -150,6 +150,7 @@ export default [
           avoidEscape: true,
         },
       ],
+      "@stylistic/spaced-comment": "error",
 
       /* @typescript-eslint/eslint-plugin */
       "@typescript-eslint/prefer-ts-expect-error": "error",
