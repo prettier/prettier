@@ -222,7 +222,7 @@ const config = {
                 href: `${GITHUB_URL}/issues`,
               },
               {
-                html: /* html*/ `
+                html: /* html */ `
                   <a
                     href="https://github.com/prettier/prettier"
                     target="_blank"
