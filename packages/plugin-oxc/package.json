@@ -18,5 +18,6 @@
   "funding": "https://github.com/prettier/prettier?sponsor=1",
   "homepage": "https://github.com/prettier/prettier/tree/main/packages/plugin-oxc",
   "author": "fisker Cheung <lionkay@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "sideEffects": false
 }

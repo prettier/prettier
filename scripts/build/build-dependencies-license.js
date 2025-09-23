@@ -134,8 +134,7 @@ async function buildDependenciesLicense({
     throw new Error(`${fileName} should be last file to build.`);
   }
 
-  const shouldBuildLicense =
-    !cliOptions.files && typeof cliOptions.minify !== "boolean";
+  const shouldBuildLicense = !cliOptions.files;
 
   if (!shouldBuildLicense) {
     return { skipped: true };
