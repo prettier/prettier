@@ -65,8 +65,8 @@ async function buildPlaygroundFiles() {
   // TODO: Support stable version
   // External plugins
   if (IS_PULL_REQUEST) {
-    for (const pluginName of ["plugin-hermes"]) {
-      pluginFiles.push(`${pluginName}/index.mjs`);
+    for (const pluginName of ["hermes", "oxc"]) {
+      pluginFiles.push(`plugin-${pluginName}/index.mjs`);
     }
   }
 
@@ -81,7 +81,9 @@ async function buildPlaygroundFiles() {
       const plugin = { file };
 
       const pluginModule = await import(
-        url.pathToFileURL(path.join(PACKAGES_DIRECTORY, file))
+        file === "plugin-oxc/index.mjs"
+          ? "../packages/plugin-oxc/index.js"
+          : url.pathToFileURL(path.join(PACKAGES_DIRECTORY, file))
       );
 
       for (const property of ["languages", "options", "defaultOptions"]) {

@@ -48,6 +48,11 @@ const clear = () => {
 async function buildFile({ packageConfig, file, cliOptions, results }) {
   const { distDirectory } = packageConfig;
   let displayName = file.output.file;
+
+  if (file.playgroundOnly) {
+    displayName = ` ${displayName} (playground)`;
+  }
+
   if (
     (file.platform === "universal" && file.output.format !== "esm") ||
     (file.output.file.startsWith("index.") && file.output.format !== "esm") ||
@@ -179,6 +184,10 @@ async function run() {
     const startTime = performance.now();
     const results = [];
     for (const file of packageConfig.files) {
+      if (!cliOptions.playground && file.playgroundOnly) {
+        continue;
+      }
+
       const result = await buildFile({
         packageConfig,
         file,
