@@ -4,7 +4,10 @@ import { addTypePrefix } from "./utils.js";
 function parseSelector(selector) {
   // Clean the content in quotes,
   // avoid the next regex to match quotes content
-  const cleanContent = selector.replaceAll(/"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'/gu, "")
+  const cleanContent = selector.replaceAll(
+    /"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'/gu,
+    "",
+  );
 
   // If there's a comment inside of a selector, the parser tries to parse
   // the content of the comment as selectors which turns it into complete
