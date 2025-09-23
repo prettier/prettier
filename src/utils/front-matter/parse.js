@@ -48,6 +48,7 @@ function getFrontMatter(text) {
   }
 
   const raw = text.slice(0, frontMatterEndIndex);
+  let lines;
 
   return {
     type: "front-matter",
@@ -58,13 +59,16 @@ function getFrontMatter(text) {
     endDelimiter: raw.slice(-DELIMITER_LENGTH),
     raw,
     start: { line: 1, column: 0, index: 0 },
-    get end() {
-      const lines = raw.split("\n");
-      return {
-        line: lines.length,
-        column: lines.at(-1).length,
-        index: raw.length,
-      };
+    end: {
+      index: raw.length,
+      get line() {
+        lines ??= raw.split("\n");
+        return lines.length;
+      },
+      get column() {
+        lines ??= raw.split("\n");
+        return lines.at(-1).length;
+      },
     },
   };
 }
