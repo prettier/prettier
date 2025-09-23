@@ -405,11 +405,13 @@ function parseWithParser(parse, text, options) {
   calculateLoc(result, text);
 
   if (frontMatter) {
-    frontMatter.source = {
-      startOffset: frontMatter.start.index,
-      endOffset: frontMatter.end.index,
+    result.frontMatter = {
+      ...frontMatter,
+      source: {
+        startOffset: frontMatter.start.index,
+        endOffset: frontMatter.end.index,
+      },
     };
-    result.frontMatter = frontMatter;
   }
 
   return result;

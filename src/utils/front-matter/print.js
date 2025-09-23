@@ -6,7 +6,7 @@ async function print(node, textToDoc) {
     const doc = value ? await textToDoc(value, { parser: "yaml" }) : "";
     return markAsRoot([
       node.startDelimiter,
-      node.explicitLanguage,
+      node.explicitLanguage ?? "",
       hardline,
       doc,
       doc ? hardline : "",

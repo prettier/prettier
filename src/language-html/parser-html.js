@@ -21,7 +21,7 @@ import HTML_TAGS from "./utils/html-tags.evaluate.js";
 import isUnknownNamespace from "./utils/is-unknown-namespace.js";
 
 /**
- * @import AngularHtmlParser, {ParseOptions as AngularHtmlParserParseOptions} from "angular-html-parser"
+ * @import {ParseOptions as AngularHtmlParserParseOptions} from "angular-html-parser"
  * @import {Node as AstNode, Attribute, Element} from "angular-html-parser/lib/compiler/src/ml_parser/ast.js"
  * @import {ParseTreeResult} from "angular-html-parser/lib/compiler/src/ml_parser/parser.js"
  */
@@ -348,7 +348,7 @@ function parse(
   options = {},
   shouldParseFrontMatter = true,
 ) {
-  const { frontMatter, content } = shouldParseFrontMatter
+  const { frontMatter, content: textToParse } = shouldParseFrontMatter
     ? parseFrontMatter(text)
     : { frontMatter: null, content: text };
 
@@ -358,7 +358,7 @@ function parse(
   const rawAst = {
     type: "root",
     sourceSpan: new ParseSourceSpan(start, end),
-    children: ngHtmlParser(content, parseOptions, options),
+    children: ngHtmlParser(textToParse, parseOptions, options),
   };
 
   if (frontMatter) {
@@ -371,9 +371,11 @@ function parse(
           location.column,
         ),
     );
-    frontMatter.sourceSpan = new ParseSourceSpan(start, end);
     // @ts-expect-error -- not a real AstNode
-    rawAst.children.unshift(frontMatter);
+    rawAst.children.unshift({
+      ...frontMatter,
+      sourceSpan: new ParseSourceSpan(start, end),
+    });
   }
 
   const ast = new Node(rawAst);

@@ -1,5 +1,24 @@
 const DELIMITER_LENGTH = 3;
 
+/**
+@typedef {{index: number, line: number, column: number}} Position
+@typedef {{
+  type: "front-matter",
+  language: string,
+  explicitLanguage: string | null,
+  value: string,
+  startDelimiter: string,
+  endDelimiter: string,
+  raw: string,
+  start: Position,
+  end: Position,
+}} FrontMatter
+*/
+
+/**
+@param {string} text
+@returns {FrontMatter | undefined}
+*/
 function getFrontMatter(text) {
   const startDelimiter = text.slice(0, DELIMITER_LENGTH);
 
@@ -48,12 +67,13 @@ function getFrontMatter(text) {
   }
 
   const raw = text.slice(0, frontMatterEndIndex);
+  /** @type {string[]} */
   let lines;
 
   return {
     type: "front-matter",
     language,
-    explicitLanguage,
+    explicitLanguage: explicitLanguage || null,
     value: text.slice(firstLineBreakIndex + 1, endDelimiterIndex),
     startDelimiter,
     endDelimiter: raw.slice(-DELIMITER_LENGTH),
