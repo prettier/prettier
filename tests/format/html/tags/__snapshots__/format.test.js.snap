@@ -656,21 +656,27 @@ printWidth: 1
 <menu>
   <li>
     <button
-      onclick="copy()"
+      onclick="
+        copy()
+      "
     >
       Copy
     </button>
   </li>
   <li>
     <button
-      onclick="cut()"
+      onclick="
+        cut()
+      "
     >
       Cut
     </button>
   </li>
   <li>
     <button
-      onclick="paste()"
+      onclick="
+        paste()
+      "
     >
       Paste
     </button>

@@ -2296,6 +2296,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@prettier/html-event-attributes@npm:0.0.1":
+  version: 0.0.1
+  resolution: "@prettier/html-event-attributes@npm:0.0.1"
+  checksum: 10/28c88092b06bf5a0ed2b9e8e4b7abf55eff409e64e0ebc958dd115f8c06c0667c2cb2df1bd4c55d28df58d481eadc7465e7138566b91288cafefc4b5ea048eb9
+  languageName: node
+  linkType: hard
+
 "@prettier/html-tags@npm:1.1.0":
   version: 1.1.0
   resolution: "@prettier/html-tags@npm:1.1.0"
@@ -7536,6 +7543,7 @@ __metadata:
     "@eslint/js": "npm:9.35.0"
     "@glimmer/syntax": "npm:0.95.0"
     "@prettier/cli": "npm:0.9.0"
+    "@prettier/html-event-attributes": "npm:0.0.1"
     "@prettier/html-tags": "npm:1.1.0"
     "@prettier/parse-srcset": "npm:3.1.0"
     "@stylistic/eslint-plugin": "npm:5.3.1"
