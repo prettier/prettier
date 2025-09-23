@@ -1,4 +1,4 @@
-import isFrontMatter from "../utils/front-matter/is-front-matter.js";
+import cleanFrontMatter from "../utils/front-matter/clean.js";
 
 const ignoredProperties = new Set([
   "sourceSpan",
@@ -28,13 +28,10 @@ function clean(original, cloned) {
     return null;
   }
 
+  cleanFrontMatter(original, cloned);
+
   // may be formatted by multiparser
-  if (
-    isFrontMatter(original) ||
-    original.type === "yaml" ||
-    original.type === "toml"
-  ) {
-    delete cloned.raw;
+  if (original.type === "yaml") {
     delete cloned.value;
   }
 

@@ -1,4 +1,5 @@
 import collapseWhiteSpace from "collapse-white-space";
+import cleanFrontMatter from "../utils/front-matter/clean.js";
 import isFrontMatter from "../utils/front-matter/is-front-matter.js";
 import { FORMAT_PRAGMAS } from "../utils/pragma/pragma.evaluate.js";
 import { startWithPragma } from "./pragma.js";
@@ -10,7 +11,6 @@ const ignoredProperties = new Set([
 function clean(original, cloned, parent) {
   // for codeblock
   if (
-    original.type === "front-matter" ||
     original.type === "code" ||
     original.type === "yaml" ||
     original.type === "import" ||
@@ -19,6 +19,8 @@ function clean(original, cloned, parent) {
   ) {
     delete cloned.value;
   }
+
+  cleanFrontMatter(original, cloned);
 
   if (original.type === "list") {
     delete cloned.isAligned;

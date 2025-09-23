@@ -377,14 +377,12 @@ function parseNestedCSS(node, options) {
 }
 
 function parseWithParser(parse, text, options) {
-  const parsed = parseFrontMatter(text);
-  const { frontMatter } = parsed;
-  text = parsed.content;
+  const { frontMatter, content: textToParse } = parseFrontMatter(text);
 
   let result;
 
   try {
-    result = parse(text, {
+    result = parse(textToParse, {
       // Prevent file access https://github.com/postcss/postcss/blob/4f4e2932fc97e2c117e1a4b15f0272ed551ed59d/lib/previous-map.js#L18
       map: false,
     });
@@ -407,11 +405,13 @@ function parseWithParser(parse, text, options) {
   calculateLoc(result, text);
 
   if (frontMatter) {
-    frontMatter.source = {
-      startOffset: 0,
-      endOffset: frontMatter.raw.length,
+    result.frontMatter = {
+      ...frontMatter,
+      source: {
+        startOffset: frontMatter.start.index,
+        endOffset: frontMatter.end.index,
+      },
     };
-    result.frontMatter = frontMatter;
   }
 
   return result;

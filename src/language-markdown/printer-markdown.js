@@ -90,10 +90,7 @@ function genericPrint(path, options, print) {
 
   switch (node.type) {
     case "front-matter":
-      return options.originalText.slice(
-        node.position.start.offset,
-        node.position.end.offset,
-      );
+      return node.raw;
     case "root":
       /* c8 ignore next 3 */
       if (node.children.length === 0) {
