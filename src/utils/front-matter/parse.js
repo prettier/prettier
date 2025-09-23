@@ -76,11 +76,12 @@ function parse(text) {
     return { content: text };
   }
 
-  const { raw } = frontMatter;
-
   return {
     frontMatter,
-    content: raw.replaceAll(/[^\n]/gu, " ") + text.slice(raw.length),
+    get content() {
+      const { raw } = frontMatter;
+      return raw.replaceAll(/[^\n]/gu, " ") + text.slice(raw.length);
+    },
   };
 }
 
