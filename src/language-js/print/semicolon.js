@@ -104,7 +104,9 @@ function isSingleJsxExpressionStatementInMarkdown(path, options) {
 }
 
 function isSingleHtmlEventHandlerExpressionStatement(path, options) {
-  return options.__isHtmlEventHandler && isSingleExpressionStatement(path);
+  return (
+    options.__isHtmlInlineEventHandler && isSingleExpressionStatement(path)
+  );
 }
 
 function isSingleVueEventBindingExpressionStatement(path, options) {

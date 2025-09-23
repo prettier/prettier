@@ -19,10 +19,7 @@ function printEventHandler(path, options) {
     formatAttributeValue(
       getUnescapedAttributeValue(node),
       textToDoc,
-      {
-        parser: "babel",
-        __isHtmlEventHandler: true,
-      },
+      { parser: "babel", __isHtmlInlineEventHandler: true },
       () => false,
     );
 }
