@@ -90,35 +90,28 @@ function expressionNeedsASIProtection(path, options) {
   );
 }
 
-function isSingleJsxExpressionStatementInMarkdown({ node, parent }, options) {
+const isSingleExpressionStatement = ({ node, parent }) =>
+  node.type === "ExpressionStatement" &&
+  parent.type === "Program" &&
+  parent.body.length === 1;
+
+function isSingleJsxExpressionStatementInMarkdown(path, options) {
   return (
     (options.parentParser === "markdown" || options.parentParser === "mdx") &&
-    node.type === "ExpressionStatement" &&
-    isJsxElement(node.expression) &&
-    parent.type === "Program" &&
-    parent.body.length === 1
+    isSingleExpressionStatement(path) &&
+    isJsxElement(path.node.expression)
   );
 }
 
-function isSingleHtmlEventHandlerExpressionStatement(
-  { node, parent },
-  options,
-) {
-  return (
-    options.__isHtmlEventHandler &&
-    node.type === "ExpressionStatement" &&
-    parent.type === "Program" &&
-    parent.body.length === 1
-  );
+function isSingleHtmlEventHandlerExpressionStatement(path, options) {
+  return options.__isHtmlEventHandler && isSingleExpressionStatement(path);
 }
 
-function isSingleVueEventBindingExpressionStatement({ node, parent }, options) {
+function isSingleVueEventBindingExpressionStatement(path, options) {
   return (
     (options.parser === "__vue_event_binding" ||
       options.parser === "__vue_ts_event_binding") &&
-    node.type === "ExpressionStatement" &&
-    parent.type === "Program" &&
-    parent.body.length === 1
+    isSingleExpressionStatement(path)
   );
 }
 
