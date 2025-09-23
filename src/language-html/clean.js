@@ -29,11 +29,8 @@ function clean(original, cloned) {
   }
 
   // may be formatted by multiparser
-  if (
-    isFrontMatter(original) ||
-    original.type === "yaml" ||
-    original.type === "toml"
-  ) {
+  if (isFrontMatter(original) || original.type === "yaml") {
+    delete cloned.end;
     delete cloned.raw;
     delete cloned.value;
   }
