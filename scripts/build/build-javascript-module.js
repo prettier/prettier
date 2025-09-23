@@ -178,15 +178,6 @@ function getEsbuildOptions({ packageConfig, file, cliOptions }) {
         find: 'import { createRequire } from "node:module";',
         replacement: "",
       },
-      // Prevent `esbuildPluginNodeModulePolyfills` shim `assert`, which will include a big `buffer` shim
-      // TODO[@fisker]: Find a better way
-      {
-        module: "*",
-        find: ' from "node:assert";',
-        replacement: ` from ${JSON.stringify(
-          path.join(dirname, "./shims/assert.js"),
-        )};`,
-      },
       // Prevent `esbuildPluginNodeModulePolyfills` include shim for this module
       {
         module: "assert",
@@ -196,11 +187,6 @@ function getEsbuildOptions({ packageConfig, file, cliOptions }) {
       {
         module: "module",
         text: "export const createRequire = () => {};",
-      },
-      // This module requires file access, should not include in universal bundle
-      {
-        module: path.join(PROJECT_ROOT, "src/utils/get-interpreter.js"),
-        text: "export default undefined;",
       },
     );
   }

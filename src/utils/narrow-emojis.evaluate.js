@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "#universal/assert";
 
 /**
  * How the narrow emoji list was generated:

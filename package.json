@@ -12,6 +12,16 @@
   "main": "./src/index.cjs",
   "browser": "./standalone.js",
   "unpkg": "./standalone.js",
+  "imports": {
+    "#universal": {
+      "browser": "./src/universal/index.browser.js",
+      "default": "./src/universal/index.js"
+    },
+    "#universal/*": {
+      "browser": "./src/universal/*.browser.js",
+      "default": "./src/universal/*.js"
+    }
+  },
   "exports": {
     ".": {
       "types": "./src/index.d.ts",

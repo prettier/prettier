@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "#universal/assert";
 import { locEnd, locStart } from "../../loc.js";
 import createTypeCheckFunction from "../../utils/create-type-check-function.js";
 import getRaw from "../../utils/get-raw.js";

@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import assert from "#universal/assert";
 import getPreferredQuote from "./get-preferred-quote.js";
 import makeString from "./make-string.js";
 
