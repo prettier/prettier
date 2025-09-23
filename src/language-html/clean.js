@@ -38,7 +38,7 @@ function clean(original, cloned) {
   }
 
   if (original.type === "attribute") {
-    const { name, value } = original;
+    const { fullName: name, value } = original;
 
     if (
       // HTML attributes
