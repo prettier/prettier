@@ -89,7 +89,6 @@ export const { parsers, printers } = createParsersAndPrinters([
       "__vue_expression",
       "__vue_ts_expression",
       "__vue_event_binding",
-      "__html_event_handler",
       "__vue_ts_event_binding",
       "__babel_estree",
       "json",

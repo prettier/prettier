@@ -20,11 +20,17 @@ function printExpressionStatement(path, options, print) {
     ) {
       parts.push(";");
     }
-  } else if (isSingleJsxExpressionStatementInMarkdown(path, options)) {
-    // Do not append semicolon after the only JSX element in a program
-  } else if (isSingleHtmlEventHandlerExpressionStatement(path, options)) {
-    // Do not append semicolon after the only HTML event binding expression in a program
-  } else if (options.semi) {
+  } else if (
+    options.semi &&
+    !(
+      //Do not append semicolon after the only JSX element in a program
+      (
+        isSingleJsxExpressionStatementInMarkdown(path, options) ||
+        // Do not append semicolon after the only HTML event binding expression in a program
+        isSingleHtmlEventHandlerExpressionStatement(path, options)
+      )
+    )
+  ) {
     parts.push(";");
   }
 

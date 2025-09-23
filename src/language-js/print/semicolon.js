@@ -105,7 +105,7 @@ function isSingleHtmlEventHandlerExpressionStatement(
   options,
 ) {
   return (
-    options.parser === "__html_event_handler" &&
+    options.__isHtmlEventHandler &&
     node.type === "ExpressionStatement" &&
     parent.type === "Program" &&
     parent.body.length === 1

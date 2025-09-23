@@ -19,7 +19,7 @@ function printEventAttribute(path, options) {
     formatAttributeValue(
       getUnescapedAttributeValue(node).trim(),
       textToDoc,
-      { parser: "__html_event_handler" },
+      { parser: "babel", __isHtmlEventHandler: true },
       shouldHugJsExpression,
     );
 }

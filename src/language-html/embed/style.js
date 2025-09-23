@@ -6,7 +6,7 @@ function printStyleAttribute(path, options) {
   if (
     node.fullName !== "style" ||
     options.parentParser ||
-    !node.value.includes("{{")
+    node.value.includes("{{")
   ) {
     return;
   }
