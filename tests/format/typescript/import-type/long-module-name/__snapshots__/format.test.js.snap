@@ -147,13 +147,13 @@ type C = import(
   {
     with: {
       type: "json",
-    }
+    },
   }
 );
 type D = import(
   "./long/long/long/long/long/long/long/long/long/long/path/to/module",
   {
-    with: { type: "json" }
+    with: { type: "json" },
   }
 );
 
