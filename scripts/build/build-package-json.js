@@ -23,6 +23,7 @@ const keysToKeep = [
   "engines",
   "files",
   "preferUnplugged",
+  "sideEffects",
 ];
 
 const publishConfig = {
