@@ -37,7 +37,7 @@ const parseOptions = {
   allowReturnOutsideFunction: true,
 };
 
-async function parse(text /*, options*/) {
+async function parse(text /* , options*/) {
   let ast;
   try {
     ast = await hermesParse(text, parseOptions);

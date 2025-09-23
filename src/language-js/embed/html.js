@@ -123,7 +123,7 @@ function isHtml(path) {
 const printEmbedHtml = printEmbedHtmlLike.bind(undefined, "html");
 const printEmbedAngular = printEmbedHtmlLike.bind(undefined, "angular");
 
-function printHtml(path /*, options*/) {
+function printHtml(path /* , options*/) {
   if (isHtml(path)) {
     return printEmbedHtml;
   }

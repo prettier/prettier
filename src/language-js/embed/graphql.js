@@ -5,7 +5,7 @@ import {
 } from "../print/template-literal.js";
 import { hasLanguageComment } from "./utils.js";
 
-async function printEmbedGraphQL(textToDoc, print, path /*, options*/) {
+async function printEmbedGraphQL(textToDoc, print, path /* , options*/) {
   const { node } = path;
 
   const numQuasis = node.quasis.length;
@@ -121,7 +121,7 @@ function isGraphQL({ node, parent }) {
   );
 }
 
-function printGraphql(path /*, options*/) {
+function printGraphql(path /* , options*/) {
   if (isGraphQL(path)) {
     return printEmbedGraphQL;
   }
