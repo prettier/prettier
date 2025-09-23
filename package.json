@@ -221,6 +221,7 @@
       "src/standalone.js",
       "src/index.cjs",
       "src/document/debug.js",
+      "src/universal/*.browser.js",
       "src/utils/unexpected-node-error.js",
       "src/language-js/types/estree.d.ts",
       "src/**/**/*.d.ts"
