@@ -43,6 +43,7 @@ function clean(original, cloned) {
       name === "style" ||
       name === "class" ||
       name === "srcset" ||
+      name === "allow" ||
       name.startsWith("on") ||
       // Vue attributes
       name.startsWith("@") ||
