@@ -52,9 +52,9 @@ function clean(original, cloned, parent) {
       name.startsWith(".") ||
       name.startsWith("#") ||
       name.startsWith("v-") ||
-      name === "vars" ||
-      name === "setup" ||
-      name === "generic" ||
+      (name === "vars" && parent.fullName === "style") ||
+      ((name === "setup" || name === "generic") &&
+        parent.fullName === "script") ||
       name === "slot-scope" ||
       // Angular attributes
       name.startsWith("(") ||
