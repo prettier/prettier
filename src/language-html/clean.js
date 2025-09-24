@@ -1,4 +1,4 @@
-import cleanFrontMatter from "../utils/front-matter/clean.js";
+import { cleanFrontMatter } from "../utils/front-matter/index.js";
 
 const ignoredProperties = new Set([
   "sourceSpan",

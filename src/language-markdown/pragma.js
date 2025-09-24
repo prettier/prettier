@@ -1,4 +1,4 @@
-import parseFrontMatter from "../utils/front-matter/parse.js";
+import { parseFrontMatter } from "../utils/front-matter/index.js";
 import {
   FORMAT_PRAGMA_TO_INSERT,
   MARKDOWN_HAS_IGNORE_PRAGMA_REGEXP,

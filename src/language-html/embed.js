@@ -5,7 +5,7 @@ import {
   indent,
   line,
 } from "../document/builders.js";
-import printFrontMatter from "../utils/front-matter/print.js";
+import { printFrontMatter } from "../utils/front-matter/index.js";
 import printAngularControlFlowBlockParameters from "./embed/angular-control-flow-block-parameters.js";
 import printAttribute from "./embed/attribute.js";
 import { formatAttributeValue } from "./embed/utils.js";
