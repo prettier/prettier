@@ -17,13 +17,14 @@ ambient-light-sensor 'self'"></iframe>
 
 <!-- Uppper case -->
 <iframe allow="CAMERA 'self'; MICROPHONE 'none'; GEOlocation https://example.com"></iframe>
+<iframe allow="CAMERA 'self'; UNKOWN-DIRECTIVE"></iframe>
 
 <!-- Duplicated -->
 <iframe allow="camera 'none'; camera 'self'; CAMERA 'self'"></iframe>
 
 <!-- None ASCII -->
-<iframe allow="   中文-camera"></iframe>
-<iframe allow=" 中文-camera   'self'  ;   microphone   '中文-origin'"></iframe>
+<iframe allow="   中文-dirctive-name"></iframe>
+<iframe allow=" 中文-dirctive-name   'self'  ;   microphone   中文-origin"></iframe>
 
 <!-- Not iframe-->
 <a allow="
