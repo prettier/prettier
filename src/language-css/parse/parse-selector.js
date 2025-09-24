@@ -6,7 +6,7 @@ function parseSelector(selector) {
   // the content of the comment as selectors which turns it into complete
   // garbage. Better to print the whole selector as-is and not try to parse
   // and reformat it.
-  if (/\/\/|\/\*/u.test(selector)) {
+  if (/\/[/*]/u.test(selector.replaceAll(/"[^"]+"|'[^']+'/gu, ""))) {
     return {
       type: "selector-unknown",
       value: selector.trim(),
