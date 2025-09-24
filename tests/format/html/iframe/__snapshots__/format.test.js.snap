@@ -33,7 +33,7 @@ printWidth: 80
   <iframe allow="   "></iframe>
 
   <iframe allow="
-    camera   'self'  ;   microphone   'self'
+    中文-camera   'self'  ;   中文-microphone   'self'
   "></iframe>
 </body>
 </html>
@@ -50,7 +50,7 @@ printWidth: 80
     <iframe allow="camera; microphone"></iframe>
 
     <iframe
-      allow="camera 'self'; microphone 'none'; geolocation https://example.com"
+      allow="CAMERA 'self'; MICROPHONE 'none'; GEOLOCATION https://example.com"
     ></iframe>
 
     <iframe
@@ -109,7 +109,7 @@ printWidth: 80
 
     <iframe allow=""></iframe>
 
-    <iframe allow="camera 'self'; microphone 'self'"></iframe>
+    <iframe allow="中文-camera 'self'; 中文-microphone 'self'"></iframe>
   </body>
 </html>
 
