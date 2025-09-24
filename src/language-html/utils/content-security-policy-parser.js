@@ -1,4 +1,9 @@
-// Copied from https://github.com/helmetjs/content-security-policy-parser/blob/main/mod.ts
+/*
+Based on https://github.com/helmetjs/content-security-policy-parser/blob/main/mod.ts with modifications:
+
+1. Emit policy list instead of a `Map`, so we won't remove duplicated features.
+1. Skip ASCII check, so we won't remove invalid features.
+*/
 import htmlWhitespaceUtils from "../../utils/html-whitespace-utils.js";
 
 /**
@@ -16,7 +21,6 @@ export default function parseContentSecurityPolicy(policy) {
 
     // "2. If token is an empty string, or if token is not an ASCII string,
     //     continue."
-    // Prettier skips the ASCII check
     if (!token) {
       continue;
     }
@@ -32,9 +36,7 @@ export default function parseContentSecurityPolicy(policy) {
     //     directive name."
     const directiveName = rawDirectiveName.toLowerCase();
 
-    // Store it though directive name is already present
-    // Prettier shouldn't remove duplicate directives
-    result.push({ name: directiveName, value: directiveValue });
+    result.push({ directive: directiveName, allowlist: directiveValue })
   }
 
   return result;
