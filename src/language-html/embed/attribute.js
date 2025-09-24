@@ -22,8 +22,8 @@ import vueAttributePrinters from "./vue-attributes.js";
 const printers = [
   { test: isSrcset, print: printSrcset },
   { test: isStyle, print: printStyle },
-  { test: isClassNames, print: printClassNames },
   { test: isEventHandler, print: printEventHandler },
+  { test: isClassNames, print: printClassNames },
   ...vueAttributePrinters,
   ...angularAttributePrinters,
 ].map(({ test, print }) => ({
