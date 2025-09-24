@@ -73,6 +73,30 @@ exports[`snippet: #0 [meriyah] format 1`] = `
 Cause: [3:0-3:1]: Classes may not have a field called constructor"
 `;
 
+exports[`snippet: #0 [oxc] format 1`] = `
+"Expected \`(\` but found \`}\` (3:1)
+  1 | class Foo {
+  2 |   constructor
+> 3 | }
+    | ^"
+`;
+
+exports[`snippet: #0 [oxc-ts] format 1`] = `
+"Expected \`(\` but found \`}\` (3:1)
+  1 | class Foo {
+  2 |   constructor
+> 3 | }
+    | ^"
+`;
+
+exports[`snippet: #0 [oxc-ts] format 2`] = `
+"Expected \`(\` but found \`}\` (3:1)
+  1 | abstract class Foo {
+  2 |   constructor
+> 3 | }
+    | ^"
+`;
+
 exports[`snippet: #0 [typescript] format 1`] = `
 "'(' expected. (3:1)
   1 | class Foo {
@@ -162,6 +186,30 @@ exports[`snippet: #1 [meriyah] format 1`] = `
 > 3 | }
     | ^
 Cause: [3:0-3:1]: Classes may not have a field called constructor"
+`;
+
+exports[`snippet: #1 [oxc] format 1`] = `
+"Classes can't have a field named 'constructor' (2:3)
+  1 | class Foo {
+> 2 |   'constructor'
+    |   ^^^^^^^^^^^^^
+  3 | }"
+`;
+
+exports[`snippet: #1 [oxc-ts] format 1`] = `
+"Classes can't have a field named 'constructor' (2:3)
+  1 | class Foo {
+> 2 |   'constructor'
+    |   ^^^^^^^^^^^^^
+  3 | }"
+`;
+
+exports[`snippet: #1 [oxc-ts] format 2`] = `
+"Classes can't have a field named 'constructor' (2:3)
+  1 | abstract class Foo {
+> 2 |   'constructor'
+    |   ^^^^^^^^^^^^^
+  3 | }"
 `;
 
 exports[`snippet: #1 [typescript] format 1`] = `
@@ -255,6 +303,30 @@ exports[`snippet: #2 [meriyah] format 1`] = `
 Cause: [3:0-3:1]: Classes may not have a field called constructor"
 `;
 
+exports[`snippet: #2 [oxc] format 1`] = `
+"Classes can't have a field named 'constructor' (2:3)
+  1 | class Foo {
+> 2 |   'constructor'
+    |   ^^^^^^^^^^^^^
+  3 | }"
+`;
+
+exports[`snippet: #2 [oxc-ts] format 1`] = `
+"Classes can't have a field named 'constructor' (2:3)
+  1 | class Foo {
+> 2 |   'constructor'
+    |   ^^^^^^^^^^^^^
+  3 | }"
+`;
+
+exports[`snippet: #2 [oxc-ts] format 2`] = `
+"Classes can't have a field named 'constructor' (2:3)
+  1 | abstract class Foo {
+> 2 |   'constructor'
+    |   ^^^^^^^^^^^^^
+  3 | }"
+`;
+
 exports[`snippet: #2 [typescript] format 1`] = `
 "Classes may not have a field named 'constructor'. (2:3)
   1 | class Foo {
@@ -344,6 +416,30 @@ exports[`snippet: #3 [meriyah] format 1`] = `
 > 3 | }
     | ^
 Cause: [3:0-3:1]: Classes may not have a field called constructor"
+`;
+
+exports[`snippet: #3 [oxc] format 1`] = `
+"Classes may not have a field named 'constructor' (2:12)
+  1 | class Foo {
+> 2 |   accessor 'constructor'
+    |            ^^^^^^^^^^^^^
+  3 | }"
+`;
+
+exports[`snippet: #3 [oxc-ts] format 1`] = `
+"Classes may not have a field named 'constructor' (2:12)
+  1 | class Foo {
+> 2 |   accessor 'constructor'
+    |            ^^^^^^^^^^^^^
+  3 | }"
+`;
+
+exports[`snippet: #3 [oxc-ts] format 2`] = `
+"Classes may not have a field named 'constructor' (2:12)
+  1 | abstract class Foo {
+> 2 |   accessor 'constructor'
+    |            ^^^^^^^^^^^^^
+  3 | }"
 `;
 
 exports[`snippet: #3 [typescript] format 1`] = `
@@ -437,6 +533,30 @@ exports[`snippet: #4 [meriyah] format 1`] = `
 Cause: [3:0-3:1]: Classes may not have a field called constructor"
 `;
 
+exports[`snippet: #4 [oxc] format 1`] = `
+"Classes may not have a field named 'constructor' (2:12)
+  1 | class Foo {
+> 2 |   accessor 'constructor'
+    |            ^^^^^^^^^^^^^
+  3 | }"
+`;
+
+exports[`snippet: #4 [oxc-ts] format 1`] = `
+"Classes may not have a field named 'constructor' (2:12)
+  1 | class Foo {
+> 2 |   accessor 'constructor'
+    |            ^^^^^^^^^^^^^
+  3 | }"
+`;
+
+exports[`snippet: #4 [oxc-ts] format 2`] = `
+"Classes may not have a field named 'constructor' (2:12)
+  1 | abstract class Foo {
+> 2 |   accessor 'constructor'
+    |            ^^^^^^^^^^^^^
+  3 | }"
+`;
+
 exports[`snippet: #4 [typescript] format 1`] = `
 "Classes may not have a field named 'constructor'. (2:12)
   1 | class Foo {
@@ -526,6 +646,30 @@ exports[`snippet: #5 [meriyah] format 1`] = `
 > 3 | }
     | ^
 Cause: [3:0-3:1]: Classes may not have a field called constructor"
+`;
+
+exports[`snippet: #5 [oxc] format 1`] = `
+"Expected \`(\` but found \`}\` (3:1)
+  1 | class Foo {
+  2 |   accessor constructor
+> 3 | }
+    | ^"
+`;
+
+exports[`snippet: #5 [oxc-ts] format 1`] = `
+"Expected \`(\` but found \`}\` (3:1)
+  1 | class Foo {
+  2 |   accessor constructor
+> 3 | }
+    | ^"
+`;
+
+exports[`snippet: #5 [oxc-ts] format 2`] = `
+"Expected \`(\` but found \`}\` (3:1)
+  1 | abstract class Foo {
+  2 |   accessor constructor
+> 3 | }
+    | ^"
 `;
 
 exports[`snippet: #5 [typescript] format 1`] = `
