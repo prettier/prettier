@@ -2,8 +2,8 @@
 Based on https://github.com/helmetjs/content-security-policy-parser/blob/main/mod.ts with modifications:
 
 1. Emit policy list instead of a `Map`, so we won't remove duplicated features.
-2. Skip ASCII check, so we won't remove invalid features.
-3. Skip normalization, so we won't modify original casing.
+1. Skip ASCII check, so we won't remove invalid features.
+1. Skip directive name normalization, so we won't modify original casing.
 */
 import htmlWhitespaceUtils from "../../utils/html-whitespace-utils.js";
 
@@ -12,7 +12,7 @@ import htmlWhitespaceUtils from "../../utils/html-whitespace-utils.js";
  * https://w3c.github.io/webappsec-csp/#parse-serialized-policy
  */
 function parsePermissionsPolicy(policy) {
-  const result = [];
+  const policies = [];
 
   // "For each token returned by strictly splitting serialized on the
   // U+003B SEMICOLON character (;):"
@@ -22,6 +22,7 @@ function parsePermissionsPolicy(policy) {
 
     // "2. If token is an empty string, or if token is not an ASCII string,
     //     continue."
+    // Prettier: Skipped ASCII check.
     if (!token) {
       continue;
     }
@@ -31,12 +32,15 @@ function parsePermissionsPolicy(policy) {
     //     code points from token which are not ASCII whitespace."
     // "6. Let directive value be the result of splitting token on
     //     ASCII whitespace."
-    const [directiveName, ...directiveValue] = htmlWhitespaceUtils.split(token);
+    const [name, ...value] = htmlWhitespaceUtils.split(token);
 
-    result.push({ directive: directiveName, allowlist: directiveValue });
+    // "7. Let directive be a new directive whose name is directive name,
+    //     and value is directive value."
+    // Prettier: Skipped directive name normalization.
+    policies.push({ name, value });
   }
 
-  return result;
+  return policies;
 }
 
 export default parsePermissionsPolicy;

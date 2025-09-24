@@ -15,16 +15,16 @@ function printPermissionsPolicy(path, options) {
     return;
   }
 
-  const permissions = parsePermissionsPolicy(getUnescapedAttributeValue(node));
+  const policies = parsePermissionsPolicy(getUnescapedAttributeValue(node));
 
   return () =>
     printExpand(
       join(
         ifBreak(softline, "; "),
-        permissions.map((permission) => [
-          permission.directive,
-          ...(permission.allowlist.length > 0
-            ? [" ", permission.allowlist.join(" ")]
+        policies.map((directive) => [
+          directive.name,
+          ...(directive.value.length > 0
+            ? [" ", directive.value.join(" ")]
             : []),
           ifBreak(";"),
         ]),
