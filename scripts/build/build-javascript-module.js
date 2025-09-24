@@ -21,7 +21,6 @@ import transform from "./transform/index.js";
 import { getPackageFile } from "./utils.js";
 
 const {
-  dirname,
   readJsonSync,
   require,
   resolve: importMetaResolve,
