@@ -32,13 +32,6 @@ function clean(original, cloned) {
   }
 
   if (
-    (original.type === "BigIntLiteral" ||
-      original.type === "BigIntLiteralTypeAnnotation") &&
-    original.value
-  ) {
-    cloned.value = original.value.toLowerCase();
-  }
-  if (
     (original.type === "BigIntLiteral" || original.type === "Literal") &&
     original.bigint
   ) {
