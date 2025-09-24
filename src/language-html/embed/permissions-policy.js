@@ -1,4 +1,4 @@
-import { ifBreak, join, softline } from "../../document/builders.js";
+import { ifBreak, line } from "../../document/builders.js";
 import { getUnescapedAttributeValue } from "../utils/index.js";
 import parsePermissionsPolicy from "./parse-permissions-policy.js";
 import { printExpand } from "./utils.js";
@@ -15,23 +15,21 @@ function printPermissionsPolicy(path, options) {
     return;
   }
 
-  const policies = parsePermissionsPolicy(getUnescapedAttributeValue(node));
+  return () => {
+    const policies = parsePermissionsPolicy(getUnescapedAttributeValue(node));
 
-  return () =>
-    policies.length === 0
-      ? [""]
-      : printExpand(
-          join(
-            ifBreak(softline, "; "),
-            policies.map((directive) => [
-              directive.name,
-              ...(directive.value.length > 0
-                ? [" ", directive.value.join(" ")]
-                : []),
-              ifBreak(";"),
-            ]),
-          ),
-        );
+    if (policies.length === 0) {
+      // Return a truthy value to bypass the check in `printAttributeWithValuePrinter`
+      return [""];
+    }
+
+    return printExpand(
+      policies.map((directive, index) => [
+        [directive.name, ...directive.value].join(" "),
+        index === policies.length - 1 ? ifBreak(";") : [";", line],
+      ]),
+    );
+  };
 }
 
 export default printPermissionsPolicy;
