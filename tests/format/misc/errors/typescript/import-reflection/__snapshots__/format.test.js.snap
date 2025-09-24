@@ -1,11 +1,12 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`valid-flow-default-import.mts [babel-ts] format 1`] = `
-"Unexpected token. (1:8)
+"Unexpected token, expected "from" (1:15)
 > 1 | import module foo from "./module.wasm";
-    |        ^
+    |               ^
   2 | import bar from "./module.wasm";
-  3 |"
+  3 |
+Cause: Unexpected token, expected "from" (1:14)"
 `;
 
 exports[`valid-flow-default-import.mts [oxc-ts] format 1`] = `
@@ -26,11 +27,12 @@ Cause: '=' expected."
 `;
 
 exports[`valid-ts-default-import.mts [babel-ts] format 1`] = `
-"Unexpected token. (1:8)
+"Unexpected token, expected "from" (1:15)
 > 1 | import module foo from "./module.wasm";
-    |        ^
+    |               ^
   2 | import bar from "./module.wasm";
-  3 |"
+  3 |
+Cause: Unexpected token, expected "from" (1:14)"
 `;
 
 exports[`valid-ts-default-import.mts [oxc-ts] format 1`] = `
