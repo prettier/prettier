@@ -15,7 +15,9 @@ function visitNode(node, options) {
     return node;
   }
 
-  node = options.onEnter(node) || node;
+  if (options.onEnter) {
+    node = options.onEnter(node) || node;
+  }
 
   const keys = getVisitorKeys(node);
   for (let i = 0; i < keys.length; i++) {

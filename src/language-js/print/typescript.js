@@ -127,15 +127,8 @@ function printTypescript(path, options, print) {
       return printClassProperty(path, options, print);
     case "TSInterfaceHeritage":
     case "TSClassImplements":
-    case "TSExpressionWithTypeArguments": // Babel AST
     case "TSInstantiationExpression":
-      return [
-        print("expression"),
-        print(
-          // TODO: Use `typeArguments` only when babel align with TS.
-          node.typeArguments ? "typeArguments" : "typeParameters",
-        ),
-      ];
+      return [print("expression"), print("typeArguments")];
     case "TSTemplateLiteralType":
       return printTemplateLiteral(path, options, print);
     case "TSNamedTupleMember":
@@ -217,12 +210,7 @@ function printTypescript(path, options, print) {
       return [
         printCallExpression(path, options, print),
         !node.qualifier ? "" : [".", print("qualifier")],
-        printTypeParameters(
-          path,
-          options,
-          print,
-          node.typeArguments ? "typeArguments" : "typeParameters",
-        ),
+        printTypeParameters(path, options, print, "typeArguments"),
       ];
     case "TSLiteralType":
       return print("literal");
@@ -254,13 +242,11 @@ function printTypescript(path, options, print) {
         /* printTypeParams */ true,
       );
 
-      const returnTypePropertyName = node.returnType
-        ? "returnType"
-        : "typeAnnotation";
-      const returnTypeNode = node[returnTypePropertyName];
-      const returnTypeDoc = returnTypeNode
-        ? printTypeAnnotationProperty(path, print, returnTypePropertyName)
-        : "";
+      const returnTypeDoc = printTypeAnnotationProperty(
+        path,
+        print,
+        "returnType",
+      );
       const shouldGroupParameters = shouldGroupFunctionParameters(
         node,
         returnTypeDoc,
@@ -268,7 +254,7 @@ function printTypescript(path, options, print) {
 
       parts.push(shouldGroupParameters ? group(parametersDoc) : parametersDoc);
 
-      if (returnTypeNode) {
+      if (node.returnType) {
         parts.push(group(returnTypeDoc));
       }
 
@@ -342,13 +328,7 @@ function printTypescript(path, options, print) {
     case "TSTypeReference":
       return [
         print("typeName"),
-        printTypeParameters(
-          path,
-          options,
-          print,
-          // TODO: Use `typeArguments` only when babel align with TS.
-          node.typeArguments ? "typeArguments" : "typeParameters",
-        ),
+        printTypeParameters(path, options, print, "typeArguments"),
       ];
     case "TSTypeAnnotation":
       return printTypeAnnotation(path, options, print);

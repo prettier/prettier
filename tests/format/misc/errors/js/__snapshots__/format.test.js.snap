@@ -145,9 +145,10 @@ Cause: Unexpected token (5:11)"
 `;
 
 exports[`snippet: #7 [babel] format 1`] = `
-"Unexpected token. (1:7)
+"Unexpected token (1:7)
 > 1 | const #{ a, b } = #{ a: 1, b: 2 };
-    |       ^"
+    |       ^
+Cause: Unexpected token (1:6)"
 `;
 
 exports[`snippet: #8 [babel] format 1`] = `

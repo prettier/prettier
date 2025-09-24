@@ -1,10 +1,10 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`snippet: #0 [babel-ts] format 1`] = `
-"Unexpected token (1:21)
+"'extends' list can only include identifiers or qualified-names with optional type arguments. (1:21)
 > 1 | interface A extends (typeof fs) { }
     |                     ^
-Cause: Unexpected token (1:20)"
+Cause: 'extends' list can only include identifiers or qualified-names with optional type arguments. (1:20)"
 `;
 
 exports[`snippet: #0 [typescript] format 1`] = `
@@ -15,10 +15,10 @@ Cause: Interface declaration can only extend an identifier/qualified name with o
 `;
 
 exports[`snippet: #1 [babel-ts] format 1`] = `
-"Unexpected token, expected "," (1:22)
+"'extends' list can only include identifiers or qualified-names with optional type arguments. (1:21)
 > 1 | interface B extends C['D'] { }
-    |                      ^
-Cause: Unexpected token, expected "," (1:21)"
+    |                     ^
+Cause: 'extends' list can only include identifiers or qualified-names with optional type arguments. (1:20)"
 `;
 
 exports[`snippet: #1 [typescript] format 1`] = `
@@ -29,10 +29,10 @@ Cause: Interface declaration can only extend an identifier/qualified name with o
 `;
 
 exports[`snippet: #2 [babel-ts] format 1`] = `
-"Unexpected token, expected "," (1:22)
+"'extends' list can only include identifiers or qualified-names with optional type arguments. (1:21)
 > 1 | interface E extends F?.G { }
-    |                      ^
-Cause: Unexpected token, expected "," (1:21)"
+    |                     ^
+Cause: 'extends' list can only include identifiers or qualified-names with optional type arguments. (1:20)"
 `;
 
 exports[`snippet: #2 [typescript] format 1`] = `
@@ -57,10 +57,10 @@ Cause: 'extends' clause already seen."
 `;
 
 exports[`snippet: #4 [babel-ts] format 1`] = `
-"Unexpected token (1:21)
+"'extends' list can only include identifiers or qualified-names with optional type arguments. (1:21)
 > 1 | interface K extends 2 { }
     |                     ^
-Cause: Unexpected token (1:20)"
+Cause: 'extends' list can only include identifiers or qualified-names with optional type arguments. (1:20)"
 `;
 
 exports[`snippet: #4 [typescript] format 1`] = `
@@ -71,10 +71,10 @@ Cause: Interface declaration can only extend an identifier/qualified name with o
 `;
 
 exports[`snippet: #5 [babel-ts] format 1`] = `
-"Unexpected token, expected "," (1:22)
+"'extends' list can only include identifiers or qualified-names with optional type arguments. (1:21)
 > 1 | interface L extends M().N { }
-    |                      ^
-Cause: Unexpected token, expected "," (1:21)"
+    |                     ^
+Cause: 'extends' list can only include identifiers or qualified-names with optional type arguments. (1:20)"
 `;
 
 exports[`snippet: #5 [typescript] format 1`] = `

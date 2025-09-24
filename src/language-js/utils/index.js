@@ -846,12 +846,9 @@ function getFunctionParameters(node) {
   if (node.this) {
     parameters.push(node.this);
   }
-  // `params` vs `parameters` - see https://github.com/babel/babel/issues/9231
-  if (Array.isArray(node.parameters)) {
-    parameters.push(...node.parameters);
-  } else if (Array.isArray(node.params)) {
-    parameters.push(...node.params);
-  }
+
+  parameters.push(...node.params);
+
   if (node.rest) {
     parameters.push(node.rest);
   }
@@ -866,11 +863,9 @@ function iterateFunctionParametersPath(path, iteratee) {
   if (node.this) {
     path.call(callback, "this");
   }
-  if (Array.isArray(node.parameters)) {
-    path.each(callback, "parameters");
-  } else if (Array.isArray(node.params)) {
-    path.each(callback, "params");
-  }
+
+  path.each(callback, "params");
+
   if (node.rest) {
     path.call(callback, "rest");
   }

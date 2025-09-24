@@ -154,7 +154,7 @@ function printTaggedTemplateLiteral(path, options, print) {
 
   return label(quasiDoc.label && { tagged: true, ...quasiDoc.label }, [
     print("tag"),
-    print(node.typeArguments ? "typeArguments" : "typeParameters"),
+    print("typeArguments"),
     space,
     lineSuffixBoundary,
     quasiDoc,

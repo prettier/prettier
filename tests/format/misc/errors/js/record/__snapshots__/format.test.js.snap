@@ -8,9 +8,10 @@ Cause: Unexpected character '{' (1:1)"
 `;
 
 exports[`snippet: #0 [babel] format 1`] = `
-"Unexpected token. (1:1)
+"Unexpected token (1:1)
 > 1 | #{a() {}}
-    | ^"
+    | ^
+Cause: Unexpected token (1:0)"
 `;
 
 exports[`snippet: #0 [espree] format 1`] = `
@@ -35,9 +36,10 @@ Cause: Unexpected character '{' (1:1)"
 `;
 
 exports[`snippet: #1 [babel] format 1`] = `
-"Unexpected token. (1:1)
+"Unexpected token (1:1)
 > 1 | #{async b() {}}
-    | ^"
+    | ^
+Cause: Unexpected token (1:0)"
 `;
 
 exports[`snippet: #1 [espree] format 1`] = `
@@ -62,9 +64,10 @@ Cause: Unexpected character '{' (1:1)"
 `;
 
 exports[`snippet: #2 [babel] format 1`] = `
-"Unexpected token. (1:1)
+"Unexpected token (1:1)
 > 1 | #{get c() {}}
-    | ^"
+    | ^
+Cause: Unexpected token (1:0)"
 `;
 
 exports[`snippet: #2 [espree] format 1`] = `
@@ -89,9 +92,10 @@ Cause: Unexpected character '{' (1:1)"
 `;
 
 exports[`snippet: #3 [babel] format 1`] = `
-"Unexpected token. (1:1)
+"Unexpected token (1:1)
 > 1 | #{set d(_) {}}
-    | ^"
+    | ^
+Cause: Unexpected token (1:0)"
 `;
 
 exports[`snippet: #3 [espree] format 1`] = `
@@ -116,9 +120,10 @@ Cause: Unexpected character '{' (1:1)"
 `;
 
 exports[`snippet: #4 [babel] format 1`] = `
-"Unexpected token. (1:1)
+"Unexpected token (1:1)
 > 1 | #{*e() {}}
-    | ^"
+    | ^
+Cause: Unexpected token (1:0)"
 `;
 
 exports[`snippet: #4 [espree] format 1`] = `

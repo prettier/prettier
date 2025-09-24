@@ -2,7 +2,6 @@ import * as assert from "#universal/assert";
 import { locEnd, locStart } from "../../loc.js";
 import createTypeCheckFunction from "../../utils/create-type-check-function.js";
 import getRaw from "../../utils/get-raw.js";
-import getTextWithoutComments from "../../utils/get-text-without-comments.js";
 import isBlockComment from "../../utils/is-block-comment.js";
 import isLineComment from "../../utils/is-line-comment.js";
 import isTypeCastComment from "../../utils/is-type-cast-comment.js";
@@ -47,22 +46,6 @@ function postprocess(ast, options) {
   let typeCastCommentsEnds;
 
   ast = visitNode(ast, {
-    onEnter(node) {
-      switch (node.type) {
-        // Remove this when update `@babel/parser` to v8
-        // https://github.com/typescript-eslint/typescript-eslint/pull/7065
-        case "TSMappedType":
-          if (!node.constraint && !node.key) {
-            const { name: key, constraint } = fixBabelTSTypeParameter(
-              node.typeParameter,
-            );
-            node.constraint = constraint;
-            node.key = key;
-            delete node.typeParameter;
-          }
-          break;
-      }
-    },
     onLeave(node) {
       switch (node.type) {
         case "ParenthesizedExpression": {
@@ -149,11 +132,6 @@ function postprocess(ast, options) {
         case "TSParenthesizedType":
           return node.typeAnnotation;
 
-        case "TSTypeParameter":
-          // babel-ts
-          fixBabelTSTypeParameter(node);
-          break;
-
         // For hack-style pipeline
         case "TopicReference":
           ast.extra = { ...ast.extra, __isUsingHackPipeline: true };
@@ -164,30 +142,6 @@ function postprocess(ast, options) {
         case "TSIntersectionType":
           if (node.types.length === 1) {
             return node.types[0];
-          }
-          break;
-
-        // Remove this when update `@babel/parser` to v8
-        // https://github.com/typescript-eslint/typescript-eslint/pull/8920
-        case "TSEnumDeclaration":
-          if (!node.body) {
-            const idEnd = locEnd(node.id);
-            const { members } = node;
-            const textWithoutComments = getTextWithoutComments(
-              {
-                originalText: text,
-                [Symbol.for("comments")]: comments,
-              },
-              idEnd,
-              members[0] ? locStart(members[0]) : locEnd(node),
-            );
-            const start = idEnd + textWithoutComments.indexOf("{");
-            node.body = {
-              type: "TSEnumBody",
-              members,
-              range: [start, locEnd(node)],
-            };
-            delete node.members;
           }
           break;
 
@@ -231,19 +185,6 @@ function postprocess(ast, options) {
     ast.range = [0, text.length];
   }
   return ast;
-}
-
-function fixBabelTSTypeParameter(node) {
-  if (node.type === "TSTypeParameter" && typeof node.name === "string") {
-    const start = locStart(node);
-    node.name = {
-      type: "Identifier",
-      name: node.name,
-      range: [start, start + node.name.length],
-    };
-  }
-
-  return node;
 }
 
 function isUnbalancedLogicalTree(node) {
