@@ -19,7 +19,8 @@ export default function parseContentSecurityPolicy(policy) {
 
     // "2. If token is an empty string, or if token is not an ASCII string,
     //     continue."
-    if (!token || !ASCII.test(token)) {
+    // Prettier skips the ASCII check
+    if (!token) {
       continue;
     }
 
