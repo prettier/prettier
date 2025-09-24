@@ -9,7 +9,8 @@ function printPermissionsPolicy(path, options) {
   if (
     node.fullName !== "allow" ||
     options.parentParser ||
-    node.value.includes("{{")
+    node.value.includes("{{") ||
+    path.parent.fullName !== "iframe"
   ) {
     return;
   }
