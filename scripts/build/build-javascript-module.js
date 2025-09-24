@@ -170,25 +170,6 @@ function getEsbuildOptions({ packageConfig, file, cliOptions }) {
           };
         }),
     );
-  } else {
-    replaceModule.push(
-      // When running build script with `--no-minify`, `esbuildPluginNodeModulePolyfills` shim `module` module incorrectly
-      {
-        module: "*",
-        find: 'import { createRequire } from "node:module";',
-        replacement: "",
-      },
-      // Prevent `esbuildPluginNodeModulePolyfills` include shim for this module
-      {
-        module: "assert",
-        path: path.join(dirname, "./shims/assert.js"),
-      },
-      // `esbuildPluginNodeModulePolyfills` didn't shim this module
-      {
-        module: "module",
-        text: "export const createRequire = () => {};",
-      },
-    );
   }
 
   // Current version of `yaml` is not tree-shakable,
