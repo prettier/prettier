@@ -28,7 +28,7 @@ const printers = [
   ...angularAttributePrinters,
 ].map(({ test, print }) => ({
   test,
-  print: printAttributeWithValuePrinter(print),
+  print: createAttributePrinter(print),
 }));
 
 function printAttribute(path, options) {
@@ -52,10 +52,10 @@ function printAttribute(path, options) {
 }
 
 /**
- * @param {AttributeValuePrint} printValue
- * @returns {(textToDoc, print, path, options) => Promise<Doc>}
- */
-function printAttributeWithValuePrinter(printValue) {
+@param {AttributeValuePrint} printValue
+@returns {AsyncAttributeValuePrint}
+*/
+function createAttributePrinter(printValue) {
   return async (textToDoc, print, path, options) => {
     let valueDoc = await printValue(textToDoc, print, path, options);
 

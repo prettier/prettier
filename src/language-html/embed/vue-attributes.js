@@ -33,7 +33,7 @@ const printers = /** @type {AttributeValuePrinter[]} */ ([
     print: printVueBindings,
   },
   {
-    /**
+    /*
     - `@click="jsStatement"`
     - `@click="jsExpression"`
     - `v-on:click="jsStatement"`
@@ -44,7 +44,7 @@ const printers = /** @type {AttributeValuePrinter[]} */ ([
     print: printVueVOnDirective,
   },
   {
-    /**
+    /*
     - `:property="vueExpression"`
     - `.property="vueExpression"`
     - `v-bind:property="vueExpression"`

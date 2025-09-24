@@ -29,7 +29,7 @@ const createAngularPrinter =
 /** @type {AttributeValuePrinter[]} */
 const printers = [
   {
-    /**
+    /*
     - `(click)="angularStatement"`
     - `on-click="angularStatement"`
     */
@@ -39,7 +39,7 @@ const printers = [
     print: createAngularPrinter("__ng_action"),
   },
   {
-    /**
+    /*
     - `[target]="angularExpression"`
     - `bind-target="angularExpression"`
     - `[(target)]="angularExpression"`
@@ -59,7 +59,7 @@ const printers = [
     print: createAngularPrinter("__ng_directive"),
   },
   {
-    /**
+    /*
     - `i18n="longDescription"`
     - `i18n-attr="longDescription"`
     */
