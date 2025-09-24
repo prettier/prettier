@@ -5,6 +5,9 @@ import { formatAttributeValue } from "./utils.js";
 
 const interpolationRegex = /\{\{(.+?)\}\}/su;
 
+const isAngularInterpolation = ({ node: { value } } /* , options*/) =>
+  interpolationRegex.test(value);
+
 async function printAngularInterpolation(
   textToDoc,
   print,
@@ -41,4 +44,4 @@ async function printAngularInterpolation(
   return parts;
 }
 
-export { interpolationRegex, printAngularInterpolation };
+export { isAngularInterpolation, printAngularInterpolation };
