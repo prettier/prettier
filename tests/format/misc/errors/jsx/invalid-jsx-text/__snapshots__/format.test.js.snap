@@ -1,0 +1,478 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`snippet: #0 [acorn] format 1`] = `
+"Unexpected token \`}\`. Did you mean \`&rbrace;\` or \`{"}"}\`? (1:15)
+> 1 | let x1 = <div>}</div>;
+    |               ^
+Cause: Unexpected token \`}\`. Did you mean \`&rbrace;\` or \`{"}"}\`? (1:14)"
+`;
+
+exports[`snippet: #0 [babel] format 1`] = `
+"Unexpected token \`}\`. Did you mean \`&rbrace;\` or \`{'}'}\`? (1:15)
+> 1 | let x1 = <div>}</div>;
+    |               ^
+Cause: Unexpected token \`}\`. Did you mean \`&rbrace;\` or \`{'}'}\`? (1:14)"
+`;
+
+exports[`snippet: #0 [babel-ts] format 1`] = `
+"Unexpected token \`}\`. Did you mean \`&rbrace;\` or \`{'}'}\`? (1:15)
+> 1 | let x1 = <div>}</div>;
+    |               ^
+Cause: Unexpected token \`}\`. Did you mean \`&rbrace;\` or \`{'}'}\`? (1:14)"
+`;
+
+exports[`snippet: #0 [espree] format 1`] = `
+"Unexpected token \`}\`. Did you mean \`&rbrace;\` or \`{"}"}\`? (1:15)
+> 1 | let x1 = <div>}</div>;
+    |               ^
+Cause: Unexpected token \`}\`. Did you mean \`&rbrace;\` or \`{"}"}\`?"
+`;
+
+exports[`snippet: #0 [flow] format 1`] = `
+"Unexpected token \`}\`. Did you mean \`{'}'}\`? (1:15)
+> 1 | let x1 = <div>}</div>;
+    |               ^"
+`;
+
+exports[`snippet: #0 [oxc] format 1`] = `
+"Unexpected token. Did you mean \`{'}'}\` or \`&rbrace;\`? (1:15)
+> 1 | let x1 = <div>}</div>;
+    |               ^"
+`;
+
+exports[`snippet: #0 [oxc-ts] format 1`] = `
+"Unexpected token. Did you mean \`{'}'}\` or \`&rbrace;\`? (1:15)
+> 1 | let x1 = <div>}</div>;
+    |               ^"
+`;
+
+exports[`snippet: #0 [typescript] format 1`] = `
+"Unexpected token. Did you mean \`{'}'}\` or \`&rbrace;\`? (1:15)
+> 1 | let x1 = <div>}</div>;
+    |               ^
+Cause: Unexpected token. Did you mean \`{'}'}\` or \`&rbrace;\`?"
+`;
+
+exports[`snippet: #1 [acorn] format 1`] = `
+"Unexpected token \`>\`. Did you mean \`&gt;\` or \`{">"}\`? (1:15)
+> 1 | let x2 = <div>></div>;
+    |               ^
+Cause: Unexpected token \`>\`. Did you mean \`&gt;\` or \`{">"}\`? (1:14)"
+`;
+
+exports[`snippet: #1 [babel] format 1`] = `
+"Unexpected token \`>\`. Did you mean \`&gt;\` or \`{'>'}\`? (1:15)
+> 1 | let x2 = <div>></div>;
+    |               ^
+Cause: Unexpected token \`>\`. Did you mean \`&gt;\` or \`{'>'}\`? (1:14)"
+`;
+
+exports[`snippet: #1 [babel-ts] format 1`] = `
+"Unexpected token \`>\`. Did you mean \`&gt;\` or \`{'>'}\`? (1:15)
+> 1 | let x2 = <div>></div>;
+    |               ^
+Cause: Unexpected token \`>\`. Did you mean \`&gt;\` or \`{'>'}\`? (1:14)"
+`;
+
+exports[`snippet: #1 [espree] format 1`] = `
+"Unexpected token \`>\`. Did you mean \`&gt;\` or \`{">"}\`? (1:15)
+> 1 | let x2 = <div>></div>;
+    |               ^
+Cause: Unexpected token \`>\`. Did you mean \`&gt;\` or \`{">"}\`?"
+`;
+
+exports[`snippet: #1 [flow] format 1`] = `
+"Unexpected token \`>\`. Did you mean \`{'>'}\`? (1:15)
+> 1 | let x2 = <div>></div>;
+    |               ^"
+`;
+
+exports[`snippet: #1 [oxc] format 1`] = `
+"Unexpected token. Did you mean \`{'>'}\` or \`&gt;\`? (1:15)
+> 1 | let x2 = <div>></div>;
+    |               ^"
+`;
+
+exports[`snippet: #1 [oxc-ts] format 1`] = `
+"Unexpected token. Did you mean \`{'>'}\` or \`&gt;\`? (1:15)
+> 1 | let x2 = <div>></div>;
+    |               ^"
+`;
+
+exports[`snippet: #1 [typescript] format 1`] = `
+"Unexpected token. Did you mean \`{'>'}\` or \`&gt;\`? (1:15)
+> 1 | let x2 = <div>></div>;
+    |               ^
+Cause: Unexpected token. Did you mean \`{'>'}\` or \`&gt;\`?"
+`;
+
+exports[`snippet: #2 [acorn] format 1`] = `
+"Unexpected token (1:16)
+> 1 | let x2 = <div><</div>;
+    |                ^
+Cause: Unexpected token (1:15)"
+`;
+
+exports[`snippet: #2 [babel] format 1`] = `
+"Unexpected token (1:16)
+> 1 | let x2 = <div><</div>;
+    |                ^
+Cause: Unexpected token (1:15)"
+`;
+
+exports[`snippet: #2 [babel-ts] format 1`] = `
+"Unexpected token (1:16)
+> 1 | let x2 = <div><</div>;
+    |                ^
+Cause: Unexpected token (1:15)"
+`;
+
+exports[`snippet: #2 [espree] format 1`] = `
+"Unexpected token < (1:16)
+> 1 | let x2 = <div><</div>;
+    |                ^
+Cause: Unexpected token <"
+`;
+
+exports[`snippet: #2 [flow] format 1`] = `
+"Unexpected token \`<\`, expected the token \`>\` (1:16)
+> 1 | let x2 = <div><</div>;
+    |                ^"
+`;
+
+exports[`snippet: #2 [oxc] format 1`] = `
+"Unexpected token (1:16)
+> 1 | let x2 = <div><</div>;
+    |                ^"
+`;
+
+exports[`snippet: #2 [oxc-ts] format 1`] = `
+"Unexpected token (1:16)
+> 1 | let x2 = <div><</div>;
+    |                ^"
+`;
+
+exports[`snippet: #2 [typescript] format 1`] = `
+"Identifier expected. (1:16)
+> 1 | let x2 = <div><</div>;
+    |                ^
+Cause: Identifier expected."
+`;
+
+exports[`snippet: #3 [acorn] format 1`] = `
+"Unexpected token \`}\`. Did you mean \`&rbrace;\` or \`{"}"}\`? (1:22)
+> 1 | let x3 = <div>{"foo"}}</div>;
+    |                      ^
+Cause: Unexpected token \`}\`. Did you mean \`&rbrace;\` or \`{"}"}\`? (1:21)"
+`;
+
+exports[`snippet: #3 [babel] format 1`] = `
+"Unexpected token \`}\`. Did you mean \`&rbrace;\` or \`{'}'}\`? (1:22)
+> 1 | let x3 = <div>{"foo"}}</div>;
+    |                      ^
+Cause: Unexpected token \`}\`. Did you mean \`&rbrace;\` or \`{'}'}\`? (1:21)"
+`;
+
+exports[`snippet: #3 [babel-ts] format 1`] = `
+"Unexpected token \`}\`. Did you mean \`&rbrace;\` or \`{'}'}\`? (1:22)
+> 1 | let x3 = <div>{"foo"}}</div>;
+    |                      ^
+Cause: Unexpected token \`}\`. Did you mean \`&rbrace;\` or \`{'}'}\`? (1:21)"
+`;
+
+exports[`snippet: #3 [espree] format 1`] = `
+"Unexpected token \`}\`. Did you mean \`&rbrace;\` or \`{"}"}\`? (1:22)
+> 1 | let x3 = <div>{"foo"}}</div>;
+    |                      ^
+Cause: Unexpected token \`}\`. Did you mean \`&rbrace;\` or \`{"}"}\`?"
+`;
+
+exports[`snippet: #3 [flow] format 1`] = `
+"Unexpected token \`}\`. Did you mean \`{'}'}\`? (1:22)
+> 1 | let x3 = <div>{"foo"}}</div>;
+    |                      ^"
+`;
+
+exports[`snippet: #3 [oxc] format 1`] = `
+"Unexpected token. Did you mean \`{'}'}\` or \`&rbrace;\`? (1:22)
+> 1 | let x3 = <div>{"foo"}}</div>;
+    |                      ^"
+`;
+
+exports[`snippet: #3 [oxc-ts] format 1`] = `
+"Expected \`:\` but found \`}\` (1:21)
+> 1 | let x3 = <div>{"foo"}}</div>;
+    |                     ^"
+`;
+
+exports[`snippet: #3 [typescript] format 1`] = `
+"':' expected. (1:21)
+> 1 | let x3 = <div>{"foo"}}</div>;
+    |                     ^
+Cause: ':' expected."
+`;
+
+exports[`snippet: #4 [acorn] format 1`] = `
+"Unexpected token \`>\`. Did you mean \`&gt;\` or \`{">"}\`? (1:22)
+> 1 | let x4 = <div>{"foo"}></div>;
+    |                      ^
+Cause: Unexpected token \`>\`. Did you mean \`&gt;\` or \`{">"}\`? (1:21)"
+`;
+
+exports[`snippet: #4 [babel] format 1`] = `
+"Unexpected token \`>\`. Did you mean \`&gt;\` or \`{'>'}\`? (1:22)
+> 1 | let x4 = <div>{"foo"}></div>;
+    |                      ^
+Cause: Unexpected token \`>\`. Did you mean \`&gt;\` or \`{'>'}\`? (1:21)"
+`;
+
+exports[`snippet: #4 [babel-ts] format 1`] = `
+"Unexpected token \`>\`. Did you mean \`&gt;\` or \`{'>'}\`? (1:22)
+> 1 | let x4 = <div>{"foo"}></div>;
+    |                      ^
+Cause: Unexpected token \`>\`. Did you mean \`&gt;\` or \`{'>'}\`? (1:21)"
+`;
+
+exports[`snippet: #4 [espree] format 1`] = `
+"Unexpected token \`>\`. Did you mean \`&gt;\` or \`{">"}\`? (1:22)
+> 1 | let x4 = <div>{"foo"}></div>;
+    |                      ^
+Cause: Unexpected token \`>\`. Did you mean \`&gt;\` or \`{">"}\`?"
+`;
+
+exports[`snippet: #4 [flow] format 1`] = `
+"Unexpected token \`>\`. Did you mean \`{'>'}\`? (1:22)
+> 1 | let x4 = <div>{"foo"}></div>;
+    |                      ^"
+`;
+
+exports[`snippet: #4 [oxc] format 1`] = `
+"Unexpected token. Did you mean \`{'>'}\` or \`&gt;\`? (1:22)
+> 1 | let x4 = <div>{"foo"}></div>;
+    |                      ^"
+`;
+
+exports[`snippet: #4 [oxc-ts] format 1`] = `
+"Expected \`:\` but found \`}\` (1:21)
+> 1 | let x4 = <div>{"foo"}></div>;
+    |                     ^"
+`;
+
+exports[`snippet: #4 [typescript] format 1`] = `
+"':' expected. (1:21)
+> 1 | let x4 = <div>{"foo"}></div>;
+    |                     ^
+Cause: ':' expected."
+`;
+
+exports[`snippet: #5 [acorn] format 1`] = `
+"Unexpected token (1:23)
+> 1 | let x4 = <div>{"foo"}<</div>;
+    |                       ^
+Cause: Unexpected token (1:22)"
+`;
+
+exports[`snippet: #5 [babel] format 1`] = `
+"Unexpected token (1:23)
+> 1 | let x4 = <div>{"foo"}<</div>;
+    |                       ^
+Cause: Unexpected token (1:22)"
+`;
+
+exports[`snippet: #5 [babel-ts] format 1`] = `
+"Unexpected token (1:23)
+> 1 | let x4 = <div>{"foo"}<</div>;
+    |                       ^
+Cause: Unexpected token (1:22)"
+`;
+
+exports[`snippet: #5 [espree] format 1`] = `
+"Unexpected token < (1:23)
+> 1 | let x4 = <div>{"foo"}<</div>;
+    |                       ^
+Cause: Unexpected token <"
+`;
+
+exports[`snippet: #5 [flow] format 1`] = `
+"Unexpected token \`<\`, expected the token \`>\` (1:23)
+> 1 | let x4 = <div>{"foo"}<</div>;
+    |                       ^"
+`;
+
+exports[`snippet: #5 [oxc] format 1`] = `
+"Unexpected token (1:23)
+> 1 | let x4 = <div>{"foo"}<</div>;
+    |                       ^"
+`;
+
+exports[`snippet: #5 [oxc-ts] format 1`] = `
+"Expected \`:\` but found \`}\` (1:21)
+> 1 | let x4 = <div>{"foo"}<</div>;
+    |                     ^"
+`;
+
+exports[`snippet: #5 [typescript] format 1`] = `
+"':' expected. (1:21)
+> 1 | let x4 = <div>{"foo"}<</div>;
+    |                     ^
+Cause: ':' expected."
+`;
+
+exports[`snippet: #6 [acorn] format 1`] = `
+"Unexpected token \`}\`. Did you mean \`&rbrace;\` or \`{"}"}\`? (1:15)
+> 1 | let x5 = <div>}{"foo"}</div>;
+    |               ^
+Cause: Unexpected token \`}\`. Did you mean \`&rbrace;\` or \`{"}"}\`? (1:14)"
+`;
+
+exports[`snippet: #6 [babel] format 1`] = `
+"Unexpected token \`}\`. Did you mean \`&rbrace;\` or \`{'}'}\`? (1:15)
+> 1 | let x5 = <div>}{"foo"}</div>;
+    |               ^
+Cause: Unexpected token \`}\`. Did you mean \`&rbrace;\` or \`{'}'}\`? (1:14)"
+`;
+
+exports[`snippet: #6 [babel-ts] format 1`] = `
+"Unexpected token \`}\`. Did you mean \`&rbrace;\` or \`{'}'}\`? (1:15)
+> 1 | let x5 = <div>}{"foo"}</div>;
+    |               ^
+Cause: Unexpected token \`}\`. Did you mean \`&rbrace;\` or \`{'}'}\`? (1:14)"
+`;
+
+exports[`snippet: #6 [espree] format 1`] = `
+"Unexpected token \`}\`. Did you mean \`&rbrace;\` or \`{"}"}\`? (1:15)
+> 1 | let x5 = <div>}{"foo"}</div>;
+    |               ^
+Cause: Unexpected token \`}\`. Did you mean \`&rbrace;\` or \`{"}"}\`?"
+`;
+
+exports[`snippet: #6 [flow] format 1`] = `
+"Unexpected token \`}\`. Did you mean \`{'}'}\`? (1:15)
+> 1 | let x5 = <div>}{"foo"}</div>;
+    |               ^"
+`;
+
+exports[`snippet: #6 [oxc] format 1`] = `
+"Unexpected token. Did you mean \`{'}'}\` or \`&rbrace;\`? (1:15)
+> 1 | let x5 = <div>}{"foo"}</div>;
+    |               ^"
+`;
+
+exports[`snippet: #6 [oxc-ts] format 1`] = `
+"Unexpected token (1:15)
+> 1 | let x5 = <div>}{"foo"}</div>;
+    |               ^"
+`;
+
+exports[`snippet: #6 [typescript] format 1`] = `
+"Expression expected. (1:15)
+> 1 | let x5 = <div>}{"foo"}</div>;
+    |               ^
+Cause: Expression expected."
+`;
+
+exports[`snippet: #7 [acorn] format 1`] = `
+"Unexpected token \`>\`. Did you mean \`&gt;\` or \`{">"}\`? (1:15)
+> 1 | let x6 = <div>>{"foo"}</div>;
+    |               ^
+Cause: Unexpected token \`>\`. Did you mean \`&gt;\` or \`{">"}\`? (1:14)"
+`;
+
+exports[`snippet: #7 [babel] format 1`] = `
+"Unexpected token \`>\`. Did you mean \`&gt;\` or \`{'>'}\`? (1:15)
+> 1 | let x6 = <div>>{"foo"}</div>;
+    |               ^
+Cause: Unexpected token \`>\`. Did you mean \`&gt;\` or \`{'>'}\`? (1:14)"
+`;
+
+exports[`snippet: #7 [babel-ts] format 1`] = `
+"Unexpected token \`>\`. Did you mean \`&gt;\` or \`{'>'}\`? (1:15)
+> 1 | let x6 = <div>>{"foo"}</div>;
+    |               ^
+Cause: Unexpected token \`>\`. Did you mean \`&gt;\` or \`{'>'}\`? (1:14)"
+`;
+
+exports[`snippet: #7 [espree] format 1`] = `
+"Unexpected token \`>\`. Did you mean \`&gt;\` or \`{">"}\`? (1:15)
+> 1 | let x6 = <div>>{"foo"}</div>;
+    |               ^
+Cause: Unexpected token \`>\`. Did you mean \`&gt;\` or \`{">"}\`?"
+`;
+
+exports[`snippet: #7 [flow] format 1`] = `
+"Unexpected token \`>\`. Did you mean \`{'>'}\`? (1:15)
+> 1 | let x6 = <div>>{"foo"}</div>;
+    |               ^"
+`;
+
+exports[`snippet: #7 [oxc] format 1`] = `
+"Unexpected token. Did you mean \`{'>'}\` or \`&gt;\`? (1:15)
+> 1 | let x6 = <div>>{"foo"}</div>;
+    |               ^"
+`;
+
+exports[`snippet: #7 [oxc-ts] format 1`] = `
+"Unexpected token (1:15)
+> 1 | let x6 = <div>>{"foo"}</div>;
+    |               ^"
+`;
+
+exports[`snippet: #7 [typescript] format 1`] = `
+"Expression expected. (1:15)
+> 1 | let x6 = <div>>{"foo"}</div>;
+    |               ^
+Cause: Expression expected."
+`;
+
+exports[`snippet: #8 [acorn] format 1`] = `
+"Unexpected token (1:16)
+> 1 | let x6 = <div><{"foo"}</div>;
+    |                ^
+Cause: Unexpected token (1:15)"
+`;
+
+exports[`snippet: #8 [babel] format 1`] = `
+"Unexpected token (1:16)
+> 1 | let x6 = <div><{"foo"}</div>;
+    |                ^
+Cause: Unexpected token (1:15)"
+`;
+
+exports[`snippet: #8 [babel-ts] format 1`] = `
+"Unexpected token (1:16)
+> 1 | let x6 = <div><{"foo"}</div>;
+    |                ^
+Cause: Unexpected token (1:15)"
+`;
+
+exports[`snippet: #8 [espree] format 1`] = `
+"Unexpected token { (1:16)
+> 1 | let x6 = <div><{"foo"}</div>;
+    |                ^
+Cause: Unexpected token {"
+`;
+
+exports[`snippet: #8 [flow] format 1`] = `
+"Unexpected token \`{\`, expected the token \`>\` (1:16)
+> 1 | let x6 = <div><{"foo"}</div>;
+    |                ^"
+`;
+
+exports[`snippet: #8 [oxc] format 1`] = `
+"Unexpected token (1:16)
+> 1 | let x6 = <div><{"foo"}</div>;
+    |                ^"
+`;
+
+exports[`snippet: #8 [oxc-ts] format 1`] = `
+"Expected \`>\` but found \`<\` (1:23)
+> 1 | let x6 = <div><{"foo"}</div>;
+    |                       ^"
+`;
+
+exports[`snippet: #8 [typescript] format 1`] = `
+"'>' expected. (1:23)
+> 1 | let x6 = <div><{"foo"}</div>;
+    |                       ^
+Cause: '>' expected."
+`;
