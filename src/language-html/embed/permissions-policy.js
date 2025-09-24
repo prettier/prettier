@@ -16,17 +16,17 @@ function printPermissionsPolicy(path, options) {
   }
 
   return () => {
-    const policies = parsePermissionsPolicy(getUnescapedAttributeValue(node));
+    const directives = parsePermissionsPolicy(getUnescapedAttributeValue(node));
 
-    if (policies.length === 0) {
+    if (directives.length === 0) {
       // Return a truthy value to bypass the check in `printAttributeWithValuePrinter`
       return [""];
     }
 
     return printExpand(
-      policies.map((directive, index) => [
-        [directive.name, ...directive.value].join(" "),
-        index === policies.length - 1 ? ifBreak(";") : [";", line],
+      directives.map(({ name, value }, index) => [
+        [name, ...value].join(" "),
+        index === directives.length - 1 ? ifBreak(";") : [";", line],
       ]),
     );
   };

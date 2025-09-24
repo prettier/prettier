@@ -18,15 +18,15 @@ import htmlWhitespaceUtils from "../../utils/html-whitespace-utils.js";
 Parse a serialized Content Security Policy.
 https://w3c.github.io/webappsec-csp/#parse-serialized-policy
 
-@param {string} content
+@param {string} policy
 @returns {Directive[]}
 */
-function parsePermissionsPolicy(content) {
-  const policies = [];
+function parsePermissionsPolicy(policy) {
+  const directives = [];
 
   // "For each token returned by strictly splitting serialized on the
   // U+003B SEMICOLON character (;):"
-  for (let token of content.split(";")) {
+  for (let token of policy.split(";")) {
     // "1. Strip leading and trailing ASCII whitespace from token."
     token = htmlWhitespaceUtils.trim(token);
 
@@ -55,10 +55,10 @@ function parsePermissionsPolicy(content) {
     // "7. Let directive be a new directive whose name is directive name, and
     //     value is directive value."
     // "8. Append directive to policy's directive set."
-    policies.push({ name, value });
+    directives.push({ name, value });
   }
 
-  return policies;
+  return directives;
 }
 
 export default parsePermissionsPolicy;
