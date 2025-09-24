@@ -32,7 +32,8 @@ export default function parseContentSecurityPolicy(policy) {
     // "2. If token is an empty string, or if token is not an ASCII string,
     //     continue."
     if (!token || !ASCII.test(token)) {
-      continue;
+      // Don't continue on invalid CSP, throw instead
+      throw new Error("Invalid CSP policy");
     }
 
     // We do these at the same time:
