@@ -23,9 +23,9 @@ function printIframeAttribute(path, options) {
       join(
         ifBreak(softline, "; "),
         permissions.map((permission) => [
-          permission.name,
-          ...(permission.value.length > 0
-            ? [" ", permission.value.join(" ")]
+          permission.directive,
+          ...(permission.allowlist.length > 0
+            ? [" ", permission.allowlist.join(" ")]
             : []),
           ifBreak(";"),
         ]),
