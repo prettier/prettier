@@ -1,5 +1,7 @@
-import cleanFrontMatter from "../utils/front-matter/clean.js";
-import isFrontMatter from "../utils/front-matter/is-front-matter.js";
+import {
+  cleanFrontMatter,
+  isFrontMatter,
+} from "../utils/front-matter/index.js";
 
 const ignoredProperties = new Set([
   "raw", // front-matter

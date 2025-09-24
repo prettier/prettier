@@ -1,6 +1,8 @@
 import { hardline } from "../document/builders.js";
-import isFrontMatter from "../utils/front-matter/is-front-matter.js";
-import printFrontMatter from "../utils/front-matter/print.js";
+import {
+  isFrontMatter,
+  printFrontMatter,
+} from "../utils/front-matter/index.js";
 
 function embed(path) {
   const { node } = path;

@@ -9,7 +9,7 @@ import {
   visitAll,
 } from "angular-html-parser";
 import createError from "../common/parser-create-error.js";
-import parseFrontMatter from "../utils/front-matter/parse.js";
+import { parseFrontMatter } from "../utils/front-matter/index.js";
 import inferParser from "../utils/infer-parser.js";
 import isNonEmptyArray from "../utils/is-non-empty-array.js";
 import { Node } from "./ast.js";
