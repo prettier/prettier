@@ -254,9 +254,11 @@ function printTypescript(path, options, print) {
         /* printTypeParams */ true,
       );
 
-      const returnTypeDoc = node.returnType
-        ? printTypeAnnotationProperty(path, print, "returnType")
-        : "";
+      const returnTypeDoc = printTypeAnnotationProperty(
+        path,
+        print,
+        "returnType",
+      );
       const shouldGroupParameters = shouldGroupFunctionParameters(
         node,
         returnTypeDoc,
