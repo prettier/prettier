@@ -83,8 +83,7 @@ function printAngularAttribute(path, options) {
   }
 
   if (angularInterpolationRegex.test(node.value)) {
-    return (textToDoc) =>
-      printAngularInterpolation(getUnescapedAttributeValue(node), textToDoc);
+    return printAngularInterpolation;
   }
 }
 
