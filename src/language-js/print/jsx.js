@@ -496,6 +496,7 @@ const NO_WRAP_PARENTS = new Set([
   "OptionalCallExpression",
   "ConditionalExpression",
   "JsExpressionRoot",
+  "MatchExpressionCase",
 ]);
 function maybeWrapJsxElementInParens(path, elem, options) {
   const { parent } = path;
@@ -504,13 +505,7 @@ function maybeWrapJsxElementInParens(path, elem, options) {
     return elem;
   }
 
-  const shouldBreak = path.match(
-    undefined,
-    (node) => node.type === "ArrowFunctionExpression",
-    isCallExpression,
-    (node) => node.type === "JSXExpressionContainer",
-  );
-
+  const shouldBreak = shouldBreakJsxElement(path);
   const needsParens = pathNeedsParens(path, options);
 
   return group(
@@ -521,6 +516,31 @@ function maybeWrapJsxElementInParens(path, elem, options) {
       needsParens ? "" : ifBreak(")"),
     ],
     { shouldBreak },
+  );
+}
+
+function shouldBreakJsxElement(path) {
+  return (
+    path.match(
+      undefined,
+      (node) => node.type === "ArrowFunctionExpression",
+      isCallExpression,
+    ) &&
+    // Babel
+    (path.match(
+      undefined,
+      undefined,
+      undefined,
+      (node) => node.type === "JSXExpressionContainer",
+    ) ||
+      // Estree
+      path.match(
+        undefined,
+        undefined,
+        undefined,
+        (node) => node.type === "ChainExpression",
+        (node) => node.type === "JSXExpressionContainer",
+      ))
   );
 }
 
@@ -723,7 +743,7 @@ function printJsxClosingElement(path, options, print) {
   return parts;
 }
 
-function printJsxOpeningClosingFragment(path, options /*, print*/) {
+function printJsxOpeningClosingFragment(path, options /* , print*/) {
   const { node } = path;
   const nodeHasComment = hasComment(node);
   const hasOwnLineComment = hasComment(node, CommentCheckFlags.Line);
@@ -752,7 +772,7 @@ function printJsxElement(path, options, print) {
   return maybeWrapJsxElementInParens(path, elem, options);
 }
 
-function printJsxEmptyExpression(path, options /*, print*/) {
+function printJsxEmptyExpression(path, options /* , print*/) {
   const { node } = path;
   const requiresHardline = hasComment(node, CommentCheckFlags.Line);
 
@@ -815,9 +835,9 @@ function printJsx(path, options, print) {
       return printJsxClosingElement(path, options, print);
     case "JSXOpeningFragment":
     case "JSXClosingFragment":
-      return printJsxOpeningClosingFragment(path, options /*, print*/);
+      return printJsxOpeningClosingFragment(path, options /* , print*/);
     case "JSXEmptyExpression":
-      return printJsxEmptyExpression(path, options /*, print*/);
+      return printJsxEmptyExpression(path, options /* , print*/);
     case "JSXText":
       /* c8 ignore next */
       throw new Error("JSXText should be handled by JSXElement");

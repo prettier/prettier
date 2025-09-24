@@ -1,5 +1,1 @@
-runFormatTest(import.meta, ["flow"], {
-  errors: {
-    "babel-flow": ["conditional.js"],
-  },
-});
+runFormatTest(import.meta, ["flow"]);

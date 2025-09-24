@@ -1,5 +1,6 @@
 import transformArrayFindLast from "./transform-array-find-last.js";
 import transformArrayFindLastIndex from "./transform-array-find-last-index.js";
+import transformArrayToReversed from "./transform-array-to-reversed.js";
 import transformObjectHasOwnCall from "./transform-object-has-own.js";
 import transformRelativeIndexing from "./transform-relative-indexing.js";
 import transformStringReplaceAll from "./transform-string-replace-all.js";
@@ -18,4 +19,6 @@ export default [
   transformRelativeIndexing,
   // Node.js 15.0.0
   transformStringReplaceAll,
+  // Node.js 20
+  transformArrayToReversed,
 ];

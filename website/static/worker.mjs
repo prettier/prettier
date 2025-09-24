@@ -1,5 +1,6 @@
 import prettierPackageManifest from "./lib/package-manifest.mjs";
-import * as prettier from "./lib/standalone.mjs";
+import * as prettier from "./lib/prettier/standalone.mjs";
+import * as prettierPluginDocExplorer from "./prettier-plugin-doc-explorer.mjs";
 
 const pluginLoadPromises = new Map();
 async function importPlugin(plugin) {
@@ -38,37 +39,9 @@ function createPlugin(pluginManifest) {
   return plugin;
 }
 
-const docExplorerPlugin = {
-  parsers: {
-    "doc-explorer": {
-      parse: (text) =>
-        new Function(
-          `{ ${Object.keys(prettier.doc.builders)} }`,
-          `const result = (${text || "''"}\n); return result;`,
-        )(prettier.doc.builders),
-      astFormat: "doc-explorer",
-    },
-  },
-  printers: {
-    "doc-explorer": {
-      print: (path) => path.getValue(),
-    },
-  },
-  languages: [{ name: "doc-explorer", parsers: ["doc-explorer"] }],
-};
-
 const plugins = [
-  ...prettierPackageManifest.builtinPlugins.map((plugin) =>
-    createPlugin(plugin),
-  ),
-  docExplorerPlugin,
-  prettierPackageManifest.builtinPlugins.some((plugin) =>
-    plugin.parsers?.includes("hermes"),
-  )
-    ? {
-        languages: [{ name: "hermes", parsers: ["hermes"] }],
-      }
-    : {},
+  ...prettierPackageManifest.plugins.map((plugin) => createPlugin(plugin)),
+  prettierPluginDocExplorer,
 ];
 
 self.onmessage = async function (event) {

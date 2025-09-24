@@ -40,3 +40,18 @@ export const [HTML_HAS_PRAGMA_REGEXP, HTML_HAS_IGNORE_PRAGMA_REGEXP] = [
   (pragmas) =>
     new RegExp(String.raw`^\s*<!--\s*@(?:${pragmas.join("|")})\s*-->`, "u"),
 );
+
+export const [MARKDOWN_HAS_PRAGMA_REGEXP, MARKDOWN_HAS_IGNORE_PRAGMA_REGEXP] = [
+  FORMAT_PRAGMAS,
+  FORMAT_IGNORE_PRAGMAS,
+].map((pragmas) => {
+  const pragma = `@(?:${pragmas.join("|")})`;
+  return new RegExp(
+    [
+      `<!--\\s*${pragma}\\s*-->`,
+      `\\{\\s*\\/\\*\\s*${pragma}\\s*\\*\\/\\s*\\}`,
+      `<!--.*\r?\n[\\s\\S]*(^|\n)[^\\S\n]*${pragma}[^\\S\n]*($|\n)[\\s\\S]*\n.*-->`,
+    ].join("|"),
+    "mu",
+  );
+});

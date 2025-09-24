@@ -32,7 +32,7 @@ function preprocess(ast, options) {
   return ast;
 }
 
-function removeIgnorableFirstLf(ast /*, options */) {
+function removeIgnorableFirstLf(ast /* , options */) {
   ast.walk((node) => {
     if (
       node.type === "element" &&
@@ -52,7 +52,7 @@ function removeIgnorableFirstLf(ast /*, options */) {
 }
 
 function mergeIfConditionalStartEndCommentIntoElementOpeningTag(
-  ast /*, options */,
+  ast /* , options */,
 ) {
   /**
    *     <!--[if ...]><!--><target><!--<![endif]-->
@@ -129,7 +129,7 @@ function mergeNodeIntoText(ast, shouldMerge, getValue) {
   });
 }
 
-function mergeCdataIntoText(ast /*, options */) {
+function mergeCdataIntoText(ast /* , options */) {
   return mergeNodeIntoText(
     ast,
     (node) => node.type === "cdata",
@@ -137,7 +137,7 @@ function mergeCdataIntoText(ast /*, options */) {
   );
 }
 
-function mergeSimpleElementIntoText(ast /*, options */) {
+function mergeSimpleElementIntoText(ast /* , options */) {
   const isSimpleElement = (node) =>
     node.type === "element" &&
     node.attrs.length === 0 &&
@@ -327,7 +327,7 @@ function extractWhitespaces(ast, options) {
   });
 }
 
-function addIsSelfClosing(ast /*, options */) {
+function addIsSelfClosing(ast /* , options */) {
   ast.walk((node) => {
     node.isSelfClosing =
       !node.children ||

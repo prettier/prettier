@@ -2,7 +2,7 @@
  * @import {Doc} from "../../document/builders.js"
  */
 
-import assert from "node:assert";
+import * as assert from "#universal/assert";
 import {
   hardline,
   indent,

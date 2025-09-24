@@ -22,10 +22,10 @@ runFormatTest(import.meta, ["babel", "babel-ts", "babel-flow"], {
       "module-blocks.js",
       "async-do-expressions.js",
       "decorator-auto-accessors.js",
-      "explicit-resource-management.js",
       "source-phase-imports.js",
       "deferred-import-evaluation.js",
       "optional-chaining-assignment.js",
+      "discard-binding.js",
     ],
     espree: [
       "decorators.js",
@@ -46,10 +46,10 @@ runFormatTest(import.meta, ["babel", "babel-ts", "babel-flow"], {
       "module-blocks.js",
       "async-do-expressions.js",
       "decorator-auto-accessors.js",
-      "explicit-resource-management.js",
       "source-phase-imports.js",
       "deferred-import-evaluation.js",
       "optional-chaining-assignment.js",
+      "discard-binding.js",
     ],
     meriyah: [
       "do-expressions.js",
@@ -75,6 +75,7 @@ runFormatTest(import.meta, ["babel", "babel-ts", "babel-flow"], {
       "source-phase-imports.js",
       "deferred-import-evaluation.js",
       "optional-chaining-assignment.js",
+      "discard-binding.js",
     ],
     oxc: [
       "async-do-expressions.js",
@@ -93,6 +94,7 @@ runFormatTest(import.meta, ["babel", "babel-ts", "babel-flow"], {
       "throw-expressions.js",
       "typescript.js",
       "v8intrinsic.js",
+      "discard-binding.js",
     ],
     "oxc-ts": [
       "async-do-expressions.js",
@@ -111,6 +113,7 @@ runFormatTest(import.meta, ["babel", "babel-ts", "babel-flow"], {
       "throw-expressions.js",
       "typescript.js",
       "v8intrinsic.js",
+      "discard-binding.js",
     ],
     babel: ["flow.js", "typescript.js"],
     __babel_estree: ["flow.js", "typescript.js"],

@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`align.md - {"proseWrap":"always","tabWidth":0} format 1`] = `
 ====================================options=====================================
@@ -2291,6 +2291,237 @@ proseWrap: "always"
   - Level 1-1
 
 - Level 2
+
+================================================================================
+`;
+
+exports[`issue-17652.md - {"proseWrap":"always","tabWidth":0} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 0
+                                                                                | printWidth
+=====================================input======================================
+1. Some text, and code block below, with newline after code block
+
+   \`\`\`yaml
+   ---
+   foo: bar
+   \`\`\`
+
+   1. Another
+   2. List
+
+1. Some text, and code block below, with newline after code block
+
+   1. Another
+   2. List
+
+
+   \`\`\`yaml
+   ---
+   foo: bar
+   \`\`\`
+
+   1. Another
+   2. List
+
+=====================================output=====================================
+1. Some text, and code block below, with newline after code block
+
+   \`\`\`yaml
+   ---
+   foo: bar
+   \`\`\`
+
+   1. Another
+   2. List
+
+1. Some text, and code block below, with newline after code block
+   1. Another
+   2. List
+
+   \`\`\`yaml
+   ---
+   foo: bar
+   \`\`\`
+
+   1. Another
+   2. List
+
+================================================================================
+`;
+
+exports[`issue-17652.md - {"proseWrap":"always","tabWidth":4} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 4
+                                                                                | printWidth
+=====================================input======================================
+1. Some text, and code block below, with newline after code block
+
+   \`\`\`yaml
+   ---
+   foo: bar
+   \`\`\`
+
+   1. Another
+   2. List
+
+1. Some text, and code block below, with newline after code block
+
+   1. Another
+   2. List
+
+
+   \`\`\`yaml
+   ---
+   foo: bar
+   \`\`\`
+
+   1. Another
+   2. List
+
+=====================================output=====================================
+1. Some text, and code block below, with newline after code block
+
+    \`\`\`yaml
+    ---
+    foo: bar
+    \`\`\`
+
+    1. Another
+    2. List
+
+1. Some text, and code block below, with newline after code block
+    1. Another
+    2. List
+
+    \`\`\`yaml
+    ---
+    foo: bar
+    \`\`\`
+
+    1. Another
+    2. List
+
+================================================================================
+`;
+
+exports[`issue-17652.md - {"proseWrap":"always","tabWidth":999} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 999
+                                                                                | printWidth
+=====================================input======================================
+1. Some text, and code block below, with newline after code block
+
+   \`\`\`yaml
+   ---
+   foo: bar
+   \`\`\`
+
+   1. Another
+   2. List
+
+1. Some text, and code block below, with newline after code block
+
+   1. Another
+   2. List
+
+
+   \`\`\`yaml
+   ---
+   foo: bar
+   \`\`\`
+
+   1. Another
+   2. List
+
+=====================================output=====================================
+1. Some text, and code block below, with newline after code block
+
+      \`\`\`yaml
+      ---
+      foo: bar
+      \`\`\`
+
+      1. Another
+      2. List
+
+1. Some text, and code block below, with newline after code block
+      1. Another
+      2. List
+
+      \`\`\`yaml
+      ---
+      foo: bar
+      \`\`\`
+
+      1. Another
+      2. List
+
+================================================================================
+`;
+
+exports[`issue-17652.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+1. Some text, and code block below, with newline after code block
+
+   \`\`\`yaml
+   ---
+   foo: bar
+   \`\`\`
+
+   1. Another
+   2. List
+
+1. Some text, and code block below, with newline after code block
+
+   1. Another
+   2. List
+
+
+   \`\`\`yaml
+   ---
+   foo: bar
+   \`\`\`
+
+   1. Another
+   2. List
+
+=====================================output=====================================
+1. Some text, and code block below, with newline after code block
+
+   \`\`\`yaml
+   ---
+   foo: bar
+   \`\`\`
+
+   1. Another
+   2. List
+
+1. Some text, and code block below, with newline after code block
+   1. Another
+   2. List
+
+   \`\`\`yaml
+   ---
+   foo: bar
+   \`\`\`
+
+   1. Another
+   2. List
 
 ================================================================================
 `;

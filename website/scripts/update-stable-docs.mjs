@@ -18,13 +18,16 @@ await fs.rm(STABLE_DOCS_DIRECTORY, { recursive: true, force: true });
 await fs.mkdir(STABLE_DOCS_DIRECTORY, { recursive: true, force: true });
 await fs.cp(CURRENT_DOCS_DIRECTORY, STABLE_DOCS_DIRECTORY, { recursive: true });
 
-// Replace version placeholders
-await Promise.all(
-  ["browser.md"].map(async (file) => {
-    file = new URL(file, STABLE_DOCS_DIRECTORY);
-    await replaceVersionPlaceholder(file, version);
-  }),
-);
+// PRETTIER_VERSION when PULL_REQUEST exists is a temporary one
+if (process.env.PULL_REQUEST !== "true") {
+  // Replace version placeholders
+  await Promise.all(
+    ["browser.md"].map(async (file) => {
+      file = new URL(file, STABLE_DOCS_DIRECTORY);
+      await replaceVersionPlaceholder(file, version);
+    }),
+  );
+}
 
 async function getPrettierVersion() {
   const version = process.env.PRETTIER_VERSION;

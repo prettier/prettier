@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`dynamic-import.js format 1`] = `
 ====================================options=====================================
@@ -38,16 +38,6 @@ import * as bar from "bar.json" with {};
 import * as baz from "baz.json" /* comment */ with {};
 
 ================================================================================
-`;
-
-exports[`keyword-detect.js [meriyah] format 1`] = `
-"Invalid binding in JSON import (1:69)
-> 1 | import "./test.json" /* assert */ with /* assert */  { type: "json" }
-    |                                                                     ^
-  2 | import a from "./test.json" /* assert */ with /* assert */  { type: "json" }
-  3 |
-  4 | export {default as c} from "./test.json" /* assert */ with /* assert */  { type: "json" }
-Cause: [1:68-1:69]: Invalid binding in JSON import"
 `;
 
 exports[`keyword-detect.js format 1`] = `
@@ -217,14 +207,6 @@ import json from "./foo.json" with { type: "json" };
 import json from "./foo.json" with { type: "json" };
 
 ================================================================================
-`;
-
-exports[`without-from.js [meriyah] format 1`] = `
-"Invalid binding in JSON import (1:34)
-> 1 | import "foo" with { type: "json" }
-    |                                  ^
-  2 |
-Cause: [1:33-1:34]: Invalid binding in JSON import"
 `;
 
 exports[`without-from.js format 1`] = `

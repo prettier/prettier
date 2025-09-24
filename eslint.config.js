@@ -16,7 +16,7 @@ import eslintPluginPrettierInternalRules from "./scripts/tools/eslint-plugin-pre
 const toPath = (file) => url.fileURLToPath(new URL(file, import.meta.url));
 
 const ignores = `
-.tmp
+**/.tmp
 test*.*
 # Ignore directories and files in 'tests/format'
 tests/format/**/*
@@ -150,6 +150,7 @@ export default [
           avoidEscape: true,
         },
       ],
+      "@stylistic/spaced-comment": "error",
 
       /* @typescript-eslint/eslint-plugin */
       "@typescript-eslint/prefer-ts-expect-error": "error",
@@ -231,6 +232,8 @@ export default [
       "unicorn/no-array-callback-reference": "off",
       "unicorn/no-array-method-this-argument": "off",
       "unicorn/no-array-reduce": "off",
+      "unicorn/no-array-reverse": "off",
+      "unicorn/no-array-sort": "off",
       "unicorn/no-await-expression-member": "off",
       "unicorn/no-for-loop": "off",
       "unicorn/no-hex-escape": "off",
@@ -330,7 +333,7 @@ export default [
         "double",
         {
           avoidEscape: true,
-          allowTemplateLiterals: true,
+          allowTemplateLiterals: "always",
         },
       ],
       "jest/valid-expect": [
@@ -355,7 +358,7 @@ export default [
     },
   },
   {
-    files: ["tests/**/*.js"],
+    files: ["tests/**/*.{js,cjs}"],
     rules: {
       // TODO: Enable this when we drop support for Node.js v14
       "logical-assignment-operators": "off",
@@ -427,6 +430,7 @@ export default [
           functions: ["hasComment", "getComments"],
         },
         "src/language-js/pragma.js",
+        "src/language-js/parse/angular.js",
         "src/language-js/parse/babel.js",
         "src/language-js/parse/meriyah.js",
         "src/language-js/parse/json.js",

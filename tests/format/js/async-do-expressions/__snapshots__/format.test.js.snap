@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`async-do-expressions.js [acorn] format 1`] = `
 "Unexpected token (1:7)
@@ -61,12 +61,6 @@ async do {
   await 42
 }
 
-function iter() {
-  return async do {
-    return 1;
-  }
-};
-
 let x = async do {
   let tmp = f();
   tmp * tmp + 1
@@ -92,12 +86,6 @@ let x = async do {
 (async do {
   await 42;
 });
-
-function iter() {
-  return async do {
-    return 1;
-  };
-}
 
 let x = async do {
   let tmp = f();

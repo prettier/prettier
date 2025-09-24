@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`issue-7542.tsx - {"printWidth":120} format 1`] = `
 ====================================options=====================================

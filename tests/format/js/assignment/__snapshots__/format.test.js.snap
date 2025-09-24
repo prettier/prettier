@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`binaryish.js [hermes] format 1`] = `
 "invalid assignment left-hand side (6:0)

@@ -331,9 +331,12 @@ const testCallCalleePatterns = [
   "test",
   "test.only",
   "test.skip",
+  "test.fixme",
   "test.step",
   "test.describe",
   "test.describe.only",
+  "test.describe.skip",
+  "test.describe.fixme",
   "test.describe.parallel",
   "test.describe.parallel.only",
   "test.describe.serial",
@@ -1138,3 +1141,4 @@ export {
   shouldPrintComma,
   startsWithNoLookaheadToken,
 };
+export { default as isNodeMatches } from "./is-node-matches.js";

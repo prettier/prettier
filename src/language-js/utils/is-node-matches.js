@@ -21,17 +21,28 @@ function isNodeMatchesNameOrPath(node, nameOrPath) {
     }
 
     if (
-      node.type !== "MemberExpression" ||
-      // @ts-expect-error -- Don't know why
-      node.optional ||
-      node.computed ||
-      node.property.type !== "Identifier" ||
-      node.property.name !== name
+      index === 1 &&
+      node.type === "MetaProperty" &&
+      node.property.type === "Identifier" &&
+      node.property.name === name
     ) {
-      return false;
+      node = node.meta;
+      continue;
     }
 
-    node = node.object;
+    if (
+      node.type === "MemberExpression" &&
+      // @ts-expect-error -- Don't know why
+      !node.optional &&
+      !node.computed &&
+      node.property.type === "Identifier" &&
+      node.property.name === name
+    ) {
+      node = node.object;
+      continue;
+    }
+
+    return false;
   }
 }
 

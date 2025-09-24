@@ -1,11 +1,14 @@
 import indexToPosition from "index-to-position";
-import { parseAsync as oxcParse, rawTransferSupported } from "oxc-parser";
+import * as oxcParser from "oxc-parser";
 import createError from "../../common/parser-create-error.js";
 import { tryCombinationsAsync } from "../../utils/try-combinations.js";
 import postprocess from "./postprocess/index.js";
 import createParser from "./utils/create-parser.js";
 import jsxRegexp from "./utils/jsx-regexp.evaluate.js";
 import { getSourceType } from "./utils/source-types.js";
+
+/** @import {ParseResult, ParserOptions as ParserOptionsWithoutExperimentalRawTransfer} from "oxc-parser" */
+/** @typedef {ParserOptionsWithoutExperimentalRawTransfer & {experimentalRawTransfer?: boolean}} ParserOptions */
 
 function createParseError(error, { text }) {
   /* c8 ignore next 3 */
@@ -31,10 +34,15 @@ function createParseError(error, { text }) {
   });
 }
 
+/**
+@param {string} filepath
+@param {string} text
+@param {ParserOptions} options
+@returns {Promise<ParseResult>}
+*/
 async function parseWithOptions(filepath, text, options) {
-  const result = await oxcParse(filepath, text, {
+  const result = await oxcParser.parseAsync(filepath, text, {
     preserveParens: true,
-    experimentalRawTransfer: rawTransferSupported(),
     showSemanticErrors: false,
     ...options,
   });
@@ -68,31 +76,35 @@ async function parseJs(text, options) {
     },
   );
 
-  // @ts-expect-error -- expected
   ast.comments = comments;
 
   return postprocess(ast, { text, parser: "oxc" });
 }
 
+/**
+@returns {ParserOptions["lang"][]}
+*/
+function getLanguageCombinations(text, options) {
+  const filepath = options?.filepath;
+
+  if (typeof filepath === "string") {
+    if (/\.(?:jsx|tsx)$/iu.test(filepath)) {
+      return ["tsx"];
+    }
+
+    if (filepath.toLowerCase().endsWith(".d.ts")) {
+      return ["dts"];
+    }
+  }
+
+  const shouldEnableJsx = jsxRegexp.test(text);
+  return shouldEnableJsx ? ["tsx", "ts", "dts"] : ["ts", "tsx", "dts"];
+}
+
 async function parseTs(text, options) {
   let filepath = options?.filepath;
   const sourceType = getSourceType(filepath);
-  const parseOptions = { sourceType, astType: "ts" };
-  const isKnownJsx =
-    typeof filepath === "string" && /\.(?:jsx|tsx)$/iu.test(filepath);
-
-  let parseOptionsCombinations = [];
-  if (isKnownJsx) {
-    parseOptionsCombinations = [{ ...parseOptions, lang: "tsx" }];
-  } else {
-    const shouldEnableJsx = jsxRegexp.test(text);
-    parseOptionsCombinations = [shouldEnableJsx, !shouldEnableJsx].map(
-      (shouldEnableJsx) => ({
-        ...parseOptions,
-        lang: shouldEnableJsx ? "tsx" : "ts",
-      }),
-    );
-  }
+  const languageCombinations = getLanguageCombinations(text, options);
 
   if (typeof filepath !== "string") {
     filepath = "prettier.tsx";
@@ -101,8 +113,13 @@ async function parseTs(text, options) {
   let result;
   try {
     result = await tryCombinationsAsync(
-      parseOptionsCombinations.map(
-        (parseOptions) => () => parseWithOptions(filepath, text, parseOptions),
+      languageCombinations.map(
+        (language) => () =>
+          parseWithOptions(filepath, text, {
+            sourceType,
+            astType: "ts",
+            lang: language,
+          }),
       ),
     );
   } catch ({
@@ -113,7 +130,6 @@ async function parseTs(text, options) {
   }
 
   const { program: ast, comments } = result;
-  // @ts-expect-error -- expected
   ast.comments = comments;
   return postprocess(ast, { text, parser: "oxc", oxcAstType: "ts" });
 }

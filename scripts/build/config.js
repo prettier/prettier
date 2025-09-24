@@ -145,14 +145,21 @@ const pluginFiles = [
       },
       {
         module: getPackageFile(
+          "@typescript-eslint/typescript-estree/dist/parseSettings/candidateTSConfigRootDirs.js",
+        ),
+        process(text) {
+          return text.replace(
+            "process.cwd()",
+            JSON.stringify("/prettier-security-dirname-placeholder"),
+          );
+        },
+      },
+      {
+        module: getPackageFile(
           "@typescript-eslint/typescript-estree/dist/parseSettings/createParseSettings.js",
         ),
         process(text) {
           return text
-            .replace(
-              "process.cwd()",
-              JSON.stringify("/prettier-security-dirname-placeholder"),
-            )
             .replace(
               "parseSettings.projects = ",
               "parseSettings.projects = true ? new Map() : ",
@@ -161,7 +168,11 @@ const pluginFiles = [
               'require("node:path")',
               '{extname: file => "." + file.split(".").pop()}',
             )
-            .replace('require("@typescript-eslint/project-service")', "{}");
+            .replace('require("@typescript-eslint/project-service")', "{}")
+            .replace(
+              "const tsconfigRootDir =",
+              "const tsconfigRootDir = undefined && ",
+            );
         },
       },
       {
@@ -358,14 +369,9 @@ const pluginFiles = [
   {
     input: "src/plugins/meriyah.js",
     replaceModule: [
-      // Use non-minified version so we can replace code easier
-      {
-        module: resolveEsmModulePath("meriyah"),
-        path: getPackageFile("meriyah/dist/meriyah.mjs"),
-      },
       // We don't use value of JSXText
       {
-        module: getPackageFile("meriyah/dist/meriyah.mjs"),
+        module: resolveEsmModulePath("meriyah"),
         find: "parser.tokenValue = decodeHTMLStrict(raw);",
         replacement: "parser.tokenValue = raw;",
       },
@@ -813,7 +819,7 @@ const nodejsFiles = [
     // TODO: Remove this when we drop support for Node.js v16
     replaceModule: [
       {
-        module: resolveEsmModulePath("cacheable"),
+        module: resolveEsmModulePath("@cacheable/memory"),
         process: (text) =>
           outdent`
             const structuredClone =
@@ -858,16 +864,7 @@ const nodejsFiles = [
           "src/experimental-cli/constants.evaluate.js",
         ),
       },
-      ...[
-        "package.json",
-        "index.mjs",
-        ...universalFiles
-          .filter(
-            ({ kind, output }) =>
-              kind === "javascript" && output.format === "esm",
-          )
-          .map(({ output }) => output.file),
-      ].map((file) => ({
+      ...["package.json", "index.mjs"].map((file) => ({
         module: getPackageFile(`prettier/${file}`),
         external: `../${file}`,
       })),
@@ -956,7 +953,7 @@ export default [
               format,
               file: `${outputBaseName}${extensions[format]}`,
             },
-            platform: "node",
+            platform: "universal",
             buildOptions,
             build: buildJavascriptModule,
             kind: "javascript",

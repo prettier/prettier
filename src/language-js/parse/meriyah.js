@@ -30,7 +30,7 @@ const parseOptions = {
   // Enable implied strict mode
   impliedStrict: false,
   // Enable non-standard parenthesized expression node
-  preserveParens: false,
+  preserveParens: true,
   // Enable lexical binding and scope tracking
   lexical: false,
   // Adds a source attribute in every node’s loc object when the locations option is `true`
@@ -56,19 +56,14 @@ function parseWithOptions(text, sourceType) {
 }
 
 function createParseError(error) {
-  let { message, loc } = error;
+  const { description, loc } = error;
 
   /* c8 ignore next 3 */
   if (!loc) {
     return error;
   }
 
-  const prefix = `[${[loc.start, loc.end].map(({ line, column }) => [line, column].join(":")).join("-")}]: `;
-  if (message.startsWith(prefix)) {
-    message = message.slice(prefix.length);
-  }
-
-  return createError(message, {
+  return createError(description, {
     loc: {
       start: {
         line: loc.start.line,

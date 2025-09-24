@@ -95,6 +95,21 @@ function printOpaqueType(path, options, print) {
     parts.push(": ", print("supertype"));
   }
 
+  if (node.lowerBound || node.upperBound) {
+    const lowerAndUpperBoundParts = [];
+    if (node.lowerBound) {
+      lowerAndUpperBoundParts.push(
+        indent([line, "super ", print("lowerBound")]),
+      );
+    }
+    if (node.upperBound) {
+      lowerAndUpperBoundParts.push(
+        indent([line, "extends ", print("upperBound")]),
+      );
+    }
+    parts.push(group(lowerAndUpperBoundParts));
+  }
+
   if (node.impltype) {
     parts.push(" = ", print("impltype"));
   }

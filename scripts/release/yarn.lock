@@ -79,11 +79,11 @@ __metadata:
   linkType: hard
 
 "fastq@npm:^1.6.0":
-  version: 1.17.1
-  resolution: "fastq@npm:1.17.1"
+  version: 1.19.1
+  resolution: "fastq@npm:1.19.1"
   dependencies:
     reusify: "npm:^1.0.4"
-  checksum: 10/a443180068b527dd7b3a63dc7f2a47ceca2f3e97b9c00a1efe5538757e6cc4056a3526df94308075d7727561baf09ebaa5b67da8dcbddb913a021c5ae69d1f69
+  checksum: 10/75679dc226316341c4f2a6b618571f51eac96779906faecd8921b984e844d6ae42fabb2df69b1071327d398d5716693ea9c9c8941f64ac9e89ec2032ce59d730
   languageName: node
   linkType: hard
 
@@ -145,17 +145,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nano-spawn@npm:1.0.1":
-  version: 1.0.1
-  resolution: "nano-spawn@npm:1.0.1"
-  checksum: 10/be4a26653e356eabf27c53bddc2205d38f4631523b08e7edc1c64d838320f191b96bd28a570dc939b29f7b036fc06f78f6b70f2341ba9221e2e677548220191b
+"nano-spawn@npm:1.0.3":
+  version: 1.0.3
+  resolution: "nano-spawn@npm:1.0.3"
+  checksum: 10/72c56e68ae733c81c459a338fd51e2aa3be06b1cca746c2abe83df7acfac7eee008b01833f5a8781f4ac9fc1eafd23036a44755257a669dfcc2ff2453850822a
   languageName: node
   linkType: hard
 
-"node-style-text@npm:0.0.8":
-  version: 0.0.8
-  resolution: "node-style-text@npm:0.0.8"
-  checksum: 10/c716b208f99ff2dcb52432f5cd0406e8f6df006bb927dd522c56406b53a64799dc155e29724fecec38c855dc62a2297b1e2530f57681c6504d7c4e5075e1478e
+"node-style-text@npm:1.0.0":
+  version: 1.0.0
+  resolution: "node-style-text@npm:1.0.0"
+  checksum: 10/98c66d0bb040d648200edcb2ecafec3ed23b5b0b336e9982100b0d1e4b8b8cf0864680d1c07598f7694f9e9de4a54d9d5ac370c7f06f22b31bc8883dcfc6a244
   languageName: node
   linkType: hard
 
@@ -181,9 +181,9 @@ __metadata:
   linkType: hard
 
 "reusify@npm:^1.0.4":
-  version: 1.0.4
-  resolution: "reusify@npm:1.0.4"
-  checksum: 10/14222c9e1d3f9ae01480c50d96057228a8524706db79cdeb5a2ce5bb7070dd9f409a6f84a02cbef8cdc80d39aef86f2dd03d155188a1300c599b05437dcd2ffb
+  version: 1.1.0
+  resolution: "reusify@npm:1.1.0"
+  checksum: 10/af47851b547e8a8dc89af144fceee17b80d5beaf5e6f57ed086432d79943434ff67ca526e92275be6f54b6189f6920a24eace75c2657eed32d02c400312b21ec
   languageName: node
   linkType: hard
 
@@ -193,8 +193,8 @@ __metadata:
   dependencies:
     enquirer: "npm:2.4.1"
     fast-glob: "npm:3.3.3"
-    nano-spawn: "npm:1.0.1"
-    node-style-text: "npm:0.0.8"
+    nano-spawn: "npm:1.0.3"
+    node-style-text: "npm:1.0.0"
     outdent: "npm:0.8.0"
     semver: "npm:7.7.2"
   languageName: unknown

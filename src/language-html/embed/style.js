@@ -3,17 +3,21 @@ import { printExpand } from "./utils.js";
 
 function printStyleAttribute(path, options) {
   const { node } = path;
-  const text = getUnescapedAttributeValue(path.node).trim();
   if (
-    node.fullName === "style" &&
-    !options.parentParser &&
-    !text.includes("{{")
+    node.fullName !== "style" ||
+    options.parentParser ||
+    node.value.includes("{{")
   ) {
-    return async (textToDoc) =>
-      printExpand(
-        await textToDoc(text, { parser: "css", __isHTMLStyleAttribute: true }),
-      );
+    return;
   }
+
+  return async (textToDoc) =>
+    printExpand(
+      await textToDoc(getUnescapedAttributeValue(node), {
+        parser: "css",
+        __isHTMLStyleAttribute: true,
+      }),
+    );
 }
 
 export { printStyleAttribute };

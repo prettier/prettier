@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`11662.ts format 1`] = `
 ====================================options=====================================
@@ -1196,55 +1196,20 @@ printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
 functionName<A /* A comment */>();
-const a: T</* comment */> = 1;
-functionName</* comment */>();
-function foo</* comment */>() {}
-interface Foo {
- </* comment */>(arg): any;
-}
-type T = </* comment */>(arg) => any;
 
 functionName<
   A // comment
 >();
-const a: T<
-  // comment
-> = 1;
-functionName<
-  // comment
->();
-function foo<
-  // comment
->() {}
 interface Foo {
  <
   A// comment
  >(arg): any;
 }
-type T = <
-  // comment
->(arg) => any;
 
 =====================================output=====================================
 functionName<A /* A comment */>();
-const a: T</* comment */> = 1;
-functionName</* comment */>();
-function foo</* comment */>() {}
-interface Foo {
-  </* comment */>(arg): any;
-}
-type T = </* comment */>(arg) => any;
 
 functionName<A>(); // comment
-const a: T<
-  // comment
-> = 1;
-functionName<
-  // comment
->();
-function foo<
-  // comment
->() {}
 interface Foo {
   <
     A, // comment
@@ -1252,11 +1217,6 @@ interface Foo {
     arg,
   ): any;
 }
-type T = <
-  // comment
->(
-  arg,
-) => any;
 
 ================================================================================
 `;

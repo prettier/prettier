@@ -166,6 +166,28 @@ describe("--write and --list-different with unknown path and no parser", () => {
   });
 });
 
+describe("Allow plugin to override builtin plugins", () => {
+  runCli(
+    "cli/infer-parser/override-builtin-plugin-languages",
+    ["--stdin-filepath=foo.js"],
+    {
+      input: "foo(   )",
+    },
+  ).test({ write: [], status: 0, stderr: "", stdout: "foo();" });
+  runCli(
+    "cli/infer-parser/override-builtin-plugin-languages",
+    ["--stdin-filepath=foo.js", "--plugin=./dummy-js-plugin.js"],
+    {
+      input: "foo(   )",
+    },
+  ).test({
+    write: [],
+    status: 0,
+    stderr: "",
+    stdout: "foo(   )\nformatted by 'dummy-js-parser' parser",
+  });
+});
+
 describe("API with no path and no parser", () => {
   test("prettier.format", async () => {
     await expect(prettier.format(" foo  (  )")).rejects.toThrow(

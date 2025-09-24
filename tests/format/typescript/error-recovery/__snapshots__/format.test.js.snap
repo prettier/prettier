@@ -1,189 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`generic.ts [oxc-ts] format 1`] = `
-"Type parameters cannot appear on a constructor declaration (8:16)
-   6 |
-   7 | class f4 {
->  8 |     constructor<>() {}
-     |                ^^
-   9 | }
-  10 |
-  11 | const f5 = function<>() {}"
-`;
-
-exports[`generic.ts - {"trailingComma":"all"} [oxc-ts] format 1`] = `
-"Type parameters cannot appear on a constructor declaration (8:16)
-   6 |
-   7 | class f4 {
->  8 |     constructor<>() {}
-     |                ^^
-   9 | }
-  10 |
-  11 | const f5 = function<>() {}"
-`;
-
-exports[`generic.ts - {"trailingComma":"all"} format 1`] = `
-====================================options=====================================
-parsers: ["typescript"]
-printWidth: 80
-trailingComma: "all"
-                                                                                | printWidth
-=====================================input======================================
-f1<>();
-
-new f2<>();
-
-function f3<>() {}
-
-class f4 {
-    constructor<>() {}
-}
-
-const f5 = function<>() {}
-
-interface f6<> {
-    test<>();
-}
-
-class f7<> {
-    test<>() {}
-}
-
-=====================================output=====================================
-f1<>();
-
-new f2<>();
-
-function f3<>() {}
-
-class f4 {
-  constructor<>() {}
-}
-
-const f5 = function <>() {};
-
-interface f6<> {
-  test<>();
-}
-
-class f7<> {
-  test<>() {}
-}
-
-================================================================================
-`;
-
-exports[`generic.ts - {"trailingComma":"es5"} [oxc-ts] format 1`] = `
-"Type parameters cannot appear on a constructor declaration (8:16)
-   6 |
-   7 | class f4 {
->  8 |     constructor<>() {}
-     |                ^^
-   9 | }
-  10 |
-  11 | const f5 = function<>() {}"
-`;
-
-exports[`generic.ts - {"trailingComma":"es5"} format 1`] = `
-====================================options=====================================
-parsers: ["typescript"]
-printWidth: 80
-trailingComma: "es5"
-                                                                                | printWidth
-=====================================input======================================
-f1<>();
-
-new f2<>();
-
-function f3<>() {}
-
-class f4 {
-    constructor<>() {}
-}
-
-const f5 = function<>() {}
-
-interface f6<> {
-    test<>();
-}
-
-class f7<> {
-    test<>() {}
-}
-
-=====================================output=====================================
-f1<>();
-
-new f2<>();
-
-function f3<>() {}
-
-class f4 {
-  constructor<>() {}
-}
-
-const f5 = function <>() {};
-
-interface f6<> {
-  test<>();
-}
-
-class f7<> {
-  test<>() {}
-}
-
-================================================================================
-`;
-
-exports[`generic.ts format 1`] = `
-====================================options=====================================
-parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-f1<>();
-
-new f2<>();
-
-function f3<>() {}
-
-class f4 {
-    constructor<>() {}
-}
-
-const f5 = function<>() {}
-
-interface f6<> {
-    test<>();
-}
-
-class f7<> {
-    test<>() {}
-}
-
-=====================================output=====================================
-f1<>();
-
-new f2<>();
-
-function f3<>() {}
-
-class f4 {
-  constructor<>() {}
-}
-
-const f5 = function <>() {};
-
-interface f6<> {
-  test<>();
-}
-
-class f7<> {
-  test<>() {}
-}
-
-================================================================================
-`;
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`index-signature.ts [babel-ts] format 1`] = `
 "Unexpected token, expected "]" (4:13)
@@ -198,9 +13,9 @@ Cause: Unexpected token, expected "]" (4:12)"
 `;
 
 exports[`index-signature.ts [oxc-ts] format 1`] = `
-"Unexpected token (1:26)
+"An index signature must have a type annotation. (1:12)
 > 1 | type A = { [key: string] };
-    |                          ^
+    |            ^^^^^^^^^^^^^
   2 |
   3 | type TwoParams = {
   4 |   [a: string, b: string]: string;"
@@ -219,9 +34,9 @@ Cause: Unexpected token, expected "]" (4:12)"
 `;
 
 exports[`index-signature.ts - {"trailingComma":"all"} [oxc-ts] format 1`] = `
-"Unexpected token (1:26)
+"An index signature must have a type annotation. (1:12)
 > 1 | type A = { [key: string] };
-    |                          ^
+    |            ^^^^^^^^^^^^^
   2 |
   3 | type TwoParams = {
   4 |   [a: string, b: string]: string;"
@@ -303,9 +118,9 @@ Cause: Unexpected token, expected "]" (4:12)"
 `;
 
 exports[`index-signature.ts - {"trailingComma":"es5"} [oxc-ts] format 1`] = `
-"Unexpected token (1:26)
+"An index signature must have a type annotation. (1:12)
 > 1 | type A = { [key: string] };
-    |                          ^
+    |            ^^^^^^^^^^^^^
   2 |
   3 | type TwoParams = {
   4 |   [a: string, b: string]: string;"

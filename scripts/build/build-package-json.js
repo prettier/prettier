@@ -23,7 +23,13 @@ const keysToKeep = [
   "engines",
   "files",
   "preferUnplugged",
+  "sideEffects",
 ];
+
+const publishConfig = {
+  access: "public",
+  registry: "https://registry.npmjs.org/",
+};
 
 async function buildPrettierPackageJson({ packageConfig, file }) {
   const { distDirectory, files } = packageConfig;
@@ -133,6 +139,7 @@ async function buildPluginOxcPackageJson({ packageConfig, file }) {
     dependencies: {
       "oxc-parser": projectPackageJson.dependencies["oxc-parser"],
     },
+    publishConfig,
   };
 
   await writeJson(
@@ -144,9 +151,6 @@ async function buildPluginOxcPackageJson({ packageConfig, file }) {
 async function buildPluginHermesPackageJson({ packageConfig, file }) {
   const { distDirectory, files } = packageConfig;
   const packageJson = await readJson(path.join(PROJECT_ROOT, file.input));
-  const projectPackageJson = await readJson(
-    path.join(PROJECT_ROOT, "package.json"),
-  );
 
   const overrides = {
     engines: {
@@ -158,9 +162,7 @@ async function buildPluginHermesPackageJson({ packageConfig, file }) {
     // Use `commonjs` since we may provide browser build in future.
     type: "commonjs",
     files: files.map(({ output: { file } }) => file).sort(),
-    dependencies: {
-      "hermes-parser": projectPackageJson.dependencies["hermes-parser"],
-    },
+    publishConfig,
   };
 
   await writeJson(

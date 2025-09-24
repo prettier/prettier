@@ -35,7 +35,7 @@ import {
   hasComposesNode,
   hasParensAroundNode,
   insideAtRuleNode,
-  insideICSSRuleNode,
+  insideIcssRuleNode,
   insideValueFunctionNode,
   isDetachedRulesetCallNode,
   isDetachedRulesetDeclarationNode,
@@ -126,7 +126,7 @@ function genericPrint(path, options, print) {
         node.raws.before.replaceAll(/[\s;]/gu, ""),
         // Less variable
         (parentNode.type === "css-atrule" && parentNode.variable) ||
-        insideICSSRuleNode(path)
+        insideIcssRuleNode(path)
           ? node.prop
           : maybeToLowerCase(node.prop),
         trimmedBetween.startsWith("//") ? " " : "",
