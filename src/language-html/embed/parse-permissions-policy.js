@@ -1,9 +1,9 @@
 /*
 Based on https://github.com/helmetjs/content-security-policy-parser/blob/main/mod.ts with modifications:
 
-1. Emit policy list instead of a `Map`, so we won't remove duplicated features.
-1. Skip ASCII check, so we won't remove invalid features.
-1. Skip directive name normalization, so we won't modify original casing.
+1. Emit policy list instead of a `Map`, so we won't remove duplicated directives.
+1. Skip ASCII check, so we won't remove invalid directives.
+1. Skip directive name normalization, so the printer can know what's the original name.
 */
 import htmlWhitespaceUtils from "../../utils/html-whitespace-utils.js";
 
