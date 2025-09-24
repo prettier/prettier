@@ -2,7 +2,8 @@
 Based on https://github.com/helmetjs/content-security-policy-parser/blob/main/mod.ts with modifications:
 
 1. Emit policy list instead of a `Map`, so we won't remove duplicated features.
-1. Skip ASCII check, so we won't remove invalid features.
+2. Skip ASCII check, so we won't remove invalid features.
+3. Skip normalization, so we won't modify original casing.
 */
 import htmlWhitespaceUtils from "../../utils/html-whitespace-utils.js";
 
@@ -30,11 +31,8 @@ export default function parseContentSecurityPolicy(policy) {
     //     code points from token which are not ASCII whitespace."
     // "6. Let directive value be the result of splitting token on
     //     ASCII whitespace."
-    const [rawDirectiveName, ...directiveValue] =
+    const [directiveName, ...directiveValue] =
       htmlWhitespaceUtils.split(token);
-    // "4. Set directive name to be the result of running ASCII lowercase on
-    //     directive name."
-    const directiveName = rawDirectiveName.toLowerCase();
 
     result.push({ directive: directiveName, allowlist: directiveValue })
   }
