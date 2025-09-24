@@ -11,7 +11,7 @@ import htmlWhitespaceUtils from "../../utils/html-whitespace-utils.js";
  * Parse a serialized Content Security Policy.
  * https://w3c.github.io/webappsec-csp/#parse-serialized-policy
  */
-export default function parseContentSecurityPolicy(policy) {
+function parsePermissionsPolicy(policy) {
   const result = [];
 
   // "For each token returned by strictly splitting serialized on the
@@ -38,3 +38,5 @@ export default function parseContentSecurityPolicy(policy) {
 
   return result;
 }
+
+export default parsePermissionsPolicy;

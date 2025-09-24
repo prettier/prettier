@@ -1,9 +1,9 @@
 import { ifBreak, join, softline } from "../../document/builders.js";
-import parseContentSecurityPolicy from "../utils/content-security-policy-parser.js";
 import { getUnescapedAttributeValue } from "../utils/index.js";
+import parsePermissionsPolicy from "./parse-permissions-policy.js";
 import { printExpand } from "./utils.js";
 
-function printIframeAttribute(path, options) {
+function printPermissionsPolicy(path, options) {
   const { node } = path;
 
   if (
@@ -14,9 +14,7 @@ function printIframeAttribute(path, options) {
     return;
   }
 
-  const permissions = parseContentSecurityPolicy(
-    getUnescapedAttributeValue(node),
-  );
+  const permissions = parsePermissionsPolicy(getUnescapedAttributeValue(node));
 
   return () =>
     printExpand(
@@ -33,4 +31,4 @@ function printIframeAttribute(path, options) {
     );
 }
 
-export { printIframeAttribute };
+export default printPermissionsPolicy;
