@@ -31,10 +31,9 @@ export default function parseContentSecurityPolicy(policy) {
     //     code points from token which are not ASCII whitespace."
     // "6. Let directive value be the result of splitting token on
     //     ASCII whitespace."
-    const [directiveName, ...directiveValue] =
-      htmlWhitespaceUtils.split(token);
+    const [directiveName, ...directiveValue] = htmlWhitespaceUtils.split(token);
 
-    result.push({ directive: directiveName, allowlist: directiveValue })
+    result.push({ directive: directiveName, allowlist: directiveValue });
   }
 
   return result;
