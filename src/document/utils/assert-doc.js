@@ -1,3 +1,4 @@
+import noop from "../../utils/noop.js";
 import {
   DOC_TYPE_IF_BREAK,
   DOC_TYPE_LINE,
@@ -12,7 +13,6 @@ import traverseDoc from "./traverse-doc.js";
  */
 
 const checked = process.env.NODE_ENV !== "production" && new WeakSet();
-const noop = () => {};
 const assertDoc =
   process.env.NODE_ENV === "production"
     ? noop

@@ -953,7 +953,7 @@ export default [
               format,
               file: `${outputBaseName}${extensions[format]}`,
             },
-            platform: "node",
+            platform: "universal",
             buildOptions,
             build: buildJavascriptModule,
             kind: "javascript",

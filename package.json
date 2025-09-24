@@ -12,6 +12,16 @@
   "main": "./src/index.cjs",
   "browser": "./standalone.js",
   "unpkg": "./standalone.js",
+  "imports": {
+    "#universal": {
+      "browser": "./src/universal/index.browser.js",
+      "default": "./src/universal/index.js"
+    },
+    "#universal/*": {
+      "browser": "./src/universal/*.browser.js",
+      "default": "./src/universal/*.js"
+    }
+  },
   "exports": {
     ".": {
       "types": "./src/index.d.ts",
@@ -211,6 +221,7 @@
       "src/standalone.js",
       "src/index.cjs",
       "src/document/debug.js",
+      "src/universal/*.browser.js",
       "src/utils/unexpected-node-error.js",
       "src/language-js/types/estree.d.ts",
       "src/**/**/*.d.ts"

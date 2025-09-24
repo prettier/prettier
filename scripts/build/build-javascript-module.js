@@ -21,7 +21,6 @@ import transform from "./transform/index.js";
 import { getPackageFile } from "./utils.js";
 
 const {
-  dirname,
   readJsonSync,
   require,
   resolve: importMetaResolve,
@@ -169,39 +168,6 @@ function getEsbuildOptions({ packageConfig, file, cliOptions }) {
             external: getRelativePath(file.output.file, output),
           };
         }),
-    );
-  } else {
-    replaceModule.push(
-      // When running build script with `--no-minify`, `esbuildPluginNodeModulePolyfills` shim `module` module incorrectly
-      {
-        module: "*",
-        find: 'import { createRequire } from "node:module";',
-        replacement: "",
-      },
-      // Prevent `esbuildPluginNodeModulePolyfills` shim `assert`, which will include a big `buffer` shim
-      // TODO[@fisker]: Find a better way
-      {
-        module: "*",
-        find: ' from "node:assert";',
-        replacement: ` from ${JSON.stringify(
-          path.join(dirname, "./shims/assert.js"),
-        )};`,
-      },
-      // Prevent `esbuildPluginNodeModulePolyfills` include shim for this module
-      {
-        module: "assert",
-        path: path.join(dirname, "./shims/assert.js"),
-      },
-      // `esbuildPluginNodeModulePolyfills` didn't shim this module
-      {
-        module: "module",
-        text: "export const createRequire = () => {};",
-      },
-      // This module requires file access, should not include in universal bundle
-      {
-        module: path.join(PROJECT_ROOT, "src/utils/get-interpreter.js"),
-        text: "export default undefined;",
-      },
     );
   }
 

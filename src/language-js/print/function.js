@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import * as assert from "#universal/assert";
 import {
   group,
   hardline,
