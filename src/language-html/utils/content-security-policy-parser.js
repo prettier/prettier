@@ -1,9 +1,6 @@
 // Copied from https://github.com/helmetjs/content-security-policy-parser/blob/main/mod.ts
 import htmlWhitespaceUtils from "../../utils/html-whitespace-utils.js";
 
-// eslint-disable-next-line no-control-regex
-const ASCII = /^[\x00-\x7f]*$/u;
-
 /**
  * Parse a serialized Content Security Policy.
  * https://w3c.github.io/webappsec-csp/#parse-serialized-policy
