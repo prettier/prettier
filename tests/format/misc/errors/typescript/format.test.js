@@ -12,7 +12,7 @@ runFormatTest(
   },
   [
     "typescript",
-    //"babel-ts",
+    // "babel-ts",
     "oxc-ts",
   ],
 );
