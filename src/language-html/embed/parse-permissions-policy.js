@@ -8,15 +8,25 @@ Based on https://github.com/helmetjs/content-security-policy-parser/blob/main/mo
 import htmlWhitespaceUtils from "../../utils/html-whitespace-utils.js";
 
 /**
- * Parse a serialized Content Security Policy.
- * https://w3c.github.io/webappsec-csp/#parse-serialized-policy
- */
-function parsePermissionsPolicy(policy) {
+@typedef {{
+  name: string,
+  value: string[],
+}} Directive
+*/
+
+/**
+Parse a serialized Content Security Policy.
+https://w3c.github.io/webappsec-csp/#parse-serialized-policy
+
+@param {string} content
+@returns {Directive[]}
+*/
+function parsePermissionsPolicy(content) {
   const policies = [];
 
   // "For each token returned by strictly splitting serialized on the
   // U+003B SEMICOLON character (;):"
-  for (let token of policy.split(";")) {
+  for (let token of content.split(";")) {
     // "1. Strip leading and trailing ASCII whitespace from token."
     token = htmlWhitespaceUtils.trim(token);
 
@@ -34,9 +44,17 @@ function parsePermissionsPolicy(policy) {
     //     ASCII whitespace."
     const [name, ...value] = htmlWhitespaceUtils.split(token);
 
-    // "7. Let directive be a new directive whose name is directive name,
-    //     and value is directive value."
+    // "4. Set directive name to be the result of running ASCII lowercase on
+    //     directive name."
     // Prettier: Skipped directive name normalization.
+
+    // "5. If policy's directive set contains a directive whose name is
+    //     directive name, continue."
+    // Prettier: We preserve duplicated directives.
+
+    // "7. Let directive be a new directive whose name is directive name, and
+    //     value is directive value."
+    // "8. Append directive to policy's directive set."
     policies.push({ name, value });
   }
 
