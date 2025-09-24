@@ -20,7 +20,10 @@ runFormatTest(
 runFormatTest(
   {
     importMeta: import.meta,
-    snippets: [String.raw`export asyn\u{63} from "async";`],
+    snippets: [
+      // cspell:disable-next-line
+      String.raw`export asyn\u{63} from "async";`,
+    ],
   },
   [
     // "babel",
