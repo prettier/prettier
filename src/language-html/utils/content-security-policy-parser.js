@@ -28,7 +28,8 @@ export default function parseContentSecurityPolicy(policy) {
     //     code points from token which are not ASCII whitespace."
     // "6. Let directive value be the result of splitting token on
     //     ASCII whitespace."
-    const [rawDirectiveName, ...directiveValue] = htmlWhitespaceUtils.split(token);
+    const [rawDirectiveName, ...directiveValue] =
+      htmlWhitespaceUtils.split(token);
     // "4. Set directive name to be the result of running ASCII lowercase on
     //     directive name."
     const directiveName = rawDirectiveName.toLowerCase();
