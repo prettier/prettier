@@ -18,18 +18,20 @@ function printPermissionsPolicy(path, options) {
   const policies = parsePermissionsPolicy(getUnescapedAttributeValue(node));
 
   return () =>
-    printExpand(
-      join(
-        ifBreak(softline, "; "),
-        policies.map((directive) => [
-          directive.name,
-          ...(directive.value.length > 0
-            ? [" ", directive.value.join(" ")]
-            : []),
-          ifBreak(";"),
-        ]),
-      ),
-    );
+    policies.length === 0
+      ? [""]
+      : printExpand(
+          join(
+            ifBreak(softline, "; "),
+            policies.map((directive) => [
+              directive.name,
+              ...(directive.value.length > 0
+                ? [" ", directive.value.join(" ")]
+                : []),
+              ifBreak(";"),
+            ]),
+          ),
+        );
 }
 
 export default printPermissionsPolicy;
