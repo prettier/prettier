@@ -25,22 +25,16 @@ proseWrap: "always"
                                                                                 | printWidth
 =====================================input======================================
 +++
-date =         2024-02-02T04:14:54-08:00
-draft = false
-title = 'Example'
-weight = 10
-[params]
-author   =     'John Smith'
+date: '2017-10-10T22:49:47.369Z'
+title: 'My Post Title'
+categories: ['foo', 'bar']
 +++
 
 =====================================output=====================================
 +++
-date = 2024-02-02T04:14:54-08:00
-draft = false
-title = 'Example'
-weight = 10
-[params]
-author = 'John Smith'
+date: '2017-10-10T22:49:47.369Z'
+title: 'My Post Title'
+categories: ['foo', 'bar']
 +++
 
 ================================================================================
