@@ -74,16 +74,16 @@ function isStyledJsx(path) {
   return (
     path.match(
       undefined,
-      (key, node) =>
+      (node, key) =>
         key === "expression" &&
         node.type === "TaggedTemplateExpression" &&
         isNodeMatches(node.tag, ["css", "css.global", "css.resolve"]),
     ) ||
     path.match(
       undefined,
-      (key, node) =>
+      (node, key) =>
         key === "expression" && node.type === "JSXExpressionContainer",
-      (key, node) =>
+      (node, key) =>
         key === "children" &&
         node.type === "JSXElement" &&
         node.openingElement.name.type === "JSXIdentifier" &&
@@ -91,7 +91,7 @@ function isStyledJsx(path) {
         node.openingElement.attributes.some(
           (attribute) =>
             attribute.type === "JSXAttribute" &&
-            attribute.type === "JSXIdentifier" &&
+            attribute.name.type === "JSXIdentifier" &&
             attribute.name.name === "jsx",
         ),
     )
