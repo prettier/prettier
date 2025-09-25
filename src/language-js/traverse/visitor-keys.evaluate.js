@@ -57,12 +57,12 @@ const excludeKeys = {
   TSEnumDeclaration: ["members"],
 };
 
+// https://github.com/babel/babel/issues/17524
 const excludeNodeTypes = new Set([
   // Babel will remove in v8
   // https://github.com/babel/babel/pull/17242
   "TupleExpression",
   "RecordExpression",
-  "DecimalLiteral",
   // Babel, Won't exist since we use `createImportExpressions` when parsing with babel
   "Import",
 ]);
