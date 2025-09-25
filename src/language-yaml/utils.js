@@ -178,6 +178,10 @@ function splitWithSingleSpace(text) {
   return parts;
 }
 
+/**
+@param {string} nodeType
+@param {string} content
+*/
 function getFlowScalarLineContents(nodeType, content, options) {
   const rawLineContents = content
     .split("\n")
@@ -226,6 +230,7 @@ function getBlockValueLineContents(
   node,
   { parentIndent, isLastDescendant, options },
 ) {
+  /** @type {string} */
   const content =
     node.position.start.line === node.position.end.line
       ? ""
@@ -234,6 +239,7 @@ function getBlockValueLineContents(
           // exclude open line `>` or `|`
           .match(/^[^\n]*\n(.*)$/su)[1];
 
+  /** @type {number} */
   let leadingSpaceCount;
   if (node.indent === null) {
     const matches = content.match(/^(?<leadingSpace> *)[^\n\r ]/mu);
@@ -296,6 +302,9 @@ function getBlockValueLineContents(
 
   return removeUnnecessaryTrailingNewlines(lines);
 
+  /**
+  @param {string[][]} lineContents
+  */
   function removeUnnecessaryTrailingNewlines(lineContents) {
     if (node.chomping === "keep") {
       return lineContents.at(-1).length === 0
