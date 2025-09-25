@@ -10,11 +10,11 @@ import {
 import { isEmbedMarkdown, printEmbedMarkdown } from "./markdown.js";
 
 const printers = [
-  { test: isEmbedCss, printEmbedCss },
-  { test: isEmbedGraphQL, printEmbedGraphQL },
-  { test: isEmbedHtml, printEmbedHtml },
-  { test: isAngularComponentTemplate, printEmbedAngular },
-  { test: isEmbedMarkdown, printEmbedMarkdown },
+  { test: isEmbedCss, print: printEmbedCss },
+  { test: isEmbedGraphQL, print: printEmbedGraphQL },
+  { test: isEmbedHtml, print: printEmbedHtml },
+  { test: isAngularComponentTemplate, print: printEmbedAngular },
+  { test: isEmbedMarkdown, print: printEmbedMarkdown },
 ].map(({ test, print }) => ({
   test,
   print: createTemplateLiteralPrint(print),
