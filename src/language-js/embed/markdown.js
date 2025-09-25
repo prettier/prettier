@@ -34,17 +34,11 @@ function getIndentation(str) {
   return firstMatchedIndent === null ? "" : firstMatchedIndent[1];
 }
 
-function printMarkdown(path /* , options*/) {
-  if (isMarkdown(path)) {
-    return printEmbedMarkdown;
-  }
-}
-
 /**
  * md`...`
  * markdown`...`
  */
-function isMarkdown({ node, parent }) {
+function isEmbedMarkdown({ node, parent }) {
   return (
     parent?.type === "TaggedTemplateExpression" &&
     node.quasis.length === 1 &&
@@ -53,4 +47,4 @@ function isMarkdown({ node, parent }) {
   );
 }
 
-export default printMarkdown;
+export { isEmbedMarkdown, printEmbedMarkdown };
