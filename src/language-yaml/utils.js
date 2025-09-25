@@ -252,41 +252,40 @@ function getBlockValueLineContents(
     );
   }
 
-  return removeUnnecessaryTrailingNewlines(
-    rawLineContents
-      .map((lineContent) =>
-        lineContent.length === 0 ? [] : splitWithSingleSpace(lineContent),
-      )
-      .reduce(
-        (reduced, lineContentWords, index) =>
-          index !== 0 &&
-          rawLineContents[index - 1].length > 0 &&
-          lineContentWords.length > 0 &&
-          !/^\s/u.test(lineContentWords[0]) &&
-          !/^\s|\s$/u.test(reduced.at(-1))
-            ? [
-                ...reduced.slice(0, -1),
-                [...reduced.at(-1), ...lineContentWords],
-              ]
-            : [...reduced, lineContentWords],
-        [],
-      )
-      .map((lineContentWords) =>
-        lineContentWords.reduce(
-          (reduced, word) =>
-            // disallow trailing spaces
-            reduced.length > 0 && /\s$/u.test(reduced.at(-1))
-              ? [...reduced.slice(0, -1), reduced.at(-1) + " " + word]
-              : [...reduced, word],
-          [],
-        ),
-      )
-      .map((lineContentWords) =>
-        options.proseWrap === "never"
-          ? [lineContentWords.join(" ")]
-          : lineContentWords,
-      ),
+  let lineContentWords = rawLineContents.map((lineContent) =>
+    lineContent.length === 0 ? [] : splitWithSingleSpace(lineContent),
   );
+
+  lineContentWords = lineContentWords.reduce(
+    (reduced, lineContentWords, index) =>
+      index !== 0 &&
+      rawLineContents[index - 1].length > 0 &&
+      lineContentWords.length > 0 &&
+      !/^\s/u.test(lineContentWords[0]) &&
+      !/^\s|\s$/u.test(reduced.at(-1))
+        ? [...reduced.slice(0, -1), [...reduced.at(-1), ...lineContentWords]]
+        : [...reduced, lineContentWords],
+    [],
+  );
+
+  lineContentWords = lineContentWords.map((lineContentWords) =>
+    lineContentWords.reduce(
+      (reduced, word) =>
+        // disallow trailing spaces
+        reduced.length > 0 && /\s$/u.test(reduced.at(-1))
+          ? [...reduced.slice(0, -1), reduced.at(-1) + " " + word]
+          : [...reduced, word],
+      [],
+    ),
+  );
+
+  if (options.proseWrap === "never") {
+    lineContentWords = lineContentWords.map((lineContentWords) => [
+      lineContentWords.join(" "),
+    ]);
+  }
+
+  return removeUnnecessaryTrailingNewlines(lineContentWords);
 
   function removeUnnecessaryTrailingNewlines(lineContents) {
     if (node.chomping === "keep") {
