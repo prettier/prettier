@@ -16,9 +16,14 @@ jobs:
   prevent-add-users:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@f4a75cfd619ee5ce8d5b864b0d183aff3c69b55a # v2.13.1
+        with:
+          egress-policy: audit
+
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
       - name: Prevent file change
-        uses: xalvarez/prevent-file-change-action@v2.0.0
+        uses: xalvarez/prevent-file-change-action@4e88b842aed52bb42b94537ad9736eac06930266 # v2.0.0
         with:
           githubToken: ${{ secrets.GITHUB_TOKEN }}
           pattern: website/data/users.yml

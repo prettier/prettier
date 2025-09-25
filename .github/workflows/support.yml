@@ -11,7 +11,12 @@ jobs:
   support:
     runs-on: ubuntu-latest
     steps:
-      - uses: dessant/support-requests@v4.0.0
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@f4a75cfd619ee5ce8d5b864b0d183aff3c69b55a # v2.13.1
+        with:
+          egress-policy: audit
+
+      - uses: dessant/support-requests@47d5ea12f6c9e4a081637de9626b7319b415a3bf # v4.0.0
         with:
           github-token: ${{ github.token }}
           support-label: "type:question"

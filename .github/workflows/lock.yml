@@ -13,7 +13,12 @@ jobs:
     if: github.event_name != 'schedule' || github.repository == 'prettier/prettier'
     runs-on: ubuntu-latest
     steps:
-      - uses: dessant/lock-threads@v5
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@f4a75cfd619ee5ce8d5b864b0d183aff3c69b55a # v2.13.1
+        with:
+          egress-policy: audit
+
+      - uses: dessant/lock-threads@1bf7ec25051fe7c00bdd17e6a7cf3d7bfb7dc771 # v5.0.1
         with:
           # https://github.com/dessant/lock-threads
           github-token: ${{ github.token }}
