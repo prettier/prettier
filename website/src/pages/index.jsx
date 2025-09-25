@@ -135,34 +135,50 @@ function TldrSection() {
   );
 }
 
+/**
+@typedef {{
+  name: string,
+  nameLink?: string,
+  image: string,
+  variants: string[],
+}} Language
+*/
+
 function LanguagesSection() {
   const { siteConfig } = useDocusaurusContext();
+
+  /** @type {Language[]} */
   const languages = siteConfig.customFields.supportedLanguages;
 
-  const languageChunks = languages.reduce((acc, language) => {
-    const last = acc.at(-1);
+  // Each chunk can have <=2 languages, <=9 variants
+  /** @type {{variantsCount: number, languages: Language[]}[]} */
+  const languageChunks = [];
+  for (const language of languages) {
+    const languageVariants = language.variants.length;
+    const last = languageChunks.at(-1);
     if (
       last &&
-      last.length < 2 &&
-      last.reduce((sum, lang) => sum + lang.variants.length, 0) +
-        language.variants.length <
-        9
+      last.languages.length < 2 &&
+      last.variantsCount + languageVariants < 9
     ) {
-      last.push(language);
+      last.variantsCount += languageVariants;
+      last.languages.push(language);
     } else {
-      acc.push([language]);
+      languageChunks.push({
+        variantsCount: languageVariants,
+        languages: [language],
+      });
     }
-    return acc;
-  }, []);
+  }
 
   return (
     <section className={clsx(styles.sectionPadding, styles.languageSection)}>
       <div className="container">
         <Heading as="h2">Works with the Tools You Use</Heading>
         <div className={styles.languageSectionGrid}>
-          {languageChunks.map((languageChunk, index) => (
+          {languageChunks.map(({ languages }, index) => (
             <div key={index}>
-              {languageChunk.map((language) => (
+              {languages.map((language) => (
                 <LanguageItem key={language.name} {...language} />
               ))}
             </div>
