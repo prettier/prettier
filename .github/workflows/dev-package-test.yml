@@ -1,4 +1,4 @@
-name: Dev_Package_Test
+name: Dev Package Test
 
 on:
   schedule:
