@@ -9,19 +9,16 @@ async function printEmbedCss(textToDoc, print, path /* , options*/) {
   const { node } = path;
 
   // Get full template literal with expressions replaced by placeholders
-  const rawQuasis = node.quasis.map((q) => q.value.raw);
-  let placeholderID = 0;
-  const text = rawQuasis.reduce(
-    (prevVal, currVal, idx) =>
-      idx === 0
-        ? currVal
-        : prevVal +
-          "@prettier-placeholder-" +
-          placeholderID++ +
-          "-id" +
-          currVal,
-    "",
-  );
+  let text = "";
+  for (const [index, quasis] of node.quasis.entries()) {
+    const { raw } = quasis.value;
+
+    if (index > 0) {
+      text += "@prettier-placeholder-" + (index - 1) + "-id";
+    }
+
+    text += raw;
+  }
   const quasisDoc = await textToDoc(text, { parser: "scss" });
   const expressionDocs = printTemplateExpressions(path, print);
   const newDoc = replacePlaceholders(quasisDoc, expressionDocs);
