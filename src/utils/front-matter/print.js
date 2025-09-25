@@ -1,7 +1,7 @@
 import { hardline, markAsRoot } from "../../document/builders.js";
 import { isEmbedFrontMatter } from "./is-front-matter.js";
 
-async function printEmbedFrontMatter(textToDoc, print, path /* , options*/) {
+async function printEmbedFrontMatter(textToDoc, path /* , options*/) {
   const { node } = path;
 
   if (isEmbedFrontMatter(node)) {

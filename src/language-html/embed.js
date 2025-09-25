@@ -146,7 +146,7 @@ function embed(path, options) {
 
     case "front-matter":
       if (isEmbedFrontMatter(node)) {
-        return (textToDoc) => printEmbedFrontMatter(node, textToDoc);
+        return (textToDoc) => printEmbedFrontMatter(textToDoc, node);
       }
       break;
 

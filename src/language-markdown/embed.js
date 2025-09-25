@@ -48,7 +48,7 @@ function embed(path, options) {
 
   switch (node.type) {
     case "front-matter":
-      return (textToDoc) => printEmbedFrontMatter(node, textToDoc);
+      return (textToDoc) => printEmbedFrontMatter(textToDoc, node);
 
     // MDX
     case "import":
