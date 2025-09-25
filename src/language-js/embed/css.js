@@ -14,7 +14,7 @@ async function printEmbedCss(textToDoc, print, path /* , options*/) {
     const { raw } = quasis.value;
 
     if (index > 0) {
-      text += "@prettier-placeholder-" + index + "-id";
+      text += "@prettier-placeholder-" + (index - 1) + "-id";
     }
 
     text += raw;
