@@ -265,9 +265,8 @@ function getBlockValueLineContents(
       words.length > 0 &&
       rawLineContents[index - 1].length > 0 &&
       !/^\s/u.test(words[0]) &&
-      // This test against a `string[]`
+      // This test against a `string[]`, should be a mistake
       // originally introduced in https://github.com/prettier/prettier/pull/4742/files#diff-a4dc2e1922e1d8d5ac20818480f777c9a2d5af739eaa3a0409b08bf29a9d0f74R282
-      // Need look into it
       // @ts-expect-error -- see comment above
       !/^\s|\s$/u.test(lines.at(-1))
     ) {
