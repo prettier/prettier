@@ -49,15 +49,21 @@ function mergeChildren(ast, shouldMerge, mergeNode) {
     if (!node.children) {
       return node;
     }
-    const children = node.children.reduce((current, child) => {
-      const lastChild = current.at(-1);
+
+    const children = [];
+    let lastChild;
+    for (let child of node.children) {
       if (lastChild && shouldMerge(lastChild, child)) {
-        current.splice(-1, 1, mergeNode(lastChild, child));
+        child = mergeNode(lastChild, child);
+        // Replace the previous node
+        children.splice(-1, 1, child);
       } else {
-        current.push(child);
+        children.push(child);
       }
-      return current;
-    }, []);
+
+      lastChild = child;
+    }
+
     return { ...node, children };
   });
 }
