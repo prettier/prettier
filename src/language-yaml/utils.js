@@ -252,25 +252,23 @@ function getBlockValueLineContents(
     );
   }
 
-  let lines = rawLineContents.map((lineContent) =>
-    lineContent.length === 0 ? [] : splitWithSingleSpace(lineContent),
-  );
+  let lines = [];
+  for (const [index, lineContent] of rawLineContents.entries()) {
+    const words =
+      lineContent.length === 0 ? [] : splitWithSingleSpace(lineContent);
 
-  lines = lines.reduce((reduced, words, index) => {
     if (
-      index !== 0 &&
+      index > 0 &&
       rawLineContents[index - 1].length > 0 &&
       words.length > 0 &&
       !/^\s/u.test(words[0]) &&
-      !/^\s|\s$/u.test(reduced.at(-1))
+      !/^\s|\s$/u.test(lines.at(-1))
     ) {
-      reduced[reduced.length - 1] = [...reduced.at(-1), ...words];
+      lines[lines.length - 1] = [...lines.at(-1), ...words];
     } else {
-      reduced.push(words);
+      lines.push(words);
     }
-
-    return reduced;
-  }, []);
+  }
 
   lines = lines.map((originalWords) => {
     const words = [];
