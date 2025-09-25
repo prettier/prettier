@@ -1,5 +1,6 @@
 import { hardline } from "../document/builders.js";
 import {
+  isEmbedFrontMatter,
   isFrontMatter,
   printFrontMatter,
 } from "../utils/front-matter/index.js";
@@ -7,7 +8,7 @@ import {
 function embed(path) {
   const { node } = path;
 
-  if (isFrontMatter(node) && node.language === "yaml") {
+  if (isFrontMatter(node) && isEmbedFrontMatter(node)) {
     return async (textToDoc) => {
       const doc = await printFrontMatter(node, textToDoc);
       return doc ? [doc, hardline] : undefined;

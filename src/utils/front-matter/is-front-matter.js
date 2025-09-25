@@ -2,4 +2,11 @@ function isFrontMatter(node) {
   return node?.type === "front-matter";
 }
 
-export default isFrontMatter;
+function isEmbedFrontMatter(node) {
+  return node.language === "yaml" || node.language === "toml";
+}
+
+export {
+  isEmbedFrontMatter,
+  isFrontMatter,
+};

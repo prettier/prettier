@@ -5,7 +5,7 @@ import {
   indent,
   line,
 } from "../document/builders.js";
-import { printFrontMatter } from "../utils/front-matter/index.js";
+import { isEmbedFrontMatter, printFrontMatter } from "../utils/front-matter/index.js";
 import printAngularControlFlowBlockParameters from "./embed/angular-control-flow-block-parameters.js";
 import printAttribute from "./embed/attribute.js";
 import { formatAttributeValue } from "./embed/utils.js";
@@ -142,7 +142,7 @@ function embed(path, options) {
       return printAttribute(path, options);
 
     case "front-matter":
-      if (node.language === "yaml") {
+      if (isEmbedFrontMatter(node)) {
         return (textToDoc) => printFrontMatter(node, textToDoc);
       }
       break;

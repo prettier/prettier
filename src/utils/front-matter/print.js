@@ -1,7 +1,8 @@
 import { hardline, markAsRoot } from "../../document/builders.js";
+import { isEmbedFrontMatter } from "./is-front-matter.js";
 
 async function print(node, textToDoc) {
-  if (node.language === "yaml" || node.language === "toml") {
+  if (isEmbedFrontMatter(node)) {
     const value = node.value.trim();
     const doc = value ? await textToDoc(value, { parser: node.language }) : "";
     return markAsRoot([
