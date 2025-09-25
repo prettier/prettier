@@ -19,7 +19,7 @@ import { printVueVForDirective } from "./vue-v-for-directive.js";
 /** @type {AttributeValuePrinter[]} */
 const printers = /** @type {AttributeValuePrinter[]} */ ([
   {
-    test: ({ node: { fullName: attributeName } }) => attributeName === "v-for",
+    test: (path) => path.node.fullName === "v-for",
     print: printVueVForDirective,
   },
   {
@@ -39,8 +39,10 @@ const printers = /** @type {AttributeValuePrinter[]} */ ([
     - `v-on:click="jsStatement"`
     - `v-on:click="jsExpression"`
     */
-    test: ({ node: { fullName: attributeName } }) =>
-      attributeName.startsWith("@") || attributeName.startsWith("v-on:"),
+    test(path /* , options */) {
+      const name = path.node.fullName;
+      return name.startsWith("@") || name.startsWith("v-on:");
+    },
     print: printVueVOnDirective,
   },
   {
@@ -49,16 +51,21 @@ const printers = /** @type {AttributeValuePrinter[]} */ ([
     - `.property="vueExpression"`
     - `v-bind:property="vueExpression"`
     */
-    test: ({ node: { fullName: attributeName } }) =>
-      attributeName.startsWith(":") ||
-      attributeName.startsWith(".") ||
-      attributeName.startsWith("v-bind:"),
+    test(path /* , options */) {
+      const name = path.node.fullName;
+      return (
+        name.startsWith(":") ||
+        name.startsWith(".") ||
+        name.startsWith("v-bind:")
+      );
+    },
     print: printVueVBindDirective,
   },
   {
-    // `v-if="jsExpression"`
-    test: ({ node: { fullName: attributeName } }) =>
-      attributeName.startsWith("v-"),
+    /*
+    - `v-if="jsExpression"`
+    */
+    test: (path /* , options */) => path.node.fullName.startsWith("v-"),
     print: printExpression,
   },
 ]).map(({ test, print }) => ({

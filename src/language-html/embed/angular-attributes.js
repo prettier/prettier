@@ -33,9 +33,12 @@ const printers = [
     - `(click)="angularStatement"`
     - `on-click="angularStatement"`
     */
-    test: ({ node: { fullName: attributeName } }) =>
-      (attributeName.startsWith("(") && attributeName.endsWith(")")) ||
-      attributeName.startsWith("on-"),
+    test(path /* , options */) {
+      const name = path.node.fullName;
+      return (
+        (name.startsWith("(") && name.endsWith(")")) || name.startsWith("on-")
+      );
+    },
     print: createAngularPrinter("__ng_action"),
   },
   {
@@ -45,17 +48,22 @@ const printers = [
     - `[(target)]="angularExpression"`
     - `bindon-target="angularExpression"`
     */
-    test: ({ node: { fullName: attributeName } }) =>
-      (attributeName.startsWith("[") && attributeName.endsWith("]")) ||
-      /^bind(?:on)?-/u.test(attributeName) ||
-      // Unofficial rudimentary support for some of the most used directives of AngularJS 1.x
-      /^ng-(?:if|show|hide|class|style)$/u.test(attributeName),
+    test(path /* , options */) {
+      const name = path.node.fullName;
+      return (
+        (name.startsWith("[") && name.endsWith("]")) ||
+        /^bind(?:on)?-/u.test(name) ||
+        // Unofficial rudimentary support for some of the most used directives of AngularJS 1.x
+        /^ng-(?:if|show|hide|class|style)$/u.test(name)
+      );
+    },
     print: createAngularPrinter("__ng_binding"),
   },
   {
-    // `*directive="angularDirective"`
-    test: ({ node: { fullName: attributeName } }) =>
-      attributeName.startsWith("*"),
+    /*
+    - `*directive="angularDirective"`
+    */
+    test: (path /* , options */) => path.node.fullName.startsWith("*"),
     print: createAngularPrinter("__ng_directive"),
   },
   {
@@ -63,8 +71,7 @@ const printers = [
     - `i18n="longDescription"`
     - `i18n-attr="longDescription"`
     */
-    test: ({ node: { fullName: attributeName } }) =>
-      /^i18n(?:-.+)?$/u.test(attributeName),
+    test: (path /* , options */) => /^i18n(?:-.+)?$/u.test(path.node.fullName),
     print: printAngularI18n,
   },
   {
