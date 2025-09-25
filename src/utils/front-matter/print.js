@@ -1,7 +1,9 @@
 import { hardline, markAsRoot } from "../../document/builders.js";
 import { isEmbedFrontMatter } from "./is-front-matter.js";
 
-async function print(node, textToDoc) {
+async function printEmbedFrontMatter(textToDoc, print, path /* , options*/) {
+  const { node } = path;
+
   if (isEmbedFrontMatter(node)) {
     const value = node.value.trim();
     const doc = value ? await textToDoc(value, { parser: node.language }) : "";
@@ -16,4 +18,4 @@ async function print(node, textToDoc) {
   }
 }
 
-export default print;
+export default printEmbedFrontMatter;

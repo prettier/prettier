@@ -3,7 +3,10 @@ function isFrontMatter(node) {
 }
 
 function isEmbedFrontMatter(node) {
-  return node.language === "yaml" || node.language === "toml";
+  return (
+    isFrontMatter(node) &&
+    (node.language === "yaml" || node.language === "toml")
+  );
 }
 
 export { isEmbedFrontMatter, isFrontMatter };
