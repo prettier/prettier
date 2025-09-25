@@ -17,6 +17,7 @@ import {
   hasComment,
   isNextLineEmpty,
   isObjectType,
+  isStringLiteral,
   shouldPrintComma,
 } from "../utils/index.js";
 import { printHardlineAfterHeritage } from "./class.js";
@@ -26,11 +27,46 @@ import { printTypeAnnotationProperty } from "./type-annotation.js";
 
 /** @import {Doc} from "../../document/builders.js" */
 
+const isSingleTypeImportAttributes = (node) => {
+  const { attributes } = node;
+
+  if (attributes.length !== 1) {
+    return false;
+  }
+
+  const [{ type, key }] = attributes;
+  return (
+    type === "ImportAttribute" &&
+    ((key.type === "Identifier" && key.name === "type") ||
+      (isStringLiteral(key) && key.value === "type"))
+  );
+};
+
+/*
+- `ObjectExpression`
+- `ObjectPattern`
+- `RecordExpression`
+- `ImportDeclaration`
+- `ExportDefaultDeclaration`
+- `ExportNamedDeclaration`
+- `ExportAllDeclaration`
+- `ObjectTypeAnnotation` (Flow)
+- `EnumBooleanBody`(flow)
+- `EnumNumberBody`(flow)
+- `EnumBigIntBody`(flow)
+- `EnumStringBody`(flow)
+- `EnumSymbolBody`(flow)
+- `DeclareExportDeclaration`(flow)
+- `DeclareExportAllDeclaration`(flow)
+- `TSInterfaceBody` (TypeScript)
+- `TSTypeLiteral` (TypeScript)
+- `TSEnumDeclaration`(TypeScript)
+*/
 function printObject(path, options, print) {
   const semi = options.semi ? ";" : "";
   const { node } = path;
 
-  const isTypeAnnotation = node.type === "ObjectTypeAnnotation";
+  const isFlowTypeAnnotation = node.type === "ObjectTypeAnnotation";
   const isEnumBody =
     node.type === "TSEnumBody" ||
     node.type === "EnumBooleanBody" ||
@@ -38,15 +74,28 @@ function printObject(path, options, print) {
     node.type === "EnumBigIntBody" ||
     node.type === "EnumStringBody" ||
     node.type === "EnumSymbolBody";
-  const fields = [
-    node.type === "TSTypeLiteral" || isEnumBody
-      ? "members"
-      : node.type === "TSInterfaceBody"
-        ? "body"
-        : "properties",
-  ];
-  if (isTypeAnnotation) {
-    fields.push("indexers", "callProperties", "internalSlots");
+  const isInterfaceBody = node.type === "TSInterfaceBody";
+  const isImportAttributes =
+    node.type === "ImportDeclaration" ||
+    node.type === "ExportDefaultDeclaration" ||
+    node.type === "ExportNamedDeclaration" ||
+    node.type === "ExportAllDeclaration" ||
+    node.type === "DeclareExportDeclaration" ||
+    node.type === "DeclareExportAllDeclaration";
+
+  const fields = [];
+  if (node.type === "TSTypeLiteral" || isEnumBody) {
+    fields.push("members");
+  } else if (isInterfaceBody) {
+    fields.push("body");
+  } else if (isImportAttributes) {
+    fields.push("attributes");
+  } else {
+    fields.push("properties");
+
+    if (isFlowTypeAnnotation) {
+      fields.push("indexers", "callProperties", "internalSlots");
+    }
   }
 
   // Unfortunately, things grouped together in the ast can be
@@ -69,13 +118,15 @@ function printObject(path, options, print) {
 
   const { parent, key } = path;
   const isFlowInterfaceLikeBody =
-    isTypeAnnotation &&
+    isFlowTypeAnnotation &&
     key === "body" &&
     (parent.type === "InterfaceDeclaration" ||
       parent.type === "DeclareInterface" ||
       parent.type === "DeclareClass");
+  // Do not break if there is only ONE `type` attribute
+  const shouldInline = isImportAttributes && isSingleTypeImportAttributes(node);
   const shouldBreak =
-    node.type === "TSInterfaceBody" ||
+    isInterfaceBody ||
     isEnumBody ||
     isFlowInterfaceLikeBody ||
     (node.type === "ObjectPattern" &&
@@ -96,6 +147,7 @@ function printObject(path, options, print) {
     (node.type !== "ObjectPattern" &&
       options.objectWrap === "preserve" &&
       propsAndLoc.length > 0 &&
+      // FIXME
       hasNewlineInRange(
         options.originalText,
         locStart(node),
@@ -104,7 +156,7 @@ function printObject(path, options, print) {
 
   const separator = isFlowInterfaceLikeBody
     ? ";"
-    : node.type === "TSInterfaceBody" || node.type === "TSTypeLiteral"
+    : isInterfaceBody || node.type === "TSTypeLiteral"
       ? ifBreak(semi, ";")
       : ",";
   const leftBrace = node.exact ? "{|" : "{";
@@ -179,19 +231,27 @@ function printObject(path, options, print) {
       printTypeAnnotationProperty(path, print),
     ]);
   } else {
+    const spacing = shouldInline
+      ? options.bracketSpacing
+        ? " "
+        : ""
+      : options.bracketSpacing
+        ? line
+        : softline;
     content = [
       isFlowInterfaceLikeBody && isNonEmptyArray(node.properties)
         ? printHardlineAfterHeritage(parent)
         : "",
       leftBrace,
-      indent([options.bracketSpacing ? line : softline, ...props]),
+      indent([spacing, ...props]),
       ifBreak(
-        canHaveTrailingSeparator &&
+        !shouldInline &&
+          canHaveTrailingSeparator &&
           (separator !== "," || shouldPrintComma(options))
           ? separator
           : "",
       ),
-      options.bracketSpacing ? line : softline,
+      spacing,
       rightBrace,
       printOptionalToken(path),
       printTypeAnnotationProperty(path, print),
