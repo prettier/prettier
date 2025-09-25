@@ -10,8 +10,8 @@ const htmlEventAttributes = new Set(htmlEventAttributesArray);
 
 /** @type {AttributeValuePredicate} */
 const isEventHandler = ({ node }, options) =>
-  !options.parentParser &&
   htmlEventAttributes.has(node.fullName) &&
+  !options.parentParser &&
   !node.value.includes("{{");
 
 /** @type {AttributeValuePrint} */

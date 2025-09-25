@@ -11,8 +11,8 @@ import { printExpand } from "./utils.js";
 const isPermissionsPolicy = ({ node }, options) =>
   node.fullName === "allow" &&
   !options.parentParser &&
-  !node.value.includes("{{") &&
-  node.parent.fullName === "iframe";
+  node.parent.fullName === "iframe" &&
+  !node.value.includes("{{");
 
 /** @type {AttributeValuePrint} */
 function printPermissionsPolicy(textToDoc, print, path /* , options*/) {
