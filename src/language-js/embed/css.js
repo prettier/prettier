@@ -75,7 +75,7 @@ function isStyledJsx(path) {
     path.match(
       undefined,
       (node, key) =>
-        key === "expression" &&
+        key === "quasi" &&
         node.type === "TaggedTemplateExpression" &&
         isNodeMatches(node.tag, ["css", "css.global", "css.resolve"]),
     ) ||
