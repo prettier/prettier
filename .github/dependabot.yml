@@ -9,3 +9,218 @@ updates:
     labels:
       - scope:dependency
     target-branch: "main"
+
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /packages/plugin-hermes
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /packages/plugin-oxc
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /scripts/release
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /scripts/tools/bundle-test
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /scripts/tools/eslint-plugin-prettier-internal-rules
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /tests/config/prettier-plugins/prettier-plugin-async-printer
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /tests/config/prettier-plugins/prettier-plugin-missing-comments
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /tests/config/prettier-plugins/prettier-plugin-uppercase-rocks
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /tests/integration/cli/cache
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /tests/integration/cli/config-external-config-syntax-error
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /tests/integration/cli/config/external-config/cjs-package
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /tests/integration/cli/config/external-config/esm-file
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /tests/integration/cli/config/external-config/esm-package-forbids-require
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /tests/integration/cli/config/external-config/esm-package-with-tla
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /tests/integration/cli/config/external-config/esm-package
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /tests/integration/cli/config/package
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /tests/integration/cli/config/rc-cjs/prettier-config-cjs-in-type-commonjs
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /tests/integration/cli/config/rc-cjs/prettier-config-cjs-in-type-module
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /tests/integration/cli/config/rc-cjs/prettier-config-cjs-in-type-none
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /tests/integration/cli/config/rc-cjs/prettierrc-cjs-in-type-commonjs
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /tests/integration/cli/config/rc-cjs/prettierrc-cjs-in-type-module
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /tests/integration/cli/config/rc-cjs/prettierrc-cjs-in-type-none
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /tests/integration/cli/config/rc-js/cjs-prettier-config-js-in-type-commonjs
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /tests/integration/cli/config/rc-js/cjs-prettier-config-js-in-type-module
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /tests/integration/cli/config/rc-js/cjs-prettier-config-js-in-type-none
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /tests/integration/cli/config/rc-js/cjs-prettierrc-js-in-type-commonjs
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /tests/integration/cli/config/rc-js/cjs-prettierrc-js-in-type-module
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /tests/integration/cli/config/rc-js/cjs-prettierrc-js-in-type-none
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /tests/integration/cli/config/rc-js/mjs-prettier-config-js-in-type-commonjs
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /tests/integration/cli/config/rc-js/mjs-prettier-config-js-in-type-module
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /tests/integration/cli/config/rc-js/mjs-prettier-config-js-in-type-none
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /tests/integration/cli/config/rc-js/mjs-prettierrc-js-in-type-commonjs
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /tests/integration/cli/config/rc-js/mjs-prettierrc-js-in-type-module
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /tests/integration/cli/config/rc-js/mjs-prettierrc-js-in-type-none
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /tests/integration/cli/config/rc-mjs/prettier-config-mjs-in-type-commonjs
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /tests/integration/cli/config/rc-mjs/prettier-config-mjs-in-type-module
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /tests/integration/cli/config/rc-mjs/prettier-config-mjs-in-type-none
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /tests/integration/cli/config/rc-mjs/prettierrc-mjs-in-type-commonjs
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /tests/integration/cli/config/rc-mjs/prettierrc-mjs-in-type-module
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /tests/integration/cli/config/rc-mjs/prettierrc-mjs-in-type-none
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /tests/integration/cli/patterns-dirs
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /website
+    schedule:
+      interval: daily
