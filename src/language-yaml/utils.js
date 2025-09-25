@@ -268,16 +268,18 @@ function getBlockValueLineContents(
     [],
   );
 
-  lineContentWords = lineContentWords.map((lineContentWords) =>
-    lineContentWords.reduce(
-      (reduced, word) =>
-        // disallow trailing spaces
-        reduced.length > 0 && /\s$/u.test(reduced.at(-1))
-          ? [...reduced.slice(0, -1), reduced.at(-1) + " " + word]
-          : [...reduced, word],
-      [],
-    ),
-  );
+  lineContentWords = lineContentWords.map((lineContentWords) => {
+    const words = [];
+    for (const word of lineContentWords) {
+      // disallow trailing spaces
+      if (words.length > 0 && /\s$/u.test(words.at(-1))) {
+        words[words.length - 1] += " " + word;
+      } else {
+        words.push(word);
+      }
+    }
+    return words;
+  });
 
   if (options.proseWrap === "never") {
     lineContentWords = lineContentWords.map((lineContentWords) => [
