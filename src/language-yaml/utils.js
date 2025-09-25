@@ -252,11 +252,11 @@ function getBlockValueLineContents(
     );
   }
 
-  let lineContentWords = rawLineContents.map((lineContent) =>
+  let lines = rawLineContents.map((lineContent) =>
     lineContent.length === 0 ? [] : splitWithSingleSpace(lineContent),
   );
 
-  lineContentWords = lineContentWords.reduce(
+  lines = lines.reduce(
     (reduced, lineContentWords, index) =>
       index !== 0 &&
       rawLineContents[index - 1].length > 0 &&
@@ -268,7 +268,7 @@ function getBlockValueLineContents(
     [],
   );
 
-  lineContentWords = lineContentWords.map((lineContentWords) => {
+  lines = lines.map((lineContentWords) => {
     const words = [];
     for (const word of lineContentWords) {
       // disallow trailing spaces
@@ -282,12 +282,10 @@ function getBlockValueLineContents(
   });
 
   if (options.proseWrap === "never") {
-    lineContentWords = lineContentWords.map((lineContentWords) => [
-      lineContentWords.join(" "),
-    ]);
+    lines = lines.map((lineContentWords) => [lineContentWords.join(" ")]);
   }
 
-  return removeUnnecessaryTrailingNewlines(lineContentWords);
+  return removeUnnecessaryTrailingNewlines(lines);
 
   function removeUnnecessaryTrailingNewlines(lineContents) {
     if (node.chomping === "keep") {
