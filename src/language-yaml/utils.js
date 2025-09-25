@@ -142,8 +142,11 @@ function hasEndComments(node) {
 }
 
 /**
- * " a   b c   d e   f " -> [" a   b", "c   d", "e   f "]
- */
+" a   b c   d e   f " -> [" a   b", "c   d", "e   f "]
+
+@param {string} text
+@returns {string[]}
+*/
 function splitWithSingleSpace(text) {
   const parts = [];
 
@@ -252,16 +255,20 @@ function getBlockValueLineContents(
     );
   }
 
+  /** @type {string[][]} */
   let lines = [];
-  for (const [index, lineContent] of rawLineContents.entries()) {
-    const words =
-      lineContent.length === 0 ? [] : splitWithSingleSpace(lineContent);
+  for (const [index, line] of rawLineContents.entries()) {
+    const words = line.length === 0 ? [] : splitWithSingleSpace(line);
 
     if (
       index > 0 &&
-      rawLineContents[index - 1].length > 0 &&
       words.length > 0 &&
+      rawLineContents[index - 1].length > 0 &&
       !/^\s/u.test(words[0]) &&
+      // This test against a `string[]`
+      // originally introduced in https://github.com/prettier/prettier/pull/4742/files#diff-a4dc2e1922e1d8d5ac20818480f777c9a2d5af739eaa3a0409b08bf29a9d0f74R282
+      // Need look into it
+      // @ts-expect-error -- see comment above
       !/^\s|\s$/u.test(lines.at(-1))
     ) {
       lines[lines.length - 1] = [...lines.at(-1), ...words];
