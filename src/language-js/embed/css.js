@@ -157,15 +157,10 @@ function isCssProp({ parent, grandparent }) {
   );
 }
 
-function printCss(path /* , options*/) {
-  if (
-    isStyledJsx(path) ||
-    isStyledComponents(path) ||
-    isCssProp(path) ||
-    isAngularComponentStyles(path)
-  ) {
-    return printEmbedCss;
-  }
-}
+const isEmbedCss = (path /* , options*/) =>
+  isStyledJsx(path) ||
+  isStyledComponents(path) ||
+  isCssProp(path) ||
+  isAngularComponentStyles(path);
 
-export default printCss;
+export { isEmbedCss, printEmbedCss };
