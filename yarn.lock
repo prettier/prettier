@@ -2429,22 +2429,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@taplo/core@npm:^0.2.0":
-  version: 0.2.0
-  resolution: "@taplo/core@npm:0.2.0"
-  checksum: 10/5fd723a337600f3e1beaccc379c0dc6d3a7577edc5b9d2dcba31a525e7ef4b769d2c80bdd2376a9d9baa1e93d35089721aca5a989c265cdaa08bb6e0630a5701
-  languageName: node
-  linkType: hard
-
-"@taplo/lib@npm:^0.5.0":
-  version: 0.5.0
-  resolution: "@taplo/lib@npm:0.5.0"
-  dependencies:
-    "@taplo/core": "npm:^0.2.0"
-  checksum: 10/b0125571ac97a8820035edae947b1091634b5746d8f8c00bedf3d689884ea9f7b47e07d7a1f20098012ca5743a9aba59b015ac63da7f7d8f35e8e6da48217161
-  languageName: node
-  linkType: hard
-
 "@tybys/wasm-util@npm:^0.10.0, @tybys/wasm-util@npm:^0.10.1":
   version: 0.10.1
   resolution: "@tybys/wasm-util@npm:0.10.1"
@@ -7576,17 +7560,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier-plugin-toml@npm:2.0.6":
-  version: 2.0.6
-  resolution: "prettier-plugin-toml@npm:2.0.6"
-  dependencies:
-    "@taplo/lib": "npm:^0.5.0"
-  peerDependencies:
-    prettier: ^3.0.3
-  checksum: 10/8c760655c99947005fdc185ffa3a8ff45fda6a76d7ff1e0abac44a42edecb14ac6b6d2f9f0b36c86e729468ae50741a5127d4f263a2a2efe4caae7d48afd0589
-  languageName: node
-  linkType: hard
-
 "prettier@npm:3.6.2":
   version: 3.6.2
   resolution: "prettier@npm:3.6.2"
@@ -7700,7 +7673,6 @@ __metadata:
     postcss-selector-parser: "npm:2.2.3"
     postcss-values-parser: "npm:2.0.1"
     prettier: "npm:3.6.2"
-    prettier-plugin-toml: "npm:2.0.6"
     pretty-bytes: "npm:7.1.0"
     pretty-ms: "npm:9.3.0"
     regexp-util: "npm:2.0.3"
