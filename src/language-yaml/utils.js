@@ -178,6 +178,10 @@ function splitWithSingleSpace(text) {
   return parts;
 }
 
+/**
+@param {string} nodeType
+@param {string} content
+*/
 function getFlowScalarLineContents(nodeType, content, options) {
   const rawLineContents = content
     .split("\n")
@@ -197,34 +201,36 @@ function getFlowScalarLineContents(nodeType, content, options) {
     );
   }
 
-  return rawLineContents
-    .map((lineContent) =>
-      lineContent.length === 0 ? [] : splitWithSingleSpace(lineContent),
-    )
-    .reduce(
-      (reduced, lineContentWords, index) =>
-        index !== 0 &&
-        rawLineContents[index - 1].length > 0 &&
-        lineContentWords.length > 0 &&
-        !(
-          // trailing backslash in quoteDouble should be preserved
-          (nodeType === "quoteDouble" && reduced.at(-1).at(-1).endsWith("\\"))
-        )
-          ? [...reduced.slice(0, -1), [...reduced.at(-1), ...lineContentWords]]
-          : [...reduced, lineContentWords],
-      [],
-    )
-    .map((lineContentWords) =>
-      options.proseWrap === "never"
-        ? [lineContentWords.join(" ")]
-        : lineContentWords,
-    );
+  /** @type {string[][]} */
+  const lines = [];
+  for (const [index, line] of rawLineContents.entries()) {
+    const words = line.length === 0 ? [] : splitWithSingleSpace(line);
+
+    if (
+      index > 0 &&
+      rawLineContents[index - 1].length > 0 &&
+      words.length > 0 &&
+      !(
+        // trailing backslash in quoteDouble should be preserved
+        (nodeType === "quoteDouble" && lines.at(-1).at(-1).endsWith("\\"))
+      )
+    ) {
+      lines[lines.length - 1] = [...lines.at(-1), ...words];
+    } else {
+      lines.push(words);
+    }
+  }
+
+  return options.proseWrap === "never"
+    ? lines.map((words) => [words.join(" ")])
+    : lines;
 }
 
 function getBlockValueLineContents(
   node,
   { parentIndent, isLastDescendant, options },
 ) {
+  /** @type {string} */
   const content =
     node.position.start.line === node.position.end.line
       ? ""
@@ -233,6 +239,7 @@ function getBlockValueLineContents(
           // exclude open line `>` or `|`
           .match(/^[^\n]*\n(.*)$/su)[1];
 
+  /** @type {number} */
   let leadingSpaceCount;
   if (node.indent === null) {
     const matches = content.match(/^(?<leadingSpace> *)[^\n\r ]/mu);
@@ -295,6 +302,9 @@ function getBlockValueLineContents(
 
   return removeUnnecessaryTrailingNewlines(lines);
 
+  /**
+  @param {string[][]} lineContents
+  */
   function removeUnnecessaryTrailingNewlines(lineContents) {
     if (node.chomping === "keep") {
       return lineContents.at(-1).length === 0
