@@ -142,8 +142,11 @@ function hasEndComments(node) {
 }
 
 /**
- * " a   b c   d e   f " -> [" a   b", "c   d", "e   f "]
- */
+" a   b c   d e   f " -> [" a   b", "c   d", "e   f "]
+
+@param {string} text
+@returns {string[]}
+*/
 function splitWithSingleSpace(text) {
   const parts = [];
 
@@ -252,41 +255,45 @@ function getBlockValueLineContents(
     );
   }
 
-  return removeUnnecessaryTrailingNewlines(
-    rawLineContents
-      .map((lineContent) =>
-        lineContent.length === 0 ? [] : splitWithSingleSpace(lineContent),
-      )
-      .reduce(
-        (reduced, lineContentWords, index) =>
-          index !== 0 &&
-          rawLineContents[index - 1].length > 0 &&
-          lineContentWords.length > 0 &&
-          !/^\s/u.test(lineContentWords[0]) &&
-          !/^\s|\s$/u.test(reduced.at(-1))
-            ? [
-                ...reduced.slice(0, -1),
-                [...reduced.at(-1), ...lineContentWords],
-              ]
-            : [...reduced, lineContentWords],
-        [],
-      )
-      .map((lineContentWords) =>
-        lineContentWords.reduce(
-          (reduced, word) =>
-            // disallow trailing spaces
-            reduced.length > 0 && /\s$/u.test(reduced.at(-1))
-              ? [...reduced.slice(0, -1), reduced.at(-1) + " " + word]
-              : [...reduced, word],
-          [],
-        ),
-      )
-      .map((lineContentWords) =>
-        options.proseWrap === "never"
-          ? [lineContentWords.join(" ")]
-          : lineContentWords,
-      ),
-  );
+  /** @type {string[][]} */
+  let lines = [];
+  for (const [index, line] of rawLineContents.entries()) {
+    const words = line.length === 0 ? [] : splitWithSingleSpace(line);
+
+    if (
+      index > 0 &&
+      words.length > 0 &&
+      rawLineContents[index - 1].length > 0 &&
+      !/^\s/u.test(words[0]) &&
+      // This test against a `string[]`, should be a mistake
+      // originally introduced in https://github.com/prettier/prettier/pull/4742/files#diff-a4dc2e1922e1d8d5ac20818480f777c9a2d5af739eaa3a0409b08bf29a9d0f74R282
+      // @ts-expect-error -- see comment above
+      !/^\s|\s$/u.test(lines.at(-1))
+    ) {
+      lines[lines.length - 1] = [...lines.at(-1), ...words];
+    } else {
+      lines.push(words);
+    }
+  }
+
+  lines = lines.map((originalWords) => {
+    const words = [];
+    for (const word of originalWords) {
+      // disallow trailing spaces
+      if (words.length > 0 && /\s$/u.test(words.at(-1))) {
+        words[words.length - 1] += " " + word;
+      } else {
+        words.push(word);
+      }
+    }
+    return words;
+  });
+
+  if (options.proseWrap === "never") {
+    lines = lines.map((words) => [words.join(" ")]);
+  }
+
+  return removeUnnecessaryTrailingNewlines(lines);
 
   function removeUnnecessaryTrailingNewlines(lineContents) {
     if (node.chomping === "keep") {
