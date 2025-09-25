@@ -145,37 +145,9 @@ function hasEndComments(node) {
 " a   b c   d e   f " -> [" a   b", "c   d", "e   f "]
 
 @param {string} text
-@returns {string[]}
 */
 function splitWithSingleSpace(text) {
-  const parts = [];
-
-  let lastPart;
-  for (const part of text.split(/( +)/u)) {
-    if (part !== " ") {
-      if (lastPart === " ") {
-        parts.push(part);
-      } else {
-        parts.push((parts.pop() || "") + part);
-      }
-    } else if (lastPart === undefined) {
-      parts.unshift("");
-    }
-
-    lastPart = part;
-  }
-
-  /* c8 ignore next 3 */
-  if (lastPart === " ") {
-    parts.push((parts.pop() || "") + " ");
-  }
-
-  if (parts[0] === "") {
-    parts.shift();
-    parts.unshift(" " + (parts.shift() || ""));
-  }
-
-  return parts;
+  return text ? text.split(/(?<!^| ) (?! |$)/u) : [];
 }
 
 /**
@@ -197,14 +169,14 @@ function getFlowScalarLineContents(nodeType, content, options) {
 
   if (options.proseWrap === "preserve") {
     return rawLineContents.map((lineContent) =>
-      lineContent.length === 0 ? [] : [lineContent],
+      lineContent ? [lineContent] : [],
     );
   }
 
   /** @type {string[][]} */
   const lines = [];
   for (const [index, line] of rawLineContents.entries()) {
-    const words = line.length === 0 ? [] : splitWithSingleSpace(line);
+    const words = splitWithSingleSpace(line);
 
     if (
       index > 0 &&
@@ -256,16 +228,14 @@ function getBlockValueLineContents(
 
   if (options.proseWrap === "preserve" || node.type === "blockLiteral") {
     return removeUnnecessaryTrailingNewlines(
-      rawLineContents.map((lineContent) =>
-        lineContent.length === 0 ? [] : [lineContent],
-      ),
+      rawLineContents.map((lineContent) => (lineContent ? [lineContent] : [])),
     );
   }
 
   /** @type {string[][]} */
   let lines = [];
   for (const [index, line] of rawLineContents.entries()) {
-    const words = line.length === 0 ? [] : splitWithSingleSpace(line);
+    const words = splitWithSingleSpace(line);
 
     if (
       index > 0 &&
