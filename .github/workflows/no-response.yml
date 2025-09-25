@@ -18,7 +18,7 @@ jobs:
     if: github.event_name != 'schedule' || github.repository == 'prettier/prettier'
     runs-on: ubuntu-latest
     steps:
-      - uses: lee-dohm/no-response@v0.5.0
+      - uses: lee-dohm/no-response@9bb0a4b5e6a45046f00353d5de7d90fb8bd773bb # v0.5.0
         with:
           token: ${{ github.token }}
           daysUntilClose: 14
