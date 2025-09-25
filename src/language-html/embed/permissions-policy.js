@@ -32,4 +32,4 @@ function printPermissionsPolicy(textToDoc, print, path /* , options*/) {
   );
 }
 
-export {isPermissionsPolicy, printPermissionsPolicy};
+export { isPermissionsPolicy, printPermissionsPolicy };
