@@ -9,7 +9,7 @@ function embed(path) {
 
   if (isEmbedFrontMatter(node)) {
     return async (textToDoc) => {
-      const doc = await printEmbedFrontMatter(textToDoc, node);
+      const doc = await printEmbedFrontMatter(textToDoc, path);
       return doc ? [doc, hardline] : undefined;
     };
   }
