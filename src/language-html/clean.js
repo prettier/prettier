@@ -23,7 +23,7 @@ const embeddedAngularControlFlowBlocks = new Set([
   "case",
 ]);
 
-function clean(original, cloned) {
+function clean(original, cloned, parent) {
   if (original.type === "text" || original.type === "comment") {
     return null;
   }
@@ -42,7 +42,9 @@ function clean(original, cloned) {
       // HTML attributes
       name === "style" ||
       name === "class" ||
-      name === "srcset" ||
+      (name === "srcset" &&
+        (parent.fullName === "img" || parent.fullName === "source")) ||
+      (name === "allow" && parent.fullName === "iframe") ||
       name.startsWith("on") ||
       // Vue attributes
       name.startsWith("@") ||
@@ -50,9 +52,9 @@ function clean(original, cloned) {
       name.startsWith(".") ||
       name.startsWith("#") ||
       name.startsWith("v-") ||
-      name === "vars" ||
-      name === "setup" ||
-      name === "generic" ||
+      (name === "vars" && parent.fullName === "style") ||
+      ((name === "setup" || name === "generic") &&
+        parent.fullName === "script") ||
       name === "slot-scope" ||
       // Angular attributes
       name.startsWith("(") ||

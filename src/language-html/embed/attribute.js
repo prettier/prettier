@@ -3,6 +3,10 @@ import { mapDoc } from "../../document/utils.js";
 import angularAttributePrinters from "./angular-attributes.js";
 import { isClassNames, printClassNames } from "./class-names.js";
 import { isEventHandler, printEventHandler } from "./event-handler.js";
+import {
+  isPermissionsPolicy,
+  printPermissionsPolicy,
+} from "./permissions-policy.js";
 import { isSrcset, printSrcset } from "./srcset.js";
 import { isStyle, printStyle } from "./style.js";
 import vueAttributePrinters from "./vue-attributes.js";
@@ -24,6 +28,7 @@ const printers = [
   { test: isStyle, print: printStyle },
   { test: isEventHandler, print: printEventHandler },
   { test: isClassNames, print: printClassNames },
+  { test: isPermissionsPolicy, print: printPermissionsPolicy },
   ...vueAttributePrinters,
   ...angularAttributePrinters,
 ].map(({ test, print }) => ({
