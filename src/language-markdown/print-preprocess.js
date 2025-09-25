@@ -52,11 +52,13 @@ function mergeChildren(ast, shouldMerge, mergeNode) {
 
     const children = [];
     let lastChild;
+    let changed;
     for (let child of node.children) {
       if (lastChild && shouldMerge(lastChild, child)) {
         child = mergeNode(lastChild, child);
         // Replace the previous node
         children.splice(-1, 1, child);
+        changed ||= true;
       } else {
         children.push(child);
       }
@@ -64,7 +66,7 @@ function mergeChildren(ast, shouldMerge, mergeNode) {
       lastChild = child;
     }
 
-    return { ...node, children };
+    return changed ? { ...node, children } : node;
   });
 }
 
