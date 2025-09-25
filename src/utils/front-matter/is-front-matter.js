@@ -6,7 +6,4 @@ function isEmbedFrontMatter(node) {
   return node.language === "yaml" || node.language === "toml";
 }
 
-export {
-  isEmbedFrontMatter,
-  isFrontMatter,
-};
+export { isEmbedFrontMatter, isFrontMatter };

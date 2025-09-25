@@ -5,7 +5,10 @@ import {
   indent,
   line,
 } from "../document/builders.js";
-import { isEmbedFrontMatter, printFrontMatter } from "../utils/front-matter/index.js";
+import {
+  isEmbedFrontMatter,
+  printFrontMatter,
+} from "../utils/front-matter/index.js";
 import printAngularControlFlowBlockParameters from "./embed/angular-control-flow-block-parameters.js";
 import printAttribute from "./embed/attribute.js";
 import { formatAttributeValue } from "./embed/utils.js";
