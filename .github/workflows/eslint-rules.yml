@@ -1,4 +1,4 @@
-name: Internal_ESLint_Rules_Test
+name: Internal ESLint Plugin Test
 
 on:
   push:
