@@ -5,27 +5,22 @@ const codeFrameColumnsOptions = {
   linesBelow: Number.POSITIVE_INFINITY,
 };
 
-const locationForRange = (text, rangeStart, rangeEnd) => {
-  if (rangeStart > rangeEnd) {
-    [rangeStart, rangeEnd] = [rangeEnd, rangeStart];
-  }
+const locationForRange = (text, range) => {
+  const [start, end] = range
+    .toSorted((indexA, indexB) => indexA - indexB)
+    .map((index) => indexToPosition(text, index, { oneBased: true }));
 
-  const start = indexToPosition(text, rangeStart, { oneBased: true });
-  const end = indexToPosition(text, rangeEnd, { oneBased: true });
   if (start.line !== end.line) {
     end.column -= 1;
   }
 
-  return {
-    start,
-    end,
-  };
+  return { start, end };
 };
 
 const visualizeRange = (text, { rangeStart = 0, rangeEnd = text.length }) =>
   codeFrameColumns(
     text,
-    locationForRange(text, rangeStart, rangeEnd),
+    locationForRange(text, [rangeStart, rangeEnd]),
     rangeStart > rangeEnd
       ? { ...codeFrameColumnsOptions, message: "[Reversed range]" }
       : codeFrameColumnsOptions,
