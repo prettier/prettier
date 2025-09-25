@@ -268,9 +268,9 @@ function getBlockValueLineContents(
     [],
   );
 
-  lines = lines.map((lineContentWords) => {
+  lines = lines.map((originalWords) => {
     const words = [];
-    for (const word of lineContentWords) {
+    for (const word of originalWords) {
       // disallow trailing spaces
       if (words.length > 0 && /\s$/u.test(words.at(-1))) {
         words[words.length - 1] += " " + word;
@@ -282,7 +282,7 @@ function getBlockValueLineContents(
   });
 
   if (options.proseWrap === "never") {
-    lines = lines.map((lineContentWords) => [lineContentWords.join(" ")]);
+    lines = lines.map((words) => [words.join(" ")]);
   }
 
   return removeUnnecessaryTrailingNewlines(lines);
