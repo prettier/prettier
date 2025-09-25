@@ -256,17 +256,21 @@ function getBlockValueLineContents(
     lineContent.length === 0 ? [] : splitWithSingleSpace(lineContent),
   );
 
-  lines = lines.reduce(
-    (reduced, lineContentWords, index) =>
+  lines = lines.reduce((reduced, words, index) => {
+    if (
       index !== 0 &&
       rawLineContents[index - 1].length > 0 &&
-      lineContentWords.length > 0 &&
-      !/^\s/u.test(lineContentWords[0]) &&
+      words.length > 0 &&
+      !/^\s/u.test(words[0]) &&
       !/^\s|\s$/u.test(reduced.at(-1))
-        ? [...reduced.slice(0, -1), [...reduced.at(-1), ...lineContentWords]]
-        : [...reduced, lineContentWords],
-    [],
-  );
+    ) {
+      reduced[reduced.length - 1] = [...reduced.at(-1), ...words];
+    } else {
+      reduced.push(words);
+    }
+
+    return reduced;
+  }, []);
 
   lines = lines.map((originalWords) => {
     const words = [];
