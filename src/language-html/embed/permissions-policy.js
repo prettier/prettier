@@ -9,9 +9,9 @@ import { printExpand } from "./utils.js";
 
 /** @type {AttributeValuePredicate} */
 const isPermissionsPolicy = ({ node }, options) =>
-  node.parent.name === "iframe" &&
   node.fullName === "allow" &&
   !options.parentParser &&
+  node.parent.fullName === "iframe" &&
   !node.value.includes("{{");
 
 /** @type {AttributeValuePrint} */
