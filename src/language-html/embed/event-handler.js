@@ -2,26 +2,25 @@ import htmlEventAttributesArray from "@prettier/html-event-attributes";
 import { getUnescapedAttributeValue } from "../utils/index.js";
 import { formatAttributeValue } from "./utils.js";
 
+/**
+@import {AttributeValuePredicate, AttributeValuePrint} from "./attribute.js"
+*/
+
 const htmlEventAttributes = new Set(htmlEventAttributesArray);
 
-function printEventHandler(path, options) {
-  const { node } = path;
+/** @type {AttributeValuePredicate} */
+const isEventHandler = ({ node }, options) =>
+  !options.parentParser &&
+  htmlEventAttributes.has(node.fullName) &&
+  !node.value.includes("{{");
 
-  if (
-    options.parentParser ||
-    !htmlEventAttributes.has(node.fullName) ||
-    node.value.includes("{{")
-  ) {
-    return;
-  }
+/** @type {AttributeValuePrint} */
+const printEventHandler = (textToDoc, print, path /* , options*/) =>
+  formatAttributeValue(
+    getUnescapedAttributeValue(path.node),
+    textToDoc,
+    { parser: "babel", __isHtmlInlineEventHandler: true },
+    () => false,
+  );
 
-  return (textToDoc) =>
-    formatAttributeValue(
-      getUnescapedAttributeValue(node),
-      textToDoc,
-      { parser: "babel", __isHtmlInlineEventHandler: true },
-      () => false,
-    );
-}
-
-export default printEventHandler;
+export { isEventHandler, printEventHandler };

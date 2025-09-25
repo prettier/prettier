@@ -1,23 +1,23 @@
 import { getUnescapedAttributeValue } from "../utils/index.js";
 import { printExpand } from "./utils.js";
 
-function printStyleAttribute(path, options) {
-  const { node } = path;
-  if (
-    node.fullName !== "style" ||
-    options.parentParser ||
-    node.value.includes("{{")
-  ) {
-    return;
-  }
+/**
+@import {AttributeValuePredicate, AttributeValuePrint} from "./attribute.js"
+*/
 
-  return async (textToDoc) =>
-    printExpand(
-      await textToDoc(getUnescapedAttributeValue(node), {
-        parser: "css",
-        __isHTMLStyleAttribute: true,
-      }),
-    );
-}
+/** @type {AttributeValuePredicate} */
+const isStyle = ({ node }, options) =>
+  node.fullName === "style" &&
+  !options.parentParser &&
+  !node.value.includes("{{");
 
-export { printStyleAttribute };
+/** @type {AttributeValuePrint} */
+const printStyle = async (textToDoc, print, path /* , options*/) =>
+  printExpand(
+    await textToDoc(getUnescapedAttributeValue(path.node), {
+      parser: "css",
+      __isHTMLStyleAttribute: true,
+    }),
+  );
+
+export { isStyle, printStyle };
