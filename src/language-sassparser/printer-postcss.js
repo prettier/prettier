@@ -509,8 +509,9 @@ function genericPrint(path, options, print) {
           return raw?.value === node ? raw.raw : node;
         }
         const raw = rawExpressions?.[index];
-        // TODO: This seems like a bug in sass-parser:
-        // https://github.com/dart/dart-sass/blob/bce1f4c8b913126829ddea02eb1b968d3d3d3201/pkg/sass-parser/lib/src/interpolation.ts#L307-L324
+        // TODO: This seems like a bug in sass-parser.
+        // Interpolated function calls should not be wrapped in `#{...}`:
+        // https://github.com/sass/dart-sass/blob/main/pkg/sass-parser/lib/src/interpolation.ts#L307-L324
         return [
           node.sassType !== "interpolated-function-call" ? "#{" : "",
           raw?.before ?? "",
