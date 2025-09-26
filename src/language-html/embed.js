@@ -5,10 +5,7 @@ import {
   indent,
   line,
 } from "../document/builders.js";
-import {
-  isFrontMatter,
-  printEmbedFrontMatter,
-} from "../utils/front-matter/index.js";
+import { printEmbedFrontMatter } from "../utils/front-matter/index.js";
 import printAngularControlFlowBlockParameters from "./embed/angular-control-flow-block-parameters.js";
 import printAttribute from "./embed/attribute.js";
 import { formatAttributeValue } from "./embed/utils.js";
@@ -145,10 +142,7 @@ function embed(path, options) {
       return printAttribute(path, options);
 
     case "front-matter":
-      if (isFrontMatter(node)) {
-        return (textToDoc) => printEmbedFrontMatter(textToDoc, path);
-      }
-      break;
+      return (textToDoc) => printEmbedFrontMatter(textToDoc, path);
 
     case "angularControlFlowBlockParameters":
       if (!embeddedAngularControlFlowBlocks.has(path.parent.name)) {
