@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`mixin.less format 1`] = `
+====================================options=====================================
+parsers: ["less"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+.average(@x, @y) {
+  @result: ((@x + @y) / 2);
+}
+
+div {
+  // call a mixin and look up its "@result" value
+  padding: .average(16px, 50px)[@result];
+}
+
+@config: {
+  option1: true;
+  option2: false;
+}
+
+.mixin() when (@config[option1] = true) {
+  selected: value;
+}
+
+=====================================output=====================================
+.average(@x, @y) {
+  @result: ((@x + @y) / 2);
+}
+
+div {
+  // call a mixin and look up its "@result" value
+  padding: .average(16px, 50px)[@result];
+}
+
+@config: {
+  option1: true;
+  option2: false;
+};
+
+.mixin() when (@config[option1] = true) {
+  selected: value;
+}
+
+================================================================================
+`;
