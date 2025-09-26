@@ -1,8 +1,5 @@
 function isFrontMatter(node) {
-  return (
-    node.type === "front-matter" &&
-    (node.language === "yaml" || node.language === "toml")
-  );
+  return node?.type === "front-matter";
 }
 
 export default isFrontMatter;
