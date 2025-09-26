@@ -6,8 +6,8 @@ const codeFrameColumnsOptions = {
 };
 
 const locationForRange = (text, range) => {
-  const [start, end] = range
-    .toSorted((indexA, indexB) => indexA - indexB)
+  const [start, end] = [...range]
+    .sort((indexA, indexB) => indexA - indexB)
     .map((index) => indexToPosition(text, index, { oneBased: true }));
 
   if (start.line !== end.line) {
