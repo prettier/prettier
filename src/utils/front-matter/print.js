@@ -1,10 +1,10 @@
 import { hardline, markAsRoot } from "../../document/builders.js";
-import { isEmbedFrontMatter } from "./is-front-matter.js";
+import isFrontMatter from "./is-front-matter.js";
 
 async function printEmbedFrontMatter(textToDoc, path /* , options*/) {
   const { node } = path;
 
-  if (isEmbedFrontMatter(node)) {
+  if (isFrontMatter(node)) {
     const value = node.value.trim();
     const doc = value ? await textToDoc(value, { parser: node.language }) : "";
     return markAsRoot([

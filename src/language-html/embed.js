@@ -6,7 +6,7 @@ import {
   line,
 } from "../document/builders.js";
 import {
-  isEmbedFrontMatter,
+  isFrontMatter,
   printEmbedFrontMatter,
 } from "../utils/front-matter/index.js";
 import printAngularControlFlowBlockParameters from "./embed/angular-control-flow-block-parameters.js";
@@ -145,7 +145,7 @@ function embed(path, options) {
       return printAttribute(path, options);
 
     case "front-matter":
-      if (isEmbedFrontMatter(node)) {
+      if (isFrontMatter(node)) {
         return (textToDoc) => printEmbedFrontMatter(textToDoc, path);
       }
       break;
