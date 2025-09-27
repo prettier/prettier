@@ -4,7 +4,9 @@ import {
 } from "../utils/front-matter/index.js";
 
 function embed(path) {
-  return isEmbedFrontMatter(path) && printEmbedFrontMatter;
+  if (isEmbedFrontMatter(path)) {
+    return printEmbedFrontMatter;
+  }
 }
 
 // `front-matter` only available on `css-root`
