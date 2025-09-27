@@ -275,18 +275,7 @@ const config = {
       },
     },
   plugins: [llmsTxtPlugin],
-  future: {
-    experimental_faster: {
-      swcJsLoader: true,
-      swcHtmlMinimizer: true,
-      lightningCssMinimizer: true,
-      mdxCrossCompilerCache: true,
-
-      // https://github.com/facebook/docusaurus/issues/11047
-      swcJsMinimizer: false,
-      rspackBundler: false,
-    },
-  },
+  future: { experimental_faster: true },
 };
 
 export default config;
