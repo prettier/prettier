@@ -203,14 +203,10 @@ function clean(original, cloned, parent) {
     original.type === "value-comma_group" &&
     original.groups.some(
       (node) =>
-        (node.type === "value-atword" && (
-          node.value.endsWith("[") ||
-          node.value.endsWith("]")
-        )) ||
-        (node.type === "value-word" && (
-          node.value.startsWith("]") ||
-          node.value.startsWith("[")
-        )),
+        (node.type === "value-atword" &&
+          (node.value.endsWith("[") || node.value.endsWith("]"))) ||
+        (node.type === "value-word" &&
+          (node.value.startsWith("]") || node.value.startsWith("["))),
     )
   ) {
     return {
