@@ -216,10 +216,7 @@ function printCommaSeparatedValueGroup(path, options, print) {
       var [@result]
         ^^^
     */
-    if (
-      iNextNode?.type === "value-word" &&
-      iNextNode.value === "["
-    ) {
+    if (iNextNode?.type === "value-word" && iNextNode.value === "[") {
       continue;
     }
 
