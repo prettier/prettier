@@ -14,6 +14,8 @@ async function printEmbedFrontMatter(textToDoc, print, path /* , options*/) {
   }
 
   const value = node.value.trim();
+
+  // TODO[@fisker]: Use inferParser instead of using `toml` directly
   const doc = value ? await textToDoc(value, { parser: node.language }) : "";
 
   return markAsRoot([
