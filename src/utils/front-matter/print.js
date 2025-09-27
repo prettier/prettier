@@ -1,6 +1,6 @@
 import { hardline, markAsRoot } from "../../document/builders.js";
 
-async function printEmbedFrontMatter(textToDoc, path /* , options*/) {
+async function printEmbedFrontMatter(textToDoc, print, path /* , options*/) {
   const { node } = path;
 
   if (node.language === "yaml" || node.language === "toml") {

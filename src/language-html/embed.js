@@ -142,7 +142,7 @@ function embed(path, options) {
       return printAttribute(path, options);
 
     case "front-matter":
-      return (textToDoc) => printEmbedFrontMatter(textToDoc, path);
+      return printEmbedFrontMatter;
 
     case "angularControlFlowBlockParameters":
       if (!embeddedAngularControlFlowBlocks.has(path.parent.name)) {
