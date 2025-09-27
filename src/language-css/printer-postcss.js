@@ -54,7 +54,7 @@ function genericPrint(path, options, print) {
 
   switch (node.type) {
     case "front-matter":
-      return [node.raw, hardline];
+      return node.raw;
     case "css-root": {
       const nodes = printSequence(path, options, print);
       let after = node.raws.after.trim();
@@ -63,7 +63,13 @@ function genericPrint(path, options, print) {
       }
 
       return [
-        node.frontMatter ? [print("frontMatter"), hardline] : "",
+        node.frontMatter
+          ? [
+              print("frontMatter"),
+              hardline,
+              node.nodes.length > 0 ? hardline : "",
+            ]
+          : "",
         nodes,
         after ? ` ${after}` : "",
         node.nodes.length > 0 ? hardline : "",
