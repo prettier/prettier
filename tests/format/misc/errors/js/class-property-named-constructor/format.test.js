@@ -45,9 +45,8 @@ runFormatTest(
     "meriyah",
     "typescript",
     "babel-ts",
-    // https://github.com/oxc-project/oxc/issues/14014
-    // "oxc",
-    // "oxc-ts",
+    "oxc",
+    "oxc-ts",
     "flow",
     "hermes",
   ],
@@ -58,9 +57,5 @@ runFormatTest(
     importMeta: import.meta,
     snippets: cases.map((code) => `abstract ${code}`),
   },
-  [
-    "typescript",
-    "babel-ts",
-    // "oxc-ts",
-  ],
+  ["typescript", "babel-ts", "oxc-ts"],
 );

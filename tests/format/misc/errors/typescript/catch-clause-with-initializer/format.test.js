@@ -1,1 +1,1 @@
-runFormatTest(import.meta, ["babel-ts", "typescript", "oxc-ts"]);
+runFormatTest(import.meta, ["typescript", "babel-ts", "oxc-ts"]);
