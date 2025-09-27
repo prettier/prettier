@@ -276,8 +276,16 @@ const config = {
     },
   plugins: [llmsTxtPlugin],
   future: {
-    v4: { removeLegacyPostBuildHeadAttribute: true },
-    experimental_faster: true,
+    experimental_faster: {
+      swcJsLoader: true,
+      swcHtmlMinimizer: true,
+      lightningCssMinimizer: true,
+      mdxCrossCompilerCache: true,
+
+      // https://github.com/facebook/docusaurus/issues/11047
+      swcJsMinimizer: false,
+      rspackBundler: false,
+    },
   },
 };
 
