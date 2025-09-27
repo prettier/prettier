@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`snippet: #0 - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown", "mdx", "css", "scss", "less", "html"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
++++
+TOML Front Matter content
++++
+=====================================output=====================================
++++
+/* Formatted by toml plugin */
+TOML Front Matter content
++++
+
+================================================================================
+`;
+
+exports[`snippet: #1 - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown", "mdx", "css", "scss", "less", "html"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+---toml
+TOML Front Matter content
+---
+=====================================output=====================================
+---toml
+/* Formatted by toml plugin */
+TOML Front Matter content
+---
+
+================================================================================
+`;

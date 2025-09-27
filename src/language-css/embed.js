@@ -7,7 +7,7 @@ import {
 const printers = [
   {
     test: isEmbedFrontMatter,
-    async function(...args) {
+    async print(...args) {
       const doc = await printEmbedFrontMatter(...args);
       return doc ? [doc, hardline] : undefined;
     },
