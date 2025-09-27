@@ -3,7 +3,7 @@ import isFrontMatter from "./is-front-matter.js";
 
 const SUPPORTED_EMBED_LANGUAGES = new Set(["yaml", "toml"]);
 
-const isEmbedFrontMatter = ({ node }) =>
+const isEmbedFrontMatter = ({ node } /* , options */) =>
   isFrontMatter(node) && SUPPORTED_EMBED_LANGUAGES.has(node.language);
 
 async function printEmbedFrontMatter(textToDoc, print, path /* , options*/) {
