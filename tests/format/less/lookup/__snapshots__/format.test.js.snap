@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`mixin.less format 1`] = `
+exports[`lookup.less format 1`] = `
 ====================================options=====================================
 parsers: ["less"]
 printWidth: 80

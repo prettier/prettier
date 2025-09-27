@@ -216,7 +216,11 @@ function printCommaSeparatedValueGroup(path, options, print) {
       var [@result]
         ^^^
     */
-    if (iNextNode?.type === "value-word" && iNextNode.value === "[") {
+    if (
+      options.parser === "less" &&
+      iNextNode?.type === "value-word" &&
+      iNextNode.value === "["
+    ) {
       continue;
     }
 
@@ -225,6 +229,7 @@ function printCommaSeparatedValueGroup(path, options, print) {
          ^^^
     */
     if (
+      options.parser === "less" &&
       iNode.type === "value-word" &&
       iNode.value === "[" &&
       iNextNode?.type === "value-atword"
