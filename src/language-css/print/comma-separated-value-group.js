@@ -212,6 +212,31 @@ function printCommaSeparatedValueGroup(path, options, print) {
       continue;
     }
 
+    /*
+      var [@result]
+        ^^^
+    */
+    if (
+      options.parser === "less" &&
+      iNextNode?.type === "value-word" &&
+      iNextNode.value === "["
+    ) {
+      continue;
+    }
+
+    /*
+      var[ @result]
+         ^^^
+    */
+    if (
+      options.parser === "less" &&
+      iNode.type === "value-word" &&
+      iNode.value === "[" &&
+      iNextNode?.type === "value-atword"
+    ) {
+      continue;
+    }
+
     // Ignore escape `\`
     if (
       iNode.type !== "value-string" &&

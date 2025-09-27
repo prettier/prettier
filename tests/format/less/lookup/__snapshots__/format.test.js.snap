@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`lookup.less format 1`] = `
+====================================options=====================================
+parsers: ["less"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+.average(@x, @y) {
+  @result: ((@x + @y) / 2);
+}
+
+div {
+  padding: .average(16px, 50px) [ @result ];
+}
+
+div {
+  padding: @foo [ @bar ];
+}
+
+=====================================output=====================================
+.average(@x, @y) {
+  @result: ((@x + @y) / 2);
+}
+
+div {
+  padding: .average(16px, 50px)[@result];
+}
+
+div {
+  padding: @foo[@bar];
+}
+
+================================================================================
+`;
