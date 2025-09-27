@@ -1,5 +1,5 @@
 import { outdent } from "outdent";
-import prettierPluginToml from "../../../../config/prettier-plugins/prettier-plugin-dummy-toml/index.js";
+import prettierPluginDummyToml from "../../../../config/prettier-plugins/prettier-plugin-dummy-toml/index.js";
 
 runFormatTest(
   {
@@ -18,8 +18,5 @@ runFormatTest(
     ],
   },
   ["markdown", "mdx", "css", "scss", "less", "html"],
-  {
-    proseWrap: "always",
-    plugins: [prettierPluginToml],
-  },
+  { plugins: [prettierPluginDummyToml] },
 );
