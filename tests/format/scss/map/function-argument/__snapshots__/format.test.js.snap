@@ -2,7 +2,7 @@
 
 exports[`function-argument-2.scss format 1`] = `
 ====================================options=====================================
-parsers: ["scss"]
+parsers: ["sassparser"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -54,7 +54,7 @@ $display-breakpoints: map-deep-merge(
 
 exports[`functional-argument.scss format 1`] = `
 ====================================options=====================================
-parsers: ["scss"]
+parsers: ["sassparser"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

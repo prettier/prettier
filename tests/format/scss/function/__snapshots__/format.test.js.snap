@@ -2,7 +2,7 @@
 
 exports[`3748.scss - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
-parsers: ["scss"]
+parsers: ["sassparser"]
 printWidth: 80
 trailingComma: "es5"
                                                                                 | printWidth
@@ -55,7 +55,7 @@ trailingComma: "es5"
 
 exports[`3748.scss - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
-parsers: ["scss"]
+parsers: ["sassparser"]
 printWidth: 80
 trailingComma: "none"
                                                                                 | printWidth
@@ -108,7 +108,7 @@ trailingComma: "none"
 
 exports[`5636.scss - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
-parsers: ["scss"]
+parsers: ["sassparser"]
 printWidth: 80
 trailingComma: "es5"
                                                                                 | printWidth
@@ -129,7 +129,7 @@ div {
 
 exports[`5636.scss - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
-parsers: ["scss"]
+parsers: ["sassparser"]
 printWidth: 80
 trailingComma: "none"
                                                                                 | printWidth
@@ -150,7 +150,7 @@ div {
 
 exports[`15369.scss - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
-parsers: ["scss"]
+parsers: ["sassparser"]
 printWidth: 80
 trailingComma: "es5"
                                                                                 | printWidth
@@ -181,7 +181,7 @@ div {
 
 exports[`15369.scss - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
-parsers: ["scss"]
+parsers: ["sassparser"]
 printWidth: 80
 trailingComma: "none"
                                                                                 | printWidth
@@ -212,7 +212,7 @@ div {
 
 exports[`arbitrary-arguments.scss - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
-parsers: ["scss"]
+parsers: ["sassparser"]
 printWidth: 80
 trailingComma: "es5"
                                                                                 | printWidth
@@ -253,9 +253,7 @@ body {
   background-color: rgba(50, 50, 50, 50);
   background-color: rgba(50 50 50 50...);
   background-color: rgba(50 50 .50 50...);
-  background-color: rgba(50 50 50. .50...);
-  // Input is not technically valid ( output is ), but still nice to know that the \`.\` gets dropped as it would for \`50.\`
-  background-color: rgba(50 50 50 50....);
+  background-color: rgba(50 50 50.0 .50...);
   width: min(50px 20px 30px...);
 }
 
@@ -297,8 +295,6 @@ body {
   background-color: rgba(50 50 50 50...);
   background-color: rgba(50 50 0.5 50...);
   background-color: rgba(50 50 50 0.5...);
-  // Input is not technically valid ( output is ), but still nice to know that the \`.\` gets dropped as it would for \`50.\`
-  background-color: rgba(50 50 50 50...);
   width: min(50px 20px 30px...);
 }
 
@@ -307,7 +303,7 @@ body {
 
 exports[`arbitrary-arguments.scss - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
-parsers: ["scss"]
+parsers: ["sassparser"]
 printWidth: 80
 trailingComma: "none"
                                                                                 | printWidth
@@ -348,9 +344,7 @@ body {
   background-color: rgba(50, 50, 50, 50);
   background-color: rgba(50 50 50 50...);
   background-color: rgba(50 50 .50 50...);
-  background-color: rgba(50 50 50. .50...);
-  // Input is not technically valid ( output is ), but still nice to know that the \`.\` gets dropped as it would for \`50.\`
-  background-color: rgba(50 50 50 50....);
+  background-color: rgba(50 50 50.0 .50...);
   width: min(50px 20px 30px...);
 }
 
@@ -392,8 +386,6 @@ body {
   background-color: rgba(50 50 50 50...);
   background-color: rgba(50 50 0.5 50...);
   background-color: rgba(50 50 50 0.5...);
-  // Input is not technically valid ( output is ), but still nice to know that the \`.\` gets dropped as it would for \`50.\`
-  background-color: rgba(50 50 50 50...);
   width: min(50px 20px 30px...);
 }
 
@@ -402,7 +394,7 @@ body {
 
 exports[`arbitrary-arguments-comment.scss - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
-parsers: ["scss"]
+parsers: ["sassparser"]
 printWidth: 80
 trailingComma: "es5"
                                                                                 | printWidth
@@ -429,7 +421,7 @@ trailingComma: "es5"
 
 exports[`arbitrary-arguments-comment.scss - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
-parsers: ["scss"]
+parsers: ["sassparser"]
 printWidth: 80
 trailingComma: "none"
                                                                                 | printWidth
@@ -456,7 +448,7 @@ trailingComma: "none"
 
 exports[`function-in-url.scss - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
-parsers: ["scss"]
+parsers: ["sassparser"]
 printWidth: 80
 trailingComma: "es5"
                                                                                 | printWidth
@@ -491,7 +483,7 @@ a {
 
 exports[`function-in-url.scss - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
-parsers: ["scss"]
+parsers: ["sassparser"]
 printWidth: 80
 trailingComma: "none"
                                                                                 | printWidth

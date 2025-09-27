@@ -2,7 +2,7 @@
 
 exports[`at-rule-with-comments.scss format 1`] = `
 ====================================options=====================================
-parsers: ["scss"]
+parsers: ["sassparser"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
