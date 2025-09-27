@@ -1,12 +1,12 @@
-import clsx from "clsx";
 import Link from "@docusaurus/Link";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
-import Layout from "@theme/Layout";
 import AnimatedLogo from "@sandhose/prettier-animated-logo";
 import Heading from "@theme/Heading";
-import styles from "./index.module.css";
+import Layout from "@theme/Layout";
+import clsx from "clsx";
 import { useState } from "react";
 import Markdown from "react-markdown";
+import styles from "./index.module.css";
 
 const playgroundLink =
   process.env.NODE_ENV === "production"
@@ -43,7 +43,7 @@ function DraggableLogo() {
 
 function Tidelift() {
   const { siteConfig } = useDocusaurusContext();
-  const tideliftUrl = siteConfig.customFields.tideliftUrl;
+  const { tideliftUrl } = siteConfig.customFields;
 
   return (
     <Link className={styles.tidelift} to={tideliftUrl}>
@@ -176,8 +176,8 @@ function LanguagesSection() {
       <div className="container">
         <Heading as="h2">Works with the Tools You Use</Heading>
         <div className={styles.languageSectionGrid}>
-          {languageChunks.map(({ languages }, index) => (
-            <div key={index}>
+          {languageChunks.map(({ languages }) => (
+            <div key={languages.map(({ name }) => name).join("|")}>
               {languages.map((language) => (
                 <LanguageItem key={language.name} {...language} />
               ))}
@@ -216,8 +216,7 @@ function LanguageItem({ name, nameLink, image, variants }) {
 
 function EditorSupportSection() {
   const { siteConfig } = useDocusaurusContext();
-  const editors = siteConfig.customFields.editors;
-  const githubUrl = siteConfig.customFields.githubUrl;
+  const { editors, githubUrl } = siteConfig.customFields;
 
   return (
     <div className={clsx(styles.sectionPadding, styles.editorSection)}>
@@ -266,11 +265,11 @@ function Editor({ content = "", image, name }) {
 
 function UsersSection() {
   const { siteConfig } = useDocusaurusContext();
-  const users = siteConfig.customFields.users;
+  const { users } = siteConfig.customFields;
   const showcase = users
     .filter((user) => user.pinned)
-    .map((user, i) => (
-      <a key={i} href={user.infoLink} className={styles.userItem}>
+    .map((user) => (
+      <a key={user.caption} href={user.infoLink} className={styles.userItem}>
         <img
           src={user.greyImage}
           title={user.caption}

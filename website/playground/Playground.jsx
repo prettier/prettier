@@ -96,7 +96,6 @@ class Playground extends React.Component {
 
     const codeSample = getCodeSample(options.parser);
     const content = original.content || codeSample;
-    const isDocExplorer = options.parser === "doc-explorer";
     const selection = {};
 
     this.state = { content, options, selection };
