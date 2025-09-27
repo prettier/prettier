@@ -213,12 +213,10 @@ function printCommaSeparatedValueGroup(path, options, print) {
     }
 
     /*
-      .mixin() [@result]
-             ^^^
+      var [@result]
+        ^^^
     */
     if (
-      iNode.type === "value-func" &&
-      iNode.value.startsWith(".") &&
       iNextNode?.type === "value-word" &&
       iNextNode.value === "["
     ) {
@@ -226,8 +224,8 @@ function printCommaSeparatedValueGroup(path, options, print) {
     }
 
     /*
-      .mixin()[ @result]
-              ^^^
+      var[ @result]
+         ^^^
     */
     if (
       iNode.type === "value-word" &&

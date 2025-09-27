@@ -11,17 +11,11 @@ printWidth: 80
 }
 
 div {
-  // call a mixin and look up its "@result" value
-  padding: .average(16px, 50px)[@result];
+  padding: .average(16px, 50px) [ @result ];
 }
 
-@config: {
-  option1: true;
-  option2: false;
-}
-
-.mixin() when (@config[option1] = true) {
-  selected: value;
+div {
+  padding: @foo [ @bar ];
 }
 
 =====================================output=====================================
@@ -30,17 +24,11 @@ div {
 }
 
 div {
-  // call a mixin and look up its "@result" value
   padding: .average(16px, 50px)[@result];
 }
 
-@config: {
-  option1: true;
-  option2: false;
-};
-
-.mixin() when (@config[option1] = true) {
-  selected: value;
+div {
+  padding: @foo[@bar];
 }
 
 ================================================================================
