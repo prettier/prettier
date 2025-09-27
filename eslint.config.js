@@ -39,7 +39,8 @@ scripts/benchmark/*/
   .split("\n")
   .filter((pattern) => pattern && !pattern.startsWith("#"));
 
-export default [
+const configs = [
+  { files: ["**/*.{js,mjs,cjs,jsx}"] },
   eslintPluginJs.configs.recommended,
   eslintPluginRegexp.configs["flat/recommended"],
   eslintPluginUnicorn.configs["flat/recommended"],
@@ -493,3 +494,5 @@ export default [
     rules: { "require-unicode-regexp": "off" },
   },
 ];
+
+export default configs;
