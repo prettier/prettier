@@ -8,8 +8,8 @@ function embed(path) {
   const { node } = path;
 
   if (isFrontMatter(node)) {
-    return async (textToDoc, print) => {
-      const doc = await printEmbedFrontMatter(textToDoc, print, path);
+    return async (...args) => {
+      const doc = await printEmbedFrontMatter(...args);
       return doc ? [doc, hardline] : undefined;
     };
   }
