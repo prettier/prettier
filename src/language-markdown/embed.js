@@ -1,6 +1,9 @@
 import { hardline, markAsRoot } from "../document/builders.js";
 import { replaceEndOfLine } from "../document/utils.js";
-import { printEmbedFrontMatter } from "../utils/front-matter/index.js";
+import {
+  isEmbedFrontMatter,
+  printEmbedFrontMatter,
+} from "../utils/front-matter/index.js";
 import getMaxContinuousCount from "../utils/get-max-continuous-count.js";
 import inferParser from "../utils/infer-parser.js";
 import { getFencedCodeBlockValue } from "./utils.js";
@@ -46,10 +49,11 @@ function embed(path, options) {
     }
   }
 
-  switch (node.type) {
-    case "front-matter":
-      return printEmbedFrontMatter;
+  if (isEmbedFrontMatter(path)) {
+    return printEmbedFrontMatter;
+  }
 
+  switch (node.type) {
     // MDX
     case "import":
     case "export":

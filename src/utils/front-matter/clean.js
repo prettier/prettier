@@ -1,11 +1,15 @@
-import isFrontMatter from "./is-front-matter.js";
+import { isEmbedFrontMatter } from "./embed.js";
 
 function clean(original, cloned) {
-  if (isFrontMatter(original)) {
-    delete cloned.end;
-    delete cloned.raw;
-    delete cloned.value;
+  if (!isEmbedFrontMatter(original)) {
+    return;
   }
+
+  delete cloned.end;
+  delete cloned.raw;
+  delete cloned.value;
+
+  return cloned;
 }
 
 export default clean;

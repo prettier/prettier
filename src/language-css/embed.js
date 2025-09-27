@@ -1,18 +1,21 @@
 import { hardline } from "../document/builders.js";
 import {
-  isFrontMatter,
+  isEmbedFrontMatter,
   printEmbedFrontMatter,
 } from "../utils/front-matter/index.js";
 
-function embed(path) {
-  const { node } = path;
-
-  if (isFrontMatter(node)) {
-    return async (...args) => {
+const printers = [
+  {
+    test: isEmbedFrontMatter,
+    async function(...args) {
       const doc = await printEmbedFrontMatter(...args);
       return doc ? [doc, hardline] : undefined;
-    };
-  }
+    },
+  },
+];
+
+function embed(path) {
+  return printers.find(({ test }) => test(path))?.print;
 }
 
 // `front-matter` only available on `css-root`
