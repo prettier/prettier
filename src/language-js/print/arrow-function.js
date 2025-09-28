@@ -27,7 +27,6 @@ import {
   isObjectExpression,
   isTemplateOnItsOwnLine,
   shouldPrintComma,
-  startsWithNoLookaheadToken,
 } from "../utils/index.js";
 import { printReturnType, shouldPrintParamsWithoutParens } from "./function.js";
 import { printFunctionParameters } from "./function-parameters.js";
@@ -45,11 +44,14 @@ function shouldAddParensIfNotBreak(node) {
   if (!shouldAddParensIfNotBreakCache.has(node)) {
     shouldAddParensIfNotBreakCache.set(
       node,
-      node.type === "ConditionalExpression" &&
-        !startsWithNoLookaheadToken(
-          node,
-          (node) => node.type === "ObjectExpression",
-        ),
+      // Always add parens for ternary in arrow functions for consistency (issue #17976)
+      node.type === "ConditionalExpression",
+      // Original condition was:
+      // node.type === "ConditionalExpression" &&
+      //   !startsWithNoLookaheadToken(
+      //     node,
+      //     (node) => node.type === "ObjectExpression",
+      //   ),
     );
   }
   return shouldAddParensIfNotBreakCache.get(node);
@@ -312,16 +314,26 @@ function printArrowFunctionBody(
       ? softline
       : "";
 
-  if (shouldPutBodyOnSameLine && shouldAddParensIfNotBreak(functionBody)) {
+  // Always add parentheses for ternary expressions in arrow function bodies
+  const shouldAddParens = shouldAddParensIfNotBreak(functionBody);
+  if (shouldAddParens) {
+    if (shouldPutBodyOnSameLine) {
+      return [
+        " ",
+        group([
+          "(",
+          indent([softline, bodyDoc]),
+          ")",
+          trailingComma,
+          trailingSpace,
+        ]),
+        bodyComments,
+      ];
+    }
     return [
-      " ",
-      group([
-        ifBreak("", "("),
-        indent([softline, bodyDoc]),
-        ifBreak("", ")"),
-        trailingComma,
-        trailingSpace,
-      ]),
+      indent([line, "(", bodyDoc, ")"]),
+      trailingComma,
+      trailingSpace,
       bodyComments,
     ];
   }
