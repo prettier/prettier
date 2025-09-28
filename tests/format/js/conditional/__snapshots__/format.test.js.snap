@@ -800,10 +800,10 @@ inJSXExpressionContainer.withLongConditionals.example = (
 inJSXExpressionContainer.withLoops.orBooleans.example = (
   <div>
     {items ?
-      items.map((item) =>
+      items.map((item) => (
         item.display ?
           <Item item={item} attr="breaks ternary but not consequent" />
-        : <Blank />,
+        : <Blank />),
       )
     : null}
 
@@ -1093,12 +1093,12 @@ inJSXExpressionContainer.withLongConditionals.example = (
 inJSXExpressionContainer.withLoops.orBooleans.example = (
   <div>
     {items
-      ? items.map((item) =>
+      ? items.map((item) => (
           item.display ? (
             <Item item={item} attr="breaks ternary but not consequent" />
           ) : (
             <Blank />
-          ),
+          )),
         )
       : null}
 
@@ -1939,10 +1939,33 @@ printWidth: 80
 var x = a => 1 ? 2 : 3;
 var x = a <= 1 ? 2 : 3;
 
+// Issue #17976: Ternary as arrow function body should be consistently parenthesized
+a = () => 1 ? [] : [];
+a = () => long_long_long_long_long_long_long_long_long_long_long_condition ? [] : [];
+
+// Multiple levels with ternary
+b = () => () => condition ? result1 : result2;
+b = () => () => () => test ? value1 : value2;
+
+// Edge case with object expressions
+c = () => ({}) ? result1 : result2;
+
 =====================================output=====================================
 // no-confusing-arrow
 var x = (a) => (1 ? 2 : 3);
 var x = a <= 1 ? 2 : 3;
+
+// Issue #17976: Ternary as arrow function body should be consistently parenthesized
+a = () => (1 ? [] : []);
+a = () => (
+  long_long_long_long_long_long_long_long_long_long_long_condition ? [] : []);
+
+// Multiple levels with ternary
+b = () => () => (condition ? result1 : result2);
+b = () => () => () => (test ? value1 : value2);
+
+// Edge case with object expressions
+c = () => (({}) ? result1 : result2);
 
 ================================================================================
 `;
@@ -1957,10 +1980,33 @@ printWidth: 80
 var x = a => 1 ? 2 : 3;
 var x = a <= 1 ? 2 : 3;
 
+// Issue #17976: Ternary as arrow function body should be consistently parenthesized
+a = () => 1 ? [] : [];
+a = () => long_long_long_long_long_long_long_long_long_long_long_condition ? [] : [];
+
+// Multiple levels with ternary
+b = () => () => condition ? result1 : result2;
+b = () => () => () => test ? value1 : value2;
+
+// Edge case with object expressions
+c = () => ({}) ? result1 : result2;
+
 =====================================output=====================================
 // no-confusing-arrow
 var x = (a) => (1 ? 2 : 3);
 var x = a <= 1 ? 2 : 3;
+
+// Issue #17976: Ternary as arrow function body should be consistently parenthesized
+a = () => (1 ? [] : []);
+a = () => (
+  long_long_long_long_long_long_long_long_long_long_long_condition ? [] : []);
+
+// Multiple levels with ternary
+b = () => () => (condition ? result1 : result2);
+b = () => () => () => (test ? value1 : value2);
+
+// Edge case with object expressions
+c = () => (({}) ? result1 : result2);
 
 ================================================================================
 `;
@@ -2156,14 +2202,14 @@ const redirectUrl =
   );
 
 // And another, more pathological case of the above:
-const isEmpty = (obj) =>
+const isEmpty = (obj) => (
   obj instanceof Date ? false : (
     obj === "" ||
     obj === null ||
     obj === undefined ||
     obj === somethingThatIsLonger ||
     shallowEqual(obj, {})
-  );
+  ));
 
 // Again, this case is a bit hard to distinguish the alternate.
 const eventsFromOrders =
@@ -2248,7 +2294,7 @@ resolveRedirectTo(
 );
 
 const delayedDataProvider = new Proxy(restProvider, {
-  get: (target, name, self) =>
+  get: (target, name, self) => (
     (
       name === "then" // as we await for the dataProvider, JS calls then on it. We must trap that call or else the dataProvider will be called with the then method
     ) ?
@@ -2256,7 +2302,7 @@ const delayedDataProvider = new Proxy(restProvider, {
     : (resource, params) =>
         new Promise((resolve) =>
           setTimeout(() => resolve(restProvider[name](resource, params)), 500),
-        ),
+        )),
 });
 
 function foo4() {
@@ -2489,14 +2535,14 @@ const redirectUrl = pathName
     defaultAuthParams.afterLoginUrl.makeThisLongerSoItBreaks;
 
 // And another, more pathological case of the above:
-const isEmpty = (obj) =>
+const isEmpty = (obj) => (
   obj instanceof Date
     ? false
     : obj === "" ||
       obj === null ||
       obj === undefined ||
       obj === somethingThatIsLonger ||
-      shallowEqual(obj, {});
+      shallowEqual(obj, {}));
 
 // Again, this case is a bit hard to distinguish the alternate.
 const eventsFromOrders =
@@ -2578,7 +2624,7 @@ resolveRedirectTo(
 );
 
 const delayedDataProvider = new Proxy(restProvider, {
-  get: (target, name, self) =>
+  get: (target, name, self) => (
     name === "then" // as we await for the dataProvider, JS calls then on it. We must trap that call or else the dataProvider will be called with the then method
       ? self
       : (resource, params) =>
@@ -2587,7 +2633,7 @@ const delayedDataProvider = new Proxy(restProvider, {
               () => resolve(restProvider[name](resource, params)),
               500,
             ),
-          ),
+          )),
 });
 
 function foo4() {
