@@ -11,7 +11,7 @@ TOML Front Matter content
 +++
 =====================================output=====================================
 +++
-/* Formatted by toml plugin */
+!!! Formatted by with 'dummy-toml-plugin-parser-name' parser
 TOML Front Matter content
 +++
 
@@ -29,7 +29,7 @@ TOML Front Matter content
 ---
 =====================================output=====================================
 ---toml
-/* Formatted by toml plugin */
+!!! Formatted by with 'dummy-toml-plugin-parser-name' parser
 TOML Front Matter content
 ---
 

@@ -1,7 +1,17 @@
+import { outdent } from "outdent";
 import createPlugin from "../../utils/create-plugin.cjs";
 
-const COMMENT = "/* Formatted by toml plugin */";
-export default createPlugin({
+const plugin = createPlugin({
   name: "toml",
-  print: (text) => COMMENT + "\n" + text.replace(COMMENT, "").trim(),
+  parserName: "dummy-toml-plugin-parser-name",
+  print: (text, options) =>
+    outdent`
+      !!! Formatted by with '${options.parser}' parser
+      ${(text.startsWith("!!!")
+        ? text.split("\n").slice(1).join("\n")
+        : text
+      ).trim()}
+    `,
 });
+
+export default plugin;
