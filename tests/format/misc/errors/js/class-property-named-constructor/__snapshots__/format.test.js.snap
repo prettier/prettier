@@ -1,0 +1,547 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`snippet: #0 [acorn] format 1`] = `
+"Classes can't have a field named 'constructor' (2:3)
+  1 | class Foo {
+> 2 |   constructor
+    |   ^
+  3 | }
+Cause: Classes can't have a field named 'constructor' (2:2)"
+`;
+
+exports[`snippet: #0 [babel] format 1`] = `
+"Classes may not have a field named 'constructor'. (2:3)
+  1 | class Foo {
+> 2 |   constructor
+    |   ^
+  3 | }
+Cause: Classes may not have a field named 'constructor'. (2:2)"
+`;
+
+exports[`snippet: #0 [babel-ts] format 1`] = `
+"Classes may not have a field named 'constructor'. (2:3)
+  1 | class Foo {
+> 2 |   constructor
+    |   ^
+  3 | }
+Cause: Classes may not have a field named 'constructor'. (2:2)"
+`;
+
+exports[`snippet: #0 [babel-ts] format 2`] = `
+"Classes may not have a field named 'constructor'. (2:3)
+  1 | abstract class Foo {
+> 2 |   constructor
+    |   ^
+  3 | }
+Cause: Classes may not have a field named 'constructor'. (2:2)"
+`;
+
+exports[`snippet: #0 [espree] format 1`] = `
+"Classes can't have a field named 'constructor' (2:3)
+  1 | class Foo {
+> 2 |   constructor
+    |   ^
+  3 | }
+Cause: Classes can't have a field named 'constructor'"
+`;
+
+exports[`snippet: #0 [flow] format 1`] = `
+"Classes may not have fields named \`constructor\`. (2:3)
+  1 | class Foo {
+> 2 |   constructor
+    |   ^^^^^^^^^^^
+  3 | }"
+`;
+
+exports[`snippet: #0 [hermes] format 1`] = `
+"invalid class property name (2:2)
+  1 | class Foo {
+> 2 |   constructor
+    |  ^
+  3 | }
+Cause: invalid class property name (2:2)
+  constructor
+  ^~~~~~~~~~~"
+`;
+
+exports[`snippet: #0 [meriyah] format 1`] = `
+"Classes may not have a field called constructor (3:1)
+  1 | class Foo {
+  2 |   constructor
+> 3 | }
+    | ^
+Cause: [3:0-3:1]: Classes may not have a field called constructor"
+`;
+
+exports[`snippet: #0 [typescript] format 1`] = `
+"'(' expected. (3:1)
+  1 | class Foo {
+  2 |   constructor
+> 3 | }
+    | ^
+Cause: '(' expected."
+`;
+
+exports[`snippet: #0 [typescript] format 2`] = `
+"'(' expected. (3:1)
+  1 | abstract class Foo {
+  2 |   constructor
+> 3 | }
+    | ^
+Cause: '(' expected."
+`;
+
+exports[`snippet: #1 [acorn] format 1`] = `
+"Classes can't have a field named 'constructor' (2:3)
+  1 | class Foo {
+> 2 |   'constructor'
+    |   ^
+  3 | }
+Cause: Classes can't have a field named 'constructor' (2:2)"
+`;
+
+exports[`snippet: #1 [babel] format 1`] = `
+"Classes may not have a field named 'constructor'. (2:3)
+  1 | class Foo {
+> 2 |   'constructor'
+    |   ^
+  3 | }
+Cause: Classes may not have a field named 'constructor'. (2:2)"
+`;
+
+exports[`snippet: #1 [babel-ts] format 1`] = `
+"Classes may not have a field named 'constructor'. (2:3)
+  1 | class Foo {
+> 2 |   'constructor'
+    |   ^
+  3 | }
+Cause: Classes may not have a field named 'constructor'. (2:2)"
+`;
+
+exports[`snippet: #1 [babel-ts] format 2`] = `
+"Classes may not have a field named 'constructor'. (2:3)
+  1 | abstract class Foo {
+> 2 |   'constructor'
+    |   ^
+  3 | }
+Cause: Classes may not have a field named 'constructor'. (2:2)"
+`;
+
+exports[`snippet: #1 [espree] format 1`] = `
+"Classes can't have a field named 'constructor' (2:3)
+  1 | class Foo {
+> 2 |   'constructor'
+    |   ^
+  3 | }
+Cause: Classes can't have a field named 'constructor'"
+`;
+
+exports[`snippet: #1 [flow] format 1`] = `
+"Classes may not have fields named \`constructor\`. (2:3)
+  1 | class Foo {
+> 2 |   'constructor'
+    |   ^^^^^^^^^^^^^
+  3 | }"
+`;
+
+exports[`snippet: #1 [hermes] format 1`] = `
+"invalid class property name (2:2)
+  1 | class Foo {
+> 2 |   'constructor'
+    |  ^
+  3 | }
+Cause: invalid class property name (2:2)
+  'constructor'
+  ^~~~~~~~~~~~~"
+`;
+
+exports[`snippet: #1 [meriyah] format 1`] = `
+"Classes may not have a field called constructor (3:1)
+  1 | class Foo {
+  2 |   'constructor'
+> 3 | }
+    | ^
+Cause: [3:0-3:1]: Classes may not have a field called constructor"
+`;
+
+exports[`snippet: #1 [typescript] format 1`] = `
+"Classes may not have a field named 'constructor'. (2:3)
+  1 | class Foo {
+> 2 |   'constructor'
+    |   ^^^^^^^^^^^^^
+  3 | }
+Cause: Classes may not have a field named 'constructor'."
+`;
+
+exports[`snippet: #1 [typescript] format 2`] = `
+"Classes may not have a field named 'constructor'. (2:3)
+  1 | abstract class Foo {
+> 2 |   'constructor'
+    |   ^^^^^^^^^^^^^
+  3 | }
+Cause: Classes may not have a field named 'constructor'."
+`;
+
+exports[`snippet: #2 [acorn] format 1`] = `
+"Classes can't have a field named 'constructor' (2:3)
+  1 | class Foo {
+> 2 |   'constructor'
+    |   ^
+  3 | }
+Cause: Classes can't have a field named 'constructor' (2:2)"
+`;
+
+exports[`snippet: #2 [babel] format 1`] = `
+"Classes may not have a field named 'constructor'. (2:3)
+  1 | class Foo {
+> 2 |   'constructor'
+    |   ^
+  3 | }
+Cause: Classes may not have a field named 'constructor'. (2:2)"
+`;
+
+exports[`snippet: #2 [babel-ts] format 1`] = `
+"Classes may not have a field named 'constructor'. (2:3)
+  1 | class Foo {
+> 2 |   'constructor'
+    |   ^
+  3 | }
+Cause: Classes may not have a field named 'constructor'. (2:2)"
+`;
+
+exports[`snippet: #2 [babel-ts] format 2`] = `
+"Classes may not have a field named 'constructor'. (2:3)
+  1 | abstract class Foo {
+> 2 |   'constructor'
+    |   ^
+  3 | }
+Cause: Classes may not have a field named 'constructor'. (2:2)"
+`;
+
+exports[`snippet: #2 [espree] format 1`] = `
+"Classes can't have a field named 'constructor' (2:3)
+  1 | class Foo {
+> 2 |   'constructor'
+    |   ^
+  3 | }
+Cause: Classes can't have a field named 'constructor'"
+`;
+
+exports[`snippet: #2 [flow] format 1`] = `
+"Classes may not have fields named \`constructor\`. (2:3)
+  1 | class Foo {
+> 2 |   'constructor'
+    |   ^^^^^^^^^^^^^
+  3 | }"
+`;
+
+exports[`snippet: #2 [hermes] format 1`] = `
+"invalid class property name (2:2)
+  1 | class Foo {
+> 2 |   'constructor'
+    |  ^
+  3 | }
+Cause: invalid class property name (2:2)
+  'constructor'
+  ^~~~~~~~~~~~~"
+`;
+
+exports[`snippet: #2 [meriyah] format 1`] = `
+"Classes may not have a field called constructor (3:1)
+  1 | class Foo {
+  2 |   'constructor'
+> 3 | }
+    | ^
+Cause: [3:0-3:1]: Classes may not have a field called constructor"
+`;
+
+exports[`snippet: #2 [typescript] format 1`] = `
+"Classes may not have a field named 'constructor'. (2:3)
+  1 | class Foo {
+> 2 |   'constructor'
+    |   ^^^^^^^^^^^^^
+  3 | }
+Cause: Classes may not have a field named 'constructor'."
+`;
+
+exports[`snippet: #2 [typescript] format 2`] = `
+"Classes may not have a field named 'constructor'. (2:3)
+  1 | abstract class Foo {
+> 2 |   'constructor'
+    |   ^^^^^^^^^^^^^
+  3 | }
+Cause: Classes may not have a field named 'constructor'."
+`;
+
+exports[`snippet: #3 [acorn] format 1`] = `
+"Unexpected token (2:12)
+  1 | class Foo {
+> 2 |   accessor 'constructor'
+    |            ^
+  3 | }
+Cause: Unexpected token (2:11)"
+`;
+
+exports[`snippet: #3 [babel] format 1`] = `
+"Classes may not have a field named 'constructor'. (2:12)
+  1 | class Foo {
+> 2 |   accessor 'constructor'
+    |            ^
+  3 | }
+Cause: Classes may not have a field named 'constructor'. (2:11)"
+`;
+
+exports[`snippet: #3 [babel-ts] format 1`] = `
+"Classes may not have a field named 'constructor'. (2:12)
+  1 | class Foo {
+> 2 |   accessor 'constructor'
+    |            ^
+  3 | }
+Cause: Classes may not have a field named 'constructor'. (2:11)"
+`;
+
+exports[`snippet: #3 [babel-ts] format 2`] = `
+"Classes may not have a field named 'constructor'. (2:12)
+  1 | abstract class Foo {
+> 2 |   accessor 'constructor'
+    |            ^
+  3 | }
+Cause: Classes may not have a field named 'constructor'. (2:11)"
+`;
+
+exports[`snippet: #3 [espree] format 1`] = `
+"Unexpected token 'constructor' (2:12)
+  1 | class Foo {
+> 2 |   accessor 'constructor'
+    |            ^
+  3 | }
+Cause: Unexpected token 'constructor'"
+`;
+
+exports[`snippet: #3 [flow] format 1`] = `
+"Unexpected string, expected the token \`(\` (2:12)
+  1 | class Foo {
+> 2 |   accessor 'constructor'
+    |            ^^^^^^^^^^^^^
+  3 | }"
+`;
+
+exports[`snippet: #3 [hermes] format 1`] = `
+"';' expected after class property (2:11)
+  1 | class Foo {
+> 2 |   accessor 'constructor'
+    |           ^
+  3 | }
+Cause: ';' expected after class property (2:11)
+  accessor 'constructor'
+  ~~~~~~~~~^"
+`;
+
+exports[`snippet: #3 [meriyah] format 1`] = `
+"Classes may not have a field called constructor (3:1)
+  1 | class Foo {
+  2 |   accessor 'constructor'
+> 3 | }
+    | ^
+Cause: [3:0-3:1]: Classes may not have a field called constructor"
+`;
+
+exports[`snippet: #3 [typescript] format 1`] = `
+"Classes may not have a field named 'constructor'. (2:12)
+  1 | class Foo {
+> 2 |   accessor 'constructor'
+    |            ^^^^^^^^^^^^^
+  3 | }
+Cause: Classes may not have a field named 'constructor'."
+`;
+
+exports[`snippet: #3 [typescript] format 2`] = `
+"Classes may not have a field named 'constructor'. (2:12)
+  1 | abstract class Foo {
+> 2 |   accessor 'constructor'
+    |            ^^^^^^^^^^^^^
+  3 | }
+Cause: Classes may not have a field named 'constructor'."
+`;
+
+exports[`snippet: #4 [acorn] format 1`] = `
+"Unexpected token (2:12)
+  1 | class Foo {
+> 2 |   accessor 'constructor'
+    |            ^
+  3 | }
+Cause: Unexpected token (2:11)"
+`;
+
+exports[`snippet: #4 [babel] format 1`] = `
+"Classes may not have a field named 'constructor'. (2:12)
+  1 | class Foo {
+> 2 |   accessor 'constructor'
+    |            ^
+  3 | }
+Cause: Classes may not have a field named 'constructor'. (2:11)"
+`;
+
+exports[`snippet: #4 [babel-ts] format 1`] = `
+"Classes may not have a field named 'constructor'. (2:12)
+  1 | class Foo {
+> 2 |   accessor 'constructor'
+    |            ^
+  3 | }
+Cause: Classes may not have a field named 'constructor'. (2:11)"
+`;
+
+exports[`snippet: #4 [babel-ts] format 2`] = `
+"Classes may not have a field named 'constructor'. (2:12)
+  1 | abstract class Foo {
+> 2 |   accessor 'constructor'
+    |            ^
+  3 | }
+Cause: Classes may not have a field named 'constructor'. (2:11)"
+`;
+
+exports[`snippet: #4 [espree] format 1`] = `
+"Unexpected token 'constructor' (2:12)
+  1 | class Foo {
+> 2 |   accessor 'constructor'
+    |            ^
+  3 | }
+Cause: Unexpected token 'constructor'"
+`;
+
+exports[`snippet: #4 [flow] format 1`] = `
+"Unexpected string, expected the token \`(\` (2:12)
+  1 | class Foo {
+> 2 |   accessor 'constructor'
+    |            ^^^^^^^^^^^^^
+  3 | }"
+`;
+
+exports[`snippet: #4 [hermes] format 1`] = `
+"';' expected after class property (2:11)
+  1 | class Foo {
+> 2 |   accessor 'constructor'
+    |           ^
+  3 | }
+Cause: ';' expected after class property (2:11)
+  accessor 'constructor'
+  ~~~~~~~~~^"
+`;
+
+exports[`snippet: #4 [meriyah] format 1`] = `
+"Classes may not have a field called constructor (3:1)
+  1 | class Foo {
+  2 |   accessor 'constructor'
+> 3 | }
+    | ^
+Cause: [3:0-3:1]: Classes may not have a field called constructor"
+`;
+
+exports[`snippet: #4 [typescript] format 1`] = `
+"Classes may not have a field named 'constructor'. (2:12)
+  1 | class Foo {
+> 2 |   accessor 'constructor'
+    |            ^^^^^^^^^^^^^
+  3 | }
+Cause: Classes may not have a field named 'constructor'."
+`;
+
+exports[`snippet: #4 [typescript] format 2`] = `
+"Classes may not have a field named 'constructor'. (2:12)
+  1 | abstract class Foo {
+> 2 |   accessor 'constructor'
+    |            ^^^^^^^^^^^^^
+  3 | }
+Cause: Classes may not have a field named 'constructor'."
+`;
+
+exports[`snippet: #5 [acorn] format 1`] = `
+"Unexpected token (2:12)
+  1 | class Foo {
+> 2 |   accessor constructor
+    |            ^
+  3 | }
+Cause: Unexpected token (2:11)"
+`;
+
+exports[`snippet: #5 [babel] format 1`] = `
+"Classes may not have a field named 'constructor'. (2:12)
+  1 | class Foo {
+> 2 |   accessor constructor
+    |            ^
+  3 | }
+Cause: Classes may not have a field named 'constructor'. (2:11)"
+`;
+
+exports[`snippet: #5 [babel-ts] format 1`] = `
+"Classes may not have a field named 'constructor'. (2:12)
+  1 | class Foo {
+> 2 |   accessor constructor
+    |            ^
+  3 | }
+Cause: Classes may not have a field named 'constructor'. (2:11)"
+`;
+
+exports[`snippet: #5 [babel-ts] format 2`] = `
+"Classes may not have a field named 'constructor'. (2:12)
+  1 | abstract class Foo {
+> 2 |   accessor constructor
+    |            ^
+  3 | }
+Cause: Classes may not have a field named 'constructor'. (2:11)"
+`;
+
+exports[`snippet: #5 [espree] format 1`] = `
+"Unexpected token constructor (2:12)
+  1 | class Foo {
+> 2 |   accessor constructor
+    |            ^
+  3 | }
+Cause: Unexpected token constructor"
+`;
+
+exports[`snippet: #5 [flow] format 1`] = `
+"Unexpected identifier, expected the token \`(\` (2:12)
+  1 | class Foo {
+> 2 |   accessor constructor
+    |            ^^^^^^^^^^^
+  3 | }"
+`;
+
+exports[`snippet: #5 [hermes] format 1`] = `
+"';' expected after class property (2:11)
+  1 | class Foo {
+> 2 |   accessor constructor
+    |           ^
+  3 | }
+Cause: ';' expected after class property (2:11)
+  accessor constructor
+  ~~~~~~~~~^"
+`;
+
+exports[`snippet: #5 [meriyah] format 1`] = `
+"Classes may not have a field called constructor (3:1)
+  1 | class Foo {
+  2 |   accessor constructor
+> 3 | }
+    | ^
+Cause: [3:0-3:1]: Classes may not have a field called constructor"
+`;
+
+exports[`snippet: #5 [typescript] format 1`] = `
+"'(' expected. (3:1)
+  1 | class Foo {
+  2 |   accessor constructor
+> 3 | }
+    | ^
+Cause: '(' expected."
+`;
+
+exports[`snippet: #5 [typescript] format 2`] = `
+"'(' expected. (3:1)
+  1 | abstract class Foo {
+  2 |   accessor constructor
+> 3 | }
+    | ^
+Cause: '(' expected."
+`;

@@ -5,7 +5,10 @@ import {
   indent,
   line,
 } from "../document/builders.js";
-import printFrontMatter from "../utils/front-matter/print.js";
+import {
+  isEmbedFrontMatter,
+  printEmbedFrontMatter,
+} from "../utils/front-matter/index.js";
 import printAngularControlFlowBlockParameters from "./embed/angular-control-flow-block-parameters.js";
 import printAttribute from "./embed/attribute.js";
 import { formatAttributeValue } from "./embed/utils.js";
@@ -36,6 +39,10 @@ const embeddedAngularControlFlowBlocks = new Set([
 
 function embed(path, options) {
   const { node } = path;
+
+  if (isEmbedFrontMatter(path)) {
+    return printEmbedFrontMatter;
+  }
 
   switch (node.type) {
     case "element":
@@ -140,9 +147,6 @@ function embed(path, options) {
 
     case "attribute":
       return printAttribute(path, options);
-
-    case "front-matter":
-      return (textToDoc) => printFrontMatter(node, textToDoc);
 
     case "angularControlFlowBlockParameters":
       if (!embeddedAngularControlFlowBlocks.has(path.parent.name)) {

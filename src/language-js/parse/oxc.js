@@ -131,6 +131,7 @@ async function parseTs(text, options) {
   }
 
   const { program: ast, comments } = result;
+
   // @ts-expect-error -- expected
   ast.comments = comments;
   return postprocess(ast, { text, parser: "oxc", oxcAstType: "ts" });

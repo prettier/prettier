@@ -46,8 +46,7 @@ const excludeKeys = {
   PropertyDefinition: ["tsModifiers"],
   // Not supported yet.
   // https://github.com/facebook/hermes/commit/55a5f881361ef15fd4f7b558166d80e7b9086550
-  DeclareOpaqueType: ["impltype", "lowerBound", "upperBound"],
-  OpaqueType: ["lowerBound", "upperBound"],
+  DeclareOpaqueType: ["impltype"],
 
   // Legacy property
   ExportAllDeclaration: ["assertions"],
@@ -58,12 +57,12 @@ const excludeKeys = {
   TSEnumDeclaration: ["members"],
 };
 
+// https://github.com/babel/babel/issues/17524
 const excludeNodeTypes = new Set([
   // Babel will remove in v8
   // https://github.com/babel/babel/pull/17242
   "TupleExpression",
   "RecordExpression",
-  "DecimalLiteral",
   // Babel, Won't exist since we use `createImportExpressions` when parsing with babel
   "Import",
 ]);

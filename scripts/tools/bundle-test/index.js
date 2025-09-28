@@ -30,7 +30,12 @@ const TEMPORARY_DIRECTORY = url.fileURLToPath(
 );
 
 for (const packageConfig of packageConfigs) {
-  const { distDirectory, files } = packageConfig;
+  const { packageName, distDirectory, files } = packageConfig;
+
+  if (packageName === "@prettier/plugin-oxc") {
+    continue;
+  }
+
   /* `require` in `parser-typescript.js`, #12338 */
   for (const file of files) {
     if (file.platform !== "universal") {

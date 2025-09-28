@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import * as assert from "#universal/assert";
 import { getChildren } from "../../utils/ast-utils.js";
 import hasNewline from "../../utils/has-newline.js";
 import isNonEmptyArray from "../../utils/is-non-empty-array.js";

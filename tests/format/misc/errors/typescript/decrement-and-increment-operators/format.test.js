@@ -29,5 +29,5 @@ runFormatTest(
       "(a())++",
     ],
   },
-  ["babel-ts", "typescript"],
+  ["babel-ts", "typescript", "oxc-ts"],
 );

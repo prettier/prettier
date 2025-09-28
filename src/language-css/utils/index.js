@@ -66,16 +66,19 @@ function insideValueFunctionNode(path, functionName) {
   return funcAncestorNode?.value?.toLowerCase() === functionName;
 }
 
-function insideICSSRuleNode(path) {
-  const ruleAncestorNode = path.findAncestor(
-    (node) => node.type === "css-rule",
-  );
-  const selector = ruleAncestorNode?.raws?.selector;
+// https://github.com/css-modules/icss
+function insideIcssRuleNode(path) {
+  return path.hasAncestor((node) => {
+    if (node.type !== "css-rule") {
+      return false;
+    }
 
-  return (
-    selector &&
-    (selector.startsWith(":import") || selector.startsWith(":export"))
-  );
+    const selector = node.raws?.selector;
+    return (
+      selector &&
+      (selector.startsWith(":import") || selector.startsWith(":export"))
+    );
+  });
 }
 
 function insideAtRuleNode(path, atRuleNameOrAtRuleNames) {
@@ -95,7 +98,7 @@ function insideAtRuleNode(path, atRuleNameOrAtRuleNames) {
 function insideURLFunctionInImportAtRuleNode(path) {
   const { node } = path;
   return (
-    node.groups[0].value === "url" &&
+    node.groups[0]?.value === "url" &&
     node.groups.length === 2 &&
     path.findAncestor((node) => node.type === "css-atrule")?.name === "import"
   );
@@ -386,7 +389,7 @@ export {
   hasEmptyRawBefore,
   hasParensAroundNode,
   insideAtRuleNode,
-  insideICSSRuleNode,
+  insideIcssRuleNode,
   insideURLFunctionInImportAtRuleNode,
   insideValueFunctionNode,
   isAdditionNode,

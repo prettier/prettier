@@ -9,6 +9,14 @@ exports[`snippet: #0 [babel-ts] format 1`] = `
 Cause: 'abstract' modifier cannot appear on a type member. (2:2)"
 `;
 
+exports[`snippet: #0 [oxc-ts] format 1`] = `
+"'abstract' modifier cannot appear on a type member. (2:3)
+  1 | interface Foo {
+> 2 |   abstract method();
+    |   ^^^^^^^^
+  3 | }"
+`;
+
 exports[`snippet: #0 [typescript] format 1`] = `
 "'abstract' modifier cannot appear on a type member (2:3)
   1 | interface Foo {
@@ -25,6 +33,14 @@ exports[`snippet: #1 [babel-ts] format 1`] = `
     |   ^
   3 | }
 Cause: 'abstract' modifier cannot appear on a type member. (2:2)"
+`;
+
+exports[`snippet: #1 [oxc-ts] format 1`] = `
+"'abstract' modifier cannot appear on a type member. (2:3)
+  1 | interface Foo {
+> 2 |   abstract property;
+    |   ^^^^^^^^
+  3 | }"
 `;
 
 exports[`snippet: #1 [typescript] format 1`] = `
@@ -45,6 +61,14 @@ exports[`snippet: #2 [babel-ts] format 1`] = `
 Cause: 'abstract' modifier cannot appear on a type member. (2:2)"
 `;
 
+exports[`snippet: #2 [oxc-ts] format 1`] = `
+"'abstract' modifier cannot appear on an index signature. (2:3)
+  1 | interface Foo {
+> 2 |   abstract [index: string]: number
+    |   ^^^^^^^^
+  3 | }"
+`;
+
 exports[`snippet: #2 [typescript] format 1`] = `
 "'abstract' modifier cannot appear on an index signature (2:3)
   1 | interface Foo {
@@ -61,6 +85,14 @@ exports[`snippet: #3 [babel-ts] format 1`] = `
     |   ^
   3 | } = {};
 Cause: 'abstract' modifier cannot appear on a type member. (2:2)"
+`;
+
+exports[`snippet: #3 [oxc-ts] format 1`] = `
+"'abstract' modifier cannot appear on an index signature. (2:3)
+  1 | const foo: {
+> 2 |   abstract [index: string] : string
+    |   ^^^^^^^^
+  3 | } = {};"
 `;
 
 exports[`snippet: #3 [typescript] format 1`] = `
@@ -81,6 +113,14 @@ exports[`snippet: #4 [babel-ts] format 1`] = `
 Cause: Unexpected token, expected ";" (2:11)"
 `;
 
+exports[`snippet: #4 [oxc-ts] format 1`] = `
+"'accessor' modifier cannot appear on a type member. (2:3)
+  1 | interface Foo {
+> 2 |   accessor method();
+    |   ^^^^^^^^
+  3 | }"
+`;
+
 exports[`snippet: #4 [typescript] format 1`] = `
 "'accessor' modifier cannot appear on a type member (2:3)
   1 | interface Foo {
@@ -97,6 +137,14 @@ exports[`snippet: #5 [babel-ts] format 1`] = `
     |            ^
   3 | }
 Cause: Unexpected token, expected ";" (2:11)"
+`;
+
+exports[`snippet: #5 [oxc-ts] format 1`] = `
+"'accessor' modifier cannot appear on a type member. (2:3)
+  1 | interface Foo {
+> 2 |   accessor property;
+    |   ^^^^^^^^
+  3 | }"
 `;
 
 exports[`snippet: #5 [typescript] format 1`] = `
@@ -117,6 +165,14 @@ exports[`snippet: #6 [babel-ts] format 1`] = `
 Cause: Unexpected token, expected ";" (2:11)"
 `;
 
+exports[`snippet: #6 [oxc-ts] format 1`] = `
+"'accessor' modifier cannot appear on an index signature. (2:3)
+  1 | interface Foo {
+> 2 |   accessor [index: string]: number
+    |   ^^^^^^^^
+  3 | }"
+`;
+
 exports[`snippet: #6 [typescript] format 1`] = `
 "'accessor' modifier cannot appear on an index signature (2:3)
   1 | interface Foo {
@@ -133,6 +189,14 @@ exports[`snippet: #7 [babel-ts] format 1`] = `
     |            ^
   3 | } = {};
 Cause: Unexpected token, expected ";" (2:11)"
+`;
+
+exports[`snippet: #7 [oxc-ts] format 1`] = `
+"'accessor' modifier cannot appear on an index signature. (2:3)
+  1 | const foo: {
+> 2 |   accessor [index: string] : string
+    |   ^^^^^^^^
+  3 | } = {};"
 `;
 
 exports[`snippet: #7 [typescript] format 1`] = `
@@ -153,6 +217,14 @@ exports[`snippet: #8 [babel-ts] format 1`] = `
 Cause: Unexpected token, expected ";" (2:8)"
 `;
 
+exports[`snippet: #8 [oxc-ts] format 1`] = `
+"'async' modifier cannot appear on a type member. (2:3)
+  1 | interface Foo {
+> 2 |   async method();
+    |   ^^^^^
+  3 | }"
+`;
+
 exports[`snippet: #8 [typescript] format 1`] = `
 "'async' modifier cannot appear on a type member (2:3)
   1 | interface Foo {
@@ -169,6 +241,14 @@ exports[`snippet: #9 [babel-ts] format 1`] = `
     |         ^
   3 | }
 Cause: Unexpected token, expected ";" (2:8)"
+`;
+
+exports[`snippet: #9 [oxc-ts] format 1`] = `
+"'async' modifier cannot appear on a type member. (2:3)
+  1 | interface Foo {
+> 2 |   async property;
+    |   ^^^^^
+  3 | }"
 `;
 
 exports[`snippet: #9 [typescript] format 1`] = `
@@ -189,6 +269,14 @@ exports[`snippet: #10 [babel-ts] format 1`] = `
 Cause: Unexpected token, expected ";" (2:8)"
 `;
 
+exports[`snippet: #10 [oxc-ts] format 1`] = `
+"'async' modifier cannot appear on an index signature. (2:3)
+  1 | interface Foo {
+> 2 |   async [index: string]: number
+    |   ^^^^^
+  3 | }"
+`;
+
 exports[`snippet: #10 [typescript] format 1`] = `
 "'async' modifier cannot appear on an index signature (2:3)
   1 | interface Foo {
@@ -205,6 +293,14 @@ exports[`snippet: #11 [babel-ts] format 1`] = `
     |         ^
   3 | } = {};
 Cause: Unexpected token, expected ";" (2:8)"
+`;
+
+exports[`snippet: #11 [oxc-ts] format 1`] = `
+"'async' modifier cannot appear on an index signature. (2:3)
+  1 | const foo: {
+> 2 |   async [index: string] : string
+    |   ^^^^^
+  3 | } = {};"
 `;
 
 exports[`snippet: #11 [typescript] format 1`] = `
@@ -225,6 +321,14 @@ exports[`snippet: #12 [babel-ts] format 1`] = `
 Cause: Unexpected token, expected ";" (2:8)"
 `;
 
+exports[`snippet: #12 [oxc-ts] format 1`] = `
+"'const' modifier cannot appear on a type member. (2:3)
+  1 | interface Foo {
+> 2 |   const method();
+    |   ^^^^^
+  3 | }"
+`;
+
 exports[`snippet: #12 [typescript] format 1`] = `
 "';' expected. (2:9)
   1 | interface Foo {
@@ -241,6 +345,14 @@ exports[`snippet: #13 [babel-ts] format 1`] = `
     |         ^
   3 | }
 Cause: Unexpected token, expected ";" (2:8)"
+`;
+
+exports[`snippet: #13 [oxc-ts] format 1`] = `
+"'const' modifier cannot appear on a type member. (2:3)
+  1 | interface Foo {
+> 2 |   const property;
+    |   ^^^^^
+  3 | }"
 `;
 
 exports[`snippet: #13 [typescript] format 1`] = `
@@ -261,6 +373,14 @@ exports[`snippet: #14 [babel-ts] format 1`] = `
 Cause: Unexpected token, expected ";" (2:8)"
 `;
 
+exports[`snippet: #14 [oxc-ts] format 1`] = `
+"'const' modifier cannot appear on an index signature. (2:3)
+  1 | interface Foo {
+> 2 |   const [index: string]: number
+    |   ^^^^^
+  3 | }"
+`;
+
 exports[`snippet: #14 [typescript] format 1`] = `
 "';' expected. (2:9)
   1 | interface Foo {
@@ -277,6 +397,14 @@ exports[`snippet: #15 [babel-ts] format 1`] = `
     |         ^
   3 | } = {};
 Cause: Unexpected token, expected ";" (2:8)"
+`;
+
+exports[`snippet: #15 [oxc-ts] format 1`] = `
+"'const' modifier cannot appear on an index signature. (2:3)
+  1 | const foo: {
+> 2 |   const [index: string] : string
+    |   ^^^^^
+  3 | } = {};"
 `;
 
 exports[`snippet: #15 [typescript] format 1`] = `
@@ -297,6 +425,14 @@ exports[`snippet: #16 [babel-ts] format 1`] = `
 Cause: 'declare' modifier cannot appear on a type member. (2:2)"
 `;
 
+exports[`snippet: #16 [oxc-ts] format 1`] = `
+"'declare' modifier cannot appear on a type member. (2:3)
+  1 | interface Foo {
+> 2 |   declare method();
+    |   ^^^^^^^
+  3 | }"
+`;
+
 exports[`snippet: #16 [typescript] format 1`] = `
 "'declare' modifier cannot appear on a type member (2:3)
   1 | interface Foo {
@@ -313,6 +449,14 @@ exports[`snippet: #17 [babel-ts] format 1`] = `
     |   ^
   3 | }
 Cause: 'declare' modifier cannot appear on a type member. (2:2)"
+`;
+
+exports[`snippet: #17 [oxc-ts] format 1`] = `
+"'declare' modifier cannot appear on a type member. (2:3)
+  1 | interface Foo {
+> 2 |   declare property;
+    |   ^^^^^^^
+  3 | }"
 `;
 
 exports[`snippet: #17 [typescript] format 1`] = `
@@ -333,6 +477,14 @@ exports[`snippet: #18 [babel-ts] format 1`] = `
 Cause: 'declare' modifier cannot appear on a type member. (2:2)"
 `;
 
+exports[`snippet: #18 [oxc-ts] format 1`] = `
+"'declare' modifier cannot appear on an index signature. (2:3)
+  1 | interface Foo {
+> 2 |   declare [index: string]: number
+    |   ^^^^^^^
+  3 | }"
+`;
+
 exports[`snippet: #18 [typescript] format 1`] = `
 "'declare' modifier cannot appear on an index signature (2:3)
   1 | interface Foo {
@@ -349,6 +501,14 @@ exports[`snippet: #19 [babel-ts] format 1`] = `
     |   ^
   3 | } = {};
 Cause: 'declare' modifier cannot appear on a type member. (2:2)"
+`;
+
+exports[`snippet: #19 [oxc-ts] format 1`] = `
+"'declare' modifier cannot appear on an index signature. (2:3)
+  1 | const foo: {
+> 2 |   declare [index: string] : string
+    |   ^^^^^^^
+  3 | } = {};"
 `;
 
 exports[`snippet: #19 [typescript] format 1`] = `
@@ -369,6 +529,14 @@ exports[`snippet: #20 [babel-ts] format 1`] = `
 Cause: Unexpected token, expected ";" (2:10)"
 `;
 
+exports[`snippet: #20 [oxc-ts] format 1`] = `
+"'default' modifier cannot appear on a type member. (2:3)
+  1 | interface Foo {
+> 2 |   default method();
+    |   ^^^^^^^
+  3 | }"
+`;
+
 exports[`snippet: #20 [typescript] format 1`] = `
 "';' expected. (2:11)
   1 | interface Foo {
@@ -385,6 +553,14 @@ exports[`snippet: #21 [babel-ts] format 1`] = `
     |           ^
   3 | }
 Cause: Unexpected token, expected ";" (2:10)"
+`;
+
+exports[`snippet: #21 [oxc-ts] format 1`] = `
+"'default' modifier cannot appear on a type member. (2:3)
+  1 | interface Foo {
+> 2 |   default property;
+    |   ^^^^^^^
+  3 | }"
 `;
 
 exports[`snippet: #21 [typescript] format 1`] = `
@@ -405,6 +581,14 @@ exports[`snippet: #22 [babel-ts] format 1`] = `
 Cause: Unexpected token, expected ";" (2:10)"
 `;
 
+exports[`snippet: #22 [oxc-ts] format 1`] = `
+"'default' modifier cannot appear on an index signature. (2:3)
+  1 | interface Foo {
+> 2 |   default [index: string]: number
+    |   ^^^^^^^
+  3 | }"
+`;
+
 exports[`snippet: #22 [typescript] format 1`] = `
 "';' expected. (2:11)
   1 | interface Foo {
@@ -421,6 +605,14 @@ exports[`snippet: #23 [babel-ts] format 1`] = `
     |           ^
   3 | } = {};
 Cause: Unexpected token, expected ";" (2:10)"
+`;
+
+exports[`snippet: #23 [oxc-ts] format 1`] = `
+"'default' modifier cannot appear on an index signature. (2:3)
+  1 | const foo: {
+> 2 |   default [index: string] : string
+    |   ^^^^^^^
+  3 | } = {};"
 `;
 
 exports[`snippet: #23 [typescript] format 1`] = `
@@ -441,6 +633,14 @@ exports[`snippet: #24 [babel-ts] format 1`] = `
 Cause: Unexpected token, expected ";" (2:9)"
 `;
 
+exports[`snippet: #24 [oxc-ts] format 1`] = `
+"'export' modifier cannot appear on a type member. (2:3)
+  1 | interface Foo {
+> 2 |   export method();
+    |   ^^^^^^
+  3 | }"
+`;
+
 exports[`snippet: #24 [typescript] format 1`] = `
 "'export' modifier cannot appear on a type member (2:3)
   1 | interface Foo {
@@ -457,6 +657,14 @@ exports[`snippet: #25 [babel-ts] format 1`] = `
     |          ^
   3 | }
 Cause: Unexpected token, expected ";" (2:9)"
+`;
+
+exports[`snippet: #25 [oxc-ts] format 1`] = `
+"'export' modifier cannot appear on a type member. (2:3)
+  1 | interface Foo {
+> 2 |   export property;
+    |   ^^^^^^
+  3 | }"
 `;
 
 exports[`snippet: #25 [typescript] format 1`] = `
@@ -477,6 +685,14 @@ exports[`snippet: #26 [babel-ts] format 1`] = `
 Cause: Unexpected token, expected ";" (2:9)"
 `;
 
+exports[`snippet: #26 [oxc-ts] format 1`] = `
+"'export' modifier cannot appear on an index signature. (2:3)
+  1 | interface Foo {
+> 2 |   export [index: string]: number
+    |   ^^^^^^
+  3 | }"
+`;
+
 exports[`snippet: #26 [typescript] format 1`] = `
 "'export' modifier cannot appear on an index signature (2:3)
   1 | interface Foo {
@@ -493,6 +709,14 @@ exports[`snippet: #27 [babel-ts] format 1`] = `
     |          ^
   3 | } = {};
 Cause: Unexpected token, expected ";" (2:9)"
+`;
+
+exports[`snippet: #27 [oxc-ts] format 1`] = `
+"'export' modifier cannot appear on an index signature. (2:3)
+  1 | const foo: {
+> 2 |   export [index: string] : string
+    |   ^^^^^^
+  3 | } = {};"
 `;
 
 exports[`snippet: #27 [typescript] format 1`] = `
@@ -513,6 +737,14 @@ exports[`snippet: #28 [babel-ts] format 1`] = `
 Cause: Unexpected token, expected ";" (2:5)"
 `;
 
+exports[`snippet: #28 [oxc-ts] format 1`] = `
+"'in' modifier cannot appear on a type member. (2:3)
+  1 | interface Foo {
+> 2 |   in method();
+    |   ^^
+  3 | }"
+`;
+
 exports[`snippet: #28 [typescript] format 1`] = `
 "'in' modifier cannot appear on a type member (2:3)
   1 | interface Foo {
@@ -529,6 +761,14 @@ exports[`snippet: #29 [babel-ts] format 1`] = `
     |      ^
   3 | }
 Cause: Unexpected token, expected ";" (2:5)"
+`;
+
+exports[`snippet: #29 [oxc-ts] format 1`] = `
+"'in' modifier cannot appear on a type member. (2:3)
+  1 | interface Foo {
+> 2 |   in property;
+    |   ^^
+  3 | }"
 `;
 
 exports[`snippet: #29 [typescript] format 1`] = `
@@ -549,6 +789,14 @@ exports[`snippet: #30 [babel-ts] format 1`] = `
 Cause: Unexpected token, expected ";" (2:5)"
 `;
 
+exports[`snippet: #30 [oxc-ts] format 1`] = `
+"'in' modifier cannot appear on an index signature. (2:3)
+  1 | interface Foo {
+> 2 |   in [index: string]: number
+    |   ^^
+  3 | }"
+`;
+
 exports[`snippet: #30 [typescript] format 1`] = `
 "'in' modifier cannot appear on an index signature (2:3)
   1 | interface Foo {
@@ -565,6 +813,14 @@ exports[`snippet: #31 [babel-ts] format 1`] = `
     |      ^
   3 | } = {};
 Cause: Unexpected token, expected ";" (2:5)"
+`;
+
+exports[`snippet: #31 [oxc-ts] format 1`] = `
+"'in' modifier cannot appear on an index signature. (2:3)
+  1 | const foo: {
+> 2 |   in [index: string] : string
+    |   ^^
+  3 | } = {};"
 `;
 
 exports[`snippet: #31 [typescript] format 1`] = `
@@ -585,6 +841,14 @@ exports[`snippet: #32 [babel-ts] format 1`] = `
 Cause: Unexpected token, expected ";" (2:6)"
 `;
 
+exports[`snippet: #32 [oxc-ts] format 1`] = `
+"'out' modifier cannot appear on a type member. (2:3)
+  1 | interface Foo {
+> 2 |   out method();
+    |   ^^^
+  3 | }"
+`;
+
 exports[`snippet: #32 [typescript] format 1`] = `
 "'out' modifier cannot appear on a type member (2:3)
   1 | interface Foo {
@@ -601,6 +865,14 @@ exports[`snippet: #33 [babel-ts] format 1`] = `
     |       ^
   3 | }
 Cause: Unexpected token, expected ";" (2:6)"
+`;
+
+exports[`snippet: #33 [oxc-ts] format 1`] = `
+"'out' modifier cannot appear on a type member. (2:3)
+  1 | interface Foo {
+> 2 |   out property;
+    |   ^^^
+  3 | }"
 `;
 
 exports[`snippet: #33 [typescript] format 1`] = `
@@ -621,6 +893,14 @@ exports[`snippet: #34 [babel-ts] format 1`] = `
 Cause: Unexpected token, expected ";" (2:6)"
 `;
 
+exports[`snippet: #34 [oxc-ts] format 1`] = `
+"'out' modifier cannot appear on an index signature. (2:3)
+  1 | interface Foo {
+> 2 |   out [index: string]: number
+    |   ^^^
+  3 | }"
+`;
+
 exports[`snippet: #34 [typescript] format 1`] = `
 "'out' modifier cannot appear on an index signature (2:3)
   1 | interface Foo {
@@ -637,6 +917,14 @@ exports[`snippet: #35 [babel-ts] format 1`] = `
     |       ^
   3 | } = {};
 Cause: Unexpected token, expected ";" (2:6)"
+`;
+
+exports[`snippet: #35 [oxc-ts] format 1`] = `
+"'out' modifier cannot appear on an index signature. (2:3)
+  1 | const foo: {
+> 2 |   out [index: string] : string
+    |   ^^^
+  3 | } = {};"
 `;
 
 exports[`snippet: #35 [typescript] format 1`] = `
@@ -657,6 +945,14 @@ exports[`snippet: #36 [babel-ts] format 1`] = `
 Cause: 'override' modifier cannot appear on a type member. (2:2)"
 `;
 
+exports[`snippet: #36 [oxc-ts] format 1`] = `
+"'override' modifier cannot appear on a type member. (2:3)
+  1 | interface Foo {
+> 2 |   override method();
+    |   ^^^^^^^^
+  3 | }"
+`;
+
 exports[`snippet: #36 [typescript] format 1`] = `
 "'override' modifier cannot appear on a type member (2:3)
   1 | interface Foo {
@@ -673,6 +969,14 @@ exports[`snippet: #37 [babel-ts] format 1`] = `
     |   ^
   3 | }
 Cause: 'override' modifier cannot appear on a type member. (2:2)"
+`;
+
+exports[`snippet: #37 [oxc-ts] format 1`] = `
+"'override' modifier cannot appear on a type member. (2:3)
+  1 | interface Foo {
+> 2 |   override property;
+    |   ^^^^^^^^
+  3 | }"
 `;
 
 exports[`snippet: #37 [typescript] format 1`] = `
@@ -693,6 +997,14 @@ exports[`snippet: #38 [babel-ts] format 1`] = `
 Cause: 'override' modifier cannot appear on a type member. (2:2)"
 `;
 
+exports[`snippet: #38 [oxc-ts] format 1`] = `
+"'override' modifier cannot appear on an index signature. (2:3)
+  1 | interface Foo {
+> 2 |   override [index: string]: number
+    |   ^^^^^^^^
+  3 | }"
+`;
+
 exports[`snippet: #38 [typescript] format 1`] = `
 "'override' modifier cannot appear on an index signature (2:3)
   1 | interface Foo {
@@ -709,6 +1021,14 @@ exports[`snippet: #39 [babel-ts] format 1`] = `
     |   ^
   3 | } = {};
 Cause: 'override' modifier cannot appear on a type member. (2:2)"
+`;
+
+exports[`snippet: #39 [oxc-ts] format 1`] = `
+"'override' modifier cannot appear on an index signature. (2:3)
+  1 | const foo: {
+> 2 |   override [index: string] : string
+    |   ^^^^^^^^
+  3 | } = {};"
 `;
 
 exports[`snippet: #39 [typescript] format 1`] = `
@@ -729,6 +1049,14 @@ exports[`snippet: #40 [babel-ts] format 1`] = `
 Cause: 'private' modifier cannot appear on a type member. (2:2)"
 `;
 
+exports[`snippet: #40 [oxc-ts] format 1`] = `
+"'private' modifier cannot appear on a type member. (2:3)
+  1 | interface Foo {
+> 2 |   private method();
+    |   ^^^^^^^
+  3 | }"
+`;
+
 exports[`snippet: #40 [typescript] format 1`] = `
 "'private' modifier cannot appear on a type member (2:3)
   1 | interface Foo {
@@ -745,6 +1073,14 @@ exports[`snippet: #41 [babel-ts] format 1`] = `
     |   ^
   3 | }
 Cause: 'private' modifier cannot appear on a type member. (2:2)"
+`;
+
+exports[`snippet: #41 [oxc-ts] format 1`] = `
+"'private' modifier cannot appear on a type member. (2:3)
+  1 | interface Foo {
+> 2 |   private property;
+    |   ^^^^^^^
+  3 | }"
 `;
 
 exports[`snippet: #41 [typescript] format 1`] = `
@@ -765,6 +1101,14 @@ exports[`snippet: #42 [babel-ts] format 1`] = `
 Cause: 'private' modifier cannot appear on a type member. (2:2)"
 `;
 
+exports[`snippet: #42 [oxc-ts] format 1`] = `
+"'private' modifier cannot appear on an index signature. (2:3)
+  1 | interface Foo {
+> 2 |   private [index: string]: number
+    |   ^^^^^^^
+  3 | }"
+`;
+
 exports[`snippet: #42 [typescript] format 1`] = `
 "'private' modifier cannot appear on an index signature (2:3)
   1 | interface Foo {
@@ -781,6 +1125,14 @@ exports[`snippet: #43 [babel-ts] format 1`] = `
     |   ^
   3 | } = {};
 Cause: 'private' modifier cannot appear on a type member. (2:2)"
+`;
+
+exports[`snippet: #43 [oxc-ts] format 1`] = `
+"'private' modifier cannot appear on an index signature. (2:3)
+  1 | const foo: {
+> 2 |   private [index: string] : string
+    |   ^^^^^^^
+  3 | } = {};"
 `;
 
 exports[`snippet: #43 [typescript] format 1`] = `
@@ -801,6 +1153,14 @@ exports[`snippet: #44 [babel-ts] format 1`] = `
 Cause: 'protected' modifier cannot appear on a type member. (2:2)"
 `;
 
+exports[`snippet: #44 [oxc-ts] format 1`] = `
+"'protected' modifier cannot appear on a type member. (2:3)
+  1 | interface Foo {
+> 2 |   protected method();
+    |   ^^^^^^^^^
+  3 | }"
+`;
+
 exports[`snippet: #44 [typescript] format 1`] = `
 "'protected' modifier cannot appear on a type member (2:3)
   1 | interface Foo {
@@ -817,6 +1177,14 @@ exports[`snippet: #45 [babel-ts] format 1`] = `
     |   ^
   3 | }
 Cause: 'protected' modifier cannot appear on a type member. (2:2)"
+`;
+
+exports[`snippet: #45 [oxc-ts] format 1`] = `
+"'protected' modifier cannot appear on a type member. (2:3)
+  1 | interface Foo {
+> 2 |   protected property;
+    |   ^^^^^^^^^
+  3 | }"
 `;
 
 exports[`snippet: #45 [typescript] format 1`] = `
@@ -837,6 +1205,14 @@ exports[`snippet: #46 [babel-ts] format 1`] = `
 Cause: 'protected' modifier cannot appear on a type member. (2:2)"
 `;
 
+exports[`snippet: #46 [oxc-ts] format 1`] = `
+"'protected' modifier cannot appear on an index signature. (2:3)
+  1 | interface Foo {
+> 2 |   protected [index: string]: number
+    |   ^^^^^^^^^
+  3 | }"
+`;
+
 exports[`snippet: #46 [typescript] format 1`] = `
 "'protected' modifier cannot appear on an index signature (2:3)
   1 | interface Foo {
@@ -853,6 +1229,14 @@ exports[`snippet: #47 [babel-ts] format 1`] = `
     |   ^
   3 | } = {};
 Cause: 'protected' modifier cannot appear on a type member. (2:2)"
+`;
+
+exports[`snippet: #47 [oxc-ts] format 1`] = `
+"'protected' modifier cannot appear on an index signature. (2:3)
+  1 | const foo: {
+> 2 |   protected [index: string] : string
+    |   ^^^^^^^^^
+  3 | } = {};"
 `;
 
 exports[`snippet: #47 [typescript] format 1`] = `
@@ -873,6 +1257,14 @@ exports[`snippet: #48 [babel-ts] format 1`] = `
 Cause: 'public' modifier cannot appear on a type member. (2:2)"
 `;
 
+exports[`snippet: #48 [oxc-ts] format 1`] = `
+"'public' modifier cannot appear on a type member. (2:3)
+  1 | interface Foo {
+> 2 |   public method();
+    |   ^^^^^^
+  3 | }"
+`;
+
 exports[`snippet: #48 [typescript] format 1`] = `
 "'public' modifier cannot appear on a type member (2:3)
   1 | interface Foo {
@@ -889,6 +1281,14 @@ exports[`snippet: #49 [babel-ts] format 1`] = `
     |   ^
   3 | }
 Cause: 'public' modifier cannot appear on a type member. (2:2)"
+`;
+
+exports[`snippet: #49 [oxc-ts] format 1`] = `
+"'public' modifier cannot appear on a type member. (2:3)
+  1 | interface Foo {
+> 2 |   public property;
+    |   ^^^^^^
+  3 | }"
 `;
 
 exports[`snippet: #49 [typescript] format 1`] = `
@@ -909,6 +1309,14 @@ exports[`snippet: #50 [babel-ts] format 1`] = `
 Cause: 'public' modifier cannot appear on a type member. (2:2)"
 `;
 
+exports[`snippet: #50 [oxc-ts] format 1`] = `
+"'public' modifier cannot appear on an index signature. (2:3)
+  1 | interface Foo {
+> 2 |   public [index: string]: number
+    |   ^^^^^^
+  3 | }"
+`;
+
 exports[`snippet: #50 [typescript] format 1`] = `
 "'public' modifier cannot appear on an index signature (2:3)
   1 | interface Foo {
@@ -925,6 +1333,14 @@ exports[`snippet: #51 [babel-ts] format 1`] = `
     |   ^
   3 | } = {};
 Cause: 'public' modifier cannot appear on a type member. (2:2)"
+`;
+
+exports[`snippet: #51 [oxc-ts] format 1`] = `
+"'public' modifier cannot appear on an index signature. (2:3)
+  1 | const foo: {
+> 2 |   public [index: string] : string
+    |   ^^^^^^
+  3 | } = {};"
 `;
 
 exports[`snippet: #51 [typescript] format 1`] = `
@@ -945,6 +1361,14 @@ exports[`snippet: #52 [babel-ts] format 1`] = `
 Cause: 'static' modifier cannot appear on a type member. (2:2)"
 `;
 
+exports[`snippet: #52 [oxc-ts] format 1`] = `
+"'static' modifier cannot appear on a type member. (2:3)
+  1 | interface Foo {
+> 2 |   static method();
+    |   ^^^^^^
+  3 | }"
+`;
+
 exports[`snippet: #52 [typescript] format 1`] = `
 "'static' modifier cannot appear on a type member (2:3)
   1 | interface Foo {
@@ -961,6 +1385,14 @@ exports[`snippet: #53 [babel-ts] format 1`] = `
     |   ^
   3 | }
 Cause: 'static' modifier cannot appear on a type member. (2:2)"
+`;
+
+exports[`snippet: #53 [oxc-ts] format 1`] = `
+"'static' modifier cannot appear on a type member. (2:3)
+  1 | interface Foo {
+> 2 |   static property;
+    |   ^^^^^^
+  3 | }"
 `;
 
 exports[`snippet: #53 [typescript] format 1`] = `
@@ -981,6 +1413,14 @@ exports[`snippet: #54 [babel-ts] format 1`] = `
 Cause: 'static' modifier cannot appear on a type member. (2:2)"
 `;
 
+exports[`snippet: #54 [oxc-ts] format 1`] = `
+"'static' modifier cannot appear on an index signature. (2:3)
+  1 | interface Foo {
+> 2 |   static [index: string]: number
+    |   ^^^^^^
+  3 | }"
+`;
+
 exports[`snippet: #54 [typescript] format 1`] = `
 "'static' modifier cannot appear on an index signature (2:3)
   1 | interface Foo {
@@ -997,6 +1437,14 @@ exports[`snippet: #55 [babel-ts] format 1`] = `
     |   ^
   3 | } = {};
 Cause: 'static' modifier cannot appear on a type member. (2:2)"
+`;
+
+exports[`snippet: #55 [oxc-ts] format 1`] = `
+"'static' modifier cannot appear on an index signature. (2:3)
+  1 | const foo: {
+> 2 |   static [index: string] : string
+    |   ^^^^^^
+  3 | } = {};"
 `;
 
 exports[`snippet: #55 [typescript] format 1`] = `
@@ -1017,6 +1465,14 @@ exports[`snippet: #56 [babel-ts] format 1`] = `
 Cause: 'readonly' modifier can only appear on a property declaration or index signature. (2:2)"
 `;
 
+exports[`snippet: #56 [oxc-ts] format 1`] = `
+"'readonly' modifier can only appear on a property declaration or index signature. (2:3)
+  1 | interface Foo {
+> 2 |   readonly method();
+    |   ^^^^^^^^
+  3 | }"
+`;
+
 exports[`snippet: #56 [typescript] format 1`] = `
 "'readonly' modifier can only appear on a property declaration or index signature. (2:3)
   1 | interface Foo {
@@ -1033,6 +1489,12 @@ exports[`snippet: #57 [babel-ts] format 1`] = `
 Cause: 'abstract' modifier can only appear on a class, method, or property declaration. (1:0)"
 `;
 
+exports[`snippet: #57 [oxc-ts] format 1`] = `
+"'abstract' modifier cannot be used here. (1:1)
+> 1 | abstract interface Foo {}
+    | ^^^^^^^^"
+`;
+
 exports[`snippet: #57 [typescript] format 1`] = `
 "'abstract' modifier can only appear on a class, method, or property declaration. (1:1)
 > 1 | abstract interface Foo {}
@@ -1045,6 +1507,12 @@ exports[`snippet: #58 [babel-ts] format 1`] = `
 > 1 | accessor interface Foo {}
     |         ^
 Cause: Missing semicolon. (1:8)"
+`;
+
+exports[`snippet: #58 [oxc-ts] format 1`] = `
+"'accessor' modifier cannot be used here. (1:1)
+> 1 | accessor interface Foo {}
+    | ^^^^^^^^"
 `;
 
 exports[`snippet: #58 [typescript] format 1`] = `
@@ -1061,6 +1529,12 @@ exports[`snippet: #59 [babel-ts] format 1`] = `
 Cause: Missing semicolon. (1:5)"
 `;
 
+exports[`snippet: #59 [oxc-ts] format 1`] = `
+"'async' modifier cannot be used here. (1:1)
+> 1 | async interface Foo {}
+    | ^^^^^"
+`;
+
 exports[`snippet: #59 [typescript] format 1`] = `
 "'async' modifier cannot be used here. (1:1)
 > 1 | async interface Foo {}
@@ -1073,6 +1547,12 @@ exports[`snippet: #60 [babel-ts] format 1`] = `
 > 1 | const interface Foo {}
     |                ^
 Cause: Missing semicolon. (1:15)"
+`;
+
+exports[`snippet: #60 [oxc-ts] format 1`] = `
+"Missing initializer in const declaration (1:7)
+> 1 | const interface Foo {}
+    |       ^^^^^^^^^"
 `;
 
 exports[`snippet: #60 [typescript] format 1`] = `
@@ -1089,6 +1569,12 @@ exports[`snippet: #61 [babel-ts] format 1`] = `
 Cause: Unexpected token (1:0)"
 `;
 
+exports[`snippet: #61 [oxc-ts] format 1`] = `
+"Unexpected token (1:1)
+> 1 | default interface Foo {}
+    | ^^^^^^^"
+`;
+
 exports[`snippet: #61 [typescript] format 1`] = `
 "'export' expected. (1:1)
 > 1 | default interface Foo {}
@@ -1101,6 +1587,12 @@ exports[`snippet: #62 [babel-ts] format 1`] = `
 > 1 | in interface Foo {}
     | ^
 Cause: Unexpected token (1:0)"
+`;
+
+exports[`snippet: #62 [oxc-ts] format 1`] = `
+"Unexpected token (1:1)
+> 1 | in interface Foo {}
+    | ^^"
 `;
 
 exports[`snippet: #62 [typescript] format 1`] = `
@@ -1117,6 +1609,12 @@ exports[`snippet: #63 [babel-ts] format 1`] = `
 Cause: Missing semicolon. (1:3)"
 `;
 
+exports[`snippet: #63 [oxc-ts] format 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found none (1:4)
+> 1 | out interface Foo {}
+    |    ^"
+`;
+
 exports[`snippet: #63 [typescript] format 1`] = `
 "Unexpected keyword or identifier. (1:1)
 > 1 | out interface Foo {}
@@ -1129,6 +1627,12 @@ exports[`snippet: #64 [babel-ts] format 1`] = `
 > 1 | override interface Foo {}
     |         ^
 Cause: Missing semicolon. (1:8)"
+`;
+
+exports[`snippet: #64 [oxc-ts] format 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found none (1:9)
+> 1 | override interface Foo {}
+    |         ^"
 `;
 
 exports[`snippet: #64 [typescript] format 1`] = `
@@ -1145,6 +1649,12 @@ exports[`snippet: #65 [babel-ts] format 1`] = `
 Cause: Missing semicolon. (1:7)"
 `;
 
+exports[`snippet: #65 [oxc-ts] format 1`] = `
+"'private' modifier cannot be used here. (1:1)
+> 1 | private interface Foo {}
+    | ^^^^^^^"
+`;
+
 exports[`snippet: #65 [typescript] format 1`] = `
 "'private' modifier cannot appear on a module or namespace element. (1:1)
 > 1 | private interface Foo {}
@@ -1157,6 +1667,12 @@ exports[`snippet: #66 [babel-ts] format 1`] = `
 > 1 | protected interface Foo {}
     |          ^
 Cause: Missing semicolon. (1:9)"
+`;
+
+exports[`snippet: #66 [oxc-ts] format 1`] = `
+"'protected' modifier cannot be used here. (1:1)
+> 1 | protected interface Foo {}
+    | ^^^^^^^^^"
 `;
 
 exports[`snippet: #66 [typescript] format 1`] = `
@@ -1173,6 +1689,12 @@ exports[`snippet: #67 [babel-ts] format 1`] = `
 Cause: Missing semicolon. (1:6)"
 `;
 
+exports[`snippet: #67 [oxc-ts] format 1`] = `
+"'public' modifier cannot be used here. (1:1)
+> 1 | public interface Foo {}
+    | ^^^^^^"
+`;
+
 exports[`snippet: #67 [typescript] format 1`] = `
 "'public' modifier cannot appear on a module or namespace element. (1:1)
 > 1 | public interface Foo {}
@@ -1185,6 +1707,12 @@ exports[`snippet: #68 [babel-ts] format 1`] = `
 > 1 | readonly interface Foo {}
     |         ^
 Cause: Missing semicolon. (1:8)"
+`;
+
+exports[`snippet: #68 [oxc-ts] format 1`] = `
+"'readonly' modifier cannot be used here. (1:1)
+> 1 | readonly interface Foo {}
+    | ^^^^^^^^"
 `;
 
 exports[`snippet: #68 [typescript] format 1`] = `
@@ -1201,6 +1729,12 @@ exports[`snippet: #69 [babel-ts] format 1`] = `
 Cause: Missing semicolon. (1:6)"
 `;
 
+exports[`snippet: #69 [oxc-ts] format 1`] = `
+"'static' modifier cannot be used here. (1:1)
+> 1 | static interface Foo {}
+    | ^^^^^^"
+`;
+
 exports[`snippet: #69 [typescript] format 1`] = `
 "'static' modifier cannot appear on a module or namespace element. (1:1)
 > 1 | static interface Foo {}
@@ -1213,6 +1747,12 @@ exports[`snippet: #70 [babel-ts] format 1`] = `
 > 1 | interface Foo<abstract T> {}
     |               ^
 Cause: 'abstract' modifier cannot appear on a type parameter. (1:14)"
+`;
+
+exports[`snippet: #70 [oxc-ts] format 1`] = `
+"'abstract' modifier cannot be used on a type parameter. (1:15)
+> 1 | interface Foo<abstract T> {}
+    |               ^^^^^^^^"
 `;
 
 exports[`snippet: #70 [typescript] format 1`] = `
@@ -1229,6 +1769,12 @@ exports[`snippet: #71 [babel-ts] format 1`] = `
 Cause: Unexpected token, expected "," (1:23)"
 `;
 
+exports[`snippet: #71 [oxc-ts] format 1`] = `
+"'accessor' modifier cannot be used on a type parameter. (1:15)
+> 1 | interface Foo<accessor T> {}
+    |               ^^^^^^^^"
+`;
+
 exports[`snippet: #71 [typescript] format 1`] = `
 "'accessor' modifier cannot appear on a type parameter (1:15)
 > 1 | interface Foo<accessor T> {}
@@ -1241,6 +1787,12 @@ exports[`snippet: #72 [babel-ts] format 1`] = `
 > 1 | interface Foo<async T> {}
     |                     ^
 Cause: Unexpected token, expected "," (1:20)"
+`;
+
+exports[`snippet: #72 [oxc-ts] format 1`] = `
+"'async' modifier cannot be used on a type parameter. (1:15)
+> 1 | interface Foo<async T> {}
+    |               ^^^^^"
 `;
 
 exports[`snippet: #72 [typescript] format 1`] = `
@@ -1257,6 +1809,12 @@ exports[`snippet: #73 [babel-ts] format 1`] = `
 Cause: 'declare' modifier cannot appear on a type parameter. (1:14)"
 `;
 
+exports[`snippet: #73 [oxc-ts] format 1`] = `
+"'declare' modifier cannot be used on a type parameter. (1:15)
+> 1 | interface Foo<declare T> {}
+    |               ^^^^^^^"
+`;
+
 exports[`snippet: #73 [typescript] format 1`] = `
 "'declare' modifier cannot appear on a type parameter (1:15)
 > 1 | interface Foo<declare T> {}
@@ -1269,6 +1827,12 @@ exports[`snippet: #74 [babel-ts] format 1`] = `
 > 1 | interface Foo<default T> {}
     |                       ^
 Cause: Unexpected token, expected "," (1:22)"
+`;
+
+exports[`snippet: #74 [oxc-ts] format 1`] = `
+"'default' modifier cannot be used on a type parameter. (1:15)
+> 1 | interface Foo<default T> {}
+    |               ^^^^^^^"
 `;
 
 exports[`snippet: #74 [typescript] format 1`] = `
@@ -1285,6 +1849,12 @@ exports[`snippet: #75 [babel-ts] format 1`] = `
 Cause: Unexpected token, expected "," (1:21)"
 `;
 
+exports[`snippet: #75 [oxc-ts] format 1`] = `
+"'export' modifier cannot be used on a type parameter. (1:15)
+> 1 | interface Foo<export T> {}
+    |               ^^^^^^"
+`;
+
 exports[`snippet: #75 [typescript] format 1`] = `
 "Type parameter declaration expected. (1:15)
 > 1 | interface Foo<export T> {}
@@ -1297,6 +1867,12 @@ exports[`snippet: #76 [babel-ts] format 1`] = `
 > 1 | interface Foo<override T> {}
     |               ^
 Cause: 'override' modifier cannot appear on a type parameter. (1:14)"
+`;
+
+exports[`snippet: #76 [oxc-ts] format 1`] = `
+"'override' modifier cannot be used on a type parameter. (1:15)
+> 1 | interface Foo<override T> {}
+    |               ^^^^^^^^"
 `;
 
 exports[`snippet: #76 [typescript] format 1`] = `
@@ -1313,6 +1889,12 @@ exports[`snippet: #77 [babel-ts] format 1`] = `
 Cause: 'private' modifier cannot appear on a type parameter. (1:14)"
 `;
 
+exports[`snippet: #77 [oxc-ts] format 1`] = `
+"'private' modifier cannot be used on a type parameter. (1:15)
+> 1 | interface Foo<private T> {}
+    |               ^^^^^^^"
+`;
+
 exports[`snippet: #77 [typescript] format 1`] = `
 "'private' modifier cannot appear on a type parameter (1:15)
 > 1 | interface Foo<private T> {}
@@ -1325,6 +1907,12 @@ exports[`snippet: #78 [babel-ts] format 1`] = `
 > 1 | interface Foo<protected T> {}
     |               ^
 Cause: 'protected' modifier cannot appear on a type parameter. (1:14)"
+`;
+
+exports[`snippet: #78 [oxc-ts] format 1`] = `
+"'protected' modifier cannot be used on a type parameter. (1:15)
+> 1 | interface Foo<protected T> {}
+    |               ^^^^^^^^^"
 `;
 
 exports[`snippet: #78 [typescript] format 1`] = `
@@ -1341,6 +1929,12 @@ exports[`snippet: #79 [babel-ts] format 1`] = `
 Cause: 'public' modifier cannot appear on a type parameter. (1:14)"
 `;
 
+exports[`snippet: #79 [oxc-ts] format 1`] = `
+"'public' modifier cannot be used on a type parameter. (1:15)
+> 1 | interface Foo<public T> {}
+    |               ^^^^^^"
+`;
+
 exports[`snippet: #79 [typescript] format 1`] = `
 "'public' modifier cannot appear on a type parameter (1:15)
 > 1 | interface Foo<public T> {}
@@ -1353,6 +1947,12 @@ exports[`snippet: #80 [babel-ts] format 1`] = `
 > 1 | interface Foo<readonly T> {}
     |               ^
 Cause: 'readonly' modifier cannot appear on a type parameter. (1:14)"
+`;
+
+exports[`snippet: #80 [oxc-ts] format 1`] = `
+"'readonly' modifier cannot be used on a type parameter. (1:15)
+> 1 | interface Foo<readonly T> {}
+    |               ^^^^^^^^"
 `;
 
 exports[`snippet: #80 [typescript] format 1`] = `
@@ -1369,6 +1969,12 @@ exports[`snippet: #81 [babel-ts] format 1`] = `
 Cause: Unexpected token, expected "," (1:21)"
 `;
 
+exports[`snippet: #81 [oxc-ts] format 1`] = `
+"'static' modifier cannot be used on a type parameter. (1:15)
+> 1 | interface Foo<static T> {}
+    |               ^^^^^^"
+`;
+
 exports[`snippet: #81 [typescript] format 1`] = `
 "'static' modifier cannot appear on a type parameter (1:15)
 > 1 | interface Foo<static T> {}
@@ -1383,6 +1989,14 @@ exports[`snippet: #82 [babel-ts] format 1`] = `
     |   ^
   3 | }
 Cause: Class methods cannot have the 'declare' modifier. (2:2)"
+`;
+
+exports[`snippet: #82 [oxc-ts] format 1`] = `
+"'declare' modifier cannot appear on class elements of this kind. (2:3)
+  1 | class Foo {
+> 2 |   declare method() {}
+    |   ^^^^^^^
+  3 | }"
 `;
 
 exports[`snippet: #82 [typescript] format 1`] = `
@@ -1403,6 +2017,14 @@ exports[`snippet: #83 [babel-ts] format 1`] = `
 Cause: Class methods cannot have the 'readonly' modifier. (2:2)"
 `;
 
+exports[`snippet: #83 [oxc-ts] format 1`] = `
+"'readonly' modifier can only appear on a property declaration or index signature. (2:3)
+  1 | class Foo {
+> 2 |   readonly method() {}
+    |   ^^^^^^^^
+  3 | }"
+`;
+
 exports[`snippet: #83 [typescript] format 1`] = `
 "'readonly' modifier can only appear on a property declaration or index signature. (2:3)
   1 | class Foo {
@@ -1419,6 +2041,14 @@ exports[`snippet: #84 [babel-ts] format 1`] = `
     |   ^
   3 | }
 Cause: 'declare' is not allowed in getters. (2:2)"
+`;
+
+exports[`snippet: #84 [oxc-ts] format 1`] = `
+"'declare' modifier cannot be used here. (2:3)
+  1 | class Foo {
+> 2 |   declare get getter() {}
+    |   ^^^^^^^
+  3 | }"
 `;
 
 exports[`snippet: #84 [typescript] format 1`] = `
@@ -1439,6 +2069,14 @@ exports[`snippet: #85 [babel-ts] format 1`] = `
 Cause: 'declare' is not allowed in setters. (2:2)"
 `;
 
+exports[`snippet: #85 [oxc-ts] format 1`] = `
+"'declare' modifier cannot be used here. (2:3)
+  1 | class Foo {
+> 2 |   declare set setter(v) {}
+    |   ^^^^^^^
+  3 | }"
+`;
+
 exports[`snippet: #85 [typescript] format 1`] = `
 "'declare' modifier cannot appear on class elements of this kind. (2:3)
   1 | class Foo {
@@ -1455,6 +2093,12 @@ exports[`snippet: #86 [babel-ts] format 1`] = `
 Cause: Unexpected token, expected "class" (1:9)"
 `;
 
+exports[`snippet: #86 [oxc-ts] format 1`] = `
+"'abstract' modifier cannot be used here. (1:1)
+> 1 | abstract module Foo {}
+    | ^^^^^^^^"
+`;
+
 exports[`snippet: #86 [typescript] format 1`] = `
 "'abstract' modifier can only appear on a class, method, or property declaration. (1:1)
 > 1 | abstract module Foo {}
@@ -1467,6 +2111,12 @@ exports[`snippet: #87 [babel-ts] format 1`] = `
 > 1 | abstract namespace Foo {}
     |          ^
 Cause: Unexpected token, expected "class" (1:9)"
+`;
+
+exports[`snippet: #87 [oxc-ts] format 1`] = `
+"'abstract' modifier cannot be used here. (1:1)
+> 1 | abstract namespace Foo {}
+    | ^^^^^^^^"
 `;
 
 exports[`snippet: #87 [typescript] format 1`] = `
@@ -1483,6 +2133,12 @@ exports[`snippet: #88 [babel-ts] format 1`] = `
 Cause: Missing semicolon. (1:8)"
 `;
 
+exports[`snippet: #88 [oxc-ts] format 1`] = `
+"'accessor' modifier cannot be used here. (1:1)
+> 1 | accessor module Foo {}
+    | ^^^^^^^^"
+`;
+
 exports[`snippet: #88 [typescript] format 1`] = `
 "'accessor' modifier can only appear on a property declaration. (1:1)
 > 1 | accessor module Foo {}
@@ -1495,6 +2151,12 @@ exports[`snippet: #89 [babel-ts] format 1`] = `
 > 1 | accessor namespace Foo {}
     |         ^
 Cause: Missing semicolon. (1:8)"
+`;
+
+exports[`snippet: #89 [oxc-ts] format 1`] = `
+"'accessor' modifier cannot be used here. (1:1)
+> 1 | accessor namespace Foo {}
+    | ^^^^^^^^"
 `;
 
 exports[`snippet: #89 [typescript] format 1`] = `
@@ -1511,6 +2173,12 @@ exports[`snippet: #90 [babel-ts] format 1`] = `
 Cause: Missing semicolon. (1:5)"
 `;
 
+exports[`snippet: #90 [oxc-ts] format 1`] = `
+"'async' modifier cannot be used here. (1:1)
+> 1 | async module Foo {}
+    | ^^^^^"
+`;
+
 exports[`snippet: #90 [typescript] format 1`] = `
 "'async' modifier cannot be used here. (1:1)
 > 1 | async module Foo {}
@@ -1523,6 +2191,12 @@ exports[`snippet: #91 [babel-ts] format 1`] = `
 > 1 | async namespace Foo {}
     |      ^
 Cause: Missing semicolon. (1:5)"
+`;
+
+exports[`snippet: #91 [oxc-ts] format 1`] = `
+"'async' modifier cannot be used here. (1:1)
+> 1 | async namespace Foo {}
+    | ^^^^^"
 `;
 
 exports[`snippet: #91 [typescript] format 1`] = `
@@ -1539,6 +2213,12 @@ exports[`snippet: #92 [babel-ts] format 1`] = `
 Cause: Missing semicolon. (1:12)"
 `;
 
+exports[`snippet: #92 [oxc-ts] format 1`] = `
+"Missing initializer in const declaration (1:7)
+> 1 | const module Foo {}
+    |       ^^^^^^"
+`;
+
 exports[`snippet: #92 [typescript] format 1`] = `
 "',' expected. (1:14)
 > 1 | const module Foo {}
@@ -1551,6 +2231,12 @@ exports[`snippet: #93 [babel-ts] format 1`] = `
 > 1 | const namespace Foo {}
     |                ^
 Cause: Missing semicolon. (1:15)"
+`;
+
+exports[`snippet: #93 [oxc-ts] format 1`] = `
+"Missing initializer in const declaration (1:7)
+> 1 | const namespace Foo {}
+    |       ^^^^^^^^^"
 `;
 
 exports[`snippet: #93 [typescript] format 1`] = `
@@ -1567,6 +2253,12 @@ exports[`snippet: #94 [babel-ts] format 1`] = `
 Cause: Unexpected token (1:0)"
 `;
 
+exports[`snippet: #94 [oxc-ts] format 1`] = `
+"Unexpected token (1:1)
+> 1 | default module Foo {}
+    | ^^^^^^^"
+`;
+
 exports[`snippet: #94 [typescript] format 1`] = `
 "'export' expected. (1:1)
 > 1 | default module Foo {}
@@ -1579,6 +2271,12 @@ exports[`snippet: #95 [babel-ts] format 1`] = `
 > 1 | default namespace Foo {}
     | ^
 Cause: Unexpected token (1:0)"
+`;
+
+exports[`snippet: #95 [oxc-ts] format 1`] = `
+"Unexpected token (1:1)
+> 1 | default namespace Foo {}
+    | ^^^^^^^"
 `;
 
 exports[`snippet: #95 [typescript] format 1`] = `
@@ -1595,6 +2293,12 @@ exports[`snippet: #96 [babel-ts] format 1`] = `
 Cause: Unexpected token (1:0)"
 `;
 
+exports[`snippet: #96 [oxc-ts] format 1`] = `
+"Unexpected token (1:1)
+> 1 | in module Foo {}
+    | ^^"
+`;
+
 exports[`snippet: #96 [typescript] format 1`] = `
 "Expression expected. (1:1)
 > 1 | in module Foo {}
@@ -1607,6 +2311,12 @@ exports[`snippet: #97 [babel-ts] format 1`] = `
 > 1 | in namespace Foo {}
     | ^
 Cause: Unexpected token (1:0)"
+`;
+
+exports[`snippet: #97 [oxc-ts] format 1`] = `
+"Unexpected token (1:1)
+> 1 | in namespace Foo {}
+    | ^^"
 `;
 
 exports[`snippet: #97 [typescript] format 1`] = `
@@ -1623,6 +2333,12 @@ exports[`snippet: #98 [babel-ts] format 1`] = `
 Cause: Missing semicolon. (1:3)"
 `;
 
+exports[`snippet: #98 [oxc-ts] format 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found none (1:4)
+> 1 | out module Foo {}
+    |    ^"
+`;
+
 exports[`snippet: #98 [typescript] format 1`] = `
 "Unexpected keyword or identifier. (1:1)
 > 1 | out module Foo {}
@@ -1635,6 +2351,12 @@ exports[`snippet: #99 [babel-ts] format 1`] = `
 > 1 | out namespace Foo {}
     |    ^
 Cause: Missing semicolon. (1:3)"
+`;
+
+exports[`snippet: #99 [oxc-ts] format 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found none (1:4)
+> 1 | out namespace Foo {}
+    |    ^"
 `;
 
 exports[`snippet: #99 [typescript] format 1`] = `
@@ -1651,6 +2373,12 @@ exports[`snippet: #100 [babel-ts] format 1`] = `
 Cause: Missing semicolon. (1:8)"
 `;
 
+exports[`snippet: #100 [oxc-ts] format 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found none (1:9)
+> 1 | override module Foo {}
+    |         ^"
+`;
+
 exports[`snippet: #100 [typescript] format 1`] = `
 "Unexpected keyword or identifier. (1:1)
 > 1 | override module Foo {}
@@ -1663,6 +2391,12 @@ exports[`snippet: #101 [babel-ts] format 1`] = `
 > 1 | override namespace Foo {}
     |         ^
 Cause: Missing semicolon. (1:8)"
+`;
+
+exports[`snippet: #101 [oxc-ts] format 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found none (1:9)
+> 1 | override namespace Foo {}
+    |         ^"
 `;
 
 exports[`snippet: #101 [typescript] format 1`] = `
@@ -1679,6 +2413,12 @@ exports[`snippet: #102 [babel-ts] format 1`] = `
 Cause: Missing semicolon. (1:7)"
 `;
 
+exports[`snippet: #102 [oxc-ts] format 1`] = `
+"'private' modifier cannot be used here. (1:1)
+> 1 | private module Foo {}
+    | ^^^^^^^"
+`;
+
 exports[`snippet: #102 [typescript] format 1`] = `
 "'private' modifier cannot appear on a module or namespace element. (1:1)
 > 1 | private module Foo {}
@@ -1691,6 +2431,12 @@ exports[`snippet: #103 [babel-ts] format 1`] = `
 > 1 | private namespace Foo {}
     |        ^
 Cause: Missing semicolon. (1:7)"
+`;
+
+exports[`snippet: #103 [oxc-ts] format 1`] = `
+"'private' modifier cannot be used here. (1:1)
+> 1 | private namespace Foo {}
+    | ^^^^^^^"
 `;
 
 exports[`snippet: #103 [typescript] format 1`] = `
@@ -1707,6 +2453,12 @@ exports[`snippet: #104 [babel-ts] format 1`] = `
 Cause: Missing semicolon. (1:9)"
 `;
 
+exports[`snippet: #104 [oxc-ts] format 1`] = `
+"'protected' modifier cannot be used here. (1:1)
+> 1 | protected module Foo {}
+    | ^^^^^^^^^"
+`;
+
 exports[`snippet: #104 [typescript] format 1`] = `
 "'protected' modifier cannot appear on a module or namespace element. (1:1)
 > 1 | protected module Foo {}
@@ -1719,6 +2471,12 @@ exports[`snippet: #105 [babel-ts] format 1`] = `
 > 1 | protected namespace Foo {}
     |          ^
 Cause: Missing semicolon. (1:9)"
+`;
+
+exports[`snippet: #105 [oxc-ts] format 1`] = `
+"'protected' modifier cannot be used here. (1:1)
+> 1 | protected namespace Foo {}
+    | ^^^^^^^^^"
 `;
 
 exports[`snippet: #105 [typescript] format 1`] = `
@@ -1735,6 +2493,12 @@ exports[`snippet: #106 [babel-ts] format 1`] = `
 Cause: Missing semicolon. (1:6)"
 `;
 
+exports[`snippet: #106 [oxc-ts] format 1`] = `
+"'public' modifier cannot be used here. (1:1)
+> 1 | public module Foo {}
+    | ^^^^^^"
+`;
+
 exports[`snippet: #106 [typescript] format 1`] = `
 "'public' modifier cannot appear on a module or namespace element. (1:1)
 > 1 | public module Foo {}
@@ -1747,6 +2511,12 @@ exports[`snippet: #107 [babel-ts] format 1`] = `
 > 1 | public namespace Foo {}
     |       ^
 Cause: Missing semicolon. (1:6)"
+`;
+
+exports[`snippet: #107 [oxc-ts] format 1`] = `
+"'public' modifier cannot be used here. (1:1)
+> 1 | public namespace Foo {}
+    | ^^^^^^"
 `;
 
 exports[`snippet: #107 [typescript] format 1`] = `
@@ -1763,6 +2533,12 @@ exports[`snippet: #108 [babel-ts] format 1`] = `
 Cause: Missing semicolon. (1:8)"
 `;
 
+exports[`snippet: #108 [oxc-ts] format 1`] = `
+"'readonly' modifier cannot be used here. (1:1)
+> 1 | readonly module Foo {}
+    | ^^^^^^^^"
+`;
+
 exports[`snippet: #108 [typescript] format 1`] = `
 "'readonly' modifier can only appear on a property declaration or index signature. (1:1)
 > 1 | readonly module Foo {}
@@ -1775,6 +2551,12 @@ exports[`snippet: #109 [babel-ts] format 1`] = `
 > 1 | readonly namespace Foo {}
     |         ^
 Cause: Missing semicolon. (1:8)"
+`;
+
+exports[`snippet: #109 [oxc-ts] format 1`] = `
+"'readonly' modifier cannot be used here. (1:1)
+> 1 | readonly namespace Foo {}
+    | ^^^^^^^^"
 `;
 
 exports[`snippet: #109 [typescript] format 1`] = `
@@ -1791,6 +2573,12 @@ exports[`snippet: #110 [babel-ts] format 1`] = `
 Cause: Missing semicolon. (1:6)"
 `;
 
+exports[`snippet: #110 [oxc-ts] format 1`] = `
+"'static' modifier cannot be used here. (1:1)
+> 1 | static module Foo {}
+    | ^^^^^^"
+`;
+
 exports[`snippet: #110 [typescript] format 1`] = `
 "'static' modifier cannot appear on a module or namespace element. (1:1)
 > 1 | static module Foo {}
@@ -1803,6 +2591,12 @@ exports[`snippet: #111 [babel-ts] format 1`] = `
 > 1 | static namespace Foo {}
     |       ^
 Cause: Missing semicolon. (1:6)"
+`;
+
+exports[`snippet: #111 [oxc-ts] format 1`] = `
+"'static' modifier cannot be used here. (1:1)
+> 1 | static namespace Foo {}
+    | ^^^^^^"
 `;
 
 exports[`snippet: #111 [typescript] format 1`] = `
@@ -1819,6 +2613,12 @@ exports[`snippet: #112 [babel-ts] format 1`] = `
 Cause: Unexpected token, expected "class" (1:9)"
 `;
 
+exports[`snippet: #112 [oxc-ts] format 1`] = `
+"'abstract' modifier cannot be used here. (1:1)
+> 1 | abstract enum Foo {}
+    | ^^^^^^^^"
+`;
+
 exports[`snippet: #112 [typescript] format 1`] = `
 "'abstract' modifier can only appear on a class, method, or property declaration. (1:1)
 > 1 | abstract enum Foo {}
@@ -1831,6 +2631,12 @@ exports[`snippet: #113 [babel-ts] format 1`] = `
 > 1 | accessor enum Foo {}
     |         ^
 Cause: Missing semicolon. (1:8)"
+`;
+
+exports[`snippet: #113 [oxc-ts] format 1`] = `
+"'accessor' modifier cannot be used here. (1:1)
+> 1 | accessor enum Foo {}
+    | ^^^^^^^^"
 `;
 
 exports[`snippet: #113 [typescript] format 1`] = `
@@ -1847,6 +2653,12 @@ exports[`snippet: #114 [babel-ts] format 1`] = `
 Cause: Missing semicolon. (1:5)"
 `;
 
+exports[`snippet: #114 [oxc-ts] format 1`] = `
+"'async' modifier cannot be used here. (1:1)
+> 1 | async enum Foo {}
+    | ^^^^^"
+`;
+
 exports[`snippet: #114 [typescript] format 1`] = `
 "'async' modifier cannot be used here. (1:1)
 > 1 | async enum Foo {}
@@ -1859,6 +2671,12 @@ exports[`snippet: #115 [babel-ts] format 1`] = `
 > 1 | default enum Foo {}
     | ^
 Cause: Unexpected token (1:0)"
+`;
+
+exports[`snippet: #115 [oxc-ts] format 1`] = `
+"Unexpected token (1:1)
+> 1 | default enum Foo {}
+    | ^^^^^^^"
 `;
 
 exports[`snippet: #115 [typescript] format 1`] = `
@@ -1875,6 +2693,12 @@ exports[`snippet: #116 [babel-ts] format 1`] = `
 Cause: Unexpected token (1:0)"
 `;
 
+exports[`snippet: #116 [oxc-ts] format 1`] = `
+"Unexpected token (1:1)
+> 1 | in enum Foo {}
+    | ^^"
+`;
+
 exports[`snippet: #116 [typescript] format 1`] = `
 "Expression expected. (1:1)
 > 1 | in enum Foo {}
@@ -1887,6 +2711,12 @@ exports[`snippet: #117 [babel-ts] format 1`] = `
 > 1 | out enum Foo {}
     |    ^
 Cause: Missing semicolon. (1:3)"
+`;
+
+exports[`snippet: #117 [oxc-ts] format 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found none (1:4)
+> 1 | out enum Foo {}
+    |    ^"
 `;
 
 exports[`snippet: #117 [typescript] format 1`] = `
@@ -1903,6 +2733,12 @@ exports[`snippet: #118 [babel-ts] format 1`] = `
 Cause: Missing semicolon. (1:8)"
 `;
 
+exports[`snippet: #118 [oxc-ts] format 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found none (1:9)
+> 1 | override enum Foo {}
+    |         ^"
+`;
+
 exports[`snippet: #118 [typescript] format 1`] = `
 "Unexpected keyword or identifier. (1:1)
 > 1 | override enum Foo {}
@@ -1915,6 +2751,12 @@ exports[`snippet: #119 [babel-ts] format 1`] = `
 > 1 | private enum Foo {}
     |        ^
 Cause: Missing semicolon. (1:7)"
+`;
+
+exports[`snippet: #119 [oxc-ts] format 1`] = `
+"'private' modifier cannot be used here. (1:1)
+> 1 | private enum Foo {}
+    | ^^^^^^^"
 `;
 
 exports[`snippet: #119 [typescript] format 1`] = `
@@ -1931,6 +2773,12 @@ exports[`snippet: #120 [babel-ts] format 1`] = `
 Cause: Missing semicolon. (1:9)"
 `;
 
+exports[`snippet: #120 [oxc-ts] format 1`] = `
+"'protected' modifier cannot be used here. (1:1)
+> 1 | protected enum Foo {}
+    | ^^^^^^^^^"
+`;
+
 exports[`snippet: #120 [typescript] format 1`] = `
 "'protected' modifier cannot appear on a module or namespace element. (1:1)
 > 1 | protected enum Foo {}
@@ -1943,6 +2791,12 @@ exports[`snippet: #121 [babel-ts] format 1`] = `
 > 1 | public enum Foo {}
     |       ^
 Cause: Missing semicolon. (1:6)"
+`;
+
+exports[`snippet: #121 [oxc-ts] format 1`] = `
+"'public' modifier cannot be used here. (1:1)
+> 1 | public enum Foo {}
+    | ^^^^^^"
 `;
 
 exports[`snippet: #121 [typescript] format 1`] = `
@@ -1959,6 +2813,12 @@ exports[`snippet: #122 [babel-ts] format 1`] = `
 Cause: Missing semicolon. (1:8)"
 `;
 
+exports[`snippet: #122 [oxc-ts] format 1`] = `
+"'readonly' modifier cannot be used here. (1:1)
+> 1 | readonly enum Foo {}
+    | ^^^^^^^^"
+`;
+
 exports[`snippet: #122 [typescript] format 1`] = `
 "'readonly' modifier can only appear on a property declaration or index signature. (1:1)
 > 1 | readonly enum Foo {}
@@ -1971,6 +2831,12 @@ exports[`snippet: #123 [babel-ts] format 1`] = `
 > 1 | static enum Foo {}
     |       ^
 Cause: Missing semicolon. (1:6)"
+`;
+
+exports[`snippet: #123 [oxc-ts] format 1`] = `
+"'static' modifier cannot be used here. (1:1)
+> 1 | static enum Foo {}
+    | ^^^^^^"
 `;
 
 exports[`snippet: #123 [typescript] format 1`] = `
@@ -1987,6 +2853,12 @@ exports[`snippet: #124 [babel-ts] format 1`] = `
 Cause: Unexpected token, expected "," (1:22)"
 `;
 
+exports[`snippet: #124 [oxc-ts] format 1`] = `
+"'abstract' modifier cannot appear on a parameter. (1:14)
+> 1 | function foo(abstract parameter) {}
+    |              ^^^^^^^^"
+`;
+
 exports[`snippet: #124 [typescript] format 1`] = `
 "'abstract' modifier can only appear on a class, method, or property declaration. (1:14)
 > 1 | function foo(abstract parameter) {}
@@ -1999,6 +2871,12 @@ exports[`snippet: #125 [babel-ts] format 1`] = `
 > 1 | class Foo { method(abstract parameter) {} }
     |                             ^
 Cause: Unexpected token, expected "," (1:28)"
+`;
+
+exports[`snippet: #125 [oxc-ts] format 1`] = `
+"'abstract' modifier cannot appear on a parameter. (1:20)
+> 1 | class Foo { method(abstract parameter) {} }
+    |                    ^^^^^^^^"
 `;
 
 exports[`snippet: #125 [typescript] format 1`] = `
@@ -2015,6 +2893,12 @@ exports[`snippet: #126 [babel-ts] format 1`] = `
 Cause: Unexpected token, expected "," (1:22)"
 `;
 
+exports[`snippet: #126 [oxc-ts] format 1`] = `
+"'accessor' modifier cannot appear on a parameter. (1:14)
+> 1 | function foo(accessor parameter) {}
+    |              ^^^^^^^^"
+`;
+
 exports[`snippet: #126 [typescript] format 1`] = `
 "'accessor' modifier can only appear on a property declaration. (1:14)
 > 1 | function foo(accessor parameter) {}
@@ -2027,6 +2911,12 @@ exports[`snippet: #127 [babel-ts] format 1`] = `
 > 1 | class Foo { method(accessor parameter) {} }
     |                             ^
 Cause: Unexpected token, expected "," (1:28)"
+`;
+
+exports[`snippet: #127 [oxc-ts] format 1`] = `
+"'accessor' modifier cannot appear on a parameter. (1:20)
+> 1 | class Foo { method(accessor parameter) {} }
+    |                    ^^^^^^^^"
 `;
 
 exports[`snippet: #127 [typescript] format 1`] = `
@@ -2043,6 +2933,12 @@ exports[`snippet: #128 [babel-ts] format 1`] = `
 Cause: Unexpected token, expected "," (1:19)"
 `;
 
+exports[`snippet: #128 [oxc-ts] format 1`] = `
+"'async' modifier cannot appear on a parameter. (1:14)
+> 1 | function foo(async parameter) {}
+    |              ^^^^^"
+`;
+
 exports[`snippet: #128 [typescript] format 1`] = `
 "'async' modifier cannot be used here. (1:14)
 > 1 | function foo(async parameter) {}
@@ -2055,6 +2951,12 @@ exports[`snippet: #129 [babel-ts] format 1`] = `
 > 1 | class Foo { method(async parameter) {} }
     |                          ^
 Cause: Unexpected token, expected "," (1:25)"
+`;
+
+exports[`snippet: #129 [oxc-ts] format 1`] = `
+"'async' modifier cannot appear on a parameter. (1:20)
+> 1 | class Foo { method(async parameter) {} }
+    |                    ^^^^^"
 `;
 
 exports[`snippet: #129 [typescript] format 1`] = `
@@ -2071,6 +2973,12 @@ exports[`snippet: #130 [babel-ts] format 1`] = `
 Cause: Unexpected token, expected "," (1:19)"
 `;
 
+exports[`snippet: #130 [oxc-ts] format 1`] = `
+"Identifier expected. 'const' is a reserved word that cannot be used here. (1:14)
+> 1 | function foo(const parameter) {}
+    |              ^^^^^"
+`;
+
 exports[`snippet: #130 [typescript] format 1`] = `
 "Identifier expected. 'const' is a reserved word that cannot be used here. (1:14)
 > 1 | function foo(const parameter) {}
@@ -2083,6 +2991,12 @@ exports[`snippet: #131 [babel-ts] format 1`] = `
 > 1 | class Foo { method(const parameter) {} }
     |                          ^
 Cause: Unexpected token, expected "," (1:25)"
+`;
+
+exports[`snippet: #131 [oxc-ts] format 1`] = `
+"Identifier expected. 'const' is a reserved word that cannot be used here. (1:20)
+> 1 | class Foo { method(const parameter) {} }
+    |                    ^^^^^"
 `;
 
 exports[`snippet: #131 [typescript] format 1`] = `
@@ -2099,6 +3013,12 @@ exports[`snippet: #132 [babel-ts] format 1`] = `
 Cause: Unexpected token, expected "," (1:21)"
 `;
 
+exports[`snippet: #132 [oxc-ts] format 1`] = `
+"'declare' modifier cannot appear on a parameter. (1:14)
+> 1 | function foo(declare parameter) {}
+    |              ^^^^^^^"
+`;
+
 exports[`snippet: #132 [typescript] format 1`] = `
 "'declare' modifier cannot appear on a parameter. (1:14)
 > 1 | function foo(declare parameter) {}
@@ -2111,6 +3031,12 @@ exports[`snippet: #133 [babel-ts] format 1`] = `
 > 1 | class Foo { method(declare parameter) {} }
     |                            ^
 Cause: Unexpected token, expected "," (1:27)"
+`;
+
+exports[`snippet: #133 [oxc-ts] format 1`] = `
+"'declare' modifier cannot appear on a parameter. (1:20)
+> 1 | class Foo { method(declare parameter) {} }
+    |                    ^^^^^^^"
 `;
 
 exports[`snippet: #133 [typescript] format 1`] = `
@@ -2127,6 +3053,12 @@ exports[`snippet: #134 [babel-ts] format 1`] = `
 Cause: Unexpected token, expected "," (1:21)"
 `;
 
+exports[`snippet: #134 [oxc-ts] format 1`] = `
+"'default' modifier cannot appear on a parameter. (1:14)
+> 1 | function foo(default parameter) {}
+    |              ^^^^^^^"
+`;
+
 exports[`snippet: #134 [typescript] format 1`] = `
 "Identifier expected. 'default' is a reserved word that cannot be used here. (1:14)
 > 1 | function foo(default parameter) {}
@@ -2139,6 +3071,12 @@ exports[`snippet: #135 [babel-ts] format 1`] = `
 > 1 | class Foo { method(default parameter) {} }
     |                            ^
 Cause: Unexpected token, expected "," (1:27)"
+`;
+
+exports[`snippet: #135 [oxc-ts] format 1`] = `
+"'default' modifier cannot appear on a parameter. (1:20)
+> 1 | class Foo { method(default parameter) {} }
+    |                    ^^^^^^^"
 `;
 
 exports[`snippet: #135 [typescript] format 1`] = `
@@ -2155,6 +3093,12 @@ exports[`snippet: #136 [babel-ts] format 1`] = `
 Cause: Unexpected token, expected "," (1:20)"
 `;
 
+exports[`snippet: #136 [oxc-ts] format 1`] = `
+"'export' modifier cannot appear on a parameter. (1:14)
+> 1 | function foo(export parameter) {}
+    |              ^^^^^^"
+`;
+
 exports[`snippet: #136 [typescript] format 1`] = `
 "'export' modifier cannot appear on a parameter. (1:14)
 > 1 | function foo(export parameter) {}
@@ -2167,6 +3111,12 @@ exports[`snippet: #137 [babel-ts] format 1`] = `
 > 1 | class Foo { method(export parameter) {} }
     |                           ^
 Cause: Unexpected token, expected "," (1:26)"
+`;
+
+exports[`snippet: #137 [oxc-ts] format 1`] = `
+"'export' modifier cannot appear on a parameter. (1:20)
+> 1 | class Foo { method(export parameter) {} }
+    |                    ^^^^^^"
 `;
 
 exports[`snippet: #137 [typescript] format 1`] = `
@@ -2183,6 +3133,12 @@ exports[`snippet: #138 [babel-ts] format 1`] = `
 Cause: Unexpected token, expected "," (1:16)"
 `;
 
+exports[`snippet: #138 [oxc-ts] format 1`] = `
+"'in' modifier cannot appear on a parameter. (1:14)
+> 1 | function foo(in parameter) {}
+    |              ^^"
+`;
+
 exports[`snippet: #138 [typescript] format 1`] = `
 "'in' modifier can only appear on a type parameter of a class, interface or type alias (1:14)
 > 1 | function foo(in parameter) {}
@@ -2195,6 +3151,12 @@ exports[`snippet: #139 [babel-ts] format 1`] = `
 > 1 | class Foo { method(in parameter) {} }
     |                       ^
 Cause: Unexpected token, expected "," (1:22)"
+`;
+
+exports[`snippet: #139 [oxc-ts] format 1`] = `
+"'in' modifier cannot appear on a parameter. (1:20)
+> 1 | class Foo { method(in parameter) {} }
+    |                    ^^"
 `;
 
 exports[`snippet: #139 [typescript] format 1`] = `
@@ -2211,6 +3173,12 @@ exports[`snippet: #140 [babel-ts] format 1`] = `
 Cause: Unexpected token, expected "," (1:17)"
 `;
 
+exports[`snippet: #140 [oxc-ts] format 1`] = `
+"'out' modifier cannot appear on a parameter. (1:14)
+> 1 | function foo(out parameter) {}
+    |              ^^^"
+`;
+
 exports[`snippet: #140 [typescript] format 1`] = `
 "'out' modifier can only appear on a type parameter of a class, interface or type alias (1:14)
 > 1 | function foo(out parameter) {}
@@ -2223,6 +3191,12 @@ exports[`snippet: #141 [babel-ts] format 1`] = `
 > 1 | class Foo { method(out parameter) {} }
     |                        ^
 Cause: Unexpected token, expected "," (1:23)"
+`;
+
+exports[`snippet: #141 [oxc-ts] format 1`] = `
+"'out' modifier cannot appear on a parameter. (1:20)
+> 1 | class Foo { method(out parameter) {} }
+    |                    ^^^"
 `;
 
 exports[`snippet: #141 [typescript] format 1`] = `
@@ -2239,6 +3213,12 @@ exports[`snippet: #142 [babel-ts] format 1`] = `
 Cause: A parameter property is only allowed in a constructor implementation. (1:13)"
 `;
 
+exports[`snippet: #142 [oxc-ts] format 1`] = `
+"'override' modifier cannot appear on a parameter. (1:14)
+> 1 | function foo(override parameter) {}
+    |              ^^^^^^^^"
+`;
+
 exports[`snippet: #142 [typescript] format 1`] = `
 "A parameter property is only allowed in a constructor implementation. (1:14)
 > 1 | function foo(override parameter) {}
@@ -2251,6 +3231,12 @@ exports[`snippet: #143 [babel-ts] format 1`] = `
 > 1 | class Foo { method(override parameter) {} }
     |                    ^
 Cause: A parameter property is only allowed in a constructor implementation. (1:19)"
+`;
+
+exports[`snippet: #143 [oxc-ts] format 1`] = `
+"'override' modifier cannot appear on a parameter. (1:20)
+> 1 | class Foo { method(override parameter) {} }
+    |                    ^^^^^^^^"
 `;
 
 exports[`snippet: #143 [typescript] format 1`] = `
@@ -2267,6 +3253,12 @@ exports[`snippet: #144 [babel-ts] format 1`] = `
 Cause: A parameter property is only allowed in a constructor implementation. (1:13)"
 `;
 
+exports[`snippet: #144 [oxc-ts] format 1`] = `
+"'private' modifier cannot appear on a parameter. (1:14)
+> 1 | function foo(private parameter) {}
+    |              ^^^^^^^"
+`;
+
 exports[`snippet: #144 [typescript] format 1`] = `
 "A parameter property is only allowed in a constructor implementation. (1:14)
 > 1 | function foo(private parameter) {}
@@ -2279,6 +3271,12 @@ exports[`snippet: #145 [babel-ts] format 1`] = `
 > 1 | class Foo { method(private parameter) {} }
     |                    ^
 Cause: A parameter property is only allowed in a constructor implementation. (1:19)"
+`;
+
+exports[`snippet: #145 [oxc-ts] format 1`] = `
+"'private' modifier cannot appear on a parameter. (1:20)
+> 1 | class Foo { method(private parameter) {} }
+    |                    ^^^^^^^"
 `;
 
 exports[`snippet: #145 [typescript] format 1`] = `
@@ -2295,6 +3293,12 @@ exports[`snippet: #146 [babel-ts] format 1`] = `
 Cause: A parameter property is only allowed in a constructor implementation. (1:13)"
 `;
 
+exports[`snippet: #146 [oxc-ts] format 1`] = `
+"'protected' modifier cannot appear on a parameter. (1:14)
+> 1 | function foo(protected parameter) {}
+    |              ^^^^^^^^^"
+`;
+
 exports[`snippet: #146 [typescript] format 1`] = `
 "A parameter property is only allowed in a constructor implementation. (1:14)
 > 1 | function foo(protected parameter) {}
@@ -2307,6 +3311,12 @@ exports[`snippet: #147 [babel-ts] format 1`] = `
 > 1 | class Foo { method(protected parameter) {} }
     |                    ^
 Cause: A parameter property is only allowed in a constructor implementation. (1:19)"
+`;
+
+exports[`snippet: #147 [oxc-ts] format 1`] = `
+"'protected' modifier cannot appear on a parameter. (1:20)
+> 1 | class Foo { method(protected parameter) {} }
+    |                    ^^^^^^^^^"
 `;
 
 exports[`snippet: #147 [typescript] format 1`] = `
@@ -2323,6 +3333,12 @@ exports[`snippet: #148 [babel-ts] format 1`] = `
 Cause: A parameter property is only allowed in a constructor implementation. (1:13)"
 `;
 
+exports[`snippet: #148 [oxc-ts] format 1`] = `
+"'public' modifier cannot appear on a parameter. (1:14)
+> 1 | function foo(public parameter) {}
+    |              ^^^^^^"
+`;
+
 exports[`snippet: #148 [typescript] format 1`] = `
 "A parameter property is only allowed in a constructor implementation. (1:14)
 > 1 | function foo(public parameter) {}
@@ -2335,6 +3351,12 @@ exports[`snippet: #149 [babel-ts] format 1`] = `
 > 1 | class Foo { method(public parameter) {} }
     |                    ^
 Cause: A parameter property is only allowed in a constructor implementation. (1:19)"
+`;
+
+exports[`snippet: #149 [oxc-ts] format 1`] = `
+"'public' modifier cannot appear on a parameter. (1:20)
+> 1 | class Foo { method(public parameter) {} }
+    |                    ^^^^^^"
 `;
 
 exports[`snippet: #149 [typescript] format 1`] = `
@@ -2351,6 +3373,12 @@ exports[`snippet: #150 [babel-ts] format 1`] = `
 Cause: A parameter property is only allowed in a constructor implementation. (1:13)"
 `;
 
+exports[`snippet: #150 [oxc-ts] format 1`] = `
+"'readonly' modifier cannot appear on a parameter. (1:14)
+> 1 | function foo(readonly parameter) {}
+    |              ^^^^^^^^"
+`;
+
 exports[`snippet: #150 [typescript] format 1`] = `
 "A parameter property is only allowed in a constructor implementation. (1:14)
 > 1 | function foo(readonly parameter) {}
@@ -2363,6 +3391,12 @@ exports[`snippet: #151 [babel-ts] format 1`] = `
 > 1 | class Foo { method(readonly parameter) {} }
     |                    ^
 Cause: A parameter property is only allowed in a constructor implementation. (1:19)"
+`;
+
+exports[`snippet: #151 [oxc-ts] format 1`] = `
+"'readonly' modifier cannot appear on a parameter. (1:20)
+> 1 | class Foo { method(readonly parameter) {} }
+    |                    ^^^^^^^^"
 `;
 
 exports[`snippet: #151 [typescript] format 1`] = `
@@ -2379,6 +3413,12 @@ exports[`snippet: #152 [babel-ts] format 1`] = `
 Cause: Unexpected token, expected "," (1:20)"
 `;
 
+exports[`snippet: #152 [oxc-ts] format 1`] = `
+"'static' modifier cannot appear on a parameter. (1:14)
+> 1 | function foo(static parameter) {}
+    |              ^^^^^^"
+`;
+
 exports[`snippet: #152 [typescript] format 1`] = `
 "'static' modifier cannot appear on a parameter. (1:14)
 > 1 | function foo(static parameter) {}
@@ -2391,6 +3431,12 @@ exports[`snippet: #153 [babel-ts] format 1`] = `
 > 1 | class Foo { method(static parameter) {} }
     |                           ^
 Cause: Unexpected token, expected "," (1:26)"
+`;
+
+exports[`snippet: #153 [oxc-ts] format 1`] = `
+"'static' modifier cannot appear on a parameter. (1:20)
+> 1 | class Foo { method(static parameter) {} }
+    |                    ^^^^^^"
 `;
 
 exports[`snippet: #153 [typescript] format 1`] = `
@@ -2407,6 +3453,12 @@ exports[`snippet: #154 [babel-ts] format 1`] = `
 Cause: Unexpected token, expected "," (1:33)"
 `;
 
+exports[`snippet: #154 [oxc-ts] format 1`] = `
+"'abstract' modifier cannot appear on a parameter. (1:25)
+> 1 | class Foo { constructor(abstract parameter) {} }
+    |                         ^^^^^^^^"
+`;
+
 exports[`snippet: #154 [typescript] format 1`] = `
 "'abstract' modifier can only appear on a class, method, or property declaration. (1:25)
 > 1 | class Foo { constructor(abstract parameter) {} }
@@ -2419,6 +3471,12 @@ exports[`snippet: #155 [babel-ts] format 1`] = `
 > 1 | class Foo { constructor(accessor parameter) {} }
     |                                  ^
 Cause: Unexpected token, expected "," (1:33)"
+`;
+
+exports[`snippet: #155 [oxc-ts] format 1`] = `
+"'accessor' modifier cannot appear on a parameter. (1:25)
+> 1 | class Foo { constructor(accessor parameter) {} }
+    |                         ^^^^^^^^"
 `;
 
 exports[`snippet: #155 [typescript] format 1`] = `
@@ -2435,6 +3493,12 @@ exports[`snippet: #156 [babel-ts] format 1`] = `
 Cause: Unexpected token, expected "," (1:30)"
 `;
 
+exports[`snippet: #156 [oxc-ts] format 1`] = `
+"'async' modifier cannot appear on a parameter. (1:25)
+> 1 | class Foo { constructor(async parameter) {} }
+    |                         ^^^^^"
+`;
+
 exports[`snippet: #156 [typescript] format 1`] = `
 "'async' modifier cannot be used here. (1:25)
 > 1 | class Foo { constructor(async parameter) {} }
@@ -2447,6 +3511,12 @@ exports[`snippet: #157 [babel-ts] format 1`] = `
 > 1 | class Foo { constructor(const parameter) {} }
     |                               ^
 Cause: Unexpected token, expected "," (1:30)"
+`;
+
+exports[`snippet: #157 [oxc-ts] format 1`] = `
+"Identifier expected. 'const' is a reserved word that cannot be used here. (1:25)
+> 1 | class Foo { constructor(const parameter) {} }
+    |                         ^^^^^"
 `;
 
 exports[`snippet: #157 [typescript] format 1`] = `
@@ -2463,6 +3533,12 @@ exports[`snippet: #158 [babel-ts] format 1`] = `
 Cause: Unexpected token, expected "," (1:32)"
 `;
 
+exports[`snippet: #158 [oxc-ts] format 1`] = `
+"'declare' modifier cannot appear on a parameter. (1:25)
+> 1 | class Foo { constructor(declare parameter) {} }
+    |                         ^^^^^^^"
+`;
+
 exports[`snippet: #158 [typescript] format 1`] = `
 "'declare' modifier cannot appear on a parameter. (1:25)
 > 1 | class Foo { constructor(declare parameter) {} }
@@ -2475,6 +3551,12 @@ exports[`snippet: #159 [babel-ts] format 1`] = `
 > 1 | class Foo { constructor(default parameter) {} }
     |                                 ^
 Cause: Unexpected token, expected "," (1:32)"
+`;
+
+exports[`snippet: #159 [oxc-ts] format 1`] = `
+"'default' modifier cannot appear on a parameter. (1:25)
+> 1 | class Foo { constructor(default parameter) {} }
+    |                         ^^^^^^^"
 `;
 
 exports[`snippet: #159 [typescript] format 1`] = `
@@ -2491,6 +3573,12 @@ exports[`snippet: #160 [babel-ts] format 1`] = `
 Cause: Unexpected token, expected "," (1:31)"
 `;
 
+exports[`snippet: #160 [oxc-ts] format 1`] = `
+"'export' modifier cannot appear on a parameter. (1:25)
+> 1 | class Foo { constructor(export parameter) {} }
+    |                         ^^^^^^"
+`;
+
 exports[`snippet: #160 [typescript] format 1`] = `
 "'export' modifier cannot appear on a parameter. (1:25)
 > 1 | class Foo { constructor(export parameter) {} }
@@ -2503,6 +3591,12 @@ exports[`snippet: #161 [babel-ts] format 1`] = `
 > 1 | class Foo { constructor(in parameter) {} }
     |                            ^
 Cause: Unexpected token, expected "," (1:27)"
+`;
+
+exports[`snippet: #161 [oxc-ts] format 1`] = `
+"'in' modifier cannot appear on a parameter. (1:25)
+> 1 | class Foo { constructor(in parameter) {} }
+    |                         ^^"
 `;
 
 exports[`snippet: #161 [typescript] format 1`] = `
@@ -2519,6 +3613,12 @@ exports[`snippet: #162 [babel-ts] format 1`] = `
 Cause: Unexpected token, expected "," (1:28)"
 `;
 
+exports[`snippet: #162 [oxc-ts] format 1`] = `
+"'out' modifier cannot appear on a parameter. (1:25)
+> 1 | class Foo { constructor(out parameter) {} }
+    |                         ^^^"
+`;
+
 exports[`snippet: #162 [typescript] format 1`] = `
 "'out' modifier can only appear on a type parameter of a class, interface or type alias (1:25)
 > 1 | class Foo { constructor(out parameter) {} }
@@ -2531,6 +3631,12 @@ exports[`snippet: #163 [babel-ts] format 1`] = `
 > 1 | class Foo { constructor(static parameter) {} }
     |                                ^
 Cause: Unexpected token, expected "," (1:31)"
+`;
+
+exports[`snippet: #163 [oxc-ts] format 1`] = `
+"'static' modifier cannot appear on a parameter. (1:25)
+> 1 | class Foo { constructor(static parameter) {} }
+    |                         ^^^^^^"
 `;
 
 exports[`snippet: #163 [typescript] format 1`] = `
@@ -2547,6 +3653,12 @@ exports[`snippet: #164 [babel-ts] format 1`] = `
 Cause: A parameter property is only allowed in a constructor implementation. (1:27)"
 `;
 
+exports[`snippet: #164 [oxc-ts] format 1`] = `
+"'private' modifier cannot appear on a parameter. (1:28)
+> 1 | class Foo {["constructor"](private parameter) {}}
+    |                            ^^^^^^^"
+`;
+
 exports[`snippet: #164 [typescript] format 1`] = `
 "A parameter property is only allowed in a constructor implementation. (1:28)
 > 1 | class Foo {["constructor"](private parameter) {}}
@@ -2559,6 +3671,12 @@ exports[`snippet: #165 [babel-ts] format 1`] = `
 > 1 | class Foo {['constructor'](private parameter) {}}
     |                            ^
 Cause: A parameter property is only allowed in a constructor implementation. (1:27)"
+`;
+
+exports[`snippet: #165 [oxc-ts] format 1`] = `
+"'private' modifier cannot appear on a parameter. (1:28)
+> 1 | class Foo {['constructor'](private parameter) {}}
+    |                            ^^^^^^^"
 `;
 
 exports[`snippet: #165 [typescript] format 1`] = `
@@ -2575,6 +3693,12 @@ exports[`snippet: #166 [babel-ts] format 1`] = `
 Cause: A parameter property is only allowed in a constructor implementation. (1:27)"
 `;
 
+exports[`snippet: #166 [oxc-ts] format 1`] = `
+"'private' modifier cannot appear on a parameter. (1:28)
+> 1 | class Foo {[\`constructor\`](private parameter) {}}
+    |                            ^^^^^^^"
+`;
+
 exports[`snippet: #166 [typescript] format 1`] = `
 "A parameter property is only allowed in a constructor implementation. (1:28)
 > 1 | class Foo {[\`constructor\`](private parameter) {}}
@@ -2587,6 +3711,12 @@ exports[`snippet: #167 [babel-ts] format 1`] = `
 > 1 | class Foo {['const' + 'ructor'](private parameter) {}}
     |                                 ^
 Cause: A parameter property is only allowed in a constructor implementation. (1:32)"
+`;
+
+exports[`snippet: #167 [oxc-ts] format 1`] = `
+"'private' modifier cannot appear on a parameter. (1:33)
+> 1 | class Foo {['const' + 'ructor'](private parameter) {}}
+    |                                 ^^^^^^^"
 `;
 
 exports[`snippet: #167 [typescript] format 1`] = `
@@ -2603,6 +3733,12 @@ exports[`snippet: #168 [babel-ts] format 1`] = `
 Cause: 'abstract' modifier cannot appear on a type member. (1:12)"
 `;
 
+exports[`snippet: #168 [oxc-ts] format 1`] = `
+"'abstract' modifier cannot appear on a type member. (1:13)
+> 1 | type Foo = {abstract bar};
+    |             ^^^^^^^^"
+`;
+
 exports[`snippet: #168 [typescript] format 1`] = `
 "'abstract' modifier cannot appear on a type member (1:13)
 > 1 | type Foo = {abstract bar};
@@ -2615,6 +3751,12 @@ exports[`snippet: #169 [babel-ts] format 1`] = `
 > 1 | type Foo = {accessor bar};
     |                      ^
 Cause: Unexpected token, expected ";" (1:21)"
+`;
+
+exports[`snippet: #169 [oxc-ts] format 1`] = `
+"'accessor' modifier cannot appear on a type member. (1:13)
+> 1 | type Foo = {accessor bar};
+    |             ^^^^^^^^"
 `;
 
 exports[`snippet: #169 [typescript] format 1`] = `
@@ -2631,6 +3773,12 @@ exports[`snippet: #170 [babel-ts] format 1`] = `
 Cause: Unexpected token, expected ";" (1:18)"
 `;
 
+exports[`snippet: #170 [oxc-ts] format 1`] = `
+"'async' modifier cannot appear on a type member. (1:13)
+> 1 | type Foo = {async bar};
+    |             ^^^^^"
+`;
+
 exports[`snippet: #170 [typescript] format 1`] = `
 "'async' modifier cannot appear on a type member (1:13)
 > 1 | type Foo = {async bar};
@@ -2643,6 +3791,12 @@ exports[`snippet: #171 [babel-ts] format 1`] = `
 > 1 | type Foo = {const bar};
     |                   ^
 Cause: Unexpected token, expected ";" (1:18)"
+`;
+
+exports[`snippet: #171 [oxc-ts] format 1`] = `
+"'const' modifier cannot appear on a type member. (1:13)
+> 1 | type Foo = {const bar};
+    |             ^^^^^"
 `;
 
 exports[`snippet: #171 [typescript] format 1`] = `
@@ -2659,6 +3813,12 @@ exports[`snippet: #172 [babel-ts] format 1`] = `
 Cause: 'declare' modifier cannot appear on a type member. (1:12)"
 `;
 
+exports[`snippet: #172 [oxc-ts] format 1`] = `
+"'declare' modifier cannot appear on a type member. (1:13)
+> 1 | type Foo = {declare bar};
+    |             ^^^^^^^"
+`;
+
 exports[`snippet: #172 [typescript] format 1`] = `
 "'declare' modifier cannot appear on a type member (1:13)
 > 1 | type Foo = {declare bar};
@@ -2671,6 +3831,12 @@ exports[`snippet: #173 [babel-ts] format 1`] = `
 > 1 | type Foo = {default bar};
     |                     ^
 Cause: Unexpected token, expected ";" (1:20)"
+`;
+
+exports[`snippet: #173 [oxc-ts] format 1`] = `
+"'default' modifier cannot appear on a type member. (1:13)
+> 1 | type Foo = {default bar};
+    |             ^^^^^^^"
 `;
 
 exports[`snippet: #173 [typescript] format 1`] = `
@@ -2687,6 +3853,12 @@ exports[`snippet: #174 [babel-ts] format 1`] = `
 Cause: Unexpected token, expected ";" (1:19)"
 `;
 
+exports[`snippet: #174 [oxc-ts] format 1`] = `
+"'export' modifier cannot appear on a type member. (1:13)
+> 1 | type Foo = {export bar};
+    |             ^^^^^^"
+`;
+
 exports[`snippet: #174 [typescript] format 1`] = `
 "'export' modifier cannot appear on a type member (1:13)
 > 1 | type Foo = {export bar};
@@ -2699,6 +3871,12 @@ exports[`snippet: #175 [babel-ts] format 1`] = `
 > 1 | type Foo = {in bar};
     |                ^
 Cause: Unexpected token, expected ";" (1:15)"
+`;
+
+exports[`snippet: #175 [oxc-ts] format 1`] = `
+"'in' modifier cannot appear on a type member. (1:13)
+> 1 | type Foo = {in bar};
+    |             ^^"
 `;
 
 exports[`snippet: #175 [typescript] format 1`] = `
@@ -2715,6 +3893,12 @@ exports[`snippet: #176 [babel-ts] format 1`] = `
 Cause: Unexpected token, expected ";" (1:16)"
 `;
 
+exports[`snippet: #176 [oxc-ts] format 1`] = `
+"'out' modifier cannot appear on a type member. (1:13)
+> 1 | type Foo = {out bar};
+    |             ^^^"
+`;
+
 exports[`snippet: #176 [typescript] format 1`] = `
 "'out' modifier cannot appear on a type member (1:13)
 > 1 | type Foo = {out bar};
@@ -2727,6 +3911,12 @@ exports[`snippet: #177 [babel-ts] format 1`] = `
 > 1 | type Foo = {override bar};
     |             ^
 Cause: 'override' modifier cannot appear on a type member. (1:12)"
+`;
+
+exports[`snippet: #177 [oxc-ts] format 1`] = `
+"'override' modifier cannot appear on a type member. (1:13)
+> 1 | type Foo = {override bar};
+    |             ^^^^^^^^"
 `;
 
 exports[`snippet: #177 [typescript] format 1`] = `
@@ -2743,6 +3933,12 @@ exports[`snippet: #178 [babel-ts] format 1`] = `
 Cause: 'private' modifier cannot appear on a type member. (1:12)"
 `;
 
+exports[`snippet: #178 [oxc-ts] format 1`] = `
+"'private' modifier cannot appear on a type member. (1:13)
+> 1 | type Foo = {private bar};
+    |             ^^^^^^^"
+`;
+
 exports[`snippet: #178 [typescript] format 1`] = `
 "'private' modifier cannot appear on a type member (1:13)
 > 1 | type Foo = {private bar};
@@ -2755,6 +3951,12 @@ exports[`snippet: #179 [babel-ts] format 1`] = `
 > 1 | type Foo = {protected bar};
     |             ^
 Cause: 'protected' modifier cannot appear on a type member. (1:12)"
+`;
+
+exports[`snippet: #179 [oxc-ts] format 1`] = `
+"'protected' modifier cannot appear on a type member. (1:13)
+> 1 | type Foo = {protected bar};
+    |             ^^^^^^^^^"
 `;
 
 exports[`snippet: #179 [typescript] format 1`] = `
@@ -2771,6 +3973,12 @@ exports[`snippet: #180 [babel-ts] format 1`] = `
 Cause: 'public' modifier cannot appear on a type member. (1:12)"
 `;
 
+exports[`snippet: #180 [oxc-ts] format 1`] = `
+"'public' modifier cannot appear on a type member. (1:13)
+> 1 | type Foo = {public bar};
+    |             ^^^^^^"
+`;
+
 exports[`snippet: #180 [typescript] format 1`] = `
 "'public' modifier cannot appear on a type member (1:13)
 > 1 | type Foo = {public bar};
@@ -2783,6 +3991,12 @@ exports[`snippet: #181 [babel-ts] format 1`] = `
 > 1 | type Foo = {static bar};
     |             ^
 Cause: 'static' modifier cannot appear on a type member. (1:12)"
+`;
+
+exports[`snippet: #181 [oxc-ts] format 1`] = `
+"'static' modifier cannot appear on a type member. (1:13)
+> 1 | type Foo = {static bar};
+    |             ^^^^^^"
 `;
 
 exports[`snippet: #181 [typescript] format 1`] = `
@@ -2799,6 +4013,14 @@ exports[`snippet: #182 [babel-ts] format 1`] = `
     |   ^
   3 | }
 Cause: Index signatures cannot have the 'declare' modifier. (2:2)"
+`;
+
+exports[`snippet: #182 [oxc-ts] format 1`] = `
+"'declare' modifier cannot appear on an index signature. (2:3)
+  1 | class Foo {
+> 2 |   declare [index: string]: number
+    |   ^^^^^^^
+  3 | }"
 `;
 
 exports[`snippet: #182 [typescript] format 1`] = `

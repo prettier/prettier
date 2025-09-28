@@ -1,8 +1,7 @@
-import assert from "node:assert";
+import * as assert from "#universal/assert";
 import { locEnd, locStart } from "../../loc.js";
 import createTypeCheckFunction from "../../utils/create-type-check-function.js";
 import getRaw from "../../utils/get-raw.js";
-import getTextWithoutComments from "../../utils/get-text-without-comments.js";
 import isBlockComment from "../../utils/is-block-comment.js";
 import isLineComment from "../../utils/is-line-comment.js";
 import isTypeCastComment from "../../utils/is-type-cast-comment.js";
@@ -46,159 +45,119 @@ function postprocess(ast, options) {
 
   let typeCastCommentsEnds;
 
-  ast = visitNode(ast, (node) => {
-    switch (node.type) {
-      case "ParenthesizedExpression": {
-        const { expression } = node;
-        const start = locStart(node);
+  ast = visitNode(ast, {
+    onLeave(node) {
+      switch (node.type) {
+        case "ParenthesizedExpression": {
+          const { expression } = node;
+          const start = locStart(node);
 
-        // Align range with `flow`
-        if (expression.type === "TypeCastExpression") {
-          expression.range = [start, locEnd(node)];
-          return expression;
-        }
-
-        let keepTypeCast = false;
-        if (!isOxcTs) {
-          if (!typeCastCommentsEnds) {
-            typeCastCommentsEnds = [];
-
-            for (const comment of comments) {
-              if (isTypeCastComment(comment)) {
-                typeCastCommentsEnds.push(locEnd(comment));
-              }
-            }
+          // Align range with `flow`
+          if (expression.type === "TypeCastExpression") {
+            expression.range = [start, locEnd(node)];
+            return expression;
           }
 
-          // Keep ParenthesizedExpression nodes only if they have Closure-style type cast comments.
-          const previousCommentEnd = typeCastCommentsEnds.findLast(
-            (end) => end <= start,
-          );
-          keepTypeCast =
-            previousCommentEnd &&
-            // check that there are only white spaces between the comment and the parenthesis
-            text.slice(previousCommentEnd, start).trim().length === 0;
+          let keepTypeCast = false;
+          if (!isOxcTs) {
+            if (!typeCastCommentsEnds) {
+              typeCastCommentsEnds = [];
+
+              for (const comment of comments) {
+                if (isTypeCastComment(comment)) {
+                  typeCastCommentsEnds.push(locEnd(comment));
+                }
+              }
+            }
+
+            // Keep ParenthesizedExpression nodes only if they have Closure-style type cast comments.
+            const previousCommentEnd = typeCastCommentsEnds.findLast(
+              (end) => end <= start,
+            );
+            keepTypeCast =
+              previousCommentEnd &&
+              // check that there are only white spaces between the comment and the parenthesis
+              text.slice(previousCommentEnd, start).trim().length === 0;
+          }
+
+          if (!keepTypeCast) {
+            expression.extra = { ...expression.extra, parenthesized: true };
+            return expression;
+          }
+          break;
         }
 
-        if (!keepTypeCast) {
-          expression.extra = { ...expression.extra, parenthesized: true };
-          return expression;
+        case "LogicalExpression":
+          // We remove unneeded parens around same-operator LogicalExpressions
+          if (isUnbalancedLogicalTree(node)) {
+            return rebalanceLogicalTree(node);
+          }
+          break;
+
+        // This happens when use `oxc-parser` to parse `` `${foo satisfies bar}`; ``
+        // https://github.com/oxc-project/oxc/issues/11313
+        case "TemplateLiteral":
+          /* c8 ignore next 3 */
+          if (node.expressions.length !== node.quasis.length - 1) {
+            throw new Error("Malformed template literal.");
+          }
+          break;
+
+        case "TemplateElement":
+          // `flow`, `hermes`, `typescript`, and `oxc`(with `{astType: 'ts'}`) follows the `espree` style positions
+          // https://github.com/eslint/js/blob/5826877f7b33548e5ba984878dd4a8eac8448f87/packages/espree/lib/espree.js#L213
+          if (
+            parser === "flow" ||
+            parser === "hermes" ||
+            parser === "espree" ||
+            parser === "typescript" ||
+            isOxcTs
+          ) {
+            const start = locStart(node) + 1;
+            const end = locEnd(node) - (node.tail ? 1 : 2);
+
+            node.range = [start, end];
+          }
+          break;
+
+        // fix unexpected locEnd caused by --no-semi style
+        case "VariableDeclaration": {
+          const lastDeclaration = node.declarations.at(-1);
+          if (lastDeclaration?.init && text[locEnd(lastDeclaration)] !== ";") {
+            node.range = [locStart(node), locEnd(lastDeclaration)];
+          }
+          break;
         }
-        break;
+        // remove redundant TypeScript nodes
+        case "TSParenthesizedType":
+          return node.typeAnnotation;
+
+        // For hack-style pipeline
+        case "TopicReference":
+          ast.extra = { ...ast.extra, __isUsingHackPipeline: true };
+          break;
+
+        // In Flow parser, it doesn't generate union/intersection types for single type
+        case "TSUnionType":
+        case "TSIntersectionType":
+          if (node.types.length === 1) {
+            return node.types[0];
+          }
+          break;
+
+        // https://github.com/facebook/hermes/issues/1712
+        case "ImportExpression":
+          if (parser === "hermes" && node.attributes && !node.options) {
+            node.options = node.attributes;
+          }
+          break;
       }
 
-      case "LogicalExpression":
-        // We remove unneeded parens around same-operator LogicalExpressions
-        if (isUnbalancedLogicalTree(node)) {
-          return rebalanceLogicalTree(node);
-        }
-        break;
-
-      // This happens when use `oxc-parser` to parse `` `${foo satisfies bar}`; ``
-      // https://github.com/oxc-project/oxc/issues/11313
-      case "TemplateLiteral":
-        /* c8 ignore next 3 */
-        if (node.expressions.length !== node.quasis.length - 1) {
-          throw new Error("Malformed template literal.");
-        }
-        break;
-
-      case "TemplateElement":
-        // `flow`, `hermes`, `typescript`, and `oxc`(with `{astType: 'ts'}`) follows the `espree` style positions
-        // https://github.com/eslint/js/blob/5826877f7b33548e5ba984878dd4a8eac8448f87/packages/espree/lib/espree.js#L213
-        if (
-          parser === "flow" ||
-          parser === "hermes" ||
-          parser === "espree" ||
-          parser === "typescript" ||
-          isOxcTs
-        ) {
-          const start = locStart(node) + 1;
-          const end = locEnd(node) - (node.tail ? 1 : 2);
-
-          node.range = [start, end];
-        }
-        break;
-
-      // fix unexpected locEnd caused by --no-semi style
-      case "VariableDeclaration": {
-        const lastDeclaration = node.declarations.at(-1);
-        if (lastDeclaration?.init && text[locEnd(lastDeclaration)] !== ";") {
-          node.range = [locStart(node), locEnd(lastDeclaration)];
-        }
-        break;
+      /* c8 ignore next 3 */
+      if (process.env.NODE_ENV !== "production") {
+        assertRaw(node, text);
       }
-      // remove redundant TypeScript nodes
-      case "TSParenthesizedType":
-        return node.typeAnnotation;
-
-      case "TSTypeParameter":
-        // babel-ts
-        fixBabelTSTypeParameter(node);
-        break;
-
-      // For hack-style pipeline
-      case "TopicReference":
-        ast.extra = { ...ast.extra, __isUsingHackPipeline: true };
-        break;
-
-      // In Flow parser, it doesn't generate union/intersection types for single type
-      case "TSUnionType":
-      case "TSIntersectionType":
-        if (node.types.length === 1) {
-          return node.types[0];
-        }
-        break;
-
-      // Remove this when update `@babel/parser` to v8
-      // https://github.com/typescript-eslint/typescript-eslint/pull/7065
-      case "TSMappedType":
-        if (!node.constraint && !node.key) {
-          const { name: key, constraint } = fixBabelTSTypeParameter(
-            node.typeParameter,
-          );
-          node.constraint = constraint;
-          node.key = key;
-          delete node.typeParameter;
-        }
-        break;
-
-      // Remove this when update `@babel/parser` to v8
-      // https://github.com/typescript-eslint/typescript-eslint/pull/8920
-      case "TSEnumDeclaration":
-        if (!node.body) {
-          const idEnd = locEnd(node.id);
-          const { members } = node;
-          const textWithoutComments = getTextWithoutComments(
-            {
-              originalText: text,
-              [Symbol.for("comments")]: comments,
-            },
-            idEnd,
-            members[0] ? locStart(members[0]) : locEnd(node),
-          );
-          const start = idEnd + textWithoutComments.indexOf("{");
-          node.body = {
-            type: "TSEnumBody",
-            members,
-            range: [start, locEnd(node)],
-          };
-          delete node.members;
-        }
-        break;
-
-      // https://github.com/facebook/hermes/issues/1712
-      case "ImportExpression":
-        if (parser === "hermes" && node.attributes && !node.options) {
-          node.options = node.attributes;
-        }
-        break;
-    }
-
-    /* c8 ignore next 3 */
-    if (process.env.NODE_ENV !== "production") {
-      assertRaw(node, text);
-    }
+    },
   });
 
   // `InterpreterDirective` from babel parser and flow parser
@@ -226,19 +185,6 @@ function postprocess(ast, options) {
     ast.range = [0, text.length];
   }
   return ast;
-}
-
-function fixBabelTSTypeParameter(node) {
-  if (node.type === "TSTypeParameter" && typeof node.name === "string") {
-    const start = locStart(node);
-    node.name = {
-      type: "Identifier",
-      name: node.name,
-      range: [start, start + node.name.length],
-    };
-  }
-
-  return node;
 }
 
 function isUnbalancedLogicalTree(node) {

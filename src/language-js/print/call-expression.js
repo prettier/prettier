@@ -2,8 +2,10 @@ import { group, join } from "../../document/builders.js";
 import pathNeedsParens from "../needs-parens.js";
 import {
   getCallArguments,
+  hasComment,
   isCallExpression,
   isMemberish,
+  isNodeMatches,
   isStringLiteral,
   isTemplateOnItsOwnLine,
   isTestCall,
@@ -15,8 +17,7 @@ import { printFunctionTypeParameters, printOptionalToken } from "./misc.js";
 
 function printCallExpression(path, options, print) {
   const { node } = path;
-  const isNew = node.type === "NewExpression";
-  const isDynamicImport = node.type === "ImportExpression";
+  const isNewExpression = node.type === "NewExpression";
 
   const optional = printOptionalToken(path);
   const args = getCallArguments(node);
@@ -26,6 +27,8 @@ function printCallExpression(path, options, print) {
 
   if (
     isTemplateLiteralSingleArg ||
+    // Don't break simple `import()` with long module name
+    isSimpleModuleImport(path) ||
     // Dangling comments are not handled, all these special cases should have arguments #9668
     // We want to keep CommonJS- and AMD-style require calls, and AMD-style
     // define calls, as a unit.
@@ -41,7 +44,7 @@ function printCallExpression(path, options, print) {
     });
     if (!(isTemplateLiteralSingleArg && printed[0].label?.embed)) {
       return [
-        isNew ? "new " : "",
+        isNewExpression ? "new " : "",
         printCallee(path, print),
         optional,
         printFunctionTypeParameters(path, options, print),
@@ -52,11 +55,14 @@ function printCallExpression(path, options, print) {
     }
   }
 
+  const isDynamicImport =
+    node.type === "ImportExpression" || node.type === "TSImportType";
+
   // We detect calls on member lookups and possibly print them in a
   // special chain format. See `printMemberChain` for more info.
   if (
     !isDynamicImport &&
-    !isNew &&
+    !isNewExpression &&
     isMemberish(node.callee) &&
     !path.call(
       (path) => pathNeedsParens(path, options),
@@ -68,7 +74,7 @@ function printCallExpression(path, options, print) {
   }
 
   const contents = [
-    isNew ? "new " : "",
+    isNewExpression ? "new " : "",
     printCallee(path, print),
     optional,
     printFunctionTypeParameters(path, options, print),
@@ -87,11 +93,56 @@ function printCallExpression(path, options, print) {
 function printCallee(path, print) {
   const { node } = path;
 
-  if (node.type === "ImportExpression") {
+  if (node.type === "ImportExpression" || node.type === "TSImportType") {
     return `import${node.phase ? `.${node.phase}` : ""}`;
   }
 
   return print("callee");
+}
+
+const moduleImportCallees = [
+  "require",
+  "require.resolve",
+  "require.resolve.paths",
+  "import.meta.resolve",
+];
+function isSimpleModuleImport(path) {
+  const { node } = path;
+
+  if (
+    !(
+      // `import("foo")`
+      (
+        node.type === "ImportExpression" ||
+        // `type foo = import("foo")`
+        node.type === "TSImportType" ||
+        // `require("foo")`
+        // `require.resolve("foo")`
+        // `require.resolve.paths("foo")`
+        // `import.meta.resolve("foo")`
+        (node.type === "CallExpression" &&
+          !node.optional &&
+          isNodeMatches(node.callee, moduleImportCallees))
+      )
+    )
+  ) {
+    return false;
+  }
+
+  const args = getCallArguments(node);
+
+  if (args.length !== 1 || hasComment(args[0])) {
+    return false;
+  }
+
+  let source = args[0];
+
+  // TODO: remove this once https://github.com/typescript-eslint/typescript-eslint/issues/11583 get fixed
+  if (node.type === "TSImportType" && source.type === "TSLiteralType") {
+    source = source.literal;
+  }
+
+  return isStringLiteral(source);
 }
 
 function isCommonsJsOrAmdModuleDefinition(path) {

@@ -9,7 +9,7 @@ import {
   visitAll,
 } from "angular-html-parser";
 import createError from "../common/parser-create-error.js";
-import parseFrontMatter from "../utils/front-matter/parse.js";
+import { parseFrontMatter } from "../utils/front-matter/index.js";
 import inferParser from "../utils/infer-parser.js";
 import isNonEmptyArray from "../utils/is-non-empty-array.js";
 import { Node } from "./ast.js";
@@ -21,7 +21,7 @@ import HTML_TAGS from "./utils/html-tags.evaluate.js";
 import isUnknownNamespace from "./utils/is-unknown-namespace.js";
 
 /**
- * @import AngularHtmlParser, {ParseOptions as AngularHtmlParserParseOptions} from "angular-html-parser"
+ * @import {ParseOptions as AngularHtmlParserParseOptions} from "angular-html-parser"
  * @import {Node as AstNode, Attribute, Element} from "angular-html-parser/lib/compiler/src/ml_parser/ast.js"
  * @import {ParseTreeResult} from "angular-html-parser/lib/compiler/src/ml_parser/parser.js"
  */
@@ -348,7 +348,7 @@ function parse(
   options = {},
   shouldParseFrontMatter = true,
 ) {
-  const { frontMatter, content } = shouldParseFrontMatter
+  const { frontMatter, content: textToParse } = shouldParseFrontMatter
     ? parseFrontMatter(text)
     : { frontMatter: null, content: text };
 
@@ -358,15 +358,24 @@ function parse(
   const rawAst = {
     type: "root",
     sourceSpan: new ParseSourceSpan(start, end),
-    children: ngHtmlParser(content, parseOptions, options),
+    children: ngHtmlParser(textToParse, parseOptions, options),
   };
 
   if (frontMatter) {
-    const start = new ParseLocation(file, 0, 0, 0);
-    const end = start.moveBy(frontMatter.raw.length);
-    frontMatter.sourceSpan = new ParseSourceSpan(start, end);
+    const [start, end] = [frontMatter.start, frontMatter.end].map(
+      (location) =>
+        new ParseLocation(
+          file,
+          location.index,
+          location.line - 1,
+          location.column,
+        ),
+    );
     // @ts-expect-error -- not a real AstNode
-    rawAst.children.unshift(frontMatter);
+    rawAst.children.unshift({
+      ...frontMatter,
+      sourceSpan: new ParseSourceSpan(start, end),
+    });
   }
 
   const ast = new Node(rawAst);

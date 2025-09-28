@@ -1,6 +1,6 @@
 import { dedent, hardline, softline } from "../document/builders.js";
 
-function embed(path /*, options*/) {
+function embed(path /* , options*/) {
   const { node } = path;
 
   if (node.type !== "TextNode") {

@@ -170,7 +170,11 @@ const pluginFiles = [
               'require("node:path")',
               '{extname: file => "." + file.split(".").pop()}',
             )
-            .replace('require("@typescript-eslint/project-service")', "{}");
+            .replace('require("@typescript-eslint/project-service")', "{}")
+            .replace(
+              "const tsconfigRootDir =",
+              "const tsconfigRootDir = undefined && ",
+            );
         },
       },
       {
@@ -817,7 +821,7 @@ const nodejsFiles = [
     // TODO: Remove this when we drop support for Node.js v16
     replaceModule: [
       {
-        module: resolveEsmModulePath("cacheable"),
+        module: resolveEsmModulePath("@cacheable/memory"),
         process: (text) =>
           outdent`
             const structuredClone =
@@ -953,7 +957,7 @@ export default [
               format,
               file: `${outputBaseName}${extensions[format]}`,
             },
-            platform: "node",
+            platform: "universal",
             buildOptions: { ...buildOptions, external: ["oxc-parser"] },
             build: buildJavascriptModule,
             kind: "javascript",

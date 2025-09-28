@@ -57,7 +57,7 @@ const glimmerParseOptions = {
   plugins: { ast: [glimmerPrettierParsePlugin] },
 };
 
-function parse(text /*, options */) {
+function parse(text /* , options */) {
   let ast;
   try {
     ast = parseGlimmer(text, glimmerParseOptions);

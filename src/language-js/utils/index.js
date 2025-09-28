@@ -331,9 +331,12 @@ const testCallCalleePatterns = [
   "test",
   "test.only",
   "test.skip",
+  "test.fixme",
   "test.step",
   "test.describe",
   "test.describe.only",
+  "test.describe.skip",
+  "test.describe.fixme",
   "test.describe.parallel",
   "test.describe.parallel.only",
   "test.describe.serial",
@@ -843,12 +846,9 @@ function getFunctionParameters(node) {
   if (node.this) {
     parameters.push(node.this);
   }
-  // `params` vs `parameters` - see https://github.com/babel/babel/issues/9231
-  if (Array.isArray(node.parameters)) {
-    parameters.push(...node.parameters);
-  } else if (Array.isArray(node.params)) {
-    parameters.push(...node.params);
-  }
+
+  parameters.push(...node.params);
+
   if (node.rest) {
     parameters.push(node.rest);
   }
@@ -863,11 +863,9 @@ function iterateFunctionParametersPath(path, iteratee) {
   if (node.this) {
     path.call(callback, "this");
   }
-  if (Array.isArray(node.parameters)) {
-    path.each(callback, "parameters");
-  } else if (Array.isArray(node.params)) {
-    path.each(callback, "params");
-  }
+
+  path.each(callback, "params");
+
   if (node.rest) {
     path.call(callback, "rest");
   }
@@ -1138,3 +1136,4 @@ export {
   shouldPrintComma,
   startsWithNoLookaheadToken,
 };
+export { default as isNodeMatches } from "./is-node-matches.js";

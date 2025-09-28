@@ -1,4 +1,4 @@
-import isFrontMatter from "../utils/front-matter/is-front-matter.js";
+import { cleanFrontMatter } from "../utils/front-matter/index.js";
 
 const ignoredProperties = new Set([
   "sourceSpan",
@@ -23,26 +23,57 @@ const embeddedAngularControlFlowBlocks = new Set([
   "case",
 ]);
 
-function clean(original, cloned) {
+function clean(original, cloned, parent) {
   if (original.type === "text" || original.type === "comment") {
     return null;
   }
 
+  cleanFrontMatter(original, cloned);
+
   // may be formatted by multiparser
-  if (
-    isFrontMatter(original) ||
-    original.type === "yaml" ||
-    original.type === "toml"
-  ) {
-    return null;
+  if (original.type === "yaml") {
+    delete cloned.value;
   }
 
   if (original.type === "attribute") {
-    delete cloned.value;
+    const { fullName: name, value } = original;
+
+    if (
+      // HTML attributes
+      name === "style" ||
+      name === "class" ||
+      (name === "srcset" &&
+        (parent.fullName === "img" || parent.fullName === "source")) ||
+      (name === "allow" && parent.fullName === "iframe") ||
+      name.startsWith("on") ||
+      // Vue attributes
+      name.startsWith("@") ||
+      name.startsWith(":") ||
+      name.startsWith(".") ||
+      name.startsWith("#") ||
+      name.startsWith("v-") ||
+      (name === "vars" && parent.fullName === "style") ||
+      ((name === "setup" || name === "generic") &&
+        parent.fullName === "script") ||
+      name === "slot-scope" ||
+      // Angular attributes
+      name.startsWith("(") ||
+      name.startsWith("[") ||
+      name.startsWith("*") ||
+      name.startsWith("bind") ||
+      name.startsWith("i18n") ||
+      name.startsWith("on-") ||
+      name.startsWith("ng-") ||
+      value?.includes("{{")
+    ) {
+      delete cloned.value;
+    } else if (value) {
+      cloned.value = value.replaceAll(/'|&quot;|&apos;/gu, '"');
+    }
   }
 
   if (original.type === "docType") {
-    delete cloned.value;
+    cloned.value = original.value.toLowerCase().replaceAll(/\s+/gu, " ");
   }
 
   if (

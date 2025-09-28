@@ -456,10 +456,7 @@ function shouldBreakBeforeConditionalType(node) {
       case "TSFunctionType":
         return Boolean(subNode.typeParameters);
       case "TSTypeReference":
-        return Boolean(
-          // TODO: Use `typeArguments` only when babel align with TS.
-          subNode.typeArguments ?? subNode.typeParameters,
-        );
+        return Boolean(subNode.typeArguments);
       default:
         return false;
     }

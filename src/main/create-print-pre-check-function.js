@@ -1,10 +1,7 @@
+import noop from "../utils/noop.js";
 import createGetVisitorKeysFunction from "./create-get-visitor-keys-function.js";
 
 function createPrintPreCheckFunction(options) {
-  if (process.env.NODE_ENV === "production") {
-    return () => {};
-  }
-
   // All core plugins have full list of keys for possible child nodes
   // Ensure we only pass node to `print`
   const getVisitorKeys = createGetVisitorKeysFunction(
@@ -38,4 +35,6 @@ function createPrintPreCheckFunction(options) {
   };
 }
 
-export default createPrintPreCheckFunction;
+export default process.env.NODE_ENV === "production"
+  ? () => noop
+  : createPrintPreCheckFunction;

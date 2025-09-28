@@ -161,12 +161,7 @@ function printObject(path, options, print) {
           lastElem.type === "TSMethodSignature" ||
           lastElem.type === "TSConstructSignatureDeclaration" ||
           lastElem.type === "TSIndexSignature") &&
-          hasComment(lastElem, CommentCheckFlags.PrettierIgnore)))) ||
-    // https://github.com/microsoft/TypeScript/issues/61916
-    path.match(
-      undefined,
-      (node, key) => node.type === "TSImportType" && key === "options",
-    )
+          hasComment(lastElem, CommentCheckFlags.PrettierIgnore))))
   );
 
   let content;
@@ -243,10 +238,7 @@ function printObject(path, options, print) {
 
 function shouldHugTheOnlyParameter(node, name) {
   return (
-    (name === "params" ||
-      name === "parameters" ||
-      name === "this" ||
-      name === "rest") &&
+    (name === "params" || name === "this" || name === "rest") &&
     shouldHugTheOnlyFunctionParameter(node)
   );
 }

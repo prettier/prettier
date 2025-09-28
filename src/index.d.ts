@@ -480,7 +480,7 @@ export interface Parser<T = any> {
   locStart: (node: T) => number;
   locEnd: (node: T) => number;
   preprocess?:
-    | ((text: string, options: ParserOptions<T>) => string)
+    | ((text: string, options: ParserOptions<T>) => string | Promise<string>)
     | undefined;
 }
 
