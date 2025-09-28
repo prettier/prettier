@@ -245,7 +245,7 @@ function replaceQuotesInInlineComments(text) {
   return text;
 }
 
-const locStart = (node) => node.source?.startOffset;
-const locEnd = (node) => node.source?.endOffset;
+const locStart = (node) => node.source.startOffset;
+const locEnd = (node) => node.source.endOffset;
 
 export { calculateLoc, locEnd, locStart, replaceQuotesInInlineComments };
