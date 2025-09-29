@@ -79,20 +79,16 @@ function validateImportExport(ast, type) {
     program: { body },
   } = ast;
 
-  if (body.length === 1) {
-    const [declaration] = body;
-    if (
-      (type === "import" && declaration.type === "ImportDeclaration") ||
-      (type === "export" &&
-        (declaration.type === "ExportDefaultDeclaration" ||
-          declaration.type === "ExportNamedDeclaration" ||
-          declaration.type === "ExportAllDeclaration"))
-    ) {
-      return;
-    }
+  if (
+    !body.every(
+      (node) =>
+        node.type === "ImportDeclaration" ||
+        node.type === "ExportDefaultDeclaration" ||
+        node.type === "ExportNamedDeclaration",
+    )
+  ) {
+    throw new Error(`Unexpected '${type}' in MDX.`);
   }
-
-  throw new Error(`Unexpected '${type}' in MDX.`);
 }
 
 export default embed;
