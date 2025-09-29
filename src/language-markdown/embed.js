@@ -65,7 +65,7 @@ function embed(path, options) {
           __onHtmlBindingRoot(node) {
             isValidImportExport = (() => {
               const program = node.type === "File" ? node.program : node;
-              const body = program.body;
+              const { body } = program;
               if (body.length !== 1) {
                 return false;
               }
