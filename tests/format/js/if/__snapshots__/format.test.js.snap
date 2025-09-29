@@ -38,6 +38,44 @@ else stuff;
 ================================================================================
 `;
 
+exports[`comment-between-condition-and-body.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+if (foo) { // foo may not exist
+  doThing(foo);
+}
+
+if (foo)
+// foo may not exist
+{
+  doThing(foo);
+}
+
+if (foo) /* foo may not exist */ {
+  doThing(foo);
+}
+
+=====================================output=====================================
+if (foo) {
+  // foo may not exist
+  doThing(foo);
+}
+
+if (foo) // foo may not exist
+{
+  doThing(foo);
+}
+
+if (foo) /* foo may not exist */ {
+  doThing(foo);
+}
+
+================================================================================
+`;
+
 exports[`else.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -243,13 +281,13 @@ async function f5() {
 
 =====================================output=====================================
 async function f1() {
-  if (untrackedChoice === 0) {
-    /* Cancel */ return null;
-  } else if (untrackedChoice === 1) {
-    /* Add */ await repository.addAll(Array.from(untrackedChanges.keys()));
+  if (untrackedChoice === 0) /* Cancel */ {
+    return null;
+  } else if (untrackedChoice === 1) /* Add */ {
+    await repository.addAll(Array.from(untrackedChanges.keys()));
     shouldAmend = true;
-  } else if (untrackedChoice === 2) {
-    /* Allow Untracked */ allowUntracked = true;
+  } else if (untrackedChoice === 2) /* Allow Untracked */ {
+    allowUntracked = true;
   }
 }
 
@@ -272,13 +310,13 @@ async function f3() {
 }
 
 async function f4() {
-  if (untrackedChoice === 0) {
-    /* Cancel */ return null;
-  } else if (untrackedChoice === 1) {
-    /* Add */ await repository.addAll(Array.from(untrackedChanges.keys()));
+  if (untrackedChoice === 0) /* Cancel */ {
+    return null;
+  } else if (untrackedChoice === 1) /* Add */ {
+    await repository.addAll(Array.from(untrackedChanges.keys()));
     shouldAmend = true;
-  } else if (untrackedChoice === 2) {
-    /* Allow Untracked */ allowUntracked = true;
+  } else if (untrackedChoice === 2) /* Allow Untracked */ {
+    allowUntracked = true;
   }
 }
 
@@ -386,8 +424,7 @@ if (code === 92 /* '\\' */) {
 if (code === 92 /* '\\' */ /* '\\' */) {
 }
 
-if (code === 92) {
-  /* '\\' */
+if (code === 92) /* '\\' */ {
 }
 if (code === 92) {
   /* '\\' */
