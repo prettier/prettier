@@ -79,6 +79,7 @@ function validateImportExport(ast, type) {
     program: { body },
   } = ast;
 
+  // https://github.com/mdx-js/mdx/blob/3430138958c9c0344ecad9d59e0d6b5d72bedae3/packages/remark-mdx/extract-imports-and-exports.js#L16
   if (
     !body.every(
       (node) =>
