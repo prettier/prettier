@@ -75,10 +75,9 @@ function embed(path, options) {
 }
 
 function validateImportExport(ast, type) {
-  // It can
   const {
     program: { body },
-  } = ast.type === "File" ? ast.program : ast;
+  } = ast;
 
   if (body.length === 1) {
     const [declaration] = body;
