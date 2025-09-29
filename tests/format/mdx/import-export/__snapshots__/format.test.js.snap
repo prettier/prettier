@@ -1,5 +1,41 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`esm.mdx format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<!-- https://mdxjs.com/docs/what-is-mdx/#esm -->
+
+import {   External} from './some/place.js'
+
+export const   Local = properties => <span style={{color: 'red'}} {...properties} />
+
+export const Local = (properties) => (
+         <span style={{ color: "red" }} {...properties} />
+);
+
+An <External>external</External> component and a <Local>local one</Local>.
+
+=====================================output=====================================
+<!-- https://mdxjs.com/docs/what-is-mdx/#esm -->
+
+import { External } from "./some/place.js";
+
+export const Local = (properties) => (
+  <span style={{ color: "red" }} {...properties} />
+);
+
+export const Local = (properties) => (
+  <span style={{ color: "red" }} {...properties} />
+);
+
+An <External>external</External> component and a <Local>local one</Local>.
+
+================================================================================
+`;
+
 exports[`like-import-declaration.mdx format 1`] = `
 ====================================options=====================================
 parsers: ["mdx"]
