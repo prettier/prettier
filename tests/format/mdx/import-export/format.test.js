@@ -1,1 +1,7 @@
-runFormatTest(import.meta, ["mdx"]);
+runFormatTest(
+  {
+    importMeta: import.meta,
+    snippets: ["import is a word"],
+  },
+  ["mdx"],
+);

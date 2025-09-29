@@ -432,7 +432,7 @@ function genericPrint(path, options, print) {
     case "import":
     case "export":
     case "jsx":
-      return node.value;
+      return node.value.trimEnd();
     case "esComment":
       return ["{/* ", node.value, " */}"];
     case "math":
