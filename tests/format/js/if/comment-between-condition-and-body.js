@@ -1,18 +1,18 @@
-if (foo) { // foo may not exist
+if (1) { // foo may not exist
   doThing(foo);
 }
 
-if (foo)
+if (2)
 // foo may not exist
 {
   doThing(foo);
 }
 
-if (foo)// foo may not exist
+if (3)// foo may not exist
 {
   doThing(foo);
 }
 
-if (foo)/* foo may not exist */{
+if (4)/* foo may not exist */{
   doThing(foo);
 }

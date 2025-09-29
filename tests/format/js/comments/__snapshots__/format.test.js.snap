@@ -2632,9 +2632,9 @@ true
 else /* comment */
 {true}
 
-if (14) // comment
-/* comment */
-// comment
+if (14) // comment 1
+/* comment 2 */
+// comment 3
 {true}
 else if (15) // comment
 /* comment */
@@ -2642,8 +2642,8 @@ else if (15) // comment
 true
 
 =====================================output=====================================
-if (1) {
-  // comment
+if (1) // comment
+{
   false
 }
 // comment
@@ -2666,8 +2666,8 @@ if (5)
   // comment
   true
 
-if (6) {
-  // comment
+if (6) // comment
+{
   true
 } else if (7)
   // comment
@@ -2677,9 +2677,9 @@ else {
   true
 }
 
-if (8) {
-  // comment
-  // comment
+if (8) // comment
+// comment
+{
   true
 } else if (9)
   // comment
@@ -2691,8 +2691,8 @@ else {
   true
 }
 
-if (10) {
-  /* comment */ // comment
+if (10) /* comment */ // comment
+{
   true
 } else if (11) /* comment */ true
 else if (12)
@@ -2705,10 +2705,10 @@ else if (13)
   true
 }
 
-if (14) {
-  // comment
-  /* comment */
-  // comment
+if (14) // comment 1
+/* comment 2 */
+// comment 3
+{
   true
 } else if (15)
   // comment
@@ -2778,9 +2778,9 @@ true
 else /* comment */
 {true}
 
-if (14) // comment
-/* comment */
-// comment
+if (14) // comment 1
+/* comment 2 */
+// comment 3
 {true}
 else if (15) // comment
 /* comment */
@@ -2788,8 +2788,8 @@ else if (15) // comment
 true
 
 =====================================output=====================================
-if (1) {
-  // comment
+if (1) // comment
+{
   false;
 }
 // comment
@@ -2812,8 +2812,8 @@ if (5)
   // comment
   true;
 
-if (6) {
-  // comment
+if (6) // comment
+{
   true;
 } else if (7)
   // comment
@@ -2823,9 +2823,9 @@ else {
   true;
 }
 
-if (8) {
-  // comment
-  // comment
+if (8) // comment
+// comment
+{
   true;
 } else if (9)
   // comment
@@ -2837,8 +2837,8 @@ else {
   true;
 }
 
-if (10) {
-  /* comment */ // comment
+if (10) /* comment */ // comment
+{
   true;
 } else if (11) /* comment */ true;
 else if (12)
@@ -2851,10 +2851,10 @@ else if (13)
   true;
 }
 
-if (14) {
-  // comment
-  /* comment */
-  // comment
+if (14) // comment 1
+/* comment 2 */
+// comment 3
+{
   true;
 } else if (15)
   // comment
