@@ -1,0 +1,14 @@
+/* https://lesscss.org/features/#detached-rulesets-feature-property-variable-accessors */
+
+@config: {
+  option1: true;
+  option2: false;
+}
+
+.mixin() when (@config   [   option1] = true) {
+  selected: value;
+}
+
+.box {
+  .mixin();
+}
