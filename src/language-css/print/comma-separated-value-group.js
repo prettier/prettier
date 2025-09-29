@@ -239,14 +239,13 @@ function printCommaSeparatedValueGroup(path, options, print) {
         @var [ @@foo ][ bar ];
                        ^
       */
-      if(
+      if (
         iNode.type === "value-word" &&
         iNode.value === "][" &&
         iNextNode?.type === "value-word"
       ) {
         continue;
       }
-
     }
 
     // Ignore escape `\`
