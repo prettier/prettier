@@ -65,7 +65,8 @@ import .meta; import {} from "./foo"
 
 import ("./foo")
 
-import {} from   "./foo";            export {}
+import {} from "./foo";
+export {};
 
 ================================================================================
 `;
