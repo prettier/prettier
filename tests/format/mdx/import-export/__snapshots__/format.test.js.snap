@@ -13,7 +13,7 @@ import {   External} from './some/place.js'
 export const   Local = properties => <span style={{color: 'red'}} {...properties} />
 
 export const Local = (properties) => (
-         <span style={{ color: "red" }} {...properties} />
+         <span    style={{   color: "red" }} {...properties} />
 );
 
 An <External>external</External> component and a <Local>local one</Local>.
