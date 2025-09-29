@@ -198,10 +198,13 @@ function handleIfStatementComments({
     return true;
   }
 
-  // if comment is positioned before the consequent add the comment as
-  // leading comment of the "body"
-  if (nextCharacter === "{") {
-    addLeadingComment(followingNode, comment);
+  // if comment is positioned between the `test` add `consequent`
+  if (
+    enclosingNode.consequent.type === "BlockStatement" &&
+    locStart(comment) >= locEnd(enclosingNode.test) &&
+    locEnd(comment) <= locStart(enclosingNode.consequent)
+  ) {
+    addLeadingComment(enclosingNode.consequent, comment);
     return true;
   }
 
