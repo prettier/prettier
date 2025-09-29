@@ -184,16 +184,6 @@ function handleIfStatementComments({
     return false;
   }
 
-  // if comment is positioned between the `test` add `consequent`
-  if (
-    enclosingNode.consequent.type === "BlockStatement" &&
-    locStart(comment) >= locEnd(enclosingNode.test) &&
-    locEnd(comment) <= locStart(enclosingNode.consequent)
-  ) {
-    addLeadingComment(enclosingNode.consequent, comment);
-    return true;
-  }
-
   // We unfortunately have no way using the AST or location of nodes to know
   // if the comment is positioned before the condition parenthesis:
   //   if (a /* comment */) {}
@@ -205,6 +195,16 @@ function handleIfStatementComments({
   );
   if (nextCharacter === ")") {
     addTrailingComment(precedingNode, comment);
+    return true;
+  }
+
+  // if comment is positioned between the `test` add `consequent`
+  if (
+    enclosingNode.consequent.type === "BlockStatement" &&
+    locStart(comment) >= locEnd(enclosingNode.test) &&
+    locEnd(comment) <= locStart(enclosingNode.consequent)
+  ) {
+    addLeadingComment(enclosingNode.consequent, comment);
     return true;
   }
 
