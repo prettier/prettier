@@ -2672,8 +2672,8 @@ if (6) // comment
 } else if (7)
   // comment
   true
-// comment
-else {
+else // comment
+{
   true
 }
 
@@ -2685,9 +2685,9 @@ if (8) // comment
   // comment
   // comment
   true
+else // comment
 // comment
-// comment
-else {
+{
   true
 }
 
@@ -2701,7 +2701,8 @@ else if (12)
 else if (13)
   /* comment */ /* comment */ // comment
   true
-/* comment */ else {
+else /* comment */
+{
   true
 }
 
@@ -2818,8 +2819,8 @@ if (6) // comment
 } else if (7)
   // comment
   true;
-// comment
-else {
+else // comment
+{
   true;
 }
 
@@ -2831,9 +2832,9 @@ if (8) // comment
   // comment
   // comment
   true;
+else // comment
 // comment
-// comment
-else {
+{
   true;
 }
 
@@ -2847,7 +2848,8 @@ else if (12)
 else if (13)
   /* comment */ /* comment */ // comment
   true;
-/* comment */ else {
+else /* comment */
+{
   true;
 }
 
