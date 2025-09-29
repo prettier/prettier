@@ -57,7 +57,35 @@ function embed(path, options) {
     // MDX
     case "import":
     case "export":
-      return (textToDoc) => textToDoc(node.value, { parser: "babel" });
+      return async function (textToDoc) {
+        let isValidImportExport = false;
+
+        const doc = await textToDoc(node.value, {
+          // TODO: Rename this option since it's not used in HTML
+          __onHtmlBindingRoot(node) {
+            isValidImportExport = (() => {
+              const program = node.type === "File" ? node.program : node;
+              const body = program.body;
+              if (body.length !== 1) {
+                return false;
+              }
+
+              const [declaration] = body;
+              return (
+                (node.type === "import" &&
+                  declaration.type === "ImportDeclaration") ||
+                (node.type === "export" &&
+                  (declaration.type === "ExportDefaultDeclaration" ||
+                    declaration.type === "ExportNamedDeclaration" ||
+                    declaration.type === "ExportAllDeclaration"))
+              );
+            })();
+          },
+          parser: "babel",
+        });
+
+        return isValidImportExport ? doc : undefined;
+      };
     case "jsx":
       return (textToDoc) =>
         textToDoc(`<$>${node.value}</$>`, {

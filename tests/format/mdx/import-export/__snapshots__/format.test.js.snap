@@ -1,5 +1,35 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`like-import-declaration.mdx format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<!-- These are not \`import\`s -->
+
+import .meta.resolve (         foo)
+
+import .meta; export {} from "./foo"
+
+import .meta; import {} from "./foo"
+
+import ("./foo")
+
+=====================================output=====================================
+<!-- These are not \`import\`s -->
+
+import .meta.resolve (         foo)
+
+import .meta; export {} from "./foo"
+
+import .meta; import {} from "./foo"
+
+import ("./foo")
+
+================================================================================
+`;
+
 exports[`list.mdx format 1`] = `
 ====================================options=====================================
 parsers: ["mdx"]
