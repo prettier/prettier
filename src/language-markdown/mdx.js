@@ -45,6 +45,11 @@ const tokenizeEsSyntax = (eat, value) => {
   }
 };
 
+tokenizeEsSyntax.notInBlock = true;
+
+tokenizeEsSyntax.locator = (value /* , fromIndex*/) =>
+  isImportOrExport(value) ? -1 : 1;
+
 const tokenizeEsComment = (eat, value) => {
   const match = ES_COMMENT_REGEX.exec(value);
 
@@ -55,15 +60,6 @@ const tokenizeEsComment = (eat, value) => {
     });
   }
 };
-
-/**
- * Don't parse ES syntax in open blocks
- * https://github.com/mdx-js/mdx/pull/763
- */
-tokenizeEsSyntax.notInBlock = true;
-
-tokenizeEsSyntax.locator = (value /* , fromIndex*/) =>
-  isImportOrExport(value) ? -1 : 1;
 
 tokenizeEsComment.locator = (value, fromIndex) => value.indexOf("{", fromIndex);
 
