@@ -212,29 +212,28 @@ function printCommaSeparatedValueGroup(path, options, print) {
       continue;
     }
 
-    /*
-      var [@result]
-        ^^^
-    */
-    if (
-      options.parser === "less" &&
-      iNextNode?.type === "value-word" &&
-      iNextNode.value === "["
-    ) {
-      continue;
-    }
+    // Less property/variable lookup
+    // https://lesscss.org/features/#detached-rulesets-feature-property-variable-accessors
+    if (options.parser === "less") {
+      /*
+        var [@result]
+          ^^^
+      */
+      if (iNextNode?.type === "value-word" && iNextNode.value === "[") {
+        continue;
+      }
 
-    /*
-      var[ @result]
-         ^^^
-    */
-    if (
-      options.parser === "less" &&
-      iNode.type === "value-word" &&
-      iNode.value === "[" &&
-      iNextNode?.type === "value-atword"
-    ) {
-      continue;
+      /*
+        var[ @result]
+          ^^^
+      */
+      if (
+        iNode.type === "value-word" &&
+        iNode.value === "[" &&
+        iNextNode?.type === "value-atword"
+      ) {
+        continue;
+      }
     }
 
     // Ignore escape `\`
