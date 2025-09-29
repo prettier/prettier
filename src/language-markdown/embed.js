@@ -92,7 +92,7 @@ function validateImportExport(ast, type) {
     }
   }
 
-  throw new Error(`Unexpected '${node.type}' in MDX.`);
+  throw new Error(`Unexpected '${type}' in MDX.`);
 }
 
 export default embed;
