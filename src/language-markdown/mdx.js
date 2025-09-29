@@ -34,7 +34,7 @@ const isExport = (text) => EXPORT_REGEX.test(text);
 
 const tokenizeEsSyntax = (eat, value) => {
   // `import` and `export` must be at the start of a line
-  if(eat.now().column !== 1) {
+  if (eat.now().column !== 1) {
     return;
   }
 
