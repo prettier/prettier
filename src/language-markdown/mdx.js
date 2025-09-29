@@ -33,11 +33,6 @@ const isImport = (text) => IMPORT_REGEX.test(text);
 const isExport = (text) => EXPORT_REGEX.test(text);
 
 const tokenizeEsSyntax = (eat, value) => {
-  // `import` and `export` must be at the start of a line
-  if (eat.now().column !== 1) {
-    return;
-  }
-
   const index = value.indexOf(EMPTY_NEWLINE);
   const subvalue = value.slice(0, index);
 
@@ -59,6 +54,12 @@ const tokenizeEsComment = (eat, value) => {
     });
   }
 };
+
+/**
+ * Don't parse ES syntax in open blocks
+ * https://github.com/mdx-js/mdx/pull/763
+ */
+tokenizeEsSyntax.notInBlock = true;
 
 /* c8 ignore next 2 */
 tokenizeEsSyntax.locator = (value /* , fromIndex*/) =>
