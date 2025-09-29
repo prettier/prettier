@@ -234,6 +234,19 @@ function printCommaSeparatedValueGroup(path, options, print) {
       ) {
         continue;
       }
+
+      /*
+        @var [ @@foo ][ bar ];
+                       ^
+      */
+      if(
+        iNode.type === "value-word" &&
+        iNode.value === "][" &&
+        iNextNode?.type === "value-word"
+      ) {
+        continue;
+      }
+
     }
 
     // Ignore escape `\`
