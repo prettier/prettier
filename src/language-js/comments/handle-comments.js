@@ -207,6 +207,7 @@ function handleIfStatementComments({
     addTrailingComment(precedingNode, comment);
     return true;
   }
+
   // Comments before `else`:
   // - treat as trailing comments of the consequent, if it's a BlockStatement
   // - treat as a dangling comment otherwise
