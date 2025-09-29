@@ -156,6 +156,11 @@ export default () =>
 export const a = 1;
 export const b = 1;
 
+---
+
+- import is a word in lists
+- export is a word in lists, too!
+
 =====================================output=====================================
 import D from "d"
 import { A, B, C } from "hello-world"
@@ -198,6 +203,11 @@ export default () => (
 
 export const a = 1
 export const b = 1
+
+---
+
+- import is a word in lists
+- export is a word in lists, too!
 
 ================================================================================
 `;
@@ -242,6 +252,11 @@ export default () =>
 export const a = 1;
 export const b = 1;
 
+---
+
+- import is a word in lists
+- export is a word in lists, too!
+
 =====================================output=====================================
 import D from "d";
 import { A, B, C } from "hello-world";
@@ -284,6 +299,11 @@ export default () => (
 
 export const a = 1;
 export const b = 1;
+
+---
+
+- import is a word in lists
+- export is a word in lists, too!
 
 ================================================================================
 `;
