@@ -26,6 +26,14 @@ exports[`snippet: #0 [oxc-ts] format 1`] = `
   3 | }"
 `;
 
+exports[`snippet: #0 [oxc-ts] format 2`] = `
+"Computed property names are not allowed in enums. (2:4)
+  1 | enum Foo {
+> 2 |   [foo] = 1
+    |    ^^^
+  3 | }"
+`;
+
 exports[`snippet: #0 [typescript] format 1`] = `
 "An enum member cannot have a numeric name. (2:3)
   1 | enum Foo {
