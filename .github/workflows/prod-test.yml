@@ -75,7 +75,7 @@ jobs:
           - os: "ubuntu-latest"
             node: "16"
           # Tests on Intel Mac x Node.js 14 ( https://github.com/prettier/prettier/issues/16248 )
-          - os: "macos-13"
+          - os: "macos-15-intel"
             node: "14"
         # setup-node does not support Node.js 14 x M1 Mac
         exclude:
