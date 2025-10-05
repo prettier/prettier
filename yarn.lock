@@ -7681,7 +7681,7 @@ __metadata:
     sdbm: "npm:3.0.0"
     search-closest: "npm:1.1.0"
     semver: "npm:7.7.2"
-    serialize-javascript: "npm:6.0.2"
+    serialize-javascript: "npm:7.0.0"
     smol-toml: "npm:1.4.2"
     snapshot-diff: "npm:0.10.0"
     strip-ansi: "npm:7.1.2"
@@ -7813,15 +7813,6 @@ __metadata:
   version: 1.2.3
   resolution: "queue-microtask@npm:1.2.3"
   checksum: 10/72900df0616e473e824202113c3df6abae59150dfb73ed13273503127235320e9c8ca4aaaaccfd58cf417c6ca92a6e68ee9a5c3182886ae949a768639b388a7b
-  languageName: node
-  linkType: hard
-
-"randombytes@npm:^2.1.0":
-  version: 2.1.0
-  resolution: "randombytes@npm:2.1.0"
-  dependencies:
-    safe-buffer: "npm:^5.1.0"
-  checksum: 10/4efd1ad3d88db77c2d16588dc54c2b52fd2461e70fe5724611f38d283857094fe09040fa2c9776366803c3152cf133171b452ef717592b65631ce5dc3a2bdafc
   languageName: node
   linkType: hard
 
@@ -8018,13 +8009,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"safe-buffer@npm:^5.1.0":
-  version: 5.2.1
-  resolution: "safe-buffer@npm:5.2.1"
-  checksum: 10/32872cd0ff68a3ddade7a7617b8f4c2ae8764d8b7d884c651b74457967a9e0e886267d3ecc781220629c44a865167b61c375d2da6c720c840ecd73f45d5d9451
-  languageName: node
-  linkType: hard
-
 "safer-buffer@npm:>= 2.1.2 < 3.0.0":
   version: 2.1.2
   resolution: "safer-buffer@npm:2.1.2"
@@ -8094,12 +8078,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"serialize-javascript@npm:6.0.2":
-  version: 6.0.2
-  resolution: "serialize-javascript@npm:6.0.2"
-  dependencies:
-    randombytes: "npm:^2.1.0"
-  checksum: 10/445a420a6fa2eaee4b70cbd884d538e259ab278200a2ededd73253ada17d5d48e91fb1f4cd224a236ab62ea7ba0a70c6af29fc93b4f3d3078bf7da1c031fde58
+"serialize-javascript@npm:7.0.0":
+  version: 7.0.0
+  resolution: "serialize-javascript@npm:7.0.0"
+  checksum: 10/c50dd10249471d7302ae7e21f2f2325ed9804ab57e498d3cae7a79f79a40175c0f79682db6c59d2ce59807f7dc8cfc7e67338a7fc451ea8ae752e5e3155f4e50
   languageName: node
   linkType: hard
 
