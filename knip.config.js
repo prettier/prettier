@@ -39,7 +39,7 @@ export default {
       ],
       ignoreDependencies: [
         "@docusaurus/faster",
-        "@docusaurus/plugin-content-docs"
+        "@docusaurus/plugin-content-docs",
       ],
       ignore: ["pages/en/**"],
     },
