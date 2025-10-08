@@ -41,7 +41,6 @@ export default {
         "@docusaurus/faster",
         "@docusaurus/plugin-content-docs",
       ],
-      ignore: ["pages/en/**"],
     },
     "scripts/tools/bundle-test": {},
     "scripts/tools/eslint-plugin-prettier-internal-rules": {},
