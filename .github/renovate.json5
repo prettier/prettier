@@ -90,9 +90,9 @@
       matchPackageNames: ["@docusaurus/*"],
     },
     {
-      "packageNames": ["node"],
-      "enabled": false
-    }
+      packageNames: ["node"],
+      enabled: false,
+    },
   ],
   ignoreDeps: [
     // It's a dependency of `remark-parse`, use same version to reduce size
