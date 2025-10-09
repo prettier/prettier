@@ -9,6 +9,14 @@ exports[`snippet: #0 [babel-ts] format 1`] = `
 Cause: Method 'method' cannot have an implementation because it is marked abstract. (2:2)"
 `;
 
+exports[`snippet: #0 [oxc-ts] format 1`] = `
+"Method 'method' cannot have an implementation because it is marked abstract. (2:12)
+  1 | abstract class Foo  {
+> 2 |   abstract method() { }
+    |            ^^^^^^
+  3 | }"
+`;
+
 exports[`snippet: #0 [typescript] format 1`] = `
 "Method 'method' cannot have an implementation because it is marked abstract. (2:12)
   1 | abstract class Foo  {
