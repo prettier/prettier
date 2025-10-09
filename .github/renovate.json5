@@ -89,6 +89,10 @@
       groupName: "docusaurus",
       matchPackageNames: ["@docusaurus/*"],
     },
+    {
+      matchPackageNames: ["node"],
+      enabled: false,
+    },
   ],
   ignoreDeps: [
     // It's a dependency of `remark-parse`, use same version to reduce size
