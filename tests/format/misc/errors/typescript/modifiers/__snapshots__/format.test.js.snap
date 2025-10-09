@@ -4031,3 +4031,23 @@ exports[`snippet: #182 [typescript] format 1`] = `
   3 | }
 Cause: 'declare' modifier cannot appear on an index signature"
 `;
+
+exports[`snippet: #183 [babel-ts] format 1`] = `
+"Unexpected token, expected "," (1:12)
+> 1 | ({abstract method(){}})
+    |            ^
+Cause: Unexpected token, expected "," (1:11)"
+`;
+
+exports[`snippet: #183 [oxc-ts] format 1`] = `
+"'abstract' modifier cannot be used here. (1:3)
+> 1 | ({abstract method(){}})
+    |   ^^^^^^^^"
+`;
+
+exports[`snippet: #183 [typescript] format 1`] = `
+"'abstract' modifier cannot be used here. (1:3)
+> 1 | ({abstract method(){}})
+    |   ^^^^^^^^
+Cause: 'abstract' modifier cannot be used here."
+`;
