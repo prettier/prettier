@@ -5,12 +5,12 @@ __metadata:
   version: 8
   cacheKey: 10
 
-"@angular/compiler@npm:20.3.1":
-  version: 20.3.1
-  resolution: "@angular/compiler@npm:20.3.1"
+"@angular/compiler@npm:20.3.4":
+  version: 20.3.4
+  resolution: "@angular/compiler@npm:20.3.4"
   dependencies:
     tslib: "npm:^2.3.0"
-  checksum: 10/b7f79ddca61b95846d545abc1bf4f429f1b6f51f07e9f42a2df2cd2f28564eb420aa4fe2f8eae08e330ff7fc0d62524b3da444dbbf4c44e4f120009cc0fa0adb
+  checksum: 10/50f5e5e974d7944c182dc898bc7d17fd1740cd05274b3207560306d9a0635523b49419149fb7fda2bb7d4936798ec21d5dc750646311bb1617a8a5fe865b1d2f
   languageName: node
   linkType: hard
 
@@ -7313,7 +7313,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "prettier@workspace:."
   dependencies:
-    "@angular/compiler": "npm:20.3.1"
+    "@angular/compiler": "npm:20.3.4"
     "@babel/code-frame": "npm:8.0.0-beta.2"
     "@babel/generator": "npm:8.0.0-beta.2"
     "@babel/parser": "npm:8.0.0-beta.2"
