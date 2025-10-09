@@ -55,7 +55,7 @@ const config = {
   },
 };
 
-// Only check workspaces on CI, since they need extra install step, see https://github.com/prettier/prettier/issues/16913
+// Only check workspaces on CI, since they require extra install steps, see https://github.com/prettier/prettier/issues/16913
 if (!isCI) {
   config.workspaces = Object.fromEntries(
     Object.entries(config.workspaces).map(([workspace, settings]) => [
