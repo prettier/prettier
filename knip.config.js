@@ -1,5 +1,8 @@
 import { isCI } from "ci-info";
 
+/** @import {KnipConfig} from "knip" */
+
+/** @type {KnipConfig} */
 const config = {
   workspaces: {
     ".": {
