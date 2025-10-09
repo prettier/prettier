@@ -90,7 +90,7 @@
       matchPackageNames: ["@docusaurus/*"],
     },
     {
-      packageNames: ["node"],
+      matchPackageNames: ["node"],
       enabled: false,
     },
   ],
