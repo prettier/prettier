@@ -2,7 +2,7 @@
 
 exports[`case.scss format 1`] = `
 ====================================options=====================================
-parsers: ["scss"]
+parsers: ["sassparser"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -65,7 +65,9 @@ svg[viewBox] linearGradient,
 $KeepTopLevelVar: val;
 @KeepLessVar: val;
 
-@mixin KeepMixinName($Keep: 15IN, $Keep: $Keep15IN, $Keep: Keep-1E-2Em) {
+@mixin KeepMixinName($Keep: 15IN) {}
+@mixin KeepMixinName($Keep: $Keep15IN) {}
+@mixin KeepMixinName($Keep: Keep-1E-2Em) {
     $KeepVar: KeepFuncName();
     #{$KeepInterpolationVar}: val;
     #{$Keep + 15PX}: val;
@@ -94,7 +96,8 @@ $KeepTopLevelVar: val;
     }
 }
 
-@mixin Keep($Keep: $Keep15IN, $Keep: Keepå1E1) {}
+@mixin Keep($Keep: $Keep15IN) {}
+@mixin Keep($Keep: Keepå1E1) {}
 
 @MEDIA (MIN-WIDTH: 700PX) {
     @include Keep;
@@ -215,7 +218,11 @@ svg[viewBox] linearGradient,
 $KeepTopLevelVar: val;
 @KeepLessVar: val;
 
-@mixin KeepMixinName($Keep: 15in, $Keep: $Keep15IN, $Keep: Keep-1E-2Em) {
+@mixin KeepMixinName($Keep: 15in) {
+}
+@mixin KeepMixinName($Keep: $Keep15IN) {
+}
+@mixin KeepMixinName($Keep: Keep-1E-2Em) {
   $KeepVar: KeepFuncName();
   #{$KeepInterpolationVar}: val;
   #{$Keep + 15PX}: val;
@@ -244,7 +251,9 @@ $KeepTopLevelVar: val;
   }
 }
 
-@mixin Keep($Keep: $Keep15IN, $Keep: Keepå1E1) {
+@mixin Keep($Keep: $Keep15IN) {
+}
+@mixin Keep($Keep: Keepå1E1) {
 }
 
 @media (min-width: 700px) {

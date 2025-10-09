@@ -2,7 +2,7 @@
 
 exports[`escape-in-string.scss - {"singleQuote":true} format 1`] = `
 ====================================options=====================================
-parsers: ["scss"]
+parsers: ["sassparser"]
 printWidth: 80
 singleQuote: true
                                                                                 | printWidth
@@ -19,7 +19,7 @@ $description: 'Lorem ipsum dolor sit "amet", consectetur adipiscing elit, ' +
 
 exports[`escape-in-string.scss format 1`] = `
 ====================================options=====================================
-parsers: ["scss"]
+parsers: ["sassparser"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -35,7 +35,7 @@ $description: 'Lorem ipsum dolor sit "amet", consectetur adipiscing elit, ' +
 
 exports[`forward-with.scss - {"singleQuote":true} format 1`] = `
 ====================================options=====================================
-parsers: ["scss"]
+parsers: ["sassparser"]
 printWidth: 80
 singleQuote: true
                                                                                 | printWidth
@@ -52,7 +52,7 @@ singleQuote: true
 
 exports[`forward-with.scss format 1`] = `
 ====================================options=====================================
-parsers: ["scss"]
+parsers: ["sassparser"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -68,7 +68,7 @@ printWidth: 80
 
 exports[`quotes.scss - {"singleQuote":true} format 1`] = `
 ====================================options=====================================
-parsers: ["scss"]
+parsers: ["sassparser"]
 printWidth: 80
 singleQuote: true
                                                                                 | printWidth
@@ -127,7 +127,7 @@ singleQuote: true
 
 exports[`quotes.scss format 1`] = `
 ====================================options=====================================
-parsers: ["scss"]
+parsers: ["sassparser"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

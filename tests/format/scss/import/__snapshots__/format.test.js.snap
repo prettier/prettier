@@ -2,7 +2,7 @@
 
 exports[`import_comma.scss - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
-parsers: ["scss"]
+parsers: ["sassparser"]
 printWidth: 80
 trailingComma: "es5"
                                                                                 | printWidth
@@ -17,7 +17,7 @@ trailingComma: "es5"
 
 exports[`import_comma.scss - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
-parsers: ["scss"]
+parsers: ["sassparser"]
 printWidth: 80
 trailingComma: "none"
                                                                                 | printWidth

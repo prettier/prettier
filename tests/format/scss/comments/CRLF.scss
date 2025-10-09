@@ -10,7 +10,7 @@ $light-blue: $nice-blue + #111;
     /*
      * Comment 4
      */
-    color: @light-blue;
+    color: $light-blue;
 }
 
 @media only screen and (max-width: 600px) {

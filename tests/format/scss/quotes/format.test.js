@@ -1,2 +1,2 @@
-runFormatTest(import.meta, ["scss"]);
-runFormatTest(import.meta, ["scss"], { singleQuote: true });
+runFormatTest(import.meta, ["sassparser"]);
+runFormatTest(import.meta, ["sassparser"], { singleQuote: true });

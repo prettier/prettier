@@ -107,6 +107,7 @@
     "remark-footnotes": "2.0.0",
     "remark-math": "3.0.1",
     "remark-parse": "8.0.3",
+    "sass-parser": "0.4.28",
     "sdbm": "3.0.0",
     "search-closest": "1.1.0",
     "smol-toml": "1.4.2",

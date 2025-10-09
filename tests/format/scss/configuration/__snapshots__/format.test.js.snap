@@ -2,7 +2,7 @@
 
 exports[`use.scss - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
-parsers: ["scss"]
+parsers: ["sassparser"]
 printWidth: 80
 trailingComma: "none"
                                                                                 | printWidth
@@ -49,7 +49,7 @@ trailingComma: "none"
 
 exports[`use.scss format 1`] = `
 ====================================options=====================================
-parsers: ["scss"]
+parsers: ["sassparser"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

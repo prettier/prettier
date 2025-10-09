@@ -2,7 +2,7 @@
 
 exports[`at-rules.scss - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
-parsers: ["scss"]
+parsers: ["sassparser"]
 printWidth: 80
 trailingComma: "es5"
                                                                                 | printWidth
@@ -78,7 +78,7 @@ a {
 
 exports[`at-rules.scss - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
-parsers: ["scss"]
+parsers: ["sassparser"]
 printWidth: 80
 trailingComma: "none"
                                                                                 | printWidth
@@ -154,7 +154,7 @@ a {
 
 exports[`comments.scss - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
-parsers: ["scss"]
+parsers: ["sassparser"]
 printWidth: 80
 trailingComma: "es5"
                                                                                 | printWidth
@@ -206,7 +206,7 @@ $z-indexes: (
 
 exports[`comments.scss - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
-parsers: ["scss"]
+parsers: ["sassparser"]
 printWidth: 80
 trailingComma: "none"
                                                                                 | printWidth
@@ -258,7 +258,7 @@ $z-indexes: (
 
 exports[`declaration.scss - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
-parsers: ["scss"]
+parsers: ["sassparser"]
 printWidth: 80
 trailingComma: "es5"
                                                                                 | printWidth
@@ -277,7 +277,7 @@ a {
 
 exports[`declaration.scss - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
-parsers: ["scss"]
+parsers: ["sassparser"]
 printWidth: 80
 trailingComma: "none"
                                                                                 | printWidth
@@ -296,7 +296,7 @@ a {
 
 exports[`issue-6920.scss - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
-parsers: ["scss"]
+parsers: ["sassparser"]
 printWidth: 80
 trailingComma: "es5"
                                                                                 | printWidth
@@ -318,7 +318,7 @@ $my-map: (
 
 exports[`issue-6920.scss - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
-parsers: ["scss"]
+parsers: ["sassparser"]
 printWidth: 80
 trailingComma: "none"
                                                                                 | printWidth
@@ -340,7 +340,7 @@ $my-map: (
 
 exports[`list.scss - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
-parsers: ["scss"]
+parsers: ["sassparser"]
 printWidth: 80
 trailingComma: "es5"
                                                                                 | printWidth
@@ -446,7 +446,7 @@ $breakpoint-map: (
 
 exports[`list.scss - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
-parsers: ["scss"]
+parsers: ["sassparser"]
 printWidth: 80
 trailingComma: "none"
                                                                                 | printWidth
@@ -552,7 +552,7 @@ $breakpoint-map: (
 
 exports[`map.scss - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
-parsers: ["scss"]
+parsers: ["sassparser"]
 printWidth: 80
 trailingComma: "es5"
                                                                                 | printWidth
@@ -597,7 +597,7 @@ $map: (
 
 exports[`map.scss - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
-parsers: ["scss"]
+parsers: ["sassparser"]
 printWidth: 80
 trailingComma: "none"
                                                                                 | printWidth
@@ -642,7 +642,7 @@ $map: (
 
 exports[`selector_list.scss - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
-parsers: ["scss"]
+parsers: ["sassparser"]
 printWidth: 80
 trailingComma: "es5"
                                                                                 | printWidth
@@ -674,7 +674,7 @@ asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkasdhkajsdhakjsdhkajsdhjkahskjdkjahsj
 
 exports[`selector_list.scss - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
-parsers: ["scss"]
+parsers: ["sassparser"]
 printWidth: 80
 trailingComma: "none"
                                                                                 | printWidth
@@ -706,7 +706,7 @@ asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkasdhkajsdhakjsdhkajsdhjkahskjdkjahsj
 
 exports[`trailing-comma.scss - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
-parsers: ["scss"]
+parsers: ["sassparser"]
 printWidth: 80
 trailingComma: "es5"
                                                                                 | printWidth
@@ -727,7 +727,7 @@ $z-indexes: (
 
 exports[`trailing-comma.scss - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
-parsers: ["scss"]
+parsers: ["sassparser"]
 printWidth: 80
 trailingComma: "none"
                                                                                 | printWidth
@@ -748,7 +748,7 @@ $z-indexes: (
 
 exports[`variable.scss - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
-parsers: ["scss"]
+parsers: ["sassparser"]
 printWidth: 80
 trailingComma: "es5"
                                                                                 | printWidth
@@ -766,7 +766,7 @@ $margin: 0, 2em, 0, 1.5em;
 
 exports[`variable.scss - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
-parsers: ["scss"]
+parsers: ["sassparser"]
 printWidth: 80
 trailingComma: "none"
                                                                                 | printWidth
