@@ -1,6 +1,5 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-<<<<<<< HEAD
 exports[`declare-getter.ts [babel-ts] format 1`] = `
 "'declare' is not allowed in getters. (2:3)
   1 | class Foo {
@@ -11,8 +10,6 @@ exports[`declare-getter.ts [babel-ts] format 1`] = `
 Cause: 'declare' is not allowed in getters. (2:2)"
 `;
 
-=======
->>>>>>> 54e6418a4 (Tests)
 exports[`declare-getter.ts [oxc-ts] format 1`] = `
 "'declare' modifier cannot be used here. (2:3)
   1 | class Foo {
@@ -32,7 +29,6 @@ exports[`declare-getter.ts [typescript] format 1`] = `
 Cause: 'declare' modifier cannot appear on class elements of this kind."
 `;
 
-<<<<<<< HEAD
 exports[`declare-setter.ts [babel-ts] format 1`] = `
 "'declare' is not allowed in setters. (2:3)
   1 | class Foo {
@@ -43,8 +39,6 @@ exports[`declare-setter.ts [babel-ts] format 1`] = `
 Cause: 'declare' is not allowed in setters. (2:2)"
 `;
 
-=======
->>>>>>> 54e6418a4 (Tests)
 exports[`declare-setter.ts [oxc-ts] format 1`] = `
 "'declare' modifier cannot be used here. (2:3)
   1 | class Foo {
@@ -64,33 +58,12 @@ exports[`declare-setter.ts [typescript] format 1`] = `
 Cause: 'declare' modifier cannot appear on class elements of this kind."
 `;
 
-<<<<<<< HEAD
 exports[`export-declare.ts [babel-ts] format 1`] = `
 "'export declare' must be followed by an ambient declaration. (1:16)
 > 1 | export declare foo;
     |                ^
-=======
-exports[`default-escaped.ts [oxc-ts] format 1`] = `
-"Keywords cannot contain escape characters (1:8)
-> 1 | export asyn\\u{63} from "async";
-    |        ^^^^^^^^^^
-  2 |"
-`;
-
-exports[`default-escaped.ts [typescript] format 1`] = `
-"Declaration or statement expected. (1:1)
-> 1 | export asyn\\u{63} from "async";
-    | ^
->>>>>>> 54e6418a4 (Tests)
   2 |
 Cause: 'export declare' must be followed by an ambient declaration. (1:15)"
-`;
-
-exports[`export-declare.ts [oxc-ts] format 1`] = `
-"Unexpected token (1:16)
-> 1 | export declare foo;
-    |                ^^^
-  2 |"
 `;
 
 exports[`export-declare.ts [oxc-ts] format 1`] = `
@@ -108,7 +81,6 @@ exports[`export-declare.ts [typescript] format 1`] = `
 Cause: Declaration or statement expected."
 `;
 
-<<<<<<< HEAD
 exports[`invalid-jsx-1.tsx [babel-ts] format 1`] = `
 "Unexpected token \`>\`. Did you mean \`&gt;\` or \`{'>'}\`? (3:45)
   1 | // https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-9.html#-and--are-now-invalid-jsx-text-characters
@@ -119,8 +91,6 @@ exports[`invalid-jsx-1.tsx [babel-ts] format 1`] = `
 Cause: Unexpected token \`>\`. Did you mean \`&gt;\` or \`{'>'}\`? (3:44)"
 `;
 
-=======
->>>>>>> 54e6418a4 (Tests)
 exports[`invalid-jsx-1.tsx [oxc-ts] format 1`] = `
 "Unexpected token. Did you mean \`{'>'}\` or \`&gt;\`? (3:45)
   1 | // https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-9.html#-and--are-now-invalid-jsx-text-characters
@@ -140,7 +110,6 @@ exports[`invalid-jsx-1.tsx [typescript] format 1`] = `
 Cause: Unexpected token. Did you mean \`{'>'}\` or \`&gt;\`?"
 `;
 
-<<<<<<< HEAD
 exports[`module-attributes-static.ts [babel-ts] format 1`] = `
 "Unexpected token, expected "{" (1:33)
 > 1 | import foo from "foo.json" with type: "json";
@@ -149,8 +118,6 @@ exports[`module-attributes-static.ts [babel-ts] format 1`] = `
 Cause: Unexpected token, expected "{" (1:32)"
 `;
 
-=======
->>>>>>> 54e6418a4 (Tests)
 exports[`module-attributes-static.ts [oxc-ts] format 1`] = `
 "Expected \`{\` but found \`type\` (1:33)
 > 1 | import foo from "foo.json" with type: "json";
@@ -166,7 +133,6 @@ exports[`module-attributes-static.ts [typescript] format 1`] = `
 Cause: '{' expected."
 `;
 
-<<<<<<< HEAD
 exports[`newline-before-arrow.ts [babel-ts] format 1`] = `
 "No line break is allowed before '=>'. (2:3)
   1 | async x
@@ -176,8 +142,6 @@ exports[`newline-before-arrow.ts [babel-ts] format 1`] = `
 Cause: No line break is allowed before '=>'. (2:2)"
 `;
 
-=======
->>>>>>> 54e6418a4 (Tests)
 exports[`newline-before-arrow.ts [oxc-ts] format 1`] = `
 "Line terminator not permitted before arrow (2:1)
   1 | async x
