@@ -30,11 +30,7 @@ const config = {
         "buffer",
         "deno-path-from-file-url",
       ],
-      ignoreBinaries: [
-        "test-coverage",
-        "renovate-config-validator",
-        "pkg-pr-new",
-      ],
+      ignoreBinaries: ["test-coverage"],
     },
     website: {
       entry: [

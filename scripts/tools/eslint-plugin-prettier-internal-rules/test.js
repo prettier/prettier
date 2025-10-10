@@ -949,3 +949,48 @@ test("massage-ast-parameter-names", {
     },
   ],
 });
+
+test("no-useless-ast-path-callback-parameter", {
+  valid: [
+    "path.call?.((childPath) => childPath)",
+    "path?.call((childPath) => childPath)",
+    "path[call]((childPath) => childPath)",
+    "path.notCall((childPath) => childPath)",
+    "not_ast_path.call((childPath) => childPath)",
+    "path.call(({first},) => first)",
+    "path.call((...a) => a)",
+    "path.call(notFunctionExpression)",
+  ],
+  invalid: [
+    ...["call", "callParent", "each", "map"].map((method) => ({
+      code: `path.${method}((childPath) => childPath)`,
+      output: `path.${method}(() => path)`,
+      errors: 1,
+    })),
+    {
+      code: "path.call(function(childPath){childPath})",
+      output: "path.call(function(){path})",
+      errors: 1,
+    },
+    {
+      code: "path.call((childPath,) => childPath)",
+      output: "path.call(() => path)",
+      errors: 1,
+    },
+    {
+      code: "path.each((childPath,index, foo) => {})",
+      output: null,
+      errors: 1,
+    },
+    {
+      code: "fooPath.call((childPath) => childPath)",
+      output: "fooPath.call(() => fooPath)",
+      errors: 1,
+    },
+    {
+      code: "path.call((path) => path)",
+      output: "path.call(() => path)",
+      errors: 1,
+    },
+  ],
+});
