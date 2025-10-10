@@ -9,7 +9,7 @@
   "license": "MIT",
   "scripts": {
     "test": "node test.js",
-    "test-coverage": "npx c8 node test.js"
+    "test-coverage": "yarn dlx c8 node test.js"
   },
   "packageManager": "yarn@4.10.3"
 }
