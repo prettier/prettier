@@ -1,9 +1,9 @@
-import type A = require("./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
-const A = require("./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
+import A1 = require("./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
+const A2 = require("./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
 
-import type B = require(
-// Comment
+import B1 = require(
+// 1
 "b");
-const B = require(
-// Comment
+const B2 = require(
+// 2
 "b");
