@@ -2,11 +2,16 @@ const MESSAGE_ID_PATH = "error/path";
 
 function checkPathParameter(context, callExpression) {
   const [callback] = callExpression.arguments;
-  const objectName = callExpression.callee.object.name;
-  const pathParameter = callback.params[0];
-  if (!(pathParameter?.type === "Identifier")) {
+  if (callback.params.length === 0) {
     return;
   }
+
+  const pathParameter = callback.params[0];
+  if (pathParameter.type !== "Identifier") {
+    return;
+  }
+
+  const objectName = callExpression.callee.object.name;
 
   const problem = {
     node: pathParameter,
@@ -50,7 +55,7 @@ export default {
     type: "suggestion",
     messages: {
       [MESSAGE_ID_PATH]:
-        "Use `{{name}}` instead of the first parameter directly.",
+        "Use `{{name}}` directly instead of the first parameter.",
     },
     fixable: "code",
   },
