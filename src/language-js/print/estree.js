@@ -68,7 +68,7 @@ import { printObject } from "./object.js";
 import { printProperty } from "./property.js";
 import { printStatementSequence } from "./statement.js";
 import {
-  printTaggedTemplateLiteral,
+  printTaggedTemplateExpression,
   printTemplateLiteral,
 } from "./template-literal.js";
 import { printTernary } from "./ternary.js";
@@ -631,7 +631,7 @@ function printEstree(path, options, print, args) {
     case "TemplateLiteral":
       return printTemplateLiteral(path, options, print);
     case "TaggedTemplateExpression":
-      return printTaggedTemplateLiteral(path, options, print);
+      return printTaggedTemplateExpression(path, options, print);
     case "PrivateIdentifier":
       return ["#", node.name];
     case "PrivateName":

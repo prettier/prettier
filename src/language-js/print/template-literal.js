@@ -128,7 +128,7 @@ function printTemplateLiteral(path, options, print) {
   return parts;
 }
 
-function printTaggedTemplateLiteral(path, options, print) {
+function printTaggedTemplateExpression(path, options, print) {
   const quasiDoc = print("quasi");
   const { node } = path;
 
@@ -142,7 +142,7 @@ function printTaggedTemplateLiteral(path, options, print) {
     if (
       hasNewlineInRange(
         options.originalText,
-        locEnd(node.typeArguments ?? node.typeParameters ?? node.tag),
+        locEnd(node.typeArguments ?? node.tag),
         locStart(quasiLeadingComment),
       )
     ) {
@@ -311,7 +311,7 @@ function isJestEachTemplateLiteral({ node, parent }) {
 
 export {
   escapeTemplateCharacters,
-  printTaggedTemplateLiteral,
+  printTaggedTemplateExpression,
   printTemplateExpressions,
   printTemplateLiteral,
   uncookTemplateElementValue,
