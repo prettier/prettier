@@ -230,7 +230,6 @@ function printReturnType(path, print) {
 // `ReturnStatement` and `ThrowStatement`
 function printReturnOrThrowArgument(path, options, print) {
   const { node } = path;
-  const semi = options.semi ? ";" : "";
   const parts = [];
 
   if (node.argument) {
@@ -258,20 +257,20 @@ function printReturnOrThrowArgument(path, options, print) {
 
   const hasDanglingComments = hasComment(node, CommentCheckFlags.Dangling);
   const shouldPrintSemiBeforeComments =
-    semi &&
+    options.semi &&
     hasDanglingComments &&
     hasComment(node, CommentCheckFlags.Last | CommentCheckFlags.Line);
 
   if (shouldPrintSemiBeforeComments) {
-    parts.push(semi);
+    parts.push(";");
   }
 
   if (hasDanglingComments) {
     parts.push(" ", printDanglingComments(path, options));
   }
 
-  if (!shouldPrintSemiBeforeComments) {
-    parts.push(semi);
+  if (!shouldPrintSemiBeforeComments && options.semi) {
+    parts.push(";");
   }
 
   return parts;

@@ -71,7 +71,6 @@ function printTypescript(path, options, print) {
     return node.type.slice(2, -7).toLowerCase();
   }
 
-  const semi = options.semi ? ";" : "";
   const parts = [];
 
   switch (node.type) {
@@ -109,7 +108,7 @@ function printTypescript(path, options, print) {
     case "TSDeclareFunction":
       return printFunction(path, options, print);
     case "TSExportAssignment":
-      return ["export = ", print("expression"), semi];
+      return ["export = ", print("expression"), options.semi ? ";" : ""];
     case "TSModuleBlock":
       return printBlock(path, options, print);
     case "TSInterfaceBody":
@@ -199,7 +198,7 @@ function printTypescript(path, options, print) {
         node.parameters ? parametersGroup : "",
         "]",
         printTypeAnnotationProperty(path, print),
-        isClassMember ? semi : "",
+        isClassMember && options.semi ? ";" : "",
       ];
     }
     case "TSTypePredicate":
@@ -303,7 +302,7 @@ function printTypescript(path, options, print) {
       } else if (node.body) {
         parts.push(" ", group(print("body")));
       } else {
-        parts.push(semi);
+        parts.push(options.semi ? ";" : "");
       }
 
       return parts;

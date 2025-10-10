@@ -82,7 +82,6 @@ function shouldHugType(node) {
 - `OpaqueType`(flow)
 */
 function printOpaqueType(path, options, print) {
-  const semi = options.semi ? ";" : "";
   const { node } = path;
   const parts = [
     printDeclareToken(path),
@@ -114,7 +113,7 @@ function printOpaqueType(path, options, print) {
     parts.push(" = ", print("impltype"));
   }
 
-  parts.push(semi);
+  parts.push(options.semi ? ";" : "");
 
   return parts;
 }
@@ -125,16 +124,19 @@ function printOpaqueType(path, options, print) {
 - `TSTypeAliasDeclaration`(TypeScript)
 */
 function printTypeAlias(path, options, print) {
-  const semi = options.semi ? ";" : "";
   const { node } = path;
-  const parts = [printDeclareToken(path)];
+  const parts = [
+    printDeclareToken(path),
+    "type ",
+    print("id"),
+    print("typeParameters"),
+  ];
 
-  parts.push("type ", print("id"), print("typeParameters"));
   const rightPropertyName =
     node.type === "TSTypeAliasDeclaration" ? "typeAnnotation" : "right";
   return [
     printAssignment(path, options, print, parts, " =", rightPropertyName),
-    semi,
+    options.semi ? ";" : "",
   ];
 }
 
