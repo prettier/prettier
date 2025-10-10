@@ -959,6 +959,7 @@ test("no-useless-ast-path-callback-parameter", {
     "not_ast_path.call((childPath) => childPath)",
     "path.call(({first},) => first)",
     "path.call((...a) => a)",
+    "path.call(notFunctionExpression)",
   ],
   invalid: [
     ...["call", "callParent", "each", "map"].map((method) => ({
