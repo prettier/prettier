@@ -21,6 +21,7 @@ import { printOptionalToken } from "./misc.js";
 - `OptionalCallExpression`
 - `CallExpression`
 - `TSImportType` (TypeScript)
+- `TSExternalModuleReference` (TypeScript)
 */
 function printCallExpression(path, options, print) {
   const { node } = path;
@@ -67,13 +68,15 @@ function printCallExpression(path, options, print) {
     }
   }
 
-  const isDynamicImport =
-    node.type === "ImportExpression" || node.type === "TSImportType";
+  const isDynamicImportLike =
+    node.type === "ImportExpression" ||
+    node.type === "TSImportType" ||
+    node.type === "TSExternalModuleReference";
 
   // We detect calls on member lookups and possibly print them in a
   // special chain format. See `printMemberChain` for more info.
   if (
-    !isDynamicImport &&
+    !isDynamicImportLike &&
     !isNewExpression &&
     isMemberish(node.callee) &&
     !path.call(
@@ -95,7 +98,7 @@ function printCallExpression(path, options, print) {
 
   // We group here when the callee is itself a call expression.
   // See `isLongCurriedCallExpression` for more info.
-  if (isDynamicImport || isCallExpression(node.callee)) {
+  if (isDynamicImportLike || isCallExpression(node.callee)) {
     return group(contents);
   }
 
@@ -107,6 +110,10 @@ function printCallee(path, print) {
 
   if (node.type === "ImportExpression" || node.type === "TSImportType") {
     return `import${node.phase ? `.${node.phase}` : ""}`;
+  }
+
+  if (node.type === "TSExternalModuleReference") {
+    return "require";
   }
 
   return print("callee");
@@ -128,6 +135,8 @@ function isSimpleModuleImport(path) {
         node.type === "ImportExpression" ||
         // `type foo = import("foo")`
         node.type === "TSImportType" ||
+        // `import type A = require("foo")`
+        node.type === "TSExternalModuleReference" ||
         // `require("foo")`
         // `require.resolve("foo")`
         // `require.resolve.paths("foo")`
@@ -172,7 +181,10 @@ function isCommonsJsOrAmdModuleDefinition(path) {
 
   // AMD module
   if (node.callee.name === "require") {
-    return (args.length === 1 && isStringLiteral(args[0])) || args.length > 1;
+    return (
+      ((args.length === 1 && isStringLiteral(args[0])) || args.length > 1) &&
+      !hasComment(args[0])
+    );
   }
 
   // CommonJS module

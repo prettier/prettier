@@ -855,7 +855,7 @@ function getFunctionParameters(node) {
 function iterateFunctionParametersPath(path, iteratee) {
   const { node } = path;
   let index = 0;
-  const callback = (childPath) => iteratee(childPath, index++);
+  const callback = () => iteratee(path, index++);
   if (node.this) {
     path.call(callback, "this");
   }
@@ -877,13 +877,17 @@ function getCallArguments(node) {
     return getCallArguments(node.expression);
   }
 
-  let args = node.arguments;
+  let args;
   if (node.type === "ImportExpression" || node.type === "TSImportType") {
     args = [node.type === "ImportExpression" ? node.source : node.argument];
 
     if (node.options) {
       args.push(node.options);
     }
+  } else if (node.type === "TSExternalModuleReference") {
+    args = [node.expression];
+  } else {
+    args = node.arguments;
   }
 
   callArgumentsCache.set(node, args);
@@ -909,6 +913,8 @@ function iterateCallArgumentsPath(path, iteratee) {
     if (node.options) {
       path.call(() => iteratee(path, 1), "options");
     }
+  } else if (node.type === "TSExternalModuleReference") {
+    path.call(() => iteratee(path, 0), "expression");
   } else {
     path.each(iteratee, "arguments");
   }
@@ -932,15 +938,21 @@ function getCallArgumentSelector(node, index) {
       return [...selectors, "options"];
     }
     throw new RangeError("Invalid argument index");
+  } else if (node.type === "TSExternalModuleReference") {
+    if (index === 0 || index === -1) {
+      return [...selectors, "expression"];
+    }
+  } else {
+    if (index < 0) {
+      index = node.arguments.length + index;
+    }
+    if (index >= 0 && index < node.arguments.length) {
+      return [...selectors, "arguments", index];
+    }
   }
-  if (index < 0) {
-    index = node.arguments.length + index;
-  }
-  /* c8 ignore next 3 */
-  if (index < 0 || index >= node.arguments.length) {
-    throw new RangeError("Invalid argument index");
-  }
-  return [...selectors, "arguments", index];
+
+  /* c8 ignore next */
+  throw new RangeError("Invalid argument index");
 }
 
 function isPrettierIgnoreComment(comment) {
