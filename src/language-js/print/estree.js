@@ -93,7 +93,6 @@ function printEstree(path, options, print, args) {
     return printLiteral(path, options);
   }
 
-  const semi = options.semi ? ";" : "";
   /** @type{Doc[]} */
   let parts = [];
 
@@ -304,7 +303,7 @@ function printEstree(path, options, print, args) {
     case "Super":
       return "super";
     case "Directive":
-      return [print("value"), semi]; // Babel 6
+      return [print("value"), options.semi ? ";" : ""]; // Babel 6
     case "UnaryExpression":
       parts.push(node.operator);
 
@@ -366,8 +365,8 @@ function printEstree(path, options, print, args) {
         ),
       ];
 
-      if (!(isParentForLoop && parentNode.body !== node)) {
-        parts.push(semi);
+      if (options.semi && !(isParentForLoop && parentNode.body !== node)) {
+        parts.push(";");
       }
 
       return group(parts);
@@ -499,7 +498,7 @@ function printEstree(path, options, print, args) {
         "while (",
         group([indent([softline, print("test")]), softline]),
         ")",
-        semi,
+        options.semi ? ";" : "",
       );
 
       return parts;
@@ -514,7 +513,7 @@ function printEstree(path, options, print, args) {
         parts.push(" ", print("label"));
       }
 
-      parts.push(semi);
+      parts.push(options.semi ? ";" : "");
 
       return parts;
     case "LabeledStatement":
@@ -612,7 +611,7 @@ function printEstree(path, options, print, args) {
     }
     // JSX extensions below.
     case "DebuggerStatement":
-      return ["debugger", semi];
+      return ["debugger", options.semi ? ";" : ""];
 
     case "ClassDeclaration":
     case "ClassExpression":

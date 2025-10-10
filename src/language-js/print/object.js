@@ -27,7 +27,6 @@ import { printTypeAnnotationProperty } from "./type-annotation.js";
 /** @import {Doc} from "../../document/builders.js" */
 
 function printObject(path, options, print) {
-  const semi = options.semi ? ";" : "";
   const { node } = path;
 
   const isTypeAnnotation = node.type === "ObjectTypeAnnotation";
@@ -105,7 +104,9 @@ function printObject(path, options, print) {
   const separator = isFlowInterfaceLikeBody
     ? ";"
     : node.type === "TSInterfaceBody" || node.type === "TSTypeLiteral"
-      ? ifBreak(semi, ";")
+      ? options.semi
+        ? ";"
+        : ifBreak("", ";")
       : ",";
   const leftBrace = node.exact ? "{|" : "{";
   const rightBrace = node.exact ? "|}" : "}";
