@@ -902,12 +902,12 @@ function iterateCallArgumentsPath(path, iteratee) {
 
   if (node.type === "ImportExpression" || node.type === "TSImportType") {
     path.call(
-      (sourcePath) => iteratee(sourcePath, 0),
+      () => iteratee(path, 0),
       node.type === "ImportExpression" ? "source" : "argument",
     );
 
     if (node.options) {
-      path.call((sourcePath) => iteratee(sourcePath, 1), "options");
+      path.call(() => iteratee(path, 1), "options");
     }
   } else {
     path.each(iteratee, "arguments");

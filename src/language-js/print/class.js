@@ -85,7 +85,7 @@ function printClass(path, options, print) {
       ),
     ];
     const printedWithComments = path.call(
-      (superClass) => ["extends ", printComments(superClass, printed, options)],
+      () => ["extends ", printComments(path, printed, options)],
       "superClass",
     );
     if (groupMode) {

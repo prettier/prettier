@@ -77,7 +77,7 @@ function printCallExpression(path, options, print) {
     !isNewExpression &&
     isMemberish(node.callee) &&
     !path.call(
-      (path) => pathNeedsParens(path, options),
+      () => pathNeedsParens(path, options),
       "callee",
       ...(node.callee.type === "ChainExpression" ? ["expression"] : []),
     )
