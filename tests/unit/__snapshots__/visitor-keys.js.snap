@@ -923,7 +923,6 @@ exports[`visitor keys estree 1`] = `
   "TSInterfaceHeritage": [
     "expression",
     "typeArguments",
-    "typeParameters",
   ],
   "TSIntersectionType": [
     "types",

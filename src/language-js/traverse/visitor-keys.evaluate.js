@@ -16,10 +16,6 @@ const additionalVisitorKeys = {
   TSJSDocNullableType: ["typeAnnotation"],
   TSJSDocNonNullableType: ["typeAnnotation"],
 
-  // `@typescript-eslint/typescript-estree` v6 renamed `typeParameters` to `typeArguments`
-  // Remove those when babel update AST
-  TSInterfaceHeritage: ["typeParameters"],
-
   // Flow, missed in `flowVisitorKeys`
   NeverTypeAnnotation: [],
   SatisfiesExpression: ["expression", "typeAnnotation"],
