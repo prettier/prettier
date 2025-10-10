@@ -303,7 +303,7 @@ function printEstree(path, options, print, args) {
     case "Super":
       return "super";
     case "Directive":
-      return [print("value"), options.semi ? ";" : ""]; // Babel 6
+      return [print("value"), options.semi ? ";" : ""];
     case "UnaryExpression":
       parts.push(node.operator);
 
