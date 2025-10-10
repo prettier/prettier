@@ -960,6 +960,7 @@ test("no-useless-ast-path-callback-parameter", {
     "path.call(({first},) => first)",
     "path.call((...a) => a)",
     "path.call(notFunctionExpression)",
+    "path.callParent(({isFirst}, index) => index)",
   ],
   invalid: [
     ...["call", "callParent", "each", "map"].map((method) => ({
@@ -980,7 +981,7 @@ test("no-useless-ast-path-callback-parameter", {
     {
       code: "path.each((childPath,index, foo) => {})",
       output: null,
-      errors: 1,
+      errors: 3,
     },
     {
       code: "fooPath.call((childPath) => childPath)",

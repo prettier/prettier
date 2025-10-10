@@ -1,4 +1,13 @@
 const MESSAGE_ID_PATH = "error/path";
+const MESSAGE_ID_INDEX = "error/index";
+const MESSAGE_ID_VALUE = "error/value";
+const messages = {
+  [MESSAGE_ID_PATH]: "Use `{{name}}` directly instead of the first parameter.",
+  [MESSAGE_ID_INDEX]:
+    "Use `{{name}}.{{property}}` instead of the second parameter.",
+  [MESSAGE_ID_VALUE]:
+    "Use `{{name}}.{{property}}` instead of the third parameter.",
+};
 
 function checkPathParameter(context, callExpression) {
   const [callback] = callExpression.arguments;
@@ -6,15 +15,15 @@ function checkPathParameter(context, callExpression) {
     return;
   }
 
-  const pathParameter = callback.params[0];
-  if (pathParameter.type !== "Identifier") {
+  const parameter = callback.params[0];
+  if (parameter.type !== "Identifier") {
     return;
   }
 
   const objectName = callExpression.callee.object.name;
 
   const problem = {
-    node: pathParameter,
+    node: parameter,
     messageId: MESSAGE_ID_PATH,
     data: { name: objectName },
   };
@@ -22,23 +31,23 @@ function checkPathParameter(context, callExpression) {
   if (callback.params.length === 1) {
     const { sourceCode } = context;
     const variable =
-      pathParameter.name === objectName
+      parameter.name === objectName
         ? undefined
         : sourceCode
             .getDeclaredVariables(callback)
-            .find((variable) => variable.defs[0]?.name === pathParameter);
+            .find((variable) => variable.defs[0]?.name === parameter);
 
-    if (variable || pathParameter.name === objectName) {
+    if (variable || parameter.name === objectName) {
       problem.fix = function* (fixer) {
-        yield fixer.remove(pathParameter);
+        yield fixer.remove(parameter);
 
-        const tokenAfter = sourceCode.getTokenAfter(pathParameter);
+        const tokenAfter = sourceCode.getTokenAfter(parameter);
 
         if (tokenAfter.value === ",") {
           yield fixer.remove(tokenAfter);
         }
 
-        if (pathParameter.name !== objectName) {
+        if (parameter.name !== objectName) {
           for (const reference of variable.references) {
             yield fixer.replaceText(reference.identifier, objectName);
           }
@@ -50,13 +59,51 @@ function checkPathParameter(context, callExpression) {
   context.report(problem);
 }
 
+function createIndexOrValueParameterChecker(parameterIndex) {
+  const settings =
+    parameterIndex === 1
+      ? {
+          parameterName: "index",
+          messageId: MESSAGE_ID_INDEX,
+          property: "index",
+        }
+      : {
+          parameterName: "value",
+          messageId: MESSAGE_ID_VALUE,
+          property: "siblings",
+        };
+
+  return (context, callExpression) => {
+    const methodName = callExpression.callee.property.name;
+    if (methodName !== "each" && methodName !== "map") {
+      return;
+    }
+
+    const [callback] = callExpression.arguments;
+    if (callback.params.length < parameterIndex + 1) {
+      return;
+    }
+
+    const parameter = callback.params[parameterIndex];
+    const objectName = callExpression.callee.object.name;
+
+    const problem = {
+      node: parameter,
+      messageId: settings.messageId,
+      data: { name: objectName, property: settings.property },
+    };
+
+    context.report(problem);
+  };
+}
+
+const checkIndexParameter = createIndexOrValueParameterChecker(1);
+const checkValueParameter = createIndexOrValueParameterChecker(2);
+
 export default {
   meta: {
     type: "suggestion",
-    messages: {
-      [MESSAGE_ID_PATH]:
-        "Use `{{name}}` directly instead of the first parameter.",
-    },
+    messages,
     fixable: "code",
   },
   create(context) {
@@ -98,6 +145,8 @@ export default {
         }
 
         checkPathParameter(context, callExpression);
+        checkIndexParameter(context, callExpression);
+        checkValueParameter(context, callExpression);
       },
     };
   },
