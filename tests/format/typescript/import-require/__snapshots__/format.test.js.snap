@@ -1,5 +1,35 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`comments.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import type A = require("./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
+const A = require("./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
+
+import type B = require(
+// Comment
+"./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
+const B = require(
+// Comment
+"./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
+
+=====================================output=====================================
+import type A = require("./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
+const A = require("./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
+
+import type B = require(
+  // Comment
+  "./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module",
+);
+const B = require(// Comment
+"./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
+
+================================================================================
+`;
+
 exports[`import-require.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
