@@ -27,7 +27,7 @@ import {
   shouldBreakFunctionParameters,
   shouldGroupFunctionParameters,
 } from "./function-parameters.js";
-import { printDeclareToken, printFunctionTypeParameters } from "./misc.js";
+import { printDeclareToken } from "./misc.js";
 import { printPropertyKey } from "./property.js";
 import { printTypeAnnotationProperty } from "./type-annotation.js";
 
@@ -59,7 +59,7 @@ function printFunction(path, options, print, args) {
 
   const { node } = path;
 
-  let expandArg = false;
+  let shouldExpandArgument = false;
   if (
     (node.type === "FunctionDeclaration" ||
       node.type === "FunctionExpression") &&
@@ -73,7 +73,7 @@ function printFunction(path, options, print, args) {
           (param) => param.type === "Identifier" && !param.typeAnnotation,
         ))
     ) {
-      expandArg = true;
+      shouldExpandArgument = true;
     }
   }
 
@@ -88,7 +88,7 @@ function printFunction(path, options, print, args) {
     path,
     options,
     print,
-    expandArg,
+    shouldExpandArgument,
   );
   const returnTypeDoc = printReturnType(path, print);
   const shouldGroupParameters = shouldGroupFunctionParameters(
@@ -97,7 +97,7 @@ function printFunction(path, options, print, args) {
   );
 
   parts.push(
-    printFunctionTypeParameters(path, options, print),
+    print("typeParameters"),
     group([
       shouldGroupParameters ? group(parametersDoc) : parametersDoc,
       returnTypeDoc,
@@ -163,7 +163,7 @@ function printMethodValue(path, options, print) {
     returnTypeDoc,
   );
   const parts = [
-    printFunctionTypeParameters(path, options, print),
+    print("typeParameters"),
     group([
       shouldBreakParameters
         ? group(parametersDoc, { shouldBreak: true })

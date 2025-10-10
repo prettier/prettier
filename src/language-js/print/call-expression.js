@@ -13,14 +13,26 @@ import {
 } from "../utils/index.js";
 import printCallArguments from "./call-arguments.js";
 import printMemberChain from "./member-chain.js";
-import { printFunctionTypeParameters, printOptionalToken } from "./misc.js";
+import { printOptionalToken } from "./misc.js";
 
+/*
+- `NewExpression`
+- `ImportExpression`
+- `OptionalCallExpression`
+- `CallExpression`
+- `TSImportType` (TypeScript)
+*/
 function printCallExpression(path, options, print) {
   const { node } = path;
   const isNewExpression = node.type === "NewExpression";
 
   const optional = printOptionalToken(path);
   const args = getCallArguments(node);
+  // `TSImportType.typeArguments` is after `qualifier`, not before the "arguments"
+  const typeArgumentsDoc =
+    node.type !== "TSImportType" && node.typeArguments
+      ? print("typeArguments")
+      : "";
 
   const isTemplateLiteralSingleArg =
     args.length === 1 && isTemplateOnItsOwnLine(args[0], options.originalText);
@@ -47,7 +59,7 @@ function printCallExpression(path, options, print) {
         isNewExpression ? "new " : "",
         printCallee(path, print),
         optional,
-        printFunctionTypeParameters(path, options, print),
+        typeArgumentsDoc,
         "(",
         join(", ", printed),
         ")",
@@ -77,7 +89,7 @@ function printCallExpression(path, options, print) {
     isNewExpression ? "new " : "",
     printCallee(path, print),
     optional,
-    printFunctionTypeParameters(path, options, print),
+    typeArgumentsDoc,
     printCallArguments(path, options, print),
   ];
 

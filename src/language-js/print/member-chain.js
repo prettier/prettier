@@ -27,11 +27,7 @@ import {
 } from "../utils/index.js";
 import printCallArguments from "./call-arguments.js";
 import { printMemberLookup } from "./member.js";
-import {
-  printBindExpressionCallee,
-  printFunctionTypeParameters,
-  printOptionalToken,
-} from "./misc.js";
+import { printBindExpressionCallee, printOptionalToken } from "./misc.js";
 
 /**
  * @import {Doc} from "../../document/builders.js"
@@ -114,7 +110,7 @@ function printMemberChain(path, options, print) {
             path,
             [
               printOptionalToken(path),
-              printFunctionTypeParameters(path, options, print),
+              print("typeArguments"),
               printCallArguments(path, options, print),
             ],
             options,
@@ -157,7 +153,7 @@ function printMemberChain(path, options, print) {
     node,
     printed: [
       printOptionalToken(path),
-      printFunctionTypeParameters(path, options, print),
+      print("typeArguments"),
       printCallArguments(path, options, print),
     ],
   });

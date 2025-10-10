@@ -317,8 +317,8 @@ function printFunctionType(path, options, print) {
     path,
     options,
     print,
-    /* expandArg */ false,
-    /* printTypeParams */ true,
+    /* shouldExpandArgument */ false,
+    /* shouldPrintTypeParameters */ true,
   );
 
   const returnTypeDoc = [];
