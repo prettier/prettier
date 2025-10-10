@@ -177,7 +177,6 @@ function printJestEachTemplateLiteral(path, options, print) {
     options.__inJestEach = true;
     const expressions = path.map(print, "expressions");
     options.__inJestEach = false;
-    const parts = [];
     const stringifiedExpressions = expressions.map(
       (doc) =>
         "${" +
@@ -223,7 +222,7 @@ function printJestEachTemplateLiteral(path, options, print) {
       }
     }
 
-    parts.push(
+    return [
       lineSuffixBoundary,
       "`",
       indent([
@@ -245,8 +244,7 @@ function printJestEachTemplateLiteral(path, options, print) {
       ]),
       hardline,
       "`",
-    );
-    return parts;
+    ];
   }
 }
 

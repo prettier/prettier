@@ -71,8 +71,6 @@ function printTypescript(path, options, print) {
     return node.type.slice(2, -7).toLowerCase();
   }
 
-  const parts = [];
-
   switch (node.type) {
     case "TSThisType":
       return "this";
@@ -223,6 +221,7 @@ function printTypescript(path, options, print) {
       return printTypeScriptMappedType(path, options, print);
 
     case "TSMethodSignature": {
+      const parts = [];
       const kind = node.kind && node.kind !== "method" ? `${node.kind} ` : "";
       parts.push(
         printTypeScriptAccessibilityToken(node),
@@ -281,6 +280,7 @@ function printTypescript(path, options, print) {
     case "TSExternalModuleReference":
       return ["require(", print("expression"), ")"];
     case "TSModuleDeclaration": {
+      const parts = [];
       const { parent } = path;
       const parentIsDeclaration = parent.type === "TSModuleDeclaration";
       const bodyIsDeclaration = node.body?.type === "TSModuleDeclaration";

@@ -84,11 +84,8 @@ function isDeclareHookTypeAnnotation(path) {
 */
 function printHookTypeAnnotation(path, options, print) {
   const { node } = path;
-  const parts = [];
 
-  parts.push(isDeclareHookTypeAnnotation(path) ? "" : "hook ");
-
-  let parametersDoc = printFunctionParameters(
+  const parametersDoc = printFunctionParameters(
     path,
     options,
     print,
@@ -96,19 +93,18 @@ function printHookTypeAnnotation(path, options, print) {
     /* printTypeParams */ true,
   );
 
-  const returnTypeDoc = [];
-  returnTypeDoc.push(
+  const returnTypeDoc = [
     isDeclareHookTypeAnnotation(path) ? ": " : " => ",
     print("returnType"),
-  );
+  ];
 
-  if (shouldGroupFunctionParameters(node, returnTypeDoc)) {
-    parametersDoc = group(parametersDoc);
-  }
-
-  parts.push(parametersDoc, returnTypeDoc);
-
-  return group(parts);
+  return group([
+    isDeclareHookTypeAnnotation(path) ? "" : "hook ",
+    shouldGroupFunctionParameters(node, returnTypeDoc)
+      ? group(parametersDoc)
+      : parametersDoc,
+    returnTypeDoc,
+  ]);
 }
 
 export { printDeclareHook, printHook, printHookTypeAnnotation };
