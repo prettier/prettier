@@ -97,10 +97,10 @@ function printEstree(path, options, print, args) {
     case "JsExpressionRoot":
       return print("node");
     case "JsonRoot":
+      // Babel extension.
       return [printDanglingComments(path, options), print("node"), hardline];
     case "File":
       return printHtmlBinding(path, options, print) ?? print("program");
-    // Babel extension.
     case "EmptyStatement":
       return "";
     case "ExpressionStatement":
@@ -173,6 +173,7 @@ function printEstree(path, options, print, args) {
         node.argument ? [" ", print("argument")] : "",
       ];
     case "AwaitExpression": {
+      /** @type{Doc[]} */
       let parts = ["await"];
       if (node.argument) {
         parts.push(" ", print("argument"));
@@ -371,6 +372,7 @@ function printEstree(path, options, print, args) {
         ")",
         consequent,
       ]);
+      /** @type{Doc[]} */
       const parts = [opening];
 
       if (node.alternate) {
