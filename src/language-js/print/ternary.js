@@ -283,10 +283,7 @@ function printTernary(path, options, print, args) {
     hasComment(consequentNode, CommentCheckFlags.Dangling)
   ) {
     path.call(() => {
-      consequentComments.push(
-        printDanglingComments(path, options),
-        hardline,
-      );
+      consequentComments.push(printDanglingComments(path, options), hardline);
     }, "consequent");
   }
   const alternateComments = [];
