@@ -30,7 +30,9 @@ function printCallExpression(path, options, print) {
   const args = getCallArguments(node);
   // `TSImportType.typeArguments` is after `qualifier`, not before the "arguments"
   const typeArgumentsDoc =
-    node.type === "TSImportType" ? "" : print("typeArguments");
+    node.type !== "TSImportType" && node.typeArguments
+      ? print("typeArguments")
+      : "";
 
   const isTemplateLiteralSingleArg =
     args.length === 1 && isTemplateOnItsOwnLine(args[0], options.originalText);

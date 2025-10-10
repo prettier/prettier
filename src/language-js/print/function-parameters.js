@@ -39,9 +39,10 @@ function printFunctionParameters(
 ) {
   const functionNode = path.node;
   const parameters = getFunctionParameters(functionNode);
-  const typeParametersDoc = shouldPrintTypeParameters
-    ? print("typeParameters")
-    : "";
+  const typeParametersDoc =
+    shouldPrintTypeParameters && functionNode.typeParameters
+      ? print("typeParameters")
+      : "";
 
   if (parameters.length === 0) {
     return [
