@@ -341,12 +341,15 @@ function isArrowFunctionVariableDeclarator(node) {
 }
 
 function getTypeParametersFromTypeReference(node) {
-  const typeArguments =
-    node.type === "GenericTypeAnnotation"
-      ? node.typeParameters
-      : node.type === "TSTypeReference"
-        ? node.typeArguments
-        : undefined;
+  let typeArguments;
+  switch (node.type) {
+    case "GenericTypeAnnotation":
+      typeArguments = node.typeParameters;
+      break;
+    case "TSTypeReference":
+      typeArguments = node.typeArguments;
+      break;
+  }
   return typeArguments?.params;
 }
 
