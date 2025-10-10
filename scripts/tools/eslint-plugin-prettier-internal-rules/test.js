@@ -981,5 +981,15 @@ test("no-useless-ast-path-callback-parameter", {
       output: null,
       errors: 1,
     },
+    {
+      code: "fooPath.call((childPath) => childPath)",
+      output: "fooPath.call(() => fooPath)",
+      errors: 1,
+    },
+    {
+      code: "path.call((path) => path)",
+      output: "path.call(() => path)",
+      errors: 1,
+    },
   ],
 });

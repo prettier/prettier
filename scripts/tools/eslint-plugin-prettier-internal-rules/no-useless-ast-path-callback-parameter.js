@@ -59,11 +59,14 @@ export default {
 
         if (callback.params.length === 1) {
           const { sourceCode } = context;
-          const variable = sourceCode
-            .getDeclaredVariables(callback)
-            .find((variable) => variable.defs[0]?.name === parameter);
+          const variable =
+            parameter.name === objectName
+              ? undefined
+              : sourceCode
+                  .getDeclaredVariables(callback)
+                  .find((variable) => variable.defs[0]?.name === parameter);
 
-          if (variable) {
+          if (variable || parameter.name === objectName) {
             problem.fix = function* (fixer) {
               yield fixer.remove(parameter);
 
@@ -73,8 +76,10 @@ export default {
                 yield fixer.remove(tokenAfter);
               }
 
-              for (const reference of variable.references) {
-                yield fixer.replaceText(reference.identifier, objectName);
+              if (parameter.name !== objectName) {
+                for (const reference of variable.references) {
+                  yield fixer.replaceText(reference.identifier, objectName);
+                }
               }
             };
           }
