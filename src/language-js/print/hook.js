@@ -27,8 +27,8 @@ function printHook(path, options, print) {
     path,
     options,
     print,
-    false,
-    true,
+    /* expandArg */ false,
+    /* shouldPrintTypeParameters*/ true,
   );
   const returnTypeDoc = printReturnType(path, print);
   const shouldGroupParameters = shouldGroupFunctionParameters(
@@ -80,7 +80,7 @@ function isDeclareHookTypeAnnotation(path) {
 }
 
 /*
-- "HookTypeAnnotation"
+- `HookTypeAnnotation` (Flow)
 */
 function printHookTypeAnnotation(path, options, print) {
   const { node } = path;
@@ -90,7 +90,7 @@ function printHookTypeAnnotation(path, options, print) {
     options,
     print,
     /* expandArg */ false,
-    /* printTypeParams */ true,
+    /* shouldPrintTypeParameters */ true,
   );
 
   const returnTypeDoc = [

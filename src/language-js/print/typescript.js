@@ -237,7 +237,7 @@ function printTypescript(path, options, print) {
         options,
         print,
         /* expandArg */ false,
-        /* printTypeParams */ true,
+        /* shouldPrintTypeParameters */ true,
       );
 
       const returnTypeDoc = printTypeAnnotationProperty(

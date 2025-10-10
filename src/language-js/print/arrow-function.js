@@ -192,7 +192,7 @@ function printArrowFunctionSignature(path, options, print, args) {
           options,
           print,
           expandArg,
-          /* printTypeParams */ true,
+          /* shouldPrintTypeParameters */ true,
         ),
         returnTypeDoc,
       ]),

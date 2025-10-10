@@ -27,7 +27,7 @@ import {
   shouldBreakFunctionParameters,
   shouldGroupFunctionParameters,
 } from "./function-parameters.js";
-import { printDeclareToken, printFunctionTypeParameters } from "./misc.js";
+import { printDeclareToken } from "./misc.js";
 import { printPropertyKey } from "./property.js";
 import { printTypeAnnotationProperty } from "./type-annotation.js";
 
@@ -97,7 +97,7 @@ function printFunction(path, options, print, args) {
   );
 
   parts.push(
-    printFunctionTypeParameters(path, options, print),
+    print("typeParameters"),
     group([
       shouldGroupParameters ? group(parametersDoc) : parametersDoc,
       returnTypeDoc,
@@ -163,7 +163,7 @@ function printMethodValue(path, options, print) {
     returnTypeDoc,
   );
   const parts = [
-    printFunctionTypeParameters(path, options, print),
+    print("typeParameters"),
     group([
       shouldBreakParameters
         ? group(parametersDoc, { shouldBreak: true })
