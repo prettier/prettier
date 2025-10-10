@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`import_require.ts format 1`] = `
+exports[`import-require.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
