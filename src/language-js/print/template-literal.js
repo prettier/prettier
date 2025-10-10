@@ -258,10 +258,7 @@ function printTemplateExpression(path, print) {
 }
 
 function printTemplateExpressions(path, print) {
-  return path.map(
-    () => printTemplateExpression(path, print),
-    "expressions",
-  );
+  return path.map(() => printTemplateExpression(path, print), "expressions");
 }
 
 function escapeTemplateCharacters(doc, raw) {
