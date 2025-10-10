@@ -27,7 +27,7 @@ function printHook(path, options, print) {
     path,
     options,
     print,
-    /* expandArg */ false,
+    /* shouldExpandArgument */ false,
     /* shouldPrintTypeParameters*/ true,
   );
   const returnTypeDoc = printReturnType(path, print);
@@ -89,7 +89,7 @@ function printHookTypeAnnotation(path, options, print) {
     path,
     options,
     print,
-    /* expandArg */ false,
+    /* shouldExpandArgument */ false,
     /* shouldPrintTypeParameters */ true,
   );
 

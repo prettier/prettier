@@ -236,7 +236,7 @@ function printTypescript(path, options, print) {
         path,
         options,
         print,
-        /* expandArg */ false,
+        /* shouldExpandArgument */ false,
         /* shouldPrintTypeParameters */ true,
       );
 
