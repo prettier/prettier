@@ -28,8 +28,6 @@ function printCallExpression(path, options, print) {
 
   const optional = printOptionalToken(path);
   const args = getCallArguments(node);
-  const isDynamicImport =
-    node.type === "ImportExpression" || node.type === "TSImportType";
   // `TSImportType.typeArguments` is after `qualifier`, not before the "arguments"
   const typeArgumentsDoc =
     node.type === "TSImportType" ? "" : print("typeArguments");
@@ -66,6 +64,9 @@ function printCallExpression(path, options, print) {
       ];
     }
   }
+
+  const isDynamicImport =
+    node.type === "ImportExpression" || node.type === "TSImportType";
 
   // We detect calls on member lookups and possibly print them in a
   // special chain format. See `printMemberChain` for more info.
