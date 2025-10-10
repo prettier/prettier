@@ -1,4 +1,4 @@
-/** @typedef {Record<string, string[]>} VisitorKeys */
+/** @typedef {Record<string, readonly string[]>} VisitorKeys */
 
 const unique = (values) => [...new Set(values)];
 
@@ -7,11 +7,12 @@ const unique = (values) => [...new Set(values)];
 @returns {VisitorKeys}
 */
 function unionVisitorKeys(...all) {
+  /** @type {VisitorKeys} */
   const result = {};
 
   for (const [type, keys] of all
     .flatMap((keys) => Object.entries(keys))
-    .sort(([keyA], [keyB]) => keyA - keyB)) {
+    .sort(([keyA], [keyB]) => keyA.localeCompare(keyB))) {
     result[type] = unique([...(result[type] ?? []), ...keys]);
   }
 
