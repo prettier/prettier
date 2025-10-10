@@ -3,7 +3,7 @@ const A = require("./a/long/long/long/long/long/long/long/long/long/long/long/lo
 
 import type B = require(
 // Comment
-"./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
+"b");
 const B = require(
 // Comment
-"./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
+"b");

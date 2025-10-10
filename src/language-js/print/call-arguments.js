@@ -37,6 +37,14 @@ import {
 } from "../utils/index.js";
 import { isConciselyPrintedArray } from "./array.js";
 
+/*
+- `NewExpression`
+- `ImportExpression`
+- `OptionalCallExpression`
+- `CallExpression`
+- `TSImportType` (TypeScript)
+- `TSExternalModuleReference` (TypeScript)
+*/
 function printCallArguments(path, options, print) {
   const { node } = path;
 
@@ -84,6 +92,7 @@ function printCallArguments(path, options, print) {
     // Dynamic imports cannot have trailing commas
     node.type !== "ImportExpression" &&
     node.type !== "TSImportType" &&
+    node.type !== "TSExternalModuleReference" &&
     shouldPrintComma(options, "all")
       ? ","
       : "";
