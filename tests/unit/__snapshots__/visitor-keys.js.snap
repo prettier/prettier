@@ -825,7 +825,6 @@ exports[`visitor keys estree 1`] = `
   "TSClassImplements": [
     "expression",
     "typeArguments",
-    "typeParameters",
   ],
   "TSConditionalType": [
     "checkType",

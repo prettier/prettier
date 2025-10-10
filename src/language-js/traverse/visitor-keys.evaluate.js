@@ -18,7 +18,6 @@ const additionalVisitorKeys = {
 
   // `@typescript-eslint/typescript-estree` v6 renamed `typeParameters` to `typeArguments`
   // Remove those when babel update AST
-  TSClassImplements: ["typeParameters"],
   TSInterfaceHeritage: ["typeParameters"],
 
   // Flow, missed in `flowVisitorKeys`
