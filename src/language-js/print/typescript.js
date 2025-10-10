@@ -278,7 +278,7 @@ function printTypescript(path, options, print) {
         options.semi ? ";" : "",
       ];
     case "TSExternalModuleReference":
-      return ["require(", print("expression"), ")"];
+      return printCallExpression(path, options, print);
     case "TSModuleDeclaration": {
       const parts = [];
       const { parent } = path;
