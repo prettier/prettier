@@ -173,8 +173,8 @@ function isCommonsJsOrAmdModuleDefinition(path) {
   // AMD module
   if (node.callee.name === "require") {
     return (
-      !hasComment(args[0]) &&
-      ((args.length === 1 && isStringLiteral(args[0])) || args.length > 1)
+      ((args.length === 1 && isStringLiteral(args[0])) || args.length > 1) &&
+      !hasComment(args[0])
     );
   }
 
