@@ -298,12 +298,8 @@ function isSimpleType(node) {
     isTsKeywordType(node) ||
     isFlowKeywordType(node) ||
     isSimpleTypeAnnotation(node) ||
-    ((node.type === "GenericTypeAnnotation" ||
-      node.type === "TSTypeReference") &&
-      // @ts-expect-error -- `GenericTypeAnnotation`
-      !node.typeParameters &&
-      // @ts-expect-error -- `TSTypeReference`
-      !node.typeArguments)
+    (node.type === "GenericTypeAnnotation" && !node.typeParameters) ||
+    (node.type === "TSTypeReference" && !node.typeArguments)
   );
 }
 

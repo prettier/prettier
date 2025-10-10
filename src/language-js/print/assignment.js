@@ -340,14 +340,14 @@ function isArrowFunctionVariableDeclarator(node) {
   );
 }
 
-const isTypeReference = createTypeCheckFunction([
-  "TSTypeReference",
-  "GenericTypeAnnotation",
-]);
 function getTypeParametersFromTypeReference(node) {
-  if (isTypeReference(node)) {
-    return (node.typeArguments ?? node.typeParameters)?.params;
-  }
+  const typeArguments =
+    node.type === "GenericTypeAnnotation"
+      ? node.typeParameters
+      : node.type === "TSTypeReference"
+        ? node.typeArguments
+        : undefined;
+  return typeArguments?.params;
 }
 
 /**
@@ -448,20 +448,20 @@ function getTypeArgumentsFromCallExpression(node) {
   return (node.typeParameters ?? node.typeArguments)?.params;
 }
 
-function shouldBreakBeforeConditionalType(node) {
-  function isGeneric(subNode) {
-    switch (subNode.type) {
-      case "FunctionTypeAnnotation":
-      case "GenericTypeAnnotation":
-      case "TSFunctionType":
-        return Boolean(subNode.typeParameters);
-      case "TSTypeReference":
-        return Boolean(subNode.typeArguments);
-      default:
-        return false;
-    }
+function isGeneric(node) {
+  switch (node.type) {
+    case "FunctionTypeAnnotation":
+    case "GenericTypeAnnotation":
+    case "TSFunctionType":
+      return Boolean(node.typeParameters);
+    case "TSTypeReference":
+      return Boolean(node.typeArguments);
+    default:
+      return false;
   }
+}
 
+function shouldBreakBeforeConditionalType(node) {
   return isGeneric(node.checkType) || isGeneric(node.extendsType);
 }
 
