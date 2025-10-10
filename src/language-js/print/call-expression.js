@@ -15,6 +15,13 @@ import printCallArguments from "./call-arguments.js";
 import printMemberChain from "./member-chain.js";
 import { printOptionalToken } from "./misc.js";
 
+/*
+- `NewExpression`
+- `ImportExpression`
+- `OptionalCallExpression`
+- `CallExpression`
+- `TSImportType` (TypeScript)
+*/
 function printCallExpression(path, options, print) {
   const { node } = path;
   const isNewExpression = node.type === "NewExpression";
