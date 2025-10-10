@@ -546,8 +546,7 @@ function shouldBreakJsxElement(path) {
 
 function printJsxAttribute(path, options, print) {
   const { node } = path;
-  const parts = [];
-  parts.push(print("name"));
+  const parts = [print("name")];
 
   if (node.value) {
     let res;
