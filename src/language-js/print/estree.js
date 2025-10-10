@@ -97,8 +97,8 @@ function printEstree(path, options, print, args) {
     case "JsExpressionRoot":
       return print("node");
     case "JsonRoot":
-      // Babel extension.
       return [printDanglingComments(path, options), print("node"), hardline];
+    // Babel extension.
     case "File":
       return printHtmlBinding(path, options, print) ?? print("program");
     case "EmptyStatement":
