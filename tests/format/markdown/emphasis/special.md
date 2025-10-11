@@ -29,3 +29,7 @@
 0_1_！ <!-- remark-misparsing, should be formatted as `0_1\_！` -->
 
 ！_1_！
+
+1***2***3
+
+1 ***2*** 3
