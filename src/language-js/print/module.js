@@ -7,6 +7,7 @@ import {
   line,
   softline,
 } from "../../document/builders.js";
+import { removeLines } from "../../document/utils.js";
 import { printDanglingComments } from "../../main/comments/print.js";
 import isNonEmptyArray from "../../utils/is-non-empty-array.js";
 import UnexpectedNodeError from "../../utils/unexpected-node-error.js";
@@ -275,13 +276,28 @@ function getImportAttributesKeyword(node, options) {
   return isNonEmptyArray(node.attributes) ? "with" : undefined;
 }
 
+const isSingleTypeImportAttributes = (node) => {
+  const { attributes } = node;
+
+  if (attributes.length !== 1) {
+    return false;
+  }
+
+  const [{ type, key }] = attributes;
+  return (
+    type === "ImportAttribute" &&
+    ((key.type === "Identifier" && key.name === "type") ||
+      (isStringLiteral(key) && key.value === "type"))
+  );
+};
+
 /*
 - `ImportDeclaration`
 - `ExportDefaultDeclaration`
 - `ExportNamedDeclaration`
 - `ExportAllDeclaration`
-- `DeclareExportDeclaration`(flow)
-- `DeclareExportAllDeclaration`(flow)
+- `DeclareExportDeclaration` (Flow)
+- `DeclareExportAllDeclaration` (Flow)
 */
 function printImportAttributes(path, options, print) {
   const { node } = path;
@@ -295,7 +311,12 @@ function printImportAttributes(path, options, print) {
     return "";
   }
 
-  return [` ${keyword} `, printObject(path, options, print)];
+  let attributesDoc = printObject(path, options, print);
+  if (isSingleTypeImportAttributes(node)) {
+    attributesDoc = removeLines(attributesDoc);
+  }
+
+  return [` ${keyword} `, attributesDoc];
 }
 
 function printModuleSpecifier(path, options, print) {
