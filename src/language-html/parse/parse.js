@@ -35,10 +35,16 @@ function parseHtml(input, parseOptions) {
   return { parseOptions, rootNodes };
 }
 
+/**
+@param {string} input
+@param {ParseOptions} parseOptions
+*/
 function parseVue(input, parseOptions) {
+  const angularHtmlParserParseOptions =
+    toAngularHtmlParserParseOptions(parseOptions);
   let { rootNodes, errors } = angularHtmlParserParse(
     input,
-    toAngularHtmlParserParseOptions(parseOptions),
+    angularHtmlParserParseOptions,
   );
 
   const isHtml = rootNodes.some(
@@ -56,9 +62,8 @@ function parseVue(input, parseOptions) {
   let secondParseResult;
   const getHtmlParseResult = () =>
     (secondParseResult ??= angularHtmlParserParse(input, {
-      canSelfClose: parseOptions.canSelfClose,
-      allowHtmComponentClosingTags: parseOptions.allowHtmComponentClosingTags,
-      isTagNameCaseSensitive: parseOptions.isTagNameCaseSensitive,
+      ...angularHtmlParserParseOptions,
+      getTagContentType: undefined,
     }));
 
   const getElementWithSameLocation = (node) => {
