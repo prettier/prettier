@@ -146,12 +146,7 @@ function printObject(path, options, print) {
     (node.type !== "ObjectPattern" &&
       options.objectWrap === "preserve" &&
       propsAndLoc.length > 0 &&
-      // FIXME
-      hasNewlineInRange(
-        options.originalText,
-        locStart(node),
-        propsAndLoc[0].loc,
-      ));
+      hasNewLineAfterLeftBrace(node, propsAndLoc[0], options));
 
   const separator = isFlowInterfaceLikeBody
     ? ";"
@@ -301,6 +296,15 @@ function shouldHugTheOnlyParameter(node, name) {
   return (
     (name === "params" || name === "this" || name === "rest") &&
     shouldHugTheOnlyFunctionParameter(node)
+  );
+}
+
+// FIXME
+function hasNewLineAfterLeftBrace(node, fistPropertyAndLoc, options) {
+  return hasNewlineInRange(
+    options.originalText,
+    locStart(node),
+    fistPropertyAndLoc.loc,
   );
 }
 
