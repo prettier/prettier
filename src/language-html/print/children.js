@@ -32,7 +32,7 @@ function getEndLocation(node) {
 
   // Element can be unclosed
   if (
-    node.type === "element" &&
+    node.kind === "element" &&
     !node.endSourceSpan &&
     isNonEmptyArray(node.children)
   ) {
@@ -101,14 +101,14 @@ function printBetweenLine(prevNode, nextNode) {
              *             ~
              *       attr
              */
-            (nextNode.type === "element" && nextNode.attrs.length > 0))) ||
+            (nextNode.kind === "element" && nextNode.attrs.length > 0))) ||
         /**
          *     <img
          *       src="long"
          *                 ~
          *     />123
          */
-        (prevNode.type === "element" &&
+        (prevNode.kind === "element" &&
           prevNode.isSelfClosing &&
           needsToBorrowPrevClosingTagEndMarker(nextNode))
       ? ""

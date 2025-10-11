@@ -21,9 +21,7 @@ import HTML_TAGS from "./utils/html-tags.evaluate.js";
 import isUnknownNamespace from "./utils/is-unknown-namespace.js";
 
 /**
- * @import {ParseOptions as AngularHtmlParserParseOptions} from "angular-html-parser"
- * @import {Node as AstNode, Attribute, Element, Comment, Text} from "angular-html-parser/lib/compiler/src/ml_parser/ast.js"
- * @import {ParseTreeResult} from "angular-html-parser/lib/compiler/src/ml_parser/parser.js"
+ * @import {ParseOptions as AngularHtmlParserParseOptions, Ast, ParseTreeResult} from "angular-html-parser"
  */
 
 /**
@@ -42,12 +40,12 @@ import isUnknownNamespace from "./utils/is-unknown-namespace.js";
 
 // `@else    if`
 function normalizeAngularControlFlowBlock(node) {
-  if (node.type !== "block") {
+  if (node.kind !== "block") {
     return;
   }
 
   node.name = node.name.toLowerCase().replaceAll(/\s+/gu, " ").trim();
-  node.type = "angularControlFlowBlock";
+  node.kind = "angularControlFlowBlock";
 
   if (!isNonEmptyArray(node.parameters)) {
     delete node.parameters;
@@ -55,11 +53,11 @@ function normalizeAngularControlFlowBlock(node) {
   }
 
   for (const parameter of node.parameters) {
-    parameter.type = "angularControlFlowBlockParameter";
+    parameter.kind = "angularControlFlowBlockParameter";
   }
 
   node.parameters = {
-    type: "angularControlFlowBlockParameters",
+    kind: "angularControlFlowBlockParameters",
     children: node.parameters,
     sourceSpan: new ParseSourceSpan(
       node.parameters[0].sourceSpan.start,
@@ -69,15 +67,15 @@ function normalizeAngularControlFlowBlock(node) {
 }
 
 function normalizeAngularLetDeclaration(node) {
-  if (node.type !== "letDeclaration") {
+  if (node.kind !== "letDeclaration") {
     return;
   }
 
   // Similar to `VariableDeclarator` in estree
-  node.type = "angularLetDeclaration";
+  node.kind = "angularLetDeclaration";
   node.id = node.name;
   node.init = {
-    type: "angularLetDeclarationInitializer",
+    kind: "angularLetDeclarationInitializer",
     sourceSpan: new ParseSourceSpan(node.valueSpan.start, node.valueSpan.end),
     value: node.value,
   };
@@ -87,12 +85,11 @@ function normalizeAngularLetDeclaration(node) {
 }
 
 function normalizeAngularIcuExpression(node) {
-  if (node.type === "plural" || node.type === "select") {
-    node.clause = node.type;
-    node.type = "angularIcuExpression";
+  if (node.kind === "expansion") {
+    node.kind = "angularIcuExpression";
   }
-  if (node.type === "expansionCase") {
-    node.type = "angularIcuCase";
+  if (node.kind === "expansionCase") {
+    node.kind = "angularIcuCase";
   }
 }
 
@@ -127,8 +124,8 @@ function ngHtmlParser(input, parseOptions, options) {
   if (name === "vue") {
     const isHtml = rootNodes.some(
       (node) =>
-        (node.type === "docType" && node.value === "html") ||
-        (node.type === "element" && node.name.toLowerCase() === "html"),
+        (node.kind === "docType" && node.value === "html") ||
+        (node.kind === "element" && node.name.toLowerCase() === "html"),
     );
 
     // If not Vue SFC, treat as html
@@ -145,19 +142,24 @@ function ngHtmlParser(input, parseOptions, options) {
         isTagNameCaseSensitive,
       }));
 
-    const getNodeWithSameLocation = (node) =>
-      getHtmlParseResult().rootNodes.find(
-        ({ startSourceSpan }) =>
-          startSourceSpan &&
-          startSourceSpan.start.offset === node.startSourceSpan.start.offset,
-      ) ?? node;
+    const getElementWithSameLocation = (node) =>
+      getHtmlParseResult().rootNodes.find((node) => {
+        if (node.kind === "element") {
+          const { startSourceSpan } = node;
+          return (
+            startSourceSpan.start.offset === node.startSourceSpan.start.offset
+          );
+        }
+      }) ?? node;
     for (const [index, node] of rootNodes.entries()) {
-      const { endSourceSpan, startSourceSpan } = node;
-      const isVoidElement = endSourceSpan === null;
+      const isVoidElement = node.kind === "element" && node.isVoid;
       if (isVoidElement) {
         errors = getHtmlParseResult().errors;
-        rootNodes[index] = getNodeWithSameLocation(node);
+        rootNodes[index] = getElementWithSameLocation(node);
       } else if (shouldParseVueRootNodeAsHtml(node, options)) {
+        const { startSourceSpan, endSourceSpan } = /** @type {Ast.Element} */ (
+          node
+        );
         const error = getHtmlParseResult().errors.find(
           (error) =>
             error.span.start.offset > startSourceSpan.start.offset &&
@@ -166,7 +168,7 @@ function ngHtmlParser(input, parseOptions, options) {
         if (error) {
           throwParseError(error);
         }
-        rootNodes[index] = getNodeWithSameLocation(node);
+        rootNodes[index] = getElementWithSameLocation(node);
       }
     }
   }
@@ -176,7 +178,7 @@ function ngHtmlParser(input, parseOptions, options) {
   }
 
   /**
-   * @param {Attribute | Element} node
+   * @param {Ast.Attribute | Ast.Element} node
    */
   const restoreName = (node) => {
     const namespace = node.name.startsWith(":")
@@ -190,19 +192,20 @@ function ngHtmlParser(input, parseOptions, options) {
       : rawName;
 
     node.name = name;
+    // @ts-expect-error -- expected
     node.namespace = namespace;
+    // @ts-expect-error -- expected
     node.hasExplicitNamespace = hasExplicitNamespace;
   };
 
   /**
-   * @param {AstNode} node
+   * @param {Ast.Node} node
    */
   const restoreNameAndValue = (node) => {
-    switch (node.type) {
-      case "element": {
-        const element = /** @type {Element} */ (node);
-        restoreName(element);
-        for (const attr of element.attrs) {
+    switch (node.kind) {
+      case "element":
+        restoreName(node);
+        for (const attr of node.attrs) {
           restoreName(attr);
           if (!attr.valueSpan) {
             attr.value = null;
@@ -214,19 +217,17 @@ function ngHtmlParser(input, parseOptions, options) {
           }
         }
         break;
-      }
-      case "comment": {
-        const comment = /** @type {Comment} */ (node);
-        comment.value = comment.sourceSpan
+
+      case "comment":
+        node.value = node.sourceSpan
           .toString()
           .slice("<!--".length, -"-->".length);
         break;
-      }
-      case "text": {
-        const text = /** @type {Text} */ (node);
-        text.value = text.sourceSpan.toString();
+
+      case "text":
+        node.value = node.sourceSpan.toString();
         break;
-      }
+
       // No default
     }
   };
@@ -236,7 +237,7 @@ function ngHtmlParser(input, parseOptions, options) {
     return fn(lowerCasedText) ? lowerCasedText : text;
   };
   const normalizeName = (node) => {
-    if (node.type === "element") {
+    if (node.kind === "element") {
       if (
         normalizeTagName &&
         (!node.namespace ||
@@ -276,22 +277,25 @@ function ngHtmlParser(input, parseOptions, options) {
   };
 
   /**
-   * @param {AstNode} node
+   * @param {Ast.Node} node
    */
   const addTagDefinition = (node) => {
-    if (node.type === "element") {
-      const element = /** @type {Element} */ (node);
+    if (node.kind === "element") {
       const tagDefinition = getHtmlTagDefinition(
-        isTagNameCaseSensitive ? element.name : element.name.toLowerCase(),
+        isTagNameCaseSensitive ? node.name : node.name.toLowerCase(),
       );
       if (
-        !element.namespace ||
-        element.namespace === tagDefinition.implicitNamespacePrefix ||
-        isUnknownNamespace(element)
+        // @ts-expect-error -- we add it
+        !node.namespace ||
+        // @ts-expect-error -- we add it
+        node.namespace === tagDefinition.implicitNamespacePrefix ||
+        isUnknownNamespace(node)
       ) {
-        element.tagDefinition = tagDefinition;
+        // @ts-expect-error -- expected
+        node.tagDefinition = tagDefinition;
       } else {
-        element.tagDefinition = getHtmlTagDefinition(""); // the default one
+        // @ts-expect-error -- expected
+        node.tagDefinition = getHtmlTagDefinition(""); // the default one
       }
     }
   };
@@ -321,8 +325,12 @@ function ngHtmlParser(input, parseOptions, options) {
   return rootNodes;
 }
 
+/**
+@param {Ast.Node} node
+@returns {boolean}
+*/
 function shouldParseVueRootNodeAsHtml(node, options) {
-  if (node.type !== "element" || node.name !== "template") {
+  if (node.kind !== "element" || node.name !== "template") {
     return false;
   }
   const language = node.attrs.find((attr) => attr.name === "lang")?.value;
@@ -363,7 +371,7 @@ function parse(
   const start = new ParseLocation(file, 0, 0, 0);
   const end = start.moveBy(text.length);
   const rawAst = {
-    type: "root",
+    kind: "root",
     sourceSpan: new ParseSourceSpan(start, end),
     children: ngHtmlParser(textToParse, parseOptions, options),
   };
@@ -380,6 +388,8 @@ function parse(
     );
     rawAst.children.unshift({
       ...frontMatter,
+      // @ts-expect-error -- Not a real node
+      kind: frontMatter.type,
       sourceSpan: new ParseSourceSpan(start, end),
     });
   }
@@ -418,7 +428,7 @@ function parse(
   };
 
   ast.walk((node) => {
-    if (node.type === "comment") {
+    if (node.kind === "comment") {
       const ieConditionalComment = parseIeConditionalComment(
         node,
         parseSubHtml,

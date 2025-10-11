@@ -42,7 +42,7 @@ function parseIeConditionalStartEndComment(node, parseHtml, match) {
       return [true, parseHtml(data, contentStartSpan).children];
     } catch {
       const text = {
-        type: "text",
+        kind: "text",
         value: data,
         sourceSpan: new ParseSourceSpan(contentStartSpan, contentEndSpan),
       };
@@ -50,7 +50,7 @@ function parseIeConditionalStartEndComment(node, parseHtml, match) {
     }
   })();
   return {
-    type: "ieConditionalComment",
+    kind: "ieConditionalComment",
     complete,
     children,
     condition: condition.trim().replaceAll(/\s+/gu, " "),
@@ -66,7 +66,7 @@ function parseIeConditionalStartEndComment(node, parseHtml, match) {
 function parseIeConditionalStartComment(node, parseHtml, match) {
   const [, condition] = match;
   return {
-    type: "ieConditionalStartComment",
+    kind: "ieConditionalStartComment",
     condition: condition.trim().replaceAll(/\s+/gu, " "),
     sourceSpan: node.sourceSpan,
   };
@@ -74,7 +74,7 @@ function parseIeConditionalStartComment(node, parseHtml, match) {
 
 function parseIeConditionalEndComment(node /* , parseHtml, match */) {
   return {
-    type: "ieConditionalEndComment",
+    kind: "ieConditionalEndComment",
     sourceSpan: node.sourceSpan,
   };
 }

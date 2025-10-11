@@ -44,9 +44,9 @@ function embed(path, options) {
     return printEmbedFrontMatter;
   }
 
-  switch (node.type) {
+  switch (node.kind) {
     case "element":
-      if (isScriptLikeTag(node, options) || node.type === "interpolation") {
+      if (isScriptLikeTag(node, options) || node.kind === "interpolation") {
         // Fall through to "text"
         return;
       }
@@ -115,7 +115,7 @@ function embed(path, options) {
             ];
           };
         }
-      } else if (node.parent.type === "interpolation") {
+      } else if (node.parent.kind === "interpolation") {
         return async (textToDoc) => {
           const textToDocOptions = {
             __isInHtmlInterpolation: true, // to avoid unexpected `}}`

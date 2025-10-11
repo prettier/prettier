@@ -24,18 +24,18 @@ const embeddedAngularControlFlowBlocks = new Set([
 ]);
 
 function clean(original, cloned, parent) {
-  if (original.type === "text" || original.type === "comment") {
+  if (original.kind === "text" || original.kind === "comment") {
     return null;
   }
 
   cleanFrontMatter(original, cloned);
 
   // may be formatted by multiparser
-  if (original.type === "yaml") {
+  if (original.kind === "yaml") {
     delete cloned.value;
   }
 
-  if (original.type === "attribute") {
+  if (original.kind === "attribute") {
     const { fullName: name, value } = original;
 
     if (
@@ -72,12 +72,12 @@ function clean(original, cloned, parent) {
     }
   }
 
-  if (original.type === "docType") {
+  if (original.kind === "docType") {
     cloned.value = original.value.toLowerCase().replaceAll(/\s+/gu, " ");
   }
 
   if (
-    original.type === "angularControlFlowBlock" &&
+    original.kind === "angularControlFlowBlock" &&
     original.parameters?.children
   ) {
     for (const parameter of cloned.parameters.children) {
@@ -89,17 +89,17 @@ function clean(original, cloned, parent) {
     }
   }
 
-  if (original.type === "angularIcuExpression") {
+  if (original.kind === "angularIcuExpression") {
     cloned.switchValue = original.switchValue.trim();
   }
 
-  if (original.type === "angularLetDeclarationInitializer") {
+  if (original.kind === "angularLetDeclarationInitializer") {
     delete cloned.value;
   }
 
   // We always print void tags as self closing
   if (
-    original.type === "element" &&
+    original.kind === "element" &&
     original.isVoid &&
     !original.isSelfClosing
   ) {
