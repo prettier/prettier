@@ -1,3 +1,4 @@
+import * as assert from "#universal/assert";
 import {
   group,
   hardline,
@@ -301,11 +302,15 @@ function shouldHugTheOnlyParameter(node, name) {
 
 // FIXME
 function hasNewLineAfterLeftBrace(node, fistPropertyAndLoc, options) {
-  return hasNewlineInRange(
-    options.originalText,
-    locStart(node),
-    fistPropertyAndLoc.loc,
-  );
+  const text = options.originalText;
+  const leftBraceIndex = locStart(node);
+
+  /* c8 ignore next 3 */
+  if (process.env.NODE_ENV !== "production") {
+    assert.equal(text.charAt(leftBraceIndex), "{");
+  }
+
+  return hasNewlineInRange(text, leftBraceIndex, fistPropertyAndLoc.loc);
 }
 
 export { printObject };
