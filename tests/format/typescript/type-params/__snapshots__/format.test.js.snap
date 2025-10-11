@@ -408,7 +408,7 @@ class _ {
 ================================================================================
 `;
 
-exports[`line-breaking-after-extends.ts format 1`] = `
+exports[`constraints-and-default.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -417,17 +417,31 @@ printWidth: 80
 export type OuterType1<
   LongerLongerLongerLongerInnerType extends LongerLongerLongerLongerOtherType<OneMoreType>
 > = { a: 1 };
+export type OuterType12<
+  LongerLongerLongerLongerInnerType = LongerLongerLongerLongerOtherType<OneMoreType>
+> = { a: 1 };
 
 export type OuterType2<
   LongerLongerLongerLongerInnerType extends LongerLongerLongerLongerLongerLongerLongerLongerOtherType
+> = { a: 1 };
+export type OuterType22<
+  LongerLongerLongerLongerInnerType = LongerLongerLongerLongerLongerLongerLongerLongerOtherType
 > = { a: 1 };
 
 export type OuterType3<
   LongerLongerLongerLongerInnerType extends LongerLongerLongerLongerLongerLo.ngerLongerLongerOtherType
 > = { a: 1 };
+export type OuterType32<
+  LongerLongerLongerLongerInnerType = LongerLongerLongerLongerLongerLo.ngerLongerLongerOtherType
+> = { a: 1 };
 
 export type OuterType4<
   LongerLongerLongerLongerInnerType extends
+    | LongerLongerLongerLongerLongerLo
+    | ngerLongerLongerOtherType
+> = { a: 1 };
+export type OuterType42<
+  LongerLongerLongerLongerInnerType =
     | LongerLongerLongerLongerLongerLo
     | ngerLongerLongerOtherType
 > = { a: 1 };
@@ -437,14 +451,26 @@ export type OuterType1<
   LongerLongerLongerLongerInnerType extends
     LongerLongerLongerLongerOtherType<OneMoreType>,
 > = { a: 1 };
+export type OuterType12<
+  LongerLongerLongerLongerInnerType =
+    LongerLongerLongerLongerOtherType<OneMoreType>,
+> = { a: 1 };
 
 export type OuterType2<
   LongerLongerLongerLongerInnerType extends
     LongerLongerLongerLongerLongerLongerLongerLongerOtherType,
 > = { a: 1 };
+export type OuterType22<
+  LongerLongerLongerLongerInnerType =
+    LongerLongerLongerLongerLongerLongerLongerLongerOtherType,
+> = { a: 1 };
 
 export type OuterType3<
   LongerLongerLongerLongerInnerType extends
+    LongerLongerLongerLongerLongerLo.ngerLongerLongerOtherType,
+> = { a: 1 };
+export type OuterType32<
+  LongerLongerLongerLongerInnerType =
     LongerLongerLongerLongerLongerLo.ngerLongerLongerOtherType,
 > = { a: 1 };
 
@@ -453,11 +479,16 @@ export type OuterType4<
     | LongerLongerLongerLongerLongerLo
     | ngerLongerLongerOtherType,
 > = { a: 1 };
+export type OuterType42<
+  LongerLongerLongerLongerInnerType =
+    | LongerLongerLongerLongerLongerLo
+    | ngerLongerLongerOtherType,
+> = { a: 1 };
 
 ================================================================================
 `;
 
-exports[`line-breaking-after-extends-2.ts format 1`] = `
+exports[`constraints-and-default-2.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -472,124 +503,6 @@ a = {
       | N.ClassPrivateMethod,
   >() {}
 }
-
-function parseFunctionBodyAndFinish<
-  T extends
-    | N.Function
-    | N.TSDeclareMethod
-    | N.TSDeclareFunction
-    | N.ClassPrivateMethod
-    | Foo
-    | Bar
-    | Baz
->();
-
-function parseFunctionBodyAndFinish<
-  T extends // comment
-    N.Function | N.TSDeclareMethod | Baz
->();
-
-function makeChainWalker<
-  ArgT extends {
-    options: ValidatedOptions;
-    dirname: string;
-    filepath?: string;
-  },
->() {}
-
-=====================================output=====================================
-a = {
-  parseFunctionBodyAndFinish<
-    T extends
-      | N.Function
-      | N.TSDeclareMethod
-      | N.TSDeclareFunction
-      | N.ClassPrivateMethod,
-  >() {},
-};
-
-function parseFunctionBodyAndFinish<
-  T extends
-    | N.Function
-    | N.TSDeclareMethod
-    | N.TSDeclareFunction
-    | N.ClassPrivateMethod
-    | Foo
-    | Bar
-    | Baz,
->();
-
-function parseFunctionBodyAndFinish<
-  T extends // comment
-    N.Function | N.TSDeclareMethod | Baz,
->();
-
-function makeChainWalker<
-  ArgT extends {
-    options: ValidatedOptions;
-    dirname: string;
-    filepath?: string;
-  },
->() {}
-
-================================================================================
-`;
-
-exports[`line-breaking-before-default.ts format 1`] = `
-====================================options=====================================
-parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-export type OuterType1<
-  LongerLongerLongerLongerInnerType = LongerLongerLongerLongerOtherType<OneMoreType>
-> = { a: 1 };
-
-export type OuterType2<
-  LongerLongerLongerLongerInnerType = LongerLongerLongerLongerLongerLongerLongerLongerOtherType
-> = { a: 1 };
-
-export type OuterType3<
-  LongerLongerLongerLongerInnerType = LongerLongerLongerLongerLongerLo.ngerLongerLongerOtherType
-> = { a: 1 };
-
-export type OuterType4<
-  LongerLongerLongerLongerInnerType =
-    | LongerLongerLongerLongerLongerLo
-    | ngerLongerLongerOtherType
-> = { a: 1 };
-
-=====================================output=====================================
-export type OuterType1<
-  LongerLongerLongerLongerInnerType =
-    LongerLongerLongerLongerOtherType<OneMoreType>,
-> = { a: 1 };
-
-export type OuterType2<
-  LongerLongerLongerLongerInnerType =
-    LongerLongerLongerLongerLongerLongerLongerLongerOtherType,
-> = { a: 1 };
-
-export type OuterType3<
-  LongerLongerLongerLongerInnerType =
-    LongerLongerLongerLongerLongerLo.ngerLongerLongerOtherType,
-> = { a: 1 };
-
-export type OuterType4<
-  LongerLongerLongerLongerInnerType =
-    | LongerLongerLongerLongerLongerLo
-    | ngerLongerLongerOtherType,
-> = { a: 1 };
-
-================================================================================
-`;
-
-exports[`line-breaking-before-default-2.ts format 1`] = `
-====================================options=====================================
-parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
 a = {
   parseFunctionBodyAndFinish<
     T =
@@ -600,7 +513,17 @@ a = {
   >() {}
 }
 
-function parseFunctionBodyAndFinish<
+function parseFunctionBodyAndFinish1<
+  T extends
+    | N.Function
+    | N.TSDeclareMethod
+    | N.TSDeclareFunction
+    | N.ClassPrivateMethod
+    | Foo
+    | Bar
+    | Baz
+>();
+function parseFunctionBodyAndFinish12<
   T =
     | N.Function
     | N.TSDeclareMethod
@@ -611,12 +534,23 @@ function parseFunctionBodyAndFinish<
     | Baz
 >();
 
-function parseFunctionBodyAndFinish<
+function parseFunctionBodyAndFinish2<
+  T extends // comment
+    N.Function | N.TSDeclareMethod | Baz
+>();
+function parseFunctionBodyAndFinish22<
   T = // comment
     N.Function | N.TSDeclareMethod | Baz
 >();
 
 function makeChainWalker<
+  ArgT extends {
+    options: ValidatedOptions;
+    dirname: string;
+    filepath?: string;
+  },
+>() {}
+function makeChainWalker2<
   ArgT = {
     options: ValidatedOptions;
     dirname: string;
@@ -627,6 +561,15 @@ function makeChainWalker<
 =====================================output=====================================
 a = {
   parseFunctionBodyAndFinish<
+    T extends
+      | N.Function
+      | N.TSDeclareMethod
+      | N.TSDeclareFunction
+      | N.ClassPrivateMethod,
+  >() {},
+};
+a = {
+  parseFunctionBodyAndFinish<
     T =
       | N.Function
       | N.TSDeclareMethod
@@ -635,7 +578,17 @@ a = {
   >() {},
 };
 
-function parseFunctionBodyAndFinish<
+function parseFunctionBodyAndFinish1<
+  T extends
+    | N.Function
+    | N.TSDeclareMethod
+    | N.TSDeclareFunction
+    | N.ClassPrivateMethod
+    | Foo
+    | Bar
+    | Baz,
+>();
+function parseFunctionBodyAndFinish12<
   T =
     | N.Function
     | N.TSDeclareMethod
@@ -646,12 +599,23 @@ function parseFunctionBodyAndFinish<
     | Baz,
 >();
 
-function parseFunctionBodyAndFinish<
+function parseFunctionBodyAndFinish2<
+  T extends // comment
+    N.Function | N.TSDeclareMethod | Baz,
+>();
+function parseFunctionBodyAndFinish22<
   T = // comment
     N.Function | N.TSDeclareMethod | Baz,
 >();
 
 function makeChainWalker<
+  ArgT extends {
+    options: ValidatedOptions;
+    dirname: string;
+    filepath?: string;
+  },
+>() {}
+function makeChainWalker2<
   ArgT = {
     options: ValidatedOptions;
     dirname: string;
