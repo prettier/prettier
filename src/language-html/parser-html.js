@@ -142,24 +142,19 @@ function ngHtmlParser(input, parseOptions, options) {
         isTagNameCaseSensitive,
       }));
 
-    const getElementWithSameLocation = (node) =>
-      getHtmlParseResult().rootNodes.find((node) => {
-        if (node.kind === "element") {
-          const { startSourceSpan } = node;
-          return (
-            startSourceSpan.start.offset === node.startSourceSpan.start.offset
-          );
-        }
-      }) ?? node;
+    const getNodeWithSameLocation = (node) =>
+      getHtmlParseResult().rootNodes.find(
+        ({ startSourceSpan }) =>
+          startSourceSpan &&
+          startSourceSpan.start.offset === node.startSourceSpan.start.offset,
+      ) ?? node;
     for (const [index, node] of rootNodes.entries()) {
       const isVoidElement = node.kind === "element" && node.isVoid;
       if (isVoidElement) {
         errors = getHtmlParseResult().errors;
-        rootNodes[index] = getElementWithSameLocation(node);
+        rootNodes[index] = getNodeWithSameLocation(node);
       } else if (shouldParseVueRootNodeAsHtml(node, options)) {
-        const { startSourceSpan, endSourceSpan } = /** @type {Ast.Element} */ (
-          node
-        );
+        const { endSourceSpan, startSourceSpan } = node;
         const error = getHtmlParseResult().errors.find(
           (error) =>
             error.span.start.offset > startSourceSpan.start.offset &&
@@ -168,7 +163,7 @@ function ngHtmlParser(input, parseOptions, options) {
         if (error) {
           throwParseError(error);
         }
-        rootNodes[index] = getElementWithSameLocation(node);
+        rootNodes[index] = getNodeWithSameLocation(node);
       }
     }
   }
