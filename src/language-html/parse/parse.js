@@ -140,10 +140,10 @@ function parseSubHtml(
   options,
 ) {
   const { offset } = startSpan;
-  const fakeContent = text.slice(0, offset).replaceAll(/[^\n\r]/gu, " ");
-  const realContent = subContent;
+  const textToParse =
+    text.slice(0, offset).replaceAll(/[^\n]/gu, " ") + subContent;
   const subAst = parse(
-    fakeContent + realContent,
+    textToParse,
     parser,
     { ...parseOptions, shouldParseFrontMatter: false },
     options,
