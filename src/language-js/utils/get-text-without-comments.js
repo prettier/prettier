@@ -20,14 +20,17 @@ function getTextWithoutComments(options, start, end) {
       continue;
     }
 
+    const startIndex = commentStart - start;
+    const endIndex = commentEnd - start;
+
     text =
-      text.slice(0, commentStart - start) +
-      replaceNonEolCharactersWithSpace(text.slice(commentStart, commentEnd)) +
-      text.slice(commentEnd - start);
+      text.slice(0, startIndex) +
+      replaceNonEolCharactersWithSpace(text.slice(startIndex, endIndex)) +
+      text.slice(endIndex);
   }
 
   if (process.env.NODE_ENV !== "production") {
-    assert.ok(text.length === end - start);
+    assert.equal(text.length, end - start);
   }
 
   return text;
