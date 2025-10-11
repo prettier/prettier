@@ -13,7 +13,7 @@ import { parseIeConditionalComment } from "./conditional-comment.js";
 
 /**
 @import {ParseOptions as AngularHtmlParserParseOptions, Ast, ParseTreeResult} from "angular-html-parser";
-@import { ParseOptions } from "./parse-options.js";
+@import {ParseOptions} from "./parse-options.js";
 */
 
 class Visitor extends RecursiveVisitor {
