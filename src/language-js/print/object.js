@@ -12,8 +12,10 @@ import hasNewline from "../../utils/has-newline.js";
 import hasNewlineInRange from "../../utils/has-newline-in-range.js";
 import isNonEmptyArray from "../../utils/is-non-empty-array.js";
 import { locEnd, locStart } from "../loc.js";
+import getTextWithoutComments from "../utils/get-text-without-comments.js";
 import {
   CommentCheckFlags,
+  createTypeCheckFunction,
   getComments,
   hasComment,
   isNextLineEmpty,
@@ -42,6 +44,15 @@ const isSingleTypeImportAttributes = (node) => {
       (isStringLiteral(key) && key.value === "type"))
   );
 };
+
+const isPrintingImportAttributes = createTypeCheckFunction([
+  "ImportDeclaration",
+  "ExportDefaultDeclaration",
+  "ExportNamedDeclaration",
+  "ExportAllDeclaration",
+  "DeclareExportDeclaration",
+  "DeclareExportAllDeclaration",
+]);
 
 /*
 - `ObjectExpression`
@@ -75,13 +86,7 @@ function printObject(path, options, print) {
     node.type === "EnumStringBody" ||
     node.type === "EnumSymbolBody";
   const isInterfaceBody = node.type === "TSInterfaceBody";
-  const isImportAttributes =
-    node.type === "ImportDeclaration" ||
-    node.type === "ExportDefaultDeclaration" ||
-    node.type === "ExportNamedDeclaration" ||
-    node.type === "ExportAllDeclaration" ||
-    node.type === "DeclareExportDeclaration" ||
-    node.type === "DeclareExportAllDeclaration";
+  const isImportAttributes = isPrintingImportAttributes(node);
 
   const fields = [];
   if (node.type === "TSTypeLiteral" || isEnumBody) {
@@ -301,16 +306,27 @@ function shouldHugTheOnlyParameter(node, name) {
 }
 
 // FIXME
-function hasNewLineAfterLeftBrace(node, fistPropertyAndLoc, options) {
+function hasNewLineAfterLeftBrace(node, firstPropertyAndLoc, options) {
   const text = options.originalText;
-  const leftBraceIndex = locStart(node);
+  let leftBraceIndex = locStart(node);
+  const firstPropertyStart = firstPropertyAndLoc.loc;
+
+  if (isPrintingImportAttributes(node)) {
+    const start = locStart(node);
+    const textBeforeAttributes = getTextWithoutComments(
+      options,
+      start,
+      firstPropertyStart,
+    );
+    leftBraceIndex = start + textBeforeAttributes.lastIndexOf("{");
+  }
 
   /* c8 ignore next 3 */
   if (process.env.NODE_ENV !== "production") {
     assert.equal(text.charAt(leftBraceIndex), "{");
   }
 
-  return hasNewlineInRange(text, leftBraceIndex, fistPropertyAndLoc.loc);
+  return hasNewlineInRange(text, leftBraceIndex, firstPropertyStart);
 }
 
 export { printObject };
