@@ -1,10 +1,6 @@
 import * as assert from "#universal/assert";
 import { locEnd, locStart } from "../loc.js";
 
-function replaceNonEolCharactersWithSpace(text) {
-  return text.replaceAll(/[^\n]/gu, " ");
-}
-
 function getTextWithoutComments(options, start, end) {
   let text = options.originalText.slice(start, end);
 
@@ -25,7 +21,7 @@ function getTextWithoutComments(options, start, end) {
 
     text =
       text.slice(0, startIndex) +
-      replaceNonEolCharactersWithSpace(text.slice(startIndex, endIndex)) +
+      text.slice(startIndex, endIndex).replaceAll(/[^\n]/gu, " ") +
       text.slice(endIndex);
   }
 
