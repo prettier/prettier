@@ -283,11 +283,16 @@ const isSingleTypeImportAttributes = (node) => {
     return false;
   }
 
-  const [{ type, key }] = attributes;
+  const [attribute] = attributes;
+  const { type, key, value } = attribute;
   return (
     type === "ImportAttribute" &&
     ((key.type === "Identifier" && key.name === "type") ||
-      (isStringLiteral(key) && key.value === "type"))
+      (isStringLiteral(key) && key.value === "type")) &&
+    isStringLiteral(value) &&
+    !hasComment(attribute) &&
+    !hasComment(key) &&
+    !hasComment(value)
   );
 };
 
