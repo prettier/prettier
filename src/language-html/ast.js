@@ -11,7 +11,7 @@ const NON_ENUMERABLE_PROPERTIES = new Set(["parent"]);
 // https://github.com/microsoft/TypeScript/issues/26811
 
 class Node {
-  type;
+  kind;
   parent;
 
   constructor(nodeOrProperties = {}) {
@@ -124,11 +124,11 @@ class Node {
   }
 
   get #childrenProperty() {
-    if (this.type === "angularIcuCase") {
+    if (this.kind === "angularIcuCase") {
       return "expression";
     }
 
-    if (this.type === "angularIcuExpression") {
+    if (this.kind === "angularIcuExpression") {
       return "cases";
     }
 
