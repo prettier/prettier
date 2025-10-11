@@ -14,8 +14,10 @@ import { postprocess } from "./postprocess.js";
 
 /**
 @import {ParseOptions as AngularHtmlParserParseOptions, Ast, ParseTreeResult} from "angular-html-parser";
-@import { RawParseOptions, ParseOptions } from "./parse-options.js";
+@import {RawParseOptions, ParseOptions} from "./parse-options.js";
+@import {FrontMatter} from "../../utils/front-matter/parse.js"
 @typedef {{filepath?: string}} Options
+@typedef {FrontMatter & {kind: FrontMatter["type"], sourceSpan: ParseSourceSpan}} HtmlFrontMatter
 */
 
 /**
@@ -177,7 +179,7 @@ function parseSubHtml(
 @param {Options} options
 */
 function parse(text, parser, parseOptions, options = {}) {
-  let { frontMatter, content: textToParse } =
+  const { frontMatter, content: textToParse } =
     parseOptions.shouldParseFrontMatter
       ? parseFrontMatter(text)
       : { frontMatter: null, content: text };
@@ -197,6 +199,8 @@ function parse(text, parser, parseOptions, options = {}) {
     children: rootNodes,
   };
 
+  /** @type {HtmlFrontMatter} */
+  let htmlFrontMatter;
   if (frontMatter) {
     const [start, end] = [frontMatter.start, frontMatter.end].map(
       (location) =>
@@ -207,7 +211,7 @@ function parse(text, parser, parseOptions, options = {}) {
           location.column,
         ),
     );
-    frontMatter = {
+    htmlFrontMatter = {
       ...frontMatter,
       kind: frontMatter.type,
       sourceSpan: new ParseSourceSpan(start, end),
@@ -216,7 +220,7 @@ function parse(text, parser, parseOptions, options = {}) {
 
   const ast = postprocess(
     rawAst,
-    frontMatter,
+    htmlFrontMatter,
     actualParseOptions,
     (subContent, startSpan) =>
       parseSubHtml(
