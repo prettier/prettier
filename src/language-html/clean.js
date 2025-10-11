@@ -96,6 +96,15 @@ function clean(original, cloned, parent) {
   if (original.type === "angularLetDeclarationInitializer") {
     delete cloned.value;
   }
+
+  // We always print void tags as self closing
+  if (
+    original.type === "element" &&
+    original.isVoid &&
+    !original.isSelfClosing
+  ) {
+    cloned.isSelfClosing = true;
+  }
 }
 
 clean.ignoredProperties = ignoredProperties;
