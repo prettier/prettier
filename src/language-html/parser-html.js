@@ -142,17 +142,24 @@ function ngHtmlParser(input, parseOptions, options) {
         isTagNameCaseSensitive,
       }));
 
-    const getNodeWithSameLocation = (node) =>
-      getHtmlParseResult().rootNodes.find(
-        ({ startSourceSpan }) =>
-          startSourceSpan &&
-          startSourceSpan.start.offset === node.startSourceSpan.start.offset,
-      ) ?? node;
+    const getElementWithSameLocation = (node) => {
+      const { offset } = node.startSourceSpan.start;
+      return (
+        getHtmlParseResult().rootNodes.find(
+          (searching) =>
+            searching.kind === "element" &&
+            searching.startSourceSpan.start.offset === offset,
+        ) ?? node
+      );
+    };
     for (const [index, node] of rootNodes.entries()) {
-      const isVoidElement = node.kind === "element" && node.isVoid;
-      if (isVoidElement) {
+      if (node.kind !== "element") {
+        continue;
+      }
+
+      if (node.isVoid) {
         errors = getHtmlParseResult().errors;
-        rootNodes[index] = getNodeWithSameLocation(node);
+        rootNodes[index] = getElementWithSameLocation(node);
       } else if (shouldParseVueRootNodeAsHtml(node, options)) {
         const { endSourceSpan, startSourceSpan } = node;
         const error = getHtmlParseResult().errors.find(
@@ -163,7 +170,7 @@ function ngHtmlParser(input, parseOptions, options) {
         if (error) {
           throwParseError(error);
         }
-        rootNodes[index] = getNodeWithSameLocation(node);
+        rootNodes[index] = getElementWithSameLocation(node);
       }
     }
   }
