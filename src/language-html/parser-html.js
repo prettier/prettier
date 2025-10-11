@@ -22,7 +22,7 @@ import isUnknownNamespace from "./utils/is-unknown-namespace.js";
 
 /**
  * @import {ParseOptions as AngularHtmlParserParseOptions} from "angular-html-parser"
- * @import {Node as AstNode, Attribute, Element} from "angular-html-parser/lib/compiler/src/ml_parser/ast.js"
+ * @import {Node as AstNode, Attribute, Element, Comment, Text} from "angular-html-parser/lib/compiler/src/ml_parser/ast.js"
  * @import {ParseTreeResult} from "angular-html-parser/lib/compiler/src/ml_parser/parser.js"
  */
 
@@ -199,9 +199,10 @@ function ngHtmlParser(input, parseOptions, options) {
    */
   const restoreNameAndValue = (node) => {
     switch (node.type) {
-      case "element":
-        restoreName(node);
-        for (const attr of node.attrs) {
+      case "element": {
+        const element = /** @type {Element} */ (node);
+        restoreName(element);
+        for (const attr of element.attrs) {
           restoreName(attr);
           if (!attr.valueSpan) {
             attr.value = null;
@@ -213,14 +214,19 @@ function ngHtmlParser(input, parseOptions, options) {
           }
         }
         break;
-      case "comment":
-        node.value = node.sourceSpan
+      }
+      case "comment": {
+        const comment = /** @type {Comment} */ (node);
+        comment.value = comment.sourceSpan
           .toString()
           .slice("<!--".length, -"-->".length);
         break;
-      case "text":
-        node.value = node.sourceSpan.toString();
+      }
+      case "text": {
+        const text = /** @type {Text} */ (node);
+        text.value = text.sourceSpan.toString();
         break;
+      }
       // No default
     }
   };
@@ -274,17 +280,18 @@ function ngHtmlParser(input, parseOptions, options) {
    */
   const addTagDefinition = (node) => {
     if (node.type === "element") {
+      const element = /** @type {Element} */ (node);
       const tagDefinition = getHtmlTagDefinition(
-        isTagNameCaseSensitive ? node.name : node.name.toLowerCase(),
+        isTagNameCaseSensitive ? element.name : element.name.toLowerCase(),
       );
       if (
-        !node.namespace ||
-        node.namespace === tagDefinition.implicitNamespacePrefix ||
-        isUnknownNamespace(node)
+        !element.namespace ||
+        element.namespace === tagDefinition.implicitNamespacePrefix ||
+        isUnknownNamespace(element)
       ) {
-        node.tagDefinition = tagDefinition;
+        element.tagDefinition = tagDefinition;
       } else {
-        node.tagDefinition = getHtmlTagDefinition(""); // the default one
+        element.tagDefinition = getHtmlTagDefinition(""); // the default one
       }
     }
   };
@@ -371,7 +378,6 @@ function parse(
           location.column,
         ),
     );
-    // @ts-expect-error -- not a real AstNode
     rawAst.children.unshift({
       ...frontMatter,
       sourceSpan: new ParseSourceSpan(start, end),
