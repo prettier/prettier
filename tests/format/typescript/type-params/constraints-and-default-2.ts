@@ -17,7 +17,7 @@ a = {
   >() {}
 }
 
-function parseFunctionBodyAndFinish1<
+function parseFunctionBodyAndFinish<
   T extends
     | N.Function
     | N.TSDeclareMethod
@@ -27,7 +27,7 @@ function parseFunctionBodyAndFinish1<
     | Bar
     | Baz
 >();
-function parseFunctionBodyAndFinish12<
+function parseFunctionBodyAndFinish<
   T =
     | N.Function
     | N.TSDeclareMethod
@@ -38,11 +38,11 @@ function parseFunctionBodyAndFinish12<
     | Baz
 >();
 
-function parseFunctionBodyAndFinish2<
+function parseFunctionBodyAndFinish<
   T extends // comment
     N.Function | N.TSDeclareMethod | Baz
 >();
-function parseFunctionBodyAndFinish22<
+function parseFunctionBodyAndFinish<
   T = // comment
     N.Function | N.TSDeclareMethod | Baz
 >();
