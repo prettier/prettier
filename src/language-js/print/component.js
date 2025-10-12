@@ -107,9 +107,6 @@ function hasRestParameter(componentNode, parameters) {
   return componentNode.rest || parameters.at(-1)?.type === "RestElement";
 }
 
-/*
-- `ComponentParameter` (Flow)
-*/
 function iterateComponentParametersPath(path, iteratee) {
   const { node } = path;
   let index = 0;
@@ -120,6 +117,9 @@ function iterateComponentParametersPath(path, iteratee) {
   }
 }
 
+/*
+- `ComponentParameter` (Flow)
+*/
 function printComponentParameter(path, options, print) {
   const { node } = path;
   if (node.shorthand) {

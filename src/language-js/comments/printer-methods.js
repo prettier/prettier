@@ -13,7 +13,7 @@ import {
  * @import AstPath from "../../common/ast-path.js"
  */
 
-const isNodeCanNotAttachComment = createTypeCheckFunction([
+const isNodeCantAttachComment = createTypeCheckFunction([
   "EmptyStatement",
   "TemplateElement",
   // There is no similar node in Babel AST
@@ -28,27 +28,28 @@ const isNodeCanNotAttachComment = createTypeCheckFunction([
   "ChainExpression",
 ]);
 
-const isChildCanNotAttachComment = (node, [parent]) =>
+const isChildWontPrint = (node, [parent]) =>
   parent &&
   ((parent.type === "ComponentParameter" &&
     parent.shorthand &&
-    parent.name === node) ||
+    parent.name === node &&
+    parent.local !== parent.name) ||
     (parent.type === "MatchObjectPatternProperty" &&
       parent.shorthand &&
-      parent.key === node) ||
+      parent.key === node &&
+      parent.value !== parent.key) ||
     (parent.type === "ObjectProperty" &&
       parent.shorthand &&
-      parent.key === node) ||
+      parent.key === node &&
+      parent.value !== parent.key) ||
     (parent.type === "Property" &&
       parent.shorthand &&
       parent.key === node &&
-      !isMethod(parent)));
+      !isMethod(parent) &&
+      parent.value !== parent.key));
 
 function canAttachComment(node, ancestors) {
-  return !(
-    isNodeCanNotAttachComment(node) ||
-    isChildCanNotAttachComment(node, ancestors)
-  );
+  return !(isNodeCantAttachComment(node) || isChildWontPrint(node, ancestors));
 }
 
 /**
