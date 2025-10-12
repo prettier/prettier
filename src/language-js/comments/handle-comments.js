@@ -1120,8 +1120,10 @@ const isRealFunctionLikeNode = createTypeCheckFunction([
   "TSDeclareMethod",
 ]);
 
-export {
-  handleEndOfLineComment as endOfLine,
-  handleOwnLineComment as ownLine,
-  handleRemainingComment as remaining,
+const handleComments = {
+  endOfLine: handleEndOfLineComment,
+  ownLine: handleOwnLineComment,
+  remaining: handleRemainingComment,
 };
+
+export default handleComments;
