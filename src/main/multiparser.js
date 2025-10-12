@@ -14,11 +14,7 @@ async function printEmbeddedLanguages(
 ) {
   const {
     embeddedLanguageFormatting,
-    printer: {
-      embed,
-      hasPrettierIgnore = () => false,
-      getVisitorKeys: printerGetVisitorKeys,
-    },
+    printer: { embed, hasPrettierIgnore = () => false },
   } = options;
 
   if (!embed || embeddedLanguageFormatting !== "auto") {
@@ -31,9 +27,10 @@ async function printEmbeddedLanguages(
     );
   }
 
-  const getVisitorKeys = createGetVisitorKeysFunction(
-    embed.getVisitorKeys ?? printerGetVisitorKeys,
-  );
+  const getVisitorKeys = embed.getVisitorKeys
+    ? createGetVisitorKeysFunction(embed.getVisitorKeys)
+    : options.getVisitorKeys;
+
   const embedCallResults = [];
 
   recurse();

@@ -1,5 +1,4 @@
 import { getChildren, getDescendants, isLeaf } from "../utils/ast-utils.js";
-import createGetVisitorKeysFunction from "./create-get-visitor-keys-function.js";
 
 /**
  * Find the location of the cursor in the AST, represented in one of the
@@ -18,10 +17,7 @@ import createGetVisitorKeysFunction from "./create-get-visitor-keys-function.js"
  * the other possibilities otherwise.
  */
 function getCursorLocation(ast, options) {
-  const { cursorOffset, locStart, locEnd } = options;
-  const getVisitorKeys = createGetVisitorKeysFunction(
-    options.printer.getVisitorKeys,
-  );
+  const { cursorOffset, locStart, locEnd, getVisitorKeys } = options;
 
   const nodeContainsCursor = (node) =>
     locStart(node) <= cursorOffset && locEnd(node) >= cursorOffset;
