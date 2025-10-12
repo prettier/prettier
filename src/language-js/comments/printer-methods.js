@@ -28,6 +28,11 @@ const isNodeCantAttachComment = createTypeCheckFunction([
   "ChainExpression",
 ]);
 
+/**
+@param {Node} node
+@param {any[]} param1
+@returns {boolean}
+*/
 const isChildWontPrint = (node, [parent]) =>
   (parent?.type === "ComponentParameter" &&
     parent.shorthand &&
@@ -57,11 +62,15 @@ class Foo {
   }
 }
 ```
+
+@param {Node} node
+@param {any[]} param1
+@returns {boolean}
 */
 const isClassMethodCantAttachComment = (node, [parent]) =>
   Boolean(
     node.type === "FunctionExpression" &&
-      parent?.type === "MethodDefinition" &&
+      parent.type === "MethodDefinition" &&
       parent.value === node &&
       getFunctionParameters(node).length === 0 &&
       !node.returnType &&
@@ -71,13 +80,14 @@ const isClassMethodCantAttachComment = (node, [parent]) =>
 
 /**
 @param {Node} node
-@param {Node[]} ancestors
+@param {any[]} ancestors
 @returns {boolean}
 */
 function canAttachComment(node, ancestors) {
   return !(
     isNodeCantAttachComment(node) ||
     isChildWontPrint(node, ancestors) ||
+    // @ts-expect-error -- safe
     isClassMethodCantAttachComment(node, ancestors)
   );
 }
