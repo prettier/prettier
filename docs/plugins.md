@@ -418,11 +418,10 @@ This function is used for deciding whether a comment can be attached to a partic
 ```js
 function canAttachComment(node, [parent]) {
   return !(
-    !node.type ||
     node.type === "comment" ||
-    (parent?.type === "ObjectProperty" &&
-      parent.shorthand &&
-      parent.key === node)
+    (parent?.type === "shorthand-property" &&
+      parent.key === node &&
+      parent.key !== parent.value)
   );
 }
 ```
