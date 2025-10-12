@@ -1,14 +1,16 @@
+import createGetVisitorKeysFunction from "./create-get-visitor-keys-function.js";
+
 function massageAst(ast, options) {
-  const {
-    printer: { massageAstNode: cleanFunction },
-    getVisitorKeys,
-  } = options;
+  const cleanFunction = options.printer.massageAstNode;
 
   if (!cleanFunction) {
     return ast;
   }
 
-  const ignoredProperties = cleanFunction.ignoredProperties ?? new Set();
+  const getVisitorKeys =
+    options.getVisitorKeys ??
+    createGetVisitorKeysFunction(options.printer.getVisitorKeys);
+  const { ignoredProperties } = cleanFunction;
 
   return recurse(ast);
 
@@ -24,7 +26,7 @@ function massageAst(ast, options) {
     const cloned = {};
     const childrenKeys = new Set(getVisitorKeys(original));
     for (const key in original) {
-      if (!Object.hasOwn(original, key) || ignoredProperties.has(key)) {
+      if (!Object.hasOwn(original, key) || ignoredProperties?.has(key)) {
         continue;
       }
 
