@@ -97,13 +97,14 @@ function findNodeAtOffset(
     return;
   }
 
-  for (const childNode of getSortedChildNodes(node, options)) {
+  const childAncestors = [node, ...parentNodes];
+  for (const childNode of getSortedChildNodes(node, options, childAncestors)) {
     const childResult = findNodeAtOffset(
       childNode,
       offset,
       options,
       predicate,
-      [node, ...parentNodes],
+      childAncestors,
       type,
     );
     if (childResult) {
