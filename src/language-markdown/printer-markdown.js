@@ -161,7 +161,9 @@ function genericPrint(path, options, print) {
         const hasPrevOrNextWord = prevOrNextWord(path); // `1*2*3` is considered emphasis but `1_2_3` is not
         const inStrongAndHasPrevOrNextWord = // `1***2***3` is considered strong emphasis but `1**_2_**3` is not
           path.parent?.type === "strong" &&
-          path.callParent((parent) => prevOrNextWord(parent));
+          path.callParent(
+            ({ node }) => node.type === "strong" && prevOrNextWord(path),
+          );
         style =
           hasPrevOrNextWord ||
           inStrongAndHasPrevOrNextWord ||
