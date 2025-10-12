@@ -533,7 +533,7 @@ function handleMethodNameComments({
     enclosingNode &&
     precedingNode &&
     getNextNonSpaceNonCommentCharacter(text, locEnd(comment)) === "(" &&
-    // "MethodDefinition" is handled in getCommentChildNodes
+    // "MethodDefinition" is handled in `canAttachComment`
     (enclosingNode.type === "Property" ||
       enclosingNode.type === "TSDeclareMethod" ||
       enclosingNode.type === "TSAbstractMethodDefinition") &&
