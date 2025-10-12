@@ -212,7 +212,7 @@ function calculateRange(text, opts, ast) {
     "rangeStart",
   );
   if (!startNodeAndAncestors) {
-    return [0, 0];
+    return;
   }
 
   const endNodeAndAncestors =
@@ -228,7 +228,7 @@ function calculateRange(text, opts, ast) {
           "rangeEnd",
         );
   if (!endNodeAndAncestors) {
-    return [0, 0];
+    return;
   }
 
   let startNode;

@@ -178,7 +178,7 @@ async function coreFormat(originalText, opts, addAlignmentSize = 0) {
 
 async function formatRange(originalText, opts) {
   const { ast, text } = await parseText(originalText, opts);
-  const [rangeStart, rangeEnd] = calculateRange(text, opts, ast);
+  const [rangeStart, rangeEnd] = calculateRange(text, opts, ast) ?? [0, 0];
   const rangeString = text.slice(rangeStart, rangeEnd);
 
   // Try to extend the range backwards to the beginning of the line.
