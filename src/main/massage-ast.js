@@ -1,3 +1,4 @@
+import isObject from "../utils/is-object.js";
 import createGetVisitorKeysFunction from "./create-get-visitor-keys-function.js";
 
 function massageAst(ast, options) {
@@ -15,7 +16,7 @@ function massageAst(ast, options) {
   return recurse(ast);
 
   function recurse(original, parent) {
-    if (!(original !== null && typeof original === "object")) {
+    if (!isObject(original)) {
       return original;
     }
 
