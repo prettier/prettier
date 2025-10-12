@@ -3,6 +3,7 @@ import {
   getFunctionParameters,
   hasNodeIgnoreComment,
   isJsxElement,
+  isMethod,
   isUnionType,
 } from "../utils/index.js";
 
@@ -25,8 +26,32 @@ const nodeTypesCanNotAttachComment = new Set([
   // There is no similar node in Babel AST, `a?.b`
   "ChainExpression",
 ]);
-function canAttachComment(node) {
-  return !nodeTypesCanNotAttachComment.has(node.type);
+
+function canAttachComment(node, ancestors) {
+  if (!nodeTypesCanNotAttachComment.has(node.type)) {
+    return false;
+  }
+
+  const [parent] = ancestors;
+  if (!parent) {
+    return true;
+  }
+
+  return !(
+    (parent.type === "ComponentParameter" &&
+      parent.shorthand &&
+      parent.name === node) ||
+    (parent.type === "MatchObjectPatternProperty" &&
+      parent.shorthand &&
+      parent.key === node) ||
+    (parent.type === "ObjectProperty" &&
+      parent.shorthand &&
+      parent.key === node) ||
+    (parent.type === "Property" &&
+      parent.shorthand &&
+      parent.key === node &&
+      !isMethod(parent))
+  );
 }
 
 /**

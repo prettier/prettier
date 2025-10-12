@@ -110,7 +110,6 @@ function handleRemainingComment(context) {
     handleIgnoreComments,
     handleIfStatementComments,
     handleWhileComments,
-    handleObjectPropertyAssignment,
     handleCommentInEmptyParens,
     handleMethodNameComments,
     handleOnlyComments,
@@ -441,23 +440,6 @@ function handleConditionalExpressionComments({
       return true;
     }
     addLeadingComment(followingNode, comment);
-    return true;
-  }
-  return false;
-}
-
-function handleObjectPropertyAssignment({
-  comment,
-  precedingNode,
-  enclosingNode,
-}) {
-  if (
-    isObjectProperty(enclosingNode) &&
-    enclosingNode.shorthand &&
-    enclosingNode.key === precedingNode &&
-    enclosingNode.value.type === "AssignmentPattern"
-  ) {
-    addTrailingComment(enclosingNode.value.left, comment);
     return true;
   }
   return false;

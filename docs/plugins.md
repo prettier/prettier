@@ -410,14 +410,20 @@ function printComment(
 #### (optional) `canAttachComment`
 
 ```ts
-function canAttachComment(node: AST): boolean;
+function canAttachComment(node: AST, ancestors: T[]): boolean;
 ```
 
 This function is used for deciding whether a comment can be attached to a particular AST node. By default, _all_ AST properties are traversed searching for nodes that comments can be attached to. This function is used to prevent comments from being attached to a particular node. A typical implementation looks like
 
 ```js
-function canAttachComment(node) {
-  return node.type && node.type !== "comment";
+function canAttachComment(node, [parent]) {
+  return !(
+    !node.type ||
+    node.type === "comment" ||
+    (parent?.type === "ObjectProperty" &&
+      parent.shorthand &&
+      parent.key === node)
+  );
 }
 ```
 
