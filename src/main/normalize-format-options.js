@@ -16,6 +16,7 @@ const formatOptionsHiddenDefaults = {
   originalText: undefined,
   locStart: null,
   locEnd: null,
+  getVisitorKeys: null,
 };
 
 // Copy options and fill in default values.
