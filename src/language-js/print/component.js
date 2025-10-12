@@ -50,9 +50,6 @@ function printComponent(path, options, print) {
   return parts;
 }
 
-/*
-- `ComponentParameter` (Flow)
-*/
 function printComponentParameters(path, options, print) {
   const { node: componentNode } = path;
   let parameters = componentNode.params;
@@ -110,6 +107,9 @@ function hasRestParameter(componentNode, parameters) {
   return componentNode.rest || parameters.at(-1)?.type === "RestElement";
 }
 
+/*
+- `ComponentParameter` (Flow)
+*/
 function iterateComponentParametersPath(path, iteratee) {
   const { node } = path;
   let index = 0;
