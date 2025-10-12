@@ -196,6 +196,12 @@ function isSourceElement(opts, node, parentNode) {
   return false;
 }
 
+/**
+@param {string} text
+@param {*} opts
+@param {*} ast
+@returns {[number, number]}
+*/
 function calculateRange(text, opts, ast) {
   let { rangeStart: start, rangeEnd: end, locStart, locEnd } = opts;
   assert.ok(end > start);
@@ -233,10 +239,7 @@ function calculateRange(text, opts, ast) {
           "rangeEnd",
         );
   if (!startNodeAndParents || !endNodeAndParents) {
-    return {
-      rangeStart: 0,
-      rangeEnd: 0,
-    };
+    return [0, 0];
   }
 
   let startNode;
@@ -256,10 +259,10 @@ function calculateRange(text, opts, ast) {
     ));
   }
 
-  return {
-    rangeStart: Math.min(locStart(startNode), locStart(endNode)),
-    rangeEnd: Math.max(locEnd(startNode), locEnd(endNode)),
-  };
+  return [
+    Math.min(locStart(startNode), locStart(endNode)),
+    Math.max(locEnd(startNode), locEnd(endNode)),
+  ];
 }
 
 export { calculateRange };
