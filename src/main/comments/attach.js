@@ -71,7 +71,6 @@ function decorateComment(
   const commentEnd = locEnd(comment);
 
   const childNodes = getSortedChildNodes(node, options, ancestors);
-  let childAncestors;
   let precedingNode;
   let followingNode;
   // Time to dust off the old binary search robes and wizard hat.
@@ -85,9 +84,11 @@ function decorateComment(
 
     // The comment is completely contained by this child node.
     if (start <= commentStart && commentEnd <= end) {
-      childAncestors ??= [child, ...ancestors];
       // Abandon the binary search at this level.
-      return decorateComment(child, comment, options, child, childAncestors);
+      return decorateComment(child, comment, options, child, [
+        child,
+        ...ancestors,
+      ]);
     }
 
     if (end <= commentStart) {
