@@ -1,5 +1,6 @@
 import isNonEmptyArray from "../../utils/is-non-empty-array.js";
 import {
+  createTypeCheckFunction,
   getFunctionParameters,
   hasNodeIgnoreComment,
   isJsxElement,
@@ -12,7 +13,7 @@ import {
  * @import AstPath from "../../common/ast-path.js"
  */
 
-const nodeTypesCanNotAttachComment = new Set([
+const isNodeCanNotAttachComment = createTypeCheckFunction([
   "EmptyStatement",
   "TemplateElement",
   // There is no similar node in Babel AST
@@ -27,20 +28,11 @@ const nodeTypesCanNotAttachComment = new Set([
   "ChainExpression",
 ]);
 
-function canAttachComment(node, ancestors) {
-  if (!nodeTypesCanNotAttachComment.has(node.type)) {
-    return false;
-  }
-
-  const [parent] = ancestors;
-  if (!parent) {
-    return true;
-  }
-
-  return !(
-    (parent.type === "ComponentParameter" &&
-      parent.shorthand &&
-      parent.name === node) ||
+const isChildCanNotAttachComment = (node, [parent]) =>
+  parent &&
+  ((parent.type === "ComponentParameter" &&
+    parent.shorthand &&
+    parent.name === node) ||
     (parent.type === "MatchObjectPatternProperty" &&
       parent.shorthand &&
       parent.key === node) ||
@@ -50,7 +42,12 @@ function canAttachComment(node, ancestors) {
     (parent.type === "Property" &&
       parent.shorthand &&
       parent.key === node &&
-      !isMethod(parent))
+      !isMethod(parent)));
+
+function canAttachComment(node, ancestors) {
+  return !(
+    isNodeCanNotAttachComment(node) ||
+    isChildCanNotAttachComment(node, ancestors)
   );
 }
 
