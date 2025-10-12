@@ -29,60 +29,57 @@ const isNodeCantAttachComment = createTypeCheckFunction([
 ]);
 
 const isChildWontPrint = (node, [parent]) =>
-  parent &&
-  ((parent.type === "ComponentParameter" &&
+  (parent?.type === "ComponentParameter" &&
     parent.shorthand &&
     parent.name === node &&
     parent.local !== parent.name) ||
-    (parent.type === "MatchObjectPatternProperty" &&
-      parent.shorthand &&
-      parent.key === node &&
-      parent.value !== parent.key) ||
-    (parent.type === "ObjectProperty" &&
-      parent.shorthand &&
-      parent.key === node &&
-      parent.value !== parent.key) ||
-    (parent.type === "Property" &&
-      parent.shorthand &&
-      parent.key === node &&
-      !isMethod(parent) &&
-      parent.value !== parent.key));
+  (parent?.type === "MatchObjectPatternProperty" &&
+    parent.shorthand &&
+    parent.key === node &&
+    parent.value !== parent.key) ||
+  (parent?.type === "ObjectProperty" &&
+    parent.shorthand &&
+    parent.key === node &&
+    parent.value !== parent.key) ||
+  (parent?.type === "Property" &&
+    parent.shorthand &&
+    parent.key === node &&
+    !isMethod(parent) &&
+    parent.value !== parent.key);
 
-function canAttachComment(node, ancestors) {
-  return !(isNodeCantAttachComment(node) || isChildWontPrint(node, ancestors));
+/*
+Prevent attaching comments to FunctionExpression in this case:
+```
+class Foo {
+  bar() // comment
+  {
+    baz();
+  }
 }
+```
+*/
+const isClassMethodCantAttachComment = (node, [parent]) =>
+  Boolean(
+    node.type === "FunctionExpression" &&
+      parent?.type === "MethodDefinition" &&
+      parent.value === node &&
+      getFunctionParameters(node).length === 0 &&
+      !node.returnType &&
+      !isNonEmptyArray(node.typeParameters) &&
+      node.body,
+  );
 
 /**
- * @param {any} node
- * @returns {Node[] | void}
- */
-function getCommentChildNodes(node, options) {
-  // Prevent attaching comments to FunctionExpression in this case:
-  //     class Foo {
-  //       bar() // comment
-  //       {
-  //         baz();
-  //       }
-  //     }
-  if (
-    (options.parser === "typescript" ||
-      options.parser === "flow" ||
-      options.parser === "hermes" ||
-      options.parser === "acorn" ||
-      options.parser === "oxc" ||
-      options.parser === "oxc-ts" ||
-      options.parser === "espree" ||
-      options.parser === "meriyah" ||
-      options.parser === "__babel_estree") &&
-    node.type === "MethodDefinition" &&
-    node.value?.type === "FunctionExpression" &&
-    getFunctionParameters(node.value).length === 0 &&
-    !node.value.returnType &&
-    !isNonEmptyArray(node.value.typeParameters) &&
-    node.value.body
-  ) {
-    return [...(node.decorators || []), node.key, node.value.body];
-  }
+@param {Node} node
+@param {Node[]} ancestors
+@returns {boolean}
+*/
+function canAttachComment(node, ancestors) {
+  return !(
+    isNodeCantAttachComment(node) ||
+    isChildWontPrint(node, ancestors) ||
+    isClassMethodCantAttachComment(node, ancestors)
+  );
 }
 
 /**
@@ -117,4 +114,4 @@ function isGap(text, { parser }) {
 export { printComment } from "../print/comment.js";
 export { default as isBlockComment } from "../utils/is-block-comment.js";
 export * as handleComments from "./handle-comments.js";
-export { canAttachComment, getCommentChildNodes, isGap, willPrintOwnComments };
+export { canAttachComment, isGap, willPrintOwnComments };
