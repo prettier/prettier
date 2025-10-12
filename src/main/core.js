@@ -15,7 +15,7 @@ import massageAst from "./massage-ast.js";
 import normalizeFormatOptions from "./normalize-format-options.js";
 import parseText from "./parse.js";
 import { resolveParser } from "./parser-and-printer.js";
-import { calculateRange } from "./range-util.js";
+import { calculateRange } from "./range.js";
 
 const BOM = "\uFEFF";
 
