@@ -413,6 +413,12 @@ function printComment(
 function canAttachComment(node: AST, ancestors: T[]): boolean;
 ```
 
+:::note
+
+The second parameter `ancestors` first added in v3.7.0.
+
+:::
+
 This function is used for deciding whether a comment can be attached to a particular AST node. By default, _all_ AST properties are traversed searching for nodes that comments can be attached to. This function is used to prevent comments from being attached to a particular node. A typical implementation looks like
 
 ```js
