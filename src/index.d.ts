@@ -520,7 +520,7 @@ export interface Printer<T = any> {
     | ((original: any, cloned: any, parent: any) => any)
     | undefined;
   hasPrettierIgnore?: ((path: AstPath<T>) => boolean) | undefined;
-  canAttachComment?: ((node: T) => boolean) | undefined;
+  canAttachComment?: ((node: T, ancestors: T[]) => boolean) | undefined;
   isBlockComment?: ((node: T) => boolean) | undefined;
   willPrintOwnComments?: ((path: AstPath<T>) => boolean) | undefined;
   printComment?:

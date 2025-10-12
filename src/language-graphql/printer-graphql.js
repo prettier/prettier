@@ -447,7 +447,7 @@ function printSequence(path, options, print, property) {
   }, property);
 }
 
-function canAttachComment(node) {
+function canAttachComment(node /* , ancestors */) {
   return node.kind !== "Comment";
 }
 

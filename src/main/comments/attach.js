@@ -14,7 +14,7 @@ import {
  */
 
 const childNodesCache = new WeakMap();
-function getSortedChildNodes(node, options) {
+function getSortedChildNodes(node, options, ancestors) {
   if (childNodesCache.has(node)) {
     return childNodesCache.get(node);
   }
@@ -33,15 +33,19 @@ function getSortedChildNodes(node, options) {
     return [];
   }
 
+  let childAncestors;
   const childNodes = (
     getCommentChildNodes?.(node, options) ?? [
       ...getChildren(node, {
         getVisitorKeys: createGetVisitorKeysFunction(printerGetVisitorKeys),
       }),
     ]
-  ).flatMap((node) =>
-    canAttachComment(node) ? [node] : getSortedChildNodes(node, options),
-  );
+  ).flatMap((child) => {
+    childAncestors ??= [node, ...ancestors];
+    return canAttachComment(child, childAncestors)
+      ? [child]
+      : getSortedChildNodes(child, options, childAncestors);
+  });
   // Sort by `start` location first, then `end` location
   childNodes.sort(
     (nodeA, nodeB) =>
@@ -55,12 +59,18 @@ function getSortedChildNodes(node, options) {
 // As efficiently as possible, decorate the comment object with
 // .precedingNode, .enclosingNode, and/or .followingNode properties, at
 // least one of which is guaranteed to be defined.
-function decorateComment(node, comment, options, enclosingNode) {
+function decorateComment(
+  node,
+  comment,
+  options,
+  enclosingNode,
+  ancestors = [],
+) {
   const { locStart, locEnd } = options;
   const commentStart = locStart(comment);
   const commentEnd = locEnd(comment);
 
-  const childNodes = getSortedChildNodes(node, options);
+  const childNodes = getSortedChildNodes(node, options, ancestors);
   let precedingNode;
   let followingNode;
   // Time to dust off the old binary search robes and wizard hat.
@@ -75,7 +85,10 @@ function decorateComment(node, comment, options, enclosingNode) {
     // The comment is completely contained by this child node.
     if (start <= commentStart && commentEnd <= end) {
       // Abandon the binary search at this level.
-      return decorateComment(child, comment, options, child);
+      return decorateComment(child, comment, options, child, [
+        child,
+        ...ancestors,
+      ]);
     }
 
     if (end <= commentStart) {
