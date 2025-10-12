@@ -4,14 +4,14 @@ import createGetVisitorKeysFunction from "./create-get-visitor-keys-function.js"
 /**
  * Find the location of the cursor in the AST, represented in one of the
  * following ways:
- * 
+ *
  *   { "cursorNode": <node> } - the cursor is WITHIN <node>
- 
+ *
  *   { "nodeBeforeCursor": <node1> | undefined,
  *     "nodeAfterCursor": <node2> | undefined }
  *   - the cursor is BETWEEN <node1> and <node2>. `undefined` represents the
  *     beginning or end of the document.
- * 
+ *
  * This function will return whichever of the above possibilities most
  * precisely identifies the cursor's location. This means returning a
  * "cursorNode" when the cursor lies within a leaf node of the AST, and one of
