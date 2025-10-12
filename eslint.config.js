@@ -153,6 +153,7 @@ const configs = [
         },
       ],
       "@stylistic/spaced-comment": "error",
+      "@stylistic/no-trailing-spaces": "error",
 
       /* @typescript-eslint/eslint-plugin */
       "@typescript-eslint/prefer-ts-expect-error": "error",
