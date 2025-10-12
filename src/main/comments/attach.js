@@ -2,7 +2,6 @@ import * as assert from "#universal/assert";
 import { getChildren } from "../../utils/ast-utils.js";
 import hasNewline from "../../utils/has-newline.js";
 import isNonEmptyArray from "../../utils/is-non-empty-array.js";
-import createGetVisitorKeysFunction from "../create-get-visitor-keys-function.js";
 import {
   addDanglingComment,
   addLeadingComment,
@@ -20,13 +19,10 @@ function getSortedChildNodes(node, options, ancestors) {
   }
 
   const {
-    printer: {
-      getCommentChildNodes,
-      canAttachComment,
-      getVisitorKeys: printerGetVisitorKeys,
-    },
+    printer: { getCommentChildNodes, canAttachComment },
     locStart,
     locEnd,
+    getVisitorKeys,
   } = options;
 
   if (!canAttachComment) {
@@ -36,9 +32,7 @@ function getSortedChildNodes(node, options, ancestors) {
   let childAncestors;
   const childNodes = (
     getCommentChildNodes?.(node, options) ?? [
-      ...getChildren(node, {
-        getVisitorKeys: createGetVisitorKeysFunction(printerGetVisitorKeys),
-      }),
+      ...getChildren(node, { getVisitorKeys }),
     ]
   ).flatMap((child) => {
     childAncestors ??= [node, ...ancestors];

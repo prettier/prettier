@@ -1,18 +1,13 @@
-import createGetVisitorKeysFunction from "./create-get-visitor-keys-function.js";
-
 function massageAst(ast, options) {
   const {
-    printer: {
-      massageAstNode: cleanFunction,
-      getVisitorKeys: printerGetVisitorKeys,
-    },
+    printer: { massageAstNode: cleanFunction },
+    getVisitorKeys,
   } = options;
 
   if (!cleanFunction) {
     return ast;
   }
 
-  const getVisitorKeys = createGetVisitorKeysFunction(printerGetVisitorKeys);
   const ignoredProperties = cleanFunction.ignoredProperties ?? new Set();
 
   return recurse(ast);
