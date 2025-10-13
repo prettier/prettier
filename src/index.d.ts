@@ -491,6 +491,12 @@ export interface Printer<T = any> {
     print: (path: AstPath<T>) => Doc,
     args?: unknown,
   ): Doc;
+  printPrettierIgnored(
+    path: AstPath<T>,
+    options: ParserOptions<T>,
+    print: (path: AstPath<T>) => Doc,
+    args?: unknown,
+  ): Doc;
   embed?:
     | ((
         path: AstPath,
