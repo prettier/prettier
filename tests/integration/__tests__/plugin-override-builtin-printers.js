@@ -3,7 +3,7 @@ import prettier from "../../config/prettier-entry.js";
 /**
 If plugin matched by parser:
 - Have a matched printer by `astFormat`, use it directly
-- Otherwise, use `astFormat` to find another plugin that provides matched printer
+- Otherwise, use `astFormat` to find another plugin that provides a matched printer
 
 For the real world case, since we don't ship `estree` printer with the JS parsers,
 We should allow user provide an `estree` printer
