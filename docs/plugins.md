@@ -176,6 +176,7 @@ export const printers = {
     isBlockComment,
     printComment,
     getCommentChildNodes,
+    hasPrettierIgnore,
     handleComments: {
       ownLine,
       endOfLine,
@@ -399,6 +400,14 @@ function getCommentChildNodes(
 ```
 
 Return `[]` if the node has no children or `undefined` to fall back on the default behavior.
+
+### (optional) `hasPrettierIgnore`
+
+```ts
+function hasPrettierIgnore(path: AstPath): boolean;
+```
+
+Returns whether or not the AST node is ignored.
 
 #### (optional) `printComment`
 
