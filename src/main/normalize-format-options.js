@@ -64,9 +64,10 @@ async function normalizeFormatOptions(options, opts = {}) {
   rawOptions.locEnd = parser.locEnd;
   rawOptions.locStart = parser.locStart;
 
-  const printerPlugin = parserPlugin.printers?.[parser.astFormat]
-    ? parserPlugin
-    : getPrinterPluginByAstFormat(rawOptions.plugins, parser.astFormat);
+  const printerPlugin = getPrinterPluginByAstFormat(
+    rawOptions.plugins,
+    parser.astFormat,
+  );
   const printer = await initPrinter(printerPlugin, parser.astFormat);
 
   rawOptions.printer = printer;
