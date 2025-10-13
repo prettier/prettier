@@ -152,11 +152,7 @@ _(Optional)_ The preprocess function can process the input text before passing i
 function preprocess(text: string, options: object): string | Promise<string>;
 ```
 
-:::note
-
-Support for async preprocess first added in v3.7.0
-
-:::
+_Support for async preprocess first added in v3.7.0_
 
 ### `printers`
 
@@ -177,6 +173,7 @@ export const printers = {
     printComment,
     getCommentChildNodes,
     hasPrettierIgnore,
+    printPrettierIgnored,
     handleComments: {
       ownLine,
       endOfLine,
@@ -407,7 +404,15 @@ Return `[]` if the node has no children or `undefined` to fall back on the defau
 function hasPrettierIgnore(path: AstPath): boolean;
 ```
 
-Returns whether or not the AST node is ignored.
+Returns whether or not the AST node is `prettier-ignore`d.
+
+### (optional) `printPrettierIgnored`
+
+If the AST node is `prettier-ignore`d, Prettier will slice for the text for parsing without calling `print` function by default, however plugin can also handle the `prettier-ignore`d node print by adding this property.
+
+This property have the same signature as the `print` property.
+
+_First available in v3.7.0_
 
 #### (optional) `printComment`
 
@@ -428,12 +433,6 @@ function printComment(
 function canAttachComment(node: AST, ancestors: T[]): boolean;
 ```
 
-:::note
-
-The second parameter `ancestors` first added in v3.7.0.
-
-:::
-
 This function is used for deciding whether a comment can be attached to a particular AST node. By default, _all_ AST properties are traversed searching for nodes that comments can be attached to. This function is used to prevent comments from being attached to a particular node. A typical implementation looks like
 
 ```js
@@ -446,6 +445,8 @@ function canAttachComment(node, [parent]) {
   );
 }
 ```
+
+_The second parameter `ancestors` first added in v3.7.0._
 
 #### (optional) `isBlockComment`
 
