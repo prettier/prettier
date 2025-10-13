@@ -1,4 +1,4 @@
-import { hardline, markAsRoot } from "../document/builders.js";
+import { fill, hardline, line, markAsRoot } from "../document/builders.js";
 import { replaceEndOfLine } from "../document/utils.js";
 import {
   isEmbedFrontMatter,
@@ -6,12 +6,44 @@ import {
 } from "../utils/front-matter/index.js";
 import getMaxContinuousCount from "../utils/get-max-continuous-count.js";
 import inferParser from "../utils/infer-parser.js";
-import { getFencedCodeBlockValue } from "./utils.js";
+import { getFencedCodeBlockValue, splitText } from "./utils.js";
 
 function embed(path, options) {
   const { node } = path;
 
   if (node.type === "code" && node.lang !== null) {
+    if (["txt", "text", "plaintext"].includes(node.lang)) {
+      return () => {
+        const styleUnit = options.__inJsTemplate ? "~" : "`";
+        const style = styleUnit.repeat(
+          Math.max(3, getMaxContinuousCount(node.value, styleUnit) + 1),
+        );
+
+        const value = getFencedCodeBlockValue(node, options.originalText);
+
+        const parts = [];
+        const textNodes = splitText(value);
+
+        for (const textNode of textNodes) {
+          if (textNode.type === "word") {
+            parts.push(textNode.value);
+          } else if (textNode.type === "whitespace") {
+            parts.push(line);
+          }
+        }
+
+        return markAsRoot([
+          style,
+          node.lang,
+          node.meta ? " " + node.meta : "",
+          hardline,
+          fill(parts),
+          hardline,
+          style,
+        ]);
+      };
+    }
+
     const parser = inferParser(options, { language: node.lang });
     if (parser) {
       return async (textToDoc) => {

@@ -1296,6 +1296,52 @@ hello world
 ================================================================================
 `;
 
+exports[`text.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+\`\`\`text
+This is some example prose that will exceed the length of 40 characters in order to test the wrapping formatting feature.
+\`\`\`
+
+\`\`\`txt
+This is some example prose that will exceed the length of 40 characters in order to test the wrapping formatting feature.
+\`\`\`
+
+\`\`\`plaintext
+This is some example prose that will exceed the length of 40 characters in order to test the wrapping formatting feature.
+\`\`\`
+
+\`\`\`
+This is some example prose that will exceed the length of 40 characters in order to test the wrapping formatting feature.
+\`\`\`
+
+=====================================output=====================================
+\`\`\`text
+This is some example prose that will exceed the length of 40 characters in order
+to test the wrapping formatting feature.
+\`\`\`
+
+\`\`\`txt
+This is some example prose that will exceed the length of 40 characters in order
+to test the wrapping formatting feature.
+\`\`\`
+
+\`\`\`plaintext
+This is some example prose that will exceed the length of 40 characters in order
+to test the wrapping formatting feature.
+\`\`\`
+
+\`\`\`
+This is some example prose that will exceed the length of 40 characters in order to test the wrapping formatting feature.
+\`\`\`
+
+================================================================================
+`;
+
 exports[`ts-trailing-comma.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
