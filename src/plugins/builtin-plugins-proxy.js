@@ -44,29 +44,16 @@ function createParsersAndPrinters(modules) {
   return { parsers, printers };
 }
 
-function createPlugin({ options, languages, modules }) {
-  const { parsers, printers } = createParsersAndPrinters(modules);
-
-  return {
-    options,
-    languages,
-    parsers,
-    printers,
-  };
-}
-
 // We need create estree as a separate plugin
 // For details see tests/integration/__tests__/plugin-override-builtin-printers.js
-const estreePlugin = createPlugin({
-  modules: [
-    {
-      importPlugin: () => import("./estree.js"),
-      printers: ["estree", "estree-json"],
-    },
-  ],
-});
+const estreePlugin = createParsersAndPrinters([
+  {
+    importPlugin: () => import("./estree.js"),
+    printers: ["estree", "estree-json"],
+  },
+]);
 
-const restPlugins = createPlugin({
+const restPlugins = {
   options: {
     ...cssOptions,
     ...graphqlOptions,
@@ -85,7 +72,7 @@ const restPlugins = createPlugin({
     ...markdownLanguages,
     ...yamlLanguages,
   ],
-  modules: [
+  ...createParsersAndPrinters([
     {
       importPlugin: () => import("./acorn.js"),
       parsers: ["acorn", "espree"],
@@ -160,7 +147,7 @@ const restPlugins = createPlugin({
       parsers: ["yaml"],
       printers: ["yaml"],
     },
-  ],
-});
+  ]),
+};
 
 export default [estreePlugin, restPlugins];
