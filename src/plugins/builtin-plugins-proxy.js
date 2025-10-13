@@ -13,6 +13,7 @@ import markdownOptions from "../language-markdown/options.js";
 import yamlLanguages from "../language-yaml/languages.evaluate.js";
 import yamlOptions from "../language-yaml/options.js";
 
+// Lazy load the plugins
 function createParsersAndPrinters(modules) {
   const parsers = Object.create(null);
   const printers = Object.create(null);
@@ -43,104 +44,123 @@ function createParsersAndPrinters(modules) {
   return { parsers, printers };
 }
 
-export const options = {
-  ...cssOptions,
-  ...graphqlOptions,
-  ...htmlOptions,
-  ...jsOptions,
-  ...markdownOptions,
-  ...yamlOptions,
-};
+function createPlugin({ options, languages, modules }) {
+  const { parsers, printers } = createParsersAndPrinters(modules);
 
-export const languages = [
-  ...cssLanguages,
-  ...graphqlLanguages,
-  ...handlebarsLanguages,
-  ...htmlLanguages,
-  ...jsLanguages,
-  ...jsonLanguages,
-  ...markdownLanguages,
-  ...yamlLanguages,
-];
+  return {
+    options,
+    languages,
+    parsers,
+    printers,
+  };
+}
 
-// Lazy load the plugins
-export const { parsers, printers } = createParsersAndPrinters([
-  {
-    importPlugin: () => import("./acorn.js"),
-    parsers: ["acorn", "espree"],
+// We need create estree as a separate plugin
+// For details see tests/integration/__tests__/plugin-override-builtin-printers.js
+const estreePlugin = createPlugin({
+  modules: [
+    {
+      importPlugin: () => import("./estree.js"),
+      printers: ["estree", "estree-json"],
+    },
+  ],
+});
+
+const restPlugins = createPlugin({
+  options: {
+    ...cssOptions,
+    ...graphqlOptions,
+    ...htmlOptions,
+    ...jsOptions,
+    ...markdownOptions,
+    ...yamlOptions,
   },
-  {
-    importPlugin: () => import("./angular.js"),
-    parsers: [
-      "__ng_action",
-      "__ng_binding",
-      "__ng_interpolation",
-      "__ng_directive",
-    ],
-  },
-  {
-    importPlugin: () => import("./babel.js"),
-    parsers: [
-      "babel",
-      "babel-flow",
-      "babel-ts",
-      "__js_expression",
-      "__ts_expression",
-      "__vue_expression",
-      "__vue_ts_expression",
-      "__vue_event_binding",
-      "__vue_ts_event_binding",
-      "__babel_estree",
-      "json",
-      "json5",
-      "jsonc",
-      "json-stringify",
-    ],
-  },
-  {
-    importPlugin: () => import("./estree.js"),
-    printers: ["estree", "estree-json"],
-  },
-  {
-    importPlugin: () => import("./flow.js"),
-    parsers: ["flow"],
-  },
-  {
-    importPlugin: () => import("./glimmer.js"),
-    parsers: ["glimmer"],
-    printers: ["glimmer"],
-  },
-  {
-    importPlugin: () => import("./graphql.js"),
-    parsers: ["graphql"],
-    printers: ["graphql"],
-  },
-  {
-    importPlugin: () => import("./html.js"),
-    parsers: ["html", "angular", "vue", "lwc", "mjml"],
-    printers: ["html"],
-  },
-  {
-    importPlugin: () => import("./markdown.js"),
-    parsers: ["markdown", "mdx", "remark"],
-    printers: ["mdast"],
-  },
-  {
-    importPlugin: () => import("./meriyah.js"),
-    parsers: ["meriyah"],
-  },
-  {
-    importPlugin: () => import("./postcss.js"),
-    parsers: ["css", "less", "scss"],
-    printers: ["postcss"],
-  },
-  {
-    importPlugin: () => import("./typescript.js"),
-    parsers: ["typescript"],
-  },
-  {
-    importPlugin: () => import("./yaml.js"),
-    parsers: ["yaml"],
-    printers: ["yaml"],
-  },
-]);
+  languages: [
+    ...cssLanguages,
+    ...graphqlLanguages,
+    ...handlebarsLanguages,
+    ...htmlLanguages,
+    ...jsLanguages,
+    ...jsonLanguages,
+    ...markdownLanguages,
+    ...yamlLanguages,
+  ],
+  modules: [
+    {
+      importPlugin: () => import("./acorn.js"),
+      parsers: ["acorn", "espree"],
+    },
+    {
+      importPlugin: () => import("./angular.js"),
+      parsers: [
+        "__ng_action",
+        "__ng_binding",
+        "__ng_interpolation",
+        "__ng_directive",
+      ],
+    },
+    {
+      importPlugin: () => import("./babel.js"),
+      parsers: [
+        "babel",
+        "babel-flow",
+        "babel-ts",
+        "__js_expression",
+        "__ts_expression",
+        "__vue_expression",
+        "__vue_ts_expression",
+        "__vue_event_binding",
+        "__vue_ts_event_binding",
+        "__babel_estree",
+        "json",
+        "json5",
+        "jsonc",
+        "json-stringify",
+      ],
+    },
+    {
+      importPlugin: () => import("./flow.js"),
+      parsers: ["flow"],
+    },
+    {
+      importPlugin: () => import("./glimmer.js"),
+      parsers: ["glimmer"],
+      printers: ["glimmer"],
+    },
+    {
+      importPlugin: () => import("./graphql.js"),
+      parsers: ["graphql"],
+      printers: ["graphql"],
+    },
+    {
+      importPlugin: () => import("./html.js"),
+      parsers: ["html", "angular", "vue", "lwc", "mjml"],
+      printers: ["html"],
+    },
+    {
+      importPlugin: () => import("./markdown.js"),
+      parsers: ["markdown", "mdx", "remark"],
+      printers: ["mdast"],
+    },
+    {
+      importPlugin: () => import("./meriyah.js"),
+      parsers: ["meriyah"],
+    },
+    {
+      importPlugin: () => import("./postcss.js"),
+      parsers: ["css", "less", "scss"],
+      printers: ["postcss"],
+    },
+    {
+      importPlugin: () => import("./typescript.js"),
+      parsers: ["typescript"],
+    },
+    {
+      importPlugin: () => import("./yaml.js"),
+      parsers: ["yaml"],
+      printers: ["yaml"],
+    },
+  ],
+});
+
+export default [estreePlugin, restPlugins];
