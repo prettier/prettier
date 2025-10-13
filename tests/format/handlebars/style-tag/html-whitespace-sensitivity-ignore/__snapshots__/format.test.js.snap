@@ -1,0 +1,103 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`test.hbs - {"htmlWhitespaceSensitivity":"ignore"} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "ignore"
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<div>
+  <style>
+    .a {color: red;
+    }
+  </style>
+</div>
+
+<style>
+.b { color:     blue;}
+</style>
+
+<div>
+  <style>
+    .a {
+      color: red;
+    }
+              .b { color:     blue};
+  </style>
+</div>
+
+<div>
+  <style>
+    .a { color: red; }
+  </style>
+</div>
+
+<div><style>.c { color: green; }</style><style>.d { color: yellow; }</style></div>
+
+<div>
+
+
+  <style>
+    .e { color: purple; }
+  </style>
+
+
+</div>
+
+=====================================output=====================================
+<div>
+  <style>
+    .a {
+      color: red;
+    }
+  </style>
+</div>
+
+<style>
+  .b {
+    color: blue;
+  }
+</style>
+
+<div>
+  <style>
+    .a {
+      color: red;
+    }
+    .b {
+      color: blue;
+    }
+  </style>
+</div>
+
+<div>
+  <style>
+    .a {
+      color: red;
+    }
+  </style>
+</div>
+
+<div>
+  <style>
+    .c {
+      color: green;
+    }
+  </style>
+  <style>
+    .d {
+      color: yellow;
+    }
+  </style>
+</div>
+
+<div>
+  <style>
+    .e {
+      color: purple;
+    }
+  </style>
+</div>
+================================================================================
+`;
