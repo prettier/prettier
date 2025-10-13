@@ -152,6 +152,12 @@ _(Optional)_ The preprocess function can process the input text before passing i
 function preprocess(text: string, options: object): string | Promise<string>;
 ```
 
+:::note
+
+Support for async preprocess first added in v3.7.0
+
+:::
+
 ### `printers`
 
 Printers convert ASTs into a Prettier intermediate representation, also known as a Doc.
