@@ -18,6 +18,7 @@ function getPackageFile(file, base) {
       base ?? url.pathToFileURL(path.join(NODE_MODULES_PATH, packageName)),
     ),
   );
+
   const dirname = `/node_modules/${packageName}/`.replaceAll("/", path.sep);
   const index = packageEntry
     .slice(PROJECT_ROOT.length - 1)
@@ -25,12 +26,17 @@ function getPackageFile(file, base) {
   if (!packageEntry.startsWith(NODE_MODULES_PATH) || index === -1) {
     throw new Error(`Unexpected '${packageName}' entry '${packageEntry}'.`);
   }
-  const packageDirectory = packageEntry.slice(
-    0,
-    PROJECT_ROOT.length + dirname.length + index - 1,
-  );
 
-  const resolved = path.join(packageDirectory, file.slice(packageName.length));
+  let resolved;
+  if (packageName === file) {
+    resolved = packageEntry;
+  } else {
+    const packageDirectory = packageEntry.slice(
+      0,
+      PROJECT_ROOT.length + dirname.length + index - 1,
+    );
+    resolved = path.join(packageDirectory, file.slice(packageName.length));
+  }
 
   if (!fs.existsSync(resolved)) {
     throw new Error(`'${file}' not exist.`);
