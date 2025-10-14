@@ -57,11 +57,11 @@ export default async function postPublishSteps({ dry, next }) {
 
   console.log(
     outdent`
-      ${styleText.yellow.bold(
+      ${styleText.yellow.bold
         `The following ${
           steps.length === 1 ? "step is" : "steps are"
-        } optional.`,
-      )}
+        } optional.`
+      }
 
       ${steps.join("\n\n")}
     `,

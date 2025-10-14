@@ -11,6 +11,7 @@ import eslintPluginRegexp from "eslint-plugin-regexp";
 import eslintPluginSimpleImportSort from "eslint-plugin-simple-import-sort";
 import eslintPluginUnicorn from "eslint-plugin-unicorn";
 import globals from "globals";
+import eslintConfigNodeStyleText from "node-style-text/eslint-config";
 import eslintPluginPrettierInternalRules from "./scripts/tools/eslint-plugin-prettier-internal-rules/index.js";
 
 const toPath = (file) => url.fileURLToPath(new URL(file, import.meta.url));
@@ -45,6 +46,7 @@ const configs = [
   eslintPluginRegexp.configs["flat/recommended"],
   eslintPluginUnicorn.configs["flat/recommended"],
   eslintConfigPrettier,
+eslintConfigNodeStyleText,
   {
     languageOptions: {
       globals: { ...globals.builtin, ...globals.node },
