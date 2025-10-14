@@ -121,9 +121,7 @@ const pluginFiles = [
         process: modifyTypescriptModule,
       },
       {
-        module: getPackageFile(
-          "@typescript-eslint/typescript-estree/dist/index.js",
-        ),
+        module: getPackageFile("@typescript-eslint/typescript-estree"),
         path: getPackageFile(
           "@typescript-eslint/typescript-estree/dist/parser.js",
         ),
@@ -285,6 +283,7 @@ const pluginFiles = [
       {
         module: getPackageFile(
           "@typescript-eslint/types/dist/generated/ast-spec.js",
+          "@typescript-eslint/typescript-estree",
         ),
         text: outdent`
           const TYPE_STORE = new Proxy({}, {get: (_, type) => type});
