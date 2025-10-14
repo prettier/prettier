@@ -6729,10 +6729,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"node-style-text@npm:1.0.0":
-  version: 1.0.0
-  resolution: "node-style-text@npm:1.0.0"
-  checksum: 10/98c66d0bb040d648200edcb2ecafec3ed23b5b0b336e9982100b0d1e4b8b8cf0864680d1c07598f7694f9e9de4a54d9d5ac370c7f06f22b31bc8883dcfc6a244
+"node-style-text@npm:2.1.1":
+  version: 2.1.1
+  resolution: "node-style-text@npm:2.1.1"
+  checksum: 10/e81069a3819900b5c3176f84e258f30915afe8a2166e52d3f2ebeb29c23bacd5f83e82257189426c66bb4ccb232e592b4feb9f09a617180ab568085f02171b02
   languageName: node
   linkType: hard
 
@@ -7402,7 +7402,7 @@ __metadata:
     minimist: "npm:1.2.8"
     n-readlines: "npm:1.0.1"
     nano-spawn: "npm:2.0.0"
-    node-style-text: "npm:1.0.0"
+    node-style-text: "npm:2.1.1"
     npm-run-all2: "npm:8.0.4"
     outdent: "npm:0.8.0"
     oxc-parser: "npm:0.94.0"
