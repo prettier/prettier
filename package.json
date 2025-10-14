@@ -159,7 +159,7 @@
     "knip": "5.64.2",
     "magic-string": "0.30.19",
     "nano-spawn": "2.0.0",
-    "node-style-text": "2.0.0",
+    "node-style-text": "2.1.0",
     "npm-run-all2": "8.0.4",
     "prettier": "3.6.2",
     "pretty-bytes": "7.1.0",
