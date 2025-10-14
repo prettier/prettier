@@ -1,5 +1,40 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`test.hbs - {"htmlWhitespaceSensitivity":"ignore","embeddedLanguageFormatting":"off"} format 1`] = `
+====================================options=====================================
+embeddedLanguageFormatting: "off"
+htmlWhitespaceSensitivity: "ignore"
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<style>
+  .a {
+  }
+</style>
+
+<span><style>
+.b {}
+</style></span>
+
+=====================================output=====================================
+<style>
+  
+  .a {
+  }
+
+</style>
+
+<span>
+  <style>
+    
+.b {}
+
+  </style>
+</span>
+================================================================================
+`;
+
 exports[`test.hbs - {"htmlWhitespaceSensitivity":"ignore"} format 1`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
@@ -8,41 +43,25 @@ printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
 <style>
-  .a {color: red;
-  }
-</style>
-
-<style>
-.b { color:     blue;}
-</style>
-
-<style>
   .a {
-    color: red;
   }
-            .b { color:     blue};
 </style>
+
+<span><style>
+.b {}
+</style></span>
 
 =====================================output=====================================
 <style>
   .a {
-    color: red;
   }
 </style>
 
-<style>
-  .b {
-    color: blue;
-  }
-</style>
-
-<style>
-  .a {
-    color: red;
-  }
-  .b {
-    color: blue;
-  }
-</style>
+<span>
+  <style>
+    .b {
+    }
+  </style>
+</span>
 ================================================================================
 `;
