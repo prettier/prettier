@@ -28,6 +28,10 @@ const copyFileBuilder = ({ packageConfig, file }) =>
     path.join(PROJECT_ROOT, file.input),
     path.join(packageConfig.distDirectory, file.output.file),
   );
+const typescriptEstreeEntry = getPackageFile(
+  "@typescript-eslint/typescript-estree/dist/index.js",
+);
+const typescriptEstreeEntryUrl = url.pathToFileURL(typescriptEstreeEntry);
 
 function getTypesFileConfig({ input: jsFileInput, outputBaseName, isPlugin }) {
   let input = jsFileInput;
@@ -121,9 +125,7 @@ const pluginFiles = [
         process: modifyTypescriptModule,
       },
       {
-        module: getPackageFile(
-          "@typescript-eslint/typescript-estree/dist/index.js",
-        ),
+        module: typescriptEstreeEntry,
         path: getPackageFile(
           "@typescript-eslint/typescript-estree/dist/parser.js",
         ),
@@ -131,6 +133,7 @@ const pluginFiles = [
       {
         module: getPackageFile(
           "@typescript-eslint/typescript-estree/dist/create-program/getScriptKind.js",
+          typescriptEstreeEntryUrl,
         ),
         process: (text) =>
           text
@@ -146,6 +149,7 @@ const pluginFiles = [
       {
         module: getPackageFile(
           "@typescript-eslint/typescript-estree/dist/parseSettings/candidateTSConfigRootDirs.js",
+          typescriptEstreeEntryUrl,
         ),
         process(text) {
           return text.replace(
@@ -157,6 +161,7 @@ const pluginFiles = [
       {
         module: getPackageFile(
           "@typescript-eslint/typescript-estree/dist/parseSettings/createParseSettings.js",
+          typescriptEstreeEntryUrl,
         ),
         process(text) {
           return text
@@ -264,7 +269,7 @@ const pluginFiles = [
       ].map((options) => {
         options = typeof options === "string" ? { file: options } : options;
         return {
-          module: getPackageFile(options.file),
+          module: getPackageFile(options.file, typescriptEstreeEntryUrl),
           text: options.text || "export {};",
         };
       }),
