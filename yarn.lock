@@ -3986,10 +3986,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"emoji-regex@npm:10.5.0":
-  version: 10.5.0
-  resolution: "emoji-regex@npm:10.5.0"
-  checksum: 10/97537a2cec7c12653bdedf9d87b3c4e2641f12f8f8829765d33959d8e62c6fc23ffe7722ccbdaf3531681725bed0cc201059652f3289fd06925255437a589a49
+"emoji-regex@npm:10.6.0":
+  version: 10.6.0
+  resolution: "emoji-regex@npm:10.6.0"
+  checksum: 10/98cc0b0e1daed1ed25afbf69dcb921fee00f712f51aab93aa1547e4e4e8171725cc4f0098aaa645b4f611a19da11ec9f4623eb6ff2b72314b39a8f2ae7c12bf2
   languageName: node
   linkType: hard
 
@@ -7435,7 +7435,7 @@ __metadata:
     deno-path-from-file-url: "npm:0.0.4"
     diff: "npm:8.0.2"
     editorconfig: "npm:0.15.3"
-    emoji-regex: "npm:10.5.0"
+    emoji-regex: "npm:10.6.0"
     enquirer: "npm:2.4.1"
     esbuild: "npm:0.25.10"
     esbuild-plugins-node-modules-polyfill: "npm:1.7.1"
