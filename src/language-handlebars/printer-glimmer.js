@@ -439,23 +439,30 @@ function printChildren(path, options, print) {
     return "";
   }
 
-  return path.map(({ isFirst, node, parent }) => {
+  const isPreOrStyleTag = node.tag === "pre" || node.tag === "style";
+
+  const childrenDoc = path.map(({ isFirst, node: childNode }) => {
     const printedChild = print();
 
-    if (isFirst && options.htmlWhitespaceSensitivity === "ignore") {
-      const shouldRemoveLines =
-        node.type === "TextNode" &&
-        (parent.tag === "style" || parent.tag === "pre");
-
-      if (shouldRemoveLines) {
+    if (options.htmlWhitespaceSensitivity === "ignore") {
+      if (isPreOrStyleTag && childNode.type === "TextNode") {
         return printedChild;
       }
 
-      return [softline, printedChild, dedent(hardline)];
+      if (isFirst) {
+        return [softline, printedChild];
+      }
     }
 
-    return [printedChild, dedent(hardline)];
+    return printedChild;
   }, "children");
+
+  if (options.htmlWhitespaceSensitivity === "ignore" && (!isPreOrStyleTag ||
+      node.children?.at(-1)?.type !== "TextNode")) {
+      return [childrenDoc, dedent(hardline)];
+    }
+
+  return childrenDoc;
 }
 
 function printStartingTagEndMarker(node) {
