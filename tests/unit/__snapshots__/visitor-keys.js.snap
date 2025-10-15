@@ -372,6 +372,7 @@ exports[`visitor keys estree 1`] = `
     "body",
     "id",
     "params",
+    "predicate",
     "returnType",
     "typeParameters",
   ],
