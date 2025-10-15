@@ -17,13 +17,12 @@ test("Plugins in options", async () => {
     "../plugins/get-parse-options/plugin.js",
     import.meta.url,
   );
-
   const pluginPath = url.fileURLToPath(pluginUrl);
 
   for (const { plugin, expected } of [
     { plugin: pluginUrl, expected: pluginUrl.href },
     { plugin: pluginUrl.href, expected: pluginUrl.href },
-    { plugin: pluginPath, expected: pluginUrl },
+    { plugin: pluginPath, expected: pluginPath },
   ]) {
     const options = await getOptions({ name, plugin });
     const pluginInOptions = options.plugins.find(

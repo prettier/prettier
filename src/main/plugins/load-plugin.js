@@ -26,9 +26,16 @@ async function importPlugin(name, cwd) {
   }
 }
 
+/**
+@param {string | URL} plugin
+@param {string} cwd
+*/
 async function loadPluginWithoutCache(plugin, cwd) {
   const module = await importPlugin(plugin, cwd);
-  return { name: plugin, ...(module.default ?? module) };
+  return {
+    name: plugin instanceof URL ? plugin.href : plugin,
+    ...(module.default ?? module),
+  };
 }
 
 const cache = new Map();
