@@ -439,13 +439,17 @@ function printChildren(path, options, print) {
     return "";
   }
 
-  const isPreOrStyleTag = node.tag === "pre" || node.tag === "style";
-
   const childrenDoc = path.map(({ isFirst, node: childNode }) => {
     const printedChild = print();
 
     if (options.htmlWhitespaceSensitivity === "ignore") {
-      if (isPreOrStyleTag && childNode.type === "TextNode") {
+      if (
+        childNode.type === "TextNode" &&
+        node.type === "ElementNode" &&
+        node.tag === "style" &&
+        node.children.length === 1 &&
+        node.children[0] === childNode
+      ) {
         return printedChild;
       }
 
@@ -459,7 +463,10 @@ function printChildren(path, options, print) {
 
   if (
     options.htmlWhitespaceSensitivity === "ignore" &&
-    (!isPreOrStyleTag || node.children?.at(-1)?.type !== "TextNode")
+    (node.type !== "ElementNode" ||
+      node.tag !== "style" ||
+      node.children.length !== 1 ||
+      node.children[0].type !== "TextNode")
   ) {
     return [childrenDoc, dedent(hardline)];
   }
