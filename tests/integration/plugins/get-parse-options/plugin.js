@@ -21,7 +21,7 @@ export const parsers = {
 export const printers = {
   [name]: {
     print() {
-      throw new Error("This should not called");
+      throw new Error("This should not be called");
     },
   },
 };
