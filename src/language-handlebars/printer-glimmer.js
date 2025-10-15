@@ -457,10 +457,12 @@ function printChildren(path, options, print) {
     return printedChild;
   }, "children");
 
-  if (options.htmlWhitespaceSensitivity === "ignore" && (!isPreOrStyleTag ||
-      node.children?.at(-1)?.type !== "TextNode")) {
-      return [childrenDoc, dedent(hardline)];
-    }
+  if (
+    options.htmlWhitespaceSensitivity === "ignore" &&
+    (!isPreOrStyleTag || node.children?.at(-1)?.type !== "TextNode")
+  ) {
+    return [childrenDoc, dedent(hardline)];
+  }
 
   return childrenDoc;
 }
