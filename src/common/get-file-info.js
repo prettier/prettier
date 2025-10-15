@@ -56,7 +56,7 @@ async function getParser(file, options) {
 
   const plugins = [
     ...options.plugins,
-    await loadPlugins(config?.plugins ?? []),
+    ...(await loadPlugins(config?.plugins ?? [])),
   ];
 
   return inferParser({ plugins }, { physicalFile: file });
