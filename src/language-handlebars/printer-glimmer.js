@@ -448,7 +448,7 @@ function printChildren(path, options, print) {
         (parent.tag === "style" || parent.tag === "pre");
 
       if (shouldRemoveLines) {
-        return [printedChild];
+        return printedChild;
       }
 
       return [softline, printedChild, dedent(hardline)];
