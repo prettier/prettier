@@ -34,7 +34,8 @@ async function loadPluginWithoutCache(plugin, cwd) {
   const module = await importPlugin(plugin, cwd);
   const implementation = module.default ?? module;
   // TODO: Use plugin name when fixing #17260.
-  return { name: isUrl(plugin) ? toPath(plugin) : plugin, ...implementation };
+  const name = isUrl(plugin) ? toPath(plugin) : plugin;
+  return { name, ...implementation };
 }
 
 const cache = new Map();
