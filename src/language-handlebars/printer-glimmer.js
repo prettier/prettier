@@ -62,7 +62,6 @@ function print(path, options, print) {
         return [
           startingTag,
           indent(printChildren(path, options, print)),
-          hardline,
           indent(endingTag),
           escapeNextElementNode,
         ];
@@ -440,14 +439,22 @@ function printChildren(path, options, print) {
     return "";
   }
 
-  return path.map(({ isFirst }) => {
+  return path.map(({ isFirst, node, parent }) => {
     const printedChild = print();
 
     if (isFirst && options.htmlWhitespaceSensitivity === "ignore") {
-      return [softline, printedChild];
+      const shouldRemoveLines =
+        node.type === "TextNode" &&
+        (parent.tag === "style" || parent.tag === "pre");
+
+      if (shouldRemoveLines) {
+        return [printedChild];
+      }
+
+      return [softline, printedChild, dedent(hardline)];
     }
 
-    return printedChild;
+    return [printedChild, dedent(hardline)];
   }, "children");
 }
 

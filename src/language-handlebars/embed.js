@@ -1,6 +1,6 @@
 import { dedent, hardline, softline } from "../document/builders.js";
 
-function embed(path, options) {
+function embed(path /* , options */) {
   const { node } = path;
 
   if (node.type !== "TextNode") {
@@ -39,11 +39,6 @@ function embed(path, options) {
     if (!doc) {
       return [];
     }
-
-    if (options.htmlWhitespaceSensitivity === "ignore") {
-      return doc;
-    }
-
     return [hardline, doc, dedent(softline)];
   };
 }
