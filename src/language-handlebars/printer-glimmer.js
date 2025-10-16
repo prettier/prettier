@@ -445,12 +445,12 @@ function printChildren(path, options, print) {
     return "";
   }
 
-  return path.map(({ isFirst, node: childNode }) => {
+  return path.map(({ isFirst }) => {
     const printedChild = print();
 
     if (options.htmlWhitespaceSensitivity === "ignore") {
-      if (isSingleChildStyleElement(node) && node.children[0] === childNode) {
-        if (typeof printedChild === "string") {
+      if (isSingleChildStyleElement(node)) {
+        if (options.embeddedLanguageFormatting === "off") {
           const trimmedContent = printedChild.trim();
           return trimmedContent
             ? [hardline, trimmedContent, dedent(softline)]
