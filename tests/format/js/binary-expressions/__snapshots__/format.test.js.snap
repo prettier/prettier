@@ -1,5 +1,78 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`argument.js - {"experimentalOperatorPosition":"start"} format 1`] = `
+====================================options=====================================
+experimentalOperatorPosition: "start"
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+Foo(
+  a_long_long_long_long_condition |
+  a_long_long_long_long_condition |
+  a_long_long_long_long_condition,
+);
+
+Foo(
+  a_long_long_long_long_condition |
+  a_long_long_long_long_condition |
+  a_long_long_long_long_condition,
+  a_long_long_long_long_condition
+);
+
+=====================================output=====================================
+Foo(
+  a_long_long_long_long_condition
+  | a_long_long_long_long_condition
+  | a_long_long_long_long_condition,
+);
+
+Foo(
+  a_long_long_long_long_condition
+    | a_long_long_long_long_condition
+    | a_long_long_long_long_condition,
+  a_long_long_long_long_condition,
+);
+
+================================================================================
+`;
+
+exports[`argument.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+Foo(
+  a_long_long_long_long_condition |
+  a_long_long_long_long_condition |
+  a_long_long_long_long_condition,
+);
+
+Foo(
+  a_long_long_long_long_condition |
+  a_long_long_long_long_condition |
+  a_long_long_long_long_condition,
+  a_long_long_long_long_condition
+);
+
+=====================================output=====================================
+Foo(
+  a_long_long_long_long_condition |
+  a_long_long_long_long_condition |
+  a_long_long_long_long_condition,
+);
+
+Foo(
+  a_long_long_long_long_condition |
+    a_long_long_long_long_condition |
+    a_long_long_long_long_condition,
+  a_long_long_long_long_condition,
+);
+
+================================================================================
+`;
+
 exports[`array-and-object.js - {"experimentalOperatorPosition":"start"} format 1`] = `
 ====================================options=====================================
 experimentalOperatorPosition: "start"
@@ -321,22 +394,22 @@ printWidth: 80
   && eeeeeeeeeeeeeeeeeeeeeeeee
 )(
   aaaaaaaaaaaaaaaaaaaaaaaaa
-    && bbbbbbbbbbbbbbbbbbbbbbbbb
-    && ccccccccccccccccccccccccc
-    && ddddddddddddddddddddddddd
-    && eeeeeeeeeeeeeeeeeeeeeeeee,
+  && bbbbbbbbbbbbbbbbbbbbbbbbb
+  && ccccccccccccccccccccccccc
+  && ddddddddddddddddddddddddd
+  && eeeeeeeeeeeeeeeeeeeeeeeee,
 )(
   aaaaaaaaaaaaaaaaaaaaaaaaa
-    && bbbbbbbbbbbbbbbbbbbbbbbbb
-    && ccccccccccccccccccccccccc
-    && ddddddddddddddddddddddddd
-    && eeeeeeeeeeeeeeeeeeeeeeeee,
+  && bbbbbbbbbbbbbbbbbbbbbbbbb
+  && ccccccccccccccccccccccccc
+  && ddddddddddddddddddddddddd
+  && eeeeeeeeeeeeeeeeeeeeeeeee,
 )(
   aaaaaaaaaaaaaaaaaaaaaaaaa
-    && bbbbbbbbbbbbbbbbbbbbbbbbb
-    && ccccccccccccccccccccccccc
-    && ddddddddddddddddddddddddd
-    && eeeeeeeeeeeeeeeeeeeeeeeee,
+  && bbbbbbbbbbbbbbbbbbbbbbbbb
+  && ccccccccccccccccccccccccc
+  && ddddddddddddddddddddddddd
+  && eeeeeeeeeeeeeeeeeeeeeeeee,
 );
 
 ================================================================================
@@ -451,22 +524,22 @@ printWidth: 80
   eeeeeeeeeeeeeeeeeeeeeeeee
 )(
   aaaaaaaaaaaaaaaaaaaaaaaaa &&
-    bbbbbbbbbbbbbbbbbbbbbbbbb &&
-    ccccccccccccccccccccccccc &&
-    ddddddddddddddddddddddddd &&
-    eeeeeeeeeeeeeeeeeeeeeeeee,
+  bbbbbbbbbbbbbbbbbbbbbbbbb &&
+  ccccccccccccccccccccccccc &&
+  ddddddddddddddddddddddddd &&
+  eeeeeeeeeeeeeeeeeeeeeeeee,
 )(
   aaaaaaaaaaaaaaaaaaaaaaaaa &&
-    bbbbbbbbbbbbbbbbbbbbbbbbb &&
-    ccccccccccccccccccccccccc &&
-    ddddddddddddddddddddddddd &&
-    eeeeeeeeeeeeeeeeeeeeeeeee,
+  bbbbbbbbbbbbbbbbbbbbbbbbb &&
+  ccccccccccccccccccccccccc &&
+  ddddddddddddddddddddddddd &&
+  eeeeeeeeeeeeeeeeeeeeeeeee,
 )(
   aaaaaaaaaaaaaaaaaaaaaaaaa &&
-    bbbbbbbbbbbbbbbbbbbbbbbbb &&
-    ccccccccccccccccccccccccc &&
-    ddddddddddddddddddddddddd &&
-    eeeeeeeeeeeeeeeeeeeeeeeee,
+  bbbbbbbbbbbbbbbbbbbbbbbbb &&
+  ccccccccccccccccccccccccc &&
+  ddddddddddddddddddddddddd &&
+  eeeeeeeeeeeeeeeeeeeeeeeee,
 );
 
 ================================================================================
@@ -629,9 +702,9 @@ a
 
 var a = x(
   abifornCringerMoshedPerplexSawder
-    + kochabCooieGameOnOboleUnweave // f
-    + glimseGlyphsHazardNoopsTieTie
-    + bifornCringerMoshedPerplexSawder,
+  + kochabCooieGameOnOboleUnweave // f
+  + glimseGlyphsHazardNoopsTieTie
+  + bifornCringerMoshedPerplexSawder,
 );
 
 foo[
@@ -774,9 +847,9 @@ a ||
 
 var a = x(
   abifornCringerMoshedPerplexSawder +
-    kochabCooieGameOnOboleUnweave + // f
-    glimseGlyphsHazardNoopsTieTie +
-    bifornCringerMoshedPerplexSawder,
+  kochabCooieGameOnOboleUnweave + // f
+  glimseGlyphsHazardNoopsTieTie +
+  bifornCringerMoshedPerplexSawder,
 );
 
 foo[
@@ -2241,7 +2314,7 @@ defaultContent.filter(defaultLocale => {
 this._cumulativeHeights
   && Math.abs(
     this._cachedItemHeight(this._firstVisibleIndex + i)
-      - this._provider.fastHeight(i + this._firstVisibleIndex),
+    - this._provider.fastHeight(i + this._firstVisibleIndex),
   ) > 1;
 
 foooooooooooooooooooooooooooooooooooooooooooooooooooooooooo(aaaaaaaaaaaaaaaaaaa)
@@ -2287,7 +2360,7 @@ defaultContent.filter(defaultLocale => {
 this._cumulativeHeights &&
   Math.abs(
     this._cachedItemHeight(this._firstVisibleIndex + i) -
-      this._provider.fastHeight(i + this._firstVisibleIndex),
+    this._provider.fastHeight(i + this._firstVisibleIndex),
   ) > 1;
 
 foooooooooooooooooooooooooooooooooooooooooooooooooooooooooo(

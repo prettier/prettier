@@ -17,6 +17,7 @@ import { cleanDoc, getDocType } from "../../document/utils.js";
 import { printComments } from "../../main/comments/print.js";
 import {
   CommentCheckFlags,
+  getCallArguments,
   hasComment,
   hasLeadingOwnLineComment,
   isArrayExpression,
@@ -110,7 +111,8 @@ function printBinaryishExpression(path, options, print) {
       grandparent.type !== "ReturnStatement" &&
       grandparent.type !== "ThrowStatement" &&
       !isCallExpression(grandparent)) ||
-    parent.type === "TemplateLiteral";
+    parent.type === "TemplateLiteral" ||
+    (isCallExpression(parent) && getCallArguments(parent).length === 1);
 
   const shouldIndentIfInlining =
     parent.type === "AssignmentExpression" ||
