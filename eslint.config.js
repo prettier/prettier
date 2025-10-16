@@ -11,6 +11,7 @@ import eslintPluginRegexp from "eslint-plugin-regexp";
 import eslintPluginSimpleImportSort from "eslint-plugin-simple-import-sort";
 import eslintPluginUnicorn from "eslint-plugin-unicorn";
 import globals from "globals";
+import eslintConfigNodeStyleText from "node-style-text/eslint-config";
 import eslintPluginPrettierInternalRules from "./scripts/tools/eslint-plugin-prettier-internal-rules/index.js";
 
 const toPath = (file) => url.fileURLToPath(new URL(file, import.meta.url));
@@ -39,11 +40,13 @@ scripts/benchmark/*/
   .split("\n")
   .filter((pattern) => pattern && !pattern.startsWith("#"));
 
-export default [
+const configs = [
+  { files: ["**/*.{js,mjs,cjs,jsx}"] },
   eslintPluginJs.configs.recommended,
   eslintPluginRegexp.configs["flat/recommended"],
   eslintPluginUnicorn.configs["flat/recommended"],
   eslintConfigPrettier,
+  eslintConfigNodeStyleText,
   {
     languageOptions: {
       globals: { ...globals.builtin, ...globals.node },
@@ -141,6 +144,7 @@ export default [
       "prettier-internal-rules/massage-ast-parameter-names": "error",
       "prettier-internal-rules/no-identifier-n": "error",
       "prettier-internal-rules/prefer-fs-promises-submodule": "error",
+      "prettier-internal-rules/no-useless-ast-path-callback-parameter": "error",
 
       /* @stylistic/eslint-plugin */
       "@stylistic/quotes": [
@@ -151,6 +155,7 @@ export default [
         },
       ],
       "@stylistic/spaced-comment": "error",
+      "@stylistic/no-trailing-spaces": "error",
 
       /* @typescript-eslint/eslint-plugin */
       "@typescript-eslint/prefer-ts-expect-error": "error",
@@ -493,3 +498,5 @@ export default [
     rules: { "require-unicode-regexp": "off" },
   },
 ];
+
+export default configs;

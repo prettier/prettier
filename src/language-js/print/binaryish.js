@@ -222,9 +222,9 @@ function printBinaryishExpressions(
   if (shouldFlatten(node.operator, node.left.operator)) {
     // Flatten them out by recursively calling this function.
     parts = path.call(
-      (left) =>
+      () =>
         printBinaryishExpressions(
-          left,
+          path,
           options,
           print,
           /* isNested */ true,
@@ -282,9 +282,9 @@ function printBinaryishExpressions(
       operator === "|>" && path.root.extra?.__isUsingHackPipeline;
     const rightContent = isHackPipeline
       ? path.call(
-          (left) =>
+          () =>
             printBinaryishExpressions(
-              left,
+              path,
               options,
               print,
               /* isNested */ true,

@@ -13,14 +13,27 @@ import {
 } from "../utils/index.js";
 import printCallArguments from "./call-arguments.js";
 import printMemberChain from "./member-chain.js";
-import { printFunctionTypeParameters, printOptionalToken } from "./misc.js";
+import { printOptionalToken } from "./misc.js";
 
+/*
+- `NewExpression`
+- `ImportExpression`
+- `OptionalCallExpression`
+- `CallExpression`
+- `TSImportType` (TypeScript)
+- `TSExternalModuleReference` (TypeScript)
+*/
 function printCallExpression(path, options, print) {
   const { node } = path;
   const isNewExpression = node.type === "NewExpression";
 
   const optional = printOptionalToken(path);
   const args = getCallArguments(node);
+  // `TSImportType.typeArguments` is after `qualifier`, not before the "arguments"
+  const typeArgumentsDoc =
+    node.type !== "TSImportType" && node.typeArguments
+      ? print("typeArguments")
+      : "";
 
   const isTemplateLiteralSingleArg =
     args.length === 1 && isTemplateOnItsOwnLine(args[0], options.originalText);
@@ -47,7 +60,7 @@ function printCallExpression(path, options, print) {
         isNewExpression ? "new " : "",
         printCallee(path, print),
         optional,
-        printFunctionTypeParameters(path, options, print),
+        typeArgumentsDoc,
         "(",
         join(", ", printed),
         ")",
@@ -55,17 +68,19 @@ function printCallExpression(path, options, print) {
     }
   }
 
-  const isDynamicImport =
-    node.type === "ImportExpression" || node.type === "TSImportType";
+  const isDynamicImportLike =
+    node.type === "ImportExpression" ||
+    node.type === "TSImportType" ||
+    node.type === "TSExternalModuleReference";
 
   // We detect calls on member lookups and possibly print them in a
   // special chain format. See `printMemberChain` for more info.
   if (
-    !isDynamicImport &&
+    !isDynamicImportLike &&
     !isNewExpression &&
     isMemberish(node.callee) &&
     !path.call(
-      (path) => pathNeedsParens(path, options),
+      () => pathNeedsParens(path, options),
       "callee",
       ...(node.callee.type === "ChainExpression" ? ["expression"] : []),
     )
@@ -77,13 +92,13 @@ function printCallExpression(path, options, print) {
     isNewExpression ? "new " : "",
     printCallee(path, print),
     optional,
-    printFunctionTypeParameters(path, options, print),
+    typeArgumentsDoc,
     printCallArguments(path, options, print),
   ];
 
   // We group here when the callee is itself a call expression.
   // See `isLongCurriedCallExpression` for more info.
-  if (isDynamicImport || isCallExpression(node.callee)) {
+  if (isDynamicImportLike || isCallExpression(node.callee)) {
     return group(contents);
   }
 
@@ -95,6 +110,10 @@ function printCallee(path, print) {
 
   if (node.type === "ImportExpression" || node.type === "TSImportType") {
     return `import${node.phase ? `.${node.phase}` : ""}`;
+  }
+
+  if (node.type === "TSExternalModuleReference") {
+    return "require";
   }
 
   return print("callee");
@@ -116,6 +135,8 @@ function isSimpleModuleImport(path) {
         node.type === "ImportExpression" ||
         // `type foo = import("foo")`
         node.type === "TSImportType" ||
+        // `import type A = require("foo")`
+        node.type === "TSExternalModuleReference" ||
         // `require("foo")`
         // `require.resolve("foo")`
         // `require.resolve.paths("foo")`
@@ -160,7 +181,10 @@ function isCommonsJsOrAmdModuleDefinition(path) {
 
   // AMD module
   if (node.callee.name === "require") {
-    return (args.length === 1 && isStringLiteral(args[0])) || args.length > 1;
+    return (
+      ((args.length === 1 && isStringLiteral(args[0])) || args.length > 1) &&
+      !hasComment(args[0])
+    );
   }
 
   // CommonJS module

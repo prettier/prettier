@@ -219,12 +219,12 @@ function printMatchOrPattern(path, options, print) {
   // | child1
   // // comment
   // | child2
-  const printed = path.map((patternPath) => {
+  const printed = path.map(() => {
     let printedPattern = print();
     if (!shouldHug) {
       printedPattern = align(2, printedPattern);
     }
-    return printComments(patternPath, printedPattern, options);
+    return printComments(path, printedPattern, options);
   }, "patterns");
 
   if (shouldHug) {

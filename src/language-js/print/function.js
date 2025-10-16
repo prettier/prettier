@@ -27,7 +27,7 @@ import {
   shouldBreakFunctionParameters,
   shouldGroupFunctionParameters,
 } from "./function-parameters.js";
-import { printDeclareToken, printFunctionTypeParameters } from "./misc.js";
+import { printDeclareToken } from "./misc.js";
 import { printPropertyKey } from "./property.js";
 import { printTypeAnnotationProperty } from "./type-annotation.js";
 
@@ -59,7 +59,7 @@ function printFunction(path, options, print, args) {
 
   const { node } = path;
 
-  let expandArg = false;
+  let shouldExpandArgument = false;
   if (
     (node.type === "FunctionDeclaration" ||
       node.type === "FunctionExpression") &&
@@ -73,7 +73,7 @@ function printFunction(path, options, print, args) {
           (param) => param.type === "Identifier" && !param.typeAnnotation,
         ))
     ) {
-      expandArg = true;
+      shouldExpandArgument = true;
     }
   }
 
@@ -88,7 +88,7 @@ function printFunction(path, options, print, args) {
     path,
     options,
     print,
-    expandArg,
+    shouldExpandArgument,
   );
   const returnTypeDoc = printReturnType(path, print);
   const shouldGroupParameters = shouldGroupFunctionParameters(
@@ -97,7 +97,7 @@ function printFunction(path, options, print, args) {
   );
 
   parts.push(
-    printFunctionTypeParameters(path, options, print),
+    print("typeParameters"),
     group([
       shouldGroupParameters ? group(parametersDoc) : parametersDoc,
       returnTypeDoc,
@@ -163,7 +163,7 @@ function printMethodValue(path, options, print) {
     returnTypeDoc,
   );
   const parts = [
-    printFunctionTypeParameters(path, options, print),
+    print("typeParameters"),
     group([
       shouldBreakParameters
         ? group(parametersDoc, { shouldBreak: true })
@@ -230,7 +230,6 @@ function printReturnType(path, print) {
 // `ReturnStatement` and `ThrowStatement`
 function printReturnOrThrowArgument(path, options, print) {
   const { node } = path;
-  const semi = options.semi ? ";" : "";
   const parts = [];
 
   if (node.argument) {
@@ -258,20 +257,20 @@ function printReturnOrThrowArgument(path, options, print) {
 
   const hasDanglingComments = hasComment(node, CommentCheckFlags.Dangling);
   const shouldPrintSemiBeforeComments =
-    semi &&
+    options.semi &&
     hasDanglingComments &&
     hasComment(node, CommentCheckFlags.Last | CommentCheckFlags.Line);
 
   if (shouldPrintSemiBeforeComments) {
-    parts.push(semi);
+    parts.push(";");
   }
 
   if (hasDanglingComments) {
     parts.push(" ", printDanglingComments(path, options));
   }
 
-  if (!shouldPrintSemiBeforeComments) {
-    parts.push(semi);
+  if (!shouldPrintSemiBeforeComments && options.semi) {
+    parts.push(";");
   }
 
   return parts;

@@ -1,8 +1,10 @@
 import isNonEmptyArray from "../../utils/is-non-empty-array.js";
 import {
+  createTypeCheckFunction,
   getFunctionParameters,
   hasNodeIgnoreComment,
   isJsxElement,
+  isMethod,
   isUnionType,
 } from "../utils/index.js";
 
@@ -11,7 +13,7 @@ import {
  * @import AstPath from "../../common/ast-path.js"
  */
 
-const nodeTypesCanNotAttachComment = new Set([
+const isNodeCantAttachComment = createTypeCheckFunction([
   "EmptyStatement",
   "TemplateElement",
   // There is no similar node in Babel AST
@@ -25,41 +27,69 @@ const nodeTypesCanNotAttachComment = new Set([
   // There is no similar node in Babel AST, `a?.b`
   "ChainExpression",
 ]);
-function canAttachComment(node) {
-  return !nodeTypesCanNotAttachComment.has(node.type);
-}
 
 /**
- * @param {any} node
- * @returns {Node[] | void}
- */
-function getCommentChildNodes(node, options) {
-  // Prevent attaching comments to FunctionExpression in this case:
-  //     class Foo {
-  //       bar() // comment
-  //       {
-  //         baz();
-  //       }
-  //     }
-  if (
-    (options.parser === "typescript" ||
-      options.parser === "flow" ||
-      options.parser === "hermes" ||
-      options.parser === "acorn" ||
-      options.parser === "oxc" ||
-      options.parser === "oxc-ts" ||
-      options.parser === "espree" ||
-      options.parser === "meriyah" ||
-      options.parser === "__babel_estree") &&
-    node.type === "MethodDefinition" &&
-    node.value?.type === "FunctionExpression" &&
-    getFunctionParameters(node.value).length === 0 &&
-    !node.value.returnType &&
-    !isNonEmptyArray(node.value.typeParameters) &&
-    node.value.body
-  ) {
-    return [...(node.decorators || []), node.key, node.value.body];
+@param {Node} node
+@param {any[]} param1
+@returns {boolean}
+*/
+const isChildWontPrint = (node, [parent]) =>
+  (parent?.type === "ComponentParameter" &&
+    parent.shorthand &&
+    parent.name === node &&
+    parent.local !== parent.name) ||
+  (parent?.type === "MatchObjectPatternProperty" &&
+    parent.shorthand &&
+    parent.key === node &&
+    parent.value !== parent.key) ||
+  (parent?.type === "ObjectProperty" &&
+    parent.shorthand &&
+    parent.key === node &&
+    parent.value !== parent.key) ||
+  (parent?.type === "Property" &&
+    parent.shorthand &&
+    parent.key === node &&
+    !isMethod(parent) &&
+    parent.value !== parent.key);
+
+/*
+Prevent attaching comments to FunctionExpression in this case:
+```
+class Foo {
+  bar() // comment
+  {
+    baz();
   }
+}
+```
+
+@param {Node} node
+@param {any[]} param1
+@returns {boolean}
+*/
+const isClassMethodCantAttachComment = (node, [parent]) =>
+  Boolean(
+    node.type === "FunctionExpression" &&
+      parent.type === "MethodDefinition" &&
+      parent.value === node &&
+      getFunctionParameters(node).length === 0 &&
+      !node.returnType &&
+      !isNonEmptyArray(node.typeParameters) &&
+      node.body,
+  );
+
+/**
+@param {Node} node
+@param {any[]} ancestors
+@returns {boolean}
+*/
+function canAttachComment(node, ancestors) {
+  return !(
+    isNodeCantAttachComment(node) ||
+    isChildWontPrint(node, ancestors) ||
+    // @ts-expect-error -- safe
+    isClassMethodCantAttachComment(node, ancestors)
+  );
 }
 
 /**
@@ -93,5 +123,5 @@ function isGap(text, { parser }) {
 
 export { printComment } from "../print/comment.js";
 export { default as isBlockComment } from "../utils/is-block-comment.js";
-export * as handleComments from "./handle-comments.js";
-export { canAttachComment, getCommentChildNodes, isGap, willPrintOwnComments };
+export { default as handleComments } from "./handle-comments.js";
+export { canAttachComment, isGap, willPrintOwnComments };

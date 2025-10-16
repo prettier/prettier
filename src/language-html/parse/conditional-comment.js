@@ -2,15 +2,20 @@ import { ParseSourceSpan } from "angular-html-parser";
 
 // https://css-tricks.com/how-to-create-an-ie-only-stylesheet
 
+/**
+@import {Ast} from "angular-html-parser";
+*/
+
 const parseFunctions = [
   {
     // <!--[if ... ]> ... <![endif]-->
-    regex: /^(\[if([^\]]*)\]>)(.*?)<!\s*\[endif\]$/su,
+    regex:
+      /^(?<openingTagSuffix>\[if(?<condition>[^\]]*)\]>)(?<data>.*?)<!\s*\[endif\]$/su,
     parse: parseIeConditionalStartEndComment,
   },
   {
     // <!--[if ... ]><!-->
-    regex: /^\[if([^\]]*)\]><!$/u,
+    regex: /^\[if(?<condition>[^\]]*)\]><!$/u,
     parse: parseIeConditionalStartComment,
   },
   {
@@ -20,20 +25,26 @@ const parseFunctions = [
   },
 ];
 
+/**
+@param {Ast.Comment} node
+*/
 function parseIeConditionalComment(node, parseHtml) {
   if (node.value) {
     for (const { regex, parse } of parseFunctions) {
       const match = node.value.match(regex);
       if (match) {
-        return parse(node, parseHtml, match);
+        return parse(node, match, parseHtml);
       }
     }
   }
   return null;
 }
 
-function parseIeConditionalStartEndComment(node, parseHtml, match) {
-  const [, openingTagSuffix, condition, data] = match;
+/**
+@param {Ast.Comment} node
+*/
+function parseIeConditionalStartEndComment(node, match, parseHtml) {
+  const { openingTagSuffix, condition, data } = match.groups;
   const offset = "<!--".length + openingTagSuffix.length;
   const contentStartSpan = node.sourceSpan.start.moveBy(offset);
   const contentEndSpan = contentStartSpan.moveBy(data.length);
@@ -42,7 +53,7 @@ function parseIeConditionalStartEndComment(node, parseHtml, match) {
       return [true, parseHtml(data, contentStartSpan).children];
     } catch {
       const text = {
-        type: "text",
+        kind: "text",
         value: data,
         sourceSpan: new ParseSourceSpan(contentStartSpan, contentEndSpan),
       };
@@ -50,7 +61,7 @@ function parseIeConditionalStartEndComment(node, parseHtml, match) {
     }
   })();
   return {
-    type: "ieConditionalComment",
+    kind: "ieConditionalComment",
     complete,
     children,
     condition: condition.trim().replaceAll(/\s+/gu, " "),
@@ -63,18 +74,21 @@ function parseIeConditionalStartEndComment(node, parseHtml, match) {
   };
 }
 
-function parseIeConditionalStartComment(node, parseHtml, match) {
-  const [, condition] = match;
+/**
+@param {Ast.Comment} node
+*/
+function parseIeConditionalStartComment(node, match /* , parseHtml */) {
+  const { condition } = match.groups;
   return {
-    type: "ieConditionalStartComment",
+    kind: "ieConditionalStartComment",
     condition: condition.trim().replaceAll(/\s+/gu, " "),
     sourceSpan: node.sourceSpan,
   };
 }
 
-function parseIeConditionalEndComment(node /* , parseHtml, match */) {
+function parseIeConditionalEndComment(node /* , match, parseHtml */) {
   return {
-    type: "ieConditionalEndComment",
+    kind: "ieConditionalEndComment",
     sourceSpan: node.sourceSpan,
   };
 }

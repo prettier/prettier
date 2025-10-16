@@ -177,9 +177,9 @@ function printArrowFunctionSignature(path, options, print, args) {
   if (shouldPrintParamsWithoutParens(path, options)) {
     parts.push(print(["params", 0]));
   } else {
-    const expandArg = args.expandLastArg || args.expandFirstArg;
+    const shouldExpandArgument = args.expandLastArg || args.expandFirstArg;
     let returnTypeDoc = printReturnType(path, print);
-    if (expandArg) {
+    if (shouldExpandArgument) {
       if (willBreak(returnTypeDoc)) {
         throw new ArgExpansionBailout();
       }
@@ -191,8 +191,8 @@ function printArrowFunctionSignature(path, options, print, args) {
           path,
           options,
           print,
-          expandArg,
-          /* printTypeParams */ true,
+          shouldExpandArgument,
+          /* shouldPrintTypeParameters */ true,
         ),
         returnTypeDoc,
       ]),

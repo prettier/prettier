@@ -1,4 +1,9 @@
-export default {
+import { isCI } from "ci-info";
+
+/** @import {KnipConfig} from "knip" */
+
+/** @type {KnipConfig} */
+const config = {
   workspaces: {
     ".": {
       entry: [
@@ -25,15 +30,18 @@ export default {
         "buffer",
         "deno-path-from-file-url",
       ],
-      ignoreBinaries: [
-        "test-coverage",
-        "renovate-config-validator",
-        "pkg-pr-new",
-      ],
+      ignoreBinaries: ["test-coverage"],
     },
-    // TODO: Enable this after we fix https://github.com/prettier/prettier/issues/11409
     website: {
-      ignore: ["**/*"],
+      entry: [
+        "playground/**/*.{js,jsx}",
+        "src/pages/**/*.{js,jsx}",
+        "static/**/*.{js,mjs}",
+      ],
+      ignoreDependencies: [
+        "@docusaurus/faster",
+        "@docusaurus/plugin-content-docs",
+      ],
     },
     "scripts/tools/bundle-test": {},
     "scripts/tools/eslint-plugin-prettier-internal-rules": {},
@@ -42,3 +50,15 @@ export default {
     },
   },
 };
+
+// Only check workspaces on CI, since they require extra install steps, see https://github.com/prettier/prettier/issues/16913
+if (!isCI) {
+  config.workspaces = Object.fromEntries(
+    Object.entries(config.workspaces).map(([workspace, settings]) => [
+      workspace,
+      workspace === "." ? settings : { ignore: ["**/*"] },
+    ]),
+  );
+}
+
+export default config;

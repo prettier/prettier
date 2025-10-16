@@ -71,9 +71,6 @@ function printTypescript(path, options, print) {
     return node.type.slice(2, -7).toLowerCase();
   }
 
-  const semi = options.semi ? ";" : "";
-  const parts = [];
-
   switch (node.type) {
     case "TSThisType":
       return "this";
@@ -109,7 +106,7 @@ function printTypescript(path, options, print) {
     case "TSDeclareFunction":
       return printFunction(path, options, print);
     case "TSExportAssignment":
-      return ["export = ", print("expression"), semi];
+      return ["export = ", print("expression"), options.semi ? ";" : ""];
     case "TSModuleBlock":
       return printBlock(path, options, print);
     case "TSInterfaceBody":
@@ -199,7 +196,7 @@ function printTypescript(path, options, print) {
         node.parameters ? parametersGroup : "",
         "]",
         printTypeAnnotationProperty(path, print),
-        isClassMember ? semi : "",
+        isClassMember && options.semi ? ";" : "",
       ];
     }
     case "TSTypePredicate":
@@ -224,6 +221,7 @@ function printTypescript(path, options, print) {
       return printTypeScriptMappedType(path, options, print);
 
     case "TSMethodSignature": {
+      const parts = [];
       const kind = node.kind && node.kind !== "method" ? `${node.kind} ` : "";
       parts.push(
         printTypeScriptAccessibilityToken(node),
@@ -238,8 +236,8 @@ function printTypescript(path, options, print) {
         path,
         options,
         print,
-        /* expandArg */ false,
-        /* printTypeParams */ true,
+        /* shouldExpandArgument */ false,
+        /* shouldPrintTypeParameters */ true,
       );
 
       const returnTypeDoc = printTypeAnnotationProperty(
@@ -280,8 +278,9 @@ function printTypescript(path, options, print) {
         options.semi ? ";" : "",
       ];
     case "TSExternalModuleReference":
-      return ["require(", print("expression"), ")"];
+      return printCallExpression(path, options, print);
     case "TSModuleDeclaration": {
+      const parts = [];
       const { parent } = path;
       const parentIsDeclaration = parent.type === "TSModuleDeclaration";
       const bodyIsDeclaration = node.body?.type === "TSModuleDeclaration";
@@ -303,7 +302,7 @@ function printTypescript(path, options, print) {
       } else if (node.body) {
         parts.push(" ", group(print("body")));
       } else {
-        parts.push(semi);
+        parts.push(options.semi ? ";" : "");
       }
 
       return parts;

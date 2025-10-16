@@ -372,6 +372,7 @@ exports[`visitor keys estree 1`] = `
     "body",
     "id",
     "params",
+    "predicate",
     "returnType",
     "typeParameters",
   ],
@@ -496,7 +497,6 @@ exports[`visitor keys estree 1`] = `
     "attributes",
     "name",
     "typeArguments",
-    "typeParameters",
   ],
   "JSXOpeningFragment": [],
   "JSXSpreadAttribute": [
@@ -826,7 +826,6 @@ exports[`visitor keys estree 1`] = `
   "TSClassImplements": [
     "expression",
     "typeArguments",
-    "typeParameters",
   ],
   "TSConditionalType": [
     "checkType",
@@ -925,7 +924,6 @@ exports[`visitor keys estree 1`] = `
   "TSInterfaceHeritage": [
     "expression",
     "typeArguments",
-    "typeParameters",
   ],
   "TSIntersectionType": [
     "types",

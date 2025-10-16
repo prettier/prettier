@@ -1,6 +1,7 @@
 import { UndefinedParserError } from "../common/errors.js";
 import { getSupportInfo } from "../main/support.js";
 import inferParser from "../utils/infer-parser.js";
+import createGetVisitorKeysFunction from "./create-get-visitor-keys-function.js";
 import normalizeOptions from "./normalize-options.js";
 import {
   getParserPluginByParserName,
@@ -15,6 +16,7 @@ const formatOptionsHiddenDefaults = {
   originalText: undefined,
   locStart: null,
   locEnd: null,
+  getVisitorKeys: null,
 };
 
 // Copy options and fill in default values.
@@ -68,6 +70,9 @@ async function normalizeFormatOptions(options, opts = {}) {
   const printer = await initPrinter(printerPlugin, parser.astFormat);
 
   rawOptions.printer = printer;
+  rawOptions.getVisitorKeys = createGetVisitorKeysFunction(
+    printer.getVisitorKeys,
+  );
 
   const pluginDefaults = printerPlugin.defaultOptions
     ? Object.fromEntries(

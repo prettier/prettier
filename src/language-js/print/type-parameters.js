@@ -168,7 +168,13 @@ function printTypeParameter(path, options, print) {
   }
 
   if (node.default) {
-    parts.push(" = ", print("default"));
+    const groupId = Symbol("default");
+    parts.push(
+      " =",
+      group(indent(line), { id: groupId }),
+      lineSuffixBoundary,
+      indentIfBreak(print("default"), { groupId }),
+    );
   }
 
   return group(parts);

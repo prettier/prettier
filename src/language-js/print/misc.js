@@ -90,25 +90,6 @@ function printAbstractToken({ node }) {
   return node.abstract || tsAbstractNodeTypes.has(node.type) ? "abstract " : "";
 }
 
-function printFunctionTypeParameters(path, options, print) {
-  const { node } = path;
-
-  // `TSImportType.typeArguments` is after `qualifier`, not before the "arguments"
-  if (node.type === "TSImportType") {
-    return "";
-  }
-
-  if (node.typeArguments) {
-    return print("typeArguments");
-  }
-
-  if (node.typeParameters) {
-    return print("typeParameters");
-  }
-
-  return "";
-}
-
 function printBindExpressionCallee(path, options, print) {
   return ["::", print("callee")];
 }
@@ -139,7 +120,6 @@ export {
   printBindExpressionCallee,
   printDeclareToken,
   printDefiniteToken,
-  printFunctionTypeParameters,
   printOptionalToken,
   printRestSpread,
   printTypeScriptAccessibilityToken,

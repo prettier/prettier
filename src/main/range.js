@@ -7,15 +7,8 @@ const isJsonParser = ({ parser }) =>
   parser === "jsonc" ||
   parser === "json-stringify";
 
-function findCommonAncestor(startNodeAndParents, endNodeAndParents) {
-  const startNodeAndAncestors = [
-    startNodeAndParents.node,
-    ...startNodeAndParents.parentNodes,
-  ];
-  const endNodeAndAncestors = new Set([
-    endNodeAndParents.node,
-    ...endNodeAndParents.parentNodes,
-  ]);
+function findCommonAncestor(startNodeAndAncestors, endNodeAndAncestors) {
+  endNodeAndAncestors = new Set(endNodeAndAncestors);
   return startNodeAndAncestors.find(
     (node) =>
       jsonSourceElements.has(node.type) && endNodeAndAncestors.has(node),
@@ -35,33 +28,30 @@ function dropRootParents(parents) {
 }
 
 function findSiblingAncestors(
-  startNodeAndParents,
-  endNodeAndParents,
+  startNodeAndAncestors,
+  endNodeAndAncestors,
   { locStart, locEnd },
 ) {
-  let resultStartNode = startNodeAndParents.node;
-  let resultEndNode = endNodeAndParents.node;
+  let [resultStartNode, ...startNodeAncestors] = startNodeAndAncestors;
+  let [resultEndNode, ...endNodeAncestors] = endNodeAndAncestors;
 
   if (resultStartNode === resultEndNode) {
-    return {
-      startNode: resultStartNode,
-      endNode: resultEndNode,
-    };
+    return [resultStartNode, resultEndNode];
   }
 
-  const startNodeStart = locStart(startNodeAndParents.node);
-  for (const endParent of dropRootParents(endNodeAndParents.parentNodes)) {
-    if (locStart(endParent) >= startNodeStart) {
-      resultEndNode = endParent;
+  const startNodeStart = locStart(resultStartNode);
+  for (const endAncestor of dropRootParents(endNodeAncestors)) {
+    if (locStart(endAncestor) >= startNodeStart) {
+      resultEndNode = endAncestor;
     } else {
       break;
     }
   }
 
-  const endNodeEnd = locEnd(endNodeAndParents.node);
-  for (const startParent of dropRootParents(startNodeAndParents.parentNodes)) {
-    if (locEnd(startParent) <= endNodeEnd) {
-      resultStartNode = startParent;
+  const endNodeEnd = locEnd(resultEndNode);
+  for (const startAncestor of dropRootParents(startNodeAncestors)) {
+    if (locEnd(startAncestor) <= endNodeEnd) {
+      resultStartNode = startAncestor;
     } else {
       break;
     }
@@ -70,10 +60,7 @@ function findSiblingAncestors(
     }
   }
 
-  return {
-    startNode: resultStartNode,
-    endNode: resultEndNode,
-  };
+  return [resultStartNode, resultEndNode];
 }
 
 function findNodeAtOffset(
@@ -81,7 +68,7 @@ function findNodeAtOffset(
   offset,
   options,
   predicate,
-  parentNodes = [],
+  ancestors = [],
   type,
 ) {
   const { locStart, locEnd } = options;
@@ -97,25 +84,24 @@ function findNodeAtOffset(
     return;
   }
 
-  for (const childNode of getSortedChildNodes(node, options)) {
-    const childResult = findNodeAtOffset(
-      childNode,
+  const nodeAndAncestors = [node, ...ancestors];
+  const childNodes = getSortedChildNodes(node, options, nodeAndAncestors);
+  for (const child of childNodes) {
+    const childAndAncestors = findNodeAtOffset(
+      child,
       offset,
       options,
       predicate,
-      [node, ...parentNodes],
+      nodeAndAncestors,
       type,
     );
-    if (childResult) {
-      return childResult;
+    if (childAndAncestors) {
+      return childAndAncestors;
     }
   }
 
-  if (!predicate || predicate(node, parentNodes[0])) {
-    return {
-      node,
-      parentNodes,
-    };
+  if (predicate(node, ancestors[0])) {
+    return nodeAndAncestors;
   }
 }
 
@@ -195,6 +181,12 @@ function isSourceElement(opts, node, parentNode) {
   return false;
 }
 
+/**
+@param {string} text
+@param {*} opts
+@param {*} ast
+@returns {[number, number]}
+*/
 function calculateRange(text, opts, ast) {
   let { rangeStart: start, rangeEnd: end, locStart, locEnd } = opts;
   assert.ok(end > start);
@@ -211,7 +203,7 @@ function calculateRange(text, opts, ast) {
     }
   }
 
-  const startNodeAndParents = findNodeAtOffset(
+  const startNodeAndAncestors = findNodeAtOffset(
     ast,
     start,
     opts,
@@ -219,10 +211,14 @@ function calculateRange(text, opts, ast) {
     [],
     "rangeStart",
   );
-  const endNodeAndParents =
-    // No need find Node at `end`, it will be the same as `startNodeAndParents`
+  if (!startNodeAndAncestors) {
+    return;
+  }
+
+  const endNodeAndAncestors =
+    // No need find Node at `end`, it will be the same as `startNodeAndAncestors`
     isAllWhitespace
-      ? startNodeAndParents
+      ? startNodeAndAncestors
       : findNodeAtOffset(
           ast,
           end,
@@ -231,34 +227,31 @@ function calculateRange(text, opts, ast) {
           [],
           "rangeEnd",
         );
-  if (!startNodeAndParents || !endNodeAndParents) {
-    return {
-      rangeStart: 0,
-      rangeEnd: 0,
-    };
+  if (!endNodeAndAncestors) {
+    return;
   }
 
   let startNode;
   let endNode;
   if (isJsonParser(opts)) {
     const commonAncestor = findCommonAncestor(
-      startNodeAndParents,
-      endNodeAndParents,
+      startNodeAndAncestors,
+      endNodeAndAncestors,
     );
     startNode = commonAncestor;
     endNode = commonAncestor;
   } else {
-    ({ startNode, endNode } = findSiblingAncestors(
-      startNodeAndParents,
-      endNodeAndParents,
+    [startNode, endNode] = findSiblingAncestors(
+      startNodeAndAncestors,
+      endNodeAndAncestors,
       opts,
-    ));
+    );
   }
 
-  return {
-    rangeStart: Math.min(locStart(startNode), locStart(endNode)),
-    rangeEnd: Math.max(locEnd(startNode), locEnd(endNode)),
-  };
+  return [
+    Math.min(locStart(startNode), locStart(endNode)),
+    Math.max(locEnd(startNode), locEnd(endNode)),
+  ];
 }
 
 export { calculateRange };

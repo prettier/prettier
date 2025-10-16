@@ -138,7 +138,11 @@ runFormatTest(
           declare [index: string]: number
         }
       `,
+
+      // `ObjectLiteral`
+      // https://github.com/typescript-eslint/typescript-eslint/issues/11687
+      ...["abstract"].map((modifier) => `({${modifier} method(){}})`),
     ],
   },
-  ["babel-ts", "typescript", "oxc-ts"],
+  ["typescript", "babel-ts", "oxc-ts"],
 );

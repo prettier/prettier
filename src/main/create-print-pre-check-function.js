@@ -1,12 +1,9 @@
 import noop from "../utils/noop.js";
-import createGetVisitorKeysFunction from "./create-get-visitor-keys-function.js";
 
 function createPrintPreCheckFunction(options) {
   // All core plugins have full list of keys for possible child nodes
   // Ensure we only pass node to `print`
-  const getVisitorKeys = createGetVisitorKeysFunction(
-    options.printer.getVisitorKeys,
-  );
+  const { getVisitorKeys } = options;
 
   return function (path) {
     if (path.isRoot) {
