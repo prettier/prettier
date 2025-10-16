@@ -18,7 +18,12 @@ import clean from "./clean.js";
 import embed from "./embed.js";
 import getVisitorKeys from "./get-visitor-keys.js";
 import { locEnd, locStart } from "./loc.js";
-import { hasPrettierIgnore, isVoidElement, isWhitespaceNode } from "./utils.js";
+import {
+  hasPrettierIgnore,
+  isSingleChildStyleElement,
+  isVoidElement,
+  isWhitespaceNode,
+} from "./utils.js";
 
 /**
 @import {Doc} from "../document/builders.js"
@@ -62,6 +67,7 @@ function print(path, options, print) {
         return [
           startingTag,
           indent(printChildren(path, options, print)),
+          isSingleChildStyleElement(node) ? "" : hardline,
           indent(endingTag),
           escapeNextElementNode,
         ];
@@ -439,17 +445,17 @@ function printChildren(path, options, print) {
     return "";
   }
 
-  const childrenDoc = path.map(({ isFirst, node: childNode }) => {
+  return path.map(({ isFirst, node: childNode }) => {
     const printedChild = print();
 
     if (options.htmlWhitespaceSensitivity === "ignore") {
-      if (
-        childNode.type === "TextNode" &&
-        node.type === "ElementNode" &&
-        node.tag === "style" &&
-        node.children.length === 1 &&
-        node.children[0] === childNode
-      ) {
+      if (isSingleChildStyleElement(node) && node.children[0] === childNode) {
+        if (typeof printedChild === "string") {
+          const trimmedContent = printedChild.trim();
+          return trimmedContent
+            ? [hardline, trimmedContent, dedent(softline)]
+            : "";
+        }
         return printedChild;
       }
 
@@ -460,18 +466,6 @@ function printChildren(path, options, print) {
 
     return printedChild;
   }, "children");
-
-  if (
-    options.htmlWhitespaceSensitivity === "ignore" &&
-    (node.type !== "ElementNode" ||
-      node.tag !== "style" ||
-      node.children.length !== 1 ||
-      node.children[0].type !== "TextNode")
-  ) {
-    return [childrenDoc, dedent(hardline)];
-  }
-
-  return childrenDoc;
 }
 
 function printStartingTagEndMarker(node) {

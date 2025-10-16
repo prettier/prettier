@@ -209,9 +209,11 @@ expressions. sometimes{{nogaps}}areimportant
   some {{text}}
 </HelloWorld>
 
-<div class="a list of classes"></div>
+<div class="a list of classes">
+</div>
 
-<div class="a list of classes"></div>
+<div class="a list of classes">
+</div>
 
 <span>
   This is your name: {{name}}.
@@ -301,7 +303,8 @@ expressions. sometimes{{nogaps}}areimportant
 
 <table>
   <thead>
-    <tr></tr>
+    <tr>
+    </tr>
   </thead>
 </table>
 ================================================================================
