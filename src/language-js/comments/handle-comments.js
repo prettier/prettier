@@ -97,6 +97,7 @@ function handleEndOfLineComment(context) {
     handleSwitchDefaultCaseComments,
     handleLastUnionElementInExpression,
     handleLastBinaryOperatorOperand,
+    handleTSMappedTypeComments,
     handleCommentAfterArrowExpression,
   ].some((fn) => fn(context));
 }
