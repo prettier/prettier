@@ -657,10 +657,6 @@ function isSimpleCallArgument(node, depth = 2) {
   return false;
 }
 
-function identity(x) {
-  return x;
-}
-
 /**
  * @param {any} options
  * @param {("es5" | "all")} [level]
@@ -1099,7 +1095,6 @@ export {
   hasNode,
   hasNodeIgnoreComment,
   hasRestParameter,
-  identity,
   isArrayExpression,
   isBinaryCastExpression,
   isBinaryish,
