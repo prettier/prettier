@@ -99,7 +99,7 @@ foo4 =
 
 exports[`16067.ts format 1`] = `
 ====================================options=====================================
-parsers: ["typescript", "babel-ts"]
+parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -237,7 +237,7 @@ app.get("/", (req, res): void => {
 
 exports[`arrow_regression.ts format 1`] = `
 ====================================options=====================================
-parsers: ["typescript", "babel-ts"]
+parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -327,7 +327,7 @@ const fn4 = (): any => /* A single line ver of \`fn3\` */ null
 
 exports[`comments.ts format 1`] = `
 ====================================options=====================================
-parsers: ["typescript", "babel-ts"]
+parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -424,7 +424,7 @@ const getIconEngagementTypeFrom2 =
 
 exports[`issue-6107-curry.ts format 1`] = `
 ====================================options=====================================
-parsers: ["typescript", "babel-ts"]
+parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
