@@ -24,7 +24,7 @@ function printAngularIcuExpression(path, options, print) {
     group([
       node.switchValue.trim(),
       ", ",
-      node.clause,
+      node.type,
       node.cases.length > 0
         ? [",", indent([line, join(line, path.map(print, "cases"))])]
         : "",
@@ -46,7 +46,7 @@ function printAngularIcuCase(path, options, print) {
         path.map(({ node, isLast }) => {
           const parts = [print()];
 
-          if (node.type === "text") {
+          if (node.kind === "text") {
             if (node.hasLeadingSpaces) {
               parts.unshift(line);
             }

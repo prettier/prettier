@@ -1,13 +1,13 @@
 /*
 The following are bundled here since they are used in API too
 - fast-glob
-- createTwoFilesPatch
-- leven
+- diff.createTwoFilesPatch
+- leven.closestMatch
 - picocolors
 */
 import { createTwoFilesPatch } from "diff";
 import fastGlob from "fast-glob";
-import leven from "leven";
+import { closestMatch as closetLevenshteinMatch } from "leven";
 import picocolors from "picocolors";
 import * as vnopts from "vnopts";
 import * as errors from "./common/errors.js";
@@ -84,15 +84,14 @@ async function clearCache() {
   clearPluginCache();
 }
 
-/** @type {typeof getFileInfoWithoutPlugins} */
-const getFileInfo = withPlugins(getFileInfoWithoutPlugins);
-
 /** @type {typeof getSupportInfoWithoutPlugins} */
 const getSupportInfo = withPlugins(getSupportInfoWithoutPlugins, 0);
 
 const inferParser = withPlugins((file, options) =>
   inferParserWithoutPlugins(options, { physicalFile: file }),
 );
+
+const getFileInfo = withPlugins(getFileInfoWithoutPlugins);
 
 // Internal shared with cli
 const sharedWithCli = {
@@ -112,7 +111,7 @@ const sharedWithCli = {
   fastGlob,
   createTwoFilesPatch,
   picocolors,
-  leven,
+  closetLevenshteinMatch,
   utils: {
     omit,
     createMockable,

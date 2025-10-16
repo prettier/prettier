@@ -90,17 +90,6 @@ function printAbstractToken({ node }) {
   return node.abstract || tsAbstractNodeTypes.has(node.type) ? "abstract " : "";
 }
 
-function printFunctionTypeParameters(path, options, print) {
-  const fun = path.node;
-  if (fun.typeArguments) {
-    return print("typeArguments");
-  }
-  if (fun.typeParameters) {
-    return print("typeParameters");
-  }
-  return "";
-}
-
 function printBindExpressionCallee(path, options, print) {
   return ["::", print("callee")];
 }
@@ -131,7 +120,6 @@ export {
   printBindExpressionCallee,
   printDeclareToken,
   printDefiniteToken,
-  printFunctionTypeParameters,
   printOptionalToken,
   printRestSpread,
   printTypeScriptAccessibilityToken,

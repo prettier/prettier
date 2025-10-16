@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`issue-14238.ts format 1`] = `
 ====================================options=====================================
@@ -14,6 +14,26 @@ export const foo = (
 =====================================output=====================================
 export const foo = // prettier-ignore
 (bar as Baz).qux;
+
+================================================================================
+`;
+
+exports[`issue-16927.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+type Foo = {
+    // prettier-ignore
+    [key: string]: bar;
+};
+
+=====================================output=====================================
+type Foo = {
+  // prettier-ignore
+  [key: string]: bar;
+};
 
 ================================================================================
 `;
@@ -146,7 +166,7 @@ type a = {
 };
 
 type a = {
-  [A in B /* prettier-ignore */]: C | D;
+  [A in B]: /* prettier-ignore */ C  |  D;
 };
 
 type a = {

@@ -85,7 +85,7 @@ function printClass(path, options, print) {
       ),
     ];
     const printedWithComments = path.call(
-      (superClass) => ["extends ", printComments(superClass, printed, options)],
+      () => ["extends ", printComments(path, printed, options)],
       "superClass",
     );
     if (groupMode) {
@@ -225,7 +225,6 @@ function printClassMethod(path, options, print) {
 function printClassProperty(path, options, print) {
   const { node } = path;
   const parts = [];
-  const semi = options.semi ? ";" : "";
 
   if (isNonEmptyArray(node.decorators)) {
     parts.push(printClassMemberDecorators(path, options, print));
@@ -275,7 +274,7 @@ function printClassProperty(path, options, print) {
       " =",
       isAbstractProperty ? undefined : "value",
     ),
-    semi,
+    options.semi ? ";" : "",
   ];
 }
 

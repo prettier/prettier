@@ -1,6 +1,6 @@
 /** @import {Doc} from "../../document/builders.js" */
 
-import assert from "node:assert";
+import * as assert from "#universal/assert";
 import { replaceEndOfLine } from "../../document/utils.js";
 import printNumber from "../../utils/print-number.js";
 import printString from "../../utils/print-string.js";
@@ -28,6 +28,7 @@ import {
 import { printInterface } from "./interface.js";
 import { printBigInt } from "./literal.js";
 import { printFlowMappedTypeProperty } from "./mapped-type.js";
+import { printMatch, printMatchCase, printMatchPattern } from "./match.js";
 import {
   printDeclareToken,
   printOptionalToken,
@@ -63,8 +64,6 @@ function printFlow(path, options, print) {
     return node.type.slice(0, -14).toLowerCase();
   }
 
-  const semi = options.semi ? ";" : "";
-
   switch (node.type) {
     case "ComponentDeclaration":
     case "DeclareComponent":
@@ -88,7 +87,7 @@ function printFlow(path, options, print) {
         "function ",
         print("id"),
         print("predicate"),
-        semi,
+        options.semi ? ";" : "",
       ];
     case "DeclareModule":
       return ["declare module ", print("id"), " ", print("body")];
@@ -96,7 +95,7 @@ function printFlow(path, options, print) {
       return [
         "declare module.exports",
         printTypeAnnotationProperty(path, print),
-        semi,
+        options.semi ? ";" : "",
       ];
     case "DeclareNamespace":
       return ["declare namespace ", print("id"), " ", print("body")];
@@ -107,7 +106,7 @@ function printFlow(path, options, print) {
         node.kind ?? "var",
         " ",
         print("id"),
-        semi,
+        options.semi ? ";" : "",
       ];
     case "DeclareExportDeclaration":
     case "DeclareExportAllDeclaration":
@@ -159,14 +158,26 @@ function printFlow(path, options, print) {
 
     case "DeclareEnum":
     case "EnumDeclaration":
-      return printEnumDeclaration(path, options, print);
+      return printEnumDeclaration(path, print);
 
     case "EnumBooleanBody":
     case "EnumNumberBody":
     case "EnumBigIntBody":
     case "EnumStringBody":
     case "EnumSymbolBody":
-      return printEnumBody(path, options, print);
+      return [
+        node.type === "EnumSymbolBody" || node.explicitType
+          ? `of ${node.type
+              .slice(
+                // `Enum`
+                4,
+                // `Body`
+                -4,
+              )
+              .toLowerCase()} `
+          : "",
+        printEnumBody(path, options, print),
+      ];
 
     case "EnumBooleanMember":
     case "EnumNumberMember":
@@ -311,6 +322,26 @@ function printFlow(path, options, print) {
     case "AsConstExpression":
     case "SatisfiesExpression":
       return printBinaryCastExpression(path, options, print);
+
+    case "MatchExpression":
+    case "MatchStatement":
+      return printMatch(path, options, print);
+    case "MatchExpressionCase":
+    case "MatchStatementCase":
+      return printMatchCase(path, options, print);
+    case "MatchOrPattern":
+    case "MatchAsPattern":
+    case "MatchWildcardPattern":
+    case "MatchLiteralPattern":
+    case "MatchUnaryPattern":
+    case "MatchIdentifierPattern":
+    case "MatchMemberPattern":
+    case "MatchBindingPattern":
+    case "MatchObjectPattern":
+    case "MatchObjectPatternProperty":
+    case "MatchRestPattern":
+    case "MatchArrayPattern":
+      return printMatchPattern(path, options, print);
   }
 }
 

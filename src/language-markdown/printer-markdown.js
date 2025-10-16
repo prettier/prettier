@@ -90,10 +90,7 @@ function genericPrint(path, options, print) {
 
   switch (node.type) {
     case "front-matter":
-      return options.originalText.slice(
-        node.position.start.offset,
-        node.position.end.offset,
-      );
+      return node.raw;
     case "root":
       /* c8 ignore next 3 */
       if (node.children.length === 0) {
@@ -163,7 +160,9 @@ function genericPrint(path, options, print) {
       } else {
         const hasPrevOrNextWord = prevOrNextWord(path); // `1*2*3` is considered emphasis but `1_2_3` is not
         const inStrongAndHasPrevOrNextWord = // `1***2***3` is considered strong emphasis but `1**_2_**3` is not
-          path.parent?.type === "strong" && prevOrNextWord(path.ancestors);
+          path.callParent(
+            ({ node }) => node.type === "strong" && prevOrNextWord(path),
+          );
         style =
           hasPrevOrNextWord ||
           inStrongAndHasPrevOrNextWord ||
@@ -297,9 +296,9 @@ function genericPrint(path, options, print) {
       );
 
       return printChildren(path, options, print, {
-        processor(childPath) {
+        processor() {
           const prefix = getPrefix();
-          const childNode = childPath.node;
+          const { node: childNode } = path;
 
           if (
             childNode.children.length === 2 &&
@@ -307,24 +306,24 @@ function genericPrint(path, options, print) {
             childNode.children[0].position.start.column !==
               childNode.children[1].position.start.column
           ) {
-            return [prefix, printListItem(childPath, options, print, prefix)];
+            return [prefix, printListItem(path, options, print, prefix)];
           }
 
           return [
             prefix,
             align(
               " ".repeat(prefix.length),
-              printListItem(childPath, options, print, prefix),
+              printListItem(path, options, print, prefix),
             ),
           ];
 
           function getPrefix() {
             const rawPrefix = node.ordered
-              ? (childPath.isFirst
+              ? (path.isFirst
                   ? node.start
                   : isGitDiffFriendlyOrderedList
                     ? 1
-                    : node.start + childPath.index) +
+                    : node.start + path.index) +
                 (nthSiblingIndex % 2 === 0 ? ". " : ") ")
               : nthSiblingIndex % 2 === 0
                 ? "- "
@@ -435,7 +434,7 @@ function genericPrint(path, options, print) {
     case "import":
     case "export":
     case "jsx":
-      return node.value;
+      return node.value.trimEnd();
     case "esComment":
       return ["{/* ", node.value, " */}"];
     case "math":
@@ -674,16 +673,20 @@ function isLooseListItem(node, options) {
 }
 
 function shouldPrePrintDoubleHardline({ node, previous, parent }, options) {
-  const isPrevNodeLooseListItem = isLooseListItem(previous, options);
-
-  if (isPrevNodeLooseListItem) {
+  if (
+    isLooseListItem(previous, options) ||
+    (node.type === "list" &&
+      parent.type === "listItem" &&
+      previous.type === "code")
+  ) {
     return true;
   }
 
   const isSequence = previous.type === node.type;
   const isSiblingNode = isSequence && SIBLING_NODE_TYPES.has(node.type);
   const isInTightListItem =
-    parent.type === "listItem" && !isLooseListItem(parent, options);
+    parent.type === "listItem" &&
+    (node.type === "list" || !isLooseListItem(parent, options));
   const isPrevNodePrettierIgnore = isPrettierIgnore(previous) === "next";
   const isBlockHtmlWithoutBlankLineBetweenPrevHtml =
     node.type === "html" &&

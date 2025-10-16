@@ -35,7 +35,7 @@ import {
   hasComposesNode,
   hasParensAroundNode,
   insideAtRuleNode,
-  insideICSSRuleNode,
+  insideIcssRuleNode,
   insideValueFunctionNode,
   isDetachedRulesetCallNode,
   isDetachedRulesetDeclarationNode,
@@ -54,7 +54,7 @@ function genericPrint(path, options, print) {
 
   switch (node.type) {
     case "front-matter":
-      return [node.raw, hardline];
+      return node.raw;
     case "css-root": {
       const nodes = printSequence(path, options, print);
       let after = node.raws.after.trim();
@@ -63,7 +63,13 @@ function genericPrint(path, options, print) {
       }
 
       return [
-        node.frontMatter ? [print("frontMatter"), hardline] : "",
+        node.frontMatter
+          ? [
+              print("frontMatter"),
+              hardline,
+              node.nodes.length > 0 ? hardline : "",
+            ]
+          : "",
         nodes,
         after ? ` ${after}` : "",
         node.nodes.length > 0 ? hardline : "",
@@ -126,7 +132,7 @@ function genericPrint(path, options, print) {
         node.raws.before.replaceAll(/[\s;]/gu, ""),
         // Less variable
         (parentNode.type === "css-atrule" && parentNode.variable) ||
-        insideICSSRuleNode(path)
+        insideIcssRuleNode(path)
           ? node.prop
           : maybeToLowerCase(node.prop),
         trimmedBetween.startsWith("//") ? " " : "",
@@ -358,7 +364,7 @@ function genericPrint(path, options, print) {
       ]);
 
     case "selector-selector": {
-      const shouldIndent = node.nodes.length > 1;
+      const shouldIndent = node.nodes.length > 2;
       return group(
         (shouldIndent ? indent : (x) => x)(path.map(print, "nodes")),
       );

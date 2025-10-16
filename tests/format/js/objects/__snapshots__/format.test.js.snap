@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`bigint-key.js format 1`] = `
 ====================================options=====================================
@@ -105,6 +105,20 @@ exports[`expression.js [flow] format 1`] = `
   8 | ({} = 0);"
 `;
 
+exports[`expression.js [hermes] format 1`] = `
+"unexpected token in type annotation (5:4)
+  3 | a = () => ({}).x;
+  4 | ({} && a, b);
+> 5 | ({}::b, 0);
+    |    ^
+  6 | ({}::b()\`\`[''].c++ && 0 ? 0 : 0, 0);
+  7 | ({}(), 0);
+  8 | ({} = 0);
+Cause: unexpected token in type annotation (5:4)
+({}::b, 0);
+    ^"
+`;
+
 exports[`expression.js [meriyah] format 1`] = `
 "Expected ')' (5:4)
   3 | a = () => ({}).x;
@@ -115,6 +129,28 @@ exports[`expression.js [meriyah] format 1`] = `
   7 | ({}(), 0);
   8 | ({} = 0);
 Cause: [5:3-5:4]: Expected ')'"
+`;
+
+exports[`expression.js [oxc] format 1`] = `
+"Expected \`,\` but found \`:\` (5:4)
+  3 | a = () => ({}).x;
+  4 | ({} && a, b);
+> 5 | ({}::b, 0);
+    |    ^
+  6 | ({}::b()\`\`[''].c++ && 0 ? 0 : 0, 0);
+  7 | ({}(), 0);
+  8 | ({} = 0);"
+`;
+
+exports[`expression.js [oxc-ts] format 1`] = `
+"Expected \`,\` but found \`:\` (5:4)
+  3 | a = () => ({}).x;
+  4 | ({} && a, b);
+> 5 | ({}::b, 0);
+    |    ^
+  6 | ({}::b()\`\`[''].c++ && 0 ? 0 : 0, 0);
+  7 | ({}(), 0);
+  8 | ({} = 0);"
 `;
 
 exports[`expression.js [typescript] format 1`] = `

@@ -45,7 +45,7 @@ test(".at", () => {
     __at  (/* isOptionalObject */false,foo,-1)?.bar"
   `);
 
-  // Don't support optional call
+  // Optional call not supported
   expect(transform("foo.at?.(-1)")).toMatchInlineSnapshot(`"foo.at?.(-1)"`);
 });
 
@@ -69,7 +69,7 @@ test("Array#findLast", () => {
     __arrayFindLast(/* isOptionalObject */true,foo,callback)"
   `);
 
-  // Don't support
+  // Not supported
   expect(
     transform("foo.findLast(callback, thisArgument)"),
   ).toMatchInlineSnapshot(`"foo.findLast(callback, thisArgument)"`);
@@ -87,8 +87,25 @@ test("Array#findLastIndex", () => {
     __arrayFindLastIndex(/* isOptionalObject */true,foo,callback)"
   `);
 
-  // Don't support
+  // Not supported
   expect(
     transform("foo.findLastIndex(callback, thisArgument)"),
   ).toMatchInlineSnapshot(`"foo.findLastIndex(callback, thisArgument)"`);
+});
+
+test("Array#toReversed", () => {
+  expect(transform("foo.toReversed()")).toMatchInlineSnapshot(`
+    "import __arrayToReversed from "<SHIMS>/array-to-reversed.js";
+
+    __arrayToReversed(/* isOptionalObject */false,foo)"
+  `);
+  expect(transform("foo?.toReversed()")).toMatchInlineSnapshot(`
+    "import __arrayToReversed from "<SHIMS>/array-to-reversed.js";
+
+    __arrayToReversed(/* isOptionalObject */true,foo)"
+  `);
+
+  expect(transform("foo.toReversed(extraArgument)")).toMatchInlineSnapshot(
+    `"foo.toReversed(extraArgument)"`,
+  );
 });

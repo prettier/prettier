@@ -44,11 +44,16 @@ class FormatResultsCache {
    */
   constructor(cacheFileLocation, cacheStrategy) {
     const useChecksum = cacheStrategy === "content";
+    const fileEntryCacheOptions = {
+      useChecksum,
+      useModifiedTime: !useChecksum,
+      restrictAccessToCwd: false,
+    };
 
     try {
       this.#fileEntryCache = fileEntryCache.createFromFile(
         /* filePath */ cacheFileLocation,
-        useChecksum,
+        fileEntryCacheOptions,
       );
     } catch {
       // https://github.com/prettier/prettier/issues/17092
@@ -59,7 +64,7 @@ class FormatResultsCache {
         // retry
         this.#fileEntryCache = fileEntryCache.createFromFile(
           /* filePath */ cacheFileLocation,
-          useChecksum,
+          fileEntryCacheOptions,
         );
       }
     }
@@ -70,7 +75,7 @@ class FormatResultsCache {
    * @param {any} options
    */
   existsAvailableFormatResultsCache(filePath, options) {
-    const fileDescriptor = this.#fileEntryCache.getFileDescriptor(filePath);
+    const fileDescriptor = this.#getFileDescriptor(filePath);
     if (fileDescriptor.notFound || fileDescriptor.changed) {
       return false;
     }
@@ -85,7 +90,7 @@ class FormatResultsCache {
    * @param {any} options
    */
   setFormatResultsCache(filePath, options) {
-    const fileDescriptor = this.#fileEntryCache.getFileDescriptor(filePath);
+    const fileDescriptor = this.#getFileDescriptor(filePath);
     if (!fileDescriptor.notFound) {
       const meta = getMetadataFromFileDescriptor(fileDescriptor);
       meta.data = { ...meta.data, hashOfOptions: getHashOfOptions(options) };
@@ -101,6 +106,10 @@ class FormatResultsCache {
 
   reconcile() {
     this.#fileEntryCache.reconcile();
+  }
+
+  #getFileDescriptor(filePath) {
+    return this.#fileEntryCache.getFileDescriptor(filePath);
   }
 }
 

@@ -1,14 +1,14 @@
 import semver from "semver";
 import parseArguments from "./parse-arguments.js";
 import * as steps from "./steps/index.js";
-import { logPromise, readJson, runGit } from "./utils.js";
+import { logPromise, readJson } from "./utils.js";
 
 const params = parseArguments();
-const { stdout: previousVersion } = await runGit([
-  "describe",
-  "--tags",
-  "--abbrev=0",
-]);
+const {
+  default: { version: previousVersion },
+} = await import("prettier/package.json", {
+  with: { type: "json" },
+});
 if (semver.parse(previousVersion) === null) {
   throw new Error(`Unexpected previousVersion: ${previousVersion}`);
 } else {

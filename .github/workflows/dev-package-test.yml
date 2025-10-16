@@ -1,4 +1,4 @@
-name: Dev_Package_Test
+name: Dev Package Test
 
 on:
   schedule:
@@ -22,7 +22,7 @@ concurrency:
 jobs:
   test:
     if: github.event_name != 'schedule' || github.repository == 'prettier/prettier'
-    timeout-minutes: 60
+    timeout-minutes: 15
     strategy:
       fail-fast: false
       matrix:
@@ -42,10 +42,10 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v6.0.0
         with:
           node-version: ${{ matrix.node }}
           cache: "yarn"

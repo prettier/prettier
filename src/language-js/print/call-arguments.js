@@ -37,6 +37,14 @@ import {
 } from "../utils/index.js";
 import { isConciselyPrintedArray } from "./array.js";
 
+/*
+- `NewExpression`
+- `ImportExpression`
+- `OptionalCallExpression`
+- `CallExpression`
+- `TSImportType` (TypeScript)
+- `TSExternalModuleReference` (TypeScript)
+*/
 function printCallArguments(path, options, print) {
   const { node } = path;
 
@@ -84,6 +92,7 @@ function printCallArguments(path, options, print) {
     // Dynamic imports cannot have trailing commas
     node.type !== "ImportExpression" &&
     node.type !== "TSImportType" &&
+    node.type !== "TSExternalModuleReference" &&
     shouldPrintComma(options, "all")
       ? ","
       : "";
@@ -304,12 +313,15 @@ function isHopefullyShortCallArgument(node) {
         typeAnnotation = typeAnnotation.elementType;
       }
     }
+
     if (
       typeAnnotation.type === "GenericTypeAnnotation" ||
       typeAnnotation.type === "TSTypeReference"
     ) {
       const typeArguments =
-        typeAnnotation.typeArguments ?? typeAnnotation.typeParameters;
+        typeAnnotation.type === "GenericTypeAnnotation"
+          ? typeAnnotation.typeParameters
+          : typeAnnotation.typeArguments;
       if (typeArguments?.params.length === 1) {
         typeAnnotation = typeArguments.params[0];
       }
@@ -378,16 +390,24 @@ function isNonEmptyBlockStatement(node) {
   );
 }
 
-// { type: "module" }
+// `{ type: "module" }` and `{"type": "module"}`
 function isTypeModuleObjectExpression(node) {
+  if (!(node.type === "ObjectExpression" && node.properties.length === 1)) {
+    return false;
+  }
+
+  const [property] = node.properties;
+
+  if (!isObjectProperty(property)) {
+    return false;
+  }
+
   return (
-    node.type === "ObjectExpression" &&
-    node.properties.length === 1 &&
-    isObjectProperty(node.properties[0]) &&
-    node.properties[0].key.type === "Identifier" &&
-    node.properties[0].key.name === "type" &&
-    isStringLiteral(node.properties[0].value) &&
-    node.properties[0].value.value === "module"
+    !property.computed &&
+    ((property.key.type === "Identifier" && property.key.name === "type") ||
+      (isStringLiteral(property.key) && property.key.value === "type")) &&
+    isStringLiteral(property.value) &&
+    property.value.value === "module"
   );
 }
 

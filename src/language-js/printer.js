@@ -3,7 +3,14 @@ export const experimentalFeatures = {
   avoidAstMutation: true,
 };
 export { default as massageAstNode } from "./clean.js";
-export * from "./comments/printer-methods.js";
+export {
+  canAttachComment,
+  handleComments,
+  isBlockComment,
+  isGap,
+  printComment,
+  willPrintOwnComments,
+} from "./comments/printer-methods.js";
 export { default as embed } from "./embed/index.js";
 export { insertPragma } from "./pragma.js";
 export { default as print } from "./print/index.js";

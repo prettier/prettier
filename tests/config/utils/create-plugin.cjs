@@ -1,22 +1,28 @@
 "use strict";
 
-function createPlugin({ name, print, finalNewLine = true }) {
+function createPlugin({
+  name: languageName,
+  parserName = languageName,
+  astFormat = languageName,
+  print,
+  finalNewLine = true,
+}) {
   return {
     languages: [
       {
-        name,
-        parsers: [name],
-        extensions: [`.${name}`],
+        name: languageName,
+        parsers: [parserName],
+        extensions: [`.${languageName}`],
       },
     ],
     parsers: {
-      [name]: {
+      [parserName]: {
         parse: (text) => ({ value: text }),
-        astFormat: name,
+        astFormat,
       },
     },
     printers: {
-      [name]: {
+      [astFormat]: {
         print(path, options) {
           return (
             print(path.getValue().value, options) + (finalNewLine ? "\n" : "")

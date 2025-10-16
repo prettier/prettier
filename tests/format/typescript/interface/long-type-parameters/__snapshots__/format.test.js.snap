@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`long-type-parameters.ts - {"printWidth":109} format 1`] = `
 ====================================options=====================================

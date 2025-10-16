@@ -1,3 +1,4 @@
+import url from "node:url";
 import prettier from "../../config/prettier-entry.js";
 import jestPathSerializer from "../path-serializer.js";
 
@@ -87,14 +88,14 @@ describe("unknown path and no parser", () => {
 describe("--check with unknown path and no parser", () => {
   describe("specific file", () => {
     runCli("cli/infer-parser/", ["--check", "FOO"]).test({
-      status: 0,
+      status: 2,
       write: [],
     });
   });
 
   describe("multiple files", () => {
     runCli("cli/infer-parser/", ["--check", "*"]).test({
-      status: 1,
+      status: 2,
       write: [],
     });
   });
@@ -103,7 +104,7 @@ describe("--check with unknown path and no parser", () => {
 describe("--list-different with unknown path and no parser", () => {
   describe("specific file", () => {
     runCli("cli/infer-parser/", ["--list-different", "FOO"]).test({
-      status: 0,
+      status: 2,
       stdout: "",
       write: [],
     });
@@ -111,7 +112,7 @@ describe("--list-different with unknown path and no parser", () => {
 
   describe("multiple files", () => {
     runCli("cli/infer-parser/", ["--list-different", "*"]).test({
-      status: 1,
+      status: 2,
       stdout: "foo.js",
       write: [],
     });
@@ -137,14 +138,14 @@ describe("--write with unknown path and no parser", () => {
 describe("--write and --check with unknown path and no parser", () => {
   describe("specific file", () => {
     runCli("cli/infer-parser/", ["--check", "--write", "FOO"]).test({
-      status: 0,
+      status: 2,
       write: [],
     });
   });
 
   describe("multiple files", () => {
     runCli("cli/infer-parser/", ["--check", "--write", "*"]).test({
-      status: 0,
+      status: 2,
     });
   });
 });
@@ -152,7 +153,7 @@ describe("--write and --check with unknown path and no parser", () => {
 describe("--write and --list-different with unknown path and no parser", () => {
   describe("specific file", () => {
     runCli("cli/infer-parser/", ["--list-different", "--write", "FOO"]).test({
-      status: 0,
+      status: 2,
       stdout: "",
       write: [],
     });
@@ -160,8 +161,30 @@ describe("--write and --list-different with unknown path and no parser", () => {
 
   describe("multiple files", () => {
     runCli("cli/infer-parser/", ["--list-different", "--write", "*"]).test({
-      status: 0,
+      status: 2,
     });
+  });
+});
+
+describe("Allow plugin to override builtin plugins", () => {
+  runCli(
+    "cli/infer-parser/override-builtin-plugin-languages",
+    ["--stdin-filepath=foo.js"],
+    {
+      input: "foo(   )",
+    },
+  ).test({ write: [], status: 0, stderr: "", stdout: "foo();" });
+  runCli(
+    "cli/infer-parser/override-builtin-plugin-languages",
+    ["--stdin-filepath=foo.js", "--plugin=./dummy-js-plugin.js"],
+    {
+      input: "foo(   )",
+    },
+  ).test({
+    write: [],
+    status: 0,
+    stderr: "",
+    stdout: "foo(   )\nformatted by 'dummy-js-parser' parser",
   });
 });
 
@@ -236,4 +259,92 @@ describe("isSupported", () => {
     stderr: "",
     write: [],
   });
+
+  test("API", async () => {
+    const fileUrl = new URL("foo.unknown", import.meta.url);
+    const filePath = url.fileURLToPath(fileUrl);
+    expect(await getIsSupportedReceivedFilepath({ filepath: fileUrl })).toBe(
+      filePath,
+    );
+    expect(
+      await getIsSupportedReceivedFilepath({ filepath: fileUrl.href }),
+    ).toBe(filePath);
+    expect(await getIsSupportedReceivedFilepath({ filepath: filePath })).toBe(
+      filePath,
+    );
+
+    // Relative path
+    expect(
+      await getIsSupportedReceivedFilepath({ filepath: "./foo.unknown" }),
+    ).toBe("./foo.unknown");
+
+    expect(
+      await getIsSupportedReceivedFilepath({
+        filepath: "",
+      }),
+    ).toBeUndefined();
+
+    expect(
+      await getIsSupportedReceivedFilepath({
+        filepath: Buffer.from("foo.unknown"),
+      }),
+    ).toBeUndefined();
+
+    expect(
+      await getIsSupportedReceivedFilepath({
+        filepath: { toString: () => "foo.unknown" },
+      }),
+    ).toBeUndefined();
+
+    expect(
+      await getIsSupportedReceivedFilepath({
+        filepath: new (class {
+          toString() {
+            return "foo.unknown";
+          }
+        })(),
+      }),
+    ).toBeUndefined();
+
+    expect(
+      await getIsSupportedReceivedFilepath({ filepath: "file://%0" }),
+    ).toBeUndefined();
+
+    expect(
+      await getIsSupportedReceivedFilepath({
+        filepath: new URL("https://example.com/foo.unknown"),
+      }),
+    ).toBeUndefined();
+
+    expect(
+      await getIsSupportedReceivedFilepath({
+        filepath: "https://example.com/foo.unknown",
+      }),
+    ).toBe("https://example.com/foo.unknown");
+  });
 });
+
+const getIsSupportedReceivedFilepath = async (options) => {
+  let received;
+  try {
+    await prettier.format("foo", {
+      plugins: [
+        {
+          languages: [
+            {
+              isSupported({ filepath }) {
+                received = filepath;
+              },
+            },
+          ],
+        },
+      ],
+      ...options,
+    });
+  } catch (error) {
+    if (error.name !== "UndefinedParserError") {
+      throw error;
+    }
+  }
+  return received;
+};

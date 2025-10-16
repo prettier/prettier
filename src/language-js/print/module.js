@@ -148,14 +148,11 @@ function printModuleSource(path, options, print) {
     return "";
   }
 
-  /** @type{Doc[]} */
-  const parts = [];
-  if (shouldPrintSpecifiers(node, options)) {
-    parts.push(" from");
-  }
-  parts.push(" ", print("source"));
-
-  return parts;
+  return [
+    shouldPrintSpecifiers(node, options) ? " from" : "",
+    " ",
+    print("source"),
+  ];
 }
 
 function printModuleSpecifiers(path, options, print) {

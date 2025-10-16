@@ -447,12 +447,11 @@ function printSequence(path, options, print, property) {
   }, property);
 }
 
-function canAttachComment(node) {
+function canAttachComment(node /* , ancestors */) {
   return node.kind !== "Comment";
 }
 
-function printComment(commentPath) {
-  const comment = commentPath.node;
+function printComment({ node: comment }) {
   if (comment.kind === "Comment") {
     return "#" + comment.value.trimEnd();
   }

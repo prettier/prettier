@@ -27,12 +27,11 @@ import { printTypeAnnotationProperty } from "./type-annotation.js";
 /** @import {Doc} from "../../document/builders.js" */
 
 function printObject(path, options, print) {
-  const semi = options.semi ? ";" : "";
   const { node } = path;
 
   const isTypeAnnotation = node.type === "ObjectTypeAnnotation";
   const isEnumBody =
-    node.type === "TSEnumDeclaration" ||
+    node.type === "TSEnumBody" ||
     node.type === "EnumBooleanBody" ||
     node.type === "EnumNumberBody" ||
     node.type === "EnumBigIntBody" ||
@@ -105,7 +104,9 @@ function printObject(path, options, print) {
   const separator = isFlowInterfaceLikeBody
     ? ";"
     : node.type === "TSInterfaceBody" || node.type === "TSTypeLiteral"
-      ? ifBreak(semi, ";")
+      ? options.semi
+        ? ";"
+        : ifBreak("", ";")
       : ",";
   const leftBrace = node.exact ? "{|" : "{";
   const rightBrace = node.exact ? "|}" : "}";
@@ -159,7 +160,8 @@ function printObject(path, options, print) {
         ((lastElem.type === "TSPropertySignature" ||
           lastElem.type === "TSCallSignatureDeclaration" ||
           lastElem.type === "TSMethodSignature" ||
-          lastElem.type === "TSConstructSignatureDeclaration") &&
+          lastElem.type === "TSConstructSignatureDeclaration" ||
+          lastElem.type === "TSIndexSignature") &&
           hasComment(lastElem, CommentCheckFlags.PrettierIgnore))))
   );
 
@@ -237,10 +239,7 @@ function printObject(path, options, print) {
 
 function shouldHugTheOnlyParameter(node, name) {
   return (
-    (name === "params" ||
-      name === "parameters" ||
-      name === "this" ||
-      name === "rest") &&
+    (name === "params" || name === "this" || name === "rest") &&
     shouldHugTheOnlyFunctionParameter(node)
   );
 }

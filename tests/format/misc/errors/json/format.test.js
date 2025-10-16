@@ -36,6 +36,10 @@ runFormatTest(
       "+'string'",
       "{key: +{}}",
       '{"identifier": identifier}',
+      "(1)",
+      "+(1)",
+      "([1,])",
+      "[1, (2)]",
       // JSON6 allow this, but babel can't parse
       "----123",
     ],

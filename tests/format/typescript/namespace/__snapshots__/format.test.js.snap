@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`invalid-await.ts [babel-ts] format 1`] = `
 "'await' is only allowed within async functions and at the top levels of modules. (2:13)
@@ -8,6 +8,15 @@ exports[`invalid-await.ts [babel-ts] format 1`] = `
   3 | }
   4 |
 Cause: 'await' is only allowed within async functions and at the top levels of modules. (2:12)"
+`;
+
+exports[`invalid-await.ts [oxc-ts] format 1`] = `
+"\`await\` is only allowed within async functions and at the top levels of modules (2:13)
+  1 | namespace N {
+> 2 |   const x = await 42;
+    |             ^^^^^
+  3 | }
+  4 |"
 `;
 
 exports[`invalid-await.ts format 1`] = `

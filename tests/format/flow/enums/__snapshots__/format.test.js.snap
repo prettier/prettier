@@ -1,16 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`enum-bigint-explicit.js - {"trailingComma":"all"} [babel-flow] format 1`] = `
-"Enum \`E\` has type \`bigint\`, so the initializer of \`A\` needs to be a bigint literal. (4:7)
-  2 |
-  3 | enum E of bigint {
-> 4 |   A = 0n,
-    |       ^
-  5 |   B = 1n,
-  6 | }
-  7 |
-Cause: Enum \`E\` has type \`bigint\`, so the initializer of \`A\` needs to be a bigint literal. (4:6)"
-`;
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`enum-bigint-explicit.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
@@ -35,18 +23,6 @@ enum E of bigint {
 }
 
 ================================================================================
-`;
-
-exports[`enum-bigint-implicit.js - {"trailingComma":"all"} [babel-flow] format 1`] = `
-"The enum member initializer for \`A\` needs to be a literal (either a boolean, number, or string) in enum \`E\`. (4:7)
-  2 |
-  3 | enum E {
-> 4 |   A = 0n,
-    |       ^
-  5 |   B = 1n,
-  6 | }
-  7 |
-Cause: The enum member initializer for \`A\` needs to be a literal (either a boolean, number, or string) in enum \`E\`. (4:6)"
 `;
 
 exports[`enum-bigint-implicit.js - {"trailingComma":"all"} format 1`] = `

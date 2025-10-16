@@ -1,4 +1,7 @@
-import isFrontMatter from "../utils/front-matter/is-front-matter.js";
+import {
+  cleanFrontMatter,
+  isFrontMatter,
+} from "../utils/front-matter/index.js";
 
 const ignoredProperties = new Set([
   "raw", // front-matter
@@ -12,9 +15,7 @@ const ignoredProperties = new Set([
 ]);
 
 function clean(original, cloned, parent) {
-  if (isFrontMatter(original) && original.language === "yaml") {
-    delete cloned.value;
-  }
+  cleanFrontMatter(original, cloned);
 
   if (
     original.type === "css-comment" &&
@@ -120,7 +121,22 @@ function clean(original, cloned, parent) {
     }
 
     if (original.value) {
-      cloned.value = cloned.value.trim().replaceAll(/^["']|["']$/gu, "");
+      let { value } = cloned;
+      // Parser only understands the `i` flag
+      if (/\s[a-zA-Z]$/u.test(value)) {
+        // Add an extra property to make sure flag is preserved
+        cloned.__prettier_attribute_selector_flag = value.at(-1);
+        value = value.slice(0, -1);
+      }
+
+      value = value.trim();
+
+      value = value.replace(
+        /^(?<quote>["'])(?<value>.*?)\k<quote>$/u,
+        "$<value>",
+      );
+
+      cloned.value = value;
       delete cloned.quoted;
     }
   }

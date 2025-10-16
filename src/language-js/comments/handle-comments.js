@@ -61,6 +61,7 @@ function handleOwnLineComment(context) {
     handleClassComments,
     handleForComments,
     handleUnionTypeComments,
+    handleMatchOrPatternComments,
     handleOnlyComments,
     handleModuleSpecifiersComments,
     handleAssignmentPatternComments,
@@ -69,6 +70,7 @@ function handleOwnLineComment(context) {
     handleBreakAndContinueStatementComments,
     handleNestedConditionalExpressionComments,
     handleCommentsInDestructuringPattern,
+    handleTSMappedTypeComments,
   ].some((fn) => fn(context));
 }
 
@@ -108,13 +110,11 @@ function handleRemainingComment(context) {
     handleIgnoreComments,
     handleIfStatementComments,
     handleWhileComments,
-    handleObjectPropertyAssignment,
     handleCommentInEmptyParens,
     handleMethodNameComments,
     handleOnlyComments,
     handleCommentAfterArrowParams,
     handleFunctionNameComments,
-    handleTSMappedTypeComments,
     handleBreakAndContinueStatementComments,
     handleTSFunctionTrailingComments,
   ].some((fn) => fn(context));
@@ -197,6 +197,17 @@ function handleIfStatementComments({
     return true;
   }
 
+  // if comment is positioned between the condition and its body
+  if (
+    followingNode.type === "BlockStatement" &&
+    followingNode === enclosingNode.consequent &&
+    locStart(comment) >= locEnd(precedingNode) &&
+    locEnd(comment) <= locStart(followingNode)
+  ) {
+    addLeadingComment(followingNode, comment);
+    return true;
+  }
+
   // Comments before `else`:
   // - treat as trailing comments of the consequent, if it's a BlockStatement
   // - treat as a dangling comment otherwise
@@ -208,6 +219,17 @@ function handleIfStatementComments({
       text,
       locEnd(enclosingNode.consequent),
     );
+
+    // if comment is positioned between the `else` token and its body
+    if (
+      followingNode.type === "BlockStatement" &&
+      locStart(comment) >= maybeElseTokenIndex &&
+      locEnd(comment) <= locStart(followingNode)
+    ) {
+      addLeadingComment(followingNode, comment);
+      return true;
+    }
+
     // With the above conditions alone, this code would also match. This is a false positive.
     // So, ignore cases where the token "else" appears immediately after the consequent:
     //
@@ -423,23 +445,6 @@ function handleConditionalExpressionComments({
   return false;
 }
 
-function handleObjectPropertyAssignment({
-  comment,
-  precedingNode,
-  enclosingNode,
-}) {
-  if (
-    isObjectProperty(enclosingNode) &&
-    enclosingNode.shorthand &&
-    enclosingNode.key === precedingNode &&
-    enclosingNode.value.type === "AssignmentPattern"
-  ) {
-    addTrailingComment(enclosingNode.value.left, comment);
-    return true;
-  }
-  return false;
-}
-
 const classLikeNodeTypes = new Set([
   "ClassDeclaration",
   "ClassExpression",
@@ -528,7 +533,7 @@ function handleMethodNameComments({
     enclosingNode &&
     precedingNode &&
     getNextNonSpaceNonCommentCharacter(text, locEnd(comment)) === "(" &&
-    // "MethodDefinition" is handled in getCommentChildNodes
+    // "MethodDefinition" is handled in `canAttachComment`
     (enclosingNode.type === "Property" ||
       enclosingNode.type === "TSDeclareMethod" ||
       enclosingNode.type === "TSAbstractMethodDefinition") &&
@@ -770,6 +775,36 @@ function handleUnionTypeComments({
   return false;
 }
 
+function handleMatchOrPatternComments({
+  comment,
+  precedingNode,
+  enclosingNode,
+  followingNode,
+}) {
+  if (enclosingNode && enclosingNode.type === "MatchOrPattern") {
+    if (isPrettierIgnoreComment(comment)) {
+      followingNode.prettierIgnore = true;
+      comment.unignore = true;
+    }
+    if (precedingNode) {
+      addTrailingComment(precedingNode, comment);
+      return true;
+    }
+    return false;
+  }
+
+  if (
+    followingNode &&
+    followingNode.type === "MatchOrPattern" &&
+    isPrettierIgnoreComment(comment)
+  ) {
+    followingNode.types[0].prettierIgnore = true;
+    comment.unignore = true;
+  }
+
+  return false;
+}
+
 function handlePropertyComments({ comment, enclosingNode }) {
   if (isObjectProperty(enclosingNode)) {
     addLeadingComment(enclosingNode, comment);
@@ -907,8 +942,7 @@ function handleIgnoreComments({ comment, enclosingNode, followingNode }) {
   if (
     isPrettierIgnoreComment(comment) &&
     enclosingNode?.type === "TSMappedType" &&
-    followingNode?.type === "TSTypeParameter" &&
-    followingNode.constraint
+    followingNode === enclosingNode.key
   ) {
     enclosingNode.prettierIgnore = true;
     comment.unignore = true;
@@ -916,27 +950,15 @@ function handleIgnoreComments({ comment, enclosingNode, followingNode }) {
   }
 }
 
-function handleTSMappedTypeComments({
-  comment,
-  precedingNode,
-  enclosingNode,
-  followingNode,
-}) {
+function handleTSMappedTypeComments({ comment, precedingNode, enclosingNode }) {
   if (enclosingNode?.type !== "TSMappedType") {
-    return false;
+    return;
   }
 
-  if (followingNode?.type === "TSTypeParameter" && followingNode.name) {
-    addLeadingComment(followingNode.name, comment);
+  if (!precedingNode) {
+    addDanglingComment(enclosingNode, comment);
     return true;
   }
-
-  if (precedingNode?.type === "TSTypeParameter" && precedingNode.constraint) {
-    addTrailingComment(precedingNode.constraint, comment);
-    return true;
-  }
-
-  return false;
 }
 
 function handleSwitchDefaultCaseComments({
@@ -1131,8 +1153,10 @@ const isRealFunctionLikeNode = createTypeCheckFunction([
   "TSDeclareMethod",
 ]);
 
-export {
-  handleEndOfLineComment as endOfLine,
-  handleOwnLineComment as ownLine,
-  handleRemainingComment as remaining,
+const handleComments = {
+  endOfLine: handleEndOfLineComment,
+  ownLine: handleOwnLineComment,
+  remaining: handleRemainingComment,
 };
+
+export default handleComments;
