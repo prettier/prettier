@@ -47,15 +47,30 @@ const isClassProperty = createTypeCheckFunction([
   "TSAbstractAccessorProperty",
 ]);
 
+const isInterface = createTypeCheckFunction([
+  "TSInterfaceDeclaration",
+  "DeclareInterface",
+  "InterfaceDeclaration",
+  "InterfaceTypeAnnotation",
+]);
+
 /*
 - `ClassDeclaration`
 - `ClassExpression`
 - `DeclareClass`(flow)
+- `DeclareInterface`(flow)
+- `InterfaceDeclaration`(flow)
+- `InterfaceTypeAnnotation`(flow)
+- `TSInterfaceDeclaration`(TypeScript)
 */
 function printClass(path, options, print) {
   const { node } = path;
   /** @type {Doc[]} */
-  const parts = [printDeclareToken(path), printAbstractToken(path), "class"];
+  const parts = [
+    printDeclareToken(path),
+    printAbstractToken(path),
+    isInterface(node) ? "interface" : "class",
+  ];
 
   // Keep old behaviour of extends in same line
   // If there is only on extends and there are not comments
@@ -74,7 +89,9 @@ function printClass(path, options, print) {
     partsGroup.push(" ", print("id"));
   }
 
-  partsGroup.push(print("typeParameters"));
+  if (node.type !== "InterfaceTypeAnnotation") {
+    partsGroup.push(print("typeParameters"));
+  }
 
   if (node.superClass) {
     const printed = [
