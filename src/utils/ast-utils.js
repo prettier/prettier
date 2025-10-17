@@ -1,10 +1,10 @@
 import isObject from "./is-object.js";
 
 /**
- * @typedef {NonNullable<object>} Node
- * @typedef {(unknown) => string[]} GetVisitorKeys
- * @typedef {(unknown) => boolean} Predicate
- */
+@import {GetVisitorKeys} from "../utils/create-get-visitor-keys.js"
+@typedef {NonNullable<object>} Node
+@typedef {(node: unknown) => boolean} Predicate
+*/
 
 /**
  * @param {Node} node

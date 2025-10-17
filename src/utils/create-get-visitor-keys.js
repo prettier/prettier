@@ -1,5 +1,15 @@
 import toFastProperties from "to-fast-properties";
 
+/**
+@typedef {(node: unknown) => VisitorKeys} GetVisitorKeys
+@typedef {readonly string[]} VisitorKeys
+*/
+
+/**
+@param {Record<string, VisitorKeys>} visitorKeys
+@param {string} [typeProperty="type"]
+@returns {GetVisitorKeys}
+*/
 function createGetVisitorKeys(visitorKeys, typeProperty = "type") {
   toFastProperties(visitorKeys);
 
