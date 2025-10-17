@@ -47,7 +47,10 @@ printWidth: 80
   option2: false;
 }
 
-// TODO: \`@config   [   option1] = true\` is treated as \`selector-combinator\` not \`value-comma_group\`
+/*
+TODO[prettier]:
+The \`@config   [   option1]\` part should format as \`@config[option1]\`
+**/
 .mixin() when (@config   [   option1] = true) {
   selected: value;
 }
@@ -64,7 +67,10 @@ printWidth: 80
   option2: false;
 };
 
-// TODO: \`@config   [   option1] = true\` is treated as \`selector-combinator\` not \`value-comma_group\`
+/*
+TODO[prettier]:
+The \`@config   [   option1]\` part should format as \`@config[option1]\`
+**/
 .mixin() when (@config   [   option1] = true) {
   selected: value;
 }
