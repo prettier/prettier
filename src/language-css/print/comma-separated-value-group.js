@@ -216,16 +216,16 @@ function printCommaSeparatedValueGroup(path, options, print) {
     // https://lesscss.org/features/#detached-rulesets-feature-property-variable-accessors
     if (options.parser === "less") {
       /*
-        var [@result]
-           ^
+      var [@result]
+          ^
       */
       if (iNextNode?.type === "value-word" && iNextNode.value === "[") {
         continue;
       }
 
       /*
-        var[ @result]
-            ^
+      var[ @result]
+         ^
       */
       if (
         iNode.type === "value-word" &&
@@ -236,8 +236,8 @@ function printCommaSeparatedValueGroup(path, options, print) {
       }
 
       /*
-        @var [ @@foo ][ bar ];
-                       ^
+      @var [ @@foo ][ bar ];
+                   ^^
       */
       if (
         iNode.type === "value-word" &&
