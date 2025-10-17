@@ -8,14 +8,14 @@ printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
 Foo(
-  a_long_long_long_long_condition |
-  a_long_long_long_long_condition |
+  a_long_long_long_long_condition ||
+  a_long_long_long_long_condition ||
   a_long_long_long_long_condition,
 );
 
 Foo(
-  a_long_long_long_long_condition |
-  a_long_long_long_long_condition |
+  a_long_long_long_long_condition ||
+  a_long_long_long_long_condition ||
   a_long_long_long_long_condition,
   a_long_long_long_long_condition
 );
@@ -23,14 +23,14 @@ Foo(
 =====================================output=====================================
 Foo(
   a_long_long_long_long_condition
-  | a_long_long_long_long_condition
-  | a_long_long_long_long_condition,
+  || a_long_long_long_long_condition
+  || a_long_long_long_long_condition,
 );
 
 Foo(
   a_long_long_long_long_condition
-    | a_long_long_long_long_condition
-    | a_long_long_long_long_condition,
+    || a_long_long_long_long_condition
+    || a_long_long_long_long_condition,
   a_long_long_long_long_condition,
 );
 
@@ -44,28 +44,28 @@ printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
 Foo(
-  a_long_long_long_long_condition |
-  a_long_long_long_long_condition |
+  a_long_long_long_long_condition ||
+  a_long_long_long_long_condition ||
   a_long_long_long_long_condition,
 );
 
 Foo(
-  a_long_long_long_long_condition |
-  a_long_long_long_long_condition |
+  a_long_long_long_long_condition ||
+  a_long_long_long_long_condition ||
   a_long_long_long_long_condition,
   a_long_long_long_long_condition
 );
 
 =====================================output=====================================
 Foo(
-  a_long_long_long_long_condition |
-  a_long_long_long_long_condition |
+  a_long_long_long_long_condition ||
+  a_long_long_long_long_condition ||
   a_long_long_long_long_condition,
 );
 
 Foo(
-  a_long_long_long_long_condition |
-    a_long_long_long_long_condition |
+  a_long_long_long_long_condition ||
+    a_long_long_long_long_condition ||
     a_long_long_long_long_condition,
   a_long_long_long_long_condition,
 );
