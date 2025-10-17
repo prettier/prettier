@@ -1,15 +1,14 @@
 import isObject from "./is-object.js";
 
 /**
-@import {GetVisitorKeys} from "../utils/create-get-visitor-keys.js"
-@typedef {NonNullable<object>} Node
-@typedef {(node: unknown) => boolean} Predicate
+@import {GetVisitorKeys, Node} from "../utils/create-get-visitor-keys.js"
+@typedef {(node: Node) => boolean} Predicate
 */
 
 /**
- * @param {Node} node
- * @param {{getVisitorKeys: GetVisitorKeys, filter?: Predicate}} options
- */
+@param {Node} node
+@param {{getVisitorKeys: GetVisitorKeys, filter?: Predicate}} options
+*/
 function* getChildren(node, options) {
   const { getVisitorKeys, filter = () => true } = options;
   const isMatchedNode = (node) => isObject(node) && filter(node);
@@ -30,9 +29,9 @@ function* getChildren(node, options) {
 }
 
 /**
- * @param {Node} node
- * @param {{getVisitorKeys: GetVisitorKeys, filter?: Predicate}} options
- */
+@param {Node} node
+@param {{getVisitorKeys: GetVisitorKeys, filter?: Predicate}} options
+*/
 function* getDescendants(node, options) {
   const queue = [node];
   for (let index = 0; index < queue.length; index++) {
@@ -46,17 +45,17 @@ function* getDescendants(node, options) {
 }
 
 /**
- * @param {Node} node
- * @param {{getVisitorKeys: GetVisitorKeys}} options
- */
+@param {Node} node
+@param {{getVisitorKeys: GetVisitorKeys}} options
+*/
 function isLeaf(node, options) {
   return getChildren(node, options).next().done;
 }
 
 /**
- * @param {Node} node
- * @param {{getVisitorKeys: GetVisitorKeys, predicate: Predicate}} options
- */
+@param {Node} node
+@param {{getVisitorKeys: GetVisitorKeys, predicate: Predicate}} options
+*/
 function hasDescendant(node, { getVisitorKeys, predicate }) {
   for (const descendant of getDescendants(node, { getVisitorKeys })) {
     if (predicate(descendant)) {

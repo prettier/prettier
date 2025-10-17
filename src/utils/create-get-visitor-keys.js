@@ -1,7 +1,8 @@
 import toFastProperties from "to-fast-properties";
 
 /**
-@typedef {(node: unknown) => VisitorKeys} GetVisitorKeys
+@typedef {(node: Node) => VisitorKeys} GetVisitorKeys
+@typedef {NonNullable<object>} Node
 @typedef {readonly string[]} VisitorKeys
 */
 
@@ -13,6 +14,7 @@ import toFastProperties from "to-fast-properties";
 function createGetVisitorKeys(visitorKeys, typeProperty = "type") {
   toFastProperties(visitorKeys);
 
+  /** @type {GetVisitorKeys} */
   function getVisitorKeys(node) {
     const type = node[typeProperty];
 
