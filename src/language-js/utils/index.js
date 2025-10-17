@@ -15,9 +15,9 @@ import isNodeMatches from "./is-node-matches.js";
 import isTsKeywordType from "./is-ts-keyword-type.js";
 
 /**
- * @import * as Estree from "../types/estree.js"
- * @import AstPath from "../../common/ast-path.js"
- */
+@import * as Estree from "../types/estree.js"
+@import AstPath from "../../common/ast-path.js"
+*/
 
 /**
  * @param {Estree.Node} node
