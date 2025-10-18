@@ -170,7 +170,7 @@ function validateTitle(displayPath, title) {
   for (const node of children) {
     if (node.type === "html") {
       showErrorMessage(
-        `[${displayPath}]: Please remove "${node.value}" in title.`,
+        `[${displayPath}]: HTML "${node.value}" is restricted in title.`,
       );
     }
   }
