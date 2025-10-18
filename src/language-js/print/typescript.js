@@ -17,7 +17,7 @@ import { printArray } from "./array.js";
 import { printBlock } from "./block.js";
 import { printCallExpression } from "./call-expression.js";
 import { printBinaryCastExpression } from "./cast-expression.js";
-import { printClassMethod, printClassProperty } from "./class.js";
+import { printClass, printClassMethod, printClassProperty } from "./class.js";
 import {
   printEnumBody,
   printEnumDeclaration,
@@ -28,7 +28,6 @@ import {
   printFunctionParameters,
   shouldGroupFunctionParameters,
 } from "./function-parameters.js";
-import { printInterface } from "./interface.js";
 import { printTypeScriptMappedType } from "./mapped-type.js";
 import {
   printDeclareToken,
@@ -135,7 +134,7 @@ function printTypescript(path, options, print) {
     case "TSOptionalType":
       return [print("typeAnnotation"), "?"];
     case "TSInterfaceDeclaration":
-      return printInterface(path, options, print);
+      return printClass(path, options, print);
     case "TSTypeParameterDeclaration":
     case "TSTypeParameterInstantiation":
       return printTypeParameters(path, options, print, "params");
