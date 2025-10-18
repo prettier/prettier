@@ -1,5 +1,23 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`9812.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+for (const p of ['fullName', 'organ', 'position', 'rank'])
+  // comment
+  form.setValue(\`\${prefix}.data.\${p}\`, response[p])
+
+=====================================output=====================================
+for (const p of ["fullName", "organ", "position", "rank"])
+  // comment
+  form.setValue(\`\${prefix}.data.\${p}\`, response[p]);
+
+================================================================================
+`;
+
 exports[`comment.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]

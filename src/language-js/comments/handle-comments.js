@@ -840,10 +840,11 @@ function handleOnlyComments({ comment, enclosingNode, ast, isLastComment }) {
   return false;
 }
 
-function handleForComments({ comment, enclosingNode }) {
+function handleForComments({ comment, enclosingNode, followingNode }) {
   if (
-    enclosingNode?.type === "ForInStatement" ||
-    enclosingNode?.type === "ForOfStatement"
+    (enclosingNode?.type === "ForInStatement" ||
+      enclosingNode?.type === "ForOfStatement") &&
+    followingNode !== enclosingNode.body
   ) {
     addLeadingComment(enclosingNode, comment);
     return true;
