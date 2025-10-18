@@ -19,6 +19,7 @@ describe("--cache option", () => {
   const nonDefaultCacheFileName = ".non-default-cache-file";
   const directoryNameAsCacheFile = "directory-as-cache-file";
   const nonDefaultCacheFilePath = path.join(dir, nonDefaultCacheFileName);
+  const prettierIgnorePath = path.join(dir, ".prettierignore");
 
   const contentA = `function a() {
   console.log("this is a.js")
@@ -362,6 +363,54 @@ describe("--cache option", () => {
       await runCliWithoutGitignore(dir, ["--write", "*.js"]);
       await expect(fs.stat(defaultCacheFile)).rejects.toThrow();
     });
+
+    it("invalidates cache when previously ignored files are restored", async () => {
+      await runCliWithoutGitignore(dir, [
+        "--write",
+        "--cache",
+        "--cache-strategy",
+        "metadata",
+        "*.js",
+      ]);
+
+      await fs.writeFile(prettierIgnorePath, ["b.js"].join("\n"));
+
+      await fs.writeFile(
+        path.join(dir, "b.js"),
+        "const b = 'this is new content';",
+      );
+
+      const { stdout: secondStdout } = await runCliWithoutGitignore(dir, [
+        "--write",
+        "--cache",
+        "--cache-strategy",
+        "metadata",
+        "*.js",
+      ]);
+
+      expect(secondStdout.split("\n")).toEqual(
+        expect.arrayContaining([
+          expect.stringMatching(/^a\.js .+ms \(unchanged\) \(cached\)$/u),
+        ]),
+      );
+
+      await fs.rm(prettierIgnorePath, { force: true });
+
+      const { stdout: thirdStdout } = await runCliWithoutGitignore(dir, [
+        "--write",
+        "--cache",
+        "--cache-strategy",
+        "metadata",
+        "*.js",
+      ]);
+
+      expect(thirdStdout.split("\n")).toEqual(
+        expect.arrayContaining([
+          expect.stringMatching(/^a\.js .+ms \(unchanged\) \(cached\)$/u),
+          expect.stringMatching(/^b\.js .+ms$/u),
+        ]),
+      );
+    });
   });
 
   describe("--cache-strategy content", () => {
@@ -660,7 +709,7 @@ describe("--cache option", () => {
         await expect(fs.stat(nonDefaultCacheFilePath)).resolves.not.toThrow();
       });
 
-      it("does'nt format when cache is available", async () => {
+      it("doesn't format when cache is available", async () => {
         const cliArguments = [
           "--cache",
           "--write",
