@@ -1,7 +1,7 @@
 import { group, indent, line } from "../../document/builders.js";
 import { inheritLabel } from "../../document/utils.js";
-import printIgnored from "../../main/print-ignored.js";
 import isNonEmptyArray from "../../utils/is-non-empty-array.js";
+import { locEnd, locStart } from "../loc.js";
 import pathNeedsParens from "../needs-parens.js";
 import { createTypeCheckFunction } from "../utils/index.js";
 import isIgnored from "../utils/is-ignored.js";
@@ -19,10 +19,6 @@ import { printTypescript } from "./typescript.js";
  */
 
 function printWithoutParentheses(path, options, print, args) {
-  if (isIgnored(path)) {
-    return printIgnored(path, options);
-  }
-
   for (const printer of [
     printAngular,
     printJsx,
@@ -65,12 +61,15 @@ function print(path, options, print, args) {
     options.__onHtmlBindingRoot?.(path.node, options);
   }
 
-  const doc = printWithoutParentheses(path, options, print, args);
+  const { node } = path;
+
+  const doc = isIgnored(path)
+    ? options.originalText.slice(locStart(node), locEnd(node))
+    : printWithoutParentheses(path, options, print, args);
   if (!doc) {
     return "";
   }
 
-  const { node } = path;
   if (shouldPrintDirectly(node)) {
     return doc;
   }

@@ -108,7 +108,7 @@ function callPluginPrintFunction(path, options, printPath, args, embeds) {
 
   // Escape hatch
   if (printer.hasPrettierIgnore?.(path)) {
-    doc = printIgnored(path, options);
+    doc = printIgnored(path, options, printPath, args);
   } else if (embeds.has(node)) {
     doc = embeds.get(node);
   } else {
