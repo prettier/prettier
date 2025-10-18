@@ -1,17 +1,17 @@
 for (const p of ['fullName', 'organ', 'position', 'rank'])
-  // 1
+  // comment
   form.setValue(`${prefix}.data.${p}`, response[p])
 
-for (const p of ['fullName', 'organ', 'position', 'rank'])
-// 2
-{form.setValue(`${prefix}.data.${p}`, response[p])}
+for(x of y)
+// comment
+{bar();}
 
-for (const p of ['fullName', 'organ', 'position', 'rank'])
-// 3
+for(x of y)
+// comment
 {}
 
-for (const p of ['fullName', 'organ', 'position', 'rank'])
-// 4
+for(x of y)
+// comment
 ;
 
 for(x of y)
