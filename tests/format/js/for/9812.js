@@ -52,3 +52,12 @@ for(x in y)
 for(;;)
   /* comment */
   bar();
+
+for (
+  a = 1;
+  // this condition is tricky:
+  a === b || a === c;
+  a++
+) {
+  console.log()
+}
