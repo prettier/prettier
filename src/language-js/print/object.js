@@ -1,3 +1,4 @@
+import * as assert from "#universal/assert";
 import {
   group,
   hardline,
@@ -11,8 +12,10 @@ import hasNewline from "../../utils/has-newline.js";
 import hasNewlineInRange from "../../utils/has-newline-in-range.js";
 import isNonEmptyArray from "../../utils/is-non-empty-array.js";
 import { locEnd, locStart } from "../loc.js";
+import getTextWithoutComments from "../utils/get-text-without-comments.js";
 import {
   CommentCheckFlags,
+  createTypeCheckFunction,
   getComments,
   hasComment,
   isNextLineEmpty,
@@ -26,10 +29,39 @@ import { printTypeAnnotationProperty } from "./type-annotation.js";
 
 /** @import {Doc} from "../../document/builders.js" */
 
+const isPrintingImportAttributes = createTypeCheckFunction([
+  "ImportDeclaration",
+  "ExportDefaultDeclaration",
+  "ExportNamedDeclaration",
+  "ExportAllDeclaration",
+  "DeclareExportDeclaration",
+  "DeclareExportAllDeclaration",
+]);
+
+/*
+- `ObjectExpression`
+- `ObjectPattern`
+- `RecordExpression`
+- `ImportDeclaration`
+- `ExportDefaultDeclaration`
+- `ExportNamedDeclaration`
+- `ExportAllDeclaration`
+- `ObjectTypeAnnotation` (Flow)
+- `EnumBooleanBody` (Flow)
+- `EnumNumberBody` (Flow)
+- `EnumBigIntBody` (Flow)
+- `EnumStringBody` (Flow)
+- `EnumSymbolBody` (Flow)
+- `DeclareExportDeclaration` (Flow)
+- `DeclareExportAllDeclaration` (Flow)
+- `TSInterfaceBody` (TypeScript)
+- `TSTypeLiteral` (TypeScript)
+- `TSEnumDeclaration`(TypeScript)
+*/
 function printObject(path, options, print) {
   const { node } = path;
 
-  const isTypeAnnotation = node.type === "ObjectTypeAnnotation";
+  const isFlowTypeAnnotation = node.type === "ObjectTypeAnnotation";
   const isEnumBody =
     node.type === "TSEnumBody" ||
     node.type === "EnumBooleanBody" ||
@@ -37,15 +69,22 @@ function printObject(path, options, print) {
     node.type === "EnumBigIntBody" ||
     node.type === "EnumStringBody" ||
     node.type === "EnumSymbolBody";
-  const fields = [
-    node.type === "TSTypeLiteral" || isEnumBody
-      ? "members"
-      : node.type === "TSInterfaceBody"
-        ? "body"
-        : "properties",
-  ];
-  if (isTypeAnnotation) {
-    fields.push("indexers", "callProperties", "internalSlots");
+  const isInterfaceBody = node.type === "TSInterfaceBody";
+  const isImportAttributes = isPrintingImportAttributes(node);
+
+  const fields = [];
+  if (node.type === "TSTypeLiteral" || isEnumBody) {
+    fields.push("members");
+  } else if (isInterfaceBody) {
+    fields.push("body");
+  } else if (isImportAttributes) {
+    fields.push("attributes");
+  } else {
+    fields.push("properties");
+
+    if (isFlowTypeAnnotation) {
+      fields.push("indexers", "callProperties", "internalSlots");
+    }
   }
 
   // Unfortunately, things grouped together in the ast can be
@@ -68,13 +107,13 @@ function printObject(path, options, print) {
 
   const { parent, key } = path;
   const isFlowInterfaceLikeBody =
-    isTypeAnnotation &&
+    isFlowTypeAnnotation &&
     key === "body" &&
     (parent.type === "InterfaceDeclaration" ||
       parent.type === "DeclareInterface" ||
       parent.type === "DeclareClass");
   const shouldBreak =
-    node.type === "TSInterfaceBody" ||
+    isInterfaceBody ||
     isEnumBody ||
     isFlowInterfaceLikeBody ||
     (node.type === "ObjectPattern" &&
@@ -95,15 +134,11 @@ function printObject(path, options, print) {
     (node.type !== "ObjectPattern" &&
       options.objectWrap === "preserve" &&
       propsAndLoc.length > 0 &&
-      hasNewlineInRange(
-        options.originalText,
-        locStart(node),
-        propsAndLoc[0].loc,
-      ));
+      hasNewLineAfterLeftBrace(node, propsAndLoc[0], options));
 
   const separator = isFlowInterfaceLikeBody
     ? ";"
-    : node.type === "TSInterfaceBody" || node.type === "TSTypeLiteral"
+    : isInterfaceBody || node.type === "TSTypeLiteral"
       ? options.semi
         ? ";"
         : ifBreak("", ";")
@@ -180,19 +215,20 @@ function printObject(path, options, print) {
       printTypeAnnotationProperty(path, print),
     ]);
   } else {
+    const spacing = options.bracketSpacing ? line : softline;
     content = [
       isFlowInterfaceLikeBody && isNonEmptyArray(node.properties)
         ? printHardlineAfterHeritage(parent)
         : "",
       leftBrace,
-      indent([options.bracketSpacing ? line : softline, ...props]),
+      indent([spacing, ...props]),
       ifBreak(
         canHaveTrailingSeparator &&
           (separator !== "," || shouldPrintComma(options))
           ? separator
           : "",
       ),
-      options.bracketSpacing ? line : softline,
+      spacing,
       rightBrace,
       printOptionalToken(path),
       printTypeAnnotationProperty(path, print),
@@ -242,6 +278,29 @@ function shouldHugTheOnlyParameter(node, name) {
     (name === "params" || name === "this" || name === "rest") &&
     shouldHugTheOnlyFunctionParameter(node)
   );
+}
+
+function hasNewLineAfterLeftBrace(node, firstPropertyAndLoc, options) {
+  const text = options.originalText;
+  let leftBraceIndex = locStart(node);
+  const firstPropertyStart = firstPropertyAndLoc.loc;
+
+  if (isPrintingImportAttributes(node)) {
+    const start = locStart(node);
+    const textBeforeAttributes = getTextWithoutComments(
+      options,
+      start,
+      firstPropertyStart,
+    );
+    leftBraceIndex = start + textBeforeAttributes.lastIndexOf("{");
+  }
+
+  /* c8 ignore next 3 */
+  if (process.env.NODE_ENV !== "production") {
+    assert.equal(text.charAt(leftBraceIndex), "{");
+  }
+
+  return hasNewlineInRange(text, leftBraceIndex, firstPropertyStart);
 }
 
 export { printObject };
