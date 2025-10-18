@@ -1,8 +1,11 @@
 #!/usr/bin/env node
 
+import assert from "node:assert/strict";
 import fs from "node:fs";
 import indexToPosition from "index-to-position";
 import { outdent } from "outdent";
+import remarkParse from "remark-parse";
+import unified from "unified";
 import { CHANGELOG_CATEGORIES } from "./utils/changelog-categories.js";
 
 const CHANGELOG_DIR = "changelog_unreleased";
@@ -116,6 +119,9 @@ for (const category of CHANGELOG_CATEGORIES) {
       continue;
     }
     const [, title] = titleMatch;
+
+    validateTitle(displayPath, title);
+
     const categoryInTitle = title.split(":").shift().trim();
     if (
       [...CHANGELOG_CATEGORIES, "js"].includes(categoryInTitle.toLowerCase())
@@ -151,4 +157,21 @@ function getCommentDescription(content, comment) {
   }
 
   return `template comment on line ${startLine}-${endLine}`;
+}
+
+// Forbid html in title
+// https://github.com/prettier/prettier/issues/17089
+function validateTitle(displayPath, title) {
+  const processor = unified().use(remarkParse);
+  const tree = processor.runSync(processor.parse(title));
+  assert.equal(tree.children.length, 1);
+  assert.equal(tree.children[0].type, "paragraph");
+  const { children } = tree.children[0];
+  for (const node of children) {
+    if (node.type === "html") {
+      showErrorMessage(
+        `[${displayPath}]: Please remove "${node.value}" in title.`,
+      );
+    }
+  }
 }
