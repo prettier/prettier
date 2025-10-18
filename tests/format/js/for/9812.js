@@ -4,14 +4,6 @@ for (const p of ['fullName', 'organ', 'position', 'rank'])
 
 for(x of y)
 // comment
-{bar();}
-
-for(x of y)
-// comment
-{}
-
-for(x of y)
-// comment
 ;
 
 for(x of y)

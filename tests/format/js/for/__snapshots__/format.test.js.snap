@@ -12,14 +12,6 @@ for (const p of ['fullName', 'organ', 'position', 'rank'])
 
 for(x of y)
 // comment
-{bar();}
-
-for(x of y)
-// comment
-{}
-
-for(x of y)
-// comment
 ;
 
 for(x of y)
@@ -75,15 +67,6 @@ for (const p of ["fullName", "organ", "position", "rank"])
   // comment
   form.setValue(\`\${prefix}.data.\${p}\`, response[p]);
 
-for (x of y) // comment
-{
-  bar();
-}
-
-for (x of y) // comment
-{
-}
-
 // comment
 for (x of y);
 
@@ -133,6 +116,33 @@ for (
   a++
 ) {
   console.log();
+}
+
+================================================================================
+`;
+
+exports[`9812-unstable.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+for(x of y)
+// comment
+{bar();}
+
+for(x of y)
+// comment
+{}
+
+=====================================output=====================================
+for (x of y) // comment
+{
+  bar();
+}
+
+for (x of y) // comment
+{
 }
 
 ================================================================================
