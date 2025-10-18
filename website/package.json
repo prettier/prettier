@@ -15,8 +15,8 @@
     "update-stable-docs": "node ./scripts/update-stable-docs.mjs"
   },
   "dependencies": {
-    "@docusaurus/core": "3.9.1",
-    "@docusaurus/preset-classic": "3.9.1",
+    "@docusaurus/core": "3.9.2",
+    "@docusaurus/preset-classic": "3.9.2",
     "@mdx-js/react": "3.1.1",
     "@sandhose/prettier-animated-logo": "1.0.3",
     "clsx": "2.1.1",
@@ -28,9 +28,9 @@
     "react-tweet": "3.2.2"
   },
   "devDependencies": {
-    "@docusaurus/faster": "3.9.1",
-    "@docusaurus/module-type-aliases": "3.9.1",
-    "@docusaurus/types": "3.9.1",
+    "@docusaurus/faster": "3.9.2",
+    "@docusaurus/module-type-aliases": "3.9.2",
+    "@docusaurus/types": "3.9.2",
     "@types/js-yaml": "4.0.9",
     "@vitejs/plugin-react": "5.0.3",
     "concurrently": "9.2.1",
