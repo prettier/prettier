@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`issue-11100.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const fn3 = (): any => /*
+A comment after an arrow with a type definition, and before a line break.
+Formatting should keep it after the arrow.
+*/
+null;
+
+const fn4 = (): any => /* A single line ver of \`fn3\` */
+null;
+
+=====================================output=====================================
+const fn3 = (): any =>
+  /*
+A comment after an arrow with a type definition, and before a line break.
+Formatting should keep it after the arrow.
+*/
+  null;
+
+const fn4 = (): any => /* A single line ver of \`fn3\` */ null;
+
+================================================================================
+`;
