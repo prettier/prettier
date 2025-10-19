@@ -67,8 +67,8 @@ for (const p of ["fullName", "organ", "position", "rank"])
   // comment
   form.setValue(\`\${prefix}.data.\${p}\`, response[p]);
 
-// comment
-for (x of y);
+for (x of y)// comment
+;
 
 for (x of y)
   // comment

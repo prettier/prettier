@@ -96,7 +96,7 @@ function printBindExpressionCallee(path, options, print) {
 
 function adjustClause(node, clause, forceSpace) {
   if (node.type === "EmptyStatement") {
-    return ";";
+    return clause;
   }
 
   if (node.type === "BlockStatement" || forceSpace) {
