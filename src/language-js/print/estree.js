@@ -26,6 +26,7 @@ import {
   startsWithNoLookaheadToken,
 } from "../utils/index.js";
 import isBlockComment from "../utils/is-block-comment.js";
+import isMeaningfulEmptyStatement from "../utils/is-meaningful-empty-statement.js";
 import { printArray } from "./array.js";
 import { printArrowFunction } from "./arrow-function.js";
 import {
@@ -101,8 +102,6 @@ function printEstree(path, options, print, args) {
     // Babel extension.
     case "File":
       return printHtmlBinding(path, options, print) ?? print("program");
-    case "EmptyStatement":
-      return "";
     case "ExpressionStatement":
       return printExpressionStatement(path, options, print);
 
@@ -493,10 +492,6 @@ function printEstree(path, options, print, args) {
         options.semi ? ";" : "",
       ];
     case "LabeledStatement":
-      if (node.body.type === "EmptyStatement") {
-        return [print("label"), ":;"];
-      }
-
       return [print("label"), ": ", print("body")];
     case "TryStatement":
       return [
@@ -627,6 +622,11 @@ function printEstree(path, options, print, args) {
     case "VoidPattern":
       return "void";
 
+    case "EmptyStatement":
+      if (isMeaningfulEmptyStatement(path)) {
+        return ";";
+      }
+    // Fall through
     case "InterpreterDirective": // Printed as comment
     default:
       /* c8 ignore next */
