@@ -7,6 +7,7 @@ import {
   isMethod,
   isUnionType,
 } from "../utils/index.js";
+import isMeaningfulEmptyStatement from "../utils/is-meaningful-empty-statement.js";
 
 /**
  * @import {Node} from "../types/estree.js"
@@ -14,7 +15,6 @@ import {
  */
 
 const isNodeCantAttachComment = createTypeCheckFunction([
-  "EmptyStatement",
   "TemplateElement",
   // There is no similar node in Babel AST
   // ```ts
@@ -84,11 +84,13 @@ const isClassMethodCantAttachComment = (node, [parent]) =>
 @returns {boolean}
 */
 function canAttachComment(node, ancestors) {
-  return !(
-    isNodeCantAttachComment(node) ||
-    isChildWontPrint(node, ancestors) ||
-    // @ts-expect-error -- safe
-    isClassMethodCantAttachComment(node, ancestors)
+  return (
+    !(
+      isNodeCantAttachComment(node) ||
+      isChildWontPrint(node, ancestors) ||
+      // @ts-expect-error -- safe
+      isClassMethodCantAttachComment(node, ancestors)
+    ) || isMeaningfulEmptyStatement({ node, parent: ancestors[0] })
   );
 }
 
