@@ -27,6 +27,7 @@ const unstableTests = new Map(
     ["js/comments/jsx.js", (options) => options.semi === false],
     "js/comments/return-statement.js",
     "js/comments/tagged-template-literal.js",
+    "js/for/9812-unstable.js",
     "markdown/spec/example-234.md",
     "markdown/spec/example-235.md",
     [
