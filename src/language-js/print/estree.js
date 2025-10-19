@@ -492,7 +492,11 @@ function printEstree(path, options, print, args) {
         options.semi ? ";" : "",
       ];
     case "LabeledStatement":
-      return [print("label"), ": ", print("body")];
+      return [
+        print("label"),
+        `:${node.body.type === "EmptyStatement" ? "" : " "}`,
+        print("body"),
+      ];
     case "TryStatement":
       return [
         "try ",
