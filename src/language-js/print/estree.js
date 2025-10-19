@@ -18,6 +18,7 @@ import {
   isArrayExpression,
   isCallExpression,
   isLiteral,
+  isMeaningfulEmptyStatement,
   isMemberExpression,
   isMethod,
   isNextLineEmpty,
@@ -26,7 +27,6 @@ import {
   startsWithNoLookaheadToken,
 } from "../utils/index.js";
 import isBlockComment from "../utils/is-block-comment.js";
-import isMeaningfulEmptyStatement from "../utils/is-meaningful-empty-statement.js";
 import { printArray } from "./array.js";
 import { printArrowFunction } from "./arrow-function.js";
 import {

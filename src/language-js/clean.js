@@ -1,5 +1,6 @@
 import {
   isArrayExpression,
+  isMeaningfulEmptyStatement,
   isNumericLiteral,
   isStringLiteral,
 } from "./utils/index.js";
@@ -26,7 +27,7 @@ const removeTemplateElementsValue = (node) => {
   }
 };
 
-function clean(original, cloned) {
+function clean(original, cloned, parent) {
   if (original.type === "Program") {
     delete cloned.sourceType;
   }
@@ -39,7 +40,10 @@ function clean(original, cloned) {
   }
 
   // We remove extra `;` and add them when needed
-  if (original.type === "EmptyStatement") {
+  if (
+    original.type === "EmptyStatement" &&
+    !isMeaningfulEmptyStatement({ node: original, parent })
+  ) {
     return null;
   }
 
