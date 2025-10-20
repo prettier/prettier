@@ -17,7 +17,6 @@ type A2 = // dir, exp, arg, modifiers
   | [string, ExpressionNode, ExpressionNode]
   | [string, ExpressionNode, ExpressionNode, ObjectExpression]
 
-
 type A3 = // dir, exp, arg, modifiers
   & [string]
   & [string, ExpressionNode]
