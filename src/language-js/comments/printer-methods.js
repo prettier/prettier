@@ -97,6 +97,24 @@ function canAttachComment(node, ancestors) {
     return isMeaningfulEmptyStatement({ node, parent: ancestors[0] });
   }
 
+  /*
+  For this code
+  `interface A {property: B}`
+                          ^ `ObjectTypeProperty.value` (Flow)
+  `interface A {property: B}`
+                        ^^^ `TSPropertySignature.typeAnnotation` (TypeScript)
+                          ^ `TSPropertySignature.typeAnnotation.typeAnnotation` (TypeScript)
+  ```
+
+  To avoid inconsistent, let's attach to the Identifier instead.
+  */
+  if (
+    node.type === "TSTypeAnnotation" &&
+    ancestors[0].type === "TSPropertySignature"
+  ) {
+    return false;
+  }
+
   return true;
 }
 
