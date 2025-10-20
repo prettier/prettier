@@ -1,4 +1,4 @@
-/* This argument is a duck type of path, so we can use it in comment attach and ast massage */
+/* The argument is a duck type of AstPath, so we can use it in comment attach and ast massage */
 function isMeaningfulEmptyStatement({ node, parent }) {
   if (node?.type !== "EmptyStatement") {
     return false;
