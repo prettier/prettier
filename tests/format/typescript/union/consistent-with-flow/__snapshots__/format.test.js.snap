@@ -6,7 +6,6 @@ parsers: ["typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-
 export type ButtonColor =
   | "primary"
   | "danger"
