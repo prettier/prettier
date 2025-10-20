@@ -1,5 +1,6 @@
 import {
   group,
+  ifBreak,
   indent,
   indentIfBreak,
   line,
@@ -56,6 +57,11 @@ function printAssignment(
     // First break right-hand side, then after operator
     case "fluid": {
       const groupId = Symbol("assignment");
+
+      if (isUnionType(path.node[rightPropertyName])) {
+        return group([group(leftDoc), operator, ifBreak("", line), rightDoc]);
+      }
+
       return group([
         group(leftDoc),
         operator,
