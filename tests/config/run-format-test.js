@@ -49,6 +49,7 @@ const unstableTests = new Map(
     ["js/ignore/semi/asi.js", (options) => options.semi === false],
     "typescript/union/consistent-with-flow/single-type.ts",
     "js/if/non-block.js",
+    "typescript/import-type/long-module-name/long-module-name4.ts",
   ].map((fixture) => {
     const [file, isUnstable = () => true] = Array.isArray(fixture)
       ? fixture
