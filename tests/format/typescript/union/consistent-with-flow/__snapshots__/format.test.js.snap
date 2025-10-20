@@ -32,7 +32,7 @@ type SuperLongTypeNameLoremIpsumLoremIpsumBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBl2 =
 =====================================output=====================================
 type A1 = /* 4 */ (A | B)[];
 
-type A2 = // dir, exp, arg, modifiers
+type A2 =  // dir, exp, arg, modifiers
   | [string]
   | [string, ExpressionNode]
   | [string, ExpressionNode, ExpressionNode]
@@ -266,7 +266,7 @@ type A5 =
   | ({ key: string } | { key: string } | { key: string } | { key: string })
   | { key: string }
   | { key: string };
-type A6 =/*1*/
+type A6 = /*1*/
   | A
   // A comment to force break
   | B;

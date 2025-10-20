@@ -26,7 +26,6 @@ import {
 } from "../utils/index.js";
 import { shouldInlineLogicalExpression } from "./binaryish.js";
 import { printCallExpression } from "./call-expression.js";
-import { shouldHugType } from "./type-annotation.js";
 
 /**
  * @import AstPath from "../../common/ast-path.js"
@@ -59,14 +58,7 @@ function printAssignment(
     case "fluid": {
       const rightPropertyNode = path.node[rightPropertyName];
       if (isUnionType(rightPropertyNode)) {
-        return [
-          leftDoc,
-          operator,
-          group([
-            shouldHugType(rightPropertyNode) ? " " : ifBreak("", line),
-            rightDoc,
-          ]),
-        ];
+        return group([group(leftDoc), operator, ifBreak(" ", line), rightDoc]);
       }
 
       const groupId = Symbol("assignment");
