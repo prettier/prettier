@@ -12,13 +12,13 @@ function isMeaningfulEmptyStatement({ node, parent }) {
   }
 
   if (
-    (parent.type === "LabeledStatement" ||
-      parent.type === "WithStatement" ||
-      parent.type === "ForStatement" ||
-      parent.type === "WhileStatement" ||
+    (parent.type === "DoWhileStatement" ||
       parent.type === "ForInStatement" ||
       parent.type === "ForOfStatement" ||
-      parent.type === "DoWhileStatement") &&
+      parent.type === "ForStatement" ||
+      parent.type === "LabeledStatement" ||
+      parent.type === "WithStatement" ||
+      parent.type === "WhileStatement") &&
     parent.body === node
   ) {
     return true;
