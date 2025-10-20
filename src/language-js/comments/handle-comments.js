@@ -1109,6 +1109,7 @@ function handlePropertySignatureComments({
   comment,
 }) {
   if (
+    enclosingNode &&
     (enclosingNode.type === "TSPropertySignature" ||
       enclosingNode.type === "ObjectTypeProperty") &&
     isIntersectionType(followingNode)
