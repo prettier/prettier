@@ -198,7 +198,7 @@ function clean(original, cloned, parent) {
     }
   }
 
-  // We parse `@var[ foo ]` , `@var[foo]`, and `var [ @foo ]` differently
+  // We parse `@var[ foo ]`, `@var[foo]`, and `var [ @foo ]` differently
   if (
     original.type === "value-comma_group" &&
     original.groups.some(
