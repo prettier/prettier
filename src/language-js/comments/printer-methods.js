@@ -84,14 +84,20 @@ const isClassMethodCantAttachComment = (node, [parent]) =>
 @returns {boolean}
 */
 function canAttachComment(node, ancestors) {
-  return (
-    !(
-      isNodeCantAttachComment(node) ||
-      isChildWontPrint(node, ancestors) ||
-      // @ts-expect-error -- safe
-      isClassMethodCantAttachComment(node, ancestors)
-    ) || isMeaningfulEmptyStatement({ node, parent: ancestors[0] })
-  );
+  if (
+    isNodeCantAttachComment(node) ||
+    isChildWontPrint(node, ancestors) ||
+    // @ts-expect-error -- safe
+    isClassMethodCantAttachComment(node, ancestors)
+  ) {
+    return false;
+  }
+
+  if (node.type === "EmptyStatement") {
+    return isMeaningfulEmptyStatement({ node, parent: ancestors[0] });
+  }
+
+  return true;
 }
 
 /**
