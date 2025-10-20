@@ -4,10 +4,10 @@ import {
   getFunctionParameters,
   hasNodeIgnoreComment,
   isJsxElement,
+  isMeaningfulEmptyStatement,
   isMethod,
   isUnionType,
 } from "../utils/index.js";
-import isMeaningfulEmptyStatement from "../utils/is-meaningful-empty-statement.js";
 
 /**
  * @import {Node} from "../types/estree.js"
