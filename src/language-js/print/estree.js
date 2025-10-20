@@ -494,7 +494,7 @@ function printEstree(path, options, print, args) {
     case "LabeledStatement":
       return [
         print("label"),
-        `:${node.body.type === "EmptyStatement" ? "" : " "}`,
+        `:${node.body.type === "EmptyStatement" && !hasComment(node.body, CommentCheckFlags.Leading) ? "" : " "}`,
         print("body"),
       ];
     case "TryStatement":

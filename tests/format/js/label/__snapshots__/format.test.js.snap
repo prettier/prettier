@@ -63,7 +63,7 @@ a /* comment */:;
 a:;
 b;
 
-a:/* comment */ ;
+a: /* comment */ ;
 a:; /* comment */
 a /* comment */:;
 

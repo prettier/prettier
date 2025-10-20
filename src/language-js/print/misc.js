@@ -1,5 +1,10 @@
 import { indent, line } from "../../document/builders.js";
-import { isCallExpression, isMemberExpression } from "../utils/index.js";
+import {
+  CommentCheckFlags,
+  hasComment,
+  isCallExpression,
+  isMemberExpression,
+} from "../utils/index.js";
 import { printTypeAnnotationProperty } from "./type-annotation.js";
 
 /**
@@ -96,7 +101,7 @@ function printBindExpressionCallee(path, options, print) {
 
 function adjustClause(node, clause, forceSpace) {
   if (node.type === "EmptyStatement") {
-    return clause;
+    return hasComment(node, CommentCheckFlags.Leading) ? [" ", clause] : clause;
   }
 
   if (node.type === "BlockStatement" || forceSpace) {
