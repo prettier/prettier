@@ -4,24 +4,20 @@ function isMeaningfulEmptyStatement({ node, parent }) {
     return false;
   }
 
-  if (
-    parent.type === "IfStatement" &&
-    (parent.consequent === node || parent.alternate === node)
-  ) {
-    return true;
+  if (parent.type === "IfStatement") {
+    return parent.consequent === node || parent.alternate === node;
   }
 
   if (
-    (parent.type === "DoWhileStatement" ||
-      parent.type === "ForInStatement" ||
-      parent.type === "ForOfStatement" ||
-      parent.type === "ForStatement" ||
-      parent.type === "LabeledStatement" ||
-      parent.type === "WithStatement" ||
-      parent.type === "WhileStatement") &&
-    parent.body === node
+    parent.type === "DoWhileStatement" ||
+    parent.type === "ForInStatement" ||
+    parent.type === "ForOfStatement" ||
+    parent.type === "ForStatement" ||
+    parent.type === "LabeledStatement" ||
+    parent.type === "WithStatement" ||
+    parent.type === "WhileStatement"
   ) {
-    return true;
+    return parent.body === node;
   }
 
   return false;
