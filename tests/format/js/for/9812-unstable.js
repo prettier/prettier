@@ -5,3 +5,7 @@ for(x of y)
 for(x of y)
 // comment
 {}
+
+for(x of y)
+// comment
+;

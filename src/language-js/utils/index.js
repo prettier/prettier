@@ -1144,4 +1144,5 @@ export {
   shouldPrintComma,
   startsWithNoLookaheadToken,
 };
+export { default as isMeaningfulEmptyStatement } from "./is-meaningful-empty-statement.js";
 export { default as isNodeMatches } from "./is-node-matches.js";
