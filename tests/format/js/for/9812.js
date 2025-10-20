@@ -3,10 +3,6 @@ for (const p of ['fullName', 'organ', 'position', 'rank'])
   form.setValue(`${prefix}.data.${p}`, response[p])
 
 for(x of y)
-// comment
-;
-
-for(x of y)
   // comment
   bar();
 

@@ -11,10 +11,6 @@ for (const p of ['fullName', 'organ', 'position', 'rank'])
   form.setValue(\`\${prefix}.data.\${p}\`, response[p])
 
 for(x of y)
-// comment
-;
-
-for(x of y)
   // comment
   bar();
 
@@ -66,9 +62,6 @@ for (
 for (const p of ["fullName", "organ", "position", "rank"])
   // comment
   form.setValue(\`\${prefix}.data.\${p}\`, response[p]);
-
-for (x of y)// comment
-;
 
 for (x of y)
   // comment
@@ -135,6 +128,10 @@ for(x of y)
 // comment
 {}
 
+for(x of y)
+// comment
+;
+
 =====================================output=====================================
 for (x of y) // comment
 {
@@ -144,6 +141,9 @@ for (x of y) // comment
 for (x of y) // comment
 {
 }
+
+for (x of y)// comment
+;
 
 ================================================================================
 `;
