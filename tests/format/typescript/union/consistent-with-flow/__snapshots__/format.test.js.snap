@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`81-characters.js format 1`] = `
+exports[`81-characters.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow"]
 printWidth: 80
