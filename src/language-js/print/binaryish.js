@@ -112,9 +112,10 @@ function printBinaryishExpression(path, options, print) {
       grandparent.type !== "ThrowStatement" &&
       !isCallExpression(grandparent)) ||
     parent.type === "TemplateLiteral" ||
-    (isCallExpression(parent) &&
+    (node.type === "LogicalExpression" &&
+      (isCallExpression(parent) || parent.type === "NewExpression") &&
       getCallArguments(parent).length === 1 &&
-      parent.callee !== node);
+      getCallArguments(parent)[0] === node);
 
   const shouldIndentIfInlining =
     parent.type === "AssignmentExpression" ||
