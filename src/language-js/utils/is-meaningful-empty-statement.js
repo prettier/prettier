@@ -11,7 +11,7 @@ function isMeaningfulEmptyStatement({ node, parent }) {
     return true;
   }
 
-  return (
+  if (
     (parent.type === "LabeledStatement" ||
       parent.type === "WithStatement" ||
       parent.type === "ForStatement" ||
@@ -20,7 +20,11 @@ function isMeaningfulEmptyStatement({ node, parent }) {
       parent.type === "ForOfStatement" ||
       parent.type === "DoWhileStatement") &&
     parent.body === node
-  );
+  ) {
+    return true;
+  }
+
+  return false;
 }
 
 export default isMeaningfulEmptyStatement;
