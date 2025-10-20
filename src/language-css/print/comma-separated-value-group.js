@@ -226,8 +226,8 @@ function printCommaSeparatedValueGroup(path, options, print) {
       /*
       var[ @result]
          ^
-      @var [ @@foo ][ bar ];
-                    ^
+      @var [ @@foo ] [ bar ];
+                     ^
       */
       if (
         iNode.type === "value-word" &&
