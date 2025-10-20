@@ -109,7 +109,7 @@ function printClass(path, options, print) {
       group([...partsGroup, indent(extendsParts)], { id: heritageGroupId }),
     );
   } else {
-    parts.push(...partsGroup, extendsParts);
+    parts.push(...partsGroup, ...extendsParts);
   }
 
   const classBody = node.body;
