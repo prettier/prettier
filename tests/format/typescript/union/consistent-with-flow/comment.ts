@@ -20,3 +20,32 @@ type SuperLongTypeNameLoremIpsumLoremIpsumBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBla =
 
 type SuperLongTypeNameLoremIpsumLoremIpsumBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBl2 =
   Fooo1000 & Baz2000 & BarLoooooooooooooooooooooooooooooooooooooooooooooooooLong;
+
+export type ButtonColor =
+  | "primary"
+  | "danger"
+  | "warning"
+  | "muted"
+  | "success";
+
+export type SupportOptionType =
+  | "int"
+  | "string"
+  | "boolean"
+  | "choice"
+  | "path";
+
+export type RenderContextType =
+    | 'data'
+    | 'header'
+    | 'footer'
+    | 'columnsSelector';
+
+export type PropertyNameNonComputed =
+  | Identifier
+  | NumberLiteral
+  | StringLiteral;
+
+type ClassLikeDeclaration =
+  | TSESTree.ClassDeclaration
+  | TSESTree.ClassExpression;
