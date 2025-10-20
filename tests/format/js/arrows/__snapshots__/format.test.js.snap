@@ -4394,6 +4394,60 @@ const myCurriedFn = arg1 => arg2 => arg3 => arg1 + arg2 + arg3;
 ================================================================================
 `;
 
+exports[`issue-10814.js - {"arrowParens":"always"} format 1`] = `
+====================================options=====================================
+arrowParens: "always"
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const fastifyLoggerOptions = async (
+  fastify,
+  { skip2xxHttpLogging = false },
+  // eslint-disable-next-line require-await
+) => {
+  const middleware = getMiddleware(skip2xxHttpLogging);
+};
+
+=====================================output=====================================
+const fastifyLoggerOptions = async (
+  fastify,
+  { skip2xxHttpLogging = false },
+  // eslint-disable-next-line require-await
+) => {
+  const middleware = getMiddleware(skip2xxHttpLogging);
+};
+
+================================================================================
+`;
+
+exports[`issue-10814.js - {"arrowParens":"avoid"} format 1`] = `
+====================================options=====================================
+arrowParens: "avoid"
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const fastifyLoggerOptions = async (
+  fastify,
+  { skip2xxHttpLogging = false },
+  // eslint-disable-next-line require-await
+) => {
+  const middleware = getMiddleware(skip2xxHttpLogging);
+};
+
+=====================================output=====================================
+const fastifyLoggerOptions = async (
+  fastify,
+  { skip2xxHttpLogging = false },
+  // eslint-disable-next-line require-await
+) => {
+  const middleware = getMiddleware(skip2xxHttpLogging);
+};
+
+================================================================================
+`;
+
 exports[`long-call-no-args.js - {"arrowParens":"always"} format 1`] = `
 ====================================options=====================================
 arrowParens: "always"

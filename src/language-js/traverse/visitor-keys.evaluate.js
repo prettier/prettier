@@ -24,7 +24,6 @@ const additionalVisitorKeys = {
   NeverTypeAnnotation: [],
   SatisfiesExpression: ["expression", "typeAnnotation"],
   TupleTypeAnnotation: ["elementTypes"],
-  TypePredicate: ["asserts"],
   UndefinedTypeAnnotation: [],
   UnknownTypeAnnotation: [],
 };
