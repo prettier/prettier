@@ -37,6 +37,8 @@ import { getTypeParametersGroupId } from "./type-parameters.js";
  * @import {Doc} from "../../document/builders.js"
  */
 
+const getHeritageGroupId = createGroupIdMapper("heritageGroup");
+
 const isClassProperty = createTypeCheckFunction([
   "ClassProperty",
   "PropertyDefinition",
@@ -47,15 +49,32 @@ const isClassProperty = createTypeCheckFunction([
   "TSAbstractAccessorProperty",
 ]);
 
+const isInterface = createTypeCheckFunction([
+  "TSInterfaceDeclaration",
+  "DeclareInterface",
+  "InterfaceDeclaration",
+  "InterfaceTypeAnnotation",
+]);
+
 /*
 - `ClassDeclaration`
 - `ClassExpression`
 - `DeclareClass`(flow)
+- `DeclareInterface`(flow)
+- `InterfaceDeclaration`(flow)
+- `InterfaceTypeAnnotation`(flow)
+- `TSInterfaceDeclaration`(TypeScript)
 */
 function printClass(path, options, print) {
   const { node } = path;
+  const isPrintingInterface = isInterface(node);
+
   /** @type {Doc[]} */
-  const parts = [printDeclareToken(path), printAbstractToken(path), "class"];
+  const parts = [
+    printDeclareToken(path),
+    printAbstractToken(path),
+    isPrintingInterface ? "interface" : "class",
+  ];
 
   // Keep old behaviour of extends in same line
   // If there is only on extends and there are not comments
@@ -63,29 +82,31 @@ function printClass(path, options, print) {
     hasComment(node.id, CommentCheckFlags.Trailing) ||
     hasComment(node.typeParameters, CommentCheckFlags.Trailing) ||
     hasComment(node.superClass) ||
-    isNonEmptyArray(node.extends) || // DeclareClass
+    isNonEmptyArray(node.extends) ||
     isNonEmptyArray(node.mixins) ||
     isNonEmptyArray(node.implements);
 
   const partsGroup = [];
   const extendsParts = [];
 
-  if (node.id) {
-    partsGroup.push(" ", print("id"));
-  }
+  if (node.type !== "InterfaceTypeAnnotation") {
+    if (node.id) {
+      partsGroup.push(" ", print("id"));
+    }
 
-  partsGroup.push(print("typeParameters"));
+    partsGroup.push(print("typeParameters"));
+  }
 
   if (node.superClass) {
     const printed = [
       printSuperClass(path, options, print),
       print(
-        // TODO: Use `superTypeArguments` only when babel align with TS.
+        // TODO: Remove `superTypeParameters` when https://github.com/facebook/hermes/issues/1808#issuecomment-3413004377 get fixed
         node.superTypeArguments ? "superTypeArguments" : "superTypeParameters",
       ),
     ];
     const printedWithComments = path.call(
-      (superClass) => ["extends ", printComments(superClass, printed, options)],
+      () => ["extends ", printComments(path, printed, options)],
       "superClass",
     );
     if (groupMode) {
@@ -104,21 +125,23 @@ function printClass(path, options, print) {
 
   let heritageGroupId;
   if (groupMode) {
-    let printedPartsGroup;
-    if (shouldIndentOnlyHeritageClauses(node)) {
-      printedPartsGroup = [...partsGroup, indent(extendsParts)];
-    } else {
-      printedPartsGroup = indent([...partsGroup, extendsParts]);
-    }
-
     heritageGroupId = getHeritageGroupId(node);
-    parts.push(group(printedPartsGroup, { id: heritageGroupId }));
+    parts.push(
+      group([...partsGroup, indent(extendsParts)], { id: heritageGroupId }),
+    );
   } else {
     parts.push(...partsGroup, ...extendsParts);
   }
 
-  const classBody = node.body;
-  if (groupMode && isNonEmptyArray(classBody.body)) {
+  /*
+  To improve visual separation between class head and body https://github.com/prettier/prettier/issues/10018
+  we introduced https://github.com/prettier/prettier/pull/10085
+  However, users complaint.
+  We decide to defer to solve the inconsistency to a major release (V4)
+  Meanwhile, we are not going to put the `{` of interface body on a new line
+  https://github.com/prettier/prettier/issues/18115
+  */
+  if (!isPrintingInterface && groupMode && isNonEmptyClassBody(node.body)) {
     parts.push(ifBreak(hardline, " ", { groupId: heritageGroupId }));
   } else {
     parts.push(" ");
@@ -129,10 +152,12 @@ function printClass(path, options, print) {
   return parts;
 }
 
-const getHeritageGroupId = createGroupIdMapper("heritageGroup");
-
-function printHardlineAfterHeritage(node) {
-  return ifBreak(hardline, "", { groupId: getHeritageGroupId(node) });
+function isNonEmptyClassBody(node) {
+  return node.type === "ObjectTypeAnnotation"
+    ? ["properties", "indexers", "callProperties", "internalSlots"].some(
+        (property) => isNonEmptyArray(node[property]),
+      )
+    : isNonEmptyArray(node.body);
 }
 
 function hasMultipleHeritage(node) {
@@ -225,7 +250,6 @@ function printClassMethod(path, options, print) {
 function printClassProperty(path, options, print) {
   const { node } = path;
   const parts = [];
-  const semi = options.semi ? ";" : "";
 
   if (isNonEmptyArray(node.decorators)) {
     parts.push(printClassMemberDecorators(path, options, print));
@@ -275,7 +299,7 @@ function printClassProperty(path, options, print) {
       " =",
       isAbstractProperty ? undefined : "value",
     ),
-    semi,
+    options.semi ? ";" : "",
   ];
 }
 
@@ -392,10 +416,4 @@ function shouldPrintSemicolonAfterClassProperty(node, nextNode) {
   return false;
 }
 
-export {
-  printClass,
-  printClassBody,
-  printClassMethod,
-  printClassProperty,
-  printHardlineAfterHeritage,
-};
+export { printClass, printClassBody, printClassMethod, printClassProperty };

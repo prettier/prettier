@@ -1,6 +1,6 @@
 /** @import {Doc} from "../../document/builders.js" */
 
-import assert from "node:assert";
+import * as assert from "#universal/assert";
 import { replaceEndOfLine } from "../../document/utils.js";
 import printNumber from "../../utils/print-number.js";
 import printString from "../../utils/print-string.js";
@@ -25,7 +25,6 @@ import {
   printHook,
   printHookTypeAnnotation,
 } from "./hook.js";
-import { printInterface } from "./interface.js";
 import { printBigInt } from "./literal.js";
 import { printFlowMappedTypeProperty } from "./mapped-type.js";
 import { printMatch, printMatchCase, printMatchPattern } from "./match.js";
@@ -64,8 +63,6 @@ function printFlow(path, options, print) {
     return node.type.slice(0, -14).toLowerCase();
   }
 
-  const semi = options.semi ? ";" : "";
-
   switch (node.type) {
     case "ComponentDeclaration":
     case "DeclareComponent":
@@ -81,15 +78,13 @@ function printFlow(path, options, print) {
       return printDeclareHook(path, options, print);
     case "HookTypeAnnotation":
       return printHookTypeAnnotation(path, options, print);
-    case "DeclareClass":
-      return printClass(path, options, print);
     case "DeclareFunction":
       return [
         printDeclareToken(path),
         "function ",
         print("id"),
         print("predicate"),
-        semi,
+        options.semi ? ";" : "",
       ];
     case "DeclareModule":
       return ["declare module ", print("id"), " ", print("body")];
@@ -97,7 +92,7 @@ function printFlow(path, options, print) {
       return [
         "declare module.exports",
         printTypeAnnotationProperty(path, print),
-        semi,
+        options.semi ? ";" : "",
       ];
     case "DeclareNamespace":
       return ["declare namespace ", print("id"), " ", print("body")];
@@ -108,7 +103,7 @@ function printFlow(path, options, print) {
         node.kind ?? "var",
         " ",
         print("id"),
-        semi,
+        options.semi ? ";" : "",
       ];
     case "DeclareExportDeclaration":
     case "DeclareExportAllDeclaration":
@@ -204,10 +199,11 @@ function printFlow(path, options, print) {
       ];
     }
 
+    case "DeclareClass":
     case "DeclareInterface":
     case "InterfaceDeclaration":
     case "InterfaceTypeAnnotation":
-      return printInterface(path, options, print);
+      return printClass(path, options, print);
     case "ClassImplements":
     case "InterfaceExtends":
       return [print("id"), print("typeParameters")];

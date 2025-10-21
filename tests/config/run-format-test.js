@@ -27,6 +27,7 @@ const unstableTests = new Map(
     ["js/comments/jsx.js", (options) => options.semi === false],
     "js/comments/return-statement.js",
     "js/comments/tagged-template-literal.js",
+    "js/for/9812-unstable.js",
     "markdown/spec/example-234.md",
     "markdown/spec/example-235.md",
     [
@@ -48,6 +49,7 @@ const unstableTests = new Map(
     ["js/ignore/semi/asi.js", (options) => options.semi === false],
     "typescript/union/consistent-with-flow/single-type.ts",
     "js/if/non-block.js",
+    "typescript/import-type/long-module-name/long-module-name4.ts",
   ].map((fixture) => {
     const [file, isUnstable = () => true] = Array.isArray(fixture)
       ? fixture
@@ -98,6 +100,13 @@ const flowDisabledTests = new Set(
   [
     // Parsing to different ASTs
     "js/decorators/member-expression.js",
+  ].map((file) => path.join(__dirname, "../format", file)),
+);
+const typescriptDisabledTests = new Set(
+  [
+    // https://github.com/typescript-eslint/typescript-eslint/issues/11389
+    "js/import/long-module-name/import-defer.js",
+    "js/import/long-module-name/import-source.js",
   ].map((file) => path.join(__dirname, "../format", file)),
 );
 
@@ -317,7 +326,10 @@ function runFormatTest(fixtures, parsers, options) {
           (currentParser === "oxc-ts" && oxcTsDisabledTests.has(filename)) ||
           (currentParser === "hermes" && hermesDisabledTests.has(filename)) ||
           (currentParser === "flow" && flowDisabledTests.has(filename)) ||
-          (currentParser === "babel-ts" && babelTsDisabledTests.has(filename))
+          (currentParser === "babel-ts" &&
+            babelTsDisabledTests.has(filename)) ||
+          (currentParser === "typescript" &&
+            typescriptDisabledTests.has(filename))
         ) {
           continue;
         }

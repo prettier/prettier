@@ -6,7 +6,7 @@ const parseExpressionErrorMessagePrefix =
 function createBabelParseError(error) {
   let { message, loc, reasonCode } = error;
 
-  /* c8 ignore next 3 */
+  /* c8 ignore next 3 -- not a babel parse error */
   if (!loc) {
     return error;
   }

@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`comments.js format 1`] = `
 ====================================options=====================================
@@ -40,13 +40,13 @@ declare class D2<T> // 1
 }
 
 declare class D3<T> // 1
-  // 2
+// 2
   mixins C<T> {
   // 3
 }
 
 declare class D4<T> // 1
-  // 2
+// 2
   extends B<T>
   mixins C<T> {
   // 3

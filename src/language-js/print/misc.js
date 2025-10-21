@@ -1,5 +1,10 @@
 import { indent, line } from "../../document/builders.js";
-import { isCallExpression, isMemberExpression } from "../utils/index.js";
+import {
+  CommentCheckFlags,
+  hasComment,
+  isCallExpression,
+  isMemberExpression,
+} from "../utils/index.js";
 import { printTypeAnnotationProperty } from "./type-annotation.js";
 
 /**
@@ -90,24 +95,13 @@ function printAbstractToken({ node }) {
   return node.abstract || tsAbstractNodeTypes.has(node.type) ? "abstract " : "";
 }
 
-function printFunctionTypeParameters(path, options, print) {
-  const fun = path.node;
-  if (fun.typeArguments) {
-    return print("typeArguments");
-  }
-  if (fun.typeParameters) {
-    return print("typeParameters");
-  }
-  return "";
-}
-
 function printBindExpressionCallee(path, options, print) {
   return ["::", print("callee")];
 }
 
 function adjustClause(node, clause, forceSpace) {
   if (node.type === "EmptyStatement") {
-    return ";";
+    return hasComment(node, CommentCheckFlags.Leading) ? [" ", clause] : clause;
   }
 
   if (node.type === "BlockStatement" || forceSpace) {
@@ -131,7 +125,6 @@ export {
   printBindExpressionCallee,
   printDeclareToken,
   printDefiniteToken,
-  printFunctionTypeParameters,
   printOptionalToken,
   printRestSpread,
   printTypeScriptAccessibilityToken,

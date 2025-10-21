@@ -191,9 +191,9 @@ function printCommaSeparatedValueGroup(path, options, print) {
       iNode.type === "value-atword" &&
       (iNode.value === "" ||
         /*
-            @var[ @notVarNested ][notVar]
-            ^^^^^
-            */
+        @var[ @notVarNested ][notVar]
+        ^^^^^
+        */
         iNode.value.endsWith("["))
     ) {
       continue;
@@ -210,6 +210,38 @@ function printCommaSeparatedValueGroup(path, options, print) {
     // Ignore `~` in Less (i.e. `content: ~"^//* some horrible but needed css hack";`)
     if (iNode.value === "~") {
       continue;
+    }
+
+    // Less property/variable lookup
+    // https://lesscss.org/features/#detached-rulesets-feature-property-variable-accessors
+    if (options.parser === "less") {
+      // `var [@result]`
+      //      ^
+      if (iNextNode?.type === "value-word" && iNextNode.value === "[") {
+        continue;
+      }
+
+      // `var[ @result]`
+      //     ^
+      // `@var [ @@foo ] [ bar ]`
+      //                 ^
+      if (
+        iNode.type === "value-word" &&
+        iNode.value === "[" &&
+        (iNextNode?.type === "value-atword" || iNextNode?.type === "value-word")
+      ) {
+        continue;
+      }
+
+      // `@var [ @@foo ][ bar ]`
+      //               ^^
+      if (
+        iNode.type === "value-word" &&
+        iNode.value === "][" &&
+        iNextNode?.type === "value-word"
+      ) {
+        continue;
+      }
     }
 
     // Ignore escape `\`

@@ -171,9 +171,7 @@ async function run() {
     }
 
     console.log(
-      styleText.inverse(
-        `[${index + 1}/${packagesToBuild.length}] Building package '${packageConfig.packageName}'`,
-      ),
+      styleText.inverse`[${index + 1}/${packagesToBuild.length}] Building package '${packageConfig.packageName}'`,
     );
 
     const startTime = performance.now();

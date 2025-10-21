@@ -7,6 +7,7 @@ import {
   line,
   softline,
 } from "../../document/builders.js";
+import { removeLines } from "../../document/utils.js";
 import { printDanglingComments } from "../../main/comments/print.js";
 import isNonEmptyArray from "../../utils/is-non-empty-array.js";
 import UnexpectedNodeError from "../../utils/unexpected-node-error.js";
@@ -23,11 +24,15 @@ import {
 } from "../utils/index.js";
 import { printDecoratorsBeforeExport } from "./decorators.js";
 import { printDeclareToken } from "./misc.js";
+import { printObject } from "./object.js";
 
 /**
  * @import {Doc} from "../../document/builders.js"
  */
 
+/*
+- `ImportDeclaration`
+*/
 function printImportDeclaration(path, options, print) {
   const { node } = path;
   /** @type{Doc[]} */
@@ -49,8 +54,8 @@ const isDefaultExport = (node) =>
 /*
 - `ExportDefaultDeclaration`
 - `ExportNamedDeclaration`
-- `DeclareExportDeclaration`(flow)
 - `ExportAllDeclaration`
+- `DeclareExportDeclaration`(flow)
 - `DeclareExportAllDeclaration`(flow)
 */
 function printExportDeclaration(path, options, print) {
@@ -148,14 +153,11 @@ function printModuleSource(path, options, print) {
     return "";
   }
 
-  /** @type{Doc[]} */
-  const parts = [];
-  if (shouldPrintSpecifiers(node, options)) {
-    parts.push(" from");
-  }
-  parts.push(" ", print("source"));
-
-  return parts;
+  return [
+    shouldPrintSpecifiers(node, options) ? " from" : "",
+    " ",
+    print("source"),
+  ];
 }
 
 function printModuleSpecifiers(path, options, print) {
@@ -274,6 +276,34 @@ function getImportAttributesKeyword(node, options) {
   return isNonEmptyArray(node.attributes) ? "with" : undefined;
 }
 
+const isSingleTypeImportAttributes = (node) => {
+  const { attributes } = node;
+
+  if (attributes.length !== 1) {
+    return false;
+  }
+
+  const [attribute] = attributes;
+  const { type, key, value } = attribute;
+  return (
+    type === "ImportAttribute" &&
+    ((key.type === "Identifier" && key.name === "type") ||
+      (isStringLiteral(key) && key.value === "type")) &&
+    isStringLiteral(value) &&
+    !hasComment(attribute) &&
+    !hasComment(key) &&
+    !hasComment(value)
+  );
+};
+
+/*
+- `ImportDeclaration`
+- `ExportDefaultDeclaration`
+- `ExportNamedDeclaration`
+- `ExportAllDeclaration`
+- `DeclareExportDeclaration` (Flow)
+- `DeclareExportAllDeclaration` (Flow)
+*/
 function printImportAttributes(path, options, print) {
   const { node } = path;
 
@@ -286,23 +316,12 @@ function printImportAttributes(path, options, print) {
     return "";
   }
 
-  /** @type{Doc[]} */
-  const parts = [` ${keyword} {`];
-
-  if (isNonEmptyArray(node.attributes)) {
-    if (options.bracketSpacing) {
-      parts.push(" ");
-    }
-
-    parts.push(join(", ", path.map(print, "attributes")));
-
-    if (options.bracketSpacing) {
-      parts.push(" ");
-    }
+  let attributesDoc = printObject(path, options, print);
+  if (isSingleTypeImportAttributes(node)) {
+    attributesDoc = removeLines(attributesDoc);
   }
-  parts.push("}");
 
-  return parts;
+  return [` ${keyword} `, attributesDoc];
 }
 
 function printModuleSpecifier(path, options, print) {

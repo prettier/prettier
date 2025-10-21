@@ -34,7 +34,7 @@ import { getTextValueParts, unescapeQuoteEntities } from "./utils/index.js";
 function genericPrint(path, options, print) {
   const { node } = path;
 
-  switch (node.type) {
+  switch (node.kind) {
     case "front-matter":
       return replaceEndOfLine(node.raw);
     case "root":
@@ -80,7 +80,7 @@ function genericPrint(path, options, print) {
         printClosingTagEnd(node, options),
       ];
     case "text": {
-      if (node.parent.type === "interpolation") {
+      if (node.parent.kind === "interpolation") {
         // replace the trailing literalline with hardline for better readability
         const trailingNewlineRegex = /\n[^\S\n]*$/u;
         const hasTrailingNewline = trailingNewlineRegex.test(node.value);

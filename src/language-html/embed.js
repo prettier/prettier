@@ -5,7 +5,10 @@ import {
   indent,
   line,
 } from "../document/builders.js";
-import printFrontMatter from "../utils/front-matter/print.js";
+import {
+  isEmbedFrontMatter,
+  printEmbedFrontMatter,
+} from "../utils/front-matter/index.js";
 import printAngularControlFlowBlockParameters from "./embed/angular-control-flow-block-parameters.js";
 import printAttribute from "./embed/attribute.js";
 import { formatAttributeValue } from "./embed/utils.js";
@@ -37,9 +40,13 @@ const embeddedAngularControlFlowBlocks = new Set([
 function embed(path, options) {
   const { node } = path;
 
-  switch (node.type) {
+  if (isEmbedFrontMatter(path)) {
+    return printEmbedFrontMatter;
+  }
+
+  switch (node.kind) {
     case "element":
-      if (isScriptLikeTag(node, options) || node.type === "interpolation") {
+      if (isScriptLikeTag(node, options) || node.kind === "interpolation") {
         // Fall through to "text"
         return;
       }
@@ -108,7 +115,7 @@ function embed(path, options) {
             ];
           };
         }
-      } else if (node.parent.type === "interpolation") {
+      } else if (node.parent.kind === "interpolation") {
         return async (textToDoc) => {
           const textToDocOptions = {
             __isInHtmlInterpolation: true, // to avoid unexpected `}}`
@@ -140,9 +147,6 @@ function embed(path, options) {
 
     case "attribute":
       return printAttribute(path, options);
-
-    case "front-matter":
-      return (textToDoc) => printFrontMatter(node, textToDoc);
 
     case "angularControlFlowBlockParameters":
       if (!embeddedAngularControlFlowBlocks.has(path.parent.name)) {

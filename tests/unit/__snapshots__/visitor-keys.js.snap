@@ -73,7 +73,6 @@ exports[`visitor keys estree 1`] = `
     "arguments",
     "callee",
     "typeArguments",
-    "typeParameters",
   ],
   "CatchClause": [
     "body",
@@ -373,6 +372,7 @@ exports[`visitor keys estree 1`] = `
     "body",
     "id",
     "params",
+    "predicate",
     "returnType",
     "typeParameters",
   ],
@@ -497,7 +497,6 @@ exports[`visitor keys estree 1`] = `
     "attributes",
     "name",
     "typeArguments",
-    "typeParameters",
   ],
   "JSXOpeningFragment": [],
   "JSXSpreadAttribute": [
@@ -636,9 +635,7 @@ exports[`visitor keys estree 1`] = `
     "arguments",
     "callee",
     "typeArguments",
-    "typeParameters",
   ],
-  "Noop": [],
   "NullLiteral": [],
   "NullLiteralTypeAnnotation": [],
   "NullableTypeAnnotation": [
@@ -713,7 +710,6 @@ exports[`visitor keys estree 1`] = `
     "arguments",
     "callee",
     "typeArguments",
-    "typeParameters",
   ],
   "OptionalIndexedAccessType": [
     "indexType",
@@ -823,16 +819,13 @@ exports[`visitor keys estree 1`] = `
   "TSBigIntKeyword": [],
   "TSBooleanKeyword": [],
   "TSCallSignatureDeclaration": [
-    "parameters",
     "params",
     "returnType",
-    "typeAnnotation",
     "typeParameters",
   ],
   "TSClassImplements": [
     "expression",
     "typeArguments",
-    "typeParameters",
   ],
   "TSConditionalType": [
     "checkType",
@@ -841,17 +834,13 @@ exports[`visitor keys estree 1`] = `
     "trueType",
   ],
   "TSConstructSignatureDeclaration": [
-    "parameters",
     "params",
     "returnType",
-    "typeAnnotation",
     "typeParameters",
   ],
   "TSConstructorType": [
-    "parameters",
     "params",
     "returnType",
-    "typeAnnotation",
     "typeParameters",
   ],
   "TSDeclareFunction": [
@@ -890,18 +879,12 @@ exports[`visitor keys estree 1`] = `
     "expression",
   ],
   "TSExportKeyword": [],
-  "TSExpressionWithTypeArguments": [
-    "expression",
-    "typeParameters",
-  ],
   "TSExternalModuleReference": [
     "expression",
   ],
   "TSFunctionType": [
-    "parameters",
     "params",
     "returnType",
-    "typeAnnotation",
     "typeParameters",
   ],
   "TSImportEqualsDeclaration": [
@@ -913,7 +896,6 @@ exports[`visitor keys estree 1`] = `
     "options",
     "qualifier",
     "typeArguments",
-    "typeParameters",
   ],
   "TSIndexSignature": [
     "parameters",
@@ -929,7 +911,6 @@ exports[`visitor keys estree 1`] = `
   "TSInstantiationExpression": [
     "expression",
     "typeArguments",
-    "typeParameters",
   ],
   "TSInterfaceBody": [
     "body",
@@ -943,7 +924,6 @@ exports[`visitor keys estree 1`] = `
   "TSInterfaceHeritage": [
     "expression",
     "typeArguments",
-    "typeParameters",
   ],
   "TSIntersectionType": [
     "types",
@@ -968,10 +948,8 @@ exports[`visitor keys estree 1`] = `
   ],
   "TSMethodSignature": [
     "key",
-    "parameters",
     "params",
     "returnType",
-    "typeAnnotation",
     "typeParameters",
   ],
   "TSModuleBlock": [
@@ -1071,12 +1049,10 @@ exports[`visitor keys estree 1`] = `
   "TSTypeQuery": [
     "exprName",
     "typeArguments",
-    "typeParameters",
   ],
   "TSTypeReference": [
     "typeArguments",
     "typeName",
-    "typeParameters",
   ],
   "TSUndefinedKeyword": [],
   "TSUnionType": [
@@ -1088,7 +1064,6 @@ exports[`visitor keys estree 1`] = `
     "quasi",
     "tag",
     "typeArguments",
-    "typeParameters",
   ],
   "TemplateElement": [],
   "TemplateLiteral": [
@@ -1146,7 +1121,6 @@ exports[`visitor keys estree 1`] = `
     "params",
   ],
   "TypePredicate": [
-    "asserts",
     "parameterName",
     "typeAnnotation",
   ],

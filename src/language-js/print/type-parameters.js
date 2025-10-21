@@ -125,6 +125,7 @@ function printDanglingCommentsForInline(path, options) {
   return [printed, hardline];
 }
 
+// `TSTypeParameter` and `TypeParameter`
 function printTypeParameter(path, options, print) {
   const { node } = path;
 
@@ -168,7 +169,13 @@ function printTypeParameter(path, options, print) {
   }
 
   if (node.default) {
-    parts.push(" = ", print("default"));
+    const groupId = Symbol("default");
+    parts.push(
+      " =",
+      group(indent(line), { id: groupId }),
+      lineSuffixBoundary,
+      indentIfBreak(print("default"), { groupId }),
+    );
   }
 
   return group(parts);

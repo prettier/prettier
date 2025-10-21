@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`include plugin's parsers to the values of the \`parser\` option\`  1`] = `
 {
@@ -57,31 +57,29 @@ Default: bar",
 `;
 
 exports[`show external options with \`--help\` 1`] = `
-"Snapshot Diff:
-- First value
-+ Second value
-
-@@ -27,19 +27,21 @@
-    --experimental-operator-position <start|end>
-                             Where to print operators when binary expressions wrap lines.
-                             Defaults to end.
-    --no-experimental-ternaries
-                             Default behavior of ternaries; keep question marks on the same line as the consequent.
-+   --foo-option <bar|baz>   foo description
-+                            Defaults to bar.
-    --html-whitespace-sensitivity <css|strict|ignore>
-                             How to handle whitespaces in HTML.
-                             Defaults to css.
-    --jsx-single-quote       Use single quotes in JSX.
-                             Defaults to false.
-    --object-wrap <preserve|collapse>
-                             How to wrap object literals.
-                             Defaults to preserve.
--   --parser <flow|babel|babel-flow|babel-ts|typescript|acorn|espree|meriyah|css|less|scss|json|json5|jsonc|json-stringify|graphql|markdown|mdx|vue|yaml|glimmer|html|angular|lwc|mjml>
-+   --parser <flow|babel|babel-flow|babel-ts|typescript|acorn|espree|meriyah|css|less|scss|json|json5|jsonc|json-stringify|graphql|markdown|mdx|vue|yaml|glimmer|html|angular|lwc|mjml|foo-parser>
-                             Which parser to use.
-    --print-width <int>      The line length where Prettier will try wrap.
-                             Defaults to 80.
-    --prose-wrap <always|never|preserve>
-                             How to wrap prose."
+"===================================================================
+--- Without plugin
++++ With plugin
+@@ -28,17 +28,19 @@
+                            Where to print operators when binary expressions wrap lines.
+                            Defaults to end.
+   --no-experimental-ternaries
+                            Default behavior of ternaries; keep question marks on the same line as the consequent.
++  --foo-option <bar|baz>   foo description
++                           Defaults to bar.
+   --html-whitespace-sensitivity <css|strict|ignore>
+                            How to handle whitespaces in HTML.
+                            Defaults to css.
+   --jsx-single-quote       Use single quotes in JSX.
+                            Defaults to false.
+   --object-wrap <preserve|collapse>
+                            How to wrap object literals.
+                            Defaults to preserve.
+-  --parser <flow|babel|babel-flow|babel-ts|typescript|acorn|espree|meriyah|css|less|scss|json|json5|jsonc|json-stringify|graphql|markdown|mdx|vue|yaml|glimmer|html|angular|lwc|mjml>
++  --parser <flow|babel|babel-flow|babel-ts|typescript|acorn|espree|meriyah|css|less|scss|json|json5|jsonc|json-stringify|graphql|markdown|mdx|vue|yaml|glimmer|html|angular|lwc|mjml|foo-parser>
+                            Which parser to use.
+   --print-width <int>      The line length where Prettier will try wrap.
+                            Defaults to 80.
+   --prose-wrap <always|never|preserve>
+"
 `;

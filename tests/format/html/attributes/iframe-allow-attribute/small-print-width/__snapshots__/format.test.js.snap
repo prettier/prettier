@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`allow-attribute.html - {"printWidth":1} format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 1
+ | printWidth
+=====================================input======================================
+<iframe allow="camera 'self'; microphone 'self'"></iframe>
+<iframe allow="camera ; microphone"></iframe>
+<iframe allow=""></iframe>
+<iframe allow=";"></iframe>
+
+=====================================output=====================================
+<iframe
+  allow="
+    camera 'self';
+    microphone 'self';
+  "
+></iframe>
+<iframe
+  allow="
+    camera;
+    microphone;
+  "
+></iframe>
+<iframe
+  allow=""
+></iframe>
+<iframe
+  allow=""
+></iframe>
+
+================================================================================
+`;

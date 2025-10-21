@@ -3,5 +3,5 @@ runFormatTest(
     importMeta: import.meta,
     snippets: ["declare function foo() {}"],
   },
-  ["babel-ts", "typescript"],
+  ["typescript", "babel-ts", "oxc-ts"],
 );

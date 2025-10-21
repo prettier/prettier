@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`comment_before_else.js format 1`] = `
 ====================================options=====================================
@@ -34,6 +34,88 @@ else {
 if (cond) stuff;
 // comment
 else stuff;
+
+================================================================================
+`;
+
+exports[`comment-between-condition-and-body.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+if (1) { // foo may not exist
+  doThing(foo);
+}
+if (1){}else { // foo may not exist
+  doThing(foo);
+}
+
+if (2)
+// foo may not exist
+{
+  doThing(foo);
+}
+if (2){}else
+// foo may not exist
+{
+  doThing(foo);
+}
+
+if (3)// foo may not exist
+{
+  doThing(foo);
+}
+if (3){}else// foo may not exist
+{
+  doThing(foo);
+}
+
+if (4)/* foo may not exist */{
+  doThing(foo);
+}
+if (4){}else/* foo may not exist */{
+  doThing(foo);
+}
+
+=====================================output=====================================
+if (1) {
+  // foo may not exist
+  doThing(foo);
+}
+if (1) {
+} else {
+  // foo may not exist
+  doThing(foo);
+}
+
+if (2) // foo may not exist
+{
+  doThing(foo);
+}
+if (2) {
+} else // foo may not exist
+{
+  doThing(foo);
+}
+
+if (3) // foo may not exist
+{
+  doThing(foo);
+}
+if (3) {
+} else // foo may not exist
+{
+  doThing(foo);
+}
+
+if (4) /* foo may not exist */ {
+  doThing(foo);
+}
+if (4) {
+} else /* foo may not exist */ {
+  doThing(foo);
+}
 
 ================================================================================
 `;
@@ -172,7 +254,7 @@ function a() {
   else return 2;
 
   if (a)
-    if (b /* comment 6f */);
+    if (b); /* comment 6f */
     else return 2;
 }
 
@@ -243,13 +325,13 @@ async function f5() {
 
 =====================================output=====================================
 async function f1() {
-  if (untrackedChoice === 0) {
-    /* Cancel */ return null;
-  } else if (untrackedChoice === 1) {
-    /* Add */ await repository.addAll(Array.from(untrackedChanges.keys()));
+  if (untrackedChoice === 0) /* Cancel */ {
+    return null;
+  } else if (untrackedChoice === 1) /* Add */ {
+    await repository.addAll(Array.from(untrackedChanges.keys()));
     shouldAmend = true;
-  } else if (untrackedChoice === 2) {
-    /* Allow Untracked */ allowUntracked = true;
+  } else if (untrackedChoice === 2) /* Allow Untracked */ {
+    allowUntracked = true;
   }
 }
 
@@ -272,13 +354,13 @@ async function f3() {
 }
 
 async function f4() {
-  if (untrackedChoice === 0) {
-    /* Cancel */ return null;
-  } else if (untrackedChoice === 1) {
-    /* Add */ await repository.addAll(Array.from(untrackedChanges.keys()));
+  if (untrackedChoice === 0) /* Cancel */ {
+    return null;
+  } else if (untrackedChoice === 1) /* Add */ {
+    await repository.addAll(Array.from(untrackedChanges.keys()));
     shouldAmend = true;
-  } else if (untrackedChoice === 2) {
-    /* Allow Untracked */ allowUntracked = true;
+  } else if (untrackedChoice === 2) /* Allow Untracked */ {
+    allowUntracked = true;
   }
 }
 
@@ -386,8 +468,7 @@ if (code === 92 /* '\\' */) {
 if (code === 92 /* '\\' */ /* '\\' */) {
 }
 
-if (code === 92) {
-  /* '\\' */
+if (code === 92) /* '\\' */ {
 }
 if (code === 92) {
   /* '\\' */

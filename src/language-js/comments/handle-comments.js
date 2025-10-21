@@ -98,6 +98,7 @@ function handleEndOfLineComment(context) {
     handleLastUnionElementInExpression,
     handleLastBinaryOperatorOperand,
     handleTSMappedTypeComments,
+    handlePropertySignatureComments,
   ].some((fn) => fn(context));
 }
 
@@ -110,7 +111,6 @@ function handleRemainingComment(context) {
     handleIgnoreComments,
     handleIfStatementComments,
     handleWhileComments,
-    handleObjectPropertyAssignment,
     handleCommentInEmptyParens,
     handleMethodNameComments,
     handleOnlyComments,
@@ -198,6 +198,17 @@ function handleIfStatementComments({
     return true;
   }
 
+  // if comment is positioned between the condition and its body
+  if (
+    followingNode.type === "BlockStatement" &&
+    followingNode === enclosingNode.consequent &&
+    locStart(comment) >= locEnd(precedingNode) &&
+    locEnd(comment) <= locStart(followingNode)
+  ) {
+    addLeadingComment(followingNode, comment);
+    return true;
+  }
+
   // Comments before `else`:
   // - treat as trailing comments of the consequent, if it's a BlockStatement
   // - treat as a dangling comment otherwise
@@ -209,6 +220,17 @@ function handleIfStatementComments({
       text,
       locEnd(enclosingNode.consequent),
     );
+
+    // if comment is positioned between the `else` token and its body
+    if (
+      followingNode.type === "BlockStatement" &&
+      locStart(comment) >= maybeElseTokenIndex &&
+      locEnd(comment) <= locStart(followingNode)
+    ) {
+      addLeadingComment(followingNode, comment);
+      return true;
+    }
+
     // With the above conditions alone, this code would also match. This is a false positive.
     // So, ignore cases where the token "else" appears immediately after the consequent:
     //
@@ -424,23 +446,6 @@ function handleConditionalExpressionComments({
   return false;
 }
 
-function handleObjectPropertyAssignment({
-  comment,
-  precedingNode,
-  enclosingNode,
-}) {
-  if (
-    isObjectProperty(enclosingNode) &&
-    enclosingNode.shorthand &&
-    enclosingNode.key === precedingNode &&
-    enclosingNode.value.type === "AssignmentPattern"
-  ) {
-    addTrailingComment(enclosingNode.value.left, comment);
-    return true;
-  }
-  return false;
-}
-
 const classLikeNodeTypes = new Set([
   "ClassDeclaration",
   "ClassExpression",
@@ -529,7 +534,7 @@ function handleMethodNameComments({
     enclosingNode &&
     precedingNode &&
     getNextNonSpaceNonCommentCharacter(text, locEnd(comment)) === "(" &&
-    // "MethodDefinition" is handled in getCommentChildNodes
+    // "MethodDefinition" is handled in `canAttachComment`
     (enclosingNode.type === "Property" ||
       enclosingNode.type === "TSDeclareMethod" ||
       enclosingNode.type === "TSAbstractMethodDefinition") &&
@@ -836,10 +841,11 @@ function handleOnlyComments({ comment, enclosingNode, ast, isLastComment }) {
   return false;
 }
 
-function handleForComments({ comment, enclosingNode }) {
+function handleForComments({ comment, enclosingNode, followingNode }) {
   if (
-    enclosingNode?.type === "ForInStatement" ||
-    enclosingNode?.type === "ForOfStatement"
+    (enclosingNode?.type === "ForInStatement" ||
+      enclosingNode?.type === "ForOfStatement") &&
+    followingNode !== enclosingNode.body
   ) {
     addLeadingComment(enclosingNode, comment);
     return true;
@@ -1097,6 +1103,22 @@ function handleLastBinaryOperatorOperand({
   return false;
 }
 
+function handlePropertySignatureComments({
+  enclosingNode,
+  followingNode,
+  comment,
+}) {
+  if (
+    enclosingNode &&
+    (enclosingNode.type === "TSPropertySignature" ||
+      enclosingNode.type === "ObjectTypeProperty") &&
+    isIntersectionType(followingNode)
+  ) {
+    addLeadingComment(followingNode, comment);
+    return true;
+  }
+}
+
 /**
  * @param {Node} node
  * @returns {boolean}
@@ -1116,8 +1138,10 @@ const isRealFunctionLikeNode = createTypeCheckFunction([
   "TSDeclareMethod",
 ]);
 
-export {
-  handleEndOfLineComment as endOfLine,
-  handleOwnLineComment as ownLine,
-  handleRemainingComment as remaining,
+const handleComments = {
+  endOfLine: handleEndOfLineComment,
+  ownLine: handleOwnLineComment,
+  remaining: handleRemainingComment,
 };
+
+export default handleComments;

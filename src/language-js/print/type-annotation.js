@@ -82,7 +82,6 @@ function shouldHugType(node) {
 - `OpaqueType`(flow)
 */
 function printOpaqueType(path, options, print) {
-  const semi = options.semi ? ";" : "";
   const { node } = path;
   const parts = [
     printDeclareToken(path),
@@ -114,7 +113,7 @@ function printOpaqueType(path, options, print) {
     parts.push(" = ", print("impltype"));
   }
 
-  parts.push(semi);
+  parts.push(options.semi ? ";" : "");
 
   return parts;
 }
@@ -125,16 +124,19 @@ function printOpaqueType(path, options, print) {
 - `TSTypeAliasDeclaration`(TypeScript)
 */
 function printTypeAlias(path, options, print) {
-  const semi = options.semi ? ";" : "";
   const { node } = path;
-  const parts = [printDeclareToken(path)];
+  const parts = [
+    printDeclareToken(path),
+    "type ",
+    print("id"),
+    print("typeParameters"),
+  ];
 
-  parts.push("type ", print("id"), print("typeParameters"));
   const rightPropertyName =
     node.type === "TSTypeAliasDeclaration" ? "typeAnnotation" : "right";
   return [
     printAssignment(path, options, print, parts, " =", rightPropertyName),
-    semi,
+    options.semi ? ";" : "",
   ];
 }
 
@@ -222,12 +224,12 @@ function printUnionType(path, options, print) {
   // | child1
   // // comment
   // | child2
-  const printed = path.map((typePath) => {
+  const printed = path.map(() => {
     let printedType = print();
     if (!shouldHug) {
       printedType = align(2, printedType);
     }
-    return printComments(typePath, printedType, options);
+    return printComments(path, printedType, options);
   }, "types");
 
   if (shouldHug) {
@@ -315,8 +317,8 @@ function printFunctionType(path, options, print) {
     path,
     options,
     print,
-    /* expandArg */ false,
-    /* printTypeParams */ true,
+    /* shouldExpandArgument */ false,
+    /* shouldPrintTypeParameters */ true,
   );
 
   const returnTypeDoc = [];
@@ -328,13 +330,7 @@ function printFunctionType(path, options, print) {
       print("returnType"),
     );
   } else {
-    returnTypeDoc.push(
-      printTypeAnnotationProperty(
-        path,
-        print,
-        node.returnType ? "returnType" : "typeAnnotation",
-      ),
-    );
+    returnTypeDoc.push(printTypeAnnotationProperty(path, print, "returnType"));
   }
 
   if (shouldGroupFunctionParameters(node, returnTypeDoc)) {
@@ -568,12 +564,7 @@ function printArrayType(print) {
 function printTypeQuery({ node }, print) {
   const argumentPropertyName =
     node.type === "TSTypeQuery" ? "exprName" : "argument";
-  const typeArgsPropertyName =
-    // TODO: Use `typeArguments` only when babel align with TS.
-    node.type === "TypeofTypeAnnotation" || node.typeArguments
-      ? "typeArguments"
-      : "typeParameters";
-  return ["typeof ", print(argumentPropertyName), print(typeArgsPropertyName)];
+  return ["typeof ", print(argumentPropertyName), print("typeArguments")];
 }
 
 /*

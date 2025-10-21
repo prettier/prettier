@@ -546,8 +546,7 @@ function shouldBreakJsxElement(path) {
 
 function printJsxAttribute(path, options, print) {
   const { node } = path;
-  const parts = [];
-  parts.push(print("name"));
+  const parts = [print("name")];
 
   if (node.value) {
     let res;
@@ -617,18 +616,11 @@ function printJsxOpeningElement(path, options, print) {
   const { node } = path;
 
   const nameHasComments =
-    hasComment(node.name) ||
-    hasComment(node.typeParameters) ||
-    hasComment(node.typeArguments);
+    hasComment(node.name) || hasComment(node.typeArguments);
 
   // Don't break self-closing elements with no attributes and no comments
   if (node.selfClosing && node.attributes.length === 0 && !nameHasComments) {
-    return [
-      "<",
-      print("name"),
-      node.typeArguments ? print("typeArguments") : print("typeParameters"),
-      " />",
-    ];
+    return ["<", print("name"), print("typeArguments"), " />"];
   }
 
   // don't break up opening elements with a single long text attribute
@@ -651,7 +643,7 @@ function printJsxOpeningElement(path, options, print) {
     return group([
       "<",
       print("name"),
-      node.typeArguments ? print("typeArguments") : print("typeParameters"),
+      print("typeArguments"),
       " ",
       ...path.map(print, "attributes"),
       node.selfClosing ? " />" : ">",
@@ -673,7 +665,7 @@ function printJsxOpeningElement(path, options, print) {
     [
       "<",
       print("name"),
-      node.typeArguments ? print("typeArguments") : print("typeParameters"),
+      print("typeArguments"),
       indent(path.map(() => [attributeLine, print()], "attributes")),
       ...printEndOfOpeningTag(node, options, nameHasComments),
     ],
@@ -743,7 +735,7 @@ function printJsxClosingElement(path, options, print) {
   return parts;
 }
 
-function printJsxOpeningClosingFragment(path, options /*, print*/) {
+function printJsxOpeningClosingFragment(path, options /* , print*/) {
   const { node } = path;
   const nodeHasComment = hasComment(node);
   const hasOwnLineComment = hasComment(node, CommentCheckFlags.Line);
@@ -772,7 +764,7 @@ function printJsxElement(path, options, print) {
   return maybeWrapJsxElementInParens(path, elem, options);
 }
 
-function printJsxEmptyExpression(path, options /*, print*/) {
+function printJsxEmptyExpression(path, options /* , print*/) {
   const { node } = path;
   const requiresHardline = hasComment(node, CommentCheckFlags.Line);
 
@@ -835,9 +827,9 @@ function printJsx(path, options, print) {
       return printJsxClosingElement(path, options, print);
     case "JSXOpeningFragment":
     case "JSXClosingFragment":
-      return printJsxOpeningClosingFragment(path, options /*, print*/);
+      return printJsxOpeningClosingFragment(path, options /* , print*/);
     case "JSXEmptyExpression":
-      return printJsxEmptyExpression(path, options /*, print*/);
+      return printJsxEmptyExpression(path, options /* , print*/);
     case "JSXText":
       /* c8 ignore next */
       throw new Error("JSXText should be handled by JSXElement");

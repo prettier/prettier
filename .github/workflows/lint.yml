@@ -21,10 +21,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v6.0.0
         with:
           cache: "yarn"
 
@@ -67,10 +67,10 @@ jobs:
       - name: Dependency Review
         # Doesn't support push event https://github.com/actions/dependency-review-action/issues/826
         if: github.event_name == 'pull_request'
-        uses: actions/dependency-review-action@v4
+        uses: actions/dependency-review-action@56339e523c0409420f6c2c9a2f4292bbb3c07dd3 # v4.8.0
 
       - name: Validate renovate config
-        run: npx --package renovate --call renovate-config-validator
+        run: yarn dlx --package renovate@latest renovate-config-validator
 
       - name: Run yarn (/)
         run: |

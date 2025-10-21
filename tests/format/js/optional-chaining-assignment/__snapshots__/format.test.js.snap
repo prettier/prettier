@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`invalid-destructuring-arr.js [__babel_estree] format 1`] = `
 "Invalid optional chaining in the left-hand side of array destructuring pattern. (1:2)

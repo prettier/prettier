@@ -22,75 +22,85 @@ if (nodeVersion === 14) {
   throw new Error("Unexpected `--node-version`.");
 }
 
-// Script to get dependencies
-// console.log(
-//   Object.fromEntries(
-//     Array.from(
-//       fs
-//         .readFileSync("./yarn.lock", "utf8")
-//         .matchAll(/"(.*?)@npm:30\.0\.0-alpha\.3[",]/g),
-//       (match) => match[1],
-//     )
-//       .sort()
-//       .map((dependency) => [dependency, "30.0.0-alpha.2"]),
-//   ),
-// );
+/*
+Script to get dependencies
 
-fs.writeFileSync(
-  packageJsonFile,
-  JSON.stringify(
-    {
-      ...packageJson,
-      resolutions: {
-        ...packageJson.resolutions,
-        "@jest/console": jestVersion,
-        "@jest/core": jestVersion,
-        "@jest/environment": jestVersion,
-        "@jest/expect": jestVersion,
-        "@jest/expect-utils": jestVersion,
-        "@jest/fake-timers": jestVersion,
-        "@jest/globals": jestVersion,
-        "@jest/reporters": jestVersion,
-        "@jest/schemas": jestVersion,
-        "@jest/source-map": jestVersion,
-        "@jest/test-result": jestVersion,
-        "@jest/test-sequencer": jestVersion,
-        "@jest/transform": jestVersion,
-        // "@jest/types": jestVersion,
-        "babel-jest": jestVersion,
-        "babel-plugin-jest-hoist": jestVersion,
-        "babel-preset-jest": jestVersion,
-        "diff-sequences": jestVersion,
-        expect: jestVersion,
-        jest: jestVersion,
-        "jest-changed-files": jestVersion,
-        "jest-circus": jestVersion,
-        "jest-cli": jestVersion,
-        "jest-config": jestVersion,
-        "jest-diff": jestVersion,
-        // "jest-docblock": jestVersion,
-        "jest-each": jestVersion,
-        "jest-environment-node": jestVersion,
-        "jest-get-type": jestVersion,
-        "jest-haste-map": jestVersion,
-        "jest-leak-detector": jestVersion,
-        "jest-matcher-utils": jestVersion,
-        "jest-message-util": jestVersion,
-        "jest-mock": jestVersion,
-        "jest-regex-util": jestVersion,
-        "jest-resolve": jestVersion,
-        "jest-resolve-dependencies": jestVersion,
-        "jest-runner": jestVersion,
-        "jest-runtime": jestVersion,
-        "jest-snapshot": jestVersion,
-        "jest-util": jestVersion,
-        "jest-validate": jestVersion,
-        "jest-watcher": jestVersion,
-        "jest-worker": jestVersion,
-        "pretty-format": jestVersion,
-      },
-    },
-    undefined,
-    2,
-  ),
+```js
+console.log(
+  Array.from(
+    fs
+      .readFileSync("./yarn.lock", "utf8")
+      .matchAll(/"(.*?)@npm:30\.0\.0-alpha\.3[",]/g),
+    (match) => match[1],
+  ).sort(),
 );
+```
+*/
+
+const jestDependencies = [
+  "@jest/console",
+  "@jest/core",
+  "@jest/environment",
+  "@jest/expect",
+  "@jest/expect-utils",
+  "@jest/fake-timers",
+  "@jest/globals",
+  "@jest/reporters",
+  "@jest/schemas",
+  "@jest/source-map",
+  "@jest/test-result",
+  "@jest/test-sequencer",
+  "@jest/transform",
+  // "@jest/types",
+  "babel-jest",
+  "babel-plugin-jest-hoist",
+  "babel-preset-jest",
+  "diff-sequences",
+  "expect",
+  "jest",
+  "jest-changed-files",
+  "jest-circus",
+  "jest-cli",
+  "jest-config",
+  "jest-diff",
+  // "jest-docblock",
+  "jest-each",
+  "jest-environment-node",
+  "jest-get-type",
+  "jest-haste-map",
+  "jest-leak-detector",
+  "jest-matcher-utils",
+  "jest-message-util",
+  "jest-mock",
+  "jest-regex-util",
+  "jest-resolve",
+  "jest-resolve-dependencies",
+  "jest-runner",
+  "jest-runtime",
+  "jest-snapshot",
+  "jest-util",
+  "jest-validate",
+  "jest-watcher",
+  "jest-worker",
+  "pretty-format",
+];
+
+let content = JSON.stringify(
+  {
+    ...packageJson,
+    resolutions: {
+      ...packageJson.resolutions,
+      ...Object.fromEntries(
+        jestDependencies.map((name) => [name, jestVersion]),
+      ),
+    },
+  },
+  undefined,
+  2,
+);
+
+if (process.platform === "win32") {
+  content = content.replace("$PWD/", new URL("../", import.meta.url).href);
+}
+
+fs.writeFileSync(packageJsonFile, content);

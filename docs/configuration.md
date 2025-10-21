@@ -225,6 +225,12 @@ If you’d like a JSON schema to validate your configuration, one is available h
 
 If a [`.editorconfig` file](https://editorconfig.org/) is in your project, Prettier will parse it and convert its properties to the corresponding Prettier configuration. This configuration will be overridden by `.prettierrc`, etc.
 
+:::note
+
+Unlike the EditorConfig spec, the search for `.editorconfig` file will stop on the project root and won't proceed further.
+
+:::
+
 Here’s an annotated description of how different properties map to Prettier’s behavior:
 
 ```ini

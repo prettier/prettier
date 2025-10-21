@@ -1,7 +1,6 @@
 import Link from "@docusaurus/Link";
-import Layout from "@theme/Layout";
-
 import Heading from "@theme/Heading";
+import Layout from "@theme/Layout";
 
 /**
  *

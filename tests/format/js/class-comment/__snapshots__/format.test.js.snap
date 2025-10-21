@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`class-property.js format 1`] = `
 ====================================options=====================================
@@ -98,7 +98,7 @@ extends Base
 
 =====================================output=====================================
 class A // comment 1
-  // comment 2
+// comment 2
   extends B {}
 
 class A1 extends B {
@@ -112,7 +112,7 @@ class A3 extends B /* a */ {}
 class A4 extends /* a */ B {}
 
 (class A5 // comment 1
-  // comment 2
+// comment 2
   extends B {});
 
 (class A6 extends B {
