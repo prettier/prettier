@@ -104,15 +104,10 @@ function printClass(path, options, print) {
 
   let heritageGroupId;
   if (groupMode) {
-    let printedPartsGroup;
-    if (shouldIndentOnlyHeritageClauses(node)) {
-      printedPartsGroup = [...partsGroup, indent(extendsParts)];
-    } else {
-      printedPartsGroup = indent([...partsGroup, extendsParts]);
-    }
-
     heritageGroupId = getHeritageGroupId(node);
-    parts.push(group(printedPartsGroup, { id: heritageGroupId }));
+    parts.push(
+      group([...partsGroup, indent(extendsParts)], { id: heritageGroupId }),
+    );
   } else {
     parts.push(...partsGroup, ...extendsParts);
   }
