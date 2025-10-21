@@ -326,28 +326,25 @@ function printClassBody(path, options, print) {
 
   const separator = node.type === "TSTypeLiteral" ? line : hardline;
 
-  path.each(
-    ({ node, next, isLast }) => {
-      parts.push(print());
+  iterateClassMembers(path, ({ node, next, isLast }) => {
+    parts.push(print());
 
-      if (
-        !options.semi &&
-        isClassProperty(node) &&
-        shouldPrintSemicolonAfterClassProperty(node, next)
-      ) {
-        parts.push(";");
+    if (
+      !options.semi &&
+      isClassProperty(node) &&
+      shouldPrintSemicolonAfterClassProperty(node, next)
+    ) {
+      parts.push(";");
+    }
+
+    if (!isLast) {
+      parts.push(separator);
+
+      if (isNextLineEmpty(node, options)) {
+        parts.push(hardline);
       }
-
-      if (!isLast) {
-        parts.push(separator);
-
-        if (isNextLineEmpty(node, options)) {
-          parts.push(hardline);
-        }
-      }
-    },
-    node.type === "TSTypeLiteral" ? "members" : "body",
-  );
+    }
+  });
 
   if (hasComment(node, CommentCheckFlags.Dangling)) {
     parts.push(printDanglingComments(path, options));
@@ -494,6 +491,51 @@ function printClassMemberSemicolon(path, options) {
   }
 
   return "";
+}
+
+function iterateClassMembers(path, iteratee) {
+  const { node } = path;
+  if (node.type === "ClassBody" || node.type === "TSInterfaceBody") {
+    path.each(iteratee, "body");
+    return;
+  }
+
+  if (node.type === "TSTypeLiteral") {
+    path.each(iteratee, "members");
+    return;
+  }
+
+  if (node.type === "ObjectTypeAnnotation") {
+    const children = [
+      "properties",
+      "indexers",
+      "callProperties",
+      "internalSlots",
+    ]
+      .flatMap((field) =>
+        path.map(
+          ({ node, index }) => ({
+            node,
+            loc: locStart(node),
+            selector: [field, index],
+          }),
+          field,
+        ),
+      )
+      .sort((a, b) => a.loc - b.loc);
+
+    for (const [index, { node, selector }] of children.entries()) {
+      path.call(
+        () =>
+          iteratee({
+            node,
+            next: children[index + 1]?.node,
+            isLast: index === children.length - 1,
+          }),
+        ...selector,
+      );
+    }
+  }
 }
 
 export {
