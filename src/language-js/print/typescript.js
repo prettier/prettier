@@ -278,34 +278,13 @@ function printTypescript(path, options, print) {
       ];
     case "TSExternalModuleReference":
       return printCallExpression(path, options, print);
-    case "TSModuleDeclaration": {
-      const parts = [];
-      const { parent } = path;
-      const parentIsDeclaration = parent.type === "TSModuleDeclaration";
-      const bodyIsDeclaration = node.body?.type === "TSModuleDeclaration";
-
-      if (parentIsDeclaration) {
-        parts.push(".");
-      } else {
-        parts.push(printDeclareToken(path));
-
-        if (node.kind !== "global") {
-          parts.push(node.kind, " ");
-        }
-      }
-
-      parts.push(print("id"));
-
-      if (bodyIsDeclaration) {
-        parts.push(print("body"));
-      } else if (node.body) {
-        parts.push(" ", group(print("body")));
-      } else {
-        parts.push(options.semi ? ";" : "");
-      }
-
-      return parts;
-    }
+    case "TSModuleDeclaration":
+      return [
+        printDeclareToken(path),
+        node.kind !== "global" ? `${node.kind} ` : "",
+        print("id"),
+        node.body ? [" ", group(print("body"))] : options.semi ? ";" : "",
+      ];
 
     case "TSConditionalType":
       return printTernary(path, options, print);
