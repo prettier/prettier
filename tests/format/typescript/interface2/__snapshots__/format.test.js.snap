@@ -43,29 +43,25 @@ interface A1 {
 }
 
 interface A2 // comment
-  extends Base
-{
+  extends Base {
   foo(): bar;
 }
 
 interface A3 // comment1
-  extends Base
-{
+  extends Base {
   // comment2
   foo(): bar;
 }
 
 interface A4 // comment1
-  extends Base
-{
+  extends Base {
   // comment2
   // comment3
   foo(): bar;
 }
 
 interface A5 // comment1
-  extends Base
-{
+  extends Base {
   // comment2
   // comment3
   // comment4
@@ -73,8 +69,7 @@ interface A5 // comment1
 }
 
 interface A6 // comment1
-  extends Base
-{
+  extends Base {
   // comment2
   // comment3
   // comment4
@@ -97,8 +92,7 @@ declare interface a // 1
 
 =====================================output=====================================
 declare interface a // 1
-  extends b
-{
+  extends b {
   // 2
   foo: boolean;
 }

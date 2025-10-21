@@ -22,7 +22,6 @@ import {
   isObjectType,
   shouldPrintComma,
 } from "../utils/index.js";
-import { printHardlineAfterHeritage } from "./class.js";
 import { shouldHugTheOnlyFunctionParameter } from "./function-parameters.js";
 import { printOptionalToken } from "./misc.js";
 import { printTypeAnnotationProperty } from "./type-annotation.js";
@@ -217,9 +216,6 @@ function printObject(path, options, print) {
   } else {
     const spacing = options.bracketSpacing ? line : softline;
     content = [
-      isFlowInterfaceLikeBody && isNonEmptyArray(node.properties)
-        ? printHardlineAfterHeritage(parent)
-        : "",
       leftBrace,
       indent([spacing, ...props]),
       ifBreak(

@@ -413,10 +413,4 @@ function shouldPrintSemicolonAfterClassProperty(node, nextNode) {
   return false;
 }
 
-export {
-  printClass,
-  printClassBody,
-  printClassMethod,
-  printClassProperty,
-  printHardlineAfterHeritage,
-};
+export { printClass, printClassBody, printClassMethod, printClassProperty };

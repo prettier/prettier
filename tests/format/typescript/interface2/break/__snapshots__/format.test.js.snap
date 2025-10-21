@@ -76,8 +76,7 @@ export interface ExtendsLongOneWithGenerics extends Bar< SomeLongTypeSomeLongTyp
 
 =====================================output=====================================
 export interface Environment1
-  extends GenericEnvironment<SomeType, AnotherType, YetAnotherType>
-{
+  extends GenericEnvironment<SomeType, AnotherType, YetAnotherType> {
   m(): void;
 }
 export class Environment2 extends GenericEnvironment<
@@ -98,8 +97,7 @@ declare interface ExtendsOne extends ASingleInterface {
 }
 
 declare interface ExtendsLarge
-  extends ASingleInterfaceWithAReallyReallyReallyReallyLongName
-{
+  extends ASingleInterfaceWithAReallyReallyReallyReallyLongName {
   x: string;
 }
 
@@ -111,8 +109,7 @@ declare interface ExtendsMany
     Interface4,
     Interface5,
     Interface6,
-    Interface7
-{
+    Interface7 {
   x: string;
 }
 
@@ -122,8 +119,7 @@ interface ExtendsOne extends ASingleInterface {
 }
 
 interface ExtendsLarge
-  extends ASingleInterfaceWithAReallyReallyReallyReallyLongName
-{
+  extends ASingleInterfaceWithAReallyReallyReallyReallyLongName {
   x: string;
 }
 
@@ -135,8 +131,7 @@ interface ExtendsMany
     Interface4,
     Interface5,
     Interface6,
-    Interface7
-{
+    Interface7 {
   s: string;
 }
 
@@ -146,8 +141,7 @@ interface ExtendsOne extends ASingleInterface<string> {
 }
 
 interface ExtendsLarge
-  extends ASingleInterfaceWithAReallyReallyReallyReallyLongName<string>
-{
+  extends ASingleInterfaceWithAReallyReallyReallyReallyLongName<string> {
   x: string;
 }
 
@@ -161,8 +155,7 @@ interface ExtendsMany
       Interface5,
       Interface6,
       Interface7
-    >
-{
+    > {
   x: string;
 }
 
@@ -179,8 +172,7 @@ interface ExtendsManyWithGenerics
       Interface6,
       Interface7
     >,
-    InterfaceThree
-{
+    InterfaceThree {
   x: string;
 }
 
@@ -270,8 +262,7 @@ export interface ExtendsLongOneWithGenerics extends Bar< SomeLongTypeSomeLongTyp
 
 =====================================output=====================================
 export interface Environment1
-  extends GenericEnvironment<SomeType, AnotherType, YetAnotherType>
-{
+  extends GenericEnvironment<SomeType, AnotherType, YetAnotherType> {
   m(): void;
 }
 export class Environment2 extends GenericEnvironment<
@@ -292,8 +283,7 @@ declare interface ExtendsOne extends ASingleInterface {
 }
 
 declare interface ExtendsLarge
-  extends ASingleInterfaceWithAReallyReallyReallyReallyLongName
-{
+  extends ASingleInterfaceWithAReallyReallyReallyReallyLongName {
   x: string;
 }
 
@@ -305,8 +295,7 @@ declare interface ExtendsMany
     Interface4,
     Interface5,
     Interface6,
-    Interface7
-{
+    Interface7 {
   x: string;
 }
 
@@ -316,8 +305,7 @@ interface ExtendsOne extends ASingleInterface {
 }
 
 interface ExtendsLarge
-  extends ASingleInterfaceWithAReallyReallyReallyReallyLongName
-{
+  extends ASingleInterfaceWithAReallyReallyReallyReallyLongName {
   x: string;
 }
 
@@ -329,8 +317,7 @@ interface ExtendsMany
     Interface4,
     Interface5,
     Interface6,
-    Interface7
-{
+    Interface7 {
   s: string;
 }
 
@@ -340,8 +327,7 @@ interface ExtendsOne extends ASingleInterface<string> {
 }
 
 interface ExtendsLarge
-  extends ASingleInterfaceWithAReallyReallyReallyReallyLongName<string>
-{
+  extends ASingleInterfaceWithAReallyReallyReallyReallyLongName<string> {
   x: string;
 }
 
@@ -355,8 +341,7 @@ interface ExtendsMany
       Interface5,
       Interface6,
       Interface7
-    >
-{
+    > {
   x: string;
 }
 
@@ -373,8 +358,7 @@ interface ExtendsManyWithGenerics
       Interface6,
       Interface7
     >,
-    InterfaceThree
-{
+    InterfaceThree {
   x: string;
 }
 
@@ -464,8 +448,7 @@ export interface ExtendsLongOneWithGenerics extends Bar< SomeLongTypeSomeLongTyp
 
 =====================================output=====================================
 export interface Environment1
-  extends GenericEnvironment<SomeType, AnotherType, YetAnotherType>
-{
+  extends GenericEnvironment<SomeType, AnotherType, YetAnotherType> {
   m(): void;
 }
 export class Environment2 extends GenericEnvironment<
@@ -486,8 +469,7 @@ declare interface ExtendsOne extends ASingleInterface {
 }
 
 declare interface ExtendsLarge
-  extends ASingleInterfaceWithAReallyReallyReallyReallyLongName
-{
+  extends ASingleInterfaceWithAReallyReallyReallyReallyLongName {
   x: string;
 }
 
@@ -499,8 +481,7 @@ declare interface ExtendsMany
     Interface4,
     Interface5,
     Interface6,
-    Interface7
-{
+    Interface7 {
   x: string;
 }
 
@@ -510,8 +491,7 @@ interface ExtendsOne extends ASingleInterface {
 }
 
 interface ExtendsLarge
-  extends ASingleInterfaceWithAReallyReallyReallyReallyLongName
-{
+  extends ASingleInterfaceWithAReallyReallyReallyReallyLongName {
   x: string;
 }
 
@@ -523,8 +503,7 @@ interface ExtendsMany
     Interface4,
     Interface5,
     Interface6,
-    Interface7
-{
+    Interface7 {
   s: string;
 }
 
@@ -534,8 +513,7 @@ interface ExtendsOne extends ASingleInterface<string> {
 }
 
 interface ExtendsLarge
-  extends ASingleInterfaceWithAReallyReallyReallyReallyLongName<string>
-{
+  extends ASingleInterfaceWithAReallyReallyReallyReallyLongName<string> {
   x: string;
 }
 
@@ -549,8 +527,7 @@ interface ExtendsMany
       Interface5,
       Interface6,
       Interface7
-    >
-{
+    > {
   x: string;
 }
 
@@ -567,8 +544,7 @@ interface ExtendsManyWithGenerics
       Interface6,
       Interface7
     >,
-    InterfaceThree
-{
+    InterfaceThree {
   x: string;
 }
 
