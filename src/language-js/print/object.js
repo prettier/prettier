@@ -45,7 +45,6 @@ const isPrintingImportAttributes = createTypeCheckFunction([
 - `ExportDefaultDeclaration`
 - `ExportNamedDeclaration`
 - `ExportAllDeclaration`
-- `ObjectTypeAnnotation` (Flow)
 - `EnumBooleanBody` (Flow)
 - `EnumNumberBody` (Flow)
 - `EnumBigIntBody` (Flow)
@@ -58,7 +57,6 @@ const isPrintingImportAttributes = createTypeCheckFunction([
 function printObject(path, options, print) {
   const { node } = path;
 
-  const isFlowTypeAnnotation = node.type === "ObjectTypeAnnotation";
   const isEnumBody =
     node.type === "TSEnumBody" ||
     node.type === "EnumBooleanBody" ||
@@ -75,10 +73,6 @@ function printObject(path, options, print) {
     fields.push("attributes");
   } else {
     fields.push("properties");
-
-    if (isFlowTypeAnnotation) {
-      fields.push("indexers", "callProperties", "internalSlots");
-    }
   }
 
   // Unfortunately, things grouped together in the ast can be
@@ -99,16 +93,9 @@ function printObject(path, options, print) {
     propsAndLoc.sort((a, b) => a.loc - b.loc);
   }
 
-  const { parent, key } = path;
-  const isFlowInterfaceLikeBody =
-    isFlowTypeAnnotation &&
-    key === "body" &&
-    (parent.type === "InterfaceDeclaration" ||
-      parent.type === "DeclareInterface" ||
-      parent.type === "DeclareClass");
+  const { parent } = path;
   const shouldBreak =
     isEnumBody ||
-    isFlowInterfaceLikeBody ||
     (node.type === "ObjectPattern" &&
       parent.type !== "FunctionDeclaration" &&
       parent.type !== "FunctionExpression" &&
@@ -129,7 +116,7 @@ function printObject(path, options, print) {
       propsAndLoc.length > 0 &&
       hasNewLineAfterLeftBrace(node, propsAndLoc[0], options));
 
-  const separator = isFlowInterfaceLikeBody ? ";" : ",";
+  const separator = ",";
   const leftBrace = node.exact ? "{|" : "{";
   const rightBrace = node.exact ? "|}" : "}";
 

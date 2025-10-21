@@ -12,15 +12,19 @@ import {
   printDanglingComments,
 } from "../../main/comments/print.js";
 import createGroupIdMapper from "../../utils/create-group-id-mapper.js";
+import hasNewline from "../../utils/has-newline.js";
 import hasNewlineInRange from "../../utils/has-newline-in-range.js";
 import isNonEmptyArray from "../../utils/is-non-empty-array.js";
-import { locStart } from "../loc.js";
+import { locEnd, locStart } from "../loc.js";
 import {
   CommentCheckFlags,
   createTypeCheckFunction,
+  getComments,
   hasComment,
   isNextLineEmpty,
+  shouldPrintComma,
 } from "../utils/index.js";
+import isIgnored from "../utils/is-ignored.js";
 import { printAssignment } from "./assignment.js";
 import { printClassMemberDecorators } from "./decorators.js";
 import { printMethod } from "./function.js";
@@ -306,28 +310,31 @@ function printClassProperty(path, options, print) {
   ];
 }
 
-const shouldBreakTSTypeLiteral = ({ node }, options) =>
-  options.objectWrap === "preserve" &&
-  node.members.length > 0 &&
-  hasNewlineInRange(
-    options.originalText,
-    locStart(node),
-    locStart(node.members[0]),
-  );
-
 /*
 - `ClassBody`
 - `TSInterfaceBody` (TypeScript)
 - `TSTypeLiteral` (TypeScript)
+- `ObjectTypeAnnotation` (Flow)
 */
 function printClassBody(path, options, print) {
   const { node } = path;
   const parts = [];
 
-  const separator = node.type === "TSTypeLiteral" ? line : hardline;
+  const isObject = !isClassBody(path);
+  const separator = isObject ? line : hardline;
+
+  const [openingBrace, closingBrace] =
+    node.type === "ObjectTypeAnnotation" && node.exact ? ["{|", "|}"] : "{}";
+  const isFlow = node.type === "ObjectTypeAnnotation";
+  let firstProperty;
 
   iterateClassMembers(path, ({ node, next, isLast }) => {
+    firstProperty ??= node;
     parts.push(print());
+
+    if (isFlow && isIgnored(path)) {
+      parts.push(",");
+    }
 
     if (
       !options.semi &&
@@ -350,16 +357,47 @@ function printClassBody(path, options, print) {
     parts.push(printDanglingComments(path, options));
   }
 
-  if (node.type === "TSTypeLiteral") {
-    const shouldBreak = shouldBreakTSTypeLiteral(path, options);
-    const leftBrace = "{";
-    const rightBrace = "}";
+  if (
+    node.type === "ObjectTypeAnnotation" &&
+    (node.inexact || node.hasUnknownMembers)
+  ) {
+    let printed;
+    if (hasComment(node, CommentCheckFlags.Dangling)) {
+      const hasLineComments = hasComment(node, CommentCheckFlags.Line);
+      printed = [
+        hasLineComments ||
+        hasNewline(options.originalText, locEnd(getComments(node).at(-1)))
+          ? hardline
+          : line,
+        "...",
+      ];
+    } else {
+      printed = [firstProperty ? line : "", "..."];
+    }
+    parts.push(printed);
+  }
+
+  if (isObject) {
+    const shouldBreak =
+      options.objectWrap === "preserve" &&
+      firstProperty &&
+      hasNewlineInRange(
+        options.originalText,
+        locStart(node),
+        locStart(firstProperty),
+      );
+
     let content;
     if (parts.length === 0) {
-      content = "{}";
+      content = openingBrace + closingBrace;
     } else {
       const spacing = options.bracketSpacing ? line : softline;
-      content = [leftBrace, indent([spacing, ...parts]), spacing, rightBrace];
+      content = [
+        openingBrace,
+        indent([spacing, ...parts]),
+        spacing,
+        closingBrace,
+      ];
     }
 
     // If we inline the object as first argument of the parent, we don't want
@@ -386,9 +424,9 @@ function printClassBody(path, options, print) {
   }
 
   return [
-    "{",
+    openingBrace,
     parts.length > 0 ? [indent([hardline, parts]), hardline] : "",
-    "}",
+    closingBrace,
   ];
 }
 
@@ -470,27 +508,61 @@ function shouldPrintSemicolonAfterClassProperty(node, nextNode) {
   return false;
 }
 
-function printClassMemberSemicolon(path, options) {
-  const { parent, key, node } = path;
-  if (
-    options.semi &&
-    key === "body" &&
-    (parent.type === "ClassBody" || parent.type === "TSInterfaceBody")
-  ) {
-    return ";";
-  }
+function getObjectTypeAnnotationMembers(path) {
+  const members = [];
+  iterateClassMembers(path, ({ node }) => {
+    members.push(node);
+  });
+  return members;
+}
 
-  if (key === "members" && parent.type === "TSTypeLiteral") {
-    return node === parent.members.at(-1)
-      ? options.semi
-        ? ifBreak(";")
-        : ""
-      : options.semi
-        ? ";"
-        : ifBreak("", ";");
+function printClassMemberSemicolon(path, options) {
+  const { parent, node } = path;
+  const members = path.callParent(getObjectTypeAnnotationMembers);
+
+  if (members.includes(node)) {
+    if (path.callParent(isClassBody)) {
+      return options.semi ? ";" : "";
+    }
+
+    if (parent.type === "ObjectTypeAnnotation") {
+      return parent.inexact ||
+        parent.hasUnknownMembers ||
+        node !== members.at(-1)
+        ? ","
+        : shouldPrintComma(options)
+          ? ifBreak(",")
+          : "";
+    }
+
+    if (parent.type === "TSTypeLiteral") {
+      return node === members.at(-1)
+        ? options.semi
+          ? ifBreak(";")
+          : ""
+        : options.semi
+          ? ";"
+          : ifBreak("", ";");
+    }
   }
 
   return "";
+}
+
+function isClassBody(path) {
+  const { node } = path;
+
+  if (node.type === "ObjectTypeAnnotation") {
+    const { key, parent } = path;
+    return (
+      key === "body" &&
+      (parent.type === "InterfaceDeclaration" ||
+        parent.type === "DeclareInterface" ||
+        parent.type === "DeclareClass")
+    );
+  }
+
+  return node.type === "ClassBody" || node.type === "TSInterfaceBody";
 }
 
 function iterateClassMembers(path, iteratee) {
