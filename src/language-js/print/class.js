@@ -154,9 +154,11 @@ function printClass(path, options, print) {
 }
 
 function isNonEmptyClassBody(node) {
-  return isNonEmptyArray(
-    node.type === "ObjectTypeAnnotation" ? node.properties : node.body,
-  );
+  return node.type === "ObjectTypeAnnotation"
+    ? ["properties", "indexers", "callProperties", "internalSlots"].some(
+        (property) => isNonEmptyArray(node[property]),
+      )
+    : isNonEmptyArray(node.body);
 }
 
 function hasMultipleHeritage(node) {
