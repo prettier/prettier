@@ -281,7 +281,7 @@ function printTypescript(path, options, print) {
     case "TSModuleDeclaration":
       return [
         printDeclareToken(path),
-        node.kind !== "global" ? `${node.kind} ` : "",
+        node.kind === "global" ? "" : `${node.kind} `,
         print("id"),
         node.body ? [" ", group(print("body"))] : options.semi ? ";" : "",
       ];
