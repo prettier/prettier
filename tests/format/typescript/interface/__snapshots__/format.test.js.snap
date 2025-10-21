@@ -81,35 +81,35 @@ interface Foo<
 
 =====================================output=====================================
 interface ReallyReallyLongName<
-    TypeArgumentNumberOne,
-    TypeArgumentNumberTwo,
-    TypeArgumentNumberThree,
-  > // 1
+  TypeArgumentNumberOne,
+  TypeArgumentNumberTwo,
+  TypeArgumentNumberThree,
+> // 1
   extends BaseInterface {}
 
 interface ReallyReallyLongName2<
-    TypeArgumentNumberOne,
-    TypeArgumentNumberTwo,
-    TypeArgumentNumberThree,
-  > // 1
-  // 2
+  TypeArgumentNumberOne,
+  TypeArgumentNumberTwo,
+  TypeArgumentNumberThree,
+> // 1
+// 2
   extends BaseInterface {}
 
 interface ReallyReallyLongName3<
-    TypeArgumentNumberOne,
-    TypeArgumentNumberTwo,
-    TypeArgumentNumberThree,
-  > // 1
-  // 2
+  TypeArgumentNumberOne,
+  TypeArgumentNumberTwo,
+  TypeArgumentNumberThree,
+> // 1
+// 2
   extends BaseInterface {
   // 3
 }
 
 interface Foo<
-    FOOOOOOOOOOOOOOOOOOOOOOOOOO,
-    FOOOOOOOOOOOOOOOOOOOOOOOOOO,
-    FOOOOOOOOOOOOOOOOOOOOOOOOOO,
-  > // comments
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+> // comments
   extends Foo {}
 
 ================================================================================
@@ -154,35 +154,35 @@ interface Foo<
 
 =====================================output=====================================
 interface ReallyReallyLongName<
-    TypeArgumentNumberOne,
-    TypeArgumentNumberTwo,
-    TypeArgumentNumberThree,
-  > // 1
+  TypeArgumentNumberOne,
+  TypeArgumentNumberTwo,
+  TypeArgumentNumberThree,
+> // 1
   extends BaseInterface {}
 
 interface ReallyReallyLongName2<
-    TypeArgumentNumberOne,
-    TypeArgumentNumberTwo,
-    TypeArgumentNumberThree,
-  > // 1
-  // 2
+  TypeArgumentNumberOne,
+  TypeArgumentNumberTwo,
+  TypeArgumentNumberThree,
+> // 1
+// 2
   extends BaseInterface {}
 
 interface ReallyReallyLongName3<
-    TypeArgumentNumberOne,
-    TypeArgumentNumberTwo,
-    TypeArgumentNumberThree,
-  > // 1
-  // 2
+  TypeArgumentNumberOne,
+  TypeArgumentNumberTwo,
+  TypeArgumentNumberThree,
+> // 1
+// 2
   extends BaseInterface {
   // 3
 }
 
 interface Foo<
-    FOOOOOOOOOOOOOOOOOOOOOOOOOO,
-    FOOOOOOOOOOOOOOOOOOOOOOOOOO,
-    FOOOOOOOOOOOOOOOOOOOOOOOOOO,
-  > // comments
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+> // comments
   extends Foo {}
 
 ================================================================================
@@ -732,19 +732,20 @@ export interface ThirdVeryLongAndBoringInterfaceName
 }
 
 export interface ThirdVeryLongAndBoringInterfaceName
-  extends ALongAndBoringInterfaceName,
-    AnotherLongAndBoringInterfaceName {
+  extends ALongAndBoringInterfaceName, AnotherLongAndBoringInterfaceName {
   c: string
 }
 
 export interface ThirdVeryLongAndBoringInterfaceName
-  extends AVeryLongAndBoringInterfaceName,
+  extends
+    AVeryLongAndBoringInterfaceName,
     AnotherVeryLongAndBoringInterfaceName {
   c: string
 }
 
 export interface ThirdVeryLongAndBoringInterfaceName
-  extends A_AVeryLongAndBoringInterfaceName,
+  extends
+    A_AVeryLongAndBoringInterfaceName,
     B_AVeryLongAndBoringInterfaceName,
     C_AVeryLongAndBoringInterfaceName {
   c: string
@@ -790,19 +791,20 @@ export interface ThirdVeryLongAndBoringInterfaceName
 }
 
 export interface ThirdVeryLongAndBoringInterfaceName
-  extends ALongAndBoringInterfaceName,
-    AnotherLongAndBoringInterfaceName {
+  extends ALongAndBoringInterfaceName, AnotherLongAndBoringInterfaceName {
   c: string;
 }
 
 export interface ThirdVeryLongAndBoringInterfaceName
-  extends AVeryLongAndBoringInterfaceName,
+  extends
+    AVeryLongAndBoringInterfaceName,
     AnotherVeryLongAndBoringInterfaceName {
   c: string;
 }
 
 export interface ThirdVeryLongAndBoringInterfaceName
-  extends A_AVeryLongAndBoringInterfaceName,
+  extends
+    A_AVeryLongAndBoringInterfaceName,
     B_AVeryLongAndBoringInterfaceName,
     C_AVeryLongAndBoringInterfaceName {
   c: string;

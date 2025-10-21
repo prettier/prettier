@@ -102,7 +102,8 @@ declare interface ExtendsLarge
 }
 
 declare interface ExtendsMany
-  extends Interface1,
+  extends
+    Interface1,
     Interface2,
     Interface3,
     Interface4,
@@ -123,7 +124,8 @@ interface ExtendsLarge
 }
 
 interface ExtendsMany
-  extends Interface1,
+  extends
+    Interface1,
     Interface2,
     Interface3,
     Interface4,
@@ -144,20 +146,22 @@ interface ExtendsLarge
 }
 
 interface ExtendsMany
-  extends ASingleGenericInterface<
-    Interface1,
-    Interface2,
-    Interface3,
-    Interface4,
-    Interface5,
-    Interface6,
-    Interface7,
-  > {
+  extends
+    ASingleGenericInterface<
+      Interface1,
+      Interface2,
+      Interface3,
+      Interface4,
+      Interface5,
+      Interface6,
+      Interface7,
+    > {
   x: string;
 }
 
 interface ExtendsManyWithGenerics
-  extends InterfaceOne,
+  extends
+    InterfaceOne,
     InterfaceTwo,
     ASingleGenericInterface<
       Interface1,
@@ -173,10 +177,11 @@ interface ExtendsManyWithGenerics
 }
 
 export interface ExtendsLongOneWithGenerics
-  extends Bar<
-    SomeLongTypeSomeLongTypeSomeLongTypeSomeLongType,
-    ToBreakLineToBreakLineToBreakLine,
-  > {}
+  extends
+    Bar<
+      SomeLongTypeSomeLongTypeSomeLongTypeSomeLongType,
+      ToBreakLineToBreakLineToBreakLine,
+    > {}
 
 ================================================================================
 `;
@@ -283,7 +288,8 @@ declare interface ExtendsLarge
 }
 
 declare interface ExtendsMany
-  extends Interface1,
+  extends
+    Interface1,
     Interface2,
     Interface3,
     Interface4,
@@ -304,7 +310,8 @@ interface ExtendsLarge
 }
 
 interface ExtendsMany
-  extends Interface1,
+  extends
+    Interface1,
     Interface2,
     Interface3,
     Interface4,
@@ -325,20 +332,22 @@ interface ExtendsLarge
 }
 
 interface ExtendsMany
-  extends ASingleGenericInterface<
-    Interface1,
-    Interface2,
-    Interface3,
-    Interface4,
-    Interface5,
-    Interface6,
-    Interface7,
-  > {
+  extends
+    ASingleGenericInterface<
+      Interface1,
+      Interface2,
+      Interface3,
+      Interface4,
+      Interface5,
+      Interface6,
+      Interface7,
+    > {
   x: string;
 }
 
 interface ExtendsManyWithGenerics
-  extends InterfaceOne,
+  extends
+    InterfaceOne,
     InterfaceTwo,
     ASingleGenericInterface<
       Interface1,
@@ -354,10 +363,11 @@ interface ExtendsManyWithGenerics
 }
 
 export interface ExtendsLongOneWithGenerics
-  extends Bar<
-    SomeLongTypeSomeLongTypeSomeLongTypeSomeLongType,
-    ToBreakLineToBreakLineToBreakLine,
-  > {}
+  extends
+    Bar<
+      SomeLongTypeSomeLongTypeSomeLongTypeSomeLongType,
+      ToBreakLineToBreakLineToBreakLine,
+    > {}
 
 ================================================================================
 `;
@@ -464,7 +474,8 @@ declare interface ExtendsLarge
 }
 
 declare interface ExtendsMany
-  extends Interface1,
+  extends
+    Interface1,
     Interface2,
     Interface3,
     Interface4,
@@ -485,7 +496,8 @@ interface ExtendsLarge
 }
 
 interface ExtendsMany
-  extends Interface1,
+  extends
+    Interface1,
     Interface2,
     Interface3,
     Interface4,
@@ -506,20 +518,22 @@ interface ExtendsLarge
 }
 
 interface ExtendsMany
-  extends ASingleGenericInterface<
-    Interface1,
-    Interface2,
-    Interface3,
-    Interface4,
-    Interface5,
-    Interface6,
-    Interface7
-  > {
+  extends
+    ASingleGenericInterface<
+      Interface1,
+      Interface2,
+      Interface3,
+      Interface4,
+      Interface5,
+      Interface6,
+      Interface7
+    > {
   x: string;
 }
 
 interface ExtendsManyWithGenerics
-  extends InterfaceOne,
+  extends
+    InterfaceOne,
     InterfaceTwo,
     ASingleGenericInterface<
       Interface1,
@@ -535,10 +549,11 @@ interface ExtendsManyWithGenerics
 }
 
 export interface ExtendsLongOneWithGenerics
-  extends Bar<
-    SomeLongTypeSomeLongTypeSomeLongTypeSomeLongType,
-    ToBreakLineToBreakLineToBreakLine
-  > {}
+  extends
+    Bar<
+      SomeLongTypeSomeLongTypeSomeLongTypeSomeLongType,
+      ToBreakLineToBreakLineToBreakLine
+    > {}
 
 ================================================================================
 `;

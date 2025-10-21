@@ -25,7 +25,6 @@ import {
   printHook,
   printHookTypeAnnotation,
 } from "./hook.js";
-import { printInterface } from "./interface.js";
 import { printBigInt } from "./literal.js";
 import { printFlowMappedTypeProperty } from "./mapped-type.js";
 import { printMatch, printMatchCase, printMatchPattern } from "./match.js";
@@ -79,8 +78,6 @@ function printFlow(path, options, print) {
       return printDeclareHook(path, options, print);
     case "HookTypeAnnotation":
       return printHookTypeAnnotation(path, options, print);
-    case "DeclareClass":
-      return printClass(path, options, print);
     case "DeclareFunction":
       return [
         printDeclareToken(path),
@@ -202,10 +199,11 @@ function printFlow(path, options, print) {
       ];
     }
 
+    case "DeclareClass":
     case "DeclareInterface":
     case "InterfaceDeclaration":
     case "InterfaceTypeAnnotation":
-      return printInterface(path, options, print);
+      return printClass(path, options, print);
     case "ClassImplements":
     case "InterfaceExtends":
       return [print("id"), print("typeParameters")];
