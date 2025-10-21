@@ -98,6 +98,7 @@ function handleEndOfLineComment(context) {
     handleLastUnionElementInExpression,
     handleLastBinaryOperatorOperand,
     handleTSMappedTypeComments,
+    handlePropertySignatureComments,
   ].some((fn) => fn(context));
 }
 
@@ -1100,6 +1101,22 @@ function handleLastBinaryOperatorOperand({
     }
   }
   return false;
+}
+
+function handlePropertySignatureComments({
+  enclosingNode,
+  followingNode,
+  comment,
+}) {
+  if (
+    enclosingNode &&
+    (enclosingNode.type === "TSPropertySignature" ||
+      enclosingNode.type === "ObjectTypeProperty") &&
+    isIntersectionType(followingNode)
+  ) {
+    addLeadingComment(followingNode, comment);
+    return true;
+  }
 }
 
 /**
