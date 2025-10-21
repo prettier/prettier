@@ -80,18 +80,18 @@ function printClass(path, options, print) {
     hasComment(node.id, CommentCheckFlags.Trailing) ||
     hasComment(node.typeParameters, CommentCheckFlags.Trailing) ||
     hasComment(node.superClass) ||
-    isNonEmptyArray(node.extends) || // DeclareClass
+    isNonEmptyArray(node.extends) ||
     isNonEmptyArray(node.mixins) ||
     isNonEmptyArray(node.implements);
 
   const partsGroup = [];
   const extendsParts = [];
 
-  if (node.id) {
-    partsGroup.push(" ", print("id"));
-  }
-
   if (node.type !== "InterfaceTypeAnnotation") {
+    if (node.id) {
+      partsGroup.push(" ", print("id"));
+    }
+
     partsGroup.push(print("typeParameters"));
   }
 
