@@ -28,6 +28,7 @@ import {
   isIfElseKeywordNode,
   isInlineValueCommentNode,
   isLeftCurlyBraceNode,
+  isMathFunctionNode,
   isMathOperatorNode,
   isMultiplicationNode,
   isParenGroupNode,
@@ -390,6 +391,22 @@ function printCommaSeparatedValueGroup(path, options, print) {
       parts.push([parts.pop(), " "]);
 
       continue;
+    }
+
+    // Formatting `font` property
+    // Keep division compact for `<font-size>/<line-height>`
+    if (declAncestorProp && declAncestorProp === "font") {
+      // <font-size> /<line-height>
+      //            ^
+      if (iNextNode && isDivisionNode(iNextNode) && isMathFunctionNode(iNode)) {
+        continue;
+      }
+
+      // <font-size>/ <line-height>
+      //             ^
+      if (isDivisionNode(iNode) && iPrevNode && isMathFunctionNode(iPrevNode)) {
+        continue;
+      }
     }
 
     // Formatting `grid` property
