@@ -339,6 +339,14 @@ function printFunctionType(path, options, print) {
 
   parts.push(parametersDoc, returnTypeDoc);
 
+  if (
+    (node.type === "TSConstructSignatureDeclaration" ||
+      node.type === "TSCallSignatureDeclaration") &&
+    path.parent.type === "TSInterfaceBody" &&
+    options.semi
+  ) {
+    parts.push(";");
+  }
   return group(parts);
 }
 

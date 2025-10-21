@@ -303,6 +303,10 @@ function printClassProperty(path, options, print) {
   ];
 }
 
+/*
+- `ClassBody`
+- `TSInterfaceBody` (TypeScript)
+*/
 function printClassBody(path, options, print) {
   const { node } = path;
   const parts = [];

@@ -17,7 +17,12 @@ import { printArray } from "./array.js";
 import { printBlock } from "./block.js";
 import { printCallExpression } from "./call-expression.js";
 import { printBinaryCastExpression } from "./cast-expression.js";
-import { printClass, printClassMethod, printClassProperty } from "./class.js";
+import {
+  printClass,
+  printClassBody,
+  printClassMethod,
+  printClassProperty,
+} from "./class.js";
 import {
   printEnumBody,
   printEnumDeclaration,
@@ -109,6 +114,8 @@ function printTypescript(path, options, print) {
     case "TSModuleBlock":
       return printBlock(path, options, print);
     case "TSInterfaceBody":
+      return printClassBody(path, options, print);
+    // TODO: Use `printClassBody`
     case "TSTypeLiteral":
       return printObject(path, options, print);
     case "TSTypeAliasDeclaration":
@@ -152,6 +159,7 @@ function printTypescript(path, options, print) {
         printPropertyKey(path, options, print),
         printOptionalToken(path),
         printTypeAnnotationProperty(path, print),
+        path.parent.type === "TSInterfaceBody" && options.semi ? ";" : "",
       ];
 
     case "TSParameterProperty":
@@ -185,7 +193,9 @@ function printTypescript(path, options, print) {
       ]);
 
       const isClassMember =
-        path.parent.type === "ClassBody" && path.key === "body";
+        (path.parent.type === "ClassBody" ||
+          path.parent.type === "TSInterfaceBody") &&
+        path.key === "body";
 
       return [
         // `static` only allowed in class member
@@ -253,6 +263,10 @@ function printTypescript(path, options, print) {
 
       if (node.returnType) {
         parts.push(group(returnTypeDoc));
+      }
+
+      if (path.parent.type === "TSInterfaceBody" && options.semi) {
+        parts.push(";");
       }
 
       return group(parts);
