@@ -145,6 +145,16 @@ function printObject(path, options, print) {
   const props = propsAndLoc.map((prop) => {
     const result = [...separatorParts, group(prop.printed)];
     separatorParts = [separator, line];
+    // TODO: Remove this part when we remove `TSTypeLiteral`
+    if (
+      (prop.node.type === "TSPropertySignature" ||
+        prop.node.type === "TSMethodSignature" ||
+        prop.node.type === "TSConstructSignatureDeclaration" ||
+        prop.node.type === "TSCallSignatureDeclaration") &&
+      hasComment(prop.node, CommentCheckFlags.PrettierIgnore)
+    ) {
+      separatorParts.shift();
+    }
     if (isNextLineEmpty(prop.node, options)) {
       separatorParts.push(hardline);
     }
