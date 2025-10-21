@@ -142,7 +142,7 @@ function printClass(path, options, print) {
   We decide to defer to solve the inconsistency to a major release (V4)
   Meanwhile, we are not going to put the `{` of interface body on a new line
   */
-  if (!isPrintingInterface && groupMode && isNonEmptyArray(classBody.body)) {
+  if (!isPrintingInterface && groupMode && isNonEmptyClassBody(classBody)) {
     parts.push(ifBreak(hardline, " ", { groupId: heritageGroupId }));
   } else {
     parts.push(" ");
@@ -151,6 +151,12 @@ function printClass(path, options, print) {
   parts.push(print("body"));
 
   return parts;
+}
+
+function isNonEmptyClassBody(node) {
+  return isNonEmptyArray(
+    node.type === "ObjectTypeAnnotation" ? node.properties : node.body,
+  );
 }
 
 function hasMultipleHeritage(node) {
