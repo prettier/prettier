@@ -133,16 +133,15 @@ function printClass(path, options, print) {
     parts.push(...partsGroup, ...extendsParts);
   }
 
-  const classBody = node.body;
-
   /*
   To improve visual separation between class head and body https://github.com/prettier/prettier/issues/10018
   we introduced https://github.com/prettier/prettier/pull/10085
   However, users complaint.
   We decide to defer to solve the inconsistency to a major release (V4)
   Meanwhile, we are not going to put the `{` of interface body on a new line
+  https://github.com/prettier/prettier/issues/18115
   */
-  if (!isPrintingInterface && groupMode && isNonEmptyClassBody(classBody)) {
+  if (!isPrintingInterface && groupMode && isNonEmptyClassBody(node.body)) {
     parts.push(ifBreak(hardline, " ", { groupId: heritageGroupId }));
   } else {
     parts.push(" ");
