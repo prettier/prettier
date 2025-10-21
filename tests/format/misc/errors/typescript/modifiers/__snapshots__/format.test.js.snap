@@ -4051,3 +4051,263 @@ exports[`snippet: #183 [typescript] format 1`] = `
     |   ^^^^^^^^
 Cause: 'abstract' modifier cannot be used here."
 `;
+
+exports[`snippet: #184 [babel-ts] format 1`] = `
+"Unexpected token, expected "," (1:12)
+> 1 | ({accessor method(){}})
+    |            ^
+Cause: Unexpected token, expected "," (1:11)"
+`;
+
+exports[`snippet: #184 [oxc-ts] format 1`] = `
+"'accessor' modifier cannot be used here. (1:3)
+> 1 | ({accessor method(){}})
+    |   ^^^^^^^^"
+`;
+
+exports[`snippet: #184 [typescript] format 1`] = `
+"'accessor' modifier can only appear on a property declaration. (1:3)
+> 1 | ({accessor method(){}})
+    |   ^^^^^^^^
+Cause: 'accessor' modifier can only appear on a property declaration."
+`;
+
+exports[`snippet: #185 [babel-ts] format 1`] = `
+"Unexpected token, expected "," (1:9)
+> 1 | ({const method(){}})
+    |         ^
+Cause: Unexpected token, expected "," (1:8)"
+`;
+
+exports[`snippet: #185 [oxc-ts] format 1`] = `
+"Expected \`:\` but found \`Identifier\` (1:9)
+> 1 | ({const method(){}})
+    |         ^^^^^^"
+`;
+
+exports[`snippet: #185 [typescript] format 1`] = `
+"':' expected. (1:9)
+> 1 | ({const method(){}})
+    |         ^
+Cause: ':' expected."
+`;
+
+exports[`snippet: #186 [babel-ts] format 1`] = `
+"Unexpected token, expected "," (1:11)
+> 1 | ({declare method(){}})
+    |           ^
+Cause: Unexpected token, expected "," (1:10)"
+`;
+
+exports[`snippet: #186 [oxc-ts] format 1`] = `
+"'declare' modifier cannot be used here. (1:3)
+> 1 | ({declare method(){}})
+    |   ^^^^^^^"
+`;
+
+exports[`snippet: #186 [typescript] format 1`] = `
+"'declare' modifier cannot be used here. (1:3)
+> 1 | ({declare method(){}})
+    |   ^^^^^^^
+Cause: 'declare' modifier cannot be used here."
+`;
+
+exports[`snippet: #187 [babel-ts] format 1`] = `
+"Unexpected token, expected "," (1:11)
+> 1 | ({default method(){}})
+    |           ^
+Cause: Unexpected token, expected "," (1:10)"
+`;
+
+exports[`snippet: #187 [oxc-ts] format 1`] = `
+"'default' modifier cannot be used here. (1:3)
+> 1 | ({default method(){}})
+    |   ^^^^^^^"
+`;
+
+exports[`snippet: #187 [typescript] format 1`] = `
+"':' expected. (1:11)
+> 1 | ({default method(){}})
+    |           ^
+Cause: ':' expected."
+`;
+
+exports[`snippet: #188 [babel-ts] format 1`] = `
+"Unexpected token, expected "," (1:10)
+> 1 | ({export method(){}})
+    |          ^
+Cause: Unexpected token, expected "," (1:9)"
+`;
+
+exports[`snippet: #188 [oxc-ts] format 1`] = `
+"'export' modifier cannot be used here. (1:3)
+> 1 | ({export method(){}})
+    |   ^^^^^^"
+`;
+
+exports[`snippet: #188 [typescript] format 1`] = `
+"'export' modifier cannot be used here. (1:3)
+> 1 | ({export method(){}})
+    |   ^^^^^^
+Cause: 'export' modifier cannot be used here."
+`;
+
+exports[`snippet: #189 [babel-ts] format 1`] = `
+"Unexpected token, expected "," (1:6)
+> 1 | ({in method(){}})
+    |      ^
+Cause: Unexpected token, expected "," (1:5)"
+`;
+
+exports[`snippet: #189 [oxc-ts] format 1`] = `
+"'in' modifier cannot be used here. (1:3)
+> 1 | ({in method(){}})
+    |   ^^"
+`;
+
+exports[`snippet: #189 [typescript] format 1`] = `
+"'in' modifier can only appear on a type parameter of a class, interface or type alias (1:3)
+> 1 | ({in method(){}})
+    |   ^^
+Cause: 'in' modifier can only appear on a type parameter of a class, interface or type alias"
+`;
+
+exports[`snippet: #190 [babel-ts] format 1`] = `
+"Unexpected token, expected "," (1:7)
+> 1 | ({out method(){}})
+    |       ^
+Cause: Unexpected token, expected "," (1:6)"
+`;
+
+exports[`snippet: #190 [oxc-ts] format 1`] = `
+"'out' modifier cannot be used here. (1:3)
+> 1 | ({out method(){}})
+    |   ^^^"
+`;
+
+exports[`snippet: #190 [typescript] format 1`] = `
+"'out' modifier can only appear on a type parameter of a class, interface or type alias (1:3)
+> 1 | ({out method(){}})
+    |   ^^^
+Cause: 'out' modifier can only appear on a type parameter of a class, interface or type alias"
+`;
+
+exports[`snippet: #191 [babel-ts] format 1`] = `
+"Unexpected token, expected "," (1:12)
+> 1 | ({override method(){}})
+    |            ^
+Cause: Unexpected token, expected "," (1:11)"
+`;
+
+exports[`snippet: #191 [oxc-ts] format 1`] = `
+"'override' modifier cannot be used here. (1:3)
+> 1 | ({override method(){}})
+    |   ^^^^^^^^"
+`;
+
+exports[`snippet: #191 [typescript] format 1`] = `
+"'override' modifier cannot be used here. (1:3)
+> 1 | ({override method(){}})
+    |   ^^^^^^^^
+Cause: 'override' modifier cannot be used here."
+`;
+
+exports[`snippet: #192 [babel-ts] format 1`] = `
+"Unexpected token, expected "," (1:11)
+> 1 | ({private method(){}})
+    |           ^
+Cause: Unexpected token, expected "," (1:10)"
+`;
+
+exports[`snippet: #192 [oxc-ts] format 1`] = `
+"'private' modifier cannot be used here. (1:3)
+> 1 | ({private method(){}})
+    |   ^^^^^^^"
+`;
+
+exports[`snippet: #192 [typescript] format 1`] = `
+"'private' modifier cannot be used here. (1:3)
+> 1 | ({private method(){}})
+    |   ^^^^^^^
+Cause: 'private' modifier cannot be used here."
+`;
+
+exports[`snippet: #193 [babel-ts] format 1`] = `
+"Unexpected token, expected "," (1:13)
+> 1 | ({protected method(){}})
+    |             ^
+Cause: Unexpected token, expected "," (1:12)"
+`;
+
+exports[`snippet: #193 [oxc-ts] format 1`] = `
+"'protected' modifier cannot be used here. (1:3)
+> 1 | ({protected method(){}})
+    |   ^^^^^^^^^"
+`;
+
+exports[`snippet: #193 [typescript] format 1`] = `
+"'protected' modifier cannot be used here. (1:3)
+> 1 | ({protected method(){}})
+    |   ^^^^^^^^^
+Cause: 'protected' modifier cannot be used here."
+`;
+
+exports[`snippet: #194 [babel-ts] format 1`] = `
+"Unexpected token, expected "," (1:10)
+> 1 | ({public method(){}})
+    |          ^
+Cause: Unexpected token, expected "," (1:9)"
+`;
+
+exports[`snippet: #194 [oxc-ts] format 1`] = `
+"'public' modifier cannot be used here. (1:3)
+> 1 | ({public method(){}})
+    |   ^^^^^^"
+`;
+
+exports[`snippet: #194 [typescript] format 1`] = `
+"'public' modifier cannot be used here. (1:3)
+> 1 | ({public method(){}})
+    |   ^^^^^^
+Cause: 'public' modifier cannot be used here."
+`;
+
+exports[`snippet: #195 [babel-ts] format 1`] = `
+"Unexpected token, expected "," (1:12)
+> 1 | ({readonly method(){}})
+    |            ^
+Cause: Unexpected token, expected "," (1:11)"
+`;
+
+exports[`snippet: #195 [oxc-ts] format 1`] = `
+"'readonly' modifier cannot be used here. (1:3)
+> 1 | ({readonly method(){}})
+    |   ^^^^^^^^"
+`;
+
+exports[`snippet: #195 [typescript] format 1`] = `
+"'readonly' modifier can only appear on a property declaration or index signature. (1:3)
+> 1 | ({readonly method(){}})
+    |   ^^^^^^^^
+Cause: 'readonly' modifier can only appear on a property declaration or index signature."
+`;
+
+exports[`snippet: #196 [babel-ts] format 1`] = `
+"Unexpected token, expected "," (1:10)
+> 1 | ({static method(){}})
+    |          ^
+Cause: Unexpected token, expected "," (1:9)"
+`;
+
+exports[`snippet: #196 [oxc-ts] format 1`] = `
+"'static' modifier cannot be used here. (1:3)
+> 1 | ({static method(){}})
+    |   ^^^^^^"
+`;
+
+exports[`snippet: #196 [typescript] format 1`] = `
+"'static' modifier cannot be used here. (1:3)
+> 1 | ({static method(){}})
+    |   ^^^^^^
+Cause: 'static' modifier cannot be used here."
+`;
