@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`close.hbs format 1`] = `
 ====================================options=====================================
@@ -64,6 +64,26 @@ keywords:
   Keywords:
   {{#each keywords}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}
 </p>
+================================================================================
+`;
+
+exports[`toml.hbs format 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
++++
+title = "Something"
++++
+<h1>{{title}}</h1>
+
+=====================================output=====================================
++++
+title = "Something"
++++
+
+<h1>{{title}}</h1>
 ================================================================================
 `;
 

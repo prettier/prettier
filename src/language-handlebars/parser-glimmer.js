@@ -58,7 +58,7 @@ const glimmerParseOptions = {
   plugins: { ast: [glimmerPrettierParsePlugin] },
 };
 
-function parse(text /*, options */) {
+function parse(text) {
   const { frontMatter, content } = parseFrontMatter(text);
 
   let ast;
@@ -78,25 +78,8 @@ function parse(text /*, options */) {
   }
 
   if (frontMatter) {
-    const { raw } = frontMatter;
-    const endLine = raw.split("\n").length;
-    const endCol = raw.length - raw.lastIndexOf("\n") - 1;
-    const frontMatterNode = {
-      type: "CommentStatement",
-      value: raw,
-      language: frontMatter.language,
-      isFrontMatter: true,
-      loc: {
-        startPosition: { line: 1, column: 0 },
-        endPosition: {
-          line: endLine,
-          column: endCol,
-        },
-      },
-    };
-
-    //@ts-expect-error
-    ast.body.unshift(frontMatterNode);
+    // @ts-expect-error
+    ast.body.unshift(frontMatter);
   }
 
   return ast;

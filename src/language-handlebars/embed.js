@@ -3,13 +3,9 @@ import { dedent, hardline, softline } from "../document/builders.js";
 function embed(path /* , options*/) {
   const { node } = path;
 
-  if (
-    node.type === "CommentStatement" &&
-    node.isFrontMatter &&
-    node.language === "yaml"
-  ) {
+  if (node.type === "front-matter") {
     return async (textToDoc) => {
-      const doc = await textToDoc(node.value, { parser: "yaml" });
+      const doc = await textToDoc(node.raw, { parser: node.language });
 
       if (!doc) {
         return [];
