@@ -101,7 +101,7 @@ function printClass(path, options, print) {
     const printed = [
       printSuperClass(path, options, print),
       print(
-        // TODO: Use `superTypeArguments` only when babel align with TS.
+        // TODO: Remove `superTypeParameters` when https://github.com/facebook/hermes/issues/1808#issuecomment-3413004377 get fixed
         node.superTypeArguments ? "superTypeArguments" : "superTypeParameters",
       ),
     ];
