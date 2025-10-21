@@ -175,7 +175,15 @@ function printObject(path, options, print) {
   const canHaveTrailingSeparator = !(
     node.inexact ||
     node.hasUnknownMembers ||
-    lastElem?.type === "RestElement"
+    // TODO: Change to `lastElem?.type === "RestElement"` when we remove `TSTypeLiteral`
+    (lastElem &&
+      (lastElem.type === "RestElement" ||
+        ((lastElem.type === "TSPropertySignature" ||
+          lastElem.type === "TSCallSignatureDeclaration" ||
+          lastElem.type === "TSMethodSignature" ||
+          lastElem.type === "TSConstructSignatureDeclaration" ||
+          lastElem.type === "TSIndexSignature") &&
+          hasComment(lastElem, CommentCheckFlags.PrettierIgnore))))
   );
 
   let content;
