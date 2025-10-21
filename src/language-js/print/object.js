@@ -22,7 +22,7 @@ import {
   isObjectType,
   shouldPrintComma,
 } from "../utils/index.js";
-import { shouldHugTheOnlyFunctionParameter } from "./function-parameters.js";
+import { shouldHugTheOnlyParameter } from "./function-parameters.js";
 import { printOptionalToken } from "./misc.js";
 import { printTypeAnnotationProperty } from "./type-annotation.js";
 
@@ -53,7 +53,6 @@ const isPrintingImportAttributes = createTypeCheckFunction([
 - `EnumSymbolBody` (Flow)
 - `DeclareExportDeclaration` (Flow)
 - `DeclareExportAllDeclaration` (Flow)
-- `TSTypeLiteral` (TypeScript)
 - `TSEnumDeclaration`(TypeScript)
 */
 function printObject(path, options, print) {
@@ -70,7 +69,7 @@ function printObject(path, options, print) {
   const isImportAttributes = isPrintingImportAttributes(node);
 
   const fields = [];
-  if (node.type === "TSTypeLiteral" || isEnumBody) {
+  if (isEnumBody) {
     fields.push("members");
   } else if (isImportAttributes) {
     fields.push("attributes");
@@ -130,13 +129,7 @@ function printObject(path, options, print) {
       propsAndLoc.length > 0 &&
       hasNewLineAfterLeftBrace(node, propsAndLoc[0], options));
 
-  const separator = isFlowInterfaceLikeBody
-    ? ";"
-    : node.type === "TSTypeLiteral"
-      ? options.semi
-        ? ";"
-        : ifBreak("", ";")
-      : ",";
+  const separator = isFlowInterfaceLikeBody ? ";" : ",";
   const leftBrace = node.exact ? "{|" : "{";
   const rightBrace = node.exact ? "|}" : "}";
 
@@ -145,16 +138,6 @@ function printObject(path, options, print) {
   const props = propsAndLoc.map((prop) => {
     const result = [...separatorParts, group(prop.printed)];
     separatorParts = [separator, line];
-    // TODO: Remove this part when we remove `TSTypeLiteral`
-    if (
-      (prop.node.type === "TSPropertySignature" ||
-        prop.node.type === "TSMethodSignature" ||
-        prop.node.type === "TSConstructSignatureDeclaration" ||
-        prop.node.type === "TSCallSignatureDeclaration") &&
-      hasComment(prop.node, CommentCheckFlags.PrettierIgnore)
-    ) {
-      separatorParts.shift();
-    }
     if (isNextLineEmpty(prop.node, options)) {
       separatorParts.push(hardline);
     }
@@ -185,15 +168,7 @@ function printObject(path, options, print) {
   const canHaveTrailingSeparator = !(
     node.inexact ||
     node.hasUnknownMembers ||
-    // TODO: Change to `lastElem?.type === "RestElement"` when we remove `TSTypeLiteral`
-    (lastElem &&
-      (lastElem.type === "RestElement" ||
-        ((lastElem.type === "TSPropertySignature" ||
-          lastElem.type === "TSCallSignatureDeclaration" ||
-          lastElem.type === "TSMethodSignature" ||
-          lastElem.type === "TSConstructSignatureDeclaration" ||
-          lastElem.type === "TSIndexSignature") &&
-          hasComment(lastElem, CommentCheckFlags.PrettierIgnore))))
+    lastElem?.type === "RestElement"
   );
 
   let content;
@@ -264,13 +239,6 @@ function printObject(path, options, print) {
   }
 
   return group(content, { shouldBreak });
-}
-
-function shouldHugTheOnlyParameter(node, name) {
-  return (
-    (name === "params" || name === "this" || name === "rest") &&
-    shouldHugTheOnlyFunctionParameter(node)
-  );
 }
 
 function hasNewLineAfterLeftBrace(node, firstPropertyAndLoc, options) {

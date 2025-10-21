@@ -20,6 +20,7 @@ import { printBinaryCastExpression } from "./cast-expression.js";
 import {
   printClass,
   printClassBody,
+  printClassMemberSemicolon,
   printClassMethod,
   printClassProperty,
 } from "./class.js";
@@ -40,7 +41,6 @@ import {
   printTypeScriptAccessibilityToken,
 } from "./misc.js";
 import { printImportKind } from "./module.js";
-import { printObject } from "./object.js";
 import { printPropertyKey } from "./property.js";
 import { printTemplateLiteral } from "./template-literal.js";
 import { printTernary } from "./ternary.js";
@@ -114,10 +114,8 @@ function printTypescript(path, options, print) {
     case "TSModuleBlock":
       return printBlock(path, options, print);
     case "TSInterfaceBody":
-      return printClassBody(path, options, print);
-    // TODO: Use `printClassBody`
     case "TSTypeLiteral":
-      return printObject(path, options, print);
+      return printClassBody(path, options, print);
     case "TSTypeAliasDeclaration":
       return printTypeAlias(path, options, print);
     case "TSQualifiedName":
@@ -159,7 +157,7 @@ function printTypescript(path, options, print) {
         printPropertyKey(path, options, print),
         printOptionalToken(path),
         printTypeAnnotationProperty(path, print),
-        path.parent.type === "TSInterfaceBody" && options.semi ? ";" : "",
+        printClassMemberSemicolon(path, options),
       ];
 
     case "TSParameterProperty":
@@ -193,9 +191,7 @@ function printTypescript(path, options, print) {
       ]);
 
       const isClassMember =
-        (path.parent.type === "ClassBody" ||
-          path.parent.type === "TSInterfaceBody") &&
-        path.key === "body";
+        path.key === "body" && path.parent.type === "ClassBody";
 
       return [
         // `static` only allowed in class member
@@ -205,7 +201,7 @@ function printTypescript(path, options, print) {
         node.parameters ? parametersGroup : "",
         "]",
         printTypeAnnotationProperty(path, print),
-        isClassMember && options.semi ? ";" : "",
+        printClassMemberSemicolon(path, options),
       ];
     }
     case "TSTypePredicate":
@@ -265,11 +261,7 @@ function printTypescript(path, options, print) {
         parts.push(group(returnTypeDoc));
       }
 
-      if (path.parent.type === "TSInterfaceBody" && options.semi) {
-        parts.push(";");
-      }
-
-      return group(parts);
+      return [group(parts), printClassMemberSemicolon(path, options)];
     }
     case "TSNamespaceExportDeclaration":
       return ["export as namespace ", print("id"), options.semi ? ";" : ""];

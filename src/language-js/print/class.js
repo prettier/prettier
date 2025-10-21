@@ -12,7 +12,9 @@ import {
   printDanglingComments,
 } from "../../main/comments/print.js";
 import createGroupIdMapper from "../../utils/create-group-id-mapper.js";
+import hasNewlineInRange from "../../utils/has-newline-in-range.js";
 import isNonEmptyArray from "../../utils/is-non-empty-array.js";
+import { locStart } from "../loc.js";
 import {
   CommentCheckFlags,
   createTypeCheckFunction,
@@ -22,6 +24,7 @@ import {
 import { printAssignment } from "./assignment.js";
 import { printClassMemberDecorators } from "./decorators.js";
 import { printMethod } from "./function.js";
+import { shouldHugTheOnlyParameter } from "./function-parameters.js";
 import {
   printAbstractToken,
   printDeclareToken,
@@ -303,36 +306,86 @@ function printClassProperty(path, options, print) {
   ];
 }
 
+const shouldBreakTSTypeLiteral = ({ node }, options) =>
+  options.objectWrap === "preserve" &&
+  node.members.length > 0 &&
+  hasNewlineInRange(
+    options.originalText,
+    locStart(node),
+    locStart(node.members[0]),
+  );
+
 /*
 - `ClassBody`
 - `TSInterfaceBody` (TypeScript)
+- `TSTypeLiteral` (TypeScript)
 */
 function printClassBody(path, options, print) {
   const { node } = path;
   const parts = [];
 
-  path.each(({ node, next, isLast }) => {
-    parts.push(print());
+  const separator = node.type === "TSTypeLiteral" ? line : hardline;
 
-    if (
-      !options.semi &&
-      isClassProperty(node) &&
-      shouldPrintSemicolonAfterClassProperty(node, next)
-    ) {
-      parts.push(";");
-    }
+  path.each(
+    ({ node, next, isLast }) => {
+      parts.push(print());
 
-    if (!isLast) {
-      parts.push(hardline);
-
-      if (isNextLineEmpty(node, options)) {
-        parts.push(hardline);
+      if (
+        !options.semi &&
+        isClassProperty(node) &&
+        shouldPrintSemicolonAfterClassProperty(node, next)
+      ) {
+        parts.push(";");
       }
-    }
-  }, "body");
+
+      if (!isLast) {
+        parts.push(separator);
+
+        if (isNextLineEmpty(node, options)) {
+          parts.push(hardline);
+        }
+      }
+    },
+    node.type === "TSTypeLiteral" ? "members" : "body",
+  );
 
   if (hasComment(node, CommentCheckFlags.Dangling)) {
     parts.push(printDanglingComments(path, options));
+  }
+
+  if (node.type === "TSTypeLiteral") {
+    const shouldBreak = shouldBreakTSTypeLiteral(path, options);
+    const leftBrace = "{";
+    const rightBrace = "}";
+    let content;
+    if (parts.length === 0) {
+      content = "{}";
+    } else {
+      const spacing = options.bracketSpacing ? line : softline;
+      content = [leftBrace, indent([spacing, ...parts]), spacing, rightBrace];
+    }
+
+    // If we inline the object as first argument of the parent, we don't want
+    // to create another group so that the object breaks before the return
+    // type
+    if (
+      path.match(
+        undefined,
+        (node, name) => name === "typeAnnotation",
+        (node, name) => name === "typeAnnotation",
+        shouldHugTheOnlyParameter,
+      ) ||
+      path.match(
+        undefined,
+        (node, name) =>
+          node.type === "FunctionTypeParam" && name === "typeAnnotation",
+        shouldHugTheOnlyParameter,
+      )
+    ) {
+      return content;
+    }
+
+    return group(content, { shouldBreak });
   }
 
   return [
@@ -420,4 +473,33 @@ function shouldPrintSemicolonAfterClassProperty(node, nextNode) {
   return false;
 }
 
-export { printClass, printClassBody, printClassMethod, printClassProperty };
+function printClassMemberSemicolon(path, options) {
+  const { parent, key, node } = path;
+  if (
+    options.semi &&
+    key === "body" &&
+    (parent.type === "ClassBody" || parent.type === "TSInterfaceBody")
+  ) {
+    return ";";
+  }
+
+  if (key === "members" && parent.type === "TSTypeLiteral") {
+    return node === parent.members.at(-1)
+      ? options.semi
+        ? ifBreak(";")
+        : ""
+      : options.semi
+        ? ";"
+        : ifBreak("", ";");
+  }
+
+  return "";
+}
+
+export {
+  printClass,
+  printClassBody,
+  printClassMemberSemicolon,
+  printClassMethod,
+  printClassProperty,
+};
