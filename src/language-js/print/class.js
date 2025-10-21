@@ -37,6 +37,8 @@ import { getTypeParametersGroupId } from "./type-parameters.js";
  * @import {Doc} from "../../document/builders.js"
  */
 
+const getHeritageGroupId = createGroupIdMapper("heritageGroup");
+
 const isClassProperty = createTypeCheckFunction([
   "ClassProperty",
   "PropertyDefinition",
@@ -149,12 +151,6 @@ function printClass(path, options, print) {
   parts.push(print("body"));
 
   return parts;
-}
-
-const getHeritageGroupId = createGroupIdMapper("heritageGroup");
-
-function printHardlineAfterHeritage(node) {
-  return ifBreak(hardline, "", { groupId: getHeritageGroupId(node) });
 }
 
 function hasMultipleHeritage(node) {
