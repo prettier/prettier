@@ -125,6 +125,7 @@ function printDanglingCommentsForInline(path, options) {
   return [printed, hardline];
 }
 
+// `TSTypeParameter` and `TypeParameter`
 function printTypeParameter(path, options, print) {
   const { node } = path;
 
