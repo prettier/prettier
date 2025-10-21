@@ -268,7 +268,6 @@ function printTypescript(path, options, print) {
 
     case "TSImportEqualsDeclaration":
       return [
-        node.isExport ? "export " : "",
         "import ",
         printImportKind(node, /* spaceBeforeKind */ false),
         print("id"),
