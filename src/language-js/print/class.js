@@ -65,11 +65,13 @@ const isInterface = createTypeCheckFunction([
 */
 function printClass(path, options, print) {
   const { node } = path;
+  const isPrintingInterface = isInterface(node);
+
   /** @type {Doc[]} */
   const parts = [
     printDeclareToken(path),
     printAbstractToken(path),
-    isInterface(node) ? "interface" : "class",
+    isPrintingInterface ? "interface" : "class",
   ];
 
   // Keep old behaviour of extends in same line
@@ -130,7 +132,15 @@ function printClass(path, options, print) {
   }
 
   const classBody = node.body;
-  if (groupMode && isNonEmptyArray(classBody.body)) {
+
+  /*
+  To improve visual separation between class head and body https://github.com/prettier/prettier/issues/10018
+  we introduced https://github.com/prettier/prettier/pull/10085
+  However, users complaint.
+  We decide to defer to solve the inconsistency to a major release (V4)
+  Meanwhile, we are not going to put the `{` of interface body on a new line
+  */
+  if (!isPrintingInterface && groupMode && isNonEmptyArray(classBody.body)) {
     parts.push(ifBreak(hardline, " ", { groupId: heritageGroupId }));
   } else {
     parts.push(" ");
