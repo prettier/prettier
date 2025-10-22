@@ -78,6 +78,7 @@ function printClassBody(path, options, print) {
     parts.push(printDanglingComments(path, options));
   }
 
+  // TODO: this part can unify with the similar part in `printObject`
   if (node.type === "ObjectTypeAnnotation" && node.inexact) {
     let printed;
     if (hasComment(node, CommentCheckFlags.Dangling)) {
