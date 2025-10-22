@@ -65,33 +65,12 @@ function printObject(path, options, print) {
     node.type === "EnumStringBody" ||
     node.type === "EnumSymbolBody";
   const isImportAttributes = isPrintingImportAttributes(node);
-
-  const fields = [];
-  if (isEnumBody) {
-    fields.push("members");
-  } else if (isImportAttributes) {
-    fields.push("attributes");
-  } else {
-    fields.push("properties");
-  }
-
-  // Unfortunately, things grouped together in the ast can be
-  // interleaved in the source code. So we need to reorder them before
-  // printing them.
-  const propsAndLoc = fields.flatMap((field) =>
-    path.map(
-      ({ node }) => ({
-        node,
-        printed: print(),
-        loc: locStart(node),
-      }),
-      field,
-    ),
-  );
-
-  if (fields.length > 1) {
-    propsAndLoc.sort((a, b) => a.loc - b.loc);
-  }
+  const property = isEnumBody
+    ? "members"
+    : isImportAttributes
+      ? "attributes"
+      : "properties";
+  const children = node[property];
 
   const { parent } = path;
   const shouldBreak =
@@ -113,23 +92,21 @@ function printObject(path, options, print) {
       )) ||
     (node.type !== "ObjectPattern" &&
       options.objectWrap === "preserve" &&
-      propsAndLoc.length > 0 &&
-      hasNewLineAfterLeftBrace(node, propsAndLoc[0], options));
+      children.length > 0 &&
+      hasNewLineAfterOpeningBrace(node, children[0], options));
 
   const separator = ",";
-  const leftBrace = node.exact ? "{|" : "{";
-  const rightBrace = node.exact ? "|}" : "}";
 
   /** @type {Doc[]} */
   let separatorParts = [];
-  const props = propsAndLoc.map((prop) => {
-    const result = [...separatorParts, group(prop.printed)];
+  const parts = path.map(({ node }) => {
+    const result = [...separatorParts, group(print())];
     separatorParts = [separator, line];
-    if (isNextLineEmpty(prop.node, options)) {
+    if (isNextLineEmpty(node, options)) {
       separatorParts.push(hardline);
     }
     return result;
-  });
+  }, property);
 
   if (isEnumBody && node.hasUnknownMembers) {
     let printed;
@@ -147,10 +124,10 @@ function printObject(path, options, print) {
     } else {
       printed = ["..."];
     }
-    props.push([...separatorParts, ...printed]);
+    parts.push([...separatorParts, ...printed]);
   }
 
-  const lastElem = propsAndLoc.at(-1)?.node;
+  const lastElem = children.at(-1);
 
   const canHaveTrailingSeparator = !(
     node.inexact ||
@@ -159,24 +136,24 @@ function printObject(path, options, print) {
   );
 
   let content;
-  if (props.length === 0) {
+  if (parts.length === 0) {
     if (!hasComment(node, CommentCheckFlags.Dangling)) {
-      return [leftBrace, rightBrace, printTypeAnnotationProperty(path, print)];
+      return ["{}", printTypeAnnotationProperty(path, print)];
     }
 
     content = group([
-      leftBrace,
+      "{",
       printDanglingComments(path, options, { indent: true }),
       softline,
-      rightBrace,
+      "}",
       printOptionalToken(path),
       printTypeAnnotationProperty(path, print),
     ]);
   } else {
     const spacing = options.bracketSpacing ? line : softline;
     content = [
-      leftBrace,
-      indent([spacing, ...props]),
+      "{",
+      indent([spacing, ...parts]),
       ifBreak(
         canHaveTrailingSeparator &&
           (separator !== "," || shouldPrintComma(options))
@@ -184,7 +161,7 @@ function printObject(path, options, print) {
           : "",
       ),
       spacing,
-      rightBrace,
+      "}",
       printOptionalToken(path),
       printTypeAnnotationProperty(path, print),
     ];
@@ -228,10 +205,10 @@ function printObject(path, options, print) {
   return group(content, { shouldBreak });
 }
 
-function hasNewLineAfterLeftBrace(node, firstPropertyAndLoc, options) {
+function hasNewLineAfterOpeningBrace(node, firstProperty, options) {
   const text = options.originalText;
   let leftBraceIndex = locStart(node);
-  const firstPropertyStart = firstPropertyAndLoc.loc;
+  const firstPropertyStart = locStart(firstProperty);
 
   if (isPrintingImportAttributes(node)) {
     const start = locStart(node);

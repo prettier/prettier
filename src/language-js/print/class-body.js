@@ -181,6 +181,9 @@ function iterateClassMembers(path, iteratee) {
   }
 
   if (node.type === "ObjectTypeAnnotation") {
+    // Unfortunately, things grouped together in the ast can be
+    // interleaved in the source code. So we need to reorder them before
+    // printing them.
     const children = [
       "properties",
       "indexers",
