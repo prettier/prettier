@@ -39,10 +39,10 @@ const isClassProperty = createTypeCheckFunction([
 function printClassBody(path, options, print) {
   const { node } = path;
   const parts = [];
-  const isObject = !isClassBody(path);
-  const separator = isObject ? line : hardline;
-
   const isFlowTypeAnnotation = node.type === "ObjectTypeAnnotation";
+  const isObjectType = !isClassBody(path);
+  const separator = isObjectType ? line : hardline;
+
   const [openingBrace, closingBrace] =
     isFlowTypeAnnotation && node.exact ? ["{|", "|}"] : "{}";
   let firstProperty;
@@ -51,7 +51,7 @@ function printClassBody(path, options, print) {
     firstProperty ??= node;
     parts.push(print());
 
-    if (isObject && isFlowTypeAnnotation) {
+    if (isObjectType && isFlowTypeAnnotation) {
       const { parent } = path;
 
       if (parent.inexact || !isLast) {
@@ -99,7 +99,7 @@ function printClassBody(path, options, print) {
     parts.push(printed);
   }
 
-  if (isObject) {
+  if (isObjectType) {
     const shouldBreak =
       options.objectWrap === "preserve" &&
       firstProperty &&
