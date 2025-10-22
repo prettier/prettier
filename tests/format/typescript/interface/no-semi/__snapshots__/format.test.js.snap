@@ -43,9 +43,45 @@ type C3 = {get;
   (): X
 }
 
+interface D1 {
+  set;
+  (): X
+}
+type D2 = {
+  set;
+  (): X
+}
+type D3 = {set;
+  (): X
+}
+
+interface E1 {
+  static;
+  (): X
+}
+type E2 = {
+  static;
+  (): X
+}
+type E3 = {static;
+  (): X
+}
+
+interface C1 {
+  [get];
+  (): X
+}
+type C2 = {
+  [get];
+  (): X
+}
+type C3 = {[get];
+  (): X
+}
+
 =====================================output=====================================
 interface A1 {
-  foo
+  foo;
   <T>(): T
 }
 type A2 = {
@@ -55,7 +91,7 @@ type A2 = {
 type A3 = { foo; <T>(): T }
 
 interface B1 {
-  foo
+  foo;
   (): X
 }
 type B2 = {
@@ -65,7 +101,7 @@ type B2 = {
 type B3 = { foo; (): X }
 
 interface C1 {
-  get
+  get;
   (): X
 }
 type C2 = {
@@ -73,6 +109,36 @@ type C2 = {
   (): X
 }
 type C3 = { get; (): X }
+
+interface D1 {
+  set;
+  (): X
+}
+type D2 = {
+  set
+  (): X
+}
+type D3 = { set; (): X }
+
+interface E1 {
+  static;
+  (): X
+}
+type E2 = {
+  static
+  (): X
+}
+type E3 = { static; (): X }
+
+interface C1 {
+  [get];
+  (): X
+}
+type C2 = {
+  [get]
+  (): X
+}
+type C3 = { [get]; (): X }
 
 ================================================================================
 `;

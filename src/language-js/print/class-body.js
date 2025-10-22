@@ -20,16 +20,6 @@ import {
 } from "../utils/index.js";
 import { shouldHugTheOnlyParameter } from "./function-parameters.js";
 
-const isClassMember = createTypeCheckFunction([
-  "ClassProperty",
-  "PropertyDefinition",
-  "ClassPrivateProperty",
-  "ClassAccessorProperty",
-  "AccessorProperty",
-  "TSAbstractPropertyDefinition",
-  "TSAbstractAccessorProperty",
-]);
-
 /*
 - `ClassBody`
 - `TSInterfaceBody` (TypeScript)
@@ -61,7 +51,11 @@ function printClassBody(path, options, print) {
       }
     }
 
-    if (shouldPrintSemicolonAfterClassMember({ node, next }, options)) {
+    if (
+      !isObjectType &&
+      (shouldPrintSemicolonAfterClassProperty({ node, next }, options) ||
+        shouldPrintSemicolonAfterInterfaceProperty({ node, next }, options))
+    ) {
       parts.push(";");
     }
 
@@ -233,14 +227,24 @@ function printClassMemberSemicolon(path, options) {
   return "";
 }
 
+const isClassProperty = createTypeCheckFunction([
+  "ClassProperty",
+  "PropertyDefinition",
+  "ClassPrivateProperty",
+  "ClassAccessorProperty",
+  "AccessorProperty",
+  "TSAbstractPropertyDefinition",
+  "TSAbstractAccessorProperty",
+]);
+
 /**
  * @returns {boolean}
  */
-function shouldPrintSemicolonAfterClassMember(
+function shouldPrintSemicolonAfterClassProperty(
   { node, next: nextNode },
   options,
 ) {
-  if (options.semi || !isClassMember(node)) {
+  if (options.semi || !isClassProperty(node)) {
     return false;
   }
 
@@ -277,7 +281,7 @@ function shouldPrintSemicolonAfterClassMember(
   // Flow variance sigil +/- requires semi if there's no
   // "declare" or "static" keyword before it.
   if (
-    isClassMember(nextNode) &&
+    isClassProperty(nextNode) &&
     nextNode.variance &&
     !nextNode.static &&
     !nextNode.declare
@@ -314,7 +318,38 @@ function shouldPrintSemicolonAfterClassMember(
       return true;
   }
 
-  /* c8 ignore next */
+  return false;
+}
+
+const isInterfaceProperty = createTypeCheckFunction(["TSPropertySignature"]);
+function shouldPrintSemicolonAfterInterfaceProperty(
+  { node, next: nextNode },
+  options,
+) {
+  if (options.semi || !isInterfaceProperty(node)) {
+    return false;
+  }
+
+  const { type, name } = node.key;
+  if (
+    !node.computed &&
+    type === "Identifier" &&
+    (name === "static" || name === "get" || name === "set") &&
+    !node.value &&
+    !node.typeAnnotation
+  ) {
+    return true;
+  }
+
+  if (!nextNode) {
+    return false;
+  }
+
+  switch (nextNode.type) {
+    case "TSCallSignatureDeclaration":
+      return true;
+  }
+
   return false;
 }
 
