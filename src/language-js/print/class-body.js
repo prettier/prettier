@@ -343,7 +343,6 @@ function shouldPrintSemicolonAfterInterfaceProperty(
     !node.computed &&
     type === "Identifier" &&
     (name === "static" || name === "get" || name === "set") &&
-    !node.value &&
     !node.typeAnnotation
   ) {
     return true;

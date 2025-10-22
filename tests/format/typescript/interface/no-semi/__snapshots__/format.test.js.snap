@@ -67,16 +67,28 @@ type E3 = {static;
   foo(): X
 }
 
-interface C1 {
+interface F1 {
   [get];
   foo(): X
 }
-type C2 = {
+type F2 = {
   [get];
   foo(): X
 }
-type C3 = {[get];
+type F3 = {[get];
   foo(): X
+}
+
+interface G1 {
+  foo: X;
+  <T>(): T;
+}
+type G2 = {
+  foo: X;
+  <T>(): T;
+}
+type G3 = {foo: X;
+  <T>(): T;
 }
 
 =====================================output=====================================
@@ -130,15 +142,25 @@ type E2 = {
 }
 type E3 = { static; foo(): X }
 
-interface C1 {
+interface F1 {
   [get]
   foo(): X
 }
-type C2 = {
+type F2 = {
   [get]
   foo(): X
 }
-type C3 = { [get]; foo(): X }
+type F3 = { [get]; foo(): X }
+
+interface G1 {
+  foo: X;
+  <T>(): T
+}
+type G2 = {
+  foo: X;
+  <T>(): T
+}
+type G3 = { foo: X; <T>(): T }
 
 ================================================================================
 `;
