@@ -222,7 +222,10 @@ function printClassMemberSemicolon(path, options) {
 
   if (members.includes(node)) {
     if (path.callParent(isClassBody)) {
-      return options.semi ? ";" : "";
+      const isFlowTypeAnnotation = path.callParent(
+        ({ node }) => node.type === "ObjectTypeAnnotation",
+      );
+      return isFlowTypeAnnotation || options.semi ? ";" : "";
     }
 
     if (parent.type === "TSTypeLiteral") {
