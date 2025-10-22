@@ -20,7 +20,7 @@ import {
 } from "../utils/index.js";
 import { shouldHugTheOnlyParameter } from "./function-parameters.js";
 
-const isClassProperty = createTypeCheckFunction([
+const isClassBodyMember = createTypeCheckFunction([
   "ClassProperty",
   "PropertyDefinition",
   "ClassPrivateProperty",
@@ -45,10 +45,10 @@ function printClassBody(path, options, print) {
 
   const [openingBrace, closingBrace] =
     isFlowTypeAnnotation && node.exact ? ["{|", "|}"] : "{}";
-  let firstProperty;
+  let firstMember;
 
   iterateClassMembers(path, ({ node, next, isLast }) => {
-    firstProperty ??= node;
+    firstMember ??= node;
     parts.push(print());
 
     if (isObjectType && isFlowTypeAnnotation) {
@@ -61,11 +61,7 @@ function printClassBody(path, options, print) {
       }
     }
 
-    if (
-      !options.semi &&
-      isClassProperty(node) &&
-      shouldPrintSemicolonAfterClassProperty(node, next)
-    ) {
+    if (shouldPrintSemicolonAfterClassBodyMember({ node, next }, options)) {
       parts.push(";");
     }
 
@@ -94,7 +90,7 @@ function printClassBody(path, options, print) {
         "...",
       ];
     } else {
-      printed = [firstProperty ? line : "", "..."];
+      printed = [firstMember ? line : "", "..."];
     }
     parts.push(printed);
   }
@@ -102,11 +98,11 @@ function printClassBody(path, options, print) {
   if (isObjectType) {
     const shouldBreak =
       options.objectWrap === "preserve" &&
-      firstProperty &&
+      firstMember &&
       hasNewlineInRange(
         options.originalText,
         locStart(node),
-        locStart(firstProperty),
+        locStart(firstMember),
       );
 
     let content;
@@ -218,42 +214,38 @@ function iterateClassMembers(path, iteratee) {
 
 function printClassMemberSemicolon(path, options) {
   const { parent, node } = path;
-  const members = path.callParent(getObjectTypeAnnotationMembers);
 
-  if (members.includes(node)) {
-    if (path.callParent(isClassBody)) {
-      const isFlowTypeAnnotation = path.callParent(
-        ({ node }) => node.type === "ObjectTypeAnnotation",
-      );
-      return isFlowTypeAnnotation || options.semi ? ";" : "";
-    }
+  if (path.callParent(isClassBody)) {
+    const isFlowTypeAnnotation = path.callParent(
+      ({ node }) => node.type === "ObjectTypeAnnotation",
+    );
+    return isFlowTypeAnnotation || options.semi ? ";" : "";
+  }
 
-    if (parent.type === "TSTypeLiteral") {
-      return node === members.at(-1)
-        ? options.semi
-          ? ifBreak(";")
-          : ""
-        : options.semi
-          ? ";"
-          : ifBreak("", ";");
-    }
+  if (parent.type === "TSTypeLiteral") {
+    return node === path.isLast
+      ? options.semi
+        ? ifBreak(";")
+        : ""
+      : options.semi
+        ? ";"
+        : ifBreak("", ";");
   }
 
   return "";
 }
 
-function getObjectTypeAnnotationMembers(path) {
-  const members = [];
-  iterateClassMembers(path, ({ node }) => {
-    members.push(node);
-  });
-  return members;
-}
-
 /**
  * @returns {boolean}
  */
-function shouldPrintSemicolonAfterClassProperty(node, nextNode) {
+function shouldPrintSemicolonAfterClassBodyMember(
+  { node, next: nextNode },
+  options,
+) {
+  if (options.semi || !isClassBodyMember(node)) {
+    return false;
+  }
+
   const { type, name } = node.key;
   if (
     !node.computed &&
@@ -287,7 +279,7 @@ function shouldPrintSemicolonAfterClassProperty(node, nextNode) {
   // Flow variance sigil +/- requires semi if there's no
   // "declare" or "static" keyword before it.
   if (
-    isClassProperty(nextNode) &&
+    isClassBodyMember(nextNode) &&
     nextNode.variance &&
     !nextNode.static &&
     !nextNode.declare
