@@ -71,14 +71,25 @@ type F3 = {[get];
 }
 
 interface G1 {
-  foo: X;
-  <T>(): T;
+  get: X;
+  foo(): X
 }
 type G2 = {
+  get: X;
+  foo(): X
+}
+type G3 = {get: X;
+  foo(): X
+}
+
+interface H1 {
   foo: X;
   <T>(): T;
 }
-type G3 = {foo: X;
+type H2 = {
+  foo: X;
   <T>(): T;
 }
-
+type H3 = {foo: X;
+  <T>(): T;
+}
