@@ -245,6 +245,18 @@ const isClassProperty = createTypeCheckFunction([
   "TSAbstractAccessorProperty",
 ]);
 
+const isKeywordProperty = (node) => {
+  if (node.computed || node.typeAnnotation) {
+    return false;
+  }
+
+  const { type, name } = node.key;
+  return (
+    type === "Identifier" &&
+    (name === "static" || name === "get" || name === "set")
+  );
+};
+
 /**
  * @returns {boolean}
  */
@@ -256,14 +268,7 @@ function shouldPrintSemicolonAfterClassProperty(
     return false;
   }
 
-  const { type, name } = node.key;
-  if (
-    !node.computed &&
-    type === "Identifier" &&
-    (name === "static" || name === "get" || name === "set") &&
-    !node.value &&
-    !node.typeAnnotation
-  ) {
+  if (!node.value && isKeywordProperty(node)) {
     return true;
   }
 
@@ -338,13 +343,7 @@ function shouldPrintSemicolonAfterInterfaceProperty(
     return false;
   }
 
-  const { type, name } = node.key;
-  if (
-    !node.computed &&
-    type === "Identifier" &&
-    (name === "static" || name === "get" || name === "set") &&
-    !node.typeAnnotation
-  ) {
+  if (isKeywordProperty(node)) {
     return true;
   }
 
