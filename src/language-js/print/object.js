@@ -8,15 +8,13 @@ import {
   softline,
 } from "../../document/builders.js";
 import { printDanglingComments } from "../../main/comments/print.js";
-import hasNewline from "../../utils/has-newline.js";
 import hasNewlineInRange from "../../utils/has-newline-in-range.js";
 import isNonEmptyArray from "../../utils/is-non-empty-array.js";
-import { locEnd, locStart } from "../loc.js";
+import { locStart } from "../loc.js";
 import getTextWithoutComments from "../utils/get-text-without-comments.js";
 import {
   CommentCheckFlags,
   createTypeCheckFunction,
-  getComments,
   hasComment,
   isNextLineEmpty,
   isObjectType,
@@ -130,25 +128,6 @@ function printObject(path, options, print) {
     }
     return result;
   });
-
-  if (node.inexact || node.hasUnknownMembers) {
-    let printed;
-    if (hasComment(node, CommentCheckFlags.Dangling)) {
-      const hasLineComments = hasComment(node, CommentCheckFlags.Line);
-      const printedDanglingComments = printDanglingComments(path, options);
-      printed = [
-        printedDanglingComments,
-        hasLineComments ||
-        hasNewline(options.originalText, locEnd(getComments(node).at(-1)))
-          ? hardline
-          : line,
-        "...",
-      ];
-    } else {
-      printed = ["..."];
-    }
-    props.push([...separatorParts, ...printed]);
-  }
 
   const lastElem = propsAndLoc.at(-1)?.node;
 
