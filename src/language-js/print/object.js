@@ -131,7 +131,7 @@ function printObject(path, options, print) {
     return result;
   });
 
-  if (node.inexact || node.hasUnknownMembers) {
+  if (isEnumBody && node.hasUnknownMembers) {
     let printed;
     if (hasComment(node, CommentCheckFlags.Dangling)) {
       const hasLineComments = hasComment(node, CommentCheckFlags.Line);

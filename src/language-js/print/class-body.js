@@ -54,7 +54,7 @@ function printClassBody(path, options, print) {
     if (isObject && isFlowTypeAnnotation) {
       const { parent } = path;
 
-      if (parent.inexact || parent.hasUnknownMembers || !isLast) {
+      if (parent.inexact || !isLast) {
         parts.push(",");
       } else if (shouldPrintComma(options)) {
         parts.push(ifBreak(","));
@@ -82,10 +82,7 @@ function printClassBody(path, options, print) {
     parts.push(printDanglingComments(path, options));
   }
 
-  if (
-    node.type === "ObjectTypeAnnotation" &&
-    (node.inexact || node.hasUnknownMembers)
-  ) {
+  if (node.type === "ObjectTypeAnnotation" && node.inexact) {
     let printed;
     if (hasComment(node, CommentCheckFlags.Dangling)) {
       const hasLineComments = hasComment(node, CommentCheckFlags.Line);
