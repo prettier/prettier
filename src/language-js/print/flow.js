@@ -225,7 +225,7 @@ function printFlow(path, options, print) {
       return [
         node.static ? "static " : "",
         print("value"),
-        printClassMemberSemicolon(path, node),
+        printClassMemberSemicolon(path, options),
       ];
     case "ObjectTypeMappedTypeProperty":
       return printFlowMappedTypeProperty(path, options, print);
