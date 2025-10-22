@@ -24,48 +24,48 @@ type B3 = {foo;
 
 interface C1 {
   get;
-  (): X
+  foo(): X
 }
 type C2 = {
   get;
-  (): X
+  foo(): X
 }
 type C3 = {get;
-  (): X
+  foo(): X
 }
 
 interface D1 {
   set;
-  (): X
+  foo(): X
 }
 type D2 = {
   set;
-  (): X
+  foo(): X
 }
 type D3 = {set;
-  (): X
+  foo(): X
 }
 
 interface E1 {
   static;
-  (): X
+  foo(): X
 }
 type E2 = {
   static;
-  (): X
+  foo(): X
 }
 type E3 = {static;
-  (): X
+  foo(): X
 }
 
 interface C1 {
   [get];
-  (): X
+  foo(): X
 }
 type C2 = {
   [get];
-  (): X
+  foo(): X
 }
 type C3 = {[get];
-  (): X
+  foo(): X
 }
