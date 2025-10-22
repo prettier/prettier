@@ -215,13 +215,21 @@ function printClassMemberSemicolon(path, options) {
   }
 
   if (parent.type === "TSTypeLiteral") {
-    return path.isLast
-      ? options.semi
-        ? ifBreak(";")
-        : ""
-      : options.semi
-        ? ";"
-        : ifBreak("", ";");
+    if (path.isLast) {
+      return options.semi ? ifBreak(";") : "";
+    }
+
+    if (
+      options.semi ||
+      shouldPrintSemicolonAfterInterfaceProperty(
+        { node: path.node, next: path.next },
+        options,
+      )
+    ) {
+      return ";";
+    }
+
+    return ifBreak("", ";");
   }
 
   return "";

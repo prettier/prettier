@@ -85,7 +85,7 @@ interface A1 {
   <T>(): T
 }
 type A2 = {
-  foo
+  foo;
   <T>(): T
 }
 type A3 = { foo; <T>(): T }
@@ -95,7 +95,7 @@ interface B1 {
   (): X
 }
 type B2 = {
-  foo
+  foo;
   (): X
 }
 type B3 = { foo; (): X }
@@ -105,7 +105,7 @@ interface C1 {
   (): X
 }
 type C2 = {
-  get
+  get;
   (): X
 }
 type C3 = { get; (): X }
@@ -115,7 +115,7 @@ interface D1 {
   (): X
 }
 type D2 = {
-  set
+  set;
   (): X
 }
 type D3 = { set; (): X }
@@ -125,7 +125,7 @@ interface E1 {
   (): X
 }
 type E2 = {
-  static
+  static;
   (): X
 }
 type E3 = { static; (): X }
@@ -135,7 +135,7 @@ interface C1 {
   (): X
 }
 type C2 = {
-  [get]
+  [get];
   (): X
 }
 type C3 = { [get]; (): X }
