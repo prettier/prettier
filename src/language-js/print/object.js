@@ -207,7 +207,7 @@ function printObject(path, options, print) {
 
 function hasNewLineAfterOpeningBrace(node, firstProperty, options) {
   const text = options.originalText;
-  let leftBraceIndex = locStart(node);
+  let openingBraceIndex = locStart(node);
   const firstPropertyStart = locStart(firstProperty);
 
   if (isPrintingImportAttributes(node)) {
@@ -217,15 +217,15 @@ function hasNewLineAfterOpeningBrace(node, firstProperty, options) {
       start,
       firstPropertyStart,
     );
-    leftBraceIndex = start + textBeforeAttributes.lastIndexOf("{");
+    openingBraceIndex = start + textBeforeAttributes.lastIndexOf("{");
   }
 
   /* c8 ignore next 3 */
   if (process.env.NODE_ENV !== "production") {
-    assert.equal(text.charAt(leftBraceIndex), "{");
+    assert.equal(text.charAt(openingBraceIndex), "{");
   }
 
-  return hasNewlineInRange(text, leftBraceIndex, firstPropertyStart);
+  return hasNewlineInRange(text, openingBraceIndex, firstPropertyStart);
 }
 
 export { printObject };
