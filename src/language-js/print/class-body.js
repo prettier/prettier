@@ -20,7 +20,7 @@ import {
 } from "../utils/index.js";
 import { shouldHugTheOnlyParameter } from "./function-parameters.js";
 
-const isClassBodyMember = createTypeCheckFunction([
+const isClassMember = createTypeCheckFunction([
   "ClassProperty",
   "PropertyDefinition",
   "ClassPrivateProperty",
@@ -61,7 +61,7 @@ function printClassBody(path, options, print) {
       }
     }
 
-    if (shouldPrintSemicolonAfterClassBodyMember({ node, next }, options)) {
+    if (shouldPrintSemicolonAfterClassMember({ node, next }, options)) {
       parts.push(";");
     }
 
@@ -213,17 +213,14 @@ function iterateClassMembers(path, iteratee) {
 }
 
 function printClassMemberSemicolon(path, options) {
-  const { parent, node } = path;
+  const { parent } = path;
 
   if (path.callParent(isClassBody)) {
-    const isFlowTypeAnnotation = path.callParent(
-      ({ node }) => node.type === "ObjectTypeAnnotation",
-    );
-    return isFlowTypeAnnotation || options.semi ? ";" : "";
+    return options.semi || parent.type === "ObjectTypeAnnotation" ? ";" : "";
   }
 
   if (parent.type === "TSTypeLiteral") {
-    return node === path.isLast
+    return path.isLast
       ? options.semi
         ? ifBreak(";")
         : ""
@@ -238,11 +235,11 @@ function printClassMemberSemicolon(path, options) {
 /**
  * @returns {boolean}
  */
-function shouldPrintSemicolonAfterClassBodyMember(
+function shouldPrintSemicolonAfterClassMember(
   { node, next: nextNode },
   options,
 ) {
-  if (options.semi || !isClassBodyMember(node)) {
+  if (options.semi || !isClassMember(node)) {
     return false;
   }
 
@@ -279,7 +276,7 @@ function shouldPrintSemicolonAfterClassBodyMember(
   // Flow variance sigil +/- requires semi if there's no
   // "declare" or "static" keyword before it.
   if (
-    isClassBodyMember(nextNode) &&
+    isClassMember(nextNode) &&
     nextNode.variance &&
     !nextNode.static &&
     !nextNode.declare

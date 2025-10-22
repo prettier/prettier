@@ -128,10 +128,8 @@ function printObject(path, options, print) {
     parts.push([...separatorParts, ...printed]);
   }
 
-  const lastElem = children.at(-1);
-
   const canHaveTrailingSeparator = !(
-    hasUnknownMembers || lastElem?.type === "RestElement"
+    hasUnknownMembers || children.at(-1)?.type === "RestElement"
   );
 
   let content;
