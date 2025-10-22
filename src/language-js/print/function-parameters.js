@@ -308,6 +308,5 @@ export {
   printFunctionParameters,
   shouldBreakFunctionParameters,
   shouldGroupFunctionParameters,
-  shouldHugTheOnlyFunctionParameter,
   shouldHugTheOnlyParameter,
 };
