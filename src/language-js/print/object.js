@@ -37,10 +37,17 @@ const isPrintingImportAttributes = createTypeCheckFunction([
   "DeclareExportAllDeclaration",
 ]);
 
+const isPrintingFlowEnumBody = createTypeCheckFunction([
+  "EnumBooleanBody",
+  "EnumNumberBody",
+  "EnumBigIntBody",
+  "EnumStringBody",
+  "EnumSymbolBody",
+]);
+
 /*
 - `ObjectExpression`
 - `ObjectPattern`
-- `RecordExpression`
 - `ImportDeclaration`
 - `ExportDefaultDeclaration`
 - `ExportNamedDeclaration`
@@ -55,16 +62,13 @@ const isPrintingImportAttributes = createTypeCheckFunction([
 - `TSEnumDeclaration`(TypeScript)
 */
 function printObject(path, options, print) {
-  const { node } = path;
+  const { node, parent } = path;
 
-  const isEnumBody =
-    node.type === "TSEnumBody" ||
-    node.type === "EnumBooleanBody" ||
-    node.type === "EnumNumberBody" ||
-    node.type === "EnumBigIntBody" ||
-    node.type === "EnumStringBody" ||
-    node.type === "EnumSymbolBody";
+  const isFlowEnumBody = isPrintingFlowEnumBody(node);
+  const isEnumBody = node.type === "TSEnumBody" || isFlowEnumBody;
   const isImportAttributes = isPrintingImportAttributes(node);
+  const hasUnknownMembers = isFlowEnumBody && node.hasUnknownMembers;
+
   const property = isEnumBody
     ? "members"
     : isImportAttributes
@@ -72,7 +76,6 @@ function printObject(path, options, print) {
       : "properties";
   const children = node[property];
 
-  const { parent } = path;
   const shouldBreak =
     isEnumBody ||
     (node.type === "ObjectPattern" &&
@@ -95,20 +98,18 @@ function printObject(path, options, print) {
       children.length > 0 &&
       hasNewLineAfterOpeningBrace(node, children[0], options));
 
-  const separator = ",";
-
   /** @type {Doc[]} */
   let separatorParts = [];
   const parts = path.map(({ node }) => {
     const result = [...separatorParts, group(print())];
-    separatorParts = [separator, line];
+    separatorParts = [",", line];
     if (isNextLineEmpty(node, options)) {
       separatorParts.push(hardline);
     }
     return result;
   }, property);
 
-  if (isEnumBody && node.hasUnknownMembers) {
+  if (hasUnknownMembers) {
     let printed;
     if (hasComment(node, CommentCheckFlags.Dangling)) {
       const hasLineComments = hasComment(node, CommentCheckFlags.Line);
@@ -130,9 +131,7 @@ function printObject(path, options, print) {
   const lastElem = children.at(-1);
 
   const canHaveTrailingSeparator = !(
-    node.inexact ||
-    node.hasUnknownMembers ||
-    lastElem?.type === "RestElement"
+    hasUnknownMembers || lastElem?.type === "RestElement"
   );
 
   let content;
@@ -154,12 +153,7 @@ function printObject(path, options, print) {
     content = [
       "{",
       indent([spacing, ...parts]),
-      ifBreak(
-        canHaveTrailingSeparator &&
-          (separator !== "," || shouldPrintComma(options))
-          ? separator
-          : "",
-      ),
+      ifBreak(canHaveTrailingSeparator && shouldPrintComma(options) ? "," : ""),
       spacing,
       "}",
       printOptionalToken(path),
