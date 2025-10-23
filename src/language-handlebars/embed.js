@@ -1,18 +1,14 @@
 import { dedent, hardline, softline } from "../document/builders.js";
+import {
+  isEmbedFrontMatter,
+  printEmbedFrontMatter,
+} from "../utils/front-matter/embed.js";
 
 function embed(path /* , options*/) {
   const { node } = path;
 
-  if (node.type === "front-matter") {
-    return async (textToDoc) => {
-      const doc = await textToDoc(node.raw, { parser: node.language });
-
-      if (!doc) {
-        return [];
-      }
-
-      return [doc];
-    };
+  if (isEmbedFrontMatter(path)) {
+    return printEmbedFrontMatter;
   }
 
   if (node.type !== "TextNode") {

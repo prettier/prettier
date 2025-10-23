@@ -78,8 +78,22 @@ function parse(text) {
   }
 
   if (frontMatter) {
+    const frontMatterNode = {
+      ...frontMatter,
+      loc: {
+        start: {
+          ...frontMatter.start,
+          offset: frontMatter.start.index,
+        },
+        end: {
+          ...frontMatter.end,
+          offset: frontMatter.end.index,
+        },
+      },
+    };
+
     // @ts-expect-error
-    ast.body.unshift(frontMatter);
+    ast.body.unshift(frontMatterNode);
   }
 
   return ast;

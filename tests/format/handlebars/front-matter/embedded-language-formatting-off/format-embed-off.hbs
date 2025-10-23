@@ -1,0 +1,12 @@
+---
+title: A very interesting subject
+keywords:
+- some
+- keywords
+- for testing
+---
+
+<h1>{{title}}</h1>
+<p>
+  Keywords: {{#each keywords}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}
+</p>

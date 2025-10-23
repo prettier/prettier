@@ -385,7 +385,7 @@ function print(path, options, print) {
       return ["<!--", node.value, "-->"];
 
     case "front-matter":
-      return replaceEndOfLine(node.raw);
+      return node.raw;
 
     case "StringLiteral":
       return printStringLiteral(path, options);
