@@ -297,9 +297,16 @@ function shouldBreakFunctionParameters(functionNode) {
   );
 }
 
+function shouldHugTheOnlyParameter(node, name) {
+  return (
+    (name === "params" || name === "this" || name === "rest") &&
+    shouldHugTheOnlyFunctionParameter(node)
+  );
+}
+
 export {
   printFunctionParameters,
   shouldBreakFunctionParameters,
   shouldGroupFunctionParameters,
-  shouldHugTheOnlyFunctionParameter,
+  shouldHugTheOnlyParameter,
 };
