@@ -58,9 +58,7 @@ function parseJson(text, options = {}) {
     }
   }
 
-  // @ts-expect-error
   if (!allowComments && isNonEmptyArray(ast.comments)) {
-    // @ts-expect-error
     throw createJsonError(ast.comments[0], "Comment");
   }
 
