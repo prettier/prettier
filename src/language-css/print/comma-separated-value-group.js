@@ -28,8 +28,8 @@ import {
   isIfElseKeywordNode,
   isInlineValueCommentNode,
   isLeftCurlyBraceNode,
-  isMathFunctionNode,
   isMathOperatorNode,
+  isMathOrCustomFunctionNode,
   isMultiplicationNode,
   isParenGroupNode,
   isPostcssSimpleVarNode,
@@ -394,17 +394,22 @@ function printCommaSeparatedValueGroup(path, options, print) {
     }
 
     // Formatting `font` property
-    // Keep division compact for `<font-size>/<line-height>`
     if (declAncestorProp && declAncestorProp === "font") {
-      // <font-size> /<line-height>
-      //            ^
-      if (iNextNode && isDivisionNode(iNextNode) && isMathFunctionNode(iNode)) {
+      if (
+        iNextNode &&
+        isDivisionNode(iNextNode) &&
+        hasEmptyRawBefore(iNextNode) &&
+        isMathOrCustomFunctionNode(iNode)
+      ) {
         continue;
       }
 
-      // <font-size>/ <line-height>
-      //             ^
-      if (isDivisionNode(iNode) && iPrevNode && isMathFunctionNode(iPrevNode)) {
+      if (
+        isDivisionNode(iNode) &&
+        hasEmptyRawBefore(iNode) &&
+        iPrevNode &&
+        isMathOrCustomFunctionNode(iPrevNode)
+      ) {
         continue;
       }
     }

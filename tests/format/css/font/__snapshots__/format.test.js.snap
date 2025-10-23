@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`font.css format 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+foo {
+  font: 1rem/1;
+  font: 1rem / 1;
+
+  font: var(--size)/2;
+  font: var(--size) / 2;
+
+  font: calc(var(--size) / 2)/2;
+  font: calc(var(--size) / 2) / 2;
+
+  font: min(1px, 2px)/2;
+  font: min(1px, 2px) / 2;
+
+  font: max(1px, 2px)/2;
+  font: max(1px, 2px) / 2;
+
+  font: clamp(1px, 2px, 3px)/2;
+  font: clamp(1px, 2px, 3px) / 2
+}
+
+=====================================output=====================================
+foo {
+  font: 1rem/1;
+  font: 1rem / 1;
+
+  font: var(--size)/2;
+  font: var(--size) / 2;
+
+  font: calc(var(--size) / 2)/2;
+  font: calc(var(--size) / 2) / 2;
+
+  font: min(1px, 2px)/2;
+  font: min(1px, 2px) / 2;
+
+  font: max(1px, 2px)/2;
+  font: max(1px, 2px) / 2;
+
+  font: clamp(1px, 2px, 3px)/2;
+  font: clamp(1px, 2px, 3px) / 2;
+}
+
+================================================================================
+`;

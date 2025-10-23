@@ -112,14 +112,15 @@ function isVarFunctionNode(node) {
   return node.type === "value-func" && node.value.toLowerCase() === "var";
 }
 
-function isMathFunctionNode(node) {
+function isMathOrCustomFunctionNode(node) {
   return (
     node.type === "value-func" &&
     (node.value.toLowerCase() === "var" ||
       node.value.toLowerCase() === "calc" ||
       node.value.toLowerCase() === "min" ||
       node.value.toLowerCase() === "max" ||
-      node.value.toLowerCase() === "clamp")
+      node.value.toLowerCase() === "clamp" ||
+      node.value.startsWith("--"))
   );
 }
 
@@ -421,8 +422,8 @@ export {
   isKeyInValuePairNode,
   isKeyValuePairNode,
   isLeftCurlyBraceNode,
-  isMathFunctionNode,
   isMathOperatorNode,
+  isMathOrCustomFunctionNode,
   isMediaAndSupportsKeywords,
   isMultiplicationNode,
   isParenGroupNode,
