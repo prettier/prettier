@@ -408,7 +408,7 @@ for (const division of collidingDivisions) {
       // selection over whole r/o div OR ending in last paragraph (which would get absorbed) -> FAIL
       console.warn(
         "deleteSelectedTextAndJoinRemainingNodes(): cannot delete because of must-keep division: " +
-          division.properties.name,
+        division.properties.name,
       );
     }
   }

@@ -1,7 +1,10 @@
-a = foo(
+a = Boolean(
   a_long_long_long_long_condition || a_long_long_long_long_condition || a_long_long_long_long_condition,
 );
-a = new Foo(
+a = Boolean(
+  a_long_long_long_long_condition || a_long_long_long_long_condition || a_long_long_long_long_condition,
+)?.toString();
+a = new Boolean(
   a_long_long_long_long_condition || a_long_long_long_long_condition || a_long_long_long_long_condition,
 );
 a = !(
@@ -11,6 +14,10 @@ a = !!(
   a_long_long_long_long_condition || a_long_long_long_long_condition || a_long_long_long_long_condition
 );
 
+a = not_boolean(
+  a_long_long_long_long_condition || a_long_long_long_long_condition || a_long_long_long_long_condition,
+  anotherArgument,
+);
 a = foo(
   a_long_long_long_long_condition || a_long_long_long_long_condition || a_long_long_long_long_condition,
   anotherArgument,
@@ -21,37 +28,35 @@ a = new Foo(
 );
 
 // Different operators
-a = foo(
+a = Boolean(
   a_long_long_long_long_condition && a_long_long_long_long_condition && a_long_long_long_long_condition,
 );
-a = foo(
+a = Boolean(
   a_long_long_long_long_condition ?? a_long_long_long_long_condition ?? a_long_long_long_long_condition,
+);
+a = Boolean(
+  a_long_long_long_long_condition + a_long_long_long_long_condition + a_long_long_long_long_condition,
 );
 
 // Not argument
 a = (
   a_long_long_long_long_condition || a_long_long_long_long_condition || a_long_long_long_long_condition
-)(foo);
+)(Boolean);
 a = new (
   a_long_long_long_long_condition || a_long_long_long_long_condition || a_long_long_long_long_condition
 )(Foo);
 
 // Nested
-a = foo(
+a = Boolean(
   (a_long_long_long_long_condition || a_long_long_long_long_condition || a_long_long_long_long_condition)
   &&
   (a_long_long_long_long_condition || a_long_long_long_long_condition || a_long_long_long_long_condition)
 );
-a = foo(
+a = Boolean(
   (a_long_long_long_long_condition || a_long_long_long_long_condition || a_long_long_long_long_condition)
   ||
   (a_long_long_long_long_condition || a_long_long_long_long_condition || a_long_long_long_long_condition)
 );
-a = foo(foo(
+a = Boolean(Boolean(
   a_long_long_long_long_condition || a_long_long_long_long_condition || a_long_long_long_long_condition,
 ));
-
-// Not a logical expression
-a = foo(
-  a_long_long_long_long_condition + a_long_long_long_long_condition + a_long_long_long_long_condition,
-);

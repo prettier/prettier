@@ -629,9 +629,9 @@ a
 
 var a = x(
   abifornCringerMoshedPerplexSawder
-    + kochabCooieGameOnOboleUnweave // f
-    + glimseGlyphsHazardNoopsTieTie
-    + bifornCringerMoshedPerplexSawder,
+  + kochabCooieGameOnOboleUnweave // f
+  + glimseGlyphsHazardNoopsTieTie
+  + bifornCringerMoshedPerplexSawder,
 );
 
 foo[
@@ -774,9 +774,9 @@ a ||
 
 var a = x(
   abifornCringerMoshedPerplexSawder +
-    kochabCooieGameOnOboleUnweave + // f
-    glimseGlyphsHazardNoopsTieTie +
-    bifornCringerMoshedPerplexSawder,
+  kochabCooieGameOnOboleUnweave + // f
+  glimseGlyphsHazardNoopsTieTie +
+  bifornCringerMoshedPerplexSawder,
 );
 
 foo[
@@ -2241,7 +2241,7 @@ defaultContent.filter(defaultLocale => {
 this._cumulativeHeights
   && Math.abs(
     this._cachedItemHeight(this._firstVisibleIndex + i)
-      - this._provider.fastHeight(i + this._firstVisibleIndex),
+    - this._provider.fastHeight(i + this._firstVisibleIndex),
   ) > 1;
 
 foooooooooooooooooooooooooooooooooooooooooooooooooooooooooo(aaaaaaaaaaaaaaaaaaa)
@@ -2287,7 +2287,7 @@ defaultContent.filter(defaultLocale => {
 this._cumulativeHeights &&
   Math.abs(
     this._cachedItemHeight(this._firstVisibleIndex + i) -
-      this._provider.fastHeight(i + this._firstVisibleIndex),
+    this._provider.fastHeight(i + this._firstVisibleIndex),
   ) > 1;
 
 foooooooooooooooooooooooooooooooooooooooooooooooooooooooooo(
