@@ -384,6 +384,9 @@ function print(path, options, print) {
     case "CommentStatement":
       return ["<!--", node.value, "-->"];
 
+    case "front-matter":
+      return node.raw;
+
     case "StringLiteral":
       return printStringLiteral(path, options);
 

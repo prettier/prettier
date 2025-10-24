@@ -1,7 +1,15 @@
 import { dedent, hardline, softline } from "../document/builders.js";
+import {
+  isEmbedFrontMatter,
+  printEmbedFrontMatter,
+} from "../utils/front-matter/embed.js";
 
 function embed(path /* , options*/) {
   const { node } = path;
+
+  if (isEmbedFrontMatter(path)) {
+    return printEmbedFrontMatter;
+  }
 
   if (node.type !== "TextNode") {
     return;

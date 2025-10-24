@@ -1251,6 +1251,7 @@ exports[`visitor keys glimmer 1`] = `
   ],
   "TextNode": [],
   "UndefinedLiteral": [],
+  "front-matter": [],
 }
 `;
 
