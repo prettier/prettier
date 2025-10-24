@@ -8,31 +8,38 @@ printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
 ---
-title: A very interesting subject
+title:         A very interesting subject
 keywords:
 - some
-- keywords
+-      keywords
 - for testing
+data: {x:1,
+ y:100000000}
 ---
-
 <h1>{{title}}</h1>
 <p>
-  Keywords: {{#each keywords}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}
+  Keywords: {{#each keywords}}
+  {{this}}{{#unless @last}}, {{/unless}}
+  {{/each}}
 </p>
 
 =====================================output=====================================
 ---
-title: A very interesting subject
+title:         A very interesting subject
 keywords:
 - some
-- keywords
+-      keywords
 - for testing
+data: {x:1,
+ y:100000000}
 ---
 
 <h1>{{title}}</h1>
 <p>
   Keywords:
-  {{#each keywords}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}
+  {{#each keywords}}
+    {{this}}{{#unless @last}}, {{/unless}}
+  {{/each}}
 </p>
 ================================================================================
 `;

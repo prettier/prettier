@@ -20,3 +20,27 @@ test = "Toml test"
 <h1>{{test}}</h1>
 ================================================================================
 `;
+
+exports[`toml2.hbs format 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
++++
+Test TOML data
++++
+
+<Foo as
+|bar baz qux|></Foo>{{#Foo as
+|bar baz qux|}}{{/Foo}}
+
+=====================================output=====================================
++++
+!!! Formatted by with 'dummy-toml-plugin-parser-name' parser
+Test TOML data
++++
+
+<Foo as |bar baz qux| />{{#Foo as |bar baz qux|}}{{/Foo}}
+================================================================================
+`;
