@@ -20,16 +20,6 @@ import {
 } from "../utils/index.js";
 import { shouldHugTheOnlyParameter } from "./function-parameters.js";
 
-const isClassMember = createTypeCheckFunction([
-  "ClassProperty",
-  "PropertyDefinition",
-  "ClassPrivateProperty",
-  "ClassAccessorProperty",
-  "AccessorProperty",
-  "TSAbstractPropertyDefinition",
-  "TSAbstractAccessorProperty",
-]);
-
 /*
 - `ClassBody`
 - `TSInterfaceBody` (TypeScript)
@@ -61,7 +51,11 @@ function printClassBody(path, options, print) {
       }
     }
 
-    if (shouldPrintSemicolonAfterClassMember({ node, next }, options)) {
+    if (
+      !isObjectType &&
+      (shouldPrintSemicolonAfterClassProperty({ node, next }, options) ||
+        shouldPrintSemicolonAfterInterfaceProperty({ node, next }, options))
+    ) {
       parts.push(";");
     }
 
@@ -221,37 +215,60 @@ function printClassMemberSemicolon(path, options) {
   }
 
   if (parent.type === "TSTypeLiteral") {
-    return path.isLast
-      ? options.semi
-        ? ifBreak(";")
-        : ""
-      : options.semi
-        ? ";"
-        : ifBreak("", ";");
+    if (path.isLast) {
+      return options.semi ? ifBreak(";") : "";
+    }
+
+    if (
+      options.semi ||
+      shouldPrintSemicolonAfterInterfaceProperty(
+        { node: path.node, next: path.next },
+        options,
+      )
+    ) {
+      return ";";
+    }
+
+    return ifBreak("", ";");
   }
 
   return "";
 }
 
-/**
- * @returns {boolean}
- */
-function shouldPrintSemicolonAfterClassMember(
-  { node, next: nextNode },
-  options,
-) {
-  if (options.semi || !isClassMember(node)) {
+const isClassProperty = createTypeCheckFunction([
+  "ClassProperty",
+  "PropertyDefinition",
+  "ClassPrivateProperty",
+  "ClassAccessorProperty",
+  "AccessorProperty",
+  "TSAbstractPropertyDefinition",
+  "TSAbstractAccessorProperty",
+]);
+
+const isKeywordProperty = (node) => {
+  if (node.computed || node.typeAnnotation) {
     return false;
   }
 
   const { type, name } = node.key;
-  if (
-    !node.computed &&
+  return (
     type === "Identifier" &&
-    (name === "static" || name === "get" || name === "set") &&
-    !node.value &&
-    !node.typeAnnotation
-  ) {
+    (name === "static" || name === "get" || name === "set")
+  );
+};
+
+/**
+ * @returns {boolean}
+ */
+function shouldPrintSemicolonAfterClassProperty(
+  { node, next: nextNode },
+  options,
+) {
+  if (options.semi || !isClassProperty(node)) {
+    return false;
+  }
+
+  if (!node.value && isKeywordProperty(node)) {
     return true;
   }
 
@@ -277,7 +294,7 @@ function shouldPrintSemicolonAfterClassMember(
   // Flow variance sigil +/- requires semi if there's no
   // "declare" or "static" keyword before it.
   if (
-    isClassMember(nextNode) &&
+    isClassProperty(nextNode) &&
     nextNode.variance &&
     !nextNode.static &&
     !nextNode.declare
@@ -314,7 +331,31 @@ function shouldPrintSemicolonAfterClassMember(
       return true;
   }
 
-  /* c8 ignore next */
+  return false;
+}
+
+const isInterfaceProperty = createTypeCheckFunction(["TSPropertySignature"]);
+function shouldPrintSemicolonAfterInterfaceProperty(
+  { node, next: nextNode },
+  options,
+) {
+  if (options.semi || !isInterfaceProperty(node)) {
+    return false;
+  }
+
+  if (isKeywordProperty(node)) {
+    return true;
+  }
+
+  if (!nextNode) {
+    return false;
+  }
+
+  switch (nextNode.type) {
+    case "TSCallSignatureDeclaration":
+      return true;
+  }
+
   return false;
 }
 
