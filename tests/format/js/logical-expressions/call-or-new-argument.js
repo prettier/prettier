@@ -50,3 +50,8 @@ a = foo(
 a = foo(foo(
   a_long_long_long_long_condition || a_long_long_long_long_condition || a_long_long_long_long_condition,
 ));
+
+// Not a logical expression
+a = foo(
+  a_long_long_long_long_condition + a_long_long_long_long_condition + a_long_long_long_long_condition,
+);

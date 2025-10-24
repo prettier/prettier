@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`call-expressions.js format 1`] = `
+exports[`call-or-new-argument.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -58,6 +58,11 @@ a = foo(
 a = foo(foo(
   a_long_long_long_long_condition || a_long_long_long_long_condition || a_long_long_long_long_condition,
 ));
+
+// Not a logical expression
+a = foo(
+  a_long_long_long_long_condition + a_long_long_long_long_condition + a_long_long_long_long_condition,
+);
 
 =====================================output=====================================
 a = foo(
@@ -139,6 +144,13 @@ a = foo(
     a_long_long_long_long_condition ||
     a_long_long_long_long_condition,
   ),
+);
+
+// Not a logical expression
+a = foo(
+  a_long_long_long_long_condition +
+    a_long_long_long_long_condition +
+    a_long_long_long_long_condition,
 );
 
 ================================================================================
