@@ -14,11 +14,11 @@ a = !!(
   a_long_long_long_long_condition || a_long_long_long_long_condition || a_long_long_long_long_condition
 );
 
-a = not_boolean(
+a = Boolean(
   a_long_long_long_long_condition || a_long_long_long_long_condition || a_long_long_long_long_condition,
   anotherArgument,
 );
-a = foo(
+a = Boolean(
   a_long_long_long_long_condition || a_long_long_long_long_condition || a_long_long_long_long_condition,
   anotherArgument,
 );
@@ -45,6 +45,11 @@ a = (
 a = new (
   a_long_long_long_long_condition || a_long_long_long_long_condition || a_long_long_long_long_condition
 )(Foo);
+
+// Not `Boolean`
+a = not_Boolean(
+  a_long_long_long_long_condition || a_long_long_long_long_condition || a_long_long_long_long_condition,
+);
 
 // Nested
 a = Boolean(
