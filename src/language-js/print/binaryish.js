@@ -111,7 +111,7 @@ function printBinaryishExpression(path, options, print) {
       grandparent.type !== "ThrowStatement" &&
       !isCallExpression(grandparent)) ||
     parent.type === "TemplateLiteral" ||
-    isBooleanCoercion(path);
+    isBooleanTypeCoercion(path);
 
   const shouldIndentIfInlining =
     parent.type === "AssignmentExpression" ||
@@ -395,7 +395,7 @@ function isVueFilterSequenceExpression(path, options) {
 /**
 @returns {boolean}
 */
-function isBooleanCoercion(path) {
+function isBooleanTypeCoercion(path) {
   if (path.key !== "arguments") {
     return false;
   }
