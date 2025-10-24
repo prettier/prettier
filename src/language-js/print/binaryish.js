@@ -112,10 +112,7 @@ function printBinaryishExpression(path, options, print) {
       grandparent.type !== "ThrowStatement" &&
       !isCallExpression(grandparent)) ||
     parent.type === "TemplateLiteral" ||
-    (node.type === "LogicalExpression" &&
-      (isCallExpression(parent) || parent.type === "NewExpression") &&
-      getCallArguments(parent).length === 1 &&
-      getCallArguments(parent)[0] === node);
+    isSingleArgumentLogicalExpression(path);
 
   const shouldIndentIfInlining =
     parent.type === "AssignmentExpression" ||
@@ -394,6 +391,25 @@ function isVueFilterSequenceExpression(path, options) {
         !isBitwiseOrExpression(node) && node.type !== "JsExpressionRoot",
     )
   );
+}
+
+function isSingleArgumentLogicalExpression(path) {
+  const { node } = path;
+  if (node.type !== "LogicalExpression") {
+    return false;
+  }
+
+  const { parent } = path;
+  if (parent.type === "NewExpression") {
+    return path.key === "arguments" && parent.arguments.length === 1;
+  }
+
+  if (!isCallExpression(parent)) {
+    return false;
+  }
+
+  const callArguments = getCallArguments(parent);
+  return callArguments.length === 1 && callArguments[0] === node;
 }
 
 export { printBinaryishExpression, shouldInlineLogicalExpression };
