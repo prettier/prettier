@@ -392,14 +392,27 @@ function isVueFilterSequenceExpression(path, options) {
   );
 }
 
+/**
+@returns {boolean}
+*/
 function isBooleanCoercion(path) {
-  const { key, parent } = path;
-  return (
-    key === "arguments" &&
-    isCallExpression(parent) &&
-    !parent.optional &&
-    parent.arguments.length === 1
-  );
+  if (path.key !== "arguments") {
+    return false;
+  }
+
+  const { parent } = path;
+  if (
+    !(
+      isCallExpression(parent) &&
+      !parent.optional &&
+      parent.arguments.length === 1
+    )
+  ) {
+    return false;
+  }
+
+  const { callee } = parent;
+  return callee.type === "Identifier" && callee.name === "Boolean";
 }
 
 export { printBinaryishExpression, shouldInlineLogicalExpression };
