@@ -6,121 +6,140 @@ parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-Foo(
-  a_long_long_long_long_condition ||
-  a_long_long_long_long_condition ||
-  a_long_long_long_long_condition,
+a = foo(
+  a_long_long_long_long_condition || a_long_long_long_long_condition || a_long_long_long_long_condition,
+);
+a = new Foo(
+  a_long_long_long_long_condition || a_long_long_long_long_condition || a_long_long_long_long_condition,
+);
+a = !(
+  a_long_long_long_long_condition || a_long_long_long_long_condition || a_long_long_long_long_condition
+);
+a = !!(
+  a_long_long_long_long_condition || a_long_long_long_long_condition || a_long_long_long_long_condition
 );
 
-Foo(
-  a_long_long_long_long_condition ||
-  a_long_long_long_long_condition ||
-  a_long_long_long_long_condition,
-  a_long_long_long_long_condition
+a = foo(
+  a_long_long_long_long_condition || a_long_long_long_long_condition || a_long_long_long_long_condition,
+  anotherArgument,
+);
+a = new Foo(
+  a_long_long_long_long_condition || a_long_long_long_long_condition || a_long_long_long_long_condition,
+  anotherArgument,
 );
 
-Bar(
-  a_long_long_long_long_condition &&
-  a_long_long_long_long_condition &&
-  a_long_long_long_long_condition,
+// Different operators
+a = foo(
+  a_long_long_long_long_condition && a_long_long_long_long_condition && a_long_long_long_long_condition,
+);
+a = foo(
+  a_long_long_long_long_condition ?? a_long_long_long_long_condition ?? a_long_long_long_long_condition,
 );
 
-Bar(
-  a_long_long_long_long_condition &&
-  a_long_long_long_long_condition &&
-  a_long_long_long_long_condition,
-  a_long_long_long_long_condition
+// Not argument
+a = (
+  a_long_long_long_long_condition || a_long_long_long_long_condition || a_long_long_long_long_condition
+)(foo);
+a = new (
+  a_long_long_long_long_condition || a_long_long_long_long_condition || a_long_long_long_long_condition
+)(Foo);
+
+// Nested
+a = foo(
+  (a_long_long_long_long_condition || a_long_long_long_long_condition || a_long_long_long_long_condition)
+  &&
+  (a_long_long_long_long_condition || a_long_long_long_long_condition || a_long_long_long_long_condition)
 );
-
-
-Baz(
-  a_long_long_long_long_condition ??
-  a_long_long_long_long_condition ??
-  a_long_long_long_long_condition,
+a = foo(
+  (a_long_long_long_long_condition || a_long_long_long_long_condition || a_long_long_long_long_condition)
+  ||
+  (a_long_long_long_long_condition || a_long_long_long_long_condition || a_long_long_long_long_condition)
 );
-
-Baz(
-  a_long_long_long_long_condition ??
-  a_long_long_long_long_condition ??
-  a_long_long_long_long_condition,
-  a_long_long_long_long_condition
-);
-
-(
-  a_long_long_long_long_condition ||
-  a_long_long_long_long_condition ||
-  a_long_long_long_long_condition
-).call();
-
-(
-  a_long_long_long_long_condition &&
-  a_long_long_long_long_condition &&
-  a_long_long_long_long_condition
-).call();
-
-(
-  a_long_long_long_long_condition ??
-  a_long_long_long_long_condition ??
-  a_long_long_long_long_condition
-).call();
+a = foo(foo(
+  a_long_long_long_long_condition || a_long_long_long_long_condition || a_long_long_long_long_condition,
+));
 
 =====================================output=====================================
-Foo(
+a = foo(
   a_long_long_long_long_condition ||
   a_long_long_long_long_condition ||
   a_long_long_long_long_condition,
 );
+a = new Foo(
+  a_long_long_long_long_condition ||
+  a_long_long_long_long_condition ||
+  a_long_long_long_long_condition,
+);
+a = !(
+  a_long_long_long_long_condition ||
+  a_long_long_long_long_condition ||
+  a_long_long_long_long_condition
+);
+a = !!(
+  a_long_long_long_long_condition ||
+  a_long_long_long_long_condition ||
+  a_long_long_long_long_condition
+);
 
-Foo(
+a = foo(
   a_long_long_long_long_condition ||
     a_long_long_long_long_condition ||
     a_long_long_long_long_condition,
-  a_long_long_long_long_condition,
+  anotherArgument,
 );
-
-Bar(
-  a_long_long_long_long_condition &&
-  a_long_long_long_long_condition &&
-  a_long_long_long_long_condition,
-);
-
-Bar(
-  a_long_long_long_long_condition &&
-    a_long_long_long_long_condition &&
+a = new Foo(
+  a_long_long_long_long_condition ||
+    a_long_long_long_long_condition ||
     a_long_long_long_long_condition,
-  a_long_long_long_long_condition,
+  anotherArgument,
 );
 
-Baz(
+// Different operators
+a = foo(
+  a_long_long_long_long_condition &&
+  a_long_long_long_long_condition &&
+  a_long_long_long_long_condition,
+);
+a = foo(
   a_long_long_long_long_condition ??
   a_long_long_long_long_condition ??
   a_long_long_long_long_condition,
 );
 
-Baz(
-  a_long_long_long_long_condition ??
-    a_long_long_long_long_condition ??
-    a_long_long_long_long_condition,
-  a_long_long_long_long_condition,
-);
-
-(
+// Not argument
+a = (
   a_long_long_long_long_condition ||
   a_long_long_long_long_condition ||
   a_long_long_long_long_condition
-).call();
+)(foo);
+a = new (a_long_long_long_long_condition ||
+  a_long_long_long_long_condition ||
+  a_long_long_long_long_condition)(Foo);
 
-(
-  a_long_long_long_long_condition &&
-  a_long_long_long_long_condition &&
-  a_long_long_long_long_condition
-).call();
-
-(
-  a_long_long_long_long_condition ??
-  a_long_long_long_long_condition ??
-  a_long_long_long_long_condition
-).call();
+// Nested
+a = foo(
+  (a_long_long_long_long_condition ||
+    a_long_long_long_long_condition ||
+    a_long_long_long_long_condition) &&
+  (a_long_long_long_long_condition ||
+    a_long_long_long_long_condition ||
+    a_long_long_long_long_condition),
+);
+a = foo(
+  a_long_long_long_long_condition ||
+  a_long_long_long_long_condition ||
+  a_long_long_long_long_condition ||
+  a_long_long_long_long_condition ||
+  a_long_long_long_long_condition ||
+  a_long_long_long_long_condition,
+);
+a = foo(
+  foo(
+    a_long_long_long_long_condition ||
+    a_long_long_long_long_condition ||
+    a_long_long_long_long_condition,
+  ),
+);
 
 ================================================================================
 `;
@@ -218,95 +237,6 @@ foo || (bar && baz);
 // Implicitly parenthesized && and || requires parens
 (foo && bar) || baz;
 foo || (bar && baz);
-
-================================================================================
-`;
-
-exports[`new-expressions.js format 1`] = `
-====================================options=====================================
-parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-new Foo(
-  a_long_long_long_long_condition ||
-  a_long_long_long_long_condition ||
-  a_long_long_long_long_condition,
-);
-
-new Foo(
-  a_long_long_long_long_condition ||
-  a_long_long_long_long_condition ||
-  a_long_long_long_long_condition,
-  a_long_long_long_long_condition
-);
-
-new Bar(
-  a_long_long_long_long_condition &&
-  a_long_long_long_long_condition &&
-  a_long_long_long_long_condition,
-);
-
-new Bar(
-  a_long_long_long_long_condition &&
-  a_long_long_long_long_condition &&
-  a_long_long_long_long_condition,
-  a_long_long_long_long_condition
-);
-
-
-new Baz(
-  a_long_long_long_long_condition ??
-  a_long_long_long_long_condition ??
-  a_long_long_long_long_condition,
-);
-
-new Baz(
-  a_long_long_long_long_condition ??
-  a_long_long_long_long_condition ??
-  a_long_long_long_long_condition,
-  a_long_long_long_long_condition
-);
-
-=====================================output=====================================
-new Foo(
-  a_long_long_long_long_condition ||
-  a_long_long_long_long_condition ||
-  a_long_long_long_long_condition,
-);
-
-new Foo(
-  a_long_long_long_long_condition ||
-    a_long_long_long_long_condition ||
-    a_long_long_long_long_condition,
-  a_long_long_long_long_condition,
-);
-
-new Bar(
-  a_long_long_long_long_condition &&
-  a_long_long_long_long_condition &&
-  a_long_long_long_long_condition,
-);
-
-new Bar(
-  a_long_long_long_long_condition &&
-    a_long_long_long_long_condition &&
-    a_long_long_long_long_condition,
-  a_long_long_long_long_condition,
-);
-
-new Baz(
-  a_long_long_long_long_condition ??
-  a_long_long_long_long_condition ??
-  a_long_long_long_long_condition,
-);
-
-new Baz(
-  a_long_long_long_long_condition ??
-    a_long_long_long_long_condition ??
-    a_long_long_long_long_condition,
-  a_long_long_long_long_condition,
-);
 
 ================================================================================
 `;
