@@ -58,12 +58,12 @@ describe("--cache option", () => {
   afterAll(clean);
 
   it("creates cache file with --cache", async () => {
-    await runCliWithoutGitignore(dir, ["--cache", "*.js"]);
+    await runCliWithoutGitignore(dir, ["--cache", "a.js"]);
     await expect(fs.stat(defaultCacheFile)).resolves.not.toThrow();
   });
 
   it("doesn't create cache directory without --cache", async () => {
-    await runCliWithoutGitignore(dir, ["*.js"]);
+    await runCliWithoutGitignore(dir, ["a.js"]);
     await expect(
       fs.stat(path.join(dir, "node_modules/.cache")),
     ).rejects.toHaveProperty("code", "ENOENT");
