@@ -223,6 +223,10 @@ function getEsbuildOptions({ packageConfig, file, cliOptions }) {
       "regexp-unicode-property-escapes": true,
       // Maybe because Node.js v14 doesn't support "spread parameters after optional chaining" https://node.green/
       "optional-chain": true,
+      //
+      "class-field": true,
+      "class-private-field": true,
+      "class-private-method": true,
     },
     packages: "bundle",
   };
