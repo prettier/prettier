@@ -29,7 +29,6 @@ import {
   isInlineValueCommentNode,
   isLeftCurlyBraceNode,
   isMathOperatorNode,
-  isMathOrCustomFunctionNode,
   isMultiplicationNode,
   isParenGroupNode,
   isPostcssSimpleVarNode,
@@ -399,7 +398,7 @@ function printCommaSeparatedValueGroup(path, options, print) {
         iNextNode &&
         isDivisionNode(iNextNode) &&
         hasEmptyRawBefore(iNextNode) &&
-        isMathOrCustomFunctionNode(iNode)
+        isPossibleFontSize(iNode)
       ) {
         continue;
       }
@@ -408,7 +407,7 @@ function printCommaSeparatedValueGroup(path, options, print) {
         isDivisionNode(iNode) &&
         hasEmptyRawBefore(iNode) &&
         iPrevNode &&
-        isMathOrCustomFunctionNode(iPrevNode)
+        isPossibleFontSize(iPrevNode)
       ) {
         continue;
       }
@@ -505,6 +504,22 @@ function printCommaSeparatedValueGroup(path, options, print) {
   }
 
   return group(indent(fill(parts)));
+}
+
+function isPossibleFontSize(node) {
+  if (node.type !== "value-func") {
+    return false;
+  }
+
+  const value = node.value.toLowerCase();
+  return (
+    value === "var" ||
+    value === "calc" ||
+    value === "min" ||
+    value === "max" ||
+    value === "clamp" ||
+    value.startsWith("--")
+  );
 }
 
 export default printCommaSeparatedValueGroup;

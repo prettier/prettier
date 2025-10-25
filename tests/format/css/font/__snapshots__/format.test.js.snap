@@ -12,18 +12,39 @@ foo {
 
   font: var(--size)/2;
   font: var(--size) / 2;
+  font: var(--size)    /2;
+  font: var(--size)/    2;
+  font: var(--size)    /    2;
 
   font: calc(var(--size) / 2)/2;
   font: calc(var(--size) / 2) / 2;
+  font: calc(var(--size) / 2)    /2;
+  font: calc(var(--size) / 2)/    2;
+  font: calc(var(--size) / 2)    /    2;
 
   font: min(1px, 2px)/2;
   font: min(1px, 2px) / 2;
+  font: min(1px, 2px)    /2;
+  font: min(1px, 2px)/    2;
+  font: min(1px, 2px)    /    2;
 
   font: max(1px, 2px)/2;
   font: max(1px, 2px) / 2;
+  font: max(1px, 2px)    /2;
+  font: max(1px, 2px)/    2;
+  font: max(1px, 2px)    /    2;
 
   font: clamp(1px, 2px, 3px)/2;
-  font: clamp(1px, 2px, 3px) / 2
+  font: clamp(1px, 2px, 3px) / 2;
+  font: clamp(1px, 2px, 3px)    /2;
+  font: clamp(1px, 2px, 3px)/    2;
+  font: clamp(1px, 2px, 3px)    /    2;
+
+  font: --custom(1px)/2;
+  font: --custom(1px) / 2;
+  font: --custom(1px)    /2;
+  font: --custom(1px)/    2;
+  font: --custom(1px)    /    2;
 }
 
 =====================================output=====================================
@@ -33,18 +54,39 @@ foo {
 
   font: var(--size)/2;
   font: var(--size) / 2;
+  font: var(--size) / 2;
+  font: var(--size)/2;
+  font: var(--size) / 2;
 
+  font: calc(var(--size) / 2)/2;
+  font: calc(var(--size) / 2) / 2;
+  font: calc(var(--size) / 2) / 2;
   font: calc(var(--size) / 2)/2;
   font: calc(var(--size) / 2) / 2;
 
   font: min(1px, 2px)/2;
   font: min(1px, 2px) / 2;
+  font: min(1px, 2px) / 2;
+  font: min(1px, 2px)/2;
+  font: min(1px, 2px) / 2;
 
+  font: max(1px, 2px)/2;
+  font: max(1px, 2px) / 2;
+  font: max(1px, 2px) / 2;
   font: max(1px, 2px)/2;
   font: max(1px, 2px) / 2;
 
   font: clamp(1px, 2px, 3px)/2;
   font: clamp(1px, 2px, 3px) / 2;
+  font: clamp(1px, 2px, 3px) / 2;
+  font: clamp(1px, 2px, 3px)/2;
+  font: clamp(1px, 2px, 3px) / 2;
+
+  font: --custom(1px)/2;
+  font: --custom(1px) / 2;
+  font: --custom(1px) / 2;
+  font: --custom(1px)/2;
+  font: --custom(1px) / 2;
 }
 
 ================================================================================

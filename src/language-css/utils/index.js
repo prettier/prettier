@@ -112,18 +112,6 @@ function isVarFunctionNode(node) {
   return node.type === "value-func" && node.value.toLowerCase() === "var";
 }
 
-function isMathOrCustomFunctionNode(node) {
-  return (
-    node.type === "value-func" &&
-    (node.value.toLowerCase() === "var" ||
-      node.value.toLowerCase() === "calc" ||
-      node.value.toLowerCase() === "min" ||
-      node.value.toLowerCase() === "max" ||
-      node.value.toLowerCase() === "clamp" ||
-      node.value.startsWith("--"))
-  );
-}
-
 function isDetachedRulesetDeclarationNode(node) {
   const { selector } = node;
   // If a Less file ends up being parsed with the SCSS parser, Less
@@ -423,7 +411,6 @@ export {
   isKeyValuePairNode,
   isLeftCurlyBraceNode,
   isMathOperatorNode,
-  isMathOrCustomFunctionNode,
   isMediaAndSupportsKeywords,
   isMultiplicationNode,
   isParenGroupNode,
