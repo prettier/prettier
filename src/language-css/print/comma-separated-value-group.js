@@ -424,6 +424,27 @@ function printCommaSeparatedValueGroup(path, options, print) {
       continue;
     }
 
+    // Formatting `font` property
+    if (declAncestorProp && declAncestorProp === "font") {
+      if (
+        iNextNode &&
+        isDivisionNode(iNextNode) &&
+        hasEmptyRawBefore(iNextNode) &&
+        isPossibleFontSize(iNode)
+      ) {
+        continue;
+      }
+
+      if (
+        isDivisionNode(iNode) &&
+        hasEmptyRawBefore(iNode) &&
+        iPrevNode &&
+        isPossibleFontSize(iPrevNode)
+      ) {
+        continue;
+      }
+    }
+
     // Formatting `grid` property
     if (isGridValue) {
       if (
@@ -515,6 +536,22 @@ function printCommaSeparatedValueGroup(path, options, print) {
   }
 
   return group(indent(fill(parts)));
+}
+
+function isPossibleFontSize(node) {
+  if (node.type !== "value-func") {
+    return false;
+  }
+
+  const value = node.value.toLowerCase();
+  return (
+    value === "var" ||
+    value === "calc" ||
+    value === "min" ||
+    value === "max" ||
+    value === "clamp" ||
+    value.startsWith("--")
+  );
 }
 
 export default printCommaSeparatedValueGroup;
