@@ -63,7 +63,7 @@ function print(path, options, print) {
           startingTag,
           indent(printChildren(path, options, print)),
           hardline,
-          indent(endingTag),
+          endingTag,
           escapeNextElementNode,
         ];
       }
@@ -71,7 +71,7 @@ function print(path, options, print) {
       return [
         startingTag,
         indent(group(printChildren(path, options, print))),
-        indent(endingTag),
+        endingTag,
         escapeNextElementNode,
       ];
     }
