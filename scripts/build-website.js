@@ -74,33 +74,32 @@ async function buildPlaygroundFiles() {
     prettier: {
       file: "prettier/standalone.mjs",
     },
+    plugins: await Promise.all(
+      pluginFiles.map(async (file) => {
+        const plugin = { file };
+
+        const pluginModule = await import(
+          url.pathToFileURL(path.join(PACKAGES_DIRECTORY, file))
+        );
+
+        for (const property of ["languages", "options", "defaultOptions"]) {
+          const value = pluginModule[property];
+          if (value !== undefined) {
+            plugin[property] = value;
+          }
+        }
+
+        for (const property of ["parsers", "printers"]) {
+          const value = pluginModule[property];
+          if (value !== undefined) {
+            plugin[property] = Object.keys(value);
+          }
+        }
+
+        return plugin;
+      }),
+    ),
   };
-
-  packageManifest.plugins = await Promise.all(
-    pluginFiles.map(async (file) => {
-      const plugin = { file };
-
-      const pluginModule = await import(
-        url.pathToFileURL(path.join(PACKAGES_DIRECTORY, file))
-      );
-
-      for (const property of ["languages", "options", "defaultOptions"]) {
-        const value = pluginModule[property];
-        if (value !== undefined) {
-          plugin[property] = value;
-        }
-      }
-
-      for (const property of ["parsers", "printers"]) {
-        const value = pluginModule[property];
-        if (value !== undefined) {
-          plugin[property] = Object.keys(value);
-        }
-      }
-
-      return plugin;
-    }),
-  );
 
   await Promise.all([
     ...[packageManifest.prettier, ...packageManifest.plugins].map(({ file }) =>
