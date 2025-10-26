@@ -1,10 +1,12 @@
 import {
   dedent,
+  dedentToRoot,
   fill,
   group,
   hardline,
   ifBreak,
   indent,
+  indentIfBreak,
   join,
   line,
   softline,
@@ -54,24 +56,36 @@ function print(path, options, print) {
 
       const endingTag = ["</", node.tag, ">"];
 
-      if (node.children.length === 0) {
+      if (node.children.length === 0 || isEmptyStyle(node)) {
         return [startingTag, indent(endingTag), escapeNextElementNode];
+      }
+
+      const contentDoc = printChildren(path, options, print);
+      const isStyle = node.tag === "style";
+
+      if (isStyle) {
+        return [
+          startingTag,
+          group(contentDoc),
+          endingTag,
+          escapeNextElementNode,
+        ];
       }
 
       if (options.htmlWhitespaceSensitivity === "ignore") {
         return [
           startingTag,
-          indent(printChildren(path, options, print)),
+          indent(contentDoc),
           hardline,
-          indent(endingTag),
+          endingTag,
           escapeNextElementNode,
         ];
       }
 
       return [
         startingTag,
-        indent(group(printChildren(path, options, print))),
-        indent(endingTag),
+        indent(group(contentDoc)),
+        endingTag,
         escapeNextElementNode,
       ];
     }
@@ -162,7 +176,7 @@ function print(path, options, print) {
       // 1. in `<pre>`,
       // 2. in `<style>`
 
-      if (path.parent.tag === "pre" || path.parent.tag === "style") {
+      if (path.callParent(({ node }) => isScriptLike(node))) {
         return node.chars;
       }
 
@@ -440,10 +454,14 @@ function printChildren(path, options, print) {
     return "";
   }
 
-  return path.map(({ isFirst }) => {
+  return path.map(({ parent, isFirst }) => {
     const printedChild = print();
 
-    if (isFirst && options.htmlWhitespaceSensitivity === "ignore") {
+    if (
+      isFirst &&
+      options.htmlWhitespaceSensitivity === "ignore" &&
+      !isScriptLike(parent)
+    ) {
       return [softline, printedChild];
     }
 
@@ -840,6 +858,22 @@ function printPathExpression(node) {
       isPathExpressionPartNeedBrackets(part, index) ? `[${part}]` : part,
     )
     .join(".");
+}
+
+function isEmptyStyle(node) {
+  return (
+    node.type === "ElementNode" &&
+    node.tag === "style" &&
+    node.children.every(
+      (child) => child.type === "TextNode" && !child.chars.trim(),
+    )
+  );
+}
+
+function isScriptLike(node) {
+  return (
+    node.type === "ElementNode" && (node.tag === "pre" || node.tag === "style")
+  );
 }
 
 const printer = {

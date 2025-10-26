@@ -1,5 +1,129 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`invalid.hbs - {"embeddedLanguageFormatting":"off"} format 1`] = `
+====================================options=====================================
+embeddedLanguageFormatting: "off"
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<style>
+    invalid{
+      invalid{
+</style>
+
+<span><style>
+    invalid{
+      invalid{
+</style></span>
+
+=====================================output=====================================
+<style>
+    invalid{
+      invalid{
+</style>
+
+<span><style>
+    invalid{
+      invalid{
+</style></span>
+================================================================================
+`;
+
+exports[`invalid.hbs - {"htmlWhitespaceSensitivity":"ignore","embeddedLanguageFormatting":"off"} format 1`] = `
+====================================options=====================================
+embeddedLanguageFormatting: "off"
+htmlWhitespaceSensitivity: "ignore"
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<style>
+    invalid{
+      invalid{
+</style>
+
+<span><style>
+    invalid{
+      invalid{
+</style></span>
+
+=====================================output=====================================
+<style>
+    invalid{
+      invalid{
+</style>
+
+<span>
+  <style>
+    invalid{
+      invalid{
+</style>
+</span>
+================================================================================
+`;
+
+exports[`invalid.hbs - {"htmlWhitespaceSensitivity":"ignore"} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "ignore"
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<style>
+    invalid{
+      invalid{
+</style>
+
+<span><style>
+    invalid{
+      invalid{
+</style></span>
+
+=====================================output=====================================
+<style>
+    invalid{
+      invalid{
+</style>
+
+<span>
+  <style>
+    invalid{
+      invalid{
+</style>
+</span>
+================================================================================
+`;
+
+exports[`invalid.hbs format 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<style>
+    invalid{
+      invalid{
+</style>
+
+<span><style>
+    invalid{
+      invalid{
+</style></span>
+
+=====================================output=====================================
+<style>
+    invalid{
+      invalid{
+</style>
+
+<span><style>
+    invalid{
+      invalid{
+</style></span>
+================================================================================
+`;
+
 exports[`test.hbs - {"embeddedLanguageFormatting":"off"} format 1`] = `
 ====================================options=====================================
 embeddedLanguageFormatting: "off"
@@ -17,15 +141,7 @@ printWidth: 80
         .b {color:    red}
 </style></span>
 
-<style>
-    invalid{
-      invalid{
-</style>
 
-<span><style>
-    invalid{
-      invalid{
-</style></span>
 
 =====================================output=====================================
 <style>
@@ -36,16 +152,6 @@ printWidth: 80
 <span><style>
     .a {color:    red}
         .b {color:    red}
-</style></span>
-
-<style>
-    invalid{
-      invalid{
-</style>
-
-<span><style>
-    invalid{
-      invalid{
 </style></span>
 ================================================================================
 `;
@@ -68,19 +174,11 @@ printWidth: 80
         .b {color:    red}
 </style></span>
 
-<style>
-    invalid{
-      invalid{
-</style>
 
-<span><style>
-    invalid{
-      invalid{
-</style></span>
 
 =====================================output=====================================
 <style>
-  .a {color:    red}
+    .a {color:    red}
         .b {color:    red}
 </style>
 
@@ -88,19 +186,7 @@ printWidth: 80
   <style>
     .a {color:    red}
         .b {color:    red}
-  </style>
-</span>
-
-<style>
-  invalid{
-      invalid{
 </style>
-
-<span>
-  <style>
-    invalid{
-      invalid{
-  </style>
 </span>
 ================================================================================
 `;
@@ -122,15 +208,7 @@ printWidth: 80
         .b {color:    red}
 </style></span>
 
-<style>
-    invalid{
-      invalid{
-</style>
 
-<span><style>
-    invalid{
-      invalid{
-</style></span>
 
 =====================================output=====================================
 <style>
@@ -152,18 +230,6 @@ printWidth: 80
     }
   </style>
 </span>
-
-<style>
-    invalid{
-      invalid{
-</style>
-
-<span>
-  <style>
-    invalid{
-      invalid{
-</style>
-</span>
 ================================================================================
 `;
 
@@ -183,15 +249,7 @@ printWidth: 80
         .b {color:    red}
 </style></span>
 
-<style>
-    invalid{
-      invalid{
-</style>
 
-<span><style>
-    invalid{
-      invalid{
-</style></span>
 
 =====================================output=====================================
 <style>
@@ -211,15 +269,5 @@ printWidth: 80
       color: red;
     }
   </style></span>
-
-<style>
-    invalid{
-      invalid{
-</style>
-
-<span><style>
-    invalid{
-      invalid{
-</style></span>
 ================================================================================
 `;

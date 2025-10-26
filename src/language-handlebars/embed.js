@@ -1,3 +1,5 @@
+import { group, indent, softline } from "../document/builders.js";
+
 function embed(path /* , options*/) {
   const { node } = path;
 
@@ -32,12 +34,13 @@ function embed(path /* , options*/) {
     return;
   }
 
-  return (textToDoc) => {
-    const context = node.chars.trim();
-    if (context) {
+  return async (textToDoc) => {
+    const context = node.chars;
+    if (!context.trim()) {
       return "";
     }
-    return textToDoc(context, { parser: "css" });
+    const doc = await textToDoc(context, { parser: "css" });
+    return group([indent([softline, doc]), softline]);
   };
 }
 
