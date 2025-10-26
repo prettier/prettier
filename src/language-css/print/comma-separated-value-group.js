@@ -305,17 +305,6 @@ function printCommaSeparatedValueGroup(path, options, print) {
       isColorAdjusterFuncNode(parentParentNode) &&
       !hasEmptyRawBefore(iNextNode);
 
-    const requireSpaceBeforeOperator =
-      iNextNextNode?.type === "value-func" ||
-      (iNextNextNode && isWordNode(iNextNextNode)) ||
-      iNode.type === "value-func" ||
-      isWordNode(iNode);
-    const requireSpaceAfterOperator =
-      iNextNode.type === "value-func" ||
-      isWordNode(iNextNode) ||
-      iPrevNode?.type === "value-func" ||
-      (iPrevNode && isWordNode(iPrevNode));
-
     // Space before unary minus followed by a function call.
     if (
       options.parser === "scss" &&
@@ -327,6 +316,17 @@ function printCommaSeparatedValueGroup(path, options, print) {
       parts.push([parts.pop(), " "]);
       continue;
     }
+
+    const requireSpaceBeforeOperator =
+      iNextNextNode?.type === "value-func" ||
+      (iNextNextNode && isWordNode(iNextNextNode)) ||
+      iNode.type === "value-func" ||
+      isWordNode(iNode);
+    const requireSpaceAfterOperator =
+      iNextNode.type === "value-func" ||
+      isWordNode(iNextNode) ||
+      iPrevNode?.type === "value-func" ||
+      (iPrevNode && isWordNode(iPrevNode));
 
     // Formatting `/`, `+`, `-` sign
     if (
@@ -392,27 +392,6 @@ function printCommaSeparatedValueGroup(path, options, print) {
       continue;
     }
 
-    // Formatting `font` property
-    if (declAncestorProp && declAncestorProp === "font") {
-      if (
-        iNextNode &&
-        isDivisionNode(iNextNode) &&
-        hasEmptyRawBefore(iNextNode) &&
-        isPossibleFontSize(iNode)
-      ) {
-        continue;
-      }
-
-      if (
-        isDivisionNode(iNode) &&
-        hasEmptyRawBefore(iNode) &&
-        iPrevNode &&
-        isPossibleFontSize(iPrevNode)
-      ) {
-        continue;
-      }
-    }
-
     // Formatting `grid` property
     if (isGridValue) {
       if (
@@ -428,6 +407,28 @@ function printCommaSeparatedValueGroup(path, options, print) {
       }
 
       continue;
+    }
+
+    // Formatting `font` property
+    if (
+      declAncestorProp &&
+      (declAncestorProp === "font" || declAncestorProp.startsWith("--"))
+    ) {
+      if (
+        isDivisionNode(iNextNode) &&
+        hasEmptyRawBefore(iNextNode) &&
+        isPossibleFontSize(iNode)
+      ) {
+        continue;
+      }
+
+      if (
+        isDivisionNode(iNode) &&
+        hasEmptyRawBefore(iNode) &&
+        isPossibleFontSize(iPrevNode)
+      ) {
+        continue;
+      }
     }
 
     // Add `space` before next math operation
@@ -507,7 +508,11 @@ function printCommaSeparatedValueGroup(path, options, print) {
 }
 
 function isPossibleFontSize(node) {
-  if (node.type !== "value-func") {
+  if (node?.type === "value-number") {
+    return true;
+  }
+
+  if (node?.type !== "value-func") {
     return false;
   }
 
