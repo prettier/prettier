@@ -47,8 +47,7 @@ function parseVueVForDirective(value) {
     return;
   }
 
-  const res = {};
-  res.for = inMatch[3].trim();
+  const res = { for: inMatch[3].trim() };
   if (!res.for) {
     return;
   }
