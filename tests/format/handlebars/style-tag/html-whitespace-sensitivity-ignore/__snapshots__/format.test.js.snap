@@ -1,5 +1,35 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`test.hbs - {"embeddedLanguageFormatting":"off"} format 1`] = `
+====================================options=====================================
+embeddedLanguageFormatting: "off"
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<style>
+    .a {color:    red}
+        .b {color:    red}
+</style>
+
+<span><style>
+    .a {color:    red}
+        .b {color:    red}
+</style></span>
+
+=====================================output=====================================
+<style>
+    .a {color:    red}
+        .b {color:    red}
+</style>
+
+<span><style>
+    .a {color:    red}
+        .b {color:    red}
+</style></span>
+================================================================================
+`;
+
 exports[`test.hbs - {"htmlWhitespaceSensitivity":"ignore","embeddedLanguageFormatting":"off"} format 1`] = `
 ====================================options=====================================
 embeddedLanguageFormatting: "off"
@@ -70,5 +100,42 @@ printWidth: 80
     }
   </style>
 </span>
+================================================================================
+`;
+
+exports[`test.hbs format 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<style>
+    .a {color:    red}
+        .b {color:    red}
+</style>
+
+<span><style>
+    .a {color:    red}
+        .b {color:    red}
+</style></span>
+
+=====================================output=====================================
+<style>
+  .a {
+    color: red;
+  }
+  .b {
+    color: red;
+  }
+</style>
+
+<span><style>
+    .a {
+      color: red;
+    }
+    .b {
+      color: red;
+    }
+  </style></span>
 ================================================================================
 `;
