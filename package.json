@@ -148,7 +148,7 @@
     "eslint-plugin-n": "17.23.1",
     "eslint-plugin-regexp": "2.10.0",
     "eslint-plugin-simple-import-sort": "12.1.1",
-    "eslint-plugin-unicorn": "61.0.2",
+    "eslint-plugin-unicorn": "62.0.0",
     "esm-utils": "4.4.2",
     "globals": "16.4.0",
     "jest": "30.2.0",
