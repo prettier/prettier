@@ -9,23 +9,25 @@ printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
 <style>
-  .a {
-  }
+    .a {color:    red}
+        .b {color:    red}
 </style>
 
 <span><style>
-.b {}
+    .a {color:    red}
+        .b {color:    red}
 </style></span>
 
 =====================================output=====================================
 <style>
-  .a {
-  }
+  .a {color:    red}
+        .b {color:    red}
 </style>
 
 <span>
   <style>
-    .b {}
+    .a {color:    red}
+        .b {color:    red}
   </style>
 </span>
 ================================================================================
@@ -39,23 +41,32 @@ printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
 <style>
-  .a {
-  }
+    .a {color:    red}
+        .b {color:    red}
 </style>
 
 <span><style>
-.b {}
+    .a {color:    red}
+        .b {color:    red}
 </style></span>
 
 =====================================output=====================================
 <style>
   .a {
+    color: red;
+  }
+  .b {
+    color: red;
   }
 </style>
 
 <span>
   <style>
+    .a {
+      color: red;
+    }
     .b {
+      color: red;
     }
   </style>
 </span>
