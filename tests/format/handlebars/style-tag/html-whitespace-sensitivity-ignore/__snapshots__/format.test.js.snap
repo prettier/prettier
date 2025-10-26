@@ -17,6 +17,16 @@ printWidth: 80
         .b {color:    red}
 </style></span>
 
+<style>
+    invalid{
+      invalid{
+</style>
+
+<span><style>
+    invalid{
+      invalid{
+</style></span>
+
 =====================================output=====================================
 <style>
     .a {color:    red}
@@ -26,6 +36,16 @@ printWidth: 80
 <span><style>
     .a {color:    red}
         .b {color:    red}
+</style></span>
+
+<style>
+    invalid{
+      invalid{
+</style>
+
+<span><style>
+    invalid{
+      invalid{
 </style></span>
 ================================================================================
 `;
@@ -48,6 +68,16 @@ printWidth: 80
         .b {color:    red}
 </style></span>
 
+<style>
+    invalid{
+      invalid{
+</style>
+
+<span><style>
+    invalid{
+      invalid{
+</style></span>
+
 =====================================output=====================================
 <style>
   .a {color:    red}
@@ -58,6 +88,18 @@ printWidth: 80
   <style>
     .a {color:    red}
         .b {color:    red}
+  </style>
+</span>
+
+<style>
+  invalid{
+      invalid{
+</style>
+
+<span>
+  <style>
+    invalid{
+      invalid{
   </style>
 </span>
 ================================================================================
@@ -80,6 +122,16 @@ printWidth: 80
         .b {color:    red}
 </style></span>
 
+<style>
+    invalid{
+      invalid{
+</style>
+
+<span><style>
+    invalid{
+      invalid{
+</style></span>
+
 =====================================output=====================================
 <style>
   .a {
@@ -100,6 +152,18 @@ printWidth: 80
     }
   </style>
 </span>
+
+<style>
+    invalid{
+      invalid{
+</style>
+
+<span>
+  <style>
+    invalid{
+      invalid{
+</style>
+</span>
 ================================================================================
 `;
 
@@ -117,6 +181,16 @@ printWidth: 80
 <span><style>
     .a {color:    red}
         .b {color:    red}
+</style></span>
+
+<style>
+    invalid{
+      invalid{
+</style>
+
+<span><style>
+    invalid{
+      invalid{
 </style></span>
 
 =====================================output=====================================
@@ -137,5 +211,15 @@ printWidth: 80
       color: red;
     }
   </style></span>
+
+<style>
+    invalid{
+      invalid{
+</style>
+
+<span><style>
+    invalid{
+      invalid{
+</style></span>
 ================================================================================
 `;
