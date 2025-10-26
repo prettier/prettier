@@ -1,5 +1,3 @@
-import { dedent, hardline, softline } from "../document/builders.js";
-
 function embed(path /* , options*/) {
   const { node } = path;
 
@@ -34,12 +32,12 @@ function embed(path /* , options*/) {
     return;
   }
 
-  return async (textToDoc) => {
-    const doc = await textToDoc(node.chars, { parser: "css" });
-    if (!doc) {
-      return [];
+  return (textToDoc) => {
+    const context = node.chars.trim();
+    if (context) {
+      return "";
     }
-    return [hardline, doc, dedent(softline)];
+    return textToDoc(context, { parser: "css" });
   };
 }
 

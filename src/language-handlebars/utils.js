@@ -50,17 +50,4 @@ function hasPrettierIgnore(path) {
   );
 }
 
-function isSingleChildStyleElement(node) {
-  return (
-    node.tag === "style" &&
-    node.children.length === 1 &&
-    node.children[0].type === "TextNode"
-  );
-}
-
-export {
-  hasPrettierIgnore,
-  isSingleChildStyleElement,
-  isVoidElement,
-  isWhitespaceNode,
-};
+export { hasPrettierIgnore, isVoidElement, isWhitespaceNode };

@@ -18,12 +18,7 @@ import clean from "./clean.js";
 import embed from "./embed.js";
 import getVisitorKeys from "./get-visitor-keys.js";
 import { locEnd, locStart } from "./loc.js";
-import {
-  hasPrettierIgnore,
-  isSingleChildStyleElement,
-  isVoidElement,
-  isWhitespaceNode,
-} from "./utils.js";
+import { hasPrettierIgnore, isVoidElement, isWhitespaceNode } from "./utils.js";
 
 /**
 @import {Doc} from "../document/builders.js"
@@ -67,7 +62,7 @@ function print(path, options, print) {
         return [
           startingTag,
           indent(printChildren(path, options, print)),
-          isSingleChildStyleElement(node) ? "" : hardline,
+          hardline,
           indent(endingTag),
           escapeNextElementNode,
         ];
@@ -448,20 +443,8 @@ function printChildren(path, options, print) {
   return path.map(({ isFirst }) => {
     const printedChild = print();
 
-    if (options.htmlWhitespaceSensitivity === "ignore") {
-      if (isSingleChildStyleElement(node)) {
-        if (options.embeddedLanguageFormatting === "off") {
-          const trimmedContent = printedChild.trim();
-          return trimmedContent
-            ? [hardline, trimmedContent, dedent(softline)]
-            : "";
-        }
-        return printedChild;
-      }
-
-      if (isFirst) {
-        return [softline, printedChild];
-      }
+    if (isFirst && options.htmlWhitespaceSensitivity === "ignore") {
+      return [softline, printedChild];
     }
 
     return printedChild;
