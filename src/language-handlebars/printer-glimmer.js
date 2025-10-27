@@ -164,14 +164,23 @@ function print(path, options, print) {
       // 1. in `<pre>`,
       // 2. in `<style>`
 
-      if (path.callParent(({ node }) => isScriptLike(node))) {
-        return replaceEndOfLine(node.chars);
+      let text = node.chars;
+
+      const { parent } = path;
+      if (parent.type === "ElementNode") {
+        if (parent.tag === "pre") {
+          return replaceEndOfLine(text);
+        }
+
+        if (parent.tag === "style") {
+          return replaceEndOfLine(text);
+        }
       }
 
       /* if `{{my-component}}` (or any text containing "{{")
        * makes it to the TextNode, it means it was escaped,
        * so let's print it escaped, ie.; `\{{my-component}}` */
-      let text = node.chars.replaceAll("{{", String.raw`\{{`);
+      text = text.replaceAll("{{", String.raw`\{{`);
 
       const attrName = getCurrentAttributeName(path);
 
@@ -824,12 +833,6 @@ function printPathExpression(node) {
       isPathExpressionPartNeedBrackets(part, index) ? `[${part}]` : part,
     )
     .join(".");
-}
-
-function isScriptLike(node) {
-  return (
-    node.type === "ElementNode" && (node.tag === "pre" || node.tag === "style")
-  );
 }
 
 const printer = {
