@@ -1,18 +1,18 @@
-const arrayFindLast = (isOptionalObject, array, callback) => {
-  if (isOptionalObject && (array === undefined || array === null)) {
-    return;
-  }
+import shimMethod from "./shim-method.js";
 
-  if (array.findLast) {
-    return array.findLast(callback);
-  }
-
-  for (let index = array.length - 1; index >= 0; index--) {
-    const element = array[index];
-    if (callback(element, index, array)) {
-      return element;
+const findLast =
+  Array.prototype.findLast ??
+  function (callback) {
+    for (let index = this.length - 1; index >= 0; index--) {
+      const element = this[index];
+      if (callback(element, index, this)) {
+        return element;
+      }
     }
-  }
-};
+  };
+
+const arrayFindLast = shimMethod(function () {
+  return Array.isArray(this);
+}, findLast);
 
 export default arrayFindLast;

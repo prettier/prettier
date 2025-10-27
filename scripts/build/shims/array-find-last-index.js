@@ -1,20 +1,20 @@
-const arrayFindLastIndex = (isOptionalObject, array, callback) => {
-  if (isOptionalObject && (array === undefined || array === null)) {
-    return;
-  }
+import shimMethod from "./shim-method.js";
 
-  if (array.findLastIndex) {
-    return array.findLastIndex(callback);
-  }
-
-  for (let index = array.length - 1; index >= 0; index--) {
-    const element = array[index];
-    if (callback(element, index, array)) {
-      return index;
+const findLastIndex =
+  Array.prototype.findLastIndex ??
+  function (callback) {
+    for (let index = this.length - 1; index >= 0; index--) {
+      const element = this[index];
+      if (callback(element, index, this)) {
+        return index;
+      }
     }
-  }
 
-  return -1;
-};
+    return -1;
+  };
+
+const arrayFindLastIndex = shimMethod(function () {
+  return Array.isArray(this);
+}, findLastIndex);
 
 export default arrayFindLastIndex;

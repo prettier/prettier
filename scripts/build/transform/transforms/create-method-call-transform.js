@@ -1,5 +1,9 @@
 import { fileURLToPath } from "node:url";
-import { createIdentifier, isIdentifier } from "./utilities.js";
+import {
+  createIdentifier,
+  createStringLiteral,
+  isIdentifier,
+} from "./utilities.js";
 
 /**
  * @param {import("@babel/types").Node} node
@@ -42,6 +46,7 @@ function transformMethodCallToFunctionCall(node, functionName) {
         ],
       },
       node.callee.object,
+      createStringLiteral(node.callee.property.name),
       ...node.arguments,
     ],
   };

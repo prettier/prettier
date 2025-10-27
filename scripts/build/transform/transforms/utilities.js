@@ -6,6 +6,10 @@ function createIdentifier(name) {
   return { type: "Identifier", name };
 }
 
+function createStringLiteral(value) {
+  return { type: "StringLiteral", value };
+}
+
 function createMemberExpression(path) {
   let node;
 
@@ -22,4 +26,9 @@ function createMemberExpression(path) {
   return node;
 }
 
-export { createIdentifier, createMemberExpression, isIdentifier };
+export {
+  createIdentifier,
+  createMemberExpression,
+  createStringLiteral,
+  isIdentifier,
+};

@@ -1,13 +1,13 @@
-const arrayToReversed = (isOptionalObject, array) => {
-  if (isOptionalObject && (array === undefined || array === null)) {
-    return;
-  }
+import shimMethod from "./shim-method.js";
 
-  if (array.toReversed || !Array.isArray(array)) {
-    return array.toReversed();
-  }
+const toReversed =
+  Array.prototype.toReversed ??
+  function () {
+    return [...this].reverse();
+  };
 
-  return [...array].reverse();
-};
+const arrayToReversed = shimMethod(function () {
+  return Array.isArray(this);
+}, toReversed);
 
 export default arrayToReversed;
