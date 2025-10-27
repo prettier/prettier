@@ -16,7 +16,7 @@ const transform = (code) =>
 
 test("Object.hasOwn", () => {
   expect(transform("Object.hasOwn(foo, bar)")).toMatchInlineSnapshot(
-    `"Object.property.call(foo,bar)"`,
+    `"Object.prototype.hasOwnProperty.call(foo,bar)"`,
   );
 });
 
