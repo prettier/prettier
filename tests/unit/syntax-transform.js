@@ -22,28 +22,28 @@ test("Object.hasOwn", () => {
 
 test(".at", () => {
   expect(transform("foo.at(-1)")).toMatchInlineSnapshot(`
-"import __at from "<SHIMS>/method-at.js";
+    "import __at from "<SHIMS>/method-at.js";
 
-__at  (/* isOptionalObject */false,foo,-1)"
-`);
+    __at  (/* isOptionalObject */false,foo,-1)"
+  `);
 
   expect(transform("foo?.at(-1)")).toMatchInlineSnapshot(`
-"import __at from "<SHIMS>/method-at.js";
+    "import __at from "<SHIMS>/method-at.js";
 
-__at   (/* isOptionalObject */true,foo,-1)"
-`);
+    __at   (/* isOptionalObject */true,foo,-1)"
+  `);
 
   expect(transform("foo?.bar.baz.at(-1)")).toMatchInlineSnapshot(`
-"import __at from "<SHIMS>/method-at.js";
+    "import __at from "<SHIMS>/method-at.js";
 
-__at           (/* isOptionalObject */true,foo?.bar.baz,-1)"
-`);
+    __at           (/* isOptionalObject */true,foo?.bar.baz,-1)"
+  `);
 
   expect(transform("foo.at(-1)?.bar")).toMatchInlineSnapshot(`
-"import __at from "<SHIMS>/method-at.js";
+    "import __at from "<SHIMS>/method-at.js";
 
-__at  (/* isOptionalObject */false,foo,-1)?.bar"
-`);
+    __at  (/* isOptionalObject */false,foo,-1)?.bar"
+  `);
 
   // Optional call not supported
   expect(transform("foo.at?.(-1)")).toMatchInlineSnapshot(`"foo.at?.(-1)"`);
@@ -51,23 +51,23 @@ __at  (/* isOptionalObject */false,foo,-1)?.bar"
 
 test("String#replaceAll", () => {
   expect(transform("foo.replaceAll('a', 'b')")).toMatchInlineSnapshot(`
-"import __replaceAll from "<SHIMS>/method-replace-all.js";
+    "import __replaceAll from "<SHIMS>/method-replace-all.js";
 
-__replaceAll  (/* isOptionalObject */false,foo,'a','b')"
-`);
+    __replaceAll  (/* isOptionalObject */false,foo,'a','b')"
+  `);
 });
 
 test("Array#findLast", () => {
   expect(transform("foo.findLast(callback)")).toMatchInlineSnapshot(`
-"import __findLast from "<SHIMS>/method-find-last.js";
+    "import __findLast from "<SHIMS>/method-find-last.js";
 
-__findLast  (/* isOptionalObject */false,foo,callback)"
-`);
+    __findLast  (/* isOptionalObject */false,foo,callback)"
+  `);
   expect(transform("foo?.findLast(callback)")).toMatchInlineSnapshot(`
-"import __findLast from "<SHIMS>/method-find-last.js";
+    "import __findLast from "<SHIMS>/method-find-last.js";
 
-__findLast   (/* isOptionalObject */true,foo,callback)"
-`);
+    __findLast   (/* isOptionalObject */true,foo,callback)"
+  `);
 
   // Not supported
   expect(
@@ -77,15 +77,15 @@ __findLast   (/* isOptionalObject */true,foo,callback)"
 
 test("Array#findLastIndex", () => {
   expect(transform("foo.findLastIndex(callback)")).toMatchInlineSnapshot(`
-"import __findLastIndex from "<SHIMS>/method-find-last-index.js";
+    "import __findLastIndex from "<SHIMS>/method-find-last-index.js";
 
-__findLastIndex  (/* isOptionalObject */false,foo,callback)"
-`);
+    __findLastIndex  (/* isOptionalObject */false,foo,callback)"
+  `);
   expect(transform("foo?.findLastIndex(callback)")).toMatchInlineSnapshot(`
-"import __findLastIndex from "<SHIMS>/method-find-last-index.js";
+    "import __findLastIndex from "<SHIMS>/method-find-last-index.js";
 
-__findLastIndex   (/* isOptionalObject */true,foo,callback)"
-`);
+    __findLastIndex   (/* isOptionalObject */true,foo,callback)"
+  `);
 
   // Not supported
   expect(
@@ -95,15 +95,15 @@ __findLastIndex   (/* isOptionalObject */true,foo,callback)"
 
 test("Array#toReversed", () => {
   expect(transform("foo.toReversed()")).toMatchInlineSnapshot(`
-"import __toReversed from "<SHIMS>/method-to-reversed.js";
+    "import __toReversed from "<SHIMS>/method-to-reversed.js";
 
-__toReversed  (/* isOptionalObject */false,foo)"
-`);
+    __toReversed  (/* isOptionalObject */false,foo)"
+  `);
   expect(transform("foo?.toReversed()")).toMatchInlineSnapshot(`
-"import __toReversed from "<SHIMS>/method-to-reversed.js";
+    "import __toReversed from "<SHIMS>/method-to-reversed.js";
 
-__toReversed   (/* isOptionalObject */true,foo)"
-`);
+    __toReversed   (/* isOptionalObject */true,foo)"
+  `);
 
   expect(transform("foo.toReversed(extraArgument)")).toMatchInlineSnapshot(
     `"foo.toReversed(extraArgument)"`,
