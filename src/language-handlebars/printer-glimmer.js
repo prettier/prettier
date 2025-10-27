@@ -165,7 +165,7 @@ function print(path, options, print) {
       // 2. in `<style>`
 
       if (path.callParent(({ node }) => isScriptLike(node))) {
-        return node.chars;
+        return replaceEndOfLine(node.chars);
       }
 
       /* if `{{my-component}}` (or any text containing "{{")
