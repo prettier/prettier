@@ -1,4 +1,4 @@
-function interceptOptionalMember(test, implementation) {
+function shimMethod(test, implementation) {
   return (isOptionalObject, object, method, ...arguments_) => {
     if (isOptionalObject && (object === undefined || object === null)) {
       return;
@@ -12,4 +12,4 @@ function interceptOptionalMember(test, implementation) {
   };
 }
 
-export default interceptOptionalMember;
+export default shimMethod;
