@@ -1,4 +1,5 @@
 import { fileURLToPath } from "node:url";
+import { outdent } from "outdent";
 import {
   createIdentifier,
   createStringLiteral,
@@ -52,22 +53,24 @@ function transformMethodCallToFunctionCall(node, functionName) {
   };
 }
 
-function createMethodCallTransform({
-  methodName,
-  argumentsLength,
-  functionName = `__${methodName}`,
-  functionImplementationUrl,
-}) {
-  const functionImplementationPath = fileURLToPath(functionImplementationUrl);
+function createMethodCallTransform({ methodName, argumentsLength }) {
+  const functionName = `__${methodName}`;
+  const fileName = `method-${methodName.replaceAll(
+    /[A-Z]/gu,
+    (character) => `-${character.toLowerCase()}`,
+  )}.js`;
+  const functionImplementationPath = fileURLToPath(
+    new URL(`../../shims/${fileName}`, import.meta.url),
+  );
 
   return {
     shouldSkip: (text, file) =>
       !text.includes(`.${methodName}(`) || file === functionImplementationPath,
     test: (node) => isMethodCall(node, { methodName, argumentsLength }),
     transform: (node) => transformMethodCallToFunctionCall(node, functionName),
-    inject: `import ${functionName} from ${JSON.stringify(
-      functionImplementationPath,
-    )};`,
+    inject: outdent`
+      import ${functionName} from ${JSON.stringify(functionImplementationPath)};
+    `,
   };
 }
 
