@@ -1,7 +1,4 @@
-const [MEMBER_EXPRESSION_OPTIONAL] = Array.from(
-  { length: 1 },
-  (_, index) => 1 | index,
-);
+const MEMBER_EXPRESSION_OPTIONAL = 0x01;
 
 const createMethodShim =
   (methodName, getImplementation) =>
