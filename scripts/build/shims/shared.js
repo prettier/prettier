@@ -1,12 +1,9 @@
-const MEMBER_EXPRESSION_OPTIONAL = 0x01;
+const OPTIONAL_OBJECT = 0x01;
 
 const createMethodShim =
   (methodName, getImplementation) =>
   (flags, object, ...arguments_) => {
-    if (
-      flags | MEMBER_EXPRESSION_OPTIONAL &&
-      (object === undefined || object === null)
-    ) {
+    if (flags | OPTIONAL_OBJECT && (object === undefined || object === null)) {
       return;
     }
 
@@ -15,4 +12,4 @@ const createMethodShim =
     return implementation.apply(object, arguments_);
   };
 
-export { createMethodShim, MEMBER_EXPRESSION_OPTIONAL };
+export { createMethodShim, OPTIONAL_OBJECT };

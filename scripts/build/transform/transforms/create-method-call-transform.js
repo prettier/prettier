@@ -1,6 +1,6 @@
 import { fileURLToPath } from "node:url";
 import { outdent } from "outdent";
-import { MEMBER_EXPRESSION_OPTIONAL } from "../../shims/shared.js";
+import { OPTIONAL_OBJECT } from "../../shims/shared.js";
 import { createIdentifier, isIdentifier } from "./utilities.js";
 
 /* Doesn't work for optional call, computed property, and spread arguments */
@@ -37,10 +37,10 @@ function transformMethodCallToFunctionCall(node, functionName) {
   let flags = 0;
   const comments = [];
   if (node.callee.type === "OptionalMemberExpression") {
-    flags |= MEMBER_EXPRESSION_OPTIONAL;
-    comments.push("MEMBER_EXPRESSION_OPTIONAL: true");
+    flags |= OPTIONAL_OBJECT;
+    comments.push("OPTIONAL_OBJECT: true");
   } else {
-    comments.push("MEMBER_EXPRESSION_OPTIONAL: false");
+    comments.push("OPTIONAL_OBJECT: false");
   }
 
   return {
