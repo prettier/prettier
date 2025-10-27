@@ -13,6 +13,7 @@ function transform(original, file) {
     ![
       SOURCE_DIR,
       ...[
+        /* spell-checker: disable */
         "camelcase",
         "angular-estree-parser",
         "jest-docblock",
@@ -23,6 +24,8 @@ function transform(original, file) {
         "@glimmer",
         "@prettier/cli",
         "hermes-parser",
+        "kasi",
+        /* spell-checker: enable */
       ].map((directory) =>
         path.join(PROJECT_ROOT, `node_modules/${directory}/`),
       ),
