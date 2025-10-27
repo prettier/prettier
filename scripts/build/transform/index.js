@@ -21,6 +21,8 @@ function transform(original, file) {
         "@typescript-eslint/typescript-estree",
         "meriyah",
         "@glimmer",
+        "@prettier/cli",
+        "hermes-parser",
       ].map((directory) =>
         path.join(PROJECT_ROOT, `node_modules/${directory}/`),
       ),
