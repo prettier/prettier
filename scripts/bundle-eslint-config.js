@@ -10,20 +10,15 @@ const { browserslist: targets } = JSON.parse(
 );
 
 function getProductionFiles(platform) {
-  return buildConfig.flatMap((project) =>
-    project.files
-      .filter(
-        (file) => file.kind === "javascript" && file.platform === platform,
-      )
-      .map((file) =>
-        path
-          .relative(
-            DIST_DIR,
-            path.join(project.distDirectory, file.output.file),
-          )
-          .replaceAll("\\", "/"),
-      ),
-  );
+  return buildConfig
+    .flatMap((project) =>
+      project.files
+        .filter(
+          (file) => file.kind === "javascript" && file.platform === platform,
+        )
+        .map((file) => path.join(project.distDirectory, file.output.file)),
+    )
+    .map((file) => path.relative(DIST_DIR, file).replaceAll("\\", "/"));
 }
 
 const browserFiles = getProductionFiles("universal");
