@@ -2433,17 +2433,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/jsesc@npm:3.0.3":
+  version: 3.0.3
+  resolution: "@types/jsesc@npm:3.0.3"
+  checksum: 10/8e97013e91fdbffc7ce23f5be7f0b8a1208e9794ccae887f1a9fd606633d8b570424ab2de81ada47ff9a062812191a7aa764a42a293a37b86fd76f13329a0c0f
+  languageName: node
+  linkType: hard
+
 "@types/jsesc@npm:^2.5.0":
   version: 2.5.1
   resolution: "@types/jsesc@npm:2.5.1"
   checksum: 10/25407775ed621790d2eec0cc51e194bd0d67a82e39204fd9748899c249ef965e17d9e6560f6c658773714f6d45a259465f3639790bb55750ebb168ee23801596
-  languageName: node
-  linkType: hard
-
-"@types/jsesc@npm:^3":
-  version: 3.0.3
-  resolution: "@types/jsesc@npm:3.0.3"
-  checksum: 10/8e97013e91fdbffc7ce23f5be7f0b8a1208e9794ccae887f1a9fd606633d8b570424ab2de81ada47ff9a062812191a7aa764a42a293a37b86fd76f13329a0c0f
   languageName: node
   linkType: hard
 
@@ -7263,7 +7263,7 @@ __metadata:
     "@prettier/parse-srcset": "npm:3.1.0"
     "@stylistic/eslint-plugin": "npm:5.5.0"
     "@types/estree": "npm:1.0.8"
-    "@types/jsesc": "npm:^3"
+    "@types/jsesc": "npm:3.0.3"
     "@typescript-eslint/eslint-plugin": "npm:8.46.2"
     "@typescript-eslint/parser": "npm:8.46.2"
     "@typescript-eslint/typescript-estree": "npm:8.46.2"

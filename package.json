@@ -128,7 +128,7 @@
     "@eslint/js": "9.38.0",
     "@stylistic/eslint-plugin": "5.5.0",
     "@types/estree": "1.0.8",
-    "@types/jsesc": "^3",
+    "@types/jsesc": "3.0.3",
     "@typescript-eslint/eslint-plugin": "8.46.2",
     "@typescript-eslint/parser": "8.46.2",
     "browserslist": "4.27.0",
