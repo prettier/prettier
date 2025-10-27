@@ -1,7 +1,15 @@
+const [MEMBER_EXPRESSION_OPTIONAL] = Array.from(
+  { length: 1 },
+  (_, index) => 1 | index,
+);
+
 const createMethodShim =
   (methodName, getImplementation) =>
-  (isOptionalObject, object, ...arguments_) => {
-    if (isOptionalObject && (object === undefined || object === null)) {
+  (flags, object, ...arguments_) => {
+    if (
+      flags | MEMBER_EXPRESSION_OPTIONAL &&
+      (object === undefined || object === null)
+    ) {
       return;
     }
 
@@ -10,4 +18,4 @@ const createMethodShim =
     return implementation.apply(object, arguments_);
   };
 
-export { createMethodShim };
+export { createMethodShim, MEMBER_EXPRESSION_OPTIONAL };
