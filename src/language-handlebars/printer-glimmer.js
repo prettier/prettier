@@ -10,6 +10,10 @@ import {
   softline,
 } from "../document/builders.js";
 import { replaceEndOfLine } from "../document/utils.js";
+import {
+  dedentString,
+  htmlTrimPreserveIndentation,
+} from "../language-html/utils/index.js";
 import getPreferredQuote from "../utils/get-preferred-quote.js";
 import htmlWhitespaceUtils from "../utils/html-whitespace-utils.js";
 import isNonEmptyArray from "../utils/is-non-empty-array.js";
@@ -67,11 +71,7 @@ function print(path, options, print) {
 
       const parts = path.map(print, "children");
 
-      if (isStyle) {
-        return [startingTag, parts, endingTag];
-      }
-
-      if (!isWhitespaceSensitive) {
+      if (isStyle || !isWhitespaceSensitive) {
         return [startingTag, indent([softline, ...parts]), softline, endingTag];
       }
 
@@ -173,7 +173,10 @@ function print(path, options, print) {
         }
 
         if (parent.tag === "style") {
-          return replaceEndOfLine(text);
+          text = htmlTrimPreserveIndentation(text);
+          text = dedentString(text);
+
+          return replaceEndOfLine(text, hardline);
         }
       }
 
