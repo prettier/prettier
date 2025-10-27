@@ -26,7 +26,7 @@ const transformObjectHasOwnCall = {
    */
   transform: (node) => ({
     ...node,
-    callee: createMemberExpression("Object.property.call"),
+    callee: createMemberExpression("Object.prototype.hasOwnProperty.call"),
   }),
 };
 
