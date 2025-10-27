@@ -20,6 +20,10 @@ const restrictedSyntaxes = [
     selector: String.raw`CallExpression[callee.name="require"][arguments.0.value=/^\..*?\.mjs$/]`,
     message: ".mjs file can't be `require()`d",
   },
+  {
+    selector: String.raw`TaggedTemplateExpression > MemberExpression.tag[object.name="String"][property.name="raw"]`,
+    message: "`String.raw` should be transformed.",
+  },
 ];
 
 const browserRestrictedSyntaxes = [
