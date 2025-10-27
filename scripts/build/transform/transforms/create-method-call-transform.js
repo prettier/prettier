@@ -1,10 +1,6 @@
 import { fileURLToPath } from "node:url";
 import { outdent } from "outdent";
-import {
-  createIdentifier,
-  createStringLiteral,
-  isIdentifier,
-} from "./utilities.js";
+import { createIdentifier, isIdentifier } from "./utilities.js";
 
 /**
  * @param {import("@babel/types").Node} node
