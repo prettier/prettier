@@ -1,6 +1,6 @@
 import shimMethod from "./shim-method.js";
 
-const findLast = shimMethod([
+const findLast = shimMethod("findLast", [
   [
     function () {
       return Array.isArray(this);

@@ -1,6 +1,6 @@
 import shimMethod from "./shim-method.js";
 
-const replaceAll = shimMethod([
+const replaceAll = shimMethod("replaceAll", [
   [
     function () {
       return typeof this === "string";

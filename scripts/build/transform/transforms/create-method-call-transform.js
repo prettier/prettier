@@ -47,7 +47,6 @@ function transformMethodCallToFunctionCall(node, functionName) {
         ],
       },
       node.callee.object,
-      createStringLiteral(node.callee.property.name),
       ...node.arguments,
     ],
   };
