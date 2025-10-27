@@ -7,6 +7,7 @@ parsers: ["glimmer"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
+<div>
 <style>
     invalid{
       invalid{
@@ -16,17 +17,20 @@ printWidth: 80
     invalid{
       invalid{
 </style></span>
+</div>
 
 =====================================output=====================================
-<style>
+<div>
+  <style>
     invalid{
       invalid{
 </style>
 
-<span><style>
+  <span><style>
     invalid{
       invalid{
 </style></span>
+</div>
 ================================================================================
 `;
 
@@ -38,6 +42,7 @@ parsers: ["glimmer"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
+<div>
 <style>
     invalid{
       invalid{
@@ -47,19 +52,22 @@ printWidth: 80
     invalid{
       invalid{
 </style></span>
+</div>
 
 =====================================output=====================================
-<style>
-    invalid{
-      invalid{
-</style>
-
-<span>
+<div>
   <style>
     invalid{
       invalid{
 </style>
-</span>
+
+  <span>
+    <style>
+    invalid{
+      invalid{
+</style>
+  </span>
+</div>
 ================================================================================
 `;
 
@@ -70,6 +78,7 @@ parsers: ["glimmer"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
+<div>
 <style>
     invalid{
       invalid{
@@ -79,19 +88,22 @@ printWidth: 80
     invalid{
       invalid{
 </style></span>
+</div>
 
 =====================================output=====================================
-<style>
-    invalid{
-      invalid{
-</style>
-
-<span>
+<div>
   <style>
     invalid{
       invalid{
 </style>
-</span>
+
+  <span>
+    <style>
+    invalid{
+      invalid{
+</style>
+  </span>
+</div>
 ================================================================================
 `;
 
@@ -101,6 +113,7 @@ parsers: ["glimmer"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
+<div>
 <style>
     invalid{
       invalid{
@@ -110,17 +123,20 @@ printWidth: 80
     invalid{
       invalid{
 </style></span>
+</div>
 
 =====================================output=====================================
-<style>
+<div>
+  <style>
     invalid{
       invalid{
 </style>
 
-<span><style>
+  <span><style>
     invalid{
       invalid{
 </style></span>
+</div>
 ================================================================================
 `;
 
@@ -131,6 +147,7 @@ parsers: ["glimmer"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
+<div>
 <style>
     .a {color:    red}
         .b {color:    red}
@@ -140,19 +157,20 @@ printWidth: 80
     .a {color:    red}
         .b {color:    red}
 </style></span>
-
-
+</div>
 
 =====================================output=====================================
-<style>
+<div>
+  <style>
     .a {color:    red}
         .b {color:    red}
 </style>
 
-<span><style>
+  <span><style>
     .a {color:    red}
         .b {color:    red}
 </style></span>
+</div>
 ================================================================================
 `;
 
@@ -164,6 +182,7 @@ parsers: ["glimmer"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
+<div>
 <style>
     .a {color:    red}
         .b {color:    red}
@@ -173,21 +192,22 @@ printWidth: 80
     .a {color:    red}
         .b {color:    red}
 </style></span>
-
-
+</div>
 
 =====================================output=====================================
-<style>
-    .a {color:    red}
-        .b {color:    red}
-</style>
-
-<span>
+<div>
   <style>
     .a {color:    red}
         .b {color:    red}
 </style>
-</span>
+
+  <span>
+    <style>
+    .a {color:    red}
+        .b {color:    red}
+</style>
+  </span>
+</div>
 ================================================================================
 `;
 
@@ -198,6 +218,7 @@ parsers: ["glimmer"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
+<div>
 <style>
     .a {color:    red}
         .b {color:    red}
@@ -207,20 +228,10 @@ printWidth: 80
     .a {color:    red}
         .b {color:    red}
 </style></span>
-
-
+</div>
 
 =====================================output=====================================
-<style>
-  .a {
-    color: red;
-  }
-  .b {
-    color: red;
-  }
-</style>
-
-<span>
+<div>
   <style>
     .a {
       color: red;
@@ -229,7 +240,18 @@ printWidth: 80
       color: red;
     }
   </style>
-</span>
+
+  <span>
+    <style>
+      .a {
+        color: red;
+      }
+      .b {
+        color: red;
+      }
+    </style>
+  </span>
+</div>
 ================================================================================
 `;
 
@@ -239,6 +261,7 @@ parsers: ["glimmer"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
+<div>
 <style>
     .a {color:    red}
         .b {color:    red}
@@ -248,26 +271,27 @@ printWidth: 80
     .a {color:    red}
         .b {color:    red}
 </style></span>
-
-
+</div>
 
 =====================================output=====================================
-<style>
-  .a {
-    color: red;
-  }
-  .b {
-    color: red;
-  }
-</style>
-
-<span><style>
+<div>
+  <style>
     .a {
       color: red;
     }
     .b {
       color: red;
     }
-  </style></span>
+  </style>
+
+  <span><style>
+      .a {
+        color: red;
+      }
+      .b {
+        color: red;
+      }
+    </style></span>
+</div>
 ================================================================================
 `;
