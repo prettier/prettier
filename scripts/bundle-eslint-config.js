@@ -37,12 +37,16 @@ const restrictedSyntaxes = [
       'TaggedTemplateExpression > MemberExpression.tag[object.name="String"][property.name="raw"]',
     message: "`String.raw` should be transformed.",
   },
-  ...["at", "findLastIndex", "findLast", "replaceAll", "toReversed"].map(
-    (method) => ({
-      selector: `CallExpression > MemberExpression.callee[computed!=true][property.name="${method}"]`,
-      message: `\`.${method}()\` should be transformed`,
-    }),
-  ),
+  ...[
+    // "at", // `.at` in `acorn` didn't transform
+    "findLastIndex",
+    "findLast",
+    "replaceAll",
+    "toReversed",
+  ].map((method) => ({
+    selector: `CallExpression > MemberExpression.callee[computed!=true][property.name="${method}"]`,
+    message: `\`.${method}()\` should be transformed`,
+  })),
 ];
 
 const browserRestrictedSyntaxes = [
