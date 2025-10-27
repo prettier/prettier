@@ -65,7 +65,7 @@ function print(path, options, print) {
       }
       const parts = path.map(print, "children");
 
-      if (options.htmlWhitespaceSensitivity === "ignore") {
+      if (!isWhitespaceSensitive) {
         return [startingTag, indent([softline, parts]), softline, endingTag];
       }
 
