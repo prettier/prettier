@@ -51,7 +51,10 @@ function transformMethodCallToFunctionCall(node, functionName) {
         type: "NumericLiteral",
         value: flags,
         leadingComments: [
-          { type: "CommentBlock", value: ` ${comments.join(" | ")} ` },
+          {
+            type: "CommentBlock",
+            value: ` ${new Intl.ListFormat("en-US", { type: "conjunction" }).format(comments)} `,
+          },
         ],
       },
       node.callee.object,
