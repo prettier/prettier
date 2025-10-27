@@ -16,7 +16,7 @@ const transform = (code) =>
 
 test("Object.hasOwn", () => {
   expect(transform("Object.hasOwn(foo, bar)")).toMatchInlineSnapshot(
-    `"Object.prototype.hasOwnProperty.call(foo,bar)"`,
+    `"Object.property.call(foo,bar)"`,
   );
 });
 
@@ -107,5 +107,14 @@ test("Array#toReversed", () => {
 
   expect(transform("foo.toReversed(extraArgument)")).toMatchInlineSnapshot(
     `"foo.toReversed(extraArgument)"`,
+  );
+});
+
+test("String.raw", () => {
+  expect(transform("String.raw`\\\\\\uINVALID`")).toMatchInlineSnapshot(
+    String.raw`""\\\\\\uINVALID""`,
+  );
+  expect(transform("String.raw`\\uINVALID${'world'}`")).toMatchInlineSnapshot(
+    `"          \`\\\\uINVALID\${'world'}\`"`,
   );
 });

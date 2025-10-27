@@ -3,6 +3,7 @@ import transformArrayFindLastIndex from "./transform-array-find-last-index.js";
 import transformArrayToReversed from "./transform-array-to-reversed.js";
 import transformObjectHasOwnCall from "./transform-object-has-own.js";
 import transformRelativeIndexing from "./transform-relative-indexing.js";
+import transformStringRaw from "./transform-string-raw.js";
 import transformStringReplaceAll from "./transform-string-replace-all.js";
 
 // These transforms are like Babel and core-js
@@ -15,10 +16,12 @@ export default [
   transformArrayFindLastIndex,
   // Node.js 16.9.0
   transformObjectHasOwnCall,
-  // Node.js 16.6.0
+  // Node.js 16.6.0, and for performance
   transformRelativeIndexing,
   // Node.js 15.0.0
   transformStringReplaceAll,
   // Node.js 20
   transformArrayToReversed,
+  // For performance
+  transformStringRaw,
 ];
