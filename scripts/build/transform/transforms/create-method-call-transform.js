@@ -1,4 +1,5 @@
 import { fileURLToPath } from "node:url";
+import { createIdentifier, isIdentifier } from "./utilities.js";
 
 /**
  * @param {import("@babel/types").Node} node
@@ -15,8 +16,7 @@ function isMethodCall(node, { methodName, argumentsLength }) {
       node.callee.type === "OptionalMemberExpression") &&
     !node.callee.computed &&
     node.callee.object.type !== "ThisExpression" &&
-    node.callee.property.type === "Identifier" &&
-    node.callee.property.name === methodName
+    isIdentifier(node.callee.property, methodName)
   );
 }
 
@@ -29,16 +29,22 @@ function isMethodCall(node, { methodName, argumentsLength }) {
  */
 function transformMethodCallToFunctionCall(node, functionName) {
   // `__at(isOptionalObject, object, ...arguments)`
-  node.arguments.unshift(
-    {
-      type: "BooleanLiteral",
-      value: node.callee.type === "OptionalMemberExpression",
-      leadingComments: [{ type: "CommentBlock", value: " isOptionalObject " }],
-    },
-    node.callee.object,
-  );
 
-  node.callee = { type: "Identifier", name: functionName };
+  return {
+    ...node,
+    callee: createIdentifier(functionName),
+    arguments: [
+      {
+        type: "BooleanLiteral",
+        value: node.callee.type === "OptionalMemberExpression",
+        leadingComments: [
+          { type: "CommentBlock", value: " isOptionalObject " },
+        ],
+      },
+      node.callee.object,
+      ...node.arguments,
+    ],
+  };
 }
 
 function createMethodCallTransform({

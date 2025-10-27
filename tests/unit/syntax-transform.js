@@ -109,3 +109,12 @@ test("Array#toReversed", () => {
     `"foo.toReversed(extraArgument)"`,
   );
 });
+
+test("String.raw", () => {
+  expect(transform("String.raw`\\\\\\uINVALID`")).toMatchInlineSnapshot(
+    String.raw`""\\\\\\uINVALID""`,
+  );
+  expect(transform("String.raw`\\uINVALID${'world'}`")).toMatchInlineSnapshot(
+    `"          \`\\\\uINVALID\${'world'}\`"`,
+  );
+});

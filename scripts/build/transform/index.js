@@ -56,13 +56,16 @@ function transform(original, file) {
         continue;
       }
 
-      transform.transform(node);
+      changed ||= true;
 
       if (transform.inject) {
         injected.add(transform.inject);
       }
 
-      changed ||= true;
+      const replacement = transform.transform(node);
+      if (replacement && replacement !== node) {
+        replaceNode(node, replacement);
+      }
     }
   });
 
@@ -93,6 +96,14 @@ function transform(original, file) {
   }
 
   return code;
+}
+
+function replaceNode(original, object) {
+  for (const key of Object.keys(original)) {
+    delete original[key];
+  }
+
+  Object.assign(original, object);
 }
 
 export default transform;
