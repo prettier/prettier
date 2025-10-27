@@ -63,7 +63,13 @@ function print(path, options, print) {
       ) {
         return [startingTag, endingTag];
       }
+
       const parts = path.map(print, "children");
+      const isStyle = node.tag === "style";
+
+      if (isStyle) {
+        return [startingTag, parts, endingTag];
+      }
 
       if (!isWhitespaceSensitive) {
         return [startingTag, indent([softline, ...parts]), softline, endingTag];
