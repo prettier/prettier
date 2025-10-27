@@ -118,17 +118,17 @@ class WhitespaceUtils {
   getMinIndentation(text) {
     let minIndentation = Number.POSITIVE_INFINITY;
 
-    for (const lineText of text.split("\n")) {
-      if (lineText.length === 0) {
+    for (const line of text.split("\n")) {
+      if (line.length === 0) {
         continue;
       }
 
-      const indentation = this.getLeadingWhitespaceCount(lineText);
+      const indentation = this.getLeadingWhitespaceCount(line);
       if (indentation === 0) {
         return 0;
       }
 
-      if (lineText.length === indentation) {
+      if (line.length === indentation) {
         continue;
       }
 
@@ -140,7 +140,8 @@ class WhitespaceUtils {
     return minIndentation === Number.POSITIVE_INFINITY ? 0 : minIndentation;
   }
 
-  dedentString(text, minIndent = this.getMinIndentation(text)) {
+  dedentString(text) {
+    const minIndent = this.getMinIndentation(text);
     return minIndent === 0
       ? text
       : text
