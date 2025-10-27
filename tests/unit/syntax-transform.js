@@ -22,28 +22,28 @@ test("Object.hasOwn", () => {
 
 test(".at", () => {
   expect(transform("foo.at(-1)")).toMatchInlineSnapshot(`
-"import __at from "<SHIMS>/at.js";
+    "import __at from "<SHIMS>/at.js";
 
-__at  (/* isOptionalObject */false,foo,"at",-1)"
-`);
+    __at  (/* isOptionalObject */false,foo,"at",-1)"
+  `);
 
   expect(transform("foo?.at(-1)")).toMatchInlineSnapshot(`
-"import __at from "<SHIMS>/at.js";
+    "import __at from "<SHIMS>/at.js";
 
-__at   (/* isOptionalObject */true,foo,"at",-1)"
-`);
+    __at   (/* isOptionalObject */true,foo,"at",-1)"
+  `);
 
   expect(transform("foo?.bar.baz.at(-1)")).toMatchInlineSnapshot(`
-"import __at from "<SHIMS>/at.js";
+    "import __at from "<SHIMS>/at.js";
 
-__at           (/* isOptionalObject */true,foo?.bar.baz,"at",-1)"
-`);
+    __at           (/* isOptionalObject */true,foo?.bar.baz,"at",-1)"
+  `);
 
   expect(transform("foo.at(-1)?.bar")).toMatchInlineSnapshot(`
-"import __at from "<SHIMS>/at.js";
+    "import __at from "<SHIMS>/at.js";
 
-__at  (/* isOptionalObject */false,foo,"at",-1)?.bar"
-`);
+    __at  (/* isOptionalObject */false,foo,"at",-1)?.bar"
+  `);
 
   // Optional call not supported
   expect(transform("foo.at?.(-1)")).toMatchInlineSnapshot(`"foo.at?.(-1)"`);
@@ -51,23 +51,23 @@ __at  (/* isOptionalObject */false,foo,"at",-1)?.bar"
 
 test("String#replaceAll", () => {
   expect(transform("foo.replaceAll('a', 'b')")).toMatchInlineSnapshot(`
-"import __stringReplaceAll from "<SHIMS>/string-replace-all.js";
+    "import __stringReplaceAll from "<SHIMS>/string-replace-all.js";
 
-__stringReplaceAll(/* isOptionalObject */false,foo,"replaceAll",'a','b')"
-`);
+    __stringReplaceAll(/* isOptionalObject */false,foo,"replaceAll",'a','b')"
+  `);
 });
 
 test("Array#findLast", () => {
   expect(transform("foo.findLast(callback)")).toMatchInlineSnapshot(`
-"import __arrayFindLast from "<SHIMS>/array-find-last.js";
+    "import __arrayFindLast from "<SHIMS>/array-find-last.js";
 
-__arrayFindLast(/* isOptionalObject */false,foo,"findLast",callback)"
-`);
+    __arrayFindLast(/* isOptionalObject */false,foo,"findLast",callback)"
+  `);
   expect(transform("foo?.findLast(callback)")).toMatchInlineSnapshot(`
-"import __arrayFindLast from "<SHIMS>/array-find-last.js";
+    "import __arrayFindLast from "<SHIMS>/array-find-last.js";
 
-__arrayFindLast(/* isOptionalObject */true,foo,"findLast",callback)"
-`);
+    __arrayFindLast(/* isOptionalObject */true,foo,"findLast",callback)"
+  `);
 
   // Not supported
   expect(
@@ -77,15 +77,15 @@ __arrayFindLast(/* isOptionalObject */true,foo,"findLast",callback)"
 
 test("Array#findLastIndex", () => {
   expect(transform("foo.findLastIndex(callback)")).toMatchInlineSnapshot(`
-"import __arrayFindLastIndex from "<SHIMS>/array-find-last-index.js";
+    "import __arrayFindLastIndex from "<SHIMS>/array-find-last-index.js";
 
-__arrayFindLastIndex(/* isOptionalObject */false,foo,"findLastIndex",callback)"
-`);
+    __arrayFindLastIndex(/* isOptionalObject */false,foo,"findLastIndex",callback)"
+  `);
   expect(transform("foo?.findLastIndex(callback)")).toMatchInlineSnapshot(`
-"import __arrayFindLastIndex from "<SHIMS>/array-find-last-index.js";
+    "import __arrayFindLastIndex from "<SHIMS>/array-find-last-index.js";
 
-__arrayFindLastIndex(/* isOptionalObject */true,foo,"findLastIndex",callback)"
-`);
+    __arrayFindLastIndex(/* isOptionalObject */true,foo,"findLastIndex",callback)"
+  `);
 
   // Not supported
   expect(
@@ -95,15 +95,15 @@ __arrayFindLastIndex(/* isOptionalObject */true,foo,"findLastIndex",callback)"
 
 test("Array#toReversed", () => {
   expect(transform("foo.toReversed()")).toMatchInlineSnapshot(`
-"import __arrayToReversed from "<SHIMS>/array-to-reversed.js";
+    "import __arrayToReversed from "<SHIMS>/array-to-reversed.js";
 
-__arrayToReversed(/* isOptionalObject */false,foo,"toReversed")"
-`);
+    __arrayToReversed(/* isOptionalObject */false,foo,"toReversed")"
+  `);
   expect(transform("foo?.toReversed()")).toMatchInlineSnapshot(`
-"import __arrayToReversed from "<SHIMS>/array-to-reversed.js";
+    "import __arrayToReversed from "<SHIMS>/array-to-reversed.js";
 
-__arrayToReversed(/* isOptionalObject */true,foo,"toReversed")"
-`);
+    __arrayToReversed(/* isOptionalObject */true,foo,"toReversed")"
+  `);
 
   expect(transform("foo.toReversed(extraArgument)")).toMatchInlineSnapshot(
     `"foo.toReversed(extraArgument)"`,
