@@ -1,8 +1,8 @@
 import createMethodCallTransform from "./create-method-call-transform.js";
 
-const transformRelativeIndexing = createMethodCallTransform({
+const transformAt = createMethodCallTransform({
   methodName: "at",
   argumentsLength: 1,
 });
 
-export default transformRelativeIndexing;
+export default transformAt;

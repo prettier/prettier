@@ -1,8 +1,8 @@
 import createMethodCallTransform from "./create-method-call-transform.js";
 
-const transformStringReplaceAll = createMethodCallTransform({
+const transformReplaceAll = createMethodCallTransform({
   methodName: "replaceAll",
   argumentsLength: 2,
 });
 
-export default transformStringReplaceAll;
+export default transformReplaceAll;
