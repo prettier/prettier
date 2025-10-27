@@ -55,17 +55,17 @@ function print(path, options, print) {
       }
 
       const endingTag = ["</", node.tag, ">"];
+      const isStyle = node.tag === "style";
 
       if (
         node.children.length === 0 ||
-        (!isWhitespaceSensitive &&
+        ((!isWhitespaceSensitive || isStyle) &&
           node.children.every((node) => isWhitespaceNode(node)))
       ) {
         return [startingTag, endingTag];
       }
 
       const parts = path.map(print, "children");
-      const isStyle = node.tag === "style";
 
       if (isStyle) {
         return [startingTag, parts, endingTag];
