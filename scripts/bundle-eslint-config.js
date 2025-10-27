@@ -21,9 +21,16 @@ const restrictedSyntaxes = [
     message: ".mjs file can't be `require()`d",
   },
   {
-    selector: String.raw`TaggedTemplateExpression > MemberExpression.tag[object.name="String"][property.name="raw"]`,
+    selector:
+      'TaggedTemplateExpression > MemberExpression.tag[object.name="String"][property.name="raw"]',
     message: "`String.raw` should be transformed.",
   },
+  ...["at", "findLastIndex", "findLast", "replaceAll", "toReversed"].map(
+    (method) => ({
+      selector: `CallExpression > MemberExpression.callee[!computed][property.name="${method}"]`,
+      message: `\`.${method}()\` should be transformed`,
+    }),
+  ),
 ];
 
 const browserRestrictedSyntaxes = [
