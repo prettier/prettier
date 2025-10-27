@@ -59,9 +59,11 @@ function createMethodCallTransform({ methodName, argumentsLength }) {
     /[A-Z]/gu,
     (character) => `-${character.toLowerCase()}`,
   )}.js`;
-  const functionImplementationPath = fileURLToPath(
-    new URL(`../../shims/${fileName}`, import.meta.url),
+  const functionImplementationUrl = new URL(
+    `../../shims/${fileName}`,
+    import.meta.url,
   );
+  const functionImplementationPath = fileURLToPath(functionImplementationUrl);
 
   return {
     shouldSkip: (text, file) =>
