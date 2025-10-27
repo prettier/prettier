@@ -1,5 +1,5 @@
 import jsesc from "jsesc";
-import { isIdentifier } from "./utilities.js";
+import { createStringLiteral, isIdentifier } from "./utilities.js";
 
 /**
  * @param {import("@babel/types").Node} node
@@ -29,7 +29,7 @@ function transformStringRaw(taggedTemplateExpression) {
   if (templateLiteral.expressions.length === 0) {
     const { raw } = templateLiteral.quasis[0].value;
     const value = new Function(`return \`${jsesc(raw)}\``)();
-    return { type: "StringLiteral", value };
+    return createStringLiteral(value);
   }
 
   const quasis = templateLiteral.quasis.map((quasis) => {

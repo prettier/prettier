@@ -1,5 +1,9 @@
 import { fileURLToPath } from "node:url";
+import { outdent } from "outdent";
+import { OPTIONAL_OBJECT } from "../../shims/shared.js";
 import { createIdentifier, isIdentifier } from "./utilities.js";
+
+/* Doesn't work for optional call, computed property, and spread arguments */
 
 /**
  * @param {import("@babel/types").Node} node
@@ -30,15 +34,27 @@ function isMethodCall(node, { methodName, argumentsLength }) {
 function transformMethodCallToFunctionCall(node, functionName) {
   // `__at(isOptionalObject, object, ...arguments)`
 
+  let flags = 0;
+  const comments = [];
+  if (node.callee.type === "OptionalMemberExpression") {
+    flags |= OPTIONAL_OBJECT;
+    comments.push("OPTIONAL_OBJECT: true");
+  } else {
+    comments.push("OPTIONAL_OBJECT: false");
+  }
+
   return {
     ...node,
     callee: createIdentifier(functionName),
     arguments: [
       {
-        type: "BooleanLiteral",
-        value: node.callee.type === "OptionalMemberExpression",
+        type: "NumericLiteral",
+        value: flags,
         leadingComments: [
-          { type: "CommentBlock", value: " isOptionalObject " },
+          {
+            type: "CommentBlock",
+            value: ` ${new Intl.ListFormat("en-US", { type: "conjunction" }).format(comments)} `,
+          },
         ],
       },
       node.callee.object,
@@ -47,12 +63,16 @@ function transformMethodCallToFunctionCall(node, functionName) {
   };
 }
 
-function createMethodCallTransform({
-  methodName,
-  argumentsLength,
-  functionName = `__${methodName}`,
-  functionImplementationUrl,
-}) {
+function createMethodCallTransform({ methodName, argumentsLength }) {
+  const functionName = `__${methodName}`;
+  const fileName = `method-${methodName.replaceAll(
+    /[A-Z]/gu,
+    (character) => `-${character.toLowerCase()}`,
+  )}.js`;
+  const functionImplementationUrl = new URL(
+    `../../shims/${fileName}`,
+    import.meta.url,
+  );
   const functionImplementationPath = fileURLToPath(functionImplementationUrl);
 
   return {
@@ -60,9 +80,9 @@ function createMethodCallTransform({
       !text.includes(`.${methodName}(`) || file === functionImplementationPath,
     test: (node) => isMethodCall(node, { methodName, argumentsLength }),
     transform: (node) => transformMethodCallToFunctionCall(node, functionName),
-    inject: `import ${functionName} from ${JSON.stringify(
-      functionImplementationPath,
-    )};`,
+    inject: outdent`
+      import ${functionName} from ${JSON.stringify(functionImplementationPath)};
+    `,
   };
 }
 

@@ -1,19 +1,31 @@
+import assert from "node:assert";
 import fs from "node:fs/promises";
+import path from "node:path";
 import eslintPluginCompat from "eslint-plugin-compat";
+import buildConfig from "./build/config.js";
+import { DIST_DIR } from "./utils/index.js";
 
 const { browserslist: targets } = JSON.parse(
   await fs.readFile(new URL("../package.json", import.meta.url)),
 );
 
-const browserFiles = [
-  "doc.js",
-  "doc.mjs",
-  "standalone.js",
-  "standalone.mjs",
-  "plugins/*",
-];
+function getProductionFiles(platform) {
+  return buildConfig
+    .flatMap((project) =>
+      project.files
+        .filter(
+          (file) => file.kind === "javascript" && file.platform === platform,
+        )
+        .map((file) => path.join(project.distDirectory, file.output.file)),
+    )
+    .map((file) => path.relative(DIST_DIR, file).replaceAll("\\", "/"));
+}
 
-const nodejsFiles = ["index.cjs", "index.mjs", "bin/*", "internal/*"];
+const browserFiles = getProductionFiles("universal");
+const nodejsFiles = getProductionFiles("node");
+
+assert.ok(browserFiles.length > 0);
+assert.ok(nodejsFiles.length > 0);
 
 const restrictedSyntaxes = [
   {
@@ -21,9 +33,20 @@ const restrictedSyntaxes = [
     message: ".mjs file can't be `require()`d",
   },
   {
-    selector: String.raw`TaggedTemplateExpression > MemberExpression.tag[object.name="String"][property.name="raw"]`,
+    selector:
+      'TaggedTemplateExpression > MemberExpression.tag[object.name="String"][property.name="raw"]',
     message: "`String.raw` should be transformed.",
   },
+  ...[
+    // "at", // `.at` in `acorn` didn't transform
+    "findLastIndex",
+    "findLast",
+    "replaceAll",
+    "toReversed",
+  ].map((method) => ({
+    selector: `CallExpression > MemberExpression.callee[computed!=true][property.name="${method}"]`,
+    message: `\`.${method}()\` should be transformed`,
+  })),
 ];
 
 const browserRestrictedSyntaxes = [
