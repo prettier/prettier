@@ -39,7 +39,7 @@ const restrictedSyntaxes = [
   },
   ...["at", "findLastIndex", "findLast", "replaceAll", "toReversed"].map(
     (method) => ({
-      selector: `CallExpression > MemberExpression.callee[!computed][property.name="${method}"]`,
+      selector: `CallExpression > MemberExpression.callee[computed!=false][property.name="${method}"]`,
       message: `\`.${method}()\` should be transformed`,
     }),
   ),
