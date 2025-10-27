@@ -63,14 +63,13 @@ function print(path, options, print) {
       ) {
         return [startingTag, endingTag];
       }
-
-      const contextDoc = printElementChildren(path, options, print);
+      const parts = path.map(print, "children");
 
       if (options.htmlWhitespaceSensitivity === "ignore") {
-        return group([startingTag, indent(contextDoc), hardline, endingTag]);
+        return [startingTag, indent([softline, parts]), softline, endingTag];
       }
 
-      return [startingTag, indent(group(contextDoc)), endingTag];
+      return [startingTag, indent(group(parts)), endingTag];
     }
 
     case "BlockStatement":
@@ -428,18 +427,6 @@ function printStartingTag(path, print) {
   }
 
   return ["<", node.tag, indent(attributes), printStartingTagEndMarker(node)];
-}
-
-function printElementChildren(path, options, print) {
-  return path.map(({ isFirst }) => {
-    const printedChild = print();
-
-    if (isFirst && options.htmlWhitespaceSensitivity === "ignore") {
-      return [softline, printedChild];
-    }
-
-    return printedChild;
-  }, "children");
 }
 
 function printStartingTagEndMarker(node) {
