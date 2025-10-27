@@ -56,11 +56,7 @@ const config = {
   ],
 
   onBrokenLinks: "throw",
-  markdown: {
-    hooks: {
-      onBrokenMarkdownLinks: "warn",
-    },
-  },
+  onBrokenMarkdownLinks: "warn",
 
   // Even if you don't use internationalization, you can use this field to set
   // useful metadata like html lang. For example, if your site is Chinese, you
@@ -280,8 +276,16 @@ const config = {
     },
   plugins: [llmsTxtPlugin],
   future: {
-    v4: true,
-    experimental_faster: true,
+    experimental_faster: {
+      swcJsLoader: true,
+      swcHtmlMinimizer: true,
+      lightningCssMinimizer: true,
+      mdxCrossCompilerCache: true,
+
+      // https://github.com/facebook/docusaurus/issues/11047
+      swcJsMinimizer: false,
+      rspackBundler: false,
+    },
   },
 };
 
