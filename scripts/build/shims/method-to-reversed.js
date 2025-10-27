@@ -1,15 +1,15 @@
-import shimMethod from "./shim-method.js";
+import { createMethodShim } from "./shared.js";
 
-const toReversed = shimMethod("toReversed", [
-  [
-    function () {
-      return Array.isArray(this);
-    },
-    Array.prototype.toReversed ??
-      function () {
-        return [...this].reverse();
-      },
-  ],
-]);
+const arrayToReversed =
+  Array.prototype.toReversed ??
+  function () {
+    return [...this].reverse();
+  };
+
+const toReversed = createMethodShim("toReversed", function () {
+  if (Array.isArray(this)) {
+    return arrayToReversed;
+  }
+});
 
 export default toReversed;

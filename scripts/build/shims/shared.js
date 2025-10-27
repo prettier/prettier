@@ -1,15 +1,13 @@
-const shimMethod =
-  (methodName, implementations) =>
+const createMethodShim =
+  (methodName, getImplementation) =>
   (isOptionalObject, object, ...arguments_) => {
     if (isOptionalObject && (object === undefined || object === null)) {
       return;
     }
 
-    const [, implementation = object[methodName]] = implementations.find(
-      ([test]) => test.call(object),
-    );
+    const implementation = getImplementation.call(object) ?? object[methodName];
 
     return implementation.apply(object, arguments_);
   };
 
-export default shimMethod;
+export { createMethodShim };

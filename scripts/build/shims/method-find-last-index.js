@@ -1,22 +1,22 @@
-import shimMethod from "./shim-method.js";
+import { createMethodShim } from "./shared.js";
 
-const findLastIndex = shimMethod("findLastIndex", [
-  [
-    function () {
-      return Array.isArray(this);
-    },
-    Array.prototype.findLastIndex ??
-      function (callback) {
-        for (let index = this.length - 1; index >= 0; index--) {
-          const element = this[index];
-          if (callback(element, index, this)) {
-            return index;
-          }
-        }
+const arrayFindLastIndex =
+  Array.prototype.findLastIndex ??
+  function (callback) {
+    for (let index = this.length - 1; index >= 0; index--) {
+      const element = this[index];
+      if (callback(element, index, this)) {
+        return index;
+      }
+    }
 
-        return -1;
-      },
-  ],
-]);
+    return -1;
+  };
+
+const findLastIndex = createMethodShim("findLastIndex", function () {
+  if (Array.isArray(this)) {
+    return arrayFindLastIndex;
+  }
+});
 
 export default findLastIndex;
