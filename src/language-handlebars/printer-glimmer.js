@@ -40,40 +40,36 @@ function print(path, options, print) {
       return group(path.map(print, "body"));
 
     case "ElementNode": {
-      const startingTag = group(printStartingTag(path, print));
+      const isWhitespaceSensitive =
+        options.htmlWhitespaceSensitivity !== "ignore";
 
-      const escapeNextElementNode =
-        options.htmlWhitespaceSensitivity === "ignore" &&
-        path.next?.type === "ElementNode"
+      const startingTag = [
+        !isWhitespaceSensitive && path.previous?.type === "ElementNode"
           ? softline
-          : "";
+          : "",
+        group([printStartingTag(path, print)]),
+      ];
 
       if (isVoidElement(node)) {
-        return [startingTag, escapeNextElementNode];
+        return [startingTag];
       }
 
       const endingTag = ["</", node.tag, ">"];
 
-      if (node.children.length === 0) {
-        return [startingTag, indent(endingTag), escapeNextElementNode];
+      if (
+        node.children.length === 0 ||
+        (!isWhitespaceSensitive &&
+          node.children.every((node) => isWhitespaceNode(node)))
+      ) {
+        return [startingTag, endingTag];
+      }
+      const parts = path.map(print, "children");
+
+      if (!isWhitespaceSensitive) {
+        return [startingTag, indent([softline, ...parts]), softline, endingTag];
       }
 
-      if (options.htmlWhitespaceSensitivity === "ignore") {
-        return [
-          startingTag,
-          indent(printChildren(path, options, print)),
-          hardline,
-          endingTag,
-          escapeNextElementNode,
-        ];
-      }
-
-      return [
-        startingTag,
-        indent(group(printChildren(path, options, print))),
-        endingTag,
-        escapeNextElementNode,
-      ];
+      return [startingTag, indent(group(parts)), endingTag];
     }
 
     case "BlockStatement":
@@ -431,24 +427,6 @@ function printStartingTag(path, print) {
   }
 
   return ["<", node.tag, indent(attributes), printStartingTagEndMarker(node)];
-}
-
-function printChildren(path, options, print) {
-  const { node } = path;
-  const isEmpty = node.children.every((node) => isWhitespaceNode(node));
-  if (options.htmlWhitespaceSensitivity === "ignore" && isEmpty) {
-    return "";
-  }
-
-  return path.map(({ isFirst }) => {
-    const printedChild = print();
-
-    if (isFirst && options.htmlWhitespaceSensitivity === "ignore") {
-      return [softline, printedChild];
-    }
-
-    return printedChild;
-  }, "children");
 }
 
 function printStartingTagEndMarker(node) {
