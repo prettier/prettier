@@ -1,5 +1,6 @@
-function shimMethod(test, implementation) {
-  return (isOptionalObject, object, method, ...arguments_) => {
+const shimMethod =
+  (test, implementation) =>
+  (isOptionalObject, object, method, ...arguments_) => {
     if (isOptionalObject && (object === undefined || object === null)) {
       return;
     }
@@ -10,6 +11,5 @@ function shimMethod(test, implementation) {
 
     return object[method](...arguments_);
   };
-}
 
 export default shimMethod;
