@@ -4,6 +4,7 @@ import {
   getFunctionParameters,
   hasNodeIgnoreComment,
   isJsxElement,
+  isMeaningfulEmptyStatement,
   isMethod,
   isUnionType,
 } from "../utils/index.js";
@@ -14,7 +15,6 @@ import {
  */
 
 const isNodeCantAttachComment = createTypeCheckFunction([
-  "EmptyStatement",
   "TemplateElement",
   // There is no similar node in Babel AST
   // ```ts
@@ -84,12 +84,38 @@ const isClassMethodCantAttachComment = (node, [parent]) =>
 @returns {boolean}
 */
 function canAttachComment(node, ancestors) {
-  return !(
+  if (
     isNodeCantAttachComment(node) ||
     isChildWontPrint(node, ancestors) ||
     // @ts-expect-error -- safe
     isClassMethodCantAttachComment(node, ancestors)
-  );
+  ) {
+    return false;
+  }
+
+  if (node.type === "EmptyStatement") {
+    return isMeaningfulEmptyStatement({ node, parent: ancestors[0] });
+  }
+
+  /*
+  For this code
+  `interface A {property: B}`
+                          ^ `ObjectTypeProperty.value` (Flow)
+  `interface A {property: B}`
+                        ^^^ `TSPropertySignature.typeAnnotation` (TypeScript)
+                          ^ `TSPropertySignature.typeAnnotation.typeAnnotation` (TypeScript)
+  ```
+
+  To avoid inconsistent, let's attach to the Identifier instead.
+  */
+  if (
+    node.type === "TSTypeAnnotation" &&
+    ancestors[0].type === "TSPropertySignature"
+  ) {
+    return false;
+  }
+
+  return true;
 }
 
 /**

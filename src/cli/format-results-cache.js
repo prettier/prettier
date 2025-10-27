@@ -36,7 +36,6 @@ function getMetadataFromFileDescriptor(fileDescriptor) {
 }
 
 class FormatResultsCache {
-  #useChecksum;
   #fileEntryCache;
 
   /**
@@ -45,11 +44,16 @@ class FormatResultsCache {
    */
   constructor(cacheFileLocation, cacheStrategy) {
     const useChecksum = cacheStrategy === "content";
+    const fileEntryCacheOptions = {
+      useChecksum,
+      useModifiedTime: !useChecksum,
+      restrictAccessToCwd: false,
+    };
 
     try {
       this.#fileEntryCache = fileEntryCache.createFromFile(
         /* filePath */ cacheFileLocation,
-        useChecksum,
+        fileEntryCacheOptions,
       );
     } catch {
       // https://github.com/prettier/prettier/issues/17092
@@ -60,12 +64,10 @@ class FormatResultsCache {
         // retry
         this.#fileEntryCache = fileEntryCache.createFromFile(
           /* filePath */ cacheFileLocation,
-          useChecksum,
+          fileEntryCacheOptions,
         );
       }
     }
-
-    this.#useChecksum = useChecksum;
   }
 
   /**
@@ -107,9 +109,7 @@ class FormatResultsCache {
   }
 
   #getFileDescriptor(filePath) {
-    return this.#fileEntryCache.getFileDescriptor(filePath, {
-      useModifiedTime: !this.#useChecksum,
-    });
+    return this.#fileEntryCache.getFileDescriptor(filePath);
   }
 }
 

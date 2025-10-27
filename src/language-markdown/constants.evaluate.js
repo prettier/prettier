@@ -76,7 +76,7 @@ const PUNCTUATION_REGEXP = new RegExp(
   `(?:${[
     new Charset(...asciiPunctuationCharacters).toRegExp("u").source,
     ...unicodePunctuationClasses.map(
-      (charset) => `\\p{General_Category=${charset}}`,
+      (charset) => String.raw`\p{General_Category=${charset}}`,
       "\u{ff5e}", // Used as a substitute for U+301C in Windows
     ),
   ].join("|")})`,

@@ -27,6 +27,7 @@ const unstableTests = new Map(
     ["js/comments/jsx.js", (options) => options.semi === false],
     "js/comments/return-statement.js",
     "js/comments/tagged-template-literal.js",
+    "js/for/9812-unstable.js",
     "markdown/spec/example-234.md",
     "markdown/spec/example-235.md",
     [
@@ -48,6 +49,7 @@ const unstableTests = new Map(
     ["js/ignore/semi/asi.js", (options) => options.semi === false],
     "typescript/union/consistent-with-flow/single-type.ts",
     "js/if/non-block.js",
+    "typescript/import-type/long-module-name/long-module-name4.ts",
   ].map((fixture) => {
     const [file, isUnstable = () => true] = Array.isArray(fixture)
       ? fixture

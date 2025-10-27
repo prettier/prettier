@@ -22,6 +22,7 @@ import {
   isUnionType,
 } from "../utils/index.js";
 import { printAssignment } from "./assignment.js";
+import { printClassMemberSemicolon } from "./class.js";
 import {
   printFunctionParameters,
   shouldGroupFunctionParameters,
@@ -339,7 +340,13 @@ function printFunctionType(path, options, print) {
 
   parts.push(parametersDoc, returnTypeDoc);
 
-  return group(parts);
+  return [
+    group(parts),
+    node.type === "TSConstructSignatureDeclaration" ||
+    node.type === "TSCallSignatureDeclaration"
+      ? printClassMemberSemicolon(path, options)
+      : "",
+  ];
 }
 
 /*

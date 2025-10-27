@@ -1,12 +1,10 @@
 import {
   dedent,
-  dedentToRoot,
   fill,
   group,
   hardline,
   ifBreak,
   indent,
-  indentIfBreak,
   join,
   line,
   softline,
@@ -42,52 +40,36 @@ function print(path, options, print) {
       return group(path.map(print, "body"));
 
     case "ElementNode": {
-      const startingTag = group(printStartingTag(path, print));
+      const isWhitespaceSensitive =
+        options.htmlWhitespaceSensitivity !== "ignore";
 
-      const escapeNextElementNode =
-        options.htmlWhitespaceSensitivity === "ignore" &&
-        path.next?.type === "ElementNode"
+      const startingTag = [
+        !isWhitespaceSensitive && path.previous?.type === "ElementNode"
           ? softline
-          : "";
+          : "",
+        group([printStartingTag(path, print)]),
+      ];
 
       if (isVoidElement(node)) {
-        return [startingTag, escapeNextElementNode];
+        return [startingTag];
       }
 
       const endingTag = ["</", node.tag, ">"];
 
-      if (node.children.length === 0 || isEmptyStyle(node)) {
-        return [startingTag, indent(endingTag), escapeNextElementNode];
+      if (
+        node.children.length === 0 ||
+        (!isWhitespaceSensitive &&
+          node.children.every((node) => isWhitespaceNode(node)))
+      ) {
+        return [startingTag, endingTag];
+      }
+      const parts = path.map(print, "children");
+
+      if (!isWhitespaceSensitive) {
+        return [startingTag, indent([softline, ...parts]), softline, endingTag];
       }
 
-      const contentDoc = printChildren(path, options, print);
-      const isStyle = node.tag === "style";
-
-      if (isStyle) {
-        return [
-          startingTag,
-          group(contentDoc),
-          endingTag,
-          escapeNextElementNode,
-        ];
-      }
-
-      if (options.htmlWhitespaceSensitivity === "ignore") {
-        return [
-          startingTag,
-          indent(contentDoc),
-          hardline,
-          endingTag,
-          escapeNextElementNode,
-        ];
-      }
-
-      return [
-        startingTag,
-        indent(group(contentDoc)),
-        endingTag,
-        escapeNextElementNode,
-      ];
+      return [startingTag, indent(group(parts)), endingTag];
     }
 
     case "BlockStatement":
@@ -445,28 +427,6 @@ function printStartingTag(path, print) {
   }
 
   return ["<", node.tag, indent(attributes), printStartingTagEndMarker(node)];
-}
-
-function printChildren(path, options, print) {
-  const { node } = path;
-  const isEmpty = node.children.every((node) => isWhitespaceNode(node));
-  if (options.htmlWhitespaceSensitivity === "ignore" && isEmpty) {
-    return "";
-  }
-
-  return path.map(({ parent, isFirst }) => {
-    const printedChild = print();
-
-    if (
-      isFirst &&
-      options.htmlWhitespaceSensitivity === "ignore" &&
-      !isScriptLike(parent)
-    ) {
-      return [softline, printedChild];
-    }
-
-    return printedChild;
-  }, "children");
 }
 
 function printStartingTagEndMarker(node) {
@@ -858,16 +818,6 @@ function printPathExpression(node) {
       isPathExpressionPartNeedBrackets(part, index) ? `[${part}]` : part,
     )
     .join(".");
-}
-
-function isEmptyStyle(node) {
-  return (
-    node.type === "ElementNode" &&
-    node.tag === "style" &&
-    node.children.every(
-      (child) => child.type === "TextNode" && !child.chars.trim(),
-    )
-  );
 }
 
 function isScriptLike(node) {

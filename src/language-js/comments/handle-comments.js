@@ -98,6 +98,7 @@ function handleEndOfLineComment(context) {
     handleLastUnionElementInExpression,
     handleLastBinaryOperatorOperand,
     handleTSMappedTypeComments,
+    handlePropertySignatureComments,
   ].some((fn) => fn(context));
 }
 
@@ -840,10 +841,11 @@ function handleOnlyComments({ comment, enclosingNode, ast, isLastComment }) {
   return false;
 }
 
-function handleForComments({ comment, enclosingNode }) {
+function handleForComments({ comment, enclosingNode, followingNode }) {
   if (
-    enclosingNode?.type === "ForInStatement" ||
-    enclosingNode?.type === "ForOfStatement"
+    (enclosingNode?.type === "ForInStatement" ||
+      enclosingNode?.type === "ForOfStatement") &&
+    followingNode !== enclosingNode.body
   ) {
     addLeadingComment(enclosingNode, comment);
     return true;
@@ -1099,6 +1101,22 @@ function handleLastBinaryOperatorOperand({
     }
   }
   return false;
+}
+
+function handlePropertySignatureComments({
+  enclosingNode,
+  followingNode,
+  comment,
+}) {
+  if (
+    enclosingNode &&
+    (enclosingNode.type === "TSPropertySignature" ||
+      enclosingNode.type === "ObjectTypeProperty") &&
+    isIntersectionType(followingNode)
+  ) {
+    addLeadingComment(followingNode, comment);
+    return true;
+  }
 }
 
 /**

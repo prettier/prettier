@@ -142,6 +142,7 @@ function chooseLayout(path, options, print, leftDoc, rightPropertyName) {
     node.type === "ImportAttribute" ||
     (rightNode.type === "CallExpression" &&
       rightNode.callee.name === "require") ||
+    isUnionType(rightNode) ||
     // do not put values on a separate line from the key in json
     options.parser === "json5" ||
     options.parser === "jsonc" ||

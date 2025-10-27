@@ -24,7 +24,6 @@ const additionalVisitorKeys = {
   NeverTypeAnnotation: [],
   SatisfiesExpression: ["expression", "typeAnnotation"],
   TupleTypeAnnotation: ["elementTypes"],
-  TypePredicate: ["asserts"],
   UndefinedTypeAnnotation: [],
   UnknownTypeAnnotation: [],
 };
@@ -32,7 +31,6 @@ const additionalVisitorKeys = {
 const excludeVisitorKeys = {
   // From `flowVisitorKeys`
   ArrowFunctionExpression: ["id"],
-  FunctionExpression: ["predicate"],
 
   // TODO: Remove `types` when babel changes AST of `TupleTypeAnnotation`
   // Flow parser changed `.types` to `.elementTypes` https://github.com/facebook/flow/commit/5b60e6a81dc277dfab2e88fa3737a4dc9aafdcab

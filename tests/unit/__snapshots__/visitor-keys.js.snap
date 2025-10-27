@@ -372,6 +372,7 @@ exports[`visitor keys estree 1`] = `
     "body",
     "id",
     "params",
+    "predicate",
     "returnType",
     "typeParameters",
   ],
@@ -1120,7 +1121,6 @@ exports[`visitor keys estree 1`] = `
     "params",
   ],
   "TypePredicate": [
-    "asserts",
     "parameterName",
     "typeAnnotation",
   ],
