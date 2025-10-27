@@ -115,7 +115,7 @@ class WhitespaceUtils {
     );
   }
 
-  getMinIndentation(text) {
+  #getMinIndentation(text) {
     let minIndentation = Number.POSITIVE_INFINITY;
 
     for (const line of text.split("\n")) {
@@ -141,7 +141,7 @@ class WhitespaceUtils {
   }
 
   dedentString(text) {
-    const minIndent = this.getMinIndentation(text);
+    const minIndent = this.#getMinIndentation(text);
     return minIndent === 0
       ? text
       : text
