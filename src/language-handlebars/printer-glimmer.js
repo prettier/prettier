@@ -10,7 +10,6 @@ import {
   softline,
 } from "../document/builders.js";
 import { replaceEndOfLine } from "../document/utils.js";
-import { dedentString } from "../language-html/utils/index.js";
 import getPreferredQuote from "../utils/get-preferred-quote.js";
 import htmlWhitespaceUtils from "../utils/html-whitespace-utils.js";
 import isNonEmptyArray from "../utils/is-non-empty-array.js";
@@ -172,7 +171,7 @@ function print(path, options, print) {
         if (parent.tag === "style") {
           text = text.replaceAll(/^\n+/gu, "");
           text = htmlWhitespaceUtils.trimEnd(text);
-          text = dedentString(text);
+          text = htmlWhitespaceUtils.dedentString(text);
 
           return replaceEndOfLine(text, hardline);
         }

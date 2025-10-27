@@ -114,6 +114,40 @@ class WhitespaceUtils {
       whitespaceCharacters.has(character),
     );
   }
+
+  getMinIndentation(text) {
+    let minIndentation = Number.POSITIVE_INFINITY;
+
+    for (const lineText of text.split("\n")) {
+      if (lineText.length === 0) {
+        continue;
+      }
+
+      const indentation = this.getLeadingWhitespaceCount(lineText);
+      if (indentation === 0) {
+        return 0;
+      }
+
+      if (lineText.length === indentation) {
+        continue;
+      }
+
+      if (indentation < minIndentation) {
+        minIndentation = indentation;
+      }
+    }
+
+    return minIndentation === Number.POSITIVE_INFINITY ? 0 : minIndentation;
+  }
+
+  dedentString(text, minIndent = this.getMinIndentation(text)) {
+    return minIndent === 0
+      ? text
+      : text
+          .split("\n")
+          .map((lineText) => lineText.slice(minIndent))
+          .join("\n");
+  }
 }
 
 export default WhitespaceUtils;

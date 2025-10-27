@@ -523,40 +523,6 @@ function getNodeCssStyleWhiteSpace(node) {
   return CSS_WHITE_SPACE_DEFAULT;
 }
 
-function getMinIndentation(text) {
-  let minIndentation = Number.POSITIVE_INFINITY;
-
-  for (const lineText of text.split("\n")) {
-    if (lineText.length === 0) {
-      continue;
-    }
-
-    const indentation = htmlWhitespaceUtils.getLeadingWhitespaceCount(lineText);
-    if (indentation === 0) {
-      return 0;
-    }
-
-    if (lineText.length === indentation) {
-      continue;
-    }
-
-    if (indentation < minIndentation) {
-      minIndentation = indentation;
-    }
-  }
-
-  return minIndentation === Number.POSITIVE_INFINITY ? 0 : minIndentation;
-}
-
-function dedentString(text, minIndent = getMinIndentation(text)) {
-  return minIndent === 0
-    ? text
-    : text
-        .split("\n")
-        .map((lineText) => lineText.slice(minIndent))
-        .join("\n");
-}
-
 function unescapeQuoteEntities(text) {
   return text.replaceAll("&apos;", "'").replaceAll("&quot;", '"');
 }
@@ -620,7 +586,7 @@ function getTextValueParts(node, value = node.value) {
     ? node.parent.isIndentationSensitive
       ? replaceEndOfLine(value)
       : replaceEndOfLine(
-          dedentString(htmlTrimPreserveIndentation(value)),
+          htmlWhitespaceUtils.dedentString(htmlTrimPreserveIndentation(value)),
           hardline,
         )
     : join(line, htmlWhitespaceUtils.split(value));
@@ -632,7 +598,6 @@ function isVueScriptTag(node, options) {
 
 export {
   canHaveInterpolation,
-  dedentString,
   forceBreakChildren,
   forceBreakContent,
   forceNextEmptyLine,
