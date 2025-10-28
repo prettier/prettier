@@ -182,7 +182,7 @@ function genericPrint(path, options, print) {
           ? node.value
           : node.value.replaceAll("\n", " ");
       const backtickCount = getMinNotPresentContinuousCount(code, "`");
-      const backtickString = "`".repeat(backtickCount || 1);
+      const backtickString = "`".repeat(backtickCount);
       const padding =
         code.startsWith("`") ||
         code.endsWith("`") ||
