@@ -3,7 +3,9 @@ import createGetVisitorKeysFunction from "./create-get-visitor-keys-function.js"
 import {
   cleanFrontMatter,
   isEmbedFrontMatter,
+  isFrontMatter,
   printEmbedFrontMatter,
+  printFrontMatter,
 } from "./front-matter/index.js";
 
 function getParserPluginByParserName(plugins, parserName) {
@@ -71,6 +73,7 @@ async function initPrinter(plugin, astFormat) {
     getVisitorKeys,
     embed: originalEmbed,
     massageAstNode: originalCleanFunction,
+    print: originalPrint,
     ...printerRestProperties
   } = typeof printerOrPrinterInitFunction === "function"
     ? await printerOrPrinterInitFunction()
@@ -95,7 +98,7 @@ async function initPrinter(plugin, astFormat) {
 
   let embed;
   if (originalEmbed) {
-    if (experimentalFeatures.frontMatterSupport.embedPrint) {
+    if (experimentalFeatures.frontMatterSupport.embed) {
       embed = (...arguments_) =>
         isEmbedFrontMatter(...arguments_)
           ? printEmbedFrontMatter
@@ -109,11 +112,20 @@ async function initPrinter(plugin, astFormat) {
       : getVisitorKeys;
   }
 
+  let print;
+  if (experimentalFeatures.frontMatterSupport.print) {
+    print = (...arguments_) =>
+      (isFrontMatter(arguments_[0].node) ? printFrontMatter : originalPrint)(
+        ...arguments_,
+      );
+  }
+
   return {
     experimentalFeatures,
     getVisitorKeys,
     embed,
     massageAstNode,
+    print,
     ...printerRestProperties,
   };
 }
@@ -122,13 +134,15 @@ function normalizeFrontMatterSupport(frontMatterSupport) {
   if (frontMatterSupport === true) {
     return {
       clean: true,
-      embedPrint: true,
+      embed: true,
+      print: true,
     };
   }
 
   return {
     clean: false,
-    embedPrint: false,
+    embed: false,
+    print: false,
     ...frontMatterSupport,
   };
 }

@@ -10,7 +10,6 @@ import {
   softline,
 } from "../document/builders.js";
 import { removeLines } from "../document/utils.js";
-import { printFrontMatter } from "../main/front-matter/index.js";
 import isNonEmptyArray from "../utils/is-non-empty-array.js";
 import printString from "../utils/print-string.js";
 import UnexpectedNodeError from "../utils/unexpected-node-error.js";
@@ -54,8 +53,6 @@ function genericPrint(path, options, print) {
   const { node } = path;
 
   switch (node.type) {
-    case "front-matter":
-      return printFrontMatter(path);
     case "css-root": {
       const nodes = printSequence(path, options, print);
       let after = node.raws.after.trim();
@@ -578,7 +575,8 @@ const printer = {
   experimentalFeatures: {
     frontMatterSupport: {
       clean: true,
-      embedPrint: true,
+      embed: true,
+      print: true,
     },
   },
   print: genericPrint,

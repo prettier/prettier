@@ -10,7 +10,6 @@ import {
   softline,
 } from "../document/builders.js";
 import { replaceEndOfLine } from "../document/utils.js";
-import { printFrontMatter } from "../main/front-matter/index.js";
 import getPreferredQuote from "../utils/get-preferred-quote.js";
 import htmlWhitespaceUtils from "../utils/html-whitespace-utils.js";
 import isNonEmptyArray from "../utils/is-non-empty-array.js";
@@ -395,9 +394,6 @@ function print(path, options, print) {
 
     case "CommentStatement":
       return ["<!--", node.value, "-->"];
-
-    case "FrontMatter":
-      return printFrontMatter(path);
 
     case "StringLiteral":
       return printStringLiteral(path, options);
@@ -843,7 +839,8 @@ const printer = {
   experimentalFeatures: {
     frontMatterSupport: {
       clean: true,
-      embedPrint: true,
+      embed: true,
+      print: true,
     },
   },
   print,

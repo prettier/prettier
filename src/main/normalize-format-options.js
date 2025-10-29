@@ -1,7 +1,6 @@
 import { UndefinedParserError } from "../common/errors.js";
 import { getSupportInfo } from "../main/support.js";
 import inferParser from "../utils/infer-parser.js";
-import createGetVisitorKeysFunction from "./create-get-visitor-keys-function.js";
 import normalizeOptions from "./normalize-options.js";
 import {
   getParserPluginByParserName,
