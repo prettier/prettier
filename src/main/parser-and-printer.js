@@ -1,4 +1,10 @@
 import { ConfigError } from "../common/errors.js";
+import createGetVisitorKeysFunction from "./create-get-visitor-keys-function.js";
+import {
+  cleanFrontMatter,
+  isEmbedFrontMatter,
+  printEmbedFrontMatter,
+} from "./front-matter/index.js";
 
 function getParserPluginByParserName(plugins, parserName) {
   if (!parserName) {
@@ -60,15 +66,55 @@ function initParser(plugin, parserName) {
 
 async function initPrinter(plugin, astFormat) {
   const printerOrPrinterInitFunction = plugin.printers[astFormat];
-  const printer =
-    typeof printerOrPrinterInitFunction === "function"
-      ? await printerOrPrinterInitFunction()
-      : printerOrPrinterInitFunction;
+  let {
+    experimentalFeatures,
+    getVisitorKeys,
+    embed: originalEmbed,
+    massageAstNode: originalCleanFunction,
+    ...printerRestProperties
+  } = typeof printerOrPrinterInitFunction === "function"
+    ? await printerOrPrinterInitFunction()
+    : printerOrPrinterInitFunction;
+
+  experimentalFeatures = normalizeExperimentalFeatures(experimentalFeatures);
+  getVisitorKeys = createGetVisitorKeysFunction(getVisitorKeys);
+
+  let massageAstNode;
+  if (originalCleanFunction) {
+    if (experimentalFeatures.frontMatterSupport.clean) {
+      massageAstNode = (...arguments_) => {
+        cleanFrontMatter(...arguments_);
+        return originalCleanFunction(...arguments_);
+      };
+    } else {
+      massageAstNode = (...arguments_) => originalCleanFunction(...arguments_);
+    }
+
+    massageAstNode.ignoredProperties = originalCleanFunction.ignoredProperties;
+  }
+
+  let embed;
+  if (originalEmbed) {
+    if (experimentalFeatures.frontMatterSupport.embedPrint) {
+      embed = (...arguments_) =>
+        isEmbedFrontMatter(...arguments_)
+          ? printEmbedFrontMatter
+          : originalEmbed(...arguments_);
+    } else {
+      embed = (...arguments_) => originalEmbed(...arguments_);
+    }
+
+    embed.getVisitorKeys = originalEmbed.getVisitorKeys
+      ? createGetVisitorKeysFunction(originalEmbed.getVisitorKeys)
+      : getVisitorKeys;
+  }
+
   return {
-    ...printer,
-    experimentalFeatures: normalizeExperimentalFeatures(
-      printer.experimentalFeatures,
-    ),
+    experimentalFeatures,
+    getVisitorKeys,
+    embed,
+    massageAstNode,
+    ...printerRestProperties,
   };
 }
 

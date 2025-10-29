@@ -1,6 +1,7 @@
 import massageAst from "../../src/main/massage-ast.js";
+import { initPrinter } from "../../src/main/parser-and-printer.js";
 
-test("massageAst", () => {
+test("massageAst", async () => {
   const nonNodeObject = { foo: "foo" };
   const nodeObject = { type: "child" };
   const ast = {
@@ -12,12 +13,12 @@ test("massageAst", () => {
   };
 
   const result = massageAst(ast, {
-    printer: {
+    printer: await initPrinter({
       massageAstNode: Object.assign(() => {}, {
         ignoredProperties: new Set(["ignored"]),
       }),
       getVisitorKeys: () => ["nodeObject"],
-    },
+    }),
   });
 
   expect(result).not.toBe(ast);

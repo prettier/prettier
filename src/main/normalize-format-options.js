@@ -70,9 +70,7 @@ async function normalizeFormatOptions(options, opts = {}) {
   const printer = await initPrinter(printerPlugin, parser.astFormat);
 
   rawOptions.printer = printer;
-  rawOptions.getVisitorKeys = createGetVisitorKeysFunction(
-    printer.getVisitorKeys,
-  );
+  rawOptions.getVisitorKeys = printer.getVisitorKeys;
 
   const pluginDefaults = printerPlugin.defaultOptions
     ? Object.fromEntries(

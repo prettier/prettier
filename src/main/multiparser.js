@@ -1,9 +1,4 @@
 import { stripTrailingHardline } from "../document/utils.js";
-import createGetVisitorKeysFunction from "./create-get-visitor-keys-function.js";
-import {
-  isEmbedFrontMatter,
-  printEmbedFrontMatter,
-} from "./front-matter/index.js";
 import normalizeFormatOptions from "./normalize-format-options.js";
 import parse from "./parse.js";
 
@@ -34,15 +29,7 @@ async function printEmbeddedLanguages(
   }
 
   const { hasPrettierIgnore } = printer;
-  const getVisitorKeys = embed.getVisitorKeys
-    ? createGetVisitorKeysFunction(embed.getVisitorKeys)
-    : options.getVisitorKeys;
-  const shouldPrintEmbeddedFrontMatter =
-    printer.experimentalFeatures.frontMatterSupport.embedPrint;
-  const callEmbed = shouldPrintEmbeddedFrontMatter
-    ? (path, options) =>
-        isEmbedFrontMatter(path) ? printEmbedFrontMatter : embed(path, options)
-    : embed;
+  const { getVisitorKeys } = embed;
   const embedCallResults = [];
 
   recurse();
@@ -89,7 +76,7 @@ async function printEmbeddedLanguages(
       }
     }
 
-    const result = callEmbed(path, options);
+    const result = embed(path, options);
 
     if (!result) {
       return;
