@@ -3,6 +3,13 @@ import createError from "../common/parser-create-error.js";
 import parseFrontMatter from "../utils/front-matter/parse.js";
 import { locEnd, locStart } from "./loc.js";
 
+/**
+@import {AST, PreprocessOptions} from "@glimmer/syntax";
+@typedef {AST.BaseNode & {
+  type: "FrontMatter",
+}} GlimmerFrontMatter
+*/
+
 /* from the following template: `non-escaped mustache \\{{helper}}`
  * glimmer parser will produce an AST missing a backslash
  * so here we add it back
@@ -52,7 +59,7 @@ const glimmerPrettierParsePlugin = (/* options*/) => ({
   },
 });
 
-/** @type {import("@glimmer/syntax").PreprocessOptions} */
+/** @type {PreprocessOptions} */
 const glimmerParseOptions = {
   mode: "codemod",
   plugins: { ast: [glimmerPrettierParsePlugin] },
@@ -78,17 +85,19 @@ function parse(text) {
   }
 
   if (frontMatter) {
-    // @ts-expect-error
     ast.body.unshift({
       ...frontMatter,
+      // @ts-expect-error
       type: "FrontMatter",
       loc: {
         start: {
           ...frontMatter.start,
+          // @ts-expect-error
           offset: frontMatter.start.index,
         },
         end: {
           ...frontMatter.end,
+          // @ts-expect-error
           offset: frontMatter.end.index,
         },
       },

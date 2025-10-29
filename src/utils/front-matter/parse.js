@@ -14,6 +14,7 @@ const DELIMITER_LENGTH = 3;
   raw: string,
   start: Position,
   end: Position,
+  [FRONT_MATTER_MARK]: true,
 }} FrontMatter
 */
 

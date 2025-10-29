@@ -17,7 +17,7 @@ import { postprocess } from "./postprocess.js";
 @import {RawParseOptions, ParseOptions} from "./parse-options.js";
 @import {FrontMatter} from "../../utils/front-matter/parse.js"
 @typedef {{filepath?: string}} Options
-@typedef {FrontMatter & {kind: FrontMatter["type"], sourceSpan: ParseSourceSpan}} HtmlFrontMatter
+@typedef {FrontMatter & {kind: "frontMatter", sourceSpan: ParseSourceSpan}} HtmlFrontMatter
 */
 
 /**
