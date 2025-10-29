@@ -912,6 +912,7 @@ function handleVariableDeclaratorComments({
 }) {
   if (
     isAssignmentLikeNode(enclosingNode) &&
+    followingNode &&
     (isComplexExprNode(followingNode) || isBlockComment(comment))
   ) {
     addLeadingComment(followingNode, comment);
