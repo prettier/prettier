@@ -446,7 +446,7 @@ function handleConditionalExpressionComments({
   return false;
 }
 
-const classLikeNodeTypes = new Set([
+const isClassLikeNode = createTypeCheckFunction([
   "ClassDeclaration",
   "ClassExpression",
   "DeclareClass",
@@ -460,7 +460,7 @@ function handleClassComments({
   enclosingNode,
   followingNode,
 }) {
-  if (classLikeNodeTypes.has(enclosingNode?.type)) {
+  if (isClassLikeNode(enclosingNode)) {
     if (
       isNonEmptyArray(enclosingNode.decorators) &&
       !(followingNode?.type === "Decorator")
@@ -508,7 +508,7 @@ function handleClassComments({
   return false;
 }
 
-const propertyLikeNodeTypes = new Set([
+const isPropertyLikeNode = createTypeCheckFunction([
   "ClassMethod",
   "ClassProperty",
   "PropertyDefinition",
@@ -552,7 +552,7 @@ function handleMethodNameComments({
   // on the decorator node instead of the method node
   if (
     precedingNode?.type === "Decorator" &&
-    propertyLikeNodeTypes.has(enclosingNode?.type) &&
+    isPropertyLikeNode(enclosingNode) &&
     (isLineComment(comment) || comment.placement === "ownLine")
   ) {
     addTrailingComment(precedingNode, comment);
@@ -891,13 +891,13 @@ function handleAssignmentPatternComments({ comment, enclosingNode }) {
   return false;
 }
 
-const assignmentLikeNodeTypes = new Set([
+const isAssignmentLikeNode = createTypeCheckFunction([
   "VariableDeclarator",
   "AssignmentExpression",
   "TypeAlias",
   "TSTypeAliasDeclaration",
 ]);
-const complexExprNodeTypes = new Set([
+const isComplexExprNode = createTypeCheckFunction([
   "ObjectExpression",
   "ArrayExpression",
   "TemplateLiteral",
@@ -911,9 +911,8 @@ function handleVariableDeclaratorComments({
   followingNode,
 }) {
   if (
-    assignmentLikeNodeTypes.has(enclosingNode?.type) &&
-    followingNode &&
-    (complexExprNodeTypes.has(followingNode.type) || isBlockComment(comment))
+    isAssignmentLikeNode(enclosingNode) &&
+    (isComplexExprNode(followingNode) || isBlockComment(comment))
   ) {
     addLeadingComment(followingNode, comment);
     return true;
