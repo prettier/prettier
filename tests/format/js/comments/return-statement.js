@@ -104,15 +104,9 @@ function sequenceExpressionInside() {
   return ( // Reason for a
     a, b
   );
-}
-
-function sequenceExpressionInsideThrow() {
   throw ( // Reason for a
     a, b
   );
-}
-
-function assignmentExpressionInside() {
   return ( // Reason for a
     a = 1
   );
