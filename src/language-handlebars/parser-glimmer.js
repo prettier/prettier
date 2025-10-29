@@ -85,9 +85,9 @@ function parse(text) {
   }
 
   if (frontMatter) {
-    ast.body.unshift({
+    /** @type {GlimmerFrontMatter} */
+    const glimmerFrontMatter = {
       ...frontMatter,
-      // @ts-expect-error
       type: "FrontMatter",
       loc: {
         start: {
@@ -101,7 +101,9 @@ function parse(text) {
           offset: frontMatter.end.index,
         },
       },
-    });
+    };
+    // @ts-expect-error
+    ast.body.unshift(glimmerFrontMatter);
   }
 
   return ast;
@@ -178,6 +180,9 @@ function getErrorLocation(error) {
 }
 
 export const glimmer = {
+  experimentalFeatures: {
+    supportFrontMatter: true,
+  },
   parse,
   astFormat: "glimmer",
   locStart,

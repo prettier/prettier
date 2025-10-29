@@ -1,3 +1,5 @@
+import { isFrontMatter } from "../../utils/front-matter/index.js";
+
 const NODES_KEYS = {
   attrs: true,
   children: true,
@@ -20,6 +22,12 @@ class Node {
       ...Object.keys(nodeOrProperties),
     ])) {
       this.setProperty(property, nodeOrProperties[property]);
+    }
+
+    if (isFrontMatter(nodeOrProperties)) {
+      for (const property of Object.getOwnPropertySymbols(nodeOrProperties)) {
+        this.setProperty(property, nodeOrProperties[property]);
+      }
     }
   }
 
