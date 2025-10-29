@@ -97,6 +97,14 @@ function canAttachComment(node, ancestors) {
     return isMeaningfulEmptyStatement({ node, parent: ancestors[0] });
   }
 
+  if (node.type === "SequenceExpression") {
+    const [parent] = ancestors;
+    return !(
+      (parent.type === "ReturnStatement" || parent.type === "ThrowStatement") &&
+      parent.argument === node
+    );
+  }
+
   /*
   For this code
   `interface A {property: B}`
