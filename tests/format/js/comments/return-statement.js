@@ -110,6 +110,8 @@ function sequenceExpressionInside() {
   return ( // Reason for a
     a = 1
   );
+  return /**/ (a = 1);
+  return /**/ (a, b);
 }
 
 function taggedTemplate() {
