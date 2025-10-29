@@ -5,7 +5,7 @@ import { locEnd, locStart } from "./loc.js";
 
 /**
 @import {AST, PreprocessOptions} from "@glimmer/syntax";
-@typedef {AST.BaseNode & {
+@typedef {Omit<AST.BaseNode, "type"> & {
   type: "FrontMatter",
 }} GlimmerFrontMatter
 */
