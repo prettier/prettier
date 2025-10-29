@@ -36,7 +36,7 @@ function genericPrint(path, options, print) {
   const { node } = path;
 
   switch (node.kind) {
-    case "front-matter":
+    case "frontMatter":
       return printFrontMatter(path);
     case "root":
       if (options.__onHtmlRoot) {
