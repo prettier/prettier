@@ -1,4 +1,5 @@
 import { stripTrailingHardline } from "../document/utils.js";
+import createGetVisitorKeysFunction from "./create-get-visitor-keys-function.js";
 import normalizeFormatOptions from "./normalize-format-options.js";
 import parse from "./parse.js";
 
@@ -29,7 +30,10 @@ async function printEmbeddedLanguages(
   }
 
   const { hasPrettierIgnore } = printer;
-  const { getVisitorKeys } = embed;
+  const getVisitorKeys = embed.getVisitorKeys
+    ? createGetVisitorKeysFunction(embed.getVisitorKeys)
+    : printer.getVisitorKeys;
+
   const embedCallResults = [];
 
   recurse();

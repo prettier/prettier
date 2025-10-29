@@ -93,34 +93,22 @@ function normalizePrinter(printer) {
   experimentalFeatures = normalizeExperimentalFeatures(experimentalFeatures);
   getVisitorKeys = createGetVisitorKeysFunction(getVisitorKeys);
 
-  let massageAstNode;
-  if (originalCleanFunction) {
-    if (experimentalFeatures.frontMatterSupport.clean) {
-      massageAstNode = (...arguments_) => {
-        cleanFrontMatter(...arguments_);
-        return originalCleanFunction(...arguments_);
-      };
-    } else {
-      massageAstNode = (...arguments_) => originalCleanFunction(...arguments_);
-    }
-
+  let massageAstNode = originalCleanFunction;
+  if (originalCleanFunction && experimentalFeatures.frontMatterSupport.clean) {
+    massageAstNode = (...arguments_) => {
+      cleanFrontMatter(...arguments_);
+      return originalCleanFunction(...arguments_);
+    };
     massageAstNode.ignoredProperties = originalCleanFunction.ignoredProperties;
   }
 
-  let embed;
-  if (originalEmbed) {
-    if (experimentalFeatures.frontMatterSupport.embed) {
-      embed = (...arguments_) =>
-        isEmbedFrontMatter(...arguments_)
-          ? printEmbedFrontMatter
-          : originalEmbed(...arguments_);
-    } else {
-      embed = (...arguments_) => originalEmbed(...arguments_);
-    }
-
-    embed.getVisitorKeys = originalEmbed.getVisitorKeys
-      ? createGetVisitorKeysFunction(originalEmbed.getVisitorKeys)
-      : getVisitorKeys;
+  let embed = originalEmbed;
+  if (originalEmbed && experimentalFeatures.frontMatterSupport.embed) {
+    embed = (...arguments_) =>
+      isEmbedFrontMatter(...arguments_)
+        ? printEmbedFrontMatter
+        : originalEmbed(...arguments_);
+    embed.getVisitorKeys = originalEmbed.getVisitorKeys;
   }
 
   let print = originalPrint;
