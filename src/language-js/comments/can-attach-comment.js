@@ -124,7 +124,10 @@ function canAttachComment(node, ancestors) {
     return false;
   }
 
-  if (node.type === "SequenceExpression") {
+  if (
+    node.type === "SequenceExpression" ||
+    node.type === "AssignmentExpression"
+  ) {
     const [parent] = ancestors;
     return !(
       (parent.type === "ReturnStatement" || parent.type === "ThrowStatement") &&

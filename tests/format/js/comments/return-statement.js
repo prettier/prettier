@@ -106,9 +106,15 @@ function sequenceExpressionInside() {
   );
 }
 
-function sequenceExpressionInside() {
+function sequenceExpressionInsideThrow() {
   throw ( // Reason for a
     a, b
+  );
+}
+
+function assignmentExpressionInside() {
+  return ( // Reason for a
+    a = 1
   );
 }
 
