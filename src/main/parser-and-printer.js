@@ -80,6 +80,9 @@ function normalizePrinter(printer) {
   if (normalizedPrinters.has(printer)) {
     return normalizedPrinters.get(printer);
   }
+  if (printer.__prettier_normalized) {
+    throw new Error("Should not happen");
+  }
 
   let {
     experimentalFeatures,
@@ -120,7 +123,7 @@ function normalizePrinter(printer) {
   }
 
   const normalizedPrinter = {
-    fisker: 1,
+    __prettier_normalized: true,
     experimentalFeatures,
     getVisitorKeys,
     embed,
@@ -130,7 +133,6 @@ function normalizePrinter(printer) {
   };
 
   normalizedPrinters.set(printer, normalizedPrinter);
-  normalizedPrinters.set(normalizedPrinter, normalizedPrinter);
   return normalizedPrinter;
 }
 
