@@ -93,16 +93,21 @@ function excessiveEverything() {
   )
 }
 
-// See https://github.com/prettier/prettier/issues/2392
-// function sequenceExpression() {
-//   return (
-//     // Reason for a
-//     a
-//   ), b
-// }
+function sequenceExpression() {
+  return (
+    // Reason for a
+    a
+  ), b
+}
 
 function sequenceExpressionInside() {
   return ( // Reason for a
+    a, b
+  );
+}
+
+function sequenceExpressionInside() {
+  throw ( // Reason for a
     a, b
   );
 }
@@ -132,7 +137,7 @@ function multilineBlockNextLine() {
   return (
     /**
     * @type {string}
-    */ 
+    */
     'result'
   )
 }
@@ -162,7 +167,7 @@ function singleLineBlockSameLine() {
 
 function singleLineBlockNextLine() {
   return (
-    /** Result below */ 
+    /** Result below */
     'result'
   )
 }
