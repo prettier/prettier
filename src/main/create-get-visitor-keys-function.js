@@ -1,4 +1,7 @@
-import { isFrontMatter, VISITOR_KEYS } from "./front-matter/index.js";
+import {
+  FRONT_MATTER_VISITOR_KEYS,
+  isFrontMatter,
+} from "./front-matter/index.js";
 
 const nonTraversableKeys = new Set([
   "tokens",
@@ -10,17 +13,16 @@ const nonTraversableKeys = new Set([
 ]);
 
 const defaultGetVisitorKeys = (node) =>
-  isFrontMatter(node)
-    ? VISITOR_KEYS
-    : Object.keys(node).filter((key) => !nonTraversableKeys.has(key));
+  Object.keys(node).filter((key) => !nonTraversableKeys.has(key));
 
 function createGetVisitorKeysFunction(printerGetVisitorKeys) {
-  return printerGetVisitorKeys
-    ? (node) =>
-        isFrontMatter(node)
-          ? VISITOR_KEYS
-          : printerGetVisitorKeys(node, nonTraversableKeys)
+  const getNonFrontMatterVisitorKeys = printerGetVisitorKeys
+    ? (node) => printerGetVisitorKeys(node, nonTraversableKeys)
     : defaultGetVisitorKeys;
+  return (node) =>
+    isFrontMatter(node)
+      ? FRONT_MATTER_VISITOR_KEYS
+      : getNonFrontMatterVisitorKeys(node);
 }
 
 export default createGetVisitorKeysFunction;
