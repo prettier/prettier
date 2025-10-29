@@ -38,7 +38,7 @@ async function printEmbeddedLanguages(
     ? createGetVisitorKeysFunction(embed.getVisitorKeys)
     : options.getVisitorKeys;
   const shouldPrintEmbeddedFrontMatter =
-    printer.experimentalFeatures?.frontMatter?.embedded;
+    printer.experimentalFeatures.frontMatterSupport.embedPrint;
   const callEmbed = shouldPrintEmbeddedFrontMatter
     ? (path, options) =>
         isEmbedFrontMatter(path) ? printEmbedFrontMatter : embed(path, options)

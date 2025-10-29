@@ -841,9 +841,9 @@ function printPathExpression(node) {
 
 const printer = {
   experimentalFeatures: {
-    frontMatter: {
+    frontMatterSupport: {
       clean: true,
-      embedded: true,
+      embedPrint: true,
     },
   },
   print,

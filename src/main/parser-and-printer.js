@@ -58,11 +58,43 @@ function initParser(plugin, parserName) {
     : parserOrParserInitFunction;
 }
 
-function initPrinter(plugin, astFormat) {
+async function initPrinter(plugin, astFormat) {
   const printerOrPrinterInitFunction = plugin.printers[astFormat];
-  return typeof printerOrPrinterInitFunction === "function"
-    ? printerOrPrinterInitFunction()
-    : printerOrPrinterInitFunction;
+  const printer =
+    typeof printerOrPrinterInitFunction === "function"
+      ? await printerOrPrinterInitFunction()
+      : printerOrPrinterInitFunction;
+  return {
+    ...printer,
+    experimentalFeatures: normalizeExperimentalFeatures(
+      printer.experimentalFeatures,
+    ),
+  };
+}
+
+function normalizeFrontMatterSupport(frontMatterSupport) {
+  if (frontMatterSupport === true) {
+    return {
+      clean: true,
+      embedPrint: true,
+    };
+  }
+
+  return {
+    clean: false,
+    embedPrint: false,
+    ...frontMatterSupport,
+  };
+}
+
+function normalizeExperimentalFeatures(experimentalFeatures) {
+  return {
+    avoidAstMutation: false,
+    ...experimentalFeatures,
+    frontMatterSupport: normalizeFrontMatterSupport(
+      experimentalFeatures?.frontMatterSupport,
+    ),
+  };
 }
 
 export {

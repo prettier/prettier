@@ -792,9 +792,9 @@ function printFootnoteReference(node) {
 
 const printer = {
   experimentalFeatures: {
-    frontMatter: {
+    frontMatterSupport: {
       clean: true,
-      embedded: true,
+      embedPrint: true,
     },
   },
   preprocess,
