@@ -66,14 +66,17 @@ function initParser(plugin, parserName) {
     : parserOrParserInitFunction;
 }
 
-const normalizedPrinters = new WeakSet();
 async function initPrinter(plugin, astFormat) {
   const printerOrPrinterInitFunction = plugin.printers[astFormat];
   const printer =
     typeof printerOrPrinterInitFunction === "function"
       ? await printerOrPrinterInitFunction()
       : printerOrPrinterInitFunction;
+  return normalizedPrinter(printer);
+}
 
+const normalizedPrinters = new WeakMap();
+function normalizedPrinter(printer) {
   if (normalizedPrinters.has(printer)) {
     return printer;
   }
@@ -138,8 +141,7 @@ async function initPrinter(plugin, astFormat) {
   };
 
   normalizedPrinters.add(normalizePrinter);
-
-  return normalizePrinter;
+  return normalizedPrinter;
 }
 
 function normalizeFrontMatterSupport(frontMatterSupport) {
@@ -174,5 +176,6 @@ export {
   getPrinterPluginByAstFormat,
   initParser,
   initPrinter,
+  normalizedPrinter,
   resolveParser,
 };
