@@ -1,6 +1,6 @@
-import { cleanFrontMatter } from "../utils/front-matter/index.js";
 import isObject from "../utils/is-object.js";
 import createGetVisitorKeysFunction from "./create-get-visitor-keys-function.js";
+import { cleanFrontMatter } from "./front-matter/index.js";
 
 function massageAst(ast, options) {
   const { printer } = options;

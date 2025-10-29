@@ -1,4 +1,4 @@
-import { isFrontMatter } from "../../utils/front-matter/index.js";
+import { isFrontMatter } from "../../main/front-matter/index.js";
 
 const NODES_KEYS = {
   attrs: true,

@@ -1,6 +1,6 @@
 import { preprocess as parseGlimmer } from "@glimmer/syntax";
 import createError from "../common/parser-create-error.js";
-import parseFrontMatter from "../utils/front-matter/parse.js";
+import parseFrontMatter from "../main/front-matter/parse.js";
 import { locEnd, locStart } from "./loc.js";
 
 /**

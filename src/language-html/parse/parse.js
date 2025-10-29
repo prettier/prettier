@@ -5,7 +5,7 @@ import {
   ParseSourceSpan,
 } from "angular-html-parser";
 import createError from "../../common/parser-create-error.js";
-import { parseFrontMatter } from "../../utils/front-matter/index.js";
+import { parseFrontMatter } from "../../main/front-matter/index.js";
 import {
   normalizeParseOptions,
   toAngularHtmlParserParseOptions,
@@ -15,7 +15,7 @@ import { postprocess } from "./postprocess.js";
 /**
 @import {ParseOptions as AngularHtmlParserParseOptions, Ast, ParseTreeResult} from "angular-html-parser";
 @import {RawParseOptions, ParseOptions} from "./parse-options.js";
-@import {FrontMatter} from "../../utils/front-matter/parse.js"
+@import {FrontMatter} from "../../main/front-matter/parse.js"
 @typedef {{filepath?: string}} Options
 @typedef {FrontMatter & {kind: "frontMatter", sourceSpan: ParseSourceSpan}} HtmlFrontMatter
 */

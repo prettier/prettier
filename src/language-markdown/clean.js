@@ -1,5 +1,5 @@
 import collapseWhiteSpace from "collapse-white-space";
-import { isFrontMatter } from "../utils/front-matter/index.js";
+import { isFrontMatter } from "../main/front-matter/index.js";
 import { hasPragma } from "./pragma.js";
 
 const ignoredProperties = new Set([

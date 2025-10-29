@@ -4,7 +4,7 @@
 
 import { hardline, join, line } from "../../document/builders.js";
 import { replaceEndOfLine } from "../../document/utils.js";
-import { isFrontMatter } from "../../utils/front-matter/index.js";
+import { isFrontMatter } from "../../main/front-matter/index.js";
 import htmlWhitespaceUtils from "../../utils/html-whitespace-utils.js";
 import inferParser from "../../utils/infer-parser.js";
 import {

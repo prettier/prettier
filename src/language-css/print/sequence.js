@@ -1,5 +1,5 @@
 import { hardline, line } from "../../document/builders.js";
-import { isFrontMatter } from "../../utils/front-matter/index.js";
+import { isFrontMatter } from "../../main/front-matter/index.js";
 import hasNewline from "../../utils/has-newline.js";
 import isNextLineEmpty from "../../utils/is-next-line-empty.js";
 import { locEnd, locStart } from "../loc.js";

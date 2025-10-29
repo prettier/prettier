@@ -10,7 +10,7 @@ import {
   softline,
 } from "../document/builders.js";
 import { replaceEndOfLine } from "../document/utils.js";
-import { printFrontMatter } from "../utils/front-matter/index.js";
+import { printFrontMatter } from "../main/front-matter/index.js";
 import getPreferredQuote from "../utils/get-preferred-quote.js";
 import htmlWhitespaceUtils from "../utils/html-whitespace-utils.js";
 import isNonEmptyArray from "../utils/is-non-empty-array.js";

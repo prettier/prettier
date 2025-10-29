@@ -1,9 +1,9 @@
 import { stripTrailingHardline } from "../document/utils.js";
+import createGetVisitorKeysFunction from "./create-get-visitor-keys-function.js";
 import {
   isEmbedFrontMatter,
   printEmbedFrontMatter,
-} from "../utils/front-matter/index.js";
-import createGetVisitorKeysFunction from "./create-get-visitor-keys-function.js";
+} from "./front-matter/index.js";
 import normalizeFormatOptions from "./normalize-format-options.js";
 import parse from "./parse.js";
 
