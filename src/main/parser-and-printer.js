@@ -66,8 +66,18 @@ function initParser(plugin, parserName) {
     : parserOrParserInitFunction;
 }
 
+const normalizedPrinters = new WeakSet();
 async function initPrinter(plugin, astFormat) {
   const printerOrPrinterInitFunction = plugin.printers[astFormat];
+  const printer =
+    typeof printerOrPrinterInitFunction === "function"
+      ? await printerOrPrinterInitFunction()
+      : printerOrPrinterInitFunction;
+
+  if (normalizedPrinters.has(printer)) {
+    return printer;
+  }
+
   let {
     experimentalFeatures,
     getVisitorKeys,
@@ -75,9 +85,7 @@ async function initPrinter(plugin, astFormat) {
     massageAstNode: originalCleanFunction,
     print: originalPrint,
     ...printerRestProperties
-  } = typeof printerOrPrinterInitFunction === "function"
-    ? await printerOrPrinterInitFunction()
-    : printerOrPrinterInitFunction;
+  } = printer;
 
   experimentalFeatures = normalizeExperimentalFeatures(experimentalFeatures);
   getVisitorKeys = createGetVisitorKeysFunction(getVisitorKeys);
@@ -120,7 +128,7 @@ async function initPrinter(plugin, astFormat) {
       );
   }
 
-  return {
+  const normalizePrinter = {
     experimentalFeatures,
     getVisitorKeys,
     embed,
@@ -128,6 +136,10 @@ async function initPrinter(plugin, astFormat) {
     print,
     ...printerRestProperties,
   };
+
+  normalizedPrinters.add(normalizePrinter);
+
+  return normalizePrinter;
 }
 
 function normalizeFrontMatterSupport(frontMatterSupport) {
