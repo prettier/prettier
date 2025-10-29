@@ -1,6 +1,7 @@
 import { indent, line } from "../../document/builders.js";
 import {
   CommentCheckFlags,
+  createTypeCheckFunction,
   hasComment,
   isCallExpression,
   isMemberExpression,
@@ -51,7 +52,7 @@ function printDefiniteToken(path) {
     : "";
 }
 
-const flowDeclareNodeTypes = new Set([
+const isFlowDeclareNode = createTypeCheckFunction([
   "DeclareClass",
   "DeclareComponent",
   "DeclareFunction",
@@ -64,6 +65,7 @@ const flowDeclareNodeTypes = new Set([
   "DeclareEnum",
   "DeclareInterface",
 ]);
+
 /**
  * @param {AstPath} path
  * @returns {Doc}
@@ -75,24 +77,25 @@ function printDeclareToken(path) {
     // TypeScript
     node.declare ||
       // Flow
-      (flowDeclareNodeTypes.has(node.type) &&
+      (isFlowDeclareNode(node) &&
         path.parent.type !== "DeclareExportDeclaration")
       ? "declare "
       : ""
   );
 }
 
-const tsAbstractNodeTypes = new Set([
+const isTsAbstractNode = createTypeCheckFunction([
   "TSAbstractMethodDefinition",
   "TSAbstractPropertyDefinition",
   "TSAbstractAccessorProperty",
 ]);
+
 /**
  * @param {AstPath} param0
  * @returns {Doc}
  */
 function printAbstractToken({ node }) {
-  return node.abstract || tsAbstractNodeTypes.has(node.type) ? "abstract " : "";
+  return node.abstract || isTsAbstractNode(node) ? "abstract " : "";
 }
 
 function printBindExpressionCallee(path, options, print) {

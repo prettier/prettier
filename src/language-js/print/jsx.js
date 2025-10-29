@@ -28,6 +28,7 @@ import pathNeedsParens from "../needs-parens.js";
 import getRaw from "../utils/get-raw.js";
 import {
   CommentCheckFlags,
+  createTypeCheckFunction,
   hasComment,
   hasNodeIgnoreComment,
   isArrayExpression,
@@ -485,7 +486,7 @@ function separatorWithWhitespace(
   return hardline;
 }
 
-const NO_WRAP_PARENTS = new Set([
+const isNoWrapParent = createTypeCheckFunction([
   "ArrayExpression",
   "JSXAttribute",
   "JSXElement",
@@ -501,7 +502,7 @@ const NO_WRAP_PARENTS = new Set([
 function maybeWrapJsxElementInParens(path, elem, options) {
   const { parent } = path;
 
-  if (NO_WRAP_PARENTS.has(parent.type)) {
+  if (isNoWrapParent(parent)) {
     return elem;
   }
 
