@@ -143,11 +143,7 @@ function genericPrint(path, options, print) {
 
 const printer = {
   experimentalFeatures: {
-    frontMatterSupport: {
-      clean: true,
-      embed: true,
-      print: true,
-    },
+    frontMatterSupport: true,
   },
   preprocess,
   print: genericPrint,

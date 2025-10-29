@@ -100,7 +100,8 @@ function normalizePrinter(printer) {
     ...printerRestProperties
   } = printer;
 
-  experimentalFeatures = normalizeExperimentalFeatures(experimentalFeatures);
+  experimentalFeatures =
+    normalizePrinterExperimentalFeatures(experimentalFeatures);
   getVisitorKeys = createGetVisitorKeysFunction(getVisitorKeys);
 
   let massageAstNode = originalCleanFunction;
@@ -147,28 +148,32 @@ function normalizePrinter(printer) {
   return normalizedPrinter;
 }
 
-function normalizeFrontMatterSupport(frontMatterSupport) {
+const PRINTER_FRONT_MATTER_SUPPORT_ON = {
+  clean: true,
+  embed: true,
+  print: true,
+};
+const PRINTER_FRONT_MATTER_SUPPORT_OFF = {
+  clean: false,
+  embed: false,
+  print: false,
+};
+function normalizePrinterFrontMatterSupport(frontMatterSupport) {
   if (frontMatterSupport === true) {
-    return {
-      clean: true,
-      embed: true,
-      print: true,
-    };
+    return PRINTER_FRONT_MATTER_SUPPORT_ON;
   }
 
   return {
-    clean: false,
-    embed: false,
-    print: false,
+    ...PRINTER_FRONT_MATTER_SUPPORT_OFF,
     ...frontMatterSupport,
   };
 }
 
-function normalizeExperimentalFeatures(experimentalFeatures) {
+function normalizePrinterExperimentalFeatures(experimentalFeatures) {
   return {
     avoidAstMutation: false,
     ...experimentalFeatures,
-    frontMatterSupport: normalizeFrontMatterSupport(
+    frontMatterSupport: normalizePrinterFrontMatterSupport(
       experimentalFeatures?.frontMatterSupport,
     ),
   };
