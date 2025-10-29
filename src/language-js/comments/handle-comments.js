@@ -695,22 +695,20 @@ function handleLastFunctionArgComments({
   if (
     !isBlockComment(comment) &&
     followingNode?.type === "BlockStatement" &&
-    enclosingNode &&
-    (((enclosingNode.type === "FunctionDeclaration" ||
-      enclosingNode.type === "FunctionExpression" ||
-      enclosingNode.type === "ObjectMethod" ||
-      enclosingNode.type === "ClassMethod") &&
-      enclosingNode.body === followingNode) ||
-      (enclosingNode.type === "MethodDefinition" &&
-        enclosingNode.value.body === followingNode))
+    functionLikeNodeTypes.has(enclosingNode?.type)
   ) {
-    const characterAfterCommentIndex = getNextNonSpaceNonCommentCharacterIndex(
-      text,
-      locEnd(comment),
-    );
-    if (characterAfterCommentIndex === locStart(followingNode)) {
-      addBlockStatementFirstComment(followingNode, comment);
-      return true;
+    const functionBody =
+      enclosingNode.type === "MethodDefinition"
+        ? enclosingNode.value.body
+        : enclosingNode.body;
+
+    if (functionBody === followingNode) {
+      const characterAfterCommentIndex =
+        getNextNonSpaceNonCommentCharacterIndex(text, locEnd(comment));
+      if (characterAfterCommentIndex === locStart(followingNode)) {
+        addBlockStatementFirstComment(followingNode, comment);
+        return true;
+      }
     }
   }
 
