@@ -407,6 +407,7 @@ function parseWithParser(parse, text, options) {
   if (frontMatter) {
     result.frontMatter = {
       ...frontMatter,
+      type: "front-matter",
       source: {
         startOffset: frontMatter.start.index,
         endOffset: frontMatter.end.index,

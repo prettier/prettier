@@ -134,6 +134,7 @@ function genericPrint(path, options, print) {
         quote,
       ];
     }
+    case "frontMatter": // Should handled in core
     case "cdata": // Transformed into `text`
     default:
       /* c8 ignore next */

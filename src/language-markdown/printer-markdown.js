@@ -447,6 +447,7 @@ function genericPrint(path, options, print) {
       // since it's very possible that it's recognized as math accidentally
       return options.originalText.slice(locStart(node), locEnd(node));
 
+    case "frontMatter": // Should handled in core
     case "tableRow": // handled in "table"
     case "listItem": // handled in "list"
     case "text": // handled in other types
