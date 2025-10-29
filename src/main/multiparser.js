@@ -1,4 +1,8 @@
 import { stripTrailingHardline } from "../document/utils.js";
+import {
+  isEmbedFrontMatter,
+  printEmbedFrontMatter,
+} from "../utils/front-matter/index.js";
 import createGetVisitorKeysFunction from "./create-get-visitor-keys-function.js";
 import normalizeFormatOptions from "./normalize-format-options.js";
 import parse from "./parse.js";
@@ -12,12 +16,14 @@ async function printEmbeddedLanguages(
   printAstToDoc,
   embeds,
 ) {
-  const {
-    embeddedLanguageFormatting,
-    printer: { embed, hasPrettierIgnore = () => false },
-  } = options;
+  if (options.embeddedLanguageFormatting !== "auto") {
+    return;
+  }
 
-  if (!embed || embeddedLanguageFormatting !== "auto") {
+  const { printer } = options;
+  const { embed } = printer;
+
+  if (!embed) {
     return;
   }
 
@@ -27,10 +33,16 @@ async function printEmbeddedLanguages(
     );
   }
 
+  const { hasPrettierIgnore } = printer;
   const getVisitorKeys = embed.getVisitorKeys
     ? createGetVisitorKeysFunction(embed.getVisitorKeys)
     : options.getVisitorKeys;
-
+  const shouldPrintEmbeddedFrontMatter =
+    printer.experimentalFeatures?.frontMatter?.embedded;
+  const callEmbed = shouldPrintEmbeddedFrontMatter
+    ? (path, options) =>
+        isEmbedFrontMatter(path) ? printEmbedFrontMatter : embed(path, options)
+    : embed;
   const embedCallResults = [];
 
   recurse();
@@ -61,7 +73,11 @@ async function printEmbeddedLanguages(
 
   function recurse() {
     const { node } = path;
-    if (node === null || typeof node !== "object" || hasPrettierIgnore(path)) {
+    if (
+      node === null ||
+      typeof node !== "object" ||
+      hasPrettierIgnore?.(path)
+    ) {
       return;
     }
 
@@ -73,7 +89,7 @@ async function printEmbeddedLanguages(
       }
     }
 
-    const result = embed(path, options);
+    const result = callEmbed(path, options);
 
     if (!result) {
       return;

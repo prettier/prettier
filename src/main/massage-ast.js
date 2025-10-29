@@ -14,9 +14,10 @@ function massageAst(ast, options) {
     options.getVisitorKeys ??
     createGetVisitorKeysFunction(printer.getVisitorKeys);
   const { ignoredProperties } = cleanFunction;
-  const supportFrontMatter = printer.experimentalFeatures?.supportFrontMatter;
+  const shouldCleanFrontMatter =
+    printer.experimentalFeatures?.frontMatter?.clean;
 
-  const clean = supportFrontMatter
+  const clean = shouldCleanFrontMatter
     ? (original, cloned, parent) => {
         cloned = cleanFrontMatter(original, cloned);
         return cleanFunction(original, cloned, parent);

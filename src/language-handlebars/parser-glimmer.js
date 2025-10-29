@@ -180,9 +180,6 @@ function getErrorLocation(error) {
 }
 
 export const glimmer = {
-  experimentalFeatures: {
-    supportFrontMatter: true,
-  },
   parse,
   astFormat: "glimmer",
   locStart,

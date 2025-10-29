@@ -841,7 +841,10 @@ function printPathExpression(node) {
 
 const printer = {
   experimentalFeatures: {
-    supportFrontMatter: true,
+    frontMatter: {
+      clean: true,
+      embedded: true,
+    },
   },
   print,
   massageAstNode: clean,
