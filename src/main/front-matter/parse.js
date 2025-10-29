@@ -5,7 +5,6 @@ const DELIMITER_LENGTH = 3;
 /**
 @typedef {{index: number, line: number, column: number}} Position
 @typedef {{
-  type: "front-matter",
   language: string,
   explicitLanguage: string | null,
   value: string,
@@ -74,7 +73,6 @@ function getFrontMatter(text) {
   let lines;
 
   return {
-    type: "front-matter",
     language,
     explicitLanguage: explicitLanguage || null,
     value: text.slice(firstLineBreakIndex + 1, endDelimiterIndex),
