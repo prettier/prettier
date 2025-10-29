@@ -694,11 +694,15 @@ function handleLastFunctionArgComments({
   // Comment between function parameters parentheses and function body
   if (
     !isBlockComment(comment) &&
-    (enclosingNode?.type === "FunctionDeclaration" ||
-      enclosingNode?.type === "FunctionExpression" ||
-      enclosingNode?.type === "ObjectMethod") &&
     followingNode?.type === "BlockStatement" &&
-    enclosingNode.body === followingNode
+    enclosingNode &&
+    (((enclosingNode.type === "FunctionDeclaration" ||
+      enclosingNode.type === "FunctionExpression" ||
+      enclosingNode.type === "ObjectMethod" ||
+      enclosingNode.type === "ClassMethod") &&
+      enclosingNode.body === followingNode) ||
+      (enclosingNode.type === "MethodDefinition" &&
+        enclosingNode.value.body === followingNode))
   ) {
     const characterAfterCommentIndex = getNextNonSpaceNonCommentCharacterIndex(
       text,
