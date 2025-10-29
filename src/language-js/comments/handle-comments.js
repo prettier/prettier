@@ -695,7 +695,7 @@ function handleLastFunctionArgComments({
   if (
     !isBlockComment(comment) &&
     followingNode?.type === "BlockStatement" &&
-    functionLikeNodeTypes.has(enclosingNode?.type)
+    isFunctionLikeNode(enclosingNode)
   ) {
     const functionBody =
       enclosingNode.type === "MethodDefinition"
