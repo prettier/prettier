@@ -562,7 +562,7 @@ function handleMethodNameComments({
   return false;
 }
 
-const functionLikeNodeTypes = new Set([
+const isFunctionLikeNode = createTypeCheckFunction([
   "FunctionDeclaration",
   "FunctionExpression",
   "ClassMethod",
@@ -578,7 +578,7 @@ function handleFunctionNameComments({
   if (getNextNonSpaceNonCommentCharacter(text, locEnd(comment)) !== "(") {
     return false;
   }
-  if (precedingNode && functionLikeNodeTypes.has(enclosingNode?.type)) {
+  if (precedingNode && isFunctionLikeNode(enclosingNode)) {
     addTrailingComment(precedingNode, comment);
     return true;
   }
