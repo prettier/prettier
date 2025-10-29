@@ -20,6 +20,15 @@ class x {
   {
     call()
   }
+
+  constructor() // class constructor
+  {}
+
+  static staticMethod() // class static
+  {}
+
+  get getter() // class getter
+  {}
 }
 
 const x2 = {
@@ -82,6 +91,18 @@ class x {
   c() {
     // class 3
     call();
+  }
+
+  constructor() {
+    // class constructor
+  }
+
+  static staticMethod() {
+    // class static
+  }
+
+  get getter() {
+    // class getter
   }
 }
 
@@ -176,6 +197,17 @@ a = {
   {},
 }
 
+class A {
+
+  foo()
+  // this is a function
+  {}
+
+  bar = function()
+  // this is a function
+  {}
+}
+
 =====================================output=====================================
 function function_declaration() {
   // this is a function
@@ -207,6 +239,16 @@ a = {
     // this is a function
   },
 };
+
+class A {
+  foo() {
+    // this is a function
+  }
+
+  bar = function () {
+    // this is a function
+  };
+}
 
 ================================================================================
 `;

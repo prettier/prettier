@@ -12,6 +12,15 @@ class x {
   {
     call()
   }
+
+  constructor() // class constructor
+  {}
+
+  static staticMethod() // class static
+  {}
+
+  get getter() // class getter
+  {}
 }
 
 const x2 = {
