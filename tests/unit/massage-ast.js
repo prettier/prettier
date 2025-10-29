@@ -1,5 +1,5 @@
 import massageAst from "../../src/main/massage-ast.js";
-import { normalizedPrinter } from "../../src/main/parser-and-printer.js";
+import { normalizePrinter } from "../../src/main/parser-and-printer.js";
 
 test("massageAst", () => {
   const nonNodeObject = { foo: "foo" };
@@ -13,7 +13,7 @@ test("massageAst", () => {
   };
 
   const result = massageAst(ast, {
-    printer: normalizedPrinter({
+    printer: normalizePrinter({
       massageAstNode: Object.assign(() => {}, {
         ignoredProperties: new Set(["ignored"]),
       }),

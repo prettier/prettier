@@ -1,5 +1,4 @@
 const visitorKeys = {
-  frontMatter: [],
   root: ["children"],
   element: ["attrs", "children"],
   ieConditionalComment: ["children"],
