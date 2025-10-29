@@ -1,4 +1,4 @@
-import * as assert from "#/universal/assert";
+import * as assert from "#universal/assert";
 import { ConfigError } from "../common/errors.js";
 import createGetVisitorKeysFunction from "./create-get-visitor-keys-function.js";
 import {
