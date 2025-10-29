@@ -1,6 +1,7 @@
 import { indent, line } from "../../document/builders.js";
 import {
   CommentCheckFlags,
+  createNodeTypeCheckFunction,
   hasComment,
   isCallExpression,
   isMemberExpression,
@@ -51,7 +52,7 @@ function printDefiniteToken(path) {
     : "";
 }
 
-const flowDeclareNodeTypes = new Set([
+const isFlowDeclareNode = createNodeTypeCheckFunction([
   "DeclareClass",
   "DeclareComponent",
   "DeclareFunction",
@@ -75,7 +76,7 @@ function printDeclareToken(path) {
     // TypeScript
     node.declare ||
       // Flow
-      (flowDeclareNodeTypes.has(node.type) &&
+      (isFlowDeclareNode(node) &&
         path.parent.type !== "DeclareExportDeclaration")
       ? "declare "
       : ""
