@@ -33,7 +33,7 @@
     "./*": "./*"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=20"
   },
   "files": [
     "index.js",
@@ -124,10 +124,11 @@
   },
   "devDependencies": {
     "@babel/generator": "8.0.0-beta.3",
-    "@eslint-react/eslint-plugin": "2.0.1",
-    "@eslint/js": "9.35.0",
-    "@stylistic/eslint-plugin": "5.3.1",
+    "@eslint-react/eslint-plugin": "2.2.3",
+    "@eslint/js": "9.38.0",
+    "@stylistic/eslint-plugin": "5.5.0",
     "@types/estree": "1.0.8",
+    "@types/jsesc": "3.0.3",
     "@typescript-eslint/eslint-plugin": "8.46.2",
     "@typescript-eslint/parser": "8.46.2",
     "browserslist": "4.27.0",
@@ -140,15 +141,15 @@
     "esbuild": "0.25.10",
     "esbuild-plugins-node-modules-polyfill": "1.7.1",
     "esbuild-visualizer": "0.7.0",
-    "eslint": "9.35.0",
+    "eslint": "9.38.0",
     "eslint-config-prettier": "10.1.8",
     "eslint-formatter-friendly": "7.0.0",
     "eslint-plugin-compat": "6.0.2",
     "eslint-plugin-jest": "29.0.1",
-    "eslint-plugin-n": "17.21.3",
+    "eslint-plugin-n": "17.23.1",
     "eslint-plugin-regexp": "2.10.0",
     "eslint-plugin-simple-import-sort": "12.1.1",
-    "eslint-plugin-unicorn": "61.0.2",
+    "eslint-plugin-unicorn": "62.0.0",
     "esm-utils": "4.4.2",
     "globals": "16.4.0",
     "jest": "30.2.0",
@@ -156,6 +157,7 @@
     "jest-snapshot-serializer-ansi": "2.2.1",
     "jest-snapshot-serializer-raw": "2.0.0",
     "jest-watch-typeahead": "3.0.1",
+    "jsesc": "3.1.0",
     "knip": "5.66.2",
     "magic-string": "0.30.19",
     "nano-spawn": "2.0.0",

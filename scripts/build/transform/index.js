@@ -6,29 +6,32 @@ import { outdent } from "outdent";
 import { PROJECT_ROOT, SOURCE_DIR } from "../../utils/index.js";
 import allTransforms from "./transforms/index.js";
 
-/* Doesn't work for dependencies, optional call, computed property, and spread arguments */
+/* Doesn't work for dependencies */
 
 function transform(original, file) {
   if (
-    !(
-      file.startsWith(SOURCE_DIR) ||
-      file.startsWith(path.join(PROJECT_ROOT, "node_modules/camelcase/")) ||
-      file.startsWith(
-        path.join(PROJECT_ROOT, "node_modules/angular-estree-parser/"),
-      ) ||
-      file.startsWith(path.join(PROJECT_ROOT, "node_modules/jest-docblock/")) ||
-      file.startsWith(path.join(PROJECT_ROOT, "node_modules/espree/")) ||
-      file.startsWith(path.join(PROJECT_ROOT, "node_modules/@babel/parser/")) ||
-      file.startsWith(
-        path.join(
-          PROJECT_ROOT,
-          "node_modules/@typescript-eslint/typescript-estree/",
-        ),
-      ) ||
-      file.startsWith(path.join(PROJECT_ROOT, "node_modules/meriyah/")) ||
-      file.startsWith(path.join(PROJECT_ROOT, "node_modules/@glimmer/")) ||
-      file.startsWith(path.join(PROJECT_ROOT, "node_modules/hermes-parser/"))
-    )
+    ![
+      SOURCE_DIR,
+      ...[
+        /* spell-checker: disable */
+        "camelcase",
+        "angular-estree-parser",
+        "jest-docblock",
+        "espree",
+        "@babel/parser",
+        "@typescript-eslint/typescript-estree",
+        "meriyah",
+        "@glimmer",
+        "@prettier/cli",
+        "hermes-parser",
+        "kasi",
+        "fast-string-truncated-width",
+        "fast-ignore",
+        /* spell-checker: enable */
+      ].map((directory) =>
+        path.join(PROJECT_ROOT, `node_modules/${directory}/`),
+      ),
+    ].some((directory) => file.startsWith(directory))
   ) {
     return original;
   }
@@ -56,13 +59,16 @@ function transform(original, file) {
         continue;
       }
 
-      transform.transform(node);
+      changed ||= true;
 
       if (transform.inject) {
         injected.add(transform.inject);
       }
 
-      changed ||= true;
+      const replacement = transform.transform(node);
+      if (replacement && replacement !== node) {
+        replaceNode(node, replacement);
+      }
     }
   });
 
@@ -93,6 +99,14 @@ function transform(original, file) {
   }
 
   return code;
+}
+
+function replaceNode(original, object) {
+  for (const key of Object.keys(original)) {
+    delete original[key];
+  }
+
+  Object.assign(original, object);
 }
 
 export default transform;

@@ -713,9 +713,8 @@ function shouldPrintBracketSameLine(node, options, nameHasComments) {
 
 function printJsxClosingElement(path, options, print) {
   const { node } = path;
-  const parts = [];
-
-  parts.push("</");
+  /** @type {Doc[]} */
+  const parts = ["</"];
 
   const printed = print("name");
   if (
