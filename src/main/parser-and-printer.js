@@ -75,7 +75,7 @@ async function initPrinter(plugin, astFormat) {
   return normalizedPrinter(printer);
 }
 
-const normalizedPrinters = new WeakSet();
+const normalizedPrinters = new WeakMap();
 function normalizedPrinter(printer) {
   if (normalizedPrinters.has(printer)) {
     return printer;
@@ -140,7 +140,8 @@ function normalizedPrinter(printer) {
     ...printerRestProperties,
   };
 
-  normalizedPrinters.add(normalizePrinter);
+  normalizedPrinters.set(printer, normalizePrinter);
+  normalizedPrinters.set(normalizePrinter, normalizePrinter);
   return normalizedPrinter;
 }
 
