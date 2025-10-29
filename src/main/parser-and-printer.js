@@ -1,3 +1,4 @@
+import * as assert from "#/universal";
 import { ConfigError } from "../common/errors.js";
 import createGetVisitorKeysFunction from "./create-get-visitor-keys-function.js";
 import {
@@ -76,12 +77,18 @@ async function initPrinter(plugin, astFormat) {
 }
 
 const normalizedPrinters = new WeakMap();
+const PRINTER_NORMALIZED_MARK = Symbol("PRINTER_NORMALIZED_MARK");
 function normalizePrinter(printer) {
   if (normalizedPrinters.has(printer)) {
     return normalizedPrinters.get(printer);
   }
-  if (printer.__prettier_normalized) {
-    throw new Error("Should not happen");
+
+  /* c8 ignore next 3 */
+  if (process.env.NODE_ENV !== "production") {
+    assert.ok(
+      !printer[PRINTER_NORMALIZED_MARK],
+      "Unexpected printer normalization",
+    );
   }
 
   let {
@@ -123,7 +130,6 @@ function normalizePrinter(printer) {
   }
 
   const normalizedPrinter = {
-    __prettier_normalized: true,
     experimentalFeatures,
     getVisitorKeys,
     embed,
@@ -131,6 +137,11 @@ function normalizePrinter(printer) {
     print,
     ...printerRestProperties,
   };
+
+  /* c8 ignore next 3 */
+  if (process.env.NODE_ENV !== "production") {
+    normalizedPrinter[PRINTER_NORMALIZED_MARK] = true;
+  }
 
   normalizedPrinters.set(printer, normalizedPrinter);
   return normalizedPrinter;
