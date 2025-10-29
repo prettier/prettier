@@ -72,13 +72,13 @@ async function initPrinter(plugin, astFormat) {
     typeof printerOrPrinterInitFunction === "function"
       ? await printerOrPrinterInitFunction()
       : printerOrPrinterInitFunction;
-  return normalizedPrinter(printer);
+  return normalizePrinter(printer);
 }
 
 const normalizedPrinters = new WeakMap();
-function normalizedPrinter(printer) {
+function normalizePrinter(printer) {
   if (normalizedPrinters.has(printer)) {
-    return printer;
+    return normalizedPrinters.get(printer);
   }
 
   let {
@@ -123,7 +123,7 @@ function normalizedPrinter(printer) {
       : getVisitorKeys;
   }
 
-  let print;
+  let print = originalPrint;
   if (experimentalFeatures.frontMatterSupport.print) {
     print = (...arguments_) =>
       (isFrontMatter(arguments_[0].node) ? printFrontMatter : originalPrint)(
@@ -131,7 +131,8 @@ function normalizedPrinter(printer) {
       );
   }
 
-  const normalizePrinter = {
+  const normalizedPrinter = {
+    fisker: 1,
     experimentalFeatures,
     getVisitorKeys,
     embed,
@@ -140,8 +141,8 @@ function normalizedPrinter(printer) {
     ...printerRestProperties,
   };
 
-  normalizedPrinters.set(printer, normalizePrinter);
-  normalizedPrinters.set(normalizePrinter, normalizePrinter);
+  normalizedPrinters.set(printer, normalizedPrinter);
+  normalizedPrinters.set(normalizedPrinter, normalizedPrinter);
   return normalizedPrinter;
 }
 
@@ -177,6 +178,6 @@ export {
   getPrinterPluginByAstFormat,
   initParser,
   initPrinter,
-  normalizedPrinter,
+  normalizePrinter,
   resolveParser,
 };
