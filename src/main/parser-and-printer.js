@@ -78,7 +78,6 @@ async function initPrinter(plugin, astFormat) {
 const normalizedPrinters = new WeakMap();
 function normalizePrinter(printer) {
   if (normalizedPrinters.has(printer)) {
-    console.log("Cached! normalizePrinter");
     return normalizedPrinters.get(printer);
   }
   if (printer.__prettier_normalized) {
