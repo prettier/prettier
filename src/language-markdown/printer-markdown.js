@@ -13,6 +13,7 @@ import {
 } from "../document/builders.js";
 import { DOC_TYPE_STRING } from "../document/constants.js";
 import { getDocType, replaceEndOfLine } from "../document/utils.js";
+import { printFrontMatter } from "../utils/front-matter/index.js";
 import getMaxContinuousCount from "../utils/get-max-continuous-count.js";
 import getMinNotPresentContinuousCount from "../utils/get-min-not-present-continuous-count.js";
 import getPreferredQuote from "../utils/get-preferred-quote.js";
@@ -89,8 +90,8 @@ function genericPrint(path, options, print) {
   }
 
   switch (node.type) {
-    case "front-matter":
-      return node.raw;
+    case "frontMatter":
+      return printFrontMatter(path);
     case "root":
       /* c8 ignore next 3 */
       if (node.children.length === 0) {
@@ -790,6 +791,9 @@ function printFootnoteReference(node) {
 }
 
 const printer = {
+  experimentalFeatures: {
+    supportFrontMatter: true,
+  },
   preprocess,
   print: genericPrint,
   embed,

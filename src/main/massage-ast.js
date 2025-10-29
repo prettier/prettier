@@ -1,8 +1,10 @@
+import { cleanFrontMatter } from "../utils/front-matter/index.js";
 import isObject from "../utils/is-object.js";
 import createGetVisitorKeysFunction from "./create-get-visitor-keys-function.js";
 
 function massageAst(ast, options) {
-  const cleanFunction = options.printer.massageAstNode;
+  const { printer } = options;
+  const cleanFunction = printer.massageAstNode;
 
   if (!cleanFunction) {
     return ast;
@@ -10,8 +12,16 @@ function massageAst(ast, options) {
 
   const getVisitorKeys =
     options.getVisitorKeys ??
-    createGetVisitorKeysFunction(options.printer.getVisitorKeys);
+    createGetVisitorKeysFunction(printer.getVisitorKeys);
   const { ignoredProperties } = cleanFunction;
+  const supportFrontMatter = printer.experimentalFeatures?.supportFrontMatter;
+
+  const clean = supportFrontMatter
+    ? (original, cloned, parent) => {
+        cloned = cleanFrontMatter(original, cloned);
+        return cleanFunction(original, cloned, parent);
+      }
+    : cleanFunction;
 
   return recurse(ast);
 
@@ -38,7 +48,7 @@ function massageAst(ast, options) {
       }
     }
 
-    const result = cleanFunction(original, cloned, parent);
+    const result = clean(original, cloned, parent);
     if (result === null) {
       return;
     }

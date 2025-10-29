@@ -4,6 +4,7 @@
 
 import { fill, group, hardline, indent, line } from "../document/builders.js";
 import { replaceEndOfLine } from "../document/utils.js";
+import { printFrontMatter } from "../utils/front-matter/index.js";
 import getPreferredQuote from "../utils/get-preferred-quote.js";
 import htmlWhitespaceUtils from "../utils/html-whitespace-utils.js";
 import UnexpectedNodeError from "../utils/unexpected-node-error.js";
@@ -36,7 +37,7 @@ function genericPrint(path, options, print) {
 
   switch (node.kind) {
     case "front-matter":
-      return replaceEndOfLine(node.raw);
+      return printFrontMatter(path);
     case "root":
       if (options.__onHtmlRoot) {
         options.__onHtmlRoot(node);
@@ -144,6 +145,9 @@ function genericPrint(path, options, print) {
 }
 
 const printer = {
+  experimentalFeatures: {
+    supportFrontMatter: true,
+  },
   preprocess,
   print: genericPrint,
   insertPragma,

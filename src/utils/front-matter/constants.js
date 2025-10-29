@@ -1,0 +1,1 @@
+export const FRONT_MATTER_MARK = Symbol.for("PRETTIER_IS_FRONT_MATTER");

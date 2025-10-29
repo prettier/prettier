@@ -1,5 +1,3 @@
-import { cleanFrontMatter } from "../utils/front-matter/index.js";
-
 const ignoredProperties = new Set([
   "sourceSpan",
   "startSourceSpan",
@@ -27,8 +25,6 @@ function clean(original, cloned, parent) {
   if (original.kind === "text" || original.kind === "comment") {
     return null;
   }
-
-  cleanFrontMatter(original, cloned);
 
   // may be formatted by multiparser
   if (original.kind === "yaml") {

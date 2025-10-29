@@ -59,11 +59,11 @@ const glimmerParseOptions = {
 };
 
 function parse(text) {
-  const { frontMatter, content } = parseFrontMatter(text);
+  const { frontMatter, content: textToParse } = parseFrontMatter(text);
 
   let ast;
   try {
-    ast = parseGlimmer(content, glimmerParseOptions);
+    ast = parseGlimmer(textToParse, glimmerParseOptions);
   } catch (error) {
     const location = getErrorLocation(error);
 
@@ -78,8 +78,10 @@ function parse(text) {
   }
 
   if (frontMatter) {
-    const frontMatterNode = {
+    // @ts-expect-error
+    ast.body.unshift({
       ...frontMatter,
+      type: "FrontMatter",
       loc: {
         start: {
           ...frontMatter.start,
@@ -90,10 +92,7 @@ function parse(text) {
           offset: frontMatter.end.index,
         },
       },
-    };
-
-    // @ts-expect-error
-    ast.body.unshift(frontMatterNode);
+    });
   }
 
   return ast;

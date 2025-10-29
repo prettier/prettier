@@ -1,3 +1,5 @@
+import { FRONT_MATTER_MARK } from "./constants.js";
+
 const DELIMITER_LENGTH = 3;
 
 /**
@@ -90,6 +92,7 @@ function getFrontMatter(text) {
         return lines.at(-1).length;
       },
     },
+    [FRONT_MATTER_MARK]: true,
   };
 }
 

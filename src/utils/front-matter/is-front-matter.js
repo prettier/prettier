@@ -1,5 +1,7 @@
+import { FRONT_MATTER_MARK } from "./constants.js";
+
 function isFrontMatter(node) {
-  return node?.type === "front-matter";
+  return Boolean(node?.[FRONT_MATTER_MARK]);
 }
 
 export default isFrontMatter;

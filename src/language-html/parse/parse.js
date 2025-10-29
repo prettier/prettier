@@ -182,7 +182,7 @@ function parse(text, parser, parseOptions, options = {}) {
   const { frontMatter, content: textToParse } =
     parseOptions.shouldParseFrontMatter
       ? parseFrontMatter(text)
-      : { frontMatter: null, content: text };
+      : { content: text };
 
   const file = new ParseSourceFile(text, options.filepath);
   const start = new ParseLocation(file, 0, 0, 0);
@@ -213,7 +213,7 @@ function parse(text, parser, parseOptions, options = {}) {
     );
     htmlFrontMatter = {
       ...frontMatter,
-      kind: frontMatter.type,
+      kind: "frontMatter",
       sourceSpan: new ParseSourceSpan(start, end),
     };
   }

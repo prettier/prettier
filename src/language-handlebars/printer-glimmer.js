@@ -10,6 +10,7 @@ import {
   softline,
 } from "../document/builders.js";
 import { replaceEndOfLine } from "../document/utils.js";
+import { printFrontMatter } from "../utils/front-matter/index.js";
 import getPreferredQuote from "../utils/get-preferred-quote.js";
 import htmlWhitespaceUtils from "../utils/html-whitespace-utils.js";
 import isNonEmptyArray from "../utils/is-non-empty-array.js";
@@ -395,8 +396,8 @@ function print(path, options, print) {
     case "CommentStatement":
       return ["<!--", node.value, "-->"];
 
-    case "front-matter":
-      return node.raw;
+    case "FrontMatter":
+      return printFrontMatter(path);
 
     case "StringLiteral":
       return printStringLiteral(path, options);
@@ -839,6 +840,9 @@ function printPathExpression(node) {
 }
 
 const printer = {
+  experimentalFeatures: {
+    supportFrontMatter: true,
+  },
   print,
   massageAstNode: clean,
   hasPrettierIgnore,

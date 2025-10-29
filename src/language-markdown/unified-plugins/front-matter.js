@@ -14,7 +14,7 @@ const frontMatter = function () {
     const { frontMatter } = parseFrontMatter(value);
 
     if (frontMatter) {
-      return eat(frontMatter.raw)(frontMatter);
+      return eat(frontMatter.raw)({ ...frontMatter, type: "frontMatter" });
     }
   }
   tokenizer.onlyAtStart = true;

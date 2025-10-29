@@ -1225,6 +1225,7 @@ exports[`visitor keys glimmer 1`] = `
     "comments",
     "modifiers",
   ],
+  "FrontMatter": [],
   "Hash": [
     "pairs",
   ],
@@ -1251,7 +1252,6 @@ exports[`visitor keys glimmer 1`] = `
   ],
   "TextNode": [],
   "UndefinedLiteral": [],
-  "front-matter": [],
 }
 `;
 
@@ -1471,7 +1471,7 @@ exports[`visitor keys html 1`] = `
     "attrs",
     "children",
   ],
-  "front-matter": [],
+  "frontMatter": [],
   "ieConditionalComment": [
     "children",
   ],
@@ -1603,7 +1603,7 @@ exports[`visitor keys remark 1`] = `
     "children",
   ],
   "footnoteReference": [],
-  "front-matter": [],
+  "frontMatter": [],
   "heading": [
     "children",
   ],

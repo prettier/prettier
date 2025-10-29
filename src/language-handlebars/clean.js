@@ -1,9 +1,6 @@
-import { cleanFrontMatter } from "../utils/front-matter/index.js";
 import htmlWhitespaceUtils from "../utils/html-whitespace-utils.js";
 
 function clean(original, cloned, parent) {
-  cleanFrontMatter(original, cloned);
-
   // (Glimmer/HTML) ignore TextNode
   if (original.type === "TextNode") {
     const trimmed = original.chars.trim();
