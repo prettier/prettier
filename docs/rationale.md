@@ -207,7 +207,7 @@ console.log('Running a background task')
 })()
 ```
 
-If you feed this into Prettier, it will not alter the behavior of this code, instead, it will reformat it in a way that shows how this code will actually behave when run.
+If you feed this into Prettier, it will not alter the behavior of this code; instead, it will reformat it in a way that shows how this code will actually behave when run.
 
 ```js
 console.log("Running a background task")(async () => {
