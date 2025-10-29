@@ -288,7 +288,10 @@ function printThrowStatement(path, options, print) {
 // (the leftmost leaf node) and, if it (or its parents) has any
 // leadingComments, returns true (so it can be wrapped in parens).
 function returnArgumentHasLeadingComment(options, argument) {
-  if (argument.type === "SequenceExpression") {
+  if (
+    argument.type === "SequenceExpression" ||
+    argument.type === "AssignmentExpression"
+  ) {
     return false;
   }
 
