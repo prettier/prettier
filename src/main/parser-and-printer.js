@@ -148,16 +148,15 @@ function normalizePrinter(printer) {
   return normalizedPrinter;
 }
 
-const PRINTER_FRONT_MATTER_SUPPORT_ON = {
-  clean: true,
-  embed: true,
-  print: true,
-};
-const PRINTER_FRONT_MATTER_SUPPORT_OFF = {
-  clean: false,
-  embed: false,
-  print: false,
-};
+const PRINTER_FRONT_MATTER_SUPPORT_FEATURES = ["clean", "embed", "print"];
+const [PRINTER_FRONT_MATTER_SUPPORT_ON, PRINTER_FRONT_MATTER_SUPPORT_OFF] = [
+  true,
+  false,
+].map((value) =>
+  Object.fromEntries(
+    PRINTER_FRONT_MATTER_SUPPORT_FEATURES.map((feature) => [feature, value]),
+  ),
+);
 function normalizePrinterFrontMatterSupport(frontMatterSupport) {
   if (frontMatterSupport === true) {
     return PRINTER_FRONT_MATTER_SUPPORT_ON;
