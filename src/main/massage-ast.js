@@ -8,7 +8,7 @@ function massageAst(ast, options) {
     return ast;
   }
 
-  const { getVisitorKeys } = options;
+  const { getVisitorKeys } = printer;
   const { ignoredProperties } = clean;
 
   return recurse(ast);
