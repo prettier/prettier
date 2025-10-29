@@ -83,7 +83,7 @@ function normalizePrinter(printer) {
     return normalizedPrinters.get(printer);
   }
 
-  /* c8 ignore next 3 */
+  /* c8 ignore next 6 */
   if (process.env.NODE_ENV !== "production") {
     assert.ok(
       !printer[PRINTER_NORMALIZED_MARK],
