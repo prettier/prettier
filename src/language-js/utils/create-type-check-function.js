@@ -16,6 +16,7 @@ function createTypeCheckFunction(typesArray) {
       "'typesArray' should be unique.",
     );
   }
+
   return (node) => types.has(node?.type);
 }
 
