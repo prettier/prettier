@@ -789,8 +789,8 @@ function printFootnoteReference(node) {
 }
 
 const printer = {
-  experimentalFeatures: {
-    frontMatterSupport: true,
+  features: {
+    experimental_frontMatterSupport: true,
   },
   preprocess,
   print: genericPrint,

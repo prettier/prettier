@@ -837,8 +837,8 @@ function printPathExpression(node) {
 }
 
 const printer = {
-  experimentalFeatures: {
-    frontMatterSupport: true,
+  features: {
+    experimental_frontMatterSupport: true,
   },
   print,
   massageAstNode: clean,

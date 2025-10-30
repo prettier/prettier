@@ -92,7 +92,7 @@ function normalizePrinter(printer) {
   }
 
   let {
-    experimentalFeatures,
+    features,
     getVisitorKeys,
     embed: originalEmbed,
     massageAstNode: originalCleanFunction,
@@ -100,12 +100,11 @@ function normalizePrinter(printer) {
     ...printerRestProperties
   } = printer;
 
-  experimentalFeatures =
-    normalizePrinterExperimentalFeatures(experimentalFeatures);
+  features = normalizePrinterFeatures(features);
   getVisitorKeys = createGetVisitorKeysFunction(getVisitorKeys);
 
   let massageAstNode = originalCleanFunction;
-  if (originalCleanFunction && experimentalFeatures.frontMatterSupport.clean) {
+  if (originalCleanFunction && features.experimental_frontMatterSupport.clean) {
     massageAstNode = (...arguments_) => {
       cleanFrontMatter(...arguments_);
       return originalCleanFunction(...arguments_);
@@ -114,7 +113,7 @@ function normalizePrinter(printer) {
   }
 
   let embed = originalEmbed;
-  if (originalEmbed && experimentalFeatures.frontMatterSupport.embed) {
+  if (originalEmbed && features.experimental_frontMatterSupport.embed) {
     embed = (...arguments_) =>
       isEmbedFrontMatter(...arguments_)
         ? printEmbedFrontMatter
@@ -123,7 +122,7 @@ function normalizePrinter(printer) {
   }
 
   let print = originalPrint;
-  if (experimentalFeatures.frontMatterSupport.print) {
+  if (features.experimental_frontMatterSupport.print) {
     print = (...arguments_) =>
       (isFrontMatter(arguments_[0].node) ? printFrontMatter : originalPrint)(
         ...arguments_,
@@ -131,7 +130,7 @@ function normalizePrinter(printer) {
   }
 
   const normalizedPrinter = {
-    experimentalFeatures,
+    features,
     getVisitorKeys,
     embed,
     massageAstNode,
@@ -168,12 +167,12 @@ function normalizePrinterFrontMatterSupport(frontMatterSupport) {
   };
 }
 
-function normalizePrinterExperimentalFeatures(experimentalFeatures) {
+function normalizePrinterFeatures(features) {
   return {
-    avoidAstMutation: false,
-    ...experimentalFeatures,
-    frontMatterSupport: normalizePrinterFrontMatterSupport(
-      experimentalFeatures?.frontMatterSupport,
+    experimental_avoidAstMutation: false,
+    ...features,
+    experimental_frontMatterSupport: normalizePrinterFrontMatterSupport(
+      features?.experimental_frontMatterSupport,
     ),
   };
 }

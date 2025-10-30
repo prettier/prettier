@@ -1,6 +1,6 @@
-export const experimentalFeatures = {
+export const features = {
   // TODO: Make this default behavior
-  avoidAstMutation: true,
+  experimental_avoidAstMutation: true,
 };
 export { default as massageAstNode } from "./clean.js";
 export {

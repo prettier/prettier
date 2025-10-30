@@ -150,7 +150,7 @@ function attachComments(ast, options) {
   const tiesToBreak = [];
   const {
     printer: {
-      experimentalFeatures: { avoidAstMutation },
+      features: { experimental_avoidAstMutation: avoidAstMutation },
       handleComments = {},
     },
     originalText: text,
