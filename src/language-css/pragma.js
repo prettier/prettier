@@ -3,7 +3,7 @@ import {
   hasPragma as jsHasPragma,
   insertPragma as jsInsertPragma,
 } from "../language-js/pragma.js";
-import { parseFrontMatter } from "../utils/front-matter/index.js";
+import { parseFrontMatter } from "../main/front-matter/index.js";
 
 const hasPragma = (text) => jsHasPragma(parseFrontMatter(text).content);
 const hasIgnorePragma = (text) =>

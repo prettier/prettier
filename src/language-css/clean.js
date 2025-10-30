@@ -1,7 +1,4 @@
-import {
-  cleanFrontMatter,
-  isFrontMatter,
-} from "../utils/front-matter/index.js";
+import { isFrontMatter } from "../main/front-matter/index.js";
 
 const ignoredProperties = new Set([
   "raw", // front-matter
@@ -15,8 +12,6 @@ const ignoredProperties = new Set([
 ]);
 
 function clean(original, cloned, parent) {
-  cleanFrontMatter(original, cloned);
-
   if (
     original.type === "css-comment" &&
     parent.type === "css-root" &&

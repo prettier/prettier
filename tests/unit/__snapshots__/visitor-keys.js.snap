@@ -1251,7 +1251,6 @@ exports[`visitor keys glimmer 1`] = `
   ],
   "TextNode": [],
   "UndefinedLiteral": [],
-  "front-matter": [],
 }
 `;
 
@@ -1471,7 +1470,6 @@ exports[`visitor keys html 1`] = `
     "attrs",
     "children",
   ],
-  "front-matter": [],
   "ieConditionalComment": [
     "children",
   ],
@@ -1511,7 +1509,6 @@ exports[`visitor keys postcss 1`] = `
     "nodes",
     "selector",
   ],
-  "front-matter": [],
   "media-colon": [],
   "media-feature": [],
   "media-feature-expression": [
@@ -1603,7 +1600,6 @@ exports[`visitor keys remark 1`] = `
     "children",
   ],
   "footnoteReference": [],
-  "front-matter": [],
   "heading": [
     "children",
   ],

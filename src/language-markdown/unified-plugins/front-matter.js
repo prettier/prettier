@@ -1,4 +1,4 @@
-import { parseFrontMatter } from "../../utils/front-matter/index.js";
+import { parseFrontMatter } from "../../main/front-matter/index.js";
 
 /** @import {Plugin, Settings} from "unified" */
 
@@ -14,7 +14,7 @@ const frontMatter = function () {
     const { frontMatter } = parseFrontMatter(value);
 
     if (frontMatter) {
-      return eat(frontMatter.raw)(frontMatter);
+      return eat(frontMatter.raw)({ ...frontMatter, type: "frontMatter" });
     }
   }
   tokenizer.onlyAtStart = true;

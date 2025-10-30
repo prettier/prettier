@@ -395,9 +395,6 @@ function print(path, options, print) {
     case "CommentStatement":
       return ["<!--", node.value, "-->"];
 
-    case "front-matter":
-      return node.raw;
-
     case "StringLiteral":
       return printStringLiteral(path, options);
 
@@ -410,6 +407,7 @@ function print(path, options, print) {
     case "NullLiteral":
       return "null";
 
+    case "FrontMatter": // Handled in core
     case "AtHead": // Handled in `printPathExpression`
     case "VarHead": // Handled in `printPathExpression`
     case "ThisHead": // Handled in `printPathExpression`
@@ -839,6 +837,13 @@ function printPathExpression(node) {
 }
 
 const printer = {
+  features: {
+    experimental_frontMatterSupport: {
+      massageAstNode: true,
+      embed: true,
+      print: true,
+    },
+  },
   print,
   massageAstNode: clean,
   hasPrettierIgnore,

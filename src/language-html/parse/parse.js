@@ -5,7 +5,7 @@ import {
   ParseSourceSpan,
 } from "angular-html-parser";
 import createError from "../../common/parser-create-error.js";
-import { parseFrontMatter } from "../../utils/front-matter/index.js";
+import { parseFrontMatter } from "../../main/front-matter/index.js";
 import {
   normalizeParseOptions,
   toAngularHtmlParserParseOptions,
@@ -15,9 +15,9 @@ import { postprocess } from "./postprocess.js";
 /**
 @import {ParseOptions as AngularHtmlParserParseOptions, Ast, ParseTreeResult} from "angular-html-parser";
 @import {RawParseOptions, ParseOptions} from "./parse-options.js";
-@import {FrontMatter} from "../../utils/front-matter/parse.js"
+@import {FrontMatter} from "../../main/front-matter/parse.js"
 @typedef {{filepath?: string}} Options
-@typedef {FrontMatter & {kind: FrontMatter["type"], sourceSpan: ParseSourceSpan}} HtmlFrontMatter
+@typedef {FrontMatter & {kind: "frontMatter", sourceSpan: ParseSourceSpan}} HtmlFrontMatter
 */
 
 /**
@@ -182,7 +182,7 @@ function parse(text, parser, parseOptions, options = {}) {
   const { frontMatter, content: textToParse } =
     parseOptions.shouldParseFrontMatter
       ? parseFrontMatter(text)
-      : { frontMatter: null, content: text };
+      : { content: text };
 
   const file = new ParseSourceFile(text, options.filepath);
   const start = new ParseLocation(file, 0, 0, 0);
@@ -213,7 +213,7 @@ function parse(text, parser, parseOptions, options = {}) {
     );
     htmlFrontMatter = {
       ...frontMatter,
-      kind: frontMatter.type,
+      kind: "frontMatter",
       sourceSpan: new ParseSourceSpan(start, end),
     };
   }

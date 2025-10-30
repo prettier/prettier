@@ -1,17 +1,15 @@
 import isObject from "../utils/is-object.js";
-import createGetVisitorKeysFunction from "./create-get-visitor-keys-function.js";
 
 function massageAst(ast, options) {
-  const cleanFunction = options.printer.massageAstNode;
+  const { printer } = options;
+  const clean = printer.massageAstNode;
 
-  if (!cleanFunction) {
+  if (!clean) {
     return ast;
   }
 
-  const getVisitorKeys =
-    options.getVisitorKeys ??
-    createGetVisitorKeysFunction(options.printer.getVisitorKeys);
-  const { ignoredProperties } = cleanFunction;
+  const { getVisitorKeys } = printer;
+  const { ignoredProperties } = clean;
 
   return recurse(ast);
 
@@ -38,7 +36,7 @@ function massageAst(ast, options) {
       }
     }
 
-    const result = cleanFunction(original, cloned, parent);
+    const result = clean(original, cloned, parent);
     if (result === null) {
       return;
     }

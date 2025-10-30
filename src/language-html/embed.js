@@ -5,10 +5,6 @@ import {
   indent,
   line,
 } from "../document/builders.js";
-import {
-  isEmbedFrontMatter,
-  printEmbedFrontMatter,
-} from "../utils/front-matter/index.js";
 import htmlWhitespaceUtils from "../utils/html-whitespace-utils.js";
 import printAngularControlFlowBlockParameters from "./embed/angular-control-flow-block-parameters.js";
 import printAttribute from "./embed/attribute.js";
@@ -39,10 +35,6 @@ const embeddedAngularControlFlowBlocks = new Set([
 
 function embed(path, options) {
   const { node } = path;
-
-  if (isEmbedFrontMatter(path)) {
-    return printEmbedFrontMatter;
-  }
 
   switch (node.kind) {
     case "element":

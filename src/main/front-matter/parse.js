@@ -1,9 +1,10 @@
+import { FRONT_MATTER_MARK } from "./constants.js";
+
 const DELIMITER_LENGTH = 3;
 
 /**
 @typedef {{index: number, line: number, column: number}} Position
 @typedef {{
-  type: "front-matter",
   language: string,
   explicitLanguage: string | null,
   value: string,
@@ -12,6 +13,7 @@ const DELIMITER_LENGTH = 3;
   raw: string,
   start: Position,
   end: Position,
+  [FRONT_MATTER_MARK]: true,
 }} FrontMatter
 */
 
@@ -71,7 +73,6 @@ function getFrontMatter(text) {
   let lines;
 
   return {
-    type: "front-matter",
     language,
     explicitLanguage: explicitLanguage || null,
     value: text.slice(firstLineBreakIndex + 1, endDelimiterIndex),
@@ -90,6 +91,7 @@ function getFrontMatter(text) {
         return lines.at(-1).length;
       },
     },
+    [FRONT_MATTER_MARK]: true,
   };
 }
 

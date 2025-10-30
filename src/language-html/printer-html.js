@@ -35,8 +35,6 @@ function genericPrint(path, options, print) {
   const { node } = path;
 
   switch (node.kind) {
-    case "front-matter":
-      return replaceEndOfLine(node.raw);
     case "root":
       if (options.__onHtmlRoot) {
         options.__onHtmlRoot(node);
@@ -136,6 +134,7 @@ function genericPrint(path, options, print) {
         quote,
       ];
     }
+    case "frontMatter": // Handled in core
     case "cdata": // Transformed into `text`
     default:
       /* c8 ignore next */
@@ -144,6 +143,13 @@ function genericPrint(path, options, print) {
 }
 
 const printer = {
+  features: {
+    experimental_frontMatterSupport: {
+      massageAstNode: true,
+      embed: true,
+      print: true,
+    },
+  },
   preprocess,
   print: genericPrint,
   insertPragma,

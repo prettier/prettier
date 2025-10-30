@@ -89,8 +89,6 @@ function genericPrint(path, options, print) {
   }
 
   switch (node.type) {
-    case "front-matter":
-      return node.raw;
     case "root":
       /* c8 ignore next 3 */
       if (node.children.length === 0) {
@@ -449,6 +447,7 @@ function genericPrint(path, options, print) {
       // since it's very possible that it's recognized as math accidentally
       return options.originalText.slice(locStart(node), locEnd(node));
 
+    case "frontMatter": // Handled in core
     case "tableRow": // handled in "table"
     case "listItem": // handled in "list"
     case "text": // handled in other types
@@ -790,6 +789,13 @@ function printFootnoteReference(node) {
 }
 
 const printer = {
+  features: {
+    experimental_frontMatterSupport: {
+      massageAstNode: true,
+      embed: true,
+      print: true,
+    },
+  },
   preprocess,
   print: genericPrint,
   embed,
