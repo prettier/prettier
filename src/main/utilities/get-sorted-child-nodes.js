@@ -1,33 +1,32 @@
 import { getChildren } from "../../utils/ast-utils.js";
 
-const childNodesCache = new WeakMap();
-function getSortedChildNodes(node, options, ancestors) {
+function getSortedChildNodes(node, ancestors, options) {
+  const { childNodesCache } = options;
+
   if (childNodesCache.has(node)) {
     return childNodesCache.get(node);
   }
 
-  const {
-    printer: { getCommentChildNodes, canAttachComment },
-    locStart,
-    locEnd,
-    getVisitorKeys,
-  } = options;
+  const { filter } = options;
 
-  if (!canAttachComment) {
+  if (!filter) {
     return [];
   }
 
   let childAncestors;
   const childNodes = (
-    getCommentChildNodes?.(node, options) ?? [
-      ...getChildren(node, { getVisitorKeys }),
+    options.getChildren?.(node, options) ?? [
+      ...getChildren(node, { getVisitorKeys: options.getVisitorKeys }),
     ]
   ).flatMap((child) => {
     childAncestors ??= [node, ...ancestors];
-    return canAttachComment(child, childAncestors)
+    return filter(child, childAncestors)
       ? [child]
-      : getSortedChildNodes(child, options, childAncestors);
+      : getSortedChildNodes(child, childAncestors, options);
   });
+
+  const { locStart, locEnd } = options;
+
   // Sort by `start` location first, then `end` location
   childNodes.sort(
     (nodeA, nodeB) =>

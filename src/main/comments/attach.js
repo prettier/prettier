@@ -12,6 +12,8 @@ import {
  * @import AstPath from "../../common/ast-path.js"
  */
 
+const childNodesCache = new WeakMap();
+
 // As efficiently as possible, decorate the comment object with
 // .precedingNode, .enclosingNode, and/or .followingNode properties, at
 // least one of which is guaranteed to be defined.
@@ -26,7 +28,14 @@ function decorateComment(
   const commentStart = locStart(comment);
   const commentEnd = locEnd(comment);
 
-  const childNodes = getSortedChildNodes(node, options, ancestors);
+  const childNodes = getSortedChildNodes(node, ancestors, {
+    cache: childNodesCache,
+    locStart,
+    locEnd,
+    getVisitorKeys: options.getVisitorKeys,
+    filter: options.printer.canAttachComment,
+    getChildren: options.printer.getCommentChildNodes,
+  });
   let precedingNode;
   let followingNode;
   // Time to dust off the old binary search robes and wizard hat.
@@ -357,4 +366,8 @@ function findExpressionIndexForComment(quasis, comment, options) {
   return 0;
 }
 
-export { attachComments };
+export {
+  attachComments,
+  // Shared with src/main/range.js, will remove later
+  childNodesCache,
+};
