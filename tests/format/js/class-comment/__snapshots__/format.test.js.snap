@@ -41,7 +41,8 @@ class x {
 
 =====================================output=====================================
 class x {
-  focus() { // comment 1
+  focus() {
+    // comment 1
     // comment 2
   }
 }
