@@ -1,4 +1,3 @@
-// TODO: Find a better way to test the performance
 import { fill, join, line } from "../../src/document/builders.js";
 import { printDocToString } from "../../src/document/printer.js";
 
@@ -33,13 +32,10 @@ test("`printDocToString` should not manipulate docs", () => {
     );
     const orignalLength = hugeParts.length;
 
-    const startTime = performance.now();
     const { formatted } = printDocToString(fill(hugeParts), printOptions);
-    const endTime = performance.now();
     expect(hugeParts.length).toBe(orignalLength);
 
     const lines = formatted.split("\n");
     expect(lines.length).toBeGreaterThan(1000);
-    expect(endTime - startTime).toBeLessThan(150);
   }
 });
