@@ -1,5 +1,6 @@
 import * as assert from "#universal/assert";
-import { getSortedChildNodes } from "./comments/attach.js";
+import { childNodesCache } from "./comments/attach.js";
+import getSortedChildNodes from "./utilities/get-sorted-child-nodes.js";
 
 const isJsonParser = ({ parser }) =>
   parser === "json" ||
@@ -85,7 +86,15 @@ function findNodeAtOffset(
   }
 
   const nodeAndAncestors = [node, ...ancestors];
-  const childNodes = getSortedChildNodes(node, options, nodeAndAncestors);
+  const childNodes = getSortedChildNodes(node, nodeAndAncestors, {
+    cache: childNodesCache,
+    locStart,
+    locEnd,
+    getVisitorKeys: options.getVisitorKeys,
+    // These two property should be removed, since we don't care if it can attach comment
+    filter: options.printer.canAttachComment,
+    getChildren: options.printer.getCommentChildNodes,
+  });
   for (const child of childNodes) {
     const childAndAncestors = findNodeAtOffset(
       child,
