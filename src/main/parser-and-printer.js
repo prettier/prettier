@@ -147,10 +147,15 @@ function normalizePrinter(printer) {
 
   let print = originalPrint;
   if (frontMatterSupport.print) {
-    print = (...arguments_) =>
-      (isFrontMatter(arguments_[0].node) ? printFrontMatter : originalPrint)(
-        ...arguments_,
-      );
+    print = new Proxy(originalPrint, {
+      apply(target, thisArgument, argumentsList) {
+        const [path] = argumentsList;
+        if (isFrontMatter(path.node)) {
+          return printFrontMatter(path);
+        }
+        return Reflect.apply(target, thisArgument, argumentsList);
+      },
+    });
   }
 
   const normalizedPrinter = {
