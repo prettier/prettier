@@ -184,6 +184,21 @@ Valid options:
 | ------------ | ---------------------------------------------------- | ---------------------------------------------------- |
 | `"preserve"` | <code>--object-wrap \<preserve&#124;collapse></code> | <code>objectWrap: "\<preserve&#124;collapse>"</code> |
 
+## Destructuring Wrap
+
+Control how object destructuring patterns are wrapped.
+
+By default, Prettier collapses multi-line destructuring patterns to a single line when possible. Setting this to `"preserve"` will keep destructuring patterns as multi-line if there is a newline after the opening brace, similar to how `objectWrap` works for object literals.
+
+Valid options:
+
+- `"collapse"` - Fit to a single line when possible.
+- `"preserve"` - Keep as multi-line, if there is a newline between the opening brace and first property.
+
+| Default      | CLI Override                                                   | API Override                                                   |
+| ------------ | -------------------------------------------------------------- | -------------------------------------------------------------- |
+| `"collapse"` | <code>--destructuring-wrap \<collapse&#124;preserve></code> | <code>destructuringWrap: "\<collapse&#124;preserve>"</code> |
+
 ## Bracket Line
 
 Put the `>` of a multi-line HTML (HTML, JSX, Vue, Angular) element at the end of the last line instead of being alone on the next line (does not apply to self closing elements).
