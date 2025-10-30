@@ -233,6 +233,7 @@ function printUnionType(path, options, print) {
     if (!shouldHug) {
       printedType = align(2, printedType);
     }
+
     return printComments(path, printedType, options);
   }, "types");
 
@@ -245,7 +246,7 @@ function printUnionType(path, options, print) {
   const shouldAddStartLine =
     shouldIndent && !hasLeadingOwnLineComment(options.originalText, node);
 
-  const code = [
+  const parts = [
     leading,
     ifBreak([shouldAddStartLine ? line : "", "| "]),
     join([line, "| "], printed),
@@ -253,7 +254,7 @@ function printUnionType(path, options, print) {
   ];
 
   if (pathNeedsParens(path, options)) {
-    return group([indent(code), softline]);
+    return group([indent(parts), softline]);
   }
 
   if (parent.type === "TupleTypeAnnotation" || parent.type === "TSTupleType") {
@@ -267,14 +268,14 @@ function printUnionType(path, options, print) {
 
     if (elementTypes.length > 1) {
       return group([
-        indent([ifBreak(["(", softline]), code]),
+        indent([ifBreak(["(", softline]), parts]),
         softline,
         ifBreak(")"),
       ]);
     }
   }
 
-  return group(shouldIndent ? indent(code) : code);
+  return group(shouldIndent ? indent(parts) : parts);
 }
 
 /*
