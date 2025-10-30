@@ -564,7 +564,7 @@ function genericPrint(path, options, print) {
     case "value-unknown":
       return node.value;
 
-    case "front-matter": // Should handled in core
+    case "front-matter": // Should be handled in core
     case "value-comma": // Handled in `value-comma_group`
     default:
       /* c8 ignore next */
