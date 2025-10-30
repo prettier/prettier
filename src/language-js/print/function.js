@@ -289,6 +289,13 @@ function printThrowStatement(path, options, print) {
 // leadingComments, returns true (so it can be wrapped in parens).
 function returnArgumentHasLeadingComment(options, argument) {
   if (
+    argument.type === "SequenceExpression" ||
+    argument.type === "AssignmentExpression"
+  ) {
+    return false;
+  }
+
+  if (
     hasLeadingOwnLineComment(options.originalText, argument) ||
     (hasComment(argument, CommentCheckFlags.Leading, (comment) =>
       hasNewlineInRange(

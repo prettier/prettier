@@ -1,9 +1,11 @@
 import {
   group,
+  ifBreak,
   indent,
   indentIfBreak,
   line,
   lineSuffixBoundary,
+  softline,
 } from "../../document/builders.js";
 import { canBreak, cleanDoc, willBreak } from "../../document/utils.js";
 import getStringWidth from "../../utils/get-string-width.js";
@@ -85,8 +87,8 @@ function printAssignment(
 }
 
 function printAssignmentExpression(path, options, print) {
-  const { node } = path;
-  return printAssignment(
+  const { node, parent } = path;
+  const doc = printAssignment(
     path,
     options,
     print,
@@ -94,6 +96,12 @@ function printAssignmentExpression(path, options, print) {
     [" ", node.operator],
     "right",
   );
+
+  if (parent.type === "ReturnStatement" || parent.type === "ThrowStatement") {
+    return group(ifBreak([indent([softline, doc]), softline], doc));
+  }
+
+  return doc;
 }
 
 function printVariableDeclarator(path, options, print) {
