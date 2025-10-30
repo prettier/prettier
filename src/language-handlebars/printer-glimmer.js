@@ -407,7 +407,7 @@ function print(path, options, print) {
     case "NullLiteral":
       return "null";
 
-    case "FrontMatter": // Should handled in core
+    case "FrontMatter": // Handled in core
     case "AtHead": // Handled in `printPathExpression`
     case "VarHead": // Handled in `printPathExpression`
     case "ThisHead": // Handled in `printPathExpression`
