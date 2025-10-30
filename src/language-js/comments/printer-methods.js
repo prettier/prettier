@@ -78,6 +78,21 @@ const isClassMethodCantAttachComment = (node, [parent]) =>
       node.body,
   );
 
+// `foo as const`
+//  ^^^^^^^^^^^^ `TSAsExpression`
+//         ^^^^^ `TSTypeReference` (`TSAsExpression.typeAnnotation`)
+//         ^^^^^ `Identifier` (`TSTypeReference.typeName`)
+const isAsConstTypeReference = (node, [parent]) =>
+  node.type === "TSTypeReference" &&
+  node.typeName.type === "Identifier" &&
+  node.typeName.name === "const" &&
+  parent.type === "TSAsExpression" &&
+  parent.typeAnnotation === node;
+
+const isAsConst = (node, [parent, ...ancestors]) =>
+  isAsConstTypeReference(node, [parent]) ||
+  (parent?.typeName === node && isAsConstTypeReference(parent, ancestors));
+
 /**
 @param {Node} node
 @param {any[]} ancestors
@@ -95,6 +110,11 @@ function canAttachComment(node, ancestors) {
 
   if (node.type === "EmptyStatement") {
     return isMeaningfulEmptyStatement({ node, parent: ancestors[0] });
+  }
+
+  // Flow doesn't generate node for `as const`
+  if (isAsConst(node, ancestors)) {
+    return false;
   }
 
   /*
