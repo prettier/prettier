@@ -154,6 +154,23 @@ Default: -1",
 }
 `;
 
+exports[`show detailed usage with --help destructuring-wrap  1`] = `
+{
+  "stderr": "",
+  "stdout": "--destructuring-wrap <preserve|collapse>
+
+  How to wrap object destructuring patterns.
+
+Valid options:
+
+  preserve   Keep as multi-line, if there is a newline between the opening brace and first property.
+  collapse   Fit to a single line when possible.
+
+Default: collapse",
+  "write": [],
+}
+`;
+
 exports[`show detailed usage with --help editorconfig  1`] = `
 {
   "stderr": "",

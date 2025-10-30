@@ -7,6 +7,44 @@ const {
   prop5,
 } = someObject;
 
+// Single property
+const {
+  singleProp,
+} = obj;
+
+// Empty destructuring
+const {} = emptyObj;
+
+// With rest operator
+const {
+  first,
+  second,
+  ...rest
+} = obj;
+
+// With defaults
+const {
+  a = 1,
+  b = 2,
+  c = 3,
+} = obj;
+
+// With renaming
+const {
+  oldName: newName,
+  another: renamed,
+} = obj;
+
+// Mixed nested and flat
+const {
+  flat1,
+  nested: {
+    inner1,
+    inner2,
+  },
+  flat2,
+} = obj;
+
 // React - hooks
 function useUserData() {
   const {
@@ -288,4 +326,20 @@ async function processUserData({
   },
 }) {
   return { firstName, lastName, theme };
+}
+
+// Assignment expression
+({
+  x,
+  y,
+  z,
+} = coordinates);
+
+// For-of loop
+for (const {
+  id,
+  name,
+  value,
+} of items) {
+  console.log(id);
 }

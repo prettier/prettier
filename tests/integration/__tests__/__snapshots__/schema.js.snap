@@ -45,6 +45,24 @@ exports[`schema 1`] = `
           "description": "Print (to stderr) where a cursor at the given position would move to after formatting.",
           "type": "integer",
         },
+        "destructuringWrap": {
+          "default": "collapse",
+          "description": "How to wrap object destructuring patterns.",
+          "oneOf": [
+            {
+              "description": "Keep as multi-line, if there is a newline between the opening brace and first property.",
+              "enum": [
+                "preserve",
+              ],
+            },
+            {
+              "description": "Fit to a single line when possible.",
+              "enum": [
+                "collapse",
+              ],
+            },
+          ],
+        },
         "embeddedLanguageFormatting": {
           "default": "auto",
           "description": "Control how Prettier formats quoted code embedded in the file.",
