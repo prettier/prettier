@@ -5,8 +5,11 @@ import { locEnd, locStart } from "./loc.js";
 
 /**
 @import {AST, PreprocessOptions} from "@glimmer/syntax";
-@typedef {Omit<AST.BaseNode, "type"> & {
+@typedef {AST.SourcePosition & {offset: number}} SourcePosition
+@typedef {{start: SourcePosition, end: SourcePosition}} SourceLocation
+@typedef {Omit<AST.BaseNode, "type" | "loc"> & {
   type: "FrontMatter",
+  loc: SourceLocation,
 }} GlimmerFrontMatter
 */
 
@@ -92,17 +95,15 @@ function parse(text) {
       loc: {
         start: {
           ...frontMatter.start,
-          // @ts-expect-error
           offset: frontMatter.start.index,
         },
         end: {
           ...frontMatter.end,
-          // @ts-expect-error
           offset: frontMatter.end.index,
         },
       },
     };
-    // @ts-expect-error
+    // @ts-expect-error -- not a real "Node"
     ast.body.unshift(glimmerFrontMatter);
   }
 
