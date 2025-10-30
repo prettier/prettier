@@ -250,11 +250,10 @@ function printUnionType(path, options, print) {
     leading,
     ifBreak([shouldAddStartLine ? line : "", "| "]),
     join([line, "| "], printed),
-    trailing,
   ];
 
   if (pathNeedsParens(path, options)) {
-    return group([indent(parts), softline]);
+    return [group([indent(parts), softline]), trailing];
   }
 
   if (parent.type === "TupleTypeAnnotation" || parent.type === "TSTupleType") {
@@ -267,15 +266,18 @@ function printUnionType(path, options, print) {
       ];
 
     if (elementTypes.length > 1) {
-      return group([
-        indent([ifBreak(["(", softline]), parts]),
-        softline,
-        ifBreak(")"),
-      ]);
+      return [
+        group([
+          indent([ifBreak(["(", softline]), parts]),
+          softline,
+          ifBreak(")"),
+        ]),
+        trailing,
+      ];
     }
   }
 
-  return group(shouldIndent ? indent(parts) : parts);
+  return [group(shouldIndent ? indent(parts) : parts), trailing];
 }
 
 /*
