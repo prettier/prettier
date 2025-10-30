@@ -91,6 +91,7 @@ function findNodeAtOffset(
     locStart,
     locEnd,
     getVisitorKeys: options.getVisitorKeys,
+    // These two property should be removed, since we don't care if it can attach comment
     filter: options.printer.canAttachComment,
     getChildren: options.printer.getCommentChildNodes,
   });
