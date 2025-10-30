@@ -6,6 +6,7 @@ import {
   isJsxElement,
   isMeaningfulEmptyStatement,
   isMethod,
+  isTsAsConstExpression,
   isUnionType,
 } from "../utils/index.js";
 
@@ -87,21 +88,18 @@ const isClassMethodCantAttachComment = (node, [parent]) =>
 @param {Node[]} param1
 @returns {boolean}
 */
-const isAsConstTypeReference = (node, [parent]) =>
-  node.type === "TSTypeReference" &&
-  node.typeName.type === "Identifier" &&
-  node.typeName.name === "const" &&
-  parent.type === "TSAsExpression" &&
-  parent.typeAnnotation === node;
+const isTsAsConstTypeReference = (node, [parent]) =>
+  // @ts-expect-error -- Safe
+  parent?.typeAnnotation === node && isTsAsConstExpression(parent);
 /**
 @param {Node} node
 @param {Node[]} param1
 @returns {boolean}
 */
-const isAsConst = (node, [parent, ...ancestors]) =>
-  isAsConstTypeReference(node, [parent]) ||
+const isTsAsConst = (node, [parent, ...ancestors]) =>
+  isTsAsConstTypeReference(node, [parent]) ||
   // @ts-expect-error -- Safe
-  (parent?.typeName === node && isAsConstTypeReference(parent, ancestors));
+  (parent?.typeName === node && isTsAsConstTypeReference(parent, ancestors));
 
 /**
 @param {Node} node
@@ -123,7 +121,7 @@ function canAttachComment(node, ancestors) {
   }
 
   // Flow doesn't generate node for `as const`
-  if (isAsConst(node, ancestors)) {
+  if (isTsAsConst(node, ancestors)) {
     return false;
   }
 
