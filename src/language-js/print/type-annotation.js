@@ -211,12 +211,11 @@ function printUnionType(path, options, print) {
       !parent.name &&
       path.grandparent.this !== parent
     ) &&
-    !path.match(
-      undefined,
-      (node, key) =>
-        (key === "right" && node.type === "TypeAlias") ||
-        node.type === "VariableDeclarator" ||
-        (key === "typeAnnotation" && node.type === "TSTypeAliasDeclaration"),
+    !(
+      (parent.type === "TypeAlias" ||
+        parent.type === "VariableDeclarator" ||
+        parent.type === "TSTypeAliasDeclaration") &&
+      hasLeadingOwnLineComment(options.originalText, node)
     );
 
   // {
