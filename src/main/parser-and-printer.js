@@ -146,7 +146,7 @@ function normalizePrinter(printer) {
   }
 
   let print = originalPrint;
-  if (features.frontMatterSupport.print) {
+  if (frontMatterSupport.print) {
     print = (...arguments_) =>
       (isFrontMatter(arguments_[0].node) ? printFrontMatter : originalPrint)(
         ...arguments_,
