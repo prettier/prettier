@@ -1,5 +1,5 @@
 import * as assert from "#universal/assert";
-import { getSortedChildNodes } from "./comments/attach.js";
+import getSortedChildNodes from "./utilities/get-sorted-child-nodes.js";
 
 const isJsonParser = ({ parser }) =>
   parser === "json" ||

@@ -1,7 +1,7 @@
 import * as assert from "#universal/assert";
-import { getChildren } from "../../utils/ast-utils.js";
 import hasNewline from "../../utils/has-newline.js";
 import isNonEmptyArray from "../../utils/is-non-empty-array.js";
+import getSortedChildNodes from "../utilities/get-sorted-child-nodes.js";
 import {
   addDanglingComment,
   addLeadingComment,
@@ -11,44 +11,6 @@ import {
 /**
  * @import AstPath from "../../common/ast-path.js"
  */
-
-const childNodesCache = new WeakMap();
-function getSortedChildNodes(node, options, ancestors) {
-  if (childNodesCache.has(node)) {
-    return childNodesCache.get(node);
-  }
-
-  const {
-    printer: { getCommentChildNodes, canAttachComment },
-    locStart,
-    locEnd,
-    getVisitorKeys,
-  } = options;
-
-  if (!canAttachComment) {
-    return [];
-  }
-
-  let childAncestors;
-  const childNodes = (
-    getCommentChildNodes?.(node, options) ?? [
-      ...getChildren(node, { getVisitorKeys }),
-    ]
-  ).flatMap((child) => {
-    childAncestors ??= [node, ...ancestors];
-    return canAttachComment(child, childAncestors)
-      ? [child]
-      : getSortedChildNodes(child, options, childAncestors);
-  });
-  // Sort by `start` location first, then `end` location
-  childNodes.sort(
-    (nodeA, nodeB) =>
-      locStart(nodeA) - locStart(nodeB) || locEnd(nodeA) - locEnd(nodeB),
-  );
-
-  childNodesCache.set(node, childNodes);
-  return childNodes;
-}
 
 // As efficiently as possible, decorate the comment object with
 // .precedingNode, .enclosingNode, and/or .followingNode properties, at
@@ -395,4 +357,4 @@ function findExpressionIndexForComment(quasis, comment, options) {
   return 0;
 }
 
-export { attachComments, getSortedChildNodes };
+export { attachComments };
