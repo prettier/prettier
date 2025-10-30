@@ -83,48 +83,48 @@ Foo;
 1 as const /*
 comment
 */;
-1 as Foo /*
+1 as /*
 comment
-*/;
-1 satisfies Foo /*
+*/ Foo;
+1 satisfies /*
 comment
-*/;
+*/ Foo;
 
 1 as const;
 /*
 comment
 */
-1 as Foo;
-/*
+1 as /*
 comment
-*/
-1 satisfies Foo;
-/*
+*/ Foo;
+1 satisfies /*
 comment
-*/
+*/ Foo;
 
 1 as const /*
 comment
 */;
-1 as Foo /*
+1 as /*
 comment
-*/;
-1 satisfies Foo /*
+*/
+Foo;
+1 satisfies /*
 comment
-*/;
+*/
+Foo;
 
 1 as const;
 /*
 comment
 */
-1 as Foo;
-/*
+1 as /*
 comment
 */
-1 satisfies Foo;
-/*
+Foo;
+1 satisfies /*
 comment
 */
+Foo;
 
 1 as const; // comment
 1 as Foo; // comment

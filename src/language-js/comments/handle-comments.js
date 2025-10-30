@@ -1128,6 +1128,7 @@ function handlePropertySignatureComments({
 function handleBinaryCastExpressionComment({
   enclosingNode,
   precedingNode,
+  followingNode,
   comment,
   text,
 }) {
@@ -1137,7 +1138,11 @@ function handleBinaryCastExpressionComment({
     precedingNode === enclosingNode.expression &&
     !isSingleLineComment(comment, text)
   ) {
-    addTrailingComment(enclosingNode, comment);
+    if (followingNode) {
+      addLeadingComment(followingNode, comment);
+    } else {
+      addTrailingComment(enclosingNode, comment);
+    }
     return true;
   }
 }
