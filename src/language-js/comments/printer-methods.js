@@ -82,15 +82,25 @@ const isClassMethodCantAttachComment = (node, [parent]) =>
 //  ^^^^^^^^^^^^ `TSAsExpression`
 //         ^^^^^ `TSTypeReference` (`TSAsExpression.typeAnnotation`)
 //         ^^^^^ `Identifier` (`TSTypeReference.typeName`)
+/**
+@param {Node} node
+@param {Node[]} param1
+@returns {boolean}
+*/
 const isAsConstTypeReference = (node, [parent]) =>
   node.type === "TSTypeReference" &&
   node.typeName.type === "Identifier" &&
   node.typeName.name === "const" &&
   parent.type === "TSAsExpression" &&
   parent.typeAnnotation === node;
-
+/**
+@param {Node} node
+@param {Node[]} param1
+@returns {boolean}
+*/
 const isAsConst = (node, [parent, ...ancestors]) =>
   isAsConstTypeReference(node, [parent]) ||
+  // @ts-expect-error -- Safe
   (parent?.typeName === node && isAsConstTypeReference(parent, ancestors));
 
 /**
