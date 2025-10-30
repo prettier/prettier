@@ -152,17 +152,28 @@ function canAttachComment(node, ancestors) {
  */
 function willPrintOwnComments(path) {
   const { node, parent } = path;
+  if (path.key === "types" && isUnionType(parent)) {
+    return true;
+  }
+
+  if (hasNodeIgnoreComment(node)) {
+    return false;
+  }
+
+  if (isJsxElement(node) || isUnionType(node)) {
+    return true;
+  }
+
+  if (!parent) {
+    return false;
+  }
+
   return (
-    (isJsxElement(node) ||
-      (parent &&
-        (parent.type === "JSXSpreadAttribute" ||
-          parent.type === "JSXSpreadChild" ||
-          isUnionType(parent) ||
-          parent.type === "MatchOrPattern" ||
-          ((parent.type === "ClassDeclaration" ||
-            parent.type === "ClassExpression") &&
-            parent.superClass === node)))) &&
-    (!hasNodeIgnoreComment(node) || isUnionType(parent))
+    parent.type === "JSXSpreadAttribute" ||
+    parent.type === "JSXSpreadChild" ||
+    parent.type === "MatchOrPattern" ||
+    (path.key === "superClass" &&
+      (parent.type === "ClassDeclaration" || parent.type === "ClassExpression"))
   );
 }
 

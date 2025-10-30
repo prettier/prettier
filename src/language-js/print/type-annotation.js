@@ -7,7 +7,10 @@ import {
   line,
   softline,
 } from "../../document/builders.js";
-import { printComments } from "../../main/comments/print.js";
+import {
+  printComments,
+  printCommentsSeparately,
+} from "../../main/comments/print.js";
 import { hasSameLocStart } from "../loc.js";
 import pathNeedsParens from "../needs-parens.js";
 import {
@@ -233,16 +236,20 @@ function printUnionType(path, options, print) {
     return printComments(path, printedType, options);
   }, "types");
 
+  const { leading, trailing } = printCommentsSeparately(path, options);
+
   if (shouldHug) {
-    return join(" | ", printed);
+    return [leading, join(" | ", printed), trailing];
   }
 
   const shouldAddStartLine =
     shouldIndent && !hasLeadingOwnLineComment(options.originalText, node);
 
   const code = [
+    leading,
     ifBreak([shouldAddStartLine ? line : "", "| "]),
     join([line, "| "], printed),
+    trailing,
   ];
 
   if (pathNeedsParens(path, options)) {
