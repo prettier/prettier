@@ -13,6 +13,7 @@ import {
   createTypeCheckFunction,
   getCallArguments,
   getFunctionParameters,
+  isBinaryCastExpression,
   isCallExpression,
   isCallLikeExpression,
   isConditionalType,
@@ -71,6 +72,7 @@ function handleOwnLineComment(context) {
     handleNestedConditionalExpressionComments,
     handleCommentsInDestructuringPattern,
     handleTSMappedTypeComments,
+    handleBinaryCastExpressionComment,
   ].some((fn) => fn(context));
 }
 
@@ -99,6 +101,7 @@ function handleEndOfLineComment(context) {
     handleLastBinaryOperatorOperand,
     handleTSMappedTypeComments,
     handlePropertySignatureComments,
+    handleBinaryCastExpressionComment,
   ].some((fn) => fn(context));
 }
 
@@ -118,6 +121,7 @@ function handleRemainingComment(context) {
     handleFunctionNameComments,
     handleBreakAndContinueStatementComments,
     handleTSFunctionTrailingComments,
+    handleBinaryCastExpressionComment,
   ].some((fn) => fn(context));
 }
 
@@ -1117,6 +1121,23 @@ function handlePropertySignatureComments({
     isIntersectionType(followingNode)
   ) {
     addLeadingComment(followingNode, comment);
+    return true;
+  }
+}
+
+function handleBinaryCastExpressionComment({
+  enclosingNode,
+  precedingNode,
+  comment,
+  text,
+}) {
+  // Avoid break before `as` and `satisfies`
+  if (
+    isBinaryCastExpression(enclosingNode) &&
+    precedingNode === enclosingNode.expression &&
+    !isSingleLineComment(comment, text)
+  ) {
+    addTrailingComment(enclosingNode, comment);
     return true;
   }
 }
