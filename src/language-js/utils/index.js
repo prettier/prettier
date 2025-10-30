@@ -1079,6 +1079,12 @@ const isConditionalType = createTypeCheckFunction([
   "ConditionalTypeAnnotation",
 ]);
 
+const isTsAsConstExpression = (node) =>
+  node?.type === "TSAsExpression" &&
+  node.typeAnnotation.type === "TSTypeReference" &&
+  node.typeAnnotation.typeName.type === "Identifier" &&
+  node.typeAnnotation.typeName.name === "const";
+
 export {
   CommentCheckFlags,
   createTypeCheckFunction,
@@ -1130,6 +1136,7 @@ export {
   isStringLiteral,
   isTemplateOnItsOwnLine,
   isTestCall,
+  isTsAsConstExpression,
   isTypeAnnotationAFunction,
   isUnionType,
   iterateCallArgumentsPath,
