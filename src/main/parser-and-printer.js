@@ -103,26 +103,29 @@ function normalizePrinter(printer) {
   features = normalizePrinterFeatures(features);
   getVisitorKeys = createGetVisitorKeysFunction(getVisitorKeys);
 
+  const frontMatterSupport = features.experimental_frontMatterSupport;
   let massageAstNode = originalCleanFunction;
-  if (originalCleanFunction && features.experimental_frontMatterSupport.clean) {
-    massageAstNode = (...arguments_) => {
-      cleanFrontMatter(...arguments_);
-      return originalCleanFunction(...arguments_);
-    };
-    massageAstNode.ignoredProperties = originalCleanFunction.ignoredProperties;
+  if (originalCleanFunction && frontMatterSupport.massageAstNode) {
+    massageAstNode = new Proxy(originalCleanFunction, {
+      apply(target, thisArg, argumentsList) {
+        cleanFrontMatter(...argumentsList);
+        return Reflect.apply(target, thisArg, argumentsList);
+      },
+    });
   }
 
   let embed = originalEmbed;
-  if (originalEmbed && features.experimental_frontMatterSupport.embed) {
-    embed = (...arguments_) =>
-      isEmbedFrontMatter(...arguments_)
-        ? printEmbedFrontMatter
-        : originalEmbed(...arguments_);
-    embed.getVisitorKeys = originalEmbed.getVisitorKeys;
+  if (originalEmbed && frontMatterSupport.embed) {
+    embed = new Proxy(originalEmbed, {
+      apply: (target, thisArg, argumentsList) =>
+        isEmbedFrontMatter(...argumentsList)
+          ? printEmbedFrontMatter
+          : Reflect.apply(target, thisArg, argumentsList),
+    });
   }
 
   let print = originalPrint;
-  if (features.experimental_frontMatterSupport.print) {
+  if (features.frontMatterSupport.print) {
     print = (...arguments_) =>
       (isFrontMatter(arguments_[0].node) ? printFrontMatter : originalPrint)(
         ...arguments_,
