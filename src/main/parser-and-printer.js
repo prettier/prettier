@@ -113,9 +113,9 @@ function normalizePrinter(printer) {
   let massageAstNode = originalCleanFunction;
   if (originalCleanFunction && frontMatterSupport.massageAstNode) {
     massageAstNode = new Proxy(originalCleanFunction, {
-      apply(target, thisArg, argumentsList) {
+      apply(target, thisArgument, argumentsList) {
         cleanFrontMatter(...argumentsList);
-        return Reflect.apply(target, thisArg, argumentsList);
+        return Reflect.apply(target, thisArgument, argumentsList);
       },
     });
   }
@@ -136,12 +136,12 @@ function normalizePrinter(printer) {
           return embedGetVisitorKeys;
         }
 
-        return Reflect.apply(target, property, receiver);
+        return Reflect.get(target, property, receiver);
       },
-      apply: (target, thisArg, argumentsList) =>
+      apply: (target, thisArgument, argumentsList) =>
         frontMatterSupport.embed && isEmbedFrontMatter(...argumentsList)
           ? printEmbedFrontMatter
-          : Reflect.apply(target, thisArg, argumentsList),
+          : Reflect.apply(target, thisArgument, argumentsList),
     });
   }
 

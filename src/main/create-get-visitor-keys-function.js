@@ -27,10 +27,10 @@ function createGetVisitorKeysFunction(
   }
 
   return new Proxy(getVisitorKeys, {
-    apply: (target, thisArg, argumentsList) =>
+    apply: (target, thisArgument, argumentsList) =>
       isFrontMatter(argumentsList[0])
         ? FRONT_MATTER_VISITOR_KEYS
-        : Reflect.apply(target, thisArg, argumentsList),
+        : Reflect.apply(target, thisArgument, argumentsList),
   });
 }
 
