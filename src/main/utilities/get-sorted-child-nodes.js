@@ -1,7 +1,7 @@
 import { getChildren } from "../../utils/ast-utils.js";
 
 function getSortedChildNodes(node, ancestors, options) {
-  const { childNodesCache } = options;
+  const { cache: childNodesCache } = options;
 
   if (childNodesCache.has(node)) {
     return childNodesCache.get(node);
