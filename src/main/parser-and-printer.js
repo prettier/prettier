@@ -101,9 +101,15 @@ function normalizePrinter(printer) {
   } = printer;
 
   features = normalizePrinterFeatures(features);
-  getVisitorKeys = createGetVisitorKeysFunction(getVisitorKeys);
-
   const frontMatterSupport = features.experimental_frontMatterSupport;
+
+  getVisitorKeys = createGetVisitorKeysFunction(
+    getVisitorKeys,
+    /** frontMatterVisitorKeys */ frontMatterSupport.massageAstNode ||
+      frontMatterSupport.embed ||
+      frontMatterSupport.print,
+  );
+
   let massageAstNode = originalCleanFunction;
   if (originalCleanFunction && frontMatterSupport.massageAstNode) {
     massageAstNode = new Proxy(originalCleanFunction, {
@@ -115,10 +121,25 @@ function normalizePrinter(printer) {
   }
 
   let embed = originalEmbed;
-  if (originalEmbed && frontMatterSupport.embed) {
+  if (originalEmbed) {
+    let embedGetVisitorKeys;
     embed = new Proxy(originalEmbed, {
+      get(target, property, receiver) {
+        if (property === "getVisitorKeys") {
+          embedGetVisitorKeys ??= originalEmbed.getVisitorKeys
+            ? createGetVisitorKeysFunction(
+                originalEmbed.getVisitorKeys,
+                /** frontMatterVisitorKeys */ frontMatterSupport.massageAstNode ||
+                  frontMatterSupport.embed,
+              )
+            : getVisitorKeys;
+          return embedGetVisitorKeys;
+        }
+
+        return Reflect.apply(target, property, receiver);
+      },
       apply: (target, thisArg, argumentsList) =>
-        isEmbedFrontMatter(...argumentsList)
+        frontMatterSupport.embed && isEmbedFrontMatter(...argumentsList)
           ? printEmbedFrontMatter
           : Reflect.apply(target, thisArg, argumentsList),
     });

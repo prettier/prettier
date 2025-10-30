@@ -15,14 +15,23 @@ const nonTraversableKeys = new Set([
 const defaultGetVisitorKeys = (node) =>
   Object.keys(node).filter((key) => !nonTraversableKeys.has(key));
 
-function createGetVisitorKeysFunction(printerGetVisitorKeys) {
-  const getNonFrontMatterVisitorKeys = printerGetVisitorKeys
+function createGetVisitorKeysFunction(
+  printerGetVisitorKeys,
+  supportFrontMatter,
+) {
+  const getVisitorKeys = printerGetVisitorKeys
     ? (node) => printerGetVisitorKeys(node, nonTraversableKeys)
     : defaultGetVisitorKeys;
-  return (node) =>
-    isFrontMatter(node)
-      ? FRONT_MATTER_VISITOR_KEYS
-      : getNonFrontMatterVisitorKeys(node);
+  if (!supportFrontMatter) {
+    return getVisitorKeys;
+  }
+
+  return new Proxy(getVisitorKeys, {
+    apply: (target, thisArg, argumentsList) =>
+      isFrontMatter(argumentsList[0])
+        ? FRONT_MATTER_VISITOR_KEYS
+        : Reflect.apply(target, thisArg, argumentsList),
+  });
 }
 
 export default createGetVisitorKeysFunction;
