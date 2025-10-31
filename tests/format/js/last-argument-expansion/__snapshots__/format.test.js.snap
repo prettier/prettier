@@ -629,6 +629,7 @@ printWidth: 80
 assert.deepStrictEqual(linesCollection.getViewLinesIndentGuides____(-1, -1), []);
 assert.deepStrictEqual(linesCollection.getViewLinesIndentGuides___(-1, -1), [1]);
 assert.deepStrictEqual(linesCollection.getViewLinesIndentGuides(-1, -1), [1, 2]);
+
 =====================================output=====================================
 assert.deepStrictEqual(
   linesCollection.getViewLinesIndentGuides____(-1, -1),
