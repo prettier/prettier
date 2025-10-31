@@ -170,7 +170,7 @@
     "semver": "7.7.3",
     "serialize-javascript": "7.0.0",
     "tempy": "3.1.0",
-    "tinybench": "5.0.1",
+    "tinybench": "5.1.0",
     "ts-expect": "1.3.0"
   },
   "resolutions": {
