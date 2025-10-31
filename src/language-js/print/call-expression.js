@@ -77,7 +77,6 @@ function printCallExpression(path, options, print) {
   // special chain format. See `printMemberChain` for more info.
   if (
     !isDynamicImportLike &&
-    !isNewExpression &&
     isMemberish(node.callee) &&
     !path.call(
       () => pathNeedsParens(path, options),
@@ -85,7 +84,8 @@ function printCallExpression(path, options, print) {
       ...(node.callee.type === "ChainExpression" ? ["expression"] : []),
     )
   ) {
-    return printMemberChain(path, options, print);
+    const memberChainResult = printMemberChain(path, options, print);
+    return isNewExpression ? ["new ", memberChainResult] : memberChainResult;
   }
 
   const contents = [

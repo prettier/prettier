@@ -34,6 +34,10 @@ import { printBindExpressionCallee, printOptionalToken } from "./misc.js";
  * @typedef {{ node: any, printed: Doc, needsParens?: boolean, shouldInline?: boolean, hasTrailingEmptyLine?: boolean }} PrintedNode
  */
 
+function isCallOrNewExpression(node) {
+  return isCallExpression(node) || node.type === "NewExpression";
+}
+
 // We detect calls on member expressions specially to format a
 // common pattern better. The pattern we are looking for is this:
 //
@@ -98,7 +102,7 @@ function printMemberChain(path, options, print) {
     }
 
     if (
-      isCallExpression(node) &&
+      isCallOrNewExpression(node) &&
       (isMemberish(node.callee) || isCallExpression(node.callee))
     ) {
       const hasTrailingEmptyLine = shouldInsertEmptyLineAfter(node);
@@ -193,7 +197,7 @@ function printMemberChain(path, options, print) {
   for (; i < printedNodes.length; ++i) {
     if (
       printedNodes[i].node.type === "TSNonNullExpression" ||
-      isCallExpression(printedNodes[i].node) ||
+      isCallOrNewExpression(printedNodes[i].node) ||
       (isMemberExpression(printedNodes[i].node) &&
         printedNodes[i].node.computed &&
         isNumericLiteral(printedNodes[i].node.property))
@@ -203,7 +207,7 @@ function printMemberChain(path, options, print) {
       break;
     }
   }
-  if (!isCallExpression(printedNodes[0].node)) {
+  if (!isCallOrNewExpression(printedNodes[0].node)) {
     for (; i + 1 < printedNodes.length; ++i) {
       if (
         isMemberish(printedNodes[i].node) &&
@@ -241,7 +245,7 @@ function printMemberChain(path, options, print) {
     }
 
     if (
-      isCallExpression(printedNodes[i].node) ||
+      isCallOrNewExpression(printedNodes[i].node) ||
       printedNodes[i].node.type === "ImportExpression"
     ) {
       hasSeenCallExpression = true;
@@ -363,7 +367,7 @@ function printMemberChain(path, options, print) {
   // empty line after
   const lastNodeBeforeIndent = groups[shouldMerge ? 1 : 0].at(-1).node;
   const shouldHaveEmptyLineBeforeIndent =
-    !isCallExpression(lastNodeBeforeIndent) &&
+    !isCallOrNewExpression(lastNodeBeforeIndent) &&
     shouldInsertEmptyLineAfter(lastNodeBeforeIndent);
 
   const expanded = [
@@ -375,13 +379,13 @@ function printMemberChain(path, options, print) {
 
   const callExpressions = printedNodes
     .map(({ node }) => node)
-    .filter(isCallExpression);
+    .filter(isCallOrNewExpression);
 
   function lastGroupWillBreakAndOtherCallsHaveFunctionArguments() {
     const lastGroupNode = groups.at(-1).at(-1).node;
     const lastGroupDoc = printedGroups.at(-1);
     return (
-      isCallExpression(lastGroupNode) &&
+      isCallOrNewExpression(lastGroupNode) &&
       willBreak(lastGroupDoc) &&
       callExpressions
         .slice(0, -1)
