@@ -674,3 +674,14 @@ await prettier.format(code, {
 ```
 
 This will resolve a plugin relative to the current working directory.
+
+## Plugin Performance Considerations
+
+When using multiple plugins or custom plugins, be aware of the following performance implications:
+
+- **Plugin Loading**: Plugins are loaded and initialized for every format operation. For best performance, use plugins selectively and only load those necessary for your project.
+- **Parser Performance**: The parser is the primary bottleneck in formatting. Ensure your plugin's parser is optimized.
+- **Large Files**: When formatting large files with complex plugins, consider running format operations with appropriate timeouts to avoid long pauses.
+- **Caching**: If your plugin performs expensive operations, implement caching where possible to improve performance across multiple runs.
+
+For plugin development best practices and optimization techniques, see the [How to write a plugin for Prettier](https://medium.com/@fvictorio/how-to-write-a-plugin-for-prettier-a0d98c845e70) tutorial.
