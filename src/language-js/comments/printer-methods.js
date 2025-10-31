@@ -151,13 +151,16 @@ function canAttachComment(node, ancestors) {
  * @returns {boolean}
  */
 function willPrintOwnComments(path) {
-  const { parent, key } = path;
+  const { key, parent } = path;
   if (
     (key === "types" && isUnionType(parent)) ||
     (key === "argument" && parent.type === "JSXSpreadAttribute") ||
     (key === "expression" && parent.type === "JSXSpreadChild") ||
     (key === "superClass" &&
-      (parent.type === "ClassDeclaration" || parent.type === "ClassExpression"))
+      (parent.type === "ClassDeclaration" ||
+        parent.type === "ClassExpression")) ||
+    // Not tested, don't know how to
+    (key === "patterns" && parent.type === "MatchOrPattern")
   ) {
     return true;
   }
@@ -167,15 +170,7 @@ function willPrintOwnComments(path) {
     return false;
   }
 
-  if (isJsxElement(node) || isUnionType(node)) {
-    return true;
-  }
-
-  if (!parent) {
-    return false;
-  }
-
-  return parent.type === "MatchOrPattern";
+  return isJsxElement(node) || isUnionType(node);
 }
 
 function isGap(text, { parser }) {
