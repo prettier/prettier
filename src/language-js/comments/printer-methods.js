@@ -151,15 +151,18 @@ function canAttachComment(node, ancestors) {
  * @returns {boolean}
  */
 function willPrintOwnComments(path) {
-  const { node, parent, key } = path;
+  const { parent, key } = path;
   if (
     (key === "types" && isUnionType(parent)) ||
     (key === "argument" && parent.type === "JSXSpreadAttribute") ||
-    (key === "expression" && parent.type === "JSXSpreadChild")
+    (key === "expression" && parent.type === "JSXSpreadChild") ||
+    (key === "superClass" &&
+      (parent.type === "ClassDeclaration" || parent.type === "ClassExpression"))
   ) {
     return true;
   }
 
+  const { node } = path;
   if (hasNodeIgnoreComment(node)) {
     return false;
   }
@@ -172,11 +175,7 @@ function willPrintOwnComments(path) {
     return false;
   }
 
-  return (
-    parent.type === "MatchOrPattern" ||
-    (path.key === "superClass" &&
-      (parent.type === "ClassDeclaration" || parent.type === "ClassExpression"))
-  );
+  return parent.type === "MatchOrPattern";
 }
 
 function isGap(text, { parser }) {

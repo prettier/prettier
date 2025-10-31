@@ -98,6 +98,7 @@ extends Base
 {  foo(){} }
 
 (class A9 extends /* a */ /* prettier-ignore */B {});
+class A9 extends /* a */ /* prettier-ignore */B {}
 =====================================output=====================================
 class A // comment 1
 // comment 2
@@ -143,8 +144,8 @@ class C2 // comment
   foo() {}
 }
 
-(class A9
-  extends /* a */ /* prettier-ignore */ /* a */ /* prettier-ignore */ B {});
+(class A9 extends /* a */ /* prettier-ignore */ B {});
+class A9 extends /* a */ /* prettier-ignore */ B {}
 
 ================================================================================
 `;
