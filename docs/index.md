@@ -17,6 +17,7 @@ Prettier is an opinionated code formatter with support for:
 - [JSON](https://json.org/)
 - [GraphQL](https://graphql.org/)
 - [Markdown](https://commonmark.org/), including [GFM](https://github.github.com/gfm/) and [MDX v1](https://mdxjs.com/)
+  - Prettier formats code blocks within Markdown based on their language identifier
 - [YAML](https://yaml.org/)
 
 It removes all original styling[\*](#footnotes) and ensures that all outputted code conforms to a consistent style. (See this [blog post](https://jlongster.com/A-Prettier-Formatter))
