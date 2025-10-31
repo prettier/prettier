@@ -97,6 +97,9 @@ class C2  // comment
 extends Base
 {  foo(){} }
 
+(class A10 extends /* a */ /* prettier-ignore */B {});
+class A10 extends /* a */ /* prettier-ignore */B {}
+
 =====================================output=====================================
 class A // comment 1
 // comment 2
@@ -141,6 +144,9 @@ class C2 // comment
 {
   foo() {}
 }
+
+(class A10 extends /* a */ /* prettier-ignore */ B {});
+class A10 extends /* a */ /* prettier-ignore */ B {}
 
 ================================================================================
 `;
