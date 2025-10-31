@@ -431,8 +431,12 @@ function needsParens(path, options) {
             return true;
           }
 
-          if (parentPrecedence < precedence && operator === "%") {
-            return parentOperator === "+" || parentOperator === "-";
+          if (
+            parentPrecedence < precedence &&
+            operator === "%" &&
+            (parentOperator === "+" || parentOperator === "-")
+          ) {
+            return true;
           }
 
           // Add parenthesis when working with bitwise operators
