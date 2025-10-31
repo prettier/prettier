@@ -151,8 +151,12 @@ function canAttachComment(node, ancestors) {
  * @returns {boolean}
  */
 function willPrintOwnComments(path) {
-  const { node, parent } = path;
-  if (path.key === "types" && isUnionType(parent)) {
+  const { node, parent, key } = path;
+  if (
+    (key === "types" && isUnionType(parent)) ||
+    (key === "argument" && parent.type === "JSXSpreadAttribute") ||
+    (key === "expression" && parent.type === "JSXSpreadChild")
+  ) {
     return true;
   }
 
@@ -169,8 +173,6 @@ function willPrintOwnComments(path) {
   }
 
   return (
-    parent.type === "JSXSpreadAttribute" ||
-    parent.type === "JSXSpreadChild" ||
     parent.type === "MatchOrPattern" ||
     (path.key === "superClass" &&
       (parent.type === "ClassDeclaration" || parent.type === "ClassExpression"))

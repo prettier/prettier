@@ -23,7 +23,6 @@ import {
 import getPreferredQuote from "../../utils/get-preferred-quote.js";
 import UnexpectedNodeError from "../../utils/unexpected-node-error.js";
 import WhitespaceUtils from "../../utils/whitespace-utils.js";
-import { willPrintOwnComments } from "../comments/printer-methods.js";
 import pathNeedsParens from "../needs-parens.js";
 import getRaw from "../utils/get-raw.js";
 import {
@@ -782,7 +781,7 @@ function printJsxSpreadAttributeOrChild(path, options, print) {
     path.call(
       ({ node }) => {
         const printed = ["...", print()];
-        if (!hasComment(node) || !willPrintOwnComments(path)) {
+        if (!hasComment(node)) {
           return printed;
         }
         return [
