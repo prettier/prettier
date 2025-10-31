@@ -133,8 +133,7 @@ type c = {
 
 type d = {
   [A in B]: // prettier-ignore
-    | C
-    | D;
+    C | D;
 };
 
 type e = {
@@ -151,8 +150,7 @@ type f = {
 
 type g = {
   [A in B]: /* prettier-ignore */
-    | C
-    | D;
+    C | D;
 };
 
 type h = {

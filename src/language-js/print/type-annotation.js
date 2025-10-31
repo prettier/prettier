@@ -246,15 +246,16 @@ function printUnionType(path, options, print) {
   const shouldAddStartLine =
     shouldIndent && !hasLeadingOwnLineComment(options.originalText, node);
 
-  const parts = [
-    leading,
+  const mainParts = [
     ifBreak([shouldAddStartLine ? line : "", "| "]),
     join([line, "| "], printed),
   ];
 
   if (pathNeedsParens(path, options)) {
-    return [group([indent(parts), softline]), trailing];
+    return [leading, group([indent(mainParts), softline]), trailing];
   }
+
+  const parts = [leading, group(mainParts)];
 
   if (parent.type === "TupleTypeAnnotation" || parent.type === "TSTupleType") {
     const elementTypes =
