@@ -136,7 +136,7 @@
     "buffer": "6.0.3",
     "c8": "10.1.3",
     "cross-env": "10.1.0",
-    "cspell": "9.2.1",
+    "cspell": "9.2.2",
     "enquirer": "2.4.1",
     "esbuild": "0.25.10",
     "esbuild-plugins-node-modules-polyfill": "1.7.1",
