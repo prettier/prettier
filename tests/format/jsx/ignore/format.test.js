@@ -1,12 +1,15 @@
 runFormatTest(import.meta, [
   "babel",
+  "babel-flow",
+  "babel-ts",
+  "__babel_estree",
   "typescript",
   "flow",
   "meriyah",
-  "espree",
   "acorn",
+  "espree",
+  "espree",
+  "hermes",
   "oxc",
   "oxc-ts",
-  "hermes",
-  "__babel_estree",
 ]);
