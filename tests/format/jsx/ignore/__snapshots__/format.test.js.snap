@@ -1,8 +1,8 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`jsx_ignore.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "babel-flow", "babel-ts", "__babel_estree", "typescript", "flow", "meriyah", "acorn", "espree", "espree", "hermes", "oxc", "oxc-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -118,6 +118,58 @@ function f() {
     <JSX />
   );
 }
+
+================================================================================
+`;
+
+exports[`spread.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-flow", "babel-ts", "__babel_estree", "typescript", "flow", "meriyah", "acorn", "espree", "espree", "hermes", "oxc", "oxc-ts"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// #8736
+
+function HelloWorld() {
+  return (
+    <div
+      {...{} /*
+      // @ts-ignore */ /* prettier-ignore */}
+      invalidProp="HelloWorld"
+    >
+      test
+    </div>
+  );
+}
+
+a = <div {.../* prettier-ignore */b}/>
+a = <div {...b/* prettier-ignore */}/>
+a = <div {.../* prettier-ignore */{}}/>
+a = <div {...{/* prettier-ignore */}}/>
+a = <div {...{}/* prettier-ignore */}/>
+
+=====================================output=====================================
+// #8736
+
+function HelloWorld() {
+  return (
+    <div
+      {
+        ...{} /*
+      // @ts-ignore */ /* prettier-ignore */
+      }
+      invalidProp="HelloWorld"
+    >
+      test
+    </div>
+  );
+}
+
+a = <div {/* prettier-ignore */ ...b} />;
+a = <div {...b /* prettier-ignore */} />;
+a = <div {/* prettier-ignore */ ...{}} />;
+a = <div {...{/* prettier-ignore */}} />;
+a = <div {...{} /* prettier-ignore */} />;
 
 ================================================================================
 `;

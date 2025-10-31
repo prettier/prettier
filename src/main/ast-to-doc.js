@@ -108,7 +108,7 @@ function callPluginPrintFunction(path, options, printPath, args, embeds) {
 
   // Escape hatch
   if (printer.hasPrettierIgnore?.(path)) {
-    doc = printIgnored(path, options);
+    doc = printIgnored(path, options, printPath, args);
   } else if (embeds.has(node)) {
     doc = embeds.get(node);
   } else {
@@ -145,7 +145,6 @@ function callPluginPrintFunction(path, options, printPath, args, embeds) {
 async function prepareToPrint(ast, options) {
   const comments = ast.comments ?? [];
   options[Symbol.for("comments")] = comments;
-  options[Symbol.for("tokens")] = ast.tokens ?? [];
   // For JS printer to ignore attached comments
   options[Symbol.for("printedComments")] = new Set();
 

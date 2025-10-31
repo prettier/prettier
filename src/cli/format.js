@@ -1,21 +1,19 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+import getStdin from "get-stdin";
 import * as prettier from "../index.js";
 import { expandPatterns } from "./expand-patterns.js";
 import findCacheFile from "./find-cache-file.js";
 import FormatResultsCache from "./format-results-cache.js";
-import isTTY from "./is-tty.js";
+import mockable from "./mockable.js";
 import getOptionsForFile from "./options/get-options-for-file.js";
 import {
   createIsIgnoredFunction,
   createTwoFilesPatch,
   errors,
-  mockable,
   picocolors,
 } from "./prettier-internal.js";
 import { normalizeToPosix, statSafe } from "./utils.js";
-
-const { getStdin, writeFormattedFile } = mockable;
 
 function diff(a, b) {
   return createTwoFilesPatch("", "", a, b, "", "", { context: 2 });
@@ -31,25 +29,21 @@ function handleError(context, filename, error, printedFilename, ignoreUnknown) {
   const errorIsUndefinedParseError =
     error instanceof errors.UndefinedParserError;
 
+  if (errorIsUndefinedParseError && ignoreUnknown) {
+    // Can't test on CI, `isTTY` is always false, see comments in `formatFiles`
+    printedFilename?.clear();
+
+    return true;
+  }
+
   if (printedFilename) {
-    // Can't test on CI, `isTTY()` is always false, see ./is-tty.js
-    /* c8 ignore next 3 */
-    if ((context.argv.write || ignoreUnknown) && errorIsUndefinedParseError) {
-      printedFilename.clear();
-    } else {
-      // Add newline to split errors from filename line.
-      process.stdout.write("\n");
-    }
+    // Add newline to split errors from filename line.
+    process.stdout.write("\n");
   }
 
   if (errorIsUndefinedParseError) {
-    if (ignoreUnknown) {
-      return;
-    }
-    if (!context.argv.check && !context.argv.listDifferent) {
-      process.exitCode = 2;
-    }
     context.logger.error(error.message);
+    process.exitCode = 2;
     return;
   }
 
@@ -192,14 +186,11 @@ async function format(context, input, opt) {
     context.logger.debug(
       `'${performanceTestFlag.name}' found, running formatWithCursor ${repeat} times.`,
     );
-    let totalMs = 0;
+    const start = mockable.getTimestamp();
     for (let i = 0; i < repeat; ++i) {
-      // should be using `performance.now()`, but only `Date` is cross-platform enough
-      const startMs = Date.now();
       await prettier.formatWithCursor(input, opt);
-      totalMs += Date.now() - startMs;
     }
-    const averageMs = totalMs / repeat;
+    const averageMs = (mockable.getTimestamp() - start) / repeat;
     const results = {
       repeat,
       hz: 1000 / averageMs,
@@ -285,6 +276,7 @@ async function formatFiles(context) {
   const cwd = process.cwd();
 
   let numberOfUnformattedFilesFound = 0;
+  let numberOfFilesWithError = 0;
   const { performanceTestFlag } = context;
 
   if (context.argv.check && !performanceTestFlag) {
@@ -304,6 +296,11 @@ async function formatFiles(context) {
       await fs.unlink(cacheFilePath);
     }
   }
+
+  // Some CI pipelines incorrectly report process.stdout.isTTY status,
+  // which causes unwanted lines in the output. An additional check for isCI() helps.
+  // See https://github.com/prettier/prettier/issues/5801
+  const isTTY = mockable.isStreamTTY(process.stdout) && !mockable.isCI();
 
   for await (const { error, filename, ignoreUnknown } of expandPatterns(
     context,
@@ -333,7 +330,7 @@ async function formatFiles(context) {
 
     const fileNameToDisplay = normalizeToPosix(path.relative(cwd, filename));
     let printedFilename;
-    if (isTTY()) {
+    if (isTTY) {
       printedFilename = context.logger.log(fileNameToDisplay, {
         newline: false,
         clearable: true,
@@ -365,7 +362,7 @@ async function formatFiles(context) {
       continue;
     }
 
-    const start = Date.now();
+    const start = mockable.getTimestamp();
 
     const isCacheExists = formatResultsCache?.existsAvailableFormatResultsCache(
       filename,
@@ -383,13 +380,18 @@ async function formatFiles(context) {
       }
       output = result.formatted;
     } catch (error) {
-      handleError(
+      const errorIsIgnored = handleError(
         context,
         fileNameToDisplay,
         error,
         printedFilename,
         ignoreUnknown,
       );
+
+      if (!errorIsIgnored) {
+        numberOfFilesWithError += 1;
+      }
+
       continue;
     }
 
@@ -407,15 +409,16 @@ async function formatFiles(context) {
     }
 
     if (context.argv.write) {
+      const timeToDisplay = `${Math.round(mockable.getTimestamp() - start)}ms`;
       // Don't write the file if it won't change in order not to invalidate
       // mtime based caches.
       if (isDifferent) {
         if (!context.argv.check && !context.argv.listDifferent) {
-          context.logger.log(`${fileNameToDisplay} ${Date.now() - start}ms`);
+          context.logger.log(`${fileNameToDisplay} ${timeToDisplay}`);
         }
 
         try {
-          await writeFormattedFile(filename, output);
+          await mockable.writeFormattedFile(filename, output);
 
           // Set cache if format succeeds
           shouldSetCache = true;
@@ -428,9 +431,7 @@ async function formatFiles(context) {
           process.exitCode = 2;
         }
       } else if (!context.argv.check && !context.argv.listDifferent) {
-        const message = `${picocolors.gray(fileNameToDisplay)} ${
-          Date.now() - start
-        }ms (unchanged)`;
+        const message = `${picocolors.gray(fileNameToDisplay)} ${timeToDisplay} (unchanged)`;
         if (isCacheExists) {
           context.logger.log(`${message} (cached)`);
         } else {
@@ -468,7 +469,15 @@ async function formatFiles(context) {
 
   // Print check summary based on expected exit code
   if (context.argv.check) {
-    if (numberOfUnformattedFilesFound === 0) {
+    if (numberOfFilesWithError > 0) {
+      const files =
+        numberOfFilesWithError === 1
+          ? "the above file"
+          : `${numberOfFilesWithError} files`;
+      context.logger.log(
+        `Error occurred when checking code style in ${files}.`,
+      );
+    } else if (numberOfUnformattedFilesFound === 0) {
       context.logger.log("All matched files use Prettier code style!");
     } else {
       const files =

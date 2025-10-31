@@ -11,7 +11,8 @@ import visualizeEndOfLine from "./utils/visualize-end-of-line.js";
 
 const { __dirname } = createEsmUtils(import.meta);
 
-const { FULL_TEST, TEST_STANDALONE } = process.env;
+const { FULL_TEST, TEST_STANDALONE, NODE_ENV } = process.env;
+const isProduction = NODE_ENV === "production";
 const BOM = "\uFEFF";
 
 const CURSOR_PLACEHOLDER = "<|>";
@@ -21,11 +22,11 @@ const RANGE_END_PLACEHOLDER = "<<<PRETTIER_RANGE_END>>>";
 // TODO: these test files need fix
 const unstableTests = new Map(
   [
-    "js/class-comment/misc.js",
     ["js/comments/dangling_array.js", (options) => options.semi === false],
     ["js/comments/jsx.js", (options) => options.semi === false],
     "js/comments/return-statement.js",
     "js/comments/tagged-template-literal.js",
+    "js/for/9812-unstable.js",
     "markdown/spec/example-234.md",
     "markdown/spec/example-235.md",
     [
@@ -47,6 +48,7 @@ const unstableTests = new Map(
     ["js/ignore/semi/asi.js", (options) => options.semi === false],
     "typescript/union/consistent-with-flow/single-type.ts",
     "js/if/non-block.js",
+    "typescript/import-type/long-module-name/long-module-name4.ts",
   ].map((fixture) => {
     const [file, isUnstable = () => true] = Array.isArray(fixture)
       ? fixture
@@ -56,17 +58,17 @@ const unstableTests = new Map(
 );
 
 const unstableAstTests = new Map();
-
-const espreeDisabledTests = new Set(
+const commentClosureTypecaseTests = new Set(
   [
-    // These tests only work for `babel`
+    // These tests works on `babel`, `acorn`, `espree`, `oxc`, and `meriyah`
     "comments-closure-typecast",
   ].map((directory) => path.join(__dirname, "../format/js", directory)),
 );
-const acornDisabledTests = espreeDisabledTests;
-const meriyahDisabledTests = new Set([
-  ...espreeDisabledTests,
-  ...[
+
+const espreeDisabledTests = commentClosureTypecaseTests;
+const acornDisabledTests = new Set();
+const meriyahDisabledTests = new Set(
+  [
     // Parsing to different ASTs
     "js/decorators/member-expression.js",
     // Meriyah parse RegExp relay on runtime behavior
@@ -77,11 +79,34 @@ const meriyahDisabledTests = new Set([
     "js/babel-plugins/regexp-modifiers.js",
     "js/regex/regexp-modifiers.js",
   ].map((file) => path.join(__dirname, "../format", file)),
-]);
-const babelTsDisabledTest = new Set(
+);
+const babelTsDisabledTests = new Set(
   ["conformance/types/moduleDeclaration/kind-detection.ts"].map((file) =>
     path.join(__dirname, "../format/typescript", file),
   ),
+);
+const oxcDisabledTests = new Set();
+const oxcTsDisabledTests = new Set();
+const hermesDisabledTests = new Set([
+  ...commentClosureTypecaseTests,
+  ...[
+    // Not supported
+    "flow/comments",
+    "flow-repo/union_new",
+  ].map((file) => path.join(__dirname, "../format", file)),
+]);
+const flowDisabledTests = new Set(
+  [
+    // Parsing to different ASTs
+    "js/decorators/member-expression.js",
+  ].map((file) => path.join(__dirname, "../format", file)),
+);
+const typescriptDisabledTests = new Set(
+  [
+    // https://github.com/typescript-eslint/typescript-eslint/issues/11389
+    "js/import/long-module-name/import-defer.js",
+    "js/import/long-module-name/import-source.js",
+  ].map((file) => path.join(__dirname, "../format", file)),
 );
 
 const isUnstable = (filename, options) => {
@@ -236,18 +261,26 @@ function runFormatTest(fixtures, parsers, options) {
       if (!parsers.includes("meriyah") && !meriyahDisabledTests.has(dirname)) {
         allParsers.push("meriyah");
       }
+      if (!parsers.includes("acorn") && !oxcDisabledTests.has(dirname)) {
+        allParsers.push("oxc");
+      }
+    }
+
+    if (parsers.includes("typescript") && !IS_TYPESCRIPT_ONLY_TEST) {
+      if (!parsers.includes("babel-ts")) {
+        allParsers.push("babel-ts");
+      }
+      if (!parsers.includes("oxc-ts")) {
+        allParsers.push("oxc-ts");
+      }
     }
 
     if (
-      parsers.includes("typescript") &&
-      !parsers.includes("babel-ts") &&
-      !IS_TYPESCRIPT_ONLY_TEST
+      parsers.includes("flow") &&
+      !parsers.includes("hermes") &&
+      !hermesDisabledTests.has(dirname)
     ) {
-      allParsers.push("babel-ts");
-    }
-
-    if (parsers.includes("flow") && !parsers.includes("babel-flow")) {
-      allParsers.push("babel-flow");
+      allParsers.push("hermes");
     }
 
     if (parsers.includes("babel") && !parsers.includes("__babel_estree")) {
@@ -285,10 +318,17 @@ function runFormatTest(fixtures, parsers, options) {
 
       for (const currentParser of allParsers) {
         if (
+          (currentParser === "acorn" && acornDisabledTests.has(filename)) ||
           (currentParser === "espree" && espreeDisabledTests.has(filename)) ||
           (currentParser === "meriyah" && meriyahDisabledTests.has(filename)) ||
-          (currentParser === "acorn" && acornDisabledTests.has(filename)) ||
-          (currentParser === "babel-ts" && babelTsDisabledTest.has(filename))
+          (currentParser === "oxc" && oxcDisabledTests.has(filename)) ||
+          (currentParser === "oxc-ts" && oxcTsDisabledTests.has(filename)) ||
+          (currentParser === "hermes" && hermesDisabledTests.has(filename)) ||
+          (currentParser === "flow" && flowDisabledTests.has(filename)) ||
+          (currentParser === "babel-ts" &&
+            babelTsDisabledTests.has(filename)) ||
+          (currentParser === "typescript" &&
+            typescriptDisabledTests.has(filename))
         ) {
           continue;
         }
@@ -385,6 +425,12 @@ async function runTest({
       formatOptions,
     );
     if (isUnstableTest) {
+      if (secondOutput === firstOutput) {
+        throw new Error(
+          `Unstable file '${filename}' is stable now, please remove from the 'unstableTests' list.`,
+        );
+      }
+
       // To keep eye on failed tests, this assert never supposed to pass,
       // if it fails, just remove the file from `unstableTests`
       expect(secondOutput).not.toEqual(firstOutput);
@@ -455,9 +501,11 @@ function shouldSkipEolTest(code, options) {
 
 async function parse(source, options) {
   const prettier = await getPrettier();
-  const { ast } = await prettier.__debug.parse(source, options, {
-    massage: true,
-  });
+  const { ast } = await ensurePromise(
+    prettier.__debug.parse(source, await loadPlugins(options), {
+      massage: true,
+    }),
+  );
   return ast;
 }
 
@@ -510,7 +558,7 @@ async function format(originalText, originalOptions) {
   const prettier = await getPrettier();
 
   const { formatted: output, cursorOffset } = await ensurePromise(
-    prettier.formatWithCursor(input, options),
+    prettier.formatWithCursor(input, await loadPlugins(options)),
   );
   const outputWithCursor = insertCursor(output, cursorOffset);
   const eolVisualizedOutput = visualizeEndOfLine(outputWithCursor);
@@ -526,6 +574,29 @@ async function format(originalText, originalOptions) {
     outputWithCursor,
     eolVisualizedOutput,
   };
+}
+
+const externalPlugins = new Map([
+  ["oxc", "plugin-oxc"],
+  ["oxc-ts", "plugin-oxc"],
+  ["hermes", "plugin-hermes"],
+]);
+async function loadPlugins(options) {
+  const { parser } = options;
+  if (externalPlugins.has(options.parser)) {
+    const plugins = options.plugins ?? [];
+    const pluginName = externalPlugins.get(parser);
+    const url = new URL(
+      isProduction
+        ? `../../dist/${pluginName}/index.mjs`
+        : `../../packages/${pluginName}/index.js`,
+      import.meta.url,
+    );
+    plugins.push(TEST_STANDALONE ? await import(url) : url);
+    return { ...options, plugins };
+  }
+
+  return options;
 }
 
 export default runFormatTest;

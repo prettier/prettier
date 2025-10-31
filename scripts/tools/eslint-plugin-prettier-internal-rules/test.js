@@ -570,6 +570,19 @@ test("prefer-create-type-check-function", {
         'const isClassProperty = createTypeCheckFunction(["ClassProperty", "PropertyDefinition"]);',
       errors: 1,
     },
+    {
+      code: outdent`
+        const types = new Set(["ClassProperty", "PropertyDefinition"]);
+        if (types.has(node?.type)) {}
+        if (types.has((0, foo).type)) {}
+      `,
+      output: outdent`
+        const __please_rename_this_function_types =  createTypeCheckFunction(["ClassProperty", "PropertyDefinition"]);
+        if (__please_rename_this_function_types((node))) {}
+        if (__please_rename_this_function_types((0, foo))) {}
+      `,
+      errors: 1,
+    },
   ],
 });
 
@@ -945,6 +958,52 @@ test("massage-ast-parameter-names", {
     {
       code: "function clean(original, theClonedNode) {delete theClonedNode.property}",
       output: "function clean(original, cloned) {delete cloned.property}",
+      errors: 1,
+    },
+  ],
+});
+
+test("no-useless-ast-path-callback-parameter", {
+  valid: [
+    "path.call?.((childPath) => childPath)",
+    "path?.call((childPath) => childPath)",
+    "path[call]((childPath) => childPath)",
+    "path.notCall((childPath) => childPath)",
+    "not_ast_path.call((childPath) => childPath)",
+    "path.call(({first},) => first)",
+    "path.call((...a) => a)",
+    "path.call(notFunctionExpression)",
+    "path.callParent(({isFirst}, index) => index)",
+  ],
+  invalid: [
+    ...["call", "callParent", "each", "map"].map((method) => ({
+      code: `path.${method}((childPath) => childPath)`,
+      output: `path.${method}(() => path)`,
+      errors: 1,
+    })),
+    {
+      code: "path.call(function(childPath){childPath})",
+      output: "path.call(function(){path})",
+      errors: 1,
+    },
+    {
+      code: "path.call((childPath,) => childPath)",
+      output: "path.call(() => path)",
+      errors: 1,
+    },
+    {
+      code: "path.each((childPath,index, foo) => {})",
+      output: null,
+      errors: 3,
+    },
+    {
+      code: "fooPath.call((childPath) => childPath)",
+      output: "fooPath.call(() => fooPath)",
+      errors: 1,
+    },
+    {
+      code: "path.call((path) => path)",
+      output: "path.call(() => path)",
       errors: 1,
     },
   ],

@@ -1,5 +1,5 @@
 class A implements B {}
-class A implements B, C {}
-declare class A implements B {}
-declare class A mixins B implements C {}
-declare class A implements B, C {}
+class B implements B, C {}
+declare class C implements B {}
+declare class D mixins B implements C {}
+declare class E implements B, C {}

@@ -8,7 +8,13 @@ export default async function generateBundles({ dry, version, manual }) {
 
   await logPromise(
     "Generating bundles",
-    runYarn(["build", "--clean", "--print-size", "--compare-size"]),
+    runYarn([
+      "build",
+      "--package=prettier",
+      "--clean",
+      "--print-size",
+      "--compare-size",
+    ]),
   );
 
   const builtPkg = await readJson("dist/prettier/package.json");
@@ -17,12 +23,6 @@ export default async function generateBundles({ dry, version, manual }) {
       `Expected ${version} in dist/prettier/package.json but found ${builtPkg.version}`,
     );
   }
-
-  await logPromise(
-    "Running tests on generated bundles",
-    () => runYarn("test:dist"),
-    /* shouldSkip */ dry,
-  );
 
   console.log(styleText.green.bold("Build successful!\n"));
 }

@@ -282,25 +282,22 @@ function printTernary(path, options, print, args) {
     !isConsequentTernary &&
     hasComment(consequentNode, CommentCheckFlags.Dangling)
   ) {
-    path.call((childPath) => {
-      consequentComments.push(
-        printDanglingComments(childPath, options),
-        hardline,
-      );
+    path.call(() => {
+      consequentComments.push(printDanglingComments(path, options), hardline);
     }, "consequent");
   }
   const alternateComments = [];
   if (hasComment(node.test, CommentCheckFlags.Dangling)) {
-    path.call((childPath) => {
-      alternateComments.push(printDanglingComments(childPath, options));
+    path.call(() => {
+      alternateComments.push(printDanglingComments(path, options));
     }, "test");
   }
   if (
     !isAlternateTernary &&
     hasComment(alternateNode, CommentCheckFlags.Dangling)
   ) {
-    path.call((childPath) => {
-      alternateComments.push(printDanglingComments(childPath, options));
+    path.call(() => {
+      alternateComments.push(printDanglingComments(path, options));
     }, "alternate");
   }
   if (hasComment(node, CommentCheckFlags.Dangling)) {

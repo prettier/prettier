@@ -3,6 +3,7 @@ import stringify from "fast-json-stable-stringify";
 import { format, getFileInfo } from "../index.js";
 import { printToScreen } from "./utils.js";
 
+// Note: This does not work with `--config-precedence`
 async function logFileInfoOrDie(context) {
   const {
     fileInfo: file,

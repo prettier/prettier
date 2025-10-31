@@ -126,11 +126,25 @@ function isTopLevelFunction(node) {
   );
 }
 
-const selector = [
+const functionSelector = [
   ":function",
   "[params.length=1]",
   "[async!=true]",
   "[generator!=true]",
+].join("");
+
+const setDeclareSelector = [
+  "VariableDeclaration",
+  '[kind="const"]',
+  "[declarations.length=1]",
+  " > ",
+  "VariableDeclarator.declarations",
+  '[init.type="NewExpression"]',
+  '[init.callee.type="Identifier"]',
+  '[init.callee.name="Set"]',
+  "[init.arguments.length=1]",
+  '[init.arguments.0.type="ArrayExpression"]',
+  " > Identifier.id",
 ].join("");
 
 export default {
@@ -165,7 +179,7 @@ export default {
     const sourceCode = context.getSourceCode();
 
     return {
-      [selector](functionNode) {
+      [functionSelector](functionNode) {
         if (onlyTopLevelFunctions && !isTopLevelFunction(functionNode)) {
           return;
         }
@@ -251,6 +265,107 @@ export default {
         }
 
         context.report(problem);
+      },
+      [setDeclareSelector](identifier) {
+        const variable = sourceCode
+          .getDeclaredVariables(identifier.parent)
+          .find(
+            (variable) =>
+              variable.identifiers.length === 1 &&
+              variable.identifiers[0] === identifier,
+          );
+
+        if (!variable) {
+          return;
+        }
+
+        const { references } = variable;
+
+        if (references.length === 0) {
+          return;
+        }
+
+        const nodes = [];
+
+        for (const { identifier: referenceIdentifier } of references) {
+          if (referenceIdentifier === identifier) {
+            continue;
+          }
+
+          if (
+            !(
+              referenceIdentifier.parent.type === "MemberExpression" &&
+              referenceIdentifier.parent.object === referenceIdentifier &&
+              !referenceIdentifier.parent.optional &&
+              !referenceIdentifier.parent.computed &&
+              referenceIdentifier.parent.property.type === "Identifier" &&
+              referenceIdentifier.parent.property.name === "has" &&
+              referenceIdentifier.parent.parent.type === "CallExpression" &&
+              referenceIdentifier.parent.parent.callee ===
+                referenceIdentifier.parent &&
+              !referenceIdentifier.parent.parent.optional &&
+              referenceIdentifier.parent.parent.arguments.length === 1
+            )
+          ) {
+            return;
+          }
+
+          const [typeNode] = referenceIdentifier.parent.parent.arguments;
+          const memberExpression =
+            typeNode.type === "ChainExpression"
+              ? typeNode.expression
+              : typeNode;
+
+          if (
+            !(
+              memberExpression.type === "MemberExpression" &&
+              !memberExpression.computed &&
+              memberExpression.property.type === "Identifier" &&
+              memberExpression.property.name === "type"
+            )
+          ) {
+            return;
+          }
+
+          nodes.push({
+            setHasNode: referenceIdentifier.parent,
+            typeNode,
+            nodeNode: memberExpression.object,
+          });
+        }
+
+        if (nodes.length === 0) {
+          return;
+        }
+
+        context.report({
+          node: identifier,
+          messageId: MESSAGE_ID,
+          *fix(fixer) {
+            const { name } = identifier;
+            const replacement = `__please_rename_this_function_${name}`;
+
+            // Rename variable
+            yield fixer.replaceText(identifier, replacement);
+
+            // `new Set()` -> `createTypeCheckFunction()`
+            const newSet = identifier.parent.init;
+            const newToken = sourceCode.getFirstToken(newSet);
+            yield fixer.remove(newToken);
+            yield fixer.replaceText(newSet.callee, "createTypeCheckFunction");
+
+            for (const { setHasNode, typeNode, nodeNode } of nodes) {
+              // `set.has` -> `typeCheckFunction`
+              yield fixer.replaceText(setHasNode, replacement);
+
+              // `foo.type` -> `foo`
+              yield fixer.replaceText(
+                typeNode,
+                `(${sourceCode.getText(nodeNode)})`,
+              );
+            }
+          },
+        });
       },
     };
   },

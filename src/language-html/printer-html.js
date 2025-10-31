@@ -34,9 +34,7 @@ import { getTextValueParts, unescapeQuoteEntities } from "./utils/index.js";
 function genericPrint(path, options, print) {
   const { node } = path;
 
-  switch (node.type) {
-    case "front-matter":
-      return replaceEndOfLine(node.raw);
+  switch (node.kind) {
     case "root":
       if (options.__onHtmlRoot) {
         options.__onHtmlRoot(node);
@@ -80,7 +78,7 @@ function genericPrint(path, options, print) {
         printClosingTagEnd(node, options),
       ];
     case "text": {
-      if (node.parent.type === "interpolation") {
+      if (node.parent.kind === "interpolation") {
         // replace the trailing literalline with hardline for better readability
         const trailingNewlineRegex = /\n[^\S\n]*$/u;
         const hasTrailingNewline = trailingNewlineRegex.test(node.value);
@@ -136,6 +134,7 @@ function genericPrint(path, options, print) {
         quote,
       ];
     }
+    case "frontMatter": // Handled in core
     case "cdata": // Transformed into `text`
     default:
       /* c8 ignore next */
@@ -144,6 +143,13 @@ function genericPrint(path, options, print) {
 }
 
 const printer = {
+  features: {
+    experimental_frontMatterSupport: {
+      massageAstNode: true,
+      embed: true,
+      print: true,
+    },
+  },
   preprocess,
   print: genericPrint,
   insertPragma,

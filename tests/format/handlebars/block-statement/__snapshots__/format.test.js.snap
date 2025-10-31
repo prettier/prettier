@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`block-statement.hbs format 1`] = `
 ====================================options=====================================
@@ -483,6 +483,62 @@ printWidth: 80
 }}
   2
 {{/abcdefghijklmnopqrstuvwxyz-abcdefghijklmnopqrstuvwxyz-abcdefghijklmnopqrst}}
+================================================================================
+`;
+
+exports[`custome-if-else.hbs format 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<!-- foo-if -->
+{{#animated-if a}} a {{/animated-if}}
+
+{{#animated-if a}} a {{else}} else {{/animated-if}}
+
+{{#animated-if a}} a {{else if (b)}} b {{/animated-if}}
+{{#animated-if a}} a {{else if (b)}} b {{else if (c)}} c {{/animated-if}}
+
+{{#animated-if a}} a {{else if (b)}} b {{else}} else {{/animated-if}}
+{{#animated-if a}} a {{else if (b)}} b {{else if (c)}} c {{else}} else {{/animated-if}}
+
+<!-- unknown-->
+{{#unknown a}} a {{/unknown}}
+
+{{#unknown a}} a {{else}} else {{/unknown}}
+
+{{#unknown a}} a {{else if (b)}} b {{/unknown}}
+{{#unknown a}} a {{else if (b)}} b {{else if (c)}} c {{/unknown}}
+
+{{#unknown a}} a {{else if (b)}} b {{else}} else {{/unknown}}
+{{#unknown a}} a {{else if (b)}} b {{else if (c)}} c {{else}} else {{/unknown}}
+
+
+=====================================output=====================================
+<!-- foo-if -->
+{{#animated-if a}} a {{/animated-if}}
+
+{{#animated-if a}} a {{else}} else {{/animated-if}}
+
+{{#animated-if a}} a {{else if (b)}} b {{/animated-if}}
+{{#animated-if a}} a {{else if (b)}} b {{else if (c)}} c {{/animated-if}}
+
+{{#animated-if a}} a {{else if (b)}} b {{else}} else {{/animated-if}}
+{{#animated-if a}} a {{else if (b)}} b {{else if (c)}} c {{else}}
+  else
+{{/animated-if}}
+
+<!-- unknown-->
+{{#unknown a}} a {{/unknown}}
+
+{{#unknown a}} a {{else}} else {{/unknown}}
+
+{{#unknown a}} a {{else if (b)}} b {{/unknown}}
+{{#unknown a}} a {{else if (b)}} b {{else if (c)}} c {{/unknown}}
+
+{{#unknown a}} a {{else if (b)}} b {{else}} else {{/unknown}}
+{{#unknown a}} a {{else if (b)}} b {{else if (c)}} c {{else}} else {{/unknown}}
 ================================================================================
 `;
 

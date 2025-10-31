@@ -32,7 +32,7 @@ function createParseError(error) {
   return error;
 }
 
-function parse(text /*, options */) {
+function parse(text /* , options */) {
   let ast;
   try {
     ast = parseGraphql(text, parseOptions);

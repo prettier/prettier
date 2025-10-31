@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`API getSupportInfo() 1`] = `
 {
@@ -304,17 +304,16 @@ exports[`API getSupportInfo() 1`] = `
 }
 `;
 
-exports[`CLI --support-info (stderr) 1`] = `""`;
-
-exports[`CLI --support-info (stdout) 1`] = `
-"{
+exports[`CLI --support-info  1`] = `
+{
+  "stderr": "",
+  "stdout": "{
   "languages": [
     {
       "aceMode": "html",
       "aliases": ["xhtml"],
       "codemirrorMimeType": "text/html",
       "codemirrorMode": "htmlmixed",
-      "color": "#e34c26",
       "extensions": [".component.html"],
       "filenames": [],
       "linguistLanguageId": 146,
@@ -328,7 +327,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       "aceMode": "css",
       "codemirrorMimeType": "text/css",
       "codemirrorMode": "css",
-      "color": "#663399",
       "extensions": [".css", ".wxss"],
       "linguistLanguageId": 50,
       "name": "CSS",
@@ -342,7 +340,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       "aliases": [],
       "codemirrorMimeType": "text/javascript",
       "codemirrorMode": "javascript",
-      "color": "#f1e05a",
       "extensions": [".js.flow"],
       "filenames": [],
       "interpreters": [
@@ -365,8 +362,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       "vscodeLanguageIds": ["javascript"]
     },
     {
-      "aceMode": "text",
-      "color": "#e10098",
+      "aceMode": "graphqlschema",
       "extensions": [".graphql", ".gql", ".graphqls"],
       "linguistLanguageId": 139,
       "name": "GraphQL",
@@ -378,7 +374,6 @@ exports[`CLI --support-info (stdout) 1`] = `
     {
       "aceMode": "handlebars",
       "aliases": ["hbs", "htmlbars"],
-      "color": "#f7931e",
       "extensions": [".handlebars", ".hbs"],
       "linguistLanguageId": 155,
       "name": "Handlebars",
@@ -392,7 +387,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       "aliases": ["xhtml"],
       "codemirrorMimeType": "text/html",
       "codemirrorMode": "htmlmixed",
-      "color": "#e34c26",
       "extensions": [
         ".html",
         ".hta",
@@ -414,7 +408,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       "aliases": ["js", "node"],
       "codemirrorMimeType": "text/javascript",
       "codemirrorMode": "javascript",
-      "color": "#f1e05a",
       "extensions": [
         ".js",
         "._js",
@@ -478,7 +471,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       "aliases": ["geojson", "jsonl", "sarif", "topojson"],
       "codemirrorMimeType": "application/json",
       "codemirrorMode": "javascript",
-      "color": "#292929",
       "extensions": [
         ".json",
         ".4DForm",
@@ -512,12 +504,6 @@ exports[`CLI --support-info (stdout) 1`] = `
         ".tern-config",
         ".tern-project",
         ".watchmanconfig",
-        "MODULE.bazel.lock",
-        "Pipfile.lock",
-        "composer.lock",
-        "deno.lock",
-        "flake.lock",
-        "mcmod.info",
         ".babelrc",
         ".jscsrc",
         ".jshintrc",
@@ -536,7 +522,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       "aliases": ["jsonc"],
       "codemirrorMimeType": "text/javascript",
       "codemirrorMode": "javascript",
-      "color": "#292929",
       "extensions": [
         ".jsonc",
         ".code-snippets",
@@ -570,7 +555,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       "aliases": ["geojson", "jsonl", "sarif", "topojson"],
       "codemirrorMimeType": "application/json",
       "codemirrorMode": "javascript",
-      "color": "#292929",
       "extensions": [".importmap"],
       "filenames": ["package.json", "package-lock.json", "composer.json"],
       "linguistLanguageId": 174,
@@ -581,10 +565,9 @@ exports[`CLI --support-info (stdout) 1`] = `
       "vscodeLanguageIds": ["json"]
     },
     {
-      "aceMode": "javascript",
+      "aceMode": "json5",
       "codemirrorMimeType": "application/json",
       "codemirrorMode": "javascript",
-      "color": "#267CB9",
       "extensions": [".json5"],
       "linguistLanguageId": 175,
       "name": "JSON5",
@@ -617,9 +600,8 @@ exports[`CLI --support-info (stdout) 1`] = `
     {
       "aceMode": "less",
       "aliases": ["less-css"],
-      "codemirrorMimeType": "text/css",
+      "codemirrorMimeType": "text/x-less",
       "codemirrorMode": "css",
-      "color": "#1d365d",
       "extensions": [".less"],
       "linguistLanguageId": 198,
       "name": "Less",
@@ -633,7 +615,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       "aliases": ["xhtml"],
       "codemirrorMimeType": "text/html",
       "codemirrorMode": "htmlmixed",
-      "color": "#e34c26",
       "extensions": [],
       "filenames": [],
       "linguistLanguageId": 146,
@@ -648,7 +629,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       "aliases": ["md", "pandoc"],
       "codemirrorMimeType": "text/x-gfm",
       "codemirrorMode": "gfm",
-      "color": "#083fa1",
       "extensions": [
         ".md",
         ".livemd",
@@ -676,7 +656,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       "aliases": ["md", "pandoc"],
       "codemirrorMimeType": "text/x-gfm",
       "codemirrorMode": "gfm",
-      "color": "#083fa1",
       "extensions": [".mdx"],
       "filenames": [],
       "linguistLanguageId": 222,
@@ -692,7 +671,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       "aliases": ["MJML", "mjml"],
       "codemirrorMimeType": "text/html",
       "codemirrorMode": "htmlmixed",
-      "color": "#e34c26",
       "extensions": [".mjml"],
       "filenames": [],
       "linguistLanguageId": 146,
@@ -704,7 +682,6 @@ exports[`CLI --support-info (stdout) 1`] = `
     },
     {
       "aceMode": "text",
-      "color": "#dc3a0c",
       "extensions": [".pcss", ".postcss"],
       "group": "CSS",
       "linguistLanguageId": 262764437,
@@ -718,7 +695,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       "aceMode": "scss",
       "codemirrorMimeType": "text/x-scss",
       "codemirrorMode": "css",
-      "color": "#c6538c",
       "extensions": [".scss"],
       "linguistLanguageId": 329,
       "name": "SCSS",
@@ -728,10 +704,9 @@ exports[`CLI --support-info (stdout) 1`] = `
       "vscodeLanguageIds": ["scss"]
     },
     {
-      "aceMode": "javascript",
-      "codemirrorMimeType": "text/jsx",
+      "aceMode": "tsx",
+      "codemirrorMimeType": "text/typescript-jsx",
       "codemirrorMode": "jsx",
-      "color": "#3178c6",
       "extensions": [".tsx"],
       "group": "TypeScript",
       "linguistLanguageId": 94901924,
@@ -746,9 +721,8 @@ exports[`CLI --support-info (stdout) 1`] = `
       "aliases": ["ts"],
       "codemirrorMimeType": "application/typescript",
       "codemirrorMode": "javascript",
-      "color": "#3178c6",
       "extensions": [".ts", ".cts", ".mts"],
-      "interpreters": ["deno", "ts-node", "tsx"],
+      "interpreters": ["bun", "deno", "ts-node", "tsx"],
       "linguistLanguageId": 378,
       "name": "TypeScript",
       "parsers": ["typescript", "babel-ts"],
@@ -757,8 +731,9 @@ exports[`CLI --support-info (stdout) 1`] = `
       "vscodeLanguageIds": ["typescript"]
     },
     {
-      "aceMode": "html",
-      "color": "#41b883",
+      "aceMode": "vue",
+      "codemirrorMimeType": "text/x-vue",
+      "codemirrorMode": "vue",
       "extensions": [".vue"],
       "linguistLanguageId": 391,
       "name": "Vue",
@@ -772,7 +747,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       "aliases": ["yml"],
       "codemirrorMimeType": "text/x-yaml",
       "codemirrorMode": "yaml",
-      "color": "#cb171e",
       "extensions": [
         ".yml",
         ".mir",
@@ -1184,7 +1158,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       "type": "boolean"
     }
   ]
-}"
+}",
+  "write": [],
+}
 `;
-
-exports[`CLI --support-info (write) 1`] = `[]`;

@@ -2,6 +2,17 @@ import childProcess from "node:child_process";
 import path from "node:path";
 import url from "node:url";
 
+/**
+@typedef {{
+  isTTY?: boolean,
+  stdoutIsTTY?: boolean,
+  ci?: boolean,
+  mockWriteFileErrors?: Record<string, string>,
+  nodeOptions?: string[],
+  input?: string,
+}} CliTestOptions
+*/
+
 // Though the doc says `childProcess.fork` accepts `URL`, but seems not true
 // TODO: Use `URL` directly when we drop support for Node.js v14
 const CLI_WORKER_FILE = url.fileURLToPath(
@@ -10,13 +21,27 @@ const CLI_WORKER_FILE = url.fileURLToPath(
 const INTEGRATION_TEST_DIRECTORY = url.fileURLToPath(
   new URL("./", import.meta.url),
 );
-
+const IS_CI = Boolean(process.env.CI);
 const removeFinalNewLine = (string) =>
   string.endsWith("\n") ? string.slice(0, -1) : string;
-
 const SUPPORTS_DISABLE_WARNING_FLAG =
   Number(process.versions.node.split(".")[0]) >= 20;
+const promiseWithResolvers = Promise.withResolvers
+  ? Promise.withResolvers.bind(Promise)
+  : () => {
+      let resolve;
+      let reject;
+      const promise = new Promise(
+        (_resolve, _reject) => ([resolve, reject] = [_resolve, _reject]),
+      );
+      return { promise, resolve, reject };
+    };
 
+/**
+ * @param {string} dir
+ * @param {string[]} args
+ * @param {CliTestOptions} options
+ */
 function runCliWorker(dir, args, options) {
   const result = {
     status: undefined,
@@ -24,8 +49,39 @@ function runCliWorker(dir, args, options) {
     stderr: "",
     write: [],
   };
+  const { promise, resolve, reject } = promiseWithResolvers();
+  const createEpipeErrorHandler = (event) => (error) => {
+    if (!error) {
+      return;
+    }
+
+    // It can fail with `write EPIPE` error when running node with unsupported flags like `--experimental-strip-types`
+    // Let's ignore and wait for the `close` event
+    if (
+      error.code === "EPIPE" &&
+      error.syscall === "write" &&
+      nodeOptions.length > 0
+    ) {
+      if (IS_CI) {
+        // eslint-disable-next-line no-console
+        console.error(
+          Object.assign(error, { event, dir, args, options, worker }),
+        );
+      }
+      return;
+    }
+
+    reject(error);
+  };
 
   const nodeOptions = options?.nodeOptions ?? [];
+  const env = {
+    ...process.env,
+    ...options.env,
+    NO_COLOR: "1",
+  };
+  delete env.FORCE_COLOR;
+
   const worker = childProcess.fork(CLI_WORKER_FILE, args, {
     cwd: dir,
     execArgv: [
@@ -35,17 +91,16 @@ function runCliWorker(dir, args, options) {
         : []),
       ...nodeOptions,
     ],
-    stdio: "pipe",
-    env: {
-      ...process.env,
-      NO_COLOR: "1",
-    },
+    stdio: [options.input ? "pipe" : "ignore", "pipe", "pipe", "ipc"],
+    env,
+    serialization: "advanced",
   });
-  worker.unref();
 
-  worker.on("message", ({ action, data }) => {
-    if (action === "write-file") {
-      result.write.push(data);
+  worker.on("message", (message) => {
+    if (message.type === "cli:write-file") {
+      result.write.push(message.data);
+    } else if (message.type === "worker:fault") {
+      reject(message.error);
     }
   });
 
@@ -61,19 +116,26 @@ function runCliWorker(dir, args, options) {
     }
   };
 
-  return new Promise((resolve, reject) => {
-    worker.once("close", (code) => {
-      result.status = code;
-      removeStdioFinalNewLine();
-      resolve(result);
-    });
-
-    worker.once("error", (error) => {
-      reject(error);
-    });
-
-    worker.send(options);
+  worker.once("close", (code) => {
+    result.status = code;
+    removeStdioFinalNewLine();
+    resolve(result);
   });
+
+  worker.once("error", (error) => {
+    reject(error);
+  });
+
+  worker.once("spawn", () => {
+    if (options.input) {
+      worker.stdin.once("error", createEpipeErrorHandler("worker.stdin.end()"));
+      worker.stdin.end(options.input);
+    }
+
+    worker.send(options, createEpipeErrorHandler("worker.send()"));
+  });
+
+  return promise;
 }
 
 function runPrettierCli(dir, args, options) {
@@ -83,6 +145,11 @@ function runPrettierCli(dir, args, options) {
   return runCliWorker(dir, args, options);
 }
 
+/**
+ * @param {string} dir
+ * @param {string[]} [args]
+ * @param {CliTestOptions} [options]
+ */
 function runCli(dir, args = [], options = {}) {
   const promise = runPrettierCli(dir, args, options);
   const getters = {
@@ -107,9 +174,11 @@ function runCli(dir, args = [], options = {}) {
   return getters;
 
   function testResult(testOptions) {
-    for (const name of ["status", "stdout", "stderr", "write"]) {
-      test(`${options.title || ""}(${name})`, async () => {
-        const result = await promise;
+    test(options.title || "", async () => {
+      const result = await promise;
+
+      let snapshot;
+      for (const name of ["status", "stdout", "stderr", "write"]) {
         let value = result[name];
         // \r is trimmed from jest snapshots by default;
         // manually replacing this character with /*CR*/ to test its true presence
@@ -130,10 +199,15 @@ function runCli(dir, args = [], options = {}) {
             expect(value).toEqual(testOptions[name]);
           }
         } else {
-          expect(value).toMatchSnapshot();
+          snapshot = snapshot ?? {};
+          snapshot[name] = value;
         }
-      });
-    }
+      }
+
+      if (snapshot) {
+        expect(snapshot).toMatchSnapshot();
+      }
+    });
 
     return getters;
   }

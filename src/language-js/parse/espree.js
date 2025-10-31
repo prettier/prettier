@@ -3,7 +3,10 @@ import createError from "../../common/parser-create-error.js";
 import tryCombinations from "../../utils/try-combinations.js";
 import postprocess from "./postprocess/index.js";
 import createParser from "./utils/create-parser.js";
-import getSourceType from "./utils/get-source-type.js";
+import {
+  getSourceType,
+  SOURCE_TYPE_COMBINATIONS,
+} from "./utils/source-types.js";
 
 /** @import {Options} from "espree" */
 
@@ -11,10 +14,9 @@ import getSourceType from "./utils/get-source-type.js";
 const parseOptions = {
   ecmaVersion: "latest",
   range: true,
-  loc: true,
+  loc: false,
   comment: true,
-  tokens: true,
-  sourceType: "module",
+  tokens: false,
   ecmaFeatures: {
     jsx: true,
     globalReturn: true,
@@ -36,15 +38,12 @@ function createParseError(error) {
   });
 }
 
-function parse(text, options = {}) {
-  const sourceType = getSourceType(options);
-  // prettier-ignore
+function parse(text, options) {
+  const sourceType = getSourceType(options?.filepath);
   const combinations = (
-    sourceType
-      ? /** @type {const} */([sourceType])
-      : /** @type {const} */(["module", "script"])
+    sourceType ? [sourceType] : SOURCE_TYPE_COMBINATIONS
   ).map(
-    (sourceType) => () => espreeParse(text, { ...parseOptions, sourceType })
+    (sourceType) => () => espreeParse(text, { ...parseOptions, sourceType }),
   );
 
   let ast;

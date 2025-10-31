@@ -147,11 +147,15 @@ function printCommaSeparatedValueGroup(path, options, print) {
       continue;
     }
 
-    // styled.div` background: var(--${one}); `
+    // We should keep spaces between words in a embedded JS expression
+    // examples:
+    //   styled.div` font-size: var(--font-size-h${({ level }) => level}); `;
+    //   styled.div` grid-area: area-${({ area }) => area}; `;
+    //   styled.div` border: 1px ${solid} red; `;
     if (
       iNode.type === "value-word" &&
-      iNode.value.endsWith("-") &&
-      isAtWordPlaceholderNode(iNextNode)
+      isAtWordPlaceholderNode(iNextNode) &&
+      locEnd(iNode) === locStart(iNextNode)
     ) {
       continue;
     }
@@ -187,9 +191,9 @@ function printCommaSeparatedValueGroup(path, options, print) {
       iNode.type === "value-atword" &&
       (iNode.value === "" ||
         /*
-            @var[ @notVarNested ][notVar]
-            ^^^^^
-            */
+        @var[ @notVarNested ][notVar]
+        ^^^^^
+        */
         iNode.value.endsWith("["))
     ) {
       continue;
@@ -206,6 +210,38 @@ function printCommaSeparatedValueGroup(path, options, print) {
     // Ignore `~` in Less (i.e. `content: ~"^//* some horrible but needed css hack";`)
     if (iNode.value === "~") {
       continue;
+    }
+
+    // Less property/variable lookup
+    // https://lesscss.org/features/#detached-rulesets-feature-property-variable-accessors
+    if (options.parser === "less") {
+      // `var [@result]`
+      //      ^
+      if (iNextNode?.type === "value-word" && iNextNode.value === "[") {
+        continue;
+      }
+
+      // `var[ @result]`
+      //     ^
+      // `@var [ @@foo ] [ bar ]`
+      //                 ^
+      if (
+        iNode.type === "value-word" &&
+        iNode.value === "[" &&
+        (iNextNode?.type === "value-atword" || iNextNode?.type === "value-word")
+      ) {
+        continue;
+      }
+
+      // `@var [ @@foo ][ bar ]`
+      //               ^^
+      if (
+        iNode.type === "value-word" &&
+        iNode.value === "][" &&
+        iNextNode?.type === "value-word"
+      ) {
+        continue;
+      }
     }
 
     // Ignore escape `\`
@@ -301,17 +337,6 @@ function printCommaSeparatedValueGroup(path, options, print) {
       isColorAdjusterFuncNode(parentParentNode) &&
       !hasEmptyRawBefore(iNextNode);
 
-    const requireSpaceBeforeOperator =
-      iNextNextNode?.type === "value-func" ||
-      (iNextNextNode && isWordNode(iNextNextNode)) ||
-      iNode.type === "value-func" ||
-      isWordNode(iNode);
-    const requireSpaceAfterOperator =
-      iNextNode.type === "value-func" ||
-      isWordNode(iNextNode) ||
-      iPrevNode?.type === "value-func" ||
-      (iPrevNode && isWordNode(iPrevNode));
-
     // Space before unary minus followed by a function call.
     if (
       options.parser === "scss" &&
@@ -323,6 +348,17 @@ function printCommaSeparatedValueGroup(path, options, print) {
       parts.push([parts.pop(), " "]);
       continue;
     }
+
+    const requireSpaceBeforeOperator =
+      iNextNextNode?.type === "value-func" ||
+      (iNextNextNode && isWordNode(iNextNextNode)) ||
+      iNode.type === "value-func" ||
+      isWordNode(iNode);
+    const requireSpaceAfterOperator =
+      iNextNode.type === "value-func" ||
+      isWordNode(iNextNode) ||
+      iPrevNode?.type === "value-func" ||
+      (iPrevNode && isWordNode(iPrevNode));
 
     // Formatting `/`, `+`, `-` sign
     if (
@@ -405,6 +441,28 @@ function printCommaSeparatedValueGroup(path, options, print) {
       continue;
     }
 
+    // Formatting `font` property
+    if (
+      declAncestorProp &&
+      (declAncestorProp === "font" || declAncestorProp.startsWith("--"))
+    ) {
+      if (
+        isDivisionNode(iNextNode) &&
+        hasEmptyRawBefore(iNextNode) &&
+        isPossibleFontSize(iNode)
+      ) {
+        continue;
+      }
+
+      if (
+        isDivisionNode(iNode) &&
+        hasEmptyRawBefore(iNode) &&
+        isPossibleFontSize(iPrevNode)
+      ) {
+        continue;
+      }
+    }
+
     // Add `space` before next math operation
     // Note: `grip` property have `/` delimiter and it is not math operation, so
     // `grid` property handles above
@@ -479,6 +537,26 @@ function printCommaSeparatedValueGroup(path, options, print) {
   }
 
   return group(indent(fill(parts)));
+}
+
+function isPossibleFontSize(node) {
+  if (node?.type === "value-number") {
+    return true;
+  }
+
+  if (node?.type !== "value-func") {
+    return false;
+  }
+
+  const value = node.value.toLowerCase();
+  return (
+    value === "var" ||
+    value === "calc" ||
+    value === "min" ||
+    value === "max" ||
+    value === "clamp" ||
+    value.startsWith("--")
+  );
 }
 
 export default printCommaSeparatedValueGroup;

@@ -5,7 +5,11 @@ import getShebang from "../utils/get-shebang.js";
 import postprocess from "./postprocess/index.js";
 import createBabelParseError from "./utils/create-babel-parse-error.js";
 import createParser from "./utils/create-parser.js";
-import getSourceType from "./utils/get-source-type.js";
+import {
+  getSourceType,
+  SOURCE_TYPE_MODULE,
+  SOURCE_TYPE_SCRIPT,
+} from "./utils/source-types.js";
 import wrapBabelExpression from "./utils/wrap-babel-expression.js";
 
 const createBabelParser = (options) => createParser(createParse(options));
@@ -18,7 +22,7 @@ const createBabelParser = (options) => createParser(createParse(options));
 
 /** @type {ParserOptions} */
 const parseOptions = {
-  sourceType: "module",
+  sourceType: SOURCE_TYPE_MODULE,
   allowImportExportEverywhere: true,
   allowReturnOutsideFunction: true,
   allowNewTargetOutsideFunction: true,
@@ -26,7 +30,7 @@ const parseOptions = {
   allowUndeclaredExports: true,
   errorRecovery: true,
   createParenthesizedExpressions: true,
-  createImportExpressions: true,
+  attachComment: false,
   plugins: [
     // When adding a plugin, please add a test in `tests/format/js/babel-plugins`,
     // To remove plugins, remove it here and run `yarn test tests/format/js/babel-plugins` to verify
@@ -41,13 +45,15 @@ const parseOptions = {
     "asyncDoExpressions",
     "destructuringPrivate",
     "decoratorAutoAccessors",
-    "explicitResourceManagement",
     "sourcePhaseImports",
     "deferredImportEvaluation",
     ["optionalChainingAssign", { version: "2023-07" }],
+    ["discardBinding", { syntaxType: "void" }],
   ],
-  tokens: true,
-  ranges: true,
+  tokens: false,
+  // Ranges not available on comments, so we use `Node#{start,end}` instead
+  // https://github.com/babel/babel/issues/15115
+  ranges: false,
 };
 
 /** @type {ParserPlugin} */
@@ -67,8 +73,8 @@ const appendPlugins = (plugins, options = parseOptions) => ({
 // Similar to babel
 // https://github.com/babel/babel/pull/7934/files#diff-a739835084910b0ee3ea649df5a4d223R67
 const FLOW_PRAGMA_REGEX = /@(?:no)?flow\b/u;
-function isFlowFile(text, options) {
-  if (options.filepath?.endsWith(".js.flow")) {
+function isFlowFile(text, filepath) {
+  if (filepath?.endsWith(".js.flow")) {
     return true;
   }
 
@@ -100,20 +106,25 @@ function parseWithOptions(parse, text, options) {
 
 function createParse({ isExpression = false, optionsCombinations }) {
   return (text, options = {}) => {
+    let { filepath } = options;
+    if (typeof filepath !== "string") {
+      filepath = undefined;
+    }
+
     if (
       (options.parser === "babel" || options.parser === "__babel_estree") &&
-      isFlowFile(text, options)
+      isFlowFile(text, filepath)
     ) {
       options.parser = "babel-flow";
       return babelFlow.parse(text, options);
     }
 
     let combinations = optionsCombinations;
-    const sourceType = options.__babelSourceType ?? getSourceType(options);
-    if (sourceType === "script") {
+    const sourceType = options.__babelSourceType ?? getSourceType(filepath);
+    if (sourceType === SOURCE_TYPE_SCRIPT) {
       combinations = combinations.map((options) => ({
         ...options,
-        sourceType: "script",
+        sourceType,
       }));
     }
 
@@ -151,7 +162,7 @@ function createParse({ isExpression = false, optionsCombinations }) {
       ast = wrapBabelExpression(ast, { text, rootMarker: options.rootMarker });
     }
 
-    return postprocess(ast, { parser: "babel", text });
+    return postprocess(ast, { text });
   };
 }
 
@@ -170,8 +181,6 @@ const allowedReasonCodes = new Set([
   "StrictFunction",
   "ForInOfLoopInitializer",
 
-  "EmptyTypeArguments",
-  "EmptyTypeParameters",
   "ConstructorHasTypeParameters",
 
   "UnsupportedParameterPropertyKind",
@@ -184,15 +193,12 @@ const allowedReasonCodes = new Set([
   "UnterminatedJsxContent",
   "UnexpectedReservedWord",
   "ModuleAttributesWithDuplicateKeys",
-  "LineTerminatorBeforeArrow",
   "InvalidEscapeSequenceTemplate",
   "NonAbstractClassHasAbstractMethod",
   "OptionalTypeBeforeRequired",
   "PatternIsOptional",
-  "OptionalBindingPattern",
   "DeclareClassFieldHasInitializer",
   "TypeImportCannotSpecifyDefaultAndNamed",
-  "ConstructorClassField",
 
   "VarRedeclaration",
   "InvalidPrivateFieldResolution",
@@ -206,6 +212,16 @@ const allowedReasonCodes = new Set([
   ```
   */
   "ImportAttributesUseAssert",
+
+  /*
+  Allow const without initializer in `.d.ts` files
+  https://github.com/prettier/prettier/issues/17649
+
+  ```
+  export const version: string;
+  ```
+  */
+  "DeclarationMissingInitializer",
 ]);
 
 const babelParserOptionsCombinations = [appendPlugins(["jsx"])];
@@ -237,21 +253,21 @@ const babelEstree = createBabelParser({
   ),
 });
 
-export default {
-  babel,
-  "babel-flow": babelFlow,
-  "babel-ts": babelTs,
-  /** @internal */
-  __js_expression: babelExpression,
-  __ts_expression: babelTSExpression,
+export { babel, babelFlow as "babel-flow", babelTs as "babel-ts" };
+
+/** @internal */
+// eslint-disable-next-line simple-import-sort/exports
+export {
+  babelExpression as __js_expression,
+  babelTSExpression as __ts_expression,
   /** for vue filter */
-  __vue_expression: babelExpression,
+  babelExpression as __vue_expression,
   /** for vue filter written in TS */
-  __vue_ts_expression: babelTSExpression,
+  babelTSExpression as __vue_ts_expression,
   /** for vue event binding to handle semicolon */
-  __vue_event_binding: babel,
+  babel as __vue_event_binding,
   /** for vue event binding written in TS to handle semicolon */
-  __vue_ts_event_binding: babelTs,
+  babelTs as __vue_ts_event_binding,
   /** verify that we can print this AST */
-  __babel_estree: babelEstree,
+  babelEstree as __babel_estree,
 };

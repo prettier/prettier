@@ -2,7 +2,7 @@
  * @import {Doc} from "../../document/builders.js"
  */
 
-import assert from "node:assert";
+import * as assert from "#universal/assert";
 import {
   hardline,
   indent,
@@ -75,7 +75,7 @@ function printClosingTagStartMarker(node, options) {
   if (shouldNotPrintClosingTag(node, options)) {
     return "";
   }
-  switch (node.type) {
+  switch (node.kind) {
     case "ieConditionalComment":
       return "<!";
     case "element":
@@ -92,7 +92,7 @@ function printClosingTagEndMarker(node, options) {
   if (shouldNotPrintClosingTag(node, options)) {
     return "";
   }
-  switch (node.type) {
+  switch (node.kind) {
     case "ieConditionalComment":
     case "ieConditionalEndComment":
       return "[endif]-->";
@@ -132,8 +132,8 @@ function needsToBorrowPrevClosingTagEndMarker(node) {
    */
   return (
     node.prev &&
-    node.prev.type !== "docType" &&
-    node.type !== "angularControlFlowBlock" &&
+    node.prev.kind !== "docType" &&
+    node.kind !== "angularControlFlowBlock" &&
     !isTextLikeNode(node.prev) &&
     node.isLeadingSpaceSensitive &&
     !node.hasLeadingSpaces
@@ -232,7 +232,7 @@ function printAttributes(path, options, print) {
   }
 
   const ignoreAttributeData =
-    node.prev?.type === "comment" &&
+    node.prev?.kind === "comment" &&
     getPrettierIgnoreAttributeCommentData(node.prev.value);
 
   const hasPrettierIgnoreAttribute =
@@ -253,7 +253,7 @@ function printAttributes(path, options, print) {
   );
 
   const forceNotToBreakAttrContent =
-    node.type === "element" &&
+    node.kind === "element" &&
     node.fullName === "script" &&
     node.attrs.length === 1 &&
     node.attrs[0].fullName === "src" &&
@@ -344,7 +344,7 @@ function printOpeningTagPrefix(node, options) {
 
 const HTML5_DOCTYPE_START_MARKER = "<!doctype";
 function printOpeningTagStartMarker(node, options) {
-  switch (node.type) {
+  switch (node.kind) {
     case "ieConditionalComment":
     case "ieConditionalStartComment":
       return `<!--[if ${node.condition}`;
@@ -355,15 +355,17 @@ function printOpeningTagStartMarker(node, options) {
     case "docType": {
       // Only lowercase HTML5 doctype in `.html` and `.htm` files
       if (node.value === "html") {
-        const filepath = options.filepath ?? "";
-        if (/\.html?$/u.test(filepath)) {
+        const { filepath } = options;
+        if (filepath && /\.html?$/u.test(filepath)) {
           return HTML5_DOCTYPE_START_MARKER;
         }
       }
 
-      const original = options.originalText.slice(locStart(node), locEnd(node));
-
-      return original.slice(0, HTML5_DOCTYPE_START_MARKER.length);
+      const start = locStart(node);
+      return options.originalText.slice(
+        start,
+        start + HTML5_DOCTYPE_START_MARKER.length,
+      );
     }
 
     case "angularIcuExpression":
@@ -383,7 +385,7 @@ function printOpeningTagEndMarker(node) {
   if (process.env.NODE_ENV !== "production") {
     assert.ok(!node.isSelfClosing);
   }
-  switch (node.type) {
+  switch (node.kind) {
     case "ieConditionalComment":
       return "]>";
     case "element":

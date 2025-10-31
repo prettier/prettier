@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`comments.js [acorn] format 1`] = `
 "Unexpected token (1:32)
@@ -28,6 +28,15 @@ exports[`comments.js [meriyah] format 1`] = `
   3 |   export const foo = "foo";
   4 |   export { foo }; /*A5*/
 Cause: [1:31-1:32]: Unexpected token: '{'"
+`;
+
+exports[`comments.js [oxc] format 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found none (1:24)
+> 1 | const m = /*A1*/ module /*A2*/ { /*A3*/
+    |                        ^
+  2 |   /*A4*/
+  3 |   export const foo = "foo";
+  4 |   export { foo }; /*A5*/"
 `;
 
 exports[`comments.js format 1`] = `
@@ -91,6 +100,15 @@ exports[`module-blocks.js [meriyah] format 1`] = `
   3 | class B {
   4 |   #p() {
 Cause: [1:7-1:8]: Unexpected token: '{'"
+`;
+
+exports[`module-blocks.js [oxc] format 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found none (1:7)
+> 1 | module { await 3 };
+    |       ^
+  2 |
+  3 | class B {
+  4 |   #p() {"
 `;
 
 exports[`module-blocks.js format 1`] = `
@@ -240,6 +258,15 @@ exports[`range.js [meriyah] format 1`] = `
 Cause: [1:25-1:26]: Unexpected token: '{'"
 `;
 
+exports[`range.js [oxc] format 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found none (1:25)
+> 1 | let moduleBlock = module {  export let y = 1;
+    |                         ^
+  2 | };
+  3 |
+  4 | foo(module { export let foo = "foo"; })"
+`;
+
 exports[`range.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
@@ -264,85 +291,6 @@ let moduleBlock = module {
 
 foo(module {
   export let foo = "foo";
-});
-
-================================================================================
-`;
-
-exports[`worker.js [acorn] format 1`] = `
-"Unexpected token (1:32)
-> 1 | let worker = new Worker(module {
-    |                                ^
-  2 |   onmessage = function({data}) {
-  3 |     let mod = import(data);
-  4 |     postMessage(mod.fn());
-Cause: Unexpected token (1:31)"
-`;
-
-exports[`worker.js [espree] format 1`] = `
-"Unexpected token { (1:32)
-> 1 | let worker = new Worker(module {
-    |                                ^
-  2 |   onmessage = function({data}) {
-  3 |     let mod = import(data);
-  4 |     postMessage(mod.fn());
-Cause: Unexpected token {"
-`;
-
-exports[`worker.js [meriyah] format 1`] = `
-"Expected ')' (1:32)
-> 1 | let worker = new Worker(module {
-    |                                ^
-  2 |   onmessage = function({data}) {
-  3 |     let mod = import(data);
-  4 |     postMessage(mod.fn());
-Cause: [1:31-1:32]: Expected ')'"
-`;
-
-exports[`worker.js format 1`] = `
-====================================options=====================================
-parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-let worker = new Worker(module {
-  onmessage = function({data}) {
-    let mod = import(data);
-    postMessage(mod.fn());
-  }
-}, {type: "module"});
-
-let worker = new Worker(module {
-  onmessage = function({data}) {
-    let mod = import(data);
-    postMessage(mod.fn());
-  }
-}, {type: "module", foo: "bar" });
-
-worker.postMessage(module { export function fn() { return "hello!" } });
-
-=====================================output=====================================
-let worker = new Worker(module {
-  onmessage = function ({ data }) {
-    let mod = import(data);
-    postMessage(mod.fn());
-  };
-}, { type: "module" });
-
-let worker = new Worker(
-  module {
-    onmessage = function ({ data }) {
-      let mod = import(data);
-      postMessage(mod.fn());
-    };
-  },
-  { type: "module", foo: "bar" },
-);
-
-worker.postMessage(module {
-  export function fn() {
-    return "hello!";
-  }
 });
 
 ================================================================================

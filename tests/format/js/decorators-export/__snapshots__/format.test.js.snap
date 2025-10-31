@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`after_export.js [acorn] format 1`] = `
 "Unexpected character '@' (1:8)
@@ -18,16 +18,6 @@ exports[`after_export.js [espree] format 1`] = `
   3 | export default @decorator class {}
   4 |
 Cause: Unexpected character '@'"
-`;
-
-exports[`after_export.js [meriyah] format 1`] = `
-"Unexpected token: '@' (1:8)
-> 1 | export @decorator class Foo {}
-    |        ^
-  2 |
-  3 | export default @decorator class {}
-  4 |
-Cause: [1:7-1:8]: Unexpected token: '@'"
 `;
 
 exports[`after_export.js format 1`] = `

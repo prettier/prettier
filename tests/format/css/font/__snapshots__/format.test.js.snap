@@ -1,0 +1,81 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`font.css format 1`] = `
+====================================options=====================================
+parsers: ["css", "scss", "less"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+.font {
+  /* No space */
+  font: 1rem/1;
+  --custom-font: 1rem/1;
+  font: var(--size)/2;
+  --custom-font: var(--size)/2;
+  font: calc(var(--size)/2)/2;
+  font: min(1px, 2px)/2;
+  font: max(1px, 2px)/2;
+  font: clamp(1px, 2px, 3px)/2;
+
+  /* Space around */
+  font: 1rem   /   1;
+  --font: 1rem   /   1;
+  font: --custom(1px)   /   2;
+  --font: --custom(1px)   /   2;
+  font: calc(var(--size)   /   2)   /   2;
+  font: min(1px, 2px)   /   2;
+  font: max(1px, 2px)   /   2;
+  font: clamp(1px, 2px, 3px)   /   2;
+  font: --custom(1px)   /   2;
+
+  /* Space before */
+  font: 1rem   /1;
+  --font: 1rem   /1;
+  font: --custom(1px)   /2; /* Bug*/
+  --font: --custom(1px)   /2; /* Bug*/
+
+  /* Space after */
+  font: 1rem/   1; /* Bug*/
+  --font: 1rem/   1; /* Bug*/
+  font: --custom(1px)/   2; /* Bug*/
+  --font: --custom(1px)/   2; /* Bug*/
+}
+
+=====================================output=====================================
+.font {
+  /* No space */
+  font: 1rem/1;
+  --custom-font: 1rem/1;
+  font: var(--size)/2;
+  --custom-font: var(--size)/2;
+  font: calc(var(--size)/2)/2;
+  font: min(1px, 2px)/2;
+  font: max(1px, 2px)/2;
+  font: clamp(1px, 2px, 3px)/2;
+
+  /* Space around */
+  font: 1rem / 1;
+  --font: 1rem / 1;
+  font: --custom(1px) / 2;
+  --font: --custom(1px) / 2;
+  font: calc(var(--size) / 2) / 2;
+  font: min(1px, 2px) / 2;
+  font: max(1px, 2px) / 2;
+  font: clamp(1px, 2px, 3px) / 2;
+  font: --custom(1px) / 2;
+
+  /* Space before */
+  font: 1rem /1;
+  --font: 1rem /1;
+  font: --custom(1px) / 2; /* Bug*/
+  --font: --custom(1px) / 2; /* Bug*/
+
+  /* Space after */
+  font: 1rem/1; /* Bug*/
+  --font: 1rem/1; /* Bug*/
+  font: --custom(1px)/2; /* Bug*/
+  --font: --custom(1px)/2; /* Bug*/
+}
+
+================================================================================
+`;

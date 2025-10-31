@@ -142,39 +142,18 @@ function hasEndComments(node) {
 }
 
 /**
- * " a   b c   d e   f " -> [" a   b", "c   d", "e   f "]
- */
+" a   b c   d e   f " -> [" a   b", "c   d", "e   f "]
+
+@param {string} text
+*/
 function splitWithSingleSpace(text) {
-  const parts = [];
-
-  let lastPart;
-  for (const part of text.split(/( +)/u)) {
-    if (part !== " ") {
-      if (lastPart === " ") {
-        parts.push(part);
-      } else {
-        parts.push((parts.pop() || "") + part);
-      }
-    } else if (lastPart === undefined) {
-      parts.unshift("");
-    }
-
-    lastPart = part;
-  }
-
-  /* c8 ignore next 3 */
-  if (lastPart === " ") {
-    parts.push((parts.pop() || "") + " ");
-  }
-
-  if (parts[0] === "") {
-    parts.shift();
-    parts.unshift(" " + (parts.shift() || ""));
-  }
-
-  return parts;
+  return text ? text.split(/(?<!^| ) (?! |$)/u) : [];
 }
 
+/**
+@param {string} nodeType
+@param {string} content
+*/
 function getFlowScalarLineContents(nodeType, content, options) {
   const rawLineContents = content
     .split("\n")
@@ -190,38 +169,40 @@ function getFlowScalarLineContents(nodeType, content, options) {
 
   if (options.proseWrap === "preserve") {
     return rawLineContents.map((lineContent) =>
-      lineContent.length === 0 ? [] : [lineContent],
+      lineContent ? [lineContent] : [],
     );
   }
 
-  return rawLineContents
-    .map((lineContent) =>
-      lineContent.length === 0 ? [] : splitWithSingleSpace(lineContent),
-    )
-    .reduce(
-      (reduced, lineContentWords, index) =>
-        index !== 0 &&
-        rawLineContents[index - 1].length > 0 &&
-        lineContentWords.length > 0 &&
-        !(
-          // trailing backslash in quoteDouble should be preserved
-          (nodeType === "quoteDouble" && reduced.at(-1).at(-1).endsWith("\\"))
-        )
-          ? [...reduced.slice(0, -1), [...reduced.at(-1), ...lineContentWords]]
-          : [...reduced, lineContentWords],
-      [],
-    )
-    .map((lineContentWords) =>
-      options.proseWrap === "never"
-        ? [lineContentWords.join(" ")]
-        : lineContentWords,
-    );
+  /** @type {string[][]} */
+  const lines = [];
+  for (const [index, line] of rawLineContents.entries()) {
+    const words = splitWithSingleSpace(line);
+
+    if (
+      index > 0 &&
+      rawLineContents[index - 1].length > 0 &&
+      words.length > 0 &&
+      !(
+        // trailing backslash in quoteDouble should be preserved
+        (nodeType === "quoteDouble" && lines.at(-1).at(-1).endsWith("\\"))
+      )
+    ) {
+      lines[lines.length - 1] = [...lines.at(-1), ...words];
+    } else {
+      lines.push(words);
+    }
+  }
+
+  return options.proseWrap === "never"
+    ? lines.map((words) => [words.join(" ")])
+    : lines;
 }
 
 function getBlockValueLineContents(
   node,
   { parentIndent, isLastDescendant, options },
 ) {
+  /** @type {string} */
   const content =
     node.position.start.line === node.position.end.line
       ? ""
@@ -230,6 +211,7 @@ function getBlockValueLineContents(
           // exclude open line `>` or `|`
           .match(/^[^\n]*\n(.*)$/su)[1];
 
+  /** @type {number} */
   let leadingSpaceCount;
   if (node.indent === null) {
     const matches = content.match(/^(?<leadingSpace> *)[^\n\r ]/mu);
@@ -246,48 +228,53 @@ function getBlockValueLineContents(
 
   if (options.proseWrap === "preserve" || node.type === "blockLiteral") {
     return removeUnnecessaryTrailingNewlines(
-      rawLineContents.map((lineContent) =>
-        lineContent.length === 0 ? [] : [lineContent],
-      ),
+      rawLineContents.map((lineContent) => (lineContent ? [lineContent] : [])),
     );
   }
 
-  return removeUnnecessaryTrailingNewlines(
-    rawLineContents
-      .map((lineContent) =>
-        lineContent.length === 0 ? [] : splitWithSingleSpace(lineContent),
-      )
-      .reduce(
-        (reduced, lineContentWords, index) =>
-          index !== 0 &&
-          rawLineContents[index - 1].length > 0 &&
-          lineContentWords.length > 0 &&
-          !/^\s/u.test(lineContentWords[0]) &&
-          !/^\s|\s$/u.test(reduced.at(-1))
-            ? [
-                ...reduced.slice(0, -1),
-                [...reduced.at(-1), ...lineContentWords],
-              ]
-            : [...reduced, lineContentWords],
-        [],
-      )
-      .map((lineContentWords) =>
-        lineContentWords.reduce(
-          (reduced, word) =>
-            // disallow trailing spaces
-            reduced.length > 0 && /\s$/u.test(reduced.at(-1))
-              ? [...reduced.slice(0, -1), reduced.at(-1) + " " + word]
-              : [...reduced, word],
-          [],
-        ),
-      )
-      .map((lineContentWords) =>
-        options.proseWrap === "never"
-          ? [lineContentWords.join(" ")]
-          : lineContentWords,
-      ),
-  );
+  /** @type {string[][]} */
+  let lines = [];
+  for (const [index, line] of rawLineContents.entries()) {
+    const words = splitWithSingleSpace(line);
 
+    if (
+      index > 0 &&
+      words.length > 0 &&
+      rawLineContents[index - 1].length > 0 &&
+      !/^\s/u.test(words[0]) &&
+      // This test against a `string[]`, should be a mistake
+      // originally introduced in https://github.com/prettier/prettier/pull/4742/files#diff-a4dc2e1922e1d8d5ac20818480f777c9a2d5af739eaa3a0409b08bf29a9d0f74R282
+      // @ts-expect-error -- see comment above
+      !/^\s|\s$/u.test(lines.at(-1))
+    ) {
+      lines[lines.length - 1] = [...lines.at(-1), ...words];
+    } else {
+      lines.push(words);
+    }
+  }
+
+  lines = lines.map((originalWords) => {
+    const words = [];
+    for (const word of originalWords) {
+      // disallow trailing spaces
+      if (words.length > 0 && /\s$/u.test(words.at(-1))) {
+        words[words.length - 1] += " " + word;
+      } else {
+        words.push(word);
+      }
+    }
+    return words;
+  });
+
+  if (options.proseWrap === "never") {
+    lines = lines.map((words) => [words.join(" ")]);
+  }
+
+  return removeUnnecessaryTrailingNewlines(lines);
+
+  /**
+  @param {string[][]} lineContents
+  */
   function removeUnnecessaryTrailingNewlines(lineContents) {
     if (node.chomping === "keep") {
       return lineContents.at(-1).length === 0

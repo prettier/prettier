@@ -1,7 +1,6 @@
 import collapseWhiteSpace from "collapse-white-space";
-import isFrontMatter from "../utils/front-matter/is-front-matter.js";
-import { FORMAT_PRAGMAS } from "../utils/pragma/pragma.evaluate.js";
-import { startWithPragma } from "./pragma.js";
+import { isFrontMatter } from "../main/front-matter/index.js";
+import { hasPragma } from "./pragma.js";
 
 const ignoredProperties = new Set([
   "position",
@@ -10,7 +9,6 @@ const ignoredProperties = new Set([
 function clean(original, cloned, parent) {
   // for codeblock
   if (
-    original.type === "front-matter" ||
     original.type === "code" ||
     original.type === "yaml" ||
     original.type === "import" ||
@@ -78,7 +76,7 @@ function clean(original, cloned, parent) {
     (parent.children[0] === original ||
       (isFrontMatter(parent.children[0]) && parent.children[1] === original)) &&
     original.type === "html" &&
-    startWithPragma(original.value, FORMAT_PRAGMAS)
+    hasPragma(original.value)
   ) {
     return null;
   }

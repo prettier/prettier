@@ -4,6 +4,7 @@ import fs from "node:fs";
 import { createRequire } from "node:module";
 import { load as parseYaml } from "js-yaml";
 import { themes as prismThemes } from "prism-react-renderer";
+import llmsTxtPlugin from "./plugins/llms-txt-plugin.mjs";
 
 const require = createRequire(import.meta.url);
 
@@ -180,9 +181,20 @@ const config = {
                 to: "/docs/install",
               },
               {
-                html: /*html*/ `
-                  <a href="https://www.netlify.com" target="_blank" rel="noreferrer noopener" aria-label="Deploys by Netlify">
-                    <img src="https://www.netlify.com/img/global/badges/netlify-color-accent.svg" alt="Deploys by Netlify" width="114" height="51" style="margin-top: 8px;" />
+                html: /* HTML */ `
+                  <a
+                    href="https://www.netlify.com"
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    aria-label="Deploys by Netlify"
+                  >
+                    <img
+                      src="https://www.netlify.com/img/global/badges/netlify-color-accent.svg"
+                      alt="Deploys by Netlify"
+                      width="114"
+                      height="51"
+                      style="margin-top: 8px;"
+                    />
                   </a>
                 `,
               },
@@ -200,8 +212,8 @@ const config = {
                 href: "http://stackoverflow.com/questions/tagged/prettier",
               },
               {
-                label: "@PrettierCode on Twitter",
-                href: "https://twitter.com/PrettierCode",
+                label: "@PrettierCode on X",
+                href: "https://x.com/PrettierCode",
               },
             ],
           },
@@ -221,7 +233,7 @@ const config = {
                 href: `${GITHUB_URL}/issues`,
               },
               {
-                html: /*html*/ `
+                html: /* HTML */ `
                   <a
                     href="https://github.com/prettier/prettier"
                     target="_blank"
@@ -229,7 +241,11 @@ const config = {
                     aria-label="Star this project on GitHub"
                     class="footer__github-stars"
                   >
-                    <img src="https://img.shields.io/github/stars/prettier/prettier?style=social" loading="lazy" alt="Star this project on GitHub" />
+                    <img
+                      src="https://img.shields.io/github/stars/prettier/prettier?style=social"
+                      loading="lazy"
+                      alt="Star this project on GitHub"
+                    />
                   </a>
                 `,
               },
@@ -258,7 +274,7 @@ const config = {
         darkTheme: prismThemes.dracula,
       },
     },
-
+  plugins: [llmsTxtPlugin],
   future: {
     experimental_faster: {
       swcJsLoader: true,
