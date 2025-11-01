@@ -22,6 +22,7 @@ import {
   isArrayExpression,
   isBinaryish,
   isCallExpression,
+  isCallLikeExpression,
   isJsxElement,
   isMemberExpression,
   isObjectExpression,
@@ -109,7 +110,7 @@ function printBinaryishExpression(path, options, print) {
     (parent.type === "ConditionalExpression" &&
       grandparent.type !== "ReturnStatement" &&
       grandparent.type !== "ThrowStatement" &&
-      !isCallExpression(grandparent)) ||
+      !isCallLikeExpression(grandparent)) ||
     parent.type === "TemplateLiteral" ||
     isBooleanTypeCoercion(path);
 

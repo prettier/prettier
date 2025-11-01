@@ -153,6 +153,7 @@ function shouldExtraIndentForConditionalExpression(path) {
     if (
       (node.type === "ChainExpression" && node.expression === child) ||
       (isCallExpression(node) && node.callee === child) ||
+      (node.type === "NewExpression" && node.callee === child) ||
       (isMemberExpression(node) && node.object === child) ||
       (node.type === "TSNonNullExpression" && node.expression === child)
     ) {
@@ -162,10 +163,7 @@ function shouldExtraIndentForConditionalExpression(path) {
 
     // Reached chain root
 
-    if (
-      (node.type === "NewExpression" && node.callee === child) ||
-      (isBinaryCastExpression(node) && node.expression === child)
-    ) {
+    if (isBinaryCastExpression(node) && node.expression === child) {
       parent = path.getParentNode(ancestorCount + 1);
       child = node;
     } else {
