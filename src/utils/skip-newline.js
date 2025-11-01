@@ -5,14 +5,11 @@
  * @param {string} character
  * @returns {boolean}
  */
-function isNewlineCharacter(character) {
-  return (
-    character === "\n" ||
-    character === "\r" ||
-    character === "\u2028" ||
-    character === "\u2029"
-  );
-}
+const isNewlineCharacter = (character) =>
+  character === "\n" ||
+  character === "\r" ||
+  character === "\u2028" ||
+  character === "\u2029";
 
 // This one doesn't use the above helper function because it wants to
 // test \r\n in order and `skip` doesn't support ordering and we only
