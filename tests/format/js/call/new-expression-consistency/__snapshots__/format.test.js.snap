@@ -1,0 +1,79 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`issue-18171.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "typescript", "flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// Issue #18171: Inconsistent formatting logic of CallExpression and NewExpression
+
+// ConditionalExpression as argument
+fn(
+  bifornCringerMoshedPerplexSawder,
+  askTrovenaBeenaDependsRowans,
+  glimseGlyphsHazardNoopsTieTie === averredBathersBoxroomBuggyNurl &&
+    anodyneCondosMalateOverateRetinol
+      ? annularCooeedSplicesWalksWayWay
+      : kochabCooieGameOnOboleUnweave
+);
+
+new fn(
+  bifornCringerMoshedPerplexSawder,
+  askTrovenaBeenaDependsRowans,
+  glimseGlyphsHazardNoopsTieTie === averredBathersBoxroomBuggyNurl &&
+    anodyneCondosMalateOverateRetinol
+      ? annularCooeedSplicesWalksWayWay
+      : kochabCooieGameOnOboleUnweave
+);
+
+// MemberExpression as argument
+TelemetryTrustedValue(
+  instance.capabilities.get(
+    TerminalCapability?.PromptTypeDetection
+  )?.promptType
+);
+
+new TelemetryTrustedValue(
+  instance.capabilities.get(
+    TerminalCapability?.PromptTypeDetection
+  )?.promptType
+);
+
+
+=====================================output=====================================
+// Issue #18171: Inconsistent formatting logic of CallExpression and NewExpression
+
+// ConditionalExpression as argument
+fn(
+  bifornCringerMoshedPerplexSawder,
+  askTrovenaBeenaDependsRowans,
+  glimseGlyphsHazardNoopsTieTie === averredBathersBoxroomBuggyNurl &&
+    anodyneCondosMalateOverateRetinol
+    ? annularCooeedSplicesWalksWayWay
+    : kochabCooieGameOnOboleUnweave,
+);
+
+new fn(
+  bifornCringerMoshedPerplexSawder,
+  askTrovenaBeenaDependsRowans,
+  glimseGlyphsHazardNoopsTieTie === averredBathersBoxroomBuggyNurl &&
+    anodyneCondosMalateOverateRetinol
+    ? annularCooeedSplicesWalksWayWay
+    : kochabCooieGameOnOboleUnweave,
+);
+
+// MemberExpression as argument
+TelemetryTrustedValue(
+  instance.capabilities.get(TerminalCapability?.PromptTypeDetection)
+    ?.promptType,
+);
+
+new TelemetryTrustedValue(
+  instance.capabilities.get(
+    TerminalCapability?.PromptTypeDetection,
+  )?.promptType,
+);
+
+================================================================================
+`;
