@@ -85,7 +85,6 @@ function printBinaryishExpression(path, options, print) {
   //   ).call()
   if (
     (isCallExpression(parent) && parent.callee === node) ||
-    (parent.type === "NewExpression" && parent.callee === node) ||
     parent.type === "UnaryExpression" ||
     (isMemberExpression(parent) && !parent.computed)
   ) {
