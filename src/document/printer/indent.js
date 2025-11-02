@@ -120,10 +120,7 @@ function generateIndent(indent, command, options) {
 @returns {Indent}
 */
 function makeAlign(indent, widthOrString, rootIndent, options) {
-  if (
-    widthOrString === Number.NEGATIVE_INFINITY ||
-    widthOrString.type === "root"
-  ) {
+  if (widthOrString === Number.NEGATIVE_INFINITY) {
     return indent.root ?? rootIndent;
   }
 
