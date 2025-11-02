@@ -24,7 +24,7 @@ import {
   softline,
   trim,
 } from "./builders.js";
-import { printDocToString } from "./printer.js";
+import { printDocToString } from "./printer/printer.js";
 import {
   canBreak,
   findInDoc,

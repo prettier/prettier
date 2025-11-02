@@ -9,7 +9,7 @@ import {
   lineSuffixBoundary,
   softline,
 } from "../../document/builders.js";
-import { printDocToString } from "../../document/printer.js";
+import { printDocToString } from "../../document/printer/printer.js";
 import { mapDoc } from "../../document/utils.js";
 import getIndentSize from "../../utils/get-indent-size.js";
 import getStringWidth from "../../utils/get-string-width.js";

@@ -497,6 +497,15 @@ const configs = [
     files: ["scripts/build/esbuild-plugins/**/*"],
     rules: { "require-unicode-regexp": "off" },
   },
+  {
+    files: ["src/document/printer/printer.js"],
+    rules: {
+      "unicorn/prevent-abbreviations": [
+        "error",
+        { replacements: { doc: false } },
+      ],
+    },
+  },
 ];
 
 export default configs;
