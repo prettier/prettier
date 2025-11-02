@@ -9,8 +9,8 @@ import getDocType from "./get-doc-type.js";
 import traverseDoc from "./traverse-doc.js";
 
 /**
- * @typedef {import("./index.js").Doc} Doc
- */
+@import {Doc} from "../builders/index.js";
+*/
 
 const checked = process.env.NODE_ENV !== "production" && new WeakSet();
 const assertDoc =
