@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`outside-functions.js [acorn] format 1`] = `
 "'new.target' can only be used in functions and class static block (1:11)

@@ -31,13 +31,13 @@ function createParseError(error) {
 const parseOptions = {
   flow: "all",
   babel: false,
-  // Not supported yet
-  enableExperimentalFlowMatchSyntax: false,
+  // enableExperimentalComponentSyntax: true, // Enable by default
+  // enableExperimentalFlowMatchSyntax: true, // Enable by default
   tokens: false,
   allowReturnOutsideFunction: true,
 };
 
-async function parse(text /*, options*/) {
+async function parse(text /* , options*/) {
   let ast;
   try {
     ast = await hermesParse(text, parseOptions);

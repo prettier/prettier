@@ -117,6 +117,9 @@ function iterateComponentParametersPath(path, iteratee) {
   }
 }
 
+/*
+- `ComponentParameter` (Flow)
+*/
 function printComponentParameter(path, options, print) {
   const { node } = path;
   if (node.shorthand) {

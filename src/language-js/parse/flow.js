@@ -18,6 +18,8 @@ const parseOptions = {
   esproposal_decorators: true,
   // `esproposal_export_star_as` (boolean, default `false`) - enable parsing of `export * as` syntax
   esproposal_export_star_as: true,
+  // Undocumented
+  pattern_matching: true,
   // `types` (boolean, default `true`) - enable parsing of Flow types
   // types: true,
   // `use_strict` (boolean, default `false`) - treat the file as strict, without needing a "use strict" directive

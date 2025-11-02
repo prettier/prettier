@@ -31,7 +31,6 @@ export default class PrettierFormat extends React.Component {
 
   async format() {
     const {
-      enabled,
       worker,
       code,
       options,
@@ -42,10 +41,6 @@ export default class PrettierFormat extends React.Component {
       reformat,
       rethrowEmbedErrors,
     } = this.props;
-
-    if (!enabled) {
-      return;
-    }
 
     const result = await worker.format(code, options, {
       ast,

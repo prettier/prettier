@@ -1,4 +1,65 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`comments.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+require(
+// 1
+"foo"
+);
+require.resolve(// 2
+"foo");
+require.resolve.paths(// 3
+"foo");
+
+call(
+// 4
+"foo"
+);
+
+=====================================output=====================================
+require(
+  // 1
+  "foo",
+);
+require.resolve(
+  // 2
+  "foo",
+);
+require.resolve.paths(
+  // 3
+  "foo",
+);
+
+call(
+  // 4
+  "foo",
+);
+
+================================================================================
+`;
+
+exports[`long-module-name.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+require("./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
+require.resolve("./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
+require.resolve.paths("./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
+
+=====================================output=====================================
+require("./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
+require.resolve("./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
+require.resolve
+  .paths("./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
+
+================================================================================
+`;
 
 exports[`require.js format 1`] = `
 ====================================options=====================================
@@ -23,6 +84,8 @@ const plugin2 = require(
     global.STANDALONE ? "../standalone.js" : '..'
   )
 );
+
+const plugin3 = require('./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module')
 
 =====================================output=====================================
 const {
@@ -62,6 +125,8 @@ const plugin = require(
 const plugin2 = require(
   path.join(__dirname, global.STANDALONE ? "../standalone.js" : ".."),
 );
+
+const plugin3 = require("./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
 
 ================================================================================
 `;

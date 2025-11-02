@@ -1,5 +1,16 @@
 /** @import {SkipOptions} from "./skip.js" */
 
+/**
+ * Check if a character is a newline character
+ * @param {string} character
+ * @returns {boolean}
+ */
+const isNewlineCharacter = (character) =>
+  character === "\n" ||
+  character === "\r" ||
+  character === "\u2028" ||
+  character === "\u2029";
+
 // This one doesn't use the above helper function because it wants to
 // test \r\n in order and `skip` doesn't support ordering and we only
 // want to skip one newline. It's simple to implement.
@@ -22,12 +33,7 @@ function skipNewline(text, startIndex, options) {
     if (text.charAt(startIndex - 1) === "\r" && character === "\n") {
       return startIndex - 2;
     }
-    if (
-      character === "\n" ||
-      character === "\r" ||
-      character === "\u2028" ||
-      character === "\u2029"
-    ) {
+    if (isNewlineCharacter(character)) {
       return startIndex - 1;
     }
   } else {
@@ -36,12 +42,7 @@ function skipNewline(text, startIndex, options) {
     if (character === "\r" && text.charAt(startIndex + 1) === "\n") {
       return startIndex + 2;
     }
-    if (
-      character === "\n" ||
-      character === "\r" ||
-      character === "\u2028" ||
-      character === "\u2029"
-    ) {
+    if (isNewlineCharacter(character)) {
       return startIndex + 1;
     }
   }

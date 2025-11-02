@@ -1,0 +1,69 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`18106.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript", "flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+export interface DirectiveArgumentNode extends ArrayExpression {
+  elements: // dir, exp, arg, modifiers
+    | [string]
+    | [string, ExpressionNode]
+    | [string, ExpressionNode, ExpressionNode]
+    | [string, ExpressionNode, ExpressionNode, ObjectExpression]
+}
+
+export class DirectiveArgumentNode2 extends ArrayExpression {
+  elements: // dir, exp, arg, modifiers
+    | [string]
+    | [string, ExpressionNode]
+    | [string, ExpressionNode, ExpressionNode]
+    | [string, ExpressionNode, ExpressionNode, ObjectExpression]
+  = 1
+}
+
+type A = // dir, exp, arg, modifiers
+  | [string]
+  | [string, ExpressionNode]
+  | [string, ExpressionNode, ExpressionNode]
+  | [string, ExpressionNode, ExpressionNode, ObjectExpression]
+
+const elements: // dir, exp, arg, modifiers
+  | [string]
+  | [string, ExpressionNode]
+  | [string, ExpressionNode, ExpressionNode]
+  | [string, ExpressionNode, ExpressionNode, ObjectExpression]
+  = 1
+
+=====================================output=====================================
+export interface DirectiveArgumentNode extends ArrayExpression {
+  elements:  // dir, exp, arg, modifiers
+    | [string]
+    | [string, ExpressionNode]
+    | [string, ExpressionNode, ExpressionNode]
+    | [string, ExpressionNode, ExpressionNode, ObjectExpression];
+}
+
+export class DirectiveArgumentNode2 extends ArrayExpression {
+  elements: // dir, exp, arg, modifiers
+    | [string]
+    | [string, ExpressionNode]
+    | [string, ExpressionNode, ExpressionNode]
+    | [string, ExpressionNode, ExpressionNode, ObjectExpression] = 1;
+}
+
+type A =  // dir, exp, arg, modifiers
+  | [string]
+  | [string, ExpressionNode]
+  | [string, ExpressionNode, ExpressionNode]
+  | [string, ExpressionNode, ExpressionNode, ObjectExpression];
+
+const elements: // dir, exp, arg, modifiers
+  | [string]
+  | [string, ExpressionNode]
+  | [string, ExpressionNode, ExpressionNode]
+  | [string, ExpressionNode, ExpressionNode, ObjectExpression] = 1;
+
+================================================================================
+`;

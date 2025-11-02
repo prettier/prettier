@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`test.hbs - {"embeddedLanguageFormatting":"off"} format 1`] = `
 ====================================options=====================================
@@ -25,17 +25,16 @@ printWidth: 80
 
 =====================================output=====================================
 <div>
-  <style
-  >
-    .a {
+  <style>
+        .a {
 
 
 
-      color: red;
-    }
-              .b { color:     blue
+          color: red;
+        }
+                  .b { color:     blue
 
-};
+    };
   </style>
 </div>
 ================================================================================

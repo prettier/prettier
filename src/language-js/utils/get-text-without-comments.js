@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import * as assert from "#universal/assert";
 import { locEnd, locStart } from "../loc.js";
 
 function getTextWithoutComments(options, start, end) {
@@ -16,15 +16,17 @@ function getTextWithoutComments(options, start, end) {
       continue;
     }
 
-    const commentLength = commentEnd - commentStart;
+    const startIndex = commentStart - start;
+    const endIndex = commentEnd - start;
+
     text =
-      text.slice(0, commentStart - start) +
-      " ".repeat(commentLength) +
-      text.slice(commentEnd - start);
+      text.slice(0, startIndex) +
+      text.slice(startIndex, endIndex).replaceAll(/[^\n]/gu, " ") +
+      text.slice(endIndex);
   }
 
   if (process.env.NODE_ENV !== "production") {
-    assert.ok(text.length === end - start);
+    assert.equal(text.length, end - start);
   }
 
   return text;

@@ -4,7 +4,7 @@ import { resolveParser } from "./parser-and-printer.js";
 async function parse(originalText, options) {
   const parser = await resolveParser(options);
   const text = parser.preprocess
-    ? parser.preprocess(originalText, options)
+    ? await parser.preprocess(originalText, options)
     : originalText;
   options.originalText = text;
 

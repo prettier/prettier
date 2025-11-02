@@ -1,6 +1,6 @@
 function isUnknownNamespace(node) {
   return (
-    node.type === "element" &&
+    node.kind === "element" &&
     !node.hasExplicitNamespace &&
     !["html", "svg"].includes(node.namespace)
   );

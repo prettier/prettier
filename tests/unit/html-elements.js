@@ -1,4 +1,4 @@
-import htmlTags from "@prettier/html-tags";
+import { htmlTags } from "@prettier/html-tags";
 import {
   CSS_DISPLAY_DEFAULT,
   CSS_DISPLAY_TAGS,

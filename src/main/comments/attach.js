@@ -1,8 +1,7 @@
-import assert from "node:assert";
-import { getChildren } from "../../utils/ast-utils.js";
+import * as assert from "#universal/assert";
 import hasNewline from "../../utils/has-newline.js";
 import isNonEmptyArray from "../../utils/is-non-empty-array.js";
-import createGetVisitorKeysFunction from "../create-get-visitor-keys-function.js";
+import getSortedChildNodes from "../utilities/get-sorted-child-nodes.js";
 import {
   addDanglingComment,
   addLeadingComment,
@@ -14,53 +13,29 @@ import {
  */
 
 const childNodesCache = new WeakMap();
-function getSortedChildNodes(node, options) {
-  if (childNodesCache.has(node)) {
-    return childNodesCache.get(node);
-  }
-
-  const {
-    printer: {
-      getCommentChildNodes,
-      canAttachComment,
-      getVisitorKeys: printerGetVisitorKeys,
-    },
-    locStart,
-    locEnd,
-  } = options;
-
-  if (!canAttachComment) {
-    return [];
-  }
-
-  const childNodes = (
-    getCommentChildNodes?.(node, options) ?? [
-      ...getChildren(node, {
-        getVisitorKeys: createGetVisitorKeysFunction(printerGetVisitorKeys),
-      }),
-    ]
-  ).flatMap((node) =>
-    canAttachComment(node) ? [node] : getSortedChildNodes(node, options),
-  );
-  // Sort by `start` location first, then `end` location
-  childNodes.sort(
-    (nodeA, nodeB) =>
-      locStart(nodeA) - locStart(nodeB) || locEnd(nodeA) - locEnd(nodeB),
-  );
-
-  childNodesCache.set(node, childNodes);
-  return childNodes;
-}
 
 // As efficiently as possible, decorate the comment object with
 // .precedingNode, .enclosingNode, and/or .followingNode properties, at
 // least one of which is guaranteed to be defined.
-function decorateComment(node, comment, options, enclosingNode) {
+function decorateComment(
+  node,
+  comment,
+  options,
+  enclosingNode,
+  ancestors = [],
+) {
   const { locStart, locEnd } = options;
   const commentStart = locStart(comment);
   const commentEnd = locEnd(comment);
 
-  const childNodes = getSortedChildNodes(node, options);
+  const childNodes = getSortedChildNodes(node, ancestors, {
+    cache: childNodesCache,
+    locStart,
+    locEnd,
+    getVisitorKeys: options.getVisitorKeys,
+    filter: options.printer.canAttachComment,
+    getChildren: options.printer.getCommentChildNodes,
+  });
   let precedingNode;
   let followingNode;
   // Time to dust off the old binary search robes and wizard hat.
@@ -75,7 +50,10 @@ function decorateComment(node, comment, options, enclosingNode) {
     // The comment is completely contained by this child node.
     if (start <= commentStart && commentEnd <= end) {
       // Abandon the binary search at this level.
-      return decorateComment(child, comment, options, child);
+      return decorateComment(child, comment, options, child, [
+        child,
+        ...ancestors,
+      ]);
     }
 
     if (end <= commentStart) {
@@ -143,10 +121,7 @@ function attachComments(ast, options) {
   const tiesToBreak = [];
   const {
     printer: {
-      experimentalFeatures: {
-        // TODO: Make this as default behavior
-        avoidAstMutation = false,
-      } = {},
+      features: { experimental_avoidAstMutation: avoidAstMutation },
       handleComments = {},
     },
     originalText: text,
@@ -391,4 +366,8 @@ function findExpressionIndexForComment(quasis, comment, options) {
   return 0;
 }
 
-export { attachComments, getSortedChildNodes };
+export {
+  attachComments,
+  // Shared with src/main/range.js, will remove later
+  childNodesCache,
+};

@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`custom-selector.css - {"singleQuote":true} format 1`] = `
 ====================================options=====================================
@@ -74,12 +74,31 @@ input[type="radio" i] {}
 img[alt~="person" i][src*="lorem" i] {}
 section:has(:not([type="radio" i], [type="checkbox" i])) {}
 
+input[type="radio" I] {}
+img[alt~="person" I][src*="lorem" I] {}
+section:has(:not([type="radio" I], [type="checkbox" I])) {}
+
+[type=a   I] {}
+[type="a"   I] {}
+
 =====================================output=====================================
 input[type='radio' i] {
 }
 img[alt~='person' i][src*='lorem' i] {
 }
 section:has(:not([type='radio' i], [type='checkbox' i])) {
+}
+
+input[type='radio' I] {
+}
+img[alt~='person' I][src*='lorem' I] {
+}
+section:has(:not([type='radio' I], [type='checkbox' I])) {
+}
+
+[type='a' I] {
+}
+[type='a' I] {
 }
 
 ================================================================================
@@ -95,12 +114,31 @@ input[type="radio" i] {}
 img[alt~="person" i][src*="lorem" i] {}
 section:has(:not([type="radio" i], [type="checkbox" i])) {}
 
+input[type="radio" I] {}
+img[alt~="person" I][src*="lorem" I] {}
+section:has(:not([type="radio" I], [type="checkbox" I])) {}
+
+[type=a   I] {}
+[type="a"   I] {}
+
 =====================================output=====================================
 input[type="radio" i] {
 }
 img[alt~="person" i][src*="lorem" i] {
 }
 section:has(:not([type="radio" i], [type="checkbox" i])) {
+}
+
+input[type="radio" I] {
+}
+img[alt~="person" I][src*="lorem" I] {
+}
+section:has(:not([type="radio" I], [type="checkbox" I])) {
+}
+
+[type="a" I] {
+}
+[type="a" I] {
 }
 
 ================================================================================
@@ -171,6 +209,9 @@ a[id="test"] {}
 a[id='test'] {}
 a[id=func("foo")] {}
 a[class="(╯°□°）╯︵ ┻━┻"]{}
+a[href^="//"] {}
+a[href$="/*"] {}
+a[href="http://example.com"] {}
 input:not([type="radio"]):not([type="checkbox"]) {}
 input:not([type="radio"], [type="checkbox"]) {}
 section:has(:not([type="radio"], [type="checkbox"])) {}
@@ -185,6 +226,12 @@ a[id='test'] {
 a[id=func('foo')] {
 }
 a[class='(╯°□°）╯︵ ┻━┻'] {
+}
+a[href^='//'] {
+}
+a[href$='/*'] {
+}
+a[href='http://example.com'] {
 }
 input:not([type='radio']):not([type='checkbox']) {
 }
@@ -207,6 +254,9 @@ a[id="test"] {}
 a[id='test'] {}
 a[id=func("foo")] {}
 a[class="(╯°□°）╯︵ ┻━┻"]{}
+a[href^="//"] {}
+a[href$="/*"] {}
+a[href="http://example.com"] {}
 input:not([type="radio"]):not([type="checkbox"]) {}
 input:not([type="radio"], [type="checkbox"]) {}
 section:has(:not([type="radio"], [type="checkbox"])) {}
@@ -222,11 +272,100 @@ a[id=func("foo")] {
 }
 a[class="(╯°□°）╯︵ ┻━┻"] {
 }
+a[href^="//"] {
+}
+a[href$="/*"] {
+}
+a[href="http://example.com"] {
+}
 input:not([type="radio"]):not([type="checkbox"]) {
 }
 input:not([type="radio"], [type="checkbox"]) {
 }
 section:has(:not([type="radio"], [type="checkbox"])) {
+}
+
+================================================================================
+`;
+
+exports[`sensitive.css - {"singleQuote":true} format 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+singleQuote: true
+                                                                                | printWidth
+=====================================input======================================
+[type=a s],
+[type=as],
+[type="a" s] ,
+[type="a s"],
+[type=a   s],
+[type="a"   s]{}
+
+[type=a   S] {}
+[type="a"   S] {}
+
+[type=a   x] {}
+[type='a'   x] {}
+
+=====================================output=====================================
+[type='a' s],
+[type='as'],
+[type='a' s],
+[type='a s'],
+[type='a' s],
+[type='a' s] {
+}
+
+[type='a' S] {
+}
+[type='a' S] {
+}
+
+[type='a' x] {
+}
+[type='a' x] {
+}
+
+================================================================================
+`;
+
+exports[`sensitive.css format 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+[type=a s],
+[type=as],
+[type="a" s] ,
+[type="a s"],
+[type=a   s],
+[type="a"   s]{}
+
+[type=a   S] {}
+[type="a"   S] {}
+
+[type=a   x] {}
+[type='a'   x] {}
+
+=====================================output=====================================
+[type="a" s],
+[type="as"],
+[type="a" s],
+[type="a s"],
+[type="a" s],
+[type="a" s] {
+}
+
+[type="a" S] {
+}
+[type="a" S] {
+}
+
+[type="a" x] {
+}
+[type="a" x] {
 }
 
 ================================================================================

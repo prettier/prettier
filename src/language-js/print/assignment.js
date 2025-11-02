@@ -142,6 +142,7 @@ function chooseLayout(path, options, print, leftDoc, rightPropertyName) {
     node.type === "ImportAttribute" ||
     (rightNode.type === "CallExpression" &&
       rightNode.callee.name === "require") ||
+    isUnionType(rightNode) ||
     // do not put values on a separate line from the key in json
     options.parser === "json5" ||
     options.parser === "jsonc" ||
@@ -340,14 +341,17 @@ function isArrowFunctionVariableDeclarator(node) {
   );
 }
 
-const isTypeReference = createTypeCheckFunction([
-  "TSTypeReference",
-  "GenericTypeAnnotation",
-]);
 function getTypeParametersFromTypeReference(node) {
-  if (isTypeReference(node)) {
-    return (node.typeArguments ?? node.typeParameters)?.params;
+  let typeArguments;
+  switch (node.type) {
+    case "GenericTypeAnnotation":
+      typeArguments = node.typeParameters;
+      break;
+    case "TSTypeReference":
+      typeArguments = node.typeArguments;
+      break;
   }
+  return typeArguments?.params;
 }
 
 /**
@@ -448,23 +452,20 @@ function getTypeArgumentsFromCallExpression(node) {
   return (node.typeParameters ?? node.typeArguments)?.params;
 }
 
-function shouldBreakBeforeConditionalType(node) {
-  function isGeneric(subNode) {
-    switch (subNode.type) {
-      case "FunctionTypeAnnotation":
-      case "GenericTypeAnnotation":
-      case "TSFunctionType":
-        return Boolean(subNode.typeParameters);
-      case "TSTypeReference":
-        return Boolean(
-          // TODO: Use `typeArguments` only when babel align with TS.
-          subNode.typeArguments ?? subNode.typeParameters,
-        );
-      default:
-        return false;
-    }
+function isGeneric(node) {
+  switch (node.type) {
+    case "FunctionTypeAnnotation":
+    case "GenericTypeAnnotation":
+    case "TSFunctionType":
+      return Boolean(node.typeParameters);
+    case "TSTypeReference":
+      return Boolean(node.typeArguments);
+    default:
+      return false;
   }
+}
 
+function shouldBreakBeforeConditionalType(node) {
   return isGeneric(node.checkType) || isGeneric(node.extendsType);
 }
 

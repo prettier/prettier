@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`at-root.css format 1`] = `
 ====================================options=====================================
@@ -3667,6 +3667,11 @@ margin
     size: A4 portrait;
 }
 
+@page:first
+{
+  counter-reset: page 1;
+}
+
 =====================================output=====================================
 @page {
   margin: 1cm;
@@ -3706,6 +3711,10 @@ margin
 }
 @page vertical {
   size: A4 portrait;
+}
+
+@page:first {
+  counter-reset: page 1;
 }
 
 ================================================================================

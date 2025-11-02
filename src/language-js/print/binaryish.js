@@ -110,7 +110,8 @@ function printBinaryishExpression(path, options, print) {
       grandparent.type !== "ReturnStatement" &&
       grandparent.type !== "ThrowStatement" &&
       !isCallExpression(grandparent)) ||
-    parent.type === "TemplateLiteral";
+    parent.type === "TemplateLiteral" ||
+    isBooleanTypeCoercion(path);
 
   const shouldIndentIfInlining =
     parent.type === "AssignmentExpression" ||
@@ -222,9 +223,9 @@ function printBinaryishExpressions(
   if (shouldFlatten(node.operator, node.left.operator)) {
     // Flatten them out by recursively calling this function.
     parts = path.call(
-      (left) =>
+      () =>
         printBinaryishExpressions(
-          left,
+          path,
           options,
           print,
           /* isNested */ true,
@@ -237,19 +238,21 @@ function printBinaryishExpressions(
   }
 
   const shouldInline = shouldInlineLogicalExpression(node);
+  const rightNodeToCheckComments =
+    node.right.type === "ChainExpression" ? node.right.expression : node.right;
   const lineBeforeOperator =
     (node.operator === "|>" ||
       node.type === "NGPipeExpression" ||
       isVueFilterSequenceExpression(path, options)) &&
-    !hasLeadingOwnLineComment(options.originalText, node.right);
+    !hasLeadingOwnLineComment(options.originalText, rightNodeToCheckComments);
   const hasTypeCastComment = hasComment(
-    node.right,
+    rightNodeToCheckComments,
     CommentCheckFlags.Leading,
     isTypeCastComment,
   );
   const commentBeforeOperator =
     !hasTypeCastComment &&
-    hasLeadingOwnLineComment(options.originalText, node.right);
+    hasLeadingOwnLineComment(options.originalText, rightNodeToCheckComments);
 
   const operator = node.type === "NGPipeExpression" ? "|" : node.operator;
   const rightSuffix =
@@ -271,7 +274,7 @@ function printBinaryishExpressions(
   if (shouldInline) {
     right = [
       operator,
-      hasLeadingOwnLineComment(options.originalText, node.right)
+      hasLeadingOwnLineComment(options.originalText, rightNodeToCheckComments)
         ? indent([line, print("right"), rightSuffix])
         : [" ", print("right"), rightSuffix],
     ];
@@ -280,9 +283,9 @@ function printBinaryishExpressions(
       operator === "|>" && path.root.extra?.__isUsingHackPipeline;
     const rightContent = isHackPipeline
       ? path.call(
-          (left) =>
+          () =>
             printBinaryishExpressions(
-              left,
+              path,
               options,
               print,
               /* isNested */ true,
@@ -387,6 +390,29 @@ function isVueFilterSequenceExpression(path, options) {
         !isBitwiseOrExpression(node) && node.type !== "JsExpressionRoot",
     )
   );
+}
+
+/**
+@returns {boolean}
+*/
+function isBooleanTypeCoercion(path) {
+  if (path.key !== "arguments") {
+    return false;
+  }
+
+  const { parent } = path;
+  if (
+    !(
+      isCallExpression(parent) &&
+      !parent.optional &&
+      parent.arguments.length === 1
+    )
+  ) {
+    return false;
+  }
+
+  const { callee } = parent;
+  return callee.type === "Identifier" && callee.name === "Boolean";
 }
 
 export { printBinaryishExpression, shouldInlineLogicalExpression };

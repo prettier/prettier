@@ -16,7 +16,7 @@ async function logFileInfoOrDie(context) {
   const fileInfo = await getFileInfo(path.resolve(file), {
     ignorePath,
     withNodeModules,
-    plugins: plugins.length > 0 ? plugins : undefined,
+    plugins,
     resolveConfig: config !== false,
   });
 

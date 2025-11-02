@@ -87,6 +87,9 @@ test("sharedUtil.getStringWidth", () => {
   expect(getStringWidth("👶🏽")).toBe(2);
   expect(getStringWidth("👩‍👩‍👦‍👦")).toBe(2);
   expect(getStringWidth("👨‍❤️‍💋‍👨")).toBe(2);
+
+  expect(getStringWidth("©︎")).toBe(1);
+  expect(getStringWidth("©️")).toBe(2);
 });
 
 test("sharedUtil.getAlignmentSize", () => {

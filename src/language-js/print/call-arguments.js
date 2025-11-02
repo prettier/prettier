@@ -37,6 +37,14 @@ import {
 } from "../utils/index.js";
 import { isConciselyPrintedArray } from "./array.js";
 
+/*
+- `NewExpression`
+- `ImportExpression`
+- `OptionalCallExpression`
+- `CallExpression`
+- `TSImportType` (TypeScript)
+- `TSExternalModuleReference` (TypeScript)
+*/
 function printCallArguments(path, options, print) {
   const { node } = path;
 
@@ -84,22 +92,10 @@ function printCallArguments(path, options, print) {
     // Dynamic imports cannot have trailing commas
     node.type !== "ImportExpression" &&
     node.type !== "TSImportType" &&
+    node.type !== "TSExternalModuleReference" &&
     shouldPrintComma(options, "all")
       ? ","
       : "";
-
-  // TODO: Don't break long `ImportExpression` too
-  // Don't break simple import with long module name
-  if (
-    node.type === "TSImportType" &&
-    args.length === 1 &&
-    ((args[0].type === "TSLiteralType" && isStringLiteral(args[0].literal)) ||
-      // TODO: Remove this when update Babel to v8
-      isStringLiteral(args[0])) &&
-    !hasComment(args[0])
-  ) {
-    return group(["(", ...printedArguments, ifBreak(maybeTrailingComma), ")"]);
-  }
 
   function allArgsBrokenOut() {
     return group(
@@ -317,12 +313,15 @@ function isHopefullyShortCallArgument(node) {
         typeAnnotation = typeAnnotation.elementType;
       }
     }
+
     if (
       typeAnnotation.type === "GenericTypeAnnotation" ||
       typeAnnotation.type === "TSTypeReference"
     ) {
       const typeArguments =
-        typeAnnotation.typeArguments ?? typeAnnotation.typeParameters;
+        typeAnnotation.type === "GenericTypeAnnotation"
+          ? typeAnnotation.typeParameters
+          : typeAnnotation.typeArguments;
       if (typeArguments?.params.length === 1) {
         typeAnnotation = typeArguments.params[0];
       }
