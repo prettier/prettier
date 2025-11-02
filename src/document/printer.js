@@ -557,24 +557,14 @@ function printDocToString(doc, options) {
           true,
         );
 
+        commands.push(remainingCommand);
+
         if (firstAndSecondContentFits) {
-          commands.push(
-            remainingCommand,
-            whitespaceFlatCommand,
-            contentFlatCommand,
-          );
+          commands.push(whitespaceFlatCommand, contentFlatCommand);
         } else if (contentFits) {
-          commands.push(
-            remainingCommand,
-            whitespaceBreakCommand,
-            contentFlatCommand,
-          );
+          commands.push(whitespaceBreakCommand, contentFlatCommand);
         } else {
-          commands.push(
-            remainingCommand,
-            whitespaceBreakCommand,
-            contentBreakCommand,
-          );
+          commands.push(whitespaceBreakCommand, contentBreakCommand);
         }
         break;
       }
