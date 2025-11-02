@@ -132,18 +132,22 @@ test("String.raw", () => {
 test("public doc functionality", () => {
   expect(transform('import {align, line} from "./document/index.js"'))
     .toMatchInlineSnapshot(`
-      "import { builders as __doc_builders } from "<PUBLIC_DOC_PATH>";
-      const align = __doc_builders.align,
-        line = __doc_builders.line;"
-    `);
+"import { builders as __doc_builders } from "<PUBLIC_DOC_PATH>";
+const {
+  align,
+  line
+} = __doc_builders;"
+`);
   expect(
     transform(
       'import {align as renamedAlign, line, notExists} from "./document/index.js"',
     ),
   ).toMatchInlineSnapshot(`
-    "import { builders as __doc_builders } from "<PUBLIC_DOC_PATH>";
-    const renamedAlign = __doc_builders.align,
-      line = __doc_builders.line;
-    import { notExists } from "./document/index.js";"
-  `);
+"import { builders as __doc_builders } from "<PUBLIC_DOC_PATH>";
+const {
+  align: renamedAlign,
+  line
+} = __doc_builders;
+import { notExists } from "./document/index.js";"
+`);
 });
