@@ -167,6 +167,8 @@
     "jsesc": "3.1.0",
     "knip": "5.66.2",
     "magic-string": "0.30.21",
+    "mdast-util-from-markdown": "2.0.2",
+    "micromark-util-types": "2.0.2",
     "nano-spawn": "2.0.0",
     "node-style-text": "2.1.2",
     "npm-run-all2": "8.0.4",
