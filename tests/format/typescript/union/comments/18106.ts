@@ -1,4 +1,4 @@
-export interface DirectiveArgumentNode extends ArrayExpression {
+export interface DirectiveArgumentNode1 extends ArrayExpression {
   elements: // dir, exp, arg, modifiers
     | [string]
     | [string, ExpressionNode]
@@ -6,7 +6,7 @@ export interface DirectiveArgumentNode extends ArrayExpression {
     | [string, ExpressionNode, ExpressionNode, ObjectExpression]
 }
 
-export class DirectiveArgumentNode2 extends ArrayExpression {
+export class DirectiveArgumentNode12 extends ArrayExpression {
   elements: // dir, exp, arg, modifiers
     | [string]
     | [string, ExpressionNode]
@@ -27,3 +27,16 @@ const elements: // dir, exp, arg, modifiers
   | [string, ExpressionNode, ExpressionNode]
   | [string, ExpressionNode, ExpressionNode, ObjectExpression]
   = 1
+
+type A2 = /* block comment */
+  | [string]
+  | [string, ExpressionNode]
+  | [string, ExpressionNode, ExpressionNode]
+  | [string, ExpressionNode, ExpressionNode, ObjectExpression]
+
+type A3 = /* block comment
+ */
+  | [string]
+  | [string, ExpressionNode]
+  | [string, ExpressionNode, ExpressionNode]
+  | [string, ExpressionNode, ExpressionNode, ObjectExpression]
