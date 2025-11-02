@@ -786,6 +786,7 @@ const nodejsFiles = [
       },
     ],
     addDefaultExport: true,
+    reuseDocModule: true,
   },
   {
     input: "src/index.cjs",

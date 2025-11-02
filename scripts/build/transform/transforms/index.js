@@ -1,3 +1,4 @@
+import transformDocModuleImports from "./transform-doc-module-imports.js";
 import transformMethodAt from "./transform-method-at.js";
 import transformMethodFindLast from "./transform-method-find-last.js";
 import transformMethodFindLastIndex from "./transform-method-find-last-index.js";
@@ -20,4 +21,6 @@ export default [
   transformMethodToReversed,
   // For performance
   transformStringRaw,
+  // Replace imports with public doc module if possible
+  transformDocModuleImports,
 ];

@@ -8,36 +8,42 @@ import allTransforms from "./transforms/index.js";
 
 /* Doesn't work for dependencies */
 
-function transform(original, file) {
-  if (
-    ![
-      SOURCE_DIR,
-      ...[
-        /* spell-checker: disable */
-        "camelcase",
-        "angular-estree-parser",
-        "jest-docblock",
-        "espree",
-        "@babel/parser",
-        "@typescript-eslint/typescript-estree",
-        "meriyah",
-        "@glimmer",
-        "@prettier/cli",
-        "hermes-parser",
-        "kasi",
-        "fast-string-truncated-width",
-        "fast-ignore",
-        /* spell-checker: enable */
-      ].map((directory) =>
-        path.join(PROJECT_ROOT, `node_modules/${directory}/`),
-      ),
-    ].some((directory) => file.startsWith(directory))
-  ) {
+function shouldTransform(file, buildOptions) {
+  const allowedDirectories = buildOptions.reuseDocModule
+    ? [SOURCE_DIR]
+    : [
+        SOURCE_DIR,
+        ...[
+          /* spell-checker: disable */
+          "camelcase",
+          "angular-estree-parser",
+          "jest-docblock",
+          "espree",
+          "@babel/parser",
+          "@typescript-eslint/typescript-estree",
+          "meriyah",
+          "@glimmer",
+          "@prettier/cli",
+          "hermes-parser",
+          "kasi",
+          "fast-string-truncated-width",
+          "fast-ignore",
+          /* spell-checker: enable */
+        ].map((directory) =>
+          path.join(PROJECT_ROOT, `node_modules/${directory}/`),
+        ),
+      ];
+
+  return allowedDirectories.some((directory) => file.startsWith(directory));
+}
+
+function transform(original, file, buildOptions) {
+  if (!shouldTransform(file, buildOptions)) {
     return original;
   }
 
   const transforms = allTransforms.filter(
-    (transform) => !transform.shouldSkip(original, file),
+    (transform) => !transform.shouldSkip(original, file, buildOptions),
   );
 
   if (transforms.length === 0) {
@@ -55,7 +61,7 @@ function transform(original, file) {
   });
   traverse(ast, (node) => {
     for (const transform of transforms) {
-      if (!transform.test(node)) {
+      if (!transform.test(node, file)) {
         continue;
       }
 
@@ -65,7 +71,7 @@ function transform(original, file) {
         injected.add(transform.inject);
       }
 
-      const replacement = transform.transform(node);
+      const replacement = transform.transform(node, file);
       if (replacement && replacement !== node) {
         replaceNode(node, replacement);
       }
@@ -80,8 +86,6 @@ function transform(original, file) {
     ast,
     {
       sourceFileName: file,
-      experimental_preserveFormat: true,
-      retainLines: true,
       comments: true,
       jsescOption: null,
       minified: false,

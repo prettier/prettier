@@ -6385,6 +6385,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"make-synchronized@npm:0.8.0":
+  version: 0.8.0
+  resolution: "make-synchronized@npm:0.8.0"
+  checksum: 10/e744bafcd61ee1ecabe6fb2c295ecb4b06a7bfe4e844222b80b7a5ae80a4d27ba657abc4892d1c702fa2f6ae568d8505e801c1498fe1379dd824ded5483d978c
+  languageName: node
+  linkType: hard
+
 "makeerror@npm:1.0.12":
   version: 1.0.12
   resolution: "makeerror@npm:1.0.12"
@@ -7330,6 +7337,7 @@ __metadata:
     leven: "npm:4.1.0"
     linguist-languages: "npm:9.0.0"
     magic-string: "npm:0.30.21"
+    make-synchronized: "npm:0.8.0"
     meriyah: "npm:6.1.4"
     micromatch: "npm:4.0.8"
     minimist: "npm:1.2.8"
