@@ -3,9 +3,10 @@ import { DOC_TYPE_LABEL } from "./types.js";
 
 /**
 @import {Doc} from "./index.js";
+@typedef {0 | 0n | '' | false | null | undefined} Falsy
 @typedef {{
   readonly type: DOC_TYPE_LABEL,
-  readonly label: Label,
+  readonly label: any,
   readonly contents: Doc,
 }} Label
 */
@@ -16,9 +17,10 @@ This doesn't affect how the doc is printed,
 but can be useful for heuristics based on doc introspection.
 
 @template {any} L
+@template {Doc} D
 @param {L} label If falsy, the `contents` doc is returned as is.
-@param {Doc} contents
-@returns {Label & {readonly label: L}}
+@param {D} contents
+@returns {Omit<Label, "label"> & {readonly label: L} | D}
 */
 function label(label, contents) {
   assertDoc(contents);

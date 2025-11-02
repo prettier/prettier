@@ -234,6 +234,7 @@ function print(path, options, print) {
             return "";
           }
 
+          /** @type {Doc[]} */
           let breaks = [line];
 
           const newlines = countNewLines(text);

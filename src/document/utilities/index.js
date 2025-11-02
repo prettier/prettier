@@ -22,6 +22,10 @@ import {
   traverseDoc,
 } from "../document/index.js";
 
+/**
+@import {Doc} from "../document/index.js";
+*/
+
 function mapDoc(doc, cb) {
   // Avoid creating `Map`
   if (typeof doc === "string") {
@@ -348,6 +352,11 @@ function cleanDoc(doc) {
   return mapDoc(doc, (currentDoc) => cleanDocFn(currentDoc));
 }
 
+/**
+@param {Doc} doc
+@param {Doc} [replacement]
+@returns {Doc}
+*/
 function replaceEndOfLine(doc, replacement = literalline) {
   return mapDoc(doc, (currentDoc) =>
     typeof currentDoc === "string"
@@ -373,10 +382,10 @@ function inheritLabel(doc, fn) {
 }
 
 /**
- * returns true iff cleanDoc(doc) === ""
- * @param {import("./builders.js").Doc} doc
- * @returns {boolean}
- */
+returns true iff cleanDoc(doc) === ""
+@param {Doc} doc
+@returns {boolean}
+*/
 function isEmptyDoc(doc) {
   let isEmpty = true;
   traverseDoc(doc, (doc) => {

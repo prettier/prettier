@@ -1,5 +1,5 @@
 /**
-@import {Doc} from "./document/index.js"
+@import {Align} from "./index.js";
 */
 
 export * from "./debug.js";

@@ -15,9 +15,11 @@ import { DOC_TYPE_ALIGN } from "./types.js";
 */
 
 /**
-@param {AlignType} alignType
-@param {Doc} contents
-@returns {Align}
+@template {AlignType} [N = AlignType]
+@template {Doc} [D = Doc]
+@param {N} alignType
+@param {D} contents
+@returns {Omit<Align, "n" | "contents"> & {readonly n: N, readonly contents: D}}
 */
 function align(alignType, contents) {
   assertDoc(contents);
@@ -53,10 +55,7 @@ function dedent(contents) {
 @param {Doc} doc
 @param {number} size
 @param {number} tabWidth
-@returns {Align & {
-  readonly contents: Indent,
-  readonly n: number | typeof Number.NEGATIVE_INFINITY,
-}}
+@returns {Doc}
 */
 function addAlignmentToDoc(doc, size, tabWidth) {
   assertDoc(doc);
@@ -64,7 +63,7 @@ function addAlignmentToDoc(doc, size, tabWidth) {
   let aligned = doc;
   if (size > 0) {
     // Use indent to add tabs for all the levels of tabs we need
-    for (let i = 0; i < Math.floor(size / tabWidth); ++i) {
+    for (let level = 0; level < Math.floor(size / tabWidth); ++level) {
       aligned = indent(aligned);
     }
     // Use align for all the spaces that are needed

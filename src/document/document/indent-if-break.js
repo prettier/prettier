@@ -10,7 +10,7 @@ import { DOC_TYPE_INDENT_IF_BREAK } from "./types.js";
   readonly groupId: GroupId,
   readonly negate: boolean,
 }} IndentIfBreak
-@typedef {{groupId: GroupId, negate: boolean}} IndentIfBreakOptions
+@typedef {{groupId: GroupId, negate?: boolean}} IndentIfBreakOptions
 */
 
 /**

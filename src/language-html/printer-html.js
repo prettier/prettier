@@ -100,8 +100,10 @@ function genericPrint(path, options, print) {
       const suffix = printClosingTagSuffix(node, options);
       // We cant use `fill([prefix, printed, suffix])` because it violates rule of fill: elements with odd indices must be line break
       printed[0] = [prefix, printed[0]];
+      // @ts-expect-error -- Need investigate how `replaceEndOfLine` works
       printed.push([printed.pop(), suffix]);
 
+      // @ts-expect-error -- Need investigate how `replaceEndOfLine` works
       return fill(printed);
     }
     case "docType":

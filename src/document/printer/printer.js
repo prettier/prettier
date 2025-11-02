@@ -25,7 +25,7 @@ import { makeAlign, makeIndent, ROOT_INDENT } from "./indent.js";
 
 /**
 @import {EndOfLineOption} from "../../common/end-of-line.js";
-@import {Doc} from "./document.js";
+@import {Doc} from "../document/index.js";
 @import {Indent, IndentOptions} from "./indent.js";
 @typedef {typeof MODE_BREAK | typeof MODE_FLAT} Mode
 @typedef {{ indent: Indent, doc: any, mode: Mode }} Command
