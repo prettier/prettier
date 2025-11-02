@@ -57,3 +57,16 @@ English
 
 [ウ
 ィキペディア]: https://ja.wikipedia.org/
+
+C言
+語
+・
+C++
+・
+Go
+・
+Rust
+
+U+301C〜
+U+FF5E～
+U+1F221🈡

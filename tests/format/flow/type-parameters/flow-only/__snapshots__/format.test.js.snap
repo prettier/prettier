@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`comments.js format 1`] = `
 ====================================options=====================================
@@ -20,6 +20,59 @@ type A<T: /* comment */ string> = B;
 type A<T /* comment */ : string> = B;
 type A<T /* comment */ : string> = B;
 type A</* comment */ T: string> = B;
+
+================================================================================
+`;
+
+exports[`const-type-params.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// Simple
+type T<const X> = X;
+function f<const T>(): void {}
+<const T>(x: T) => {}
+class C<const T>{}
+
+// With variance
+type T<const +X> = X;
+function f<const +T>(): void {}
+<const +T>(x: T) => {}
+class D<const +T>{}
+
+=====================================output=====================================
+// Simple
+type T<const X> = X;
+function f<const T>(): void {}
+<const T>(x: T) => {};
+class C<const T> {}
+
+// With variance
+type T<const +X> = X;
+function f<const +T>(): void {}
+<const +T>(x: T) => {};
+class D<const +T> {}
+
+================================================================================
+`;
+
+exports[`empty_generic_break.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class X {
+	a: B<> = SuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperLong;
+}
+
+=====================================output=====================================
+class X {
+  a: B<> =
+    SuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperLong;
+}
 
 ================================================================================
 `;

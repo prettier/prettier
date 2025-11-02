@@ -1,5 +1,18 @@
 import htmlUaStyles from "html-ua-styles";
 
+function expandHeadingPseudoClassSelector(selector) {
+  if (selector === ":heading") {
+    return ["h1", "h2", "h3", "h4", "h5", "h6"];
+  }
+
+  const match = selector.match(/^:heading\((?<levels>\d+(?:,\s*\d+)*)\)$/u);
+  if (!match) {
+    return;
+  }
+
+  return match.groups.levels.split(",").map((level) => `h${level.trim()}`);
+}
+
 const getCssStyleTags = (property) =>
   Object.fromEntries(
     htmlUaStyles.flatMap(({ type, selectors, styles }) => {
@@ -12,11 +25,13 @@ const getCssStyleTags = (property) =>
         return [];
       }
 
-      const tagNames = selectors.filter((selector) =>
-        /^[\da-z]+$/iu.test(selector),
-      );
+      return selectors.flatMap((selector) => {
+        const tagNames =
+          expandHeadingPseudoClassSelector(selector) ??
+          (/^[\da-z]+$/iu.test(selector) ? [selector] : []);
 
-      return tagNames.map((tagName) => [tagName, style.value]);
+        return tagNames.map((tagName) => [tagName, style.value]);
+      });
     }),
   );
 
@@ -34,8 +49,6 @@ const CSS_DISPLAY_TAGS = {
   // noscript: "inline",
 
   // there's no css display for these elements but they behave these ways
-  details: "block",
-  summary: "block",
   meter: "inline-block",
   progress: "inline-block",
   object: "inline-block",

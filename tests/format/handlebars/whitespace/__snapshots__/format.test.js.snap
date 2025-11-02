@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`basics.hbs - {"printWidth":40} format 1`] = `
 ====================================options=====================================
@@ -327,6 +327,27 @@ printWidth: 40
 >Nihil aut odit omnis. Quam maxime est molestiae. Maxime dolorem dolores voluptas quaerat ut qui sunt vitae error.</span>
 <!-- non-breaking narrow whitespaces -->
 <span>Prix : 32 €</span>
+================================================================================
+`;
+
+exports[`preformatted.hbs - {"printWidth":40} format 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 40
+                                        | printWidth
+=====================================input======================================
+<pre>
+  ls -l
+  cd ..
+  cd /usr/local
+</pre>
+
+=====================================output=====================================
+<pre>
+  ls -l
+  cd ..
+  cd /usr/local
+</pre>
 ================================================================================
 `;
 

@@ -1,8 +1,7 @@
 import { parse as parseYaml } from "yaml-unist-parser/lib/parse.js";
-
 import createError from "../common/parser-create-error.js";
 import { locEnd, locStart } from "./loc.js";
-import { hasPragma } from "./pragma.js";
+import { hasIgnorePragma, hasPragma } from "./pragma.js";
 
 function parse(text) {
   try {
@@ -34,6 +33,7 @@ export const yaml = {
   astFormat: "yaml",
   parse,
   hasPragma,
+  hasIgnorePragma,
   locStart,
   locEnd,
 };

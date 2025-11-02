@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`asi.js format 1`] = `
 ====================================options=====================================
@@ -177,6 +177,62 @@ class Foo {
 ================================================================================
 `;
 
+exports[`computed-constructor-property.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class A {
+  [constructor]
+}
+
+class B {
+  ["constructor"]
+}
+
+=====================================output=====================================
+class A {
+  [constructor];
+}
+
+class B {
+  ["constructor"];
+}
+
+================================================================================
+`;
+
+exports[`constructor.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// Literal
+class A {
+  "constructor"() { }
+}
+
+// Identifier
+class B {
+  constructor() { }
+}
+
+=====================================output=====================================
+// Literal
+class A {
+  constructor() {}
+}
+
+// Identifier
+class B {
+  constructor() {}
+}
+
+================================================================================
+`;
+
 exports[`empty.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -257,6 +313,28 @@ class C {
 ({
   name /*comment*/() {},
 });
+
+================================================================================
+`;
+
+exports[`multiple-static.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class C {
+  static
+  static
+  static
+  a() {}
+}
+
+=====================================output=====================================
+class C {
+  static static;
+  static a() {}
+}
 
 ================================================================================
 `;

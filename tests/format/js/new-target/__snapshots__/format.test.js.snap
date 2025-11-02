@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`outside-functions.js [acorn] format 1`] = `
 "'new.target' can only be used in functions and class static block (1:11)
@@ -23,12 +23,22 @@ exports[`outside-functions.js [flow] format 1`] = `
   2 |"
 `;
 
-exports[`outside-functions.js [meriyah] format 1`] = `
-"new.target only allowed within functions (1:20)
+exports[`outside-functions.js [hermes] format 1`] = `
+"'new.target' not in a function (1:10)
 > 1 | const x = new.target;
-    |                    ^
+    |          ^
   2 |
-Cause: [1:20]: new.target only allowed within functions"
+Cause: 'new.target' not in a function (1:10)
+const x = new.target;
+          ^~~~~~~~~~"
+`;
+
+exports[`outside-functions.js [meriyah] format 1`] = `
+"new.target only allowed within functions or static blocks (1:15)
+> 1 | const x = new.target;
+    |               ^^^^^^
+  2 |
+Cause: [1:14-1:20]: new.target only allowed within functions or static blocks"
 `;
 
 exports[`outside-functions.js format 1`] = `
@@ -68,12 +78,21 @@ exports[`range.js [flow] format 1`] = `
     |    ^"
 `;
 
-exports[`range.js [meriyah] format 1`] = `
-"new.target only allowed within functions (2:10)
+exports[`range.js [hermes] format 1`] = `
+"'new.target' not in a function (2:0)
   1 | const x =
 > 2 | new.target;
-    |          ^
-Cause: [2:10]: new.target only allowed within functions"
+Cause: 'new.target' not in a function (2:0)
+new.target;
+^~~~~~~~~~"
+`;
+
+exports[`range.js [meriyah] format 1`] = `
+"new.target only allowed within functions or static blocks (2:5)
+  1 | const x =
+> 2 | new.target;
+    |     ^^^^^^
+Cause: [2:4-2:10]: new.target only allowed within functions or static blocks"
 `;
 
 exports[`range.js format 1`] = `

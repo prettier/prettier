@@ -1,1 +1,15 @@
-runFormatTest(import.meta, ["flow", "babel", "typescript"]);
+runFormatTest(import.meta, [
+  "babel",
+  "babel-flow",
+  "babel-ts",
+  "__babel_estree",
+  "typescript",
+  "flow",
+  "meriyah",
+  "acorn",
+  "espree",
+  "espree",
+  "hermes",
+  "oxc",
+  "oxc-ts",
+]);

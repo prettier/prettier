@@ -5,9 +5,10 @@ import {
   indent,
   line,
 } from "../document/builders.js";
-import printFrontMatter from "../utils/front-matter/print.js";
+import htmlWhitespaceUtils from "../utils/html-whitespace-utils.js";
 import printAngularControlFlowBlockParameters from "./embed/angular-control-flow-block-parameters.js";
 import printAttribute from "./embed/attribute.js";
+import { formatAttributeValue } from "./embed/utils.js";
 import getNodeContent from "./get-node-content.js";
 import {
   needsToBorrowPrevClosingTagEndMarker,
@@ -17,7 +18,6 @@ import {
   printOpeningTagPrefix,
 } from "./print/tag.js";
 import {
-  dedentString,
   htmlTrimPreserveIndentation,
   inferElementParser,
   isScriptLikeTag,
@@ -36,9 +36,9 @@ const embeddedAngularControlFlowBlocks = new Set([
 function embed(path, options) {
   const { node } = path;
 
-  switch (node.type) {
+  switch (node.kind) {
     case "element":
-      if (isScriptLikeTag(node) || node.type === "interpolation") {
+      if (isScriptLikeTag(node, options) || node.kind === "interpolation") {
         // Fall through to "text"
         return;
       }
@@ -75,13 +75,15 @@ function embed(path, options) {
       break;
 
     case "text":
-      if (isScriptLikeTag(node.parent)) {
+      if (isScriptLikeTag(node.parent, options)) {
         const parser = inferElementParser(node.parent, options);
         if (parser) {
           return async (textToDoc) => {
             const value =
               parser === "markdown"
-                ? dedentString(node.value.replace(/^[^\S\n]*\n/u, ""))
+                ? htmlWhitespaceUtils.dedentString(
+                    node.value.replace(/^[^\S\n]*\n/u, ""),
+                  )
                 : node.value;
             const textToDocOptions = { parser, __embeddedInHtml: true };
             if (options.parser === "html" && parser === "babel") {
@@ -90,7 +92,8 @@ function embed(path, options) {
               if (
                 attrMap &&
                 (attrMap.type === "module" ||
-                  (attrMap.type === "text/babel" &&
+                  ((attrMap.type === "text/babel" ||
+                    attrMap.type === "text/jsx") &&
                     attrMap["data-type"] === "module"))
               ) {
                 sourceType = "module";
@@ -106,7 +109,7 @@ function embed(path, options) {
             ];
           };
         }
-      } else if (node.parent.type === "interpolation") {
+      } else if (node.parent.kind === "interpolation") {
         return async (textToDoc) => {
           const textToDocOptions = {
             __isInHtmlInterpolation: true, // to avoid unexpected `}}`
@@ -139,15 +142,19 @@ function embed(path, options) {
     case "attribute":
       return printAttribute(path, options);
 
-    case "front-matter":
-      return (textToDoc) => printFrontMatter(node, textToDoc);
-
     case "angularControlFlowBlockParameters":
       if (!embeddedAngularControlFlowBlocks.has(path.parent.name)) {
         return;
       }
 
       return printAngularControlFlowBlockParameters;
+
+    case "angularLetDeclarationInitializer":
+      return (textToDoc) =>
+        formatAttributeValue(node.value, textToDoc, {
+          parser: "__ng_binding",
+          __isInHtmlAttribute: false,
+        });
   }
 }
 

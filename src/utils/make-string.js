@@ -1,4 +1,4 @@
-/** @typedef {import("./get-preferred-quote.js").Quote} Quote */
+/** @import {Quote} from "./get-preferred-quote.js" */
 
 /**
  * @param {string} rawText

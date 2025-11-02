@@ -1,9 +1,9 @@
-import isEs5IdentifierName from "@prettier/is-es5-identifier-name";
-
+import isEs5IdentifierName from "is-es5-identifier-name";
 import { printComments } from "../../main/comments/print.js";
 import printNumber from "../../utils/print-number.js";
 import printString from "../../utils/print-string.js";
-import { isNumericLiteral, isStringLiteral, rawText } from "../utils/index.js";
+import getRaw from "../utils/get-raw.js";
+import { isNumericLiteral, isStringLiteral } from "../utils/index.js";
 import { printAssignment } from "./assignment.js";
 
 const needsQuoteProps = new WeakMap();
@@ -44,7 +44,7 @@ function isStringKeySafeToUnquote(node, options) {
     options.parser === "json" ||
     options.parser === "jsonc" ||
     !isStringLiteral(node.key) ||
-    printString(rawText(node.key), options).slice(1, -1) !== node.key.value
+    printString(getRaw(node.key), options).slice(1, -1) !== node.key.value
   ) {
     return false;
   }
@@ -56,7 +56,8 @@ function isStringKeySafeToUnquote(node, options) {
     // See https://github.com/microsoft/TypeScript/pull/20075
     !(
       (options.parser === "babel-ts" && node.type === "ClassProperty") ||
-      (options.parser === "typescript" && node.type === "PropertyDefinition")
+      ((options.parser === "typescript" || options.parser === "oxc-ts") &&
+        node.type === "PropertyDefinition")
     )
   ) {
     return true;
@@ -69,6 +70,7 @@ function isStringKeySafeToUnquote(node, options) {
     node.type !== "ImportAttribute" &&
     (options.parser === "babel" ||
       options.parser === "acorn" ||
+      options.parser === "oxc" ||
       options.parser === "espree" ||
       options.parser === "meriyah" ||
       options.parser === "__babel_estree")
@@ -84,12 +86,16 @@ function shouldQuotePropertyKey(path, options) {
   return (
     (key.type === "Identifier" ||
       (isNumericLiteral(key) &&
-        isSimpleNumber(printNumber(rawText(key))) &&
+        isSimpleNumber(printNumber(getRaw(key))) &&
         // Avoid converting 999999999999999999999 to 1e+21, 0.99999999999999999 to 1 and 1.0 to 1.
-        String(key.value) === printNumber(rawText(key)) &&
+        String(key.value) === printNumber(getRaw(key)) &&
         // Quoting number keys is safe in JS and Flow, but not in TypeScript (as
         // mentioned in `isStringKeySafeToUnquote`).
-        !(options.parser === "typescript" || options.parser === "babel-ts"))) &&
+        !(
+          options.parser === "typescript" ||
+          options.parser === "babel-ts" ||
+          options.parser === "oxc-ts"
+        ))) &&
     (options.parser === "json" ||
       options.parser === "jsonc" ||
       (options.quoteProps === "consistent" && needsQuoteProps.get(path.parent)))
@@ -148,7 +154,7 @@ function printPropertyKey(path, options, print) {
       ),
       options,
     );
-    return path.call((keyPath) => printComments(keyPath, prop, options), "key");
+    return path.call(() => printComments(path, prop, options), "key");
   }
 
   if (
@@ -160,9 +166,9 @@ function printPropertyKey(path, options, print) {
     // '1' -> 1
     // '1.5' -> 1.5
     return path.call(
-      (keyPath) =>
+      () =>
         printComments(
-          keyPath,
+          path,
           /^\d/u.test(key.value) ? printNumber(key.value) : key.value,
           options,
         ),

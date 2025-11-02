@@ -4,6 +4,7 @@ import {
   group,
   ifBreak,
   indent,
+  line,
   lineSuffix,
 } from "../../../src/document/builders.js";
 import { cleanDoc } from "../../../src/document/utils.js";
@@ -12,8 +13,8 @@ describe("cleanDoc", () => {
   test.each([
     [
       "fill",
-      [fill(["", ""]), fill([]), fill(["1"]), fill(["2", "3"])],
-      [fill(["1"]), fill(["2", "3"])],
+      [fill([""]), fill([]), fill(["1"]), fill(["2", line, "3"])],
+      [fill(["1"]), fill(["2", line, "3"])],
     ],
     ["nested group", group(group("_")), group("_")],
     [

@@ -1,5 +1,4 @@
 const visitorKeys = {
-  "front-matter": [],
   root: ["children"],
   element: ["attrs", "children"],
   ieConditionalComment: ["children"],
@@ -14,6 +13,8 @@ const visitorKeys = {
   angularControlFlowBlock: ["children", "parameters"],
   angularControlFlowBlockParameters: ["children"],
   angularControlFlowBlockParameter: [],
+  angularLetDeclaration: ["init"],
+  angularLetDeclarationInitializer: [],
   angularIcuExpression: ["cases"],
   angularIcuCase: ["expression"],
 };

@@ -1,6 +1,6 @@
 import { skipSpaces } from "./skip.js";
 
-/** @typedef {import("./skip.js").SkipOptions} SkipOptions */
+/** @import {SkipOptions} from "./skip.js" */
 
 // Not using, but it's public utils
 /* c8 ignore start */

@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`no-semi.js [acorn] format 1`] = `
 "Unexpected token (2:2)
@@ -30,7 +30,17 @@ exports[`no-semi.js [meriyah] format 1`] = `
   3 |
   4 | class A {
   5 |   a = b;
-Cause: [2:2]: Unexpected token: ':'"
+Cause: [2:1-2:2]: Unexpected token: ':'"
+`;
+
+exports[`no-semi.js [oxc] format 1`] = `
+"Unexpected token (2:2)
+  1 | a
+> 2 | ;::b.c
+    |  ^
+  3 |
+  4 | class A {
+  5 |   a = b;"
 `;
 
 exports[`no-semi.js - {"semi":false} [acorn] format 1`] = `
@@ -63,7 +73,17 @@ exports[`no-semi.js - {"semi":false} [meriyah] format 1`] = `
   3 |
   4 | class A {
   5 |   a = b;
-Cause: [2:2]: Unexpected token: ':'"
+Cause: [2:1-2:2]: Unexpected token: ':'"
+`;
+
+exports[`no-semi.js - {"semi":false} [oxc] format 1`] = `
+"Unexpected token (2:2)
+  1 | a
+> 2 | ;::b.c
+    |  ^
+  3 |
+  4 | class A {
+  5 |   a = b;"
 `;
 
 exports[`no-semi.js - {"semi":false} format 1`] = `

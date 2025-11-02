@@ -1,4 +1,193 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`4594.scss format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+.foo,
+// Comment
+.bar {
+  // Comment
+  color: red; // Comment
+}
+
+$my-list:
+  'foo', // Comment
+  'bar'; // Comment
+
+$my-map: (
+  'foo': 1, // Comment
+  'bar': 2, // Comment
+  'buz': calc(1 + 2), // Buz
+  'baz': 4, // Baz
+);
+
+[href]:hover &, // Comment
+[href]:focus &, // Comment
+[href]:active & {
+  .tooltip {
+    opacity: 1;
+  }
+}
+
+@import
+  // Comment
+  'mixins',
+  'variables',
+  // Comment
+  'reset',
+  'scaffolding',
+  'type',
+  // Comment
+  'bar',
+  'tabs';
+
+=====================================output=====================================
+.foo,
+// Comment
+.bar {
+  // Comment
+  color: red; // Comment
+}
+
+$my-list:
+  "foo",
+  // Comment
+  "bar"; // Comment
+
+$my-map: (
+  "foo": 1,
+  // Comment
+  "bar": 2,
+  // Comment
+  "buz": calc(1 + 2),
+  // Buz
+  "baz": 4, // Baz
+);
+
+[href]:hover &, // Comment
+[href]:focus &, // Comment
+[href]:active & {
+  .tooltip {
+    opacity: 1;
+  }
+}
+
+@import // Comment
+  "mixins",
+  "variables",
+  // Comment
+  "reset",
+  "scaffolding", "type",
+  // Comment
+  "bar",
+  "tabs";
+
+================================================================================
+`;
+
+exports[`4878.scss format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+@function someVeryLongFunctionNameForJustAPow($base, $exponent) {
+  $result: 1;
+  @for $_ from 1 through $exponent {
+    $result: $result * $base;
+  }
+  @return $result;
+}
+
+@function pow($base, $exponent){
+  @return someVeryLongFunctionNameForJustAPow($base,$exponent);
+}
+
+.foo{
+  width: someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2,
+  // This next pow is really powerful
+  someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, 2))))))))))))
+}
+
+.bar{
+  width: pow(2, pow(2, pow(2,
+  // This next pow is really powerful
+  pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, 2))))))))))))
+}
+
+=====================================output=====================================
+@function someVeryLongFunctionNameForJustAPow($base, $exponent) {
+  $result: 1;
+  @for $_ from 1 through $exponent {
+    $result: $result * $base;
+  }
+  @return $result;
+}
+
+@function pow($base, $exponent) {
+  @return someVeryLongFunctionNameForJustAPow($base, $exponent);
+}
+
+.foo {
+  width: someVeryLongFunctionNameForJustAPow(
+    2,
+    someVeryLongFunctionNameForJustAPow(
+      2,
+      someVeryLongFunctionNameForJustAPow(
+        2,
+        // This next pow is really powerful
+        someVeryLongFunctionNameForJustAPow(
+            2,
+            someVeryLongFunctionNameForJustAPow(
+              2,
+              someVeryLongFunctionNameForJustAPow(
+                2,
+                someVeryLongFunctionNameForJustAPow(
+                  2,
+                  someVeryLongFunctionNameForJustAPow(
+                    2,
+                    someVeryLongFunctionNameForJustAPow(
+                      2,
+                      someVeryLongFunctionNameForJustAPow(
+                        2,
+                        someVeryLongFunctionNameForJustAPow(
+                          2,
+                          someVeryLongFunctionNameForJustAPow(2, 2)
+                        )
+                      )
+                    )
+                  )
+                )
+              )
+            )
+          )
+      )
+    )
+  );
+}
+
+.bar {
+  width: pow(
+    2,
+    pow(
+      2,
+      pow(
+        2,
+        // This next pow is really powerful
+        pow(
+            2,
+            pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, 2))))))))
+          )
+      )
+    )
+  );
+}
+
+================================================================================
+`;
 
 exports[`CRLF.scss format 1`] = `
 ====================================options=====================================
@@ -307,6 +496,42 @@ printWidth: 80
 ================================================================================
 `;
 
+exports[`comments.scss format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// This comment won't be included in the CSS. 
+//This comment won't be included in the CSS.
+//     This comment won't be included in the CSS.     
+
+/* But this comment will, except in compressed mode. */
+/*     But this comment will, except in compressed mode.     */
+/*But this comment will, except in compressed mode.*/
+
+/*! This comment will be included even in compressed mode. */
+
+/// Computes an exponent.
+///// Computes an exponent.
+
+=====================================output=====================================
+// This comment won't be included in the CSS.
+//This comment won't be included in the CSS.
+//     This comment won't be included in the CSS.
+
+/* But this comment will, except in compressed mode. */
+/*     But this comment will, except in compressed mode.     */
+/*But this comment will, except in compressed mode.*/
+
+/*! This comment will be included even in compressed mode. */
+
+/// Computes an exponent.
+///// Computes an exponent.
+
+================================================================================
+`;
+
 exports[`custom-properties.scss format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
@@ -455,8 +680,7 @@ $my-map: (
 $my-map: (
   "foo": 1,
   // Foo
-  "bar": 2,
-  // Bar
+  "bar": 2, // Bar
 );
 
 ================================================================================
@@ -751,12 +975,12 @@ $var: /* comment 1 */ all /* comment 2 */ !default /* comment 3 */ ; /* comment 
 }
 
 =====================================output=====================================
-$var: /* comment 1 */ all /* comment 2 */ !default /* comment 3 */; /* comment 4 */
+$var: /* comment 1 */ all /* comment 2 */ !default /* comment 3 */ ; /* comment 4 */
 
 @mixin text-color {
   /* comment 5 */
   /* comment 6 */
-  $text-color/* comment 7 */ : /* comment 8 */ red /* comment 9 */ !default /* comment 10 */; /* comment 11 */
+  $text-color/* comment 7 */ : /* comment 8 */ red /* comment 9 */ !default /* comment 10 */ ; /* comment 11 */
   /* comment 12 */
   color: $text-color;
 }
@@ -764,7 +988,7 @@ $var: /* comment 1 */ all /* comment 2 */ !default /* comment 3 */; /* comment 4
 .error {
   /* comment 13 */
   /* comment 14 */
-  $text-color/* comment 15 */ : /* comment 16 */ green /* comment 17 */ !global /* comment 18 */; /* comment 19 */
+  $text-color/* comment 15 */ : /* comment 16 */ green /* comment 17 */ !global /* comment 18 */ ; /* comment 19 */
   /* comment 20 */
 }
 

@@ -4,7 +4,7 @@ import isVueSfcWithTypescriptScript from "../utils/is-vue-sfc-with-typescript-sc
 import { formatAttributeValue } from "./utils.js";
 
 /**
- * @typedef {import("../../document/builders.js").Doc} Doc
+ * @import {Doc} from "../../document/builders.js"
  */
 
 /**
@@ -47,8 +47,7 @@ function parseVueVForDirective(value) {
     return;
   }
 
-  const res = {};
-  res.for = inMatch[3].trim();
+  const res = { for: inMatch[3].trim() };
   if (!res.for) {
     return;
   }

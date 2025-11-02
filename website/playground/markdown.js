@@ -41,6 +41,7 @@ function getMarkdownSyntax(options) {
     case "babel":
     case "babel-flow":
     case "flow":
+    case "hermes":
     case "acorn":
     case "espree":
     case "meriyah":
@@ -56,6 +57,7 @@ function getMarkdownSyntax(options) {
       return "hbs";
     case "angular":
     case "lwc":
+    case "mjml":
       return "html";
     default:
       return options.parser;
@@ -81,4 +83,4 @@ function codeBlock(content, syntax) {
   );
 }
 
-module.exports = formatMarkdown;
+export default formatMarkdown;

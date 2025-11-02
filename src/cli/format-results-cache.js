@@ -1,9 +1,9 @@
 // Inspired by LintResultsCache from ESLint
 // https://github.com/eslint/eslint/blob/c2d0a830754b6099a3325e6d3348c3ba983a677a/lib/cli-engine/lint-result-cache.js
 
+import fs from "node:fs";
 import stringify from "fast-json-stable-stringify";
 import fileEntryCache from "file-entry-cache";
-
 import { version as prettierVersion } from "../index.js";
 import { createHash } from "./utils.js";
 
@@ -26,11 +26,10 @@ function getHashOfOptions(options) {
 }
 
 /**
- * @typedef {{ hashOfOptions?: string }} OurMeta
- * @typedef {import("file-entry-cache").FileDescriptor} FileDescriptor
+ * @import {FileDescriptor, FileDescriptorMeta} from "file-entry-cache"
  *
- * @param {import("file-entry-cache").FileDescriptor} fileDescriptor
- * @returns {FileDescriptor["meta"] & OurMeta}
+ * @param {FileDescriptor} fileDescriptor
+ * @returns {FileDescriptorMeta & {data?: {hashOfOptions?: string }}}}
  */
 function getMetadataFromFileDescriptor(fileDescriptor) {
   return fileDescriptor.meta;
@@ -45,12 +44,30 @@ class FormatResultsCache {
    */
   constructor(cacheFileLocation, cacheStrategy) {
     const useChecksum = cacheStrategy === "content";
-
-    this.#fileEntryCache = fileEntryCache.create(
-      /* cacheId */ cacheFileLocation,
-      /* directory */ undefined,
+    const fileEntryCacheOptions = {
       useChecksum,
-    );
+      useModifiedTime: !useChecksum,
+      restrictAccessToCwd: false,
+    };
+
+    try {
+      this.#fileEntryCache = fileEntryCache.createFromFile(
+        /* filePath */ cacheFileLocation,
+        fileEntryCacheOptions,
+      );
+    } catch {
+      // https://github.com/prettier/prettier/issues/17092
+      // If `createFromFile()` fails, it's probably because the format
+      // of cache file changed,it happened when we release v3.5.0
+      if (fs.existsSync(cacheFileLocation)) {
+        fs.unlinkSync(cacheFileLocation);
+        // retry
+        this.#fileEntryCache = fileEntryCache.createFromFile(
+          /* filePath */ cacheFileLocation,
+          fileEntryCacheOptions,
+        );
+      }
+    }
   }
 
   /**
@@ -58,19 +75,14 @@ class FormatResultsCache {
    * @param {any} options
    */
   existsAvailableFormatResultsCache(filePath, options) {
-    const fileDescriptor = this.#fileEntryCache.getFileDescriptor(filePath);
-
-    /* c8 ignore next 3 */
-    if (fileDescriptor.notFound) {
+    const fileDescriptor = this.#getFileDescriptor(filePath);
+    if (fileDescriptor.notFound || fileDescriptor.changed) {
       return false;
     }
 
-    const hashOfOptions = getHashOfOptions(options);
-    const meta = getMetadataFromFileDescriptor(fileDescriptor);
-    const changed =
-      fileDescriptor.changed || meta.hashOfOptions !== hashOfOptions;
-
-    return !changed;
+    const hashOfOptions =
+      getMetadataFromFileDescriptor(fileDescriptor).data?.hashOfOptions;
+    return hashOfOptions && hashOfOptions === getHashOfOptions(options);
   }
 
   /**
@@ -78,10 +90,10 @@ class FormatResultsCache {
    * @param {any} options
    */
   setFormatResultsCache(filePath, options) {
-    const fileDescriptor = this.#fileEntryCache.getFileDescriptor(filePath);
-    const meta = getMetadataFromFileDescriptor(fileDescriptor);
-    if (fileDescriptor && !fileDescriptor.notFound) {
-      meta.hashOfOptions = getHashOfOptions(options);
+    const fileDescriptor = this.#getFileDescriptor(filePath);
+    if (!fileDescriptor.notFound) {
+      const meta = getMetadataFromFileDescriptor(fileDescriptor);
+      meta.data = { ...meta.data, hashOfOptions: getHashOfOptions(options) };
     }
   }
 
@@ -94,6 +106,10 @@ class FormatResultsCache {
 
   reconcile() {
     this.#fileEntryCache.reconcile();
+  }
+
+  #getFileDescriptor(filePath) {
+    return this.#fileEntryCache.getFileDescriptor(filePath);
   }
 }
 

@@ -65,6 +65,7 @@ const astAutoFold = {
 export function getAstAutoFold(parser) {
   switch (parser) {
     case "flow":
+    case "hermes":
     case "babel":
     case "babel-flow":
     case "babel-ts":
@@ -84,6 +85,7 @@ export function getAstAutoFold(parser) {
     case "angular":
     case "vue":
     case "lwc":
+    case "mjml":
       return astAutoFold.html;
     case "markdown":
     case "mdx":
@@ -117,28 +119,4 @@ export function convertOffsetToSelection(offset, content) {
     }
   }
   return { anchor: { line, ch } };
-}
-
-/**
- * Copied from https://github.com/prettier/prettier/blob/6fe21780115cf5f74f83876d64b03a727fbab220/src/cli/utils.js#L6-L27
- * @template Obj
- * @template Key
- * @param {Array<Obj>} array
- * @param {(value: Obj) => Key} iteratee
- * @returns {{[p in Key]: T}}
- */
-export function groupBy(array, iteratee) {
-  const result = Object.create(null);
-
-  for (const value of array) {
-    const key = iteratee(value);
-
-    if (Array.isArray(result[key])) {
-      result[key].push(value);
-    } else {
-      result[key] = [value];
-    }
-  }
-
-  return result;
 }

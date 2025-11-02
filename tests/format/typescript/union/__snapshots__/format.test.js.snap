@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`comments.ts format 1`] = `
 ====================================options=====================================
@@ -130,7 +130,8 @@ interface RelayProps {
 type FooBar =
   | null // null
   | {
-      /** x **/ y: number;
+      /** x **/
+      y: number;
       z: string;
     } // this documents the first option
   | void; // this documents the second option

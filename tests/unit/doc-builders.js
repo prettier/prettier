@@ -11,6 +11,7 @@ import {
   indentIfBreak,
   join,
   label,
+  line,
   lineSuffix,
   markAsRoot,
 } from "../../src/document/builders.js";
@@ -49,6 +50,10 @@ describe("doc builders", () => {
     [() => fill(), TypeError],
     [() => fill(notArray), TypeError],
     () => fill([invalidDoc]),
+    [() => fill(["abc", "abc"]), Error],
+    [() => fill(["abc", line, "def", "ghi"]), Error],
+    [() => fill(["abc", [line, "def"], "ghi"]), Error],
+    [() => fill(["abc", "", "def"]), Error],
 
     () => ifBreak(),
     () => ifBreak(invalidDoc),

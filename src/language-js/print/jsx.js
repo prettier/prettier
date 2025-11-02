@@ -11,7 +11,11 @@ import {
   lineSuffixBoundary,
   softline,
 } from "../../document/builders.js";
-import { replaceEndOfLine, willBreak } from "../../document/utils.js";
+import {
+  isEmptyDoc,
+  replaceEndOfLine,
+  willBreak,
+} from "../../document/utils.js";
 import {
   printComments,
   printDanglingComments,
@@ -19,19 +23,19 @@ import {
 import getPreferredQuote from "../../utils/get-preferred-quote.js";
 import UnexpectedNodeError from "../../utils/unexpected-node-error.js";
 import WhitespaceUtils from "../../utils/whitespace-utils.js";
-import { willPrintOwnComments } from "../comments/printer-methods.js";
 import pathNeedsParens from "../needs-parens.js";
+import getRaw from "../utils/get-raw.js";
 import {
   CommentCheckFlags,
+  createTypeCheckFunction,
   hasComment,
   hasNodeIgnoreComment,
-  isArrayOrTupleExpression,
+  isArrayExpression,
   isBinaryish,
   isCallExpression,
   isJsxElement,
-  isObjectOrRecordExpression,
+  isObjectExpression,
   isStringLiteral,
-  rawText,
 } from "../utils/index.js";
 
 /*
@@ -48,10 +52,9 @@ const isEmptyStringOrAnyLine = (doc) =>
   doc === "" || doc === line || doc === hardline || doc === softline;
 
 /**
- * @typedef {import("../../common/ast-path.js").default} AstPath
- * @typedef {import("../types/estree.js").Node} Node
- * @typedef {import("../types/estree.js").JSXElement} JSXElement
- * @typedef {import("../../document/builders.js").Doc} Doc
+ * @import AstPath from "../../common/ast-path.js"
+ * @import {Node, JSXElement} from "../types/estree.js"
+ * @import {Doc} from "../../document/builders.js"
  */
 
 // JSX expands children from the inside-out, instead of the outside-in.
@@ -126,7 +129,7 @@ function printJsxElementInternal(path, options, print) {
 
   const rawJsxWhitespace = options.singleQuote ? "{' '}" : '{" "}';
   const jsxWhitespace = isMdxBlock
-    ? " "
+    ? line
     : ifBreak([rawJsxWhitespace, softline], " ");
 
   const isFacebookTranslationTag = node.openingElement?.name?.name === "fbt";
@@ -201,34 +204,51 @@ function printJsxElementInternal(path, options, print) {
     children.shift();
   }
 
-  // Tweak how we format children if outputting this element over multiple lines.
-  // Also detect whether we will force this element to output over multiple lines.
-  const multilineChildren = [];
+  /*
+   * Tweak how we format children if outputting this element over multiple lines.
+   * Also detect whether we will force this element to output over multiple lines.
+   *
+   * Moreover, we need to ensure that we always have line-like doc at odd index, that is rule of fill().
+   * Assuming that parts.length is always odd, satisfying the above can be straightforwardly done by:
+   * - if we push line-like doc, we push empty string after it
+   * - if we push non-line-like doc, push [parts.pop(), doc] instead
+   */
+  /** @type {Doc[]} */
+  const multilineChildren = [""];
   for (const [i, child] of children.entries()) {
     // There are a number of situations where we need to ensure we display
     // whitespace as `{" "}` when outputting this element over multiple lines.
     if (child === jsxWhitespace) {
-      if (i === 1 && children[i - 1] === "") {
+      if (i === 1 && isEmptyDoc(children[i - 1])) {
         if (children.length === 2) {
           // Solitary whitespace
-          multilineChildren.push(rawJsxWhitespace);
+          multilineChildren.push([multilineChildren.pop(), rawJsxWhitespace]);
           continue;
         }
         // Leading whitespace
-        multilineChildren.push([rawJsxWhitespace, hardline]);
+        multilineChildren.push([rawJsxWhitespace, hardline], "");
         continue;
       } else if (i === children.length - 1) {
         // Trailing whitespace
-        multilineChildren.push(rawJsxWhitespace);
+        multilineChildren.push([multilineChildren.pop(), rawJsxWhitespace]);
         continue;
       } else if (children[i - 1] === "" && children[i - 2] === hardline) {
         // Whitespace after line break
-        multilineChildren.push(rawJsxWhitespace);
+        multilineChildren.push([multilineChildren.pop(), rawJsxWhitespace]);
         continue;
       }
     }
 
-    multilineChildren.push(child);
+    // Note that children always satisfy the rule of fill() content.
+    // - printJsxChildren always returns valid fill() content
+    // - we always remove even number (containing zero) of leading items from children.
+    if (i % 2 === 0) {
+      // non-line-like
+      multilineChildren.push([multilineChildren.pop(), child]);
+    } else {
+      // line-like
+      multilineChildren.push(child, "");
+    }
 
     if (willBreak(child)) {
       forcedBreak = true;
@@ -244,14 +264,25 @@ function printJsxElementInternal(path, options, print) {
     : group(multilineChildren, { shouldBreak: true });
 
   /*
-  `printJsxChildren` won't call `print` on `JSXText`
-  When the cursorNode is inside `cursor` won't get print.
+  `printJsxChildren` won't call `print` on `JSXText`, so when the cursorNode,
+  nodeBeforeCursor, or nodeAfterCursor is inside, `cursor` won't get printed.
+  This logic fixes that:
   */
   if (
     options.cursorNode?.type === "JSXText" &&
     node.children.includes(options.cursorNode)
   ) {
     content = [cursor, content, cursor];
+  } else if (
+    options.nodeBeforeCursor?.type === "JSXText" &&
+    node.children.includes(options.nodeBeforeCursor)
+  ) {
+    content = [cursor, content];
+  } else if (
+    options.nodeAfterCursor?.type === "JSXText" &&
+    node.children.includes(options.nodeAfterCursor)
+  ) {
+    content = [content, cursor];
   }
 
   if (isMdxBlock) {
@@ -283,10 +314,7 @@ function printJsxElementInternal(path, options, print) {
 // Leading, trailing, and lone whitespace all need to
 // turn themselves into the rather ugly `{' '}` when breaking.
 //
-// We print JSX using the `fill` doc primitive.
-// This requires that we give it an array of alternating
-// content and whitespace elements.
-// To ensure this we add dummy `""` content elements as needed.
+// This function returns Doc array that satisfies rule of `fill()`.
 function printJsxChildren(
   path,
   options,
@@ -294,10 +322,25 @@ function printJsxChildren(
   jsxWhitespace,
   isFacebookTranslationTag,
 ) {
-  const parts = [];
+  /** @type {Doc} */
+  let prevPart = "";
+  /** @type {Doc[]} */
+  const parts = [prevPart];
+  // To ensure rule of `fill()`, we use `push()` and `pushLine()` instead of `parts.push()`.
+  function push(doc) {
+    prevPart = doc;
+    parts.push([parts.pop(), doc]);
+  }
+  function pushLine(doc) {
+    if (doc === "") {
+      return;
+    }
+    prevPart = doc;
+    parts.push(doc, "");
+  }
   path.each(({ node, next }) => {
     if (node.type === "JSXText") {
-      const text = rawText(node);
+      const text = getRaw(node);
 
       // Contains a non-whitespace character
       if (isMeaningfulJsxText(node)) {
@@ -308,10 +351,9 @@ function printJsxChildren(
 
         // Starts with whitespace
         if (words[0] === "") {
-          parts.push("");
           words.shift();
           if (/\n/u.test(words[0])) {
-            parts.push(
+            pushLine(
               separatorWithWhitespace(
                 isFacebookTranslationTag,
                 words[1],
@@ -320,7 +362,7 @@ function printJsxChildren(
               ),
             );
           } else {
-            parts.push(jsxWhitespace);
+            pushLine(jsxWhitespace);
           }
           words.shift();
         }
@@ -339,30 +381,30 @@ function printJsxChildren(
 
         for (const [i, word] of words.entries()) {
           if (i % 2 === 1) {
-            parts.push(line);
+            pushLine(line);
           } else {
-            parts.push(word);
+            push(word);
           }
         }
 
         if (endWhitespace !== undefined) {
           if (/\n/u.test(endWhitespace)) {
-            parts.push(
+            pushLine(
               separatorWithWhitespace(
                 isFacebookTranslationTag,
-                parts.at(-1),
+                prevPart,
                 node,
                 next,
               ),
             );
           } else {
-            parts.push(jsxWhitespace);
+            pushLine(jsxWhitespace);
           }
         } else {
-          parts.push(
+          pushLine(
             separatorNoWhitespace(
               isFacebookTranslationTag,
-              parts.at(-1),
+              prevPart,
               node,
               next,
             ),
@@ -372,21 +414,21 @@ function printJsxChildren(
         // Keep (up to one) blank line between tags/expressions/text.
         // Note: We don't keep blank lines between text elements.
         if (text.match(/\n/gu).length > 1) {
-          parts.push("", hardline);
+          pushLine(hardline);
         }
       } else {
-        parts.push("", jsxWhitespace);
+        pushLine(jsxWhitespace);
       }
     } else {
       const printedChild = print();
-      parts.push(printedChild);
+      push(printedChild);
 
       const directlyFollowedByMeaningfulText =
         next && isMeaningfulJsxText(next);
       if (directlyFollowedByMeaningfulText) {
-        const trimmed = jsxWhitespaceUtils.trim(rawText(next));
+        const trimmed = jsxWhitespaceUtils.trim(getRaw(next));
         const [firstWord] = jsxWhitespaceUtils.split(trimmed);
-        parts.push(
+        pushLine(
           separatorNoWhitespace(
             isFacebookTranslationTag,
             firstWord,
@@ -395,7 +437,7 @@ function printJsxChildren(
           ),
         );
       } else {
-        parts.push(hardline);
+        pushLine(hardline);
       }
     }
   }, "children");
@@ -443,9 +485,8 @@ function separatorWithWhitespace(
   return hardline;
 }
 
-const NO_WRAP_PARENTS = new Set([
+const isNoWrapParent = createTypeCheckFunction([
   "ArrayExpression",
-  "TupleExpression",
   "JSXAttribute",
   "JSXElement",
   "JSXExpressionContainer",
@@ -455,21 +496,16 @@ const NO_WRAP_PARENTS = new Set([
   "OptionalCallExpression",
   "ConditionalExpression",
   "JsExpressionRoot",
+  "MatchExpressionCase",
 ]);
 function maybeWrapJsxElementInParens(path, elem, options) {
   const { parent } = path;
 
-  if (NO_WRAP_PARENTS.has(parent.type)) {
+  if (isNoWrapParent(parent)) {
     return elem;
   }
 
-  const shouldBreak = path.match(
-    undefined,
-    (node) => node.type === "ArrowFunctionExpression",
-    isCallExpression,
-    (node) => node.type === "JSXExpressionContainer",
-  );
-
+  const shouldBreak = shouldBreakJsxElement(path);
   const needsParens = pathNeedsParens(path, options);
 
   return group(
@@ -483,15 +519,39 @@ function maybeWrapJsxElementInParens(path, elem, options) {
   );
 }
 
+function shouldBreakJsxElement(path) {
+  return (
+    path.match(
+      undefined,
+      (node) => node.type === "ArrowFunctionExpression",
+      isCallExpression,
+    ) &&
+    // Babel
+    (path.match(
+      undefined,
+      undefined,
+      undefined,
+      (node) => node.type === "JSXExpressionContainer",
+    ) ||
+      // Estree
+      path.match(
+        undefined,
+        undefined,
+        undefined,
+        (node) => node.type === "ChainExpression",
+        (node) => node.type === "JSXExpressionContainer",
+      ))
+  );
+}
+
 function printJsxAttribute(path, options, print) {
   const { node } = path;
-  const parts = [];
-  parts.push(print("name"));
+  const parts = [print("name")];
 
   if (node.value) {
     let res;
     if (isStringLiteral(node.value)) {
-      const raw = rawText(node.value);
+      const raw = getRaw(node.value);
       // Remove enclosing quotes and unescape
       // all quotes so we get an accurate preferred quote
       let final = raw
@@ -523,8 +583,8 @@ function printJsxExpressionContainer(path, options, print) {
   const shouldInline = (node, parent) =>
     node.type === "JSXEmptyExpression" ||
     (!hasComment(node) &&
-      (isArrayOrTupleExpression(node) ||
-        isObjectOrRecordExpression(node) ||
+      (isArrayExpression(node) ||
+        isObjectExpression(node) ||
         node.type === "ArrowFunctionExpression" ||
         (node.type === "AwaitExpression" &&
           (shouldInline(node.argument, node) ||
@@ -556,18 +616,11 @@ function printJsxOpeningElement(path, options, print) {
   const { node } = path;
 
   const nameHasComments =
-    hasComment(node.name) ||
-    hasComment(node.typeParameters) ||
-    hasComment(node.typeArguments);
+    hasComment(node.name) || hasComment(node.typeArguments);
 
   // Don't break self-closing elements with no attributes and no comments
   if (node.selfClosing && node.attributes.length === 0 && !nameHasComments) {
-    return [
-      "<",
-      print("name"),
-      node.typeArguments ? print("typeArguments") : print("typeParameters"),
-      " />",
-    ];
+    return ["<", print("name"), print("typeArguments"), " />"];
   }
 
   // don't break up opening elements with a single long text attribute
@@ -590,7 +643,7 @@ function printJsxOpeningElement(path, options, print) {
     return group([
       "<",
       print("name"),
-      node.typeArguments ? print("typeArguments") : print("typeParameters"),
+      print("typeArguments"),
       " ",
       ...path.map(print, "attributes"),
       node.selfClosing ? " />" : ">",
@@ -612,7 +665,7 @@ function printJsxOpeningElement(path, options, print) {
     [
       "<",
       print("name"),
-      node.typeArguments ? print("typeArguments") : print("typeParameters"),
+      print("typeArguments"),
       indent(path.map(() => [attributeLine, print()], "attributes")),
       ...printEndOfOpeningTag(node, options, nameHasComments),
     ],
@@ -660,9 +713,8 @@ function shouldPrintBracketSameLine(node, options, nameHasComments) {
 
 function printJsxClosingElement(path, options, print) {
   const { node } = path;
-  const parts = [];
-
-  parts.push("</");
+  /** @type {Doc[]} */
+  const parts = ["</"];
 
   const printed = print("name");
   if (
@@ -682,7 +734,7 @@ function printJsxClosingElement(path, options, print) {
   return parts;
 }
 
-function printJsxOpeningClosingFragment(path, options /*, print*/) {
+function printJsxOpeningClosingFragment(path, options /* , print*/) {
   const { node } = path;
   const nodeHasComment = hasComment(node);
   const hasOwnLineComment = hasComment(node, CommentCheckFlags.Line);
@@ -711,7 +763,7 @@ function printJsxElement(path, options, print) {
   return maybeWrapJsxElementInParens(path, elem, options);
 }
 
-function printJsxEmptyExpression(path, options /*, print*/) {
+function printJsxEmptyExpression(path, options /* , print*/) {
   const { node } = path;
   const requiresHardline = hasComment(node, CommentCheckFlags.Line);
 
@@ -729,7 +781,7 @@ function printJsxSpreadAttributeOrChild(path, options, print) {
     path.call(
       ({ node }) => {
         const printed = ["...", print()];
-        if (!hasComment(node) || !willPrintOwnComments(path)) {
+        if (!hasComment(node)) {
           return printed;
         }
         return [
@@ -774,9 +826,9 @@ function printJsx(path, options, print) {
       return printJsxClosingElement(path, options, print);
     case "JSXOpeningFragment":
     case "JSXClosingFragment":
-      return printJsxOpeningClosingFragment(path, options /*, print*/);
+      return printJsxOpeningClosingFragment(path, options /* , print*/);
     case "JSXEmptyExpression":
-      return printJsxEmptyExpression(path, options /*, print*/);
+      return printJsxEmptyExpression(path, options /* , print*/);
     case "JSXText":
       /* c8 ignore next */
       throw new Error("JSXText should be handled by JSXElement");
@@ -813,8 +865,8 @@ function isEmptyJsxElement(node) {
 function isMeaningfulJsxText(node) {
   return (
     node.type === "JSXText" &&
-    (jsxWhitespaceUtils.hasNonWhitespaceCharacter(rawText(node)) ||
-      !/\n/u.test(rawText(node)))
+    (jsxWhitespaceUtils.hasNonWhitespaceCharacter(getRaw(node)) ||
+      !/\n/u.test(getRaw(node)))
   );
 }
 

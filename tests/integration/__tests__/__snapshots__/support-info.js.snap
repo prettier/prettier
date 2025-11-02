@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`API getSupportInfo() 1`] = `
 {
@@ -62,6 +62,9 @@ exports[`API getSupportInfo() 1`] = `
     "MDX": [
       "mdx",
     ],
+    "MJML": [
+      "mjml",
+    ],
     "Markdown": [
       "markdown",
     ],
@@ -103,6 +106,10 @@ exports[`API getSupportInfo() 1`] = `
       "default": true,
       "type": "boolean",
     },
+    "checkIgnorePragma": {
+      "default": false,
+      "type": "boolean",
+    },
     "cursorOffset": {
       "default": -1,
       "range": {
@@ -130,6 +137,14 @@ exports[`API getSupportInfo() 1`] = `
       "default": "lf",
       "type": "choice",
     },
+    "experimentalOperatorPosition": {
+      "choices": [
+        "start",
+        "end",
+      ],
+      "default": "end",
+      "type": "choice",
+    },
     "experimentalTernaries": {
       "default": false,
       "type": "boolean",
@@ -154,6 +169,14 @@ exports[`API getSupportInfo() 1`] = `
     "jsxSingleQuote": {
       "default": false,
       "type": "boolean",
+    },
+    "objectWrap": {
+      "choices": [
+        "preserve",
+        "collapse",
+      ],
+      "default": "preserve",
+      "type": "choice",
     },
     "parser": {
       "choices": [
@@ -181,6 +204,7 @@ exports[`API getSupportInfo() 1`] = `
         "html",
         "angular",
         "lwc",
+        "mjml",
       ],
       "default": undefined,
       "type": "choice",
@@ -280,17 +304,16 @@ exports[`API getSupportInfo() 1`] = `
 }
 `;
 
-exports[`CLI --support-info (stderr) 1`] = `""`;
-
-exports[`CLI --support-info (stdout) 1`] = `
-"{
+exports[`CLI --support-info  1`] = `
+{
+  "stderr": "",
+  "stdout": "{
   "languages": [
     {
       "aceMode": "html",
       "aliases": ["xhtml"],
       "codemirrorMimeType": "text/html",
       "codemirrorMode": "htmlmixed",
-      "color": "#e34c26",
       "extensions": [".component.html"],
       "filenames": [],
       "linguistLanguageId": 146,
@@ -304,7 +327,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       "aceMode": "css",
       "codemirrorMimeType": "text/css",
       "codemirrorMode": "css",
-      "color": "#563d7c",
       "extensions": [".css", ".wxss"],
       "linguistLanguageId": 50,
       "name": "CSS",
@@ -318,7 +340,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       "aliases": [],
       "codemirrorMimeType": "text/javascript",
       "codemirrorMode": "javascript",
-      "color": "#f1e05a",
       "extensions": [".js.flow"],
       "filenames": [],
       "interpreters": [
@@ -341,8 +362,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       "vscodeLanguageIds": ["javascript"]
     },
     {
-      "aceMode": "text",
-      "color": "#e10098",
+      "aceMode": "graphqlschema",
       "extensions": [".graphql", ".gql", ".graphqls"],
       "linguistLanguageId": 139,
       "name": "GraphQL",
@@ -354,7 +374,6 @@ exports[`CLI --support-info (stdout) 1`] = `
     {
       "aceMode": "handlebars",
       "aliases": ["hbs", "htmlbars"],
-      "color": "#f7931e",
       "extensions": [".handlebars", ".hbs"],
       "linguistLanguageId": 155,
       "name": "Handlebars",
@@ -368,7 +387,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       "aliases": ["xhtml"],
       "codemirrorMimeType": "text/html",
       "codemirrorMode": "htmlmixed",
-      "color": "#e34c26",
       "extensions": [
         ".html",
         ".hta",
@@ -376,8 +394,7 @@ exports[`CLI --support-info (stdout) 1`] = `
         ".html.hl",
         ".inc",
         ".xht",
-        ".xhtml",
-        ".mjml"
+        ".xhtml"
       ],
       "linguistLanguageId": 146,
       "name": "HTML",
@@ -391,7 +408,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       "aliases": ["js", "node"],
       "codemirrorMimeType": "text/javascript",
       "codemirrorMode": "javascript",
-      "color": "#f1e05a",
       "extensions": [
         ".js",
         "._js",
@@ -399,7 +415,6 @@ exports[`CLI --support-info (stdout) 1`] = `
         ".cjs",
         ".es",
         ".es6",
-        ".frag",
         ".gs",
         ".jake",
         ".javascript",
@@ -417,9 +432,11 @@ exports[`CLI --support-info (stdout) 1`] = `
         ".ssjs",
         ".xsjs",
         ".xsjslib",
+        ".start.frag",
+        ".end.frag",
         ".wxs"
       ],
-      "filenames": ["Jakefile"],
+      "filenames": ["Jakefile", "start.frag", "end.frag"],
       "interpreters": [
         "chakra",
         "d8",
@@ -451,10 +468,9 @@ exports[`CLI --support-info (stdout) 1`] = `
     },
     {
       "aceMode": "json",
-      "aliases": ["geojson", "jsonl", "topojson"],
+      "aliases": ["geojson", "jsonl", "sarif", "topojson"],
       "codemirrorMimeType": "application/json",
       "codemirrorMode": "javascript",
-      "color": "#292929",
       "extensions": [
         ".json",
         ".4DForm",
@@ -465,7 +481,10 @@ exports[`CLI --support-info (stdout) 1`] = `
         ".har",
         ".ice",
         ".JSON-tmLanguage",
+        ".json.example",
         ".mcmeta",
+        ".sarif",
+        ".tact",
         ".tfstate",
         ".tfstate.backup",
         ".topojson",
@@ -485,10 +504,6 @@ exports[`CLI --support-info (stdout) 1`] = `
         ".tern-config",
         ".tern-project",
         ".watchmanconfig",
-        "Pipfile.lock",
-        "composer.lock",
-        "flake.lock",
-        "mcmod.info",
         ".babelrc",
         ".jscsrc",
         ".jshintrc",
@@ -507,12 +522,12 @@ exports[`CLI --support-info (stdout) 1`] = `
       "aliases": ["jsonc"],
       "codemirrorMimeType": "text/javascript",
       "codemirrorMode": "javascript",
-      "color": "#292929",
       "extensions": [
         ".jsonc",
         ".code-snippets",
         ".code-workspace",
         ".sublime-build",
+        ".sublime-color-scheme",
         ".sublime-commands",
         ".sublime-completions",
         ".sublime-keymap",
@@ -531,16 +546,15 @@ exports[`CLI --support-info (stdout) 1`] = `
       "linguistLanguageId": 423,
       "name": "JSON with Comments",
       "parsers": ["jsonc"],
-      "tmScope": "source.js",
+      "tmScope": "source.json.comments",
       "type": "data",
       "vscodeLanguageIds": ["jsonc"]
     },
     {
       "aceMode": "json",
-      "aliases": ["geojson", "jsonl", "topojson"],
+      "aliases": ["geojson", "jsonl", "sarif", "topojson"],
       "codemirrorMimeType": "application/json",
       "codemirrorMode": "javascript",
-      "color": "#292929",
       "extensions": [".importmap"],
       "filenames": ["package.json", "package-lock.json", "composer.json"],
       "linguistLanguageId": 174,
@@ -551,10 +565,9 @@ exports[`CLI --support-info (stdout) 1`] = `
       "vscodeLanguageIds": ["json"]
     },
     {
-      "aceMode": "javascript",
+      "aceMode": "json5",
       "codemirrorMimeType": "application/json",
       "codemirrorMode": "javascript",
-      "color": "#267CB9",
       "extensions": [".json5"],
       "linguistLanguageId": 175,
       "name": "JSON5",
@@ -587,9 +600,8 @@ exports[`CLI --support-info (stdout) 1`] = `
     {
       "aceMode": "less",
       "aliases": ["less-css"],
-      "codemirrorMimeType": "text/css",
+      "codemirrorMimeType": "text/x-less",
       "codemirrorMode": "css",
-      "color": "#1d365d",
       "extensions": [".less"],
       "linguistLanguageId": 198,
       "name": "Less",
@@ -603,7 +615,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       "aliases": ["xhtml"],
       "codemirrorMimeType": "text/html",
       "codemirrorMode": "htmlmixed",
-      "color": "#e34c26",
       "extensions": [],
       "filenames": [],
       "linguistLanguageId": 146,
@@ -618,7 +629,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       "aliases": ["md", "pandoc"],
       "codemirrorMimeType": "text/x-gfm",
       "codemirrorMode": "gfm",
-      "color": "#083fa1",
       "extensions": [
         ".md",
         ".livemd",
@@ -646,7 +656,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       "aliases": ["md", "pandoc"],
       "codemirrorMimeType": "text/x-gfm",
       "codemirrorMode": "gfm",
-      "color": "#083fa1",
       "extensions": [".mdx"],
       "filenames": [],
       "linguistLanguageId": 222,
@@ -658,8 +667,21 @@ exports[`CLI --support-info (stdout) 1`] = `
       "wrap": true
     },
     {
+      "aceMode": "html",
+      "aliases": ["MJML", "mjml"],
+      "codemirrorMimeType": "text/html",
+      "codemirrorMode": "htmlmixed",
+      "extensions": [".mjml"],
+      "filenames": [],
+      "linguistLanguageId": 146,
+      "name": "MJML",
+      "parsers": ["mjml"],
+      "tmScope": "text.mjml.basic",
+      "type": "markup",
+      "vscodeLanguageIds": ["mjml"]
+    },
+    {
       "aceMode": "text",
-      "color": "#dc3a0c",
       "extensions": [".pcss", ".postcss"],
       "group": "CSS",
       "linguistLanguageId": 262764437,
@@ -673,7 +695,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       "aceMode": "scss",
       "codemirrorMimeType": "text/x-scss",
       "codemirrorMode": "css",
-      "color": "#c6538c",
       "extensions": [".scss"],
       "linguistLanguageId": 329,
       "name": "SCSS",
@@ -683,10 +704,9 @@ exports[`CLI --support-info (stdout) 1`] = `
       "vscodeLanguageIds": ["scss"]
     },
     {
-      "aceMode": "javascript",
-      "codemirrorMimeType": "text/jsx",
+      "aceMode": "tsx",
+      "codemirrorMimeType": "text/typescript-jsx",
       "codemirrorMode": "jsx",
-      "color": "#3178c6",
       "extensions": [".tsx"],
       "group": "TypeScript",
       "linguistLanguageId": 94901924,
@@ -701,9 +721,8 @@ exports[`CLI --support-info (stdout) 1`] = `
       "aliases": ["ts"],
       "codemirrorMimeType": "application/typescript",
       "codemirrorMode": "javascript",
-      "color": "#3178c6",
       "extensions": [".ts", ".cts", ".mts"],
-      "interpreters": ["deno", "ts-node"],
+      "interpreters": ["bun", "deno", "ts-node", "tsx"],
       "linguistLanguageId": 378,
       "name": "TypeScript",
       "parsers": ["typescript", "babel-ts"],
@@ -712,13 +731,14 @@ exports[`CLI --support-info (stdout) 1`] = `
       "vscodeLanguageIds": ["typescript"]
     },
     {
-      "aceMode": "html",
-      "color": "#41b883",
+      "aceMode": "vue",
+      "codemirrorMimeType": "text/x-vue",
+      "codemirrorMode": "vue",
       "extensions": [".vue"],
       "linguistLanguageId": 391,
       "name": "Vue",
       "parsers": ["vue"],
-      "tmScope": "text.html.vue",
+      "tmScope": "source.vue",
       "type": "markup",
       "vscodeLanguageIds": ["vue"]
     },
@@ -727,7 +747,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       "aliases": ["yml"],
       "codemirrorMimeType": "text/x-yaml",
       "codemirrorMode": "yaml",
-      "color": "#cb171e",
       "extensions": [
         ".yml",
         ".mir",
@@ -743,9 +762,11 @@ exports[`CLI --support-info (stdout) 1`] = `
       "filenames": [
         ".clang-format",
         ".clang-tidy",
+        ".clangd",
         ".gemrc",
         "CITATION.cff",
         "glide.lock",
+        "pixi.lock",
         ".prettierrc",
         ".stylelintrc",
         ".lintstagedrc"
@@ -755,7 +776,13 @@ exports[`CLI --support-info (stdout) 1`] = `
       "parsers": ["yaml"],
       "tmScope": "source.yaml",
       "type": "data",
-      "vscodeLanguageIds": ["yaml", "ansible", "home-assistant"]
+      "vscodeLanguageIds": [
+        "yaml",
+        "ansible",
+        "dockercompose",
+        "github-actions-workflow",
+        "home-assistant"
+      ]
     }
   ],
   "options": [
@@ -791,6 +818,14 @@ exports[`CLI --support-info (stdout) 1`] = `
       "description": "Print spaces between brackets.",
       "name": "bracketSpacing",
       "oppositeDescription": "Do not print spaces between brackets.",
+      "pluginDefaults": {},
+      "type": "boolean"
+    },
+    {
+      "category": "Special",
+      "default": false,
+      "description": "Check whether the file's first docblock comment contains '@noprettier' or '@noformat' to determine if it should be formatted.",
+      "name": "checkIgnorePragma",
       "pluginDefaults": {},
       "type": "boolean"
     },
@@ -849,6 +884,24 @@ exports[`CLI --support-info (stdout) 1`] = `
     },
     {
       "category": "JavaScript",
+      "choices": [
+        {
+          "description": "Print operators at the start of new lines.",
+          "value": "start"
+        },
+        {
+          "description": "Print operators at the end of previous lines.",
+          "value": "end"
+        }
+      ],
+      "default": "end",
+      "description": "Where to print operators when binary expressions wrap lines.",
+      "name": "experimentalOperatorPosition",
+      "pluginDefaults": {},
+      "type": "choice"
+    },
+    {
+      "category": "JavaScript",
       "default": false,
       "description": "Use curious ternaries, with the question mark after the condition.",
       "name": "experimentalTernaries",
@@ -902,6 +955,24 @@ exports[`CLI --support-info (stdout) 1`] = `
       "type": "boolean"
     },
     {
+      "category": "Common",
+      "choices": [
+        {
+          "description": "Keep as multi-line, if there is a newline between the opening brace and first property.",
+          "value": "preserve"
+        },
+        {
+          "description": "Fit to a single line when possible.",
+          "value": "collapse"
+        }
+      ],
+      "default": "preserve",
+      "description": "How to wrap object literals.",
+      "name": "objectWrap",
+      "pluginDefaults": {},
+      "type": "choice"
+    },
+    {
       "category": "Global",
       "choices": [
         { "description": "Flow", "value": "flow" },
@@ -927,7 +998,8 @@ exports[`CLI --support-info (stdout) 1`] = `
         { "description": "Ember / Handlebars", "value": "glimmer" },
         { "description": "HTML", "value": "html" },
         { "description": "Angular", "value": "angular" },
-        { "description": "Lightning Web Components", "value": "lwc" }
+        { "description": "Lightning Web Components", "value": "lwc" },
+        { "description": "MJML", "value": "mjml" }
       ],
       "description": "Which parser to use.",
       "name": "parser",
@@ -1011,7 +1083,7 @@ exports[`CLI --support-info (stdout) 1`] = `
     {
       "category": "Special",
       "default": false,
-      "description": "Require either '@prettier' or '@format' to be present in the file's first docblock comment\\nin order for it to be formatted.",
+      "description": "Require either '@prettier' or '@format' to be present in the file's first docblock comment in order for it to be formatted.",
       "name": "requirePragma",
       "pluginDefaults": {},
       "type": "boolean"
@@ -1086,8 +1158,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       "type": "boolean"
     }
   ]
+}",
+  "write": [],
 }
-"
 `;
-
-exports[`CLI --support-info (write) 1`] = `[]`;

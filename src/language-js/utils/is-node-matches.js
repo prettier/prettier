@@ -1,7 +1,7 @@
 // Copied from https://github.com/sindresorhus/eslint-plugin-unicorn/blob/d53d935951aa815c763fc9441aa452c763294715/rules/utils/is-node-matches.js
 
 /**
- * @typedef {import("../types/estree.js").Node} Node
+ * @import {Node} from "../types/estree.js"
  */
 
 /**
@@ -21,16 +21,28 @@ function isNodeMatchesNameOrPath(node, nameOrPath) {
     }
 
     if (
-      node.type !== "MemberExpression" ||
-      node.optional ||
-      node.computed ||
-      node.property.type !== "Identifier" ||
-      node.property.name !== name
+      index === 1 &&
+      node.type === "MetaProperty" &&
+      node.property.type === "Identifier" &&
+      node.property.name === name
     ) {
-      return false;
+      node = node.meta;
+      continue;
     }
 
-    node = node.object;
+    if (
+      node.type === "MemberExpression" &&
+      // @ts-expect-error -- Don't know why
+      !node.optional &&
+      !node.computed &&
+      node.property.type === "Identifier" &&
+      node.property.name === name
+    ) {
+      node = node.object;
+      continue;
+    }
+
+    return false;
   }
 }
 

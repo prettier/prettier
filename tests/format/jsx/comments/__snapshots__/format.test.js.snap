@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`eslint-disable.js - {"bracketSameLine":true} format 1`] = `
 ====================================options=====================================
@@ -81,17 +81,6 @@ printWidth: 80
 <div attr="foo"></div>; // comment
 
 ================================================================================
-`;
-
-exports[`in-end-tag.js - {"bracketSameLine":true} [meriyah] format 1`] = `
-"Expected '>' (2:11)
-  1 | /* =========== before slash =========== */
-> 2 | <a><// line
-    |           ^
-  3 | /a>;
-  4 | <a></* block */
-  5 | /a>;
-Cause: [2:11]: Expected '>'"
 `;
 
 exports[`in-end-tag.js - {"bracketSameLine":true} [typescript] format 1`] = `

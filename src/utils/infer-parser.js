@@ -1,9 +1,18 @@
-import getInterpreter from "./get-interpreter.js";
+import {
+  fileURLToPath,
+  getFileBasename,
+  getInterpreter,
+  isUrl,
+} from "#universal";
+import isNonEmptyArray from "./is-non-empty-array.js";
 
-// Didn't use `path.basename` since this module need work in browsers too
-// And `file` can be a `URL`
-const getFileBasename = (file) => String(file).split(/[/\\]/u).pop();
+/** @import {Options, SupportLanguage} from "../index.js" */
 
+/**
+ * @param {SupportLanguage[]} languages
+ * @param {string | URL | undefined} [file]
+ * @returns {SupportLanguage | undefined}
+ */
 function getLanguageByFileName(languages, file) {
   if (!file) {
     return;
@@ -21,6 +30,11 @@ function getLanguageByFileName(languages, file) {
   );
 }
 
+/**
+ * @param {SupportLanguage[]} languages
+ * @param {string | undefined} [languageName]
+ * @returns {SupportLanguage | undefined}
+ */
 function getLanguageByLanguageName(languages, languageName) {
   if (!languageName) {
     return;
@@ -33,12 +47,22 @@ function getLanguageByLanguageName(languages, languageName) {
   );
 }
 
-function getLanguageByInterpreter(languages, file) {
-  if (
-    process.env.PRETTIER_TARGET === "universal" ||
-    !file ||
-    getFileBasename(file).includes(".")
-  ) {
+/**
+ * @param {SupportLanguage[]} languages
+ * @param {string | URL | undefined} [file]
+ * @returns {SupportLanguage | undefined}
+ */
+function getLanguageByInterpreterNodejs(languages, file) {
+  if (!file || getFileBasename(file).includes(".")) {
+    return;
+  }
+
+  const languagesWithInterpreters = languages.filter(({ interpreters }) =>
+    isNonEmptyArray(interpreters),
+  );
+
+  /* c8 ignore next 3 */
+  if (languagesWithInterpreters.length === 0) {
     return;
   }
 
@@ -48,18 +72,48 @@ function getLanguageByInterpreter(languages, file) {
     return;
   }
 
-  return languages.find(({ interpreters }) =>
-    interpreters?.includes(interpreter),
+  return languagesWithInterpreters.find(({ interpreters }) =>
+    interpreters.includes(interpreter),
   );
 }
 
+const getLanguageByInterpreter =
+  process.env.PRETTIER_TARGET === "universal"
+    ? undefined
+    : getLanguageByInterpreterNodejs;
+
 /**
- * @param {import("../index.js").Options} options
- * @param {{physicalFile?: string | URL, file?: string | URL, language?: string}} fileInfo
- * @returns {string | void} matched parser name if found
+ * @param {SupportLanguage[]} languages
+ * @param {string | URL | undefined} [file]
+ * @returns {SupportLanguage | undefined}
+ */
+function getLanguageByIsSupported(languages, file) {
+  if (!file) {
+    return;
+  }
+
+  if (isUrl(file)) {
+    try {
+      file = fileURLToPath(file);
+    } catch {
+      return;
+    }
+  }
+
+  if (typeof file !== "string") {
+    return;
+  }
+
+  return languages.find(({ isSupported }) => isSupported?.({ filepath: file }));
+}
+
+/**
+ * @param {Options} options
+ * @param {{physicalFile?: string | URL | undefined, file?: string | URL | undefined, language?: string | undefined}} fileInfo
+ * @returns {string | undefined} matched parser name if found
  */
 function inferParser(options, fileInfo) {
-  const languages = options.plugins.flatMap(
+  const languages = options.plugins.toReversed().flatMap(
     (plugin) =>
       // @ts-expect-error -- Safe
       plugin.languages ?? [],
@@ -72,7 +126,9 @@ function inferParser(options, fileInfo) {
     getLanguageByLanguageName(languages, fileInfo.language) ??
     getLanguageByFileName(languages, fileInfo.physicalFile) ??
     getLanguageByFileName(languages, fileInfo.file) ??
-    getLanguageByInterpreter(languages, fileInfo.physicalFile);
+    getLanguageByIsSupported(languages, fileInfo.physicalFile) ??
+    getLanguageByIsSupported(languages, fileInfo.file) ??
+    getLanguageByInterpreter?.(languages, fileInfo.physicalFile);
 
   return language?.parsers[0];
 }

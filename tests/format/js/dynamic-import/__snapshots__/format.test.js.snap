@@ -1,34 +1,10 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`assertions.js [acorn] format 1`] = `
-"Unexpected token (1:20)
-> 1 | import("./foo.json", { assert: { type: "json" } });
-    |                    ^
-  2 |
-Cause: Unexpected token (1:19)"
-`;
-
-exports[`assertions.js [espree] format 1`] = `
-"Unexpected token , (1:20)
-> 1 | import("./foo.json", { assert: { type: "json" } });
-    |                    ^
-  2 |
-Cause: Unexpected token ,"
-`;
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`assertions.js [flow] format 1`] = `
 "Unexpected token \`,\`, expected the token \`)\` (1:20)
 > 1 | import("./foo.json", { assert: { type: "json" } });
     |                    ^
   2 |"
-`;
-
-exports[`assertions.js [meriyah] format 1`] = `
-"Expected ')' (1:20)
-> 1 | import("./foo.json", { assert: { type: "json" } });
-    |                    ^
-  2 |
-Cause: [1:20]: Expected ')'"
 `;
 
 exports[`assertions.js format 1`] = `
@@ -74,14 +50,29 @@ exports[`import-phase.js [flow] format 1`] = `
   4 |"
 `;
 
-exports[`import-phase.js [meriyah] format 1`] = `
-"Unexpected token: 'identifier' (1:13)
+exports[`import-phase.js [hermes] format 1`] = `
+"'meta' expected in member expression (1:7)
 > 1 | import.source(\`data:text/javascript,
-    |             ^
+    |       ^
   2 |     console.log("RUN");
   3 | \`)
   4 |
-Cause: [1:13]: Unexpected token: 'identifier'"
+Cause: 'meta' expected in member expression (1:7)
+import.source(\`data:text/javascript,
+       ^~~~~~
+note: start of member expression (1:0)
+import.source(\`data:text/javascript,
+^"
+`;
+
+exports[`import-phase.js [meriyah] format 1`] = `
+"The only valid meta property for import is 'import.meta' (1:8)
+> 1 | import.source(\`data:text/javascript,
+    |        ^^^^^^
+  2 |     console.log("RUN");
+  3 | \`)
+  4 |
+Cause: [1:7-1:13]: The only valid meta property for import is 'import.meta'"
 `;
 
 exports[`import-phase.js format 1`] = `
@@ -117,6 +108,18 @@ exports[`template-literal.js [flow] format 1`] = `
   2 |     console.log("RUN");
   3 | \`);
   4 |"
+`;
+
+exports[`template-literal.js [hermes] format 1`] = `
+"unexpected token after assignment expression (1:19)
+> 1 | module   =   await import(\`data:text/javascript,
+    |                   ^
+  2 |     console.log("RUN");
+  3 | \`);
+  4 |
+Cause: unexpected token after assignment expression (1:19)
+module   =   await import(\`data:text/javascript,
+                   ^"
 `;
 
 exports[`template-literal.js format 1`] = `

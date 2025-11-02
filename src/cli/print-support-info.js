@@ -1,5 +1,4 @@
 import stringify from "fast-json-stable-stringify";
-
 import { format, getSupportInfo } from "../index.js";
 import { omit, printToScreen } from "./utils.js";
 
@@ -15,7 +14,9 @@ async function printSupportInfo() {
     ),
   };
 
-  printToScreen(await format(stringify(supportInfo), { parser: "json" }));
+  const result = await format(stringify(supportInfo), { parser: "json" });
+
+  printToScreen(result.trim());
 }
 
 export default printSupportInfo;

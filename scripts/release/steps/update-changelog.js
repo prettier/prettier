@@ -1,9 +1,7 @@
 import fs from "node:fs";
-
-import chalk from "chalk";
-import { execa } from "execa";
+import spawn from "nano-spawn";
+import styleText from "node-style-text";
 import semver from "semver";
-
 import {
   getBlogPostInfo,
   getChangelogContent,
@@ -19,7 +17,7 @@ function writeChangelog(params) {
 }
 
 async function getChangelogForPatch({ version, previousVersion }) {
-  const { stdout: changelog } = await execa("node", [
+  const { stdout: changelog } = await spawn(process.execPath, [
     "scripts/changelog-for-patch.js",
     "--prev-version",
     previousVersion,
@@ -53,9 +51,9 @@ export default async function updateChangelog({
       return;
     }
     console.warn(
-      `${chalk.yellow("warning")} The file ${chalk.bold(
+      `${styleText.yellow("warning")} The file ${styleText.bold(
         blogPost.file,
-      )} doesn't exist, but it will be referenced in ${chalk.bold(
+      )} doesn't exist, but it will be referenced in ${styleText.bold(
         "CHANGELOG.md",
       )}. Make sure to create it later.`,
     );

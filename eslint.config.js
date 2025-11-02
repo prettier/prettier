@@ -1,46 +1,38 @@
 import url from "node:url";
-
-import { fixupPluginRules } from "@eslint/compat";
-import { FlatCompat } from "@eslint/eslintrc";
 import eslintPluginJs from "@eslint/js";
-import eslintPluginStylisticJs from "@stylistic/eslint-plugin-js";
+import eslintPluginEslintReact from "@eslint-react/eslint-plugin";
+import eslintPluginStylistic from "@stylistic/eslint-plugin";
 import eslintPluginTypescriptEslint from "@typescript-eslint/eslint-plugin";
 import { isCI } from "ci-info";
 import eslintConfigPrettier from "eslint-config-prettier";
-import eslintPluginImport from "eslint-plugin-import";
 import eslintPluginJest from "eslint-plugin-jest";
 import eslintPluginN from "eslint-plugin-n";
-import eslintPluginReactConfigRecommended from "eslint-plugin-react/configs/recommended.js";
 import eslintPluginRegexp from "eslint-plugin-regexp";
 import eslintPluginSimpleImportSort from "eslint-plugin-simple-import-sort";
 import eslintPluginUnicorn from "eslint-plugin-unicorn";
-
+import globals from "globals";
+import eslintConfigNodeStyleText from "node-style-text/eslint-config";
 import eslintPluginPrettierInternalRules from "./scripts/tools/eslint-plugin-prettier-internal-rules/index.js";
 
 const toPath = (file) => url.fileURLToPath(new URL(file, import.meta.url));
-const compat = new FlatCompat({ baseDirectory: toPath("./") });
-eslintPluginReactConfigRecommended.plugins.react = fixupPluginRules(
-  eslintPluginReactConfigRecommended.plugins.react,
-);
 
 const ignores = `
-.tmp
+**/.tmp
+test*.*
 # Ignore directories and files in 'tests/format'
 tests/format/**/*
-# Unignore directories and 'jsfmt.spec.js', 'format.test.js' file
+# Unignore directories and 'format.test.js' file
 !tests/format/**/
 !tests/format/**/format.test.js
-# TODO: Remove this in 2025
-!tests/format/**/jsfmt.spec.js
 tests/integration/cli/
-test*.*
 scripts/release/node_modules
 coverage/
 dist*/
 **/node_modules/**
 website/build/
-website/static/playground.js
 website/static/lib/
+website/static/playground/
+website/.docusaurus
 scripts/benchmark/*/
 **/.yarn/**
 **/.pnp.*
@@ -48,17 +40,20 @@ scripts/benchmark/*/
   .split("\n")
   .filter((pattern) => pattern && !pattern.startsWith("#"));
 
-export default [
+const configs = [
+  { files: ["**/*.{js,mjs,cjs,jsx}"] },
   eslintPluginJs.configs.recommended,
   eslintPluginRegexp.configs["flat/recommended"],
   eslintPluginUnicorn.configs["flat/recommended"],
   eslintConfigPrettier,
-  ...compat.env({ es2024: true, node: true }),
+  eslintConfigNodeStyleText,
   {
+    languageOptions: {
+      globals: { ...globals.builtin, ...globals.node },
+    },
     plugins: {
-      "@stylistic/js": eslintPluginStylisticJs,
+      "@stylistic": eslintPluginStylistic,
       "@typescript-eslint": eslintPluginTypescriptEslint,
-      import: eslintPluginImport,
       n: eslintPluginN,
       "prettier-internal-rules": eslintPluginPrettierInternalRules,
       "simple-import-sort": eslintPluginSimpleImportSort,
@@ -149,32 +144,21 @@ export default [
       "prettier-internal-rules/massage-ast-parameter-names": "error",
       "prettier-internal-rules/no-identifier-n": "error",
       "prettier-internal-rules/prefer-fs-promises-submodule": "error",
+      "prettier-internal-rules/no-useless-ast-path-callback-parameter": "error",
 
-      /* @stylistic/eslint-plugin-js */
-      "@stylistic/js/quotes": [
+      /* @stylistic/eslint-plugin */
+      "@stylistic/quotes": [
         "error",
         "double",
         {
           avoidEscape: true,
         },
       ],
+      "@stylistic/spaced-comment": "error",
+      "@stylistic/no-trailing-spaces": "error",
 
       /* @typescript-eslint/eslint-plugin */
       "@typescript-eslint/prefer-ts-expect-error": "error",
-
-      /* eslint-plugin-import */
-      "import/no-extraneous-dependencies": [
-        "error",
-        {
-          devDependencies: [
-            "jest.config.js",
-            "tests/**",
-            "scripts/**",
-            "website/**/*",
-            "eslint.config.js",
-          ],
-        },
-      ],
 
       /* eslint-plugin-n */
       "n/no-path-concat": "error",
@@ -217,7 +201,31 @@ export default [
       ],
 
       /* eslint-plugin-simple-import-sort */
-      "simple-import-sort/imports": "error",
+      "simple-import-sort/imports": [
+        "error",
+        {
+          groups: [
+            // https://github.com/lydell/eslint-plugin-simple-import-sort/blob/20e25f3b83c713825f96b8494e2091e6600954d6/src/imports.js#L5-L19
+            // Side effect imports.
+            [String.raw`^\u0000`],
+            // Remove blank lines between groups
+            // https://github.com/lydell/eslint-plugin-simple-import-sort#how-do-i-remove-all-blank-lines-between-imports
+            [
+              // Node.js builtins prefixed with `node:`.
+              "^node:",
+              // Packages.
+              // Things that start with a letter (or digit or underscore), or `@` followed by a letter.
+              String.raw`^@?\w`,
+              // Absolute imports and other imports such as Vue-style `@/foo`.
+              // Anything not matched in another group.
+              "^",
+              // Relative imports.
+              // Anything that starts with a dot.
+              String.raw`^\.`,
+            ],
+          ],
+        },
+      ],
       "simple-import-sort/exports": "error",
 
       /* eslint-plugin-unicorn */
@@ -229,6 +237,8 @@ export default [
       "unicorn/no-array-callback-reference": "off",
       "unicorn/no-array-method-this-argument": "off",
       "unicorn/no-array-reduce": "off",
+      "unicorn/no-array-reverse": "off",
+      "unicorn/no-array-sort": "off",
       "unicorn/no-await-expression-member": "off",
       "unicorn/no-for-loop": "off",
       "unicorn/no-hex-escape": "off",
@@ -269,6 +279,7 @@ export default [
           ignoreUsedVariables: true,
         },
       ],
+      "unicorn/prefer-global-this": "off",
       "unicorn/prefer-query-selector": "off",
       "unicorn/prefer-ternary": "off",
       "unicorn/prevent-abbreviations": "off",
@@ -286,11 +297,7 @@ export default [
   },
   // CommonJS modules
   {
-    files: [
-      "**/*.cjs",
-      "scripts/tools/eslint-plugin-prettier-internal-rules/**/*.js",
-      "website/**/*.js",
-    ],
+    files: ["**/*.cjs", "website/**/*.js"],
     languageOptions: {
       sourceType: "script",
     },
@@ -326,12 +333,12 @@ export default [
       globals: eslintPluginJest.environments.globals.globals,
     },
     rules: {
-      "@stylistic/js/quotes": [
+      "@stylistic/quotes": [
         "error",
         "double",
         {
           avoidEscape: true,
-          allowTemplateLiterals: true,
+          allowTemplateLiterals: "always",
         },
       ],
       "jest/valid-expect": [
@@ -356,7 +363,7 @@ export default [
     },
   },
   {
-    files: ["tests/**/*.js"],
+    files: ["tests/**/*.{js,cjs}"],
     rules: {
       // TODO: Enable this when we drop support for Node.js v14
       "logical-assignment-operators": "off",
@@ -414,6 +421,7 @@ export default [
     files: ["src/language-*/**/*.js"],
     rules: {
       "prettier-internal-rules/directly-loc-start-end": "error",
+      "prettier-internal-rules/print-function-parameter-order": "error",
     },
   },
   {
@@ -427,10 +435,12 @@ export default [
           functions: ["hasComment", "getComments"],
         },
         "src/language-js/pragma.js",
+        "src/language-js/parse/angular.js",
         "src/language-js/parse/babel.js",
         "src/language-js/parse/meriyah.js",
         "src/language-js/parse/json.js",
         "src/language-js/parse/acorn.js",
+        "src/language-js/parse/oxc.js",
         "src/language-js/parse/utils/wrap-babel-expression.js",
       ],
       "prettier-internal-rules/prefer-create-type-check-function": [
@@ -442,38 +452,33 @@ export default [
       ],
     },
   },
-  ...compat
-    .env({ browser: true, worker: true })
-    .map((config) => ({ ...config, files: ["website/**/*"] })),
-  // Use `Object.assign` since it contains non-enumerable properties
-  Object.assign(eslintPluginReactConfigRecommended, {
+  {
     files: ["website/**/*"],
+    ...eslintPluginEslintReact.configs.recommended,
+  },
+  {
+    files: ["website/**/*"],
+    languageOptions: {
+      globals: { ...globals.browser, ...globals.worker },
+      parserOptions: {
+        ecmaFeatures: {
+          jsx: true,
+        },
+      },
+    },
     settings: {
-      react: {
+      "react-x": {
         version: "18",
       },
     },
-  }),
-  {
-    files: ["website/**/*"],
     rules: {
-      "react/display-name": "off",
-      "react/no-deprecated": "off",
-      "react/prop-types": "off",
       "unicorn/filename-case": "off",
     },
   },
   {
-    files: ["website/playground/**/*"],
+    files: ["website/docusaurus.config.js", "website/playground/**/*"],
     languageOptions: {
       sourceType: "module",
-    },
-  },
-  // `import/no-extraneous-dependencies` reports on Windows but not on CI
-  {
-    files: ["website/siteConfig.js"],
-    linterOptions: {
-      reportUnusedDisableDirectives: "off",
     },
   },
   {
@@ -486,4 +491,12 @@ export default [
       "prefer-arrow-callback": "off",
     },
   },
+  // ESBuild doesn't support regular expressions with `u` flag
+  // https://github.com/evanw/esbuild/issues/4128
+  {
+    files: ["scripts/build/esbuild-plugins/**/*"],
+    rules: { "require-unicode-regexp": "off" },
+  },
 ];
+
+export default configs;

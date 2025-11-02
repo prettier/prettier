@@ -49,7 +49,10 @@ If `options.useCache` is `false`, all caching will be bypassed.
 ```js
 const text = await fs.readFile(filePath, "utf8");
 const options = await prettier.resolveConfig(filePath);
-const formatted = await prettier.format(text, options);
+const formatted = await prettier.format(text, {
+  ...options,
+  filepath: filePath,
+});
 ```
 
 If `options.editorconfig` is `true` and an [`.editorconfig` file](https://editorconfig.org/) is in your project, Prettier will parse it and convert its properties to the corresponding Prettier configuration. This configuration will be overridden by `.prettierrc`, etc. Currently, the following EditorConfig properties are supported:
@@ -96,7 +99,7 @@ Setting `options.ignorePath` (`string | URL | (string | URL)[]`) and `options.wi
 
 If the given `fileUrlOrPath` is ignored, the `inferredParser` is always `null`.
 
-Providing [plugin](plugins.md) paths in `options.plugins` (`string[]`) helps extract `inferredParser` for files that are not supported by Prettier core.
+Providing [plugin](plugins.md) paths in `options.plugins` (`(string | URL | Plugin)[]`) helps extract `inferredParser` for files that are not supported by Prettier core.
 
 When setting `options.resolveConfig` (`boolean`, default `true`) to `false`, Prettier will not search for configuration file. This can be useful if this function is only used to check if file is ignored.
 
@@ -121,9 +124,17 @@ The support information looks like this:
     filenames?: string[];
     linguistLanguageId?: number;
     vscodeLanguageIds?: string[];
+    isSupported?(options: { filepath: string }): boolean;
   }>;
 }
 ```
+
+:::note
+
+Prettier can not ensure that `filepath` exists on disk.\
+When using from APIs(eg: `prettier.format()`), Prettier can not ensure it's a valid path either.
+
+:::
 
 <a name="custom-parser-api"></a>
 
@@ -174,6 +185,10 @@ await format("lodash ( )", {
 // -> "_();\n"
 ```
 
-> Note: Overall, doing codemods this way isn’t recommended. Prettier uses the location data of AST nodes for many things like preserving blank lines and attaching comments. When the AST is modified after the parsing, the location data often gets out of sync, which may lead to unpredictable results. Consider using [jscodeshift](https://github.com/facebook/jscodeshift) if you need codemods.
+:::note
+
+Overall, doing codemods this way isn’t recommended. Prettier uses the location data of AST nodes for many things like preserving blank lines and attaching comments. When the AST is modified after the parsing, the location data often gets out of sync, which may lead to unpredictable results. Consider using [jscodeshift](https://github.com/facebook/jscodeshift) if you need codemods.
+
+:::
 
 As part of the removed Custom parser API, it was previously possible to pass a path to a module exporting a `parse` function via the `--parser` option. Use the `--plugin` CLI option or the `plugins` API option instead to [load plugins](plugins.md#using-plugins).

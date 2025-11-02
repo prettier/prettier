@@ -1,7 +1,5 @@
 import fs from "node:fs";
-
 import semver from "semver";
-
 import { logPromise, readJson, runGit, runYarn, writeJson } from "../utils.js";
 
 async function format() {

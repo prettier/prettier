@@ -43,7 +43,7 @@ function printAngularControlFlowBlock(path, options, print) {
 
 function shouldCloseBlock(node) {
   return !(
-    node.next?.type === "angularControlFlowBlock" &&
+    node.next?.kind === "angularControlFlowBlock" &&
     ANGULAR_CONTROL_FLOW_BLOCK_SETTINGS.get(node.name)?.has(node.next.name)
   );
 }
@@ -51,7 +51,7 @@ function shouldCloseBlock(node) {
 function isPreviousBlockUnClosed(path) {
   const { previous } = path;
   return (
-    previous?.type === "angularControlFlowBlock" &&
+    previous?.kind === "angularControlFlowBlock" &&
     !hasPrettierIgnore(previous) &&
     !shouldCloseBlock(previous)
   );

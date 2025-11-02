@@ -9,6 +9,13 @@ import {
   line,
   softline,
 } from "../../document/builders.js";
+import {
+  DOC_TYPE_FILL,
+  DOC_TYPE_GROUP,
+  DOC_TYPE_INDENT,
+} from "../../document/constants.js";
+import { getDocType } from "../../document/utils.js";
+import { assertDocArray } from "../../document/utils/assert-doc.js";
 import isNextLineEmpty from "../../utils/is-next-line-empty.js";
 import isNonEmptyArray from "../../utils/is-non-empty-array.js";
 import { locEnd, locStart } from "../loc.js";
@@ -78,8 +85,14 @@ function printParenthesizedValueGroup(path, options, print) {
 
   if (!node.open) {
     const forceHardLine = shouldBreakList(path);
-    const parts = join([",", forceHardLine ? hardline : line], groupDocs);
-    return indent(forceHardLine ? [hardline, parts] : group(fill(parts)));
+    assertDocArray(groupDocs);
+    const withComma = chunk(join(",", groupDocs), 2);
+    const parts = join(forceHardLine ? hardline : line, withComma);
+    return indent(
+      forceHardLine
+        ? [hardline, parts]
+        : group([shouldPrecededBySoftline(path) ? softline : "", fill(parts)]),
+    );
   }
 
   const parts = path.map(({ node: child, isLast, index }) => {
@@ -91,10 +104,11 @@ function printParenthesizedValueGroup(path, options, print) {
       child.type === "value-comma_group" &&
       child.groups &&
       child.groups[0].type !== "value-paren_group" &&
-      child.groups[2]?.type === "value-paren_group"
+      child.groups[2]?.type === "value-paren_group" &&
+      getDocType(doc) === DOC_TYPE_GROUP &&
+      getDocType(doc.contents) === DOC_TYPE_INDENT &&
+      getDocType(doc.contents.contents) === DOC_TYPE_FILL
     ) {
-      const { parts } = doc.contents.contents;
-      parts[1] = group(parts[1]);
       doc = group(dedent(doc));
     }
 
@@ -153,6 +167,29 @@ function shouldBreakList(path) {
       ((node.type === "css-decl" && !node.prop.startsWith("--")) ||
         (node.type === "css-atrule" && node.variable)),
   );
+}
+
+function shouldPrecededBySoftline(path) {
+  return path.match(
+    (node) => node.type === "value-paren_group" && !node.open,
+    (node, key) => key === "group" && node.type === "value-value",
+    (node, key) => key === "group" && node.type === "value-root",
+    (node, key) => key === "value" && node.type === "css-decl",
+  );
+}
+
+/**
+ * @template {*} T
+ * @param {T[]} array
+ * @param {number} size
+ * @returns {T[][]}
+ */
+function chunk(array, size) {
+  const result = [];
+  for (let i = 0; i < array.length; i += size) {
+    result.push(array.slice(i, i + size));
+  }
+  return result;
 }
 
 export { printParenthesizedValueGroup, shouldBreakList };

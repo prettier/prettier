@@ -1,5 +1,7 @@
+/** @import {Plugin, Settings} from "unified-v9" */
+
 /**
- * @type {import('unified-v9').Plugin<[], import('unified-v9').Settings>}
+ * @type {Plugin<[], Settings>}
  */
 const liquid = function () {
   const proto = this.Parser.prototype;

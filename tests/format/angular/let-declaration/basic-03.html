@@ -1,0 +1,15 @@
+@let     topLevel    =   value;
+
+@if (condition) {
+  @let         nested    =   value;
+}
+
+<div *ngIf="condition">
+  @let    nestedNgIf    =     value;
+</div>
+
+{{topLevel}}
+
+{{nested}}
+
+{{nestedNgIf}}

@@ -1,7 +1,7 @@
 import coreOptions from "./core-options.evaluate.js";
 
 /**
- * @typedef {import("./core-options.evaluate.js").OptionInfo} OptionInfo
+ * @import {OptionInfo} from "./core-options.evaluate.js"
  * @typedef {{ name: string; pluginDefaults: Array<any> } & OptionInfo} NamedOptionInfo
  */
 

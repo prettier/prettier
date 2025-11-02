@@ -1,4 +1,4 @@
-/** @typedef {import("../../document/builders.js").Doc} Doc */
+/** @import {Doc} from "../../document/builders.js" */
 
 import {
   conditionalGroup,
@@ -18,7 +18,7 @@ import {
 } from "../utils.js";
 import { alignWithSpaces } from "./misc.js";
 
-function printMappingItem(path, print, options) {
+function printMappingItem(path, options, print) {
   const { node, parent } = path;
   const { key, value } = node;
 
@@ -98,6 +98,13 @@ function printMappingItem(path, print, options) {
   // as part of the mapping value
   const implicitMappingValueParts = [spaceBeforeColon, ":"];
   if (
+    hasEndComments(value) &&
+    value.content &&
+    isNode(value.content, ["flowMapping", "flowSequence"]) &&
+    value.content.children.length === 0
+  ) {
+    implicitMappingValueParts.push(" ");
+  } else if (
     hasLeadingComments(value.content) ||
     (hasEndComments(value) &&
       value.content &&
@@ -112,6 +119,8 @@ function printMappingItem(path, print, options) {
     implicitMappingValueParts.push(hardline);
   } else if (value.content) {
     implicitMappingValueParts.push(line);
+  } else if (hasTrailingComment(value)) {
+    implicitMappingValueParts.push(" ");
   }
   implicitMappingValueParts.push(printedValue);
   const implicitMappingValue = alignWithSpaces(

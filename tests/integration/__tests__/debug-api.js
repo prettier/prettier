@@ -1,10 +1,12 @@
 import { outdent } from "outdent";
-
 import prettier from "../../config/prettier-entry.js";
 
 const {
   __debug: { parse, formatAST, formatDoc, printToDoc, printDocToString },
-  doc: { builders },
+  doc: {
+    builders,
+    utils: { findInDoc },
+  },
 } = prettier;
 
 const code = outdent`
@@ -33,6 +35,28 @@ describe("API", () => {
   test("prettier.printDocToString", async () => {
     const { formatted: stringFromDoc } = await printDocToString(doc, options);
     expect(stringFromDoc).toBe(formatted);
+  });
+
+  test("prettier.printToDoc", async () => {
+    const hasCursor = (doc) =>
+      findInDoc(doc, (doc) => (doc.type === "cursor" ? true : undefined)) ??
+      false;
+
+    expect(hasCursor(doc)).toBe(false);
+
+    const optionsWithCursorOffset = {
+      ...options,
+      cursorOffset: code.indexOf("bar"),
+    };
+    const docWithCursorOffset = await printToDoc(code, optionsWithCursorOffset);
+    expect(hasCursor(docWithCursorOffset)).toBe(true);
+    const formatResultWithCursorOffset = await printDocToString(
+      docWithCursorOffset,
+      optionsWithCursorOffset,
+    );
+    expect(formatResultWithCursorOffset.formatted).toBe(formatted);
+    expect(typeof formatResultWithCursorOffset.cursorNodeStart).toBe("number");
+    expect(formatResultWithCursorOffset.cursorNodeText).toBe('"bar"');
   });
 
   test("prettier.formatDoc", async () => {
@@ -71,18 +95,6 @@ describe("API", () => {
     expect(
       await formatDoc(fill(["foo", hardline, "bar", literalline, "baz"])),
     ).toBe('fill(["foo", hardline, "bar", literalline, "baz"])');
-
-    /*
-    This is not really `cleanDoc` from `src/document/utils.js`
-    But if we pass array to it, it will flat array
-    */
-    const cleanDoc = (parts) => parts.flat();
-    expect(
-      await formatDoc(
-        // The argument of fill must not be passed to cleanDoc because it's not a doc
-        fill(cleanDoc(["foo", literalline, "bar"])), // invalid fill
-      ),
-    ).toBe('fill(["foo", literallineWithoutBreakParent, breakParent, "bar"])');
 
     expect(
       await formatDoc(indentIfBreak(group(["1", line, "2"]), { groupId: "Q" })),

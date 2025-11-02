@@ -10,7 +10,8 @@ function shouldPrintLeadingSemicolon(path, options) {
   if (
     options.semi ||
     isSingleJsxExpressionStatementInMarkdown(path, options) ||
-    isSingleVueEventBindingExpressionStatement(path, options)
+    isSingleVueEventBindingExpressionStatement(path, options) ||
+    isSingleHtmlEventHandlerExpressionStatement(path, options)
   ) {
     return false;
   }
@@ -89,47 +90,39 @@ function expressionNeedsASIProtection(path, options) {
   );
 }
 
-function isSingleJsxExpressionStatementInMarkdown({ node, parent }, options) {
+const isSingleExpressionStatement = ({ node, parent }) =>
+  node.type === "ExpressionStatement" &&
+  parent.type === "Program" &&
+  parent.body.length === 1 &&
+  // In non-Babel parser, directives are `ExpressionStatement`s
+  ((Array.isArray(parent.directives) && parent.directives.length === 0) ||
+    !parent.directives);
+
+function isSingleJsxExpressionStatementInMarkdown(path, options) {
   return (
     (options.parentParser === "markdown" || options.parentParser === "mdx") &&
-    node.type === "ExpressionStatement" &&
-    isJsxElement(node.expression) &&
-    parent.type === "Program" &&
-    parent.body.length === 1
+    isSingleExpressionStatement(path) &&
+    isJsxElement(path.node.expression)
   );
 }
 
-// based on /src/language-html/syntax-vue.js isVueEventBindingExpression()
-function isVueEventBindingExpression(node) {
-  switch (node.type) {
-    case "MemberExpression":
-      switch (node.property.type) {
-        case "Identifier":
-        case "NumericLiteral":
-        case "StringLiteral":
-          return isVueEventBindingExpression(node.object);
-      }
-      return false;
-    case "Identifier":
-      return true;
-    default:
-      return false;
-  }
+function isSingleHtmlEventHandlerExpressionStatement(path, options) {
+  return (
+    options.__isHtmlInlineEventHandler && isSingleExpressionStatement(path)
+  );
 }
 
-function isSingleVueEventBindingExpressionStatement({ node, parent }, options) {
+function isSingleVueEventBindingExpressionStatement(path, options) {
   return (
     (options.parser === "__vue_event_binding" ||
       options.parser === "__vue_ts_event_binding") &&
-    node.type === "ExpressionStatement" &&
-    parent.type === "Program" &&
-    parent.body.length === 1
+    isSingleExpressionStatement(path)
   );
 }
 
 export {
+  isSingleHtmlEventHandlerExpressionStatement,
   isSingleJsxExpressionStatementInMarkdown,
   isSingleVueEventBindingExpressionStatement,
-  isVueEventBindingExpression,
   shouldPrintLeadingSemicolon,
 };

@@ -1,8 +1,7 @@
-import chalk from "chalk";
-
+import styleText from "node-style-text";
 import { fetchText, logPromise, processFile, runGit } from "../utils.js";
 
-async function update() {
+async function update({ repo }) {
   const npmPage = await logPromise(
     "Fetching npm dependents count",
     fetchText("https://www.npmjs.com/package/prettier"),
@@ -34,7 +33,7 @@ async function update() {
     );
   }
 
-  processFile("website/pages/en/index.js", (content) =>
+  processFile("website/src/pages/index.jsx", (content) =>
     content
       .replace(
         /(<strong data-placeholder="dependent-npm">)(.*?)(<\/strong>)/u,
@@ -50,14 +49,14 @@ async function update() {
     "Checking if dependents count has been updated",
     async () =>
       (await runGit(["diff", "--name-only"])).stdout ===
-      "website/pages/en/index.js",
+      "website/src/pages/index.jsx",
   );
 
   if (isUpdated) {
     await logPromise("Committing and pushing to remote", async () => {
       await runGit(["add", "."]);
       await runGit(["commit", "-m", "Update dependents count"]);
-      await runGit(["push"]);
+      await runGit(["push", "--repo", repo]);
     });
   }
 }
@@ -72,14 +71,14 @@ function formatNumber(value) {
   return Math.floor(value / 1e5) / 10 + " million";
 }
 
-export default async function updateDependentsCount({ dry, next }) {
+export default async function updateDependentsCount({ dry, next, repo }) {
   if (dry || next) {
     return;
   }
 
   try {
-    await update();
+    await update({ repo });
   } catch (error) {
-    console.log(chalk.red.bold(error.message));
+    console.log(styleText.red.bold(error.message));
   }
 }

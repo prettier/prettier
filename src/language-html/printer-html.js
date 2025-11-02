@@ -1,9 +1,9 @@
 /**
- * @typedef {import("../document/builders.js").Doc} Doc
+ * @import {Doc} from "../document/builders.js"
  */
 
-import { fill, group, hardline } from "../document/builders.js";
-import { cleanDoc, replaceEndOfLine } from "../document/utils.js";
+import { fill, group, hardline, indent, line } from "../document/builders.js";
+import { replaceEndOfLine } from "../document/utils.js";
 import getPreferredQuote from "../utils/get-preferred-quote.js";
 import htmlWhitespaceUtils from "../utils/html-whitespace-utils.js";
 import UnexpectedNodeError from "../utils/unexpected-node-error.js";
@@ -34,9 +34,7 @@ import { getTextValueParts, unescapeQuoteEntities } from "./utils/index.js";
 function genericPrint(path, options, print) {
   const { node } = path;
 
-  switch (node.type) {
-    case "front-matter":
-      return replaceEndOfLine(node.raw);
+  switch (node.kind) {
     case "root":
       if (options.__onHtmlRoot) {
         options.__onHtmlRoot(node);
@@ -53,6 +51,18 @@ function genericPrint(path, options, print) {
     case "angularControlFlowBlockParameter":
       return htmlWhitespaceUtils.trim(node.expression);
 
+    case "angularLetDeclaration":
+      // print like "break-after-operator" layout assignment in estree printer
+      return group([
+        "@let ",
+        group([node.id, " =", group(indent([line, print("init")]))]),
+        // semicolon is required
+        ";",
+      ]);
+    case "angularLetDeclarationInitializer":
+      // basically printed via embedded formatting
+      return node.value;
+
     case "angularIcuExpression":
       return printAngularIcuExpression(path, options, print);
     case "angularIcuCase":
@@ -68,7 +78,7 @@ function genericPrint(path, options, print) {
         printClosingTagEnd(node, options),
       ];
     case "text": {
-      if (node.parent.type === "interpolation") {
+      if (node.parent.kind === "interpolation") {
         // replace the trailing literalline with hardline for better readability
         const trailingNewlineRegex = /\n[^\S\n]*$/u;
         const hasTrailingNewline = trailingNewlineRegex.test(node.value);
@@ -78,17 +88,15 @@ function genericPrint(path, options, print) {
         return [replaceEndOfLine(value), hasTrailingNewline ? hardline : ""];
       }
 
-      const printed = cleanDoc([
-        printOpeningTagPrefix(node, options),
-        ...getTextValueParts(node),
-        printClosingTagSuffix(node, options),
-      ]);
+      const prefix = printOpeningTagPrefix(node, options);
+      const printed = getTextValueParts(node);
 
-      if (Array.isArray(printed)) {
-        return fill(printed);
-      }
+      const suffix = printClosingTagSuffix(node, options);
+      // We cant use `fill([prefix, printed, suffix])` because it violates rule of fill: elements with odd indices must be line break
+      printed[0] = [prefix, printed[0]];
+      printed.push([printed.pop(), suffix]);
 
-      return printed;
+      return fill(printed);
     }
     case "docType":
       return [
@@ -126,6 +134,7 @@ function genericPrint(path, options, print) {
         quote,
       ];
     }
+    case "frontMatter": // Handled in core
     case "cdata": // Transformed into `text`
     default:
       /* c8 ignore next */
@@ -134,6 +143,13 @@ function genericPrint(path, options, print) {
 }
 
 const printer = {
+  features: {
+    experimental_frontMatterSupport: {
+      massageAstNode: true,
+      embed: true,
+      print: true,
+    },
+  },
   preprocess,
   print: genericPrint,
   insertPragma,

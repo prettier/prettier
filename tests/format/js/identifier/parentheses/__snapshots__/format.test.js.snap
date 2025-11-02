@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`const.js - {"semi":false} format 1`] = `
 ====================================options=====================================
@@ -179,7 +179,7 @@ alert((let[0] = 1))
 
 ;((let)[0] = 1) || 2
 
-;((let)[0] = 1), 2
+;(((let)[0] = 1), 2)
 
 ;((let)[0] = 1) ? a : b
 
@@ -404,7 +404,7 @@ alert((let[0] = 1));
 
 ((let)[0] = 1) || 2;
 
-((let)[0] = 1), 2;
+(((let)[0] = 1), 2);
 
 ((let)[0] = 1) ? a : b;
 

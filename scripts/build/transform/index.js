@@ -1,28 +1,37 @@
 import path from "node:path";
-
-import babelGenerator from "@babel/generator";
+import generate from "@babel/generator";
 import { parse } from "@babel/parser";
 import { traverseFast as traverse } from "@babel/types";
 import { outdent } from "outdent";
-
 import { PROJECT_ROOT, SOURCE_DIR } from "../../utils/index.js";
 import allTransforms from "./transforms/index.js";
 
-const generate = babelGenerator.default;
-
-/* Doesn't work for dependencies, optional call, computed property, and spread arguments */
+/* Doesn't work for dependencies */
 
 function transform(original, file) {
   if (
-    !(
-      file.startsWith(SOURCE_DIR) ||
-      file.startsWith(path.join(PROJECT_ROOT, "node_modules/camelcase/")) ||
-      file.startsWith(
-        path.join(PROJECT_ROOT, "node_modules/angular-estree-parser/"),
-      ) ||
-      file.startsWith(path.join(PROJECT_ROOT, "node_modules/jest-docblock/")) ||
-      file.startsWith(path.join(PROJECT_ROOT, "node_modules/espree/"))
-    )
+    ![
+      SOURCE_DIR,
+      ...[
+        /* spell-checker: disable */
+        "camelcase",
+        "angular-estree-parser",
+        "jest-docblock",
+        "espree",
+        "@babel/parser",
+        "@typescript-eslint/typescript-estree",
+        "meriyah",
+        "@glimmer",
+        "@prettier/cli",
+        "hermes-parser",
+        "kasi",
+        "fast-string-truncated-width",
+        "fast-ignore",
+        /* spell-checker: enable */
+      ].map((directory) =>
+        path.join(PROJECT_ROOT, `node_modules/${directory}/`),
+      ),
+    ].some((directory) => file.startsWith(directory))
   ) {
     return original;
   }
@@ -38,20 +47,28 @@ function transform(original, file) {
   let changed = false;
   const injected = new Set();
 
-  const ast = parse(original, { sourceType: "module" });
+  const ast = parse(original, {
+    filename: file,
+    sourceType: "module",
+    tokens: true,
+    createParenthesizedExpressions: true,
+  });
   traverse(ast, (node) => {
     for (const transform of transforms) {
       if (!transform.test(node)) {
         continue;
       }
 
-      transform.transform(node);
+      changed ||= true;
 
       if (transform.inject) {
         injected.add(transform.inject);
       }
 
-      changed ||= true;
+      const replacement = transform.transform(node);
+      if (replacement && replacement !== node) {
+        replaceNode(node, replacement);
+      }
     }
   });
 
@@ -59,7 +76,19 @@ function transform(original, file) {
     return original;
   }
 
-  let { code } = generate(ast);
+  let { code } = generate(
+    ast,
+    {
+      sourceFileName: file,
+      experimental_preserveFormat: true,
+      retainLines: true,
+      comments: true,
+      jsescOption: null,
+      minified: false,
+      compact: false,
+    },
+    original,
+  );
 
   if (injected.size > 0) {
     code = outdent`
@@ -70,6 +99,14 @@ function transform(original, file) {
   }
 
   return code;
+}
+
+function replaceNode(original, object) {
+  for (const key of Object.keys(original)) {
+    delete original[key];
+  }
+
+  Object.assign(original, object);
 }
 
 export default transform;

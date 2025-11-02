@@ -1,12 +1,18 @@
 import { parse as parseTypeScript } from "@typescript-eslint/typescript-estree";
-
 import createError from "../../common/parser-create-error.js";
 import tryCombinations from "../../utils/try-combinations.js";
 import postprocess from "./postprocess/index.js";
 import createParser from "./utils/create-parser.js";
+import jsxRegexp from "./utils/jsx-regexp.evaluate.js";
 import replaceHashbang from "./utils/replace-hashbang.js";
+import {
+  getSourceType,
+  SOURCE_TYPE_COMBINATIONS,
+} from "./utils/source-types.js";
 
-/** @type {import("@typescript-eslint/typescript-estree").TSESTreeOptions} */
+/** @import {TSESTreeOptions} from "@typescript-eslint/typescript-estree" */
+
+/** @type {TSESTreeOptions} */
 const baseParseOptions = {
   // `jest@<=26.4.2` rely on `loc`
   // https://github.com/facebook/jest/issues/10444
@@ -15,7 +21,7 @@ const baseParseOptions = {
   loc: true,
   range: true,
   comment: true,
-  tokens: true,
+  tokens: false,
   loggerFn: false,
   project: false,
   jsDocParsingMode: "none",
@@ -24,15 +30,14 @@ const baseParseOptions = {
 };
 
 function createParseError(error) {
+  const { message, location } = error;
+
   /* c8 ignore next 3 -- not a parse error */
-  if (!error?.location) {
+  if (!location) {
     return error;
   }
 
-  const {
-    message,
-    location: { start, end },
-  } = error;
+  const { start, end } = location;
 
   return createError(message, {
     loc: {
@@ -45,24 +50,41 @@ function createParseError(error) {
 
 // https://typescript-eslint.io/packages/parser/#jsx
 const isKnownFileType = (filepath) =>
-  /\.(?:js|mjs|cjs|jsx|ts|mts|cts|tsx)$/iu.test(filepath);
+  filepath && /\.(?:js|mjs|cjs|jsx|ts|mts|cts|tsx)$/iu.test(filepath);
 
-function getParseOptionsCombinations(text, options) {
-  const filepath = options?.filepath;
-  if (filepath && isKnownFileType(filepath)) {
-    return [{ ...baseParseOptions, filePath: filepath }];
+function getParseOptionsCombinations(text, filepath) {
+  let combinations = [{ ...baseParseOptions, filePath: filepath }];
+
+  const sourceType = getSourceType(filepath);
+  if (sourceType) {
+    combinations = combinations.map((parseOptions) => ({
+      ...parseOptions,
+      sourceType,
+    }));
+  } else {
+    combinations = SOURCE_TYPE_COMBINATIONS.flatMap((sourceType) =>
+      combinations.map((parseOptions) => ({ ...parseOptions, sourceType })),
+    );
   }
 
-  const shouldEnableJsx = isProbablyJsx(text);
-  return [
-    { ...baseParseOptions, jsx: shouldEnableJsx },
-    { ...baseParseOptions, jsx: !shouldEnableJsx },
-  ];
+  if (isKnownFileType(filepath)) {
+    return combinations;
+  }
+
+  const shouldEnableJsx = jsxRegexp.test(text);
+  return [shouldEnableJsx, !shouldEnableJsx].flatMap((jsx) =>
+    combinations.map((parseOptions) => ({ ...parseOptions, jsx })),
+  );
 }
 
 function parse(text, options) {
+  let filepath = options?.filepath;
+  if (typeof filepath !== "string") {
+    filepath = undefined;
+  }
+
   const textToParse = replaceHashbang(text);
-  const parseOptionsCombinations = getParseOptionsCombinations(text, options);
+  const parseOptionsCombinations = getParseOptionsCombinations(text, filepath);
 
   let ast;
   try {
@@ -81,22 +103,7 @@ function parse(text, options) {
     throw createParseError(error);
   }
 
-  return postprocess(ast, { text });
-}
-
-/**
- * Use a naive regular expression to detect JSX
- */
-function isProbablyJsx(text) {
-  return new RegExp(
-    // eslint-disable-next-line regexp/no-useless-non-capturing-group -- possible bug
-    [
-      "(?:^[^\"'`]*</)", // Contains "</" when probably not in a string
-      "|",
-      "(?:^[^/]{2}.*/>)", // Contains "/>" on line not starting with "//"
-    ].join(""),
-    "mu",
-  ).test(text);
+  return postprocess(ast, { parser: "typescript", text });
 }
 
 export const typescript = createParser(parse);

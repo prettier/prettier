@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`align.md - {"proseWrap":"always","tabWidth":0} format 1`] = `
 ====================================options=====================================
@@ -248,8 +248,8 @@ tabWidth: 4
 
 ---
 
--   123
--   123
+- 123
+- 123
     1.  123
     2.  123
 
@@ -543,10 +543,10 @@ tabWidth: 4
 - [x] this is a long long long long long long long long long long long long long long paragraph.
 
 =====================================output=====================================
--   [ ] this is a long long long long long long long long long long long long
-        long long paragraph.
--   [x] this is a long long long long long long long long long long long long
-        long long paragraph.
+- [ ] this is a long long long long long long long long long long long long long
+      long paragraph.
+- [x] this is a long long long long long long long long long long long long long
+      long paragraph.
 
 ================================================================================
 `;
@@ -731,7 +731,7 @@ tabWidth: 4
     const b = 2;
     \`\`\`
 
--   ul01
+- ul01
 
     \`\`\`js
     const a = 1;
@@ -739,7 +739,7 @@ tabWidth: 4
     const b = 2;
     \`\`\`
 
--   ul02
+- ul02
 
     \`\`\`js
     const a = 1;
@@ -963,12 +963,12 @@ tabWidth: 4
 
 * hello6
 =====================================output=====================================
--   hello1
--   hello2
--   hello3
--   hello4
--   hello5
--   hello6
+- hello1
+- hello2
+- hello3
+- hello4
+- hello5
+- hello6
 
 ================================================================================
 `;
@@ -1212,7 +1212,6 @@ tabWidth: 0
 =====================================output=====================================
 - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
       a a a a a a a a a a a a a a a
-
   - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
     a a a a a a a a a a a a a a
 
@@ -1224,7 +1223,6 @@ tabWidth: 0
 
     b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
     b b b b b b b b b b b b b b
-
   1. a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
      a a a a a a a a a a a a a a
 
@@ -1236,13 +1234,11 @@ tabWidth: 0
 
      b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
      b b b b b b b b b b b b b b
-
   12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
             a a a a a a a a a a a a a a
 
             b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
             b b b b b b b b b b b b b b
-
   12345678. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                 a a a a a a a a a a a a a a
 
@@ -1254,7 +1250,6 @@ tabWidth: 0
 
 1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
        a a a a a a a a a a a a a a a
-
    - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
      a a a a a a a a a a a a a a
 
@@ -1266,7 +1261,6 @@ tabWidth: 0
 
      b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
      b b b b b b b b b b b b b b
-
    1. a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
       a a a a a a a a a a a a a a a
 
@@ -1278,13 +1272,11 @@ tabWidth: 0
 
       b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
       b b b b b b b b b b b b b b b
-
    12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
              a a a a a a a a a a a a a a
 
              b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
              b b b b b b b b b b b b b b
-
    12345678. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                  a a a a a a a a a a a a a a
 
@@ -1299,7 +1291,6 @@ tabWidth: 0
 
           b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
           b b b b b b b b b b b b b b b
-
           - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
             a a a a a a a a a a a a a a a
 
@@ -1311,7 +1302,6 @@ tabWidth: 0
 
             b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
             b b b b b b b b b b b b b b b
-
           1. a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
              a a a a a a a a a a a a a a a
 
@@ -1323,13 +1313,11 @@ tabWidth: 0
 
              b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
              b b b b b b b b b b b b b b b
-
           12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                     a a a a a a a a a a a a a a a
 
                     b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
                     b b b b b b b b b b b b b b b b
-
           12345678. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                         a a a a a a a a a a a a a a a
 
@@ -1437,51 +1425,8 @@ tabWidth: 4
           a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
 
 =====================================output=====================================
--   [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-        a a a a a a a a a a a a a a a a
-
-    -   a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-        a a a a a a a a a a a a a a a a
-
-        b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-        b b b b b b b b b b b b b b b b
-
-    -   [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-            a a a a a a a a a a a a a a a a
-
-        b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-        b b b b b b b b b b b b b b b b
-
-    1. a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-       a a a a a a a a a a a a a a a
-
-        b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-        b b b b b b b b b b b b b b b b
-
-    1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-           a a a a a a a a a a a a a a a
-
-        b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-        b b b b b b b b b b b b b b b b
-
-    12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-              a a a a a a a a a a a a a a a
-
-              b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-              b b b b b b b b b b b b b b b
-
-    12345678. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-                  a a a a a a a a a a a a a a a
-
-              b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-              b b b b b b b b b b b b b b b
-
-    a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-    a a a a a a a a a a a a a a a
-
-1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-       a a a a a a a a a a a a a a a
-
+- [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+      a a a a a a a a a a a a a a a
     - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
       a a a a a a a a a a a a a a a
 
@@ -1493,7 +1438,6 @@ tabWidth: 4
 
         b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
         b b b b b b b b b b b b b b b b
-
     1. a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
        a a a a a a a a a a a a a a a
 
@@ -1505,13 +1449,49 @@ tabWidth: 4
 
         b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
         b b b b b b b b b b b b b b b b
-
     12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
               a a a a a a a a a a a a a a a
 
               b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
               b b b b b b b b b b b b b b b
+    12345678. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+                  a a a a a a a a a a a a a a a
 
+              b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+              b b b b b b b b b b b b b b b
+
+    a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+    a a a a a a a a a a a a a a a
+
+1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+       a a a a a a a a a a a a a a a
+    - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+      a a a a a a a a a a a a a a a
+
+        b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+        b b b b b b b b b b b b b b b b
+
+    - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+          a a a a a a a a a a a a a a a
+
+        b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+        b b b b b b b b b b b b b b b b
+    1. a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+       a a a a a a a a a a a a a a a
+
+        b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+        b b b b b b b b b b b b b b b b
+
+    1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+           a a a a a a a a a a a a a a a
+
+        b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+        b b b b b b b b b b b b b b b b
+    12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+              a a a a a a a a a a a a a a a
+
+              b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+              b b b b b b b b b b b b b b b
     12345678. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                   a a a a a a a a a a a a a a a
 
@@ -1526,7 +1506,6 @@ tabWidth: 4
 
           b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
           b b b b b b b b b b b b b b b
-
           - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
             a a a a a a a a a a a a a a a
 
@@ -1538,7 +1517,6 @@ tabWidth: 4
 
               b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
               b b b b b b b b b b b b b b b b
-
           1. a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
              a a a a a a a a a a a a a a a
 
@@ -1550,13 +1528,11 @@ tabWidth: 4
 
               b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
               b b b b b b b b b b b b b b b b
-
           12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                     a a a a a a a a a a a a a a a
 
                     b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
                     b b b b b b b b b b b b b b b b
-
           12345678. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                         a a a a a a a a a a a a a a a
 
@@ -1666,7 +1642,6 @@ tabWidth: 999
 =====================================output=====================================
 - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
       a a a a a a a a a a a a a a a
-
      - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
        a a a a a a a a a a a a a a a
 
@@ -1678,7 +1653,6 @@ tabWidth: 999
 
           b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
           b b b b b b b b b b b b b b b b b
-
      1. a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
         a a a a a a a a a a a a a a a a
 
@@ -1690,13 +1664,11 @@ tabWidth: 999
 
            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
            b b b b b b b b b b b b b b b b b
-
      12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                a a a a a a a a a a a a a a a
 
                   b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
                   b b b b b b b b b b b b b b b b b
-
      12345678. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                    a a a a a a a a a a a a a a a
 
@@ -1708,7 +1680,6 @@ tabWidth: 999
 
 1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
        a a a a a a a a a a a a a a a
-
       - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
         a a a a a a a a a a a a a a a a
 
@@ -1720,7 +1691,6 @@ tabWidth: 999
 
            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
            b b b b b b b b b b b b b b b b b
-
       1. a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
          a a a a a a a a a a a a a a a a
 
@@ -1732,13 +1702,11 @@ tabWidth: 999
 
             b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
             b b b b b b b b b b b b b b b b b b
-
       12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                 a a a a a a a a a a a a a a a a
 
                    b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
                    b b b b b b b b b b b b b b b b b
-
       12345678. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                     a a a a a a a a a a a a a a a a
 
@@ -1753,7 +1721,6 @@ tabWidth: 999
 
              b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
              b b b b b b b b b b b b b b b b
-
              - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                a a a a a a a a a a a a a a a a
 
@@ -1765,7 +1732,6 @@ tabWidth: 999
 
                   b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
                   b b b b b b b b b b b b b b b b b b
-
              1. a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                 a a a a a a a a a a a a a a a a a
 
@@ -1777,13 +1743,11 @@ tabWidth: 999
 
                    b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
                    b b b b b b b b b b b b b b b b b b
-
              12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                        a a a a a a a a a a a a a a a a
 
                           b b b b b b b b b b b b b b b b b b b b b b b b b b b
                           b b b b b b b b b b b b b b b b b b b
-
              12345678. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a
                            a a a a a a a a a a a a a a a a
 
@@ -1892,7 +1856,6 @@ proseWrap: "always"
 =====================================output=====================================
 - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
       a a a a a a a a a a a a a a a
-
   - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
     a a a a a a a a a a a a a a
 
@@ -1904,7 +1867,6 @@ proseWrap: "always"
 
     b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
     b b b b b b b b b b b b b b
-
   1. a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
      a a a a a a a a a a a a a a
 
@@ -1916,13 +1878,11 @@ proseWrap: "always"
 
      b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
      b b b b b b b b b b b b b b
-
   12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
             a a a a a a a a a a a a a a
 
             b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
             b b b b b b b b b b b b b b
-
   12345678. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                 a a a a a a a a a a a a a a
 
@@ -1934,7 +1894,6 @@ proseWrap: "always"
 
 1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
        a a a a a a a a a a a a a a a
-
    - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
      a a a a a a a a a a a a a a
 
@@ -1946,7 +1905,6 @@ proseWrap: "always"
 
      b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
      b b b b b b b b b b b b b b
-
    1. a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
       a a a a a a a a a a a a a a a
 
@@ -1958,13 +1916,11 @@ proseWrap: "always"
 
       b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
       b b b b b b b b b b b b b b b
-
    12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
              a a a a a a a a a a a a a a
 
              b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
              b b b b b b b b b b b b b b
-
    12345678. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                  a a a a a a a a a a a a a a
 
@@ -1979,7 +1935,6 @@ proseWrap: "always"
 
           b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
           b b b b b b b b b b b b b b b
-
           - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
             a a a a a a a a a a a a a a a
 
@@ -1991,7 +1946,6 @@ proseWrap: "always"
 
             b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
             b b b b b b b b b b b b b b b
-
           1. a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
              a a a a a a a a a a a a a a a
 
@@ -2003,13 +1957,11 @@ proseWrap: "always"
 
              b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
              b b b b b b b b b b b b b b b
-
           12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                     a a a a a a a a a a a a a a a
 
                     b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
                     b b b b b b b b b b b b b b b b
-
           12345678. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                         a a a a a a a a a a a a a a a
 
@@ -2053,7 +2005,7 @@ tabWidth: 4
 ### Some heading
 
 =====================================output=====================================
--   Something
+- Something
 
 ### Some heading
 
@@ -2152,11 +2104,11 @@ tabWidth: 4
    d d d  
     e e e
 =====================================output=====================================
--   a a  
-    b b  
-    c c  
-    d d  
-    e e
+- a a  
+  b b  
+  c c  
+  d d  
+  e e
 
 1.  a a a  
     b b b  
@@ -2236,6 +2188,324 @@ proseWrap: "always"
 ================================================================================
 `;
 
+exports[`issue-8004.md - {"proseWrap":"always","tabWidth":0} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 0
+                                                                                | printWidth
+=====================================input======================================
+- Level 1
+  - Level 1-1
+
+- Level 2
+
+=====================================output=====================================
+- Level 1
+  - Level 1-1
+
+- Level 2
+
+================================================================================
+`;
+
+exports[`issue-8004.md - {"proseWrap":"always","tabWidth":4} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 4
+                                                                                | printWidth
+=====================================input======================================
+- Level 1
+  - Level 1-1
+
+- Level 2
+
+=====================================output=====================================
+- Level 1
+    - Level 1-1
+
+- Level 2
+
+================================================================================
+`;
+
+exports[`issue-8004.md - {"proseWrap":"always","tabWidth":999} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 999
+                                                                                | printWidth
+=====================================input======================================
+- Level 1
+  - Level 1-1
+
+- Level 2
+
+=====================================output=====================================
+- Level 1
+     - Level 1-1
+
+- Level 2
+
+================================================================================
+`;
+
+exports[`issue-8004.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+- Level 1
+  - Level 1-1
+
+- Level 2
+
+=====================================output=====================================
+- Level 1
+  - Level 1-1
+
+- Level 2
+
+================================================================================
+`;
+
+exports[`issue-17652.md - {"proseWrap":"always","tabWidth":0} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 0
+                                                                                | printWidth
+=====================================input======================================
+1. Some text, and code block below, with newline after code block
+
+   \`\`\`yaml
+   ---
+   foo: bar
+   \`\`\`
+
+   1. Another
+   2. List
+
+1. Some text, and code block below, with newline after code block
+
+   1. Another
+   2. List
+
+
+   \`\`\`yaml
+   ---
+   foo: bar
+   \`\`\`
+
+   1. Another
+   2. List
+
+=====================================output=====================================
+1. Some text, and code block below, with newline after code block
+
+   \`\`\`yaml
+   ---
+   foo: bar
+   \`\`\`
+
+   1. Another
+   2. List
+
+1. Some text, and code block below, with newline after code block
+   1. Another
+   2. List
+
+   \`\`\`yaml
+   ---
+   foo: bar
+   \`\`\`
+
+   1. Another
+   2. List
+
+================================================================================
+`;
+
+exports[`issue-17652.md - {"proseWrap":"always","tabWidth":4} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 4
+                                                                                | printWidth
+=====================================input======================================
+1. Some text, and code block below, with newline after code block
+
+   \`\`\`yaml
+   ---
+   foo: bar
+   \`\`\`
+
+   1. Another
+   2. List
+
+1. Some text, and code block below, with newline after code block
+
+   1. Another
+   2. List
+
+
+   \`\`\`yaml
+   ---
+   foo: bar
+   \`\`\`
+
+   1. Another
+   2. List
+
+=====================================output=====================================
+1. Some text, and code block below, with newline after code block
+
+    \`\`\`yaml
+    ---
+    foo: bar
+    \`\`\`
+
+    1. Another
+    2. List
+
+1. Some text, and code block below, with newline after code block
+    1. Another
+    2. List
+
+    \`\`\`yaml
+    ---
+    foo: bar
+    \`\`\`
+
+    1. Another
+    2. List
+
+================================================================================
+`;
+
+exports[`issue-17652.md - {"proseWrap":"always","tabWidth":999} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 999
+                                                                                | printWidth
+=====================================input======================================
+1. Some text, and code block below, with newline after code block
+
+   \`\`\`yaml
+   ---
+   foo: bar
+   \`\`\`
+
+   1. Another
+   2. List
+
+1. Some text, and code block below, with newline after code block
+
+   1. Another
+   2. List
+
+
+   \`\`\`yaml
+   ---
+   foo: bar
+   \`\`\`
+
+   1. Another
+   2. List
+
+=====================================output=====================================
+1. Some text, and code block below, with newline after code block
+
+      \`\`\`yaml
+      ---
+      foo: bar
+      \`\`\`
+
+      1. Another
+      2. List
+
+1. Some text, and code block below, with newline after code block
+      1. Another
+      2. List
+
+      \`\`\`yaml
+      ---
+      foo: bar
+      \`\`\`
+
+      1. Another
+      2. List
+
+================================================================================
+`;
+
+exports[`issue-17652.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+1. Some text, and code block below, with newline after code block
+
+   \`\`\`yaml
+   ---
+   foo: bar
+   \`\`\`
+
+   1. Another
+   2. List
+
+1. Some text, and code block below, with newline after code block
+
+   1. Another
+   2. List
+
+
+   \`\`\`yaml
+   ---
+   foo: bar
+   \`\`\`
+
+   1. Another
+   2. List
+
+=====================================output=====================================
+1. Some text, and code block below, with newline after code block
+
+   \`\`\`yaml
+   ---
+   foo: bar
+   \`\`\`
+
+   1. Another
+   2. List
+
+1. Some text, and code block below, with newline after code block
+   1. Another
+   2. List
+
+   \`\`\`yaml
+   ---
+   foo: bar
+   \`\`\`
+
+   1. Another
+   2. List
+
+================================================================================
+`;
+
 exports[`long-paragraph.md - {"proseWrap":"always","tabWidth":0} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
@@ -2264,8 +2534,8 @@ tabWidth: 4
 - This is a long long long long long long long long long long long long long long paragraph.
 
 =====================================output=====================================
--   This is a long long long long long long long long long long long long long
-    long paragraph.
+- This is a long long long long long long long long long long long long long
+  long paragraph.
 
 ================================================================================
 `;
@@ -2325,15 +2595,12 @@ tabWidth: 0
 
 =====================================output=====================================
 - 123
-
   - abc
 
 - 456
-
   - def
 
 - 789
-
   - ghi
 
 ================================================================================
@@ -2360,17 +2627,14 @@ tabWidth: 4
   - ghi
 
 =====================================output=====================================
--   123
+- 123
+    - abc
 
-    -   abc
+- 456
+    - def
 
--   456
-
-    -   def
-
--   789
-
-    -   ghi
+- 789
+    - ghi
 
 ================================================================================
 `;
@@ -2397,15 +2661,12 @@ tabWidth: 999
 
 =====================================output=====================================
 - 123
-
      - abc
 
 - 456
-
      - def
 
 - 789
-
      - ghi
 
 ================================================================================
@@ -2432,15 +2693,12 @@ proseWrap: "always"
 
 =====================================output=====================================
 - 123
-
   - abc
 
 - 456
-
   - def
 
 - 789
-
   - ghi
 
 ================================================================================
@@ -2477,7 +2735,7 @@ tabWidth: 4
   789
 
 =====================================output=====================================
--   123 456 789
+- 123 456 789
 
 ================================================================================
 `;
@@ -2550,9 +2808,9 @@ tabWidth: 4
     - Level 3
 
 =====================================output=====================================
--   Level 1
-    -   Level 2
-        -   Level 3
+- Level 1
+    - Level 2
+        - Level 3
 
 ================================================================================
 `;
@@ -2619,7 +2877,6 @@ tabWidth: 0
 =====================================output=====================================
 - parent list item parent list item parent list item parent list item parent
   list item parent list item
-
   - child list item child list item child list item child list item child list
     item child list item
 
@@ -2628,7 +2885,6 @@ tabWidth: 0
 
 - [x] parent task list item parent task list item parent task list item parent
       task list item
-
   - [x] child task list item child task list item child task list item child
         task list item
 
@@ -2659,20 +2915,18 @@ tabWidth: 4
     paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph
 
 =====================================output=====================================
--   parent list item parent list item parent list item parent list item parent
-    list item parent list item
-
-    -   child list item child list item child list item child list item child
-        list item child list item
+- parent list item parent list item parent list item parent list item parent
+  list item parent list item
+    - child list item child list item child list item child list item child list
+      item child list item
 
     paragraph paragraph paragraph paragraph paragraph paragraph paragraph
     paragraph paragraph
 
--   [x] parent task list item parent task list item parent task list item parent
-        task list item
-
-    -   [x] child task list item child task list item child task list item child
-            task list item
+- [x] parent task list item parent task list item parent task list item parent
+      task list item
+    - [x] child task list item child task list item child task list item child
+          task list item
 
     paragraph paragraph paragraph paragraph paragraph paragraph paragraph
     paragraph paragraph
@@ -2703,7 +2957,6 @@ tabWidth: 999
 =====================================output=====================================
 - parent list item parent list item parent list item parent list item parent
   list item parent list item
-
      - child list item child list item child list item child list item child
        list item child list item
 
@@ -2712,7 +2965,6 @@ tabWidth: 999
 
 - [x] parent task list item parent task list item parent task list item parent
       task list item
-
      - [x] child task list item child task list item child task list item child
            task list item
 
@@ -2744,7 +2996,6 @@ proseWrap: "always"
 =====================================output=====================================
 - parent list item parent list item parent list item parent list item parent
   list item parent list item
-
   - child list item child list item child list item child list item child list
     item child list item
 
@@ -2753,7 +3004,6 @@ proseWrap: "always"
 
 - [x] parent task list item parent task list item parent task list item parent
       task list item
-
   - [x] child task list item child task list item child task list item child
         task list item
 
@@ -2836,21 +3086,21 @@ tabWidth: 4
 =====================================output=====================================
 # List with 1 tab indentation and \`-\`
 
--   Top level list item 1
--   Top level list item 2
-    -   Nested List item 1
-    -   Nested List item 2
-        -   Sub-Nested List item 1
-        -   Sub-Nested List item 2
+- Top level list item 1
+- Top level list item 2
+    - Nested List item 1
+    - Nested List item 2
+        - Sub-Nested List item 1
+        - Sub-Nested List item 2
 
 # List with 1 tab indentation and \`*\`
 
--   Top level list item 1
--   Top level list item 2
-    -   Nested List item 1
-    -   Nested List item 2
-        -   Sub-Nested List item 1
-        -   Sub-Nested List item 2
+- Top level list item 1
+- Top level list item 2
+    - Nested List item 1
+    - Nested List item 2
+        - Sub-Nested List item 1
+        - Sub-Nested List item 2
 
 ================================================================================
 `;
@@ -3070,13 +3320,13 @@ tabWidth: 4
 * 123
 
 =====================================output=====================================
--   123
--   123
--   123
+- 123
+- 123
+- 123
 
-*   123
-*   123
-*   123
+* 123
+* 123
+* 123
 
 ================================================================================
 `;
@@ -3169,9 +3419,9 @@ tabWidth: 4
 - 789
 
 =====================================output=====================================
--   123
--   456
--   789
+- 123
+- 456
+- 789
 
 ================================================================================
 `;
@@ -4128,7 +4378,6 @@ tabWidth: 0
   [title](link)
 
 - Text
-
   - foo
   - foo
   - bar
@@ -4183,27 +4432,26 @@ tabWidth: 4
  	\`foo\`
 
 =====================================output=====================================
--   Text
+- Text
 
     [title](link)
 
--   Text
+- Text
+    - foo
+    - foo
+    - bar
 
-    -   foo
-    -   foo
-    -   bar
-
--   Text
+- Text
 
     # foo
 
--   Text
+- Text
 
     \`\`\`
     foo
     \`\`\`
 
--   Text
+- Text
 
     \`foo\`
 
@@ -4248,7 +4496,6 @@ tabWidth: 999
      [title](link)
 
 - Text
-
      - foo
      - foo
      - bar
@@ -4307,7 +4554,6 @@ proseWrap: "always"
   [title](link)
 
 - Text
-
   - foo
   - foo
   - bar
@@ -4325,6 +4571,101 @@ proseWrap: "always"
 - Text
 
   \`foo\`
+
+================================================================================
+`;
+
+exports[`unordered.md - {"proseWrap":"always","tabWidth":0} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 0
+                                                                                | printWidth
+=====================================input======================================
+- first line
+    - second line indented
+- third line
+    - fourth line
+        - fifth line
+
+=====================================output=====================================
+- first line
+  - second line indented
+- third line
+  - fourth line
+    - fifth line
+
+================================================================================
+`;
+
+exports[`unordered.md - {"proseWrap":"always","tabWidth":4} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 4
+                                                                                | printWidth
+=====================================input======================================
+- first line
+    - second line indented
+- third line
+    - fourth line
+        - fifth line
+
+=====================================output=====================================
+- first line
+    - second line indented
+- third line
+    - fourth line
+        - fifth line
+
+================================================================================
+`;
+
+exports[`unordered.md - {"proseWrap":"always","tabWidth":999} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 999
+                                                                                | printWidth
+=====================================input======================================
+- first line
+    - second line indented
+- third line
+    - fourth line
+        - fifth line
+
+=====================================output=====================================
+- first line
+     - second line indented
+- third line
+     - fourth line
+          - fifth line
+
+================================================================================
+`;
+
+exports[`unordered.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+- first line
+    - second line indented
+- third line
+    - fourth line
+        - fifth line
+
+=====================================output=====================================
+- first line
+  - second line indented
+- third line
+  - fourth line
+    - fifth line
 
 ================================================================================
 `;

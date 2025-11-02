@@ -17,7 +17,6 @@ import {
   CommentCheckFlags,
   createTypeCheckFunction,
   hasComment,
-  isNextLineEmpty,
 } from "../utils/index.js";
 import { printAssignment } from "./assignment.js";
 import { printClassMemberDecorators } from "./decorators.js";
@@ -34,28 +33,37 @@ import { printTypeAnnotationProperty } from "./type-annotation.js";
 import { getTypeParametersGroupId } from "./type-parameters.js";
 
 /**
- * @typedef {import("../../document/builders.js").Doc} Doc
+ * @import {Doc} from "../../document/builders.js"
  */
 
-const isClassProperty = createTypeCheckFunction([
-  "ClassProperty",
-  "PropertyDefinition",
-  "ClassPrivateProperty",
-  "ClassAccessorProperty",
-  "AccessorProperty",
-  "TSAbstractPropertyDefinition",
-  "TSAbstractAccessorProperty",
+const getHeritageGroupId = createGroupIdMapper("heritageGroup");
+
+const isInterface = createTypeCheckFunction([
+  "TSInterfaceDeclaration",
+  "DeclareInterface",
+  "InterfaceDeclaration",
+  "InterfaceTypeAnnotation",
 ]);
 
 /*
 - `ClassDeclaration`
 - `ClassExpression`
 - `DeclareClass`(flow)
+- `DeclareInterface`(flow)
+- `InterfaceDeclaration`(flow)
+- `InterfaceTypeAnnotation`(flow)
+- `TSInterfaceDeclaration`(TypeScript)
 */
 function printClass(path, options, print) {
   const { node } = path;
+  const isPrintingInterface = isInterface(node);
+
   /** @type {Doc[]} */
-  const parts = [printDeclareToken(path), printAbstractToken(path), "class"];
+  const parts = [
+    printDeclareToken(path),
+    printAbstractToken(path),
+    isPrintingInterface ? "interface" : "class",
+  ];
 
   // Keep old behaviour of extends in same line
   // If there is only on extends and there are not comments
@@ -63,29 +71,31 @@ function printClass(path, options, print) {
     hasComment(node.id, CommentCheckFlags.Trailing) ||
     hasComment(node.typeParameters, CommentCheckFlags.Trailing) ||
     hasComment(node.superClass) ||
-    isNonEmptyArray(node.extends) || // DeclareClass
+    isNonEmptyArray(node.extends) ||
     isNonEmptyArray(node.mixins) ||
     isNonEmptyArray(node.implements);
 
   const partsGroup = [];
   const extendsParts = [];
 
-  if (node.id) {
-    partsGroup.push(" ", print("id"));
-  }
+  if (node.type !== "InterfaceTypeAnnotation") {
+    if (node.id) {
+      partsGroup.push(" ", print("id"));
+    }
 
-  partsGroup.push(print("typeParameters"));
+    partsGroup.push(print("typeParameters"));
+  }
 
   if (node.superClass) {
     const printed = [
       printSuperClass(path, options, print),
       print(
-        // TODO: Use `superTypeArguments` only when babel align with TS.
+        // TODO: Remove `superTypeParameters` when https://github.com/facebook/hermes/issues/1808#issuecomment-3413004377 get fixed
         node.superTypeArguments ? "superTypeArguments" : "superTypeParameters",
       ),
     ];
     const printedWithComments = path.call(
-      (superClass) => ["extends ", printComments(superClass, printed, options)],
+      () => ["extends ", printComments(path, printed, options)],
       "superClass",
     );
     if (groupMode) {
@@ -102,27 +112,41 @@ function printClass(path, options, print) {
     printHeritageClauses(path, options, print, "implements"),
   );
 
+  let heritageGroupId;
   if (groupMode) {
-    let printedPartsGroup;
-    if (shouldIndentOnlyHeritageClauses(node)) {
-      printedPartsGroup = [...partsGroup, indent(extendsParts)];
-    } else {
-      printedPartsGroup = indent([...partsGroup, extendsParts]);
-    }
-    parts.push(group(printedPartsGroup, { id: getHeritageGroupId(node) }));
+    heritageGroupId = getHeritageGroupId(node);
+    parts.push(
+      group([...partsGroup, indent(extendsParts)], { id: heritageGroupId }),
+    );
   } else {
     parts.push(...partsGroup, ...extendsParts);
   }
 
-  parts.push(" ", print("body"));
+  /*
+  To improve visual separation between class head and body https://github.com/prettier/prettier/issues/10018
+  we introduced https://github.com/prettier/prettier/pull/10085
+  However, users complaint.
+  We decide to defer to solve the inconsistency to a major release (V4)
+  Meanwhile, we are not going to put the `{` of interface body on a new line
+  https://github.com/prettier/prettier/issues/18115
+  */
+  if (!isPrintingInterface && groupMode && isNonEmptyClassBody(node.body)) {
+    parts.push(ifBreak(hardline, " ", { groupId: heritageGroupId }));
+  } else {
+    parts.push(" ");
+  }
+
+  parts.push(print("body"));
 
   return parts;
 }
 
-const getHeritageGroupId = createGroupIdMapper("heritageGroup");
-
-function printHardlineAfterHeritage(node) {
-  return ifBreak(hardline, "", { groupId: getHeritageGroupId(node) });
+function isNonEmptyClassBody(node) {
+  return node.type === "ObjectTypeAnnotation"
+    ? ["properties", "indexers", "callProperties", "internalSlots"].some(
+        (property) => isNonEmptyArray(node[property]),
+      )
+    : isNonEmptyArray(node.body);
 }
 
 function hasMultipleHeritage(node) {
@@ -215,13 +239,12 @@ function printClassMethod(path, options, print) {
 function printClassProperty(path, options, print) {
   const { node } = path;
   const parts = [];
-  const semi = options.semi ? ";" : "";
 
   if (isNonEmptyArray(node.decorators)) {
     parts.push(printClassMemberDecorators(path, options, print));
   }
 
-  parts.push(printTypeScriptAccessibilityToken(node), printDeclareToken(path));
+  parts.push(printDeclareToken(path), printTypeScriptAccessibilityToken(node));
 
   if (node.static) {
     parts.push("static ");
@@ -265,128 +288,9 @@ function printClassProperty(path, options, print) {
       " =",
       isAbstractProperty ? undefined : "value",
     ),
-    semi,
+    options.semi ? ";" : "",
   ];
 }
 
-function printClassBody(path, options, print) {
-  const { node } = path;
-  const parts = [];
-
-  path.each(({ node, next, isLast }) => {
-    parts.push(print());
-
-    if (
-      !options.semi &&
-      isClassProperty(node) &&
-      shouldPrintSemicolonAfterClassProperty(node, next)
-    ) {
-      parts.push(";");
-    }
-
-    if (!isLast) {
-      parts.push(hardline);
-
-      if (isNextLineEmpty(node, options)) {
-        parts.push(hardline);
-      }
-    }
-  }, "body");
-
-  if (hasComment(node, CommentCheckFlags.Dangling)) {
-    parts.push(printDanglingComments(path, options));
-  }
-
-  return [
-    isNonEmptyArray(node.body) ? printHardlineAfterHeritage(path.parent) : "",
-    "{",
-    parts.length > 0 ? [indent([hardline, parts]), hardline] : "",
-    "}",
-  ];
-}
-
-/**
- * @returns {boolean}
- */
-function shouldPrintSemicolonAfterClassProperty(node, nextNode) {
-  const { type, name } = node.key;
-  if (
-    !node.computed &&
-    type === "Identifier" &&
-    (name === "static" || name === "get" || name === "set") &&
-    !node.value &&
-    !node.typeAnnotation
-  ) {
-    return true;
-  }
-
-  if (!nextNode) {
-    return false;
-  }
-
-  if (
-    nextNode.static ||
-    nextNode.accessibility || // TypeScript
-    nextNode.readonly // TypeScript
-  ) {
-    return false;
-  }
-
-  if (!nextNode.computed) {
-    const name = nextNode.key?.name;
-    if (name === "in" || name === "instanceof") {
-      return true;
-    }
-  }
-
-  // Flow variance sigil +/- requires semi if there's no
-  // "declare" or "static" keyword before it.
-  if (
-    isClassProperty(nextNode) &&
-    nextNode.variance &&
-    !nextNode.static &&
-    !nextNode.declare
-  ) {
-    return true;
-  }
-
-  switch (nextNode.type) {
-    case "ClassProperty":
-    case "PropertyDefinition":
-    case "TSAbstractPropertyDefinition":
-      return nextNode.computed;
-    case "MethodDefinition":
-    case "TSAbstractMethodDefinition":
-    case "ClassMethod":
-    case "ClassPrivateMethod": {
-      // Babel
-      const isAsync = nextNode.value ? nextNode.value.async : nextNode.async;
-      if (isAsync || nextNode.kind === "get" || nextNode.kind === "set") {
-        return false;
-      }
-
-      const isGenerator = nextNode.value
-        ? nextNode.value.generator
-        : nextNode.generator;
-      if (nextNode.computed || isGenerator) {
-        return true;
-      }
-
-      return false;
-    }
-
-    case "TSIndexSignature":
-      return true;
-  }
-
-  /* c8 ignore next */
-  return false;
-}
-
-export {
-  printClass,
-  printClassBody,
-  printClassMethod,
-  printClassProperty,
-  printHardlineAfterHeritage,
-};
+export { printClass, printClassMethod, printClassProperty };
+export { printClassBody, printClassMemberSemicolon } from "./class-body.js";

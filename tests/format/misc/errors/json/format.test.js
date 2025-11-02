@@ -36,6 +36,10 @@ runFormatTest(
       "+'string'",
       "{key: +{}}",
       '{"identifier": identifier}',
+      "(1)",
+      "+(1)",
+      "([1,])",
+      "[1, (2)]",
       // JSON6 allow this, but babel can't parse
       "----123",
     ],
@@ -100,4 +104,23 @@ runFormatTest(
     ],
   },
   ["json"],
+);
+
+runFormatTest(
+  {
+    importMeta: import.meta,
+    snippets: [
+      "[",
+      ";",
+      '"string";',
+      '"string"\n;',
+      "/* comment */[",
+      "/* comment */;",
+      '/* comment */"string";',
+      '/* comment */"string"\n;',
+      "#!/usr/bin/env node",
+      "#!/usr/bin/env node\n[]",
+    ],
+  },
+  ["json", "json5", "jsonc", "json-stringify"],
 );

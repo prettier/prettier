@@ -1,7 +1,6 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 import { URLSearchParams } from "node:url";
-
 import { getReleaseUrl } from "../steps/show-instructions-after-npm-publish.js";
 
 const RELEASE_URL_BASE = "https://github.com/prettier/prettier/releases/new?";
@@ -41,7 +40,7 @@ describe("publish-to-npm", () => {
             "[diff](https://github.com/prettier/prettier/compare/2.3.0...2.4.0)",
             `🔗 [Release note](https://prettier.io/blog/${getDateParts().join(
               "/",
-            )}/2.4.0.html)`,
+            )}/2.4.0)`,
           ].join("\n\n"),
         }),
       );
@@ -58,7 +57,7 @@ describe("publish-to-npm", () => {
             "[diff](https://github.com/prettier/prettier/compare/2.2.0...2.3.0)",
             `🔗 [Release note](https://prettier.io/blog/${getDateParts().join(
               "/",
-            )}/2.3.0.html)`,
+            )}/2.3.0)`,
           ].join("\n\n"),
         }),
       );

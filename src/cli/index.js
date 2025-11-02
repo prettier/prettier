@@ -4,6 +4,7 @@ import logFileInfoOrDie from "./file-info.js";
 import logResolvedConfigPathOrDie from "./find-config-path.js";
 import { formatFiles, formatStdin } from "./format.js";
 import createLogger from "./logger.js";
+import mockable from "./mockable.js";
 import { parseArgvWithoutPlugins } from "./options/parse-cli-arguments.js";
 import printSupportInfo from "./print-support-info.js";
 import { createDetailedUsage, createUsage } from "./usage.js";
@@ -37,6 +38,13 @@ async function run(rawArguments = process.argv.slice(2)) {
 
 async function main(context) {
   context.logger.debug(`normalized argv: ${JSON.stringify(context.argv)}`);
+
+  if (
+    (context.argv.config === false && context.argv.__raw.config !== false) ||
+    (context.argv.config && context.rawArguments.includes("--no-config"))
+  ) {
+    throw new Error("Cannot use --no-config and --config together.");
+  }
 
   if (context.argv.check && context.argv.listDifferent) {
     throw new Error("Cannot use --check and --list-different together.");
@@ -88,7 +96,8 @@ async function main(context) {
 
   const hasFilePatterns = context.filePatterns.length > 0;
   const useStdin =
-    !hasFilePatterns && (!process.stdin.isTTY || context.argv.filepath);
+    !hasFilePatterns &&
+    (!mockable.isStreamTTY(process.stdin) || context.argv.filepath);
 
   if (useStdin) {
     if (context.argv.cache) {
@@ -109,3 +118,5 @@ async function main(context) {
 }
 
 export { run };
+// Exposed for tests
+export { mockable } from "./mockable.js";

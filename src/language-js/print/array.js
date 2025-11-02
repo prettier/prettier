@@ -16,16 +16,16 @@ import { locEnd, locStart } from "../loc.js";
 import {
   CommentCheckFlags,
   hasComment,
-  isArrayOrTupleExpression,
+  isArrayExpression,
   isNumericLiteral,
-  isObjectOrRecordExpression,
+  isObjectExpression,
   isSignedNumericLiteral,
   shouldPrintComma,
 } from "../utils/index.js";
 import { printOptionalToken } from "./misc.js";
 import { printTypeAnnotationProperty } from "./type-annotation.js";
 
-/** @typedef {import("../../document/builders.js").Doc} Doc */
+/** @import {Doc} from "../../document/builders.js" */
 
 function printEmptyArrayElements(path, options, openBracket, closeBracket) {
   const { node } = path;
@@ -44,7 +44,6 @@ function printEmptyArrayElements(path, options, openBracket, closeBracket) {
 
 /*
 - `ArrayExpression`
-- `TupleExpression`
 - `ArrayPattern`
 - `TSTupleType`(TypeScript)
 - `TupleTypeAnnotation`(Flow)
@@ -54,7 +53,7 @@ function printArray(path, options, print) {
   /** @type{Doc[]} */
   const parts = [];
 
-  const openBracket = node.type === "TupleExpression" ? "#[" : "[";
+  const openBracket = "[";
   const closeBracket = "]";
   const elementsProperty =
     // TODO: Remove `types` when babel changes AST of `TupleTypeAnnotation`
@@ -92,10 +91,7 @@ function printArray(path, options, print) {
       elements.length > 1 &&
       elements.every((element, i, elements) => {
         const elementType = element?.type;
-        if (
-          !isArrayOrTupleExpression(element) &&
-          !isObjectOrRecordExpression(element)
-        ) {
+        if (!isArrayExpression(element) && !isObjectExpression(element)) {
           return false;
         }
 
@@ -104,9 +100,7 @@ function printArray(path, options, print) {
           return false;
         }
 
-        const itemsKey = isArrayOrTupleExpression(element)
-          ? "elements"
-          : "properties";
+        const itemsKey = isArrayExpression(element) ? "elements" : "properties";
 
         return element[itemsKey] && element[itemsKey].length > 1;
       });
@@ -135,9 +129,9 @@ function printArray(path, options, print) {
                   printArrayElements(
                     path,
                     options,
+                    print,
                     elementsProperty,
                     node.inexact,
-                    print,
                   ),
                   trailingComma,
                 ],
@@ -161,7 +155,7 @@ function printArray(path, options, print) {
 
 function isConciselyPrintedArray(node, options) {
   return (
-    isArrayOrTupleExpression(node) &&
+    isArrayExpression(node) &&
     node.elements.length > 1 &&
     node.elements.every(
       (element) =>
@@ -181,18 +175,27 @@ function isConciselyPrintedArray(node, options) {
 }
 
 function isLineAfterElementEmpty({ node }, { originalText: text }) {
-  const skipComment = (idx) =>
-    skipInlineComment(text, skipTrailingComment(text, idx));
+  let currentIdx = locEnd(node);
+  if (currentIdx === locStart(node)) {
+    return false;
+  }
 
-  const skipToComma = (currentIdx) =>
-    text[currentIdx] === ","
-      ? currentIdx
-      : skipToComma(skipComment(currentIdx + 1));
+  const { length } = text;
+  while (currentIdx < length) {
+    if (text[currentIdx] === ",") {
+      break;
+    }
 
-  return isNextLineEmptyAfterIndex(text, skipToComma(locEnd(node)));
+    currentIdx = skipInlineComment(
+      text,
+      skipTrailingComment(text, currentIdx + 1),
+    );
+  }
+
+  return isNextLineEmptyAfterIndex(text, currentIdx);
 }
 
-function printArrayElements(path, options, elementsProperty, inexact, print) {
+function printArrayElements(path, options, print, elementsProperty, inexact) {
   const parts = [];
 
   path.each(({ node, isLast }) => {

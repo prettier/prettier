@@ -1,5 +1,4 @@
 import { wrap as raw } from "jest-snapshot-serializer-raw";
-
 import visualizeEndOfLine from "./visualize-end-of-line.js";
 import visualizeRange from "./visualize-range.js";
 

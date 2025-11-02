@@ -1,5 +1,4 @@
 import path from "node:path";
-
 import createEsmUtils from "esm-utils";
 import { outdent } from "outdent";
 
@@ -51,16 +50,21 @@ const categoryParsers = new Map([
     "html",
     { parsers: ["html"], verifyParsers: [], extensions: [".html", ".svg"] },
   ],
-  ["mjml", { parsers: ["html"], verifyParsers: [], extensions: [".mjml"] }],
+  [
+    "mjml",
+    { parsers: ["mjml"], verifyParsers: ["html"], extensions: [".mjml"] },
+  ],
   [
     "js",
     {
-      parsers: ["babel", "acorn", "espree", "meriyah"],
+      parsers: ["babel", "acorn", "espree", "meriyah", "oxc", "oxc-ts"],
       verifyParsers: [
         "babel",
         "acorn",
         "espree",
         "meriyah",
+        "oxc",
+        "oxc-ts",
         "flow",
         "babel-flow",
         "typescript",
@@ -82,21 +86,33 @@ const categoryParsers = new Map([
     {
       parsers: [
         "babel",
-        "meriyah",
-        "espree",
-        "flow",
         "babel-flow",
-        "typescript",
         "babel-ts",
+        "__babel_estree",
+        "typescript",
+        "flow",
+        "meriyah",
+        "acorn",
+        "espree",
+        "espree",
+        "hermes",
+        "oxc",
+        "oxc-ts",
       ],
       verifyParsers: [
         "babel",
-        "meriyah",
-        "espree",
-        "flow",
         "babel-flow",
-        "typescript",
         "babel-ts",
+        "__babel_estree",
+        "typescript",
+        "flow",
+        "meriyah",
+        "acorn",
+        "espree",
+        "espree",
+        "hermes",
+        "oxc",
+        "oxc-ts",
       ],
       extensions: [".js", ".jsx"],
     },
@@ -130,8 +146,8 @@ const categoryParsers = new Map([
   [
     "typescript",
     {
-      parsers: ["typescript", "babel-ts"],
-      verifyParsers: ["typescript", "babel-ts", "flow", "babel-flow"],
+      parsers: ["typescript", "babel-ts", "oxc-ts"],
+      verifyParsers: ["typescript", "babel-ts", "flow", "babel-flow", "oxc-ts"],
       extensions: [".ts", ".tsx", ".cts", ".mts"],
     },
   ],

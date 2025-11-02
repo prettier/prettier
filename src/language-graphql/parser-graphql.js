@@ -1,8 +1,7 @@
 import { parse as parseGraphql } from "graphql/language/parser.mjs";
-
 import createError from "../common/parser-create-error.js";
 import { locEnd, locStart } from "./loc.js";
-import { hasPragma } from "./pragma.js";
+import { hasIgnorePragma, hasPragma } from "./pragma.js";
 
 function parseComments(ast) {
   const comments = [];
@@ -33,7 +32,7 @@ function createParseError(error) {
   return error;
 }
 
-function parse(text /*, options */) {
+function parse(text /* , options */) {
   let ast;
   try {
     ast = parseGraphql(text, parseOptions);
@@ -49,6 +48,7 @@ export const graphql = {
   parse,
   astFormat: "graphql",
   hasPragma,
+  hasIgnorePragma,
   locStart,
   locEnd,
 };

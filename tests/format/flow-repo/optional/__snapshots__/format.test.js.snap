@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`client_optional.js format 1`] = `
 ====================================options=====================================
@@ -425,8 +425,8 @@ function foo(x?: number, ...y: Array<string>): [?number, Array<string>] {
 }
 
 foo(); // OK
-foo(123), // OK
-  foo(123, "hello"); // OK
+(foo(123), // OK
+  foo(123, "hello")); // OK
 
 foo(true); // ERROR boolean ~> number
 foo(123, true); // ERROR boolean ~> string

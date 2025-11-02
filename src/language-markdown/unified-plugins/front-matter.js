@@ -1,7 +1,9 @@
-import parseFrontMatter from "../../utils/front-matter/parse.js";
+import { parseFrontMatter } from "../../main/front-matter/index.js";
+
+/** @import {Plugin, Settings} from "unified-v9" */
 
 /**
- * @type {import('unified-v9').Plugin<[], import('unified-v9').Settings>}
+ * @type {Plugin<[], Settings>}
  */
 const frontMatter = function () {
   const proto = this.Parser.prototype;
@@ -9,10 +11,10 @@ const frontMatter = function () {
   proto.blockTokenizers.frontMatter = tokenizer;
 
   function tokenizer(eat, value) {
-    const parsed = parseFrontMatter(value);
+    const { frontMatter } = parseFrontMatter(value);
 
-    if (parsed.frontMatter) {
-      return eat(parsed.frontMatter.raw)(parsed.frontMatter);
+    if (frontMatter) {
+      return eat(frontMatter.raw)({ ...frontMatter, type: "frontMatter" });
     }
   }
   tokenizer.onlyAtStart = true;

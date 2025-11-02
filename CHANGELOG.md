@@ -1,3 +1,331 @@
+# 3.6.2
+
+[diff](https://github.com/prettier/prettier/compare/3.6.1...3.6.2)
+
+#### Markdown: Add missing blank line around code block ([#17675](https://github.com/prettier/prettier/pull/17675) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+````md
+<!-- Input -->
+1. Some text, and code block below, with newline after code block
+
+   ```yaml
+   ---
+   foo: bar
+   ```
+
+   1. Another
+   2. List
+
+<!-- Prettier 3.6.1 -->
+1. Some text, and code block below, with newline after code block
+
+   ```yaml
+   ---
+   foo: bar
+   ```
+   1. Another
+   2. List
+
+<!-- Prettier 3.6.2 -->
+1. Some text, and code block below, with newline after code block
+
+   ```yaml
+   ---
+   foo: bar
+   ```
+
+   1. Another
+   2. List
+````
+
+# 3.6.1
+
+[diff](https://github.com/prettier/prettier/compare/3.6.0...3.6.1)
+
+#### TypeScript: Allow const without initializer ([#17650](https://github.com/prettier/prettier/pull/17650), [#17654](https://github.com/prettier/prettier/pull/17654) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```jsx
+// Input
+export const version: string;
+
+// Prettier 3.6.0 (--parser=babel-ts)
+SyntaxError: Unexpected token (1:21)
+> 1 | export const version: string;
+    |                     ^
+
+// Prettier 3.6.0 (--parser=oxc-ts)
+SyntaxError: Missing initializer in const declaration (1:14)
+> 1 | export const version: string;
+    |              ^^^^^^^^^^^^^^^
+
+// Prettier 3.6.1
+export const version: string;
+```
+
+#### Miscellaneous: Avoid closing files multiple times ([#17665](https://github.com/prettier/prettier/pull/17665) by [@43081j](https://github.com/43081j))
+
+When reading a file to infer the interpreter from a shebang, we use the
+`n-readlines` library to read the first line in order to get the shebang.
+
+This library closes files when it reaches EOF, and we later try close the same
+files again. We now close files only if `n-readlines` did not already close
+them.
+
+# 3.6.0
+
+[diff](https://github.com/prettier/prettier/compare/3.5.3...3.6.0)
+
+🔗 [Release Notes](https://prettier.io/blog/2025/06/23/3.6.0)
+
+# 3.5.3
+
+[diff](https://github.com/prettier/prettier/compare/3.5.2...3.5.3)
+
+#### Flow: Fix missing parentheses in `ConditionalTypeAnnotation` ([#17196](https://github.com/prettier/prettier/pull/17196) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```jsx
+// Input
+type T<U> = 'a' | ('b' extends U ? 'c' : empty);
+type T<U> = 'a' & ('b' extends U ? 'c' : empty);
+
+// Prettier 3.5.2
+type T<U> = "a" | "b" extends U ? "c" : empty;
+type T<U> = "a" & "b" extends U ? "c" : empty;
+
+// Prettier 3.5.3
+type T<U> = "a" | ("b" extends U ? "c" : empty);
+type T<U> = "a" & ("b" extends U ? "c" : empty);
+```
+
+# 3.5.2
+
+[diff](https://github.com/prettier/prettier/compare/3.5.1...3.5.2)
+
+#### Remove `module-sync` condition ([#17156](https://github.com/prettier/prettier/pull/17156) by [@fisker](https://github.com/fisker))
+
+In Prettier 3.5.0, [we added `module-sync` condition to `package.json`](https://prettier.io/blog/2025/02/09/3.5.0#use-esm-entrypoint-for-requireesm-16958-by-tats-u), so that `require("prettier")` can use ESM version, but turns out it doesn't work if CommonJS and ESM plugins both imports builtin plugins. To solve this problem, we decide simply remove the `module-sync` condition, so `require("prettier")` will still use the CommonJS version, we'll revisit until `require(ESM)` feature is more stable.
+
+# 3.5.1
+
+[diff](https://github.com/prettier/prettier/compare/3.5.0...3.5.1)
+
+#### Fix CLI crash when cache for old version exists ([#17100](https://github.com/prettier/prettier/pull/17100) by [@sosukesuzuki](https://github.com/sosukesuzuki))
+
+Prettier 3.5 uses a different cache format than previous versions, Prettier 3.5.0 crashes when reading existing cache file, Prettier 3.5.1 fixed the problem.
+
+#### Support dockercompose and github-actions-workflow in VSCode ([#17101](https://github.com/prettier/prettier/pull/17101) by [@remcohaszing](https://github.com/remcohaszing))
+
+Prettier now supports the `dockercompose` and `github-actions-workflow` languages in Visual Studio Code.
+
+# 3.5.0
+
+[diff](https://github.com/prettier/prettier/compare/3.4.2...3.5.0)
+
+🔗 [Release Notes](https://prettier.io/blog/2025/02/09/3.5.0.html)
+
+# 3.4.2
+
+[diff](https://github.com/prettier/prettier/compare/3.4.1...3.4.2)
+
+#### Treat U+30A0 & U+30FB in Katakana Block as CJK ([#16796](https://github.com/prettier/prettier/pull/16796) by [@tats-u](https://github.com/tats-u))
+
+Prettier doesn't treat U+30A0 & U+30FB as Japanese. U+30FB is commonly used in Japanese to represent the delimitation of first and last names of non-Japanese people or “and”. The following “C言語・C++・Go・Rust” means “C language & C++ & Go & Rust” in Japanese.
+
+<!-- prettier-ignore -->
+```md
+<!-- Input (--prose-wrap=never) -->
+
+C言
+語
+・
+C++
+・
+Go
+・
+Rust
+
+<!-- Prettier 3.4.1 -->
+C言語・ C++ ・ Go ・ Rust
+
+<!-- Prettier 3.4.2 -->
+C言語・C++・Go・Rust
+```
+
+U+30A0 can be used as the replacement of the `-` in non-Japanese names (e.g. “Saint-Saëns” (Charles Camille Saint-Saëns) can be represented as “サン゠サーンス” in Japanese), but substituted by ASCII hyphen (U+002D) or U+FF1D (full width hyphen) in many cases (e.g. “サン=サーンス” or “サン＝サーンス”).
+
+#### Fix comments print on class methods with decorators ([#16891](https://github.com/prettier/prettier/pull/16891) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```jsx
+// Input
+class A {
+  @decorator
+  /** 
+   * The method description
+   *
+  */
+  async method(foo: Foo, bar: Bar) {
+    console.log(foo);
+  }
+}
+
+// Prettier 3.4.1
+class A {
+  @decorator
+  async /**
+   * The method description
+   *
+   */
+  method(foo: Foo, bar: Bar) {
+    console.log(foo);
+  }
+}
+
+// Prettier 3.4.2
+class A {
+  @decorator
+  /**
+   * The method description
+   *
+   */
+  async method(foo: Foo, bar: Bar) {
+    console.log(foo);
+  }
+}
+```
+
+#### Fix non-idempotent formatting ([#16899](https://github.com/prettier/prettier/pull/16899) by [@seiyab](https://github.com/seiyab))
+
+This bug fix is not language-specific. You may see similar change in any languages. This fixes regression in 3.4.0 so change caused by it should yield same formatting as 3.3.3.
+
+<!-- prettier-ignore -->
+```jsx
+// Input
+<div>
+  foo
+  <span>longlonglonglonglonglonglonglonglonglonglonglonglonglonglongl foo</span>
+  , abc
+</div>;
+
+// Prettier 3.4.1 (first)
+<div>
+  foo
+  <span>
+    longlonglonglonglonglonglonglonglonglonglonglonglonglonglongl foo
+  </span>, abc
+</div>;
+
+// Prettier 3.4.1 (second)
+<div>
+  foo
+  <span>longlonglonglonglonglonglonglonglonglonglonglonglonglonglongl foo</span>
+  , abc
+</div>;
+
+// Prettier 3.4.2
+<div>
+  foo
+  <span>longlonglonglonglonglonglonglonglonglonglonglonglonglonglongl foo</span>
+  , abc
+</div>;
+```
+
+# 3.4.1
+
+[diff](https://github.com/prettier/prettier/compare/3.4.0...3.4.1)
+
+#### Remove unnecessary parentheses around assignment in `v-on` ([#16887](https://github.com/prettier/prettier/pull/16887) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```vue
+<!-- Input -->
+<template>
+  <button @click="foo += 2">Click</button>
+</template>
+
+<!-- Prettier 3.4.0 -->
+<template>
+  <button @click="(foo += 2)">Click</button>
+</template>
+
+<!-- Prettier 3.4.1 -->
+<template>
+  <button @click="foo += 2">Click</button>
+</template>
+```
+
+# 3.4.0
+
+[diff](https://github.com/prettier/prettier/compare/3.3.3...3.4.0)
+
+🔗 [Release Notes](https://prettier.io/blog/2024/11/26/3.4.0.html)
+
+# 3.3.3
+
+[diff](https://github.com/prettier/prettier/compare/3.3.2...3.3.3)
+
+#### Add parentheses for nullish coalescing in ternary ([#16391](https://github.com/prettier/prettier/pull/16391) by [@cdignam-segment](https://github.com/cdignam-segment))
+
+This change adds clarity to operator precedence.
+
+<!-- prettier-ignore -->
+```js
+// Input
+foo ? bar ?? foo : baz;
+foo ?? bar ? a : b;
+a ? b : foo ?? bar;
+
+// Prettier 3.3.2
+foo ? bar ?? foo : baz;
+foo ?? bar ? a : b;
+a ? b : foo ?? bar;
+
+// Prettier 3.3.3
+foo ? (bar ?? foo) : baz;
+(foo ?? bar) ? a : b;
+a ? b : (foo ?? bar);
+```
+
+#### Add parentheses for decorator expressions ([#16458](https://github.com/prettier/prettier/pull/16458) by [@y-schneider](https://github.com/y-schneider))
+
+Prevent parentheses around member expressions or tagged template literals from being removed to follow the stricter parsing rules of TypeScript 5.5.
+
+<!-- prettier-ignore -->
+```ts
+// Input
+@(foo`tagged template`)
+class X {}
+
+// Prettier 3.3.2
+@foo`tagged template`
+class X {}
+
+// Prettier 3.3.3
+@(foo`tagged template`)
+class X {}
+```
+
+#### Support `@let` declaration syntax ([#16474](https://github.com/prettier/prettier/pull/16474) by [@sosukesuzuki](https://github.com/sosukesuzuki))
+
+Adds support for Angular v18 `@let` declaration syntax.
+
+Please see the following code example. The `@let` declaration allows you to define local variables within the template:
+
+<!-- prettier-ignore -->
+```html
+@let name = 'Frodo';
+
+<h1>Dashboard for {{name}}</h1>
+Hello, {{name}}
+```
+
+For more details, please refer to the excellent blog post by the Angular Team: [Introducing @let in Angular](https://blog.angular.dev/introducing-let-in-angular-686f9f383f0f).
+
+We also appreciate the Angular Team for kindly answering our questions to implement this feature.
+
 # 3.3.2
 
 [diff](https://github.com/prettier/prettier/compare/3.3.1...3.3.2)
@@ -2976,7 +3304,7 @@ export const getVehicleDescriptor = async (
 
 - Config: Match dotfiles in config overrides ([#6194] by [@duailibe])
 
-  When using [`overrides`](https://prettier.io/docs/en/configuration.html#configuration-overrides) in the config file, Prettier was not matching dotfiles (files that start with `.`). This was fixed in 1.18.1
+  When using [`overrides`](https://prettier.io/docs/configuration#configuration-overrides) in the config file, Prettier was not matching dotfiles (files that start with `.`). This was fixed in 1.18.1
 
 [#6190]: https://github.com/prettier/prettier/pull/6190
 [#6194]: https://github.com/prettier/prettier/pull/6194

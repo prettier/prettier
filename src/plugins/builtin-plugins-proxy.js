@@ -13,6 +13,7 @@ import markdownOptions from "../language-markdown/options.js";
 import yamlLanguages from "../language-yaml/languages.evaluate.js";
 import yamlOptions from "../language-yaml/options.js";
 
+// Lazy load the plugins
 function createParsersAndPrinters(modules) {
   const parsers = Object.create(null);
   const printers = Object.create(null);
@@ -43,7 +44,16 @@ function createParsersAndPrinters(modules) {
   return { parsers, printers };
 }
 
-export const options = {
+// We need create estree as a separate plugin
+// For details see tests/integration/__tests__/plugin-override-builtin-printers.js
+const estreePlugin = createParsersAndPrinters([
+  {
+    importPlugin: () => import("./estree.js"),
+    printers: ["estree", "estree-json"],
+  },
+]);
+
+const options = {
   ...cssOptions,
   ...graphqlOptions,
   ...htmlOptions,
@@ -52,7 +62,7 @@ export const options = {
   ...yamlOptions,
 };
 
-export const languages = [
+const languages = [
   ...cssLanguages,
   ...graphqlLanguages,
   ...handlebarsLanguages,
@@ -63,8 +73,7 @@ export const languages = [
   ...yamlLanguages,
 ];
 
-// Lazy load the plugins
-export const { parsers, printers } = createParsersAndPrinters([
+const { parsers, printers } = createParsersAndPrinters([
   {
     importPlugin: () => import("./acorn.js"),
     parsers: ["acorn", "espree"],
@@ -98,10 +107,6 @@ export const { parsers, printers } = createParsersAndPrinters([
     ],
   },
   {
-    importPlugin: () => import("./estree.js"),
-    printers: ["estree", "estree-json"],
-  },
-  {
     importPlugin: () => import("./flow.js"),
     parsers: ["flow"],
   },
@@ -117,7 +122,7 @@ export const { parsers, printers } = createParsersAndPrinters([
   },
   {
     importPlugin: () => import("./html.js"),
-    parsers: ["html", "angular", "vue", "lwc"],
+    parsers: ["html", "angular", "vue", "lwc", "mjml"],
     printers: ["html"],
   },
   {
@@ -144,3 +149,5 @@ export const { parsers, printers } = createParsersAndPrinters([
     printers: ["yaml"],
   },
 ]);
+
+export default [estreePlugin, { options, languages, parsers, printers }];

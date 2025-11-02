@@ -1,5 +1,4 @@
 const visitorKeys = {
-  "front-matter": [],
   "css-root": ["frontMatter", "nodes"],
   "css-comment": [],
   "css-rule": ["selector", "nodes"],

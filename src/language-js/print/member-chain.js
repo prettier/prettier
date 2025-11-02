@@ -27,14 +27,10 @@ import {
 } from "../utils/index.js";
 import printCallArguments from "./call-arguments.js";
 import { printMemberLookup } from "./member.js";
-import {
-  printBindExpressionCallee,
-  printFunctionTypeParameters,
-  printOptionalToken,
-} from "./misc.js";
+import { printBindExpressionCallee, printOptionalToken } from "./misc.js";
 
 /**
- * @typedef {import("../../document/builders.js").Doc} Doc
+ * @import {Doc} from "../../document/builders.js"
  * @typedef {{ node: any, printed: Doc, needsParens?: boolean, shouldInline?: boolean, hasTrailingEmptyLine?: boolean }} PrintedNode
  */
 
@@ -58,9 +54,9 @@ function printMemberChain(path, options, print) {
     );
   }
 
-  const { parent } = path;
   const isExpressionStatement =
-    !parent || parent.type === "ExpressionStatement";
+    (path.parent.type === "ChainExpression" ? path.grandparent : path.parent)
+      .type === "ExpressionStatement";
 
   // The first phase is to linearize the AST by traversing it down.
   //
@@ -94,11 +90,11 @@ function printMemberChain(path, options, print) {
     return isNextLineEmpty(node, options);
   }
 
-  function rec(path) {
+  function rec() {
     const { node } = path;
 
     if (node.type === "ChainExpression") {
-      return path.call(() => rec(path), "expression");
+      return path.call(rec, "expression");
     }
 
     if (
@@ -114,7 +110,7 @@ function printMemberChain(path, options, print) {
             path,
             [
               printOptionalToken(path),
-              printFunctionTypeParameters(path, options, print),
+              print("typeArguments"),
               printCallArguments(path, options, print),
             ],
             options,
@@ -122,7 +118,7 @@ function printMemberChain(path, options, print) {
           hasTrailingEmptyLine ? hardline : "",
         ],
       });
-      path.call((callee) => rec(callee), "callee");
+      path.call(rec, "callee");
     } else if (isMemberish(node)) {
       printedNodes.unshift({
         node,
@@ -135,13 +131,13 @@ function printMemberChain(path, options, print) {
           options,
         ),
       });
-      path.call((object) => rec(object), "object");
+      path.call(rec, "object");
     } else if (node.type === "TSNonNullExpression") {
       printedNodes.unshift({
         node,
         printed: printComments(path, "!", options),
       });
-      path.call((expression) => rec(expression), "expression");
+      path.call(rec, "expression");
     } else {
       printedNodes.unshift({
         node,
@@ -157,13 +153,13 @@ function printMemberChain(path, options, print) {
     node,
     printed: [
       printOptionalToken(path),
-      printFunctionTypeParameters(path, options, print),
+      print("typeArguments"),
       printCallArguments(path, options, print),
     ],
   });
 
   if (node.callee) {
-    path.call((callee) => rec(callee), "callee");
+    path.call(rec, "callee");
   }
 
   // Once we have a linear list of printed nodes, we want to create groups out

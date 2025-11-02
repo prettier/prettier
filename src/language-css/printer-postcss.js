@@ -35,7 +35,7 @@ import {
   hasComposesNode,
   hasParensAroundNode,
   insideAtRuleNode,
-  insideICSSRuleNode,
+  insideIcssRuleNode,
   insideValueFunctionNode,
   isDetachedRulesetCallNode,
   isDetachedRulesetDeclarationNode,
@@ -53,8 +53,6 @@ function genericPrint(path, options, print) {
   const { node } = path;
 
   switch (node.type) {
-    case "front-matter":
-      return [node.raw, hardline];
     case "css-root": {
       const nodes = printSequence(path, options, print);
       let after = node.raws.after.trim();
@@ -63,7 +61,13 @@ function genericPrint(path, options, print) {
       }
 
       return [
-        node.frontMatter ? [print("frontMatter"), hardline] : "",
+        node.frontMatter
+          ? [
+              print("frontMatter"),
+              hardline,
+              node.nodes.length > 0 ? hardline : "",
+            ]
+          : "",
         nodes,
         after ? ` ${after}` : "",
         node.nodes.length > 0 ? hardline : "",
@@ -126,7 +130,7 @@ function genericPrint(path, options, print) {
         node.raws.before.replaceAll(/[\s;]/gu, ""),
         // Less variable
         (parentNode.type === "css-atrule" && parentNode.variable) ||
-        insideICSSRuleNode(path)
+        insideIcssRuleNode(path)
           ? node.prop
           : maybeToLowerCase(node.prop),
         trimmedBetween.startsWith("//") ? " " : "",
@@ -357,8 +361,12 @@ function genericPrint(path, options, print) {
         ),
       ]);
 
-    case "selector-selector":
-      return group(indent(path.map(print, "nodes")));
+    case "selector-selector": {
+      const shouldIndent = node.nodes.length > 2;
+      return group(
+        (shouldIndent ? indent : (x) => x)(path.map(print, "nodes")),
+      );
+    }
 
     case "selector-comment":
       return node.value;
@@ -530,7 +538,7 @@ function genericPrint(path, options, print) {
 
     case "value-colon": {
       const { previous } = path;
-      return [
+      return group([
         node.value,
         // Don't add spaces on escaped colon `:`, e.g: grid-template-rows: [row-1-00\:00] auto;
         (typeof previous?.value === "string" &&
@@ -539,7 +547,7 @@ function genericPrint(path, options, print) {
         insideValueFunctionNode(path, "url")
           ? ""
           : line,
-      ];
+      ]);
     }
     case "value-string":
       return printString(
@@ -556,6 +564,7 @@ function genericPrint(path, options, print) {
     case "value-unknown":
       return node.value;
 
+    case "front-matter": // Handled in core
     case "value-comma": // Handled in `value-comma_group`
     default:
       /* c8 ignore next */
@@ -564,6 +573,13 @@ function genericPrint(path, options, print) {
 }
 
 const printer = {
+  features: {
+    experimental_frontMatterSupport: {
+      massageAstNode: true,
+      embed: true,
+      print: true,
+    },
+  },
   print: genericPrint,
   embed,
   insertPragma,
