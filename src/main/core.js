@@ -7,7 +7,7 @@ import {
 } from "../common/end-of-line.js";
 import { addAlignmentToDoc, hardline } from "../document/builders.js";
 import { printDocToDebug } from "../document/debug.js";
-import { printDocToString as printDocToStringWithoutNormalizeOptions } from "../document/printer.js";
+import { printDocToString as printDocToStringWithoutNormalizeOptions } from "../document/printer/printer.js";
 import getAlignmentSize from "../utils/get-alignment-size.js";
 import { prepareToPrint, printAstToDoc } from "./ast-to-doc.js";
 import getCursorLocation from "./get-cursor-node.js";
