@@ -1,6 +1,9 @@
-import { convertEndOfLineToChars } from "../common/end-of-line.js";
-import getStringWidth from "../utils/get-string-width.js";
-import { hardlineWithoutBreakParent, indent as indentDoc } from "./builders.js";
+import { convertEndOfLineToChars } from "../../common/end-of-line.js";
+import getStringWidth from "../../utils/get-string-width.js";
+import {
+  hardlineWithoutBreakParent,
+  indent as indentDoc,
+} from "../builders.js";
 import {
   DOC_TYPE_ALIGN,
   DOC_TYPE_ARRAY,
@@ -17,10 +20,10 @@ import {
   DOC_TYPE_LINE_SUFFIX_BOUNDARY,
   DOC_TYPE_STRING,
   DOC_TYPE_TRIM,
-} from "./constants.js";
-import InvalidDocError from "./invalid-doc-error.js";
-import { createRootIndent, makeAlign, makeIndent } from "./printer/indent.js";
-import { getDocType, propagateBreaks } from "./utils.js";
+} from "../constants.js";
+import InvalidDocError from "../invalid-doc-error.js";
+import { getDocType, propagateBreaks } from "../utils.js";
+import { createRootIndent, makeAlign, makeIndent } from "./indent.js";
 
 /**
 @import {Doc} from "./builders.js";
