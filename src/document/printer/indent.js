@@ -10,7 +10,7 @@ import {
 /**
 @import {IndentCommand} from "./indent-command.js";
 @typedef {{useTabs: boolean, tabWidth: number}} IndentOptions
-@typedef {{value: string, length: number, queue: IndentCommand[]}} Indent
+@typedef {{readonly value: string, readonly length: number, readonly queue: readonly IndentCommand[]}} Indent
 @typedef {{readonly value: '', readonly length: 0, readonly queue: readonly []}} RootIndent
 */
 
