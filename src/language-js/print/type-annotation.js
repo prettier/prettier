@@ -213,9 +213,7 @@ function printUnionType(path, options, print) {
       path.grandparent.this !== parent
     ) &&
     !(
-      (parent.type === "TypeAlias" ||
-        parent.type === "VariableDeclarator" ||
-        parent.type === "TSTypeAliasDeclaration") &&
+      (isTypeAlias(parent) || parent.type === "VariableDeclarator") &&
       hasLeadingOwnLineComment(options.originalText, node)
     ) &&
     !(isTypeAlias(parent) && hasComment(parent.id, CommentCheckFlags.Trailing));
