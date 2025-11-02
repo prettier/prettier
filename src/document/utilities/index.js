@@ -421,4 +421,4 @@ export {
   traverseDoc,
   willBreak,
 };
-export { assertDoc, assertDocArray } from "./assert-doc.js";
+export { assertDocArray } from "./assert-doc.js";

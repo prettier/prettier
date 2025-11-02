@@ -9,13 +9,13 @@ import {
   ifBreak,
   indent,
   indentIfBreak,
+  InvalidDocError,
   join,
   label,
   line,
   lineSuffix,
   markAsRoot,
 } from "../../src/document/index.js";
-import InvalidDocError from "../../src/document/invalid-doc-error.js";
 
 const invalidDoc = { type: "invalid-type" };
 const validDoc = "string";
