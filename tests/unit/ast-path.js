@@ -1,3 +1,4 @@
+/* eslint-disable prettier-internal-rules/no-useless-ast-path-callback-parameter */
 import AstPath from "../../src/common/ast-path.js";
 
 const error = new Error("A dummy error");

@@ -1,14 +1,9 @@
 import { group, join, line } from "../../document/builders.js";
 import UnexpectedNodeError from "../../utils/unexpected-node-error.js";
-import {
-  createTypeCheckFunction,
-  getComments,
-  hasComment,
-  hasNode,
-} from "../utils/index.js";
+import { createTypeCheckFunction, hasNode } from "../utils/index.js";
 import { printBinaryishExpression } from "./binaryish.js";
 
-/** @typedef {import("../../common/ast-path.js").default} AstPath */
+/** @import AstPath from "../../common/ast-path.js" */
 
 function printAngular(path, options, print) {
   const { node } = path;
@@ -20,12 +15,7 @@ function printAngular(path, options, print) {
 
   switch (node.type) {
     case "NGRoot":
-      return [
-        print("node"),
-        hasComment(node.node)
-          ? " //" + getComments(node.node)[0].value.trimEnd()
-          : "",
-      ];
+      return print("node");
     case "NGPipeExpression":
       return printBinaryishExpression(path, options, print);
     case "NGChainedExpression":
@@ -62,11 +52,12 @@ function printAngular(path, options, print) {
       // https://github.com/prettier/angular-estree-parser/issues/267
       const shouldNotPrintColon =
         isNgForOf(path) ||
+        isNgForOfTrack(path) ||
         (((index === 1 &&
           (node.key.name === "then" ||
             node.key.name === "else" ||
             node.key.name === "as")) ||
-          ((index === 2 || index === 3) &&
+          (index === 2 &&
             ((node.key.name === "else" &&
               parent.body[index - 1].type === "NGMicrosyntaxKeyedExpression" &&
               parent.body[index - 1].key.name === "then") ||
@@ -97,6 +88,16 @@ function isNgForOf({ node, index }) {
     node.type === "NGMicrosyntaxKeyedExpression" &&
     node.key.name === "of" &&
     index === 1
+  );
+}
+
+function isNgForOfTrack(path) {
+  const { node } = path;
+  return (
+    path.parent.body[1].key.name === "of" &&
+    node.type === "NGMicrosyntaxKeyedExpression" &&
+    node.key.name === "track" &&
+    node.key.type === "NGMicrosyntaxKey"
   );
 }
 

@@ -1,5 +1,11 @@
+/** @import {Plugin, Settings} from "unified" */
+
 /**
+<<<<<<< HEAD
  * @type {import('unified-v9').Plugin<[], import('unified-v9').Settings>}
+=======
+ * @type {Plugin<[], Settings>}
+>>>>>>> main
  */
 const wikiLink = function () {
   const entityType = "wikiLink";

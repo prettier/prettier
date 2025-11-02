@@ -7,8 +7,8 @@ import {
 import { printDeclareToken } from "./misc.js";
 
 /**
- * @typedef {import("../../common/ast-path.js").default} AstPath
- * @typedef {import("../../document/builders.js").Doc} Doc
+ * @import AstPath from "../../common/ast-path.js"
+ * @import {Doc} from "../../document/builders.js"
  */
 
 /*
@@ -25,10 +25,10 @@ function printHook(path, options, print) {
 
   const parametersDoc = printFunctionParameters(
     path,
-    print,
     options,
-    false,
-    true,
+    print,
+    /* shouldExpandArgument */ false,
+    /* shouldPrintTypeParameters*/ true,
   );
   const returnTypeDoc = printReturnType(path, print);
   const shouldGroupParameters = shouldGroupFunctionParameters(
@@ -80,35 +80,31 @@ function isDeclareHookTypeAnnotation(path) {
 }
 
 /*
-- "HookTypeAnnotation"
+- `HookTypeAnnotation` (Flow)
 */
 function printHookTypeAnnotation(path, options, print) {
   const { node } = path;
-  const parts = [];
 
-  parts.push(isDeclareHookTypeAnnotation(path) ? "" : "hook ");
-
-  let parametersDoc = printFunctionParameters(
+  const parametersDoc = printFunctionParameters(
     path,
-    print,
     options,
-    /* expandArg */ false,
-    /* printTypeParams */ true,
+    print,
+    /* shouldExpandArgument */ false,
+    /* shouldPrintTypeParameters */ true,
   );
 
-  const returnTypeDoc = [];
-  returnTypeDoc.push(
+  const returnTypeDoc = [
     isDeclareHookTypeAnnotation(path) ? ": " : " => ",
     print("returnType"),
-  );
+  ];
 
-  if (shouldGroupFunctionParameters(node, returnTypeDoc)) {
-    parametersDoc = group(parametersDoc);
-  }
-
-  parts.push(parametersDoc, returnTypeDoc);
-
-  return group(parts);
+  return group([
+    isDeclareHookTypeAnnotation(path) ? "" : "hook ",
+    shouldGroupFunctionParameters(node, returnTypeDoc)
+      ? group(parametersDoc)
+      : parametersDoc,
+    returnTypeDoc,
+  ]);
 }
 
 export { printDeclareHook, printHook, printHookTypeAnnotation };

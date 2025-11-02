@@ -20,8 +20,8 @@ import {
 import isBlockComment from "../utils/is-block-comment.js";
 
 /**
- * @typedef {import("../../document/builders.js").Doc} Doc
- * @typedef {import("../../common/ast-path.js").default} AstPath
+ * @import {Doc} from "../../document/builders.js"
+ * @import AstPath from "../../common/ast-path.js"
  *
  * @typedef {any} Options - Prettier options (TBD ...)
  */
@@ -278,7 +278,7 @@ function printTernaryOld(path, options, print) {
     /*
     This does not mean to indent, but make the doc aligned with the first character after `? ` or `: `,
     so we use `2` instead of `options.tabWidth` here.
-    
+
     ```js
     test
      ? {
@@ -288,7 +288,7 @@ function printTernaryOld(path, options, print) {
     ```
 
     instead of
-    
+
     ```js
     test
      ? {

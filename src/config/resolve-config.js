@@ -1,8 +1,6 @@
 import path from "node:path";
-
 import micromatch from "micromatch";
 import { toPath } from "url-or-path";
-
 import partition from "../utils/partition.js";
 import {
   clearEditorconfigCache,
@@ -41,6 +39,7 @@ async function loadPrettierConfig(file, options) {
     return;
   }
 
+  configFile = toPath(configFile);
   const config = await loadPrettierConfigFile(configFile, { shouldCache });
 
   return { config, configFile };

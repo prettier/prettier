@@ -8,7 +8,7 @@ import {
 import { hasEndComments, isEmptyNode } from "../utils.js";
 import { alignWithSpaces, printNextEmptyLine } from "./misc.js";
 
-function printFlowMapping(path, print, options) {
+function printFlowMapping(path, options, print) {
   const { node } = path;
   const isMapping = node.type === "flowMapping";
   const openMarker = isMapping ? "{" : "[";
@@ -29,7 +29,7 @@ function printFlowMapping(path, print, options) {
     openMarker,
     alignWithSpaces(options.tabWidth, [
       bracketSpacing,
-      printChildren(path, print, options),
+      printChildren(path, options, print),
       options.trailingComma === "none" ? "" : ifBreak(","),
       hasEndComments(node)
         ? [hardline, join(hardline, path.map(print, "endComments"))]
@@ -40,7 +40,7 @@ function printFlowMapping(path, print, options) {
   ];
 }
 
-function printChildren(path, print, options) {
+function printChildren(path, options, print) {
   return path.map(
     ({ isLast, node, next }) => [
       print(),

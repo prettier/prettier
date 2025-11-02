@@ -1,36 +1,76 @@
-import { parseExpression } from "@babel/parser";
-
+import { parse, parseExpression } from "@babel/parser";
 import createError from "../common/parser-create-error.js";
 import createBabelParseError from "../language-js/parse/utils/create-babel-parse-error.js";
 import createParser from "../language-js/parse/utils/create-parser.js";
 import wrapBabelExpression from "../language-js/parse/utils/wrap-babel-expression.js";
 import isNonEmptyArray from "../utils/is-non-empty-array.js";
 
-function createJsonParse(options = {}) {
-  const { allowComments = true } = options;
+const babelParseOptions = {
+  tokens: false,
+  // Ranges not available on comments, so we use `Node#{start,end}` instead
+  // https://github.com/babel/babel/issues/15115
+  ranges: false,
+  attachComment: false,
+  createParenthesizedExpressions: true,
+};
 
-  return function parse(text) {
-    let ast;
-    try {
-      ast = parseExpression(text, {
-        tokens: true,
-        ranges: true,
-        attachComment: false,
-      });
-    } catch (/** @type {any} */ error) {
+function parseEmptyJson(text) {
+  const file = parse(text, babelParseOptions);
+
+  const { program } = file;
+
+  // Not an empty JSON
+  /* c8 ignore next */
+  if (
+    !(
+      program.body.length === 0 &&
+      program.directives.length === 0 &&
+      !program.interpreter
+    )
+  ) {
+    return;
+  }
+
+  return file;
+}
+
+function parseJson(text, options = {}) {
+  const { allowComments = true, allowEmpty = false } = options;
+
+  let ast;
+  try {
+    ast = parseExpression(text, babelParseOptions);
+  } catch (/** @type {any} */ error) {
+    if (
+      allowEmpty &&
+      error.code === "BABEL_PARSER_SYNTAX_ERROR" &&
+      error.reasonCode === "ParseExpressionEmptyInput"
+    ) {
+      try {
+        ast = parseEmptyJson(text);
+      } catch {
+        // No op
+      }
+    }
+
+    if (!ast) {
       throw createBabelParseError(error);
     }
+  }
 
-    // @ts-expect-error
-    if (!allowComments && isNonEmptyArray(ast.comments)) {
-      // @ts-expect-error
-      throw createJsonError(ast.comments[0], "Comment");
-    }
+  if (!allowComments && isNonEmptyArray(ast.comments)) {
+    throw createJsonError(ast.comments[0], "Comment");
+  }
 
-    assertJsonNode(ast);
+  ast = wrapBabelExpression(ast, { type: "JsonRoot", text });
 
-    return wrapBabelExpression(ast, { type: "JsonRoot", text });
-  };
+  if (ast.node.type === "File") {
+    delete ast.node;
+  } else {
+    assertJsonNode(ast.node);
+  }
+
+  return ast;
 }
 
 function createJsonError(node, description) {
@@ -132,21 +172,16 @@ function assertJsonNode(node) {
   }
 }
 
-const parseJson = createJsonParse();
+const json = createParser({
+  parse: (text) => parseJson(text),
+  hasPragma: () => true,
+  hasIgnorePragma: () => false,
+});
+const json5 = createParser((text) => parseJson(text));
+const jsonc = createParser((text) => parseJson(text, { allowEmpty: true }));
+const jsonStringify = createParser({
+  parse: (text) => parseJson(text, { allowComments: false }),
+  astFormat: "estree-json",
+});
 
-const jsonParsers = {
-  json: createParser({
-    parse: parseJson,
-    hasPragma() {
-      return true;
-    },
-  }),
-  json5: createParser(parseJson),
-  jsonc: createParser(parseJson),
-  "json-stringify": createParser({
-    parse: createJsonParse({ allowComments: false }),
-    astFormat: "estree-json",
-  }),
-};
-
-export default jsonParsers;
+export { json, json5, jsonc, jsonStringify as "json-stringify" };

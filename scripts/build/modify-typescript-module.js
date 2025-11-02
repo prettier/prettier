@@ -1,9 +1,7 @@
 import path from "node:path";
-
 import escapeStringRegexp from "escape-string-regexp";
 import MagicString from "magic-string";
 import { outdent } from "outdent";
-
 import { PROJECT_ROOT, writeFile } from "../utils/index.js";
 import UNUSED_SPECIFIERS from "./typescript-unused-specifiers.js";
 
@@ -273,12 +271,6 @@ function modifyTypescriptModule(text) {
   // File system
   source.replaceModule("src/compiler/sys.ts", "var sys;");
   source.replaceModule("src/compiler/tracing.ts", "var tracing;");
-
-  // perfLogger
-  source.replaceModule(
-    "src/compiler/perfLogger.ts",
-    "var perfLogger = new Proxy(() => {}, {get: () => perfLogger});",
-  );
 
   // performance
   source.replaceModule(

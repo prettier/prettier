@@ -1,13 +1,11 @@
 import fs from "node:fs";
 import path from "node:path";
 import url from "node:url";
-
 import { isValidIdentifier } from "@babel/types";
 import { outdent } from "outdent";
+import { PROJECT_ROOT, writeFile } from "../utils/index.js";
 
-import { DIST_DIR, PROJECT_ROOT, writeFile } from "../utils/index.js";
-
-async function typesFileBuilder({ file }) {
+async function typesFileBuilder({ packageConfig, file }) {
   /**
    * @typedef {{ from: string, to: string }} ImportPathReplacement
    * @typedef {{ [input: string]: Array<ImportPathReplacement> }} ReplacementMap
@@ -22,14 +20,17 @@ async function typesFileBuilder({ file }) {
   for (const { from, to } of replacements) {
     text = text.replaceAll(` from "${from}";`, ` from "${to}";`);
   }
-  await writeFile(path.join(DIST_DIR, file.output.file), text);
+  await writeFile(
+    path.join(packageConfig.distDirectory, file.output.file),
+    text,
+  );
 }
 
 function toPropertyKey(name) {
   return isValidIdentifier(name) ? name : JSON.stringify(name);
 }
 
-async function buildPluginTypes({ file: { input, output } }) {
+async function buildPluginTypes({ packageConfig, file: { input, output } }) {
   const pluginModule = await import(
     url.pathToFileURL(path.join(PROJECT_ROOT, input))
   );
@@ -42,7 +43,7 @@ async function buildPluginTypes({ file: { input, output } }) {
     parserNames.length === 0
       ? "export {};"
       : outdent`
-        import { Parser } from "../index.js";
+        import { Parser } from "${packageConfig.packageName === "prettier" ? "../index.js" : "prettier"}";
 
         export declare const parsers: {
         ${parserNames
@@ -54,7 +55,10 @@ async function buildPluginTypes({ file: { input, output } }) {
         };
       `;
 
-  await writeFile(path.join(DIST_DIR, output.file), `${code}\n`);
+  await writeFile(
+    path.join(packageConfig.distDirectory, output.file),
+    `${code}\n`,
+  );
 }
 
 function buildTypes(options) {

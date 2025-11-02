@@ -20,15 +20,14 @@ import {
   shouldPrintComma,
 } from "../utils/index.js";
 import { isArrowFunctionVariableDeclarator } from "./assignment.js";
-import { printTypeScriptMappedTypeModifier } from "./mapped-type.js";
 import {
   printTypeAnnotationProperty,
   shouldHugType,
 } from "./type-annotation.js";
 
 /**
- * @typedef {import("../../document/builders.js").Doc} Doc
- * @typedef {import("../../common/ast-path.js").default} AstPath
+ * @import {Doc} from "../../document/builders.js"
+ * @import AstPath from "../../common/ast-path.js"
  */
 
 const getTypeParametersGroupId = createGroupIdMapper("typeParameters");
@@ -126,36 +125,16 @@ function printDanglingCommentsForInline(path, options) {
   return [printed, hardline];
 }
 
+// `TSTypeParameter` and `TypeParameter`
 function printTypeParameter(path, options, print) {
-  const { node, parent } = path;
+  const { node } = path;
 
   /**
    * @type {Doc[]}
    */
-  const parts = [node.type === "TSTypeParameter" && node.const ? "const " : ""];
+  const parts = [node.const ? "const " : ""];
 
   const name = node.type === "TSTypeParameter" ? print("name") : node.name;
-
-  if (parent.type === "TSMappedType") {
-    if (parent.readonly) {
-      parts.push(
-        printTypeScriptMappedTypeModifier(parent.readonly, "readonly"),
-        " ",
-      );
-    }
-    parts.push("[", name);
-    if (node.constraint) {
-      parts.push(" in ", print("constraint"));
-    }
-    if (parent.nameType) {
-      parts.push(
-        " as ",
-        path.callParent(() => print("nameType")),
-      );
-    }
-    parts.push("]");
-    return parts;
-  }
 
   if (node.variance) {
     parts.push(print("variance"));
@@ -190,7 +169,13 @@ function printTypeParameter(path, options, print) {
   }
 
   if (node.default) {
-    parts.push(" = ", print("default"));
+    const groupId = Symbol("default");
+    parts.push(
+      " =",
+      group(indent(line), { id: groupId }),
+      lineSuffixBoundary,
+      indentIfBreak(print("default"), { groupId }),
+    );
   }
 
   return group(parts);

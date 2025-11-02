@@ -1,14 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`declare-hook.js [babel-flow] format 1`] = `
-"Unexpected token (1:9)
-> 1 | declare hook useFoo(): void;
-    |         ^
-  2 |
-  3 | declare hook useFoo(): SomeComponent;
-  4 |
-Cause: Unexpected token (1:8)"
-`;
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`declare-hook.js format 1`] = `
 ====================================options=====================================
@@ -135,18 +125,6 @@ SomeComponent;
 ================================================================================
 `;
 
-exports[`hook-declaration.js [babel-flow] format 1`] = `
-"Unexpected token, expected "{" (5:8)
-  3 | export default hook useFoo2() {}
-  4 |
-> 5 | export hook useFoo3() {}
-    |        ^
-  6 |
-  7 | hook useFoo4(): string {}
-  8 |
-Cause: Unexpected token, expected "{" (5:7)"
-`;
-
 exports[`hook-declaration.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
@@ -223,16 +201,6 @@ hook useFoo14<
 >(): any {}
 
 ================================================================================
-`;
-
-exports[`hook-type-annotation.js [babel-flow] format 1`] = `
-"Unexpected token (1:25)
-> 1 | type T = hook () => void;
-    |                         ^
-  2 |
-  3 | type T = hook (bar) => SomeComponent;
-  4 |
-Cause: Unexpected token (1:24)"
 `;
 
 exports[`hook-type-annotation.js format 1`] = `

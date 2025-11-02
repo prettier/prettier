@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`toml.hbs format 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+---toml
+test = "Toml test"
+---
+<h1>{{test}}</h1>
+
+=====================================output=====================================
+---toml
+!!! Formatted by with 'dummy-toml-plugin-parser-name' parser
+test = "Toml test"
+---
+
+<h1>{{test}}</h1>
+================================================================================
+`;
+
+exports[`toml2.hbs format 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
++++
+Test TOML data
++++
+
+<Foo as
+|bar baz qux|></Foo>{{#Foo as
+|bar baz qux|}}{{/Foo}}
+
+=====================================output=====================================
++++
+!!! Formatted by with 'dummy-toml-plugin-parser-name' parser
+Test TOML data
++++
+
+<Foo as |bar baz qux| />{{#Foo as |bar baz qux|}}{{/Foo}}
+================================================================================
+`;

@@ -2,12 +2,11 @@
 
 import fs from "node:fs";
 import path from "node:path";
-
 import createEsmUtils from "esm-utils";
 import fg from "fast-glob";
 import semver from "semver";
-
 import {
+  categories,
   changelogUnreleasedDirPath,
   changelogUnreleasedDirs,
   getEntries,
@@ -38,28 +37,6 @@ const postFile = path.join(
   `${new Date().toISOString().replace(/T.+/u, "")}-${nextVersion}.md`,
 );
 
-const categories = [
-  { dir: "javascript", title: "JavaScript" },
-  { dir: "typescript", title: "TypeScript" },
-  { dir: "flow", title: "Flow" },
-  { dir: "json", title: "JSON" },
-  { dir: "css", title: "CSS" },
-  { dir: "scss", title: "SCSS" },
-  { dir: "less", title: "Less" },
-  { dir: "html", title: "HTML" },
-  { dir: "vue", title: "Vue" },
-  { dir: "angular", title: "Angular" },
-  { dir: "lwc", title: "LWC" },
-  { dir: "handlebars", title: "Ember / Handlebars" },
-  { dir: "graphql", title: "GraphQL" },
-  { dir: "markdown", title: "Markdown" },
-  { dir: "mdx", title: "MDX" },
-  { dir: "yaml", title: "YAML" },
-  { dir: "api", title: "API" },
-  { dir: "cli", title: "CLI" },
-  { dir: "misc", title: "Miscellaneous" },
-];
-
 const categoriesByDir = new Map(
   categories.map((category) => [category.dir, category]),
 );
@@ -72,7 +49,7 @@ for (const dir of changelogUnreleasedDirs) {
     throw new Error("Unknown category: " + dir.name);
   }
 
-  category.entries = getEntries(dirPath);
+  category.entries = getEntries(dirPath, { useFriendlyHeadingId: true });
 }
 
 for (const filePath of fg.sync(postGlob)) {

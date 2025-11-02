@@ -1,7 +1,6 @@
 ---
-id: version-stable-why-prettier
+id: why-prettier
 title: Why Prettier?
-original_id: why-prettier
 ---
 
 ## Building and enforcing a style guide

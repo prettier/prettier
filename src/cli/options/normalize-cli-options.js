@@ -1,7 +1,9 @@
-import chalk from "chalk";
-import leven from "leven";
-
-import { normalizeOptions, vnopts } from "../prettier-internal.js";
+import {
+  closetLevenshteinMatch,
+  normalizeOptions,
+  picocolors,
+  vnopts,
+} from "../prettier-internal.js";
 
 const descriptor = {
   key: (key) => (key.length === 1 ? `-${key}` : `--${key}`),
@@ -29,12 +31,14 @@ class FlagSchema extends vnopts.ChoiceSchema {
       value.length > 0 &&
       !this.#flags.includes(value)
     ) {
-      const suggestion = this.#flags.find((flag) => leven(flag, value) < 3);
+      const suggestion = closetLevenshteinMatch(value, this.#flags, {
+        maxDistance: 3,
+      });
       if (suggestion) {
         utils.logger.warn(
           [
-            `Unknown flag ${chalk.yellow(utils.descriptor.value(value))},`,
-            `did you mean ${chalk.blue(utils.descriptor.value(suggestion))}?`,
+            `Unknown flag ${picocolors.yellow(utils.descriptor.value(value))},`,
+            `did you mean ${picocolors.blue(utils.descriptor.value(suggestion))}?`,
           ].join(" "),
         );
         return suggestion;

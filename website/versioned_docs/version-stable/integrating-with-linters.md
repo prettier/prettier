@@ -1,7 +1,6 @@
 ---
-id: version-stable-integrating-with-linters
+id: integrating-with-linters
 title: Integrating with Linters
-original_id: integrating-with-linters
 ---
 
 Linters usually contain not only code quality rules, but also stylistic rules. Most stylistic rules are unnecessary when using Prettier, but worse – they might conflict with Prettier! Use Prettier for code formatting concerns, and linters for code-quality concerns, as outlined in [Prettier vs. Linters](comparison.md).

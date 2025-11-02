@@ -7,7 +7,10 @@ import {
   line,
   softline,
 } from "../../document/builders.js";
-import { printComments } from "../../main/comments/print.js";
+import {
+  printComments,
+  printCommentsSeparately,
+} from "../../main/comments/print.js";
 import { hasSameLocStart } from "../loc.js";
 import pathNeedsParens from "../needs-parens.js";
 import {
@@ -15,12 +18,15 @@ import {
   createTypeCheckFunction,
   hasComment,
   hasLeadingOwnLineComment,
+  isConditionalType,
   isFlowObjectTypePropertyAFunction,
   isObjectType,
   isSimpleType,
+  isTypeAlias,
   isUnionType,
 } from "../utils/index.js";
 import { printAssignment } from "./assignment.js";
+import { printClassMemberSemicolon } from "./class.js";
 import {
   printFunctionParameters,
   shouldGroupFunctionParameters,
@@ -32,7 +38,7 @@ import {
 } from "./misc.js";
 
 /**
- * @typedef {import("../../document/builders.js").Doc} Doc
+ * @import {Doc} from "../../document/builders.js"
  */
 
 const isVoidType = createTypeCheckFunction([
@@ -81,7 +87,6 @@ function shouldHugType(node) {
 - `OpaqueType`(flow)
 */
 function printOpaqueType(path, options, print) {
-  const semi = options.semi ? ";" : "";
   const { node } = path;
   const parts = [
     printDeclareToken(path),
@@ -94,11 +99,26 @@ function printOpaqueType(path, options, print) {
     parts.push(": ", print("supertype"));
   }
 
+  if (node.lowerBound || node.upperBound) {
+    const lowerAndUpperBoundParts = [];
+    if (node.lowerBound) {
+      lowerAndUpperBoundParts.push(
+        indent([line, "super ", print("lowerBound")]),
+      );
+    }
+    if (node.upperBound) {
+      lowerAndUpperBoundParts.push(
+        indent([line, "extends ", print("upperBound")]),
+      );
+    }
+    parts.push(group(lowerAndUpperBoundParts));
+  }
+
   if (node.impltype) {
     parts.push(" = ", print("impltype"));
   }
 
-  parts.push(semi);
+  parts.push(options.semi ? ";" : "");
 
   return parts;
 }
@@ -109,16 +129,19 @@ function printOpaqueType(path, options, print) {
 - `TSTypeAliasDeclaration`(TypeScript)
 */
 function printTypeAlias(path, options, print) {
-  const semi = options.semi ? ";" : "";
   const { node } = path;
-  const parts = [printDeclareToken(path)];
+  const parts = [
+    printDeclareToken(path),
+    "type ",
+    print("id"),
+    print("typeParameters"),
+  ];
 
-  parts.push("type ", print("id"), print("typeParameters"));
   const rightPropertyName =
     node.type === "TSTypeAliasDeclaration" ? "typeAnnotation" : "right";
   return [
     printAssignment(path, options, print, parts, " =", rightPropertyName),
-    semi,
+    options.semi ? ";" : "",
   ];
 }
 
@@ -140,8 +163,14 @@ function printIntersectionType(path, options, print) {
         return [" & ", wasIndented ? indent(doc) : doc];
       }
 
-      // If no object is involved, go to the next line if it breaks
-      if (!previousIsObjectType && !currentIsObjectType) {
+      if (
+        // If no object is involved, go to the next line if it breaks
+        (!previousIsObjectType && !currentIsObjectType) ||
+        hasLeadingOwnLineComment(options.originalText, node)
+      ) {
+        if (options.experimentalOperatorPosition === "start") {
+          return indent([line, "& ", doc]);
+        }
         return indent([" &", line, doc]);
       }
 
@@ -171,9 +200,7 @@ function printUnionType(path, options, print) {
   // If there's a leading comment, the parent is doing the indentation
   const shouldIndent =
     parent.type !== "TypeParameterInstantiation" &&
-    (parent.type !== "TSConditionalType" || !options.experimentalTernaries) &&
-    (parent.type !== "ConditionalTypeAnnotation" ||
-      !options.experimentalTernaries) &&
+    (!isConditionalType(parent) || !options.experimentalTernaries) &&
     parent.type !== "TSTypeParameterInstantiation" &&
     parent.type !== "GenericTypeAnnotation" &&
     parent.type !== "TSTypeReference" &&
@@ -186,10 +213,12 @@ function printUnionType(path, options, print) {
       path.grandparent.this !== parent
     ) &&
     !(
-      (parent.type === "TypeAlias" ||
-        parent.type === "VariableDeclarator" ||
-        parent.type === "TSTypeAliasDeclaration") &&
+      (isTypeAlias(parent) || parent.type === "VariableDeclarator") &&
       hasLeadingOwnLineComment(options.originalText, node)
+    ) &&
+    !(
+      isTypeAlias(parent) &&
+      hasComment(parent.id, CommentCheckFlags.Trailing | CommentCheckFlags.Line)
     );
 
   // {
@@ -202,29 +231,34 @@ function printUnionType(path, options, print) {
   // | child1
   // // comment
   // | child2
-  const printed = path.map((typePath) => {
+  const printed = path.map(() => {
     let printedType = print();
     if (!shouldHug) {
       printedType = align(2, printedType);
     }
-    return printComments(typePath, printedType, options);
+
+    return printComments(path, printedType, options);
   }, "types");
 
+  const { leading, trailing } = printCommentsSeparately(path, options);
+
   if (shouldHug) {
-    return join(" | ", printed);
+    return [leading, join(" | ", printed), trailing];
   }
 
   const shouldAddStartLine =
     shouldIndent && !hasLeadingOwnLineComment(options.originalText, node);
 
-  const code = [
+  const mainParts = [
     ifBreak([shouldAddStartLine ? line : "", "| "]),
     join([line, "| "], printed),
   ];
 
   if (pathNeedsParens(path, options)) {
-    return group([indent(code), softline]);
+    return [leading, group([indent(mainParts), softline]), trailing];
   }
+
+  const parts = [leading, group(mainParts)];
 
   if (parent.type === "TupleTypeAnnotation" || parent.type === "TSTupleType") {
     const elementTypes =
@@ -236,15 +270,18 @@ function printUnionType(path, options, print) {
       ];
 
     if (elementTypes.length > 1) {
-      return group([
-        indent([ifBreak(["(", softline]), code]),
-        softline,
-        ifBreak(")"),
-      ]);
+      return [
+        group([
+          indent([ifBreak(["(", softline]), parts]),
+          softline,
+          ifBreak(")"),
+        ]),
+        trailing,
+      ];
     }
   }
 
-  return group(shouldIndent ? indent(code) : code);
+  return [group(shouldIndent ? indent(parts) : parts), trailing];
 }
 
 /*
@@ -293,10 +330,10 @@ function printFunctionType(path, options, print) {
 
   let parametersDoc = printFunctionParameters(
     path,
-    print,
     options,
-    /* expandArg */ false,
-    /* printTypeParams */ true,
+    print,
+    /* shouldExpandArgument */ false,
+    /* shouldPrintTypeParameters */ true,
   );
 
   const returnTypeDoc = [];
@@ -308,13 +345,7 @@ function printFunctionType(path, options, print) {
       print("returnType"),
     );
   } else {
-    returnTypeDoc.push(
-      printTypeAnnotationProperty(
-        path,
-        print,
-        node.returnType ? "returnType" : "typeAnnotation",
-      ),
-    );
+    returnTypeDoc.push(printTypeAnnotationProperty(path, print, "returnType"));
   }
 
   if (shouldGroupFunctionParameters(node, returnTypeDoc)) {
@@ -323,7 +354,13 @@ function printFunctionType(path, options, print) {
 
   parts.push(parametersDoc, returnTypeDoc);
 
-  return group(parts);
+  return [
+    group(parts),
+    node.type === "TSConstructSignatureDeclaration" ||
+    node.type === "TSCallSignatureDeclaration"
+      ? printClassMemberSemicolon(path, options)
+      : "",
+  ];
 }
 
 /*
@@ -548,12 +585,7 @@ function printArrayType(print) {
 function printTypeQuery({ node }, print) {
   const argumentPropertyName =
     node.type === "TSTypeQuery" ? "exprName" : "argument";
-  const typeArgsPropertyName =
-    // TODO: Use `typeArguments` only when babel align with TS.
-    node.type === "TypeofTypeAnnotation" || node.typeArguments
-      ? "typeArguments"
-      : "typeParameters";
-  return ["typeof ", print(argumentPropertyName), print(typeArgsPropertyName)];
+  return ["typeof ", print(argumentPropertyName), print("typeArguments")];
 }
 
 /*

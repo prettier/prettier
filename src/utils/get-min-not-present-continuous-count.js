@@ -1,9 +1,13 @@
 import escapeStringRegexp from "escape-string-regexp";
 
 /**
+ * Calculates the minimum `n` (>= 1) where `searchString.repeat(n)` is not present in `text`.
  * @param {string} text
  * @param {string} searchString
- * @returns {number}
+ * @example getMinNotPresentContinuousCount("```", "`") // 1
+ * @example getMinNotPresentContinuousCount("``` `", "`") // 2 (1 is occupied)
+ * @example getMinNotPresentContinuousCount("``` ` ``", "`") // 4 (1-3 are occupied)
+ * @returns {number} 1 if not exists, see the above example otherwise
  */
 function getMinNotPresentContinuousCount(text, searchString) {
   const matches = text.match(
@@ -11,7 +15,7 @@ function getMinNotPresentContinuousCount(text, searchString) {
   );
 
   if (matches === null) {
-    return 0;
+    return 1;
   }
 
   const countPresent = new Map();

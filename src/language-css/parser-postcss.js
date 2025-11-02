@@ -1,9 +1,8 @@
 import postcssParse from "postcss/lib/parse";
 import postcssLess from "postcss-less";
 import postcssScssParse from "postcss-scss/lib/scss-parse";
-
 import createError from "../common/parser-create-error.js";
-import parseFrontMatter from "../utils/front-matter/parse.js";
+import { parseFrontMatter } from "../main/front-matter/index.js";
 import {
   calculateLoc,
   locEnd,
@@ -14,7 +13,7 @@ import parseMediaQuery from "./parse/parse-media-query.js";
 import parseSelector from "./parse/parse-selector.js";
 import parseValue from "./parse/parse-value.js";
 import { addTypePrefix } from "./parse/utils.js";
-import { hasPragma } from "./pragma.js";
+import { hasIgnorePragma, hasPragma } from "./pragma.js";
 import isModuleRuleName from "./utils/is-module-rule-name.js";
 import isSCSSNestedPropertyNode from "./utils/is-scss-nested-property-node.js";
 
@@ -93,7 +92,7 @@ function parseNestedCSS(node, options) {
 
     if (typeof node.selector === "string") {
       selector = node.raws.selector
-        ? node.raws.selector.scss ?? node.raws.selector.raw
+        ? (node.raws.selector.scss ?? node.raws.selector.raw)
         : node.selector;
 
       if (node.raws.between && node.raws.between.trim().length > 0) {
@@ -107,19 +106,17 @@ function parseNestedCSS(node, options) {
 
     if (typeof node.value === "string") {
       value = node.raws.value
-        ? node.raws.value.scss ?? node.raws.value.raw
+        ? (node.raws.value.scss ?? node.raws.value.raw)
         : node.value;
 
-      value = value.trim();
-
-      node.raws.value = value;
+      node.raws.value = value.trim();
     }
 
     let params = "";
 
     if (typeof node.params === "string") {
       params = node.raws.params
-        ? node.raws.params.scss ?? node.raws.params.raw
+        ? (node.raws.params.scss ?? node.raws.params.raw)
         : node.params;
 
       if (node.raws.afterName && node.raws.afterName.trim().length > 0) {
@@ -162,7 +159,7 @@ function parseNestedCSS(node, options) {
       return node;
     }
 
-    if (value.length > 0) {
+    if (value.trim().length > 0) {
       const defaultSCSSDirectiveIndex = value.match(DEFAULT_SCSS_DIRECTIVE);
 
       if (defaultSCSSDirectiveIndex) {
@@ -246,11 +243,18 @@ function parseNestedCSS(node, options) {
         // `@color: blue;` is recognized fine, but the cases below aren't:
 
         // `@color:blue;`
-        if (node.name.includes(":") && !node.params) {
+        if (node.name.includes(":")) {
           node.variable = true;
           const parts = node.name.split(":");
           node.name = parts[0];
-          node.value = parseValue(parts.slice(1).join(":"), options);
+          let value = parts.slice(1).join(":");
+
+          // `@fooBackground:rgba(255, 255, 255, 1);`
+          if (node.params) {
+            value += node.params;
+          }
+
+          node.value = parseValue(value, options);
         }
 
         // `@color :blue;`
@@ -340,7 +344,8 @@ function parseNestedCSS(node, options) {
         params = params.replace(/(\$\S+?)(\s+)?\.{3}/u, "$1...$2");
         // Remove unnecessary spaces before SCSS control, mixin and function directives
         // Move spaces after the `(`, so we can keep the range correct
-        params = params.replace(/^(?!if)(\S+)(\s+)\(/u, "$1($2");
+        // Only match the first function call at the beginning, not nested ones
+        params = params.replace(/^(?!if)([^"'\s(]+)(\s+)\(/u, "$1($2");
 
         node.value = parseValue(params, options);
         delete node.params;
@@ -372,14 +377,12 @@ function parseNestedCSS(node, options) {
 }
 
 function parseWithParser(parse, text, options) {
-  const parsed = parseFrontMatter(text);
-  const { frontMatter } = parsed;
-  text = parsed.content;
+  const { frontMatter, content: textToParse } = parseFrontMatter(text);
 
   let result;
 
   try {
-    result = parse(text, {
+    result = parse(textToParse, {
       // Prevent file access https://github.com/postcss/postcss/blob/4f4e2932fc97e2c117e1a4b15f0272ed551ed59d/lib/previous-map.js#L18
       map: false,
     });
@@ -402,11 +405,14 @@ function parseWithParser(parse, text, options) {
   calculateLoc(result, text);
 
   if (frontMatter) {
-    frontMatter.source = {
-      startOffset: 0,
-      endOffset: frontMatter.raw.length,
+    result.frontMatter = {
+      ...frontMatter,
+      type: "front-matter",
+      source: {
+        startOffset: frontMatter.start.index,
+        endOffset: frontMatter.end.index,
+      },
     };
-    result.frontMatter = frontMatter;
   }
 
   return result;
@@ -433,6 +439,7 @@ function parseScss(text, options = {}) {
 const postCssParser = {
   astFormat: "postcss",
   hasPragma,
+  hasIgnorePragma,
   locStart,
   locEnd,
 };

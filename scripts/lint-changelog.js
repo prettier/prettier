@@ -1,20 +1,18 @@
 #!/usr/bin/env node
 
+import assert from "node:assert/strict";
 import fs from "node:fs";
-import path from "node:path";
-
-import createEsmUtils from "esm-utils";
-import { LinesAndColumns } from "lines-and-columns";
+import indexToPosition from "index-to-position";
 import { outdent } from "outdent";
-
+import remarkParse from "remark-parse";
+import unified from "unified";
 import { CHANGELOG_CATEGORIES } from "./utils/changelog-categories.js";
 
-const { __dirname } = createEsmUtils(import.meta);
 const CHANGELOG_DIR = "changelog_unreleased";
 const TEMPLATE_FILE = "TEMPLATE.md";
 const BLOG_POST_INTRO_TEMPLATE_FILE = "BLOG_POST_INTRO_TEMPLATE.md";
 const BLOG_POST_INTRO_FILE = "blog-post-intro.md";
-const CHANGELOG_ROOT = path.join(__dirname, `../${CHANGELOG_DIR}`);
+const CHANGELOG_ROOT = new URL(`../${CHANGELOG_DIR}/`, import.meta.url);
 const showErrorMessage = (message) => {
   console.error(message);
   process.exitCode = 1;
@@ -45,7 +43,7 @@ const authorRegex = /by @[\w-]+|by \[@([\w-]+)\]\(https:\/\/github\.com\/\1\)/u;
 const titleRegex = /^#{4} (.*?)\((#\d{4,}|\[#\d{4,}\])/u;
 
 const template = fs.readFileSync(
-  path.join(CHANGELOG_ROOT, TEMPLATE_FILE),
+  new URL(TEMPLATE_FILE, CHANGELOG_ROOT),
   "utf8",
 );
 const templateComments = template.match(/<!--.*?-->/gsu);
@@ -53,7 +51,7 @@ const [templateAuthorLink] = template.match(authorRegex);
 const checkedFiles = new Map();
 
 for (const category of CHANGELOG_CATEGORIES) {
-  const files = fs.readdirSync(path.join(CHANGELOG_ROOT, category));
+  const files = fs.readdirSync(new URL(`${category}/`, CHANGELOG_ROOT));
   if (!files.includes(".gitkeep")) {
     showErrorMessage(
       `Please don't remove ".gitkeep" from "${CHANGELOG_DIR}/${category}".`,
@@ -87,7 +85,7 @@ for (const category of CHANGELOG_CATEGORIES) {
     }
     checkedFiles.set(prFile, displayPath);
     const content = fs.readFileSync(
-      path.join(CHANGELOG_DIR, category, prFile),
+      new URL(`${category}/${prFile}`, CHANGELOG_ROOT),
       "utf8",
     );
 
@@ -121,6 +119,9 @@ for (const category of CHANGELOG_CATEGORIES) {
       continue;
     }
     const [, title] = titleMatch;
+
+    validateTitle(displayPath, title);
+
     const categoryInTitle = title.split(":").shift().trim();
     if (
       [...CHANGELOG_CATEGORIES, "js"].includes(categoryInTitle.toLowerCase())
@@ -147,9 +148,8 @@ for (const category of CHANGELOG_CATEGORIES) {
 function getCommentDescription(content, comment) {
   const start = content.indexOf(comment);
   const end = start + comment.length;
-  const linesAndColumns = new LinesAndColumns(content);
   const [startLine, endLine] = [start, end].map(
-    (index) => linesAndColumns.locationForIndex(index).line + 1,
+    (index) => indexToPosition(content, index, { oneBased: true }).line,
   );
 
   if (startLine === endLine) {
@@ -157,4 +157,21 @@ function getCommentDescription(content, comment) {
   }
 
   return `template comment on line ${startLine}-${endLine}`;
+}
+
+// Forbid html in title
+// https://github.com/prettier/prettier/issues/17089
+function validateTitle(displayPath, title) {
+  const processor = unified().use(remarkParse);
+  const tree = processor.runSync(processor.parse(title));
+  assert.equal(tree.children.length, 1);
+  assert.equal(tree.children[0].type, "paragraph");
+  const { children } = tree.children[0];
+  for (const node of children) {
+    if (node.type === "html") {
+      showErrorMessage(
+        `[${displayPath}]: HTML "${node.value}" is restricted in title.`,
+      );
+    }
+  }
 }

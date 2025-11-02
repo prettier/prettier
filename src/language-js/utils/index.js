@@ -7,31 +7,21 @@ import printString from "../../utils/print-string.js";
 import { hasSameLocStart, locEnd, locStart } from "../loc.js";
 import getVisitorKeys from "../traverse/get-visitor-keys.js";
 import createTypeCheckFunction from "./create-type-check-function.js";
+import getRaw from "./get-raw.js";
 import isBlockComment from "./is-block-comment.js";
 import isFlowKeywordType from "./is-flow-keyword-type.js";
+import isLineComment from "./is-line-comment.js";
 import isNodeMatches from "./is-node-matches.js";
 import isTsKeywordType from "./is-ts-keyword-type.js";
 
 /**
- * @typedef {import("../types/estree.js").Node} Node
- * @typedef {import("../types/estree.js").TemplateLiteral} TemplateLiteral
- * @typedef {import("../types/estree.js").Comment} Comment
- * @typedef {import("../types/estree.js").MemberExpression} MemberExpression
- * @typedef {import("../types/estree.js").OptionalMemberExpression} OptionalMemberExpression
- * @typedef {import("../types/estree.js").CallExpression} CallExpression
- * @typedef {import("../types/estree.js").OptionalCallExpression} OptionalCallExpression
- * @typedef {import("../types/estree.js").Expression} Expression
- * @typedef {import("../types/estree.js").Property} Property
- * @typedef {import("../types/estree.js").ObjectTypeProperty} ObjectTypeProperty
- * @typedef {import("../types/estree.js").TaggedTemplateExpression} TaggedTemplateExpression
- * @typedef {import("../types/estree.js").Literal} Literal
- *
- * @typedef {import("../../common/ast-path.js").default} AstPath
- */
+@import * as Estree from "../types/estree.js"
+@import AstPath from "../../common/ast-path.js"
+*/
 
 /**
- * @param {Node} node
- * @param {(Node) => boolean} predicate
+ * @param {Estree.Node} node
+ * @param {(node: Estree.Node) => boolean} predicate
  * @returns {boolean}
  */
 function hasNode(node, predicate) {
@@ -39,7 +29,7 @@ function hasNode(node, predicate) {
 }
 
 /**
- * @param {Node} node
+ * @param {Estree.Node} node
  * @returns {boolean}
  */
 function hasNakedLeftSide(node) {
@@ -104,24 +94,6 @@ function getLeftSidePathName(node) {
   throw new Error("Unexpected node has no left side.");
 }
 
-/**
- * @param {Comment} comment
- * @returns {boolean}
- */
-const isLineComment = createTypeCheckFunction([
-  "Line",
-  "CommentLine",
-  // `meriyah` has `SingleLine`, `HashbangComment`, `HTMLOpen`, and `HTMLClose`
-  "SingleLine",
-  "HashbangComment",
-  "HTMLOpen",
-  "HTMLClose",
-  // `espree`
-  "Hashbang",
-  // Babel hashbang
-  "InterpreterDirective",
-]);
-
 const isExportDeclaration = createTypeCheckFunction([
   "ExportDefaultDeclaration",
   "DeclareExportDeclaration",
@@ -130,18 +102,14 @@ const isExportDeclaration = createTypeCheckFunction([
   "DeclareExportAllDeclaration",
 ]);
 
-const isArrayOrTupleExpression = createTypeCheckFunction([
-  "ArrayExpression",
-  "TupleExpression",
-]);
-
-const isObjectOrRecordExpression = createTypeCheckFunction([
-  "ObjectExpression",
-  "RecordExpression",
-]);
+// These two functions exists because we used support `recordAndTuple`
+// Feel free to check `node.type` instead
+// https://github.com/prettier/prettier/pull/17363
+const isArrayExpression = createTypeCheckFunction(["ArrayExpression"]);
+const isObjectExpression = createTypeCheckFunction(["ObjectExpression"]);
 
 /**
- * @param {Node} node
+ * @param {Estree.Node} node
  * @returns {boolean}
  */
 function isNullishCoalescing(node) {
@@ -149,13 +117,20 @@ function isNullishCoalescing(node) {
 }
 
 /**
- * @param {Node} node
+ * @param {Estree.Node} node
  * @returns {boolean}
  */
 function isNumericLiteral(node) {
   return (
     node.type === "NumericLiteral" ||
     (node.type === "Literal" && typeof node.value === "number")
+  );
+}
+
+function isBooleanLiteral(node) {
+  return (
+    node.type === "BooleanLiteral" ||
+    (node.type === "Literal" && typeof node.value === "boolean")
   );
 }
 
@@ -168,7 +143,7 @@ function isSignedNumericLiteral(node) {
 }
 
 /**
- * @param {Node} node
+ * @param {Estree.Node} node
  * @returns {boolean}
  */
 function isStringLiteral(node) {
@@ -190,7 +165,6 @@ const isLiteral = createTypeCheckFunction([
   "Literal",
   "BooleanLiteral",
   "BigIntLiteral", // Babel, flow use `BigIntLiteral` too
-  "DecimalLiteral",
   "DirectiveLiteral",
   "NullLiteral",
   "NumericLiteral",
@@ -204,7 +178,6 @@ const isSingleWordType = createTypeCheckFunction([
   "Super",
   "PrivateName",
   "PrivateIdentifier",
-  "Import",
 ]);
 
 const isObjectType = createTypeCheckFunction([
@@ -219,7 +192,7 @@ const isFunctionOrArrowExpression = createTypeCheckFunction([
 ]);
 
 /**
- * @param {Node} node
+ * @param {Estree.Node} node
  * @returns {boolean}
  */
 function isFunctionOrArrowExpressionWithBody(node) {
@@ -237,7 +210,7 @@ function isFunctionOrArrowExpressionWithBody(node) {
  *
  * example: https://docs.angularjs.org/guide/unit-testing#using-beforeall-
  *
- * @param {CallExpression} node
+ * @param {Estree.CallExpression} node
  * @returns {boolean}
  */
 function isAngularTestWrapper(node) {
@@ -259,7 +232,7 @@ function isMethod(node) {
 }
 
 /**
- * @param {Node} node
+ * @param {Estree.Node} node
  * @returns {boolean}
  */
 function isFlowObjectTypePropertyAFunction(node) {
@@ -295,7 +268,7 @@ const isBinaryish = createTypeCheckFunction([
 ]);
 
 /**
- * @param {Node} node
+ * @param {Estree.Node} node
  * @returns {boolean}
  */
 function isMemberish(node) {
@@ -317,7 +290,7 @@ const isSimpleTypeAnnotation = createTypeCheckFunction([
   "TSTemplateLiteralType",
 ]);
 /**
- * @param {Node} node
+ * @param {Estree.Node} node
  * @returns {boolean}
  */
 function isSimpleType(node) {
@@ -325,12 +298,8 @@ function isSimpleType(node) {
     isTsKeywordType(node) ||
     isFlowKeywordType(node) ||
     isSimpleTypeAnnotation(node) ||
-    ((node.type === "GenericTypeAnnotation" ||
-      node.type === "TSTypeReference") &&
-      // @ts-expect-error -- `GenericTypeAnnotation`
-      !node.typeParameters &&
-      // @ts-expect-error -- `TSTypeReference`
-      !node.typeArguments)
+    (node.type === "GenericTypeAnnotation" && !node.typeParameters) ||
+    (node.type === "TSTypeReference" && !node.typeArguments)
   );
 }
 
@@ -358,9 +327,12 @@ const testCallCalleePatterns = [
   "test",
   "test.only",
   "test.skip",
+  "test.fixme",
   "test.step",
   "test.describe",
   "test.describe.only",
+  "test.describe.skip",
+  "test.describe.fixme",
   "test.describe.parallel",
   "test.describe.parallel.only",
   "test.describe.serial",
@@ -414,7 +386,7 @@ function isTestCall(node, parent) {
   return false;
 }
 
-/** @return {(node: Node) => boolean} */
+/** @return {(node: Estree.Node) => boolean} */
 const skipChainExpression = (fn) => (node) => {
   if (node?.type === "ChainExpression") {
     node = node.expression;
@@ -485,7 +457,7 @@ function isLoneShortArgument(node, options) {
   }
 
   if (isStringLiteral(node)) {
-    return printString(rawText(node), options).length <= threshold;
+    return printString(getRaw(node), options).length <= threshold;
   }
 
   if (node.type === "TemplateLiteral") {
@@ -513,7 +485,7 @@ function isLoneShortArgument(node, options) {
 
 /**
  * @param {string} text
- * @param {Node} node
+ * @param {Estree.Node} node
  * @returns {boolean}
  */
 function hasLeadingOwnLineComment(text, node) {
@@ -527,7 +499,7 @@ function hasLeadingOwnLineComment(text, node) {
 }
 
 /**
- * @param {TemplateLiteral} template
+ * @param {Estree.TemplateLiteral} template
  * @returns {boolean}
  */
 function templateLiteralHasNewLines(template) {
@@ -535,7 +507,7 @@ function templateLiteralHasNewLines(template) {
 }
 
 /**
- * @param {TemplateLiteral | TaggedTemplateExpression} node
+ * @param {Estree.TemplateLiteral | Estree.TaggedTemplateExpression} node
  * @param {string} text
  * @returns {boolean}
  */
@@ -549,7 +521,7 @@ function isTemplateOnItsOwnLine(node, text) {
 }
 
 /**
- * @param {Node} node
+ * @param {Estree.Node} node
  * @returns {boolean}
  */
 function needsHardlineAfterDanglingComment(node) {
@@ -645,14 +617,14 @@ function isSimpleCallArgument(node, depth = 2) {
     );
   }
 
-  if (isObjectOrRecordExpression(node)) {
+  if (isObjectExpression(node)) {
     return node.properties.every(
       (p) =>
         !p.computed && (p.shorthand || (p.value && isChildSimple(p.value))),
     );
   }
 
-  if (isArrayOrTupleExpression(node)) {
+  if (isArrayExpression(node)) {
     return node.elements.every((x) => x === null || isChildSimple(x));
   }
 
@@ -685,14 +657,6 @@ function isSimpleCallArgument(node, depth = 2) {
   return false;
 }
 
-function rawText(node) {
-  return node.extra?.raw ?? node.raw;
-}
-
-function identity(x) {
-  return x;
-}
-
 /**
  * @param {any} options
  * @param {("es5" | "all")} [level]
@@ -716,8 +680,8 @@ function shouldPrintComma(options, level = "es5") {
  *
  * Will be overzealous if there already are necessary grouping parentheses.
  *
- * @param {Node} node
- * @param {(leftmostNode: Node) => boolean} predicate
+ * @param {Estree.Node} node
+ * @param {(leftmostNode: Estree.Node) => boolean} predicate
  * @returns {boolean}
  */
 function startsWithNoLookaheadToken(node, predicate) {
@@ -874,12 +838,9 @@ function getFunctionParameters(node) {
   if (node.this) {
     parameters.push(node.this);
   }
-  // `params` vs `parameters` - see https://github.com/babel/babel/issues/9231
-  if (Array.isArray(node.parameters)) {
-    parameters.push(...node.parameters);
-  } else if (Array.isArray(node.params)) {
-    parameters.push(...node.params);
-  }
+
+  parameters.push(...node.params);
+
   if (node.rest) {
     parameters.push(node.rest);
   }
@@ -890,15 +851,13 @@ function getFunctionParameters(node) {
 function iterateFunctionParametersPath(path, iteratee) {
   const { node } = path;
   let index = 0;
-  const callback = (childPath) => iteratee(childPath, index++);
+  const callback = () => iteratee(path, index++);
   if (node.this) {
     path.call(callback, "this");
   }
-  if (Array.isArray(node.parameters)) {
-    path.each(callback, "parameters");
-  } else if (Array.isArray(node.params)) {
-    path.each(callback, "params");
-  }
+
+  path.each(callback, "params");
+
   if (node.rest) {
     path.call(callback, "rest");
   }
@@ -914,19 +873,17 @@ function getCallArguments(node) {
     return getCallArguments(node.expression);
   }
 
-  let args = node.arguments;
-  if (node.type === "ImportExpression") {
-    args = [node.source];
+  let args;
+  if (node.type === "ImportExpression" || node.type === "TSImportType") {
+    args = [node.type === "ImportExpression" ? node.source : node.argument];
 
-    // import attributes
-    if (node.attributes) {
-      args.push(node.attributes);
-    }
-
-    // deprecated import assertions
     if (node.options) {
       args.push(node.options);
     }
+  } else if (node.type === "TSExternalModuleReference") {
+    args = [node.expression];
+  } else {
+    args = node.arguments;
   }
 
   callArgumentsCache.set(node, args);
@@ -943,18 +900,17 @@ function iterateCallArgumentsPath(path, iteratee) {
     );
   }
 
-  if (node.type === "ImportExpression") {
-    path.call((sourcePath) => iteratee(sourcePath, 0), "source");
+  if (node.type === "ImportExpression" || node.type === "TSImportType") {
+    path.call(
+      () => iteratee(path, 0),
+      node.type === "ImportExpression" ? "source" : "argument",
+    );
 
-    // import attributes
-    if (node.attributes) {
-      path.call((sourcePath) => iteratee(sourcePath, 1), "attributes");
-    }
-
-    // deprecated import assertions
     if (node.options) {
-      path.call((sourcePath) => iteratee(sourcePath, 1), "options");
+      path.call(() => iteratee(path, 1), "options");
     }
+  } else if (node.type === "TSExternalModuleReference") {
+    path.call(() => iteratee(path, 0), "expression");
   } else {
     path.each(iteratee, "arguments");
   }
@@ -967,28 +923,32 @@ function getCallArgumentSelector(node, index) {
     selectors.push("expression");
   }
 
-  if (node.type === "ImportExpression") {
-    if (index === 0 || index === (node.attributes || node.options ? -2 : -1)) {
-      return [...selectors, "source"];
+  if (node.type === "ImportExpression" || node.type === "TSImportType") {
+    if (index === 0 || index === (node.options ? -2 : -1)) {
+      return [
+        ...selectors,
+        node.type === "ImportExpression" ? "source" : "argument",
+      ];
     }
-    // import attributes
-    if (node.attributes && (index === 1 || index === -1)) {
-      return [...selectors, "attributes"];
-    }
-    // deprecated import assertions
     if (node.options && (index === 1 || index === -1)) {
       return [...selectors, "options"];
     }
     throw new RangeError("Invalid argument index");
+  } else if (node.type === "TSExternalModuleReference") {
+    if (index === 0 || index === -1) {
+      return [...selectors, "expression"];
+    }
+  } else {
+    if (index < 0) {
+      index = node.arguments.length + index;
+    }
+    if (index >= 0 && index < node.arguments.length) {
+      return [...selectors, "arguments", index];
+    }
   }
-  if (index < 0) {
-    index = node.arguments.length + index;
-  }
-  /* c8 ignore next 3 */
-  if (index < 0 || index >= node.arguments.length) {
-    throw new RangeError("Invalid argument index");
-  }
-  return [...selectors, "arguments", index];
+
+  /* c8 ignore next */
+  throw new RangeError("Invalid argument index");
 }
 
 function isPrettierIgnoreComment(comment) {
@@ -1044,7 +1004,7 @@ const getCommentTestFunction = (flags, fn) => {
   }
 };
 /**
- * @param {Node} node
+ * @param {Estree.Node} node
  * @param {number | function} [flags]
  * @param {function} [fn]
  * @returns {boolean}
@@ -1058,10 +1018,10 @@ function hasComment(node, flags, fn) {
 }
 
 /**
- * @param {Node} node
+ * @param {Estree.Node} node
  * @param {number | function} [flags]
  * @param {function} [fn]
- * @returns {Comment[]}
+ * @returns {Estree.Comment[]}
  */
 function getComments(node, flags, fn) {
   if (!Array.isArray(node?.comments)) {
@@ -1072,7 +1032,7 @@ function getComments(node, flags, fn) {
 }
 
 /**
- * @param {Node} node
+ * @param {Estree.Node} node
  * @returns {boolean}
  */
 const isNextLineEmpty = (node, { originalText }) =>
@@ -1105,13 +1065,29 @@ const isBinaryCastExpression = createTypeCheckFunction([
 ]);
 
 const isUnionType = createTypeCheckFunction([
-  "UnionTypeAnnotation",
   "TSUnionType",
+  "UnionTypeAnnotation",
 ]);
 
 const isIntersectionType = createTypeCheckFunction([
-  "IntersectionTypeAnnotation",
   "TSIntersectionType",
+  "IntersectionTypeAnnotation",
+]);
+
+const isConditionalType = createTypeCheckFunction([
+  "TSConditionalType",
+  "ConditionalTypeAnnotation",
+]);
+
+const isTsAsConstExpression = (node) =>
+  node?.type === "TSAsExpression" &&
+  node.typeAnnotation.type === "TSTypeReference" &&
+  node.typeAnnotation.typeName.type === "Identifier" &&
+  node.typeAnnotation.typeName.name === "const";
+
+const isTypeAlias = createTypeCheckFunction([
+  "TSTypeAliasDeclaration",
+  "TypeAlias",
 ]);
 
 export {
@@ -1130,20 +1106,20 @@ export {
   hasNode,
   hasNodeIgnoreComment,
   hasRestParameter,
-  identity,
-  isArrayOrTupleExpression,
+  isArrayExpression,
   isBinaryCastExpression,
   isBinaryish,
   isBitwiseOperator,
+  isBooleanLiteral,
   isCallExpression,
   isCallLikeExpression,
+  isConditionalType,
   isExportDeclaration,
   isFlowObjectTypePropertyAFunction,
   isFunctionCompositionArgs,
   isFunctionOrArrowExpression,
   isIntersectionType,
   isJsxElement,
-  isLineComment,
   isLiteral,
   isLoneShortArgument,
   isLongCurriedCallExpression,
@@ -1153,7 +1129,7 @@ export {
   isNextLineEmpty,
   isNullishCoalescing,
   isNumericLiteral,
-  isObjectOrRecordExpression,
+  isObjectExpression,
   isObjectProperty,
   isObjectType,
   isPrettierIgnoreComment,
@@ -1165,13 +1141,16 @@ export {
   isStringLiteral,
   isTemplateOnItsOwnLine,
   isTestCall,
+  isTsAsConstExpression,
+  isTypeAlias,
   isTypeAnnotationAFunction,
   isUnionType,
   iterateCallArgumentsPath,
   iterateFunctionParametersPath,
   needsHardlineAfterDanglingComment,
-  rawText,
   shouldFlatten,
   shouldPrintComma,
   startsWithNoLookaheadToken,
 };
+export { default as isMeaningfulEmptyStatement } from "./is-meaningful-empty-statement.js";
+export { default as isNodeMatches } from "./is-node-matches.js";

@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`attributes.vue - {"semi":false} format 1`] = `
 ====================================options=====================================
@@ -354,7 +354,7 @@ semi: false
     @click="a.b;"
     @click="a[1];"
     @click="a['b'];"
-    @click="a[null]"
+    @click="a[null];"
     #default="{
       foo: {
         bar: { baz },
@@ -720,7 +720,7 @@ trailingComma: "es5"
     @click="a.b;"
     @click="a[1];"
     @click="a['b'];"
-    @click="a[null]"
+    @click="a[null];"
     #default="{
       foo: {
         bar: { baz },
@@ -1086,7 +1086,7 @@ trailingComma: "none"
     @click="a.b;"
     @click="a[1];"
     @click="a['b'];"
-    @click="a[null]"
+    @click="a[null];"
     #default="{
       foo: {
         bar: { baz }

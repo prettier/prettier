@@ -2,11 +2,9 @@ import fs from "node:fs";
 import path from "node:path";
 import readline from "node:readline";
 import url from "node:url";
-
-import chalk from "chalk";
-import { execa } from "execa";
+import spawn from "nano-spawn";
+import styleText from "node-style-text";
 import outdent from "outdent";
-
 import getFormattedDate from "./get-formatted-date.js";
 
 readline.emitKeypressEvents(process.stdin);
@@ -25,7 +23,7 @@ const padStatusText = (text) => {
 };
 const status = {};
 for (const { color, text } of statusConfig) {
-  status[text] = chalk[color].black(padStatusText(text));
+  status[text] = styleText[color].black(padStatusText(text));
 }
 
 function fitTerminal(input, suffix = "") {
@@ -33,7 +31,7 @@ function fitTerminal(input, suffix = "") {
   const WIDTH = columns - maxLength + 1;
   if (input.length < WIDTH) {
     const repeatCount = Math.max(WIDTH - input.length - 1 - suffix.length, 0);
-    input += chalk.dim(".").repeat(repeatCount) + suffix;
+    input += styleText.dim(".").repeat(repeatCount) + suffix;
   }
   return input;
 }
@@ -62,7 +60,7 @@ async function runYarn(args, options) {
   args = Array.isArray(args) ? args : [args];
 
   try {
-    return await execa("yarn", [...args], options);
+    return await spawn("yarn", [...args], options);
   } catch (error) {
     throw new Error(`\`yarn ${args.join(" ")}\` failed\n${error.stdout}`);
   }
@@ -70,12 +68,12 @@ async function runYarn(args, options) {
 
 function runGit(args, options) {
   args = Array.isArray(args) ? args : [args];
-  return execa("git", args, options);
+  return spawn("git", args, options);
 }
 
 function waitForEnter() {
   console.log();
-  console.log(chalk.gray("Press ENTER to continue."));
+  console.log(styleText.gray("Press ENTER to continue."));
 
   process.stdin.setRawMode(true);
 
@@ -131,7 +129,7 @@ function getBlogPostInfo(version) {
 
   return {
     file: `website/blog/${year}-${month}-${day}-${version}.md`,
-    path: `blog/${year}/${month}/${day}/${version}.html`,
+    path: `blog/${year}/${month}/${day}/${version}`,
   };
 }
 

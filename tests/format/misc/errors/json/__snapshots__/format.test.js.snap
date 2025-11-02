@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`snippet: #0 [json] format 1`] = `
 "Shorthand property is not allowed in JSON. (1:2)
@@ -13,16 +13,44 @@ exports[`snippet: #0 [json] format 2`] = `
 Cause: A 'set' accessor must have exactly one formal parameter. (1:8)"
 `;
 
+exports[`snippet: #0 [json] format 3`] = `
+"Unexpected token (1:2)
+> 1 | [
+    |  ^
+Cause: Unexpected token (1:1)"
+`;
+
 exports[`snippet: #0 [json-stringify] format 1`] = `
 "Shorthand property is not allowed in JSON. (1:2)
 > 1 | {foo}
     |  ^^^"
 `;
 
+exports[`snippet: #0 [json-stringify] format 2`] = `
+"Unexpected token (1:2)
+> 1 | [
+    |  ^
+Cause: Unexpected token (1:1)"
+`;
+
 exports[`snippet: #0 [json5] format 1`] = `
 "Shorthand property is not allowed in JSON. (1:2)
 > 1 | {foo}
     |  ^^^"
+`;
+
+exports[`snippet: #0 [json5] format 2`] = `
+"Unexpected token (1:2)
+> 1 | [
+    |  ^
+Cause: Unexpected token (1:1)"
+`;
+
+exports[`snippet: #0 [jsonc] format 1`] = `
+"Unexpected token (1:2)
+> 1 | [
+    |  ^
+Cause: Unexpected token (1:1)"
 `;
 
 exports[`snippet: #1 [json] format 1`] = `
@@ -38,16 +66,44 @@ exports[`snippet: #1 [json] format 2`] = `
 Cause: Private name #bar is not defined. (1:20)"
 `;
 
+exports[`snippet: #1 [json] format 3`] = `
+"Unexpected token (1:1)
+> 1 | ;
+    | ^
+Cause: Unexpected token (1:0)"
+`;
+
 exports[`snippet: #1 [json-stringify] format 1`] = `
 "Computed key is not allowed in JSON. (1:3)
 > 1 | {["foo"]:"bar"}
     |   ^^^^^"
 `;
 
+exports[`snippet: #1 [json-stringify] format 2`] = `
+"Unexpected token (1:1)
+> 1 | ;
+    | ^
+Cause: Unexpected token (1:0)"
+`;
+
 exports[`snippet: #1 [json5] format 1`] = `
 "Computed key is not allowed in JSON. (1:3)
 > 1 | {["foo"]:"bar"}
     |   ^^^^^"
+`;
+
+exports[`snippet: #1 [json5] format 2`] = `
+"Unexpected token (1:1)
+> 1 | ;
+    | ^
+Cause: Unexpected token (1:0)"
+`;
+
+exports[`snippet: #1 [jsonc] format 1`] = `
+"Unexpected token (1:1)
+> 1 | ;
+    | ^
+Cause: Unexpected token (1:0)"
 `;
 
 exports[`snippet: #2 [json] format 1`] = `
@@ -63,16 +119,44 @@ exports[`snippet: #2 [json] format 2`] = `
 Cause: 'await' is only allowed within async functions and at the top levels of modules. (1:13)"
 `;
 
+exports[`snippet: #2 [json] format 3`] = `
+"The input should contain exactly one expression, but the first expression is followed by the unexpected character \`;\`. (1:9)
+> 1 | "string";
+    |         ^
+Cause: Unexpected parseExpression() input: The input should contain exactly one expression, but the first expression is followed by the unexpected character \`;\`. (1:8)"
+`;
+
 exports[`snippet: #2 [json-stringify] format 1`] = `
 "Operator '~' is not allowed in JSON. (1:9)
 > 1 | {"foo": ~1}
     |         ^^"
 `;
 
+exports[`snippet: #2 [json-stringify] format 2`] = `
+"The input should contain exactly one expression, but the first expression is followed by the unexpected character \`;\`. (1:9)
+> 1 | "string";
+    |         ^
+Cause: Unexpected parseExpression() input: The input should contain exactly one expression, but the first expression is followed by the unexpected character \`;\`. (1:8)"
+`;
+
 exports[`snippet: #2 [json5] format 1`] = `
 "Operator '~' is not allowed in JSON. (1:9)
 > 1 | {"foo": ~1}
     |         ^^"
+`;
+
+exports[`snippet: #2 [json5] format 2`] = `
+"The input should contain exactly one expression, but the first expression is followed by the unexpected character \`;\`. (1:9)
+> 1 | "string";
+    |         ^
+Cause: Unexpected parseExpression() input: The input should contain exactly one expression, but the first expression is followed by the unexpected character \`;\`. (1:8)"
+`;
+
+exports[`snippet: #2 [jsonc] format 1`] = `
+"The input should contain exactly one expression, but the first expression is followed by the unexpected character \`;\`. (1:9)
+> 1 | "string";
+    |         ^
+Cause: Unexpected parseExpression() input: The input should contain exactly one expression, but the first expression is followed by the unexpected character \`;\`. (1:8)"
 `;
 
 exports[`snippet: #3 [json] format 1`] = `
@@ -87,16 +171,48 @@ exports[`snippet: #3 [json] format 2`] = `
     |  ^"
 `;
 
+exports[`snippet: #3 [json] format 3`] = `
+"The input should contain exactly one expression, but the first expression is followed by the unexpected character \`;\`. (2:1)
+  1 | "string"
+> 2 | ;
+    | ^
+Cause: Unexpected parseExpression() input: The input should contain exactly one expression, but the first expression is followed by the unexpected character \`;\`. (2:0)"
+`;
+
 exports[`snippet: #3 [json-stringify] format 1`] = `
 "'LogicalExpression' is not allowed in JSON. (1:9)
 > 1 | {"foo": false || "bar"}
     |         ^^^^^^^^^^^^^^"
 `;
 
+exports[`snippet: #3 [json-stringify] format 2`] = `
+"The input should contain exactly one expression, but the first expression is followed by the unexpected character \`;\`. (2:1)
+  1 | "string"
+> 2 | ;
+    | ^
+Cause: Unexpected parseExpression() input: The input should contain exactly one expression, but the first expression is followed by the unexpected character \`;\`. (2:0)"
+`;
+
 exports[`snippet: #3 [json5] format 1`] = `
 "'LogicalExpression' is not allowed in JSON. (1:9)
 > 1 | {"foo": false || "bar"}
     |         ^^^^^^^^^^^^^^"
+`;
+
+exports[`snippet: #3 [json5] format 2`] = `
+"The input should contain exactly one expression, but the first expression is followed by the unexpected character \`;\`. (2:1)
+  1 | "string"
+> 2 | ;
+    | ^
+Cause: Unexpected parseExpression() input: The input should contain exactly one expression, but the first expression is followed by the unexpected character \`;\`. (2:0)"
+`;
+
+exports[`snippet: #3 [jsonc] format 1`] = `
+"The input should contain exactly one expression, but the first expression is followed by the unexpected character \`;\`. (2:1)
+  1 | "string"
+> 2 | ;
+    | ^
+Cause: Unexpected parseExpression() input: The input should contain exactly one expression, but the first expression is followed by the unexpected character \`;\`. (2:0)"
 `;
 
 exports[`snippet: #4 [json] format 1`] = `
@@ -112,16 +228,44 @@ exports[`snippet: #4 [json] format 2`] = `
 Cause: 'import' and 'export' may only appear at the top level. (1:13)"
 `;
 
+exports[`snippet: #4 [json] format 3`] = `
+"Unexpected token (1:15)
+> 1 | /* comment */[
+    |               ^
+Cause: Unexpected token (1:14)"
+`;
+
 exports[`snippet: #4 [json-stringify] format 1`] = `
 "'ArrowFunctionExpression' is not allowed in JSON. (1:9)
 > 1 | {"foo": () => {}}
     |         ^^^^^^^^"
 `;
 
+exports[`snippet: #4 [json-stringify] format 2`] = `
+"Unexpected token (1:15)
+> 1 | /* comment */[
+    |               ^
+Cause: Unexpected token (1:14)"
+`;
+
 exports[`snippet: #4 [json5] format 1`] = `
 "'ArrowFunctionExpression' is not allowed in JSON. (1:9)
 > 1 | {"foo": () => {}}
     |         ^^^^^^^^"
+`;
+
+exports[`snippet: #4 [json5] format 2`] = `
+"Unexpected token (1:15)
+> 1 | /* comment */[
+    |               ^
+Cause: Unexpected token (1:14)"
+`;
+
+exports[`snippet: #4 [jsonc] format 1`] = `
+"Unexpected token (1:15)
+> 1 | /* comment */[
+    |               ^
+Cause: Unexpected token (1:14)"
 `;
 
 exports[`snippet: #5 [json] format 1`] = `
@@ -138,6 +282,13 @@ exports[`snippet: #5 [json] format 2`] = `
 Cause: Unexpected token (1:0)"
 `;
 
+exports[`snippet: #5 [json] format 3`] = `
+"Unexpected token (1:14)
+> 1 | /* comment */;
+    |              ^
+Cause: Unexpected token (1:13)"
+`;
+
 exports[`snippet: #5 [json-stringify] format 1`] = `
 "Expecting Unicode escape sequence \\uXXXX. (1:10)
 > 1 | packages\\the-hub\\cypress\\fixtures\\gridConfiguration.json
@@ -145,11 +296,32 @@ exports[`snippet: #5 [json-stringify] format 1`] = `
 Cause: Expecting Unicode escape sequence \\uXXXX. (1:9)"
 `;
 
+exports[`snippet: #5 [json-stringify] format 2`] = `
+"Unexpected token (1:14)
+> 1 | /* comment */;
+    |              ^
+Cause: Unexpected token (1:13)"
+`;
+
 exports[`snippet: #5 [json5] format 1`] = `
 "Expecting Unicode escape sequence \\uXXXX. (1:10)
 > 1 | packages\\the-hub\\cypress\\fixtures\\gridConfiguration.json
     |          ^
 Cause: Expecting Unicode escape sequence \\uXXXX. (1:9)"
+`;
+
+exports[`snippet: #5 [json5] format 2`] = `
+"Unexpected token (1:14)
+> 1 | /* comment */;
+    |              ^
+Cause: Unexpected token (1:13)"
+`;
+
+exports[`snippet: #5 [jsonc] format 1`] = `
+"Unexpected token (1:14)
+> 1 | /* comment */;
+    |              ^
+Cause: Unexpected token (1:13)"
 `;
 
 exports[`snippet: #6 [json] format 1`] = `
@@ -165,16 +337,44 @@ exports[`snippet: #6 [json] format 2`] = `
 Cause: Unexpected token, expected "," (1:2)"
 `;
 
+exports[`snippet: #6 [json] format 3`] = `
+"The input should contain exactly one expression, but the first expression is followed by the unexpected character \`;\`. (1:22)
+> 1 | /* comment */"string";
+    |                      ^
+Cause: Unexpected parseExpression() input: The input should contain exactly one expression, but the first expression is followed by the unexpected character \`;\`. (1:21)"
+`;
+
 exports[`snippet: #6 [json-stringify] format 1`] = `
 "'BinaryExpression' is not allowed in JSON. (1:1)
 > 1 | 1+2
     | ^^^"
 `;
 
+exports[`snippet: #6 [json-stringify] format 2`] = `
+"The input should contain exactly one expression, but the first expression is followed by the unexpected character \`;\`. (1:22)
+> 1 | /* comment */"string";
+    |                      ^
+Cause: Unexpected parseExpression() input: The input should contain exactly one expression, but the first expression is followed by the unexpected character \`;\`. (1:21)"
+`;
+
 exports[`snippet: #6 [json5] format 1`] = `
 "'BinaryExpression' is not allowed in JSON. (1:1)
 > 1 | 1+2
     | ^^^"
+`;
+
+exports[`snippet: #6 [json5] format 2`] = `
+"The input should contain exactly one expression, but the first expression is followed by the unexpected character \`;\`. (1:22)
+> 1 | /* comment */"string";
+    |                      ^
+Cause: Unexpected parseExpression() input: The input should contain exactly one expression, but the first expression is followed by the unexpected character \`;\`. (1:21)"
+`;
+
+exports[`snippet: #6 [jsonc] format 1`] = `
+"The input should contain exactly one expression, but the first expression is followed by the unexpected character \`;\`. (1:22)
+> 1 | /* comment */"string";
+    |                      ^
+Cause: Unexpected parseExpression() input: The input should contain exactly one expression, but the first expression is followed by the unexpected character \`;\`. (1:21)"
 `;
 
 exports[`snippet: #7 [json] format 1`] = `
@@ -189,16 +389,48 @@ exports[`snippet: #7 [json] format 2`] = `
     |                        ^"
 `;
 
+exports[`snippet: #7 [json] format 3`] = `
+"The input should contain exactly one expression, but the first expression is followed by the unexpected character \`;\`. (2:1)
+  1 | /* comment */"string"
+> 2 | ;
+    | ^
+Cause: Unexpected parseExpression() input: The input should contain exactly one expression, but the first expression is followed by the unexpected character \`;\`. (2:0)"
+`;
+
 exports[`snippet: #7 [json-stringify] format 1`] = `
 "Shorthand property is not allowed in JSON. (1:2)
 > 1 | {Infinity}
     |  ^^^^^^^^"
 `;
 
+exports[`snippet: #7 [json-stringify] format 2`] = `
+"The input should contain exactly one expression, but the first expression is followed by the unexpected character \`;\`. (2:1)
+  1 | /* comment */"string"
+> 2 | ;
+    | ^
+Cause: Unexpected parseExpression() input: The input should contain exactly one expression, but the first expression is followed by the unexpected character \`;\`. (2:0)"
+`;
+
 exports[`snippet: #7 [json5] format 1`] = `
 "Shorthand property is not allowed in JSON. (1:2)
 > 1 | {Infinity}
     |  ^^^^^^^^"
+`;
+
+exports[`snippet: #7 [json5] format 2`] = `
+"The input should contain exactly one expression, but the first expression is followed by the unexpected character \`;\`. (2:1)
+  1 | /* comment */"string"
+> 2 | ;
+    | ^
+Cause: Unexpected parseExpression() input: The input should contain exactly one expression, but the first expression is followed by the unexpected character \`;\`. (2:0)"
+`;
+
+exports[`snippet: #7 [jsonc] format 1`] = `
+"The input should contain exactly one expression, but the first expression is followed by the unexpected character \`;\`. (2:1)
+  1 | /* comment */"string"
+> 2 | ;
+    | ^
+Cause: Unexpected parseExpression() input: The input should contain exactly one expression, but the first expression is followed by the unexpected character \`;\`. (2:0)"
 `;
 
 exports[`snippet: #8 [json] format 1`] = `
@@ -213,16 +445,44 @@ exports[`snippet: #8 [json] format 2`] = `
     |  ^"
 `;
 
+exports[`snippet: #8 [json] format 3`] = `
+"Unexpected token (1:1)
+> 1 | #!/usr/bin/env node
+    | ^
+Cause: Unexpected token (1:0)"
+`;
+
 exports[`snippet: #8 [json-stringify] format 1`] = `
 "Computed key is not allowed in JSON. (1:3)
 > 1 | {[key]: 1}
     |   ^^^"
 `;
 
+exports[`snippet: #8 [json-stringify] format 2`] = `
+"Unexpected token (1:1)
+> 1 | #!/usr/bin/env node
+    | ^
+Cause: Unexpected token (1:0)"
+`;
+
 exports[`snippet: #8 [json5] format 1`] = `
 "Computed key is not allowed in JSON. (1:3)
 > 1 | {[key]: 1}
     |   ^^^"
+`;
+
+exports[`snippet: #8 [json5] format 2`] = `
+"Unexpected token (1:1)
+> 1 | #!/usr/bin/env node
+    | ^
+Cause: Unexpected token (1:0)"
+`;
+
+exports[`snippet: #8 [jsonc] format 1`] = `
+"Unexpected token (1:1)
+> 1 | #!/usr/bin/env node
+    | ^
+Cause: Unexpected token (1:0)"
 `;
 
 exports[`snippet: #9 [json] format 1`] = `
@@ -237,16 +497,48 @@ exports[`snippet: #9 [json] format 2`] = `
     |      ^"
 `;
 
+exports[`snippet: #9 [json] format 3`] = `
+"Unexpected token (1:1)
+> 1 | #!/usr/bin/env node
+    | ^
+  2 | []
+Cause: Unexpected token (1:0)"
+`;
+
 exports[`snippet: #9 [json-stringify] format 1`] = `
 "Computed key is not allowed in JSON. (1:3)
 > 1 | {[key()]: 1}
     |   ^^^^^"
 `;
 
+exports[`snippet: #9 [json-stringify] format 2`] = `
+"Unexpected token (1:1)
+> 1 | #!/usr/bin/env node
+    | ^
+  2 | []
+Cause: Unexpected token (1:0)"
+`;
+
 exports[`snippet: #9 [json5] format 1`] = `
 "Computed key is not allowed in JSON. (1:3)
 > 1 | {[key()]: 1}
     |   ^^^^^"
+`;
+
+exports[`snippet: #9 [json5] format 2`] = `
+"Unexpected token (1:1)
+> 1 | #!/usr/bin/env node
+    | ^
+  2 | []
+Cause: Unexpected token (1:0)"
+`;
+
+exports[`snippet: #9 [jsonc] format 1`] = `
+"Unexpected token (1:1)
+> 1 | #!/usr/bin/env node
+    | ^
+  2 | []
+Cause: Unexpected token (1:0)"
 `;
 
 exports[`snippet: #10 [json] format 1`] = `
@@ -280,9 +572,9 @@ exports[`snippet: #11 [json] format 1`] = `
 `;
 
 exports[`snippet: #11 [json] format 2`] = `
-"Unexpected token. (1:28)
+"'ImportExpression' is not allowed in JSON. (1:2)
 > 1 | [import('a', {type:'json'})]
-    |                            ^"
+    |  ^^^^^^^^^^^^^^^^^^^^^^^^^^"
 `;
 
 exports[`snippet: #11 [json-stringify] format 1`] = `
@@ -304,9 +596,10 @@ exports[`snippet: #12 [json] format 1`] = `
 `;
 
 exports[`snippet: #12 [json] format 2`] = `
-"Unexpected token. (1:3)
+"Identifier directly after number. (1:3)
 > 1 | [1m]
-    |   ^"
+    |   ^
+Cause: Identifier directly after number. (1:2)"
 `;
 
 exports[`snippet: #12 [json-stringify] format 1`] = `
@@ -448,9 +741,9 @@ exports[`snippet: #18 [json] format 1`] = `
 `;
 
 exports[`snippet: #18 [json] format 2`] = `
-"Unexpected token. (1:34)
+"'ImportExpression' is not allowed in JSON. (1:2)
 > 1 | [import('a', {reflect: 'module'})]
-    |                                  ^"
+    |  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
 `;
 
 exports[`snippet: #18 [json-stringify] format 1`] = `
@@ -497,9 +790,9 @@ exports[`snippet: #20 [json] format 1`] = `
 `;
 
 exports[`snippet: #20 [json] format 2`] = `
-"Unexpected token. (1:16)
+"'FunctionExpression' is not allowed in JSON. (1:2)
 > 1 | [function() { {using a = b} }]
-    |                ^"
+    |  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
 `;
 
 exports[`snippet: #20 [json-stringify] format 1`] = `
@@ -546,11 +839,11 @@ Cause: Unexpected token (1:0)"
 `;
 
 exports[`snippet: #22 [json] format 1`] = `
-"Unexpected token (2:1)
+"The input should contain exactly one expression, but the first expression is followed by the unexpected character \`{\`. (2:1)
   1 | "use strict"
 > 2 | {}
     | ^
-Cause: Unexpected token (2:0)"
+Cause: Unexpected parseExpression() input: The input should contain exactly one expression, but the first expression is followed by the unexpected character \`{\`. (2:0)"
 `;
 
 exports[`snippet: #22 [json] format 2`] = `
@@ -561,53 +854,54 @@ Cause: Unexpected token (1:1)"
 `;
 
 exports[`snippet: #22 [json-stringify] format 1`] = `
-"Unexpected token (2:1)
+"The input should contain exactly one expression, but the first expression is followed by the unexpected character \`{\`. (2:1)
   1 | "use strict"
 > 2 | {}
     | ^
-Cause: Unexpected token (2:0)"
+Cause: Unexpected parseExpression() input: The input should contain exactly one expression, but the first expression is followed by the unexpected character \`{\`. (2:0)"
 `;
 
 exports[`snippet: #22 [json5] format 1`] = `
-"Unexpected token (2:1)
+"The input should contain exactly one expression, but the first expression is followed by the unexpected character \`{\`. (2:1)
   1 | "use strict"
 > 2 | {}
     | ^
-Cause: Unexpected token (2:0)"
+Cause: Unexpected parseExpression() input: The input should contain exactly one expression, but the first expression is followed by the unexpected character \`{\`. (2:0)"
 `;
 
 exports[`snippet: #23 [json] format 1`] = `
-"Unexpected token (1:14)
+"The input is empty or contains only comments. (1:14)
 > 1 | /* comment */
     |              ^
-Cause: Unexpected token (1:13)"
+Cause: Unexpected parseExpression() input: The input is empty or contains only comments. (1:13)"
 `;
 
 exports[`snippet: #23 [json] format 2`] = `
-"Unexpected token. (1:2)
+"Unexpected token (1:2)
 > 1 | [#{}]
-    |  ^"
+    |  ^
+Cause: Unexpected token (1:1)"
 `;
 
 exports[`snippet: #23 [json-stringify] format 1`] = `
-"Unexpected token (1:14)
+"The input is empty or contains only comments. (1:14)
 > 1 | /* comment */
     |              ^
-Cause: Unexpected token (1:13)"
+Cause: Unexpected parseExpression() input: The input is empty or contains only comments. (1:13)"
 `;
 
 exports[`snippet: #23 [json5] format 1`] = `
-"Unexpected token (1:14)
+"The input is empty or contains only comments. (1:14)
 > 1 | /* comment */
     |              ^
-Cause: Unexpected token (1:13)"
+Cause: Unexpected parseExpression() input: The input is empty or contains only comments. (1:13)"
 `;
 
 exports[`snippet: #24 [json] format 1`] = `
-"Unexpected token (1:11)
+"The input is empty or contains only comments. (1:11)
 > 1 | // comment
     |           ^
-Cause: Unexpected token (1:10)"
+Cause: Unexpected parseExpression() input: The input is empty or contains only comments. (1:10)"
 `;
 
 exports[`snippet: #24 [json] format 2`] = `
@@ -617,17 +911,17 @@ exports[`snippet: #24 [json] format 2`] = `
 `;
 
 exports[`snippet: #24 [json-stringify] format 1`] = `
-"Unexpected token (1:11)
+"The input is empty or contains only comments. (1:11)
 > 1 | // comment
     |           ^
-Cause: Unexpected token (1:10)"
+Cause: Unexpected parseExpression() input: The input is empty or contains only comments. (1:10)"
 `;
 
 exports[`snippet: #24 [json5] format 1`] = `
-"Unexpected token (1:11)
+"The input is empty or contains only comments. (1:11)
 > 1 | // comment
     |           ^
-Cause: Unexpected token (1:10)"
+Cause: Unexpected parseExpression() input: The input is empty or contains only comments. (1:10)"
 `;
 
 exports[`snippet: #25 [json] format 1`] = `
@@ -811,20 +1105,92 @@ exports[`snippet: #33 [json5] format 1`] = `
 `;
 
 exports[`snippet: #34 [json] format 1`] = `
-"Invalid left-hand side in prefix operation. (1:5)
-> 1 | ----123
-    |     ^
-Cause: Invalid left-hand side in prefix operation. (1:4)"
+"'ParenthesizedExpression' is not allowed in JSON. (1:1)
+> 1 | (1)
+    | ^^^"
 `;
 
 exports[`snippet: #34 [json-stringify] format 1`] = `
+"'ParenthesizedExpression' is not allowed in JSON. (1:1)
+> 1 | (1)
+    | ^^^"
+`;
+
+exports[`snippet: #34 [json5] format 1`] = `
+"'ParenthesizedExpression' is not allowed in JSON. (1:1)
+> 1 | (1)
+    | ^^^"
+`;
+
+exports[`snippet: #35 [json] format 1`] = `
+"Operator '+' before 'ParenthesizedExpression' is not allowed in JSON. (1:2)
+> 1 | +(1)
+    |  ^^^"
+`;
+
+exports[`snippet: #35 [json-stringify] format 1`] = `
+"Operator '+' before 'ParenthesizedExpression' is not allowed in JSON. (1:2)
+> 1 | +(1)
+    |  ^^^"
+`;
+
+exports[`snippet: #35 [json5] format 1`] = `
+"Operator '+' before 'ParenthesizedExpression' is not allowed in JSON. (1:2)
+> 1 | +(1)
+    |  ^^^"
+`;
+
+exports[`snippet: #36 [json] format 1`] = `
+"'ParenthesizedExpression' is not allowed in JSON. (1:1)
+> 1 | ([1,])
+    | ^^^^^^"
+`;
+
+exports[`snippet: #36 [json-stringify] format 1`] = `
+"'ParenthesizedExpression' is not allowed in JSON. (1:1)
+> 1 | ([1,])
+    | ^^^^^^"
+`;
+
+exports[`snippet: #36 [json5] format 1`] = `
+"'ParenthesizedExpression' is not allowed in JSON. (1:1)
+> 1 | ([1,])
+    | ^^^^^^"
+`;
+
+exports[`snippet: #37 [json] format 1`] = `
+"'ParenthesizedExpression' is not allowed in JSON. (1:5)
+> 1 | [1, (2)]
+    |     ^^^"
+`;
+
+exports[`snippet: #37 [json-stringify] format 1`] = `
+"'ParenthesizedExpression' is not allowed in JSON. (1:5)
+> 1 | [1, (2)]
+    |     ^^^"
+`;
+
+exports[`snippet: #37 [json5] format 1`] = `
+"'ParenthesizedExpression' is not allowed in JSON. (1:5)
+> 1 | [1, (2)]
+    |     ^^^"
+`;
+
+exports[`snippet: #38 [json] format 1`] = `
 "Invalid left-hand side in prefix operation. (1:5)
 > 1 | ----123
     |     ^
 Cause: Invalid left-hand side in prefix operation. (1:4)"
 `;
 
-exports[`snippet: #34 [json5] format 1`] = `
+exports[`snippet: #38 [json-stringify] format 1`] = `
+"Invalid left-hand side in prefix operation. (1:5)
+> 1 | ----123
+    |     ^
+Cause: Invalid left-hand side in prefix operation. (1:4)"
+`;
+
+exports[`snippet: #38 [json5] format 1`] = `
 "Invalid left-hand side in prefix operation. (1:5)
 > 1 | ----123
     |     ^

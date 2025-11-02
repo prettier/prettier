@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`pipeline_own_line.js [acorn] format 1`] = `
 "Unexpected token (4:3)
@@ -33,7 +33,18 @@ exports[`pipeline_own_line.js [meriyah] format 1`] = `
   5 | }
   6 |
   7 | bifornCringerMoshedPerplexSawder(
-Cause: [4:3]: Unexpected token: '>'"
+Cause: [4:2-4:3]: Unexpected token: '>'"
+`;
+
+exports[`pipeline_own_line.js [oxc] format 1`] = `
+"Unexpected token (4:3)
+  2 | 	0
+  3 | 	// Comment
+> 4 | 	|> x
+    | 	 ^
+  5 | }
+  6 |
+  7 | bifornCringerMoshedPerplexSawder("
 `;
 
 exports[`pipeline_own_line.js format 1`] = `

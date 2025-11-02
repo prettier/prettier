@@ -1,15 +1,14 @@
 import semver from "semver";
-
 import parseArguments from "./parse-arguments.js";
 import * as steps from "./steps/index.js";
-import { logPromise, readJson, runGit } from "./utils.js";
+import { logPromise, readJson } from "./utils.js";
 
 const params = parseArguments();
-const { stdout: previousVersion } = await runGit([
-  "describe",
-  "--tags",
-  "--abbrev=0",
-]);
+const {
+  default: { version: previousVersion },
+} = await import("prettier/package.json", {
+  with: { type: "json" },
+});
 if (semver.parse(previousVersion) === null) {
   throw new Error(`Unexpected previousVersion: ${previousVersion}`);
 } else {
@@ -57,13 +56,17 @@ for (let step of [
   },
   params.manual ? steps.publishToNpm : steps.waitForBotRelease,
   steps.showInstructionsAfterNpmPublish,
+  {
+    name: "Merge release notes PR",
+    process: steps.mergeBlogPost,
+  },
   steps.updateDependentsCount,
-  steps.bumpPrettier,
   {
     name: "Cleaning changelog",
     process: steps.cleanChangelog,
     skip: params.dry || params.next,
   },
+  steps.bumpPrettier,
   steps.postPublishSteps,
 ]) {
   if (typeof step === "function") {

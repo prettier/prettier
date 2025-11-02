@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`function-predicate.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const fn = function(): %checks  {}
+
+=====================================output=====================================
+const fn = function (): %checks {};
+
+================================================================================
+`;

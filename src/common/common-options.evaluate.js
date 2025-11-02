@@ -9,6 +9,23 @@ const options = {
     description: "Print spaces between brackets.",
     oppositeDescription: "Do not print spaces between brackets.",
   },
+  objectWrap: {
+    category: CATEGORY_COMMON,
+    type: "choice",
+    default: "preserve",
+    description: "How to wrap object literals.",
+    choices: [
+      {
+        value: "preserve",
+        description:
+          "Keep as multi-line, if there is a newline between the opening brace and first property.",
+      },
+      {
+        value: "collapse",
+        description: "Fit to a single line when possible.",
+      },
+    ],
+  },
   singleQuote: {
     category: CATEGORY_COMMON,
     type: "boolean",

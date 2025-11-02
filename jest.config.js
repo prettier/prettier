@@ -1,7 +1,5 @@
 import path from "node:path";
-
 import createEsmUtils from "esm-utils";
-
 import installPrettier from "./tests/config/install-prettier.js";
 
 const { dirname: PROJECT_ROOT } = createEsmUtils(import.meta);
@@ -12,10 +10,10 @@ const TEST_STANDALONE = Boolean(process.env.TEST_STANDALONE);
 const INSTALL_PACKAGE = Boolean(process.env.INSTALL_PACKAGE);
 // When debugging production test, this flag can skip installing package
 const SKIP_PRODUCTION_INSTALL = Boolean(process.env.SKIP_PRODUCTION_INSTALL);
-const SKIP_TESTS_WITH_NEW_SYNTAX = process.versions.node.startsWith("14.");
+const nodejsMajorVersion = Number(process.versions.node.split(".")[0]);
 
 let PRETTIER_DIR = isProduction
-  ? path.join(PROJECT_ROOT, "dist")
+  ? path.join(PROJECT_ROOT, "dist/prettier")
   : PROJECT_ROOT;
 let PRETTIER_INSTALLED_DIR = "";
 if (
@@ -42,13 +40,21 @@ if (isProduction) {
   );
 }
 
-if (SKIP_TESTS_WITH_NEW_SYNTAX) {
+if (nodejsMajorVersion <= 16) {
+  // Uses import attributes
   testPathIgnorePatterns.push(
     "<rootDir>/tests/integration/__tests__/help-options.js",
+  );
+}
+
+if (nodejsMajorVersion <= 14) {
+  testPathIgnorePatterns.push(
     "<rootDir>/tests/integration/__tests__/plugin-parsers.js",
     "<rootDir>/tests/integration/__tests__/normalize-doc.js",
     "<rootDir>/tests/integration/__tests__/doc-utils-clean-doc.js",
     "<rootDir>/tests/integration/__tests__/config-invalid.js",
+    // `@prettier/cli` uses `node:stream/consumers`, not available on Node.js v14
+    "<rootDir>/tests/integration/__tests__/experimental-cli.js",
     // Fails on Node.js v14
     "<rootDir>/tests/dts/unit/run.js",
   );
@@ -59,18 +65,20 @@ const config = {
     "<rootDir>/tests/config/format-test-setup.js",
     "<rootDir>/tests/integration/integration-test-setup.js",
   ],
+<<<<<<< HEAD
   runner: "jest-light-runner",
   testEnvironmentOptions: {
     customExportConditions: ["development"],
   },
+=======
+  runner: "jest-light-runner/child-process",
+>>>>>>> main
   snapshotSerializers: [
     "jest-snapshot-serializer-raw",
     "jest-snapshot-serializer-ansi",
   ],
   testMatch: [
     "<rootDir>/tests/format/**/format.test.js",
-    // TODO: Remove this in 2025
-    "<rootDir>/tests/format/**/jsfmt.spec.js",
     "<rootDir>/tests/integration/__tests__/**/*.js",
     "<rootDir>/tests/unit/**/*.js",
     "<rootDir>/tests/dts/unit/**/*.js",

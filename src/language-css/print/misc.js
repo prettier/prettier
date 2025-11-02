@@ -1,6 +1,5 @@
 import printNumber from "../../utils/print-number.js";
 import printString from "../../utils/print-string.js";
-import { maybeToLowerCase } from "../utils/index.js";
 import CSS_UNITS from "./css-units.evaluate.js";
 
 function printUnit(unit) {
@@ -28,18 +27,44 @@ function adjustStrings(value, options) {
 
 function quoteAttributeValue(value, options) {
   const quote = options.singleQuote ? "'" : '"';
-  return value.includes('"') || value.includes("'")
-    ? value
-    : quote + value + quote;
+
+  // The selector parser currently only understand `i` flag,
+  // but not `s`, `S`, and `I`
+  // To support future flags, we simply check if it's an alphabet letter
+  // https://github.com/prettier/prettier/pull/17865#discussion_r2332698101
+  let flag = "";
+  const match = value.match(/^(?<value>.+?)\s+(?<flag>[a-zA-Z])$/u);
+  if (match) {
+    ({ value, flag } = match.groups);
+  }
+
+  return (
+    (value.includes('"') || value.includes("'")
+      ? value
+      : quote + value + quote) + (flag ? ` ${flag}` : "")
+  );
 }
 
 function adjustNumbers(value) {
   return value.replaceAll(
     ADJUST_NUMBERS_REGEX,
-    (match, quote, wordPart, number, unit) =>
-      !wordPart && number
-        ? printCssNumber(number) + maybeToLowerCase(unit || "")
-        : match,
+    (match, quote, wordPart, number, unit) => {
+      if (!wordPart && number) {
+        unit ??= "";
+        unit = unit.toLowerCase();
+
+        if (
+          !unit ||
+          // `2n + 1`
+          unit === "n" ||
+          CSS_UNITS.has(unit)
+        ) {
+          return printCssNumber(number) + (unit ? printUnit(unit) : "");
+        }
+      }
+
+      return match;
+    },
   );
 }
 

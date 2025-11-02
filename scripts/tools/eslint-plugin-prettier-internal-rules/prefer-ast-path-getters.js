@@ -1,5 +1,3 @@
-"use strict";
-
 const selector = [
   "CallExpression",
   "[optional=false]",
@@ -53,12 +51,9 @@ function getReplacement(callExpression) {
   }
 }
 
-module.exports = {
+export default {
   meta: {
     type: "suggestion",
-    docs: {
-      url: "https://github.com/prettier/prettier/blob/main/scripts/tools/eslint-plugin-prettier-internal-rules/prefer-ast-path-getters.js",
-    },
     fixable: "code",
     hasSuggestions: true,
     messages: {

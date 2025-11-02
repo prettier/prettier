@@ -28,6 +28,7 @@ export default function getCodeSamples(parser) {
         "}",
       ].join("\n");
     case "flow":
+    case "hermes":
     case "babel-flow":
       return [
         "declare export function graphql<Props, Variables, Component: React$ComponentType<Props>>",
@@ -308,6 +309,18 @@ export default function getCodeSamples(parser) {
         '    <SCRIPT src="https://www.google-analytics.com/analytics.js" ASYNC DEFER></SCRIPT>',
         "  </body>",
         "</HTML>",
+      ].join("\n");
+    case "mjml":
+      return [
+        "<mjml> <mj-body>",
+        "    <mj-section>",
+        "      <mj-column>",
+        "<mj-text> Hello World!",
+        "        </mj-text>",
+        "      </mj-column>",
+        "    </mj-section>",
+        "  </mj-body>",
+        "  </mjml>",
       ].join("\n");
     case "doc-explorer":
       return [

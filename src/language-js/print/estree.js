@@ -1,6 +1,7 @@
 import {
   group,
   hardline,
+  ifBreak,
   indent,
   join,
   line,
@@ -14,13 +15,14 @@ import { locEnd, locStart } from "../loc.js";
 import {
   CommentCheckFlags,
   hasComment,
-  isArrayOrTupleExpression,
+  isArrayExpression,
   isCallExpression,
   isLiteral,
+  isMeaningfulEmptyStatement,
   isMemberExpression,
   isMethod,
   isNextLineEmpty,
-  isObjectOrRecordExpression,
+  isObjectExpression,
   needsHardlineAfterDanglingComment,
   startsWithNoLookaheadToken,
 } from "../utils/index.js";
@@ -67,15 +69,15 @@ import { printObject } from "./object.js";
 import { printProperty } from "./property.js";
 import { printStatementSequence } from "./statement.js";
 import {
-  printTaggedTemplateLiteral,
+  printTaggedTemplateExpression,
   printTemplateLiteral,
 } from "./template-literal.js";
 import { printTernary } from "./ternary.js";
 import { printTypeAnnotationProperty } from "./type-annotation.js";
 
 /**
- * @typedef {import("../../common/ast-path.js").default} AstPath
- * @typedef {import("../../document/builders.js").Doc} Doc
+ * @import AstPath from "../../common/ast-path.js"
+ * @import {Doc} from "../../document/builders.js"
  */
 
 /**
@@ -92,20 +94,14 @@ function printEstree(path, options, print, args) {
     return printLiteral(path, options);
   }
 
-  const semi = options.semi ? ";" : "";
-  /** @type{Doc[]} */
-  let parts = [];
-
   switch (node.type) {
     case "JsExpressionRoot":
       return print("node");
     case "JsonRoot":
-      return [print("node"), hardline];
+      return [printDanglingComments(path, options), print("node"), hardline];
+    // Babel extension.
     case "File":
       return printHtmlBinding(path, options, print) ?? print("program");
-    // Babel extension.
-    case "EmptyStatement":
-      return "";
     case "ExpressionStatement":
       return printExpressionStatement(path, options, print);
 
@@ -116,8 +112,8 @@ function printEstree(path, options, print, args) {
     case "ParenthesizedExpression": {
       const shouldHug =
         !hasComment(node.expression) &&
-        (isObjectOrRecordExpression(node.expression) ||
-          isArrayOrTupleExpression(node.expression));
+        (isObjectExpression(node.expression) ||
+          isArrayExpression(node.expression));
       if (shouldHug) {
         return ["(", print("expression"), ")"];
       }
@@ -144,17 +140,12 @@ function printEstree(path, options, print, args) {
     case "MetaProperty":
       return [print("meta"), ".", print("property")];
     case "BindExpression":
-      if (node.object) {
-        parts.push(print("object"));
-      }
-
-      parts.push(
+      return [
+        print("object"),
         group(
           indent([softline, printBindExpressionCallee(path, options, print)]),
         ),
-      );
-
-      return parts;
+      ];
     case "Identifier":
       return [
         node.name,
@@ -172,22 +163,17 @@ function printEstree(path, options, print, args) {
       return printRestSpread(path, print);
     case "FunctionDeclaration":
     case "FunctionExpression":
-      return printFunction(path, print, options, args);
+      return printFunction(path, options, print, args);
     case "ArrowFunctionExpression":
       return printArrowFunction(path, options, print, args);
     case "YieldExpression":
-      parts.push("yield");
-
-      if (node.delegate) {
-        parts.push("*");
-      }
-      if (node.argument) {
-        parts.push(" ", print("argument"));
-      }
-
-      return parts;
-    case "AwaitExpression":
-      parts.push("await");
+      return [
+        `yield${node.delegate ? "*" : ""}`,
+        node.argument ? [" ", print("argument")] : "",
+      ];
+    case "AwaitExpression": {
+      /** @type{Doc[]} */
+      let parts = ["await"];
       if (node.argument) {
         parts.push(" ", print("argument"));
         const { parent } = path;
@@ -213,6 +199,7 @@ function printEstree(path, options, print, args) {
         }
       }
       return parts;
+    }
 
     case "ExportDefaultDeclaration":
     case "ExportNamedDeclaration":
@@ -229,8 +216,6 @@ function printEstree(path, options, print, args) {
       return printModuleSpecifier(path, options, print);
     case "ImportAttribute":
       return printProperty(path, options, print);
-    case "Import":
-      return "import";
 
     case "Program":
     case "BlockStatement":
@@ -250,7 +235,6 @@ function printEstree(path, options, print, args) {
 
     case "ObjectExpression":
     case "ObjectPattern":
-    case "RecordExpression":
       return printObject(path, options, print);
     case "Property":
       if (isMethod(node)) {
@@ -267,7 +251,6 @@ function printEstree(path, options, print, args) {
       return ["@", print("expression")];
     case "ArrayExpression":
     case "ArrayPattern":
-    case "TupleExpression":
       return printArray(path, options, print);
     case "SequenceExpression": {
       const { parent } = path;
@@ -288,16 +271,28 @@ function printEstree(path, options, print, args) {
         }, "expressions");
         return group(parts);
       }
-      return group(join([",", line], path.map(print, "expressions")));
+
+      const parts = join([",", line], path.map(print, "expressions"));
+
+      if (
+        ((parent.type === "ReturnStatement" ||
+          parent.type === "ThrowStatement") &&
+          path.key === "argument") ||
+        (parent.type === "ArrowFunctionExpression" && path.key === "body")
+      ) {
+        return group(ifBreak([indent([softline, parts]), softline], parts));
+      }
+
+      return group(parts);
     }
     case "ThisExpression":
       return "this";
     case "Super":
       return "super";
     case "Directive":
-      return [print("value"), semi]; // Babel 6
-    case "UnaryExpression":
-      parts.push(node.operator);
+      return [print("value"), options.semi ? ";" : ""];
+    case "UnaryExpression": {
+      const parts = [node.operator];
 
       if (/[a-z]$/u.test(node.operator)) {
         parts.push(" ");
@@ -312,6 +307,7 @@ function printEstree(path, options, print, args) {
       }
 
       return parts;
+    }
     case "UpdateExpression":
       return [
         node.prefix ? node.operator : "",
@@ -342,7 +338,7 @@ function printEstree(path, options, print, args) {
         firstVariable = indent(printed[0]);
       }
 
-      parts = [
+      return group([
         printDeclareToken(path),
         node.kind,
         firstVariable ? [" ", firstVariable] : "",
@@ -355,13 +351,10 @@ function printEstree(path, options, print, args) {
               p,
             ]),
         ),
-      ];
-
-      if (!(isParentForLoop && parentNode.body !== node)) {
-        parts.push(semi);
-      }
-
-      return group(parts);
+        options.semi && !(isParentForLoop && parentNode.body !== node)
+          ? ";"
+          : "",
+      ]);
     }
     case "WithStatement":
       return group([
@@ -378,8 +371,8 @@ function printEstree(path, options, print, args) {
         ")",
         consequent,
       ]);
-
-      parts.push(opening);
+      /** @type{Doc[]} */
+      const parts = [opening];
 
       if (node.alternate) {
         const commentOnOwnLine =
@@ -479,41 +472,31 @@ function printEstree(path, options, print, args) {
     case "DoWhileStatement": {
       const clause = adjustClause(node.body, print("body"));
       const doBody = group(["do", clause]);
-      parts = [doBody];
 
-      if (node.body.type === "BlockStatement") {
-        parts.push(" ");
-      } else {
-        parts.push(hardline);
-      }
-      parts.push(
+      return [
+        doBody,
+        node.body.type === "BlockStatement" ? " " : hardline,
         "while (",
         group([indent([softline, print("test")]), softline]),
         ")",
-        semi,
-      );
-
-      return parts;
+        options.semi ? ";" : "",
+      ];
     }
     case "DoExpression":
       return [node.async ? "async " : "", "do ", print("body")];
     case "BreakStatement":
     case "ContinueStatement":
-      parts.push(node.type === "BreakStatement" ? "break" : "continue");
-
-      if (node.label) {
-        parts.push(" ", print("label"));
-      }
-
-      parts.push(semi);
-
-      return parts;
+      return [
+        node.type === "BreakStatement" ? "break" : "continue",
+        node.label ? [" ", print("label")] : "",
+        options.semi ? ";" : "",
+      ];
     case "LabeledStatement":
-      if (node.body.type === "EmptyStatement") {
-        return [print("label"), ":;"];
-      }
-
-      return [print("label"), ": ", print("body")];
+      return [
+        print("label"),
+        `:${node.body.type === "EmptyStatement" && !hasComment(node.body, CommentCheckFlags.Leading) ? "" : " "}`,
+        print("body"),
+      ];
     case "TryStatement":
       return [
         "try ",
@@ -575,6 +558,7 @@ function printEstree(path, options, print, args) {
         "}",
       ];
     case "SwitchCase": {
+      const parts = [];
       if (node.test) {
         parts.push("case ", print("test"), ":");
       } else {
@@ -603,7 +587,7 @@ function printEstree(path, options, print, args) {
     }
     // JSX extensions below.
     case "DebuggerStatement":
-      return ["debugger", semi];
+      return ["debugger", options.semi ? ";" : ""];
 
     case "ClassDeclaration":
     case "ClassExpression":
@@ -621,9 +605,9 @@ function printEstree(path, options, print, args) {
     case "TemplateElement":
       return replaceEndOfLine(node.value.raw);
     case "TemplateLiteral":
-      return printTemplateLiteral(path, print, options);
+      return printTemplateLiteral(path, options, print);
     case "TaggedTemplateExpression":
-      return printTaggedTemplateLiteral(path, print);
+      return printTaggedTemplateExpression(path, options, print);
     case "PrivateIdentifier":
       return ["#", node.name];
     case "PrivateName":
@@ -639,6 +623,14 @@ function printEstree(path, options, print, args) {
     case "ModuleExpression":
       return ["module ", print("body")];
 
+    case "VoidPattern":
+      return "void";
+
+    case "EmptyStatement":
+      if (isMeaningfulEmptyStatement(path)) {
+        return ";";
+      }
+    // Fall through
     case "InterpreterDirective": // Printed as comment
     default:
       /* c8 ignore next */

@@ -1,9 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-
 import createEsmUtils from "esm-utils";
 import fastGlob from "fast-glob";
-
 import coreOptions from "../../../src/main/core-options.evaluate.js";
 import codeSamples from "../../../website/playground/codeSamples.mjs";
 import prettier from "../../config/prettier-entry.js";
@@ -13,7 +11,7 @@ import { projectRoot } from "../env.js";
 const { require, importModule } = createEsmUtils(import.meta);
 
 const parserNames = coreOptions.parser.choices.map(({ value }) => value);
-const distDirectory = path.join(projectRoot, "dist");
+const distDirectory = path.join(projectRoot, "dist/prettier");
 
 // Files including U+FFEE can't load in Chrome Extension
 // `prettier-chrome-extension` https://github.com/prettier/prettier-chrome-extension

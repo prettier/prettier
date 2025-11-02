@@ -1,11 +1,13 @@
 import path from "node:path";
 import { parseArgs } from "node:util";
-
 import { DIST_DIR } from "../utils/index.js";
+
+const isUnique = (array) => new Set(array).size === array.length;
 
 function parseArguments() {
   const { values } = parseArgs({
     options: {
+      package: { type: "string", multiple: true },
       playground: { type: "boolean", default: false },
       "print-size": { type: "boolean", default: false },
       "compare-size": { type: "boolean", default: false },
@@ -16,10 +18,9 @@ function parseArguments() {
       "save-as": { type: "string" },
       report: { type: "string", multiple: true },
     },
-    strict: true,
   });
 
-  if (values.minify && values.noMinify) {
+  if (values.minify && values["no-minify"]) {
     throw new Error("'--minify' and '--no-minify' can't be used together.");
   }
 
@@ -32,30 +33,37 @@ function parseArguments() {
     clean: values.clean,
     saveAs: values["save-as"],
     reports: values.report,
+    packages: values.package,
   };
+
+  if (Array.isArray(result.packages) && !isUnique(result.packages)) {
+    throw new Error("'--package' should be unique.");
+  }
 
   if (result.saveAs) {
     if (result.files?.size !== 1) {
       throw new Error(
-        "'--save-as' can only use together with one '--file' flag",
+        "'--save-as' can only use together with one '--file' flag.",
       );
     }
 
-    if (!path.join(DIST_DIR, result.saveAs).startsWith(DIST_DIR)) {
-      throw new Error("'--save-as' can only relative path");
+    // TODO: Support package name
+    const distDirectory = path.join(DIST_DIR, "prettier");
+    if (!path.join(distDirectory, result.saveAs).startsWith(distDirectory)) {
+      throw new Error("'--save-as' can only relative path.");
     }
   }
 
   if (result.compareSize) {
     if (result.minify === false) {
       throw new Error(
-        "'--compare-size' can not use together with '--no-minify' flag",
+        "'--compare-size' can not use together with '--no-minify' flag.",
       );
     }
 
     if (result.saveAs) {
       throw new Error(
-        "'--compare-size' can not use together with '--save-as' flag",
+        "'--compare-size' can not use together with '--save-as' flag.",
       );
     }
   }
@@ -63,7 +71,7 @@ function parseArguments() {
   if (Array.isArray(result.reports) && result.reports.includes("all")) {
     if (result.reports.length !== 1) {
       throw new Error(
-        "'--report=all' can not use with another '--report' flag",
+        "'--report=all' can not use with another '--report' flag.",
       );
     }
 

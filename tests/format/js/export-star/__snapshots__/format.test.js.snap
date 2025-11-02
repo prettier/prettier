@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`export-star.js format 1`] = `
 ====================================options=====================================
@@ -71,12 +71,14 @@ exports[`export-star-as-string.js [flow] format 1`] = `
   2 |"
 `;
 
-exports[`export-star-as-string.js [typescript] format 1`] = `
-"Identifier expected. (1:13)
+exports[`export-star-as-string.js [hermes] format 1`] = `
+"'identifier' expected in export clause (1:12)
 > 1 | export * as 'foo' from 'foo'
-    |             ^
+    |            ^
   2 |
-Cause: Identifier expected."
+Cause: 'identifier' expected in export clause (1:12)
+export * as 'foo' from 'foo'
+~~~~~~~~~~~~^"
 `;
 
 exports[`export-star-as-string.js format 1`] = `
@@ -100,12 +102,14 @@ exports[`export-star-as-string2.js [flow] format 1`] = `
   2 |"
 `;
 
-exports[`export-star-as-string2.js [typescript] format 1`] = `
-"Identifier expected. (1:13)
+exports[`export-star-as-string2.js [hermes] format 1`] = `
+"'identifier' expected in export clause (1:12)
 > 1 | export * as "foo" from 'foo'
-    |             ^
+    |            ^
   2 |
-Cause: Identifier expected."
+Cause: 'identifier' expected in export clause (1:12)
+export * as "foo" from 'foo'
+~~~~~~~~~~~~^"
 `;
 
 exports[`export-star-as-string2.js format 1`] = `

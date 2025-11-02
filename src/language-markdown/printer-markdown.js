@@ -1,6 +1,5 @@
 import collapseWhiteSpace from "collapse-white-space";
 import escapeStringRegexp from "escape-string-regexp";
-
 import {
   align,
   fill,
@@ -39,16 +38,33 @@ import {
 } from "./utils.js";
 
 /**
- * @typedef {import("../document/builders.js").Doc} Doc
+ * @import {Doc} from "../document/builders.js"
  */
 
 const SIBLING_NODE_TYPES = new Set(["listItem", "definition"]);
+
+function prevOrNextWord(path) {
+  const { previous, next } = path;
+  const hasPrevOrNextWord =
+    (previous?.type === "sentence" &&
+      previous.children.at(-1)?.type === "word" &&
+      !previous.children.at(-1).hasTrailingPunctuation) ||
+    (next?.type === "sentence" &&
+      next.children[0]?.type === "word" &&
+      !next.children[0].hasLeadingPunctuation);
+  return hasPrevOrNextWord;
+}
 
 function genericPrint(path, options, print) {
   const { node } = path;
 
   if (shouldRemainTheSameContent(path)) {
-    /** @type {Doc} */
+    /*
+     * We assume parts always meet following conditions:
+     * - parts.length is odd
+     * - odd (0-indexed) elements are line-like doc
+     */
+    /** @type {Doc[]} */
     const parts = [""];
     const textsNodes = splitText(
       options.originalText.slice(
@@ -66,12 +82,14 @@ function genericPrint(path, options, print) {
         parts.push([parts.pop(), doc]);
         continue;
       }
-      parts.push(doc);
+      // In this path, doc is line. To meet the condition, we need additional element "".
+      parts.push(doc, "");
     }
     return fill(parts);
   }
 
   switch (node.type) {
+<<<<<<< HEAD
     case "front-matter":
       return options.parser === "mdx"
         ? options.originalText.slice(
@@ -79,6 +97,8 @@ function genericPrint(path, options, print) {
             node.position.end.offset,
           )
         : node.raw;
+=======
+>>>>>>> main
     case "root":
       /* c8 ignore next 3 */
       if (node.children.length === 0) {
@@ -150,16 +170,14 @@ function genericPrint(path, options, print) {
       if (isAutolink(node.children[0])) {
         style = options.originalText[node.position.start.offset];
       } else {
-        const { previous, next } = path;
-        const hasPrevOrNextWord = // `1*2*3` is considered emphasis but `1_2_3` is not
-          (previous?.type === "sentence" &&
-            previous.children.at(-1)?.type === "word" &&
-            !previous.children.at(-1).hasTrailingPunctuation) ||
-          (next?.type === "sentence" &&
-            next.children[0]?.type === "word" &&
-            !next.children[0].hasLeadingPunctuation);
+        const hasPrevOrNextWord = prevOrNextWord(path); // `1*2*3` is considered emphasis but `1_2_3` is not
+        const inStrongAndHasPrevOrNextWord = // `1***2***3` is considered strong emphasis but `1**_2_**3` is not
+          path.callParent(
+            ({ node }) => node.type === "strong" && prevOrNextWord(path),
+          );
         style =
           hasPrevOrNextWord ||
+          inStrongAndHasPrevOrNextWord ||
           path.hasAncestor((node) => node.type === "emphasis")
             ? "*"
             : "_";
@@ -176,7 +194,7 @@ function genericPrint(path, options, print) {
           ? node.value
           : node.value.replaceAll("\n", " ");
       const backtickCount = getMinNotPresentContinuousCount(code, "`");
-      const backtickString = "`".repeat(backtickCount || 1);
+      const backtickString = "`".repeat(backtickCount);
       const padding =
         code.startsWith("`") ||
         code.endsWith("`") ||
@@ -299,9 +317,9 @@ function genericPrint(path, options, print) {
       );
 
       return printChildren(path, options, print, {
-        processor(childPath) {
+        processor() {
           const prefix = getPrefix();
-          const childNode = childPath.node;
+          const { node: childNode } = path;
 
           if (
             childNode.children.length === 2 &&
@@ -309,31 +327,32 @@ function genericPrint(path, options, print) {
             childNode.children[0].position.start.column !==
               childNode.children[1].position.start.column
           ) {
-            return [prefix, printListItem(childPath, options, print, prefix)];
+            return [prefix, printListItem(path, options, print, prefix)];
           }
 
           return [
             prefix,
             align(
               " ".repeat(prefix.length),
-              printListItem(childPath, options, print, prefix),
+              printListItem(path, options, print, prefix),
             ),
           ];
 
           function getPrefix() {
             const rawPrefix = node.ordered
-              ? (childPath.isFirst
+              ? (path.isFirst
                   ? node.start
                   : isGitDiffFriendlyOrderedList
                     ? 1
-                    : node.start + childPath.index) +
+                    : node.start + path.index) +
                 (nthSiblingIndex % 2 === 0 ? ". " : ") ")
               : nthSiblingIndex % 2 === 0
                 ? "- "
                 : "* ";
 
-            return node.isAligned ||
-              /* workaround for https://github.com/remarkjs/remark/issues/315 */ node.hasIndentedCodeblock
+            return (node.isAligned ||
+              /* workaround for https://github.com/remarkjs/remark/issues/315 */ node.hasIndentedCodeblock) &&
+              node.ordered
               ? alignListPrefix(rawPrefix, options)
               : rawPrefix;
           }
@@ -437,7 +456,7 @@ function genericPrint(path, options, print) {
     case "import":
     case "export":
     case "jsx":
-      return node.value;
+      return node.value.trimEnd();
     case "esComment":
       return ["{/* ", node.value, " */}"];
     case "math":
@@ -453,6 +472,7 @@ function genericPrint(path, options, print) {
       // since it's very possible that it's recognized as math accidentally
       return options.originalText.slice(locStart(node), locEnd(node));
 
+    case "frontMatter": // Handled in core
     case "tableRow": // handled in "table"
     case "listItem": // handled in "list"
     case "text": // handled in other types
@@ -677,16 +697,20 @@ function isLooseListItem(node, options) {
 }
 
 function shouldPrePrintDoubleHardline({ node, previous, parent }, options) {
-  const isPrevNodeLooseListItem = isLooseListItem(previous, options);
-
-  if (isPrevNodeLooseListItem) {
+  if (
+    isLooseListItem(previous, options) ||
+    (node.type === "list" &&
+      parent.type === "listItem" &&
+      previous.type === "code")
+  ) {
     return true;
   }
 
   const isSequence = previous.type === node.type;
   const isSiblingNode = isSequence && SIBLING_NODE_TYPES.has(node.type);
   const isInTightListItem =
-    parent.type === "listItem" && !isLooseListItem(parent, options);
+    parent.type === "listItem" &&
+    (node.type === "list" || !isLooseListItem(parent, options));
   const isPrevNodePrettierIgnore = isPrettierIgnore(previous) === "next";
   const isBlockHtmlWithoutBlankLineBetweenPrevHtml =
     node.type === "html" &&
@@ -774,7 +798,7 @@ function printTitle(title, options, printSpace = true) {
 }
 
 function clamp(value, min, max) {
-  return value < min ? min : value > max ? max : value;
+  return Math.max(min, Math.min(value, max));
 }
 
 function hasPrettierIgnore(path) {
@@ -792,6 +816,13 @@ function printFootnoteReference(node) {
 }
 
 const printer = {
+  features: {
+    experimental_frontMatterSupport: {
+      massageAstNode: true,
+      embed: true,
+      print: true,
+    },
+  },
   preprocess,
   print: genericPrint,
   embed,

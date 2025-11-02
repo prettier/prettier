@@ -1,13 +1,13 @@
-function isPragma(text) {
-  return /^\s*@(?:prettier|format)\s*$/u.test(text);
-}
+import {
+  FORMAT_PRAGMA_TO_INSERT,
+  YAML_HAS_IGNORE_PRAGMA_REGEXP,
+  YAML_HAS_PRAGMA_REGEXP,
+  YAML_IS_PRAGMA_REGEXP,
+} from "../utils/pragma/pragma.evaluate.js";
 
-function hasPragma(text) {
-  return /^\s*#[^\S\n]*@(?:prettier|format)\s*?(?:\n|$)/u.test(text);
-}
+const isPragma = (text) => YAML_IS_PRAGMA_REGEXP.test(text);
+const hasPragma = (text) => YAML_HAS_PRAGMA_REGEXP.test(text);
+const hasIgnorePragma = (text) => YAML_HAS_IGNORE_PRAGMA_REGEXP.test(text);
+const insertPragma = (text) => `# @${FORMAT_PRAGMA_TO_INSERT}\n\n${text}`;
 
-function insertPragma(text) {
-  return `# @format\n\n${text}`;
-}
-
-export { hasPragma, insertPragma, isPragma };
+export { hasIgnorePragma, hasPragma, insertPragma, isPragma };

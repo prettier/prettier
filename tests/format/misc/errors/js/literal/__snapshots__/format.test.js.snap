@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`invalid-exponent.js [acorn] format 1`] = `
 "Invalid number (1:1)
@@ -25,9 +25,9 @@ Cause: Invalid number"
 `;
 
 exports[`invalid-exponent.js [meriyah] format 1`] = `
-"Non-number found after exponent indicator (1:5)
+"Non-number found after exponent indicator (1:1)
 > 1 | 12.3e
-    |     ^
+    | ^^^^^
   2 |
-Cause: [1:5]: Non-number found after exponent indicator"
+Cause: [1:0-1:5]: Non-number found after exponent indicator"
 `;

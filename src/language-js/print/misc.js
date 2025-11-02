@@ -1,10 +1,16 @@
 import { indent, line } from "../../document/builders.js";
-import { isCallExpression, isMemberExpression } from "../utils/index.js";
+import {
+  CommentCheckFlags,
+  createTypeCheckFunction,
+  hasComment,
+  isCallExpression,
+  isMemberExpression,
+} from "../utils/index.js";
 import { printTypeAnnotationProperty } from "./type-annotation.js";
 
 /**
- * @typedef {import("../../common/ast-path.js").default} AstPath
- * @typedef {import("../../document/builders.js").Doc} Doc
+ * @import AstPath from "../../common/ast-path.js"
+ * @import {Doc} from "../../document/builders.js"
  */
 
 /**
@@ -46,7 +52,7 @@ function printDefiniteToken(path) {
     : "";
 }
 
-const flowDeclareNodeTypes = new Set([
+const isFlowDeclareNode = createTypeCheckFunction([
   "DeclareClass",
   "DeclareComponent",
   "DeclareFunction",
@@ -59,6 +65,7 @@ const flowDeclareNodeTypes = new Set([
   "DeclareEnum",
   "DeclareInterface",
 ]);
+
 /**
  * @param {AstPath} path
  * @returns {Doc}
@@ -70,35 +77,25 @@ function printDeclareToken(path) {
     // TypeScript
     node.declare ||
       // Flow
-      (flowDeclareNodeTypes.has(node.type) &&
+      (isFlowDeclareNode(node) &&
         path.parent.type !== "DeclareExportDeclaration")
       ? "declare "
       : ""
   );
 }
 
-const tsAbstractNodeTypes = new Set([
+const isTsAbstractNode = createTypeCheckFunction([
   "TSAbstractMethodDefinition",
   "TSAbstractPropertyDefinition",
   "TSAbstractAccessorProperty",
 ]);
+
 /**
  * @param {AstPath} param0
  * @returns {Doc}
  */
 function printAbstractToken({ node }) {
-  return node.abstract || tsAbstractNodeTypes.has(node.type) ? "abstract " : "";
-}
-
-function printFunctionTypeParameters(path, options, print) {
-  const fun = path.node;
-  if (fun.typeArguments) {
-    return print("typeArguments");
-  }
-  if (fun.typeParameters) {
-    return print("typeParameters");
-  }
-  return "";
+  return node.abstract || isTsAbstractNode(node) ? "abstract " : "";
 }
 
 function printBindExpressionCallee(path, options, print) {
@@ -107,7 +104,7 @@ function printBindExpressionCallee(path, options, print) {
 
 function adjustClause(node, clause, forceSpace) {
   if (node.type === "EmptyStatement") {
-    return ";";
+    return hasComment(node, CommentCheckFlags.Leading) ? [" ", clause] : clause;
   }
 
   if (node.type === "BlockStatement" || forceSpace) {
@@ -131,7 +128,6 @@ export {
   printBindExpressionCallee,
   printDeclareToken,
   printDefiniteToken,
-  printFunctionTypeParameters,
   printOptionalToken,
   printRestSpread,
   printTypeScriptAccessibilityToken,

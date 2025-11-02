@@ -16,14 +16,15 @@ import {
 import getNextNonSpaceNonCommentCharacterIndex from "../../utils/get-next-non-space-non-comment-character-index.js";
 import { locEnd } from "../loc.js";
 import {
+  CommentCheckFlags,
   getFunctionParameters,
   hasComment,
   hasLeadingOwnLineComment,
-  isArrayOrTupleExpression,
+  isArrayExpression,
   isBinaryish,
   isCallLikeExpression,
   isJsxElement,
-  isObjectOrRecordExpression,
+  isObjectExpression,
   isTemplateOnItsOwnLine,
   shouldPrintComma,
   startsWithNoLookaheadToken,
@@ -32,8 +33,8 @@ import { printReturnType, shouldPrintParamsWithoutParens } from "./function.js";
 import { printFunctionParameters } from "./function-parameters.js";
 
 /**
- * @typedef {import("../../common/ast-path.js").default} AstPath
- * @typedef {import("../../document/builders.js").Doc} Doc
+ * @import AstPath from "../../common/ast-path.js"
+ * @import {Doc} from "../../document/builders.js"
  */
 
 // In order to avoid confusion between
@@ -119,8 +120,9 @@ function printArrowFunction(path, options, print, args = {}) {
     signatureDocs,
     shouldBreak: shouldBreakChain,
   });
-  let shouldBreakSignatures;
+  let shouldBreakSignatures = false;
   let shouldIndentSignatures = false;
+  let shouldPrintSoftlineInIndent = false;
   if (
     shouldPrintAsChain &&
     (isCallee ||
@@ -128,6 +130,13 @@ function printArrowFunction(path, options, print, args = {}) {
       args.assignmentLayout)
   ) {
     shouldIndentSignatures = true;
+    // If the arrow function has a leading line comment, there should be a hardline above it
+    // so we should not print a softline in indent call
+    // https://github.com/prettier/prettier/issues/16067
+    shouldPrintSoftlineInIndent = !hasComment(
+      path.node,
+      CommentCheckFlags.Leading & CommentCheckFlags.Line,
+    );
     shouldBreakSignatures =
       args.assignmentLayout === "chain-tail-arrow-chain" ||
       (isCallee && !shouldPutBodyOnSameLine);
@@ -143,7 +152,7 @@ function printArrowFunction(path, options, print, args = {}) {
   return group([
     group(
       shouldIndentSignatures
-        ? indent([softline, signaturesDoc])
+        ? indent([shouldPrintSoftlineInIndent ? softline : "", signaturesDoc])
         : signaturesDoc,
       { shouldBreak: shouldBreakSignatures, id: chainGroupId },
     ),
@@ -168,9 +177,9 @@ function printArrowFunctionSignature(path, options, print, args) {
   if (shouldPrintParamsWithoutParens(path, options)) {
     parts.push(print(["params", 0]));
   } else {
-    const expandArg = args.expandLastArg || args.expandFirstArg;
+    const shouldExpandArgument = args.expandLastArg || args.expandFirstArg;
     let returnTypeDoc = printReturnType(path, print);
-    if (expandArg) {
+    if (shouldExpandArgument) {
       if (willBreak(returnTypeDoc)) {
         throw new ArgExpansionBailout();
       }
@@ -180,10 +189,10 @@ function printArrowFunctionSignature(path, options, print, args) {
       group([
         printFunctionParameters(
           path,
-          print,
           options,
-          expandArg,
-          /* printTypeParams */ true,
+          print,
+          shouldExpandArgument,
+          /* shouldPrintTypeParameters */ true,
         ),
         returnTypeDoc,
       ]),
@@ -217,8 +226,8 @@ function printArrowFunctionSignature(path, options, print, args) {
  */
 function mayBreakAfterShortPrefix(functionBody, bodyDoc, options) {
   return (
-    isArrayOrTupleExpression(functionBody) ||
-    isObjectOrRecordExpression(functionBody) ||
+    isArrayExpression(functionBody) ||
+    isObjectExpression(functionBody) ||
     functionBody.type === "ArrowFunctionExpression" ||
     functionBody.type === "DoExpression" ||
     functionBody.type === "BlockStatement" ||
@@ -315,10 +324,6 @@ function printArrowFunctionBody(
       ]),
       bodyComments,
     ];
-  }
-
-  if (shouldAlwaysAddParens(functionBody)) {
-    bodyDoc = group(["(", indent([softline, bodyDoc]), softline, ")"]);
   }
 
   return shouldPutBodyOnSameLine

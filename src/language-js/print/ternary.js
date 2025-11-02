@@ -18,6 +18,7 @@ import {
   hasComment,
   isBinaryCastExpression,
   isCallExpression,
+  isConditionalType,
   isJsxElement,
   isLoneShortArgument,
   isMemberExpression,
@@ -27,8 +28,8 @@ import isBlockComment from "../utils/is-block-comment.js";
 import { printTernaryOld } from "./ternary-old.js";
 
 /**
- * @typedef {import("../../document/builders.js").Doc} Doc
- * @typedef {import("../../common/ast-path.js").default} AstPath
+ * @import {Doc} from "../../document/builders.js"
+ * @import AstPath from "../../common/ast-path.js"
  *
  * @typedef {any} Options - Prettier options (TBD ...)
  */
@@ -153,9 +154,7 @@ function printTernary(path, options, print, args) {
 
   const { node } = path;
   const isConditionalExpression = node.type === "ConditionalExpression";
-  const isTSConditional =
-    node.type === "TSConditionalType" ||
-    node.type === "ConditionalTypeAnnotation"; // For Flow.
+  const isTSConditional = isConditionalType(node);
   const consequentNodePropertyName = isConditionalExpression
     ? "consequent"
     : "trueType";
@@ -283,25 +282,22 @@ function printTernary(path, options, print, args) {
     !isConsequentTernary &&
     hasComment(consequentNode, CommentCheckFlags.Dangling)
   ) {
-    path.call((childPath) => {
-      consequentComments.push(
-        printDanglingComments(childPath, options),
-        hardline,
-      );
+    path.call(() => {
+      consequentComments.push(printDanglingComments(path, options), hardline);
     }, "consequent");
   }
   const alternateComments = [];
   if (hasComment(node.test, CommentCheckFlags.Dangling)) {
-    path.call((childPath) => {
-      alternateComments.push(printDanglingComments(childPath, options));
+    path.call(() => {
+      alternateComments.push(printDanglingComments(path, options));
     }, "test");
   }
   if (
     !isAlternateTernary &&
     hasComment(alternateNode, CommentCheckFlags.Dangling)
   ) {
-    path.call((childPath) => {
-      alternateComments.push(printDanglingComments(childPath, options));
+    path.call(() => {
+      alternateComments.push(printDanglingComments(path, options));
     }, "alternate");
   }
   if (hasComment(node, CommentCheckFlags.Dangling)) {
@@ -322,8 +318,7 @@ function printTernary(path, options, print, args) {
         " ",
         "extends",
         " ",
-        node.extendsType.type === "TSConditionalType" ||
-        node.extendsType.type === "ConditionalTypeAnnotation" ||
+        isConditionalType(node.extendsType) ||
         node.extendsType.type === "TSMappedType"
           ? print("extendsType")
           : group(wrapInParens(print("extendsType"))),

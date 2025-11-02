@@ -1,5 +1,3 @@
-"use strict";
-
 const selector = [
   "CallExpression",
   "[optional=false]",
@@ -14,12 +12,9 @@ const selector = [
 
 const messageId = "no-unnecessary-ast-path-call";
 
-module.exports = {
+export default {
   meta: {
     type: "suggestion",
-    docs: {
-      url: "https://github.com/prettier/prettier/blob/main/scripts/tools/eslint-plugin-prettier-internal-rules/no-unnecessary-ast-path-call.js",
-    },
     messages: {
       [messageId]: "Do not use `AstPath.call()` with one argument.",
     },

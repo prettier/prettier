@@ -1,8 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
-
 import createEsmUtils from "esm-utils";
-
 import { projectRoot } from "../env.js";
 import jestPathSerializer from "../path-serializer.js";
 
@@ -47,7 +45,7 @@ testPatterns("1b - special characters in dir name", ["dir1", "!dir"], {
 });
 testPatterns("1c", ["dir1", "empty"], { status: 1 });
 
-testPatterns("2", ["dir1", "dir2/**/*"], { status: 1 });
+testPatterns("2", ["dir1", "dir2/**/*"], { status: 2 });
 
 testPatterns("3", ["nonexistent-dir", "dir2/**/*"], { status: 2 });
 
@@ -124,48 +122,68 @@ describe("plugins `*`", () => {
     uppercaseRocksPlugin,
   ]).test({
     write: [],
-    status: 1,
+    status: 2,
   });
 });
 
 if (path.sep === "/") {
   // Don't use snapshots in these tests as they're conditionally executed on non-Windows only.
 
-  const base = path.resolve(__dirname, "../cli/patterns-dirs");
+  const base = path.resolve(__dirname, "../cli/patterns-backslashes");
+  const directoryA = path.join(base, "test-a\\");
+  const directoryB = path.join(base, String.raw`test-b\?`);
+
+  fs.rmSync(directoryA, { force: true, recursive: true });
+  fs.rmSync(directoryB, { force: true, recursive: true });
+  for (const directory of [directoryA, directoryB]) {
+    fs.mkdirSync(directory);
+    fs.writeFileSync(path.join(directory, "test.js"), "x");
+  }
 
   describe("Backslashes in names", () => {
-    // We can't commit these dirs without causing problems on Windows.
+    testPatterns(
+      "",
+      [String.raw`test-a\/test.js`],
+      {
+        stdout: String.raw`test-a\/test.js`,
+      },
+      base,
+    );
+    testPatterns(
+      "",
+      ["test-a\\"],
+      { stdout: String.raw`test-a\/test.js` },
+      base,
+    );
+    testPatterns(
+      "",
+      ["test-a*/*"],
+      { stdout: String.raw`test-a\/test.js` },
+      base,
+    );
 
-    beforeAll(() => {
-      fs.mkdirSync(path.resolve(base, "test-a\\"));
-      fs.writeFileSync(path.resolve(base, "test-a\\", "test.js"), "x");
-      fs.mkdirSync(path.resolve(base, String.raw`test-b\?`));
-      fs.writeFileSync(
-        path.resolve(base, String.raw`test-b\?`, "test.js"),
-        "x",
-      );
-    });
-
-    afterAll(() => {
-      fs.unlinkSync(path.resolve(base, "test-a\\", "test.js"));
-      fs.rmdirSync(path.resolve(base, "test-a\\"));
-      fs.unlinkSync(path.resolve(base, String.raw`test-b\?`, "test.js"));
-      fs.rmdirSync(path.resolve(base, String.raw`test-b\?`));
-    });
-
-    testPatterns("", [String.raw`test-a\/test.js`], {
-      stdout: String.raw`test-a\/test.js`,
-    });
-    testPatterns("", ["test-a\\"], { stdout: String.raw`test-a\/test.js` });
-    testPatterns("", ["test-a*/*"], { stdout: String.raw`test-a\/test.js` });
-
-    testPatterns("", [String.raw`test-b\?/test.js`], {
-      stdout: String.raw`test-b\?/test.js`,
-    });
-    testPatterns("", [String.raw`test-b\?`], {
-      stdout: String.raw`test-b\?/test.js`,
-    });
-    testPatterns("", ["test-b*/*"], { stdout: String.raw`test-b\?/test.js` });
+    testPatterns(
+      "",
+      [String.raw`test-b\?/test.js`],
+      {
+        stdout: String.raw`test-b\?/test.js`,
+      },
+      base,
+    );
+    testPatterns(
+      "",
+      [String.raw`test-b\?`],
+      {
+        stdout: String.raw`test-b\?/test.js`,
+      },
+      base,
+    );
+    testPatterns(
+      "",
+      ["test-b*/*"],
+      { stdout: String.raw`test-b\?/test.js` },
+      base,
+    );
   });
 }
 
@@ -193,28 +211,23 @@ function isSymlinkSupported() {
   const base = path.join(__dirname, "../cli/patterns-symlinks");
   const directoryA = path.join(base, "test-a");
   const directoryB = path.join(base, "test-b");
-  const clean = () => {
-    fs.rmSync(directoryA, { force: true, recursive: true });
-    fs.rmSync(directoryB, { force: true, recursive: true });
-  };
-  beforeAll(() => {
-    clean();
-    fs.mkdirSync(directoryA);
-    fs.mkdirSync(directoryB);
-    fs.writeFileSync(path.join(directoryA, "a.js"), "x");
-    fs.writeFileSync(path.join(directoryB, "b.js"), "x");
-    fs.symlinkSync(directoryA, path.join(directoryA, "symlink-to-directory-a"));
-    fs.symlinkSync(directoryB, path.join(directoryA, "symlink-to-directory-b"));
-    fs.symlinkSync(
-      path.join(directoryA, "a.js"),
-      path.join(directoryA, "symlink-to-file-a"),
-    );
-    fs.symlinkSync(
-      path.join(directoryB, "b.js"),
-      path.join(directoryA, "symlink-to-file-b"),
-    );
-  });
-  afterAll(clean);
+
+  fs.rmSync(directoryA, { force: true, recursive: true });
+  fs.rmSync(directoryB, { force: true, recursive: true });
+  fs.mkdirSync(directoryA);
+  fs.mkdirSync(directoryB);
+  fs.writeFileSync(path.join(directoryA, "a.js"), "x");
+  fs.writeFileSync(path.join(directoryB, "b.js"), "x");
+  fs.symlinkSync(directoryA, path.join(directoryA, "symlink-to-directory-a"));
+  fs.symlinkSync(directoryB, path.join(directoryA, "symlink-to-directory-b"));
+  fs.symlinkSync(
+    path.join(directoryA, "a.js"),
+    path.join(directoryA, "symlink-to-file-a"),
+  );
+  fs.symlinkSync(
+    path.join(directoryB, "b.js"),
+    path.join(directoryA, "symlink-to-file-b"),
+  );
 
   test("file struct", async () => {
     const getFileStruct = async (directory) =>

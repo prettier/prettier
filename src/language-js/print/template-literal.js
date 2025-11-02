@@ -16,13 +16,19 @@ import getStringWidth from "../../utils/get-string-width.js";
 import hasNewlineInRange from "../../utils/has-newline-in-range.js";
 import { locEnd, locStart } from "../loc.js";
 import {
+  CommentCheckFlags,
+  getComments,
   hasComment,
   isBinaryCastExpression,
   isBinaryish,
   isMemberExpression,
 } from "../utils/index.js";
 
-function printTemplateLiteral(path, print, options) {
+/**
+ * @import {Doc} from "../../document/builders.js"
+ */
+
+function printTemplateLiteral(path, options, print) {
   const { node } = path;
   const isTemplateLiteral = node.type === "TemplateLiteral";
 
@@ -122,11 +128,34 @@ function printTemplateLiteral(path, print, options) {
   return parts;
 }
 
-function printTaggedTemplateLiteral(path, print) {
+function printTaggedTemplateExpression(path, options, print) {
   const quasiDoc = print("quasi");
+  const { node } = path;
+
+  /** @type {Doc} */
+  let space = "";
+  const quasiLeadingComment = getComments(
+    node.quasi,
+    CommentCheckFlags.Leading,
+  )[0];
+  if (quasiLeadingComment) {
+    if (
+      hasNewlineInRange(
+        options.originalText,
+        locEnd(node.typeArguments ?? node.tag),
+        locStart(quasiLeadingComment),
+      )
+    ) {
+      space = softline;
+    } else {
+      space = " ";
+    }
+  }
+
   return label(quasiDoc.label && { tagged: true, ...quasiDoc.label }, [
     print("tag"),
-    print(path.node.typeArguments ? "typeArguments" : "typeParameters"),
+    print("typeArguments"),
+    space,
     lineSuffixBoundary,
     quasiDoc,
   ]);
@@ -148,7 +177,6 @@ function printJestEachTemplateLiteral(path, options, print) {
     options.__inJestEach = true;
     const expressions = path.map(print, "expressions");
     options.__inJestEach = false;
-    const parts = [];
     const stringifiedExpressions = expressions.map(
       (doc) =>
         "${" +
@@ -194,7 +222,7 @@ function printJestEachTemplateLiteral(path, options, print) {
       }
     }
 
-    parts.push(
+    return [
       lineSuffixBoundary,
       "`",
       indent([
@@ -216,8 +244,7 @@ function printJestEachTemplateLiteral(path, options, print) {
       ]),
       hardline,
       "`",
-    );
-    return parts;
+    ];
   }
 }
 
@@ -231,10 +258,7 @@ function printTemplateExpression(path, print) {
 }
 
 function printTemplateExpressions(path, print) {
-  return path.map(
-    (path) => printTemplateExpression(path, print),
-    "expressions",
-  );
+  return path.map(() => printTemplateExpression(path, print), "expressions");
 }
 
 function escapeTemplateCharacters(doc, raw) {
@@ -284,7 +308,7 @@ function isJestEachTemplateLiteral({ node, parent }) {
 
 export {
   escapeTemplateCharacters,
-  printTaggedTemplateLiteral,
+  printTaggedTemplateExpression,
   printTemplateExpressions,
   printTemplateLiteral,
   uncookTemplateElementValue,

@@ -8,7 +8,7 @@ import {
 } from "../utils/index.js";
 import { printStatementSequence } from "./statement.js";
 
-/** @typedef {import("../../document/builders.js").Doc} Doc */
+/** @import {Doc} from "../../document/builders.js" */
 
 /*
 - `Program`
@@ -52,6 +52,7 @@ function printBlock(path, options, print) {
         parent.type === "ModuleExpression" ||
         (parent.type === "CatchClause" && !parentParent.finalizer) ||
         parent.type === "TSModuleDeclaration" ||
+        parent.type === "MatchStatementCase" ||
         node.type === "StaticBlock"
       )
     ) {

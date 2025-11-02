@@ -1,4 +1,40 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`15948.css format 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+h1 {
+  --OFF: /* OFF */;
+  --OFF:  /* OFF */;
+  --OFF:   /* OFF */;
+  --OFF:    /* OFF */;
+  --OFF:     /* OFF */;
+  --OFF:      /* OFF */;
+  --OFF:       /* OFF */;
+  --OFF:        /* OFF */;
+  --OFF:         /* OFF */;
+  --OFF:          /* OFF */;
+}
+
+=====================================output=====================================
+h1 {
+  --OFF: /* OFF */;
+  --OFF: /* OFF */;
+  --OFF: /* OFF */;
+  --OFF: /* OFF */;
+  --OFF: /* OFF */;
+  --OFF: /* OFF */;
+  --OFF: /* OFF */;
+  --OFF: /* OFF */;
+  --OFF: /* OFF */;
+  --OFF: /* OFF */;
+}
+
+================================================================================
+`;
 
 exports[`CRLF.css format 1`] = `
 ====================================options=====================================
@@ -510,6 +546,34 @@ body {
 
   /* comment 84 */
   background: #000;
+}
+
+================================================================================
+`;
+
+exports[`nestled.css format 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/*
+ * First comment
+ *//*!
+ * Second glued comment start with ! and followed with CSS Rule
+ */
+.foo {
+  display: block;
+}
+
+=====================================output=====================================
+/*
+ * First comment
+ */ /*!
+ * Second glued comment start with ! and followed with CSS Rule
+ */
+.foo {
+  display: block;
 }
 
 ================================================================================

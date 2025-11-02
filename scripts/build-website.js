@@ -3,12 +3,10 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import url from "node:url";
-
-import createEsmUtils from "esm-utils";
-import { execa } from "execa";
+import esbuild from "esbuild";
 import fastGlob from "fast-glob";
-
-import { format } from "../src/index.js";
+import spawn from "nano-spawn";
+import serialize from "serialize-javascript";
 import {
   copyFile,
   DIST_DIR,
@@ -18,18 +16,21 @@ import {
   writeJson,
 } from "./utils/index.js";
 
-const { require } = createEsmUtils(import.meta);
 const runYarn = (command, args, options) =>
-  execa("yarn", [command, ...args], {
-    stdout: "inherit",
-    stderr: "inherit",
-    ...options,
-  });
+  spawn("yarn", [command, ...args], { stdio: "inherit", ...options });
 const IS_PULL_REQUEST = process.env.PULL_REQUEST === "true";
-const PRETTIER_DIR = IS_PULL_REQUEST
+const PACKAGES_DIRECTORY = IS_PULL_REQUEST
   ? DIST_DIR
-  : url.fileURLToPath(new URL("../node_modules/prettier", import.meta.url));
-const PLAYGROUND_PRETTIER_DIR = path.join(WEBSITE_DIR, "static/lib");
+  : url.fileURLToPath(new URL("../node_modules", import.meta.url));
+const PLAYGROUND_LIB_DIRECTORY = path.join(WEBSITE_DIR, "static/lib");
+
+async function writeScript(file, code) {
+  const { code: minified } = await esbuild.transform(code, {
+    loader: "js",
+    minify: true,
+  });
+  await writeFile(path.join(PLAYGROUND_LIB_DIRECTORY, file), minified.trim());
+}
 
 async function buildPrettier() {
   // --- Build prettier for PR ---
@@ -42,7 +43,7 @@ async function buildPrettier() {
   });
 
   try {
-    await runYarn("build", ["--playground", "--clean"], {
+    await runYarn("build", ["--clean", "--playground"], {
       cwd: PROJECT_ROOT,
     });
   } finally {
@@ -52,45 +53,66 @@ async function buildPrettier() {
 }
 
 async function buildPlaygroundFiles() {
-  const patterns = ["standalone.js", "plugins/*.js"];
+  const pluginFiles = [];
 
-  const files = await fastGlob(patterns, {
-    cwd: PRETTIER_DIR,
-  });
-
-  const packageManifest = {
-    builtinPlugins: [],
-  };
-  for (const fileName of files) {
-    const file = path.join(PRETTIER_DIR, fileName);
-    const dist = path.join(PLAYGROUND_PRETTIER_DIR, fileName);
-    await copyFile(file, dist);
-
-    if (fileName === "standalone.js") {
-      continue;
-    }
-
-    const pluginModule = require(dist);
-    const plugin = pluginModule.default ?? pluginModule;
-    const { parsers = {}, printers = {} } = plugin;
-    packageManifest.builtinPlugins.push({
-      file: fileName,
-      parsers: Object.keys(parsers),
-      printers: Object.keys(printers),
-    });
+  // Builtin plugins
+  for (const fileName of await fastGlob(["plugins/*.mjs"], {
+    cwd: path.join(PACKAGES_DIRECTORY, "prettier"),
+  })) {
+    pluginFiles.push(`prettier/${fileName}`);
   }
 
-  await writeFile(
-    path.join(PLAYGROUND_PRETTIER_DIR, "package-manifest.js"),
-    await format(
-      /* Indent */ `
-        "use strict";
+  // TODO: Support stable version
+  // External plugins
+  if (IS_PULL_REQUEST) {
+    for (const pluginName of ["plugin-hermes"]) {
+      pluginFiles.push(`${pluginName}/index.mjs`);
+    }
+  }
 
-        const prettierPackageManifest = ${JSON.stringify(packageManifest)};
-      `,
-      { parser: "meriyah" },
+  const packageManifest = {
+    prettier: {
+      file: "prettier/standalone.mjs",
+    },
+    plugins: await Promise.all(
+      pluginFiles.map(async (file) => {
+        const plugin = { file };
+
+        const pluginModule = await import(
+          url.pathToFileURL(path.join(PACKAGES_DIRECTORY, file))
+        );
+
+        for (const property of ["languages", "options", "defaultOptions"]) {
+          const value = pluginModule[property];
+          if (value !== undefined) {
+            plugin[property] = value;
+          }
+        }
+
+        for (const property of ["parsers", "printers"]) {
+          const value = pluginModule[property];
+          if (value !== undefined) {
+            plugin[property] = Object.keys(value);
+          }
+        }
+
+        return plugin;
+      }),
     ),
-  );
+  };
+
+  await Promise.all([
+    ...[packageManifest.prettier, ...packageManifest.plugins].map(({ file }) =>
+      copyFile(
+        path.join(PACKAGES_DIRECTORY, file),
+        path.join(PLAYGROUND_LIB_DIRECTORY, file),
+      ),
+    ),
+    writeScript(
+      "package-manifest.mjs",
+      `export default ${serialize(packageManifest, { space: 2 })};`,
+    ),
+  ]);
 }
 
 if (IS_PULL_REQUEST) {

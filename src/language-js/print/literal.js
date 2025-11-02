@@ -3,10 +3,10 @@ import printNumber from "../../utils/print-number.js";
 import printString from "../../utils/print-string.js";
 
 /**
- * @typedef {import("../types/estree.js").Node} Node
+ * @import {Node} from "../types/estree.js"
  */
 
-function printLiteral(path, options /*, print*/) {
+function printLiteral(path, options /* , print*/) {
   const { node } = path;
 
   switch (node.type) {
@@ -22,8 +22,6 @@ function printLiteral(path, options /*, print*/) {
       return "null";
     case "BooleanLiteral": // Babel 6 Literal split
       return String(node.value);
-    case "DecimalLiteral":
-      return printNumber(node.value) + "m";
     case "DirectiveLiteral":
       return printDirective(node.extra.raw, options);
     case "Literal": {
@@ -33,10 +31,6 @@ function printLiteral(path, options /*, print*/) {
 
       if (node.bigint) {
         return printBigInt(node.raw);
-      }
-
-      if (node.decimal) {
-        return printNumber(node.decimal) + "m";
       }
 
       const { value } = node;
@@ -61,7 +55,10 @@ function isDirective(path) {
   }
 
   const { parent } = path;
-  return parent.type === "ExpressionStatement" && parent.directive;
+  return (
+    parent.type === "ExpressionStatement" &&
+    typeof parent.directive === "string"
+  );
 }
 
 function printBigInt(raw) {

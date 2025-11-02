@@ -41,10 +41,17 @@ prettier.__debug = debugApis;
 if (process.env.NODE_ENV === "production") {
   prettier.util = require("./utils/public.js");
   prettier.doc = require("./document/public.js");
+  prettier.version = require("./main/version.evaluate.js").default;
 } else {
   Object.defineProperties(prettier, {
     util: {
       get() {
+        try {
+          return require("./utils/public.js");
+        } catch {
+          // No op
+        }
+
         throw new Error(
           "prettier.util is not available in development CommonJS version",
         );
@@ -52,13 +59,19 @@ if (process.env.NODE_ENV === "production") {
     },
     doc: {
       get() {
+        try {
+          return require("./document/public.js");
+        } catch {
+          // No op
+        }
+
         throw new Error(
           "prettier.doc is not available in development CommonJS version",
         );
       },
     },
   });
+  prettier.version = require("../package.json").version;
 }
-prettier.version = require("./main/version.evaluate.cjs");
 
 module.exports = prettier;

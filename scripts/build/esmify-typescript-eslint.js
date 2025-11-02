@@ -1,9 +1,7 @@
 /* Transform `@typescript-eslint/*` module to ESM */
 
 import * as path from "node:path";
-
 import { outdent } from "outdent";
-
 import { PROJECT_ROOT, writeFile } from "../utils/index.js";
 
 function esmifyTypescriptEslint(text) {
@@ -45,10 +43,20 @@ function esmifyTypescriptEslint(text) {
   );
 
   text = text.replaceAll('"use strict";', "");
-  text = text.replaceAll(
-    'Object.defineProperty(exports, "__esModule", { value: true });',
-    "",
-  );
+  text = text
+    .replaceAll(
+      'Object.defineProperty(exports, "__esModule", { value: true });',
+      "",
+    )
+    .replaceAll(
+      outdent`
+        Object.defineProperty(exports, "__esModule", {
+          value: true
+        });
+      `,
+      "",
+    );
+
   text = text.replaceAll(/(?<=\n)(?:exports\.\w+ = )+void 0;/gu, "");
   text = text.replaceAll(
     /(?<=\n)exports\.(?<specifier>\w+) = (?<variable>\w+);/gu,
@@ -110,6 +118,28 @@ function esmifyTypescriptEslint(text) {
     outdent`
       import * as $<specifier>_namespace_export from "$<moduleName>";
       export {$<specifier>_namespace_export as $<specifier>};
+    `,
+  );
+
+  /**
+  ```js
+  var FOO;
+  (function (FOO) {
+  })(FOO || (exports.FOO = FOO = {}));
+  ```
+  ->
+  ```js
+  var FOO;
+  (function (FOO) {
+  })(FOO ?? {}));
+  export {FOO};
+  ```
+   */
+  text = text.replaceAll(
+    /(?<=\n\}\))\((?<name>\S+) \|\| \(exports\.\k<name> = \k<name> = \{\}\)\);/gu,
+    outdent`
+      ($<name> ??= {});
+      export {$<name>};
     `,
   );
 

@@ -8,6 +8,7 @@
 
 .tmp
 *.log
+*.tgz
 /errors
 /test*.*
 /.vscode/**/*
@@ -16,8 +17,9 @@
 /dist*
 /website/build
 /website/i18n
-/website/static/playground.js
+/website/static/playground
 /website/static/lib
+/website/.docusaurus
 .DS_Store
 /coverage
 .idea

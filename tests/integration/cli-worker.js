@@ -1,10 +1,10 @@
-import fs from "node:fs";
 import path from "node:path";
-import readline from "node:readline";
 import url from "node:url";
-import { parentPort, workerData } from "node:worker_threads";
-
-import { prettierCli, prettierMainEntry } from "./env.js";
+import {
+  prettierCliEntry,
+  prettierCliMockableEntry,
+  prettierMainEntry,
+} from "./env.js";
 
 const normalizeToPosix =
   path.sep === "\\"
@@ -20,90 +20,96 @@ const replaceAll = (text, find, replacement) =>
     ? text.replaceAll(find, replacement)
     : text.split(find).join(replacement);
 
-async function run() {
-  const { options } = workerData;
+async function getApiMockable() {
+  const prettier = await import(url.pathToFileURL(prettierMainEntry));
+  return prettier.__debug.mockable;
+}
 
-  Date.now = () => 0;
+async function getCliMockable() {
+  const cli = await import(url.pathToFileURL(prettierCliMockableEntry));
+  return cli.mockable;
+}
 
-  /*
-    A fake non-existing directory to test plugin search won't crash.
+async function mockImplementations(options) {
+  const [apiMockable, cliMockable] = await Promise.all([
+    getApiMockable(),
+    getCliMockable(),
+  ]);
 
-    See:
-    - `isDirectory` function in `src/common/load-plugins.js`
-    - Test file `./__tests__/plugin-virtual-directory.js`
-    - Pull request #5819
-  */
-  const originalStat = fs.promises.stat;
-  fs.promises.statSync = (filename) =>
-    originalStat(
-      path.basename(filename) === "virtualDirectory"
-        ? import.meta.url
-        : filename,
-    );
-
-  readline.clearLine = (stream) => {
-    stream.write(
-      `\n[[called readline.clearLine(${
+  cliMockable.mockImplementations({
+    clearStreamText(stream, text) {
+      const streamName =
         stream === process.stdout
           ? "process.stdout"
           : stream === process.stderr
             ? "process.stderr"
-            : "unknown stream"
-      })]]\n`,
-    );
-  };
+            : "unknown stream";
+      stream.write(`\n[[Clear text(${streamName}): ${text}]]\n`);
+    },
+    // Time measure in format test
+    getTimestamp: () => 0,
+    isCI: () => Boolean(options.ci),
+    isStreamTTY: (stream) =>
+      stream === process.stdin
+        ? Boolean(options.isTTY)
+        : stream === process.stdout
+          ? Boolean(options.stdoutIsTTY)
+          : stream.isTTY,
+    // eslint-disable-next-line require-await
+    async writeFormattedFile(filename, content) {
+      filename = normalizeToPosix(path.relative(process.cwd(), filename));
+      if (
+        options.mockWriteFileErrors &&
+        hasOwn(options.mockWriteFileErrors, filename)
+      ) {
+        throw new Error(
+          options.mockWriteFileErrors[filename] + " (mocked error)",
+        );
+      }
+      process.send({
+        type: "cli:write-file",
+        data: { filename, content },
+      });
+    },
+  });
 
-  process.stdin.isTTY = Boolean(options.isTTY);
-  process.stdout.isTTY = Boolean(options.stdoutIsTTY);
+  apiMockable.mockImplementations({
+    getPrettierConfigSearchStopDirectory: () =>
+      url.fileURLToPath(new URL("./cli", import.meta.url)),
+  });
+}
 
-  const prettier = await import(url.pathToFileURL(prettierMainEntry));
-  const { mockable } = prettier.__debug;
+async function run(options) {
+  await mockImplementations(options);
 
-  // We cannot use `jest.setMock("get-stream", impl)` here, because in the
-  // production build everything is bundled into one file so there is no
-  // "get-stream" module to mock.
-  // eslint-disable-next-line require-await
-  mockable.getStdin = async () => options.input || "";
-  mockable.isCI = () => Boolean(options.ci);
-  mockable.getPrettierConfigSearchStopDirectory = () =>
-    url.fileURLToPath(new URL("./cli", import.meta.url));
-  // eslint-disable-next-line require-await
-  mockable.writeFormattedFile = async (filename, content) => {
-    filename = normalizeToPosix(path.relative(process.cwd(), filename));
-    if (
-      options.mockWriteFileErrors &&
-      hasOwn(options.mockWriteFileErrors, filename)
-    ) {
-      throw new Error(
-        options.mockWriteFileErrors[filename] + " (mocked error)",
-      );
-    }
-
-    parentPort.postMessage({
-      action: "write-file",
-      data: { filename, content },
-    });
-  };
-
-  const { __promise: promise } = await import(url.pathToFileURL(prettierCli));
+  const { __promise: promise } = await import(
+    url.pathToFileURL(prettierCliEntry)
+  );
   await promise;
 }
 
-parentPort.on("message", async () => {
-  const originalExit = process.exit;
-
-  // https://github.com/nodejs/node/issues/30491
-  process.stdout.cork();
-  process.stderr.cork();
-  process.exit = (code) => {
-    process.stdout.end();
-    process.stderr.end();
-    originalExit(code ?? process.exitCode ?? 0);
-  };
-
+process.once("message", async (data) => {
   try {
-    await run();
+    await run(data);
+  } catch (error) {
+    // For easier debugging
+    // eslint-disable-next-line no-console
+    console.error(error);
+    process.send({ type: "worker:fault", error });
+    throw error;
   } finally {
+    // On MacOS, if we exit too quick the stdio won't received on main thread
+    if (process.platform === "darwin") {
+      await Promise.all(
+        ["stdout", "stderr"].map(
+          (stream) =>
+            new Promise((resolve) => {
+              process[stream].once("finish", resolve);
+              process[stream].end();
+            }),
+        ),
+      );
+    }
     process.exit();
   }
 });

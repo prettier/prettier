@@ -3,14 +3,14 @@ type a= {
     [A in B]: C  |  D
   }
 
-type a= {
+type b= {
     [
       // prettier-ignore
       A in B
     ]: C  |  D
   }
 
-type a= {
+type c= {
     [
       A in
       // prettier-ignore
@@ -18,20 +18,20 @@ type a= {
     ]: C  |  D
   }
 
-type a= {
+type d= {
     [A in B]:
       // prettier-ignore
       C  |  D
   }
 
-type a= {
+type e= {
     [
       /* prettier-ignore */
       A in B
     ]: C  |  D
   }
 
-type a= {
+type f= {
     [
       A in
       /* prettier-ignore */
@@ -39,30 +39,30 @@ type a= {
     ]: C  |  D
   }
 
-type a= {
+type g= {
     [A in B]:
       /* prettier-ignore */
       C  |  D
   }
 
 
-type a= {
+type h= {
     /* prettier-ignore */ [A in B]: C  |  D
   }
 
-type a= {
+type i= {
     [/* prettier-ignore */ A in B ]: C  |  D
   }
 
-type a= {
+type j= {
     [A in /* prettier-ignore */ B]: C  |  D
   }
 
-type a= {
+type k= {
     [A in B]: /* prettier-ignore */ C  |  D
   }
 
-type a= {
+type l= {
     /* prettier-ignore */
     [A in B]: C  |  D
   }
