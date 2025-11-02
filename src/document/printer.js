@@ -21,9 +21,19 @@ import {
 import InvalidDocError from "./invalid-doc-error.js";
 import { getDocType, propagateBreaks } from "./utils.js";
 
-/** @typedef {typeof MODE_BREAK | typeof MODE_FLAT} Mode */
-/** @typedef {{ indent: any, doc: any, mode: Mode }} Command */
-/** @typedef {Record<symbol, Mode>} GroupModeMap */
+// TODO: Split `IndentCommand`
+
+/**
+@import {Doc} from "./builders.js";
+@typedef {{
+  type: "indent" | "dedent" | "stringAlign" | "stringAlign" | "numberAlign"
+  n?: number | string
+}} IndentCommand
+@typedef {{value: string, length: number, queue: IndentCommand[], root?: Indent}} Indent
+@typedef {typeof MODE_BREAK | typeof MODE_FLAT} Mode
+@typedef {{ indent: Indent, doc: Doc, mode: Mode }} Command
+@typedef {Record<symbol, Mode>} GroupModeMap
+*/
 
 /** @type {unique symbol} */
 const MODE_BREAK = Symbol("MODE_BREAK");
@@ -34,42 +44,59 @@ const CURSOR_PLACEHOLDER = Symbol("cursor");
 
 const DOC_FILL_PRINTED_LENGTH = Symbol("DOC_FILL_PRINTED_LENGTH");
 
+/**
+@returns {Indent}
+*/
 function rootIndent() {
   return { value: "", length: 0, queue: [] };
 }
 
+/**
+@param {Indent} indent
+@param {*} options
+@returns {Indent}
+*/
 function makeIndent(indent, options) {
   return generateIndent(indent, { type: "indent" }, options);
 }
 
-function makeAlign(indent, widthOrDoc, options) {
-  if (widthOrDoc === Number.NEGATIVE_INFINITY) {
-    return indent.root || rootIndent();
+/**
+@param {Indent} indent
+@param {number | string} widthOrString
+@param {*} options
+@returns {Indent}
+*/
+function makeAlign(indent, widthOrString, options) {
+  if (widthOrString === Number.NEGATIVE_INFINITY) {
+    return indent.root ?? rootIndent();
   }
 
-  if (widthOrDoc < 0) {
-    return generateIndent(indent, { type: "dedent" }, options);
-  }
-
-  if (!widthOrDoc) {
+  if (!widthOrString) {
     return indent;
   }
 
-  if (widthOrDoc.type === "root") {
-    return { ...indent, root: indent };
+  const isNumberAlign = typeof widthOrString === "number";
+
+  if (isNumberAlign && widthOrString < 0) {
+    return generateIndent(indent, { type: "dedent" }, options);
   }
 
-  const alignType =
-    typeof widthOrDoc === "string" ? "stringAlign" : "numberAlign";
+  const alignType = isNumberAlign ? "numberAlign" : "stringAlign";
 
-  return generateIndent(indent, { type: alignType, n: widthOrDoc }, options);
+  return generateIndent(indent, { type: alignType, n: widthOrString }, options);
 }
 
-function generateIndent(indent, newPart, options) {
+/**
+@param {Indent} indent
+@param {IndentCommand} command
+@param {*} options
+@returns {Indent}
+*/
+function generateIndent(indent, command, options) {
   const queue =
-    newPart.type === "dedent"
+    command.type === "dedent"
       ? indent.queue.slice(0, -1)
-      : [...indent.queue, newPart];
+      : [...indent.queue, command];
 
   let value = "";
   let length = 0;
