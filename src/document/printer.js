@@ -19,15 +19,15 @@ import {
   DOC_TYPE_TRIM,
 } from "./constants.js";
 import InvalidDocError from "./invalid-doc-error.js";
-import { createRootIndent, makeAlign, makeIndent } from "./printer-indent.js";
+import { createRootIndent, makeAlign, makeIndent } from "./printer/indent.js";
 import { getDocType, propagateBreaks } from "./utils.js";
 
 /**
 @import {Doc} from "./builders.js";
-@import {Indent, IndentOptions} from "./printer-indent.js";
+@import {Indent, IndentOptions} from "./printer/indent.js";
 @import {EndOfLineOption} from "../common/end-of-line.js";
 @typedef {typeof MODE_BREAK | typeof MODE_FLAT} Mode
-@typedef {{ indent: Indent, doc: Doc, mode: Mode }} Command
+@typedef {{ indent: Indent, doc: any, mode: Mode }} Command
 @typedef {Record<symbol, Mode>} GroupModeMap
 */
 

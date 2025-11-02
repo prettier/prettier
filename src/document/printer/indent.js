@@ -1,65 +1,15 @@
-const INDENT_TYPE_WIDTH = "indent-width";
-const INDENT_TYPE_STRING = "indent-string";
+import {
+  createStringIndentCommand,
+  createWidthIndentCommand,
+  INDENT_COMMAND_DEDENT,
+  INDENT_COMMAND_INDENT,
+  isStringIndentCommand,
+  isWidthIndentCommand,
+} from "./indent-command.js";
 
 /**
-@typedef {{type: typeof INDENT_TYPE_WIDTH, width: number}} WidthIndentCommand
-@typedef {{type: typeof INDENT_TYPE_STRING, string: string}} StringIndentCommand
-@typedef {
-  | typeof INDENT_COMMAND_INDENT
-  | typeof INDENT_COMMAND_DEDENT
-  | WidthIndentCommand
-  | StringIndentCommand
-} IndentCommand
+@import {IndentCommand} from "./indent-command.js";
 @typedef {{useTabs: boolean, tabWidth: number}} IndentOptions
-*/
-
-const INDENT_COMMAND_INDENT = Symbol("INDENT_COMMAND_INDENT");
-const INDENT_COMMAND_DEDENT = Symbol("INDENT_COMMAND_DEDENT");
-
-/**
-@param {IndentCommand} command
-@returns {command is WidthIndentCommand}
-*/
-function isWidthIndentCommand(command) {
-  return command.type === INDENT_TYPE_WIDTH;
-}
-
-/**
-@param {IndentCommand} command
-@returns {command is StringIndentCommand}
-*/
-function isStringIndentCommand(command) {
-  return command.type === INDENT_TYPE_STRING;
-}
-
-/**
-@param {number} width
-@returns {WidthIndentCommand}
-*/
-function createWidthIndentCommand(width) {
-  return { type: INDENT_TYPE_WIDTH, width };
-}
-
-/**
-@param {string} string
-@returns {StringIndentCommand}
-*/
-function createStringIndentCommand(string) {
-  return { type: INDENT_TYPE_STRING, string };
-}
-
-/**
-@typedef {{type: typeof INDENT_TYPE_WIDTH, width: number}} WidthIndentCommand
-@typedef {{type: typeof INDENT_TYPE_STRING, string: string}} StringIndentCommand
-@typedef {
-  | typeof INDENT_COMMAND_INDENT
-  | typeof INDENT_COMMAND_DEDENT
-  | WidthIndentCommand
-  | StringIndentCommand
-} IndentCommand
-*/
-
-/**
 @typedef {{value: string, length: number, queue: IndentCommand[], root?: RootIndent}} Indent
 @typedef {{value: '', length: 0, queue: []}} RootIndent
 */
@@ -165,7 +115,7 @@ function makeAlign(indent, widthOrString, options) {
     return indent;
   }
 
-  const isNumberAlign = typeof widthOrString === "string";
+  const isNumberAlign = typeof widthOrString === "number";
 
   if (isNumberAlign && widthOrString < 0) {
     return generateIndent(indent, INDENT_COMMAND_DEDENT, options);
