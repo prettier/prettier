@@ -15,15 +15,15 @@ import {
   DOC_TYPE_LINE_SUFFIX_BOUNDARY,
   DOC_TYPE_STRING,
   DOC_TYPE_TRIM,
-  getDocType,
-  InvalidDocError,
   join,
   literalline,
-  traverseDoc,
-} from "../document/index.js";
+} from "../builders/index.js";
+import getDocType from "./get-doc-type.js";
+import InvalidDocError from "./invalid-doc-error.js";
+import traverseDoc from "./traverse-doc.js";
 
 /**
-@import {Doc} from "../document/index.js";
+@import {Doc} from "../builders/index.js";
 */
 
 function mapDoc(doc, cb) {
@@ -421,3 +421,4 @@ export {
   traverseDoc,
   willBreak,
 };
+export { assertDoc, assertDocArray } from "./assert-doc.js";

@@ -1,4 +1,4 @@
-import { assertDocFillParts } from "./assert-doc.js";
+import { assertDocFillParts } from "../utilities/assert-doc.js";
 import { DOC_TYPE_FILL } from "./types.js";
 
 /**

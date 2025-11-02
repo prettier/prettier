@@ -1,4 +1,4 @@
-import { assertDoc } from "./assert-doc.js";
+import { assertDoc } from "../utilities/assert-doc.js";
 import { DOC_TYPE_LINE_SUFFIX } from "./types.js";
 
 /**

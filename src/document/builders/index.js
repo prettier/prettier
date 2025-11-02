@@ -33,22 +33,18 @@
 */
 
 export * from "./align.js";
-export { assertDocArray } from "./assert-doc.js";
 export * from "./break-parent.js";
 export * from "./cursor.js";
 export * from "./fill.js";
-export { default as getDocType } from "./get-doc-type.js";
 export * from "./group.js";
 export * from "./if-break.js";
 export * from "./indent.js";
 export * from "./indent-if-break.js";
-export { default as InvalidDocError } from "./invalid-doc-error.js";
 export * from "./join.js";
 export * from "./label.js";
 export * from "./line.js";
 export * from "./line-suffix.js";
 export * from "./line-suffix-boundary.js";
-export { default as traverseDoc } from "./traverse-doc.js";
 export * from "./trim.js";
 export {
   DOC_TYPE_ALIGN,

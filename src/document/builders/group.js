@@ -1,4 +1,4 @@
-import { assertDoc, assertDocArray } from "./assert-doc.js";
+import { assertDoc, assertDocArray } from "../utilities/assert-doc.js";
 import { DOC_TYPE_GROUP } from "./types.js";
 
 /**

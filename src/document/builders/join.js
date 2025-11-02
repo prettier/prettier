@@ -1,4 +1,4 @@
-import { assertDoc, assertDocArray } from "./assert-doc.js";
+import { assertDoc, assertDocArray } from "../utilities/assert-doc.js";
 
 /**
 @import {Doc} from "./index.js";

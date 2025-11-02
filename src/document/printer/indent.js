@@ -4,7 +4,7 @@ const INDENT_COMMAND_TYPE_WIDTH = 2;
 const INDENT_COMMAND_TYPE_STRING = 3;
 
 /**
-@import {Align} from "../document/index.js";
+@import {Align} from "../builders/index.js";
 @typedef {{useTabs: boolean, tabWidth: number}} IndentOptions
 @typedef {{
   readonly value: string,

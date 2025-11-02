@@ -1,5 +1,3 @@
-import getDocType from "./get-doc-type.js";
-import InvalidDocError from "./invalid-doc-error.js";
 import {
   DOC_TYPE_ALIGN,
   DOC_TYPE_ARRAY,
@@ -16,7 +14,9 @@ import {
   DOC_TYPE_LINE_SUFFIX_BOUNDARY,
   DOC_TYPE_STRING,
   DOC_TYPE_TRIM,
-} from "./types.js";
+} from "../builders/types.js";
+import getDocType from "./get-doc-type.js";
+import InvalidDocError from "./invalid-doc-error.js";
 
 // Using a unique object to compare by reference.
 const traverseDocOnExitStackMarker = {};

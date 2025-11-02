@@ -1,4 +1,4 @@
-import { assertDoc } from "./assert-doc.js";
+import { assertDoc } from "../utilities/assert-doc.js";
 import { indent } from "./indent.js";
 import { DOC_TYPE_ALIGN } from "./types.js";
 

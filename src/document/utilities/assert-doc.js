@@ -1,8 +1,12 @@
 import noop from "../../utils/noop.js";
+import {
+  DOC_TYPE_IF_BREAK,
+  DOC_TYPE_LINE,
+  DOC_TYPE_STRING,
+} from "../builders/types.js";
 import { isEmptyDoc } from "../utilities/index.js";
 import getDocType from "./get-doc-type.js";
 import traverseDoc from "./traverse-doc.js";
-import { DOC_TYPE_IF_BREAK, DOC_TYPE_LINE, DOC_TYPE_STRING } from "./types.js";
 
 /**
  * @typedef {import("./index.js").Doc} Doc

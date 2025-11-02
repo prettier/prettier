@@ -18,14 +18,14 @@ import {
   DOC_TYPE_TRIM,
   hardlineWithoutBreakParent,
   indent as indentDoc,
-} from "../document/index.js";
-import InvalidDocError from "../document/invalid-doc-error.js";
+} from "../builders/index.js";
 import { getDocType, propagateBreaks } from "../utilities/index.js";
+import InvalidDocError from "../utilities/invalid-doc-error.js";
 import { makeAlign, makeIndent, ROOT_INDENT } from "./indent.js";
 
 /**
 @import {EndOfLineOption} from "../../common/end-of-line.js";
-@import {Doc} from "../document/index.js";
+@import {Doc} from "../builders/index.js";
 @import {Indent, IndentOptions} from "./indent.js";
 @typedef {typeof MODE_BREAK | typeof MODE_FLAT} Mode
 @typedef {{ indent: Indent, doc: any, mode: Mode }} Command

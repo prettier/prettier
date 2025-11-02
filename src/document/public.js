@@ -22,9 +22,8 @@ import {
   literallineWithoutBreakParent,
   markAsRoot,
   softline,
-  traverseDoc,
   trim,
-} from "./document/index.js";
+} from "./builders/index.js";
 import { printDocToString } from "./printer/printer.js";
 import {
   canBreak,
@@ -33,6 +32,7 @@ import {
   removeLines,
   replaceEndOfLine,
   stripTrailingHardline,
+  traverseDoc,
   willBreak,
 } from "./utilities/index.js";
 

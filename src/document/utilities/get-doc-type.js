@@ -2,7 +2,7 @@ import {
   DOC_TYPE_ARRAY,
   DOC_TYPE_STRING,
   VALID_OBJECT_DOC_TYPES,
-} from "./types.js";
+} from "../builders/types.js";
 
 function getDocType(doc) {
   if (typeof doc === "string") {
