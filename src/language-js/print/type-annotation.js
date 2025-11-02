@@ -1,4 +1,3 @@
-import { isTypeAlias } from "@babel/types";
 import {
   align,
   group,
@@ -23,6 +22,7 @@ import {
   isFlowObjectTypePropertyAFunction,
   isObjectType,
   isSimpleType,
+  isTypeAlias,
   isUnionType,
 } from "../utils/index.js";
 import { printAssignment } from "./assignment.js";

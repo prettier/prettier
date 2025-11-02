@@ -9,7 +9,6 @@ import { canBreak, cleanDoc, willBreak } from "../../document/utils.js";
 import getStringWidth from "../../utils/get-string-width.js";
 import isNonEmptyArray from "../../utils/is-non-empty-array.js";
 import {
-  createTypeCheckFunction,
   getCallArguments,
   hasLeadingOwnLineComment,
   isBinaryish,
@@ -21,6 +20,7 @@ import {
   isNumericLiteral,
   isObjectProperty,
   isStringLiteral,
+  isTypeAlias,
   isUnionType,
 } from "../utils/index.js";
 import { shouldInlineLogicalExpression } from "./binaryish.js";
@@ -301,10 +301,6 @@ function isComplexTypeAliasParams(node) {
   return false;
 }
 
-const isTypeAlias = createTypeCheckFunction([
-  "TSTypeAliasDeclaration",
-  "TypeAlias",
-]);
 function getTypeParametersFromTypeAlias(node) {
   if (isTypeAlias(node)) {
     return node.typeParameters?.params;

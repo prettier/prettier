@@ -1085,6 +1085,11 @@ const isTsAsConstExpression = (node) =>
   node.typeAnnotation.typeName.type === "Identifier" &&
   node.typeAnnotation.typeName.name === "const";
 
+const isTypeAlias = createTypeCheckFunction([
+  "TSTypeAliasDeclaration",
+  "TypeAlias",
+]);
+
 export {
   CommentCheckFlags,
   createTypeCheckFunction,
@@ -1137,6 +1142,7 @@ export {
   isTemplateOnItsOwnLine,
   isTestCall,
   isTsAsConstExpression,
+  isTypeAlias,
   isTypeAnnotationAFunction,
   isUnionType,
   iterateCallArgumentsPath,
