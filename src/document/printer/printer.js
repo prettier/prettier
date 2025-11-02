@@ -295,7 +295,7 @@ function printDocToString(doc, options) {
                     index < doc.expandedStates.length + 1;
                     index++
                   ) {
-                    if (index >= doc.expandedStates.length) {
+                    if (index >= doc.expandedStates.length -1) {
                       commands.push({
                         indent,
                         mode: MODE_BREAK,
