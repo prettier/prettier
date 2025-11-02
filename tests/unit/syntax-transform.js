@@ -185,17 +185,20 @@ test("public doc functionality", () => {
       "
     `);
   expect(
-    transform(
-      'import {align as renamedAlign, line, notExists} from "./document/index.js"',
-    ),
+    transform(outdent`
+      import {align as renamedAlign, line, notExists} from "./document/index.js"
+      import {line as renamedLine,  notExists2} from "./document/index.js"
+    `),
   ).toMatchInlineSnapshot(`
     "
     import { builders as __doc_builders } from "<PUBLIC_DOC_PATH>";
     const {
       align: renamedAlign,
-      line
+      line,
+      line: renamedLine
     } = __doc_builders;
     import { notExists } from "./document/index.js";
+    import { notExists2 } from "./document/index.js";
     "
   `);
   expect(
