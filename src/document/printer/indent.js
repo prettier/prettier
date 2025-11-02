@@ -130,35 +130,36 @@ function generateIndent(indent, command, options) {
 
 /**
 @param {Indent} indent
-@param {number | string | {type: "root"}} widthOrString
+@param {number | string | {type: "root"}} indentOptions
 @param {IndentOptions} options
 @param {RootIndent} rootIndent
 @returns {Indent}
 */
-function makeAlign(indent, widthOrString, rootIndent, options) {
-  if (widthOrString === Number.NEGATIVE_INFINITY) {
-    return indent.root ?? rootIndent;
-  }
-
-  if (!widthOrString) {
+function makeAlign(indent, indentOptions, rootIndent, options) {
+  if (!indentOptions) {
     return indent;
   }
 
-  if (widthOrString.type === "root") {
+  if (indentOptions.type === "root") {
     return { ...indent, root: indent };
   }
 
-  const isNumberAlign = typeof widthOrString === "number";
-
-  if (isNumberAlign && widthOrString < 0) {
-    return generateIndent(indent, INDENT_COMMAND_DEDENT, options);
+  if (indentOptions === Number.NEGATIVE_INFINITY) {
+    return indent.root ?? rootIndent;
   }
 
-  const indentCommand = isNumberAlign
-    ? { type: INDENT_COMMAND_TYPE_WIDTH, width: widthOrString }
-    : { type: INDENT_COMMAND_TYPE_STRING, string: widthOrString };
+  let command;
+  if (typeof indentOptions === "number") {
+    if (indentOptions < 0) {
+      command = INDENT_COMMAND_DEDENT;
+    } else {
+      command = { type: INDENT_COMMAND_TYPE_WIDTH, width: indentOptions };
+    }
+  } else {
+    command = { type: INDENT_COMMAND_TYPE_STRING, string: indentOptions };
+  }
 
-  return generateIndent(indent, indentCommand, options);
+  return generateIndent(indent, command, options);
 }
 
 /**
