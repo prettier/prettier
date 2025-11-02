@@ -2,17 +2,18 @@ import collapseWhiteSpace from "collapse-white-space";
 import escapeStringRegexp from "escape-string-regexp";
 import {
   align,
+  DOC_TYPE_STRING,
   fill,
+  getDocType,
   group,
   hardline,
   indent,
   line,
   literalline,
   markAsRoot,
+  replaceEndOfLine,
   softline,
-} from "../document/builders.js";
-import { DOC_TYPE_STRING } from "../document/constants.js";
-import { getDocType, replaceEndOfLine } from "../document/utils.js";
+} from "../document/index.js";
 import getMaxContinuousCount from "../utils/get-max-continuous-count.js";
 import getMinNotPresentContinuousCount from "../utils/get-min-not-present-continuous-count.js";
 import getPreferredQuote from "../utils/get-preferred-quote.js";
@@ -38,7 +39,7 @@ import {
 } from "./utils.js";
 
 /**
- * @import {Doc} from "../document/builders.js"
+ * @import {Doc} from "../document/index.js"
  */
 
 const SIBLING_NODE_TYPES = new Set(["listItem", "definition"]);
@@ -281,7 +282,6 @@ function genericPrint(path, options, print) {
 
       return replaceEndOfLine(
         value,
-        // @ts-expect-error
         isHtmlComment ? hardline : markAsRoot(literalline),
       );
     }

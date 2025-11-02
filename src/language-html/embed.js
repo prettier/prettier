@@ -4,7 +4,7 @@ import {
   hardline,
   indent,
   line,
-} from "../document/builders.js";
+} from "../document/index.js";
 import htmlWhitespaceUtils from "../utils/html-whitespace-utils.js";
 import printAngularControlFlowBlockParameters from "./embed/angular-control-flow-block-parameters.js";
 import printAttribute from "./embed/attribute.js";

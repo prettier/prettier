@@ -6,7 +6,7 @@ import {
   join,
   line,
   softline,
-} from "../../document/builders.js";
+} from "../../document/index.js";
 import {
   printComments,
   printCommentsSeparately,
@@ -38,7 +38,7 @@ import {
 } from "./misc.js";
 
 /**
- * @import {Doc} from "../../document/builders.js"
+ * @import {Doc} from "../../document/index.js"
  */
 
 const isVoidType = createTypeCheckFunction([

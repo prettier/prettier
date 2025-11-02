@@ -1,5 +1,4 @@
-import { hardline, markAsRoot } from "../document/builders.js";
-import { replaceEndOfLine } from "../document/utils.js";
+import { hardline, markAsRoot, replaceEndOfLine } from "../document/index.js";
 import getMaxContinuousCount from "../utils/get-max-continuous-count.js";
 import inferParser from "../utils/infer-parser.js";
 import { getFencedCodeBlockValue } from "./utils.js";

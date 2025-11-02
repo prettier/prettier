@@ -3,14 +3,14 @@ import {
   DOC_TYPE_IF_BREAK,
   DOC_TYPE_LINE,
   DOC_TYPE_STRING,
-} from "../constants.js";
-import { isEmptyDoc } from "../utils.js";
+} from "../builders/types.js";
+import { isEmptyDoc } from "../utilities/index.js";
 import getDocType from "./get-doc-type.js";
 import traverseDoc from "./traverse-doc.js";
 
 /**
- * @typedef {import("../builders.js").Doc} Doc
- */
+@import {Doc} from "../builders/index.js";
+*/
 
 const checked = process.env.NODE_ENV !== "production" && new WeakSet();
 const assertDoc =
@@ -49,7 +49,7 @@ const assertDocFillParts =
   process.env.NODE_ENV === "production"
     ? noop
     : /**
-       * @param {Doc[]} parts
+       * @param {readonly Doc[]} parts
        */
       function (parts) {
         assertDocArray(parts);

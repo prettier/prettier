@@ -1,5 +1,4 @@
 import { trimNewlinesEnd } from "trim-newlines";
-import { join, literalline } from "./builders.js";
 import {
   DOC_TYPE_ALIGN,
   DOC_TYPE_ARRAY,
@@ -16,10 +15,16 @@ import {
   DOC_TYPE_LINE_SUFFIX_BOUNDARY,
   DOC_TYPE_STRING,
   DOC_TYPE_TRIM,
-} from "./constants.js";
+  join,
+  literalline,
+} from "../builders/index.js";
+import getDocType from "./get-doc-type.js";
 import InvalidDocError from "./invalid-doc-error.js";
-import getDocType from "./utils/get-doc-type.js";
-import traverseDoc from "./utils/traverse-doc.js";
+import traverseDoc from "./traverse-doc.js";
+
+/**
+@import {Doc} from "../builders/index.js";
+*/
 
 function mapDoc(doc, cb) {
   // Avoid creating `Map`
@@ -347,6 +352,11 @@ function cleanDoc(doc) {
   return mapDoc(doc, (currentDoc) => cleanDocFn(currentDoc));
 }
 
+/**
+@param {Doc} doc
+@param {Doc} [replacement]
+@returns {Doc}
+*/
 function replaceEndOfLine(doc, replacement = literalline) {
   return mapDoc(doc, (currentDoc) =>
     typeof currentDoc === "string"
@@ -372,10 +382,10 @@ function inheritLabel(doc, fn) {
 }
 
 /**
- * returns true iff cleanDoc(doc) === ""
- * @param {import("./builders.js").Doc} doc
- * @returns {boolean}
- */
+returns true iff cleanDoc(doc) === ""
+@param {Doc} doc
+@returns {boolean}
+*/
 function isEmptyDoc(doc) {
   let isEmpty = true;
   traverseDoc(doc, (doc) => {
@@ -402,6 +412,7 @@ export {
   findInDoc,
   getDocType,
   inheritLabel,
+  InvalidDocError,
   isEmptyDoc,
   mapDoc,
   propagateBreaks,
@@ -411,3 +422,4 @@ export {
   traverseDoc,
   willBreak,
 };
+export { assertDocArray } from "./assert-doc.js";

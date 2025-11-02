@@ -1,4 +1,4 @@
-import { group, join } from "../../document/builders.js";
+import { group, join } from "../../document/index.js";
 import pathNeedsParens from "../needs-parens.js";
 import {
   getCallArguments,

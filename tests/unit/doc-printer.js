@@ -1,4 +1,4 @@
-import { fill, join, line } from "../../src/document/builders.js";
+import { fill, join, line } from "../../src/document/index.js";
 import { printDocToString } from "../../src/document/printer/printer.js";
 
 test("`printDocToString` should not manipulate docs", () => {

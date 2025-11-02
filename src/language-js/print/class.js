@@ -6,7 +6,7 @@ import {
   join,
   line,
   softline,
-} from "../../document/builders.js";
+} from "../../document/index.js";
 import {
   printComments,
   printDanglingComments,
@@ -33,7 +33,7 @@ import { printTypeAnnotationProperty } from "./type-annotation.js";
 import { getTypeParametersGroupId } from "./type-parameters.js";
 
 /**
- * @import {Doc} from "../../document/builders.js"
+ * @import {Doc} from "../../document/index.js"
  */
 
 const getHeritageGroupId = createGroupIdMapper("heritageGroup");

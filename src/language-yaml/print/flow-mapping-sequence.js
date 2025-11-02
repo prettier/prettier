@@ -4,7 +4,7 @@ import {
   join,
   line,
   softline,
-} from "../../document/builders.js";
+} from "../../document/index.js";
 import { hasEndComments, isEmptyNode } from "../utils.js";
 import { alignWithSpaces, printNextEmptyLine } from "./misc.js";
 

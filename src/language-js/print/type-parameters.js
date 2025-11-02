@@ -8,7 +8,7 @@ import {
   line,
   lineSuffixBoundary,
   softline,
-} from "../../document/builders.js";
+} from "../../document/index.js";
 import { printDanglingComments } from "../../main/comments/print.js";
 import createGroupIdMapper from "../../utils/create-group-id-mapper.js";
 import {
@@ -26,7 +26,7 @@ import {
 } from "./type-annotation.js";
 
 /**
- * @import {Doc} from "../../document/builders.js"
+ * @import {Doc} from "../../document/index.js"
  * @import AstPath from "../../common/ast-path.js"
  */
 

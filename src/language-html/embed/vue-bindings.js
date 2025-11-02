@@ -3,7 +3,7 @@ import isVueSfcWithTypescriptScript from "../utils/is-vue-sfc-with-typescript-sc
 import { formatAttributeValue } from "./utils.js";
 
 /**
- * @import {Doc} from "../../document/builders.js"
+ * @import {Doc} from "../../document/index.js"
  */
 
 /**

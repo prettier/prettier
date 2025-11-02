@@ -1,5 +1,4 @@
-import { hardline, join } from "../../document/builders.js";
-import { replaceEndOfLine } from "../../document/utils.js";
+import { hardline, join, replaceEndOfLine } from "../../document/index.js";
 import { locEnd, locStart } from "../loc.js";
 import isBlockComment from "../utils/is-block-comment.js";
 import isIndentableBlockComment from "../utils/is-indentable-block-comment.js";

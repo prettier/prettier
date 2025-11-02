@@ -1,10 +1,4 @@
-import {
-  group,
-  indent,
-  join,
-  line,
-  softline,
-} from "../../document/builders.js";
+import { group, indent, join, line, softline } from "../../document/index.js";
 import { printClosingTagEnd, printOpeningTagStart } from "./tag.js";
 
 /*

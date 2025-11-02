@@ -1,4 +1,4 @@
-import { group } from "../../document/builders.js";
+import { group } from "../../document/index.js";
 import { printReturnType } from "./function.js";
 import {
   printFunctionParameters,
@@ -8,7 +8,7 @@ import { printDeclareToken } from "./misc.js";
 
 /**
  * @import AstPath from "../../common/ast-path.js"
- * @import {Doc} from "../../document/builders.js"
+ * @import {Doc} from "../../document/index.js"
  */
 
 /*

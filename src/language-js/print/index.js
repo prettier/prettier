@@ -1,5 +1,4 @@
-import { group, indent, line } from "../../document/builders.js";
-import { inheritLabel } from "../../document/utils.js";
+import { group, indent, inheritLabel, line } from "../../document/index.js";
 import isNonEmptyArray from "../../utils/is-non-empty-array.js";
 import { locEnd, locStart } from "../loc.js";
 import pathNeedsParens from "../needs-parens.js";
@@ -15,7 +14,7 @@ import { printTypescript } from "./typescript.js";
 
 /**
  * @import AstPath from "../../common/ast-path.js"
- * @import {Doc} from "../../document/builders.js"
+ * @import {Doc} from "../../document/index.js"
  */
 
 function printWithoutParentheses(path, options, print, args) {

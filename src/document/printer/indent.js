@@ -4,6 +4,7 @@ const INDENT_COMMAND_TYPE_WIDTH = 2;
 const INDENT_COMMAND_TYPE_STRING = 3;
 
 /**
+@import {Align} from "../builders/index.js";
 @typedef {{useTabs: boolean, tabWidth: number}} IndentOptions
 @typedef {{
   readonly value: string,
@@ -135,10 +136,9 @@ function generateIndent(indent, command, options) {
   }
 }
 
-// TODO: `indentOptions` is `n` from `DOC_TYPE_ALIGN`
 /**
 @param {Indent} indent
-@param {number | string | {type: "root"}} indentOptions
+@param {Align["n"]} indentOptions
 @param {IndentOptions} options
 @returns {Indent}
 */

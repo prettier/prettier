@@ -1,7 +1,7 @@
-/** @import {Doc} from "../../document/builders.js" */
+/** @import {Doc} from "../../document/index.js" */
 
 import * as assert from "#universal/assert";
-import { replaceEndOfLine } from "../../document/utils.js";
+import { replaceEndOfLine } from "../../document/index.js";
 import printNumber from "../../utils/print-number.js";
 import printString from "../../utils/print-string.js";
 import getRaw from "../utils/get-raw.js";
