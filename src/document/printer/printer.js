@@ -555,6 +555,10 @@ function printDocToString(doc, options) {
             if (doc.literal) {
               out.push(newLine);
               position = 0;
+              if (indent.root) {
+                out.push(indent.root.value);
+                position = indent.root.length;
+              }
             } else {
               position -= trim(out);
               out.push(newLine + indent.value);
