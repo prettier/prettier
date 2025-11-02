@@ -207,23 +207,23 @@ function fits(
     return true;
   }
 
-  let restIdx = restCommands.length;
+  let restCommandsIndex = restCommands.length;
   /** @type {Array<Omit<Command, 'ind'>>} */
-  const cmds = [next];
+  const commands = [next];
   // `out` is only used for width counting because `trim` requires to look
   // backwards for space characters.
   const out = [];
   while (width >= 0) {
-    if (cmds.length === 0) {
-      if (restIdx === 0) {
+    if (commands.length === 0) {
+      if (restCommandsIndex === 0) {
         return true;
       }
-      cmds.push(restCommands[--restIdx]);
+      commands.push(restCommands[--restCommandsIndex]);
 
       continue;
     }
 
-    const { mode, doc } = cmds.pop();
+    const { mode, doc } = commands.pop();
     const docType = getDocType(doc);
     switch (docType) {
       case DOC_TYPE_STRING:
@@ -235,8 +235,8 @@ function fits(
       case DOC_TYPE_FILL: {
         const parts = docType === DOC_TYPE_ARRAY ? doc : doc.parts;
         const end = doc[DOC_FILL_PRINTED_LENGTH] ?? 0;
-        for (let i = parts.length - 1; i >= end; i--) {
-          cmds.push({ mode, doc: parts[i] });
+        for (let index = parts.length - 1; index >= end; index--) {
+          commands.push({ mode, doc: parts[index] });
         }
         break;
       }
@@ -245,7 +245,7 @@ function fits(
       case DOC_TYPE_ALIGN:
       case DOC_TYPE_INDENT_IF_BREAK:
       case DOC_TYPE_LABEL:
-        cmds.push({ mode, doc: doc.contents });
+        commands.push({ mode, doc: doc.contents });
         break;
 
       case DOC_TYPE_TRIM:
@@ -262,7 +262,7 @@ function fits(
           doc.expandedStates && groupMode === MODE_BREAK
             ? doc.expandedStates.at(-1)
             : doc.contents;
-        cmds.push({ mode: groupMode, doc: contents });
+        commands.push({ mode: groupMode, doc: contents });
         break;
       }
 
@@ -273,7 +273,7 @@ function fits(
         const contents =
           groupMode === MODE_BREAK ? doc.breakContents : doc.flatContents;
         if (contents) {
-          cmds.push({ mode, doc: contents });
+          commands.push({ mode, doc: contents });
         }
         break;
       }
@@ -308,12 +308,12 @@ function printDocToString(doc, options) {
 
   const width = options.printWidth;
   const newLine = convertEndOfLineToChars(options.endOfLine);
-  let pos = 0;
-  // cmds is basically a stack. We've turned a recursive call into a
+  let position = 0;
+  // commands is basically a stack. We've turned a recursive call into a
   // while loop which is much faster. The while loop below adds new
-  // cmds to the array instead of recursively calling `print`.
+  // commands to the array instead of recursively calling `print`.
   /** @type Command[] */
-  const cmds = [{ ind: rootIndent(), mode: MODE_BREAK, doc }];
+  const commands = [{ ind: rootIndent(), mode: MODE_BREAK, doc }];
   const out = [];
   let shouldRemeasure = false;
   /** @type Command[] */
@@ -322,23 +322,23 @@ function printDocToString(doc, options) {
 
   propagateBreaks(doc);
 
-  while (cmds.length > 0) {
-    const { ind, mode, doc } = cmds.pop();
+  while (commands.length > 0) {
+    const { ind, mode, doc } = commands.pop();
     switch (getDocType(doc)) {
       case DOC_TYPE_STRING: {
         const formatted =
           newLine !== "\n" ? doc.replaceAll("\n", newLine) : doc;
         out.push(formatted);
         // Plugins may print single string, should skip measure the width
-        if (cmds.length > 0) {
-          pos += getStringWidth(formatted);
+        if (commands.length > 0) {
+          position += getStringWidth(formatted);
         }
         break;
       }
 
       case DOC_TYPE_ARRAY:
-        for (let i = doc.length - 1; i >= 0; i--) {
-          cmds.push({ ind, mode, doc: doc[i] });
+        for (let index = doc.length - 1; index >= 0; index--) {
+          commands.push({ ind, mode, doc: doc[index] });
         }
         break;
 
@@ -351,11 +351,15 @@ function printDocToString(doc, options) {
         break;
 
       case DOC_TYPE_INDENT:
-        cmds.push({ ind: makeIndent(ind, options), mode, doc: doc.contents });
+        commands.push({
+          ind: makeIndent(ind, options),
+          mode,
+          doc: doc.contents,
+        });
         break;
 
       case DOC_TYPE_ALIGN:
-        cmds.push({
+        commands.push({
           ind: makeAlign(ind, doc.n, options),
           mode,
           doc: doc.contents,
@@ -363,14 +367,14 @@ function printDocToString(doc, options) {
         break;
 
       case DOC_TYPE_TRIM:
-        pos -= trim(out);
+        position -= trim(out);
         break;
 
       case DOC_TYPE_GROUP:
         switch (mode) {
           case MODE_FLAT:
             if (!shouldRemeasure) {
-              cmds.push({
+              commands.push({
                 ind,
                 mode: doc.break ? MODE_BREAK : MODE_FLAT,
                 doc: doc.contents,
@@ -385,14 +389,14 @@ function printDocToString(doc, options) {
 
             /** @type {Command} */
             const next = { ind, mode: MODE_FLAT, doc: doc.contents };
-            const rem = width - pos;
+            const remainingWidth = width - position;
             const hasLineSuffix = lineSuffix.length > 0;
 
             if (
               !doc.break &&
-              fits(next, cmds, rem, hasLineSuffix, groupModeMap)
+              fits(next, commands, remainingWidth, hasLineSuffix, groupModeMap)
             ) {
-              cmds.push(next);
+              commands.push(next);
             } else {
               // Expanded states are a rare case where a document
               // can manually provide multiple representations of
@@ -406,22 +410,38 @@ function printDocToString(doc, options) {
                 const mostExpanded = doc.expandedStates.at(-1);
 
                 if (doc.break) {
-                  cmds.push({ ind, mode: MODE_BREAK, doc: mostExpanded });
+                  commands.push({ ind, mode: MODE_BREAK, doc: mostExpanded });
 
                   break;
                 } else {
-                  for (let i = 1; i < doc.expandedStates.length + 1; i++) {
-                    if (i >= doc.expandedStates.length) {
-                      cmds.push({ ind, mode: MODE_BREAK, doc: mostExpanded });
+                  for (
+                    let index = 1;
+                    index < doc.expandedStates.length + 1;
+                    index++
+                  ) {
+                    if (index >= doc.expandedStates.length) {
+                      commands.push({
+                        ind,
+                        mode: MODE_BREAK,
+                        doc: mostExpanded,
+                      });
 
                       break;
                     } else {
-                      const state = doc.expandedStates[i];
+                      const state = doc.expandedStates[index];
                       /** @type {Command} */
                       const cmd = { ind, mode: MODE_FLAT, doc: state };
 
-                      if (fits(cmd, cmds, rem, hasLineSuffix, groupModeMap)) {
-                        cmds.push(cmd);
+                      if (
+                        fits(
+                          cmd,
+                          commands,
+                          remainingWidth,
+                          hasLineSuffix,
+                          groupModeMap,
+                        )
+                      ) {
+                        commands.push(cmd);
 
                         break;
                       }
@@ -429,7 +449,7 @@ function printDocToString(doc, options) {
                   }
                 }
               } else {
-                cmds.push({ ind, mode: MODE_BREAK, doc: doc.contents });
+                commands.push({ ind, mode: MODE_BREAK, doc: doc.contents });
               }
             }
 
@@ -438,7 +458,7 @@ function printDocToString(doc, options) {
         }
 
         if (doc.id) {
-          groupModeMap[doc.id] = cmds.at(-1).mode;
+          groupModeMap[doc.id] = commands.at(-1).mode;
         }
         break;
       // Fills each line with as much code as possible before moving to a new
@@ -462,7 +482,7 @@ function printDocToString(doc, options) {
       // * Neither content item fits on the line without breaking
       //   -> output the first content item and the whitespace with "break".
       case DOC_TYPE_FILL: {
-        const rem = width - pos;
+        const remainingWidth = width - position;
 
         const offset = doc[DOC_FILL_PRINTED_LENGTH] ?? 0;
         const { parts } = doc;
@@ -474,13 +494,13 @@ function printDocToString(doc, options) {
         const content = parts[offset + 0];
         const whitespace = parts[offset + 1];
         /** @type {Command} */
-        const contentFlatCmd = { ind, mode: MODE_FLAT, doc: content };
+        const contentFlatCommand = { ind, mode: MODE_FLAT, doc: content };
         /** @type {Command} */
-        const contentBreakCmd = { ind, mode: MODE_BREAK, doc: content };
+        const contentBreakCommand = { ind, mode: MODE_BREAK, doc: content };
         const contentFits = fits(
-          contentFlatCmd,
+          contentFlatCommand,
           [],
-          rem,
+          remainingWidth,
           lineSuffix.length > 0,
           groupModeMap,
           true,
@@ -488,23 +508,27 @@ function printDocToString(doc, options) {
 
         if (length === 1) {
           if (contentFits) {
-            cmds.push(contentFlatCmd);
+            commands.push(contentFlatCommand);
           } else {
-            cmds.push(contentBreakCmd);
+            commands.push(contentBreakCommand);
           }
           break;
         }
 
         /** @type {Command} */
-        const whitespaceFlatCmd = { ind, mode: MODE_FLAT, doc: whitespace };
+        const whitespaceFlatCommand = { ind, mode: MODE_FLAT, doc: whitespace };
         /** @type {Command} */
-        const whitespaceBreakCmd = { ind, mode: MODE_BREAK, doc: whitespace };
+        const whitespaceBreakCommand = {
+          ind,
+          mode: MODE_BREAK,
+          doc: whitespace,
+        };
 
         if (length === 2) {
           if (contentFits) {
-            cmds.push(whitespaceFlatCmd, contentFlatCmd);
+            commands.push(whitespaceFlatCommand, contentFlatCommand);
           } else {
-            cmds.push(whitespaceBreakCmd, contentBreakCmd);
+            commands.push(whitespaceBreakCommand, contentBreakCommand);
           }
           break;
         }
@@ -512,33 +536,45 @@ function printDocToString(doc, options) {
         const secondContent = parts[offset + 2];
 
         /** @type {Command} */
-        const remainingCmd = {
+        const remainingCommand = {
           ind,
           mode,
           doc: { ...doc, [DOC_FILL_PRINTED_LENGTH]: offset + 2 },
         };
 
         /** @type {Command} */
-        const firstAndSecondContentFlatCmd = {
+        const firstAndSecondContentFlatCommand = {
           ind,
           mode: MODE_FLAT,
           doc: [content, whitespace, secondContent],
         };
         const firstAndSecondContentFits = fits(
-          firstAndSecondContentFlatCmd,
+          firstAndSecondContentFlatCommand,
           [],
-          rem,
+          remainingWidth,
           lineSuffix.length > 0,
           groupModeMap,
           true,
         );
 
         if (firstAndSecondContentFits) {
-          cmds.push(remainingCmd, whitespaceFlatCmd, contentFlatCmd);
+          commands.push(
+            remainingCommand,
+            whitespaceFlatCommand,
+            contentFlatCommand,
+          );
         } else if (contentFits) {
-          cmds.push(remainingCmd, whitespaceBreakCmd, contentFlatCmd);
+          commands.push(
+            remainingCommand,
+            whitespaceBreakCommand,
+            contentFlatCommand,
+          );
         } else {
-          cmds.push(remainingCmd, whitespaceBreakCmd, contentBreakCmd);
+          commands.push(
+            remainingCommand,
+            whitespaceBreakCommand,
+            contentBreakCommand,
+          );
         }
         break;
       }
@@ -553,7 +589,7 @@ function printDocToString(doc, options) {
                 ? doc.contents
                 : indent(doc.contents);
           if (breakContents) {
-            cmds.push({ ind, mode, doc: breakContents });
+            commands.push({ ind, mode, doc: breakContents });
           }
         }
         if (groupMode === MODE_FLAT) {
@@ -564,7 +600,7 @@ function printDocToString(doc, options) {
                 ? indent(doc.contents)
                 : doc.contents;
           if (flatContents) {
-            cmds.push({ ind, mode, doc: flatContents });
+            commands.push({ ind, mode, doc: flatContents });
           }
         }
 
@@ -576,7 +612,7 @@ function printDocToString(doc, options) {
 
       case DOC_TYPE_LINE_SUFFIX_BOUNDARY:
         if (lineSuffix.length > 0) {
-          cmds.push({ ind, mode, doc: hardlineWithoutBreakParent });
+          commands.push({ ind, mode, doc: hardlineWithoutBreakParent });
         }
         break;
 
@@ -587,7 +623,7 @@ function printDocToString(doc, options) {
               if (!doc.soft) {
                 out.push(" ");
 
-                pos += 1;
+                position += 1;
               }
 
               break;
@@ -604,7 +640,7 @@ function printDocToString(doc, options) {
 
           case MODE_BREAK:
             if (lineSuffix.length > 0) {
-              cmds.push({ ind, mode, doc }, ...lineSuffix.reverse());
+              commands.push({ ind, mode, doc }, ...lineSuffix.reverse());
               lineSuffix.length = 0;
               break;
             }
@@ -612,22 +648,22 @@ function printDocToString(doc, options) {
             if (doc.literal) {
               if (ind.root) {
                 out.push(newLine, ind.root.value);
-                pos = ind.root.length;
+                position = ind.root.length;
               } else {
                 out.push(newLine);
-                pos = 0;
+                position = 0;
               }
             } else {
-              pos -= trim(out);
+              position -= trim(out);
               out.push(newLine + ind.value);
-              pos = ind.length;
+              position = ind.length;
             }
             break;
         }
         break;
 
       case DOC_TYPE_LABEL:
-        cmds.push({ ind, mode, doc: doc.contents });
+        commands.push({ ind, mode, doc: doc.contents });
         break;
 
       case DOC_TYPE_BREAK_PARENT:
@@ -640,8 +676,8 @@ function printDocToString(doc, options) {
 
     // Flush remaining line-suffix contents at the end of the document, in case
     // there is no new line after the line-suffix.
-    if (cmds.length === 0 && lineSuffix.length > 0) {
-      cmds.push(...lineSuffix.reverse());
+    if (commands.length === 0 && lineSuffix.length > 0) {
+      commands.push(...lineSuffix.reverse());
       lineSuffix.length = 0;
     }
   }
