@@ -4,7 +4,6 @@ const INDENT_COMMAND_TYPE_WIDTH = "INDENT_COMMAND_TYPE_WIDTH";
 const INDENT_COMMAND_TYPE_STRING = "INDENT_COMMAND_TYPE_STRING";
 
 /**
-@import {IndentCommand} from "./indent-command.js";
 @typedef {{useTabs: boolean, tabWidth: number}} IndentOptions
 @typedef {{
   readonly value: string,
@@ -13,7 +12,6 @@ const INDENT_COMMAND_TYPE_STRING = "INDENT_COMMAND_TYPE_STRING";
   readonly root?: Indent,
 }} Indent
 @typedef {{readonly value: '', readonly length: 0, readonly queue: readonly []}} RootIndent
-
 @typedef {{
   readonly type: typeof INDENT_COMMAND_TYPE_WIDTH,
   readonly width: number,
@@ -30,7 +28,9 @@ const INDENT_COMMAND_TYPE_STRING = "INDENT_COMMAND_TYPE_STRING";
 } IndentCommand
 */
 
+/** @type {{readonly type: typeof INDENT_COMMAND_TYPE_INDENT}} */
 const INDENT_COMMAND_INDENT = { type: INDENT_COMMAND_TYPE_INDENT };
+/** @type {{readonly type: typeof INDENT_COMMAND_TYPE_DEDENT}} */
 const INDENT_COMMAND_DEDENT = { type: INDENT_COMMAND_TYPE_DEDENT };
 
 /**
@@ -128,6 +128,7 @@ function generateIndent(indent, command, options) {
   }
 }
 
+// TODO: `indentOptions` is `n` from `DOC_TYPE_ALIGN`
 /**
 @param {Indent} indent
 @param {number | string | {type: "root"}} indentOptions
@@ -140,6 +141,7 @@ function makeAlign(indent, indentOptions, rootIndent, options) {
     return indent;
   }
 
+  // @ts-expect-error -- Safe
   if (indentOptions.type === "root") {
     return { ...indent, root: indent };
   }
@@ -148,6 +150,7 @@ function makeAlign(indent, indentOptions, rootIndent, options) {
     return indent.root ?? rootIndent;
   }
 
+  /** @type {IndentCommand} */
   let command;
   if (typeof indentOptions === "number") {
     if (indentOptions < 0) {
@@ -156,6 +159,7 @@ function makeAlign(indent, indentOptions, rootIndent, options) {
       command = { type: INDENT_COMMAND_TYPE_WIDTH, width: indentOptions };
     }
   } else {
+    // @ts-expect-error -- Safe
     command = { type: INDENT_COMMAND_TYPE_STRING, string: indentOptions };
   }
 
@@ -164,7 +168,7 @@ function makeAlign(indent, indentOptions, rootIndent, options) {
 
 /**
 @param {Indent} indent
-@param {*} options
+@param {IndentOptions} options
 @returns {Indent}
 */
 function makeIndent(indent, options) {
