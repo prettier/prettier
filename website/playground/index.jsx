@@ -13,7 +13,9 @@ const {
 
 function getInitialTheme() {
   const saved = localStorage.getItem("theme");
-  if (saved) return saved;
+  if (saved) {
+    return saved;
+  }
 
   return window.matchMedia("(prefers-color-scheme: dark)").matches
     ? "dark"
@@ -21,7 +23,7 @@ function getInitialTheme() {
 }
 
 function applyTheme(theme) {
-  document.documentElement.setAttribute("data-theme", theme);
+  document.documentElement.dataset.theme = theme;
 }
 
 function ThemeToggle() {
