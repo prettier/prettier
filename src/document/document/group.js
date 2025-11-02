@@ -6,11 +6,12 @@ import { DOC_TYPE_GROUP } from "./types.js";
 @typedef {symbol} GroupId
 @typedef {{
   readonly type: DOC_TYPE_GROUP,
+  readonly id: GroupId,
   readonly contents: Doc,
-  readonly groupId: GroupId,
-  readonly negate: boolean,
+  readonly break: boolean,
+  readonly expandedStates: readonly Doc[],
 }} Group
-@typedef {{id: GroupId, shouldBreak: boolean, expandedStates: Doc[]}} GroupOptions
+@typedef {{id?: GroupId, shouldBreak?: boolean, expandedStates?: Doc[]}} GroupOptions
 */
 
 /**

@@ -3,13 +3,14 @@ import { DOC_TYPE_IF_BREAK } from "./types.js";
 
 /**
 @import {Doc} from "./index.js";
+@import {GroupId} from "./group.js";
 @typedef {{
   readonly type: DOC_TYPE_IF_BREAK,
   readonly breakContents: Doc,
   readonly flatContents: Doc,
   readonly groupId: GroupId,
 }} IfBreak
-@typedef {{groupId: GroupId}} IfBreakOptions
+@typedef {{groupId?: GroupId}} IfBreakOptions
 */
 
 /**

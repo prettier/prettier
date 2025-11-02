@@ -4,12 +4,13 @@ import { DOC_TYPE_ALIGN } from "./types.js";
 
 /**
 @import {Doc} from "./index.js";
-@typedef {{type: "root"}} AlignTypeRoot
+@import {Indent} from "./indent.js";
+@typedef {{readonly type: "root"}} AlignTypeRoot
 @typedef {number | string | AlignTypeRoot} AlignType
-@typedef {<N extends AlignType = AlignType, Contents extends Doc = Doc>{
-  readonly type: DOC_TYPE_ALIGN,
-  readonly contents: readonly Doc[],
-  readonly n: N
+@typedef {{
+  readonly type: DOC_TYPE_ALIGN;
+  readonly contents: Doc;
+  readonly n: AlignType;
 }} Align
 */
 
@@ -26,7 +27,7 @@ function align(alignType, contents) {
 
 /**
 @param {Doc} contents
-@returns {Align<Number.NEGATIVE_INFINITY>}
+@returns {Align & {readonly n: typeof Number.NEGATIVE_INFINITY}}
 */
 function dedentToRoot(contents) {
   return align(Number.NEGATIVE_INFINITY, contents);
@@ -34,7 +35,7 @@ function dedentToRoot(contents) {
 
 /**
 @param {Doc} contents
-@returns {Align<AlignTypeRoot>}
+@returns {Align & {readonly n: AlignTypeRoot}}
 */
 function markAsRoot(contents) {
   return align({ type: "root" }, contents);
@@ -42,7 +43,7 @@ function markAsRoot(contents) {
 
 /**
 @param {Doc} contents
-@returns {Align<-1>}
+@returns {Align & {readonly n: -1}}
 */
 function dedent(contents) {
   return align(-1, contents);
@@ -52,7 +53,10 @@ function dedent(contents) {
 @param {Doc} doc
 @param {number} size
 @param {number} tabWidth
-@returns {Align<number | Number.NEGATIVE_INFINITY, Indent>}
+@returns {Align & {
+  readonly contents: Indent,
+  readonly n: number | typeof Number.NEGATIVE_INFINITY,
+}}
 */
 function addAlignmentToDoc(doc, size, tabWidth) {
   assertDoc(doc);

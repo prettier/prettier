@@ -45,7 +45,7 @@ const assertDocFillParts =
   process.env.NODE_ENV === "production"
     ? noop
     : /**
-       * @param {Doc[]} parts
+       * @param {readonly Doc[]} parts
        */
       function (parts) {
         assertDocArray(parts);

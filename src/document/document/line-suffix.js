@@ -8,7 +8,7 @@ import { DOC_TYPE_LINE_SUFFIX } from "./types.js";
 
 /**
 @param {Doc} contents
-@returns {Indent}
+@returns {LineSuffix}
 */
 function lineSuffix(contents) {
   assertDoc(contents);

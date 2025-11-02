@@ -3,7 +3,7 @@ import { DOC_TYPE_LABEL } from "./types.js";
 
 /**
 @import {Doc} from "./index.js";
-@typedef {<Label extends object = any>{
+@typedef {{
   readonly type: DOC_TYPE_LABEL,
   readonly label: Label,
   readonly contents: Doc,
@@ -15,10 +15,10 @@ Mark a doc with an arbitrary truthy value.
 This doesn't affect how the doc is printed,
 but can be useful for heuristics based on doc introspection.
 
-@template {L} Label
+@template {any} L
 @param {L} label If falsy, the `contents` doc is returned as is.
 @param {Doc} contents
-@returns {Label<L>}
+@returns {Label & {label: L}}
 */
 function label(label, contents) {
   assertDoc(contents);

@@ -1,6 +1,10 @@
 import { assertDoc, assertDocArray } from "./assert-doc.js";
 
 /**
+@import {Doc} from "./index.js";
+*/
+
+/**
 @param {Doc} separator
 @param {Doc[]} docs
 @returns {Doc[]}
