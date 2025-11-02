@@ -1,6 +1,6 @@
 import { convertEndOfLineToChars } from "../common/end-of-line.js";
 import getStringWidth from "../utils/get-string-width.js";
-import { hardlineWithoutBreakParent, indent } from "./builders.js";
+import { hardlineWithoutBreakParent, indent as indentDoc } from "./builders.js";
 import {
   DOC_TYPE_ALIGN,
   DOC_TYPE_ARRAY,
@@ -22,7 +22,7 @@ import InvalidDocError from "./invalid-doc-error.js";
 import { getDocType, propagateBreaks } from "./utils.js";
 
 /** @typedef {typeof MODE_BREAK | typeof MODE_FLAT} Mode */
-/** @typedef {{ ind: any, doc: any, mode: Mode }} Command */
+/** @typedef {{ indent: any, doc: any, mode: Mode }} Command */
 /** @typedef {Record<symbol, Mode>} GroupModeMap */
 
 /** @type {unique symbol} */
@@ -38,8 +38,8 @@ function rootIndent() {
   return { value: "", length: 0, queue: [] };
 }
 
-function makeIndent(ind, options) {
-  return generateInd(ind, { type: "indent" }, options);
+function makeIndent(indent, options) {
+  return generateIndent(indent, { type: "indent" }, options);
 }
 
 function makeAlign(indent, widthOrDoc, options) {
@@ -48,7 +48,7 @@ function makeAlign(indent, widthOrDoc, options) {
   }
 
   if (widthOrDoc < 0) {
-    return generateInd(indent, { type: "dedent" }, options);
+    return generateIndent(indent, { type: "dedent" }, options);
   }
 
   if (!widthOrDoc) {
@@ -62,14 +62,14 @@ function makeAlign(indent, widthOrDoc, options) {
   const alignType =
     typeof widthOrDoc === "string" ? "stringAlign" : "numberAlign";
 
-  return generateInd(indent, { type: alignType, n: widthOrDoc }, options);
+  return generateIndent(indent, { type: alignType, n: widthOrDoc }, options);
 }
 
-function generateInd(ind, newPart, options) {
+function generateIndent(indent, newPart, options) {
   const queue =
     newPart.type === "dedent"
-      ? ind.queue.slice(0, -1)
-      : [...ind.queue, newPart];
+      ? indent.queue.slice(0, -1)
+      : [...indent.queue, newPart];
 
   let value = "";
   let length = 0;
@@ -103,7 +103,7 @@ function generateInd(ind, newPart, options) {
 
   flushSpaces();
 
-  return { ...ind, value, length, queue };
+  return { ...indent, value, length, queue };
 
   function addTabs(count) {
     value += "\t".repeat(count);
@@ -208,7 +208,7 @@ function fits(
   }
 
   let restCommandsIndex = restCommands.length;
-  /** @type {Array<Omit<Command, 'ind'>>} */
+  /** @type {Array<Omit<Command, 'indent'>>} */
   const commands = [next];
   // `out` is only used for width counting because `trim` requires to look
   // backwards for space characters.
@@ -313,7 +313,7 @@ function printDocToString(doc, options) {
   // while loop which is much faster. The while loop below adds new
   // commands to the array instead of recursively calling `print`.
   /** @type Command[] */
-  const commands = [{ ind: rootIndent(), mode: MODE_BREAK, doc }];
+  const commands = [{ indent: rootIndent(), mode: MODE_BREAK, doc }];
   const out = [];
   let shouldRemeasure = false;
   /** @type Command[] */
@@ -323,7 +323,7 @@ function printDocToString(doc, options) {
   propagateBreaks(doc);
 
   while (commands.length > 0) {
-    const { ind, mode, doc } = commands.pop();
+    const { indent, mode, doc } = commands.pop();
     switch (getDocType(doc)) {
       case DOC_TYPE_STRING: {
         const formatted =
@@ -338,7 +338,7 @@ function printDocToString(doc, options) {
 
       case DOC_TYPE_ARRAY:
         for (let index = doc.length - 1; index >= 0; index--) {
-          commands.push({ ind, mode, doc: doc[index] });
+          commands.push({ indent, mode, doc: doc[index] });
         }
         break;
 
@@ -352,7 +352,7 @@ function printDocToString(doc, options) {
 
       case DOC_TYPE_INDENT:
         commands.push({
-          ind: makeIndent(ind, options),
+          indent: makeIndent(indent, options),
           mode,
           doc: doc.contents,
         });
@@ -360,7 +360,7 @@ function printDocToString(doc, options) {
 
       case DOC_TYPE_ALIGN:
         commands.push({
-          ind: makeAlign(ind, doc.n, options),
+          indent: makeAlign(indent, doc.n, options),
           mode,
           doc: doc.contents,
         });
@@ -375,7 +375,7 @@ function printDocToString(doc, options) {
           case MODE_FLAT:
             if (!shouldRemeasure) {
               commands.push({
-                ind,
+                indent,
                 mode: doc.break ? MODE_BREAK : MODE_FLAT,
                 doc: doc.contents,
               });
@@ -388,7 +388,7 @@ function printDocToString(doc, options) {
             shouldRemeasure = false;
 
             /** @type {Command} */
-            const next = { ind, mode: MODE_FLAT, doc: doc.contents };
+            const next = { indent, mode: MODE_FLAT, doc: doc.contents };
             const remainingWidth = width - position;
             const hasLineSuffix = lineSuffix.length > 0;
 
@@ -410,7 +410,11 @@ function printDocToString(doc, options) {
                 const mostExpanded = doc.expandedStates.at(-1);
 
                 if (doc.break) {
-                  commands.push({ ind, mode: MODE_BREAK, doc: mostExpanded });
+                  commands.push({
+                    indent,
+                    mode: MODE_BREAK,
+                    doc: mostExpanded,
+                  });
 
                   break;
                 } else {
@@ -421,7 +425,7 @@ function printDocToString(doc, options) {
                   ) {
                     if (index >= doc.expandedStates.length) {
                       commands.push({
-                        ind,
+                        indent,
                         mode: MODE_BREAK,
                         doc: mostExpanded,
                       });
@@ -430,7 +434,7 @@ function printDocToString(doc, options) {
                     } else {
                       const state = doc.expandedStates[index];
                       /** @type {Command} */
-                      const cmd = { ind, mode: MODE_FLAT, doc: state };
+                      const cmd = { indent, mode: MODE_FLAT, doc: state };
 
                       if (
                         fits(
@@ -449,7 +453,7 @@ function printDocToString(doc, options) {
                   }
                 }
               } else {
-                commands.push({ ind, mode: MODE_BREAK, doc: doc.contents });
+                commands.push({ indent, mode: MODE_BREAK, doc: doc.contents });
               }
             }
 
@@ -494,9 +498,9 @@ function printDocToString(doc, options) {
         const content = parts[offset + 0];
         const whitespace = parts[offset + 1];
         /** @type {Command} */
-        const contentFlatCommand = { ind, mode: MODE_FLAT, doc: content };
+        const contentFlatCommand = { indent, mode: MODE_FLAT, doc: content };
         /** @type {Command} */
-        const contentBreakCommand = { ind, mode: MODE_BREAK, doc: content };
+        const contentBreakCommand = { indent, mode: MODE_BREAK, doc: content };
         const contentFits = fits(
           contentFlatCommand,
           [],
@@ -516,10 +520,14 @@ function printDocToString(doc, options) {
         }
 
         /** @type {Command} */
-        const whitespaceFlatCommand = { ind, mode: MODE_FLAT, doc: whitespace };
+        const whitespaceFlatCommand = {
+          indent,
+          mode: MODE_FLAT,
+          doc: whitespace,
+        };
         /** @type {Command} */
         const whitespaceBreakCommand = {
-          ind,
+          indent,
           mode: MODE_BREAK,
           doc: whitespace,
         };
@@ -537,14 +545,14 @@ function printDocToString(doc, options) {
 
         /** @type {Command} */
         const remainingCommand = {
-          ind,
+          indent,
           mode,
           doc: { ...doc, [DOC_FILL_PRINTED_LENGTH]: offset + 2 },
         };
 
         /** @type {Command} */
         const firstAndSecondContentFlatCommand = {
-          ind,
+          indent,
           mode: MODE_FLAT,
           doc: [content, whitespace, secondContent],
         };
@@ -577,9 +585,9 @@ function printDocToString(doc, options) {
               ? doc.breakContents
               : doc.negate
                 ? doc.contents
-                : indent(doc.contents);
+                : indentDoc(doc.contents);
           if (breakContents) {
-            commands.push({ ind, mode, doc: breakContents });
+            commands.push({ indent, mode, doc: breakContents });
           }
         }
         if (groupMode === MODE_FLAT) {
@@ -587,22 +595,22 @@ function printDocToString(doc, options) {
             doc.type === DOC_TYPE_IF_BREAK
               ? doc.flatContents
               : doc.negate
-                ? indent(doc.contents)
+                ? indentDoc(doc.contents)
                 : doc.contents;
           if (flatContents) {
-            commands.push({ ind, mode, doc: flatContents });
+            commands.push({ indent, mode, doc: flatContents });
           }
         }
 
         break;
       }
       case DOC_TYPE_LINE_SUFFIX:
-        lineSuffix.push({ ind, mode, doc: doc.contents });
+        lineSuffix.push({ indent, mode, doc: doc.contents });
         break;
 
       case DOC_TYPE_LINE_SUFFIX_BOUNDARY:
         if (lineSuffix.length > 0) {
-          commands.push({ ind, mode, doc: hardlineWithoutBreakParent });
+          commands.push({ indent, mode, doc: hardlineWithoutBreakParent });
         }
         break;
 
@@ -630,30 +638,30 @@ function printDocToString(doc, options) {
 
           case MODE_BREAK:
             if (lineSuffix.length > 0) {
-              commands.push({ ind, mode, doc }, ...lineSuffix.reverse());
+              commands.push({ indent, mode, doc }, ...lineSuffix.reverse());
               lineSuffix.length = 0;
               break;
             }
 
             if (doc.literal) {
-              if (ind.root) {
-                out.push(newLine, ind.root.value);
-                position = ind.root.length;
+              if (indent.root) {
+                out.push(newLine, indent.root.value);
+                position = indent.root.length;
               } else {
                 out.push(newLine);
                 position = 0;
               }
             } else {
               position -= trim(out);
-              out.push(newLine + ind.value);
-              position = ind.length;
+              out.push(newLine + indent.value);
+              position = indent.length;
             }
             break;
         }
         break;
 
       case DOC_TYPE_LABEL:
-        commands.push({ ind, mode, doc: doc.contents });
+        commands.push({ indent, mode, doc: doc.contents });
         break;
 
       case DOC_TYPE_BREAK_PARENT:
