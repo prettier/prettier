@@ -24,7 +24,7 @@ function createRootIndent() {
 /**
 @param {Indent} indent
 @param {IndentCommand} command
-@param {*} options
+@param {IndentOptions} options
 @returns {Indent}
 */
 function generateIndent(indent, command, options) {
@@ -103,7 +103,7 @@ function generateIndent(indent, command, options) {
 /**
 @param {Indent} indent
 @param {number | string} widthOrString
-@param {*} options
+@param {IndentOptions} options
 @returns {Indent}
 */
 function makeAlign(indent, widthOrString, options) {

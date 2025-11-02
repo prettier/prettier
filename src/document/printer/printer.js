@@ -26,9 +26,9 @@ import { getDocType, propagateBreaks } from "../utils.js";
 import { createRootIndent, makeAlign, makeIndent } from "./indent.js";
 
 /**
-@import {Doc} from "./builders.js";
-@import {Indent, IndentOptions} from "./printer/indent.js";
-@import {EndOfLineOption} from "../common/end-of-line.js";
+@import {EndOfLineOption} from "../../common/end-of-line.js";
+@import {Doc} from "../builders.js";
+@import {Indent, IndentOptions} from "./indent.js";
 @typedef {typeof MODE_BREAK | typeof MODE_FLAT} Mode
 @typedef {{ indent: Indent, doc: any, mode: Mode }} Command
 @typedef {Record<symbol, Mode>} GroupModeMap
