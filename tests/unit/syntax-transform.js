@@ -160,14 +160,12 @@ test("Array#toReversed", () => {
 });
 
 test("String.raw", () => {
-  expect(transform("String.raw`\\\\\\uINVALID`")).toMatchInlineSnapshot(
-    String.raw`""\\\\\\uINVALID";"`,
-    String.raw`
+  expect(transform("String.raw`\\\\\\uINVALID`"))
+    .toMatchInlineSnapshot(String.raw`
 "
 "\\\\\\uINVALID";
 "
-`,
-  );
+`);
   expect(transform("String.raw`\\uINVALID${'world'}`")).toMatchInlineSnapshot(`
     "
     \`\\\\uINVALID\${'world'}\`;
@@ -228,7 +226,7 @@ test("All", () => {
       import {align, line} from "./document/index.js"
 
       if (Object.hasOwn(foo, bar)) {
-      const a =foo?.at(-1)?.replaceAll(/bar/, "")
+      const a =foo?.at(-1)?.replaceAll(/bar/, ""),
           b = bar?.findLast(() => true),
           c = foo.findLastIndex(callback)
       const d = [a, b, foo].toReversed().join(String.raw\`\${d}\`)
@@ -248,8 +246,9 @@ test("All", () => {
       line
     } = __doc_builders;
     if (Object.prototype.hasOwnProperty.call(foo, bar)) {
-      const a = __replaceAll(/* OPTIONAL_OBJECT: true */1, __at(/* OPTIONAL_OBJECT: true */1, foo, -1), /bar/, "");
-      b = __findLast(/* OPTIONAL_OBJECT: true */1, bar, () => true), c = __findLastIndex(/* OPTIONAL_OBJECT: false */0, foo, callback);
+      const a = __replaceAll(/* OPTIONAL_OBJECT: true */1, __at(/* OPTIONAL_OBJECT: true */1, foo, -1), /bar/, ""),
+        b = __findLast(/* OPTIONAL_OBJECT: true */1, bar, () => true),
+        c = __findLastIndex(/* OPTIONAL_OBJECT: false */0, foo, callback);
       const d = __toReversed(/* OPTIONAL_OBJECT: false */0, [a, b, foo]).join(\`\${d}\`);
     }
     "
