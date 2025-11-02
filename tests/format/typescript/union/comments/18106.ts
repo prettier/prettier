@@ -28,32 +28,15 @@ const elements: // dir, exp, arg, modifiers
   | [string, ExpressionNode, ExpressionNode, ObjectExpression]
   = 1
 
-export interface DirectiveArgumentNode2 extends ArrayExpression {
-  elements: /* block comment */
-    | [string]
-    | [string, ExpressionNode]
-    | [string, ExpressionNode, ExpressionNode]
-    | [string, ExpressionNode, ExpressionNode, ObjectExpression]
-}
-
-export class DirectiveArgumentNode22 extends ArrayExpression {
-  elements: /* block comment */
-    | [string]
-    | [string, ExpressionNode]
-    | [string, ExpressionNode, ExpressionNode]
-    | [string, ExpressionNode, ExpressionNode, ObjectExpression]
-  = 1
-}
-
 type A2 = /* block comment */
   | [string]
   | [string, ExpressionNode]
   | [string, ExpressionNode, ExpressionNode]
   | [string, ExpressionNode, ExpressionNode, ObjectExpression]
 
-const elements2: /* block comment */
+type A3 = /* block comment
+ */
   | [string]
   | [string, ExpressionNode]
   | [string, ExpressionNode, ExpressionNode]
   | [string, ExpressionNode, ExpressionNode, ObjectExpression]
-  = 1

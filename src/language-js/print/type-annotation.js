@@ -216,7 +216,10 @@ function printUnionType(path, options, print) {
       (isTypeAlias(parent) || parent.type === "VariableDeclarator") &&
       hasLeadingOwnLineComment(options.originalText, node)
     ) &&
-    !(isTypeAlias(parent) && hasComment(parent.id, CommentCheckFlags.Trailing));
+    !(
+      isTypeAlias(parent) &&
+      hasComment(parent.id, CommentCheckFlags.Trailing | CommentCheckFlags.Line)
+    );
 
   // {
   //   a: string
