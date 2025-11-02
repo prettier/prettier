@@ -412,6 +412,7 @@ export {
   findInDoc,
   getDocType,
   inheritLabel,
+  InvalidDocError,
   isEmptyDoc,
   mapDoc,
   propagateBreaks,
