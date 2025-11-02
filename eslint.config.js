@@ -498,7 +498,7 @@ const configs = [
     rules: { "require-unicode-regexp": "off" },
   },
   {
-    files: ["src/document/printer.js"],
+    files: ["src/document/printer/printer.js"],
     rules: {
       "unicorn/prevent-abbreviations": [
         "error",
