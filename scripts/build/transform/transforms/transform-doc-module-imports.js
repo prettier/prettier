@@ -91,7 +91,7 @@ function transformProgramWithoutCache(program, file) {
     return;
   }
 
-  const identityPrefix = "__public_doc_";
+  const identityPrefix = "__doc_";
   const namespaces = [...new Set(replaced.map(({ namespace }) => namespace))];
 
   body.unshift(
