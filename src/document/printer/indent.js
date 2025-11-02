@@ -38,8 +38,14 @@ const INDENT_COMMAND_INDENT = { type: INDENT_COMMAND_TYPE_INDENT };
 /** @type {{readonly type: typeof INDENT_COMMAND_TYPE_DEDENT}} */
 const INDENT_COMMAND_DEDENT = { type: INDENT_COMMAND_TYPE_DEDENT };
 /** @type {RootIndent} */
-const ROOT_INDENT = { value: "", length: 0, queue: [] };
-ROOT_INDENT.root = ROOT_INDENT;
+const ROOT_INDENT = {
+  value: "",
+  length: 0,
+  queue: [],
+  get root() {
+    return ROOT_INDENT;
+  },
+};
 
 /**
 @param {Indent} indent
