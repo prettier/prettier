@@ -19,17 +19,13 @@ import {
   DOC_TYPE_TRIM,
 } from "./constants.js";
 import InvalidDocError from "./invalid-doc-error.js";
+import { createRootIndent, makeAlign, makeIndent } from "./printer-indent.js";
 import { getDocType, propagateBreaks } from "./utils.js";
-
-// TODO: Split `IndentCommand`
 
 /**
 @import {Doc} from "./builders.js";
-@typedef {{
-  type: "indent" | "dedent" | "stringAlign" | "stringAlign" | "numberAlign"
-  n?: number | string
-}} IndentCommand
-@typedef {{value: string, length: number, queue: IndentCommand[], root?: Indent}} Indent
+@import {Indent, IndentOptions} from "./printer-indent.js";
+@import {EndOfLineOption} from "../common/end-of-line.js";
 @typedef {typeof MODE_BREAK | typeof MODE_FLAT} Mode
 @typedef {{ indent: Indent, doc: Doc, mode: Mode }} Command
 @typedef {Record<symbol, Mode>} GroupModeMap
@@ -43,132 +39,6 @@ const MODE_FLAT = Symbol("MODE_FLAT");
 const CURSOR_PLACEHOLDER = Symbol("cursor");
 
 const DOC_FILL_PRINTED_LENGTH = Symbol("DOC_FILL_PRINTED_LENGTH");
-
-/**
-@returns {Indent}
-*/
-function rootIndent() {
-  return { value: "", length: 0, queue: [] };
-}
-
-/**
-@param {Indent} indent
-@param {*} options
-@returns {Indent}
-*/
-function makeIndent(indent, options) {
-  return generateIndent(indent, { type: "indent" }, options);
-}
-
-/**
-@param {Indent} indent
-@param {number | string} widthOrString
-@param {*} options
-@returns {Indent}
-*/
-function makeAlign(indent, widthOrString, options) {
-  if (widthOrString === Number.NEGATIVE_INFINITY) {
-    return indent.root ?? rootIndent();
-  }
-
-  if (!widthOrString) {
-    return indent;
-  }
-
-  const isNumberAlign = typeof widthOrString === "number";
-
-  if (isNumberAlign && widthOrString < 0) {
-    return generateIndent(indent, { type: "dedent" }, options);
-  }
-
-  const alignType = isNumberAlign ? "numberAlign" : "stringAlign";
-
-  return generateIndent(indent, { type: alignType, n: widthOrString }, options);
-}
-
-/**
-@param {Indent} indent
-@param {IndentCommand} command
-@param {*} options
-@returns {Indent}
-*/
-function generateIndent(indent, command, options) {
-  const queue =
-    command.type === "dedent"
-      ? indent.queue.slice(0, -1)
-      : [...indent.queue, command];
-
-  let value = "";
-  let length = 0;
-  let lastTabs = 0;
-  let lastSpaces = 0;
-
-  for (const part of queue) {
-    switch (part.type) {
-      case "indent":
-        flush();
-        if (options.useTabs) {
-          addTabs(1);
-        } else {
-          addSpaces(options.tabWidth);
-        }
-        break;
-      case "stringAlign":
-        flush();
-        value += part.n;
-        length += part.n.length;
-        break;
-      case "numberAlign":
-        lastTabs += 1;
-        lastSpaces += part.n;
-        break;
-      default:
-        /* c8 ignore next */
-        throw new Error(`Unexpected type '${part.type}'`);
-    }
-  }
-
-  flushSpaces();
-
-  return { ...indent, value, length, queue };
-
-  function addTabs(count) {
-    value += "\t".repeat(count);
-    length += options.tabWidth * count;
-  }
-
-  function addSpaces(count) {
-    value += " ".repeat(count);
-    length += count;
-  }
-
-  function flush() {
-    if (options.useTabs) {
-      flushTabs();
-    } else {
-      flushSpaces();
-    }
-  }
-
-  function flushTabs() {
-    if (lastTabs > 0) {
-      addTabs(lastTabs);
-    }
-    resetLast();
-  }
-
-  function flushSpaces() {
-    if (lastSpaces > 0) {
-      addSpaces(lastSpaces);
-    }
-    resetLast();
-  }
-
-  function resetLast() {
-    lastTabs = 0;
-    lastSpaces = 0;
-  }
-}
 
 // Trim `Tab(U+0009)` and `Space(U+0020)` at the end of line
 function trim(out) {
@@ -329,6 +199,14 @@ function fits(
   return false;
 }
 
+/**
+@param {Doc} doc
+@param {{
+  printWidth: number,
+  endOfLine: EndOfLineOption,
+} & IndentOptions} options
+@returns
+*/
 function printDocToString(doc, options) {
   /** @type GroupModeMap */
   const groupModeMap = {};
@@ -340,7 +218,7 @@ function printDocToString(doc, options) {
   // while loop which is much faster. The while loop below adds new
   // commands to the array instead of recursively calling `print`.
   /** @type Command[] */
-  const commands = [{ indent: rootIndent(), mode: MODE_BREAK, doc }];
+  const commands = [{ indent: createRootIndent(), mode: MODE_BREAK, doc }];
   const out = [];
   let shouldRemeasure = false;
   /** @type Command[] */
