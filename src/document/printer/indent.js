@@ -1,9 +1,7 @@
-import {
-  INDENT_COMMAND_TYPE_DEDENT,
-  INDENT_COMMAND_TYPE_INDENT,
-  INDENT_COMMAND_TYPE_STRING,
-  INDENT_COMMAND_TYPE_WIDTH,
-} from "./indent-command.js";
+const INDENT_COMMAND_TYPE_INDENT = "INDENT_COMMAND_TYPE_INDENT";
+const INDENT_COMMAND_TYPE_DEDENT = "INDENT_COMMAND_TYPE_DEDENT";
+const INDENT_COMMAND_TYPE_WIDTH = "INDENT_COMMAND_TYPE_WIDTH";
+const INDENT_COMMAND_TYPE_STRING = "INDENT_COMMAND_TYPE_STRING";
 
 /**
 @import {IndentCommand} from "./indent-command.js";
@@ -15,7 +13,25 @@ import {
   readonly root?: Indent,
 }} Indent
 @typedef {{readonly value: '', readonly length: 0, readonly queue: readonly []}} RootIndent
+
+@typedef {{
+  readonly type: typeof INDENT_COMMAND_TYPE_WIDTH,
+  readonly width: number,
+}} WidthIndentCommand
+@typedef {{
+  readonly type: typeof INDENT_COMMAND_TYPE_STRING,
+  readonly string: string,
+}} StringIndentCommand
+@typedef {
+  | typeof INDENT_COMMAND_INDENT
+  | typeof INDENT_COMMAND_DEDENT
+  | WidthIndentCommand
+  | StringIndentCommand
+} IndentCommand
 */
+
+const INDENT_COMMAND_INDENT = { type: INDENT_COMMAND_TYPE_INDENT };
+const INDENT_COMMAND_DEDENT = { type: INDENT_COMMAND_TYPE_DEDENT };
 
 /**
 @returns {RootIndent}
@@ -114,7 +130,7 @@ function generateIndent(indent, command, options) {
 
 /**
 @param {Indent} indent
-@param {number | string} widthOrString
+@param {number | string | {type: "root"}} widthOrString
 @param {IndentOptions} options
 @param {RootIndent} rootIndent
 @returns {Indent}
@@ -135,11 +151,7 @@ function makeAlign(indent, widthOrString, rootIndent, options) {
   const isNumberAlign = typeof widthOrString === "number";
 
   if (isNumberAlign && widthOrString < 0) {
-    return generateIndent(
-      indent,
-      { type: INDENT_COMMAND_TYPE_DEDENT },
-      options,
-    );
+    return generateIndent(indent, INDENT_COMMAND_DEDENT, options);
   }
 
   const indentCommand = isNumberAlign
@@ -155,7 +167,7 @@ function makeAlign(indent, widthOrString, rootIndent, options) {
 @returns {Indent}
 */
 function makeIndent(indent, options) {
-  return generateIndent(indent, { type: INDENT_COMMAND_TYPE_INDENT }, options);
+  return generateIndent(indent, INDENT_COMMAND_INDENT, options);
 }
 
 export { createRootIndent, makeAlign, makeIndent };
