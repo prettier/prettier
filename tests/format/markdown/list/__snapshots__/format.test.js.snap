@@ -963,26 +963,12 @@ tabWidth: 4
 
 * hello6
 =====================================output=====================================
-<<<<<<< HEAD
--   hello1
--   hello2
--   hello3
--   hello4
--   hello5
--   hello6
-=======
 - hello1
-
 - hello2
-
 - hello3
-
 - hello4
-
 - hello5
-
 - hello6
->>>>>>> main
 
 ================================================================================
 `;
@@ -2118,19 +2104,11 @@ tabWidth: 4
    d d d  
     e e e
 =====================================output=====================================
-<<<<<<< HEAD
--   a a  
-    b b  
-    c c  
-    d d  
-    e e
-=======
 - a a  
-   b b  
-   c c  
-   d d  
+  b b  
+  c c  
+  d d  
   e e
->>>>>>> main
 
 1.  a a a  
     b b b  
@@ -3117,19 +3095,12 @@ tabWidth: 4
 
 # List with 1 tab indentation and \`*\`
 
-<<<<<<< HEAD
--   Top level list item 1
--   Top level list item 2
-    -   Nested List item 1
-    -   Nested List item 2
-        -   Sub-Nested List item 1
-        -   Sub-Nested List item 2
-=======
 - Top level list item 1
 - Top level list item 2
     - Nested List item 1
-    - Nested List item 2 _ Sub-Nested List item 1 _ Sub-Nested List item 2
->>>>>>> main
+    - Nested List item 2
+        - Sub-Nested List item 1
+        - Sub-Nested List item 2
 
 ================================================================================
 `;
