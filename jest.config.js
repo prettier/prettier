@@ -65,14 +65,10 @@ const config = {
     "<rootDir>/tests/config/format-test-setup.js",
     "<rootDir>/tests/integration/integration-test-setup.js",
   ],
-<<<<<<< HEAD
-  runner: "jest-light-runner",
+  runner: "jest-light-runner/child-process",
   testEnvironmentOptions: {
     customExportConditions: ["development"],
   },
-=======
-  runner: "jest-light-runner/child-process",
->>>>>>> main
   snapshotSerializers: [
     "jest-snapshot-serializer-raw",
     "jest-snapshot-serializer-ansi",

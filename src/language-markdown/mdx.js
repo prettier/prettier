@@ -63,14 +63,10 @@ const tokenizeEsComment = (eat, value) => {
 
 tokenizeEsComment.locator = (value, fromIndex) => value.indexOf("{", fromIndex);
 
-/** @import {Plugin, Settings} from "unified" */
+/** @import {Plugin, Settings} from "unified-v9" */
 
 /**
-<<<<<<< HEAD
- * @type {import('unified-v9').Plugin<[], import('unified-v9').Settings>}
-=======
  * @type {Plugin<[], Settings>}
->>>>>>> main
  */
 const esSyntax = function () {
   const { Parser } = this;

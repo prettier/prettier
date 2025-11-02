@@ -89,16 +89,6 @@ function genericPrint(path, options, print) {
   }
 
   switch (node.type) {
-<<<<<<< HEAD
-    case "front-matter":
-      return options.parser === "mdx"
-        ? options.originalText.slice(
-            node.position.start.offset,
-            node.position.end.offset,
-          )
-        : node.raw;
-=======
->>>>>>> main
     case "root":
       /* c8 ignore next 3 */
       if (node.children.length === 0) {

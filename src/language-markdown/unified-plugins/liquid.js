@@ -1,11 +1,7 @@
-/** @import {Plugin, Settings} from "unified" */
+/** @import {Plugin, Settings} from "unified-v9" */
 
 /**
-<<<<<<< HEAD
- * @type {import('unified-v9').Plugin<[], import('unified-v9').Settings>}
-=======
  * @type {Plugin<[], Settings>}
->>>>>>> main
  */
 const liquid = function () {
   const proto = this.Parser.prototype;
