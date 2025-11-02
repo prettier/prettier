@@ -96,7 +96,7 @@ function getEsbuildOptions({ packageConfig, file, cliOptions }) {
     // Transform `.at`, `Object.hasOwn`, and `String#replaceAll`
     {
       module: "*",
-      process: transform,
+      process: (text, file) => transform(text, file, buildOptions),
     },
     // #12493, not sure what the problem is, but replace the cjs version with esm version seems fix it
     {

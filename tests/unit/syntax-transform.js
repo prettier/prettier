@@ -8,15 +8,25 @@ const file = url.fileURLToPath(
 const shimsDirectory = url.fileURLToPath(
   new URL("../../scripts/build/shims", import.meta.url),
 );
+const publicDocPath = url.fileURLToPath(
+  new URL("../../src/document/public.js", import.meta.url),
+);
 const transform = (code) =>
-  transformCode(code, file).replaceAll(
-    JSON.stringify(shimsDirectory + path.sep).slice(1, -1),
-    "<SHIMS>/",
-  );
+  transformCode(code, file, {
+    reuseDocModule: true,
+  })
+    .replaceAll(
+      JSON.stringify(shimsDirectory + path.sep).slice(1, -1),
+      "<SHIMS>/",
+    )
+    .replaceAll(
+      JSON.stringify(publicDocPath).slice(1, -1),
+      "<PUBLIC_DOC_PATH>",
+    );
 
 test("Object.hasOwn", () => {
   expect(transform("Object.hasOwn(foo, bar)")).toMatchInlineSnapshot(
-    `"Object.prototype.hasOwnProperty.call(foo,bar)"`,
+    `"Object.prototype.hasOwnProperty.call(foo, bar);"`,
   );
 });
 
@@ -24,25 +34,25 @@ test(".at", () => {
   expect(transform("foo.at(-1)")).toMatchInlineSnapshot(`
     "import __at from "<SHIMS>/method-at.js";
 
-    __at  (/* OPTIONAL_OBJECT: false */0,foo,-1)"
+    __at(/* OPTIONAL_OBJECT: false */0, foo, -1);"
   `);
 
   expect(transform("foo?.at(-1)")).toMatchInlineSnapshot(`
     "import __at from "<SHIMS>/method-at.js";
 
-    __at   (/* OPTIONAL_OBJECT: true */1,foo,-1)"
+    __at(/* OPTIONAL_OBJECT: true */1, foo, -1);"
   `);
 
   expect(transform("foo?.bar.baz.at(-1)")).toMatchInlineSnapshot(`
     "import __at from "<SHIMS>/method-at.js";
 
-    __at           (/* OPTIONAL_OBJECT: true */1,foo?.bar.baz,-1)"
+    __at(/* OPTIONAL_OBJECT: true */1, foo?.bar.baz, -1);"
   `);
 
   expect(transform("foo.at(-1)?.bar")).toMatchInlineSnapshot(`
     "import __at from "<SHIMS>/method-at.js";
 
-    __at  (/* OPTIONAL_OBJECT: false */0,foo,-1)?.bar"
+    __at(/* OPTIONAL_OBJECT: false */0, foo, -1)?.bar;"
   `);
 
   // Optional call not supported
@@ -53,7 +63,7 @@ test("String#replaceAll", () => {
   expect(transform("foo.replaceAll('a', 'b')")).toMatchInlineSnapshot(`
     "import __replaceAll from "<SHIMS>/method-replace-all.js";
 
-    __replaceAll  (/* OPTIONAL_OBJECT: false */0,foo,'a','b')"
+    __replaceAll(/* OPTIONAL_OBJECT: false */0, foo, 'a', 'b');"
   `);
 });
 
@@ -61,12 +71,12 @@ test("Array#findLast", () => {
   expect(transform("foo.findLast(callback)")).toMatchInlineSnapshot(`
     "import __findLast from "<SHIMS>/method-find-last.js";
 
-    __findLast  (/* OPTIONAL_OBJECT: false */0,foo,callback)"
+    __findLast(/* OPTIONAL_OBJECT: false */0, foo, callback);"
   `);
   expect(transform("foo?.findLast(callback)")).toMatchInlineSnapshot(`
     "import __findLast from "<SHIMS>/method-find-last.js";
 
-    __findLast   (/* OPTIONAL_OBJECT: true */1,foo,callback)"
+    __findLast(/* OPTIONAL_OBJECT: true */1, foo, callback);"
   `);
 
   // Not supported
@@ -79,12 +89,12 @@ test("Array#findLastIndex", () => {
   expect(transform("foo.findLastIndex(callback)")).toMatchInlineSnapshot(`
     "import __findLastIndex from "<SHIMS>/method-find-last-index.js";
 
-    __findLastIndex  (/* OPTIONAL_OBJECT: false */0,foo,callback)"
+    __findLastIndex(/* OPTIONAL_OBJECT: false */0, foo, callback);"
   `);
   expect(transform("foo?.findLastIndex(callback)")).toMatchInlineSnapshot(`
     "import __findLastIndex from "<SHIMS>/method-find-last-index.js";
 
-    __findLastIndex   (/* OPTIONAL_OBJECT: true */1,foo,callback)"
+    __findLastIndex(/* OPTIONAL_OBJECT: true */1, foo, callback);"
   `);
 
   // Not supported
@@ -97,12 +107,12 @@ test("Array#toReversed", () => {
   expect(transform("foo.toReversed()")).toMatchInlineSnapshot(`
     "import __toReversed from "<SHIMS>/method-to-reversed.js";
 
-    __toReversed  (/* OPTIONAL_OBJECT: false */0,foo)"
+    __toReversed(/* OPTIONAL_OBJECT: false */0, foo);"
   `);
   expect(transform("foo?.toReversed()")).toMatchInlineSnapshot(`
     "import __toReversed from "<SHIMS>/method-to-reversed.js";
 
-    __toReversed   (/* OPTIONAL_OBJECT: true */1,foo)"
+    __toReversed(/* OPTIONAL_OBJECT: true */1, foo);"
   `);
 
   expect(transform("foo.toReversed(extraArgument)")).toMatchInlineSnapshot(
@@ -112,9 +122,28 @@ test("Array#toReversed", () => {
 
 test("String.raw", () => {
   expect(transform("String.raw`\\\\\\uINVALID`")).toMatchInlineSnapshot(
-    String.raw`""\\\\\\uINVALID""`,
+    String.raw`""\\\\\\uINVALID";"`,
   );
   expect(transform("String.raw`\\uINVALID${'world'}`")).toMatchInlineSnapshot(
-    `"          \`\\\\uINVALID\${'world'}\`"`,
+    `"\`\\\\uINVALID\${'world'}\`;"`,
   );
+});
+
+test("public doc functionality", () => {
+  expect(transform('import {align, line} from "./document/index.js"'))
+    .toMatchInlineSnapshot(`
+      "import { builders as __public_doc_builders } from "<PUBLIC_DOC_PATH>";
+      const align = __public_doc_builders.align,
+        line = __public_doc_builders.line;"
+    `);
+  expect(
+    transform(
+      'import {align as renamedAlign, line, notExists} from "./document/index.js"',
+    ),
+  ).toMatchInlineSnapshot(`
+    "import { builders as __public_doc_builders } from "<PUBLIC_DOC_PATH>";
+    const renamedAlign = __public_doc_builders.align,
+      line = __public_doc_builders.line;
+    import { notExists } from "./document/index.js";"
+  `);
 });
