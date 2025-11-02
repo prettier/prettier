@@ -1,16 +1,19 @@
 import {
-  createStringIndentCommand,
-  createWidthIndentCommand,
-  INDENT_COMMAND_DEDENT,
-  INDENT_COMMAND_INDENT,
-  isStringIndentCommand,
-  isWidthIndentCommand,
+  INDENT_COMMAND_TYPE_DEDENT,
+  INDENT_COMMAND_TYPE_INDENT,
+  INDENT_COMMAND_TYPE_STRING,
+  INDENT_COMMAND_TYPE_WIDTH,
 } from "./indent-command.js";
 
 /**
 @import {IndentCommand} from "./indent-command.js";
 @typedef {{useTabs: boolean, tabWidth: number}} IndentOptions
-@typedef {{readonly value: string, readonly length: number, readonly queue: readonly IndentCommand[]}} Indent
+@typedef {{
+  readonly value: string,
+  readonly length: number,
+  readonly queue: readonly IndentCommand[],
+  readonly root?: Indent,
+}} Indent
 @typedef {{readonly value: '', readonly length: 0, readonly queue: readonly []}} RootIndent
 */
 
@@ -29,7 +32,7 @@ function createRootIndent() {
 */
 function generateIndent(indent, command, options) {
   const queue =
-    command === INDENT_COMMAND_DEDENT
+    command.type === INDENT_COMMAND_TYPE_DEDENT
       ? indent.queue.slice(0, -1)
       : [...indent.queue, command];
 
@@ -39,22 +42,31 @@ function generateIndent(indent, command, options) {
   let lastSpaces = 0;
 
   for (const command of queue) {
-    if (command === INDENT_COMMAND_INDENT) {
-      flush();
-      if (options.useTabs) {
-        addTabs(1);
-      } else {
-        addSpaces(options.tabWidth);
+    switch (command.type) {
+      case INDENT_COMMAND_TYPE_INDENT:
+        flush();
+        if (options.useTabs) {
+          addTabs(1);
+        } else {
+          addSpaces(options.tabWidth);
+        }
+        break;
+      case INDENT_COMMAND_TYPE_STRING: {
+        const { string } = command;
+        flush();
+        value += string;
+        length += string.length;
+        break;
       }
-    } else if (isStringIndentCommand(command)) {
-      const { string } = command;
-      flush();
-      value += string;
-      length += string.length;
-    } else if (isWidthIndentCommand(command)) {
-      const { width } = command;
-      lastTabs += 1;
-      lastSpaces += width;
+      case INDENT_COMMAND_TYPE_WIDTH: {
+        const { width } = command;
+        lastTabs += 1;
+        lastSpaces += width;
+        break;
+      }
+      default:
+        /* c8 ignore next */
+        throw new Error(`Unexpected indent comment '${command.type}'.`);
     }
   }
 
@@ -103,28 +115,39 @@ function generateIndent(indent, command, options) {
 /**
 @param {Indent} indent
 @param {number | string} widthOrString
-@param {RootIndent} rootIndent
 @param {IndentOptions} options
+@param {RootIndent} rootIndent
 @returns {Indent}
 */
 function makeAlign(indent, widthOrString, rootIndent, options) {
-  if (widthOrString === Number.NEGATIVE_INFINITY) {
-    return rootIndent;
+  if (
+    widthOrString === Number.NEGATIVE_INFINITY ||
+    widthOrString.type === "root"
+  ) {
+    return indent.root ?? rootIndent;
   }
 
   if (!widthOrString) {
     return indent;
   }
 
+  if (widthOrString.type === "root") {
+    return { ...indent, root: indent };
+  }
+
   const isNumberAlign = typeof widthOrString === "number";
 
   if (isNumberAlign && widthOrString < 0) {
-    return generateIndent(indent, INDENT_COMMAND_DEDENT, options);
+    return generateIndent(
+      indent,
+      { type: INDENT_COMMAND_TYPE_DEDENT },
+      options,
+    );
   }
 
   const indentCommand = isNumberAlign
-    ? createWidthIndentCommand(widthOrString)
-    : createStringIndentCommand(widthOrString);
+    ? { type: INDENT_COMMAND_TYPE_WIDTH, width: widthOrString }
+    : { type: INDENT_COMMAND_TYPE_STRING, string: widthOrString };
 
   return generateIndent(indent, indentCommand, options);
 }
@@ -135,7 +158,7 @@ function makeAlign(indent, widthOrString, rootIndent, options) {
 @returns {Indent}
 */
 function makeIndent(indent, options) {
-  return generateIndent(indent, INDENT_COMMAND_INDENT, options);
+  return generateIndent(indent, { type: INDENT_COMMAND_TYPE_INDENT }, options);
 }
 
 export { createRootIndent, makeAlign, makeIndent };
