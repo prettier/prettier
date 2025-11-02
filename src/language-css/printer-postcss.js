@@ -7,9 +7,9 @@ import {
   indent,
   join,
   line,
+  removeLines,
   softline,
-} from "../document/builders.js";
-import { removeLines } from "../document/utils.js";
+} from "../document/index.js";
 import isNonEmptyArray from "../utils/is-non-empty-array.js";
 import printString from "../utils/print-string.js";
 import UnexpectedNodeError from "../utils/unexpected-node-error.js";

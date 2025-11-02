@@ -5,7 +5,7 @@ import {
   indent,
   join,
   softline,
-} from "../../document/builders.js";
+} from "../../document/index.js";
 import UnexpectedNodeError from "../../utils/unexpected-node-error.js";
 import {
   isArrayExpression,

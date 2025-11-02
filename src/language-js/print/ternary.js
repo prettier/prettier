@@ -7,7 +7,7 @@ import {
   indent,
   line,
   softline,
-} from "../../document/builders.js";
+} from "../../document/index.js";
 import { printDanglingComments } from "../../main/comments/print.js";
 import hasNewlineInRange from "../../utils/has-newline-in-range.js";
 import { locEnd, locStart } from "../loc.js";
@@ -28,7 +28,7 @@ import isBlockComment from "../utils/is-block-comment.js";
 import { printTernaryOld } from "./ternary-old.js";
 
 /**
- * @import {Doc} from "../../document/builders.js"
+ * @import {Doc} from "../../document/index.js"
  * @import AstPath from "../../common/ast-path.js"
  *
  * @typedef {any} Options - Prettier options (TBD ...)

@@ -1,13 +1,13 @@
 import {
   align,
+  cleanDoc,
   fill,
   group,
   ifBreak,
   indent,
   line,
   lineSuffix,
-} from "../../../src/document/builders.js";
-import { cleanDoc } from "../../../src/document/utils.js";
+} from "../../../src/document/index.js";
 
 describe("cleanDoc", () => {
   test.each([

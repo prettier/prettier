@@ -5,9 +5,10 @@ import {
   ifBreak,
   indent,
   line,
+  removeLines,
   softline,
-} from "../../document/builders.js";
-import { removeLines, willBreak } from "../../document/utils.js";
+  willBreak,
+} from "../../document/index.js";
 import { printDanglingComments } from "../../main/comments/print.js";
 import getNextNonSpaceNonCommentCharacter from "../../utils/get-next-non-space-non-comment-character.js";
 import isNonEmptyArray from "../../utils/is-non-empty-array.js";

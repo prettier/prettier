@@ -7,9 +7,9 @@ import {
   indent,
   join,
   line,
+  replaceEndOfLine,
   softline,
-} from "../document/builders.js";
-import { replaceEndOfLine } from "../document/utils.js";
+} from "../document/index.js";
 import getPreferredQuote from "../utils/get-preferred-quote.js";
 import htmlWhitespaceUtils from "../utils/html-whitespace-utils.js";
 import isNonEmptyArray from "../utils/is-non-empty-array.js";
@@ -21,7 +21,7 @@ import { locEnd, locStart } from "./loc.js";
 import { hasPrettierIgnore, isVoidElement, isWhitespaceNode } from "./utils.js";
 
 /**
-@import {Doc} from "../document/builders.js"
+@import {Doc} from "../document/index.js"
 @import {AST} from "@glimmer/syntax"
 */
 

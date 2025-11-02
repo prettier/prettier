@@ -1,5 +1,5 @@
 /**
- * @import {Doc} from "../../document/builders.js"
+ * @import {Doc} from "../../document/index.js"
  */
 
 import * as assert from "#universal/assert";
@@ -8,9 +8,9 @@ import {
   indent,
   join,
   line,
+  replaceEndOfLine,
   softline,
-} from "../../document/builders.js";
-import { replaceEndOfLine } from "../../document/utils.js";
+} from "../../document/index.js";
 import isNonEmptyArray from "../../utils/is-non-empty-array.js";
 import { locEnd, locStart } from "../loc.js";
 import {

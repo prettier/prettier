@@ -1,10 +1,6 @@
 import { convertEndOfLineToChars } from "../../common/end-of-line.js";
 import getStringWidth from "../../utils/get-string-width.js";
 import {
-  hardlineWithoutBreakParent,
-  indent as indentDoc,
-} from "../builders.js";
-import {
   DOC_TYPE_ALIGN,
   DOC_TYPE_ARRAY,
   DOC_TYPE_BREAK_PARENT,
@@ -20,14 +16,16 @@ import {
   DOC_TYPE_LINE_SUFFIX_BOUNDARY,
   DOC_TYPE_STRING,
   DOC_TYPE_TRIM,
-} from "../constants.js";
-import InvalidDocError from "../invalid-doc-error.js";
-import { getDocType, propagateBreaks } from "../utils.js";
+  hardlineWithoutBreakParent,
+  indent as indentDoc,
+} from "../document/index.js";
+import InvalidDocError from "../document/invalid-doc-error.js";
+import { getDocType, propagateBreaks } from "../utilities/index.js";
 import { makeAlign, makeIndent, ROOT_INDENT } from "./indent.js";
 
 /**
 @import {EndOfLineOption} from "../../common/end-of-line.js";
-@import {Doc} from "../builders.js";
+@import {Doc} from "./document.js";
 @import {Indent, IndentOptions} from "./indent.js";
 @typedef {typeof MODE_BREAK | typeof MODE_FLAT} Mode
 @typedef {{ indent: Indent, doc: any, mode: Mode }} Command

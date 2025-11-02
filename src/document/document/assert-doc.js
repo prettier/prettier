@@ -1,15 +1,11 @@
 import noop from "../../utils/noop.js";
-import {
-  DOC_TYPE_IF_BREAK,
-  DOC_TYPE_LINE,
-  DOC_TYPE_STRING,
-} from "../constants.js";
-import { isEmptyDoc } from "../utils.js";
+import { isEmptyDoc } from "../utilities/index.js";
 import getDocType from "./get-doc-type.js";
 import traverseDoc from "./traverse-doc.js";
+import { DOC_TYPE_IF_BREAK, DOC_TYPE_LINE, DOC_TYPE_STRING } from "./types.js";
 
 /**
- * @typedef {import("../builders.js").Doc} Doc
+ * @typedef {import("./index.js").Doc} Doc
  */
 
 const checked = process.env.NODE_ENV !== "production" && new WeakSet();

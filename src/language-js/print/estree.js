@@ -5,9 +5,9 @@ import {
   indent,
   join,
   line,
+  replaceEndOfLine,
   softline,
-} from "../../document/builders.js";
-import { replaceEndOfLine } from "../../document/utils.js";
+} from "../../document/index.js";
 import { printDanglingComments } from "../../main/comments/print.js";
 import hasNewline from "../../utils/has-newline.js";
 import UnexpectedNodeError from "../../utils/unexpected-node-error.js";
@@ -77,7 +77,7 @@ import { printTypeAnnotationProperty } from "./type-annotation.js";
 
 /**
  * @import AstPath from "../../common/ast-path.js"
- * @import {Doc} from "../../document/builders.js"
+ * @import {Doc} from "../../document/index.js"
  */
 
 /**

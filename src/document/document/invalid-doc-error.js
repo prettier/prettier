@@ -1,5 +1,5 @@
-import { VALID_OBJECT_DOC_TYPES } from "./constants.js";
-import getDocType from "./utils/get-doc-type.js";
+import getDocType from "./get-doc-type.js";
+import { VALID_OBJECT_DOC_TYPES } from "./types.js";
 
 const disjunctionListFormat = (list) =>
   new Intl.ListFormat("en-US", { type: "disjunction" }).format(list);

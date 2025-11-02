@@ -14,7 +14,7 @@ import {
   line,
   lineSuffix,
   markAsRoot,
-} from "../../src/document/builders.js";
+} from "../../src/document/index.js";
 import InvalidDocError from "../../src/document/invalid-doc-error.js";
 
 const invalidDoc = { type: "invalid-type" };

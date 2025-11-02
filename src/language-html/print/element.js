@@ -6,9 +6,9 @@ import {
   indent,
   indentIfBreak,
   line,
+  replaceEndOfLine,
   softline,
-} from "../../document/builders.js";
-import { replaceEndOfLine } from "../../document/utils.js";
+} from "../../document/index.js";
 import getNodeContent from "../get-node-content.js";
 import {
   forceBreakContent,

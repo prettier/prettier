@@ -1,19 +1,18 @@
 import {
   align,
+  cleanDoc,
+  DOC_TYPE_ARRAY,
+  DOC_TYPE_FILL,
+  DOC_TYPE_GROUP,
+  DOC_TYPE_LABEL,
+  getDocType,
   group,
   indent,
   indentIfBreak,
   join,
   line,
   softline,
-} from "../../document/builders.js";
-import {
-  DOC_TYPE_ARRAY,
-  DOC_TYPE_FILL,
-  DOC_TYPE_GROUP,
-  DOC_TYPE_LABEL,
-} from "../../document/constants.js";
-import { cleanDoc, getDocType } from "../../document/utils.js";
+} from "../../document/index.js";
 import { printComments } from "../../main/comments/print.js";
 import {
   CommentCheckFlags,
@@ -30,7 +29,7 @@ import {
 } from "../utils/index.js";
 import isTypeCastComment from "../utils/is-type-cast-comment.js";
 
-/** @import {Doc} from "../../document/builders.js" */
+/** @import {Doc} from "../../document/index.js" */
 
 let uid = 0;
 /*

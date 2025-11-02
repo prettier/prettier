@@ -1,4 +1,4 @@
-import { stripTrailingHardline } from "../document/utils.js";
+import { stripTrailingHardline } from "../document/index.js";
 import normalizeFormatOptions from "./normalize-format-options.js";
 import parse from "./parse.js";
 

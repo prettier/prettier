@@ -4,7 +4,7 @@ import {
   hardlineWithoutBreakParent,
   ifBreak,
   join,
-} from "../../document/builders.js";
+} from "../../document/index.js";
 import { printDocToString } from "../../document/printer/printer.js";
 import getStringWidth from "../../utils/get-string-width.js";
 

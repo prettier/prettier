@@ -8,7 +8,7 @@ import {
   line,
   lineSuffix,
   softline,
-} from "../../document/builders.js";
+} from "../../document/index.js";
 import { locEnd, locStart } from "../loc.js";
 import {
   getPropOfDeclNode,
@@ -40,7 +40,7 @@ import {
 } from "../utils/index.js";
 
 /**
- * @import {Doc} from "../../document/builders.js"
+ * @import {Doc} from "../../document/index.js"
  */
 
 function printCommaSeparatedValueGroup(path, options, print) {

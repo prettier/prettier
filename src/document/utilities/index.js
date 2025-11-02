@@ -1,5 +1,4 @@
 import { trimNewlinesEnd } from "trim-newlines";
-import { join, literalline } from "./builders.js";
 import {
   DOC_TYPE_ALIGN,
   DOC_TYPE_ARRAY,
@@ -16,10 +15,12 @@ import {
   DOC_TYPE_LINE_SUFFIX_BOUNDARY,
   DOC_TYPE_STRING,
   DOC_TYPE_TRIM,
-} from "./constants.js";
-import InvalidDocError from "./invalid-doc-error.js";
-import getDocType from "./utils/get-doc-type.js";
-import traverseDoc from "./utils/traverse-doc.js";
+  getDocType,
+  InvalidDocError,
+  join,
+  literalline,
+  traverseDoc,
+} from "../document/index.js";
 
 function mapDoc(doc, cb) {
   // Avoid creating `Map`

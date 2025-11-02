@@ -6,9 +6,10 @@ import {
   indentIfBreak,
   join,
   line,
+  removeLines,
   softline,
-} from "../../document/builders.js";
-import { removeLines, willBreak } from "../../document/utils.js";
+  willBreak,
+} from "../../document/index.js";
 import {
   printCommentsSeparately,
   printDanglingComments,
@@ -34,7 +35,7 @@ import { printFunctionParameters } from "./function-parameters.js";
 
 /**
  * @import AstPath from "../../common/ast-path.js"
- * @import {Doc} from "../../document/builders.js"
+ * @import {Doc} from "../../document/index.js"
  */
 
 // In order to avoid confusion between

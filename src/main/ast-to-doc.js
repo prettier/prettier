@@ -1,6 +1,5 @@
 import AstPath from "../common/ast-path.js";
-import { cursor } from "../document/builders.js";
-import { inheritLabel } from "../document/utils.js";
+import { cursor, inheritLabel } from "../document/index.js";
 import { attachComments } from "./comments/attach.js";
 import { ensureAllCommentsPrinted, printComments } from "./comments/print.js";
 import createPrintPreCheckFunction from "./create-print-pre-check-function.js";

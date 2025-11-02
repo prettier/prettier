@@ -6,7 +6,7 @@ import {
   join,
   line,
   softline,
-} from "../document/builders.js";
+} from "../document/index.js";
 import isNextLineEmpty from "../utils/is-next-line-empty.js";
 import isNonEmptyArray from "../utils/is-non-empty-array.js";
 import UnexpectedNodeError from "../utils/unexpected-node-error.js";

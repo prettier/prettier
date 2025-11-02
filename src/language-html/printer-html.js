@@ -1,9 +1,15 @@
 /**
- * @import {Doc} from "../document/builders.js"
+ * @import {Doc} from "../document/index.js"
  */
 
-import { fill, group, hardline, indent, line } from "../document/builders.js";
-import { replaceEndOfLine } from "../document/utils.js";
+import {
+  fill,
+  group,
+  hardline,
+  indent,
+  line,
+  replaceEndOfLine,
+} from "../document/index.js";
 import getPreferredQuote from "../utils/get-preferred-quote.js";
 import htmlWhitespaceUtils from "../utils/html-whitespace-utils.js";
 import UnexpectedNodeError from "../utils/unexpected-node-error.js";

@@ -1,4 +1,4 @@
-import { hardline, markAsRoot } from "../../document/builders.js";
+import { hardline, markAsRoot } from "../../document/index.js";
 import inferParser from "../../utils/infer-parser.js";
 import isFrontMatter from "./is-front-matter.js";
 

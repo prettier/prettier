@@ -1,4 +1,4 @@
-import { fill } from "../../document/builders.js";
+import { fill } from "../../document/index.js";
 import {
   getTextValueParts,
   getUnescapedAttributeValue,

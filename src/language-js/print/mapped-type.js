@@ -5,7 +5,7 @@ import {
   indent,
   line,
   softline,
-} from "../../document/builders.js";
+} from "../../document/index.js";
 import { printDanglingComments } from "../../main/comments/print.js";
 import hasNewlineInRange from "../../utils/has-newline-in-range.js";
 import { locStart } from "../loc.js";

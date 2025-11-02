@@ -1,5 +1,4 @@
-import { group } from "../../document/builders.js";
-import { mapDoc } from "../../document/utils.js";
+import { group, mapDoc } from "../../document/index.js";
 import angularAttributePrinters from "./angular-attributes.js";
 import { isClassNames, printClassNames } from "./class-names.js";
 import { isEventHandler, printEventHandler } from "./event-handler.js";
@@ -12,7 +11,7 @@ import { isStyle, printStyle } from "./style.js";
 import vueAttributePrinters from "./vue-attributes.js";
 
 /**
-@import {Doc} from "../../document/builders.js"
+@import {Doc} from "../../document/index.js"
 @import AstPath from "../../common/ast-path.js"
 
 @typedef {(path, options) => boolean} AttributeValuePredicate

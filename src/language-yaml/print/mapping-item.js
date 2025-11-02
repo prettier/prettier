@@ -1,4 +1,4 @@
-/** @import {Doc} from "../../document/builders.js" */
+/** @import {Doc} from "../../document/index.js" */
 
 import {
   conditionalGroup,
@@ -6,7 +6,7 @@ import {
   hardline,
   ifBreak,
   line,
-} from "../../document/builders.js";
+} from "../../document/index.js";
 import {
   hasEndComments,
   hasLeadingComments,
