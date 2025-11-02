@@ -10,7 +10,7 @@ import {
 /**
 @import {IndentCommand} from "./indent-command.js";
 @typedef {{useTabs: boolean, tabWidth: number}} IndentOptions
-@typedef {{value: string, length: number, queue: IndentCommand[], root?: RootIndent}} Indent
+@typedef {{value: string, length: number, queue: IndentCommand[]}} Indent
 @typedef {{value: '', length: 0, queue: []}} RootIndent
 */
 
@@ -103,12 +103,13 @@ function generateIndent(indent, command, options) {
 /**
 @param {Indent} indent
 @param {number | string} widthOrString
+@param {RootIndent} rootIndent
 @param {IndentOptions} options
 @returns {Indent}
 */
-function makeAlign(indent, widthOrString, options) {
+function makeAlign(indent, widthOrString, rootIndent, options) {
   if (widthOrString === Number.NEGATIVE_INFINITY) {
-    return indent.root ?? createRootIndent();
+    return rootIndent;
   }
 
   if (!widthOrString) {

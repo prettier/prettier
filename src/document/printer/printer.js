@@ -217,11 +217,12 @@ function printDocToString(doc, options) {
   const width = options.printWidth;
   const newLine = convertEndOfLineToChars(options.endOfLine);
   let position = 0;
+  const rootIndent = createRootIndent();
   // commands is basically a stack. We've turned a recursive call into a
   // while loop which is much faster. The while loop below adds new
   // commands to the array instead of recursively calling `print`.
   /** @type Command[] */
-  const commands = [{ indent: createRootIndent(), mode: MODE_BREAK, doc }];
+  const commands = [{ indent: rootIndent, mode: MODE_BREAK, doc }];
   const out = [];
   let shouldRemeasure = false;
   /** @type Command[] */
@@ -268,7 +269,7 @@ function printDocToString(doc, options) {
 
       case DOC_TYPE_ALIGN:
         commands.push({
-          indent: makeAlign(indent, doc.n, options),
+          indent: makeAlign(indent, doc.n, rootIndent, options),
           mode,
           doc: doc.contents,
         });
