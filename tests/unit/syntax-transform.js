@@ -132,22 +132,40 @@ test("String.raw", () => {
 test("public doc functionality", () => {
   expect(transform('import {align, line} from "./document/index.js"'))
     .toMatchInlineSnapshot(`
-"import { builders as __doc_builders } from "<PUBLIC_DOC_PATH>";
-const {
-  align,
-  line
-} = __doc_builders;"
-`);
+      "import { builders as __doc_builders } from "<PUBLIC_DOC_PATH>";
+      const {
+        align,
+        line
+      } = __doc_builders;"
+    `);
   expect(
     transform(
       'import {align as renamedAlign, line, notExists} from "./document/index.js"',
     ),
   ).toMatchInlineSnapshot(`
-"import { builders as __doc_builders } from "<PUBLIC_DOC_PATH>";
-const {
-  align: renamedAlign,
-  line
-} = __doc_builders;
-import { notExists } from "./document/index.js";"
-`);
+    "import { builders as __doc_builders } from "<PUBLIC_DOC_PATH>";
+    const {
+      align: renamedAlign,
+      line
+    } = __doc_builders;
+    import { notExists } from "./document/index.js";"
+  `);
+  expect(
+    transform(
+      'import {align as renamedAlign, line, printDocToString, findInDoc, canBreak} from "./document/index.js"',
+    ),
+  ).toMatchInlineSnapshot(`
+    "import { builders as __doc_builders, printer as __doc_printer, utils as __doc_utils } from "<PUBLIC_DOC_PATH>";
+    const {
+        align: renamedAlign,
+        line
+      } = __doc_builders,
+      {
+        printDocToString
+      } = __doc_printer,
+      {
+        findInDoc,
+        canBreak
+      } = __doc_utils;"
+  `);
 });
