@@ -72,7 +72,7 @@ function getImportDeclarationReplacement(node, file) {
  * @returns {import("@babel/types").Program}
  */
 function transformProgramWithoutCache(program, file) {
-  const replaced = [];
+  const replacements = [];
   const body = program.body
     .map((node) => {
       const replacement = getImportDeclarationReplacement(node, file);
@@ -81,24 +81,38 @@ function transformProgramWithoutCache(program, file) {
         return node;
       }
 
-      replaced.push(...replacement.removed);
+      replacements.push(...replacement.removed);
 
       return replacement.node;
     })
     .filter(Boolean);
 
-  if (replaced.length === 0) {
+  if (replacements.length === 0) {
     return;
   }
 
   const identityPrefix = "__doc_";
-  const namespaces = [...new Set(replaced.map(({ namespace }) => namespace))];
+
+  const grouped = [];
+  for (const replacement of replacements) {
+    const group = grouped.find(
+      (searching) => searching.namespace === replacement.namespace,
+    );
+    if (!group) {
+      grouped.push({
+        namespace: replacement.namespace,
+        replacements: [replacement],
+      });
+    } else {
+      group.replacements.push(replacement);
+    }
+  }
 
   body.unshift(
     {
       type: "ImportDeclaration",
       source: createStringLiteral(PUBLIC_DOC_MODULE_PATH),
-      specifiers: namespaces.map((namespace) => ({
+      specifiers: grouped.map(({ namespace }) => ({
         type: "ImportSpecifier",
         imported: createIdentifier(namespace),
         local: createIdentifier(`${identityPrefix}${namespace}`),
@@ -107,10 +121,18 @@ function transformProgramWithoutCache(program, file) {
     {
       type: "VariableDeclaration",
       kind: "const",
-      declarations: replaced.map(({ variable, namespace, name }) => ({
+      declarations: grouped.map(({ namespace, replacements }) => ({
         type: "VariableDeclarator",
-        id: createIdentifier(variable),
-        init: createMemberExpression(`${identityPrefix}${namespace}.${name}`),
+        id: {
+          type: "ObjectPattern",
+          properties: replacements.map(({ variable, name }) => ({
+            type: "ObjectProperty",
+            key: createIdentifier(name),
+            value: createIdentifier(variable),
+            shorthand: name === variable,
+          })),
+        },
+        init: createMemberExpression(`${identityPrefix}${namespace}`),
       })),
     },
   );
