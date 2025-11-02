@@ -18,7 +18,7 @@ but can be useful for heuristics based on doc introspection.
 @template {any} L
 @param {L} label If falsy, the `contents` doc is returned as is.
 @param {Doc} contents
-@returns {Label & {label: L}}
+@returns {Label & {readonly label: L}}
 */
 function label(label, contents) {
   assertDoc(contents);
