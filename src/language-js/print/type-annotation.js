@@ -1,3 +1,4 @@
+import { isTypeAlias } from "@babel/types";
 import {
   align,
   group,
@@ -216,7 +217,8 @@ function printUnionType(path, options, print) {
         parent.type === "VariableDeclarator" ||
         parent.type === "TSTypeAliasDeclaration") &&
       hasLeadingOwnLineComment(options.originalText, node)
-    );
+    ) &&
+    !(isTypeAlias(parent) && hasComment(parent.id, CommentCheckFlags.Trailing));
 
   // {
   //   a: string

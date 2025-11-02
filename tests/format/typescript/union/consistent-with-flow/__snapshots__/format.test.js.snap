@@ -130,11 +130,10 @@ type SuperLongTypeNameLoremIpsumLoremIpsumBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBl2 =
 type A1 = /* 4 */ (A | B)[];
 
 type A2 = // dir, exp, arg, modifiers
-
-    | [string]
-    | [string, ExpressionNode]
-    | [string, ExpressionNode, ExpressionNode]
-    | [string, ExpressionNode, ExpressionNode, ObjectExpression];
+  | [string]
+  | [string, ExpressionNode]
+  | [string, ExpressionNode, ExpressionNode]
+  | [string, ExpressionNode, ExpressionNode, ObjectExpression];
 
 type A3 = // dir, exp, arg, modifiers
   [string] &

@@ -54,11 +54,10 @@ export class DirectiveArgumentNode2 extends ArrayExpression {
 }
 
 type A = // dir, exp, arg, modifiers
-
-    | [string]
-    | [string, ExpressionNode]
-    | [string, ExpressionNode, ExpressionNode]
-    | [string, ExpressionNode, ExpressionNode, ObjectExpression];
+  | [string]
+  | [string, ExpressionNode]
+  | [string, ExpressionNode, ExpressionNode]
+  | [string, ExpressionNode, ExpressionNode, ObjectExpression];
 
 const elements: // dir, exp, arg, modifiers
   | [string]
