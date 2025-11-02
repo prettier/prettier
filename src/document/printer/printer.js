@@ -23,7 +23,7 @@ import {
 } from "../constants.js";
 import InvalidDocError from "../invalid-doc-error.js";
 import { getDocType, propagateBreaks } from "../utils.js";
-import { createRootIndent, makeAlign, makeIndent } from "./indent.js";
+import { makeAlign, makeIndent, ROOT_INDENT } from "./indent.js";
 
 /**
 @import {EndOfLineOption} from "../../common/end-of-line.js";
@@ -217,12 +217,11 @@ function printDocToString(doc, options) {
   const width = options.printWidth;
   const newLine = convertEndOfLineToChars(options.endOfLine);
   let position = 0;
-  const rootIndent = createRootIndent();
   // commands is basically a stack. We've turned a recursive call into a
   // while loop which is much faster. The while loop below adds new
   // commands to the array instead of recursively calling `print`.
   /** @type Command[] */
-  const commands = [{ indent: rootIndent, mode: MODE_BREAK, doc }];
+  const commands = [{ indent: ROOT_INDENT, mode: MODE_BREAK, doc }];
   const out = [];
   let shouldRemeasure = false;
   /** @type Command[] */
@@ -269,7 +268,7 @@ function printDocToString(doc, options) {
 
       case DOC_TYPE_ALIGN:
         commands.push({
-          indent: makeAlign(indent, doc.n, rootIndent, options),
+          indent: makeAlign(indent, doc.n, options),
           mode,
           doc: doc.contents,
         });

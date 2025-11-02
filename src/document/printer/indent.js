@@ -9,9 +9,14 @@ const INDENT_COMMAND_TYPE_STRING = "INDENT_COMMAND_TYPE_STRING";
   readonly value: string,
   readonly length: number,
   readonly queue: readonly IndentCommand[],
-  readonly root?: Indent,
+  readonly root: Indent,
 }} Indent
-@typedef {{readonly value: '', readonly length: 0, readonly queue: readonly []}} RootIndent
+@typedef {{
+  readonly value: '',
+  readonly length: 0,
+  readonly queue: readonly [],
+  readonly root: RootIndent,
+}} RootIndent
 @typedef {{
   readonly type: typeof INDENT_COMMAND_TYPE_WIDTH,
   readonly width: number,
@@ -32,13 +37,9 @@ const INDENT_COMMAND_TYPE_STRING = "INDENT_COMMAND_TYPE_STRING";
 const INDENT_COMMAND_INDENT = { type: INDENT_COMMAND_TYPE_INDENT };
 /** @type {{readonly type: typeof INDENT_COMMAND_TYPE_DEDENT}} */
 const INDENT_COMMAND_DEDENT = { type: INDENT_COMMAND_TYPE_DEDENT };
-
-/**
-@returns {RootIndent}
-*/
-function createRootIndent() {
-  return { value: "", length: 0, queue: [] };
-}
+/** @type {RootIndent} */
+const ROOT_INDENT = { value: "", length: 0, queue: [] };
+ROOT_INDENT.root = ROOT_INDENT;
 
 /**
 @param {Indent} indent
@@ -133,10 +134,9 @@ function generateIndent(indent, command, options) {
 @param {Indent} indent
 @param {number | string | {type: "root"}} indentOptions
 @param {IndentOptions} options
-@param {RootIndent} rootIndent
 @returns {Indent}
 */
-function makeAlign(indent, indentOptions, rootIndent, options) {
+function makeAlign(indent, indentOptions, options) {
   if (!indentOptions) {
     return indent;
   }
@@ -147,7 +147,7 @@ function makeAlign(indent, indentOptions, rootIndent, options) {
   }
 
   if (indentOptions === Number.NEGATIVE_INFINITY) {
-    return indent.root ?? rootIndent;
+    return indent.root;
   }
 
   /** @type {IndentCommand} */
@@ -175,4 +175,4 @@ function makeIndent(indent, options) {
   return generateIndent(indent, INDENT_COMMAND_INDENT, options);
 }
 
-export { createRootIndent, makeAlign, makeIndent };
+export { makeAlign, makeIndent, ROOT_INDENT };
