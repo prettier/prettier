@@ -77,12 +77,14 @@ const assertAlignType =
   process.env.NODE_ENV === "production"
     ? noop
     : function (alignType) {
-        if (typeof alignType === "number" || alignType?.type === "root") {
-          return;
-        }
-
-        if (!/^[ \t] *$/u.test(alignType)) {
-          throw new Error(`Invalid alignType '${type}'.`);
+        if (
+          !(
+            typeof alignType === "number" ||
+            typeof alignType === "string" ||
+            alignType?.type === "root"
+          )
+        ) {
+          throw new TypeError(`Invalid alignType '${alignType}'.`);
         }
       };
 
