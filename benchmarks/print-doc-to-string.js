@@ -5,6 +5,7 @@ import * as prettierProduction from "../node_modules/prettier/index.mjs";
 import { runBenchmark } from "./utilities.js";
 
 assert.notEqual(prettierProduction.version, prettierDevelopment.version);
+
 const text = await fs.readFile(new URL(import.meta.url), "utf8");
 const doc = await prettierDevelopment.__debug.printToDoc(text, {
   parser: "babel",
@@ -21,8 +22,11 @@ await runBenchmark(
     name: "printDocToString",
     assert: (result) => assert.deepEqual(result, expected),
   },
-  {
-    Production: () => run(prettierProduction),
-    Development: () => run(prettierDevelopment),
-  },
+  [
+    { name: "Production", prettier: prettierProduction },
+    { name: "Development", prettier: prettierProduction },
+  ].map(({ name, prettier }) => ({
+    name,
+    implementation: () => run(prettier),
+  })),
 );
