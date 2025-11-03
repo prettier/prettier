@@ -52,21 +52,18 @@ new NewExpression(
 
 =====================================output=====================================
 callExprssion(
-  instance.capabilities.get(
-    TerminalCapability?.PromptTypeDetection,
-  )?.promptType,
+  instance.capabilities.get(TerminalCapability?.PromptTypeDetection)
+    ?.promptType,
 );
 
 callExprssion?.(
-  instance.capabilities.get(
-    TerminalCapability?.PromptTypeDetection,
-  )?.promptType,
+  instance.capabilities.get(TerminalCapability?.PromptTypeDetection)
+    ?.promptType,
 );
 
 new NewExpression(
-  instance.capabilities.get(
-    TerminalCapability?.PromptTypeDetection,
-  )?.promptType,
+  instance.capabilities.get(TerminalCapability?.PromptTypeDetection)
+    ?.promptType,
 );
 
 ================================================================================
@@ -321,9 +318,8 @@ superSupersuperSupersuperSupersuperSupersuperSuperLong
   .exampleOfOrderOfGetterAndSetterReordered[0];
 
 expect(
-  findDOMNode(component.instance()).getElementsByClassName(
-    styles.inner,
-  )[0].style.paddingRight,
+  findDOMNode(component.instance()).getElementsByClassName(styles.inner)[0]
+    .style.paddingRight,
 ).toBe("1000px");
 
 const {
