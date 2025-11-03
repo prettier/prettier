@@ -28,7 +28,7 @@
   | LineSuffixBoundary
   | Trim
 } _DocUnit
-@typedef {Doc[]} _DocArray
+@typedef {readonly Doc[]} _DocArray
 @typedef {_DocUnit | _DocArray} Doc
 */
 
