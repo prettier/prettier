@@ -106,6 +106,7 @@ function fits(
   }
 
   let restCommandsIndex = restCommands.length;
+  let has_pending_space = false;
   /** @type {Array<Omit<Command, 'indent'>>} */
   const commands = [next];
   // `out` is only used for width counting because `trim` requires to look
@@ -125,6 +126,11 @@ function fits(
     const docType = getDocType(doc);
     switch (docType) {
       case DOC_TYPE_STRING:
+        if (has_pending_space && doc.length > 0) {
+          out.push(" ");
+          width -= 1;
+          has_pending_space = false;
+        }
         out.push(doc);
         width -= getStringWidth(doc);
         break;
@@ -181,8 +187,7 @@ function fits(
           return true;
         }
         if (!doc.soft) {
-          out.push(" ");
-          width--;
+          has_pending_space = true
         }
         break;
 
