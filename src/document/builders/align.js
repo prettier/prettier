@@ -1,4 +1,4 @@
-import { assertDoc } from "../utilities/assert-doc.js";
+import { assertAlignType, assertDoc } from "../utilities/assert-doc.js";
 import { indent } from "./indent.js";
 import { DOC_TYPE_ALIGN } from "./types.js";
 
@@ -22,6 +22,7 @@ import { DOC_TYPE_ALIGN } from "./types.js";
 @returns {Omit<Align, "n" | "contents"> & {readonly n: N, readonly contents: D}}
 */
 function align(alignType, contents) {
+  assertAlignType(alignType);
   assertDoc(contents);
 
   return { type: DOC_TYPE_ALIGN, contents, n: alignType };
