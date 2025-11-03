@@ -1,23 +1,6 @@
 // Not using a regexp here because regexps for trimming off trailing
 // characters are known to have performance issues.
 
-const SPACE = " ";
-const TAB = "\t";
-
-/**
-@typedef {SPACE | TAB} IndentionCharacter
-*/
-
-/**
-Check if a character is `Tab(U+0009)` or `Space(U+0020)`
-
-@template {string} Character
-@param {string} character
-@returns {boolean}
-*/
-const isIndentionCharacter = (character) =>
-  character === SPACE || character === TAB;
-
 /**
 Get trialing trailing indention length
 
@@ -30,10 +13,11 @@ function getTrailingIndentionLength(text) {
   for (let index = text.length - 1; index >= 0; index--) {
     const character = text[index];
 
-    if (!isIndentionCharacter(character)) {
+    if (character === " " || character === "\t") {
+      length++;
+    } else {
       break;
     }
-    length++;
   }
 
   return length;
@@ -47,10 +31,8 @@ Trim trailing `Tab(U+0009)` and `Space(U+0020)` from text
 */
 function trimIndentation(text) {
   const length = getTrailingIndentionLength(text);
-  return {
-    text: length === 0 ? text : text.slice(0, text.length - length),
-    count: length,
-  };
+  const trimmed = length === 0 ? text : text.slice(0, text.length - length);
+  return { text: trimmed, count: length };
 }
 
 export { trimIndentation };
