@@ -2,13 +2,13 @@ import { Bench } from "tinybench";
 
 /**
 @import {BenchOptions} from "tinybench";
-@typedef {{
+@typedef {
   | {
       name: string,
       implementation: () => any
-    } []
+    }[]
   | Record<string, () => any>
-}} Implementations
+} Implementations
 */
 
 /**
