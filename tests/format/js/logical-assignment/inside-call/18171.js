@@ -1,16 +1,32 @@
 fn(
-  bifornCringerMoshedPerplexSawder,
-  askTrovenaBeenaDependsRowans,
+  _,
   glimseGlyphsHazardNoopsTieTie === averredBathersBoxroomBuggyNurl &&
+    // Should this line indent?
     anodyneCondosMalateOverateRetinol
       ? annularCooeedSplicesWalksWayWay
       : kochabCooieGameOnOboleUnweave
 );
 
 new fn(
-  bifornCringerMoshedPerplexSawder,
-  askTrovenaBeenaDependsRowans,
+  _,
   glimseGlyphsHazardNoopsTieTie === averredBathersBoxroomBuggyNurl &&
+    // Should this line indent?
+    anodyneCondosMalateOverateRetinol
+      ? annularCooeedSplicesWalksWayWay
+      : kochabCooieGameOnOboleUnweave
+);
+
+fn(
+  glimseGlyphsHazardNoopsTieTie === averredBathersBoxroomBuggyNurl &&
+    // Should this line indent?
+    anodyneCondosMalateOverateRetinol
+      ? annularCooeedSplicesWalksWayWay
+      : kochabCooieGameOnOboleUnweave
+);
+
+new fn(
+  glimseGlyphsHazardNoopsTieTie === averredBathersBoxroomBuggyNurl &&
+    // Should this line indent?
     anodyneCondosMalateOverateRetinol
       ? annularCooeedSplicesWalksWayWay
       : kochabCooieGameOnOboleUnweave
