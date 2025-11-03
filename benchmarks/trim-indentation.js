@@ -1,8 +1,8 @@
 import assert from "node:assert/strict";
-import { trimTrailingIndentation } from "../src/document/printer/trim-indentation.js";
+import { trimIndentation } from "../src/document/printer/trim-indentation.js";
 import { runBenchmark } from "./utilities.js";
 
-for (const size of [1, 1e1, 1e2, 1e3]) {
+for (const size of [1, 1e1, 1e2]) {
   const trimmed = "foo".repeat(size / 2);
   const text = trimmed + " \t".repeat(size / 2);
 
@@ -12,7 +12,7 @@ for (const size of [1, 1e1, 1e2, 1e3]) {
       assert: (result) => assert.equal(result, trimmed),
     },
     {
-      loop: () => trimTrailingIndentation(text),
+      loop: () => trimIndentation(text).text,
       "RegExp (inline)": () => text.replace(/[ \t]*$/u, ""),
       "RegExp (stored)": (
         (regexp) => () =>

@@ -2,40 +2,37 @@
 // characters are known to have performance issues.
 
 /**
-Trim trailing `Tab(U+0009)` and `Space(U+0020)` from text
+Get trailing trailing indention length
 
 @param {string} text
-@returns
+@returns {number}
 */
-function trimTrailingIndentation(text) {
-  let end = text.length - 1;
+function getTrailingIndentionLength(text) {
+  let length = 0;
 
-  while (end >= 0) {
-    const character = text[end];
-    if (character !== " " && character !== "\t") {
+  for (let index = text.length - 1; index >= 0; index--) {
+    const character = text[index];
+
+    if (character === " " || character === "\t") {
+      length++;
+    } else {
       break;
     }
-    end--;
   }
 
-  return text.slice(0, end + 1);
+  return length;
 }
 
 /**
-Trim `Tab(U+0009)` and `Space(U+0020)` at the end of line
+Trim trailing `Tab(U+0009)` and `Space(U+0020)` from text
 
-@param {string[]} buffer
+@param {string} text
 @returns {{text: string, count: number}}
 */
-function trimIndentation(buffer) {
-  const text = buffer.join("");
-  const trimmed = trimTrailingIndentation(text);
-
-  return { text: trimmed, count: text.length - trimmed.length };
+function trimIndentation(text) {
+  const length = getTrailingIndentionLength(text);
+  const trimmed = length === 0 ? text : text.slice(0, text.length - length);
+  return { text: trimmed, count: length };
 }
 
-export {
-  trimIndentation,
-  // Exposed for benchmark test
-  trimTrailingIndentation,
-};
+export { trimIndentation };

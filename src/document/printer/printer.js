@@ -43,7 +43,7 @@ const DOC_FILL_PRINTED_LENGTH = Symbol("DOC_FILL_PRINTED_LENGTH");
 /**
  * @param {Command} next
  * @param {Command[]} restCommands
- * @param {number} width
+ * @param {number} remainingWidth
  * @param {boolean} hasLineSuffix
  * @param {GroupModeMap} groupModeMap
  * @param {boolean} [mustBeFlat]
@@ -52,22 +52,22 @@ const DOC_FILL_PRINTED_LENGTH = Symbol("DOC_FILL_PRINTED_LENGTH");
 function fits(
   next,
   restCommands,
-  width,
+  remainingWidth,
   hasLineSuffix,
   groupModeMap,
   mustBeFlat,
 ) {
-  if (width === Number.POSITIVE_INFINITY) {
+  if (remainingWidth === Number.POSITIVE_INFINITY) {
     return true;
   }
 
   let restCommandsIndex = restCommands.length;
   /** @type {Array<Omit<Command, 'indent'>>} */
   const commands = [next];
-  // `out` is only used for width counting because `trim` requires to look
+  // `output` is only used for width counting because `trim` requires to look
   // backwards for space characters.
-  const out = [];
-  while (width >= 0) {
+  let output = "";
+  while (remainingWidth >= 0) {
     if (commands.length === 0) {
       if (restCommandsIndex === 0) {
         return true;
@@ -82,8 +82,8 @@ function fits(
     switch (docType) {
       case DOC_TYPE_STRING:
         if (doc) {
-          out.push(doc);
-          width -= getStringWidth(doc);
+          output += doc;
+          remainingWidth -= getStringWidth(doc);
         }
         break;
 
@@ -104,9 +104,12 @@ function fits(
         commands.push({ mode, doc: doc.contents });
         break;
 
-      case DOC_TYPE_TRIM:
-        width += trimIndentation(out).count;
+      case DOC_TYPE_TRIM: {
+        const { text, count } = trimIndentation(output);
+        output = text;
+        remainingWidth += count;
         break;
+      }
 
       case DOC_TYPE_GROUP: {
         if (mustBeFlat && doc.break) {
@@ -139,8 +142,8 @@ function fits(
           return true;
         }
         if (!doc.soft) {
-          out.push(" ");
-          width--;
+          output += " ";
+          remainingWidth--;
         }
         break;
 
@@ -591,19 +594,9 @@ function printDocToString(doc, options) {
   };
 
   function trim() {
-    const { text, count } = trimIndentation(out);
+    const { text, count } = trimIndentation(out.join(""));
     out = [text];
-
-    if (count === 0) {
-      return;
-    }
-
     position -= count;
-
-    if (cursorPositions.length === 0) {
-      return;
-    }
-
     for (let index = 0; index < cursorPositions.length; index++) {
       cursorPositions[index] = Math.min(
         cursorPositions[index],
