@@ -612,7 +612,7 @@ function printDocToString(doc, options) {
     for (let index = 0; index < cursorPositions.length; index++) {
       cursorPositions[index] = Math.min(
         cursorPositions[index],
-        count.length - 1,
+        trimmed.length - 1,
       );
     }
   }
