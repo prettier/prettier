@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { runBenchmark } from "./utilities.js";
 
-for (const size of [1e1, 1e2, 1e3, 1e5, 1e6]) {
+for (const size of [1e1, 1e2, 1e3, 1e4, 1e5]) {
   const strings = Array.from({ length: size }, () => "_");
   const expected = strings.join("");
 
