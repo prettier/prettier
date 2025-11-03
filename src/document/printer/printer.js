@@ -171,7 +171,7 @@ function fits(
 */
 function printDocToString(doc, options) {
   /** @type GroupModeMap */
-  const groupModeMap = {};
+  const groupModeMap = Object.create(null);
 
   const width = options.printWidth;
   const newLine = convertEndOfLineToChars(options.endOfLine);
