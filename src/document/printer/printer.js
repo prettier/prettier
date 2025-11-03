@@ -47,8 +47,6 @@ function trim(out) {
   let cursorCount = 0;
   let outIndex = out.length;
 
-  console.log({ out });
-
   outer: while (outIndex--) {
     const last = out[outIndex];
 
