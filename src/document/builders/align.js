@@ -1,4 +1,4 @@
-import { assertDoc } from "../utilities/assert-doc.js";
+import { assertAlignType, assertDoc } from "../utilities/assert-doc.js";
 import { indent } from "./indent.js";
 import { DOC_TYPE_ALIGN } from "./types.js";
 
@@ -23,6 +23,7 @@ import { DOC_TYPE_ALIGN } from "./types.js";
 */
 function align(alignType, contents) {
   assertDoc(contents);
+  assertAlignType(alignType);
 
   return { type: DOC_TYPE_ALIGN, contents, n: alignType };
 }

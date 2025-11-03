@@ -73,6 +73,19 @@ const assertDocFillParts =
         }
       };
 
+const assertAlignType =
+  process.env.NODE_ENV === "production"
+    ? noop
+    : function (alignType) {
+        if (typeof alignType === "number" || alignType?.type === "root") {
+          return;
+        }
+
+        if (!/^[ \t] *$/u.test(alignType)) {
+          throw new Error(`Invalid alignType '${type}'.`);
+        }
+      };
+
 /**
  * @param {Doc} doc
  * @returns {boolean}
@@ -111,4 +124,4 @@ function isValidSeparator(doc) {
   return hasLine && !hasUnexpectedString;
 }
 
-export { assertDoc, assertDocArray, assertDocFillParts };
+export { assertAlignType, assertDoc, assertDocArray, assertDocFillParts };
