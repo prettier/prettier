@@ -8,15 +8,17 @@ Trim trailing `Tab(U+0009)` and `Space(U+0020)` from text
 @returns
 */
 function trimTrailingIndentation(text) {
-  for (let index = text.length - 1; index > 0; index--) {
-    const character = text[index];
+  let end = text.length - 1;
 
+  while (end >= 0) {
+    const character = text[end];
     if (character !== " " && character !== "\t") {
-      return text.slice(0, index + 1);
+      break;
     }
+    end--;
   }
 
-  return text;
+  return text.slice(0, end + 1);
 }
 
 /**
@@ -32,4 +34,8 @@ function trimIndentation(buffer) {
   return { text: trimmed, count: text.length - trimmed.length };
 }
 
-export { trimIndentation };
+export {
+  trimIndentation,
+  // Exposed for test
+  trimTrailingIndentation,
+};

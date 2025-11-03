@@ -308,7 +308,7 @@ const configs = [
     },
   },
   {
-    files: ["scripts/**/*", "tests/config/install-prettier.js"],
+    files: ["scripts/**/*", "benchmarks/**", "tests/config/install-prettier.js"],
     rules: {
       "no-console": "off",
     },
