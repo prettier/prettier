@@ -594,25 +594,13 @@ function printDocToString(doc, options) {
   };
 
   function trim() {
-    const original = out.join("");
-    const trimmed = trimIndentation(original);
-    const count = original.length - trimmed.length;
-    out = [trimmed];
-
-    if (count === 0) {
-      return;
-    }
-
+    const { text, count } = trimIndentation(out.join(""));
+    out = [text];
     position -= count;
-
-    if (cursorPositions.length === 0) {
-      return;
-    }
-
     for (let index = 0; index < cursorPositions.length; index++) {
       cursorPositions[index] = Math.min(
         cursorPositions[index],
-        trimmed.length - 1,
+        text.length - 1,
       );
     }
   }
