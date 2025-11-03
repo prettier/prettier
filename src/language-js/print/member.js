@@ -30,6 +30,7 @@ function printMemberExpression(path, options, print) {
   const shouldInline =
     (firstNonMemberParent &&
       (firstNonMemberParent.type === "NewExpression" ||
+        // firstNonMemberParent.type === "CallExpression" ||
         firstNonMemberParent.type === "BindExpression" ||
         (firstNonMemberParent.type === "AssignmentExpression" &&
           firstNonMemberParent.left.type !== "Identifier"))) ||
