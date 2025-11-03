@@ -24,8 +24,8 @@ await runBenchmark(
     assert: (result) => assert.deepEqual(result, expected),
   },
   [
-    { name: "Production", prettier: prettierProduction },
     { name: "Development", prettier: prettierProduction },
+    { name: "Production", prettier: prettierProduction },
   ].map(({ name, prettier }) => ({
     name,
     implementation: () => run(prettier),
