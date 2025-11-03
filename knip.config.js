@@ -15,6 +15,7 @@ const config = {
         "src/experimental-cli/index.js",
         "packages/plugin-oxc/index.js",
         "packages/plugin-hermes/index.js",
+        "benchmarks/**",
       ],
       project: ["src/**", "scripts/**"],
       ignore: [

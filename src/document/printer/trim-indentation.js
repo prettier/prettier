@@ -36,6 +36,6 @@ function trimIndentation(buffer) {
 
 export {
   trimIndentation,
-  // Exposed for test
+  // Exposed for benchmark test
   trimTrailingIndentation,
 };
