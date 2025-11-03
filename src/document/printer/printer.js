@@ -47,6 +47,8 @@ function trim(out) {
   let cursorCount = 0;
   let outIndex = out.length;
 
+  console.log({ out });
+
   outer: while (outIndex--) {
     const last = out[outIndex];
 
@@ -125,8 +127,10 @@ function fits(
     const docType = getDocType(doc);
     switch (docType) {
       case DOC_TYPE_STRING:
-        out.push(doc);
-        width -= getStringWidth(doc);
+        if (doc) {
+          out.push(doc);
+          width -= getStringWidth(doc);
+        }
         break;
 
       case DOC_TYPE_ARRAY:
@@ -234,10 +238,12 @@ function printDocToString(doc, options) {
       case DOC_TYPE_STRING: {
         const formatted =
           newLine !== "\n" ? doc.replaceAll("\n", newLine) : doc;
-        out.push(formatted);
         // Plugins may print single string, should skip measure the width
-        if (commands.length > 0) {
-          position += getStringWidth(formatted);
+        if (formatted) {
+          out.push(formatted);
+          if (commands.length > 0) {
+            position += getStringWidth(formatted);
+          }
         }
         break;
       }
@@ -553,7 +559,9 @@ function printDocToString(doc, options) {
               out.push(newLine);
               position = 0;
               if (indent.root) {
-                out.push(indent.root.value);
+                if (indent.root.value) {
+                  out.push(indent.root.value);
+                }
                 position = indent.root.length;
               }
             } else {
