@@ -22,6 +22,7 @@ import {
 import { getDocType, propagateBreaks } from "../utilities/index.js";
 import InvalidDocError from "../utilities/invalid-doc-error.js";
 import { makeAlign, makeIndent, ROOT_INDENT } from "./indent.js";
+import { trim } from "./trim.js";
 
 /**
 @import {EndOfLineOption} from "../../common/end-of-line.js";
@@ -40,49 +41,6 @@ const MODE_FLAT = Symbol("MODE_FLAT");
 const CURSOR_PLACEHOLDER = Symbol("cursor");
 
 const DOC_FILL_PRINTED_LENGTH = Symbol("DOC_FILL_PRINTED_LENGTH");
-
-// Trim `Tab(U+0009)` and `Space(U+0020)` at the end of line
-function trim(out) {
-  let trimCount = 0;
-  let cursorCount = 0;
-  let outIndex = out.length;
-
-  outer: while (outIndex--) {
-    const last = out[outIndex];
-
-    if (last === CURSOR_PLACEHOLDER) {
-      cursorCount++;
-      continue;
-    }
-
-    /* c8 ignore next 3 */
-    if (process.env.NODE_ENV !== "production" && typeof last !== "string") {
-      throw new Error(`Unexpected value in trim: '${typeof last}'`);
-    }
-
-    // Not using a regexp here because regexps for trimming off trailing
-    // characters are known to have performance issues.
-    for (let charIndex = last.length - 1; charIndex >= 0; charIndex--) {
-      const char = last[charIndex];
-      if (char === " " || char === "\t") {
-        trimCount++;
-      } else {
-        out[outIndex] = last.slice(0, charIndex + 1);
-        break outer;
-      }
-    }
-  }
-
-  if (trimCount > 0 || cursorCount > 0) {
-    out.length = outIndex + 1;
-
-    while (cursorCount-- > 0) {
-      out.push(CURSOR_PLACEHOLDER);
-    }
-  }
-
-  return trimCount;
-}
 
 /**
  * @param {Command} next
@@ -149,7 +107,7 @@ function fits(
         break;
 
       case DOC_TYPE_TRIM:
-        width += trim(out);
+        width += trim(out, CURSOR_PLACEHOLDER);
         break;
 
       case DOC_TYPE_GROUP: {
@@ -277,7 +235,7 @@ function printDocToString(doc, options) {
         break;
 
       case DOC_TYPE_TRIM:
-        position -= trim(out);
+        position -= trim(out, CURSOR_PLACEHOLDER);
         break;
 
       case DOC_TYPE_GROUP:
@@ -563,7 +521,7 @@ function printDocToString(doc, options) {
                 position = indent.root.length;
               }
             } else {
-              position -= trim(out);
+              position -= trim(out, CURSOR_PLACEHOLDER);
               out.push(newLine + indent.value);
               position = indent.length;
             }

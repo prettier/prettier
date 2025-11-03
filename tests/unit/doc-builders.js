@@ -15,6 +15,7 @@ import {
   line,
   lineSuffix,
   markAsRoot,
+  trim,
 } from "../../src/document/index.js";
 
 const invalidDoc = { type: "invalid-type" };
@@ -91,6 +92,8 @@ describe("doc builders", () => {
     ifBreak(validDoc, undefined),
 
     align("any string", validDoc),
+
+    trim,
   ];
 
   describe("Invalid usage", () => {
