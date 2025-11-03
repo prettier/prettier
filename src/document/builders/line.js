@@ -2,19 +2,18 @@ import { breakParent } from "./break-parent.js";
 import { DOC_TYPE_LINE } from "./types.js";
 
 /**
+@import {BreakParent} from "./break-parent.js";
 @typedef {{readonly type: DOC_TYPE_LINE}} Line
 @typedef {Line & {readonly soft: true}} SoftLine
 @typedef {Line & {readonly hard: true}} HardlineWithoutBreakParent
 @typedef {Line & {readonly hard: true, readonly literal: true}} LiterallineWithoutBreakParent
-@typedef {readonly [HardlineWithoutBreakParent, typeof breakParent]} HardLine
-@typedef {readonly [LiterallineWithoutBreakParent, typeof breakParent]} Literalline
+@typedef {readonly [HardlineWithoutBreakParent, BreakParent]} HardLine
+@typedef {readonly [LiterallineWithoutBreakParent, BreakParent]} Literalline
 @typedef {
   | Line
   | SoftLine
   | HardlineWithoutBreakParent
   | LiterallineWithoutBreakParent
-  | HardLine
-  | Literalline
 } Lines
 */
 

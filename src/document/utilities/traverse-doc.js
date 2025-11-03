@@ -18,9 +18,21 @@ import {
 import getDocType from "./get-doc-type.js";
 import InvalidDocError from "./invalid-doc-error.js";
 
+/**
+@import {Doc} from "../builders/index.js";
+@typedef {(doc: Doc) => void | boolean} OnEnter
+@typedef {(doc: Doc) => void} OnExit
+*/
+
 // Using a unique object to compare by reference.
 const traverseDocOnExitStackMarker = {};
 
+/**
+@param {any} doc
+@param {OnEnter} [onEnter]
+@param {OnExit} [onExit]
+@param {boolean} [shouldTraverseConditionalGroups = false]
+*/
 function traverseDoc(doc, onEnter, onExit, shouldTraverseConditionalGroups) {
   const docsStack = [doc];
 
