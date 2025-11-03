@@ -185,25 +185,6 @@ function printDocToString(doc, options) {
   const lineSuffix = [];
   const cursorPositions = [];
 
-  const trim = () => {
-    const { text, count } = trimIndentation(out);
-    out = [text];
-
-    if (count === 0) {
-      return;
-    }
-
-    position -= count;
-
-    if (cursorPositions.length === 0) {
-      return;
-    }
-
-    for (let index = 0; index < cursorPositions.length; index++) {
-      cursorPositions[index] = Math.min(cursorPositions[index], text.length);
-    }
-  };
-
   propagateBreaks(doc);
 
   while (commands.length > 0) {
@@ -609,6 +590,28 @@ function printDocToString(doc, options) {
       cursorPositions.at(-1) + 1,
     ),
   };
+
+  function trim() {
+    const { text, count } = trimIndentation(out);
+    out = [text];
+
+    if (count === 0) {
+      return;
+    }
+
+    position -= count;
+
+    if (cursorPositions.length === 0) {
+      return;
+    }
+
+    for (let index = 0; index < cursorPositions.length; index++) {
+      cursorPositions[index] = Math.min(
+        cursorPositions[index],
+        text.length - 1,
+      );
+    }
+  }
 }
 
 export { printDocToString };
