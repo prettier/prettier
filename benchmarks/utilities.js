@@ -32,9 +32,12 @@ async function runBenchmark(options, implementations) {
 
   let error;
 
-  for (const [name, implementation] of Array.isArray(implementations)
-    ? implementations.map(({ name, implementation }) => [name, implementation])
-    : Object.entries(implementations)) {
+  for (const { name, implementation } of Array.isArray(implementations)
+    ? implementations
+    : Object.entries(implementations).map(([name, implementation]) => ({
+        name,
+        implementation,
+      }))) {
     bench.add(name, () => {
       try {
         const result = implementation();
