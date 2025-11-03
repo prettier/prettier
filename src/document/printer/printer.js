@@ -187,7 +187,7 @@ function fits(
           return true;
         }
         if (!doc.soft) {
-          has_pending_space = true
+          has_pending_space = true;
         }
         break;
 
