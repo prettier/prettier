@@ -142,10 +142,9 @@ type A3 = // dir, exp, arg, modifiers
     [string, ExpressionNode, ExpressionNode, ObjectExpression];
 
 type SuperLongTypeNameLoremIpsumLoremIpsumBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBla =
-
-    | Fooo1000
-    | Baz2000
-    | BarLoooooooooooooooooooooooooooooooooooooooooooooooooLong;
+  | Fooo1000
+  | Baz2000
+  | BarLoooooooooooooooooooooooooooooooooooooooooooooooooLong;
 
 type SuperLongTypeNameLoremIpsumLoremIpsumBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBl2 =
   Fooo1000 &
