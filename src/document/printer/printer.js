@@ -210,6 +210,9 @@ function printDocToString(doc, options) {
         break;
 
       case DOC_TYPE_CURSOR: {
+        if (cursorPositions.length >= 2) {
+          throw new Error("There are too many 'cursor' in doc.");
+        }
         const text = out.join("");
         out = [text];
         cursorPositions.push(text.length - 1);
@@ -545,10 +548,6 @@ function printDocToString(doc, options) {
       commands.push(...lineSuffix.reverse());
       lineSuffix.length = 0;
     }
-  }
-
-  if (cursorPositions.length > 2) {
-    throw new Error("There are too many 'cursor' in doc.");
   }
 
   const formatted = out.join("");
