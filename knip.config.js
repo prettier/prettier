@@ -17,7 +17,7 @@ const config = {
         "packages/plugin-hermes/index.js",
         "benchmarks/**",
       ],
-      project: ["src/**", "scripts/**"],
+      project: ["src/**", "scripts/**", "benchmark/**"],
       ignore: [
         "scripts/build/config.js",
         "scripts/build/build-javascript-module.js",
