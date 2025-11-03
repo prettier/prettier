@@ -22,7 +22,7 @@ import {
 import { getDocType, propagateBreaks } from "../utilities/index.js";
 import InvalidDocError from "../utilities/invalid-doc-error.js";
 import { makeAlign, makeIndent, ROOT_INDENT } from "./indent.js";
-import { trim } from "./trim.js";
+import { trimIndentation } from "./trim-indentation.js";
 
 /**
 @import {EndOfLineOption} from "../../common/end-of-line.js";
@@ -37,8 +37,6 @@ import { trim } from "./trim.js";
 const MODE_BREAK = Symbol("MODE_BREAK");
 /** @type {unique symbol} */
 const MODE_FLAT = Symbol("MODE_FLAT");
-
-const CURSOR_PLACEHOLDER = Symbol("cursor");
 
 const DOC_FILL_PRINTED_LENGTH = Symbol("DOC_FILL_PRINTED_LENGTH");
 
@@ -107,7 +105,7 @@ function fits(
         break;
 
       case DOC_TYPE_TRIM:
-        width += trim(out, CURSOR_PLACEHOLDER);
+        width += trimIndentation(out).count;
         break;
 
       case DOC_TYPE_GROUP: {
@@ -180,11 +178,31 @@ function printDocToString(doc, options) {
   // commands to the array instead of recursively calling `print`.
   /** @type Command[] */
   const commands = [{ indent: ROOT_INDENT, mode: MODE_BREAK, doc }];
-  const out = [];
+  /** @type string[] */
+  let out = [];
   let shouldRemeasure = false;
   /** @type Command[] */
   const lineSuffix = [];
-  let printedCursorCount = 0;
+  const cursorPositions = [];
+
+  const trim = () => {
+    const { text, count } = trimIndentation(out);
+    out = [text];
+
+    if (count === 0) {
+      return;
+    }
+
+    position -= count;
+
+    if (cursorPositions.length === 0) {
+      return;
+    }
+
+    for (let index = 0; index < cursorPositions.length; index++) {
+      cursorPositions[index] = Math.min(cursorPositions[index], text.length);
+    }
+  };
 
   propagateBreaks(doc);
 
@@ -210,13 +228,12 @@ function printDocToString(doc, options) {
         }
         break;
 
-      case DOC_TYPE_CURSOR:
-        if (printedCursorCount >= 2) {
-          throw new Error("There are too many 'cursor' in doc.");
-        }
-        out.push(CURSOR_PLACEHOLDER);
-        printedCursorCount++;
+      case DOC_TYPE_CURSOR: {
+        const text = out.join("");
+        out = [text];
+        cursorPositions.push(text.length - 1);
         break;
+      }
 
       case DOC_TYPE_INDENT:
         commands.push({
@@ -235,7 +252,7 @@ function printDocToString(doc, options) {
         break;
 
       case DOC_TYPE_TRIM:
-        position -= trim(out, CURSOR_PLACEHOLDER);
+        trim();
         break;
 
       case DOC_TYPE_GROUP:
@@ -521,7 +538,7 @@ function printDocToString(doc, options) {
                 position = indent.root.length;
               }
             } else {
-              position -= trim(out, CURSOR_PLACEHOLDER);
+              trim();
               out.push(newLine + indent.value);
               position = indent.length;
             }
@@ -549,58 +566,49 @@ function printDocToString(doc, options) {
     }
   }
 
-  const cursorPlaceholderIndex = out.indexOf(CURSOR_PLACEHOLDER);
-  if (cursorPlaceholderIndex !== -1) {
-    const otherCursorPlaceholderIndex = out.indexOf(
-      CURSOR_PLACEHOLDER,
-      cursorPlaceholderIndex + 1,
-    );
-
-    if (otherCursorPlaceholderIndex === -1) {
-      // If we got here, the doc must have contained ONE cursor command,
-      // instead of the expected zero or two. If the doc being printed was
-      // returned by printAstToDoc, then the only ways this can have happened
-      // are if:
-      // 1. a plugin added a cursor command itself, or
-      // 2. one (but not both) of options.nodeAfterCursor and
-      //    options.nodeAfterCursor pointed to a node within a subtree of the
-      //    AST that the printer plugin used in printAstToDoc simply omits from
-      //    the doc, or that it prints without recursively calling mainPrint,
-      //    with the consequence that the logic for adding a cursor command in
-      //    callPluginPrintFunction was never called for that node.
-      // These are both weird scenarios that should be considered a bug if they
-      // ever occur with one of Prettier's built-in plugins. If a third-party
-      // plugin was used when printing the AST to a doc, the possibility of
-      // reaching this scenario MIGHT be reasonable to consider a bug in the
-      // plugin. However, we try to at least not crash if this ever happens;
-      // instead we simply give up on returning a cursorNodeStart or
-      // cursorNodeText.
-      //
-      // coreFormat has logic specifically to handle this scenario - where it
-      // is supposed to preserve the cursor position but the printer gives it
-      // no information about where the nodes around the cursor ended up -
-      // although that logic is unavoidably slower (and has more potential to
-      // return a perverse result) than the happy path where we help out
-      // coreFormat by returning a cursorNodeStart and cursorNodeText here.
-      return {
-        formatted: out.filter((char) => char !== CURSOR_PLACEHOLDER).join(""),
-      };
-    }
-
-    const beforeCursor = out.slice(0, cursorPlaceholderIndex).join("");
-    const aroundCursor = out
-      .slice(cursorPlaceholderIndex + 1, otherCursorPlaceholderIndex)
-      .join("");
-    const afterCursor = out.slice(otherCursorPlaceholderIndex + 1).join("");
-
-    return {
-      formatted: beforeCursor + aroundCursor + afterCursor,
-      cursorNodeStart: beforeCursor.length,
-      cursorNodeText: aroundCursor,
-    };
+  if (cursorPositions.length > 2) {
+    throw new Error("There are too many 'cursor' in doc.");
   }
 
-  return { formatted: out.join("") };
+  const formatted = out.join("");
+  if (cursorPositions.length !== 2) {
+    // If the doc contained ONE cursor command,
+    // instead of the expected zero or two. If the doc being printed was
+    // returned by printAstToDoc, then the only ways this can have happened
+    // are if:
+    // 1. a plugin added a cursor command itself, or
+    // 2. one (but not both) of options.nodeAfterCursor and
+    //    options.nodeAfterCursor pointed to a node within a subtree of the
+    //    AST that the printer plugin used in printAstToDoc simply omits from
+    //    the doc, or that it prints without recursively calling mainPrint,
+    //    with the consequence that the logic for adding a cursor command in
+    //    callPluginPrintFunction was never called for that node.
+    // These are both weird scenarios that should be considered a bug if they
+    // ever occur with one of Prettier's built-in plugins. If a third-party
+    // plugin was used when printing the AST to a doc, the possibility of
+    // reaching this scenario MIGHT be reasonable to consider a bug in the
+    // plugin. However, we try to at least not crash if this ever happens;
+    // instead we simply give up on returning a cursorNodeStart or
+    // cursorNodeText.
+    //
+    // coreFormat has logic specifically to handle this scenario - where it
+    // is supposed to preserve the cursor position but the printer gives it
+    // no information about where the nodes around the cursor ended up -
+    // although that logic is unavoidably slower (and has more potential to
+    // return a perverse result) than the happy path where we help out
+    // coreFormat by returning a cursorNodeStart and cursorNodeText here.
+    return { formatted };
+  }
+
+  const cursorNodeStart = cursorPositions[0] + 1;
+  return {
+    formatted,
+    cursorNodeStart,
+    cursorNodeText: formatted.slice(
+      cursorNodeStart,
+      cursorPositions.at(-1) + 1,
+    ),
+  };
 }
 
 export { printDocToString };
