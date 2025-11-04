@@ -108,7 +108,8 @@ function printBinaryishExpression(path, options, print) {
     (parent.type === "ConditionalExpression" &&
       grandparent.type !== "ReturnStatement" &&
       grandparent.type !== "ThrowStatement" &&
-      !isCallExpression(grandparent)) ||
+      !isCallExpression(grandparent) &&
+      grandparent.type !== "NewExpression") ||
     parent.type === "TemplateLiteral" ||
     isBooleanTypeCoercion(path);
 
