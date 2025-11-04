@@ -30,7 +30,6 @@ import {
 } from "./misc.js";
 import { printPropertyKey } from "./property.js";
 import { printTypeAnnotationProperty } from "./type-annotation.js";
-import { getTypeParametersGroupId } from "./type-parameters.js";
 
 /**
  * @import {Doc} from "../../document/index.js"
