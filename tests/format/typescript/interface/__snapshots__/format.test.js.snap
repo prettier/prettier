@@ -197,8 +197,7 @@ semi: false
 =====================================input======================================
 interface Foo<FOOOOOOOOOOOOOOOOOOOOOOOOOO,FOOOOOOOOOOOOOOOOOOOOOOO>
   extends Foo {}
-class Foo____<FOOOOOOOOOOOOOOOOOOOOOOOOOO,FOOOOOOOOOOOOOOOOOOOOOOO>
-  extends Foo {}
+
 interface Foo<
   FOOOOOOOOOOOOOOOOOOOOOOOOOO,
   FOOOOOOOOOOOOOOOOOOOOOOOOOO,
@@ -210,10 +209,7 @@ interface Foo<
   FOOOOOOOOOOOOOOOOOOOOOOOOOO,
   FOOOOOOOOOOOOOOOOOOOOOOO,
 > extends Foo {}
-class Foo____<
-  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
-  FOOOOOOOOOOOOOOOOOOOOOOO,
-> extends Foo {}
+
 interface Foo<
   FOOOOOOOOOOOOOOOOOOOOOOOOOO,
   FOOOOOOOOOOOOOOOOOOOOOOOOOO,
@@ -231,8 +227,7 @@ printWidth: 80
 =====================================input======================================
 interface Foo<FOOOOOOOOOOOOOOOOOOOOOOOOOO,FOOOOOOOOOOOOOOOOOOOOOOO>
   extends Foo {}
-class Foo____<FOOOOOOOOOOOOOOOOOOOOOOOOOO,FOOOOOOOOOOOOOOOOOOOOOOO>
-  extends Foo {}
+
 interface Foo<
   FOOOOOOOOOOOOOOOOOOOOOOOOOO,
   FOOOOOOOOOOOOOOOOOOOOOOOOOO,
@@ -244,10 +239,7 @@ interface Foo<
   FOOOOOOOOOOOOOOOOOOOOOOOOOO,
   FOOOOOOOOOOOOOOOOOOOOOOO,
 > extends Foo {}
-class Foo____<
-  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
-  FOOOOOOOOOOOOOOOOOOOOOOO,
-> extends Foo {}
+
 interface Foo<
   FOOOOOOOOOOOOOOOOOOOOOOOOOO,
   FOOOOOOOOOOOOOOOOOOOOOOOOOO,
@@ -720,9 +712,6 @@ export interface I extends A, B, C {
 export interface ThirdVeryLongAndBoringInterfaceName extends ALongAndBoringInterfaceName {
   c: string;
 }
-export class ThirdVeryLongAndBoringInterfaceName____ extends ALongAndBoringInterfaceName {
-  c: string;
-}
 
 export interface ThirdVeryLongAndBoringInterfaceName extends ALongAndBoringInterfaceName, AnotherLongAndBoringInterfaceName {
   c: string;
@@ -742,9 +731,6 @@ export interface I extends A, B, C {
 }
 
 export interface ThirdVeryLongAndBoringInterfaceName extends ALongAndBoringInterfaceName {
-  c: string
-}
-export class ThirdVeryLongAndBoringInterfaceName____ extends ALongAndBoringInterfaceName {
   c: string
 }
 
@@ -784,9 +770,6 @@ export interface I extends A, B, C {
 export interface ThirdVeryLongAndBoringInterfaceName extends ALongAndBoringInterfaceName {
   c: string;
 }
-export class ThirdVeryLongAndBoringInterfaceName____ extends ALongAndBoringInterfaceName {
-  c: string;
-}
 
 export interface ThirdVeryLongAndBoringInterfaceName extends ALongAndBoringInterfaceName, AnotherLongAndBoringInterfaceName {
   c: string;
@@ -806,9 +789,6 @@ export interface I extends A, B, C {
 }
 
 export interface ThirdVeryLongAndBoringInterfaceName extends ALongAndBoringInterfaceName {
-  c: string;
-}
-export class ThirdVeryLongAndBoringInterfaceName____ extends ALongAndBoringInterfaceName {
   c: string;
 }
 

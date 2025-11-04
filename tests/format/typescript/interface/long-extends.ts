@@ -5,9 +5,6 @@ export interface I extends A, B, C {
 export interface ThirdVeryLongAndBoringInterfaceName extends ALongAndBoringInterfaceName {
   c: string;
 }
-export class ThirdVeryLongAndBoringInterfaceName____ extends ALongAndBoringInterfaceName {
-  c: string;
-}
 
 export interface ThirdVeryLongAndBoringInterfaceName extends ALongAndBoringInterfaceName, AnotherLongAndBoringInterfaceName {
   c: string;
