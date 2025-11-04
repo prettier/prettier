@@ -1,0 +1,11 @@
+# https://github.com/graphql/graphql-js/pull/4482
+
+"Operation description"
+query myQuery(
+  "Variable a description"
+  $a: Int,
+  """Variable b\nmultiline description"""
+  $b: String
+) {
+  field(a: $a, b: $b)
+}

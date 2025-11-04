@@ -1307,6 +1307,7 @@ exports[`visitor keys graphql 1`] = `
   ],
   "FloatValue": [],
   "FragmentDefinition": [
+    "description",
     "directives",
     "name",
     "selectionSet",
@@ -1389,6 +1390,7 @@ exports[`visitor keys graphql 1`] = `
     "fields",
   ],
   "OperationDefinition": [
+    "description",
     "directives",
     "name",
     "selectionSet",
@@ -1435,6 +1437,7 @@ exports[`visitor keys graphql 1`] = `
   ],
   "VariableDefinition": [
     "defaultValue",
+    "description",
     "directives",
     "type",
     "variable",
