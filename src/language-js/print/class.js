@@ -71,9 +71,7 @@ function printClass(path, options, print) {
     hasComment(node.id, CommentCheckFlags.Trailing) ||
     hasComment(node.typeParameters, CommentCheckFlags.Trailing) ||
     hasComment(node.superClass) ||
-    isNonEmptyArray(node.extends) ||
-    isNonEmptyArray(node.mixins) ||
-    isNonEmptyArray(node.implements);
+    hasMultipleHeritage(node);
 
   const partsGroup = [];
   const extendsParts = [];
@@ -104,12 +102,14 @@ function printClass(path, options, print) {
       extendsParts.push(" ", printedWithComments);
     }
   } else {
-    extendsParts.push(printHeritageClauses(path, options, print, "extends"));
+    extendsParts.push(
+      printHeritageClauses(path, options, print, "extends", groupMode),
+    );
   }
 
   extendsParts.push(
-    printHeritageClauses(path, options, print, "mixins"),
-    printHeritageClauses(path, options, print, "implements"),
+    printHeritageClauses(path, options, print, "mixins", groupMode),
+    printHeritageClauses(path, options, print, "implements", groupMode),
   );
 
   let heritageGroupId;
@@ -169,7 +169,7 @@ function shouldIndentOnlyHeritageClauses(node) {
   );
 }
 
-function printHeritageClauses(path, options, print, listName) {
+function printHeritageClauses(path, options, print, listName, groupMode) {
   const { node } = path;
   if (!isNonEmptyArray(node[listName])) {
     return "";
@@ -178,6 +178,22 @@ function printHeritageClauses(path, options, print, listName) {
   const printedLeadingComments = printDanglingComments(path, options, {
     marker: listName,
   });
+
+  const heritageClausesDoc = join([",", line], path.map(print, listName));
+
+  // Make it print like `superClass`
+  if (!hasMultipleHeritage(node)) {
+    const printed = [
+      `${listName} `,
+      printedLeadingComments,
+      heritageClausesDoc,
+    ];
+    if (groupMode) {
+      return [line, group(printed)];
+    }
+    return [" ", printed];
+  }
+
   return [
     shouldIndentOnlyHeritageClauses(node)
       ? ifBreak(" ", line, {
@@ -187,7 +203,7 @@ function printHeritageClauses(path, options, print, listName) {
     printedLeadingComments,
     printedLeadingComments && hardline,
     listName,
-    group(indent([line, join([",", line], path.map(print, listName))])),
+    group(indent([line, heritageClausesDoc])),
   ];
 }
 
