@@ -72,6 +72,10 @@ interface ExtendsMany
   extends ASingleGenericInterface<Interface1, Interface2, Interface3, Interface4, Interface5, Interface6, Interface7> {
   x: string;
 }
+class ExtendsMany____
+  extends ASingleGenericInterface<Interface1, Interface2, Interface3, Interface4, Interface5, Interface6, Interface7> {
+  x: string;
+}
 
 interface ExtendsManyWithGenerics
   extends InterfaceOne, InterfaceTwo, ASingleGenericInterface<Interface1, Interface2, Interface3, Interface4, Interface5, Interface6, Interface7>, InterfaceThree {
