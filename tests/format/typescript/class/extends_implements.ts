@@ -39,6 +39,7 @@ class ImplementsInterfaceAndExtendsAbstractClass1<Foo>
   implements FOOOOOOOOOOOOOOOOO, BARRRRRRRRRR {}
 
 class Foo<FOOOOOOOOOOOOOOOOOOOOOOOOOOO, FOOOOOOOOOOOOOOOOOOOOOOOOOOO> implements Foo {}
+interface Foo<FOOOOOOOOOOOOOOOOOOOOOOOOOOO, FOOOOOOOOOOOOOOOOOOOOOOOOOOO> extends Foo {}
 
 class ImplementsInterfaceAndExtendsAbstractClass2<
     TypeArgumentNumberOne,
