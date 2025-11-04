@@ -5047,10 +5047,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"graphql@npm:16.11.0":
-  version: 16.11.0
-  resolution: "graphql@npm:16.11.0"
-  checksum: 10/e3e1633d0b464bbb3fa41283fae938bd3bac801c350555b3f1a129d99fb3cfe157fa69c1389229dba902731942eb08bdea4b29f1271965feee8779576b26ef01
+"graphql@npm:16.12.0":
+  version: 16.12.0
+  resolution: "graphql@npm:16.12.0"
+  checksum: 10/e299bc97cca178e549c8c1ed4cb164f631f07be987d3657f76cdf18c0250040cc0d456d4b6d41c87b855cac97b15a62ed345557527efcb0546492895a893bb87
   languageName: node
   linkType: hard
 
@@ -7317,7 +7317,7 @@ __metadata:
     get-east-asian-width: "npm:1.4.0"
     get-stdin: "npm:9.0.0"
     globals: "npm:16.4.0"
-    graphql: "npm:16.11.0"
+    graphql: "npm:16.12.0"
     hermes-parser: "npm:0.32.1"
     html-element-attributes: "npm:3.5.0"
     html-ua-styles: "npm:0.2.0"
