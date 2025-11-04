@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`schema.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+type Query {
+  searchBusiness(criteria: SearchCriteria!): [Business]
+}
+
+input SearchCriteria {
+  name: String
+  filter: SearchFilter
+}
+
+enum SearchFilter {
+  OPEN_NOW
+  DELIVERS_TAKEOUT
+  VEGETARIAN_MENU
+}
+
+type Business {
+  id: ID
+  name: String
+  email: String @private(scope: "loggedIn")
+}
+
+directive @private(scope: String!) on FIELD_DEFINITION
+
+=====================================output=====================================
+type Query {
+  searchBusiness(criteria: SearchCriteria!): [Business]
+}
+
+input SearchCriteria {
+  name: String
+  filter: SearchFilter
+}
+
+enum SearchFilter {
+  OPEN_NOW
+  DELIVERS_TAKEOUT
+  VEGETARIAN_MENU
+}
+
+type Business {
+  id: ID
+  name: String
+  email: String @private(scope: "loggedIn")
+}
+
+directive @private(scope: String!) on FIELD_DEFINITION
+
+================================================================================
+`;

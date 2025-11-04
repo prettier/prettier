@@ -416,18 +416,23 @@ function genericPrint(path, options, print) {
       return ["[", print("type"), "]"];
 
     case "TypeCoordinate":
+      throw new Error(node.kind);
       return print("name");
 
     case "DirectiveCoordinate":
+      throw new Error(node.kind);
       return ["@", print("name")];
 
     case "MemberCoordinate":
+      throw new Error(node.kind);
       return [print("name"), print("memberName")];
 
     case "ArgumentCoordinate":
+      throw new Error(node.kind);
       return [print("name"), print("fieldName"), print("argumentName")];
 
     case "DirectiveArgumentCoordinate":
+      throw new Error(node.kind);
       return [print("name"), print("argumentName")];
 
     default:
