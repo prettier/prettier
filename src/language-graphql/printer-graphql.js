@@ -415,6 +415,21 @@ function genericPrint(path, options, print) {
     case "ListType":
       return ["[", print("type"), "]"];
 
+    case "TypeCoordinate":
+      return print("name");
+
+    case "DirectiveCoordinate":
+      return ["@", print("name")];
+
+    case "MemberCoordinate":
+      return [print("name"), print("memberName")];
+
+    case "ArgumentCoordinate":
+      return [print("name"), print("fieldName"), print("argumentName")];
+
+    case "DirectiveArgumentCoordinate":
+      return [print("name"), print("argumentName")];
+
     default:
       /* c8 ignore next */
       throw new UnexpectedNodeError(node, "Graphql", "kind");
