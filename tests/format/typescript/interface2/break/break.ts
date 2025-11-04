@@ -5,6 +5,13 @@ export interface Environment1 extends GenericEnvironment<
 > {
   m(): void;
 };
+export class Environment1____ extends GenericEnvironment<
+  SomeType,
+  AnotherType,
+  YetAnotherType,
+> {
+  m(): void;
+};
 export class Environment2 extends GenericEnvironment<
   SomeType,
   AnotherType,
@@ -23,6 +30,9 @@ declare interface ExtendsOne extends ASingleInterface {
 }
 
 declare interface ExtendsLarge extends ASingleInterfaceWithAReallyReallyReallyReallyLongName {
+  x: string;
+}
+declare class ExtendsLarge____ extends ASingleInterfaceWithAReallyReallyReallyReallyLongName {
   x: string;
 }
 
@@ -64,3 +74,4 @@ interface ExtendsManyWithGenerics
   }
 
 export interface ExtendsLongOneWithGenerics extends Bar< SomeLongTypeSomeLongTypeSomeLongTypeSomeLongType,  ToBreakLineToBreakLineToBreakLine> {}
+export class ExtendsLongOneWithGenerics____ extends Bar< SomeLongTypeSomeLongTypeSomeLongTypeSomeLongType,  ToBreakLineToBreakLineToBreakLine> {}
