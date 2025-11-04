@@ -234,7 +234,8 @@ class ImplementsInterfaceAndExtendsAbstractClass1<Foo>
   implements FOOOOOOOOOOOOOOOOO, BARRRRRRRRRR {}
 
 class Foo<FOOOOOOOOOOOOOOOOOOOOOOOOOOO, FOOOOOOOOOOOOOOOOOOOOOOOOOOO> implements Foo {}
-interface Foo<FOOOOOOOOOOOOOOOOOOOOOOOOOOO, FOOOOOOOOOOOOOOOOOOOOOOOOOOO> extends Foo {}
+class Foo___<FOOOOOOOOOOOOOOOOOOOOOOOOOOO, FOOOOOOOOOOOOOOOOOOOOOOOOOOO> extends Foo {}
+interface Foo<FOOOOOOOOOOOOOOOOOOOOOOOOOOO, FOOOOOOOOOOOOOOOOOOOOOOOOOO> extends Foo {}
 
 class ImplementsInterfaceAndExtendsAbstractClass2<
     TypeArgumentNumberOne,
@@ -320,9 +321,13 @@ class Foo<
   FOOOOOOOOOOOOOOOOOOOOOOOOOOO,
   FOOOOOOOOOOOOOOOOOOOOOOOOOOO,
 > implements Foo {}
+class Foo___<
+  FOOOOOOOOOOOOOOOOOOOOOOOOOOO,
+  FOOOOOOOOOOOOOOOOOOOOOOOOOOO,
+> extends Foo {}
 interface Foo<
   FOOOOOOOOOOOOOOOOOOOOOOOOOOO,
-  FOOOOOOOOOOOOOOOOOOOOOOOOOOO,
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
 > extends Foo {}
 
 class ImplementsInterfaceAndExtendsAbstractClass2<
@@ -386,7 +391,16 @@ export class JiraCreatePixFraudDetectionGateway
     });
   }
 }
-export interface JiraCreatePixFraudDetectionGateway
+export class JiraCreatePixFraudDetectionGateway
+  extends Pick<IssuePixFraudDetectionGateway___, "createPixFraudDetectionIssue">
+{
+  constructor(private readonly logger: Logger) {
+    this.logger = logger.child({
+      context: JiraCreatePixFraudDetectionGateway.name,
+    });
+  }
+}
+export interface JiraCreatePiFraudDetectionGate
   extends Pick<IssuePixFraudDetectionGateway, "createPixFraudDetectionIssue">
 {
   method(logger: Logger): string
@@ -415,7 +429,17 @@ export class JiraCreatePixFraudDetectionGateway implements Pick<
     });
   }
 }
-export interface JiraCreatePixFraudDetectionGateway extends Pick<
+export class JiraCreatePixFraudDetectionGateway extends Pick<
+  IssuePixFraudDetectionGateway___,
+  "createPixFraudDetectionIssue"
+> {
+  constructor(private readonly logger: Logger) {
+    this.logger = logger.child({
+      context: JiraCreatePixFraudDetectionGateway.name,
+    });
+  }
+}
+export interface JiraCreatePiFraudDetectionGate extends Pick<
   IssuePixFraudDetectionGateway,
   "createPixFraudDetectionIssue"
 > {
