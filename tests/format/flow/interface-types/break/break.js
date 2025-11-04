@@ -32,6 +32,9 @@ declare interface ExtendsOne extends ASingleInterface {
 declare interface ExtendsLarge extends ASingleInterfaceWithAReallyReallyReallyReallyLongName {
   x: string;
 }
+declare class ExtendsLarge____ extends ASingleInterfaceWithAReallyReallyReallyReallyLongName {
+  x: string;
+}
 
 declare interface ExtendsMany extends Interface1, Interface2, Interface3, Interface4, Interface5, Interface6, Interface7 {
   x: string;
