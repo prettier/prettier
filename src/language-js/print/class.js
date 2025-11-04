@@ -150,12 +150,16 @@ function isNonEmptyClassBody(node) {
 }
 
 function hasMultipleHeritage(node) {
-  return (
-    ["extends", "mixins", "implements"].reduce(
-      (count, key) => count + (Array.isArray(node[key]) ? node[key].length : 0),
-      node.superClass ? 1 : 0,
-    ) > 1
-  );
+  let count = node.superClass ? 1 : 0;
+  for (const listName of ["extends", "mixins", "implements"]) {
+    if (Array.isArray(node[listName])) {
+      count += node[listName].length;
+    }
+    if (count > 1) {
+      return true;
+    }
+  }
+  return count > 1;
 }
 
 function shouldIndentOnlyHeritageClauses(node) {
