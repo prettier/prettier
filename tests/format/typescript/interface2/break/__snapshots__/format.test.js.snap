@@ -75,8 +75,11 @@ interface ExtendsManyWithGenerics
 export interface ExtendsLongOneWithGenerics extends Bar< SomeLongTypeSomeLongTypeSomeLongTypeSomeLongType,  ToBreakLineToBreakLineToBreakLine> {}
 
 =====================================output=====================================
-export interface Environment1
-  extends GenericEnvironment<SomeType, AnotherType, YetAnotherType> {
+export interface Environment1 extends GenericEnvironment<
+  SomeType,
+  AnotherType,
+  YetAnotherType
+> {
   m(): void;
 }
 export class Environment2 extends GenericEnvironment<
@@ -96,8 +99,7 @@ declare interface ExtendsOne extends ASingleInterface {
   x: string;
 }
 
-declare interface ExtendsLarge
-  extends ASingleInterfaceWithAReallyReallyReallyReallyLongName {
+declare interface ExtendsLarge extends ASingleInterfaceWithAReallyReallyReallyReallyLongName {
   x: string;
 }
 
@@ -118,8 +120,7 @@ interface ExtendsOne extends ASingleInterface {
   x: string;
 }
 
-interface ExtendsLarge
-  extends ASingleInterfaceWithAReallyReallyReallyReallyLongName {
+interface ExtendsLarge extends ASingleInterfaceWithAReallyReallyReallyReallyLongName {
   x: string;
 }
 
@@ -140,22 +141,19 @@ interface ExtendsOne extends ASingleInterface<string> {
   x: string;
 }
 
-interface ExtendsLarge
-  extends ASingleInterfaceWithAReallyReallyReallyReallyLongName<string> {
+interface ExtendsLarge extends ASingleInterfaceWithAReallyReallyReallyReallyLongName<string> {
   x: string;
 }
 
-interface ExtendsMany
-  extends
-    ASingleGenericInterface<
-      Interface1,
-      Interface2,
-      Interface3,
-      Interface4,
-      Interface5,
-      Interface6,
-      Interface7
-    > {
+interface ExtendsMany extends ASingleGenericInterface<
+  Interface1,
+  Interface2,
+  Interface3,
+  Interface4,
+  Interface5,
+  Interface6,
+  Interface7
+> {
   x: string;
 }
 
@@ -176,12 +174,10 @@ interface ExtendsManyWithGenerics
   x: string;
 }
 
-export interface ExtendsLongOneWithGenerics
-  extends
-    Bar<
-      SomeLongTypeSomeLongTypeSomeLongTypeSomeLongType,
-      ToBreakLineToBreakLineToBreakLine
-    > {}
+export interface ExtendsLongOneWithGenerics extends Bar<
+  SomeLongTypeSomeLongTypeSomeLongTypeSomeLongType,
+  ToBreakLineToBreakLineToBreakLine
+> {}
 
 ================================================================================
 `;
@@ -261,8 +257,11 @@ interface ExtendsManyWithGenerics
 export interface ExtendsLongOneWithGenerics extends Bar< SomeLongTypeSomeLongTypeSomeLongTypeSomeLongType,  ToBreakLineToBreakLineToBreakLine> {}
 
 =====================================output=====================================
-export interface Environment1
-  extends GenericEnvironment<SomeType, AnotherType, YetAnotherType> {
+export interface Environment1 extends GenericEnvironment<
+  SomeType,
+  AnotherType,
+  YetAnotherType
+> {
   m(): void;
 }
 export class Environment2 extends GenericEnvironment<
@@ -282,8 +281,7 @@ declare interface ExtendsOne extends ASingleInterface {
   x: string;
 }
 
-declare interface ExtendsLarge
-  extends ASingleInterfaceWithAReallyReallyReallyReallyLongName {
+declare interface ExtendsLarge extends ASingleInterfaceWithAReallyReallyReallyReallyLongName {
   x: string;
 }
 
@@ -304,8 +302,7 @@ interface ExtendsOne extends ASingleInterface {
   x: string;
 }
 
-interface ExtendsLarge
-  extends ASingleInterfaceWithAReallyReallyReallyReallyLongName {
+interface ExtendsLarge extends ASingleInterfaceWithAReallyReallyReallyReallyLongName {
   x: string;
 }
 
@@ -326,22 +323,19 @@ interface ExtendsOne extends ASingleInterface<string> {
   x: string;
 }
 
-interface ExtendsLarge
-  extends ASingleInterfaceWithAReallyReallyReallyReallyLongName<string> {
+interface ExtendsLarge extends ASingleInterfaceWithAReallyReallyReallyReallyLongName<string> {
   x: string;
 }
 
-interface ExtendsMany
-  extends
-    ASingleGenericInterface<
-      Interface1,
-      Interface2,
-      Interface3,
-      Interface4,
-      Interface5,
-      Interface6,
-      Interface7
-    > {
+interface ExtendsMany extends ASingleGenericInterface<
+  Interface1,
+  Interface2,
+  Interface3,
+  Interface4,
+  Interface5,
+  Interface6,
+  Interface7
+> {
   x: string;
 }
 
@@ -362,12 +356,10 @@ interface ExtendsManyWithGenerics
   x: string;
 }
 
-export interface ExtendsLongOneWithGenerics
-  extends
-    Bar<
-      SomeLongTypeSomeLongTypeSomeLongTypeSomeLongType,
-      ToBreakLineToBreakLineToBreakLine
-    > {}
+export interface ExtendsLongOneWithGenerics extends Bar<
+  SomeLongTypeSomeLongTypeSomeLongTypeSomeLongType,
+  ToBreakLineToBreakLineToBreakLine
+> {}
 
 ================================================================================
 `;
@@ -447,8 +439,11 @@ interface ExtendsManyWithGenerics
 export interface ExtendsLongOneWithGenerics extends Bar< SomeLongTypeSomeLongTypeSomeLongTypeSomeLongType,  ToBreakLineToBreakLineToBreakLine> {}
 
 =====================================output=====================================
-export interface Environment1
-  extends GenericEnvironment<SomeType, AnotherType, YetAnotherType> {
+export interface Environment1 extends GenericEnvironment<
+  SomeType,
+  AnotherType,
+  YetAnotherType
+> {
   m(): void;
 }
 export class Environment2 extends GenericEnvironment<
@@ -468,8 +463,7 @@ declare interface ExtendsOne extends ASingleInterface {
   x: string;
 }
 
-declare interface ExtendsLarge
-  extends ASingleInterfaceWithAReallyReallyReallyReallyLongName {
+declare interface ExtendsLarge extends ASingleInterfaceWithAReallyReallyReallyReallyLongName {
   x: string;
 }
 
@@ -490,8 +484,7 @@ interface ExtendsOne extends ASingleInterface {
   x: string;
 }
 
-interface ExtendsLarge
-  extends ASingleInterfaceWithAReallyReallyReallyReallyLongName {
+interface ExtendsLarge extends ASingleInterfaceWithAReallyReallyReallyReallyLongName {
   x: string;
 }
 
@@ -512,22 +505,19 @@ interface ExtendsOne extends ASingleInterface<string> {
   x: string;
 }
 
-interface ExtendsLarge
-  extends ASingleInterfaceWithAReallyReallyReallyReallyLongName<string> {
+interface ExtendsLarge extends ASingleInterfaceWithAReallyReallyReallyReallyLongName<string> {
   x: string;
 }
 
-interface ExtendsMany
-  extends
-    ASingleGenericInterface<
-      Interface1,
-      Interface2,
-      Interface3,
-      Interface4,
-      Interface5,
-      Interface6,
-      Interface7
-    > {
+interface ExtendsMany extends ASingleGenericInterface<
+  Interface1,
+  Interface2,
+  Interface3,
+  Interface4,
+  Interface5,
+  Interface6,
+  Interface7
+> {
   x: string;
 }
 
@@ -548,12 +538,10 @@ interface ExtendsManyWithGenerics
   x: string;
 }
 
-export interface ExtendsLongOneWithGenerics
-  extends
-    Bar<
-      SomeLongTypeSomeLongTypeSomeLongTypeSomeLongType,
-      ToBreakLineToBreakLineToBreakLine
-    > {}
+export interface ExtendsLongOneWithGenerics extends Bar<
+  SomeLongTypeSomeLongTypeSomeLongTypeSomeLongType,
+  ToBreakLineToBreakLineToBreakLine
+> {}
 
 ================================================================================
 `;

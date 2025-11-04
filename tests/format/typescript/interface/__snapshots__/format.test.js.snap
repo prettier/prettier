@@ -205,8 +205,10 @@ interface Foo<
 > extends Foo {}
 
 =====================================output=====================================
-interface Foo<FOOOOOOOOOOOOOOOOOOOOOOOOOO, FOOOOOOOOOOOOOOOOOOOOOOO>
-  extends Foo {}
+interface Foo<
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+  FOOOOOOOOOOOOOOOOOOOOOOO,
+> extends Foo {}
 
 interface Foo<
   FOOOOOOOOOOOOOOOOOOOOOOOOOO,
@@ -233,8 +235,10 @@ interface Foo<
 > extends Foo {}
 
 =====================================output=====================================
-interface Foo<FOOOOOOOOOOOOOOOOOOOOOOOOOO, FOOOOOOOOOOOOOOOOOOOOOOO>
-  extends Foo {}
+interface Foo<
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+  FOOOOOOOOOOOOOOOOOOOOOOO,
+> extends Foo {}
 
 interface Foo<
   FOOOOOOOOOOOOOOOOOOOOOOOOOO,
@@ -726,8 +730,7 @@ export interface I extends A, B, C {
   c: string
 }
 
-export interface ThirdVeryLongAndBoringInterfaceName
-  extends ALongAndBoringInterfaceName {
+export interface ThirdVeryLongAndBoringInterfaceName extends ALongAndBoringInterfaceName {
   c: string
 }
 
@@ -785,8 +788,7 @@ export interface I extends A, B, C {
   c: string;
 }
 
-export interface ThirdVeryLongAndBoringInterfaceName
-  extends ALongAndBoringInterfaceName {
+export interface ThirdVeryLongAndBoringInterfaceName extends ALongAndBoringInterfaceName {
   c: string;
 }
 
