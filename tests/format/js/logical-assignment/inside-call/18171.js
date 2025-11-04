@@ -38,4 +38,10 @@ new fn(
         ? 'Infinity'
         : (options.cacheLifetime?.glob ??
           DEFAULT_TSCONFIG_CACHE_DURATION_SECONDS),
+    );
+    RESOLUTION_CACHE = new_ExpiringCache(
+      options.singleRun
+        ? 'Infinity'
+        : (options.cacheLifetime?.glob ??
+          DEFAULT_TSCONFIG_CACHE_DURATION_SECONDS),
     );}}
