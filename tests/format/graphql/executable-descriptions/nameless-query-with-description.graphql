@@ -1,0 +1,8 @@
+# https://github.com/graphql/graphql-js/pull/4482
+
+"Description"
+query {
+  node {
+    id
+  }
+}
