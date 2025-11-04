@@ -1260,9 +1260,21 @@ exports[`visitor keys graphql 1`] = `
     "name",
     "value",
   ],
+  "ArgumentCoordinate": [
+    "argumentName",
+    "fieldName",
+    "name",
+  ],
   "BooleanValue": [],
   "Directive": [
     "arguments",
+    "name",
+  ],
+  "DirectiveArgumentCoordinate": [
+    "argumentName",
+    "name",
+  ],
+  "DirectiveCoordinate": [
     "name",
   ],
   "DirectiveDefinition": [
@@ -1361,6 +1373,10 @@ exports[`visitor keys graphql 1`] = `
   "ListValue": [
     "values",
   ],
+  "MemberCoordinate": [
+    "memberName",
+    "name",
+  ],
   "Name": [],
   "NamedType": [
     "name",
@@ -1421,6 +1437,9 @@ exports[`visitor keys graphql 1`] = `
     "selections",
   ],
   "StringValue": [],
+  "TypeCoordinate": [
+    "name",
+  ],
   "UnionTypeDefinition": [
     "description",
     "directives",
