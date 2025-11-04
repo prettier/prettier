@@ -32,17 +32,6 @@ new fn(
       : kochabCooieGameOnOboleUnweave
 );
 
-
-// https://github.com/marmelab/react-admin/blob/439f6fe4dcacf00bf63ec3a3d583a0e7d4b82bcd/packages/ra-core/src/controller/field/useReferenceManyFieldController.spec.tsx#L364
-async function a() {{{{
-        fireEvent.click(await screen.findByText('Toggle'));
-        await waitFor(() => {
-            expect(setStore).toHaveBeenCalledWith('customKey.selectedIds', [
-                123,
-            ]);
-        });
-}}}}
-
 // https://github.com/typescript-eslint/typescript-eslint/blob/ea2ee6b65a2f14dd2c3fc8d12be969cbeaef80a8/packages/typescript-estree/src/parseSettings/resolveProjectList.ts#L75C1-L80C7
 {{    RESOLUTION_CACHE = new ExpiringCache(
       options.singleRun
