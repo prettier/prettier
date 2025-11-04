@@ -32,9 +32,6 @@ declare interface ExtendsOne extends ASingleInterface {
 declare interface ExtendsLarge extends ASingleInterfaceWithAReallyReallyReallyReallyLongName {
   x: string;
 }
-declare class ExtendsLarge____ extends ASingleInterfaceWithAReallyReallyReallyReallyLongName {
-  x: string;
-}
 
 declare interface ExtendsMany extends Interface1, Interface2, Interface3, Interface4, Interface5, Interface6, Interface7 {
   x: string;
@@ -64,15 +61,8 @@ interface ExtendsOne extends ASingleInterface<string> {
 interface ExtendsLarge extends ASingleInterfaceWithAReallyReallyReallyReallyLongName<string> {
   x: string;
 }
-class ExtendsLarge___2 extends ASingleInterfaceWithAReallyReallyReallyReallyLongName<string> {
-  x: string;
-}
 
 interface ExtendsMany
-  extends ASingleGenericInterface<Interface1, Interface2, Interface3, Interface4, Interface5, Interface6, Interface7> {
-  x: string;
-}
-class ExtendsMany
   extends ASingleGenericInterface<Interface1, Interface2, Interface3, Interface4, Interface5, Interface6, Interface7> {
   x: string;
 }
@@ -84,4 +74,3 @@ interface ExtendsManyWithGenerics
   }
 
 export interface ExtendsLongOneWithGenerics extends Bar< SomeLongTypeSomeLongTypeSomeLongTypeSomeLongType,  ToBreakLineToBreakLineToBreakLine> {}
-export class ExtendsLongOneWithGenerics____ extends Bar< SomeLongTypeSomeLongTypeSomeLongTypeSomeLongType,  ToBreakLineToBreakLineToBreakLine> {}
