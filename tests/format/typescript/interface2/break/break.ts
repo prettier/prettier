@@ -64,6 +64,9 @@ interface ExtendsOne extends ASingleInterface<string> {
 interface ExtendsLarge extends ASingleInterfaceWithAReallyReallyReallyReallyLongName<string> {
   x: string;
 }
+class ExtendsLarge____ extends ASingleInterfaceWithAReallyReallyReallyReallyLongName<string> {
+  x: string;
+}
 
 interface ExtendsMany
   extends ASingleGenericInterface<Interface1, Interface2, Interface3, Interface4, Interface5, Interface6, Interface7> {
