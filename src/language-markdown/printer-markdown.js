@@ -676,19 +676,21 @@ function shouldPrePrintHardline({ node, parent }) {
   return !isInlineNode && !isInlineHTML;
 }
 
-function isLooseListItem(node, options) {
+function isLooseListItem(node, options, parent, next) {
   return (
     node.type === "listItem" &&
     (node.spread ||
-      // Check if `listItem` ends with `\n`
-      // since it can't be empty, so we only need check the last character
-      options.originalText.charAt(node.position.end.offset - 1) === "\n")
+      (parent?.type === "list" &&
+        next?.type === "listItem" &&
+        node.position?.end &&
+        next.position?.start &&
+        node.position.end.line + 1 < next.position.start.line))
   );
 }
 
 function shouldPrePrintDoubleHardline({ node, previous, parent }, options) {
   if (
-    isLooseListItem(previous, options) ||
+    isLooseListItem(previous, options, parent, node) ||
     (node.type === "list" &&
       parent.type === "listItem" &&
       previous.type === "code")
