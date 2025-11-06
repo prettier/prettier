@@ -1,3 +1,4 @@
+import indexToPosition from "index-to-position";
 import htmlWhitespaceUtils from "../utils/html-whitespace-utils.js";
 import { getOrderedListItemInfo, mapAst, splitText } from "./utils.js";
 
@@ -14,6 +15,7 @@ function preprocess(ast, options) {
   ast = mergeContinuousTexts(ast);
   ast = transformIndentedCodeblockAndMarkItsParentList(ast, options);
   ast = markAlignedList(ast, options);
+  ast = trimBlockquoteListTrailingMarker(ast, options);
   if (options.parser === "mdx") {
     ast = splitTextIntoSentencesLegacy(ast);
   } else {
@@ -318,6 +320,62 @@ function markAlignedList(ast, options) {
      */
     const secondInfo = getOrderedListItemInfo(secondItem, options);
     return secondInfo.leadingSpaces.length > 1;
+  }
+}
+
+function trimBlockquoteListTrailingMarker(ast, options) {
+  const { originalText } = options;
+
+  if (options.proseWrap === "always") {
+    return ast;
+  }
+
+  return mapAst(ast, (node, index, [parent]) => {
+    if (
+      node.type === "list" &&
+      parent?.type === "blockquote" &&
+      node.position
+    ) {
+      const text = originalText.slice(
+        node.position.start.offset,
+        node.position.end.offset,
+      );
+      const match = text.match(/\n>[\t ]*$/u);
+
+      if (match) {
+        const oldEndOffset = node.position.end.offset;
+        const newEndOffset = oldEndOffset - match[0].length;
+
+        if (newEndOffset > node.position.start.offset) {
+          const { line, column } = indexToPosition(originalText, newEndOffset, {
+            oneBased: true,
+          });
+          const newEndPosition = { line, column, offset: newEndOffset };
+          adjustNodeEndPosition(node, oldEndOffset, newEndPosition);
+        }
+      }
+    }
+
+    return node;
+  });
+}
+
+function adjustNodeEndPosition(node, oldEndOffset, newEndPosition) {
+  if (!node.position) {
+    return;
+  }
+
+  if (node.position.end.offset === oldEndOffset) {
+    node.position = {
+      ...node.position,
+      end: { ...newEndPosition },
+    };
+  }
+
+  if (node.children) {
+    for (const child of node.children) {
+      adjustNodeEndPosition(child, oldEndOffset, newEndPosition);
+    }
   }
 }
 
