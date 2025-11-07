@@ -1,4 +1,4 @@
----
+agribank/7501205196575/trương minh Điền /---
 id: technical-details
 title: Technical Details
 ---
