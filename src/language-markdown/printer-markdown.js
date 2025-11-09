@@ -39,6 +39,7 @@ import {
 
 /**
  * @import {Doc} from "../document/builders.js"
+ * @import AstPath from "../common/ast-path.js"
  */
 
 const SIBLING_NODE_TYPES = new Set(["listItem", "definition"]);
@@ -605,7 +606,7 @@ function printChildren(path, options, print, events = {}) {
         parts.push(hardline);
 
         if (
-          shouldPrePrintDoubleHardline(path, options) ||
+          shouldPrePrintDoubleHardline(path) ||
           shouldPrePrintTripleHardline(path)
         ) {
           parts.push(hardline);
@@ -676,19 +677,39 @@ function shouldPrePrintHardline({ node, parent }) {
   return !isInlineNode && !isInlineHTML;
 }
 
-function isLooseListItem(node, options) {
+function isLooseListItem({ node, parent, next }) {
   return (
     node.type === "listItem" &&
     (node.spread ||
-      // Check if `listItem` ends with `\n`
-      // since it can't be empty, so we only need check the last character
-      options.originalText.charAt(node.position.end.offset - 1) === "\n")
+      (parent.type === "list" &&
+        next?.type === "listItem" &&
+        node.position.end.line + 1 < next.position.start.line))
   );
 }
 
-function shouldPrePrintDoubleHardline({ node, previous, parent }, options) {
+/**
+ * @param {AstPath} path
+ * @returns {boolean}
+ */
+function isPreviousNodeLooseListItem(path) {
+  if (path.index === 0) {
+    return false;
+  }
+  return isLooseListItem({
+    node: path.previous,
+    parent: path.parent,
+    next: path.node,
+  });
+}
+
+/**
+ * @param {AstPath} path
+ * @returns {boolean}
+ */
+function shouldPrePrintDoubleHardline(path) {
+  const { node, previous, parent } = path;
   if (
-    isLooseListItem(previous, options) ||
+    isPreviousNodeLooseListItem(path) ||
     (node.type === "list" &&
       parent.type === "listItem" &&
       previous.type === "code")
@@ -700,7 +721,7 @@ function shouldPrePrintDoubleHardline({ node, previous, parent }, options) {
   const isSiblingNode = isSequence && SIBLING_NODE_TYPES.has(node.type);
   const isInTightListItem =
     parent.type === "listItem" &&
-    (node.type === "list" || !isLooseListItem(parent, options));
+    (node.type === "list" || !path.callParent(isLooseListItem));
   const isPrevNodePrettierIgnore = isPrettierIgnore(previous) === "next";
   const isBlockHtmlWithoutBlankLineBetweenPrevHtml =
     node.type === "html" &&
@@ -805,6 +826,31 @@ function printFootnoteReference(node) {
   return `[^${node.label}]`;
 }
 
+/**
+ * @param {AstPath} path
+ * @param {*} options
+ * @returns {Doc}
+ */
+function printPrettierIgnored(path, options) {
+  const originalText = options.originalText.slice(
+    path.node.position.start.offset,
+    path.node.position.end.offset,
+  );
+
+  switch (path.node.type) {
+    case "list":
+      if (
+        path.findAncestor((p) => p.type === "blockquote") &&
+        options.proseWrap !== "always"
+      ) {
+        return originalText.replace(/\n>\s*$/u, "");
+      }
+      return originalText;
+    default:
+      return originalText;
+  }
+}
+
 const printer = {
   features: {
     experimental_frontMatterSupport: {
@@ -818,6 +864,7 @@ const printer = {
   embed,
   massageAstNode: clean,
   hasPrettierIgnore,
+  printPrettierIgnored,
   insertPragma,
   getVisitorKeys,
 };
