@@ -4,7 +4,7 @@ import {
   directoryIgnorerWithoutNodeModules,
 } from "./directory-ignorer.js";
 import { fastGlob } from "./prettier-internal.js";
-import { lstatSafe, normalizeToPosix } from "./utils.js";
+import { lstatSafe, normalizeToPosix, statSafe } from "./utils.js";
 
 /** @import {Context} from './context.js' */
 
@@ -68,25 +68,29 @@ async function* expandPatternsInternal(context) {
       continue;
     }
 
-    const stat = await lstatSafe(absolutePath);
-    if (stat) {
-      if (stat.isSymbolicLink()) {
+    const lstat = await lstatSafe(absolutePath);
+    const stat = await statSafe(absolutePath);
+    if (lstat) {
+      const isDirectorySymbolicLink =
+        lstat.isSymbolicLink() && stat.isDirectory();
+      const isFileSymbolicLink = lstat.isSymbolicLink() && stat.isFile();
+      if (isDirectorySymbolicLink) {
         if (context.argv.errorOnUnmatchedPattern !== false) {
           yield {
-            error: `Explicitly specified pattern "${pattern}" is a symbolic link.`,
+            error: `Explicitly specified pattern "${pattern}" is a directory symbolic link.`,
           };
         } else {
           context.logger.debug(
-            `Skipping pattern "${pattern}", as it is a symbolic link.`,
+            `Skipping pattern "${pattern}", as it is a directory symbolic link.`,
           );
         }
-      } else if (stat.isFile()) {
+      } else if (lstat.isFile() || isFileSymbolicLink) {
         entries.push({
           type: "file",
           glob: escapePathForGlob(fixWindowsSlashes(pattern)),
           input: pattern,
         });
-      } else if (stat.isDirectory()) {
+      } else if (lstat.isDirectory()) {
         /*
         1. Remove trailing `/`, `fast-glob` can't find files for `src//*.js` pattern
         2. Cleanup dirname, when glob `src/../*.js` pattern with `fast-glob`,
