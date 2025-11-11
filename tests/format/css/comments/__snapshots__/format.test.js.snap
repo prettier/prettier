@@ -57,7 +57,7 @@ printWidth: 80
   background-image:
     linear-gradient(to top, blue, red 100%),
     /* texture */
-      repeating-linear-gradient(90deg, pink, yellow 20px, green 20px, pink 40px),
+    repeating-linear-gradient(90deg, pink, yellow 20px, green 20px, pink 40px),
     repeating-linear-gradient(90deg, pink, yellow 20px, green 20px, pink 40px);
 }
 
@@ -538,7 +538,7 @@ a {
     /* comment 63 */
     /* comment 64 */ translate(
       /* comment 65 */ /* comment 66 */ /* comment 67 */ 10px /* comment 68 */
-        /* comment 69 */ /* comment 70 */
+      /* comment 69 */ /* comment 70 */
     )
     /* comment 71 */ /* comment 72 */ /* comment 73 */; /* comment 74 */
   /* comment 75 */

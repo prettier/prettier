@@ -512,6 +512,16 @@ function printCommaSeparatedValueGroup(path, options, print) {
       continue;
     }
 
+    // align value after block comment
+    if (
+      atRuleAncestorNode === undefined &&
+      iNode.type === "value-comment" &&
+      !iNode.inline
+    ) {
+      parts.push(dedent(line), "");
+      continue;
+    }
+
     // Be default all values go through `line`
     parts.push(line, "");
   }
