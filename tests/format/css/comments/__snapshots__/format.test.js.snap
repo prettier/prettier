@@ -36,6 +36,34 @@ h1 {
 ================================================================================
 `;
 
+exports[`17479.css format 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+
+.foo {
+  background-image:
+    linear-gradient(  to top, blue, red 100%),
+    /* texture */
+    repeating-linear-gradient(90deg, pink, yellow 20px, green 20px, pink 40px),
+    repeating-linear-gradient(90deg, pink, yellow 20px, green 20px, pink 40px);
+}
+
+
+=====================================output=====================================
+.foo {
+  background-image:
+    linear-gradient(to top, blue, red 100%),
+    /* texture */
+      repeating-linear-gradient(90deg, pink, yellow 20px, green 20px, pink 40px),
+    repeating-linear-gradient(90deg, pink, yellow 20px, green 20px, pink 40px);
+}
+
+================================================================================
+`;
+
 exports[`CRLF.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
