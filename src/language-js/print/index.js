@@ -34,6 +34,7 @@ function printWithoutParentheses(path, options, print, args) {
 
 // Their decorators are handled themselves, and they don't need parentheses or leading semicolons
 const shouldPrintDirectly = createTypeCheckFunction([
+  "Program",
   "ClassMethod",
   "ClassPrivateMethod",
   "ClassProperty",
