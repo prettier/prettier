@@ -118,10 +118,7 @@ function genericPrint(path, options, print) {
       if (
         !isColon &&
         lastLineHasInlineComment(trimmedBetween) &&
-        !(
-          node.value?.group?.group &&
-          path.call(() => shouldBreakList(path), "value", "group", "group")
-        )
+        !path.call(() => shouldBreakList(path), "value", "group", "group")
       ) {
         value = indent([hardline, dedent(value)]);
       }
