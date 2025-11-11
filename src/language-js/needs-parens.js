@@ -218,14 +218,13 @@ function needsParens(path, options) {
       break;
 
     case "ExportDefaultDeclaration":
-      return (
-        // `export default function` or `export default class` can't be followed by
-        // anything after. So an expression like `export default (function(){}).toString()`
-        // needs to be followed by a parentheses
-        shouldWrapFunctionForExportDefault(path, options) ||
-        // `export default (foo, bar)` also needs parentheses
-        node.type === "SequenceExpression"
-      );
+      // `export default function` or `export default class` can't be followed by
+      // anything after. So an expression like `export default (function(){}).toString()`
+      // needs to be followed by a parentheses
+      if (shouldWrapFunctionForExportDefault(path, options)) {
+        return true;
+      }
+      break;
 
     case "Decorator":
       if (
@@ -853,6 +852,8 @@ function needsParens(path, options) {
           return key === "callee";
         case "TaggedTemplateExpression":
           return true; // This is basically a kind of IIFE.
+        case "ExportDefaultDeclaration":
+          return key === "declaration";
         default:
           return false;
       }
@@ -899,6 +900,8 @@ function needsParens(path, options) {
       switch (parent.type) {
         case "NewExpression":
           return key === "callee";
+        case "ExportDefaultDeclaration":
+          return key === "declaration";
         default:
           return false;
       }
