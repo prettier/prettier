@@ -71,7 +71,7 @@ printWidth: 80
     /* long long long long long long long long long long long long comment */
     1000px
       /* long long long long long long long long long long long long comment */
-    1000px /* long long long long long long long long long comment */ 2px
+      1000px /* long long long long long long long long long comment */ 2px
       color(srgb 0.555555555 0.555555555 0.555555555),
     100px -1px 2px lightgray;
 }
@@ -553,7 +553,7 @@ a {
     /* comment 63 */
     /* comment 64 */ translate(
       /* comment 65 */ /* comment 66 */ /* comment 67 */ 10px /* comment 68 */
-      /* comment 69 */ /* comment 70 */
+        /* comment 69 */ /* comment 70 */
     )
     /* comment 71 */ /* comment 72 */ /* comment 73 */; /* comment 74 */
   /* comment 75 */
