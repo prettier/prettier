@@ -159,8 +159,18 @@ function printNode(path, options, print) {
           if (hasTrailingComment(document)) {
             parts.push(" ", print("trailingComment"));
           }
-        } else if (nextDocument && !hasTrailingComment(nextDocument.head)) {
-          parts.push(hardline, "---");
+        } else if (nextDocument) {
+          if (
+            hasDocumentEndMarkerInOriginal(
+              document,
+              nextDocument,
+              options.originalText,
+            )
+          ) {
+            parts.push(hardline, "...");
+          } else if (!hasTrailingComment(nextDocument.head)) {
+            parts.push(hardline, "---");
+          }
         }
       }, "children");
 
@@ -361,6 +371,34 @@ function shouldPrintDocumentEndMarker(document, nextDocument) {
          */
         hasEndComments(nextDocument.head)))
   );
+}
+
+/**
+ * Check if document end marker (...) exists in the original source text
+ *
+ * @param {Object} document - Current document node
+ * @param {Object} nextDocument - Next document node
+ * @param {string} originalText - Original source text
+ * @returns {boolean} True if ... exists in the original text
+ */
+function hasDocumentEndMarkerInOriginal(document, nextDocument, originalText) {
+  // No need to check if there's no next document
+  if (!nextDocument) {
+    return false;
+  }
+
+  const bodyEndOffset = document.body?.position?.end?.offset;
+  const documentEndOffset = document.position?.end?.offset;
+
+  // Fallback to existing logic if position info is unavailable
+  if (bodyEndOffset === undefined || documentEndOffset === undefined) {
+    return false;
+  }
+
+  // Extract text between document body end and document end
+  const textAfterBody = originalText.slice(bodyEndOffset, documentEndOffset);
+
+  return /^\s*\.\.\.(?:\s|#|$)/m.test(textAfterBody);
 }
 
 function shouldPrintDocumentHeadEndMarker(path, options) {
