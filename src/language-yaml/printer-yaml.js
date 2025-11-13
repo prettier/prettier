@@ -398,7 +398,7 @@ function hasDocumentEndMarkerInOriginal(document, nextDocument, originalText) {
   // Extract text between document body end and document end
   const textAfterBody = originalText.slice(bodyEndOffset, documentEndOffset);
 
-  return /^\s*\.\.\.(?:\s|#|$)/m.test(textAfterBody);
+  return /^\s*\.\.\.(?:\s|#|$)/mu.test(textAfterBody);
 }
 
 function shouldPrintDocumentHeadEndMarker(path, options) {
