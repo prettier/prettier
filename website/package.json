@@ -34,7 +34,7 @@
     "@types/js-yaml": "4.0.9",
     "@vitejs/plugin-react": "5.0.3",
     "concurrently": "9.2.1",
-    "js-yaml": "4.1.0",
+    "js-yaml": "4.1.1",
     "vite": "7.1.11"
   },
   "browserslist": {
