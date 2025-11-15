@@ -109,7 +109,7 @@
     "remark-parse": "8.0.3",
     "sdbm": "3.0.0",
     "search-closest": "1.1.0",
-    "smol-toml": "1.4.2",
+    "smol-toml": "1.5.2",
     "strip-ansi": "7.1.2",
     "to-fast-properties": "4.0.0",
     "trim-newlines": "5.0.0",

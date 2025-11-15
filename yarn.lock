@@ -7386,7 +7386,7 @@ __metadata:
     search-closest: "npm:1.1.0"
     semver: "npm:7.7.3"
     serialize-javascript: "npm:7.0.0"
-    smol-toml: "npm:1.4.2"
+    smol-toml: "npm:1.5.2"
     strip-ansi: "npm:7.1.2"
     tempy: "npm:3.1.0"
     tinybench: "npm:5.1.0"
@@ -7858,10 +7858,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"smol-toml@npm:1.4.2, smol-toml@npm:^1.3.4, smol-toml@npm:^1.4.1, smol-toml@npm:^1.4.2":
-  version: 1.4.2
-  resolution: "smol-toml@npm:1.4.2"
-  checksum: 10/00c3c45859b44a8a9624cd15d4210c1b85dfa27cf432ade832d7c8a4ee96a79c415594cafe42a6708299de57d3b56e74e645396a0e0e1076f8f7b6302a5520b3
+"smol-toml@npm:1.5.2, smol-toml@npm:^1.3.4, smol-toml@npm:^1.4.1, smol-toml@npm:^1.4.2":
+  version: 1.5.2
+  resolution: "smol-toml@npm:1.5.2"
+  checksum: 10/0a7e9192d1cbd04c3122224306de33962f4f5ac7e78a48b7c3795a675683b6efeb8f73ad3fabda7635926a510948cb4654a729d17b35ec43d56d35a71cf906f4
   languageName: node
   linkType: hard
 
