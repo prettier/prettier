@@ -10,7 +10,6 @@ import {
   softline,
 } from "../../document/index.js";
 import { printDanglingComments } from "../../main/comments/print.js";
-import createGroupIdMapper from "../../utils/create-group-id-mapper.js";
 import {
   CommentCheckFlags,
   getFunctionParameters,
@@ -29,8 +28,6 @@ import {
  * @import {Doc} from "../../document/index.js"
  * @import AstPath from "../../common/ast-path.js"
  */
-
-const getTypeParametersGroupId = createGroupIdMapper("typeParameters");
 
 // Keep comma if the file extension not `.ts` and
 // has one type parameter that isn't extend with any types.
@@ -98,16 +95,13 @@ function printTypeParameters(path, options, print, paramsKey) {
           ? ifBreak(",")
           : "";
 
-  return group(
-    [
-      "<",
-      indent([softline, join([",", line], path.map(print, paramsKey))]),
-      trailingComma,
-      softline,
-      ">",
-    ],
-    { id: getTypeParametersGroupId(node) },
-  );
+  return group([
+    "<",
+    indent([softline, join([",", line], path.map(print, paramsKey))]),
+    trailingComma,
+    softline,
+    ">",
+  ]);
 }
 
 function printDanglingCommentsForInline(path, options) {
@@ -181,4 +175,4 @@ function printTypeParameter(path, options, print) {
   return group(parts);
 }
 
-export { getTypeParametersGroupId, printTypeParameter, printTypeParameters };
+export { printTypeParameter, printTypeParameters };

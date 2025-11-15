@@ -30,7 +30,6 @@ import {
 } from "./misc.js";
 import { printPropertyKey } from "./property.js";
 import { printTypeAnnotationProperty } from "./type-annotation.js";
-import { getTypeParametersGroupId } from "./type-parameters.js";
 
 /**
  * @import {Doc} from "../../document/index.js"
@@ -162,17 +161,6 @@ function hasMultipleHeritage(node) {
   return count > 1;
 }
 
-function shouldIndentOnlyHeritageClauses(node) {
-  return (
-    node.typeParameters &&
-    !hasComment(
-      node.typeParameters,
-      CommentCheckFlags.Trailing | CommentCheckFlags.Line,
-    ) &&
-    !hasMultipleHeritage(node)
-  );
-}
-
 function printHeritageClauses(path, options, print, listName, groupMode) {
   const { node } = path;
   if (!isNonEmptyArray(node[listName])) {
@@ -199,11 +187,7 @@ function printHeritageClauses(path, options, print, listName, groupMode) {
   }
 
   return [
-    shouldIndentOnlyHeritageClauses(node)
-      ? ifBreak(" ", line, {
-          groupId: getTypeParametersGroupId(node.typeParameters),
-        })
-      : line,
+    line,
     printedLeadingComments,
     printedLeadingComments && hardline,
     listName,
