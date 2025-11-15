@@ -1,7 +1,7 @@
 function generateSchemaData(options) {
   return {
     $schema: "http://json-schema.org/draft-07/schema#",
-    $id: "https://json.schemastore.org/prettierrc.json",
+    $id: "https://www.schemastore.org/prettierrc.json",
     definitions: {
       optionsDefinition: {
         type: "object",
