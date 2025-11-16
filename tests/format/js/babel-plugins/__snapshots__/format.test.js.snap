@@ -1054,7 +1054,7 @@ Cause: [3:16-3:17]: Expected ')'"
 `;
 
 exports[`flow.js [oxc] format 1`] = `
-"Expected \`,\` but found \`:\` (3:17)
+"Expected \`,\` or \`)\` but found \`:\` (3:17)
   1 | // https://babeljs.io/docs/babel-preset-flow
   2 |
 > 3 | function foo(one: any, two: number, three?): string {}
