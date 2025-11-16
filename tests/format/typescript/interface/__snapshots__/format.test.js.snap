@@ -92,7 +92,7 @@ interface ReallyReallyLongName2<
   TypeArgumentNumberTwo,
   TypeArgumentNumberThree,
 > // 1
-// 2
+  // 2
   extends BaseInterface {}
 
 interface ReallyReallyLongName3<
@@ -100,7 +100,7 @@ interface ReallyReallyLongName3<
   TypeArgumentNumberTwo,
   TypeArgumentNumberThree,
 > // 1
-// 2
+  // 2
   extends BaseInterface {
   // 3
 }
@@ -165,7 +165,7 @@ interface ReallyReallyLongName2<
   TypeArgumentNumberTwo,
   TypeArgumentNumberThree,
 > // 1
-// 2
+  // 2
   extends BaseInterface {}
 
 interface ReallyReallyLongName3<
@@ -173,7 +173,7 @@ interface ReallyReallyLongName3<
   TypeArgumentNumberTwo,
   TypeArgumentNumberThree,
 > // 1
-// 2
+  // 2
   extends BaseInterface {
   // 3
 }
