@@ -6,16 +6,12 @@ import escapeStringRegexp from "escape-string-regexp";
  * @returns {number}
  */
 function getMaxContinuousCount(text, searchString) {
-  const results = text.match(
-    new RegExp(`(${escapeStringRegexp(searchString)})+`, "gu"),
+  const results = text.matchAll(
+    new RegExp(`(?<result>(?:${escapeStringRegexp(searchString)})+)`, "gu"),
   );
 
-  if (results === null) {
-    return 0;
-  }
-
   return results.reduce(
-    (maxCount, result) =>
+    (maxCount, { groups: { result } }) =>
       Math.max(maxCount, result.length / searchString.length),
     0,
   );
