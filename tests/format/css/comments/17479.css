@@ -1,7 +1,6 @@
-
 .foo {
   background-image:
-    linear-gradient(  to top, blue, red 100%),
+    linear-gradient(to top, blue, red 100%),
     /* texture */
     repeating-linear-gradient(90deg, pink, yellow 20px, green 20px, pink 40px),
     repeating-linear-gradient(90deg, pink, yellow 20px, green 20px, pink 40px);
