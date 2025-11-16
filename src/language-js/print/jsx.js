@@ -490,6 +490,7 @@ const isNoWrapParent = createTypeCheckFunction([
   "JSXExpressionContainer",
   "JSXFragment",
   "ExpressionStatement",
+  "NewExpression",
   "CallExpression",
   "OptionalCallExpression",
   "ConditionalExpression",

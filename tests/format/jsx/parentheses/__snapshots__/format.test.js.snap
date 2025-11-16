@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`argument.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-flow", "babel-ts", "__babel_estree", "typescript", "flow", "meriyah", "acorn", "espree", "espree", "hermes", "oxc", "oxc-ts"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+new A(
+  <div>
+    <div></div>
+  </div>
+)
+
+A(
+  <div>
+    <div></div>
+  </div>
+)
+
+new A(
+  <>
+    <div></div>
+  </>
+)
+
+A(
+  <>
+    <div></div>
+  </>
+)
+
+=====================================output=====================================
+new A(
+  <div>
+    <div></div>
+  </div>,
+);
+
+A(
+  <div>
+    <div></div>
+  </div>,
+);
+
+new A(
+  <>
+    <div></div>
+  </>,
+);
+
+A(
+  <>
+    <div></div>
+  </>,
+);
+
+================================================================================
+`;
