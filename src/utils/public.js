@@ -70,7 +70,7 @@ function legacyIsNextLineEmpty(text, node, locEnd) {
   return isNextLineEmptyAfterIndex(text, locEnd(node));
 }
 
-// TODO: export `makeString` from `make-string.js`
+// TODO: export `makeString` from `make-string.js` in v4
 /**
  * @param {string} rawText
  * @param {Quote} enclosingQuote
