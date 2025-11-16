@@ -508,7 +508,7 @@ function printCommaSeparatedValueGroup(path, options, print) {
 
     // align value after block comment
     if (
-      atRuleAncestorNode === undefined &&
+      !atRuleAncestorNode &&
       iNode.type === "value-comment" &&
       !iNode.inline &&
       node.groups.slice(0, i).every((group) => group.type === "value-comment")
