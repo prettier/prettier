@@ -9,6 +9,7 @@ import {
 } from "../../document/index.js";
 import {
   printComments,
+  printCommentsSeparately,
   printDanglingComments,
 } from "../../main/comments/print.js";
 import createGroupIdMapper from "../../utils/create-group-id-mapper.js";
@@ -78,10 +79,20 @@ function printClass(path, options, print) {
 
   if (node.type !== "InterfaceTypeAnnotation") {
     if (node.id) {
-      partsGroup.push(" ", print("id"));
+      const { leading, trailing } = path.call(
+        () => printCommentsSeparately(path, options),
+        "id",
+      );
+      partsGroup.push(" ", leading, print("id"), indent(trailing));
     }
 
-    partsGroup.push(print("typeParameters"));
+    if (node.typeParameters) {
+      const { leading, trailing } = path.call(
+        () => printCommentsSeparately(path, options),
+        "typeParameters",
+      );
+      partsGroup.push(leading, print("typeParameters"), indent(trailing));
+    }
   }
 
   if (node.superClass) {
