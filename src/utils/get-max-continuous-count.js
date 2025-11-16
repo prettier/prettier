@@ -12,6 +12,7 @@ function getMaxContinuousCount(text, searchString) {
 
   // TODO: Use `Iterator#reduce` when we drop support for Node.js < 22
   if (!results.reduce) {
+    // @ts-expect-error -- Safe
     results = [...results];
   }
 
