@@ -131,7 +131,7 @@
     "@types/jsesc": "3.0.3",
     "@typescript-eslint/eslint-plugin": "8.46.4",
     "@typescript-eslint/parser": "8.46.4",
-    "browserslist": "4.27.0",
+    "browserslist": "4.28.0",
     "browserslist-to-esbuild": "2.1.1",
     "buffer": "6.0.3",
     "c8": "10.1.3",
