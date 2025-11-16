@@ -10,10 +10,11 @@ function getMaxContinuousCount(text, searchString) {
     new RegExp(`(?<result>(?:${escapeStringRegexp(searchString)})+)`, "gu"),
   );
 
-  return results.reduce(
-    (maxCount, { groups: { result } }) =>
-      Math.max(maxCount, result.length / searchString.length),
-    0,
+  return (
+    results.reduce(
+      (maxCount, { groups: { result } }) => Math.max(maxCount, result.length),
+      0,
+    ) / searchString.length
   );
 }
 
