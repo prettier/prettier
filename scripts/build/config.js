@@ -846,6 +846,11 @@ const nodejsFiles = [
           replacement:
             'new URL("./experimental-cli-worker.mjs", import.meta.url)',
         },
+        {
+          module: getPackageFile("json5/dist/index.mjs"),
+          find: "export default lib;",
+          replacement: "export default { parse };",
+        },
       ],
     },
     {
