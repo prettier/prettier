@@ -1171,8 +1171,10 @@ function handleCommentAfterArrowExpression({
   }
 
   if (
-    precedingNode.type === "TSTypeAnnotation" &&
-    enclosingNode.type === "ArrowFunctionExpression"
+    enclosingNode.type === "ArrowFunctionExpression" &&
+    enclosingNode.returnType === precedingNode &&
+    (precedingNode.type === "TSTypeAnnotation" ||
+      precedingNode.type === "TypeAnnotation")
   ) {
     addLeadingComment(followingNode, comment);
     return true;
