@@ -78,19 +78,17 @@ function printClass(path, options, print) {
 
   if (node.type !== "InterfaceTypeAnnotation") {
     if (node.id) {
-      const { leading, trailing } = path.call(
-        () => printCommentsSeparately(path, options),
-        "id",
-      );
-      partsGroup.push(" ", leading, print("id"), indent(trailing));
+      partsGroup.push(" ");
     }
 
-    if (node.typeParameters) {
-      const { leading, trailing } = path.call(
-        () => printCommentsSeparately(path, options),
-        "typeParameters",
-      );
-      partsGroup.push(leading, print("typeParameters"), indent(trailing));
+    for (const property of ["id", "typeParameters"]) {
+      if (node[property]) {
+        const { leading, trailing } = path.call(
+          () => printCommentsSeparately(path, options),
+          property,
+        );
+        partsGroup.push(leading, print(property), indent(trailing));
+      }
     }
   }
 
