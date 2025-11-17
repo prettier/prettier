@@ -140,3 +140,53 @@ interface TimerConstructor {
 
 ================================================================================
 `;
+
+exports[`with-member-expression.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+foo = new long_long_member.long_long_member.long_long_member.long_long_member.long_long_member();
+new long_long_member.long_long_member.long_long_member.long_long_member.long_long_member();
+new long_long_member.long_long_member.long_long_member.long_long_member.long_long_member(x);
+foo = new long_long_member!.long_long_member.long_long_member.long_long_member.long_long_member();
+new long_long_member!.long_long_member.long_long_member.long_long_member.long_long_member();
+new long_long_member!.long_long_member.long_long_member.long_long_member.long_long_member(x);
+
+foo = long_long_member.long_long_member.long_long_member.long_long_member.long_long_member();
+long_long_member.long_long_member.long_long_member.long_long_member.long_long_member();
+long_long_member.long_long_member.long_long_member.long_long_member.long_long_member(x);
+foo = long_long_member!.long_long_member.long_long_member.long_long_member.long_long_member();
+long_long_member!.long_long_member.long_long_member.long_long_member.long_long_member();
+long_long_member!.long_long_member.long_long_member.long_long_member.long_long_member(x);
+
+=====================================output=====================================
+foo =
+  new long_long_member.long_long_member.long_long_member.long_long_member.long_long_member();
+new long_long_member.long_long_member.long_long_member.long_long_member.long_long_member();
+new long_long_member.long_long_member.long_long_member.long_long_member.long_long_member(
+  x,
+);
+foo =
+  new long_long_member!.long_long_member.long_long_member.long_long_member.long_long_member();
+new long_long_member!.long_long_member.long_long_member.long_long_member.long_long_member();
+new long_long_member!.long_long_member.long_long_member.long_long_member.long_long_member(
+  x,
+);
+
+foo =
+  long_long_member.long_long_member.long_long_member.long_long_member.long_long_member();
+long_long_member.long_long_member.long_long_member.long_long_member.long_long_member();
+long_long_member.long_long_member.long_long_member.long_long_member.long_long_member(
+  x,
+);
+foo =
+  long_long_member!.long_long_member.long_long_member.long_long_member.long_long_member();
+long_long_member!.long_long_member.long_long_member.long_long_member.long_long_member();
+long_long_member!.long_long_member.long_long_member.long_long_member.long_long_member(
+  x,
+);
+
+================================================================================
+`;
