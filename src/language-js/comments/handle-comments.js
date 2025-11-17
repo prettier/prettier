@@ -1172,6 +1172,7 @@ function handleCommentAfterArrowExpression({
 
   if (
     enclosingNode.type === "ArrowFunctionExpression" &&
+    // @ts-expect-error -- Safe
     enclosingNode.returnType === precedingNode &&
     (precedingNode.type === "TSTypeAnnotation" ||
       precedingNode.type === "TypeAnnotation")
