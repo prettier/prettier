@@ -1,8 +1,18 @@
 const fn3 = (): any => /*
-A comment after an arrow with a type definition, and before a line break.
-Formatting should keep it after the arrow.
+Multiple line
 */
 null;
 
-const fn4 = (): any => /* A single line ver of `fn3` */
+const fn4 = (): any => /* single line */
+null;
+
+const fn5 = (): any /* single line */ =>
+null;
+
+const fn6 = (): any => // line comment
+null;
+
+const fn7 = (a) => /*
+Multiple line
+*/
 null;
