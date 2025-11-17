@@ -41,7 +41,7 @@ function createParseError(error, { text }) {
 @returns {Promise<ParseResult>}
 */
 async function parseWithOptions(filepath, text, options) {
-  const result = await oxcParser.parseAsync(filepath, text, {
+  const result = await oxcParser.parse(filepath, text, {
     preserveParens: true,
     showSemanticErrors: false,
     ...options,
