@@ -13,6 +13,7 @@ import {
   createTypeCheckFunction,
   getCallArguments,
   getFunctionParameters,
+  isBinaryCastExpression,
   isCallExpression,
   isCallLikeExpression,
   isConditionalType,
@@ -71,6 +72,7 @@ function handleOwnLineComment(context) {
     handleNestedConditionalExpressionComments,
     handleCommentsInDestructuringPattern,
     handleTSMappedTypeComments,
+    handleBinaryCastExpressionComment,
   ].some((fn) => fn(context));
 }
 
@@ -99,6 +101,8 @@ function handleEndOfLineComment(context) {
     handleLastBinaryOperatorOperand,
     handleTSMappedTypeComments,
     handleCommentAfterArrowExpression,
+    handlePropertySignatureComments,
+    handleBinaryCastExpressionComment,
   ].some((fn) => fn(context));
 }
 
@@ -118,6 +122,7 @@ function handleRemainingComment(context) {
     handleFunctionNameComments,
     handleBreakAndContinueStatementComments,
     handleTSFunctionTrailingComments,
+    handleBinaryCastExpressionComment,
   ].some((fn) => fn(context));
 }
 
@@ -446,7 +451,7 @@ function handleConditionalExpressionComments({
   return false;
 }
 
-const classLikeNodeTypes = new Set([
+const isClassLikeNode = createTypeCheckFunction([
   "ClassDeclaration",
   "ClassExpression",
   "DeclareClass",
@@ -460,7 +465,7 @@ function handleClassComments({
   enclosingNode,
   followingNode,
 }) {
-  if (classLikeNodeTypes.has(enclosingNode?.type)) {
+  if (isClassLikeNode(enclosingNode)) {
     if (
       isNonEmptyArray(enclosingNode.decorators) &&
       !(followingNode?.type === "Decorator")
@@ -508,7 +513,7 @@ function handleClassComments({
   return false;
 }
 
-const propertyLikeNodeTypes = new Set([
+const isPropertyLikeNode = createTypeCheckFunction([
   "ClassMethod",
   "ClassProperty",
   "PropertyDefinition",
@@ -552,7 +557,7 @@ function handleMethodNameComments({
   // on the decorator node instead of the method node
   if (
     precedingNode?.type === "Decorator" &&
-    propertyLikeNodeTypes.has(enclosingNode?.type) &&
+    isPropertyLikeNode(enclosingNode) &&
     (isLineComment(comment) || comment.placement === "ownLine")
   ) {
     addTrailingComment(precedingNode, comment);
@@ -562,7 +567,7 @@ function handleMethodNameComments({
   return false;
 }
 
-const functionLikeNodeTypes = new Set([
+const isFunctionLikeNode = createTypeCheckFunction([
   "FunctionDeclaration",
   "FunctionExpression",
   "ClassMethod",
@@ -578,7 +583,7 @@ function handleFunctionNameComments({
   if (getNextNonSpaceNonCommentCharacter(text, locEnd(comment)) !== "(") {
     return false;
   }
-  if (precedingNode && functionLikeNodeTypes.has(enclosingNode?.type)) {
+  if (precedingNode && isFunctionLikeNode(enclosingNode)) {
     addTrailingComment(precedingNode, comment);
     return true;
   }
@@ -694,19 +699,21 @@ function handleLastFunctionArgComments({
   // Comment between function parameters parentheses and function body
   if (
     !isBlockComment(comment) &&
-    (enclosingNode?.type === "FunctionDeclaration" ||
-      enclosingNode?.type === "FunctionExpression" ||
-      enclosingNode?.type === "ObjectMethod") &&
     followingNode?.type === "BlockStatement" &&
-    enclosingNode.body === followingNode
+    isFunctionLikeNode(enclosingNode)
   ) {
-    const characterAfterCommentIndex = getNextNonSpaceNonCommentCharacterIndex(
-      text,
-      locEnd(comment),
-    );
-    if (characterAfterCommentIndex === locStart(followingNode)) {
-      addBlockStatementFirstComment(followingNode, comment);
-      return true;
+    const functionBody =
+      enclosingNode.type === "MethodDefinition"
+        ? enclosingNode.value.body
+        : enclosingNode.body;
+
+    if (functionBody === followingNode) {
+      const characterAfterCommentIndex =
+        getNextNonSpaceNonCommentCharacterIndex(text, locEnd(comment));
+      if (characterAfterCommentIndex === locStart(followingNode)) {
+        addBlockStatementFirstComment(followingNode, comment);
+        return true;
+      }
     }
   }
 
@@ -841,10 +848,11 @@ function handleOnlyComments({ comment, enclosingNode, ast, isLastComment }) {
   return false;
 }
 
-function handleForComments({ comment, enclosingNode }) {
+function handleForComments({ comment, enclosingNode, followingNode }) {
   if (
-    enclosingNode?.type === "ForInStatement" ||
-    enclosingNode?.type === "ForOfStatement"
+    (enclosingNode?.type === "ForInStatement" ||
+      enclosingNode?.type === "ForOfStatement") &&
+    followingNode !== enclosingNode.body
   ) {
     addLeadingComment(enclosingNode, comment);
     return true;
@@ -890,13 +898,13 @@ function handleAssignmentPatternComments({ comment, enclosingNode }) {
   return false;
 }
 
-const assignmentLikeNodeTypes = new Set([
+const isAssignmentLikeNode = createTypeCheckFunction([
   "VariableDeclarator",
   "AssignmentExpression",
   "TypeAlias",
   "TSTypeAliasDeclaration",
 ]);
-const complexExprNodeTypes = new Set([
+const isComplexExprNode = createTypeCheckFunction([
   "ObjectExpression",
   "ArrayExpression",
   "TemplateLiteral",
@@ -910,9 +918,9 @@ function handleVariableDeclaratorComments({
   followingNode,
 }) {
   if (
-    assignmentLikeNodeTypes.has(enclosingNode?.type) &&
+    isAssignmentLikeNode(enclosingNode) &&
     followingNode &&
-    (complexExprNodeTypes.has(followingNode.type) || isBlockComment(comment))
+    (isComplexExprNode(followingNode) || isBlockComment(comment))
   ) {
     addLeadingComment(followingNode, comment);
     return true;
@@ -1100,6 +1108,44 @@ function handleLastBinaryOperatorOperand({
     }
   }
   return false;
+}
+
+function handlePropertySignatureComments({
+  enclosingNode,
+  followingNode,
+  comment,
+}) {
+  if (
+    enclosingNode &&
+    (enclosingNode.type === "TSPropertySignature" ||
+      enclosingNode.type === "ObjectTypeProperty") &&
+    (isUnionType(followingNode) || isIntersectionType(followingNode))
+  ) {
+    addLeadingComment(followingNode, comment);
+    return true;
+  }
+}
+
+function handleBinaryCastExpressionComment({
+  enclosingNode,
+  precedingNode,
+  followingNode,
+  comment,
+  text,
+}) {
+  // Avoid break before `as` and `satisfies`
+  if (
+    isBinaryCastExpression(enclosingNode) &&
+    precedingNode === enclosingNode.expression &&
+    !isSingleLineComment(comment, text)
+  ) {
+    if (followingNode) {
+      addLeadingComment(followingNode, comment);
+    } else {
+      addTrailingComment(enclosingNode, comment);
+    }
+    return true;
+  }
 }
 
 /**

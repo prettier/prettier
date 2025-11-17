@@ -1,7 +1,7 @@
-/** @import {Doc} from "../../document/builders.js" */
+/** @import {Doc} from "../../document/index.js" */
 
 import * as assert from "#universal/assert";
-import { replaceEndOfLine } from "../../document/utils.js";
+import { replaceEndOfLine } from "../../document/index.js";
 import printNumber from "../../utils/print-number.js";
 import printString from "../../utils/print-string.js";
 import getRaw from "../utils/get-raw.js";
@@ -9,7 +9,11 @@ import { isMethod } from "../utils/index.js";
 import isFlowKeywordType from "../utils/is-flow-keyword-type.js";
 import { printArray } from "./array.js";
 import { printBinaryCastExpression } from "./cast-expression.js";
-import { printClass } from "./class.js";
+import {
+  printClass,
+  printClassBody,
+  printClassMemberSemicolon,
+} from "./class.js";
 import {
   printComponent,
   printComponentParameter,
@@ -25,7 +29,6 @@ import {
   printHook,
   printHookTypeAnnotation,
 } from "./hook.js";
-import { printInterface } from "./interface.js";
 import { printBigInt } from "./literal.js";
 import { printFlowMappedTypeProperty } from "./mapped-type.js";
 import { printMatch, printMatchCase, printMatchPattern } from "./match.js";
@@ -35,7 +38,6 @@ import {
   printRestSpread,
 } from "./misc.js";
 import { printExportDeclaration } from "./module.js";
-import { printObject } from "./object.js";
 import { printPropertyKey } from "./property.js";
 import { printTernary } from "./ternary.js";
 import {
@@ -79,8 +81,6 @@ function printFlow(path, options, print) {
       return printDeclareHook(path, options, print);
     case "HookTypeAnnotation":
       return printHookTypeAnnotation(path, options, print);
-    case "DeclareClass":
-      return printClass(path, options, print);
     case "DeclareFunction":
       return [
         printDeclareToken(path),
@@ -202,10 +202,13 @@ function printFlow(path, options, print) {
       ];
     }
 
+    case "DeclareClass":
     case "DeclareInterface":
     case "InterfaceDeclaration":
     case "InterfaceTypeAnnotation":
-      return printInterface(path, options, print);
+      return printClass(path, options, print);
+    case "ObjectTypeAnnotation":
+      return printClassBody(path, options, print);
     case "ClassImplements":
     case "InterfaceExtends":
       return [print("id"), print("typeParameters")];
@@ -219,7 +222,11 @@ function printFlow(path, options, print) {
     case "KeyofTypeAnnotation":
       return ["keyof ", print("argument")];
     case "ObjectTypeCallProperty":
-      return [node.static ? "static " : "", print("value")];
+      return [
+        node.static ? "static " : "",
+        print("value"),
+        printClassMemberSemicolon(path, options),
+      ];
     case "ObjectTypeMappedTypeProperty":
       return printFlowMappedTypeProperty(path, options, print);
     case "ObjectTypeIndexer":
@@ -232,6 +239,7 @@ function printFlow(path, options, print) {
         print("key"),
         "]: ",
         print("value"),
+        printClassMemberSemicolon(path, options),
       ];
 
     case "ObjectTypeProperty": {
@@ -251,10 +259,9 @@ function printFlow(path, options, print) {
         printOptionalToken(path),
         isMethod(node) ? "" : ": ",
         print("value"),
+        printClassMemberSemicolon(path, options),
       ];
     }
-    case "ObjectTypeAnnotation":
-      return printObject(path, options, print);
     case "ObjectTypeInternalSlot":
       return [
         node.static ? "static " : "",
@@ -264,6 +271,7 @@ function printFlow(path, options, print) {
         printOptionalToken(path),
         node.method ? "" : ": ",
         print("value"),
+        printClassMemberSemicolon(path, options),
       ];
     // Same as `RestElement`
     case "ObjectTypeSpreadProperty":

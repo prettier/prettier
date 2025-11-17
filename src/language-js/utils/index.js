@@ -15,9 +15,9 @@ import isNodeMatches from "./is-node-matches.js";
 import isTsKeywordType from "./is-ts-keyword-type.js";
 
 /**
- * @import * as Estree from "../types/estree.js"
- * @import AstPath from "../../common/ast-path.js"
- */
+@import * as Estree from "../types/estree.js"
+@import AstPath from "../../common/ast-path.js"
+*/
 
 /**
  * @param {Estree.Node} node
@@ -657,10 +657,6 @@ function isSimpleCallArgument(node, depth = 2) {
   return false;
 }
 
-function identity(x) {
-  return x;
-}
-
 /**
  * @param {any} options
  * @param {("es5" | "all")} [level]
@@ -1083,6 +1079,17 @@ const isConditionalType = createTypeCheckFunction([
   "ConditionalTypeAnnotation",
 ]);
 
+const isTsAsConstExpression = (node) =>
+  node?.type === "TSAsExpression" &&
+  node.typeAnnotation.type === "TSTypeReference" &&
+  node.typeAnnotation.typeName.type === "Identifier" &&
+  node.typeAnnotation.typeName.name === "const";
+
+const isTypeAlias = createTypeCheckFunction([
+  "TSTypeAliasDeclaration",
+  "TypeAlias",
+]);
+
 export {
   CommentCheckFlags,
   createTypeCheckFunction,
@@ -1099,7 +1106,6 @@ export {
   hasNode,
   hasNodeIgnoreComment,
   hasRestParameter,
-  identity,
   isArrayExpression,
   isBinaryCastExpression,
   isBinaryish,
@@ -1135,6 +1141,8 @@ export {
   isStringLiteral,
   isTemplateOnItsOwnLine,
   isTestCall,
+  isTsAsConstExpression,
+  isTypeAlias,
   isTypeAnnotationAFunction,
   isUnionType,
   iterateCallArgumentsPath,
@@ -1144,4 +1152,5 @@ export {
   shouldPrintComma,
   startsWithNoLookaheadToken,
 };
+export { default as isMeaningfulEmptyStatement } from "./is-meaningful-empty-statement.js";
 export { default as isNodeMatches } from "./is-node-matches.js";

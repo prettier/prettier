@@ -1,7 +1,4 @@
-import {
-  cleanFrontMatter,
-  isFrontMatter,
-} from "../utils/front-matter/index.js";
+import { isFrontMatter } from "../main/front-matter/index.js";
 
 const ignoredProperties = new Set([
   "raw", // front-matter
@@ -15,8 +12,6 @@ const ignoredProperties = new Set([
 ]);
 
 function clean(original, cloned, parent) {
-  cleanFrontMatter(original, cloned);
-
   if (
     original.type === "css-comment" &&
     parent.type === "css-root" &&
@@ -198,13 +193,15 @@ function clean(original, cloned, parent) {
     }
   }
 
-  // We parse `@var[ foo ]` and `@var[foo]` differently
+  // We parse `@var[ foo ]`, `@var[foo]`, and `var [ @foo ]` differently
   if (
     original.type === "value-comma_group" &&
     original.groups.some(
       (node) =>
-        (node.type === "value-atword" && node.value.endsWith("[")) ||
-        (node.type === "value-word" && node.value.startsWith("]")),
+        (node.type === "value-atword" &&
+          (node.value.endsWith("[") || node.value.endsWith("]"))) ||
+        (node.type === "value-word" &&
+          (node.value.startsWith("]") || node.value.startsWith("["))),
     )
   ) {
     return {

@@ -5,9 +5,9 @@ import {
   indent,
   join,
   line,
+  replaceEndOfLine,
   softline,
-} from "../../document/builders.js";
-import { replaceEndOfLine } from "../../document/utils.js";
+} from "../../document/index.js";
 import { printDanglingComments } from "../../main/comments/print.js";
 import hasNewline from "../../utils/has-newline.js";
 import UnexpectedNodeError from "../../utils/unexpected-node-error.js";
@@ -18,6 +18,7 @@ import {
   isArrayExpression,
   isCallExpression,
   isLiteral,
+  isMeaningfulEmptyStatement,
   isMemberExpression,
   isMethod,
   isNextLineEmpty,
@@ -76,7 +77,7 @@ import { printTypeAnnotationProperty } from "./type-annotation.js";
 
 /**
  * @import AstPath from "../../common/ast-path.js"
- * @import {Doc} from "../../document/builders.js"
+ * @import {Doc} from "../../document/index.js"
  */
 
 /**
@@ -101,8 +102,6 @@ function printEstree(path, options, print, args) {
     // Babel extension.
     case "File":
       return printHtmlBinding(path, options, print) ?? print("program");
-    case "EmptyStatement":
-      return "";
     case "ExpressionStatement":
       return printExpressionStatement(path, options, print);
 
@@ -493,11 +492,11 @@ function printEstree(path, options, print, args) {
         options.semi ? ";" : "",
       ];
     case "LabeledStatement":
-      if (node.body.type === "EmptyStatement") {
-        return [print("label"), ":;"];
-      }
-
-      return [print("label"), ": ", print("body")];
+      return [
+        print("label"),
+        `:${node.body.type === "EmptyStatement" && !hasComment(node.body, CommentCheckFlags.Leading) ? "" : " "}`,
+        print("body"),
+      ];
     case "TryStatement":
       return [
         "try ",
@@ -627,6 +626,11 @@ function printEstree(path, options, print, args) {
     case "VoidPattern":
       return "void";
 
+    case "EmptyStatement":
+      if (isMeaningfulEmptyStatement(path)) {
+        return ";";
+      }
+    // Fall through
     case "InterpreterDirective": // Printed as comment
     default:
       /* c8 ignore next */

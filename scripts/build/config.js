@@ -303,7 +303,7 @@ const pluginFiles = [
           // Remove `'property' in typescript` check
           text = text.replaceAll(
             new RegExp(
-              `".*?" in (?:${typescriptVariables.join("|")})(?=\\W)`,
+              String.raw`".*?" in (?:${typescriptVariables.join("|")})(?=\W)`,
               "gu",
             ),
             "true",
@@ -786,6 +786,7 @@ const nodejsFiles = [
       },
     ],
     addDefaultExport: true,
+    reuseDocModule: true,
   },
   {
     input: "src/index.cjs",

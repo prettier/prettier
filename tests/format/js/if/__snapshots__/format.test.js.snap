@@ -254,7 +254,7 @@ function a() {
   else return 2;
 
   if (a)
-    if (b /* comment 6f */);
+    if (b); /* comment 6f */
     else return 2;
 }
 

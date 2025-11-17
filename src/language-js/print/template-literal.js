@@ -7,10 +7,10 @@ import {
   join,
   label,
   lineSuffixBoundary,
+  mapDoc,
+  printDocToString,
   softline,
-} from "../../document/builders.js";
-import { printDocToString } from "../../document/printer.js";
-import { mapDoc } from "../../document/utils.js";
+} from "../../document/index.js";
 import getIndentSize from "../../utils/get-indent-size.js";
 import getStringWidth from "../../utils/get-string-width.js";
 import hasNewlineInRange from "../../utils/has-newline-in-range.js";
@@ -25,7 +25,7 @@ import {
 } from "../utils/index.js";
 
 /**
- * @import {Doc} from "../../document/builders.js"
+ * @import {Doc} from "../../document/index.js"
  */
 
 function printTemplateLiteral(path, options, print) {

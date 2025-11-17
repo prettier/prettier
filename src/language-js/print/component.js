@@ -5,7 +5,7 @@ import {
   indent,
   line,
   softline,
-} from "../../document/builders.js";
+} from "../../document/index.js";
 import { printDanglingComments } from "../../main/comments/print.js";
 import getNextNonSpaceNonCommentCharacter from "../../utils/get-next-non-space-non-comment-character.js";
 import { locEnd } from "../loc.js";
@@ -14,7 +14,7 @@ import { printDeclareToken } from "./misc.js";
 
 /**
  * @import AstPath from "../../common/ast-path.js"
- * @import {Doc} from "../../document/builders.js"
+ * @import {Doc} from "../../document/index.js"
  */
 
 /*

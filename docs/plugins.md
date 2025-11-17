@@ -51,6 +51,7 @@ Strings provided to `plugins` are ultimately passed to [`import()` expression](h
 
 - [`prettier-plugin-apex`](https://github.com/dangmai/prettier-plugin-apex) by [**@dangmai**](https://github.com/dangmai)
 - [`prettier-plugin-astro`](https://github.com/withastro/prettier-plugin-astro) by [**@withastro contributors**](https://github.com/withastro/prettier-plugin-astro/graphs/contributors)
+- [`prettier-plugin-bigcommerce-stencil`](https://github.com/phoenix128/prettier-plugin-bigcommerce-stencil) by [**@phoenix128**](https://github.com/phoenix128)
 - [`prettier-plugin-elm`](https://github.com/gicentre/prettier-plugin-elm) by [**@giCentre**](https://github.com/gicentre)
 - [`prettier-plugin-erb`](https://github.com/adamzapasnik/prettier-plugin-erb) by [**@adamzapasnik**](https://github.com/adamzapasnik)
 - [`prettier-plugin-gherkin`](https://github.com/mapado/prettier-plugin-gherkin) by [**@mapado**](https://github.com/mapado)
@@ -152,6 +153,8 @@ _(Optional)_ The preprocess function can process the input text before passing i
 function preprocess(text: string, options: object): string | Promise<string>;
 ```
 
+_Support for async preprocess first added in v3.7.0_
+
 ### `printers`
 
 Printers convert ASTs into a Prettier intermediate representation, also known as a Doc.
@@ -170,6 +173,8 @@ export const printers = {
     isBlockComment,
     printComment,
     getCommentChildNodes,
+    hasPrettierIgnore,
+    printPrettierIgnored,
     handleComments: {
       ownLine,
       endOfLine,
@@ -394,6 +399,22 @@ function getCommentChildNodes(
 
 Return `[]` if the node has no children or `undefined` to fall back on the default behavior.
 
+### (optional) `hasPrettierIgnore`
+
+```ts
+function hasPrettierIgnore(path: AstPath): boolean;
+```
+
+Returns whether or not the AST node is `prettier-ignore`d.
+
+### (optional) `printPrettierIgnored`
+
+If the AST node is `prettier-ignore`d, Prettier will slice for the text for parsing without calling `print` function by default, however plugin can also handle the `prettier-ignore`d node print by adding this property.
+
+This property have the same signature as the `print` property.
+
+_First available in v3.7.0_
+
 #### (optional) `printComment`
 
 Called whenever a comment node needs to be printed. It has the signature:
@@ -413,12 +434,6 @@ function printComment(
 function canAttachComment(node: AST, ancestors: T[]): boolean;
 ```
 
-:::note
-
-The second parameter `ancestors` first added in v3.7.0.
-
-:::
-
 This function is used for deciding whether a comment can be attached to a particular AST node. By default, _all_ AST properties are traversed searching for nodes that comments can be attached to. This function is used to prevent comments from being attached to a particular node. A typical implementation looks like
 
 ```js
@@ -431,6 +446,8 @@ function canAttachComment(node, [parent]) {
   );
 }
 ```
+
+_The second parameter `ancestors` first added in v3.7.0._
 
 #### (optional) `isBlockComment`
 

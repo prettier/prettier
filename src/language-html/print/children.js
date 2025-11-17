@@ -4,9 +4,9 @@ import {
   hardline,
   ifBreak,
   line,
+  replaceEndOfLine,
   softline,
-} from "../../document/builders.js";
-import { replaceEndOfLine } from "../../document/utils.js";
+} from "../../document/index.js";
 import htmlWhitespaceUtils from "../../utils/html-whitespace-utils.js";
 import isNonEmptyArray from "../../utils/is-non-empty-array.js";
 import { locEnd, locStart } from "../loc.js";

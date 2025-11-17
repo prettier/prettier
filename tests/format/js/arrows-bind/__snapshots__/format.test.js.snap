@@ -31,7 +31,7 @@ Cause: [1:8-1:9]: Expected ')'"
 `;
 
 exports[`arrows-bind.js [oxc] format 1`] = `
-"Expected \`,\` but found \`:\` (1:9)
+"Expected \`,\` or \`)\` but found \`:\` (1:9)
 > 1 | a => ({}::b()\`\`[''].c++ && 0 ? 0 : 0);
     |         ^
   2 | (a => b)::c;

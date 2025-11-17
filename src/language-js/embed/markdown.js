@@ -3,7 +3,7 @@ import {
   indent,
   literalline,
   softline,
-} from "../../document/builders.js";
+} from "../../document/index.js";
 import { escapeTemplateCharacters } from "../print/template-literal.js";
 
 async function printEmbedMarkdown(textToDoc, print, path /* , options*/) {

@@ -135,7 +135,7 @@ Cause: [1:12-1:14]: Expected ')'"
 `;
 
 exports[`invalid-fn-param.js [oxc] format 1`] = `
-"Expected \`,\` but found \`?.\` (1:13)
+"Expected \`,\` or \`)\` but found \`?.\` (1:13)
 > 1 | function f(a?.b) {}
     |             ^^
   2 |"
@@ -229,7 +229,7 @@ Cause: [1:12-1:14]: Expected ')'"
 `;
 
 exports[`invalid-fn-param-assign.js [oxc] format 1`] = `
-"Expected \`,\` but found \`?.\` (1:13)
+"Expected \`,\` or \`)\` but found \`?.\` (1:13)
 > 1 | function f(a?.b = c) {}
     |             ^^
   2 |"

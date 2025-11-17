@@ -4,7 +4,9 @@ import {
   getFunctionParameters,
   hasNodeIgnoreComment,
   isJsxElement,
+  isMeaningfulEmptyStatement,
   isMethod,
+  isTsAsConstExpression,
   isUnionType,
 } from "../utils/index.js";
 
@@ -14,7 +16,6 @@ import {
  */
 
 const isNodeCantAttachComment = createTypeCheckFunction([
-  "EmptyStatement",
   "TemplateElement",
   // There is no similar node in Babel AST
   // ```ts
@@ -78,38 +79,111 @@ const isClassMethodCantAttachComment = (node, [parent]) =>
       node.body,
   );
 
+// `foo as const`
+//  ^^^^^^^^^^^^ `TSAsExpression`
+//         ^^^^^ `TSTypeReference` (`TSAsExpression.typeAnnotation`)
+//         ^^^^^ `Identifier` (`TSTypeReference.typeName`)
+/**
+@param {Node} node
+@param {Node[]} param1
+@returns {boolean}
+*/
+const isTsAsConstTypeReference = (node, [parent]) =>
+  // @ts-expect-error -- Safe
+  parent?.typeAnnotation === node && isTsAsConstExpression(parent);
+/**
+@param {Node} node
+@param {Node[]} param1
+@returns {boolean}
+*/
+const isTsAsConst = (node, [parent, ...ancestors]) =>
+  isTsAsConstTypeReference(node, [parent]) ||
+  // @ts-expect-error -- Safe
+  (parent?.typeName === node && isTsAsConstTypeReference(parent, ancestors));
+
 /**
 @param {Node} node
 @param {any[]} ancestors
 @returns {boolean}
 */
 function canAttachComment(node, ancestors) {
-  return !(
+  if (
     isNodeCantAttachComment(node) ||
     isChildWontPrint(node, ancestors) ||
     // @ts-expect-error -- safe
     isClassMethodCantAttachComment(node, ancestors)
-  );
+  ) {
+    return false;
+  }
+
+  if (node.type === "EmptyStatement") {
+    return isMeaningfulEmptyStatement({ node, parent: ancestors[0] });
+  }
+
+  // Flow doesn't generate node for `as const`
+  if (isTsAsConst(node, ancestors)) {
+    return false;
+  }
+
+  /*
+  For this code
+  `interface A {property: B}`
+                          ^ `ObjectTypeProperty.value` (Flow)
+  `interface A {property: B}`
+                        ^^^ `TSPropertySignature.typeAnnotation` (TypeScript)
+                          ^ `TSPropertySignature.typeAnnotation.typeAnnotation` (TypeScript)
+  ```
+
+  To avoid inconsistent, let's attach to the Identifier instead.
+  */
+  if (
+    node.type === "TSTypeAnnotation" &&
+    ancestors[0].type === "TSPropertySignature"
+  ) {
+    return false;
+  }
+
+  return true;
 }
+
+const isClassOrInterface = createTypeCheckFunction([
+  "ClassDeclaration",
+  "ClassExpression",
+  "DeclareClass",
+  "DeclareInterface",
+  "InterfaceDeclaration",
+  "TSInterfaceDeclaration",
+  // Can't have `id` or `typeParameters`
+  // "InterfaceTypeAnnotation",
+]);
 
 /**
  * @param {AstPath} path
  * @returns {boolean}
  */
 function willPrintOwnComments(path) {
-  const { node, parent } = path;
-  return (
-    (isJsxElement(node) ||
-      (parent &&
-        (parent.type === "JSXSpreadAttribute" ||
-          parent.type === "JSXSpreadChild" ||
-          isUnionType(parent) ||
-          parent.type === "MatchOrPattern" ||
-          ((parent.type === "ClassDeclaration" ||
-            parent.type === "ClassExpression") &&
-            parent.superClass === node)))) &&
-    (!hasNodeIgnoreComment(node) || isUnionType(parent))
-  );
+  const { key, parent } = path;
+  if (
+    (key === "types" && isUnionType(parent)) ||
+    (key === "argument" && parent.type === "JSXSpreadAttribute") ||
+    (key === "expression" && parent.type === "JSXSpreadChild") ||
+    (key === "superClass" &&
+      (parent.type === "ClassDeclaration" ||
+        parent.type === "ClassExpression")) ||
+    ((key === "id" || key === "typeParameters") &&
+      isClassOrInterface(parent)) ||
+    // Not tested, don't know how to
+    (key === "patterns" && parent.type === "MatchOrPattern")
+  ) {
+    return true;
+  }
+
+  const { node } = path;
+  if (hasNodeIgnoreComment(node)) {
+    return false;
+  }
+
+  return isJsxElement(node) || isUnionType(node);
 }
 
 function isGap(text, { parser }) {

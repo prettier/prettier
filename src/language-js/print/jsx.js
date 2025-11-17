@@ -6,16 +6,14 @@ import {
   hardline,
   ifBreak,
   indent,
+  isEmptyDoc,
   join,
   line,
   lineSuffixBoundary,
-  softline,
-} from "../../document/builders.js";
-import {
-  isEmptyDoc,
   replaceEndOfLine,
+  softline,
   willBreak,
-} from "../../document/utils.js";
+} from "../../document/index.js";
 import {
   printComments,
   printDanglingComments,
@@ -23,11 +21,11 @@ import {
 import getPreferredQuote from "../../utils/get-preferred-quote.js";
 import UnexpectedNodeError from "../../utils/unexpected-node-error.js";
 import WhitespaceUtils from "../../utils/whitespace-utils.js";
-import { willPrintOwnComments } from "../comments/printer-methods.js";
 import pathNeedsParens from "../needs-parens.js";
 import getRaw from "../utils/get-raw.js";
 import {
   CommentCheckFlags,
+  createTypeCheckFunction,
   hasComment,
   hasNodeIgnoreComment,
   isArrayExpression,
@@ -54,7 +52,7 @@ const isEmptyStringOrAnyLine = (doc) =>
 /**
  * @import AstPath from "../../common/ast-path.js"
  * @import {Node, JSXElement} from "../types/estree.js"
- * @import {Doc} from "../../document/builders.js"
+ * @import {Doc} from "../../document/index.js"
  */
 
 // JSX expands children from the inside-out, instead of the outside-in.
@@ -485,13 +483,14 @@ function separatorWithWhitespace(
   return hardline;
 }
 
-const NO_WRAP_PARENTS = new Set([
+const isNoWrapParent = createTypeCheckFunction([
   "ArrayExpression",
   "JSXAttribute",
   "JSXElement",
   "JSXExpressionContainer",
   "JSXFragment",
   "ExpressionStatement",
+  "NewExpression",
   "CallExpression",
   "OptionalCallExpression",
   "ConditionalExpression",
@@ -501,7 +500,7 @@ const NO_WRAP_PARENTS = new Set([
 function maybeWrapJsxElementInParens(path, elem, options) {
   const { parent } = path;
 
-  if (NO_WRAP_PARENTS.has(parent.type)) {
+  if (isNoWrapParent(parent)) {
     return elem;
   }
 
@@ -713,9 +712,8 @@ function shouldPrintBracketSameLine(node, options, nameHasComments) {
 
 function printJsxClosingElement(path, options, print) {
   const { node } = path;
-  const parts = [];
-
-  parts.push("</");
+  /** @type {Doc[]} */
+  const parts = ["</"];
 
   const printed = print("name");
   if (
@@ -782,7 +780,7 @@ function printJsxSpreadAttributeOrChild(path, options, print) {
     path.call(
       ({ node }) => {
         const printed = ["...", print()];
-        if (!hasComment(node) || !willPrintOwnComments(path)) {
+        if (!hasComment(node)) {
           return printed;
         }
         return [

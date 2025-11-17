@@ -2,17 +2,18 @@ import collapseWhiteSpace from "collapse-white-space";
 import escapeStringRegexp from "escape-string-regexp";
 import {
   align,
+  DOC_TYPE_STRING,
   fill,
+  getDocType,
   group,
   hardline,
   indent,
   line,
   literalline,
   markAsRoot,
+  replaceEndOfLine,
   softline,
-} from "../document/builders.js";
-import { DOC_TYPE_STRING } from "../document/constants.js";
-import { getDocType, replaceEndOfLine } from "../document/utils.js";
+} from "../document/index.js";
 import getMaxContinuousCount from "../utils/get-max-continuous-count.js";
 import getMinNotPresentContinuousCount from "../utils/get-min-not-present-continuous-count.js";
 import getPreferredQuote from "../utils/get-preferred-quote.js";
@@ -38,7 +39,7 @@ import {
 } from "./utils.js";
 
 /**
- * @import {Doc} from "../document/builders.js"
+ * @import {Doc} from "../document/index.js"
  */
 
 const SIBLING_NODE_TYPES = new Set(["listItem", "definition"]);
@@ -89,8 +90,6 @@ function genericPrint(path, options, print) {
   }
 
   switch (node.type) {
-    case "front-matter":
-      return node.raw;
     case "root":
       /* c8 ignore next 3 */
       if (node.children.length === 0) {
@@ -182,7 +181,7 @@ function genericPrint(path, options, print) {
           ? node.value
           : node.value.replaceAll("\n", " ");
       const backtickCount = getMinNotPresentContinuousCount(code, "`");
-      const backtickString = "`".repeat(backtickCount || 1);
+      const backtickString = "`".repeat(backtickCount);
       const padding =
         code.startsWith("`") ||
         code.endsWith("`") ||
@@ -283,7 +282,6 @@ function genericPrint(path, options, print) {
 
       return replaceEndOfLine(
         value,
-        // @ts-expect-error
         isHtmlComment ? hardline : markAsRoot(literalline),
       );
     }
@@ -449,6 +447,7 @@ function genericPrint(path, options, print) {
       // since it's very possible that it's recognized as math accidentally
       return options.originalText.slice(locStart(node), locEnd(node));
 
+    case "frontMatter": // Handled in core
     case "tableRow": // handled in "table"
     case "listItem": // handled in "list"
     case "text": // handled in other types
@@ -790,6 +789,13 @@ function printFootnoteReference(node) {
 }
 
 const printer = {
+  features: {
+    experimental_frontMatterSupport: {
+      massageAstNode: true,
+      embed: true,
+      print: true,
+    },
+  },
   preprocess,
   print: genericPrint,
   embed,

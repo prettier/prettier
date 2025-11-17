@@ -141,7 +141,9 @@ runFormatTest(
 
       // `ObjectLiteral`
       // https://github.com/typescript-eslint/typescript-eslint/issues/11687
-      ...["abstract"].map((modifier) => `({${modifier} method(){}})`),
+      ...POSSIBLE_MODIFIERS.filter((modifier) => modifier !== "async").map(
+        (modifier) => `({${modifier} method(){}})`,
+      ),
     ],
   },
   ["typescript", "babel-ts", "oxc-ts"],

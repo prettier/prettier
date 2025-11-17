@@ -570,6 +570,19 @@ test("prefer-create-type-check-function", {
         'const isClassProperty = createTypeCheckFunction(["ClassProperty", "PropertyDefinition"]);',
       errors: 1,
     },
+    {
+      code: outdent`
+        const types = new Set(["ClassProperty", "PropertyDefinition"]);
+        if (types.has(node?.type)) {}
+        if (types.has((0, foo).type)) {}
+      `,
+      output: outdent`
+        const __please_rename_this_function_types =  createTypeCheckFunction(["ClassProperty", "PropertyDefinition"]);
+        if (__please_rename_this_function_types((node))) {}
+        if (__please_rename_this_function_types((0, foo))) {}
+      `,
+      errors: 1,
+    },
   ],
 });
 

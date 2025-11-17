@@ -6,8 +6,11 @@ import {
   join,
   line,
   softline,
-} from "../../document/builders.js";
-import { printComments } from "../../main/comments/print.js";
+} from "../../document/index.js";
+import {
+  printComments,
+  printCommentsSeparately,
+} from "../../main/comments/print.js";
 import { hasSameLocStart } from "../loc.js";
 import pathNeedsParens from "../needs-parens.js";
 import {
@@ -19,9 +22,11 @@ import {
   isFlowObjectTypePropertyAFunction,
   isObjectType,
   isSimpleType,
+  isTypeAlias,
   isUnionType,
 } from "../utils/index.js";
 import { printAssignment } from "./assignment.js";
+import { printClassMemberSemicolon } from "./class.js";
 import {
   printFunctionParameters,
   shouldGroupFunctionParameters,
@@ -33,7 +38,7 @@ import {
 } from "./misc.js";
 
 /**
- * @import {Doc} from "../../document/builders.js"
+ * @import {Doc} from "../../document/index.js"
  */
 
 const isVoidType = createTypeCheckFunction([
@@ -208,10 +213,12 @@ function printUnionType(path, options, print) {
       path.grandparent.this !== parent
     ) &&
     !(
-      (parent.type === "TypeAlias" ||
-        parent.type === "VariableDeclarator" ||
-        parent.type === "TSTypeAliasDeclaration") &&
+      (isTypeAlias(parent) || parent.type === "VariableDeclarator") &&
       hasLeadingOwnLineComment(options.originalText, node)
+    ) &&
+    !(
+      isTypeAlias(parent) &&
+      hasComment(parent.id, CommentCheckFlags.Trailing | CommentCheckFlags.Line)
     );
 
   // {
@@ -229,24 +236,29 @@ function printUnionType(path, options, print) {
     if (!shouldHug) {
       printedType = align(2, printedType);
     }
+
     return printComments(path, printedType, options);
   }, "types");
 
+  const { leading, trailing } = printCommentsSeparately(path, options);
+
   if (shouldHug) {
-    return join(" | ", printed);
+    return [leading, join(" | ", printed), trailing];
   }
 
   const shouldAddStartLine =
     shouldIndent && !hasLeadingOwnLineComment(options.originalText, node);
 
-  const code = [
+  const mainParts = [
     ifBreak([shouldAddStartLine ? line : "", "| "]),
     join([line, "| "], printed),
   ];
 
   if (pathNeedsParens(path, options)) {
-    return group([indent(code), softline]);
+    return [leading, group([indent(mainParts), softline]), trailing];
   }
+
+  const parts = [leading, group(mainParts)];
 
   if (parent.type === "TupleTypeAnnotation" || parent.type === "TSTupleType") {
     const elementTypes =
@@ -258,15 +270,18 @@ function printUnionType(path, options, print) {
       ];
 
     if (elementTypes.length > 1) {
-      return group([
-        indent([ifBreak(["(", softline]), code]),
-        softline,
-        ifBreak(")"),
-      ]);
+      return [
+        group([
+          indent([ifBreak(["(", softline]), parts]),
+          softline,
+          ifBreak(")"),
+        ]),
+        trailing,
+      ];
     }
   }
 
-  return group(shouldIndent ? indent(code) : code);
+  return [group(shouldIndent ? indent(parts) : parts), trailing];
 }
 
 /*
@@ -339,7 +354,13 @@ function printFunctionType(path, options, print) {
 
   parts.push(parametersDoc, returnTypeDoc);
 
-  return group(parts);
+  return [
+    group(parts),
+    node.type === "TSConstructSignatureDeclaration" ||
+    node.type === "TSCallSignatureDeclaration"
+      ? printClassMemberSemicolon(path, options)
+      : "",
+  ];
 }
 
 /*

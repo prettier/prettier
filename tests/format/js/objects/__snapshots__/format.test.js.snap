@@ -132,7 +132,7 @@ Cause: [5:3-5:4]: Expected ')'"
 `;
 
 exports[`expression.js [oxc] format 1`] = `
-"Expected \`,\` but found \`:\` (5:4)
+"Expected \`,\` or \`)\` but found \`:\` (5:4)
   3 | a = () => ({}).x;
   4 | ({} && a, b);
 > 5 | ({}::b, 0);
@@ -143,7 +143,7 @@ exports[`expression.js [oxc] format 1`] = `
 `;
 
 exports[`expression.js [oxc-ts] format 1`] = `
-"Expected \`,\` but found \`:\` (5:4)
+"Expected \`,\` or \`)\` but found \`:\` (5:4)
   3 | a = () => ({}).x;
   4 | ({} && a, b);
 > 5 | ({}::b, 0);

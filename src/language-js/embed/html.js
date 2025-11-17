@@ -4,8 +4,8 @@ import {
   indent,
   label,
   line,
-} from "../../document/builders.js";
-import { mapDoc } from "../../document/utils.js";
+  mapDoc,
+} from "../../document/index.js";
 import {
   printTemplateExpressions,
   uncookTemplateElementValue,

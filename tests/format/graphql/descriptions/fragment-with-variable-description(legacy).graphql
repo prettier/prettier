@@ -1,0 +1,3 @@
+# https://github.com/graphql/graphql-js/pull/4482
+
+fragment Foo("desc" $foo: Int) on Bar { baz }
