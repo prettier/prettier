@@ -851,6 +851,19 @@ const nodejsFiles = [
           find: "export default lib;",
           replacement: "export default { parse };",
         },
+        {
+          module: getPackageFile("@prettier/cli/dist/config_prettier.js"),
+          find: 'const toml = await import("smol-toml");',
+          replacement: outdent`
+            const {parse} = await import("smol-toml");
+            const toml = {parse};
+          `,
+        },
+        {
+          module: getPackageFile("js-yaml/dist/js-yaml.mjs"),
+          find: "var dump                = dumper.dump;",
+          replacement: "var dump;",
+        },
       ],
     },
     {
