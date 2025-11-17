@@ -8,3 +8,6 @@ function functionName() {
     );
   }
 }
+
+foo = new long_long_member.long_long_member.long_long_member.long_long_member.long_long_member();
+foo = long_long_member.long_long_member.long_long_member.long_long_member.long_long_member();
