@@ -22,7 +22,6 @@ runFormatTest(
     "__ng_interpolation",
     "__ng_directive",
     "babel",
-    "babel-flow",
     "babel-ts",
     "__js_expression",
     "__ts_expression",

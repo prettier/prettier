@@ -4930,13 +4930,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"get-stdin@npm:9.0.0":
-  version: 9.0.0
-  resolution: "get-stdin@npm:9.0.0"
-  checksum: 10/5972bc34d05932b45512c8e2d67b040f1c1ca8afb95c56cbc480985f2d761b7e37fe90dc8abd22527f062cc5639a6930ff346e9952ae4c11a2d4275869459594
-  languageName: node
-  linkType: hard
-
 "get-stream@npm:^6.0.0":
   version: 6.0.1
   resolution: "get-stream@npm:6.0.1"
@@ -7343,7 +7336,6 @@ __metadata:
     find-cache-directory: "npm:6.0.0"
     flow-parser: "npm:0.287.0"
     get-east-asian-width: "npm:1.4.0"
-    get-stdin: "npm:9.0.0"
     globals: "npm:16.5.0"
     graphql: "npm:16.12.0"
     hermes-parser: "npm:0.32.1"
@@ -7397,7 +7389,6 @@ __metadata:
     semver: "npm:7.7.3"
     serialize-javascript: "npm:7.0.0"
     smol-toml: "npm:1.5.2"
-    strip-ansi: "npm:7.1.2"
     tempy: "npm:3.1.0"
     tinybench: "npm:5.1.0"
     to-fast-properties: "npm:4.0.0"
@@ -8106,7 +8097,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"strip-ansi@npm:7.1.2, strip-ansi@npm:^7.0.1, strip-ansi@npm:^7.1.0":
+"strip-ansi@npm:^7.0.1, strip-ansi@npm:^7.1.0":
   version: 7.1.2
   resolution: "strip-ansi@npm:7.1.2"
   dependencies:

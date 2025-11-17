@@ -723,7 +723,7 @@ exports[`discard-binding.js [oxc] format 1`] = `
 
 exports[`discard-binding.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
+parsers: ["babel", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
