@@ -3,13 +3,12 @@ callExprssion(
     ?.promptType,
 );
 
-callExprssion?.(
+optionalCallExprssion?.(
   instance.capabilities.get(TerminalCapability?.PromptTypeDetection)
     ?.promptType,
 );
 
 new NewExpression(
-  instance.capabilities.get(
-    TerminalCapability?.PromptTypeDetection,
-  )?.promptType,
+  instance.capabilities.get(TerminalCapability?.PromptTypeDetection)
+    ?.promptType,
 );
