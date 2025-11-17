@@ -36,6 +36,48 @@ h1 {
 ================================================================================
 `;
 
+exports[`17479.css format 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+.foo {
+  background-image:
+    linear-gradient(to top, blue, red 100%),
+    /* texture */
+    repeating-linear-gradient(90deg, pink, yellow 20px, green 20px, pink 40px),
+    repeating-linear-gradient(90deg, pink, yellow 20px, green 20px, pink 40px);
+
+  box-shadow: 2px 2px 4px gray,
+    /* long long long long long long long long long long long long comment */
+    /* long long long long long long long long long long long long comment */
+    1000px /* long long long long long long long long long long long long comment */ 1000px /* long long long long long long long long long comment */ 2px color(srgb 0.555555555 0.555555555 0.555555555),
+    100px -1px 2px lightgray;
+}
+
+=====================================output=====================================
+.foo {
+  background-image:
+    linear-gradient(to top, blue, red 100%),
+    /* texture */
+    repeating-linear-gradient(90deg, pink, yellow 20px, green 20px, pink 40px),
+    repeating-linear-gradient(90deg, pink, yellow 20px, green 20px, pink 40px);
+
+  box-shadow:
+    2px 2px 4px gray,
+    /* long long long long long long long long long long long long comment */
+    /* long long long long long long long long long long long long comment */
+    1000px
+      /* long long long long long long long long long long long long comment */
+      1000px /* long long long long long long long long long comment */ 2px
+      color(srgb 0.555555555 0.555555555 0.555555555),
+    100px -1px 2px lightgray;
+}
+
+================================================================================
+`;
+
 exports[`CRLF.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
