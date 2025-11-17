@@ -136,24 +136,39 @@ function splitTextIntoSentencesLegacy(ast) {
 }
 
 function splitTextIntoSentences(ast) {
-  return mapAst(ast, (node, index, [parentNode, grandparentNode]) => {
+  return mapAst(ast, (node, index, parentStack) => {
     if (node.type !== "text") {
       return node;
     }
 
     let text = node.raw;
 
-    if (parentNode.type === "paragraph") {
-      if (grandparentNode.type === "blockquote") {
+    const paragraphIndex = parentStack.findIndex(
+      (ancestor) => ancestor?.type === "paragraph",
+    );
+
+    const paragraphNode =
+      paragraphIndex === -1 ? undefined : parentStack[paragraphIndex];
+
+    if (paragraphNode) {
+      if (
+        parentStack
+          .slice(paragraphIndex + 1)
+          .some((ancestor) => ancestor?.type === "blockquote")
+      ) {
         text = text.replaceAll("\n> ", "\n");
       }
 
-      if (index === 0) {
-        text = text.trimStart();
-      }
+      const parentNode = parentStack[0];
 
-      if (index === parentNode.children.length - 1) {
-        text = text.trimEnd();
+      if (parentNode?.type === "paragraph") {
+        if (index === 0) {
+          text = text.trimStart();
+        }
+
+        if (index === parentNode.children.length - 1) {
+          text = text.trimEnd();
+        }
       }
     }
 
