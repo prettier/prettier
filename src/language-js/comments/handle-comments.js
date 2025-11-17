@@ -18,10 +18,10 @@ import {
   isCallLikeExpression,
   isConditionalType,
   isIntersectionType,
+  isUnionType,
   isMemberExpression,
   isObjectProperty,
   isPrettierIgnoreComment,
-  isUnionType,
 } from "../utils/index.js";
 import isBlockComment from "../utils/is-block-comment.js";
 import isLineComment from "../utils/is-line-comment.js";
@@ -1118,7 +1118,7 @@ function handlePropertySignatureComments({
     enclosingNode &&
     (enclosingNode.type === "TSPropertySignature" ||
       enclosingNode.type === "ObjectTypeProperty") &&
-    isIntersectionType(followingNode)
+    (isUnionType(followingNode) || isIntersectionType(followingNode))
   ) {
     addLeadingComment(followingNode, comment);
     return true;
