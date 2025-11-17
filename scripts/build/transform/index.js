@@ -28,6 +28,7 @@ function shouldTransform(file, buildOptions) {
           "kasi",
           "fast-string-truncated-width",
           "fast-ignore",
+          "hashery",
           /* spell-checker: enable */
         ].map((directory) =>
           path.join(PROJECT_ROOT, `node_modules/${directory}/`),
