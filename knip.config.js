@@ -15,9 +15,8 @@ const config = {
         "src/experimental-cli/index.js",
         "packages/plugin-oxc/index.js",
         "packages/plugin-hermes/index.js",
-        "benchmarks/**",
       ],
-      project: ["src/**", "scripts/**", "benchmark/**"],
+      project: ["src/**", "scripts/**"],
       ignore: [
         "scripts/build/config.js",
         "scripts/build/build-javascript-module.js",
@@ -25,12 +24,7 @@ const config = {
         "src/experimental-cli/**",
         "src/universal/*.browser.js",
       ],
-      ignoreDependencies: [
-        "eslint-formatter-friendly",
-        "ts-expect",
-        "buffer",
-        "deno-path-from-file-url",
-      ],
+      ignoreDependencies: ["ts-expect", "buffer", "deno-path-from-file-url"],
       ignoreBinaries: ["test-coverage"],
     },
     website: {
