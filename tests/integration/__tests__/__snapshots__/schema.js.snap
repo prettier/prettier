@@ -1,8 +1,8 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`schema 1`] = `
 {
-  "$id": "https://json.schemastore.org/prettierrc.json",
+  "$id": "https://www.schemastore.org/prettierrc.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "definitions": {
     "optionsDefinition": {

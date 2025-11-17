@@ -8,4 +8,4 @@ class C<const T>{}
 type T<const +X> = X;
 function f<const +T>(): void {}
 <const +T>(x: T) => {}
-class C<const +T>{}
+class D<const +T>{}

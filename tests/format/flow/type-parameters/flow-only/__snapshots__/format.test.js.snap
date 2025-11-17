@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`comments.js format 1`] = `
 ====================================options=====================================
@@ -40,7 +40,7 @@ class C<const T>{}
 type T<const +X> = X;
 function f<const +T>(): void {}
 <const +T>(x: T) => {}
-class C<const +T>{}
+class D<const +T>{}
 
 =====================================output=====================================
 // Simple
@@ -53,7 +53,26 @@ class C<const T> {}
 type T<const +X> = X;
 function f<const +T>(): void {}
 <const +T>(x: T) => {};
-class C<const +T> {}
+class D<const +T> {}
+
+================================================================================
+`;
+
+exports[`empty_generic_break.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class X {
+	a: B<> = SuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperLong;
+}
+
+=====================================output=====================================
+class X {
+  a: B<> =
+    SuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperLong;
+}
 
 ================================================================================
 `;

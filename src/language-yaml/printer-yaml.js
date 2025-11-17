@@ -1,4 +1,4 @@
-/** @import {Doc} from "../document/builders.js" */
+/** @import {Doc} from "../document/index.js" */
 
 import {
   breakParent,
@@ -8,8 +8,8 @@ import {
   join,
   line,
   lineSuffix,
-} from "../document/builders.js";
-import { replaceEndOfLine } from "../document/utils.js";
+  replaceEndOfLine,
+} from "../document/index.js";
 import isPreviousLineEmpty from "../utils/is-previous-line-empty.js";
 import UnexpectedNodeError from "../utils/unexpected-node-error.js";
 import embed from "./embed.js";
@@ -211,7 +211,13 @@ function printNode(path, options, print) {
             separator = [hardline, hardline];
           }
         } else {
-          separator = hardline;
+          // Check if we need to preserve empty line before end comments
+          const lastChild = children.at(-1);
+          const shouldPreserveEmptyLine =
+            isNode(lastChild, ["mapping"]) &&
+            isPreviousLineEmpty(options.originalText, locStart(endComments[0]));
+
+          separator = shouldPreserveEmptyLine ? [hardline, hardline] : hardline;
         }
       }
 
@@ -402,7 +408,7 @@ function printFlowScalarContent(nodeType, content, options) {
   );
 }
 
-function clean(original, cloned /*, parent */) {
+function clean(original, cloned /* , parent */) {
   if (isNode(original)) {
     switch (original.type) {
       case "comment":

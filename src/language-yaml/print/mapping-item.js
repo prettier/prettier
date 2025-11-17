@@ -1,4 +1,4 @@
-/** @import {Doc} from "../../document/builders.js" */
+/** @import {Doc} from "../../document/index.js" */
 
 import {
   conditionalGroup,
@@ -6,7 +6,7 @@ import {
   hardline,
   ifBreak,
   line,
-} from "../../document/builders.js";
+} from "../../document/index.js";
 import {
   hasEndComments,
   hasLeadingComments,
@@ -98,6 +98,13 @@ function printMappingItem(path, options, print) {
   // as part of the mapping value
   const implicitMappingValueParts = [spaceBeforeColon, ":"];
   if (
+    hasEndComments(value) &&
+    value.content &&
+    isNode(value.content, ["flowMapping", "flowSequence"]) &&
+    value.content.children.length === 0
+  ) {
+    implicitMappingValueParts.push(" ");
+  } else if (
     hasLeadingComments(value.content) ||
     (hasEndComments(value) &&
       value.content &&

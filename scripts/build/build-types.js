@@ -43,7 +43,7 @@ async function buildPluginTypes({ packageConfig, file: { input, output } }) {
     parserNames.length === 0
       ? "export {};"
       : outdent`
-        import { Parser } from "../index.js";
+        import { Parser } from "${packageConfig.packageName === "prettier" ? "../index.js" : "prettier"}";
 
         export declare const parsers: {
         ${parserNames

@@ -49,7 +49,7 @@ for (const dir of changelogUnreleasedDirs) {
     throw new Error("Unknown category: " + dir.name);
   }
 
-  category.entries = getEntries(dirPath);
+  category.entries = getEntries(dirPath, { useFriendlyHeadingId: true });
 }
 
 for (const filePath of fg.sync(postGlob)) {

@@ -16,6 +16,7 @@
   --ifm-code-font-size: 90%;
   --ifm-button-border-radius: calc(0.8rem * var(--ifm-button-size-multiplier));
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+  --docsearch-searchbox-background: #fff !important;
 
   --navbar-color: #1a2b34;
 
@@ -46,6 +47,7 @@
   --ifm-color-primary-lightest: #8dcccd;
 
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+  --docsearch-searchbox-background: #000000a6 !important;
 }
 
 .button--primary:active,

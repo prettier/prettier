@@ -1,4 +1,15 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`descriptions-on-a-short-hand-query.graphql [graphql] format 1`] = `
+"Syntax Error: Unexpected description, descriptions are not supported on shorthand queries. (3:1)
+  1 | # https://github.com/graphql/graphql-js/pull/4482
+  2 |
+> 3 | """Invalid"""
+    | ^
+  4 | { __typename }
+  5 |
+Cause: Syntax Error: Unexpected description, descriptions are not supported on shorthand queries."
+`;
 
 exports[`type-interfaces.graphql [graphql] format 1`] = `
 "Syntax Error: Unexpected "|". (5:21)

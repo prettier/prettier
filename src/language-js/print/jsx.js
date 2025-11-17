@@ -6,16 +6,14 @@ import {
   hardline,
   ifBreak,
   indent,
+  isEmptyDoc,
   join,
   line,
   lineSuffixBoundary,
-  softline,
-} from "../../document/builders.js";
-import {
-  isEmptyDoc,
   replaceEndOfLine,
+  softline,
   willBreak,
-} from "../../document/utils.js";
+} from "../../document/index.js";
 import {
   printComments,
   printDanglingComments,
@@ -23,11 +21,11 @@ import {
 import getPreferredQuote from "../../utils/get-preferred-quote.js";
 import UnexpectedNodeError from "../../utils/unexpected-node-error.js";
 import WhitespaceUtils from "../../utils/whitespace-utils.js";
-import { willPrintOwnComments } from "../comments/printer-methods.js";
 import pathNeedsParens from "../needs-parens.js";
 import getRaw from "../utils/get-raw.js";
 import {
   CommentCheckFlags,
+  createTypeCheckFunction,
   hasComment,
   hasNodeIgnoreComment,
   isArrayExpression,
@@ -54,7 +52,7 @@ const isEmptyStringOrAnyLine = (doc) =>
 /**
  * @import AstPath from "../../common/ast-path.js"
  * @import {Node, JSXElement} from "../types/estree.js"
- * @import {Doc} from "../../document/builders.js"
+ * @import {Doc} from "../../document/index.js"
  */
 
 // JSX expands children from the inside-out, instead of the outside-in.
@@ -485,32 +483,28 @@ function separatorWithWhitespace(
   return hardline;
 }
 
-const NO_WRAP_PARENTS = new Set([
+const isNoWrapParent = createTypeCheckFunction([
   "ArrayExpression",
   "JSXAttribute",
   "JSXElement",
   "JSXExpressionContainer",
   "JSXFragment",
   "ExpressionStatement",
+  "NewExpression",
   "CallExpression",
   "OptionalCallExpression",
   "ConditionalExpression",
   "JsExpressionRoot",
+  "MatchExpressionCase",
 ]);
 function maybeWrapJsxElementInParens(path, elem, options) {
   const { parent } = path;
 
-  if (NO_WRAP_PARENTS.has(parent.type)) {
+  if (isNoWrapParent(parent)) {
     return elem;
   }
 
-  const shouldBreak = path.match(
-    undefined,
-    (node) => node.type === "ArrowFunctionExpression",
-    isCallExpression,
-    (node) => node.type === "JSXExpressionContainer",
-  );
-
+  const shouldBreak = shouldBreakJsxElement(path);
   const needsParens = pathNeedsParens(path, options);
 
   return group(
@@ -524,10 +518,34 @@ function maybeWrapJsxElementInParens(path, elem, options) {
   );
 }
 
+function shouldBreakJsxElement(path) {
+  return (
+    path.match(
+      undefined,
+      (node) => node.type === "ArrowFunctionExpression",
+      isCallExpression,
+    ) &&
+    // Babel
+    (path.match(
+      undefined,
+      undefined,
+      undefined,
+      (node) => node.type === "JSXExpressionContainer",
+    ) ||
+      // Estree
+      path.match(
+        undefined,
+        undefined,
+        undefined,
+        (node) => node.type === "ChainExpression",
+        (node) => node.type === "JSXExpressionContainer",
+      ))
+  );
+}
+
 function printJsxAttribute(path, options, print) {
   const { node } = path;
-  const parts = [];
-  parts.push(print("name"));
+  const parts = [print("name")];
 
   if (node.value) {
     let res;
@@ -597,18 +615,11 @@ function printJsxOpeningElement(path, options, print) {
   const { node } = path;
 
   const nameHasComments =
-    hasComment(node.name) ||
-    hasComment(node.typeParameters) ||
-    hasComment(node.typeArguments);
+    hasComment(node.name) || hasComment(node.typeArguments);
 
   // Don't break self-closing elements with no attributes and no comments
   if (node.selfClosing && node.attributes.length === 0 && !nameHasComments) {
-    return [
-      "<",
-      print("name"),
-      node.typeArguments ? print("typeArguments") : print("typeParameters"),
-      " />",
-    ];
+    return ["<", print("name"), print("typeArguments"), " />"];
   }
 
   // don't break up opening elements with a single long text attribute
@@ -631,7 +642,7 @@ function printJsxOpeningElement(path, options, print) {
     return group([
       "<",
       print("name"),
-      node.typeArguments ? print("typeArguments") : print("typeParameters"),
+      print("typeArguments"),
       " ",
       ...path.map(print, "attributes"),
       node.selfClosing ? " />" : ">",
@@ -653,7 +664,7 @@ function printJsxOpeningElement(path, options, print) {
     [
       "<",
       print("name"),
-      node.typeArguments ? print("typeArguments") : print("typeParameters"),
+      print("typeArguments"),
       indent(path.map(() => [attributeLine, print()], "attributes")),
       ...printEndOfOpeningTag(node, options, nameHasComments),
     ],
@@ -701,9 +712,8 @@ function shouldPrintBracketSameLine(node, options, nameHasComments) {
 
 function printJsxClosingElement(path, options, print) {
   const { node } = path;
-  const parts = [];
-
-  parts.push("</");
+  /** @type {Doc[]} */
+  const parts = ["</"];
 
   const printed = print("name");
   if (
@@ -723,7 +733,7 @@ function printJsxClosingElement(path, options, print) {
   return parts;
 }
 
-function printJsxOpeningClosingFragment(path, options /*, print*/) {
+function printJsxOpeningClosingFragment(path, options /* , print*/) {
   const { node } = path;
   const nodeHasComment = hasComment(node);
   const hasOwnLineComment = hasComment(node, CommentCheckFlags.Line);
@@ -752,7 +762,7 @@ function printJsxElement(path, options, print) {
   return maybeWrapJsxElementInParens(path, elem, options);
 }
 
-function printJsxEmptyExpression(path, options /*, print*/) {
+function printJsxEmptyExpression(path, options /* , print*/) {
   const { node } = path;
   const requiresHardline = hasComment(node, CommentCheckFlags.Line);
 
@@ -770,7 +780,7 @@ function printJsxSpreadAttributeOrChild(path, options, print) {
     path.call(
       ({ node }) => {
         const printed = ["...", print()];
-        if (!hasComment(node) || !willPrintOwnComments(path)) {
+        if (!hasComment(node)) {
           return printed;
         }
         return [
@@ -815,9 +825,9 @@ function printJsx(path, options, print) {
       return printJsxClosingElement(path, options, print);
     case "JSXOpeningFragment":
     case "JSXClosingFragment":
-      return printJsxOpeningClosingFragment(path, options /*, print*/);
+      return printJsxOpeningClosingFragment(path, options /* , print*/);
     case "JSXEmptyExpression":
-      return printJsxEmptyExpression(path, options /*, print*/);
+      return printJsxEmptyExpression(path, options /* , print*/);
     case "JSXText":
       /* c8 ignore next */
       throw new Error("JSXText should be handled by JSXElement");

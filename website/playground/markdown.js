@@ -40,6 +40,7 @@ function getMarkdownSyntax(options) {
   switch (options.parser) {
     case "babel":
     case "flow":
+    case "hermes":
     case "acorn":
     case "espree":
     case "meriyah":

@@ -1,7 +1,7 @@
 import url from "node:url";
 import eslintPluginJs from "@eslint/js";
 import eslintPluginEslintReact from "@eslint-react/eslint-plugin";
-import eslintPluginStylisticJs from "@stylistic/eslint-plugin-js";
+import eslintPluginStylistic from "@stylistic/eslint-plugin";
 import eslintPluginTypescriptEslint from "@typescript-eslint/eslint-plugin";
 import { isCI } from "ci-info";
 import eslintConfigPrettier from "eslint-config-prettier";
@@ -11,12 +11,13 @@ import eslintPluginRegexp from "eslint-plugin-regexp";
 import eslintPluginSimpleImportSort from "eslint-plugin-simple-import-sort";
 import eslintPluginUnicorn from "eslint-plugin-unicorn";
 import globals from "globals";
+import eslintConfigNodeStyleText from "node-style-text/eslint-config";
 import eslintPluginPrettierInternalRules from "./scripts/tools/eslint-plugin-prettier-internal-rules/index.js";
 
 const toPath = (file) => url.fileURLToPath(new URL(file, import.meta.url));
 
 const ignores = `
-.tmp
+**/.tmp
 test*.*
 # Ignore directories and files in 'tests/format'
 tests/format/**/*
@@ -39,17 +40,19 @@ scripts/benchmark/*/
   .split("\n")
   .filter((pattern) => pattern && !pattern.startsWith("#"));
 
-export default [
+const configs = [
+  { files: ["**/*.{js,mjs,cjs,jsx}"] },
   eslintPluginJs.configs.recommended,
   eslintPluginRegexp.configs["flat/recommended"],
   eslintPluginUnicorn.configs["flat/recommended"],
   eslintConfigPrettier,
+  eslintConfigNodeStyleText,
   {
     languageOptions: {
       globals: { ...globals.builtin, ...globals.node },
     },
     plugins: {
-      "@stylistic/js": eslintPluginStylisticJs,
+      "@stylistic": eslintPluginStylistic,
       "@typescript-eslint": eslintPluginTypescriptEslint,
       n: eslintPluginN,
       "prettier-internal-rules": eslintPluginPrettierInternalRules,
@@ -142,15 +145,18 @@ export default [
       "prettier-internal-rules/massage-ast-parameter-names": "error",
       "prettier-internal-rules/no-identifier-n": "error",
       "prettier-internal-rules/prefer-fs-promises-submodule": "error",
+      "prettier-internal-rules/no-useless-ast-path-callback-parameter": "error",
 
-      /* @stylistic/eslint-plugin-js */
-      "@stylistic/js/quotes": [
+      /* @stylistic/eslint-plugin */
+      "@stylistic/quotes": [
         "error",
         "double",
         {
           avoidEscape: true,
         },
       ],
+      "@stylistic/spaced-comment": "error",
+      "@stylistic/no-trailing-spaces": "error",
 
       /* @typescript-eslint/eslint-plugin */
       "@typescript-eslint/prefer-ts-expect-error": "error",
@@ -232,6 +238,8 @@ export default [
       "unicorn/no-array-callback-reference": "off",
       "unicorn/no-array-method-this-argument": "off",
       "unicorn/no-array-reduce": "off",
+      "unicorn/no-array-reverse": "off",
+      "unicorn/no-array-sort": "off",
       "unicorn/no-await-expression-member": "off",
       "unicorn/no-for-loop": "off",
       "unicorn/no-hex-escape": "off",
@@ -301,7 +309,11 @@ export default [
     },
   },
   {
-    files: ["scripts/**/*", "tests/config/install-prettier.js"],
+    files: [
+      "scripts/**/*",
+      "benchmarks/**",
+      "tests/config/install-prettier.js",
+    ],
     rules: {
       "no-console": "off",
     },
@@ -326,12 +338,12 @@ export default [
       globals: eslintPluginJest.environments.globals.globals,
     },
     rules: {
-      "@stylistic/js/quotes": [
+      "@stylistic/quotes": [
         "error",
         "double",
         {
           avoidEscape: true,
-          allowTemplateLiterals: true,
+          allowTemplateLiterals: "always",
         },
       ],
       "jest/valid-expect": [
@@ -356,7 +368,7 @@ export default [
     },
   },
   {
-    files: ["tests/**/*.js"],
+    files: ["tests/**/*.{js,cjs}"],
     languageOptions: {
       globals: {
         runCli: "readonly",
@@ -421,10 +433,12 @@ export default [
           functions: ["hasComment", "getComments"],
         },
         "src/language-js/pragma.js",
+        "src/language-js/parse/angular.js",
         "src/language-js/parse/babel.js",
         "src/language-js/parse/meriyah.js",
         "src/language-js/parse/json.js",
         "src/language-js/parse/acorn.js",
+        "src/language-js/parse/oxc.js",
         "src/language-js/parse/utils/wrap-babel-expression.js",
       ],
       "prettier-internal-rules/prefer-create-type-check-function": [
@@ -481,4 +495,15 @@ export default [
     files: ["scripts/build/esbuild-plugins/**/*"],
     rules: { "require-unicode-regexp": "off" },
   },
+  {
+    files: ["src/document/printer/printer.js"],
+    rules: {
+      "unicorn/prevent-abbreviations": [
+        "error",
+        { replacements: { doc: false } },
+      ],
+    },
+  },
 ];
+
+export default configs;

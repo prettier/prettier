@@ -6,9 +6,12 @@ import wrapBabelExpression from "../language-js/parse/utils/wrap-babel-expressio
 import isNonEmptyArray from "../utils/is-non-empty-array.js";
 
 const babelParseOptions = {
-  tokens: true,
-  ranges: true,
+  tokens: false,
+  // Ranges not available on comments, so we use `Node#{start,end}` instead
+  // https://github.com/babel/babel/issues/15115
+  ranges: false,
   attachComment: false,
+  createParenthesizedExpressions: true,
 };
 
 function parseEmptyJson(text) {
@@ -41,8 +44,7 @@ function parseJson(text, options = {}) {
     if (
       allowEmpty &&
       error.code === "BABEL_PARSER_SYNTAX_ERROR" &&
-      error.reasonCode === "UnexpectedToken" &&
-      error.pos === text.length
+      error.reasonCode === "ParseExpressionEmptyInput"
     ) {
       try {
         ast = parseEmptyJson(text);
@@ -56,9 +58,7 @@ function parseJson(text, options = {}) {
     }
   }
 
-  // @ts-expect-error
   if (!allowComments && isNonEmptyArray(ast.comments)) {
-    // @ts-expect-error
     throw createJsonError(ast.comments[0], "Comment");
   }
 
@@ -172,18 +172,16 @@ function assertJsonNode(node) {
   }
 }
 
-const jsonParsers = {
-  json: createParser({
-    parse: (text) => parseJson(text),
-    hasPragma: () => true,
-    hasIgnorePragma: () => false,
-  }),
-  json5: createParser((text) => parseJson(text)),
-  jsonc: createParser((text) => parseJson(text, { allowEmpty: true })),
-  "json-stringify": createParser({
-    parse: (text) => parseJson(text, { allowComments: false }),
-    astFormat: "estree-json",
-  }),
-};
+const json = createParser({
+  parse: (text) => parseJson(text),
+  hasPragma: () => true,
+  hasIgnorePragma: () => false,
+});
+const json5 = createParser((text) => parseJson(text));
+const jsonc = createParser((text) => parseJson(text, { allowEmpty: true }));
+const jsonStringify = createParser({
+  parse: (text) => parseJson(text, { allowComments: false }),
+  astFormat: "estree-json",
+});
 
-export default jsonParsers;
+export { json, json5, jsonc, jsonStringify as "json-stringify" };

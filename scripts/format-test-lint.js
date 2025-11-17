@@ -34,7 +34,7 @@ async function* checkDirectory(directory) {
 
   for (const dirent of files) {
     if (dirent.isDirectory() && dirent.name !== SNAPSHOTS_DIRECTORY_NAME) {
-      yield* checkDirectory(path.join(dirent.path, dirent.name));
+      yield* checkDirectory(path.join(dirent.parentPath, dirent.name));
     }
   }
 }

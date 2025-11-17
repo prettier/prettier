@@ -1,7 +1,7 @@
-import { group, indent, softline } from "../../document/builders.js";
+import { group, indent, softline } from "../../document/index.js";
 
 /**
- * @import {Doc} from "../../document/builders.js"
+ * @import {Doc} from "../../document/index.js"
  */
 
 function printExpand(doc, canHaveTrailingWhitespace = true) {

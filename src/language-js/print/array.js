@@ -6,7 +6,7 @@ import {
   indent,
   line,
   softline,
-} from "../../document/builders.js";
+} from "../../document/index.js";
 import { printDanglingComments } from "../../main/comments/print.js";
 import hasNewline from "../../utils/has-newline.js";
 import isNextLineEmptyAfterIndex from "../../utils/is-next-line-empty.js";
@@ -25,7 +25,7 @@ import {
 import { printOptionalToken } from "./misc.js";
 import { printTypeAnnotationProperty } from "./type-annotation.js";
 
-/** @import {Doc} from "../../document/builders.js" */
+/** @import {Doc} from "../../document/index.js" */
 
 function printEmptyArrayElements(path, options, openBracket, closeBracket) {
   const { node } = path;
@@ -156,7 +156,7 @@ function printArray(path, options, print) {
 function isConciselyPrintedArray(node, options) {
   return (
     isArrayExpression(node) &&
-    node.elements.length > 1 &&
+    node.elements.length > 0 &&
     node.elements.every(
       (element) =>
         element &&
@@ -175,15 +175,24 @@ function isConciselyPrintedArray(node, options) {
 }
 
 function isLineAfterElementEmpty({ node }, { originalText: text }) {
-  const skipComment = (idx) =>
-    skipInlineComment(text, skipTrailingComment(text, idx));
+  let currentIdx = locEnd(node);
+  if (currentIdx === locStart(node)) {
+    return false;
+  }
 
-  const skipToComma = (currentIdx) =>
-    text[currentIdx] === ","
-      ? currentIdx
-      : skipToComma(skipComment(currentIdx + 1));
+  const { length } = text;
+  while (currentIdx < length) {
+    if (text[currentIdx] === ",") {
+      break;
+    }
 
-  return isNextLineEmptyAfterIndex(text, skipToComma(locEnd(node)));
+    currentIdx = skipInlineComment(
+      text,
+      skipTrailingComment(text, currentIdx + 1),
+    );
+  }
+
+  return isNextLineEmptyAfterIndex(text, currentIdx);
 }
 
 function printArrayElements(path, options, print, elementsProperty, inexact) {

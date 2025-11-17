@@ -38,3 +38,6 @@ class c extends d
 class C2  // comment
 extends Base
 {  foo(){} }
+
+(class A10 extends /* a */ /* prettier-ignore */B {});
+class A10 extends /* a */ /* prettier-ignore */B {}

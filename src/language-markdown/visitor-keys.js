@@ -1,5 +1,4 @@
 const visitorKeys = {
-  "front-matter": [],
   root: ["children"],
   paragraph: ["children"],
   sentence: ["children"],

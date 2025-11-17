@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`0-indent-js.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
@@ -30,9 +30,7 @@ proseWrap: "always"
 
 =====================================output=====================================
 - 1
-
   - 2
-
     - 3
 
       \`\`\`js

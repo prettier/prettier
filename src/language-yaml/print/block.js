@@ -1,4 +1,4 @@
-/** @import {Doc} from "../../document/builders.js" */
+/** @import {Doc} from "../../document/index.js" */
 
 import {
   dedent,
@@ -9,7 +9,7 @@ import {
   line,
   literalline,
   markAsRoot,
-} from "../../document/builders.js";
+} from "../../document/index.js";
 import {
   getBlockValueLineContents,
   hasIndicatorComment,

@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`new-signature.ts format 1`] = `
 ====================================options=====================================
@@ -137,6 +137,56 @@ interface TimerConstructor {
   // Line-splitting comment
   new (interval: number, callback: (handler: Timer) => void): Timer;
 }
+
+================================================================================
+`;
+
+exports[`with-member-expression.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+foo = new long_long_member.long_long_member.long_long_member.long_long_member.long_long_member();
+new long_long_member.long_long_member.long_long_member.long_long_member.long_long_member();
+new long_long_member.long_long_member.long_long_member.long_long_member.long_long_member(x);
+foo = new long_long_member!.long_long_member.long_long_member.long_long_member.long_long_member();
+new long_long_member!.long_long_member.long_long_member.long_long_member.long_long_member();
+new long_long_member!.long_long_member.long_long_member.long_long_member.long_long_member(x);
+
+foo = long_long_member.long_long_member.long_long_member.long_long_member.long_long_member();
+long_long_member.long_long_member.long_long_member.long_long_member.long_long_member();
+long_long_member.long_long_member.long_long_member.long_long_member.long_long_member(x);
+foo = long_long_member!.long_long_member.long_long_member.long_long_member.long_long_member();
+long_long_member!.long_long_member.long_long_member.long_long_member.long_long_member();
+long_long_member!.long_long_member.long_long_member.long_long_member.long_long_member(x);
+
+=====================================output=====================================
+foo =
+  new long_long_member.long_long_member.long_long_member.long_long_member.long_long_member();
+new long_long_member.long_long_member.long_long_member.long_long_member.long_long_member();
+new long_long_member.long_long_member.long_long_member.long_long_member.long_long_member(
+  x,
+);
+foo =
+  new long_long_member!.long_long_member.long_long_member.long_long_member.long_long_member();
+new long_long_member!.long_long_member.long_long_member.long_long_member.long_long_member();
+new long_long_member!.long_long_member.long_long_member.long_long_member.long_long_member(
+  x,
+);
+
+foo =
+  long_long_member.long_long_member.long_long_member.long_long_member.long_long_member();
+long_long_member.long_long_member.long_long_member.long_long_member.long_long_member();
+long_long_member.long_long_member.long_long_member.long_long_member.long_long_member(
+  x,
+);
+foo =
+  long_long_member!.long_long_member.long_long_member.long_long_member.long_long_member();
+long_long_member!.long_long_member.long_long_member.long_long_member.long_long_member();
+long_long_member!.long_long_member.long_long_member.long_long_member.long_long_member(
+  x,
+);
 
 ================================================================================
 `;

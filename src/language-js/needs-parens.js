@@ -431,8 +431,12 @@ function needsParens(path, options) {
             return true;
           }
 
-          if (parentPrecedence < precedence && operator === "%") {
-            return parentOperator === "+" || parentOperator === "-";
+          if (
+            parentPrecedence < precedence &&
+            operator === "%" &&
+            (parentOperator === "+" || parentOperator === "-")
+          ) {
+            return true;
           }
 
           // Add parenthesis when working with bitwise operators
@@ -621,6 +625,7 @@ function needsParens(path, options) {
     case "UnionTypeAnnotation":
       return (
         parent.type === "TypeOperator" ||
+        parent.type === "KeyofTypeAnnotation" ||
         parent.type === "ArrayTypeAnnotation" ||
         parent.type === "NullableTypeAnnotation" ||
         parent.type === "IntersectionTypeAnnotation" ||
@@ -659,12 +664,15 @@ function needsParens(path, options) {
         return true;
       }
 
-      /* Matches the following case in Flow:
-         ```
-         const a = (x: any): x is (number => string) => true;
-         ```
-         This case is not necessary in TS since `number => string` is not a valid
-         arrow type there.
+      /*
+      Matches the following case in Flow:
+
+      ```
+      const a = (x: any): x is (number => string) => true;
+      ```
+
+      This case is not necessary in TS since `number => string` is not a valid
+      arrow type there.
       */
       if (
         path.match(
@@ -718,7 +726,7 @@ function needsParens(path, options) {
       if (
         typeof node.value === "string" &&
         parent.type === "ExpressionStatement" &&
-        !parent.directive
+        typeof parent.directive !== "string"
       ) {
         // To avoid becoming a directive
         const grandParent = path.grandparent;
@@ -874,7 +882,11 @@ function needsParens(path, options) {
         case "LogicalExpression":
         case "AwaitExpression":
         case "TSTypeAssertion":
+        case "MatchExpressionCase":
           return true;
+
+        case "TSInstantiationExpression":
+          return key === "expression";
 
         case "ConditionalExpression":
           return key === "test";
@@ -982,11 +994,15 @@ function needsParens(path, options) {
           parent.type !== "ThrowStatement" &&
           parent.type !== "TypeCastExpression" &&
           parent.type !== "VariableDeclarator" &&
-          parent.type !== "YieldExpression")
+          parent.type !== "YieldExpression" &&
+          parent.type !== "MatchExpressionCase")
       );
 
     case "TSInstantiationExpression":
       return key === "object" && isMemberExpression(parent);
+
+    case "MatchOrPattern":
+      return parent.type === "MatchAsPattern";
   }
 
   return false;

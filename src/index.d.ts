@@ -479,12 +479,18 @@ export interface Parser<T = any> {
   locStart: (node: T) => number;
   locEnd: (node: T) => number;
   preprocess?:
-    | ((text: string, options: ParserOptions<T>) => string)
+    | ((text: string, options: ParserOptions<T>) => string | Promise<string>)
     | undefined;
 }
 
 export interface Printer<T = any> {
   print(
+    path: AstPath<T>,
+    options: ParserOptions<T>,
+    print: (path: AstPath<T>) => Doc,
+    args?: unknown,
+  ): Doc;
+  printPrettierIgnored?(
     path: AstPath<T>,
     options: ParserOptions<T>,
     print: (path: AstPath<T>) => Doc,
@@ -519,7 +525,7 @@ export interface Printer<T = any> {
     | ((original: any, cloned: any, parent: any) => any)
     | undefined;
   hasPrettierIgnore?: ((path: AstPath<T>) => boolean) | undefined;
-  canAttachComment?: ((node: T) => boolean) | undefined;
+  canAttachComment?: ((node: T, ancestors: T[]) => boolean) | undefined;
   isBlockComment?: ((node: T) => boolean) | undefined;
   willPrintOwnComments?: ((path: AstPath<T>) => boolean) | undefined;
   printComment?:
@@ -666,7 +672,6 @@ export function clearConfigCache(): Promise<void>;
 
 export interface SupportLanguage {
   name: string;
-  since?: string | undefined;
   parsers: BuiltInParserName[] | string[];
   group?: string | undefined;
   tmScope?: string | undefined;
@@ -679,7 +684,7 @@ export interface SupportLanguage {
   linguistLanguageId?: number | undefined;
   vscodeLanguageIds?: string[] | undefined;
   interpreters?: string[] | undefined;
-  isSupported?: ((file: string) => boolean) | undefined;
+  isSupported?: ((options: { filepath: string }) => boolean) | undefined;
 }
 
 export interface SupportOptionRange {
@@ -771,7 +776,6 @@ export interface ChoiceSupportOption<Value = any>
   default?: Value | Array<{ value: Value }> | undefined;
   description: string;
   choices: Array<{
-    since?: string | undefined;
     value: Value;
     description: string;
   }>;

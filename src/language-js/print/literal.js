@@ -1,4 +1,4 @@
-import { replaceEndOfLine } from "../../document/utils.js";
+import { replaceEndOfLine } from "../../document/index.js";
 import printNumber from "../../utils/print-number.js";
 import printString from "../../utils/print-string.js";
 
@@ -6,7 +6,7 @@ import printString from "../../utils/print-string.js";
  * @import {Node} from "../types/estree.js"
  */
 
-function printLiteral(path, options /*, print*/) {
+function printLiteral(path, options /* , print*/) {
   const { node } = path;
 
   switch (node.type) {
@@ -55,7 +55,10 @@ function isDirective(path) {
   }
 
   const { parent } = path;
-  return parent.type === "ExpressionStatement" && parent.directive;
+  return (
+    parent.type === "ExpressionStatement" &&
+    typeof parent.directive === "string"
+  );
 }
 
 function printBigInt(raw) {

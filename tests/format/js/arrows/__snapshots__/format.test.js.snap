@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`array-and-object.js - {"arrowParens":"always"} format 1`] = `
 ====================================options=====================================
@@ -4390,6 +4390,60 @@ const myCurriedFn = arg1 =>
 
 =====================================output=====================================
 const myCurriedFn = arg1 => arg2 => arg3 => arg1 + arg2 + arg3;
+
+================================================================================
+`;
+
+exports[`issue-10814.js - {"arrowParens":"always"} format 1`] = `
+====================================options=====================================
+arrowParens: "always"
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const fastifyLoggerOptions = async (
+  fastify,
+  { skip2xxHttpLogging = false },
+  // eslint-disable-next-line require-await
+) => {
+  const middleware = getMiddleware(skip2xxHttpLogging);
+};
+
+=====================================output=====================================
+const fastifyLoggerOptions = async (
+  fastify,
+  { skip2xxHttpLogging = false },
+  // eslint-disable-next-line require-await
+) => {
+  const middleware = getMiddleware(skip2xxHttpLogging);
+};
+
+================================================================================
+`;
+
+exports[`issue-10814.js - {"arrowParens":"avoid"} format 1`] = `
+====================================options=====================================
+arrowParens: "avoid"
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const fastifyLoggerOptions = async (
+  fastify,
+  { skip2xxHttpLogging = false },
+  // eslint-disable-next-line require-await
+) => {
+  const middleware = getMiddleware(skip2xxHttpLogging);
+};
+
+=====================================output=====================================
+const fastifyLoggerOptions = async (
+  fastify,
+  { skip2xxHttpLogging = false },
+  // eslint-disable-next-line require-await
+) => {
+  const middleware = getMiddleware(skip2xxHttpLogging);
+};
 
 ================================================================================
 `;

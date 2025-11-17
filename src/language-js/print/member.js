@@ -1,4 +1,4 @@
-import { group, indent, label, softline } from "../../document/builders.js";
+import { group, indent, label, softline } from "../../document/index.js";
 import {
   getCallArguments,
   isCallExpression,
@@ -13,6 +13,25 @@ const isCallExpressionWithArguments = (node) => {
   }
   return isCallExpression(node) && getCallArguments(node).length > 0;
 };
+
+function shouldInlineNewExpressionCallee(path) {
+  let { node: child, ancestors } = path;
+  for (const ancestor of ancestors) {
+    if (
+      !(
+        (isMemberExpression(ancestor) && ancestor.object === child) ||
+        (ancestor.type === "TSNonNullExpression" &&
+          ancestor.expression === child)
+      )
+    ) {
+      return ancestor.type === "NewExpression" && ancestor.callee === child;
+    }
+
+    child = ancestor;
+  }
+
+  return false;
+}
 
 function printMemberExpression(path, options, print) {
   const objectDoc = print("object");
@@ -29,10 +48,10 @@ function printMemberExpression(path, options, print) {
 
   const shouldInline =
     (firstNonMemberParent &&
-      (firstNonMemberParent.type === "NewExpression" ||
-        firstNonMemberParent.type === "BindExpression" ||
+      (firstNonMemberParent.type === "BindExpression" ||
         (firstNonMemberParent.type === "AssignmentExpression" &&
           firstNonMemberParent.left.type !== "Identifier"))) ||
+    shouldInlineNewExpressionCallee(path) ||
     node.computed ||
     (node.object.type === "Identifier" &&
       node.property.type === "Identifier" &&

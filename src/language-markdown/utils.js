@@ -1,4 +1,4 @@
-import assert from "node:assert/strict";
+import * as assert from "#universal/assert";
 import { CJK_REGEXP, PUNCTUATION_REGEXP } from "./constants.evaluate.js";
 import { locEnd, locStart } from "./loc.js";
 

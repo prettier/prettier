@@ -29,25 +29,21 @@ function handleError(context, filename, error, printedFilename, ignoreUnknown) {
   const errorIsUndefinedParseError =
     error instanceof errors.UndefinedParserError;
 
-  if (printedFilename) {
+  if (errorIsUndefinedParseError && ignoreUnknown) {
     // Can't test on CI, `isTTY` is always false, see comments in `formatFiles`
-    /* c8 ignore next 3 */
-    if ((context.argv.write || ignoreUnknown) && errorIsUndefinedParseError) {
-      printedFilename.clear();
-    } else {
-      // Add newline to split errors from filename line.
-      process.stdout.write("\n");
-    }
+    printedFilename?.clear();
+
+    return true;
+  }
+
+  if (printedFilename) {
+    // Add newline to split errors from filename line.
+    process.stdout.write("\n");
   }
 
   if (errorIsUndefinedParseError) {
-    if (ignoreUnknown) {
-      return;
-    }
-    if (!context.argv.check && !context.argv.listDifferent) {
-      process.exitCode = 2;
-    }
     context.logger.error(error.message);
+    process.exitCode = 2;
     return;
   }
 
@@ -280,6 +276,7 @@ async function formatFiles(context) {
   const cwd = process.cwd();
 
   let numberOfUnformattedFilesFound = 0;
+  let numberOfFilesWithError = 0;
   const { performanceTestFlag } = context;
 
   if (context.argv.check && !performanceTestFlag) {
@@ -383,13 +380,18 @@ async function formatFiles(context) {
       }
       output = result.formatted;
     } catch (error) {
-      handleError(
+      const errorIsIgnored = handleError(
         context,
         fileNameToDisplay,
         error,
         printedFilename,
         ignoreUnknown,
       );
+
+      if (!errorIsIgnored) {
+        numberOfFilesWithError += 1;
+      }
+
       continue;
     }
 
@@ -467,7 +469,15 @@ async function formatFiles(context) {
 
   // Print check summary based on expected exit code
   if (context.argv.check) {
-    if (numberOfUnformattedFilesFound === 0) {
+    if (numberOfFilesWithError > 0) {
+      const files =
+        numberOfFilesWithError === 1
+          ? "the above file"
+          : `${numberOfFilesWithError} files`;
+      context.logger.log(
+        `Error occurred when checking code style in ${files}.`,
+      );
+    } else if (numberOfUnformattedFilesFound === 0) {
       context.logger.log("All matched files use Prettier code style!");
     } else {
       const files =

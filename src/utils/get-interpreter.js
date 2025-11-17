@@ -1,4 +1,3 @@
-import fs from "node:fs";
 import readlines from "n-readlines";
 
 /**
@@ -6,17 +5,17 @@ import readlines from "n-readlines";
  * @returns {string | undefined}
  */
 function getInterpreter(file) {
-  let fd;
   try {
-    fd = fs.openSync(file, "r");
-  } catch {
-    /* c8 ignore next */
-    return;
-  }
+    const liner = new readlines(file);
+    const firstLineBuffer = liner.next();
 
-  try {
-    const liner = new readlines(fd);
-    const firstLine = liner.next().toString("utf8");
+    if (firstLineBuffer === false) {
+      return;
+    }
+
+    liner.close();
+
+    const firstLine = firstLineBuffer.toString("utf8");
 
     // #!/bin/env node, #!/usr/bin/env node
     const m1 = firstLine.match(/^#!\/(?:usr\/)?bin\/env\s+(\S+)/u);
@@ -29,14 +28,8 @@ function getInterpreter(file) {
     if (m2) {
       return m2[1];
     }
-  } finally {
-    try {
-      // There are some weird cases where paths are missing, causing Jest
-      // failures. It's unclear what these correspond to in the real world.
-      fs.closeSync(fd);
-    } catch {
-      // noop
-    }
+  } catch {
+    // couldn't open the file
   }
 }
 

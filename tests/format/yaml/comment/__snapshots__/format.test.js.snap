@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`collection.yml format 1`] = `
 ====================================options=====================================
@@ -249,6 +249,72 @@ printWidth: 80
 
   # baz: 3
 - quux: 3
+
+================================================================================
+`;
+
+exports[`issue-10922.yml format 1`] = `
+====================================options=====================================
+parsers: ["yaml"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+foo: bar
+
+# End Comment - Don't remove previous empty line
+
+=====================================output=====================================
+foo: bar
+
+# End Comment - Don't remove previous empty line
+
+================================================================================
+`;
+
+exports[`issue-16074.yml format 1`] = `
+====================================options=====================================
+parsers: ["yaml"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+---
+myDict: {}
+  # exampleKey1: value
+  # exampleKey2: value
+
+myList: []
+  # - name: example
+  #   value: example
+
+myOtherMap:
+  1: example
+  2: example
+  # 3: example
+
+myOtherList:
+  - example1
+  - example2
+  # - example3
+
+=====================================output=====================================
+---
+myDict: {}
+  # exampleKey1: value
+  # exampleKey2: value
+
+myList: []
+  # - name: example
+  #   value: example
+
+myOtherMap:
+  1: example
+  2: example
+  # 3: example
+
+myOtherList:
+  - example1
+  - example2
+  # - example3
 
 ================================================================================
 `;

@@ -6,9 +6,9 @@ import {
   indent,
   indentIfBreak,
   line,
+  replaceEndOfLine,
   softline,
-} from "../../document/builders.js";
-import { replaceEndOfLine } from "../../document/utils.js";
+} from "../../document/index.js";
 import getNodeContent from "../get-node-content.js";
 import {
   forceBreakContent,
@@ -60,8 +60,8 @@ function printElement(path, options, print) {
    */
   const shouldHugContent =
     node.children.length === 1 &&
-    (node.firstChild.type === "interpolation" ||
-      node.firstChild.type === "angularIcuExpression") &&
+    (node.firstChild.kind === "interpolation" ||
+      node.firstChild.kind === "angularIcuExpression") &&
     node.firstChild.isLeadingSpaceSensitive &&
     !node.firstChild.hasLeadingSpaces &&
     node.lastChild.isTrailingSpaceSensitive &&
@@ -82,7 +82,7 @@ function printElement(path, options, print) {
     }
     if (
       (isScriptLikeTag(node, options) || isVueCustomBlock(node, options)) &&
-      node.parent.type === "root" &&
+      node.parent.kind === "root" &&
       options.parser === "vue" &&
       !options.vueIndentScriptAndStyle
     ) {
@@ -102,7 +102,7 @@ function printElement(path, options, print) {
       return line;
     }
     if (
-      node.firstChild.type === "text" &&
+      node.firstChild.kind === "text" &&
       node.isWhitespaceSensitive &&
       node.isIndentationSensitive
     ) {
@@ -134,12 +134,12 @@ function printElement(path, options, print) {
       return line;
     }
     if (
-      (node.lastChild.type === "comment" ||
-        (node.lastChild.type === "text" &&
+      (node.lastChild.kind === "comment" ||
+        (node.lastChild.kind === "text" &&
           node.isWhitespaceSensitive &&
           node.isIndentationSensitive)) &&
       new RegExp(
-        `\\n[\\t ]{${options.tabWidth * (path.ancestors.length - 1)}}$`,
+        String.raw`\n[\t ]{${options.tabWidth * (path.ancestors.length - 1)}}$`,
         "u",
       ).test(node.lastChild.value)
     ) {

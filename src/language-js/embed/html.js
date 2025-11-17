@@ -4,8 +4,8 @@ import {
   indent,
   label,
   line,
-} from "../../document/builders.js";
-import { mapDoc } from "../../document/utils.js";
+  mapDoc,
+} from "../../document/index.js";
 import {
   printTemplateExpressions,
   uncookTemplateElementValue,
@@ -106,7 +106,7 @@ async function printEmbedHtmlLike(parser, textToDoc, print, path, options) {
  *     - html`...`
  *     - HTML comment block
  */
-function isHtml(path) {
+function isEmbedHtml(path) {
   return (
     hasLanguageComment(path, "HTML") ||
     path.match(
@@ -123,14 +123,9 @@ function isHtml(path) {
 const printEmbedHtml = printEmbedHtmlLike.bind(undefined, "html");
 const printEmbedAngular = printEmbedHtmlLike.bind(undefined, "angular");
 
-function printHtml(path /*, options*/) {
-  if (isHtml(path)) {
-    return printEmbedHtml;
-  }
-
-  if (isAngularComponentTemplate(path)) {
-    return printEmbedAngular;
-  }
-}
-
-export default printHtml;
+export {
+  isAngularComponentTemplate,
+  isEmbedHtml,
+  printEmbedAngular,
+  printEmbedHtml,
+};

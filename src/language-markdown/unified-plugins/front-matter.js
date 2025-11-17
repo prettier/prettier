@@ -1,4 +1,4 @@
-import parseFrontMatter from "../../utils/front-matter/parse.js";
+import { parseFrontMatter } from "../../main/front-matter/index.js";
 
 /** @import {Plugin, Settings} from "unified" */
 
@@ -11,10 +11,10 @@ const frontMatter = function () {
   proto.blockTokenizers.frontMatter = tokenizer;
 
   function tokenizer(eat, value) {
-    const parsed = parseFrontMatter(value);
+    const { frontMatter } = parseFrontMatter(value);
 
-    if (parsed.frontMatter) {
-      return eat(parsed.frontMatter.raw)(parsed.frontMatter);
+    if (frontMatter) {
+      return eat(frontMatter.raw)({ ...frontMatter, type: "frontMatter" });
     }
   }
   tokenizer.onlyAtStart = true;

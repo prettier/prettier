@@ -1,4 +1,102 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`10260.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+type A = (
+    /** @deprecated */
+    () => void
+);
+type B = (
+	/** @deprecated */
+	new () => void
+);
+type C = (
+	/** @deprecated */
+	<T>() => void
+);
+type D = (
+	/** @deprecated */
+	new <T>() => void
+);
+
+type A2 = (
+    /** comment */
+    () => void
+);
+type B2 = (
+	/** comment */
+	new () => void
+);
+type C2 = (
+	/** comment */
+	<T>() => void
+);
+type D2 = (
+	/** comment */
+	new <T>() => void
+);
+
+=====================================output=====================================
+type A =
+  /** @deprecated */
+  () => void;
+type B =
+  /** @deprecated */
+  new () => void;
+type C =
+  /** @deprecated */
+  <T>() => void;
+type D =
+  /** @deprecated */
+  new <T>() => void;
+
+type A2 =
+  /** comment */
+  () => void;
+type B2 =
+  /** comment */
+  new () => void;
+type C2 =
+  /** comment */
+  <T>() => void;
+type D2 =
+  /** comment */
+  new <T>() => void;
+
+================================================================================
+`;
+
+exports[`11662.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+foo<a>
+  // TEST
+  // 1
+  // 2
+  // 3
+  // 4
+  // 5
+  \`x\`
+
+=====================================output=====================================
+foo<a>
+// TEST
+// 1
+// 2
+// 3
+// 4
+// 5
+\`x\`;
+
+================================================================================
+`;
 
 exports[`15707.ts format 1`] = `
 ====================================options=====================================
@@ -218,6 +316,91 @@ class Foo {
     readonly /* comment */ parameterProperty,
   ) {}
 }
+
+================================================================================
+`;
+
+exports[`16121.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+export type IntersectionType =
+  & FirstPart
+  // Presence of comment makes this non-idempotent
+  & {
+    an: string,
+    object: string,
+    type: string,
+  }
+
+
+export type IntersectionType =
+  & FirstPart
+  // Comment Line 1
+  // Comment Line 2
+  & {
+    an: string,
+    object: string,
+    type: string,
+  }
+
+export type IntersectionType =
+  | FirstPart
+  // Presence of comment is not a problem
+  | {
+      an: string;
+      object: string;
+      type: string;
+    };
+
+export type IntersectionType =
+  | FirstPart
+  // Comment Line 1
+  // Comment Line 2
+  | {
+      an: string;
+      object: string;
+      type: string;
+    };
+
+=====================================output=====================================
+export type IntersectionType = FirstPart &
+  // Presence of comment makes this non-idempotent
+  {
+    an: string;
+    object: string;
+    type: string;
+  };
+
+export type IntersectionType = FirstPart &
+  // Comment Line 1
+  // Comment Line 2
+  {
+    an: string;
+    object: string;
+    type: string;
+  };
+
+export type IntersectionType =
+  | FirstPart
+  // Presence of comment is not a problem
+  | {
+      an: string;
+      object: string;
+      type: string;
+    };
+
+export type IntersectionType =
+  | FirstPart
+  // Comment Line 1
+  // Comment Line 2
+  | {
+      an: string;
+      object: string;
+      type: string;
+    };
 
 ================================================================================
 `;
@@ -838,6 +1021,12 @@ type L = { [l in L /* commentL */]: string }
 
 type M = { [m in M] /* commentG */: string }
 
+// https://github.com/excalidraw/excalidraw/blob/712f2675195ace8d507f563ec4306efe319b3c84/packages/common/src/utility-types.ts#L61-L64
+type MakeBrand<T extends string> = {
+  /** @private using ~ to sort last in intellisense */
+  [K in \`~brand~\${T}\`]: T;
+};
+
 =====================================output=====================================
 type A = {
   // commentA
@@ -845,7 +1034,8 @@ type A = {
 };
 
 type B = {
-  /* commentB */ [b in B]: string;
+  /* commentB */
+  [b in B]: string;
 };
 
 type C = {
@@ -879,6 +1069,12 @@ type K = { [k in /* commentK */ K]: string };
 type L = { [l in L /* commentL */]: string };
 
 type M = { [m in M /* commentG */]: string };
+
+// https://github.com/excalidraw/excalidraw/blob/712f2675195ace8d507f563ec4306efe319b3c84/packages/common/src/utility-types.ts#L61-L64
+type MakeBrand<T extends string> = {
+  /** @private using ~ to sort last in intellisense */
+  [K in \`~brand~\${T}\`]: T;
+};
 
 ================================================================================
 `;
@@ -932,8 +1128,8 @@ abstract class Test {
 =====================================output=====================================
 interface foo1 {
   bar3 /* foo */(/* baz */); // bat
-  bar /* foo */ /* bar */?(/* baz */) /* bat */;
-  bar2 /* foo */(/* baz */) /* bat */;
+  bar /* foo */ /* bar */?(/* baz */); /* bat */
+  bar2 /* foo */(/* baz */); /* bat */
 }
 
 interface foo2 {
@@ -1155,55 +1351,20 @@ printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
 functionName<A /* A comment */>();
-const a: T</* comment */> = 1;
-functionName</* comment */>();
-function foo</* comment */>() {}
-interface Foo {
- </* comment */>(arg): any;
-}
-type T = </* comment */>(arg) => any;
 
 functionName<
   A // comment
 >();
-const a: T<
-  // comment
-> = 1;
-functionName<
-  // comment
->();
-function foo<
-  // comment
->() {}
 interface Foo {
  <
   A// comment
  >(arg): any;
 }
-type T = <
-  // comment
->(arg) => any;
 
 =====================================output=====================================
 functionName<A /* A comment */>();
-const a: T</* comment */> = 1;
-functionName</* comment */>();
-function foo</* comment */>() {}
-interface Foo {
-  </* comment */>(arg): any;
-}
-type T = </* comment */>(arg) => any;
 
 functionName<A>(); // comment
-const a: T<
-  // comment
-> = 1;
-functionName<
-  // comment
->();
-function foo<
-  // comment
->() {}
 interface Foo {
   <
     A, // comment
@@ -1211,11 +1372,6 @@ interface Foo {
     arg,
   ): any;
 }
-type T = <
-  // comment
->(
-  arg,
-) => any;
 
 ================================================================================
 `;
