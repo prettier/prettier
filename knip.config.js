@@ -15,7 +15,6 @@ const config = {
         "src/experimental-cli/index.js",
         "packages/plugin-oxc/index.js",
         "packages/plugin-hermes/index.js",
-        "benchmarks/**",
       ],
       project: ["src/**", "scripts/**", "benchmark/**"],
       ignore: [
@@ -26,7 +25,6 @@ const config = {
         "src/universal/*.browser.js",
       ],
       ignoreDependencies: [
-        "eslint-formatter-friendly",
         "ts-expect",
         "buffer",
         "deno-path-from-file-url",
