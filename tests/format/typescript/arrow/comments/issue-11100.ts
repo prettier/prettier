@@ -16,3 +16,8 @@ const fn7 = (a) => /*
 Multiple line
 */
 null;
+
+const fn8 = () => /*
+Multiple line
+*/
+null;
