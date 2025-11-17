@@ -14,7 +14,7 @@ type Foo = {
 
 =====================================output=====================================
 type Foo = {
-  bar:  // test
+  bar: // test
     | { loooooooooooooooooongPropName1: string }
     | { loooooooooooooooooongPropName2: string },
 };

@@ -69,7 +69,7 @@ export interface DirectiveArgumentNode extends ArrayExpression {
 
 =====================================output=====================================
 export interface DirectiveArgumentNode extends ArrayExpression {
-  elements:  // dir, exp, arg, modifiers
+  elements: // dir, exp, arg, modifiers
     | [string]
     | [string, ExpressionNode]
     | [string, ExpressionNode, ExpressionNode]

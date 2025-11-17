@@ -1118,7 +1118,7 @@ function handlePropertySignatureComments({
     enclosingNode &&
     (enclosingNode.type === "TSPropertySignature" ||
       enclosingNode.type === "ObjectTypeProperty") &&
-    isIntersectionType(followingNode)
+    (isUnionType(followingNode) || isIntersectionType(followingNode))
   ) {
     addLeadingComment(followingNode, comment);
     return true;
