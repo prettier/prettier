@@ -1,4 +1,4 @@
-import { hardline, indent, join } from "../document/builders.js";
+import { hardline, indent, join } from "../document/index.js";
 import UnexpectedNodeError from "../utils/unexpected-node-error.js";
 
 function genericPrint(path, options, print) {

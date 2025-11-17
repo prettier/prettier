@@ -1,4 +1,4 @@
-import { hardline, indent } from "../../document/builders.js";
+import { hardline, indent } from "../../document/index.js";
 import { printDanglingComments } from "../../main/comments/print.js";
 import isNonEmptyArray from "../../utils/is-non-empty-array.js";
 import {
@@ -8,7 +8,7 @@ import {
 } from "../utils/index.js";
 import { printStatementSequence } from "./statement.js";
 
-/** @import {Doc} from "../../document/builders.js" */
+/** @import {Doc} from "../../document/index.js" */
 
 /*
 - `Program`

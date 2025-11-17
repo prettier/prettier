@@ -15,9 +15,9 @@ import isNodeMatches from "./is-node-matches.js";
 import isTsKeywordType from "./is-ts-keyword-type.js";
 
 /**
- * @import * as Estree from "../types/estree.js"
- * @import AstPath from "../../common/ast-path.js"
- */
+@import * as Estree from "../types/estree.js"
+@import AstPath from "../../common/ast-path.js"
+*/
 
 /**
  * @param {Estree.Node} node
@@ -298,12 +298,8 @@ function isSimpleType(node) {
     isTsKeywordType(node) ||
     isFlowKeywordType(node) ||
     isSimpleTypeAnnotation(node) ||
-    ((node.type === "GenericTypeAnnotation" ||
-      node.type === "TSTypeReference") &&
-      // @ts-expect-error -- `GenericTypeAnnotation`
-      !node.typeParameters &&
-      // @ts-expect-error -- `TSTypeReference`
-      !node.typeArguments)
+    (node.type === "GenericTypeAnnotation" && !node.typeParameters) ||
+    (node.type === "TSTypeReference" && !node.typeArguments)
   );
 }
 
@@ -661,10 +657,6 @@ function isSimpleCallArgument(node, depth = 2) {
   return false;
 }
 
-function identity(x) {
-  return x;
-}
-
 /**
  * @param {any} options
  * @param {("es5" | "all")} [level]
@@ -859,7 +851,7 @@ function getFunctionParameters(node) {
 function iterateFunctionParametersPath(path, iteratee) {
   const { node } = path;
   let index = 0;
-  const callback = (childPath) => iteratee(childPath, index++);
+  const callback = () => iteratee(path, index++);
   if (node.this) {
     path.call(callback, "this");
   }
@@ -881,13 +873,17 @@ function getCallArguments(node) {
     return getCallArguments(node.expression);
   }
 
-  let args = node.arguments;
+  let args;
   if (node.type === "ImportExpression" || node.type === "TSImportType") {
     args = [node.type === "ImportExpression" ? node.source : node.argument];
 
     if (node.options) {
       args.push(node.options);
     }
+  } else if (node.type === "TSExternalModuleReference") {
+    args = [node.expression];
+  } else {
+    args = node.arguments;
   }
 
   callArgumentsCache.set(node, args);
@@ -906,13 +902,15 @@ function iterateCallArgumentsPath(path, iteratee) {
 
   if (node.type === "ImportExpression" || node.type === "TSImportType") {
     path.call(
-      (sourcePath) => iteratee(sourcePath, 0),
+      () => iteratee(path, 0),
       node.type === "ImportExpression" ? "source" : "argument",
     );
 
     if (node.options) {
-      path.call((sourcePath) => iteratee(sourcePath, 1), "options");
+      path.call(() => iteratee(path, 1), "options");
     }
+  } else if (node.type === "TSExternalModuleReference") {
+    path.call(() => iteratee(path, 0), "expression");
   } else {
     path.each(iteratee, "arguments");
   }
@@ -936,15 +934,21 @@ function getCallArgumentSelector(node, index) {
       return [...selectors, "options"];
     }
     throw new RangeError("Invalid argument index");
+  } else if (node.type === "TSExternalModuleReference") {
+    if (index === 0 || index === -1) {
+      return [...selectors, "expression"];
+    }
+  } else {
+    if (index < 0) {
+      index = node.arguments.length + index;
+    }
+    if (index >= 0 && index < node.arguments.length) {
+      return [...selectors, "arguments", index];
+    }
   }
-  if (index < 0) {
-    index = node.arguments.length + index;
-  }
-  /* c8 ignore next 3 */
-  if (index < 0 || index >= node.arguments.length) {
-    throw new RangeError("Invalid argument index");
-  }
-  return [...selectors, "arguments", index];
+
+  /* c8 ignore next */
+  throw new RangeError("Invalid argument index");
 }
 
 function isPrettierIgnoreComment(comment) {
@@ -1075,6 +1079,17 @@ const isConditionalType = createTypeCheckFunction([
   "ConditionalTypeAnnotation",
 ]);
 
+const isTsAsConstExpression = (node) =>
+  node?.type === "TSAsExpression" &&
+  node.typeAnnotation.type === "TSTypeReference" &&
+  node.typeAnnotation.typeName.type === "Identifier" &&
+  node.typeAnnotation.typeName.name === "const";
+
+const isTypeAlias = createTypeCheckFunction([
+  "TSTypeAliasDeclaration",
+  "TypeAlias",
+]);
+
 export {
   CommentCheckFlags,
   createTypeCheckFunction,
@@ -1091,7 +1106,6 @@ export {
   hasNode,
   hasNodeIgnoreComment,
   hasRestParameter,
-  identity,
   isArrayExpression,
   isBinaryCastExpression,
   isBinaryish,
@@ -1127,6 +1141,8 @@ export {
   isStringLiteral,
   isTemplateOnItsOwnLine,
   isTestCall,
+  isTsAsConstExpression,
+  isTypeAlias,
   isTypeAnnotationAFunction,
   isUnionType,
   iterateCallArgumentsPath,
@@ -1136,4 +1152,5 @@ export {
   shouldPrintComma,
   startsWithNoLookaheadToken,
 };
+export { default as isMeaningfulEmptyStatement } from "./is-meaningful-empty-statement.js";
 export { default as isNodeMatches } from "./is-node-matches.js";

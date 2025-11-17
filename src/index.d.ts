@@ -491,6 +491,12 @@ export interface Printer<T = any> {
     print: (path: AstPath<T>) => Doc,
     args?: unknown,
   ): Doc;
+  printPrettierIgnored?(
+    path: AstPath<T>,
+    options: ParserOptions<T>,
+    print: (path: AstPath<T>) => Doc,
+    args?: unknown,
+  ): Doc;
   embed?:
     | ((
         path: AstPath,
@@ -520,7 +526,7 @@ export interface Printer<T = any> {
     | ((original: any, cloned: any, parent: any) => any)
     | undefined;
   hasPrettierIgnore?: ((path: AstPath<T>) => boolean) | undefined;
-  canAttachComment?: ((node: T) => boolean) | undefined;
+  canAttachComment?: ((node: T, ancestors: T[]) => boolean) | undefined;
   isBlockComment?: ((node: T) => boolean) | undefined;
   willPrintOwnComments?: ((path: AstPath<T>) => boolean) | undefined;
   printComment?:

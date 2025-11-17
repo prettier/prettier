@@ -6,7 +6,7 @@ import {
   join,
   line,
   softline,
-} from "../document/builders.js";
+} from "../document/index.js";
 import isNextLineEmpty from "../utils/is-next-line-empty.js";
 import isNonEmptyArray from "../utils/is-non-empty-array.js";
 import UnexpectedNodeError from "../utils/unexpected-node-error.js";
@@ -29,6 +29,7 @@ function genericPrint(path, options, print) {
       const hasOperation = options.originalText[locStart(node)] !== "{";
       const hasName = Boolean(node.name);
       return [
+        printDescription(path, options, print),
         hasOperation ? node.operation : "",
         hasOperation && hasName ? [" ", print("name")] : "",
         hasOperation && !hasName && isNonEmptyArray(node.variableDefinitions)
@@ -42,6 +43,7 @@ function genericPrint(path, options, print) {
     }
     case "FragmentDefinition":
       return [
+        printDescription(path, options, print),
         "fragment ",
         print("name"),
         printVariableDefinitions(path, print),
@@ -182,6 +184,7 @@ function genericPrint(path, options, print) {
 
     case "VariableDefinition":
       return [
+        printDescription(path, options, print),
         print("variable"),
         ": ",
         print("type"),
@@ -447,7 +450,7 @@ function printSequence(path, options, print, property) {
   }, property);
 }
 
-function canAttachComment(node) {
+function canAttachComment(node /* , ancestors */) {
   return node.kind !== "Comment";
 }
 

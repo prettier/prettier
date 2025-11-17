@@ -28,5 +28,5 @@ runFormatTest(
       `,
     ),
   },
-  ["typescript", "babel-ts"],
+  ["typescript", "babel-ts", "oxc-ts"],
 );

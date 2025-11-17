@@ -7,10 +7,10 @@ import {
   join,
   label,
   lineSuffixBoundary,
+  mapDoc,
+  printDocToString,
   softline,
-} from "../../document/builders.js";
-import { printDocToString } from "../../document/printer.js";
-import { mapDoc } from "../../document/utils.js";
+} from "../../document/index.js";
 import getIndentSize from "../../utils/get-indent-size.js";
 import getStringWidth from "../../utils/get-string-width.js";
 import hasNewlineInRange from "../../utils/has-newline-in-range.js";
@@ -25,7 +25,7 @@ import {
 } from "../utils/index.js";
 
 /**
- * @import {Doc} from "../../document/builders.js"
+ * @import {Doc} from "../../document/index.js"
  */
 
 function printTemplateLiteral(path, options, print) {
@@ -128,7 +128,7 @@ function printTemplateLiteral(path, options, print) {
   return parts;
 }
 
-function printTaggedTemplateLiteral(path, options, print) {
+function printTaggedTemplateExpression(path, options, print) {
   const quasiDoc = print("quasi");
   const { node } = path;
 
@@ -142,7 +142,7 @@ function printTaggedTemplateLiteral(path, options, print) {
     if (
       hasNewlineInRange(
         options.originalText,
-        locEnd(node.typeArguments ?? node.typeParameters ?? node.tag),
+        locEnd(node.typeArguments ?? node.tag),
         locStart(quasiLeadingComment),
       )
     ) {
@@ -177,7 +177,6 @@ function printJestEachTemplateLiteral(path, options, print) {
     options.__inJestEach = true;
     const expressions = path.map(print, "expressions");
     options.__inJestEach = false;
-    const parts = [];
     const stringifiedExpressions = expressions.map(
       (doc) =>
         "${" +
@@ -223,7 +222,7 @@ function printJestEachTemplateLiteral(path, options, print) {
       }
     }
 
-    parts.push(
+    return [
       lineSuffixBoundary,
       "`",
       indent([
@@ -245,8 +244,7 @@ function printJestEachTemplateLiteral(path, options, print) {
       ]),
       hardline,
       "`",
-    );
-    return parts;
+    ];
   }
 }
 
@@ -260,10 +258,7 @@ function printTemplateExpression(path, print) {
 }
 
 function printTemplateExpressions(path, print) {
-  return path.map(
-    (path) => printTemplateExpression(path, print),
-    "expressions",
-  );
+  return path.map(() => printTemplateExpression(path, print), "expressions");
 }
 
 function escapeTemplateCharacters(doc, raw) {
@@ -313,7 +308,7 @@ function isJestEachTemplateLiteral({ node, parent }) {
 
 export {
   escapeTemplateCharacters,
-  printTaggedTemplateLiteral,
+  printTaggedTemplateExpression,
   printTemplateExpressions,
   printTemplateLiteral,
   uncookTemplateElementValue,

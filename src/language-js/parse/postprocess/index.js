@@ -179,8 +179,9 @@ function postprocess(ast, options) {
     assertComments(comments, text);
   }
 
-  // In `typescript`/`espree`/`flow`, `Program` doesn't count whitespace and comments
-  // See https://github.com/eslint/espree/issues/488
+  // In `typescript` and `flow`, `Program` doesn't count whitespace and comments
+  // See https://github.com/typescript-eslint/typescript-eslint/issues/11026
+  // See https://github.com/facebook/flow/issues/8537
   if (ast.type === "Program") {
     ast.range = [0, text.length];
   }

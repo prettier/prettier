@@ -1,5 +1,4 @@
-import { group, indent, line } from "../../document/builders.js";
-import { replaceEndOfLine } from "../../document/utils.js";
+import { group, indent, line, replaceEndOfLine } from "../../document/index.js";
 import { getUnescapedAttributeValue } from "../utils/index.js";
 import { formatAttributeValue } from "./utils.js";
 

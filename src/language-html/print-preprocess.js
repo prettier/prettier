@@ -1,4 +1,4 @@
-import { ParseSourceSpan } from "angular-html-parser/lib/compiler/src/parse_util.js";
+import { ParseSourceSpan } from "angular-html-parser";
 import htmlWhitespaceUtils from "../utils/html-whitespace-utils.js";
 import {
   canHaveInterpolation,
@@ -35,10 +35,10 @@ function preprocess(ast, options) {
 function removeIgnorableFirstLf(ast /* , options */) {
   ast.walk((node) => {
     if (
-      node.type === "element" &&
+      node.kind === "element" &&
       node.tagDefinition.ignoreFirstLf &&
       node.children.length > 0 &&
-      node.children[0].type === "text" &&
+      node.children[0].kind === "text" &&
       node.children[0].value[0] === "\n"
     ) {
       const text = node.children[0];
@@ -58,10 +58,10 @@ function mergeIfConditionalStartEndCommentIntoElementOpeningTag(
    *     <!--[if ...]><!--><target><!--<![endif]-->
    */
   const isTarget = (node) =>
-    node.type === "element" &&
-    node.prev?.type === "ieConditionalStartComment" &&
+    node.kind === "element" &&
+    node.prev?.kind === "ieConditionalStartComment" &&
     node.prev.sourceSpan.end.offset === node.startSourceSpan.start.offset &&
-    node.firstChild?.type === "ieConditionalEndComment" &&
+    node.firstChild?.kind === "ieConditionalEndComment" &&
     node.firstChild.sourceSpan.start.offset === node.startSourceSpan.end.offset;
   ast.walk((node) => {
     if (node.children) {
@@ -102,17 +102,17 @@ function mergeNodeIntoText(ast, shouldMerge, getValue) {
       for (let i = 0; i < node.children.length; i++) {
         const child = node.children[i];
 
-        if (child.type !== "text" && !shouldMerge(child)) {
+        if (child.kind !== "text" && !shouldMerge(child)) {
           continue;
         }
 
-        if (child.type !== "text") {
-          child.type = "text";
+        if (child.kind !== "text") {
+          child.kind = "text";
           child.value = getValue(child);
         }
 
         const prevChild = child.prev;
-        if (!prevChild || prevChild.type !== "text") {
+        if (!prevChild || prevChild.kind !== "text") {
           continue;
         }
 
@@ -132,17 +132,17 @@ function mergeNodeIntoText(ast, shouldMerge, getValue) {
 function mergeCdataIntoText(ast /* , options */) {
   return mergeNodeIntoText(
     ast,
-    (node) => node.type === "cdata",
+    (node) => node.kind === "cdata",
     (node) => `<![CDATA[${node.value}]]>`,
   );
 }
 
 function mergeSimpleElementIntoText(ast /* , options */) {
   const isSimpleElement = (node) =>
-    node.type === "element" &&
+    node.kind === "element" &&
     node.attrs.length === 0 &&
     node.children.length === 1 &&
-    node.firstChild.type === "text" &&
+    node.firstChild.kind === "text" &&
     !htmlWhitespaceUtils.hasWhitespaceCharacter(node.children[0].value) &&
     !node.firstChild.hasLeadingSpaces &&
     !node.firstChild.hasTrailingSpaces &&
@@ -150,8 +150,8 @@ function mergeSimpleElementIntoText(ast /* , options */) {
     !node.hasLeadingSpaces &&
     node.isTrailingSpaceSensitive &&
     !node.hasTrailingSpaces &&
-    node.prev?.type === "text" &&
-    node.next?.type === "text";
+    node.prev?.kind === "text" &&
+    node.next?.kind === "text";
   ast.walk((node) => {
     if (node.children) {
       for (let i = 0; i < node.children.length; i++) {
@@ -194,7 +194,7 @@ function extractInterpolation(ast, options) {
     }
 
     for (const child of node.children) {
-      if (child.type !== "text") {
+      if (child.kind !== "text") {
         continue;
       }
 
@@ -212,7 +212,7 @@ function extractInterpolation(ast, options) {
           endSourceSpan = startSourceSpan.moveBy(value.length);
           if (value.length > 0) {
             node.insertChildBefore(child, {
-              type: "text",
+              kind: "text",
               value,
               sourceSpan: new ParseSourceSpan(startSourceSpan, endSourceSpan),
             });
@@ -222,14 +222,14 @@ function extractInterpolation(ast, options) {
 
         endSourceSpan = startSourceSpan.moveBy(value.length + 4); // `{{` + `}}`
         node.insertChildBefore(child, {
-          type: "interpolation",
+          kind: "interpolation",
           sourceSpan: new ParseSourceSpan(startSourceSpan, endSourceSpan),
           children:
             value.length === 0
               ? []
               : [
                   {
-                    type: "text",
+                    kind: "text",
                     value,
                     sourceSpan: new ParseSourceSpan(
                       startSourceSpan.moveBy(2),
@@ -263,7 +263,7 @@ function extractWhitespaces(ast, options) {
     if (
       children.length === 0 ||
       (children.length === 1 &&
-        children[0].type === "text" &&
+        children[0].kind === "text" &&
         htmlWhitespaceUtils.trim(children[0].value).length === 0)
     ) {
       node.hasDanglingSpaces = children.length > 0;
@@ -277,7 +277,7 @@ function extractWhitespaces(ast, options) {
     if (!isWhitespaceSensitive) {
       for (let i = 0; i < children.length; i++) {
         const child = children[i];
-        if (child.type !== "text") {
+        if (child.kind !== "text") {
           continue;
         }
 
@@ -331,7 +331,7 @@ function addIsSelfClosing(ast /* , options */) {
   ast.walk((node) => {
     node.isSelfClosing =
       !node.children ||
-      (node.type === "element" &&
+      (node.kind === "element" &&
         (node.tagDefinition.isVoid ||
           // self-closing
           (node.endSourceSpan &&
@@ -342,7 +342,7 @@ function addIsSelfClosing(ast /* , options */) {
 
 function addHasHtmComponentClosingTag(ast, options) {
   ast.walk((node) => {
-    if (node.type !== "element") {
+    if (node.kind !== "element") {
       return;
     }
 

@@ -4,11 +4,8 @@ import {
   hardline,
   indent,
   line,
-} from "../document/builders.js";
-import {
-  isEmbedFrontMatter,
-  printEmbedFrontMatter,
-} from "../utils/front-matter/index.js";
+} from "../document/index.js";
+import htmlWhitespaceUtils from "../utils/html-whitespace-utils.js";
 import printAngularControlFlowBlockParameters from "./embed/angular-control-flow-block-parameters.js";
 import printAttribute from "./embed/attribute.js";
 import { formatAttributeValue } from "./embed/utils.js";
@@ -21,7 +18,6 @@ import {
   printOpeningTagPrefix,
 } from "./print/tag.js";
 import {
-  dedentString,
   htmlTrimPreserveIndentation,
   inferElementParser,
   isScriptLikeTag,
@@ -40,13 +36,9 @@ const embeddedAngularControlFlowBlocks = new Set([
 function embed(path, options) {
   const { node } = path;
 
-  if (isEmbedFrontMatter(path)) {
-    return printEmbedFrontMatter;
-  }
-
-  switch (node.type) {
+  switch (node.kind) {
     case "element":
-      if (isScriptLikeTag(node, options) || node.type === "interpolation") {
+      if (isScriptLikeTag(node, options) || node.kind === "interpolation") {
         // Fall through to "text"
         return;
       }
@@ -89,7 +81,9 @@ function embed(path, options) {
           return async (textToDoc) => {
             const value =
               parser === "markdown"
-                ? dedentString(node.value.replace(/^[^\S\n]*\n/u, ""))
+                ? htmlWhitespaceUtils.dedentString(
+                    node.value.replace(/^[^\S\n]*\n/u, ""),
+                  )
                 : node.value;
             const textToDocOptions = { parser, __embeddedInHtml: true };
             if (options.parser === "html" && parser === "babel") {
@@ -115,7 +109,7 @@ function embed(path, options) {
             ];
           };
         }
-      } else if (node.parent.type === "interpolation") {
+      } else if (node.parent.kind === "interpolation") {
         return async (textToDoc) => {
           const textToDocOptions = {
             __isInHtmlInterpolation: true, // to avoid unexpected `}}`

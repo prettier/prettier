@@ -1,4 +1,4 @@
-import { fill } from "../../document/builders.js";
+import { fill } from "../../document/index.js";
 import {
   getTextValueParts,
   getUnescapedAttributeValue,
@@ -87,6 +87,7 @@ const printers = [
 function printAngularI18n(textToDoc, print, { node } /* , options */) {
   const value = getUnescapedAttributeValue(node);
   return printExpand(
+    // @ts-expect-error -- Need investigate how `replaceEndOfLine` works
     fill(getTextValueParts(node, value.trim())),
     !value.includes("@@"),
   );

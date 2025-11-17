@@ -1,10 +1,13 @@
-import { fill } from "../document/builders.js";
-import { DOC_TYPE_ARRAY, DOC_TYPE_FILL } from "../document/constants.js";
-import { getDocType } from "../document/utils.js";
+import {
+  DOC_TYPE_ARRAY,
+  DOC_TYPE_FILL,
+  fill,
+  getDocType,
+} from "../document/index.js";
 
 /**
  * @import AstPath from "../common/ast-path.js"
- * @import {Doc} from "../document/builders.js"
+ * @import {Doc} from "../document/index.js"
  */
 
 /**

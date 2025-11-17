@@ -17,6 +17,15 @@ runFormatTest(
       `,
     ],
   },
-  ["markdown", "mdx", "css", "scss", "less", "html"],
+  [
+    "markdown",
+    "mdx",
+    "css",
+    "scss",
+    "less",
+    "html",
+    // Can't test since it doesn't print new line
+    // "glimmer",
+  ],
   { plugins: [prettierPluginDummyToml] },
 );

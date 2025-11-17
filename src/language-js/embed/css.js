@@ -1,5 +1,11 @@
-import { hardline, indent, softline } from "../../document/builders.js";
-import { cleanDoc, mapDoc, replaceEndOfLine } from "../../document/utils.js";
+import {
+  cleanDoc,
+  hardline,
+  indent,
+  mapDoc,
+  replaceEndOfLine,
+  softline,
+} from "../../document/index.js";
 import isNonEmptyArray from "../../utils/is-non-empty-array.js";
 import { printTemplateExpressions } from "../print/template-literal.js";
 import isNodeMatches from "../utils/is-node-matches.js";

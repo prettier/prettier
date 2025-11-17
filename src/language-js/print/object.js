@@ -1,3 +1,4 @@
+import * as assert from "#universal/assert";
 import {
   group,
   hardline,
@@ -5,79 +6,78 @@ import {
   indent,
   line,
   softline,
-} from "../../document/builders.js";
+} from "../../document/index.js";
 import { printDanglingComments } from "../../main/comments/print.js";
 import hasNewline from "../../utils/has-newline.js";
 import hasNewlineInRange from "../../utils/has-newline-in-range.js";
 import isNonEmptyArray from "../../utils/is-non-empty-array.js";
 import { locEnd, locStart } from "../loc.js";
+import getTextWithoutComments from "../utils/get-text-without-comments.js";
 import {
   CommentCheckFlags,
+  createTypeCheckFunction,
   getComments,
   hasComment,
   isNextLineEmpty,
   isObjectType,
   shouldPrintComma,
 } from "../utils/index.js";
-import { printHardlineAfterHeritage } from "./class.js";
-import { shouldHugTheOnlyFunctionParameter } from "./function-parameters.js";
+import { shouldHugTheOnlyParameter } from "./function-parameters.js";
 import { printOptionalToken } from "./misc.js";
 import { printTypeAnnotationProperty } from "./type-annotation.js";
 
-/** @import {Doc} from "../../document/builders.js" */
+/** @import {Doc} from "../../document/index.js" */
 
+const isPrintingImportAttributes = createTypeCheckFunction([
+  "ImportDeclaration",
+  "ExportDefaultDeclaration",
+  "ExportNamedDeclaration",
+  "ExportAllDeclaration",
+  "DeclareExportDeclaration",
+  "DeclareExportAllDeclaration",
+]);
+
+const isPrintingFlowEnumBody = createTypeCheckFunction([
+  "EnumBooleanBody",
+  "EnumNumberBody",
+  "EnumBigIntBody",
+  "EnumStringBody",
+  "EnumSymbolBody",
+]);
+
+/*
+- `ObjectExpression`
+- `ObjectPattern`
+- `ImportDeclaration`
+- `ExportDefaultDeclaration`
+- `ExportNamedDeclaration`
+- `ExportAllDeclaration`
+- `EnumBooleanBody` (Flow)
+- `EnumNumberBody` (Flow)
+- `EnumBigIntBody` (Flow)
+- `EnumStringBody` (Flow)
+- `EnumSymbolBody` (Flow)
+- `DeclareExportDeclaration` (Flow)
+- `DeclareExportAllDeclaration` (Flow)
+- `TSEnumDeclaration`(TypeScript)
+*/
 function printObject(path, options, print) {
-  const semi = options.semi ? ";" : "";
-  const { node } = path;
+  const { node, parent } = path;
 
-  const isTypeAnnotation = node.type === "ObjectTypeAnnotation";
-  const isEnumBody =
-    node.type === "TSEnumBody" ||
-    node.type === "EnumBooleanBody" ||
-    node.type === "EnumNumberBody" ||
-    node.type === "EnumBigIntBody" ||
-    node.type === "EnumStringBody" ||
-    node.type === "EnumSymbolBody";
-  const fields = [
-    node.type === "TSTypeLiteral" || isEnumBody
-      ? "members"
-      : node.type === "TSInterfaceBody"
-        ? "body"
-        : "properties",
-  ];
-  if (isTypeAnnotation) {
-    fields.push("indexers", "callProperties", "internalSlots");
-  }
+  const isFlowEnumBody = isPrintingFlowEnumBody(node);
+  const isEnumBody = node.type === "TSEnumBody" || isFlowEnumBody;
+  const isImportAttributes = isPrintingImportAttributes(node);
+  const hasUnknownMembers = isFlowEnumBody && node.hasUnknownMembers;
 
-  // Unfortunately, things grouped together in the ast can be
-  // interleaved in the source code. So we need to reorder them before
-  // printing them.
-  const propsAndLoc = fields.flatMap((field) =>
-    path.map(
-      ({ node }) => ({
-        node,
-        printed: print(),
-        loc: locStart(node),
-      }),
-      field,
-    ),
-  );
+  const property = isEnumBody
+    ? "members"
+    : isImportAttributes
+      ? "attributes"
+      : "properties";
+  const children = node[property];
 
-  if (fields.length > 1) {
-    propsAndLoc.sort((a, b) => a.loc - b.loc);
-  }
-
-  const { parent, key } = path;
-  const isFlowInterfaceLikeBody =
-    isTypeAnnotation &&
-    key === "body" &&
-    (parent.type === "InterfaceDeclaration" ||
-      parent.type === "DeclareInterface" ||
-      parent.type === "DeclareClass");
   const shouldBreak =
-    node.type === "TSInterfaceBody" ||
     isEnumBody ||
-    isFlowInterfaceLikeBody ||
     (node.type === "ObjectPattern" &&
       parent.type !== "FunctionDeclaration" &&
       parent.type !== "FunctionExpression" &&
@@ -95,42 +95,21 @@ function printObject(path, options, print) {
       )) ||
     (node.type !== "ObjectPattern" &&
       options.objectWrap === "preserve" &&
-      propsAndLoc.length > 0 &&
-      hasNewlineInRange(
-        options.originalText,
-        locStart(node),
-        propsAndLoc[0].loc,
-      ));
-
-  const separator = isFlowInterfaceLikeBody
-    ? ";"
-    : node.type === "TSInterfaceBody" || node.type === "TSTypeLiteral"
-      ? ifBreak(semi, ";")
-      : ",";
-  const leftBrace = node.exact ? "{|" : "{";
-  const rightBrace = node.exact ? "|}" : "}";
+      children.length > 0 &&
+      hasNewLineAfterOpeningBrace(node, children[0], options));
 
   /** @type {Doc[]} */
   let separatorParts = [];
-  const props = propsAndLoc.map((prop) => {
-    const result = [...separatorParts, group(prop.printed)];
-    separatorParts = [separator, line];
-    if (
-      (prop.node.type === "TSPropertySignature" ||
-        prop.node.type === "TSMethodSignature" ||
-        prop.node.type === "TSConstructSignatureDeclaration" ||
-        prop.node.type === "TSCallSignatureDeclaration") &&
-      hasComment(prop.node, CommentCheckFlags.PrettierIgnore)
-    ) {
-      separatorParts.shift();
-    }
-    if (isNextLineEmpty(prop.node, options)) {
+  const parts = path.map(({ node }) => {
+    const result = [...separatorParts, group(print())];
+    separatorParts = [",", line];
+    if (isNextLineEmpty(node, options)) {
       separatorParts.push(hardline);
     }
     return result;
-  });
+  }, property);
 
-  if (node.inexact || node.hasUnknownMembers) {
+  if (hasUnknownMembers) {
     let printed;
     if (hasComment(node, CommentCheckFlags.Dangling)) {
       const hasLineComments = hasComment(node, CommentCheckFlags.Line);
@@ -146,53 +125,35 @@ function printObject(path, options, print) {
     } else {
       printed = ["..."];
     }
-    props.push([...separatorParts, ...printed]);
+    parts.push([...separatorParts, ...printed]);
   }
 
-  const lastElem = propsAndLoc.at(-1)?.node;
-
   const canHaveTrailingSeparator = !(
-    node.inexact ||
-    node.hasUnknownMembers ||
-    (lastElem &&
-      (lastElem.type === "RestElement" ||
-        ((lastElem.type === "TSPropertySignature" ||
-          lastElem.type === "TSCallSignatureDeclaration" ||
-          lastElem.type === "TSMethodSignature" ||
-          lastElem.type === "TSConstructSignatureDeclaration" ||
-          lastElem.type === "TSIndexSignature") &&
-          hasComment(lastElem, CommentCheckFlags.PrettierIgnore))))
+    hasUnknownMembers || children.at(-1)?.type === "RestElement"
   );
 
   let content;
-  if (props.length === 0) {
+  if (parts.length === 0) {
     if (!hasComment(node, CommentCheckFlags.Dangling)) {
-      return [leftBrace, rightBrace, printTypeAnnotationProperty(path, print)];
+      return ["{}", printTypeAnnotationProperty(path, print)];
     }
 
     content = group([
-      leftBrace,
+      "{",
       printDanglingComments(path, options, { indent: true }),
       softline,
-      rightBrace,
+      "}",
       printOptionalToken(path),
       printTypeAnnotationProperty(path, print),
     ]);
   } else {
+    const spacing = options.bracketSpacing ? line : softline;
     content = [
-      isFlowInterfaceLikeBody && isNonEmptyArray(node.properties)
-        ? printHardlineAfterHeritage(parent)
-        : "",
-      leftBrace,
-      indent([options.bracketSpacing ? line : softline, ...props]),
-      ifBreak(
-        canHaveTrailingSeparator &&
-          (separator !== "," || shouldPrintComma(options))
-          ? separator
-          : "",
-      ),
-      options.bracketSpacing ? line : softline,
-      rightBrace,
+      "{",
+      indent([spacing, ...parts]),
+      ifBreak(canHaveTrailingSeparator && shouldPrintComma(options) ? "," : ""),
+      spacing,
+      "}",
       printOptionalToken(path),
       printTypeAnnotationProperty(path, print),
     ];
@@ -236,11 +197,27 @@ function printObject(path, options, print) {
   return group(content, { shouldBreak });
 }
 
-function shouldHugTheOnlyParameter(node, name) {
-  return (
-    (name === "params" || name === "this" || name === "rest") &&
-    shouldHugTheOnlyFunctionParameter(node)
-  );
+function hasNewLineAfterOpeningBrace(node, firstProperty, options) {
+  const text = options.originalText;
+  let openingBraceIndex = locStart(node);
+  const firstPropertyStart = locStart(firstProperty);
+
+  if (isPrintingImportAttributes(node)) {
+    const start = locStart(node);
+    const textBeforeAttributes = getTextWithoutComments(
+      options,
+      start,
+      firstPropertyStart,
+    );
+    openingBraceIndex = start + textBeforeAttributes.lastIndexOf("{");
+  }
+
+  /* c8 ignore next 3 */
+  if (process.env.NODE_ENV !== "production") {
+    assert.equal(text.charAt(openingBraceIndex), "{");
+  }
+
+  return hasNewlineInRange(text, openingBraceIndex, firstPropertyStart);
 }
 
 export { printObject };

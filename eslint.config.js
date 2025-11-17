@@ -11,6 +11,7 @@ import eslintPluginRegexp from "eslint-plugin-regexp";
 import eslintPluginSimpleImportSort from "eslint-plugin-simple-import-sort";
 import eslintPluginUnicorn from "eslint-plugin-unicorn";
 import globals from "globals";
+import eslintConfigNodeStyleText from "node-style-text/eslint-config";
 import eslintPluginPrettierInternalRules from "./scripts/tools/eslint-plugin-prettier-internal-rules/index.js";
 
 const toPath = (file) => url.fileURLToPath(new URL(file, import.meta.url));
@@ -45,6 +46,7 @@ const configs = [
   eslintPluginRegexp.configs["flat/recommended"],
   eslintPluginUnicorn.configs["flat/recommended"],
   eslintConfigPrettier,
+  eslintConfigNodeStyleText,
   {
     languageOptions: {
       globals: { ...globals.builtin, ...globals.node },
@@ -142,6 +144,7 @@ const configs = [
       "prettier-internal-rules/massage-ast-parameter-names": "error",
       "prettier-internal-rules/no-identifier-n": "error",
       "prettier-internal-rules/prefer-fs-promises-submodule": "error",
+      "prettier-internal-rules/no-useless-ast-path-callback-parameter": "error",
 
       /* @stylistic/eslint-plugin */
       "@stylistic/quotes": [
@@ -152,6 +155,7 @@ const configs = [
         },
       ],
       "@stylistic/spaced-comment": "error",
+      "@stylistic/no-trailing-spaces": "error",
 
       /* @typescript-eslint/eslint-plugin */
       "@typescript-eslint/prefer-ts-expect-error": "error",
@@ -304,7 +308,11 @@ const configs = [
     },
   },
   {
-    files: ["scripts/**/*", "tests/config/install-prettier.js"],
+    files: [
+      "scripts/**/*",
+      "benchmarks/**",
+      "tests/config/install-prettier.js",
+    ],
     rules: {
       "no-console": "off",
     },
@@ -492,6 +500,15 @@ const configs = [
   {
     files: ["scripts/build/esbuild-plugins/**/*"],
     rules: { "require-unicode-regexp": "off" },
+  },
+  {
+    files: ["src/document/printer/printer.js"],
+    rules: {
+      "unicorn/prevent-abbreviations": [
+        "error",
+        { replacements: { doc: false } },
+      ],
+    },
   },
 ];
 

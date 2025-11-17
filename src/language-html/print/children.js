@@ -4,9 +4,9 @@ import {
   hardline,
   ifBreak,
   line,
+  replaceEndOfLine,
   softline,
-} from "../../document/builders.js";
-import { replaceEndOfLine } from "../../document/utils.js";
+} from "../../document/index.js";
 import htmlWhitespaceUtils from "../../utils/html-whitespace-utils.js";
 import isNonEmptyArray from "../../utils/is-non-empty-array.js";
 import { locEnd, locStart } from "../loc.js";
@@ -32,7 +32,7 @@ function getEndLocation(node) {
 
   // Element can be unclosed
   if (
-    node.type === "element" &&
+    node.kind === "element" &&
     !node.endSourceSpan &&
     isNonEmptyArray(node.children)
   ) {
@@ -101,14 +101,14 @@ function printBetweenLine(prevNode, nextNode) {
              *             ~
              *       attr
              */
-            (nextNode.type === "element" && nextNode.attrs.length > 0))) ||
+            (nextNode.kind === "element" && nextNode.attrs.length > 0))) ||
         /**
          *     <img
          *       src="long"
          *                 ~
          *     />123
          */
-        (prevNode.type === "element" &&
+        (prevNode.kind === "element" &&
           prevNode.isSelfClosing &&
           needsToBorrowPrevClosingTagEndMarker(nextNode))
       ? ""

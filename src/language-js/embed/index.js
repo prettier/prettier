@@ -1,4 +1,4 @@
-import { label } from "../../document/builders.js";
+import { label } from "../../document/index.js";
 import { isEmbedCss, printEmbedCss } from "./css.js";
 import { isEmbedGraphQL, printEmbedGraphQL } from "./graphql.js";
 import {

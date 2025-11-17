@@ -150,7 +150,7 @@ function isMultiplicationNode(node) {
 }
 
 function isDivisionNode(node) {
-  return node.type === "value-operator" && node.value === "/";
+  return node?.type === "value-operator" && node.value === "/";
 }
 
 function isAdditionNode(node) {
@@ -231,7 +231,7 @@ function hasParensAroundNode(node) {
 }
 
 function hasEmptyRawBefore(node) {
-  return node.raws?.before === "";
+  return node?.raws?.before === "";
 }
 
 function isKeyValuePairNode(node) {

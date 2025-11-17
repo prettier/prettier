@@ -1,8 +1,5 @@
 import collapseWhiteSpace from "collapse-white-space";
-import {
-  cleanFrontMatter,
-  isFrontMatter,
-} from "../utils/front-matter/index.js";
+import { isFrontMatter } from "../main/front-matter/index.js";
 import { hasPragma } from "./pragma.js";
 
 const ignoredProperties = new Set([
@@ -20,8 +17,6 @@ function clean(original, cloned, parent) {
   ) {
     delete cloned.value;
   }
-
-  cleanFrontMatter(original, cloned);
 
   if (original.type === "list") {
     delete cloned.isAligned;

@@ -96,7 +96,7 @@ function getEsbuildOptions({ packageConfig, file, cliOptions }) {
     // Transform `.at`, `Object.hasOwn`, and `String#replaceAll`
     {
       module: "*",
-      process: transform,
+      process: (text, file) => transform(text, file, buildOptions),
     },
     // #12493, not sure what the problem is, but replace the cjs version with esm version seems fix it
     {
@@ -223,6 +223,10 @@ function getEsbuildOptions({ packageConfig, file, cliOptions }) {
       "regexp-unicode-property-escapes": true,
       // Maybe because Node.js v14 doesn't support "spread parameters after optional chaining" https://node.green/
       "optional-chain": true,
+      // Maybe because https://github.com/evanw/esbuild/pull/3167?
+      "class-field": true,
+      "class-private-field": true,
+      "class-private-method": true,
     },
     packages: "bundle",
   };

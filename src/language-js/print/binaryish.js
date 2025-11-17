@@ -1,19 +1,18 @@
 import {
   align,
+  cleanDoc,
+  DOC_TYPE_ARRAY,
+  DOC_TYPE_FILL,
+  DOC_TYPE_GROUP,
+  DOC_TYPE_LABEL,
+  getDocType,
   group,
   indent,
   indentIfBreak,
   join,
   line,
   softline,
-} from "../../document/builders.js";
-import {
-  DOC_TYPE_ARRAY,
-  DOC_TYPE_FILL,
-  DOC_TYPE_GROUP,
-  DOC_TYPE_LABEL,
-} from "../../document/constants.js";
-import { cleanDoc, getDocType } from "../../document/utils.js";
+} from "../../document/index.js";
 import { printComments } from "../../main/comments/print.js";
 import {
   CommentCheckFlags,
@@ -30,7 +29,7 @@ import {
 } from "../utils/index.js";
 import isTypeCastComment from "../utils/is-type-cast-comment.js";
 
-/** @import {Doc} from "../../document/builders.js" */
+/** @import {Doc} from "../../document/index.js" */
 
 let uid = 0;
 /*
@@ -84,7 +83,8 @@ function printBinaryishExpression(path, options, print) {
   //     c
   //   ).call()
   if (
-    (isCallExpression(parent) && parent.callee === node) ||
+    (key === "callee" &&
+      (isCallExpression(parent) || parent.type === "NewExpression")) ||
     parent.type === "UnaryExpression" ||
     (isMemberExpression(parent) && !parent.computed)
   ) {
@@ -109,8 +109,10 @@ function printBinaryishExpression(path, options, print) {
     (parent.type === "ConditionalExpression" &&
       grandparent.type !== "ReturnStatement" &&
       grandparent.type !== "ThrowStatement" &&
-      !isCallExpression(grandparent)) ||
-    parent.type === "TemplateLiteral";
+      !isCallExpression(grandparent) &&
+      grandparent.type !== "NewExpression") ||
+    parent.type === "TemplateLiteral" ||
+    isBooleanTypeCoercion(path);
 
   const shouldIndentIfInlining =
     parent.type === "AssignmentExpression" ||
@@ -222,9 +224,9 @@ function printBinaryishExpressions(
   if (shouldFlatten(node.operator, node.left.operator)) {
     // Flatten them out by recursively calling this function.
     parts = path.call(
-      (left) =>
+      () =>
         printBinaryishExpressions(
-          left,
+          path,
           options,
           print,
           /* isNested */ true,
@@ -282,9 +284,9 @@ function printBinaryishExpressions(
       operator === "|>" && path.root.extra?.__isUsingHackPipeline;
     const rightContent = isHackPipeline
       ? path.call(
-          (left) =>
+          () =>
             printBinaryishExpressions(
-              left,
+              path,
               options,
               print,
               /* isNested */ true,
@@ -389,6 +391,29 @@ function isVueFilterSequenceExpression(path, options) {
         !isBitwiseOrExpression(node) && node.type !== "JsExpressionRoot",
     )
   );
+}
+
+/**
+@returns {boolean}
+*/
+function isBooleanTypeCoercion(path) {
+  if (path.key !== "arguments") {
+    return false;
+  }
+
+  const { parent } = path;
+  if (
+    !(
+      isCallExpression(parent) &&
+      !parent.optional &&
+      parent.arguments.length === 1
+    )
+  ) {
+    return false;
+  }
+
+  const { callee } = parent;
+  return callee.type === "Identifier" && callee.name === "Boolean";
 }
 
 export { printBinaryishExpression, shouldInlineLogicalExpression };

@@ -1,4 +1,4 @@
-import { replaceEndOfLine } from "../../document/utils.js";
+import { replaceEndOfLine } from "../../document/index.js";
 import printNumber from "../../utils/print-number.js";
 import printString from "../../utils/print-string.js";
 

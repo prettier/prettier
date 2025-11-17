@@ -5,12 +5,13 @@ import {
   indent,
   line,
   softline,
-} from "../../document/builders.js";
+} from "../../document/index.js";
 import { printDanglingComments } from "../../main/comments/print.js";
 import hasNewlineInRange from "../../utils/has-newline-in-range.js";
 import { locStart } from "../loc.js";
 import getTextWithoutComments from "../utils/get-text-without-comments.js";
 import { CommentCheckFlags, hasComment } from "../utils/index.js";
+import { printClassMemberSemicolon } from "./class.js";
 
 /**
  * @param {string | null} optional
@@ -31,15 +32,18 @@ function printFlowMappedTypeOptionalModifier(optional) {
 
 function printFlowMappedTypeProperty(path, options, print) {
   const { node } = path;
-  return group([
-    node.variance ? print("variance") : "",
-    "[",
-    indent([print("keyTparam"), " in ", print("sourceType")]),
-    "]",
-    printFlowMappedTypeOptionalModifier(node.optional),
-    ": ",
-    print("propType"),
-  ]);
+  return [
+    group([
+      node.variance ? print("variance") : "",
+      "[",
+      indent([print("keyTparam"), " in ", print("sourceType")]),
+      "]",
+      printFlowMappedTypeOptionalModifier(node.optional),
+      ": ",
+      print("propType"),
+    ]),
+    printClassMemberSemicolon(path, options),
+  ];
 }
 
 /**

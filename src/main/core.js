@@ -5,9 +5,12 @@ import {
   guessEndOfLine,
   normalizeEndOfLine,
 } from "../common/end-of-line.js";
-import { addAlignmentToDoc, hardline } from "../document/builders.js";
-import { printDocToDebug } from "../document/debug.js";
-import { printDocToString as printDocToStringWithoutNormalizeOptions } from "../document/printer.js";
+import {
+  addAlignmentToDoc,
+  hardline,
+  printDocToDebug,
+  printDocToString as printDocToStringWithoutNormalizeOptions,
+} from "../document/index.js";
 import getAlignmentSize from "../utils/get-alignment-size.js";
 import { prepareToPrint, printAstToDoc } from "./ast-to-doc.js";
 import getCursorLocation from "./get-cursor-node.js";
@@ -15,7 +18,7 @@ import massageAst from "./massage-ast.js";
 import normalizeFormatOptions from "./normalize-format-options.js";
 import parseText from "./parse.js";
 import { resolveParser } from "./parser-and-printer.js";
-import { calculateRange } from "./range-util.js";
+import { calculateRange } from "./range.js";
 
 const BOM = "\uFEFF";
 
@@ -178,7 +181,7 @@ async function coreFormat(originalText, opts, addAlignmentSize = 0) {
 
 async function formatRange(originalText, opts) {
   const { ast, text } = await parseText(originalText, opts);
-  const { rangeStart, rangeEnd } = calculateRange(text, opts, ast);
+  const [rangeStart, rangeEnd] = calculateRange(text, opts, ast) ?? [0, 0];
   const rangeString = text.slice(rangeStart, rangeEnd);
 
   // Try to extend the range backwards to the beginning of the line.

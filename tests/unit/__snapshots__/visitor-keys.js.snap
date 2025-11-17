@@ -372,6 +372,7 @@ exports[`visitor keys estree 1`] = `
     "body",
     "id",
     "params",
+    "predicate",
     "returnType",
     "typeParameters",
   ],
@@ -496,7 +497,6 @@ exports[`visitor keys estree 1`] = `
     "attributes",
     "name",
     "typeArguments",
-    "typeParameters",
   ],
   "JSXOpeningFragment": [],
   "JSXSpreadAttribute": [
@@ -826,7 +826,6 @@ exports[`visitor keys estree 1`] = `
   "TSClassImplements": [
     "expression",
     "typeArguments",
-    "typeParameters",
   ],
   "TSConditionalType": [
     "checkType",
@@ -925,7 +924,6 @@ exports[`visitor keys estree 1`] = `
   "TSInterfaceHeritage": [
     "expression",
     "typeArguments",
-    "typeParameters",
   ],
   "TSIntersectionType": [
     "types",
@@ -1123,7 +1121,6 @@ exports[`visitor keys estree 1`] = `
     "params",
   ],
   "TypePredicate": [
-    "asserts",
     "parameterName",
     "typeAnnotation",
   ],
@@ -1310,6 +1307,7 @@ exports[`visitor keys graphql 1`] = `
   ],
   "FloatValue": [],
   "FragmentDefinition": [
+    "description",
     "directives",
     "name",
     "selectionSet",
@@ -1392,6 +1390,7 @@ exports[`visitor keys graphql 1`] = `
     "fields",
   ],
   "OperationDefinition": [
+    "description",
     "directives",
     "name",
     "selectionSet",
@@ -1438,6 +1437,7 @@ exports[`visitor keys graphql 1`] = `
   ],
   "VariableDefinition": [
     "defaultValue",
+    "description",
     "directives",
     "type",
     "variable",
@@ -1473,7 +1473,6 @@ exports[`visitor keys html 1`] = `
     "attrs",
     "children",
   ],
-  "front-matter": [],
   "ieConditionalComment": [
     "children",
   ],
@@ -1513,7 +1512,6 @@ exports[`visitor keys postcss 1`] = `
     "nodes",
     "selector",
   ],
-  "front-matter": [],
   "media-colon": [],
   "media-feature": [],
   "media-feature-expression": [
@@ -1605,7 +1603,6 @@ exports[`visitor keys remark 1`] = `
     "children",
   ],
   "footnoteReference": [],
-  "front-matter": [],
   "heading": [
     "children",
   ],

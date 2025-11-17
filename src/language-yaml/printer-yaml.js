@@ -1,4 +1,4 @@
-/** @import {Doc} from "../document/builders.js" */
+/** @import {Doc} from "../document/index.js" */
 
 import {
   breakParent,
@@ -8,8 +8,8 @@ import {
   join,
   line,
   lineSuffix,
-} from "../document/builders.js";
-import { replaceEndOfLine } from "../document/utils.js";
+  replaceEndOfLine,
+} from "../document/index.js";
 import isPreviousLineEmpty from "../utils/is-previous-line-empty.js";
 import UnexpectedNodeError from "../utils/unexpected-node-error.js";
 import embed from "./embed.js";
