@@ -80,7 +80,7 @@ class Playground extends React.Component {
 
     // 1.16 ~ 4.0.0
     if (options.parser === "babel-flow") {
-      options.parser === "flow";
+      options.parser = "flow";
     }
 
     // 1.8.2 ~ 1.9.0
