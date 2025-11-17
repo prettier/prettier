@@ -15,6 +15,7 @@ import {
   line,
   lineSuffix,
   markAsRoot,
+  trim,
 } from "../../src/document/index.js";
 
 const invalidDoc = { type: "invalid-type" };
@@ -27,6 +28,8 @@ describe("doc builders", () => {
 
     () => align(2),
     () => align(2, invalidDoc),
+    [() => align(["invalid"], validDoc), TypeError],
+    [() => align(undefined, validDoc), TypeError],
 
     () => group(),
     () => group(invalidDoc),
@@ -87,6 +90,10 @@ describe("doc builders", () => {
     ifBreak(validDoc),
     // eslint-disable-next-line unicorn/no-useless-undefined
     ifBreak(validDoc, undefined),
+
+    align("any string", validDoc),
+
+    trim,
   ];
 
   describe("Invalid usage", () => {

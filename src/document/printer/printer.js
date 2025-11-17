@@ -22,6 +22,7 @@ import {
 import { getDocType, propagateBreaks } from "../utilities/index.js";
 import InvalidDocError from "../utilities/invalid-doc-error.js";
 import { makeAlign, makeIndent, ROOT_INDENT } from "./indent.js";
+import { trimIndentation } from "./trim-indentation.js";
 
 /**
 @import {EndOfLineOption} from "../../common/end-of-line.js";
@@ -37,57 +38,12 @@ const MODE_BREAK = Symbol("MODE_BREAK");
 /** @type {unique symbol} */
 const MODE_FLAT = Symbol("MODE_FLAT");
 
-const CURSOR_PLACEHOLDER = Symbol("cursor");
-
 const DOC_FILL_PRINTED_LENGTH = Symbol("DOC_FILL_PRINTED_LENGTH");
-
-// Trim `Tab(U+0009)` and `Space(U+0020)` at the end of line
-function trim(out) {
-  let trimCount = 0;
-  let cursorCount = 0;
-  let outIndex = out.length;
-
-  outer: while (outIndex--) {
-    const last = out[outIndex];
-
-    if (last === CURSOR_PLACEHOLDER) {
-      cursorCount++;
-      continue;
-    }
-
-    /* c8 ignore next 3 */
-    if (process.env.NODE_ENV !== "production" && typeof last !== "string") {
-      throw new Error(`Unexpected value in trim: '${typeof last}'`);
-    }
-
-    // Not using a regexp here because regexps for trimming off trailing
-    // characters are known to have performance issues.
-    for (let charIndex = last.length - 1; charIndex >= 0; charIndex--) {
-      const char = last[charIndex];
-      if (char === " " || char === "\t") {
-        trimCount++;
-      } else {
-        out[outIndex] = last.slice(0, charIndex + 1);
-        break outer;
-      }
-    }
-  }
-
-  if (trimCount > 0 || cursorCount > 0) {
-    out.length = outIndex + 1;
-
-    while (cursorCount-- > 0) {
-      out.push(CURSOR_PLACEHOLDER);
-    }
-  }
-
-  return trimCount;
-}
 
 /**
  * @param {Command} next
  * @param {Command[]} restCommands
- * @param {number} width
+ * @param {number} remainingWidth
  * @param {boolean} hasLineSuffix
  * @param {GroupModeMap} groupModeMap
  * @param {boolean} [mustBeFlat]
@@ -96,23 +52,23 @@ function trim(out) {
 function fits(
   next,
   restCommands,
-  width,
+  remainingWidth,
   hasLineSuffix,
   groupModeMap,
   mustBeFlat,
 ) {
-  if (width === Number.POSITIVE_INFINITY) {
+  if (remainingWidth === Number.POSITIVE_INFINITY) {
     return true;
   }
 
   let restCommandsIndex = restCommands.length;
-  let has_pending_space = false;
+  let hasPendingSpace = false;
   /** @type {Array<Omit<Command, 'indent'>>} */
   const commands = [next];
-  // `out` is only used for width counting because `trim` requires to look
+  // `output` is only used for width counting because `trim` requires to look
   // backwards for space characters.
-  const out = [];
-  while (width >= 0) {
+  let output = "";
+  while (remainingWidth >= 0) {
     if (commands.length === 0) {
       if (restCommandsIndex === 0) {
         return true;
@@ -126,13 +82,16 @@ function fits(
     const docType = getDocType(doc);
     switch (docType) {
       case DOC_TYPE_STRING:
-        if (has_pending_space && doc.length > 0) {
-          out.push(" ");
-          width -= 1;
-          has_pending_space = false;
+        if (doc) {
+          if (hasPendingSpace) {
+            output += " ";
+            remainingWidth -= 1;
+            hasPendingSpace = false;
+          }
+
+          output += doc;
+          remainingWidth -= getStringWidth(doc);
         }
-        out.push(doc);
-        width -= getStringWidth(doc);
         break;
 
       case DOC_TYPE_ARRAY:
@@ -152,9 +111,12 @@ function fits(
         commands.push({ mode, doc: doc.contents });
         break;
 
-      case DOC_TYPE_TRIM:
-        width += trim(out);
+      case DOC_TYPE_TRIM: {
+        const { text, count } = trimIndentation(output);
+        output = text;
+        remainingWidth += count;
         break;
+      }
 
       case DOC_TYPE_GROUP: {
         if (mustBeFlat && doc.break) {
@@ -187,7 +149,7 @@ function fits(
           return true;
         }
         if (!doc.soft) {
-          has_pending_space = true;
+          hasPendingSpace = true;
         }
         break;
 
@@ -215,7 +177,7 @@ function fits(
 */
 function printDocToString(doc, options) {
   /** @type GroupModeMap */
-  const groupModeMap = {};
+  const groupModeMap = Object.create(null);
 
   const width = options.printWidth;
   const newLine = convertEndOfLineToChars(options.endOfLine);
@@ -225,11 +187,12 @@ function printDocToString(doc, options) {
   // commands to the array instead of recursively calling `print`.
   /** @type Command[] */
   const commands = [{ indent: ROOT_INDENT, mode: MODE_BREAK, doc }];
-  const out = [];
+  /** @type string[] */
+  let out = [];
   let shouldRemeasure = false;
   /** @type Command[] */
   const lineSuffix = [];
-  let printedCursorCount = 0;
+  const cursorPositions = [];
 
   propagateBreaks(doc);
 
@@ -239,10 +202,12 @@ function printDocToString(doc, options) {
       case DOC_TYPE_STRING: {
         const formatted =
           newLine !== "\n" ? doc.replaceAll("\n", newLine) : doc;
-        out.push(formatted);
         // Plugins may print single string, should skip measure the width
-        if (commands.length > 0) {
-          position += getStringWidth(formatted);
+        if (formatted) {
+          out.push(formatted);
+          if (commands.length > 0) {
+            position += getStringWidth(formatted);
+          }
         }
         break;
       }
@@ -253,13 +218,15 @@ function printDocToString(doc, options) {
         }
         break;
 
-      case DOC_TYPE_CURSOR:
-        if (printedCursorCount >= 2) {
+      case DOC_TYPE_CURSOR: {
+        if (cursorPositions.length >= 2) {
           throw new Error("There are too many 'cursor' in doc.");
         }
-        out.push(CURSOR_PLACEHOLDER);
-        printedCursorCount++;
+        const text = out.join("");
+        out = [text];
+        cursorPositions.push(text.length - 1);
         break;
+      }
 
       case DOC_TYPE_INDENT:
         commands.push({
@@ -278,7 +245,7 @@ function printDocToString(doc, options) {
         break;
 
       case DOC_TYPE_TRIM:
-        position -= trim(out);
+        trim();
         break;
 
       case DOC_TYPE_GROUP:
@@ -558,11 +525,13 @@ function printDocToString(doc, options) {
               out.push(newLine);
               position = 0;
               if (indent.root) {
-                out.push(indent.root.value);
+                if (indent.root.value) {
+                  out.push(indent.root.value);
+                }
                 position = indent.root.length;
               }
             } else {
-              position -= trim(out);
+              trim();
               out.push(newLine + indent.value);
               position = indent.length;
             }
@@ -590,58 +559,57 @@ function printDocToString(doc, options) {
     }
   }
 
-  const cursorPlaceholderIndex = out.indexOf(CURSOR_PLACEHOLDER);
-  if (cursorPlaceholderIndex !== -1) {
-    const otherCursorPlaceholderIndex = out.indexOf(
-      CURSOR_PLACEHOLDER,
-      cursorPlaceholderIndex + 1,
-    );
-
-    if (otherCursorPlaceholderIndex === -1) {
-      // If we got here, the doc must have contained ONE cursor command,
-      // instead of the expected zero or two. If the doc being printed was
-      // returned by printAstToDoc, then the only ways this can have happened
-      // are if:
-      // 1. a plugin added a cursor command itself, or
-      // 2. one (but not both) of options.nodeAfterCursor and
-      //    options.nodeAfterCursor pointed to a node within a subtree of the
-      //    AST that the printer plugin used in printAstToDoc simply omits from
-      //    the doc, or that it prints without recursively calling mainPrint,
-      //    with the consequence that the logic for adding a cursor command in
-      //    callPluginPrintFunction was never called for that node.
-      // These are both weird scenarios that should be considered a bug if they
-      // ever occur with one of Prettier's built-in plugins. If a third-party
-      // plugin was used when printing the AST to a doc, the possibility of
-      // reaching this scenario MIGHT be reasonable to consider a bug in the
-      // plugin. However, we try to at least not crash if this ever happens;
-      // instead we simply give up on returning a cursorNodeStart or
-      // cursorNodeText.
-      //
-      // coreFormat has logic specifically to handle this scenario - where it
-      // is supposed to preserve the cursor position but the printer gives it
-      // no information about where the nodes around the cursor ended up -
-      // although that logic is unavoidably slower (and has more potential to
-      // return a perverse result) than the happy path where we help out
-      // coreFormat by returning a cursorNodeStart and cursorNodeText here.
-      return {
-        formatted: out.filter((char) => char !== CURSOR_PLACEHOLDER).join(""),
-      };
-    }
-
-    const beforeCursor = out.slice(0, cursorPlaceholderIndex).join("");
-    const aroundCursor = out
-      .slice(cursorPlaceholderIndex + 1, otherCursorPlaceholderIndex)
-      .join("");
-    const afterCursor = out.slice(otherCursorPlaceholderIndex + 1).join("");
-
-    return {
-      formatted: beforeCursor + aroundCursor + afterCursor,
-      cursorNodeStart: beforeCursor.length,
-      cursorNodeText: aroundCursor,
-    };
+  const formatted = out.join("");
+  if (cursorPositions.length !== 2) {
+    // If the doc contained ONE cursor command,
+    // instead of the expected zero or two. If the doc being printed was
+    // returned by printAstToDoc, then the only ways this can have happened
+    // are if:
+    // 1. a plugin added a cursor command itself, or
+    // 2. one (but not both) of options.nodeAfterCursor and
+    //    options.nodeAfterCursor pointed to a node within a subtree of the
+    //    AST that the printer plugin used in printAstToDoc simply omits from
+    //    the doc, or that it prints without recursively calling mainPrint,
+    //    with the consequence that the logic for adding a cursor command in
+    //    callPluginPrintFunction was never called for that node.
+    // These are both weird scenarios that should be considered a bug if they
+    // ever occur with one of Prettier's built-in plugins. If a third-party
+    // plugin was used when printing the AST to a doc, the possibility of
+    // reaching this scenario MIGHT be reasonable to consider a bug in the
+    // plugin. However, we try to at least not crash if this ever happens;
+    // instead we simply give up on returning a cursorNodeStart or
+    // cursorNodeText.
+    //
+    // coreFormat has logic specifically to handle this scenario - where it
+    // is supposed to preserve the cursor position but the printer gives it
+    // no information about where the nodes around the cursor ended up -
+    // although that logic is unavoidably slower (and has more potential to
+    // return a perverse result) than the happy path where we help out
+    // coreFormat by returning a cursorNodeStart and cursorNodeText here.
+    return { formatted };
   }
 
-  return { formatted: out.join("") };
+  const cursorNodeStart = cursorPositions[0] + 1;
+  return {
+    formatted,
+    cursorNodeStart,
+    cursorNodeText: formatted.slice(
+      cursorNodeStart,
+      cursorPositions.at(-1) + 1,
+    ),
+  };
+
+  function trim() {
+    const { text, count } = trimIndentation(out.join(""));
+    out = [text];
+    position -= count;
+    for (let index = 0; index < cursorPositions.length; index++) {
+      cursorPositions[index] = Math.min(
+        cursorPositions[index],
+        text.length - 1,
+      );
+    }
+  }
 }
 
 export { printDocToString };

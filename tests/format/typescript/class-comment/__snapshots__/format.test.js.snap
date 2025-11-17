@@ -159,7 +159,7 @@ class a8
 }
 
 class a9
-// comment-b1
+  // comment-b1
   extends b // comment-b2
   // comment-b3
   // comment-z1
@@ -195,7 +195,7 @@ extends B<T> // 3
 
 =====================================output=====================================
 declare class a // 1
-// extends b   // 2
+  // extends b   // 2
   implements z, x
 {
   // 3
@@ -203,7 +203,7 @@ declare class a // 1
 }
 
 declare class A1<T> // 1
-// 2
+  // 2
   extends B<T> {
   // 3
 }

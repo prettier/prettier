@@ -83,7 +83,8 @@ function printBinaryishExpression(path, options, print) {
   //     c
   //   ).call()
   if (
-    (isCallExpression(parent) && parent.callee === node) ||
+    (key === "callee" &&
+      (isCallExpression(parent) || parent.type === "NewExpression")) ||
     parent.type === "UnaryExpression" ||
     (isMemberExpression(parent) && !parent.computed)
   ) {
@@ -108,7 +109,8 @@ function printBinaryishExpression(path, options, print) {
     (parent.type === "ConditionalExpression" &&
       grandparent.type !== "ReturnStatement" &&
       grandparent.type !== "ThrowStatement" &&
-      !isCallExpression(grandparent)) ||
+      !isCallExpression(grandparent) &&
+      grandparent.type !== "NewExpression") ||
     parent.type === "TemplateLiteral" ||
     isBooleanTypeCoercion(path);
 

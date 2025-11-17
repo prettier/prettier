@@ -16,22 +16,27 @@ const checked = process.env.NODE_ENV !== "production" && new WeakSet();
 const assertDoc =
   process.env.NODE_ENV === "production"
     ? noop
-    : function (doc) {
+    : /**
+      @param {Doc} doc
+      */
+      function (doc) {
         traverseDoc(doc, (doc) => {
-          if (checked.has(doc)) {
+          if (typeof doc === "string" || checked.has(doc)) {
             return false;
           }
 
-          if (typeof doc !== "string") {
-            checked.add(doc);
-          }
+          checked.add(doc);
         });
       };
 
 const assertDocArray =
   process.env.NODE_ENV === "production"
     ? noop
-    : function (docs, optional = false) {
+    : /**
+      @param {readonly Doc[]} docs
+      @param {boolean} [optional = false]
+      */
+      function (docs, optional = false) {
         if (optional && !docs) {
           return;
         }
@@ -49,8 +54,8 @@ const assertDocFillParts =
   process.env.NODE_ENV === "production"
     ? noop
     : /**
-       * @param {readonly Doc[]} parts
-       */
+      @param {readonly Doc[]} parts
+      */
       function (parts) {
         assertDocArray(parts);
         if (parts.length > 1 && isEmptyDoc(parts.at(-1))) {
@@ -68,6 +73,21 @@ const assertDocFillParts =
         }
       };
 
+const assertAlignType =
+  process.env.NODE_ENV === "production"
+    ? noop
+    : function (alignType) {
+        if (
+          !(
+            typeof alignType === "number" ||
+            typeof alignType === "string" ||
+            alignType?.type === "root"
+          )
+        ) {
+          throw new TypeError(`Invalid alignType '${alignType}'.`);
+        }
+      };
+
 /**
  * @param {Doc} doc
  * @returns {boolean}
@@ -75,6 +95,10 @@ const assertDocFillParts =
 function isValidSeparator(doc) {
   let hasLine = false;
   let hasUnexpectedString = false;
+
+  /**
+  @param {Doc} doc
+  */
   function rec(doc) {
     switch (getDocType(doc)) {
       case DOC_TYPE_LINE:
@@ -90,13 +114,16 @@ function isValidSeparator(doc) {
         hasUnexpectedString = true;
         return;
       case DOC_TYPE_IF_BREAK:
+        // @ts-expect-error -- Safe
         traverseDoc(doc.breakContents, rec);
         return false;
       default:
     }
   }
+
   traverseDoc(doc, rec);
+
   return hasLine && !hasUnexpectedString;
 }
 
-export { assertDoc, assertDocArray, assertDocFillParts };
+export { assertAlignType, assertDoc, assertDocArray, assertDocFillParts };

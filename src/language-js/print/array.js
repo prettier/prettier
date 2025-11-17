@@ -156,7 +156,7 @@ function printArray(path, options, print) {
 function isConciselyPrintedArray(node, options) {
   return (
     isArrayExpression(node) &&
-    node.elements.length > 1 &&
+    node.elements.length > 0 &&
     node.elements.every(
       (element) =>
         element &&

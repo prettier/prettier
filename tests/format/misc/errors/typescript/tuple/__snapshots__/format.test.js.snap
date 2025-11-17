@@ -8,7 +8,7 @@ Cause: Tuple members must be labeled with a simple identifier. (1:10)"
 `;
 
 exports[`snippet: #0 [oxc-ts] format 1`] = `
-"Expected \`,\` but found \`:\` (1:14)
+"Expected \`,\` or \`]\` but found \`:\` (1:14)
 > 1 | type T = [x.y: A];
     |              ^"
 `;
@@ -28,7 +28,7 @@ Cause: Tuple members must be labeled with a simple identifier. (1:10)"
 `;
 
 exports[`snippet: #1 [oxc-ts] format 1`] = `
-"Expected \`,\` but found \`:\` (1:15)
+"Expected \`,\` or \`]\` but found \`:\` (1:15)
 > 1 | type T = [x<y>: A];
     |               ^"
 `;

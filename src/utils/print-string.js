@@ -35,18 +35,7 @@ function printString(raw, options) {
     return raw;
   }
 
-  // It might sound unnecessary to use `makeString` even if the string already
-  // is enclosed with `enclosingQuote`, but it isn't. The string could contain
-  // unnecessary escapes (such as in `"\'"`). Always using `makeString` makes
-  // sure that we consistently output the minimum amount of escaped quotes.
-  return makeString(
-    rawContent,
-    enclosingQuote,
-    // Until Prettier 3.3.3, this option was set to true for most parsers, with some exceptions like CSS.
-    // Since Prettier 3.3.4, it is set to false for all parsers.
-    // For more details, please see https://github.com/prettier/prettier/issues/16542#issuecomment-2282249280.
-    false,
-  );
+  return makeString(rawContent, enclosingQuote);
 }
 
 export default printString;
