@@ -1,5 +1,5 @@
 import indexToPosition from "index-to-position";
-import * as oxcParser from "oxc-parser";
+import { parse as oxcParse } from "oxc-parser";
 import createError from "../../common/parser-create-error.js";
 import { tryCombinationsAsync } from "../../utils/try-combinations.js";
 import postprocess from "./postprocess/index.js";
@@ -41,7 +41,7 @@ function createParseError(error, { text }) {
 @returns {Promise<ParseResult>}
 */
 async function parseWithOptions(filepath, text, options) {
-  const result = await oxcParser.parse(filepath, text, {
+  const result = await oxcParse(filepath, text, {
     preserveParens: true,
     showSemanticErrors: false,
     ...options,
