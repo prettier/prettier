@@ -148,21 +148,29 @@ printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
 foo = new long_long_member.long_long_member.long_long_member.long_long_member.long_long_member();
+new long_long_member.long_long_member.long_long_member.long_long_member.long_long_member();
 foo = new long_long_member!.long_long_member.long_long_member.long_long_member.long_long_member();
+new long_long_member!.long_long_member.long_long_member.long_long_member.long_long_member();
 
 foo = long_long_member.long_long_member.long_long_member.long_long_member.long_long_member();
+long_long_member.long_long_member.long_long_member.long_long_member.long_long_member();
 foo = long_long_member!.long_long_member.long_long_member.long_long_member.long_long_member();
+long_long_member!.long_long_member.long_long_member.long_long_member.long_long_member();
 
 =====================================output=====================================
 foo =
   new long_long_member.long_long_member.long_long_member.long_long_member.long_long_member();
+new long_long_member.long_long_member.long_long_member.long_long_member.long_long_member();
 foo =
   new long_long_member!.long_long_member.long_long_member.long_long_member.long_long_member();
+new long_long_member!.long_long_member.long_long_member.long_long_member.long_long_member();
 
 foo =
   long_long_member.long_long_member.long_long_member.long_long_member.long_long_member();
+long_long_member.long_long_member.long_long_member.long_long_member.long_long_member();
 foo =
   long_long_member!.long_long_member.long_long_member.long_long_member.long_long_member();
+long_long_member!.long_long_member.long_long_member.long_long_member.long_long_member();
 
 ================================================================================
 `;
