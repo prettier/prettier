@@ -139,7 +139,6 @@
     "cspell": "9.3.2",
     "enquirer": "2.4.1",
     "esbuild": "0.27.0",
-    "esbuild-plugins-node-modules-polyfill": "1.7.1",
     "esbuild-visualizer": "0.7.0",
     "eslint": "9.39.1",
     "eslint-config-prettier": "10.1.8",
