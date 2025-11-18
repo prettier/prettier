@@ -23,9 +23,9 @@ const packageTransforms = new Map([
       "meriyah",
     ],
   ],
-  [transforms["string-raw"], ["camelcase"]],
   [transforms["method-at"], ["espree", "angular-estree-parser"]],
-  [transforms["object-has-own"], ["@babel/parser"]],
+  [transforms["object-has-own"], ["@babel/parser", "meriyah"]],
+  [transforms["string-raw"], ["camelcase"]],
   /* spell-checker: enable */
 ]);
 
