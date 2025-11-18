@@ -5,7 +5,7 @@ import remarkWikiLink from "remark-wiki-link";
 import { unified } from "unified";
 import parseFrontMatter from "../main/front-matter/parse.js";
 import { locEnd, locStart } from "./loc.js";
-import { hasPragma } from "./pragma.js";
+import { hasIgnorePragma, hasPragma } from "./pragma.js";
 import remarkLiquid from "./unified-plugins/remark-11-liquid.js";
 
 /**
@@ -46,6 +46,7 @@ function createParse() {
 const parser = {
   astFormat: "mdast",
   hasPragma,
+  hasIgnorePragma,
   locStart,
   locEnd,
   parse: createParse(),

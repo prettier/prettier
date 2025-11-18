@@ -163,11 +163,10 @@ function splitTextIntoSentences(ast) {
 
       if (parentNode?.type === "paragraph") {
         if (index === 0) {
-          text = text.trimStart();
+          text = htmlWhitespaceUtils.trimStart(text);
         }
-
         if (index === parentNode.children.length - 1) {
-          text = text.trimEnd();
+          text = htmlWhitespaceUtils.trimEnd(text);
         }
       }
     }
