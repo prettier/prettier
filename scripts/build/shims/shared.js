@@ -1,4 +1,4 @@
-const OPTIONAL_OBJECT = 0x01;
+const OPTIONAL_OBJECT = 0b01;
 
 const createMethodShim =
   (methodName, getImplementation) =>
