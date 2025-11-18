@@ -20,6 +20,7 @@ const packageTransforms = new Map([
       "kasi",
       "camelcase",
       "@typescript-eslint/typescript-estree",
+      "meriyah",
     ],
   ],
   [transforms["string-raw"], ["camelcase"]],
