@@ -29,15 +29,12 @@ const packageTransforms = new Map([
 ]);
 
 const allTransforms = Object.values(transforms);
-const syntaxTransforms = allTransforms.filter(
-  (transform) => transform !== transforms["doc-module-imports"],
-);
 const isPackageFile = (file, packageName) =>
   file.startsWith(path.join(PROJECT_ROOT, `node_modules/${packageName}/`));
 
-function getTransforms(original, file, buildOptions) {
+function getTransforms(original, file) {
   if (file.startsWith(SOURCE_DIR)) {
-    return buildOptions.reuseDocModule ? allTransforms : syntaxTransforms;
+    return allTransforms;
   }
 
   const transforms = [];
