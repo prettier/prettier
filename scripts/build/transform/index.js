@@ -4,46 +4,54 @@ import { parse } from "@babel/parser";
 import { traverseFast as traverse } from "@babel/types";
 import { outdent } from "outdent";
 import { PROJECT_ROOT, SOURCE_DIR } from "../../utils/index.js";
-import allTransforms from "./transforms/index.js";
+import * as transforms from "./transforms/index.js";
 
-/* Doesn't work for dependencies */
+const packageTransforms = new Map([
+  /* spell-checker: disable */
+  [
+    transforms["method-replace-all"],
+    [
+      "hermes-parser",
+      "jest-docblock",
+      "fast-string-truncated-width",
+      "@prettier/cli",
+      "fast-ignore",
+      "hashery",
+      "kasi",
+      "camelcase",
+      "@typescript-eslint/typescript-estree",
+    ],
+  ],
+  [transforms["string-raw"], ["camelcase"]],
+  [transforms["method-at"], ["espree", "angular-estree-parser"]],
+  [transforms["object-has-own"], ["@babel/parser"]],
+  /* spell-checker: enable */
+]);
 
-function shouldTransform(file, buildOptions) {
-  const allowedDirectories = buildOptions.reuseDocModule
-    ? [SOURCE_DIR]
-    : [
-        SOURCE_DIR,
-        ...[
-          /* spell-checker: disable */
-          "camelcase",
-          "angular-estree-parser",
-          "jest-docblock",
-          "espree",
-          "@babel/parser",
-          "@typescript-eslint/typescript-estree",
-          "meriyah",
-          "@glimmer",
-          "@prettier/cli",
-          "hermes-parser",
-          "kasi",
-          "fast-string-truncated-width",
-          "fast-ignore",
-          "hashery",
-          /* spell-checker: enable */
-        ].map((directory) =>
-          path.join(PROJECT_ROOT, `node_modules/${directory}/`),
-        ),
-      ];
+const allTransforms = Object.values(transforms);
+const syntaxTransforms = allTransforms.filter(
+  (transform) => transform !== transforms["doc-module-imports"],
+);
+const isPackageFile = (file, packageName) =>
+  file.startsWith(path.join(PROJECT_ROOT, `node_modules/${packageName}/`));
 
-  return allowedDirectories.some((directory) => file.startsWith(directory));
+function getTransforms(original, file, buildOptions) {
+  if (file.startsWith(SOURCE_DIR)) {
+    return buildOptions.reuseDocModule ? allTransforms : syntaxTransforms;
+  }
+
+  const transforms = [];
+  for (const [transform, packageNames] of packageTransforms) {
+    if (packageNames.some((packageName) => isPackageFile(file, packageName))) {
+      transforms.push(transform);
+    }
+  }
+
+  return transforms;
 }
 
 function transform(original, file, buildOptions) {
-  if (!shouldTransform(file, buildOptions)) {
-    return original;
-  }
-
-  const transforms = allTransforms.filter(
+  const transforms = getTransforms(original, file, buildOptions).filter(
     (transform) => !transform.shouldSkip(original, file, buildOptions),
   );
 
