@@ -23,7 +23,10 @@ const packageTransforms = new Map([
       "meriyah",
     ],
   ],
-  [transforms["method-at"], ["espree", "angular-estree-parser"]],
+  [
+    transforms["method-at"],
+    ["espree", "angular-estree-parser", "@glimmer/syntax"],
+  ],
   [transforms["object-has-own"], ["@babel/parser", "meriyah"]],
   [transforms["string-raw"], ["camelcase"]],
   /* spell-checker: enable */
