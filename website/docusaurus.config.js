@@ -2,8 +2,8 @@
 
 import fs from "node:fs";
 import { createRequire } from "node:module";
-import { load as parseYaml } from "js-yaml";
 import { themes as prismThemes } from "prism-react-renderer";
+import { parse as parseYaml } from "yaml";
 import llmsTxtPlugin from "./plugins/llms-txt-plugin.mjs";
 
 const require = createRequire(import.meta.url);
