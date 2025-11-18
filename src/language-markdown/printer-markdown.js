@@ -606,7 +606,7 @@ function printChildren(path, options, print, events = {}) {
         parts.push(hardline);
 
         if (
-          shouldPrePrintDoubleHardline(path) ||
+          shouldPrePrintDoubleHardline(path, options) ||
           shouldPrePrintTripleHardline(path)
         ) {
           parts.push(hardline);
@@ -677,6 +677,16 @@ function shouldPrePrintHardline({ node, parent }) {
   return !isInlineNode && !isInlineHTML;
 }
 
+function isLooseListItemLegacy(node, options) {
+  return (
+    node.type === "listItem" &&
+    (node.spread ||
+      // Check if `listItem` ends with `\n`
+      // since it can't be empty, so we only need check the last character
+      options.originalText.charAt(node.position.end.offset - 1) === "\n")
+  );
+}
+
 function isLooseListItem({ node, parent, next }) {
   return (
     node.type === "listItem" &&
@@ -706,9 +716,19 @@ function isPreviousNodeLooseListItem(path) {
  * @param {AstPath} path
  * @returns {boolean}
  */
-function shouldPrePrintDoubleHardline(path) {
+function shouldPrePrintDoubleHardline(path, options) {
   const { node, previous, parent } = path;
-  if (
+
+  if (options.parser === "mdx") {
+    if (
+      isLooseListItemLegacy(previous, options) ||
+      (node.type === "list" &&
+        parent.type === "listItem" &&
+        previous.type === "code")
+    ) {
+      return true;
+    }
+  } else if (
     isPreviousNodeLooseListItem(path) ||
     (node.type === "list" &&
       parent.type === "listItem" &&
@@ -719,9 +739,16 @@ function shouldPrePrintDoubleHardline(path) {
 
   const isSequence = previous.type === node.type;
   const isSiblingNode = isSequence && SIBLING_NODE_TYPES.has(node.type);
-  const isInTightListItem =
-    parent.type === "listItem" &&
-    (node.type === "list" || !path.callParent(isLooseListItem));
+  let isInTightListItem;
+  if (options.parser === "mdx") {
+    isInTightListItem =
+      parent.type === "listItem" &&
+      (node.type === "list" || !isLooseListItemLegacy(parent, options));
+  } else {
+    isInTightListItem =
+      parent.type === "listItem" &&
+      (node.type === "list" || !path.callParent(isLooseListItem));
+  }
   const isPrevNodePrettierIgnore = isPrettierIgnore(previous) === "next";
   const isBlockHtmlWithoutBlankLineBetweenPrevHtml =
     node.type === "html" &&
@@ -836,6 +863,10 @@ function printPrettierIgnored(path, options) {
     path.node.position.start.offset,
     path.node.position.end.offset,
   );
+
+  if (options.parser === "mdx") {
+    return originalText;
+  }
 
   switch (path.node.type) {
     case "list":
