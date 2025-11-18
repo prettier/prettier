@@ -99,11 +99,6 @@ const categoryParsers = new Map([
       ],
       verifyParsers: [
         "babel",
-        "meriyah",
-        "espree",
-        "flow",
-        "typescript",
-        "babel",
         "babel-ts",
         "__babel_estree",
         "typescript",
