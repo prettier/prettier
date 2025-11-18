@@ -9,16 +9,7 @@ runFormatTest(
       "({ method(parameter,) })",
     ],
   },
-  [
-    "babel",
-    "flow",
-    "typescript",
-    "babel-flow",
-    "babel-ts",
-    "acorn",
-    "espree",
-    "meriyah",
-  ],
+  ["babel", "flow", "typescript", "babel-ts", "acorn", "espree", "meriyah"],
 );
 
 runFormatTest(
@@ -36,7 +27,6 @@ runFormatTest(
     "babel",
     "flow",
     // "typescript",
-    "babel-flow",
     "babel-ts",
     // https://github.com/eslint/espree/issues/470
     // "espree",

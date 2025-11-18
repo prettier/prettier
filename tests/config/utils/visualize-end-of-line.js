@@ -1,5 +1,5 @@
 function visualizeEndOfLine(text) {
-  return text.replace(/\r\n?|\n/gu, (endOfLine) => {
+  return text.replaceAll(/\r\n?|\n/gu, (endOfLine) => {
     switch (endOfLine) {
       case "\n":
         return "<LF>\n";

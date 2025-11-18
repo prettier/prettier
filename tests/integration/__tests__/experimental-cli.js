@@ -8,7 +8,13 @@ function runExperimentalCli(args, options) {
   return runCli("cli/experimental-cli", [...args, "--no-cache"], {
     title: args.join(" "),
     ...options,
-    env: { ...options?.env, PRETTIER_EXPERIMENTAL_CLI: 1 },
+    env: {
+      ...options?.env,
+      // In development, it's controlled by `PRETTIER_EXPERIMENTAL_CLI`
+      // In production, it's controlled by `PRETTIER_LEGACY_CLI`
+      PRETTIER_EXPERIMENTAL_CLI: "1",
+      PRETTIER_LEGACY_CLI: "",
+    },
   });
 }
 

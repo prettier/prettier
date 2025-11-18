@@ -278,7 +278,6 @@ export type BuiltInParser = (text: string, options?: any) => AST;
 export type BuiltInParserName =
   | "acorn"
   | "angular"
-  | "babel-flow"
   | "babel-ts"
   | "babel"
   | "css"

@@ -8,5 +8,5 @@ runFormatTest(
       "new import();",
     ],
   },
-  ["babel", "meriyah", "flow", "typescript", "babel-flow", "babel-ts"],
+  ["babel", "meriyah", "flow", "typescript", "babel-ts"],
 );

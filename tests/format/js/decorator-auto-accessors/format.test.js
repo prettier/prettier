@@ -1,4 +1,4 @@
-const parsers = ["babel", "typescript", "babel-flow"];
+const parsers = ["babel", "typescript"];
 const errors = {
   espree: [
     "basic.js",

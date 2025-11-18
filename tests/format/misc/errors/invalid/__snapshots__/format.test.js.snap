@@ -21,20 +21,6 @@ exports[`snippet: #0 [babel] format 2`] = `
 Cause: Invalid parenthesized assignment pattern. (1:0)"
 `;
 
-exports[`snippet: #0 [babel-flow] format 1`] = `
-"Unexpected token, expected "(" (1:5)
-> 1 | for each (a in b) {}
-    |     ^
-Cause: Unexpected token, expected "(" (1:4)"
-`;
-
-exports[`snippet: #0 [babel-flow] format 2`] = `
-"Invalid parenthesized assignment pattern. (1:1)
-> 1 | (a = b) = 1
-    | ^
-Cause: Invalid parenthesized assignment pattern. (1:0)"
-`;
-
 exports[`snippet: #0 [babel-ts] format 1`] = `
 "Unexpected token, expected "(" (1:5)
 > 1 | for each (a in b) {}
@@ -104,20 +90,6 @@ Cause: A class name is required. (1:6)"
 `;
 
 exports[`snippet: #1 [babel] format 2`] = `
-"Invalid left-hand side in assignment expression. (1:5)
-> 1 | a = 1 = 2
-    |     ^
-Cause: Invalid left-hand side in assignment expression. (1:4)"
-`;
-
-exports[`snippet: #1 [babel-flow] format 1`] = `
-"A class name is required. (1:7)
-> 1 | class switch() {}
-    |       ^
-Cause: A class name is required. (1:6)"
-`;
-
-exports[`snippet: #1 [babel-flow] format 2`] = `
 "Invalid left-hand side in assignment expression. (1:5)
 > 1 | a = 1 = 2
     |     ^
@@ -199,20 +171,6 @@ exports[`snippet: #2 [babel] format 2`] = `
 Cause: Invalid parenthesized assignment pattern. (1:0)"
 `;
 
-exports[`snippet: #2 [babel-flow] format 1`] = `
-"Unexpected token, expected "{" (1:13)
-> 1 | ({ method() })
-    |             ^
-Cause: Unexpected token, expected "{" (1:12)"
-`;
-
-exports[`snippet: #2 [babel-flow] format 2`] = `
-"Invalid parenthesized assignment pattern. (1:1)
-> 1 | (a = 1) = 2
-    | ^
-Cause: Invalid parenthesized assignment pattern. (1:0)"
-`;
-
 exports[`snippet: #2 [babel-ts] format 1`] = `
 "Unexpected token, expected "{" (1:13)
 > 1 | ({ method() })
@@ -288,20 +246,6 @@ exports[`snippet: #3 [babel] format 2`] = `
 Cause: Invalid parenthesized assignment pattern. (1:0)"
 `;
 
-exports[`snippet: #3 [babel-flow] format 1`] = `
-"Unexpected token, expected "{" (1:15)
-> 1 | ({ method({}) })
-    |               ^
-Cause: Unexpected token, expected "{" (1:14)"
-`;
-
-exports[`snippet: #3 [babel-flow] format 2`] = `
-"Invalid parenthesized assignment pattern. (1:1)
-> 1 | (a += b) = 1
-    | ^
-Cause: Invalid parenthesized assignment pattern. (1:0)"
-`;
-
 exports[`snippet: #3 [babel-ts] format 1`] = `
 "Unexpected token, expected "{" (1:15)
 > 1 | ({ method({}) })
@@ -371,20 +315,6 @@ Cause: Unexpected token, expected "{" (1:22)"
 `;
 
 exports[`snippet: #4 [babel] format 2`] = `
-"Invalid left-hand side in assignment expression. (1:2)
-> 1 | (a = b) += 1
-    |  ^
-Cause: Invalid left-hand side in assignment expression. (1:1)"
-`;
-
-exports[`snippet: #4 [babel-flow] format 1`] = `
-"Unexpected token, expected "{" (1:23)
-> 1 | ({ method(parameter,) })
-    |                       ^
-Cause: Unexpected token, expected "{" (1:22)"
-`;
-
-exports[`snippet: #4 [babel-flow] format 2`] = `
 "Invalid left-hand side in assignment expression. (1:2)
 > 1 | (a = b) += 1
     |  ^

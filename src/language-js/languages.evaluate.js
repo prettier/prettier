@@ -8,7 +8,6 @@ const languages = [
       "acorn",
       "espree",
       "meriyah",
-      "babel-flow",
       "babel-ts",
       "flow",
       "typescript",
@@ -39,7 +38,7 @@ const languages = [
   })),
   createLanguage(linguistLanguages.JavaScript, () => ({
     name: "Flow",
-    parsers: ["flow", "babel-flow"],
+    parsers: ["flow"],
     vscodeLanguageIds: ["javascript"],
     aliases: [],
     filenames: [],
@@ -47,15 +46,7 @@ const languages = [
   })),
   createLanguage(linguistLanguages.JavaScript, () => ({
     name: "JSX",
-    parsers: [
-      "babel",
-      "babel-flow",
-      "babel-ts",
-      "flow",
-      "typescript",
-      "espree",
-      "meriyah",
-    ],
+    parsers: ["babel", "babel-ts", "flow", "typescript", "espree", "meriyah"],
     vscodeLanguageIds: ["javascriptreact"],
     aliases: undefined,
     filenames: undefined,

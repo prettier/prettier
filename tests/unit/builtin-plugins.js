@@ -22,7 +22,6 @@ test("builtin parsers", async () => {
       "acorn",
       "angular",
       "babel",
-      "babel-flow",
       "babel-ts",
       "css",
       "espree",

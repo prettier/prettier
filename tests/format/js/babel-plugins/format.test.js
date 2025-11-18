@@ -1,7 +1,7 @@
 // Only testing babel parsing
 // Do not add extra parsers here
 
-runFormatTest(import.meta, ["babel", "babel-ts", "babel-flow"], {
+runFormatTest(import.meta, ["babel", "babel-ts"], {
   errors: {
     acorn: [
       "decorators.js",

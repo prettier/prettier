@@ -7,15 +7,7 @@ runFormatTest(
       "for (let``.bar of []);",
     ],
   },
-  [
-    "babel",
-    "espree",
-    "meriyah",
-    "flow",
-    "typescript",
-    "babel-flow",
-    "babel-ts",
-  ],
+  ["babel", "espree", "meriyah", "flow", "typescript", "babel-ts"],
 );
 
 runFormatTest(
@@ -32,7 +24,6 @@ runFormatTest(
     "flow",
     // `typescript` didn't throw
     // "typescript",
-    "babel-flow",
     "babel-ts",
   ],
 );

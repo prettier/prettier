@@ -9,5 +9,5 @@ runFormatTest(
       "declare interface A implements B {}",
     ],
   },
-  ["flow", "babel-flow"],
+  ["flow"],
 );
