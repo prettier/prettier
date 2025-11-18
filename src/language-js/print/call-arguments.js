@@ -8,8 +8,8 @@ import {
   indent,
   line,
   softline,
-} from "../../document/builders.js";
-import { willBreak } from "../../document/utils.js";
+  willBreak,
+} from "../../document/index.js";
 import { printDanglingComments } from "../../main/comments/print.js";
 import {
   CommentCheckFlags,

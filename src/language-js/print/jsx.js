@@ -6,16 +6,14 @@ import {
   hardline,
   ifBreak,
   indent,
+  isEmptyDoc,
   join,
   line,
   lineSuffixBoundary,
-  softline,
-} from "../../document/builders.js";
-import {
-  isEmptyDoc,
   replaceEndOfLine,
+  softline,
   willBreak,
-} from "../../document/utils.js";
+} from "../../document/index.js";
 import {
   printComments,
   printDanglingComments,
@@ -54,7 +52,7 @@ const isEmptyStringOrAnyLine = (doc) =>
 /**
  * @import AstPath from "../../common/ast-path.js"
  * @import {Node, JSXElement} from "../types/estree.js"
- * @import {Doc} from "../../document/builders.js"
+ * @import {Doc} from "../../document/index.js"
  */
 
 // JSX expands children from the inside-out, instead of the outside-in.
@@ -492,6 +490,7 @@ const isNoWrapParent = createTypeCheckFunction([
   "JSXExpressionContainer",
   "JSXFragment",
   "ExpressionStatement",
+  "NewExpression",
   "CallExpression",
   "OptionalCallExpression",
   "ConditionalExpression",

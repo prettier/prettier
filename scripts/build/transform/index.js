@@ -4,40 +4,56 @@ import { parse } from "@babel/parser";
 import { traverseFast as traverse } from "@babel/types";
 import { outdent } from "outdent";
 import { PROJECT_ROOT, SOURCE_DIR } from "../../utils/index.js";
-import allTransforms from "./transforms/index.js";
+import * as transforms from "./transforms/index.js";
 
-/* Doesn't work for dependencies */
+const packageTransforms = new Map([
+  /* spell-checker: disable */
+  [
+    transforms["method-replace-all"],
+    [
+      "@prettier/cli",
+      "@typescript-eslint/typescript-estree",
+      "camelcase",
+      "fast-ignore",
+      "fast-string-truncated-width",
+      "hashery",
+      "hermes-parser",
+      "jest-docblock",
+      "kasi",
+      "meriyah",
+    ],
+  ],
+  [
+    transforms["method-at"],
+    ["@glimmer/syntax", "angular-estree-parser", "espree"],
+  ],
+  [transforms["object-has-own"], ["@babel/parser", "meriyah"]],
+  [transforms["string-raw"], ["camelcase"]],
+  /* spell-checker: enable */
+]);
 
-function transform(original, file) {
-  if (
-    ![
-      SOURCE_DIR,
-      ...[
-        /* spell-checker: disable */
-        "camelcase",
-        "angular-estree-parser",
-        "jest-docblock",
-        "espree",
-        "@babel/parser",
-        "@typescript-eslint/typescript-estree",
-        "meriyah",
-        "@glimmer",
-        "@prettier/cli",
-        "hermes-parser",
-        "kasi",
-        "fast-string-truncated-width",
-        "fast-ignore",
-        /* spell-checker: enable */
-      ].map((directory) =>
-        path.join(PROJECT_ROOT, `node_modules/${directory}/`),
-      ),
-    ].some((directory) => file.startsWith(directory))
-  ) {
-    return original;
+const allTransforms = Object.values(transforms);
+const isPackageFile = (file, packageName) =>
+  file.startsWith(path.join(PROJECT_ROOT, `node_modules/${packageName}/`));
+
+function getTransforms(original, file) {
+  if (file.startsWith(SOURCE_DIR)) {
+    return allTransforms;
   }
 
-  const transforms = allTransforms.filter(
-    (transform) => !transform.shouldSkip(original, file),
+  const transforms = [];
+  for (const [transform, packageNames] of packageTransforms) {
+    if (packageNames.some((packageName) => isPackageFile(file, packageName))) {
+      transforms.push(transform);
+    }
+  }
+
+  return transforms;
+}
+
+function transform(original, file, buildOptions) {
+  const transforms = getTransforms(original, file, buildOptions).filter(
+    (transform) => !transform.shouldSkip(original, file, buildOptions),
   );
 
   if (transforms.length === 0) {
@@ -55,7 +71,7 @@ function transform(original, file) {
   });
   traverse(ast, (node) => {
     for (const transform of transforms) {
-      if (!transform.test(node)) {
+      if (!transform.test(node, file)) {
         continue;
       }
 
@@ -65,7 +81,7 @@ function transform(original, file) {
         injected.add(transform.inject);
       }
 
-      const replacement = transform.transform(node);
+      const replacement = transform.transform(node, file);
       if (replacement && replacement !== node) {
         replaceNode(node, replacement);
       }
@@ -80,8 +96,6 @@ function transform(original, file) {
     ast,
     {
       sourceFileName: file,
-      experimental_preserveFormat: true,
-      retainLines: true,
       comments: true,
       jsescOption: null,
       minified: false,

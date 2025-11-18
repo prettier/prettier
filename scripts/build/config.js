@@ -793,6 +793,7 @@ const nodejsFiles = [
       },
     ],
     addDefaultExport: true,
+    reuseDocModule: true,
   },
   {
     input: "src/index.cjs",
@@ -851,6 +852,16 @@ const nodejsFiles = [
           find: 'new URL("./prettier_serial.js", import.meta.url)',
           replacement:
             'new URL("./experimental-cli-worker.mjs", import.meta.url)',
+        },
+        {
+          module: getPackageFile("json5/dist/index.mjs"),
+          find: "export default lib;",
+          replacement: "export default { parse };",
+        },
+        {
+          module: getPackageFile("js-yaml/dist/js-yaml.mjs"),
+          find: "var dump                = dumper.dump;",
+          replacement: "var dump;",
         },
       ],
     },

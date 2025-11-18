@@ -7,7 +7,7 @@ import {
   join,
   line,
   softline,
-} from "../../document/builders.js";
+} from "../../document/index.js";
 import {
   printComments,
   printDanglingComments,

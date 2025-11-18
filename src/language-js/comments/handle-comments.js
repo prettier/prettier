@@ -100,6 +100,7 @@ function handleEndOfLineComment(context) {
     handleLastUnionElementInExpression,
     handleLastBinaryOperatorOperand,
     handleTSMappedTypeComments,
+    handleCommentAfterArrowExpression,
     handlePropertySignatureComments,
     handleBinaryCastExpressionComment,
   ].some((fn) => fn(context));
@@ -1118,7 +1119,7 @@ function handlePropertySignatureComments({
     enclosingNode &&
     (enclosingNode.type === "TSPropertySignature" ||
       enclosingNode.type === "ObjectTypeProperty") &&
-    isIntersectionType(followingNode)
+    (isUnionType(followingNode) || isIntersectionType(followingNode))
   ) {
     addLeadingComment(followingNode, comment);
     return true;
@@ -1145,6 +1146,42 @@ function handleBinaryCastExpressionComment({
     }
     return true;
   }
+}
+
+/**
+ * Handle a comment after an arrow, like:
+ *   ```ts
+ *   const test = (): any => /* first line
+ *   second line
+ *   *\/
+ *   null;
+ *   ```
+ *
+ * @param {CommentContext} context
+ * @returns {boolean}
+ */
+function handleCommentAfterArrowExpression({
+  comment,
+  enclosingNode,
+  followingNode,
+  precedingNode,
+}) {
+  if (!(enclosingNode && followingNode && precedingNode)) {
+    return false;
+  }
+
+  if (
+    enclosingNode.type === "ArrowFunctionExpression" &&
+    // @ts-expect-error -- Safe
+    enclosingNode.returnType === precedingNode &&
+    (precedingNode.type === "TSTypeAnnotation" ||
+      precedingNode.type === "TypeAnnotation")
+  ) {
+    addLeadingComment(followingNode, comment);
+    return true;
+  }
+
+  return false;
 }
 
 /**

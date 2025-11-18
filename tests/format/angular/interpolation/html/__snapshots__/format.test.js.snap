@@ -17,6 +17,28 @@ printWidth: 80
 ================================================================================
 `;
 
+exports[`block.html format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+@for (option of availableOwners?.(); track option) {
+  <mat-option [value]="option.id">
+    {{ option.name }}@{{ option.domain }}
+  </mat-option>
+}
+
+=====================================output=====================================
+@for (option of availableOwners?.(); track option) {
+  <mat-option [value]="option.id">
+    {{ option.name }}@{{ option.domain }}
+  </mat-option>
+}
+
+================================================================================
+`;
+
 exports[`comments.html format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]

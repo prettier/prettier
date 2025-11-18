@@ -8,7 +8,7 @@ import {
   line,
   lineSuffix,
   softline,
-} from "../../document/builders.js";
+} from "../../document/index.js";
 import { locEnd, locStart } from "../loc.js";
 import {
   getPropOfDeclNode,
@@ -40,9 +40,16 @@ import {
 } from "../utils/index.js";
 
 /**
- * @import {Doc} from "../../document/builders.js"
+ * @import AstPath from "../../common/ast-path.js"
+ * @import {Doc} from "../../document/index.js"
  */
 
+/**
+ * @param {AstPath} path
+ * @param {*} options
+ * @param {(...args: *[]) => Doc} print
+ * @returns {Doc}
+ */
 function printCommaSeparatedValueGroup(path, options, print) {
   const { node } = path;
   const parentNode = path.parent;
@@ -102,19 +109,6 @@ function printCommaSeparatedValueGroup(path, options, print) {
         parts.push([parts.pop(), " "]);
       }
       continue;
-    }
-
-    // Align key after comment in SCSS map
-    if (
-      isColonNode(iNextNode) &&
-      iNode.type === "value-word" &&
-      parts.length > 2 &&
-      node.groups
-        .slice(0, i)
-        .every((group) => group.type === "value-comment") &&
-      !isInlineValueCommentNode(iPrevNode)
-    ) {
-      parts[parts.length - 2] = dedent(parts.at(-2));
     }
 
     // Ignore SCSS @forward wildcard suffix
@@ -509,6 +503,17 @@ function printCommaSeparatedValueGroup(path, options, print) {
     // don't print line when the next node is a comment and last node
     // it will be printed with the comment in a line suffix
     if (isInlineValueCommentNode(iNextNode) && !iNextNextNode) {
+      continue;
+    }
+
+    // align value after block comment
+    if (
+      !atRuleAncestorNode &&
+      iNode.type === "value-comment" &&
+      !iNode.inline &&
+      node.groups.slice(0, i).every((group) => group.type === "value-comment")
+    ) {
+      parts.push(dedent(line), "");
       continue;
     }
 

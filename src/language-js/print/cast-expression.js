@@ -1,4 +1,4 @@
-import { group, indent, softline } from "../../document/builders.js";
+import { group, indent, softline } from "../../document/index.js";
 import {
   createTypeCheckFunction,
   isCallExpression,

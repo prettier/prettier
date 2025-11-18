@@ -31,7 +31,7 @@ Cause: [1:27-1:28]: Expected ')'"
 `;
 
 exports[`worker.js [oxc] format 1`] = `
-"Expected \`,\` but found \`{\` (1:28)
+"Expected \`,\` or \`)\` but found \`{\` (1:28)
 > 1 | worker = new Worker(module {
     |                            ^
   2 |   onmessage = function({data}) {

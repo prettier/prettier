@@ -6,9 +6,10 @@ import {
   join,
   line,
   softline,
-} from "../../document/builders.js";
+} from "../../document/index.js";
 import {
   printComments,
+  printCommentsSeparately,
   printDanglingComments,
 } from "../../main/comments/print.js";
 import createGroupIdMapper from "../../utils/create-group-id-mapper.js";
@@ -30,10 +31,9 @@ import {
 } from "./misc.js";
 import { printPropertyKey } from "./property.js";
 import { printTypeAnnotationProperty } from "./type-annotation.js";
-import { getTypeParametersGroupId } from "./type-parameters.js";
 
 /**
- * @import {Doc} from "../../document/builders.js"
+ * @import {Doc} from "../../document/index.js"
  */
 
 const getHeritageGroupId = createGroupIdMapper("heritageGroup");
@@ -71,19 +71,25 @@ function printClass(path, options, print) {
     hasComment(node.id, CommentCheckFlags.Trailing) ||
     hasComment(node.typeParameters, CommentCheckFlags.Trailing) ||
     hasComment(node.superClass) ||
-    isNonEmptyArray(node.extends) ||
-    isNonEmptyArray(node.mixins) ||
-    isNonEmptyArray(node.implements);
+    hasMultipleHeritage(node);
 
   const partsGroup = [];
   const extendsParts = [];
 
   if (node.type !== "InterfaceTypeAnnotation") {
     if (node.id) {
-      partsGroup.push(" ", print("id"));
+      partsGroup.push(" ");
     }
 
-    partsGroup.push(print("typeParameters"));
+    for (const property of ["id", "typeParameters"]) {
+      if (node[property]) {
+        const { leading, trailing } = path.call(
+          () => printCommentsSeparately(path, options),
+          property,
+        );
+        partsGroup.push(leading, print(property), indent(trailing));
+      }
+    }
   }
 
   if (node.superClass) {
@@ -104,12 +110,14 @@ function printClass(path, options, print) {
       extendsParts.push(" ", printedWithComments);
     }
   } else {
-    extendsParts.push(printHeritageClauses(path, options, print, "extends"));
+    extendsParts.push(
+      printHeritageClauses(path, options, print, "extends", groupMode),
+    );
   }
 
   extendsParts.push(
-    printHeritageClauses(path, options, print, "mixins"),
-    printHeritageClauses(path, options, print, "implements"),
+    printHeritageClauses(path, options, print, "mixins", groupMode),
+    printHeritageClauses(path, options, print, "implements", groupMode),
   );
 
   let heritageGroupId;
@@ -150,26 +158,19 @@ function isNonEmptyClassBody(node) {
 }
 
 function hasMultipleHeritage(node) {
-  return (
-    ["extends", "mixins", "implements"].reduce(
-      (count, key) => count + (Array.isArray(node[key]) ? node[key].length : 0),
-      node.superClass ? 1 : 0,
-    ) > 1
-  );
+  let count = node.superClass ? 1 : 0;
+  for (const listName of ["extends", "mixins", "implements"]) {
+    if (Array.isArray(node[listName])) {
+      count += node[listName].length;
+    }
+    if (count > 1) {
+      return true;
+    }
+  }
+  return count > 1;
 }
 
-function shouldIndentOnlyHeritageClauses(node) {
-  return (
-    node.typeParameters &&
-    !hasComment(
-      node.typeParameters,
-      CommentCheckFlags.Trailing | CommentCheckFlags.Line,
-    ) &&
-    !hasMultipleHeritage(node)
-  );
-}
-
-function printHeritageClauses(path, options, print, listName) {
+function printHeritageClauses(path, options, print, listName, groupMode) {
   const { node } = path;
   if (!isNonEmptyArray(node[listName])) {
     return "";
@@ -178,16 +179,28 @@ function printHeritageClauses(path, options, print, listName) {
   const printedLeadingComments = printDanglingComments(path, options, {
     marker: listName,
   });
+
+  const heritageClausesDoc = join([",", line], path.map(print, listName));
+
+  // Make it print like `superClass`
+  if (!hasMultipleHeritage(node)) {
+    const printed = [
+      `${listName} `,
+      printedLeadingComments,
+      heritageClausesDoc,
+    ];
+    if (groupMode) {
+      return [line, group(printed)];
+    }
+    return [" ", printed];
+  }
+
   return [
-    shouldIndentOnlyHeritageClauses(node)
-      ? ifBreak(" ", line, {
-          groupId: getTypeParametersGroupId(node.typeParameters),
-        })
-      : line,
+    line,
     printedLeadingComments,
     printedLeadingComments && hardline,
     listName,
-    group(indent([line, join([",", line], path.map(print, listName))])),
+    group(indent([line, heritageClausesDoc])),
   ];
 }
 

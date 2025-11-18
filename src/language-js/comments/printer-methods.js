@@ -146,6 +146,17 @@ function canAttachComment(node, ancestors) {
   return true;
 }
 
+const isClassOrInterface = createTypeCheckFunction([
+  "ClassDeclaration",
+  "ClassExpression",
+  "DeclareClass",
+  "DeclareInterface",
+  "InterfaceDeclaration",
+  "TSInterfaceDeclaration",
+  // Can't have `id` or `typeParameters`
+  // "InterfaceTypeAnnotation",
+]);
+
 /**
  * @param {AstPath} path
  * @returns {boolean}
@@ -159,6 +170,8 @@ function willPrintOwnComments(path) {
     (key === "superClass" &&
       (parent.type === "ClassDeclaration" ||
         parent.type === "ClassExpression")) ||
+    ((key === "id" || key === "typeParameters") &&
+      isClassOrInterface(parent)) ||
     // Not tested, don't know how to
     (key === "patterns" && parent.type === "MatchOrPattern")
   ) {

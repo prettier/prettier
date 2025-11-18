@@ -1,5 +1,5 @@
-import { fill, join, line } from "../../src/document/builders.js";
-import { printDocToString } from "../../src/document/printer.js";
+import { fill, join, line } from "../../src/document/index.js";
+import { printDocToString } from "../../src/document/printer/printer.js";
 
 test("`printDocToString` should not manipulate docs", () => {
   const printOptions = { printWidth: 40, tabWidth: 2 };

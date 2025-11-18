@@ -5,9 +5,9 @@ import {
   indent,
   join,
   line,
+  removeLines,
   softline,
-} from "../../document/builders.js";
-import { removeLines } from "../../document/utils.js";
+} from "../../document/index.js";
 import { printDanglingComments } from "../../main/comments/print.js";
 import isNonEmptyArray from "../../utils/is-non-empty-array.js";
 import UnexpectedNodeError from "../../utils/unexpected-node-error.js";
@@ -27,7 +27,7 @@ import { printDeclareToken } from "./misc.js";
 import { printObject } from "./object.js";
 
 /**
- * @import {Doc} from "../../document/builders.js"
+ * @import {Doc} from "../../document/index.js"
  */
 
 /*

@@ -8,8 +8,7 @@ import { isJson, statSafe } from "./utils.js";
  * Find default cache file (`./node_modules/.cache/prettier/.prettier-cache`) using https://github.com/sindresorhus/find-cache-directory
  */
 function findDefaultCacheFile() {
-  const cacheDir =
-    findCacheDirectory({ name: "prettier", create: true }) || os.tmpdir();
+  const cacheDir = findCacheDirectory({ name: "prettier" }) ?? os.tmpdir();
   const cacheFilePath = path.join(cacheDir, ".prettier-cache");
   return cacheFilePath;
 }

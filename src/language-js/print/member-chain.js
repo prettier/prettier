@@ -6,8 +6,8 @@ import {
   indent,
   join,
   label,
-} from "../../document/builders.js";
-import { willBreak } from "../../document/utils.js";
+  willBreak,
+} from "../../document/index.js";
 import { printComments } from "../../main/comments/print.js";
 import getNextNonSpaceNonCommentCharacterIndex from "../../utils/get-next-non-space-non-comment-character-index.js";
 import isNextLineEmptyAfterIndex from "../../utils/is-next-line-empty.js";
@@ -30,7 +30,7 @@ import { printMemberLookup } from "./member.js";
 import { printBindExpressionCallee, printOptionalToken } from "./misc.js";
 
 /**
- * @import {Doc} from "../../document/builders.js"
+ * @import {Doc} from "../../document/index.js"
  * @typedef {{ node: any, printed: Doc, needsParens?: boolean, shouldInline?: boolean, hasTrailingEmptyLine?: boolean }} PrintedNode
  */
 

@@ -1,4 +1,4 @@
-import { hardline, line } from "../../document/builders.js";
+import { hardline, line } from "../../document/index.js";
 import { isFrontMatter } from "../../main/front-matter/index.js";
 import hasNewline from "../../utils/has-newline.js";
 import isNextLineEmpty from "../../utils/is-next-line-empty.js";

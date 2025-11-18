@@ -1,0 +1,3 @@
+# https://github.com/graphql/graphql-js/pull/4482
+
+"Fragment description" fragment Foo on Bar { baz }

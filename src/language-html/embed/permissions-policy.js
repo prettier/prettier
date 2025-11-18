@@ -1,4 +1,4 @@
-import { ifBreak, line } from "../../document/builders.js";
+import { ifBreak, line } from "../../document/index.js";
 import { getUnescapedAttributeValue } from "../utils/index.js";
 import parsePermissionsPolicy from "./parse-permissions-policy.js";
 import { printExpand } from "./utils.js";

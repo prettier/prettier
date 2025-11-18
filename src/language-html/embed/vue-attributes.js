@@ -11,7 +11,7 @@ import { printVueBindings } from "./vue-bindings.js";
 import { printVueVForDirective } from "./vue-v-for-directive.js";
 
 /**
-@import {Doc} from "../../document/builders.js"
+@import {Doc} from "../../document/index.js"
 @import AstPath from "../../common/ast-path.js"
 @import {AttributeValuePrinter} from "./attribute.js"
 */

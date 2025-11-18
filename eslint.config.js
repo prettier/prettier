@@ -308,7 +308,11 @@ const configs = [
     },
   },
   {
-    files: ["scripts/**/*", "tests/config/install-prettier.js"],
+    files: [
+      "scripts/**/*",
+      "benchmarks/**",
+      "tests/config/install-prettier.js",
+    ],
     rules: {
       "no-console": "off",
     },
@@ -496,6 +500,15 @@ const configs = [
   {
     files: ["scripts/build/esbuild-plugins/**/*"],
     rules: { "require-unicode-regexp": "off" },
+  },
+  {
+    files: ["src/document/printer/printer.js"],
+    rules: {
+      "unicorn/prevent-abbreviations": [
+        "error",
+        { replacements: { doc: false } },
+      ],
+    },
   },
 ];
 
