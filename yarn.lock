@@ -6235,21 +6235,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"knip@npm:5.69.1":
-  version: 5.69.1
-  resolution: "knip@npm:5.69.1"
+"knip@npm:5.70.0":
+  version: 5.70.0
+  resolution: "knip@npm:5.70.0"
   dependencies:
     "@nodelib/fs.walk": "npm:^1.2.3"
     fast-glob: "npm:^3.3.3"
     formatly: "npm:^0.3.0"
     jiti: "npm:^2.6.0"
-    js-yaml: "npm:^4.1.0"
+    js-yaml: "npm:^4.1.1"
     minimist: "npm:^1.2.8"
-    oxc-resolver: "npm:^11.12.0"
+    oxc-resolver: "npm:^11.13.2"
     picocolors: "npm:^1.1.1"
     picomatch: "npm:^4.0.1"
-    smol-toml: "npm:^1.4.1"
-    strip-json-comments: "npm:5.0.2"
+    smol-toml: "npm:^1.5.2"
+    strip-json-comments: "npm:5.0.3"
     zod: "npm:^4.1.11"
   peerDependencies:
     "@types/node": ">=18"
@@ -6257,7 +6257,7 @@ __metadata:
   bin:
     knip: bin/knip.js
     knip-bun: bin/knip-bun.js
-  checksum: 10/ab0d8ca4a301bce61daf0ee0be7d88162985845fb1d085d16f95234b59d9145b19392d3038ce4d1da2f37f11881f16577581628d760edfbc7fe0c0010acba1f5
+  checksum: 10/d52e0c420850ea069d3d7b60e75d7c55f89b58c48f8fa5a69ee75c5d0d7c7d6d07e86b3ba54691fedfe92ed9f74b9e3ba5ff33f706a2c2c628cd708f35e5b734
   languageName: node
   linkType: hard
 
@@ -6861,7 +6861,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"oxc-resolver@npm:^11.12.0":
+"oxc-resolver@npm:^11.13.2":
   version: 11.13.2
   resolution: "oxc-resolver@npm:11.13.2"
   dependencies:
@@ -7340,7 +7340,7 @@ __metadata:
     jest-watch-typeahead: "npm:3.0.1"
     jsesc: "npm:3.1.0"
     json5: "npm:2.2.3"
-    knip: "npm:5.69.1"
+    knip: "npm:5.70.0"
     leven: "npm:4.1.0"
     linguist-languages: "npm:9.1.0"
     magic-string: "npm:0.30.21"
@@ -7833,7 +7833,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"smol-toml@npm:1.5.2, smol-toml@npm:^1.4.1, smol-toml@npm:^1.5.2":
+"smol-toml@npm:1.5.2, smol-toml@npm:^1.5.2":
   version: 1.5.2
   resolution: "smol-toml@npm:1.5.2"
   checksum: 10/0a7e9192d1cbd04c3122224306de33962f4f5ac7e78a48b7c3795a675683b6efeb8f73ad3fabda7635926a510948cb4654a729d17b35ec43d56d35a71cf906f4
@@ -8101,10 +8101,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"strip-json-comments@npm:5.0.2":
-  version: 5.0.2
-  resolution: "strip-json-comments@npm:5.0.2"
-  checksum: 10/986064b73898edc77113cd6147b32f36e299869f3675ed81c3166492a6d8f02d918a492604d1982dab40ca727a86969cb91aa44d6632626f8d7c3c6ead1216bb
+"strip-json-comments@npm:5.0.3":
+  version: 5.0.3
+  resolution: "strip-json-comments@npm:5.0.3"
+  checksum: 10/3ccbf26f278220f785e4b71f8a719a6a063d72558cc63cb450924254af258a4f4c008b8c9b055373a680dc7bd525be9e543ad742c177f8a7667e0b726258e0e4
   languageName: node
   linkType: hard
 

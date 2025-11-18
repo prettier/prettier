@@ -157,7 +157,7 @@
     "jest-snapshot-serializer-raw": "2.0.0",
     "jest-watch-typeahead": "3.0.1",
     "jsesc": "3.1.0",
-    "knip": "5.69.1",
+    "knip": "5.70.0",
     "magic-string": "0.30.21",
     "make-synchronized": "0.8.0",
     "nano-spawn": "2.0.0",
