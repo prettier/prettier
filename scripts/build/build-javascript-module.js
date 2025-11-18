@@ -2,7 +2,6 @@ import path from "node:path";
 import url from "node:url";
 import browserslistToEsbuild from "browserslist-to-esbuild";
 import esbuild from "esbuild";
-import { nodeModulesPolyfillPlugin as esbuildPluginNodeModulePolyfills } from "esbuild-plugins-node-modules-polyfill";
 import createEsmUtils from "esm-utils";
 import {
   PRODUCTION_MINIMAL_NODE_JS_VERSION,
@@ -196,7 +195,6 @@ function getEsbuildOptions({ packageConfig, file, cliOptions }) {
       esbuildPluginReplaceModule({
         replacements: [...replaceModule, ...(buildOptions.replaceModule ?? [])],
       }),
-      file.platform === "universal" && esbuildPluginNodeModulePolyfills(),
       cliOptions.reports &&
         esbuildPluginVisualizer({ formats: cliOptions.reports }),
       esbuildPluginThrowWarnings({
