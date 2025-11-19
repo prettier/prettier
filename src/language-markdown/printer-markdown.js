@@ -523,10 +523,15 @@ function hasPrettierIgnore(path) {
   return path.index > 0 && isPrettierIgnore(path.previous) === "next";
 }
 
-// `remark-parse` lowercase the `label` as `identifier`, we don't want do that
-// https://github.com/remarkjs/remark/blob/daddcb463af2d5b2115496c395d0571c0ff87d15/packages/remark-parse/lib/tokenize/reference.js
-function printLinkReference(node) {
-  return `[${collapseWhiteSpace(node.label)}]`;
+function printLinkReference(node, options) {
+  // `remark-parse` lowercase the `label` as `identifier`, we don't want do that
+  // https://github.com/remarkjs/remark/blob/daddcb463af2d5b2115496c395d0571c0ff87d15/packages/remark-parse/lib/tokenize/reference.js
+  const label = collapseWhiteSpace(node.label);
+  if (options?.parser === "mdx") {
+    return `[${label}]`;
+  }
+  const name = label.replaceAll(/[\\[\]]/gu, (s) => `\\${s}`);
+  return `[${name}]`;
 }
 
 function printFootnoteReference(node) {
