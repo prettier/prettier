@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`18278.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+interface a {
+  bar():any /* bat */;
+}
+
+type b = {
+  bar():any /* bat */;
+}
+
+declare class c {
+  bar():any /* bat */;
+}
+
+=====================================output=====================================
+interface a {
+  bar(): any /* bat */;
+}
+
+type b = {
+  bar(): any /* bat */;
+};
+
+declare class c {
+  bar(): any /* bat */;
+}
+
+================================================================================
+`;
