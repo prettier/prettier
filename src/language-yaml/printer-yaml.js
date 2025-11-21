@@ -150,7 +150,7 @@ function printNode(path, options, print) {
   switch (node.type) {
     case "root": {
       const parts = [];
-      path.each(({ node: document, next: nextDocument, isFirst }) => {
+      path.each(({ node: document, isFirst }) => {
         if (!isFirst) {
           parts.push(hardline);
         }
@@ -160,8 +160,6 @@ function printNode(path, options, print) {
           if (hasTrailingComment(document)) {
             parts.push(" ", print("trailingComment"));
           }
-        } else if (nextDocument && !hasTrailingComment(nextDocument.head)) {
-          parts.push(hardline, "---");
         }
       }, "children");
 
@@ -345,6 +343,10 @@ function shouldPrintDocumentBody(document) {
 function shouldPrintDocumentEndMarker(path) {
   const document = path.node;
 
+  if (document.documentEndMarker) {
+    return true;
+  }
+
   /**
    *... # trailingComment
    */
@@ -381,7 +383,7 @@ function shouldPrintDocumentHeadEndMarker(path) {
      * ---
      * preserve the first document head end marker
      */
-    (path.isFirst && document.directivesEndMarker) ||
+    document.directivesEndMarker ||
     /**
      * %DIRECTIVE
      * ---
