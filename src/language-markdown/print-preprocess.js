@@ -17,6 +17,9 @@ function preprocess(ast, options) {
   } else {
     ast = transformIndentedCodeblock(ast, options);
   }
+  if (options.parser !== "mdx") {
+    ast = markOriginalImageAndLinkAlt(ast, options);
+  }
   ast = markAlignedList(ast, options);
   if (options.parser === "mdx") {
     ast = splitTextIntoSentencesLegacy(ast);
@@ -231,6 +234,68 @@ function transformIndentedCodeblockAndMarkItsParentList(ast, options) {
     }
     return node;
   });
+}
+
+// remark 11 removes nested links so we need to recover the original alt text
+function markOriginalImageAndLinkAlt(ast, options) {
+  const { originalText } = options;
+  return mapAst(ast, (node) => {
+    if (!(node.type === "image" || node.type === "link")) {
+      return node;
+    }
+    if (!node.url || !node.position) {
+      return node;
+    }
+
+    const originalAlt = getBracketContent(
+      originalText,
+      node.position.start.offset,
+      node.position.end.offset,
+    );
+
+    if (originalAlt && /[[\]]/u.test(originalAlt)) {
+      if (node.type === "image") {
+        node.originalAltText = originalAlt;
+      } else {
+        node.originalLabelText = originalAlt;
+      }
+    }
+
+    return node;
+  });
+}
+
+function getBracketContent(text, startOffset, endOffset) {
+  const firstBracket = text.indexOf("[", startOffset);
+
+  if (firstBracket === -1 || firstBracket >= endOffset) {
+    return null;
+  }
+
+  let depth = 1;
+  let index = firstBracket + 1;
+
+  while (index < endOffset) {
+    const char = text[index];
+
+    if (char === "\\") {
+      index += 2;
+      continue;
+    }
+
+    if (char === "[") {
+      depth++;
+    } else if (char === "]") {
+      depth--;
+      if (depth === 0) {
+        return text.slice(firstBracket + 1, index);
+      }
+    }
+
+    index++;
+  }
+
+  return null;
 }
 
 function markAlignedList(ast, options) {

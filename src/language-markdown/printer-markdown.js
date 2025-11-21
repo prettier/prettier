@@ -201,7 +201,7 @@ function genericPrint(path, options, print) {
     case "image":
       return [
         "![",
-        node.alt || "",
+        getImageAltText(node, options),
         "](",
         printUrl(node.url, ")"),
         printTitle(node.title, options),
@@ -536,6 +536,14 @@ function printLinkReference(node, options) {
 
 function printFootnoteReference(node) {
   return `[^${node.label}]`;
+}
+
+function getImageAltText(node, options) {
+  if (options.parser !== "mdx" && node.originalAltText) {
+    return node.originalAltText;
+  }
+
+  return node.alt || "";
 }
 
 /**
