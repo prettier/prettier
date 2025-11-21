@@ -45,12 +45,12 @@ const relativePath = file.href.slice(
 
 console.log("Generated changelog file: " + relativePath);
 
-const shouldOpenEditor = await new enquirer.Confirm({
+const shouldOpenChangelog = await new enquirer.Confirm({
   message: "Open changelog file?",
   initial: true,
 }).run();
 
-if (shouldOpenEditor) {
+if (shouldOpenChangelog) {
   try {
     openEditor([url.fileURLToPath(file)]);
   } catch (error) {
