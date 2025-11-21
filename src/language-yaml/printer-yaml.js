@@ -176,7 +176,7 @@ function printNode(path, options, print) {
     }
     case "document": {
       const parts = [];
-      if (shouldPrintDocumentHeadEndMarker(path, options)) {
+      if (shouldPrintDocumentHeadEndMarker(path)) {
         if (node.head.children.length > 0 || node.head.endComments.length > 0) {
           parts.push(print("head"));
         }
