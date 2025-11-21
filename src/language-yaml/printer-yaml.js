@@ -12,10 +12,11 @@ import {
 } from "../document/index.js";
 import isPreviousLineEmpty from "../utils/is-previous-line-empty.js";
 import UnexpectedNodeError from "../utils/unexpected-node-error.js";
+import clean from "./clean.js";
 import embed from "./embed.js";
 import getVisitorKeys from "./get-visitor-keys.js";
 import { locStart } from "./loc.js";
-import { insertPragma, isPragma } from "./pragma.js";
+import { insertPragma } from "./pragma.js";
 import printBlock from "./print/block.js";
 import {
   printFlowMapping,
@@ -154,7 +155,7 @@ function printNode(path, options, print) {
           parts.push(hardline);
         }
         parts.push(print());
-        if (shouldPrintDocumentEndMarker(document, nextDocument)) {
+        if (shouldPrintDocumentEndMarker(path)) {
           parts.push(hardline, "...");
           if (hasTrailingComment(document)) {
             parts.push(" ", print("trailingComment"));
@@ -175,7 +176,7 @@ function printNode(path, options, print) {
     }
     case "document": {
       const parts = [];
-      if (shouldPrintDocumentHeadEndMarker(path, options) === "head") {
+      if (shouldPrintDocumentHeadEndMarker(path)) {
         if (node.head.children.length > 0 || node.head.endComments.length > 0) {
           parts.push(print("head"));
         }
@@ -341,39 +342,46 @@ function shouldPrintDocumentBody(document) {
   return document.body.children.length > 0 || hasEndComments(document.body);
 }
 
-function shouldPrintDocumentEndMarker(document, nextDocument) {
+function shouldPrintDocumentEndMarker(path) {
+  const document = path.node;
+
+  /**
+   *... # trailingComment
+   */
+  if (hasTrailingComment(document)) {
+    return true;
+  }
+
+  if (path.isLast) {
+    return false;
+  }
+
+  const nextDocument = path.next;
+
   return (
     /**
-     *... # trailingComment
+     * ...
+     * %DIRECTIVE
+     * ---
      */
-    hasTrailingComment(document) ||
-    (nextDocument &&
-      /**
-       * ...
-       * %DIRECTIVE
-       * ---
-       */
-      (nextDocument.head.children.length > 0 ||
-        /**
-         * ...
-         * # endComment
-         * ---
-         */
-        hasEndComments(nextDocument.head)))
+    nextDocument.head.children.length > 0 ||
+    /**
+     * ...
+     * # endComment
+     * ---
+     */
+    hasEndComments(nextDocument.head)
   );
 }
 
-function shouldPrintDocumentHeadEndMarker(path, options) {
+function shouldPrintDocumentHeadEndMarker(path) {
   const document = path.node;
-  if (
+  return (
     /**
      * ---
      * preserve the first document head end marker
      */
-    (path.isFirst &&
-      /---(?:\s|$)/u.test(
-        options.originalText.slice(locStart(document), locStart(document) + 4),
-      )) ||
+    (path.isFirst && document.directivesEndMarker) ||
     /**
      * %DIRECTIVE
      * ---
@@ -388,16 +396,7 @@ function shouldPrintDocumentHeadEndMarker(path, options) {
      * --- # trailing comment
      */
     hasTrailingComment(document.head)
-  ) {
-    return "head";
-  }
-
-  const nextDocument = path.next;
-  if (shouldPrintDocumentEndMarker(document, nextDocument)) {
-    return false;
-  }
-
-  return nextDocument ? "root" : false;
+  );
 }
 
 function printFlowScalarContent(nodeType, content, options) {
@@ -407,24 +406,6 @@ function printFlowScalarContent(nodeType, content, options) {
     lineContents.map((lineContentWords) => fill(join(line, lineContentWords))),
   );
 }
-
-function clean(original, cloned /* , parent */) {
-  if (isNode(original)) {
-    switch (original.type) {
-      case "comment":
-        // insert pragma
-        if (isPragma(original.value)) {
-          return null;
-        }
-        break;
-      case "quoteDouble":
-      case "quoteSingle":
-        cloned.type = "quote";
-        break;
-    }
-  }
-}
-clean.ignoredProperties = new Set(["position"]);
 
 const printer = {
   preprocess,
