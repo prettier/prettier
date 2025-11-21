@@ -171,6 +171,22 @@ test("String.raw", () => {
     \`\\\\uINVALID\${'world'}\`;
     "
   `);
+
+  expect(
+    transform(outdent`
+      var _level1Parens = String.raw\`(?:\(\${_noParens}\)|\${_noParens})+?\`;
+      var _level2Parens = String.raw\`(?:\(\${_level1Parens}\)|\${_noParens})+?\`;
+      var _parenSuffix = String.raw\`(?:\((\${_level2Parens})\))\`;
+      var nthRegex = new RegExp(String.raw\`(:nth-[-\w]+)\` + _parenSuffix, "g");
+    `),
+  ).toMatchInlineSnapshot(`
+    "
+    var _level1Parens = \`(?:(\${_noParens})|\${_noParens})+?\`;
+    var _level2Parens = \`(?:(\${_level1Parens})|\${_noParens})+?\`;
+    var _parenSuffix = \`(?:((\${_level2Parens})))\`;
+    var nthRegex = new RegExp("(:nth-[-w]+)" + _parenSuffix, "g");
+    "
+  `);
 });
 
 test("public doc functionality", () => {
