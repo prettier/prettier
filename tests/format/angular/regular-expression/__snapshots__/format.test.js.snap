@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`regular-expression.html format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<b>{{       /\\d/+}}</b>
+<!-- Invalid regular expression -->
+<b>{{       /\\B*/u}}</b>
+
+=====================================output=====================================
+<b>{{       /\\d/+}}</b>
+<!-- Invalid regular expression -->
+<b>{{ /\\B*/u }}</b>
+
+================================================================================
+`;

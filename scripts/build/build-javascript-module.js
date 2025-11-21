@@ -193,7 +193,7 @@ function getEsbuildOptions({ packageConfig, file, cliOptions }) {
       esbuildPluginEvaluate(),
       esbuildPluginStripNodeProtocol(),
       esbuildPluginReplaceModule({
-        replacements: [...replaceModule, ...(buildOptions.replaceModule ?? [])],
+        replacements: [...(buildOptions.replaceModule ?? []), ...replaceModule],
       }),
       cliOptions.reports &&
         esbuildPluginVisualizer({ formats: cliOptions.reports }),
