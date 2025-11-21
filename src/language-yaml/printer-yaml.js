@@ -149,6 +149,11 @@ function printNode(path, options, print) {
   const { node } = path;
   switch (node.type) {
     case "root": {
+      const lastDescendantNode = getLastDescendantNode(node);
+      const shouldPrintHardline = !(
+        isNode(lastDescendantNode, ["blockLiteral", "blockFolded"]) &&
+        lastDescendantNode.chomping === "keep"
+      );
       const parts = [];
       path.each(({ node: document, isFirst }) => {
         if (!isFirst) {
@@ -156,20 +161,21 @@ function printNode(path, options, print) {
         }
         parts.push(print());
         if (shouldPrintDocumentEndMarker(path)) {
-          parts.push(hardline, "...");
+          if (shouldPrintHardline) {
+            parts.push(hardline);
+          }
+
+          parts.push("...");
           if (hasTrailingComment(document)) {
             parts.push(" ", print("trailingComment"));
           }
         }
       }, "children");
 
-      const lastDescendantNode = getLastDescendantNode(node);
-      if (
-        !isNode(lastDescendantNode, ["blockLiteral", "blockFolded"]) ||
-        lastDescendantNode.chomping !== "keep"
-      ) {
+      if (shouldPrintHardline) {
         parts.push(hardline);
       }
+
       return parts;
     }
     case "document": {
