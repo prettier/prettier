@@ -5,9 +5,7 @@ import isNonEmptyArray from "../utils/is-non-empty-array.js";
  * @param {string[]=} types
  */
 function isNode(value, types) {
-  return (
-    typeof value?.type === "string" && (!types || types.includes(value.type))
-  );
+  return typeof value?.type === "string" && types.includes(value.type);
 }
 
 function mapNode(node, callback, parent) {
