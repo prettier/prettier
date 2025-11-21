@@ -28,7 +28,7 @@ const packageTransforms = new Map([
     ["@glimmer/syntax", "angular-estree-parser", "espree"],
   ],
   [transforms["object-has-own"], ["@babel/parser", "meriyah"]],
-  [transforms["string-raw"], ["camelcase"]],
+  [transforms["string-raw"], ["camelcase", "@angular/compiler"]],
   /* spell-checker: enable */
 ]);
 
