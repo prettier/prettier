@@ -10,7 +10,9 @@
  */
 
 import fs from "node:fs/promises";
+import url from "node:url";
 import enquirer from "enquirer";
+import openEditor from "open-editor";
 import { CHANGELOG_CATEGORIES } from "./utils/changelog-categories.js";
 
 const prNumberPrompt = new enquirer.NumberPrompt({
@@ -42,6 +44,19 @@ const relativePath = file.href.slice(
 );
 
 console.log("Generated changelog file: " + relativePath);
+
+const shouldOpenEditor = await new enquirer.Confirm({
+  message: "Open changelog file?",
+  initial: true,
+}).run();
+
+if (shouldOpenEditor) {
+  try {
+    openEditor([url.fileURLToPath(file)]);
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 /**
  * @param {number} prNumber
@@ -113,15 +128,12 @@ async function createChangelog(title, user, prNumber, category) {
     .replace(prNumberPart, `#${prNumber}`)
     .replace(userPart, `@${user}`)
     .replace(codeBlockPart, `\`\`\`${syntax}\n`)
-    .replace(inputCommentPart, getCommentForSyntax(syntax, "Input") + "\n")
+    .replace(inputCommentPart, generateComment(syntax, "Input") + "\n")
     .replace(
       stableCommentPart,
-      getCommentForSyntax(syntax, "Prettier stable") + "\n",
+      generateComment(syntax, "Prettier stable") + "\n",
     )
-    .replace(
-      mainCommentPart,
-      getCommentForSyntax(syntax, "Prettier main") + "\n",
-    );
+    .replace(mainCommentPart, generateComment(syntax, "Prettier main") + "\n");
 }
 
 /**
@@ -168,7 +180,7 @@ function getSyntaxFromCategory(category) {
  * @param {string} comment
  * @returns {string}
  */
-function getCommentForSyntax(syntax, comment) {
+function generateComment(syntax, comment) {
   switch (syntax) {
     case "md":
     case "mdx":
@@ -176,6 +188,7 @@ function getCommentForSyntax(syntax, comment) {
       return `<!-- ${comment} -->`;
     case "sh":
     case "gql":
+    case "yaml":
       return `# ${comment}`;
     case "hbs":
       return `{{! ${comment} }}`;
