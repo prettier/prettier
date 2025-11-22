@@ -15,6 +15,7 @@ const SKIP = new Set([
   "Y79Y-3.yaml",
 ]);
 
+// https://github.com/prettier/prettier/issues/18302
 const BUGS = new Set([
   "DE56-3.yaml",
   "DE56-4.yaml",
