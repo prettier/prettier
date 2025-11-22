@@ -430,7 +430,7 @@ function printEstree(path, options, print, args) {
               line,
               print("test"),
               ";",
-              line,
+              node.update ? line : ifBreak("", line),
               print("update"),
             ]),
             softline,
