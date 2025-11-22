@@ -13,9 +13,13 @@ function clean(original, cloned /* , parent */) {
       cloned.type = "quote";
       break;
     case "document":
-      // We may insert explicit start/end mark
-      delete cloned.directivesEndMarker;
-      delete cloned.documentEndMarker;
+      // We may insert explicit marks
+      if (!cloned.directivesEndMarker) {
+        delete cloned.directivesEndMarker;
+      }
+      if (!cloned.documentEndMarker) {
+        delete cloned.documentEndMarker;
+      }
       break;
   }
 }

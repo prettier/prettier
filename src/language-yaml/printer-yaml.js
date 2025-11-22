@@ -149,29 +149,33 @@ function printNode(path, options, print) {
   const { node } = path;
   switch (node.type) {
     case "root": {
+      const lastDescendantNode = getLastDescendantNode(node);
+      const shouldPrintHardline = !(
+        isNode(lastDescendantNode, ["blockLiteral", "blockFolded"]) &&
+        lastDescendantNode.chomping === "keep"
+      );
       const parts = [];
-      path.each(({ node: document, next: nextDocument, isFirst }) => {
+      path.each(({ node: document, isFirst }) => {
         if (!isFirst) {
           parts.push(hardline);
         }
         parts.push(print());
         if (shouldPrintDocumentEndMarker(path)) {
-          parts.push(hardline, "...");
+          if (shouldPrintHardline) {
+            parts.push(hardline);
+          }
+
+          parts.push("...");
           if (hasTrailingComment(document)) {
             parts.push(" ", print("trailingComment"));
           }
-        } else if (nextDocument && !hasTrailingComment(nextDocument.head)) {
-          parts.push(hardline, "---");
         }
       }, "children");
 
-      const lastDescendantNode = getLastDescendantNode(node);
-      if (
-        !isNode(lastDescendantNode, ["blockLiteral", "blockFolded"]) ||
-        lastDescendantNode.chomping !== "keep"
-      ) {
+      if (shouldPrintHardline) {
         parts.push(hardline);
       }
+
       return parts;
     }
     case "document": {
@@ -345,6 +349,10 @@ function shouldPrintDocumentBody(document) {
 function shouldPrintDocumentEndMarker(path) {
   const document = path.node;
 
+  if (document.documentEndMarker) {
+    return true;
+  }
+
   /**
    *... # trailingComment
    */
@@ -381,7 +389,7 @@ function shouldPrintDocumentHeadEndMarker(path) {
      * ---
      * preserve the first document head end marker
      */
-    (path.isFirst && document.directivesEndMarker) ||
+    document.directivesEndMarker ||
     /**
      * %DIRECTIVE
      * ---
