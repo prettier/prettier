@@ -207,7 +207,7 @@
     "build": "node ./scripts/build/build.js",
     "build:website": "node ./scripts/build-website.js",
     "build:website:pr": "cross-env PULL_REQUEST=true yarn build:website",
-    "gen:changelog": "node ./scripts/generate-changelog.js",
+    "generate-changelog": "node ./scripts/generate-changelog.js",
     "debug": "node bin/prettier.js --ignore-path=.prettierignore --plugin=./packages/plugin-oxc/index.js --plugin=./packages/plugin-hermes/index.js",
     "debug:watch": "node --watch bin/prettier.js --ignore-path=.prettierignore --plugin=./packages/plugin-oxc/index.js --plugin=./packages/plugin-hermes/index.js",
     "debug:inspect": "node --inspect-brk bin/prettier.js --ignore-path=.prettierignore --plugin=./packages/plugin-oxc/index.js --plugin=./packages/plugin-hermes/index.js"
