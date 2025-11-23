@@ -3828,7 +3828,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"default-browser@npm:^5.2.1":
+"default-browser@npm:^5.4.0":
   version: 5.4.0
   resolution: "default-browser@npm:5.4.0"
   dependencies:
@@ -3965,7 +3965,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"env-editor@npm:^1.1.0":
+"env-editor@npm:^1.3.0":
   version: 1.3.0
   resolution: "env-editor@npm:1.3.0"
   checksum: 10/d81ccbef328aad32fc8e0b751fece87ad185d0a82c700e7556c80cedc9880d7d1ac202698b4304c88cc9b7e923baa78209629238690ad747ea510bedc72f0f0f
@@ -4586,7 +4586,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"execa@npm:^9.3.0":
+"execa@npm:^9.6.0":
   version: 9.6.0
   resolution: "execa@npm:9.6.0"
   dependencies:
@@ -5551,6 +5551,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"is-in-ssh@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "is-in-ssh@npm:1.0.0"
+  checksum: 10/d55cb39afdbca0cdc94cd493da7819c00d35048ea04fc1624aabde6e0c86aa6b91ddb38b2baf73c4b5d53cc8fbf1a8dfbf2e315594a808474b751ffb6b0d3e58
+  languageName: node
+  linkType: hard
+
 "is-inside-container@npm:^1.0.0":
   version: 1.0.0
   resolution: "is-inside-container@npm:1.0.0"
@@ -6435,12 +6442,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"line-column-path@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "line-column-path@npm:3.0.0"
+"line-column-path@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "line-column-path@npm:4.0.0"
   dependencies:
-    type-fest: "npm:^2.0.0"
-  checksum: 10/124564d302e45a5c2ce7d05588ead253aca254a064db8875fa9c31e7e00d9ae5b5d7caf7f1c45ff3615739cc0960ec0490d1ac0903a978a904f2aa114641f152
+    unicorn-magic: "npm:^0.4.0"
+  checksum: 10/c173410e892f763ba39f2c6c228476cb1786efcb6f6357c9ab94cd18d849b4fbd677bdfb244dbd1e77b43ad95983159268311ea25d9df2187a71bb9c540dddc8
   languageName: node
   linkType: hard
 
@@ -6943,27 +6950,29 @@ __metadata:
   languageName: node
   linkType: hard
 
-"open-editor@npm:5.1.0":
-  version: 5.1.0
-  resolution: "open-editor@npm:5.1.0"
+"open-editor@npm:6.0.0":
+  version: 6.0.0
+  resolution: "open-editor@npm:6.0.0"
   dependencies:
-    env-editor: "npm:^1.1.0"
-    execa: "npm:^9.3.0"
-    line-column-path: "npm:^3.0.0"
-    open: "npm:^10.1.0"
-  checksum: 10/55e4b3255416d81b77fa81e41f3559db814dbd64bc934735830cb2cf881f89015215b4e6f53887599f09d6d01658cc4312adae55e1b6aa1842da359623a8755b
+    env-editor: "npm:^1.3.0"
+    execa: "npm:^9.6.0"
+    line-column-path: "npm:^4.0.0"
+    open: "npm:^11.0.0"
+  checksum: 10/aaf6d7bcb03424ebfe9d6275a5eaf11add3ab6ab640cf72bd4cdd9068e264e37613756359011cb75296b0fa3f2db87ecd2db75f05689cdc60a41e14737caaa81
   languageName: node
   linkType: hard
 
-"open@npm:^10.1.0":
-  version: 10.2.0
-  resolution: "open@npm:10.2.0"
+"open@npm:^11.0.0":
+  version: 11.0.0
+  resolution: "open@npm:11.0.0"
   dependencies:
-    default-browser: "npm:^5.2.1"
+    default-browser: "npm:^5.4.0"
     define-lazy-prop: "npm:^3.0.0"
+    is-in-ssh: "npm:^1.0.0"
     is-inside-container: "npm:^1.0.0"
-    wsl-utils: "npm:^0.1.0"
-  checksum: 10/e6ad9474734eac3549dcc7d85e952394856ccaee48107c453bd6a725b82e3b8ed5f427658935df27efa76b411aeef62888edea8a9e347e8e7c82632ec966b30e
+    powershell-utils: "npm:^0.1.0"
+    wsl-utils: "npm:^0.3.0"
+  checksum: 10/d4572cd0c1f40fe1713edce9e3812367acbfaac0e909a68be0ee0b5acf4ee0a567d01d432dc2d708a55aab684002ab47fe13c679213fb749fe096b77a5d8e51b
   languageName: node
   linkType: hard
 
@@ -7442,6 +7451,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"powershell-utils@npm:^0.1.0":
+  version: 0.1.0
+  resolution: "powershell-utils@npm:0.1.0"
+  checksum: 10/4cc0846bc903ef9c8ac8cc9d178185d5972160a6c8776d44cf4c27ce31c0b614fc7cd20a53e8fcaf7f5296cdb34087a5d4396bdd863492972c84f76f3cadef67
+  languageName: node
+  linkType: hard
+
 "prelude-ls@npm:^1.2.1":
   version: 1.2.1
   resolution: "prelude-ls@npm:1.2.1"
@@ -7552,7 +7568,7 @@ __metadata:
     nano-spawn: "npm:2.0.0"
     node-style-text: "npm:2.1.2"
     npm-run-all2: "npm:8.0.4"
-    open-editor: "npm:5.1.0"
+    open-editor: "npm:6.0.0"
     outdent: "npm:0.8.0"
     oxc-parser: "npm:0.98.0"
     parse-json: "npm:8.3.0"
@@ -8713,7 +8729,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"type-fest@npm:^2.0.0, type-fest@npm:^2.12.2":
+"type-fest@npm:^2.12.2":
   version: 2.19.0
   resolution: "type-fest@npm:2.19.0"
   checksum: 10/7bf9e8fdf34f92c8bb364c0af14ca875fac7e0183f2985498b77be129dc1b3b1ad0a6b3281580f19e48c6105c037fb966ad9934520c69c6434d17fd0af4eed78
@@ -8777,6 +8793,13 @@ __metadata:
   version: 0.3.0
   resolution: "unicorn-magic@npm:0.3.0"
   checksum: 10/bdd7d7c522f9456f32a0b77af23f8854f9a7db846088c3868ec213f9550683ab6a2bdf3803577eacbafddb4e06900974385841ccb75338d17346ccef45f9cb01
+  languageName: node
+  linkType: hard
+
+"unicorn-magic@npm:^0.4.0":
+  version: 0.4.0
+  resolution: "unicorn-magic@npm:0.4.0"
+  checksum: 10/5a02923ac75a322b6ea8b0835cd106180cce01b67110f933ebd446757c708591ea45fbbe576f1e027c44a69642926d1d5b94ddf3a64082f4ff420296c84caff9
   languageName: node
   linkType: hard
 
@@ -9163,12 +9186,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"wsl-utils@npm:^0.1.0":
-  version: 0.1.0
-  resolution: "wsl-utils@npm:0.1.0"
+"wsl-utils@npm:^0.3.0":
+  version: 0.3.0
+  resolution: "wsl-utils@npm:0.3.0"
   dependencies:
     is-wsl: "npm:^3.1.0"
-  checksum: 10/de4c92187e04c3c27b4478f410a02e81c351dc85efa3447bf1666f34fc80baacd890a6698ec91995631714086992036013286aea3d77e6974020d40a08e00aec
+    powershell-utils: "npm:^0.1.0"
+  checksum: 10/bea153d6aebb263097b1e11d766d61c7a6c75912f0bbb92bfc945de2229cc84feadf7c74ae9f1c3d0a09f2c407cadc153f2ec980737c59c1cfc311da44366618
   languageName: node
   linkType: hard
 
