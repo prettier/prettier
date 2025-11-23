@@ -10,7 +10,6 @@
  */
 
 import fs from "node:fs/promises";
-import url from "node:url";
 import enquirer from "enquirer";
 import openEditor from "open-editor";
 import { CHANGELOG_CATEGORIES } from "./utils/changelog-categories.js";
@@ -52,7 +51,7 @@ const shouldOpenChangelog = await new enquirer.Confirm({
 
 if (shouldOpenChangelog) {
   try {
-    openEditor([url.fileURLToPath(file)]);
+    openEditor([file]);
   } catch (error) {
     console.log(error);
   }
