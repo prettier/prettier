@@ -126,6 +126,7 @@ function postprocess(ast, options) {
           if (lastDeclaration?.init && text[locEnd(lastDeclaration)] !== ";") {
             node.range = [locStart(node), locEnd(lastDeclaration)];
           }
+          extendRangeWithSemicolon(node, text);
           break;
         }
         // remove redundant TypeScript nodes
@@ -246,6 +247,17 @@ function assertRaw(node, text) {
 
   const raw = node.type === "TemplateElement" ? node.value.raw : getRaw(node);
   assert.equal(raw, text.slice(locStart(node), locEnd(node)));
+}
+
+
+function extendRangeWithSemicolon(node, text) {
+  let end = locEnd(node);
+  while (end < text.length && /\s/.test(text[end])) {
+    end++;
+  }
+  if (text[end] === ";") {
+    node.range = [locStart(node), end + 1];
+  }
 }
 
 export default postprocess;

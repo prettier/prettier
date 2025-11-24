@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`trailing-semi.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// prettier-ignore
+let x =
+    1
+    +
+    1
+;
+
+// prettier-ignore
+const y = 1;
+
+// prettier-ignore
+const z = 1
+;
+
+// prettier-ignore
+a =
+  b
+  +
+  c
+
+;
+=====================================output=====================================
+// prettier-ignore
+let x =
+    1
+    +
+    1
+;
+
+// prettier-ignore
+const y = 1;
+
+// prettier-ignore
+const z = 1
+;
+
+// prettier-ignore
+a =
+  b
+  +
+  c
+
+;
+
+================================================================================
+`;
