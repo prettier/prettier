@@ -251,7 +251,7 @@ function assertRaw(node, text) {
 
 function extendRangeWithSemicolon(node, text) {
   let end = locEnd(node);
-  while (end < text.length && /\s/.test(text[end])) {
+  while (end < text.length && /\s/u.test(text[end])) {
     end++;
   }
   if (text[end] === ";") {
