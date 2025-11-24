@@ -512,6 +512,15 @@ function getNodeCssStyleDisplay(node, options) {
       }
   }
 
+  if (
+    options.__embeddedInHtml &&
+    node.kind === "element" &&
+    (!node.namespace || isUnknownNamespace(node)) &&
+    node.name.includes("-")
+  ) {
+    return "block";
+  }
+
   return CSS_DISPLAY_DEFAULT;
 }
 

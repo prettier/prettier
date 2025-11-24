@@ -39,6 +39,7 @@ async function printEmbedHtmlLike(parser, textToDoc, print, path, options) {
   let topLevelCount = 0;
   const doc = await textToDoc(text, {
     parser,
+    __embeddedInHtml: true,
     __onHtmlRoot(root) {
       topLevelCount = root.children.length;
     },
