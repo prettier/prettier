@@ -249,7 +249,6 @@ function assertRaw(node, text) {
   assert.equal(raw, text.slice(locStart(node), locEnd(node)));
 }
 
-
 function extendRangeWithSemicolon(node, text) {
   let end = locEnd(node);
   while (end < text.length && /\s/.test(text[end])) {
