@@ -260,3 +260,30 @@ test("sharedUtil.getPreferredQuote", () => {
   expect(getPreferredQuote(`Hello World`, true)).toBe(SINGLE_QUOTE);
   expect(getPreferredQuote(`Hello World`, false)).toBe(DOUBLE_QUOTE);
 });
+
+test("sharedUtil.hasNewlineInRange", () => {
+  const { hasNewlineInRange } = sharedUtil;
+  expect(hasNewlineInRange("\n", 0, 100)).toBe(true);
+  expect(hasNewlineInRange("\n", 0, 1)).toBe(true);
+  expect(hasNewlineInRange("\n", 0, 0)).toBe(false);
+  expect(() =>
+    hasNewlineInRange(undefined, 0, 1),
+  ).toThrowErrorMatchingInlineSnapshot(
+    `"Expected "text" to be string. Received type "undefined"."`,
+  );
+  expect(() =>
+    hasNewlineInRange("\n", -1, 0),
+  ).toThrowErrorMatchingInlineSnapshot(
+    `"Expected "startIndex" to be zero or a positive integer. Received "-1"."`,
+  );
+  expect(() =>
+    hasNewlineInRange("\n", 0, -1),
+  ).toThrowErrorMatchingInlineSnapshot(
+    `"Expected "endIndex" to be zero or a positive integer. Received "-1"."`,
+  );
+  expect(() =>
+    hasNewlineInRange("\n", 1, 0),
+  ).toThrowErrorMatchingInlineSnapshot(
+    `""startIndex" should be less or equal than "endIndex"."`,
+  );
+});
