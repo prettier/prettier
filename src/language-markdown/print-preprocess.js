@@ -12,7 +12,11 @@ function preprocess(ast, options) {
     ast = addRawToText(ast, options);
   }
   ast = mergeContinuousTexts(ast);
-  ast = transformIndentedCodeblockAndMarkItsParentList(ast, options);
+  if (options.parser === "mdx") {
+    ast = transformIndentedCodeblockAndMarkItsParentList(ast, options);
+  } else {
+    ast = transformIndentedCodeblock(ast, options);
+  }
   ast = markAlignedList(ast, options);
   if (options.parser === "mdx") {
     ast = splitTextIntoSentencesLegacy(ast);
@@ -176,6 +180,24 @@ function splitTextIntoSentences(ast) {
       position: node.position,
       children: splitText(text),
     };
+  });
+}
+
+function transformIndentedCodeblock(ast, options) {
+  return mapAst(ast, (node) => {
+    if (node.type !== "code") {
+      return node;
+    }
+    // the first char may point to `\n`, e.g. `\n\t\tbar`, just ignore it
+    const isIndented = /^\n?(?: {4,}|\t)/u.test(
+      options.originalText.slice(
+        node.position.start.offset,
+        node.position.end.offset,
+      ),
+    );
+
+    node.isIndented = isIndented;
+    return node;
   });
 }
 
