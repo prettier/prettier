@@ -7606,7 +7606,7 @@ __metadata:
     vnopts: "npm:2.0.3"
     wcwidth.js: "npm:2.0.0"
     yaml: "npm:1.10.2"
-    yaml-test-suite: "npm:0.0.2"
+    yaml-test-suite: "npm:0.1.0"
     yaml-unist-parser: "npm:2.1.1"
   bin:
     prettier: ./bin/prettier.cjs
@@ -9245,10 +9245,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yaml-test-suite@npm:0.0.2":
-  version: 0.0.2
-  resolution: "yaml-test-suite@npm:0.0.2"
-  checksum: 10/d0c5b2610f78deae40dcbb1d4adb5024190d3cd36e5423d1e554d894087919a6e991ee26bce88717864d64c80764fa4d2964b936b0f7e92c0820da1d75790854
+"yaml-test-suite@npm:0.1.0":
+  version: 0.1.0
+  resolution: "yaml-test-suite@npm:0.1.0"
+  checksum: 10/7b2fc994a554079074091bc05fdc9e3bd225b72560ee41ac359900b8d490720a2c3a3da7f1f8fcc1e507b6795a11401845675882dc7d3a3f7674cc77cec35c58
   languageName: node
   linkType: hard
 
