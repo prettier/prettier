@@ -125,7 +125,6 @@ if (IS_PULL_REQUEST) {
 
 console.log("Preparing files for playground...");
 await buildPlaygroundFiles();
-throw 1;
 
 // --- Site ---
 console.log("Installing website dependencies...");

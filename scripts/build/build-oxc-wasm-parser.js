@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { existsSync, promises as fs } from "node:fs";
 import url from "node:url";
 import spawn from "nano-spawn";
+import { outdent } from "outdent";
 import packageJson from "../../package.json" with { type: "json" };
 
 const DIRECTORY_NAME = "prettier-oxc-wasm-parser";
@@ -47,10 +48,20 @@ async function inlineWasmBinary(directory) {
   let text = await fs.readFile(entryFile, "utf8");
   const wasm = await fs.readFile(wasmFile, "base64");
 
+  text = outdent`
+    import { decode as __decode } from "base64-arraybuffer-es6";
+    const __base64ToArrayBuffer = Uint8Array.fromBase64
+      ? (string) => Uint8Array.fromBase64(string).buffer
+      : __decode;
+
+    ${text}
+  `;
+
   text = text.replace(
     "await fetch(__wasmUrl).then((res) => res.arrayBuffer())",
-    `Uint8Array.fromBase64('${JSON.stringify(wasm)}').buffer`,
+    `__base64ToArrayBuffer(${JSON.stringify(wasm)})`,
   );
+
   await fs.writeFile(entryFile, text);
 }
 
