@@ -43,6 +43,9 @@ const excludeVisitorKeys = {
   // Legacy properties
   ExportAllDeclaration: ["assertions"],
   ImportDeclaration: ["assertions"],
+
+  // https://github.com/prettier/prettier/pull/18316
+  TSImportType: ["source"],
 };
 
 // https://github.com/babel/babel/issues/17524
