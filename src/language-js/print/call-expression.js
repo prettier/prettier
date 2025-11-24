@@ -108,8 +108,12 @@ function printCallExpression(path, options, print) {
 function printCallee(path, print) {
   const { node } = path;
 
-  if (node.type === "ImportExpression" || node.type === "TSImportType") {
+  if (node.type === "ImportExpression") {
     return `import${node.phase ? `.${node.phase}` : ""}`;
+  }
+
+  if (node.type === "TSImportType") {
+    return "import";
   }
 
   if (node.type === "TSExternalModuleReference") {
@@ -156,14 +160,7 @@ function isSimpleModuleImport(path) {
     return false;
   }
 
-  let source = args[0];
-
-  // TODO: remove this once https://github.com/typescript-eslint/typescript-eslint/issues/11583 get fixed
-  if (node.type === "TSImportType" && source.type === "TSLiteralType") {
-    source = source.literal;
-  }
-
-  return isStringLiteral(source);
+  return isStringLiteral(args[0]);
 }
 
 function isCommonsJsOrAmdModuleDefinition(path) {
