@@ -3,7 +3,7 @@
  * @param {T[]} combinations
  * @returns {ReturnType<T>}
  */
-function tryCombinations(combinations) {
+function tryCombinationsSync(combinations) {
   const errors = [];
   for (const fn of combinations) {
     try {
@@ -23,7 +23,7 @@ function tryCombinations(combinations) {
  * @param {T[]} combinations
  * @returns {Promise<ReturnType<T>>}
  */
-async function tryCombinationsAsync(combinations) {
+async function tryCombinations(combinations) {
   const errors = [];
   for (const fn of combinations) {
     try {
@@ -38,5 +38,4 @@ async function tryCombinationsAsync(combinations) {
   throw Object.assign(new Error("All combinations failed"), { errors });
 }
 
-export default tryCombinations;
-export { tryCombinationsAsync };
+export { tryCombinations, tryCombinationsSync };
