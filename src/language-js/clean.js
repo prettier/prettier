@@ -186,6 +186,11 @@ function clean(original, cloned, parent) {
     cloned.type = "TSNonNullExpression";
     cloned.expression.type = "ChainExpression";
   }
+
+  // https://github.com/prettier/prettier/pull/18316
+  if (original.type === "TSImportType") {
+    delete cloned.source;
+  }
 }
 
 clean.ignoredProperties = ignoredProperties;
