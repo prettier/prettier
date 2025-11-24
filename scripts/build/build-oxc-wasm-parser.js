@@ -10,19 +10,22 @@ const PACKAGE_NAME = "@oxc-parser/binding-wasm32-wasi";
 
 const TEMPORARY_DIRECTORY = new URL("../../.tmp/", import.meta.url);
 
+const runYarn = (command, options) =>
+  spawn("yarn", command.split(" "), options);
+
 async function install(version) {
   const directory = new URL(`./installing.${Date.now()}/`, TEMPORARY_DIRECTORY);
 
   await fs.rm(directory, { force: true, recursive: true });
   await fs.mkdir(directory, { recursive: true });
-  await spawn("yarn init", { cwd: directory });
+  await runYarn("init", { cwd: directory });
   await fs.writeFile(new URL("./yarn.lock", directory), "");
   await fs.writeFile(new URL(".yarnrc.yml", directory), "");
-  await spawn("yarn config set supportedArchitectures.cpu wasm32", {
+  await runYarn("config set supportedArchitectures.cpu wasm32", {
     cwd: directory,
   });
 
-  await spawn(`yarn add ${PACKAGE_NAME}@${version}`, { cwd: directory });
+  await runYarn(`add ${PACKAGE_NAME}@${version}`, { cwd: directory });
 
   assert.ok(existsSync(new URL(`./node_modules/${PACKAGE_NAME}/`, directory)));
 
