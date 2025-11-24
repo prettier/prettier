@@ -42,6 +42,7 @@ runFormatTest(
                 FIXTURE_EXTENSION;
 
           if (SKIP.has(filenameToDisplay) || BUGS.has(filenameToDisplay)) {
+            // console.log(testCase);
             return;
           }
 
