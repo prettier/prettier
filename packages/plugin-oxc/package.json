@@ -6,6 +6,7 @@
   "exports": {
     ".": {
       "types": "./index.d.ts",
+      "browser": "./index.browser.mjs",
       "default": "./index.mjs"
     },
     "./*": "./*"

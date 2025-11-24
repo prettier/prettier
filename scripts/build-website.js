@@ -68,6 +68,9 @@ async function buildPlaygroundFiles() {
     for (const pluginName of ["plugin-hermes"]) {
       pluginFiles.push(`${pluginName}/index.mjs`);
     }
+    for (const pluginName of ["plugin-oxc"]) {
+      pluginFiles.push(`${pluginName}/index.browser.mjs`);
+    }
   }
 
   const packageManifest = {
@@ -122,6 +125,7 @@ if (IS_PULL_REQUEST) {
 
 console.log("Preparing files for playground...");
 await buildPlaygroundFiles();
+throw 1;
 
 // --- Site ---
 console.log("Installing website dependencies...");

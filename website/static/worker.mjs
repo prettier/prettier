@@ -44,6 +44,8 @@ const plugins = [
   prettierPluginDocExplorer,
 ];
 
+console.log(plugins);
+
 self.onmessage = async function (event) {
   self.postMessage({
     uid: event.data.uid,
