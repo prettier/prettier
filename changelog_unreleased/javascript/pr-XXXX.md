@@ -1,4 +1,4 @@
-#### Fix custom element formatting in HTML template literals (#XXXX by @mohamedsaiedd)
+#### Fix custom element formatting in HTML template literals (#18308 by @mohamedsaiedd)
 
 Custom elements (web components with hyphens in their names) are now formatted correctly in HTML template literals, with opening brackets on the same line as the tag name.
 
