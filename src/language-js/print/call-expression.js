@@ -156,11 +156,7 @@ function isSimpleModuleImport(path) {
 
   const args = getCallArguments(node);
 
-  if (args.length !== 1 || hasComment(args[0])) {
-    return false;
-  }
-
-  return isStringLiteral(args[0]);
+  return args.length === 1 && isStringLiteral(args[0]) && !hasComment(args[0]);
 }
 
 function isCommonsJsOrAmdModuleDefinition(path) {
