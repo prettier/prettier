@@ -892,9 +892,9 @@ exports[`visitor keys estree 1`] = `
     "moduleReference",
   ],
   "TSImportType": [
-    "argument",
     "options",
     "qualifier",
+    "source",
     "typeArguments",
   ],
   "TSIndexSignature": [

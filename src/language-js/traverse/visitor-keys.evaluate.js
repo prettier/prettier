@@ -44,8 +44,9 @@ const excludeVisitorKeys = {
   ExportAllDeclaration: ["assertions"],
   ImportDeclaration: ["assertions"],
 
-  // https://github.com/prettier/prettier/pull/18316
-  TSImportType: ["source"],
+  // https://github.com/babel/babel/issues/17506
+  // https://github.com/oxc-project/oxc/issues/16074
+  TSImportType: ["argument"],
 };
 
 // https://github.com/babel/babel/issues/17524
