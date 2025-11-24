@@ -155,11 +155,7 @@ function postprocess(ast, options) {
         // https://github.com/babel/babel/issues/17506
         // https://github.com/oxc-project/oxc/issues/16074
         case "TSImportType":
-          if (
-            !node.source &&
-            node.argument.type === "TSLiteralType" &&
-            node.argument.literal.type === "Literal"
-          ) {
+          if (!node.source && node.argument.type === "TSLiteralType") {
             node.source = node.argument.literal;
             delete node.argument;
           }
