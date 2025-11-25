@@ -280,8 +280,33 @@ function isPrettierIgnore(node) {
   return match ? match[1] || "next" : false;
 }
 
+function getNthListSiblingIndex(node, parentNode) {
+  return getNthSiblingIndex(
+    node,
+    parentNode,
+    (siblingNode) => siblingNode.ordered === node.ordered,
+  );
+
+  function getNthSiblingIndex(node, parentNode, condition) {
+    let index = -1;
+
+    for (const childNode of parentNode.children) {
+      if (childNode.type === node.type && condition(childNode)) {
+        index++;
+      } else {
+        index = -1;
+      }
+
+      if (childNode === node) {
+        return index;
+      }
+    }
+  }
+}
+
 export {
   getFencedCodeBlockValue,
+  getNthListSiblingIndex,
   getOrderedListItemInfo,
   hasGitDiffFriendlyOrderedList,
   INLINE_NODE_TYPES,
