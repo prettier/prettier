@@ -3731,7 +3731,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`snippet: JEF9-2.yaml - Trailing whitespace in streams(2) format 1`] = `
+exports[`snippet: JEF9-2.yaml - Trailing whitespace in streams format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -3747,7 +3747,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`snippet: JEF9-3.yaml - Trailing whitespace in streams(3) format 1`] = `
+exports[`snippet: JEF9-3.yaml - Trailing whitespace in streams format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
