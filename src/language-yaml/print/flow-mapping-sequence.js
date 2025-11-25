@@ -5,7 +5,7 @@ import {
   line,
   softline,
 } from "../../document/index.js";
-import { hasEndComments, isEmptyNode } from "../utils.js";
+import { hasEndComments, hasTrailingComment, isEmptyNode } from "../utils.js";
 import { alignWithSpaces, printNextEmptyLine } from "./misc.js";
 
 function printFlowMapping(path, options, print) {
@@ -14,11 +14,26 @@ function printFlowMapping(path, options, print) {
   const openMarker = isMapping ? "{" : "[";
   const closeMarker = isMapping ? "}" : "]";
 
-  /** @type {softline | line} */
+  /** @type {softline | line | hardline} */
   let bracketSpacing = softline;
   if (isMapping && node.children.length > 0 && options.bracketSpacing) {
     bracketSpacing = line;
   }
+
+  if (
+    isMapping &&
+    node.children.length > 0 &&
+    (hasTrailingComment(node) ||
+      node.children.some(
+        (child) =>
+          child.type === "flowMappingItem" &&
+          child.key &&
+          hasTrailingComment(child.key.content),
+      ))
+  ) {
+    bracketSpacing = hardline;
+  }
+
   const lastItem = node.children.at(-1);
   const isLastItemEmptyMappingItem =
     lastItem?.type === "flowMappingItem" &&
@@ -41,6 +56,22 @@ function printFlowMapping(path, options, print) {
 }
 
 function printChildren(path, options, print) {
+  const { node: parentNode } = path;
+  const isMapping = parentNode.type === "flowMapping";
+
+  // Check if any child has trailing comment on key
+  const hasKeyWithTrailingComment =
+    isMapping &&
+    parentNode.children.some(
+      (child) =>
+        child.type === "flowMappingItem" &&
+        child.key &&
+        hasTrailingComment(child.key.content),
+    );
+
+  // Use hardline separator when keys have trailing comments to allow comments on their own line
+  const separator = hasKeyWithTrailingComment ? hardline : line;
+
   return path.map(
     ({ isLast, node, next }) => [
       print(),
@@ -48,7 +79,7 @@ function printChildren(path, options, print) {
         ? ""
         : [
             ",",
-            line,
+            separator,
             node.position.start.line !== next.position.start.line
               ? printNextEmptyLine(path, options.originalText)
               : "",
