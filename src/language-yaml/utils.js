@@ -275,7 +275,7 @@ function getBlockValueLineContents(
   */
   function removeUnnecessaryTrailingNewlines(lineContents) {
     if (node.chomping === "keep") {
-      return lineContents.at(-1).length === 0
+      return lineContents.at(-1).length === 0 && lineContents.length > 1
         ? lineContents.slice(0, -1)
         : lineContents;
     }

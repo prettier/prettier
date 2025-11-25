@@ -14,25 +14,17 @@ function printFlowMapping(path, options, print) {
   const openMarker = isMapping ? "{" : "[";
   const closeMarker = isMapping ? "}" : "]";
 
-  /** @type {softline | line | hardline} */
+  /** @type {softline | line} */
   let bracketSpacing = softline;
   if (isMapping && node.children.length > 0 && options.bracketSpacing) {
     bracketSpacing = line;
   }
 
-  if (
-    isMapping &&
-    node.children.length > 0 &&
-    (hasTrailingComment(node) ||
-      node.children.some(
-        (child) =>
-          child.type === "flowMappingItem" &&
-          child.key &&
-          hasTrailingComment(child.key.content),
-      ))
-  ) {
-    bracketSpacing = hardline;
-  }
+  const mappingKeyHasTrailingComment = node.children?.some(
+    (child) =>
+      child.key &&
+      hasTrailingComment(child.key.content),
+  );
 
   const lastItem = node.children.at(-1);
   const isLastItemEmptyMappingItem =
@@ -43,7 +35,7 @@ function printFlowMapping(path, options, print) {
   return [
     openMarker,
     alignWithSpaces(options.tabWidth, [
-      bracketSpacing,
+      mappingKeyHasTrailingComment ? hardline : bracketSpacing,
       printChildren(path, options, print),
       options.trailingComma === "none" ? "" : ifBreak(","),
       hasEndComments(node)
