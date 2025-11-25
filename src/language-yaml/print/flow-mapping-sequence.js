@@ -56,22 +56,6 @@ function printFlowMapping(path, options, print) {
 }
 
 function printChildren(path, options, print) {
-  const { node: parentNode } = path;
-  const isMapping = parentNode.type === "flowMapping";
-
-  // Check if any child has trailing comment on key
-  const hasKeyWithTrailingComment =
-    isMapping &&
-    parentNode.children.some(
-      (child) =>
-        child.type === "flowMappingItem" &&
-        child.key &&
-        hasTrailingComment(child.key.content),
-    );
-
-  // Use hardline separator when keys have trailing comments to allow comments on their own line
-  const separator = hasKeyWithTrailingComment ? hardline : line;
-
   return path.map(
     ({ isLast, node, next }) => [
       print(),
@@ -79,7 +63,7 @@ function printChildren(path, options, print) {
         ? ""
         : [
             ",",
-            separator,
+            line,
             node.position.start.line !== next.position.start.line
               ? printNextEmptyLine(path, options.originalText)
               : "",
