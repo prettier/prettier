@@ -16,11 +16,7 @@ const SKIP = new Set([
 ]);
 
 // https://github.com/prettier/prettier/issues/18302
-const BUGS = new Set([
-  "DE56-3.yaml",
-  "DE56-4.yaml",
-  "L24T-2.yaml",
-]);
+const BUGS = new Set(["DE56-3.yaml", "DE56-4.yaml", "L24T-2.yaml"]);
 
 runFormatTest(
   {
