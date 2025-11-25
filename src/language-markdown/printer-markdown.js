@@ -590,7 +590,7 @@ function printChildren(path, options, print, events = {}) {
         parts.push(hardline);
 
         if (
-          shouldPrePrintDoubleHardline(path, options) ||
+          shouldPrePrintDoubleHardline(path) ||
           shouldPrePrintTripleHardline(path)
         ) {
           parts.push(hardline);
@@ -661,31 +661,32 @@ function shouldPrePrintHardline({ node, parent }) {
   return !isInlineNode && !isInlineHTML;
 }
 
-function isLooseListItem(node, options) {
+function isLooseListItem(referenceNode, path) {
+  const { node, previous, parent } = path;
+
+  const isListInListItem = parent?.type === "listItem" && node?.type === "list";
+  if (isListInListItem) {
+    return previous?.type === "code";
+  }
+
+  // uses ancestor `list.spread`, aligning with markdown spec.
+  const listAncestor = path.findAncestor((node) => node.type === "list");
   return (
-    node.type === "listItem" &&
-    (node.spread ||
-      // Check if `listItem` ends with `\n`
-      // since it can't be empty, so we only need check the last character
-      options.originalText.charAt(node.position.end.offset - 1) === "\n")
+    referenceNode.type === "listItem" &&
+    (referenceNode.spread || Boolean(listAncestor?.spread))
   );
 }
 
-function shouldPrePrintDoubleHardline({ node, previous, parent }, options) {
-  if (
-    isLooseListItem(previous, options) ||
-    (node.type === "list" &&
-      parent.type === "listItem" &&
-      previous.type === "code")
-  ) {
+function shouldPrePrintDoubleHardline(path) {
+  const { node, previous, parent } = path;
+  if (isLooseListItem(previous, path)) {
     return true;
   }
 
   const isSequence = previous.type === node.type;
   const isSiblingNode = isSequence && SIBLING_NODE_TYPES.has(node.type);
   const isInTightListItem =
-    parent.type === "listItem" &&
-    (node.type === "list" || !isLooseListItem(parent, options));
+    parent.type === "listItem" && !isLooseListItem(parent, path);
   const isPrevNodePrettierIgnore = isPrettierIgnore(previous) === "next";
   const isBlockHtmlWithoutBlankLineBetweenPrevHtml =
     node.type === "html" &&
