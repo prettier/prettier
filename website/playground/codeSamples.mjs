@@ -4,6 +4,7 @@ export default function getCodeSamples(parser) {
     case "acorn":
     case "espree":
     case "meriyah":
+    case "oxc":
       return [
         'function HelloWorld({greeting = "hello", greeted = \'"World"\', silent = false, onMouseOver,}) {',
         "",
@@ -42,6 +43,7 @@ export default function getCodeSamples(parser) {
       ].join("\n");
     case "typescript":
     case "babel-ts":
+    case "oxc-ts":
       return [
         "interface MyInterface {",
         "  foo(): string,",

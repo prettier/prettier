@@ -1,7 +1,7 @@
 import indexToPosition from "index-to-position";
 import { parse as oxcParse } from "oxc-parser";
 import createError from "../../common/parser-create-error.js";
-import { tryCombinationsAsync } from "../../utils/try-combinations.js";
+import { tryCombinations } from "../../utils/try-combinations.js";
 import postprocess from "./postprocess/index.js";
 import createParser from "./utils/create-parser.js";
 import jsxRegexp from "./utils/jsx-regexp.evaluate.js";
@@ -113,7 +113,7 @@ async function parseTs(text, options) {
 
   let result;
   try {
-    result = await tryCombinationsAsync(
+    result = await tryCombinations(
       languageCombinations.map(
         (language) => () =>
           parseWithOptions(filepath, text, {

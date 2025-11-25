@@ -1,6 +1,5 @@
 import yamlTestSuite from "yaml-test-suite";
 
-const FIXTURE_EXTENSION = ".yaml";
 const SKIP = new Set([
   // duplicate empty keys are invalid
   // https://github.com/eemeli/yaml/blob/92821f2b8164f9831ff5a51f6e5a575e06365742/tests/yaml-test-suite.ts#L20
@@ -21,32 +20,23 @@ const BUGS = new Set(["DE56-3.yaml", "DE56-4.yaml", "L24T-2.yaml"]);
 runFormatTest(
   {
     importMeta: import.meta,
-    snippets: yamlTestSuite.flatMap(({ name, filename, cases }) =>
+    snippets: yamlTestSuite.flatMap(({ name, id, cases }) =>
       cases
         .map((testCase, index) => {
           if (testCase.fail) {
             return;
           }
 
-          const filenameToDisplay =
-            index === 0
-              ? filename
-              : filename.slice(0, -FIXTURE_EXTENSION.length) +
-                `-${index + 1}` +
-                FIXTURE_EXTENSION;
+          const filename = `${id}${index === 0 ? "" : `-${index + 1}`}.yaml`;
 
-          if (SKIP.has(filenameToDisplay) || BUGS.has(filenameToDisplay)) {
+          if (SKIP.has(filename) || BUGS.has(filename)) {
             // console.log(testCase);
             return;
           }
 
           return {
-            name:
-              filenameToDisplay +
-              " - " +
-              name +
-              (index === 0 ? "" : `(${index + 1})`),
-            filename: filenameToDisplay,
+            name: filename + " - " + name,
+            filename,
             code: testCase.yaml,
           };
         })

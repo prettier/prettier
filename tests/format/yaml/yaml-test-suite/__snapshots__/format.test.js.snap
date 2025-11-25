@@ -42,7 +42,7 @@ this is#not: a comment
 ================================================================================
 `;
 
-exports[`snippet: 2G84-3.yaml - Literal modifers(3) format 1`] = `
+exports[`snippet: 2G84-3.yaml - Literal modifers format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -56,7 +56,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`snippet: 2G84-4.yaml - Literal modifers(4) format 1`] = `
+exports[`snippet: 2G84-4.yaml - Literal modifers format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -223,7 +223,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`snippet: 3RLN-2.yaml - Leading tabs in double quoted(2) format 1`] = `
+exports[`snippet: 3RLN-2.yaml - Leading tabs in double quoted format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -239,7 +239,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`snippet: 3RLN-3.yaml - Leading tabs in double quoted(3) format 1`] = `
+exports[`snippet: 3RLN-3.yaml - Leading tabs in double quoted format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -255,7 +255,7 @@ tab"
 ================================================================================
 `;
 
-exports[`snippet: 3RLN-4.yaml - Leading tabs in double quoted(4) format 1`] = `
+exports[`snippet: 3RLN-4.yaml - Leading tabs in double quoted format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -271,7 +271,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`snippet: 3RLN-5.yaml - Leading tabs in double quoted(5) format 1`] = `
+exports[`snippet: 3RLN-5.yaml - Leading tabs in double quoted format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -287,7 +287,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`snippet: 3RLN-6.yaml - Leading tabs in double quoted(6) format 1`] = `
+exports[`snippet: 3RLN-6.yaml - Leading tabs in double quoted format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -405,7 +405,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`snippet: 4MUZ-2.yaml - Flow mapping colon on line after key(2) format 1`] = `
+exports[`snippet: 4MUZ-2.yaml - Flow mapping colon on line after key format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -420,7 +420,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`snippet: 4MUZ-3.yaml - Flow mapping colon on line after key(3) format 1`] = `
+exports[`snippet: 4MUZ-3.yaml - Flow mapping colon on line after key format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -2199,7 +2199,7 @@ foo: |-
 ================================================================================
 `;
 
-exports[`snippet: 96NN-2.yaml - Leading tab content in literals(2) format 1`] = `
+exports[`snippet: 96NN-2.yaml - Leading tab content in literals format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -2815,7 +2815,7 @@ tab"
 ================================================================================
 `;
 
-exports[`snippet: DE56-2.yaml - Trailing tabs in double quoted(2) format 1`] = `
+exports[`snippet: DE56-2.yaml - Trailing tabs in double quoted format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -2831,7 +2831,7 @@ tab"
 ================================================================================
 `;
 
-exports[`snippet: DE56-5.yaml - Trailing tabs in double quoted(5) format 1`] = `
+exports[`snippet: DE56-5.yaml - Trailing tabs in double quoted format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -2847,7 +2847,7 @@ tab"
 ================================================================================
 `;
 
-exports[`snippet: DE56-6.yaml - Trailing tabs in double quoted(6) format 1`] = `
+exports[`snippet: DE56-6.yaml - Trailing tabs in double quoted format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -2916,7 +2916,7 @@ line3
 ================================================================================
 `;
 
-exports[`snippet: DK95-3.yaml - Tabs that look like indentation(3) format 1`] = `
+exports[`snippet: DK95-3.yaml - Tabs that look like indentation format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -2932,7 +2932,7 @@ foo: "bar
 ================================================================================
 `;
 
-exports[`snippet: DK95-4.yaml - Tabs that look like indentation(4) format 1`] = `
+exports[`snippet: DK95-4.yaml - Tabs that look like indentation format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -2947,7 +2947,7 @@ foo: 1
 ================================================================================
 `;
 
-exports[`snippet: DK95-5.yaml - Tabs that look like indentation(5) format 1`] = `
+exports[`snippet: DK95-5.yaml - Tabs that look like indentation format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -2965,7 +2965,7 @@ bar: 2
 ================================================================================
 `;
 
-exports[`snippet: DK95-6.yaml - Tabs that look like indentation(6) format 1`] = `
+exports[`snippet: DK95-6.yaml - Tabs that look like indentation format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -2983,7 +2983,7 @@ bar: 2
 ================================================================================
 `;
 
-exports[`snippet: DK95-8.yaml - Tabs that look like indentation(8) format 1`] = `
+exports[`snippet: DK95-8.yaml - Tabs that look like indentation format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -3000,7 +3000,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`snippet: DK95-9.yaml - Tabs that look like indentation(9) format 1`] = `
+exports[`snippet: DK95-9.yaml - Tabs that look like indentation format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -3497,7 +3497,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`snippet: HM87-2.yaml - Scalars in flow start with syntax char(2) format 1`] = `
+exports[`snippet: HM87-2.yaml - Scalars in flow start with syntax char format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -3997,7 +3997,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`snippet: KH5V-2.yaml - Inline tabs in double quoted(2) format 1`] = `
+exports[`snippet: KH5V-2.yaml - Inline tabs in double quoted format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -4011,7 +4011,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`snippet: KH5V-3.yaml - Inline tabs in double quoted(3) format 1`] = `
+exports[`snippet: KH5V-3.yaml - Inline tabs in double quoted format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -4262,7 +4262,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`snippet: M2N8-2.yaml - Question mark edge cases(2) format 1`] = `
+exports[`snippet: M2N8-2.yaml - Question mark edge cases format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -4464,7 +4464,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`snippet: MUS6-3.yaml - Directive variants(3) format 1`] = `
+exports[`snippet: MUS6-3.yaml - Directive variants format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -4480,7 +4480,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`snippet: MUS6-4.yaml - Directive variants(4) format 1`] = `
+exports[`snippet: MUS6-4.yaml - Directive variants format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -4496,7 +4496,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`snippet: MUS6-5.yaml - Directive variants(5) format 1`] = `
+exports[`snippet: MUS6-5.yaml - Directive variants format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -4512,7 +4512,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`snippet: MUS6-6.yaml - Directive variants(6) format 1`] = `
+exports[`snippet: MUS6-6.yaml - Directive variants format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -4528,7 +4528,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`snippet: MUS6-7.yaml - Directive variants(7) format 1`] = `
+exports[`snippet: MUS6-7.yaml - Directive variants format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -5412,7 +5412,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`snippet: SM9W-2.yaml - Single character streams(2) format 1`] = `
+exports[`snippet: SM9W-2.yaml - Single character streams format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -5809,7 +5809,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`snippet: UKK6-2.yaml - Syntax character edge cases(2) format 1`] = `
+exports[`snippet: UKK6-2.yaml - Syntax character edge cases format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -5823,7 +5823,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`snippet: UKK6-3.yaml - Syntax character edge cases(3) format 1`] = `
+exports[`snippet: UKK6-3.yaml - Syntax character edge cases format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -5920,7 +5920,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`snippet: VJP3-2.yaml - Flow collections over many lines(2) format 1`] = `
+exports[`snippet: VJP3-2.yaml - Flow collections over many lines format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -6160,7 +6160,7 @@ key: &an:chor value
 ================================================================================
 `;
 
-exports[`snippet: Y79Y-2.yaml - Tabs in various contexts(2) format 1`] = `
+exports[`snippet: Y79Y-2.yaml - Tabs in various contexts format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -6178,7 +6178,7 @@ bar: 1
 ================================================================================
 `;
 
-exports[`snippet: Y79Y-11.yaml - Tabs in various contexts(11) format 1`] = `
+exports[`snippet: Y79Y-11.yaml - Tabs in various contexts format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
