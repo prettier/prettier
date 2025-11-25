@@ -21,9 +21,7 @@ function printFlowMapping(path, options, print) {
   }
 
   const mappingKeyHasTrailingComment = node.children?.some(
-    (child) =>
-      child.key &&
-      hasTrailingComment(child.key.content),
+    (child) => child.key && hasTrailingComment(child.key.content),
   );
 
   const lastItem = node.children.at(-1);
