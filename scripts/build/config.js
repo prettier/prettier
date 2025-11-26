@@ -6,6 +6,7 @@ import { outdent } from "outdent";
 import { copyFile, DIST_DIR, PROJECT_ROOT } from "../utils/index.js";
 import buildDependenciesLicense from "./build-dependencies-license.js";
 import buildJavascriptModule from "./build-javascript-module.js";
+import buildOxcWasmParser from "./build-oxc-wasm-parser.js";
 import {
   buildPluginHermesPackageJson,
   buildPluginOxcPackageJson,
@@ -28,6 +29,7 @@ const copyFileBuilder = ({ packageConfig, file }) =>
     path.join(PROJECT_ROOT, file.input),
     path.join(packageConfig.distDirectory, file.output.file),
   );
+const oxcWasmParser = await buildOxcWasmParser();
 
 function getTypesFileConfig({ input: jsFileInput, outputBaseName, isPlugin }) {
   let input = jsFileInput;
@@ -955,7 +957,6 @@ export default [
         {
           input: "packages/plugin-oxc/index.js",
           addDefaultExport: true,
-          external: ["oxc-parser"],
         },
       ].flatMap((file) => {
         let { input, output, outputBaseName, ...buildOptions } = file;
@@ -970,10 +971,35 @@ export default [
               format,
               file: `${outputBaseName}${extensions[format]}`,
             },
-            platform: "universal",
-            buildOptions,
+            platform: "node",
+            buildOptions: {
+              ...buildOptions,
+              external: ["oxc-parser"],
+            },
             build: buildJavascriptModule,
             kind: "javascript",
+          },
+          {
+            input,
+            output: {
+              format,
+              file: `${outputBaseName}.browser${extensions[format]}`,
+            },
+            platform: "universal",
+            buildOptions: {
+              ...buildOptions,
+              replaceModule: [
+                ...(buildOptions.replaceModule ?? []),
+                {
+                  module: getPackageFile("oxc-parser/src-js/wasm.js"),
+                  path: oxcWasmParser.entry,
+                },
+              ],
+              allowedWarnings: ["indirect-require", "package.json"],
+            },
+            build: buildJavascriptModule,
+            kind: "javascript",
+            playground: true,
           },
           getTypesFileConfig({ input, outputBaseName, isPlugin: true }),
         ];

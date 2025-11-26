@@ -931,6 +931,7 @@ function handleVariableDeclaratorComments({
 function handleTSFunctionTrailingComments({
   comment,
   enclosingNode,
+  precedingNode,
   followingNode,
   text,
 }) {
@@ -939,6 +940,7 @@ function handleTSFunctionTrailingComments({
     (enclosingNode?.type === "TSMethodSignature" ||
       enclosingNode?.type === "TSDeclareFunction" ||
       enclosingNode?.type === "TSAbstractMethodDefinition") &&
+    (!precedingNode || precedingNode !== enclosingNode.returnType) &&
     getNextNonSpaceNonCommentCharacter(text, locEnd(comment)) === ";"
   ) {
     addTrailingComment(enclosingNode, comment);

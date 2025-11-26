@@ -68,6 +68,9 @@ async function buildPlaygroundFiles() {
     for (const pluginName of ["plugin-hermes"]) {
       pluginFiles.push(`${pluginName}/index.mjs`);
     }
+    for (const pluginName of ["plugin-oxc"]) {
+      pluginFiles.push(`${pluginName}/index.browser.mjs`);
+    }
   }
 
   const packageManifest = {

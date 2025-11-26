@@ -24,6 +24,8 @@ import embed from "./embed.js";
 import getVisitorKeys from "./get-visitor-keys.js";
 import { locEnd, locStart } from "./loc.js";
 import { insertPragma } from "./pragma.js";
+import { printChildren } from "./print/children.js";
+import { printList } from "./print/list.js";
 import { printTable } from "./print/table.js";
 import { printParagraph } from "./print-paragraph.js";
 import preprocess from "./print-preprocess.js";
@@ -31,10 +33,9 @@ import { printSentence } from "./print-sentence.js";
 import { printWhitespace } from "./print-whitespace.js";
 import {
   getFencedCodeBlockValue,
-  hasGitDiffFriendlyOrderedList,
-  INLINE_NODE_TYPES,
-  INLINE_NODE_WRAPPER_TYPES,
+  getNthListSiblingIndex,
   isAutolink,
+  isPrettierIgnore,
   splitText,
 } from "./utils.js";
 
@@ -42,8 +43,6 @@ import {
  * @import AstPath from "../common/ast-path.js"
  * @import {Doc} from "../document/index.js"
  */
-
-const SIBLING_NODE_TYPES = new Set(["listItem", "definition"]);
 
 function prevOrNextWord(path) {
   const { previous, next } = path;
@@ -299,57 +298,8 @@ function genericPrint(path, options, print) {
         isHtmlComment ? hardline : markAsRoot(literalline),
       );
     }
-    case "list": {
-      const nthSiblingIndex = getNthListSiblingIndex(node, path.parent);
-
-      const isGitDiffFriendlyOrderedList = hasGitDiffFriendlyOrderedList(
-        node,
-        options,
-      );
-
-      return printChildren(path, options, print, {
-        processor() {
-          const prefix = getPrefix();
-          const { node: childNode } = path;
-
-          if (
-            childNode.children.length === 2 &&
-            childNode.children[1].type === "html" &&
-            childNode.children[0].position.start.column !==
-              childNode.children[1].position.start.column
-          ) {
-            return [prefix, printListItem(path, options, print, prefix)];
-          }
-
-          return [
-            prefix,
-            align(
-              " ".repeat(prefix.length),
-              printListItem(path, options, print, prefix),
-            ),
-          ];
-
-          function getPrefix() {
-            const rawPrefix = node.ordered
-              ? (path.isFirst
-                  ? node.start
-                  : isGitDiffFriendlyOrderedList
-                    ? 1
-                    : node.start + path.index) +
-                (nthSiblingIndex % 2 === 0 ? ". " : ") ")
-              : nthSiblingIndex % 2 === 0
-                ? "- "
-                : "* ";
-
-            return (node.isAligned ||
-              /* workaround for https://github.com/remarkjs/remark/issues/315 */ node.hasIndentedCodeblock) &&
-              node.ordered
-              ? alignListPrefix(rawPrefix, options)
-              : rawPrefix;
-          }
-        },
-      });
-    }
+    case "list":
+      return printList(path, options, print);
     case "thematicBreak": {
       const { ancestors } = path;
       const counter = ancestors.findIndex((node) => node.type === "list");
@@ -473,65 +423,6 @@ function genericPrint(path, options, print) {
   }
 }
 
-function printListItem(path, options, print, listPrefix) {
-  const { node } = path;
-  const prefix = node.checked === null ? "" : node.checked ? "[x] " : "[ ] ";
-  return [
-    prefix,
-    printChildren(path, options, print, {
-      processor({ node, isFirst }) {
-        if (isFirst && node.type !== "list") {
-          return align(" ".repeat(prefix.length), print());
-        }
-
-        const alignment = " ".repeat(
-          clamp(options.tabWidth - listPrefix.length, 0, 3), // 4+ will cause indented code block
-        );
-        return [alignment, align(alignment, print())];
-      },
-    }),
-  ];
-}
-
-function alignListPrefix(prefix, options) {
-  const additionalSpaces = getAdditionalSpaces();
-  return (
-    prefix +
-    " ".repeat(
-      additionalSpaces >= 4 ? 0 : additionalSpaces, // 4+ will cause indented code block
-    )
-  );
-
-  function getAdditionalSpaces() {
-    const restSpaces = prefix.length % options.tabWidth;
-    return restSpaces === 0 ? 0 : options.tabWidth - restSpaces;
-  }
-}
-
-function getNthListSiblingIndex(node, parentNode) {
-  return getNthSiblingIndex(
-    node,
-    parentNode,
-    (siblingNode) => siblingNode.ordered === node.ordered,
-  );
-}
-
-function getNthSiblingIndex(node, parentNode, condition) {
-  let index = -1;
-
-  for (const childNode of parentNode.children) {
-    if (childNode.type === node.type && condition(childNode)) {
-      index++;
-    } else {
-      index = -1;
-    }
-
-    if (childNode === node) {
-      return index;
-    }
-  }
-}
-
 function printRoot(path, options, print) {
   /** @typedef {{ index: number, offset: number }} IgnorePosition */
   /** @type {Array<{start: IgnorePosition, end: IgnorePosition}>} */
@@ -594,36 +485,6 @@ function printRoot(path, options, print) {
   });
 }
 
-function printChildren(path, options, print, events = {}) {
-  const { processor = print } = events;
-
-  const parts = [];
-
-  path.each(() => {
-    const result = processor(path);
-    if (result !== false) {
-      if (parts.length > 0 && shouldPrePrintHardline(path)) {
-        parts.push(hardline);
-
-        if (
-          shouldPrePrintDoubleHardline(path, options) ||
-          shouldPrePrintTripleHardline(path)
-        ) {
-          parts.push(hardline);
-        }
-
-        if (shouldPrePrintTripleHardline(path)) {
-          parts.push(hardline);
-        }
-      }
-
-      parts.push(result);
-    }
-  }, "children");
-
-  return parts;
-}
-
 function printIgnoreComment(node) {
   if (node.type === "html") {
     return node.value;
@@ -637,143 +498,6 @@ function printIgnoreComment(node) {
   ) {
     return ["{/* ", node.children[0].value, " */}"];
   }
-}
-
-/** @return {false | 'next' | 'start' | 'end'} */
-function isPrettierIgnore(node) {
-  let match;
-
-  if (node.type === "html") {
-    match = node.value.match(
-      /^<!--\s*prettier-ignore(?:-(start|end))?\s*-->$/u,
-    );
-  } else {
-    let comment;
-
-    if (node.type === "esComment") {
-      comment = node;
-    } else if (
-      node.type === "paragraph" &&
-      node.children.length === 1 &&
-      node.children[0].type === "esComment"
-    ) {
-      comment = node.children[0];
-    }
-
-    if (comment) {
-      match = comment.value.match(/^prettier-ignore(?:-(start|end))?$/u);
-    }
-  }
-
-  return match ? match[1] || "next" : false;
-}
-
-function shouldPrePrintHardline({ node, parent }) {
-  const isInlineNode = INLINE_NODE_TYPES.has(node.type);
-
-  const isInlineHTML =
-    node.type === "html" && INLINE_NODE_WRAPPER_TYPES.has(parent.type);
-
-  return !isInlineNode && !isInlineHTML;
-}
-
-function isLooseListItemLegacy(node, options) {
-  return (
-    node.type === "listItem" &&
-    (node.spread ||
-      // Check if `listItem` ends with `\n`
-      // since it can't be empty, so we only need check the last character
-      options.originalText.charAt(node.position.end.offset - 1) === "\n")
-  );
-}
-
-function isLooseListItem({ node, parent, next }) {
-  return (
-    node.type === "listItem" &&
-    (node.spread ||
-      (parent.type === "list" &&
-        next?.type === "listItem" &&
-        node.position.end.line + 1 < next.position.start.line))
-  );
-}
-
-/**
- * @param {AstPath} path
- * @returns {boolean}
- */
-function isPreviousNodeLooseListItem(path) {
-  if (path.index === 0) {
-    return false;
-  }
-  return isLooseListItem({
-    node: path.previous,
-    parent: path.parent,
-    next: path.node,
-  });
-}
-
-/**
- * @param {AstPath} path
- * @returns {boolean}
- */
-function shouldPrePrintDoubleHardline(path, options) {
-  const { node, previous, parent } = path;
-
-  if (options.parser === "mdx") {
-    if (
-      isLooseListItemLegacy(previous, options) ||
-      (node.type === "list" &&
-        parent.type === "listItem" &&
-        previous.type === "code")
-    ) {
-      return true;
-    }
-  } else if (
-    isPreviousNodeLooseListItem(path) ||
-    (node.type === "list" &&
-      parent.type === "listItem" &&
-      previous.type === "code")
-  ) {
-    return true;
-  }
-
-  const isSequence = previous.type === node.type;
-  const isSiblingNode = isSequence && SIBLING_NODE_TYPES.has(node.type);
-  let isInTightListItem;
-  if (options.parser === "mdx") {
-    isInTightListItem =
-      parent.type === "listItem" &&
-      (node.type === "list" || !isLooseListItemLegacy(parent, options));
-  } else {
-    isInTightListItem =
-      parent.type === "listItem" &&
-      (node.type === "list" || !path.callParent(isLooseListItem));
-  }
-  const isPrevNodePrettierIgnore = isPrettierIgnore(previous) === "next";
-  const isBlockHtmlWithoutBlankLineBetweenPrevHtml =
-    node.type === "html" &&
-    previous.type === "html" &&
-    previous.position.end.line + 1 === node.position.start.line;
-  const isHtmlDirectAfterListItem =
-    node.type === "html" &&
-    parent.type === "listItem" &&
-    previous.type === "paragraph" &&
-    previous.position.end.line + 1 === node.position.start.line;
-
-  return !(
-    isSiblingNode ||
-    isInTightListItem ||
-    isPrevNodePrettierIgnore ||
-    isBlockHtmlWithoutBlankLineBetweenPrevHtml ||
-    isHtmlDirectAfterListItem
-  );
-}
-
-function shouldPrePrintTripleHardline({ node, previous }) {
-  const isPrevNodeList = previous.type === "list";
-  const isIndentedCode = node.type === "code" && node.isIndented;
-
-  return isPrevNodeList && isIndentedCode;
 }
 
 function shouldRemainTheSameContent(path) {
@@ -833,10 +557,6 @@ function printTitle(title, options, printSpace = true) {
   title = title.replaceAll("\\", "\\\\");
   title = title.replaceAll(quote, `\\${quote}`);
   return `${quote}${title}${quote}`;
-}
-
-function clamp(value, min, max) {
-  return Math.max(min, Math.min(value, max));
 }
 
 function hasPrettierIgnore(path) {

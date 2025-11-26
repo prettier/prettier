@@ -42,7 +42,7 @@
     "bin"
   ],
   "dependencies": {
-    "@angular/compiler": "20.3.12",
+    "@angular/compiler": "21.0.0",
     "@babel/code-frame": "8.0.0-beta.3",
     "@babel/parser": "8.0.0-beta.3",
     "@babel/types": "8.0.0-beta.3",
@@ -51,12 +51,12 @@
     "@prettier/html-event-attributes": "0.0.1",
     "@prettier/html-tags": "2.0.0",
     "@prettier/parse-srcset": "3.1.0",
-    "@typescript-eslint/typescript-estree": "8.46.4",
-    "@typescript-eslint/visitor-keys": "8.46.4",
+    "@typescript-eslint/typescript-estree": "8.48.0",
+    "@typescript-eslint/visitor-keys": "8.48.0",
     "acorn": "8.15.0",
     "acorn-jsx": "5.3.2",
-    "angular-estree-parser": "13.1.3",
-    "angular-html-parser": "10.0.0",
+    "angular-estree-parser": "14.1.0",
+    "angular-html-parser": "10.1.1",
     "camelcase": "9.0.0",
     "ci-info": "4.3.1",
     "cjk-regex": "3.4.0",
@@ -95,7 +95,7 @@
     "minimist": "1.2.8",
     "n-readlines": "1.0.1",
     "outdent": "0.8.0",
-    "oxc-parser": "0.98.0",
+    "oxc-parser": "0.99.0",
     "parse-json": "8.3.0",
     "picocolors": "1.1.1",
     "please-upgrade-node": "3.2.0",
@@ -127,7 +127,7 @@
     "vnopts": "2.0.3",
     "wcwidth.js": "2.0.0",
     "yaml": "1.10.2",
-    "yaml-unist-parser": "2.0.5"
+    "yaml-unist-parser": "2.1.1"
   },
   "devDependencies": {
     "@babel/generator": "8.0.0-beta.3",
@@ -136,8 +136,9 @@
     "@stylistic/eslint-plugin": "5.5.0",
     "@types/estree": "1.0.8",
     "@types/jsesc": "3.0.3",
-    "@typescript-eslint/eslint-plugin": "8.46.4",
-    "@typescript-eslint/parser": "8.46.4",
+    "@typescript-eslint/eslint-plugin": "8.48.0",
+    "@typescript-eslint/parser": "8.48.0",
+    "base64-arraybuffer-es6": "3.1.0",
     "browserslist": "4.28.0",
     "browserslist-to-esbuild": "2.1.1",
     "buffer": "6.0.3",
@@ -146,7 +147,6 @@
     "cspell": "9.3.2",
     "enquirer": "2.4.1",
     "esbuild": "0.27.0",
-    "esbuild-plugins-node-modules-polyfill": "1.7.1",
     "esbuild-visualizer": "0.7.0",
     "eslint": "9.39.1",
     "eslint-config-prettier": "10.1.8",
@@ -165,7 +165,7 @@
     "jest-snapshot-serializer-raw": "2.0.0",
     "jest-watch-typeahead": "3.0.1",
     "jsesc": "3.1.0",
-    "knip": "5.69.1",
+    "knip": "5.70.1",
     "magic-string": "0.30.21",
     "make-synchronized": "0.8.0",
     "mdast-util-from-markdown": "2.0.2",
@@ -173,6 +173,7 @@
     "nano-spawn": "2.0.0",
     "node-style-text": "2.1.2",
     "npm-run-all2": "8.0.4",
+    "open-editor": "6.0.0",
     "prettier": "3.6.2",
     "pretty-bytes": "7.1.0",
     "pretty-ms": "9.3.0",
@@ -181,7 +182,8 @@
     "serialize-javascript": "7.0.0",
     "tempy": "3.1.0",
     "tinybench": "5.1.0",
-    "ts-expect": "1.3.0"
+    "ts-expect": "1.3.0",
+    "yaml-test-suite": "0.1.0"
   },
   "resolutions": {
     "trim": "1.0.1"
@@ -215,7 +217,7 @@
     "build": "node ./scripts/build/build.js",
     "build:website": "node ./scripts/build-website.js",
     "build:website:pr": "cross-env PULL_REQUEST=true yarn build:website",
-    "gen:changelog": "node ./scripts/generate-changelog.js",
+    "generate-changelog": "node ./scripts/generate-changelog.js",
     "debug": "node bin/prettier.js --ignore-path=.prettierignore --plugin=./packages/plugin-oxc/index.js --plugin=./packages/plugin-hermes/index.js",
     "debug:watch": "node --watch bin/prettier.js --ignore-path=.prettierignore --plugin=./packages/plugin-oxc/index.js --plugin=./packages/plugin-hermes/index.js",
     "debug:inspect": "node --inspect-brk bin/prettier.js --ignore-path=.prettierignore --plugin=./packages/plugin-oxc/index.js --plugin=./packages/plugin-hermes/index.js"
@@ -247,6 +249,6 @@
     "not op_mini all"
   ],
   "preferUnplugged": true,
-  "packageManager": "yarn@4.11.0",
+  "packageManager": "yarn@4.12.0",
   "sideEffects": false
 }

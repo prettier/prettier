@@ -1,6 +1,6 @@
 import { parse as babelParse, parseExpression } from "@babel/parser";
 import getNextNonSpaceNonCommentCharacterIndex from "../../utils/get-next-non-space-non-comment-character-index.js";
-import tryCombinations from "../../utils/try-combinations.js";
+import { tryCombinationsSync } from "../../utils/try-combinations.js";
 import getShebang from "../utils/get-shebang.js";
 import postprocess from "./postprocess/index.js";
 import createBabelParseError from "./utils/create-babel-parse-error.js";
@@ -149,7 +149,7 @@ function createParse({ isExpression = false, optionsCombinations }) {
 
     let ast;
     try {
-      ast = tryCombinations(
+      ast = tryCombinationsSync(
         combinations.map(
           (options) => () => parseWithOptions(parseFunction, text, options),
         ),

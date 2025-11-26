@@ -51,6 +51,7 @@ async function buildFile({ packageConfig, file, cliOptions, results }) {
   if (
     (file.platform === "universal" && file.output.format !== "esm") ||
     (file.output.file.startsWith("index.") && file.output.format !== "esm") ||
+    file.output.file.endsWith(".browser.mjs") ||
     file.kind === "types"
   ) {
     displayName = ` ${displayName}`;

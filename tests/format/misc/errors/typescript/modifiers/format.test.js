@@ -144,6 +144,14 @@ runFormatTest(
       ...POSSIBLE_MODIFIERS.filter((modifier) => modifier !== "async").map(
         (modifier) => `({${modifier} method(){}})`,
       ),
+
+      // TODO[@fisker]: Enable this test
+      // Class parameter properties
+      // ...POSSIBLE_MODIFIERS.flatMap((modifier) => [
+      //   `class A {constructor(${modifier} []){}}`,
+      //   `class A {constructor(${modifier} {}){}}`,
+      //   `class A {constructor(${modifier} ...a){}}`,
+      // ]),
     ],
   },
   ["typescript", "babel-ts", "oxc-ts"],

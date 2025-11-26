@@ -522,23 +522,25 @@ function shouldBreakJsxElement(path) {
   return (
     path.match(
       undefined,
-      (node) => node.type === "ArrowFunctionExpression",
-      isCallExpression,
+      (node, key) => key === "body" && node.type === "ArrowFunctionExpression",
+      (node, key) => key === "arguments" && isCallExpression(node),
     ) &&
     // Babel
     (path.match(
       undefined,
       undefined,
       undefined,
-      (node) => node.type === "JSXExpressionContainer",
+      (node, key) =>
+        key === "expression" && node.type === "JSXExpressionContainer",
     ) ||
       // Estree
       path.match(
         undefined,
         undefined,
         undefined,
-        (node) => node.type === "ChainExpression",
-        (node) => node.type === "JSXExpressionContainer",
+        (node, key) => key === "expression" && node.type === "ChainExpression",
+        (node, key) =>
+          key === "expression" && node.type === "JSXExpressionContainer",
       ))
   );
 }

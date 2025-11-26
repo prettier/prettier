@@ -1,7 +1,7 @@
 import { Parser as AcornParser } from "acorn";
 import acornJsx from "acorn-jsx";
 import createError from "../../common/parser-create-error.js";
-import tryCombinations from "../../utils/try-combinations.js";
+import { tryCombinationsSync } from "../../utils/try-combinations.js";
 import postprocess from "./postprocess/index.js";
 import createParser from "./utils/create-parser.js";
 import {
@@ -81,7 +81,7 @@ function parse(text, options) {
 
   let ast;
   try {
-    ast = tryCombinations(combinations);
+    ast = tryCombinationsSync(combinations);
   } catch (/** @type {any} */ { errors: [error] }) {
     throw createParseError(error);
   }

@@ -16,6 +16,8 @@ import {
  */
 
 const isNodeCantAttachComment = createTypeCheckFunction([
+  // Babel only
+  "File",
   "TemplateElement",
   // There is no similar node in Babel AST
   // ```ts
