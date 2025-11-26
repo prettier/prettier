@@ -178,11 +178,8 @@ function shouldPrintClassInGroupModeWithoutCache(node) {
   if (node.superClass) {
     const superTypeArguments =
       node.superTypeArguments ?? node.superTypeParameters;
-    if (superTypeArguments) {
-      return false;
-    }
 
-    return isMemberExpression(node.superClass);
+    return superTypeArguments || isMemberExpression(node.superClass);
   }
 
   const heritage =
@@ -193,6 +190,7 @@ function shouldPrintClassInGroupModeWithoutCache(node) {
   }
 
   const groupMode =
+    // `ClassImplements` seem not allow `QualifiedTypeIdentifier`
     (heritage.type === "InterfaceExtends" &&
       heritage.id.type === "QualifiedTypeIdentifier" &&
       !heritage.typeParameters) ||
