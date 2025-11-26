@@ -59,6 +59,63 @@ function printList(path, options, print) {
             ? "- "
             : "* ";
 
+        return node.isAligned && node.ordered
+          ? alignListPrefix(rawPrefix, options)
+          : rawPrefix;
+      }
+    },
+  });
+}
+
+/**
+ * @param {AstPath} path
+ * @param {*} options
+ * @param {() => Doc} print
+ * @return {Doc}
+ */
+function printListLegacy(path, options, print) {
+  const { node } = path;
+  const nthSiblingIndex = getNthListSiblingIndex(node, path.parent);
+
+  const isGitDiffFriendlyOrderedList = hasGitDiffFriendlyOrderedList(
+    node,
+    options,
+  );
+
+  return printChildren(path, options, print, {
+    processor() {
+      const prefix = getPrefix();
+      const { node: childNode } = path;
+
+      if (
+        childNode.children.length === 2 &&
+        childNode.children[1].type === "html" &&
+        childNode.children[0].position.start.column !==
+          childNode.children[1].position.start.column
+      ) {
+        return [prefix, printListItem(path, options, print, prefix)];
+      }
+
+      return [
+        prefix,
+        align(
+          " ".repeat(prefix.length),
+          printListItem(path, options, print, prefix),
+        ),
+      ];
+
+      function getPrefix() {
+        const rawPrefix = node.ordered
+          ? (path.isFirst
+              ? node.start
+              : isGitDiffFriendlyOrderedList
+                ? 1
+                : node.start + path.index) +
+            (nthSiblingIndex % 2 === 0 ? ". " : ") ")
+          : nthSiblingIndex % 2 === 0
+            ? "- "
+            : "* ";
+
         return (node.isAligned ||
           /* workaround for https://github.com/remarkjs/remark/issues/315 */ node.hasIndentedCodeblock) &&
           node.ordered
@@ -108,4 +165,4 @@ function clamp(value, min, max) {
   return Math.max(min, Math.min(value, max));
 }
 
-export { printList };
+export { printList, printListLegacy };

@@ -25,7 +25,7 @@ import getVisitorKeys from "./get-visitor-keys.js";
 import { locEnd, locStart } from "./loc.js";
 import { insertPragma } from "./pragma.js";
 import { printChildren } from "./print/children.js";
-import { printList } from "./print/list.js";
+import { printList, printListLegacy } from "./print/list.js";
 import { printTable } from "./print/table.js";
 import { printParagraph } from "./print-paragraph.js";
 import preprocess from "./print-preprocess.js";
@@ -299,6 +299,9 @@ function genericPrint(path, options, print) {
       );
     }
     case "list":
+      if (options.parser === "mdx") {
+        return printListLegacy(path, options, print);
+      }
       return printList(path, options, print);
     case "thematicBreak": {
       const { ancestors } = path;
