@@ -68,11 +68,7 @@ function printClass(path, options, print) {
 
   // Keep old behaviour of extends in same line
   // If there is only on extends and there are not comments
-  const groupMode =
-    hasComment(node.id, CommentCheckFlags.Trailing) ||
-    hasComment(node.typeParameters, CommentCheckFlags.Trailing) ||
-    hasComment(node.superClass) ||
-    shouldPrintHeritageInGroupMode(node);
+  const groupMode = shouldPrintClassInGroupMode(node);
 
   const partsGroup = [];
   const extendsParts = [];
@@ -111,14 +107,12 @@ function printClass(path, options, print) {
       extendsParts.push(" ", printedWithComments);
     }
   } else {
-    extendsParts.push(
-      printHeritageClauses(path, options, print, "extends", groupMode),
-    );
+    extendsParts.push(printHeritageClauses(path, options, print, "extends"));
   }
 
   extendsParts.push(
-    printHeritageClauses(path, options, print, "mixins", groupMode),
-    printHeritageClauses(path, options, print, "implements", groupMode),
+    printHeritageClauses(path, options, print, "mixins"),
+    printHeritageClauses(path, options, print, "implements"),
   );
 
   let heritageGroupId;
@@ -171,8 +165,13 @@ function hasMultipleHeritage(node) {
   return count > 1;
 }
 
-function shouldPrintHeritageInGroupMode(node) {
-  if (hasMultipleHeritage(node)) {
+function shouldPrintClassInGroupMode(node) {
+  if (
+    hasComment(node.id, CommentCheckFlags.Trailing) ||
+    hasComment(node.typeParameters, CommentCheckFlags.Trailing) ||
+    hasComment(node.superClass) ||
+    hasMultipleHeritage(node)
+  ) {
     return true;
   }
 
@@ -190,7 +189,7 @@ function shouldPrintHeritageInGroupMode(node) {
   );
 }
 
-function printHeritageClauses(path, options, print, listName, groupMode) {
+function printHeritageClauses(path, options, print, listName) {
   const { node } = path;
   if (!isNonEmptyArray(node[listName])) {
     return "";
@@ -209,7 +208,7 @@ function printHeritageClauses(path, options, print, listName, groupMode) {
       printedLeadingComments,
       heritageClausesDoc,
     ];
-    if (groupMode) {
+    if (shouldPrintClassInGroupMode(node)) {
       return [line, group(printed)];
     }
     return [" ", printed];
