@@ -175,23 +175,31 @@ function shouldPrintClassInGroupModeWithoutCache(node) {
     return true;
   }
 
+  if (node.superClass) {
+    const superTypeArguments =
+      node.superTypeArguments ?? node.superTypeParameters;
+    if (superTypeArguments) {
+      return false;
+    }
+
+    return isMemberExpression(node.superClass);
+  }
+
   const heritage =
-    node.superClass ??
-    node.extends?.[0] ??
-    node.mixins?.[0] ??
-    node.implements?.[0];
+    node.extends?.[0] ?? node.mixins?.[0] ?? node.implements?.[0];
 
   if (!heritage) {
     return false;
   }
 
   const groupMode =
-    isMemberExpression(heritage) ||
     (heritage.type === "InterfaceExtends" &&
-      heritage.id.type === "QualifiedTypeIdentifier") ||
+      heritage.id.type === "QualifiedTypeIdentifier" &&
+      !heritage.typeParameters) ||
     ((heritage.type === "TSClassImplements" ||
       heritage.type === "TSInterfaceHeritage") &&
-      isMemberExpression(heritage.expression));
+      isMemberExpression(heritage.expression) &&
+      !heritage.typeArguments);
 
   return groupMode;
 }
