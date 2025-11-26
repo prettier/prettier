@@ -165,7 +165,12 @@ function hasMultipleHeritage(node) {
   return count > 1;
 }
 
+const shouldPrintClassInGroupModeCache = new WeakMap();
 function shouldPrintClassInGroupMode(node) {
+  if (shouldPrintClassInGroupModeCache.has(node)) {
+    return shouldPrintClassInGroupModeCache.get(node);
+  }
+
   if (
     hasComment(node.id, CommentCheckFlags.Trailing) ||
     hasComment(node.typeParameters, CommentCheckFlags.Trailing) ||
@@ -181,12 +186,14 @@ function shouldPrintClassInGroupMode(node) {
     node.mixins?.[0] ??
     node.implements?.[0];
 
-  return (
+  const groupMode =
     isMemberExpression(heritage) ||
     heritage?.type === "QualifiedTypeIdentifier" ||
     (heritage?.type === "TSClassImplements" &&
-      isMemberExpression(heritage.expression))
-  );
+      isMemberExpression(heritage.expression));
+
+  shouldPrintClassInGroupModeCache.set(node, groupMode);
+  return groupMode;
 }
 
 function printHeritageClauses(path, options, print, listName) {
