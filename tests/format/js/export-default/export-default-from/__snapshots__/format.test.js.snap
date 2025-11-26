@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`export.js [acorn] format 1`] = `
 "Unexpected token (2:8)
@@ -31,6 +31,16 @@ exports[`export.js [meriyah] format 1`] = `
   4 | export c, { foo } from 'mod';
   5 | export * as d from 'mod';
 Cause: [2:7-2:8]: Unexpected token: 'identifier'"
+`;
+
+exports[`export.js [oxc] format 1`] = `
+"Unexpected token (2:8)
+  1 | export * as ns from 'mod';
+> 2 | export v from 'mod';
+    |        ^
+  3 | export a, * as b from 'mod';
+  4 | export c, { foo } from 'mod';
+  5 | export * as d from 'mod';"
 `;
 
 exports[`export.js format 1`] = `

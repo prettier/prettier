@@ -1,14 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`extends-bound.js [babel-flow] format 1`] = `
-"Unexpected token, expected "," (3:13)
-  1 | // @flow
-  2 |
-> 3 | type F = <T extends string>(t: T) => T;
-    |             ^
-  4 |
-Cause: Unexpected token, expected "," (3:12)"
-`;
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`extends-bound.js format 1`] = `
 ====================================options=====================================

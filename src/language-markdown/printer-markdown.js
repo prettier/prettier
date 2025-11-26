@@ -2,17 +2,18 @@ import collapseWhiteSpace from "collapse-white-space";
 import escapeStringRegexp from "escape-string-regexp";
 import {
   align,
+  DOC_TYPE_STRING,
   fill,
+  getDocType,
   group,
   hardline,
   indent,
   line,
   literalline,
   markAsRoot,
+  replaceEndOfLine,
   softline,
-} from "../document/builders.js";
-import { DOC_TYPE_STRING } from "../document/constants.js";
-import { getDocType, replaceEndOfLine } from "../document/utils.js";
+} from "../document/index.js";
 import getMaxContinuousCount from "../utils/get-max-continuous-count.js";
 import getMinNotPresentContinuousCount from "../utils/get-min-not-present-continuous-count.js";
 import getPreferredQuote from "../utils/get-preferred-quote.js";
@@ -23,6 +24,8 @@ import embed from "./embed.js";
 import getVisitorKeys from "./get-visitor-keys.js";
 import { locEnd, locStart } from "./loc.js";
 import { insertPragma } from "./pragma.js";
+import { printChildren } from "./print/children.js";
+import { printList } from "./print/list.js";
 import { printTable } from "./print/table.js";
 import { printParagraph } from "./print-paragraph.js";
 import preprocess from "./print-preprocess.js";
@@ -30,18 +33,15 @@ import { printSentence } from "./print-sentence.js";
 import { printWhitespace } from "./print-whitespace.js";
 import {
   getFencedCodeBlockValue,
-  hasGitDiffFriendlyOrderedList,
-  INLINE_NODE_TYPES,
-  INLINE_NODE_WRAPPER_TYPES,
+  getNthListSiblingIndex,
   isAutolink,
+  isPrettierIgnore,
   splitText,
 } from "./utils.js";
 
 /**
- * @import {Doc} from "../document/builders.js"
+ * @import {Doc} from "../document/index.js"
  */
-
-const SIBLING_NODE_TYPES = new Set(["listItem", "definition"]);
 
 function prevOrNextWord(path) {
   const { previous, next } = path;
@@ -89,11 +89,6 @@ function genericPrint(path, options, print) {
   }
 
   switch (node.type) {
-    case "front-matter":
-      return options.originalText.slice(
-        node.position.start.offset,
-        node.position.end.offset,
-      );
     case "root":
       /* c8 ignore next 3 */
       if (node.children.length === 0) {
@@ -163,7 +158,9 @@ function genericPrint(path, options, print) {
       } else {
         const hasPrevOrNextWord = prevOrNextWord(path); // `1*2*3` is considered emphasis but `1_2_3` is not
         const inStrongAndHasPrevOrNextWord = // `1***2***3` is considered strong emphasis but `1**_2_**3` is not
-          path.parent?.type === "strong" && prevOrNextWord(path.ancestors);
+          path.callParent(
+            ({ node }) => node.type === "strong" && prevOrNextWord(path),
+          );
         style =
           hasPrevOrNextWord ||
           inStrongAndHasPrevOrNextWord ||
@@ -183,7 +180,7 @@ function genericPrint(path, options, print) {
           ? node.value
           : node.value.replaceAll("\n", " ");
       const backtickCount = getMinNotPresentContinuousCount(code, "`");
-      const backtickString = "`".repeat(backtickCount || 1);
+      const backtickString = "`".repeat(backtickCount);
       const padding =
         code.startsWith("`") ||
         code.endsWith("`") ||
@@ -284,61 +281,11 @@ function genericPrint(path, options, print) {
 
       return replaceEndOfLine(
         value,
-        // @ts-expect-error
         isHtmlComment ? hardline : markAsRoot(literalline),
       );
     }
-    case "list": {
-      const nthSiblingIndex = getNthListSiblingIndex(node, path.parent);
-
-      const isGitDiffFriendlyOrderedList = hasGitDiffFriendlyOrderedList(
-        node,
-        options,
-      );
-
-      return printChildren(path, options, print, {
-        processor(childPath) {
-          const prefix = getPrefix();
-          const childNode = childPath.node;
-
-          if (
-            childNode.children.length === 2 &&
-            childNode.children[1].type === "html" &&
-            childNode.children[0].position.start.column !==
-              childNode.children[1].position.start.column
-          ) {
-            return [prefix, printListItem(childPath, options, print, prefix)];
-          }
-
-          return [
-            prefix,
-            align(
-              " ".repeat(prefix.length),
-              printListItem(childPath, options, print, prefix),
-            ),
-          ];
-
-          function getPrefix() {
-            const rawPrefix = node.ordered
-              ? (childPath.isFirst
-                  ? node.start
-                  : isGitDiffFriendlyOrderedList
-                    ? 1
-                    : node.start + childPath.index) +
-                (nthSiblingIndex % 2 === 0 ? ". " : ") ")
-              : nthSiblingIndex % 2 === 0
-                ? "- "
-                : "* ";
-
-            return (node.isAligned ||
-              /* workaround for https://github.com/remarkjs/remark/issues/315 */ node.hasIndentedCodeblock) &&
-              node.ordered
-              ? alignListPrefix(rawPrefix, options)
-              : rawPrefix;
-          }
-        },
-      });
-    }
+    case "list":
+      return printList(path, options, print);
     case "thematicBreak": {
       const { ancestors } = path;
       const counter = ancestors.findIndex((node) => node.type === "list");
@@ -435,7 +382,7 @@ function genericPrint(path, options, print) {
     case "import":
     case "export":
     case "jsx":
-      return node.value;
+      return node.value.trimEnd();
     case "esComment":
       return ["{/* ", node.value, " */}"];
     case "math":
@@ -450,71 +397,13 @@ function genericPrint(path, options, print) {
       // since it's very possible that it's recognized as math accidentally
       return options.originalText.slice(locStart(node), locEnd(node));
 
+    case "frontMatter": // Handled in core
     case "tableRow": // handled in "table"
     case "listItem": // handled in "list"
     case "text": // handled in other types
     default:
       /* c8 ignore next */
       throw new UnexpectedNodeError(node, "Markdown");
-  }
-}
-
-function printListItem(path, options, print, listPrefix) {
-  const { node } = path;
-  const prefix = node.checked === null ? "" : node.checked ? "[x] " : "[ ] ";
-  return [
-    prefix,
-    printChildren(path, options, print, {
-      processor({ node, isFirst }) {
-        if (isFirst && node.type !== "list") {
-          return align(" ".repeat(prefix.length), print());
-        }
-
-        const alignment = " ".repeat(
-          clamp(options.tabWidth - listPrefix.length, 0, 3), // 4+ will cause indented code block
-        );
-        return [alignment, align(alignment, print())];
-      },
-    }),
-  ];
-}
-
-function alignListPrefix(prefix, options) {
-  const additionalSpaces = getAdditionalSpaces();
-  return (
-    prefix +
-    " ".repeat(
-      additionalSpaces >= 4 ? 0 : additionalSpaces, // 4+ will cause indented code block
-    )
-  );
-
-  function getAdditionalSpaces() {
-    const restSpaces = prefix.length % options.tabWidth;
-    return restSpaces === 0 ? 0 : options.tabWidth - restSpaces;
-  }
-}
-
-function getNthListSiblingIndex(node, parentNode) {
-  return getNthSiblingIndex(
-    node,
-    parentNode,
-    (siblingNode) => siblingNode.ordered === node.ordered,
-  );
-}
-
-function getNthSiblingIndex(node, parentNode, condition) {
-  let index = -1;
-
-  for (const childNode of parentNode.children) {
-    if (childNode.type === node.type && condition(childNode)) {
-      index++;
-    } else {
-      index = -1;
-    }
-
-    if (childNode === node) {
-      return index;
-    }
   }
 }
 
@@ -580,36 +469,6 @@ function printRoot(path, options, print) {
   });
 }
 
-function printChildren(path, options, print, events = {}) {
-  const { processor = print } = events;
-
-  const parts = [];
-
-  path.each(() => {
-    const result = processor(path);
-    if (result !== false) {
-      if (parts.length > 0 && shouldPrePrintHardline(path)) {
-        parts.push(hardline);
-
-        if (
-          shouldPrePrintDoubleHardline(path, options) ||
-          shouldPrePrintTripleHardline(path)
-        ) {
-          parts.push(hardline);
-        }
-
-        if (shouldPrePrintTripleHardline(path)) {
-          parts.push(hardline);
-        }
-      }
-
-      parts.push(result);
-    }
-  }, "children");
-
-  return parts;
-}
-
 function printIgnoreComment(node) {
   if (node.type === "html") {
     return node.value;
@@ -623,92 +482,6 @@ function printIgnoreComment(node) {
   ) {
     return ["{/* ", node.children[0].value, " */}"];
   }
-}
-
-/** @return {false | 'next' | 'start' | 'end'} */
-function isPrettierIgnore(node) {
-  let match;
-
-  if (node.type === "html") {
-    match = node.value.match(
-      /^<!--\s*prettier-ignore(?:-(start|end))?\s*-->$/u,
-    );
-  } else {
-    let comment;
-
-    if (node.type === "esComment") {
-      comment = node;
-    } else if (
-      node.type === "paragraph" &&
-      node.children.length === 1 &&
-      node.children[0].type === "esComment"
-    ) {
-      comment = node.children[0];
-    }
-
-    if (comment) {
-      match = comment.value.match(/^prettier-ignore(?:-(start|end))?$/u);
-    }
-  }
-
-  return match ? match[1] || "next" : false;
-}
-
-function shouldPrePrintHardline({ node, parent }) {
-  const isInlineNode = INLINE_NODE_TYPES.has(node.type);
-
-  const isInlineHTML =
-    node.type === "html" && INLINE_NODE_WRAPPER_TYPES.has(parent.type);
-
-  return !isInlineNode && !isInlineHTML;
-}
-
-function isLooseListItem(node, options) {
-  return (
-    node.type === "listItem" &&
-    (node.spread ||
-      // Check if `listItem` ends with `\n`
-      // since it can't be empty, so we only need check the last character
-      options.originalText.charAt(node.position.end.offset - 1) === "\n")
-  );
-}
-
-function shouldPrePrintDoubleHardline({ node, previous, parent }, options) {
-  const isPrevNodeLooseListItem = isLooseListItem(previous, options);
-
-  if (isPrevNodeLooseListItem) {
-    return true;
-  }
-
-  const isSequence = previous.type === node.type;
-  const isSiblingNode = isSequence && SIBLING_NODE_TYPES.has(node.type);
-  const isInTightListItem =
-    parent.type === "listItem" && !isLooseListItem(parent, options);
-  const isPrevNodePrettierIgnore = isPrettierIgnore(previous) === "next";
-  const isBlockHtmlWithoutBlankLineBetweenPrevHtml =
-    node.type === "html" &&
-    previous.type === "html" &&
-    previous.position.end.line + 1 === node.position.start.line;
-  const isHtmlDirectAfterListItem =
-    node.type === "html" &&
-    parent.type === "listItem" &&
-    previous.type === "paragraph" &&
-    previous.position.end.line + 1 === node.position.start.line;
-
-  return !(
-    isSiblingNode ||
-    isInTightListItem ||
-    isPrevNodePrettierIgnore ||
-    isBlockHtmlWithoutBlankLineBetweenPrevHtml ||
-    isHtmlDirectAfterListItem
-  );
-}
-
-function shouldPrePrintTripleHardline({ node, previous }) {
-  const isPrevNodeList = previous.type === "list";
-  const isIndentedCode = node.type === "code" && node.isIndented;
-
-  return isPrevNodeList && isIndentedCode;
 }
 
 function shouldRemainTheSameContent(path) {
@@ -768,10 +541,6 @@ function printTitle(title, options, printSpace = true) {
   return `${quote}${title}${quote}`;
 }
 
-function clamp(value, min, max) {
-  return Math.max(min, Math.min(value, max));
-}
-
 function hasPrettierIgnore(path) {
   return path.index > 0 && isPrettierIgnore(path.previous) === "next";
 }
@@ -787,6 +556,13 @@ function printFootnoteReference(node) {
 }
 
 const printer = {
+  features: {
+    experimental_frontMatterSupport: {
+      massageAstNode: true,
+      embed: true,
+      print: true,
+    },
+  },
   preprocess,
   print: genericPrint,
   embed,

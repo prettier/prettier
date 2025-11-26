@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`comments.less format 1`] = `
 ====================================options=====================================
@@ -1804,6 +1804,9 @@ label {
 .hello {
   &:extend(.input:disabled)}
 
+// #6082
+margin: 0 @spacing-medium 0 -(@spacing-xxlarge + @spacing-medium);
+
 =====================================output=====================================
 @nice-blue: #5b83ad;
 @light-blue: @nice-blue + #111;
@@ -3446,6 +3449,9 @@ label {
 .hello {
   &:extend(.input:disabled);
 }
+
+// #6082
+margin: 0 @spacing-medium 0 -(@spacing-xxlarge + @spacing-medium);
 
 ================================================================================
 `;

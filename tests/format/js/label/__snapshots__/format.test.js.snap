@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`block-statement-and-regexp.js format 1`] = `
 ====================================options=====================================
@@ -55,9 +55,17 @@ printWidth: 80
 a:;
 b
 
+a: /* comment */;
+a: ;/* comment */
+a /* comment */:;
+
 =====================================output=====================================
 a:;
 b;
+
+a: /* comment */ ;
+a:; /* comment */
+a /* comment */:;
 
 ================================================================================
 `;

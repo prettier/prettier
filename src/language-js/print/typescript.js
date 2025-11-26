@@ -5,7 +5,7 @@ import {
   indent,
   join,
   softline,
-} from "../../document/builders.js";
+} from "../../document/index.js";
 import UnexpectedNodeError from "../../utils/unexpected-node-error.js";
 import {
   isArrayExpression,
@@ -15,24 +15,32 @@ import {
 import isTsKeywordType from "../utils/is-ts-keyword-type.js";
 import { printArray } from "./array.js";
 import { printBlock } from "./block.js";
-import printCallArguments from "./call-arguments.js";
+import { printCallExpression } from "./call-expression.js";
 import { printBinaryCastExpression } from "./cast-expression.js";
-import { printClassMethod, printClassProperty } from "./class.js";
-import { printEnumDeclaration, printEnumMember } from "./enum.js";
+import {
+  printClass,
+  printClassBody,
+  printClassMemberSemicolon,
+  printClassMethod,
+  printClassProperty,
+} from "./class.js";
+import {
+  printEnumBody,
+  printEnumDeclaration,
+  printEnumMember,
+} from "./enum.js";
 import { printFunction, printMethodValue } from "./function.js";
 import {
   printFunctionParameters,
   shouldGroupFunctionParameters,
 } from "./function-parameters.js";
-import { printInterface } from "./interface.js";
-import { printTypescriptMappedType } from "./mapped-type.js";
+import { printTypeScriptMappedType } from "./mapped-type.js";
 import {
   printDeclareToken,
   printOptionalToken,
   printTypeScriptAccessibilityToken,
 } from "./misc.js";
 import { printImportKind } from "./module.js";
-import { printObject } from "./object.js";
 import { printPropertyKey } from "./property.js";
 import { printTemplateLiteral } from "./template-literal.js";
 import { printTernary } from "./ternary.js";
@@ -65,9 +73,6 @@ function printTypescript(path, options, print) {
     // TS keyword types stars with `TS`, ends with `Keyword`
     return node.type.slice(2, -7).toLowerCase();
   }
-
-  const semi = options.semi ? ";" : "";
-  const parts = [];
 
   switch (node.type) {
     case "TSThisType":
@@ -104,12 +109,12 @@ function printTypescript(path, options, print) {
     case "TSDeclareFunction":
       return printFunction(path, options, print);
     case "TSExportAssignment":
-      return ["export = ", print("expression"), semi];
+      return ["export = ", print("expression"), options.semi ? ";" : ""];
     case "TSModuleBlock":
       return printBlock(path, options, print);
     case "TSInterfaceBody":
     case "TSTypeLiteral":
-      return printObject(path, options, print);
+      return printClassBody(path, options, print);
     case "TSTypeAliasDeclaration":
       return printTypeAlias(path, options, print);
     case "TSQualifiedName":
@@ -122,15 +127,8 @@ function printTypescript(path, options, print) {
       return printClassProperty(path, options, print);
     case "TSInterfaceHeritage":
     case "TSClassImplements":
-    case "TSExpressionWithTypeArguments": // Babel AST
     case "TSInstantiationExpression":
-      return [
-        print("expression"),
-        print(
-          // TODO: Use `typeArguments` only when babel align with TS.
-          node.typeArguments ? "typeArguments" : "typeParameters",
-        ),
-      ];
+      return [print("expression"), print("typeArguments")];
     case "TSTemplateLiteralType":
       return printTemplateLiteral(path, options, print);
     case "TSNamedTupleMember":
@@ -140,7 +138,7 @@ function printTypescript(path, options, print) {
     case "TSOptionalType":
       return [print("typeAnnotation"), "?"];
     case "TSInterfaceDeclaration":
-      return printInterface(path, options, print);
+      return printClass(path, options, print);
     case "TSTypeParameterDeclaration":
     case "TSTypeParameterInstantiation":
       return printTypeParameters(path, options, print, "params");
@@ -158,6 +156,7 @@ function printTypescript(path, options, print) {
         printPropertyKey(path, options, print),
         printOptionalToken(path),
         printTypeAnnotationProperty(path, print),
+        printClassMemberSemicolon(path, options),
       ];
 
     case "TSParameterProperty":
@@ -191,7 +190,7 @@ function printTypescript(path, options, print) {
       ]);
 
       const isClassMember =
-        path.parent.type === "ClassBody" && path.key === "body";
+        path.key === "body" && path.parent.type === "ClassBody";
 
       return [
         // `static` only allowed in class member
@@ -201,7 +200,7 @@ function printTypescript(path, options, print) {
         node.parameters ? parametersGroup : "",
         "]",
         printTypeAnnotationProperty(path, print),
-        isClassMember ? semi : "",
+        printClassMemberSemicolon(path, options),
       ];
     }
     case "TSTypePredicate":
@@ -210,15 +209,9 @@ function printTypescript(path, options, print) {
       return [print("expression"), "!"];
     case "TSImportType":
       return [
-        "import",
-        printCallArguments(path, options, print),
+        printCallExpression(path, options, print),
         !node.qualifier ? "" : [".", print("qualifier")],
-        printTypeParameters(
-          path,
-          options,
-          print,
-          node.typeArguments ? "typeArguments" : "typeParameters",
-        ),
+        printTypeParameters(path, options, print, "typeArguments"),
       ];
     case "TSLiteralType":
       return print("literal");
@@ -229,9 +222,10 @@ function printTypescript(path, options, print) {
       return [node.operator, " ", print("typeAnnotation")];
 
     case "TSMappedType":
-      return printTypescriptMappedType(path, options, print);
+      return printTypeScriptMappedType(path, options, print);
 
     case "TSMethodSignature": {
+      const parts = [];
       const kind = node.kind && node.kind !== "method" ? `${node.kind} ` : "";
       parts.push(
         printTypeScriptAccessibilityToken(node),
@@ -246,17 +240,15 @@ function printTypescript(path, options, print) {
         path,
         options,
         print,
-        /* expandArg */ false,
-        /* printTypeParams */ true,
+        /* shouldExpandArgument */ false,
+        /* shouldPrintTypeParameters */ true,
       );
 
-      const returnTypePropertyName = node.returnType
-        ? "returnType"
-        : "typeAnnotation";
-      const returnTypeNode = node[returnTypePropertyName];
-      const returnTypeDoc = returnTypeNode
-        ? printTypeAnnotationProperty(path, print, returnTypePropertyName)
-        : "";
+      const returnTypeDoc = printTypeAnnotationProperty(
+        path,
+        print,
+        "returnType",
+      );
       const shouldGroupParameters = shouldGroupFunctionParameters(
         node,
         returnTypeDoc,
@@ -264,23 +256,23 @@ function printTypescript(path, options, print) {
 
       parts.push(shouldGroupParameters ? group(parametersDoc) : parametersDoc);
 
-      if (returnTypeNode) {
+      if (node.returnType) {
         parts.push(group(returnTypeDoc));
       }
 
-      return group(parts);
+      return [group(parts), printClassMemberSemicolon(path, options)];
     }
     case "TSNamespaceExportDeclaration":
       return ["export as namespace ", print("id"), options.semi ? ";" : ""];
     case "TSEnumDeclaration":
-      return printEnumDeclaration(path, options, print);
-
+      return printEnumDeclaration(path, print);
+    case "TSEnumBody":
+      return printEnumBody(path, options, print);
     case "TSEnumMember":
       return printEnumMember(path, print);
 
     case "TSImportEqualsDeclaration":
       return [
-        node.isExport ? "export " : "",
         "import ",
         printImportKind(node, /* spaceBeforeKind */ false),
         print("id"),
@@ -289,34 +281,14 @@ function printTypescript(path, options, print) {
         options.semi ? ";" : "",
       ];
     case "TSExternalModuleReference":
-      return ["require(", print("expression"), ")"];
-    case "TSModuleDeclaration": {
-      const { parent } = path;
-      const parentIsDeclaration = parent.type === "TSModuleDeclaration";
-      const bodyIsDeclaration = node.body?.type === "TSModuleDeclaration";
-
-      if (parentIsDeclaration) {
-        parts.push(".");
-      } else {
-        parts.push(printDeclareToken(path));
-
-        if (node.kind !== "global") {
-          parts.push(node.kind, " ");
-        }
-      }
-
-      parts.push(print("id"));
-
-      if (bodyIsDeclaration) {
-        parts.push(print("body"));
-      } else if (node.body) {
-        parts.push(" ", group(print("body")));
-      } else {
-        parts.push(semi);
-      }
-
-      return parts;
-    }
+      return printCallExpression(path, options, print);
+    case "TSModuleDeclaration":
+      return [
+        printDeclareToken(path),
+        node.kind === "global" ? "" : `${node.kind} `,
+        print("id"),
+        node.body ? [" ", group(print("body"))] : options.semi ? ";" : "",
+      ];
 
     case "TSConditionalType":
       return printTernary(path, options, print);
@@ -337,13 +309,7 @@ function printTypescript(path, options, print) {
     case "TSTypeReference":
       return [
         print("typeName"),
-        printTypeParameters(
-          path,
-          options,
-          print,
-          // TODO: Use `typeArguments` only when babel align with TS.
-          node.typeArguments ? "typeArguments" : "typeParameters",
-        ),
+        printTypeParameters(path, options, print, "typeArguments"),
       ];
     case "TSTypeAnnotation":
       return printTypeAnnotation(path, options, print);

@@ -1,4 +1,4 @@
-import { hardline, line, softline } from "../document/builders.js";
+import { hardline, line, softline } from "../document/index.js";
 import {
   KIND_CJ_LETTER,
   KIND_CJK_PUNCTUATION,

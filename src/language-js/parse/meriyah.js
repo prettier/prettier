@@ -1,9 +1,13 @@
 import { parse as meriyahParse } from "meriyah";
 import createError from "../../common/parser-create-error.js";
-import tryCombinations from "../../utils/try-combinations.js";
+import { tryCombinationsSync } from "../../utils/try-combinations.js";
 import postprocess from "./postprocess/index.js";
 import createParser from "./utils/create-parser.js";
-import getSourceType from "./utils/get-source-type.js";
+import {
+  getSourceType,
+  SOURCE_TYPE_COMBINATIONS,
+  SOURCE_TYPE_MODULE,
+} from "./utils/source-types.js";
 
 // https://github.com/meriyah/meriyah/blob/4676f60b6c149d7082bde2c9147f9ae2359c8075/src/parser.ts#L185
 const parseOptions = {
@@ -26,7 +30,7 @@ const parseOptions = {
   // Enable implied strict mode
   impliedStrict: false,
   // Enable non-standard parenthesized expression node
-  preserveParens: false,
+  preserveParens: true,
   // Enable lexical binding and scope tracking
   lexical: false,
   // Adds a source attribute in every node’s loc object when the locations option is `true`
@@ -43,7 +47,7 @@ function parseWithOptions(text, sourceType) {
   /** @type {any} */
   const ast = meriyahParse(text, {
     ...parseOptions,
-    module: sourceType === "module",
+    module: sourceType === SOURCE_TYPE_MODULE,
     onComment: comments,
   });
   ast.comments = comments;
@@ -52,19 +56,14 @@ function parseWithOptions(text, sourceType) {
 }
 
 function createParseError(error) {
-  let { message, loc } = error;
+  const { description, loc } = error;
 
   /* c8 ignore next 3 */
   if (!loc) {
     return error;
   }
 
-  const prefix = `[${[loc.start, loc.end].map(({ line, column }) => [line, column].join(":")).join("-")}]: `;
-  if (message.startsWith(prefix)) {
-    message = message.slice(prefix.length);
-  }
-
-  return createError(message, {
+  return createError(description, {
     loc: {
       start: {
         line: loc.start.line,
@@ -79,15 +78,15 @@ function createParseError(error) {
   });
 }
 
-function parse(text, options = {}) {
-  const sourceType = getSourceType(options);
-  const combinations = (sourceType ? [sourceType] : ["module", "script"]).map(
-    (sourceType) => () => parseWithOptions(text, sourceType),
-  );
+function parse(text, options) {
+  const sourceType = getSourceType(options?.filepath);
+  const combinations = (
+    sourceType ? [sourceType] : SOURCE_TYPE_COMBINATIONS
+  ).map((sourceType) => () => parseWithOptions(text, sourceType));
 
   let ast;
   try {
-    ast = tryCombinations(combinations);
+    ast = tryCombinationsSync(combinations);
   } catch (/** @type {any} */ { errors: [error] }) {
     throw createParseError(error);
   }

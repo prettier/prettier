@@ -26,10 +26,10 @@ jobs:
     needs: [build]
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6.0.0
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v6.0.0
         with:
           cache: "yarn"
 
@@ -37,16 +37,16 @@ jobs:
         run: yarn install --immutable
 
       - name: Download Artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6.0.0
         with:
           name: dist
           path: dist
 
       - name: Lint Code
-        run: yarn test:dist-lint
+        run: yarn test:production-lint
 
   test:
-    timeout-minutes: 90
+    timeout-minutes: 15
     strategy:
       fail-fast: false
       matrix:
@@ -67,6 +67,8 @@ jobs:
           # Versions not tested on linux, normally only even versions
           # If latest version is an odd number, it can be listed below too
           - os: "ubuntu-latest"
+            node: "25"
+          - os: "ubuntu-latest"
             node: "22"
           - os: "ubuntu-latest"
             node: "20"
@@ -75,7 +77,7 @@ jobs:
           - os: "ubuntu-latest"
             node: "16"
           # Tests on Intel Mac x Node.js 14 ( https://github.com/prettier/prettier/issues/16248 )
-          - os: "macos-13"
+          - os: "macos-15-intel"
             node: "14"
         # setup-node does not support Node.js 14 x M1 Mac
         exclude:
@@ -88,7 +90,7 @@ jobs:
     needs: [build]
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6.0.0
 
       - name: Install yarn@3
         if: ${{ matrix.node == '14' || matrix.node == '16' }}
@@ -98,15 +100,14 @@ jobs:
           cat .yarnrc.yml
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v6.0.0
         with:
           node-version: ${{ matrix.node }}
           cache: "yarn"
 
-      # `jest@30.0.0-alpha.2` is the last version that supports Node.js v14
-      - name: Install jest@30.0.0-alpha.2
-        if: ${{ matrix.node == '14' }}
-        run: node ./scripts/prepare-nodejs-14-test.js
+      - name: Downgrade Jest
+        if: ${{ matrix.node == '14' || matrix.node == '16' }}
+        run: node ./scripts/prepare-test-for-legacy-nodejs.js --node-version ${{ matrix.node }}
 
       - name: Install Dependencies(yarn@3,mutable)
         if: ${{ matrix.node == '14' || matrix.node == '16' }}
@@ -118,16 +119,26 @@ jobs:
         run: yarn install --immutable
 
       - name: Download Artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6.0.0
         with:
           name: dist
           path: dist
 
       - name: Run Tests
-        run: yarn test:dist
+        if: matrix.node != '14'
+        run: yarn test:production
+
+      - name: Run Tests (Node.js 14)
+        if: matrix.node == '14'
+        run: yarn test:production-node14
 
       - name: Run Format Tests (standalone)
-        run: yarn test:dist-standalone
+        if: matrix.node != '14'
+        run: yarn test:production-standalone
+
+      - name: Run Format Tests (standalone, Node.js 14)
+        if: matrix.node == '14'
+        run: yarn test:production-standalone-node14
 
   cli:
     name: CLI
@@ -135,15 +146,16 @@ jobs:
     needs: [build]
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6.0.0
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v6.0.0
         with:
           node-version: "0.10.48"
+          package-manager-cache: false
 
       - name: Download Artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6.0.0
         with:
           name: dist
           path: dist
@@ -161,20 +173,23 @@ jobs:
     needs: [build]
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6.0.0
 
       # `pkg-pr-new` requires Node.js v20
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v6.0.0
         with:
           node-version: latest
 
       - name: Download Artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6.0.0
         with:
           name: dist
           path: dist
 
       - name: Release
+        # Use `--compact` after we publish `@prettier/plugin-oxc`
+        # run: |
+        #   yarn dlx pkg-pr-new publish "./dist/*" --compact --packageManager=yarn
         run: |
-          npx pkg-pr-new publish "./dist/*" --compact --packageManager=yarn
+          yarn dlx pkg-pr-new publish "./dist/*" --packageManager=yarn

@@ -15,6 +15,7 @@ const formatOptionsHiddenDefaults = {
   originalText: undefined,
   locStart: null,
   locEnd: null,
+  getVisitorKeys: null,
 };
 
 // Copy options and fill in default values.
@@ -68,6 +69,7 @@ async function normalizeFormatOptions(options, opts = {}) {
   const printer = await initPrinter(printerPlugin, parser.astFormat);
 
   rawOptions.printer = printer;
+  rawOptions.getVisitorKeys = printer.getVisitorKeys;
 
   const pluginDefaults = printerPlugin.defaultOptions
     ? Object.fromEntries(

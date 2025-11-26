@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`4594.scss format 1`] = `
 ====================================options=====================================
@@ -185,6 +185,32 @@ printWidth: 80
     )
   );
 }
+
+================================================================================
+`;
+
+exports[`14544.scss format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+$blah: (
+	"a": 42,
+	/* test test test test test test test test test test test test test test test*/
+	/* test test test test test test test test test test test test test test test*/
+	"b": 43,
+	"c": 44,
+)
+
+=====================================output=====================================
+$blah: (
+  "a": 42,
+  /* test test test test test test test test test test test test test test test*/
+  /* test test test test test test test test test test test test test test test*/
+  "b": 43,
+  "c": 44,
+);
 
 ================================================================================
 `;

@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`empty.hbs format 1`] = `
 ====================================options=====================================
@@ -195,12 +195,8 @@ printWidth: 80
 
 =====================================output=====================================
 <style lang="unknown">
-
-
-    .a {color: red;
-    }
-
-
-  </style>
+  .a {color: red;
+  }
+</style>
 ================================================================================
 `;

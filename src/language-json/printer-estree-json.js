@@ -1,4 +1,4 @@
-import { hardline, indent, join } from "../document/builders.js";
+import { hardline, indent, join } from "../document/index.js";
 import UnexpectedNodeError from "../utils/unexpected-node-error.js";
 
 function genericPrint(path, options, print) {
@@ -80,7 +80,7 @@ const ignoredProperties = new Set([
   "tokens",
 ]);
 
-function clean(original, cloned /*, parent*/) {
+function clean(original, cloned /* , parent*/) {
   const { type } = original;
   // We print quoted key
   if (type === "ObjectProperty") {

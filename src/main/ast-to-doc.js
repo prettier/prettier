@@ -1,6 +1,5 @@
 import AstPath from "../common/ast-path.js";
-import { cursor } from "../document/builders.js";
-import { inheritLabel } from "../document/utils.js";
+import { cursor, inheritLabel } from "../document/index.js";
 import { attachComments } from "./comments/attach.js";
 import { ensureAllCommentsPrinted, printComments } from "./comments/print.js";
 import createPrintPreCheckFunction from "./create-print-pre-check-function.js";
@@ -108,7 +107,7 @@ function callPluginPrintFunction(path, options, printPath, args, embeds) {
 
   // Escape hatch
   if (printer.hasPrettierIgnore?.(path)) {
-    doc = printIgnored(path, options);
+    doc = printIgnored(path, options, printPath, args);
   } else if (embeds.has(node)) {
     doc = embeds.get(node);
   } else {
@@ -129,11 +128,7 @@ function callPluginPrintFunction(path, options, printPath, args, embeds) {
 
   // We let JSXElement print its comments itself because it adds () around
   // UnionTypeAnnotation has to align the child without the comments
-  if (
-    printer.printComment &&
-    (!printer.willPrintOwnComments ||
-      !printer.willPrintOwnComments(path, options))
-  ) {
+  if (printer.printComment && !printer.willPrintOwnComments?.(path, options)) {
     // printComments will call the plugin print function and check for
     // comments to print
     doc = printComments(path, doc, options);

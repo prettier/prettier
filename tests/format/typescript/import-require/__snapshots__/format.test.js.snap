@@ -1,6 +1,38 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`import_require.ts format 1`] = `
+exports[`comments.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import A1 = require("./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
+const A2 = require("./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
+
+import B1 = require(
+// 1
+"b");
+const B2 = require(
+// 2
+"b");
+
+=====================================output=====================================
+import A1 = require("./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
+const A2 = require("./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
+
+import B1 = require(
+  // 1
+  "b"
+);
+const B2 = require(
+  // 2
+  "b",
+);
+
+================================================================================
+`;
+
+exports[`import-require.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

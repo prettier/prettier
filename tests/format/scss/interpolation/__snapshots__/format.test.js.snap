@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`3719.scss - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
@@ -675,6 +675,90 @@ a {
       }
     }
   }
+}
+
+================================================================================
+`;
+
+exports[`4745.scss - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+$foo-area: foo;
+$bar-area: bar;
+
+.grid-fails {
+  grid-template-areas:
+    "#{$foo-area} #{$foo-area}"
+    "#{$bar-area} #{$foo-area}";
+}
+
+.grid-works {
+  grid-template-areas:
+    " #{$foo-area} #{$foo-area}"
+    " #{$bar-area} #{$foo-area}";
+}
+
+
+=====================================output=====================================
+$foo-area: foo;
+$bar-area: bar;
+
+.grid-fails {
+  grid-template-areas:
+    "#{$foo-area} #{$foo-area}"
+    "#{$bar-area} #{$foo-area}";
+}
+
+.grid-works {
+  grid-template-areas:
+    " #{$foo-area} #{$foo-area}"
+    " #{$bar-area} #{$foo-area}";
+}
+
+================================================================================
+`;
+
+exports[`4745.scss - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+$foo-area: foo;
+$bar-area: bar;
+
+.grid-fails {
+  grid-template-areas:
+    "#{$foo-area} #{$foo-area}"
+    "#{$bar-area} #{$foo-area}";
+}
+
+.grid-works {
+  grid-template-areas:
+    " #{$foo-area} #{$foo-area}"
+    " #{$bar-area} #{$foo-area}";
+}
+
+
+=====================================output=====================================
+$foo-area: foo;
+$bar-area: bar;
+
+.grid-fails {
+  grid-template-areas:
+    "#{$foo-area} #{$foo-area}"
+    "#{$bar-area} #{$foo-area}";
+}
+
+.grid-works {
+  grid-template-areas:
+    " #{$foo-area} #{$foo-area}"
+    " #{$bar-area} #{$foo-area}";
 }
 
 ================================================================================

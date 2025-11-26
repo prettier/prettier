@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`17428.html format 1`] = `
 ====================================options=====================================
@@ -13,6 +13,62 @@ printWidth: 80
 {{
   \`\${activityType === "" ? "activity" : ""}\${activityType === "" && costCenter === "" ? " or " : ""}\${costCenter === "" ? "cost center" : ""}\`
 }})
+
+================================================================================
+`;
+
+exports[`block.html format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+@for (option of availableOwners?.(); track option) {
+  <mat-option [value]="option.id">
+    {{ option.name }}@{{ option.domain }}
+  </mat-option>
+}
+
+=====================================output=====================================
+@for (option of availableOwners?.(); track option) {
+  <mat-option [value]="option.id">
+    {{ option.name }}@{{ option.domain }}
+  </mat-option>
+}
+
+================================================================================
+`;
+
+exports[`comments.html format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+{{a() // comment }}
+
+=====================================output=====================================
+{{
+  a() // comment
+}}
+
+================================================================================
+`;
+
+exports[`non-null-assertion.html format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+{{ foo?.bar!.bam }}
+{{ (foo?.bar)!.bam }}
+{{ (foo?.bar!).bam }}
+
+=====================================output=====================================
+{{ foo?.bar!.bam }}
+{{ (foo?.bar)!.bam }}
+{{ (foo?.bar)!.bam }}
 
 ================================================================================
 `;

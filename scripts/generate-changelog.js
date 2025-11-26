@@ -4,18 +4,15 @@
  * When you run the script, enter the number and category of the Pull Request at the prompt.
  * Get the PR title and author name via the GitHub API and create a file in ./changelog_unreleased
  *
- *   $ node ./scripts/generate-changelog.mjs
- *   ✔ Input your Pull Request number: · 10961
- *   ✔ Input category of your Pull Request: · typescript
+ *   $ node ./scripts/generate-changelog.js
+ *   ✔ Input your Pull Request number: 10961
+ *   ✔ Input category of your Pull Request: typescript
  */
 
 import fs from "node:fs/promises";
-import path from "node:path";
 import enquirer from "enquirer";
-import createEsmUtils from "esm-utils";
+import openEditor from "open-editor";
 import { CHANGELOG_CATEGORIES } from "./utils/changelog-categories.js";
-
-const { __dirname } = createEsmUtils(import.meta);
 
 const prNumberPrompt = new enquirer.NumberPrompt({
   message: "Input your Pull Request number:",
@@ -37,12 +34,28 @@ assertCategory(category);
 
 const { title, user } = await getPr(prNumber);
 
-const newChangelog = await createChangelog(title, user, prNumber, category);
+const content = await createChangelog(title, user, prNumber, category);
 
-const changelogPath = await addNewChangelog(prNumber, category, newChangelog);
+const file = await addNewChangelog(prNumber, category, content);
 
-const relativePath = path.relative(path.join(__dirname, ".."), changelogPath);
+const relativePath = file.href.slice(
+  new URL("../", import.meta.url).href.length,
+);
+
 console.log("Generated changelog file: " + relativePath);
+
+const shouldOpenChangelog = await new enquirer.Confirm({
+  message: "Open changelog file?",
+  initial: true,
+}).run();
+
+if (shouldOpenChangelog) {
+  try {
+    openEditor([file]);
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 /**
  * @param {number} prNumber
@@ -73,16 +86,16 @@ async function getPr(prNumber) {
 /**
  * @param {number} prNumber
  * @param {string} category
- * @param {string} newChangelog
- * @returns {Promise<string>}
+ * @param {string} content
+ * @returns {Promise<URL>}
  */
-async function addNewChangelog(prNumber, category, newChangelog) {
-  const newChangelogPath = path.resolve(
-    __dirname,
+async function addNewChangelog(prNumber, category, content) {
+  const file = new URL(
     `../changelog_unreleased/${category}/${prNumber}.md`,
+    import.meta.url,
   );
-  await fs.writeFile(newChangelogPath, newChangelog);
-  return newChangelogPath;
+  await fs.writeFile(file, content);
+  return file;
 }
 
 /**
@@ -90,14 +103,14 @@ async function addNewChangelog(prNumber, category, newChangelog) {
  * @param {string} user
  * @param {number} prNumber
  * @param {string} string
- * @returns {string}
+ * @returns {Promise<string>}
  */
 async function createChangelog(title, user, prNumber, category) {
-  const changelogTemplatePath = path.resolve(
-    __dirname,
+  const templateFile = new URL(
     "../changelog_unreleased/TEMPLATE.md",
+    import.meta.url,
   );
-  const changelogTemplate = await fs.readFile(changelogTemplatePath, "utf8");
+  const changelogTemplate = await fs.readFile(templateFile, "utf8");
 
   const titlePart = "Title";
   const prNumberPart = "#XXXX";
@@ -114,15 +127,12 @@ async function createChangelog(title, user, prNumber, category) {
     .replace(prNumberPart, `#${prNumber}`)
     .replace(userPart, `@${user}`)
     .replace(codeBlockPart, `\`\`\`${syntax}\n`)
-    .replace(inputCommentPart, getCommentForSyntax(syntax, "Input") + "\n")
+    .replace(inputCommentPart, generateComment(syntax, "Input") + "\n")
     .replace(
       stableCommentPart,
-      getCommentForSyntax(syntax, "Prettier stable") + "\n",
+      generateComment(syntax, "Prettier stable") + "\n",
     )
-    .replace(
-      mainCommentPart,
-      getCommentForSyntax(syntax, "Prettier main") + "\n",
-    );
+    .replace(mainCommentPart, generateComment(syntax, "Prettier main") + "\n");
 }
 
 /**
@@ -169,7 +179,7 @@ function getSyntaxFromCategory(category) {
  * @param {string} comment
  * @returns {string}
  */
-function getCommentForSyntax(syntax, comment) {
+function generateComment(syntax, comment) {
   switch (syntax) {
     case "md":
     case "mdx":
@@ -177,6 +187,7 @@ function getCommentForSyntax(syntax, comment) {
       return `<!-- ${comment} -->`;
     case "sh":
     case "gql":
+    case "yaml":
       return `# ${comment}`;
     case "hbs":
       return `{{! ${comment} }}`;

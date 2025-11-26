@@ -1,4 +1,50 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`18041.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+type BufferStreamOrVoid<
+  C extends undefined | Buffer | Stream | boolean,
+  P extends undefined | Buffer,
+  R extends Buffer | Stream | void = // Inline comment about void.
+  // Above line comment about exclue.
+  Exclude<C, false> extends never
+    ? void
+    : C & P extends Buffer
+    ? Buffer
+    : Stream
+> = R;
+
+type A<
+  B  = // Inline comment about void.
+  // Above line comment about exclue.
+  C
+> = R;
+
+=====================================output=====================================
+type BufferStreamOrVoid<
+  C extends undefined | Buffer | Stream | boolean,
+  P extends undefined | Buffer,
+  R extends Buffer | Stream | void = // Inline comment about void.
+    // Above line comment about exclue.
+    Exclude<C, false> extends never
+      ? void
+      : C & P extends Buffer
+        ? Buffer
+        : Stream,
+> = R;
+
+type A<
+  B = // Inline comment about void.
+    // Above line comment about exclue.
+    C,
+> = R;
+
+================================================================================
+`;
 
 exports[`class-method.ts format 1`] = `
 ====================================options=====================================
@@ -362,7 +408,7 @@ class _ {
 ================================================================================
 `;
 
-exports[`line-breaking-after-extends.ts format 1`] = `
+exports[`constraints-and-default.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -371,17 +417,31 @@ printWidth: 80
 export type OuterType1<
   LongerLongerLongerLongerInnerType extends LongerLongerLongerLongerOtherType<OneMoreType>
 > = { a: 1 };
+export type OuterType12<
+  LongerLongerLongerLongerInnerType = LongerLongerLongerLongerOtherType<OneMoreType>
+> = { a: 1 };
 
 export type OuterType2<
   LongerLongerLongerLongerInnerType extends LongerLongerLongerLongerLongerLongerLongerLongerOtherType
+> = { a: 1 };
+export type OuterType22<
+  LongerLongerLongerLongerInnerType = LongerLongerLongerLongerLongerLongerLongerLongerOtherType
 > = { a: 1 };
 
 export type OuterType3<
   LongerLongerLongerLongerInnerType extends LongerLongerLongerLongerLongerLo.ngerLongerLongerOtherType
 > = { a: 1 };
+export type OuterType32<
+  LongerLongerLongerLongerInnerType = LongerLongerLongerLongerLongerLo.ngerLongerLongerOtherType
+> = { a: 1 };
 
 export type OuterType4<
   LongerLongerLongerLongerInnerType extends
+    | LongerLongerLongerLongerLongerLo
+    | ngerLongerLongerOtherType
+> = { a: 1 };
+export type OuterType42<
+  LongerLongerLongerLongerInnerType =
     | LongerLongerLongerLongerLongerLo
     | ngerLongerLongerOtherType
 > = { a: 1 };
@@ -391,14 +451,26 @@ export type OuterType1<
   LongerLongerLongerLongerInnerType extends
     LongerLongerLongerLongerOtherType<OneMoreType>,
 > = { a: 1 };
+export type OuterType12<
+  LongerLongerLongerLongerInnerType =
+    LongerLongerLongerLongerOtherType<OneMoreType>,
+> = { a: 1 };
 
 export type OuterType2<
   LongerLongerLongerLongerInnerType extends
     LongerLongerLongerLongerLongerLongerLongerLongerOtherType,
 > = { a: 1 };
+export type OuterType22<
+  LongerLongerLongerLongerInnerType =
+    LongerLongerLongerLongerLongerLongerLongerLongerOtherType,
+> = { a: 1 };
 
 export type OuterType3<
   LongerLongerLongerLongerInnerType extends
+    LongerLongerLongerLongerLongerLo.ngerLongerLongerOtherType,
+> = { a: 1 };
+export type OuterType32<
+  LongerLongerLongerLongerInnerType =
     LongerLongerLongerLongerLongerLo.ngerLongerLongerOtherType,
 > = { a: 1 };
 
@@ -407,11 +479,16 @@ export type OuterType4<
     | LongerLongerLongerLongerLongerLo
     | ngerLongerLongerOtherType,
 > = { a: 1 };
+export type OuterType42<
+  LongerLongerLongerLongerInnerType =
+    | LongerLongerLongerLongerLongerLo
+    | ngerLongerLongerOtherType,
+> = { a: 1 };
 
 ================================================================================
 `;
 
-exports[`line-breaking-after-extends-2.ts format 1`] = `
+exports[`constraints-and-default-2.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -420,6 +497,15 @@ printWidth: 80
 a = {
   parseFunctionBodyAndFinish<
     T extends
+      | N.Function
+      | N.TSDeclareMethod
+      | N.TSDeclareFunction
+      | N.ClassPrivateMethod,
+  >() {}
+}
+a = {
+  parseFunctionBodyAndFinish<
+    T =
       | N.Function
       | N.TSDeclareMethod
       | N.TSDeclareFunction
@@ -437,9 +523,23 @@ function parseFunctionBodyAndFinish<
     | Bar
     | Baz
 >();
+function parseFunctionBodyAndFinish<
+  T =
+    | N.Function
+    | N.TSDeclareMethod
+    | N.TSDeclareFunction
+    | N.ClassPrivateMethod
+    | Foo
+    | Bar
+    | Baz
+>();
 
 function parseFunctionBodyAndFinish<
   T extends // comment
+    N.Function | N.TSDeclareMethod | Baz
+>();
+function parseFunctionBodyAndFinish<
+  T = // comment
     N.Function | N.TSDeclareMethod | Baz
 >();
 
@@ -450,11 +550,27 @@ function makeChainWalker<
     filepath?: string;
   },
 >() {}
+function makeChainWalker2<
+  ArgT = {
+    options: ValidatedOptions;
+    dirname: string;
+    filepath?: string;
+  },
+>() {}
 
 =====================================output=====================================
 a = {
   parseFunctionBodyAndFinish<
     T extends
+      | N.Function
+      | N.TSDeclareMethod
+      | N.TSDeclareFunction
+      | N.ClassPrivateMethod,
+  >() {},
+};
+a = {
+  parseFunctionBodyAndFinish<
+    T =
       | N.Function
       | N.TSDeclareMethod
       | N.TSDeclareFunction
@@ -472,14 +588,35 @@ function parseFunctionBodyAndFinish<
     | Bar
     | Baz,
 >();
+function parseFunctionBodyAndFinish<
+  T =
+    | N.Function
+    | N.TSDeclareMethod
+    | N.TSDeclareFunction
+    | N.ClassPrivateMethod
+    | Foo
+    | Bar
+    | Baz,
+>();
 
 function parseFunctionBodyAndFinish<
   T extends // comment
     N.Function | N.TSDeclareMethod | Baz,
 >();
+function parseFunctionBodyAndFinish<
+  T = // comment
+    N.Function | N.TSDeclareMethod | Baz,
+>();
 
 function makeChainWalker<
   ArgT extends {
+    options: ValidatedOptions;
+    dirname: string;
+    filepath?: string;
+  },
+>() {}
+function makeChainWalker2<
+  ArgT = {
     options: ValidatedOptions;
     dirname: string;
     filepath?: string;

@@ -53,3 +53,10 @@
     transform: rotate(360deg);
   }
 }
+
+:export {
+  nest: {
+    myColor: blue;
+  }
+  myColor: red;
+}

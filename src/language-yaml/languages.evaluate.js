@@ -1,4 +1,4 @@
-import linguistLanguages from "linguist-languages";
+import * as linguistLanguages from "linguist-languages";
 import createLanguage from "../utils/create-language.js";
 
 const ignoredFilenames = new Set([

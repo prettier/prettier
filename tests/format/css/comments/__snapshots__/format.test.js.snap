@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`15948.css format 1`] = `
 ====================================options=====================================
@@ -31,6 +31,48 @@ h1 {
   --OFF: /* OFF */;
   --OFF: /* OFF */;
   --OFF: /* OFF */;
+}
+
+================================================================================
+`;
+
+exports[`17479.css format 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+.foo {
+  background-image:
+    linear-gradient(to top, blue, red 100%),
+    /* texture */
+    repeating-linear-gradient(90deg, pink, yellow 20px, green 20px, pink 40px),
+    repeating-linear-gradient(90deg, pink, yellow 20px, green 20px, pink 40px);
+
+  box-shadow: 2px 2px 4px gray,
+    /* long long long long long long long long long long long long comment */
+    /* long long long long long long long long long long long long comment */
+    1000px /* long long long long long long long long long long long long comment */ 1000px /* long long long long long long long long long comment */ 2px color(srgb 0.555555555 0.555555555 0.555555555),
+    100px -1px 2px lightgray;
+}
+
+=====================================output=====================================
+.foo {
+  background-image:
+    linear-gradient(to top, blue, red 100%),
+    /* texture */
+    repeating-linear-gradient(90deg, pink, yellow 20px, green 20px, pink 40px),
+    repeating-linear-gradient(90deg, pink, yellow 20px, green 20px, pink 40px);
+
+  box-shadow:
+    2px 2px 4px gray,
+    /* long long long long long long long long long long long long comment */
+    /* long long long long long long long long long long long long comment */
+    1000px
+      /* long long long long long long long long long long long long comment */
+      1000px /* long long long long long long long long long comment */ 2px
+      color(srgb 0.555555555 0.555555555 0.555555555),
+    100px -1px 2px lightgray;
 }
 
 ================================================================================
@@ -546,6 +588,34 @@ body {
 
   /* comment 84 */
   background: #000;
+}
+
+================================================================================
+`;
+
+exports[`nestled.css format 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/*
+ * First comment
+ *//*!
+ * Second glued comment start with ! and followed with CSS Rule
+ */
+.foo {
+  display: block;
+}
+
+=====================================output=====================================
+/*
+ * First comment
+ */ /*!
+ * Second glued comment start with ! and followed with CSS Rule
+ */
+.foo {
+  display: block;
 }
 
 ================================================================================

@@ -1,5 +1,6 @@
 import {
   isArrayExpression,
+  isMeaningfulEmptyStatement,
   isNumericLiteral,
   isStringLiteral,
 } from "./utils/index.js";
@@ -26,18 +27,11 @@ const removeTemplateElementsValue = (node) => {
   }
 };
 
-function clean(original, cloned) {
+function clean(original, cloned, parent) {
   if (original.type === "Program") {
     delete cloned.sourceType;
   }
 
-  if (
-    (original.type === "BigIntLiteral" ||
-      original.type === "BigIntLiteralTypeAnnotation") &&
-    original.value
-  ) {
-    cloned.value = original.value.toLowerCase();
-  }
   if (
     (original.type === "BigIntLiteral" || original.type === "Literal") &&
     original.bigint
@@ -46,7 +40,10 @@ function clean(original, cloned) {
   }
 
   // We remove extra `;` and add them when needed
-  if (original.type === "EmptyStatement") {
+  if (
+    original.type === "EmptyStatement" &&
+    !isMeaningfulEmptyStatement({ node: original, parent })
+  ) {
     return null;
   }
 
@@ -188,17 +185,6 @@ function clean(original, cloned) {
     // Ideally, we should swap these two nodes, but `type` is the only difference
     cloned.type = "TSNonNullExpression";
     cloned.expression.type = "ChainExpression";
-  }
-
-  // `@typescript-eslint/typescript-estree` v8
-  if (original.type === "TSMappedType") {
-    delete cloned.key;
-    delete cloned.constraint;
-  }
-
-  // `@typescript-eslint/typescript-estree` v8
-  if (original.type === "TSEnumDeclaration") {
-    delete cloned.body;
   }
 }
 

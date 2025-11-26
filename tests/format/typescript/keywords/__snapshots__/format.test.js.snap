@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`keywords.ts format 1`] = `
 ====================================options=====================================
@@ -106,13 +106,6 @@ class Foo {
   }
 }
 
-class F {
-    constructor(public []) {}
-}
-class G {
-    constructor(public {}) {}
-}
-
 =====================================output=====================================
 // https://github.com/babel/babel/pull/12356
 
@@ -140,13 +133,6 @@ class E {
 
 class Foo {
   constructor(private, public, static) {}
-}
-
-class F {
-  constructor(public []) {}
-}
-class G {
-  constructor(public {}) {}
 }
 
 ================================================================================

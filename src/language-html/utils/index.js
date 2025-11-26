@@ -2,9 +2,13 @@
  * @import AstPath from "../../common/ast-path.js"
  */
 
-import { hardline, join, line } from "../../document/builders.js";
-import { replaceEndOfLine } from "../../document/utils.js";
-import isFrontMatter from "../../utils/front-matter/is-front-matter.js";
+import {
+  hardline,
+  join,
+  line,
+  replaceEndOfLine,
+} from "../../document/index.js";
+import { isFrontMatter } from "../../main/front-matter/index.js";
 import htmlWhitespaceUtils from "../../utils/html-whitespace-utils.js";
 import inferParser from "../../utils/infer-parser.js";
 import {
@@ -41,7 +45,7 @@ function shouldPreserveContent(node, options) {
   // unterminated node in ie conditional comment
   // e.g. <!--[if lt IE 9]><html><![endif]-->
   if (
-    node.type === "ieConditionalComment" &&
+    node.kind === "ieConditionalComment" &&
     node.lastChild &&
     !node.lastChild.isSelfClosing &&
     !node.lastChild.endSourceSpan
@@ -51,7 +55,7 @@ function shouldPreserveContent(node, options) {
 
   // incomplete html in ie conditional comment
   // e.g. <!--[if lt IE 9]></div><![endif]-->
-  if (node.type === "ieConditionalComment" && !node.complete) {
+  if (node.kind === "ieConditionalComment" && !node.complete) {
     return true;
   }
 
@@ -59,7 +63,7 @@ function shouldPreserveContent(node, options) {
   if (
     isPreLikeNode(node) &&
     node.children.some(
-      (child) => child.type !== "text" && child.type !== "interpolation",
+      (child) => child.kind !== "text" && child.kind !== "interpolation",
     )
   ) {
     return true;
@@ -68,7 +72,7 @@ function shouldPreserveContent(node, options) {
   if (
     isVueNonHtmlBlock(node, options) &&
     !isScriptLikeTag(node, options) &&
-    node.type !== "interpolation"
+    node.kind !== "interpolation"
   ) {
     return true;
   }
@@ -78,7 +82,7 @@ function shouldPreserveContent(node, options) {
 
 function hasPrettierIgnore(node) {
   /* c8 ignore next 3 */
-  if (node.type === "attribute") {
+  if (node.kind === "attribute") {
     return false;
   }
 
@@ -95,17 +99,17 @@ function hasPrettierIgnore(node) {
 }
 
 function isPrettierIgnore(node) {
-  return node.type === "comment" && node.value.trim() === "prettier-ignore";
+  return node.kind === "comment" && node.value.trim() === "prettier-ignore";
 }
 
 /** there's no opening/closing tag or it's considered not breakable */
 function isTextLikeNode(node) {
-  return node.type === "text" || node.type === "comment";
+  return node.kind === "text" || node.kind === "comment";
 }
 
 function isScriptLikeTag(node, options) {
   return (
-    node.type === "element" &&
+    node.kind === "element" &&
     (node.fullName === "script" ||
       node.fullName === "style" ||
       node.fullName === "svg:style" ||
@@ -123,7 +127,7 @@ function canHaveInterpolation(node, options) {
 function isWhitespaceSensitiveNode(node, options) {
   return (
     isScriptLikeTag(node, options) ||
-    node.type === "interpolation" ||
+    node.kind === "interpolation" ||
     isIndentationSensitiveNode(node)
   );
 }
@@ -140,20 +144,20 @@ function isLeadingSpaceSensitiveNode(node, options) {
     !node.prev &&
     node.parent?.tagDefinition?.ignoreFirstLf
   ) {
-    return node.type === "interpolation";
+    return node.kind === "interpolation";
   }
 
   return isLeadingSpaceSensitive;
 
   function _isLeadingSpaceSensitiveNode() {
-    if (isFrontMatter(node) || node.type === "angularControlFlowBlock") {
+    if (isFrontMatter(node) || node.kind === "angularControlFlowBlock") {
       return false;
     }
 
     if (
-      (node.type === "text" || node.type === "interpolation") &&
+      (node.kind === "text" || node.kind === "interpolation") &&
       node.prev &&
-      (node.prev.type === "text" || node.prev.type === "interpolation")
+      (node.prev.kind === "text" || node.prev.kind === "interpolation")
     ) {
       return true;
     }
@@ -168,7 +172,7 @@ function isLeadingSpaceSensitiveNode(node, options) {
 
     if (
       !node.prev &&
-      (node.parent.type === "root" ||
+      (node.parent.kind === "root" ||
         (isPreLikeNode(node) && node.parent) ||
         isScriptLikeTag(node.parent, options) ||
         isVueCustomBlock(node.parent, options) ||
@@ -189,14 +193,14 @@ function isLeadingSpaceSensitiveNode(node, options) {
 }
 
 function isTrailingSpaceSensitiveNode(node, options) {
-  if (isFrontMatter(node) || node.type === "angularControlFlowBlock") {
+  if (isFrontMatter(node) || node.kind === "angularControlFlowBlock") {
     return false;
   }
 
   if (
-    (node.type === "text" || node.type === "interpolation") &&
+    (node.kind === "text" || node.kind === "interpolation") &&
     node.next &&
-    (node.next.type === "text" || node.next.type === "interpolation")
+    (node.next.kind === "text" || node.next.kind === "interpolation")
   ) {
     return true;
   }
@@ -211,7 +215,7 @@ function isTrailingSpaceSensitiveNode(node, options) {
 
   if (
     !node.next &&
-    (node.parent.type === "root" ||
+    (node.parent.kind === "root" ||
       (isPreLikeNode(node) && node.parent) ||
       isScriptLikeTag(node.parent, options) ||
       isVueCustomBlock(node.parent, options) ||
@@ -250,13 +254,13 @@ function forceNextEmptyLine(node) {
 function forceBreakContent(node) {
   return (
     forceBreakChildren(node) ||
-    (node.type === "element" &&
+    (node.kind === "element" &&
       node.children.length > 0 &&
       (["body", "script", "style"].includes(node.name) ||
         node.children.some((child) => hasNonTextChild(child)))) ||
     (node.firstChild &&
       node.firstChild === node.lastChild &&
-      node.firstChild.type !== "text" &&
+      node.firstChild.kind !== "text" &&
       hasLeadingLineBreak(node.firstChild) &&
       (!node.lastChild.isTrailingSpaceSensitive ||
         hasTrailingLineBreak(node.lastChild)))
@@ -266,7 +270,7 @@ function forceBreakContent(node) {
 /** spaces between children */
 function forceBreakChildren(node) {
   return (
-    node.type === "element" &&
+    node.kind === "element" &&
     node.children.length > 0 &&
     (["html", "head", "ul", "ol", "select"].includes(node.name) ||
       (node.cssDisplay.startsWith("table") && node.cssDisplay !== "table-cell"))
@@ -284,7 +288,7 @@ function preferHardlineAsLeadingSpaces(node) {
 function preferHardlineAsTrailingSpaces(node) {
   return (
     preferHardlineAsSurroundingSpaces(node) ||
-    (node.type === "element" && node.fullName === "br") ||
+    (node.kind === "element" && node.fullName === "br") ||
     hasSurroundingLineBreak(node)
   );
 }
@@ -298,7 +302,7 @@ function hasLeadingLineBreak(node) {
     node.hasLeadingSpaces &&
     (node.prev
       ? node.prev.sourceSpan.end.line < node.sourceSpan.start.line
-      : node.parent.type === "root" ||
+      : node.parent.kind === "root" ||
         node.parent.startSourceSpan.end.line < node.sourceSpan.start.line)
   );
 }
@@ -308,14 +312,14 @@ function hasTrailingLineBreak(node) {
     node.hasTrailingSpaces &&
     (node.next
       ? node.next.sourceSpan.start.line > node.sourceSpan.end.line
-      : node.parent.type === "root" ||
+      : node.parent.kind === "root" ||
         (node.parent.endSourceSpan &&
           node.parent.endSourceSpan.start.line > node.sourceSpan.end.line))
   );
 }
 
 function preferHardlineAsSurroundingSpaces(node) {
-  switch (node.type) {
+  switch (node.kind) {
     case "ieConditionalComment":
     case "comment":
     case "directive":
@@ -331,7 +335,7 @@ function getLastDescendant(node) {
 }
 
 function hasNonTextChild(node) {
-  return node.children?.some((child) => child.type !== "text");
+  return node.children?.some((child) => child.kind !== "text");
 }
 
 function inferParserByTypeAttribute(type) {
@@ -343,6 +347,7 @@ function inferParserByTypeAttribute(type) {
     case "module":
     case "text/javascript":
     case "text/babel":
+    case "text/jsx":
     case "application/javascript":
       return "babel";
 
@@ -475,7 +480,7 @@ function getNodeCssStyleDisplay(node, options) {
     return "block";
   }
 
-  if (node.prev?.type === "comment") {
+  if (node.prev?.kind === "comment") {
     // <!-- display: block -->
     const match = node.prev.value.match(/^\s*display:\s*([a-z]+)\s*$/u);
     if (match) {
@@ -484,7 +489,7 @@ function getNodeCssStyleDisplay(node, options) {
   }
 
   let isInSvgForeignObject = false;
-  if (node.type === "element" && node.namespace === "svg") {
+  if (node.kind === "element" && node.namespace === "svg") {
     if (hasParent(node, (parent) => parent.fullName === "svg:foreignObject")) {
       isInSvgForeignObject = true;
     } else {
@@ -498,58 +503,28 @@ function getNodeCssStyleDisplay(node, options) {
     case "ignore":
       return "block";
     default:
-      return (
-        (node.type === "element" &&
-          (!node.namespace ||
-            isInSvgForeignObject ||
-            isUnknownNamespace(node)) &&
-          CSS_DISPLAY_TAGS[node.name]) ||
-        CSS_DISPLAY_DEFAULT
-      );
+      if (
+        node.kind === "element" &&
+        (!node.namespace || isInSvgForeignObject || isUnknownNamespace(node)) &&
+        Object.hasOwn(CSS_DISPLAY_TAGS, node.name)
+      ) {
+        return CSS_DISPLAY_TAGS[node.name];
+      }
   }
+
+  return CSS_DISPLAY_DEFAULT;
 }
 
 function getNodeCssStyleWhiteSpace(node) {
-  return (
-    (node.type === "element" &&
-      (!node.namespace || isUnknownNamespace(node)) &&
-      CSS_WHITE_SPACE_TAGS[node.name]) ||
-    CSS_WHITE_SPACE_DEFAULT
-  );
-}
-
-function getMinIndentation(text) {
-  let minIndentation = Number.POSITIVE_INFINITY;
-
-  for (const lineText of text.split("\n")) {
-    if (lineText.length === 0) {
-      continue;
-    }
-
-    const indentation = htmlWhitespaceUtils.getLeadingWhitespaceCount(lineText);
-    if (indentation === 0) {
-      return 0;
-    }
-
-    if (lineText.length === indentation) {
-      continue;
-    }
-
-    if (indentation < minIndentation) {
-      minIndentation = indentation;
-    }
+  if (
+    node.kind === "element" &&
+    (!node.namespace || isUnknownNamespace(node)) &&
+    Object.hasOwn(CSS_WHITE_SPACE_TAGS, node.name)
+  ) {
+    return CSS_WHITE_SPACE_TAGS[node.name];
   }
 
-  return minIndentation === Number.POSITIVE_INFINITY ? 0 : minIndentation;
-}
-
-function dedentString(text, minIndent = getMinIndentation(text)) {
-  return minIndent === 0
-    ? text
-    : text
-        .split("\n")
-        .map((lineText) => lineText.slice(minIndent))
-        .join("\n");
+  return CSS_WHITE_SPACE_DEFAULT;
 }
 
 function unescapeQuoteEntities(text) {
@@ -570,8 +545,8 @@ function isVueCustomBlock(node, options) {
 function isVueSfcBlock(node, options) {
   return (
     options.parser === "vue" &&
-    node.type === "element" &&
-    node.parent.type === "root" &&
+    node.kind === "element" &&
+    node.parent.kind === "root" &&
     node.fullName.toLowerCase() !== "html"
   );
 }
@@ -615,7 +590,7 @@ function getTextValueParts(node, value = node.value) {
     ? node.parent.isIndentationSensitive
       ? replaceEndOfLine(value)
       : replaceEndOfLine(
-          dedentString(htmlTrimPreserveIndentation(value)),
+          htmlWhitespaceUtils.dedentString(htmlTrimPreserveIndentation(value)),
           hardline,
         )
     : join(line, htmlWhitespaceUtils.split(value));
@@ -627,7 +602,6 @@ function isVueScriptTag(node, options) {
 
 export {
   canHaveInterpolation,
-  dedentString,
   forceBreakChildren,
   forceBreakContent,
   forceNextEmptyLine,

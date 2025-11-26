@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`long-type-parameters.ts - {"printWidth":109} format 1`] = `
 ====================================options=====================================
@@ -26,7 +26,9 @@ export interface MarkDef<
 export interface MarkDef<
   M extends string | Mark = Mark,
   ES extends ExprRef | SignalRef = ExprRef | SignalRef,
-> extends GenericMarkDef<M>,
+>
+  extends
+    GenericMarkDef<M>,
     Omit<
       MarkConfig<ES> &
         AreaConfig<ES> &
@@ -64,7 +66,8 @@ export interface MarkDef<
 =====================================output=====================================
 // https://github.com/vega/vega-lite/blob/ae13aff7b480cf9c994031eca08a6b1720e01ab3/src/mark.ts#L602
 export interface MarkDef<M extends string | Mark = Mark, ES extends ExprRef | SignalRef = ExprRef | SignalRef>
-  extends GenericMarkDef<M>,
+  extends
+    GenericMarkDef<M>,
     Omit<
       MarkConfig<ES> &
         AreaConfig<ES> &

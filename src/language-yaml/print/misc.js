@@ -1,4 +1,4 @@
-import { align, softline } from "../../document/builders.js";
+import { align, softline } from "../../document/index.js";
 import { hasEndComments, isNextLineEmpty, isNode } from "../utils.js";
 
 const printedEmptyLineCache = new WeakMap();

@@ -325,6 +325,7 @@ Valid options:
 - `"vue"` (same parser as `"html"`, but also formats vue-specific syntax) _First available in 1.10.0_
 - `"angular"` (same parser as `"html"`, but also formats angular-specific syntax via [angular-estree-parser](https://github.com/ikatyang/angular-estree-parser)) _First available in 1.15.0_
 - `"lwc"` (same parser as `"html"`, but also formats LWC-specific syntax for unquoted template attributes) _First available in 1.17.0_
+- `"mjml"` (same parser as `"html"`, but also formats MJML-specific syntax) _First available in 3.6.0_
 - `"yaml"` (via [yaml](https://github.com/eemeli/yaml) and [yaml-unist-parser](https://github.com/ikatyang/yaml-unist-parser)) _First available in 1.14.0_
 
 | Default | CLI Override        | API Override         |
@@ -392,6 +393,34 @@ Note that “in tandem” doesn’t mean “at the same time”. When the two op
 | `false` | `--insert-pragma` | `insertPragma: <bool>` |
 
 [adoption strategy]: https://prettier.io/blog/2017/05/03/1.3.0.html#facebook-adoption-update
+
+## Check Ignore Pragma
+
+_First available in v3.6.0_
+
+Prettier can allow individual files to opt out of formatting if they contain a special comment, called a pragma, at the top of the file.
+
+Checking for these markers incurs a small upfront cost during formatting, so it's not enabled by default.
+
+A file with the following as its first comment will **not** be formatted when `--check-ignore-pragma` is supplied:
+
+```js
+/**
+ * @noprettier
+ */
+```
+
+or
+
+```js
+/**
+ * @noformat
+ */
+```
+
+| Default | CLI Override            | API Override                |
+| ------- | ----------------------- | --------------------------- |
+| `false` | `--check-ignore-pragma` | `checkIgnorePragma: <bool>` |
 
 ## Prose Wrap
 

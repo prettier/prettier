@@ -27,7 +27,7 @@ The options you can use in the configuration file are the same as the [API optio
 
 ### TypeScript Configuration Files
 
-TypeScript support for Node.js is currently experimental, Node.js>=22.6.0 is required and `--experimental-strip-types` is required to run Node.js.
+TypeScript support requires Node.js>=22.6.0, and `--experimental-strip-types` is required before Node.js v24.3.0 to run Node.js.
 
 ```sh
 node --experimental-strip-types node_modules/prettier/bin/prettier.cjs . --write
@@ -219,11 +219,17 @@ You can also switch to the `flow` parser instead of the default `babel` for .js 
 
 ## Configuration Schema
 
-If you’d like a JSON schema to validate your configuration, one is available here: [https://json.schemastore.org/prettierrc](https://json.schemastore.org/prettierrc).
+If you’d like a JSON schema to validate your configuration, one is available here: [https://www.schemastore.org/prettierrc.json](https://www.schemastore.org/prettierrc.json).
 
 ## EditorConfig
 
 If a [`.editorconfig` file](https://editorconfig.org/) is in your project, Prettier will parse it and convert its properties to the corresponding Prettier configuration. This configuration will be overridden by `.prettierrc`, etc.
+
+:::note
+
+Unlike the EditorConfig spec, the search for `.editorconfig` file will stop on the project root and won't proceed further.
+
+:::
 
 Here’s an annotated description of how different properties map to Prettier’s behavior:
 

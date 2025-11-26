@@ -1,15 +1,16 @@
 import {
+  canBreak,
+  cleanDoc,
   group,
   indent,
   indentIfBreak,
   line,
   lineSuffixBoundary,
-} from "../../document/builders.js";
-import { canBreak, cleanDoc, willBreak } from "../../document/utils.js";
+  willBreak,
+} from "../../document/index.js";
 import getStringWidth from "../../utils/get-string-width.js";
 import isNonEmptyArray from "../../utils/is-non-empty-array.js";
 import {
-  createTypeCheckFunction,
   getCallArguments,
   hasLeadingOwnLineComment,
   isBinaryish,
@@ -21,6 +22,7 @@ import {
   isNumericLiteral,
   isObjectProperty,
   isStringLiteral,
+  isTypeAlias,
   isUnionType,
 } from "../utils/index.js";
 import { shouldInlineLogicalExpression } from "./binaryish.js";
@@ -301,10 +303,6 @@ function isComplexTypeAliasParams(node) {
   return false;
 }
 
-const isTypeAlias = createTypeCheckFunction([
-  "TSTypeAliasDeclaration",
-  "TypeAlias",
-]);
 function getTypeParametersFromTypeAlias(node) {
   if (isTypeAlias(node)) {
     return node.typeParameters?.params;
@@ -340,14 +338,17 @@ function isArrowFunctionVariableDeclarator(node) {
   );
 }
 
-const isTypeReference = createTypeCheckFunction([
-  "TSTypeReference",
-  "GenericTypeAnnotation",
-]);
 function getTypeParametersFromTypeReference(node) {
-  if (isTypeReference(node)) {
-    return (node.typeArguments ?? node.typeParameters)?.params;
+  let typeArguments;
+  switch (node.type) {
+    case "GenericTypeAnnotation":
+      typeArguments = node.typeParameters;
+      break;
+    case "TSTypeReference":
+      typeArguments = node.typeArguments;
+      break;
   }
+  return typeArguments?.params;
 }
 
 /**
@@ -448,23 +449,20 @@ function getTypeArgumentsFromCallExpression(node) {
   return (node.typeParameters ?? node.typeArguments)?.params;
 }
 
-function shouldBreakBeforeConditionalType(node) {
-  function isGeneric(subNode) {
-    switch (subNode.type) {
-      case "FunctionTypeAnnotation":
-      case "GenericTypeAnnotation":
-      case "TSFunctionType":
-        return Boolean(subNode.typeParameters);
-      case "TSTypeReference":
-        return Boolean(
-          // TODO: Use `typeArguments` only when babel align with TS.
-          subNode.typeArguments ?? subNode.typeParameters,
-        );
-      default:
-        return false;
-    }
+function isGeneric(node) {
+  switch (node.type) {
+    case "FunctionTypeAnnotation":
+    case "GenericTypeAnnotation":
+    case "TSFunctionType":
+      return Boolean(node.typeParameters);
+    case "TSTypeReference":
+      return Boolean(node.typeArguments);
+    default:
+      return false;
   }
+}
 
+function shouldBreakBeforeConditionalType(node) {
   return isGeneric(node.checkType) || isGeneric(node.extendsType);
 }
 

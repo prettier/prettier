@@ -21,10 +21,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6.0.0
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v6.0.0
         with:
           cache: "yarn"
 
@@ -55,7 +55,7 @@ jobs:
       - name: Lint docs code block
         run: yarn prettier "{docs,website/versioned_docs/version-stable}/**/*.md" --check
         env:
-          # Make Prettier throws on embeded format
+          # Make Prettier throws on embedded format
           PRETTIER_DEBUG: true
 
       - name: Lint workflow files
@@ -67,10 +67,10 @@ jobs:
       - name: Dependency Review
         # Doesn't support push event https://github.com/actions/dependency-review-action/issues/826
         if: github.event_name == 'pull_request'
-        uses: actions/dependency-review-action@v4
+        uses: actions/dependency-review-action@3c4e3dcb1aa7874d2c16be7d79418e9b7efd6261 # v4.8.2
 
       - name: Validate renovate config
-        run: npx --package renovate --call renovate-config-validator
+        run: yarn dlx --package renovate@latest renovate-config-validator
 
       - name: Run yarn (/)
         run: |

@@ -57,6 +57,18 @@ describe("--cache option", () => {
   });
   afterAll(clean);
 
+  it("creates cache file with --cache", async () => {
+    await runCliWithoutGitignore(dir, ["--cache", "a.js"]);
+    await expect(fs.stat(defaultCacheFile)).resolves.not.toThrow();
+  });
+
+  it("doesn't create cache directory without --cache", async () => {
+    await runCliWithoutGitignore(dir, ["a.js"]);
+    await expect(
+      fs.stat(path.join(dir, "node_modules/.cache")),
+    ).rejects.toHaveProperty("code", "ENOENT");
+  });
+
   it("throw error when cache-strategy is invalid", async () => {
     const { stderr } = await runCliWithoutGitignore(dir, [
       "--cache",
@@ -445,7 +457,7 @@ describe("--cache option", () => {
       );
     });
 
-    it("re-format when timestamp has been updated", async () => {
+    it("doesn't when timestamp has been updated", async () => {
       const cliArguments = [
         "--cache",
         "--cache-strategy",
@@ -474,7 +486,7 @@ describe("--cache option", () => {
       );
       expect(secondStdout.split("\n")).toEqual(
         expect.arrayContaining([
-          expect.stringMatching(/^a\.js .+ms$/u),
+          expect.stringMatching(/^a\.js .+ms \(unchanged\) \(cached\)$/u),
           expect.stringMatching(/^b\.js .+ms \(unchanged\) \(cached\)$/u),
         ]),
       );

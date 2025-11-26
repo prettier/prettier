@@ -5,5 +5,7 @@ runFormatTest(import.meta, ["babel"], {
     acorn: true,
     espree: true,
     meriyah: true,
+    oxc: true,
+    "oxc-ts": true,
   },
 });

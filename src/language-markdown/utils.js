@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import * as assert from "#universal/assert";
 import { CJK_REGEXP, PUNCTUATION_REGEXP } from "./constants.evaluate.js";
 import { locEnd, locStart } from "./loc.js";
 
@@ -252,13 +252,68 @@ function isAutolink(node) {
   return locStart(node) === locStart(child) && locEnd(node) === locEnd(child);
 }
 
+/** @return {false | 'next' | 'start' | 'end'} */
+function isPrettierIgnore(node) {
+  let match;
+
+  if (node.type === "html") {
+    match = node.value.match(
+      /^<!--\s*prettier-ignore(?:-(start|end))?\s*-->$/u,
+    );
+  } else {
+    let comment;
+
+    if (node.type === "esComment") {
+      comment = node;
+    } else if (
+      node.type === "paragraph" &&
+      node.children.length === 1 &&
+      node.children[0].type === "esComment"
+    ) {
+      comment = node.children[0];
+    }
+
+    if (comment) {
+      match = comment.value.match(/^prettier-ignore(?:-(start|end))?$/u);
+    }
+  }
+
+  return match ? match[1] || "next" : false;
+}
+
+function getNthListSiblingIndex(node, parentNode) {
+  return getNthSiblingIndex(
+    node,
+    parentNode,
+    (siblingNode) => siblingNode.ordered === node.ordered,
+  );
+
+  function getNthSiblingIndex(node, parentNode, condition) {
+    let index = -1;
+
+    for (const childNode of parentNode.children) {
+      if (childNode.type === node.type && condition(childNode)) {
+        index++;
+      } else {
+        index = -1;
+      }
+
+      if (childNode === node) {
+        return index;
+      }
+    }
+  }
+}
+
 export {
   getFencedCodeBlockValue,
+  getNthListSiblingIndex,
   getOrderedListItemInfo,
   hasGitDiffFriendlyOrderedList,
   INLINE_NODE_TYPES,
   INLINE_NODE_WRAPPER_TYPES,
   isAutolink,
+  isPrettierIgnore,
   KIND_CJ_LETTER,
   KIND_CJK_PUNCTUATION,
   KIND_K_LETTER,

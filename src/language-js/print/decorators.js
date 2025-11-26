@@ -4,7 +4,7 @@ import {
   hardline,
   join,
   line,
-} from "../../document/builders.js";
+} from "../../document/index.js";
 import hasNewline from "../../utils/has-newline.js";
 import isNonEmptyArray from "../../utils/is-non-empty-array.js";
 import { hasSameLocStart, locEnd } from "../loc.js";

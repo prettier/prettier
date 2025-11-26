@@ -1,4 +1,152 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`9812.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+for (const p of ['fullName', 'organ', 'position', 'rank'])
+  // comment
+  form.setValue(\`\${prefix}.data.\${p}\`, response[p])
+
+for(x of y)
+  // comment
+  bar();
+
+for(x in y)
+  // comment
+  bar();
+
+for(;;)
+  // comment
+  bar();
+
+for(x of y)
+  // comment1
+  // comment2
+  bar();
+
+for(x in y)
+  // comment1
+  // comment2
+  bar();
+
+for(;;)
+  // comment1
+  // comment2
+  bar();
+
+for(x of y)
+  /* comment */
+  bar();
+
+for(x in y)
+  /* comment */
+  bar();
+
+for(;;)
+  /* comment */
+  bar();
+
+for (
+  a = 1;
+  // this condition is tricky:
+  a === b || a === c;
+  a++
+) {
+  console.log()
+}
+
+=====================================output=====================================
+for (const p of ["fullName", "organ", "position", "rank"])
+  // comment
+  form.setValue(\`\${prefix}.data.\${p}\`, response[p]);
+
+for (x of y)
+  // comment
+  bar();
+
+for (x in y)
+  // comment
+  bar();
+
+for (;;)
+  // comment
+  bar();
+
+for (x of y)
+  // comment1
+  // comment2
+  bar();
+
+for (x in y)
+  // comment1
+  // comment2
+  bar();
+
+for (;;)
+  // comment1
+  // comment2
+  bar();
+
+for (x of y)
+  /* comment */
+  bar();
+
+for (x in y)
+  /* comment */
+  bar();
+
+for (;;)
+  /* comment */
+  bar();
+
+for (
+  a = 1;
+  // this condition is tricky:
+  a === b || a === c;
+  a++
+) {
+  console.log();
+}
+
+================================================================================
+`;
+
+exports[`9812-unstable.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+for(x of y)
+// comment
+{bar();}
+
+for(x of y)
+// comment
+{}
+
+for(x of y)
+// comment
+;
+
+=====================================output=====================================
+for (x of y) // comment
+{
+  bar();
+}
+
+for (x of y) // comment
+{
+}
+
+for (x of y) // comment
+;
+
+================================================================================
+`;
 
 exports[`comment.js format 1`] = `
 ====================================options=====================================
@@ -900,6 +1048,23 @@ for (a in b) 0;
 ================================================================================
 `;
 
+exports[`no-update.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+for ( let i = 0, j = 0, len = allMatches.length, lenJ = selections.length;i < len;) {}
+
+=====================================output=====================================
+for (
+  let i = 0, j = 0, len = allMatches.length, lenJ = selections.length;
+  i < len;
+) {}
+
+================================================================================
+`;
+
 exports[`parentheses.js [flow] format 1`] = `
 "Unexpected token \`=>\`, expected the token \`;\` (11:27)
    9 | for (var a = [b in c];;);
@@ -980,7 +1145,6 @@ for (
     (b in c);
   };
   ;
-
 );
 for (var a = [(b in c)]; ; );
 for (var a = { b: (b in c) }; ; );
@@ -1012,7 +1176,6 @@ for (
   (a = () => {
     b in c;
   });
-
 );
 for (; (a = [b in c]); );
 for (; (a = { b: b in c }); );

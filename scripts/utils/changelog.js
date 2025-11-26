@@ -39,15 +39,14 @@ export const changelogUnreleasedDirs = fs
   })
   .filter((entry) => entry.isDirectory());
 
-export function getEntries(dirPath) {
+export function getEntries(dirPath, options) {
   const fileNames = fs
     .readdirSync(dirPath)
     .filter((fileName) => path.extname(fileName) === ".md");
+  const useFriendlyHeadingId = options?.useFriendlyHeadingId;
   const entries = fileNames.map((fileName) => {
-    const [title, ...rest] = fs
-      .readFileSync(path.join(dirPath, fileName), "utf8")
-      .trim()
-      .split("\n");
+    const filePath = path.join(dirPath, fileName);
+    let [title, ...rest] = fs.readFileSync(filePath, "utf8").trim().split("\n");
 
     const improvement = title.match(/\[IMPROVEMENT(:(\d+))?\]/u);
 
@@ -64,8 +63,15 @@ export function getEntries(dirPath) {
         ? Number(improvement[2])
         : undefined;
 
-    const content = [processTitle(title), ...rest].join("\n");
+    title = processTitle(title);
 
+    if (useFriendlyHeadingId) {
+      // `1000` or `1000-2`
+      const basename = path.basename(filePath, ".md");
+      title += ` {#change-${basename}}`;
+    }
+
+    const content = [title, ...rest].join("\n");
     return { fileName, section, order, content };
   });
   return entries;

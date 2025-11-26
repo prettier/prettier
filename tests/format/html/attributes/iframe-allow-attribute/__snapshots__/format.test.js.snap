@@ -1,0 +1,95 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`allow-attribute.html format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<iframe allow></iframe>
+<iframe allow=""></iframe>
+<iframe allow="   "></iframe>
+<iframe allow=" ; "></iframe>
+<iframe allow=" ;   ;   ; "></iframe>
+<iframe allow="   camera"></iframe>
+<iframe allow="payment;    usb; serial"></iframe>
+<iframe allow="   camera;; microphone;;;"></iframe>
+<iframe allow="   camera 'self';    ambient-light-sensor 'self'"></iframe>
+<iframe allow="   camera 'self'; ambient-light-sensor 'self'"></iframe>
+<iframe allow="   camera
+'self';
+ambient-light-sensor 'self'"></iframe>
+<iframe allow="camera https://very-long-subdomain.very-long-domain-name.example.com https://another-very-long-subdomain.another-very-long-domain.example.org; microphone https://extremely-long-subdomain-name.extremely-long-domain-name.example.net"></iframe>
+<iframe allow="camera https://sub-domain.example.com:8080/path?query=value#fragment; microphone 'self'"></iframe>
+<iframe allow="camera https://subdomain1.example.com https://subdomain2.example.com https://subdomain3.example.com https://subdomain4.example.com https://subdomain5.example.com"></iframe>
+
+<!-- Uppper case -->
+<iframe allow="CAMERA 'self'; MICROPHONE 'none'; GEOlocation https://example.com"></iframe>
+<iframe allow="CAMERA 'self'; UNKOWN-DIRECTIVE"></iframe>
+
+<!-- Duplicated -->
+<iframe allow="camera 'none'; camera 'self'; CAMERA 'self'"></iframe>
+
+<!-- None ASCII -->
+<iframe allow="   中文-dirctive-name"></iframe>
+<iframe allow=" 中文-dirctive-name   'self'  ;   microphone   中文-origin"></iframe>
+
+<!-- Not iframe-->
+<a allow="
+        camera 'self';
+ambient-light-sensor 'self'
+"></a>
+
+=====================================output=====================================
+<iframe allow></iframe>
+<iframe allow=""></iframe>
+<iframe allow=""></iframe>
+<iframe allow=""></iframe>
+<iframe allow=""></iframe>
+<iframe allow="camera"></iframe>
+<iframe allow="payment; usb; serial"></iframe>
+<iframe allow="camera; microphone"></iframe>
+<iframe allow="camera 'self'; ambient-light-sensor 'self'"></iframe>
+<iframe allow="camera 'self'; ambient-light-sensor 'self'"></iframe>
+<iframe allow="camera 'self'; ambient-light-sensor 'self'"></iframe>
+<iframe
+  allow="
+    camera https://very-long-subdomain.very-long-domain-name.example.com https://another-very-long-subdomain.another-very-long-domain.example.org;
+    microphone https://extremely-long-subdomain-name.extremely-long-domain-name.example.net;
+  "
+></iframe>
+<iframe
+  allow="
+    camera https://sub-domain.example.com:8080/path?query=value#fragment;
+    microphone 'self';
+  "
+></iframe>
+<iframe
+  allow="
+    camera https://subdomain1.example.com https://subdomain2.example.com https://subdomain3.example.com https://subdomain4.example.com https://subdomain5.example.com;
+  "
+></iframe>
+
+<!-- Uppper case -->
+<iframe
+  allow="CAMERA 'self'; MICROPHONE 'none'; GEOlocation https://example.com"
+></iframe>
+<iframe allow="CAMERA 'self'; UNKOWN-DIRECTIVE"></iframe>
+
+<!-- Duplicated -->
+<iframe allow="camera 'none'; camera 'self'; CAMERA 'self'"></iframe>
+
+<!-- None ASCII -->
+<iframe allow="中文-dirctive-name"></iframe>
+<iframe allow="中文-dirctive-name 'self'; microphone 中文-origin"></iframe>
+
+<!-- Not iframe-->
+<a
+  allow="
+        camera 'self';
+ambient-light-sensor 'self'
+"
+></a>
+
+================================================================================
+`;

@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`with-noformat-pragma.graphql - {"checkIgnorePragma":false} format 1`] = `
 ====================================options=====================================

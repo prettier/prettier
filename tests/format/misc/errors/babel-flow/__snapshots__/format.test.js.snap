@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`async-arrow-invalid.js [babel] format 1`] = `
 "Unterminated JSX contents. (3:19)

@@ -15,12 +15,12 @@
     "update-stable-docs": "node ./scripts/update-stable-docs.mjs"
   },
   "dependencies": {
-    "@docusaurus/core": "3.7.0",
-    "@docusaurus/preset-classic": "3.7.0",
-    "@mdx-js/react": "3.1.0",
+    "@docusaurus/core": "3.9.2",
+    "@docusaurus/preset-classic": "3.9.2",
+    "@mdx-js/react": "3.1.1",
     "@sandhose/prettier-animated-logo": "1.0.3",
     "clsx": "2.1.1",
-    "codemirror-graphql": "2.2.0",
+    "codemirror-graphql": "2.2.4",
     "prism-react-renderer": "2.4.1",
     "react": "18.3.1",
     "react-dom": "18.3.1",
@@ -28,14 +28,13 @@
     "react-tweet": "3.2.2"
   },
   "devDependencies": {
-    "@docusaurus/faster": "3.7.0",
-    "@docusaurus/module-type-aliases": "3.7.0",
-    "@docusaurus/types": "3.7.0",
-    "@types/js-yaml": "4.0.9",
-    "@vitejs/plugin-react": "4.3.4",
-    "concurrently": "9.1.2",
-    "js-yaml": "4.1.0",
-    "vite": "6.2.7"
+    "@docusaurus/faster": "3.9.2",
+    "@docusaurus/module-type-aliases": "3.9.2",
+    "@docusaurus/types": "3.9.2",
+    "@vitejs/plugin-react": "5.1.1",
+    "concurrently": "9.2.1",
+    "vite": "7.2.2",
+    "yaml": "2.8.1"
   },
   "browserslist": {
     "production": [
@@ -49,5 +48,5 @@
       "last 5 safari version"
     ]
   },
-  "packageManager": "yarn@4.9.1"
+  "packageManager": "yarn@4.12.0"
 }

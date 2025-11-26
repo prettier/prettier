@@ -18,6 +18,8 @@ const parseOptions = {
   esproposal_decorators: true,
   // `esproposal_export_star_as` (boolean, default `false`) - enable parsing of `export * as` syntax
   esproposal_export_star_as: true,
+  // Undocumented
+  pattern_matching: true,
   // `types` (boolean, default `true`) - enable parsing of Flow types
   // types: true,
   // `use_strict` (boolean, default `false`) - treat the file as strict, without needing a "use strict" directive
@@ -27,10 +29,14 @@ const parseOptions = {
 };
 
 function createParseError(error) {
-  const {
-    message,
-    loc: { start, end },
-  } = error;
+  const { message, loc } = error;
+
+  /* c8 ignore next 3 */
+  if (!loc) {
+    return error;
+  }
+
+  const { start, end } = loc;
 
   return createError(message, {
     loc: {

@@ -23,8 +23,8 @@ import {
   markAsRoot,
   softline,
   trim,
-} from "./builders.js";
-import { printDocToString } from "./printer.js";
+} from "./builders/index.js";
+import { printDocToString } from "./printer/printer.js";
 import {
   canBreak,
   findInDoc,
@@ -34,7 +34,7 @@ import {
   stripTrailingHardline,
   traverseDoc,
   willBreak,
-} from "./utils.js";
+} from "./utilities/index.js";
 
 export const builders = {
   join,
