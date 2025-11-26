@@ -113,7 +113,7 @@ function genericPrint(path, options, print) {
       lineSuffix([
         node.type === "mappingValue" && !node.content ? "" : " ",
         path.parent.type === "mappingKey" &&
-        ["mapping", "flowMapping"].includes(path.getParentNode(2).type) &&
+        isNode(path.getParentNode(2), ["mapping", "flowMapping"]) &&
         isInlineNode(node)
           ? ""
           : breakParent,

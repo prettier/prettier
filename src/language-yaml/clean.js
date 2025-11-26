@@ -12,9 +12,6 @@ function clean(original, cloned /* , parent */) {
     case "quoteSingle":
       cloned.type = "quote";
       break;
-    case "blockLiteral":
-      cloned.value = "";
-      break;
     case "document":
       // We may insert explicit marks
       if (!cloned.directivesEndMarker) {
