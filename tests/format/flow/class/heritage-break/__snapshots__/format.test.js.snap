@@ -31,7 +31,8 @@ class Short extends eslint.Rule.RuleModule {}
 class A_long_long_long_long_long_long_long_long_name12
   extends eslint.Rule?.RuleModule {}
 
-declare class A_long_long_long_long_long_long_long_long_name2 mixins eslint.Rule.RuleModule {}
+declare class A_long_long_long_long_long_long_long_long_name2
+  mixins eslint.Rule.RuleModule {}
 
 declare class A_long_long_long_long_long_long_long_long_name3
   extends eslint.Rule.RuleModule

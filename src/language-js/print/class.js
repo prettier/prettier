@@ -188,7 +188,8 @@ function shouldPrintClassInGroupMode(node) {
 
   const groupMode =
     isMemberExpression(heritage) ||
-    heritage?.type === "QualifiedTypeIdentifier" ||
+    (heritage?.type === "InterfaceExtends" &&
+      heritage.id.type === "QualifiedTypeIdentifier") ||
     (heritage?.type === "TSClassImplements" &&
       isMemberExpression(heritage.expression));
 
