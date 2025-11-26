@@ -165,6 +165,9 @@ function hasMultipleHeritage(node) {
   return count > 1;
 }
 
+/**
+@returns {boolean}
+*/
 function shouldPrintClassInGroupModeWithoutCache(path) {
   const { node } = path;
   if (
@@ -184,7 +187,7 @@ function shouldPrintClassInGroupModeWithoutCache(path) {
     const superTypeArguments =
       node.superTypeArguments ?? node.superTypeParameters;
 
-    return superTypeArguments || isMemberExpression(node.superClass);
+    return !superTypeArguments && isMemberExpression(node.superClass);
   }
 
   const heritage =
