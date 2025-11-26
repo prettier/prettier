@@ -14,9 +14,6 @@ runFormatTest(
   ["typescript", "babel-ts", "oxc-ts"],
 );
 
-// `oxc-ts` not rejecting
-// https://github.com/microsoft/TypeScript/issues/61834
-// https://github.com/microsoft/TypeScript/issues/42468
 runFormatTest(
   {
     importMeta: import.meta,
@@ -28,5 +25,12 @@ runFormatTest(
       `,
     ),
   },
-  ["typescript", "babel-ts"],
+  [
+    "typescript",
+    "babel-ts",
+    // `oxc-ts` not rejecting
+    // https://github.com/microsoft/TypeScript/issues/61834
+    // https://github.com/microsoft/TypeScript/issues/42468
+    "oxc-ts",
+  ],
 );
