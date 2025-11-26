@@ -46,3 +46,45 @@ declare class A_long_long_long_long_long_long_long_long_name3
 
 ================================================================================
 `;
+
+exports[`type-arguments.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class CommentBox extends React.Component<
+  { url: string; pollInterval: number },
+  CommentData
+> {}
+
+interface CommentBox extends React.Component<
+  { url: string; pollInterval: number },
+  CommentData
+> {}
+
+declare class CommentBox extends React.Component<
+  { url: string; pollInterval: number },
+  CommentData
+> {}
+
+declare class CommentBox mixins React.Component<
+  { url: string; pollInterval: number },
+  CommentData
+> {}
+
+=====================================output=====================================
+class CommentBox
+  extends React.Component<{ url: string, pollInterval: number }, CommentData> {}
+
+interface CommentBox
+  extends React.Component<{ url: string, pollInterval: number }, CommentData> {}
+
+declare class CommentBox
+  extends React.Component<{ url: string, pollInterval: number }, CommentData> {}
+
+declare class CommentBox
+  mixins React.Component<{ url: string, pollInterval: number }, CommentData> {}
+
+================================================================================
+`;
