@@ -251,6 +251,7 @@ function isAutolink(node) {
   const [child] = node.children;
   return locStart(node) === locStart(child) && locEnd(node) === locEnd(child);
 }
+
 /** @return {false | 'next' | 'start' | 'end'} */
 function isPrettierIgnore(node) {
   let match;
