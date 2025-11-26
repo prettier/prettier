@@ -72,8 +72,7 @@ function printClass(path, options, print) {
     hasComment(node.id, CommentCheckFlags.Trailing) ||
     hasComment(node.typeParameters, CommentCheckFlags.Trailing) ||
     hasComment(node.superClass) ||
-    isMemberExpression(node.superClass) ||
-    hasMultipleHeritage(node);
+    shouldPrintHeritageInGroupMode(node);
 
   const partsGroup = [];
   const extendsParts = [];
@@ -170,6 +169,25 @@ function hasMultipleHeritage(node) {
     }
   }
   return count > 1;
+}
+
+function shouldPrintHeritageInGroupMode(node) {
+  if (hasMultipleHeritage(node)) {
+    return true;
+  }
+
+  const heritage =
+    node.superClass ??
+    node.extends?.[0] ??
+    node.mixins?.[0] ??
+    node.implements?.[0];
+
+  return (
+    isMemberExpression(heritage) ||
+    heritage?.type === "QualifiedTypeIdentifier" ||
+    (heritage?.type === "TSClassImplements" &&
+      isMemberExpression(heritage.expression))
+  );
 }
 
 function printHeritageClauses(path, options, print, listName, groupMode) {
