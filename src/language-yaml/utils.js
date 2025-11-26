@@ -220,9 +220,12 @@ function getBlockValueLineContents(
     leadingSpaceCount = node.indent - 1 + parentIndent;
   }
 
-  const rawLineContents = content
-    .split("\n")
-    .map((lineContent) => lineContent.slice(leadingSpaceCount));
+  const rawLineContents =
+    content === ""
+      ? []
+      : content
+          .split("\n")
+          .map((lineContent) => lineContent.slice(leadingSpaceCount));
 
   if (options.proseWrap === "preserve" || node.type === "blockLiteral") {
     return removeUnnecessaryTrailingNewlines(
@@ -275,7 +278,7 @@ function getBlockValueLineContents(
   */
   function removeUnnecessaryTrailingNewlines(lineContents) {
     if (node.chomping === "keep") {
-      return lineContents.at(-1).length === 0 && lineContents.length > 1
+      return lineContents.at(-1)?.length === 0 && lineContents.length > 1
         ? lineContents.slice(0, -1)
         : lineContents;
     }
