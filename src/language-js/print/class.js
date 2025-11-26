@@ -18,6 +18,7 @@ import {
   CommentCheckFlags,
   createTypeCheckFunction,
   hasComment,
+  isMemberExpression,
 } from "../utils/index.js";
 import { printAssignment } from "./assignment.js";
 import { printClassMemberDecorators } from "./decorators.js";
@@ -71,6 +72,7 @@ function printClass(path, options, print) {
     hasComment(node.id, CommentCheckFlags.Trailing) ||
     hasComment(node.typeParameters, CommentCheckFlags.Trailing) ||
     hasComment(node.superClass) ||
+    isMemberExpression(node.superClass) ||
     hasMultipleHeritage(node);
 
   const partsGroup = [];
