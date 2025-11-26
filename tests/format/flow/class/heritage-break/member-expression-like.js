@@ -7,6 +7,9 @@ class Short
 class A_long_long_long_long_long_long_long_long_name12
   extends eslint.Rule?.RuleModule {}
 
+interface A_long_long_long_long_long_long_long_long_name2
+  extends eslint.Rule.RuleModule {}
+
 declare class A_long_long_long_long_long_long_long_long_name2
   mixins eslint.Rule.RuleModule {}
 

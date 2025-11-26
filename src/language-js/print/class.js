@@ -165,12 +165,7 @@ function hasMultipleHeritage(node) {
   return count > 1;
 }
 
-const shouldPrintClassInGroupModeCache = new WeakMap();
-function shouldPrintClassInGroupMode(node) {
-  if (shouldPrintClassInGroupModeCache.has(node)) {
-    return shouldPrintClassInGroupModeCache.get(node);
-  }
-
+function shouldPrintClassInGroupModeWithoutCache(node) {
   if (
     hasComment(node.id, CommentCheckFlags.Trailing) ||
     hasComment(node.typeParameters, CommentCheckFlags.Trailing) ||
@@ -186,15 +181,31 @@ function shouldPrintClassInGroupMode(node) {
     node.mixins?.[0] ??
     node.implements?.[0];
 
+  if (!heritage) {
+    return false;
+  }
+
   const groupMode =
     isMemberExpression(heritage) ||
-    (heritage?.type === "InterfaceExtends" &&
+    (heritage.type === "InterfaceExtends" &&
       heritage.id.type === "QualifiedTypeIdentifier") ||
-    (heritage?.type === "TSClassImplements" &&
+    ((heritage.type === "TSClassImplements" ||
+      heritage.type === "TSInterfaceHeritage") &&
       isMemberExpression(heritage.expression));
 
-  shouldPrintClassInGroupModeCache.set(node, groupMode);
   return groupMode;
+}
+
+const shouldPrintClassInGroupModeCache = new WeakMap();
+function shouldPrintClassInGroupMode(node) {
+  if (!shouldPrintClassInGroupModeCache.has(node)) {
+    shouldPrintClassInGroupModeCache.set(
+      node,
+      shouldPrintClassInGroupModeWithoutCache(node),
+    );
+  }
+
+  return shouldPrintClassInGroupModeCache.get(node);
 }
 
 function printHeritageClauses(path, options, print, listName) {
