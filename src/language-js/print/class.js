@@ -68,7 +68,7 @@ function printClass(path, options, print) {
 
   // Keep old behaviour of extends in same line
   // If there is only on extends and there are not comments
-  const groupMode = shouldPrintClassInGroupMode(node);
+  const groupMode = shouldPrintClassInGroupMode(path);
 
   const partsGroup = [];
   const extendsParts = [];
@@ -165,7 +165,8 @@ function hasMultipleHeritage(node) {
   return count > 1;
 }
 
-function shouldPrintClassInGroupModeWithoutCache(node) {
+function shouldPrintClassInGroupModeWithoutCache(path) {
+  const { node } = path;
   if (
     hasComment(node.id, CommentCheckFlags.Trailing) ||
     hasComment(node.typeParameters, CommentCheckFlags.Trailing) ||
@@ -176,6 +177,10 @@ function shouldPrintClassInGroupModeWithoutCache(node) {
   }
 
   if (node.superClass) {
+    if (path.parent.type === "AssignmentExpression") {
+      return false;
+    }
+
     const superTypeArguments =
       node.superTypeArguments ?? node.superTypeParameters;
 
@@ -203,11 +208,12 @@ function shouldPrintClassInGroupModeWithoutCache(node) {
 }
 
 const shouldPrintClassInGroupModeCache = new WeakMap();
-function shouldPrintClassInGroupMode(node) {
+function shouldPrintClassInGroupMode(path) {
+  const { node } = path;
   if (!shouldPrintClassInGroupModeCache.has(node)) {
     shouldPrintClassInGroupModeCache.set(
       node,
-      shouldPrintClassInGroupModeWithoutCache(node),
+      shouldPrintClassInGroupModeWithoutCache(path),
     );
   }
 
@@ -233,7 +239,7 @@ function printHeritageClauses(path, options, print, listName) {
       printedLeadingComments,
       heritageClausesDoc,
     ];
-    if (shouldPrintClassInGroupMode(node)) {
+    if (shouldPrintClassInGroupMode(path)) {
       return [line, group(printed)];
     }
     return [" ", printed];
