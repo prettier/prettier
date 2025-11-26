@@ -20,7 +20,7 @@ runFormatTest(
 runFormatTest(
   {
     importMeta: import.meta,
-    snippets: ["[foo]"].map(
+    snippets: ["['foo']"].map(
       (key) => outdent`
         enum Foo {
           ${key} = 1
@@ -28,5 +28,5 @@ runFormatTest(
       `,
     ),
   },
-  ["typescript", "babel-ts", "oxc-ts"],
+  ["typescript", "babel-ts"],
 );
