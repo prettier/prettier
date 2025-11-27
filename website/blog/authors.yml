@@ -93,3 +93,10 @@ fabiospampinato:
   socials:
     x: fabiospampinato
     github: fabiospampinato
+
+fisker:
+  name: Fisker Cheung
+  url: https://github.com/fisker
+  image_url: https://github.com/fisker.png?size=58
+  socials:
+    github: fisker
