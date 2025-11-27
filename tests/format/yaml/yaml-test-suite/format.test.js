@@ -21,7 +21,6 @@ const BUGS = new Set([
   "JEF9-2.yaml",
   "JEF9-3.yaml",
   "K3WX.yaml",
-  "L24T-2.yaml",
 ]);
 
 runFormatTest(
