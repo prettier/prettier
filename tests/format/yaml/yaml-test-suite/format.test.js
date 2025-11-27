@@ -20,7 +20,6 @@ const BUGS = new Set([
   "DE56-4.yaml",
   "JEF9-2.yaml",
   "JEF9-3.yaml",
-  "K3WX.yaml",
   "L24T-2.yaml",
 ]);
 
