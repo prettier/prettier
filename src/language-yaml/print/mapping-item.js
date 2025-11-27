@@ -55,7 +55,11 @@ function printMappingItem(path, options, print) {
   }
 
   // force explicit Key
-  if (hasLeadingComments(value) || !isInlineNode(key.content)) {
+  if (
+    hasLeadingComments(value) ||
+    !isInlineNode(key.content) ||
+    (node.type === "mappingItem" && isMappingKeyBreak(key, options))
+  ) {
     return [
       "? ",
       alignWithSpaces(2, printedKey),
@@ -147,6 +151,29 @@ function printMappingItem(path, options, print) {
       ifBreak(explicitMappingValue, implicitMappingValue, { groupId }),
     ],
   ]);
+}
+
+function isMappingKeyBreak(key, options) {
+  if (options.proseWrap === "never") {
+    return false;
+  }
+
+  if (!key || !key.content) {
+    return false;
+  }
+
+  const { content } = key;
+
+  if (content.position.start.line !== content.position.end.line) {
+    return true;
+  }
+
+  if (options.proseWrap === "preserve") {
+    return false;
+  }
+
+  const keyLength = content.position.end.offset - content.position.start.offset;
+  return keyLength > options.printWidth;
 }
 
 function isAbsolutelyPrintedAsSingleLineNode(node, options) {
