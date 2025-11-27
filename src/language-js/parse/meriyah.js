@@ -37,8 +37,8 @@ const parseOptions = {
   // source: false,
   // Enable React JSX parsing
   jsx: true,
-  // Creates unique key for in ObjectPattern when key value are same
-  uniqueKeyInPattern: false,
+  // Validate regular expressions with runtime, default `true`
+  validateRegex: false,
 };
 
 function parseWithOptions(text, sourceType) {
