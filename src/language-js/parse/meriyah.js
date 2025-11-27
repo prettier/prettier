@@ -25,8 +25,6 @@ const parseOptions = {
   raw: true,
   // Enabled directives
   directives: true,
-  // Allow return in the global scope
-  globalReturn: true,
   // Enable implied strict mode
   impliedStrict: false,
   // Enable non-standard parenthesized expression node
