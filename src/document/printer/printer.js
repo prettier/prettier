@@ -187,8 +187,7 @@ function printDocToString(doc, options) {
   // commands to the array instead of recursively calling `print`.
   /** @type Command[] */
   const commands = [{ indent: ROOT_INDENT, mode: MODE_BREAK, doc }];
-  /** @type string[] */
-  const out = [];
+  let output = "";
   let shouldRemeasure = false;
   /** @type Command[] */
   const lineSuffix = [];
@@ -209,7 +208,7 @@ function printDocToString(doc, options) {
           newLine !== "\n" ? doc.replaceAll("\n", newLine) : doc;
         // Plugins may print single string, should skip measure the width
         if (formatted) {
-          out.push(formatted);
+          output += formatted;
           if (commands.length > 0) {
             position += getStringWidth(formatted);
           }
@@ -227,7 +226,7 @@ function printDocToString(doc, options) {
         if (cursorPositions.length >= 2) {
           throw new Error("There are too many 'cursor' in doc.");
         }
-        saveCursorPosition();
+        cursorPositions.push(settledTextLength + output.length);
         break;
 
       case DOC_TYPE_INDENT:
@@ -499,7 +498,7 @@ function printDocToString(doc, options) {
           case MODE_FLAT:
             if (!doc.hard) {
               if (!doc.soft) {
-                out.push(" ");
+                output += " ";
 
                 position += 1;
               }
@@ -524,17 +523,17 @@ function printDocToString(doc, options) {
             }
 
             if (doc.literal) {
-              out.push(newLine);
+              output += newLine;
               position = 0;
               if (indent.root) {
                 if (indent.root.value) {
-                  out.push(indent.root.value);
+                  output += indent.root.value;
                 }
                 position = indent.root.length;
               }
             } else {
               trim();
-              out.push(newLine + indent.value);
+              output += newLine + indent.value;
               position = indent.length;
             }
             break;
@@ -561,11 +560,8 @@ function printDocToString(doc, options) {
     }
   }
 
-  const formatted = settledOutput.join("") + out.join("");
-  const finalCursorPositions = [
-    ...settledCursorPositions,
-    ...cursorPositions.map((position) => settledTextLength + position),
-  ];
+  const formatted = settledOutput.join("") + output;
+  const finalCursorPositions = [...settledCursorPositions, ...cursorPositions];
 
   if (finalCursorPositions.length !== 2) {
     // If the doc contained ONE cursor command,
@@ -606,32 +602,26 @@ function printDocToString(doc, options) {
     ),
   };
 
-  function saveCursorPosition() {
-    const text = out.join("");
-    out.splice(0, out.length, text);
-    cursorPositions.push(text.length);
-  }
-
   function trim() {
-    const { text: trimmed, count } = trimIndentation(out.join(""));
-
-    if (cursorPositions.length > 0) {
-      settledCursorPositions.push(
-        ...cursorPositions.map(
-          (position) => settledTextLength + Math.min(position, trimmed.length),
-        ),
-      );
-
-      cursorPositions.length = 0;
-    }
+    const { text: trimmed, count } = trimIndentation(output);
 
     if (trimmed) {
       settledOutput.push(trimmed);
       settledTextLength += trimmed.length;
     }
 
-    out.length = 0;
+    output = "";
     position -= count;
+
+    if (cursorPositions.length > 0) {
+      settledCursorPositions.push(
+        ...cursorPositions.map((position) =>
+          Math.min(position, settledTextLength),
+        ),
+      );
+
+      cursorPositions.length = 0;
+    }
   }
 }
 
