@@ -5,7 +5,11 @@ import getShebang from "../utils/get-shebang.js";
 import postprocess from "./postprocess/index.js";
 import createBabelParseError from "./utils/create-babel-parse-error.js";
 import createParser from "./utils/create-parser.js";
-import { getSourceType, SOURCE_TYPE_MODULE } from "./utils/source-types.js";
+import {
+  getSourceType,
+  SOURCE_TYPE_COMMONJS,
+  SOURCE_TYPE_MODULE,
+} from "./utils/source-types.js";
 import wrapBabelExpression from "./utils/wrap-babel-expression.js";
 
 const createBabelParser = (options) => createParser(createParse(options));
@@ -121,6 +125,13 @@ function createParse({ isExpression = false, optionsCombinations }) {
       combinations = combinations.map((options) => ({
         ...options,
         sourceType,
+        // `sourceType: "commonjs"` does not allow these two properties
+        ...(sourceType === SOURCE_TYPE_COMMONJS
+          ? {
+              allowReturnOutsideFunction: undefined,
+              allowNewTargetOutsideFunction: undefined,
+            }
+          : undefined),
       }));
     }
 
