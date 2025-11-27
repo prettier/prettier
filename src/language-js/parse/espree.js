@@ -19,7 +19,6 @@ const parseOptions = {
   tokens: false,
   ecmaFeatures: {
     jsx: true,
-    globalReturn: true,
     impliedStrict: false,
   },
 };
