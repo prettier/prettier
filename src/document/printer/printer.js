@@ -562,7 +562,10 @@ function printDocToString(doc, options) {
   }
 
   const formatted = settledOutput.join("") + out.join("");
-  const finalCursorPositions = [...settledCursorPositions, ...cursorPositions];
+  const finalCursorPositions = [
+    ...settledCursorPositions,
+    ...cursorPositions.map((position) => settledTextLength + position),
+  ];
 
   if (finalCursorPositions.length !== 2) {
     // If the doc contained ONE cursor command,
@@ -606,7 +609,7 @@ function printDocToString(doc, options) {
   function saveCursorPosition() {
     const text = out.join("");
     out.splice(0, out.length, text);
-    cursorPositions.push(settledTextLength + text.length - 1);
+    cursorPositions.push(text.length - 1);
   }
 
   function trim() {
@@ -631,7 +634,8 @@ function printDocToString(doc, options) {
 
     for (let index = 0; index < cursorPositions.length; index++) {
       settledCursorPositions.push(
-        Math.min(cursorPositions[index], settledTextLength - 1),
+        settledTextLength +
+          Math.min(cursorPositions[index], trimmed.length - 1),
       );
     }
 
