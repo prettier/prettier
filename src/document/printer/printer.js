@@ -596,24 +596,34 @@ function printDocToString(doc, options) {
     return { formatted };
   }
 
-  const cursorNodeStart = finalCursorPositions[0] + 1;
+  const cursorNodeStart = finalCursorPositions[0];
   return {
     formatted,
     cursorNodeStart,
     cursorNodeText: formatted.slice(
       cursorNodeStart,
-      finalCursorPositions.at(-1) + 1,
+      finalCursorPositions.at(-1),
     ),
   };
 
   function saveCursorPosition() {
     const text = out.join("");
     out.splice(0, out.length, text);
-    cursorPositions.push(text.length - 1);
+    cursorPositions.push(text.length);
   }
 
   function trim() {
     const { text: trimmed, count } = trimIndentation(out.join(""));
+
+    if (cursorPositions.length > 0) {
+      settledCursorPositions.push(
+        ...cursorPositions.map(
+          (position) => settledTextLength + Math.min(position, trimmed.length),
+        ),
+      );
+
+      cursorPositions.length = 0;
+    }
 
     if (trimmed) {
       settledOutput.push(trimmed);
@@ -621,25 +631,7 @@ function printDocToString(doc, options) {
     }
 
     out.length = 0;
-
-    if (count === 0) {
-      return;
-    }
-
     position -= count;
-
-    if (cursorPositions.length === 0) {
-      return;
-    }
-
-    for (let index = 0; index < cursorPositions.length; index++) {
-      settledCursorPositions.push(
-        settledTextLength +
-          Math.min(cursorPositions[index], trimmed.length - 1),
-      );
-    }
-
-    cursorPositions.length = 0;
   }
 }
 
