@@ -117,7 +117,7 @@ function createParse({ isExpression = false, optionsCombinations }) {
 
     let combinations = optionsCombinations;
     const sourceType = options.__babelSourceType ?? getSourceType(filepath);
-    if (sourceType !== SOURCE_TYPE_MODULE) {
+    if (sourceType && sourceType !== SOURCE_TYPE_MODULE) {
       combinations = combinations.map((options) => ({
         ...options,
         sourceType,
