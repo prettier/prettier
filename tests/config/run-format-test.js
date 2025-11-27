@@ -39,7 +39,6 @@ const unstableTests = new Map(
     "flow/hook/hook-type-annotation.js",
     "typescript/prettier-ignore/mapped-types.ts",
     "typescript/prettier-ignore/issue-14238.ts",
-    "js/comments/html-like/comment.js",
     "js/for/continue-and-break-comment-without-blocks.js",
     "js/sequence-expression/parenthesized.js",
     "typescript/satisfies-operators/comments-unstable.ts",
@@ -71,13 +70,6 @@ const meriyahDisabledTests = new Set(
   [
     // Parsing to different ASTs
     "js/decorators/member-expression.js",
-    // Meriyah parse RegExp relay on runtime behavior
-    // The following fails on Node.js < 20
-    "js/babel-plugins/regex-v-flag.js",
-    "js/regex/v-flag.js",
-    "js/regex/d-flag.js",
-    "js/babel-plugins/regexp-modifiers.js",
-    "js/regex/regexp-modifiers.js",
   ].map((file) => path.join(__dirname, "../format", file)),
 );
 const babelTsDisabledTests = new Set(

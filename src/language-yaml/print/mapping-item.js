@@ -135,6 +135,7 @@ function printMappingItem(path, options, print) {
     isAbsolutelyPrintedAsSingleLineNode(key.content, options) &&
     !hasLeadingComments(key.content) &&
     !hasMiddleComments(key.content) &&
+    !hasTrailingComment(key.content) &&
     !hasEndComments(key)
   ) {
     return conditionalGroup([[printedKey, implicitMappingValue]]);

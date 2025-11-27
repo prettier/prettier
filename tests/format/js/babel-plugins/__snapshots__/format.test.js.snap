@@ -2065,7 +2065,7 @@ let newScore = boundScore(0, 100, add(7, double(person.score)));
 ================================================================================
 `;
 
-exports[`pipeline-operator-hack.js [acorn] format 1`] = `
+exports[`pipeline-operator-hack.cjs [acorn] format 1`] = `
 "Unexpected token (5:3)
   3 |
   4 | return list
@@ -2077,7 +2077,7 @@ exports[`pipeline-operator-hack.js [acorn] format 1`] = `
 Cause: Unexpected token (5:2)"
 `;
 
-exports[`pipeline-operator-hack.js [espree] format 1`] = `
+exports[`pipeline-operator-hack.cjs [espree] format 1`] = `
 "Unexpected token > (5:3)
   3 |
   4 | return list
@@ -2089,7 +2089,7 @@ exports[`pipeline-operator-hack.js [espree] format 1`] = `
 Cause: Unexpected token >"
 `;
 
-exports[`pipeline-operator-hack.js [meriyah] format 1`] = `
+exports[`pipeline-operator-hack.cjs [meriyah] format 1`] = `
 "Unexpected token: '>' (5:3)
   3 |
   4 | return list
@@ -2101,7 +2101,7 @@ exports[`pipeline-operator-hack.js [meriyah] format 1`] = `
 Cause: [5:2-5:3]: Unexpected token: '>'"
 `;
 
-exports[`pipeline-operator-hack.js [oxc] format 1`] = `
+exports[`pipeline-operator-hack.cjs [oxc] format 1`] = `
 "Unexpected token (5:3)
   3 |
   4 | return list
@@ -2112,7 +2112,7 @@ exports[`pipeline-operator-hack.js [oxc] format 1`] = `
   8 | // (The % token isn't final; it might instead be @ or ? or #.)"
 `;
 
-exports[`pipeline-operator-hack.js format 1`] = `
+exports[`pipeline-operator-hack.cjs format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "babel-ts", "babel-flow"]
 printWidth: 80

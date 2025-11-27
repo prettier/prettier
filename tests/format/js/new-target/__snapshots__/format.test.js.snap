@@ -33,14 +33,6 @@ const x = new.target;
           ^~~~~~~~~~"
 `;
 
-exports[`outside-functions.js [meriyah] format 1`] = `
-"new.target only allowed within functions or static blocks (1:15)
-> 1 | const x = new.target;
-    |               ^^^^^^
-  2 |
-Cause: [1:14-1:20]: new.target only allowed within functions or static blocks"
-`;
-
 exports[`outside-functions.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -85,14 +77,6 @@ exports[`range.js [hermes] format 1`] = `
 Cause: 'new.target' not in a function (2:0)
 new.target;
 ^~~~~~~~~~"
-`;
-
-exports[`range.js [meriyah] format 1`] = `
-"new.target only allowed within functions or static blocks (2:5)
-  1 | const x =
-> 2 | new.target;
-    |     ^^^^^^
-Cause: [2:4-2:10]: new.target only allowed within functions or static blocks"
 `;
 
 exports[`range.js format 1`] = `

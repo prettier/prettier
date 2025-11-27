@@ -18,6 +18,7 @@ import {
   CommentCheckFlags,
   createTypeCheckFunction,
   hasComment,
+  isMemberExpression,
 } from "../utils/index.js";
 import { printAssignment } from "./assignment.js";
 import { printClassMemberDecorators } from "./decorators.js";
@@ -67,11 +68,7 @@ function printClass(path, options, print) {
 
   // Keep old behaviour of extends in same line
   // If there is only on extends and there are not comments
-  const groupMode =
-    hasComment(node.id, CommentCheckFlags.Trailing) ||
-    hasComment(node.typeParameters, CommentCheckFlags.Trailing) ||
-    hasComment(node.superClass) ||
-    hasMultipleHeritage(node);
+  const groupMode = shouldPrintClassInGroupMode(path);
 
   const partsGroup = [];
   const extendsParts = [];
@@ -110,14 +107,12 @@ function printClass(path, options, print) {
       extendsParts.push(" ", printedWithComments);
     }
   } else {
-    extendsParts.push(
-      printHeritageClauses(path, options, print, "extends", groupMode),
-    );
+    extendsParts.push(printHeritageClauses(path, options, print, "extends"));
   }
 
   extendsParts.push(
-    printHeritageClauses(path, options, print, "mixins", groupMode),
-    printHeritageClauses(path, options, print, "implements", groupMode),
+    printHeritageClauses(path, options, print, "mixins"),
+    printHeritageClauses(path, options, print, "implements"),
   );
 
   let heritageGroupId;
@@ -170,7 +165,65 @@ function hasMultipleHeritage(node) {
   return count > 1;
 }
 
-function printHeritageClauses(path, options, print, listName, groupMode) {
+/**
+@returns {boolean}
+*/
+function shouldPrintClassInGroupModeWithoutCache(path) {
+  const { node } = path;
+  if (
+    hasComment(node.id, CommentCheckFlags.Trailing) ||
+    hasComment(node.typeParameters, CommentCheckFlags.Trailing) ||
+    hasComment(node.superClass) ||
+    hasMultipleHeritage(node)
+  ) {
+    return true;
+  }
+
+  if (node.superClass) {
+    if (path.parent.type === "AssignmentExpression") {
+      return false;
+    }
+
+    const superTypeArguments =
+      node.superTypeArguments ?? node.superTypeParameters;
+
+    return !superTypeArguments && isMemberExpression(node.superClass);
+  }
+
+  const heritage =
+    node.extends?.[0] ?? node.mixins?.[0] ?? node.implements?.[0];
+
+  if (!heritage) {
+    return false;
+  }
+
+  const groupMode =
+    // `ClassImplements` seem not allow `QualifiedTypeIdentifier`
+    (heritage.type === "InterfaceExtends" &&
+      heritage.id.type === "QualifiedTypeIdentifier" &&
+      !heritage.typeParameters) ||
+    ((heritage.type === "TSClassImplements" ||
+      heritage.type === "TSInterfaceHeritage") &&
+      isMemberExpression(heritage.expression) &&
+      !heritage.typeArguments);
+
+  return groupMode;
+}
+
+const shouldPrintClassInGroupModeCache = new WeakMap();
+function shouldPrintClassInGroupMode(path) {
+  const { node } = path;
+  if (!shouldPrintClassInGroupModeCache.has(node)) {
+    shouldPrintClassInGroupModeCache.set(
+      node,
+      shouldPrintClassInGroupModeWithoutCache(path),
+    );
+  }
+
+  return shouldPrintClassInGroupModeCache.get(node);
+}
+
+function printHeritageClauses(path, options, print, listName) {
   const { node } = path;
   if (!isNonEmptyArray(node[listName])) {
     return "";
@@ -189,7 +242,7 @@ function printHeritageClauses(path, options, print, listName, groupMode) {
       printedLeadingComments,
       heritageClausesDoc,
     ];
-    if (groupMode) {
+    if (shouldPrintClassInGroupMode(path)) {
       return [line, group(printed)];
     }
     return [" ", printed];
