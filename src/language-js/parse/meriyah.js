@@ -9,6 +9,10 @@ import {
   SOURCE_TYPE_MODULE,
 } from "./utils/source-types.js";
 
+/**
+@import {SOURCE_TYPE_SCRIPT} from "./utils/source-types.js";
+*/
+
 // https://github.com/meriyah/meriyah/blob/4676f60b6c149d7082bde2c9147f9ae2359c8075/src/parser.ts#L185
 const parseOptions = {
   // Allow module code
@@ -39,15 +43,21 @@ const parseOptions = {
   validateRegex: false,
 };
 
+/**
+@param {string} text
+@param {SOURCE_TYPE_MODULE | SOURCE_TYPE_SCRIPT} sourceType
+*/
 function parseWithOptions(text, sourceType) {
+  /** @type {MeriyahESTree.Comment[]} */
   const comments = [];
 
-  /** @type {any} */
   const ast = meriyahParse(text, {
     ...parseOptions,
     sourceType: sourceType === SOURCE_TYPE_MODULE ? sourceType : "commonjs",
     onComment: comments,
   });
+
+  // @ts-expect-error -- Safe
   ast.comments = comments;
 
   return ast;
