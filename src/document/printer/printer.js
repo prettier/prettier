@@ -188,11 +188,16 @@ function printDocToString(doc, options) {
   /** @type Command[] */
   const commands = [{ indent: ROOT_INDENT, mode: MODE_BREAK, doc }];
   /** @type string[] */
-  let out = [];
+  const out = [];
   let shouldRemeasure = false;
   /** @type Command[] */
   const lineSuffix = [];
   const cursorPositions = [];
+
+  /** @type string[] */
+  const settledOutput = [];
+  const settledCursorPositions = [];
+  let settledTextLength = 0;
 
   propagateBreaks(doc);
 
@@ -218,15 +223,12 @@ function printDocToString(doc, options) {
         }
         break;
 
-      case DOC_TYPE_CURSOR: {
+      case DOC_TYPE_CURSOR:
         if (cursorPositions.length >= 2) {
           throw new Error("There are too many 'cursor' in doc.");
         }
-        const text = out.join("");
-        out = [text];
-        cursorPositions.push(text.length - 1);
+        saveCursorPosition();
         break;
-      }
 
       case DOC_TYPE_INDENT:
         commands.push({
@@ -559,8 +561,10 @@ function printDocToString(doc, options) {
     }
   }
 
-  const formatted = out.join("");
-  if (cursorPositions.length !== 2) {
+  const formatted = settledOutput.join("") + out.join("");
+  const finalCursorPositions = [...settledCursorPositions, ...cursorPositions];
+
+  if (finalCursorPositions.length !== 2) {
     // If the doc contained ONE cursor command,
     // instead of the expected zero or two. If the doc being printed was
     // returned by printAstToDoc, then the only ways this can have happened
@@ -589,26 +593,49 @@ function printDocToString(doc, options) {
     return { formatted };
   }
 
-  const cursorNodeStart = cursorPositions[0] + 1;
+  const cursorNodeStart = finalCursorPositions[0] + 1;
   return {
     formatted,
     cursorNodeStart,
     cursorNodeText: formatted.slice(
       cursorNodeStart,
-      cursorPositions.at(-1) + 1,
+      finalCursorPositions.at(-1) + 1,
     ),
   };
 
+  function saveCursorPosition() {
+    const text = out.join("");
+    out.splice(0, out.length, text);
+    cursorPositions.push(settledTextLength + text.length - 1);
+  }
+
   function trim() {
-    const { text, count } = trimIndentation(out.join(""));
-    out = [text];
+    const { text: trimmed, count } = trimIndentation(out.join(""));
+
+    if (trimmed) {
+      settledOutput.push(trimmed);
+      settledTextLength += trimmed.length;
+    }
+
+    out.length = 0;
+
+    if (count === 0) {
+      return;
+    }
+
     position -= count;
+
+    if (cursorPositions.length === 0) {
+      return;
+    }
+
     for (let index = 0; index < cursorPositions.length; index++) {
-      cursorPositions[index] = Math.min(
-        cursorPositions[index],
-        text.length - 1,
+      settledCursorPositions.push(
+        Math.min(cursorPositions[index], settledTextLength - 1),
       );
     }
+
+    cursorPositions.length = 0;
   }
 }
 
