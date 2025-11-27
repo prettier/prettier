@@ -7,8 +7,8 @@ import createBabelParseError from "./utils/create-babel-parse-error.js";
 import createParser from "./utils/create-parser.js";
 import {
   getSourceType,
+  SOURCE_TYPE_COMMONJS,
   SOURCE_TYPE_MODULE,
-  SOURCE_TYPE_SCRIPT,
 } from "./utils/source-types.js";
 import wrapBabelExpression from "./utils/wrap-babel-expression.js";
 
@@ -121,10 +121,17 @@ function createParse({ isExpression = false, optionsCombinations }) {
 
     let combinations = optionsCombinations;
     const sourceType = options.__babelSourceType ?? getSourceType(filepath);
-    if (sourceType === SOURCE_TYPE_SCRIPT) {
+    if (sourceType && sourceType !== SOURCE_TYPE_MODULE) {
       combinations = combinations.map((options) => ({
         ...options,
         sourceType,
+        // `sourceType: "commonjs"` does not allow these two properties
+        ...(sourceType === SOURCE_TYPE_COMMONJS
+          ? {
+              allowReturnOutsideFunction: undefined,
+              allowNewTargetOutsideFunction: undefined,
+            }
+          : undefined),
       }));
     }
 

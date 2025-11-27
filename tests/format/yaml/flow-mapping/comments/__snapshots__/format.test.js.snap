@@ -1,18 +1,53 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`comment.js format 1`] = `
+exports[`key.yml format 1`] = `
 ====================================options=====================================
-parsers: ["meriyah"]
+parsers: ["yaml"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-<!--
-alert(1)
--->
+{"key" # 1
+:value}
+---
+{["key"] # 2
+:value}
+---
+{
+# 3
+"key"
+:value}
+---
+{
+&[
+"key",
+# 4
+""]
+:value}
+---
+{"key": # 1
+value}
+
 =====================================output=====================================
-<!--
-alert(1);
--->
+{ ? "key" # 1
+  : value }
+---
+{ ? ["key"] # 2
+  : value }
+---
+{
+  # 3
+  "key": value,
+}
+---
+{ ? & [
+      "key",
+      # 4
+      "",
+    ]
+  : value }
+---
+{ ? "key" # 1
+  : value }
 
 ================================================================================
 `;

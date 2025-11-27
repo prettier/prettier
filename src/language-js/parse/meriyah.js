@@ -6,8 +6,12 @@ import createParser from "./utils/create-parser.js";
 import {
   getSourceType,
   SOURCE_TYPE_COMBINATIONS,
-  SOURCE_TYPE_MODULE,
 } from "./utils/source-types.js";
+
+/**
+@import {ESTree as MeriyahESTree} from "meriyah";
+@import {SOURCE_TYPE_MODULE, SOURCE_TYPE_COMMONJS} from "./utils/source-types.js";
+*/
 
 // https://github.com/meriyah/meriyah/blob/4676f60b6c149d7082bde2c9147f9ae2359c8075/src/parser.ts#L185
 const parseOptions = {
@@ -25,8 +29,6 @@ const parseOptions = {
   raw: true,
   // Enabled directives
   directives: true,
-  // Allow return in the global scope
-  globalReturn: true,
   // Enable implied strict mode
   impliedStrict: false,
   // Enable non-standard parenthesized expression node
@@ -37,19 +39,25 @@ const parseOptions = {
   // source: false,
   // Enable React JSX parsing
   jsx: true,
-  // Creates unique key for in ObjectPattern when key value are same
-  uniqueKeyInPattern: false,
+  // Validate regular expressions with runtime, default `true`
+  validateRegex: false,
 };
 
+/**
+@param {string} text
+@param {SOURCE_TYPE_MODULE | SOURCE_TYPE_COMMONJS} sourceType
+*/
 function parseWithOptions(text, sourceType) {
+  /** @type {MeriyahESTree.Comment[]} */
   const comments = [];
 
-  /** @type {any} */
   const ast = meriyahParse(text, {
     ...parseOptions,
-    module: sourceType === SOURCE_TYPE_MODULE,
+    sourceType,
     onComment: comments,
   });
+
+  // @ts-expect-error -- Safe
   ast.comments = comments;
 
   return ast;
