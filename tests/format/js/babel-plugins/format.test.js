@@ -71,7 +71,6 @@ runFormatTest(import.meta, ["babel", "babel-ts", "babel-flow"], {
       "module-blocks.js",
       "async-do-expressions.js",
       "explicit-resource-management.js",
-      "regexp-modifiers.js",
       "source-phase-imports.js",
       "deferred-import-evaluation.js",
       "optional-chaining-assignment.js",
