@@ -164,12 +164,12 @@ function isMappingKeyBreak(key, options) {
 
   const { content } = key;
 
-  if (content.position.start.line !== content.position.end.line) {
-    return true;
+  if (isNode(content, ["flowMapping", "flowSequence"])) {
+    return false;
   }
 
   if (options.proseWrap === "preserve") {
-    return false;
+    return content.position.start.line !== content.position.end.line;
   }
 
   const keyLength = content.position.end.offset - content.position.start.offset;
