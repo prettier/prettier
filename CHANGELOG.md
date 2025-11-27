@@ -4,7 +4,7 @@
 
 #### API: Fix performance regression in doc printer ([#18342](https://github.com/prettier/prettier/pull/18342) by [@fisker](https://github.com/fisker))
 
-Prettier 3.7.1 can be very slow when formatting big files, the regression has been fixed.
+Prettier 3.7.0 can be very slow when formatting big files, the regression has been fixed.
 
 # 3.7.0
 
