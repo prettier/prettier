@@ -29,10 +29,13 @@ const packageTransforms = new Map([
   ],
   [transforms["object-has-own"], ["@babel/parser", "meriyah"]],
   [transforms["string-raw"], ["camelcase", "@angular/compiler"]],
+  [transforms["method-is-well-formed"], ["meriyah"]],
   /* spell-checker: enable */
 ]);
 
-const allTransforms = Object.values(transforms);
+const allTransforms = Object.values(transforms).filter(
+  (transform) => transform !== transforms["method-is-well-formed"],
+);
 const isPackageFile = (file, packageName) =>
   file.startsWith(path.join(PROJECT_ROOT, `node_modules/${packageName}/`));
 
