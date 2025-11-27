@@ -55,18 +55,15 @@ function getTransforms(original, file) {
   return transforms;
 }
 
-function transform(
-  original,
-  file,
-  buildOptions,
-  // For test
-  __testForceAllTransform = false,
-) {
-  const transforms = (
-    __testForceAllTransform
-      ? allTransforms
-      : getTransforms(original, file, buildOptions)
-  ).filter((transform) => !transform.shouldSkip(original, file, buildOptions));
+function transform(original, file, buildOptions) {
+  const transforms = // For test
+    (
+      buildOptions.__isSyntaxTransformUnitTest
+        ? allTransforms
+        : getTransforms(original, file, buildOptions)
+    ).filter(
+      (transform) => !transform.shouldSkip(original, file, buildOptions),
+    );
 
   if (transforms.length === 0) {
     return original;

@@ -154,7 +154,9 @@ function transformProgram(program, file) {
 
 export default {
   shouldSkip: (text, file, buildOptions) =>
-    !buildOptions.reuseDocModule || file.startsWith(DOC_MODULE_DIRECTORY),
+    !(
+      buildOptions.__isSyntaxTransformUnitTest || buildOptions.reuseDocModule
+    ) || file.startsWith(DOC_MODULE_DIRECTORY),
   test: (program, file) => program !== transformProgram(program, file),
   transform: transformProgram,
 };
