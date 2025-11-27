@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`key.yaml format 1`] = `
+exports[`key.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
