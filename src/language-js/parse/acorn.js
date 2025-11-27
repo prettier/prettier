@@ -61,21 +61,18 @@ const getParser = () => {
 
 /**
 @param {string} text
-@param {SOURCE_TYPE_MODULE | SOURCE_TYPE_COMMONJS} sourceType
+@param {SOURCE_TYPE_MODULE | SOURCE_TYPE_COMMONJS | undefined} sourceType
 */
 function parseWithOptions(text, sourceType) {
   const parser = getParser();
-
-  // https://github.com/acornjs/acorn/pull/1377 not released yet
-  if (sourceType === SOURCE_TYPE_COMMONJS) {
-    sourceType = SOURCE_TYPE_SCRIPT;
-  }
 
   const comments = [];
 
   const ast = parser.parse(text, {
     ...parseOptions,
-    sourceType,
+    // https://github.com/acornjs/acorn/pull/1377 not released yet
+    sourceType:
+      sourceType === SOURCE_TYPE_COMMONJS ? SOURCE_TYPE_SCRIPT : sourceType,
     allowImportExportEverywhere: sourceType === SOURCE_TYPE_MODULE,
     onComment: comments,
   });

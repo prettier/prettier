@@ -12,7 +12,10 @@ import {
 } from "./utils/source-types.js";
 
 /** @import {ParseResult, ParserOptions as ParserOptionsWithoutExperimentalRawTransfer} from "oxc-parser" */
-/** @typedef {ParserOptionsWithoutExperimentalRawTransfer & {experimentalRawTransfer?: boolean}} ParserOptions */
+/** @typedef {Omit<ParserOptionsWithoutExperimentalRawTransfer, "sourceType"> & {
+  sourceType?: ParserOptionsWithoutExperimentalRawTransfer["sourceType"] | "commonjs",
+  experimentalRawTransfer?: boolean,
+}} ParserOptions */
 
 function createParseError(error, { text }) {
   /* c8 ignore next 3 */
@@ -45,14 +48,17 @@ function createParseError(error, { text }) {
 @returns {Promise<ParseResult>}
 */
 async function parseWithOptions(filepath, text, options) {
-  if (options.sourceType === SOURCE_TYPE_COMMONJS) {
-    options.sourceType = SOURCE_TYPE_SCRIPT;
+  let { sourceType } = options;
+  // https://github.com/oxc-project/oxc/issues/16200
+  if (sourceType === SOURCE_TYPE_COMMONJS) {
+    sourceType = SOURCE_TYPE_SCRIPT;
   }
 
   const result = await oxcParse(filepath, text, {
     preserveParens: true,
     showSemanticErrors: false,
     ...options,
+    sourceType,
   });
 
   const { errors } = result;
