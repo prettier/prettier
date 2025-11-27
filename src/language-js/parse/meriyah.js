@@ -10,6 +10,7 @@ import {
 } from "./utils/source-types.js";
 
 /**
+@import {ESTree as MeriyahESTree} from "meriyah";
 @import {SOURCE_TYPE_SCRIPT} from "./utils/source-types.js";
 */
 
