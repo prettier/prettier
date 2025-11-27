@@ -14,9 +14,12 @@ const publicDocPath = url.fileURLToPath(
 );
 const transform = (code) =>
   "\n" +
-  transformCode(code, file, {
-    reuseDocModule: true,
-  })
+  transformCode(
+    code,
+    file,
+    { reuseDocModule: true },
+    /* __testForceAllTransform */ true,
+  )
     .replaceAll(
       JSON.stringify(shimsDirectory + path.sep).slice(1, -1),
       "<SHIMS>/",
@@ -173,6 +176,28 @@ test("String.raw", () => {
   `);
 });
 
+test("String#isWellFormed", () => {
+  expect(transform("foo.isWellFormed()")).toMatchInlineSnapshot(`
+    "
+    import __isWellFormed from "<SHIMS>/method-is-well-formed.js";
+
+    __isWellFormed(/* OPTIONAL_OBJECT: false */0, foo);
+    "
+  `);
+  expect(transform("foo?.isWellFormed()")).toMatchInlineSnapshot(`
+    "
+    import __isWellFormed from "<SHIMS>/method-is-well-formed.js";
+
+    __isWellFormed(/* OPTIONAL_OBJECT: true */1, foo);
+    "
+  `);
+  expect(transform("foo?.isWellFormed(extraArgument)")).toMatchInlineSnapshot(`
+    "
+    foo?.isWellFormed(extraArgument)
+    "
+  `);
+});
+
 test("public doc functionality", () => {
   expect(transform('import {align, line} from "./document/index.js"'))
     .toMatchInlineSnapshot(`
@@ -233,6 +258,7 @@ test("All", () => {
           b = bar?.findLast(() => true),
           c = foo.findLastIndex(callback)
       const d = [a, b, foo].toReversed().join(String.raw\`\${d}\`)
+      const r = a.isWellFormed()
       }
     `),
   ).toMatchInlineSnapshot(`
@@ -242,6 +268,7 @@ test("All", () => {
     import __findLast from "<SHIMS>/method-find-last.js";
     import __findLastIndex from "<SHIMS>/method-find-last-index.js";
     import __toReversed from "<SHIMS>/method-to-reversed.js";
+    import __isWellFormed from "<SHIMS>/method-is-well-formed.js";
 
     import { builders as __doc_builders } from "<PUBLIC_DOC_PATH>";
     const {
@@ -253,6 +280,7 @@ test("All", () => {
         b = __findLast(/* OPTIONAL_OBJECT: true */1, bar, () => true),
         c = __findLastIndex(/* OPTIONAL_OBJECT: false */0, foo, callback);
       const d = __toReversed(/* OPTIONAL_OBJECT: false */0, [a, b, foo]).join(\`\${d}\`);
+      const r = __isWellFormed(/* OPTIONAL_OBJECT: false */0, a);
     }
     "
   `);

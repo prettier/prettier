@@ -33,7 +33,8 @@ const packageTransforms = new Map([
   /* spell-checker: enable */
 ]);
 
-const allTransforms = Object.values(transforms).filter(
+const allTransforms = Object.values(transforms);
+const sourceTransforms = allTransforms.filter(
   (transform) => transform !== transforms["method-is-well-formed"],
 );
 const isPackageFile = (file, packageName) =>
@@ -41,7 +42,7 @@ const isPackageFile = (file, packageName) =>
 
 function getTransforms(original, file) {
   if (file.startsWith(SOURCE_DIR)) {
-    return allTransforms;
+    return sourceTransforms;
   }
 
   const transforms = [];
@@ -54,10 +55,18 @@ function getTransforms(original, file) {
   return transforms;
 }
 
-function transform(original, file, buildOptions) {
-  const transforms = getTransforms(original, file, buildOptions).filter(
-    (transform) => !transform.shouldSkip(original, file, buildOptions),
-  );
+function transform(
+  original,
+  file,
+  buildOptions,
+  // For test
+  __testForceAllTransform = false,
+) {
+  const transforms = (
+    __testForceAllTransform
+      ? allTransforms
+      : getTransforms(original, file, buildOptions)
+  ).filter((transform) => !transform.shouldSkip(original, file, buildOptions));
 
   if (transforms.length === 0) {
     return original;
