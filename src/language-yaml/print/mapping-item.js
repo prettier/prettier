@@ -109,7 +109,7 @@ function printMappingItem(path, options, print) {
     (hasEndComments(value) &&
       value.content &&
       !isNode(value.content, ["mapping", "sequence"])) ||
-    (isNode(parent, ["mapping", "flowMapping"]) &&
+    (parent.type === "mapping" &&
       hasTrailingComment(key.content) &&
       isInlineNode(value.content)) ||
     (isNode(value.content, ["mapping", "sequence"]) &&
@@ -135,6 +135,7 @@ function printMappingItem(path, options, print) {
     isAbsolutelyPrintedAsSingleLineNode(key.content, options) &&
     !hasLeadingComments(key.content) &&
     !hasMiddleComments(key.content) &&
+    !hasTrailingComment(key.content) &&
     !hasEndComments(key)
   ) {
     return conditionalGroup([[printedKey, implicitMappingValue]]);
