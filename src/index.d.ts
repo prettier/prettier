@@ -766,14 +766,14 @@ export interface BooleanSupportOption extends BaseSupportOption<"boolean"> {
   oppositeDescription?: string | undefined;
 }
 
-export interface BooleanArraySupportOption
-  extends BaseSupportOption<"boolean"> {
+export interface BooleanArraySupportOption extends BaseSupportOption<"boolean"> {
   default?: Array<{ value: boolean[] }> | undefined;
   array: true;
 }
 
-export interface ChoiceSupportOption<Value = any>
-  extends BaseSupportOption<"choice"> {
+export interface ChoiceSupportOption<
+  Value = any,
+> extends BaseSupportOption<"choice"> {
   default?: Value | Array<{ value: Value }> | undefined;
   description: string;
   choices: Array<{
