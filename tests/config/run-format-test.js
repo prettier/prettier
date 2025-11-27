@@ -39,7 +39,6 @@ const unstableTests = new Map(
     "flow/hook/hook-type-annotation.js",
     "typescript/prettier-ignore/mapped-types.ts",
     "typescript/prettier-ignore/issue-14238.ts",
-    "js/comments/html-like/comment.js",
     "js/for/continue-and-break-comment-without-blocks.js",
     "js/sequence-expression/parenthesized.js",
     "typescript/satisfies-operators/comments-unstable.ts",
