@@ -47,7 +47,7 @@ function parseWithOptions(text, sourceType) {
   /** @type {any} */
   const ast = meriyahParse(text, {
     ...parseOptions,
-    module: sourceType === SOURCE_TYPE_MODULE,
+    sourceType: sourceType === SOURCE_TYPE_MODULE ? sourceType : "commonjs",
     onComment: comments,
   });
   ast.comments = comments;
