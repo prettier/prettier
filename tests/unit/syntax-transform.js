@@ -14,7 +14,10 @@ const publicDocPath = url.fileURLToPath(
 );
 const transform = (code) =>
   "\n" +
-  transformCode(code, file, { __isSyntaxTransformUnitTest: true })
+  transformCode(code, file, {
+    __isSyntaxTransformUnitTest: true,
+    reuseDocModule: true,
+  })
     .replaceAll(
       JSON.stringify(shimsDirectory + path.sep).slice(1, -1),
       "<SHIMS>/",
