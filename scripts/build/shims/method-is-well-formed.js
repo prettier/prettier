@@ -14,10 +14,12 @@ const stringIsWellFormed =
     const len = this.length;
     for (let i = 0; i < len; i++) {
       const code = this.charCodeAt(i);
+
       // Single UTF-16 unit
       if ((code & 0xfc00) !== LeadSurrogateMin) {
         continue;
       }
+
       // unpaired surrogate
       if (
         code > LeadSurrogateMax ||
