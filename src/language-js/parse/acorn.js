@@ -7,10 +7,14 @@ import createParser from "./utils/create-parser.js";
 import {
   getSourceType,
   SOURCE_TYPE_COMBINATIONS,
+  SOURCE_TYPE_COMMONJS,
   SOURCE_TYPE_MODULE,
+  SOURCE_TYPE_SCRIPT,
 } from "./utils/source-types.js";
 
-/** @import {Options} from "acorn" */
+/**
+@import {Options} from "acorn";
+*/
 
 /** @type {Options} */
 const parseOptions = {
@@ -55,8 +59,17 @@ const getParser = () => {
   return parser;
 };
 
+/**
+@param {string} text
+@param {SOURCE_TYPE_MODULE | SOURCE_TYPE_COMMONJS} sourceType
+*/
 function parseWithOptions(text, sourceType) {
   const parser = getParser();
+
+  // https://github.com/acornjs/acorn/pull/1377 not released yet
+  if (sourceType === SOURCE_TYPE_COMMONJS) {
+    sourceType = SOURCE_TYPE_SCRIPT;
+  }
 
   const comments = [];
 
