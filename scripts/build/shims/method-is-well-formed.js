@@ -11,9 +11,9 @@ const stringIsWellFormed =
   https://github.com/meriyah/meriyah/pull/527
   */
   function () {
-    const len = this.length;
-    for (let i = 0; i < len; i++) {
-      const code = this.charCodeAt(i);
+    const { length } = this;
+    for (let index = 0; index < length; index++) {
+      const code = this.charCodeAt(index);
 
       // Single UTF-16 unit
       if ((code & 0xfc00) !== LeadSurrogateMin) {
@@ -23,8 +23,8 @@ const stringIsWellFormed =
       // unpaired surrogate
       if (
         code > LeadSurrogateMax ||
-        ++i >= len ||
-        (this.charCodeAt(i) & 0xfc00) !== TrailSurrogateMin
+        ++index >= length ||
+        (this.charCodeAt(index) & 0xfc00) !== TrailSurrogateMin
       ) {
         return false;
       }
