@@ -55,11 +55,7 @@ function printMappingItem(path, options, print) {
   }
 
   // force explicit Key
-  if (
-    hasLeadingComments(value) ||
-    !isInlineNode(key.content) ||
-    (node.type === "mappingItem" && isMappingKeyBreak(key, options))
-  ) {
+  if (hasLeadingComments(value) || !isInlineNode(key.content)) {
     return [
       "? ",
       alignWithSpaces(2, printedKey),
@@ -80,7 +76,8 @@ function printMappingItem(path, options, print) {
     !hasLeadingComments(value.content) &&
     !hasMiddleComments(value.content) &&
     !hasEndComments(value) &&
-    isAbsolutelyPrintedAsSingleLineNode(value.content, options)
+    isAbsolutelyPrintedAsSingleLineNode(value.content, options) &&
+    isAbsolutelyPrintedAsSingleLineNode(key.content, options)
   ) {
     return [printedKey, spaceBeforeColon, ": ", printedValue];
   }
@@ -151,29 +148,6 @@ function printMappingItem(path, options, print) {
       ifBreak(explicitMappingValue, implicitMappingValue, { groupId }),
     ],
   ]);
-}
-
-function isMappingKeyBreak(key, options) {
-  if (options.proseWrap === "never") {
-    return false;
-  }
-
-  if (!key || !key.content) {
-    return false;
-  }
-
-  const { content } = key;
-
-  if (isNode(content, ["flowMapping", "flowSequence"])) {
-    return false;
-  }
-
-  if (options.proseWrap === "preserve") {
-    return content.position.start.line !== content.position.end.line;
-  }
-
-  const keyLength = content.position.end.offset - content.position.start.offset;
-  return keyLength > options.printWidth;
 }
 
 function isAbsolutelyPrintedAsSingleLineNode(node, options) {
