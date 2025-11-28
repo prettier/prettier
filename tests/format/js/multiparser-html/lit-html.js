@@ -15,24 +15,24 @@ class MyElement extends LitElement {
   render() {
     return html`
       <style
-
-
+      
+      
       >
                   .mood { color: green; }
       </style
-
-
-
+      
+      
+      
       >
 
-         Web            Components         are     <span
-
-
+         Web            Components         are     <span 
+      
+      
       class="mood"      >${
         this.mood
-
+      
       }</span
-
+      
            >!
     `;
   }
@@ -83,7 +83,7 @@ html`
 "></div>
 `
 html`
- <div style=${
+ <div style=${ 
   foo
  }></div>
 `
