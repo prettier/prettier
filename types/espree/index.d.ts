@@ -6,15 +6,12 @@ declare module "espree" {
     comment?: boolean;
     tokens?: boolean;
     ecmaVersion?: "latest";
-    sourceType?: "script" | "module";
+    sourceType?: "script" | "module" | "commonjs";
     ecmaFeatures?: {
       jsx?: boolean;
-      globalReturn?: boolean;
       impliedStrict?: boolean;
     };
   }
   // https://github.com/eslint/espree#parse
   export function parse(code: string, options?: Options): any;
-  // https://github.com/eslint/espree#tokenize
-  export function tokenize(code: string, options?: Options): any;
 }

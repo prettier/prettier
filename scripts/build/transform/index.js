@@ -29,16 +29,20 @@ const packageTransforms = new Map([
   ],
   [transforms["object-has-own"], ["@babel/parser", "meriyah"]],
   [transforms["string-raw"], ["camelcase", "@angular/compiler"]],
+  [transforms["method-is-well-formed"], ["meriyah"]],
   /* spell-checker: enable */
 ]);
 
 const allTransforms = Object.values(transforms);
+const sourceTransforms = allTransforms.filter(
+  (transform) => transform !== transforms["method-is-well-formed"],
+);
 const isPackageFile = (file, packageName) =>
   file.startsWith(path.join(PROJECT_ROOT, `node_modules/${packageName}/`));
 
 function getTransforms(original, file) {
   if (file.startsWith(SOURCE_DIR)) {
-    return allTransforms;
+    return sourceTransforms;
   }
 
   const transforms = [];
@@ -52,9 +56,14 @@ function getTransforms(original, file) {
 }
 
 function transform(original, file, buildOptions) {
-  const transforms = getTransforms(original, file, buildOptions).filter(
-    (transform) => !transform.shouldSkip(original, file, buildOptions),
-  );
+  const transforms = // For test
+    (
+      buildOptions.__isSyntaxTransformUnitTest
+        ? allTransforms
+        : getTransforms(original, file, buildOptions)
+    ).filter(
+      (transform) => !transform.shouldSkip(original, file, buildOptions),
+    );
 
   if (transforms.length === 0) {
     return original;

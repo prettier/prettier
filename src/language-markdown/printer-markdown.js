@@ -19,7 +19,6 @@ import getMinNotPresentContinuousCount from "../utils/get-min-not-present-contin
 import getPreferredQuote from "../utils/get-preferred-quote.js";
 import UnexpectedNodeError from "../utils/unexpected-node-error.js";
 import clean from "./clean.js";
-import { PUNCTUATION_REGEXP } from "./constants.evaluate.js";
 import embed from "./embed.js";
 import getVisitorKeys from "./get-visitor-keys.js";
 import { locEnd, locStart } from "./loc.js";
@@ -27,6 +26,7 @@ import { insertPragma } from "./pragma.js";
 import { printChildren } from "./print/children.js";
 import { printList } from "./print/list.js";
 import { printTable } from "./print/table.js";
+import { printWord } from "./print/word.js";
 import { printParagraph } from "./print-paragraph.js";
 import preprocess from "./print-preprocess.js";
 import { printSentence } from "./print-sentence.js";
@@ -100,51 +100,8 @@ function genericPrint(path, options, print) {
       return printParagraph(path, options, print);
     case "sentence":
       return printSentence(path, print);
-    case "word": {
-      if (options.parser !== "mdx") {
-        return node.value;
-      }
-
-      let escapedValue = node.value
-        .replaceAll("*", String.raw`\*`) // escape all `*`
-        .replaceAll(
-          new RegExp(
-            [
-              `(^|${PUNCTUATION_REGEXP.source})(_+)`,
-              `(_+)(${PUNCTUATION_REGEXP.source}|$)`,
-            ].join("|"),
-            "gu",
-          ),
-          (_, text1, underscore1, underscore2, text2) =>
-            (underscore1
-              ? `${text1}${underscore1}`
-              : `${underscore2}${text2}`
-            ).replaceAll("_", String.raw`\_`),
-        ); // escape all `_` except concating with non-punctuation, e.g. `1_2_3` is not considered emphasis
-
-      const isFirstSentence = (node, name, index) =>
-        node.type === "sentence" && index === 0;
-      const isLastChildAutolink = (node, name, index) =>
-        isAutolink(node.children[index - 1]);
-
-      if (
-        escapedValue !== node.value &&
-        (path.match(undefined, isFirstSentence, isLastChildAutolink) ||
-          path.match(
-            undefined,
-            isFirstSentence,
-            (node, name, index) => node.type === "emphasis" && index === 0,
-            isLastChildAutolink,
-          ))
-      ) {
-        // backslash is parsed as part of autolinks, so we need to remove it
-        escapedValue = escapedValue.replace(/^(\\?[*_])+/u, (prefix) =>
-          prefix.replaceAll("\\", ""),
-        );
-      }
-
-      return escapedValue;
-    }
+    case "word":
+      return options.parser !== "mdx" ? node.value : printWord(path);
     case "whitespace": {
       const { next } = path;
 

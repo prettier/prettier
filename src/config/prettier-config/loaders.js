@@ -57,9 +57,8 @@ async function loadYaml(file) {
   const content = await readFile(file);
 
   if (!parseYaml) {
-    ({ __parsePrettierYamlConfig: parseYaml } = await import(
-      "../../plugins/yaml.js"
-    ));
+    ({ __parsePrettierYamlConfig: parseYaml } =
+      await import("../../plugins/yaml.js"));
   }
 
   try {

@@ -73,12 +73,12 @@ class Foo {
 const isClassMethodCantAttachComment = (node, [parent]) =>
   Boolean(
     node.type === "FunctionExpression" &&
-      parent.type === "MethodDefinition" &&
-      parent.value === node &&
-      getFunctionParameters(node).length === 0 &&
-      !node.returnType &&
-      !isNonEmptyArray(node.typeParameters) &&
-      node.body,
+    parent.type === "MethodDefinition" &&
+    parent.value === node &&
+    getFunctionParameters(node).length === 0 &&
+    !node.returnType &&
+    !isNonEmptyArray(node.typeParameters) &&
+    node.body,
   );
 
 // `foo as const`
