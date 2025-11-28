@@ -17,8 +17,8 @@ function getPreferredQuote(text, preferredQuoteOrPreferSingleQuote) {
       ? SINGLE_QUOTE
       : DOUBLE_QUOTE;
   const alternate = preferred === SINGLE_QUOTE ? DOUBLE_QUOTE : SINGLE_QUOTE;
-  const preferredCodePoint = preferred.charAt(0);
-  const alternateCodePoint = alternate.charAt(0);
+  const preferredCodePoint = preferred.charCodeAt(0);
+  const alternateCodePoint = alternate.charCodeAt(0);
   const { length } = text;
   let preferredQuoteCount = 0;
   let alternateQuoteCount = 0;
