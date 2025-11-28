@@ -19,6 +19,7 @@ semi: false
 <template if:true={value.error}>
     <c-error-panel errors={value.error}></c-error-panel>
 </template>
+<div foo="{data}" bar='{data}' baz={data}>
 <a href="#" onclick={aFunction}>
 =====================================output=====================================
 <template>
@@ -33,7 +34,9 @@ semi: false
 <template if:true={value.error}>
   <c-error-panel errors={value.error}></c-error-panel>
 </template>
-<a href="#" onclick={aFunction}></a>
+<div foo="{data}" bar="{data}" baz={data}>
+  <a href="#" onclick={aFunction}></a>
+</div>
 
 ================================================================================
 `;
@@ -57,6 +60,7 @@ trailingComma: "es5"
 <template if:true={value.error}>
     <c-error-panel errors={value.error}></c-error-panel>
 </template>
+<div foo="{data}" bar='{data}' baz={data}>
 <a href="#" onclick={aFunction}>
 =====================================output=====================================
 <template>
@@ -71,7 +75,9 @@ trailingComma: "es5"
 <template if:true={value.error}>
   <c-error-panel errors={value.error}></c-error-panel>
 </template>
-<a href="#" onclick={aFunction}></a>
+<div foo="{data}" bar="{data}" baz={data}>
+  <a href="#" onclick={aFunction}></a>
+</div>
 
 ================================================================================
 `;
@@ -95,6 +101,7 @@ trailingComma: "none"
 <template if:true={value.error}>
     <c-error-panel errors={value.error}></c-error-panel>
 </template>
+<div foo="{data}" bar='{data}' baz={data}>
 <a href="#" onclick={aFunction}>
 =====================================output=====================================
 <template>
@@ -109,7 +116,9 @@ trailingComma: "none"
 <template if:true={value.error}>
   <c-error-panel errors={value.error}></c-error-panel>
 </template>
-<a href="#" onclick={aFunction}></a>
+<div foo="{data}" bar="{data}" baz={data}>
+  <a href="#" onclick={aFunction}></a>
+</div>
 
 ================================================================================
 `;
