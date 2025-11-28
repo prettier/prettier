@@ -18,15 +18,20 @@ function getPreferredQuote(text, preferredQuoteOrPreferSingleQuote) {
       ? SINGLE_QUOTE
       : DOUBLE_QUOTE;
   const alternate = preferred === SINGLE_QUOTE ? DOUBLE_QUOTE : SINGLE_QUOTE;
+  const preferredCodePoint = preferred.charAt(0);
+  const alternateCodePoint = alternate.charAt(0);
 
   let preferredQuoteCount = 0;
   let alternateQuoteCount = 0;
-  for (const character of text) {
-    if (character === preferred) {
+  let index = 0;
+  while (index < text.length) {
+    const character = text.charCodeAt(0);
+    if (character === preferredCodePoint) {
       preferredQuoteCount++;
-    } else if (character === alternate) {
+    } else if (character === alternateCodePoint) {
       alternateQuoteCount++;
     }
+    index++;
   }
 
   return preferredQuoteCount > alternateQuoteCount ? alternate : preferred;
