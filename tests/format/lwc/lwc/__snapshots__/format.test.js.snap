@@ -19,7 +19,7 @@ semi: false
 <template if:true={value.error}>
     <c-error-panel errors={value.error}></c-error-panel>
 </template>
-<div foo="{data}" bar='{data}' baz={data}>
+<div foo="{data}" bar='{data}' baz={data}></div>
 <a href="#" onclick={aFunction}>
 =====================================output=====================================
 <template>
@@ -34,9 +34,8 @@ semi: false
 <template if:true={value.error}>
   <c-error-panel errors={value.error}></c-error-panel>
 </template>
-<div foo="{data}" bar="{data}" baz={data}>
-  <a href="#" onclick={aFunction}></a>
-</div>
+<div foo="{data}" bar="{data}" baz={data}></div>
+<a href="#" onclick={aFunction}></a>
 
 ================================================================================
 `;
@@ -60,7 +59,7 @@ trailingComma: "es5"
 <template if:true={value.error}>
     <c-error-panel errors={value.error}></c-error-panel>
 </template>
-<div foo="{data}" bar='{data}' baz={data}>
+<div foo="{data}" bar='{data}' baz={data}></div>
 <a href="#" onclick={aFunction}>
 =====================================output=====================================
 <template>
@@ -75,9 +74,8 @@ trailingComma: "es5"
 <template if:true={value.error}>
   <c-error-panel errors={value.error}></c-error-panel>
 </template>
-<div foo="{data}" bar="{data}" baz={data}>
-  <a href="#" onclick={aFunction}></a>
-</div>
+<div foo="{data}" bar="{data}" baz={data}></div>
+<a href="#" onclick={aFunction}></a>
 
 ================================================================================
 `;
@@ -101,7 +99,7 @@ trailingComma: "none"
 <template if:true={value.error}>
     <c-error-panel errors={value.error}></c-error-panel>
 </template>
-<div foo="{data}" bar='{data}' baz={data}>
+<div foo="{data}" bar='{data}' baz={data}></div>
 <a href="#" onclick={aFunction}>
 =====================================output=====================================
 <template>
@@ -116,9 +114,8 @@ trailingComma: "none"
 <template if:true={value.error}>
   <c-error-panel errors={value.error}></c-error-panel>
 </template>
-<div foo="{data}" bar="{data}" baz={data}>
-  <a href="#" onclick={aFunction}></a>
-</div>
+<div foo="{data}" bar="{data}" baz={data}></div>
+<a href="#" onclick={aFunction}></a>
 
 ================================================================================
 `;
