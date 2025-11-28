@@ -3,6 +3,11 @@
 // Matches _any_ escape and unescaped quotes (both single and double).
 const REGEX = /\\(.)|(["'])/gsu;
 
+/**
+ * @param {string} rawText
+ * @param {Quote} enclosingQuote
+ * @returns {string}
+ */
 function makeString(rawText, enclosingQuote) {
   const otherQuote = enclosingQuote === '"' ? "'" : '"';
 
