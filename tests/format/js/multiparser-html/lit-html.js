@@ -15,24 +15,24 @@ class MyElement extends LitElement {
   render() {
     return html`
       <style
-      
-      
+
+
       >
                   .mood { color: green; }
       </style
-      
-      
-      
+
+
+
       >
 
-         Web            Components         are     <span 
-      
-      
+         Web            Components         are     <span
+
+
       class="mood"      >${
         this.mood
-      
+
       }</span
-      
+
            >!
     `;
   }
@@ -42,13 +42,10 @@ customElements.define('my-element', MyElement);
 
 const someHtml1 = html`<div       > hello ${world} </div     >`;
 const someHtml2 = /* HTML */ `<div      > hello ${world} </div     >`;
-const someHtml3 = /* HTML */ `<div class="${foo}" type='${bar}' style=${baz}></div>`;
 
 html``
 
 html`<my-element obj=${obj}></my-element>`;
-
-html `<div  class="${foo}" type='${bar}' style=${baz}></div>`;
 
 html`  <${Footer}  >footer      content<//     >  `
 
@@ -86,7 +83,7 @@ html`
 "></div>
 `
 html`
- <div style=${ 
+ <div style=${
   foo
  }></div>
 `

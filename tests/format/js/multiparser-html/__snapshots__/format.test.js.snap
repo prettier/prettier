@@ -40,6 +40,18 @@ setFoo(
   secondArgument
 );
 
+// Attribute quotes
+a = /* HTML */ \`<div
+    double-quoted="\${foo}"
+single-quoted='\${foo}'
+        unquoted=\${foo}>   </div>
+\`
+a = /* HTML */ \`<div
+    style="\${foo}"
+style='\${foo}'
+        style=\${foo}>   </div>
+\`
+
 =====================================output=====================================
 const nestedFun = /* HTML */ \`
   \${outerExpr(1)}
@@ -88,6 +100,14 @@ setFoo(
   secondArgument,
 );
 
+// Attribute quotes
+a = /* HTML */ \`
+  <div double-quoted="\${foo}" single-quoted="\${foo}" unquoted=\${foo}></div>
+\`;
+a = /* HTML */ \`
+  <div style="\${foo}" style="\${foo}" style=\${foo}></div>
+\`;
+
 ================================================================================
 `;
 
@@ -130,6 +150,18 @@ setFoo(
   secondArgument
 );
 
+// Attribute quotes
+a = /* HTML */ \`<div
+    double-quoted="\${foo}"
+single-quoted='\${foo}'
+        unquoted=\${foo}>   </div>
+\`
+a = /* HTML */ \`<div
+    style="\${foo}"
+style='\${foo}'
+        style=\${foo}>   </div>
+\`
+
 =====================================output=====================================
 const nestedFun = /* HTML */ \`\${outerExpr(1)}
   <script>
@@ -163,6 +195,14 @@ setFoo(
   </div>\`,
   secondArgument,
 );
+
+// Attribute quotes
+a = /* HTML */ \`<div
+  double-quoted="\${foo}"
+  single-quoted="\${foo}"
+  unquoted=\${foo}
+></div> \`;
+a = /* HTML */ \`<div style="\${foo}" style="\${foo}" style=\${foo}></div> \`;
 
 ================================================================================
 `;
@@ -252,24 +292,24 @@ class MyElement extends LitElement {
   render() {
     return html\`
       <style
-      
-      
+
+
       >
                   .mood { color: green; }
       </style
-      
-      
-      
+
+
+
       >
 
-         Web            Components         are     <span 
-      
-      
+         Web            Components         are     <span
+
+
       class="mood"      >\${
         this.mood
-      
+
       }</span
-      
+
            >!
     \`;
   }
@@ -279,13 +319,10 @@ customElements.define('my-element', MyElement);
 
 const someHtml1 = html\`<div       > hello \${world} </div     >\`;
 const someHtml2 = /* HTML */ \`<div      > hello \${world} </div     >\`;
-const someHtml3 = /* HTML */ \`<div class="\${foo}" type='\${bar}' style=\${baz}></div>\`;
 
 html\`\`
 
 html\`<my-element obj=\${obj}></my-element>\`;
-
-html \`<div  class="\${foo}" type='\${bar}' style=\${baz}></div>\`;
 
 html\`  <\${Footer}  >footer      content<//     >  \`
 
@@ -323,7 +360,7 @@ html\`
 "></div>
 \`
 html\`
- <div style=\${ 
+ <div style=\${
   foo
  }></div>
 \`
@@ -379,18 +416,11 @@ const someHtml1 = html\`
 const someHtml2 = /* HTML */ \`
   <div>hello \${world}</div>
 \`;
-const someHtml3 = /* HTML */ \`
-  <div class="\${foo}" type="\${bar}" style=\${baz}></div>
-\`;
 
 html\`\`;
 
 html\`
   <my-element obj=\${obj}></my-element>
-\`;
-
-html\`
-  <div class="\${foo}" type="\${bar}" style=\${baz}></div>
 \`;
 
 html\`
@@ -509,24 +539,24 @@ class MyElement extends LitElement {
   render() {
     return html\`
       <style
-      
-      
+
+
       >
                   .mood { color: green; }
       </style
-      
-      
-      
+
+
+
       >
 
-         Web            Components         are     <span 
-      
-      
+         Web            Components         are     <span
+
+
       class="mood"      >\${
         this.mood
-      
+
       }</span
-      
+
            >!
     \`;
   }
@@ -536,13 +566,10 @@ customElements.define('my-element', MyElement);
 
 const someHtml1 = html\`<div       > hello \${world} </div     >\`;
 const someHtml2 = /* HTML */ \`<div      > hello \${world} </div     >\`;
-const someHtml3 = /* HTML */ \`<div class="\${foo}" type='\${bar}' style=\${baz}></div>\`;
 
 html\`\`
 
 html\`<my-element obj=\${obj}></my-element>\`;
-
-html \`<div  class="\${foo}" type='\${bar}' style=\${baz}></div>\`;
 
 html\`  <\${Footer}  >footer      content<//     >  \`
 
@@ -580,7 +607,7 @@ html\`
 "></div>
 \`
 html\`
- <div style=\${ 
+ <div style=\${
   foo
  }></div>
 \`
@@ -630,17 +657,10 @@ customElements.define("my-element", MyElement);
 
 const someHtml1 = html\`<div>hello \${world}</div>\`;
 const someHtml2 = /* HTML */ \`<div>hello \${world}</div>\`;
-const someHtml3 = /* HTML */ \`<div
-  class="\${foo}"
-  type="\${bar}"
-  style=\${baz}
-></div>\`;
 
 html\`\`;
 
 html\`<my-element obj=\${obj}></my-element>\`;
-
-html\`<div class="\${foo}" type="\${bar}" style=\${baz}></div>\`;
 
 html\` <\${Footer}>footer content<//> \`;
 
