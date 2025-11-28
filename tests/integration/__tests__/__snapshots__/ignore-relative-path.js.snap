@@ -4,8 +4,11 @@ exports[`support relative paths  1`] = `
 {
   "stderr": "",
   "stdout": "shouldNotBeIgnored.js
+α-shouldNotBeIgnored.js
 level1-glob/level2-glob/level3-glob/shouldNotBeIgnored.scss
-level1-glob/shouldNotBeIgnored.js",
+level1-glob/level2-glob/level3-glob/α-shouldNotBeIgnored.scss
+level1-glob/shouldNotBeIgnored.js
+level1-glob/α-shouldNotBeIgnored.js",
   "write": [],
 }
 `;
