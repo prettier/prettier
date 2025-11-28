@@ -181,10 +181,19 @@ function splitText(text) {
 }
 
 function getOrderedListItemInfo(orderListItem, options) {
-  const text = options.originalText.slice(
+  let text = options.originalText.slice(
     orderListItem.position.start.offset,
     orderListItem.position.end.offset,
   );
+  if (options.parser !== "mdx") {
+    const firstChild = orderListItem.children[0];
+    if (firstChild?.position) {
+      text = options.originalText.slice(
+        orderListItem.position.start.offset,
+        firstChild.position.start.offset,
+      );
+    }
+  }
 
   const { numberText, leadingSpaces } = text.match(
     /^\s*(?<numberText>\d+)(\.|\))(?<leadingSpaces>\s*)/u,
