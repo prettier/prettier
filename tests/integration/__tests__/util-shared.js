@@ -225,6 +225,39 @@ test("sharedUtil.makeString", () => {
   expect(makeString(`a${DOUBLE_QUOTE}`, SINGLE_QUOTE)).toBe(
     `${SINGLE_QUOTE}a${DOUBLE_QUOTE}${SINGLE_QUOTE}`,
   );
+  expect(makeString(`a${DOUBLE_QUOTE}`, DOUBLE_QUOTE)).toBe(
+    `${DOUBLE_QUOTE}a\\${DOUBLE_QUOTE}${DOUBLE_QUOTE}`,
+  );
+
+  expect(makeString(`a\\${DOUBLE_QUOTE}\\${SINGLE_QUOTE}`, DOUBLE_QUOTE)).toBe(
+    `${DOUBLE_QUOTE}a\\${DOUBLE_QUOTE}${SINGLE_QUOTE}${DOUBLE_QUOTE}`,
+  );
+  expect(makeString(`a\\${DOUBLE_QUOTE}\\${SINGLE_QUOTE}`, SINGLE_QUOTE)).toBe(
+    `${SINGLE_QUOTE}a${DOUBLE_QUOTE}\\${SINGLE_QUOTE}${SINGLE_QUOTE}`,
+  );
+
+  expect(
+    makeString(`a\\\\${DOUBLE_QUOTE}\\\\${SINGLE_QUOTE}`, DOUBLE_QUOTE),
+  ).toBe(
+    `${DOUBLE_QUOTE}a\\\\\\${DOUBLE_QUOTE}\\\\${SINGLE_QUOTE}${DOUBLE_QUOTE}`,
+  );
+  expect(
+    makeString(`a\\\\${DOUBLE_QUOTE}\\\\${SINGLE_QUOTE}`, SINGLE_QUOTE),
+  ).toBe(
+    `${SINGLE_QUOTE}a\\\\${DOUBLE_QUOTE}\\\\\\${SINGLE_QUOTE}${SINGLE_QUOTE}`,
+  );
+
+  expect(
+    makeString(`a\\\\\\${DOUBLE_QUOTE}\\\\\\${SINGLE_QUOTE}`, DOUBLE_QUOTE),
+  ).toBe(
+    `${DOUBLE_QUOTE}a\\\\\\${DOUBLE_QUOTE}\\\\${SINGLE_QUOTE}${DOUBLE_QUOTE}`,
+  );
+  expect(
+    makeString(`a\\\\\\${DOUBLE_QUOTE}\\\\\\${SINGLE_QUOTE}`, SINGLE_QUOTE),
+  ).toBe(
+    `${SINGLE_QUOTE}a\\\\${DOUBLE_QUOTE}\\\\\\${SINGLE_QUOTE}${SINGLE_QUOTE}`,
+  );
+
   expect(
     makeString(
       String.raw`\a`,
