@@ -1,28 +1,24 @@
 /**
-@typedef {"auto" | OPTION_EOL_CR | OPTION_EOL_LF | OPTION_EOL_CRLF} EndOfLineOption
-@typedef {EOL_CR | EOL_LF | EOL_CRLF} EndOfLine
+@typedef {"auto" | OPTION[keyof OPTION]} EndOfLineOption
+@typedef {CHARACTER[keyof CHARACTER]} EndOfLine
 */
 
-const OPTION_EOL_CR = "cr";
-const OPTION_EOL_LF = "lf";
-const OPTION_EOL_CRLF = "crlf";
-const DEFAULT_OPTION_EOL = OPTION_EOL_LF;
+const OPTION = Object.freeze({ CR: "cr", CRLF: "crlf", LF: "lf" });
+const CHARACTER = Object.freeze({ CR: "\r", CRLF: "crlf", LF: "\n" });
 
-const EOL_CR = "\r";
-const EOL_LF = "\n";
-const EOL_CRLF = "\r\n";
-const DEFAULT_EOL = EOL_LF;
+const DEFAULT_OPTION = OPTION.LF;
+const DEFAULT_EOL = CHARACTER.LF;
 
 /**
 @param {string} text
 @returns {EndOfLineOption}
 */
 function guessEndOfLine(text) {
-  const index = text.indexOf(EOL_CR);
+  const index = text.indexOf(CHARACTER.CR);
   if (index !== -1) {
-    return text.charAt(index + 1) === EOL_LF ? OPTION_EOL_CRLF : OPTION_EOL_CR;
+    return text.charAt(index + 1) === CHARACTER.LF ? OPTION.CRLF : OPTION.CR;
   }
-  return DEFAULT_OPTION_EOL;
+  return DEFAULT_OPTION;
 }
 
 /**
@@ -30,17 +26,17 @@ function guessEndOfLine(text) {
 @returns {EndOfLine}
 */
 function convertEndOfLineToChars(value) {
-  return value === OPTION_EOL_CR
-    ? EOL_CR
-    : value === OPTION_EOL_CRLF
-      ? EOL_CRLF
+  return value === OPTION.CR
+    ? CHARACTER.CR
+    : value === OPTION.CRLF
+      ? CHARACTER.CRLF
       : DEFAULT_EOL;
 }
 
 const regexps = new Map([
-  [EOL_LF, /\n/gu],
-  [EOL_CR, /\r/gu],
-  [EOL_CRLF, /\r\n/gu],
+  [CHARACTER.LF, /\n/gu],
+  [CHARACTER.CR, /\r/gu],
+  [CHARACTER.CRLF, /\r\n/gu],
 ]);
 
 /**
@@ -64,7 +60,7 @@ function countEndOfLineChars(text, eol) {
 @returns {string}
 */
 function normalizeEndOfLine(text) {
-  return text.replaceAll(/\r\n?/gu, EOL_LF);
+  return text.replaceAll(/\r\n?/gu, CHARACTER.LF);
 }
 
 export {
