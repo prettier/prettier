@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`switch-quote.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+console.log(
+  // 18351
+  "A descriptor\\\\'s .kind must be \\"method\\" or \\"field\\".",
+);
+
+=====================================output=====================================
+console.log(
+  // 18351
+  'A descriptor\\\\'s .kind must be "method" or "field".',
+);
+
+================================================================================
+`;
