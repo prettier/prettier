@@ -1,7 +1,7 @@
 /** @import {Quote} from "./get-preferred-quote.js" */
 
 // Matches _any_ escape and unescaped quotes (both single and double).
-const REGEX = /\\(.)|(["'])/gsu;
+const REGEX = /\\(.)|(["'])/gu;
 
 /**
  * @param {string} rawText
