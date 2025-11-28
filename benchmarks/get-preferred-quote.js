@@ -7,13 +7,15 @@ import { runBenchmark } from "./utilities.js";
 assert.notEqual(prettierProduction.version, prettierDevelopment.version);
 
 for (const size of [1, 1e1, 1e2, 1e3, 1e4, 1e5]) {
-  const text = "'\"_".repeat(size);
+  const text = Array.from({ length: size }, () =>
+    Math.random() > 0.5 ? " " : Math.random() > 0.5 ? "'" : '"',
+  ).join("");
   const run = (prettier) => prettier.util.getPreferredQuote(text, "'");
   const expected = run(prettierProduction);
 
   await runBenchmark(
     {
-      name: `getPreferredQuote (${size * 3} charecters)`,
+      name: `getPreferredQuote (${size} charecters)`,
       assert: (result) => assert.deepEqual(result, expected),
     },
     [
