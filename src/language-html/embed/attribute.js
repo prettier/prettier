@@ -43,23 +43,20 @@ function printAttribute(path, options) {
     return;
   }
 
+  const { valueSpan } = node;
+  const isQuoted =
+      valueSpan.end.offset - valueSpan.start.offset === value.length + 2;;
+
   if (
-    // lit-html: html`<my-element obj=${obj}></my-element>`
-    /^PRETTIER_HTML_PLACEHOLDER_\d+_\d+_IN_JS$/u.test(value) ||
-    // lwc: html`<my-element data-for={value}></my-element>`
-    (options.parser === "lwc" && value.startsWith("{") && value.endsWith("}"))
+    !isQuoted &&
+    (
+      // lit-html: html`<my-element obj=${obj}></my-element>`
+      /^PRETTIER_HTML_PLACEHOLDER_\d+_\d+_IN_JS$/u.test(value) ||
+      // lwc: html`<my-element data-for={value}></my-element>`
+      (options.parser === "lwc" && value.startsWith("{") && value.endsWith("}"))
+    )
   ) {
-    const { valueSpan } = node;
-    const isQuoted =
-      valueSpan.end.offset - valueSpan.start.offset === value.length + 2;
-
-    if (!isQuoted) {
-      return [node.rawName, "=", value];
-    }
-
-    const quoteChar = valueSpan.start.file.content.at(valueSpan.start.offset);
-
-    return [node.rawName, "=", `${quoteChar}${value}${quoteChar}`];
+    return [node.rawName, "=", value];
   }
 
   return printers.find(({ test }) => test(path, options))?.print;
