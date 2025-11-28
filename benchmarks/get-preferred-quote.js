@@ -15,7 +15,7 @@ for (const size of [1, 1e1, 1e2, 1e3, 1e4, 1e5]) {
 
   await runBenchmark(
     {
-      name: `getPreferredQuote (${size} charecters)`,
+      name: `getPreferredQuote (${size} characters)`,
       assert: (result) => assert.deepEqual(result, expected),
     },
     [
