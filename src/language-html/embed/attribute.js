@@ -49,7 +49,11 @@ function printAttribute(path, options) {
     // lwc: html`<my-element data-for={value}></my-element>`
     (options.parser === "lwc" && value.startsWith("{") && value.endsWith("}"))
   ) {
-    return [node.rawName, "=", value];
+    const { quoteChar } = node;
+    const valueToReturn = quoteChar
+      ? `${quoteChar}${value}${quoteChar}`
+      : value;
+    return [node.rawName, "=", valueToReturn];
   }
 
   return printers.find(({ test }) => test(path, options))?.print;

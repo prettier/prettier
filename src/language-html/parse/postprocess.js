@@ -157,8 +157,11 @@ function restoreNameAndValue(node) {
           attr.value = null;
         } else {
           attr.value = attr.valueSpan.toString();
-          if (/["']/u.test(attr.value[0])) {
+          const firstChar = attr.value[0];
+          if (/["']/u.test(firstChar)) {
             attr.value = attr.value.slice(1, -1);
+            // @ts-expect-error -- custom property
+            attr.quoteChar = firstChar;
           }
         }
       }
