@@ -187,12 +187,16 @@ function printDocToString(doc, options) {
   // commands to the array instead of recursively calling `print`.
   /** @type Command[] */
   const commands = [{ indent: ROOT_INDENT, mode: MODE_BREAK, doc }];
-  /** @type string[] */
-  let out = [];
+  let output = "";
   let shouldRemeasure = false;
   /** @type Command[] */
   const lineSuffix = [];
   const cursorPositions = [];
+
+  /** @type string[] */
+  const settledOutput = [];
+  const settledCursorPositions = [];
+  let settledTextLength = 0;
 
   propagateBreaks(doc);
 
@@ -204,7 +208,7 @@ function printDocToString(doc, options) {
           newLine !== "\n" ? doc.replaceAll("\n", newLine) : doc;
         // Plugins may print single string, should skip measure the width
         if (formatted) {
-          out.push(formatted);
+          output += formatted;
           if (commands.length > 0) {
             position += getStringWidth(formatted);
           }
@@ -218,15 +222,12 @@ function printDocToString(doc, options) {
         }
         break;
 
-      case DOC_TYPE_CURSOR: {
+      case DOC_TYPE_CURSOR:
         if (cursorPositions.length >= 2) {
           throw new Error("There are too many 'cursor' in doc.");
         }
-        const text = out.join("");
-        out = [text];
-        cursorPositions.push(text.length - 1);
+        cursorPositions.push(settledTextLength + output.length);
         break;
-      }
 
       case DOC_TYPE_INDENT:
         commands.push({
@@ -497,7 +498,7 @@ function printDocToString(doc, options) {
           case MODE_FLAT:
             if (!doc.hard) {
               if (!doc.soft) {
-                out.push(" ");
+                output += " ";
 
                 position += 1;
               }
@@ -522,17 +523,17 @@ function printDocToString(doc, options) {
             }
 
             if (doc.literal) {
-              out.push(newLine);
+              output += newLine;
               position = 0;
               if (indent.root) {
                 if (indent.root.value) {
-                  out.push(indent.root.value);
+                  output += indent.root.value;
                 }
                 position = indent.root.length;
               }
             } else {
               trim();
-              out.push(newLine + indent.value);
+              output += newLine + indent.value;
               position = indent.length;
             }
             break;
@@ -559,8 +560,10 @@ function printDocToString(doc, options) {
     }
   }
 
-  const formatted = out.join("");
-  if (cursorPositions.length !== 2) {
+  const formatted = settledOutput.join("") + output;
+  const finalCursorPositions = [...settledCursorPositions, ...cursorPositions];
+
+  if (finalCursorPositions.length !== 2) {
     // If the doc contained ONE cursor command,
     // instead of the expected zero or two. If the doc being printed was
     // returned by printAstToDoc, then the only ways this can have happened
@@ -589,25 +592,35 @@ function printDocToString(doc, options) {
     return { formatted };
   }
 
-  const cursorNodeStart = cursorPositions[0] + 1;
+  const cursorNodeStart = finalCursorPositions[0];
   return {
     formatted,
     cursorNodeStart,
     cursorNodeText: formatted.slice(
       cursorNodeStart,
-      cursorPositions.at(-1) + 1,
+      finalCursorPositions.at(-1),
     ),
   };
 
   function trim() {
-    const { text, count } = trimIndentation(out.join(""));
-    out = [text];
+    const { text: trimmed, count } = trimIndentation(output);
+
+    if (trimmed) {
+      settledOutput.push(trimmed);
+      settledTextLength += trimmed.length;
+    }
+
+    output = "";
     position -= count;
-    for (let index = 0; index < cursorPositions.length; index++) {
-      cursorPositions[index] = Math.min(
-        cursorPositions[index],
-        text.length - 1,
+
+    if (cursorPositions.length > 0) {
+      settledCursorPositions.push(
+        ...cursorPositions.map((position) =>
+          Math.min(position, settledTextLength),
+        ),
       );
+
+      cursorPositions.length = 0;
     }
   }
 }

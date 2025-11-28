@@ -1804,6 +1804,9 @@ label {
 .hello {
   &:extend(.input:disabled)}
 
+// #6082
+margin: 0 @spacing-medium 0 -(@spacing-xxlarge + @spacing-medium);
+
 =====================================output=====================================
 @nice-blue: #5b83ad;
 @light-blue: @nice-blue + #111;
@@ -3446,6 +3449,9 @@ label {
 .hello {
   &:extend(.input:disabled);
 }
+
+// #6082
+margin: 0 @spacing-medium 0 -(@spacing-xxlarge + @spacing-medium);
 
 ================================================================================
 `;

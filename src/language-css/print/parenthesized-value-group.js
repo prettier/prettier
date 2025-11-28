@@ -30,10 +30,10 @@ import { shouldPrintTrailingComma } from "./misc.js";
 function hasComma({ node, parent }, options) {
   return Boolean(
     node.source &&
-      options.originalText
-        .slice(locStart(node), locStart(parent.close))
-        .trimEnd()
-        .endsWith(","),
+    options.originalText
+      .slice(locStart(node), locStart(parent.close))
+      .trimEnd()
+      .endsWith(","),
   );
 }
 

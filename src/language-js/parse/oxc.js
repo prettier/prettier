@@ -5,10 +5,17 @@ import { tryCombinations } from "../../utils/try-combinations.js";
 import postprocess from "./postprocess/index.js";
 import createParser from "./utils/create-parser.js";
 import jsxRegexp from "./utils/jsx-regexp.evaluate.js";
-import { getSourceType } from "./utils/source-types.js";
+import {
+  getSourceType,
+  SOURCE_TYPE_COMMONJS,
+  SOURCE_TYPE_SCRIPT,
+} from "./utils/source-types.js";
 
 /** @import {ParseResult, ParserOptions as ParserOptionsWithoutExperimentalRawTransfer} from "oxc-parser" */
-/** @typedef {ParserOptionsWithoutExperimentalRawTransfer & {experimentalRawTransfer?: boolean}} ParserOptions */
+/** @typedef {Omit<ParserOptionsWithoutExperimentalRawTransfer, "sourceType"> & {
+  sourceType?: ParserOptionsWithoutExperimentalRawTransfer["sourceType"] | "commonjs",
+  experimentalRawTransfer?: boolean,
+}} ParserOptions */
 
 function createParseError(error, { text }) {
   /* c8 ignore next 3 */
@@ -41,10 +48,17 @@ function createParseError(error, { text }) {
 @returns {Promise<ParseResult>}
 */
 async function parseWithOptions(filepath, text, options) {
+  let { sourceType } = options;
+  // https://github.com/oxc-project/oxc/issues/16200
+  if (sourceType === SOURCE_TYPE_COMMONJS) {
+    sourceType = SOURCE_TYPE_SCRIPT;
+  }
+
   const result = await oxcParse(filepath, text, {
     preserveParens: true,
     showSemanticErrors: false,
     ...options,
+    sourceType,
   });
 
   const { errors } = result;

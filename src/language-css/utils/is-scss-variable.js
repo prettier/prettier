@@ -1,8 +1,8 @@
 function isSCSSVariable(node, options) {
   return Boolean(
     options.parser === "scss" &&
-      node?.type === "word" &&
-      node.value.startsWith("$"),
+    node?.type === "word" &&
+    node.value.startsWith("$"),
   );
 }
 
