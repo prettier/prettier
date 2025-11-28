@@ -1,6 +1,5 @@
 import {
   align,
-  breakParent,
   dedent,
   group,
   ifBreak,
@@ -8,16 +7,12 @@ import {
   line,
   softline,
 } from "../../document/index.js";
-import hasNewlineInRange from "../../utils/has-newline-in-range.js";
-import { locEnd, locStart } from "../loc.js";
 import {
-  hasComment,
   isBinaryCastExpression,
   isCallExpression,
   isJsxElement,
   isMemberExpression,
 } from "../utils/index.js";
-import isBlockComment from "../utils/is-block-comment.js";
 
 /**
  * @import {Doc} from "../../document/index.js"
@@ -323,31 +318,8 @@ function printTernaryOld(path, options, print) {
     );
   }
 
-  // We want a whole chain of ConditionalExpressions to all
-  // break if any of them break. That means we should only group around the
-  // outer-most ConditionalExpression.
-  const shouldBreak = [
-    consequentNodePropertyName,
-    alternateNodePropertyName,
-    ...testNodePropertyNames,
-  ].some((property) =>
-    hasComment(
-      node[property],
-      (comment) =>
-        isBlockComment(comment) &&
-        hasNewlineInRange(
-          options.originalText,
-          locStart(comment),
-          locEnd(comment),
-        ),
-    ),
-  );
   const maybeGroup = (doc) =>
-    parent === firstNonConditionalParent
-      ? group(doc, { shouldBreak })
-      : shouldBreak
-        ? [doc, breakParent]
-        : doc;
+    parent === firstNonConditionalParent ? group(doc) : doc;
 
   // Break the closing paren to keep the chain right after it:
   // (a
