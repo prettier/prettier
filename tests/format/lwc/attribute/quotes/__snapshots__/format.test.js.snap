@@ -7,10 +7,8 @@ parsers: ["lwc"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-
 <div double-quoted="{data}"    single-quoted='{data}'
 unquoted={data}>   </div>
-
 
 <div class="{data}"    class='{data}'
 class={data}>   </div>
@@ -29,10 +27,8 @@ parsers: ["lwc"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-
 <div double-quoted="{data}"    single-quoted='{data}'
 unquoted={data}>   </div>
-
 
 <div class="{data}"    class='{data}'
 class={data}>   </div>
