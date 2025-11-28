@@ -1,7 +1,7 @@
 /** @import {Quote} from "./get-preferred-quote.js" */
 
 // Matches escape and unescaped quotes (both single and double).
-const REGEX = /\\(["'])|(["'])/gsu;
+const REGEX = /\\(["'])|(["'])/gu;
 
 /**
  * @param {string} rawText
@@ -16,7 +16,7 @@ function makeString(rawText, enclosingQuote) {
       return unescaped === enclosingQuote ? "\\" + unescaped : unescaped;
     }
 
-    return escaped === enclosingQuote ? "\\\\" + escaped : escaped
+    return escaped === enclosingQuote ? "\\\\" + escaped : escaped;
   });
 
   return enclosingQuote + raw + enclosingQuote;
