@@ -23,6 +23,7 @@ function getPreferredQuote(text, preferredQuoteOrPreferSingleQuote) {
   let preferredQuoteCount = 0;
   let alternateQuoteCount = 0;
 
+  // `for..of` loop is known slower
   for (let index = 0; index < length; index++) {
     const codePoint = text.charCodeAt(index);
     if (codePoint === preferredCodePoint) {
