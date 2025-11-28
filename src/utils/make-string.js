@@ -1,7 +1,7 @@
 /** @import {Quote} from "./get-preferred-quote.js" */
 
 // Matches _any_ escape and unescaped quotes (both single and double).
-const REGEX = /(\\.)|(["'])/gsu;
+const REGEX = /\\(.)|(["'])/gsu;
 
 function makeString(rawText, enclosingQuote) {
   const otherQuote = enclosingQuote === '"' ? "'" : '"';
@@ -13,7 +13,7 @@ function makeString(rawText, enclosingQuote) {
     // other type than we intend to enclose the string with, there's no need for
     // it to be escaped, so return it _without_ the backslash.
     if (escaped) {
-      return escaped[1] === otherQuote ? otherQuote : escaped;
+      return escaped === otherQuote ? otherQuote : "\\" + escaped;
     }
 
     // If we matched an unescaped quote and it is of the _same_ type as we
