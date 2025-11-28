@@ -1,6 +1,7 @@
 /** @import {Quote} from "./get-preferred-quote.js" */
 
 // Matches _any_ escape and unescaped quotes (both single and double).
+// Matching `\` in first group, so we won't treat `\\"` as escaped quote.
 const REGEX = /\\(["'\\])|(["'])/gu;
 
 /**
