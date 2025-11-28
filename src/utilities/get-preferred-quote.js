@@ -6,7 +6,6 @@ const SINGLE_QUOTE = "'";
 const DOUBLE_QUOTE = '"';
 
 /**
- *
  * @param {string} text
  * @param {Quote | boolean} preferredQuoteOrPreferSingleQuote
  * @returns {Quote}
@@ -20,18 +19,17 @@ function getPreferredQuote(text, preferredQuoteOrPreferSingleQuote) {
   const alternate = preferred === SINGLE_QUOTE ? DOUBLE_QUOTE : SINGLE_QUOTE;
   const preferredCodePoint = preferred.charAt(0);
   const alternateCodePoint = alternate.charAt(0);
-
+  const { length } = text;
   let preferredQuoteCount = 0;
   let alternateQuoteCount = 0;
-  let index = 0;
-  while (index < text.length) {
-    const character = text.charCodeAt(0);
-    if (character === preferredCodePoint) {
+
+  for (let index = 0; index < length; index++) {
+    const codePoint = text.charCodeAt(index);
+    if (codePoint === preferredCodePoint) {
       preferredQuoteCount++;
-    } else if (character === alternateCodePoint) {
+    } else if (codePoint === alternateCodePoint) {
       alternateQuoteCount++;
     }
-    index++;
   }
 
   return preferredQuoteCount > alternateQuoteCount ? alternate : preferred;
