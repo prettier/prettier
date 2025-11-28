@@ -381,3 +381,13 @@ B
 
 @supports (transform-style: preserve-3d) or ((-moz-transform-style: preserve-3d) or
           ((-o-transform-style: preserve-3d) or (-webkit-transform-style: preserve-3d))) {}
+
+/* #8201 */
+@supports (--element(".minwidth", {"minWidth": 300})) {
+  [--self] {
+    background: greenyellow;
+  }
+}
+@supports ({"example": 1}) {
+  * { background: red; }
+}
