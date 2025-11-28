@@ -27,9 +27,7 @@ async function checkSchema() {
   );
 
   return outdent`
-    ${styleText.bold.underline(
-      "The schema in {yellow SchemaStore",
-    )} needs an update.}
+    The schema in ${styleText.bold.yellow("SchemaStore")} needs an update.
     - Open ${styleText.cyan.underline(EDIT_URL)}
     - Open ${styleText.cyan.underline("/.tmp/schema/prettierrc.json")} file and copy the content
     - Paste it on GitHub interface
