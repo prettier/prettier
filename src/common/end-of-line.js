@@ -1,18 +1,28 @@
 /**
-@typedef {"auto" | "lf" | "crlf" | "cr"} EndOfLineOption
-@typedef {"\r" | "\r\n" | "\n"} EndOfLine
+@typedef {"auto" | OPTION_EOL_CR | OPTION_EOL_LF | OPTION_EOL_CRLF} EndOfLineOption
+@typedef {EOL_CR | EOL_LF | EOL_CRLF} EndOfLine
 */
+
+const OPTION_EOL_CR = "cr";
+const OPTION_EOL_LF = "lf";
+const OPTION_EOL_CRLF = "crlf";
+const DEFAULT_OPTION_EOL = OPTION_EOL_LF;
+
+const EOL_CR = "\r";
+const EOL_LF = "\n";
+const EOL_CRLF = "\r\n";
+const DEFAULT_EOL = EOL_LF;
 
 /**
 @param {string} text
 @returns {EndOfLineOption}
 */
 function guessEndOfLine(text) {
-  const index = text.indexOf("\r");
+  const index = text.indexOf(EOL_CR);
   if (index !== -1) {
-    return text.charAt(index + 1) === "\n" ? "crlf" : "cr";
+    return text.charAt(index + 1) === EOL_LF ? OPTION_EOL_CRLF : OPTION_EOL_CR;
   }
-  return "lf";
+  return DEFAULT_OPTION_EOL;
 }
 
 /**
@@ -20,15 +30,18 @@ function guessEndOfLine(text) {
 @returns {EndOfLine}
 */
 function convertEndOfLineToChars(value) {
-  switch (value) {
-    case "cr":
-      return "\r";
-    case "crlf":
-      return "\r\n";
-    default:
-      return "\n";
-  }
+  return value === OPTION_EOL_CR
+    ? EOL_CR
+    : value === OPTION_EOL_CRLF
+      ? EOL_CRLF
+      : DEFAULT_EOL;
 }
+
+const regexps = new Map([
+  [EOL_LF, /\n/gu],
+  [EOL_CR, /\r/gu],
+  [EOL_CRLF, /\r\n/gu],
+]);
 
 /**
 @param {string} text
@@ -36,25 +49,14 @@ function convertEndOfLineToChars(value) {
 @returns {number}
 */
 function countEndOfLineChars(text, eol) {
-  let regex;
+  const regex = regexps.get(eol);
 
-  switch (eol) {
-    case "\n":
-      regex = /\n/gu;
-      break;
-    case "\r":
-      regex = /\r/gu;
-      break;
-    case "\r\n":
-      regex = /\r\n/gu;
-      break;
-    default:
-      /* c8 ignore next */
-      throw new Error(`Unexpected "eol" ${JSON.stringify(eol)}.`);
+  /* c8 ignore next */
+  if (!regex) {
+    throw new Error(`Unexpected "eol" ${JSON.stringify(eol)}.`);
   }
 
-  const endOfLines = text.match(regex);
-  return endOfLines ? endOfLines.length : 0;
+  return text.match(regex)?.length ?? 0;
 }
 
 /**
@@ -62,7 +64,7 @@ function countEndOfLineChars(text, eol) {
 @returns {string}
 */
 function normalizeEndOfLine(text) {
-  return text.replaceAll(/\r\n?/gu, "\n");
+  return text.replaceAll(/\r\n?/gu, EOL_LF);
 }
 
 export {
