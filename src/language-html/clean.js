@@ -32,10 +32,6 @@ function clean(original, cloned, parent) {
   }
 
   if (original.kind === "attribute") {
-    delete cloned.quoteChar;
-  }
-
-  if (original.kind === "attribute") {
     const { fullName: name, value } = original;
 
     if (

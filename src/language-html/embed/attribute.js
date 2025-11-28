@@ -49,9 +49,17 @@ function printAttribute(path, options) {
     // lwc: html`<my-element data-for={value}></my-element>`
     (options.parser === "lwc" && value.startsWith("{") && value.endsWith("}"))
   ) {
-    const { quoteChar } = node;
-    const quotedValue = quoteChar ? `${quoteChar}${value}${quoteChar}` : value;
-    return [node.rawName, "=", quotedValue];
+    const { valueSpan } = node;
+    const isQuoted =
+      valueSpan.end.offset - valueSpan.start.offset === value.length + 2;
+
+    if (!isQuoted) {
+      return [node.rawName, "=", value];
+    }
+
+    const quoteChar = valueSpan.start.file.content.at(valueSpan.start.offset);
+
+    return [node.rawName, "=", `${quoteChar}${value}${quoteChar}`];
   }
 
   return printers.find(({ test }) => test(path, options))?.print;
