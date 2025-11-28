@@ -19,8 +19,8 @@ semi: false
 <template if:true={value.error}>
     <c-error-panel errors={value.error}></c-error-panel>
 </template>
-<div foo="{data}" bar='{data}' baz={data}></div>
 <a href="#" onclick={aFunction}>
+
 =====================================output=====================================
 <template>
   <div
@@ -34,8 +34,7 @@ semi: false
 <template if:true={value.error}>
   <c-error-panel errors={value.error}></c-error-panel>
 </template>
-<div foo="{data}" bar="{data}" baz={data}></div>
-<a href="#" onclick={aFunction}></a>
+<a href="#" onclick={aFunction}> </a>
 
 ================================================================================
 `;
@@ -59,8 +58,8 @@ trailingComma: "es5"
 <template if:true={value.error}>
     <c-error-panel errors={value.error}></c-error-panel>
 </template>
-<div foo="{data}" bar='{data}' baz={data}></div>
 <a href="#" onclick={aFunction}>
+
 =====================================output=====================================
 <template>
   <div
@@ -74,8 +73,7 @@ trailingComma: "es5"
 <template if:true={value.error}>
   <c-error-panel errors={value.error}></c-error-panel>
 </template>
-<div foo="{data}" bar="{data}" baz={data}></div>
-<a href="#" onclick={aFunction}></a>
+<a href="#" onclick={aFunction}> </a>
 
 ================================================================================
 `;
@@ -99,8 +97,8 @@ trailingComma: "none"
 <template if:true={value.error}>
     <c-error-panel errors={value.error}></c-error-panel>
 </template>
-<div foo="{data}" bar='{data}' baz={data}></div>
 <a href="#" onclick={aFunction}>
+
 =====================================output=====================================
 <template>
   <div
@@ -114,8 +112,7 @@ trailingComma: "none"
 <template if:true={value.error}>
   <c-error-panel errors={value.error}></c-error-panel>
 </template>
-<div foo="{data}" bar="{data}" baz={data}></div>
-<a href="#" onclick={aFunction}></a>
+<a href="#" onclick={aFunction}> </a>
 
 ================================================================================
 `;

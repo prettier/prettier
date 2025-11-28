@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`quotes.html - {"embeddedLanguageFormatting":"off"} format 1`] = `
+====================================options=====================================
+embeddedLanguageFormatting: "off"
+parsers: ["lwc"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+
+<div double-quoted="{data}"    single-quoted='{data}'
+unquoted={data}>   </div>
+
+
+<div class="{data}"    class='{data}'
+class={data}>   </div>
+
+=====================================output=====================================
+<div double-quoted="{data}" single-quoted="{data}" unquoted="{data}"></div>
+
+<div class="{data}" class="{data}" class="{data}"></div>
+
+================================================================================
+`;
+
+exports[`quotes.html format 1`] = `
+====================================options=====================================
+parsers: ["lwc"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+
+<div double-quoted="{data}"    single-quoted='{data}'
+unquoted={data}>   </div>
+
+
+<div class="{data}"    class='{data}'
+class={data}>   </div>
+
+=====================================output=====================================
+<div double-quoted="{data}" single-quoted="{data}" unquoted={data}></div>
+
+<div class="{data}" class="{data}" class={data}></div>
+
+================================================================================
+`;
