@@ -50,9 +50,7 @@ function printAttribute(path, options) {
     (options.parser === "lwc" && value.startsWith("{") && value.endsWith("}"))
   ) {
     const { quoteChar } = node;
-    const quotedValue = quoteChar
-      ? `${quoteChar}${value}${quoteChar}`
-      : value;
+    const quotedValue = quoteChar ? `${quoteChar}${value}${quoteChar}` : value;
     return [node.rawName, "=", quotedValue];
   }
 
