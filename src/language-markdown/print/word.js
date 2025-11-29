@@ -10,7 +10,7 @@ import { isAutolink } from "../utils.js";
  * @param {AstPath} path
  * @return {Doc}
  */
-function printWord(path) {
+function printWordLegacy(path) {
   const { node } = path;
   let escapedValue = node.value
     .replaceAll("*", String.raw`\*`) // escape all `*`
@@ -53,4 +53,4 @@ function printWord(path) {
   return escapedValue;
 }
 
-export { printWord };
+export { printWordLegacy };
