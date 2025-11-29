@@ -50,6 +50,7 @@ async function build() {
   const prettierEntry = getPackageEntry(prettierPackageJson);
   const builtinPlugins = Object.keys(prettierPackageJson.exports)
     .filter((entry) => entry.startsWith("./plugins/"))
+    .filter((entry) => entry !== "./plugins/flow")
     .map((entry) => getPackageEntry(prettierPackageJson, entry));
 
   const externalPlugins = await Promise.all(
