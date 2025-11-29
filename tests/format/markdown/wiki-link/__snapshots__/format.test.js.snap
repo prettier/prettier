@@ -875,6 +875,163 @@ Here's some text to ensure that the link and wiki link break the line [[a[b](htt
 ================================================================================
 `;
 
+exports[`nested-multi-line.md - {"proseWrap":"always","singleQuote":true} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+singleQuote: true
+                                                                                | printWidth
+=====================================input======================================
+[[nested
+[[multi line]] wiki link]]
+
+[[nested [[multi line]]
+wiki link]]
+
+[[nested [[multi
+line ]] wiki link]]
+
+[[nested
+[[multi
+line]]
+wiki link]]
+
+=====================================output=====================================
+[[nested
+[[multi line]] wiki
+link]]
+
+[[nested [[multi line]] wiki link]]
+
+[[nested [[multi line
+]] wiki
+link]]
+
+[[nested [[multi
+line]] wiki
+link]]
+
+================================================================================
+`;
+
+exports[`nested-multi-line.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+[[nested
+[[multi line]] wiki link]]
+
+[[nested [[multi line]]
+wiki link]]
+
+[[nested [[multi
+line ]] wiki link]]
+
+[[nested
+[[multi
+line]]
+wiki link]]
+
+=====================================output=====================================
+[[nested
+[[multi line]] wiki
+link]]
+
+[[nested [[multi line]] wiki link]]
+
+[[nested [[multi line
+]] wiki
+link]]
+
+[[nested [[multi
+line]] wiki
+link]]
+
+================================================================================
+`;
+
+exports[`nested-multi-line.md - {"proseWrap":"never"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "never"
+                                                                                | printWidth
+=====================================input======================================
+[[nested
+[[multi line]] wiki link]]
+
+[[nested [[multi line]]
+wiki link]]
+
+[[nested [[multi
+line ]] wiki link]]
+
+[[nested
+[[multi
+line]]
+wiki link]]
+
+=====================================output=====================================
+[[nested
+[[multi line]] wiki
+link]]
+
+[[nested [[multi line]] wiki link]]
+
+[[nested [[multi line
+]] wiki
+link]]
+
+[[nested [[multi
+line]] wiki
+link]]
+
+================================================================================
+`;
+
+exports[`nested-multi-line.md - {"proseWrap":"preserve"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "preserve"
+                                                                                | printWidth
+=====================================input======================================
+[[nested
+[[multi line]] wiki link]]
+
+[[nested [[multi line]]
+wiki link]]
+
+[[nested [[multi
+line ]] wiki link]]
+
+[[nested
+[[multi
+line]]
+wiki link]]
+
+=====================================output=====================================
+[[nested
+[[multi line]] wiki link]]
+
+[[nested [[multi line]]
+wiki link]]
+
+[[nested [[multi
+line ]] wiki link]]
+
+[[nested
+[[multi
+line]]
+wiki link]]
+
+================================================================================
+`;
+
 exports[`simple.md - {"proseWrap":"always","singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]

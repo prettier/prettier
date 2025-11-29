@@ -159,7 +159,7 @@ function genericPrint(path, options, print) {
         contents = node.value.replaceAll(/[\t\n]+/gu, " ");
       }
 
-      return ["[[", contents, "]]"];
+      return [node.hasWikiLinkRisk ? hardline : "", "[[", contents, "]]"];
     }
     case "link":
       if (!node.position) {
