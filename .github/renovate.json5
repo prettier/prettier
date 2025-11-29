@@ -9,6 +9,20 @@
   prConcurrentLimit: 0,
   packageRules: [
     {
+      branchPrefix: "renovate/website/",
+      matchFileNames: ["website/package.json"],
+      labels: ["dependency:website"],
+    },
+    {
+      branchPrefix: "renovate/tools/",
+      matchFileNames: [
+        "scripts/release/package.json",
+        "scripts/tools/bundle-test/package.json",
+        "scripts/tools/eslint-plugin-prettier-internal-rules/package.json",
+      ],
+      labels: ["dependency:tools"],
+    },
+    {
       groupName: "react",
       matchPackageNames: ["react", "react-dom"],
     },
@@ -58,20 +72,6 @@
       matchPackageNames: ["url-or-path", "search-closest"],
     },
     {
-      branchPrefix: "renovate/website/",
-      matchFileNames: ["website/package.json"],
-      labels: ["dependency:website"],
-    },
-    {
-      branchPrefix: "renovate/tools/",
-      matchFileNames: [
-        "scripts/release/package.json",
-        "scripts/tools/bundle-test/package.json",
-        "scripts/tools/eslint-plugin-prettier-internal-rules/package.json",
-      ],
-      labels: ["dependency:tools"],
-    },
-    {
       groupName: "GitHub Actions",
       matchManagers: ["github-actions"],
     },
@@ -88,6 +88,10 @@
     {
       groupName: "docusaurus",
       matchPackageNames: ["@docusaurus/*"],
+    },
+    {
+      groupName: "prettier",
+      matchPackageNames: ["prettier", "@prettier/plugin-*"],
     },
   ],
   ignoreDeps: [

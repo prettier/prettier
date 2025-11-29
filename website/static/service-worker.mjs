@@ -6,7 +6,7 @@ const { toolbox } = self;
 const packageFiles = [
   prettierPackageManifest.prettier,
   ...prettierPackageManifest.plugins,
-].map(({ file }) => `./lib/${file}`);
+].map(({ url }) => url);
 
 toolbox.precache([
   // Scripts
