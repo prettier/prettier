@@ -79,6 +79,20 @@ Strings provided to `plugins` are ultimately passed to [`import()` expression](h
 
 Prettier plugins are regular JavaScript modules with the following five exports or default export with the following properties:
 
+### Plugin Metadata (Optional)
+
+For easier debugging and more effective caching of plugins, it's recommended to provide a `name`, `version`, and optionally `namespace` in a `meta` object at the root of your plugin, like this:
+
+```js
+export const meta = {
+  name: "prettier-plugin-example",
+  version: "1.2.3",
+  namespace: "example"
+};
+```
+
+This metadata enables proper cache invalidation when your plugin version changes. Without this metadata, Prettier will consider plugins to be the same across different versions, which may lead to stale cache issues.
+
 - `languages`
 - `parsers`
 - `printers`
