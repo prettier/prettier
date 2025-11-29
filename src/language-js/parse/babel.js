@@ -190,8 +190,6 @@ const allowedReasonCodes = new Set([
 
   "ConstructorHasTypeParameters",
 
-  "UnsupportedParameterPropertyKind",
-
   "DecoratorExportClass",
   "ParamDupe",
   "InvalidDecimal",
