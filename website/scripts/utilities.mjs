@@ -32,6 +32,7 @@ async function buildPackageManifest(prettierEntry, plugins) {
     }),
   };
 
+  await fs.mkdir(new URL("../", packageManifestFile), { recursive: true });
   await fs.writeFile(
     packageManifestFile,
     `export default ${serialize(packageManifest, IS_CI ? undefined : { space: 2 })};`,
