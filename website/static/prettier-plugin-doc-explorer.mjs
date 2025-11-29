@@ -9,7 +9,7 @@ async function getJsExpressionParser() {
   const plugin = packageManifest.plugins.find((plugin) =>
     plugin.parsers?.includes(expressionParserName),
   );
-  const pluginModule = await import(`./lib/${plugin.file}`);
+  const pluginModule = await import(plugin.url);
   return pluginModule.parsers[expressionParserName];
 }
 
