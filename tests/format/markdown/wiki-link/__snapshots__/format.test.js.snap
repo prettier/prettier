@@ -267,8 +267,9 @@ I have some markdown prose here, with a horrible run-on sentence that [[makes li
 continue it into an obscenely long wiki-style link thingy]].
 
 =====================================output=====================================
-I have some markdown prose here, with a horrible run-on sentence that
-[[makes little sense at all as I continue it into an obscenely long wiki-style link thingy]].
+I have some markdown prose here, with a horrible run-on sentence that [[makes
+little sense at all as I continue it into an obscenely long wiki-style link
+thingy]].
 
 ================================================================================
 `;
@@ -284,8 +285,9 @@ I have some markdown prose here, with a horrible run-on sentence that [[makes li
 continue it into an obscenely long wiki-style link thingy]].
 
 =====================================output=====================================
-I have some markdown prose here, with a horrible run-on sentence that
-[[makes little sense at all as I continue it into an obscenely long wiki-style link thingy]].
+I have some markdown prose here, with a horrible run-on sentence that [[makes
+little sense at all as I continue it into an obscenely long wiki-style link
+thingy]].
 
 ================================================================================
 `;
@@ -725,7 +727,7 @@ singleQuote: true
 [[ Here is a link with leading and trailing whitespace.    ]]
 
 =====================================output=====================================
-[[Here is a link with leading and trailing whitespace.]]
+[[ Here is a link with leading and trailing whitespace.    ]]
 
 ================================================================================
 `;
@@ -740,7 +742,7 @@ proseWrap: "always"
 [[ Here is a link with leading and trailing whitespace.    ]]
 
 =====================================output=====================================
-[[Here is a link with leading and trailing whitespace.]]
+[[ Here is a link with leading and trailing whitespace.    ]]
 
 ================================================================================
 `;
@@ -755,7 +757,7 @@ proseWrap: "never"
 [[ Here is a link with leading and trailing whitespace.    ]]
 
 =====================================output=====================================
-[[Here is a link with leading and trailing whitespace.]]
+[[ Here is a link with leading and trailing whitespace.    ]]
 
 ================================================================================
 `;
@@ -770,7 +772,7 @@ proseWrap: "preserve"
 [[ Here is a link with leading and trailing whitespace.    ]]
 
 =====================================output=====================================
-[[Here is a link with leading and trailing whitespace.]]
+[[ Here is a link with leading and trailing whitespace.    ]]
 
 ================================================================================
 `;

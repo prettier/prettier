@@ -27,6 +27,7 @@ const visitorKeys = {
   tableCell: ["children"],
   break: [],
   liquidNode: [],
+  liquidBlock: [],
   import: [],
   export: [],
   esComment: [],

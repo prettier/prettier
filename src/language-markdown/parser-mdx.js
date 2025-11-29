@@ -1,7 +1,7 @@
 import footnotes from "remark-footnotes";
-import remarkMath from "remark-math";
-import remarkParse from "remark-parse";
-import unified from "unified";
+import remarkMath from "remark-math-v3";
+import remarkParse from "remark-parse-v8";
+import unified from "unified-v9";
 import { locEnd, locStart } from "./loc.js";
 import { BLOCKS_REGEX, esSyntax } from "./mdx.js";
 import { hasIgnorePragma, hasPragma } from "./pragma.js";
@@ -24,34 +24,30 @@ import wikiLink from "./unified-plugins/wiki-link.js";
  * interface Sentence { children: Array<Word | Whitespace> }
  * interface InlineCode { children: Array<Sentence> }
  */
-function createParse({ isMDX }) {
-  return (text) => {
-    const processor = unified()
-      .use(remarkParse, {
-        commonmark: true,
-        ...(isMDX && { blocks: [BLOCKS_REGEX] }),
-      })
-      .use(footnotes)
-      .use(frontMatter)
-      .use(remarkMath)
-      .use(isMDX ? esSyntax : noop)
-      .use(liquid)
-      .use(isMDX ? htmlToJsx : noop)
-      .use(wikiLink);
-    return processor.run(processor.parse(text));
-  };
-}
 
-function noop() {}
-
-const baseParser = {
+const mdxParser = {
   astFormat: "mdast",
   hasPragma,
   hasIgnorePragma,
   locStart,
   locEnd,
+  parse(text) {
+    const processor = unified()
+      .use(remarkParse, {
+        commonmark: true,
+        blocks: [BLOCKS_REGEX],
+      })
+      // @ts-expect-error -- IDK
+      .use(footnotes)
+      .use(frontMatter)
+      // @ts-expect-error -- IDK
+      .use(remarkMath)
+      .use(esSyntax)
+      .use(liquid)
+      .use(htmlToJsx)
+      .use(wikiLink);
+    return processor.run(processor.parse(text));
+  },
 };
 
-export const markdown = { ...baseParser, parse: createParse({ isMDX: false }) };
-export const mdx = { ...baseParser, parse: createParse({ isMDX: true }) };
-export { markdown as remark };
+export const mdx = mdxParser;

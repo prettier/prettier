@@ -6,11 +6,26 @@ const isSingleCharRegex = /^\\?.$/su;
 const isNewLineBlockquoteRegex = /^\n *>[ >]*$/u;
 
 function preprocess(ast, options) {
-  ast = restoreUnescapedCharacter(ast, options);
+  if (options.parser === "mdx") {
+    ast = restoreUnescapedCharacter(ast, options);
+  } else {
+    ast = addRawToText(ast, options);
+  }
   ast = mergeContinuousTexts(ast);
-  ast = transformIndentedCodeblockAndMarkItsParentList(ast, options);
+  if (options.parser === "mdx") {
+    ast = transformIndentedCodeblockAndMarkItsParentList(ast, options);
+  } else {
+    ast = transformIndentedCodeblock(ast, options);
+  }
+  if (options.parser !== "mdx") {
+    ast = markOriginalImageAndLinkAlt(ast, options);
+  }
   ast = markAlignedList(ast, options);
-  ast = splitTextIntoSentences(ast);
+  if (options.parser === "mdx") {
+    ast = splitTextIntoSentencesLegacy(ast);
+  } else {
+    ast = splitTextIntoSentences(ast);
+  }
   return ast;
 }
 
@@ -41,6 +56,21 @@ function restoreUnescapedCharacter(ast, options) {
     }
 
     return { ...node, value: text };
+  });
+}
+
+function addRawToText(ast, options) {
+  return mapAst(ast, (node) => {
+    if (node.type === "text") {
+      // https://github.com/remarkjs/remark-gfm/issues/16
+      node.raw = node.position
+        ? options.originalText.slice(
+            node.position.start.offset,
+            node.position.end.offset,
+          )
+        : node.value;
+    }
+    return node;
   });
 }
 
@@ -85,7 +115,7 @@ function mergeContinuousTexts(ast) {
   );
 }
 
-function splitTextIntoSentences(ast) {
+function splitTextIntoSentencesLegacy(ast) {
   return mapAst(ast, (node, index, [parentNode]) => {
     if (node.type !== "text") {
       return node;
@@ -109,6 +139,68 @@ function splitTextIntoSentences(ast) {
       position: node.position,
       children: splitText(value),
     };
+  });
+}
+
+function splitTextIntoSentences(ast) {
+  return mapAst(ast, (node, index, parentStack) => {
+    if (node.type !== "text") {
+      return node;
+    }
+
+    let text = node.raw;
+
+    const paragraphIndex = parentStack.findIndex(
+      (ancestor) => ancestor?.type === "paragraph",
+    );
+
+    const paragraphNode =
+      paragraphIndex === -1 ? undefined : parentStack[paragraphIndex];
+
+    if (paragraphNode) {
+      if (
+        parentStack
+          .slice(paragraphIndex + 1)
+          .some((ancestor) => ancestor?.type === "blockquote")
+      ) {
+        text = text.replaceAll("\n> ", "\n");
+      }
+
+      const parentNode = parentStack[0];
+
+      if (parentNode?.type === "paragraph") {
+        if (index === 0) {
+          text = htmlWhitespaceUtils.trimStart(text);
+        }
+        if (index === parentNode.children.length - 1) {
+          text = htmlWhitespaceUtils.trimEnd(text);
+        }
+      }
+    }
+
+    return {
+      type: "sentence",
+      position: node.position,
+      children: splitText(text),
+    };
+  });
+}
+
+function transformIndentedCodeblock(ast, options) {
+  return mapAst(ast, (node) => {
+    if (node.type !== "code") {
+      return node;
+    }
+    // the first char may point to `\n`, e.g. `\n\t\tbar`, just ignore it
+    const isIndented = /^\n?(?: {4,}|\t)/u.test(
+      options.originalText.slice(
+        node.position.start.offset,
+        node.position.end.offset,
+      ),
+    );
+
+    node.isIndented = isIndented;
+    return node;
   });
 }
 
@@ -142,6 +234,68 @@ function transformIndentedCodeblockAndMarkItsParentList(ast, options) {
     }
     return node;
   });
+}
+
+// remark 11 removes nested links so we need to recover the original alt text
+function markOriginalImageAndLinkAlt(ast, options) {
+  const { originalText } = options;
+  return mapAst(ast, (node) => {
+    if (!(node.type === "image" || node.type === "link")) {
+      return node;
+    }
+    if (!node.url || !node.position) {
+      return node;
+    }
+
+    const originalAlt = getBracketContent(
+      originalText,
+      node.position.start.offset,
+      node.position.end.offset,
+    );
+
+    if (originalAlt && /[[\]]/u.test(originalAlt)) {
+      if (node.type === "image") {
+        node.originalAltText = originalAlt;
+      } else {
+        node.originalLabelText = originalAlt;
+      }
+    }
+
+    return node;
+  });
+}
+
+function getBracketContent(text, startOffset, endOffset) {
+  const firstBracket = text.indexOf("[", startOffset);
+
+  if (firstBracket === -1 || firstBracket >= endOffset) {
+    return null;
+  }
+
+  let depth = 1;
+  let index = firstBracket + 1;
+
+  while (index < endOffset) {
+    const char = text[index];
+
+    if (char === "\\") {
+      index += 2;
+      continue;
+    }
+
+    if (char === "[") {
+      depth++;
+    } else if (char === "]") {
+      depth--;
+      if (depth === 0) {
+        return text.slice(firstBracket + 1, index);
+      }
+    }
+
+    index++;
+  }
+
+  return null;
 }
 
 function markAlignedList(ast, options) {
