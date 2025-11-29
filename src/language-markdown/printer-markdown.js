@@ -159,6 +159,10 @@ function genericPrint(path, options, print) {
         contents = node.value.replaceAll(/[\t\n]+/gu, " ");
       }
 
+      if (options.parser === "mdx") {
+        return ["[[", contents, "]]"];
+      }
+
       return [node.hasWikiLinkRisk ? hardline : "", "[[", contents, "]]"];
     }
     case "link":
