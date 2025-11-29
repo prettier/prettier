@@ -93,6 +93,10 @@ function printObject(path, options, print) {
           (property.value.type === "ObjectPattern" ||
             property.value.type === "ArrayPattern"),
       )) ||
+    (node.type === "ObjectPattern" &&
+      options.destructuringWrap === "preserve" &&
+      children.length > 0 &&
+      hasNewLineAfterOpeningBrace(node, children[0], options)) ||
     (node.type !== "ObjectPattern" &&
       options.objectWrap === "preserve" &&
       children.length > 0 &&
@@ -210,6 +214,16 @@ function hasNewLineAfterOpeningBrace(node, firstProperty, options) {
       firstPropertyStart,
     );
     openingBraceIndex = start + textBeforeAttributes.lastIndexOf("{");
+  } else if (node.type === "ObjectPattern") {
+    const textBeforeFirstProperty = getTextWithoutComments(
+      options,
+      openingBraceIndex,
+      firstPropertyStart,
+    );
+    const braceIndex = textBeforeFirstProperty.indexOf("{");
+    if (braceIndex !== -1) {
+      openingBraceIndex = openingBraceIndex + braceIndex;
+    }
   }
 
   /* c8 ignore next 3 */
