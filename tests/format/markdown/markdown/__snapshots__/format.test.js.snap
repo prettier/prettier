@@ -1207,8 +1207,8 @@ npm install --global prettier
 Run Prettier through the CLI with this script. Run it without any arguments to
 see the [options](#options).
 
-To format a file in-place, use \`--write\`. You may want to consider committing
-your code before doing that, just in case.
+To format a file in-place, use \`--write\`.
+You may want to consider committing your code before doing that, just in case.
 
 \`\`\`bash
 prettier [opts] [filename ...]
@@ -1236,8 +1236,9 @@ message if it detects that code correctness might have changed. Note that
 
 If you are repeatedly formatting individual files with \`prettier\`, you will
 incur a small performance cost when prettier attempts to look up a
-[configuration file](#configuration-file). In order to skip this, you may ask
-prettier to find the config file once, and re-use it later on.
+[configuration file](#configuration-file).
+In order to skip this, you may ask prettier to find the config file once, and
+re-use it later on.
 
 \`\`\`bash
 prettier --find-config-path ./my/file.js
@@ -1442,8 +1443,9 @@ prettier.format('foo ( );', { semi: false });
 #### \`prettier.check(source [, options])\`
 
 \`check\` checks to see if the file has been formatted with Prettier given those
-options and returns a \`Boolean\`. This is similar to the \`--list-different\`
-parameter in the CLI and is useful for running Prettier in CI scenarios.
+options and returns a \`Boolean\`.
+This is similar to the \`--list-different\` parameter in the CLI and is useful for
+running Prettier in CI scenarios.
 
 #### \`prettier.formatWithCursor(source [, options])\`
 
@@ -3179,8 +3181,8 @@ npm install --global prettier
 Run Prettier through the CLI with this script. Run it without any arguments to
 see the [options](#options).
 
-To format a file in-place, use \`--write\`. You may want to consider committing
-your code before doing that, just in case.
+To format a file in-place, use \`--write\`.
+You may want to consider committing your code before doing that, just in case.
 
 \`\`\`bash
 prettier [opts] [filename ...]
@@ -3208,8 +3210,9 @@ message if it detects that code correctness might have changed. Note that
 
 If you are repeatedly formatting individual files with \`prettier\`, you will
 incur a small performance cost when prettier attempts to look up a
-[configuration file](#configuration-file). In order to skip this, you may ask
-prettier to find the config file once, and re-use it later on.
+[configuration file](#configuration-file).
+In order to skip this, you may ask prettier to find the config file once, and
+re-use it later on.
 
 \`\`\`bash
 prettier --find-config-path ./my/file.js
@@ -3414,8 +3417,9 @@ prettier.format("foo ( );", { semi: false });
 #### \`prettier.check(source [, options])\`
 
 \`check\` checks to see if the file has been formatted with Prettier given those
-options and returns a \`Boolean\`. This is similar to the \`--list-different\`
-parameter in the CLI and is useful for running Prettier in CI scenarios.
+options and returns a \`Boolean\`.
+This is similar to the \`--list-different\` parameter in the CLI and is useful for
+running Prettier in CI scenarios.
 
 #### \`prettier.formatWithCursor(source [, options])\`
 
