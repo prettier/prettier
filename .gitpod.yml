@@ -1,6 +1,0 @@
-# https://gitpod.io/#https://github.com/prettier/prettier
-
-tasks:
-  - init: |
-      brew install hyperfine
-      yarn
