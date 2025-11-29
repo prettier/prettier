@@ -76,8 +76,11 @@ function printDirective(rawText, options) {
 
   // Check for the alternate quote, to determine if we're allowed to swap
   // the quotes on a DirectiveLiteral.
-  // Perf https://tinyurl.com/muvuj9wp
-  if (rawContent === DIRECTIVE_USE_STRICT || !/"'/u.test(rawContent)) {
+  // Perf https://tinyurl.com/388dmh3v
+  if (
+    rawContent === DIRECTIVE_USE_STRICT ||
+    !(rawContent.includes('"') || rawContent.includes("'"))
+  ) {
     const enclosingQuote = options.singleQuote ? "'" : '"';
 
     // Directives are exact code unit sequences, which means that you can't
