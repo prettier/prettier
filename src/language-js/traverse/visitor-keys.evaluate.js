@@ -14,12 +14,6 @@ const additionalVisitorKeys = {
   JsExpressionRoot: ["node"],
   JsonRoot: ["node"],
 
-  // TypeScript
-  TSJSDocAllType: [],
-  TSJSDocUnknownType: [],
-  TSJSDocNullableType: ["typeAnnotation"],
-  TSJSDocNonNullableType: ["typeAnnotation"],
-
   // Flow, missed in `flowVisitorKeys`
   NeverTypeAnnotation: [],
   SatisfiesExpression: ["expression", "typeAnnotation"],

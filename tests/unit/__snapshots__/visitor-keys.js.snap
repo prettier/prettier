@@ -929,14 +929,6 @@ exports[`visitor keys estree 1`] = `
     "types",
   ],
   "TSIntrinsicKeyword": [],
-  "TSJSDocAllType": [],
-  "TSJSDocNonNullableType": [
-    "typeAnnotation",
-  ],
-  "TSJSDocNullableType": [
-    "typeAnnotation",
-  ],
-  "TSJSDocUnknownType": [],
   "TSLiteralType": [
     "literal",
   ],
