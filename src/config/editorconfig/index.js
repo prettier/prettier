@@ -11,7 +11,7 @@ import editorConfigToPrettier from "./editorconfig-to-prettier.js";
 */
 
 /**
-@type {Map<string, EditorConfig>}
+@type {Map<string, Promise<EditorConfig>>}
 */
 const editorconfigCache = new Map();
 
