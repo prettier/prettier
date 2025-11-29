@@ -28,7 +28,7 @@ async function runBenchmark(options, implementations) {
 
   const { assert, ...benchOptions } = options;
 
-  const bench = new Bench(benchOptions);
+  const bench = new Bench({ throws: true, ...benchOptions });
 
   let error;
 

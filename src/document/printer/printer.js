@@ -22,6 +22,7 @@ import {
 import { getDocType, propagateBreaks } from "../utilities/index.js";
 import InvalidDocError from "../utilities/invalid-doc-error.js";
 import { makeAlign, makeIndent, ROOT_INDENT } from "./indent.js";
+import PrintResult from "./print-result.js";
 import { trimIndentation } from "./trim-indentation.js";
 
 /**
@@ -187,16 +188,11 @@ function printDocToString(doc, options) {
   // commands to the array instead of recursively calling `print`.
   /** @type Command[] */
   const commands = [{ indent: ROOT_INDENT, mode: MODE_BREAK, doc }];
-  let output = "";
   let shouldRemeasure = false;
   /** @type Command[] */
   const lineSuffix = [];
-  const cursorPositions = [];
 
-  /** @type string[] */
-  const settledOutput = [];
-  const settledCursorPositions = [];
-  let settledTextLength = 0;
+  const result = new PrintResult();
 
   propagateBreaks(doc);
 
@@ -208,7 +204,7 @@ function printDocToString(doc, options) {
           newLine !== "\n" ? doc.replaceAll("\n", newLine) : doc;
         // Plugins may print single string, should skip measure the width
         if (formatted) {
-          output += formatted;
+          result.write(formatted);
           if (commands.length > 0) {
             position += getStringWidth(formatted);
           }
@@ -223,10 +219,7 @@ function printDocToString(doc, options) {
         break;
 
       case DOC_TYPE_CURSOR:
-        if (cursorPositions.length >= 2) {
-          throw new Error("There are too many 'cursor' in doc.");
-        }
-        cursorPositions.push(settledTextLength + output.length);
+        result.markPosition();
         break;
 
       case DOC_TYPE_INDENT:
@@ -246,7 +239,7 @@ function printDocToString(doc, options) {
         break;
 
       case DOC_TYPE_TRIM:
-        trim();
+        position -= result.trim();
         break;
 
       case DOC_TYPE_GROUP:
@@ -481,8 +474,7 @@ function printDocToString(doc, options) {
           case MODE_FLAT:
             if (!doc.hard) {
               if (!doc.soft) {
-                output += " ";
-
+                result.write(" ");
                 position += 1;
               }
 
@@ -506,17 +498,17 @@ function printDocToString(doc, options) {
             }
 
             if (doc.literal) {
-              output += newLine;
+              result.write(newLine);
               position = 0;
               if (indent.root) {
                 if (indent.root.value) {
-                  output += indent.root.value;
+                  result.write(indent.root.value);
                 }
                 position = indent.root.length;
               }
             } else {
-              trim();
-              output += newLine + indent.value;
+              result.trim();
+              result.write(newLine + indent.value);
               position = indent.length;
             }
             break;
@@ -543,10 +535,9 @@ function printDocToString(doc, options) {
     }
   }
 
-  const formatted = settledOutput.join("") + output;
-  const finalCursorPositions = [...settledCursorPositions, ...cursorPositions];
+  const { text: formatted, positions: cursorPositions } = result.finish();
 
-  if (finalCursorPositions.length !== 2) {
+  if (cursorPositions.length !== 2) {
     // If the doc contained ONE cursor command,
     // instead of the expected zero or two. If the doc being printed was
     // returned by printAstToDoc, then the only ways this can have happened
@@ -575,37 +566,12 @@ function printDocToString(doc, options) {
     return { formatted };
   }
 
-  const cursorNodeStart = finalCursorPositions[0];
+  const [cursorNodeStart, cursorNodeEnd] = cursorPositions;
   return {
     formatted,
     cursorNodeStart,
-    cursorNodeText: formatted.slice(
-      cursorNodeStart,
-      finalCursorPositions.at(-1),
-    ),
+    cursorNodeText: formatted.slice(cursorNodeStart, cursorNodeEnd),
   };
-
-  function trim() {
-    const { text: trimmed, count } = trimIndentation(output);
-
-    if (trimmed) {
-      settledOutput.push(trimmed);
-      settledTextLength += trimmed.length;
-    }
-
-    output = "";
-    position -= count;
-
-    if (cursorPositions.length > 0) {
-      settledCursorPositions.push(
-        ...cursorPositions.map((position) =>
-          Math.min(position, settledTextLength),
-        ),
-      );
-
-      cursorPositions.length = 0;
-    }
-  }
 }
 
 export { printDocToString };
