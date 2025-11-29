@@ -26,7 +26,7 @@ import { insertPragma } from "./pragma.js";
 import { printChildren } from "./print/children.js";
 import { printList, printListLegacy } from "./print/list.js";
 import { printTable } from "./print/table.js";
-import { printWord } from "./print/word.js";
+import { printWord, printWordLegacy } from "./print/word.js";
 import { printParagraph } from "./print-paragraph.js";
 import preprocess from "./print-preprocess.js";
 import { printSentence } from "./print-sentence.js";
@@ -101,7 +101,7 @@ function genericPrint(path, options, print) {
     case "sentence":
       return printSentence(path, print);
     case "word":
-      return options.parser !== "mdx" ? node.value : printWord(path);
+      return options.parser !== "mdx" ? printWord(path) : printWordLegacy(path);
     case "whitespace": {
       const { next } = path;
 
@@ -159,11 +159,7 @@ function genericPrint(path, options, print) {
         contents = node.value.replaceAll(/[\t\n]+/gu, " ");
       }
 
-      return [
-        "[[",
-        options.parser === "mdx" ? contents : contents.trim(),
-        "]]",
-      ];
+      return ["[[", contents, "]]"];
     }
     case "link":
       if (!node.position) {
@@ -201,7 +197,7 @@ function genericPrint(path, options, print) {
     case "image":
       return [
         "![",
-        node.alt || "",
+        getImageAltText(node, options),
         "](",
         printUrl(node.url, ")"),
         printTitle(node.title, options),
@@ -523,14 +519,27 @@ function hasPrettierIgnore(path) {
   return path.index > 0 && isPrettierIgnore(path.previous) === "next";
 }
 
-// `remark-parse` lowercase the `label` as `identifier`, we don't want do that
-// https://github.com/remarkjs/remark/blob/daddcb463af2d5b2115496c395d0571c0ff87d15/packages/remark-parse/lib/tokenize/reference.js
-function printLinkReference(node) {
-  return `[${collapseWhiteSpace(node.label)}]`;
+function printLinkReference(node, options) {
+  // `remark-parse` lowercase the `label` as `identifier`, we don't want do that
+  // https://github.com/remarkjs/remark/blob/daddcb463af2d5b2115496c395d0571c0ff87d15/packages/remark-parse/lib/tokenize/reference.js
+  const label = collapseWhiteSpace(node.label);
+  if (options?.parser === "mdx") {
+    return `[${label}]`;
+  }
+  const name = label.replaceAll(/[\\[\]]/gu, (s) => `\\${s}`);
+  return `[${name}]`;
 }
 
 function printFootnoteReference(node) {
   return `[^${node.label}]`;
+}
+
+function getImageAltText(node, options) {
+  if (options.parser !== "mdx" && node.originalAltText) {
+    return node.originalAltText;
+  }
+
+  return node.alt || "";
 }
 
 /**

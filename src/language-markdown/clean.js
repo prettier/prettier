@@ -35,10 +35,6 @@ function clean(original, cloned, parent) {
     cloned.value = original.value.replaceAll("\n", " ");
   }
 
-  if (original.type === "wikiLink") {
-    cloned.value = original.value.trim().replaceAll(/[\t\n]+/gu, " ");
-  }
-
   if (
     original.type === "definition" ||
     original.type === "linkReference" ||
