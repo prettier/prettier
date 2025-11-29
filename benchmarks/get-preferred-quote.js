@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-// import * as prettierDevBundled from "../dist/prettier/index.mjs";
+// import * as prettierDevelopmentBundled from "../dist/prettier/index.mjs";
 import * as prettierProduction from "../node_modules/prettier/index.mjs";
 import * as prettierDevelopment from "../src/index.js";
 import { runBenchmark } from "./utilities.js";
@@ -20,7 +20,7 @@ for (const size of [1, 1e1, 1e2, 1e3, 1e4, 1e5]) {
     },
     [
       { name: "Development", prettier: prettierDevelopment },
-      // { name: "Development(Bundled)", prettier: prettierDevBundled },
+      // { name: "Development(Bundled)", prettier: prettierDevelopmentBundled },
       { name: "Production", prettier: prettierProduction },
     ].map(({ name, prettier }) => ({
       name,
