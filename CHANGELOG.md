@@ -1,3 +1,11 @@
+# 3.7.3
+
+[diff](https://github.com/prettier/prettier/compare/3.7.2...3.7.3)
+
+#### API: Fix `prettier.getFileInfo()` change that breaks VSCode extension ([#18375](https://github.com/prettier/prettier/pull/18375) by [@fisker](https://github.com/fisker))
+
+An internal refactor accidentally broke the VSCode extension plugin loading.
+
 # 3.7.2
 
 [diff](https://github.com/prettier/prettier/compare/3.7.1...3.7.2)
