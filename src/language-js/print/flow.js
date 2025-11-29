@@ -29,6 +29,7 @@ import {
   printHook,
   printHookTypeAnnotation,
 } from "./hook.js";
+import { printIntersectionType } from "./intersection-type.js";
 import { printBigInt } from "./literal.js";
 import { printFlowMappedTypeProperty } from "./mapped-type.js";
 import { printMatch, printMatchCase, printMatchPattern } from "./match.js";
@@ -45,7 +46,6 @@ import {
   printFunctionType,
   printIndexedAccessType,
   printInferType,
-  printIntersectionType,
   printNamedTupleMember,
   printOpaqueType,
   printRestType,
@@ -54,9 +54,9 @@ import {
   printTypeAnnotationProperty,
   printTypePredicate,
   printTypeQuery,
-  printUnionType,
 } from "./type-annotation.js";
 import { printTypeParameter, printTypeParameters } from "./type-parameters.js";
+import { printUnionType } from "./union-type.js";
 
 function printFlow(path, options, print) {
   const { node } = path;

@@ -34,6 +34,7 @@ import {
   printFunctionParameters,
   shouldGroupFunctionParameters,
 } from "./function-parameters.js";
+import { printIntersectionType } from "./intersection-type.js";
 import { printTypeScriptMappedType } from "./mapped-type.js";
 import {
   printDeclareToken,
@@ -49,7 +50,6 @@ import {
   printFunctionType,
   printIndexedAccessType,
   printInferType,
-  printIntersectionType,
   printJSDocType,
   printNamedTupleMember,
   printRestType,
@@ -58,9 +58,9 @@ import {
   printTypeAnnotationProperty,
   printTypePredicate,
   printTypeQuery,
-  printUnionType,
 } from "./type-annotation.js";
 import { printTypeParameter, printTypeParameters } from "./type-parameters.js";
+import { printUnionType } from "./union-type.js";
 
 function printTypescript(path, options, print) {
   const { node } = path;
