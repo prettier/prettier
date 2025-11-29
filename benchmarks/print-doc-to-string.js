@@ -3,7 +3,6 @@ import fs from "node:fs/promises";
 import prettyBytes from "pretty-bytes";
 import * as prettierProduction from "../node_modules/prettier/index.mjs";
 import * as prettier362 from "../node_modules/prettier362/index.mjs";
-import * as prettier370 from "../node_modules/prettier370/index.mjs";
 import * as prettierDevelopment from "../src/index.js";
 import { runBenchmark } from "./utilities.js";
 
@@ -36,7 +35,6 @@ for (const size of [1, 1e1, 1e2, 1e3, 5e3]) {
     },
     [
       { name: "3.6.2", prettier: prettier362 },
-      { name: "3.7.0", prettier: prettier370 },
       { name: "Development", prettier: prettierDevelopment },
       { name: "Production", prettier: prettierProduction },
     ].map(({ name, prettier }) => ({

@@ -104,7 +104,6 @@
     "postcss-selector-parser": "2.2.3",
     "postcss-values-parser": "2.0.1",
     "prettier362": "npm:prettier@3.6.2",
-    "prettier370": "npm:prettier@3.7.0",
     "regexp-util": "2.0.3",
     "remark-footnotes": "2.0.0",
     "remark-math": "3.0.1",
