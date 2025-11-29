@@ -56,7 +56,7 @@ async function getParser(file, options) {
 
   let plugins = options.plugins ?? config?.plugins ?? [];
 
-  // We should wrap this funciton with `withPlugins` and use `options.plugins` directly instead of loading plugins here
+  // We should wrap this function with `withPlugins` and use `options.plugins` directly instead of loading plugins here
   // See #18375 #18081
   // But somehow it breaks VSCode extension, see #18353
   plugins = (
