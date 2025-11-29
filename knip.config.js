@@ -41,6 +41,7 @@ const config = {
       ignoreDependencies: [
         "@docusaurus/faster",
         "@docusaurus/plugin-content-docs",
+        "prettier",
         "@prettier/plugin-hermes",
         "@prettier/plugin-oxc",
       ],
