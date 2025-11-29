@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import serialize from "serialize-javascript";
 
-const IS_CI = process.env.CI;
+const IS_CI = Boolean(process.env.CI);
 
 const packageManifestFile = new URL(
   "../static/lib/package-manifest.mjs",

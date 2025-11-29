@@ -18,7 +18,7 @@ import {
 
 const runYarn = (command, args, options) =>
   spawn("yarn", [command, ...args], { stdio: "inherit", ...options });
-const IS_PULL_REQUEST = process.env.PULL_REQUEST !== "true";
+const IS_PULL_REQUEST = process.env.PULL_REQUEST === "true";
 const IS_CI = Boolean(process.env.CI);
 const PACKAGES_DIRECTORY = IS_PULL_REQUEST
   ? DIST_DIR
@@ -44,9 +44,13 @@ async function buildPrettier() {
   });
 
   try {
-    await runYarn("build", ["--clean", "--playground"], {
-      cwd: PROJECT_ROOT,
-    });
+    await runYarn(
+      "build",
+      ["--clean", "--playground", ...(IS_CI ? [] : ["--no-minify"])],
+      {
+        cwd: PROJECT_ROOT,
+      },
+    );
   } finally {
     // restore
     await writeFile(packageJsonFile, packageJsonContent);
