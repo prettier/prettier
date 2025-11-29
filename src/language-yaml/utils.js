@@ -101,7 +101,16 @@ function hasPrettierIgnore(path) {
   }
 
   return (
-    hasLeadingComments(node) && isPrettierIgnore(node.leadingComments.at(-1))
+    (!isNode(node, ["mapping", "sequence"]) &&
+      hasLeadingComments(node) &&
+      isPrettierIgnore(node.leadingComments.at(-1))) ||
+    (path.isFirst &&
+      isNode(node, ["mappingItem", "sequenceItem"]) &&
+      path.callParent(
+        (parent) =>
+          hasLeadingComments(parent.node) &&
+          isPrettierIgnore(parent.node.leadingComments.at(-1)),
+      ))
   );
 }
 

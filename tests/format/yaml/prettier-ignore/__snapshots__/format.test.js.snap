@@ -65,6 +65,40 @@ def:  !!str #   hello
 ================================================================================
 `;
 
+exports[`top-comment.yml format 1`] = `
+====================================options=====================================
+parsers: ["yaml"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+# prettier-ignore
+abc:     123
+def:     456
+# prettier-ignore
+ghi:     789
+---
+# prettier-ignore
+-        abc
+-        def
+# prettier-ignore
+-        ghi
+
+=====================================output=====================================
+# prettier-ignore
+abc:     123
+def: 456
+# prettier-ignore
+ghi:     789
+---
+# prettier-ignore
+-        abc
+- def
+# prettier-ignore
+-        ghi
+
+================================================================================
+`;
+
 exports[`trailing-comma.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
