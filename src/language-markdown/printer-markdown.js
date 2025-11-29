@@ -26,7 +26,7 @@ import { insertPragma } from "./pragma.js";
 import { printChildren } from "./print/children.js";
 import { printList, printListLegacy } from "./print/list.js";
 import { printTable } from "./print/table.js";
-import { printWordLegacy } from "./print/word.js";
+import { printWord, printWordLegacy } from "./print/word.js";
 import { printParagraph } from "./print-paragraph.js";
 import preprocess from "./print-preprocess.js";
 import { printSentence } from "./print-sentence.js";
@@ -101,7 +101,7 @@ function genericPrint(path, options, print) {
     case "sentence":
       return printSentence(path, print);
     case "word":
-      return options.parser !== "mdx" ? node.value : printWordLegacy(path);
+      return options.parser !== "mdx" ? printWord(path) : printWordLegacy(path);
     case "whitespace": {
       const { next } = path;
 
