@@ -19,6 +19,7 @@ import {
 const runYarn = (command, args, options) =>
   spawn("yarn", [command, ...args], { stdio: "inherit", ...options });
 const IS_PULL_REQUEST = process.env.PULL_REQUEST === "true";
+const IS_CI = Boolean(process.env.CI);
 const PACKAGES_DIRECTORY = IS_PULL_REQUEST
   ? DIST_DIR
   : url.fileURLToPath(new URL("../node_modules", import.meta.url));
@@ -27,7 +28,7 @@ const PLAYGROUND_LIB_DIRECTORY = path.join(WEBSITE_DIR, "static/lib");
 async function writeScript(file, code) {
   const { code: minified } = await esbuild.transform(code, {
     loader: "js",
-    minify: true,
+    minify: IS_CI,
   });
   await writeFile(path.join(PLAYGROUND_LIB_DIRECTORY, file), minified.trim());
 }
@@ -53,6 +54,10 @@ async function buildPrettier() {
 }
 
 async function buildPlaygroundFiles() {
+  await buildPrettier();
+
+  const prettierEntry = "prettier/standalone.mjs";
+
   const pluginFiles = [];
 
   // Builtin plugins
@@ -62,73 +67,47 @@ async function buildPlaygroundFiles() {
     pluginFiles.push(`prettier/${fileName}`);
   }
 
-  // TODO: Support stable version
-  // External plugins
-  if (IS_PULL_REQUEST) {
-    for (const pluginName of ["plugin-hermes"]) {
-      pluginFiles.push(`${pluginName}/index.mjs`);
-    }
-    for (const pluginName of ["plugin-oxc"]) {
-      pluginFiles.push(`${pluginName}/index.browser.mjs`);
-    }
+  for (const pluginName of ["plugin-hermes"]) {
+    pluginFiles.push(`${pluginName}/index.mjs`);
+  }
+  for (const pluginName of ["plugin-oxc"]) {
+    pluginFiles.push(`${pluginName}/index.browser.mjs`);
   }
 
-  const packageManifest = {
-    prettier: {
-      file: "prettier/standalone.mjs",
-    },
-    plugins: await Promise.all(
-      pluginFiles.map(async (file) => {
-        const plugin = { file };
-
-        const pluginModule = await import(
-          url.pathToFileURL(path.join(PACKAGES_DIRECTORY, file))
-        );
-
-        for (const property of ["languages", "options", "defaultOptions"]) {
-          const value = pluginModule[property];
-          if (value !== undefined) {
-            plugin[property] = value;
-          }
-        }
-
-        for (const property of ["parsers", "printers"]) {
-          const value = pluginModule[property];
-          if (value !== undefined) {
-            plugin[property] = Object.keys(value);
-          }
-        }
-
-        return plugin;
-      }),
-    ),
-  };
-
   await Promise.all([
-    ...[packageManifest.prettier, ...packageManifest.plugins].map(({ file }) =>
+    ...[prettierEntry, ...pluginFiles].map((file) =>
       copyFile(
         path.join(PACKAGES_DIRECTORY, file),
         path.join(PLAYGROUND_LIB_DIRECTORY, file),
       ),
     ),
     writeScript(
-      "package-manifest.mjs",
-      `export default ${serialize(packageManifest, { space: 2 })};`,
+      "pull-request-package-data.mjs",
+      /* Indent */ `
+        export const prettierEntry = ${serialize(prettierEntry, IS_CI ? undefined : { space: 2 })};
+        export const pluginFiles = ${serialize(pluginFiles, IS_CI ? undefined : { space: 2 })};
+      `,
     ),
   ]);
 }
 
 if (IS_PULL_REQUEST) {
-  console.log("Building prettier...");
-  await buildPrettier();
+  console.log("Preparing packages for playground...");
+  await buildPlaygroundFiles();
 }
-
-console.log("Preparing files for playground...");
-await buildPlaygroundFiles();
 
 // --- Site ---
 console.log("Installing website dependencies...");
 await runYarn("install", [], { cwd: WEBSITE_DIR });
+
+console.log("Preparing files for playground...");
+await runYarn(
+  IS_PULL_REQUEST
+    ? "prepare-pull-request-playground"
+    : "prepare-stable-playground",
+  [],
+  { cwd: WEBSITE_DIR },
+);
 
 console.log("Building website...");
 await runYarn("build", [], { cwd: WEBSITE_DIR });

@@ -2,6 +2,8 @@
   "private": true,
   "license": "MIT",
   "scripts": {
+    "prepare-stable-playground": "node ./scripts/build-stable-playground-files.mjs",
+    "prepare-pull-request-playground": "node ./scripts/build-pull-request-playground-files.mjs",
     "playground:build": "vite build",
     "playground:watch": "vite",
     "docusaurus": "docusaurus",
@@ -31,8 +33,12 @@
     "@docusaurus/faster": "3.9.2",
     "@docusaurus/module-type-aliases": "3.9.2",
     "@docusaurus/types": "3.9.2",
+    "@prettier/plugin-hermes": "0.1.2",
+    "@prettier/plugin-oxc": "0.1.2",
     "@vitejs/plugin-react": "5.1.1",
     "concurrently": "9.2.1",
+    "prettier": "3.7.3",
+    "serialize-javascript": "7.0.1",
     "vite": "7.2.4",
     "yaml": "2.8.1"
   },

@@ -1,7 +1,4 @@
-import prettierPackageManifest from "./lib/package-manifest.mjs";
-import * as prettier from "./lib/prettier/standalone.mjs";
-
-const builderNames = new Set(Object.keys(prettier.doc.builders));
+import packageManifest from "./lib/package-manifest.mjs";
 
 const parserName = "doc-explorer";
 const languageName = "Doc explorer";
@@ -9,7 +6,7 @@ const astFormat = parserName;
 
 const expressionParserName = "__js_expression";
 async function getJsExpressionParser() {
-  const plugin = prettierPackageManifest.plugins.find((plugin) =>
+  const plugin = packageManifest.plugins.find((plugin) =>
     plugin.parsers?.includes(expressionParserName),
   );
   const pluginModule = await import(`./lib/${plugin.file}`);
@@ -32,49 +29,24 @@ function isSymbol(node) {
   );
 }
 
-function validateNode(node) {
-  if (!node?.type) {
-    return;
+let cache;
+async function init() {
+  if (!cache) {
+    const [prettier, expressionParser] = await Promise.all([
+      import(packageManifest.prettier.url),
+      getJsExpressionParser(),
+    ]);
+
+    const builderNames = new Set(Object.keys(prettier.doc.builders));
+
+    cache = { prettier, expressionParser, builderNames };
   }
 
-  if (node.type === "ObjectExpression") {
-    for (const property of node.properties) {
-      if (
-        property.type !== "ObjectProperty" ||
-        property.computed ||
-        property.shorthand ||
-        property.method
-      ) {
-        throw new Error("Unexpected object property.");
-      }
-
-      const { value } = property;
-
-      if (isSymbol(value)) {
-        continue;
-      }
-
-      validateNode(value);
-    }
-    return;
-  }
-
-  if (node.type === "Identifier" && !builderNames.has(node.name)) {
-    throw new Error(`Unexpected identifier name '${node.name}'.`);
-  }
-
-  for (const value of Object.values(node)) {
-    const children = Array.isArray(value) ? value : [value];
-
-    for (const child of children) {
-      validateNode(child);
-    }
-  }
+  return cache;
 }
 
-let expressionParser;
 async function validateDoc(text) {
-  expressionParser ??= await getJsExpressionParser();
+  const { expressionParser, builderNames } = await init();
 
   const ast = expressionParser.parse(text);
   if (ast.type !== "JsExpressionRoot") {
@@ -82,9 +54,50 @@ async function validateDoc(text) {
   }
 
   validateNode(ast.node);
+
+  function validateNode(node) {
+    if (!node?.type) {
+      return;
+    }
+
+    if (node.type === "ObjectExpression") {
+      for (const property of node.properties) {
+        if (
+          property.type !== "ObjectProperty" ||
+          property.computed ||
+          property.shorthand ||
+          property.method
+        ) {
+          throw new Error("Unexpected object property.");
+        }
+
+        const { value } = property;
+
+        if (isSymbol(value)) {
+          continue;
+        }
+
+        validateNode(value);
+      }
+      return;
+    }
+
+    if (node.type === "Identifier" && !builderNames.has(node.name)) {
+      throw new Error(`Unexpected identifier name '${node.name}'.`);
+    }
+
+    for (const value of Object.values(node)) {
+      const children = Array.isArray(value) ? value : [value];
+
+      for (const child of children) {
+        validateNode(child);
+      }
+    }
+  }
 }
 
 async function parse(text) {
+  const { prettier } = await init();
   await validateDoc(text);
 
   const value = new Function(
