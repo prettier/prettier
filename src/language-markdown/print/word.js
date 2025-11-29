@@ -1,3 +1,4 @@
+import { hardline } from "../../document/index.js";
 import { PUNCTUATION_REGEXP } from "../constants.evaluate.js";
 import { isAutolink } from "../utils.js";
 
@@ -12,14 +13,30 @@ import { isAutolink } from "../utils.js";
  */
 function printWord(path) {
   const { node } = path;
+  let text = node.value;
+
+  text = escapeAsteriskAndUnderscore(text, path);
+
+  if (node.hasWikiLinkRisk) {
+    return [hardline, text];
+  }
+
+  return text;
+}
+
+/**
+ * @param {string} text
+ * @param {AstPath} path
+ * @return {string}
+ */
+function escapeAsteriskAndUnderscore(text, path) {
   const emphasisOrStrong = path.findAncestor(
     (p) => p.type === "emphasis" || p.type === "strong",
   );
   if (!emphasisOrStrong) {
-    return node.value;
+    return text;
   }
   const { previous, next, grandparent } = path;
-  let text = node.value;
 
   // escape leading `*` or `_` if it's the first character in an emphasis/strong
   if (

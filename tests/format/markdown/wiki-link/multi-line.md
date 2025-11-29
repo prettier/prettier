@@ -1,32 +1,29 @@
 [[a
 b]]
 
-[[text **strong** text *emphasized*
-text]]
+[[Do **NOT** make this
+single line]]
 
-[[text
-`inline code` text text]]
+[[Do not
+`make` this single line]]
 
-[[a ] b text] ]
+[[Do] not make] this single ]
+line ]]
+
+\[[This is safe to
+unwrap]]
+
+[[This is
+safe to unwrap\]]
+
+\[[[Do not make this
+single line]]
+
+[[Do not make this
+single line\]]]
+
+[[<!-- Do not make this single line -->
 ]]
 
-[[text [[wiki link]] text
-]]
-
-\[[a
-b]]
-
-[[a
-b\]]
-
-\[[[a
-b]]
-
-[[a
-b\]]]
-
-[[<!--
-comment -->]]
-
-[[<span />
-]]
+[[Do not <span>make</span>
+this single line]]

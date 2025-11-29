@@ -303,7 +303,8 @@ I have some markdown prose here, with a horrible run-on sentence that [[makes li
 continue it into an obscenely long wiki-style link thingy]].
 
 =====================================output=====================================
-I have some markdown prose here, with a horrible run-on sentence that [[makes little sense at all as I continue it into an obscenely long wiki-style link thingy]].
+I have some markdown prose here, with a horrible run-on sentence that [[makes little sense at all as I continue it into an obscenely long wiki-style link
+thingy]].
 
 ================================================================================
 `;
@@ -537,59 +538,63 @@ singleQuote: true
 [[a
 b]]
 
-[[text **strong** text *emphasized*
-text]]
+[[Do **NOT** make this
+single line]]
 
-[[text
-\`inline code\` text text]]
+[[Do not
+\`make\` this single line]]
 
-[[a ] b text] ]
+[[Do] not make] this single ]
+line ]]
+
+\\[[This is safe to
+unwrap]]
+
+[[This is
+safe to unwrap\\]]
+
+\\[[[Do not make this
+single line]]
+
+[[Do not make this
+single line\\]]]
+
+[[<!-- Do not make this single line -->
 ]]
 
-[[text [[wiki link]] text
-]]
-
-\\[[a
-b]]
-
-[[a
-b\\]]
-
-\\[[[a
-b]]
-
-[[a
-b\\]]]
-
-[[<!--
-comment -->]]
-
-[[<span />
-]]
+[[Do not <span>make</span>
+this single line]]
 
 =====================================output=====================================
-[[a b]]
+[[a
+b]]
 
-[[text **strong** text _emphasized_ text]]
+[[Do **NOT** make this single
+line]]
 
-[[text \`inline code\` text text]]
+[[Do not \`make\` this single
+line]]
 
-[[a ] b text] ] ]]
+[[Do] not make] this single ] line
+]]
 
-[[text [[wiki link]] text ]]
+\\[[This is safe to
+unwrap]]
 
-\\[[a b]]
+[[This is safe to
+unwrap\\]]
 
-[[a b\\]]
+\\[[[Do not make this single
+line]]
 
-\\[[[a b]]
+[[Do not make this single
+line\\]]]
 
-[[a b\\]]]
+[[<!-- Do not make this single line -->
+]]
 
-[[<!--
-comment -->]]
-
-[[<span /> ]]
+[[Do not <span>make</span> this single
+line]]
 
 ================================================================================
 `;
@@ -604,59 +609,63 @@ proseWrap: "always"
 [[a
 b]]
 
-[[text **strong** text *emphasized*
-text]]
+[[Do **NOT** make this
+single line]]
 
-[[text
-\`inline code\` text text]]
+[[Do not
+\`make\` this single line]]
 
-[[a ] b text] ]
+[[Do] not make] this single ]
+line ]]
+
+\\[[This is safe to
+unwrap]]
+
+[[This is
+safe to unwrap\\]]
+
+\\[[[Do not make this
+single line]]
+
+[[Do not make this
+single line\\]]]
+
+[[<!-- Do not make this single line -->
 ]]
 
-[[text [[wiki link]] text
-]]
-
-\\[[a
-b]]
-
-[[a
-b\\]]
-
-\\[[[a
-b]]
-
-[[a
-b\\]]]
-
-[[<!--
-comment -->]]
-
-[[<span />
-]]
+[[Do not <span>make</span>
+this single line]]
 
 =====================================output=====================================
-[[a b]]
+[[a
+b]]
 
-[[text **strong** text _emphasized_ text]]
+[[Do **NOT** make this single
+line]]
 
-[[text \`inline code\` text text]]
+[[Do not \`make\` this single
+line]]
 
-[[a ] b text] ] ]]
+[[Do] not make] this single ] line
+]]
 
-[[text [[wiki link]] text ]]
+\\[[This is safe to
+unwrap]]
 
-\\[[a b]]
+[[This is safe to
+unwrap\\]]
 
-[[a b\\]]
+\\[[[Do not make this single
+line]]
 
-\\[[[a b]]
+[[Do not make this single
+line\\]]]
 
-[[a b\\]]]
+[[<!-- Do not make this single line -->
+]]
 
-[[<!--
-comment -->]]
-
-[[<span /> ]]
+[[Do not <span>make</span> this single
+line]]
 
 ================================================================================
 `;
@@ -671,59 +680,63 @@ proseWrap: "never"
 [[a
 b]]
 
-[[text **strong** text *emphasized*
-text]]
+[[Do **NOT** make this
+single line]]
 
-[[text
-\`inline code\` text text]]
+[[Do not
+\`make\` this single line]]
 
-[[a ] b text] ]
+[[Do] not make] this single ]
+line ]]
+
+\\[[This is safe to
+unwrap]]
+
+[[This is
+safe to unwrap\\]]
+
+\\[[[Do not make this
+single line]]
+
+[[Do not make this
+single line\\]]]
+
+[[<!-- Do not make this single line -->
 ]]
 
-[[text [[wiki link]] text
-]]
-
-\\[[a
-b]]
-
-[[a
-b\\]]
-
-\\[[[a
-b]]
-
-[[a
-b\\]]]
-
-[[<!--
-comment -->]]
-
-[[<span />
-]]
+[[Do not <span>make</span>
+this single line]]
 
 =====================================output=====================================
-[[a b]]
+[[a
+b]]
 
-[[text **strong** text _emphasized_ text]]
+[[Do **NOT** make this single
+line]]
 
-[[text \`inline code\` text text]]
+[[Do not \`make\` this single
+line]]
 
-[[a ] b text] ] ]]
+[[Do] not make] this single ] line
+]]
 
-[[text [[wiki link]] text ]]
+\\[[This is safe to
+unwrap]]
 
-\\[[a b]]
+[[This is safe to
+unwrap\\]]
 
-[[a b\\]]
+\\[[[Do not make this single
+line]]
 
-\\[[[a b]]
+[[Do not make this single
+line\\]]]
 
-[[a b\\]]]
+[[<!-- Do not make this single line -->
+]]
 
-[[<!--
-comment -->]]
-
-[[<span /> ]]
+[[Do not <span>make</span> this single
+line]]
 
 ================================================================================
 `;
@@ -738,69 +751,63 @@ proseWrap: "preserve"
 [[a
 b]]
 
-[[text **strong** text *emphasized*
-text]]
+[[Do **NOT** make this
+single line]]
 
-[[text
-\`inline code\` text text]]
+[[Do not
+\`make\` this single line]]
 
-[[a ] b text] ]
+[[Do] not make] this single ]
+line ]]
+
+\\[[This is safe to
+unwrap]]
+
+[[This is
+safe to unwrap\\]]
+
+\\[[[Do not make this
+single line]]
+
+[[Do not make this
+single line\\]]]
+
+[[<!-- Do not make this single line -->
 ]]
 
-[[text [[wiki link]] text
-]]
-
-\\[[a
-b]]
-
-[[a
-b\\]]
-
-\\[[[a
-b]]
-
-[[a
-b\\]]]
-
-[[<!--
-comment -->]]
-
-[[<span />
-]]
+[[Do not <span>make</span>
+this single line]]
 
 =====================================output=====================================
 [[a
 b]]
 
-[[text **strong** text _emphasized_
-text]]
+[[Do **NOT** make this
+single line]]
 
-[[text
-\`inline code\` text text]]
+[[Do not
+\`make\` this single line]]
 
-[[a ] b text] ]
+[[Do] not make] this single ]
+line ]]
+
+\\[[This is safe to
+unwrap]]
+
+[[This is
+safe to unwrap\\]]
+
+\\[[[Do not make this
+single line]]
+
+[[Do not make this
+single line\\]]]
+
+[[<!-- Do not make this single line -->
 ]]
 
-[[text [[wiki link]] text
-]]
-
-\\[[a
-b]]
-
-[[a
-b\\]]
-
-\\[[[a
-b]]
-
-[[a
-b\\]]]
-
-[[<!--
-comment -->]]
-
-[[<span />
-]]
+[[Do not <span>make</span>
+this single line]]
 
 ================================================================================
 `;

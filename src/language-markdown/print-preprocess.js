@@ -26,6 +26,9 @@ function preprocess(ast, options) {
   } else {
     ast = splitTextIntoSentences(ast);
   }
+  if (options.parser !== "mdx") {
+    ast = markClosingSquareBracketsAtRiskOfUndesiableWikiLink(ast, options);
+  }
   return ast;
 }
 
@@ -405,6 +408,45 @@ function markAlignedList(ast, options) {
     const secondInfo = getOrderedListItemInfo(secondItem, options);
     return secondInfo.leadingSpaces.length > 1;
   }
+}
+
+// When `[[`, line break, `]]` appears in a paragraph, we shouldn't unwrap it because it can turns into a wiki link.
+// This function marks such word nodes with a flag.
+function markClosingSquareBracketsAtRiskOfUndesiableWikiLink(ast, options) {
+  if (options.proseWrap === "preserve") {
+    return ast;
+  }
+  return mapAst(ast, (node, _index, parentStack) => {
+    switch (node.type) {
+      case "word":
+        if (
+          parentStack.some(
+            (ancestor) =>
+              ancestor.type === "paragraph" && ancestor.hasWikiLinkRisk,
+          ) &&
+          node.value.includes("]]")
+        ) {
+          node.hasWikiLinkRisk = true;
+        }
+        if (node.value.includes("[[")) {
+          for (const ancestor of parentStack) {
+            if (ancestor.type === "paragraph") {
+              ancestor.hasWikiLinkRisk = true;
+            }
+          }
+        }
+        return node;
+      case "link":
+        for (const ancestor of parentStack) {
+          if (ancestor.type === "paragraph") {
+            delete ancestor.hasWikiLinkRisk;
+          }
+        }
+        return node;
+      default:
+        return node;
+    }
+  });
 }
 
 export default preprocess;
