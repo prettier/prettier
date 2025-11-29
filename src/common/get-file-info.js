@@ -1,5 +1,5 @@
 import { resolveConfig } from "../config/resolve-config.js";
-import { loadPlugins } from "../main/plugins/index.js";
+import { loadBuiltinPlugins, loadPlugins } from "../main/plugins/index.js";
 import { isIgnored } from "../utils/ignore.js";
 import inferParser from "../utils/infer-parser.js";
 
@@ -54,10 +54,10 @@ async function getParser(file, options) {
     return config.parser;
   }
 
-  const plugins = [
-    ...options.plugins,
-    ...(await loadPlugins(config?.plugins ?? [])),
-  ];
+  let plugins = options.plugins ?? config?.plugins ?? [];
+  plugins = (
+    await Promise.all([loadBuiltinPlugins(), loadPlugins(plugins)])
+  ).flat();
 
   return inferParser({ plugins }, { physicalFile: file });
 }
