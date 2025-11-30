@@ -31,16 +31,13 @@ import {
   printEnumMember,
 } from "./enum.js";
 import { printFunction, printMethodValue } from "./function.js";
-import {
-  printFunctionParameters,
-  shouldGroupFunctionParameters,
-} from "./function-parameters.js";
 import { printFunctionType } from "./function-type.js";
 import { printIndexedAccessType } from "./indexed-access-type.js";
 import { printInferType } from "./infer-type.js";
 import { printIntersectionType } from "./intersection-type.js";
 import { printJSDocType } from "./js-doc-type.js";
 import { printTypeScriptMappedType } from "./mapped-type.js";
+import { printMethodSignature } from "./method-signature.js";
 import {
   printDeclareToken,
   printOptionalToken,
@@ -225,44 +222,9 @@ function printTypescript(path, options, print) {
     case "TSMappedType":
       return printTypeScriptMappedType(path, options, print);
 
-    case "TSMethodSignature": {
-      const parts = [];
-      const kind = node.kind && node.kind !== "method" ? `${node.kind} ` : "";
-      parts.push(
-        printTypeScriptAccessibilityToken(node),
-        kind,
-        node.computed ? "[" : "",
-        print("key"),
-        node.computed ? "]" : "",
-        printOptionalToken(path),
-      );
+    case "TSMethodSignature":
+      return printMethodSignature(path, options, print);
 
-      const parametersDoc = printFunctionParameters(
-        path,
-        options,
-        print,
-        /* shouldExpandArgument */ false,
-        /* shouldPrintTypeParameters */ true,
-      );
-
-      const returnTypeDoc = printTypeAnnotationProperty(
-        path,
-        print,
-        "returnType",
-      );
-      const shouldGroupParameters = shouldGroupFunctionParameters(
-        node,
-        returnTypeDoc,
-      );
-
-      parts.push(shouldGroupParameters ? group(parametersDoc) : parametersDoc);
-
-      if (node.returnType) {
-        parts.push(group(returnTypeDoc));
-      }
-
-      return [group(parts), printClassMemberSemicolon(path, options)];
-    }
     case "TSNamespaceExportDeclaration":
       return ["export as namespace ", print("id"), options.semi ? ";" : ""];
     case "TSEnumDeclaration":
