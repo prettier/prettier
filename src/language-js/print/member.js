@@ -4,7 +4,7 @@ import {
   isCallExpression,
   isMemberExpression,
   isNumericLiteral,
-} from "../utils/index.js";
+} from "../utilities/index.js";
 import { printOptionalToken } from "./misc.js";
 
 const isCallExpressionWithArguments = (node) => {

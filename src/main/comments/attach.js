@@ -1,12 +1,12 @@
 import * as assert from "#universal/assert";
-import hasNewline from "../../utils/has-newline.js";
-import isNonEmptyArray from "../../utils/is-non-empty-array.js";
+import hasNewline from "../../utilities/has-newline.js";
+import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
 import getSortedChildNodes from "../utilities/get-sorted-child-nodes.js";
 import {
   addDanglingComment,
   addLeadingComment,
   addTrailingComment,
-} from "./utils.js";
+} from "./utilities.js";
 
 /**
  * @import AstPath from "../../common/ast-path.js"

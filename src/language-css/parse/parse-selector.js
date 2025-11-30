@@ -1,5 +1,5 @@
 import PostcssSelectorParser from "postcss-selector-parser/dist/processor.js";
-import { addTypePrefix } from "./utils.js";
+import { addTypePrefix } from "./utilities.js";
 
 function parseSelector(selector) {
   // If there's a comment inside of a selector, the parser tries to parse

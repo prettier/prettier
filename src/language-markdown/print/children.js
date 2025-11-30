@@ -3,7 +3,7 @@ import {
   INLINE_NODE_TYPES,
   INLINE_NODE_WRAPPER_TYPES,
   isPrettierIgnore,
-} from "../utils.js";
+} from "../utilities.js";
 
 /**
  * @import AstPath from "../../common/ast-path.js"

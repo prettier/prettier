@@ -3,7 +3,7 @@ import generate from "@babel/generator";
 import { parse } from "@babel/parser";
 import { traverseFast as traverse } from "@babel/types";
 import { outdent } from "outdent";
-import { PROJECT_ROOT, SOURCE_DIR } from "../../utils/index.js";
+import { PROJECT_ROOT, SOURCE_DIR } from "../../utilities/index.js";
 import * as transforms from "./transforms/index.js";
 
 const packageTransforms = new Map([

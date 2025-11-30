@@ -10,8 +10,8 @@ import {
   willBreak,
 } from "../../document/index.js";
 import { printDanglingComments } from "../../main/comments/print.js";
-import getNextNonSpaceNonCommentCharacter from "../../utils/get-next-non-space-non-comment-character.js";
-import isNonEmptyArray from "../../utils/is-non-empty-array.js";
+import getNextNonSpaceNonCommentCharacter from "../../utilities/get-next-non-space-non-comment-character.js";
+import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
 import { locEnd } from "../loc.js";
 import {
   getFunctionParameters,
@@ -27,7 +27,7 @@ import {
   isTypeAnnotationAFunction,
   iterateFunctionParametersPath,
   shouldPrintComma,
-} from "../utils/index.js";
+} from "../utilities/index.js";
 
 /** @import AstPath from "../../common/ast-path.js" */
 

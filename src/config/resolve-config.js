@@ -1,7 +1,7 @@
 import path from "node:path";
 import micromatch from "micromatch";
 import { toPath } from "url-or-path";
-import partition from "../utils/partition.js";
+import partition from "../utilities/partition.js";
 import {
   clearEditorconfigCache,
   loadEditorconfig as loadEditorconfigForFile,

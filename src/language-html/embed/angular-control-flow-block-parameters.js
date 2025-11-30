@@ -1,4 +1,4 @@
-import { formatAttributeValue, shouldHugJsExpression } from "./utils.js";
+import { formatAttributeValue, shouldHugJsExpression } from "./utilities.js";
 
 function printAngularControlFlowBlockParameters(
   textToDoc,

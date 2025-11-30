@@ -3,10 +3,10 @@ import {
   isVueScriptTag,
   isVueSfcBindingsAttribute,
   isVueSlotAttribute,
-} from "../utils/index.js";
-import isVueSfcWithTypescriptScript from "../utils/is-vue-sfc-with-typescript-script.js";
+} from "../utilities/index.js";
+import isVueSfcWithTypescriptScript from "../utilities/is-vue-sfc-with-typescript-script.js";
 import { printVueScriptGenericAttributeValue } from "./print-vue-script-generic-attribute-value.js";
-import { formatAttributeValue, shouldHugJsExpression } from "./utils.js";
+import { formatAttributeValue, shouldHugJsExpression } from "./utilities.js";
 import { printVueBindings } from "./vue-bindings.js";
 import { printVueVForDirective } from "./vue-v-for-directive.js";
 

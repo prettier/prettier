@@ -1,7 +1,7 @@
 import { ifBreak, line } from "../../document/index.js";
-import { getUnescapedAttributeValue } from "../utils/index.js";
+import { getUnescapedAttributeValue } from "../utilities/index.js";
 import parsePermissionsPolicy from "./parse-permissions-policy.js";
-import { printExpand } from "./utils.js";
+import { printExpand } from "./utilities.js";
 
 /**
 @import {AttributeValuePredicate, AttributeValuePrint} from "./attribute.js"

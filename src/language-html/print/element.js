@@ -15,7 +15,7 @@ import {
   isScriptLikeTag,
   isVueCustomBlock,
   shouldPreserveContent,
-} from "../utils/index.js";
+} from "../utilities/index.js";
 import { printChildren } from "./children.js";
 import {
   needsToBorrowLastChildClosingTagEndMarker,

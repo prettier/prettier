@@ -1,6 +1,6 @@
 import { replaceEndOfLine } from "../../document/index.js";
-import printNumber from "../../utils/print-number.js";
-import printString from "../../utils/print-string.js";
+import printNumber from "../../utilities/print-number.js";
+import printString from "../../utilities/print-string.js";
 
 /**
  * @import {Node} from "../types/estree.js"
@@ -70,22 +70,27 @@ function printRegex({ pattern, flags }) {
   return `/${pattern}/${flags}`;
 }
 
+const DIRECTIVE_USE_STRICT = "use strict";
 function printDirective(rawText, options) {
   const rawContent = rawText.slice(1, -1);
 
   // Check for the alternate quote, to determine if we're allowed to swap
   // the quotes on a DirectiveLiteral.
-  if (rawContent.includes('"') || rawContent.includes("'")) {
-    return rawText;
+  // Perf https://tinyurl.com/388dmh3v
+  if (
+    rawContent === DIRECTIVE_USE_STRICT ||
+    !(rawContent.includes('"') || rawContent.includes("'"))
+  ) {
+    const enclosingQuote = options.singleQuote ? "'" : '"';
+
+    // Directives are exact code unit sequences, which means that you can't
+    // change the escape sequences they use.
+    // See https://github.com/prettier/prettier/issues/1555
+    // and https://tc39.github.io/ecma262/#directive-prologue
+    return enclosingQuote + rawContent + enclosingQuote;
   }
 
-  const enclosingQuote = options.singleQuote ? "'" : '"';
-
-  // Directives are exact code unit sequences, which means that you can't
-  // change the escape sequences they use.
-  // See https://github.com/prettier/prettier/issues/1555
-  // and https://tc39.github.io/ecma262/#directive-prologue
-  return enclosingQuote + rawContent + enclosingQuote;
+  return rawText;
 }
 
 export { printBigInt, printLiteral };

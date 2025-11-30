@@ -7,7 +7,7 @@ import createEsmUtils from "esm-utils";
 import styleText from "node-style-text";
 import prettyBytes from "pretty-bytes";
 import prettyMilliseconds from "pretty-ms";
-import { DIST_DIR } from "../utils/index.js";
+import { DIST_DIR } from "../utilities/index.js";
 import packageConfigs from "./config.js";
 import parseArguments from "./parse-arguments.js";
 

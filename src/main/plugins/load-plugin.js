@@ -1,7 +1,7 @@
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 import { isUrl, toPath } from "url-or-path";
-import importFromDirectory from "../../utils/import-from-directory.js";
+import importFromDirectory from "../../utilities/import-from-directory.js";
 
 /**
 @param {string | URL} name

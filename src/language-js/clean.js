@@ -3,7 +3,7 @@ import {
   isMeaningfulEmptyStatement,
   isNumericLiteral,
   isStringLiteral,
-} from "./utils/index.js";
+} from "./utilities/index.js";
 
 const ignoredProperties = new Set([
   "range",

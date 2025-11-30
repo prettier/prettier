@@ -6,7 +6,7 @@ import createEsmUtils from "esm-utils";
 import {
   PRODUCTION_MINIMAL_NODE_JS_VERSION,
   PROJECT_ROOT,
-} from "../utils/index.js";
+} from "../utilities/index.js";
 import esbuildPluginAddDefaultExport from "./esbuild-plugins/add-default-export.js";
 import esbuildPluginEvaluate from "./esbuild-plugins/evaluate.js";
 import esbuildPluginPrimitiveDefine from "./esbuild-plugins/primitive-define.js";
@@ -17,7 +17,7 @@ import esbuildPluginThrowWarnings from "./esbuild-plugins/throw-warnings.js";
 import esbuildPluginUmd from "./esbuild-plugins/umd.js";
 import esbuildPluginVisualizer from "./esbuild-plugins/visualizer.js";
 import transform from "./transform/index.js";
-import { getPackageFile } from "./utils.js";
+import { getPackageFile } from "./utilities.js";
 
 const {
   readJsonSync,

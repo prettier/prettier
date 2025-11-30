@@ -1,4 +1,4 @@
-import htmlWhitespaceUtils from "../utils/html-whitespace-utils.js";
+import htmlWhitespace from "../utilities/html-whitespace.js";
 
 function clean(original, cloned, parent) {
   // (Glimmer/HTML) ignore TextNode
@@ -16,7 +16,7 @@ function clean(original, cloned, parent) {
     ) {
       cloned.chars = "";
     } else {
-      cloned.chars = htmlWhitespaceUtils.split(trimmed).join(" ");
+      cloned.chars = htmlWhitespace.split(trimmed).join(" ");
     }
   }
 

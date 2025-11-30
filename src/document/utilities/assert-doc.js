@@ -1,4 +1,4 @@
-import noop from "../../utils/noop.js";
+import noop from "../../utilities/noop.js";
 import {
   DOC_TYPE_IF_BREAK,
   DOC_TYPE_LINE,

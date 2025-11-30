@@ -1,6 +1,6 @@
 import stringify from "fast-json-stable-stringify";
 import { format, getSupportInfo } from "../index.js";
-import { omit, printToScreen } from "./utils.js";
+import { omit, printToScreen } from "./utilities.js";
 
 const sortByName = (array) =>
   array.sort((a, b) => a.name.localeCompare(b.name));

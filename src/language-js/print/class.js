@@ -12,14 +12,14 @@ import {
   printCommentsSeparately,
   printDanglingComments,
 } from "../../main/comments/print.js";
-import createGroupIdMapper from "../../utils/create-group-id-mapper.js";
-import isNonEmptyArray from "../../utils/is-non-empty-array.js";
+import createGroupIdMapper from "../../utilities/create-group-id-mapper.js";
+import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
 import {
   CommentCheckFlags,
   createTypeCheckFunction,
   hasComment,
   isMemberExpression,
-} from "../utils/index.js";
+} from "../utilities/index.js";
 import { printAssignment } from "./assignment.js";
 import { printClassMemberDecorators } from "./decorators.js";
 import { printMethod } from "./function.js";

@@ -5,8 +5,7 @@ import {
   hasComment,
   isCallExpression,
   isMemberExpression,
-} from "../utils/index.js";
-import { printTypeAnnotationProperty } from "./type-annotation.js";
+} from "../utilities/index.js";
 
 /**
  * @import AstPath from "../../common/ast-path.js"
@@ -98,10 +97,6 @@ function printAbstractToken({ node }) {
   return node.abstract || isTsAbstractNode(node) ? "abstract " : "";
 }
 
-function printBindExpressionCallee(path, options, print) {
-  return ["::", print("callee")];
-}
-
 function adjustClause(node, clause, forceSpace) {
   if (node.type === "EmptyStatement") {
     return hasComment(node, CommentCheckFlags.Leading) ? [" ", clause] : clause;
@@ -114,10 +109,6 @@ function adjustClause(node, clause, forceSpace) {
   return indent([line, clause]);
 }
 
-function printRestSpread(path, print) {
-  return ["...", print("argument"), printTypeAnnotationProperty(path, print)];
-}
-
 function printTypeScriptAccessibilityToken(node) {
   return node.accessibility ? node.accessibility + " " : "";
 }
@@ -125,10 +116,8 @@ function printTypeScriptAccessibilityToken(node) {
 export {
   adjustClause,
   printAbstractToken,
-  printBindExpressionCallee,
   printDeclareToken,
   printDefiniteToken,
   printOptionalToken,
-  printRestSpread,
   printTypeScriptAccessibilityToken,
 };

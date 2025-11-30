@@ -1,5 +1,5 @@
 import { hardline } from "../../document/index.js";
-import { isNextLineEmpty } from "../utils/index.js";
+import { isNextLineEmpty } from "../utilities/index.js";
 
 /**
  * @import {Doc} from "../../document/index.js"

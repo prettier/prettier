@@ -53,4 +53,4 @@ export {
 };
 export * as doc from "./document/public.js";
 export { default as version } from "./main/version.evaluate.js";
-export * as util from "./utils/public.js";
+export * as util from "./utilities/public.js";
