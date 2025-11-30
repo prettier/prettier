@@ -30,7 +30,7 @@ async function printEmbedHtmlLike(parser, textToDoc, print, path, options) {
     )
     .join("");
 
-  const expressionDocs = printTemplateExpressions(path, print);
+  const expressionDocs = printTemplateExpressions(path, options, print);
 
   const placeholderRegex = new RegExp(
     composePlaceholder(String.raw`(\d+)`),
@@ -70,7 +70,7 @@ async function printEmbedHtmlLike(parser, textToDoc, print, path, options) {
       }
 
       const placeholderIndex = Number(component);
-      parts.push(expressionDocs[placeholderIndex]);
+      parts.push(["${", expressionDocs[placeholderIndex], "}"]);
     }
 
     return parts;

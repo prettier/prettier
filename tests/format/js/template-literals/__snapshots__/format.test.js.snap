@@ -147,9 +147,7 @@ _ = /* comment */ \`
 \`;
 _ = /* HTML */ \`
   <div>
-    \${long_cond && long_cond && long_cond && long_cond && long_cond
-      ? "content"
-      : ""}
+    \${long_cond && long_cond && long_cond && long_cond && long_cond ? "content" : ""}
   </div>
 \`;
 
@@ -158,9 +156,7 @@ _ = unknown\`
 \`;
 _ = html\`
   <div>
-    \${long_cond && long_cond && long_cond && long_cond && long_cond
-      ? "content"
-      : ""}
+    \${long_cond && long_cond && long_cond && long_cond && long_cond ? "content" : ""}
   </div>
 \`;
 
