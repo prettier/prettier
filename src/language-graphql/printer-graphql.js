@@ -7,9 +7,9 @@ import {
   line,
   softline,
 } from "../document/index.js";
-import isNextLineEmpty from "../utils/is-next-line-empty.js";
-import isNonEmptyArray from "../utils/is-non-empty-array.js";
-import UnexpectedNodeError from "../utils/unexpected-node-error.js";
+import isNextLineEmpty from "../utilities/is-next-line-empty.js";
+import isNonEmptyArray from "../utilities/is-non-empty-array.js";
+import UnexpectedNodeError from "../utilities/unexpected-node-error.js";
 import getVisitorKeys from "./get-visitor-keys.js";
 import { locEnd, locStart } from "./loc.js";
 import { insertPragma } from "./pragma.js";

@@ -1,4 +1,4 @@
-import { processFile, readJson, runYarn, writeJson } from "../utils.js";
+import { processFile, readJson, runYarn, writeJson } from "../utilities.js";
 
 export default async function updateVersion({ version, next }) {
   const pkg = await readJson("package.json");

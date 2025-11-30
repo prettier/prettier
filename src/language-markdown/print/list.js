@@ -2,7 +2,7 @@ import { align } from "../../document/index.js";
 import {
   getNthListSiblingIndex,
   hasGitDiffFriendlyOrderedList,
-} from "../utils.js";
+} from "../utilities.js";
 import { printChildren } from "./children.js";
 
 /**

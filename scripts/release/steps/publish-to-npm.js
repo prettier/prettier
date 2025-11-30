@@ -1,6 +1,6 @@
 import enquirer from "enquirer";
 import spawn from "nano-spawn";
-import { waitForEnter } from "../utils.js";
+import { waitForEnter } from "../utilities.js";
 
 export default async function publishToNpm({ dry }) {
   console.log(`Ready to publish to NPM${dry ? "(--dry-run)" : ""}`);

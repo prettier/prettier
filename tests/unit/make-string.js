@@ -1,4 +1,4 @@
-import makeString from "../../src/utils/make-string.js";
+import makeString from "../../src/utilities/make-string.js";
 
 const DOUBLE_QUOTE = '"';
 const SINGLE_QUOTE = "'";

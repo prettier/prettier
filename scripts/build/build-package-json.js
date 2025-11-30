@@ -4,7 +4,7 @@ import {
   PROJECT_ROOT,
   readJson,
   writeJson,
-} from "../utils/index.js";
+} from "../utilities/index.js";
 
 const keysToKeep = [
   "name",

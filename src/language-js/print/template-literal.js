@@ -11,9 +11,9 @@ import {
   printDocToString,
   softline,
 } from "../../document/index.js";
-import getIndentSize from "../../utils/get-indent-size.js";
-import getStringWidth from "../../utils/get-string-width.js";
-import hasNewlineInRange from "../../utils/has-newline-in-range.js";
+import getIndentSize from "../../utilities/get-indent-size.js";
+import getStringWidth from "../../utilities/get-string-width.js";
+import hasNewlineInRange from "../../utilities/has-newline-in-range.js";
 import { locEnd, locStart } from "../loc.js";
 import {
   CommentCheckFlags,
@@ -22,7 +22,7 @@ import {
   isBinaryCastExpression,
   isBinaryish,
   isMemberExpression,
-} from "../utils/index.js";
+} from "../utilities/index.js";
 
 /**
  * @import {Doc} from "../../document/index.js"

@@ -1,5 +1,5 @@
 import { PUNCTUATION_REGEXP } from "../constants.evaluate.js";
-import { isAutolink } from "../utils.js";
+import { isAutolink } from "../utilities.js";
 
 /**
  * @import AstPath from "../../common/ast-path.js"

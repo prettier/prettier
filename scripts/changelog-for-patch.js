@@ -10,7 +10,7 @@ import {
   getEntries,
   printEntries,
   replaceVersions,
-} from "./utils/changelog.js";
+} from "./utilities/changelog.js";
 
 const { previousVersion, newVersion } = parseArguments();
 

@@ -1,6 +1,6 @@
 import { group, indent, line, replaceEndOfLine } from "../../document/index.js";
-import { getUnescapedAttributeValue } from "../utils/index.js";
-import { formatAttributeValue } from "./utils.js";
+import { getUnescapedAttributeValue } from "../utilities/index.js";
+import { formatAttributeValue } from "./utilities.js";
 
 const interpolationRegex = /\{\{(.+?)\}\}/su;
 

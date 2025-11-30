@@ -1,5 +1,5 @@
-import { getUnescapedAttributeValue } from "../utils/index.js";
-import { formatAttributeValue, shouldHugJsExpression } from "./utils.js";
+import { getUnescapedAttributeValue } from "../utilities/index.js";
+import { formatAttributeValue, shouldHugJsExpression } from "./utilities.js";
 
 /**
  * @import {Doc} from "../../document/index.js"

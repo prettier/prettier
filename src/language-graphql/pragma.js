@@ -2,7 +2,7 @@ import {
   FORMAT_PRAGMA_TO_INSERT,
   GRAPHQL_HAS_IGNORE_PRAGMA_REGEXP,
   GRAPHQL_HAS_PRAGMA_REGEXP,
-} from "../utils/pragma/pragma.evaluate.js";
+} from "../utilities/pragma/pragma.evaluate.js";
 
 const hasPragma = (text) => GRAPHQL_HAS_PRAGMA_REGEXP.test(text);
 const hasIgnorePragma = (text) => GRAPHQL_HAS_IGNORE_PRAGMA_REGEXP.test(text);

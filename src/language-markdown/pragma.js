@@ -3,7 +3,7 @@ import {
   FORMAT_PRAGMA_TO_INSERT,
   MARKDOWN_HAS_IGNORE_PRAGMA_REGEXP,
   MARKDOWN_HAS_PRAGMA_REGEXP,
-} from "../utils/pragma/pragma.evaluate.js";
+} from "../utilities/pragma/pragma.evaluate.js";
 
 const hasPragma = (text) =>
   parseFrontMatter(text).content.trimStart().match(MARKDOWN_HAS_PRAGMA_REGEXP)

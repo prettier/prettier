@@ -1,4 +1,4 @@
-import createPlugin from "../../utils/create-plugin.cjs";
+import createPlugin from "../../utilities/create-plugin.cjs";
 
 const plugin = createPlugin({
   name: "uppercase-rocks",

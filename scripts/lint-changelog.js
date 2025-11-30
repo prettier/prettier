@@ -6,7 +6,7 @@ import indexToPosition from "index-to-position";
 import { outdent } from "outdent";
 import remarkParse from "remark-parse-v8";
 import unified from "unified-v9";
-import { CHANGELOG_CATEGORIES } from "./utils/changelog-categories.js";
+import { CHANGELOG_CATEGORIES } from "./utilities/changelog-categories.js";
 
 const CHANGELOG_DIR = "changelog_unreleased";
 const TEMPLATE_FILE = "TEMPLATE.md";

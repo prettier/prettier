@@ -3,7 +3,7 @@ import path from "node:path";
 import url from "node:url";
 import createEsmUtils from "esm-utils";
 import { outdent } from "outdent";
-import { copyFile, DIST_DIR, PROJECT_ROOT } from "../utils/index.js";
+import { copyFile, DIST_DIR, PROJECT_ROOT } from "../utilities/index.js";
 import buildDependenciesLicense from "./build-dependencies-license.js";
 import buildJavascriptModule from "./build-javascript-module.js";
 import buildOxcWasmParser from "./build-oxc-wasm-parser.js";
@@ -15,7 +15,7 @@ import {
 import buildTypes from "./build-types.js";
 import esmifyTypescriptEslint from "./esmify-typescript-eslint.js";
 import modifyTypescriptModule from "./modify-typescript-module.js";
-import { getPackageFile } from "./utils.js";
+import { getPackageFile } from "./utilities.js";
 
 const {
   require,

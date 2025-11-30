@@ -1,7 +1,7 @@
 import { hardline, markAsRoot, replaceEndOfLine } from "../document/index.js";
-import getMaxContinuousCount from "../utils/get-max-continuous-count.js";
-import inferParser from "../utils/infer-parser.js";
-import { getFencedCodeBlockValue } from "./utils.js";
+import getMaxContinuousCount from "../utilities/get-max-continuous-count.js";
+import inferParser from "../utilities/infer-parser.js";
+import { getFencedCodeBlockValue } from "./utilities.js";
 
 function embed(path, options) {
   const { node } = path;

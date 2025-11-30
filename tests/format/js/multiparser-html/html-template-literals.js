@@ -30,3 +30,15 @@ setFoo(
   </div>`,
   secondArgument
 );
+
+// Attribute quotes
+a = /* HTML */ `<div
+    double-quoted="${foo}"
+single-quoted='${foo}'
+        unquoted=${foo}>   </div>
+`
+a = /* HTML */ `<div
+    style="${foo}"
+style='${foo}'
+        style=${foo}>   </div>
+`

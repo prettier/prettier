@@ -4,7 +4,7 @@
 
 import fs from "node:fs/promises";
 import path from "node:path";
-import { PROJECT_ROOT } from "./utils/index.js";
+import { PROJECT_ROOT } from "./utilities/index.js";
 
 const FORMAT_TEST_DIRECTORY = path.join(PROJECT_ROOT, "tests/format/");
 const TEST_SCRIPT_FILE_NAME = "format.test.js";

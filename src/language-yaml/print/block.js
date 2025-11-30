@@ -14,7 +14,7 @@ import {
   getBlockValueLineContents,
   hasIndicatorComment,
   isLastDescendantNode,
-} from "../utils.js";
+} from "../utilities.js";
 import { alignWithSpaces } from "./misc.js";
 
 function printBlock(path, options, print) {

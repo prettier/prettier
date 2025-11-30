@@ -11,7 +11,7 @@ import {
   replaceEndOfLine,
   softline,
 } from "../../document/index.js";
-import isNonEmptyArray from "../../utils/is-non-empty-array.js";
+import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
 import { locEnd, locStart } from "../loc.js";
 import {
   getLastDescendant,
@@ -20,7 +20,7 @@ import {
   isTextLikeNode,
   isVueSfcBlock,
   shouldPreserveContent,
-} from "../utils/index.js";
+} from "../utilities/index.js";
 
 function printClosingTag(node, options) {
   return [

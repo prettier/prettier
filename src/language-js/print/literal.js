@@ -1,6 +1,6 @@
 import { replaceEndOfLine } from "../../document/index.js";
-import printNumber from "../../utils/print-number.js";
-import printString from "../../utils/print-string.js";
+import printNumber from "../../utilities/print-number.js";
+import printString from "../../utilities/print-string.js";
 
 /**
  * @import {Node} from "../types/estree.js"

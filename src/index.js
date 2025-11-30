@@ -11,7 +11,6 @@ import { closestMatch as closetLevenshteinMatch } from "leven";
 import picocolors from "picocolors";
 import * as vnopts from "vnopts";
 import * as errors from "./common/errors.js";
-import getFileInfoWithoutPlugins from "./common/get-file-info.js";
 import { mockable } from "./common/mockable.js";
 import {
   clearCache as clearConfigCache,
@@ -31,10 +30,10 @@ import {
   getSupportInfo as getSupportInfoWithoutPlugins,
   normalizeOptionSettings,
 } from "./main/support.js";
-import createMockable from "./utils/create-mockable.js";
-import { createIsIgnoredFunction } from "./utils/ignore.js";
-import inferParserWithoutPlugins from "./utils/infer-parser.js";
-import omit from "./utils/object-omit.js";
+import createMockable from "./utilities/create-mockable.js";
+import { createIsIgnoredFunction } from "./utilities/ignore.js";
+import inferParserWithoutPlugins from "./utilities/infer-parser.js";
+import omit from "./utilities/object-omit.js";
 
 /**
  * @param {*} fn
@@ -91,8 +90,6 @@ const inferParser = withPlugins((file, options) =>
   inferParserWithoutPlugins(options, { physicalFile: file }),
 );
 
-const getFileInfo = withPlugins(getFileInfoWithoutPlugins);
-
 // Internal shared with cli
 const sharedWithCli = {
   errors,
@@ -112,7 +109,7 @@ const sharedWithCli = {
   createTwoFilesPatch,
   picocolors,
   closetLevenshteinMatch,
-  utils: {
+  utilities: {
     omit,
     createMockable,
   },
@@ -135,11 +132,11 @@ export {
   clearCache as clearConfigCache,
   format,
   formatWithCursor,
-  getFileInfo,
   getSupportInfo,
   resolveConfig,
   resolveConfigFile,
 };
+export { default as getFileInfo } from "./common/get-file-info.js";
 export * as doc from "./document/public.js";
 export { default as version } from "./main/version.evaluate.js";
-export * as util from "./utils/public.js";
+export * as util from "./utilities/public.js";

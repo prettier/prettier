@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import fastGlob from "fast-glob";
-import { runGit } from "../utils.js";
+import { runGit } from "../utilities.js";
 
 export default async function cleanChangelog({ repo }) {
   const changelogUnreleasedDir = fileURLToPath(

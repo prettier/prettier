@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import findCacheDirectory from "find-cache-directory";
-import { isJson, statSafe } from "./utils.js";
+import { isJson, statSafe } from "./utilities.js";
 
 /**
  * Find default cache file (`./node_modules/.cache/prettier/.prettier-cache`) using https://github.com/sindresorhus/find-cache-directory

@@ -1,4 +1,4 @@
-import { runYarn } from "../utils.js";
+import { runYarn } from "../utilities.js";
 
 const lintFiles = () => runYarn("lint");
 

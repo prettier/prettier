@@ -1,5 +1,5 @@
 import * as linguistLanguages from "linguist-languages";
-import createLanguage from "../utils/create-language.js";
+import createLanguage from "../utilities/create-language.js";
 
 const ignoredFilenames = new Set([
   // `yarn.lock` is not YAML in Yarn v1: https://github.com/yarnpkg/yarn/issues/5629

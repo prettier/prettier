@@ -8184,12 +8184,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:3.7.1":
-  version: 3.7.1
-  resolution: "prettier@npm:3.7.1"
+"prettier@npm:3.7.3":
+  version: 3.7.3
+  resolution: "prettier@npm:3.7.3"
   bin:
     prettier: bin/prettier.cjs
-  checksum: 10/59fa89769246d395de30dec976e0ad31c8d2fe3889733765d89398c95c2b9d6cd341553a850fe14fe187407c9bfb2262a2ab1823c6de1f0205a968e2012f0f11
+  checksum: 10/f83ca7e3c69717c1e2f7a95af2d9700eea520c235dfc0f94727a550a4bf0f14eda956a9b2682991b4f1da4605247b3cd3c5547bf2ada4a3ca718bc9ca230040a
   languageName: node
   linkType: hard
 
@@ -8304,7 +8304,7 @@ __metadata:
     postcss-scss: "npm:4.0.9"
     postcss-selector-parser: "npm:2.2.3"
     postcss-values-parser: "npm:2.0.1"
-    prettier: "npm:3.7.1"
+    prettier: "npm:3.7.3"
     pretty-bytes: "npm:7.1.0"
     pretty-ms: "npm:9.3.0"
     regexp-util: "npm:2.0.3"
@@ -8319,7 +8319,7 @@ __metadata:
     sdbm: "npm:3.0.0"
     search-closest: "npm:1.1.0"
     semver: "npm:7.7.3"
-    serialize-javascript: "npm:7.0.0"
+    serialize-javascript: "npm:7.0.1"
     smol-toml: "npm:1.5.2"
     strip-ansi: "npm:7.1.2"
     tempy: "npm:3.1.0"
@@ -8768,10 +8768,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"serialize-javascript@npm:7.0.0":
-  version: 7.0.0
-  resolution: "serialize-javascript@npm:7.0.0"
-  checksum: 10/c50dd10249471d7302ae7e21f2f2325ed9804ab57e498d3cae7a79f79a40175c0f79682db6c59d2ce59807f7dc8cfc7e67338a7fc451ea8ae752e5e3155f4e50
+"serialize-javascript@npm:7.0.1":
+  version: 7.0.1
+  resolution: "serialize-javascript@npm:7.0.1"
+  checksum: 10/03a981c5ce70bee3a012ae8cf7774c7617fd50eb9d1b6d36e977bb7d87be2180b1e2f90b9148d00f30f811b49539f5e59129dd3a7c1fe3c30cb26728e0ea86a1
   languageName: node
   linkType: hard
 
