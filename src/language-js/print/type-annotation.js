@@ -8,7 +8,6 @@ import {
   isSimpleType,
   isUnionType,
 } from "../utils/index.js";
-import { printAssignment } from "./assignment.js";
 import { printClassMemberSemicolon } from "./class.js";
 import {
   printFunctionParameters,
@@ -382,27 +381,6 @@ function printTypeQuery({ node }, print) {
   return ["typeof ", print(argumentPropertyName), print("typeArguments")];
 }
 
-/*
-- `TSTypePredicate` (TypeScript)
-- `TypePredicate` (flow)
-*/
-function printTypePredicate(path, print) {
-  const { node } = path;
-  const prefix =
-    node.type === "TSTypePredicate" && node.asserts
-      ? "asserts "
-      : node.type === "TypePredicate" && node.kind
-        ? `${node.kind} `
-        : "";
-  return [
-    prefix,
-    print("parameterName"),
-    node.typeAnnotation
-      ? [" is ", printTypeAnnotationProperty(path, print)]
-      : "",
-  ];
-}
-
 export {
   printArrayType,
   printFunctionType,
@@ -414,7 +392,6 @@ export {
   printRestType,
   printTypeAnnotation,
   printTypeAnnotationProperty,
-  printTypePredicate,
   printTypeQuery,
   shouldHugType,
 };

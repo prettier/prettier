@@ -56,10 +56,10 @@ import {
   printRestType,
   printTypeAnnotation,
   printTypeAnnotationProperty,
-  printTypePredicate,
   printTypeQuery,
 } from "./type-annotation.js";
 import { printTypeParameter, printTypeParameters } from "./type-parameters.js";
+import { printTypePredicate } from "./type-predicate.js";
 import { printUnionType } from "./union-type.js";
 
 function printTypescript(path, options, print) {
