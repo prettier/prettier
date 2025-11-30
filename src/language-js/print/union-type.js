@@ -11,7 +11,7 @@ import {
   printComments,
   printCommentsSeparately,
 } from "../../main/comments/print.js";
-import pathNeedsParens from "../needs-parens.js";
+import needsParentheses from "../parentheses/needs-parentheses.js";
 import {
   CommentCheckFlags,
   createTypeCheckFunction,
@@ -91,7 +91,7 @@ function printUnionType(path, options, print) {
     join([line, "| "], printed),
   ];
 
-  if (pathNeedsParens(path, options)) {
+  if (needsParentheses(path, options)) {
     return [leading, group([indent(mainParts), softline]), trailing];
   }
 

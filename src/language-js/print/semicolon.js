@@ -1,4 +1,4 @@
-import pathNeedsParens from "../needs-parens.js";
+import needsParentheses from "../parentheses/needs-parentheses.js";
 import {
   getLeftSidePathName,
   hasNakedLeftSide,
@@ -76,7 +76,7 @@ function expressionNeedsASIProtection(path, options) {
       }
   }
 
-  if (pathNeedsParens(path, options)) {
+  if (needsParentheses(path, options)) {
     return true;
   }
 

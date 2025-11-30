@@ -11,7 +11,7 @@ import {
 import { printDanglingComments } from "../../main/comments/print.js";
 import hasNewlineInRange from "../../utils/has-newline-in-range.js";
 import { locEnd, locStart } from "../loc.js";
-import pathNeedsParens from "../needs-parens.js";
+import needsParentheses from "../parentheses/needs-parentheses.js";
 import {
   CommentCheckFlags,
   getComments,
@@ -221,7 +221,8 @@ function printTernary(path, options, print, args) {
 
   const shouldExtraIndent = shouldExtraIndentForConditionalExpression(path);
   const breakClosingParen = shouldBreakClosingParen(node, parent);
-  const breakTSClosingParen = isTSConditional && pathNeedsParens(path, options);
+  const breakTSClosingParen =
+    isTSConditional && needsParentheses(path, options);
 
   const fillTab = !isBigTabs
     ? ""

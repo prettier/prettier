@@ -1,4 +1,4 @@
-import isNonEmptyArray from "../utils/is-non-empty-array.js";
+import isNonEmptyArray from "../../utils/is-non-empty-array.js";
 import {
   createTypeCheckFunction,
   getFunctionParameters,
@@ -20,7 +20,7 @@ import {
   isUnionType,
   shouldFlatten,
   startsWithNoLookaheadToken,
-} from "./utils/index.js";
+} from "../utils/index.js";
 
 /**
  * @import AstPath from "../common/ast-path.js"
@@ -30,7 +30,7 @@ import {
  * @param {AstPath} path
  * @returns {boolean}
  */
-function needsParens(path, options) {
+function needsParentheses(path, options) {
   if (path.isRoot) {
     return false;
   }
@@ -1145,13 +1145,14 @@ function shouldWrapFunctionForExportDefault(path, options) {
       // in some cases the function is already wrapped
       // (e.g. `export default (function() {})();`)
       // in this case we don't need to add extra parens
-      !needsParens(path, options)
+      !needsParentheses(path, options)
     );
   }
 
   if (
     !hasNakedLeftSide(node) ||
-    (parent.type !== "ExportDefaultDeclaration" && needsParens(path, options))
+    (parent.type !== "ExportDefaultDeclaration" &&
+      needsParentheses(path, options))
   ) {
     return false;
   }
@@ -1346,4 +1347,4 @@ function canDecoratorExpressionUnparenthesized(node) {
   );
 }
 
-export default needsParens;
+export default needsParentheses;
