@@ -37,6 +37,7 @@ import {
 import { printFunctionType } from "./function-type.js";
 import { printIndexedAccessType } from "./indexed-access-type.js";
 import { printIntersectionType } from "./intersection-type.js";
+import { printJSDocType } from "./js-doc-type.js";
 import { printTypeScriptMappedType } from "./mapped-type.js";
 import {
   printDeclareToken,
@@ -52,7 +53,6 @@ import { printTypeAlias } from "./type-alias.js";
 import {
   printArrayType,
   printInferType,
-  printJSDocType,
   printRestType,
   printTypeAnnotation,
   printTypeAnnotationProperty,
