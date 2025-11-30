@@ -339,16 +339,6 @@ function printArrayType(print) {
   return [print("elementType"), "[]"];
 }
 
-/*
-- `TSTypeQuery` (TypeScript)
-- `TypeofTypeAnnotation` (flow)
-*/
-function printTypeQuery({ node }, print) {
-  const argumentPropertyName =
-    node.type === "TSTypeQuery" ? "exprName" : "argument";
-  return ["typeof ", print(argumentPropertyName), print("typeArguments")];
-}
-
 export {
   printArrayType,
   printFunctionType,
@@ -358,6 +348,5 @@ export {
   printRestType,
   printTypeAnnotation,
   printTypeAnnotationProperty,
-  printTypeQuery,
   shouldHugType,
 };
