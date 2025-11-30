@@ -1,6 +1,6 @@
 import escapeStringRegexp from "escape-string-regexp";
 
-class WhitespaceUtils {
+class WhitespaceUtilities {
   #whitespaceCharacters;
 
   constructor(whitespaceCharacters) {
@@ -151,4 +151,4 @@ class WhitespaceUtils {
   }
 }
 
-export default WhitespaceUtils;
+export default WhitespaceUtilities;

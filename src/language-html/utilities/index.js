@@ -9,7 +9,7 @@ import {
   replaceEndOfLine,
 } from "../../document/index.js";
 import { isFrontMatter } from "../../main/front-matter/index.js";
-import htmlWhitespaceUtils from "../../utilities/html-whitespace-utils.js";
+import htmlWhitespace from "../../utilities/html-whitespace.js";
 import inferParser from "../../utilities/infer-parser.js";
 import {
   CSS_DISPLAY_DEFAULT,
@@ -22,14 +22,14 @@ import isUnknownNamespace from "./is-unknown-namespace.js";
 const htmlTrimLeadingBlankLines = (string) =>
   string.replaceAll(/^[\t\f\r ]*\n/gu, "");
 const htmlTrimPreserveIndentation = (string) =>
-  htmlTrimLeadingBlankLines(htmlWhitespaceUtils.trimEnd(string));
+  htmlTrimLeadingBlankLines(htmlWhitespace.trimEnd(string));
 const getLeadingAndTrailingHtmlWhitespace = (string) => {
   let text = string;
-  const leadingWhitespace = htmlWhitespaceUtils.getLeadingWhitespace(text);
+  const leadingWhitespace = htmlWhitespace.getLeadingWhitespace(text);
   if (leadingWhitespace) {
     text = text.slice(leadingWhitespace.length);
   }
-  const trailingWhitespace = htmlWhitespaceUtils.getTrailingWhitespace(text);
+  const trailingWhitespace = htmlWhitespace.getTrailingWhitespace(text);
   if (trailingWhitespace) {
     text = text.slice(0, -trailingWhitespace.length);
   }
@@ -590,10 +590,10 @@ function getTextValueParts(node, value = node.value) {
     ? node.parent.isIndentationSensitive
       ? replaceEndOfLine(value)
       : replaceEndOfLine(
-          htmlWhitespaceUtils.dedentString(htmlTrimPreserveIndentation(value)),
+          htmlWhitespace.dedentString(htmlTrimPreserveIndentation(value)),
           hardline,
         )
-    : join(line, htmlWhitespaceUtils.split(value));
+    : join(line, htmlWhitespace.split(value));
 }
 
 function isVueScriptTag(node, options) {

@@ -20,7 +20,7 @@ import {
 } from "../../main/comments/print.js";
 import getPreferredQuote from "../../utilities/get-preferred-quote.js";
 import UnexpectedNodeError from "../../utilities/unexpected-node-error.js";
-import WhitespaceUtils from "../../utilities/whitespace-utils.js";
+import WhitespaceUtilities from "../../utilities/whitespace-utilities.js";
 import needsParentheses from "../parentheses/needs-parentheses.js";
 import getRaw from "../utilities/get-raw.js";
 import {
@@ -44,7 +44,7 @@ Only the following are treated as whitespace inside JSX.
 - U+000D CR
 - U+0009 TAB
 */
-const jsxWhitespaceUtils = new WhitespaceUtils(" \n\r\t");
+const jsxWhitespace = new WhitespaceUtilities(" \n\r\t");
 
 const isEmptyStringOrAnyLine = (doc) =>
   doc === "" || doc === line || doc === hardline || doc === softline;
@@ -342,10 +342,7 @@ function printJsxChildren(
 
       // Contains a non-whitespace character
       if (isMeaningfulJsxText(node)) {
-        const words = jsxWhitespaceUtils.split(
-          text,
-          /* captureWhitespace */ true,
-        );
+        const words = jsxWhitespace.split(text, /* captureWhitespace */ true);
 
         // Starts with whitespace
         if (words[0] === "") {
@@ -424,8 +421,8 @@ function printJsxChildren(
       const directlyFollowedByMeaningfulText =
         next && isMeaningfulJsxText(next);
       if (directlyFollowedByMeaningfulText) {
-        const trimmed = jsxWhitespaceUtils.trim(getRaw(next));
-        const [firstWord] = jsxWhitespaceUtils.split(trimmed);
+        const trimmed = jsxWhitespace.trim(getRaw(next));
+        const [firstWord] = jsxWhitespace.split(trimmed);
         pushLine(
           separatorNoWhitespace(
             isFacebookTranslationTag,
@@ -866,7 +863,7 @@ function isEmptyJsxElement(node) {
 function isMeaningfulJsxText(node) {
   return (
     node.type === "JSXText" &&
-    (jsxWhitespaceUtils.hasNonWhitespaceCharacter(getRaw(node)) ||
+    (jsxWhitespace.hasNonWhitespaceCharacter(getRaw(node)) ||
       !/\n/u.test(getRaw(node)))
   );
 }

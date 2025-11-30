@@ -5,7 +5,7 @@ Based on https://github.com/helmetjs/content-security-policy-parser/blob/main/mo
 1. Skip ASCII check, so we won't remove invalid directives.
 1. Skip directive name normalization, so the printer can know what's the original name.
 */
-import htmlWhitespaceUtils from "../../utilities/html-whitespace-utils.js";
+import htmlWhitespace from "../../utilities/html-whitespace.js";
 
 /**
 @typedef {{
@@ -28,7 +28,7 @@ function parsePermissionsPolicy(policy) {
   // U+003B SEMICOLON character (;):"
   for (let token of policy.split(";")) {
     // "1. Strip leading and trailing ASCII whitespace from token."
-    token = htmlWhitespaceUtils.trim(token);
+    token = htmlWhitespace.trim(token);
 
     // "2. If token is an empty string, or if token is not an ASCII string,
     //     continue."
@@ -42,7 +42,7 @@ function parsePermissionsPolicy(policy) {
     //     code points from token which are not ASCII whitespace."
     // "6. Let directive value be the result of splitting token on
     //     ASCII whitespace."
-    const [name, ...value] = htmlWhitespaceUtils.split(token);
+    const [name, ...value] = htmlWhitespace.split(token);
 
     // "4. Set directive name to be the result of running ASCII lowercase on
     //     directive name."

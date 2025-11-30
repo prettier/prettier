@@ -11,7 +11,7 @@ import {
   replaceEndOfLine,
 } from "../document/index.js";
 import getPreferredQuote from "../utilities/get-preferred-quote.js";
-import htmlWhitespaceUtils from "../utilities/html-whitespace-utils.js";
+import htmlWhitespace from "../utilities/html-whitespace.js";
 import UnexpectedNodeError from "../utilities/unexpected-node-error.js";
 import clean from "./clean.js";
 import embed from "./embed.js";
@@ -55,7 +55,7 @@ function genericPrint(path, options, print) {
     case "angularControlFlowBlockParameters":
       return printAngularControlFlowBlockParameters(path, options, print);
     case "angularControlFlowBlockParameter":
-      return htmlWhitespaceUtils.trim(node.expression);
+      return htmlWhitespace.trim(node.expression);
 
     case "angularLetDeclaration":
       // print like "break-after-operator" layout assignment in estree printer

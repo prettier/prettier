@@ -5,7 +5,7 @@ import {
   indent,
   line,
 } from "../document/index.js";
-import htmlWhitespaceUtils from "../utilities/html-whitespace-utils.js";
+import htmlWhitespace from "../utilities/html-whitespace.js";
 import printAngularControlFlowBlockParameters from "./embed/angular-control-flow-block-parameters.js";
 import printAttribute from "./embed/attribute.js";
 import { formatAttributeValue } from "./embed/utils.js";
@@ -81,7 +81,7 @@ function embed(path, options) {
           return async (textToDoc) => {
             const value =
               parser === "markdown"
-                ? htmlWhitespaceUtils.dedentString(
+                ? htmlWhitespace.dedentString(
                     node.value.replace(/^[^\S\n]*\n/u, ""),
                   )
                 : node.value;

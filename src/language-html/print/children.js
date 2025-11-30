@@ -7,7 +7,7 @@ import {
   replaceEndOfLine,
   softline,
 } from "../../document/index.js";
-import htmlWhitespaceUtils from "../../utilities/html-whitespace-utils.js";
+import htmlWhitespace from "../../utilities/html-whitespace.js";
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
 import { locEnd, locStart } from "../loc.js";
 import {
@@ -51,7 +51,7 @@ function printChild(path, options, print) {
     return [
       printOpeningTagPrefix(child, options),
       replaceEndOfLine(
-        htmlWhitespaceUtils.trimEnd(
+        htmlWhitespace.trimEnd(
           options.originalText.slice(
             locStart(child) +
               (child.prev && needsToBorrowNextOpeningTagStartMarker(child.prev)

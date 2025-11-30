@@ -1,4 +1,4 @@
-import htmlWhitespaceUtils from "../utilities/html-whitespace-utils.js";
+import htmlWhitespace from "../utilities/html-whitespace.js";
 import { getOrderedListItemInfo, mapAst, splitText } from "./utils.js";
 
 // 0x0 ~ 0x10ffff
@@ -97,10 +97,10 @@ function splitTextIntoSentences(ast) {
       // CommonMark doesn't remove trailing/leading \f, but it should be
       // removed in the HTML rendering process
       if (index === 0) {
-        value = htmlWhitespaceUtils.trimStart(value);
+        value = htmlWhitespace.trimStart(value);
       }
       if (index === parentNode.children.length - 1) {
-        value = htmlWhitespaceUtils.trimEnd(value);
+        value = htmlWhitespace.trimEnd(value);
       }
     }
 

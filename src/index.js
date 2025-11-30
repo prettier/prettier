@@ -109,7 +109,7 @@ const sharedWithCli = {
   createTwoFilesPatch,
   picocolors,
   closetLevenshteinMatch,
-  utils: {
+  utilities: {
     omit,
     createMockable,
   },
