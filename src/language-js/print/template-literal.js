@@ -45,8 +45,7 @@ function printTemplateLiteral(path, options, print) {
 
   const expressionDocs = printTemplateExpressions(path, options, print);
   const parts = path.map(
-    ({ isLast, index }) =>
-      isLast ? print() : [print(), "${", expressionDocs[index], "}"],
+    ({ isLast, index }) => [print(), isLast ? "" : expressionDocs[index]],
     "quasis",
   );
 
@@ -104,13 +103,11 @@ function printJestEachTemplateLiteral(path, options, print) {
     options.__inJestEach = false;
     const stringifiedExpressions = expressions.map(
       (doc) =>
-        "${" +
         printDocToString(doc, {
           ...options,
           printWidth: Number.POSITIVE_INFINITY,
           endOfLine: "lf",
-        }).formatted +
-        "}",
+        }).formatted,
     );
 
     const tableBody = [{ hasLineBreak: false, cells: [] }];
@@ -263,7 +260,7 @@ function printTemplateExpression(path, options, print) {
       ? align(Number.NEGATIVE_INFINITY, expressionDoc)
       : addAlignmentToDoc(expressionDoc, indentSize, options.tabWidth);
 
-  return [expressionDoc, lineSuffixBoundary];
+  return ["${", expressionDoc, lineSuffixBoundary, "}"];
 }
 
 function printTemplateExpressions(path, options, print) {
