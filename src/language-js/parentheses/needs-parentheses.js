@@ -23,7 +23,7 @@ import {
 } from "../utilities/index.js";
 
 /**
- * @import AstPath from "../common/ast-path.js"
+ * @import AstPath from "../../common/ast-path.js"
  */
 
 /**
