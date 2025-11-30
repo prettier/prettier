@@ -24,6 +24,7 @@ import {
   printEnumBody,
   printEnumDeclaration,
   printEnumMember,
+  printFlowEnumBody,
 } from "./enum.js";
 import { printFunctionType } from "./function-type.js";
 import {
@@ -162,19 +163,7 @@ function printFlow(path, options, print) {
     case "EnumBigIntBody":
     case "EnumStringBody":
     case "EnumSymbolBody":
-      return [
-        node.type === "EnumSymbolBody" || node.explicitType
-          ? `of ${node.type
-              .slice(
-                // `Enum`
-                4,
-                // `Body`
-                -4,
-              )
-              .toLowerCase()} `
-          : "",
-        printEnumBody(path, options, print),
-      ];
+      return printFlowEnumBody(path, options, print);
 
     case "EnumBooleanMember":
     case "EnumNumberMember":
