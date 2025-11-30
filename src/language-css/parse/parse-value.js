@@ -1,9 +1,9 @@
 import PostcssValuesParser from "postcss-values-parser/lib/parser.js";
-import getFunctionArgumentsText from "../utils/get-function-arguments-text.js";
-import getValueRoot from "../utils/get-value-root.js";
-import hasSCSSInterpolation from "../utils/has-scss-interpolation.js";
-import hasStringOrFunction from "../utils/has-string-or-function.js";
-import isSCSSVariable from "../utils/is-scss-variable.js";
+import getFunctionArgumentsText from "../utilities/get-function-arguments-text.js";
+import getValueRoot from "../utilities/get-value-root.js";
+import hasSCSSInterpolation from "../utilities/has-scss-interpolation.js";
+import hasStringOrFunction from "../utilities/has-string-or-function.js";
+import isSCSSVariable from "../utilities/is-scss-variable.js";
 import parseSelector from "./parse-selector.js";
 import { addTypePrefix } from "./utils.js";
 

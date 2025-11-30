@@ -47,7 +47,7 @@ import {
   isWideKeywords,
   lastLineHasInlineComment,
   maybeToLowerCase,
-} from "./utils/index.js";
+} from "./utilities/index.js";
 
 function genericPrint(path, options, print) {
   const { node } = path;

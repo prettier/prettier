@@ -24,7 +24,7 @@ import {
   isSCSSMapItemNode,
   isURLFunctionNode,
   isVarFunctionNode,
-} from "../utils/index.js";
+} from "../utilities/index.js";
 import { shouldPrintTrailingComma } from "./misc.js";
 
 function hasComma({ node, parent }, options) {
