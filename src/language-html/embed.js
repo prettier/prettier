@@ -22,8 +22,8 @@ import {
   inferElementParser,
   isScriptLikeTag,
   isVueNonHtmlBlock,
-} from "./utils/index.js";
-import isVueSfcWithTypescriptScript from "./utils/is-vue-sfc-with-typescript-script.js";
+} from "./utilities/index.js";
+import isVueSfcWithTypescriptScript from "./utilities/is-vue-sfc-with-typescript-script.js";
 
 const embeddedAngularControlFlowBlocks = new Set([
   "if",

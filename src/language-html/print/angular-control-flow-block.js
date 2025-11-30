@@ -6,7 +6,7 @@ import {
   line,
   softline,
 } from "../../document/index.js";
-import { hasPrettierIgnore } from "../utils/index.js";
+import { hasPrettierIgnore } from "../utilities/index.js";
 import ANGULAR_CONTROL_FLOW_BLOCK_SETTINGS from "./angular-control-flow-block-settings.evaluate.js";
 import { printChildren } from "./children.js";
 

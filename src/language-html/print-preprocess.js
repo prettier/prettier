@@ -9,7 +9,7 @@ import {
   isLeadingSpaceSensitiveNode,
   isTrailingSpaceSensitiveNode,
   isWhitespaceSensitiveNode,
-} from "./utils/index.js";
+} from "./utilities/index.js";
 
 const PREPROCESS_PIPELINE = [
   removeIgnorableFirstLf,

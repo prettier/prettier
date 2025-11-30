@@ -1,4 +1,4 @@
-import { getUnescapedAttributeValue } from "../utils/index.js";
+import { getUnescapedAttributeValue } from "../utilities/index.js";
 import { printExpand } from "./utils.js";
 
 /**

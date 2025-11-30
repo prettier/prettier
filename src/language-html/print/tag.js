@@ -20,7 +20,7 @@ import {
   isTextLikeNode,
   isVueSfcBlock,
   shouldPreserveContent,
-} from "../utils/index.js";
+} from "../utilities/index.js";
 
 function printClosingTag(node, options) {
   return [

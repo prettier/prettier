@@ -2,7 +2,7 @@ import { fill } from "../../document/index.js";
 import {
   getTextValueParts,
   getUnescapedAttributeValue,
-} from "../utils/index.js";
+} from "../utilities/index.js";
 import {
   isAngularInterpolation,
   printAngularInterpolation,

@@ -35,7 +35,7 @@ import {
   printOpeningTagStart,
 } from "./print/tag.js";
 import preprocess from "./print-preprocess.js";
-import { getTextValueParts, unescapeQuoteEntities } from "./utils/index.js";
+import { getTextValueParts, unescapeQuoteEntities } from "./utilities/index.js";
 
 function genericPrint(path, options, print) {
   const { node } = path;

@@ -16,7 +16,7 @@ import {
   hasPrettierIgnore,
   isTextLikeNode,
   preferHardlineAsLeadingSpaces,
-} from "../utils/index.js";
+} from "../utilities/index.js";
 import {
   needsToBorrowNextOpeningTagStartMarker,
   needsToBorrowParentClosingTagStartMarker,
