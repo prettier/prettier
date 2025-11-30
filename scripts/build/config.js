@@ -3,7 +3,7 @@ import path from "node:path";
 import url from "node:url";
 import createEsmUtils from "esm-utils";
 import { outdent } from "outdent";
-import { copyFile, DIST_DIR, PROJECT_ROOT } from "../utils/index.js";
+import { copyFile, DIST_DIR, PROJECT_ROOT } from "../utilities/index.js";
 import buildDependenciesLicense from "./build-dependencies-license.js";
 import buildJavascriptModule from "./build-javascript-module.js";
 import buildOxcWasmParser from "./build-oxc-wasm-parser.js";
@@ -294,7 +294,7 @@ const pluginFiles = [
       },
       // Use named import from `typescript`
       {
-        module: getPackageFile("ts-api-utils/lib/index.js"),
+        module: getPackageFile("ts-api-utilities/lib/index.js"),
         process(text) {
           const typescriptVariables = [
             ...text.matchAll(

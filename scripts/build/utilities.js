@@ -3,7 +3,7 @@ import path from "node:path";
 import url from "node:url";
 import { resolve } from "import-meta-resolve";
 import { isUrl, toUrl } from "url-or-path";
-import { PROJECT_ROOT } from "../utils/index.js";
+import { PROJECT_ROOT } from "../utilities/index.js";
 
 const NODE_MODULES_PATH = path.join(PROJECT_ROOT, "node_modules");
 
