@@ -33,10 +33,7 @@ import {
 - `TSTemplateLiteralType` (TypeScript)
 */
 function printTemplateLiteral(path, options, print) {
-  const { node } = path;
-  const isTemplateLiteral = node.type === "TemplateLiteral";
-
-  if (isTemplateLiteral && isJestEachTemplateLiteral(path)) {
+  if (isJestEachTemplateLiteral(path)) {
     const printed = printJestEachTemplateLiteral(path, options, print);
     if (printed) {
       return printed;
@@ -286,19 +283,20 @@ function uncookTemplateElementValue(cookedValue) {
   return cookedValue.replaceAll(/([\\`]|\$\{)/gu, String.raw`\$1`);
 }
 
+/**
+ * describe.each`table`(name, fn)
+ * describe.only.each`table`(name, fn)
+ * describe.skip.each`table`(name, fn)
+ * test.each`table`(name, fn)
+ * test.only.each`table`(name, fn)
+ * test.skip.each`table`(name, fn)
+ *
+ * Ref: https://github.com/facebook/jest/pull/6102
+ */
+const jestEachTriggerRegex = /^[fx]?(?:describe|it|test)$/u;
 function isJestEachTemplateLiteral({ node, parent }) {
-  /**
-   * describe.each`table`(name, fn)
-   * describe.only.each`table`(name, fn)
-   * describe.skip.each`table`(name, fn)
-   * test.each`table`(name, fn)
-   * test.only.each`table`(name, fn)
-   * test.skip.each`table`(name, fn)
-   *
-   * Ref: https://github.com/facebook/jest/pull/6102
-   */
-  const jestEachTriggerRegex = /^[fx]?(?:describe|it|test)$/u;
   return (
+    node.type === "TemplateLiteral" &&
     parent.type === "TaggedTemplateExpression" &&
     parent.quasi === node &&
     parent.tag.type === "MemberExpression" &&
