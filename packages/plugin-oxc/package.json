@@ -1,11 +1,12 @@
 {
   "name": "@prettier/plugin-oxc",
-  "version": "0.0.5",
+  "version": "0.1.2",
   "description": "Prettier Oxc plugin.",
   "type": "module",
   "exports": {
     ".": {
       "types": "./index.d.ts",
+      "browser": "./index.browser.mjs",
       "default": "./index.mjs"
     },
     "./*": "./*"

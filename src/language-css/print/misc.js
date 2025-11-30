@@ -1,5 +1,5 @@
-import printNumber from "../../utils/print-number.js";
-import printString from "../../utils/print-string.js";
+import printNumber from "../../utilities/print-number.js";
+import printString from "../../utilities/print-string.js";
 import CSS_UNITS from "./css-units.evaluate.js";
 
 function printUnit(unit) {

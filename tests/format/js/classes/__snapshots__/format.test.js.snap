@@ -239,31 +239,11 @@ parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-class A1 {
-  // comment
-}
-
-class A2 { // comment
-}
-
-class A3 {
-}
-
 class A4 {
   m() {}
 }
 
 =====================================output=====================================
-class A1 {
-  // comment
-}
-
-class A2 {
-  // comment
-}
-
-class A3 {}
-
 class A4 {
   m() {}
 }

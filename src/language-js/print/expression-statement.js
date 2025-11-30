@@ -1,13 +1,13 @@
 import {
-  isVueEventBindingFunctionExpression,
-  isVueEventBindingMemberExpression,
-  unwrapVueEventBindingTsNode,
-} from "../utils/vue-event-binding.js";
-import {
   isSingleHtmlEventHandlerExpressionStatement,
   isSingleJsxExpressionStatementInMarkdown,
   isSingleVueEventBindingExpressionStatement,
-} from "./semicolon.js";
+} from "../semicolon/semicolon.js";
+import {
+  isVueEventBindingFunctionExpression,
+  isVueEventBindingMemberExpression,
+  unwrapVueEventBindingTsNode,
+} from "../utilities/vue-event-binding.js";
 
 function shouldPrintSemicolon(path, options) {
   if (isSingleVueEventBindingExpressionStatement(path, options)) {

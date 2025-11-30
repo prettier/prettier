@@ -7,7 +7,7 @@ import createEsmUtils from "esm-utils";
 import styleText from "node-style-text";
 import prettyBytes from "pretty-bytes";
 import prettyMilliseconds from "pretty-ms";
-import { DIST_DIR } from "../utils/index.js";
+import { DIST_DIR } from "../utilities/index.js";
 import packageConfigs from "./config.js";
 import parseArguments from "./parse-arguments.js";
 
@@ -51,6 +51,7 @@ async function buildFile({ packageConfig, file, cliOptions, results }) {
   if (
     (file.platform === "universal" && file.output.format !== "esm") ||
     (file.output.file.startsWith("index.") && file.output.format !== "esm") ||
+    file.output.file.endsWith(".browser.mjs") ||
     file.kind === "types"
   ) {
     displayName = ` ${displayName}`;

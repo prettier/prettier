@@ -1,14 +1,14 @@
 import { parse as parseTypeScript } from "@typescript-eslint/typescript-estree";
 import createError from "../../common/parser-create-error.js";
-import tryCombinations from "../../utils/try-combinations.js";
+import { tryCombinationsSync } from "../../utilities/try-combinations.js";
 import postprocess from "./postprocess/index.js";
-import createParser from "./utils/create-parser.js";
-import jsxRegexp from "./utils/jsx-regexp.evaluate.js";
-import replaceHashbang from "./utils/replace-hashbang.js";
+import createParser from "./utilities/create-parser.js";
+import jsxRegexp from "./utilities/jsx-regexp.evaluate.js";
+import replaceHashbang from "./utilities/replace-hashbang.js";
 import {
   getSourceType,
   SOURCE_TYPE_COMBINATIONS,
-} from "./utils/source-types.js";
+} from "./utilities/source-types.js";
 
 /** @import {TSESTreeOptions} from "@typescript-eslint/typescript-estree" */
 
@@ -88,7 +88,7 @@ function parse(text, options) {
 
   let ast;
   try {
-    ast = tryCombinations(
+    ast = tryCombinationsSync(
       parseOptionsCombinations.map(
         (parseOptions) => () => parseTypeScript(textToParse, parseOptions),
       ),

@@ -14,7 +14,7 @@ import {
   WEBSITE_DIR,
   writeFile,
   writeJson,
-} from "./utils/index.js";
+} from "./utilities/index.js";
 
 const runYarn = (command, args, options) =>
   spawn("yarn", [command, ...args], { stdio: "inherit", ...options });
@@ -67,6 +67,9 @@ async function buildPlaygroundFiles() {
   if (IS_PULL_REQUEST) {
     for (const pluginName of ["plugin-hermes"]) {
       pluginFiles.push(`${pluginName}/index.mjs`);
+    }
+    for (const pluginName of ["plugin-oxc"]) {
+      pluginFiles.push(`${pluginName}/index.browser.mjs`);
     }
   }
 
@@ -126,12 +129,6 @@ await buildPlaygroundFiles();
 // --- Site ---
 console.log("Installing website dependencies...");
 await runYarn("install", [], { cwd: WEBSITE_DIR });
-
-if (IS_PULL_REQUEST) {
-  console.log("Synchronizing docs...");
-  process.env.PRETTIER_VERSION = `999.999.999-pr.${process.env.REVIEW_ID}`;
-  await runYarn("update-stable-docs", [], { cwd: WEBSITE_DIR });
-}
 
 console.log("Building website...");
 await runYarn("build", [], { cwd: WEBSITE_DIR });

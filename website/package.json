@@ -31,11 +31,10 @@
     "@docusaurus/faster": "3.9.2",
     "@docusaurus/module-type-aliases": "3.9.2",
     "@docusaurus/types": "3.9.2",
-    "@types/js-yaml": "4.0.9",
-    "@vitejs/plugin-react": "5.0.3",
+    "@vitejs/plugin-react": "5.1.1",
     "concurrently": "9.2.1",
-    "js-yaml": "4.1.1",
-    "vite": "7.1.11"
+    "vite": "7.2.4",
+    "yaml": "2.8.1"
   },
   "browserslist": {
     "production": [
@@ -49,5 +48,5 @@
       "last 5 safari version"
     ]
   },
-  "packageManager": "yarn@4.11.0"
+  "packageManager": "yarn@4.12.0"
 }

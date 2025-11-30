@@ -4,7 +4,7 @@ import {
   isCallExpression,
   isMemberExpression,
   isNumericLiteral,
-} from "../utils/index.js";
+} from "../utilities/index.js";
 import { printOptionalToken } from "./misc.js";
 
 const isCallExpressionWithArguments = (node) => {
@@ -47,10 +47,9 @@ function printMemberExpression(path, options, print) {
   );
 
   const shouldInline =
-    (firstNonMemberParent &&
-      (firstNonMemberParent.type === "BindExpression" ||
-        (firstNonMemberParent.type === "AssignmentExpression" &&
-          firstNonMemberParent.left.type !== "Identifier"))) ||
+    firstNonMemberParent.type === "BindExpression" ||
+    (firstNonMemberParent.type === "AssignmentExpression" &&
+      firstNonMemberParent.left.type !== "Identifier") ||
     shouldInlineNewExpressionCallee(path) ||
     node.computed ||
     (node.object.type === "Identifier" &&

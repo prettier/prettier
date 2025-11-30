@@ -1,7 +1,7 @@
 import { SidebarCategory } from "./components.jsx";
 import Option from "./options.jsx";
 
-// Copied from `/src/cli/utils.js`
+// Copied from `/src/cli/utilities.js`
 function groupBy(array, iteratee) {
   const result = Object.create(null);
 

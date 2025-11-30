@@ -15,7 +15,7 @@ import {
   isEmptyNode,
   isInlineNode,
   isNode,
-} from "../utils.js";
+} from "../utilities.js";
 import { alignWithSpaces } from "./misc.js";
 
 function printMappingItem(path, options, print) {
@@ -135,6 +135,7 @@ function printMappingItem(path, options, print) {
     isAbsolutelyPrintedAsSingleLineNode(key.content, options) &&
     !hasLeadingComments(key.content) &&
     !hasMiddleComments(key.content) &&
+    !hasTrailingComment(key.content) &&
     !hasEndComments(key)
   ) {
     return conditionalGroup([[printedKey, implicitMappingValue]]);

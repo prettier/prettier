@@ -1,5 +1,5 @@
 import { group, join } from "../../document/index.js";
-import pathNeedsParens from "../needs-parens.js";
+import needsParentheses from "../parentheses/needs-parentheses.js";
 import {
   getCallArguments,
   hasComment,
@@ -10,7 +10,7 @@ import {
   isTemplateOnItsOwnLine,
   isTestCall,
   iterateCallArgumentsPath,
-} from "../utils/index.js";
+} from "../utilities/index.js";
 import printCallArguments from "./call-arguments.js";
 import printMemberChain from "./member-chain.js";
 import { printOptionalToken } from "./misc.js";
@@ -80,7 +80,7 @@ function printCallExpression(path, options, print) {
     !isNewExpression &&
     isMemberish(node.callee) &&
     !path.call(
-      () => pathNeedsParens(path, options),
+      () => needsParentheses(path, options),
       "callee",
       ...(node.callee.type === "ChainExpression" ? ["expression"] : []),
     )
@@ -108,8 +108,12 @@ function printCallExpression(path, options, print) {
 function printCallee(path, print) {
   const { node } = path;
 
-  if (node.type === "ImportExpression" || node.type === "TSImportType") {
+  if (node.type === "ImportExpression") {
     return `import${node.phase ? `.${node.phase}` : ""}`;
+  }
+
+  if (node.type === "TSImportType") {
+    return "import";
   }
 
   if (node.type === "TSExternalModuleReference") {
@@ -152,18 +156,7 @@ function isSimpleModuleImport(path) {
 
   const args = getCallArguments(node);
 
-  if (args.length !== 1 || hasComment(args[0])) {
-    return false;
-  }
-
-  let source = args[0];
-
-  // TODO: remove this once https://github.com/typescript-eslint/typescript-eslint/issues/11583 get fixed
-  if (node.type === "TSImportType" && source.type === "TSLiteralType") {
-    source = source.literal;
-  }
-
-  return isStringLiteral(source);
+  return args.length === 1 && isStringLiteral(args[0]) && !hasComment(args[0]);
 }
 
 function isCommonsJsOrAmdModuleDefinition(path) {

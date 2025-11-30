@@ -51,11 +51,13 @@ Strings provided to `plugins` are ultimately passed to [`import()` expression](h
 
 - [`prettier-plugin-apex`](https://github.com/dangmai/prettier-plugin-apex) by [**@dangmai**](https://github.com/dangmai)
 - [`prettier-plugin-astro`](https://github.com/withastro/prettier-plugin-astro) by [**@withastro contributors**](https://github.com/withastro/prettier-plugin-astro/graphs/contributors)
+- [`prettier-plugin-bigcommerce-stencil`](https://github.com/phoenix128/prettier-plugin-bigcommerce-stencil) by [**@phoenix128**](https://github.com/phoenix128)
 - [`prettier-plugin-elm`](https://github.com/gicentre/prettier-plugin-elm) by [**@giCentre**](https://github.com/gicentre)
 - [`prettier-plugin-erb`](https://github.com/adamzapasnik/prettier-plugin-erb) by [**@adamzapasnik**](https://github.com/adamzapasnik)
 - [`prettier-plugin-gherkin`](https://github.com/mapado/prettier-plugin-gherkin) by [**@mapado**](https://github.com/mapado)
 - [`prettier-plugin-glsl`](https://github.com/NaridaL/glsl-language-toolkit/tree/main/packages/prettier-plugin-glsl) by [**@NaridaL**](https://github.com/NaridaL)
 - [`prettier-plugin-go-template`](https://github.com/NiklasPor/prettier-plugin-go-template) by [**@NiklasPor**](https://github.com/NiklasPor)
+- [`prettier-plugin-hugo-post`](https://github.com/metcalfc/prettier-plugin-hugo-post) by [**@metcalfc**](https://github.com/metcalfc)
 - [`prettier-plugin-java`](https://github.com/jhipster/prettier-java) by [**@JHipster**](https://github.com/jhipster)
 - [`prettier-plugin-jinja-template`](https://github.com/davidodenwald/prettier-plugin-jinja-template) by [**@davidodenwald**](https://github.com/davidodenwald)
 - [`prettier-plugin-jsonata`](https://github.com/Stedi/prettier-plugin-jsonata) by [**@Stedi**](https://github.com/Stedi)
@@ -71,6 +73,7 @@ Strings provided to `plugins` are ultimately passed to [`import()` expression](h
 - [`prettier-plugin-solidity`](https://github.com/prettier-solidity/prettier-plugin-solidity) by [**@mattiaerre**](https://github.com/mattiaerre)
 - [`prettier-plugin-svelte`](https://github.com/sveltejs/prettier-plugin-svelte) by [**@sveltejs**](https://github.com/sveltejs)
 - [`prettier-plugin-toml`](https://github.com/un-ts/prettier/tree/master/packages/toml) by [**@JounQin**](https://github.com/JounQin) and [**@so1ve**](https://github.com/so1ve)
+- [`prettier-plugin-xquery`](https://github.com/drrataplan/prettier-plugin-xquery) by [**@DrRataplan**](https://github.com/drrataplan)
 
 ## Developing Plugins
 
@@ -148,8 +151,10 @@ function hasIgnorePragma(text: string): boolean;
 _(Optional)_ The preprocess function can process the input text before passing into `parse` function.
 
 ```ts
-function preprocess(text: string, options: object): string;
+function preprocess(text: string, options: object): string | Promise<string>;
 ```
+
+_Support for async preprocess first added in v3.7.0_
 
 ### `printers`
 
@@ -169,6 +174,8 @@ export const printers = {
     isBlockComment,
     printComment,
     getCommentChildNodes,
+    hasPrettierIgnore,
+    printPrettierIgnored,
     handleComments: {
       ownLine,
       endOfLine,
@@ -393,6 +400,22 @@ function getCommentChildNodes(
 
 Return `[]` if the node has no children or `undefined` to fall back on the default behavior.
 
+### (optional) `hasPrettierIgnore`
+
+```ts
+function hasPrettierIgnore(path: AstPath): boolean;
+```
+
+Returns whether or not the AST node is `prettier-ignore`d.
+
+### (optional) `printPrettierIgnored`
+
+If the AST node is `prettier-ignore`d, Prettier will slice for the text for parsing without calling `print` function by default, however plugin can also handle the `prettier-ignore`d node print by adding this property.
+
+This property have the same signature as the `print` property.
+
+_First available in v3.7.0_
+
 #### (optional) `printComment`
 
 Called whenever a comment node needs to be printed. It has the signature:
@@ -409,16 +432,23 @@ function printComment(
 #### (optional) `canAttachComment`
 
 ```ts
-function canAttachComment(node: AST): boolean;
+function canAttachComment(node: AST, ancestors: T[]): boolean;
 ```
 
 This function is used for deciding whether a comment can be attached to a particular AST node. By default, _all_ AST properties are traversed searching for nodes that comments can be attached to. This function is used to prevent comments from being attached to a particular node. A typical implementation looks like
 
 ```js
-function canAttachComment(node) {
-  return node.type && node.type !== "comment";
+function canAttachComment(node, [parent]) {
+  return !(
+    node.type === "comment" ||
+    (parent?.type === "shorthand-property" &&
+      parent.key === node &&
+      parent.key !== parent.value)
+  );
 }
 ```
+
+_The second parameter `ancestors` first added in v3.7.0._
 
 #### (optional) `isBlockComment`
 

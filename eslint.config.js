@@ -429,7 +429,7 @@ const configs = [
       "prettier-internal-rules/no-node-comments": [
         "error",
         {
-          file: "src/language-js/utils/index.js",
+          file: "src/language-js/utilities/index.js",
           functions: ["hasComment", "getComments"],
         },
         "src/language-js/pragma.js",
@@ -439,7 +439,7 @@ const configs = [
         "src/language-js/parse/json.js",
         "src/language-js/parse/acorn.js",
         "src/language-js/parse/oxc.js",
-        "src/language-js/parse/utils/wrap-babel-expression.js",
+        "src/language-js/parse/utilities/wrap-babel-expression.js",
       ],
       "prettier-internal-rules/prefer-create-type-check-function": [
         "error",

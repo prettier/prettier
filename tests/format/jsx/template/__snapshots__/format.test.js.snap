@@ -25,6 +25,15 @@ printWidth: 80
   \`}
 </style>;
 
+// #5886
+<style jsx>{\`
+  .class {
+    flex-direction: column\${long_cond && long_cond && long_cond
+        ? "-reverse"
+        : ""};
+  }
+\`}</style>;
+
 =====================================output=====================================
 <style jsx>{\`
   p {
@@ -45,6 +54,15 @@ printWidth: 80
     }
   \`}
 </style>;
+
+// #5886
+<style jsx>{\`
+  .class {
+    flex-direction: column\${long_cond && long_cond && long_cond
+        ? "-reverse"
+        : ""};
+  }
+\`}</style>;
 
 ================================================================================
 `;

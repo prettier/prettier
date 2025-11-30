@@ -5,10 +5,10 @@ import {
   indent,
   line,
 } from "../document/index.js";
-import htmlWhitespaceUtils from "../utils/html-whitespace-utils.js";
+import htmlWhitespace from "../utilities/html-whitespace.js";
 import printAngularControlFlowBlockParameters from "./embed/angular-control-flow-block-parameters.js";
 import printAttribute from "./embed/attribute.js";
-import { formatAttributeValue } from "./embed/utils.js";
+import { formatAttributeValue } from "./embed/utilities.js";
 import getNodeContent from "./get-node-content.js";
 import {
   needsToBorrowPrevClosingTagEndMarker,
@@ -22,8 +22,8 @@ import {
   inferElementParser,
   isScriptLikeTag,
   isVueNonHtmlBlock,
-} from "./utils/index.js";
-import isVueSfcWithTypescriptScript from "./utils/is-vue-sfc-with-typescript-script.js";
+} from "./utilities/index.js";
+import isVueSfcWithTypescriptScript from "./utilities/is-vue-sfc-with-typescript-script.js";
 
 const embeddedAngularControlFlowBlocks = new Set([
   "if",
@@ -81,7 +81,7 @@ function embed(path, options) {
           return async (textToDoc) => {
             const value =
               parser === "markdown"
-                ? htmlWhitespaceUtils.dedentString(
+                ? htmlWhitespace.dedentString(
                     node.value.replace(/^[^\S\n]*\n/u, ""),
                   )
                 : node.value;

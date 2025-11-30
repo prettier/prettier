@@ -3,49 +3,67 @@ import generate from "@babel/generator";
 import { parse } from "@babel/parser";
 import { traverseFast as traverse } from "@babel/types";
 import { outdent } from "outdent";
-import { PROJECT_ROOT, SOURCE_DIR } from "../../utils/index.js";
-import allTransforms from "./transforms/index.js";
+import { PROJECT_ROOT, SOURCE_DIR } from "../../utilities/index.js";
+import * as transforms from "./transforms/index.js";
 
-/* Doesn't work for dependencies */
+const packageTransforms = new Map([
+  /* spell-checker: disable */
+  [
+    transforms["method-replace-all"],
+    [
+      "@prettier/cli",
+      "@typescript-eslint/typescript-estree",
+      "camelcase",
+      "fast-ignore",
+      "fast-string-truncated-width",
+      "hashery",
+      "hermes-parser",
+      "jest-docblock",
+      "kasi",
+      "meriyah",
+    ],
+  ],
+  [
+    transforms["method-at"],
+    ["@glimmer/syntax", "angular-estree-parser", "espree"],
+  ],
+  [transforms["object-has-own"], ["@babel/parser", "meriyah"]],
+  [transforms["string-raw"], ["camelcase", "@angular/compiler"]],
+  [transforms["method-is-well-formed"], ["meriyah"]],
+  /* spell-checker: enable */
+]);
 
-function shouldTransform(file, buildOptions) {
-  const allowedDirectories = buildOptions.reuseDocModule
-    ? [SOURCE_DIR]
-    : [
-        SOURCE_DIR,
-        ...[
-          /* spell-checker: disable */
-          "camelcase",
-          "angular-estree-parser",
-          "jest-docblock",
-          "espree",
-          "@babel/parser",
-          "@typescript-eslint/typescript-estree",
-          "meriyah",
-          "@glimmer",
-          "@prettier/cli",
-          "hermes-parser",
-          "kasi",
-          "fast-string-truncated-width",
-          "fast-ignore",
-          "hashery",
-          /* spell-checker: enable */
-        ].map((directory) =>
-          path.join(PROJECT_ROOT, `node_modules/${directory}/`),
-        ),
-      ];
+const allTransforms = Object.values(transforms);
+const sourceTransforms = allTransforms.filter(
+  (transform) => transform !== transforms["method-is-well-formed"],
+);
+const isPackageFile = (file, packageName) =>
+  file.startsWith(path.join(PROJECT_ROOT, `node_modules/${packageName}/`));
 
-  return allowedDirectories.some((directory) => file.startsWith(directory));
+function getTransforms(original, file) {
+  if (file.startsWith(SOURCE_DIR)) {
+    return sourceTransforms;
+  }
+
+  const transforms = [];
+  for (const [transform, packageNames] of packageTransforms) {
+    if (packageNames.some((packageName) => isPackageFile(file, packageName))) {
+      transforms.push(transform);
+    }
+  }
+
+  return transforms;
 }
 
 function transform(original, file, buildOptions) {
-  if (!shouldTransform(file, buildOptions)) {
-    return original;
-  }
-
-  const transforms = allTransforms.filter(
-    (transform) => !transform.shouldSkip(original, file, buildOptions),
-  );
+  const transforms = // For test
+    (
+      buildOptions.__isSyntaxTransformUnitTest
+        ? allTransforms
+        : getTransforms(original, file, buildOptions)
+    ).filter(
+      (transform) => !transform.shouldSkip(original, file, buildOptions),
+    );
 
   if (transforms.length === 0) {
     return original;

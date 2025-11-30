@@ -1,4 +1,4 @@
-import { getChildren, getDescendants, isLeaf } from "../utils/ast-utils.js";
+import { getChildren, getDescendants, isLeaf } from "../utilities/ast.js";
 
 /**
  * Find the location of the cursor in the AST, represented in one of the

@@ -765,14 +765,14 @@ export interface BooleanSupportOption extends BaseSupportOption<"boolean"> {
   oppositeDescription?: string | undefined;
 }
 
-export interface BooleanArraySupportOption
-  extends BaseSupportOption<"boolean"> {
+export interface BooleanArraySupportOption extends BaseSupportOption<"boolean"> {
   default?: Array<{ value: boolean[] }> | undefined;
   array: true;
 }
 
-export interface ChoiceSupportOption<Value = any>
-  extends BaseSupportOption<"choice"> {
+export interface ChoiceSupportOption<
+  Value = any,
+> extends BaseSupportOption<"choice"> {
   default?: Value | Array<{ value: Value }> | undefined;
   description: string;
   choices: Array<{
@@ -843,7 +843,7 @@ export function getSupportInfo(
  */
 export const version: string;
 
-// https://github.com/prettier/prettier/blob/next/src/utils/public.js
+// https://github.com/prettier/prettier/blob/main/src/utilities/public.js
 export namespace util {
   interface SkipOptions {
     backwards?: boolean | undefined;

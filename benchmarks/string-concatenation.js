@@ -7,7 +7,7 @@ for (const size of [1e1, 1e2, 1e3, 1e4, 1e5]) {
 
   await runBenchmark(
     {
-      name: `String concatentation (${size} strings)`,
+      name: `String concatenation (${size} strings)`,
       assert: (result) => assert.equal(result, expected),
     },
     {

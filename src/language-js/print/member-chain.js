@@ -9,10 +9,10 @@ import {
   willBreak,
 } from "../../document/index.js";
 import { printComments } from "../../main/comments/print.js";
-import getNextNonSpaceNonCommentCharacterIndex from "../../utils/get-next-non-space-non-comment-character-index.js";
-import isNextLineEmptyAfterIndex from "../../utils/is-next-line-empty.js";
+import getNextNonSpaceNonCommentCharacterIndex from "../../utilities/get-next-non-space-non-comment-character-index.js";
+import isNextLineEmptyAfterIndex from "../../utilities/is-next-line-empty.js";
 import { locEnd } from "../loc.js";
-import pathNeedsParens from "../needs-parens.js";
+import needsParentheses from "../parentheses/needs-parentheses.js";
 import {
   CommentCheckFlags,
   hasComment,
@@ -24,10 +24,11 @@ import {
   isNextLineEmpty,
   isNumericLiteral,
   isSimpleCallArgument,
-} from "../utils/index.js";
+} from "../utilities/index.js";
+import { printBindExpressionCallee } from "./bind-expression.js";
 import printCallArguments from "./call-arguments.js";
 import { printMemberLookup } from "./member.js";
-import { printBindExpressionCallee, printOptionalToken } from "./misc.js";
+import { printOptionalToken } from "./misc.js";
 
 /**
  * @import {Doc} from "../../document/index.js"
@@ -122,7 +123,7 @@ function printMemberChain(path, options, print) {
     } else if (isMemberish(node)) {
       printedNodes.unshift({
         node,
-        needsParens: pathNeedsParens(path, options),
+        needsParens: needsParentheses(path, options),
         printed: printComments(
           path,
           isMemberExpression(node)

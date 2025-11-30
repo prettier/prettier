@@ -26,8 +26,8 @@ import {
   isObjectExpression,
   isObjectProperty,
   shouldFlatten,
-} from "../utils/index.js";
-import isTypeCastComment from "../utils/is-type-cast-comment.js";
+} from "../utilities/index.js";
+import isTypeCastComment from "../utilities/is-type-cast-comment.js";
 
 /** @import {Doc} from "../../document/index.js" */
 

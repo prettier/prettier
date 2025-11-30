@@ -2,12 +2,11 @@ import path from "node:path";
 import url from "node:url";
 import browserslistToEsbuild from "browserslist-to-esbuild";
 import esbuild from "esbuild";
-import { nodeModulesPolyfillPlugin as esbuildPluginNodeModulePolyfills } from "esbuild-plugins-node-modules-polyfill";
 import createEsmUtils from "esm-utils";
 import {
   PRODUCTION_MINIMAL_NODE_JS_VERSION,
   PROJECT_ROOT,
-} from "../utils/index.js";
+} from "../utilities/index.js";
 import esbuildPluginAddDefaultExport from "./esbuild-plugins/add-default-export.js";
 import esbuildPluginEvaluate from "./esbuild-plugins/evaluate.js";
 import esbuildPluginPrimitiveDefine from "./esbuild-plugins/primitive-define.js";
@@ -18,7 +17,7 @@ import esbuildPluginThrowWarnings from "./esbuild-plugins/throw-warnings.js";
 import esbuildPluginUmd from "./esbuild-plugins/umd.js";
 import esbuildPluginVisualizer from "./esbuild-plugins/visualizer.js";
 import transform from "./transform/index.js";
-import { getPackageFile } from "./utils.js";
+import { getPackageFile } from "./utilities.js";
 
 const {
   readJsonSync,
@@ -194,14 +193,14 @@ function getEsbuildOptions({ packageConfig, file, cliOptions }) {
       esbuildPluginEvaluate(),
       esbuildPluginStripNodeProtocol(),
       esbuildPluginReplaceModule({
-        replacements: [...replaceModule, ...(buildOptions.replaceModule ?? [])],
+        replacements: [...(buildOptions.replaceModule ?? []), ...replaceModule],
       }),
-      file.platform === "universal" && esbuildPluginNodeModulePolyfills(),
       cliOptions.reports &&
         esbuildPluginVisualizer({ formats: cliOptions.reports }),
       esbuildPluginThrowWarnings({
         allowDynamicRequire: file.platform === "node",
         allowDynamicImport: file.platform === "node",
+        allowedWarnings: buildOptions.allowedWarnings,
       }),
       buildOptions.addDefaultExport && esbuildPluginAddDefaultExport(),
     ].filter(Boolean),
@@ -219,6 +218,7 @@ function getEsbuildOptions({ packageConfig, file, cliOptions }) {
     // https://esbuild.github.io/api/#main-fields
     mainFields: file.platform === "node" ? ["module", "main"] : undefined,
     supported: {
+      ...buildOptions.supported,
       // https://github.com/evanw/esbuild/issues/3471
       "regexp-unicode-property-escapes": true,
       // Maybe because Node.js v14 doesn't support "spread parameters after optional chaining" https://node.green/

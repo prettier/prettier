@@ -43,11 +43,18 @@ function printAttribute(path, options) {
     return;
   }
 
+  const { valueSpan } = node;
+  const isQuoted =
+    valueSpan.end.offset - valueSpan.start.offset === value.length + 2;
+
   if (
+    !isQuoted &&
     // lit-html: html`<my-element obj=${obj}></my-element>`
-    /^PRETTIER_HTML_PLACEHOLDER_\d+_\d+_IN_JS$/u.test(value) ||
-    // lwc: html`<my-element data-for={value}></my-element>`
-    (options.parser === "lwc" && value.startsWith("{") && value.endsWith("}"))
+    (/^PRETTIER_HTML_PLACEHOLDER_\d+_\d+_IN_JS$/u.test(value) ||
+      // lwc: html`<my-element data-for={value}></my-element>`
+      (options.parser === "lwc" &&
+        value.startsWith("{") &&
+        value.endsWith("}")))
   ) {
     return [node.rawName, "=", value];
   }

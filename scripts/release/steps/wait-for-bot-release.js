@@ -1,6 +1,6 @@
 import styleText from "node-style-text";
 import outdent from "outdent";
-import { logPromise, waitForEnter } from "../utils.js";
+import { logPromise, waitForEnter } from "../utilities.js";
 
 export async function isVersionReleased(version) {
   const response = await fetch("https://registry.npmjs.org/prettier/");
@@ -14,13 +14,6 @@ export async function isVersionReleased(version) {
   return versionExists;
 }
 
-async function checkBotPermission() {
-  const response = await fetch("https://registry.npmjs.org/prettier/");
-  const { maintainers } = await response.json();
-
-  return maintainers.some(({ name }) => name === "prettier-bot");
-}
-
 const sleep = () =>
   new Promise((resolve) => {
     setTimeout(resolve, 30_000);
@@ -30,34 +23,6 @@ export default async function waitForBotRelease({ dry, version, next }) {
   if (dry) {
     return;
   }
-
-  if (!(await checkBotPermission())) {
-    console.log(
-      outdent`
-        1. Go to ${styleText.green.underline(
-          "https://www.npmjs.com/package/prettier/access",
-        )}
-        2. Add "${styleText.yellow("prettier-bot")}" as prettier package maintainer.
-      `,
-    );
-
-    await waitForEnter();
-  }
-
-  console.log(
-    outdent`
-      1. Go to ${styleText.green.underline(
-        "https://www.npmjs.com/package/prettier/access",
-      )}
-      2. Make sure "${styleText.yellow(
-        "Publishing access",
-      )}" section is set to "${styleText.yellow(
-        "Require two-factor authentication or an automation or granular access token",
-      )}".
-    `,
-  );
-
-  await waitForEnter();
 
   console.log(
     outdent`

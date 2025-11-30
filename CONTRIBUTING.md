@@ -70,7 +70,7 @@ Prettier is an opinionated formatter and is not accepting pull requests that add
 
 The project uses ESLint for linting and Prettier for formatting. If your editor isn't set up to work with them, you can lint and format all files from the command line using `yarn fix`.
 
-After opening a PR, describe your changes in a file in the `changelog_unreleased` directory following the template [`changelog_unreleased/TEMPLATE.md`](changelog_unreleased/TEMPLATE.md) and commit this file to your PR. You can use `yarn gen:changelog` to generate a changelog file. Please see comments of the script file for usage.
+After opening a PR, describe your changes in a file in the `changelog_unreleased` directory following the template [`changelog_unreleased/TEMPLATE.md`](changelog_unreleased/TEMPLATE.md) and commit this file to your PR. You can use `yarn generate-changelog` to generate a changelog file. Please see comments of the script file for usage.
 
 ## Other
 

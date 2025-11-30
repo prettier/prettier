@@ -1,6 +1,6 @@
 import styleText from "node-style-text";
 import semver from "semver";
-import { runGit, waitForEnter } from "../utils.js";
+import { runGit, waitForEnter } from "../utilities.js";
 
 export default async function mergeBlogPost({
   dry,

@@ -1,3 +1,75 @@
+# 3.7.3
+
+[diff](https://github.com/prettier/prettier/compare/3.7.2...3.7.3)
+
+#### API: Fix `prettier.getFileInfo()` change that breaks VSCode extension ([#18375](https://github.com/prettier/prettier/pull/18375) by [@fisker](https://github.com/fisker))
+
+An internal refactor accidentally broke the VSCode extension plugin loading.
+
+# 3.7.2
+
+[diff](https://github.com/prettier/prettier/compare/3.7.1...3.7.2)
+
+#### JavaScript: Fix string print when switching quotes ([#18351](https://github.com/prettier/prettier/pull/18351) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```jsx
+// Input
+console.log("A descriptor\\'s .kind must be \"method\" or \"field\".")
+
+// Prettier 3.7.1
+console.log('A descriptor\\'s .kind must be "method" or "field".');
+
+// Prettier 3.7.2
+console.log('A descriptor\\\'s .kind must be "method" or "field".');
+```
+
+#### JavaScript: Preserve quote for embedded HTML attribute values ([#18352](https://github.com/prettier/prettier/pull/18352) by [@kovsu](https://github.com/kovsu))
+
+<!-- prettier-ignore -->
+```tsx
+// Input
+const html = /* HTML */ ` <div class="${styles.banner}"></div> `;
+
+// Prettier 3.7.1
+const html = /* HTML */ ` <div class=${styles.banner}></div> `;
+
+// Prettier 3.7.2
+const html = /* HTML */ ` <div class="${styles.banner}"></div> `;
+```
+
+#### TypeScript: Fix comment in empty type literal ([#18364](https://github.com/prettier/prettier/pull/18364) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```tsx
+// Input
+export type XXX = {
+  // tbd
+};
+
+// Prettier 3.7.1
+export type XXX = { // tbd };
+
+// Prettier 3.7.2
+export type XXX = {
+  // tbd
+};
+```
+
+# 3.7.1
+
+[diff](https://github.com/prettier/prettier/compare/3.7.0...3.7.1)
+
+#### API: Fix performance regression in doc printer ([#18342](https://github.com/prettier/prettier/pull/18342) by [@fisker](https://github.com/fisker))
+
+Prettier 3.7.0 can be very slow when formatting big files, the regression has been fixed.
+
+# 3.7.0
+
+[diff](https://github.com/prettier/prettier/compare/3.6.2...3.7.0)
+
+🔗 [Release Notes](https://prettier.io/blog/2025/11/27/3.7.0)
+
 # 3.6.2
 
 [diff](https://github.com/prettier/prettier/compare/3.6.1...3.6.2)

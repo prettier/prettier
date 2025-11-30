@@ -6,10 +6,10 @@ import {
   replaceEndOfLine,
   softline,
 } from "../../document/index.js";
-import isNonEmptyArray from "../../utils/is-non-empty-array.js";
+import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
 import { printTemplateExpressions } from "../print/template-literal.js";
-import isNodeMatches from "../utils/is-node-matches.js";
-import { isAngularComponentStyles } from "./utils.js";
+import isNodeMatches from "../utilities/is-node-matches.js";
+import { isAngularComponentStyles } from "./utilities.js";
 
 async function printEmbedCss(textToDoc, print, path /* , options*/) {
   const { node } = path;

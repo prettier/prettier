@@ -10,15 +10,19 @@ import {
   replaceEndOfLine,
   softline,
 } from "../document/index.js";
-import getPreferredQuote from "../utils/get-preferred-quote.js";
-import htmlWhitespaceUtils from "../utils/html-whitespace-utils.js";
-import isNonEmptyArray from "../utils/is-non-empty-array.js";
-import UnexpectedNodeError from "../utils/unexpected-node-error.js";
+import getPreferredQuote from "../utilities/get-preferred-quote.js";
+import htmlWhitespace from "../utilities/html-whitespace.js";
+import isNonEmptyArray from "../utilities/is-non-empty-array.js";
+import UnexpectedNodeError from "../utilities/unexpected-node-error.js";
 import clean from "./clean.js";
 import embed from "./embed.js";
 import getVisitorKeys from "./get-visitor-keys.js";
 import { locEnd, locStart } from "./loc.js";
-import { hasPrettierIgnore, isVoidElement, isWhitespaceNode } from "./utils.js";
+import {
+  hasPrettierIgnore,
+  isVoidElement,
+  isWhitespaceNode,
+} from "./utilities.js";
 
 /**
 @import {Doc} from "../document/index.js"
@@ -170,8 +174,8 @@ function print(path, options, print) {
 
         if (parent.tag === "style") {
           text = text.replaceAll(/^\n+/gu, "");
-          text = htmlWhitespaceUtils.trimEnd(text);
-          text = htmlWhitespaceUtils.dedentString(text);
+          text = htmlWhitespace.trimEnd(text);
+          text = htmlWhitespace.dedentString(text);
 
           return replaceEndOfLine(text, hardline);
         }
@@ -218,7 +222,7 @@ function print(path, options, print) {
         return replaceEndOfLine(text);
       }
 
-      const isWhitespaceOnly = htmlWhitespaceUtils.isWhitespaceOnly(text);
+      const isWhitespaceOnly = htmlWhitespace.isWhitespaceOnly(text);
       const { isFirst, isLast } = path;
 
       if (options.htmlWhitespaceSensitivity !== "ignore") {
@@ -249,8 +253,7 @@ function print(path, options, print) {
           return breaks;
         }
 
-        const leadingWhitespace =
-          htmlWhitespaceUtils.getLeadingWhitespace(text);
+        const leadingWhitespace = htmlWhitespace.getLeadingWhitespace(text);
 
         let leadBreaks = [];
         if (leadingWhitespace) {
@@ -264,8 +267,7 @@ function print(path, options, print) {
           text = text.slice(leadingWhitespace.length);
         }
 
-        const tailingWhitespace =
-          htmlWhitespaceUtils.getTrailingWhitespace(text);
+        const tailingWhitespace = htmlWhitespace.getTrailingWhitespace(text);
         let trailBreaks = [];
         if (tailingWhitespace) {
           if (!shouldTrimTrailingNewlines) {
@@ -351,12 +353,12 @@ function print(path, options, print) {
         trailingSpace = "";
       }
 
-      if (htmlWhitespaceUtils.hasLeadingWhitespace(text)) {
-        text = leadingSpace + htmlWhitespaceUtils.trimStart(text);
+      if (htmlWhitespace.hasLeadingWhitespace(text)) {
+        text = leadingSpace + htmlWhitespace.trimStart(text);
       }
 
-      if (htmlWhitespaceUtils.hasTrailingWhitespace(text)) {
-        text = htmlWhitespaceUtils.trimEnd(text) + trailingSpace;
+      if (htmlWhitespace.hasTrailingWhitespace(text)) {
+        text = htmlWhitespace.trimEnd(text) + trailingSpace;
       }
 
       return [
@@ -672,7 +674,7 @@ function printInverse(path, options, print) {
 /* TextNode print helpers */
 
 function getTextValueParts(value) {
-  return join(line, htmlWhitespaceUtils.split(value));
+  return join(line, htmlWhitespace.split(value));
 }
 
 function getCurrentAttributeName(path) {
@@ -712,7 +714,7 @@ function generateHardlines(number = 0) {
 
 /* StringLiteral print helpers */
 
-/** @import {Quote} from "../utils/get-preferred-quote.js" */
+/** @import {Quote} from "../utilities/get-preferred-quote.js" */
 
 /**
  * Prints a string literal with the correct surrounding quotes based on

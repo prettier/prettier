@@ -1,14 +1,14 @@
 import { parse as babelParse, parseExpression } from "@babel/parser";
-import tryCombinations from "../../utils/try-combinations.js";
+import { tryCombinationsSync } from "../../utilities/try-combinations.js";
 import postprocess from "./postprocess/index.js";
-import createBabelParseError from "./utils/create-babel-parse-error.js";
-import createParser from "./utils/create-parser.js";
+import createBabelParseError from "./utilities/create-babel-parse-error.js";
+import createParser from "./utilities/create-parser.js";
 import {
   getSourceType,
+  SOURCE_TYPE_COMMONJS,
   SOURCE_TYPE_MODULE,
-  SOURCE_TYPE_SCRIPT,
-} from "./utils/source-types.js";
-import wrapBabelExpression from "./utils/wrap-babel-expression.js";
+} from "./utilities/source-types.js";
+import wrapBabelExpression from "./utilities/wrap-babel-expression.js";
 
 const createBabelParser = (options) => createParser(createParse(options));
 
@@ -88,10 +88,17 @@ function createParse({ isExpression = false, optionsCombinations }) {
 
     let combinations = optionsCombinations;
     const sourceType = options.__babelSourceType ?? getSourceType(filepath);
-    if (sourceType === SOURCE_TYPE_SCRIPT) {
+    if (sourceType && sourceType !== SOURCE_TYPE_MODULE) {
       combinations = combinations.map((options) => ({
         ...options,
         sourceType,
+        // `sourceType: "commonjs"` does not allow these two properties
+        ...(sourceType === SOURCE_TYPE_COMMONJS
+          ? {
+              allowReturnOutsideFunction: undefined,
+              allowNewTargetOutsideFunction: undefined,
+            }
+          : undefined),
       }));
     }
 
@@ -116,7 +123,7 @@ function createParse({ isExpression = false, optionsCombinations }) {
 
     let ast;
     try {
-      ast = tryCombinations(
+      ast = tryCombinationsSync(
         combinations.map(
           (options) => () => parseWithOptions(parseFunction, text, options),
         ),

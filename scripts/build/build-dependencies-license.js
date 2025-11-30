@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { outdent } from "outdent";
 import rollupPluginLicense from "rollup-plugin-license";
-import { PROJECT_ROOT } from "../utils/index.js";
+import { PROJECT_ROOT } from "../utilities/index.js";
 
 const separator = `\n${"-".repeat(40)}\n\n`;
 

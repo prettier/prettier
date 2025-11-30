@@ -12,14 +12,14 @@ import {
   printComments,
   printDanglingComments,
 } from "../../main/comments/print.js";
-import pathNeedsParens from "../needs-parens.js";
+import needsParentheses from "../parentheses/needs-parentheses.js";
 import {
   CommentCheckFlags,
   createTypeCheckFunction,
   hasComment,
   hasLeadingOwnLineComment,
   isNextLineEmpty,
-} from "../utils/index.js";
+} from "../utilities/index.js";
 
 /*
 - `MatchExpression` (Flow)
@@ -233,7 +233,7 @@ function printMatchOrPattern(path, options, print) {
 
   const code = [ifBreak(["| "]), join([line, "| "], printed)];
 
-  if (pathNeedsParens(path, options)) {
+  if (needsParentheses(path, options)) {
     return group([indent([ifBreak([softline]), code]), softline]);
   }
 

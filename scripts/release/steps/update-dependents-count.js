@@ -1,13 +1,14 @@
 import styleText from "node-style-text";
-import { fetchText, logPromise, processFile, runGit } from "../utils.js";
+import { fetchText, logPromise, processFile, runGit } from "../utilities.js";
 
-async function update({ repo }) {
+async function getNpmDependentsCount() {
   const npmPage = await logPromise(
     "Fetching npm dependents count",
     fetchText("https://www.npmjs.com/package/prettier"),
   );
   const dependentsCountNpm = Number(
-    npmPage.match(/"dependentsCount":(\d+),/u)[1],
+    npmPage.match(/"dependentsCount":"(?<dependentsCount>\d+)",/u).groups
+      .dependentsCount,
   );
   if (Number.isNaN(dependentsCountNpm)) {
     throw new TypeError(
@@ -15,6 +16,10 @@ async function update({ repo }) {
     );
   }
 
+  return dependentsCountNpm;
+}
+
+async function getGithubDependentsCount() {
   const githubPage = await logPromise(
     "Fetching github dependents count",
     fetchText("https://github.com/prettier/prettier/network/dependents"),
@@ -23,41 +28,69 @@ async function update({ repo }) {
     githubPage
       .replaceAll("\n", "")
       .match(
-        /<svg.*?octicon-code-square.*?>.*?<\/svg>\s*([\d,]+)\s*Repositories\s*<\/a>/u,
-      )[1]
-      .replaceAll(",", ""),
+        /<svg.*?octicon-code-square.*?>.*?<\/svg>\s*(?<dependentsCount>[\d,]+)\s*Repositories\s*<\/a>/u,
+      )
+      .groups.dependentsCount.replaceAll(",", ""),
   );
-  if (Number.isNaN(dependentsCountNpm)) {
+  if (Number.isNaN(dependentsCountGithub)) {
     throw new TypeError(
       "Invalid data from https://github.com/prettier/prettier/network/dependents",
     );
   }
 
-  processFile("website/src/pages/index.jsx", (content) =>
-    content
-      .replace(
-        /(<strong data-placeholder="dependent-npm">)(.*?)(<\/strong>)/u,
-        `$1${formatNumber(dependentsCountNpm)}$3`,
-      )
-      .replace(
-        /(<strong data-placeholder="dependent-github">)(.*?)(<\/strong>)/u,
-        `$1${formatNumber(dependentsCountGithub)}$3`,
-      ),
-  );
+  return dependentsCountGithub;
+}
 
-  const isUpdated = await logPromise(
-    "Checking if dependents count has been updated",
-    async () =>
-      (await runGit(["diff", "--name-only"])).stdout ===
-      "website/src/pages/index.jsx",
-  );
+async function update({ repo }) {
+  const [
+    { value: dependentsCountNpm, reason: dependentsNpmError },
+    { value: dependentsCountGithub, reason: dependentsGithubError },
+  ] = await Promise.allSettled([
+    getNpmDependentsCount(),
+    getGithubDependentsCount(),
+  ]);
 
-  if (isUpdated) {
-    await logPromise("Committing and pushing to remote", async () => {
-      await runGit(["add", "."]);
-      await runGit(["commit", "-m", "Update dependents count"]);
-      await runGit(["push", "--repo", repo]);
+  if (dependentsCountNpm || dependentsCountGithub) {
+    processFile("website/src/pages/index.jsx", (content) => {
+      if (dependentsCountNpm) {
+        content = content.replace(
+          /(<strong data-placeholder="dependent-npm">)(.*?)(<\/strong>)/u,
+          `$1${formatNumber(dependentsCountNpm)}$3`,
+        );
+      }
+
+      if (dependentsCountGithub) {
+        content = content.replace(
+          /(<strong data-placeholder="dependent-github">)(.*?)(<\/strong>)/u,
+          `$1${formatNumber(dependentsCountGithub)}$3`,
+        );
+      }
+
+      return content;
     });
+
+    const isUpdated = await logPromise(
+      "Checking if dependents count has been updated",
+      async () =>
+        (await runGit(["diff", "--name-only"])).stdout ===
+        "website/src/pages/index.jsx",
+    );
+
+    if (isUpdated) {
+      await logPromise("Committing and pushing to remote", async () => {
+        await runGit(["add", "."]);
+        await runGit(["commit", "-m", "Update dependents count"]);
+        await runGit(["push", "--repo", repo]);
+      });
+    }
+  }
+
+  if (dependentsNpmError) {
+    throw dependentsNpmError;
+  }
+
+  if (dependentsGithubError) {
+    throw dependentsGithubError;
   }
 }
 

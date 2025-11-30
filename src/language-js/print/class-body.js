@@ -7,8 +7,8 @@ import {
   softline,
 } from "../../document/index.js";
 import { printDanglingComments } from "../../main/comments/print.js";
-import hasNewline from "../../utils/has-newline.js";
-import hasNewlineInRange from "../../utils/has-newline-in-range.js";
+import hasNewline from "../../utilities/has-newline.js";
+import hasNewlineInRange from "../../utilities/has-newline-in-range.js";
 import { locEnd, locStart } from "../loc.js";
 import {
   CommentCheckFlags,
@@ -17,7 +17,7 @@ import {
   hasComment,
   isNextLineEmpty,
   shouldPrintComma,
-} from "../utils/index.js";
+} from "../utilities/index.js";
 import { shouldHugTheOnlyParameter } from "./function-parameters.js";
 
 /*
@@ -32,6 +32,7 @@ function printClassBody(path, options, print) {
   const isFlowTypeAnnotation = node.type === "ObjectTypeAnnotation";
   const isObjectType = !isClassBody(path);
   const separator = isObjectType ? line : hardline;
+  const hasDanglingComments = hasComment(node, CommentCheckFlags.Dangling);
 
   const [openingBrace, closingBrace] =
     isFlowTypeAnnotation && node.exact ? ["{|", "|}"] : "{}";
@@ -68,7 +69,7 @@ function printClassBody(path, options, print) {
     }
   });
 
-  if (hasComment(node, CommentCheckFlags.Dangling)) {
+  if (hasDanglingComments) {
     parts.push(printDanglingComments(path, options));
   }
 
@@ -92,13 +93,14 @@ function printClassBody(path, options, print) {
 
   if (isObjectType) {
     const shouldBreak =
-      options.objectWrap === "preserve" &&
-      firstMember &&
-      hasNewlineInRange(
-        options.originalText,
-        locStart(node),
-        locStart(firstMember),
-      );
+      hasDanglingComments ||
+      (options.objectWrap === "preserve" &&
+        firstMember &&
+        hasNewlineInRange(
+          options.originalText,
+          locStart(node),
+          locStart(firstMember),
+        ));
 
     let content;
     if (parts.length === 0) {

@@ -1,7 +1,7 @@
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 import makeSynchronized from "make-synchronized";
-import { SOURCE_DIR } from "../../../utils/index.js";
+import { SOURCE_DIR } from "../../../utilities/index.js";
 
 const PUBLIC_MODULE_URL = pathToFileURL(
   path.join(SOURCE_DIR, "document/public.js"),
