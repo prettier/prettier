@@ -70,7 +70,7 @@ async function printEmbedHtmlLike(parser, textToDoc, print, path, options) {
       }
 
       const placeholderIndex = Number(component);
-      parts.push(["${", expressionDocs[placeholderIndex], "}"]);
+      parts.push("${", expressionDocs[placeholderIndex], "}");
     }
 
     return parts;
