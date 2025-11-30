@@ -24,6 +24,7 @@ import {
   printEnumDeclaration,
   printEnumMember,
 } from "./enum.js";
+import { printFunctionType } from "./function-type.js";
 import {
   printDeclareHook,
   printHook,
@@ -46,7 +47,6 @@ import { printNamedTupleMember } from "./tuple.js";
 import { printTypeAlias } from "./type-alias.js";
 import {
   printArrayType,
-  printFunctionType,
   printInferType,
   printOpaqueType,
   printRestType,
