@@ -2,6 +2,7 @@ import { group, indent, inheritLabel, line } from "../../document/index.js";
 import isNonEmptyArray from "../../utils/is-non-empty-array.js";
 import { locEnd, locStart } from "../loc.js";
 import needsParentheses from "../parentheses/needs-parentheses.js";
+import { shouldPrintLeadingSemicolon } from "../semicolon/semicolon.js";
 import { createTypeCheckFunction } from "../utils/index.js";
 import isIgnored from "../utils/is-ignored.js";
 import { printAngular } from "./angular.js";
@@ -9,7 +10,6 @@ import { printDecorators } from "./decorators.js";
 import { printEstree } from "./estree.js";
 import { printFlow } from "./flow.js";
 import { printJsx } from "./jsx.js";
-import { shouldPrintLeadingSemicolon } from "./semicolon.js";
 import { printTypescript } from "./typescript.js";
 
 /**

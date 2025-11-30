@@ -1,10 +1,10 @@
 import needsParentheses from "../parentheses/needs-parentheses.js";
+import { shouldPrintParamsWithoutParens } from "../print/function.js";
 import {
   getLeftSidePathName,
   hasNakedLeftSide,
   isJsxElement,
 } from "../utils/index.js";
-import { shouldPrintParamsWithoutParens } from "./function.js";
 
 function shouldPrintLeadingSemicolon(path, options) {
   if (
