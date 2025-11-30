@@ -51,7 +51,7 @@ if (nodejsMajorVersion <= 14) {
   testPathIgnorePatterns.push(
     "<rootDir>/tests/integration/__tests__/plugin-parsers.js",
     "<rootDir>/tests/integration/__tests__/normalize-doc.js",
-    "<rootDir>/tests/integration/__tests__/doc-utils-clean-doc.js",
+    "<rootDir>/tests/integration/__tests__/doc-utilities-clean-doc.js",
     "<rootDir>/tests/integration/__tests__/config-invalid.js",
     // `@prettier/cli` uses `node:stream/consumers`, not available on Node.js v14
     "<rootDir>/tests/integration/__tests__/experimental-cli.js",
