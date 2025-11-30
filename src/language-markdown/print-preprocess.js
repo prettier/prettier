@@ -170,10 +170,10 @@ function splitTextIntoSentences(ast) {
 
       if (parentNode?.type === "paragraph") {
         if (index === 0) {
-          text = htmlWhitespaceUtils.trimStart(text);
+          text = htmlWhitespace.trimStart(text);
         }
         if (index === parentNode.children.length - 1) {
-          text = htmlWhitespaceUtils.trimEnd(text);
+          text = htmlWhitespace.trimEnd(text);
         }
       }
     }
