@@ -294,7 +294,7 @@ const pluginFiles = [
       },
       // Use named import from `typescript`
       {
-        module: getPackageFile("ts-api-utilities/lib/index.js"),
+        module: getPackageFile("ts-api-utils/lib/index.js"),
         process(text) {
           const typescriptVariables = [
             ...text.matchAll(
