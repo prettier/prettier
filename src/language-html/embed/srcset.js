@@ -1,7 +1,7 @@
 import parseSrcset from "@prettier/parse-srcset";
 import { ifBreak, join, line } from "../../document/index.js";
 import { getUnescapedAttributeValue } from "../utilities/index.js";
-import { printExpand } from "./utils.js";
+import { printExpand } from "./utilities.js";
 
 /**
 @import {Doc} from "../../document/index.js"

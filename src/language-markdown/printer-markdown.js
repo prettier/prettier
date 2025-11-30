@@ -37,7 +37,7 @@ import {
   isAutolink,
   isPrettierIgnore,
   splitText,
-} from "./utils.js";
+} from "./utilities.js";
 
 /**
  * @import {Doc} from "../document/index.js"

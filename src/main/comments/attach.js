@@ -6,7 +6,7 @@ import {
   addDanglingComment,
   addLeadingComment,
   addTrailingComment,
-} from "./utils.js";
+} from "./utilities.js";
 
 /**
  * @import AstPath from "../../common/ast-path.js"

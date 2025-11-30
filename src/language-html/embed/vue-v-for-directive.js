@@ -1,7 +1,7 @@
 import { group } from "../../document/index.js";
 import { getUnescapedAttributeValue } from "../utilities/index.js";
 import isVueSfcWithTypescriptScript from "../utilities/is-vue-sfc-with-typescript-script.js";
-import { formatAttributeValue } from "./utils.js";
+import { formatAttributeValue } from "./utilities.js";
 
 /**
  * @import {Doc} from "../../document/index.js"

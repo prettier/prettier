@@ -12,7 +12,7 @@ import {
 import parseMediaQuery from "./parse/parse-media-query.js";
 import parseSelector from "./parse/parse-selector.js";
 import parseValue from "./parse/parse-value.js";
-import { addTypePrefix } from "./parse/utils.js";
+import { addTypePrefix } from "./parse/utilities.js";
 import { hasIgnorePragma, hasPragma } from "./pragma.js";
 import isModuleRuleName from "./utilities/is-module-rule-name.js";
 import isSCSSNestedPropertyNode from "./utilities/is-scss-nested-property-node.js";

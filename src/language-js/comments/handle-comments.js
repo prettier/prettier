@@ -2,7 +2,7 @@ import {
   addDanglingComment,
   addLeadingComment,
   addTrailingComment,
-} from "../../main/comments/utils.js";
+} from "../../main/comments/utilities.js";
 import getNextNonSpaceNonCommentCharacter from "../../utilities/get-next-non-space-non-comment-character.js";
 import getNextNonSpaceNonCommentCharacterIndex from "../../utilities/get-next-non-space-non-comment-character-index.js";
 import hasNewline from "../../utilities/has-newline.js";

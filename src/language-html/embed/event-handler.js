@@ -1,6 +1,6 @@
 import htmlEventAttributesArray from "@prettier/html-event-attributes";
 import { getUnescapedAttributeValue } from "../utilities/index.js";
-import { formatAttributeValue } from "./utils.js";
+import { formatAttributeValue } from "./utilities.js";
 
 /**
 @import {AttributeValuePredicate, AttributeValuePrint} from "./attribute.js"

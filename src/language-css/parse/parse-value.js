@@ -5,7 +5,7 @@ import hasSCSSInterpolation from "../utilities/has-scss-interpolation.js";
 import hasStringOrFunction from "../utilities/has-string-or-function.js";
 import isSCSSVariable from "../utilities/is-scss-variable.js";
 import parseSelector from "./parse-selector.js";
-import { addTypePrefix } from "./utils.js";
+import { addTypePrefix } from "./utilities.js";
 
 const isClosingParenthesis = (node) =>
   node.type === "paren" && node.value === ")";

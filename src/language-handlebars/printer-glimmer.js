@@ -18,7 +18,11 @@ import clean from "./clean.js";
 import embed from "./embed.js";
 import getVisitorKeys from "./get-visitor-keys.js";
 import { locEnd, locStart } from "./loc.js";
-import { hasPrettierIgnore, isVoidElement, isWhitespaceNode } from "./utils.js";
+import {
+  hasPrettierIgnore,
+  isVoidElement,
+  isWhitespaceNode,
+} from "./utilities.js";
 
 /**
 @import {Doc} from "../document/index.js"

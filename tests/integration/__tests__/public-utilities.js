@@ -1,36 +1,36 @@
 import prettier from "../../config/prettier-entry.js";
 
-const sharedUtil = prettier.util;
+const utilities = prettier.util;
 
 test("shared util has correct structure", () => {
-  expect(typeof sharedUtil.getMaxContinuousCount).toBe("function");
-  expect(typeof sharedUtil.getStringWidth).toBe("function");
-  expect(typeof sharedUtil.getAlignmentSize).toBe("function");
-  expect(typeof sharedUtil.getIndentSize).toBe("function");
-  expect(typeof sharedUtil.skip).toBe("function");
-  expect(typeof sharedUtil.skipWhitespace).toBe("function");
-  expect(typeof sharedUtil.skipSpaces).toBe("function");
-  expect(typeof sharedUtil.skipToLineEnd).toBe("function");
-  expect(typeof sharedUtil.skipEverythingButNewLine).toBe("function");
-  expect(typeof sharedUtil.skipInlineComment).toBe("function");
-  expect(typeof sharedUtil.skipTrailingComment).toBe("function");
-  expect(typeof sharedUtil.skipNewline).toBe("function");
-  expect(typeof sharedUtil.hasNewline).toBe("function");
-  expect(typeof sharedUtil.hasNewlineInRange).toBe("function");
-  expect(typeof sharedUtil.hasSpaces).toBe("function");
-  expect(typeof sharedUtil.isNextLineEmpty).toBe("function");
-  expect(typeof sharedUtil.isNextLineEmptyAfterIndex).toBe("function");
-  expect(typeof sharedUtil.isPreviousLineEmpty).toBe("function");
-  expect(typeof sharedUtil.getNextNonSpaceNonCommentCharacter).toBe("function");
-  expect(typeof sharedUtil.getNextNonSpaceNonCommentCharacterIndex).toBe(
+  expect(typeof utilities.getMaxContinuousCount).toBe("function");
+  expect(typeof utilities.getStringWidth).toBe("function");
+  expect(typeof utilities.getAlignmentSize).toBe("function");
+  expect(typeof utilities.getIndentSize).toBe("function");
+  expect(typeof utilities.skip).toBe("function");
+  expect(typeof utilities.skipWhitespace).toBe("function");
+  expect(typeof utilities.skipSpaces).toBe("function");
+  expect(typeof utilities.skipToLineEnd).toBe("function");
+  expect(typeof utilities.skipEverythingButNewLine).toBe("function");
+  expect(typeof utilities.skipInlineComment).toBe("function");
+  expect(typeof utilities.skipTrailingComment).toBe("function");
+  expect(typeof utilities.skipNewline).toBe("function");
+  expect(typeof utilities.hasNewline).toBe("function");
+  expect(typeof utilities.hasNewlineInRange).toBe("function");
+  expect(typeof utilities.hasSpaces).toBe("function");
+  expect(typeof utilities.isNextLineEmpty).toBe("function");
+  expect(typeof utilities.isNextLineEmptyAfterIndex).toBe("function");
+  expect(typeof utilities.isPreviousLineEmpty).toBe("function");
+  expect(typeof utilities.getNextNonSpaceNonCommentCharacter).toBe("function");
+  expect(typeof utilities.getNextNonSpaceNonCommentCharacterIndex).toBe(
     "function",
   );
-  expect(typeof sharedUtil.makeString).toBe("function");
-  expect(typeof sharedUtil.getPreferredQuote).toBe("function");
+  expect(typeof utilities.makeString).toBe("function");
+  expect(typeof utilities.getPreferredQuote).toBe("function");
 });
 
 test("sharedUtil.getMaxContinuousCount", () => {
-  const { getMaxContinuousCount } = sharedUtil;
+  const { getMaxContinuousCount } = utilities;
 
   expect(getMaxContinuousCount("|---|--|-|--|---|", "-")).toBe(3);
   expect(getMaxContinuousCount("|...|", ".")).toBe(3);
@@ -50,7 +50,7 @@ test("sharedUtil.getMaxContinuousCount", () => {
 });
 
 test("sharedUtil.getStringWidth", () => {
-  const { getStringWidth } = sharedUtil;
+  const { getStringWidth } = utilities;
 
   // From https://github.com/sindresorhus/string-width/blob/main/test.js
   expect(getStringWidth("abcde")).toBe(5);
@@ -93,7 +93,7 @@ test("sharedUtil.getStringWidth", () => {
 });
 
 test("sharedUtil.getAlignmentSize", () => {
-  const { getAlignmentSize } = sharedUtil;
+  const { getAlignmentSize } = utilities;
   expect(getAlignmentSize("   ")).toBe(3);
   expect(getAlignmentSize("   ", /* tabWidth */ 2, /* startIndex */ 2)).toBe(1);
   expect(getAlignmentSize("\t\t", /* tabWidth */ 2)).toBe(4);
@@ -104,7 +104,7 @@ test("sharedUtil.getAlignmentSize", () => {
 });
 
 test("sharedUtil.getIndentSize", () => {
-  const { getIndentSize } = sharedUtil;
+  const { getIndentSize } = utilities;
   expect(getIndentSize("\n   a")).toBe(3);
   expect(getIndentSize("\n   a", /* tabWidth */ 2)).toBe(3);
   expect(getIndentSize("\n\t\ta", /* tabWidth */ 2)).toBe(4);
@@ -118,7 +118,7 @@ test("sharedUtil.getNextNonSpaceNonCommentCharacter and sharedUtil.getNextNonSpa
   const {
     getNextNonSpaceNonCommentCharacter,
     getNextNonSpaceNonCommentCharacterIndex,
-  } = sharedUtil;
+  } = utilities;
   const FAKE_NODE = { type: "Identifier", name: "a" };
 
   {
@@ -169,7 +169,7 @@ test("sharedUtil.getNextNonSpaceNonCommentCharacter and sharedUtil.getNextNonSpa
 
 test("sharedUtil.isPreviousLineEmpty, sharedUtil.isNextLineEmpty and sharedUtil.isNextLineEmptyAfterIndex", () => {
   const { isPreviousLineEmpty, isNextLineEmpty, isNextLineEmptyAfterIndex } =
-    sharedUtil;
+    utilities;
   const FAKE_NODE_A = { type: "Identifier", name: "a" };
   const FAKE_NODE_B = { type: "Identifier", name: "b" };
 
@@ -213,7 +213,7 @@ test("sharedUtil.isPreviousLineEmpty, sharedUtil.isNextLineEmpty and sharedUtil.
 });
 
 test("sharedUtil.makeString", () => {
-  const { makeString } = sharedUtil;
+  const { makeString } = utilities;
   const DOUBLE_QUOTE = '"';
   const SINGLE_QUOTE = "'";
 
@@ -268,7 +268,7 @@ test("sharedUtil.makeString", () => {
 });
 
 test("sharedUtil.getPreferredQuote", () => {
-  const { getPreferredQuote } = sharedUtil;
+  const { getPreferredQuote } = utilities;
   const DOUBLE_QUOTE = '"';
   const SINGLE_QUOTE = "'";
 

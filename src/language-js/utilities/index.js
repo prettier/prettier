@@ -1,4 +1,4 @@
-import { hasDescendant } from "../../utilities/ast-utils.js";
+import { hasDescendant } from "../../utilities/ast.js";
 import getStringWidth from "../../utilities/get-string-width.js";
 import hasNewline from "../../utilities/has-newline.js";
 import isNextLineEmptyAfterIndex from "../../utilities/is-next-line-empty.js";

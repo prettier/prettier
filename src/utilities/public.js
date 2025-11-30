@@ -137,7 +137,7 @@ export {
   addDanglingComment,
   addLeadingComment,
   addTrailingComment,
-} from "../main/comments/utils.js";
+} from "../main/comments/utilities.js";
 export { default as getAlignmentSize } from "./get-alignment-size.js";
 export { default as getIndentSize } from "./get-indent-size.js";
 export { default as getMaxContinuousCount } from "./get-max-continuous-count.js";

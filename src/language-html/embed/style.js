@@ -1,5 +1,5 @@
 import { getUnescapedAttributeValue } from "../utilities/index.js";
-import { printExpand } from "./utils.js";
+import { printExpand } from "./utilities.js";
 
 /**
 @import {AttributeValuePredicate, AttributeValuePrint} from "./attribute.js"

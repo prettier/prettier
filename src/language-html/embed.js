@@ -8,7 +8,7 @@ import {
 import htmlWhitespace from "../utilities/html-whitespace.js";
 import printAngularControlFlowBlockParameters from "./embed/angular-control-flow-block-parameters.js";
 import printAttribute from "./embed/attribute.js";
-import { formatAttributeValue } from "./embed/utils.js";
+import { formatAttributeValue } from "./embed/utilities.js";
 import getNodeContent from "./get-node-content.js";
 import {
   needsToBorrowPrevClosingTagEndMarker,

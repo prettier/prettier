@@ -15,7 +15,7 @@ import {
   isEmptyNode,
   isInlineNode,
   isNode,
-} from "../utils.js";
+} from "../utilities.js";
 import { alignWithSpaces } from "./misc.js";
 
 function printMappingItem(path, options, print) {

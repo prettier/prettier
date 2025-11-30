@@ -4,10 +4,10 @@ import {
   KIND_CJK_PUNCTUATION,
   KIND_K_LETTER,
   KIND_NON_CJK,
-} from "./utils.js";
+} from "./utilities.js";
 
 /**
- * @import {WordNode, WhitespaceValue, WordKind} from "./utils.js"
+ * @import {WordNode, WhitespaceValue, WordKind} from "./utilities.js"
  * @import AstPath from "../common/ast-path.js"
  * @typedef {"always" | "never" | "preserve"} ProseWrap
  * @typedef {{ next?: WordNode | null, previous?: WordNode | null }}

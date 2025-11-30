@@ -11,7 +11,7 @@ import {
   formatAttributeValue,
   printExpand,
   shouldHugJsExpression,
-} from "./utils.js";
+} from "./utilities.js";
 
 /**
 @import {AttributeValuePrinter} from "./attribute.js"

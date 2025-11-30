@@ -40,7 +40,7 @@ import {
   isInlineNode,
   isLastDescendantNode,
   isNode,
-} from "./utils.js";
+} from "./utilities.js";
 
 function genericPrint(path, options, print) {
   const { node } = path;
