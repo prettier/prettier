@@ -1,5 +1,5 @@
 import styleText from "node-style-text";
-import { logPromise, readJson, runYarn } from "../utils.js";
+import { logPromise, readJson, runYarn } from "../utilities.js";
 
 export default async function generateBundles({ dry, version, manual }) {
   if (!manual) {

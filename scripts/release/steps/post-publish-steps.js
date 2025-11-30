@@ -1,6 +1,6 @@
 import styleText from "node-style-text";
 import outdent from "outdent";
-import { fetchText, logPromise, writeFile } from "../utils.js";
+import { fetchText, logPromise, writeFile } from "../utilities.js";
 
 const SCHEMA_REPO = "SchemaStore/schemastore";
 const SCHEMA_PATH = "src/schemas/json/prettierrc.json";

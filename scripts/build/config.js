@@ -15,7 +15,7 @@ import {
 import buildTypes from "./build-types.js";
 import esmifyTypescriptEslint from "./esmify-typescript-eslint.js";
 import modifyTypescriptModule from "./modify-typescript-module.js";
-import { getPackageFile } from "./utils.js";
+import { getPackageFile } from "./utilities.js";
 
 const {
   require,

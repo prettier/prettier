@@ -5,7 +5,7 @@ import {
   getBlogPostInfo,
   getChangelogContent,
   waitForEnter,
-} from "../utils.js";
+} from "../utilities.js";
 
 const RELEASE_URL_BASE = "https://github.com/prettier/prettier/releases/new?";
 export function getReleaseUrl(version, previousVersion) {
