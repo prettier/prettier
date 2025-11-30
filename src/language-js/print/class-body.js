@@ -17,7 +17,7 @@ import {
   hasComment,
   isNextLineEmpty,
   shouldPrintComma,
-} from "../utils/index.js";
+} from "../utilities/index.js";
 import { shouldHugTheOnlyParameter } from "./function-parameters.js";
 
 /*

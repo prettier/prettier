@@ -10,7 +10,7 @@ import {
   isTemplateOnItsOwnLine,
   isTestCall,
   iterateCallArgumentsPath,
-} from "../utils/index.js";
+} from "../utilities/index.js";
 import printCallArguments from "./call-arguments.js";
 import printMemberChain from "./member-chain.js";
 import { printOptionalToken } from "./misc.js";

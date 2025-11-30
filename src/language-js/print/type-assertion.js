@@ -5,7 +5,7 @@ import {
   indent,
   softline,
 } from "../../document/index.js";
-import { isArrayExpression, isObjectExpression } from "../utils/index.js";
+import { isArrayExpression, isObjectExpression } from "../utilities/index.js";
 
 function printTypeAssertion(path, options, print) {
   const { node } = path;

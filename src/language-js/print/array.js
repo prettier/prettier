@@ -21,7 +21,7 @@ import {
   isObjectExpression,
   isSignedNumericLiteral,
   shouldPrintComma,
-} from "../utils/index.js";
+} from "../utilities/index.js";
 import { printOptionalToken } from "./misc.js";
 import { printTypeAnnotationProperty } from "./type-annotation.js";
 

@@ -20,7 +20,7 @@ import {
   isUnionType,
   shouldFlatten,
   startsWithNoLookaheadToken,
-} from "../utils/index.js";
+} from "../utilities/index.js";
 
 /**
  * @import AstPath from "../common/ast-path.js"

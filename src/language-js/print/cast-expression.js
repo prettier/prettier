@@ -3,7 +3,7 @@ import {
   createTypeCheckFunction,
   isCallExpression,
   isMemberExpression,
-} from "../utils/index.js";
+} from "../utilities/index.js";
 
 const isSatisfiesExpression = createTypeCheckFunction([
   "SatisfiesExpression",

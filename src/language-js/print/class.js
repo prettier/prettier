@@ -19,7 +19,7 @@ import {
   createTypeCheckFunction,
   hasComment,
   isMemberExpression,
-} from "../utils/index.js";
+} from "../utilities/index.js";
 import { printAssignment } from "./assignment.js";
 import { printClassMemberDecorators } from "./decorators.js";
 import { printMethod } from "./function.js";

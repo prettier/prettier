@@ -12,7 +12,7 @@ import hasNewline from "../../utils/has-newline.js";
 import hasNewlineInRange from "../../utils/has-newline-in-range.js";
 import isNonEmptyArray from "../../utils/is-non-empty-array.js";
 import { locEnd, locStart } from "../loc.js";
-import getTextWithoutComments from "../utils/get-text-without-comments.js";
+import getTextWithoutComments from "../utilities/get-text-without-comments.js";
 import {
   CommentCheckFlags,
   createTypeCheckFunction,
@@ -21,7 +21,7 @@ import {
   isNextLineEmpty,
   isObjectType,
   shouldPrintComma,
-} from "../utils/index.js";
+} from "../utilities/index.js";
 import { shouldHugTheOnlyParameter } from "./function-parameters.js";
 import { printOptionalToken } from "./misc.js";
 import { printTypeAnnotationProperty } from "./type-annotation.js";

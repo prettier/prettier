@@ -1,7 +1,7 @@
 import { locEnd, locStart } from "../../loc.js";
-import isBlockComment from "../../utils/is-block-comment.js";
-import isIndentableBlockComment from "../../utils/is-indentable-block-comment.js";
-import isLineComment from "../../utils/is-line-comment.js";
+import isBlockComment from "../../utilities/is-block-comment.js";
+import isIndentableBlockComment from "../../utilities/is-indentable-block-comment.js";
+import isLineComment from "../../utilities/is-line-comment.js";
 
 function mergeNestledJsdocComments(comments) {
   if (comments.length < 2) {

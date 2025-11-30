@@ -24,7 +24,7 @@ import {
   isStringLiteral,
   isTypeAlias,
   isUnionType,
-} from "../utils/index.js";
+} from "../utilities/index.js";
 import { shouldInlineLogicalExpression } from "./binaryish.js";
 import { printCallExpression } from "./call-expression.js";
 

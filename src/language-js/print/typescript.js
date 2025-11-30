@@ -1,5 +1,5 @@
 import UnexpectedNodeError from "../../utils/unexpected-node-error.js";
-import isTsKeywordType from "../utils/is-ts-keyword-type.js";
+import isTsKeywordType from "../utilities/is-ts-keyword-type.js";
 import { printArray } from "./array.js";
 import { printArrayType } from "./array-type.js";
 import { printBlock } from "./block.js";

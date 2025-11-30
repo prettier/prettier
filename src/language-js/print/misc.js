@@ -5,7 +5,7 @@ import {
   hasComment,
   isCallExpression,
   isMemberExpression,
-} from "../utils/index.js";
+} from "../utilities/index.js";
 
 /**
  * @import AstPath from "../../common/ast-path.js"

@@ -22,10 +22,10 @@ import {
   isObjectProperty,
   isPrettierIgnoreComment,
   isUnionType,
-} from "../utils/index.js";
-import isBlockComment from "../utils/is-block-comment.js";
-import isLineComment from "../utils/is-line-comment.js";
-import isTypeCastComment from "../utils/is-type-cast-comment.js";
+} from "../utilities/index.js";
+import isBlockComment from "../utilities/is-block-comment.js";
+import isLineComment from "../utilities/is-line-comment.js";
+import isTypeCastComment from "../utilities/is-type-cast-comment.js";
 
 /** @import * as Estree from "../types/estree.js" */
 

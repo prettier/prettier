@@ -4,7 +4,7 @@ import {
   getLeftSidePathName,
   hasNakedLeftSide,
   isJsxElement,
-} from "../utils/index.js";
+} from "../utilities/index.js";
 
 function shouldPrintLeadingSemicolon(path, options) {
   if (

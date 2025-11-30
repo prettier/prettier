@@ -23,8 +23,8 @@ import {
   isLoneShortArgument,
   isMemberExpression,
   isSimpleExpressionByNodeCount,
-} from "../utils/index.js";
-import isBlockComment from "../utils/is-block-comment.js";
+} from "../utilities/index.js";
+import isBlockComment from "../utilities/is-block-comment.js";
 import { printTernaryOld } from "./ternary-old.js";
 
 /**

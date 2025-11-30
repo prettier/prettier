@@ -1,7 +1,7 @@
 import { parse as babelParse, parseExpression } from "@babel/parser";
 import getNextNonSpaceNonCommentCharacterIndex from "../../utils/get-next-non-space-non-comment-character-index.js";
 import { tryCombinationsSync } from "../../utils/try-combinations.js";
-import getShebang from "../utils/get-shebang.js";
+import getShebang from "../utilities/get-shebang.js";
 import postprocess from "./postprocess/index.js";
 import createBabelParseError from "./utils/create-babel-parse-error.js";
 import createParser from "./utils/create-parser.js";

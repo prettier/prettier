@@ -25,8 +25,8 @@ import {
   isObjectExpression,
   needsHardlineAfterDanglingComment,
   startsWithNoLookaheadToken,
-} from "../utils/index.js";
-import isBlockComment from "../utils/is-block-comment.js";
+} from "../utilities/index.js";
+import isBlockComment from "../utilities/is-block-comment.js";
 import { printArray } from "./array.js";
 import { printArrowFunction } from "./arrow-function.js";
 import {

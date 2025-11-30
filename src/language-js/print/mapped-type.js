@@ -9,8 +9,8 @@ import {
 import { printDanglingComments } from "../../main/comments/print.js";
 import hasNewlineInRange from "../../utils/has-newline-in-range.js";
 import { locStart } from "../loc.js";
-import getTextWithoutComments from "../utils/get-text-without-comments.js";
-import { CommentCheckFlags, hasComment } from "../utils/index.js";
+import getTextWithoutComments from "../utilities/get-text-without-comments.js";
+import { CommentCheckFlags, hasComment } from "../utilities/index.js";
 import { printClassMemberSemicolon } from "./class.js";
 
 /**

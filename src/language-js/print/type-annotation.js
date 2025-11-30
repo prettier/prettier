@@ -4,7 +4,7 @@ import {
   isObjectType,
   isSimpleType,
   isUnionType,
-} from "../utils/index.js";
+} from "../utilities/index.js";
 import { shouldHugUnionType } from "./union-type.js";
 
 /**

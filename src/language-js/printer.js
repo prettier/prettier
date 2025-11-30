@@ -15,5 +15,5 @@ export {
   default as printPrettierIgnored,
 } from "./print/index.js";
 export { default as getVisitorKeys } from "./traverse/get-visitor-keys.js";
-export { default as isBlockComment } from "./utils/is-block-comment.js";
-export { default as hasPrettierIgnore } from "./utils/is-ignored.js";
+export { default as isBlockComment } from "./utilities/is-block-comment.js";
+export { default as hasPrettierIgnore } from "./utilities/is-ignored.js";

@@ -12,8 +12,8 @@ import { printDanglingComments } from "../../main/comments/print.js";
 import isNonEmptyArray from "../../utils/is-non-empty-array.js";
 import UnexpectedNodeError from "../../utils/unexpected-node-error.js";
 import { hasSameLoc, locEnd, locStart } from "../loc.js";
-import getRaw from "../utils/get-raw.js";
-import getTextWithoutComments from "../utils/get-text-without-comments.js";
+import getRaw from "../utilities/get-raw.js";
+import getTextWithoutComments from "../utilities/get-text-without-comments.js";
 import {
   CommentCheckFlags,
   createTypeCheckFunction,
@@ -21,7 +21,7 @@ import {
   isStringLiteral,
   needsHardlineAfterDanglingComment,
   shouldPrintComma,
-} from "../utils/index.js";
+} from "../utilities/index.js";
 import { printDecoratorsBeforeExport } from "./decorators.js";
 import { printDeclareToken } from "./misc.js";
 import { printObject } from "./object.js";

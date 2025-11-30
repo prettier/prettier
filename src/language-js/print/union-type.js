@@ -19,7 +19,7 @@ import {
   hasLeadingOwnLineComment,
   isConditionalType,
   isTypeAlias,
-} from "../utils/index.js";
+} from "../utilities/index.js";
 
 // `TSUnionType` and `UnionTypeAnnotation`
 function printUnionType(path, options, print) {

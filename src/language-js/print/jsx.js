@@ -22,7 +22,7 @@ import getPreferredQuote from "../../utils/get-preferred-quote.js";
 import UnexpectedNodeError from "../../utils/unexpected-node-error.js";
 import WhitespaceUtils from "../../utils/whitespace-utils.js";
 import needsParentheses from "../parentheses/needs-parentheses.js";
-import getRaw from "../utils/get-raw.js";
+import getRaw from "../utilities/get-raw.js";
 import {
   CommentCheckFlags,
   createTypeCheckFunction,
@@ -34,7 +34,7 @@ import {
   isJsxElement,
   isObjectExpression,
   isStringLiteral,
-} from "../utils/index.js";
+} from "../utilities/index.js";
 
 /*
 Only the following are treated as whitespace inside JSX.

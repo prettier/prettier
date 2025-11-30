@@ -24,7 +24,7 @@ import {
   isNextLineEmpty,
   isNumericLiteral,
   isSimpleCallArgument,
-} from "../utils/index.js";
+} from "../utilities/index.js";
 import { printBindExpressionCallee } from "./bind-expression.js";
 import printCallArguments from "./call-arguments.js";
 import { printMemberLookup } from "./member.js";

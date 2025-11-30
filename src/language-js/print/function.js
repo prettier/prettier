@@ -21,7 +21,7 @@ import {
   isCallExpression,
   isJsxElement,
   isMethod,
-} from "../utils/index.js";
+} from "../utilities/index.js";
 import {
   printFunctionParameters,
   shouldBreakFunctionParameters,

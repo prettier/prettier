@@ -5,7 +5,7 @@ import {
   CommentCheckFlags,
   hasComment,
   isNextLineEmpty,
-} from "../utils/index.js";
+} from "../utilities/index.js";
 import { printStatementSequence } from "./statement.js";
 
 /** @import {Doc} from "../../document/index.js" */

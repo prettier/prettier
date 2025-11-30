@@ -22,7 +22,7 @@ import {
   isBinaryCastExpression,
   isBinaryish,
   isMemberExpression,
-} from "../utils/index.js";
+} from "../utilities/index.js";
 
 /**
  * @import {Doc} from "../../document/index.js"

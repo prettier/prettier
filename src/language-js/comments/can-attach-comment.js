@@ -5,7 +5,7 @@ import {
   isMeaningfulEmptyStatement,
   isMethod,
   isTsAsConstExpression,
-} from "../utils/index.js";
+} from "../utilities/index.js";
 
 /**
  * @import {Node} from "../types/estree.js"

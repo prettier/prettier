@@ -1,5 +1,5 @@
 import { group, indent, line } from "../../document/index.js";
-import { hasLeadingOwnLineComment, isObjectType } from "../utils/index.js";
+import { hasLeadingOwnLineComment, isObjectType } from "../utilities/index.js";
 
 // `TSIntersectionType` and `IntersectionTypeAnnotation`
 function printIntersectionType(path, options, print) {

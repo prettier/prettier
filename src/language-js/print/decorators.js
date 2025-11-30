@@ -8,8 +8,8 @@ import {
 import hasNewline from "../../utils/has-newline.js";
 import isNonEmptyArray from "../../utils/is-non-empty-array.js";
 import { hasSameLocStart, locEnd } from "../loc.js";
-import { isExportDeclaration } from "../utils/index.js";
-import isIgnored from "../utils/is-ignored.js";
+import { isExportDeclaration } from "../utilities/index.js";
+import isIgnored from "../utilities/is-ignored.js";
 
 function printClassMemberDecorators(path, options, print) {
   const { node } = path;

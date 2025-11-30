@@ -3,7 +3,7 @@ import {
   hasComment,
   isArrayExpression,
   isObjectProperty,
-} from "../utils/index.js";
+} from "../utilities/index.js";
 
 const angularComponentObjectExpressionPredicates = [
   (node, name) => node.type === "ObjectExpression" && name === "properties",

@@ -5,7 +5,7 @@ import {
   FORMAT_PRAGMA_TO_INSERT,
   FORMAT_PRAGMAS,
 } from "../utils/pragma/pragma.evaluate.js";
-import getShebang from "./utils/get-shebang.js";
+import getShebang from "./utilities/get-shebang.js";
 
 function parseDocBlock(text) {
   const shebang = getShebang(text);

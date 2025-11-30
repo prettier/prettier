@@ -7,7 +7,7 @@ import {
   isVueEventBindingFunctionExpression,
   isVueEventBindingMemberExpression,
   unwrapVueEventBindingTsNode,
-} from "../utils/vue-event-binding.js";
+} from "../utilities/vue-event-binding.js";
 
 function shouldPrintSemicolon(path, options) {
   if (isSingleVueEventBindingExpressionStatement(path, options)) {

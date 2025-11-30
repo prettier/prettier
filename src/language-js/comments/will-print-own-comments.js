@@ -3,7 +3,7 @@ import {
   hasNodeIgnoreComment,
   isJsxElement,
   isUnionType,
-} from "../utils/index.js";
+} from "../utilities/index.js";
 
 const isClassOrInterface = createTypeCheckFunction([
   "ClassDeclaration",

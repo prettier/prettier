@@ -19,7 +19,7 @@ import {
   hasComment,
   hasLeadingOwnLineComment,
   isNextLineEmpty,
-} from "../utils/index.js";
+} from "../utilities/index.js";
 
 /*
 - `MatchExpression` (Flow)
