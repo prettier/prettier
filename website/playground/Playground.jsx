@@ -40,6 +40,7 @@ const ENABLED_OPTIONS = [
   "printWidth",
   "tabWidth",
   "useTabs",
+  "endOfLine",
   "semi",
   "singleQuote",
   "bracketSpacing",
