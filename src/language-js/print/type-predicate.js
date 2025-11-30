@@ -21,4 +21,4 @@ function printTypePredicate(path, print) {
   ];
 }
 
-export default { printTypePredicate };
+export { printTypePredicate };

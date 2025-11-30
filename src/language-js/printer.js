@@ -3,7 +3,7 @@ export const features = {
   experimental_avoidAstMutation: true,
 };
 export { default as massageAstNode } from "./clean.js";
-export { canAttachComment } from "./comments/can-attach-comment.js";
+export { default as canAttachComment } from "./comments/can-attach-comment.js";
 export { default as handleComments } from "./comments/handle-comments.js";
 export { default as isGap } from "./comments/is-gap.js";
 export { default as willPrintOwnComments } from "./comments/will-print-own-comments.js";
