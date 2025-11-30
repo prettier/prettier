@@ -2,7 +2,7 @@
 
 exports[`styled-components.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow"]
+parsers: ["babel", "typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -33,6 +33,11 @@ printWidth: 80
         : ""};
   }
 \`}</style>;
+<style jsx>{\`
+  .class {
+    flex-direction: column\${long_cond && long_cond && long_cond? "-reverse": ""};
+  }
+\`}</style>;
 
 =====================================output=====================================
 <style jsx>{\`
@@ -61,6 +66,11 @@ printWidth: 80
     flex-direction: column\${
       long_cond && long_cond && long_cond ? "-reverse" : ""
     };
+  }
+\`}</style>;
+<style jsx>{\`
+  .class {
+    flex-direction: column\${long_cond && long_cond && long_cond ? "-reverse" : ""};
   }
 \`}</style>;
 
