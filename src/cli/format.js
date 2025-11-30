@@ -13,7 +13,7 @@ import {
   errors,
   picocolors,
 } from "./prettier-internal.js";
-import { normalizeToPosix, statSafe } from "./utils.js";
+import { normalizeToPosix, statSafe } from "./utilities.js";
 
 function diff(a, b) {
   return createTwoFilesPatch("", "", a, b, "", "", { context: 2 });

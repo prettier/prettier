@@ -1,6 +1,6 @@
 import path from "node:path";
 import { parseArgs } from "node:util";
-import { DIST_DIR } from "../utils/index.js";
+import { DIST_DIR } from "../utilities/index.js";
 
 const isUnique = (array) => new Set(array).size === array.length;
 

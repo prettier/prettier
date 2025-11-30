@@ -8,7 +8,7 @@ import {
   logPromise,
   runYarn,
   waitForEnter,
-} from "../utils.js";
+} from "../utilities.js";
 
 function writeChangelog(params) {
   const changelog = fs.readFileSync("CHANGELOG.md", "utf8");

@@ -12,10 +12,10 @@ import {
 import parseMediaQuery from "./parse/parse-media-query.js";
 import parseSelector from "./parse/parse-selector.js";
 import parseValue from "./parse/parse-value.js";
-import { addTypePrefix } from "./parse/utils.js";
+import { addTypePrefix } from "./parse/utilities.js";
 import { hasIgnorePragma, hasPragma } from "./pragma.js";
-import isModuleRuleName from "./utils/is-module-rule-name.js";
-import isSCSSNestedPropertyNode from "./utils/is-scss-nested-property-node.js";
+import isModuleRuleName from "./utilities/is-module-rule-name.js";
+import isSCSSNestedPropertyNode from "./utilities/is-scss-nested-property-node.js";
 
 const DEFAULT_SCSS_DIRECTIVE = /(\s*)(!default).*$/u;
 const GLOBAL_SCSS_DIRECTIVE = /(\s*)(!global).*$/u;

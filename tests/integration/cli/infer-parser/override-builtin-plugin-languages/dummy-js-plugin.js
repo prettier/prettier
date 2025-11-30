@@ -1,5 +1,5 @@
 
-import createPlugin from "../../../../config/utils/create-plugin.cjs";
+import createPlugin from "../../../../config/utilities/create-plugin.cjs";
 
 const PARSER_NAME = 'dummy-js-parser'
 const PRINT_MARK = `formatted by '${PARSER_NAME}' parser`

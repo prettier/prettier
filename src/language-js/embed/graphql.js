@@ -3,7 +3,7 @@ import {
   escapeTemplateCharacters,
   printTemplateExpressions,
 } from "../print/template-literal.js";
-import { hasLanguageComment } from "./utils.js";
+import { hasLanguageComment } from "./utilities.js";
 
 async function printEmbedGraphQL(textToDoc, print, path /* , options*/) {
   const { node } = path;

@@ -5,7 +5,7 @@ import fastGlob from "fast-glob";
 import coreOptions from "../../../src/main/core-options.evaluate.js";
 import codeSamples from "../../../website/playground/codeSamples.mjs";
 import prettier from "../../config/prettier-entry.js";
-import createSandBox from "../../config/utils/create-sandbox.cjs";
+import createSandBox from "../../config/utilities/create-sandbox.cjs";
 import { projectRoot } from "../env.js";
 
 const { require, importModule } = createEsmUtils(import.meta);

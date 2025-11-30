@@ -14,7 +14,7 @@ import {
   WEBSITE_DIR,
   writeFile,
   writeJson,
-} from "./utils/index.js";
+} from "./utilities/index.js";
 
 const runYarn = (command, args, options) =>
   spawn("yarn", [command, ...args], { stdio: "inherit", ...options });

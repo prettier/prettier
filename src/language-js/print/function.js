@@ -7,7 +7,7 @@ import {
   softline,
 } from "../../document/index.js";
 import { printDanglingComments } from "../../main/comments/print.js";
-import hasNewlineInRange from "../../utils/has-newline-in-range.js";
+import hasNewlineInRange from "../../utilities/has-newline-in-range.js";
 import { locEnd, locStart } from "../loc.js";
 import {
   CommentCheckFlags,
@@ -21,7 +21,7 @@ import {
   isCallExpression,
   isJsxElement,
   isMethod,
-} from "../utils/index.js";
+} from "../utilities/index.js";
 import {
   printFunctionParameters,
   shouldBreakFunctionParameters,

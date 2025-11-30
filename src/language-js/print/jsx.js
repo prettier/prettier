@@ -18,11 +18,11 @@ import {
   printComments,
   printDanglingComments,
 } from "../../main/comments/print.js";
-import getPreferredQuote from "../../utils/get-preferred-quote.js";
-import UnexpectedNodeError from "../../utils/unexpected-node-error.js";
-import WhitespaceUtils from "../../utils/whitespace-utils.js";
-import pathNeedsParens from "../needs-parens.js";
-import getRaw from "../utils/get-raw.js";
+import getPreferredQuote from "../../utilities/get-preferred-quote.js";
+import UnexpectedNodeError from "../../utilities/unexpected-node-error.js";
+import WhitespaceUtilities from "../../utilities/whitespace-utilities.js";
+import needsParentheses from "../parentheses/needs-parentheses.js";
+import getRaw from "../utilities/get-raw.js";
 import {
   CommentCheckFlags,
   createTypeCheckFunction,
@@ -34,7 +34,7 @@ import {
   isJsxElement,
   isObjectExpression,
   isStringLiteral,
-} from "../utils/index.js";
+} from "../utilities/index.js";
 
 /*
 Only the following are treated as whitespace inside JSX.
@@ -44,7 +44,7 @@ Only the following are treated as whitespace inside JSX.
 - U+000D CR
 - U+0009 TAB
 */
-const jsxWhitespaceUtils = new WhitespaceUtils(" \n\r\t");
+const jsxWhitespace = new WhitespaceUtilities(" \n\r\t");
 
 const isEmptyStringOrAnyLine = (doc) =>
   doc === "" || doc === line || doc === hardline || doc === softline;
@@ -126,7 +126,7 @@ function printJsxElementInternal(path, options, print) {
   const isMdxBlock = path.parent.rootMarker === "mdx";
 
   const rawJsxWhitespace = options.singleQuote ? "{' '}" : '{" "}';
-  const jsxWhitespace = isMdxBlock
+  const whitespace = isMdxBlock
     ? line
     : ifBreak([rawJsxWhitespace, softline], " ");
 
@@ -136,7 +136,7 @@ function printJsxElementInternal(path, options, print) {
     path,
     options,
     print,
-    jsxWhitespace,
+    whitespace,
     isFacebookTranslationTag,
   );
 
@@ -157,15 +157,15 @@ function printJsxElementInternal(path, options, print) {
     const isLineFollowedByJsxWhitespace =
       (children[i] === softline || children[i] === hardline) &&
       children[i + 1] === "" &&
-      children[i + 2] === jsxWhitespace;
+      children[i + 2] === whitespace;
     const isJsxWhitespaceFollowedByLine =
-      children[i] === jsxWhitespace &&
+      children[i] === whitespace &&
       children[i + 1] === "" &&
       (children[i + 2] === softline || children[i + 2] === hardline);
     const isDoubleJsxWhitespace =
-      children[i] === jsxWhitespace &&
+      children[i] === whitespace &&
       children[i + 1] === "" &&
-      children[i + 2] === jsxWhitespace;
+      children[i + 2] === whitespace;
     const isPairOfHardOrSoftLines =
       (children[i] === softline &&
         children[i + 1] === "" &&
@@ -216,7 +216,7 @@ function printJsxElementInternal(path, options, print) {
   for (const [i, child] of children.entries()) {
     // There are a number of situations where we need to ensure we display
     // whitespace as `{" "}` when outputting this element over multiple lines.
-    if (child === jsxWhitespace) {
+    if (child === whitespace) {
       if (i === 1 && isEmptyDoc(children[i - 1])) {
         if (children.length === 2) {
           // Solitary whitespace
@@ -317,7 +317,7 @@ function printJsxChildren(
   path,
   options,
   print,
-  jsxWhitespace,
+  whitespace,
   isFacebookTranslationTag,
 ) {
   /** @type {Doc} */
@@ -342,10 +342,7 @@ function printJsxChildren(
 
       // Contains a non-whitespace character
       if (isMeaningfulJsxText(node)) {
-        const words = jsxWhitespaceUtils.split(
-          text,
-          /* captureWhitespace */ true,
-        );
+        const words = jsxWhitespace.split(text, /* captureWhitespace */ true);
 
         // Starts with whitespace
         if (words[0] === "") {
@@ -360,7 +357,7 @@ function printJsxChildren(
               ),
             );
           } else {
-            pushLine(jsxWhitespace);
+            pushLine(whitespace);
           }
           words.shift();
         }
@@ -396,7 +393,7 @@ function printJsxChildren(
               ),
             );
           } else {
-            pushLine(jsxWhitespace);
+            pushLine(whitespace);
           }
         } else {
           pushLine(
@@ -415,7 +412,7 @@ function printJsxChildren(
           pushLine(hardline);
         }
       } else {
-        pushLine(jsxWhitespace);
+        pushLine(whitespace);
       }
     } else {
       const printedChild = print();
@@ -424,8 +421,8 @@ function printJsxChildren(
       const directlyFollowedByMeaningfulText =
         next && isMeaningfulJsxText(next);
       if (directlyFollowedByMeaningfulText) {
-        const trimmed = jsxWhitespaceUtils.trim(getRaw(next));
-        const [firstWord] = jsxWhitespaceUtils.split(trimmed);
+        const trimmed = jsxWhitespace.trim(getRaw(next));
+        const [firstWord] = jsxWhitespace.split(trimmed);
         pushLine(
           separatorNoWhitespace(
             isFacebookTranslationTag,
@@ -505,7 +502,7 @@ function maybeWrapJsxElementInParens(path, elem, options) {
   }
 
   const shouldBreak = shouldBreakJsxElement(path);
-  const needsParens = pathNeedsParens(path, options);
+  const needsParens = needsParentheses(path, options);
 
   return group(
     [
@@ -866,7 +863,7 @@ function isEmptyJsxElement(node) {
 function isMeaningfulJsxText(node) {
   return (
     node.type === "JSXText" &&
-    (jsxWhitespaceUtils.hasNonWhitespaceCharacter(getRaw(node)) ||
+    (jsxWhitespace.hasNonWhitespaceCharacter(getRaw(node)) ||
       !/\n/u.test(getRaw(node)))
   );
 }

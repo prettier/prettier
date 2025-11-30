@@ -12,7 +12,7 @@ import {
   getEntries,
   printEntries,
   replaceVersions,
-} from "./utils/changelog.js";
+} from "./utilities/changelog.js";
 
 const { __dirname, require } = createEsmUtils(import.meta);
 const blogDir = path.join(__dirname, "../website/blog");

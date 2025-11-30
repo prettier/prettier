@@ -1,4 +1,4 @@
-import { runGit } from "../utils.js";
+import { runGit } from "../utilities.js";
 
 export default async function pushToGit({ version, repo }) {
   await runGit(["commit", "-am", `Release ${version}`]);

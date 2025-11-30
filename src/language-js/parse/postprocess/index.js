@@ -1,10 +1,10 @@
 import * as assert from "#universal/assert";
 import { locEnd, locStart } from "../../loc.js";
-import createTypeCheckFunction from "../../utils/create-type-check-function.js";
-import getRaw from "../../utils/get-raw.js";
-import isBlockComment from "../../utils/is-block-comment.js";
-import isLineComment from "../../utils/is-line-comment.js";
-import isTypeCastComment from "../../utils/is-type-cast-comment.js";
+import createTypeCheckFunction from "../../utilities/create-type-check-function.js";
+import getRaw from "../../utilities/get-raw.js";
+import isBlockComment from "../../utilities/is-block-comment.js";
+import isLineComment from "../../utilities/is-line-comment.js";
+import isTypeCastComment from "../../utilities/is-type-cast-comment.js";
 import mergeNestledJsdocComments from "./merge-nestled-jsdoc-comments.js";
 import visitNode from "./visit-node.js";
 

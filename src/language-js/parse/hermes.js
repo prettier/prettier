@@ -1,7 +1,7 @@
 import { parse as hermesParse } from "hermes-parser";
 import createError from "../../common/parser-create-error.js";
 import postprocess from "./postprocess/index.js";
-import createParser from "./utils/create-parser.js";
+import createParser from "./utilities/create-parser.js";
 
 function createParseError(error) {
   let { message, loc } = error;

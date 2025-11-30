@@ -7,8 +7,8 @@ import {
   softline,
 } from "../../document/index.js";
 import { printDanglingComments } from "../../main/comments/print.js";
-import hasNewline from "../../utils/has-newline.js";
-import hasNewlineInRange from "../../utils/has-newline-in-range.js";
+import hasNewline from "../../utilities/has-newline.js";
+import hasNewlineInRange from "../../utilities/has-newline-in-range.js";
 import { locEnd, locStart } from "../loc.js";
 import {
   CommentCheckFlags,
@@ -17,7 +17,7 @@ import {
   hasComment,
   isNextLineEmpty,
   shouldPrintComma,
-} from "../utils/index.js";
+} from "../utilities/index.js";
 import { shouldHugTheOnlyParameter } from "./function-parameters.js";
 
 /*

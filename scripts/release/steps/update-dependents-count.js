@@ -1,5 +1,5 @@
 import styleText from "node-style-text";
-import { fetchText, logPromise, processFile, runGit } from "../utils.js";
+import { fetchText, logPromise, processFile, runGit } from "../utilities.js";
 
 async function getNpmDependentsCount() {
   const npmPage = await logPromise(

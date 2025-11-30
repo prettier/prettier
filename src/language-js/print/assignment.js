@@ -8,8 +8,8 @@ import {
   lineSuffixBoundary,
   willBreak,
 } from "../../document/index.js";
-import getStringWidth from "../../utils/get-string-width.js";
-import isNonEmptyArray from "../../utils/is-non-empty-array.js";
+import getStringWidth from "../../utilities/get-string-width.js";
+import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
 import {
   getCallArguments,
   hasLeadingOwnLineComment,
@@ -24,7 +24,7 @@ import {
   isStringLiteral,
   isTypeAlias,
   isUnionType,
-} from "../utils/index.js";
+} from "../utilities/index.js";
 import { shouldInlineLogicalExpression } from "./binaryish.js";
 import { printCallExpression } from "./call-expression.js";
 
