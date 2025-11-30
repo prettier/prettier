@@ -21,7 +21,6 @@ async function printEmbedGraphQL(textToDoc, print, path, options) {
 
     const lines = text.split("\n");
     const numLines = lines.length;
-    const expressionDoc = expressionDocs[i];
 
     const startsWithBlankLine =
       numLines > 2 && lines[0].trim() === "" && lines[1].trim() === "";
@@ -60,8 +59,8 @@ async function printEmbedGraphQL(textToDoc, print, path, options) {
       parts.push("");
     }
 
-    if (expressionDoc) {
-      parts.push("${", expressionDoc, "}");
+    if (!isLast) {
+      parts.push(["${", expressionDocs[i], "}"]);
     }
   }
 
