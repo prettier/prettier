@@ -179,6 +179,70 @@ async function coreFormat(originalText, opts, addAlignmentSize = 0) {
   return { formatted: result.formatted, cursorOffset: -1, comments };
 }
 
+async function formatRange(originalText, opts) {
+  const { ast, text } = await parseText(originalText, opts);
+  const [rangeStart, rangeEnd] = calculateRange(text, opts, ast) ?? [0, 0];
+  const rangeString = text.slice(rangeStart, rangeEnd);
+
+  // Try to extend the range backwards to the beginning of the line.
+  // This is so we can detect indentation correctly and restore it.
+  // Use `Math.min` since `lastIndexOf` returns 0 when `rangeStart` is 0
+  const rangeStart2 = Math.min(
+    rangeStart,
+    text.lastIndexOf("\n", rangeStart) + 1,
+  );
+  const indentString = text.slice(rangeStart2, rangeStart).match(/^\s*/u)[0];
+
+  const alignmentSize = getAlignmentSize(indentString, opts.tabWidth);
+
+  const rangeResult = await coreFormat(
+    rangeString,
+    {
+      ...opts,
+      rangeStart: 0,
+      rangeEnd: Number.POSITIVE_INFINITY,
+      // Track the cursor offset only if it's within our range
+      cursorOffset:
+        opts.cursorOffset > rangeStart && opts.cursorOffset <= rangeEnd
+          ? opts.cursorOffset - rangeStart
+          : -1,
+      // Always use `lf` to format, we'll replace it later
+      endOfLine: "lf",
+    },
+    alignmentSize,
+  );
+
+  // Since the range contracts to avoid trailing whitespace,
+  // we need to remove the newline that was inserted by the `format` call.
+  const rangeTrimmed = rangeResult.formatted.trimEnd();
+
+  let { cursorOffset } = opts;
+  if (cursorOffset > rangeEnd) {
+    // handle the case where the cursor was past the end of the range
+    cursorOffset += rangeTrimmed.length - rangeString.length;
+  } else if (rangeResult.cursorOffset >= 0) {
+    // handle the case where the cursor was in the range
+    cursorOffset = rangeResult.cursorOffset + rangeStart;
+  }
+  // keep the cursor as it was if it was before the start of the range
+
+  let formatted =
+    text.slice(0, rangeStart) + rangeTrimmed + text.slice(rangeEnd);
+  if (opts.endOfLine !== "lf") {
+    const eol = convertEndOfLineToChars(opts.endOfLine);
+    if (cursorOffset >= 0 && eol === "\r\n") {
+      cursorOffset += countEndOfLineChars(
+        formatted.slice(0, cursorOffset),
+        "\n",
+      );
+    }
+
+    formatted = formatted.replaceAll("\n", eol);
+  }
+
+  return { formatted, cursorOffset, comments: rangeResult.comments };
+}
+
 function ensureIndexInText(text, index, defaultValue) {
   if (
     typeof index !== "number" ||
@@ -253,6 +317,51 @@ async function hasPragma(text, options) {
 async function hasIgnorePragma(text, options) {
   const selectedParser = await resolveParser(options);
   return selectedParser.hasIgnorePragma?.(text);
+}
+
+async function formatWithCursor(originalText, originalOptions) {
+  let { hasBOM, text, options } = normalizeInputAndOptions(
+    originalText,
+    await normalizeFormatOptions(originalOptions),
+  );
+
+  if (
+    (options.rangeStart >= options.rangeEnd && text !== "") ||
+    (options.requirePragma && !(await hasPragma(text, options))) ||
+    (options.checkIgnorePragma && (await hasIgnorePragma(text, options)))
+  ) {
+    return {
+      formatted: originalText,
+      cursorOffset: originalOptions.cursorOffset,
+      comments: [],
+    };
+  }
+
+  let result;
+
+  if (options.rangeStart > 0 || options.rangeEnd < text.length) {
+    result = await formatRange(text, options);
+  } else {
+    if (
+      !options.requirePragma &&
+      options.insertPragma &&
+      options.printer.insertPragma &&
+      !(await hasPragma(text, options))
+    ) {
+      text = options.printer.insertPragma(text);
+    }
+    result = await coreFormat(text, options);
+  }
+
+  if (hasBOM) {
+    result.formatted = BOM + result.formatted;
+
+    if (result.cursorOffset >= 0) {
+      result.cursorOffset++;
+    }
+  }
+
+  return result;
 }
 
 async function parse(originalText, originalOptions, devOptions) {
