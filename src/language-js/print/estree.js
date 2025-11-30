@@ -34,6 +34,7 @@ import {
   printVariableDeclarator,
 } from "./assignment.js";
 import { printBinaryishExpression } from "./binaryish.js";
+import { printBindExpression } from "./bind-expression.js";
 import { printBlock } from "./block.js";
 import { printCallExpression } from "./call-expression.js";
 import {
@@ -54,7 +55,6 @@ import { printLiteral } from "./literal.js";
 import { printMemberExpression } from "./member.js";
 import {
   adjustClause,
-  printBindExpressionCallee,
   printDeclareToken,
   printDefiniteToken,
   printOptionalToken,
@@ -140,12 +140,7 @@ function printEstree(path, options, print, args) {
     case "MetaProperty":
       return [print("meta"), ".", print("property")];
     case "BindExpression":
-      return [
-        print("object"),
-        group(
-          indent([softline, printBindExpressionCallee(path, options, print)]),
-        ),
-      ];
+      return printBinaryishExpression(path, options, print);
     case "Identifier":
       return [
         node.name,

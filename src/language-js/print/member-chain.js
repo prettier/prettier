@@ -25,9 +25,10 @@ import {
   isNumericLiteral,
   isSimpleCallArgument,
 } from "../utils/index.js";
+import { printBindExpressionCallee } from "./bind-expression.js";
 import printCallArguments from "./call-arguments.js";
 import { printMemberLookup } from "./member.js";
-import { printBindExpressionCallee, printOptionalToken } from "./misc.js";
+import { printOptionalToken } from "./misc.js";
 
 /**
  * @import {Doc} from "../../document/index.js"

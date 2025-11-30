@@ -98,10 +98,6 @@ function printAbstractToken({ node }) {
   return node.abstract || isTsAbstractNode(node) ? "abstract " : "";
 }
 
-function printBindExpressionCallee(path, options, print) {
-  return ["::", print("callee")];
-}
-
 function adjustClause(node, clause, forceSpace) {
   if (node.type === "EmptyStatement") {
     return hasComment(node, CommentCheckFlags.Leading) ? [" ", clause] : clause;
@@ -125,7 +121,6 @@ function printTypeScriptAccessibilityToken(node) {
 export {
   adjustClause,
   printAbstractToken,
-  printBindExpressionCallee,
   printDeclareToken,
   printDefiniteToken,
   printOptionalToken,
