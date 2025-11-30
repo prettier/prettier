@@ -1,4 +1,4 @@
-import createPlugin from "../../../config/utils/create-plugin.cjs";
+import createPlugin from "../../../config/utilities/create-plugin.cjs";
 
 const plugin = createPlugin({
   name: "baz",

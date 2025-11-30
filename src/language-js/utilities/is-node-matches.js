@@ -1,4 +1,4 @@
-// Copied from https://github.com/sindresorhus/eslint-plugin-unicorn/blob/d53d935951aa815c763fc9441aa452c763294715/rules/utils/is-node-matches.js
+// Copied from https://github.com/sindresorhus/eslint-plugin-unicorn/blob/d53d935951aa815c763fc9441aa452c763294715/rules/utilities/is-node-matches.js
 
 /**
  * @import {Node} from "../types/estree.js"
