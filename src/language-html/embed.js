@@ -5,7 +5,7 @@ import {
   indent,
   line,
 } from "../document/index.js";
-import htmlWhitespaceUtils from "../utils/html-whitespace-utils.js";
+import htmlWhitespaceUtils from "../utilities/html-whitespace-utils.js";
 import printAngularControlFlowBlockParameters from "./embed/angular-control-flow-block-parameters.js";
 import printAttribute from "./embed/attribute.js";
 import { formatAttributeValue } from "./embed/utils.js";

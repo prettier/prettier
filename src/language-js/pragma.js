@@ -4,7 +4,7 @@ import {
   FORMAT_IGNORE_PRAGMAS,
   FORMAT_PRAGMA_TO_INSERT,
   FORMAT_PRAGMAS,
-} from "../utils/pragma/pragma.evaluate.js";
+} from "../utilities/pragma/pragma.evaluate.js";
 import getShebang from "./utilities/get-shebang.js";
 
 function parseDocBlock(text) {

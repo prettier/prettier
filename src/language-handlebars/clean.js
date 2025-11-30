@@ -1,4 +1,4 @@
-import htmlWhitespaceUtils from "../utils/html-whitespace-utils.js";
+import htmlWhitespaceUtils from "../utilities/html-whitespace-utils.js";
 
 function clean(original, cloned, parent) {
   // (Glimmer/HTML) ignore TextNode

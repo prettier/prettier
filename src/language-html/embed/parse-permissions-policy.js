@@ -5,7 +5,7 @@ Based on https://github.com/helmetjs/content-security-policy-parser/blob/main/mo
 1. Skip ASCII check, so we won't remove invalid directives.
 1. Skip directive name normalization, so the printer can know what's the original name.
 */
-import htmlWhitespaceUtils from "../../utils/html-whitespace-utils.js";
+import htmlWhitespaceUtils from "../../utilities/html-whitespace-utils.js";
 
 /**
 @typedef {{

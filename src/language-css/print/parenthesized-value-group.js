@@ -14,8 +14,8 @@ import {
   line,
   softline,
 } from "../../document/index.js";
-import isNextLineEmpty from "../../utils/is-next-line-empty.js";
-import isNonEmptyArray from "../../utils/is-non-empty-array.js";
+import isNextLineEmpty from "../../utilities/is-next-line-empty.js";
+import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
 import { locEnd, locStart } from "../loc.js";
 import {
   isConfigurationNode,

@@ -1,5 +1,5 @@
 import { group, indent, inheritLabel, line } from "../../document/index.js";
-import isNonEmptyArray from "../../utils/is-non-empty-array.js";
+import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
 import { locEnd, locStart } from "../loc.js";
 import needsParentheses from "../parentheses/needs-parentheses.js";
 import { shouldPrintLeadingSemicolon } from "../semicolon/semicolon.js";

@@ -2,7 +2,7 @@ import path from "node:path";
 import url from "node:url";
 import createIgnore from "ignore";
 import { isUrl, toPath } from "url-or-path";
-import readFile from "../utils/read-file.js";
+import readFile from "./read-file.js";
 
 /** @type {(filePath: string) => string} */
 const slash =

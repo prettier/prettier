@@ -1,4 +1,4 @@
-import UnexpectedNodeError from "../../utils/unexpected-node-error.js";
+import UnexpectedNodeError from "../../utilities/unexpected-node-error.js";
 import isTsKeywordType from "../utilities/is-ts-keyword-type.js";
 import { printArray } from "./array.js";
 import { printArrayType } from "./array-type.js";

@@ -1,5 +1,5 @@
 import { hardline, indent, join } from "../document/index.js";
-import UnexpectedNodeError from "../utils/unexpected-node-error.js";
+import UnexpectedNodeError from "../utilities/unexpected-node-error.js";
 
 function genericPrint(path, options, print) {
   const { node } = path;

@@ -9,8 +9,8 @@ import {
   replaceEndOfLine,
 } from "../../document/index.js";
 import { isFrontMatter } from "../../main/front-matter/index.js";
-import htmlWhitespaceUtils from "../../utils/html-whitespace-utils.js";
-import inferParser from "../../utils/infer-parser.js";
+import htmlWhitespaceUtils from "../../utilities/html-whitespace-utils.js";
+import inferParser from "../../utilities/infer-parser.js";
 import {
   CSS_DISPLAY_DEFAULT,
   CSS_DISPLAY_TAGS,

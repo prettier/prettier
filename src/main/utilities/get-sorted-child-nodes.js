@@ -1,4 +1,4 @@
-import { getChildren } from "../../utils/ast-utils.js";
+import { getChildren } from "../../utilities/ast-utils.js";
 
 function getSortedChildNodes(node, ancestors, options) {
   const { cache: childNodesCache } = options;

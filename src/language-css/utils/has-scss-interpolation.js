@@ -1,4 +1,4 @@
-import isNonEmptyArray from "../../utils/is-non-empty-array.js";
+import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
 
 function hasSCSSInterpolation(groupList) {
   if (isNonEmptyArray(groupList)) {

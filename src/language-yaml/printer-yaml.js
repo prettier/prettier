@@ -10,8 +10,8 @@ import {
   lineSuffix,
   replaceEndOfLine,
 } from "../document/index.js";
-import isPreviousLineEmpty from "../utils/is-previous-line-empty.js";
-import UnexpectedNodeError from "../utils/unexpected-node-error.js";
+import isPreviousLineEmpty from "../utilities/is-previous-line-empty.js";
+import UnexpectedNodeError from "../utilities/unexpected-node-error.js";
 import clean from "./clean.js";
 import embed from "./embed.js";
 import getVisitorKeys from "./get-visitor-keys.js";

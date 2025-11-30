@@ -1,6 +1,6 @@
 import { UndefinedParserError } from "../common/errors.js";
 import { getSupportInfo } from "../main/support.js";
-import inferParser from "../utils/infer-parser.js";
+import inferParser from "../utilities/infer-parser.js";
 import normalizeOptions from "./normalize-options.js";
 import {
   getParserPluginByParserName,

@@ -1,6 +1,6 @@
 import { parse as parseTypeScript } from "@typescript-eslint/typescript-estree";
 import createError from "../../common/parser-create-error.js";
-import { tryCombinationsSync } from "../../utils/try-combinations.js";
+import { tryCombinationsSync } from "../../utilities/try-combinations.js";
 import postprocess from "./postprocess/index.js";
 import createParser from "./utils/create-parser.js";
 import jsxRegexp from "./utils/jsx-regexp.evaluate.js";

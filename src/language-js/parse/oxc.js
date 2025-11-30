@@ -1,7 +1,7 @@
 import indexToPosition from "index-to-position";
 import { parse as oxcParse } from "oxc-parser";
 import createError from "../../common/parser-create-error.js";
-import { tryCombinations } from "../../utils/try-combinations.js";
+import { tryCombinations } from "../../utilities/try-combinations.js";
 import postprocess from "./postprocess/index.js";
 import createParser from "./utils/create-parser.js";
 import jsxRegexp from "./utils/jsx-regexp.evaluate.js";

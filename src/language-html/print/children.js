@@ -7,8 +7,8 @@ import {
   replaceEndOfLine,
   softline,
 } from "../../document/index.js";
-import htmlWhitespaceUtils from "../../utils/html-whitespace-utils.js";
-import isNonEmptyArray from "../../utils/is-non-empty-array.js";
+import htmlWhitespaceUtils from "../../utilities/html-whitespace-utils.js";
+import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
 import { locEnd, locStart } from "../loc.js";
 import {
   forceBreakChildren,

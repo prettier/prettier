@@ -1,5 +1,5 @@
 import { hardline, markAsRoot } from "../../document/index.js";
-import inferParser from "../../utils/infer-parser.js";
+import inferParser from "../../utilities/infer-parser.js";
 import isFrontMatter from "./is-front-matter.js";
 
 const SUPPORTED_EMBED_LANGUAGES = new Set(["yaml", "toml"]);

@@ -1,4 +1,4 @@
-import htmlWhitespaceUtils from "../utils/html-whitespace-utils.js";
+import htmlWhitespaceUtils from "../utilities/html-whitespace-utils.js";
 import { getOrderedListItemInfo, mapAst, splitText } from "./utils.js";
 
 // 0x0 ~ 0x10ffff

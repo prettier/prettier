@@ -10,10 +10,10 @@ import {
   replaceEndOfLine,
   softline,
 } from "../document/index.js";
-import getPreferredQuote from "../utils/get-preferred-quote.js";
-import htmlWhitespaceUtils from "../utils/html-whitespace-utils.js";
-import isNonEmptyArray from "../utils/is-non-empty-array.js";
-import UnexpectedNodeError from "../utils/unexpected-node-error.js";
+import getPreferredQuote from "../utilities/get-preferred-quote.js";
+import htmlWhitespaceUtils from "../utilities/html-whitespace-utils.js";
+import isNonEmptyArray from "../utilities/is-non-empty-array.js";
+import UnexpectedNodeError from "../utilities/unexpected-node-error.js";
 import clean from "./clean.js";
 import embed from "./embed.js";
 import getVisitorKeys from "./get-visitor-keys.js";
@@ -712,7 +712,7 @@ function generateHardlines(number = 0) {
 
 /* StringLiteral print helpers */
 
-/** @import {Quote} from "../utils/get-preferred-quote.js" */
+/** @import {Quote} from "../utilities/get-preferred-quote.js" */
 
 /**
  * Prints a string literal with the correct surrounding quotes based on

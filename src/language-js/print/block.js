@@ -1,6 +1,6 @@
 import { hardline, indent } from "../../document/index.js";
 import { printDanglingComments } from "../../main/comments/print.js";
-import isNonEmptyArray from "../../utils/is-non-empty-array.js";
+import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
 import {
   CommentCheckFlags,
   hasComment,

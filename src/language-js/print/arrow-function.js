@@ -14,7 +14,7 @@ import {
   printCommentsSeparately,
   printDanglingComments,
 } from "../../main/comments/print.js";
-import getNextNonSpaceNonCommentCharacterIndex from "../../utils/get-next-non-space-non-comment-character-index.js";
+import getNextNonSpaceNonCommentCharacterIndex from "../../utilities/get-next-non-space-non-comment-character-index.js";
 import { locEnd } from "../loc.js";
 import {
   CommentCheckFlags,

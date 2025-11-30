@@ -4,7 +4,7 @@ import {
   RecursiveVisitor,
   visitAll,
 } from "angular-html-parser";
-import isNonEmptyArray from "../../utils/is-non-empty-array.js";
+import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
 import HTML_ELEMENT_ATTRIBUTES from "../utils/html-elements-attributes.evaluate.js";
 import HTML_TAGS from "../utils/html-tags.evaluate.js";
 import isUnknownNamespace from "../utils/is-unknown-namespace.js";

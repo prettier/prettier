@@ -10,9 +10,9 @@ import {
   line,
   replaceEndOfLine,
 } from "../document/index.js";
-import getPreferredQuote from "../utils/get-preferred-quote.js";
-import htmlWhitespaceUtils from "../utils/html-whitespace-utils.js";
-import UnexpectedNodeError from "../utils/unexpected-node-error.js";
+import getPreferredQuote from "../utilities/get-preferred-quote.js";
+import htmlWhitespaceUtils from "../utilities/html-whitespace-utils.js";
+import UnexpectedNodeError from "../utilities/unexpected-node-error.js";
 import clean from "./clean.js";
 import embed from "./embed.js";
 import getVisitorKeys from "./get-visitor-keys.js";

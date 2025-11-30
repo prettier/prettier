@@ -1,5 +1,5 @@
-import importFromFile from "../../utils/import-from-file.js";
-import requireFromFile from "../../utils/require-from-file.js";
+import importFromFile from "../../utilities/import-from-file.js";
+import requireFromFile from "../../utilities/require-from-file.js";
 
 const requireErrorCodesShouldBeIgnored = new Set([
   "MODULE_NOT_FOUND",

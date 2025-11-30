@@ -1,7 +1,7 @@
 import { Parser as AcornParser } from "acorn";
 import acornJsx from "acorn-jsx";
 import createError from "../../common/parser-create-error.js";
-import { tryCombinationsSync } from "../../utils/try-combinations.js";
+import { tryCombinationsSync } from "../../utilities/try-combinations.js";
 import postprocess from "./postprocess/index.js";
 import createParser from "./utils/create-parser.js";
 import {

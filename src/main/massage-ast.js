@@ -1,4 +1,4 @@
-import isObject from "../utils/is-object.js";
+import isObject from "../utilities/is-object.js";
 
 function massageAst(ast, options) {
   const { printer } = options;

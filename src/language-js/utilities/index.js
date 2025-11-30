@@ -1,9 +1,9 @@
-import { hasDescendant } from "../../utils/ast-utils.js";
-import getStringWidth from "../../utils/get-string-width.js";
-import hasNewline from "../../utils/has-newline.js";
-import isNextLineEmptyAfterIndex from "../../utils/is-next-line-empty.js";
-import isNonEmptyArray from "../../utils/is-non-empty-array.js";
-import printString from "../../utils/print-string.js";
+import { hasDescendant } from "../../utilities/ast-utils.js";
+import getStringWidth from "../../utilities/get-string-width.js";
+import hasNewline from "../../utilities/has-newline.js";
+import isNextLineEmptyAfterIndex from "../../utilities/is-next-line-empty.js";
+import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
+import printString from "../../utilities/print-string.js";
 import { hasSameLocStart, locEnd, locStart } from "../loc.js";
 import getVisitorKeys from "../traverse/get-visitor-keys.js";
 import createTypeCheckFunction from "./create-type-check-function.js";

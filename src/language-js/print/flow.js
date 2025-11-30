@@ -2,8 +2,8 @@
 
 import * as assert from "#universal/assert";
 import { replaceEndOfLine } from "../../document/index.js";
-import printNumber from "../../utils/print-number.js";
-import printString from "../../utils/print-string.js";
+import printNumber from "../../utilities/print-number.js";
+import printString from "../../utilities/print-string.js";
 import getRaw from "../utilities/get-raw.js";
 import { isMethod } from "../utilities/index.js";
 import isFlowKeywordType from "../utilities/is-flow-keyword-type.js";

@@ -844,7 +844,7 @@ export function getSupportInfo(
  */
 export const version: string;
 
-// https://github.com/prettier/prettier/blob/next/src/utils/public.js
+// https://github.com/prettier/prettier/blob/main/src/utilities/public.js
 export namespace util {
   interface SkipOptions {
     backwards?: boolean | undefined;

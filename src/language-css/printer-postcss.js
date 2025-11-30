@@ -10,9 +10,9 @@ import {
   removeLines,
   softline,
 } from "../document/index.js";
-import isNonEmptyArray from "../utils/is-non-empty-array.js";
-import printString from "../utils/print-string.js";
-import UnexpectedNodeError from "../utils/unexpected-node-error.js";
+import isNonEmptyArray from "../utilities/is-non-empty-array.js";
+import printString from "../utilities/print-string.js";
+import UnexpectedNodeError from "../utilities/unexpected-node-error.js";
 import clean from "./clean.js";
 import embed from "./embed.js";
 import getVisitorKeys from "./get-visitor-keys.js";

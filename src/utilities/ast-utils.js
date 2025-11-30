@@ -1,7 +1,7 @@
 import isObject from "./is-object.js";
 
 /**
-@import {GetVisitorKeys, Node} from "../utils/create-get-visitor-keys.js"
+@import {GetVisitorKeys, Node} from "./create-get-visitor-keys.js"
 @typedef {(node: Node) => boolean} Predicate
 */
 
