@@ -41,6 +41,7 @@ import {
 import { printExportDeclaration } from "./module.js";
 import { printPropertyKey } from "./property.js";
 import { printTernary } from "./ternary.js";
+import { printTypeAlias } from "./type-alias.js";
 import {
   printArrayType,
   printFunctionType,
@@ -49,7 +50,6 @@ import {
   printNamedTupleMember,
   printOpaqueType,
   printRestType,
-  printTypeAlias,
   printTypeAnnotation,
   printTypeAnnotationProperty,
   printTypePredicate,

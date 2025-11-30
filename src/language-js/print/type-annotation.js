@@ -79,28 +79,6 @@ function printOpaqueType(path, options, print) {
 }
 
 /*
-- `DeclareTypeAlias`(flow)
-- `TypeAlias`(flow)
-- `TSTypeAliasDeclaration`(TypeScript)
-*/
-function printTypeAlias(path, options, print) {
-  const { node } = path;
-  const parts = [
-    printDeclareToken(path),
-    "type ",
-    print("id"),
-    print("typeParameters"),
-  ];
-
-  const rightPropertyName =
-    node.type === "TSTypeAliasDeclaration" ? "typeAnnotation" : "right";
-  return [
-    printAssignment(path, options, print, parts, " =", rightPropertyName),
-    options.semi ? ";" : "",
-  ];
-}
-
-/*
 `FunctionTypeAnnotation` is ambiguous:
 - `declare function foo(a: B): void;`
 - `var A: (a: B) => void;`
@@ -434,7 +412,6 @@ export {
   printNamedTupleMember,
   printOpaqueType,
   printRestType,
-  printTypeAlias,
   printTypeAnnotation,
   printTypeAnnotationProperty,
   printTypePredicate,
