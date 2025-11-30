@@ -3,7 +3,7 @@
 <MyComponent
 :foo="`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog ${foo} template literal value`"
 :foo1="`${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog ${template} ${literal}`
-+`${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog ${template} ${literal}`"
+        +`${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog ${template} ${literal}`"
 :foo2="`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog ${foo +               bar} template literal value`"
 :string="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog literal string value'"
 :add="'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' + 'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'"

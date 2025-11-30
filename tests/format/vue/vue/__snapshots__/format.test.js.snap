@@ -1755,7 +1755,7 @@ semi: false
 <MyComponent
 :foo="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`"
 :foo1="\`\${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
-+\`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`"
+        +\`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`"
 :foo2="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo +               bar} template literal value\`"
 :string="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog literal string value'"
 :add="'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' + 'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'"
@@ -1803,7 +1803,7 @@ trailingComma: "es5"
 <MyComponent
 :foo="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`"
 :foo1="\`\${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
-+\`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`"
+        +\`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`"
 :foo2="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo +               bar} template literal value\`"
 :string="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog literal string value'"
 :add="'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' + 'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'"
@@ -1851,7 +1851,7 @@ trailingComma: "none"
 <MyComponent
 :foo="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`"
 :foo1="\`\${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
-+\`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`"
+        +\`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`"
 :foo2="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo +               bar} template literal value\`"
 :string="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog literal string value'"
 :add="'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' + 'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'"
