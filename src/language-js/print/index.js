@@ -1,7 +1,7 @@
 import { group, indent, inheritLabel, line } from "../../document/index.js";
 import isNonEmptyArray from "../../utils/is-non-empty-array.js";
 import { locEnd, locStart } from "../loc.js";
-import pathNeedsParens from "../needs-parens.js";
+import needsParentheses from "../parentheses/needs-parentheses.js";
 import { createTypeCheckFunction } from "../utils/index.js";
 import isIgnored from "../utils/is-ignored.js";
 import { printAngular } from "./angular.js";
@@ -81,7 +81,7 @@ function print(path, options, print, args) {
     return inheritLabel(doc, (doc) => group([decoratorsDoc, doc]));
   }
 
-  const needsParens = pathNeedsParens(path, options);
+  const needsParens = needsParentheses(path, options);
   const needsSemi = shouldPrintLeadingSemicolon(path, options);
 
   if (!decoratorsDoc && !needsParens && !needsSemi) {

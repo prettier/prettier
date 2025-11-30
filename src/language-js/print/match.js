@@ -12,7 +12,7 @@ import {
   printComments,
   printDanglingComments,
 } from "../../main/comments/print.js";
-import pathNeedsParens from "../needs-parens.js";
+import needsParentheses from "../parentheses/needs-parentheses.js";
 import {
   CommentCheckFlags,
   createTypeCheckFunction,
@@ -233,7 +233,7 @@ function printMatchOrPattern(path, options, print) {
 
   const code = [ifBreak(["| "]), join([line, "| "], printed)];
 
-  if (pathNeedsParens(path, options)) {
+  if (needsParentheses(path, options)) {
     return group([indent([ifBreak([softline]), code]), softline]);
   }
 

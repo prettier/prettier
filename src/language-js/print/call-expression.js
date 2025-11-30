@@ -1,5 +1,5 @@
 import { group, join } from "../../document/index.js";
-import pathNeedsParens from "../needs-parens.js";
+import needsParentheses from "../parentheses/needs-parentheses.js";
 import {
   getCallArguments,
   hasComment,
@@ -80,7 +80,7 @@ function printCallExpression(path, options, print) {
     !isNewExpression &&
     isMemberish(node.callee) &&
     !path.call(
-      () => pathNeedsParens(path, options),
+      () => needsParentheses(path, options),
       "callee",
       ...(node.callee.type === "ChainExpression" ? ["expression"] : []),
     )

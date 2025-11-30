@@ -21,7 +21,7 @@ import {
 import getPreferredQuote from "../../utils/get-preferred-quote.js";
 import UnexpectedNodeError from "../../utils/unexpected-node-error.js";
 import WhitespaceUtils from "../../utils/whitespace-utils.js";
-import pathNeedsParens from "../needs-parens.js";
+import needsParentheses from "../parentheses/needs-parentheses.js";
 import getRaw from "../utils/get-raw.js";
 import {
   CommentCheckFlags,
@@ -505,7 +505,7 @@ function maybeWrapJsxElementInParens(path, elem, options) {
   }
 
   const shouldBreak = shouldBreakJsxElement(path);
-  const needsParens = pathNeedsParens(path, options);
+  const needsParens = needsParentheses(path, options);
 
   return group(
     [

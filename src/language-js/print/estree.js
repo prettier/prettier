@@ -34,6 +34,7 @@ import {
   printVariableDeclarator,
 } from "./assignment.js";
 import { printBinaryishExpression } from "./binaryish.js";
+import { printBindExpression } from "./bind-expression.js";
 import { printBlock } from "./block.js";
 import { printCallExpression } from "./call-expression.js";
 import {
@@ -54,11 +55,9 @@ import { printLiteral } from "./literal.js";
 import { printMemberExpression } from "./member.js";
 import {
   adjustClause,
-  printBindExpressionCallee,
   printDeclareToken,
   printDefiniteToken,
   printOptionalToken,
-  printRestSpread,
 } from "./misc.js";
 import {
   printExportDeclaration,
@@ -67,6 +66,7 @@ import {
 } from "./module.js";
 import { printObject } from "./object.js";
 import { printProperty } from "./property.js";
+import { printRestElement, printSpreadElement } from "./rest-element.js";
 import { printStatementSequence } from "./statement.js";
 import {
   printTaggedTemplateExpression,
@@ -140,12 +140,7 @@ function printEstree(path, options, print, args) {
     case "MetaProperty":
       return [print("meta"), ".", print("property")];
     case "BindExpression":
-      return [
-        print("object"),
-        group(
-          indent([softline, printBindExpressionCallee(path, options, print)]),
-        ),
-      ];
+      return printBindExpression(path, options, print);
     case "Identifier":
       return [
         node.name,
@@ -157,10 +152,9 @@ function printEstree(path, options, print, args) {
     case "V8IntrinsicIdentifier":
       return ["%", node.name];
     case "SpreadElement":
-    case "SpreadElementPattern":
-    case "SpreadPropertyPattern":
+      return printSpreadElement(path, print);
     case "RestElement":
-      return printRestSpread(path, print);
+      return printRestElement(path, print);
     case "FunctionDeclaration":
     case "FunctionExpression":
       return printFunction(path, options, print, args);

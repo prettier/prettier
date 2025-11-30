@@ -2,12 +2,9 @@ import isNonEmptyArray from "../../utils/is-non-empty-array.js";
 import {
   createTypeCheckFunction,
   getFunctionParameters,
-  hasNodeIgnoreComment,
-  isJsxElement,
   isMeaningfulEmptyStatement,
   isMethod,
   isTsAsConstExpression,
-  isUnionType,
 } from "../utils/index.js";
 
 /**
@@ -148,56 +145,4 @@ function canAttachComment(node, ancestors) {
   return true;
 }
 
-const isClassOrInterface = createTypeCheckFunction([
-  "ClassDeclaration",
-  "ClassExpression",
-  "DeclareClass",
-  "DeclareInterface",
-  "InterfaceDeclaration",
-  "TSInterfaceDeclaration",
-  // Can't have `id` or `typeParameters`
-  // "InterfaceTypeAnnotation",
-]);
-
-/**
- * @param {AstPath} path
- * @returns {boolean}
- */
-function willPrintOwnComments(path) {
-  const { key, parent } = path;
-  if (
-    (key === "types" && isUnionType(parent)) ||
-    (key === "argument" && parent.type === "JSXSpreadAttribute") ||
-    (key === "expression" && parent.type === "JSXSpreadChild") ||
-    (key === "superClass" &&
-      (parent.type === "ClassDeclaration" ||
-        parent.type === "ClassExpression")) ||
-    ((key === "id" || key === "typeParameters") &&
-      isClassOrInterface(parent)) ||
-    // Not tested, don't know how to
-    (key === "patterns" && parent.type === "MatchOrPattern")
-  ) {
-    return true;
-  }
-
-  const { node } = path;
-  if (hasNodeIgnoreComment(node)) {
-    return false;
-  }
-
-  return isJsxElement(node) || isUnionType(node);
-}
-
-function isGap(text, { parser }) {
-  if (parser === "flow" || parser === "hermes" || parser === "babel-flow") {
-    // Example: (a /* b */ /* : c */)
-    //                gap ^^^^
-    text = text.replaceAll(/[\s(]/gu, "");
-    return text === "" || text === "/*" || text === "/*::";
-  }
-}
-
-export { printComment } from "../print/comment.js";
-export { default as isBlockComment } from "../utils/is-block-comment.js";
-export { default as handleComments } from "./handle-comments.js";
-export { canAttachComment, isGap, willPrintOwnComments };
+export default canAttachComment;
