@@ -229,8 +229,7 @@ const StyledH1 = styled.div\`
                 justify-content: center;
                 text-align: center;\`
       : ""}
-  @media (max-width: \${(props) =>
-    props.noBreakPoint ? "0" : constants.layout.breakpoint.break1}px) {
+  @media (max-width: \${(props) => (props.noBreakPoint ? "0" : constants.layout.breakpoint.break1)}px) {
     font-size: 2em;
   }
 \`;
