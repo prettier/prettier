@@ -157,21 +157,6 @@ function printFunctionType(path, options, print) {
 }
 
 /*
-- `TSIndexedAccessType`(TypeScript)
-- `IndexedAccessType`(flow)
-- `OptionalIndexedAccessType`(flow)
-*/
-function printIndexedAccessType(path, options, print) {
-  return [
-    print("objectType"),
-    printOptionalToken(path),
-    "[",
-    print("indexType"),
-    "]",
-  ];
-}
-
-/*
 - `TSInferType`(TypeScript)
 - `InferTypeAnnotation`(flow)
 */
@@ -367,7 +352,6 @@ function printTypeQuery({ node }, print) {
 export {
   printArrayType,
   printFunctionType,
-  printIndexedAccessType,
   printInferType,
   printJSDocType,
   printOpaqueType,

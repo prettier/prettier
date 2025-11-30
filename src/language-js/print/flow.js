@@ -29,6 +29,7 @@ import {
   printHook,
   printHookTypeAnnotation,
 } from "./hook.js";
+import { printIndexedAccessType } from "./indexed-access-type.js";
 import { printIntersectionType } from "./intersection-type.js";
 import { printBigInt } from "./literal.js";
 import { printFlowMappedTypeProperty } from "./mapped-type.js";
@@ -46,7 +47,6 @@ import { printTypeAlias } from "./type-alias.js";
 import {
   printArrayType,
   printFunctionType,
-  printIndexedAccessType,
   printInferType,
   printOpaqueType,
   printRestType,

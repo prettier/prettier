@@ -34,6 +34,7 @@ import {
   printFunctionParameters,
   shouldGroupFunctionParameters,
 } from "./function-parameters.js";
+import { printIndexedAccessType } from "./indexed-access-type.js";
 import { printIntersectionType } from "./intersection-type.js";
 import { printTypeScriptMappedType } from "./mapped-type.js";
 import {
@@ -50,7 +51,6 @@ import { printTypeAlias } from "./type-alias.js";
 import {
   printArrayType,
   printFunctionType,
-  printIndexedAccessType,
   printInferType,
   printJSDocType,
   printRestType,
