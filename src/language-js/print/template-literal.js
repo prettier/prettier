@@ -254,7 +254,7 @@ function printTemplateExpression(path, options, print) {
   );
   // In `jest.each`, we know expression will at least indent 2 level
   if (options.__inJestEach) {
-    indentSize = Math.max(indentSize, 2);
+    indentSize = Math.max(indentSize, options.tabWidth);
   }
   expressionDoc =
     indentSize === 0 && previousQuasiText.endsWith("\n")
