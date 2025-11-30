@@ -14,6 +14,7 @@ import {
 } from "../utils/index.js";
 import isTsKeywordType from "../utils/is-ts-keyword-type.js";
 import { printArray } from "./array.js";
+import { printArrayType } from "./array-type.js";
 import { printBlock } from "./block.js";
 import { printCallExpression } from "./call-expression.js";
 import { printBinaryCastExpression } from "./cast-expression.js";
@@ -36,6 +37,7 @@ import {
 } from "./function-parameters.js";
 import { printFunctionType } from "./function-type.js";
 import { printIndexedAccessType } from "./indexed-access-type.js";
+import { printInferType } from "./infer-type.js";
 import { printIntersectionType } from "./intersection-type.js";
 import { printJSDocType } from "./js-doc-type.js";
 import { printTypeScriptMappedType } from "./mapped-type.js";
@@ -46,14 +48,12 @@ import {
 } from "./misc.js";
 import { printImportKind } from "./module.js";
 import { printPropertyKey } from "./property.js";
+import { printRestType } from "./rest-type.js";
 import { printTemplateLiteral } from "./template-literal.js";
 import { printTernary } from "./ternary.js";
 import { printNamedTupleMember } from "./tuple.js";
 import { printTypeAlias } from "./type-alias.js";
 import {
-  printArrayType,
-  printInferType,
-  printRestType,
   printTypeAnnotation,
   printTypeAnnotationProperty,
 } from "./type-annotation.js";

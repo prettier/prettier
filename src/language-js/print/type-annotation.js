@@ -1,23 +1,10 @@
-import { group, indent, line } from "../../document/index.js";
-import { hasSameLocStart } from "../loc.js";
 import {
   CommentCheckFlags,
   hasComment,
-  isFlowObjectTypePropertyAFunction,
   isObjectType,
   isSimpleType,
   isUnionType,
 } from "../utils/index.js";
-import { printClassMemberSemicolon } from "./class.js";
-import {
-  printFunctionParameters,
-  shouldGroupFunctionParameters,
-} from "./function-parameters.js";
-import {
-  printAbstractToken,
-  printDeclareToken,
-  printOptionalToken,
-} from "./misc.js";
 import { shouldHugUnionType } from "./union-type.js";
 
 /**
@@ -34,71 +21,6 @@ function shouldHugType(node) {
   }
 
   return false;
-}
-
-/*
-- `DeclareOpaqueType`(flow)
-- `OpaqueType`(flow)
-*/
-function printOpaqueType(path, options, print) {
-  const { node } = path;
-  const parts = [
-    printDeclareToken(path),
-    "opaque type ",
-    print("id"),
-    print("typeParameters"),
-  ];
-
-  if (node.supertype) {
-    parts.push(": ", print("supertype"));
-  }
-
-  if (node.lowerBound || node.upperBound) {
-    const lowerAndUpperBoundParts = [];
-    if (node.lowerBound) {
-      lowerAndUpperBoundParts.push(
-        indent([line, "super ", print("lowerBound")]),
-      );
-    }
-    if (node.upperBound) {
-      lowerAndUpperBoundParts.push(
-        indent([line, "extends ", print("upperBound")]),
-      );
-    }
-    parts.push(group(lowerAndUpperBoundParts));
-  }
-
-  if (node.impltype) {
-    parts.push(" = ", print("impltype"));
-  }
-
-  parts.push(options.semi ? ";" : "");
-
-  return parts;
-}
-
-/*
-- `TSInferType`(TypeScript)
-- `InferTypeAnnotation`(flow)
-*/
-function printInferType(path, options, print) {
-  return ["infer ", print("typeParameter")];
-}
-
-/*
-- `TSRestType`(TypeScript)
-- `TupleTypeSpreadElement`(flow)
-*/
-function printRestType(path, options, print) {
-  const { node } = path;
-
-  return [
-    "...",
-    ...(node.type === "TupleTypeSpreadElement" && node.label
-      ? [print("label"), ": "]
-      : []),
-    print("typeAnnotation"),
-  ];
 }
 
 /*
@@ -242,20 +164,4 @@ function printTypeAnnotation(path, options, print) {
     : print("typeAnnotation");
 }
 
-/*
-- `TSArrayType`
-- `ArrayTypeAnnotation`
-*/
-function printArrayType(print) {
-  return [print("elementType"), "[]"];
-}
-
-export {
-  printArrayType,
-  printInferType,
-  printOpaqueType,
-  printRestType,
-  printTypeAnnotation,
-  printTypeAnnotationProperty,
-  shouldHugType,
-};
+export { printTypeAnnotation, printTypeAnnotationProperty, shouldHugType };

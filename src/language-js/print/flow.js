@@ -8,6 +8,7 @@ import getRaw from "../utils/get-raw.js";
 import { isMethod } from "../utils/index.js";
 import isFlowKeywordType from "../utils/is-flow-keyword-type.js";
 import { printArray } from "./array.js";
+import { printArrayType } from "./array-type.js";
 import { printBinaryCastExpression } from "./cast-expression.js";
 import {
   printClass,
@@ -31,6 +32,7 @@ import {
   printHookTypeAnnotation,
 } from "./hook.js";
 import { printIndexedAccessType } from "./indexed-access-type.js";
+import { printInferType } from "./infer-type.js";
 import { printIntersectionType } from "./intersection-type.js";
 import { printBigInt } from "./literal.js";
 import { printFlowMappedTypeProperty } from "./mapped-type.js";
@@ -41,15 +43,13 @@ import {
   printRestSpread,
 } from "./misc.js";
 import { printExportDeclaration } from "./module.js";
+import { printOpaqueType } from "./opaque-type.js";
 import { printPropertyKey } from "./property.js";
+import { printRestType } from "./rest-type.js";
 import { printTernary } from "./ternary.js";
 import { printNamedTupleMember } from "./tuple.js";
 import { printTypeAlias } from "./type-alias.js";
 import {
-  printArrayType,
-  printInferType,
-  printOpaqueType,
-  printRestType,
   printTypeAnnotation,
   printTypeAnnotationProperty,
 } from "./type-annotation.js";
