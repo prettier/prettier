@@ -58,9 +58,9 @@ printWidth: 80
 // #5886
 <style jsx>{\`
   .class {
-    flex-direction: column\${long_cond && long_cond && long_cond
-        ? "-reverse"
-        : ""};
+    flex-direction: column\${
+        long_cond && long_cond && long_cond ? "-reverse" : ""
+      };
   }
 \`}</style>;
 
