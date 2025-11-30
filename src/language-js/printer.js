@@ -6,7 +6,6 @@ export { default as massageAstNode } from "./clean.js";
 export { canAttachComment } from "./comments/can-attach-comment.js";
 export { default as handleComments } from "./comments/handle-comments.js";
 export { default as isGap } from "./comments/is-gap.js";
-export { default as isBlockComment } from "./comments/utils/is-block-comment.js";
 export { default as willPrintOwnComments } from "./comments/will-print-own-comments.js";
 export { default as embed } from "./embed/index.js";
 export { insertPragma } from "./pragma.js";
@@ -16,4 +15,5 @@ export {
   default as printPrettierIgnored,
 } from "./print/index.js";
 export { default as getVisitorKeys } from "./traverse/get-visitor-keys.js";
+export { default as isBlockComment } from "./utils/is-block-comment.js";
 export { default as hasPrettierIgnore } from "./utils/is-ignored.js";
