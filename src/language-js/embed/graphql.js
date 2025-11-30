@@ -61,7 +61,7 @@ async function printEmbedGraphQL(textToDoc, print, path, options) {
     }
 
     if (expressionDoc) {
-      parts.push(["${", expressionDoc, "}"]);
+      parts.push("${", expressionDoc, "}");
     }
   }
 
