@@ -312,6 +312,170 @@ trailingComma: "none"
 ================================================================================
 `;
 
+exports[`attr-value-hugging.component.html - {"bracketSpacing":false} format 1`] = `
+====================================options=====================================
+bracketSpacing: false
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<div
+  [target]=" 'string literal' "
+  [target]=" \`template literal\` "
+  [target]=" \`template
+literal\` "
+  *directive=" 'string literal' "
+  *directive=" \`template literal\` "
+  *directive=" \`template
+literal\` "
+></div>
+
+=====================================output=====================================
+<div
+  [target]="'string literal'"
+  [target]="\`template literal\`"
+  [target]="\`template
+literal\`"
+  *directive="'string literal'"
+  *directive="\`template literal\`"
+  *directive="\`template
+literal\`"
+></div>
+
+================================================================================
+`;
+
+exports[`attr-value-hugging.component.html - {"htmlWhitespaceSensitivity":"ignore"} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "ignore"
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<div
+  [target]=" 'string literal' "
+  [target]=" \`template literal\` "
+  [target]=" \`template
+literal\` "
+  *directive=" 'string literal' "
+  *directive=" \`template literal\` "
+  *directive=" \`template
+literal\` "
+></div>
+
+=====================================output=====================================
+<div
+  [target]="'string literal'"
+  [target]="\`template literal\`"
+  [target]="\`template
+literal\`"
+  *directive="'string literal'"
+  *directive="\`template literal\`"
+  *directive="\`template
+literal\`"
+></div>
+
+================================================================================
+`;
+
+exports[`attr-value-hugging.component.html - {"printWidth":1} format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 1
+ | printWidth
+=====================================input======================================
+<div
+  [target]=" 'string literal' "
+  [target]=" \`template literal\` "
+  [target]=" \`template
+literal\` "
+  *directive=" 'string literal' "
+  *directive=" \`template literal\` "
+  *directive=" \`template
+literal\` "
+></div>
+
+=====================================output=====================================
+<div
+  [target]="'string literal'"
+  [target]="\`template literal\`"
+  [target]="\`template
+literal\`"
+  *directive="'string literal'"
+  *directive="\`template literal\`"
+  *directive="\`template
+literal\`"
+></div>
+
+================================================================================
+`;
+
+exports[`attr-value-hugging.component.html - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+<div
+  [target]=" 'string literal' "
+  [target]=" \`template literal\` "
+  [target]=" \`template
+literal\` "
+  *directive=" 'string literal' "
+  *directive=" \`template literal\` "
+  *directive=" \`template
+literal\` "
+></div>
+
+=====================================output=====================================
+<div
+  [target]="'string literal'"
+  [target]="\`template literal\`"
+  [target]="\`template
+literal\`"
+  *directive="'string literal'"
+  *directive="\`template literal\`"
+  *directive="\`template
+literal\`"
+></div>
+
+================================================================================
+`;
+
+exports[`attr-value-hugging.component.html - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+<div
+  [target]=" 'string literal' "
+  [target]=" \`template literal\` "
+  [target]=" \`template
+literal\` "
+  *directive=" 'string literal' "
+  *directive=" \`template literal\` "
+  *directive=" \`template
+literal\` "
+></div>
+
+=====================================output=====================================
+<div
+  [target]="'string literal'"
+  [target]="\`template literal\`"
+  [target]="\`template
+literal\`"
+  *directive="'string literal'"
+  *directive="\`template literal\`"
+  *directive="\`template
+literal\`"
+></div>
+
+================================================================================
+`;
+
 exports[`attributes.component.html - {"bracketSpacing":false} format 1`] = `
 ====================================options=====================================
 bracketSpacing: false
@@ -360,13 +524,6 @@ printWidth: 80
     [target]=" a ?. b ( ) "
     [target]=" a ?. b "
     [target]=" this . a "
-    [target]=" 'string literal' "
-    [target]=" \`template literal\` "
-    [target]=" \`template
-literal\` "
-    [target]=" tag \`template literal\` "
-    [target]=" tag \`template
-literal\` "
     on-target=" a = 1 "
     (target)=" a = 1 "
     (target)=" a . b = 1 "
@@ -406,13 +563,6 @@ literal\` "
     *directive=" a ; b : c "
     *directive=" a ; b : c as d "
     *directive=" a ; b as c "
-    *directive=" 'string literal' "
-    *directive=" \`template literal\` "
-    *directive=" \`template
-literal\` "
-    *directive=" tag \`template literal\` "
-    *directive=" tag \`template
-literal\` "
     *ngIf="listRow.NextScheduledSendStatus == 1 || listRow.NextScheduledSendStatus == 2 || listRow.NextScheduledSendStatus == 3"
     *ngIf="listRow.NextScheduledSendStatus == 1 || listRow.NextScheduledSendStatus == 2 || listRow.NextScheduledSendStatus == 3; else hello"
     (target)="listRow.NextScheduledSendStatus == 1 || listRow.NextScheduledSendStatus == 2 || listRow.NextScheduledSendStatus == 3"
@@ -492,13 +642,6 @@ literal\` "
   [target]="a?.b()"
   [target]="a?.b"
   [target]="this.a"
-  [target]="'string literal'"
-  [target]="\`template literal\`"
-  [target]="\`template
-literal\`"
-  [target]="tag\`template literal\`"
-  [target]="tag\`template
-literal\`"
   on-target="a = 1"
   (target)="a = 1"
   (target)="a.b = 1"
@@ -543,13 +686,6 @@ literal\`"
   *directive="a; b: c"
   *directive="a; b: c as d"
   *directive="a; b as c"
-  *directive="'string literal'"
-  *directive="\`template literal\`"
-  *directive="\`template
-literal\`"
-  *directive="tag\`template literal\`"
-  *directive="tag\`template
-literal\`"
   *ngIf="
     listRow.NextScheduledSendStatus == 1 ||
     listRow.NextScheduledSendStatus == 2 ||
@@ -671,13 +807,6 @@ printWidth: 80
     [target]=" a ?. b ( ) "
     [target]=" a ?. b "
     [target]=" this . a "
-    [target]=" 'string literal' "
-    [target]=" \`template literal\` "
-    [target]=" \`template
-literal\` "
-    [target]=" tag \`template literal\` "
-    [target]=" tag \`template
-literal\` "
     on-target=" a = 1 "
     (target)=" a = 1 "
     (target)=" a . b = 1 "
@@ -717,13 +846,6 @@ literal\` "
     *directive=" a ; b : c "
     *directive=" a ; b : c as d "
     *directive=" a ; b as c "
-    *directive=" 'string literal' "
-    *directive=" \`template literal\` "
-    *directive=" \`template
-literal\` "
-    *directive=" tag \`template literal\` "
-    *directive=" tag \`template
-literal\` "
     *ngIf="listRow.NextScheduledSendStatus == 1 || listRow.NextScheduledSendStatus == 2 || listRow.NextScheduledSendStatus == 3"
     *ngIf="listRow.NextScheduledSendStatus == 1 || listRow.NextScheduledSendStatus == 2 || listRow.NextScheduledSendStatus == 3; else hello"
     (target)="listRow.NextScheduledSendStatus == 1 || listRow.NextScheduledSendStatus == 2 || listRow.NextScheduledSendStatus == 3"
@@ -803,13 +925,6 @@ literal\` "
   [target]="a?.b()"
   [target]="a?.b"
   [target]="this.a"
-  [target]="'string literal'"
-  [target]="\`template literal\`"
-  [target]="\`template
-literal\`"
-  [target]="tag\`template literal\`"
-  [target]="tag\`template
-literal\`"
   on-target="a = 1"
   (target)="a = 1"
   (target)="a.b = 1"
@@ -854,13 +969,6 @@ literal\`"
   *directive="a; b: c"
   *directive="a; b: c as d"
   *directive="a; b as c"
-  *directive="'string literal'"
-  *directive="\`template literal\`"
-  *directive="\`template
-literal\`"
-  *directive="tag\`template literal\`"
-  *directive="tag\`template
-literal\`"
   *ngIf="
     listRow.NextScheduledSendStatus == 1 ||
     listRow.NextScheduledSendStatus == 2 ||
@@ -981,13 +1089,6 @@ printWidth: 1
     [target]=" a ?. b ( ) "
     [target]=" a ?. b "
     [target]=" this . a "
-    [target]=" 'string literal' "
-    [target]=" \`template literal\` "
-    [target]=" \`template
-literal\` "
-    [target]=" tag \`template literal\` "
-    [target]=" tag \`template
-literal\` "
     on-target=" a = 1 "
     (target)=" a = 1 "
     (target)=" a . b = 1 "
@@ -1027,13 +1128,6 @@ literal\` "
     *directive=" a ; b : c "
     *directive=" a ; b : c as d "
     *directive=" a ; b as c "
-    *directive=" 'string literal' "
-    *directive=" \`template literal\` "
-    *directive=" \`template
-literal\` "
-    *directive=" tag \`template literal\` "
-    *directive=" tag \`template
-literal\` "
     *ngIf="listRow.NextScheduledSendStatus == 1 || listRow.NextScheduledSendStatus == 2 || listRow.NextScheduledSendStatus == 3"
     *ngIf="listRow.NextScheduledSendStatus == 1 || listRow.NextScheduledSendStatus == 2 || listRow.NextScheduledSendStatus == 3; else hello"
     (target)="listRow.NextScheduledSendStatus == 1 || listRow.NextScheduledSendStatus == 2 || listRow.NextScheduledSendStatus == 3"
@@ -1211,13 +1305,6 @@ literal\` "
     this
       .a
   "
-  [target]="'string literal'"
-  [target]="\`template literal\`"
-  [target]="\`template
-literal\`"
-  [target]="tag\`template literal\`"
-  [target]="tag\`template
-literal\`"
   on-target="
     a = 1
   "
@@ -1369,13 +1456,6 @@ literal\`"
     a;
     b as c
   "
-  *directive="'string literal'"
-  *directive="\`template literal\`"
-  *directive="\`template
-literal\`"
-  *directive="tag\`template literal\`"
-  *directive="tag\`template
-literal\`"
   *ngIf="
     listRow.NextScheduledSendStatus ==
       1 ||
@@ -1633,13 +1713,6 @@ trailingComma: "es5"
     [target]=" a ?. b ( ) "
     [target]=" a ?. b "
     [target]=" this . a "
-    [target]=" 'string literal' "
-    [target]=" \`template literal\` "
-    [target]=" \`template
-literal\` "
-    [target]=" tag \`template literal\` "
-    [target]=" tag \`template
-literal\` "
     on-target=" a = 1 "
     (target)=" a = 1 "
     (target)=" a . b = 1 "
@@ -1679,13 +1752,6 @@ literal\` "
     *directive=" a ; b : c "
     *directive=" a ; b : c as d "
     *directive=" a ; b as c "
-    *directive=" 'string literal' "
-    *directive=" \`template literal\` "
-    *directive=" \`template
-literal\` "
-    *directive=" tag \`template literal\` "
-    *directive=" tag \`template
-literal\` "
     *ngIf="listRow.NextScheduledSendStatus == 1 || listRow.NextScheduledSendStatus == 2 || listRow.NextScheduledSendStatus == 3"
     *ngIf="listRow.NextScheduledSendStatus == 1 || listRow.NextScheduledSendStatus == 2 || listRow.NextScheduledSendStatus == 3; else hello"
     (target)="listRow.NextScheduledSendStatus == 1 || listRow.NextScheduledSendStatus == 2 || listRow.NextScheduledSendStatus == 3"
@@ -1765,13 +1831,6 @@ literal\` "
   [target]="a?.b()"
   [target]="a?.b"
   [target]="this.a"
-  [target]="'string literal'"
-  [target]="\`template literal\`"
-  [target]="\`template
-literal\`"
-  [target]="tag\`template literal\`"
-  [target]="tag\`template
-literal\`"
   on-target="a = 1"
   (target)="a = 1"
   (target)="a.b = 1"
@@ -1816,13 +1875,6 @@ literal\`"
   *directive="a; b: c"
   *directive="a; b: c as d"
   *directive="a; b as c"
-  *directive="'string literal'"
-  *directive="\`template literal\`"
-  *directive="\`template
-literal\`"
-  *directive="tag\`template literal\`"
-  *directive="tag\`template
-literal\`"
   *ngIf="
     listRow.NextScheduledSendStatus == 1 ||
     listRow.NextScheduledSendStatus == 2 ||
@@ -1944,13 +1996,6 @@ trailingComma: "none"
     [target]=" a ?. b ( ) "
     [target]=" a ?. b "
     [target]=" this . a "
-    [target]=" 'string literal' "
-    [target]=" \`template literal\` "
-    [target]=" \`template
-literal\` "
-    [target]=" tag \`template literal\` "
-    [target]=" tag \`template
-literal\` "
     on-target=" a = 1 "
     (target)=" a = 1 "
     (target)=" a . b = 1 "
@@ -1990,13 +2035,6 @@ literal\` "
     *directive=" a ; b : c "
     *directive=" a ; b : c as d "
     *directive=" a ; b as c "
-    *directive=" 'string literal' "
-    *directive=" \`template literal\` "
-    *directive=" \`template
-literal\` "
-    *directive=" tag \`template literal\` "
-    *directive=" tag \`template
-literal\` "
     *ngIf="listRow.NextScheduledSendStatus == 1 || listRow.NextScheduledSendStatus == 2 || listRow.NextScheduledSendStatus == 3"
     *ngIf="listRow.NextScheduledSendStatus == 1 || listRow.NextScheduledSendStatus == 2 || listRow.NextScheduledSendStatus == 3; else hello"
     (target)="listRow.NextScheduledSendStatus == 1 || listRow.NextScheduledSendStatus == 2 || listRow.NextScheduledSendStatus == 3"
@@ -2076,13 +2114,6 @@ literal\` "
   [target]="a?.b()"
   [target]="a?.b"
   [target]="this.a"
-  [target]="'string literal'"
-  [target]="\`template literal\`"
-  [target]="\`template
-literal\`"
-  [target]="tag\`template literal\`"
-  [target]="tag\`template
-literal\`"
   on-target="a = 1"
   (target)="a = 1"
   (target)="a.b = 1"
@@ -2127,13 +2158,6 @@ literal\`"
   *directive="a; b: c"
   *directive="a; b: c as d"
   *directive="a; b as c"
-  *directive="'string literal'"
-  *directive="\`template literal\`"
-  *directive="\`template
-literal\`"
-  *directive="tag\`template literal\`"
-  *directive="tag\`template
-literal\`"
   *ngIf="
     listRow.NextScheduledSendStatus == 1 ||
     listRow.NextScheduledSendStatus == 2 ||
