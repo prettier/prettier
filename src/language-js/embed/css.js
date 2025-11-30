@@ -60,7 +60,7 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
 
         // The component will always be a number at odd index
         replaceCounter++;
-        return ["${", expressionDocs[component], "}"];
+        return expressionDocs[component];
       });
   });
   return expressionDocs.length === replaceCounter ? newDoc : null;
