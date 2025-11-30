@@ -126,7 +126,7 @@ function printJsxElementInternal(path, options, print) {
   const isMdxBlock = path.parent.rootMarker === "mdx";
 
   const rawJsxWhitespace = options.singleQuote ? "{' '}" : '{" "}';
-  const jsxWhitespace = isMdxBlock
+  const whitespace = isMdxBlock
     ? line
     : ifBreak([rawJsxWhitespace, softline], " ");
 
@@ -136,7 +136,7 @@ function printJsxElementInternal(path, options, print) {
     path,
     options,
     print,
-    jsxWhitespace,
+    whitespace,
     isFacebookTranslationTag,
   );
 
@@ -157,15 +157,15 @@ function printJsxElementInternal(path, options, print) {
     const isLineFollowedByJsxWhitespace =
       (children[i] === softline || children[i] === hardline) &&
       children[i + 1] === "" &&
-      children[i + 2] === jsxWhitespace;
+      children[i + 2] === whitespace;
     const isJsxWhitespaceFollowedByLine =
-      children[i] === jsxWhitespace &&
+      children[i] === whitespace &&
       children[i + 1] === "" &&
       (children[i + 2] === softline || children[i + 2] === hardline);
     const isDoubleJsxWhitespace =
-      children[i] === jsxWhitespace &&
+      children[i] === whitespace &&
       children[i + 1] === "" &&
-      children[i + 2] === jsxWhitespace;
+      children[i + 2] === whitespace;
     const isPairOfHardOrSoftLines =
       (children[i] === softline &&
         children[i + 1] === "" &&
@@ -216,7 +216,7 @@ function printJsxElementInternal(path, options, print) {
   for (const [i, child] of children.entries()) {
     // There are a number of situations where we need to ensure we display
     // whitespace as `{" "}` when outputting this element over multiple lines.
-    if (child === jsxWhitespace) {
+    if (child === whitespace) {
       if (i === 1 && isEmptyDoc(children[i - 1])) {
         if (children.length === 2) {
           // Solitary whitespace
@@ -317,7 +317,7 @@ function printJsxChildren(
   path,
   options,
   print,
-  jsxWhitespace,
+  whitespace,
   isFacebookTranslationTag,
 ) {
   /** @type {Doc} */
@@ -357,7 +357,7 @@ function printJsxChildren(
               ),
             );
           } else {
-            pushLine(jsxWhitespace);
+            pushLine(whitespace);
           }
           words.shift();
         }
@@ -393,7 +393,7 @@ function printJsxChildren(
               ),
             );
           } else {
-            pushLine(jsxWhitespace);
+            pushLine(whitespace);
           }
         } else {
           pushLine(
@@ -412,7 +412,7 @@ function printJsxChildren(
           pushLine(hardline);
         }
       } else {
-        pushLine(jsxWhitespace);
+        pushLine(whitespace);
       }
     } else {
       const printedChild = print();
