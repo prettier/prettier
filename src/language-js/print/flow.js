@@ -21,7 +21,6 @@ import {
   printComponentTypeParameter,
 } from "./component.js";
 import {
-  printEnumBody,
   printEnumDeclaration,
   printEnumMember,
   printFlowEnumBody,
