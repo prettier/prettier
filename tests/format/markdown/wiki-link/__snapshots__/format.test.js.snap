@@ -267,7 +267,7 @@ I have some markdown prose here, with a horrible run-on sentence that [[makes li
 continue it into an obscenely long wiki-style link thingy]].
 
 =====================================output=====================================
-I have some markdown prose here, with a horrible run-on sentence that [[makes
+I have some markdown prose here, with a horrible run-on sentence that [\\[makes
 little sense at all as I continue it into an obscenely long wiki-style link
 thingy]].
 
@@ -285,7 +285,7 @@ I have some markdown prose here, with a horrible run-on sentence that [[makes li
 continue it into an obscenely long wiki-style link thingy]].
 
 =====================================output=====================================
-I have some markdown prose here, with a horrible run-on sentence that [[makes
+I have some markdown prose here, with a horrible run-on sentence that [\\[makes
 little sense at all as I continue it into an obscenely long wiki-style link
 thingy]].
 
@@ -303,7 +303,7 @@ I have some markdown prose here, with a horrible run-on sentence that [[makes li
 continue it into an obscenely long wiki-style link thingy]].
 
 =====================================output=====================================
-I have some markdown prose here, with a horrible run-on sentence that [[makes little sense at all as I continue it into an obscenely long wiki-style link thingy]].
+I have some markdown prose here, with a horrible run-on sentence that [\\[makes little sense at all as I continue it into an obscenely long wiki-style link thingy]].
 
 ================================================================================
 `;
@@ -601,49 +601,49 @@ comment
 text]]
 
 =====================================output=====================================
-[[a b]]
+[\\[a b]]
 
-[[This is **not** a _wiki link_]]
+[\\[This is **not** a _wiki link_]]
 
-[[test1 [[wiki link]]]]
+[\\[test1 [[wiki link]]]]
 
 [[test2 [[wiki link]] ]]
 
 \\[[test3 text ]]
 
-[[test4 text \\]]
+[\\[test4 text \\]]
 
-[[test5 abc _**def**_ ghi text]]
+[\\[test5 abc _**def**_ ghi text]]
 
 [[test6 *** text***text***text *** text]
 
-\\\\[[test7 text]]
+\\\\[\\[test7 text]]
 
 \\\\\\[[test8 text]]
 
-\\\\\\\\[[test9 text]]
+\\\\\\\\[\\[test9 text]]
 
-\\\\\\[[[test10 text]]
+\\\\\\[[\\[test10 text]]
 
-[[test11 text\\\\]]
+[\\[test11 text\\\\]]
 
-[[test12 text\\\\\\]]
+[\\[test12 text\\\\\\]]
 
-[[test13 text\\\\\\\\]]
+[\\[test13 text\\\\\\\\]]
 
-[[test14 text\\\\\\]]]
+[\\[test14 text\\\\\\]]]
 
-test15]] text [[text text]]
+test15]] text [\\[text text]]
 
 [test16 text]]
 
 [[test17 text]
 
-[[test18 <!--
+[\\[test18 <!--
 comment
 -->]]
 
-[[test19 <span>text</span> text]]
+[\\[test19 <span>text</span> text]]
 
 ================================================================================
 `;
@@ -722,49 +722,49 @@ comment
 text]]
 
 =====================================output=====================================
-[[a b]]
+[\\[a b]]
 
-[[This is **not** a _wiki link_]]
+[\\[This is **not** a _wiki link_]]
 
-[[test1 [[wiki link]]]]
+[\\[test1 [[wiki link]]]]
 
 [[test2 [[wiki link]] ]]
 
 \\[[test3 text ]]
 
-[[test4 text \\]]
+[\\[test4 text \\]]
 
-[[test5 abc _**def**_ ghi text]]
+[\\[test5 abc _**def**_ ghi text]]
 
 [[test6 *** text***text***text *** text]
 
-\\\\[[test7 text]]
+\\\\[\\[test7 text]]
 
 \\\\\\[[test8 text]]
 
-\\\\\\\\[[test9 text]]
+\\\\\\\\[\\[test9 text]]
 
-\\\\\\[[[test10 text]]
+\\\\\\[[\\[test10 text]]
 
-[[test11 text\\\\]]
+[\\[test11 text\\\\]]
 
-[[test12 text\\\\\\]]
+[\\[test12 text\\\\\\]]
 
-[[test13 text\\\\\\\\]]
+[\\[test13 text\\\\\\\\]]
 
-[[test14 text\\\\\\]]]
+[\\[test14 text\\\\\\]]]
 
-test15]] text [[text text]]
+test15]] text [\\[text text]]
 
 [test16 text]]
 
 [[test17 text]
 
-[[test18 <!--
+[\\[test18 <!--
 comment
 -->]]
 
-[[test19 <span>text</span> text]]
+[\\[test19 <span>text</span> text]]
 
 ================================================================================
 `;
@@ -843,49 +843,49 @@ comment
 text]]
 
 =====================================output=====================================
-[[a b]]
+[\\[a b]]
 
-[[This is **not** a _wiki link_]]
+[\\[This is **not** a _wiki link_]]
 
-[[test1 [[wiki link]]]]
+[\\[test1 [[wiki link]]]]
 
 [[test2 [[wiki link]] ]]
 
 \\[[test3 text ]]
 
-[[test4 text \\]]
+[\\[test4 text \\]]
 
-[[test5 abc _**def**_ ghi text]]
+[\\[test5 abc _**def**_ ghi text]]
 
 [[test6 *** text***text***text *** text]
 
-\\\\[[test7 text]]
+\\\\[\\[test7 text]]
 
 \\\\\\[[test8 text]]
 
-\\\\\\\\[[test9 text]]
+\\\\\\\\[\\[test9 text]]
 
-\\\\\\[[[test10 text]]
+\\\\\\[[\\[test10 text]]
 
-[[test11 text\\\\]]
+[\\[test11 text\\\\]]
 
-[[test12 text\\\\\\]]
+[\\[test12 text\\\\\\]]
 
-[[test13 text\\\\\\\\]]
+[\\[test13 text\\\\\\\\]]
 
-[[test14 text\\\\\\]]]
+[\\[test14 text\\\\\\]]]
 
-test15]] text [[text text]]
+test15]] text [\\[text text]]
 
 [test16 text]]
 
 [[test17 text]
 
-[[test18 <!--
+[\\[test18 <!--
 comment
 -->]]
 
-[[test19 <span>text</span> text]]
+[\\[test19 <span>text</span> text]]
 
 ================================================================================
 `;
@@ -1045,7 +1045,7 @@ Here's some text to ensure that the link and wiki link break the line [[a[b](htt
 
 =====================================output=====================================
 Here's some text to ensure that the link and wiki link break the line
-[[a[b](http://www.example.com/)]]
+[\\[a[b](http://www.example.com/)]]
 
 ================================================================================
 `;
@@ -1061,7 +1061,7 @@ Here's some text to ensure that the link and wiki link break the line [[a[b](htt
 
 =====================================output=====================================
 Here's some text to ensure that the link and wiki link break the line
-[[a[b](http://www.example.com/)]]
+[\\[a[b](http://www.example.com/)]]
 
 ================================================================================
 `;
@@ -1076,7 +1076,7 @@ proseWrap: "never"
 Here's some text to ensure that the link and wiki link break the line [[a[b](http://www.example.com/)]]
 
 =====================================output=====================================
-Here's some text to ensure that the link and wiki link break the line [[a[b](http://www.example.com/)]]
+Here's some text to ensure that the link and wiki link break the line [\\[a[b](http://www.example.com/)]]
 
 ================================================================================
 `;

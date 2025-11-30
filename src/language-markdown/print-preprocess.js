@@ -26,6 +26,9 @@ function preprocess(ast, options) {
   } else {
     ast = splitTextIntoSentences(ast);
   }
+  if (options.parser !== "mdx") {
+    ast = markWordsAtRiskOfAccidentalWikiLink(ast, options);
+  }
   return ast;
 }
 
@@ -404,6 +407,61 @@ function markAlignedList(ast, options) {
      */
     const secondInfo = getOrderedListItemInfo(secondItem, options);
     return secondInfo.leadingSpaces.length > 1;
+  }
+}
+
+function markWordsAtRiskOfAccidentalWikiLink(ast, options) {
+  if (options.proseWrap === "preserve") {
+    return ast;
+  }
+  const riskyParagraphs = new Set();
+  return mapAstReversed(ast, (node, parentStack) => {
+    switch (node.type) {
+      case "word":
+        if (
+          node.value.includes("[[") &&
+          parentStack.some(
+            (ancestor) =>
+              ancestor.type === "paragraph" && riskyParagraphs.has(ancestor),
+          )
+        ) {
+          node.hasWikiLinkRisk = true;
+        }
+        // remark-wiki-link doesn't consider backslashes before `]]` as escape
+        if (/\]{2,}/u.test(node.value)) {
+          addRiskyAncestors(parentStack);
+        }
+        return node;
+
+      case "wikiLink":
+        addRiskyAncestors(parentStack);
+        return node;
+
+      default:
+        return node;
+    }
+  });
+
+  function mapAstReversed(ast, handler) {
+    return (function preorder(node, parentStack) {
+      const newNode = { ...handler(node, parentStack) };
+      if (newNode.children) {
+        newNode.children = newNode.children
+          .toReversed()
+          .map((child) => preorder(child, [newNode, ...parentStack]))
+          .toReversed();
+      }
+
+      return newNode;
+    })(ast, []);
+  }
+
+  function addRiskyAncestors(parentStack) {
+    for (const ancestor of parentStack) {
+      if (ancestor.type === "paragraph") {
+        riskyParagraphs.add(ancestor);
+      }
+    }
   }
 }
 

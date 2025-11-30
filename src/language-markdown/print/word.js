@@ -12,14 +12,26 @@ import { isAutolink } from "../utilities.js";
  */
 function printWord(path) {
   const { node } = path;
+
+  let text = node.value;
+
+  text = escapeAsteriskAndUnderscore(text, path);
+
+  if (node.hasWikiLinkRisk) {
+    text = escapeOpeningSquareBrackets(text);
+  }
+
+  return text;
+}
+
+function escapeAsteriskAndUnderscore(text, path) {
   const emphasisOrStrong = path.findAncestor(
     (p) => p.type === "emphasis" || p.type === "strong",
   );
   if (!emphasisOrStrong) {
-    return node.value;
+    return text;
   }
   const { previous, next, grandparent } = path;
-  let text = node.value;
 
   // escape leading `*` or `_` if it's the first character in an emphasis/strong
   if (
@@ -56,6 +68,31 @@ function printWord(path) {
   );
 
   return text;
+}
+
+function escapeOpeningSquareBrackets(text) {
+  return text.replaceAll(/[\\[]+/gu, (match) => {
+    let backslashRun = 0;
+    let shouldEscape = false;
+    const chars = [];
+    for (let i = 0; i < match.length; i++) {
+      const char = match[i];
+      if (char === "\\") {
+        backslashRun++;
+        shouldEscape = false;
+      } else if (char === "[") {
+        if (shouldEscape) {
+          chars.push("\\");
+          shouldEscape = false;
+        } else if (backslashRun % 2 === 0) {
+          shouldEscape = true;
+        }
+        backslashRun = 0;
+      }
+      chars.push(char);
+    }
+    return chars.join("");
+  });
 }
 
 /**
