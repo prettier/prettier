@@ -45,6 +45,7 @@ import { printImportKind } from "./module.js";
 import { printPropertyKey } from "./property.js";
 import { printTemplateLiteral } from "./template-literal.js";
 import { printTernary } from "./ternary.js";
+import { printNamedTupleMember } from "./tuple.js";
 import { printTypeAlias } from "./type-alias.js";
 import {
   printArrayType,
@@ -52,7 +53,6 @@ import {
   printIndexedAccessType,
   printInferType,
   printJSDocType,
-  printNamedTupleMember,
   printRestType,
   printTypeAnnotation,
   printTypeAnnotationProperty,

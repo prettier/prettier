@@ -41,13 +41,13 @@ import {
 import { printExportDeclaration } from "./module.js";
 import { printPropertyKey } from "./property.js";
 import { printTernary } from "./ternary.js";
+import { printNamedTupleMember } from "./tuple.js";
 import { printTypeAlias } from "./type-alias.js";
 import {
   printArrayType,
   printFunctionType,
   printIndexedAccessType,
   printInferType,
-  printNamedTupleMember,
   printOpaqueType,
   printRestType,
   printTypeAnnotation,

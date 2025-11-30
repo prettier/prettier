@@ -206,23 +206,6 @@ function printRestType(path, options, print) {
 }
 
 /*
-- `TSNamedTupleMember`(TypeScript)
-- `TupleTypeLabeledElement`(flow)
-*/
-function printNamedTupleMember(path, options, print) {
-  const { node } = path;
-
-  return [
-    // `TupleTypeLabeledElement` only
-    node.variance ? print("variance") : "",
-    print("label"),
-    node.optional ? "?" : "",
-    ": ",
-    print("elementType"),
-  ];
-}
-
-/*
 Normally the `(TS)TypeAnnotation` node starts with `:` token.
 If we print `:` in parent node, `cursorNodeDiff` in `/src/main/core.js` will consider `:` is removed, cause cursor moves, see #12491.
 Token *before* `(TS)TypeAnnotation.typeAnnotation` should be printed in `getTypeAnnotationFirstToken` function.
@@ -387,7 +370,6 @@ export {
   printIndexedAccessType,
   printInferType,
   printJSDocType,
-  printNamedTupleMember,
   printOpaqueType,
   printRestType,
   printTypeAnnotation,
