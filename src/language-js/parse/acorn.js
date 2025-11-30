@@ -3,14 +3,14 @@ import acornJsx from "acorn-jsx";
 import createError from "../../common/parser-create-error.js";
 import { tryCombinationsSync } from "../../utilities/try-combinations.js";
 import postprocess from "./postprocess/index.js";
-import createParser from "./utils/create-parser.js";
+import createParser from "./utilities/create-parser.js";
 import {
   getSourceType,
   SOURCE_TYPE_COMBINATIONS,
   SOURCE_TYPE_COMMONJS,
   SOURCE_TYPE_MODULE,
   SOURCE_TYPE_SCRIPT,
-} from "./utils/source-types.js";
+} from "./utilities/source-types.js";
 
 /**
 @import {Options} from "acorn";

@@ -3,14 +3,14 @@ import getNextNonSpaceNonCommentCharacterIndex from "../../utilities/get-next-no
 import { tryCombinationsSync } from "../../utilities/try-combinations.js";
 import getShebang from "../utilities/get-shebang.js";
 import postprocess from "./postprocess/index.js";
-import createBabelParseError from "./utils/create-babel-parse-error.js";
-import createParser from "./utils/create-parser.js";
+import createBabelParseError from "./utilities/create-babel-parse-error.js";
+import createParser from "./utilities/create-parser.js";
 import {
   getSourceType,
   SOURCE_TYPE_COMMONJS,
   SOURCE_TYPE_MODULE,
-} from "./utils/source-types.js";
-import wrapBabelExpression from "./utils/wrap-babel-expression.js";
+} from "./utilities/source-types.js";
+import wrapBabelExpression from "./utilities/wrap-babel-expression.js";
 
 const createBabelParser = (options) => createParser(createParse(options));
 

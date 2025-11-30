@@ -1,8 +1,8 @@
 import { parse, parseExpression } from "@babel/parser";
 import createError from "../common/parser-create-error.js";
-import createBabelParseError from "../language-js/parse/utils/create-babel-parse-error.js";
-import createParser from "../language-js/parse/utils/create-parser.js";
-import wrapBabelExpression from "../language-js/parse/utils/wrap-babel-expression.js";
+import createBabelParseError from "../language-js/parse/utilities/create-babel-parse-error.js";
+import createParser from "../language-js/parse/utilities/create-parser.js";
+import wrapBabelExpression from "../language-js/parse/utilities/wrap-babel-expression.js";
 import isNonEmptyArray from "../utilities/is-non-empty-array.js";
 
 const babelParseOptions = {

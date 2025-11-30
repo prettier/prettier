@@ -3,13 +3,13 @@ import { parse as oxcParse } from "oxc-parser";
 import createError from "../../common/parser-create-error.js";
 import { tryCombinations } from "../../utilities/try-combinations.js";
 import postprocess from "./postprocess/index.js";
-import createParser from "./utils/create-parser.js";
-import jsxRegexp from "./utils/jsx-regexp.evaluate.js";
+import createParser from "./utilities/create-parser.js";
+import jsxRegexp from "./utilities/jsx-regexp.evaluate.js";
 import {
   getSourceType,
   SOURCE_TYPE_COMMONJS,
   SOURCE_TYPE_SCRIPT,
-} from "./utils/source-types.js";
+} from "./utilities/source-types.js";
 
 /** @import {ParseResult, ParserOptions as ParserOptionsWithoutExperimentalRawTransfer} from "oxc-parser" */
 /** @typedef {Omit<ParserOptionsWithoutExperimentalRawTransfer, "sourceType"> & {

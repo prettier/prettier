@@ -2,11 +2,11 @@ import { parse as espreeParse } from "espree";
 import createError from "../../common/parser-create-error.js";
 import { tryCombinationsSync } from "../../utilities/try-combinations.js";
 import postprocess from "./postprocess/index.js";
-import createParser from "./utils/create-parser.js";
+import createParser from "./utilities/create-parser.js";
 import {
   getSourceType,
   SOURCE_TYPE_COMBINATIONS,
-} from "./utils/source-types.js";
+} from "./utilities/source-types.js";
 
 /** @import {Options} from "espree" */
 
