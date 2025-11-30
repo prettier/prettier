@@ -6,7 +6,6 @@ import {
   isCallExpression,
   isMemberExpression,
 } from "../utils/index.js";
-import { printTypeAnnotationProperty } from "./type-annotation.js";
 
 /**
  * @import AstPath from "../../common/ast-path.js"
@@ -110,10 +109,6 @@ function adjustClause(node, clause, forceSpace) {
   return indent([line, clause]);
 }
 
-function printRestSpread(path, print) {
-  return ["...", print("argument"), printTypeAnnotationProperty(path, print)];
-}
-
 function printTypeScriptAccessibilityToken(node) {
   return node.accessibility ? node.accessibility + " " : "";
 }
@@ -124,6 +119,5 @@ export {
   printDeclareToken,
   printDefiniteToken,
   printOptionalToken,
-  printRestSpread,
   printTypeScriptAccessibilityToken,
 };

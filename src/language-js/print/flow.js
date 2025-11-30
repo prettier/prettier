@@ -37,14 +37,11 @@ import { printIntersectionType } from "./intersection-type.js";
 import { printBigInt } from "./literal.js";
 import { printFlowMappedTypeProperty } from "./mapped-type.js";
 import { printMatch, printMatchCase, printMatchPattern } from "./match.js";
-import {
-  printDeclareToken,
-  printOptionalToken,
-  printRestSpread,
-} from "./misc.js";
+import { printDeclareToken, printOptionalToken } from "./misc.js";
 import { printExportDeclaration } from "./module.js";
 import { printOpaqueType } from "./opaque-type.js";
 import { printPropertyKey } from "./property.js";
+import { printSpreadElement } from "./rest-element.js";
 import { printRestType } from "./rest-type.js";
 import { printTernary } from "./ternary.js";
 import { printNamedTupleMember } from "./tuple.js";
@@ -275,7 +272,7 @@ function printFlow(path, options, print) {
       ];
     // Same as `RestElement`
     case "ObjectTypeSpreadProperty":
-      return printRestSpread(path, print);
+      return printSpreadElement(path, print);
     case "QualifiedTypeofIdentifier":
     case "QualifiedTypeIdentifier":
       return [print("qualification"), ".", print("id")];
