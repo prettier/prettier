@@ -257,7 +257,7 @@ function printTemplateExpression(path, options, print) {
       ? align(Number.NEGATIVE_INFINITY, expressionDoc)
       : addAlignmentToDoc(expressionDoc, indentSize, options.tabWidth);
 
-  return ["${", expressionDoc, lineSuffixBoundary, "}"];
+  return group(["${", expressionDoc, lineSuffixBoundary, "}"]);
 }
 
 function printTemplateExpressions(path, options, print) {
