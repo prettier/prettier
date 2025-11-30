@@ -42,51 +42,15 @@ function printTemplateLiteral(path, options, print) {
       return printed;
     }
   }
-  const parts = [];
 
   const expressionDocs = printTemplateExpressions(path, options, print);
+  const parts = path.map(
+    ({ isLast, index }) =>
+      isLast ? print() : [print(), "${", expressionDocs[index], "}"],
+    "quasis",
+  );
 
-  parts.push(lineSuffixBoundary, "`");
-
-  let previousQuasiIndentSize = 0;
-  path.each(({ index, node: quasi }) => {
-    parts.push(print());
-
-    if (quasi.tail) {
-      return;
-    }
-
-    // For a template literal of the following form:
-    //   `someQuery {
-    //     ${call({
-    //       a,
-    //       b,
-    //     })}
-    //   }`
-    // the expression is on its own line (there is a \n in the previous
-    // quasi literal), therefore we want to indent the JavaScript
-    // expression inside at the beginning of ${ instead of the beginning
-    // of the `.
-    const { tabWidth } = options;
-    const text = quasi.value.raw;
-    const indentSize = text.includes("\n")
-      ? getIndentSize(text, tabWidth)
-      : previousQuasiIndentSize;
-    previousQuasiIndentSize = indentSize;
-
-    const expressionDoc = expressionDocs[index];
-
-    const aligned =
-      indentSize === 0 && text.endsWith("\n")
-        ? align(Number.NEGATIVE_INFINITY, expressionDoc)
-        : addAlignmentToDoc(expressionDoc, indentSize, tabWidth);
-
-    parts.push(group(["${", aligned, "}"]));
-  }, "quasis");
-
-  parts.push("`");
-
-  return parts;
+  return [lineSuffixBoundary, "`", ...parts, "`"];
 }
 
 function printTaggedTemplateExpression(path, options, print) {
@@ -209,6 +173,26 @@ function printJestEachTemplateLiteral(path, options, print) {
   }
 }
 
+const templateLiteralIndentCache = new WeakMap();
+function getTemplateLiteralExpressionIndent(path, options) {
+  const { parent: templateLiteral, index } = path;
+  if (!templateLiteralIndentCache.has(templateLiteral)) {
+    const { tabWidth } = options;
+    let previousQuasiIndentSize = 0;
+    const sizes = templateLiteral.quasis.map((quasi) => {
+      const text = quasi.value.raw;
+      const indentSize = text.includes("\n")
+        ? getIndentSize(text, tabWidth)
+        : previousQuasiIndentSize;
+      previousQuasiIndentSize = indentSize;
+      return { indentSize, previousQuasiText: text };
+    });
+    templateLiteralIndentCache.set(templateLiteral, sizes);
+  }
+
+  return templateLiteralIndentCache.get(templateLiteral)[index];
+}
+
 /*
 - `TemplateLiteral`
 - `TSTemplateLiteralType` (TypeScript)
@@ -217,7 +201,8 @@ function printTemplateExpression(path, options, print) {
   const { node, index } = path;
   let expressionDoc = print();
 
-  const { quasis } = path.parent;
+  const templateLiteral = path.parent;
+  const { quasis } = templateLiteral;
   const start = locEnd(quasis[index]);
   const end = locStart(quasis[index + 1]);
 
@@ -257,6 +242,26 @@ function printTemplateExpression(path, options, print) {
   ) {
     expressionDoc = [indent([softline, expressionDoc]), softline];
   }
+
+  // For a template literal of the following form:
+  //   `someQuery {
+  //     ${call({
+  //       a,
+  //       b,
+  //     })}
+  //   }`
+  // the expression is on its own line (there is a \n in the previous
+  // quasi literal), therefore we want to indent the JavaScript
+  // expression inside at the beginning of ${ instead of the beginning
+  // of the `.
+  const { indentSize, previousQuasiText } = getTemplateLiteralExpressionIndent(
+    path,
+    options,
+  );
+  expressionDoc =
+    indentSize === 0 && previousQuasiText.endsWith("\n")
+      ? align(Number.NEGATIVE_INFINITY, expressionDoc)
+      : addAlignmentToDoc(expressionDoc, indentSize, options.tabWidth);
 
   return [expressionDoc, lineSuffixBoundary];
 }
