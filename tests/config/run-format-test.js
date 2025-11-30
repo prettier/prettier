@@ -50,7 +50,6 @@ const unstableTests = new Map(
     "typescript/import-type/long-module-name/long-module-name4.ts",
     // Unstable due to lack of indent information
     "js/multiparser-comments/comment-inside.js",
-    "js/test-declarations/jest-each.js",
   ].map((fixture) => {
     const [file, isUnstable = () => true] = Array.isArray(fixture)
       ? fixture
