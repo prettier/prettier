@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`attribute-value-hugging.html format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<!-- #17729 -->
+<div
+  [target]="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog string'"
+  [target]="'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog string' + 'second loooooong string'"
+  [target]="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`"
+  [target]="\`first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\` + \`second loooooong \${template} \${literal}\`"
+  [target]="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template}
+\${literal}\`"
+  *directive="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog string'"
+  *directive="'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog string' + 'second loooooong string'"
+  *directive="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`"
+  *directive="\`first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\` + \`second loooooong \${template} \${literal}\`"
+  *directive="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template}
+\${literal}\`"
+></div>
+
+=====================================output=====================================
+<!-- #17729 -->
+<div
+  [target]="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog string'"
+  [target]="
+    'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog string' +
+    'second loooooong string'
+  "
+  [target]="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`"
+  [target]="
+    \`first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\` +
+    \`second loooooong \${template} \${literal}\`
+  "
+  [target]="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template}
+\${literal}\`"
+  *directive="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog string'"
+  *directive="
+    'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog string' +
+    'second loooooong string'
+  "
+  *directive="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`"
+  *directive="
+    \`first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\` +
+    \`second loooooong \${template} \${literal}\`
+  "
+  *directive="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template}
+\${literal}\`"
+></div>
+
+================================================================================
+`;

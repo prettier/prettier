@@ -1,0 +1,15 @@
+<!-- #17729 -->
+<div
+  [target]="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog string'"
+  [target]="'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog string' + 'second loooooong string'"
+  [target]="`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog ${template} ${literal}`"
+  [target]="`first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog ${template} ${literal}` + `second loooooong ${template} ${literal}`"
+  [target]="`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog ${template}
+${literal}`"
+  *directive="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog string'"
+  *directive="'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog string' + 'second loooooong string'"
+  *directive="`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog ${template} ${literal}`"
+  *directive="`first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog ${template} ${literal}` + `second loooooong ${template} ${literal}`"
+  *directive="`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog ${template}
+${literal}`"
+></div>
