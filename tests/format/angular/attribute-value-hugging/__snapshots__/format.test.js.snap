@@ -16,8 +16,7 @@ printWidth: 80
 [add]="'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' + 'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'"
 [number]="100000000000000000000000000000000000000000000000000000000000000000000000000">
 [shortTemplate]="\`1
-2\`"
-</div>
+2\`"></div>
 <div
 *foo="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`"
 *foo1="\`\${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
@@ -27,8 +26,7 @@ printWidth: 80
 *add="'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' + 'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'"
 *number="100000000000000000000000000000000000000000000000000000000000000000000000000">
 *shortTemplate="\`1
-2\`"
-</div>
+2\`"></div>
 
 =====================================output=====================================
 <!-- #17729 -->
@@ -48,7 +46,7 @@ printWidth: 80
     100000000000000000000000000000000000000000000000000000000000000000000000000
   "
 >
-  [shortTemplate]="\`1 2\`"
+  [shortTemplate]="\`1 2\`">
 </div>
 <div
   *foo="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`"
@@ -66,7 +64,7 @@ printWidth: 80
     100000000000000000000000000000000000000000000000000000000000000000000000000
   "
 >
-  *shortTemplate="\`1 2\`"
+  *shortTemplate="\`1 2\`">
 </div>
 
 ================================================================================
