@@ -1,17 +1,12 @@
 import {
   group,
   hardline,
-  ifBreak,
   indent,
-  join,
-  line,
   replaceEndOfLine,
   softline,
 } from "../../document/index.js";
 import { printDanglingComments } from "../../main/comments/print.js";
-import hasNewline from "../../utilities/has-newline.js";
 import UnexpectedNodeError from "../../utilities/unexpected-node-error.js";
-import { locEnd, locStart } from "../loc.js";
 import {
   CommentCheckFlags,
   hasComment,
@@ -19,10 +14,8 @@ import {
   isLiteral,
   isMeaningfulEmptyStatement,
   isMethod,
-  isNextLineEmpty,
   isObjectExpression,
 } from "../utilities/index.js";
-import isBlockComment from "../utilities/is-block-comment.js";
 import { printArray } from "./array.js";
 import { printArrowFunction } from "./arrow-function.js";
 import {
@@ -66,12 +59,13 @@ import { printObject } from "./object.js";
 import { printProperty } from "./property.js";
 import { printRestElement, printSpreadElement } from "./rest-element.js";
 import { printSequenceExpression } from "./sequence-expression.js";
-import { printStatementSequence } from "./statement-sequence.js";
+import { printSwitchCase, printSwitchStatement } from "./switch-statement.js";
 import {
   printTaggedTemplateExpression,
   printTemplateLiteral,
 } from "./template-literal.js";
 import { printTernary } from "./ternary.js";
+import { printCatchClause, printTryStatement } from "./try-statement.js";
 import { printTypeAnnotationProperty } from "./type-annotation.js";
 import { printVariableDeclaration } from "./variable-declaration.js";
 import {
@@ -315,93 +309,14 @@ function printEstree(path, options, print, args) {
         print("body"),
       ];
     case "TryStatement":
-      return [
-        "try ",
-        print("block"),
-        node.handler ? [" ", print("handler")] : "",
-        node.finalizer ? [" finally ", print("finalizer")] : "",
-      ];
+      return printTryStatement(path, options, print);
     case "CatchClause":
-      if (node.param) {
-        const parameterHasComments = hasComment(
-          node.param,
-          (comment) =>
-            !isBlockComment(comment) ||
-            (comment.leading &&
-              hasNewline(options.originalText, locEnd(comment))) ||
-            (comment.trailing &&
-              hasNewline(options.originalText, locStart(comment), {
-                backwards: true,
-              })),
-        );
-        const param = print("param");
-
-        return [
-          "catch ",
-          parameterHasComments
-            ? ["(", indent([softline, param]), softline, ") "]
-            : ["(", param, ") "],
-          print("body"),
-        ];
-      }
-
-      return ["catch ", print("body")];
+      return printCatchClause(path, options, print);
     // Note: ignoring n.lexical because it has no printing consequences.
     case "SwitchStatement":
-      return [
-        group([
-          "switch (",
-          indent([softline, print("discriminant")]),
-          softline,
-          ")",
-        ]),
-        " {",
-        node.cases.length > 0
-          ? indent([
-              hardline,
-              join(
-                hardline,
-                path.map(
-                  ({ node, isLast }) => [
-                    print(),
-                    !isLast && isNextLineEmpty(node, options) ? hardline : "",
-                  ],
-                  "cases",
-                ),
-              ),
-            ])
-          : "",
-        hardline,
-        "}",
-      ];
-    case "SwitchCase": {
-      const parts = [];
-      if (node.test) {
-        parts.push("case ", print("test"), ":");
-      } else {
-        parts.push("default:");
-      }
-
-      if (hasComment(node, CommentCheckFlags.Dangling)) {
-        parts.push(" ", printDanglingComments(path, options));
-      }
-
-      const consequent = node.consequent.filter(
-        (node) => node.type !== "EmptyStatement",
-      );
-
-      if (consequent.length > 0) {
-        const cons = printStatementSequence(path, options, print, "consequent");
-
-        parts.push(
-          consequent.length === 1 && consequent[0].type === "BlockStatement"
-            ? [" ", cons]
-            : indent([hardline, cons]),
-        );
-      }
-
-      return parts;
-    }
+      return printSwitchStatement(path, options, print);
+    case "SwitchCase":
+      return printSwitchCase(path, options, print);
     // JSX extensions below.
     case "DebuggerStatement":
       return ["debugger", options.semi ? ";" : ""];
