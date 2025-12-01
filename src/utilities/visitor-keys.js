@@ -1,4 +1,6 @@
-/** @typedef {Record<string, readonly string[]>} VisitorKeys */
+/**
+@typedef {readonly string[]} Keys
+@typedef {Record<string, Keys>} VisitorKeys */
 
 const unique = (values) => [...new Set(values)];
 
@@ -69,7 +71,7 @@ function removeNodeTypes(visitorKeys, nodeTypesToRemove) {
 @returns {VisitorKeys}
 */
 function generateReferenceSharedVisitorKeys(visitorKeys) {
-  /** @type {Map<string, VisitorKeys[key in VisitorKeys]>} */
+  /** @type {Map<string, Keys>} */
   const cache = new Map();
   /** @type {VisitorKeys} */
   const result = {};
