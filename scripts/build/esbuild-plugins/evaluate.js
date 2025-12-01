@@ -65,8 +65,6 @@ function serializeVisitorKeys(module) {
     };
   `;
 
-  console.log(code);
-
   return code;
 }
 
