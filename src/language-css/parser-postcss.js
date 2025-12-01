@@ -3,6 +3,7 @@ import postcssLess from "postcss-less";
 import postcssScssParse from "postcss-scss/lib/scss-parse";
 import createError from "../common/parser-create-error.js";
 import { parseFrontMatter } from "../main/front-matter/index.js";
+import isObject from "../utilities/is-object.js";
 import {
   calculateLoc,
   locEnd,
@@ -21,7 +22,7 @@ const DEFAULT_SCSS_DIRECTIVE = /(\s*)(!default).*$/u;
 const GLOBAL_SCSS_DIRECTIVE = /(\s*)(!global).*$/u;
 
 function parseNestedCSS(node, options) {
-  if (node && typeof node === "object") {
+  if (isObject(node)) {
     delete node.parent;
 
     for (const key in node) {

@@ -1,5 +1,6 @@
 import AstPath from "../common/ast-path.js";
 import { cursor, inheritLabel } from "../document/index.js";
+import isObject from "../utilities/is-object.js";
 import { attachComments } from "./comments/attach.js";
 import { ensureAllCommentsPrinted, printComments } from "./comments/print.js";
 import createPrintPreCheckFunction from "./create-print-pre-check-function.js";
@@ -82,8 +83,7 @@ async function printAstToDoc(ast, options) {
       return "";
     }
 
-    const shouldCache =
-      value && typeof value === "object" && args === undefined;
+    const shouldCache = isObject(value) && args === undefined;
 
     if (shouldCache && cache.has(value)) {
       return cache.get(value);

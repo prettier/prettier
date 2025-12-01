@@ -1,7 +1,8 @@
+import isObject from "../../../utilities/is-object.js";
 import getVisitorKeys from "../../traverse/get-visitor-keys.js";
 
 function visitNode(node, options) {
-  if (!(node !== null && typeof node === "object")) {
+  if (!isObject(node)) {
     return node;
   }
 
@@ -17,6 +18,7 @@ function visitNode(node, options) {
 
   if (options.onEnter) {
     const result = options.onEnter(node) ?? node;
+    // If node is replaced, re-enter
     if (result !== node) {
       return visitNode(result, options);
     }
