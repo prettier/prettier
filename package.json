@@ -158,6 +158,7 @@
     "jest-snapshot-serializer-raw": "2.0.0",
     "jest-watch-typeahead": "3.0.1",
     "jsesc": "3.1.0",
+    "json-test-suite": "1.0.0",
     "knip": "5.70.2",
     "magic-string": "0.30.21",
     "make-synchronized": "0.8.0",
