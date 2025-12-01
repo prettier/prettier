@@ -81,11 +81,9 @@ void(
 
 =====================================output=====================================
 !(
-  (
-    x || // foo
+  x || // foo
     y || // bar
-    z
-  ) /*
+    z /*
    * comment
    */
 )
@@ -115,12 +113,10 @@ void(
 )
 
 void (
-  (
-    (p && // first
-      q) || // second
+  (p && // first
+    q) || // second
     (r && // third
-      s)
-  ) // fourth
+      s) // fourth
 )
 
 void (
@@ -241,11 +237,9 @@ void(
 
 =====================================output=====================================
 !(
-  (
-    x || // foo
+  x || // foo
     y || // bar
-    z
-  ) /*
+    z /*
    * comment
    */
 );
@@ -275,12 +269,10 @@ void(
 );
 
 void (
-  (
-    (p && // first
-      q) || // second
+  (p && // first
+    q) || // second
     (r && // third
-      s)
-  ) // fourth
+      s) // fourth
 );
 
 void (
