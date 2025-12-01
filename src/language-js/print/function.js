@@ -27,7 +27,7 @@ import {
   shouldBreakFunctionParameters,
   shouldGroupFunctionParameters,
 } from "./function-parameters.js";
-import { printDeclareToken } from "./misc.js";
+import { printDeclareToken } from "./miscellaneous.js";
 import { printPropertyKey } from "./property.js";
 import { printTypeAnnotationProperty } from "./type-annotation.js";
 

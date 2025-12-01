@@ -22,7 +22,7 @@ import {
   isSignedNumericLiteral,
   shouldPrintComma,
 } from "../utilities/index.js";
-import { printOptionalToken } from "./misc.js";
+import { printOptionalToken } from "./miscellaneous.js";
 import { printTypeAnnotationProperty } from "./type-annotation.js";
 
 /** @import {Doc} from "../../document/index.js" */

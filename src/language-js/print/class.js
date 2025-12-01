@@ -29,7 +29,7 @@ import {
   printDefiniteToken,
   printOptionalToken,
   printTypeScriptAccessibilityToken,
-} from "./misc.js";
+} from "./miscellaneous.js";
 import { printPropertyKey } from "./property.js";
 import { printTypeAnnotationProperty } from "./type-annotation.js";
 

@@ -1,4 +1,4 @@
-import { printOptionalToken } from "./misc.js";
+import { printOptionalToken } from "./miscellaneous.js";
 
 /*
 - `TSIndexedAccessType`(TypeScript)

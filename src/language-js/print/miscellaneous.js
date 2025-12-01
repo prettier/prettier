@@ -1,4 +1,4 @@
-import { indent, line } from "../../document/index.js";
+import { group, indent, line, softline } from "../../document/index.js";
 import {
   CommentCheckFlags,
   createTypeCheckFunction,
@@ -113,11 +113,18 @@ function printTypeScriptAccessibilityToken(node) {
   return node.accessibility ? node.accessibility + " " : "";
 }
 
+function printIfOrWhileCondition(path, options, print) {
+  return group([indent([softline, print("test")]), softline]);
+}
+
 export {
   adjustClause,
   printAbstractToken,
   printDeclareToken,
   printDefiniteToken,
+  printIfOrWhileCondition as printDoWhileStatementCondition,
+  printIfOrWhileCondition as printIfStatementCondition,
   printOptionalToken,
   printTypeScriptAccessibilityToken,
+  printIfOrWhileCondition as printWhileStatementCondition,
 };

@@ -23,7 +23,7 @@ import {
   shouldPrintComma,
 } from "../utilities/index.js";
 import { shouldHugTheOnlyParameter } from "./function-parameters.js";
-import { printOptionalToken } from "./misc.js";
+import { printOptionalToken } from "./miscellaneous.js";
 import { printTypeAnnotationProperty } from "./type-annotation.js";
 
 /** @import {Doc} from "../../document/index.js" */

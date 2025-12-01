@@ -10,7 +10,7 @@ import { printDanglingComments } from "../../main/comments/print.js";
 import getNextNonSpaceNonCommentCharacter from "../../utilities/get-next-non-space-non-comment-character.js";
 import { locEnd } from "../loc.js";
 import { isNextLineEmpty, shouldPrintComma } from "../utilities/index.js";
-import { printDeclareToken } from "./misc.js";
+import { printDeclareToken } from "./miscellaneous.js";
 
 /**
  * @import AstPath from "../../common/ast-path.js"

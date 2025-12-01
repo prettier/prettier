@@ -1,6 +1,6 @@
 import { group, hardline, indent, line } from "../../document/index.js";
 import { hasComment } from "../utilities/index.js";
-import { printDeclareToken } from "./misc.js";
+import { printDeclareToken } from "./miscellaneous.js";
 
 function printVariableDeclaration(path, options, print) {
   const { node } = path;

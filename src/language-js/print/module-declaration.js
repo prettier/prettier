@@ -1,5 +1,5 @@
 import { group } from "../../document/index.js";
-import { printDeclareToken } from "./misc.js";
+import { printDeclareToken } from "./miscellaneous.js";
 
 function printModuleDeclaration(path, options, print) {
   const { node } = path;

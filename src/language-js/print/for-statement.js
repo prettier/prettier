@@ -6,7 +6,7 @@ import {
   softline,
 } from "../../document/index.js";
 import { printDanglingComments } from "../../main/comments/print.js";
-import { adjustClause } from "./misc.js";
+import { adjustClause } from "./miscellaneous.js";
 
 function printForStatement(path, options, print) {
   const { node } = path;
