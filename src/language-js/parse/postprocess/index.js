@@ -87,7 +87,7 @@ function postprocess(ast, options) {
           break;
         }
 
-        // This happens when use `oxc-parser` to parse `` `${foo satisfies bar}`; ``
+        // This happened when use `oxc-parser` to parse `` `${foo satisfies bar}`; ``
         // https://github.com/oxc-project/oxc/issues/11313
         case "TemplateLiteral":
           /* c8 ignore next 3 */
@@ -121,6 +121,7 @@ function postprocess(ast, options) {
           }
           break;
         }
+
         // remove redundant TypeScript nodes
         case "TSParenthesizedType":
           return node.typeAnnotation;
@@ -128,9 +129,7 @@ function postprocess(ast, options) {
         // For hack-style pipeline
         case "TopicReference":
           ast.extra = { ...ast.extra, __isUsingHackPipeline: true };
-          break;
-
-        // In Flow parser, it doesn't generate union/intersection types for single type
+          break; // In Flow parser, it doesn't generate union/intersection types for single type
         case "TSUnionType":
         case "TSIntersectionType":
           if (node.types.length === 1) {
@@ -144,23 +143,25 @@ function postprocess(ast, options) {
             node.options = node.attributes;
           }
           break;
-
-        // https://github.com/babel/babel/issues/17506
-        // https://github.com/oxc-project/oxc/issues/16074
-        case "TSImportType":
-          if (!node.source && node.argument.type === "TSLiteralType") {
-            node.source = node.argument.literal;
-            delete node.argument;
-          }
-          break;
       }
     },
     onLeave(node) {
       switch (node.type) {
+        // Children can be parenthesized, need do this in `onLeave`
         case "LogicalExpression":
           // We remove unneeded parens around same-operator LogicalExpressions
           if (isUnbalancedLogicalTree(node)) {
             return rebalanceLogicalTree(node);
+          }
+          break;
+
+        // https://github.com/babel/babel/issues/17506
+        // https://github.com/oxc-project/oxc/issues/16074
+        // It's possible to have parenthesized `argument`, need do this in `onLeave`
+        case "TSImportType":
+          if (!node.source && node.argument.type === "TSLiteralType") {
+            node.source = node.argument.literal;
+            delete node.argument;
           }
           break;
       }
