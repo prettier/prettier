@@ -14,14 +14,11 @@ unquoted={data}>   </div>
 class={data}>   </div>
 
 <div
-  single-quote="'"
-  single-quote-escaped-unquoted=&apos;
-  single-quote-escaped-in-single-quote='&apos;'
-  single-quote-escaped-in-double-quote="&apos;"
-  double-quote='"'
-  double-quote-escaped-unquoted=&quot;
-  double-quote-escaped-in-single-quote='&quot;'
-  double-quote-escaped-in-double-quote="&quot;"
+  in-single-quote="'&apos;&quot;"
+  in-double-quote='"&apos;&quot;'
+  escaped-unquoted=&apos;&quot;
+  escaped-in-single-quote='&apos;&quot;'
+  escaped-in-double-quote="&apos;&quot;"
   style="width:                         100px;"
 ></div>
 
@@ -31,14 +28,11 @@ class={data}>   </div>
 <div class="{data}" class="{data}" class={data}></div>
 
 <div
-  single-quote="'"
-  single-quote-escaped-unquoted="'"
-  single-quote-escaped-in-single-quote="'"
-  single-quote-escaped-in-double-quote="'"
-  double-quote='"'
-  double-quote-escaped-unquoted='"'
-  double-quote-escaped-in-single-quote='"'
-  double-quote-escaped-in-double-quote='"'
+  in-single-quote="''&quot;"
+  in-double-quote='"&apos;"'
+  escaped-unquoted="'&quot;"
+  escaped-in-single-quote="'&quot;"
+  escaped-in-double-quote="'&quot;"
   style="width:                         100px;"
 ></div>
 
@@ -58,14 +52,11 @@ unquoted={data}>   </div>
 class={data}>   </div>
 
 <div
-  single-quote="'"
-  single-quote-escaped-unquoted=&apos;
-  single-quote-escaped-in-single-quote='&apos;'
-  single-quote-escaped-in-double-quote="&apos;"
-  double-quote='"'
-  double-quote-escaped-unquoted=&quot;
-  double-quote-escaped-in-single-quote='&quot;'
-  double-quote-escaped-in-double-quote="&quot;"
+  in-single-quote="'&apos;&quot;"
+  in-double-quote='"&apos;&quot;'
+  escaped-unquoted=&apos;&quot;
+  escaped-in-single-quote='&apos;&quot;'
+  escaped-in-double-quote="&apos;&quot;"
   style="width:                         100px;"
 ></div>
 
@@ -75,14 +66,11 @@ class={data}>   </div>
 <div class="{data}" class="{data}" class={data}></div>
 
 <div
-  single-quote="'"
-  single-quote-escaped-unquoted="'"
-  single-quote-escaped-in-single-quote="'"
-  single-quote-escaped-in-double-quote="'"
-  double-quote='"'
-  double-quote-escaped-unquoted='"'
-  double-quote-escaped-in-single-quote='"'
-  double-quote-escaped-in-double-quote='"'
+  in-single-quote="''&quot;"
+  in-double-quote='"&apos;"'
+  escaped-unquoted="'&quot;"
+  escaped-in-single-quote="'&quot;"
+  escaped-in-double-quote="'&quot;"
   style="width: 100px"
 ></div>
 
