@@ -130,24 +130,17 @@ function genericPrint(path, options, print) {
       }
 
       const value = unescapeQuoteEntities(node.value);
+      let quote = getPreferredQuote(value, '"');
 
       if (
-        options.embeddedLanguageFormatting === "off" &&
         options.parser === "lwc" &&
         value.startsWith("{") &&
-        value.endsWith("}")
+        value.endsWith("}") &&
+        node.valueSpan.end.offset - node.valueSpan.start.offset !==
+          value.length + 2
       ) {
-        const quote = node.valueSpan.start.file.content.at(
-          node.valueSpan.start.offset,
-        );
-        return [
-          node.rawName,
-          "=",
-          ['"', "'"].includes(quote) ? `${quote}${value}${quote}` : value,
-        ];
+        quote = "";
       }
-
-      const quote = getPreferredQuote(value, '"');
 
       return [
         node.rawName,

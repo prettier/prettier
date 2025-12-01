@@ -13,10 +13,27 @@ unquoted={data}>   </div>
 <div class="{data}"    class='{data}'
 class={data}>   </div>
 
+<div
+  single-quote="'"
+  single-quote-escaped-in-single-quote='&apos;'
+  single-quote-escaped-in-double-quote="&apos;"
+  double-quote='"'
+  double-quote-escaped-in-single-quote='&quot;'
+  double-quote-escaped-in-double-quote="&quot;"
+></div>
 =====================================output=====================================
-<div double-quoted="{data}" single-quoted='{data}' unquoted={data}></div>
+<div double-quoted="{data}" single-quoted="{data}" unquoted={data}></div>
 
-<div class="{data}" class='{data}' class={data}></div>
+<div class="{data}" class="{data}" class={data}></div>
+
+<div
+  single-quote="'"
+  single-quote-escaped-in-single-quote="'"
+  single-quote-escaped-in-double-quote="'"
+  double-quote='"'
+  double-quote-escaped-in-single-quote='"'
+  double-quote-escaped-in-double-quote='"'
+></div>
 
 ================================================================================
 `;
@@ -33,10 +50,27 @@ unquoted={data}>   </div>
 <div class="{data}"    class='{data}'
 class={data}>   </div>
 
+<div
+  single-quote="'"
+  single-quote-escaped-in-single-quote='&apos;'
+  single-quote-escaped-in-double-quote="&apos;"
+  double-quote='"'
+  double-quote-escaped-in-single-quote='&quot;'
+  double-quote-escaped-in-double-quote="&quot;"
+></div>
 =====================================output=====================================
 <div double-quoted="{data}" single-quoted="{data}" unquoted={data}></div>
 
 <div class="{data}" class="{data}" class={data}></div>
+
+<div
+  single-quote="'"
+  single-quote-escaped-in-single-quote="'"
+  single-quote-escaped-in-double-quote="'"
+  double-quote='"'
+  double-quote-escaped-in-single-quote='"'
+  double-quote-escaped-in-double-quote='"'
+></div>
 
 ================================================================================
 `;
