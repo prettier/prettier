@@ -130,7 +130,7 @@ function genericPrint(path, options, print) {
       }
 
       const value = unescapeQuoteEntities(node.value);
-      let quote = getPreferredQuote(value, '"');
+      let quote;
 
       if (
         options.parser === "lwc" &&
@@ -140,6 +140,8 @@ function genericPrint(path, options, print) {
           value.length + 2
       ) {
         quote = "";
+      } else {
+        quote = getPreferredQuote(value, '"');
       }
 
       return [
