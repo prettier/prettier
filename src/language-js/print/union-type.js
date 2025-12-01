@@ -22,6 +22,10 @@ import {
   shouldUnionTypePrintOwnComments,
 } from "../utilities/index.js";
 
+/**
+@import {Doc} from "../../document/index.js";
+*/
+
 // `TSUnionType` and `UnionTypeAnnotation`
 function printUnionType(path, options, print) {
   const { node } = path;
@@ -78,7 +82,9 @@ function printUnionType(path, options, print) {
     return printComments(path, printedType, options);
   }, "types");
 
+  /** @type {Doc} */
   let leading = "";
+  /** @type {Doc} */
   let trailing = "";
   if (shouldUnionTypePrintOwnComments(path)) {
     ({ leading, trailing } = printCommentsSeparately(path, options));
