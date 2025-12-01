@@ -144,6 +144,12 @@ if (
             .includes(fullyQualifiedName)
         ) {}
 
+if(foo) {
+//
+}else if (
+        !(i === 0 ? validFirstIdentCharRE : validIdentCharRE).test(char)
+      ) {}
+
 =====================================output=====================================
 if (!doesImmediatelyReturnFunctionExpression({ node: current, returns })) {
 }
@@ -161,6 +167,11 @@ if (
     .map((s) => s.replaceAll(" ", ""))
     .includes(fullyQualifiedName)
 ) {
+}
+
+if (foo) {
+  //
+} else if (!(i === 0 ? validFirstIdentCharRE : validIdentCharRE).test(char)) {
 }
 
 ================================================================================
@@ -216,6 +227,7 @@ if (!! // comment
   node.type === "ImportExpression" ||
   node.type === "TSImportType" ||
   node.type === "TSExternalModuleReference"));
+
 
 =====================================output=====================================
 if (!(

@@ -13,3 +13,9 @@ if (
             .map(s => s.replaceAll(' ', ''))
             .includes(fullyQualifiedName)
         ) {}
+
+if(foo) {
+//
+}else if (
+        !(i === 0 ? validFirstIdentCharRE : validIdentCharRE).test(char)
+      ) {}
