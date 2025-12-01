@@ -14,9 +14,9 @@ unquoted={data}>   </div>
 class={data}>   </div>
 
 =====================================output=====================================
-<div double-quoted="{data}" single-quoted="{data}" unquoted="{data}"></div>
+<div double-quoted="{data}" single-quoted='{data}' unquoted={data}></div>
 
-<div class="{data}" class="{data}" class="{data}"></div>
+<div class="{data}" class='{data}' class={data}></div>
 
 ================================================================================
 `;
