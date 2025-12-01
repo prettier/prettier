@@ -134,7 +134,7 @@ function genericPrint(path, options, print) {
       }
 
       const value = unescapeQuoteEntities(node.value);
-      const quote = shouldUnquoteAttributeValue(node)
+      const quote = shouldUnquoteAttributeValue(node, options)
         ? ""
         : getPreferredQuote(value, '"');
 
