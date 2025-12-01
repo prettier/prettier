@@ -1,4 +1,6 @@
-const visitorKeys = Object.fromEntries(
+import { generateReferenceSharedVisitorKeys } from "../utilities/visitor-keys.js";
+
+let visitorKeys = Object.fromEntries(
   Object.entries({
     root: ["children"],
     document: ["head", "body", "children"],
@@ -38,5 +40,7 @@ const visitorKeys = Object.fromEntries(
     ],
   ]),
 );
+
+visitorKeys = generateReferenceSharedVisitorKeys(visitorKeys);
 
 export default visitorKeys;
