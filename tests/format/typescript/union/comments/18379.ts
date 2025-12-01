@@ -14,22 +14,18 @@ type A2 =
     A | B
   )
 
-// TODO: Fix the following two
+type A1 =
+  // comment 1
+  (A | B)
+  & (
+  	// comment2
+    A | B
+  )
 
-// type A1 =
-//   (
-//     // comment 1
-//     A | B
-//   ) & (
-//   	// comment2
-//     A | B
-//   )
-
-// type A2 =
-//   (
-//     // prettier-ignore
-//   	A | B
-//   ) & (
-//   	// prettier-ignore
-//     A | B
-//   )
+type A1 =
+  // prettier-ignore
+  (A | B)
+  & (
+  	// prettier-ignore
+    A | B
+  )
