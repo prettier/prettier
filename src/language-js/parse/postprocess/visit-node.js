@@ -24,7 +24,11 @@ function visitNode(node, options) {
     node[keys[i]] = visitNode(node[keys[i]], options);
   }
 
-  return options.onLeave(node) || node;
+  if (options.onLeave) {
+    node = options.onLeave(node) || node;
+  }
+
+  return node;
 }
 
 export default visitNode;

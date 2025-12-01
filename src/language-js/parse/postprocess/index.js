@@ -46,7 +46,7 @@ function postprocess(ast, options) {
   let typeCastCommentsEnds;
 
   ast = visitNode(ast, {
-    onLeave(node) {
+    onEnter(node) {
       switch (node.type) {
         case "ParenthesizedExpression": {
           const { expression } = node;
