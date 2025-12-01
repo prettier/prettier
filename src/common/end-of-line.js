@@ -4,7 +4,7 @@
 */
 
 const OPTION = Object.freeze({ CR: "cr", CRLF: "crlf", LF: "lf" });
-const CHARACTER = Object.freeze({ CR: "\r", CRLF: "crlf", LF: "\n" });
+const CHARACTER = Object.freeze({ CR: "\r", CRLF: "\r\n", LF: "\n" });
 
 const DEFAULT_OPTION = OPTION.LF;
 const DEFAULT_EOL = CHARACTER.LF;
@@ -25,10 +25,10 @@ function guessEndOfLine(text) {
 @param {EndOfLineOption} value
 @returns {EndOfLine}
 */
-function convertEndOfLineToChars(value) {
-  return value === OPTION.CR
+function convertEndOfLineOptionToCharacter(endOfLineOption) {
+  return endOfLineOption === OPTION.CR
     ? CHARACTER.CR
-    : value === OPTION.CRLF
+    : endOfLineOption === OPTION.CRLF
       ? CHARACTER.CRLF
       : DEFAULT_EOL;
 }
@@ -44,12 +44,14 @@ const regexps = new Map([
 @param {EndOfLine} eol
 @returns {number}
 */
-function countEndOfLineChars(text, eol) {
-  const regex = regexps.get(eol);
+function countEndOfLineCharacters(text, endOfLineCharacter) {
+  const regex = regexps.get(endOfLineCharacter);
 
   /* c8 ignore next */
   if (!regex) {
-    throw new Error(`Unexpected "eol" ${JSON.stringify(eol)}.`);
+    throw new Error(
+      `Unexpected "endOfLineCharacter" ${JSON.stringify(endOfLineCharacter)}.`,
+    );
   }
 
   return text.match(regex)?.length ?? 0;
@@ -64,8 +66,8 @@ function normalizeEndOfLine(text) {
 }
 
 export {
-  convertEndOfLineToChars,
-  countEndOfLineChars,
+  convertEndOfLineOptionToCharacter,
+  countEndOfLineCharacters,
   guessEndOfLine,
   normalizeEndOfLine,
 };
