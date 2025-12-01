@@ -560,11 +560,7 @@ function needsParentheses(path, options) {
     // fallthrough
     case "TSUnionType":
     case "TSIntersectionType":
-      if (
-        (isUnionType(parent) || isIntersectionType(parent)) &&
-        parent.types.length > 1 &&
-        (!node.types || node.types.length > 1)
-      ) {
+      if (isUnionType(parent) || isIntersectionType(parent)) {
         return true;
       }
     // fallthrough
