@@ -7,6 +7,11 @@ import {
 } from "../utilities/index.js";
 import { adjustClause } from "./misc.js";
 
+/**
+ * @import AstPath from "../../common/ast-path.js"
+ * @import {Doc} from "../../document/index.js"
+ */
+
 function printIfStatement(path, options, print) {
   const { node } = path;
   const consequent = adjustClause(node.consequent, print("consequent"));
