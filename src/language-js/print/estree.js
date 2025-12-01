@@ -53,7 +53,6 @@ import { printLiteral } from "./literal.js";
 import { printMemberExpression } from "./member.js";
 import {
   adjustClause,
-  printDeclareToken,
   printDefiniteToken,
   printOptionalToken,
 } from "./misc.js";
@@ -65,6 +64,7 @@ import {
 import { printObject } from "./object.js";
 import { printProperty } from "./property.js";
 import { printRestElement, printSpreadElement } from "./rest-element.js";
+import { printSequenceExpression } from "./sequence-expression.js";
 import { printStatementSequence } from "./statement-sequence.js";
 import {
   printTaggedTemplateExpression,
@@ -72,6 +72,7 @@ import {
 } from "./template-literal.js";
 import { printTernary } from "./ternary.js";
 import { printTypeAnnotationProperty } from "./type-annotation.js";
+import { printVariableDeclaration } from "./variable-declaration.js";
 import {
   printDoWhileStatement,
   printWhileStatement,
@@ -221,39 +222,9 @@ function printEstree(path, options, print, args) {
     case "ArrayExpression":
     case "ArrayPattern":
       return printArray(path, options, print);
-    case "SequenceExpression": {
-      const { parent } = path;
-      if (
-        parent.type === "ExpressionStatement" ||
-        parent.type === "ForStatement"
-      ) {
-        // For ExpressionStatements and for-loop heads, which are among
-        // the few places a SequenceExpression appears unparenthesized, we want
-        // to indent expressions after the first.
-        const parts = [];
-        path.each(({ isFirst }) => {
-          if (isFirst) {
-            parts.push(print());
-          } else {
-            parts.push(",", indent([line, print()]));
-          }
-        }, "expressions");
-        return group(parts);
-      }
+    case "SequenceExpression":
+      return printSequenceExpression(path, options, print);
 
-      const parts = join([",", line], path.map(print, "expressions"));
-
-      if (
-        ((parent.type === "ReturnStatement" ||
-          parent.type === "ThrowStatement") &&
-          path.key === "argument") ||
-        (parent.type === "ArrowFunctionExpression" && path.key === "body")
-      ) {
-        return group(ifBreak([indent([softline, parts]), softline], parts));
-      }
-
-      return group(parts);
-    }
     case "ThisExpression":
       return "this";
     case "Super":
@@ -287,46 +258,8 @@ function printEstree(path, options, print, args) {
       ];
     case "ConditionalExpression":
       return printTernary(path, options, print, args);
-    case "VariableDeclaration": {
-      const printed = path.map(print, "declarations");
-
-      // We generally want to terminate all variable declarations with a
-      // semicolon, except when they in the () part of for loops.
-      const parentNode = path.parent;
-
-      const isParentForLoop =
-        parentNode.type === "ForStatement" ||
-        parentNode.type === "ForInStatement" ||
-        parentNode.type === "ForOfStatement";
-
-      const hasValue = node.declarations.some((decl) => decl.init);
-
-      let firstVariable;
-      if (printed.length === 1 && !hasComment(node.declarations[0])) {
-        firstVariable = printed[0];
-      } else if (printed.length > 0) {
-        // Indent first var to comply with eslint one-var rule
-        firstVariable = indent(printed[0]);
-      }
-
-      return group([
-        printDeclareToken(path),
-        node.kind,
-        firstVariable ? [" ", firstVariable] : "",
-        indent(
-          printed
-            .slice(1)
-            .map((p) => [
-              ",",
-              hasValue && !isParentForLoop ? hardline : line,
-              p,
-            ]),
-        ),
-        options.semi && !(isParentForLoop && parentNode.body !== node)
-          ? ";"
-          : "",
-      ]);
-    }
+    case "VariableDeclaration":
+      return printVariableDeclaration(path, options, print);
     case "WithStatement":
       return group([
         "with (",
