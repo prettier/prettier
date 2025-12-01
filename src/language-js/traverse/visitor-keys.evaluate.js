@@ -3,10 +3,11 @@ import { visitorKeys as tsVisitorKeys } from "@typescript-eslint/visitor-keys";
 import { visitorKeys as angularVisitorKeys } from "angular-estree-parser";
 import flowVisitorKeys from "hermes-parser/dist/generated/ESTreeVisitorKeys.js";
 import {
+  generateReferenceSharedVisitorKeys,
   removeNodeTypes,
   removeVisitorKeys,
   unionVisitorKeys,
-} from "./utilities.js";
+} from "../../utilities/visitor-keys.js";
 
 const additionalVisitorKeys = {
   // Prettier
@@ -69,5 +70,8 @@ let visitorKeys = unionVisitorKeys(
 
 visitorKeys = removeNodeTypes(visitorKeys, excludeNodeTypes);
 visitorKeys = removeVisitorKeys(visitorKeys, excludeVisitorKeys);
+
+// This should be the last step
+visitorKeys = generateReferenceSharedVisitorKeys(visitorKeys);
 
 export default visitorKeys;
