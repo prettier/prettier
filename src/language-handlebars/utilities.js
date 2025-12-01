@@ -1,4 +1,7 @@
-import htmlVoidElements from "./html-void-elements.evaluate.js";
+// Do not use void tags from other package, won't match
+import { getVoidTags } from "@glimmer/syntax";
+
+const htmlVoidElements = new Set(getVoidTags());
 
 function isUppercase(string) {
   return string.toUpperCase() === string;

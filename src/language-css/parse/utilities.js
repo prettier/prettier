@@ -1,5 +1,7 @@
+import isObject from "../../utilities/is-object.js";
+
 function addTypePrefix(node, prefix, skipPrefix) {
-  if (node && typeof node === "object") {
+  if (isObject(node)) {
     delete node.parent;
     for (const key in node) {
       addTypePrefix(node[key], prefix, skipPrefix);
@@ -17,7 +19,7 @@ function addTypePrefix(node, prefix, skipPrefix) {
 }
 
 function addMissingType(node) {
-  if (node && typeof node === "object") {
+  if (isObject(node)) {
     delete node.parent;
     for (const key in node) {
       addMissingType(node[key]);

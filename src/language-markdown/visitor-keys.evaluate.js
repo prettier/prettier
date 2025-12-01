@@ -1,4 +1,6 @@
-const visitorKeys = {
+import { generateReferenceSharedVisitorKeys } from "../utilities/visitor-keys.js";
+
+const visitorKeys = generateReferenceSharedVisitorKeys({
   root: ["children"],
   paragraph: ["children"],
   sentence: ["children"],
@@ -37,6 +39,6 @@ const visitorKeys = {
   tableRow: ["children"],
   listItem: ["children"],
   text: [],
-};
+});
 
 export default visitorKeys;

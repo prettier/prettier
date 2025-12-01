@@ -1,4 +1,5 @@
 import PostcssValuesParser from "postcss-values-parser/lib/parser.js";
+import isObject from "../../utilities/is-object.js";
 import getFunctionArgumentsText from "../utilities/get-function-arguments-text.js";
 import getValueRoot from "../utilities/get-value-root.js";
 import hasSCSSInterpolation from "../utilities/has-scss-interpolation.js";
@@ -156,7 +157,7 @@ function flattenGroups(node) {
 }
 
 function parseNestedValue(node, options) {
-  if (node && typeof node === "object") {
+  if (isObject(node)) {
     for (const key in node) {
       if (key !== "parent") {
         parseNestedValue(node[key], options);

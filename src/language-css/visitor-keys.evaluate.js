@@ -1,4 +1,6 @@
-const visitorKeys = {
+import { generateReferenceSharedVisitorKeys } from "../utilities/visitor-keys.js";
+
+const visitorKeys = generateReferenceSharedVisitorKeys({
   "css-root": ["frontMatter", "nodes"],
   "css-comment": [],
   "css-rule": ["selector", "nodes"],
@@ -43,6 +45,6 @@ const visitorKeys = {
   "value-atword": [],
   "value-unicode-range": [],
   "value-unknown": [],
-};
+});
 
 export default visitorKeys;

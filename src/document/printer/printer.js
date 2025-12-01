@@ -1,4 +1,4 @@
-import { convertEndOfLineToChars } from "../../common/end-of-line.js";
+import { convertEndOfLineOptionToCharacter } from "../../common/end-of-line.js";
 import getStringWidth from "../../utilities/get-string-width.js";
 import {
   DOC_TYPE_ALIGN,
@@ -180,7 +180,7 @@ function printDocToString(doc, options) {
   const groupModeMap = Object.create(null);
 
   const width = options.printWidth;
-  const newLine = convertEndOfLineToChars(options.endOfLine);
+  const newLine = convertEndOfLineOptionToCharacter(options.endOfLine);
   let position = 0;
   // commands is basically a stack. We've turned a recursive call into a
   // while loop which is much faster. The while loop below adds new

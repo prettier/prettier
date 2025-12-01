@@ -600,6 +600,26 @@ function isVueScriptTag(node, options) {
   return isVueSfcBlock(node, options) && node.name === "script";
 }
 
+function isAttributeValueQuoted(node) {
+  const { valueSpan, value } = node;
+  return valueSpan.end.offset - valueSpan.start.offset === value.length + 2;
+}
+
+function shouldUnquoteAttributeValue(node, options) {
+  if (isAttributeValueQuoted(node)) {
+    return false;
+  }
+
+  const { value } = node;
+
+  return (
+    // Embedded HTML in JS: `` /* HTML */ `<my-element data-for={value}></my-element>` ``
+    /^PRETTIER_HTML_PLACEHOLDER_\d+_\d+_IN_JS$/u.test(value) ||
+    // LWC `<div foo={value}></div>`
+    (options.parser === "lwc" && value.startsWith("{") && value.endsWith("}"))
+  );
+}
+
 export {
   canHaveInterpolation,
   forceBreakChildren,
@@ -629,5 +649,6 @@ export {
   isWhitespaceSensitiveNode,
   preferHardlineAsLeadingSpaces,
   shouldPreserveContent,
+  shouldUnquoteAttributeValue,
   unescapeQuoteEntities,
 };
