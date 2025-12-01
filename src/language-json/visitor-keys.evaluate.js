@@ -1,4 +1,6 @@
-const visitorKeys = {
+import { generateReferenceSharedVisitorKeys } from "../utilities/visitor-keys.js";
+
+const visitorKeys = generateReferenceSharedVisitorKeys({
   JsonRoot: ["node"],
   ArrayExpression: ["elements"],
   ObjectExpression: ["properties"],
@@ -11,6 +13,6 @@ const visitorKeys = {
   Identifier: [],
   TemplateLiteral: ["quasis"],
   TemplateElement: [],
-};
+});
 
 export default visitorKeys;
