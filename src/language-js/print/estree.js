@@ -16,14 +16,11 @@ import {
   CommentCheckFlags,
   hasComment,
   isArrayExpression,
-  isCallExpression,
   isLiteral,
   isMeaningfulEmptyStatement,
-  isMemberExpression,
   isMethod,
   isNextLineEmpty,
   isObjectExpression,
-  startsWithNoLookaheadToken,
 } from "../utilities/index.js";
 import isBlockComment from "../utilities/is-block-comment.js";
 import { printArray } from "./array.js";
@@ -32,6 +29,7 @@ import {
   printAssignmentExpression,
   printVariableDeclarator,
 } from "./assignment.js";
+import { printAwaitExpression } from "./await-expression.js";
 import { printBinaryishExpression } from "./binaryish.js";
 import { printBindExpression } from "./bind-expression.js";
 import { printBlock } from "./block.js";
@@ -169,35 +167,8 @@ function printEstree(path, options, print, args) {
         `yield${node.delegate ? "*" : ""}`,
         node.argument ? [" ", print("argument")] : "",
       ];
-    case "AwaitExpression": {
-      /** @type{Doc[]} */
-      let parts = ["await"];
-      if (node.argument) {
-        parts.push(" ", print("argument"));
-        const { parent } = path;
-        if (
-          (isCallExpression(parent) && parent.callee === node) ||
-          (isMemberExpression(parent) && parent.object === node)
-        ) {
-          parts = [indent([softline, ...parts]), softline];
-          // avoid printing `await (await` on one line
-          const parentAwaitOrBlock = path.findAncestor(
-            (node) =>
-              node.type === "AwaitExpression" || node.type === "BlockStatement",
-          );
-          if (
-            parentAwaitOrBlock?.type !== "AwaitExpression" ||
-            !startsWithNoLookaheadToken(
-              parentAwaitOrBlock.argument,
-              (leftmostNode) => leftmostNode === node,
-            )
-          ) {
-            return group(parts);
-          }
-        }
-      }
-      return parts;
-    }
+    case "AwaitExpression":
+      return printAwaitExpression(path, options, print);
 
     case "ExportDefaultDeclaration":
     case "ExportNamedDeclaration":
