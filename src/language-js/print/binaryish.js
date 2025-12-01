@@ -113,6 +113,7 @@ function printBinaryishExpression(path, options, print) {
       !isCallExpression(grandparent) &&
       grandparent.type !== "NewExpression") ||
     parent.type === "TemplateLiteral" ||
+    (key === "argument" && parent.type === "UnaryExpression") ||
     isBooleanTypeCoercion(path);
 
   const shouldIndentIfInlining =

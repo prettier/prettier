@@ -33,3 +33,25 @@ void (
   stellatedFossilProcessor
 ),
 ];
+
+  if (
+    !(
+      // `import("foo")`
+      (
+        node.type === "ImportExpression" ||
+        // `type foo = import("foo")`
+        node.type === "TSImportType" ||
+        // `import type A = require("foo")`
+        node.type === "TSExternalModuleReference" ||
+        // `require("foo")`
+        // `require.resolve("foo")`
+        // `require.resolve.paths("foo")`
+        // `import.meta.resolve("foo")`
+        (node.type === "CallExpression" &&
+          !node.optional &&
+          isNodeMatches(node.callee, moduleImportCallees))
+      )
+    )
+  ) {
+    doSomething()
+  }
