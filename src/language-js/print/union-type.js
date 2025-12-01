@@ -12,7 +12,6 @@ import {
   printCommentsSeparately,
 } from "../../main/comments/print.js";
 import needsParentheses from "../parentheses/needs-parentheses.js";
-import { willPrintOwnComments } from "../printer.js";
 import {
   CommentCheckFlags,
   createTypeCheckFunction,
