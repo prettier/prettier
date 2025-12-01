@@ -22,7 +22,7 @@ function guessEndOfLine(text) {
 }
 
 /**
-@param {EndOfLineOption} value
+@param {EndOfLineOption} endOfLineOption
 @returns {EndOfLine}
 */
 function convertEndOfLineOptionToCharacter(endOfLineOption) {
@@ -41,7 +41,7 @@ const regexps = new Map([
 
 /**
 @param {string} text
-@param {EndOfLine} eol
+@param {EndOfLine} endOfLineCharacter
 @returns {number}
 */
 function countEndOfLineCharacters(text, endOfLineCharacter) {
