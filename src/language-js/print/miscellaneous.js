@@ -114,7 +114,14 @@ function printTypeScriptAccessibilityToken(node) {
 }
 
 function printIfOrWhileCondition(path, options, print) {
-  return group([indent([softline, print("test")]), softline]);
+  const conditionNode = path.node.test;
+  const conditionDoc = print("test");
+
+  if (conditionNode.type === "UnaryExpression") {
+    return conditionDoc;
+  }
+
+  return group([indent([softline, conditionDoc]), softline]);
 }
 
 export {

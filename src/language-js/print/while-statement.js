@@ -8,7 +8,7 @@ import {
 function printWhileStatement(path, options, print) {
   return group([
     "while (",
-    printWhileStatementCondition((path, options, print)),
+    printWhileStatementCondition(path, options, print),
     ")",
     adjustClause(path.node.body, print("body")),
   ]);

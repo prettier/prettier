@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`unary-expression.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+if (!(
+  node.type === "ImportExpression" ||
+  node.type === "TSImportType" ||
+  node.type === "TSExternalModuleReference"));
+if (!!(
+  node.type === "ImportExpression" ||
+  node.type === "TSImportType" ||
+  node.type === "TSExternalModuleReference"));
+
+while (!(
+  node.type === "ImportExpression" ||
+  node.type === "TSImportType" ||
+  node.type === "TSExternalModuleReference"));
+while (!!(
+  node.type === "ImportExpression" ||
+  node.type === "TSImportType" ||
+  node.type === "TSExternalModuleReference"));
+
+do {} while (!(
+  node.type === "ImportExpression" ||
+  node.type === "TSImportType" ||
+  node.type === "TSExternalModuleReference"));
+do {} while (!!(
+  node.type === "ImportExpression" ||
+  node.type === "TSImportType" ||
+  node.type === "TSExternalModuleReference"));
+
+=====================================output=====================================
+if (!(
+  node.type === "ImportExpression" ||
+  node.type === "TSImportType" ||
+  node.type === "TSExternalModuleReference"
+));
+if (!!(
+  node.type === "ImportExpression" ||
+  node.type === "TSImportType" ||
+  node.type === "TSExternalModuleReference"
+));
+
+while (!(
+  node.type === "ImportExpression" ||
+  node.type === "TSImportType" ||
+  node.type === "TSExternalModuleReference"
+));
+while (!!(
+  node.type === "ImportExpression" ||
+  node.type === "TSImportType" ||
+  node.type === "TSExternalModuleReference"
+));
+
+do {} while (!(
+  node.type === "ImportExpression" ||
+  node.type === "TSImportType" ||
+  node.type === "TSExternalModuleReference"
+));
+do {} while (!!(
+  node.type === "ImportExpression" ||
+  node.type === "TSImportType" ||
+  node.type === "TSExternalModuleReference"
+));
+
+================================================================================
+`;
