@@ -3,6 +3,7 @@ import getStringWidth from "../../utilities/get-string-width.js";
 import hasNewline from "../../utilities/has-newline.js";
 import isNextLineEmptyAfterIndex from "../../utilities/is-next-line-empty.js";
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
+import isObject from "../../utilities/is-object.js";
 import printString from "../../utilities/print-string.js";
 import { hasSameLocStart, locEnd, locStart } from "../loc.js";
 import getVisitorKeys from "../traverse/get-visitor-keys.js";
@@ -417,7 +418,7 @@ function getExpressionInnerNodeCount(node, maxCount) {
   for (const k in node) {
     const prop = node[k];
 
-    if (prop && typeof prop === "object" && typeof prop.type === "string") {
+    if (isObject(prop) && typeof prop.type === "string") {
       count++;
       count += getExpressionInnerNodeCount(prop, maxCount - count);
     }
