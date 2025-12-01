@@ -96,6 +96,76 @@ type A3 =
 ================================================================================
 `;
 
+exports[`18379.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript", "flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+type A1 =
+  (
+    A | B // comment 1
+  ) & (
+    // comment2
+    A | B
+  )
+
+type A2 =
+  (
+  	A | B // prettier-ignore
+  ) & (
+  	// prettier-ignore
+    A | B
+  )
+
+type A1 =
+  // comment 1
+  (A | B)
+  & (
+  	// comment2
+    A | B
+  )
+
+type A1 =
+  // prettier-ignore
+  (A | B)
+  & (
+  	// prettier-ignore
+    A | B
+  )
+
+=====================================output=====================================
+type A1 = (
+  | A
+  | B // comment 1
+) &
+  // comment2
+  (A | B);
+
+type A2 = (
+  | A
+  | B // prettier-ignore
+) &
+  // prettier-ignore
+  (A | B);
+
+type A1 =
+  // comment 1
+  (A | B) &
+    // comment2
+    (A | B);
+
+type A1 =
+  // prettier-ignore
+  (A | B)
+  & (
+  	// prettier-ignore
+    A | B
+  );
+
+================================================================================
+`;
+
 exports[`18389.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow"]

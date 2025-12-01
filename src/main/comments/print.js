@@ -155,6 +155,9 @@ function printDanglingComments(
   return shouldIndent ? indent([hardline, doc]) : doc;
 }
 
+/**
+@returns {{leading?: Doc, trailing?: Doc}}
+*/
 function printCommentsSeparately(path, options) {
   const value = path.node;
   if (!value) {

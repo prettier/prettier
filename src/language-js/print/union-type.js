@@ -19,8 +19,12 @@ import {
   hasLeadingOwnLineComment,
   isConditionalType,
   isTypeAlias,
-  isUnionType,
+  shouldUnionTypePrintOwnComments,
 } from "../utilities/index.js";
+
+/**
+@import {Doc} from "../../document/index.js";
+*/
 
 // `TSUnionType` and `UnionTypeAnnotation`
 function printUnionType(path, options, print) {
@@ -78,11 +82,13 @@ function printUnionType(path, options, print) {
     return printComments(path, printedType, options);
   }, "types");
 
-  const { leading, trailing } =
-    // If it's `types` of union type, parent will print comment for us
-    path.key === "types" && isUnionType(path.parent)
-      ? { leading: "", trailing: "" }
-      : printCommentsSeparately(path, options);
+  /** @type {Doc} */
+  let leading = "";
+  /** @type {Doc} */
+  let trailing = "";
+  if (shouldUnionTypePrintOwnComments(path)) {
+    ({ leading, trailing } = printCommentsSeparately(path, options));
+  }
 
   if (shouldHug) {
     return [leading, join(" | ", printed), trailing];
