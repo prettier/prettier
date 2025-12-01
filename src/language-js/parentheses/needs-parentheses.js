@@ -562,7 +562,6 @@ function needsParentheses(path, options) {
     case "TSIntersectionType":
       if (
         (isUnionType(parent) || isIntersectionType(parent)) &&
-        parent.types.length > 1 &&
         (!node.types || node.types.length > 1)
       ) {
         return true;
