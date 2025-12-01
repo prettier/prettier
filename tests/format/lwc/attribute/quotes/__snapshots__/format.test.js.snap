@@ -15,12 +15,16 @@ class={data}>   </div>
 
 <div
   single-quote="'"
+  single-quote-escaped-unquoted=&apos;
   single-quote-escaped-in-single-quote='&apos;'
   single-quote-escaped-in-double-quote="&apos;"
   double-quote='"'
+  double-quote-escaped-unquoted=&quot;
   double-quote-escaped-in-single-quote='&quot;'
   double-quote-escaped-in-double-quote="&quot;"
+  style="width:                         100px;"
 ></div>
+
 =====================================output=====================================
 <div double-quoted="{data}" single-quoted="{data}" unquoted={data}></div>
 
@@ -28,11 +32,14 @@ class={data}>   </div>
 
 <div
   single-quote="'"
+  single-quote-escaped-unquoted="'"
   single-quote-escaped-in-single-quote="'"
   single-quote-escaped-in-double-quote="'"
   double-quote='"'
+  double-quote-escaped-unquoted='"'
   double-quote-escaped-in-single-quote='"'
   double-quote-escaped-in-double-quote='"'
+  style="width:                         100px;"
 ></div>
 
 ================================================================================
@@ -52,12 +59,16 @@ class={data}>   </div>
 
 <div
   single-quote="'"
+  single-quote-escaped-unquoted=&apos;
   single-quote-escaped-in-single-quote='&apos;'
   single-quote-escaped-in-double-quote="&apos;"
   double-quote='"'
+  double-quote-escaped-unquoted=&quot;
   double-quote-escaped-in-single-quote='&quot;'
   double-quote-escaped-in-double-quote="&quot;"
+  style="width:                         100px;"
 ></div>
+
 =====================================output=====================================
 <div double-quoted="{data}" single-quoted="{data}" unquoted={data}></div>
 
@@ -65,11 +76,14 @@ class={data}>   </div>
 
 <div
   single-quote="'"
+  single-quote-escaped-unquoted="'"
   single-quote-escaped-in-single-quote="'"
   single-quote-escaped-in-double-quote="'"
   double-quote='"'
+  double-quote-escaped-unquoted='"'
   double-quote-escaped-in-single-quote='"'
   double-quote-escaped-in-double-quote='"'
+  style="width: 100px"
 ></div>
 
 ================================================================================
