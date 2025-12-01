@@ -95,3 +95,52 @@ type A3 =
 
 ================================================================================
 `;
+
+exports[`18389.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript", "flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+type A1 =     | /**
+     * octahedralRhinocerosTransformer
+     */
+    a
+    | (b | c);
+
+type A2 =     | /**
+     * hippopotamicKangarooMutator
+     */
+    (a | b)
+    | c;
+
+type A4 =
+  (
+  	A | B // comment 1
+  ) | (
+  	// comment2
+    A | B
+  )
+
+=====================================output=====================================
+type A1 =
+  | /**
+   * octahedralRhinocerosTransformer
+   */
+  a
+  | (b | c);
+
+type A2 =
+  | /**
+   * hippopotamicKangarooMutator
+   */
+  (a | b)
+  | c;
+
+type A4 =
+  | (A | B) // comment 1
+  // comment2
+  | (A | B);
+
+================================================================================
+`;

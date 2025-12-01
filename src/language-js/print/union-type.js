@@ -12,6 +12,7 @@ import {
   printCommentsSeparately,
 } from "../../main/comments/print.js";
 import needsParentheses from "../parentheses/needs-parentheses.js";
+import { willPrintOwnComments } from "../printer.js";
 import {
   CommentCheckFlags,
   createTypeCheckFunction,
@@ -19,6 +20,7 @@ import {
   hasLeadingOwnLineComment,
   isConditionalType,
   isTypeAlias,
+  isUnionType,
 } from "../utilities/index.js";
 
 // `TSUnionType` and `UnionTypeAnnotation`
@@ -77,7 +79,11 @@ function printUnionType(path, options, print) {
     return printComments(path, printedType, options);
   }, "types");
 
-  const { leading, trailing } = printCommentsSeparately(path, options);
+  const { leading, trailing } =
+    // If it's `types` of union type, parent will print comment for us
+    path.key === "types" && isUnionType(path.parent)
+      ? { leading: "", trailing: "" }
+      : printCommentsSeparately(path, options);
 
   if (shouldHug) {
     return [leading, join(" | ", printed), trailing];
