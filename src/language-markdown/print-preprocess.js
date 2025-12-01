@@ -143,6 +143,43 @@ function splitTextIntoSentencesLegacy(ast) {
 }
 
 function splitTextIntoSentences(ast) {
+  const canOpenAccidentalWikiLink = new Set();
+  const riskyParagraphPositions = new Set(); // we can't use nodes themselves because they will be cloned.
+
+  walkAst(ast, (node, parentStack) => {
+    if (node.type === "wikiLink") {
+      for (const ancestor of parentStack) {
+        if (ancestor.type === "paragraph") {
+          canOpenAccidentalWikiLink.add(node); // word wrapping can accidentally merge nodes like `[[foo\n[[wiki link]]`
+        }
+      }
+      return;
+    }
+
+    if (node.type !== "text") {
+      return;
+    }
+
+    if (node.raw.includes("[[")) {
+      for (const ancestor of parentStack) {
+        if (ancestor.type === "paragraph") {
+          canOpenAccidentalWikiLink.add(ancestor);
+        }
+      }
+    }
+
+    if (node.raw.includes("]]")) {
+      for (const ancestor of parentStack) {
+        if (
+          ancestor.type === "paragraph" &&
+          canOpenAccidentalWikiLink.has(ancestor)
+        ) {
+          riskyParagraphPositions.add(ancestor.position);
+        }
+      }
+    }
+  });
+
   return mapAst(ast, (node, index, parentStack) => {
     if (node.type !== "text") {
       return node;
@@ -178,12 +215,31 @@ function splitTextIntoSentences(ast) {
       }
     }
 
+    if (paragraphNode && riskyParagraphPositions.has(paragraphNode.position)) {
+      return {
+        type: "text",
+        position: node.position,
+        value: text,
+      };
+    }
+
     return {
       type: "sentence",
       position: node.position,
       children: splitText(text),
     };
   });
+
+  function walkAst(ast, handler) {
+    return (function preorder(node, parentStack) {
+      handler(node, parentStack);
+      if (node.children) {
+        for (const child of node.children) {
+          preorder(child, [node, ...parentStack]);
+        }
+      }
+    })(ast, []);
+  }
 }
 
 function transformIndentedCodeblock(ast, options) {

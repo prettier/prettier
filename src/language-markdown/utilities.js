@@ -61,11 +61,11 @@ const K_REGEXP = /\p{Script_Extensions=Hangul}/u;
  * split text into whitespaces and words
  * @param {string} text
  */
-function splitText(text) {
+function splitText(text, delim) {
   /** @type {Array<TextNode>} */
   const nodes = [];
 
-  const tokens = text.split(/([\t\n ]+)/u);
+  const tokens = text.split(delim ?? /([\t\n ]+)/u);
   for (const [index, token] of tokens.entries()) {
     // whitespace
     if (index % 2 === 1) {
