@@ -613,7 +613,7 @@ function shouldUnquoteAttributeValue(node, options) {
   const { value } = node;
 
   return (
-    // Embedded HTML in JS: /* HTML */`<my-element data-for={value}></my-element>`
+    // Embedded HTML in JS: `` /* HTML */ `<my-element data-for={value}></my-element>` ``
     /^PRETTIER_HTML_PLACEHOLDER_\d+_\d+_IN_JS$/u.test(value) ||
     // LWC `<div foo={value}></div>`
     (options.parser === "lwc" && value.startsWith("{") && value.endsWith("}"))
