@@ -58,7 +58,7 @@ function postprocess(ast, options) {
             return expression;
           }
 
-          let keepTypeCast = false;
+          let shouldKeepParenthesizedExpression = false;
           if (!isOxcTs) {
             if (!typeCastCommentsEnds) {
               typeCastCommentsEnds = [];
@@ -74,17 +74,18 @@ function postprocess(ast, options) {
             const previousCommentEnd = typeCastCommentsEnds.findLast(
               (end) => end <= start,
             );
-            keepTypeCast =
+            shouldKeepParenthesizedExpression =
               previousCommentEnd &&
               // check that there are only white spaces between the comment and the parenthesis
               text.slice(previousCommentEnd, start).trim().length === 0;
           }
 
-          if (!keepTypeCast) {
-            expression.extra = { ...expression.extra, parenthesized: true };
-            return expression;
+          if (shouldKeepParenthesizedExpression) {
+            return;
           }
-          break;
+
+          expression.extra = { ...expression.extra, parenthesized: true };
+          return expression;
         }
 
         // This happened when use `oxc-parser` to parse `` `${foo satisfies bar}`; ``
