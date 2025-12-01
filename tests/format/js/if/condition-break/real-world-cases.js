@@ -19,3 +19,15 @@ if(foo) {
 }else if (
         !(i === 0 ? validFirstIdentCharRE : validIdentCharRE).test(char)
       ) {}
+if (!processDefineProps(
+    ctx,
+    node.arguments[0],
+    declId,
+    true /* isWithDefaults */,
+  )) {}
+if (processDefineProps(
+    ctx,
+    node.arguments[0],
+    declId,
+    true /* isWithDefaults */,
+  )) {}
