@@ -35,7 +35,11 @@ import {
   printOpeningTagStart,
 } from "./print/tag.js";
 import preprocess from "./print-preprocess.js";
-import { getTextValueParts, unescapeQuoteEntities } from "./utilities/index.js";
+import {
+  getTextValueParts,
+  shouldUnquoteAttributeValue,
+  unescapeQuoteEntities,
+} from "./utilities/index.js";
 
 function genericPrint(path, options, print) {
   const { node } = path;
@@ -130,19 +134,9 @@ function genericPrint(path, options, print) {
       }
 
       const value = unescapeQuoteEntities(node.value);
-      let quote;
-
-      if (
-        options.parser === "lwc" &&
-        value.startsWith("{") &&
-        value.endsWith("}") &&
-        node.valueSpan.end.offset - node.valueSpan.start.offset !==
-          value.length + 2
-      ) {
-        quote = "";
-      } else {
-        quote = getPreferredQuote(value, '"');
-      }
+      const quote = shouldUnquoteAttributeValue(node)
+        ? ""
+        : getPreferredQuote(value, '"');
 
       return [
         node.rawName,
