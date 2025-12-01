@@ -87,13 +87,6 @@ function postprocess(ast, options) {
           break;
         }
 
-        case "LogicalExpression":
-          // We remove unneeded parens around same-operator LogicalExpressions
-          if (isUnbalancedLogicalTree(node)) {
-            return rebalanceLogicalTree(node);
-          }
-          break;
-
         // This happens when use `oxc-parser` to parse `` `${foo satisfies bar}`; ``
         // https://github.com/oxc-project/oxc/issues/11313
         case "TemplateLiteral":
@@ -158,6 +151,16 @@ function postprocess(ast, options) {
           if (!node.source && node.argument.type === "TSLiteralType") {
             node.source = node.argument.literal;
             delete node.argument;
+          }
+          break;
+      }
+    },
+    onLeave(node) {
+      switch (node.type) {
+        case "LogicalExpression":
+          // We remove unneeded parens around same-operator LogicalExpressions
+          if (isUnbalancedLogicalTree(node)) {
+            return rebalanceLogicalTree(node);
           }
           break;
       }
