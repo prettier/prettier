@@ -1,7 +1,6 @@
 import {
   createTypeCheckFunction,
   hasNodeIgnoreComment,
-  isIntersectionType,
   isJsxElement,
   isUnionType,
   shouldUnionTypePrintOwnComments,
