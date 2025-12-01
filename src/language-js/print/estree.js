@@ -67,7 +67,7 @@ import {
 import { printObject } from "./object.js";
 import { printProperty } from "./property.js";
 import { printRestElement, printSpreadElement } from "./rest-element.js";
-import { printStatementSequence } from "./statement.js";
+import { printStatementSequence } from "./statement-sequence.js";
 import {
   printTaggedTemplateExpression,
   printTemplateLiteral,
