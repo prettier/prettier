@@ -4,6 +4,7 @@ import {
   getFunctionParameters,
   getLeftSidePathName,
   getPrecedence,
+  hasComment,
   hasNakedLeftSide,
   hasNode,
   isArrayExpression,
@@ -380,7 +381,6 @@ function needsParentheses(path, options) {
 
         case "TSTypeAssertion":
         case "TaggedTemplateExpression":
-        case "UnaryExpression":
         case "JSXSpreadAttribute":
         case "SpreadElement":
         case "BindExpression":
@@ -388,6 +388,12 @@ function needsParentheses(path, options) {
         case "TSNonNullExpression":
         case "UpdateExpression":
           return true;
+        case "UnaryExpression":
+          // `UnaryExpression` adds parentheses and indention when argument has comment
+          if (!hasComment(node)) {
+            return true;
+          }
+          break;
 
         case "MemberExpression":
         case "OptionalMemberExpression":
@@ -451,6 +457,7 @@ function needsParentheses(path, options) {
         default:
           return false;
       }
+      break;
 
     case "SequenceExpression":
       // Although parentheses wouldn't hurt around sequence

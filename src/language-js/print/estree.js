@@ -292,12 +292,14 @@ function printEstree(path, options, print, args) {
         parts.push(" ");
       }
 
+      const argumentDoc = print("argument");
+
       if (hasComment(node.argument)) {
         parts.push(
-          group(["(", indent([softline, print("argument")]), softline, ")"]),
+          group(["(", indent([softline, argumentDoc]), softline, ")"]),
         );
       } else {
-        parts.push(print("argument"));
+        parts.push(argumentDoc);
       }
 
       return parts;
