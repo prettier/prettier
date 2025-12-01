@@ -1,4 +1,4 @@
-import htmlVoidElements from "./html-void-elements.evaluate.js";
+import htmlVoidElements from "./html-void-elements.js";
 
 function isUppercase(string) {
   return string.toUpperCase() === string;

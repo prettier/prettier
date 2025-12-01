@@ -598,7 +598,10 @@ const pluginFiles = [
             "const LOCAL_DEBUG = false &&",
           );
 
-          text = text.replace(/(?<=\n)export .*?;/u, "export { preprocess };");
+          text = text.replace(
+            /(?<=\n)export .*?;/u,
+            "export { preprocess, getVoidTags, visitorKeys };",
+          );
 
           return text;
         },
