@@ -3,7 +3,6 @@ import {
   CommentCheckFlags,
   createTypeCheckFunction,
   hasComment,
-  isBooleanTypeCoercion,
   isCallExpression,
   isMemberExpression,
 } from "../utilities/index.js";
