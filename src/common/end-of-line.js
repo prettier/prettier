@@ -53,7 +53,7 @@ function countEndOfLineCharacters(text, endOfLineCharacter) {
   /* c8 ignore next */
   if (!regex) {
     throw new Error(
-      `Unexpected "endOfLineCharacter" ${JSON.stringify(endOfLineCharacter)}.`,
+      `Unexpected 'endOfLineCharacter': ${JSON.stringify(endOfLineCharacter)}.`,
     );
   }
 
