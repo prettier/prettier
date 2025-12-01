@@ -43,6 +43,27 @@ function postprocess(ast, options) {
 
   mergeNestledJsdocComments(comments);
 
+  // `InterpreterDirective` from babel parser and flow parser
+  // Other parsers parse it as comment, babel treat it as comment too
+  // https://github.com/babel/babel/issues/15116
+  const program = ast.type === "File" ? ast.program : ast;
+  if (program.interpreter) {
+    comments.unshift(program.interpreter);
+    delete program.interpreter;
+  }
+
+  if (isOxcTs && ast.hashbang) {
+    comments.unshift(ast.hashbang);
+    delete ast.hashbang;
+  }
+
+  // In `typescript` and `flow`, `Program` doesn't count whitespace and comments
+  // See https://github.com/typescript-eslint/typescript-eslint/issues/11026
+  // See https://github.com/facebook/flow/issues/8537
+  if (ast.type === "Program") {
+    ast.range = [0, text.length];
+  }
+
   let typeCastCommentsEnds;
 
   ast = visitNode(ast, {
@@ -174,30 +195,9 @@ function postprocess(ast, options) {
     },
   });
 
-  // `InterpreterDirective` from babel parser and flow parser
-  // Other parsers parse it as comment, babel treat it as comment too
-  // https://github.com/babel/babel/issues/15116
-  const program = ast.type === "File" ? ast.program : ast;
-  if (program.interpreter) {
-    comments.unshift(program.interpreter);
-    delete program.interpreter;
-  }
-
-  if (isOxcTs && ast.hashbang) {
-    comments.unshift(ast.hashbang);
-    delete ast.hashbang;
-  }
-
   /* c8 ignore next 3 */
   if (process.env.NODE_ENV !== "production") {
     assertComments(comments, text);
-  }
-
-  // In `typescript` and `flow`, `Program` doesn't count whitespace and comments
-  // See https://github.com/typescript-eslint/typescript-eslint/issues/11026
-  // See https://github.com/facebook/flow/issues/8537
-  if (ast.type === "Program") {
-    ast.range = [0, text.length];
   }
   return ast;
 }
