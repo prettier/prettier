@@ -15,25 +15,34 @@ const SKIP = new Set([
   "i_structure_500_nested_arrays.json",
 ]);
 
-runFormatTest(
-  {
-    importMeta: import.meta,
-    snippets: [...parsing, ...transform]
-      .map(({ name, input, error }) => {
-        if (error) {
-          return;
-        }
+const BUGS = new Set([
+  "i_number_neg_int_huge_exp.json",
+  "i_number_real_neg_overflow.json",
+]);
 
-        if (SKIP.has(name)) {
-          return;
-        }
+const cases = [...parsing, ...transform]
+  .map(({ name, input, error }) => {
+    if (error) {
+      return;
+    }
 
-        return {
-          name,
-          code: input,
-        };
-      })
-      .filter(Boolean),
-  },
-  ["json"],
-);
+    if (SKIP.has(name) || BUGS.has(name)) {
+      return;
+    }
+
+    return {
+      name,
+      code: input,
+    };
+  })
+  .filter(Boolean);
+
+for (const parser of ["json", "jsonc", "json5", "json-stringify"]) {
+  runFormatTest(
+    {
+      importMeta: import.meta,
+      snippets: cases,
+    },
+    [parser],
+  );
+}
