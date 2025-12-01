@@ -16,7 +16,12 @@ function visitNode(node, options) {
   }
 
   if (options.onEnter) {
-    node = options.onEnter(node) || node;
+    const result = options.onEnter(node) ?? node;
+    if (result !== node) {
+      return visitNode(result, options);
+    }
+
+    node = result;
   }
 
   const keys = getVisitorKeys(node);
