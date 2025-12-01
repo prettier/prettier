@@ -119,6 +119,28 @@ function shouldInlineCondition(node) {
     return false;
   }
 
+  /*
+  Main purpose here is to avoid indent level change when switching to negative condition
+
+  The following case:
+
+  ```js
+  if (!foo({
+    bar
+  }));
+  ```
+
+  does look nice, but once `!` is removed, it's hard to known how the `CallExpression` will print
+
+  ```js
+  if (foo({
+    bar
+  }));
+  ```
+
+  so we are not going to inline it.
+  */
+
   for (let level = 0; level < 2; level++) {
     if (node.type === "UnaryExpression" && node.operator === "!") {
       node = node.argument;
