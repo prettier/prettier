@@ -41,6 +41,7 @@ import {
   printClassProperty,
 } from "./class.js";
 import { printExpressionStatement } from "./expression-statement.js";
+import { printForStatement } from "./for-statement.js";
 import {
   printFunction,
   printMethod,
@@ -269,41 +270,8 @@ function printEstree(path, options, print, args) {
       ]);
     case "IfStatement":
       return printIfStatement(path, options, print);
-
-    case "ForStatement": {
-      const body = adjustClause(node.body, print("body"));
-
-      // We want to keep dangling comments above the loop to stay consistent.
-      // Any comment positioned between the for statement and the parentheses
-      // is going to be printed before the statement.
-      const dangling = printDanglingComments(path, options);
-      const printedComments = dangling ? [dangling, softline] : "";
-
-      if (!node.init && !node.test && !node.update) {
-        return [printedComments, group(["for (;;)", body])];
-      }
-
-      return [
-        printedComments,
-        group([
-          "for (",
-          group([
-            indent([
-              softline,
-              print("init"),
-              ";",
-              line,
-              print("test"),
-              ";",
-              node.update ? [line, print("update")] : ifBreak("", line),
-            ]),
-            softline,
-          ]),
-          ")",
-          body,
-        ]),
-      ];
-    }
+    case "ForStatement":
+      return printForStatement(path, options, print);
     case "WhileStatement":
       return printWhileStatement(path, options, print);
     case "DoWhileStatement":
