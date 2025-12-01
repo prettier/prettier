@@ -12,14 +12,24 @@ if (Boolean(
   node.type === "TSExternalModuleReference"));
 
 while (Boolean(
+  node.type === "ImportExpression" &&
+  node.type === "TSImportType" &&
+  node.type === "TSExternalModuleReference"));
+
+do {} while (Boolean(
+  node.type === "ImportExpression" ??
+  node.type === "TSImportType" ??
+  node.type === "TSExternalModuleReference"));
+
+if (!!!Boolean(
   node.type === "ImportExpression" ||
   node.type === "TSImportType" ||
   node.type === "TSExternalModuleReference"));
 
-do {} while (Boolean(
+if (!Boolean(!!Boolean(
   node.type === "ImportExpression" ||
   node.type === "TSImportType" ||
-  node.type === "TSExternalModuleReference"));
+  node.type === "TSExternalModuleReference")));
 
 if ( // comment
 Boolean(
@@ -41,23 +51,47 @@ if (Boolean?.
 
 
 =====================================output=====================================
-if (Boolean(
-  node.type === "ImportExpression" ||
-  node.type === "TSImportType" ||
-  node.type === "TSExternalModuleReference",
-));
+if (
+  Boolean(
+    node.type === "ImportExpression" ||
+    node.type === "TSImportType" ||
+    node.type === "TSExternalModuleReference",
+  )
+);
 
-while (Boolean(
-  node.type === "ImportExpression" ||
-  node.type === "TSImportType" ||
-  node.type === "TSExternalModuleReference",
-));
+while (
+  Boolean(
+    node.type === "ImportExpression" &&
+    node.type === "TSImportType" &&
+    node.type === "TSExternalModuleReference",
+  )
+);
 
-do {} while (Boolean(
-  node.type === "ImportExpression" ||
-  node.type === "TSImportType" ||
-  node.type === "TSExternalModuleReference",
-));
+do {} while (
+  Boolean(
+    node.type === "ImportExpression" ??
+    node.type === "TSImportType" ??
+    node.type === "TSExternalModuleReference",
+  )
+);
+
+if (
+  !!!Boolean(
+    node.type === "ImportExpression" ||
+    node.type === "TSImportType" ||
+    node.type === "TSExternalModuleReference",
+  )
+);
+
+if (
+  !Boolean(
+    !!Boolean(
+      node.type === "ImportExpression" ||
+      node.type === "TSImportType" ||
+      node.type === "TSExternalModuleReference",
+    ),
+  )
+);
 
 if (
   // comment
@@ -68,12 +102,14 @@ if (
   )
 );
 
-if (Boolean(
-  // comment
-  node.type === "ImportExpression" ||
-  node.type === "TSImportType" ||
-  node.type === "TSExternalModuleReference",
-));
+if (
+  Boolean(
+    // comment
+    node.type === "ImportExpression" ||
+    node.type === "TSImportType" ||
+    node.type === "TSExternalModuleReference",
+  )
+);
 
 if (
   Boolean?.(
@@ -82,6 +118,50 @@ if (
       node.type === "TSExternalModuleReference",
   )
 );
+
+================================================================================
+`;
+
+exports[`real-world-cases.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+if (!doesImmediatelyReturnFunctionExpression({ node: current,returns,})) {
+      }
+if (!validatePredefinedFormat(config, name, node, originalName, modifiers)) {}
+if (
+        ![
+          AST_NODE_TYPES.ArrowFunctionExpression,
+          AST_NODE_TYPES.FunctionDeclaration,
+          AST_NODE_TYPES.FunctionExpression,
+        ].includes(blockParent.type)
+      );
+  if (
+          !allowInGenericTypeArguments
+            .map(s => s.replaceAll(' ', ''))
+            .includes(fullyQualifiedName)
+        ) {}
+
+=====================================output=====================================
+if (!doesImmediatelyReturnFunctionExpression({ node: current, returns })) {
+}
+if (!validatePredefinedFormat(config, name, node, originalName, modifiers)) {
+}
+if (
+  ![
+    AST_NODE_TYPES.ArrowFunctionExpression,
+    AST_NODE_TYPES.FunctionDeclaration,
+    AST_NODE_TYPES.FunctionExpression,
+  ].includes(blockParent.type)
+);
+if (
+  !allowInGenericTypeArguments
+    .map((s) => s.replaceAll(" ", ""))
+    .includes(fullyQualifiedName)
+) {
+}
 
 ================================================================================
 `;
@@ -156,17 +236,21 @@ do {} while (!(
   node.type === "TSExternalModuleReference"
 ));
 
-if (!!(
-  node.type === "ImportExpression" ||
-  node.type === "TSImportType" ||
-  node.type === "TSExternalModuleReference"
-));
+if (
+  !!(
+    node.type === "ImportExpression" ||
+    node.type === "TSImportType" ||
+    node.type === "TSExternalModuleReference"
+  )
+);
 
-if (typeof (
-  node.type === "ImportExpression" ||
-  node.type === "TSImportType" ||
-  node.type === "TSExternalModuleReference"
-));
+if (
+  typeof (
+    node.type === "ImportExpression" ||
+    node.type === "TSImportType" ||
+    node.type === "TSExternalModuleReference"
+  )
+);
 
 if (
   // comment
@@ -177,21 +261,25 @@ if (
   )
 );
 
-if (!(
-  // comment
+if (
   !(
+    // comment
+    !(
+      node.type === "ImportExpression" ||
+      node.type === "TSImportType" ||
+      node.type === "TSExternalModuleReference"
+    )
+  )
+);
+
+if (
+  !!(
+    // comment
     node.type === "ImportExpression" ||
     node.type === "TSImportType" ||
     node.type === "TSExternalModuleReference"
   )
-));
-
-if (!!(
-  // comment
-  node.type === "ImportExpression" ||
-  node.type === "TSImportType" ||
-  node.type === "TSExternalModuleReference"
-));
+);
 
 ================================================================================
 `;

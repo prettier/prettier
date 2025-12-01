@@ -114,15 +114,22 @@ function printTypeScriptAccessibilityToken(node) {
   return node.accessibility ? node.accessibility + " " : "";
 }
 
+function shouldInlineCondition(node) {
+  if (hasComment(node)) {
+    return false;
+  }
+
+  if (node.type === "UnaryExpression" && node.operator === "!") {
+    node = node.argument;
+  }
+
+  return node.type === "LogicalExpression";
+}
+
 function printIfOrWhileCondition(path, options, print) {
-  const conditionNode = path.node.test;
   const conditionDoc = print("test");
 
-  if (
-    !hasComment(conditionNode) &&
-    (conditionNode.type === "UnaryExpression" ||
-      isBooleanTypeCoercion(conditionNode))
-  ) {
+  if (shouldInlineCondition(path.node.test)) {
     return conditionDoc;
   }
 

@@ -4,14 +4,24 @@ if (Boolean(
   node.type === "TSExternalModuleReference"));
 
 while (Boolean(
+  node.type === "ImportExpression" &&
+  node.type === "TSImportType" &&
+  node.type === "TSExternalModuleReference"));
+
+do {} while (Boolean(
+  node.type === "ImportExpression" ??
+  node.type === "TSImportType" ??
+  node.type === "TSExternalModuleReference"));
+
+if (!!!Boolean(
   node.type === "ImportExpression" ||
   node.type === "TSImportType" ||
   node.type === "TSExternalModuleReference"));
 
-do {} while (Boolean(
+if (!Boolean(!!Boolean(
   node.type === "ImportExpression" ||
   node.type === "TSImportType" ||
-  node.type === "TSExternalModuleReference"));
+  node.type === "TSExternalModuleReference")));
 
 if ( // comment
 Boolean(
