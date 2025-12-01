@@ -19,6 +19,11 @@ if (!!(
   node.type === "TSImportType" ||
   node.type === "TSExternalModuleReference"));
 
+if(typeof (
+  node.type === "ImportExpression" ||
+  node.type === "TSImportType" ||
+  node.type === "TSExternalModuleReference"));
+
 
 if ( // comment
 !!(
