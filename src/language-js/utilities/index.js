@@ -1103,9 +1103,7 @@ function shouldUnionTypePrintOwnComments({ key, parent }) {
 */
 function isBooleanTypeCoercion(node) {
   return (
-    isCallExpression(node) &&
-    // TODO: remove this check when we stop checking `ChainExpression` in `isCallExpression`
-    node.type !== "ChainExpression" &&
+    node.type === "CallExpression" &&
     !node.optional &&
     node.arguments.length === 1 &&
     node.callee.type === "Identifier" &&
