@@ -119,8 +119,10 @@ function shouldInlineCondition(node) {
     return false;
   }
 
-  if (node.type === "UnaryExpression" && node.operator === "!") {
-    node = node.argument;
+  for (let level = 0; level < 2; level++) {
+    if (node.type === "UnaryExpression" && node.operator === "!") {
+      node = node.argument;
+    }
   }
 
   return node.type === "LogicalExpression";

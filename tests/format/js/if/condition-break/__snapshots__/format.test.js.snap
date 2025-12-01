@@ -236,13 +236,11 @@ do {} while (!(
   node.type === "TSExternalModuleReference"
 ));
 
-if (
-  !!(
-    node.type === "ImportExpression" ||
-    node.type === "TSImportType" ||
-    node.type === "TSExternalModuleReference"
-  )
-);
+if (!!(
+  node.type === "ImportExpression" ||
+  node.type === "TSImportType" ||
+  node.type === "TSExternalModuleReference"
+));
 
 if (
   typeof (
@@ -261,25 +259,21 @@ if (
   )
 );
 
-if (
+if (!(
+  // comment
   !(
-    // comment
-    !(
-      node.type === "ImportExpression" ||
-      node.type === "TSImportType" ||
-      node.type === "TSExternalModuleReference"
-    )
-  )
-);
-
-if (
-  !!(
-    // comment
     node.type === "ImportExpression" ||
     node.type === "TSImportType" ||
     node.type === "TSExternalModuleReference"
   )
-);
+));
+
+if (!!(
+  // comment
+  node.type === "ImportExpression" ||
+  node.type === "TSImportType" ||
+  node.type === "TSExternalModuleReference"
+));
 
 ================================================================================
 `;
