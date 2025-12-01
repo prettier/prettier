@@ -1,3 +1,5 @@
+import * as assert from "#universal/assert";
+
 /**
 @typedef {"auto" | OPTION_CR | OPTION_CRLF | OPTION_LF} EndOfLineOption
 @typedef {CHARACTER_CR | CHARACTER_CRLF | CHARACTER_LF} EndOfLine
@@ -51,8 +53,9 @@ function countEndOfLineCharacters(text, endOfLineCharacter) {
   const regex = regexps.get(endOfLineCharacter);
 
   /* c8 ignore next */
-  if (!regex) {
-    throw new Error(
+  if (process.env.NODE_ENV !== "production") {
+    assert.ok(
+      regex,
       `Unexpected 'endOfLineCharacter': ${JSON.stringify(endOfLineCharacter)}.`,
     );
   }
