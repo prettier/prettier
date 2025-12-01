@@ -117,7 +117,7 @@ function printIfOrWhileCondition(path, options, print) {
   const conditionNode = path.node.test;
   const conditionDoc = print("test");
 
-  if (conditionNode.type === "UnaryExpression") {
+  if (!hasComment(conditionNode) && conditionNode.type === "UnaryExpression") {
     return conditionDoc;
   }
 
