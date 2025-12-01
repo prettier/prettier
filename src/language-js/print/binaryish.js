@@ -20,6 +20,7 @@ import {
   hasLeadingOwnLineComment,
   isArrayExpression,
   isBinaryish,
+  isBooleanTypeCoercion,
   isCallExpression,
   isJsxElement,
   isMemberExpression,
@@ -114,7 +115,7 @@ function printBinaryishExpression(path, options, print) {
       grandparent.type !== "NewExpression") ||
     parent.type === "TemplateLiteral" ||
     (key === "argument" && parent.type === "UnaryExpression") ||
-    isBooleanTypeCoercion(path);
+    (key === "arguments" && isBooleanTypeCoercion(parent));
 
   const shouldIndentIfInlining =
     parent.type === "AssignmentExpression" ||
@@ -393,29 +394,6 @@ function isVueFilterSequenceExpression(path, options) {
         !isBitwiseOrExpression(node) && node.type !== "JsExpressionRoot",
     )
   );
-}
-
-/**
-@returns {boolean}
-*/
-function isBooleanTypeCoercion(path) {
-  if (path.key !== "arguments") {
-    return false;
-  }
-
-  const { parent } = path;
-  if (
-    !(
-      isCallExpression(parent) &&
-      !parent.optional &&
-      parent.arguments.length === 1
-    )
-  ) {
-    return false;
-  }
-
-  const { callee } = parent;
-  return callee.type === "Identifier" && callee.name === "Boolean";
 }
 
 export { printBinaryishExpression, shouldInlineLogicalExpression };

@@ -3,6 +3,7 @@ import {
   CommentCheckFlags,
   createTypeCheckFunction,
   hasComment,
+  isBooleanTypeCoercion,
   isCallExpression,
   isMemberExpression,
 } from "../utilities/index.js";
@@ -117,7 +118,11 @@ function printIfOrWhileCondition(path, options, print) {
   const conditionNode = path.node.test;
   const conditionDoc = print("test");
 
-  if (!hasComment(conditionNode) && conditionNode.type === "UnaryExpression") {
+  if (
+    !hasComment(conditionNode) &&
+    (conditionNode.type === "UnaryExpression" ||
+      isBooleanTypeCoercion(conditionNode))
+  ) {
     return conditionDoc;
   }
 

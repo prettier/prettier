@@ -1098,6 +1098,21 @@ function shouldUnionTypePrintOwnComments({ key, parent }) {
   return true;
 }
 
+/**
+@returns {boolean}
+*/
+function isBooleanTypeCoercion(node) {
+  return (
+    isCallExpression(node) &&
+    // TODO: remove this check when we stop checking `ChainExpression` in `isCallExpression`
+    node.type !== "ChainExpression" &&
+    !node.optional &&
+    node.arguments.length === 1 &&
+    node.callee.type === "Identifier" &&
+    node.callee.name === "Boolean"
+  );
+}
+
 export {
   CommentCheckFlags,
   createTypeCheckFunction,
@@ -1119,6 +1134,7 @@ export {
   isBinaryish,
   isBitwiseOperator,
   isBooleanLiteral,
+  isBooleanTypeCoercion,
   isCallExpression,
   isCallLikeExpression,
   isConditionalType,
