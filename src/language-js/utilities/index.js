@@ -1085,6 +1085,19 @@ const isTypeAlias = createTypeCheckFunction([
   "TypeAlias",
 ]);
 
+function shouldUnionTypePrintOwnComments({ key, parent }) {
+  if (
+    // If it's `types` of union type, parent will print comment for it
+    (key === "types" && isUnionType(parent)) ||
+    // Inside intersection type let the comment print outside of parentheses
+    (key === "types" && isIntersectionType(parent))
+  ) {
+    return false;
+  }
+
+  return true;
+}
+
 export {
   CommentCheckFlags,
   createTypeCheckFunction,
@@ -1145,6 +1158,7 @@ export {
   needsHardlineAfterDanglingComment,
   shouldFlatten,
   shouldPrintComma,
+  shouldUnionTypePrintOwnComments,
   startsWithNoLookaheadToken,
 };
 export { default as isMeaningfulEmptyStatement } from "./is-meaningful-empty-statement.js";

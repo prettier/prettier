@@ -1,8 +1,10 @@
 import {
   createTypeCheckFunction,
   hasNodeIgnoreComment,
+  isIntersectionType,
   isJsxElement,
   isUnionType,
+  shouldUnionTypePrintOwnComments,
 } from "../utilities/index.js";
 
 /**
@@ -47,7 +49,15 @@ function willPrintOwnComments(path) {
     return false;
   }
 
-  return isJsxElement(node) || isUnionType(node);
+  if (isUnionType(node)) {
+    return shouldUnionTypePrintOwnComments(path);
+  }
+
+  if (isJsxElement(node)) {
+    return true;
+  }
+
+  return false;
 }
 
 export default willPrintOwnComments;
