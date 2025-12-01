@@ -42,7 +42,6 @@ const regexps = new Map([
   [CHARACTER_CR, /\r/gu],
   [CHARACTER_CRLF, /\r\n/gu],
 ]);
-
 /**
 @param {string} text
 @param {EndOfLine} endOfLineCharacter
@@ -61,12 +60,13 @@ function countEndOfLineCharacters(text, endOfLineCharacter) {
   return text.match(regex)?.length ?? 0;
 }
 
+const END_OF_LINE_REGEXP = /\r\n?/gu;
 /**
 @param {string} text
 @returns {string}
 */
 function normalizeEndOfLine(text) {
-  return text.replaceAll(/\r\n?/gu, CHARACTER_LF);
+  return text.replaceAll(END_OF_LINE_REGEXP, CHARACTER_LF);
 }
 
 export {
