@@ -23,7 +23,6 @@ import {
   isMethod,
   isNextLineEmpty,
   isObjectExpression,
-  needsHardlineAfterDanglingComment,
   startsWithNoLookaheadToken,
 } from "../utilities/index.js";
 import isBlockComment from "../utilities/is-block-comment.js";
@@ -51,6 +50,7 @@ import {
   printThrowStatement,
 } from "./function.js";
 import { printHtmlBinding } from "./html-binding.js";
+import { printIfStatement } from "./if-statement.js";
 import { printLiteral } from "./literal.js";
 import { printMemberExpression } from "./member.js";
 import {
@@ -74,6 +74,10 @@ import {
 } from "./template-literal.js";
 import { printTernary } from "./ternary.js";
 import { printTypeAnnotationProperty } from "./type-annotation.js";
+import {
+  printDoWhileStatement,
+  printWhileStatement,
+} from "./while-statement.js";
 
 /**
  * @import AstPath from "../../common/ast-path.js"
@@ -359,48 +363,9 @@ function printEstree(path, options, print, args) {
         ")",
         adjustClause(node.body, print("body")),
       ]);
-    case "IfStatement": {
-      const consequent = adjustClause(node.consequent, print("consequent"));
-      const opening = group([
-        "if (",
-        group([indent([softline, print("test")]), softline]),
-        ")",
-        consequent,
-      ]);
-      /** @type{Doc[]} */
-      const parts = [opening];
+    case "IfStatement":
+      return printIfStatement(path, options, print);
 
-      if (node.alternate) {
-        const commentOnOwnLine =
-          hasComment(
-            node.consequent,
-            CommentCheckFlags.Trailing | CommentCheckFlags.Line,
-          ) || needsHardlineAfterDanglingComment(node);
-        const elseOnSameLine =
-          node.consequent.type === "BlockStatement" && !commentOnOwnLine;
-        parts.push(elseOnSameLine ? " " : hardline);
-
-        if (hasComment(node, CommentCheckFlags.Dangling)) {
-          parts.push(
-            printDanglingComments(path, options),
-            commentOnOwnLine ? hardline : " ",
-          );
-        }
-
-        parts.push(
-          "else",
-          group(
-            adjustClause(
-              node.alternate,
-              print("alternate"),
-              node.alternate.type === "IfStatement",
-            ),
-          ),
-        );
-      }
-
-      return parts;
-    }
     case "ForStatement": {
       const body = adjustClause(node.body, print("body"));
 
@@ -436,12 +401,10 @@ function printEstree(path, options, print, args) {
       ];
     }
     case "WhileStatement":
-      return group([
-        "while (",
-        group([indent([softline, print("test")]), softline]),
-        ")",
-        adjustClause(node.body, print("body")),
-      ]);
+      return printWhileStatement(path, options, print);
+    case "DoWhileStatement":
+      return printDoWhileStatement(path, options, print);
+
     case "ForInStatement":
       return group([
         "for (",
@@ -464,19 +427,6 @@ function printEstree(path, options, print, args) {
         adjustClause(node.body, print("body")),
       ]);
 
-    case "DoWhileStatement": {
-      const clause = adjustClause(node.body, print("body"));
-      const doBody = group(["do", clause]);
-
-      return [
-        doBody,
-        node.body.type === "BlockStatement" ? " " : hardline,
-        "while (",
-        group([indent([softline, print("test")]), softline]),
-        ")",
-        options.semi ? ";" : "",
-      ];
-    }
     case "DoExpression":
       return [node.async ? "async " : "", "do ", print("body")];
     case "BreakStatement":
