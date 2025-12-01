@@ -1,7 +1,7 @@
 import assert from "node:assert";
 import path from "node:path";
 import url from "node:url";
-import { identifier, isValidIdentifier } from "@babel/types";
+import { isValidIdentifier } from "@babel/types";
 import { outdent } from "outdent";
 import serialize from "serialize-javascript";
 
@@ -23,16 +23,6 @@ function serializeModule(module) {
       return `export const ${specifier} = ${code};`;
     })
     .join("\n");
-}
-
-function getIdentifier(references, keys) {
-  if (!references.has(keys)) {
-    assert.ok(Array.isArray(keys));
-    assert.ok(keys.every((value) => typeof value === "string"));
-    references.set(keys, references.size);
-  }
-
-  return references.get(keys);
 }
 
 function serializeVisitorKeys(module) {
