@@ -71,12 +71,14 @@ if (!!(
   node.type === "TSExternalModuleReference"
 ));
 
-if (// comment
-!!(
-  node.type === "ImportExpression" ||
-  node.type === "TSImportType" ||
-  node.type === "TSExternalModuleReference"
-));
+if (
+  // comment
+  !!(
+    node.type === "ImportExpression" ||
+    node.type === "TSImportType" ||
+    node.type === "TSExternalModuleReference"
+  )
+);
 
 if (!(
   // comment
