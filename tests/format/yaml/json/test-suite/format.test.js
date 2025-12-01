@@ -26,7 +26,7 @@ const BUGS = new Set([
   "y_object_string_unicode.json",
   "y_object_long_strings.json",
   "y_string_backslash_doublequotes.json",
-])
+]);
 
 const cases = [...parsing, ...transform]
   .map(({ name, input, error }) => {
