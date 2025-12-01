@@ -1,5 +1,20 @@
 import { generateReferenceSharedVisitorKeys } from "../utilities/visitor-keys.js";
 
+/**
+@import {VisitorKeys} from "../utilities/visitor-keys.js";
+*/
+
+const commentsKeys = [
+  "indicatorComment",
+  "leadingComments",
+  "middleComments",
+  "trailingComment",
+  "endComments",
+];
+
+const tagAndAnchor = ["anchor", "tag"];
+
+/** @type {VisitorKeys} */
 let visitorKeys = Object.fromEntries(
   Object.entries({
     root: ["children"],
@@ -30,13 +45,8 @@ let visitorKeys = Object.fromEntries(
     type,
     [
       ...keys,
-      "anchor",
-      "tag",
-      "indicatorComment",
-      "leadingComments",
-      "middleComments",
-      "trailingComment",
-      "endComments",
+      ...(type !== "tag" && type !== "anchor" ? tagAndAnchor : []),
+      ...commentsKeys,
     ],
   ]),
 );
