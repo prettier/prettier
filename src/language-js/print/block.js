@@ -6,7 +6,7 @@ import {
   hasComment,
   isNextLineEmpty,
 } from "../utilities/index.js";
-import { printStatementSequence } from "./statement.js";
+import { printStatementSequence } from "./statement-sequence.js";
 
 /** @import {Doc} from "../../document/index.js" */
 

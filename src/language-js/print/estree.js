@@ -1,38 +1,28 @@
 import {
   group,
   hardline,
-  ifBreak,
   indent,
-  join,
-  line,
   replaceEndOfLine,
   softline,
 } from "../../document/index.js";
 import { printDanglingComments } from "../../main/comments/print.js";
-import hasNewline from "../../utilities/has-newline.js";
 import UnexpectedNodeError from "../../utilities/unexpected-node-error.js";
-import { locEnd, locStart } from "../loc.js";
 import {
   CommentCheckFlags,
   hasComment,
   isArrayExpression,
-  isCallExpression,
   isLiteral,
   isMeaningfulEmptyStatement,
-  isMemberExpression,
   isMethod,
-  isNextLineEmpty,
   isObjectExpression,
-  needsHardlineAfterDanglingComment,
-  startsWithNoLookaheadToken,
 } from "../utilities/index.js";
-import isBlockComment from "../utilities/is-block-comment.js";
 import { printArray } from "./array.js";
 import { printArrowFunction } from "./arrow-function.js";
 import {
   printAssignmentExpression,
   printVariableDeclarator,
 } from "./assignment.js";
+import { printAwaitExpression } from "./await-expression.js";
 import { printBinaryishExpression } from "./binaryish.js";
 import { printBindExpression } from "./bind-expression.js";
 import { printBlock } from "./block.js";
@@ -44,6 +34,7 @@ import {
   printClassProperty,
 } from "./class.js";
 import { printExpressionStatement } from "./expression-statement.js";
+import { printForStatement } from "./for-statement.js";
 import {
   printFunction,
   printMethod,
@@ -51,11 +42,11 @@ import {
   printThrowStatement,
 } from "./function.js";
 import { printHtmlBinding } from "./html-binding.js";
+import { printIfStatement } from "./if-statement.js";
 import { printLiteral } from "./literal.js";
 import { printMemberExpression } from "./member.js";
 import {
   adjustClause,
-  printDeclareToken,
   printDefiniteToken,
   printOptionalToken,
 } from "./misc.js";
@@ -67,13 +58,20 @@ import {
 import { printObject } from "./object.js";
 import { printProperty } from "./property.js";
 import { printRestElement, printSpreadElement } from "./rest-element.js";
-import { printStatementSequence } from "./statement.js";
+import { printSequenceExpression } from "./sequence-expression.js";
+import { printSwitchCase, printSwitchStatement } from "./switch-statement.js";
 import {
   printTaggedTemplateExpression,
   printTemplateLiteral,
 } from "./template-literal.js";
 import { printTernary } from "./ternary.js";
+import { printCatchClause, printTryStatement } from "./try-statement.js";
 import { printTypeAnnotationProperty } from "./type-annotation.js";
+import { printVariableDeclaration } from "./variable-declaration.js";
+import {
+  printDoWhileStatement,
+  printWhileStatement,
+} from "./while-statement.js";
 
 /**
  * @import AstPath from "../../common/ast-path.js"
@@ -165,35 +163,8 @@ function printEstree(path, options, print, args) {
         `yield${node.delegate ? "*" : ""}`,
         node.argument ? [" ", print("argument")] : "",
       ];
-    case "AwaitExpression": {
-      /** @type{Doc[]} */
-      let parts = ["await"];
-      if (node.argument) {
-        parts.push(" ", print("argument"));
-        const { parent } = path;
-        if (
-          (isCallExpression(parent) && parent.callee === node) ||
-          (isMemberExpression(parent) && parent.object === node)
-        ) {
-          parts = [indent([softline, ...parts]), softline];
-          // avoid printing `await (await` on one line
-          const parentAwaitOrBlock = path.findAncestor(
-            (node) =>
-              node.type === "AwaitExpression" || node.type === "BlockStatement",
-          );
-          if (
-            parentAwaitOrBlock?.type !== "AwaitExpression" ||
-            !startsWithNoLookaheadToken(
-              parentAwaitOrBlock.argument,
-              (leftmostNode) => leftmostNode === node,
-            )
-          ) {
-            return group(parts);
-          }
-        }
-      }
-      return parts;
-    }
+    case "AwaitExpression":
+      return printAwaitExpression(path, options, print);
 
     case "ExportDefaultDeclaration":
     case "ExportNamedDeclaration":
@@ -246,39 +217,9 @@ function printEstree(path, options, print, args) {
     case "ArrayExpression":
     case "ArrayPattern":
       return printArray(path, options, print);
-    case "SequenceExpression": {
-      const { parent } = path;
-      if (
-        parent.type === "ExpressionStatement" ||
-        parent.type === "ForStatement"
-      ) {
-        // For ExpressionStatements and for-loop heads, which are among
-        // the few places a SequenceExpression appears unparenthesized, we want
-        // to indent expressions after the first.
-        const parts = [];
-        path.each(({ isFirst }) => {
-          if (isFirst) {
-            parts.push(print());
-          } else {
-            parts.push(",", indent([line, print()]));
-          }
-        }, "expressions");
-        return group(parts);
-      }
+    case "SequenceExpression":
+      return printSequenceExpression(path, options, print);
 
-      const parts = join([",", line], path.map(print, "expressions"));
-
-      if (
-        ((parent.type === "ReturnStatement" ||
-          parent.type === "ThrowStatement") &&
-          path.key === "argument") ||
-        (parent.type === "ArrowFunctionExpression" && path.key === "body")
-      ) {
-        return group(ifBreak([indent([softline, parts]), softline], parts));
-      }
-
-      return group(parts);
-    }
     case "ThisExpression":
       return "this";
     case "Super":
@@ -312,46 +253,8 @@ function printEstree(path, options, print, args) {
       ];
     case "ConditionalExpression":
       return printTernary(path, options, print, args);
-    case "VariableDeclaration": {
-      const printed = path.map(print, "declarations");
-
-      // We generally want to terminate all variable declarations with a
-      // semicolon, except when they in the () part of for loops.
-      const parentNode = path.parent;
-
-      const isParentForLoop =
-        parentNode.type === "ForStatement" ||
-        parentNode.type === "ForInStatement" ||
-        parentNode.type === "ForOfStatement";
-
-      const hasValue = node.declarations.some((decl) => decl.init);
-
-      let firstVariable;
-      if (printed.length === 1 && !hasComment(node.declarations[0])) {
-        firstVariable = printed[0];
-      } else if (printed.length > 0) {
-        // Indent first var to comply with eslint one-var rule
-        firstVariable = indent(printed[0]);
-      }
-
-      return group([
-        printDeclareToken(path),
-        node.kind,
-        firstVariable ? [" ", firstVariable] : "",
-        indent(
-          printed
-            .slice(1)
-            .map((p) => [
-              ",",
-              hasValue && !isParentForLoop ? hardline : line,
-              p,
-            ]),
-        ),
-        options.semi && !(isParentForLoop && parentNode.body !== node)
-          ? ";"
-          : "",
-      ]);
-    }
+    case "VariableDeclaration":
+      return printVariableDeclaration(path, options, print);
     case "WithStatement":
       return group([
         "with (",
@@ -359,89 +262,15 @@ function printEstree(path, options, print, args) {
         ")",
         adjustClause(node.body, print("body")),
       ]);
-    case "IfStatement": {
-      const consequent = adjustClause(node.consequent, print("consequent"));
-      const opening = group([
-        "if (",
-        group([indent([softline, print("test")]), softline]),
-        ")",
-        consequent,
-      ]);
-      /** @type{Doc[]} */
-      const parts = [opening];
-
-      if (node.alternate) {
-        const commentOnOwnLine =
-          hasComment(
-            node.consequent,
-            CommentCheckFlags.Trailing | CommentCheckFlags.Line,
-          ) || needsHardlineAfterDanglingComment(node);
-        const elseOnSameLine =
-          node.consequent.type === "BlockStatement" && !commentOnOwnLine;
-        parts.push(elseOnSameLine ? " " : hardline);
-
-        if (hasComment(node, CommentCheckFlags.Dangling)) {
-          parts.push(
-            printDanglingComments(path, options),
-            commentOnOwnLine ? hardline : " ",
-          );
-        }
-
-        parts.push(
-          "else",
-          group(
-            adjustClause(
-              node.alternate,
-              print("alternate"),
-              node.alternate.type === "IfStatement",
-            ),
-          ),
-        );
-      }
-
-      return parts;
-    }
-    case "ForStatement": {
-      const body = adjustClause(node.body, print("body"));
-
-      // We want to keep dangling comments above the loop to stay consistent.
-      // Any comment positioned between the for statement and the parentheses
-      // is going to be printed before the statement.
-      const dangling = printDanglingComments(path, options);
-      const printedComments = dangling ? [dangling, softline] : "";
-
-      if (!node.init && !node.test && !node.update) {
-        return [printedComments, group(["for (;;)", body])];
-      }
-
-      return [
-        printedComments,
-        group([
-          "for (",
-          group([
-            indent([
-              softline,
-              print("init"),
-              ";",
-              line,
-              print("test"),
-              ";",
-              node.update ? [line, print("update")] : ifBreak("", line),
-            ]),
-            softline,
-          ]),
-          ")",
-          body,
-        ]),
-      ];
-    }
+    case "IfStatement":
+      return printIfStatement(path, options, print);
+    case "ForStatement":
+      return printForStatement(path, options, print);
     case "WhileStatement":
-      return group([
-        "while (",
-        group([indent([softline, print("test")]), softline]),
-        ")",
-        adjustClause(node.body, print("body")),
-      ]);
+      return printWhileStatement(path, options, print);
+    case "DoWhileStatement":
+      return printDoWhileStatement(path, options, print);
+
     case "ForInStatement":
       return group([
         "for (",
@@ -464,19 +293,6 @@ function printEstree(path, options, print, args) {
         adjustClause(node.body, print("body")),
       ]);
 
-    case "DoWhileStatement": {
-      const clause = adjustClause(node.body, print("body"));
-      const doBody = group(["do", clause]);
-
-      return [
-        doBody,
-        node.body.type === "BlockStatement" ? " " : hardline,
-        "while (",
-        group([indent([softline, print("test")]), softline]),
-        ")",
-        options.semi ? ";" : "",
-      ];
-    }
     case "DoExpression":
       return [node.async ? "async " : "", "do ", print("body")];
     case "BreakStatement":
@@ -493,93 +309,14 @@ function printEstree(path, options, print, args) {
         print("body"),
       ];
     case "TryStatement":
-      return [
-        "try ",
-        print("block"),
-        node.handler ? [" ", print("handler")] : "",
-        node.finalizer ? [" finally ", print("finalizer")] : "",
-      ];
+      return printTryStatement(path, options, print);
     case "CatchClause":
-      if (node.param) {
-        const parameterHasComments = hasComment(
-          node.param,
-          (comment) =>
-            !isBlockComment(comment) ||
-            (comment.leading &&
-              hasNewline(options.originalText, locEnd(comment))) ||
-            (comment.trailing &&
-              hasNewline(options.originalText, locStart(comment), {
-                backwards: true,
-              })),
-        );
-        const param = print("param");
-
-        return [
-          "catch ",
-          parameterHasComments
-            ? ["(", indent([softline, param]), softline, ") "]
-            : ["(", param, ") "],
-          print("body"),
-        ];
-      }
-
-      return ["catch ", print("body")];
+      return printCatchClause(path, options, print);
     // Note: ignoring n.lexical because it has no printing consequences.
     case "SwitchStatement":
-      return [
-        group([
-          "switch (",
-          indent([softline, print("discriminant")]),
-          softline,
-          ")",
-        ]),
-        " {",
-        node.cases.length > 0
-          ? indent([
-              hardline,
-              join(
-                hardline,
-                path.map(
-                  ({ node, isLast }) => [
-                    print(),
-                    !isLast && isNextLineEmpty(node, options) ? hardline : "",
-                  ],
-                  "cases",
-                ),
-              ),
-            ])
-          : "",
-        hardline,
-        "}",
-      ];
-    case "SwitchCase": {
-      const parts = [];
-      if (node.test) {
-        parts.push("case ", print("test"), ":");
-      } else {
-        parts.push("default:");
-      }
-
-      if (hasComment(node, CommentCheckFlags.Dangling)) {
-        parts.push(" ", printDanglingComments(path, options));
-      }
-
-      const consequent = node.consequent.filter(
-        (node) => node.type !== "EmptyStatement",
-      );
-
-      if (consequent.length > 0) {
-        const cons = printStatementSequence(path, options, print, "consequent");
-
-        parts.push(
-          consequent.length === 1 && consequent[0].type === "BlockStatement"
-            ? [" ", cons]
-            : indent([hardline, cons]),
-        );
-      }
-
-      return parts;
-    }
+      return printSwitchStatement(path, options, print);
+    case "SwitchCase":
+      return printSwitchCase(path, options, print);
     // JSX extensions below.
     case "DebuggerStatement":
       return ["debugger", options.semi ? ";" : ""];
