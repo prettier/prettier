@@ -1056,6 +1056,829 @@ proseWrap: "always"
 ================================================================================
 `;
 
+exports[`followed-by-indented-things.md - {"proseWrap":"always","tabWidth":0} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 0
+                                                                                | printWidth
+=====================================input======================================
+-    foo
+
+    indented code block
+
+---
+
+-    foo
+
+     list item text
+
+---
+
+   -    foo
+
+       indented code block
+
+---
+
+1.    foo
+
+     indented code block
+
+---
+
+1.    foo
+
+      list item text
+
+---
+
+   1.    foo
+
+        indented code block
+
+---
+
+   - [ ]    foo
+
+           indented code block
+
+---
+   - [ ]    foo
+
+            indented code block (suspicious)
+
+---
+
+ -    item 1
+ -    item 2
+
+     indented code block
+
+---
+
+- item 1
+    - item 1-1
+    - item 1-2
+
+    naive paragraph in item 1
+
+---
+
+   -    item 1
+    - item 1-1
+    - item 1-2
+
+    indented code block
+
+---
+
+
+   -    item 1
+    - item 1-1
+    - item 1-2
+   -    item 2
+
+       indented code block
+
+---
+
+1. item 1
+    1. item 1-1
+    2. item 1-2
+
+   naive paragraph in item 1
+
+---
+
+1. item 1
+    1. item 1-1
+    2. item 1-2
+100. item 1
+
+    indented code block
+
+=====================================output=====================================
+- foo
+
+
+    indented code block
+
+---
+
+- foo
+
+  list item text
+
+---
+
+- foo
+
+
+       indented code block
+
+---
+
+1. foo
+
+
+     indented code block
+
+---
+
+1. foo
+
+   list item text
+
+---
+
+1. foo
+
+
+        indented code block
+
+---
+
+- [ ] foo
+
+        indented code block
+
+---
+
+- [ ] foo
+
+         indented code block (suspicious)
+
+---
+
+- item 1
+- item 2
+
+
+     indented code block
+
+---
+
+- item 1
+  - item 1-1
+  - item 1-2
+
+  naive paragraph in item 1
+
+---
+
+- item 1 - item 1-1 - item 1-2
+
+
+    indented code block
+
+---
+
+- item 1 - item 1-1 - item 1-2
+- item 2
+
+
+       indented code block
+
+---
+
+1. item 1
+   1. item 1-1
+   2. item 1-2
+
+   naive paragraph in item 1
+
+---
+
+1. item 1
+   1. item 1-1
+   2. item 1-2
+2. item 1
+
+
+    indented code block
+
+================================================================================
+`;
+
+exports[`followed-by-indented-things.md - {"proseWrap":"always","tabWidth":4} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 4
+                                                                                | printWidth
+=====================================input======================================
+-    foo
+
+    indented code block
+
+---
+
+-    foo
+
+     list item text
+
+---
+
+   -    foo
+
+       indented code block
+
+---
+
+1.    foo
+
+     indented code block
+
+---
+
+1.    foo
+
+      list item text
+
+---
+
+   1.    foo
+
+        indented code block
+
+---
+
+   - [ ]    foo
+
+           indented code block
+
+---
+   - [ ]    foo
+
+            indented code block (suspicious)
+
+---
+
+ -    item 1
+ -    item 2
+
+     indented code block
+
+---
+
+- item 1
+    - item 1-1
+    - item 1-2
+
+    naive paragraph in item 1
+
+---
+
+   -    item 1
+    - item 1-1
+    - item 1-2
+
+    indented code block
+
+---
+
+
+   -    item 1
+    - item 1-1
+    - item 1-2
+   -    item 2
+
+       indented code block
+
+---
+
+1. item 1
+    1. item 1-1
+    2. item 1-2
+
+   naive paragraph in item 1
+
+---
+
+1. item 1
+    1. item 1-1
+    2. item 1-2
+100. item 1
+
+    indented code block
+
+=====================================output=====================================
+- foo
+
+
+    indented code block
+
+---
+
+- foo
+
+    list item text
+
+---
+
+- foo
+
+
+       indented code block
+
+---
+
+1.  foo
+
+
+     indented code block
+
+---
+
+1.  foo
+
+    list item text
+
+---
+
+1.  foo
+
+
+        indented code block
+
+---
+
+- [ ] foo
+
+          indented code block
+
+---
+
+- [ ] foo
+
+           indented code block (suspicious)
+
+---
+
+- item 1
+- item 2
+
+
+     indented code block
+
+---
+
+- item 1
+    - item 1-1
+    - item 1-2
+
+    naive paragraph in item 1
+
+---
+
+- item 1 - item 1-1 - item 1-2
+
+
+    indented code block
+
+---
+
+- item 1 - item 1-1 - item 1-2
+- item 2
+
+
+       indented code block
+
+---
+
+1. item 1
+    1. item 1-1
+    2. item 1-2
+
+    naive paragraph in item 1
+
+---
+
+1. item 1
+    1. item 1-1
+    2. item 1-2
+2. item 1
+
+
+    indented code block
+
+================================================================================
+`;
+
+exports[`followed-by-indented-things.md - {"proseWrap":"always","tabWidth":999} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 999
+                                                                                | printWidth
+=====================================input======================================
+-    foo
+
+    indented code block
+
+---
+
+-    foo
+
+     list item text
+
+---
+
+   -    foo
+
+       indented code block
+
+---
+
+1.    foo
+
+     indented code block
+
+---
+
+1.    foo
+
+      list item text
+
+---
+
+   1.    foo
+
+        indented code block
+
+---
+
+   - [ ]    foo
+
+           indented code block
+
+---
+   - [ ]    foo
+
+            indented code block (suspicious)
+
+---
+
+ -    item 1
+ -    item 2
+
+     indented code block
+
+---
+
+- item 1
+    - item 1-1
+    - item 1-2
+
+    naive paragraph in item 1
+
+---
+
+   -    item 1
+    - item 1-1
+    - item 1-2
+
+    indented code block
+
+---
+
+
+   -    item 1
+    - item 1-1
+    - item 1-2
+   -    item 2
+
+       indented code block
+
+---
+
+1. item 1
+    1. item 1-1
+    2. item 1-2
+
+   naive paragraph in item 1
+
+---
+
+1. item 1
+    1. item 1-1
+    2. item 1-2
+100. item 1
+
+    indented code block
+
+=====================================output=====================================
+- foo
+
+
+    indented code block
+
+---
+
+- foo
+
+     list item text
+
+---
+
+- foo
+
+
+       indented code block
+
+---
+
+1. foo
+
+
+     indented code block
+
+---
+
+1. foo
+
+      list item text
+
+---
+
+1. foo
+
+
+        indented code block
+
+---
+
+- [ ] foo
+
+           indented code block
+
+---
+
+- [ ] foo
+
+            indented code block (suspicious)
+
+---
+
+- item 1
+- item 2
+
+
+     indented code block
+
+---
+
+- item 1
+     - item 1-1
+     - item 1-2
+
+     naive paragraph in item 1
+
+---
+
+- item 1 - item 1-1 - item 1-2
+
+
+    indented code block
+
+---
+
+- item 1 - item 1-1 - item 1-2
+- item 2
+
+
+       indented code block
+
+---
+
+1. item 1
+      1. item 1-1
+      2. item 1-2
+
+      naive paragraph in item 1
+
+---
+
+1. item 1
+      1. item 1-1
+      2. item 1-2
+2. item 1
+
+
+    indented code block
+
+================================================================================
+`;
+
+exports[`followed-by-indented-things.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+-    foo
+
+    indented code block
+
+---
+
+-    foo
+
+     list item text
+
+---
+
+   -    foo
+
+       indented code block
+
+---
+
+1.    foo
+
+     indented code block
+
+---
+
+1.    foo
+
+      list item text
+
+---
+
+   1.    foo
+
+        indented code block
+
+---
+
+   - [ ]    foo
+
+           indented code block
+
+---
+   - [ ]    foo
+
+            indented code block (suspicious)
+
+---
+
+ -    item 1
+ -    item 2
+
+     indented code block
+
+---
+
+- item 1
+    - item 1-1
+    - item 1-2
+
+    naive paragraph in item 1
+
+---
+
+   -    item 1
+    - item 1-1
+    - item 1-2
+
+    indented code block
+
+---
+
+
+   -    item 1
+    - item 1-1
+    - item 1-2
+   -    item 2
+
+       indented code block
+
+---
+
+1. item 1
+    1. item 1-1
+    2. item 1-2
+
+   naive paragraph in item 1
+
+---
+
+1. item 1
+    1. item 1-1
+    2. item 1-2
+100. item 1
+
+    indented code block
+
+=====================================output=====================================
+- foo
+
+
+    indented code block
+
+---
+
+- foo
+
+  list item text
+
+---
+
+- foo
+
+
+       indented code block
+
+---
+
+1.  foo
+
+
+     indented code block
+
+---
+
+1.  foo
+
+    list item text
+
+---
+
+1.  foo
+
+
+        indented code block
+
+---
+
+- [ ] foo
+
+        indented code block
+
+---
+
+- [ ] foo
+
+         indented code block (suspicious)
+
+---
+
+- item 1
+- item 2
+
+
+     indented code block
+
+---
+
+- item 1
+  - item 1-1
+  - item 1-2
+
+  naive paragraph in item 1
+
+---
+
+- item 1 - item 1-1 - item 1-2
+
+
+    indented code block
+
+---
+
+- item 1 - item 1-1 - item 1-2
+- item 2
+
+
+       indented code block
+
+---
+
+1. item 1
+   1. item 1-1
+   2. item 1-2
+
+   naive paragraph in item 1
+
+---
+
+1. item 1
+   1. item 1-1
+   2. item 1-2
+2. item 1
+
+
+    indented code block
+
+================================================================================
+`;
+
 exports[`git-diff-friendly.md - {"proseWrap":"always","tabWidth":0} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
