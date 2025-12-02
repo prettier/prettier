@@ -31,7 +31,7 @@ prettier-config/
 
 Example `package.json`:
 
-```json
+```json title="package.json"
 {
   "name": "@username/prettier-config",
   "version": "1.0.0",
@@ -108,7 +108,7 @@ bun add --dev @username/prettier-config
 
 Then, you can reference it in your `package.json`:
 
-```json
+```json title="package.json"
 {
   "name": "my-cool-library",
   "version": "1.0.0",
