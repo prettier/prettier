@@ -46,7 +46,6 @@ const excludeVisitorKeys = {
   ImportDeclaration: ["assertions"],
 
   // https://github.com/babel/babel/issues/17506
-  // https://github.com/oxc-project/oxc/issues/16074
   TSImportType: ["argument"],
 };
 
