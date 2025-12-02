@@ -48,7 +48,11 @@ function genericPrint(path, options, print) {
       return printString(getRaw(node), options);
     case "NumericLiteral": {
       const raw = getRaw(node);
-      return isObjectKey(path) ? `"${raw}"` : raw;
+      if (isObjectKey(path) && String(Number(raw)) === raw) {
+        return `"${raw}"`;
+      }
+
+      return raw;
     }
     case "Identifier":
       return isObjectKey(path) ? JSON.stringify(node.name) : node.name;
@@ -99,11 +103,13 @@ function clean(original, cloned /* , parent*/) {
       };
     } else if (key.type === "NumericLiteral") {
       const raw = getRaw(key);
-      cloned.key = {
-        type: "StringLiteral",
-        value: raw,
-        extra: { rawValue: raw },
-      };
+      if (String(Number(raw)) === raw) {
+        cloned.key = {
+          type: "StringLiteral",
+          value: raw,
+          extra: { rawValue: raw },
+        };
+      }
     }
   }
 
