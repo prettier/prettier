@@ -51,7 +51,10 @@ Example `package.json`:
 `index.js` is where you put the shared configuration. This file just exports a [regular prettier configuration](./configuration.md) with the same syntax and same options:
 
 ```js title="index.js"
-/** @type {import("prettier").Config} */
+/**
+ * @see https://prettier.io/docs/configuration
+ * @type {import("prettier").Config}
+ */
 const config = {
   trailingComma: "es5",
   tabWidth: 4,
@@ -129,7 +132,10 @@ To _extend_ the configuration to overwrite some properties from the shared confi
 ```js title="prettier.config.mjs"
 import usernamePrettierConfig from "@username/prettier-config";
 
-/** @type {import("prettier").Config} */
+/**
+ * @see https://prettier.io/docs/configuration
+ * @type {import("prettier").Config}
+ */
 const config = {
   ...usernamePrettierConfig,
   semi: false,
@@ -145,7 +151,10 @@ export default config;
 You can get type safety and autocomplete support in your shared configuration by using a `jsdoc` type annotation:
 
 ```js title="prettier.config.mjs"
-/** @type {import("prettier").Config} */
+/**
+ * @see https://prettier.io/docs/configuration
+ * @type {import("prettier").Config}
+ */
 const config = {
   trailingComma: "es5",
   tabWidth: 4,
@@ -187,7 +196,10 @@ In case you want to use [plugins](./plugins.md) in your shared configuration, yo
 ```js title="index.js"
 import * as prettierPluginOxc from "@prettier/plugin-oxc";
 
-/** @type {import("prettier").Config} */
+/**
+ * @see https://prettier.io/docs/configuration
+ * @type {import("prettier").Config}
+ */
 const config = {
   singleQuote: true,
   plugins: [prettierPluginOxc],

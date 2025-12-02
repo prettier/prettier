@@ -19,7 +19,10 @@ Create or modify your [prettier configuration file](https://prettier.io/docs/en/
 // prettier.config.mjs
 import * as prettierPluginOxc from "@prettier/plugin-oxc";
 
-/** @type {import("prettier").Config} */
+/**
+ * @see https://prettier.io/docs/configuration
+ * @type {import("prettier").Config}
+ */
 const config = {
   plugins: [prettierPluginOxc],
 };
@@ -35,7 +38,10 @@ Or config explicitly
 // prettier.config.mjs
 import * as prettierPluginOxc from "@prettier/plugin-oxc";
 
-/** @type {import("prettier").Config} */
+/**
+ * @see https://prettier.io/docs/configuration
+ * @type {import("prettier").Config}
+ */
 const config = {
   overrides: [
     {

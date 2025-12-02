@@ -37,7 +37,10 @@ You can load plugins with:
   ```js title="prettier.config.mjs"
   import * as prettierPluginFoo from "prettier-plugin-foo";
 
-  /** @type {import("prettier").Config} */
+  /**
+   * @see https://prettier.io/docs/configuration
+   * @type {import("prettier").Config}
+   */
   const config = {
     plugins: [prettierPluginFoo],
   };
