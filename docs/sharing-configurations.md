@@ -184,6 +184,9 @@ export default config;
 +  },
   "peerDependencies": {
     "prettier": ">=3.0.0"
+  },
+  "devDependencies": {
+    "prettier": "%PRETTIER_VERSION%"
   }
 }
 ```
