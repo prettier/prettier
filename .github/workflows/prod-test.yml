@@ -203,5 +203,6 @@ jobs:
           path: dist
 
       - name: Release
+        working-directory: dist
         run: |
-          yarn dlx pkg-pr-new publish "./dist/prettier" "./dist/*" --compact --packageManager=yarn
+          yarn dlx pkg-pr-new publish "./*" --compact --packageManager=yarn
