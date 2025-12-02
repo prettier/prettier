@@ -62,23 +62,6 @@ jobs:
       - name: Install Dependencies
         run: yarn install --immutable
 
-      - name: Run Tests
-        if: ${{ !matrix.ENABLE_CODE_COVERAGE }}
-        run: yarn test
-
-      - name: Run Tests (coverage)
-        if: ${{ matrix.ENABLE_CODE_COVERAGE }}
-        run: yarn c8 yarn test
-
-      - name: Upload Coverage
-        uses: codecov/codecov-action@5a1091511ad55cbe89839c7260b706298ca349f7 # v5.5.1
-        if: ${{ matrix.ENABLE_CODE_COVERAGE }}
-        with:
-          fail_ci_if_error: true
-          disable_search: true
-          files: coverage/lcov.info
-          token: ${{ secrets.CODECOV_TOKEN }}
-
       - name: "`--debug-benchmark` flag"
         run: |
           node dist/prettier/bin/prettier.cjs --debug-benchmark index.js
