@@ -44,6 +44,9 @@ Example `package.json`:
   },
   "peerDependencies": {
     "prettier": ">=3.0.0"
+  },
+  "devDependencies": {
+    "prettier": "%PRETTIER_VERSION%"
   }
 }
 ```
@@ -145,49 +148,6 @@ export default config;
 ```
 
 ## Other examples
-
-### Using Type Annotation in the Shared Config
-
-You can get type safety and autocomplete support in your shared configuration by using a `jsdoc` type annotation:
-
-```js title="prettier.config.mjs"
-/**
- * @see https://prettier.io/docs/configuration
- * @type {import("prettier").Config}
- */
-const config = {
-  trailingComma: "es5",
-  tabWidth: 4,
-  semi: false,
-  singleQuote: true,
-};
-
-export default config;
-```
-
-In order to make this work, you have to [install `prettier`](./install.md) for the project.
-
-After that, your `package.json` file should look like this:
-
-```diff title="package.json"
-{
-  "name": "@username/prettier-config",
-  "version": "1.0.0",
-  "description": "My personal Prettier config",
-  "type": "module",
-  "exports": "./index.js",
-  "license": "MIT",
-  "publishConfig": {
-    "access": "public"
-  },
-  "peerDependencies": {
-    "prettier": ">=3.0.0"
-  },
-+ "devDependencies": {
-+   "prettier": "%PRETTIER_VERSION%"
-+ }
-}
-```
 
 ### Include Plugins in Shareable Configurations
 
