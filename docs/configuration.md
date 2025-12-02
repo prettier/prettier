@@ -43,7 +43,7 @@ NODE_OPTIONS="--experimental-strip-types" prettier . --write
 
 JSON:
 
-```json
+```json title=".prettierrc.json"
 {
   "trailingComma": "es5",
   "tabWidth": 4,
@@ -54,9 +54,7 @@ JSON:
 
 JS (ES Modules):
 
-```js
-// prettier.config.js, .prettierrc.js, prettier.config.mjs, or .prettierrc.mjs
-
+```js title="prettier.config.js, .prettierrc.js, prettier.config.mjs, or .prettierrc.mjs"
 /**
  * @see https://prettier.io/docs/configuration
  * @type {import("prettier").Config}
