@@ -62,7 +62,7 @@ if(1){
   node.type === "TSExternalModuleReference")) {
 //
 }}
-if(1){
+if(2){
 //
 }else {if( (
   node.type === "ImportExpression" ||
@@ -82,3 +82,16 @@ if(1){
 //
 }}
 
+if (!(
+  node.type === "ImportExpression" &&
+  node.type === "TSImportType" &&
+  node.type === "TSExternalModuleReference") || !(
+  node.type === "ImportExpression" &&
+  node.type === "TSImportType" &&
+  node.type === "TSExternalModuleReference")) {}else if ((
+  node.type === "ImportExpression" &&
+  node.type === "TSImportType" &&
+  node.type === "TSExternalModuleReference") || (
+  node.type === "ImportExpression" &&
+  node.type === "TSImportType" &&
+  node.type === "TSExternalModuleReference")){}
