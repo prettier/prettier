@@ -7614,7 +7614,7 @@ __metadata:
     smol-toml: "npm:1.5.2"
     strip-ansi: "npm:7.1.2"
     tempy: "npm:3.1.0"
-    tinybench: "npm:5.1.0"
+    tinybench: "npm:6.0.0"
     to-fast-properties: "npm:4.0.0"
     trim-newlines: "npm:5.0.0"
     ts-expect: "npm:1.3.0"
@@ -8602,10 +8602,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tinybench@npm:5.1.0":
-  version: 5.1.0
-  resolution: "tinybench@npm:5.1.0"
-  checksum: 10/3499e7d295345dcfc4aaed7779af5d03d806ec2299f7ce0007989579b633b184e397a7b3e07025282af16a2a4fb323183ad0efd826d3fae8b3026cdc1a147515
+"tinybench@npm:6.0.0":
+  version: 6.0.0
+  resolution: "tinybench@npm:6.0.0"
+  checksum: 10/045428b2eef70f6c1c9d450b172b4977f5ce2db2b1d7b5d6c47638e7d699b92544a1223826dc1aec063c9049d36c6fa7b2b402caa61e57839144539d22731072
   languageName: node
   linkType: hard
 
