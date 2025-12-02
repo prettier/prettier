@@ -37,9 +37,12 @@ You can load plugins with:
   ```js title="prettier.config.mjs"
   import * as prettierPluginFoo from "prettier-plugin-foo";
 
-  export default {
+  /** @type {import("prettier").Config} */
+  const config = {
     plugins: [prettierPluginFoo],
   };
+
+  export default config;
   ```
 
 Strings provided to `plugins` are ultimately passed to [`import()` expression](https://nodejs.org/api/esm.html#import-expressions), so you can provide a module/package name, a path, or anything else `import()` takes.
