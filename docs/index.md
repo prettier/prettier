@@ -25,6 +25,7 @@ Prettier takes your code and reprints it from scratch by taking the line length 
 
 For example, take the following code:
 
+<!-- prettier-ignore -->
 ```js
 foo(arg1, arg2, arg3, arg4);
 ```
