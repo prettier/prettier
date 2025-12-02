@@ -78,28 +78,28 @@ jobs:
           yarn dedupe --check
 
       - name: Run yarn (/website)
+        working-directory: website
         run: |
           yarn
           yarn dedupe --check
-        working-directory: website
 
       - name: Run yarn (/scripts/release)
+        working-directory: scripts/release
         run: |
           yarn
           yarn dedupe --check
-        working-directory: scripts/release
 
       - name: Run yarn (/scripts/tools/bundle-test)
+        working-directory: scripts/tools/bundle-test
         run: |
           yarn
           yarn dedupe --check
-        working-directory: scripts/tools/bundle-test
 
       - name: Run yarn (/scripts/tools/eslint-plugin-prettier-internal-rules)
+        working-directory: scripts/tools/eslint-plugin-prettier-internal-rules
         run: |
           yarn
           yarn dedupe --check
-        working-directory: scripts/tools/eslint-plugin-prettier-internal-rules
 
       - name: Knip
         run: yarn lint:knip
