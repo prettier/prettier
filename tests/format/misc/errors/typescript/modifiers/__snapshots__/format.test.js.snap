@@ -4859,6 +4859,12 @@ exports[`snippet: #224 [babel-ts] format 1`] = `
 Cause: A parameter property may not be declared using a binding pattern. (1:21)"
 `;
 
+exports[`snippet: #224 [oxc-ts] format 1`] = `
+"A parameter property may not be declared using a binding pattern. (1:22)
+> 1 | class A {constructor(override []){}}
+    |                      ^^^^^^^^^^^"
+`;
+
 exports[`snippet: #224 [typescript] format 1`] = `
 "A parameter property may not be declared using a binding pattern. (1:22)
 > 1 | class A {constructor(override []){}}
@@ -4871,6 +4877,12 @@ exports[`snippet: #225 [babel-ts] format 1`] = `
 > 1 | class A {constructor(override {}){}}
     |                      ^
 Cause: A parameter property may not be declared using a binding pattern. (1:21)"
+`;
+
+exports[`snippet: #225 [oxc-ts] format 1`] = `
+"A parameter property may not be declared using a binding pattern. (1:22)
+> 1 | class A {constructor(override {}){}}
+    |                      ^^^^^^^^^^^"
 `;
 
 exports[`snippet: #225 [typescript] format 1`] = `
@@ -4907,6 +4919,12 @@ exports[`snippet: #227 [babel-ts] format 1`] = `
 Cause: A parameter property may not be declared using a binding pattern. (1:21)"
 `;
 
+exports[`snippet: #227 [oxc-ts] format 1`] = `
+"A parameter property may not be declared using a binding pattern. (1:22)
+> 1 | class A {constructor(private []){}}
+    |                      ^^^^^^^^^^"
+`;
+
 exports[`snippet: #227 [typescript] format 1`] = `
 "A parameter property may not be declared using a binding pattern. (1:22)
 > 1 | class A {constructor(private []){}}
@@ -4919,6 +4937,12 @@ exports[`snippet: #228 [babel-ts] format 1`] = `
 > 1 | class A {constructor(private {}){}}
     |                      ^
 Cause: A parameter property may not be declared using a binding pattern. (1:21)"
+`;
+
+exports[`snippet: #228 [oxc-ts] format 1`] = `
+"A parameter property may not be declared using a binding pattern. (1:22)
+> 1 | class A {constructor(private {}){}}
+    |                      ^^^^^^^^^^"
 `;
 
 exports[`snippet: #228 [typescript] format 1`] = `
@@ -4955,6 +4979,12 @@ exports[`snippet: #230 [babel-ts] format 1`] = `
 Cause: A parameter property may not be declared using a binding pattern. (1:21)"
 `;
 
+exports[`snippet: #230 [oxc-ts] format 1`] = `
+"A parameter property may not be declared using a binding pattern. (1:22)
+> 1 | class A {constructor(protected []){}}
+    |                      ^^^^^^^^^^^^"
+`;
+
 exports[`snippet: #230 [typescript] format 1`] = `
 "A parameter property may not be declared using a binding pattern. (1:22)
 > 1 | class A {constructor(protected []){}}
@@ -4967,6 +4997,12 @@ exports[`snippet: #231 [babel-ts] format 1`] = `
 > 1 | class A {constructor(protected {}){}}
     |                      ^
 Cause: A parameter property may not be declared using a binding pattern. (1:21)"
+`;
+
+exports[`snippet: #231 [oxc-ts] format 1`] = `
+"A parameter property may not be declared using a binding pattern. (1:22)
+> 1 | class A {constructor(protected {}){}}
+    |                      ^^^^^^^^^^^^"
 `;
 
 exports[`snippet: #231 [typescript] format 1`] = `
@@ -5003,6 +5039,12 @@ exports[`snippet: #233 [babel-ts] format 1`] = `
 Cause: A parameter property may not be declared using a binding pattern. (1:21)"
 `;
 
+exports[`snippet: #233 [oxc-ts] format 1`] = `
+"A parameter property may not be declared using a binding pattern. (1:22)
+> 1 | class A {constructor(public []){}}
+    |                      ^^^^^^^^^"
+`;
+
 exports[`snippet: #233 [typescript] format 1`] = `
 "A parameter property may not be declared using a binding pattern. (1:22)
 > 1 | class A {constructor(public []){}}
@@ -5015,6 +5057,12 @@ exports[`snippet: #234 [babel-ts] format 1`] = `
 > 1 | class A {constructor(public {}){}}
     |                      ^
 Cause: A parameter property may not be declared using a binding pattern. (1:21)"
+`;
+
+exports[`snippet: #234 [oxc-ts] format 1`] = `
+"A parameter property may not be declared using a binding pattern. (1:22)
+> 1 | class A {constructor(public {}){}}
+    |                      ^^^^^^^^^"
 `;
 
 exports[`snippet: #234 [typescript] format 1`] = `
@@ -5051,6 +5099,12 @@ exports[`snippet: #236 [babel-ts] format 1`] = `
 Cause: A parameter property may not be declared using a binding pattern. (1:21)"
 `;
 
+exports[`snippet: #236 [oxc-ts] format 1`] = `
+"A parameter property may not be declared using a binding pattern. (1:22)
+> 1 | class A {constructor(readonly []){}}
+    |                      ^^^^^^^^^^^"
+`;
+
 exports[`snippet: #236 [typescript] format 1`] = `
 "A parameter property may not be declared using a binding pattern. (1:22)
 > 1 | class A {constructor(readonly []){}}
@@ -5063,6 +5117,12 @@ exports[`snippet: #237 [babel-ts] format 1`] = `
 > 1 | class A {constructor(readonly {}){}}
     |                      ^
 Cause: A parameter property may not be declared using a binding pattern. (1:21)"
+`;
+
+exports[`snippet: #237 [oxc-ts] format 1`] = `
+"A parameter property may not be declared using a binding pattern. (1:22)
+> 1 | class A {constructor(readonly {}){}}
+    |                      ^^^^^^^^^^^"
 `;
 
 exports[`snippet: #237 [typescript] format 1`] = `
