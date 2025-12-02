@@ -150,7 +150,7 @@ To read about how git-format-staged works see [Automatic Code Formatting for Par
 
 Alternately you can save this script as `.git/hooks/pre-commit` and give it execute permission:
 
-```sh
+```sh title=".git/hooks/pre-commit"
 #!/bin/sh
 FILES=$(git diff --cached --name-only --diff-filter=ACMR | sed 's| |\\ |g')
 [ -z "$FILES" ] && exit 0
@@ -168,7 +168,7 @@ If git is reporting that your prettified files are still modified after committi
 
 Add something like the following to `.git/hooks/post-commit`:
 
-```sh
+```sh title=".git/hooks/post-commit"
 #!/bin/sh
 git update-index -g
 ```
