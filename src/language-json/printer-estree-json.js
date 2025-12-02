@@ -47,6 +47,8 @@ function genericPrint(path, options, print) {
     case "StringLiteral":
       return printString(getRaw(node), options);
     case "NumericLiteral": {
+      // Intentionally to not use `printNumber`
+      // We may start stop support number normalization like the string print
       const raw = getRaw(node);
       if (isObjectKey(path) && String(Number(raw)) === raw) {
         return `"${raw}"`;
