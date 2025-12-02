@@ -74,7 +74,6 @@ function isObjectKey(path) {
 const ignoredProperties = new Set([
   "start",
   "end",
-  "extra",
   "loc",
   "comments",
   "leadingComments",
@@ -87,19 +86,43 @@ const ignoredProperties = new Set([
 
 function clean(original, cloned /* , parent*/) {
   const { type } = original;
+
   // We print quoted key
   if (type === "ObjectProperty") {
     const { key } = original;
     if (key.type === "Identifier") {
-      cloned.key = { type: "StringLiteral", value: key.name };
+      const { name } = key;
+      cloned.key = {
+        type: "StringLiteral",
+        value: name,
+        extra: { rawValue: name },
+      };
     } else if (key.type === "NumericLiteral") {
-      cloned.key = { type: "StringLiteral", value: getRaw(key) };
+      const raw = getRaw(key);
+      cloned.key = {
+        type: "StringLiteral",
+        value: raw,
+        extra: { rawValue: raw },
+      };
     }
-    return;
   }
+
+  if (type === "StringLiteral") {
+    // We only remove `\` before `"`, but it's hard to detect if it's escaped
+    delete cloned.extra.raw;
+  }
+
   if (type === "UnaryExpression" && original.operator === "+") {
     return cloned.argument;
   }
+
+  if (type === "ArrayExpression" || type === "ObjectExpression") {
+    cloned.extra ??= {};
+    if (original.extra?.trailingComma) {
+      delete cloned.extra.trailingComma;
+    }
+  }
+
   // We print holes in array as `null`
   if (type === "ArrayExpression") {
     for (const [index, element] of original.elements.entries()) {
@@ -111,7 +134,12 @@ function clean(original, cloned /* , parent*/) {
   }
   // We print `TemplateLiteral` as string
   if (type === "TemplateLiteral") {
-    return { type: "StringLiteral", value: original.quasis[0].value.cooked };
+    const value = original.quasis[0].value.cooked;
+    return {
+      type: "StringLiteral",
+      value,
+      extra: { rawValue: value },
+    };
   }
 }
 
