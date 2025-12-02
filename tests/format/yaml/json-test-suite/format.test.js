@@ -22,19 +22,13 @@ const SKIP = new Set([
   "i_structure_500_nested_arrays.json",
 ]);
 
-const BUGS = new Set([
-  "y_object_string_unicode.json",
-  "y_object_long_strings.json",
-  "y_string_backslash_doublequotes.json",
-]);
-
 const cases = [...parsing, ...transform]
   .map(({ name, input, error }) => {
     if (error) {
       return;
     }
 
-    if (SKIP.has(name) || BUGS.has(name)) {
+    if (SKIP.has(name)) {
       return;
     }
 
