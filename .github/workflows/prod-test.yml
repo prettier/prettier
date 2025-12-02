@@ -143,7 +143,7 @@ jobs:
       - name: "`--debug-benchmark` flag"
         if: ${{ matrix.node != '14' }}
         working-directory: dist/prettier
-        run: node bin/prettier.cjs --debug-benchmark index.js 2>&1 | grep "Latency avg" || exit 1
+        run: node bin/prettier.cjs --debug-benchmark package.json 2>&1 | grep "Latency avg" || exit 1
 
   cli:
     name: CLI
@@ -166,7 +166,7 @@ jobs:
 
       - name: "`--debug-benchmark` flag"
         working-directory: dist/prettier
-        run: node bin/prettier.cjs --debug-benchmark index.js 2>&1 | grep "'--debug-benchmark' requires the 'tinybench' package to be installed." || exit 1
+        run: node bin/prettier.cjs --debug-benchmark package.json 2>&1 | grep "'--debug-benchmark' requires the 'tinybench' package to be installed." || exit 1
 
       - name: Setup Node.js
         uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v6.0.0
