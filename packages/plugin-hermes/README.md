@@ -19,12 +19,15 @@ Create or modify your [prettier configuration file](https://prettier.io/docs/en/
 // prettier.config.mjs
 import * as prettierPluginHermes from "@prettier/plugin-hermes";
 
-export default {
+/** @type {import("prettier").Config} */
+const config = {
   plugins: [prettierPluginHermes],
 };
+
+export default config;
 ```
 
-**Requires prettier >= 3.6**
+**Requires prettier>=3.6.0**
 
 Or config explicitly
 
@@ -32,7 +35,8 @@ Or config explicitly
 // prettier.config.mjs
 import * as prettierPluginHermes from "@prettier/plugin-hermes";
 
-export default {
+/** @type {import("prettier").Config} */
+const config = {
   overrides: [
     {
       files: ["**/*.{js.flow,js,mjs,cjs}"],
@@ -41,4 +45,6 @@ export default {
     },
   ],
 };
+
+export default config;
 ```

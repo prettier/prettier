@@ -19,12 +19,15 @@ Create or modify your [prettier configuration file](https://prettier.io/docs/en/
 // prettier.config.mjs
 import * as prettierPluginOxc from "@prettier/plugin-oxc";
 
-export default {
+/** @type {import("prettier").Config} */
+const config = {
   plugins: [prettierPluginOxc],
 };
+
+export default config;
 ```
 
-**Requires prettier >= 3.6**
+**Requires prettier>=3.6.0**
 
 Or config explicitly
 
@@ -32,7 +35,8 @@ Or config explicitly
 // prettier.config.mjs
 import * as prettierPluginOxc from "@prettier/plugin-oxc";
 
-export default {
+/** @type {import("prettier").Config} */
+const config = {
   overrides: [
     {
       files: ["**/*.{js,mjs,cjs,jsx}"],
@@ -46,4 +50,6 @@ export default {
     },
   ],
 };
+
+export default config;
 ```
