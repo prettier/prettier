@@ -161,7 +161,7 @@ jobs:
 
       - name: "`--debug-benchmark` flag"
         run: |
-          node dist/prettier/bin/prettier.cjs --debug-benchmark index.js
+          node dist/prettier/bin/prettier.cjs --debug-benchmark index.js 2>&1 | grep "Latency avg" || exit 1
 
       - name: Setup Node.js
         uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v6.0.0
