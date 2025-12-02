@@ -80,4 +80,4 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
 
       - name: "`--debug-benchmark` flag"
-        run: node bin/prettier.cjs --debug-benchmark package.json 2>&1 | grep "Latency avg" || exit 1
+        run: node bin/prettier.cjs --debug-benchmark package.json 2>&1 >/dev/null | grep "Latency avg" || exit 1
