@@ -1,4 +1,5 @@
 import { hardline, indent, join } from "../document/index.js";
+import printString from "../utilities/print-string.js";
 import UnexpectedNodeError from "../utilities/unexpected-node-error.js";
 
 function genericPrint(path, options, print) {
@@ -44,7 +45,7 @@ function genericPrint(path, options, print) {
     case "BooleanLiteral":
       return node.value ? "true" : "false";
     case "StringLiteral":
-      return JSON.stringify(node.value);
+      return printString(getRaw(node), options);
     case "NumericLiteral": {
       const raw = getRaw(node);
       return isObjectKey(path) ? `"${raw}"` : raw;
