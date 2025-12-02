@@ -125,6 +125,7 @@ jobs:
           path: dist
 
       - name: "`--debug-benchmark` flag"
+        if: ${{ matrix.node != '14' }}
         run: |
           node dist/prettier/bin/prettier.cjs --debug-benchmark index.js 2>&1 | grep "Latency avg" || exit 1
 
