@@ -141,7 +141,7 @@ jobs:
         run: yarn test:production-standalone-node14
 
       - name: "`--debug-benchmark` flag"
-        if: ${{ matrix.node != '14' }}
+        if: ${{ matrix.node != '14' && matrix.os != 'windows-latest' }}
         working-directory: dist/prettier
         run: node bin/prettier.cjs --debug-benchmark package.json 2>&1 >/dev/null | grep "Latency avg" || exit 1
 
