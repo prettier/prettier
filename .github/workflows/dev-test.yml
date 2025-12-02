@@ -78,3 +78,6 @@ jobs:
           disable_search: true
           files: coverage/lcov.info
           token: ${{ secrets.CODECOV_TOKEN }}
+
+      - name: "`--debug-benchmark` flag"
+        run: node bin/prettier.cjs --debug-benchmark index.js 2>&1 | grep "Latency avg" || exit 1
