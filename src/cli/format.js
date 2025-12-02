@@ -163,6 +163,7 @@ async function format(context, input, opt) {
     let Bench;
     try {
       ({ Bench } = await import("tinybench"));
+      throw new Error("For test");
     } catch {
       context.logger.debug(
         "'--debug-benchmark' requires the 'tinybench' package to be installed.",
