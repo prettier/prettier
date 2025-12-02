@@ -45,10 +45,10 @@ function genericPrint(path, options, print) {
       return node.value ? "true" : "false";
     case "StringLiteral":
       return JSON.stringify(node.value);
-    case "NumericLiteral":
-      return isObjectKey(path)
-        ? JSON.stringify(String(node.value))
-        : JSON.stringify(node.value);
+    case "NumericLiteral": {
+      const raw = getRaw(node);
+      return isObjectKey(path) ? `"${raw}"` : raw;
+    }
     case "Identifier":
       return isObjectKey(path) ? JSON.stringify(node.name) : node.name;
     case "TemplateLiteral":
@@ -60,6 +60,10 @@ function genericPrint(path, options, print) {
       /* c8 ignore next */
       throw new UnexpectedNodeError(node, "JSON");
   }
+}
+
+function getRaw(node) {
+  return node.extra.raw;
 }
 
 function isObjectKey(path) {
@@ -88,7 +92,7 @@ function clean(original, cloned /* , parent*/) {
     if (key.type === "Identifier") {
       cloned.key = { type: "StringLiteral", value: key.name };
     } else if (key.type === "NumericLiteral") {
-      cloned.key = { type: "StringLiteral", value: String(key.value) };
+      cloned.key = { type: "StringLiteral", value: getRaw(key) };
     }
     return;
   }
