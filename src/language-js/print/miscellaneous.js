@@ -113,6 +113,9 @@ function printTypeScriptAccessibilityToken(node) {
   return node.accessibility ? node.accessibility + " " : "";
 }
 
+const isLogicalNot = (node) =>
+  node.type === "UnaryExpression" && node.operator === "!";
+
 function shouldInlineCondition(node) {
   if (hasComment(node)) {
     return false;
@@ -140,11 +143,13 @@ function shouldInlineCondition(node) {
   so we are not going to inline it.
   */
 
-  for (let level = 0; level < 2; level++) {
-    if (node.type === "UnaryExpression" && node.operator === "!") {
-      node = node.argument;
-    }
+  // `!(a | b)` and `!!(a | b)`, but not `!!!(a | b)`
+  if (!isLogicalNot(node)) {
+    return false;
   }
+
+  node = node.argument;
+  node = isLogicalNot(node) ? node.argument : node;
 
   return node.type === "LogicalExpression";
 }
