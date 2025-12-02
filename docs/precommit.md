@@ -33,7 +33,7 @@ Install it along with [simple-git-hooks](https://github.com/toplenboren/simple-g
 
 ```bash
 npm install --save-dev simple-git-hooks pretty-quick
-echo '{\n  "pre-commit": "npx pretty-quick --staged"\n}\n' > .simple-git-hooks.json
+node --eval "fs.writeFileSync('.simple-git-hooks.json',JSON.stringify({'pre-commit':'npx pretty-quick --staged'},undefined,2)+'\n')"
 npx simple-git-hooks
 ```
 
@@ -42,7 +42,7 @@ npx simple-git-hooks
 
 ```bash
 yarn add --dev simple-git-hooks pretty-quick
-echo '{\n  "pre-commit": "yarn pretty-quick --staged"\n}\n' > .simple-git-hooks.json
+node --eval "fs.writeFileSync('.simple-git-hooks.json',JSON.stringify({'pre-commit':'yarn pretty-quick --staged'},undefined,2)+'\n')"
 yarn simple-git-hooks
 ```
 
@@ -51,7 +51,7 @@ yarn simple-git-hooks
 
 ```bash
 pnpm add --save-dev simple-git-hooks pretty-quick
-echo '{\n  "pre-commit": "pnpm pretty-quick --staged"\n}\n' > .simple-git-hooks.json
+node --eval "fs.writeFileSync('.simple-git-hooks.json',JSON.stringify({'pre-commit':'pnpm pretty-quick --staged'},undefined,2)+'\n')"
 pnpm simple-git-hooks
 ```
 
@@ -60,7 +60,7 @@ pnpm simple-git-hooks
 
 ```bash
 bun add --dev simple-git-hooks pretty-quick
-echo '{\n  "pre-commit": "bun pretty-quick --staged"\n}\n' > .simple-git-hooks.json
+node --eval "fs.writeFileSync('.simple-git-hooks.json',JSON.stringify({'pre-commit':'bun pretty-quick --staged'},undefined,2)+'\n')"
 bun simple-git-hooks
 ```
 
