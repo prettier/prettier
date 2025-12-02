@@ -82,13 +82,13 @@ if(2){
 //
 }}
 
-if (!(
+if ((
   node.type === "ImportExpression" &&
   node.type === "TSImportType" &&
   node.type === "TSExternalModuleReference") || !(
   node.type === "ImportExpression" &&
   node.type === "TSImportType" &&
-  node.type === "TSExternalModuleReference")) {}else if ((
+  node.type === "TSExternalModuleReference")) {}else if (!(
   node.type === "ImportExpression" &&
   node.type === "TSImportType" &&
   node.type === "TSExternalModuleReference") || (
