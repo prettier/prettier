@@ -162,7 +162,7 @@ async function format(context, input, opt) {
   if (performanceTestFlag?.debugBenchmark) {
     let Bench;
     try {
-      ({ Bench } = await import("tinybench"));
+      ({ Bench } = await import("tinybenchxxx"));
     } catch {
       context.logger.debug(
         "'--debug-benchmark' requires the 'tinybench' package to be installed.",
