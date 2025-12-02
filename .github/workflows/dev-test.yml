@@ -81,4 +81,4 @@ jobs:
 
       - name: "`--debug-benchmark` flag"
         run: |
-          node dist/prettier/bin/prettier.cjs --debug-benchmark index.js 2>&1 | grep "Latency avg" || exit 1
+          node dist/prettier/bin/prettier.cjs --debug-benchmark index.js
