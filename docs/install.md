@@ -12,28 +12,28 @@ First, install Prettier locally:
 <TabItem value="npm">
 
 ```bash
-npm install --save-dev --save-exact prettier
+npm install --save-dev --save-exact prettier@%PRETTIER_VERSION%
 ```
 
 </TabItem>
 <TabItem value="yarn">
 
 ```bash
-yarn add --dev --exact prettier
+yarn add --dev --exact prettier@%PRETTIER_VERSION%
 ```
 
 </TabItem>
 <TabItem value="pnpm">
 
 ```bash
-pnpm add --save-dev --save-exact prettier
+pnpm add --save-dev --save-exact prettier@%PRETTIER_VERSION%
 ```
 
 </TabItem>
 <TabItem value="bun">
 
 ```bash
-bun add --dev --exact prettier
+bun add --dev --exact prettier@%PRETTIER_VERSION%
 ```
 
 </TabItem>

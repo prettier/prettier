@@ -50,7 +50,8 @@ Example `package.json`:
 
 `index.js` is where you put the shared configuration. This file just exports a [regular prettier configuration](./configuration.md) with the same syntax and same options:
 
-```js
+```js title="index.js"
+/** @type {import("prettier").Config} */
 const config = {
   trailingComma: "es5",
   tabWidth: 4,
@@ -125,12 +126,10 @@ If you don’t want to use `package.json`, you can use any of the supported exte
 
 To _extend_ the configuration to overwrite some properties from the shared configuration, import the file in a `.prettierrc.mjs` file and export the modifications, e.g:
 
-```js
+```js title="prettier.config.mjs"
 import usernamePrettierConfig from "@username/prettier-config";
 
-/**
- * @type {import("prettier").Config}
- */
+/** @type {import("prettier").Config} */
 const config = {
   ...usernamePrettierConfig,
   semi: false,
@@ -145,10 +144,8 @@ export default config;
 
 You can get type safety and autocomplete support in your shared configuration by using a `jsdoc` type annotation:
 
-```js
-/**
- * @type {import("prettier").Config}
- */
+```js title="prettier.config.mjs"
+/** @type {import("prettier").Config} */
 const config = {
   trailingComma: "es5",
   tabWidth: 4,
@@ -163,7 +160,7 @@ In order to make this work, you have to [install `prettier`](./install.md) for t
 
 After that, your `package.json` file should look like this:
 
-```diff
+```diff title="package.json"
 {
   "name": "@username/prettier-config",
   "version": "1.0.0",
@@ -187,18 +184,19 @@ After that, your `package.json` file should look like this:
 
 In case you want to use [plugins](./plugins.md) in your shared configuration, you need to declare those plugins in the config file's `plugin` array and as `dependencies` in `package.json`:
 
-```js
-// index.js
+```js title="index.js"
+import * as prettierPluginOxc from "@prettier/plugin-oxc";
+
+/** @type {import("prettier").Config} */
 const config = {
   singleQuote: true,
-  plugins: ["prettier-plugin-xml"],
+  plugins: [prettierPluginOxc],
 };
 
 export default config;
 ```
 
-```diff
-// package.json
+```diff title="package.json"
 {
   "name": "@username/prettier-config",
   "version": "1.0.0",
@@ -210,7 +208,7 @@ export default config;
     "access": "public"
   },
 +  "dependencies": {
-+    "prettier-plugin-xml": "3.4.1"
++    "@prettier/plugin-oxc": "0.1.2"
 +  },
   "peerDependencies": {
     "prettier": ">=3.0.0"
