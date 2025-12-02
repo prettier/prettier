@@ -82,7 +82,7 @@ dotnet husky add pre-commit
 
 after installation you can add prettier task to the `task-runner.json`.
 
-```json
+```json title="task-runner.json"
 {
   "command": "npx",
   "args": ["prettier", "--ignore-unknown", "--write", "${staged}"],
