@@ -142,6 +142,24 @@ export default config;
 
 ## Other examples
 
+### Using Type Annotation in the Shared Config
+
+You can get type safety and autocomplete support in your shared configuration by using a `jsdoc` type annotation:
+
+```js
+/**
+ * @type {import("prettier").Config}
+ */
+const config = {
+  trailingComma: "es5",
+  tabWidth: 4,
+  semi: false,
+  singleQuote: true,
+};
+
+export default config;
+```
+
 In order to make this work, you have to [install `prettier`](./install.md) for the project.
 
 After that, your `package.json` file should look like this:
