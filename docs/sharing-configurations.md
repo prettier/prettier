@@ -175,7 +175,7 @@ After that, your `package.json` file should look like this:
     "prettier": ">=3.0.0"
   },
 + "devDependencies": {
-+   "prettier": "^3.3.3"
++   "prettier": "%PRETTIER_VERSION%"
 + }
 }
 ```
