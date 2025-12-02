@@ -1,6 +1,8 @@
+{{
 if (!doesImmediatelyReturnFunctionExpression({ node: current,returns,})) {
       }
 if (!validatePredefinedFormat(config, name, node, originalName, modifiers)) {}
+}}
 if (
         ![
           AST_NODE_TYPES.ArrowFunctionExpression,
