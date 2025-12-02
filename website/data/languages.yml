@@ -5,6 +5,13 @@
     - "[Flow](https://flow.org/)"
     - "[TypeScript](https://www.typescriptlang.org/)"
     - "[JSON](https://json.org/)"
+- name: CSS
+  image: /images/languages/tools_css.svg
+  variants:
+    - "[Less](http://lesscss.org/)"
+    - "[SCSS](https://sass-lang.com/)"
+    - "[`styled-components`](https://styled-components.com/) 💅"
+    - "[`styled-jsx`](https://npmjs.com/styled-jsx/)"
 - name: HTML
   image: /images/languages/tools_html.svg
   variants:
@@ -13,13 +20,6 @@
     - "[Ember / Handlebars](https://emberjs.com/)"
     - "[Lightning Web Components (LWC)](https://developer.salesforce.com/developer-centers/lightning-web-components)"
     - "[MJML](https://mjml.io/)"
-- name: CSS
-  image: /images/languages/tools_css.svg
-  variants:
-    - "[Less](http://lesscss.org/)"
-    - "[SCSS](https://sass-lang.com/)"
-    - "[`styled-components`](https://styled-components.com/) 💅"
-    - "[`styled-jsx`](https://npmjs.com/styled-jsx/)"
 - name: GraphQL
   nameLink: https://graphql.org
   image: /images/languages/tools_gql.svg

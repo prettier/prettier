@@ -150,7 +150,7 @@ function LanguagesSection() {
   /** @type {Language[]} */
   const languages = siteConfig.customFields.supportedLanguages;
 
-  // Each chunk can have <=2 languages, <=10 variants
+  // Each chunk can have <=2 languages, <=9 variants
   /** @type {{variantsCount: number, languages: Language[]}[]} */
   const languageChunks = [];
   for (const language of languages) {
@@ -159,7 +159,7 @@ function LanguagesSection() {
     if (
       last &&
       last.languages.length < 2 &&
-      last.variantsCount + languageVariants < 10
+      last.variantsCount + languageVariants < 9
     ) {
       last.variantsCount += languageVariants;
       last.languages.push(language);
