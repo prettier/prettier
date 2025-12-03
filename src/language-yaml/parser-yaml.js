@@ -14,7 +14,7 @@ function parse(text) {
   let root;
   try {
     root = parseYaml(text, parseOptions);
-  } catch (/** @type {any} */ error) {
+  } catch (error) {
     if (error instanceof YAMLSyntaxError) {
       throw createError(error.message, {
         loc: error.position,
