@@ -7,18 +7,16 @@ printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
 ---
-    invalid:
-invalid:
+key:     value
+key:value
 ---
-
-
 
 <html><head></head><body></body></html>
 
 =====================================output=====================================
 ---
-invalid:
-invalid:
+key:     value
+key:value
 ---
 
 <html>
