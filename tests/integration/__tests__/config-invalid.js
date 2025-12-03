@@ -168,7 +168,10 @@ describe("Invalid yaml file", () => {
     stderr: expect.stringContaining(
       // Keep the outdent, since error message changes between versions
       outdent`
-        Map keys must be unique; "a" is repeated
+        Map keys must be unique at line 1, column 3:
+
+        a:
+          ^
       `
         .split("\n")
         .map((line) => `[error] ${line}`)
