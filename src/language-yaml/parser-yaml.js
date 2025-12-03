@@ -1,25 +1,19 @@
-import { parse as parseYaml } from "yaml-unist-parser/lib/parse.js";
+import { parse as parseYaml } from "yaml-unist-parser";
 import createError from "../common/parser-create-error.js";
 import { locEnd, locStart } from "./loc.js";
 import { hasIgnorePragma, hasPragma } from "./pragma.js";
 
-const parseOptions = {
-  allowDuplicateKeysInMap: true,
-};
+/**
+@import {ParseOptions} from "yaml-unist-parser";
+*/
+
+/** @type {ParseOptions} */
+const parseOptions = { uniqueKeys: false };
 
 function parse(text) {
+  let root;
   try {
-    const root = parseYaml(text, parseOptions);
-
-    /**
-     * suppress `comment not printed` error
-     *
-     * comments are handled in printer-yaml.js without using `printComment`
-     * so that it'll always throw errors even if we printed it correctly
-     */
-    delete root.comments;
-
-    return root;
+    root = parseYaml(text, parseOptions);
   } catch (/** @type {any} */ error) {
     if (error?.position) {
       throw createError(error.message, {
@@ -31,6 +25,16 @@ function parse(text) {
     /* c8 ignore next */
     throw error;
   }
+
+  /**
+   * suppress `comment not printed` error
+   *
+   * comments are handled in printer-yaml.js without using `printComment`
+   * so that it'll always throw errors even if we printed it correctly
+   */
+  delete root.comments;
+
+  return root;
 }
 
 export const yaml = {
