@@ -8219,9 +8219,9 @@ __metadata:
     url-or-path: "npm:2.6.1"
     vnopts: "npm:2.0.3"
     wcwidth.js: "npm:2.0.0"
-    yaml: "npm:1.10.3"
+    yaml: "npm:2.8.2"
     yaml-test-suite: "npm:0.1.0"
-    yaml-unist-parser: "npm:2.2.1"
+    yaml-unist-parser: "npm:3.0.0"
   bin:
     prettier: ./bin/prettier.cjs
   languageName: unknown
@@ -9858,23 +9858,25 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yaml-unist-parser@npm:2.2.1":
-  version: 2.2.1
-  resolution: "yaml-unist-parser@npm:2.2.1"
+"yaml-unist-parser@npm:3.0.0":
+  version: 3.0.0
+  resolution: "yaml-unist-parser@npm:3.0.0"
   dependencies:
-    yaml: "npm:^1.10.2"
-  checksum: 10/261817825ca6b754d6295d3d6b8ee82f60f138fdd2c13c57a68153ddbace1844192e458912236ac99cf83f369cff5a21a3581bfe1dc8d0fcea5c6f6a0689d226
+    yaml: "npm:^2.8.2"
+  checksum: 10/ca66aee4796dd05f0e2065e8aaed0ddf2e6f00c6067d7d17e5f05061a6716f8cfd220f9e8719f71d3cf3d5d7232c487cc8e738bad5060bf0129d3844c5fb8f05
   languageName: node
   linkType: hard
 
-"yaml@npm:1.10.3, yaml@npm:^1.10.2":
-  version: 1.10.3
-  resolution: "yaml@npm:1.10.3"
-  checksum: 10/e2ef2feb92c708138f016c69777a0f1e45f6d3c5e7cbcda30807a98a37eda2e008bd4fa57352b043c65245a4c799d0c99d1f9b3425de40e70929e26d2ea38215
+"yaml@npm:2.8.2":
+  version: 2.8.2
+  resolution: "yaml@npm:2.8.2"
+  bin:
+    yaml: bin.mjs
+  checksum: 10/4eab0074da6bc5a5bffd25b9b359cf7061b771b95d1b3b571852098380db3b1b8f96e0f1f354b56cc7216aa97cea25163377ccbc33a2e9ce00316fe8d02f4539
   languageName: node
   linkType: hard
 
-"yaml@npm:^2.8.3, yaml@npm:^2.9.0":
+"yaml@npm:^2.8.2, yaml@npm:^2.8.3, yaml@npm:^2.9.0":
   version: 2.9.0
   resolution: "yaml@npm:2.9.0"
   bin:
