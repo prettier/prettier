@@ -130,7 +130,7 @@ If you don’t want to use `package.json`, you can use any of the supported exte
 
 ### Extending a Sharable Config
 
-To _extend_ the configuration to overwrite some properties from the shared configuration, import the file in a `.prettierrc.mjs` file and export the modifications, e.g:
+To _extend_ the configuration to overwrite some properties from the shared configuration, import the file in a `prettier.config.mjs` file and export the modifications, e.g:
 
 ```js title="prettier.config.mjs"
 import usernamePrettierConfig from "@username/prettier-config";
