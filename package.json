@@ -120,7 +120,7 @@
     "vnopts": "2.0.3",
     "wcwidth.js": "2.0.0",
     "yaml": "1.10.2",
-    "yaml-unist-parser": "2.1.1"
+    "yaml-unist-parser": "2.2.1"
   },
   "devDependencies": {
     "@babel/generator": "8.0.0-beta.3",

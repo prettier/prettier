@@ -1,0 +1,27 @@
+---
+foo: 1
+foo: 2
+
+---
+foo:
+  bar: 1
+  bar: 2
+
+---
+foo:
+  bar:
+    baz: 1
+    baz: 2
+
+---
+foo:
+  - bar: item1
+    bar: item2
+  - baz: 1
+    baz: 2
+
+---
+? foo
+: 1
+? foo
+: 2

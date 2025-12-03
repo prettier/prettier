@@ -5,7 +5,9 @@ import { hasIgnorePragma, hasPragma } from "./pragma.js";
 
 function parse(text) {
   try {
-    const root = parseYaml(text);
+    const root = parseYaml(text, {
+      allowDuplicateKeysInMap: true,
+    });
 
     /**
      * suppress `comment not printed` error
