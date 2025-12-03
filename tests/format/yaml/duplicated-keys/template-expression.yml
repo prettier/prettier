@@ -4,25 +4,7 @@ foo:
     a: 1
   ${{ else }}:
     a: 2
-
----
-foo:
   ${{ if bar }}:
-    a: 1
-  ${{ else }}:
-    a: 2
-  ${{ if bar }}:
-    b: 1
-  ${{ else }}:
-    b: 2
-
----
-foo:
-  ${{ if bar }}:
-    a: 1
-  ${{ else }}:
-    a: 2
-  ${{ if baz }}:
     b: 1
   ${{ else }}:
     b: 2
