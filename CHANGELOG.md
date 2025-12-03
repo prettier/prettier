@@ -1,3 +1,63 @@
+# 3.7.4
+
+[diff](https://github.com/prettier/prettier/compare/3.7.3...3.7.4)
+
+#### LWC: Avoid quote around interpolations ([#18383](https://github.com/prettier/prettier/pull/18383) by [@kovsu](https://github.com/kovsu))
+
+<!-- prettier-ignore -->
+```html
+<!-- Input -->
+<div foo={bar}>   </div>
+
+<!-- Prettier 3.7.3 (--embedded-language-formatting off) -->
+<div foo="{bar}"></div>
+
+<!-- Prettier 3.7.4 (--embedded-language-formatting off) -->
+<div foo={bar}></div>
+```
+
+#### TypeScript: Fix comment inside union type get duplicated ([#18393](https://github.com/prettier/prettier/pull/18393) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```tsx
+// Input
+type Foo = (/** comment */ a | b) | c;
+
+// Prettier 3.7.3
+type Foo = /** comment */ (/** comment */ a | b) | c;
+
+// Prettier 3.7.4
+type Foo = /** comment */ (a | b) | c;
+```
+
+#### TypeScript: Fix unstable comment print in union type comments ([#18395](https://github.com/prettier/prettier/pull/18395) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```tsx
+// Input
+type X = (A | B) & (
+  // comment
+  A | B
+);
+
+// Prettier 3.7.3 (first format)
+type X = (A | B) &
+  (// comment
+  A | B);
+
+// Prettier 3.7.3 (second format)
+type X = (
+  | A
+  | B // comment
+) &
+  (A | B);
+
+// Prettier 3.7.4
+type X = (A | B) &
+  // comment
+  (A | B);
+```
+
 # 3.7.3
 
 [diff](https://github.com/prettier/prettier/compare/3.7.2...3.7.3)
