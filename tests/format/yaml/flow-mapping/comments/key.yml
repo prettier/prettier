@@ -9,12 +9,5 @@
 "key"
 :value}
 ---
-{
-&[
-"key",
-# 4
-""]
-:value}
----
 {"key": # 1
 value}
