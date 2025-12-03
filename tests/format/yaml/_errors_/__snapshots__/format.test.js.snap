@@ -1,18 +1,3 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`block-scalar-with-spaces-only.yml format 1`] = `
-"Block scalars with more-indented leading empty lines must use an explicit indentation indicator (1:21)
-> 1 | empty block scalar: >
-    |                     ^
-> 2 |  
-    | ^
-> 3 |   
-    | ^^
-> 4 |    
-    | ^^^
-> 5 |  # comment
-    | ^^^^^^^^^^
-> 6 |
-    | ^
-Cause: Block scalars with more-indented leading empty lines must use an explicit indentation indicator"
-`;
+exports[`block-scalar-with-spaces-only.yml format 1`] = `"Cannot find module 'E:\\oss\\organization-prettier\\prettier\\node_modules\\yaml-unist-parser\\lib\\parse.js' imported from E:\\oss\\organization-prettier\\prettier\\src\\language-yaml\\parser-yaml.js"`;
