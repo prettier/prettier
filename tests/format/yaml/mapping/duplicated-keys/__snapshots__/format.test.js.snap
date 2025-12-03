@@ -6,27 +6,11 @@ parsers: ["yaml"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
----
 {
   foo: 1,
-  foo: 2
-}
-
----
-{
   foo: {
     bar: 1,
     bar: 2
-  }
-}
-
----
-{
-  foo: {
-    bar: 1
-  },
-  foo: {
-    baz: 2
   }
 }
 
@@ -37,13 +21,9 @@ printWidth: 80
   ? foo
   : 2
 }
+
 =====================================output=====================================
----
-{ foo: 1, foo: 2 }
----
-{ foo: { bar: 1, bar: 2 } }
----
-{ foo: { bar: 1 }, foo: { baz: 2 } }
+{ foo: 1, foo: { bar: 1, bar: 2 } }
 ---
 { foo: 1, foo: 2 }
 
@@ -56,26 +36,11 @@ parsers: ["yaml"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
----
 foo: 1
-foo: 2
-
----
 foo:
   bar: 1
-  bar: 2
-
----
-foo:
   bar:
     baz: 1
-    baz: 2
-
----
-foo:
-  - bar: item1
-    bar: item2
-  - baz: 1
     baz: 2
 
 ---
@@ -83,26 +48,15 @@ foo:
 : 1
 ? foo
 : 2
-=====================================output=====================================
----
-foo: 1
-foo: 2
 
----
+=====================================output=====================================
+foo: 1
 foo:
   bar: 1
-  bar: 2
----
-foo:
   bar:
     baz: 1
     baz: 2
----
-foo:
-  - bar: item1
-    bar: item2
-  - baz: 1
-    baz: 2
+
 ---
 foo: 1
 foo: 2
@@ -148,28 +102,28 @@ parsers: ["yaml"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
----
-foo:
-  \${{ if bar }}:
-    a: 1
-  \${{ else }}:
-    a: 2
-  \${{ if bar }}:
-    b: 1
-  \${{ else }}:
-    b: 2
+# 12651
+steps:
+    \${{ if paremeters.option }}:
+        given: Chris
+    \${{ else }}:
+        given: Dave
+    \${{ if paremeters.option }}:
+        family: Dumars
+    \${{ else }}:
+        family: Brands
 
 =====================================output=====================================
----
-foo:
-  \${{ if bar }}:
-    a: 1
+# 12651
+steps:
+  \${{ if paremeters.option }}:
+    given: Chris
   \${{ else }}:
-    a: 2
-  \${{ if bar }}:
-    b: 1
+    given: Dave
+  \${{ if paremeters.option }}:
+    family: Dumars
   \${{ else }}:
-    b: 2
+    family: Brands
 
 ================================================================================
 `;

@@ -3,11 +3,13 @@ import createError from "../common/parser-create-error.js";
 import { locEnd, locStart } from "./loc.js";
 import { hasIgnorePragma, hasPragma } from "./pragma.js";
 
+const parseOptions = {
+  allowDuplicateKeysInMap: true,
+};
+
 function parse(text) {
   try {
-    const root = parseYaml(text, {
-      allowDuplicateKeysInMap: true,
-    });
+    const root = parseYaml(text, parseOptions);
 
     /**
      * suppress `comment not printed` error
