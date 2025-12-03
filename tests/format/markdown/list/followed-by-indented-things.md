@@ -1,6 +1,6 @@
 -    foo
 
-    indented code block
+    top level indented code block
 
 ---
 
@@ -12,13 +12,19 @@
 
    -    foo
 
-       indented code block
+       top level indented code block
+
+---
+
+ -  foo
+
+        indented code block in bullet
 
 ---
 
 1.    foo
 
-     indented code block
+     top level indented code block
 
 ---
 
@@ -30,25 +36,33 @@
 
    1.    foo
 
-        indented code block
+        top level indented code block
+
+
+---
+
+  1.  foo
+
+          indented code block in numbered item
+
+---
+
+-    [ ] foo
+
+    top level indented code block
 
 ---
 
    - [ ]    foo
 
-           indented code block
-
----
-   - [ ]    foo
-
-            indented code block (suspicious)
+         indented code block in checkbox item
 
 ---
 
  -    item 1
  -    item 2
 
-     indented code block
+     top level indented code block
 
 ---
 
@@ -61,20 +75,20 @@
 ---
 
    -    item 1
-    - item 1-1
-    - item 1-2
+        - item 1-1
+        - item 1-2
 
-    indented code block
+    top level indented code block
 
 ---
 
 
    -    item 1
-    - item 1-1
-    - item 1-2
+        - item 1-1
+        - item 1-2
    -    item 2
 
-       indented code block
+       top level indented code block
 
 ---
 
@@ -91,4 +105,23 @@
     2. item 1-2
 100. item 1
 
-    indented code block
+    top level indented code block
+
+---
+
+   -    item 1
+        > quote
+
+        text
+
+    top level indented code block
+
+---
+
+   -    item 1
+        -    item 1-1
+        -    item 1-2
+
+            indented code block
+
+    top level indented code block

@@ -1066,7 +1066,7 @@ tabWidth: 0
 =====================================input======================================
 -    foo
 
-    indented code block
+    top level indented code block
 
 ---
 
@@ -1078,13 +1078,19 @@ tabWidth: 0
 
    -    foo
 
-       indented code block
+       top level indented code block
+
+---
+
+ -  foo
+
+        indented code block in bullet
 
 ---
 
 1.    foo
 
-     indented code block
+     top level indented code block
 
 ---
 
@@ -1096,25 +1102,33 @@ tabWidth: 0
 
    1.    foo
 
-        indented code block
+        top level indented code block
+
+
+---
+
+  1.  foo
+
+          indented code block in numbered item
+
+---
+
+-    [ ] foo
+
+    top level indented code block
 
 ---
 
    - [ ]    foo
 
-           indented code block
-
----
-   - [ ]    foo
-
-            indented code block (suspicious)
+         indented code block in checkbox item
 
 ---
 
  -    item 1
  -    item 2
 
-     indented code block
+     top level indented code block
 
 ---
 
@@ -1127,20 +1141,20 @@ tabWidth: 0
 ---
 
    -    item 1
-    - item 1-1
-    - item 1-2
+        - item 1-1
+        - item 1-2
 
-    indented code block
+    top level indented code block
 
 ---
 
 
    -    item 1
-    - item 1-1
-    - item 1-2
+        - item 1-1
+        - item 1-2
    -    item 2
 
-       indented code block
+       top level indented code block
 
 ---
 
@@ -1157,13 +1171,32 @@ tabWidth: 0
     2. item 1-2
 100. item 1
 
-    indented code block
+    top level indented code block
+
+---
+
+   -    item 1
+        > quote
+
+        text
+
+    top level indented code block
+
+---
+
+   -    item 1
+        -    item 1-1
+        -    item 1-2
+
+            indented code block
+
+    top level indented code block
 
 =====================================output=====================================
-- foo
+-    foo
 
 
-    indented code block
+    top level indented code block
 
 ---
 
@@ -1173,17 +1206,23 @@ tabWidth: 0
 
 ---
 
-- foo
+   -    foo
 
 
-       indented code block
+       top level indented code block
 
 ---
 
-1. foo
+- foo
+
+      indented code block in bullet
+
+---
+
+1.    foo
 
 
-     indented code block
+     top level indented code block
 
 ---
 
@@ -1193,30 +1232,37 @@ tabWidth: 0
 
 ---
 
+   1.    foo
+
+
+        top level indented code block
+
+---
+
 1. foo
 
+       indented code block in numbered item
 
-        indented code block
+---
+
+-    [ ] foo
+
+
+    top level indented code block
 
 ---
 
 - [ ] foo
 
-        indented code block
+      indented code block in checkbox item
 
 ---
 
-- [ ] foo
-
-         indented code block (suspicious)
-
----
-
-- item 1
-- item 2
+ -    item 1
+ -    item 2
 
 
-     indented code block
+     top level indented code block
 
 ---
 
@@ -1228,18 +1274,22 @@ tabWidth: 0
 
 ---
 
-- item 1 - item 1-1 - item 1-2
+-    item 1
+     - item 1-1
+     - item 1-2
 
 
-    indented code block
+    top level indented code block
 
 ---
 
-- item 1 - item 1-1 - item 1-2
-- item 2
+   -    item 1
+        - item 1-1
+        - item 1-2
+   -    item 2
 
 
-       indented code block
+       top level indented code block
 
 ---
 
@@ -1251,13 +1301,36 @@ tabWidth: 0
 
 ---
 
-1. item 1
-   1. item 1-1
-   2. item 1-2
-2. item 1
+1.   item 1
+     1. item 1-1
+     2. item 1-2
+2.   item 1
 
 
-    indented code block
+    top level indented code block
+
+---
+
+-    item 1
+
+     > quote
+
+     text
+
+
+    top level indented code block
+
+---
+
+-    item 1
+     -    item 1-1
+     -    item 1-2
+
+
+         indented code block
+
+
+    top level indented code block
 
 ================================================================================
 `;
@@ -1272,7 +1345,7 @@ tabWidth: 4
 =====================================input======================================
 -    foo
 
-    indented code block
+    top level indented code block
 
 ---
 
@@ -1284,13 +1357,19 @@ tabWidth: 4
 
    -    foo
 
-       indented code block
+       top level indented code block
+
+---
+
+ -  foo
+
+        indented code block in bullet
 
 ---
 
 1.    foo
 
-     indented code block
+     top level indented code block
 
 ---
 
@@ -1302,25 +1381,33 @@ tabWidth: 4
 
    1.    foo
 
-        indented code block
+        top level indented code block
+
+
+---
+
+  1.  foo
+
+          indented code block in numbered item
+
+---
+
+-    [ ] foo
+
+    top level indented code block
 
 ---
 
    - [ ]    foo
 
-           indented code block
-
----
-   - [ ]    foo
-
-            indented code block (suspicious)
+         indented code block in checkbox item
 
 ---
 
  -    item 1
  -    item 2
 
-     indented code block
+     top level indented code block
 
 ---
 
@@ -1333,20 +1420,20 @@ tabWidth: 4
 ---
 
    -    item 1
-    - item 1-1
-    - item 1-2
+        - item 1-1
+        - item 1-2
 
-    indented code block
+    top level indented code block
 
 ---
 
 
    -    item 1
-    - item 1-1
-    - item 1-2
+        - item 1-1
+        - item 1-2
    -    item 2
 
-       indented code block
+       top level indented code block
 
 ---
 
@@ -1363,13 +1450,32 @@ tabWidth: 4
     2. item 1-2
 100. item 1
 
-    indented code block
+    top level indented code block
+
+---
+
+   -    item 1
+        > quote
+
+        text
+
+    top level indented code block
+
+---
+
+   -    item 1
+        -    item 1-1
+        -    item 1-2
+
+            indented code block
+
+    top level indented code block
 
 =====================================output=====================================
-- foo
+-    foo
 
 
-    indented code block
+    top level indented code block
 
 ---
 
@@ -1379,17 +1485,23 @@ tabWidth: 4
 
 ---
 
-- foo
+   -    foo
 
 
-       indented code block
+       top level indented code block
 
 ---
 
-1.  foo
+- foo
+
+      indented code block in bullet
+
+---
+
+1.    foo
 
 
-     indented code block
+     top level indented code block
 
 ---
 
@@ -1399,30 +1511,37 @@ tabWidth: 4
 
 ---
 
+   1.    foo
+
+
+        top level indented code block
+
+---
+
 1.  foo
 
+        indented code block in numbered item
 
-        indented code block
+---
+
+-    [ ] foo
+
+
+    top level indented code block
 
 ---
 
 - [ ] foo
 
-          indented code block
+      indented code block in checkbox item
 
 ---
 
-- [ ] foo
-
-           indented code block (suspicious)
-
----
-
-- item 1
-- item 2
+ -    item 1
+ -    item 2
 
 
-     indented code block
+     top level indented code block
 
 ---
 
@@ -1434,18 +1553,22 @@ tabWidth: 4
 
 ---
 
-- item 1 - item 1-1 - item 1-2
+-    item 1
+     - item 1-1
+     - item 1-2
 
 
-    indented code block
+    top level indented code block
 
 ---
 
-- item 1 - item 1-1 - item 1-2
-- item 2
+   -    item 1
+        - item 1-1
+        - item 1-2
+   -    item 2
 
 
-       indented code block
+       top level indented code block
 
 ---
 
@@ -1457,13 +1580,36 @@ tabWidth: 4
 
 ---
 
-1. item 1
-    1. item 1-1
-    2. item 1-2
-2. item 1
+1.   item 1
+     1. item 1-1
+     2. item 1-2
+2.   item 1
 
 
-    indented code block
+    top level indented code block
+
+---
+
+-    item 1
+
+     > quote
+
+     text
+
+
+    top level indented code block
+
+---
+
+-    item 1
+     -    item 1-1
+     -    item 1-2
+
+
+         indented code block
+
+
+    top level indented code block
 
 ================================================================================
 `;
@@ -1478,7 +1624,7 @@ tabWidth: 999
 =====================================input======================================
 -    foo
 
-    indented code block
+    top level indented code block
 
 ---
 
@@ -1490,13 +1636,19 @@ tabWidth: 999
 
    -    foo
 
-       indented code block
+       top level indented code block
+
+---
+
+ -  foo
+
+        indented code block in bullet
 
 ---
 
 1.    foo
 
-     indented code block
+     top level indented code block
 
 ---
 
@@ -1508,25 +1660,33 @@ tabWidth: 999
 
    1.    foo
 
-        indented code block
+        top level indented code block
+
+
+---
+
+  1.  foo
+
+          indented code block in numbered item
+
+---
+
+-    [ ] foo
+
+    top level indented code block
 
 ---
 
    - [ ]    foo
 
-           indented code block
-
----
-   - [ ]    foo
-
-            indented code block (suspicious)
+         indented code block in checkbox item
 
 ---
 
  -    item 1
  -    item 2
 
-     indented code block
+     top level indented code block
 
 ---
 
@@ -1539,20 +1699,20 @@ tabWidth: 999
 ---
 
    -    item 1
-    - item 1-1
-    - item 1-2
+        - item 1-1
+        - item 1-2
 
-    indented code block
+    top level indented code block
 
 ---
 
 
    -    item 1
-    - item 1-1
-    - item 1-2
+        - item 1-1
+        - item 1-2
    -    item 2
 
-       indented code block
+       top level indented code block
 
 ---
 
@@ -1569,13 +1729,32 @@ tabWidth: 999
     2. item 1-2
 100. item 1
 
-    indented code block
+    top level indented code block
+
+---
+
+   -    item 1
+        > quote
+
+        text
+
+    top level indented code block
+
+---
+
+   -    item 1
+        -    item 1-1
+        -    item 1-2
+
+            indented code block
+
+    top level indented code block
 
 =====================================output=====================================
-- foo
+-    foo
 
 
-    indented code block
+    top level indented code block
 
 ---
 
@@ -1585,17 +1764,23 @@ tabWidth: 999
 
 ---
 
-- foo
+   -    foo
 
 
-       indented code block
+       top level indented code block
 
 ---
 
-1. foo
+- foo
+
+      indented code block in bullet
+
+---
+
+1.    foo
 
 
-     indented code block
+     top level indented code block
 
 ---
 
@@ -1605,30 +1790,37 @@ tabWidth: 999
 
 ---
 
+   1.    foo
+
+
+        top level indented code block
+
+---
+
 1. foo
 
+       indented code block in numbered item
 
-        indented code block
+---
+
+-    [ ] foo
+
+
+    top level indented code block
 
 ---
 
 - [ ] foo
 
-           indented code block
+      indented code block in checkbox item
 
 ---
 
-- [ ] foo
-
-            indented code block (suspicious)
-
----
-
-- item 1
-- item 2
+ -    item 1
+ -    item 2
 
 
-     indented code block
+     top level indented code block
 
 ---
 
@@ -1640,18 +1832,22 @@ tabWidth: 999
 
 ---
 
-- item 1 - item 1-1 - item 1-2
+-    item 1
+        - item 1-1
+        - item 1-2
 
 
-    indented code block
+    top level indented code block
 
 ---
 
-- item 1 - item 1-1 - item 1-2
-- item 2
+   -    item 1
+           - item 1-1
+           - item 1-2
+   -    item 2
 
 
-       indented code block
+       top level indented code block
 
 ---
 
@@ -1663,13 +1859,36 @@ tabWidth: 999
 
 ---
 
-1. item 1
-      1. item 1-1
-      2. item 1-2
-2. item 1
+1.   item 1
+        1. item 1-1
+        2. item 1-2
+2.   item 1
 
 
-    indented code block
+    top level indented code block
+
+---
+
+-    item 1
+
+        > quote
+
+        text
+
+
+    top level indented code block
+
+---
+
+-    item 1
+        -    item 1-1
+        -    item 1-2
+
+
+         indented code block
+
+
+    top level indented code block
 
 ================================================================================
 `;
@@ -1683,7 +1902,7 @@ proseWrap: "always"
 =====================================input======================================
 -    foo
 
-    indented code block
+    top level indented code block
 
 ---
 
@@ -1695,13 +1914,19 @@ proseWrap: "always"
 
    -    foo
 
-       indented code block
+       top level indented code block
+
+---
+
+ -  foo
+
+        indented code block in bullet
 
 ---
 
 1.    foo
 
-     indented code block
+     top level indented code block
 
 ---
 
@@ -1713,25 +1938,33 @@ proseWrap: "always"
 
    1.    foo
 
-        indented code block
+        top level indented code block
+
+
+---
+
+  1.  foo
+
+          indented code block in numbered item
+
+---
+
+-    [ ] foo
+
+    top level indented code block
 
 ---
 
    - [ ]    foo
 
-           indented code block
-
----
-   - [ ]    foo
-
-            indented code block (suspicious)
+         indented code block in checkbox item
 
 ---
 
  -    item 1
  -    item 2
 
-     indented code block
+     top level indented code block
 
 ---
 
@@ -1744,20 +1977,20 @@ proseWrap: "always"
 ---
 
    -    item 1
-    - item 1-1
-    - item 1-2
+        - item 1-1
+        - item 1-2
 
-    indented code block
+    top level indented code block
 
 ---
 
 
    -    item 1
-    - item 1-1
-    - item 1-2
+        - item 1-1
+        - item 1-2
    -    item 2
 
-       indented code block
+       top level indented code block
 
 ---
 
@@ -1774,13 +2007,32 @@ proseWrap: "always"
     2. item 1-2
 100. item 1
 
-    indented code block
+    top level indented code block
+
+---
+
+   -    item 1
+        > quote
+
+        text
+
+    top level indented code block
+
+---
+
+   -    item 1
+        -    item 1-1
+        -    item 1-2
+
+            indented code block
+
+    top level indented code block
 
 =====================================output=====================================
-- foo
+-    foo
 
 
-    indented code block
+    top level indented code block
 
 ---
 
@@ -1790,17 +2042,23 @@ proseWrap: "always"
 
 ---
 
-- foo
+   -    foo
 
 
-       indented code block
+       top level indented code block
 
 ---
 
-1.  foo
+- foo
+
+      indented code block in bullet
+
+---
+
+1.    foo
 
 
-     indented code block
+     top level indented code block
 
 ---
 
@@ -1810,30 +2068,37 @@ proseWrap: "always"
 
 ---
 
+   1.    foo
+
+
+        top level indented code block
+
+---
+
 1.  foo
 
+        indented code block in numbered item
 
-        indented code block
+---
+
+-    [ ] foo
+
+
+    top level indented code block
 
 ---
 
 - [ ] foo
 
-        indented code block
+      indented code block in checkbox item
 
 ---
 
-- [ ] foo
-
-         indented code block (suspicious)
-
----
-
-- item 1
-- item 2
+ -    item 1
+ -    item 2
 
 
-     indented code block
+     top level indented code block
 
 ---
 
@@ -1845,18 +2110,22 @@ proseWrap: "always"
 
 ---
 
-- item 1 - item 1-1 - item 1-2
+-    item 1
+     - item 1-1
+     - item 1-2
 
 
-    indented code block
+    top level indented code block
 
 ---
 
-- item 1 - item 1-1 - item 1-2
-- item 2
+   -    item 1
+        - item 1-1
+        - item 1-2
+   -    item 2
 
 
-       indented code block
+       top level indented code block
 
 ---
 
@@ -1868,13 +2137,36 @@ proseWrap: "always"
 
 ---
 
-1. item 1
-   1. item 1-1
-   2. item 1-2
-2. item 1
+1.   item 1
+     1. item 1-1
+     2. item 1-2
+2.   item 1
 
 
-    indented code block
+    top level indented code block
+
+---
+
+-    item 1
+
+     > quote
+
+     text
+
+
+    top level indented code block
+
+---
+
+-    item 1
+     -    item 1-1
+     -    item 1-2
+
+
+         indented code block
+
+
+    top level indented code block
 
 ================================================================================
 `;
