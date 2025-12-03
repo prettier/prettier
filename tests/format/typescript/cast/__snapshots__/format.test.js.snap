@@ -310,6 +310,27 @@ function x() {
 ================================================================================
 `;
 
+exports[`gh-18406.ts format 1`] = `
+====================================options=====================================
+parsers: ["babel-ts", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+new (require("./webpack/plugins/next-trace-entrypoints-plugin")
+  .TraceEntryPointsPlugin as P)({
+  rootDir: dir,
+});
+=====================================output=====================================
+new (
+  require("./webpack/plugins/next-trace-entrypoints-plugin")
+    .TraceEntryPointsPlugin as P
+)({
+  rootDir: dir,
+});
+
+================================================================================
+`;
+
 exports[`hug-args.ts format 1`] = `
 ====================================options=====================================
 parsers: ["babel-ts", "typescript"]
