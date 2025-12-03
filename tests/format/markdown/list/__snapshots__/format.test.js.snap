@@ -2526,6 +2526,225 @@ proseWrap: "always"
 ================================================================================
 `;
 
+exports[`issue-18066.md - {"proseWrap":"always","tabWidth":0} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 0
+                                                                                | printWidth
+=====================================input======================================
+- Something:
+  - [ ] Foo
+  - [ ] Bar
+        <!--
+          Something else
+        -->
+
+- Another list:
+  - Item with multiline comment
+    <!--
+    comment line 1
+    comment line 2
+    -->
+  - Next item
+
+1. Ordered list
+   <!--
+   multi-line
+   comment
+   -->
+   - nested item
+
+=====================================output=====================================
+- Something:
+  - [ ] Foo
+  - [ ] Bar <!--
+              Something else
+            -->
+
+- Another list:
+  - Item with multiline comment
+    <!--
+    comment line 1
+    comment line 2
+    -->
+  - Next item
+
+1. Ordered list
+   <!--
+   multi-line
+   comment
+   -->
+   - nested item
+
+================================================================================
+`;
+
+exports[`issue-18066.md - {"proseWrap":"always","tabWidth":4} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 4
+                                                                                | printWidth
+=====================================input======================================
+- Something:
+  - [ ] Foo
+  - [ ] Bar
+        <!--
+          Something else
+        -->
+
+- Another list:
+  - Item with multiline comment
+    <!--
+    comment line 1
+    comment line 2
+    -->
+  - Next item
+
+1. Ordered list
+   <!--
+   multi-line
+   comment
+   -->
+   - nested item
+
+=====================================output=====================================
+- Something:
+    - [ ] Foo
+    - [ ] Bar <!--
+                Something else
+              -->
+
+- Another list:
+    - Item with multiline comment
+        <!--
+        comment line 1
+        comment line 2
+        -->
+    - Next item
+
+1. Ordered list
+    <!--
+    multi-line
+    comment
+    -->
+    - nested item
+
+================================================================================
+`;
+
+exports[`issue-18066.md - {"proseWrap":"always","tabWidth":999} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 999
+                                                                                | printWidth
+=====================================input======================================
+- Something:
+  - [ ] Foo
+  - [ ] Bar
+        <!--
+          Something else
+        -->
+
+- Another list:
+  - Item with multiline comment
+    <!--
+    comment line 1
+    comment line 2
+    -->
+  - Next item
+
+1. Ordered list
+   <!--
+   multi-line
+   comment
+   -->
+   - nested item
+
+=====================================output=====================================
+- Something:
+     - [ ] Foo
+     - [ ] Bar <!--
+                 Something else
+               -->
+
+- Another list:
+     - Item with multiline comment
+          <!--
+          comment line 1
+          comment line 2
+          -->
+     - Next item
+
+1. Ordered list
+      <!--
+      multi-line
+      comment
+      -->
+      - nested item
+
+================================================================================
+`;
+
+exports[`issue-18066.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+- Something:
+  - [ ] Foo
+  - [ ] Bar
+        <!--
+          Something else
+        -->
+
+- Another list:
+  - Item with multiline comment
+    <!--
+    comment line 1
+    comment line 2
+    -->
+  - Next item
+
+1. Ordered list
+   <!--
+   multi-line
+   comment
+   -->
+   - nested item
+
+=====================================output=====================================
+- Something:
+  - [ ] Foo
+  - [ ] Bar <!--
+              Something else
+            -->
+
+- Another list:
+  - Item with multiline comment
+    <!--
+    comment line 1
+    comment line 2
+    -->
+  - Next item
+
+1. Ordered list
+   <!--
+   multi-line
+   comment
+   -->
+   - nested item
+
+================================================================================
+`;
+
 exports[`long-paragraph.md - {"proseWrap":"always","tabWidth":0} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
