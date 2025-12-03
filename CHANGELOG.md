@@ -16,7 +16,7 @@
 <div foo={bar}></div>
 ```
 
-#### TypeScript: Fix comment inside union type get duplicated ([#18393](https://github.com/prettier/prettier/pull/18393) by [@fisker](https://github.com/fisker))
+#### TypeScript: Fix comment inside union type gets duplicated ([#18393](https://github.com/prettier/prettier/pull/18393) by [@fisker](https://github.com/fisker))
 
 <!-- prettier-ignore -->
 ```tsx
