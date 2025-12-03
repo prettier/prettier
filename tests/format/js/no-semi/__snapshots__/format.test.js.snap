@@ -514,12 +514,12 @@ x;
 
 =====================================output=====================================
 let error = new Error(response.statusText)
-// comment
-;[].response = response
+;// comment
+[].response = response
 
 x
 
-/* comment */ ;[].response = response
+;/* comment */ [].response = response
 
 x
 

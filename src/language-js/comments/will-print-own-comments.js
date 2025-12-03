@@ -1,3 +1,4 @@
+import { shouldPrintLeadingSemicolon } from "../semicolon/semicolon.js";
 import {
   createTypeCheckFunction,
   hasNodeIgnoreComment,
@@ -17,16 +18,15 @@ const isClassOrInterface = createTypeCheckFunction([
   "DeclareClass",
   "DeclareInterface",
   "InterfaceDeclaration",
+  "InterfaceTypeAnnotation",
   "TSInterfaceDeclaration",
-  // Can't have `id` or `typeParameters`
-  // "InterfaceTypeAnnotation",
 ]);
 
 /**
  * @param {AstPath} path
  * @returns {boolean}
  */
-function willPrintOwnComments(path) {
+function willPrintOwnComments(path, options) {
   const { key, parent } = path;
   if (
     (key === "types" && isUnionType(parent)) ||
@@ -53,6 +53,10 @@ function willPrintOwnComments(path) {
   }
 
   if (isJsxElement(node)) {
+    return true;
+  }
+
+  if (shouldPrintLeadingSemicolon(path, options)) {
     return true;
   }
 

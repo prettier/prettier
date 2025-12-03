@@ -1,4 +1,5 @@
 import { group, indent, inheritLabel, line } from "../../document/index.js";
+import { printComments } from "../../main/comments/print.js";
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
 import { locEnd, locStart } from "../loc.js";
 import needsParentheses from "../parentheses/needs-parentheses.js";
@@ -88,14 +89,23 @@ function print(path, options, print, args) {
     return doc;
   }
 
-  return inheritLabel(doc, (doc) => [
-    needsSemi ? ";" : "",
-    needsParens ? "(" : "",
-    needsParens && isClassExpression && hasDecorators
-      ? [indent([line, decoratorsDoc, doc]), line]
-      : [decoratorsDoc, doc],
-    needsParens ? ")" : "",
-  ]);
+  return inheritLabel(doc, (doc) => {
+    let parts = [decoratorsDoc, doc];
+
+    if (needsParens && isClassExpression && hasDecorators) {
+      parts = [indent([line, parts]), line];
+    }
+
+    if (needsParens) {
+      parts = ["(", parts, ")"];
+    }
+
+    if (needsSemi) {
+      parts = [";", printComments(path, parts, options)];
+    }
+
+    return parts;
+  });
 }
 
 export default print;
