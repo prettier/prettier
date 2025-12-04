@@ -1,23 +1,26 @@
+// For different blocks
 const blockStyles = ["|", ">", "|+", "|-", ">+", ">-"];
-const trailingSpaces = ["", "  ", "\t"];
+const trailingSpace = ["", "  ", "\t"];
 const newlines = ["", "\n", "\n\n", "\n\n\n"];
 
-const emptyBlockTests = blockStyles.flatMap((style) =>
-  trailingSpaces.flatMap((space) =>
-    newlines.map((nl) => `foo: ${style}${space}${nl}`),
-  ),
-);
-
-const contentBlockTests = ["|", ">"].flatMap((style) =>
-  ["   ", "  \t"].flatMap((space) =>
-    ["", "\n", "\n\n"].map((nl) => `foo: ${style}\n  x\n${space}${nl}`),
-  ),
-);
+const snippets = blockStyles
+  .map((blockStyle) =>
+    trailingSpace.map((space) =>
+      newlines.map((lines) => {
+        const code = `foo: ${blockStyle}\n  x\n${space}${lines}`;
+        return [code, `${code}\n...`];
+      }),
+    ),
+  )
+  .flat(Number.POSITIVE_INFINITY);
 
 runFormatTest(
   {
     importMeta: import.meta,
-    snippets: [...emptyBlockTests, ...contentBlockTests],
+    snippets: snippets.map((code) => ({
+      name: JSON.stringify(code),
+      code,
+    })),
   },
   ["yaml"],
 );
