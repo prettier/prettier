@@ -25,7 +25,9 @@ function parseArguments() {
   }
 
   const result = {
-    files: Array.isArray(values.file) ? new Set(values.file) : undefined,
+    files: Array.isArray(values.file)
+      ? new Set(values.file.map((file) => path.join(DIST_DIR, file)))
+      : undefined,
     playground: values.playground,
     printSize: values["print-size"],
     compareSize: values["compare-size"],

@@ -1,21 +1,19 @@
-import fs from "node:fs";
 import path from "node:path";
 import url from "node:url";
 import createEsmUtils from "esm-utils";
 import { outdent } from "outdent";
-import { copyFile, DIST_DIR, PROJECT_ROOT } from "../utilities/index.js";
-import buildDependenciesLicense from "./build-dependencies-license.js";
-import buildJavascriptModule from "./build-javascript-module.js";
-import buildOxcWasmParser from "./build-oxc-wasm-parser.js";
+import { DIST_DIR, PROJECT_ROOT } from "../../utilities/index.js";
+import { createJavascriptModuleBuilder } from "../builders/javascript-module.js";
+import esmifyTypescriptEslint from "../hacks/esmify-typescript-eslint.js";
+import modifyTypescriptModule from "../hacks/modify-typescript-module.js";
+import { getPackageFile } from "../utilities.js";
 import {
-  buildPluginHermesPackageJson,
-  buildPluginOxcPackageJson,
-  buildPrettierPackageJson,
-} from "./build-package-json.js";
-import buildTypes from "./build-types.js";
-import esmifyTypescriptEslint from "./esmify-typescript-eslint.js";
-import modifyTypescriptModule from "./modify-typescript-module.js";
-import { getPackageFile } from "./utilities.js";
+  createNodejsFileConfig,
+  createPackageMetaFilesConfig,
+  createTypesConfig,
+  createUniversalFileConfig,
+} from "./config-helpers.js";
+import { generatePackageJson } from "./prettier-package-json.js";
 
 const {
   require,
@@ -24,61 +22,238 @@ const {
 } = createEsmUtils(import.meta);
 const resolveEsmModulePath = (specifier) =>
   url.fileURLToPath(importMetaResolve(specifier));
-const copyFileBuilder = ({ packageConfig, file }) =>
-  copyFile(
-    path.join(PROJECT_ROOT, file.input),
-    path.join(packageConfig.distDirectory, file.output.file),
-  );
-const oxcWasmParser = await buildOxcWasmParser();
-
-function getTypesFileConfig({ input: jsFileInput, outputBaseName, isPlugin }) {
-  let input = jsFileInput;
-  if (!isPlugin) {
-    input = jsFileInput.replace(/\.[cm]?js$/u, ".d.ts");
-
-    if (!fs.existsSync(path.join(PROJECT_ROOT, input))) {
-      return;
-    }
-  }
-
-  return {
-    input,
-    output: {
-      file: `${outputBaseName}.d.ts`,
-    },
-    kind: "types",
-    isPlugin,
-    build: buildTypes,
-  };
-}
-
-/**
- * @typedef {Object} BuildOptions
- * @property {object[]?} replaceModule - Module replacements
- * @property {string[]?} target - ESBuild targets
- * @property {string[]?} external - array of paths that should not be included in the final bundle
- * @property {boolean?} minify - disable code minification
- *
- * @typedef {Object} Output
- * @property {"esm" | "umd" | "cjs" | "text" | "json"} format - File format
- * @property {string} file - path of the output file in the `dist/` folder
- * @property {string?} umdVariableName - name for the UMD file (for plugins, it'll be `prettierPlugins.${name}`)
- *
- * @typedef {Object} File
- * @property {string} input - input of the file
- * @property {Output} output - output of the file
- * @property {"javascript" | "types" | "meta"} kind - file kind
- * @property {function} build - file generate function
- * @property {"node" | "universal"} platform - ESBuild platform
- * @property {BuildOptions} buildOptions - ESBuild options
- * @property {boolean?} isPlugin - file is a plugin
- * @property {boolean?} addDefaultExport - add default export to bundle
- */
 
 const extensions = {
   esm: ".mjs",
   umd: ".js",
   cjs: ".cjs",
+};
+
+const packageConfig = {
+  packageName: "prettier",
+  sourceDirectory: PROJECT_ROOT,
+  distDirectory: path.join(DIST_DIR, "prettier"),
+  modules: [],
+};
+
+const mainModule = {
+  name: "Main",
+  files: [
+    createNodejsFileConfig({
+      input: "src/index.js",
+      replaceModule: [
+        // `editorconfig` use a older version of `semver` and only uses `semver.gte`
+        {
+          module: require.resolve("editorconfig"),
+          find: 'var semver = __importStar(require("semver"));',
+          replacement: outdent`
+            var semver = {
+              gte: require(${JSON.stringify(
+                require.resolve("semver/functions/gte"),
+              )})
+            };
+          `,
+        },
+        {
+          module: require.resolve("n-readlines"),
+          find: "const readBuffer = new Buffer(this.options.readChunk);",
+          replacement:
+            "const readBuffer = Buffer.alloc(this.options.readChunk);",
+        },
+        // `parse-json` use another copy of `@babel/code-frame`
+        {
+          module: require.resolve("@babel/code-frame", {
+            paths: [require.resolve("parse-json")],
+          }),
+          path: require.resolve("@babel/code-frame"),
+        },
+        {
+          module: getPackageFile("json5/dist/index.mjs"),
+          find: "export default lib;",
+          replacement: "export default { parse };",
+        },
+      ],
+      addDefaultExport: true,
+      reuseDocModule: true,
+      format: "esm",
+    }),
+    createNodejsFileConfig("src/index.cjs"),
+    createUniversalFileConfig({
+      input: "src/standalone.js",
+      umdVariableName: "prettier",
+      replaceModule: [
+        {
+          module: require.resolve("@babel/code-frame"),
+          process(text) {
+            text = text.replaceAll(
+              "var picocolors = require('picocolors');",
+              "",
+            );
+            text = text.replaceAll("var jsTokens = require('js-tokens');", "");
+            text = text.replaceAll(
+              "var helperValidatorIdentifier = require('@babel/helper-validator-identifier');",
+              "",
+            );
+
+            text = text.replaceAll(
+              /(?<=\n)let tokenize;\n\{\n.*?\n\}(?=\n)/gsu,
+              "",
+            );
+
+            text = text.replaceAll(
+              /(?<=\n)function highlight\(text\) \{\n.*?\n\}(?=\n)/gsu,
+              "function highlight(text) {return text}",
+            );
+
+            text = text.replaceAll(
+              /(?<=\n)function getDefs\(enabled\) \{\n.*?\n\}(?=\n)/gsu,
+              outdent`
+                function getDefs() {
+                  return new Proxy({}, {get: () => (text) => text})
+                }
+              `,
+            );
+
+            text = text.replaceAll(
+              "const defsOn = buildDefs(picocolors.createColors(true));",
+              "",
+            );
+            text = text.replaceAll(
+              "const defsOff = buildDefs(picocolors.createColors(false));",
+              "",
+            );
+
+            text = text.replaceAll(
+              "const shouldHighlight = opts.forceColor || isColorSupported() && opts.highlightCode;",
+              "const shouldHighlight = false;",
+            );
+
+            text = text.replaceAll("exports.default = index;", "");
+            text = text.replaceAll("exports.highlight = highlight;", "");
+
+            return text;
+          },
+        },
+        // Smaller size
+        {
+          module: getPackageFile("picocolors/picocolors.browser.js"),
+          path: path.join(dirname, "../shims/colors.js"),
+        },
+      ],
+    }),
+  ].flat(),
+};
+for (const file of mainModule.files) {
+  if (file.output === "standalone.mjs") {
+    file.playground = true;
+  }
+}
+
+const cliModule = {
+  name: "CLI",
+  files: [
+    {
+      input: "bin/prettier.cjs",
+      outputBaseName: "bin/prettier",
+      target: ["node0.10"],
+      replaceModule: [
+        {
+          module: path.join(PROJECT_ROOT, "bin/prettier.cjs"),
+          process(text) {
+            text = text.replace(
+              "../src/cli/index.js",
+              "../internal/legacy-cli.mjs",
+            );
+            text = text.replace(
+              "../src/experimental-cli/index.js",
+              "../internal/experimental-cli.mjs",
+            );
+            return text;
+          },
+        },
+      ],
+    },
+    {
+      input: "src/cli/index.js",
+      outputBaseName: "internal/legacy-cli",
+      external: ["tinybench"],
+      // TODO: Remove this when we drop support for Node.js v16
+      replaceModule: [
+        {
+          module: resolveEsmModulePath("@cacheable/memory"),
+          process: (text) =>
+            outdent`
+              const structuredClone =
+                globalThis.structuredClone ??
+                ((value) => JSON.parse(JSON.stringify(value)));
+
+              ${text}
+            `,
+        },
+      ],
+    },
+    ...[
+      {
+        input: "src/experimental-cli/index.js",
+        outputBaseName: "internal/experimental-cli",
+        replaceModule: [
+          {
+            module: getPackageFile("@prettier/cli/dist/prettier_serial.js"),
+            external: "./experimental-cli-worker.mjs",
+          },
+          {
+            module: getPackageFile("@prettier/cli/dist/prettier_parallel.js"),
+            find: 'new URL("./prettier_serial.js", import.meta.url)',
+            replacement:
+              'new URL("./experimental-cli-worker.mjs", import.meta.url)',
+          },
+          {
+            module: getPackageFile("json5/dist/index.mjs"),
+            find: "export default lib;",
+            replacement: "export default { parse };",
+          },
+          {
+            module: getPackageFile("js-yaml/dist/js-yaml.mjs"),
+            find: "var dump                = dumper.dump;",
+            replacement: "var dump;",
+          },
+        ],
+      },
+      {
+        input: "src/experimental-cli/worker.js",
+        outputBaseName: "internal/experimental-cli-worker",
+      },
+    ].map(({ input, outputBaseName, replaceModule = [] }) => ({
+      input,
+      outputBaseName,
+      replaceModule: [
+        ...replaceModule,
+        {
+          module: getPackageFile("@prettier/cli/dist/constants.js"),
+          path: path.join(
+            PROJECT_ROOT,
+            "src/experimental-cli/constants.evaluate.js",
+          ),
+        },
+        ...["package.json", "index.mjs"].map((file) => ({
+          module: getPackageFile(`prettier/${file}`),
+          external: `../${file}`,
+        })),
+      ],
+    })),
+  ].flatMap((file) => createNodejsFileConfig(file)),
+};
+
+const docModule = {
+  name: "Doc",
+  files: [
+    createUniversalFileConfig({
+      input: "src/document/public.js",
+      outputBaseName: "doc",
+      umdVariableName: "doc",
+      minify: false,
+    }),
+  ].flat(),
 };
 
 const pluginFiles = [
@@ -272,7 +447,7 @@ const pluginFiles = [
       // Only needed if `range`/`loc` in parse options is `false`
       {
         module: getPackageFile("debug/src/browser.js"),
-        path: path.join(dirname, "./shims/debug.js"),
+        path: path.join(dirname, "../shims/debug.js"),
       },
       {
         module: require.resolve("ts-api-utils"),
@@ -614,521 +789,67 @@ const pluginFiles = [
   },
   "src/plugins/html.js",
   "src/plugins/yaml.js",
-].map((file) => {
+];
+
+function createPluginModule(file) {
   if (typeof file === "string") {
     file = { input: file };
   }
 
-  let { input, umdPropertyName, outputBaseName, ...buildOptions } = file;
+  const { input, ...buildOptions } = file;
+  const { pluginName } = input.match(
+    /\/plugins\/(?<pluginName>.*?)\.js$/u,
+  ).groups;
 
-  outputBaseName ??= input.match(/\/plugins\/(?<outputBaseName>.*?)\.js$/u)
-    .groups.outputBaseName;
+  const umdVariableName = `prettierPlugins.${pluginName}`;
 
-  const umdVariableName = `prettierPlugins.${
-    umdPropertyName ?? outputBaseName
-  }`;
+  const files = [
+    {
+      format: "esm",
+      file: `${pluginName}${extensions.esm}`,
+    },
+    {
+      format: "umd",
+      file: `${pluginName}${extensions.umd}`,
+      umdVariableName,
+    },
+  ].map((output) => ({
+    input,
+    output: `plugins/${output.file}`,
+    build: createJavascriptModuleBuilder({
+      platform: "universal",
+      addDefaultExport: output.format === "esm",
+      ...buildOptions,
+      format: output.format,
+      umdVariableName: output.umdVariableName,
+    }),
+    playground: output.format === "esm",
+  }));
 
   return {
-    input,
-    outputBaseName: `plugins/${outputBaseName}`,
-    umdVariableName,
-    buildOptions,
-    isPlugin: true,
-  };
-});
-
-const nonPluginUniversalFiles = [
-  {
-    input: "src/document/public.js",
-    outputBaseName: "doc",
-    umdVariableName: "doc",
-    minify: false,
-  },
-  {
-    input: "src/standalone.js",
-    umdVariableName: "prettier",
-    replaceModule: [
-      {
-        module: require.resolve("@babel/code-frame"),
-        process(text) {
-          text = text.replaceAll("var picocolors = require('picocolors');", "");
-          text = text.replaceAll("var jsTokens = require('js-tokens');", "");
-          text = text.replaceAll(
-            "var helperValidatorIdentifier = require('@babel/helper-validator-identifier');",
-            "",
-          );
-
-          text = text.replaceAll(
-            /(?<=\n)let tokenize;\n\{\n.*?\n\}(?=\n)/gsu,
-            "",
-          );
-
-          text = text.replaceAll(
-            /(?<=\n)function highlight\(text\) \{\n.*?\n\}(?=\n)/gsu,
-            "function highlight(text) {return text}",
-          );
-
-          text = text.replaceAll(
-            /(?<=\n)function getDefs\(enabled\) \{\n.*?\n\}(?=\n)/gsu,
-            outdent`
-              function getDefs() {
-                return new Proxy({}, {get: () => (text) => text})
-              }
-            `,
-          );
-
-          text = text.replaceAll(
-            "const defsOn = buildDefs(picocolors.createColors(true));",
-            "",
-          );
-          text = text.replaceAll(
-            "const defsOff = buildDefs(picocolors.createColors(false));",
-            "",
-          );
-
-          text = text.replaceAll(
-            "const shouldHighlight = opts.forceColor || isColorSupported() && opts.highlightCode;",
-            "const shouldHighlight = false;",
-          );
-
-          text = text.replaceAll("exports.default = index;", "");
-          text = text.replaceAll("exports.highlight = highlight;", "");
-
-          return text;
-        },
-      },
-      // Smaller size
-      {
-        module: getPackageFile("picocolors/picocolors.browser.js"),
-        path: path.join(dirname, "./shims/colors.js"),
-      },
-    ],
-  },
-].map((file) => {
-  const {
-    input,
-    outputBaseName = path.basename(input, ".js"),
-    umdVariableName,
-    ...buildOptions
-  } = file;
-
-  return {
-    input,
-    outputBaseName,
-    umdVariableName,
-    buildOptions,
-  };
-});
-
-const universalFiles = [...nonPluginUniversalFiles, ...pluginFiles].flatMap(
-  (file) => {
-    let { input, outputBaseName, umdVariableName, buildOptions, isPlugin } =
-      file;
-
-    outputBaseName ??= path.basename(input);
-
-    return [
-      ...[
-        {
-          format: "esm",
-          file: `${outputBaseName}${extensions.esm}`,
-        },
-        {
-          format: "umd",
-          file: `${outputBaseName}${extensions.umd}`,
-          umdVariableName,
-        },
-      ].map((output) => ({
+    name: `Plugin[${pluginName}]`,
+    files: [
+      ...files,
+      ...createTypesConfig({
         input,
-        output,
-        platform: "universal",
-        buildOptions: {
-          addDefaultExport: output.format === "esm",
-          ...buildOptions,
-        },
-        isPlugin,
-        build: buildJavascriptModule,
-        kind: "javascript",
-        playground: output.format === "esm" && outputBaseName !== "doc",
-      })),
-      getTypesFileConfig({ input, outputBaseName, isPlugin }),
-    ];
-  },
+        outputBaseName: `plugins/${pluginName}`,
+        isPlugin: true,
+      }),
+    ],
+  };
+}
+
+const pluginModules = pluginFiles.map((file) => createPluginModule(file));
+
+packageConfig.modules.push(
+  mainModule,
+  cliModule,
+  docModule,
+  ...pluginModules,
+  createPackageMetaFilesConfig({
+    "package.json": generatePackageJson,
+    packageDisplayName: "Prettier",
+  }),
 );
 
-const nodejsFiles = [
-  {
-    input: "src/index.js",
-    replaceModule: [
-      // `editorconfig` use a older version of `semver` and only uses `semver.gte`
-      {
-        module: require.resolve("editorconfig"),
-        find: 'var semver = __importStar(require("semver"));',
-        replacement: `
-          var semver = {
-            gte: require(${JSON.stringify(
-              require.resolve("semver/functions/gte"),
-            )})
-          };
-        `,
-      },
-      {
-        module: require.resolve("n-readlines"),
-        find: "const readBuffer = new Buffer(this.options.readChunk);",
-        replacement: "const readBuffer = Buffer.alloc(this.options.readChunk);",
-      },
-      // `parse-json` use another copy of `@babel/code-frame`
-      {
-        module: require.resolve("@babel/code-frame", {
-          paths: [require.resolve("parse-json")],
-        }),
-        path: require.resolve("@babel/code-frame"),
-      },
-      {
-        module: getPackageFile("json5/dist/index.mjs"),
-        find: "export default lib;",
-        replacement: "export default { parse };",
-      },
-    ],
-    addDefaultExport: true,
-    reuseDocModule: true,
-  },
-  {
-    input: "src/index.cjs",
-  },
-  {
-    input: "bin/prettier.cjs",
-    outputBaseName: "bin/prettier",
-    target: ["node0.10"],
-    replaceModule: [
-      {
-        module: path.join(PROJECT_ROOT, "bin/prettier.cjs"),
-        process(text) {
-          text = text.replace(
-            "../src/cli/index.js",
-            "../internal/legacy-cli.mjs",
-          );
-          text = text.replace(
-            "../src/experimental-cli/index.js",
-            "../internal/experimental-cli.mjs",
-          );
-          return text;
-        },
-      },
-    ],
-  },
-  {
-    input: "src/cli/index.js",
-    outputBaseName: "internal/legacy-cli",
-    external: ["tinybench"],
-    // TODO: Remove this when we drop support for Node.js v16
-    replaceModule: [
-      {
-        module: resolveEsmModulePath("@cacheable/memory"),
-        process: (text) =>
-          outdent`
-            const structuredClone =
-              globalThis.structuredClone ??
-              ((value) => JSON.parse(JSON.stringify(value)));
-
-            ${text}
-          `,
-      },
-    ],
-  },
-  ...[
-    {
-      input: "src/experimental-cli/index.js",
-      outputBaseName: "internal/experimental-cli",
-      replaceModule: [
-        {
-          module: getPackageFile("@prettier/cli/dist/prettier_serial.js"),
-          external: "./experimental-cli-worker.mjs",
-        },
-        {
-          module: getPackageFile("@prettier/cli/dist/prettier_parallel.js"),
-          find: 'new URL("./prettier_serial.js", import.meta.url)',
-          replacement:
-            'new URL("./experimental-cli-worker.mjs", import.meta.url)',
-        },
-        {
-          module: getPackageFile("json5/dist/index.mjs"),
-          find: "export default lib;",
-          replacement: "export default { parse };",
-        },
-        {
-          module: getPackageFile("js-yaml/dist/js-yaml.mjs"),
-          find: "var dump                = dumper.dump;",
-          replacement: "var dump;",
-        },
-      ],
-    },
-    {
-      input: "src/experimental-cli/worker.js",
-      outputBaseName: "internal/experimental-cli-worker",
-    },
-  ].map(({ input, outputBaseName, replaceModule = [] }) => ({
-    input,
-    outputBaseName,
-    replaceModule: [
-      ...replaceModule,
-      {
-        module: getPackageFile("@prettier/cli/dist/constants.js"),
-        path: path.join(
-          PROJECT_ROOT,
-          "src/experimental-cli/constants.evaluate.js",
-        ),
-      },
-      ...["package.json", "index.mjs"].map((file) => ({
-        module: getPackageFile(`prettier/${file}`),
-        external: `../${file}`,
-      })),
-    ],
-  })),
-].flatMap((file) => {
-  let { input, output, outputBaseName, ...buildOptions } = file;
-
-  const format = input.endsWith(".cjs") ? "cjs" : "esm";
-  outputBaseName ??= path.basename(input, path.extname(input));
-
-  return [
-    {
-      input,
-      output: {
-        format,
-        file: `${outputBaseName}${extensions[format]}`,
-      },
-      platform: "node",
-      buildOptions,
-      build: buildJavascriptModule,
-      kind: "javascript",
-    },
-    getTypesFileConfig({ input, outputBaseName }),
-  ];
-});
-
-const metaFiles = [
-  {
-    input: "package.json",
-    output: {
-      format: "json",
-    },
-    build: buildPrettierPackageJson,
-  },
-  {
-    input: "README.md",
-    build: copyFileBuilder,
-  },
-  {
-    input: "LICENSE",
-    build: copyFileBuilder,
-  },
-  {
-    output: {
-      file: "THIRD-PARTY-NOTICES.md",
-    },
-    build: buildDependenciesLicense,
-  },
-].map((file) => ({
-  ...file,
-  output: { file: file.input, ...file.output },
-  kind: "meta",
-}));
-
-/** @type {Files[]} */
-const files = [...nodejsFiles, ...universalFiles, ...metaFiles].filter(Boolean);
-export default [
-  {
-    packageName: "prettier",
-    // Used in THIRD-PARTY-NOTICES.md
-    packageDisplayName: "Prettier",
-    distDirectory: path.join(DIST_DIR, "prettier"),
-    files,
-  },
-  {
-    packageName: "@prettier/plugin-oxc",
-    distDirectory: path.join(DIST_DIR, "plugin-oxc"),
-    files: [
-      ...[
-        {
-          input: "packages/plugin-oxc/index.js",
-          addDefaultExport: true,
-        },
-      ].flatMap((file) => {
-        let { input, output, outputBaseName, ...buildOptions } = file;
-
-        const format = input.endsWith(".cjs") ? "cjs" : "esm";
-        outputBaseName ??= path.basename(input, path.extname(input));
-
-        return [
-          {
-            input,
-            output: {
-              format,
-              file: `${outputBaseName}${extensions[format]}`,
-            },
-            platform: "node",
-            buildOptions: {
-              ...buildOptions,
-              external: ["oxc-parser"],
-            },
-            build: buildJavascriptModule,
-            kind: "javascript",
-          },
-          {
-            input,
-            output: {
-              format,
-              file: `${outputBaseName}.browser${extensions[format]}`,
-            },
-            platform: "universal",
-            buildOptions: {
-              ...buildOptions,
-              replaceModule: [
-                ...(buildOptions.replaceModule ?? []),
-                {
-                  module: getPackageFile("oxc-parser/src-js/wasm.js"),
-                  path: oxcWasmParser.entry,
-                },
-              ],
-              allowedWarnings: ["indirect-require", "package.json"],
-            },
-            build: buildJavascriptModule,
-            kind: "javascript",
-            playground: true,
-          },
-          getTypesFileConfig({ input, outputBaseName, isPlugin: true }),
-        ];
-      }),
-      ...[
-        {
-          input: "packages/plugin-oxc/package.json",
-          output: {
-            file: "package.json",
-            format: "json",
-          },
-          build: buildPluginOxcPackageJson,
-        },
-        {
-          input: "packages/plugin-oxc/README.md",
-          output: {
-            file: "README.md",
-          },
-          build: copyFileBuilder,
-        },
-        {
-          input: "LICENSE",
-          output: {
-            file: "LICENSE",
-          },
-          build: copyFileBuilder,
-        },
-        {
-          output: {
-            file: "THIRD-PARTY-NOTICES.md",
-          },
-          build: buildDependenciesLicense,
-        },
-      ].map((file) => ({
-        ...file,
-        output: { file: file.input, ...file.output },
-        kind: "meta",
-      })),
-    ],
-  },
-  {
-    packageName: "@prettier/plugin-hermes",
-    distDirectory: path.join(DIST_DIR, "plugin-hermes"),
-    files: [
-      ...[
-        {
-          input: "packages/plugin-hermes/index.js",
-          addDefaultExport: true,
-          replaceModule: [
-            {
-              module: require.resolve("hermes-parser/dist/HermesParser.js"),
-              process(text) {
-                text =
-                  'const Buffer = globalThis.Buffer ?? require("buffer/").Buffer;' +
-                  text;
-                return text;
-              },
-            },
-            {
-              module: require.resolve("hermes-parser/dist/HermesParserWASM.js"),
-              process(text) {
-                text = text.replaceAll("process.argv", "[]");
-                text = text.replaceAll('require("fs")', "undefined");
-                text = text.replaceAll('require("path")', "undefined");
-                text =
-                  'const Buffer = globalThis.Buffer ?? require("buffer/").Buffer;' +
-                  text;
-
-                return text;
-              },
-            },
-          ],
-        },
-      ].flatMap((file) => {
-        let { input, output, outputBaseName, ...buildOptions } = file;
-
-        outputBaseName ??= path.basename(input, path.extname(input));
-        const format = input.endsWith(".cjs") ? "cjs" : "esm";
-
-        return [
-          {
-            input,
-            output: {
-              format,
-              file: `${outputBaseName}${extensions[format]}`,
-            },
-            platform: "universal",
-            buildOptions: {
-              addDefaultExport: true,
-              ...buildOptions,
-            },
-            isPlugin: true,
-            build: buildJavascriptModule,
-            playground: true,
-            kind: "javascript",
-          },
-          getTypesFileConfig({ input, outputBaseName, isPlugin: true }),
-        ];
-      }),
-      ...[
-        {
-          input: "packages/plugin-hermes/package.json",
-          output: {
-            file: "package.json",
-            format: "json",
-          },
-          build: buildPluginHermesPackageJson,
-        },
-        {
-          input: "packages/plugin-hermes/README.md",
-          output: {
-            file: "README.md",
-          },
-          build: copyFileBuilder,
-        },
-        {
-          input: "LICENSE",
-          output: {
-            file: "LICENSE",
-          },
-          build: copyFileBuilder,
-        },
-        {
-          output: {
-            file: "THIRD-PARTY-NOTICES.md",
-          },
-          build: buildDependenciesLicense,
-        },
-      ].map((file) => ({
-        ...file,
-        output: { file: file.input, ...file.output },
-        kind: "meta",
-      })),
-    ],
-  },
-];
+export default packageConfig;

@@ -2,7 +2,7 @@
 
 import * as path from "node:path";
 import { outdent } from "outdent";
-import { PROJECT_ROOT, writeFile } from "../utilities/index.js";
+import { PROJECT_ROOT, writeFile } from "../../utilities/index.js";
 
 function esmifyTypescriptEslint(text) {
   /*

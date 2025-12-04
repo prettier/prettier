@@ -276,7 +276,6 @@ export default new Set([
   "getCommentRange",
   "getCommonSourceDirectory",
   "getCommonSourceDirectoryOfConfig",
-  "getCompilerOptionsDiffValue",
   "getConditions",
   "getConfigFileParsingDiagnostics",
   "getConstantValue",

@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { outdent } from "outdent";
 import rollupPluginLicense from "rollup-plugin-license";
-import { PROJECT_ROOT } from "../utilities/index.js";
+import { PROJECT_ROOT } from "../../utilities/index.js";
 
 const separator = `\n${"-".repeat(40)}\n\n`;
 
@@ -20,7 +20,7 @@ function getDependencies(results) {
     modules: Object.fromEntries(
       results
         .flatMap((result) =>
-          Object.keys(result.esbuildResult?.metafile.inputs ?? {}),
+          Object.keys(result?.esbuildResult?.metafile.inputs ?? {}),
         )
         .map((file) => [file, { renderedLength: 1 }]),
     ),
@@ -42,7 +42,7 @@ function getDependencies(results) {
   return dependencies;
 }
 
-function getLicenseText(packageConfig, dependencies) {
+function getLicenseText(packageConfig, dependencies, packageDisplayName) {
   dependencies = dependencies.filter(
     (dependency, index) =>
       // Exclude self
@@ -72,7 +72,7 @@ function getLicenseText(packageConfig, dependencies) {
   const head = outdent`
     # Licenses of bundled dependencies
 
-    The published ${packageConfig.packageDisplayName ?? packageConfig.packageName} artifact additionally contains code with the following licenses:
+    The published ${packageDisplayName ?? packageConfig.packageName} artifact additionally contains code with the following licenses:
     ${new Intl.ListFormat("en-US", { type: "conjunction" }).format(licenses)}.
   `;
 
@@ -120,35 +120,40 @@ function getLicenseText(packageConfig, dependencies) {
   return [head, content].join("\n\n");
 }
 
-async function buildDependenciesLicense({
-  packageConfig,
-  file,
-  results,
-  cliOptions,
-}) {
-  const { distDirectory, files } = packageConfig;
+function createDependenciesLicenseBuilder({ packageDisplayName }) {
+  return async function buildDependenciesLicense({
+    packageConfig,
+    file,
+    results,
+    cliOptions,
+  }) {
+    const files = packageConfig.modules.flatMap((module) => module.files);
+    const fileName = file.output;
 
-  const fileName = file.output.file;
+    if (files.at(-1) !== file) {
+      throw new Error(`${fileName} should be last file to build.`);
+    }
 
-  if (files.at(-1) !== file) {
-    throw new Error(`${fileName} should be last file to build.`);
-  }
+    const shouldBuildLicense = !cliOptions.files;
 
-  const shouldBuildLicense = !cliOptions.files;
+    if (!shouldBuildLicense) {
+      return { skipped: true };
+    }
 
-  if (!shouldBuildLicense) {
-    return { skipped: true };
-  }
+    const dependencies = getDependencies(results);
 
-  const dependencies = getDependencies(results);
+    if (dependencies.length === 0) {
+      throw new Error("Fail to collect dependencies.");
+    }
 
-  if (dependencies.length === 0) {
-    throw new Error("Fail to collect dependencies.");
-  }
+    const text = getLicenseText(
+      packageConfig,
+      dependencies,
+      packageDisplayName,
+    );
 
-  const text = getLicenseText(packageConfig, dependencies);
-
-  await fs.writeFile(path.join(distDirectory, fileName), text);
+    await fs.writeFile(path.join(packageConfig.distDirectory, fileName), text);
+  };
 }
 
-export default buildDependenciesLicense;
+export { createDependenciesLicenseBuilder };
