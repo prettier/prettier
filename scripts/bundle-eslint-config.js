@@ -9,22 +9,29 @@ const { browserslist: targets } = JSON.parse(
   await fs.readFile(new URL("../package.json", import.meta.url)),
 );
 
-function getProductionFiles(platform) {
-  return packageBuildConfigs
-    .flatMap((packageConfig) =>
-      packageConfig.modules.flatMap((module) =>
-        module.files
-          .filter(
-            (file) => file.kind === "javascript" && file.platform === platform,
-          )
-          .map((file) => path.join(packageConfig.distDirectory, file.output)),
-      ),
-    )
-    .map((file) => path.relative(DIST_DIR, file).replaceAll("\\", "/"));
-}
+const jsFiles = packageBuildConfigs
+  .flatMap((packageConfig) =>
+    packageConfig.modules.flatMap((module) =>
+      module.files
+        .filter((file) => /\.[cm]?js$/u.test(file.output))
+        .map((file) => path.join(packageConfig.distDirectory, file.output)),
+    ),
+  )
+  .map((file) => path.relative(DIST_DIR, file).replaceAll("\\", "/"));
 
-const browserFiles = getProductionFiles("universal");
-const nodejsFiles = getProductionFiles("node");
+const nodejsFiles = jsFiles.filter(
+  (file) =>
+    file.endsWith(".cjs") ||
+    [
+      "prettier/index.mjs",
+      "prettier/internal/legacy-cli.mjs",
+      "prettier/internal/experimental-cli.mjs",
+      "prettier/internal/experimental-cli-worker.mjs",
+      "plugin-oxc/index.mjs",
+    ].includes(file),
+);
+
+const browserFiles = jsFiles.filter((file) => !nodejsFiles.includes(file));
 
 assert.ok(browserFiles.length > 0);
 assert.ok(nodejsFiles.length > 0);
