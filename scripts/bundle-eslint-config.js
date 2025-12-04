@@ -2,7 +2,7 @@ import assert from "node:assert";
 import fs from "node:fs/promises";
 import path from "node:path";
 import eslintPluginCompat from "eslint-plugin-compat";
-import packageBuildConfig from "./build/package/index.js";
+import packageBuildConfigs from "./build/package/index.js";
 import { DIST_DIR } from "./utilities/index.js";
 
 const { browserslist: targets } = JSON.parse(
@@ -10,7 +10,7 @@ const { browserslist: targets } = JSON.parse(
 );
 
 function getProductionFiles(platform) {
-  return packageBuildConfig
+  return packageBuildConfigs
     .flatMap((packageConfig) =>
       packageConfig.modules.flatMap((module) =>
         module.files

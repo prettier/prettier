@@ -59,6 +59,11 @@ async function inlineWasmBinary(directory) {
     ${text}
   `;
 
+  text = text.replaceAll(
+    /new URL\(".*?", import\.meta\.url\)/gu,
+    "{url:undefined}",
+  );
+
   text = text.replace(
     "await fetch(__wasmUrl).then((res) => res.arrayBuffer())",
     `__base64ToArrayBuffer(${JSON.stringify(wasm)})`,
