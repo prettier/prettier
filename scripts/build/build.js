@@ -3,15 +3,12 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import readline from "node:readline";
-import createEsmUtils from "esm-utils";
 import styleText from "node-style-text";
 import prettyBytes from "pretty-bytes";
 import prettyMilliseconds from "pretty-ms";
 import { DIST_DIR, PROJECT_ROOT } from "../utilities/index.js";
 import packageConfigs from "./packages/index.js";
 import parseArguments from "./parse-arguments.js";
-
-const { require } = createEsmUtils(import.meta);
 
 const statusConfig = [
   { color: "bgGreen", text: "DONE" },
