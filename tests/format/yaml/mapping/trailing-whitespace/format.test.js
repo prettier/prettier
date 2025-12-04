@@ -1,4 +1,3 @@
-// For different blocks
 const blockStyles = ["|", ">", "|+", "|-", ">+", ">-"];
 const trailingSpace = ["", "  ", "\t"];
 const newlines = ["", "\n", "\n\n", "\n\n\n"];
