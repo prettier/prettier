@@ -2,7 +2,7 @@ import assert from "node:assert";
 import fs from "node:fs/promises";
 import path from "node:path";
 import eslintPluginCompat from "eslint-plugin-compat";
-import buildConfig from "./build/config.js";
+import packageBuildConfig from "./build/package/index.js";
 import { DIST_DIR } from "./utilities/index.js";
 
 const { browserslist: targets } = JSON.parse(
@@ -10,13 +10,15 @@ const { browserslist: targets } = JSON.parse(
 );
 
 function getProductionFiles(platform) {
-  return buildConfig
-    .flatMap((project) =>
-      project.files
-        .filter(
-          (file) => file.kind === "javascript" && file.platform === platform,
-        )
-        .map((file) => path.join(project.distDirectory, file.output.file)),
+  return packageBuildConfig
+    .flatMap((packageConfig) =>
+      packageConfig.modules.flatMap((module) =>
+        module.files
+          .filter(
+            (file) => file.kind === "javascript" && file.platform === platform,
+          )
+          .map((file) => path.join(packageConfig.distDirectory, file.output)),
+      ),
     )
     .map((file) => path.relative(DIST_DIR, file).replaceAll("\\", "/"));
 }
