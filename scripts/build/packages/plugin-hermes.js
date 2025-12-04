@@ -2,7 +2,10 @@ import path from "node:path";
 import { DIST_DIR, PACKAGES_DIRECTORY } from "../../utilities/index.js";
 import { createJavascriptModuleBuilder } from "../builders/javascript-module.js";
 import { getPackageFile } from "../utilities.js";
-import { createPackageMetaFilesConfig, createTypesConfig } from "./config.js";
+import {
+  createPackageMetaFilesConfig,
+  createTypesConfig,
+} from "./config-helpers.js";
 
 const packageConfig = {
   packageName: "@prettier/plugin-hermes",
@@ -46,6 +49,7 @@ const mainModule = {
         ],
         format: "esm",
       }),
+      playground: true,
     },
 
     ...createTypesConfig({ input: "index.js", isPlugin: true }),

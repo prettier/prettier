@@ -3,7 +3,10 @@ import { DIST_DIR, PACKAGES_DIRECTORY } from "../../utilities/index.js";
 import { createJavascriptModuleBuilder } from "../builders/javascript-module.js";
 import buildOxcWasmParser from "../hacks/build-oxc-wasm-parser.js";
 import { getPackageFile } from "../utilities.js";
-import { createPackageMetaFilesConfig, createTypesConfig } from "./config.js";
+import {
+  createPackageMetaFilesConfig,
+  createTypesConfig,
+} from "./config-helpers.js";
 
 const packageConfig = {
   packageName: "@prettier/plugin-oxc",

@@ -12,7 +12,7 @@ import {
   createPackageMetaFilesConfig,
   createTypesConfig,
   createUniversalFileConfig,
-} from "./config.js";
+} from "./config-helpers.js";
 import { generatePackageJson } from "./prettier-package-json.js";
 
 const {
@@ -143,6 +143,11 @@ const mainModule = {
     }),
   ].flat(),
 };
+for (const file of mainModule.files) {
+  if (file.output === "standalone.mjs") {
+    file.playground = true;
+  }
+}
 
 const cliModule = {
   name: "CLI",
@@ -816,9 +821,9 @@ function createPluginModule(file) {
       addDefaultExport: output.format === "esm",
       ...buildOptions,
       format: output.format,
-      playground: output.format === "esm",
       umdVariableName: output.umdVariableName,
     }),
+    playground: output.format === "esm",
   }));
 
   return {
