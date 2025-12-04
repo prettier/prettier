@@ -1,8 +1,21 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`comments.js [hermes] format 1`] = `
+"unrecognized character '@' (2:4)
+  1 | class Something {
+> 2 |     @Annotateme()
+    |    ^
+  3 |     // comment
+  4 |     static property: Array<string>;
+  5 | }
+Cause: unrecognized character '@' (2:4)
+    @Annotateme()
+    ^"
+`;
+
 exports[`comments.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel-flow"]
+parsers: ["flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -22,9 +35,22 @@ class Something {
 ================================================================================
 `;
 
+exports[`mobx.js [hermes] format 1`] = `
+"unrecognized character '@' (3:0)
+  1 | import {observable} from "mobx";
+  2 |
+> 3 | @observer class OrderLine {
+  4 |   @observable price:number = 0;
+  5 |   @observable amount:number = 1;
+  6 |
+Cause: unrecognized character '@' (3:0)
+@observer class OrderLine {
+^"
+`;
+
 exports[`mobx.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel-flow"]
+parsers: ["flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

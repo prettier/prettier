@@ -13,11 +13,7 @@ import url from "node:url";
 }} CliTestOptions
 */
 
-// Though the doc says `childProcess.fork` accepts `URL`, but seems not true
-// TODO: Use `URL` directly when we drop support for Node.js v14
-const CLI_WORKER_FILE = url.fileURLToPath(
-  new URL("./cli-worker.js", import.meta.url),
-);
+const CLI_WORKER_FILE = new URL("./cli-worker.js", import.meta.url);
 const INTEGRATION_TEST_DIRECTORY = url.fileURLToPath(
   new URL("./", import.meta.url),
 );
@@ -184,8 +180,8 @@ function runCli(dir, args = [], options = {}) {
         // manually replacing this character with /*CR*/ to test its true presence
         // If ignoreLineEndings is specified, \r is simply deleted instead
         if (name === "stdout" || name === "stderr") {
-          value = result[name].replace(
-            /\r/gu,
+          value = result[name].replaceAll(
+            "\r",
             options.ignoreLineEndings ? "" : "/*CR*/",
           );
         }
@@ -199,7 +195,7 @@ function runCli(dir, args = [], options = {}) {
             expect(value).toEqual(testOptions[name]);
           }
         } else {
-          snapshot = snapshot ?? {};
+          snapshot ??= {};
           snapshot[name] = value;
         }
       }

@@ -66,7 +66,7 @@ Format options:
   --object-wrap <preserve|collapse>
                            How to wrap object literals.
                            Defaults to preserve.
-  --parser <flow|babel|babel-flow|babel-ts|typescript|acorn|espree|meriyah|css|less|scss|json|json5|jsonc|json-stringify|graphql|markdown|mdx|vue|yaml|glimmer|html|angular|lwc|mjml>
+  --parser <flow|babel|babel-ts|typescript|acorn|espree|meriyah|css|less|scss|json|json5|jsonc|json-stringify|graphql|markdown|mdx|vue|yaml|glimmer|html|angular|lwc|mjml>
                            Which parser to use.
   --print-width <int>      The line length where Prettier will try wrap.
                            Defaults to 80.
@@ -165,7 +165,7 @@ exports[`show version with --version  1`] = `
 exports[`show warning with --help not-found (typo)  1`] = `
 {
   "stderr": "[warn] Unknown flag "parserr", did you mean "parser"?",
-  "stdout": "--parser <flow|babel|babel-flow|babel-ts|typescript|acorn|espree|meriyah|css|less|scss|json|json5|jsonc|json-stringify|graphql|markdown|mdx|vue|yaml|glimmer|html|angular|lwc|mjml>
+  "stdout": "--parser <flow|babel|babel-ts|typescript|acorn|espree|meriyah|css|less|scss|json|json5|jsonc|json-stringify|graphql|markdown|mdx|vue|yaml|glimmer|html|angular|lwc|mjml>
 
   Which parser to use.
 
@@ -173,7 +173,6 @@ Valid options:
 
   flow             Flow
   babel            JavaScript
-  babel-flow       Flow
   babel-ts         TypeScript
   typescript       TypeScript
   acorn            JavaScript
@@ -242,7 +241,7 @@ Format options:
   --object-wrap <preserve|collapse>
                            How to wrap object literals.
                            Defaults to preserve.
-  --parser <flow|babel|babel-flow|babel-ts|typescript|acorn|espree|meriyah|css|less|scss|json|json5|jsonc|json-stringify|graphql|markdown|mdx|vue|yaml|glimmer|html|angular|lwc|mjml>
+  --parser <flow|babel|babel-ts|typescript|acorn|espree|meriyah|css|less|scss|json|json5|jsonc|json-stringify|graphql|markdown|mdx|vue|yaml|glimmer|html|angular|lwc|mjml>
                            Which parser to use.
   --print-width <int>      The line length where Prettier will try wrap.
                            Defaults to 80.

@@ -33,7 +33,7 @@ exports[`async-do-expressions.js [oxc] format 1`] = `
 
 exports[`async-do-expressions.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
+parsers: ["babel", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -49,7 +49,7 @@ async do { await requestAPI().json() };
 
 exports[`async-generators.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
+parsers: ["babel", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -73,7 +73,7 @@ async function* agf() {
 
 exports[`bigint.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
+parsers: ["babel", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -341,7 +341,7 @@ const alsoGoodPrecision = 9007199254740993n;
 
 exports[`class-properties.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
+parsers: ["babel", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -405,7 +405,7 @@ console.log(Bork.staticFunction()); // > "babelIsCool"
 
 exports[`class-static-block.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
+parsers: ["babel", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -459,7 +459,7 @@ Cause: Unexpected token clicked"
 
 exports[`decorator-auto-accessors.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
+parsers: ["babel", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -501,7 +501,7 @@ Cause: Unexpected character '@'"
 
 exports[`decorators.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
+parsers: ["babel", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -595,7 +595,7 @@ Cause: [1:13-1:14]: Expected 'from'"
 
 exports[`deferred-import-evaluation.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
+parsers: ["babel", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -656,7 +656,7 @@ exports[`destructuring-private.js [oxc] format 1`] = `
 
 exports[`destructuring-private.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
+parsers: ["babel", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -723,7 +723,7 @@ exports[`discard-binding.js [oxc] format 1`] = `
 
 exports[`discard-binding.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
+parsers: ["babel", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -784,7 +784,7 @@ exports[`do-expressions.js [oxc] format 1`] = `
 
 exports[`do-expressions.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
+parsers: ["babel", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -818,7 +818,7 @@ let a = x > 10 ? "big" : "small";
 
 exports[`dynamic-import.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
+parsers: ["babel", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -857,7 +857,7 @@ Cause: [2:8-2:14]: Unexpected token: 'identifier'"
 
 exports[`explicit-resource-management.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
+parsers: ["babel", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -932,7 +932,7 @@ exports[`export-default-from.js [oxc] format 1`] = `
 
 exports[`export-default-from.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
+parsers: ["babel", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -951,7 +951,7 @@ export v from "mod";
 
 exports[`export-namespace-from.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
+parsers: ["babel", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -997,27 +997,9 @@ exports[`flow.js [babel] format 1`] = `
 Cause: Unexpected token, expected "," (3:16)"
 `;
 
-exports[`flow.js [babel-flow] format 1`] = `
-====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-// https://babeljs.io/docs/babel-preset-flow
-
-function foo(one: any, two: number, three?): string {}
-
-=====================================output=====================================
-// https://babeljs.io/docs/babel-preset-flow
-
-function foo(one: any, two: number, three?): string {}
-
-================================================================================
-`;
-
 exports[`flow.js [babel-ts] format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
+parsers: ["babel", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -1111,7 +1093,7 @@ exports[`function-bind.js [oxc] format 1`] = `
 
 exports[`function-bind.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
+parsers: ["babel", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -1203,7 +1185,7 @@ exports[`function-sent.js [oxc] format 1`] = `
 
 exports[`function-sent.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
+parsers: ["babel", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -1235,7 +1217,7 @@ iterator.next(2); // Logs "Yield 2"
 
 exports[`import-assertions-dynamic.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
+parsers: ["babel", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -1273,7 +1255,7 @@ Cause: [1:30-1:36]: Unexpected token: 'identifier'"
 
 exports[`import-assertions-static.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
+parsers: ["babel", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -1287,7 +1269,7 @@ import json from "./foo.json" assert { type: "json" };
 
 exports[`import-attributes-dynamic.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
+parsers: ["babel", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -1301,7 +1283,7 @@ import("./foo.json", { with: { type: "json" } });
 
 exports[`import-attributes-static.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
+parsers: ["babel", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -1315,7 +1297,7 @@ import json from "./foo.json" with { type: "json" };
 
 exports[`import-meta.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
+parsers: ["babel", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -1363,7 +1345,7 @@ printWidth: 80
 
 exports[`jsx.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
+parsers: ["babel", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -1389,7 +1371,7 @@ var profile = (
 
 exports[`logical-assignment-operators.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
+parsers: ["babel", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -1454,7 +1436,7 @@ exports[`module-blocks.js [oxc] format 1`] = `
 
 exports[`module-blocks.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
+parsers: ["babel", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -1474,7 +1456,7 @@ let m = module {
 
 exports[`module-string-names.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
+parsers: ["babel", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -1490,7 +1472,7 @@ export { smile as "😄" } from "./emojis.js";
 
 exports[`nullish-coalescing-operator.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
+parsers: ["babel", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -1508,7 +1490,7 @@ var foo = object.foo ?? "default";
 
 exports[`numeric-separator.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
+parsers: ["babel", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -1592,7 +1574,7 @@ console.log(c.toString(16), b); // c0, 192
 
 exports[`object-rest-spread.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
+parsers: ["babel", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -1622,7 +1604,7 @@ console.log(n); // { x: 1, y: 2, a: 3, b: 4 }
 
 exports[`optional-catch-binding.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
+parsers: ["babel", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -1664,7 +1646,7 @@ try {
 
 exports[`optional-chaining.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
+parsers: ["babel", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -1830,7 +1812,7 @@ exports[`optional-chaining-assignment.js [oxc] format 1`] = `
 
 exports[`optional-chaining-assignment.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
+parsers: ["babel", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -1891,7 +1873,7 @@ exports[`partial-application.js [oxc] format 1`] = `
 
 exports[`partial-application.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
+parsers: ["babel", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -1992,7 +1974,7 @@ exports[`pipeline-operator-fsharp.js [oxc] format 1`] = `
 
 exports[`pipeline-operator-fsharp.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
+parsers: ["babel", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -2114,7 +2096,7 @@ exports[`pipeline-operator-hack.cjs [oxc] format 1`] = `
 
 exports[`pipeline-operator-hack.cjs format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
+parsers: ["babel", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -2187,7 +2169,7 @@ exports[`pipeline-operator-minimal.js [oxc] format 1`] = `
 
 exports[`pipeline-operator-minimal.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
+parsers: ["babel", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -2220,7 +2202,7 @@ result; //=> "Hello, hello!"
 
 exports[`private-fields-in-in.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
+parsers: ["babel", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -2342,7 +2324,7 @@ class C3 {
 
 exports[`private-methods.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
+parsers: ["babel", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -2393,7 +2375,7 @@ class Counter extends HTMLElement {
 
 exports[`regex-v-flag.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
+parsers: ["babel", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -2407,7 +2389,7 @@ printWidth: 80
 
 exports[`regexp-modifiers.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
+parsers: ["babel", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -2448,7 +2430,7 @@ Cause: [1:14-1:23]: Expected 'from'"
 
 exports[`source-phase-imports.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
+parsers: ["babel", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -2511,7 +2493,7 @@ exports[`throw-expressions.js [oxc] format 1`] = `
 
 exports[`throw-expressions.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
+parsers: ["babel", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -2561,27 +2543,9 @@ exports[`typescript.js [babel] format 1`] = `
 Cause: Unexpected token (3:7)"
 `;
 
-exports[`typescript.js [babel-flow] format 1`] = `
-====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-// https://babeljs.io/docs/babel-preset-typescript
-
-const x: number = 0;
-
-=====================================output=====================================
-// https://babeljs.io/docs/babel-preset-typescript
-
-const x: number = 0;
-
-================================================================================
-`;
-
 exports[`typescript.js [babel-ts] format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
+parsers: ["babel", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -2675,7 +2639,7 @@ exports[`v8intrinsic.js [oxc] format 1`] = `
 
 exports[`v8intrinsic.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
+parsers: ["babel", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

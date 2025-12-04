@@ -8,17 +8,8 @@ import {
 
 const normalizeToPosix =
   path.sep === "\\"
-    ? (filepath) => replaceAll(filepath, "\\", "/")
+    ? (filepath) => filepath.replaceAll("\\", "/")
     : (filepath) => filepath;
-const hasOwn =
-  Object.hasOwn ??
-  ((object, property) =>
-    // eslint-disable-next-line prefer-object-has-own
-    Object.prototype.hasOwnProperty.call(object, property));
-const replaceAll = (text, find, replacement) =>
-  text.replaceAll
-    ? text.replaceAll(find, replacement)
-    : text.split(find).join(replacement);
 
 async function getApiMockable() {
   const prettier = await import(url.pathToFileURL(prettierMainEntry));
@@ -60,7 +51,7 @@ async function mockImplementations(options) {
       filename = normalizeToPosix(path.relative(process.cwd(), filename));
       if (
         options.mockWriteFileErrors &&
-        hasOwn(options.mockWriteFileErrors, filename)
+        Object.hasOwn(options.mockWriteFileErrors, filename)
       ) {
         throw new Error(
           options.mockWriteFileErrors[filename] + " (mocked error)",
@@ -81,7 +72,6 @@ async function mockImplementations(options) {
 
 async function run(options) {
   await mockImplementations(options);
-
   const { __promise: promise } = await import(
     url.pathToFileURL(prettierCliEntry)
   );

@@ -95,15 +95,6 @@ exports[`snippet: Should not support front matter [babel] format 1`] = `
 Cause: Unexpected token (3:3)"
 `;
 
-exports[`snippet: Should not support front matter [babel-flow] format 1`] = `
-"Unexpected token (3:4)
-  1 | ---
-  2 | Front Matter content
-> 3 | ---
-    |    ^
-Cause: Unexpected token (3:3)"
-`;
-
 exports[`snippet: Should not support front matter [babel-ts] format 1`] = `
 "Unexpected token (3:4)
   1 | ---

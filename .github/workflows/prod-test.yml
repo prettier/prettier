@@ -58,7 +58,7 @@ jobs:
           # Latest even version
           - "24"
           # Minimal version for production
-          - "14"
+          - "18"
         include:
           - os: "ubuntu-latest"
             # Pick a version that is fast (normally highest LTS version)
@@ -72,17 +72,6 @@ jobs:
             node: "22"
           - os: "ubuntu-latest"
             node: "20"
-          - os: "ubuntu-latest"
-            node: "18"
-          - os: "ubuntu-latest"
-            node: "16"
-          # Tests on Intel Mac x Node.js 14 ( https://github.com/prettier/prettier/issues/16248 )
-          - os: "macos-15-intel"
-            node: "14"
-        # setup-node does not support Node.js 14 x M1 Mac
-        exclude:
-          - os: "macos-latest"
-            node: "14"
     env:
       FULL_TEST: ${{ matrix.FULL_TEST }}
     name: ${{ matrix.FULL_TEST && '[Full Test] ' || '' }} Node.js ${{ matrix.node }} on ${{ startsWith(matrix.os, 'macos') && 'MacOS' || startsWith(matrix.os, 'windows') && 'Windows' || 'Linux' }}
@@ -92,28 +81,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6.0.0
 
-      - name: Install yarn@3
-        if: ${{ matrix.node == '14' || matrix.node == '16' }}
-        run: |
-          yarn set version 3
-          yarn config set httpRetry 10
-          cat .yarnrc.yml
-
       - name: Setup Node.js
         uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v6.0.0
         with:
           node-version: ${{ matrix.node }}
           cache: "yarn"
-
-      - name: Downgrade Jest
-        if: ${{ matrix.node == '14' || matrix.node == '16' }}
-        run: node ./scripts/prepare-test-for-legacy-nodejs.js --node-version ${{ matrix.node }}
-
-      - name: Install Dependencies(yarn@3,mutable)
-        if: ${{ matrix.node == '14' || matrix.node == '16' }}
-        env:
-          YARN_ENABLE_IMMUTABLE_INSTALLS: false
-        run: yarn install
 
       - name: Install Dependencies
         run: yarn install --immutable
@@ -164,7 +136,7 @@ jobs:
         run: node -v | grep "v0.10.48" || exit 1
 
       - name: Run CLI on Node.js v0.10.48
-        run: node dist/prettier/bin/prettier.cjs --version 2>&1 >/dev/null | grep "prettier requires at least version 14 of Node, please upgrade" || exit 1
+        run: node dist/prettier/bin/prettier.cjs --version 2>&1 >/dev/null | grep "prettier requires at least version 18 of Node, please upgrade" || exit 1
 
   preview:
     if: github.repository == 'prettier/prettier'

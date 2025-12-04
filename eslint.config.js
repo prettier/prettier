@@ -77,6 +77,7 @@ const configs = [
       "no-implicit-coercion": "error",
       "no-inner-declarations": "error",
       "no-lonely-if": "error",
+      "no-restricted-imports": ["error", "assert", "node:assert"],
       "no-unneeded-ternary": "error",
       "no-useless-return": "error",
       "no-unused-expressions": [
@@ -368,13 +369,6 @@ const configs = [
   },
   {
     files: ["tests/**/*.{js,cjs}"],
-    rules: {
-      // TODO: Enable this when we drop support for Node.js v14
-      "logical-assignment-operators": "off",
-      "unicorn/prefer-array-flat": "off",
-      "unicorn/prefer-array-flat-map": "off",
-      "unicorn/prefer-string-replace-all": "off",
-    },
     languageOptions: {
       globals: {
         runCli: "readonly",

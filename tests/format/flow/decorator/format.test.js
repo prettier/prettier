@@ -1,2 +1,3 @@
-// TODO: Run tests with `flow` parser https://github.com/facebook/flow/issues/9003
-runFormatTest(import.meta, ["babel-flow"]);
+runFormatTest(import.meta, ["flow"], {
+  errors: { hermes: ["mobx.js", "comments.js"] },
+});

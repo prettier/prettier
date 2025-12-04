@@ -12,7 +12,5 @@ export { default as "method-replace-all" } from "./transform-method-replace-all.
 export { default as "method-to-reversed" } from "./transform-method-to-reversed.js";
 // Node.js 20
 export { default as "method-is-well-formed" } from "./transform-method-is-well-formed.js";
-// Node.js 16.9.0
-export { default as "object-has-own" } from "./transform-object-has-own.js";
 // For performance
 export { default as "string-raw" } from "./transform-string-raw.js";

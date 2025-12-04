@@ -47,7 +47,7 @@ async function buildPrettierPackageJson({ packageConfig, file }) {
     engines: {
       ...packageJson.engines,
       // https://github.com/prettier/prettier/pull/13118#discussion_r922708068
-      // Don't delete, event it's the same in package.json
+      // Don't delete, comment out if we don't want override
       node: `>=${PRODUCTION_MINIMAL_NODE_JS_VERSION}`,
     },
     type: "commonjs",

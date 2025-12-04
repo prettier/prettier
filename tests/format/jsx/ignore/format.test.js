@@ -1,6 +1,5 @@
 runFormatTest(import.meta, [
   "babel",
-  "babel-flow",
   "babel-ts",
   "__babel_estree",
   "typescript",

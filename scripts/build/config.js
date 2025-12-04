@@ -805,6 +805,10 @@ const nodejsFiles = [
         module: path.join(PROJECT_ROOT, "bin/prettier.cjs"),
         process(text) {
           text = text.replace(
+            "process.env.PRETTIER_EXPERIMENTAL_CLI",
+            "!process.env.PRETTIER_LEGACY_CLI",
+          );
+          text = text.replace(
             "../src/cli/index.js",
             "../internal/legacy-cli.mjs",
           );

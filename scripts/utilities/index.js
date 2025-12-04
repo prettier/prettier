@@ -36,7 +36,7 @@ const PROJECT_ROOT = url.fileURLToPath(new URL("../../", import.meta.url));
 const DIST_DIR = path.join(PROJECT_ROOT, "dist");
 const WEBSITE_DIR = path.join(PROJECT_ROOT, "website");
 const SOURCE_DIR = path.join(PROJECT_ROOT, "src");
-const PRODUCTION_MINIMAL_NODE_JS_VERSION = "14";
+const PRODUCTION_MINIMAL_NODE_JS_VERSION = "18";
 
 export {
   copyFile,

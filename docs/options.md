@@ -299,12 +299,11 @@ Specify which parser to use.
 
 Prettier automatically infers the parser from the input file path, so you shouldn’t have to change this setting.
 
-Both the `babel` and `flow` parsers support the same set of JavaScript features (including Flow type annotations). They might differ in some edge cases, so if you run into one of those you can try `flow` instead of `babel`. Almost the same applies to `typescript` and `babel-ts`. `babel-ts` might support JavaScript features (proposals) not yet supported by TypeScript, but it’s less permissive when it comes to invalid code and less battle-tested than the `typescript` parser.
+Both the `typescript` and `babel-ts` parsers support the same set of TypeScript features. They might differ in some edge cases, so if you run into one of those you can try `typescript` instead of `babel-ts`. `babel-ts` might support JavaScript features (proposals) not yet supported by TypeScript, but it’s less permissive when it comes to invalid code and less battle-tested than the `typescript` parser.
 
 Valid options:
 
 - `"babel"` (via [@babel/parser](https://github.com/babel/babel/tree/main/packages/babel-parser)) _Named `"babylon"` until v1.16.0_
-- `"babel-flow"` (same as `"babel"` but enables Flow parsing explicitly to avoid ambiguity) _First available in v1.16.0_
 - `"babel-ts"` (similar to `"typescript"` but uses Babel and its TypeScript plugin) _First available in v2.0.0_
 - `"flow"` (via [flow-parser](https://github.com/facebook/flow/tree/master/src/parser))
 - `"typescript"` (via [@typescript-eslint/typescript-estree](https://github.com/typescript-eslint/typescript-eslint)) _First available in v1.4.0_

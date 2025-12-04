@@ -28,14 +28,6 @@ const transform = (code) =>
     ) +
   "\n";
 
-test("Object.hasOwn", () => {
-  expect(transform("Object.hasOwn(foo, bar)")).toMatchInlineSnapshot(`
-    "
-    Object.prototype.hasOwnProperty.call(foo, bar);
-    "
-  `);
-});
-
 test(".at", () => {
   expect(transform("foo.at(-1)")).toMatchInlineSnapshot(`
     "
@@ -273,7 +265,7 @@ test("All", () => {
       align,
       line
     } = __doc_builders;
-    if (Object.prototype.hasOwnProperty.call(foo, bar)) {
+    if (Object.hasOwn(foo, bar)) {
       const a = __replaceAll(/* OPTIONAL_OBJECT: true */1, __at(/* OPTIONAL_OBJECT: true */1, foo, -1), /bar/, ""),
         b = __findLast(/* OPTIONAL_OBJECT: true */1, bar, () => true),
         c = __findLastIndex(/* OPTIONAL_OBJECT: false */0, foo, callback);

@@ -45,7 +45,7 @@ exports[`arrow-params.js [oxc] format 1`] = `
 
 exports[`arrow-params.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-flow", "babel-ts"]
+parsers: ["babel", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -112,7 +112,7 @@ exports[`assignment.js [oxc] format 1`] = `
 
 exports[`assignment.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-flow", "babel-ts"]
+parsers: ["babel", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -181,7 +181,7 @@ exports[`async-arrow-params.js [oxc] format 1`] = `
 
 exports[`async-arrow-params.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-flow", "babel-ts"]
+parsers: ["babel", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -248,7 +248,7 @@ exports[`bindings.js [oxc] format 1`] = `
 
 exports[`bindings.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-flow", "babel-ts"]
+parsers: ["babel", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -319,7 +319,7 @@ exports[`for-lhs.js [oxc] format 1`] = `
 
 exports[`for-lhs.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-flow", "babel-ts"]
+parsers: ["babel", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -392,7 +392,7 @@ exports[`nested-bindings.js [oxc] format 1`] = `
 
 exports[`nested-bindings.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-flow", "babel-ts"]
+parsers: ["babel", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -468,7 +468,7 @@ exports[`valid-multiple-bindings.js [oxc] format 1`] = `
 
 exports[`valid-multiple-bindings.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-flow", "babel-ts"]
+parsers: ["babel", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
