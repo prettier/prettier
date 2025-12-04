@@ -7,7 +7,7 @@ import createEsmUtils from "esm-utils";
 import styleText from "node-style-text";
 import prettyBytes from "pretty-bytes";
 import prettyMilliseconds from "pretty-ms";
-import { DIST_DIR } from "../utilities/index.js";
+import { DIST_DIR, PROJECT_ROOT } from "../utilities/index.js";
 import packageConfigs from "./packages/index.js";
 import parseArguments from "./parse-arguments.js";
 
@@ -74,7 +74,7 @@ async function buildFile({ packageConfig, file, cliOptions, results }) {
     return;
   }
 
-  const outputFile = cliOptions.saveAs ?? file.output.file;
+  const outputFile = cliOptions.saveAs ?? file.output;
 
   const sizeMessages = [];
   if (cliOptions.printSize) {
@@ -82,10 +82,13 @@ async function buildFile({ packageConfig, file, cliOptions, results }) {
     sizeMessages.push(prettyBytes(size));
   }
 
-  if (cliOptions.compareSize && packageConfig.name === "prettier") {
-    // TODO: Use `import.meta.resolve` when Node.js support
-    const stablePrettierDirectory = path.dirname(require.resolve("prettier"));
+  if (cliOptions.compareSize) {
+    const stablePrettierDirectory = path.join(
+      PROJECT_ROOT,
+      `node_modules/${packageConfig.packageName}/`,
+    );
     const stableVersionFile = path.join(stablePrettierDirectory, outputFile);
+
     let stableSize;
     try {
       ({ size: stableSize } = await fs.stat(stableVersionFile));
