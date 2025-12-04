@@ -3,7 +3,7 @@ import path from "node:path";
 import url from "node:url";
 import { isValidIdentifier } from "@babel/types";
 import { outdent } from "outdent";
-import { PROJECT_ROOT, writeFile } from "../utilities/index.js";
+import { PROJECT_ROOT, writeFile } from "../../utilities/index.js";
 
 async function typesFileBuilder({ packageConfig, file }) {
   /**
@@ -20,10 +20,8 @@ async function typesFileBuilder({ packageConfig, file }) {
   for (const { from, to } of replacements) {
     text = text.replaceAll(` from "${from}";`, ` from "${to}";`);
   }
-  await writeFile(
-    path.join(packageConfig.distDirectory, file.output.file),
-    text,
-  );
+
+  await writeFile(path.join(packageConfig.distDirectory, file.output), text);
 }
 
 function toPropertyKey(name) {
@@ -32,7 +30,7 @@ function toPropertyKey(name) {
 
 async function buildPluginTypes({ packageConfig, file: { input, output } }) {
   const pluginModule = await import(
-    url.pathToFileURL(path.join(PROJECT_ROOT, input))
+    url.pathToFileURL(path.join(packageConfig.sourceDirectory, input))
   );
   const plugin = pluginModule.default ?? pluginModule;
   const parserNames = Object.keys(plugin.parsers ?? {});
@@ -55,16 +53,11 @@ async function buildPluginTypes({ packageConfig, file: { input, output } }) {
         };
       `;
 
-  await writeFile(
-    path.join(packageConfig.distDirectory, output.file),
-    `${code}\n`,
-  );
+  await writeFile(path.join(packageConfig.distDirectory, output), `${code}\n`);
 }
 
-function buildTypes(options) {
-  return options.file.isPlugin
-    ? buildPluginTypes(options)
-    : typesFileBuilder(options);
+function createTypesBuilder({ isPlugin }) {
+  return isPlugin ? buildPluginTypes : typesFileBuilder;
 }
 
-export default buildTypes;
+export { createTypesBuilder };

@@ -3,12 +3,11 @@ import { existsSync, promises as fs } from "node:fs";
 import url from "node:url";
 import spawn from "nano-spawn";
 import { outdent } from "outdent";
-import packageJson from "../../package.json" with { type: "json" };
+import packageJson from "../../../package.json" with { type: "json" };
 
+const TEMPORARY_DIRECTORY = new URL("../../../.tmp/", import.meta.url);
 const DIRECTORY_NAME = "prettier-oxc-wasm-parser";
 const PACKAGE_NAME = "@oxc-parser/binding-wasm32-wasi";
-
-const TEMPORARY_DIRECTORY = new URL("../../.tmp/", import.meta.url);
 
 const runYarn = (command, options) =>
   spawn("yarn", command.split(" "), options);

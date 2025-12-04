@@ -3,30 +3,23 @@ import url from "node:url";
 import browserslistToEsbuild from "browserslist-to-esbuild";
 import esbuild from "esbuild";
 import createEsmUtils from "esm-utils";
-import {
-  PRODUCTION_MINIMAL_NODE_JS_VERSION,
-  PROJECT_ROOT,
-} from "../utilities/index.js";
-import esbuildPluginAddDefaultExport from "./esbuild-plugins/add-default-export.js";
-import esbuildPluginEvaluate from "./esbuild-plugins/evaluate.js";
-import esbuildPluginPrimitiveDefine from "./esbuild-plugins/primitive-define.js";
-import esbuildPluginReplaceModule from "./esbuild-plugins/replace-module.js";
-import esbuildPluginShimCommonjsObjects from "./esbuild-plugins/shim-commonjs-objects.js";
-import esbuildPluginStripNodeProtocol from "./esbuild-plugins/strip-node-protocol.js";
-import esbuildPluginThrowWarnings from "./esbuild-plugins/throw-warnings.js";
-import esbuildPluginUmd from "./esbuild-plugins/umd.js";
-import esbuildPluginVisualizer from "./esbuild-plugins/visualizer.js";
-import transform from "./transform/index.js";
-import { getPackageFile } from "./utilities.js";
+import projectPackageJson from "../../../package.json" with { type: "json" };
+import { PRODUCTION_MINIMAL_NODE_JS_VERSION } from "../../utilities/index.js";
+import esbuildPluginAddDefaultExport from "../esbuild-plugins/add-default-export.js";
+import esbuildPluginEvaluate from "../esbuild-plugins/evaluate.js";
+import esbuildPluginPrimitiveDefine from "../esbuild-plugins/primitive-define.js";
+import esbuildPluginReplaceModule from "../esbuild-plugins/replace-module.js";
+import esbuildPluginShimCommonjsObjects from "../esbuild-plugins/shim-commonjs-objects.js";
+import esbuildPluginStripNodeProtocol from "../esbuild-plugins/strip-node-protocol.js";
+import esbuildPluginThrowWarnings from "../esbuild-plugins/throw-warnings.js";
+import esbuildPluginUmd from "../esbuild-plugins/umd.js";
+import esbuildPluginVisualizer from "../esbuild-plugins/visualizer.js";
+import transform from "../transform/index.js";
+import { getPackageFile } from "../utilities.js";
 
-const {
-  readJsonSync,
-  require,
-  resolve: importMetaResolve,
-} = createEsmUtils(import.meta);
-const packageJson = readJsonSync("../../package.json");
+const { require, resolve: importMetaResolve } = createEsmUtils(import.meta);
 
-const universalTarget = browserslistToEsbuild(packageJson.browserslist);
+const universalTarget = browserslistToEsbuild(projectPackageJson.browserslist);
 const getRelativePath = (from, to) => {
   const relativePath = path.posix.relative(path.dirname(`/${from}`), `/${to}`);
   if (!relativePath.startsWith(".")) {
@@ -36,8 +29,8 @@ const getRelativePath = (from, to) => {
   return relativePath;
 };
 
-function getEsbuildOptions({ packageConfig, file, cliOptions }) {
-  const { distDirectory, files } = packageConfig;
+function getEsbuildOptions({ packageConfig, file, cliOptions, buildOptions }) {
+  const { sourceDirectory, distDirectory } = packageConfig;
 
   // Save dependencies to file
   file.dependencies = [];
@@ -116,11 +109,11 @@ function getEsbuildOptions({ packageConfig, file, cliOptions }) {
   ];
 
   const define = {
-    "process.env.PRETTIER_TARGET": file.platform,
+    "process.env.PRETTIER_TARGET": buildOptions.platform,
     "process.env.NODE_ENV": "production",
   };
 
-  if (file.platform === "universal") {
+  if (buildOptions.platform === "universal") {
     // We can't reference `process` in UMD bundles and this is
     // an undocumented "feature"
     replaceModule.push({
@@ -144,48 +137,48 @@ function getEsbuildOptions({ packageConfig, file, cliOptions }) {
     define.__dirname = "/prettier-security-dirname-placeholder";
   }
 
-  if (file.platform === "node") {
-    // External other bundled files
-    replaceModule.push(
-      ...files
-        .filter(
-          (bundle) =>
-            bundle.input === "package.json" ||
-            (file.input !== bundle.input && bundle.output.format === "esm"),
-        )
-        .map((bundle) => {
-          let output = bundle.output.file;
-          if (
-            file.output.file === "index.cjs" &&
-            bundle.output.file === "doc.mjs"
-          ) {
-            output = "doc.js";
-          }
+  // External other bundled files
+  if (buildOptions.platform === "node") {
+    const files = packageConfig.modules
+      .flatMap((module) => module.files)
+      .filter(
+        (bundle) =>
+          bundle.input === "package.json" ||
+          (file.input &&
+            file.input !== bundle.input &&
+            bundle.output.endsWith(".mjs")),
+      );
+    const replacements = files.map((bundle) => {
+      let { output } = bundle;
+      if (file.output === "index.cjs" && output === "doc.mjs") {
+        output = "doc.js";
+      }
 
-          return {
-            module: path.join(PROJECT_ROOT, bundle.input),
-            external: getRelativePath(file.output.file, output),
-          };
-        }),
-    );
+      return {
+        module: path.join(sourceDirectory, bundle.input),
+        external: getRelativePath(file.output, output),
+      };
+    });
+    replaceModule.push(...replacements);
   }
 
   // Current version of `yaml` is not tree-shakable,
   // but when we update it, we may reduce size,
   // since the UMD version don't need expose `__parsePrettierYamlConfig`
-  if (file.output.format === "umd" && file.output.file === "plugins/yaml.js") {
+  if (buildOptions.format === "umd" && file.output === "plugins/yaml.js") {
     replaceModule.push({
-      module: path.join(PROJECT_ROOT, file.input),
+      module: path.join(sourceDirectory, file.input),
       text: 'export * from "../language-yaml/index.js";',
     });
   }
 
-  const { buildOptions } = file;
   const shouldMinify =
-    cliOptions.minify ?? buildOptions.minify ?? file.platform === "universal";
+    cliOptions.minify ??
+    buildOptions.minify ??
+    buildOptions.platform === "universal";
 
   const esbuildOptions = {
-    entryPoints: [path.join(PROJECT_ROOT, file.input)],
+    entryPoints: [path.join(sourceDirectory, file.input)],
     bundle: true,
     metafile: true,
     plugins: [
@@ -198,8 +191,8 @@ function getEsbuildOptions({ packageConfig, file, cliOptions }) {
       cliOptions.reports &&
         esbuildPluginVisualizer({ formats: cliOptions.reports }),
       esbuildPluginThrowWarnings({
-        allowDynamicRequire: file.platform === "node",
-        allowDynamicImport: file.platform === "node",
+        allowDynamicRequire: buildOptions.platform === "node",
+        allowDynamicImport: buildOptions.platform === "node",
         allowedWarnings: buildOptions.allowedWarnings,
       }),
       buildOptions.addDefaultExport && esbuildPluginAddDefaultExport(),
@@ -213,10 +206,11 @@ function getEsbuildOptions({ packageConfig, file, cliOptions }) {
       ...(buildOptions.target ?? [`node${PRODUCTION_MINIMAL_NODE_JS_VERSION}`]),
     ],
     logLevel: "error",
-    format: file.output.format,
-    outfile: path.join(distDirectory, cliOptions.saveAs ?? file.output.file),
+    format: buildOptions.format,
+    outfile: path.join(distDirectory, cliOptions.saveAs ?? file.output),
     // https://esbuild.github.io/api/#main-fields
-    mainFields: file.platform === "node" ? ["module", "main"] : undefined,
+    mainFields:
+      buildOptions.platform === "node" ? ["module", "main"] : undefined,
     supported: {
       ...buildOptions.supported,
       // https://github.com/evanw/esbuild/issues/3471
@@ -231,24 +225,23 @@ function getEsbuildOptions({ packageConfig, file, cliOptions }) {
     packages: "bundle",
   };
 
-  if (file.platform === "universal") {
+  if (buildOptions.platform === "universal") {
     if (!buildOptions.target) {
       esbuildOptions.target.push(...universalTarget);
     }
 
-    if (file.output.format === "umd") {
+    if (buildOptions.format === "umd") {
       esbuildOptions.plugins.push(
         esbuildPluginUmd({
-          name: file.output.umdVariableName,
+          name: buildOptions.umdVariableName,
         }),
       );
     }
   } else {
     esbuildOptions.platform = "node";
-    esbuildOptions.external.push(...files.map((file) => file.output.file));
 
     // https://github.com/evanw/esbuild/issues/1921
-    if (file.output.format === "esm") {
+    if (buildOptions.format === "esm") {
       esbuildOptions.plugins.push(esbuildPluginShimCommonjsObjects());
     }
   }
@@ -256,9 +249,20 @@ function getEsbuildOptions({ packageConfig, file, cliOptions }) {
   return esbuildOptions;
 }
 
-async function runEsbuild(options) {
-  const esbuildOptions = getEsbuildOptions(options);
-  return { esbuildResult: await esbuild.build(esbuildOptions) };
+function createJavascriptModuleBuilder(buildOptions) {
+  return async function runEsbuild({ packageConfig, file, cliOptions }) {
+    if (typeof buildOptions === "function") {
+      buildOptions = await buildOptions();
+    }
+
+    const esbuildOptions = getEsbuildOptions({
+      packageConfig,
+      file,
+      cliOptions,
+      buildOptions,
+    });
+    return { esbuildResult: await esbuild.build(esbuildOptions) };
+  };
 }
 
-export default runEsbuild;
+export { createJavascriptModuleBuilder };

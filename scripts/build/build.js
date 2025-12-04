@@ -8,7 +8,7 @@ import styleText from "node-style-text";
 import prettyBytes from "pretty-bytes";
 import prettyMilliseconds from "pretty-ms";
 import { DIST_DIR } from "../utilities/index.js";
-import packageConfigs from "./config.js";
+import packageConfigs from "./packages/index.js";
 import parseArguments from "./parse-arguments.js";
 
 const { require } = createEsmUtils(import.meta);
@@ -47,21 +47,14 @@ const clear = () => {
 
 async function buildFile({ packageConfig, file, cliOptions, results }) {
   const { distDirectory } = packageConfig;
-  let displayName = file.output.file;
-  if (
-    (file.platform === "universal" && file.output.format !== "esm") ||
-    (file.output.file.startsWith("index.") && file.output.format !== "esm") ||
-    file.output.file.endsWith(".browser.mjs") ||
-    file.kind === "types"
-  ) {
-    displayName = ` ${displayName}`;
-  }
+  const displayName = ` ${file.output}`;
+  const fileAbsolutePath = path.join(distDirectory, file.output);
 
   process.stdout.write(fitTerminal(displayName));
 
   if (
-    (cliOptions.files && !cliOptions.files.has(file.output.file)) ||
-    (cliOptions.playground && !file.playground)
+    (cliOptions.playground && !file.playground) ||
+    (cliOptions.files && !cliOptions.files.has(fileAbsolutePath))
   ) {
     console.log(status.SKIPPED);
     return;
@@ -76,9 +69,7 @@ async function buildFile({ packageConfig, file, cliOptions, results }) {
     throw error;
   }
 
-  result ??= {};
-
-  if (result.skipped) {
+  if (result?.skipped) {
     console.log(status.SKIPPED);
     return;
   }
@@ -91,7 +82,7 @@ async function buildFile({ packageConfig, file, cliOptions, results }) {
     sizeMessages.push(prettyBytes(size));
   }
 
-  if (cliOptions.compareSize) {
+  if (cliOptions.compareSize && packageConfig.name === "prettier") {
     // TODO: Use `import.meta.resolve` when Node.js support
     const stablePrettierDirectory = path.dirname(require.resolve("prettier"));
     const stableVersionFile = path.join(stablePrettierDirectory, outputFile);
@@ -172,19 +163,22 @@ async function run() {
     }
 
     console.log(
-      styleText.inverse`[${index + 1}/${packagesToBuild.length}] Building package '${packageConfig.packageName}'`,
+      styleText.blue`[${index + 1}/${packagesToBuild.length}] Building package '${packageConfig.packageName}'`,
     );
 
     const startTime = performance.now();
     const results = [];
-    for (const file of packageConfig.files) {
-      const result = await buildFile({
-        packageConfig,
-        file,
-        cliOptions,
-        results,
-      });
-      results.push(result);
+    for (const module of packageConfig.modules) {
+      console.log(styleText.gray(module.name));
+      for (const file of module.files) {
+        const result = await buildFile({
+          packageConfig,
+          file,
+          cliOptions,
+          results,
+        });
+        results.push(result);
+      }
     }
     console.log(
       `Build package '${packageConfig.packageName}' success in ${prettyMilliseconds(performance.now() - startTime)}`,
