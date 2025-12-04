@@ -18,7 +18,7 @@ const config = {
       ],
       project: ["src/**", "scripts/**"],
       ignore: [
-        "scripts/build/packages/config.js",
+        "scripts/build/packages/*",
         "scripts/build/builders/javascript-module.js",
         "scripts/tools/**",
         "src/experimental-cli/**",
