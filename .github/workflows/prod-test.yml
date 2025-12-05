@@ -140,6 +140,11 @@ jobs:
         if: matrix.node == '14'
         run: yarn test:production-standalone-node14
 
+      - name: "`--debug-benchmark` flag"
+        if: ${{ matrix.node != '14' && matrix.os != 'windows-latest' }}
+        working-directory: dist/prettier
+        run: node bin/prettier.cjs --debug-benchmark package.json 2>&1 >/dev/null | grep "Latency avg" || exit 1
+
   cli:
     name: CLI
     runs-on: ubuntu-latest
@@ -148,23 +153,33 @@ jobs:
       - name: Checkout
         uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6.0.0
 
-      - name: Setup Node.js
-        uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v6.0.0
-        with:
-          node-version: "0.10.48"
-          package-manager-cache: false
-
       - name: Download Artifact
         uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6.0.0
         with:
           name: dist
           path: dist
 
+      - name: Setup Node.js
+        uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v6.0.0
+        with:
+          package-manager-cache: false
+
+      - name: "`--debug-benchmark` flag"
+        working-directory: dist/prettier
+        run: node bin/prettier.cjs --debug-benchmark package.json 2>&1 >/dev/null | grep "'--debug-benchmark' requires the 'tinybench' package to be installed." || exit 1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v6.0.0
+        with:
+          node-version: "0.10.48"
+          package-manager-cache: false
+
       - name: Validate Node.js Version
         run: node -v | grep "v0.10.48" || exit 1
 
       - name: Run CLI on Node.js v0.10.48
-        run: node dist/prettier/bin/prettier.cjs --version 2>&1 >/dev/null | grep "prettier requires at least version 14 of Node, please upgrade" || exit 1
+        working-directory: dist/prettier
+        run: node bin/prettier.cjs --version 2>&1 >/dev/null | grep "prettier requires at least version 14 of Node, please upgrade" || exit 1
 
   preview:
     if: github.repository == 'prettier/prettier'
@@ -175,10 +190,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6.0.0
 
-      # `pkg-pr-new` requires Node.js v20
       - name: Setup Node.js
         uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v6.0.0
         with:
+          # `pkg-pr-new` requires Node.js v20
           node-version: latest
 
       - name: Download Artifact
@@ -188,8 +203,6 @@ jobs:
           path: dist
 
       - name: Release
-        # Use `--compact` after we publish `@prettier/plugin-oxc`
-        # run: |
-        #   yarn dlx pkg-pr-new publish "./dist/*" --compact --packageManager=yarn
+        working-directory: dist
         run: |
-          yarn dlx pkg-pr-new publish "./dist/*" --packageManager=yarn
+          yarn dlx pkg-pr-new publish "./*" --compact --packageManager=yarn

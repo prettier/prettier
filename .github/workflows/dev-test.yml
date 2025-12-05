@@ -78,3 +78,7 @@ jobs:
           disable_search: true
           files: coverage/lcov.info
           token: ${{ secrets.CODECOV_TOKEN }}
+
+      - name: "`--debug-benchmark` flag"
+        if: ${{ matrix.os != 'windows-latest' }}
+        run: node bin/prettier.cjs --debug-benchmark package.json 2>&1 >/dev/null | grep "Latency avg" || exit 1
