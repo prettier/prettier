@@ -209,6 +209,10 @@ function getBlockValueLineContents(
           // exclude open line `>` or `|`
           .match(/^[^\n]*\n(.*)$/su)[1];
 
+  if (content === "") {
+    return [];
+  }
+
   /** @type {number} */
   let leadingSpaceCount;
   if (node.indent === null) {
@@ -275,14 +279,16 @@ function getBlockValueLineContents(
   */
   function removeUnnecessaryTrailingNewlines(lineContents) {
     if (node.chomping === "keep") {
-      return lineContents.at(-1).length === 0
+      return content.endsWith("\n") && lineContents.at(-1).length === 0
         ? lineContents.slice(0, -1)
         : lineContents;
     }
 
     let trailingNewlineCount = 0;
     for (let i = lineContents.length - 1; i >= 0; i--) {
-      if (lineContents[i].length === 0) {
+      if (
+        lineContents[i].every((line) => line.replace(/[ \t]+$/u, "") === "")
+      ) {
         trailingNewlineCount++;
       } else {
         break;
