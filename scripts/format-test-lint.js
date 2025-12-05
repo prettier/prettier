@@ -10,7 +10,7 @@ const FORMAT_TEST_DIRECTORY = path.join(PROJECT_ROOT, "tests/format/");
 const TEST_SCRIPT_FILE_NAME = "format.test.js";
 const SNAPSHOTS_DIRECTORY_NAME = "__snapshots__";
 const IGNORED = new Set([
-  path.join(FORMAT_TEST_DIRECTORY, "markdown/spec/remark-bug"),
+  path.join(FORMAT_TEST_DIRECTORY, "markdown/spec-legacy/remark-bug"),
 ]);
 
 async function* checkDirectory(directory) {
