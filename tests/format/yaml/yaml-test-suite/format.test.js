@@ -13,12 +13,10 @@ const SKIP = new Set([
 const BUGS = new Set([
   //
   "Y79Y-2.yaml",
-  "M5DY.yaml",
-  "L24T.yaml",
-  "L24T-2.yaml",
-  "JEF9-3.yaml",
   "DE56-3.yaml",
   "DE56-4.yaml",
+  "L24T.yaml",
+  "L24T-2.yaml",
 ]);
 
 runFormatTest(
