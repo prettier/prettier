@@ -24,8 +24,8 @@ function clean(original, cloned /* , parent */) {
 
     case "blockLiteral":
     case "blockFolded":
-      // The doc printer currently have bug when print trailing space/tab, the get wiped
-      // But at least we can still make sure the new lines doesn't change in `value` property
+      // The doc printer currently have bug when print trailing space/tab, they get wiped.
+      // But at least we can still make sure the new lines doesn't change in `value` property.
       if (original.chomping === "keep") {
         cloned.value = original.value
           .split("\n")
