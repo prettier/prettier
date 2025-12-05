@@ -279,9 +279,7 @@ function getBlockValueLineContents(
   */
   function removeUnnecessaryTrailingNewlines(lineContents) {
     if (node.chomping === "keep") {
-      // When content ends with \n, split creates an artifact empty string
-      // Remove it only if the last line is empty AND content ends with \n
-      return lineContents.at(-1).length === 0 && content.endsWith("\n")
+      return content.endsWith("\n") && lineContents.at(-1).length === 0
         ? lineContents.slice(0, -1)
         : lineContents;
     }
