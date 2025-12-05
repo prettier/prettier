@@ -1,12 +1,17 @@
 const blockStyles = ["|", ">", "|+", "|-", ">+", ">-"];
+const trailingSpace = ["", "  ", "\t"];
 const newlines = ["", "\n", "\n\n", "\n\n\n"];
 
 const snippets = blockStyles.flatMap((blockStyle) =>
-  newlines.flatMap((lines) =>
-    [
-      `foo: ${blockStyle}\n${lines}`,
-      `foo: ${blockStyle}\n  x\n${lines}`,
-    ].flatMap((code) => [code, `${code}\n...`]),
+  trailingSpace.flatMap((space) =>
+    newlines.flatMap((lines) =>
+      [
+        `foo: ${blockStyle}\n${lines}`,
+        // `foo: ${blockStyle}\n  ${space}${lines}`,
+        `foo: ${blockStyle}\n  x\n${lines}`,
+        `foo: ${blockStyle}\n  x\n${space}\n${lines}`,
+      ].flatMap((code) => [code, `${code}\n...`]),
+    ),
   ),
 );
 

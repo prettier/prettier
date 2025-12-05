@@ -21,6 +21,18 @@ function clean(original, cloned /* , parent */) {
         delete cloned.documentEndMarker;
       }
       break;
+
+    case "blockLiteral":
+    case "blockFolded":
+      // The doc printer currently have bug when print trailing space/tab, the get wiped
+      // But at least we can still make sure the new lines doesn't change in `value` property
+      if (original.chomping === "keep") {
+        cloned.value = original.value
+          .split("\n")
+          .map((line) => line.replace(/[ \t]+$/u, ""))
+          .join("\n");
+      }
+      break;
   }
 }
 clean.ignoredProperties = new Set(["position"]);
