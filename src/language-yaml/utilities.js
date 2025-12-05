@@ -288,7 +288,9 @@ function getBlockValueLineContents(
 
     let trailingNewlineCount = 0;
     for (let i = lineContents.length - 1; i >= 0; i--) {
-      if (lineContents[i].length === 0) {
+      if (
+        lineContents[i].every((line) => line.replace(/[ \t]+$/u, "") === "")
+      ) {
         trailingNewlineCount++;
       } else {
         break;
