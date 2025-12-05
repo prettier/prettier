@@ -36,15 +36,19 @@ const PROJECT_ROOT = url.fileURLToPath(new URL("../../", import.meta.url));
 const DIST_DIR = path.join(PROJECT_ROOT, "dist");
 const WEBSITE_DIR = path.join(PROJECT_ROOT, "website");
 const SOURCE_DIR = path.join(PROJECT_ROOT, "src");
+const TEMPORARY_DIRECTORY = path.join(PROJECT_ROOT, ".tmp");
+const PACKAGES_DIRECTORY = path.join(PROJECT_ROOT, "packages");
 const PRODUCTION_MINIMAL_NODE_JS_VERSION = "14";
 
 export {
   copyFile,
   DIST_DIR,
+  PACKAGES_DIRECTORY,
   PRODUCTION_MINIMAL_NODE_JS_VERSION,
   PROJECT_ROOT,
   readJson,
   SOURCE_DIR,
+  TEMPORARY_DIRECTORY,
   WEBSITE_DIR,
   writeFile,
   writeJson,

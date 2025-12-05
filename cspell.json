@@ -153,6 +153,7 @@
         "llms",
         "lydell",
         "Marek",
+        "marko",
         "Mariusz",
         "Masad",
         "Matejka",
@@ -345,6 +346,6 @@
         "website/static/playground.js",
         "website/src/css/custom.css",
         "website/blog/authors.yml",
-        "scripts/build/typescript-unused-specifiers.js"
+        "scripts/build/hacks/typescript-unused-specifiers.js"
     ]
 }

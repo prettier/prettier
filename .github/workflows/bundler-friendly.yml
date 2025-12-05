@@ -47,9 +47,9 @@ jobs:
           path: dist
 
       - name: Install Dependencies
-        run: yarn install --immutable
         working-directory: scripts/tools/bundle-test
+        run: yarn install --immutable
 
       - name: Test
-        run: yarn test
         working-directory: scripts/tools/bundle-test
+        run: yarn test

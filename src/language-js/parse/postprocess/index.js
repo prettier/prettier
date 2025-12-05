@@ -178,7 +178,6 @@ function postprocess(ast, options) {
           break;
 
         // https://github.com/babel/babel/issues/17506
-        // https://github.com/oxc-project/oxc/issues/16074
         // It's possible to have parenthesized `argument`, need do this in `onLeave`
         case "TSImportType":
           if (!node.source && node.argument.type === "TSLiteralType") {

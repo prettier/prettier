@@ -40,4 +40,5 @@ jobs:
         run: yarn install --immutable
 
       - name: Test
-        run: cd scripts/tools/eslint-plugin-prettier-internal-rules && yarn test-coverage
+        working-directory: scripts/tools/eslint-plugin-prettier-internal-rules
+        run: yarn test-coverage

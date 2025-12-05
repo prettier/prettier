@@ -4,7 +4,6 @@ export { default as chooseVersion } from "./choose-version.js";
 export { default as cleanChangelog } from "./clean-changelog.js";
 export { default as generateBundles } from "./generate-bundles.js";
 export { default as installDependencies } from "./install-dependencies.js";
-export { default as lintFiles } from "./lint-files.js";
 export { default as mergeBlogPost } from "./merge-blog-post.js";
 export { default as postPublishSteps } from "./post-publish-steps.js";
 export { default as publishToNpm } from "./publish-to-npm.js";

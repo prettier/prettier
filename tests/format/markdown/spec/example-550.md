@@ -1,4 +1,0 @@
-![foo] 
-[]
-
-[foo]: /url "title"
