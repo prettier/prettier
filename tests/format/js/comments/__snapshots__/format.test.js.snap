@@ -5818,11 +5818,11 @@ function foo() {
   return /* Comment*/ (a, b)
   return (
     /* Comment*/
-    (a, b)
+    a, b
   )
   return (
     /* Comment*/
-    (a, b)
+    a, b
   )
 
   return (
@@ -5905,11 +5905,11 @@ function foo() {
   return /* Comment*/ (a, b);
   return (
     /* Comment*/
-    (a, b)
+    a, b
   );
   return (
     /* Comment*/
-    (a, b)
+    a, b
   );
 
   return (

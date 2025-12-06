@@ -1,6 +1,5 @@
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
 import {
-  CommentCheckFlags,
   createTypeCheckFunction,
   getFunctionParameters,
   getLeftSidePathName,
@@ -24,6 +23,7 @@ import {
   shouldFlatten,
   startsWithNoLookaheadToken,
 } from "../utilities/index.js";
+import { returnArgumentHasLeadingComment } from "../utilities/return-statement-has-leading-comment.js";
 
 /**
  * @import AstPath from "../../common/ast-path.js"
@@ -192,6 +192,13 @@ function needsParentheses(path, options) {
   }
 
   switch (parent.type) {
+    case "ReturnStatement":
+    case "ThrowStatement":
+      if (willReturnOrThrowStatementBreak(path, options)) {
+        return false;
+      }
+      break;
+
     case "ParenthesizedExpression":
       return false;
     case "ClassDeclaration":
@@ -462,18 +469,6 @@ function needsParentheses(path, options) {
       break;
 
     case "SequenceExpression":
-      if (
-        key === "argument" &&
-        isReturnOrThrowStatement(parent) &&
-        (hasComment(node, CommentCheckFlags.Leading | CommentCheckFlags.Line) ||
-          hasComment(
-            node.expressions[0],
-            CommentCheckFlags.Leading | CommentCheckFlags.Line,
-          ))
-      ) {
-        return false;
-      }
-
       // Although parentheses wouldn't hurt around sequence
       // expressions in the head of for loops, traditional style
       // dictates that e.g. i++, j++ should not be wrapped with
@@ -814,14 +809,6 @@ function needsParentheses(path, options) {
       }
 
       if (key === "node" && parent.type === "JsExpressionRoot") {
-        return false;
-      }
-
-      if (
-        key === "argument" &&
-        isReturnOrThrowStatement(parent) &&
-        hasComment(node, CommentCheckFlags.Leading | CommentCheckFlags.Line)
-      ) {
         return false;
       }
 
@@ -1370,6 +1357,31 @@ function canDecoratorExpressionUnparenthesized(node) {
       !node.optional &&
       isDecoratorMemberExpression(node.callee))
   );
+}
+
+function willReturnOrThrowStatementBreak(path, options) {
+  const { key, parent } = path;
+  if (!(key === "argument" && isReturnOrThrowStatement(parent))) {
+    return false;
+  }
+
+  /*
+  When `ReturnStatement` or `ThrowStatement` breaks, parentheses will be added around it's argument.
+  So don't need add parentheses again.
+  But we can't know how the argument printed, so only matches cases that will break for sure
+  */
+
+  const { node } = path;
+
+  if (
+    (node.type === "SequenceExpression" ||
+      node.type === "AssignmentExpression") &&
+    returnArgumentHasLeadingComment(node, options)
+  ) {
+    return true;
+  }
+
+  return false;
 }
 
 export default needsParentheses;
