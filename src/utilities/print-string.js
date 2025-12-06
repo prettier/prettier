@@ -15,6 +15,7 @@ function printString(raw, options) {
   const enclosingQuote =
     options.parser === "json" ||
     options.parser === "jsonc" ||
+    options.parser === "json-stringify" ||
     // This was added before we have the `jsonc` parser
     // If `{quoteProps: "preserve"}` and `{singleQuote: false}` (default value),
     // and `{parser: "json5"}`, double quotes are always used for strings.
