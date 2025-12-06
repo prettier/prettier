@@ -5,9 +5,9 @@ b]]
 _wiki link_]]
 
 [[test1
-[[wiki link]]]]
+[[wiki link]]
 
-[[test2 [[wiki link]]
+[[wiki link]] test2
 ]]
 
 \[[test3 text
