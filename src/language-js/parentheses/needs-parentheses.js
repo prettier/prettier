@@ -1,5 +1,6 @@
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
 import {
+  CommentCheckFlags,
   createTypeCheckFunction,
   getFunctionParameters,
   getLeftSidePathName,
@@ -18,6 +19,7 @@ import {
   isNumericLiteral,
   isObjectExpression,
   isObjectProperty,
+  isReturnOrThrowStatement,
   isUnionType,
   shouldFlatten,
   startsWithNoLookaheadToken,
@@ -460,6 +462,14 @@ function needsParentheses(path, options) {
       break;
 
     case "SequenceExpression":
+      if (
+        key === "argument" &&
+        isReturnOrThrowStatement(parent) &&
+        hasComment(node, CommentCheckFlags.Leading | CommentCheckFlags.Line)
+      ) {
+        return false;
+      }
+
       // Although parentheses wouldn't hurt around sequence
       // expressions in the head of for loops, traditional style
       // dictates that e.g. i++, j++ should not be wrapped with
@@ -800,6 +810,14 @@ function needsParentheses(path, options) {
       }
 
       if (key === "node" && parent.type === "JsExpressionRoot") {
+        return false;
+      }
+
+      if (
+        key === "argument" &&
+        isReturnOrThrowStatement(parent) &&
+        hasComment(node, CommentCheckFlags.Leading | CommentCheckFlags.Line)
+      ) {
         return false;
       }
 

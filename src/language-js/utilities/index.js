@@ -1111,6 +1111,11 @@ function isBooleanTypeCoercion(node) {
   );
 }
 
+const isReturnOrThrowStatement = createTypeCheckFunction([
+  "ReturnStatement",
+  "ThrowStatement",
+]);
+
 export {
   CommentCheckFlags,
   createTypeCheckFunction,
@@ -1156,6 +1161,7 @@ export {
   isObjectType,
   isPrettierIgnoreComment,
   isRegExpLiteral,
+  isReturnOrThrowStatement,
   isSignedNumericLiteral,
   isSimpleCallArgument,
   isSimpleExpressionByNodeCount,
