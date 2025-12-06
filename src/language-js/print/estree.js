@@ -49,7 +49,7 @@ import {
   adjustClause,
   printDefiniteToken,
   printOptionalToken,
-} from "./misc.js";
+} from "./miscellaneous.js";
 import {
   printExportDeclaration,
   printImportDeclaration,

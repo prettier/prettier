@@ -13,7 +13,7 @@ import {
 } from "../utilities/index.js";
 import printCallArguments from "./call-arguments.js";
 import printMemberChain from "./member-chain.js";
-import { printOptionalToken } from "./misc.js";
+import { printOptionalToken } from "./miscellaneous.js";
 
 /*
 - `NewExpression`

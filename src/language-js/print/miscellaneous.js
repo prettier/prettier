@@ -1,4 +1,4 @@
-import { indent, line } from "../../document/index.js";
+import { group, indent, line, softline } from "../../document/index.js";
 import {
   CommentCheckFlags,
   createTypeCheckFunction,
@@ -113,11 +113,65 @@ function printTypeScriptAccessibilityToken(node) {
   return node.accessibility ? node.accessibility + " " : "";
 }
 
+const isLogicalNot = (node) =>
+  node.type === "UnaryExpression" && node.operator === "!";
+
+function shouldInlineCondition(node) {
+  if (hasComment(node)) {
+    return false;
+  }
+
+  /*
+  Main purpose here is to avoid indent level change when switching to negative condition
+
+  The following case:
+
+  ```js
+  if (!foo({
+    bar
+  }));
+  ```
+
+  does look nice, but once `!` is removed, it's hard to known how the `CallExpression` will print
+
+  ```js
+  if (foo({
+    bar
+  }));
+  ```
+
+  so we are not going to inline it.
+  */
+
+  // `!(a | b)` and `!!(a | b)`, but not `!!!(a | b)`
+  if (!isLogicalNot(node)) {
+    return false;
+  }
+
+  node = node.argument;
+  node = isLogicalNot(node) ? node.argument : node;
+
+  return node.type === "LogicalExpression";
+}
+
+function printIfOrWhileCondition(path, options, print) {
+  const conditionDoc = print("test");
+
+  if (shouldInlineCondition(path.node.test)) {
+    return conditionDoc;
+  }
+
+  return group([indent([softline, conditionDoc]), softline]);
+}
+
 export {
   adjustClause,
   printAbstractToken,
   printDeclareToken,
   printDefiniteToken,
+  printIfOrWhileCondition as printDoWhileStatementCondition,
+  printIfOrWhileCondition as printIfStatementCondition,
   printOptionalToken,
   printTypeScriptAccessibilityToken,
+  printIfOrWhileCondition as printWhileStatementCondition,
 };

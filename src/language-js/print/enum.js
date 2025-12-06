@@ -1,4 +1,4 @@
-import { printDeclareToken } from "./misc.js";
+import { printDeclareToken } from "./miscellaneous.js";
 import { printObject as printEnumMembers } from "./object.js";
 
 /*

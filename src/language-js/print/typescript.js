@@ -29,7 +29,7 @@ import { printMethodSignature } from "./method-signature.js";
 import {
   printOptionalToken,
   printTypeScriptAccessibilityToken,
-} from "./misc.js";
+} from "./miscellaneous.js";
 import { printImportKind } from "./module.js";
 import { printModuleDeclaration } from "./module-declaration.js";
 import { printPropertyKey } from "./property.js";

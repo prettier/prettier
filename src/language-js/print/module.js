@@ -23,7 +23,7 @@ import {
   shouldPrintComma,
 } from "../utilities/index.js";
 import { printDecoratorsBeforeExport } from "./decorators.js";
-import { printDeclareToken } from "./misc.js";
+import { printDeclareToken } from "./miscellaneous.js";
 import { printObject } from "./object.js";
 
 /**

@@ -1,11 +1,11 @@
-import { group, hardline, indent, softline } from "../../document/index.js";
+import { group, hardline } from "../../document/index.js";
 import { printDanglingComments } from "../../main/comments/print.js";
 import {
   CommentCheckFlags,
   hasComment,
   needsHardlineAfterDanglingComment,
 } from "../utilities/index.js";
-import { adjustClause } from "./misc.js";
+import { adjustClause, printIfStatementCondition } from "./miscellaneous.js";
 
 /**
  * @import AstPath from "../../common/ast-path.js"
@@ -17,7 +17,7 @@ function printIfStatement(path, options, print) {
   const consequent = adjustClause(node.consequent, print("consequent"));
   const opening = group([
     "if (",
-    group([indent([softline, print("test")]), softline]),
+    printIfStatementCondition(path, options, print),
     ")",
     consequent,
   ]);

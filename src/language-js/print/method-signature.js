@@ -7,7 +7,7 @@ import {
 import {
   printOptionalToken,
   printTypeScriptAccessibilityToken,
-} from "./misc.js";
+} from "./miscellaneous.js";
 import { printTypeAnnotationProperty } from "./type-annotation.js";
 
 function printMethodSignature(path, options, print) {

@@ -5,7 +5,7 @@ import {
   isMemberExpression,
   isNumericLiteral,
 } from "../utilities/index.js";
-import { printOptionalToken } from "./misc.js";
+import { printOptionalToken } from "./miscellaneous.js";
 
 const isCallExpressionWithArguments = (node) => {
   if (node.type === "ChainExpression" || node.type === "TSNonNullExpression") {
