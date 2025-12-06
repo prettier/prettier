@@ -2,23 +2,14 @@ import {
   canBreak,
   cleanDoc,
   group,
-  ifBreak,
   indent,
   indentIfBreak,
   line,
   lineSuffixBoundary,
-<<<<<<< HEAD
   willBreak,
 } from "../../document/index.js";
 import getStringWidth from "../../utilities/get-string-width.js";
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
-=======
-  softline,
-} from "../../document/builders.js";
-import { canBreak, cleanDoc, willBreak } from "../../document/utils.js";
-import getStringWidth from "../../utils/get-string-width.js";
-import isNonEmptyArray from "../../utils/is-non-empty-array.js";
->>>>>>> 1b3f22d41 (AssignmentExpression)
 import {
   getCallArguments,
   hasLeadingOwnLineComment,
@@ -96,8 +87,8 @@ function printAssignment(
 }
 
 function printAssignmentExpression(path, options, print) {
-  const { node, parent } = path;
-  const doc = printAssignment(
+  const { node } = path;
+  return printAssignment(
     path,
     options,
     print,
@@ -105,12 +96,6 @@ function printAssignmentExpression(path, options, print) {
     [" ", node.operator],
     "right",
   );
-
-  if (parent.type === "ReturnStatement" || parent.type === "ThrowStatement") {
-    return group(ifBreak([indent([softline, doc]), softline], doc));
-  }
-
-  return doc;
 }
 
 function printVariableDeclarator(path, options, print) {
