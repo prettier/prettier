@@ -1,3 +1,4 @@
+import { Identifier } from "./flow-estree.d";
 import type * as Babel from "@babel/types";
 import type * as TSESTree from "./typescript-estree.ts";
 import type { ESTree as MeriyahESTree } from "meriyah";
@@ -34,8 +35,6 @@ type Node = (
 export type Nodes = {
   [NodeType in Node["type"]]: { type: NodeType } & Node;
 };
-
-export type NodeTypes = Nodes["TSEmptyBodyFunctionExpression"]["type"];
 
 export type Comment = (
   | Babel.Comment

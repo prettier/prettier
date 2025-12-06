@@ -72,7 +72,6 @@ const isClassMethodCantAttachComment = (node, [parent]) =>
     parent.type === "MethodDefinition" &&
     parent.value === node &&
     getFunctionParameters(node).length === 0 &&
-    // @ts-expect-error -- Safe
     !node.returnType &&
     !isNonEmptyArray(node.typeParameters) &&
     node.body,
@@ -109,7 +108,6 @@ function canAttachComment(node, ancestors) {
   if (
     isNodeCantAttachComment(node) ||
     isChildWontPrint(node, ancestors) ||
-    // @ts-expect-error -- safe
     isClassMethodCantAttachComment(node, ancestors)
   ) {
     return false;
