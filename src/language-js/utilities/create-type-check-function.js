@@ -7,12 +7,6 @@ import * as assert from "#universal/assert";
 /**
 @template {(Node | Comment)["type"][]} InputNodeTypes
 @param {InputNodeTypes} typesArray
-@returns {
-(node: Node | Comment) => node is
-  InputNodeTypes extends Node["type"][] ?
-  Nodes[InputNodeTypes[number]] :
-  Comments[InputNodeTypes[number]]
-}
 */
 function createTypeCheckFunction(typesArray) {
   const types = new Set(typesArray);
@@ -25,6 +19,14 @@ function createTypeCheckFunction(typesArray) {
     );
   }
 
+  /**
+  @param {Node | Comment | undefined | null} node
+  @returns {
+    node is InputNodeTypes extends Node["type"][]
+      ? Nodes[InputNodeTypes[number]]
+      : Comments[InputNodeTypes[number]]
+  }
+  */
   return (node) => types.has(node?.type);
 }
 
