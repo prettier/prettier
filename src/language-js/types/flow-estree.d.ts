@@ -13,8 +13,6 @@
  * @format
  */
 
-"use strict";
-
 /**
  *
  * IMPORTANT NOTE

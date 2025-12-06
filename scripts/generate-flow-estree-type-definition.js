@@ -12,6 +12,8 @@ const FLOW_TYPES_DTS = new URL(
 );
 
 let text = await fs.readFile(FLOW_TYPES, "utf8");
+
+text = text.replaceAll("'use strict';", "  ");
 text = text.replaceAll(/(?<=\n) {2,}\+/gu, "  ");
 text = text.replaceAll("interface {", "{");
 text = text.replaceAll(/: interface extends (\w+)/gu, ": $1 & ");
