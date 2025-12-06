@@ -297,8 +297,10 @@ function shouldPrintSemicolonAfterClassProperty(
   // "declare" or "static" keyword before it.
   if (
     isClassProperty(nextNode) &&
-    nextNode.variance &&
     !nextNode.static &&
+    // @ts-expect-error -- Safe
+    nextNode.variance &&
+    // @ts-expect-error -- Safe
     !nextNode.declare
   ) {
     return true;

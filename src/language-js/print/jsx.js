@@ -36,6 +36,12 @@ import {
   isStringLiteral,
 } from "../utilities/index.js";
 
+/**
+@import AstPath from "../../common/ast-path.js";
+@import {Node, Nodes} from "../types/estree.js";
+@import {Doc} from "../../document/index.js";
+*/
+
 /*
 Only the following are treated as whitespace inside JSX.
 
@@ -48,12 +54,6 @@ const jsxWhitespace = new WhitespaceUtilities(" \n\r\t");
 
 const isEmptyStringOrAnyLine = (doc) =>
   doc === "" || doc === line || doc === hardline || doc === softline;
-
-/**
- * @import AstPath from "../../common/ast-path.js"
- * @import {Node, JSXElement} from "../types/estree.js"
- * @import {Doc} from "../../document/index.js"
- */
 
 // JSX expands children from the inside-out, instead of the outside-in.
 // This is both to break children before attributes,
@@ -837,7 +837,7 @@ function printJsx(path, options, print) {
 }
 
 /**
- * @param {JSXElement} node
+ * @param {Nodes["JSXElement"]} node
  * @returns {boolean}
  */
 function isEmptyJsxElement(node) {

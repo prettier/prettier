@@ -1,11 +1,13 @@
 import * as assert from "#universal/assert";
 
-/** @import {Node, Comment} from "../types/estree.js" */
+/**
+@import {Node, Comment, Nodes, Comments} from "../types/estree.js";
+*/
 
 /**
- * @param {string[]} typesArray
- * @returns {(node: Node | Comment) => Boolean}
- */
+@template {(Node | Comment)["type"][]} InputNodeTypes
+@param {InputNodeTypes} typesArray
+*/
 function createTypeCheckFunction(typesArray) {
   const types = new Set(typesArray);
 
@@ -17,6 +19,14 @@ function createTypeCheckFunction(typesArray) {
     );
   }
 
+  /**
+  @param {Node | Comment | undefined | null} node
+  @returns {
+    node is InputNodeTypes extends Node["type"][]
+      ? Nodes[InputNodeTypes[number]]
+      : Comments[InputNodeTypes[number]]
+  }
+  */
   return (node) => types.has(node?.type);
 }
 

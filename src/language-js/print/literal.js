@@ -3,8 +3,8 @@ import printNumber from "../../utilities/print-number.js";
 import printString from "../../utilities/print-string.js";
 
 /**
- * @import {Node} from "../types/estree.js"
- */
+@import {Node} from "../types/estree.js";
+*/
 
 function printLiteral(path, options /* , print*/) {
   const { node } = path;

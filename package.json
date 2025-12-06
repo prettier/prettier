@@ -127,7 +127,6 @@
     "@eslint-react/eslint-plugin": "2.3.9",
     "@eslint/js": "9.39.1",
     "@stylistic/eslint-plugin": "5.6.1",
-    "@types/estree": "1.0.8",
     "@types/jsesc": "3.0.3",
     "@typescript-eslint/eslint-plugin": "8.48.1",
     "@typescript-eslint/parser": "8.48.1",
