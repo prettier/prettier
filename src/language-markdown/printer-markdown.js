@@ -24,9 +24,9 @@ import getVisitorKeys from "./get-visitor-keys.js";
 import { locEnd, locStart } from "./loc.js";
 import { insertPragma } from "./pragma.js";
 import { printChildren } from "./print/children.js";
-import { printList } from "./print/list.js";
+import { printList, printListLegacy } from "./print/list.js";
 import { printTable } from "./print/table.js";
-import { printWord } from "./print/word.js";
+import { printWord, printWordLegacy } from "./print/word.js";
 import { printParagraph } from "./print-paragraph.js";
 import preprocess from "./print-preprocess.js";
 import { printSentence } from "./print-sentence.js";
@@ -40,6 +40,7 @@ import {
 } from "./utilities.js";
 
 /**
+ * @import AstPath from "../common/ast-path.js"
  * @import {Doc} from "../document/index.js"
  */
 
@@ -100,7 +101,7 @@ function genericPrint(path, options, print) {
     case "sentence":
       return printSentence(path, print);
     case "word":
-      return printWord(path);
+      return options.parser !== "mdx" ? printWord(path) : printWordLegacy(path);
     case "whitespace": {
       const { next } = path;
 
@@ -161,6 +162,9 @@ function genericPrint(path, options, print) {
       return ["[[", contents, "]]"];
     }
     case "link":
+      if (!node.position) {
+        return path.map(print, "children");
+      }
       switch (options.originalText[node.position.start.offset]) {
         case "<": {
           const mailto = "mailto:";
@@ -193,7 +197,7 @@ function genericPrint(path, options, print) {
     case "image":
       return [
         "![",
-        node.alt || "",
+        getImageAltText(node, options),
         "](",
         printUrl(node.url, ")"),
         printTitle(node.title, options),
@@ -227,7 +231,9 @@ function genericPrint(path, options, print) {
         node.meta ? " " + node.meta : "",
         hardline,
         replaceEndOfLine(
-          getFencedCodeBlockValue(node, options.originalText),
+          options.parser === "mdx"
+            ? getFencedCodeBlockValue(node, options.originalText)
+            : node.value,
           hardline,
         ),
         hardline,
@@ -246,6 +252,9 @@ function genericPrint(path, options, print) {
       );
     }
     case "list":
+      if (options.parser === "mdx") {
+        return printListLegacy(path, options, print);
+      }
       return printList(path, options, print);
     case "thematicBreak": {
       const { ancestors } = path;
@@ -276,9 +285,9 @@ function genericPrint(path, options, print) {
           return ["![", node.alt || "", "]", printLinkReference(node)];
         default:
           return [
-            "![",
-            node.alt,
-            "]",
+            ...(options.parser === "mdx"
+              ? ["![", node.alt, "]"]
+              : ["!", printLinkReference(node)]),
             node.referenceType === "collapsed" ? "[]" : "",
           ];
       }
@@ -336,6 +345,7 @@ function genericPrint(path, options, print) {
         ? ["  ", markAsRoot(literalline)]
         : ["\\", hardline];
     case "liquidNode":
+    case "liquidBlock":
       return replaceEndOfLine(node.value, hardline);
     // MDX
     // fallback to the original text if multiparser failed
@@ -349,6 +359,7 @@ function genericPrint(path, options, print) {
     case "math":
       return [
         "$$",
+        node.meta ? " " + node.meta : "",
         hardline,
         node.value ? [replaceEndOfLine(node.value, hardline), hardline] : "",
         "$$",
@@ -357,11 +368,12 @@ function genericPrint(path, options, print) {
       // remark-math trims content but we don't want to remove whitespaces
       // since it's very possible that it's recognized as math accidentally
       return options.originalText.slice(locStart(node), locEnd(node));
+    case "text":
+      return replaceEndOfLine(node.value, hardline);
 
     case "frontMatter": // Handled in core
     case "tableRow": // handled in "table"
     case "listItem": // handled in "list"
-    case "text": // handled in other types
     default:
       /* c8 ignore next */
       throw new UnexpectedNodeError(node, "Markdown");
@@ -490,8 +502,10 @@ function printTitle(title, options, printSpace = true) {
     return " " + printTitle(title, options, false);
   }
 
-  // title is escaped after `remark-parse` v7
-  title = title.replaceAll(/\\(?=["')])/gu, "");
+  // title is escaped before `remark-parse` v10
+  if (options.parser === "mdx") {
+    title = title.replaceAll(/\\(?=["')])/gu, "");
+  }
 
   if (title.includes('"') && title.includes("'") && !title.includes(")")) {
     return `(${title})`; // avoid escaped quotes
@@ -506,14 +520,56 @@ function hasPrettierIgnore(path) {
   return path.index > 0 && isPrettierIgnore(path.previous) === "next";
 }
 
-// `remark-parse` lowercase the `label` as `identifier`, we don't want do that
-// https://github.com/remarkjs/remark/blob/daddcb463af2d5b2115496c395d0571c0ff87d15/packages/remark-parse/lib/tokenize/reference.js
-function printLinkReference(node) {
-  return `[${collapseWhiteSpace(node.label)}]`;
+function printLinkReference(node, options) {
+  // `remark-parse` lowercase the `label` as `identifier`, we don't want do that
+  // https://github.com/remarkjs/remark/blob/daddcb463af2d5b2115496c395d0571c0ff87d15/packages/remark-parse/lib/tokenize/reference.js
+  const label = collapseWhiteSpace(node.label);
+  if (options?.parser === "mdx") {
+    return `[${label}]`;
+  }
+  const name = label.replaceAll(/[\\[\]]/gu, (s) => `\\${s}`);
+  return `[${name}]`;
 }
 
 function printFootnoteReference(node) {
   return `[^${node.label}]`;
+}
+
+function getImageAltText(node, options) {
+  if (options.parser !== "mdx" && node.originalAltText) {
+    return node.originalAltText;
+  }
+
+  return node.alt || "";
+}
+
+/**
+ * @param {AstPath} path
+ * @param {*} options
+ * @returns {Doc}
+ */
+function printPrettierIgnored(path, options) {
+  const originalText = options.originalText.slice(
+    path.node.position.start.offset,
+    path.node.position.end.offset,
+  );
+
+  if (options.parser === "mdx") {
+    return originalText;
+  }
+
+  switch (path.node.type) {
+    case "list":
+      if (
+        path.findAncestor((p) => p.type === "blockquote") &&
+        options.proseWrap !== "always"
+      ) {
+        return originalText.replace(/\n>\s*$/u, "");
+      }
+      return originalText;
+    default:
+      return originalText;
+  }
 }
 
 const printer = {
@@ -529,6 +585,7 @@ const printer = {
   embed,
   massageAstNode: clean,
   hasPrettierIgnore,
+  printPrettierIgnored,
   insertPragma,
   getVisitorKeys,
 };

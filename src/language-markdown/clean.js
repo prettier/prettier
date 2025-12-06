@@ -35,10 +35,6 @@ function clean(original, cloned, parent) {
     cloned.value = original.value.replaceAll("\n", " ");
   }
 
-  if (original.type === "wikiLink") {
-    cloned.value = original.value.trim().replaceAll(/[\t\n]+/gu, " ");
-  }
-
   if (
     original.type === "definition" ||
     original.type === "linkReference" ||
@@ -46,6 +42,15 @@ function clean(original, cloned, parent) {
   ) {
     cloned.label = collapseWhiteSpace(original.label);
   }
+
+  // if (
+  //   (original.type === "definition" ||
+  //     original.type === "link" ||
+  //     original.type === "image") &&
+  //   original.title
+  // ) {
+  //   cloned.title = original.title.replaceAll(/\\(?=["')])/gu, "");
+  // }
 
   if (
     (original.type === "link" || original.type === "image") &&

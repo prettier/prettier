@@ -1,4 +1,4 @@
-/** @import {Plugin, Settings} from "unified" */
+/** @import {Plugin, Settings} from "unified-v9" */
 
 /**
  * @type {Plugin<[], Settings>}
