@@ -13,6 +13,10 @@ import {
 } from "../utilities/index.js";
 import { returnArgumentHasLeadingComment } from "../utilities/return-statement-has-leading-comment.js";
 
+/**
+@import {Doc} from "../../document/index.js";
+*/
+
 function printReturnOrThrowArgument(path, options, print) {
   const { node } = path;
   const argumentDoc = print();
@@ -42,6 +46,7 @@ function printReturnOrThrowArgument(path, options, print) {
 // `ReturnStatement` and `ThrowStatement`
 function printReturnOrThrowStatement(path, options, print) {
   const { node } = path;
+  /** @type {Doc[]} */
   const parts = [node.type === "ThrowStatement" ? "throw" : "return"];
 
   if (node.argument) {
