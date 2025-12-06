@@ -53,7 +53,7 @@ export default {
     fixable: "code",
   },
   create(context) {
-    if (path.basename(context.getFilename()) !== "needs-parens.js") {
+    if (path.basename(path.dirname(context.getFilename())) !== "parentheses") {
       return {};
     }
     const sourceCode = context.getSourceCode();
