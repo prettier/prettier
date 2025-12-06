@@ -62,7 +62,7 @@ const K_REGEXP = /\p{Script_Extensions=Hangul}/u;
  * @param {string} text
  */
 function splitText(text) {
-  /** @type {Array<TextNode>} */
+  /** @type {Array<TextNode>}u*/
   const nodes = [];
 
   const tokens = text.split(/([\t\n ]+)/u);
