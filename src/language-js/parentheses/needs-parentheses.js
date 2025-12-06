@@ -56,7 +56,7 @@ function needsParentheses(path, options) {
     return false;
   }
 
-  if (node.type !== "Identifier") {
+  if (node.type === "Identifier") {
     return shouldAddParenthesesToIdentifier(path);
   }
 
