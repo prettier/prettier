@@ -40,7 +40,8 @@ const isChildWontPrint = (node, [parent]) =>
     parent.local !== parent.name) ||
   (parent?.type === "MatchObjectPatternProperty" &&
     parent.shorthand &&
-    parent.key === node) ||
+    parent.key === node &&
+    parent.value !== parent.key) ||
   (parent?.type === "ObjectProperty" &&
     parent.shorthand &&
     parent.key === node &&
