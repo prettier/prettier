@@ -12,7 +12,7 @@ import {
 // This recurses the return argument, looking for the first token
 // (the leftmost leaf node) and, if it (or its parents) has any
 // leadingComments, returns true (so it can be wrapped in parens).
-function returnArgumentHasLeadingComment(node, options) {
+function returnArgumentHasLeadingCommentWithoutCache(node, options) {
   if (
     hasLeadingOwnLineComment(options.originalText, node) ||
     (hasComment(node, CommentCheckFlags.Leading, (comment) =>
@@ -40,6 +40,15 @@ function returnArgumentHasLeadingComment(node, options) {
   }
 
   return false;
+}
+
+const cache = new WeakMap();
+function returnArgumentHasLeadingComment(node, options) {
+  if (!cache.has(node)) {
+    cache.set(node, returnArgumentHasLeadingCommentWithoutCache(node, options));
+  }
+
+  return cache.get(node);
 }
 
 export { returnArgumentHasLeadingComment };
