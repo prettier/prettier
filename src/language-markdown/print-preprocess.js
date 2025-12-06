@@ -20,7 +20,11 @@ function preprocess(ast, options) {
   if (options.parser !== "mdx") {
     ast = markOriginalImageAndLinkAlt(ast, options);
   }
-  ast = markAlignedList(ast, options);
+  if (options.parser === "mdx") {
+    ast = markAlignedListLegacy(ast, options);
+  } else {
+    ast = markAlignedList(ast, options);
+  }
   if (options.parser === "mdx") {
     ast = splitTextIntoSentencesLegacy(ast);
   } else {
@@ -355,6 +359,122 @@ function getBracketContent(text, startOffset, endOffset) {
 }
 
 function markAlignedList(ast, options) {
+  return mapAst(ast, (node, index, parentStack) => {
+    if (node.type === "list" && node.children.length > 0) {
+      // if one of its parents is not aligned, it's not possible to be aligned in sub-lists
+      for (let i = 0; i < parentStack.length; i++) {
+        const parent = parentStack[i];
+        if (parent.type === "list" && !parent.isAligned) {
+          node.isAligned = false;
+          return node;
+        }
+      }
+
+      const next = parentStack[0]?.children[index + 1];
+      if (next?.type === "code" && next.isIndented) {
+        // hard to align in this case
+        node.isAligned = false;
+        return node;
+      }
+
+      node.isAligned = isAligned(node);
+    }
+
+    return node;
+  });
+
+  function getListItemStart(listItem) {
+    return listItem.children.length === 0
+      ? -1
+      : listItem.children[0].position.start.column - 1;
+  }
+
+  function isAligned(list) {
+    if (!list.ordered) {
+      /**
+       * - 123
+       * - 123
+       */
+      return true;
+    }
+
+    const [firstItem, secondItem] = list.children;
+
+    const firstInfo = getOrderedListItemInfo(firstItem, options);
+
+    if (firstInfo.leadingSpaces.length > 1) {
+      /**
+       * 1.   123
+       *
+       * 1.   123
+       * 1. 123
+       */
+      return true;
+    }
+
+    const firstStart = getListItemStart(firstItem);
+
+    if (firstStart === -1) {
+      /**
+       * 1.
+       *
+       * 1.
+       * 1.
+       */
+      return false;
+    }
+
+    if (list.children.length === 1) {
+      /**
+       * aligned:
+       *
+       * 11. 123
+       *
+       * not aligned:
+       *
+       * 1. 123
+       */
+      return firstStart % options.tabWidth === 0;
+    }
+
+    const secondStart = getListItemStart(secondItem);
+
+    if (firstStart !== secondStart) {
+      /**
+       * 11. 123
+       * 1. 123
+       *
+       * 1. 123
+       * 11. 123
+       */
+      return false;
+    }
+
+    if (firstStart % options.tabWidth === 0) {
+      /**
+       * 11. 123
+       * 12. 123
+       */
+      return true;
+    }
+
+    /**
+     * aligned:
+     *
+     * 11. 123
+     * 1.  123
+     *
+     * not aligned:
+     *
+     * 1. 123
+     * 2. 123
+     */
+    const secondInfo = getOrderedListItemInfo(secondItem, options);
+    return secondInfo.leadingSpaces.length > 1;
+  }
+}
+
+function markAlignedListLegacy(ast, options) {
   return mapAst(ast, (node, index, parentStack) => {
     if (node.type === "list" && node.children.length > 0) {
       // if one of its parents is not aligned, it's not possible to be aligned in sub-lists
