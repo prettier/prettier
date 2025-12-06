@@ -46,10 +46,7 @@ function printReturnOrThrowArgument(path, options, print) {
 // `ReturnStatement` and `ThrowStatement`
 function printReturnOrThrowStatement(path, options, print) {
   const { node } = path;
-<<<<<<< HEAD
   /** @type {Doc[]} */
-=======
->>>>>>> 5f8bb966a (Reuse `returnArgumentHasLeadingComment`)
   const parts = [node.type === "ThrowStatement" ? "throw" : "return"];
 
   if (node.argument) {
