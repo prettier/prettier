@@ -15,7 +15,7 @@ type FlowAdditionalNode =
   | { type: "UndefinedTypeAnnotation" }
   | { type: "UnknownTypeAnnotation" };
 
-type PrettierNode = { type: "JsExpressionNode"; node: Babel.Expression };
+type PrettierNode = { type: "JsExpressionRoot"; node: Babel.Expression };
 
 type Node = (
   | PrettierNode

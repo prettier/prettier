@@ -224,6 +224,7 @@ function printBinaryishExpressions(
   // precedence level and should be treated as a separate group, so
   // print them normally. (This doesn't hold for the `**` operator,
   // which is unique in that it is right-associative.)
+  // @ts-expect-error -- FIXME
   if (shouldFlatten(node.operator, node.left.operator)) {
     // Flatten them out by recursively calling this function.
     parts = path.call(
@@ -245,8 +246,8 @@ function printBinaryishExpressions(
   const rightNodeToCheckComments =
     node.right.type === "ChainExpression" ? node.right.expression : node.right;
   const lineBeforeOperator =
-    (node.operator === "|>" ||
-      node.type === "NGPipeExpression" ||
+    (node.type === "NGPipeExpression" ||
+      node.operator === "|>" ||
       isVueFilterSequenceExpression(path, options)) &&
     !hasLeadingOwnLineComment(options.originalText, rightNodeToCheckComments);
   const hasTypeCastComment = hasComment(
