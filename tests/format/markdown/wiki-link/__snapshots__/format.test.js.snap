@@ -606,7 +606,8 @@ b]]
 [[This is **not** a
 _wiki link_]]
 
-[[test1 [[wiki link]]
+[[test1
+[[wiki link]]
 
 [[wiki link]] test2 ]]
 
@@ -743,7 +744,8 @@ b]]
 [[This is **not** a
 _wiki link_]]
 
-[[test1 [[wiki link]]
+[[test1
+[[wiki link]]
 
 [[wiki link]] test2 ]]
 
@@ -880,7 +882,8 @@ b]]
 [[This is **not** a
 _wiki link_]]
 
-[[test1 [[wiki link]]
+[[test1
+[[wiki link]]
 
 [[wiki link]] test2 ]]
 

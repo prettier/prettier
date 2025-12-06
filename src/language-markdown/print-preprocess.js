@@ -148,11 +148,7 @@ function splitTextIntoSentences(ast) {
 
   walkAst(ast, (node, parentStack) => {
     if (node.type === "wikiLink") {
-      for (const ancestor of parentStack) {
-        if (ancestor.type === "paragraph") {
-          canOpenAccidentalWikiLink.add(node); // word wrapping can accidentally merge nodes like `[[foo\n[[wiki link]]`
-        }
-      }
+      markAncestors(parentStack); // word wrapping can accidentally merge nodes like `[[foo\n[[wiki link]]`
       return;
     }
 
@@ -169,14 +165,7 @@ function splitTextIntoSentences(ast) {
     }
 
     if (node.raw.includes("]]")) {
-      for (const ancestor of parentStack) {
-        if (
-          ancestor.type === "paragraph" &&
-          canOpenAccidentalWikiLink.has(ancestor)
-        ) {
-          riskyParagraphPositions.add(ancestor.position);
-        }
-      }
+      markAncestors(parentStack);
     }
   });
 
@@ -239,6 +228,17 @@ function splitTextIntoSentences(ast) {
         }
       }
     })(ast, []);
+  }
+
+  function markAncestors(parentStack) {
+    for (const ancestor of parentStack) {
+      if (
+        ancestor.type === "paragraph" &&
+        canOpenAccidentalWikiLink.has(ancestor)
+      ) {
+        riskyParagraphPositions.add(ancestor.position);
+      }
+    }
   }
 }
 
