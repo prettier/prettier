@@ -465,7 +465,11 @@ function needsParentheses(path, options) {
       if (
         key === "argument" &&
         isReturnOrThrowStatement(parent) &&
-        hasComment(node, CommentCheckFlags.Leading | CommentCheckFlags.Line)
+        (hasComment(node, CommentCheckFlags.Leading | CommentCheckFlags.Line) ||
+          hasComment(
+            node.expressions[0],
+            CommentCheckFlags.Leading | CommentCheckFlags.Line,
+          ))
       ) {
         return false;
       }

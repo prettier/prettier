@@ -5313,11 +5313,9 @@ function excessiveEverything() {
 
 function sequenceExpression() {
   return (
-    (
-      // Reason for a
-      a,
-      b
-    )
+    // Reason for a
+    a,
+    b
   )
 }
 
@@ -5686,11 +5684,9 @@ function excessiveEverything() {
 
 function sequenceExpression() {
   return (
-    (
-      // Reason for a
-      a,
-      b
-    )
+    // Reason for a
+    a,
+    b
   );
 }
 
