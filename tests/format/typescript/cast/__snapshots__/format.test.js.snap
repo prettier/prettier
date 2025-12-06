@@ -1,8 +1,54 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`18406.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+new (require("./webpack/plugins/next-trace-entrypoints-plugin")
+  .TraceEntryPointsPlugin as P)({
+  rootDir: dir,
+});
+
+(require("./webpack/plugins/next-trace-entrypoints-plugin")
+  .TraceEntryPointsPlugin as P)({
+  rootDir: dir,
+});
+
+(require("./webpack/plugins/next-trace-entrypoints-plugin")
+  ?.TraceEntryPointsPlugin as P)?.({
+  rootDir: dir,
+});
+
+=====================================output=====================================
+new (
+  require("./webpack/plugins/next-trace-entrypoints-plugin")
+    .TraceEntryPointsPlugin as P
+)({
+  rootDir: dir,
+});
+
+(
+  require("./webpack/plugins/next-trace-entrypoints-plugin")
+    .TraceEntryPointsPlugin as P
+)({
+  rootDir: dir,
+});
+
+(
+  require("./webpack/plugins/next-trace-entrypoints-plugin")
+    ?.TraceEntryPointsPlugin as P
+)?.({
+  rootDir: dir,
+});
+
+================================================================================
+`;
+
 exports[`array-and-object.ts format 1`] = `
 ====================================options=====================================
-parsers: ["babel-ts", "typescript"]
+parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -22,7 +68,7 @@ testObjLiteral = <PermissionsChecker<any> | undefined>{ prop1: "myPropVal" };
 
 exports[`as-const.ts format 1`] = `
 ====================================options=====================================
-parsers: ["babel-ts", "typescript"]
+parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -44,7 +90,7 @@ let x = "123" as const;
 
 exports[`assert-and-assign.ts format 1`] = `
 ====================================options=====================================
-parsers: ["babel-ts", "typescript"]
+parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -59,7 +105,7 @@ printWidth: 80
 
 exports[`generic-cast.ts format 1`] = `
 ====================================options=====================================
-parsers: ["babel-ts", "typescript"]
+parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -312,7 +358,7 @@ function x() {
 
 exports[`hug-args.ts format 1`] = `
 ====================================options=====================================
-parsers: ["babel-ts", "typescript"]
+parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -362,7 +408,7 @@ postMessages(<IActionMessage[]>[
 
 exports[`parenthesis.ts format 1`] = `
 ====================================options=====================================
-parsers: ["babel-ts", "typescript"]
+parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
