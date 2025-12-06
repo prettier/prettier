@@ -8,28 +8,46 @@
 ## Install
 
 ```bash
-yarn add --dev prettier @prettier/plugin-hermes
+yarn add --dev --exact prettier @prettier/plugin-hermes
 ```
 
 ## Usage
 
 Create or modify your [prettier configuration file](https://prettier.io/docs/en/configuration) to use the plugin:
 
-```yaml
-plugins:
-  - "@prettier/plugin-hermes"
+```js
+// prettier.config.mjs
+import * as prettierPluginHermes from "@prettier/plugin-hermes";
+
+/** @type {import("prettier").Config} */
+const config = {
+  plugins: [prettierPluginHermes],
+};
+
+export default config;
 ```
 
-**Requires prettier >= 3.6**
+**Requires prettier>=3.6.0**
 
 Or config explicitly
 
-```yaml
-overrides:
-  - files:
-      - "**/*.{js.flow,js,mjs,cjs}"
-    options:
-      plugins:
-        - "@prettier/plugin-hermes"
-      parser: hermes
+```js
+// prettier.config.mjs
+import * as prettierPluginHermes from "@prettier/plugin-hermes";
+
+/**
+ * @see https://prettier.io/docs/configuration
+ * @type {import("prettier").Config}
+ */
+const config = {
+  overrides: [
+    {
+      files: ["**/*.{js.flow,js,mjs,cjs}"],
+      parser: "hermes",
+      plugins: [prettierPluginHermes],
+    },
+  ],
+};
+
+export default config;
 ```

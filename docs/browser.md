@@ -78,12 +78,12 @@ define([
 
 ```js
 const prettier = require("prettier/standalone");
-const plugins = [require("prettier/plugins/graphql")];
+const prettierPluginGraphql = require("prettier/plugins/graphql");
 
 (async () => {
   const formatted = await prettier.format("type Query { hello: String }", {
     parser: "graphql",
-    plugins,
+    plugins: [prettierPluginGraphql],
   });
 })();
 ```

@@ -43,7 +43,7 @@ NODE_OPTIONS="--experimental-strip-types" prettier . --write
 
 JSON:
 
-```json
+```json title=".prettierrc.json or .prettierrc"
 {
   "trailingComma": "es5",
   "tabWidth": 4,
@@ -54,9 +54,7 @@ JSON:
 
 JS (ES Modules):
 
-```js
-// prettier.config.js, .prettierrc.js, prettier.config.mjs, or .prettierrc.mjs
-
+```js title="prettier.config.mjs, .prettierrc.mjs, prettier.config.js, or .prettierrc.js"
 /**
  * @see https://prettier.io/docs/configuration
  * @type {import("prettier").Config}
@@ -73,9 +71,7 @@ export default config;
 
 JS (CommonJS):
 
-```js
-// prettier.config.js, .prettierrc.js, prettier.config.cjs, or .prettierrc.cjs
-
+```js title="prettier.config.cjs, .prettierrc.cjs, prettier.config.js, or .prettierrc.js"
 /**
  * @see https://prettier.io/docs/configuration
  * @type {import("prettier").Config}
@@ -92,9 +88,7 @@ module.exports = config;
 
 TypeScript (ES Modules):
 
-```ts
-// prettier.config.ts, .prettierrc.ts, prettier.config.mts, or .prettierrc.mts
-
+```ts title="prettier.config.mts, .prettierrc.mts, prettier.config.ts, or .prettierrc.ts"
 import { type Config } from "prettier";
 
 const config: Config = {
@@ -106,9 +100,7 @@ export default config;
 
 TypeScript (CommonJS):
 
-```ts
-// prettier.config.ts, .prettierrc.ts, prettier.config.cts, or .prettierrc.cts
-
+```ts title="prettier.config.cts, .prettierrc.cts, prettier.config.ts, or .prettierrc.ts"
 import { type Config } from "prettier";
 
 const config: Config = {
@@ -120,8 +112,7 @@ module.exports = config;
 
 YAML:
 
-```yaml
-# .prettierrc or .prettierrc.yaml
+```yaml title=".prettierrc, .prettierrc.yml, or .prettierrc.yaml"
 trailingComma: "es5"
 tabWidth: 4
 semi: false
@@ -130,8 +121,7 @@ singleQuote: true
 
 TOML:
 
-```toml
-# .prettierrc.toml
+```toml title=".prettierrc.toml"
 trailingComma = "es5"
 tabWidth = 4
 semi = false
@@ -146,7 +136,7 @@ Prettier borrows ESLint’s [override format](https://eslint.org/docs/latest/use
 
 JSON:
 
-```json
+```json title=".prettierrc"
 {
   "semi": false,
   "overrides": [
@@ -168,7 +158,7 @@ JSON:
 
 YAML:
 
-```yaml
+```yaml title=".prettierrc"
 semi: false
 overrides:
   - files: "*.test.js"
@@ -189,7 +179,7 @@ By default, Prettier automatically infers which parser to use based on the input
 
 For example, to get Prettier to format its own `.prettierrc` file, you can do:
 
-```json
+```json title=".prettierrc"
 {
   "overrides": [
     {
@@ -202,7 +192,7 @@ For example, to get Prettier to format its own `.prettierrc` file, you can do:
 
 You can also switch to the `flow` parser instead of the default `babel` for .js files:
 
-```json
+```json title=".prettierrc"
 {
   "overrides": [
     {
@@ -233,7 +223,7 @@ Unlike the EditorConfig spec, the search for `.editorconfig` file will stop on t
 
 Here’s an annotated description of how different properties map to Prettier’s behavior:
 
-```ini
+```ini title=".editorconfig"
 # Stop the editor from looking for .editorconfig files in the parent directories
 # root = true
 
@@ -254,7 +244,7 @@ max_line_length = 80
 
 Here’s a copy+paste-ready `.editorconfig` file if you use the default options:
 
-```ini
+```ini title=".editorconfig"
 [*]
 charset = utf-8
 insert_final_newline = true

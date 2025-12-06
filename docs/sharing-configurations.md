@@ -31,7 +31,7 @@ prettier-config/
 
 Example `package.json`:
 
-```json
+```json title="package.json"
 {
   "name": "@username/prettier-config",
   "version": "1.0.0",
@@ -44,13 +44,20 @@ Example `package.json`:
   },
   "peerDependencies": {
     "prettier": ">=3.0.0"
+  },
+  "devDependencies": {
+    "prettier": "%PRETTIER_VERSION%"
   }
 }
 ```
 
 `index.js` is where you put the shared configuration. This file just exports a [regular prettier configuration](./configuration.md) with the same syntax and same options:
 
-```js
+```js title="index.js"
+/**
+ * @see https://prettier.io/docs/configuration
+ * @type {import("prettier").Config}
+ */
 const config = {
   trailingComma: "es5",
   tabWidth: 4,
@@ -107,7 +114,7 @@ bun add --dev @username/prettier-config
 
 Then, you can reference it in your `package.json`:
 
-```json
+```json title="package.json"
 {
   "name": "my-cool-library",
   "version": "1.0.0",
@@ -117,18 +124,19 @@ Then, you can reference it in your `package.json`:
 
 If you don’t want to use `package.json`, you can use any of the supported extensions to export a string, e.g. `.prettierrc`:
 
-```json
+```json title=".prettierrc"
 "@company/prettier-config"
 ```
 
 ### Extending a Sharable Config
 
-To _extend_ the configuration to overwrite some properties from the shared configuration, import the file in a `.prettierrc.mjs` file and export the modifications, e.g:
+To _extend_ the configuration to overwrite some properties from the shared configuration, import the file in a `prettier.config.mjs` file and export the modifications, e.g:
 
-```js
+```js title="prettier.config.mjs"
 import usernamePrettierConfig from "@username/prettier-config";
 
 /**
+ * @see https://prettier.io/docs/configuration
  * @type {import("prettier").Config}
  */
 const config = {
@@ -141,64 +149,26 @@ export default config;
 
 ## Other examples
 
-### Using Type Annotation in the Shared Config
-
-You can get type safety and autocomplete support in your shared configuration by using a `jsdoc` type annotation:
-
-```js
-/**
- * @type {import("prettier").Config}
- */
-const config = {
-  trailingComma: "es5",
-  tabWidth: 4,
-  semi: false,
-  singleQuote: true,
-};
-
-export default config;
-```
-
-In order to make this work, you have to [install `prettier`](./install.md) for the project.
-
-After that, your `package.json` file should look like this:
-
-```diff
-{
-  "name": "@username/prettier-config",
-  "version": "1.0.0",
-  "description": "My personal Prettier config",
-  "type": "module",
-  "exports": "./index.js",
-  "license": "MIT",
-  "publishConfig": {
-    "access": "public"
-  },
-  "peerDependencies": {
-    "prettier": ">=3.0.0"
-  },
-+ "devDependencies": {
-+   "prettier": "^3.3.3"
-+ }
-}
-```
-
 ### Include Plugins in Shareable Configurations
 
 In case you want to use [plugins](./plugins.md) in your shared configuration, you need to declare those plugins in the config file's `plugin` array and as `dependencies` in `package.json`:
 
-```js
-// index.js
+```js title="index.js"
+import * as prettierPluginOxc from "@prettier/plugin-oxc";
+
+/**
+ * @see https://prettier.io/docs/configuration
+ * @type {import("prettier").Config}
+ */
 const config = {
   singleQuote: true,
-  plugins: ["prettier-plugin-xml"],
+  plugins: [prettierPluginOxc],
 };
 
 export default config;
 ```
 
-```diff
-// package.json
+```diff title="package.json"
 {
   "name": "@username/prettier-config",
   "version": "1.0.0",
@@ -210,10 +180,13 @@ export default config;
     "access": "public"
   },
 +  "dependencies": {
-+    "prettier-plugin-xml": "3.4.1"
++    "@prettier/plugin-oxc": "0.1.2"
 +  },
   "peerDependencies": {
     "prettier": ">=3.0.0"
+  },
+  "devDependencies": {
+    "prettier": "%PRETTIER_VERSION%"
   }
 }
 ```

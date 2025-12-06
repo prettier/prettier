@@ -2,37 +2,39 @@
   image: /images/languages/tools_js.svg
   variants:
     - "[JSX](https://facebook.github.io/jsx/)"
-    - "[Flow](https://flow.org)"
-    - "[TypeScript](https://www.typescriptlang.org)"
-    - "[JSON](https://json.org)"
-- name: HTML
-  image: /images/languages/tools_html.svg
-  variants:
-    - "[Vue](https://vuejs.org)"
-    - "[Angular](https://angular.io)"
-    - "[Ember / Handlebars](https://emberjs.com)"
+    - "[Flow](https://flow.org/)"
+    - "[TypeScript](https://www.typescriptlang.org/)"
+    - "[JSON](https://json.org/)"
 - name: CSS
   image: /images/languages/tools_css.svg
   variants:
-    - "[Less](http://lesscss.org)"
-    - "[SCSS](https://sass-lang.com)"
-    - "[`styled-components`](https://styled-components.com) 💅"
-    - "[`styled-jsx`](https://npmjs.com/styled-jsx)"
+    - "[Less](http://lesscss.org/)"
+    - "[SCSS](https://sass-lang.com/)"
+    - "[`styled-components`](https://styled-components.com/) 💅"
+    - "[`styled-jsx`](https://npmjs.com/styled-jsx/)"
+- name: HTML
+  image: /images/languages/tools_html.svg
+  variants:
+    - "[Vue](https://vuejs.org/)"
+    - "[Angular](https://angular.io/)"
+    - "[Ember / Handlebars](https://emberjs.com/)"
+    - "[Lightning Web Components (LWC)](https://developer.salesforce.com/developer-centers/lightning-web-components)"
+    - "[MJML](https://mjml.io/)"
+- name: YAML
+  nameLink: https://yaml.org
+  image: /images/languages/tools_yaml.svg
+  variants: []
+- name: Markdown
+  image: /images/languages/tools_md.svg
+  variants:
+    - "[CommonMark](https://commonmark.org/)"
+    - "[GitHub-Flavored Markdown](https://github.github.com/gfm/)"
+    - "[MDX v1](https://mdxjs.com/)"
 - name: GraphQL
   nameLink: https://graphql.org
   image: /images/languages/tools_gql.svg
   variants:
     - "[GraphQL Schemas](https://graphql.org/learn/schema/)"
-- name: Markdown
-  image: /images/languages/tools_md.svg
-  variants:
-    - "[CommonMark](https://commonmark.org)"
-    - "[GitHub-Flavored Markdown](https://github.github.com/gfm/)"
-    - "[MDX v1](https://mdxjs.com)"
-- name: YAML
-  nameLink: https://yaml.org
-  image: /images/languages/tools_yaml.svg
-  variants: []
 - name: Community Plugins
   nameLink: ./docs/plugins#community-plugins
   image: /images/languages/tools_wip.svg
