@@ -72,6 +72,7 @@ const isClassMethodCantAttachComment = (node, [parent]) =>
     parent.type === "MethodDefinition" &&
     parent.value === node &&
     getFunctionParameters(node).length === 0 &&
+    // @ts-expect-error -- Safe
     !node.returnType &&
     !isNonEmptyArray(node.typeParameters) &&
     node.body,
