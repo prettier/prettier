@@ -27,20 +27,28 @@ import isBlockComment from "../utilities/is-block-comment.js";
 import isLineComment from "../utilities/is-line-comment.js";
 import isTypeCastComment from "../utilities/is-type-cast-comment.js";
 
-/** @import * as Estree from "../types/estree.js" */
+/**
+@import {Node, Comment, Nodes} from "../types/estree.js";
+*/
 
 /**
- * @typedef {Object} CommentContext
- * @property {Estree.Comment} comment
- * @property {Estree.Node} precedingNode
- * @property {Estree.Node} enclosingNode
- * @property {Estree.Node} followingNode
- * @property {string} text
- * @property {any} options
- * @property {Estree.Node} ast
- * @property {boolean} isLastComment
- */
+@typedef {{
+  comment: Comment,
+  precedingNode: Node,
+  enclosingNode: Node,
+  followingNode: Node,
+  text: string,
+  options: any,
+  ast: Nodes["File"] | Nodes["Program"],
+  isLastComment: boolean,
+}} CommentContext
+*/
 
+/**
+@param {Comment} comment
+@param {string} text
+@returns {boolean}
+*/
 const isSingleLineComment = (comment, text) =>
   isLineComment(comment) ||
   !hasNewlineInRange(text, locStart(comment), locEnd(comment));

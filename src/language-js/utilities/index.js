@@ -16,13 +16,13 @@ import isNodeMatches from "./is-node-matches.js";
 import isTsKeywordType from "./is-ts-keyword-type.js";
 
 /**
-@import * as Estree from "../types/estree.js"
-@import AstPath from "../../common/ast-path.js"
+@import {Node, Nodes, Comment} from "../types/estree.js";
+@import AstPath from "../../common/ast-path.js";
 */
 
 /**
- * @param {Estree.Node} node
- * @param {(node: Estree.Node) => boolean} predicate
+ * @param {Node} node
+ * @param {(node: Node) => boolean} predicate
  * @returns {boolean}
  */
 function hasNode(node, predicate) {
@@ -30,7 +30,7 @@ function hasNode(node, predicate) {
 }
 
 /**
- * @param {Estree.Node} node
+ * @param {Node} node
  * @returns {boolean}
  */
 function hasNakedLeftSide(node) {
@@ -110,7 +110,7 @@ const isArrayExpression = createTypeCheckFunction(["ArrayExpression"]);
 const isObjectExpression = createTypeCheckFunction(["ObjectExpression"]);
 
 /**
- * @param {Estree.Node} node
+ * @param {Node} node
  * @returns {boolean}
  */
 function isNullishCoalescing(node) {
@@ -118,7 +118,7 @@ function isNullishCoalescing(node) {
 }
 
 /**
- * @param {Estree.Node} node
+ * @param {Node} node
  * @returns {boolean}
  */
 function isNumericLiteral(node) {
@@ -144,7 +144,7 @@ function isSignedNumericLiteral(node) {
 }
 
 /**
- * @param {Estree.Node} node
+ * @param {Node} node
  * @returns {boolean}
  */
 function isStringLiteral(node) {
@@ -193,7 +193,7 @@ const isFunctionOrArrowExpression = createTypeCheckFunction([
 ]);
 
 /**
- * @param {Estree.Node} node
+ * @param {Node} node
  * @returns {boolean}
  */
 function isFunctionOrArrowExpressionWithBody(node) {
@@ -211,7 +211,7 @@ function isFunctionOrArrowExpressionWithBody(node) {
  *
  * example: https://docs.angularjs.org/guide/unit-testing#using-beforeall-
  *
- * @param {Estree.CallExpression} node
+ * @param {Nodes["CallExpression"]} node
  * @returns {boolean}
  */
 function isAngularTestWrapper(node) {
@@ -233,7 +233,7 @@ function isMethod(node) {
 }
 
 /**
- * @param {Estree.Node} node
+ * @param {Node} node
  * @returns {boolean}
  */
 function isFlowObjectTypePropertyAFunction(node) {
@@ -269,7 +269,7 @@ const isBinaryish = createTypeCheckFunction([
 ]);
 
 /**
- * @param {Estree.Node} node
+ * @param {Node} node
  * @returns {boolean}
  */
 function isMemberish(node) {
@@ -291,7 +291,7 @@ const isSimpleTypeAnnotation = createTypeCheckFunction([
   "TSTemplateLiteralType",
 ]);
 /**
- * @param {Estree.Node} node
+ * @param {Node} node
  * @returns {boolean}
  */
 function isSimpleType(node) {
@@ -387,7 +387,10 @@ function isTestCall(node, parent) {
   return false;
 }
 
-/** @return {(node: Estree.Node) => boolean} */
+/**
+@template {ReturnType<createTypeCheckFunction>} TypeCheckFunction
+@param {TypeCheckFunction} fn
+@return {(node: Node) => boolean} */
 const skipChainExpression = (fn) => (node) => {
   if (node?.type === "ChainExpression") {
     node = node.expression;
@@ -486,7 +489,7 @@ function isLoneShortArgument(node, options) {
 
 /**
  * @param {string} text
- * @param {Estree.Node} node
+ * @param {Node} node
  * @returns {boolean}
  */
 function hasLeadingOwnLineComment(text, node) {
@@ -500,7 +503,7 @@ function hasLeadingOwnLineComment(text, node) {
 }
 
 /**
- * @param {Estree.TemplateLiteral} template
+ * @param {Nodes["TemplateLiteral"]} template
  * @returns {boolean}
  */
 function templateLiteralHasNewLines(template) {
@@ -508,7 +511,7 @@ function templateLiteralHasNewLines(template) {
 }
 
 /**
- * @param {Estree.TemplateLiteral | Estree.TaggedTemplateExpression} node
+ * @param {Nodes["TemplateLiteral"] | Nodes["TaggedTemplateExpression"]} node
  * @param {string} text
  * @returns {boolean}
  */
@@ -522,7 +525,7 @@ function isTemplateOnItsOwnLine(node, text) {
 }
 
 /**
- * @param {Estree.Node} node
+ * @param {Node} node
  * @returns {boolean}
  */
 function needsHardlineAfterDanglingComment(node) {
@@ -681,8 +684,8 @@ function shouldPrintComma(options, level = "es5") {
  *
  * Will be overzealous if there already are necessary grouping parentheses.
  *
- * @param {Estree.Node} node
- * @param {(leftmostNode: Estree.Node) => boolean} predicate
+ * @param {Node} node
+ * @param {(leftmostNode: Node) => boolean} predicate
  * @returns {boolean}
  */
 function startsWithNoLookaheadToken(node, predicate) {
@@ -999,7 +1002,7 @@ const getCommentTestFunction = (flags, fn) => {
   }
 };
 /**
- * @param {Estree.Node} node
+ * @param {Node} node
  * @param {number | function} [flags]
  * @param {function} [fn]
  * @returns {boolean}
@@ -1013,10 +1016,10 @@ function hasComment(node, flags, fn) {
 }
 
 /**
- * @param {Estree.Node} node
+ * @param {Node} node
  * @param {number | function} [flags]
  * @param {function} [fn]
- * @returns {Estree.Comment[]}
+ * @returns {Comment[]}
  */
 function getComments(node, flags, fn) {
   if (!Array.isArray(node?.comments)) {
@@ -1027,7 +1030,7 @@ function getComments(node, flags, fn) {
 }
 
 /**
- * @param {Estree.Node} node
+ * @param {Node} node
  * @returns {boolean}
  */
 const isNextLineEmpty = (node, { originalText }) =>

@@ -1,6 +1,6 @@
 /**
- * @import {Node} from "./types/estree.js"
- */
+@import {Node} from "./types/estree.js";
+*/
 
 const isIndex = (value) => Number.isInteger(value) && value >= 0;
 

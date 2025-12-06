@@ -7,9 +7,9 @@ import {
 } from "../utilities/index.js";
 
 /**
- * @import {Node} from "../types/estree.js"
- * @import AstPath from "../../common/ast-path.js"
- */
+@import {Node} from "../types/estree.js";
+@import AstPath from "../../common/ast-path.js";
+*/
 
 const isClassOrInterface = createTypeCheckFunction([
   "ClassDeclaration",

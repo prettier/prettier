@@ -8,9 +8,9 @@ import {
 } from "../utilities/index.js";
 
 /**
- * @import {Node} from "../types/estree.js"
- * @import AstPath from "../../common/ast-path.js"
- */
+@import {Node} from "../types/estree.js";
+@import AstPath from "../../common/ast-path.js";
+*/
 
 const isNodeCantAttachComment = createTypeCheckFunction([
   // Babel only
@@ -30,7 +30,7 @@ const isNodeCantAttachComment = createTypeCheckFunction([
 
 /**
 @param {Node} node
-@param {any[]} param1
+@param {Node[]} param1
 @returns {boolean}
 */
 const isChildWontPrint = (node, [parent]) =>
@@ -40,8 +40,7 @@ const isChildWontPrint = (node, [parent]) =>
     parent.local !== parent.name) ||
   (parent?.type === "MatchObjectPatternProperty" &&
     parent.shorthand &&
-    parent.key === node &&
-    parent.value !== parent.key) ||
+    parent.key === node) ||
   (parent?.type === "ObjectProperty" &&
     parent.shorthand &&
     parent.key === node &&
@@ -52,7 +51,7 @@ const isChildWontPrint = (node, [parent]) =>
     !isMethod(parent) &&
     parent.value !== parent.key);
 
-/*
+/**
 Prevent attaching comments to FunctionExpression in this case:
 ```
 class Foo {
@@ -64,7 +63,7 @@ class Foo {
 ```
 
 @param {Node} node
-@param {any[]} param1
+@param {Node[]} param1
 @returns {boolean}
 */
 const isClassMethodCantAttachComment = (node, [parent]) =>
