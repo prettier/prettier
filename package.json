@@ -107,7 +107,7 @@
     "postcss-values-parser": "2.0.1",
     "regexp-util": "2.0.3",
     "remark-footnotes": "2.0.0",
-    "remark-gfm": "4.0.0",
+    "remark-gfm": "4.0.1",
     "remark-math": "6.0.0",
     "remark-math-v3": "npm:remark-math@3.0.1",
     "remark-parse": "11.0.0",
