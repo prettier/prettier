@@ -53,14 +53,14 @@ export type Node = ExtendNode<_Node>;
 export type NodeMap = CreateNodeMap<Node>;
 export type CommentMap = CreateNodeMap<Comment>;
 
-type CreateNodeMap<InputNode extends Node | Comment> = {
-  [NodeType in InputNode["type"]]: Extract<InputNode, { type: NodeType }>;
+type CreateNodeMap<Input extends Node | Comment> = {
+  [NodeType in Input["type"]]: Extract<Input, { type: NodeType }>;
 };
 
-type ExtendNode<InputNode> = InputNode extends _Node
+type ExtendNode<Input> = Input extends _Node
   ? {
-      [Key in keyof InputNode]: ExtendNode<InputNode[Key]>;
+      [Key in keyof Input]: ExtendNode<Input[Key]>;
     } & PrettierNodeAdditionalProperties
-  : InputNode extends readonly (_Node | any)[]
-    ? ExtendNode<InputNode[number]>[]
-    : InputNode;
+  : Input extends readonly any[]
+    ? ExtendNode<Input[number]>[]
+    : Input;
