@@ -1193,10 +1193,6 @@ function handleCommentAfterArrowExpression({
   return false;
 }
 
-/**
- * @param {Node} node
- * @returns {boolean}
- */
 const isRealFunctionLikeNode = createTypeCheckFunction([
   "ArrowFunctionExpression",
   "FunctionExpression",
