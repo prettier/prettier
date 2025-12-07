@@ -29,7 +29,10 @@ type FlowAdditionalNode =
   | { type: "UndefinedTypeAnnotation" }
   | { type: "UnknownTypeAnnotation" };
 
-type PrettierNode = { type: "JsExpressionRoot"; node: Babel.Expression };
+type PrettierNode =
+  | { type: "JsExpressionRoot"; node: Babel.Expression }
+  | { type: "JsonRoot"; node: Babel.Expression }
+  | { type: "NGRoot"; node: Babel.Expression | NGNode };
 
 export type Comment = (
   | Babel.Comment
