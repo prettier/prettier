@@ -14,6 +14,22 @@ import isFlowKeywordType from "./is-flow-keyword-type.js";
 import isLineComment from "./is-line-comment.js";
 import isNodeMatches from "./is-node-matches.js";
 import isTsKeywordType from "./is-ts-keyword-type.js";
+import {
+  isArrayExpression,
+  isBinaryCastExpression,
+  isBinaryish,
+  isConditionalType,
+  isExportDeclaration,
+  isFunctionOrArrowExpression,
+  isIntersectionType,
+  isJsxElement,
+  isLiteral,
+  isObjectExpression,
+  isObjectType,
+  isReturnOrThrowStatement,
+  isTypeAlias,
+  isUnionType,
+} from "./node-types.js";
 
 /**
 @import {Node, NodeMap, Comment} from "../types/estree.js";
@@ -95,20 +111,6 @@ function getLeftSidePathName(node) {
   throw new Error("Unexpected node has no left side.");
 }
 
-const isExportDeclaration = createTypeCheckFunction([
-  "ExportDefaultDeclaration",
-  "DeclareExportDeclaration",
-  "ExportNamedDeclaration",
-  "ExportAllDeclaration",
-  "DeclareExportAllDeclaration",
-]);
-
-// These two functions exists because we used support `recordAndTuple`
-// Feel free to check `node.type` instead
-// https://github.com/prettier/prettier/pull/17363
-const isArrayExpression = createTypeCheckFunction(["ArrayExpression"]);
-const isObjectExpression = createTypeCheckFunction(["ObjectExpression"]);
-
 /**
  * @param {Node} node
  * @returns {boolean}
@@ -166,34 +168,12 @@ function isRegExpLiteral(node) {
   );
 }
 
-const isLiteral = createTypeCheckFunction([
-  "Literal",
-  "BooleanLiteral",
-  "BigIntLiteral", // Babel, flow use `BigIntLiteral` too
-  "DirectiveLiteral",
-  "NullLiteral",
-  "NumericLiteral",
-  "RegExpLiteral",
-  "StringLiteral",
-]);
-
 const isSingleWordType = createTypeCheckFunction([
   "Identifier",
   "ThisExpression",
   "Super",
   "PrivateName",
   "PrivateIdentifier",
-]);
-
-const isObjectType = createTypeCheckFunction([
-  "ObjectTypeAnnotation",
-  "TSTypeLiteral",
-  "TSMappedType",
-]);
-
-const isFunctionOrArrowExpression = createTypeCheckFunction([
-  "FunctionExpression",
-  "ArrowFunctionExpression",
 ]);
 
 /**
@@ -225,8 +205,6 @@ function isAngularTestWrapper(node) {
     ["async", "inject", "fakeAsync", "waitForAsync"].includes(node.callee.name)
   );
 }
-
-const isJsxElement = createTypeCheckFunction(["JSXElement", "JSXFragment"]);
 
 function isMethod(node) {
   return (
@@ -265,12 +243,6 @@ function isTypeAnnotationAFunction(node) {
     !hasSameLocStart(node, node.typeAnnotation)
   );
 }
-
-const isBinaryish = createTypeCheckFunction([
-  "BinaryExpression",
-  "LogicalExpression",
-  "NGPipeExpression",
-]);
 
 /**
  * @param {Node} node
@@ -1061,41 +1033,11 @@ function isObjectProperty(node) {
   );
 }
 
-const isBinaryCastExpression = createTypeCheckFunction([
-  // TS
-  "TSAsExpression",
-  "TSSatisfiesExpression",
-  // Flow
-  "AsExpression",
-  "AsConstExpression",
-  "SatisfiesExpression",
-]);
-
-const isUnionType = createTypeCheckFunction([
-  "TSUnionType",
-  "UnionTypeAnnotation",
-]);
-
-const isIntersectionType = createTypeCheckFunction([
-  "TSIntersectionType",
-  "IntersectionTypeAnnotation",
-]);
-
-const isConditionalType = createTypeCheckFunction([
-  "TSConditionalType",
-  "ConditionalTypeAnnotation",
-]);
-
 const isTsAsConstExpression = (node) =>
   node?.type === "TSAsExpression" &&
   node.typeAnnotation.type === "TSTypeReference" &&
   node.typeAnnotation.typeName.type === "Identifier" &&
   node.typeAnnotation.typeName.name === "const";
-
-const isTypeAlias = createTypeCheckFunction([
-  "TSTypeAliasDeclaration",
-  "TypeAlias",
-]);
 
 function shouldUnionTypePrintOwnComments({ key, parent }) {
   if (
@@ -1122,11 +1064,6 @@ function isBooleanTypeCoercion(node) {
     node.callee.name === "Boolean"
   );
 }
-
-const isReturnOrThrowStatement = createTypeCheckFunction([
-  "ReturnStatement",
-  "ThrowStatement",
-]);
 
 export {
   CommentCheckFlags,
