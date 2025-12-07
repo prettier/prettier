@@ -1,6 +1,5 @@
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
 import {
-  createTypeCheckFunction,
   getFunctionParameters,
   getLeftSidePathName,
   getPrecedence,
@@ -25,6 +24,7 @@ import {
 } from "../utilities/index.js";
 import { returnArgumentHasLeadingComment } from "../utilities/return-statement-has-leading-comment.js";
 import { shouldAddParenthesesToIdentifier } from "./identifier.js";
+import { isSyntaxRestricted } from "./is-syntax-restricted.js";
 
 /**
  * @import AstPath from "../../common/ast-path.js"
@@ -51,8 +51,7 @@ function needsParentheses(path, options) {
     return true;
   }
 
-  // Only statements don't need parentheses.
-  if (isStatement(node)) {
+  if (isSyntaxRestricted(path)) {
     return false;
   }
 
@@ -924,62 +923,6 @@ function needsParentheses(path, options) {
 
   return false;
 }
-
-const isStatement = createTypeCheckFunction([
-  "BlockStatement",
-  "BreakStatement",
-  "ComponentDeclaration",
-  "ClassBody",
-  "ClassDeclaration",
-  "ClassMethod",
-  "ClassProperty",
-  "PropertyDefinition",
-  "ClassPrivateProperty",
-  "ContinueStatement",
-  "DebuggerStatement",
-  "DeclareComponent",
-  "DeclareClass",
-  "DeclareExportAllDeclaration",
-  "DeclareExportDeclaration",
-  "DeclareFunction",
-  "DeclareHook",
-  "DeclareInterface",
-  "DeclareModule",
-  "DeclareModuleExports",
-  "DeclareNamespace",
-  "DeclareVariable",
-  "DeclareEnum",
-  "DoWhileStatement",
-  "EnumDeclaration",
-  "ExportAllDeclaration",
-  "ExportDefaultDeclaration",
-  "ExportNamedDeclaration",
-  "ExpressionStatement",
-  "ForInStatement",
-  "ForOfStatement",
-  "ForStatement",
-  "FunctionDeclaration",
-  "HookDeclaration",
-  "IfStatement",
-  "ImportDeclaration",
-  "InterfaceDeclaration",
-  "LabeledStatement",
-  "MethodDefinition",
-  "ReturnStatement",
-  "SwitchStatement",
-  "ThrowStatement",
-  "TryStatement",
-  "TSDeclareFunction",
-  "TSEnumDeclaration",
-  "TSImportEqualsDeclaration",
-  "TSInterfaceDeclaration",
-  "TSModuleDeclaration",
-  "TSNamespaceExportDeclaration",
-  "TypeAlias",
-  "VariableDeclaration",
-  "WhileStatement",
-  "WithStatement",
-]);
 
 /**
  * @param {AstPath} path
