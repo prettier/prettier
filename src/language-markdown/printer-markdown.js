@@ -298,7 +298,9 @@ function genericPrint(path, options, print) {
         ":",
         indent([
           lineOrSpace,
-          printUrl(node.url),
+          options.parser !== "mdx" && node.url === ""
+            ? "<>"
+            : printUrl(node.url),
           node.title === null
             ? ""
             : [lineOrSpace, printTitle(node.title, options, false)],
@@ -368,11 +370,12 @@ function genericPrint(path, options, print) {
       // remark-math trims content but we don't want to remove whitespaces
       // since it's very possible that it's recognized as math accidentally
       return options.originalText.slice(locStart(node), locEnd(node));
+    case "text":
+      return replaceEndOfLine(node.value, hardline);
 
     case "frontMatter": // Handled in core
     case "tableRow": // handled in "table"
     case "listItem": // handled in "list"
-    case "text": // handled in other types
     default:
       /* c8 ignore next */
       throw new UnexpectedNodeError(node, "Markdown");
