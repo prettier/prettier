@@ -1,8 +1,7 @@
-import { Identifier } from "./flow-estree.d";
 import type * as Babel from "@babel/types";
-import type * as TSESTree from "./typescript-estree.ts";
 import type { ESTree as MeriyahESTree } from "meriyah";
 import type { NGTree } from "angular-estree-parser";
+import type * as TSESTree from "./typescript-estree.ts";
 import type * as FlowESTree from "./flow-estree.js";
 
 type FlowAdditionalNode =
@@ -17,7 +16,7 @@ type FlowAdditionalNode =
 
 type PrettierNode = { type: "JsExpressionRoot"; node: Babel.Expression };
 
-type Node = (
+export type Node = (
   | PrettierNode
   | Babel.Node
   | TSESTree.Node
@@ -32,10 +31,6 @@ type Node = (
   comments?: Comment[];
 };
 
-export type Nodes = {
-  [NodeType in Node["type"]]: { type: NodeType } & Node;
-};
-
 export type Comment = (
   | Babel.Comment
   | TSESTree.Comment
@@ -48,6 +43,9 @@ export type Comment = (
   leading?: boolean;
 };
 
-export type Comments = {
-  [CommentType in Comment["type"]]: { type: CommentType } & Comment;
+export type NodeMap = CreateNodeMap<Node>;
+export type CommentMap = CreateNodeMap<Comment>;
+
+type CreateNodeMap<InputNode extends Node | Comment> = {
+  [NodeType in InputNode["type"]]: Extract<InputNode, { type: NodeType }>;
 };

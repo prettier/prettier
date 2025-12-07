@@ -16,7 +16,7 @@ import isNodeMatches from "./is-node-matches.js";
 import isTsKeywordType from "./is-ts-keyword-type.js";
 
 /**
-@import {Node, Nodes, Comment} from "../types/estree.js";
+@import {Node, NodeMap, Comment} from "../types/estree.js";
 @import AstPath from "../../common/ast-path.js";
 */
 
@@ -211,7 +211,7 @@ function isFunctionOrArrowExpressionWithBody(node) {
  *
  * example: https://docs.angularjs.org/guide/unit-testing#using-beforeall-
  *
- * @param {Nodes["CallExpression"]} node
+ * @param {NodeMap["CallExpression"]} node
  * @returns {boolean}
  */
 function isAngularTestWrapper(node) {
@@ -503,7 +503,7 @@ function hasLeadingOwnLineComment(text, node) {
 }
 
 /**
- * @param {Nodes["TemplateLiteral"]} template
+ * @param {NodeMap["TemplateLiteral"]} template
  * @returns {boolean}
  */
 function templateLiteralHasNewLines(template) {
@@ -511,7 +511,7 @@ function templateLiteralHasNewLines(template) {
 }
 
 /**
- * @param {Nodes["TemplateLiteral"] | Nodes["TaggedTemplateExpression"]} node
+ * @param {NodeMap["TemplateLiteral"] | NodeMap["TaggedTemplateExpression"]} node
  * @param {string} text
  * @returns {boolean}
  */

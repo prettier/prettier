@@ -38,7 +38,7 @@ import {
 
 /**
 @import AstPath from "../../common/ast-path.js";
-@import {Node, Nodes} from "../types/estree.js";
+@import {Node, NodeMap} from "../types/estree.js";
 @import {Doc} from "../../document/index.js";
 */
 
@@ -837,7 +837,7 @@ function printJsx(path, options, print) {
 }
 
 /**
- * @param {Nodes["JSXElement"]} node
+ * @param {NodeMap["JSXElement"]} node
  * @returns {boolean}
  */
 function isEmptyJsxElement(node) {
