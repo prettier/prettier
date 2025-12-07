@@ -908,8 +908,7 @@ function needsParentheses(path, options) {
           parent.type !== "LogicalExpression" &&
           !isCallExpression(parent) &&
           !isObjectProperty(parent) &&
-          parent.type !== "ReturnStatement" &&
-          parent.type !== "ThrowStatement" &&
+          !isReturnOrThrowStatement(parent) &&
           parent.type !== "TypeCastExpression" &&
           parent.type !== "VariableDeclarator" &&
           parent.type !== "YieldExpression" &&

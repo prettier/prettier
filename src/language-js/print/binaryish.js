@@ -26,6 +26,7 @@ import {
   isMemberExpression,
   isObjectExpression,
   isObjectProperty,
+  isReturnOrThrowStatement,
   shouldFlatten,
 } from "../utilities/index.js";
 import isTypeCastComment from "../utilities/is-type-cast-comment.js";
@@ -96,8 +97,7 @@ function printBinaryishExpression(path, options, print) {
   // Avoid indenting sub-expressions in some cases where the first sub-expression is already
   // indented accordingly. We should indent sub-expressions where the first case isn't indented.
   const shouldNotIndent =
-    parent.type === "ReturnStatement" ||
-    parent.type === "ThrowStatement" ||
+    isReturnOrThrowStatement(parent) ||
     (parent.type === "JSXExpressionContainer" &&
       grandparent.type === "JSXAttribute") ||
     (node.operator !== "|" && parent.type === "JsExpressionRoot") ||
@@ -109,8 +109,7 @@ function printBinaryishExpression(path, options, print) {
     (node === parent.body && parent.type === "ArrowFunctionExpression") ||
     (node !== parent.body && parent.type === "ForStatement") ||
     (parent.type === "ConditionalExpression" &&
-      grandparent.type !== "ReturnStatement" &&
-      grandparent.type !== "ThrowStatement" &&
+      !isReturnOrThrowStatement(grandparent) &&
       !isCallExpression(grandparent) &&
       grandparent.type !== "NewExpression") ||
     parent.type === "TemplateLiteral" ||
