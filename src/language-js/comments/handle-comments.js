@@ -28,7 +28,7 @@ import isLineComment from "../utilities/is-line-comment.js";
 import isTypeCastComment from "../utilities/is-type-cast-comment.js";
 
 /**
-@import {Node, Comment, Nodes} from "../types/estree.js";
+@import {Node, Comment, NodeMap} from "../types/estree.js";
 */
 
 /**
@@ -39,7 +39,7 @@ import isTypeCastComment from "../utilities/is-type-cast-comment.js";
   followingNode: Node,
   text: string,
   options: any,
-  ast: Nodes["File"] | Nodes["Program"],
+  ast: NodeMap["File"] | NodeMap["Program"],
   isLastComment: boolean,
 }} CommentContext
 */
