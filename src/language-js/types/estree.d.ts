@@ -4,6 +4,21 @@ import type { NGTree } from "angular-estree-parser";
 import type * as TSESTree from "./typescript-estree.ts";
 import type * as FlowESTree from "./flow-estree.js";
 
+type PrettierNodeAdditionalProperties = {
+  extra?: {
+    parenthesized?: boolean;
+    raw?: string;
+  };
+  comments?: Comment[];
+  prettierIgnore?: boolean;
+};
+
+type PrettierCommentAdditionalProperties = {
+  printed?: boolean;
+  trailing?: boolean;
+  leading?: boolean;
+};
+
 type FlowAdditionalNode =
   | {
       type: "SatisfiesExpression";
@@ -16,32 +31,24 @@ type FlowAdditionalNode =
 
 type PrettierNode = { type: "JsExpressionRoot"; node: Babel.Expression };
 
-export type Node = (
-  | PrettierNode
-  | Babel.Node
-  | TSESTree.Node
-  | NGTree.NGNode
-  | FlowESTree.ESNode
-  | FlowAdditionalNode
-) & {
-  extra?: {
-    parenthesized?: boolean;
-    raw?: string;
-  };
-  comments?: Comment[];
-};
-
 export type Comment = (
   | Babel.Comment
   | TSESTree.Comment
   | MeriyahESTree.Comment
   | { type: "Hashbang"; value: string }
   | Babel.InterpreterDirective
-) & {
-  printed?: boolean;
-  trailing?: boolean;
-  leading?: boolean;
-};
+) &
+  PrettierCommentAdditionalProperties;
+
+type _Node =
+  | PrettierNode
+  | Babel.Node
+  | TSESTree.Node
+  | NGTree.NGNode
+  | FlowESTree.ESNode
+  | FlowAdditionalNode;
+
+export type Node = ExtendNode<_Node>;
 
 export type NodeMap = CreateNodeMap<Node>;
 export type CommentMap = CreateNodeMap<Comment>;
@@ -49,3 +56,11 @@ export type CommentMap = CreateNodeMap<Comment>;
 type CreateNodeMap<InputNode extends Node | Comment> = {
   [NodeType in InputNode["type"]]: Extract<InputNode, { type: NodeType }>;
 };
+
+type ExtendNode<InputNode> = InputNode extends _Node
+  ? {
+      [Key in keyof InputNode]: ExtendNode<InputNode[Key]>;
+    } & PrettierNodeAdditionalProperties
+  : InputNode extends readonly (_Node | any)[]
+    ? ExtendNode<InputNode[number]>[]
+    : InputNode;

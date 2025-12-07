@@ -135,6 +135,10 @@ function isBooleanLiteral(node) {
   );
 }
 
+/**
+@param {Node} node
+@returns {node is NodeMap["UnaryExpression"]}
+*/
 function isSignedNumericLiteral(node) {
   return (
     node.type === "UnaryExpression" &&
@@ -623,8 +627,13 @@ function isSimpleCallArgument(node, depth = 2) {
 
   if (isObjectExpression(node)) {
     return node.properties.every(
-      (p) =>
-        !p.computed && (p.shorthand || (p.value && isChildSimple(p.value))),
+      (property) =>
+        // @ts-expect-error -- FIXME
+        !property.computed &&
+        // @ts-expect-error -- FIXME
+        (property.shorthand ||
+          // @ts-expect-error -- FIXME
+          (property.value && isChildSimple(property.value))),
     );
   }
 
