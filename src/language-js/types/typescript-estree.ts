@@ -1,7 +1,4 @@
-import type {
-  TSESTree,
-  AST_NODE_TYPES,
-} from "@typescript-eslint/typescript-estree";
+import type { TSESTree } from "@typescript-eslint/typescript-estree";
 
 type NodeOrComment = TSESTree.Node | TSESTree.Comment;
 
