@@ -61,6 +61,6 @@ type ExtendNode<InputNode> = InputNode extends _Node
   ? {
       [Key in keyof InputNode]: ExtendNode<InputNode[Key]>;
     } & PrettierNodeAdditionalProperties
-  : InputNode extends readonly (_Node | any)[]
+  : InputNode extends readonly any[]
     ? ExtendNode<InputNode[number]>[]
     : InputNode;

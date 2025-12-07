@@ -8,7 +8,7 @@ type ConvertTypeToString<Input> = Input extends NodeOrComment
         ? `${Input[Key]}`
         : ConvertTypeToString<Input[Key]>;
     }
-  : Input extends readonly (NodeOrComment | any)[]
+  : Input extends readonly any[]
     ? ConvertTypeToString<Input[number]>[]
     : Input;
 
