@@ -1,5 +1,5 @@
 import { group, indent, line } from "../../document/index.js";
-import { printDeclareToken } from "./misc.js";
+import { printDeclareToken } from "./miscellaneous.js";
 
 /*
 - `DeclareOpaqueType`(flow)

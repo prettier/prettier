@@ -35,12 +35,7 @@ import {
 } from "./class.js";
 import { printExpressionStatement } from "./expression-statement.js";
 import { printForStatement } from "./for-statement.js";
-import {
-  printFunction,
-  printMethod,
-  printReturnStatement,
-  printThrowStatement,
-} from "./function.js";
+import { printFunction, printMethod } from "./function.js";
 import { printHtmlBinding } from "./html-binding.js";
 import { printIfStatement } from "./if-statement.js";
 import { printLiteral } from "./literal.js";
@@ -49,7 +44,7 @@ import {
   adjustClause,
   printDefiniteToken,
   printOptionalToken,
-} from "./misc.js";
+} from "./miscellaneous.js";
 import {
   printExportDeclaration,
   printImportDeclaration,
@@ -58,6 +53,10 @@ import {
 import { printObject } from "./object.js";
 import { printProperty } from "./property.js";
 import { printRestElement, printSpreadElement } from "./rest-element.js";
+import {
+  printReturnStatement,
+  printThrowStatement,
+} from "./return-statement.js";
 import { printSequenceExpression } from "./sequence-expression.js";
 import { printSwitchCase, printSwitchStatement } from "./switch-statement.js";
 import {

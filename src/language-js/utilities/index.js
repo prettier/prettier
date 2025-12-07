@@ -14,15 +14,31 @@ import isFlowKeywordType from "./is-flow-keyword-type.js";
 import isLineComment from "./is-line-comment.js";
 import isNodeMatches from "./is-node-matches.js";
 import isTsKeywordType from "./is-ts-keyword-type.js";
+import {
+  isArrayExpression,
+  isBinaryCastExpression,
+  isBinaryish,
+  isConditionalType,
+  isExportDeclaration,
+  isFunctionOrArrowExpression,
+  isIntersectionType,
+  isJsxElement,
+  isLiteral,
+  isObjectExpression,
+  isObjectType,
+  isReturnOrThrowStatement,
+  isTypeAlias,
+  isUnionType,
+} from "./node-types.js";
 
 /**
-@import * as Estree from "../types/estree.js"
-@import AstPath from "../../common/ast-path.js"
+@import {Node, NodeMap, Comment} from "../types/estree.js";
+@import AstPath from "../../common/ast-path.js";
 */
 
 /**
- * @param {Estree.Node} node
- * @param {(node: Estree.Node) => boolean} predicate
+ * @param {Node} node
+ * @param {(node: Node) => boolean} predicate
  * @returns {boolean}
  */
 function hasNode(node, predicate) {
@@ -30,7 +46,7 @@ function hasNode(node, predicate) {
 }
 
 /**
- * @param {Estree.Node} node
+ * @param {Node} node
  * @returns {boolean}
  */
 function hasNakedLeftSide(node) {
@@ -95,22 +111,8 @@ function getLeftSidePathName(node) {
   throw new Error("Unexpected node has no left side.");
 }
 
-const isExportDeclaration = createTypeCheckFunction([
-  "ExportDefaultDeclaration",
-  "DeclareExportDeclaration",
-  "ExportNamedDeclaration",
-  "ExportAllDeclaration",
-  "DeclareExportAllDeclaration",
-]);
-
-// These two functions exists because we used support `recordAndTuple`
-// Feel free to check `node.type` instead
-// https://github.com/prettier/prettier/pull/17363
-const isArrayExpression = createTypeCheckFunction(["ArrayExpression"]);
-const isObjectExpression = createTypeCheckFunction(["ObjectExpression"]);
-
 /**
- * @param {Estree.Node} node
+ * @param {Node} node
  * @returns {boolean}
  */
 function isNullishCoalescing(node) {
@@ -118,7 +120,7 @@ function isNullishCoalescing(node) {
 }
 
 /**
- * @param {Estree.Node} node
+ * @param {Node} node
  * @returns {boolean}
  */
 function isNumericLiteral(node) {
@@ -135,6 +137,10 @@ function isBooleanLiteral(node) {
   );
 }
 
+/**
+@param {Node} node
+@returns {node is NodeMap["UnaryExpression"]}
+*/
 function isSignedNumericLiteral(node) {
   return (
     node.type === "UnaryExpression" &&
@@ -144,7 +150,7 @@ function isSignedNumericLiteral(node) {
 }
 
 /**
- * @param {Estree.Node} node
+ * @param {Node} node
  * @returns {boolean}
  */
 function isStringLiteral(node) {
@@ -162,17 +168,6 @@ function isRegExpLiteral(node) {
   );
 }
 
-const isLiteral = createTypeCheckFunction([
-  "Literal",
-  "BooleanLiteral",
-  "BigIntLiteral", // Babel, flow use `BigIntLiteral` too
-  "DirectiveLiteral",
-  "NullLiteral",
-  "NumericLiteral",
-  "RegExpLiteral",
-  "StringLiteral",
-]);
-
 const isSingleWordType = createTypeCheckFunction([
   "Identifier",
   "ThisExpression",
@@ -181,19 +176,8 @@ const isSingleWordType = createTypeCheckFunction([
   "PrivateIdentifier",
 ]);
 
-const isObjectType = createTypeCheckFunction([
-  "ObjectTypeAnnotation",
-  "TSTypeLiteral",
-  "TSMappedType",
-]);
-
-const isFunctionOrArrowExpression = createTypeCheckFunction([
-  "FunctionExpression",
-  "ArrowFunctionExpression",
-]);
-
 /**
- * @param {Estree.Node} node
+ * @param {Node} node
  * @returns {boolean}
  */
 function isFunctionOrArrowExpressionWithBody(node) {
@@ -211,7 +195,7 @@ function isFunctionOrArrowExpressionWithBody(node) {
  *
  * example: https://docs.angularjs.org/guide/unit-testing#using-beforeall-
  *
- * @param {Estree.CallExpression} node
+ * @param {NodeMap["CallExpression"]} node
  * @returns {boolean}
  */
 function isAngularTestWrapper(node) {
@@ -222,8 +206,6 @@ function isAngularTestWrapper(node) {
   );
 }
 
-const isJsxElement = createTypeCheckFunction(["JSXElement", "JSXFragment"]);
-
 function isMethod(node) {
   return (
     (node.method && node.kind === "init") ||
@@ -233,7 +215,7 @@ function isMethod(node) {
 }
 
 /**
- * @param {Estree.Node} node
+ * @param {Node} node
  * @returns {boolean}
  */
 function isFlowObjectTypePropertyAFunction(node) {
@@ -262,14 +244,8 @@ function isTypeAnnotationAFunction(node) {
   );
 }
 
-const isBinaryish = createTypeCheckFunction([
-  "BinaryExpression",
-  "LogicalExpression",
-  "NGPipeExpression",
-]);
-
 /**
- * @param {Estree.Node} node
+ * @param {Node} node
  * @returns {boolean}
  */
 function isMemberish(node) {
@@ -291,7 +267,7 @@ const isSimpleTypeAnnotation = createTypeCheckFunction([
   "TSTemplateLiteralType",
 ]);
 /**
- * @param {Estree.Node} node
+ * @param {Node} node
  * @returns {boolean}
  */
 function isSimpleType(node) {
@@ -387,7 +363,10 @@ function isTestCall(node, parent) {
   return false;
 }
 
-/** @return {(node: Estree.Node) => boolean} */
+/**
+@template {ReturnType<createTypeCheckFunction>} TypeCheckFunction
+@param {TypeCheckFunction} fn
+@return {(node: Node) => boolean} */
 const skipChainExpression = (fn) => (node) => {
   if (node?.type === "ChainExpression") {
     node = node.expression;
@@ -486,7 +465,7 @@ function isLoneShortArgument(node, options) {
 
 /**
  * @param {string} text
- * @param {Estree.Node} node
+ * @param {Node} node
  * @returns {boolean}
  */
 function hasLeadingOwnLineComment(text, node) {
@@ -500,7 +479,7 @@ function hasLeadingOwnLineComment(text, node) {
 }
 
 /**
- * @param {Estree.TemplateLiteral} template
+ * @param {NodeMap["TemplateLiteral"]} template
  * @returns {boolean}
  */
 function templateLiteralHasNewLines(template) {
@@ -508,7 +487,7 @@ function templateLiteralHasNewLines(template) {
 }
 
 /**
- * @param {Estree.TemplateLiteral | Estree.TaggedTemplateExpression} node
+ * @param {NodeMap["TemplateLiteral"] | NodeMap["TaggedTemplateExpression"]} node
  * @param {string} text
  * @returns {boolean}
  */
@@ -522,7 +501,7 @@ function isTemplateOnItsOwnLine(node, text) {
 }
 
 /**
- * @param {Estree.Node} node
+ * @param {Node} node
  * @returns {boolean}
  */
 function needsHardlineAfterDanglingComment(node) {
@@ -620,8 +599,13 @@ function isSimpleCallArgument(node, depth = 2) {
 
   if (isObjectExpression(node)) {
     return node.properties.every(
-      (p) =>
-        !p.computed && (p.shorthand || (p.value && isChildSimple(p.value))),
+      (property) =>
+        // @ts-expect-error -- FIXME
+        !property.computed &&
+        // @ts-expect-error -- FIXME
+        (property.shorthand ||
+          // @ts-expect-error -- FIXME
+          (property.value && isChildSimple(property.value))),
     );
   }
 
@@ -681,8 +665,8 @@ function shouldPrintComma(options, level = "es5") {
  *
  * Will be overzealous if there already are necessary grouping parentheses.
  *
- * @param {Estree.Node} node
- * @param {(leftmostNode: Estree.Node) => boolean} predicate
+ * @param {Node} node
+ * @param {(leftmostNode: Node) => boolean} predicate
  * @returns {boolean}
  */
 function startsWithNoLookaheadToken(node, predicate) {
@@ -999,7 +983,7 @@ const getCommentTestFunction = (flags, fn) => {
   }
 };
 /**
- * @param {Estree.Node} node
+ * @param {Node} node
  * @param {number | function} [flags]
  * @param {function} [fn]
  * @returns {boolean}
@@ -1013,10 +997,10 @@ function hasComment(node, flags, fn) {
 }
 
 /**
- * @param {Estree.Node} node
+ * @param {Node} node
  * @param {number | function} [flags]
  * @param {function} [fn]
- * @returns {Estree.Comment[]}
+ * @returns {Comment[]}
  */
 function getComments(node, flags, fn) {
   if (!Array.isArray(node?.comments)) {
@@ -1027,7 +1011,7 @@ function getComments(node, flags, fn) {
 }
 
 /**
- * @param {Estree.Node} node
+ * @param {Node} node
  * @returns {boolean}
  */
 const isNextLineEmpty = (node, { originalText }) =>
@@ -1049,41 +1033,11 @@ function isObjectProperty(node) {
   );
 }
 
-const isBinaryCastExpression = createTypeCheckFunction([
-  // TS
-  "TSAsExpression",
-  "TSSatisfiesExpression",
-  // Flow
-  "AsExpression",
-  "AsConstExpression",
-  "SatisfiesExpression",
-]);
-
-const isUnionType = createTypeCheckFunction([
-  "TSUnionType",
-  "UnionTypeAnnotation",
-]);
-
-const isIntersectionType = createTypeCheckFunction([
-  "TSIntersectionType",
-  "IntersectionTypeAnnotation",
-]);
-
-const isConditionalType = createTypeCheckFunction([
-  "TSConditionalType",
-  "ConditionalTypeAnnotation",
-]);
-
 const isTsAsConstExpression = (node) =>
   node?.type === "TSAsExpression" &&
   node.typeAnnotation.type === "TSTypeReference" &&
   node.typeAnnotation.typeName.type === "Identifier" &&
   node.typeAnnotation.typeName.name === "const";
-
-const isTypeAlias = createTypeCheckFunction([
-  "TSTypeAliasDeclaration",
-  "TypeAlias",
-]);
 
 function shouldUnionTypePrintOwnComments({ key, parent }) {
   if (
@@ -1096,6 +1050,19 @@ function shouldUnionTypePrintOwnComments({ key, parent }) {
   }
 
   return true;
+}
+
+/**
+@returns {boolean}
+*/
+function isBooleanTypeCoercion(node) {
+  return (
+    node.type === "CallExpression" &&
+    !node.optional &&
+    node.arguments.length === 1 &&
+    node.callee.type === "Identifier" &&
+    node.callee.name === "Boolean"
+  );
 }
 
 export {
@@ -1119,6 +1086,7 @@ export {
   isBinaryish,
   isBitwiseOperator,
   isBooleanLiteral,
+  isBooleanTypeCoercion,
   isCallExpression,
   isCallLikeExpression,
   isConditionalType,
@@ -1142,6 +1110,7 @@ export {
   isObjectType,
   isPrettierIgnoreComment,
   isRegExpLiteral,
+  isReturnOrThrowStatement,
   isSignedNumericLiteral,
   isSimpleCallArgument,
   isSimpleExpressionByNodeCount,

@@ -1,5 +1,5 @@
 import { printAssignment } from "./assignment.js";
-import { printDeclareToken } from "./misc.js";
+import { printDeclareToken } from "./miscellaneous.js";
 
 /*
 - `DeclareTypeAlias`(flow)

@@ -22,10 +22,12 @@ await fs.cp(CURRENT_DOCS_DIRECTORY, STABLE_DOCS_DIRECTORY, { recursive: true });
 if (process.env.PULL_REQUEST !== "true") {
   // Replace version placeholders
   await Promise.all(
-    ["browser.md"].map(async (file) => {
-      file = new URL(file, STABLE_DOCS_DIRECTORY);
-      await replaceVersionPlaceholder(file, version);
-    }),
+    ["browser.md", "install.md", "sharing-configurations.md"].map(
+      async (file) => {
+        file = new URL(file, STABLE_DOCS_DIRECTORY);
+        await replaceVersionPlaceholder(file, version);
+      },
+    ),
   );
 }
 

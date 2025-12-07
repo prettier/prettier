@@ -10,21 +10,9 @@ const SKIP = new Set([
   "i_structure_500_nested_arrays.json",
 ]);
 
-const BUGS = new Set([
-  "i_number_neg_int_huge_exp.json",
-  "i_number_real_neg_overflow.json",
-  "i_number_double_huge_neg_exp.json",
-  "i_number_huge_exp.json",
-  "i_number_pos_double_huge_exp.json",
-  "i_number_real_pos_overflow.json",
-  "i_number_real_underflow.json",
-  "i_number_too_big_neg_int.json",
-  "i_number_very_big_negative_int.json",
-]);
-
 const cases = [...parsing, ...transform]
   .map(({ name, input, error }) => {
-    if (error || SKIP.has(name) || BUGS.has(name)) {
+    if (error || SKIP.has(name)) {
       return;
     }
 

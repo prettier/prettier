@@ -1,4 +1,5 @@
 import { hardline, indent, join } from "../document/index.js";
+import printString from "../utilities/print-string.js";
 import UnexpectedNodeError from "../utilities/unexpected-node-error.js";
 
 function genericPrint(path, options, print) {
@@ -44,11 +45,17 @@ function genericPrint(path, options, print) {
     case "BooleanLiteral":
       return node.value ? "true" : "false";
     case "StringLiteral":
-      return JSON.stringify(node.value);
-    case "NumericLiteral":
-      return isObjectKey(path)
-        ? JSON.stringify(String(node.value))
-        : JSON.stringify(node.value);
+      return printString(getRaw(node), options);
+    case "NumericLiteral": {
+      // Intentionally to not use `printNumber`
+      // We may start stop support number normalization like the string print
+      const raw = getRaw(node);
+      if (isObjectKey(path) && String(Number(raw)) === raw) {
+        return `"${raw}"`;
+      }
+
+      return raw;
+    }
     case "Identifier":
       return isObjectKey(path) ? JSON.stringify(node.name) : node.name;
     case "TemplateLiteral":
@@ -62,6 +69,10 @@ function genericPrint(path, options, print) {
   }
 }
 
+function getRaw(node) {
+  return node.extra.raw;
+}
+
 function isObjectKey(path) {
   return path.key === "key" && path.parent.type === "ObjectProperty";
 }
@@ -69,7 +80,6 @@ function isObjectKey(path) {
 const ignoredProperties = new Set([
   "start",
   "end",
-  "extra",
   "loc",
   "comments",
   "leadingComments",
@@ -82,19 +92,45 @@ const ignoredProperties = new Set([
 
 function clean(original, cloned /* , parent*/) {
   const { type } = original;
+
   // We print quoted key
   if (type === "ObjectProperty") {
     const { key } = original;
     if (key.type === "Identifier") {
-      cloned.key = { type: "StringLiteral", value: key.name };
+      const { name } = key;
+      cloned.key = {
+        type: "StringLiteral",
+        value: name,
+        extra: { rawValue: name },
+      };
     } else if (key.type === "NumericLiteral") {
-      cloned.key = { type: "StringLiteral", value: String(key.value) };
+      const raw = getRaw(key);
+      if (String(Number(raw)) === raw) {
+        cloned.key = {
+          type: "StringLiteral",
+          value: raw,
+          extra: { rawValue: raw },
+        };
+      }
     }
-    return;
   }
+
+  if (type === "StringLiteral") {
+    // We only remove `\` before `"`, but it's hard to detect if it's escaped
+    delete cloned.extra.raw;
+  }
+
   if (type === "UnaryExpression" && original.operator === "+") {
     return cloned.argument;
   }
+
+  if (type === "ArrayExpression" || type === "ObjectExpression") {
+    cloned.extra ??= {};
+    if (original.extra?.trailingComma) {
+      delete cloned.extra.trailingComma;
+    }
+  }
+
   // We print holes in array as `null`
   if (type === "ArrayExpression") {
     for (const [index, element] of original.elements.entries()) {
@@ -106,7 +142,12 @@ function clean(original, cloned /* , parent*/) {
   }
   // We print `TemplateLiteral` as string
   if (type === "TemplateLiteral") {
-    return { type: "StringLiteral", value: original.quasis[0].value.cooked };
+    const value = original.quasis[0].value.cooked;
+    return {
+      type: "StringLiteral",
+      value,
+      extra: { rawValue: value },
+    };
   }
 }
 

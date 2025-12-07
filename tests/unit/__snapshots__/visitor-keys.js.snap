@@ -308,12 +308,6 @@ exports[`visitor keys estree 1`] = `
     "members",
   ],
   "ExistsTypeAnnotation": [],
-  "ExperimentalRestProperty": [
-    "argument",
-  ],
-  "ExperimentalSpreadProperty": [
-    "argument",
-  ],
   "ExportAllDeclaration": [
     "attributes",
     "exported",

@@ -6,6 +6,25 @@ import {
   line,
   softline,
 } from "../../document/index.js";
+import needsParentheses from "../parentheses/needs-parentheses.js";
+import { isReturnOrThrowStatement } from "../utilities/index.js";
+
+function shouldIndentSequenceExpression(path, options) {
+  const { key, parent } = path;
+  if (
+    key === "argument" &&
+    isReturnOrThrowStatement(parent) &&
+    needsParentheses(path, options)
+  ) {
+    return true;
+  }
+
+  if (key === "body" && parent.type === "ArrowFunctionExpression") {
+    return true;
+  }
+
+  return false;
+}
 
 function printSequenceExpression(path, options, print) {
   const { parent } = path;
@@ -26,11 +45,7 @@ function printSequenceExpression(path, options, print) {
 
   const parts = join([",", line], path.map(print, "expressions"));
 
-  if (
-    ((parent.type === "ReturnStatement" || parent.type === "ThrowStatement") &&
-      path.key === "argument") ||
-    (parent.type === "ArrowFunctionExpression" && path.key === "body")
-  ) {
+  if (shouldIndentSequenceExpression(path, options)) {
     return group(ifBreak([indent([softline, parts]), softline], parts));
   }
 

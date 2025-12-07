@@ -1,10 +1,14 @@
-import { group, hardline, indent, softline } from "../../document/index.js";
-import { adjustClause } from "./misc.js";
+import { group, hardline } from "../../document/index.js";
+import {
+  adjustClause,
+  printDoWhileStatementCondition,
+  printWhileStatementCondition,
+} from "./miscellaneous.js";
 
 function printWhileStatement(path, options, print) {
   return group([
     "while (",
-    group([indent([softline, print("test")]), softline]),
+    printWhileStatementCondition(path, options, print),
     ")",
     adjustClause(path.node.body, print("body")),
   ]);
@@ -19,7 +23,7 @@ function printDoWhileStatement(path, options, print) {
     doBody,
     body.type === "BlockStatement" ? " " : hardline,
     "while (",
-    group([indent([softline, print("test")]), softline]),
+    printDoWhileStatementCondition(path, options, print),
     ")",
     options.semi ? ";" : "",
   ];

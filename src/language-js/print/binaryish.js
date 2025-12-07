@@ -20,11 +20,13 @@ import {
   hasLeadingOwnLineComment,
   isArrayExpression,
   isBinaryish,
+  isBooleanTypeCoercion,
   isCallExpression,
   isJsxElement,
   isMemberExpression,
   isObjectExpression,
   isObjectProperty,
+  isReturnOrThrowStatement,
   shouldFlatten,
 } from "../utilities/index.js";
 import isTypeCastComment from "../utilities/is-type-cast-comment.js";
@@ -95,8 +97,7 @@ function printBinaryishExpression(path, options, print) {
   // Avoid indenting sub-expressions in some cases where the first sub-expression is already
   // indented accordingly. We should indent sub-expressions where the first case isn't indented.
   const shouldNotIndent =
-    parent.type === "ReturnStatement" ||
-    parent.type === "ThrowStatement" ||
+    isReturnOrThrowStatement(parent) ||
     (parent.type === "JSXExpressionContainer" &&
       grandparent.type === "JSXAttribute") ||
     (node.operator !== "|" && parent.type === "JsExpressionRoot") ||
@@ -108,13 +109,12 @@ function printBinaryishExpression(path, options, print) {
     (node === parent.body && parent.type === "ArrowFunctionExpression") ||
     (node !== parent.body && parent.type === "ForStatement") ||
     (parent.type === "ConditionalExpression" &&
-      grandparent.type !== "ReturnStatement" &&
-      grandparent.type !== "ThrowStatement" &&
+      !isReturnOrThrowStatement(grandparent) &&
       !isCallExpression(grandparent) &&
       grandparent.type !== "NewExpression") ||
     parent.type === "TemplateLiteral" ||
     (key === "argument" && parent.type === "UnaryExpression") ||
-    isBooleanTypeCoercion(path);
+    (key === "arguments" && isBooleanTypeCoercion(parent));
 
   const shouldIndentIfInlining =
     parent.type === "AssignmentExpression" ||
@@ -223,6 +223,7 @@ function printBinaryishExpressions(
   // precedence level and should be treated as a separate group, so
   // print them normally. (This doesn't hold for the `**` operator,
   // which is unique in that it is right-associative.)
+  // @ts-expect-error -- FIXME
   if (shouldFlatten(node.operator, node.left.operator)) {
     // Flatten them out by recursively calling this function.
     parts = path.call(
@@ -244,8 +245,8 @@ function printBinaryishExpressions(
   const rightNodeToCheckComments =
     node.right.type === "ChainExpression" ? node.right.expression : node.right;
   const lineBeforeOperator =
-    (node.operator === "|>" ||
-      node.type === "NGPipeExpression" ||
+    (node.type === "NGPipeExpression" ||
+      node.operator === "|>" ||
       isVueFilterSequenceExpression(path, options)) &&
     !hasLeadingOwnLineComment(options.originalText, rightNodeToCheckComments);
   const hasTypeCastComment = hasComment(
@@ -393,29 +394,6 @@ function isVueFilterSequenceExpression(path, options) {
         !isBitwiseOrExpression(node) && node.type !== "JsExpressionRoot",
     )
   );
-}
-
-/**
-@returns {boolean}
-*/
-function isBooleanTypeCoercion(path) {
-  if (path.key !== "arguments") {
-    return false;
-  }
-
-  const { parent } = path;
-  if (
-    !(
-      isCallExpression(parent) &&
-      !parent.optional &&
-      parent.arguments.length === 1
-    )
-  ) {
-    return false;
-  }
-
-  const { callee } = parent;
-  return callee.type === "Identifier" && callee.name === "Boolean";
 }
 
 export { printBinaryishExpression, shouldInlineLogicalExpression };

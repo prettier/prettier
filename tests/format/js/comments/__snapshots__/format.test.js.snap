@@ -5137,6 +5137,12 @@ function sequenceExpressionInside() {
   return ( // Reason for a
     a, b
   );
+  throw ( // Reason for a
+    a, b
+  );
+  return ( // Reason for a
+    a = 1
+  );
 }
 
 function taggedTemplate() {
@@ -5164,7 +5170,7 @@ function multilineBlockNextLine() {
   return (
     /**
     * @type {string}
-    */ 
+    */
     'result'
   )
 }
@@ -5194,7 +5200,7 @@ function singleLineBlockSameLine() {
 
 function singleLineBlockNextLine() {
   return (
-    /** Result below */ 
+    /** Result below */
     'result'
   )
 }
@@ -5315,7 +5321,15 @@ function excessiveEverything() {
 function sequenceExpressionInside() {
   return (
     // Reason for a
-    (a, b)
+    a, b
+  )
+  throw (
+    // Reason for a
+    a, b
+  )
+  return (
+    // Reason for a
+    a = 1
   )
 }
 
@@ -5491,6 +5505,12 @@ function sequenceExpressionInside() {
   return ( // Reason for a
     a, b
   );
+  throw ( // Reason for a
+    a, b
+  );
+  return ( // Reason for a
+    a = 1
+  );
 }
 
 function taggedTemplate() {
@@ -5518,7 +5538,7 @@ function multilineBlockNextLine() {
   return (
     /**
     * @type {string}
-    */ 
+    */
     'result'
   )
 }
@@ -5548,7 +5568,7 @@ function singleLineBlockSameLine() {
 
 function singleLineBlockNextLine() {
   return (
-    /** Result below */ 
+    /** Result below */
     'result'
   )
 }
@@ -5669,7 +5689,15 @@ function excessiveEverything() {
 function sequenceExpressionInside() {
   return (
     // Reason for a
-    (a, b)
+    a, b
+  );
+  throw (
+    // Reason for a
+    a, b
+  );
+  return (
+    // Reason for a
+    a = 1
   );
 }
 
@@ -5726,6 +5754,181 @@ function singleLineBlockNextLine() {
   return (
     /** Result below */
     "result"
+  );
+}
+
+================================================================================
+`;
+
+exports[`return-statement-2.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+function foo() {
+  return ( // Comment
+    a, b
+  );
+  return (
+    // Comment
+    a, b
+  );
+  return /* Comment*/ (
+    a, b
+  );
+  return (/* Comment*/
+    a, b
+  );
+  return (
+    /* Comment*/
+    a, b
+  );
+
+  return ( // Comment
+    a = b
+  );
+  return (
+    // Comment
+    a = b
+  );
+
+  throw (
+    // Comment
+    a, b
+  );
+
+  throw (
+    // Comment
+    a = b
+  );
+}
+
+=====================================output=====================================
+function foo() {
+  return (
+    // Comment
+    a, b
+  )
+  return (
+    // Comment
+    a, b
+  )
+  return /* Comment*/ (a, b)
+  return (
+    /* Comment*/
+    a, b
+  )
+  return (
+    /* Comment*/
+    a, b
+  )
+
+  return (
+    // Comment
+    a = b
+  )
+  return (
+    // Comment
+    a = b
+  )
+
+  throw (
+    // Comment
+    a, b
+  )
+
+  throw (
+    // Comment
+    a = b
+  )
+}
+
+================================================================================
+`;
+
+exports[`return-statement-2.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+function foo() {
+  return ( // Comment
+    a, b
+  );
+  return (
+    // Comment
+    a, b
+  );
+  return /* Comment*/ (
+    a, b
+  );
+  return (/* Comment*/
+    a, b
+  );
+  return (
+    /* Comment*/
+    a, b
+  );
+
+  return ( // Comment
+    a = b
+  );
+  return (
+    // Comment
+    a = b
+  );
+
+  throw (
+    // Comment
+    a, b
+  );
+
+  throw (
+    // Comment
+    a = b
+  );
+}
+
+=====================================output=====================================
+function foo() {
+  return (
+    // Comment
+    a, b
+  );
+  return (
+    // Comment
+    a, b
+  );
+  return /* Comment*/ (a, b);
+  return (
+    /* Comment*/
+    a, b
+  );
+  return (
+    /* Comment*/
+    a, b
+  );
+
+  return (
+    // Comment
+    a = b
+  );
+  return (
+    // Comment
+    a = b
+  );
+
+  throw (
+    // Comment
+    a, b
+  );
+
+  throw (
+    // Comment
+    a = b
   );
 }
 

@@ -22,6 +22,7 @@ import {
   isJsxElement,
   isLoneShortArgument,
   isMemberExpression,
+  isReturnOrThrowStatement,
   isSimpleExpressionByNodeCount,
 } from "../utilities/index.js";
 import isBlockComment from "../utilities/is-block-comment.js";
@@ -211,7 +212,7 @@ function printTernary(path, options, print, args) {
       parent.type === "Property");
 
   const isOnSameLineAsReturn =
-    (parent.type === "ReturnStatement" || parent.type === "ThrowStatement") &&
+    isReturnOrThrowStatement(parent) &&
     !(isConsequentTernary || isAlternateTernary);
 
   const isInJsx =

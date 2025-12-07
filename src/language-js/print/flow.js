@@ -37,7 +37,7 @@ import { printIntersectionType } from "./intersection-type.js";
 import { printBigInt } from "./literal.js";
 import { printFlowMappedTypeProperty } from "./mapped-type.js";
 import { printMatch, printMatchCase, printMatchPattern } from "./match.js";
-import { printDeclareToken, printOptionalToken } from "./misc.js";
+import { printDeclareToken, printOptionalToken } from "./miscellaneous.js";
 import { printExportDeclaration } from "./module.js";
 import { printOpaqueType } from "./opaque-type.js";
 import { printPropertyKey } from "./property.js";
