@@ -25,6 +25,8 @@ function printList(path, options, print) {
     options,
   );
 
+  const minIndent = requiredIndent(path);
+
   return printChildren(path, options, print, {
     processor() {
       const prefix = getPrefix();
@@ -59,12 +61,78 @@ function printList(path, options, print) {
             ? "- "
             : "* ";
 
-        return node.isAligned && node.ordered
-          ? alignListPrefix(rawPrefix, options)
-          : rawPrefix;
+        let prefix =
+          node.isAligned && node.ordered
+            ? alignListPrefix(rawPrefix, options)
+            : rawPrefix;
+
+        if (prefix.length >= minIndent) {
+          return prefix;
+        }
+
+        prefix = prefix.trimEnd();
+        const trailingSpaces = Math.min(minIndent - prefix.length, 4); // 5+ will cause indented code block
+        if (trailingSpaces > 0) {
+          prefix += " ".repeat(trailingSpaces);
+        }
+        const leadingSpaces = Math.min(minIndent - prefix.length, 3); // 4+ will cause indented code block
+        if (leadingSpaces > 0) {
+          prefix = " ".repeat(leadingSpaces) + prefix;
+        }
+
+        return prefix;
       }
     },
   });
+}
+
+function printListItem(path, options, print, listPrefix) {
+  const { node } = path;
+  const prefix = node.checked === null ? "" : node.checked ? "[x] " : "[ ] ";
+  return [
+    prefix,
+    printChildren(path, options, print, {
+      processor({ node, isFirst }) {
+        if (
+          (isFirst && node.type !== "list") ||
+          (node.type === "code" && node.isIndented)
+        ) {
+          return align(" ".repeat(prefix.length), print());
+        }
+
+        const alignment = " ".repeat(
+          clamp(options.tabWidth - listPrefix.length, 0, 3), // 4+ will cause indented code block
+        );
+        return [alignment, align(alignment, print())];
+      },
+    }),
+  ];
+}
+
+/**
+ * If the list is followed by a indented code block, its content have to be
+ * indented deeper than the code block.
+ * @param {AstPath} path
+ * @return {number}
+ */
+function requiredIndent(path) {
+  const { node, next } = path;
+  if (node.checked === null) {
+    return 0;
+  }
+  if (!(next?.type === "code" && next.isIndented)) {
+    return 0;
+  }
+
+  const leadingSpaces = /^[ \t]*/u.exec(next.value)?.[0] ?? "";
+  return (
+    4 + // base indent of the code block
+    [...leadingSpaces].reduce(
+      (count, char) => count + (char === "\t" ? 4 : 1),
+      0,
+    ) +
+    1 // at least one space more than the code block
+  );
 }
 
 /**
@@ -93,14 +161,14 @@ function printListLegacy(path, options, print) {
         childNode.children[0].position.start.column !==
           childNode.children[1].position.start.column
       ) {
-        return [prefix, printListItem(path, options, print, prefix)];
+        return [prefix, printListItemLegacy(path, options, print, prefix)];
       }
 
       return [
         prefix,
         align(
           " ".repeat(prefix.length),
-          printListItem(path, options, print, prefix),
+          printListItemLegacy(path, options, print, prefix),
         ),
       ];
 
@@ -126,7 +194,7 @@ function printListLegacy(path, options, print) {
   });
 }
 
-function printListItem(path, options, print, listPrefix) {
+function printListItemLegacy(path, options, print, listPrefix) {
   const { node } = path;
   const prefix = node.checked === null ? "" : node.checked ? "[x] " : "[ ] ";
   return [
