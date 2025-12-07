@@ -298,7 +298,9 @@ function genericPrint(path, options, print) {
         ":",
         indent([
           lineOrSpace,
-          printUrl(node.url),
+          options.parser !== "mdx" && node.url === ""
+            ? "<>"
+            : printUrl(node.url),
           node.title === null
             ? ""
             : [lineOrSpace, printTitle(node.title, options, false)],
