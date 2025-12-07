@@ -467,7 +467,6 @@ const isClassLikeNode = createTypeCheckFunction([
   "InterfaceDeclaration",
   "TSInterfaceDeclaration",
 ]);
-
 function handleClassComments({
   comment,
   precedingNode,
