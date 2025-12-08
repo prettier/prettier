@@ -11,10 +11,6 @@
  */
 
 import {
-  gfmAutolinkLiteralFromMarkdown,
-  gfmAutolinkLiteralToMarkdown,
-} from "./gfm-autolink-literal.js";
-import {
   gfmFootnoteFromMarkdown,
   gfmFootnoteToMarkdown,
 } from "mdast-util-gfm-footnote";
@@ -27,6 +23,10 @@ import {
   gfmTaskListItemFromMarkdown,
   gfmTaskListItemToMarkdown,
 } from "mdast-util-gfm-task-list-item";
+import {
+  gfmAutolinkLiteralFromMarkdown,
+  gfmAutolinkLiteralToMarkdown,
+} from "./gfm-autolink-literal.js";
 
 /**
  * Create an extension for `mdast-util-from-markdown` to enable GFM (autolink

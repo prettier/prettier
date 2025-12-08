@@ -12,12 +12,12 @@
  * @import {Processor} from 'unified'
  */
 
-import { combineExtensions } from "micromark-util-combine-extensions";
 import { gfmAutolinkLiteral } from "micromark-extension-gfm-autolink-literal";
 import { gfmFootnote } from "micromark-extension-gfm-footnote";
 import { gfmStrikethrough } from "micromark-extension-gfm-strikethrough";
 import { gfmTable } from "micromark-extension-gfm-table";
 import { gfmTaskListItem } from "micromark-extension-gfm-task-list-item";
+import { combineExtensions } from "micromark-util-combine-extensions";
 import { gfmFromMarkdown, gfmToMarkdown } from "./mdast-util-gfm.js";
 
 /** @type {Options} */

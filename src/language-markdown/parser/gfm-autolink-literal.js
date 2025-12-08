@@ -9,8 +9,6 @@
  * @import {Link, PhrasingContent} from 'mdast'
  */
 
-import { ok as assert } from "devlop";
-
 /** @type {ConstructName} */
 const inConstruct = "phrasing";
 /** @type {Array<ConstructName>} */
@@ -134,4 +132,17 @@ function exitLiteralAutolink(token) {
  */
 function transformGfmAutolinkLiterals(tree) {
   return tree;
+}
+
+/**
+ * Simple assertion function.
+ *
+ * @param {*} condition
+ * @returns {asserts condition}
+ * @throws {Error}
+ */
+function assert(condition) {
+  if (!condition) {
+    throw new Error("Assertion failed");
+  }
 }
