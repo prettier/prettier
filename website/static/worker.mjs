@@ -10,8 +10,8 @@ async function importPlugin(plugin) {
 
   try {
     return await pluginLoadPromises.get(plugin);
-  } catch {
-    throw new Error(`Load plugin '${plugin.file}' failed.`);
+  } catch (error) {
+    throw new Error(`Load plugin '${plugin.file}' failed.`, { cause: error });
   }
 }
 
@@ -51,12 +51,26 @@ self.onmessage = async function (event) {
   });
 };
 
+function serializeError(error) {
+  const serialized = {
+    name: error.name,
+    message: error.message,
+    ...error,
+  };
+
+  if (error.cause instanceof Error) {
+    serialized.cause = serializeError(error.cause);
+  }
+
+  return serialized;
+}
+
 function serializeAst(ast) {
   return JSON.stringify(
     ast,
     (_, value) =>
       value instanceof Error
-        ? { name: value.name, message: value.message, ...value }
+        ? serializeError(value)
         : typeof value === "bigint"
           ? `BigInt('${String(value)}')`
           : typeof value === "symbol"
