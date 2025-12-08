@@ -11,6 +11,7 @@ async function importPlugin(plugin) {
   try {
     return await pluginLoadPromises.get(plugin);
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.error(error);
     throw new Error(`Load plugin '${plugin.file}' failed.`, { cause: error });
   }
