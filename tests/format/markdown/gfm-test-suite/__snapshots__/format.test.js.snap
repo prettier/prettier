@@ -1,0 +1,824 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`snippet: example-83.md (4.4 Indented code blocks) - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+Foo
+    bar
+
+=====================================output=====================================
+Foo bar
+
+================================================================================
+`;
+
+exports[`snippet: example-87.md (4.4 Indented code blocks) - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+
+    
+    foo
+    
+
+=====================================output=====================================
+    foo
+
+================================================================================
+`;
+
+exports[`snippet: example-198.md (4.10 Tables (extension)) - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+| foo | bar |
+| --- | --- |
+| baz | bim |
+
+=====================================output=====================================
+| foo | bar |
+| --- | --- |
+| baz | bim |
+
+================================================================================
+`;
+
+exports[`snippet: example-199.md (4.10 Tables (extension)) - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+| abc | defghi |
+:-: | -----------:
+bar | baz
+
+=====================================output=====================================
+| abc | defghi |
+| :-: | -----: |
+| bar |    baz |
+
+================================================================================
+`;
+
+exports[`snippet: example-200.md (4.10 Tables (extension)) - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+| f\\|oo  |
+| ------ |
+| b \`\\|\` az |
+| b **\\|** im |
+
+=====================================output=====================================
+| f\\|oo       |
+| ----------- |
+| b \`\\|\` az   |
+| b **\\|** im |
+
+================================================================================
+`;
+
+exports[`snippet: example-201.md (4.10 Tables (extension)) - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+| abc | def |
+| --- | --- |
+| bar | baz |
+> bar
+
+=====================================output=====================================
+| abc | def |
+| --- | --- |
+| bar | baz |
+
+> bar
+
+================================================================================
+`;
+
+exports[`snippet: example-202.md (4.10 Tables (extension)) - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+| abc | def |
+| --- | --- |
+| bar | baz |
+bar
+
+bar
+
+=====================================output=====================================
+| abc | def |
+| --- | --- |
+| bar | baz |
+
+bar
+
+bar
+
+================================================================================
+`;
+
+exports[`snippet: example-205.md (4.10 Tables (extension)) - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+| abc | def |
+| --- | --- |
+
+=====================================output=====================================
+| abc | def |
+| --- | --- |
+
+================================================================================
+`;
+
+exports[`snippet: example-279.md (5.3 Task list items (extension)) - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+- [ ] foo
+- [x] bar
+
+=====================================output=====================================
+- [ ] foo
+- [x] bar
+
+================================================================================
+`;
+
+exports[`snippet: example-280.md (5.3 Task list items (extension)) - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+- [x] foo
+  - [ ] bar
+  - [x] baz
+- [ ] bim
+
+=====================================output=====================================
+- [x] foo
+  - [ ] bar
+  - [x] baz
+- [ ] bim
+
+================================================================================
+`;
+
+exports[`snippet: example-316.md (6.1 Backslash escapes) - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+<http://example.com?find=\\*>
+
+=====================================output=====================================
+<http://example.com?find=\\*>
+
+================================================================================
+`;
+
+exports[`snippet: example-355.md (6.3 Code spans) - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+\`<http://foo.bar.\`baz>\`
+
+=====================================output=====================================
+\`<http://foo.bar.\`baz>\`
+
+================================================================================
+`;
+
+exports[`snippet: example-356.md (6.3 Code spans) - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+<http://foo.bar.\`baz>\`
+
+=====================================output=====================================
+<http://foo.bar.\`baz>\`
+
+================================================================================
+`;
+
+exports[`snippet: example-489.md (6.4 Emphasis and strong emphasis) - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+**a<http://foo.bar/?q=**>
+
+=====================================output=====================================
+**a<http://foo.bar/?q=**>
+
+================================================================================
+`;
+
+exports[`snippet: example-490.md (6.4 Emphasis and strong emphasis) - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+__a<http://foo.bar/?q=__>
+
+=====================================output=====================================
+**a<http://foo.bar/?q=**>
+
+================================================================================
+`;
+
+exports[`snippet: example-491.md (6.5 Strikethrough (extension)) - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+~~Hi~~ Hello, ~there~ world!
+
+=====================================output=====================================
+~~Hi~~ Hello, ~there~ world!
+
+================================================================================
+`;
+
+exports[`snippet: example-492.md (6.5 Strikethrough (extension)) - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+This ~~has a
+
+new paragraph~~.
+
+=====================================output=====================================
+This ~~has a
+
+new paragraph~~.
+
+================================================================================
+`;
+
+exports[`snippet: example-493.md (6.5 Strikethrough (extension)) - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+This will ~~~not~~~ strike.
+
+=====================================output=====================================
+This will ~~~not~~~ strike.
+
+================================================================================
+`;
+
+exports[`snippet: example-510.md (6.6 Links) - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+[link](#fragment)
+
+[link](http://example.com#fragment)
+
+[link](http://example.com?foo=3#frag)
+
+=====================================output=====================================
+[link](#fragment)
+
+[link](http://example.com#fragment)
+
+[link](http://example.com?foo=3#frag)
+
+================================================================================
+`;
+
+exports[`snippet: example-535.md (6.6 Links) - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+[foo<http://example.com/?search=](uri)>
+
+=====================================output=====================================
+[foo<http://example.com/?search=](uri)>
+
+================================================================================
+`;
+
+exports[`snippet: example-547.md (6.6 Links) - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+[foo<http://example.com/?search=][ref]>
+
+[ref]: /uri
+
+=====================================output=====================================
+[foo<http://example.com/?search=][ref]>
+
+[ref]: /uri
+
+================================================================================
+`;
+
+exports[`snippet: example-604.md (6.8 Autolinks) - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+<http://foo.bar.baz/test?q=hello&id=22&boolean>
+
+=====================================output=====================================
+<http://foo.bar.baz/test?q=hello&id=22&boolean>
+
+================================================================================
+`;
+
+exports[`snippet: example-609.md (6.8 Autolinks) - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+<http://../>
+
+=====================================output=====================================
+<http://../>
+
+================================================================================
+`;
+
+exports[`snippet: example-611.md (6.8 Autolinks) - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+<http://foo.bar/baz bim>
+
+=====================================output=====================================
+<http://foo.bar/baz bim>
+
+================================================================================
+`;
+
+exports[`snippet: example-612.md (6.8 Autolinks) - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+<http://example.com/\\[\\>
+
+=====================================output=====================================
+<http://example.com/\\[\\>
+
+================================================================================
+`;
+
+exports[`snippet: example-617.md (6.8 Autolinks) - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+< http://foo.bar >
+
+=====================================output=====================================
+< http://foo.bar >
+
+================================================================================
+`;
+
+exports[`snippet: example-620.md (6.8 Autolinks) - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+http://example.com
+
+=====================================output=====================================
+http://example.com
+
+================================================================================
+`;
+
+exports[`snippet: example-622.md (6.9 Autolinks (extension)) - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+www.commonmark.org
+
+=====================================output=====================================
+www.commonmark.org
+
+================================================================================
+`;
+
+exports[`snippet: example-623.md (6.9 Autolinks (extension)) - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+Visit www.commonmark.org/help for more information.
+
+=====================================output=====================================
+Visit www.commonmark.org/help for more information.
+
+================================================================================
+`;
+
+exports[`snippet: example-624.md (6.9 Autolinks (extension)) - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+Visit www.commonmark.org.
+
+Visit www.commonmark.org/a.b.
+
+=====================================output=====================================
+Visit www.commonmark.org.
+
+Visit www.commonmark.org/a.b.
+
+================================================================================
+`;
+
+exports[`snippet: example-625.md (6.9 Autolinks (extension)) - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+www.google.com/search?q=Markup+(business)
+
+www.google.com/search?q=Markup+(business)))
+
+(www.google.com/search?q=Markup+(business))
+
+(www.google.com/search?q=Markup+(business)
+
+=====================================output=====================================
+www.google.com/search?q=Markup+(business)
+
+www.google.com/search?q=Markup+(business)))
+
+(www.google.com/search?q=Markup+(business))
+
+(www.google.com/search?q=Markup+(business)
+
+================================================================================
+`;
+
+exports[`snippet: example-626.md (6.9 Autolinks (extension)) - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+www.google.com/search?q=(business))+ok
+
+=====================================output=====================================
+www.google.com/search?q=(business))+ok
+
+================================================================================
+`;
+
+exports[`snippet: example-627.md (6.9 Autolinks (extension)) - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+www.google.com/search?q=commonmark&hl=en
+
+www.google.com/search?q=commonmark&hl;
+
+=====================================output=====================================
+www.google.com/search?q=commonmark&hl=en
+
+www.google.com/search?q=commonmark&hl;
+
+================================================================================
+`;
+
+exports[`snippet: example-628.md (6.9 Autolinks (extension)) - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+www.commonmark.org/he<lp
+
+=====================================output=====================================
+www.commonmark.org/he<lp
+
+================================================================================
+`;
+
+exports[`snippet: example-629.md (6.9 Autolinks (extension)) - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+http://commonmark.org
+
+(Visit https://encrypted.google.com/search?q=Markup+(business))
+
+=====================================output=====================================
+http://commonmark.org
+
+(Visit https://encrypted.google.com/search?q=Markup+(business))
+
+================================================================================
+`;
+
+exports[`snippet: example-630.md (6.9 Autolinks (extension)) - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+foo@bar.baz
+
+=====================================output=====================================
+foo@bar.baz
+
+================================================================================
+`;
+
+exports[`snippet: example-631.md (6.9 Autolinks (extension)) - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+hello@mail+xyz.example isn't valid, but hello+xyz@mail.example is.
+
+=====================================output=====================================
+hello@mail+xyz.example isn't valid, but hello+xyz@mail.example is.
+
+================================================================================
+`;
+
+exports[`snippet: example-632.md (6.9 Autolinks (extension)) - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+a.b-c_d@a.b
+
+a.b-c_d@a.b.
+
+a.b-c_d@a.b-
+
+a.b-c_d@a.b_
+
+=====================================output=====================================
+a.b-c_d@a.b
+
+a.b-c_d@a.b.
+
+a.b-c_d@a.b-
+
+a.b-c_d@a.b_
+
+================================================================================
+`;
+
+exports[`snippet: example-633.md (6.9 Autolinks (extension)) - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+mailto:foo@bar.baz
+
+mailto:a.b-c_d@a.b
+
+mailto:a.b-c_d@a.b.
+
+mailto:a.b-c_d@a.b/
+
+mailto:a.b-c_d@a.b-
+
+mailto:a.b-c_d@a.b_
+
+xmpp:foo@bar.baz
+
+xmpp:foo@bar.baz.
+
+=====================================output=====================================
+mailto:foo@bar.baz
+
+mailto:a.b-c_d@a.b
+
+mailto:a.b-c_d@a.b.
+
+mailto:a.b-c_d@a.b/
+
+mailto:a.b-c_d@a.b-
+
+mailto:a.b-c_d@a.b_
+
+xmpp:foo@bar.baz
+
+xmpp:foo@bar.baz.
+
+================================================================================
+`;
+
+exports[`snippet: example-634.md (6.9 Autolinks (extension)) - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+xmpp:foo@bar.baz/txt
+
+xmpp:foo@bar.baz/txt@bin
+
+xmpp:foo@bar.baz/txt@bin.com
+
+=====================================output=====================================
+xmpp:foo@bar.baz/txt
+
+xmpp:foo@bar.baz/txt@bin
+
+xmpp:foo@bar.baz/txt@bin.com
+
+================================================================================
+`;
+
+exports[`snippet: example-635.md (6.9 Autolinks (extension)) - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+xmpp:foo@bar.baz/txt/bin
+
+=====================================output=====================================
+xmpp:foo@bar.baz/txt/bin
+
+================================================================================
+`;
+
+exports[`snippet: example-648.md (6.10 Raw HTML) - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+foo <!-- this is a
+comment - with hyphen -->
+
+=====================================output=====================================
+foo <!-- this is a
+comment - with hyphen -->
+
+================================================================================
+`;
+
+exports[`snippet: example-649.md (6.10 Raw HTML) - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+foo <!-- not a comment -- two hyphens -->
+
+=====================================output=====================================
+foo <!-- not a comment -- two hyphens -->
+
+================================================================================
+`;
+
+exports[`snippet: example-650.md (6.10 Raw HTML) - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+foo <!--> foo -->
+
+foo <!-- foo--->
+
+=====================================output=====================================
+foo <!--> foo -->
+
+foo <!-- foo--->
+
+================================================================================
+`;
+
+exports[`snippet: example-657.md (6.11 Disallowed Raw HTML (extension)) - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+<strong> <title> <style> <em>
+
+<blockquote>
+  <xmp> is disallowed.  <XMP> is also disallowed.
+</blockquote>
+
+=====================================output=====================================
+<strong> <title> <style> <em>
+
+<blockquote>
+  <xmp> is disallowed.  <XMP> is also disallowed.
+</blockquote>
+
+================================================================================
+`;

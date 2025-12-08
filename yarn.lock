@@ -5052,6 +5052,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"gfm-test-suite@npm:0.0.2":
+  version: 0.0.2
+  resolution: "gfm-test-suite@npm:0.0.2"
+  checksum: 10/bf00b130a97bf368991484a3306378a7154ea61ab3538fd952ec79870c4aa4092cea255e7518b82455511b661b5e04fbc0786e9d0b4818482b9ba5881d66c3e3
+  languageName: node
+  linkType: hard
+
 "glob-parent@npm:^5.1.2":
   version: 5.1.2
   resolution: "glob-parent@npm:5.1.2"
@@ -7572,6 +7579,7 @@ __metadata:
     flow-parser: "npm:0.291.0"
     get-east-asian-width: "npm:1.4.0"
     get-stdin: "npm:9.0.0"
+    gfm-test-suite: "npm:0.0.2"
     globals: "npm:16.5.0"
     graphql: "npm:16.12.0"
     hermes-parser: "npm:0.32.1"
