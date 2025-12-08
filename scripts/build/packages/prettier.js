@@ -54,12 +54,6 @@ const mainModule = {
             };
           `,
         },
-        {
-          module: require.resolve("n-readlines"),
-          find: "const readBuffer = new Buffer(this.options.readChunk);",
-          replacement:
-            "const readBuffer = Buffer.alloc(this.options.readChunk);",
-        },
         // `parse-json` use another copy of `@babel/code-frame`
         {
           module: require.resolve("@babel/code-frame", {
