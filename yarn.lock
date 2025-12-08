@@ -7633,7 +7633,7 @@ __metadata:
     sdbm: "npm:3.0.0"
     search-closest: "npm:1.1.0"
     semver: "npm:7.7.3"
-    serialize-javascript: "npm:7.0.1"
+    serialize-javascript: "npm:7.0.2"
     smol-toml: "npm:1.5.2"
     strip-ansi: "npm:7.1.2"
     tempy: "npm:3.1.0"
@@ -8021,10 +8021,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"serialize-javascript@npm:7.0.1":
-  version: 7.0.1
-  resolution: "serialize-javascript@npm:7.0.1"
-  checksum: 10/03a981c5ce70bee3a012ae8cf7774c7617fd50eb9d1b6d36e977bb7d87be2180b1e2f90b9148d00f30f811b49539f5e59129dd3a7c1fe3c30cb26728e0ea86a1
+"serialize-javascript@npm:7.0.2":
+  version: 7.0.2
+  resolution: "serialize-javascript@npm:7.0.2"
+  checksum: 10/3b826dbaca0b9799a092c370fde91c4d6fa56ec6ccd7cf4dc757ad218d37b09b528a08f7d394cb23d09ae88b336e0460fb1c98087f717e8299b366e7b0f3ba62
   languageName: node
   linkType: hard
 
