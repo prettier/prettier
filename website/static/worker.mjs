@@ -11,7 +11,7 @@ async function importPlugin(plugin) {
   try {
     return await pluginLoadPromises.get(plugin);
   } catch (error) {
-    console.error(error);
+    // console.error(error);
     throw new Error(`Load plugin '${plugin.file}' failed.`, { cause: error });
   }
 }
@@ -217,14 +217,23 @@ async function formatCode(text, options, rethrowEmbedErrors) {
 }
 
 function stringifyError(error) {
-  const stringified = String(error);
-  if (typeof error.stack !== "string") {
-    return stringified;
+  const { stack, cause } = error;
+
+  let stringified = String(error);
+
+  if (typeof stack === "string") {
+    if (stack.includes(stringified)) {
+      // Chrome
+      stringified = stack;
+    } else {
+      // Firefox
+      stringified += "\n" + error.stack;
+    }
   }
-  if (error.stack.includes(stringified)) {
-    // Chrome
-    return error.stack;
+
+  if (cause instanceof Error) {
+    stringified += "\nCause: " + stringifyError(cause);
   }
-  // Firefox
-  return stringified + "\n" + error.stack;
+
+  return stringified;
 }
