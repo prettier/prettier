@@ -186,6 +186,37 @@ proseWrap: "always"
 ================================================================================
 `;
 
+exports[`remark-gfm-79.md - {"proseWrap":"always","singleQuote":true} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+singleQuote: true
+                                                                                | printWidth
+=====================================input======================================
+"https\\://developer.mozilla.org" x
+
+=====================================output=====================================
+"https\\://developer.mozilla.org" x
+
+================================================================================
+`;
+
+exports[`remark-gfm-79.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+"https\\://developer.mozilla.org" x
+
+=====================================output=====================================
+"https\\://developer.mozilla.org" x
+
+================================================================================
+`;
+
 exports[`simple.md - {"proseWrap":"always","singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]

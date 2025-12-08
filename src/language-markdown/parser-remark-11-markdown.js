@@ -39,8 +39,6 @@ function createParse() {
       ast.children.unshift(frontMatter);
     }
 
-    console.log(ast.children[0]);
-
     return ast;
   };
 }

@@ -6828,7 +6828,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mdast-util-gfm-footnote@npm:^2.0.0":
+"mdast-util-gfm-footnote@npm:2.1.0, mdast-util-gfm-footnote@npm:^2.0.0":
   version: 2.1.0
   resolution: "mdast-util-gfm-footnote@npm:2.1.0"
   dependencies:
@@ -6841,7 +6841,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mdast-util-gfm-strikethrough@npm:^2.0.0":
+"mdast-util-gfm-strikethrough@npm:2.0.0, mdast-util-gfm-strikethrough@npm:^2.0.0":
   version: 2.0.0
   resolution: "mdast-util-gfm-strikethrough@npm:2.0.0"
   dependencies:
@@ -6852,7 +6852,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mdast-util-gfm-table@npm:^2.0.0":
+"mdast-util-gfm-table@npm:2.0.0, mdast-util-gfm-table@npm:^2.0.0":
   version: 2.0.0
   resolution: "mdast-util-gfm-table@npm:2.0.0"
   dependencies:
@@ -6865,7 +6865,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mdast-util-gfm-task-list-item@npm:^2.0.0":
+"mdast-util-gfm-task-list-item@npm:2.0.0, mdast-util-gfm-task-list-item@npm:^2.0.0":
   version: 2.0.0
   resolution: "mdast-util-gfm-task-list-item@npm:2.0.0"
   dependencies:
@@ -7045,7 +7045,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"micromark-extension-gfm-footnote@npm:^2.0.0":
+"micromark-extension-gfm-footnote@npm:2.1.0, micromark-extension-gfm-footnote@npm:^2.0.0":
   version: 2.1.0
   resolution: "micromark-extension-gfm-footnote@npm:2.1.0"
   dependencies:
@@ -7061,7 +7061,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"micromark-extension-gfm-strikethrough@npm:^2.0.0":
+"micromark-extension-gfm-strikethrough@npm:2.1.0, micromark-extension-gfm-strikethrough@npm:^2.0.0":
   version: 2.1.0
   resolution: "micromark-extension-gfm-strikethrough@npm:2.1.0"
   dependencies:
@@ -7075,7 +7075,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"micromark-extension-gfm-table@npm:^2.0.0":
+"micromark-extension-gfm-table@npm:2.1.1, micromark-extension-gfm-table@npm:^2.0.0":
   version: 2.1.1
   resolution: "micromark-extension-gfm-table@npm:2.1.1"
   dependencies:
@@ -7097,7 +7097,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"micromark-extension-gfm-task-list-item@npm:^2.0.0":
+"micromark-extension-gfm-task-list-item@npm:2.1.0, micromark-extension-gfm-task-list-item@npm:^2.0.0":
   version: 2.1.0
   resolution: "micromark-extension-gfm-task-list-item@npm:2.1.0"
   dependencies:
@@ -7247,7 +7247,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"micromark-util-combine-extensions@npm:^2.0.0":
+"micromark-util-combine-extensions@npm:2.0.1, micromark-util-combine-extensions@npm:^2.0.0":
   version: 2.0.1
   resolution: "micromark-util-combine-extensions@npm:2.0.1"
   dependencies:
@@ -8305,8 +8305,17 @@ __metadata:
     magic-string: "npm:0.30.21"
     make-synchronized: "npm:0.8.0"
     mdast-util-from-markdown: "npm:2.0.2"
+    mdast-util-gfm-footnote: "npm:2.1.0"
+    mdast-util-gfm-strikethrough: "npm:2.0.0"
+    mdast-util-gfm-table: "npm:2.0.0"
+    mdast-util-gfm-task-list-item: "npm:2.0.0"
     meriyah: "npm:7.0.0"
+    micromark-extension-gfm-footnote: "npm:2.1.0"
+    micromark-extension-gfm-strikethrough: "npm:2.1.0"
+    micromark-extension-gfm-table: "npm:2.1.1"
+    micromark-extension-gfm-task-list-item: "npm:2.1.0"
     micromark-util-character: "npm:2.1.0"
+    micromark-util-combine-extensions: "npm:2.0.1"
     micromark-util-symbol: "npm:2.0.0"
     micromark-util-types: "npm:2.0.2"
     micromatch: "npm:4.0.8"

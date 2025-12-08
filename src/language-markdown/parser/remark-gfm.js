@@ -12,15 +12,19 @@
  * @import {Processor} from 'unified'
  */
 
-import { gfm } from "micromark-extension-gfm";
+import { combineExtensions } from "micromark-util-combine-extensions";
+import { gfmFootnote } from "micromark-extension-gfm-footnote";
+import { gfmStrikethrough } from "micromark-extension-gfm-strikethrough";
+import { gfmTable } from "micromark-extension-gfm-table";
+import { gfmTaskListItem } from "micromark-extension-gfm-task-list-item";
 import { gfmFromMarkdown, gfmToMarkdown } from "./mdast-util-gfm.js";
 
 /** @type {Options} */
 const emptyOptions = {};
 
 /**
- * Add support GFM (autolink literals, footnotes, strikethrough, tables,
- * tasklists).
+ * Add support for GFM (footnotes, strikethrough, tables, tasklists) without
+ * autolink literals.
  *
  * @param {Options | null | undefined} [options]
  *   Configuration (optional).
@@ -38,7 +42,14 @@ export default function remarkGfm(options) {
   const fromMarkdownExtensions = (data.fromMarkdownExtensions ||= []);
   const toMarkdownExtensions = (data.toMarkdownExtensions ||= []);
 
-  micromarkExtensions.push(gfm(settings));
+  micromarkExtensions.push(
+    combineExtensions([
+      gfmFootnote(),
+      gfmStrikethrough(settings),
+      gfmTable(),
+      gfmTaskListItem(),
+    ]),
+  );
   fromMarkdownExtensions.push(gfmFromMarkdown());
   toMarkdownExtensions.push(gfmToMarkdown(settings));
 }
