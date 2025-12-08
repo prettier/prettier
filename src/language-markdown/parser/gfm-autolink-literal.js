@@ -9,13 +9,7 @@
  * @import {Link, PhrasingContent} from 'mdast'
  */
 
-import { ccount } from "ccount";
 import { ok as assert } from "devlop";
-import { findAndReplace } from "mdast-util-find-and-replace";
-import {
-  unicodePunctuation,
-  unicodeWhitespace,
-} from "micromark-util-character";
 
 /** @type {ConstructName} */
 const inConstruct = "phrasing";
@@ -133,157 +127,11 @@ function exitLiteralAutolink(token) {
   this.exit(token);
 }
 
-/** @type {FromMarkdownTransform} */
+/**
+ * Removed from `mdast-util-gfm-autolink-literal` to preserve positions.
+ *
+ * @type {FromMarkdownTransform}
+ */
 function transformGfmAutolinkLiterals(tree) {
-  findAndReplace(
-    tree,
-    [
-      [/(https?:\/\/|www(?=\.))([-.\w]+)([^ \t\r\n]*)/gi, findUrl],
-      [
-        /(?<=^|[\s\p{Punctuation}\p{Symbol}])([-.\w+]+)@([-\w]+(?:\.[-\w]+)+)/gu,
-        findEmail,
-      ],
-    ],
-    { ignore: ["link", "linkReference"] },
-  );
-}
-
-/**
- * @type {ReplaceFunction}
- * @param {string} _
- * @param {string} protocol
- * @param {string} domain
- * @param {string} path
- * @param {RegExpMatchObject} match
- * @returns {Array<PhrasingContent> | Link | false}
- */
-
-function findUrl(_, protocol, domain, path, match) {
-  let prefix = "";
-
-  // Not an expected previous character.
-  if (!previous(match)) {
-    return false;
-  }
-
-  // Treat `www` as part of the domain.
-  if (/^w/i.test(protocol)) {
-    domain = protocol + domain;
-    protocol = "";
-    prefix = "http://";
-  }
-
-  if (!isCorrectDomain(domain)) {
-    return false;
-  }
-
-  const parts = splitUrl(domain + path);
-
-  if (!parts[0]) {
-    return false;
-  }
-
-  /** @type {Link} */
-  const result = {
-    type: "link",
-    title: null,
-    url: prefix + protocol + parts[0],
-    children: [{ type: "text", value: protocol + parts[0] }],
-  };
-
-  if (parts[1]) {
-    return [result, { type: "text", value: parts[1] }];
-  }
-
-  return result;
-}
-
-/**
- * @type {ReplaceFunction}
- * @param {string} _
- * @param {string} atext
- * @param {string} label
- * @param {RegExpMatchObject} match
- * @returns {Link | false}
- */
-function findEmail(_, atext, label, match) {
-  if (
-    // Not an expected previous character.
-    !previous(match, true) ||
-    // Label ends in not allowed character.
-    /[-\d_]$/.test(label)
-  ) {
-    return false;
-  }
-
-  return {
-    type: "link",
-    title: null,
-    url: "mailto:" + atext + "@" + label,
-    children: [{ type: "text", value: atext + "@" + label }],
-  };
-}
-
-/**
- * @param {string} domain
- * @returns {boolean}
- */
-function isCorrectDomain(domain) {
-  const parts = domain.split(".");
-
-  if (
-    parts.length < 2 ||
-    (parts.at(-1) &&
-      (/_/.test(parts.at(-1)) || !/[a-z\d]/i.test(parts.at(-1)))) ||
-    (parts.at(-2) && (/_/.test(parts.at(-2)) || !/[a-z\d]/i.test(parts.at(-2))))
-  ) {
-    return false;
-  }
-
-  return true;
-}
-
-/**
- * @param {string} url
- * @returns {[string, string | undefined]}
- */
-function splitUrl(url) {
-  const trailExec = /[!"&'),.:;<>?\]}]+$/.exec(url);
-
-  if (!trailExec) {
-    return [url, undefined];
-  }
-
-  url = url.slice(0, trailExec.index);
-
-  let trail = trailExec[0];
-  let closingParenIndex = trail.indexOf(")");
-  const openingParens = ccount(url, "(");
-  let closingParens = ccount(url, ")");
-
-  while (closingParenIndex !== -1 && openingParens > closingParens) {
-    url += trail.slice(0, closingParenIndex + 1);
-    trail = trail.slice(closingParenIndex + 1);
-    closingParenIndex = trail.indexOf(")");
-    closingParens++;
-  }
-
-  return [url, trail];
-}
-
-/**
- * @param {RegExpMatchObject} match
- * @param {boolean | null | undefined} [email=false]
- * @returns {boolean}
- */
-function previous(match, email) {
-  const code = match.input.charCodeAt(match.index - 1);
-
-  return (
-    (match.index === 0 ||
-      unicodeWhitespace(code) ||
-      unicodePunctuation(code)) &&
-    // If it’s an email, the previous character should not be a slash.
-    (!email || code !== 47)
-  );
+  return tree;
 }
