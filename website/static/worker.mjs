@@ -1,17 +1,16 @@
-import prettierPackageManifest from "./lib/package-manifest.mjs";
-import * as prettier from "./lib/prettier/standalone.mjs";
+import packageManifest from "./lib/package-manifest.mjs";
 import * as prettierPluginDocExplorer from "./prettier-plugin-doc-explorer.mjs";
 
 const pluginLoadPromises = new Map();
 async function importPlugin(plugin) {
   if (!pluginLoadPromises.has(plugin)) {
-    pluginLoadPromises.set(plugin, import(`./lib/${plugin.file}`));
+    pluginLoadPromises.set(plugin, import(plugin.url));
   }
 
   try {
     return await pluginLoadPromises.get(plugin);
   } catch {
-    throw new Error(`Load plugin '${plugin.file}' failed.`);
+    throw new Error(`Load plugin '${plugin.url}' failed.`);
   }
 }
 
@@ -40,7 +39,7 @@ function createPlugin(pluginManifest) {
 }
 
 const plugins = [
-  ...prettierPackageManifest.plugins.map((plugin) => createPlugin(plugin)),
+  ...packageManifest.plugins.map((plugin) => createPlugin(plugin)),
   prettierPluginDocExplorer,
 ];
 
@@ -75,7 +74,10 @@ function handleMessage(message) {
   }
 }
 
+let prettier;
 async function handleMetaMessage() {
+  prettier ??= await import(packageManifest.prettier.url);
+
   const supportInfo = await prettier.getSupportInfo({ plugins });
 
   return {
