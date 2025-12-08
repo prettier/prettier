@@ -5,7 +5,7 @@ const existsInCommonmarkTestSuite = new Set(
   commonmarkTestSuite.latest.testCases.map(({ markdown }) => markdown),
 );
 
-const BUGS = new Set(["example-203.md", "example-204.md"]);
+const BUGS = new Set(["[FIXED] example-203.md", "[FIXED] example-204.md"]);
 
 runFormatTest(
   {
