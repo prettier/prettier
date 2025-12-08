@@ -13,6 +13,7 @@
  */
 
 import { combineExtensions } from "micromark-util-combine-extensions";
+import { gfmAutolinkLiteral } from "micromark-extension-gfm-autolink-literal";
 import { gfmFootnote } from "micromark-extension-gfm-footnote";
 import { gfmStrikethrough } from "micromark-extension-gfm-strikethrough";
 import { gfmTable } from "micromark-extension-gfm-table";
@@ -44,6 +45,7 @@ export default function remarkGfm(options) {
 
   micromarkExtensions.push(
     combineExtensions([
+      gfmAutolinkLiteral(),
       gfmFootnote(),
       gfmStrikethrough(settings),
       gfmTable(),
