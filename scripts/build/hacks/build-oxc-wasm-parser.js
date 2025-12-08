@@ -52,16 +52,17 @@ async function inlineWasmBinary(directory) {
 
   text = outdent`
     import { decode as __decode } from "base64-arraybuffer-es6";
-    const __base64ToArrayBuffer = Uint8Array.fromBase64
-      ? (string) => Uint8Array.fromBase64(string).buffer
-      : __decode;
+    // const __base64ToArrayBuffer = Uint8Array.fromBase64
+    //   ? (string) => Uint8Array.fromBase64(string).buffer
+    //   : __decode;
+    const __base64ToArrayBuffer = __decode;
 
     ${text}
   `;
 
   text = text.replaceAll(
-    /new URL\(".*?", import\.meta\.url\)/gu,
-    "{url:undefined}",
+    /new URL\((?<url>".*?"), import\.meta\.url\)/gu,
+    "{/* $<url> */}",
   );
 
   text = text.replace(
