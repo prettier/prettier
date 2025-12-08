@@ -54,6 +54,18 @@ const mainModule = {
             };
           `,
         },
+        {
+          module: require.resolve("n-readlines"),
+          process(text) {
+            text = text.replace(
+              "const fs = require('fs')",
+              'import fs from "node:fs"',
+            );
+            text = text.replace("module.exports = ", "export default ");
+
+            return text;
+          },
+        },
         // `parse-json` use another copy of `@babel/code-frame`
         {
           module: require.resolve("@babel/code-frame", {
