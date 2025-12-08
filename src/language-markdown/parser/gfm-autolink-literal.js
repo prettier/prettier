@@ -3,16 +3,11 @@
 // Vendored to keep behavior stable and add position preservation for fallback transforms.
 
 /**
- * @import {RegExpMatchObject, ReplaceFunction} from 'mdast-util-find-and-replace'
- * @import {CompileContext, Extension as FromMarkdownExtension, Handle as FromMarkdownHandle, Transform as FromMarkdownTransform} from 'mdast-util-from-markdown'
- * @import {ConstructName, Options as ToMarkdownExtension} from 'mdast-util-to-markdown'
- * @import {Link, PhrasingContent} from 'mdast'
+ * @typedef {import('mdast-util-from-markdown').CompileContext} CompileContext
+ * @typedef {import('mdast-util-from-markdown').Extension} FromMarkdownExtension
+ * @typedef {import('mdast-util-from-markdown').Handle} FromMarkdownHandle
+ * @typedef {import('mdast-util-from-markdown').Transform} FromMarkdownTransform
  */
-
-/** @type {ConstructName} */
-const inConstruct = "phrasing";
-/** @type {Array<ConstructName>} */
-const notInConstruct = ["autolink", "link", "image", "label"];
 
 /**
  * Create an extension for `mdast-util-from-markdown` to enable GFM autolink
@@ -39,40 +34,8 @@ export function gfmAutolinkLiteralFromMarkdown() {
   };
 }
 
-/**
- * Create an extension for `mdast-util-to-markdown` to enable GFM autolink
- * literals in markdown.
- *
- * @returns {ToMarkdownExtension}
- *   Extension for `mdast-util-to-markdown` to enable GFM autolink literals.
- */
-export function gfmAutolinkLiteralToMarkdown() {
-  return {
-    unsafe: [
-      {
-        character: "@",
-        before: String.raw`[+\-.\w]`,
-        after: String.raw`[\-.\w]`,
-        inConstruct,
-        notInConstruct,
-      },
-      {
-        character: ".",
-        before: "[Ww]",
-        after: String.raw`[\-.\w]`,
-        inConstruct,
-        notInConstruct,
-      },
-      {
-        character: ":",
-        before: "[ps]",
-        after: String.raw`\/`,
-        inConstruct,
-        notInConstruct,
-      },
-    ],
-  };
-}
+// to-markdown part is removed because it's not needed in our use case
+// export function gfmAutolinkLiteralToMarkdown() {}
 
 /**
  * @this {CompileContext}

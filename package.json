@@ -141,6 +141,7 @@
     "@eslint/js": "9.39.1",
     "@stylistic/eslint-plugin": "5.6.1",
     "@types/jsesc": "3.0.3",
+    "@types/mdast": "4.0.4",
     "@typescript-eslint/eslint-plugin": "8.48.1",
     "@typescript-eslint/parser": "8.48.1",
     "base64-arraybuffer-es6": "3.1.0",

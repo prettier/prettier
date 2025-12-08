@@ -5,28 +5,14 @@
 // Copied from https://github.com/syntax-tree/mdast-util-gfm/blob/main/lib/index.js
 
 /**
- * @import {Extension as FromMarkdownExtension} from 'mdast-util-from-markdown'
- * @import {Options} from 'mdast-util-gfm'
- * @import {Options as ToMarkdownExtension} from 'mdast-util-to-markdown'
+ * @typedef {import('mdast-util-from-markdown').Extension} FromMarkdownExtension
  */
 
-import {
-  gfmFootnoteFromMarkdown,
-  gfmFootnoteToMarkdown,
-} from "mdast-util-gfm-footnote";
-import {
-  gfmStrikethroughFromMarkdown,
-  gfmStrikethroughToMarkdown,
-} from "mdast-util-gfm-strikethrough";
-import { gfmTableFromMarkdown, gfmTableToMarkdown } from "mdast-util-gfm-table";
-import {
-  gfmTaskListItemFromMarkdown,
-  gfmTaskListItemToMarkdown,
-} from "mdast-util-gfm-task-list-item";
-import {
-  gfmAutolinkLiteralFromMarkdown,
-  gfmAutolinkLiteralToMarkdown,
-} from "./gfm-autolink-literal.js";
+import { gfmFootnoteFromMarkdown } from "mdast-util-gfm-footnote";
+import { gfmStrikethroughFromMarkdown } from "mdast-util-gfm-strikethrough";
+import { gfmTableFromMarkdown } from "mdast-util-gfm-table";
+import { gfmTaskListItemFromMarkdown } from "mdast-util-gfm-task-list-item";
+import { gfmAutolinkLiteralFromMarkdown } from "./gfm-autolink-literal.js";
 
 /**
  * Create an extension for `mdast-util-from-markdown` to enable GFM (autolink
@@ -44,26 +30,4 @@ export function gfmFromMarkdown() {
     gfmTableFromMarkdown(),
     gfmTaskListItemFromMarkdown(),
   ];
-}
-
-/**
- * Create an extension for `mdast-util-to-markdown` to enable GFM (autolink
- * literals, footnotes, strikethrough, tables, tasklists).
- *
- * @param {Options | null | undefined} [options]
- *   Configuration (optional).
- * @returns {ToMarkdownExtension}
- *   Extension for `mdast-util-to-markdown` to enable GFM (autolink literals,
- *   footnotes, strikethrough, tables, tasklists).
- */
-export function gfmToMarkdown(options) {
-  return {
-    extensions: [
-      gfmAutolinkLiteralToMarkdown(),
-      gfmFootnoteToMarkdown(options),
-      gfmStrikethroughToMarkdown(),
-      gfmTableToMarkdown(options),
-      gfmTaskListItemToMarkdown(),
-    ],
-  };
 }

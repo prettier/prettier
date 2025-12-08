@@ -5,7 +5,7 @@
 // Copied from https://github.com/remarkjs/remark-gfm/blob/main/lib/index.js
 
 /**
- * @import {Root} from 'mdast'
+ * @typedef {import('mdast').Root} Root'
  * @import {Options} from 'remark-gfm'
  * @import {} from 'remark-parse'
  * @import {} from 'remark-stringify'
@@ -18,7 +18,7 @@ import { gfmStrikethrough } from "micromark-extension-gfm-strikethrough";
 import { gfmTable } from "micromark-extension-gfm-table";
 import { gfmTaskListItem } from "micromark-extension-gfm-task-list-item";
 import { combineExtensions } from "micromark-util-combine-extensions";
-import { gfmFromMarkdown, gfmToMarkdown } from "./mdast-util-gfm.js";
+import { gfmFromMarkdown } from "./mdast-util-gfm.js";
 
 /** @type {Options} */
 const emptyOptions = {};
@@ -27,21 +27,20 @@ const emptyOptions = {};
  * Add support for GFM (footnotes, strikethrough, tables, tasklists) without
  * autolink literals.
  *
+ * @this {Processor<Root>}
  * @param {Options | null | undefined} [options]
  *   Configuration (optional).
  * @returns {undefined}
  *   Nothing.
  */
 export default function remarkGfm(options) {
-  // @ts-expect-error: TS is wrong about `this`.
   // eslint-disable-next-line unicorn/no-this-assignment
-  const self = /** @type {Processor<Root>} */ (this);
+  const self = this;
   const settings = options || emptyOptions;
   const data = self.data();
 
   const micromarkExtensions = (data.micromarkExtensions ||= []);
   const fromMarkdownExtensions = (data.fromMarkdownExtensions ||= []);
-  const toMarkdownExtensions = (data.toMarkdownExtensions ||= []);
 
   micromarkExtensions.push(
     combineExtensions([
@@ -53,5 +52,4 @@ export default function remarkGfm(options) {
     ]),
   );
   fromMarkdownExtensions.push(gfmFromMarkdown());
-  toMarkdownExtensions.push(gfmToMarkdown(settings));
 }
