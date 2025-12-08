@@ -1,9 +1,12 @@
 import commonmarkTestSuite from "commonmark-test-suite";
+import gfmTestSuite from "gfm-test-suite";
 
 const BUGS = new Set();
 
 const exclude = new Set(
-  commonmarkTestSuite.latest.testCases.map(({ markdown }) => markdown),
+  [...commonmarkTestSuite.latest.testCases, ...gfmTestSuite.testCases].map(
+    ({ markdown }) => markdown,
+  ),
 );
 const testCases = [];
 for (const release of Object.values(commonmarkTestSuite)) {
