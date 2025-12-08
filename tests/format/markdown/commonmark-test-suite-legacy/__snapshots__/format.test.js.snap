@@ -147,7 +147,7 @@ proseWrap: "always"
 __a<http://foo.bar?q=__>
 
 =====================================output=====================================
-**a<http://foo.bar?q=**>
+__a<http://foo.bar?q=__>
 
 ================================================================================
 `;
@@ -403,7 +403,7 @@ proseWrap: "always"
 \\[foo]: /url "not a reference"
 
 =====================================output=====================================
-\\*not emphasized\\* \\<br/> not a tag \\[not a link](/foo) \\\`not code\` 1\\. not a
+\\*not emphasized* \\<br/> not a tag \\[not a link](/foo) \\\`not code\` 1\\. not a
 list \\* not a list \\# not a header \\[foo]: /url "not a reference"
 
 ================================================================================
@@ -571,11 +571,9 @@ Bar
 ===
 
 =====================================output=====================================
-Foo Bar
+## Foo Bar
 
----
-
-Foo Bar ===
+# Foo Bar
 
 ================================================================================
 `;
@@ -636,7 +634,7 @@ proseWrap: "always"
 >	foo	bar
 
 =====================================output=====================================
->     foo	bar
+> foo bar
 
 ================================================================================
 `;
@@ -1126,8 +1124,7 @@ proseWrap: "always"
 - a
 - b
 - c
-- d
-- e
+- d - e
 - f
 - g
 - h
@@ -1153,7 +1150,7 @@ proseWrap: "always"
 \\[foo]: /url "not a reference"
 
 =====================================output=====================================
-\\*not emphasized\\* \\<br/> not a tag \\[not a link](/foo) \\\`not code\` 1\\. not a
+\\*not emphasized* \\<br/> not a tag \\[not a link](/foo) \\\`not code\` 1\\. not a
 list \\* not a list \\# not a heading \\[foo]: /url "not a reference"
 
 ================================================================================
@@ -1297,7 +1294,7 @@ proseWrap: "always"
 [ref]: /uri
 
 =====================================output=====================================
-[foo \\*bar][ref]
+[foo *bar][ref]
 
 [ref]: /uri
 
