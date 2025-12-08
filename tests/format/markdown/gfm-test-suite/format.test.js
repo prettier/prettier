@@ -1,25 +1,21 @@
 import commonmarkTestSuite from "commonmark-test-suite";
+import gfmTestSuite from "gfm-test-suite";
 
-const BUGS = new Set([
-  "[FIXED] example-11.md",
-  "example-43.md",
-  "example-47.md",
-  "example-77.md",
-  "example-146.md",
-  "[FIXED] example-196.md",
-  "[FIXED] example-273.md",
-  "[FIXED] example-274.md",
-  "example-349.md",
-  "[FIXED] example-417.md",
-  "[FIXED] example-493.md",
-  "[FIXED] example-493.md",
-]);
+const existsInCommonmarkTestSuite = new Set(
+  commonmarkTestSuite.latest.testCases.map(({ markdown }) => markdown),
+);
+
+const BUGS = new Set(["example-203.md", "example-204.md"]);
 
 runFormatTest(
   {
     importMeta: import.meta,
-    snippets: commonmarkTestSuite.latest.testCases
+    snippets: gfmTestSuite.testCases
       .map(({ section, markdown: input, example }) => {
+        if (existsInCommonmarkTestSuite.has(input)) {
+          return;
+        }
+
         const filename = `example-${example}.md`;
 
         if (BUGS.has(filename)) {
