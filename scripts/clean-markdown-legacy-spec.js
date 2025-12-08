@@ -1,5 +1,5 @@
 import fs from "node:fs/promises";
-import * as commonmarkTestSuite from "commonmark-test-suite";
+import commonmarkTestSuite from "commonmark-test-suite";
 
 const existing = new Set(
   Object.values(commonmarkTestSuite).flatMap((release) =>

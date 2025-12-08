@@ -3578,10 +3578,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"commonmark-test-suite@npm:0.0.2":
-  version: 0.0.2
-  resolution: "commonmark-test-suite@npm:0.0.2"
-  checksum: 10/f023dab810359db55f1a27f5ef1173951cd66662fd36f9ea26aaef10510acfd6dd0d241bd81e00f2a2f20648376c6fe8563f355d38eb39f48a88264a55f7975a
+"commonmark-test-suite@npm:0.1.0":
+  version: 0.1.0
+  resolution: "commonmark-test-suite@npm:0.1.0"
+  checksum: 10/d50b2e5b7ac48be29d577d1a849e26df38cce35552dd478c499b99a0de2402e4602f404c87bd1f92f404a4a688cb343d79a2261c6015a54ab78631b63e3e319c
   languageName: node
   linkType: hard
 
@@ -7541,7 +7541,7 @@ __metadata:
     ci-info: "npm:4.3.1"
     cjk-regex: "npm:3.4.0"
     collapse-white-space: "npm:1.0.6"
-    commonmark-test-suite: "npm:0.0.2"
+    commonmark-test-suite: "npm:0.1.0"
     cross-env: "npm:10.1.0"
     cspell: "npm:9.3.2"
     css-units-list: "npm:2.1.0"

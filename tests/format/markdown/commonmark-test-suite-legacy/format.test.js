@@ -1,4 +1,4 @@
-import * as commonmarkTestSuite from "commonmark-test-suite";
+import commonmarkTestSuite from "commonmark-test-suite";
 
 const BUGS = new Set();
 

@@ -1,4 +1,4 @@
-import { latest as commonmarkTestSuite } from "commonmark-test-suite";
+import commonmarkTestSuite from "commonmark-test-suite";
 
 const BUGS = new Set([
   "example-11.md",
@@ -18,7 +18,7 @@ const BUGS = new Set([
 runFormatTest(
   {
     importMeta: import.meta,
-    snippets: commonmarkTestSuite.testCases
+    snippets: commonmarkTestSuite.latest.testCases
       .map(({ section, markdown: input, example }) => {
         const filename = `example-${example}.md`;
 
