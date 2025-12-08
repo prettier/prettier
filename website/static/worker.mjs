@@ -11,7 +11,7 @@ async function importPlugin(plugin) {
   try {
     return await pluginLoadPromises.get(plugin);
   } catch (error) {
-    // console.error(error);
+    console.error(error);
     throw new Error(`Load plugin '${plugin.file}' failed.`, { cause: error });
   }
 }
@@ -210,7 +210,10 @@ async function formatCode(text, options, rethrowEmbedErrors) {
     }
     // Likely a bug in Prettier
     // Provide the whole stack for debugging
-    return { formatted: stringifyError(error), error: true };
+    return {
+      formatted: stringifyError(error),
+      error: true,
+    };
   } finally {
     self.PRETTIER_DEBUG = undefined;
   }
