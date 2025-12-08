@@ -48,25 +48,26 @@ async function inlineWasmBinary(directory) {
   const wasmFile = new URL("./parser.wasm32-wasi.wasm", packageDirectory);
 
   let text = await fs.readFile(entryFile, "utf8");
-  const wasm = await fs.readFile(wasmFile, "base64");
+  const wasmBase64String = await fs.readFile(wasmFile, "base64");
 
+  // https://issues.chromium.org/issues/467033528
   text = outdent`
     import { decode as __decode } from "base64-arraybuffer-es6";
     const __base64ToArrayBuffer = Uint8Array.fromBase64
-      ? (string) => Uint8Array.fromBase64(string).buffer
+      ? (string) => Uint8Array.from(Uint8Array.fromBase64(string)).buffer
       : __decode;
 
     ${text}
   `;
 
   text = text.replaceAll(
-    /new URL\(".*?", import\.meta\.url\)/gu,
-    "{url:undefined}",
+    /new URL\((?<url>".*?"), import\.meta\.url\)/gu,
+    "{/* $<url> */}",
   );
 
   text = text.replace(
     "await fetch(__wasmUrl).then((res) => res.arrayBuffer())",
-    `__base64ToArrayBuffer(${JSON.stringify(wasm)})`,
+    `__base64ToArrayBuffer(${JSON.stringify(wasmBase64String)})`,
   );
 
   await fs.writeFile(entryFile, text);
