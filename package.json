@@ -91,7 +91,7 @@
     "meriyah": "7.0.0",
     "micromatch": "4.0.8",
     "minimist": "1.2.8",
-    "n-readlines": "1.0.1",
+    "n-readlines": "3.4.0",
     "outdent": "0.8.0",
     "oxc-parser": "0.101.0",
     "parse-json": "8.3.0",

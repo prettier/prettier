@@ -6819,10 +6819,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"n-readlines@npm:1.0.1":
-  version: 1.0.1
-  resolution: "n-readlines@npm:1.0.1"
-  checksum: 10/4f0ddcd26347040eb219d8fc8c3620ce086095a355e64791298822b5882fdd646d69b733f6c519bcadc5c64f540e8f13a399e39cfb22e80e25a16000eca7572e
+"n-readlines@npm:3.4.0":
+  version: 3.4.0
+  resolution: "n-readlines@npm:3.4.0"
+  checksum: 10/8655b550cf25023c5692705ff4c0829955bedaf89e8cdc19bf09ef35501dc31d5ac8e14b35d0e1d60bdb509c41637150e67b07aa0e4b5e6295c8031252fff507
   languageName: node
   linkType: hard
 
@@ -7606,7 +7606,7 @@ __metadata:
     meriyah: "npm:7.0.0"
     micromatch: "npm:4.0.8"
     minimist: "npm:1.2.8"
-    n-readlines: "npm:1.0.1"
+    n-readlines: "npm:3.4.0"
     nano-spawn: "npm:2.0.0"
     node-style-text: "npm:2.1.2"
     npm-run-all2: "npm:8.0.4"
