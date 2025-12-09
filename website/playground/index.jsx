@@ -1,4 +1,11 @@
-import { ref, watch, onMounted } from "vue";
+import "codemirror-graphql/cm6-legacy/mode.esm.js";
+import "./install-service-worker.js";
+
+import { createApp, ref, onMounted, watch } from "vue";
+import Playground from "./Playground.jsx";
+import { fixPrettierVersion } from "./utilities.js";
+import VersionLink from "./VersionLink.jsx";
+import WorkerApi from "./WorkerApi.js";
 
 function getInitialTheme() {
   const saved = localStorage.getItem("theme");
@@ -15,7 +22,7 @@ function applyTheme(theme) {
   document.documentElement.dataset.theme = theme;
 }
 
-export default {
+const ThemeToggle = {
   name: "ThemeToggle",
   setup() {
     const theme = ref(getInitialTheme());
@@ -72,3 +79,64 @@ export default {
     );
   },
 };
+
+const App = {
+  name: "App",
+  setup() {
+    const loaded = ref(false);
+    const availableOptions = ref([]);
+    const version = ref("");
+    const worker = new WorkerApi();
+
+    onMounted(async () => {
+      const { supportInfo, version: workerVersion } =
+        await worker.getMetadata();
+
+      availableOptions.value = supportInfo.options.map(augmentOption);
+      version.value = fixPrettierVersion(workerVersion);
+      loaded.value = true;
+    });
+
+    return () => {
+      if (!loaded.value) {
+        return <div>Loading...</div>;
+      }
+
+      return (
+        <>
+          <VersionLink version={version.value} />
+          <Playground
+            worker={worker}
+            availableOptions={availableOptions.value}
+            version={version.value}
+          />
+        </>
+      );
+    };
+  },
+};
+
+function augmentOption(option) {
+  if (option.type === "boolean" && option.default === true) {
+    option.inverted = true;
+  }
+
+  option.cliName =
+    "--" +
+    (option.inverted ? "no-" : "") +
+    option.name.replaceAll(/(?<=[a-z])(?=[A-Z])/gu, "-").toLowerCase();
+
+  return option;
+}
+
+const linksContainer = document.querySelector(".links");
+if (linksContainer) {
+  const themeToggleContainer = document.createElement("div");
+  linksContainer.appendChild(themeToggleContainer);
+  const themeToggleApp = createApp(ThemeToggle);
+  themeToggleApp.mount(themeToggleContainer);
+}
+
+const container = document.getElementById("app");
+const app = createApp(App);
+app.mount(container);

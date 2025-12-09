@@ -1,35 +1,9 @@
-const { React } = window;
+import { reactive, watch, onMounted } from "vue";
 
-export default class PrettierFormat extends React.Component {
-  constructor() {
-    super();
-    this.state = { formatted: "", debug: {} };
-  }
+export default function PrettierFormat(props, { slots }) {
+  const state = reactive({ formatted: "", debug: {} });
 
-  componentDidMount() {
-    this.format();
-  }
-
-  componentDidUpdate(prevProps) {
-    for (const key of [
-      "enabled",
-      "code",
-      "options",
-      "debugAst",
-      "debugPreprocessedAst",
-      "debugDoc",
-      "debugComments",
-      "reformat",
-      "rethrowEmbedErrors",
-    ]) {
-      if (prevProps[key] !== this.props[key]) {
-        this.format();
-        break;
-      }
-    }
-  }
-
-  async format() {
+  const format = async () => {
     const {
       worker,
       code,
@@ -40,7 +14,7 @@ export default class PrettierFormat extends React.Component {
       debugComments: comments,
       reformat,
       rethrowEmbedErrors,
-    } = this.props;
+    } = props;
 
     const result = await worker.format(code, options, {
       ast,
@@ -51,10 +25,29 @@ export default class PrettierFormat extends React.Component {
       rethrowEmbedErrors,
     });
 
-    this.setState(result);
-  }
+    Object.assign(state, result);
+  };
 
-  render() {
-    return this.props.children(this.state);
-  }
+  onMounted(() => {
+    format();
+  });
+
+  watch(
+    () => [
+      props.code,
+      props.options,
+      props.debugAst,
+      props.debugPreprocessedAst,
+      props.debugDoc,
+      props.debugComments,
+      props.reformat,
+      props.rethrowEmbedErrors,
+    ],
+    () => {
+      format();
+    },
+    { deep: true },
+  );
+
+  return () => slots.default?.(state);
 }
