@@ -59,10 +59,10 @@ export const NumberInput = {
   props: {
     label: { type: String, required: true },
     title: { type: String, required: true },
-    value: { type: Number, required: true, default: 0 },
-    min: { type: Number, required: true },
-    max: { type: Number, required: true },
-    step: { type: Number, required: true },
+    value: { type: Number, required: true },
+    min: { type: Number, required: true, default: 0 },
+    max: { type: Number, required: true, default: 100 },
+    step: { type: Number, required: true, default: 1 },
   },
   emits: ["change"],
   setup(props, { emit }) {
