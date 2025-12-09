@@ -21,7 +21,7 @@ export const ClipboardButton = {
     let clipboard = null;
 
     onMounted(() => {
-      const showTooltipMessage = (text) => {
+      const showTooltip = (text) => {
         showTooltip.value = true;
         tooltipText.value = text;
 
@@ -39,8 +39,8 @@ export const ClipboardButton = {
           return typeof props.copy === "function" ? props.copy() : props.copy;
         },
       });
-      clipboard.on("success", () => showTooltipMessage("Copied!"));
-      clipboard.on("error", () => showTooltipMessage("Press ctrl+c to copy"));
+      clipboard.on("success", () => showTooltip("Copied!"));
+      clipboard.on("error", () => showTooltip("Press ctrl+c to copy"));
     });
 
     onUnmounted(() => {

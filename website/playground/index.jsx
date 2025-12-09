@@ -1,7 +1,7 @@
 import "codemirror-graphql/cm6-legacy/mode.esm.js";
 import "./install-service-worker.js";
 
-import { createApp, ref, onMounted, watch } from "vue";
+import { createApp, reactive, onMounted, watch } from "vue";
 import Playground from "./Playground.jsx";
 import { fixPrettierVersion } from "./utilities.js";
 import VersionLink from "./VersionLink.jsx";
@@ -83,32 +83,36 @@ const ThemeToggle = {
 const App = {
   name: "App",
   setup() {
-    const loaded = ref(false);
-    const availableOptions = ref([]);
-    const version = ref("");
+    const state = reactive({
+      loaded: false,
+      availableOptions: [],
+      version: "",
+    });
     const worker = new WorkerApi();
 
     onMounted(async () => {
       const { supportInfo, version: workerVersion } =
         await worker.getMetadata();
 
-      availableOptions.value = supportInfo.options.map(augmentOption);
-      version.value = fixPrettierVersion(workerVersion);
-      loaded.value = true;
+      Object.assign(state, {
+        loaded: true,
+        availableOptions: supportInfo.options.map(augmentOption),
+        version: fixPrettierVersion(workerVersion),
+      });
     });
 
     return () => {
-      if (!loaded.value) {
+      if (!state.loaded) {
         return <div>Loading...</div>;
       }
 
       return (
         <>
-          <VersionLink version={version.value} />
+          <VersionLink version={state.version} />
           <Playground
             worker={worker}
-            availableOptions={availableOptions.value}
-            version={version.value}
+            availableOptions={state.availableOptions}
+            version={state.version}
           />
         </>
       );

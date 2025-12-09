@@ -151,8 +151,12 @@ const CodeMirrorPanel = {
       codeMirror.on("focus", handleFocus);
       codeMirror.on("beforeSelectionChange", handleSelectionChange);
 
-      window.CodeMirror.keyMap.pcSublime["Ctrl-L"] = false;
-      window.CodeMirror.keyMap.sublime["Ctrl-L"] = false;
+      if (window.CodeMirror.keyMap.pcSublime) {
+        window.CodeMirror.keyMap.pcSublime["Ctrl-L"] = false;
+      }
+      if (window.CodeMirror.keyMap.sublime) {
+        window.CodeMirror.keyMap.sublime["Ctrl-L"] = false;
+      }
 
       updateValue(props.value || "");
       updateSelection();
