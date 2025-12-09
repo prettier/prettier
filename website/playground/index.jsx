@@ -137,6 +137,6 @@ if (linksContainer) {
   themeToggleApp.mount(themeToggleContainer);
 }
 
-const container = document.getElementById("app");
+const container = document.getElementById("root");
 const app = createApp(App);
 app.mount(container);

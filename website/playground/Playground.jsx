@@ -62,19 +62,6 @@ const ENABLED_OPTIONS = [
   "experimentalOperatorPosition",
 ];
 
-function orderOptions(availableOptions, order) {
-  const optionsByName = {};
-  for (const option of availableOptions) {
-    optionsByName[option.name] = option;
-  }
-
-  return order.map((name) => optionsByName[name]);
-}
-
-function getReportLink(reportBody) {
-  return `${ISSUES_URL}${encodeURIComponent(reportBody)}`;
-}
-
 function getSecondFormat(formatted, reformatted) {
   return formatted === ""
     ? ""
@@ -86,18 +73,9 @@ function getSecondFormat(formatted, reformatted) {
 export default {
   name: "Playground",
   props: {
-    worker: {
-      type: Object,
-      required: true,
-    },
-    availableOptions: {
-      type: Array,
-      required: true,
-    },
-    version: {
-      type: String,
-      required: true,
-    },
+    worker: { type: Object, required: true },
+    availableOptions: { type: Array, required: true },
+    version: { type: String, required: true },
   },
   setup(props) {
     const original = urlHash.read();
@@ -267,11 +245,13 @@ export default {
       const modifiedContent =
         content.slice(0, range[0]) + dummyId + content.slice(range[1]);
 
-      state.content = modifiedContent;
-      state.selection = convertOffsetToSelection(
-        range[0] + dummyId.length,
-        modifiedContent,
-      );
+      Object.assign(state, {
+        content: modifiedContent,
+        selection: convertOffsetToSelection(
+          range[0] + dummyId.length,
+          modifiedContent,
+        ),
+      });
     };
 
     return () => (
@@ -289,6 +269,7 @@ export default {
             rethrowEmbedErrors={editorState.rethrowEmbedErrors}
           >
             {({ formatted, debug, cursorOffset }) => {
+              const { content, options, selection } = state;
               const fullReport = getMarkdown({
                 formatted,
                 reformatted: debug.reformatted,
@@ -296,7 +277,7 @@ export default {
               });
               const showFullReport =
                 encodeURIComponent(fullReport).length < MAX_LENGTH;
-              const isDocExplorer = state.options.parser === "doc-explorer";
+              const isDocExplorer = options.parser === "doc-explorer";
 
               return (
                 <>
@@ -305,7 +286,7 @@ export default {
                       <SidebarOptions
                         categories={CATEGORIES_ORDER}
                         availableOptions={enabledOptions}
-                        optionValues={state.options}
+                        optionValues={options}
                         onOptionValueChange={handleOptionValueChange}
                       />
                       {isDocExplorer ? null : (
@@ -317,8 +298,8 @@ export default {
                           <Option
                             option={rangeStartOption}
                             value={
-                              typeof state.options.rangeStart === "number"
-                                ? state.options.rangeStart
+                              typeof options.rangeStart === "number"
+                                ? options.rangeStart
                                 : ""
                             }
                             onChange={handleOptionValueChange}
@@ -326,11 +307,11 @@ export default {
                           <Option
                             option={rangeEndOption}
                             value={
-                              typeof state.options.rangeEnd === "number"
-                                ? state.options.rangeEnd
+                              typeof options.rangeEnd === "number"
+                                ? options.rangeEnd
                                 : ""
                             }
-                            overrideMax={state.content.length}
+                            overrideMax={content.length}
                             onChange={handleOptionValueChange}
                           />
 
@@ -344,8 +325,8 @@ export default {
                           <Option
                             option={cursorOffsetOption}
                             value={
-                              state.options.cursorOffset >= 0
-                                ? state.options.cursorOffset
+                              options.cursorOffset >= 0
+                                ? options.cursorOffset
                                 : ""
                             }
                             onChange={handleOptionValueChange}
@@ -365,7 +346,7 @@ export default {
                                   !state.trackCursorOffset;
                               }}
                             />
-                            {state.options.cursorOffset >= 0 ? (
+                            {options.cursorOffset >= 0 ? (
                               <>
                                 <Button
                                   onClick={() => {
@@ -452,32 +433,32 @@ export default {
                     <div class="editors">
                       {editorState.showInput ? (
                         <InputPanel
-                          mode={getCodemirrorMode(state.options.parser)}
-                          ruler={state.options.printWidth}
-                          value={state.content}
-                          selection={state.selection}
-                          codeSample={getCodeSample(state.options.parser)}
-                          overlayStart={state.options.rangeStart}
-                          overlayEnd={state.options.rangeEnd}
+                          mode={getCodemirrorMode(options.parser)}
+                          ruler={options.printWidth}
+                          value={content}
+                          selection={selection}
+                          codeSample={getCodeSample(options.parser)}
+                          overlayStart={options.rangeStart}
+                          overlayEnd={options.rangeEnd}
                           onChange={setContent}
                           onSelectionChange={setSelection}
                           extraKeys={{
                             "Shift-Alt-F": formatInput,
                             "Ctrl-Q": insertDummyId,
                           }}
-                          foldGutter={state.options.parser === "doc-explorer"}
+                          foldGutter={options.parser === "doc-explorer"}
                         />
                       ) : null}
                       {editorState.showAst ? (
                         <DebugPanel
                           value={debug.ast || ""}
-                          autoFold={getAstAutoFold(state.options.parser)}
+                          autoFold={getAstAutoFold(options.parser)}
                         />
                       ) : null}
                       {editorState.showPreprocessedAst && !isDocExplorer ? (
                         <DebugPanel
                           value={debug.preprocessedAst || ""}
-                          autoFold={getAstAutoFold(state.options.parser)}
+                          autoFold={getAstAutoFold(options.parser)}
                         />
                       ) : null}
                       {editorState.showDoc && !isDocExplorer ? (
@@ -486,14 +467,14 @@ export default {
                       {editorState.showComments && !isDocExplorer ? (
                         <DebugPanel
                           value={debug.comments || ""}
-                          autoFold={getAstAutoFold(state.options.parser)}
+                          autoFold={getAstAutoFold(options.parser)}
                         />
                       ) : null}
                       {editorState.showOutput ? (
                         <OutputPanel
-                          mode={getCodemirrorMode(state.options.parser)}
+                          mode={getCodemirrorMode(options.parser)}
                           value={formatted}
-                          ruler={state.options.printWidth}
+                          ruler={options.printWidth}
                           overlayStart={
                             cursorOffset === -1 ? undefined : cursorOffset
                           }
@@ -504,9 +485,9 @@ export default {
                       ) : null}
                       {editorState.showSecondFormat && !isDocExplorer ? (
                         <OutputPanel
-                          mode={getCodemirrorMode(state.options.parser)}
+                          mode={getCodemirrorMode(options.parser)}
                           value={getSecondFormat(formatted, debug.reformatted)}
-                          ruler={state.options.printWidth}
+                          ruler={options.printWidth}
                         />
                       ) : null}
                     </div>
@@ -524,7 +505,7 @@ export default {
                           // parser there is an anti-pattern. Note:
                           // `JSON.stringify` omits keys whose values are
                           // `undefined`.
-                          { ...state.options, parser: undefined },
+                          { ...options, parser: undefined },
                           null,
                           2,
                         )}
@@ -577,3 +558,16 @@ export default {
     );
   },
 };
+
+function orderOptions(availableOptions, order) {
+  const optionsByName = {};
+  for (const option of availableOptions) {
+    optionsByName[option.name] = option;
+  }
+
+  return order.map((name) => optionsByName[name]);
+}
+
+function getReportLink(reportBody) {
+  return `${ISSUES_URL}${encodeURIComponent(reportBody)}`;
+}

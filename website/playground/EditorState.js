@@ -13,33 +13,18 @@ export default function EditorState(_, { slots }) {
     showInput: true,
     showOutput: true,
     rethrowEmbedErrors: false,
-    toggleSidebar: () => {
-      state.showSidebar = !state.showSidebar;
-    },
-    toggleAst: () => {
-      state.showAst = !state.showAst;
-    },
-    togglePreprocessedAst: () => {
-      state.showPreprocessedAst = !state.showPreprocessedAst;
-    },
-    toggleDoc: () => {
-      state.showDoc = !state.showDoc;
-    },
-    toggleComments: () => {
-      state.showComments = !state.showComments;
-    },
-    toggleSecondFormat: () => {
-      state.showSecondFormat = !state.showSecondFormat;
-    },
-    toggleInput: () => {
-      state.showInput = !state.showInput;
-    },
-    toggleOutput: () => {
-      state.showOutput = !state.showOutput;
-    },
-    toggleEmbedErrors: () => {
-      state.rethrowEmbedErrors = !state.rethrowEmbedErrors;
-    },
+    toggleSidebar: () => (state.showSidebar = !state.showSidebar),
+    toggleAst: () => (state.showAst = !state.showAst),
+    togglePreprocessedAst: () =>
+      (state.showPreprocessedAst = !state.showPreprocessedAst),
+    toggleDoc: () => (state.showDoc = !state.showDoc),
+    toggleComments: () => (state.showComments = !state.showComments),
+    toggleSecondFormat: () =>
+      (state.showSecondFormat = !state.showSecondFormat),
+    toggleInput: () => (state.showInput = !state.showInput),
+    toggleOutput: () => (state.showOutput = !state.showOutput),
+    toggleEmbedErrors: () =>
+      (state.rethrowEmbedErrors = !state.rethrowEmbedErrors),
     ...storage.get("editor_state"),
   });
 

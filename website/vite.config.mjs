@@ -1,4 +1,5 @@
-import vue from "@vitejs/plugin-vue";
+import vitePluginVue from "@vitejs/plugin-vue";
+import vitePluginVueJsx from "@vitejs/plugin-vue-jsx";
 import { defineConfig } from "vite";
 
 const IS_PRODUCTION = process.env.NODE_ENV === "production";
@@ -7,7 +8,7 @@ const IS_PRODUCTION = process.env.NODE_ENV === "production";
 export default defineConfig({
   base: IS_PRODUCTION ? "/playground/" : undefined,
   publicDir: IS_PRODUCTION ? undefined : "./static/",
-  plugins: [vue()],
+  plugins: [vitePluginVue(), vitePluginVueJsx()],
   build: {
     outDir: "./static/playground/",
   },
