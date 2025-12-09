@@ -287,7 +287,7 @@ export default {
                         categories={CATEGORIES_ORDER}
                         availableOptions={enabledOptions}
                         optionValues={options}
-                        onOptionValueChange={handleOptionValueChange}
+                        onOption-value-change={handleOptionValueChange}
                       />
                       {isDocExplorer ? null : (
                         <SidebarCategory title="Range">

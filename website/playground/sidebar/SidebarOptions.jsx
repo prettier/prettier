@@ -18,25 +18,31 @@ function groupBy(array, iteratee) {
   return result;
 }
 
-export default function SidebarOptions({
-  categories,
-  availableOptions,
-  optionValues,
-  onOptionValueChange,
-}) {
-  const options = groupBy(availableOptions, (option) => option.category);
-  return categories.map((category) =>
-    options[category] ? (
-      <SidebarCategory key={category} title={category}>
-        {options[category].map((option) => (
-          <Option
-            key={option.name}
-            option={option}
-            value={optionValues[option.name]}
-            onChange={onOptionValueChange}
-          />
-        ))}
-      </SidebarCategory>
-    ) : null,
-  );
-}
+export default {
+  name: "SidebarOptions",
+  props: {
+    categories: { type: Array, required: true },
+    availableOptions: { type: Array, required: true },
+    optionValues: { type: Object, required: true },
+  },
+  emits: ["option-value-change"],
+  setup(props, { emit }) {
+    return () => {
+      const options = groupBy(props.availableOptions, (option) => option.category);
+      return props.categories.map((category) =>
+        options[category] ? (
+          <SidebarCategory key={category} title={category}>
+            {options[category].map((option) => (
+              <Option
+                key={option.name}
+                option={option}
+                value={props.optionValues[option.name]}
+                onChange={(option, val) => emit("option-value-change", option, val)}
+              />
+            ))}
+          </SidebarCategory>
+        ) : null,
+      );
+    };
+  },
+};

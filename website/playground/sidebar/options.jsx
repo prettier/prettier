@@ -1,57 +1,97 @@
 import { Checkbox, NumberInput, Select } from "./inputs.jsx";
 
-function BooleanOption({ option, value, onChange }) {
-  function maybeInvert(value) {
-    return option.inverted ? !value : value;
-  }
-  return (
-    <Checkbox
-      label={option.cliName}
-      title={getDescription(option)}
-      checked={maybeInvert(value)}
-      onChange={(checked) => onChange(option, maybeInvert(checked))}
-    />
-  );
-}
+const BooleanOption = {
+  name: "BooleanOption",
+  props: {
+    option: { type: Object, required: true },
+    value: { type: Boolean, required: true },
+  },
+  emits: ["change"],
+  setup(props, { emit }) {
+    const maybeInvert = (value) =>
+      props.option.inverted ? !value : value;
 
-function ChoiceOption({ option, value, onChange }) {
-  return (
-    <Select
-      label={option.cliName}
-      title={getDescription(option)}
-      values={option.choices.map((choice) => choice.value)}
-      selected={value}
-      onChange={(val) => onChange(option, val)}
-    />
-  );
-}
+    return () => (
+      <Checkbox
+        label={props.option.cliName}
+        title={getDescription(props.option)}
+        checked={maybeInvert(props.value)}
+        onChange={(checked) => emit("change", props.option, maybeInvert(checked))}
+      />
+    );
+  },
+};
 
-function NumberOption({ option, value, onChange }) {
-  return (
-    <NumberInput
-      label={option.cliName}
-      title={getDescription(option)}
-      min={option.range.start}
-      max={option.range.end}
-      step={option.range.step}
-      value={value}
-      onChange={(val) => onChange(option, val)}
-    />
-  );
-}
+const ChoiceOption = {
+  name: "ChoiceOption",
+  props: {
+    option: { type: Object, required: true },
+    value: { type: String, required: true },
+  },
+  emits: ["change"],
+  setup(props, { emit }) {
+    return () => (
+      <Select
+        label={props.option.cliName}
+        title={getDescription(props.option)}
+        values={props.option.choices.map((choice) => choice.value)}
+        selected={props.value}
+        onChange={(val) => emit("change", props.option, val)}
+      />
+    );
+  },
+};
 
-export default function Option(props) {
-  switch (props.option.type) {
-    case "boolean":
-      return <BooleanOption {...props} />;
-    case "int":
-      return <NumberOption {...props} />;
-    case "choice":
-      return <ChoiceOption {...props} />;
-    default:
-      throw new Error("unsupported type");
-  }
-}
+const NumberOption = {
+  name: "NumberOption",
+  props: {
+    option: { type: Object, required: true },
+    value: { type: Number, required: true },
+  },
+  emits: ["change"],
+  setup(props, { emit }) {
+    return () => (
+      <NumberInput
+        label={props.option.cliName}
+        title={getDescription(props.option)}
+        min={props.option.range.start}
+        max={props.option.range.end}
+        step={props.option.range.step}
+        value={props.value}
+        onChange={(val) => emit("change", props.option, val)}
+      />
+    );
+  },
+};
+
+export default {
+  name: "Option",
+  props: {
+    option: { type: Object, required: true },
+    value: { type: [Boolean, String, Number], required: true },
+  },
+  emits: ["change"],
+  setup(props, { emit }) {
+    return () => {
+      const componentProps = {
+        option: props.option,
+        value: props.value,
+        onChange: (option, val) => emit("change", option, val),
+      };
+
+      switch (props.option.type) {
+        case "boolean":
+          return <BooleanOption {...componentProps} />;
+        case "int":
+          return <NumberOption {...componentProps} />;
+        case "choice":
+          return <ChoiceOption {...componentProps} />;
+        default:
+          throw new Error("unsupported type");
+      }
+    };
+  },
+};
 
 function getDescription(option) {
   const description = option.inverted
