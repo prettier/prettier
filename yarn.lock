@@ -3905,9 +3905,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"editorconfig-without-wasm@npm:0.0.3":
-  version: 0.0.3
-  resolution: "editorconfig-without-wasm@npm:0.0.3"
+"editorconfig-without-wasm@npm:0.0.4":
+  version: 0.0.4
+  resolution: "editorconfig-without-wasm@npm:0.0.4"
   dependencies:
     commander: "npm:^14.0.0"
     ini-simple-parser: "npm:^1.0.1"
@@ -3915,7 +3915,7 @@ __metadata:
     semver: "npm:^7.7.2"
   bin:
     editorconfig: bin/editorconfig
-  checksum: 10/df53a7bd9950dc59419bd6c1002767fbcf2f4d6e98d40eb6bbcc8c1102c280df084b7a142264d9071a6dc82199d8c7a85e26dfebf8492de3eca742c7e98bd78b
+  checksum: 10/ee2dbe40e330ff8cef6a8136dd2dd831e4f1524e2313f7e0856194a38a6bde1b576f7fe0ce4d644281eef154b5cfbe1e63db0b6e7786b273935b43f19f252e2f
   languageName: node
   linkType: hard
 
@@ -7547,7 +7547,7 @@ __metadata:
     dashify: "npm:2.0.0"
     deno-path-from-file-url: "npm:0.0.4"
     diff: "npm:8.0.2"
-    editorconfig-without-wasm: "npm:0.0.3"
+    editorconfig-without-wasm: "npm:0.0.4"
     emoji-regex: "npm:10.6.0"
     enquirer: "npm:2.4.1"
     esbuild: "npm:0.27.0"
