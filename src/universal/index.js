@@ -14,6 +14,6 @@ const getFileBasename = (file) => {
 };
 
 export { getFileBasename };
-export { default as getInterpreter } from "../utils/get-interpreter.js";
+export { default as getInterpreter } from "../utilities/get-interpreter.js";
 export { fileURLToPath } from "node:url";
 export { isUrl } from "url-or-path";

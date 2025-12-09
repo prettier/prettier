@@ -2,7 +2,7 @@ import {
   FORMAT_PRAGMA_TO_INSERT,
   HTML_HAS_IGNORE_PRAGMA_REGEXP,
   HTML_HAS_PRAGMA_REGEXP,
-} from "../utils/pragma/pragma.evaluate.js";
+} from "../utilities/pragma/pragma.evaluate.js";
 
 const hasPragma = (text) => HTML_HAS_PRAGMA_REGEXP.test(text);
 const hasIgnorePragma = (text) => HTML_HAS_IGNORE_PRAGMA_REGEXP.test(text);

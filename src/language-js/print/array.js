@@ -8,10 +8,10 @@ import {
   softline,
 } from "../../document/index.js";
 import { printDanglingComments } from "../../main/comments/print.js";
-import hasNewline from "../../utils/has-newline.js";
-import isNextLineEmptyAfterIndex from "../../utils/is-next-line-empty.js";
-import skipInlineComment from "../../utils/skip-inline-comment.js";
-import skipTrailingComment from "../../utils/skip-trailing-comment.js";
+import hasNewline from "../../utilities/has-newline.js";
+import isNextLineEmptyAfterIndex from "../../utilities/is-next-line-empty.js";
+import skipInlineComment from "../../utilities/skip-inline-comment.js";
+import skipTrailingComment from "../../utilities/skip-trailing-comment.js";
 import { locEnd, locStart } from "../loc.js";
 import {
   CommentCheckFlags,
@@ -21,8 +21,8 @@ import {
   isObjectExpression,
   isSignedNumericLiteral,
   shouldPrintComma,
-} from "../utils/index.js";
-import { printOptionalToken } from "./misc.js";
+} from "../utilities/index.js";
+import { printOptionalToken } from "./miscellaneous.js";
 import { printTypeAnnotationProperty } from "./type-annotation.js";
 
 /** @import {Doc} from "../../document/index.js" */

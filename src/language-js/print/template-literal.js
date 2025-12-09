@@ -11,9 +11,9 @@ import {
   printDocToString,
   softline,
 } from "../../document/index.js";
-import getIndentSize from "../../utils/get-indent-size.js";
-import getStringWidth from "../../utils/get-string-width.js";
-import hasNewlineInRange from "../../utils/has-newline-in-range.js";
+import getIndentSize from "../../utilities/get-indent-size.js";
+import getStringWidth from "../../utilities/get-string-width.js";
+import hasNewlineInRange from "../../utilities/has-newline-in-range.js";
 import { locEnd, locStart } from "../loc.js";
 import {
   CommentCheckFlags,
@@ -22,110 +22,31 @@ import {
   isBinaryCastExpression,
   isBinaryish,
   isMemberExpression,
-} from "../utils/index.js";
+} from "../utilities/index.js";
 
 /**
  * @import {Doc} from "../../document/index.js"
  */
 
+/*
+- `TemplateLiteral`
+- `TSTemplateLiteralType` (TypeScript)
+*/
 function printTemplateLiteral(path, options, print) {
-  const { node } = path;
-  const isTemplateLiteral = node.type === "TemplateLiteral";
-
-  if (isTemplateLiteral && isJestEachTemplateLiteral(path)) {
+  if (isJestEachTemplateLiteral(path)) {
     const printed = printJestEachTemplateLiteral(path, options, print);
     if (printed) {
       return printed;
     }
   }
-  let expressionsKey = "expressions";
-  if (node.type === "TSTemplateLiteralType") {
-    expressionsKey = "types";
-  }
-  const parts = [];
 
-  const expressionDocs = path.map(print, expressionsKey);
+  const expressionDocs = printTemplateExpressions(path, options, print);
+  const parts = path.map(
+    ({ isLast, index }) => [print(), isLast ? "" : expressionDocs[index]],
+    "quasis",
+  );
 
-  parts.push(lineSuffixBoundary, "`");
-
-  let previousQuasiIndentSize = 0;
-  path.each(({ index, node: quasi }) => {
-    parts.push(print());
-
-    if (quasi.tail) {
-      return;
-    }
-
-    // For a template literal of the following form:
-    //   `someQuery {
-    //     ${call({
-    //       a,
-    //       b,
-    //     })}
-    //   }`
-    // the expression is on its own line (there is a \n in the previous
-    // quasi literal), therefore we want to indent the JavaScript
-    // expression inside at the beginning of ${ instead of the beginning
-    // of the `.
-    const { tabWidth } = options;
-    const text = quasi.value.raw;
-    const indentSize = text.includes("\n")
-      ? getIndentSize(text, tabWidth)
-      : previousQuasiIndentSize;
-    previousQuasiIndentSize = indentSize;
-
-    let expressionDoc = expressionDocs[index];
-
-    const expression = node[expressionsKey][index];
-
-    let interpolationHasNewline = hasNewlineInRange(
-      options.originalText,
-      locEnd(quasi),
-      locStart(node.quasis[index + 1]),
-    );
-
-    if (!interpolationHasNewline) {
-      // Never add a newline to an interpolation which didn't already have one...
-      const renderedExpression = printDocToString(expressionDoc, {
-        ...options,
-        printWidth: Number.POSITIVE_INFINITY,
-      }).formatted;
-
-      // ... unless one will be introduced anyway, e.g. by a nested function.
-      // This case is rare, so we can pay the cost of re-rendering.
-      if (renderedExpression.includes("\n")) {
-        interpolationHasNewline = true;
-      } else {
-        expressionDoc = renderedExpression;
-      }
-    }
-
-    // Breaks at the template element boundaries (${ and }) are preferred to breaking
-    // in the middle of a MemberExpression
-    if (
-      interpolationHasNewline &&
-      (hasComment(expression) ||
-        expression.type === "Identifier" ||
-        isMemberExpression(expression) ||
-        expression.type === "ConditionalExpression" ||
-        expression.type === "SequenceExpression" ||
-        isBinaryCastExpression(expression) ||
-        isBinaryish(expression))
-    ) {
-      expressionDoc = [indent([softline, expressionDoc]), softline];
-    }
-
-    const aligned =
-      indentSize === 0 && text.endsWith("\n")
-        ? align(Number.NEGATIVE_INFINITY, expressionDoc)
-        : addAlignmentToDoc(expressionDoc, indentSize, tabWidth);
-
-    parts.push(group(["${", aligned, lineSuffixBoundary, "}"]));
-  }, "quasis");
-
-  parts.push("`");
-
-  return parts;
+  return [lineSuffixBoundary, "`", ...parts, "`"];
 }
 
 function printTaggedTemplateExpression(path, options, print) {
@@ -175,17 +96,15 @@ function printJestEachTemplateLiteral(path, options, print) {
     headerNames.some((headerName) => headerName.length > 0)
   ) {
     options.__inJestEach = true;
-    const expressions = path.map(print, "expressions");
+    const expressions = printTemplateExpressions(path, options, print);
     options.__inJestEach = false;
     const stringifiedExpressions = expressions.map(
       (doc) =>
-        "${" +
         printDocToString(doc, {
           ...options,
           printWidth: Number.POSITIVE_INFINITY,
           endOfLine: "lf",
-        }).formatted +
-        "}",
+        }).formatted,
     );
 
     const tableBody = [{ hasLineBreak: false, cells: [] }];
@@ -248,17 +167,108 @@ function printJestEachTemplateLiteral(path, options, print) {
   }
 }
 
-function printTemplateExpression(path, print) {
-  const { node } = path;
-  let printed = print();
-  if (hasComment(node)) {
-    printed = group([indent([softline, printed]), softline]);
+const templateLiteralIndentCache = new WeakMap();
+function getTemplateLiteralExpressionIndent(path, options) {
+  const { parent: templateLiteral, index } = path;
+  if (!templateLiteralIndentCache.has(templateLiteral)) {
+    const { tabWidth } = options;
+    let previousQuasiIndentSize = 0;
+    const sizes = templateLiteral.quasis.map((quasi) => {
+      const text = quasi.value.raw;
+      const indentSize = text.includes("\n")
+        ? getIndentSize(text, tabWidth)
+        : previousQuasiIndentSize;
+      previousQuasiIndentSize = indentSize;
+      return { indentSize, previousQuasiText: text };
+    });
+    templateLiteralIndentCache.set(templateLiteral, sizes);
   }
-  return ["${", printed, lineSuffixBoundary, "}"];
+
+  return templateLiteralIndentCache.get(templateLiteral)[index];
 }
 
-function printTemplateExpressions(path, print) {
-  return path.map(() => printTemplateExpression(path, print), "expressions");
+/*
+- `TemplateLiteral`
+- `TSTemplateLiteralType` (TypeScript)
+*/
+function printTemplateExpression(path, options, print) {
+  const { node, index } = path;
+  let expressionDoc = print();
+
+  const templateLiteral = path.parent;
+  const { quasis } = templateLiteral;
+  const start = locEnd(quasis[index]);
+  const end = locStart(quasis[index + 1]);
+
+  let interpolationHasNewline = hasNewlineInRange(
+    options.originalText,
+    start,
+    end,
+  );
+
+  if (!interpolationHasNewline) {
+    // Never add a newline to an interpolation which didn't already have one...
+    const renderedExpression = printDocToString(expressionDoc, {
+      ...options,
+      printWidth: Number.POSITIVE_INFINITY,
+    }).formatted;
+
+    // ... unless one will be introduced anyway, e.g. by a nested function.
+    // This case is rare, so we can pay the cost of re-rendering.
+    if (renderedExpression.includes("\n")) {
+      interpolationHasNewline = true;
+    } else {
+      expressionDoc = renderedExpression;
+    }
+  }
+
+  // Breaks at the template element boundaries (${ and }) are preferred to breaking
+  // in the middle of a MemberExpression
+  if (
+    interpolationHasNewline &&
+    (hasComment(node) ||
+      node.type === "Identifier" ||
+      isMemberExpression(node) ||
+      node.type === "ConditionalExpression" ||
+      node.type === "SequenceExpression" ||
+      isBinaryCastExpression(node) ||
+      isBinaryish(node))
+  ) {
+    expressionDoc = [indent([softline, expressionDoc]), softline];
+  }
+
+  // For a template literal of the following form:
+  //   `someQuery {
+  //     ${call({
+  //       a,
+  //       b,
+  //     })}
+  //   }`
+  // the expression is on its own line (there is a \n in the previous
+  // quasi literal), therefore we want to indent the JavaScript
+  // expression inside at the beginning of ${ instead of the beginning
+  // of the `.
+  let { indentSize, previousQuasiText } = getTemplateLiteralExpressionIndent(
+    path,
+    options,
+  );
+  // In `jest.each`, we know expression will at least indent 2 level
+  if (options.__inJestEach) {
+    indentSize = Math.max(indentSize, options.tabWidth);
+  }
+  expressionDoc =
+    indentSize === 0 && previousQuasiText.endsWith("\n")
+      ? align(Number.NEGATIVE_INFINITY, expressionDoc)
+      : addAlignmentToDoc(expressionDoc, indentSize, options.tabWidth);
+
+  return group(["${", expressionDoc, lineSuffixBoundary, "}"]);
+}
+
+function printTemplateExpressions(path, options, print) {
+  return path.map(
+    () => printTemplateExpression(path, options, print),
+    path.node.type === "TSTemplateLiteralType" ? "types" : "expressions",
+  );
 }
 
 function escapeTemplateCharacters(doc, raw) {
@@ -277,19 +287,20 @@ function uncookTemplateElementValue(cookedValue) {
   return cookedValue.replaceAll(/([\\`]|\$\{)/gu, String.raw`\$1`);
 }
 
+/**
+ * describe.each`table`(name, fn)
+ * describe.only.each`table`(name, fn)
+ * describe.skip.each`table`(name, fn)
+ * test.each`table`(name, fn)
+ * test.only.each`table`(name, fn)
+ * test.skip.each`table`(name, fn)
+ *
+ * Ref: https://github.com/facebook/jest/pull/6102
+ */
+const jestEachTriggerRegex = /^[fx]?(?:describe|it|test)$/u;
 function isJestEachTemplateLiteral({ node, parent }) {
-  /**
-   * describe.each`table`(name, fn)
-   * describe.only.each`table`(name, fn)
-   * describe.skip.each`table`(name, fn)
-   * test.each`table`(name, fn)
-   * test.only.each`table`(name, fn)
-   * test.skip.each`table`(name, fn)
-   *
-   * Ref: https://github.com/facebook/jest/pull/6102
-   */
-  const jestEachTriggerRegex = /^[fx]?(?:describe|it|test)$/u;
   return (
+    node.type === "TemplateLiteral" &&
     parent.type === "TaggedTemplateExpression" &&
     parent.quasi === node &&
     parent.tag.type === "MemberExpression" &&

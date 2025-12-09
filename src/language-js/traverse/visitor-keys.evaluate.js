@@ -3,10 +3,11 @@ import { visitorKeys as tsVisitorKeys } from "@typescript-eslint/visitor-keys";
 import { visitorKeys as angularVisitorKeys } from "angular-estree-parser";
 import flowVisitorKeys from "hermes-parser/dist/generated/ESTreeVisitorKeys.js";
 import {
+  generateReferenceSharedVisitorKeys,
   removeNodeTypes,
   removeVisitorKeys,
   unionVisitorKeys,
-} from "./utilities.js";
+} from "../../utilities/visitor-keys.js";
 
 const additionalVisitorKeys = {
   // Prettier
@@ -45,7 +46,6 @@ const excludeVisitorKeys = {
   ImportDeclaration: ["assertions"],
 
   // https://github.com/babel/babel/issues/17506
-  // https://github.com/oxc-project/oxc/issues/16074
   TSImportType: ["argument"],
 };
 
@@ -57,6 +57,10 @@ const excludeNodeTypes = [
   "RecordExpression",
   // Babel, Won't exist since we use `createImportExpressions` when parsing with babel
   "Import",
+
+  // https://github.com/typescript-eslint/typescript-eslint/blob/d2d7ace4e52bedf07482fd879d8e31a52b38fc26/packages/visitor-keys/tests/visitor-keys.test.ts#L14-L18
+  "ExperimentalRestProperty",
+  "ExperimentalSpreadProperty",
 ];
 
 let visitorKeys = unionVisitorKeys(
@@ -69,5 +73,8 @@ let visitorKeys = unionVisitorKeys(
 
 visitorKeys = removeNodeTypes(visitorKeys, excludeNodeTypes);
 visitorKeys = removeVisitorKeys(visitorKeys, excludeVisitorKeys);
+
+// This should be the last step
+visitorKeys = generateReferenceSharedVisitorKeys(visitorKeys);
 
 export default visitorKeys;

@@ -33,7 +33,7 @@ test("await-cli-tests", {
   ],
 });
 
-test("better-parent-property-check-in-needs-parens", {
+test("better-parent-property-check-in-parentheses-check", {
   valid: ["function needsParens() {return parent.test === node;}"],
   invalid: [
     {
@@ -70,7 +70,7 @@ test("better-parent-property-check-in-needs-parens", {
     output: testCase.output
       ? `function needsParens() {${testCase.output}}`
       : null,
-    filename: "needs-parens.js",
+    filename: "parentheses/foo.js",
   })),
 });
 

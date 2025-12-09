@@ -1,6 +1,6 @@
 import { group, join, line } from "../../document/index.js";
-import UnexpectedNodeError from "../../utils/unexpected-node-error.js";
-import { createTypeCheckFunction, hasNode } from "../utils/index.js";
+import UnexpectedNodeError from "../../utilities/unexpected-node-error.js";
+import { createTypeCheckFunction, hasNode } from "../utilities/index.js";
 import { printBinaryishExpression } from "./binaryish.js";
 
 /** @import AstPath from "../../common/ast-path.js" */

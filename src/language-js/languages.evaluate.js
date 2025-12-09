@@ -1,5 +1,5 @@
 import * as linguistLanguages from "linguist-languages";
-import createLanguage from "../utils/create-language.js";
+import createLanguage from "../utilities/create-language.js";
 
 const languages = [
   createLanguage(linguistLanguages.JavaScript, (data) => ({

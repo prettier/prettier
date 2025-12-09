@@ -52,8 +52,12 @@ const makeBody = (store, assets, html) =>
   }`
 
 // https://github.com/prettier/prettier/issues/1626#issue-229655106
-const Bar = styled.div`
+_ = styled.div`
   color: ${props => (props.highlight.length > 0 ? palette(['text', 'dark', 'tertiary'])(props) : palette(['text', 'dark', 'primary'])(props))} !important;
+`
+_ = styled.div`
+  color: ${
+props => (props.highlight.length > 0 ? palette(['text', 'dark', 'tertiary'])(props) : palette(['text', 'dark', 'primary'])(props))} !important;
 `
 
 // https://github.com/prettier/prettier/issues/3368

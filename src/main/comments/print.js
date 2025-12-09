@@ -7,11 +7,11 @@ import {
   line,
   lineSuffix,
 } from "../../document/index.js";
-import hasNewline from "../../utils/has-newline.js";
-import isNonEmptyArray from "../../utils/is-non-empty-array.js";
-import isPreviousLineEmpty from "../../utils/is-previous-line-empty.js";
-import { skipSpaces } from "../../utils/skip.js";
-import skipNewline from "../../utils/skip-newline.js";
+import hasNewline from "../../utilities/has-newline.js";
+import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
+import isPreviousLineEmpty from "../../utilities/is-previous-line-empty.js";
+import { skipSpaces } from "../../utilities/skip.js";
+import skipNewline from "../../utilities/skip-newline.js";
 
 /**
  * @import AstPath from "../../common/ast-path.js"
@@ -155,6 +155,9 @@ function printDanglingComments(
   return shouldIndent ? indent([hardline, doc]) : doc;
 }
 
+/**
+@returns {{leading?: Doc, trailing?: Doc}}
+*/
 function printCommentsSeparately(path, options) {
   const value = path.node;
   if (!value) {

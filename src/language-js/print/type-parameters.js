@@ -17,7 +17,7 @@ import {
   isObjectType,
   isTestCall,
   shouldPrintComma,
-} from "../utils/index.js";
+} from "../utilities/index.js";
 import { isArrowFunctionVariableDeclarator } from "./assignment.js";
 import {
   printTypeAnnotationProperty,

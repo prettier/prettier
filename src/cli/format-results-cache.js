@@ -5,7 +5,7 @@ import fs from "node:fs";
 import stringify from "fast-json-stable-stringify";
 import fileEntryCache from "file-entry-cache";
 import { version as prettierVersion } from "../index.js";
-import { createHash } from "./utils.js";
+import { createHash } from "./utilities.js";
 
 const optionsHashCache = new WeakMap();
 const nodeVersion = process.version;

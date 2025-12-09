@@ -1,16 +1,16 @@
 import { parse as meriyahParse } from "meriyah";
 import createError from "../../common/parser-create-error.js";
-import { tryCombinationsSync } from "../../utils/try-combinations.js";
+import { tryCombinationsSync } from "../../utilities/try-combinations.js";
 import postprocess from "./postprocess/index.js";
-import createParser from "./utils/create-parser.js";
+import createParser from "./utilities/create-parser.js";
 import {
   getSourceType,
   SOURCE_TYPE_COMBINATIONS,
-} from "./utils/source-types.js";
+} from "./utilities/source-types.js";
 
 /**
 @import {ESTree as MeriyahESTree} from "meriyah";
-@import {SOURCE_TYPE_MODULE, SOURCE_TYPE_COMMONJS} from "./utils/source-types.js";
+@import {SOURCE_TYPE_MODULE, SOURCE_TYPE_COMMONJS} from "./utilities/source-types.js";
 */
 
 // https://github.com/meriyah/meriyah/blob/4676f60b6c149d7082bde2c9147f9ae2359c8075/src/parser.ts#L185

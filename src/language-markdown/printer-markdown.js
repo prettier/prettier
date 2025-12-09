@@ -14,10 +14,10 @@ import {
   replaceEndOfLine,
   softline,
 } from "../document/index.js";
-import getMaxContinuousCount from "../utils/get-max-continuous-count.js";
-import getMinNotPresentContinuousCount from "../utils/get-min-not-present-continuous-count.js";
-import getPreferredQuote from "../utils/get-preferred-quote.js";
-import UnexpectedNodeError from "../utils/unexpected-node-error.js";
+import getMaxContinuousCount from "../utilities/get-max-continuous-count.js";
+import getMinNotPresentContinuousCount from "../utilities/get-min-not-present-continuous-count.js";
+import getPreferredQuote from "../utilities/get-preferred-quote.js";
+import UnexpectedNodeError from "../utilities/unexpected-node-error.js";
 import clean from "./clean.js";
 import embed from "./embed.js";
 import getVisitorKeys from "./get-visitor-keys.js";
@@ -37,7 +37,7 @@ import {
   isAutolink,
   isPrettierIgnore,
   splitText,
-} from "./utils.js";
+} from "./utilities.js";
 
 /**
  * @import {Doc} from "../document/index.js"

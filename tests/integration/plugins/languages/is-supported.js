@@ -1,5 +1,5 @@
 import path from "node:path";
-import createPlugin from "../../../config/utils/create-plugin.cjs";
+import createPlugin from "../../../config/utilities/create-plugin.cjs";
 
 const PARSER_NAME = "parser-name-inferred-from-language-is-supported";
 const PRINT_MARK = `formatted by '${PARSER_NAME}' parser`;

@@ -1,1 +1,0 @@
-[foo <bar attr="](baz)">

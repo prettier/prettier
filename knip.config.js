@@ -18,8 +18,8 @@ const config = {
       ],
       project: ["src/**", "scripts/**"],
       ignore: [
-        "scripts/build/config.js",
-        "scripts/build/build-javascript-module.js",
+        "scripts/build/packages/*",
+        "scripts/build/builders/javascript-module.js",
         "scripts/tools/**",
         "src/experimental-cli/**",
         "src/universal/*.browser.js",

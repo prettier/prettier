@@ -1,4 +1,4 @@
-import noop from "../utils/noop.js";
+import noop from "../utilities/noop.js";
 
 function createPrintPreCheckFunction(options) {
   // All core plugins have full list of keys for possible child nodes

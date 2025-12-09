@@ -308,12 +308,6 @@ exports[`visitor keys estree 1`] = `
     "members",
   ],
   "ExistsTypeAnnotation": [],
-  "ExperimentalRestProperty": [
-    "argument",
-  ],
-  "ExperimentalSpreadProperty": [
-    "argument",
-  ],
   "ExportAllDeclaration": [
     "attributes",
     "exported",
@@ -1668,12 +1662,10 @@ exports[`visitor keys yaml 1`] = `
     "trailingComment",
   ],
   "anchor": [
-    "anchor",
     "endComments",
     "indicatorComment",
     "leadingComments",
     "middleComments",
-    "tag",
     "trailingComment",
   ],
   "blockFolded": [
@@ -1892,12 +1884,10 @@ exports[`visitor keys yaml 1`] = `
     "trailingComment",
   ],
   "tag": [
-    "anchor",
     "endComments",
     "indicatorComment",
     "leadingComments",
     "middleComments",
-    "tag",
     "trailingComment",
   ],
 }

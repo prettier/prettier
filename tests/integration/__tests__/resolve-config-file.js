@@ -4,7 +4,7 @@ import prettier from "../../config/prettier-entry.js";
 test("API resolveConfigFile", async () => {
   const result = await prettier.resolveConfigFile();
   expect(result).toEqual(
-    url.fileURLToPath(new URL("../../../.prettierrc", import.meta.url)),
+    url.fileURLToPath(new URL("../../../prettier.config.js", import.meta.url)),
   );
 });
 

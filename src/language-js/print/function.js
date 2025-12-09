@@ -1,33 +1,19 @@
 import * as assert from "#universal/assert";
-import {
-  group,
-  hardline,
-  ifBreak,
-  indent,
-  softline,
-} from "../../document/index.js";
-import { printDanglingComments } from "../../main/comments/print.js";
-import hasNewlineInRange from "../../utils/has-newline-in-range.js";
-import { locEnd, locStart } from "../loc.js";
+import { group } from "../../document/index.js";
 import {
   CommentCheckFlags,
   getCallArguments,
   getFunctionParameters,
-  getLeftSide,
   hasComment,
-  hasLeadingOwnLineComment,
-  hasNakedLeftSide,
-  isBinaryish,
   isCallExpression,
-  isJsxElement,
   isMethod,
-} from "../utils/index.js";
+} from "../utilities/index.js";
 import {
   printFunctionParameters,
   shouldBreakFunctionParameters,
   shouldGroupFunctionParameters,
 } from "./function-parameters.js";
-import { printDeclareToken } from "./misc.js";
+import { printDeclareToken } from "./miscellaneous.js";
 import { printPropertyKey } from "./property.js";
 import { printTypeAnnotationProperty } from "./type-annotation.js";
 
@@ -227,102 +213,10 @@ function printReturnType(path, print) {
   return parts;
 }
 
-// `ReturnStatement` and `ThrowStatement`
-function printReturnOrThrowArgument(path, options, print) {
-  const { node } = path;
-  const parts = [];
-
-  if (node.argument) {
-    let argumentDoc = print("argument");
-
-    if (returnArgumentHasLeadingComment(options, node.argument)) {
-      argumentDoc = ["(", indent([hardline, argumentDoc]), hardline, ")"];
-    } else if (
-      isBinaryish(node.argument) ||
-      (options.experimentalTernaries &&
-        node.argument.type === "ConditionalExpression" &&
-        (node.argument.consequent.type === "ConditionalExpression" ||
-          node.argument.alternate.type === "ConditionalExpression"))
-    ) {
-      argumentDoc = group([
-        ifBreak("("),
-        indent([softline, argumentDoc]),
-        softline,
-        ifBreak(")"),
-      ]);
-    }
-
-    parts.push(" ", argumentDoc);
-  }
-
-  const hasDanglingComments = hasComment(node, CommentCheckFlags.Dangling);
-  const shouldPrintSemiBeforeComments =
-    options.semi &&
-    hasDanglingComments &&
-    hasComment(node, CommentCheckFlags.Last | CommentCheckFlags.Line);
-
-  if (shouldPrintSemiBeforeComments) {
-    parts.push(";");
-  }
-
-  if (hasDanglingComments) {
-    parts.push(" ", printDanglingComments(path, options));
-  }
-
-  if (!shouldPrintSemiBeforeComments && options.semi) {
-    parts.push(";");
-  }
-
-  return parts;
-}
-
-function printReturnStatement(path, options, print) {
-  return ["return", printReturnOrThrowArgument(path, options, print)];
-}
-
-function printThrowStatement(path, options, print) {
-  return ["throw", printReturnOrThrowArgument(path, options, print)];
-}
-
-// This recurses the return argument, looking for the first token
-// (the leftmost leaf node) and, if it (or its parents) has any
-// leadingComments, returns true (so it can be wrapped in parens).
-function returnArgumentHasLeadingComment(options, argument) {
-  if (
-    hasLeadingOwnLineComment(options.originalText, argument) ||
-    (hasComment(argument, CommentCheckFlags.Leading, (comment) =>
-      hasNewlineInRange(
-        options.originalText,
-        locStart(comment),
-        locEnd(comment),
-      ),
-    ) &&
-      !isJsxElement(argument))
-  ) {
-    return true;
-  }
-
-  if (hasNakedLeftSide(argument)) {
-    let leftMost = argument;
-    let newLeftMost;
-    while ((newLeftMost = getLeftSide(leftMost))) {
-      leftMost = newLeftMost;
-
-      if (hasLeadingOwnLineComment(options.originalText, leftMost)) {
-        return true;
-      }
-    }
-  }
-
-  return false;
-}
-
 export {
   printFunction,
   printMethod,
   printMethodValue,
-  printReturnStatement,
   printReturnType,
-  printThrowStatement,
   shouldPrintParamsWithoutParens,
 };

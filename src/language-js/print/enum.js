@@ -1,4 +1,4 @@
-import { printDeclareToken } from "./misc.js";
+import { printDeclareToken } from "./miscellaneous.js";
 import { printObject as printEnumMembers } from "./object.js";
 
 /*
@@ -11,6 +11,23 @@ import { printObject as printEnumMembers } from "./object.js";
 */
 function printEnumBody(path, options, print) {
   return printEnumMembers(path, options, print);
+}
+
+function printFlowEnumBody(path, options, print) {
+  const { node } = path;
+  return [
+    node.type === "EnumSymbolBody" || node.explicitType
+      ? `of ${node.type
+          .slice(
+            // `Enum`
+            4,
+            // `Body`
+            -4,
+          )
+          .toLowerCase()} `
+      : "",
+    printEnumBody(path, options, print),
+  ];
 }
 
 /*
@@ -66,4 +83,9 @@ function printEnumDeclaration(path, print) {
   ];
 }
 
-export { printEnumBody, printEnumDeclaration, printEnumMember };
+export {
+  printEnumBody,
+  printEnumDeclaration,
+  printEnumMember,
+  printFlowEnumBody,
+};

@@ -10,9 +10,9 @@ import {
   line,
   replaceEndOfLine,
 } from "../document/index.js";
-import getPreferredQuote from "../utils/get-preferred-quote.js";
-import htmlWhitespaceUtils from "../utils/html-whitespace-utils.js";
-import UnexpectedNodeError from "../utils/unexpected-node-error.js";
+import getPreferredQuote from "../utilities/get-preferred-quote.js";
+import htmlWhitespace from "../utilities/html-whitespace.js";
+import UnexpectedNodeError from "../utilities/unexpected-node-error.js";
 import clean from "./clean.js";
 import embed from "./embed.js";
 import getVisitorKeys from "./get-visitor-keys.js";
@@ -35,7 +35,11 @@ import {
   printOpeningTagStart,
 } from "./print/tag.js";
 import preprocess from "./print-preprocess.js";
-import { getTextValueParts, unescapeQuoteEntities } from "./utils/index.js";
+import {
+  getTextValueParts,
+  shouldUnquoteAttributeValue,
+  unescapeQuoteEntities,
+} from "./utilities/index.js";
 
 function genericPrint(path, options, print) {
   const { node } = path;
@@ -55,7 +59,7 @@ function genericPrint(path, options, print) {
     case "angularControlFlowBlockParameters":
       return printAngularControlFlowBlockParameters(path, options, print);
     case "angularControlFlowBlockParameter":
-      return htmlWhitespaceUtils.trim(node.expression);
+      return htmlWhitespace.trim(node.expression);
 
     case "angularLetDeclaration":
       // print like "break-after-operator" layout assignment in estree printer
@@ -128,8 +132,12 @@ function genericPrint(path, options, print) {
       if (node.value === null) {
         return node.rawName;
       }
+
       const value = unescapeQuoteEntities(node.value);
-      const quote = getPreferredQuote(value, '"');
+      const quote = shouldUnquoteAttributeValue(node, options)
+        ? ""
+        : getPreferredQuote(value, '"');
+
       return [
         node.rawName,
         "=",

@@ -1,7 +1,7 @@
 import flowParser from "flow-parser";
 import createError from "../../common/parser-create-error.js";
 import postprocess from "./postprocess/index.js";
-import createParser from "./utils/create-parser.js";
+import createParser from "./utilities/create-parser.js";
 
 // https://github.com/facebook/flow/tree/main/packages/flow-parser#options
 // Keep this sync with `/scripts/sync-flow-test.js`

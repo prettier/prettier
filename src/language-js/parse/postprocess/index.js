@@ -1,10 +1,10 @@
 import * as assert from "#universal/assert";
 import { locEnd, locStart } from "../../loc.js";
-import createTypeCheckFunction from "../../utils/create-type-check-function.js";
-import getRaw from "../../utils/get-raw.js";
-import isBlockComment from "../../utils/is-block-comment.js";
-import isLineComment from "../../utils/is-line-comment.js";
-import isTypeCastComment from "../../utils/is-type-cast-comment.js";
+import createTypeCheckFunction from "../../utilities/create-type-check-function.js";
+import getRaw from "../../utilities/get-raw.js";
+import isBlockComment from "../../utilities/is-block-comment.js";
+import isLineComment from "../../utilities/is-line-comment.js";
+import isTypeCastComment from "../../utilities/is-type-cast-comment.js";
 import mergeNestledJsdocComments from "./merge-nestled-jsdoc-comments.js";
 import visitNode from "./visit-node.js";
 
@@ -43,10 +43,31 @@ function postprocess(ast, options) {
 
   mergeNestledJsdocComments(comments);
 
+  // `InterpreterDirective` from babel parser and flow parser
+  // Other parsers parse it as comment, babel treat it as comment too
+  // https://github.com/babel/babel/issues/15116
+  const program = ast.type === "File" ? ast.program : ast;
+  if (program.interpreter) {
+    comments.unshift(program.interpreter);
+    delete program.interpreter;
+  }
+
+  if (isOxcTs && ast.hashbang) {
+    comments.unshift(ast.hashbang);
+    delete ast.hashbang;
+  }
+
+  // In `typescript` and `flow`, `Program` doesn't count whitespace and comments
+  // See https://github.com/typescript-eslint/typescript-eslint/issues/11026
+  // See https://github.com/facebook/flow/issues/8537
+  if (ast.type === "Program") {
+    ast.range = [0, text.length];
+  }
+
   let typeCastCommentsEnds;
 
   ast = visitNode(ast, {
-    onLeave(node) {
+    onEnter(node) {
       switch (node.type) {
         case "ParenthesizedExpression": {
           const { expression } = node;
@@ -58,7 +79,7 @@ function postprocess(ast, options) {
             return expression;
           }
 
-          let keepTypeCast = false;
+          let shouldKeepParenthesizedExpression = false;
           if (!isOxcTs) {
             if (!typeCastCommentsEnds) {
               typeCastCommentsEnds = [];
@@ -74,27 +95,21 @@ function postprocess(ast, options) {
             const previousCommentEnd = typeCastCommentsEnds.findLast(
               (end) => end <= start,
             );
-            keepTypeCast =
+            shouldKeepParenthesizedExpression =
               previousCommentEnd &&
               // check that there are only white spaces between the comment and the parenthesis
               text.slice(previousCommentEnd, start).trim().length === 0;
           }
 
-          if (!keepTypeCast) {
-            expression.extra = { ...expression.extra, parenthesized: true };
-            return expression;
+          if (shouldKeepParenthesizedExpression) {
+            return;
           }
-          break;
+
+          expression.extra = { ...expression.extra, parenthesized: true };
+          return expression;
         }
 
-        case "LogicalExpression":
-          // We remove unneeded parens around same-operator LogicalExpressions
-          if (isUnbalancedLogicalTree(node)) {
-            return rebalanceLogicalTree(node);
-          }
-          break;
-
-        // This happens when use `oxc-parser` to parse `` `${foo satisfies bar}`; ``
+        // This happened when use `oxc-parser` to parse `` `${foo satisfies bar}`; ``
         // https://github.com/oxc-project/oxc/issues/11313
         case "TemplateLiteral":
           /* c8 ignore next 3 */
@@ -128,6 +143,7 @@ function postprocess(ast, options) {
           }
           break;
         }
+
         // remove redundant TypeScript nodes
         case "TSParenthesizedType":
           return node.typeAnnotation;
@@ -135,9 +151,7 @@ function postprocess(ast, options) {
         // For hack-style pipeline
         case "TopicReference":
           ast.extra = { ...ast.extra, __isUsingHackPipeline: true };
-          break;
-
-        // In Flow parser, it doesn't generate union/intersection types for single type
+          break; // In Flow parser, it doesn't generate union/intersection types for single type
         case "TSUnionType":
         case "TSIntersectionType":
           if (node.types.length === 1) {
@@ -151,9 +165,20 @@ function postprocess(ast, options) {
             node.options = node.attributes;
           }
           break;
+      }
+    },
+    onLeave(node) {
+      switch (node.type) {
+        // Children can be parenthesized, need do this in `onLeave`
+        case "LogicalExpression":
+          // We remove unneeded parens around same-operator LogicalExpressions
+          if (isUnbalancedLogicalTree(node)) {
+            return rebalanceLogicalTree(node);
+          }
+          break;
 
         // https://github.com/babel/babel/issues/17506
-        // https://github.com/oxc-project/oxc/issues/16074
+        // It's possible to have parenthesized `argument`, need do this in `onLeave`
         case "TSImportType":
           if (!node.source && node.argument.type === "TSLiteralType") {
             node.source = node.argument.literal;
@@ -169,30 +194,9 @@ function postprocess(ast, options) {
     },
   });
 
-  // `InterpreterDirective` from babel parser and flow parser
-  // Other parsers parse it as comment, babel treat it as comment too
-  // https://github.com/babel/babel/issues/15116
-  const program = ast.type === "File" ? ast.program : ast;
-  if (program.interpreter) {
-    comments.unshift(program.interpreter);
-    delete program.interpreter;
-  }
-
-  if (isOxcTs && ast.hashbang) {
-    comments.unshift(ast.hashbang);
-    delete ast.hashbang;
-  }
-
   /* c8 ignore next 3 */
   if (process.env.NODE_ENV !== "production") {
     assertComments(comments, text);
-  }
-
-  // In `typescript` and `flow`, `Program` doesn't count whitespace and comments
-  // See https://github.com/typescript-eslint/typescript-eslint/issues/11026
-  // See https://github.com/facebook/flow/issues/8537
-  if (ast.type === "Program") {
-    ast.range = [0, text.length];
   }
   return ast;
 }

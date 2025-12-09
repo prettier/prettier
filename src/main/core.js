@@ -1,7 +1,7 @@
 import { diffArrays } from "diff";
 import {
-  convertEndOfLineToChars,
-  countEndOfLineChars,
+  convertEndOfLineOptionToCharacter,
+  countEndOfLineCharacters,
   guessEndOfLine,
   normalizeEndOfLine,
 } from "../common/end-of-line.js";
@@ -11,7 +11,7 @@ import {
   printDocToDebug,
   printDocToString as printDocToStringWithoutNormalizeOptions,
 } from "../document/index.js";
-import getAlignmentSize from "../utils/get-alignment-size.js";
+import getAlignmentSize from "../utilities/get-alignment-size.js";
 import { prepareToPrint, printAstToDoc } from "./ast-to-doc.js";
 import getCursorLocation from "./get-cursor-node.js";
 import massageAst from "./massage-ast.js";
@@ -65,7 +65,8 @@ async function coreFormat(originalText, opts, addAlignmentSize = 0) {
       }
     }
 
-    result.formatted = trimmed + convertEndOfLineToChars(opts.endOfLine);
+    result.formatted =
+      trimmed + convertEndOfLineOptionToCharacter(opts.endOfLine);
   }
 
   const comments = opts[Symbol.for("comments")];
@@ -229,9 +230,9 @@ async function formatRange(originalText, opts) {
   let formatted =
     text.slice(0, rangeStart) + rangeTrimmed + text.slice(rangeEnd);
   if (opts.endOfLine !== "lf") {
-    const eol = convertEndOfLineToChars(opts.endOfLine);
+    const eol = convertEndOfLineOptionToCharacter(opts.endOfLine);
     if (cursorOffset >= 0 && eol === "\r\n") {
-      cursorOffset += countEndOfLineChars(
+      cursorOffset += countEndOfLineCharacters(
         formatted.slice(0, cursorOffset),
         "\n",
       );
@@ -287,7 +288,7 @@ function normalizeInputAndOptions(text, options) {
   // get rid of CR/CRLF parsing
   if (text.includes("\r")) {
     const countCrlfBefore = (index) =>
-      countEndOfLineChars(text.slice(0, Math.max(index, 0)), "\r\n");
+      countEndOfLineCharacters(text.slice(0, Math.max(index, 0)), "\r\n");
 
     cursorOffset -= countCrlfBefore(cursorOffset);
     rangeStart -= countCrlfBefore(rangeStart);

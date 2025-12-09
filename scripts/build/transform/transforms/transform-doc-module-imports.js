@@ -1,5 +1,5 @@
 import path from "node:path";
-import { SOURCE_DIR } from "../../../utils/index.js";
+import { SOURCE_DIR } from "../../../utilities/index.js";
 import getPublicDocFunctionality from "./get-public-doc-functionality.js";
 import {
   createIdentifier,

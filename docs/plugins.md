@@ -24,18 +24,28 @@ You can load plugins with:
 - The [API](api.md), via the `plugins` options:
 
   ```js
+  import * as prettierPluginFoo from "prettier-plugin-foo";
+
   await prettier.format("code", {
     parser: "foo",
-    plugins: ["prettier-plugin-foo"],
+    plugins: [prettierPluginFoo],
   });
   ```
 
 - The [Configuration File](configuration.md):
 
-  ```json
-  {
-    "plugins": ["prettier-plugin-foo"]
-  }
+  ```js title="prettier.config.mjs"
+  import * as prettierPluginFoo from "prettier-plugin-foo";
+
+  /**
+   * @see https://prettier.io/docs/configuration
+   * @type {import("prettier").Config}
+   */
+  const config = {
+    plugins: [prettierPluginFoo],
+  };
+
+  export default config;
   ```
 
 Strings provided to `plugins` are ultimately passed to [`import()` expression](https://nodejs.org/api/esm.html#import-expressions), so you can provide a module/package name, a path, or anything else `import()` takes.
@@ -62,6 +72,7 @@ Strings provided to `plugins` are ultimately passed to [`import()` expression](h
 - [`prettier-plugin-jinja-template`](https://github.com/davidodenwald/prettier-plugin-jinja-template) by [**@davidodenwald**](https://github.com/davidodenwald)
 - [`prettier-plugin-jsonata`](https://github.com/Stedi/prettier-plugin-jsonata) by [**@Stedi**](https://github.com/Stedi)
 - [`prettier-plugin-kotlin`](https://github.com/Angry-Potato/prettier-plugin-kotlin) by [**@Angry-Potato**](https://github.com/Angry-Potato)
+- [`prettier-plugin-marko`](https://github.com/marko-js/prettier) by [**@marko-js**](https://github.com/marko-js)
 - [`prettier-plugin-motoko`](https://github.com/dfinity/prettier-plugin-motoko) by [**@dfinity**](https://github.com/dfinity)
 - [`prettier-plugin-nginx`](https://github.com/joedeandev/prettier-plugin-nginx) by [**@joedeandev**](https://github.com/joedeandev)
 - [`prettier-plugin-prisma`](https://github.com/umidbekk/prettier-plugin-prisma) by [**@umidbekk**](https://github.com/umidbekk)
@@ -519,15 +530,14 @@ The `--debug-print-comments` CLI flag can help with debugging comment attachment
 Example:
 
 ```js
-export default {
-  // ... plugin implementation
-  options: {
-    openingBraceNewLine: {
-      type: "boolean",
-      category: "Global",
-      default: true,
-      description: "Move open brace for code blocks onto new line.",
-    },
+// ... plugin implementation
+
+export const options = {
+  openingBraceNewLine: {
+    type: "boolean",
+    category: "Global",
+    default: true,
+    description: "Move open brace for code blocks onto new line.",
   },
 };
 ```
@@ -537,11 +547,10 @@ export default {
 If your plugin requires different default values for some of Prettier’s core options, you can specify them in `defaultOptions`:
 
 ```js
-export default {
-  // ... plugin implementation
-  defaultOptions: {
-    tabWidth: 4,
-  },
+// ... plugin implementation
+
+export const defaultOptions = {
+  tabWidth: 4,
 };
 ```
 

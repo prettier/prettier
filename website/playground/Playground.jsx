@@ -11,7 +11,14 @@ import { Checkbox } from "./sidebar/inputs.jsx";
 import Option from "./sidebar/options.jsx";
 import SidebarOptions from "./sidebar/SidebarOptions.jsx";
 import * as urlHash from "./urlHash.js";
-import * as util from "./util.js";
+import {
+  buildCliArgs,
+  convertOffsetToSelection,
+  convertSelectionToRange,
+  getAstAutoFold,
+  getCodemirrorMode,
+  getDefaults,
+} from "./utilities.js";
 
 const { React } = window;
 
@@ -33,6 +40,7 @@ const ENABLED_OPTIONS = [
   "printWidth",
   "tabWidth",
   "useTabs",
+  "endOfLine",
   "semi",
   "singleQuote",
   "bracketSpacing",
@@ -61,10 +69,7 @@ class Playground extends React.Component {
 
     const original = urlHash.read();
 
-    const defaultOptions = util.getDefaults(
-      props.availableOptions,
-      ENABLED_OPTIONS,
-    );
+    const defaultOptions = getDefaults(props.availableOptions, ENABLED_OPTIONS);
 
     const options = Object.assign(defaultOptions, original.options);
 
@@ -110,13 +115,13 @@ class Playground extends React.Component {
       if (this.state.trackCursorOffset) {
         this.handleOptionValueChange(
           this.cursorOffsetOption,
-          util.convertSelectionToRange(selection, this.state.content)[0],
+          convertSelectionToRange(selection, this.state.content)[0],
         );
       }
     };
     this.setSelectionAsRange = () => {
       const { selection, content, options } = this.state;
-      const [rangeStart, rangeEnd] = util.convertSelectionToRange(
+      const [rangeStart, rangeEnd] = convertSelectionToRange(
         selection,
         content,
       );
@@ -182,7 +187,7 @@ class Playground extends React.Component {
       "rangeEnd",
       "cursorOffset",
     ]);
-    const cliOptions = util.buildCliArgs(orderedOptions, options);
+    const cliOptions = buildCliArgs(orderedOptions, options);
 
     return formatMarkdown({
       input: content,
@@ -207,7 +212,7 @@ class Playground extends React.Component {
     return this.props.worker
       .format(content, {
         parser: "__js_expression",
-        cursorOffset: util.convertSelectionToRange(selection, content)[0],
+        cursorOffset: convertSelectionToRange(selection, content)[0],
       })
       .then(({ error, formatted, cursorOffset }) => {
         if (error) {
@@ -216,7 +221,7 @@ class Playground extends React.Component {
 
         this.setState({
           content: formatted,
-          selection: util.convertOffsetToSelection(cursorOffset, formatted),
+          selection: convertOffsetToSelection(cursorOffset, formatted),
         });
       });
   }
@@ -224,13 +229,13 @@ class Playground extends React.Component {
   insertDummyId() {
     const { content, selection } = this.state;
     const dummyId = generateDummyId();
-    const range = util.convertSelectionToRange(selection, content);
+    const range = convertSelectionToRange(selection, content);
     const modifiedContent =
       content.slice(0, range[0]) + dummyId + content.slice(range[1]);
 
     this.setState({
       content: modifiedContent,
-      selection: util.convertOffsetToSelection(
+      selection: convertOffsetToSelection(
         range[0] + dummyId.length,
         modifiedContent,
       ),
@@ -420,7 +425,7 @@ class Playground extends React.Component {
                     <div className="editors">
                       {editorState.showInput ? (
                         <InputPanel
-                          mode={util.getCodemirrorMode(options.parser)}
+                          mode={getCodemirrorMode(options.parser)}
                           ruler={options.printWidth}
                           value={content}
                           selection={this.state.selection}
@@ -439,13 +444,13 @@ class Playground extends React.Component {
                       {editorState.showAst ? (
                         <DebugPanel
                           value={debug.ast || ""}
-                          autoFold={util.getAstAutoFold(options.parser)}
+                          autoFold={getAstAutoFold(options.parser)}
                         />
                       ) : null}
                       {editorState.showPreprocessedAst && !isDocExplorer ? (
                         <DebugPanel
                           value={debug.preprocessedAst || ""}
-                          autoFold={util.getAstAutoFold(options.parser)}
+                          autoFold={getAstAutoFold(options.parser)}
                         />
                       ) : null}
                       {editorState.showDoc && !isDocExplorer ? (
@@ -454,12 +459,12 @@ class Playground extends React.Component {
                       {editorState.showComments && !isDocExplorer ? (
                         <DebugPanel
                           value={debug.comments || ""}
-                          autoFold={util.getAstAutoFold(options.parser)}
+                          autoFold={getAstAutoFold(options.parser)}
                         />
                       ) : null}
                       {editorState.showOutput ? (
                         <OutputPanel
-                          mode={util.getCodemirrorMode(options.parser)}
+                          mode={getCodemirrorMode(options.parser)}
                           value={formatted}
                           ruler={options.printWidth}
                           overlayStart={
@@ -472,7 +477,7 @@ class Playground extends React.Component {
                       ) : null}
                       {editorState.showSecondFormat && !isDocExplorer ? (
                         <OutputPanel
-                          mode={util.getCodemirrorMode(options.parser)}
+                          mode={getCodemirrorMode(options.parser)}
                           value={getSecondFormat(formatted, debug.reformatted)}
                           ruler={options.printWidth}
                         />

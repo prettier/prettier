@@ -1,4 +1,4 @@
-import { getDescendants } from "../../src/utils/ast-utils.js";
+import { getDescendants } from "../../src/utilities/ast.js";
 
 const tree = {
   id: "tree",

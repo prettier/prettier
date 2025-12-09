@@ -4,8 +4,8 @@ import * as importMetaResolve from "import-meta-resolve";
 import { outdent } from "outdent";
 import * as prettier from "prettier";
 import * as typescript from "typescript";
-import { modifyTypescriptModule } from "./build/modify-typescript-module.js";
-import UNUSED_SPECIFIERS from "./build/typescript-unused-specifiers.js";
+import { modifyTypescriptModule } from "./build/hacks/modify-typescript-module.js";
+import UNUSED_SPECIFIERS from "./build/hacks/typescript-unused-specifiers.js";
 
 async function getRemovedSpecifiers(code, exports) {
   let errors = [];
@@ -47,7 +47,7 @@ async function main() {
     .sort();
 
   await fs.writeFile(
-    new URL("./build/typescript-unused-specifiers.js", import.meta.url),
+    new URL("./build/hacks/typescript-unused-specifiers.js", import.meta.url),
     await prettier.format(
       outdent`
         export default new Set(${JSON.stringify(specifiers, undefined, 2)});

@@ -6,7 +6,7 @@ import {
   join,
 } from "../../document/index.js";
 import { printDocToString } from "../../document/printer/printer.js";
-import getStringWidth from "../../utils/get-string-width.js";
+import getStringWidth from "../../utilities/get-string-width.js";
 
 function printTable(path, options, print) {
   const { node } = path;

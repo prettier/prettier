@@ -9,9 +9,9 @@ import {
   softline,
 } from "../../document/index.js";
 import { printDanglingComments } from "../../main/comments/print.js";
-import hasNewlineInRange from "../../utils/has-newline-in-range.js";
+import hasNewlineInRange from "../../utilities/has-newline-in-range.js";
 import { locEnd, locStart } from "../loc.js";
-import pathNeedsParens from "../needs-parens.js";
+import needsParentheses from "../parentheses/needs-parentheses.js";
 import {
   CommentCheckFlags,
   getComments,
@@ -22,9 +22,10 @@ import {
   isJsxElement,
   isLoneShortArgument,
   isMemberExpression,
+  isReturnOrThrowStatement,
   isSimpleExpressionByNodeCount,
-} from "../utils/index.js";
-import isBlockComment from "../utils/is-block-comment.js";
+} from "../utilities/index.js";
+import isBlockComment from "../utilities/is-block-comment.js";
 import { printTernaryOld } from "./ternary-old.js";
 
 /**
@@ -211,7 +212,7 @@ function printTernary(path, options, print, args) {
       parent.type === "Property");
 
   const isOnSameLineAsReturn =
-    (parent.type === "ReturnStatement" || parent.type === "ThrowStatement") &&
+    isReturnOrThrowStatement(parent) &&
     !(isConsequentTernary || isAlternateTernary);
 
   const isInJsx =
@@ -221,7 +222,8 @@ function printTernary(path, options, print, args) {
 
   const shouldExtraIndent = shouldExtraIndentForConditionalExpression(path);
   const breakClosingParen = shouldBreakClosingParen(node, parent);
-  const breakTSClosingParen = isTSConditional && pathNeedsParens(path, options);
+  const breakTSClosingParen =
+    isTSConditional && needsParentheses(path, options);
 
   const fillTab = !isBigTabs
     ? ""

@@ -2,12 +2,12 @@ import {
   addDanglingComment,
   addLeadingComment,
   addTrailingComment,
-} from "../../main/comments/utils.js";
-import getNextNonSpaceNonCommentCharacter from "../../utils/get-next-non-space-non-comment-character.js";
-import getNextNonSpaceNonCommentCharacterIndex from "../../utils/get-next-non-space-non-comment-character-index.js";
-import hasNewline from "../../utils/has-newline.js";
-import hasNewlineInRange from "../../utils/has-newline-in-range.js";
-import isNonEmptyArray from "../../utils/is-non-empty-array.js";
+} from "../../main/comments/utilities.js";
+import getNextNonSpaceNonCommentCharacter from "../../utilities/get-next-non-space-non-comment-character.js";
+import getNextNonSpaceNonCommentCharacterIndex from "../../utilities/get-next-non-space-non-comment-character-index.js";
+import hasNewline from "../../utilities/has-newline.js";
+import hasNewlineInRange from "../../utilities/has-newline-in-range.js";
+import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
 import { locEnd, locStart } from "../loc.js";
 import {
   createTypeCheckFunction,
@@ -22,25 +22,33 @@ import {
   isObjectProperty,
   isPrettierIgnoreComment,
   isUnionType,
-} from "../utils/index.js";
-import isBlockComment from "../utils/is-block-comment.js";
-import isLineComment from "../utils/is-line-comment.js";
-import isTypeCastComment from "../utils/is-type-cast-comment.js";
-
-/** @import * as Estree from "../types/estree.js" */
+} from "../utilities/index.js";
+import isBlockComment from "../utilities/is-block-comment.js";
+import isLineComment from "../utilities/is-line-comment.js";
+import isTypeCastComment from "../utilities/is-type-cast-comment.js";
 
 /**
- * @typedef {Object} CommentContext
- * @property {Estree.Comment} comment
- * @property {Estree.Node} precedingNode
- * @property {Estree.Node} enclosingNode
- * @property {Estree.Node} followingNode
- * @property {string} text
- * @property {any} options
- * @property {Estree.Node} ast
- * @property {boolean} isLastComment
- */
+@import {Node, Comment, NodeMap} from "../types/estree.js";
+*/
 
+/**
+@typedef {{
+  comment: Comment,
+  precedingNode: Node,
+  enclosingNode: Node,
+  followingNode: Node,
+  text: string,
+  options: any,
+  ast: NodeMap["File"] | NodeMap["Program"],
+  isLastComment: boolean,
+}} CommentContext
+*/
+
+/**
+@param {Comment} comment
+@param {string} text
+@returns {boolean}
+*/
 const isSingleLineComment = (comment, text) =>
   isLineComment(comment) ||
   !hasNewlineInRange(text, locStart(comment), locEnd(comment));
@@ -127,7 +135,7 @@ function handleRemainingComment(context) {
 }
 
 /**
- * @param {Estree.Node} node
+ * @param {Node} node
  * @returns {void}
  */
 function addBlockStatementFirstComment(node, comment) {
@@ -143,7 +151,7 @@ function addBlockStatementFirstComment(node, comment) {
 }
 
 /**
- * @param {Estree.Node} node
+ * @param {Node} node
  * @returns {void}
  */
 function addBlockOrNotComment(node, comment) {
@@ -466,11 +474,10 @@ function handleClassComments({
   followingNode,
 }) {
   if (isClassLikeNode(enclosingNode)) {
-    if (
-      isNonEmptyArray(enclosingNode.decorators) &&
-      !(followingNode?.type === "Decorator")
-    ) {
-      addTrailingComment(enclosingNode.decorators.at(-1), comment);
+    // @ts-expect-error -- Safe
+    const { decorators } = enclosingNode;
+    if (isNonEmptyArray(decorators) && !(followingNode?.type === "Decorator")) {
+      addTrailingComment(decorators.at(-1), comment);
       return true;
     }
 
@@ -482,9 +489,11 @@ function handleClassComments({
     // Don't add leading comments to `implements`, `extends`, `mixins` to
     // avoid printing the comment after the keyword.
     if (followingNode) {
+      // @ts-expect-error -- Safe
+      const { superClass } = enclosingNode;
       if (
-        enclosingNode.superClass &&
-        followingNode === enclosingNode.superClass &&
+        superClass &&
+        followingNode === superClass &&
         precedingNode &&
         (precedingNode === enclosingNode.id ||
           precedingNode === enclosingNode.typeParameters)
@@ -499,7 +508,7 @@ function handleClassComments({
             precedingNode &&
             (precedingNode === enclosingNode.id ||
               precedingNode === enclosingNode.typeParameters ||
-              precedingNode === enclosingNode.superClass)
+              precedingNode === superClass)
           ) {
             addTrailingComment(precedingNode, comment);
           } else {
@@ -1025,7 +1034,6 @@ function handleLastUnionElementInExpression({
       !followingNode) ||
       isIntersectionType(enclosingNode))
   ) {
-    // @ts-expect-error -- types exits in TSUnionType and UnionTypeAnnotation
     addTrailingComment(precedingNode.types.at(-1), comment);
     return true;
   }
@@ -1174,7 +1182,6 @@ function handleCommentAfterArrowExpression({
 
   if (
     enclosingNode.type === "ArrowFunctionExpression" &&
-    // @ts-expect-error -- Safe
     enclosingNode.returnType === precedingNode &&
     (precedingNode.type === "TSTypeAnnotation" ||
       precedingNode.type === "TypeAnnotation")
@@ -1186,10 +1193,6 @@ function handleCommentAfterArrowExpression({
   return false;
 }
 
-/**
- * @param {Node} node
- * @returns {boolean}
- */
 const isRealFunctionLikeNode = createTypeCheckFunction([
   "ArrowFunctionExpression",
   "FunctionExpression",

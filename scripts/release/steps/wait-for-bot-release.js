@@ -1,6 +1,6 @@
 import styleText from "node-style-text";
 import outdent from "outdent";
-import { logPromise, waitForEnter } from "../utils.js";
+import { logPromise, waitForEnter } from "../utilities.js";
 
 export async function isVersionReleased(version) {
   const response = await fetch("https://registry.npmjs.org/prettier/");
