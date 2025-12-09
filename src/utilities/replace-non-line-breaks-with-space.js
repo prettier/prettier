@@ -1,3 +1,5 @@
+import * as assert from "#universal/assert";
+
 /**
 Replaces all characters in the input string except line breaks `\n` with a space.
 
@@ -5,7 +7,13 @@ Replaces all characters in the input string except line breaks `\n` with a space
 @returns {string}
 */
 function replaceNonLineBreaksWithSpace(string) {
-  return string.replaceAll(/[^\n]/g, " ");
+  const replaced = string.replaceAll(/[^\n]/g, " ");
+
+  if (process.env.NODE_ENV !== "production") {
+    assert.equal(replaced.length, string.length);
+  }
+
+  return replaced;
 }
 
 export default replaceNonLineBreaksWithSpace;
