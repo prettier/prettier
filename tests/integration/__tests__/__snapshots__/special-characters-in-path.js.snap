@@ -10,10 +10,11 @@ exports[`ignores file name contains emoji  1`] = `
 
 exports[`square-brackets-and-dash  1`] = `
 {
-  "status": 2,
-  "stderr": "[error] Invalid configuration for file "<cli>/special-characters-in-path/square-brackets-and-dash/test/username[repo-name]/.editorconfig":
-[error] Invalid regular expression: /^(?=.)username[repo-name]$/: Range out of order in character class",
-  "stdout": "",
+  "status": 0,
+  "stderr": "",
+  "stdout": "function a() {
+    const foo = "bar";
+}",
   "write": [],
 }
 `;
