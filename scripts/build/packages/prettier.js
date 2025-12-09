@@ -67,10 +67,11 @@ const mainModule = {
             }
 
             const wasmFile = getPackageFile("@one-ini/wasm/one_ini_bg.wasm");
-            const wasmBase64String = await fs.readFile(wasmFile, "base64");
+            const encoding = "base64";
+            const wasmBase64String = await fs.readFile(wasmFile, encoding);
             text = text.replace(
               wasmBytesCode,
-              `const bytes = Buffer.from(${JSON.stringify(wasmBase64String)}, 'base64')`,
+              `const bytes = Buffer.from(${JSON.stringify(wasmBase64String)}, ${JSON.stringify(encoding)});`,
             );
 
             return text;
