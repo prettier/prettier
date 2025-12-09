@@ -10,5 +10,8 @@ export default defineConfig({
   plugins: [vue()],
   build: {
     outDir: "./static/playground-vue/",
+    rollupOptions: {
+      external: ["graphql"],
+    },
   },
 });

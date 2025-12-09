@@ -36,7 +36,7 @@
     "@docusaurus/module-type-aliases": "3.9.2",
     "@docusaurus/types": "3.9.2",
     "@vitejs/plugin-react": "5.1.1",
-    "@vitejs/plugin-vue": "5.2.1",
+    "@vitejs/plugin-vue": "6.0.2",
     "concurrently": "9.2.1",
     "vite": "7.2.4",
     "yaml": "2.8.2"

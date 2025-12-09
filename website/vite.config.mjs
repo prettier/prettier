@@ -10,5 +10,8 @@ export default defineConfig({
   plugins: [react()],
   build: {
     outDir: "./static/playground/",
+    rollupOptions: {
+      external: ["graphql"],
+    },
   },
 });
