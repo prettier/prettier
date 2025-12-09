@@ -43,37 +43,12 @@ const mainModule = {
     createNodejsFileConfig({
       input: "src/index.js",
       replaceModule: [
-        // `editorconfig` use a older version of `semver` and only uses `semver.gte`
+        // We don't need semver since we don't use `options.version`
         {
-          module: require.resolve("editorconfig"),
-          find: 'const semver = __importStar(require("semver"));',
-          replacement: outdent`
-            const semver = {
-              gte: require(${JSON.stringify(
-                require.resolve("semver/functions/gte"),
-              )})
-            };
-          `,
-        },
-        {
-          module: require.resolve("@one-ini/wasm"),
-          async process(text) {
-            const wasmBytesCode = outdent`
-              const path = require('path').join(__dirname, 'one_ini_bg.wasm');
-              const bytes = require('fs').readFileSync(path);
-            `;
-            if (!text.includes(wasmBytesCode)) {
-              throw new Error("Unexpected source");
-            }
-
-            const wasmFile = getPackageFile("@one-ini/wasm/one_ini_bg.wasm");
-            const encoding = "base64";
-            const wasmBase64String = await fs.readFile(wasmFile, encoding);
-            text = text.replace(
-              wasmBytesCode,
-              `const bytes = Buffer.from(${JSON.stringify(wasmBase64String)}, ${JSON.stringify(encoding)});`,
-            );
-
+          module: require.resolve("editorconfig-without-wasm"),
+          process(text) {
+            text = text.replace("import * as semver from 'semver';", "");
+            text = text.replace("semver.gte(version, '0.10.0')", "true");
             return text;
           },
         },

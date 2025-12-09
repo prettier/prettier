@@ -2007,13 +2007,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@one-ini/wasm@npm:0.2.0":
-  version: 0.2.0
-  resolution: "@one-ini/wasm@npm:0.2.0"
-  checksum: 10/3949fb4a54c0f9373f9ff4b6dfa449c65e397acb11e191767dd0a6f64983fdf22fbc28c6f97032c99e2ebf0f3e56449f5df358c395fd77e05db1277d1f6f2692
-  languageName: node
-  linkType: hard
-
 "@oxc-parser/binding-android-arm64@npm:0.102.0":
   version: 0.102.0
   resolution: "@oxc-parser/binding-android-arm64@npm:0.102.0"
@@ -3912,17 +3905,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"editorconfig@npm:3.0.1":
-  version: 3.0.1
-  resolution: "editorconfig@npm:3.0.1"
+"editorconfig-without-wasm@npm:0.0.3":
+  version: 0.0.3
+  resolution: "editorconfig-without-wasm@npm:0.0.3"
   dependencies:
-    "@one-ini/wasm": "npm:0.2.0"
     commander: "npm:^14.0.0"
+    ini-simple-parser: "npm:^1.0.1"
     minimatch: "npm:10.0.1"
     semver: "npm:^7.7.2"
   bin:
     editorconfig: bin/editorconfig
-  checksum: 10/3e62dc7da18ba3c087a0a65e33e719a58057956f697ca62328f191f7d7516ebcad00d25d8dfc92265cfdeb7f9d4c6e7678f0555f1e53bd5c6fbd138824cd7089
+  checksum: 10/df53a7bd9950dc59419bd6c1002767fbcf2f4d6e98d40eb6bbcc8c1102c280df084b7a142264d9071a6dc82199d8c7a85e26dfebf8492de3eca742c7e98bd78b
   languageName: node
   linkType: hard
 
@@ -7554,7 +7547,7 @@ __metadata:
     dashify: "npm:2.0.0"
     deno-path-from-file-url: "npm:0.0.4"
     diff: "npm:8.0.2"
-    editorconfig: "npm:3.0.1"
+    editorconfig-without-wasm: "npm:0.0.3"
     emoji-regex: "npm:10.6.0"
     enquirer: "npm:2.4.1"
     esbuild: "npm:0.27.0"
