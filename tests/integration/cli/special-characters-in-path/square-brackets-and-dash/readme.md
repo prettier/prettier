@@ -9,11 +9,11 @@ Can debug with
 Development version
 
 ```sh
-node ../../../../../bin/prettier test
+node ../../../../../bin/prettier test --check
 ```
 
 Stable version
 
 ```sh
-node ../../../../../node_modules/prettier/bin/prettier.cjs test test
+node ../../../../../node_modules/prettier/bin/prettier.cjs test test --check
 ```
