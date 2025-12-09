@@ -1,3 +1,4 @@
+import fs from "node:fs/promises";
 import path from "node:path";
 import url from "node:url";
 import createEsmUtils from "esm-utils";
@@ -53,6 +54,27 @@ const mainModule = {
               )})
             };
           `,
+        },
+        {
+          module: require.resolve("@one-ini/wasm"),
+          async process(text) {
+            const wasmBytesCode = outdent`
+              const path = require('path').join(__dirname, 'one_ini_bg.wasm');
+              const bytes = require('fs').readFileSync(path);
+            `;
+            if (!text.includes(wasmBytesCode)) {
+              throw new Error("Unexpected source");
+            }
+
+            const wasmFile = getPackageFile("@one-ini/wasm/one_ini_bg.wasm");
+            const wasmBase64String = await fs.readFile(wasmFile, "base64");
+            text = text.replace(
+              wasmBytesCode,
+              `const bytes = Buffer.from(${JSON.stringify(wasmBase64String)}, 'base64')`,
+            );
+
+            return text;
+          },
         },
         {
           module: require.resolve("n-readlines"),
