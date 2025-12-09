@@ -46,9 +46,9 @@ const mainModule = {
         // `editorconfig` use a older version of `semver` and only uses `semver.gte`
         {
           module: require.resolve("editorconfig"),
-          find: 'var semver = __importStar(require("semver"));',
+          find: 'const semver = __importStar(require("semver"));',
           replacement: outdent`
-            var semver = {
+            const semver = {
               gte: require(${JSON.stringify(
                 require.resolve("semver/functions/gte"),
               )})
