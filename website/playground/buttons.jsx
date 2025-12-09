@@ -11,7 +11,7 @@ export const Button = (props, { slots }) => (
 export const ClipboardButton = {
   name: "ClipboardButton",
   props: {
-    copy: [String, Function],
+    copy: { type: [String, Function], required: true },
   },
   setup(props, { slots, attrs }) {
     const showTooltipValue = ref(false);

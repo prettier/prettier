@@ -2,6 +2,30 @@ import { useTemplateRef, onMounted, onUnmounted, watch } from "vue";
 
 const { CodeMirror } = window;
 
+function getIndexPosition(text, indexes) {
+  indexes = [...indexes];
+  let line = 0;
+  let count = 0;
+  let lineStart = 0;
+  const result = [];
+
+  while (indexes.length > 0) {
+    const index = indexes.shift();
+
+    while (count < index && count < text.length) {
+      if (text[count] === "\n") {
+        line++;
+        lineStart = count + 1;
+      }
+      count++;
+    }
+
+    result.push({ line, pos: count - lineStart });
+  }
+
+  return result;
+}
+
 function createOverlay(start, end) {
   return {
     token(stream) {
@@ -51,25 +75,25 @@ function isEqualSelection(selection1, selection2) {
 const CodeMirrorPanel = {
   name: "CodeMirrorPanel",
   props: {
-    value: String,
-    selection: Object,
-    onChange: Function,
-    onSelectionChange: Function,
-    ruler: Number,
-    rulerColor: String,
-    overlayStart: Number,
-    overlayEnd: Number,
-    mode: String,
-    foldGutter: Boolean,
-    autoFold: RegExp,
-    codeSample: String,
-    lineNumbers: Boolean,
-    keyMap: String,
-    autoCloseBrackets: Boolean,
-    matchBrackets: Boolean,
-    showCursorWhenSelecting: Boolean,
-    tabSize: Number,
-    readOnly: Boolean,
+    value: { type: String, required: true },
+    selection: { type: Object },
+    onChange: { type: Function, required: true },
+    onSelectionChange: { type: Function },
+    ruler: { type: Number, required: true },
+    rulerColor: { type: String, required: true },
+    overlayStart: { type: Number },
+    overlayEnd: { type: Number },
+    mode: { type: String, required: true },
+    foldGutter: { type: Boolean, required: true },
+    autoFold: { type: RegExp },
+    codeSample: { type: String },
+    lineNumbers: { type: Boolean, required: true },
+    keyMap: { type: String },
+    autoCloseBrackets: { type: Boolean, required: true },
+    matchBrackets: { type: Boolean, required: true },
+    showCursorWhenSelecting: { type: Boolean, required: true },
+    tabSize: { type: Number, required: true },
+    readOnly: { type: Boolean, required: true },
   },
   setup(props) {
     const textareaRef = useTemplateRef("textarea");
@@ -157,8 +181,6 @@ const CodeMirrorPanel = {
 
       if (window.CodeMirror.keyMap.pcSublime) {
         window.CodeMirror.keyMap.pcSublime["Ctrl-L"] = false;
-      }
-      if (window.CodeMirror.keyMap.sublime) {
         window.CodeMirror.keyMap.sublime["Ctrl-L"] = false;
       }
 
@@ -267,35 +289,11 @@ const CodeMirrorPanel = {
   },
 };
 
-function getIndexPosition(text, indexes) {
-  indexes = [...indexes];
-  let line = 0;
-  let count = 0;
-  let lineStart = 0;
-  const result = [];
-
-  while (indexes.length > 0) {
-    const index = indexes.shift();
-
-    while (count < index && count < text.length) {
-      if (text[count] === "\n") {
-        line++;
-        lineStart = count + 1;
-      }
-      count++;
-    }
-
-    result.push({ line, pos: count - lineStart });
-  }
-
-  return result;
-}
-
 export const DebugPanel = {
   name: "DebugPanel",
   props: {
-    value: String,
-    autoFold: RegExp,
+    value: { type: String, required: true },
+    autoFold: { type: RegExp, required: true },
   },
   setup(props) {
     return () => {

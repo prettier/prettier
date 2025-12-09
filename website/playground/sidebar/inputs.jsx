@@ -2,7 +2,7 @@ export const Checkbox = {
   name: "Checkbox",
   props: {
     label: { type: String, required: true },
-    title: { type: String },
+    title: { type: String, required: true },
     checked: { type: Boolean, required: true },
   },
   emits: ["change"],
@@ -27,7 +27,7 @@ export const Select = {
   name: "Select",
   props: {
     label: { type: String, required: true },
-    title: { type: String },
+    title: { type: String, required: true },
     values: { type: Array, required: true },
     selected: { type: String, required: true },
   },
@@ -58,7 +58,7 @@ export const NumberInput = {
   name: "NumberInput",
   props: {
     label: { type: String, required: true },
-    title: { type: String },
+    title: { type: String, required: true },
     value: { type: Number, required: true },
     min: { type: Number, required: true },
     max: { type: Number, required: true },

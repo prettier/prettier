@@ -80,21 +80,32 @@ export default {
   },
   emits: ["change"],
   setup(props, { emit }) {
+    const handleChange = (option, val) => emit("change", option, val);
+
     return () => {
       const { option, value } = props;
-      const componentProps = {
-        option,
-        value,
-        onChange: (option, val) => emit("change", option, val),
-      };
 
       switch (option.type) {
         case "boolean":
-          return <BooleanOption {...componentProps} />;
+          return (
+            <BooleanOption
+              option={option}
+              value={value}
+              onChange={handleChange}
+            />
+          );
         case "int":
-          return <NumberOption {...componentProps} />;
+          return (
+            <NumberOption option={option} value={value} onChange={handleChange} />
+          );
         case "choice":
-          return <ChoiceOption {...componentProps} />;
+          return (
+            <ChoiceOption
+              option={option}
+              value={value}
+              onChange={handleChange}
+            />
+          );
         default:
           throw new Error("unsupported type");
       }
