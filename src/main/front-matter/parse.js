@@ -106,7 +106,10 @@ function parse(text) {
     frontMatter,
     get content() {
       const { raw } = frontMatter;
-      return raw.replaceAll(/[^\n]/gu, " ") + text.slice(raw.length);
+      return (
+        raw.replaceAll(/./gu, (c) => " ".repeat(c.length)) +
+        text.slice(raw.length)
+      );
     },
   };
 }
