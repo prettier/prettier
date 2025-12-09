@@ -75,12 +75,6 @@
       groupName: "GitHub Actions",
       matchManagers: ["github-actions"],
     },
-    // Forbid codemirror@6.65.7
-    // https://github.com/prettier/prettier/pull/13171#issuecomment-1258427561
-    {
-      matchPackageNames: ["codemirror"],
-      allowedVersions: "!/^6\\.65\\.7$/",
-    },
     {
       matchPackageNames: ["react", "react-dom"],
       allowedVersions: "^18.0.0",
@@ -98,4 +92,5 @@
     // Old versions are required to test
     "node",
   ],
+  ignorePaths: ["tests/**", "packages/**"],
 }
