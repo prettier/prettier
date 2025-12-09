@@ -77,7 +77,9 @@ export const NumberInput = {
             max={max}
             step={step}
             value={value}
-            onChange={(ev) => emit("change", Number.parseInt(ev.target.value, 10))}
+            onChange={(ev) =>
+              emit("change", Number.parseInt(ev.target.value, 10))
+            }
           />
         </label>
       );

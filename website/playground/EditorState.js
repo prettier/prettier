@@ -15,16 +15,19 @@ export default {
       showInput: true,
       showOutput: true,
       rethrowEmbedErrors: false,
-      toggleSidebar: () => Object.assign(state, stateToggler("showSidebar")(state)),
+      toggleSidebar: () =>
+        Object.assign(state, stateToggler("showSidebar")(state)),
       toggleAst: () => Object.assign(state, stateToggler("showAst")(state)),
       togglePreprocessedAst: () =>
         Object.assign(state, stateToggler("showPreprocessedAst")(state)),
       toggleDoc: () => Object.assign(state, stateToggler("showDoc")(state)),
-      toggleComments: () => Object.assign(state, stateToggler("showComments")(state)),
+      toggleComments: () =>
+        Object.assign(state, stateToggler("showComments")(state)),
       toggleSecondFormat: () =>
         Object.assign(state, stateToggler("showSecondFormat")(state)),
       toggleInput: () => Object.assign(state, stateToggler("showInput")(state)),
-      toggleOutput: () => Object.assign(state, stateToggler("showOutput")(state)),
+      toggleOutput: () =>
+        Object.assign(state, stateToggler("showOutput")(state)),
       toggleEmbedErrors: () =>
         Object.assign(state, stateToggler("rethrowEmbedErrors")(state)),
       ...storage.get("editor_state"),

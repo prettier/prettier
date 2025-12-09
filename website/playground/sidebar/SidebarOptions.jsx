@@ -38,7 +38,9 @@ export default {
                 key={option.name}
                 option={option}
                 value={optionValues[option.name]}
-                onChange={(option, val) => emit("option-value-change", option, val)}
+                onChange={(option, val) =>
+                  emit("option-value-change", option, val)
+                }
               />
             ))}
           </SidebarCategory>

@@ -8,8 +8,7 @@ const BooleanOption = {
   },
   emits: ["change"],
   setup(props, { emit }) {
-    const maybeInvert = (value) =>
-      props.option.inverted ? !value : value;
+    const maybeInvert = (value) => (props.option.inverted ? !value : value);
 
     return () => {
       const { option, value } = props;

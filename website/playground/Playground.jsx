@@ -120,7 +120,10 @@ export default {
       trackCursorOffset: false,
     });
 
-    const enabledOptions = orderOptions(props.availableOptions, ENABLED_OPTIONS);
+    const enabledOptions = orderOptions(
+      props.availableOptions,
+      ENABLED_OPTIONS,
+    );
     const rangeStartOption = props.availableOptions.find(
       (opt) => opt.name === "rangeStart",
     );

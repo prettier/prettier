@@ -197,7 +197,7 @@ const CodeMirrorPanel = {
     );
 
     watch(
-      () => [props.overlayStart, props.overlayEnd],
+      () => [props.overlayStart, props.overlayEnd, props.value],
       () => {
         if (codeMirror) {
           updateOverlay();
