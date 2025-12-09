@@ -129,7 +129,9 @@ const configs = [
       "prefer-rest-params": "error",
       "prefer-spread": "error",
       "require-await": "error",
-      "require-unicode-regexp": "error",
+      // The `u` or `v` flag cause problems when dealing with non-ascii characters
+      // https://github.com/prettier/prettier/pull/18453
+      "require-unicode-regexp": "off",
       "symbol-description": "error",
       yoda: [
         "error",
@@ -494,12 +496,6 @@ const configs = [
       "no-var": "off",
       "prefer-arrow-callback": "off",
     },
-  },
-  // ESBuild doesn't support regular expressions with `u` flag
-  // https://github.com/evanw/esbuild/issues/4128
-  {
-    files: ["scripts/build/esbuild-plugins/**/*"],
-    rules: { "require-unicode-regexp": "off" },
   },
   {
     files: ["src/document/printer/printer.js"],
