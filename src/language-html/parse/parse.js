@@ -6,6 +6,7 @@ import {
 } from "angular-html-parser";
 import createError from "../../common/parser-create-error.js";
 import { parseFrontMatter } from "../../main/front-matter/index.js";
+import replaceNonLineBreaksWithSpace from "../../utilities/replace-non-line-breaks-with-space.js";
 import {
   normalizeParseOptions,
   toAngularHtmlParserParseOptions,
@@ -143,7 +144,7 @@ function parseSubHtml(
 ) {
   const { offset } = startSpan;
   const textToParse =
-    text.slice(0, offset).replaceAll(/[^\n]/gu, " ") + subContent;
+    replaceNonLineBreaksWithSpace(text.slice(0, offset)) + subContent;
   const subAst = parse(
     textToParse,
     parser,
