@@ -7814,6 +7814,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"graphql@npm:16.10.0":
+  version: 16.10.0
+  resolution: "graphql@npm:16.10.0"
+  checksum: 10/d42cf81ddcf3a61dfb213217576bf33c326f15b02c4cee369b373dc74100cbdcdc4479b3b797e79b654dabd8fddf50ef65ff75420e9ce5596c02e21f24c9126a
+  languageName: node
+  linkType: hard
+
 "gray-matter@npm:^4.0.3":
   version: 4.0.3
   resolution: "gray-matter@npm:4.0.3"
@@ -12555,6 +12562,7 @@ __metadata:
     clsx: "npm:2.1.1"
     codemirror-graphql: "npm:2.2.4"
     concurrently: "npm:9.2.1"
+    graphql: "npm:16.10.0"
     prism-react-renderer: "npm:2.4.1"
     react: "npm:18.3.1"
     react-dom: "npm:18.3.1"

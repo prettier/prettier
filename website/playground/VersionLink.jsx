@@ -1,32 +1,48 @@
-const { React, ReactDOM } = window;
+import { computed, watch, Teleport } from "vue";
 
-const root = document.getElementById("version");
+export default {
+  name: "VersionLink",
+  props: {
+    version: {
+      type: String,
+      required: true,
+    },
+  },
+  setup(props) {
+    const match = computed(() => props.version.match(/^pr-(\d+)$/u));
 
-export default function VersionLink({ version }) {
-  const match = version.match(/^pr-(\d+)$/u);
-  let href;
-  if (match) {
-    href = `pull/${match[1]}`;
-  } else if (/\.0$/u.test(version)) {
-    href = `releases/tag/${version}`;
-  } else {
-    href = `blob/main/CHANGELOG.md#${version.replaceAll(".", "")}`;
-  }
+    const href = computed(() => {
+      if (match.value) {
+        return `pull/${match.value[1]}`;
+      } else if (/\.0$/u.test(props.version)) {
+        return `releases/tag/${props.version}`;
+      } else {
+        return `blob/main/CHANGELOG.md#${props.version.replaceAll(".", "")}`;
+      }
+    });
 
-  const formattedVersion = match ? `PR #${match[1]}` : `v${version}`;
+    const formattedVersion = computed(() => {
+      return match.value ? `PR #${match.value[1]}` : `v${props.version}`;
+    });
 
-  React.useEffect(() => {
-    document.title = `Prettier ${formattedVersion}`;
-  }, [formattedVersion]);
+    watch(
+      formattedVersion,
+      (newVersion) => {
+        document.title = `Prettier ${newVersion}`;
+      },
+      { immediate: true },
+    );
 
-  return ReactDOM.createPortal(
-    <a
-      href={`https://github.com/prettier/prettier/${href}`}
-      target="_blank"
-      rel="noreferrer noopener"
-    >
-      {formattedVersion}
-    </a>,
-    root,
-  );
-}
+    return () => (
+      <Teleport to="#version">
+        <a
+          href={`https://github.com/prettier/prettier/${href.value}`}
+          target="_blank"
+          rel="noreferrer noopener"
+        >
+          {formattedVersion.value}
+        </a>
+      </Teleport>
+    );
+  },
+};

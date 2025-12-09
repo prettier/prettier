@@ -1,49 +1,64 @@
-const { ClipboardJS, React } = window;
+import { ref, onMounted, onUnmounted } from "vue";
 
-export const Button = React.forwardRef((props, ref) => (
-  <button type="button" className="btn" ref={ref} {...props} />
-));
+const { ClipboardJS } = window;
 
-export class ClipboardButton extends React.Component {
-  constructor() {
-    super();
-    this.state = { showTooltip: false, tooltipText: "" };
-    this.timer = null;
-    this.ref = React.createRef();
-  }
+export const Button = (props, { slots }) => (
+  <button type="button" class="btn" {...props}>
+    {slots.default?.()}
+  </button>
+);
 
-  componentDidMount() {
-    this.clipboard = new ClipboardJS(this.ref.current, {
-      text: () => {
-        const { copy } = this.props;
-        return typeof copy === "function" ? copy() : copy;
-      },
-    });
-    this.clipboard.on("success", () => this.showTooltip("Copied!"));
-    this.clipboard.on("error", () => this.showTooltip("Press ctrl+c to copy"));
-  }
+export const ClipboardButton = {
+  name: "ClipboardButton",
+  props: {
+    copy: [String, Function],
+  },
+  setup(props, { slots, attrs }) {
+    const showTooltip = ref(false);
+    const tooltipText = ref("");
+    const buttonRef = ref(null);
+    let timer = null;
+    let clipboard = null;
 
-  showTooltip(text) {
-    this.setState({ showTooltip: true, tooltipText: text }, () => {
-      if (this.timer) {
-        clearTimeout(this.timer);
+    const showTooltipMessage = (text) => {
+      showTooltip.value = true;
+      tooltipText.value = text;
+
+      if (timer) {
+        clearTimeout(timer);
       }
-      this.timer = setTimeout(() => {
-        this.timer = null;
-        this.setState({ showTooltip: false });
+      timer = setTimeout(() => {
+        timer = null;
+        showTooltip.value = false;
       }, 2000);
+    };
+
+    onMounted(() => {
+      clipboard = new ClipboardJS(buttonRef.value, {
+        text: () => {
+          return typeof props.copy === "function" ? props.copy() : props.copy;
+        },
+      });
+      clipboard.on("success", () => showTooltipMessage("Copied!"));
+      clipboard.on("error", () => showTooltipMessage("Press ctrl+c to copy"));
     });
-  }
 
-  render() {
-    const { children, copy, ...rest } = this.props;
-    const { showTooltip, tooltipText } = this.state;
+    onUnmounted(() => {
+      if (clipboard) {
+        clipboard.destroy();
+      }
+      if (timer) {
+        clearTimeout(timer);
+      }
+    });
 
-    return (
-      <Button ref={this.ref} {...rest}>
-        {showTooltip ? <span className="tooltip">{tooltipText}</span> : null}
-        {children}
-      </Button>
+    return () => (
+      <button type="button" class="btn" ref={buttonRef} {...attrs}>
+        {showTooltip.value ? (
+          <span class="tooltip">{tooltipText.value}</span>
+        ) : null}
+        {slots.default?.()}
+      </button>
     );
-  }
-}
+  },
+};

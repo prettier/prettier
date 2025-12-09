@@ -1,3 +1,4 @@
+import { reactive, watch } from "vue";
 import { Button, ClipboardButton } from "./buttons.jsx";
 import getCodeSample from "./codeSamples.mjs";
 import generateDummyId from "./dummyId.js";
@@ -19,8 +20,6 @@ import {
   getCodemirrorMode,
   getDefaults,
 } from "./utilities.js";
-
-const { React } = window;
 
 const CATEGORIES_ORDER = [
   "Global",
@@ -63,10 +62,44 @@ const ENABLED_OPTIONS = [
   "experimentalOperatorPosition",
 ];
 
-class Playground extends React.Component {
-  constructor(props) {
-    super();
+function orderOptions(availableOptions, order) {
+  const optionsByName = {};
+  for (const option of availableOptions) {
+    optionsByName[option.name] = option;
+  }
 
+  return order.map((name) => optionsByName[name]);
+}
+
+function getReportLink(reportBody) {
+  return `${ISSUES_URL}${encodeURIComponent(reportBody)}`;
+}
+
+function getSecondFormat(formatted, reformatted) {
+  return formatted === ""
+    ? ""
+    : formatted === reformatted
+      ? "✓ Second format is unchanged."
+      : reformatted;
+}
+
+export default {
+  name: "Playground",
+  props: {
+    worker: {
+      type: Object,
+      required: true,
+    },
+    availableOptions: {
+      type: Array,
+      required: true,
+    },
+    version: {
+      type: String,
+      required: true,
+    },
+  },
+  setup(props) {
     const original = urlHash.read();
 
     const defaultOptions = getDefaults(props.availableOptions, ENABLED_OPTIONS);
@@ -101,26 +134,75 @@ class Playground extends React.Component {
 
     const codeSample = getCodeSample(options.parser);
     const content = original.content || codeSample;
-    const selection = {};
 
-    this.state = { content, options, selection };
+    const state = reactive({
+      content,
+      options,
+      selection: {},
+      trackCursorOffset: false,
+    });
 
-    this.handleOptionValueChange = this.handleOptionValueChange.bind(this);
+    const enabledOptions = orderOptions(props.availableOptions, ENABLED_OPTIONS);
+    const rangeStartOption = props.availableOptions.find(
+      (opt) => opt.name === "rangeStart",
+    );
+    const rangeEndOption = props.availableOptions.find(
+      (opt) => opt.name === "rangeEnd",
+    );
+    const cursorOffsetOption = props.availableOptions.find(
+      (opt) => opt.name === "cursorOffset",
+    );
 
-    this.setContent = (content) => this.setState({ content });
-    this.clearContent = this.setContent.bind(this, "");
-    this.resetOptions = () => this.setState({ options: defaultOptions });
-    this.setSelection = (selection) => {
-      this.setState({ selection });
-      if (this.state.trackCursorOffset) {
-        this.handleOptionValueChange(
-          this.cursorOffsetOption,
-          convertSelectionToRange(selection, this.state.content)[0],
+    watch(
+      () => [state.content, state.options],
+      () => {
+        urlHash.replace({ content: state.content, options: state.options });
+      },
+      { deep: true },
+    );
+
+    const handleOptionValueChange = (option, value) => {
+      if (option.type === "int" && Number.isNaN(value)) {
+        delete state.options[option.name];
+      } else {
+        state.options[option.name] = value;
+      }
+
+      const newContent =
+        state.content === "" ||
+        state.content === getCodeSample(state.options.parser)
+          ? getCodeSample(state.options.parser)
+          : state.content;
+
+      if (newContent !== state.content) {
+        state.content = newContent;
+      }
+    };
+
+    const setContent = (content) => {
+      state.content = content;
+    };
+
+    const clearContent = () => {
+      state.content = "";
+    };
+
+    const resetOptions = () => {
+      state.options = { ...defaultOptions };
+    };
+
+    const setSelection = (selection) => {
+      state.selection = selection;
+      if (state.trackCursorOffset) {
+        handleOptionValueChange(
+          cursorOffsetOption,
+          convertSelectionToRange(selection, state.content)[0],
         );
       }
     };
-    this.setSelectionAsRange = () => {
-      const { selection, content, options } = this.state;
+
+    const setSelectionAsRange = () => {
+      const { selection, content, options } = state;
       const [rangeStart, rangeEnd] = convertSelectionToRange(
         selection,
         content,
@@ -130,129 +212,75 @@ class Playground extends React.Component {
         delete updatedOptions.rangeStart;
         delete updatedOptions.rangeEnd;
       }
-      this.setState({ options: updatedOptions });
+      state.options = updatedOptions;
     };
 
-    this.enabledOptions = orderOptions(props.availableOptions, ENABLED_OPTIONS);
-    this.rangeStartOption = props.availableOptions.find(
-      (opt) => opt.name === "rangeStart",
-    );
-    this.rangeEndOption = props.availableOptions.find(
-      (opt) => opt.name === "rangeEnd",
-    );
-    this.cursorOffsetOption = props.availableOptions.find(
-      (opt) => opt.name === "cursorOffset",
-    );
+    const getMarkdown = ({ formatted, reformatted, full, doc }) => {
+      const { content, options } = state;
+      const orderedOptions = orderOptions(props.availableOptions, [
+        ...ENABLED_OPTIONS,
+        "rangeStart",
+        "rangeEnd",
+        "cursorOffset",
+      ]);
+      const cliOptions = buildCliArgs(orderedOptions, options);
 
-    this.formatInput = this.formatInput.bind(this);
-    this.insertDummyId = this.insertDummyId.bind(this);
-  }
+      return formatMarkdown({
+        input: content,
+        output: formatted,
+        output2: reformatted,
+        doc,
+        version: props.version,
+        url: window.location.href,
+        options,
+        cliOptions,
+        full,
+      });
+    };
 
-  componentDidUpdate(_, prevState) {
-    const { content, options } = this.state;
-    if (
-      !shallowEqual(prevState.options, this.state.options) ||
-      prevState.content !== content
-    ) {
-      urlHash.replace({ content, options });
-    }
-  }
-
-  handleOptionValueChange(option, value) {
-    this.setState((state) => {
-      const options = { ...state.options };
-
-      if (option.type === "int" && Number.isNaN(value)) {
-        delete options[option.name];
-      } else {
-        options[option.name] = value;
+    const formatInput = () => {
+      if (state.options.parser !== "doc-explorer") {
+        return;
       }
 
-      const content =
-        state.content === "" ||
-        state.content === getCodeSample(state.options.parser)
-          ? getCodeSample(options.parser)
-          : state.content;
+      const { content, selection } = state;
 
-      return { options, content };
-    });
-  }
+      return props.worker
+        .format(content, {
+          parser: "__js_expression",
+          cursorOffset: convertSelectionToRange(selection, content)[0],
+        })
+        .then(({ error, formatted, cursorOffset }) => {
+          if (error) {
+            return;
+          }
 
-  getMarkdown({ formatted, reformatted, full, doc }) {
-    const { content, options } = this.state;
-    const { availableOptions, version } = this.props;
-    const orderedOptions = orderOptions(availableOptions, [
-      ...ENABLED_OPTIONS,
-      "rangeStart",
-      "rangeEnd",
-      "cursorOffset",
-    ]);
-    const cliOptions = buildCliArgs(orderedOptions, options);
-
-    return formatMarkdown({
-      input: content,
-      output: formatted,
-      output2: reformatted,
-      doc,
-      version,
-      url: window.location.href,
-      options,
-      cliOptions,
-      full,
-    });
-  }
-
-  formatInput() {
-    if (this.state.options.parser !== "doc-explorer") {
-      return;
-    }
-
-    const { content, selection } = this.state;
-
-    return this.props.worker
-      .format(content, {
-        parser: "__js_expression",
-        cursorOffset: convertSelectionToRange(selection, content)[0],
-      })
-      .then(({ error, formatted, cursorOffset }) => {
-        if (error) {
-          return;
-        }
-
-        this.setState({
-          content: formatted,
-          selection: convertOffsetToSelection(cursorOffset, formatted),
+          state.content = formatted;
+          state.selection = convertOffsetToSelection(cursorOffset, formatted);
         });
-      });
-  }
+    };
 
-  insertDummyId() {
-    const { content, selection } = this.state;
-    const dummyId = generateDummyId();
-    const range = convertSelectionToRange(selection, content);
-    const modifiedContent =
-      content.slice(0, range[0]) + dummyId + content.slice(range[1]);
+    const insertDummyId = () => {
+      const { content, selection } = state;
+      const dummyId = generateDummyId();
+      const range = convertSelectionToRange(selection, content);
+      const modifiedContent =
+        content.slice(0, range[0]) + dummyId + content.slice(range[1]);
 
-    this.setState({
-      content: modifiedContent,
-      selection: convertOffsetToSelection(
+      state.content = modifiedContent;
+      state.selection = convertOffsetToSelection(
         range[0] + dummyId.length,
         modifiedContent,
-      ),
-    });
-  }
+      );
+    };
 
-  render() {
-    const { worker } = this.props;
-    const { content, options } = this.state;
-
-    return (
+    return () => (
       <EditorState>
         {(editorState) => (
           <PrettierFormat
-            worker={worker}
-            code={content}
-            options={options}
+            worker={props.worker}
+            code={state.content}
+            options={state.options}
             debugAst={editorState.showAst}
             debugPreprocessedAst={editorState.showPreprocessedAst}
             debugDoc={editorState.showDoc}
@@ -261,24 +289,24 @@ class Playground extends React.Component {
             rethrowEmbedErrors={editorState.rethrowEmbedErrors}
           >
             {({ formatted, debug, cursorOffset }) => {
-              const fullReport = this.getMarkdown({
+              const fullReport = getMarkdown({
                 formatted,
                 reformatted: debug.reformatted,
                 full: true,
               });
               const showFullReport =
                 encodeURIComponent(fullReport).length < MAX_LENGTH;
-              const isDocExplorer = options.parser === "doc-explorer";
+              const isDocExplorer = state.options.parser === "doc-explorer";
 
               return (
                 <>
-                  <div className="editors-container">
+                  <div class="editors-container">
                     <Sidebar visible={editorState.showSidebar}>
                       <SidebarOptions
                         categories={CATEGORIES_ORDER}
-                        availableOptions={this.enabledOptions}
-                        optionValues={options}
-                        onOptionValueChange={this.handleOptionValueChange}
+                        availableOptions={enabledOptions}
+                        optionValues={state.options}
+                        onOptionValueChange={handleOptionValueChange}
                       />
                       {isDocExplorer ? null : (
                         <SidebarCategory title="Range">
@@ -287,26 +315,26 @@ class Playground extends React.Component {
                             the input editor
                           </label>
                           <Option
-                            option={this.rangeStartOption}
+                            option={rangeStartOption}
                             value={
-                              typeof options.rangeStart === "number"
-                                ? options.rangeStart
+                              typeof state.options.rangeStart === "number"
+                                ? state.options.rangeStart
                                 : ""
                             }
-                            onChange={this.handleOptionValueChange}
+                            onChange={handleOptionValueChange}
                           />
                           <Option
-                            option={this.rangeEndOption}
+                            option={rangeEndOption}
                             value={
-                              typeof options.rangeEnd === "number"
-                                ? options.rangeEnd
+                              typeof state.options.rangeEnd === "number"
+                                ? state.options.rangeEnd
                                 : ""
                             }
-                            overrideMax={content.length}
-                            onChange={this.handleOptionValueChange}
+                            overrideMax={state.content.length}
+                            onChange={handleOptionValueChange}
                           />
 
-                          <Button onClick={this.setSelectionAsRange}>
+                          <Button onClick={setSelectionAsRange}>
                             Set selected text as range
                           </Button>
                         </SidebarCategory>
@@ -314,13 +342,13 @@ class Playground extends React.Component {
                       {isDocExplorer ? null : (
                         <SidebarCategory title="Cursor">
                           <Option
-                            option={this.cursorOffsetOption}
+                            option={cursorOffsetOption}
                             value={
-                              options.cursorOffset >= 0
-                                ? options.cursorOffset
+                              state.options.cursorOffset >= 0
+                                ? state.options.cursorOffset
                                 : ""
                             }
-                            onChange={this.handleOptionValueChange}
+                            onChange={handleOptionValueChange}
                           />
                           <div
                             style={{
@@ -331,19 +359,18 @@ class Playground extends React.Component {
                           >
                             <Checkbox
                               label="track"
-                              checked={Boolean(this.state.trackCursorOffset)}
-                              onChange={() =>
-                                this.setState((state) => ({
-                                  trackCursorOffset: !state.trackCursorOffset,
-                                }))
-                              }
+                              checked={Boolean(state.trackCursorOffset)}
+                              onChange={() => {
+                                state.trackCursorOffset =
+                                  !state.trackCursorOffset;
+                              }}
                             />
-                            {options.cursorOffset >= 0 ? (
+                            {state.options.cursorOffset >= 0 ? (
                               <>
                                 <Button
                                   onClick={() => {
-                                    this.handleOptionValueChange(
-                                      this.cursorOffsetOption,
+                                    handleOptionValueChange(
+                                      cursorOffsetOption,
                                       -1,
                                     );
                                   }}
@@ -409,48 +436,48 @@ class Playground extends React.Component {
                         )}
                         {editorState.showDoc && !isDocExplorer ? (
                           <ClipboardButton
-                            copy={() => this.getMarkdown({ doc: debug.doc })}
+                            copy={() => getMarkdown({ doc: debug.doc })}
                             disabled={!debug.doc}
                           >
                             Copy doc
                           </ClipboardButton>
                         ) : null}
                       </SidebarCategory>
-                      <div className="sub-options">
-                        <Button onClick={this.resetOptions}>
+                      <div class="sub-options">
+                        <Button onClick={resetOptions}>
                           Reset to defaults
                         </Button>
                       </div>
                     </Sidebar>
-                    <div className="editors">
+                    <div class="editors">
                       {editorState.showInput ? (
                         <InputPanel
-                          mode={getCodemirrorMode(options.parser)}
-                          ruler={options.printWidth}
-                          value={content}
-                          selection={this.state.selection}
-                          codeSample={getCodeSample(options.parser)}
-                          overlayStart={options.rangeStart}
-                          overlayEnd={options.rangeEnd}
-                          onChange={this.setContent}
-                          onSelectionChange={this.setSelection}
+                          mode={getCodemirrorMode(state.options.parser)}
+                          ruler={state.options.printWidth}
+                          value={state.content}
+                          selection={state.selection}
+                          codeSample={getCodeSample(state.options.parser)}
+                          overlayStart={state.options.rangeStart}
+                          overlayEnd={state.options.rangeEnd}
+                          onChange={setContent}
+                          onSelectionChange={setSelection}
                           extraKeys={{
-                            "Shift-Alt-F": this.formatInput,
-                            "Ctrl-Q": this.insertDummyId,
+                            "Shift-Alt-F": formatInput,
+                            "Ctrl-Q": insertDummyId,
                           }}
-                          foldGutter={options.parser === "doc-explorer"}
+                          foldGutter={state.options.parser === "doc-explorer"}
                         />
                       ) : null}
                       {editorState.showAst ? (
                         <DebugPanel
                           value={debug.ast || ""}
-                          autoFold={getAstAutoFold(options.parser)}
+                          autoFold={getAstAutoFold(state.options.parser)}
                         />
                       ) : null}
                       {editorState.showPreprocessedAst && !isDocExplorer ? (
                         <DebugPanel
                           value={debug.preprocessedAst || ""}
-                          autoFold={getAstAutoFold(options.parser)}
+                          autoFold={getAstAutoFold(state.options.parser)}
                         />
                       ) : null}
                       {editorState.showDoc && !isDocExplorer ? (
@@ -459,14 +486,14 @@ class Playground extends React.Component {
                       {editorState.showComments && !isDocExplorer ? (
                         <DebugPanel
                           value={debug.comments || ""}
-                          autoFold={getAstAutoFold(options.parser)}
+                          autoFold={getAstAutoFold(state.options.parser)}
                         />
                       ) : null}
                       {editorState.showOutput ? (
                         <OutputPanel
-                          mode={getCodemirrorMode(options.parser)}
+                          mode={getCodemirrorMode(state.options.parser)}
                           value={formatted}
-                          ruler={options.printWidth}
+                          ruler={state.options.printWidth}
                           overlayStart={
                             cursorOffset === -1 ? undefined : cursorOffset
                           }
@@ -477,19 +504,19 @@ class Playground extends React.Component {
                       ) : null}
                       {editorState.showSecondFormat && !isDocExplorer ? (
                         <OutputPanel
-                          mode={getCodemirrorMode(options.parser)}
+                          mode={getCodemirrorMode(state.options.parser)}
                           value={getSecondFormat(formatted, debug.reformatted)}
-                          ruler={options.printWidth}
+                          ruler={state.options.printWidth}
                         />
                       ) : null}
                     </div>
                   </div>
-                  <div className="bottom-bar">
-                    <div className="bottom-bar-buttons">
+                  <div class="bottom-bar">
+                    <div class="bottom-bar-buttons">
                       <Button onClick={editorState.toggleSidebar}>
                         {editorState.showSidebar ? "Hide" : "Show"} options
                       </Button>
-                      <Button onClick={this.clearContent}>Clear</Button>
+                      <Button onClick={clearContent}>Clear</Button>
                       <ClipboardButton
                         copy={JSON.stringify(
                           // Remove `parser` since people usually paste this
@@ -497,7 +524,7 @@ class Playground extends React.Component {
                           // parser there is an anti-pattern. Note:
                           // `JSON.stringify` omits keys whose values are
                           // `undefined`.
-                          { ...options, parser: undefined },
+                          { ...state.options, parser: undefined },
                           null,
                           2,
                         )}
@@ -505,20 +532,20 @@ class Playground extends React.Component {
                         Copy config JSON
                       </ClipboardButton>
                       <Button
-                        onClick={this.insertDummyId}
-                        onMouseDown={(event) => event.preventDefault()} // prevent button from focusing
+                        onClick={insertDummyId}
+                        onMousedown={(event) => event.preventDefault()} // prevent button from focusing
                         title="Generate a nonsense variable name (Ctrl-Q)"
                       >
                         Insert dummy id
                       </Button>
                     </div>
-                    <div className="bottom-bar-buttons bottom-bar-buttons-right">
+                    <div class="bottom-bar-buttons bottom-bar-buttons-right">
                       <ClipboardButton copy={window.location.href}>
                         Copy link
                       </ClipboardButton>
                       <ClipboardButton
                         copy={() =>
-                          this.getMarkdown({
+                          getMarkdown({
                             formatted,
                             reformatted: debug.reformatted,
                           })
@@ -548,28 +575,5 @@ class Playground extends React.Component {
         )}
       </EditorState>
     );
-  }
-}
-
-function orderOptions(availableOptions, order) {
-  const optionsByName = {};
-  for (const option of availableOptions) {
-    optionsByName[option.name] = option;
-  }
-
-  return order.map((name) => optionsByName[name]);
-}
-
-function getReportLink(reportBody) {
-  return `${ISSUES_URL}${encodeURIComponent(reportBody)}`;
-}
-
-function getSecondFormat(formatted, reformatted) {
-  return formatted === ""
-    ? ""
-    : formatted === reformatted
-      ? "✓ Second format is unchanged."
-      : reformatted;
-}
-
-export default Playground;
+  },
+};
