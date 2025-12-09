@@ -2,30 +2,6 @@ import { ref, onMounted, onUnmounted, watch } from "vue";
 
 const { CodeMirror } = window;
 
-function getIndexPosition(text, indexes) {
-  indexes = [...indexes];
-  let line = 0;
-  let count = 0;
-  let lineStart = 0;
-  const result = [];
-
-  while (indexes.length > 0) {
-    const index = indexes.shift();
-
-    while (count < index && count < text.length) {
-      if (text[count] === "\n") {
-        line++;
-        lineStart = count + 1;
-      }
-      count++;
-    }
-
-    result.push({ line, pos: count - lineStart });
-  }
-
-  return result;
-}
-
 function createOverlay(start, end) {
   return {
     token(stream) {
@@ -252,6 +228,30 @@ const CodeMirrorPanel = {
     );
   },
 };
+
+function getIndexPosition(text, indexes) {
+  indexes = [...indexes];
+  let line = 0;
+  let count = 0;
+  let lineStart = 0;
+  const result = [];
+
+  while (indexes.length > 0) {
+    const index = indexes.shift();
+
+    while (count < index && count < text.length) {
+      if (text[count] === "\n") {
+        line++;
+        lineStart = count + 1;
+      }
+      count++;
+    }
+
+    result.push({ line, pos: count - lineStart });
+  }
+
+  return result;
+}
 
 export function InputPanel(props) {
   return (

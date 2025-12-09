@@ -8,21 +8,21 @@ export default {
       required: true,
     },
   },
-  setup(props) {
-    const match = computed(() => props.version.match(/^pr-(\d+)$/u));
+  setup({ version }) {
+    const match = computed(() => version.match(/^pr-(\d+)$/u));
 
     const href = computed(() => {
       if (match.value) {
         return `pull/${match.value[1]}`;
-      } else if (/\.0$/u.test(props.version)) {
-        return `releases/tag/${props.version}`;
+      } else if (/\.0$/u.test(version)) {
+        return `releases/tag/${version}`;
       } else {
-        return `blob/main/CHANGELOG.md#${props.version.replaceAll(".", "")}`;
+        return `blob/main/CHANGELOG.md#${version.replaceAll(".", "")}`;
       }
     });
 
     const formattedVersion = computed(() => {
-      return match.value ? `PR #${match.value[1]}` : `v${props.version}`;
+      return match.value ? `PR #${match.value[1]}` : `v${version}`;
     });
 
     watch(
