@@ -24,7 +24,9 @@ function shouldHugJsExpression(ast, options) {
     (rootNode.type === "ObjectExpression" ||
       rootNode.type === "ArrayExpression" ||
       ((options.parser === "__vue_expression" ||
-        options.parser === "__vue_ts_expression") &&
+        options.parser === "__vue_ts_expression" ||
+        options.parser === "__ng_binding" ||
+        options.parser === "__ng_directive") &&
         (rootNode.type === "TemplateLiteral" ||
           rootNode.type === "StringLiteral")))
   );
