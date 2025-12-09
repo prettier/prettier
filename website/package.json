@@ -4,9 +4,12 @@
   "scripts": {
     "playground:build": "vite build",
     "playground:watch": "vite",
+    "playground-vue:build": "vite build --config vite.config.vue.mjs",
+    "playground-vue:watch": "vite --config vite.config.vue.mjs",
     "docusaurus": "docusaurus",
     "start": "concurrently \"yarn playground:watch\" \"docusaurus start\"",
-    "build": "yarn playground:build && docusaurus build",
+    "start-vue": "concurrently \"yarn playground-vue:watch\" \"docusaurus start\"",
+    "build": "yarn playground:build && yarn playground-vue:build && docusaurus build",
     "swizzle": "docusaurus swizzle",
     "clear": "docusaurus clear",
     "serve": "docusaurus serve",
@@ -25,13 +28,15 @@
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "react-markdown": "10.1.0",
-    "react-tweet": "3.2.2"
+    "react-tweet": "3.2.2",
+    "vue": "3.5.13"
   },
   "devDependencies": {
     "@docusaurus/faster": "3.9.2",
     "@docusaurus/module-type-aliases": "3.9.2",
     "@docusaurus/types": "3.9.2",
     "@vitejs/plugin-react": "5.1.1",
+    "@vitejs/plugin-vue": "5.2.1",
     "concurrently": "9.2.1",
     "vite": "7.2.4",
     "yaml": "2.8.2"
