@@ -11,14 +11,17 @@ const BooleanOption = {
     const maybeInvert = (value) =>
       props.option.inverted ? !value : value;
 
-    return () => (
-      <Checkbox
-        label={props.option.cliName}
-        title={getDescription(props.option)}
-        checked={maybeInvert(props.value)}
-        onChange={(checked) => emit("change", props.option, maybeInvert(checked))}
-      />
-    );
+    return () => {
+      const { option, value } = props;
+      return (
+        <Checkbox
+          label={option.cliName}
+          title={getDescription(option)}
+          checked={maybeInvert(value)}
+          onChange={(checked) => emit("change", option, maybeInvert(checked))}
+        />
+      );
+    };
   },
 };
 
@@ -30,15 +33,18 @@ const ChoiceOption = {
   },
   emits: ["change"],
   setup(props, { emit }) {
-    return () => (
-      <Select
-        label={props.option.cliName}
-        title={getDescription(props.option)}
-        values={props.option.choices.map((choice) => choice.value)}
-        selected={props.value}
-        onChange={(val) => emit("change", props.option, val)}
-      />
-    );
+    return () => {
+      const { option, value } = props;
+      return (
+        <Select
+          label={option.cliName}
+          title={getDescription(option)}
+          values={option.choices.map((choice) => choice.value)}
+          selected={value}
+          onChange={(val) => emit("change", option, val)}
+        />
+      );
+    };
   },
 };
 
@@ -50,17 +56,20 @@ const NumberOption = {
   },
   emits: ["change"],
   setup(props, { emit }) {
-    return () => (
-      <NumberInput
-        label={props.option.cliName}
-        title={getDescription(props.option)}
-        min={props.option.range.start}
-        max={props.option.range.end}
-        step={props.option.range.step}
-        value={props.value}
-        onChange={(val) => emit("change", props.option, val)}
-      />
-    );
+    return () => {
+      const { option, value } = props;
+      return (
+        <NumberInput
+          label={option.cliName}
+          title={getDescription(option)}
+          min={option.range.start}
+          max={option.range.end}
+          step={option.range.step}
+          value={value}
+          onChange={(val) => emit("change", option, val)}
+        />
+      );
+    };
   },
 };
 
@@ -73,13 +82,14 @@ export default {
   emits: ["change"],
   setup(props, { emit }) {
     return () => {
+      const { option, value } = props;
       const componentProps = {
-        option: props.option,
-        value: props.value,
+        option,
+        value,
         onChange: (option, val) => emit("change", option, val),
       };
 
-      switch (props.option.type) {
+      switch (option.type) {
         case "boolean":
           return <BooleanOption {...componentProps} />;
         case "int":

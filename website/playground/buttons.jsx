@@ -14,7 +14,7 @@ export const ClipboardButton = {
     copy: [String, Function],
   },
   setup(props, { slots, attrs }) {
-    const showTooltip = ref(false);
+    const showTooltipValue = ref(false);
     const tooltipText = ref("");
     const buttonRef = ref(null);
     let timer = null;
@@ -22,7 +22,7 @@ export const ClipboardButton = {
 
     onMounted(() => {
       const showTooltip = (text) => {
-        showTooltip.value = true;
+        showTooltipValue.value = true;
         tooltipText.value = text;
 
         if (timer) {
@@ -30,13 +30,14 @@ export const ClipboardButton = {
         }
         timer = setTimeout(() => {
           timer = null;
-          showTooltip.value = false;
+          showTooltipValue.value = false;
         }, 2000);
       };
 
       clipboard = new ClipboardJS(buttonRef.value, {
         text: () => {
-          return typeof props.copy === "function" ? props.copy() : props.copy;
+          const { copy } = props;
+          return typeof copy === "function" ? copy() : copy;
         },
       });
       clipboard.on("success", () => showTooltip("Copied!"));
@@ -54,7 +55,7 @@ export const ClipboardButton = {
 
     return () => (
       <button type="button" class="btn" ref={buttonRef} {...attrs}>
-        {showTooltip.value ? (
+        {showTooltipValue.value ? (
           <span class="tooltip">{tooltipText.value}</span>
         ) : null}
         {slots.default?.()}
