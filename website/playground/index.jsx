@@ -1,7 +1,7 @@
 import "codemirror-graphql/cm6-legacy/mode.esm.js";
 import "./install-service-worker.js";
 
-import { createApp, reactive, onMounted, watch } from "vue";
+import { createApp, reactive, ref, onMounted, watch } from "vue";
 import Playground from "./Playground.jsx";
 import { fixPrettierVersion } from "./utilities.js";
 import VersionLink from "./VersionLink.jsx";
