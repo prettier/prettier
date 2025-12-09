@@ -137,10 +137,16 @@ function genericPrint(path, options, print) {
     case "delete":
       return ["~~", printChildren(path, options, print), "~~"];
     case "inlineCode": {
-      const code =
+      let code =
         options.proseWrap === "preserve"
           ? node.value
           : node.value.replaceAll("\n", " ");
+      if (
+        options.parser !== "mdx" &&
+        path.hasAncestor((node) => node.type === "tableCell")
+      ) {
+        code = code.replaceAll("|", String.raw`\|`);
+      }
       const backtickCount = getMinNotPresentContinuousCount(code, "`");
       const backtickString = "`".repeat(backtickCount);
       const padding =
