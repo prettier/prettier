@@ -18,7 +18,7 @@ for (const size of [1, 1e1, 1e2]) {
         (regexp) => () =>
           text.replace(regexp, "")
       )(/[ \t]*$/gu),
-      // eslint-disable-next-line require-unicode-regexp
+
       "RegExp (no `u` flag)": () => text.replace(/[ \t]*$/, ""),
     },
   );
