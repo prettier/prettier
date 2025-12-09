@@ -107,8 +107,8 @@ function parse(text) {
     get content() {
       const { raw } = frontMatter;
       return (
-        raw.replaceAll(/./gu, (c) => " ".repeat(c.length)) +
-        text.slice(raw.length)
+        // eslint-disable-next-line require-unicode-regexp -- string length matters so intentionally not using unicode flag
+        raw.replaceAll(/[^\n]/g, " ") + text.slice(raw.length)
       );
     },
   };
