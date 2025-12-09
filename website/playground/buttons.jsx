@@ -20,20 +20,20 @@ export const ClipboardButton = {
     let timer = null;
     let clipboard = null;
 
-    const showTooltipMessage = (text) => {
-      showTooltip.value = true;
-      tooltipText.value = text;
-
-      if (timer) {
-        clearTimeout(timer);
-      }
-      timer = setTimeout(() => {
-        timer = null;
-        showTooltip.value = false;
-      }, 2000);
-    };
-
     onMounted(() => {
+      const showTooltipMessage = (text) => {
+        showTooltip.value = true;
+        tooltipText.value = text;
+
+        if (timer) {
+          clearTimeout(timer);
+        }
+        timer = setTimeout(() => {
+          timer = null;
+          showTooltip.value = false;
+        }, 2000);
+      };
+
       clipboard = new ClipboardJS(buttonRef.value, {
         text: () => {
           return typeof props.copy === "function" ? props.copy() : props.copy;

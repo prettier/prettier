@@ -1,5 +1,5 @@
 import { reactive, watch } from "vue";
-import { shallowEqual } from "./helpers.js";
+import { shallowEqual, stateToggler } from "./helpers.js";
 import * as storage from "./storage.js";
 
 export default {
@@ -15,18 +15,18 @@ export default {
       showInput: true,
       showOutput: true,
       rethrowEmbedErrors: false,
-      toggleSidebar: () => (state.showSidebar = !state.showSidebar),
-      toggleAst: () => (state.showAst = !state.showAst),
+      toggleSidebar: () => Object.assign(state, stateToggler("showSidebar")(state)),
+      toggleAst: () => Object.assign(state, stateToggler("showAst")(state)),
       togglePreprocessedAst: () =>
-        (state.showPreprocessedAst = !state.showPreprocessedAst),
-      toggleDoc: () => (state.showDoc = !state.showDoc),
-      toggleComments: () => (state.showComments = !state.showComments),
+        Object.assign(state, stateToggler("showPreprocessedAst")(state)),
+      toggleDoc: () => Object.assign(state, stateToggler("showDoc")(state)),
+      toggleComments: () => Object.assign(state, stateToggler("showComments")(state)),
       toggleSecondFormat: () =>
-        (state.showSecondFormat = !state.showSecondFormat),
-      toggleInput: () => (state.showInput = !state.showInput),
-      toggleOutput: () => (state.showOutput = !state.showOutput),
+        Object.assign(state, stateToggler("showSecondFormat")(state)),
+      toggleInput: () => Object.assign(state, stateToggler("showInput")(state)),
+      toggleOutput: () => Object.assign(state, stateToggler("showOutput")(state)),
       toggleEmbedErrors: () =>
-        (state.rethrowEmbedErrors = !state.rethrowEmbedErrors),
+        Object.assign(state, stateToggler("rethrowEmbedErrors")(state)),
       ...storage.get("editor_state"),
     });
 
