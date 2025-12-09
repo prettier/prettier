@@ -1,4 +1,4 @@
-import { reactive, watch, onMounted } from "vue";
+import { reactive, watch, onMounted, toRaw } from "vue";
 
 export default {
   name: "PrettierFormat",
@@ -29,7 +29,7 @@ export default {
         rethrowEmbedErrors,
       } = props;
 
-      const result = await worker.format(code, options, {
+      const result = await worker.format(code, toRaw(options), {
         ast,
         preprocessedAst,
         doc,
