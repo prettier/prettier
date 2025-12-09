@@ -143,15 +143,21 @@ export default {
     );
 
     const handleOptionValueChange = (option, value) => {
+      // Save old parser value before updating options
+      const oldParser = state.options.parser;
+      
+      // Update options
       if (option.type === "int" && Number.isNaN(value)) {
         delete state.options[option.name];
       } else {
         state.options[option.name] = value;
       }
 
+      // Check if content should be updated to sample code
+      // If current content is empty or matches the old parser's sample, use new parser's sample
       const newContent =
         state.content === "" ||
-        state.content === getCodeSample(state.options.parser)
+        state.content === getCodeSample(oldParser)
           ? getCodeSample(state.options.parser)
           : state.content;
 
