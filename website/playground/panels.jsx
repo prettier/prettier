@@ -1,4 +1,5 @@
-import { useTemplateRef, onMounted, onUnmounted, watch } from "vue";
+import { onMounted, onUnmounted, watch } from "vue";
+import { useTemplateRef } from "vue";
 
 const { CodeMirror } = window;
 
@@ -76,7 +77,7 @@ const CodeMirrorPanel = {
   name: "CodeMirrorPanel",
   props: {
     value: { type: String, required: true },
-    selection: { type: Object },
+    selection: { type: Object, required: true },
     onChange: { type: Function, required: true },
     onSelectionChange: { type: Function },
     ruler: { type: Number, required: true },
@@ -179,10 +180,8 @@ const CodeMirrorPanel = {
       codeMirror.on("focus", handleFocus);
       codeMirror.on("beforeSelectionChange", handleSelectionChange);
 
-      if (window.CodeMirror.keyMap.pcSublime) {
-        window.CodeMirror.keyMap.pcSublime["Ctrl-L"] = false;
-        window.CodeMirror.keyMap.sublime["Ctrl-L"] = false;
-      }
+      window.CodeMirror.keyMap.pcSublime["Ctrl-L"] = false;
+      window.CodeMirror.keyMap.sublime["Ctrl-L"] = false;
 
       updateValue(props.value || "");
       updateSelection();
@@ -254,32 +253,16 @@ const CodeMirrorPanel = {
       },
     );
 
-    watch(
-      () => props.tabSize,
-      (newTabSize) => {
-        if (codeMirror) {
-          codeMirror.setOption("tabSize", newTabSize);
-        }
-      },
-    );
-
-    watch(
-      () => props.autoCloseBrackets,
-      (newValue) => {
-        if (codeMirror) {
-          codeMirror.setOption("autoCloseBrackets", newValue);
-        }
-      },
-    );
-
-    watch(
-      () => props.matchBrackets,
-      (newValue) => {
-        if (codeMirror) {
-          codeMirror.setOption("matchBrackets", newValue);
-        }
-      },
-    );
+    for (const option of ["tabSize", "autoCloseBrackets", "matchBrackets"]) {
+      watch(
+        () => props[option],
+        (newValue) => {
+          if (codeMirror) {
+            codeMirror.setOption(option, newValue);
+          }
+        },
+      );
+    }
 
     return () => (
       <div class="editor input">
@@ -293,7 +276,7 @@ export const DebugPanel = {
   name: "DebugPanel",
   props: {
     value: { type: String, required: true },
-    autoFold: { type: RegExp, required: true },
+    autoFold: { type: RegExp },
   },
   setup(props) {
     return () => {

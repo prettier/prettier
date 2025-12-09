@@ -87,25 +87,11 @@ export default {
 
       switch (option.type) {
         case "boolean":
-          return (
-            <BooleanOption
-              option={option}
-              value={value}
-              onChange={handleChange}
-            />
-          );
+          return <BooleanOption {...props} onChange={handleChange} />;
         case "int":
-          return (
-            <NumberOption option={option} value={value} onChange={handleChange} />
-          );
+          return <NumberOption {...props} onChange={handleChange} />;
         case "choice":
-          return (
-            <ChoiceOption
-              option={option}
-              value={value}
-              onChange={handleChange}
-            />
-          );
+          return <ChoiceOption {...props} onChange={handleChange} />;
         default:
           throw new Error("unsupported type");
       }
