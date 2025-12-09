@@ -4,6 +4,7 @@ import postcssScssParse from "postcss-scss/lib/scss-parse";
 import createError from "../common/parser-create-error.js";
 import { parseFrontMatter } from "../main/front-matter/index.js";
 import isObject from "../utilities/is-object.js";
+import replaceNonLineBreaksWithSpace from "../utilities/replace-non-line-breaks-with-space.js";
 import {
   calculateLoc,
   locEnd,
@@ -56,7 +57,8 @@ function parseNestedCSS(node, options) {
             node.source.start.offset + node.prop.length,
             node.source.end.offset,
           );
-        const fakeContent = textBefore.replaceAll(/[^\n]/gu, " ") + nodeText;
+        const fakeContent =
+          replaceNonLineBreaksWithSpace(textBefore) + nodeText;
         let parse;
         if (options.parser === "scss") {
           parse = parseScss;
