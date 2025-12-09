@@ -10,8 +10,10 @@ async function importPlugin(plugin) {
 
   try {
     return await pluginLoadPromises.get(plugin);
-  } catch {
-    throw new Error(`Load plugin '${plugin.file}' failed.`);
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error(error);
+    throw new Error(`Load plugin '${plugin.file}' failed.`, { cause: error });
   }
 }
 
@@ -51,12 +53,26 @@ self.onmessage = async function (event) {
   });
 };
 
+function serializeError(error) {
+  const serialized = {
+    name: error.name,
+    message: error.message,
+    ...error,
+  };
+
+  if (error.cause instanceof Error) {
+    serialized.cause = serializeError(error.cause);
+  }
+
+  return serialized;
+}
+
 function serializeAst(ast) {
   return JSON.stringify(
     ast,
     (_, value) =>
       value instanceof Error
-        ? { name: value.name, message: value.message, ...value }
+        ? serializeError(value)
         : typeof value === "bigint"
           ? `BigInt('${String(value)}')`
           : typeof value === "symbol"
@@ -195,21 +211,33 @@ async function formatCode(text, options, rethrowEmbedErrors) {
     }
     // Likely a bug in Prettier
     // Provide the whole stack for debugging
-    return { formatted: stringifyError(error), error: true };
+    return {
+      formatted: stringifyError(error),
+      error: true,
+    };
   } finally {
     self.PRETTIER_DEBUG = undefined;
   }
 }
 
 function stringifyError(error) {
-  const stringified = String(error);
-  if (typeof error.stack !== "string") {
-    return stringified;
+  const { stack, cause } = error;
+
+  let stringified = String(error);
+
+  if (typeof stack === "string") {
+    if (stack.includes(stringified)) {
+      // Chrome
+      stringified = stack;
+    } else {
+      // Firefox
+      stringified += "\n" + error.stack;
+    }
   }
-  if (error.stack.includes(stringified)) {
-    // Chrome
-    return error.stack;
+
+  if (cause instanceof Error) {
+    stringified += "\nCause: " + stringifyError(cause);
   }
-  // Firefox
-  return stringified + "\n" + error.stack;
+
+  return stringified;
 }

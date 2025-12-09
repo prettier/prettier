@@ -1,5 +1,5 @@
 import path from "node:path";
-import editorconfig from "editorconfig";
+import { parse as parseEditorconfig } from "editorconfig-without-wasm";
 import {
   clearFindProjectRootCache,
   findProjectRoot,
@@ -23,7 +23,7 @@ function clearEditorconfigCache() {
 async function loadEditorconfigInternal(file, { shouldCache }) {
   const directory = path.dirname(file);
   const root = await findProjectRoot(directory, { shouldCache });
-  const editorConfig = await editorconfig.parse(file, { root });
+  const editorConfig = await parseEditorconfig(file, { root });
   const config = editorConfigToPrettier(editorConfig);
   return config;
 }

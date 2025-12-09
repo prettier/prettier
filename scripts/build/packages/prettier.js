@@ -42,23 +42,26 @@ const mainModule = {
     createNodejsFileConfig({
       input: "src/index.js",
       replaceModule: [
-        // `editorconfig` use a older version of `semver` and only uses `semver.gte`
+        // We don't need semver since we don't use `options.version`
         {
-          module: require.resolve("editorconfig"),
-          find: 'var semver = __importStar(require("semver"));',
-          replacement: outdent`
-            var semver = {
-              gte: require(${JSON.stringify(
-                require.resolve("semver/functions/gte"),
-              )})
-            };
-          `,
+          module: require.resolve("editorconfig-without-wasm"),
+          process(text) {
+            text = text.replace("import * as semver from 'semver';", "");
+            text = text.replace("semver.gte(version, '0.10.0')", "true");
+            return text;
+          },
         },
         {
           module: require.resolve("n-readlines"),
-          find: "const readBuffer = new Buffer(this.options.readChunk);",
-          replacement:
-            "const readBuffer = Buffer.alloc(this.options.readChunk);",
+          process(text) {
+            text = text.replace(
+              "const fs = require('fs')",
+              'import fs from "node:fs"',
+            );
+            text = text.replace("module.exports = ", "export default ");
+
+            return text;
+          },
         },
         // `parse-json` use another copy of `@babel/code-frame`
         {

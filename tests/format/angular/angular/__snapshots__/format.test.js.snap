@@ -1091,9 +1091,7 @@ printWidth: 1
   [target]="
     1
   "
-  [target]="
-    'hello'
-  "
+  [target]="'hello'"
   [target]="
     a(
       1,
@@ -1330,9 +1328,7 @@ printWidth: 1
   [target]="{
     longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true,
   }"
-  [error]="
-    'We couldn\\\\\\'t find anything with that name.'
-  "
+  [error]="'We couldn\\\\\\'t find anything with that name.'"
   *ngIf="
     form
       .controls
@@ -10074,33 +10070,25 @@ bindon-ngModel
   "
 >
   <app-happy-hero
-    *ngSwitchCase="
-      'happy'
-    "
+    *ngSwitchCase="'happy'"
     [hero]="
       currentHero
     "
   ></app-happy-hero>
   <app-sad-hero
-    *ngSwitchCase="
-      'sad'
-    "
+    *ngSwitchCase="'sad'"
     [hero]="
       currentHero
     "
   ></app-sad-hero>
   <app-confused-hero
-    *ngSwitchCase="
-      'confused'
-    "
+    *ngSwitchCase="'confused'"
     [hero]="
       currentHero
     "
   ></app-confused-hero>
   <div
-    *ngSwitchCase="
-      'confused'
-    "
+    *ngSwitchCase="'confused'"
   >
     Are
     you
