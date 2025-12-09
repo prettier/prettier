@@ -42,17 +42,14 @@ const mainModule = {
     createNodejsFileConfig({
       input: "src/index.js",
       replaceModule: [
-        // `editorconfig` use a older version of `semver` and only uses `semver.gte`
+        // We don't need semver since we don't use `options.version`
         {
-          module: require.resolve("editorconfig"),
-          find: 'var semver = __importStar(require("semver"));',
-          replacement: outdent`
-            var semver = {
-              gte: require(${JSON.stringify(
-                require.resolve("semver/functions/gte"),
-              )})
-            };
-          `,
+          module: require.resolve("editorconfig-without-wasm"),
+          process(text) {
+            text = text.replace("import * as semver from 'semver';", "");
+            text = text.replace("semver.gte(version, '0.10.0')", "true");
+            return text;
+          },
         },
         {
           module: require.resolve("n-readlines"),

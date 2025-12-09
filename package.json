@@ -65,7 +65,7 @@
     "dashify": "2.0.0",
     "deno-path-from-file-url": "0.0.4",
     "diff": "8.0.2",
-    "editorconfig": "0.15.3",
+    "editorconfig-without-wasm": "0.0.4",
     "emoji-regex": "10.6.0",
     "escape-string-regexp": "5.0.0",
     "espree": "11.0.0",
