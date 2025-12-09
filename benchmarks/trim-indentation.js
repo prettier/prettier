@@ -18,7 +18,6 @@ for (const size of [1, 1e1, 1e2]) {
         (regexp) => () =>
           text.replace(regexp, "")
       )(/[ \t]*$/gu),
-
       "RegExp (no `u` flag)": () => text.replace(/[ \t]*$/, ""),
     },
   );

@@ -131,6 +131,7 @@ const configs = [
       "require-await": "error",
       // The `u` or `v` flag cause problems when dealing with non-ascii characters
       // https://github.com/prettier/prettier/pull/18453
+      // https://github.com/prettier/prettier/pull/18455
       "require-unicode-regexp": "off",
       "symbol-description": "error",
       yoda: [
