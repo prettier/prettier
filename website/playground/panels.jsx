@@ -1,4 +1,4 @@
-import { ref, onMounted, onUnmounted, watch } from "vue";
+import { useTemplateRef, onMounted, onUnmounted, watch } from "vue";
 
 const { CodeMirror } = window;
 
@@ -72,7 +72,7 @@ const CodeMirrorPanel = {
     readOnly: Boolean,
   },
   setup(props) {
-    const textareaRef = ref(null);
+    const textareaRef = useTemplateRef("textarea");
     let codeMirror = null;
     let cached = "";
     let overlay = null;
@@ -168,7 +168,7 @@ const CodeMirrorPanel = {
     watch(
       () => props.value,
       (newValue) => {
-        if (newValue !== cached) {
+        if (codeMirror && newValue !== cached) {
           updateValue(newValue);
         }
       },
@@ -178,8 +178,9 @@ const CodeMirrorPanel = {
       () => props.selection,
       (newSelection, oldSelection) => {
         if (
+          codeMirror &&
           !isEqualSelection(newSelection, oldSelection) &&
-          !isEqualSelection(newSelection, codeMirror?.listSelections()[0])
+          !isEqualSelection(newSelection, codeMirror.listSelections()[0])
         ) {
           updateSelection();
         }
@@ -190,7 +191,9 @@ const CodeMirrorPanel = {
     watch(
       () => [props.overlayStart, props.overlayEnd],
       () => {
-        updateOverlay();
+        if (codeMirror) {
+          updateOverlay();
+        }
       },
     );
 
@@ -223,7 +226,7 @@ const CodeMirrorPanel = {
 
     return () => (
       <div class="editor input">
-        <textarea ref={textareaRef} />
+        <textarea ref="textarea" />
       </div>
     );
   },
