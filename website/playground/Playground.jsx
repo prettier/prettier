@@ -335,7 +335,7 @@ export default {
                             value={
                               options.cursorOffset >= 0
                                 ? options.cursorOffset
-                                : ""
+                                : undefined
                             }
                             onChange={handleOptionValueChange}
                           />

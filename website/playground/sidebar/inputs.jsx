@@ -63,7 +63,7 @@ export function NumberInput(
 NumberInput.props = {
   label: { type: String, required: true },
   title: { type: String, required: true },
-  value: { type: Number, required: true },
+  value: { type: Number, default: undefined },
   min: { type: Number, default: undefined },
   max: { type: Number, default: undefined },
   step: { type: Number, default: undefined },
