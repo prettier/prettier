@@ -1,46 +1,38 @@
-import remarkMath from "remark-math";
-import remarkParse from "remark-parse";
-import remarkWikiLink from "remark-wiki-link";
-import { unified } from "unified";
+import { fromMarkdown } from "mdast-util-from-markdown";
+import { mathFromMarkdown } from "mdast-util-math";
+import { fromMarkdown as wikiLinkFromMarkdown } from "mdast-util-wiki-link";
+import { gfm as gfmSyntax } from "micromark-extension-gfm";
+import { math as mathSyntax } from "micromark-extension-math";
+import { syntax as wikiLinkSyntax } from "micromark-extension-wiki-link";
 import parseFrontMatter from "../main/front-matter/parse.js";
 import { locEnd, locStart } from "./loc.js";
-import remarkGfm from "./parser/remark-gfm.js";
+import { gfmFromMarkdown } from "./parser/mdast-util-gfm.js";
+import {
+  liquidFromMarkdown,
+  liquidSyntax,
+} from "./parser/micromark-extension-liquid.js";
 import { hasIgnorePragma, hasPragma } from "./pragma.js";
-import remarkLiquid from "./unified-plugins/remark-11-liquid.js";
 
-/**
- * based on [MDAST](https://github.com/syntax-tree/mdast) with following modifications:
- *
- * 1. restore unescaped character (Text)
- * 2. merge continuous Texts
- * 3. replace whitespaces in InlineCode#value with one whitespace
- *    reference: http://spec.commonmark.org/0.25/#example-605
- * 4. split Text into Sentence
- *
- * interface Word { value: string }
- * interface Whitespace { value: string }
- * interface Sentence { children: Array<Word | Whitespace> }
- * interface InlineCode { children: Array<Sentence> }
- */
-function createParse() {
-  const processor = unified()
-    .use(remarkParse)
-    .use(remarkMath)
-    .use(remarkGfm)
-    .use(remarkLiquid)
-    .use(remarkWikiLink);
+const parseOptions = {
+  extensions: [gfmSyntax(), mathSyntax(), wikiLinkSyntax(), liquidSyntax()],
+  mdastExtensions: [
+    gfmFromMarkdown(),
+    mathFromMarkdown(),
+    wikiLinkFromMarkdown(),
+    liquidFromMarkdown(),
+  ],
+};
 
-  return async (text) => {
-    const { frontMatter, content } = parseFrontMatter(text);
-    const ast = await processor.run(processor.parse(content));
+function parse(text) {
+  const { frontMatter, content } = parseFrontMatter(text);
+  const ast = fromMarkdown(content, parseOptions);
 
-    if (frontMatter) {
-      // @ts-expect-error -- Missing?
-      ast.children.unshift(frontMatter);
-    }
+  if (frontMatter) {
+    // @ts-expect-error -- Missing?
+    ast.children.unshift(frontMatter);
+  }
 
-    return ast;
-  };
+  return ast;
 }
 
 const parser = {
@@ -49,7 +41,7 @@ const parser = {
   hasIgnorePragma,
   locStart,
   locEnd,
-  parse: createParse(),
+  parse,
 };
 
 export const remark = parser;

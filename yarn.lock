@@ -6875,7 +6875,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mdast-util-math@npm:^3.0.0":
+"mdast-util-math@npm:3.0.0":
   version: 3.0.0
   resolution: "mdast-util-math@npm:3.0.0"
   dependencies:
@@ -7109,7 +7109,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"micromark-extension-math@npm:^3.0.0":
+"micromark-extension-math@npm:3.1.0":
   version: 3.1.0
   resolution: "micromark-extension-math@npm:3.1.0"
   dependencies:
@@ -8302,12 +8302,14 @@ __metadata:
     mdast-util-gfm-strikethrough: "npm:2.0.0"
     mdast-util-gfm-table: "npm:2.0.0"
     mdast-util-gfm-task-list-item: "npm:2.0.0"
+    mdast-util-math: "npm:3.0.0"
     meriyah: "npm:7.0.0"
     micromark-extension-gfm-autolink-literal: "npm:2.1.0"
     micromark-extension-gfm-footnote: "npm:2.1.0"
     micromark-extension-gfm-strikethrough: "npm:2.1.0"
     micromark-extension-gfm-table: "npm:2.1.1"
     micromark-extension-gfm-task-list-item: "npm:2.1.0"
+    micromark-extension-math: "npm:3.1.0"
     micromark-util-character: "npm:2.1.0"
     micromark-util-combine-extensions: "npm:2.0.1"
     micromark-util-symbol: "npm:2.0.0"
@@ -8336,9 +8338,7 @@ __metadata:
     regexp-util: "npm:2.0.3"
     remark-footnotes: "npm:2.0.0"
     remark-gfm: "npm:4.0.1"
-    remark-math: "npm:6.0.0"
     remark-math-v3: "npm:remark-math@3.0.1"
-    remark-parse: "npm:11.0.0"
     remark-parse-v8: "npm:remark-parse@8.0.3"
     remark-wiki-link: "npm:2.0.1"
     rollup-plugin-license: "npm:3.6.0"
@@ -8355,7 +8355,6 @@ __metadata:
     ts-expect: "npm:1.3.0"
     typescript: "npm:5.9.3"
     unicode-regex: "npm:4.2.0"
-    unified: "npm:11.0.5"
     unified-v9: "npm:unified@9.2.2"
     url-or-path: "npm:2.6.1"
     vnopts: "npm:2.0.3"
@@ -8556,18 +8555,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"remark-math@npm:6.0.0":
-  version: 6.0.0
-  resolution: "remark-math@npm:6.0.0"
-  dependencies:
-    "@types/mdast": "npm:^4.0.0"
-    mdast-util-math: "npm:^3.0.0"
-    micromark-extension-math: "npm:^3.0.0"
-    unified: "npm:^11.0.0"
-  checksum: 10/8cd262eadccba1a48bb2353e5b3d0ff18ae6aa2f00adec96458bfd4d414a0763463ff15d2c71d86330bbc355272d6ae7ae2efafba6cb4ae5ba7b7c642394c022
-  languageName: node
-  linkType: hard
-
 "remark-parse-v8@npm:remark-parse@8.0.3":
   version: 8.0.3
   resolution: "remark-parse@npm:8.0.3"
@@ -8592,7 +8579,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"remark-parse@npm:11.0.0, remark-parse@npm:^11.0.0":
+"remark-parse@npm:^11.0.0":
   version: 11.0.0
   resolution: "remark-parse@npm:11.0.0"
   dependencies:
@@ -9616,7 +9603,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"unified@npm:11.0.5, unified@npm:^11.0.0":
+"unified@npm:^11.0.0":
   version: 11.0.5
   resolution: "unified@npm:11.0.5"
   dependencies:
