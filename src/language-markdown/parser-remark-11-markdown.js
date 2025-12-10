@@ -13,19 +13,22 @@ import {
 } from "./parser/micromark-extension-liquid.js";
 import { hasIgnorePragma, hasPragma } from "./pragma.js";
 
-const parseOptions = {
-  extensions: [gfmSyntax(), mathSyntax(), wikiLinkSyntax(), liquidSyntax()],
-  mdastExtensions: [
-    gfmFromMarkdown(),
-    mathFromMarkdown(),
-    wikiLinkFromMarkdown(),
-    liquidFromMarkdown(),
-  ],
-};
+let parseOptions;
+function getParseOptions() {
+  return (parseOptions ??= {
+    extensions: [gfmSyntax(), mathSyntax(), wikiLinkSyntax(), liquidSyntax()],
+    mdastExtensions: [
+      gfmFromMarkdown(),
+      mathFromMarkdown(),
+      wikiLinkFromMarkdown(),
+      liquidFromMarkdown(),
+    ],
+  });
+}
 
 function parse(text) {
   const { frontMatter, content } = parseFrontMatter(text);
-  const ast = fromMarkdown(content, parseOptions);
+  const ast = fromMarkdown(content, getParseOptions());
 
   if (frontMatter) {
     // @ts-expect-error -- Missing?
