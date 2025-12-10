@@ -36,12 +36,21 @@ const CodeMirrorPanel = {
 
     const componentDidMount = () => {
       const options = { ...props };
-      delete options.ruler;
-      delete options.rulerColor;
-      delete options.value;
-      delete options.selection;
-      delete options.onChange;
-      delete options.keyMap;
+      for (const property of [
+        "ruler",
+        "rulerColor",
+        "value",
+        "selection",
+        "onChange",
+      ]) {
+        delete options[property];
+      }
+
+      for (const [key, value] of Object.entries(options)) {
+        if (value === undefined) {
+          delete options[key];
+        }
+      }
 
       options.rulers = [makeRuler(props)];
       options.gutters = makeGutters(props);
