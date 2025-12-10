@@ -30,17 +30,15 @@ export default {
       ...storage.get("editor_state"),
     });
 
-    watch(
-      state,
-      (newState, oldState) => {
-        if (!shallowEqual(newState, oldState)) {
-          storage.set("editor_state", newState);
-        }
-      },
-      { deep: true },
-    );
+    const componentDidUpdate = (_, prevState) => {
+      if (!shallowEqual(state, prevState)) {
+        storage.set("editor_state", state);
+      }
+    };
 
     const render = () => slots.default(state);
+
+    watch(state, componentDidUpdate, { deep: true });
     return render;
   },
 };

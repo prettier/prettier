@@ -43,7 +43,7 @@ export const ClipboardButton = {
 
     const render = () => {
       const { showTooltip, tooltipText } = state;
-      const children = slots.default?.();
+      const children = slots.default();
 
       return (
         <Button ref={buttonRef} {...attrs}>
