@@ -1,10 +1,12 @@
 import { reactive, watch } from "vue";
-import { shallowEqual, stateToggler } from "./helpers.js";
+import { shallowEqual } from "./helpers.js";
 import * as storage from "./storage.js";
 
 export default {
   name: "EditorState",
   setup(_, { slots }) {
+    const stateToggler = (property) => () =>
+      Object.assign(state, { [property]: !state[property] });
     const state = reactive({
       showSidebar: window.innerWidth > window.innerHeight,
       showAst: false,
@@ -15,21 +17,15 @@ export default {
       showInput: true,
       showOutput: true,
       rethrowEmbedErrors: false,
-      toggleSidebar: () =>
-        Object.assign(state, stateToggler("showSidebar")(state)),
-      toggleAst: () => Object.assign(state, stateToggler("showAst")(state)),
-      togglePreprocessedAst: () =>
-        Object.assign(state, stateToggler("showPreprocessedAst")(state)),
-      toggleDoc: () => Object.assign(state, stateToggler("showDoc")(state)),
-      toggleComments: () =>
-        Object.assign(state, stateToggler("showComments")(state)),
-      toggleSecondFormat: () =>
-        Object.assign(state, stateToggler("showSecondFormat")(state)),
-      toggleInput: () => Object.assign(state, stateToggler("showInput")(state)),
-      toggleOutput: () =>
-        Object.assign(state, stateToggler("showOutput")(state)),
-      toggleEmbedErrors: () =>
-        Object.assign(state, stateToggler("rethrowEmbedErrors")(state)),
+      toggleSidebar: stateToggler("showSidebar"),
+      toggleAst: stateToggler("showAst"),
+      togglePreprocessedAst: stateToggler("showPreprocessedAst"),
+      toggleDoc: stateToggler("showDoc"),
+      toggleComments: stateToggler("showComments"),
+      toggleSecondFormat: stateToggler("showSecondFormat"),
+      toggleInput: stateToggler("showInput"),
+      toggleOutput: stateToggler("showOutput"),
+      toggleEmbedErrors: stateToggler("rethrowEmbedErrors"),
       ...storage.get("editor_state"),
     });
 

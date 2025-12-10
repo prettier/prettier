@@ -1,10 +1,10 @@
-import { onMounted, onUnmounted, reactive, ref, useTemplateRef } from "vue";
+import { onMounted, reactive, ref } from "vue";
 
 const { ClipboardJS } = window;
 
-export const Button = (props, ctx) => (
-  <button type="button" class="btn" {...ctx.attrs}>
-    {ctx.slots.default()}
+export const Button = (props, { slots, attrs }) => (
+  <button type="button" class="btn" {...attrs}>
+    {slots.default()}
   </button>
 );
 
