@@ -129,6 +129,56 @@ proseWrap: "always"
 ================================================================================
 `;
 
+exports[`multiline-attribute.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+<unknown title="line 1
+  line 2
+"></unknown>
+
+<div title="line 1
+  line 2
+"></div>
+
+- In list
+
+  - In list
+
+    <unknown title="line 1
+      line 2
+    "></unknown>
+
+    <div title="line 1
+      line 2
+    "></div>
+
+=====================================output=====================================
+<unknown title="line 1
+  line 2
+"></unknown>
+
+<div title="line 1
+  line 2
+"></div>
+
+- In list
+  - In list
+
+    <unknown title="line 1
+      line 2
+    "></unknown>
+
+    <div title="line 1
+      line 2
+    "></div>
+
+================================================================================
+`;
+
 exports[`multiline-with-trailing-space.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]

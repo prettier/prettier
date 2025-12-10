@@ -17,6 +17,7 @@ import {
 import getMaxContinuousCount from "../utilities/get-max-continuous-count.js";
 import getMinNotPresentContinuousCount from "../utilities/get-min-not-present-continuous-count.js";
 import getPreferredQuote from "../utilities/get-preferred-quote.js";
+import htmlWhitespace from "../utilities/html-whitespace.js";
 import UnexpectedNodeError from "../utilities/unexpected-node-error.js";
 import clean from "./clean.js";
 import embed from "./embed.js";
@@ -248,8 +249,36 @@ function genericPrint(path, options, print) {
     }
     case "html": {
       const { parent, isLast } = path;
-      const value =
-        parent.type === "root" && isLast ? node.value.trimEnd() : node.value;
+      let value;
+      if (options.parser !== "mdx") {
+        const rawText = options.originalText.slice(
+          node.position.start.offset,
+          node.position.end.offset,
+        );
+        let [firstLine, ...restLines] = rawText.split("\n");
+        restLines = htmlWhitespace.dedentString(
+          htmlWhitespace.trimEnd(restLines.join("\n")),
+        );
+        const firstLineLeadingSpace =
+          htmlWhitespace.getLeadingWhitespace(firstLine);
+        let text = firstLine;
+        if (restLines) {
+          if (firstLineLeadingSpace) {
+            restLines = restLines
+              .split("\n")
+              .map((line) => firstLineLeadingSpace + line)
+              .join("\n");
+          }
+          text += `\n${restLines}`;
+        }
+        value = text;
+      } else {
+        value = node.value;
+      }
+
+      if (parent.type === "root" && isLast) {
+        value = value.trimEnd();
+      }
       const isHtmlComment = /^<!--.*-->$/su.test(value);
 
       return replaceEndOfLine(
