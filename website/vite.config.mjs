@@ -12,7 +12,7 @@ export default defineConfig({
   build: {
     outDir: "./static/playground/",
     rollupOptions: {
-      external: ["vue", "graphql"],
+      external: ["vue"],
       output: {
         globals: {
           vue: "Vue",
