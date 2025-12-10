@@ -86,8 +86,12 @@
       allowedVersions: "^18.0.0",
     },
     {
-      groupName: "docusaurus",
+      groupName: "Docusaurus",
       matchPackageNames: ["@docusaurus/*"],
+    },
+    {
+      groupName: "Markdown dependencies",
+      matchPackageNames: ["micromark-*", "mdast-", "remark-", "unified"],
     },
   ],
   ignoreDeps: [
