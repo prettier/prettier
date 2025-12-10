@@ -27,9 +27,9 @@ const CodeMirrorPanel = {
   },
   setup(props) {
     const textareaRef = useTemplateRef("textarea");
-    let codeMirror = null;
-    let cached = "";
-    let overlay = null;
+    let _codeMirror = null;
+    let _cached = "";
+    let _overlay = null;
 
     const componentDidMount = () => {
       const options = { ...props };
@@ -46,10 +46,10 @@ const CodeMirrorPanel = {
       options.rulers = [makeRuler(props)];
       options.gutters = makeGutters(props);
 
-      codeMirror = CodeMirror.fromTextArea(textareaRef.value, options);
-      codeMirror.on("change", handleChange);
-      codeMirror.on("focus", handleFocus);
-      codeMirror.on("beforeSelectionChange", handleSelectionChange);
+      _codeMirror = CodeMirror.fromTextArea(textareaRef.value, options);
+      _codeMirror.on("change", handleChange);
+      _codeMirror.on("focus", handleFocus);
+      _codeMirror.on("beforeSelectionChange", handleSelectionChange);
 
       window.CodeMirror.keyMap.pcSublime["Ctrl-L"] = false;
       window.CodeMirror.keyMap.sublime["Ctrl-L"] = false;
@@ -60,20 +60,20 @@ const CodeMirrorPanel = {
     };
 
     const componentWillUnmount = () => {
-      codeMirror?.toTextArea();
+      _codeMirror?.toTextArea();
     };
 
     const componentDidUpdate = (_, prevProps) => {
-      if (!codeMirror) {
+      if (!_codeMirror) {
         return;
       }
 
-      if (props.value !== cached) {
+      if (props.value !== _cached) {
         updateValue(props.value);
       }
       if (
         !isEqualSelection(props.selection, prevProps.selection) &&
-        !isEqualSelection(props.selection, codeMirror.listSelections()[0])
+        !isEqualSelection(props.selection, _codeMirror.listSelections()[0])
       ) {
         updateSelection();
       }
@@ -84,62 +84,62 @@ const CodeMirrorPanel = {
         updateOverlay();
       }
       if (props.mode !== prevProps.mode) {
-        codeMirror.setOption("mode", props.mode);
+        _codeMirror.setOption("mode", props.mode);
       }
       if (props.ruler !== prevProps.ruler) {
-        codeMirror.setOption("rulers", [makeRuler(props)]);
+        _codeMirror.setOption("rulers", [makeRuler(props)]);
       }
       if (props.foldGutter !== prevProps.foldGutter) {
-        codeMirror.setOption("gutters", makeGutters(props));
+        _codeMirror.setOption("gutters", makeGutters(props));
       }
     };
 
     const updateValue = (value) => {
-      cached = value;
-      codeMirror.setValue(value);
+      _cached = value;
+      _codeMirror.setValue(value);
 
       if (props.autoFold instanceof RegExp) {
         const lines = value.split("\n");
         // going backwards to prevent unfolding folds created earlier
         for (let i = lines.length - 1; i >= 0; i--) {
           if (props.autoFold.test(lines[i])) {
-            codeMirror.foldCode(i);
+            _codeMirror.foldCode(i);
           }
         }
       }
     };
 
     const updateSelection = () => {
-      codeMirror.setSelection(
+      _codeMirror.setSelection(
         props.selection?.anchor ?? { line: 0, ch: 0 },
         props.selection?.head,
       );
     };
 
     const updateOverlay = () => {
-      if (overlay) {
-        codeMirror.removeOverlay(overlay);
+      if (_overlay) {
+        _codeMirror.removeOverlay(_overlay);
       }
       if (props.overlayStart !== undefined) {
         const [start, end] = getIndexPosition(props.value, [
           props.overlayStart,
           props.overlayEnd,
         ]);
-        overlay = createOverlay(start, end);
-        codeMirror.addOverlay(overlay);
+        _overlay = createOverlay(start, end);
+        _codeMirror.addOverlay(_overlay);
       }
     };
 
     const handleFocus = (/* codeMirror, event */) => {
-      if (codeMirror.getValue() === props.codeSample) {
-        codeMirror.execCommand("selectAll");
+      if (_codeMirror.getValue() === props.codeSample) {
+        _codeMirror.execCommand("selectAll");
       }
     };
 
     const handleChange = (doc, change) => {
       if (change.origin !== "setValue") {
-        cached = doc.getValue();
-        props.onChange?.(cached);
+        _cached = doc.getValue();
+        props.onChange?.(_cached);
         updateOverlay();
       }
     };
