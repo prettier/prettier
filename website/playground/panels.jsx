@@ -31,22 +31,69 @@ const CodeMirrorPanel = {
     let cached = "";
     let overlay = null;
 
-    const handleChange = (doc, change) => {
-      if (change.origin !== "setValue") {
-        cached = doc.getValue();
-        props.onChange?.(cached);
+    const componentDidMount = () => {
+      const options = {
+        lineNumbers: props.lineNumbers,
+        autoCloseBrackets: props.autoCloseBrackets,
+        matchBrackets: props.matchBrackets,
+        showCursorWhenSelecting: props.showCursorWhenSelecting,
+        tabSize: props.tabSize,
+        readOnly: props.readOnly,
+        mode: props.mode,
+      };
+
+      // Only set keyMap if it exists in CodeMirror
+      if (props.keyMap && window.CodeMirror.keyMap[props.keyMap]) {
+        options.keyMap = props.keyMap;
+      }
+
+      options.rulers = [makeRuler(props)];
+      options.gutters = makeGutters(props);
+
+      codeMirror = CodeMirror.fromTextArea(textareaRef.value, options);
+      codeMirror.on("change", handleChange);
+      codeMirror.on("focus", handleFocus);
+      codeMirror.on("beforeSelectionChange", handleSelectionChange);
+
+      window.CodeMirror.keyMap.pcSublime["Ctrl-L"] = false;
+      window.CodeMirror.keyMap.sublime["Ctrl-L"] = false;
+
+      updateValue(props.value || "");
+      updateSelection();
+      updateOverlay();
+    };
+
+    const componentWillUnmount = () => {
+      if (codeMirror) {
+        codeMirror.toTextArea();
+      }
+    };
+
+    const componentDidUpdate = (_, prevProps) => {
+      if (props.value !== cached) {
+        updateValue(props.value);
+      }
+      if (
+        !isEqualSelection(props.selection, prevProps.selection) &&
+        !isEqualSelection(props.selection, codeMirror.listSelections()[0])
+      ) {
+        updateSelection();
+      }
+      if (
+        props.overlayStart !== prevProps.overlayStart ||
+        props.overlayEnd !== prevProps.overlayEnd
+      ) {
         updateOverlay();
       }
-    };
-
-    const handleFocus = () => {
-      if (codeMirror.getValue() === props.codeSample) {
-        codeMirror.execCommand("selectAll");
+      if (props.mode !== prevProps.mode) {
+        codeMirror.setOption("mode", props.mode);
       }
-    };
-
-    const handleSelectionChange = (doc, change) => {
-      props.onSelectionChange?.(change.ranges[0]);
+      if (props.ruler !== prevProps.ruler) {
+        codeMirror.setOption("rulers", [makeRuler(props)]);
+      }
+      if (props.foldGutter !== prevProps.foldGutter) {
+        codeMirror.setOption("gutters", makeGutters(props));
+      }
     };
 
     const updateValue = (value) => {
@@ -85,119 +132,34 @@ const CodeMirrorPanel = {
       }
     };
 
-    onMounted(() => {
-      const options = {
-        lineNumbers: props.lineNumbers,
-        autoCloseBrackets: props.autoCloseBrackets,
-        matchBrackets: props.matchBrackets,
-        showCursorWhenSelecting: props.showCursorWhenSelecting,
-        tabSize: props.tabSize,
-        readOnly: props.readOnly,
-        mode: props.mode,
-      };
-
-      // Only set keyMap if it exists in CodeMirror
-      if (props.keyMap && window.CodeMirror.keyMap[props.keyMap]) {
-        options.keyMap = props.keyMap;
+    const handleFocus = () => {
+      if (codeMirror.getValue() === props.codeSample) {
+        codeMirror.execCommand("selectAll");
       }
+    };
 
-      options.rulers = [makeRuler(props)];
-      options.gutters = makeGutters(props);
-
-      codeMirror = CodeMirror.fromTextArea(textareaRef.value, options);
-      codeMirror.on("change", handleChange);
-      codeMirror.on("focus", handleFocus);
-      codeMirror.on("beforeSelectionChange", handleSelectionChange);
-
-      window.CodeMirror.keyMap.pcSublime["Ctrl-L"] = false;
-      window.CodeMirror.keyMap.sublime["Ctrl-L"] = false;
-
-      updateValue(props.value || "");
-      updateSelection();
-      updateOverlay();
-    });
-
-    onUnmounted(() => {
-      if (codeMirror) {
-        codeMirror.toTextArea();
+    const handleChange = (doc, change) => {
+      if (change.origin !== "setValue") {
+        cached = doc.getValue();
+        props.onChange?.(cached);
+        updateOverlay();
       }
-    });
+    };
 
-    watch(
-      () => props.value,
-      (newValue) => {
-        if (codeMirror && newValue !== cached) {
-          updateValue(newValue);
-        }
-      },
-    );
+    const handleSelectionChange = (doc, change) => {
+      props.onSelectionChange?.(change.ranges[0]);
+    };
 
-    watch(
-      () => props.selection,
-      (newSelection, oldSelection) => {
-        if (
-          codeMirror &&
-          !isEqualSelection(newSelection, oldSelection) &&
-          !isEqualSelection(newSelection, codeMirror.listSelections()[0])
-        ) {
-          updateSelection();
-        }
-      },
-      { deep: true },
-    );
-
-    watch(
-      () => [props.overlayStart, props.overlayEnd, props.value],
-      () => {
-        if (codeMirror) {
-          updateOverlay();
-        }
-      },
-    );
-
-    watch(
-      () => props.mode,
-      (newMode) => {
-        if (codeMirror) {
-          codeMirror.setOption("mode", newMode);
-        }
-      },
-    );
-
-    watch(
-      () => props.ruler,
-      () => {
-        if (codeMirror) {
-          codeMirror.setOption("rulers", [makeRuler(props)]);
-        }
-      },
-    );
-
-    watch(
-      () => props.foldGutter,
-      () => {
-        if (codeMirror) {
-          codeMirror.setOption("gutters", makeGutters(props));
-        }
-      },
-    );
-
-    for (const option of ["tabSize", "autoCloseBrackets", "matchBrackets"]) {
-      watch(
-        () => props[option],
-        (newValue) => {
-          if (codeMirror) {
-            codeMirror.setOption(option, newValue);
-          }
-        },
-      );
-    }
-
-    return () => (
+    const render = () => (
       <div class="editor input">
         <textarea ref="textarea" />
       </div>
     );
+
+    onMounted(componentDidMount);
+    onUnmounted(componentWillUnmount);
+    watch(() => props, componentDidUpdate, { deep: true });
+    return render;
   },
 };
 
