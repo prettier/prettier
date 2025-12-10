@@ -4,7 +4,6 @@
 
 import { gfmFromMarkdown as originalGfmFromMarkdown } from "mdast-util-gfm";
 import * as assert from "#universal/assert";
-import { gfmAutolinkLiteralFromMarkdown } from "./gfm-autolink-literal.js";
 
 /**
 @import {Extension} from "mdast-util-from-markdown";
@@ -15,13 +14,18 @@ import { gfmAutolinkLiteralFromMarkdown } from "./gfm-autolink-literal.js";
 */
 export function gfmFromMarkdown() {
   const mdastExtensions = originalGfmFromMarkdown();
-  const index = mdastExtensions.findIndex((extension) =>
+  const autolinkExtension = mdastExtensions.find((extension) =>
     Boolean(extension.enter.literalAutolink),
   );
 
-  assert.ok(index !== -1);
+  assert.ok(
+    autolinkExtension &&
+      Array.isArray(autolinkExtension.transforms) &&
+      autolinkExtension.transforms.length === 1,
+  );
 
-  mdastExtensions.splice(index, 1, gfmAutolinkLiteralFromMarkdown());
+  // Prevent the autolink extension generate nodes without position
+  autolinkExtension.transforms = [];
 
   return mdastExtensions;
 }
