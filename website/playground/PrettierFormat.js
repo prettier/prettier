@@ -40,7 +40,7 @@ export default {
     };
 
     const format = async () => {
-      const {
+      let {
         worker,
         code,
         options,
@@ -51,8 +51,9 @@ export default {
         reformat,
         rethrowEmbedErrors,
       } = props;
+      options = toRaw(options);
 
-      const result = await worker.format(code, toRaw(options), {
+      const result = await worker.format(code, options, {
         ast,
         preprocessedAst,
         doc,
