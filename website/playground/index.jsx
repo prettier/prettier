@@ -96,7 +96,7 @@ const App = {
       const { loaded, availableOptions, version } = state;
 
       if (!loaded) {
-        return <div>Loading...</div>;
+        return "Loading...";
       }
 
       return (
