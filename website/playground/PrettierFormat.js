@@ -62,6 +62,9 @@ export default {
       { deep: true },
     );
 
-    return () => slots.default?.(state);
+    return () => {
+      const children = slots.default(state);
+      return children;
+    };
   },
 };
