@@ -1,48 +1,32 @@
-import { computed, watch, Teleport } from "vue";
+import { Teleport } from "vue";
 
-export default {
-  name: "VersionLink",
-  props: {
-    version: {
-      type: String,
-      required: true,
-    },
-  },
-  setup({ version }) {
-    const match = computed(() => version.match(/^pr-(\d+)$/u));
+export default function VersionLink({ version }) {
+  const match = version.match(/^pr-(\d+)$/u);
+  let href;
+  if (match) {
+    href = `pull/${match[1]}`;
+  } else if (/\.0$/u.test(version)) {
+    href = `releases/tag/${version}`;
+  } else {
+    href = `blob/main/CHANGELOG.md#${version.replaceAll(".", "")}`;
+  }
 
-    const href = computed(() => {
-      if (match.value) {
-        return `pull/${match.value[1]}`;
-      } else if (/\.0$/u.test(version)) {
-        return `releases/tag/${version}`;
-      } else {
-        return `blob/main/CHANGELOG.md#${version.replaceAll(".", "")}`;
-      }
-    });
+  const formattedVersion = match ? `PR #${match[1]}` : `v${version}`;
 
-    const formattedVersion = computed(() => {
-      return match.value ? `PR #${match.value[1]}` : `v${version}`;
-    });
+  document.title = `Prettier ${formattedVersion}`;
 
-    watch(
-      formattedVersion,
-      (newVersion) => {
-        document.title = `Prettier ${newVersion}`;
-      },
-      { immediate: true },
-    );
-
-    return () => (
-      <Teleport to="#version">
-        <a
-          href={`https://github.com/prettier/prettier/${href.value}`}
-          target="_blank"
-          rel="noreferrer noopener"
-        >
-          {formattedVersion.value}
-        </a>
-      </Teleport>
-    );
-  },
+  return (
+    <Teleport to="#version">
+      <a
+        href={`https://github.com/prettier/prettier/${href}`}
+        target="_blank"
+        rel="noreferrer noopener"
+      >
+        {formattedVersion}
+      </a>
+    </Teleport>
+  );
+}
+VersionLink.props = {
+  version: { type: String, required: true },
 };
