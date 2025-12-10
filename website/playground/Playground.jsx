@@ -144,26 +144,21 @@ function setup(props) {
   );
 
   const handleOptionValueChange = (option, value) => {
-    // Save old parser value before updating options
-    const oldParser = state.options.parser;
+    const options = { ...state.options };
 
-    // Update options
     if (option.type === "int" && Number.isNaN(value)) {
-      delete state.options[option.name];
+      delete options[option.name];
     } else {
-      state.options[option.name] = value;
+      options[option.name] = value;
     }
 
-    // Check if content should be updated to sample code
-    // If current content is empty or matches the old parser's sample, use new parser's sample
-    const newContent =
-      state.content === "" || state.content === getCodeSample(oldParser)
-        ? getCodeSample(state.options.parser)
+    const content =
+      state.content === "" ||
+      state.content === getCodeSample(state.options.parser)
+        ? getCodeSample(options.parser)
         : state.content;
 
-    if (newContent !== state.content) {
-      state.content = newContent;
-    }
+    return Object.assign(state, { options, content });
   };
 
   const getMarkdown = ({ formatted, reformatted, full, doc }) => {
