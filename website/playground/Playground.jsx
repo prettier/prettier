@@ -62,13 +62,7 @@ const ENABLED_OPTIONS = [
   "experimentalOperatorPosition",
 ];
 
-function getSecondFormat(formatted, reformatted) {
-  return formatted === reformatted
-    ? "✓ Second format is unchanged."
-    : (reformatted ?? "");
-}
-
-export default {
+const Playground = {
   name: "Playground",
   props: {
     worker: { type: Object, required: true },
@@ -577,3 +571,11 @@ function orderOptions(availableOptions, order) {
 function getReportLink(reportBody) {
   return `${ISSUES_URL}${encodeURIComponent(reportBody)}`;
 }
+
+function getSecondFormat(formatted, reformatted) {
+  return formatted === reformatted
+    ? "✓ Second format is unchanged."
+    : (reformatted ?? "");
+}
+
+export default Playground;
