@@ -81,7 +81,7 @@ const App = {
     const state = reactive({ loaded: false });
     const worker = new WorkerApi();
 
-    onMounted(async () => {
+    const componentDidMount = async () => {
       const { supportInfo, version: workerVersion } =
         await worker.getMetadata();
 
@@ -90,9 +90,9 @@ const App = {
         availableOptions: supportInfo.options.map(augmentOption),
         version: fixPrettierVersion(workerVersion),
       });
-    });
+    };
 
-    return () => {
+    const render = () => {
       const { loaded, availableOptions, version } = state;
 
       if (!loaded) {
@@ -110,6 +110,9 @@ const App = {
         </>
       );
     };
+
+    onMounted(componentDidMount);
+    return render;
   },
 };
 
