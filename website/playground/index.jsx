@@ -82,13 +82,12 @@ const App = {
     const worker = new WorkerApi();
 
     const componentDidMount = async () => {
-      const { supportInfo, version: workerVersion } =
-        await worker.getMetadata();
+      const { supportInfo, version } = await worker.getMetadata();
 
       Object.assign(state, {
         loaded: true,
         availableOptions: supportInfo.options.map(augmentOption),
-        version: fixPrettierVersion(workerVersion),
+        version: fixPrettierVersion(version),
       });
     };
 
