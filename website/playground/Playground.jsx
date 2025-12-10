@@ -63,11 +63,9 @@ const ENABLED_OPTIONS = [
 ];
 
 function getSecondFormat(formatted, reformatted) {
-  return formatted === ""
-    ? ""
-    : formatted === reformatted
-      ? "✓ Second format is unchanged."
-      : reformatted;
+  return formatted === reformatted
+    ? "✓ Second format is unchanged."
+    : (reformatted ?? "");
 }
 
 export default {
