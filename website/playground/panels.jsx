@@ -1,77 +1,6 @@
-import { onMounted, onUnmounted, watch } from "vue";
-import { useTemplateRef } from "vue";
+import { onMounted, onUnmounted, useTemplateRef, watch } from "vue";
 
 const { CodeMirror } = window;
-
-function getIndexPosition(text, indexes) {
-  indexes = [...indexes];
-  let line = 0;
-  let count = 0;
-  let lineStart = 0;
-  const result = [];
-
-  while (indexes.length > 0) {
-    const index = indexes.shift();
-
-    while (count < index && count < text.length) {
-      if (text[count] === "\n") {
-        line++;
-        lineStart = count + 1;
-      }
-      count++;
-    }
-
-    result.push({ line, pos: count - lineStart });
-  }
-
-  return result;
-}
-
-function createOverlay(start, end) {
-  return {
-    token(stream) {
-      const { line } = stream.lineOracle;
-
-      if (line < start.line || line > end.line) {
-        stream.skipToEnd();
-      } else if (line === start.line && stream.pos < start.pos) {
-        stream.pos = start.pos;
-      } else if (line === end.line) {
-        if (stream.pos < end.pos) {
-          stream.pos = end.pos;
-          return "searching";
-        }
-        stream.skipToEnd();
-      } else {
-        stream.skipToEnd();
-        return "searching";
-      }
-    },
-  };
-}
-
-function makeRuler(props) {
-  return { column: props.ruler, color: props.rulerColor };
-}
-
-function makeGutters(props) {
-  return props.foldGutter
-    ? ["CodeMirror-linenumbers", "CodeMirror-foldgutter"]
-    : [];
-}
-
-function isEqualSelection(selection1, selection2) {
-  const anchor1 = selection1?.anchor ?? { line: 0, ch: 0 };
-  const head1 = selection1?.head ?? anchor1;
-  const anchor2 = selection2?.anchor ?? { line: 0, ch: 0 };
-  const head2 = selection2?.head ?? anchor2;
-  return (
-    head1.line === head2.line &&
-    head1.ch === head2.ch &&
-    anchor1.line === anchor2.line &&
-    anchor1.ch === anchor2.ch
-  );
-}
 
 const CodeMirrorPanel = {
   name: "CodeMirrorPanel",
@@ -272,16 +201,73 @@ const CodeMirrorPanel = {
   },
 };
 
-export function DebugPanel({ value, autoFold }) {
+function getIndexPosition(text, indexes) {
+  indexes = [...indexes];
+  let line = 0;
+  let count = 0;
+  let lineStart = 0;
+  const result = [];
+
+  while (indexes.length > 0) {
+    const index = indexes.shift();
+
+    while (count < index && count < text.length) {
+      if (text[count] === "\n") {
+        line++;
+        lineStart = count + 1;
+      }
+      count++;
+    }
+
+    result.push({ line, pos: count - lineStart });
+  }
+
+  return result;
+}
+
+function createOverlay(start, end) {
+  return {
+    token(stream) {
+      const { line } = stream.lineOracle;
+
+      if (line < start.line || line > end.line) {
+        stream.skipToEnd();
+      } else if (line === start.line && stream.pos < start.pos) {
+        stream.pos = start.pos;
+      } else if (line === end.line) {
+        if (stream.pos < end.pos) {
+          stream.pos = end.pos;
+          return "searching";
+        }
+        stream.skipToEnd();
+      } else {
+        stream.skipToEnd();
+        return "searching";
+      }
+    },
+  };
+}
+
+function makeRuler(props) {
+  return { column: props.ruler, color: props.rulerColor };
+}
+
+function makeGutters(props) {
+  return props.foldGutter
+    ? ["CodeMirror-linenumbers", "CodeMirror-foldgutter"]
+    : [];
+}
+
+function isEqualSelection(selection1, selection2) {
+  const anchor1 = selection1?.anchor ?? { line: 0, ch: 0 };
+  const head1 = selection1?.head ?? anchor1;
+  const anchor2 = selection2?.anchor ?? { line: 0, ch: 0 };
+  const head2 = selection2?.head ?? anchor2;
   return (
-    <CodeMirrorPanel
-      readOnly={true}
-      lineNumbers={false}
-      foldGutter={true}
-      autoFold={autoFold}
-      mode="jsx"
-      value={value}
-    />
+    head1.line === head2.line &&
+    head1.ch === head2.ch &&
+    anchor1.line === anchor2.line &&
+    anchor1.ch === anchor2.ch
   );
 }
 
@@ -307,6 +293,19 @@ export function OutputPanel(props) {
       lineNumbers={true}
       rulerColor="currentColor"
       {...props}
+    />
+  );
+}
+
+export function DebugPanel({ value, autoFold }) {
+  return (
+    <CodeMirrorPanel
+      readOnly={true}
+      lineNumbers={false}
+      foldGutter={true}
+      autoFold={autoFold}
+      mode="jsx"
+      value={value}
     />
   );
 }
