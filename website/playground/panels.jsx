@@ -7,7 +7,6 @@ const CodeMirrorPanel = {
   props: {
     value: { type: String, required: true },
     selection: { type: Object, default: undefined },
-    onChange: { type: Function, default: undefined },
     onSelectionChange: { type: Function, default: undefined },
     ruler: { type: Number, default: undefined },
     rulerColor: { type: String, default: undefined },
@@ -25,11 +24,15 @@ const CodeMirrorPanel = {
     tabSize: { type: Number, default: undefined },
     readOnly: { type: Boolean, default: undefined },
   },
-  setup(props) {
+  emits: ["change"],
+  setup(props, { emit }) {
     const textareaRef = useTemplateRef("textarea");
     let _codeMirror = null;
     let _cached = "";
     let _overlay = null;
+    const onChange = (value) => {
+      emit("change", value);
+    };
 
     const componentDidMount = () => {
       const options = { ...props };
@@ -139,7 +142,7 @@ const CodeMirrorPanel = {
     const handleChange = (doc, change) => {
       if (change.origin !== "setValue") {
         _cached = doc.getValue();
-        props.onChange?.(_cached);
+        onChange(_cached);
         updateOverlay();
       }
     };
