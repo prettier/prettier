@@ -191,7 +191,8 @@ const Playground = {
 
     const getMarkdown = ({ formatted, reformatted, full, doc }) => {
       const { content, options } = state;
-      const orderedOptions = orderOptions(props.availableOptions, [
+      const { availableOptions, version } = props;
+      const orderedOptions = orderOptions(availableOptions, [
         ...ENABLED_OPTIONS,
         "rangeStart",
         "rangeEnd",
@@ -204,7 +205,7 @@ const Playground = {
         output: formatted,
         output2: reformatted,
         doc,
-        version: props.version,
+        version,
         url: window.location.href,
         options,
         cliOptions,
@@ -229,8 +230,10 @@ const Playground = {
             return;
           }
 
-          state.content = formatted;
-          state.selection = convertOffsetToSelection(cursorOffset, formatted);
+          Object.assign(state, {
+            content: formatted,
+            selection: convertOffsetToSelection(cursorOffset, formatted),
+          });
         });
     };
 
