@@ -11,5 +11,13 @@ export default defineConfig({
   plugins: [vitePluginVue(), vitePluginVueJsx()],
   build: {
     outDir: "./static/playground/",
+    rollupOptions: {
+      external: ["vue", "graphql"],
+      output: {
+        globals: {
+          vue: "Vue",
+        },
+      },
+    },
   },
 });

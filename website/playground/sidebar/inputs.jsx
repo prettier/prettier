@@ -1,5 +1,4 @@
-export function Checkbox(props, { emit }) {
-  const { label, title, checked } = props;
+export function Checkbox({ label, title, checked }, { emit }) {
   return (
     <label title={title}>
       <input
@@ -18,8 +17,7 @@ Checkbox.props = {
 };
 Checkbox.emits = ["change"];
 
-export function Select(props, { emit }) {
-  const { label, title, values, selected } = props;
+export function Select({ label, title, values, selected }, { emit }) {
   return (
     <label title={title}>
       {label}{" "}
@@ -41,8 +39,10 @@ Select.props = {
 };
 Select.emits = ["change"];
 
-export function NumberInput(props, { emit }) {
-  const { label, title, value, min, max, step } = props;
+export function NumberInput(
+  { label, title, value, min, max, step },
+  { emit },
+) {
   return (
     <label title={title}>
       {label}{" "}
