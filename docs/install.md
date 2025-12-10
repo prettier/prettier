@@ -95,12 +95,12 @@ If you forget to install Prettier first, `npx` will temporarily download the lat
 <TabItem value="yarn">
 
 ```bash
-yarn exec prettier . --write
+yarnprettier . --write
 ```
 
 :::info
 
-What is `yarn exec` doing at the start? `yarn exec prettier` runs the locally installed version of Prettier. We’ll leave off the `yarn exec` part for brevity throughout the rest of this file!
+What is `yarn` doing at the start? `yarnprettier` runs the locally installed version of Prettier. We’ll leave off the `yarn` part for brevity throughout the rest of this file!
 
 :::
 
