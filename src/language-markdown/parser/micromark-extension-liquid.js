@@ -9,22 +9,23 @@ import { codes, types } from "micromark-util-symbol";
  * @typedef {import('micromark-util-types').State} State
  */
 
+const nodeType = "liquidNode";
+
 /**
- * @param {string} type
  * @returns {FromMarkdownExtension}
  */
-function dataNode(type) {
+function liquidFromMarkdown() {
   return {
-    canContainEols: [type],
-    enter: { [type]: enterInlineMath },
-    exit: { [type]: exitInlineMath },
+    canContainEols: [nodeType],
+    enter: { [nodeType]: enterInlineMath },
+    exit: { [nodeType]: exitInlineMath },
   };
 
   /** @type {Handle} */
   function enterInlineMath(token) {
     this.enter(
       // @ts-expect-error
-      { type },
+      { type: nodeType },
       token,
     );
     this.buffer();
@@ -41,20 +42,9 @@ function dataNode(type) {
 }
 
 /**
- * @this {import('unified').Processor}
- */
-function remarkLiquid() {
-  /** @type {any} */
-  const data = this.data();
-
-  (data.micromarkExtensions ??= []).push(syntax());
-  (data.fromMarkdownExtensions ??= []).push(dataNode("liquidNode"));
-}
-
-/**
  * @returns {import('micromark-util-types').Extension}
  */
-function syntax() {
+function liquidSyntax() {
   return {
     text: {
       [codes.leftCurlyBrace]: {
@@ -113,10 +103,10 @@ function syntax() {
       }
       effects.consume(code);
       effects.exit(types.data);
-      effects.exit("liquidNode");
+      effects.exit(nodeType);
       return ok;
     }
   }
 }
 
-export default remarkLiquid;
+export { liquidFromMarkdown, liquidSyntax };
