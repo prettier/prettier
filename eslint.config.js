@@ -1,6 +1,5 @@
 import url from "node:url";
 import eslintPluginJs from "@eslint/js";
-import eslintPluginEslintReact from "@eslint-react/eslint-plugin";
 import eslintPluginStylistic from "@stylistic/eslint-plugin";
 import eslintPluginTypescriptEslint from "@typescript-eslint/eslint-plugin";
 import { isCI } from "ci-info";
@@ -458,21 +457,12 @@ const configs = [
   },
   {
     files: ["website/**/*"],
-    ...eslintPluginEslintReact.configs.recommended,
-  },
-  {
-    files: ["website/**/*"],
     languageOptions: {
       globals: { ...globals.browser, ...globals.worker },
       parserOptions: {
         ecmaFeatures: {
           jsx: true,
         },
-      },
-    },
-    settings: {
-      "react-x": {
-        version: "18",
       },
     },
     rules: {

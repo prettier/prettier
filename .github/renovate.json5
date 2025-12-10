@@ -33,7 +33,6 @@
       matchPackageNames: [
         "eslint",
         "@eslint/*",
-        "@eslint-react/eslint-plugin",
         "@stylistic/eslint-plugin",
         "eslint-config-prettier",
         "eslint-plugin-compat",
