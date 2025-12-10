@@ -1,4 +1,4 @@
-import { ref, onMounted, onUnmounted } from "vue";
+import { onMounted, onUnmounted, ref } from "vue";
 
 const { ClipboardJS } = window;
 
@@ -20,29 +20,40 @@ export const ClipboardButton = {
     let timer = null;
     let clipboard = null;
 
-    onMounted(() => {
-      const showTooltip = (text) => {
-        showTooltipValue.value = true;
-        tooltipText.value = text;
+    const showTooltip = (text) => {
+      showTooltipValue.value = true;
+      tooltipText.value = text;
 
-        if (timer) {
-          clearTimeout(timer);
-        }
-        timer = setTimeout(() => {
-          timer = null;
-          showTooltipValue.value = false;
-        }, 2000);
-      };
+      if (timer) {
+        clearTimeout(timer);
+      }
+      timer = setTimeout(() => {
+        timer = null;
+        showTooltipValue.value = false;
+      }, 2000);
+    };
 
+    const componentDidMount = () => {
       clipboard = new ClipboardJS(buttonRef.value, {
-        text: () => {
+        text() {
           const { copy } = props;
           return typeof copy === "function" ? copy() : copy;
         },
       });
       clipboard.on("success", () => showTooltip("Copied!"));
       clipboard.on("error", () => showTooltip("Press ctrl+c to copy"));
-    });
+    };
+
+    const render = () => {
+      <button type="button" class="btn" ref={buttonRef} {...attrs}>
+        {showTooltipValue.value ? (
+          <span class="tooltip">{tooltipText.value}</span>
+        ) : null}
+        {slots.default?.()}
+      </button>;
+    };
+
+    onMounted(componentDidMount);
 
     onUnmounted(() => {
       if (clipboard) {
@@ -53,13 +64,6 @@ export const ClipboardButton = {
       }
     });
 
-    return () => (
-      <button type="button" class="btn" ref={buttonRef} {...attrs}>
-        {showTooltipValue.value ? (
-          <span class="tooltip">{tooltipText.value}</span>
-        ) : null}
-        {slots.default?.()}
-      </button>
-    );
+    return render;
   },
 };
