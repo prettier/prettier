@@ -308,7 +308,7 @@ export default {
                             value={
                               typeof options.rangeStart === "number"
                                 ? options.rangeStart
-                                : ""
+                                : undefined
                             }
                             onChange={handleOptionValueChange}
                           />
@@ -317,7 +317,7 @@ export default {
                             value={
                               typeof options.rangeEnd === "number"
                                 ? options.rangeEnd
-                                : ""
+                                : undefined
                             }
                             overrideMax={content.length}
                             onChange={handleOptionValueChange}

@@ -272,109 +272,41 @@ const CodeMirrorPanel = {
   },
 };
 
-export const DebugPanel = {
-  name: "DebugPanel",
-  props: {
-    value: { type: String, required: true },
-    autoFold: { type: RegExp },
-  },
-  setup(props) {
-    return () => {
-      const { value, autoFold } = props;
-      return (
-        <CodeMirrorPanel
-          readOnly={true}
-          lineNumbers={false}
-          foldGutter={true}
-          autoFold={autoFold}
-          mode="jsx"
-          value={value}
-        />
-      );
-    };
-  },
-};
+export function DebugPanel({ value, autoFold }) {
+  return (
+    <CodeMirrorPanel
+      readOnly={true}
+      lineNumbers={false}
+      foldGutter={true}
+      autoFold={autoFold}
+      mode="jsx"
+      value={value}
+    />
+  );
+}
 
-export const InputPanel = {
-  name: "InputPanel",
-  props: {
-    mode: String,
-    ruler: Number,
-    value: String,
-    selection: Object,
-    codeSample: String,
-    overlayStart: Number,
-    overlayEnd: Number,
-    onChange: Function,
-    onSelectionChange: Function,
-    extraKeys: Object,
-    foldGutter: Boolean,
-  },
-  setup(props) {
-    return () => {
-      const {
-        mode,
-        ruler,
-        value,
-        selection,
-        codeSample,
-        overlayStart,
-        overlayEnd,
-        onChange,
-        onSelectionChange,
-        extraKeys,
-        foldGutter,
-      } = props;
-      return (
-        <CodeMirrorPanel
-          lineNumbers={true}
-          keyMap="sublime"
-          autoCloseBrackets={true}
-          matchBrackets={true}
-          showCursorWhenSelecting={true}
-          tabSize={4}
-          rulerColor="color-mix(in oklab, currentColor 10%, transparent)"
-          mode={mode}
-          ruler={ruler}
-          value={value}
-          selection={selection}
-          codeSample={codeSample}
-          overlayStart={overlayStart}
-          overlayEnd={overlayEnd}
-          onChange={onChange}
-          onSelectionChange={onSelectionChange}
-          extraKeys={extraKeys}
-          foldGutter={foldGutter}
-        />
-      );
-    };
-  },
-};
+export function InputPanel(props) {
+  return (
+    <CodeMirrorPanel
+      lineNumbers={true}
+      keyMap="sublime"
+      autoCloseBrackets={true}
+      matchBrackets={true}
+      showCursorWhenSelecting={true}
+      tabSize={4}
+      rulerColor="color-mix(in oklab, currentColor 10%, transparent)"
+      {...props}
+    />
+  );
+}
 
-export const OutputPanel = {
-  name: "OutputPanel",
-  props: {
-    mode: String,
-    value: String,
-    ruler: Number,
-    overlayStart: Number,
-    overlayEnd: Number,
-  },
-  setup(props) {
-    return () => {
-      const { mode, value, ruler, overlayStart, overlayEnd } = props;
-      return (
-        <CodeMirrorPanel
-          readOnly={true}
-          lineNumbers={true}
-          rulerColor="currentColor"
-          mode={mode}
-          value={value}
-          ruler={ruler}
-          overlayStart={overlayStart}
-          overlayEnd={overlayEnd}
-        />
-      );
-    };
-  },
-};
+export function OutputPanel(props) {
+  return (
+    <CodeMirrorPanel
+      readOnly={true}
+      lineNumbers={true}
+      rulerColor="currentColor"
+      {...props}
+    />
+  );
+}
