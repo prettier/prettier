@@ -418,7 +418,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime@npm:^7.12.1, @babel/runtime@npm:^7.4.4":
+"@babel/runtime@npm:^7.12.1":
   version: 7.28.4
   resolution: "@babel/runtime@npm:7.28.4"
   checksum: 10/6c9a70452322ea80b3c9b2a412bcf60771819213a67576c8cec41e88a95bb7bf01fc983754cda35dc19603eef52df22203ccbf7777b9d6316932f9fb77c25163
@@ -2523,7 +2523,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/mdast@npm:4.0.4, @types/mdast@npm:^4.0.0":
+"@types/mdast@npm:^4.0.0":
   version: 4.0.4
   resolution: "@types/mdast@npm:4.0.4"
   dependencies:
@@ -6804,7 +6804,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mdast-util-gfm-footnote@npm:2.1.0, mdast-util-gfm-footnote@npm:^2.0.0":
+"mdast-util-gfm-footnote@npm:^2.0.0":
   version: 2.1.0
   resolution: "mdast-util-gfm-footnote@npm:2.1.0"
   dependencies:
@@ -6940,7 +6940,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mdast-util-wiki-link@npm:^0.1.2":
+"mdast-util-wiki-link@npm:0.1.2":
   version: 0.1.2
   resolution: "mdast-util-wiki-link@npm:0.1.2"
   dependencies:
@@ -7009,7 +7009,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"micromark-extension-gfm-autolink-literal@npm:2.1.0, micromark-extension-gfm-autolink-literal@npm:^2.0.0":
+"micromark-extension-gfm-autolink-literal@npm:^2.0.0":
   version: 2.1.0
   resolution: "micromark-extension-gfm-autolink-literal@npm:2.1.0"
   dependencies:
@@ -7073,7 +7073,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"micromark-extension-gfm-task-list-item@npm:2.1.0, micromark-extension-gfm-task-list-item@npm:^2.0.0":
+"micromark-extension-gfm-task-list-item@npm:^2.0.0":
   version: 2.1.0
   resolution: "micromark-extension-gfm-task-list-item@npm:2.1.0"
   dependencies:
@@ -7117,7 +7117,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"micromark-extension-wiki-link@npm:^0.0.4":
+"micromark-extension-wiki-link@npm:0.0.4":
   version: 0.0.4
   resolution: "micromark-extension-wiki-link@npm:0.0.4"
   dependencies:
@@ -7213,7 +7213,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"micromark-util-combine-extensions@npm:2.0.1, micromark-util-combine-extensions@npm:^2.0.0":
+"micromark-util-combine-extensions@npm:^2.0.0":
   version: 2.0.1
   resolution: "micromark-util-combine-extensions@npm:2.0.1"
   dependencies:
@@ -8200,7 +8200,6 @@ __metadata:
     "@prettier/parse-srcset": "npm:3.1.0"
     "@stylistic/eslint-plugin": "npm:5.6.1"
     "@types/jsesc": "npm:3.0.3"
-    "@types/mdast": "npm:4.0.4"
     "@typescript-eslint/eslint-plugin": "npm:8.48.1"
     "@typescript-eslint/parser": "npm:8.48.1"
     "@typescript-eslint/typescript-estree": "npm:8.48.1"
@@ -8275,15 +8274,13 @@ __metadata:
     make-synchronized: "npm:0.8.0"
     mdast-util-from-markdown: "npm:2.0.2"
     mdast-util-gfm: "npm:3.1.0"
-    mdast-util-gfm-footnote: "npm:2.1.0"
     mdast-util-math: "npm:3.0.0"
+    mdast-util-wiki-link: "npm:0.1.2"
     meriyah: "npm:7.0.0"
     micromark-extension-gfm: "npm:3.0.0"
-    micromark-extension-gfm-autolink-literal: "npm:2.1.0"
-    micromark-extension-gfm-task-list-item: "npm:2.1.0"
     micromark-extension-math: "npm:3.1.0"
+    micromark-extension-wiki-link: "npm:0.0.4"
     micromark-util-character: "npm:2.1.1"
-    micromark-util-combine-extensions: "npm:2.0.1"
     micromark-util-symbol: "npm:2.0.1"
     micromark-util-types: "npm:2.0.2"
     micromatch: "npm:4.0.8"
@@ -8311,7 +8308,6 @@ __metadata:
     remark-footnotes: "npm:2.0.0"
     remark-math-v3: "npm:remark-math@3.0.1"
     remark-parse-v8: "npm:remark-parse@8.0.3"
-    remark-wiki-link: "npm:2.0.1"
     rollup-plugin-license: "npm:3.6.0"
     sdbm: "npm:3.0.0"
     search-closest: "npm:1.1.0"
@@ -8533,17 +8529,6 @@ __metadata:
     vfile-location: "npm:^3.0.0"
     xtend: "npm:^4.0.1"
   checksum: 10/795ed675ed9c0b454a858049b129394fb7678c7a08f3f2261e06119534360ec2e35cb3a188c65ad7bae6f088ba7bcdecc83ba2fa481aea8aaf6ed63d9e744490
-  languageName: node
-  linkType: hard
-
-"remark-wiki-link@npm:2.0.1":
-  version: 2.0.1
-  resolution: "remark-wiki-link@npm:2.0.1"
-  dependencies:
-    "@babel/runtime": "npm:^7.4.4"
-    mdast-util-wiki-link: "npm:^0.1.2"
-    micromark-extension-wiki-link: "npm:^0.0.4"
-  checksum: 10/f22fb2e7db7d32e7b4944b0da6e42dcf26eecc5d7080100792ce5483b4f08aa52a87eeee9f9aad4b3cc5300fb8a430191cfa6b3721cec5dadf080b11205a18ec
   languageName: node
   linkType: hard
 
