@@ -96,9 +96,8 @@ function setup(props) {
 
   const codeSample = getCodeSample(options.parser);
   const content = original.content || codeSample;
-  const selection = {};
 
-  const state = reactive({ content, options, selection });
+  const state = reactive({ content, options, selection: {} });
 
   const setContent = (content) => {
     state.content = content;
@@ -244,7 +243,7 @@ function setup(props) {
             rethrowEmbedErrors={editorState.rethrowEmbedErrors}
           >
             {({ formatted, debug, cursorOffset }) => {
-              const { content, options, selection } = state;
+              const { content, options } = state;
               const fullReport = getMarkdown({
                 formatted,
                 reformatted: debug.reformatted,
