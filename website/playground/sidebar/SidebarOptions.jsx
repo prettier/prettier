@@ -18,34 +18,29 @@ function groupBy(array, iteratee) {
   return result;
 }
 
-export default {
-  name: "SidebarOptions",
-  props: {
-    categories: { type: Array, required: true },
-    availableOptions: { type: Array, required: true },
-    optionValues: { type: Object, required: true },
-  },
-  emits: ["option-value-change"],
-  setup(props, { emit }) {
-    return () => {
-      const { categories, availableOptions, optionValues } = props;
-      const options = groupBy(availableOptions, (option) => option.category);
-      return categories.map((category) =>
-        options[category] ? (
-          <SidebarCategory key={category} title={category}>
-            {options[category].map((option) => (
-              <Option
-                key={option.name}
-                option={option}
-                value={optionValues[option.name]}
-                onChange={(option, val) =>
-                  emit("option-value-change", option, val)
-                }
-              />
-            ))}
-          </SidebarCategory>
-        ) : null,
-      );
-    };
-  },
+export default function SidebarOptions(
+  { categories, availableOptions, optionValues },
+  { emit },
+) {
+  const options = groupBy(availableOptions, (option) => option.category);
+  return categories.map((category) =>
+    options[category] ? (
+      <SidebarCategory key={category} title={category}>
+        {options[category].map((option) => (
+          <Option
+            key={option.name}
+            option={option}
+            value={optionValues[option.name]}
+            onChange={(opt, val) => emit("option-value-change", opt, val)}
+          />
+        ))}
+      </SidebarCategory>
+    ) : null,
+  );
+}
+SidebarOptions.props = {
+  categories: { type: Array, required: true },
+  availableOptions: { type: Array, required: true },
+  optionValues: { type: Object, required: true },
 };
+SidebarOptions.emits = ["option-value-change"];

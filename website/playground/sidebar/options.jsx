@@ -55,32 +55,25 @@ NumberOption.props = {
 };
 NumberOption.emits = ["change"];
 
-export default {
-  name: "Option",
-  props: {
-    option: { type: Object, required: true },
-    value: { type: [Boolean, String, Number], required: true },
-  },
-  emits: ["change"],
-  setup(props, { emit }) {
-    const handleChange = (option, val) => emit("change", option, val);
+export default function Option(props, { emit }) {
+  const { option } = props;
 
-    return () => {
-      const { option, value } = props;
-
-      switch (option.type) {
-        case "boolean":
-          return <BooleanOption {...props} onChange={handleChange} />;
-        case "int":
-          return <NumberOption {...props} onChange={handleChange} />;
-        case "choice":
-          return <ChoiceOption {...props} onChange={handleChange} />;
-        default:
-          throw new Error("unsupported type");
-      }
-    };
-  },
+  switch (option.type) {
+    case "boolean":
+      return <BooleanOption {...props} onChange={(opt, val) => emit("change", opt, val)} />;
+    case "int":
+      return <NumberOption {...props} onChange={(opt, val) => emit("change", opt, val)} />;
+    case "choice":
+      return <ChoiceOption {...props} onChange={(opt, val) => emit("change", opt, val)} />;
+    default:
+      throw new Error("unsupported type");
+  }
+}
+Option.props = {
+  option: { type: Object, required: true },
+  value: { type: [Boolean, String, Number], required: true },
 };
+Option.emits = ["change"];
 
 function getDescription(option) {
   const description = option.inverted
