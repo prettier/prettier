@@ -127,7 +127,10 @@ function genericPrint(path, options, print) {
 
       let spaceAfterColon = "";
       if (!node.extend && !isValueAllSpace) {
-        if (isAtWordPlaceholderNode(node.value?.group?.group) && !isSpaceAfterColon) {
+        if (
+          isAtWordPlaceholderNode(node.value?.group?.group) &&
+          !isSpaceAfterColon
+        ) {
           spaceAfterColon = "";
         } else {
           spaceAfterColon = " ";
