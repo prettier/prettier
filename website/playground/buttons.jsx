@@ -1,10 +1,10 @@
-import { onMounted, onUnmounted, ref } from "vue";
+import { onMounted, onUnmounted, reactive, ref, useTemplateRef } from "vue";
 
 const { ClipboardJS } = window;
 
-export const Button = (props, { slots }) => (
-  <button type="button" class="btn" {...props}>
-    {slots.default?.()}
+export const Button = (props, ctx) => (
+  <button type="button" class="btn" {...ctx.attrs}>
+    {ctx.slots.default()}
   </button>
 );
 
@@ -14,24 +14,10 @@ export const ClipboardButton = {
     copy: { type: [String, Function], required: true },
   },
   setup(props, { slots, attrs }) {
-    const showTooltipValue = ref(false);
-    const tooltipText = ref("");
-    const buttonRef = ref(null);
+    const state = reactive({ showTooltip: false, tooltipText: "" });
     let timer = null;
-    let clipboard = null;
-
-    const showTooltip = (text) => {
-      showTooltipValue.value = true;
-      tooltipText.value = text;
-
-      if (timer) {
-        clearTimeout(timer);
-      }
-      timer = setTimeout(() => {
-        timer = null;
-        showTooltipValue.value = false;
-      }, 2000);
-    };
+    let clipboard;
+    const buttonRef = ref();
 
     const componentDidMount = () => {
       clipboard = new ClipboardJS(buttonRef.value, {
@@ -44,25 +30,31 @@ export const ClipboardButton = {
       clipboard.on("error", () => showTooltip("Press ctrl+c to copy"));
     };
 
-    const render = () => {
-      <button type="button" class="btn" ref={buttonRef} {...attrs}>
-        {showTooltipValue.value ? (
-          <span class="tooltip">{tooltipText.value}</span>
-        ) : null}
-        {slots.default?.()}
-      </button>;
-    };
+    const showTooltip = (text) => {
+      Object.assign(state, { showTooltip: true, tooltipText: text });
 
-    onMounted(componentDidMount);
-
-    onUnmounted(() => {
-      if (clipboard) {
-        clipboard.destroy();
-      }
       if (timer) {
         clearTimeout(timer);
       }
-    });
+      timer = setTimeout(() => {
+        timer = null;
+        Object.assign(state, { showTooltip: false });
+      }, 2000);
+    };
+
+    const render = () => {
+      const { showTooltip, tooltipText } = state;
+      const children = slots.default?.();
+
+      return (
+        <Button ref={buttonRef} {...attrs}>
+          {showTooltip ? <span class="tooltip">{tooltipText}</span> : null}
+          {children}
+        </Button>
+      );
+    };
+
+    onMounted(componentDidMount);
 
     return render;
   },

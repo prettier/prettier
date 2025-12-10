@@ -1,4 +1,4 @@
-import { reactive, watch, onMounted, toRaw } from "vue";
+import { onMounted, reactive, toRaw, watch } from "vue";
 
 export default {
   name: "PrettierFormat",
@@ -62,9 +62,6 @@ export default {
       { deep: true },
     );
 
-    return () => {
-      const children = slots.default(state);
-      return children;
-    };
+    return () => slots.default(state);
   },
 };
