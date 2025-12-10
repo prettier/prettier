@@ -261,9 +261,9 @@ const Playground = {
         <EditorState>
           {(editorState) => (
             <PrettierFormat
-              worker={props.worker}
-              code={state.content}
-              options={state.options}
+              worker={worker}
+              code={content}
+              options={options}
               debugAst={editorState.showAst}
               debugPreprocessedAst={editorState.showPreprocessedAst}
               debugDoc={editorState.showDoc}
