@@ -456,6 +456,13 @@ const configs = [
     },
   },
   {
+    files: ["website/src/pages/**/*.jsx", "website/playground/**/*.jsx"],
+    rules: {
+      // Doesn't know JSX
+      "no-unused-vars": "off",
+    },
+  },
+  {
     files: ["website/**/*"],
     languageOptions: {
       globals: { ...globals.browser, ...globals.worker },

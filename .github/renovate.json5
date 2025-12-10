@@ -75,10 +75,6 @@
       matchManagers: ["github-actions"],
     },
     {
-      matchPackageNames: ["react", "react-dom"],
-      allowedVersions: "^18.0.0",
-    },
-    {
       groupName: "docusaurus",
       matchPackageNames: ["@docusaurus/*"],
     },
