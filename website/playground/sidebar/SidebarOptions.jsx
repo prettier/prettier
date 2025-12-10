@@ -18,12 +18,12 @@ function groupBy(array, iteratee) {
   return result;
 }
 
-export default function SidebarOptions({
-  categories,
-  availableOptions,
-  optionValues,
-  onOptionValueChange,
-}) {
+export default function SidebarOptions(
+  { categories, availableOptions, optionValues },
+  { emit },
+) {
+  const onOptionValueChange = (option, value) =>
+    emit("option-value-change", option, value);
   const options = groupBy(availableOptions, (option) => option.category);
   return categories.map((category) =>
     options[category] ? (
@@ -40,3 +40,9 @@ export default function SidebarOptions({
     ) : null,
   );
 }
+SidebarOptions.props = {
+  categories: { type: Array, required: true },
+  availableOptions: { type: Array, required: true },
+  optionValues: { type: Object, required: true },
+};
+SidebarOptions.emits = ["option-value-change"];

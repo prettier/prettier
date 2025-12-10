@@ -1,6 +1,4 @@
-const { React, ReactDOM } = window;
-
-const root = document.getElementById("version");
+import { Teleport } from "vue";
 
 export default function VersionLink({ version }) {
   const match = version.match(/^pr-(\d+)$/u);
@@ -15,18 +13,20 @@ export default function VersionLink({ version }) {
 
   const formattedVersion = match ? `PR #${match[1]}` : `v${version}`;
 
-  React.useEffect(() => {
-    document.title = `Prettier ${formattedVersion}`;
-  }, [formattedVersion]);
+  document.title = `Prettier ${formattedVersion}`;
 
-  return ReactDOM.createPortal(
-    <a
-      href={`https://github.com/prettier/prettier/${href}`}
-      target="_blank"
-      rel="noreferrer noopener"
-    >
-      {formattedVersion}
-    </a>,
-    root,
+  return (
+    <Teleport to="#version">
+      <a
+        href={`https://github.com/prettier/prettier/${href}`}
+        target="_blank"
+        rel="noreferrer noopener"
+      >
+        {formattedVersion}
+      </a>
+    </Teleport>
   );
 }
+VersionLink.props = {
+  version: { type: String, required: true },
+};
