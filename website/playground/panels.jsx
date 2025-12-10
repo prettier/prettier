@@ -60,9 +60,7 @@ const CodeMirrorPanel = {
     };
 
     const componentWillUnmount = () => {
-      if (codeMirror) {
-        codeMirror.toTextArea();
-      }
+      codeMirror?.toTextArea();
     };
 
     const componentDidUpdate = (_, prevProps) => {
@@ -132,7 +130,7 @@ const CodeMirrorPanel = {
       }
     };
 
-    const handleFocus = () => {
+    const handleFocus = (/* codeMirror, event */) => {
       if (codeMirror.getValue() === props.codeSample) {
         codeMirror.execCommand("selectAll");
       }

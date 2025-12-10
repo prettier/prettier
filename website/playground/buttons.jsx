@@ -54,7 +54,6 @@ export const ClipboardButton = {
     };
 
     onMounted(componentDidMount);
-
     return render;
   },
 };

@@ -41,7 +41,6 @@ export default {
     );
 
     const render = () => slots.default(state);
-
     return render;
   },
 };
