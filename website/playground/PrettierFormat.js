@@ -20,25 +20,6 @@ export default {
       format();
     };
 
-    const componentDidUpdate = (_, prevProps) => {
-      for (const key of [
-        "enabled",
-        "code",
-        "options",
-        "debugAst",
-        "debugPreprocessedAst",
-        "debugDoc",
-        "debugComments",
-        "reformat",
-        "rethrowEmbedErrors",
-      ]) {
-        if (prevProps[key] !== props[key]) {
-          format();
-          break;
-        }
-      }
-    };
-
     const format = async () => {
       let {
         worker,
@@ -68,7 +49,24 @@ export default {
     const render = () => slots.default(state);
 
     onMounted(componentDidMount);
-    watch(() => props, componentDidUpdate, { deep: true });
+    watch(
+      () =>
+        [
+          "enabled",
+          "code",
+          "options",
+          "debugAst",
+          "debugPreprocessedAst",
+          "debugDoc",
+          "debugComments",
+          "reformat",
+          "rethrowEmbedErrors",
+        ].map((property) => props[property]),
+      () => {
+        format();
+      },
+      { deep: true },
+    );
     return render;
   },
 };

@@ -1,5 +1,4 @@
 import { reactive, watch } from "vue";
-import { shallowEqual } from "./helpers.js";
 import * as storage from "./storage.js";
 
 export default {
@@ -30,15 +29,15 @@ export default {
       ...storage.get("editor_state"),
     });
 
-    const componentDidUpdate = (_, prevState) => {
-      if (!shallowEqual(state, prevState)) {
-        storage.set("editor_state", state);
-      }
-    };
-
     const render = () => slots.default(state);
 
-    watch(state, componentDidUpdate, { deep: true });
+    watch(
+      () => state,
+      () => {
+        storage.set("editor_state", state);
+      },
+      { deep: true },
+    );
     return render;
   },
 };

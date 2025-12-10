@@ -3,7 +3,6 @@ import { Button, ClipboardButton } from "./buttons.jsx";
 import getCodeSample from "./codeSamples.mjs";
 import generateDummyId from "./dummyId.js";
 import EditorState from "./EditorState.js";
-import { shallowEqual } from "./helpers.js";
 import formatMarkdown from "./markdown.js";
 import { DebugPanel, InputPanel, OutputPanel } from "./panels.jsx";
 import PrettierFormat from "./PrettierFormat.js";
@@ -101,6 +100,38 @@ function setup(props) {
 
   const state = reactive({ content, options, selection });
 
+  const setContent = (content) => {
+    state.content = content;
+  };
+
+  const clearContent = () => {
+    state.content = "";
+  };
+
+  const resetOptions = () => {
+    Object.assign(state, { options: { ...defaultOptions } });
+  };
+
+  const setSelection = (selection) => {
+    Object.assign(state, { selection });
+    if (state.trackCursorOffset) {
+      handleOptionValueChange(
+        cursorOffsetOption,
+        convertSelectionToRange(selection, state.content)[0],
+      );
+    }
+  };
+
+  const setSelectionAsRange = () => {
+    const { selection, content, options } = state;
+    const [rangeStart, rangeEnd] = convertSelectionToRange(selection, content);
+    const updatedOptions = { ...options, rangeStart, rangeEnd };
+    if (rangeStart === rangeEnd) {
+      delete updatedOptions.rangeStart;
+      delete updatedOptions.rangeEnd;
+    }
+    Object.assign(state, { options: updatedOptions });
+  };
   const enabledOptions = orderOptions(props.availableOptions, ENABLED_OPTIONS);
   const rangeStartOption = props.availableOptions.find(
     (opt) => opt.name === "rangeStart",
@@ -110,14 +141,6 @@ function setup(props) {
   );
   const cursorOffsetOption = props.availableOptions.find(
     (opt) => opt.name === "cursorOffset",
-  );
-
-  watch(
-    () => [state.content, state.options],
-    () => {
-      urlHash.replace({ content: state.content, options: state.options });
-    },
-    { deep: true },
   );
 
   const handleOptionValueChange = (option, value) => {
@@ -141,39 +164,6 @@ function setup(props) {
     if (newContent !== state.content) {
       state.content = newContent;
     }
-  };
-
-  const setContent = (content) => {
-    state.content = content;
-  };
-
-  const clearContent = () => {
-    state.content = "";
-  };
-
-  const resetOptions = () => {
-    state.options = { ...defaultOptions };
-  };
-
-  const setSelection = (selection) => {
-    state.selection = selection;
-    if (state.trackCursorOffset) {
-      handleOptionValueChange(
-        cursorOffsetOption,
-        convertSelectionToRange(selection, state.content)[0],
-      );
-    }
-  };
-
-  const setSelectionAsRange = () => {
-    const { selection, content, options } = state;
-    const [rangeStart, rangeEnd] = convertSelectionToRange(selection, content);
-    const updatedOptions = { ...options, rangeStart, rangeEnd };
-    if (rangeStart === rangeEnd) {
-      delete updatedOptions.rangeStart;
-      delete updatedOptions.rangeEnd;
-    }
-    Object.assign(state, { options: updatedOptions });
   };
 
   const getMarkdown = ({ formatted, reformatted, full, doc }) => {
@@ -548,6 +538,13 @@ function setup(props) {
     );
   };
 
+  watch(
+    () => [state.content, state.options],
+    () => {
+      urlHash.replace({ content: state.content, options: state.options });
+    },
+    { deep: true },
+  );
   return render;
 }
 const Playground = {
