@@ -16,6 +16,29 @@ export default {
   setup(props, { slots }) {
     const state = reactive({ formatted: "", debug: {} });
 
+    const componentDidMount = () => {
+      format();
+    };
+
+    const componentDidUpdate = (_, prevProps) => {
+      for (const key of [
+        "enabled",
+        "code",
+        "options",
+        "debugAst",
+        "debugPreprocessedAst",
+        "debugDoc",
+        "debugComments",
+        "reformat",
+        "rethrowEmbedErrors",
+      ]) {
+        if (prevProps[key] !== props[key]) {
+          format();
+          break;
+        }
+      }
+    };
+
     const format = async () => {
       const {
         worker,
@@ -41,27 +64,10 @@ export default {
       Object.assign(state, result);
     };
 
-    onMounted(() => {
-      format();
-    });
+    const render = () => slots.default(state);
 
-    watch(
-      () => [
-        props.code,
-        props.options,
-        props.debugAst,
-        props.debugPreprocessedAst,
-        props.debugDoc,
-        props.debugComments,
-        props.reformat,
-        props.rethrowEmbedErrors,
-      ],
-      () => {
-        format();
-      },
-      { deep: true },
-    );
-
-    return () => slots.default(state);
+    onMounted(componentDidMount);
+    watch(() => props, componentDidUpdate, { deep: true });
+    return render;
   },
 };
