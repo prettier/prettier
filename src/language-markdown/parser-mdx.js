@@ -37,10 +37,8 @@ const mdxParser = {
         commonmark: true,
         blocks: [BLOCKS_REGEX],
       })
-      // @ts-expect-error -- IDK
       .use(footnotes)
       .use(frontMatter)
-      // @ts-expect-error -- IDK
       .use(remarkMath)
       .use(esSyntax)
       .use(liquid)
