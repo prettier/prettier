@@ -1,7 +1,7 @@
 import { Checkbox, NumberInput, Select } from "./inputs.jsx";
 
 function BooleanOption({ option, value }, { emit }) {
-  const onChange = (value) => emit("change", option, value);
+  const onChange = (option, value) => emit("change", option, value);
   function maybeInvert(value) {
     return option.inverted ? !value : value;
   }
@@ -10,7 +10,7 @@ function BooleanOption({ option, value }, { emit }) {
       label={option.cliName}
       title={getDescription(option)}
       checked={maybeInvert(value)}
-      onChange={(checked) => onChange(maybeInvert(checked))}
+      onChange={(checked) => onChange(option, maybeInvert(checked))}
     />
   );
 }
@@ -21,14 +21,14 @@ BooleanOption.props = {
 BooleanOption.emits = ["change"];
 
 function ChoiceOption({ option, value }, { emit }) {
-  const onChange = (value) => emit("change", option, value);
+  const onChange = (option, val) => emit("change", option, val);
   return (
     <Select
       label={option.cliName}
       title={getDescription(option)}
       values={option.choices.map((choice) => choice.value)}
       selected={value}
-      onChange={onChange}
+      onChange={(val) => onChange(option, val)}
     />
   );
 }
@@ -39,7 +39,7 @@ ChoiceOption.props = {
 ChoiceOption.emits = ["change"];
 
 function NumberOption({ option, value }, { emit }) {
-  const onChange = (value) => emit("change", option, value);
+  const onChange = (option, val) => emit("change", option, val);
   return (
     <NumberInput
       label={option.cliName}
@@ -48,7 +48,7 @@ function NumberOption({ option, value }, { emit }) {
       max={option.range.end}
       step={option.range.step}
       value={value}
-      onChange={onChange}
+      onChange={(val) => onChange(option, val)}
     />
   );
 }
@@ -59,10 +59,9 @@ NumberOption.props = {
 NumberOption.emits = ["change"];
 
 export default function Option(props, { emit }) {
-  const { option } = props;
   const onChange = (option, value) => emit("change", option, value);
 
-  switch (option.type) {
+  switch (props.option.type) {
     case "boolean":
       return <BooleanOption {...props} onChange={onChange} />;
     case "int":

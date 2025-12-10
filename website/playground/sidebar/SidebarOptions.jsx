@@ -22,7 +22,8 @@ export default function SidebarOptions(
   { categories, availableOptions, optionValues },
   { emit },
 ) {
-  const onChange = (option, value) => emit("option-value-change", option, value);
+  const onOptionValueChange = (option, value) =>
+    emit("option-value-change", option, value);
   const options = groupBy(availableOptions, (option) => option.category);
   return categories.map((category) =>
     options[category] ? (
@@ -32,7 +33,7 @@ export default function SidebarOptions(
             key={option.name}
             option={option}
             value={optionValues[option.name]}
-            onChange={onChange}
+            onChange={onOptionValueChange}
           />
         ))}
       </SidebarCategory>
