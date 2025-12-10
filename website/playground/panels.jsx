@@ -2,6 +2,153 @@ import { onMounted, onUnmounted, useTemplateRef, watch } from "vue";
 
 const { CodeMirror } = window;
 
+function setup(props, { emit }) {
+  const textareaRef = useTemplateRef("textarea");
+  let _codeMirror = null;
+  let _cached = "";
+  let _overlay = null;
+  const onChange = (value) => {
+    emit("change", value);
+  };
+
+  const componentDidMount = () => {
+    const options = { ...props };
+    for (const property of [
+      "ruler",
+      "rulerColor",
+      "value",
+      "selection",
+      "onChange",
+    ]) {
+      delete options[property];
+    }
+
+    for (const [key, value] of Object.entries(options)) {
+      if (value === undefined) {
+        delete options[key];
+      }
+    }
+
+    options.rulers = [makeRuler(props)];
+    options.gutters = makeGutters(props);
+
+    options.rulers = [makeRuler(props)];
+    options.gutters = makeGutters(props);
+
+    _codeMirror = CodeMirror.fromTextArea(textareaRef.value, options);
+    _codeMirror.on("change", handleChange);
+    _codeMirror.on("focus", handleFocus);
+    _codeMirror.on("beforeSelectionChange", handleSelectionChange);
+
+    window.CodeMirror.keyMap.pcSublime["Ctrl-L"] = false;
+    window.CodeMirror.keyMap.sublime["Ctrl-L"] = false;
+
+    updateValue(props.value || "");
+    updateSelection();
+    updateOverlay();
+  };
+
+  const componentWillUnmount = () => {
+    _codeMirror?.toTextArea();
+  };
+
+  const componentDidUpdate = (_, prevProps) => {
+    if (!_codeMirror) {
+      return;
+    }
+
+    if (props.value !== _cached) {
+      updateValue(props.value);
+    }
+    if (
+      !isEqualSelection(props.selection, prevProps.selection) &&
+      !isEqualSelection(props.selection, _codeMirror.listSelections()[0])
+    ) {
+      updateSelection();
+    }
+    if (
+      props.overlayStart !== prevProps.overlayStart ||
+      props.overlayEnd !== prevProps.overlayEnd
+    ) {
+      updateOverlay();
+    }
+    if (props.mode !== prevProps.mode) {
+      _codeMirror.setOption("mode", props.mode);
+    }
+    if (props.ruler !== prevProps.ruler) {
+      _codeMirror.setOption("rulers", [makeRuler(props)]);
+    }
+    if (props.foldGutter !== prevProps.foldGutter) {
+      _codeMirror.setOption("gutters", makeGutters(props));
+    }
+  };
+
+  const updateValue = (value) => {
+    _cached = value;
+    _codeMirror.setValue(value);
+
+    if (props.autoFold instanceof RegExp) {
+      const lines = value.split("\n");
+      // going backwards to prevent unfolding folds created earlier
+      for (let i = lines.length - 1; i >= 0; i--) {
+        if (props.autoFold.test(lines[i])) {
+          _codeMirror.foldCode(i);
+        }
+      }
+    }
+  };
+
+  const updateSelection = () => {
+    _codeMirror.setSelection(
+      props.selection?.anchor ?? { line: 0, ch: 0 },
+      props.selection?.head,
+    );
+  };
+
+  const updateOverlay = () => {
+    if (_overlay) {
+      _codeMirror.removeOverlay(_overlay);
+    }
+    if (props.overlayStart !== undefined) {
+      const [start, end] = getIndexPosition(props.value, [
+        props.overlayStart,
+        props.overlayEnd,
+      ]);
+      _overlay = createOverlay(start, end);
+      _codeMirror.addOverlay(_overlay);
+    }
+  };
+
+  const handleFocus = (/* codeMirror, event */) => {
+    if (_codeMirror.getValue() === props.codeSample) {
+      _codeMirror.execCommand("selectAll");
+    }
+  };
+
+  const handleChange = (doc, change) => {
+    if (change.origin !== "setValue") {
+      _cached = doc.getValue();
+      onChange(_cached);
+      updateOverlay();
+    }
+  };
+
+  const handleSelectionChange = (doc, change) => {
+    props.onSelectionChange?.(change.ranges[0]);
+  };
+
+  const render = () => (
+    <div class="editor input">
+      <textarea ref="textarea" />
+    </div>
+  );
+
+  onMounted(componentDidMount);
+  onUnmounted(componentWillUnmount);
+  watch(() => props, componentDidUpdate, { deep: true });
+  return render;
+}
+
 const CodeMirrorPanel = {
   name: "CodeMirrorPanel",
   props: {
@@ -25,152 +172,7 @@ const CodeMirrorPanel = {
     readOnly: { type: Boolean, default: undefined },
   },
   emits: ["change"],
-  setup(props, { emit }) {
-    const textareaRef = useTemplateRef("textarea");
-    let _codeMirror = null;
-    let _cached = "";
-    let _overlay = null;
-    const onChange = (value) => {
-      emit("change", value);
-    };
-
-    const componentDidMount = () => {
-      const options = { ...props };
-      for (const property of [
-        "ruler",
-        "rulerColor",
-        "value",
-        "selection",
-        "onChange",
-      ]) {
-        delete options[property];
-      }
-
-      for (const [key, value] of Object.entries(options)) {
-        if (value === undefined) {
-          delete options[key];
-        }
-      }
-
-      options.rulers = [makeRuler(props)];
-      options.gutters = makeGutters(props);
-
-      options.rulers = [makeRuler(props)];
-      options.gutters = makeGutters(props);
-
-      _codeMirror = CodeMirror.fromTextArea(textareaRef.value, options);
-      _codeMirror.on("change", handleChange);
-      _codeMirror.on("focus", handleFocus);
-      _codeMirror.on("beforeSelectionChange", handleSelectionChange);
-
-      window.CodeMirror.keyMap.pcSublime["Ctrl-L"] = false;
-      window.CodeMirror.keyMap.sublime["Ctrl-L"] = false;
-
-      updateValue(props.value || "");
-      updateSelection();
-      updateOverlay();
-    };
-
-    const componentWillUnmount = () => {
-      _codeMirror?.toTextArea();
-    };
-
-    const componentDidUpdate = (_, prevProps) => {
-      if (!_codeMirror) {
-        return;
-      }
-
-      if (props.value !== _cached) {
-        updateValue(props.value);
-      }
-      if (
-        !isEqualSelection(props.selection, prevProps.selection) &&
-        !isEqualSelection(props.selection, _codeMirror.listSelections()[0])
-      ) {
-        updateSelection();
-      }
-      if (
-        props.overlayStart !== prevProps.overlayStart ||
-        props.overlayEnd !== prevProps.overlayEnd
-      ) {
-        updateOverlay();
-      }
-      if (props.mode !== prevProps.mode) {
-        _codeMirror.setOption("mode", props.mode);
-      }
-      if (props.ruler !== prevProps.ruler) {
-        _codeMirror.setOption("rulers", [makeRuler(props)]);
-      }
-      if (props.foldGutter !== prevProps.foldGutter) {
-        _codeMirror.setOption("gutters", makeGutters(props));
-      }
-    };
-
-    const updateValue = (value) => {
-      _cached = value;
-      _codeMirror.setValue(value);
-
-      if (props.autoFold instanceof RegExp) {
-        const lines = value.split("\n");
-        // going backwards to prevent unfolding folds created earlier
-        for (let i = lines.length - 1; i >= 0; i--) {
-          if (props.autoFold.test(lines[i])) {
-            _codeMirror.foldCode(i);
-          }
-        }
-      }
-    };
-
-    const updateSelection = () => {
-      _codeMirror.setSelection(
-        props.selection?.anchor ?? { line: 0, ch: 0 },
-        props.selection?.head,
-      );
-    };
-
-    const updateOverlay = () => {
-      if (_overlay) {
-        _codeMirror.removeOverlay(_overlay);
-      }
-      if (props.overlayStart !== undefined) {
-        const [start, end] = getIndexPosition(props.value, [
-          props.overlayStart,
-          props.overlayEnd,
-        ]);
-        _overlay = createOverlay(start, end);
-        _codeMirror.addOverlay(_overlay);
-      }
-    };
-
-    const handleFocus = (/* codeMirror, event */) => {
-      if (_codeMirror.getValue() === props.codeSample) {
-        _codeMirror.execCommand("selectAll");
-      }
-    };
-
-    const handleChange = (doc, change) => {
-      if (change.origin !== "setValue") {
-        _cached = doc.getValue();
-        onChange(_cached);
-        updateOverlay();
-      }
-    };
-
-    const handleSelectionChange = (doc, change) => {
-      props.onSelectionChange?.(change.ranges[0]);
-    };
-
-    const render = () => (
-      <div class="editor input">
-        <textarea ref="textarea" />
-      </div>
-    );
-
-    onMounted(componentDidMount);
-    onUnmounted(componentWillUnmount);
-    watch(() => props, componentDidUpdate, { deep: true });
-    return render;
-  },
+  setup,
 };
 
 function getIndexPosition(text, indexes) {
