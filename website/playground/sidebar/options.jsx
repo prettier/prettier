@@ -1,6 +1,7 @@
 import { Checkbox, NumberInput, Select } from "./inputs.jsx";
 
 function BooleanOption({ option, value }, { emit }) {
+  const onChange = (value) => emit("change", option, value);
   function maybeInvert(value) {
     return option.inverted ? !value : value;
   }
@@ -9,7 +10,7 @@ function BooleanOption({ option, value }, { emit }) {
       label={option.cliName}
       title={getDescription(option)}
       checked={maybeInvert(value)}
-      onChange={(checked) => emit("change", option, maybeInvert(checked))}
+      onChange={(checked) => onChange(maybeInvert(checked))}
     />
   );
 }
@@ -20,13 +21,14 @@ BooleanOption.props = {
 BooleanOption.emits = ["change"];
 
 function ChoiceOption({ option, value }, { emit }) {
+  const onChange = (value) => emit("change", option, value);
   return (
     <Select
       label={option.cliName}
       title={getDescription(option)}
       values={option.choices.map((choice) => choice.value)}
       selected={value}
-      onChange={(val) => emit("change", option, val)}
+      onChange={onChange}
     />
   );
 }
@@ -37,6 +39,7 @@ ChoiceOption.props = {
 ChoiceOption.emits = ["change"];
 
 function NumberOption({ option, value }, { emit }) {
+  const onChange = (value) => emit("change", option, value);
   return (
     <NumberInput
       label={option.cliName}
@@ -45,7 +48,7 @@ function NumberOption({ option, value }, { emit }) {
       max={option.range.end}
       step={option.range.step}
       value={value}
-      onChange={(val) => emit("change", option, val)}
+      onChange={onChange}
     />
   );
 }
@@ -57,14 +60,15 @@ NumberOption.emits = ["change"];
 
 export default function Option(props, { emit }) {
   const { option } = props;
+  const onChange = (option, value) => emit("change", option, value);
 
   switch (option.type) {
     case "boolean":
-      return <BooleanOption {...props} onChange={(opt, val) => emit("change", opt, val)} />;
+      return <BooleanOption {...props} onChange={onChange} />;
     case "int":
-      return <NumberOption {...props} onChange={(opt, val) => emit("change", opt, val)} />;
+      return <NumberOption {...props} onChange={onChange} />;
     case "choice":
-      return <ChoiceOption {...props} onChange={(opt, val) => emit("change", opt, val)} />;
+      return <ChoiceOption {...props} onChange={onChange} />;
     default:
       throw new Error("unsupported type");
   }

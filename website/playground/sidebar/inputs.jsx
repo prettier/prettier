@@ -1,10 +1,11 @@
 export function Checkbox({ label, title, checked }, { emit }) {
+  const onChange = (value) => emit("change", value);
   return (
     <label title={title}>
       <input
         type="checkbox"
         checked={checked}
-        onChange={(ev) => emit("change", ev.target.checked)}
+        onChange={(ev) => onChange(ev.target.checked)}
       />{" "}
       {label}
     </label>
@@ -18,10 +19,11 @@ Checkbox.props = {
 Checkbox.emits = ["change"];
 
 export function Select({ label, title, values, selected }, { emit }) {
+  const onChange = (value) => emit("change", value);
   return (
     <label title={title}>
       {label}{" "}
-      <select value={selected} onChange={(ev) => emit("change", ev.target.value)}>
+      <select value={selected} onChange={(ev) => onChange(ev.target.value)}>
         {values.map((val) => (
           <option key={val} value={val}>
             {val}
@@ -43,6 +45,7 @@ export function NumberInput(
   { label, title, value, min, max, step },
   { emit },
 ) {
+  const onChange = (value) => emit("change", value);
   return (
     <label title={title}>
       {label}{" "}
@@ -53,7 +56,7 @@ export function NumberInput(
         step={step}
         value={value}
         onChange={(ev) =>
-          emit("change", Number.parseInt(ev.target.value, 10))
+          onChange(Number.parseInt(ev.target.value, 10))
         }
       />
     </label>
