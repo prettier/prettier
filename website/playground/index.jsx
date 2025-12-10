@@ -40,7 +40,7 @@ function ThemeToggle() {
     applyTheme(newTheme);
   });
 
-  return () => (
+  return (
     <button
       onClick={toggleTheme}
       class="btn"
