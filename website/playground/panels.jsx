@@ -32,20 +32,16 @@ const CodeMirrorPanel = {
     let overlay = null;
 
     const componentDidMount = () => {
-      const options = {
-        lineNumbers: props.lineNumbers,
-        autoCloseBrackets: props.autoCloseBrackets,
-        matchBrackets: props.matchBrackets,
-        showCursorWhenSelecting: props.showCursorWhenSelecting,
-        tabSize: props.tabSize,
-        readOnly: props.readOnly,
-        mode: props.mode,
-      };
+      const options = { ...props };
+      delete options.ruler;
+      delete options.rulerColor;
+      delete options.value;
+      delete options.selection;
+      delete options.onChange;
+      delete options.keyMap;
 
-      // Only set keyMap if it exists in CodeMirror
-      if (props.keyMap && window.CodeMirror.keyMap[props.keyMap]) {
-        options.keyMap = props.keyMap;
-      }
+      options.rulers = [makeRuler(props)];
+      options.gutters = makeGutters(props);
 
       options.rulers = [makeRuler(props)];
       options.gutters = makeGutters(props);
@@ -70,6 +66,10 @@ const CodeMirrorPanel = {
     };
 
     const componentDidUpdate = (_, prevProps) => {
+      if (!codeMirror) {
+        return;
+      }
+
       if (props.value !== cached) {
         updateValue(props.value);
       }
