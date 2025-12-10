@@ -37,6 +37,7 @@ import {
   insideAtRuleNode,
   insideIcssRuleNode,
   insideValueFunctionNode,
+  isAtWordPlaceholderNode,
   isDetachedRulesetCallNode,
   isDetachedRulesetDeclarationNode,
   isKeyframeAtRuleKeywords,
@@ -109,6 +110,7 @@ function genericPrint(path, options, print) {
       const { between: rawBetween } = node.raws;
       const trimmedBetween = rawBetween.trim();
       const isColon = trimmedBetween === ":";
+      const isSpaceAfterColon = rawBetween.endsWith(" ") && isColon;
       const isValueAllSpace =
         typeof node.value === "string" && /^ *$/u.test(node.value);
       let value = typeof node.value === "string" ? node.value : print("value");
@@ -123,6 +125,15 @@ function genericPrint(path, options, print) {
         value = indent([hardline, dedent(value)]);
       }
 
+      let spaceAfterColon = "";
+      if (!node.extend && !isValueAllSpace) {
+        if (isAtWordPlaceholderNode(node.value?.group?.group) && !isSpaceAfterColon) {
+          spaceAfterColon = "";
+        } else {
+          spaceAfterColon = " ";
+        }
+      }
+
       return [
         node.raws.before.replaceAll(/[\s;]/gu, ""),
         // Less variable
@@ -132,7 +143,7 @@ function genericPrint(path, options, print) {
           : maybeToLowerCase(node.prop),
         trimmedBetween.startsWith("//") ? " " : "",
         trimmedBetween,
-        node.extend || isValueAllSpace ? "" : " ",
+        spaceAfterColon,
         options.parser === "less" && node.extend && node.selector
           ? ["extend(", print("selector"), ")"]
           : "",
