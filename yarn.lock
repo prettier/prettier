@@ -6860,7 +6860,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mdast-util-gfm@npm:^3.0.0":
+"mdast-util-gfm@npm:3.1.0, mdast-util-gfm@npm:^3.0.0":
   version: 3.1.0
   resolution: "mdast-util-gfm@npm:3.1.0"
   dependencies:
@@ -8298,6 +8298,7 @@ __metadata:
     magic-string: "npm:0.30.21"
     make-synchronized: "npm:0.8.0"
     mdast-util-from-markdown: "npm:2.0.2"
+    mdast-util-gfm: "npm:3.1.0"
     mdast-util-gfm-footnote: "npm:2.1.0"
     mdast-util-gfm-strikethrough: "npm:2.0.0"
     mdast-util-gfm-table: "npm:2.0.0"
