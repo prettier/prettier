@@ -32,9 +32,7 @@ function ThemeToggle() {
     applyTheme(newTheme);
   };
 
-  onMounted(() => {
-    applyTheme(theme.value);
-  });
+  applyTheme(theme.value);
 
   watch(theme, (newTheme) => {
     applyTheme(newTheme);
