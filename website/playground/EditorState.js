@@ -43,9 +43,8 @@ export default {
       { deep: true },
     );
 
-    return () => {
-      const children = slots.default(state);
-      return children;
-    };
+    const render = () => slots.default(state);
+
+    return render;
   },
 };

@@ -16,11 +16,10 @@ export const ClipboardButton = {
   setup(props, { slots, attrs }) {
     const state = reactive({ showTooltip: false, tooltipText: "" });
     let timer = null;
-    let clipboard;
     const buttonRef = ref();
 
     const componentDidMount = () => {
-      clipboard = new ClipboardJS(buttonRef.value, {
+      const clipboard = new ClipboardJS(buttonRef.value, {
         text() {
           const { copy } = props;
           return typeof copy === "function" ? copy() : copy;
