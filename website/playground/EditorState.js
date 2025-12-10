@@ -5,8 +5,9 @@ import * as storage from "./storage.js";
 export default {
   name: "EditorState",
   setup(_, { slots }) {
-    const stateToggler = (property) => () =>
-      Object.assign(state, { [property]: !state[property] });
+    const stateToggler = (property) => () => {
+      state[property] = !state[property];
+    };
     const state = reactive({
       showSidebar: window.innerWidth > window.innerHeight,
       showAst: false,
