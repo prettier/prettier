@@ -1,12 +1,13 @@
-import { shallowEqual, stateToggler } from "./helpers.js";
+import { reactive, watch } from "vue";
 import * as storage from "./storage.js";
 
-const { React } = window;
-
-export default class EditorState extends React.Component {
-  constructor() {
-    super();
-    this.state = {
+export default {
+  name: "EditorState",
+  setup(_, { slots }) {
+    const stateToggler = (property) => () => {
+      state[property] = !state[property];
+    };
+    const state = reactive({
       showSidebar: window.innerWidth > window.innerHeight,
       showAst: false,
       showPreprocessedAst: false,
@@ -16,28 +17,27 @@ export default class EditorState extends React.Component {
       showInput: true,
       showOutput: true,
       rethrowEmbedErrors: false,
-      toggleSidebar: () => this.setState(stateToggler("showSidebar")),
-      toggleAst: () => this.setState(stateToggler("showAst")),
-      togglePreprocessedAst: () =>
-        this.setState(stateToggler("showPreprocessedAst")),
-      toggleDoc: () => this.setState(stateToggler("showDoc")),
-      toggleComments: () => this.setState(stateToggler("showComments")),
-      toggleSecondFormat: () => this.setState(stateToggler("showSecondFormat")),
-      toggleInput: () => this.setState(stateToggler("showInput")),
-      toggleOutput: () => this.setState(stateToggler("showOutput")),
-      toggleEmbedErrors: () =>
-        this.setState(stateToggler("rethrowEmbedErrors")),
+      toggleSidebar: stateToggler("showSidebar"),
+      toggleAst: stateToggler("showAst"),
+      togglePreprocessedAst: stateToggler("showPreprocessedAst"),
+      toggleDoc: stateToggler("showDoc"),
+      toggleComments: stateToggler("showComments"),
+      toggleSecondFormat: stateToggler("showSecondFormat"),
+      toggleInput: stateToggler("showInput"),
+      toggleOutput: stateToggler("showOutput"),
+      toggleEmbedErrors: stateToggler("rethrowEmbedErrors"),
       ...storage.get("editor_state"),
-    };
-  }
+    });
 
-  componentDidUpdate(_, prevState) {
-    if (!shallowEqual(this.state, prevState)) {
-      storage.set("editor_state", this.state);
-    }
-  }
+    const render = () => slots.default(state);
 
-  render() {
-    return this.props.children(this.state);
-  }
-}
+    watch(
+      () => state,
+      () => {
+        storage.set("editor_state", state);
+      },
+      { deep: true },
+    );
+    return render;
+  },
+};

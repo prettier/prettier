@@ -1,49 +1,61 @@
-const { ClipboardJS, React } = window;
+import { onMounted, reactive, ref } from "vue";
 
-export const Button = React.forwardRef((props, ref) => (
-  <button type="button" className="btn" ref={ref} {...props} />
-));
+const { ClipboardJS } = window;
 
-export class ClipboardButton extends React.Component {
-  constructor() {
-    super();
-    this.state = { showTooltip: false, tooltipText: "" };
-    this.timer = null;
-    this.ref = React.createRef();
-  }
+export const Button = (props, { slots, attrs }) => (
+  <button type="button" class="btn" {...attrs}>
+    {slots.default()}
+  </button>
+);
 
-  componentDidMount() {
-    this.clipboard = new ClipboardJS(this.ref.current, {
-      text: () => {
-        const { copy } = this.props;
+function setup(props, { slots, attrs }) {
+  const state = reactive({ showTooltip: false, tooltipText: "" });
+  let timer = null;
+  const buttonRef = ref();
+
+  const componentDidMount = () => {
+    const clipboard = new ClipboardJS(buttonRef.value, {
+      text() {
+        const { copy } = props;
         return typeof copy === "function" ? copy() : copy;
       },
     });
-    this.clipboard.on("success", () => this.showTooltip("Copied!"));
-    this.clipboard.on("error", () => this.showTooltip("Press ctrl+c to copy"));
-  }
+    clipboard.on("success", () => showTooltip("Copied!"));
+    clipboard.on("error", () => showTooltip("Press ctrl+c to copy"));
+  };
 
-  showTooltip(text) {
-    this.setState({ showTooltip: true, tooltipText: text }, () => {
-      if (this.timer) {
-        clearTimeout(this.timer);
-      }
-      this.timer = setTimeout(() => {
-        this.timer = null;
-        this.setState({ showTooltip: false });
-      }, 2000);
-    });
-  }
+  const showTooltip = (text) => {
+    Object.assign(state, { showTooltip: true, tooltipText: text });
 
-  render() {
-    const { children, copy, ...rest } = this.props;
-    const { showTooltip, tooltipText } = this.state;
+    if (timer) {
+      clearTimeout(timer);
+    }
+    timer = setTimeout(() => {
+      timer = null;
+      Object.assign(state, { showTooltip: false });
+    }, 2000);
+  };
+
+  const render = () => {
+    const { showTooltip, tooltipText } = state;
+    const children = slots.default();
 
     return (
-      <Button ref={this.ref} {...rest}>
-        {showTooltip ? <span className="tooltip">{tooltipText}</span> : null}
+      <Button ref={buttonRef} {...attrs}>
+        {showTooltip ? <span class="tooltip">{tooltipText}</span> : null}
         {children}
       </Button>
     );
-  }
+  };
+
+  onMounted(componentDidMount);
+  return render;
 }
+
+export const ClipboardButton = {
+  name: "ClipboardButton",
+  props: {
+    copy: { type: [String, Function], required: true },
+  },
+  setup,
+};

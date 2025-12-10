@@ -1,14 +1,16 @@
-export function Sidebar({ visible, children }) {
+export function Sidebar({ visible }, { slots }) {
+  const children = slots.default();
   return (
-    <div className={`options-container ${visible ? "open" : ""}`}>
-      <div className="options">{children}</div>
+    <div class={`options-container ${visible ? "open" : ""}`}>
+      <div class="options">{children}</div>
     </div>
   );
 }
 
-export function SidebarCategory({ title, children }) {
+export function SidebarCategory({ title }, { slots }) {
+  const children = slots.default();
   return (
-    <details className="sub-options" open>
+    <details class="sub-options" open>
       <summary>{title}</summary>
       {children}
     </details>

@@ -1,36 +1,14 @@
-const { React } = window;
+import { onMounted, reactive, toRaw, watch } from "vue";
 
-export default class PrettierFormat extends React.Component {
-  constructor() {
-    super();
-    this.state = { formatted: "", debug: {} };
-  }
+function setup(props, { slots }) {
+  const state = reactive({ formatted: "", debug: {} });
 
-  componentDidMount() {
-    this.format();
-  }
+  const componentDidMount = () => {
+    format();
+  };
 
-  componentDidUpdate(prevProps) {
-    for (const key of [
-      "enabled",
-      "code",
-      "options",
-      "debugAst",
-      "debugPreprocessedAst",
-      "debugDoc",
-      "debugComments",
-      "reformat",
-      "rethrowEmbedErrors",
-    ]) {
-      if (prevProps[key] !== this.props[key]) {
-        this.format();
-        break;
-      }
-    }
-  }
-
-  async format() {
-    const {
+  const format = async () => {
+    let {
       worker,
       code,
       options,
@@ -40,7 +18,8 @@ export default class PrettierFormat extends React.Component {
       debugComments: comments,
       reformat,
       rethrowEmbedErrors,
-    } = this.props;
+    } = props;
+    options = toRaw(options);
 
     const result = await worker.format(code, options, {
       ast,
@@ -51,10 +30,45 @@ export default class PrettierFormat extends React.Component {
       rethrowEmbedErrors,
     });
 
-    this.setState(result);
-  }
+    Object.assign(state, result);
+  };
 
-  render() {
-    return this.props.children(this.state);
-  }
+  const render = () => slots.default(state);
+
+  onMounted(componentDidMount);
+  watch(
+    () =>
+      [
+        "enabled",
+        "code",
+        "options",
+        "debugAst",
+        "debugPreprocessedAst",
+        "debugDoc",
+        "debugComments",
+        "reformat",
+        "rethrowEmbedErrors",
+      ].map((property) => props[property]),
+    () => {
+      format();
+    },
+    { deep: true },
+  );
+  return render;
 }
+
+export default {
+  name: "PrettierFormat",
+  props: {
+    worker: Object,
+    code: String,
+    options: Object,
+    debugAst: Boolean,
+    debugPreprocessedAst: Boolean,
+    debugDoc: Boolean,
+    debugComments: Boolean,
+    reformat: Boolean,
+    rethrowEmbedErrors: Boolean,
+  },
+  setup,
+};

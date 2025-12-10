@@ -124,7 +124,6 @@
   },
   "devDependencies": {
     "@babel/generator": "8.0.0-beta.3",
-    "@eslint-react/eslint-plugin": "2.3.9",
     "@eslint/js": "9.39.1",
     "@stylistic/eslint-plugin": "5.6.1",
     "@types/jsesc": "3.0.3",
