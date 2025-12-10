@@ -13,7 +13,7 @@ export function Checkbox({ label, title, checked }, { emit }) {
 }
 Checkbox.props = {
   label: { type: String, required: true },
-  title: { type: String, required: true },
+  title: { type: String, default: "" },
   checked: { type: Boolean, required: true },
 };
 Checkbox.emits = ["change"];
@@ -41,10 +41,7 @@ Select.props = {
 };
 Select.emits = ["change"];
 
-export function NumberInput(
-  { label, title, value, min, max, step },
-  { emit },
-) {
+export function NumberInput({ label, title, value, min, max, step }, { emit }) {
   const onChange = (value) => emit("change", value);
   return (
     <label title={title}>
@@ -55,9 +52,7 @@ export function NumberInput(
         max={max}
         step={step}
         value={value}
-        onChange={(ev) =>
-          onChange(Number.parseInt(ev.target.value, 10))
-        }
+        onChange={(ev) => onChange(Number.parseInt(ev.target.value, 10))}
       />
     </label>
   );

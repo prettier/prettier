@@ -54,7 +54,7 @@ function NumberOption({ option, value }, { emit }) {
 }
 NumberOption.props = {
   option: { type: Object, required: true },
-  value: { type: Number, required: true },
+  value: { type: Number, default: undefined },
 };
 NumberOption.emits = ["change"];
 
@@ -75,7 +75,7 @@ export default function Option(props, { emit }) {
 }
 Option.props = {
   option: { type: Object, required: true },
-  value: { type: [Boolean, String, Number], required: true },
+  value: { type: [Boolean, String, Number], default: undefined },
 };
 Option.emits = ["change"];
 
