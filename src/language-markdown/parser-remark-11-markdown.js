@@ -6,6 +6,7 @@ import { math as mathSyntax } from "micromark-extension-math";
 import { syntax as wikiLinkSyntax } from "micromark-extension-wiki-link";
 import parseFrontMatter from "../main/front-matter/parse.js";
 import { locEnd, locStart } from "./loc.js";
+import * as htmlFlowHack from "./parser/html-flow-hack.js";
 import { gfmFromMarkdown } from "./parser/mdast-util-gfm.js";
 import {
   liquidFromMarkdown,
@@ -28,7 +29,14 @@ function getParseOptions() {
 
 function parse(text) {
   const { frontMatter, content } = parseFrontMatter(text);
-  const ast = fromMarkdown(content, getParseOptions());
+  let ast;
+
+  htmlFlowHack.enableHtmlFlowHack();
+  try {
+    ast = fromMarkdown(content, getParseOptions());
+  } finally {
+    htmlFlowHack.disableHtmlFLowHack();
+  }
 
   if (frontMatter) {
     // @ts-expect-error -- Missing?
