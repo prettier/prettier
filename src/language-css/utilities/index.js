@@ -261,9 +261,15 @@ function isSCSSMapItemNode(path, options) {
     return false;
   }
 
+  const parentNode = path.parent;
+
   // Don't treat SCSS if function arguments as maps (`if(sass(condition): value; else: value)`)
   // https://sass-lang.com/documentation/breaking-changes/if-function/
-  if (path.findAncestor((node) => node.type === "value-func")?.value === "if") {
+  if (
+    parentNode &&
+    parentNode.type === "value-func" &&
+    parentNode.value === "if"
+  ) {
     return false;
   }
 
