@@ -21,6 +21,7 @@ const treatEverythingExceptRawNamesAsBlock = (tagName) => {
 
 let fromMarkdown = originalFromMarkdown;
 if (isProduction) {
+  // In production, the array is bundled, it's fine to override
   Object.defineProperty(htmlBlockNames, "includes", {
     enumerable: false,
     configurable: true,
@@ -29,7 +30,6 @@ if (isProduction) {
 } else {
   let enabled = false;
   const ArrayIncludes = Array.prototype.includes;
-  // In production, the array is bundled, it's fine to override
   Object.defineProperty(htmlBlockNames, "includes", {
     enumerable: false,
     configurable: true,
