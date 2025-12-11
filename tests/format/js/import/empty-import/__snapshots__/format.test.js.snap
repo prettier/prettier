@@ -1,0 +1,118 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`empty-import.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import { } from '@types/googlemaps';
+import 'a';
+import /* comment */ 'a';
+import // comment
+'a';
+import { /* comment */ } from 'a';
+import /* comment */ {} from 'a';
+import {} /* comment */ from 'a';
+import {} from /* comment */ 'a';
+import /* comment */ {/* comment */} /* comment */ from /* comment */ 'a';
+import {
+  // comment
+} from 'a';
+import // comment
+{} from 'a';
+import {}
+// comment
+from 'a';
+import {} from
+// comment
+'a';
+import
+// comment
+{
+// comment
+}
+// comment
+from
+// comment
+'a';
+
+import // {} from
+'a';
+import {} from // comment ends with from
+'a';
+import {} from /* comment ends with from */ 'a';
+import {} from // comment not ends with from ___
+'a';
+import {} from /* comment not ends with from ___ */ 'a';
+
+import // comment ends with from
+'a';
+import /* comment ends with from */ 'a';
+import // comment not ends with from ___
+'a';
+import /* comment not ends with from ___ */ 'a';
+
+=====================================output=====================================
+import {} from "@types/googlemaps";
+import "a";
+import /* comment */ "a";
+import // comment
+"a";
+import {} from /* comment */ "a";
+import {} from /* comment */ "a";
+import {} from /* comment */ "a";
+import {} from /* comment */ "a";
+import {} from /* comment */ /* comment */ /* comment */ /* comment */ "a";
+import {} from // comment
+"a";
+import {} from // comment
+"a";
+import {} from // comment
+"a";
+import {} from // comment
+"a";
+import {} from // comment
+// comment
+// comment
+// comment
+"a";
+
+import // {} from
+"a";
+import {} from // comment ends with from
+"a";
+import {} from /* comment ends with from */ "a";
+import {} from // comment not ends with from ___
+"a";
+import {} from /* comment not ends with from ___ */ "a";
+
+import // comment ends with from
+"a";
+import /* comment ends with from */ "a";
+import // comment not ends with from ___
+"a";
+import /* comment not ends with from ___ */ "a";
+
+================================================================================
+`;
+
+exports[`empty-import-2.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import {} from /* 😄😄😄😄 */ /* 😄😄😄😄 */'a';
+//     ^^^^^^^ SHOLUL print \`from\`
+import /* 😄😄😄😄😄😄😄___ */ /* from */ "a";
+//    ^ Should NOT print \`from\`
+
+=====================================output=====================================
+import {} from /* 😄😄😄😄 */ /* 😄😄😄😄 */ "a";
+//     ^^^^^^^ SHOLUL print \`from\`
+import /* 😄😄😄😄😄😄😄___ */ /* from */ "a";
+//    ^ Should NOT print \`from\`
+
+================================================================================
+`;

@@ -1,3 +1,4 @@
+import replaceNonLineBreaksWithSpace from "../../utilities/replace-non-line-breaks-with-space.js";
 import { FRONT_MATTER_MARK } from "./constants.js";
 
 const DELIMITER_LENGTH = 3;
@@ -106,10 +107,7 @@ function parse(text) {
     frontMatter,
     get content() {
       const { raw } = frontMatter;
-      return (
-        // eslint-disable-next-line require-unicode-regexp -- string length matters so intentionally not using unicode flag
-        raw.replaceAll(/[^\n]/g, " ") + text.slice(raw.length)
-      );
+      return replaceNonLineBreaksWithSpace(raw) + text.slice(raw.length);
     },
   };
 }
