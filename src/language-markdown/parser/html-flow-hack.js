@@ -4,7 +4,7 @@ To enforce all html tags parse like `<div>`
 https://github.com/remarkjs/remark-gfm/issues/81
 */
 import { fromMarkdown as originalFromMarkdown } from "mdast-util-from-markdown";
-import { htmlBlockNames } from "micromark-util-html-tag-name";
+import { htmlBlockNames, htmlRawNames } from "micromark-util-html-tag-name";
 import * as assert from "#universal/assert";
 
 const isProduction = process.env.NODE_ENV !== "production";
@@ -13,27 +13,33 @@ if (!isProduction) {
   assert.ok(Array.isArray(htmlBlockNames));
 }
 
-const returnTrue = () => true;
+let htmlRawNamesSet;
+const treatEverythingExceptRawNamesAsBlock = (tagName) => {
+  htmlRawNamesSet ??= new Set(htmlRawNames);
+  return !htmlRawNamesSet.has(tagName);
+};
 
 let fromMarkdown = originalFromMarkdown;
 if (isProduction) {
   Object.defineProperty(htmlBlockNames, "includes", {
     enumerable: false,
     configurable: true,
-    get: () => returnTrue,
+    get: () => treatEverythingExceptRawNamesAsBlock,
   });
 } else {
   let enabled = false;
   const ArrayIncludes = Array.prototype.includes;
+  // In production, the array is bundled, it's fine to override
   Object.defineProperty(htmlBlockNames, "includes", {
     enumerable: false,
     configurable: true,
-    get: () => (enabled ? returnTrue : ArrayIncludes),
+    get: () => (enabled ? treatEverythingExceptRawNamesAsBlock : ArrayIncludes),
   });
 
   fromMarkdown = function (...arguments_) {
+    enabled = true;
+
     try {
-      enabled = true;
       // @ts-expect-error -- Safe
       return originalFromMarkdown(...arguments_);
     } finally {
