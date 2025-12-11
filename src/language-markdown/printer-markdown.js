@@ -17,7 +17,6 @@ import {
 import getMaxContinuousCount from "../utilities/get-max-continuous-count.js";
 import getMinNotPresentContinuousCount from "../utilities/get-min-not-present-continuous-count.js";
 import getPreferredQuote from "../utilities/get-preferred-quote.js";
-import htmlWhitespace from "../utilities/html-whitespace.js";
 import UnexpectedNodeError from "../utilities/unexpected-node-error.js";
 import clean from "./clean.js";
 import embed from "./embed.js";
