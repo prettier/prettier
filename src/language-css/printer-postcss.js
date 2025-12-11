@@ -125,18 +125,6 @@ function genericPrint(path, options, print) {
         value = indent([hardline, dedent(value)]);
       }
 
-      let spaceAfterColon = "";
-      if (!node.extend && !isValueAllSpace) {
-        if (
-          isAtWordPlaceholderNode(node.value?.group?.group) &&
-          !isSpaceAfterColon
-        ) {
-          spaceAfterColon = "";
-        } else {
-          spaceAfterColon = " ";
-        }
-      }
-
       return [
         node.raws.before.replaceAll(/[\s;]/gu, ""),
         // Less variable
@@ -146,7 +134,21 @@ function genericPrint(path, options, print) {
           : maybeToLowerCase(node.prop),
         trimmedBetween.startsWith("//") ? " " : "",
         trimmedBetween,
-        spaceAfterColon,
+        node.extend || isValueAllSpace
+          ? ""
+          : node.isNested
+            ? isSpaceAfterColon &&
+              path.call(
+                ({ node: groupNode }) =>
+                  isAtWordPlaceholderNode(groupNode) ||
+                  isAtWordPlaceholderNode(groupNode.groups?.[0]),
+                "value",
+                "group",
+                "group",
+              )
+              ? " "
+              : ""
+            : " ",
         options.parser === "less" && node.extend && node.selector
           ? ["extend(", print("selector"), ")"]
           : "",
