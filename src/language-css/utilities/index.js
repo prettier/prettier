@@ -261,6 +261,12 @@ function isSCSSMapItemNode(path, options) {
     return false;
   }
 
+  // Don't treat SCSS if function arguments as maps (`if(sass(condition): value; else: value)`)
+  // https://sass-lang.com/documentation/breaking-changes/if-function/
+  if (path.findAncestor((node) => node.type === "value-func")?.value === "if") {
+    return false;
+  }
+
   const parentParentNode = path.grandparent;
 
   // Check open parens contain key/value pair (i.e. `(key: value)` and `(key: (value, other-value)`)
