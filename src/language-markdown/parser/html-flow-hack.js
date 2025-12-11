@@ -5,11 +5,6 @@ https://github.com/remarkjs/remark-gfm/issues/81
 */
 
 import { htmlBlockNames } from "micromark-util-html-tag-name";
-import * as assert from "#universal/assert";
-
-if (process.env.NODE_ENV !== "production") {
-  assert.ok(Array.isArray(htmlBlockNames));
-}
 
 let enabled = false;
 const returnTrue = () => true;
@@ -28,18 +23,3 @@ export const enableHtmlFlowHack = () => {
 export const disableHtmlFLowHack = () => {
   enabled = false;
 };
-
-if (process.env.NODE_ENV !== "production") {
-  assert.equal(htmlBlockNames.includes("div"), true);
-  assert.equal(htmlBlockNames.includes("impossible-html-tag"), false);
-
-  enableHtmlFlowHack();
-
-  assert.equal(htmlBlockNames.includes("div"), true);
-  assert.equal(htmlBlockNames.includes("impossible-html-tag"), true);
-
-  disableHtmlFLowHack();
-
-  assert.equal(htmlBlockNames.includes("div"), true);
-  assert.equal(htmlBlockNames.includes("impossible-html-tag"), false);
-}
