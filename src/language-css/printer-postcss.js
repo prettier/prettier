@@ -134,21 +134,20 @@ function genericPrint(path, options, print) {
           : maybeToLowerCase(node.prop),
         trimmedBetween.startsWith("//") ? " " : "",
         trimmedBetween,
-        node.extend || isValueAllSpace
+        node.extend ||
+        isValueAllSpace ||
+        (!isSpaceAfterColon &&
+          node.isNested &&
+          path.call(
+            ({ node: groupNode }) =>
+              isAtWordPlaceholderNode(groupNode) ||
+              isAtWordPlaceholderNode(groupNode?.groups?.[0]),
+            "value",
+            "group",
+            "group",
+          ))
           ? ""
-          : node.isNested
-            ? isSpaceAfterColon &&
-              path.call(
-                ({ node: groupNode }) =>
-                  isAtWordPlaceholderNode(groupNode) ||
-                  isAtWordPlaceholderNode(groupNode.groups?.[0]),
-                "value",
-                "group",
-                "group",
-              )
-              ? " "
-              : ""
-            : " ",
+          : " ",
         options.parser === "less" && node.extend && node.selector
           ? ["extend(", print("selector"), ")"]
           : "",
@@ -171,7 +170,10 @@ function genericPrint(path, options, print) {
         node.nodes
           ? [
               " {",
-              indent([softline, printSequence(path, options, print)]),
+              indent([
+                node.nodes.length > 0 ? softline : "",
+                printSequence(path, options, print),
+              ]),
               softline,
               "}",
             ]
