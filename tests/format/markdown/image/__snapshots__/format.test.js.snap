@@ -1,5 +1,54 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`alt.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+[image-reference]: a.png
+[   image reference with \`\`backtick\`\`   ]: a.png
+[   image reference with \`\`backtick \`   ]: a.png
+
+<!-- backtick -->
+- ![   image alt with \`\`backtick\`\`   ](a.png)
+- ![   image alt with \`\`backtick \`   ](a.png)
+- ![   image reference alt with \`\`backtick\`\`   ][image-reference]
+- ![   image reference alt with \`\`backtick \`   ][image-reference]
+- ![   image reference with \`\`backtick\`\`   ][]
+- ![   image reference with \`\`backtick \`   ][]
+
+<!-- square brackets -->
+- ![   image alt with [ square brackets ]   ](a.png)
+- ![   image alt with [[square brackets]]   ](a.png)
+- ![   image alt with [ square brackets ]   ][image-reference]
+- ![   image alt with [[square brackets]]   ][image-reference]
+
+=====================================output=====================================
+[image-reference]: a.png
+[ image reference with \`\`backtick\`\` ]: a.png
+[ image reference with \`\`backtick \` ]: a.png
+
+<!-- backtick -->
+
+- ![   image alt with \`\`backtick\`\`   ](a.png)
+- ![   image alt with \`\`backtick \`   ](a.png)
+- ![   image reference alt with \`\`backtick\`\`   ][image-reference]
+- ![   image reference alt with \`\`backtick \`   ][image-reference]
+- ![ image reference with \`\`backtick\`\` ][]
+- ![ image reference with \`\`backtick \` ][]
+
+<!-- square brackets -->
+
+- ![   image alt with [ square brackets ]   ](a.png)
+- ![   image alt with [[square brackets]]   ](a.png)
+- ![   image alt with [ square brackets ]   ][image-reference]
+- ![   image alt with [[square brackets]]   ][image-reference]
+
+================================================================================
+`;
+
 exports[`simple.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]

@@ -203,7 +203,7 @@ function genericPrint(path, options, print) {
     case "image":
       return [
         "![",
-        getImageAltText(node, options),
+        printImageAlt(node, options),
         "](",
         printUrl(node.url, ")"),
         printTitle(node.title, options),
@@ -285,18 +285,21 @@ function genericPrint(path, options, print) {
             ? "[]"
             : "",
       ];
-    case "imageReference":
+    case "imageReference": {
+      const alt = printImageAlt(node, options);
+
       switch (node.referenceType) {
         case "full":
-          return ["![", node.alt || "", "]", printLinkReference(node)];
+          return ["![", alt, "]", printLinkReference(node)];
         default:
           return [
             ...(options.parser === "mdx"
-              ? ["![", node.alt, "]"]
+              ? ["![", alt, "]"]
               : ["!", printLinkReference(node)]),
             node.referenceType === "collapsed" ? "[]" : "",
           ];
       }
+    }
     case "definition": {
       const lineOrSpace = options.proseWrap === "always" ? line : " ";
       return group([
@@ -543,7 +546,7 @@ function printFootnoteReference(node) {
   return `[^${node.label}]`;
 }
 
-function getImageAltText(node, options) {
+function printImageAlt(node, options) {
   if (options.parser !== "mdx" && node.originalAltText) {
     return node.originalAltText;
   }

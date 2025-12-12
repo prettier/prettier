@@ -10261,7 +10261,7 @@ proseWrap: "always"
 [FOOBAR]: train.jpg "train & tracks"
 
 =====================================output=====================================
-![foo bar][foobar]
+![foo *bar*][foobar]
 
 [FOOBAR]: train.jpg "train & tracks"
 
