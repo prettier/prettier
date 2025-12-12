@@ -40,8 +40,20 @@ function parseMarkdown(text) {
   const ast = fromMarkdown(content, getMarkdownParseOptions());
 
   if (frontMatter) {
-    // @ts-expect-error -- Missing?
-    ast.children.unshift(frontMatter);
+    const [start, end] = [frontMatter.start, frontMatter.end].map(
+      ({ line, column, index }) => ({
+        line,
+        column: column + 1,
+        offset: index,
+      }),
+    );
+
+    ast.children.unshift({
+      ...frontMatter,
+      // @ts-expect-error -- Expected
+      type: "frontMatter",
+      position: { start, end },
+    });
   }
 
   return ast;

@@ -1,3 +1,4 @@
+import { isSetextHeading } from "../utilities.js";
 import { printChildren } from "./children.js";
 
 function printAtxHeading(path, options, print) {
@@ -7,13 +8,30 @@ function printAtxHeading(path, options, print) {
   ];
 }
 
-function printHeading(path, options, print) {
-  if (options.parser !== "mdx") {
-    const { start, end } = path.node.position;
-
-    if (start.line !== end.line) {
-      return options.originalText.slice(start.offset, end.offset);
+function printSetextHeading(path, options) {
+  const { originalText } = options;
+  // https://spec.commonmark.org/0.31.2/#example-215
+  const { node, isFirst } = path;
+  let start = node.position.start.offset;
+  if (!isFirst) {
+    const { previous } = path;
+    if (node.position.start.line < previous.position.end.line) {
+      const lineBefore = originalText.indexOf(
+        "\n",
+        previous.position.end.offset,
+      );
+      if (lineBefore !== -1) {
+        start = lineBefore + 1;
+      }
     }
+  }
+
+  return originalText.slice(start, node.position.end.offset);
+}
+
+function printHeading(path, options, print) {
+  if (options.parser !== "mdx" && isSetextHeading(path.node)) {
+    return printSetextHeading(path, options);
   }
 
   return printAtxHeading(path, options, print);

@@ -1,5 +1,41 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`definition-before.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+<!-- https://spec.commonmark.org/0.31.2/#example-215 -->
+[foo]: /url1
+[foo]: /url2
+bar
+===
+
+[foo]: /url1
+[foo]: /url2
+
+bar
+===
+
+=====================================output=====================================
+<!-- https://spec.commonmark.org/0.31.2/#example-215 -->
+
+[foo]: /url1
+[foo]: /url2
+bar
+===
+
+[foo]: /url1
+[foo]: /url2
+
+bar
+===
+
+================================================================================
+`;
+
 exports[`issue-6013.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
@@ -99,6 +135,24 @@ Line
 Setext\\
 Heading
 -------
+
+================================================================================
+`;
+
+exports[`snippet: #1 - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+[foo]: /url{" "}
+  bar
+===
+=====================================output=====================================
+[foo]: /url{" "}
+  bar
+===
 
 ================================================================================
 `;

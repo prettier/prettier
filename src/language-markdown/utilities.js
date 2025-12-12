@@ -320,6 +320,11 @@ function getNthListSiblingIndex(node, parentNode) {
   }
 }
 
+function isSetextHeading(node) {
+  const { start, end } = node.position;
+  return start.line !== end.line;
+}
+
 export {
   getFencedCodeBlockValue,
   getNthListSiblingIndex,
@@ -329,6 +334,7 @@ export {
   INLINE_NODE_WRAPPER_TYPES,
   isAutolink,
   isPrettierIgnore,
+  isSetextHeading,
   KIND_CJ_LETTER,
   KIND_CJK_PUNCTUATION,
   KIND_K_LETTER,

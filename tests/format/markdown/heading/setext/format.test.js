@@ -18,6 +18,12 @@ runFormatTest(
         Heading
         -------
       `,
+      // https://spec.commonmark.org/0.31.2/#example-215
+      outdent`
+        [foo]: /url{" "}
+          bar
+        ===
+      `,
     ],
   },
   ["markdown"],
