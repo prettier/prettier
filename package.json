@@ -97,6 +97,7 @@
     "micromark-extension-math": "3.1.0",
     "micromark-extension-wiki-link": "0.0.4",
     "micromark-util-character": "2.1.1",
+    "micromark-util-html-tag-name": "2.0.1",
     "micromark-util-symbol": "2.0.1",
     "micromark-util-types": "2.0.2",
     "micromatch": "4.0.8",

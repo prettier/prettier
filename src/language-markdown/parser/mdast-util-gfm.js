@@ -18,11 +18,13 @@ export function gfmFromMarkdown() {
     Boolean(extension.enter.literalAutolink),
   );
 
-  assert.ok(
-    autolinkExtension &&
-      Array.isArray(autolinkExtension.transforms) &&
-      autolinkExtension.transforms.length === 1,
-  );
+  if (process.env.NODE_ENV !== "production") {
+    assert.ok(
+      autolinkExtension &&
+        Array.isArray(autolinkExtension.transforms) &&
+        autolinkExtension.transforms.length === 1,
+    );
+  }
 
   // Prevent the autolink extension generate nodes without position
   autolinkExtension.transforms = [];
