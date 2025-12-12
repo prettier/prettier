@@ -8,13 +8,13 @@ runFormatTest(
       outdent`
         Multi${"\\"}
         Line${" ".repeat(2)}
-        Setext{"\\"}
+        Setext${"\\"}
         Heading
         =======
 
-        Multi{"\\"}
+        Multi${"\\"}
         Line${" ".repeat(2)}
-        Setext{"\\"}
+        Setext${"\\"}
         Heading
         -------
       `,
