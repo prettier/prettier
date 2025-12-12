@@ -1,4 +1,3 @@
-import * as assert from "#universal/assert";
 import { hardline } from "../../document/index.js";
 import { isSetextHeading } from "../utilities.js";
 import { printChildren } from "./children.js";
@@ -18,10 +17,6 @@ function printSetextHeading(path, options, print) {
   const lastLine = originalText.slice(lineStart, end);
   const start = Math.max(lastLine.indexOf("="), lastLine.indexOf("-"));
   const underline = lastLine.slice(start);
-  /* c8 ignore next */
-  if (process.env.NODE_ENV !== "production") {
-    assert.equal(underline, underline[0].repeat(underline.length));
-  }
   return [printChildren(path, options, print), hardline, underline];
 }
 
