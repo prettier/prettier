@@ -7,44 +7,44 @@ printWidth: 80
 proseWrap: "always"
                                                                                 | printWidth
 =====================================input======================================
-[IMAGE-reference]: a.png
-[   IMAGE reference with \`\`backtick\`\`   ]: a.png
-[   IMAGE reference with \`\`backtick \`   ]: a.png
+[Image-reference]: a.png
+[   Image reference with \`\`backtick\`\`   ]: a.png
+[   Image reference with \`\`backtick \`   ]: a.png
 
 <!-- backtick -->
-- ![   IMAGE alt with \`\`backtick\`\`   ](a.png)
-- ![   IMAGE alt with \`\`backtick \`   ](a.png)
-- ![   IMAGE reference alt with \`\`backtick\`\`   ][IMAGE-reference]
-- ![   IMAGE reference alt with \`\`backtick \`   ][IMAGE-reference]
-- ![   IMAGE reference with \`\`backtick\`\`   ][]
-- ![   IMAGE reference with \`\`backtick \`   ][]
+- ![   Image alt with \`\`backtick\`\`   ](a.png)
+- ![   Image alt with \`\`backtick \`   ](a.png)
+- ![   Image reference alt with \`\`backtick\`\`   ][Image-reference]
+- ![   Image reference alt with \`\`backtick \`   ][Image-reference]
+- ![   Image reference with \`\`backtick\`\`   ][]
+- ![   Image reference with \`\`backtick \`   ][]
 
 <!-- square brackets -->
-- ![   IMAGE alt with [ square brackets ]   ](a.png)
-- ![   IMAGE alt with [[square brackets]]   ](a.png)
-- ![   IMAGE alt with [ square brackets ]   ][IMAGE-reference]
-- ![   IMAGE alt with [[square brackets]]   ][IMAGE-reference]
+- ![   Image alt with [ square brackets ]   ](a.png)
+- ![   Image alt with [[square brackets]]   ](a.png)
+- ![   Image alt with [ square brackets ]   ][Image-reference]
+- ![   Image alt with [[square brackets]]   ][Image-reference]
 
 =====================================output=====================================
-[IMAGE-reference]: a.png
-[ IMAGE reference with \`\`backtick\`\` ]: a.png
-[ IMAGE reference with \`\`backtick \` ]: a.png
+[Image-reference]: a.png
+[ Image reference with \`\`backtick\`\` ]: a.png
+[ Image reference with \`\`backtick \` ]: a.png
 
 <!-- backtick -->
 
-- ![   IMAGE alt with \`\`backtick\`\`   ](a.png)
-- ![   IMAGE alt with \`\`backtick \`   ](a.png)
-- ![   IMAGE reference alt with \`\`backtick\`\`   ][IMAGE-reference]
-- ![   IMAGE reference alt with \`\`backtick \`   ][IMAGE-reference]
-- ![ IMAGE reference with \`\`backtick\`\` ][]
-- ![ IMAGE reference with \`\`backtick \` ][]
+- ![   Image alt with \`\`backtick\`\`   ](a.png)
+- ![   Image alt with \`\`backtick \`   ](a.png)
+- ![   Image reference alt with \`\`backtick\`\`   ][Image-reference]
+- ![   Image reference alt with \`\`backtick \`   ][Image-reference]
+- ![ Image reference with \`\`backtick\`\` ][]
+- ![ Image reference with \`\`backtick \` ][]
 
 <!-- square brackets -->
 
-- ![   IMAGE alt with [ square brackets ]   ](a.png)
-- ![   IMAGE alt with [[square brackets]]   ](a.png)
-- ![   IMAGE alt with [ square brackets ]   ][IMAGE-reference]
-- ![   IMAGE alt with [[square brackets]]   ][IMAGE-reference]
+- ![   Image alt with [ square brackets ]   ](a.png)
+- ![   Image alt with [[square brackets]]   ](a.png)
+- ![   Image alt with [ square brackets ]   ][Image-reference]
+- ![   Image alt with [[square brackets]]   ][Image-reference]
 
 ================================================================================
 `;
