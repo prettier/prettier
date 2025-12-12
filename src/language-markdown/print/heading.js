@@ -18,6 +18,10 @@ function printSetextHeading(path, options, print) {
   const lastLine = originalText.slice(lineStart, end);
   const start = Math.max(lastLine.indexOf("="), lastLine.indexOf("-"));
   const underline = lastLine.slice(start);
+  /* c8 ignore next */
+  if (process.env.NODE_ENV !== "production") {
+    assert.equal(underline, underline[0].repeat(underline.length));
+  }
   return [printChildren(path, options, print), hardline, underline];
 }
 
