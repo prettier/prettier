@@ -92,10 +92,7 @@ function printClass(path, options, print) {
   if (node.superClass) {
     const printed = [
       printSuperClass(path, options, print),
-      print(
-        // TODO: Remove `superTypeParameters` when https://github.com/facebook/hermes/issues/1808#issuecomment-3413004377 get fixed
-        node.superTypeArguments ? "superTypeArguments" : "superTypeParameters",
-      ),
+      print("superTypeArguments"),
     ];
     const printedWithComments = path.call(
       () => ["extends ", printComments(path, printed, options)],
@@ -184,10 +181,7 @@ function shouldPrintClassInGroupModeWithoutCache(path) {
       return false;
     }
 
-    const superTypeArguments =
-      node.superTypeArguments ?? node.superTypeParameters;
-
-    return !superTypeArguments && isMemberExpression(node.superClass);
+    return !node.superTypeArguments && isMemberExpression(node.superClass);
   }
 
   const heritage =
