@@ -1,3 +1,4 @@
+import { replaceEndOfLine } from "../../document/index.js";
 import { isSetextHeading } from "../utilities.js";
 import { printChildren } from "./children.js";
 
@@ -25,6 +26,8 @@ function printSetextHeading(path, options) {
       }
     }
   }
+
+  // Not correctly handing descendants of `listItem` or `blockquote` correctly
 
   return originalText.slice(start, node.position.end.offset);
 }

@@ -1,5 +1,45 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`child.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+<!-- Not print correctly -->
+>>> bar
+>>> ===
+
+>>> bar
+> ===
+
+- in list
+    - in list
+      heading
+      =======
+    - in list
+      >>> heading
+      > =======
+
+=====================================output=====================================
+<!-- Not print correctly -->
+
+> > > bar
+>>> ===
+
+> > > bar ===
+
+- in list
+  - in list
+      heading
+      =======
+  - in list
+    > > > heading > =======
+
+================================================================================
+`;
+
 exports[`definition-before.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
