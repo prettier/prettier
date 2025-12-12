@@ -1,0 +1,70 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`issue-6013.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+Setext Heading 1
+================
+
+Setext Heading 2
+----------------
+
+## ATX Heading 2
+
+=====================================output=====================================
+Setext Heading 1
+================
+
+Setext Heading 2
+----------------
+
+## ATX Heading 2
+
+================================================================================
+`;
+
+exports[`issue-6013-2.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+Heading
+[![Shields.io badge](https://img.shields.io/badge/Shields.io-badge-brightgreen)](https://shields.io)
+=======
+
+=====================================output=====================================
+Heading
+[![Shields.io badge](https://img.shields.io/badge/Shields.io-badge-brightgreen)](https://shields.io)
+=======
+
+================================================================================
+`;
+
+exports[`setext.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+h1
+===
+
+h2
+---
+
+=====================================output=====================================
+h1
+===
+
+h2
+---
+
+================================================================================
+`;
