@@ -43,15 +43,6 @@ function clean(original, cloned, parent) {
     cloned.label = collapseWhiteSpace(original.label);
   }
 
-  // if (
-  //   (original.type === "definition" ||
-  //     original.type === "link" ||
-  //     original.type === "image") &&
-  //   original.title
-  // ) {
-  //   cloned.title = original.title.replaceAll(/\\(?=["')])/gu, "");
-  // }
-
   if (
     (original.type === "link" || original.type === "image") &&
     original.url &&

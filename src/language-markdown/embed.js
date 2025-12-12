@@ -27,7 +27,9 @@ function embed(path, options) {
         }
 
         const doc = await textToDoc(
-          getFencedCodeBlockValue(node, options.originalText),
+          options.parser === "mdx"
+            ? getFencedCodeBlockValue(node, options.originalText)
+            : node.value,
           newOptions,
         );
 
