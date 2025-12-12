@@ -1,17 +1,17 @@
-[image-reference]: a.png
-[   image reference with ``backtick``   ]: a.png
-[   image reference with ``backtick `   ]: a.png
+[IMAGE-reference]: a.png
+[   IMAGE reference with ``backtick``   ]: a.png
+[   IMAGE reference with ``backtick `   ]: a.png
 
 <!-- backtick -->
-- ![   image alt with ``backtick``   ](a.png)
-- ![   image alt with ``backtick `   ](a.png)
-- ![   image reference alt with ``backtick``   ][image-reference]
-- ![   image reference alt with ``backtick `   ][image-reference]
-- ![   image reference with ``backtick``   ][]
-- ![   image reference with ``backtick `   ][]
+- ![   IMAGE alt with ``backtick``   ](a.png)
+- ![   IMAGE alt with ``backtick `   ](a.png)
+- ![   IMAGE reference alt with ``backtick``   ][IMAGE-reference]
+- ![   IMAGE reference alt with ``backtick `   ][IMAGE-reference]
+- ![   IMAGE reference with ``backtick``   ][]
+- ![   IMAGE reference with ``backtick `   ][]
 
 <!-- square brackets -->
-- ![   image alt with [ square brackets ]   ](a.png)
-- ![   image alt with [[square brackets]]   ](a.png)
-- ![   image alt with [ square brackets ]   ][image-reference]
-- ![   image alt with [[square brackets]]   ][image-reference]
+- ![   IMAGE alt with [ square brackets ]   ](a.png)
+- ![   IMAGE alt with [[square brackets]]   ](a.png)
+- ![   IMAGE alt with [ square brackets ]   ][IMAGE-reference]
+- ![   IMAGE alt with [[square brackets]]   ][IMAGE-reference]
