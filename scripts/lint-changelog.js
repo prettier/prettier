@@ -4,8 +4,8 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import indexToPosition from "index-to-position";
 import { outdent } from "outdent";
-import remarkParse from "remark-parse-v8";
-import unified from "unified-v9";
+import remarkParse from "remark-parse";
+import unified from "unified";
 import { CHANGELOG_CATEGORIES } from "./utilities/changelog-categories.js";
 
 const CHANGELOG_DIR = "changelog_unreleased";

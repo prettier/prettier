@@ -63,7 +63,7 @@ const tokenizeEsComment = (eat, value) => {
 
 tokenizeEsComment.locator = (value, fromIndex) => value.indexOf("{", fromIndex);
 
-/** @import {Plugin, Settings} from "unified-v9" */
+/** @import {Plugin, Settings} from "unified" */
 
 /**
  * @type {Plugin<[], Settings>}

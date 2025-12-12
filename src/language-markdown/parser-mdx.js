@@ -1,7 +1,7 @@
 import footnotes from "remark-footnotes";
-import remarkMath from "remark-math-v3";
-import remarkParse from "remark-parse-v8";
-import unified from "unified-v9";
+import remarkMath from "remark-math";
+import remarkParse from "remark-parse";
+import unified from "unified";
 import { locEnd, locStart } from "./loc.js";
 import { BLOCKS_REGEX, esSyntax } from "./mdx.js";
 import { hasIgnorePragma, hasPragma } from "./pragma.js";

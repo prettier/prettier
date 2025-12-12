@@ -8078,8 +8078,8 @@ __metadata:
     pretty-ms: "npm:9.3.0"
     regexp-util: "npm:2.0.3"
     remark-footnotes: "npm:2.0.0"
-    remark-math-v3: "npm:remark-math@3.0.1"
-    remark-parse-v8: "npm:remark-parse@8.0.3"
+    remark-math: "npm:3.0.1"
+    remark-parse: "npm:8.0.3"
     rollup-plugin-license: "npm:3.6.0"
     sdbm: "npm:3.0.0"
     search-closest: "npm:1.1.0"
@@ -8094,7 +8094,7 @@ __metadata:
     ts-expect: "npm:1.3.0"
     typescript: "npm:5.9.3"
     unicode-regex: "npm:4.2.0"
-    unified-v9: "npm:unified@9.2.2"
+    unified: "npm:9.2.2"
     url-or-path: "npm:2.6.1"
     vnopts: "npm:2.0.3"
     wcwidth.js: "npm:2.0.0"
@@ -8273,14 +8273,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"remark-math-v3@npm:remark-math@3.0.1":
+"remark-math@npm:3.0.1":
   version: 3.0.1
   resolution: "remark-math@npm:3.0.1"
   checksum: 10/47f33ae100e78eda68b3d684283e274c1f4bb45be41c6472b17886bd70e02640bd96a852739c5384b499a1f36e4938fb46528dadd07f5daf9cdf46f966072c08
   languageName: node
   linkType: hard
 
-"remark-parse-v8@npm:remark-parse@8.0.3":
+"remark-parse@npm:8.0.3":
   version: 8.0.3
   resolution: "remark-parse@npm:8.0.3"
   dependencies:
@@ -9259,7 +9259,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"unified-v9@npm:unified@9.2.2":
+"unified@npm:9.2.2":
   version: 9.2.2
   resolution: "unified@npm:9.2.2"
   dependencies:

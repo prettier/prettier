@@ -1,6 +1,6 @@
 import { parseFrontMatter } from "../../main/front-matter/index.js";
 
-/** @import {Plugin, Settings} from "unified-v9" */
+/** @import {Plugin, Settings} from "unified" */
 
 /**
  * @type {Plugin<[], Settings>}
