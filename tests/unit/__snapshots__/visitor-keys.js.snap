@@ -98,7 +98,6 @@ exports[`visitor keys estree 1`] = `
     "mixins",
     "superClass",
     "superTypeArguments",
-    "superTypeParameters",
     "typeParameters",
   ],
   "ClassExpression": [
@@ -109,7 +108,6 @@ exports[`visitor keys estree 1`] = `
     "mixins",
     "superClass",
     "superTypeArguments",
-    "superTypeParameters",
     "typeParameters",
   ],
   "ClassImplements": [
@@ -541,6 +539,14 @@ exports[`visitor keys estree 1`] = `
   "MatchIdentifierPattern": [
     "id",
   ],
+  "MatchInstanceObjectPattern": [
+    "properties",
+    "rest",
+  ],
+  "MatchInstancePattern": [
+    "properties",
+    "targetConstructor",
+  ],
   "MatchLiteralPattern": [
     "literal",
   ],
@@ -750,6 +756,32 @@ exports[`visitor keys estree 1`] = `
   "QualifiedTypeofIdentifier": [
     "id",
     "qualification",
+  ],
+  "RecordDeclaration": [
+    "body",
+    "id",
+    "implements",
+    "typeParameters",
+  ],
+  "RecordDeclarationBody": [
+    "elements",
+  ],
+  "RecordDeclarationImplements": [
+    "id",
+    "typeArguments",
+  ],
+  "RecordDeclarationProperty": [
+    "defaultValue",
+    "key",
+    "typeAnnotation",
+  ],
+  "RecordDeclarationStaticProperty": [
+    "key",
+    "typeAnnotation",
+    "value",
+  ],
+  "RecordExpressionProperties": [
+    "properties",
   ],
   "RegExpLiteral": [],
   "RestElement": [
