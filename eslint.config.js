@@ -140,6 +140,7 @@ const configs = [
           exceptRange: true,
         },
       ],
+      "no-restricted-syntax": ["error", "Literal[regex.flags=/u/]"],
 
       // Internal rules
       "prettier-internal-rules/jsx-identifier-case": "error",
