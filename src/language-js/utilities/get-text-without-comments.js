@@ -1,4 +1,4 @@
-import * as assert from "#universal/assert";
+import replaceNonLineBreaksWithSpace from "../../utilities/replace-non-line-breaks-with-space.js";
 import { locEnd, locStart } from "../loc.js";
 
 function getTextWithoutComments(options, start, end) {
@@ -21,12 +21,8 @@ function getTextWithoutComments(options, start, end) {
 
     text =
       text.slice(0, startIndex) +
-      text.slice(startIndex, endIndex).replaceAll(/[^\n]/gu, " ") +
+      replaceNonLineBreaksWithSpace(text.slice(startIndex, endIndex)) +
       text.slice(endIndex);
-  }
-
-  if (process.env.NODE_ENV !== "production") {
-    assert.equal(text.length, end - start);
   }
 
   return text;
