@@ -1109,7 +1109,6 @@ exports[`visitor keys estree 1`] = `
   ],
   "TupleTypeAnnotation": [
     "elementTypes",
-    "types",
   ],
   "TupleTypeLabeledElement": [
     "elementType",
