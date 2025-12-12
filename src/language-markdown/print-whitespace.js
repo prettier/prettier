@@ -1,5 +1,6 @@
 import { hardline, line, softline } from "../document/index.js";
 import {
+  isSetextHeading,
   KIND_CJ_LETTER,
   KIND_CJK_PUNCTUATION,
   KIND_K_LETTER,
@@ -15,12 +16,7 @@ import {
  * `word`.
  */
 
-const SINGLE_LINE_NODE_TYPES = new Set([
-  "heading",
-  "tableCell",
-  "link",
-  "wikiLink",
-]);
+const SINGLE_LINE_NODE_TYPES = new Set(["tableCell", "link", "wikiLink"]);
 
 /**
  * A line break between a character from this set and CJ can be converted to a
@@ -182,10 +178,15 @@ function isNonCJKOrKoreanLetter(kind) {
  * @param {boolean} isLink
  * @returns {boolean}
  */
-function isBreakable(path, value, proseWrap, isLink) {
+function isBreakable(path, value, proseWrap, isLink, options) {
   if (
     proseWrap !== "always" ||
-    path.hasAncestor((node) => SINGLE_LINE_NODE_TYPES.has(node.type))
+    path.hasAncestor(
+      (node) =>
+        SINGLE_LINE_NODE_TYPES.has(node.type) ||
+        (node.type === "heading" &&
+          (options.parser === "mdx" || !isSetextHeading(node))),
+    )
   ) {
     return false;
   }
@@ -244,10 +245,11 @@ function isBreakable(path, value, proseWrap, isLink) {
  * @param {AstPath} path
  * @param {WhitespaceValue} value
  * @param {ProseWrap} proseWrap
- * @param {boolean} [isLink] Special mode of (un)wrapping that preserves the
+ * @param {boolean} isLink Special mode of (un)wrapping that preserves the
+ * @param {any} options Special mode of (un)wrapping that preserves the
  * normalized form of link labels. https://spec.commonmark.org/0.30/#matches
  */
-function printWhitespace(path, value, proseWrap, isLink) {
+function printWhitespace(path, value, proseWrap, isLink, options) {
   if (proseWrap === "preserve" && value === "\n") {
     return hardline;
   }
@@ -256,7 +258,7 @@ function printWhitespace(path, value, proseWrap, isLink) {
     value === " " ||
     (value === "\n" && lineBreakCanBeConvertedToSpace(path, isLink));
 
-  if (isBreakable(path, value, proseWrap, isLink)) {
+  if (isBreakable(path, value, proseWrap, isLink, options)) {
     return canBeSpace ? line : softline;
   }
 

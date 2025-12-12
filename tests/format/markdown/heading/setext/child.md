@@ -1,9 +1,5 @@
-<!-- Not print correctly -->
 >>> bar
 >>> ===
-
->>> bar
-> ===
 
 - in list
     - in list
@@ -11,4 +7,4 @@
       =======
     - in list
       >>> heading
-      > =======
+      >>> =======

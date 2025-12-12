@@ -79,7 +79,13 @@ function genericPrint(path, options, print) {
         parts.push([parts.pop(), node.value]);
         continue;
       }
-      const doc = printWhitespace(path, node.value, options.proseWrap, true);
+      const doc = printWhitespace(
+        path,
+        node.value,
+        options.proseWrap,
+        true,
+        options,
+      );
       if (getDocType(doc) === DOC_TYPE_STRING) {
         parts.push([parts.pop(), doc]);
         continue;
@@ -112,7 +118,7 @@ function genericPrint(path, options, print) {
           ? "never"
           : options.proseWrap;
 
-      return printWhitespace(path, node.value, proseWrap);
+      return printWhitespace(path, node.value, proseWrap, false, options);
     }
     case "emphasis": {
       let style;

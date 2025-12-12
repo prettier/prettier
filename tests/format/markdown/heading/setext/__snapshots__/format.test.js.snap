@@ -1,18 +1,14 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`child.md - {"proseWrap":"always"} format 1`] = `
+exports[`child.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
-proseWrap: "always"
                                                                                 | printWidth
 =====================================input======================================
 <!-- Not print correctly -->
 >>> bar
 >>> ===
-
->>> bar
-> ===
 
 - in list
     - in list
@@ -20,31 +16,29 @@ proseWrap: "always"
       =======
     - in list
       >>> heading
-      > =======
+      >>> =======
 
 =====================================output=====================================
 <!-- Not print correctly -->
 
 > > > bar
->>> ===
-
-> > > bar ===
+> > > ===
 
 - in list
   - in list
-      heading
-      =======
+    heading
+    =======
   - in list
-    > > > heading > =======
+    > > > heading
+    > > > =======
 
 ================================================================================
 `;
 
-exports[`definition-before.md - {"proseWrap":"always"} format 1`] = `
+exports[`definition-before.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
-proseWrap: "always"
                                                                                 | printWidth
 =====================================input======================================
 <!-- https://spec.commonmark.org/0.31.2/#example-215 -->
@@ -76,11 +70,10 @@ bar
 ================================================================================
 `;
 
-exports[`issue-6013.md - {"proseWrap":"always"} format 1`] = `
+exports[`issue-6013.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
-proseWrap: "always"
                                                                                 | printWidth
 =====================================input======================================
 Setext Heading 1
@@ -103,11 +96,10 @@ Setext Heading 2
 ================================================================================
 `;
 
-exports[`issue-6013-2.md - {"proseWrap":"always"} format 1`] = `
+exports[`issue-6013-2.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
-proseWrap: "always"
                                                                                 | printWidth
 =====================================input======================================
 Heading
@@ -122,11 +114,10 @@ Heading
 ================================================================================
 `;
 
-exports[`setext.md - {"proseWrap":"always"} format 1`] = `
+exports[`setext.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
-proseWrap: "always"
                                                                                 | printWidth
 =====================================input======================================
 h1
@@ -145,11 +136,10 @@ h2
 ================================================================================
 `;
 
-exports[`snippet: #0 - {"proseWrap":"always"} format 1`] = `
+exports[`snippet: #0 format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
-proseWrap: "always"
                                                                                 | printWidth
 =====================================input======================================
 Multi\\
@@ -179,19 +169,19 @@ Heading
 ================================================================================
 `;
 
-exports[`snippet: #1 - {"proseWrap":"always"} format 1`] = `
+exports[`snippet: #1 format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
-proseWrap: "always"
                                                                                 | printWidth
 =====================================input======================================
-[foo]: /url{" "}
+[foo]: /url 
   bar
 ===
 =====================================output=====================================
-[foo]: /url{" "}
-  bar
+[foo]: /url
+
+bar
 ===
 
 ================================================================================
