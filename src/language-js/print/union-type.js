@@ -18,6 +18,7 @@ import {
   hasComment,
   hasLeadingOwnLineComment,
   isConditionalType,
+  isTupleType,
   isTypeAlias,
   shouldUnionTypePrintOwnComments,
 } from "../utilities/index.js";
@@ -47,8 +48,7 @@ function printUnionType(path, options, print) {
     parent.type !== "GenericTypeAnnotation" &&
     parent.type !== "TSTypeReference" &&
     parent.type !== "TSTypeAssertion" &&
-    parent.type !== "TupleTypeAnnotation" &&
-    parent.type !== "TSTupleType" &&
+    !isTupleType(parent) &&
     !(
       parent.type === "FunctionTypeParam" &&
       !parent.name &&
@@ -108,25 +108,15 @@ function printUnionType(path, options, print) {
 
   const parts = [leading, group(mainParts)];
 
-  if (parent.type === "TupleTypeAnnotation" || parent.type === "TSTupleType") {
-    const elementTypes =
-      parent[
-        // TODO: Remove `types` when babel changes AST of `TupleTypeAnnotation`
-        parent.type === "TupleTypeAnnotation" && parent.types
-          ? "types"
-          : "elementTypes"
-      ];
-
-    if (elementTypes.length > 1) {
-      return [
-        group([
-          indent([ifBreak(["(", softline]), parts]),
-          softline,
-          ifBreak(")"),
-        ]),
-        trailing,
-      ];
-    }
+  if (isTupleType(parent) && parent.elementTypes.length > 1) {
+    return [
+      group([
+        indent([ifBreak(["(", softline]), parts]),
+        softline,
+        ifBreak(")"),
+      ]),
+      trailing,
+    ];
   }
 
   return [group(shouldIndent ? indent(parts) : parts), trailing];

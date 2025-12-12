@@ -27,6 +27,7 @@ import {
   isObjectExpression,
   isObjectType,
   isReturnOrThrowStatement,
+  isTupleType,
   isTypeAlias,
   isUnionType,
 } from "./node-types.js";
@@ -1119,6 +1120,7 @@ export {
   isTemplateOnItsOwnLine,
   isTestCall,
   isTsAsConstExpression,
+  isTupleType,
   isTypeAlias,
   isTypeAnnotationAFunction,
   isUnionType,

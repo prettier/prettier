@@ -98,7 +98,6 @@ exports[`visitor keys estree 1`] = `
     "mixins",
     "superClass",
     "superTypeArguments",
-    "superTypeParameters",
     "typeParameters",
   ],
   "ClassExpression": [
@@ -109,7 +108,6 @@ exports[`visitor keys estree 1`] = `
     "mixins",
     "superClass",
     "superTypeArguments",
-    "superTypeParameters",
     "typeParameters",
   ],
   "ClassImplements": [
@@ -1077,7 +1075,6 @@ exports[`visitor keys estree 1`] = `
   ],
   "TupleTypeAnnotation": [
     "elementTypes",
-    "types",
   ],
   "TupleTypeLabeledElement": [
     "elementType",

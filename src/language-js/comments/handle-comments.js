@@ -785,6 +785,7 @@ function handleUnionTypeComments({
   }
 
   if (isUnionType(followingNode) && isPrettierIgnoreComment(comment)) {
+    // @ts-expect-error -- Fix me
     followingNode.types[0].prettierIgnore = true;
     comment.unignore = true;
   }

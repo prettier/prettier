@@ -2,7 +2,7 @@
 
 exports[`trailing-comma.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
-parsers: ["flow"]
+parsers: ["flow", "babel-flow"]
 printWidth: 80
 trailingComma: "all"
                                                                                 | printWidth

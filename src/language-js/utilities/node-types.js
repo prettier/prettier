@@ -20,6 +20,11 @@ export const isIntersectionType = createTypeCheckFunction([
   "IntersectionTypeAnnotation",
 ]);
 
+export const isTupleType = createTypeCheckFunction([
+  "TupleTypeAnnotation",
+  "TSTupleType",
+]);
+
 export const isConditionalType = createTypeCheckFunction([
   "TSConditionalType",
   "ConditionalTypeAnnotation",

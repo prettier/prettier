@@ -20,6 +20,7 @@ import {
   isNumericLiteral,
   isObjectExpression,
   isSignedNumericLiteral,
+  isTupleType,
   shouldPrintComma,
 } from "../utilities/index.js";
 import { printOptionalToken } from "./miscellaneous.js";
@@ -55,13 +56,7 @@ function printArray(path, options, print) {
 
   const openBracket = "[";
   const closeBracket = "]";
-  const elementsProperty =
-    // TODO: Remove `types` when babel changes AST of `TupleTypeAnnotation`
-    node.type === "TupleTypeAnnotation" && node.types
-      ? "types"
-      : node.type === "TSTupleType" || node.type === "TupleTypeAnnotation"
-        ? "elementTypes"
-        : "elements";
+  const elementsProperty = isTupleType(node) ? "elementTypes" : "elements";
   const elements = node[elementsProperty];
   if (elements.length === 0) {
     parts.push(

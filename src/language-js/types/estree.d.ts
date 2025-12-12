@@ -1,8 +1,9 @@
-import type * as Babel from "@babel/types";
 import type { ESTree as MeriyahESTree } from "meriyah";
+import type * as Babel from "@babel/types";
 import type { NGTree } from "angular-estree-parser";
 import type * as TSESTree from "./typescript-estree.ts";
 import type * as FlowESTree from "./flow-estree.js";
+import type * as Babel from "./babel.js";
 
 type PrettierNodeAdditionalProperties = {
   extra?: {
@@ -19,15 +20,11 @@ type PrettierCommentAdditionalProperties = {
   leading?: boolean;
 };
 
-type FlowAdditionalNode =
-  | {
-      type: "SatisfiesExpression";
-      expression: FlowESTree.Expression;
-      typeAnnotation: FlowESTree.TypeAnnotationType;
-    }
-  | { type: "NeverTypeAnnotation" }
-  | { type: "UndefinedTypeAnnotation" }
-  | { type: "UnknownTypeAnnotation" };
+type FlowAdditionalNode = {
+  type: "SatisfiesExpression";
+  expression: FlowESTree.Expression;
+  typeAnnotation: FlowESTree.TypeAnnotationType;
+};
 
 type PrettierNode = { type: "JsExpressionRoot"; node: Babel.Expression };
 
@@ -42,9 +39,9 @@ export type Comment = (
 
 type _Node =
   | PrettierNode
-  | Babel.Node
+  | Exclude<Babel.Node, Babel.TupleTypeAnnotation>
   | TSESTree.Node
-  | NGTree.NGNode
+  | Exclude<NGTree.NGNode, Babel.Node>
   | FlowESTree.ESNode
   | FlowAdditionalNode;
 
