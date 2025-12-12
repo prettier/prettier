@@ -54,6 +54,16 @@ const excludeNodeTypes = [
   // https://github.com/typescript-eslint/typescript-eslint/blob/d2d7ace4e52bedf07482fd879d8e31a52b38fc26/packages/visitor-keys/tests/visitor-keys.test.ts#L14-L18
   "ExperimentalRestProperty",
   "ExperimentalSpreadProperty",
+
+  // Unsupported flow features
+  "MatchInstanceObjectPattern",
+  "MatchInstancePattern",
+  "RecordDeclaration",
+  "RecordDeclarationBody",
+  "RecordDeclarationImplements",
+  "RecordDeclarationProperty",
+  "RecordDeclarationStaticProperty",
+  "RecordExpressionProperties",
 ];
 
 let visitorKeys = unionVisitorKeys(
