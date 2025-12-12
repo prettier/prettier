@@ -24,6 +24,7 @@ import getVisitorKeys from "./get-visitor-keys.js";
 import { locEnd, locStart } from "./loc.js";
 import { insertPragma } from "./pragma.js";
 import { printChildren } from "./print/children.js";
+import { printHeading } from "./print/heading.js";
 import { printList, printListLegacy } from "./print/list.js";
 import { printTable } from "./print/table.js";
 import { printWord, printWordLegacy } from "./print/word.js";
@@ -212,10 +213,7 @@ function genericPrint(path, options, print) {
     case "blockquote":
       return ["> ", align("> ", printChildren(path, options, print))];
     case "heading":
-      return [
-        "#".repeat(node.depth) + " ",
-        printChildren(path, options, print),
-      ];
+      return printHeading(path, options, print);
     case "code": {
       if (node.isIndented) {
         // indented code block
