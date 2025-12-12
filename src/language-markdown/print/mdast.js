@@ -101,7 +101,7 @@ function printMdast(path, options, print) {
 
       const proseWrap =
         // leading char that may cause different syntax
-        next && /^>|^(?:[*+-]|#{1,6}|\d+[).])$/u.test(next.value)
+        next && /^>|^(?:[*+-]|#{1,6}|\d+[).])$/.test(next.value)
           ? "never"
           : options.proseWrap;
 
@@ -140,7 +140,7 @@ function printMdast(path, options, print) {
       const padding =
         code.startsWith("`") ||
         code.endsWith("`") ||
-        (/^[\n ]/u.test(code) && /[\n ]$/u.test(code) && /[^\n ]/u.test(code))
+        (/^[\n ]/.test(code) && /[\n ]$/.test(code) && /[^\n ]/.test(code))
           ? " "
           : "";
       return [backtickString, padding, code, padding, backtickString];
@@ -327,7 +327,7 @@ function printMdast(path, options, print) {
     case "tableCell":
       return printChildren(path, options, print);
     case "break":
-      return /\s/u.test(options.originalText[node.position.start.offset])
+      return /\s/.test(options.originalText[node.position.start.offset])
         ? ["  ", markAsRoot(literalline)]
         : ["\\", hardline];
     case "liquidNode":
