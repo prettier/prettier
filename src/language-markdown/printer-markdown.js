@@ -238,11 +238,14 @@ function genericPrint(path, options, print) {
       const { parent, isLast } = path;
       const value =
         parent.type === "root" && isLast ? node.value.trimEnd() : node.value;
-      const isHtmlComment = /^<!--.*-->$/su.test(value);
+      // Only match single-line HTML comments (no `s` flag).
+      // Multi-line comments should use `markAsRoot(literalline)` like other HTML
+      // to preserve original formatting and avoid double-indentation in lists.
+      const isSingleLineHtmlComment = /^<!--.*-->$/u.test(value);
 
       return replaceEndOfLine(
         value,
-        isHtmlComment ? hardline : markAsRoot(literalline),
+        isSingleLineHtmlComment ? hardline : markAsRoot(literalline),
       );
     }
     case "list":
