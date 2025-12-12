@@ -28,8 +28,6 @@ const additionalVisitorKeys = {
 };
 
 const excludeVisitorKeys = {
-  // Flow
-  TupleTypeAnnotation: ["types"],
   // Not supported yet.
   // https://github.com/facebook/hermes/commit/55a5f881361ef15fd4f7b558166d80e7b9086550
   DeclareOpaqueType: ["impltype"],
@@ -37,6 +35,9 @@ const excludeVisitorKeys = {
   // Legacy properties
   ExportAllDeclaration: ["assertions"],
   ImportDeclaration: ["assertions"],
+
+  // Flow node from Babel
+  TupleTypeAnnotation: ["types"],
 
   // https://github.com/babel/babel/issues/17506
   TSImportType: ["argument"],
