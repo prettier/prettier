@@ -37,6 +37,7 @@ import {
   insideAtRuleNode,
   insideIcssRuleNode,
   insideValueFunctionNode,
+  isAtWordPlaceholderNode,
   isDetachedRulesetCallNode,
   isDetachedRulesetDeclarationNode,
   isKeyframeAtRuleKeywords,
@@ -109,6 +110,7 @@ function genericPrint(path, options, print) {
       const { between: rawBetween } = node.raws;
       const trimmedBetween = rawBetween.trim();
       const isColon = trimmedBetween === ":";
+      const isSpaceAfterColon = rawBetween.endsWith(" ") && isColon;
       const isValueAllSpace =
         typeof node.value === "string" && /^ *$/u.test(node.value);
       let value = typeof node.value === "string" ? node.value : print("value");
@@ -132,7 +134,20 @@ function genericPrint(path, options, print) {
           : maybeToLowerCase(node.prop),
         trimmedBetween.startsWith("//") ? " " : "",
         trimmedBetween,
-        node.extend || isValueAllSpace ? "" : " ",
+        node.extend ||
+        isValueAllSpace ||
+        (!isSpaceAfterColon &&
+          node.isNested &&
+          path.call(
+            ({ node: groupNode }) =>
+              isAtWordPlaceholderNode(groupNode) ||
+              isAtWordPlaceholderNode(groupNode?.groups?.[0]),
+            "value",
+            "group",
+            "group",
+          ))
+          ? ""
+          : " ",
         options.parser === "less" && node.extend && node.selector
           ? ["extend(", print("selector"), ")"]
           : "",
@@ -155,7 +170,10 @@ function genericPrint(path, options, print) {
         node.nodes
           ? [
               " {",
-              indent([softline, printSequence(path, options, print)]),
+              indent([
+                node.nodes.length > 0 ? softline : "",
+                printSequence(path, options, print),
+              ]),
               softline,
               "}",
             ]
