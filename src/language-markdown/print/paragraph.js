@@ -3,11 +3,11 @@ import {
   DOC_TYPE_FILL,
   fill,
   getDocType,
-} from "../document/index.js";
+} from "../../document/index.js";
 
 /**
- * @import AstPath from "../common/ast-path.js"
- * @import {Doc} from "../document/index.js"
+ * @import AstPath from "../../common/ast-path.js"
+ * @import {Doc} from "../../document/index.js"
  */
 
 /**

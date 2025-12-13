@@ -25,12 +25,12 @@ import { locEnd, locStart } from "./loc.js";
 import { insertPragma } from "./pragma.js";
 import { printChildren } from "./print/children.js";
 import { printList } from "./print/list.js";
+import { printParagraph } from "./print/paragraph.js";
+import { printSentence } from "./print/sentence.js";
 import { printTable } from "./print/table.js";
+import { printWhitespace } from "./print/whitespace.js";
 import { printWord } from "./print/word.js";
-import { printParagraph } from "./print-paragraph.js";
 import preprocess from "./print-preprocess.js";
-import { printSentence } from "./print-sentence.js";
-import { printWhitespace } from "./print-whitespace.js";
 import {
   getFencedCodeBlockValue,
   getNthListSiblingIndex,
