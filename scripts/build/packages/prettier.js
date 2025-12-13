@@ -726,15 +726,12 @@ const pluginFiles = [
     input: "src/plugins/markdown.js",
     replaceModule: [
       {
-        module: path.join(
-          require.resolve("decode-named-character-reference"),
-          "../index.dom.js",
-        ),
-        path: require.resolve("decode-named-character-reference"),
+        module: getPackageFile("decode-named-character-reference/index.dom.js"),
+        path: getPackageFile("decode-named-character-reference"),
       },
       {
-        module: require.resolve("parse-entities/decode-entity.browser.js"),
-        path: require.resolve("parse-entities/decode-entity.js"),
+        module: getPackageFile("parse-entities/decode-entity.browser.js"),
+        path: getPackageFile("parse-entities/decode-entity.js"),
       },
     ],
   },
