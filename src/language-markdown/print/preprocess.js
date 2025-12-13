@@ -176,6 +176,9 @@ function splitTextIntoSentences(ast) {
       return node;
     }
 
+    // NOTE: there's trade-off between using `node.value` or `node.raw` here.
+    // Using `node.raw`, we can better preserve the original text, especially escaped characters.
+    // Using `node.value`, we don't need to care about markers like `\n > ` in blockquotes.
     let text = node.raw;
 
     const paragraphIndex = parentStack.findIndex(
