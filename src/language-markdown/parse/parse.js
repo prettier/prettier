@@ -7,16 +7,14 @@ import footnotes from "remark-footnotes";
 import remarkMath from "remark-math";
 import remarkParse from "remark-parse";
 import unified from "unified";
-import parseFrontMatter from "../main/front-matter/parse.js";
-import { locEnd, locStart } from "./loc.js";
-import { BLOCKS_REGEX, esSyntax } from "./mdx.js";
-import { fromMarkdown } from "./parser/html-flow-hack.js";
-import { gfmFromMarkdown } from "./parser/mdast-util-gfm.js";
+import parseFrontMatter from "../../main/front-matter/parse.js";
+import { fromMarkdown } from "../parser/html-flow-hack.js";
+import { gfmFromMarkdown } from "../parser/mdast-util-gfm.js";
 import {
   liquidFromMarkdown,
   liquidSyntax,
-} from "./parser/micromark-extension-liquid.js";
-import { hasIgnorePragma, hasPragma } from "./pragma.js";
+} from "../parser/micromark-extension-liquid.js";
+import { BLOCKS_REGEX, esSyntax } from "./mdx.js";
 import frontMatter from "./unified-plugins/front-matter.js";
 import htmlToJsx from "./unified-plugins/html-to-jsx.js";
 import liquid from "./unified-plugins/liquid.js";
@@ -90,14 +88,4 @@ function parseMdx(text) {
   return processor.run(processor.parse(text));
 }
 
-const baseParser = {
-  astFormat: "mdast",
-  hasPragma,
-  hasIgnorePragma,
-  locStart,
-  locEnd,
-};
-
-export const markdown = { ...baseParser, parse: parseMarkdown };
-export const mdx = { ...baseParser, parse: parseMdx };
-export { markdown as remark };
+export { parseMarkdown, parseMdx };

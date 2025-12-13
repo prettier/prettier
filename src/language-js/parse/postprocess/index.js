@@ -165,6 +165,13 @@ function postprocess(ast, options) {
             node.options = node.attributes;
           }
           break;
+
+        // babel-flow
+        case "TupleTypeAnnotation":
+          if (node.types && !node.elementTypes) {
+            node.elementTypes = node.types;
+          }
+          break;
       }
     },
     onLeave(node) {

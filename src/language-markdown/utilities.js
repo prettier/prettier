@@ -316,6 +316,10 @@ function getNthListSiblingIndex(node, parentNode) {
   }
 }
 
+function hasPrettierIgnore(path) {
+  return path.index > 0 && isPrettierIgnore(path.previous) === "next";
+}
+
 function isSetextHeading(node) {
   const { start, end } = node.position;
   return start.line !== end.line;
@@ -326,6 +330,7 @@ export {
   getNthListSiblingIndex,
   getOrderedListItemInfo,
   hasGitDiffFriendlyOrderedList,
+  hasPrettierIgnore,
   INLINE_NODE_TYPES,
   INLINE_NODE_WRAPPER_TYPES,
   isAutolink,

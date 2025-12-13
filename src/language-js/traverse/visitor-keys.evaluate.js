@@ -3,6 +3,7 @@ import { visitorKeys as tsVisitorKeys } from "@typescript-eslint/visitor-keys";
 import { visitorKeys as angularVisitorKeys } from "angular-estree-parser";
 import flowVisitorKeys from "hermes-parser/dist/generated/ESTreeVisitorKeys.js";
 import {
+  addVisitorKeys,
   generateReferenceSharedVisitorKeys,
   removeNodeTypes,
   removeVisitorKeys,
@@ -21,22 +22,12 @@ const additionalVisitorKeys = {
   TSJSDocNullableType: ["typeAnnotation"],
   TSJSDocNonNullableType: ["typeAnnotation"],
 
-  // Flow, missed in `flowVisitorKeys`
-  NeverTypeAnnotation: [],
+  // Flow
+  // `SatisfiesExpression` is a private feature https://github.com/facebook/hermes/issues/1808#issuecomment-3392476828
   SatisfiesExpression: ["expression", "typeAnnotation"],
-  TupleTypeAnnotation: ["elementTypes"],
-  UndefinedTypeAnnotation: [],
-  UnknownTypeAnnotation: [],
 };
 
 const excludeVisitorKeys = {
-  // From `flowVisitorKeys`
-  ArrowFunctionExpression: ["id"],
-
-  // TODO: Remove `types` when babel changes AST of `TupleTypeAnnotation`
-  // Flow parser changed `.types` to `.elementTypes` https://github.com/facebook/flow/commit/5b60e6a81dc277dfab2e88fa3737a4dc9aafdcab
-  // TupleTypeAnnotation: ["types"],
-
   // Not supported yet.
   // https://github.com/facebook/hermes/commit/55a5f881361ef15fd4f7b558166d80e7b9086550
   DeclareOpaqueType: ["impltype"],
@@ -44,6 +35,9 @@ const excludeVisitorKeys = {
   // Legacy properties
   ExportAllDeclaration: ["assertions"],
   ImportDeclaration: ["assertions"],
+
+  // Flow node from Babel
+  TupleTypeAnnotation: ["types"],
 
   // https://github.com/babel/babel/issues/17506
   TSImportType: ["argument"],
@@ -61,6 +55,16 @@ const excludeNodeTypes = [
   // https://github.com/typescript-eslint/typescript-eslint/blob/d2d7ace4e52bedf07482fd879d8e31a52b38fc26/packages/visitor-keys/tests/visitor-keys.test.ts#L14-L18
   "ExperimentalRestProperty",
   "ExperimentalSpreadProperty",
+
+  // Unsupported flow features
+  "MatchInstanceObjectPattern",
+  "MatchInstancePattern",
+  "RecordDeclaration",
+  "RecordDeclarationBody",
+  "RecordDeclarationImplements",
+  "RecordDeclarationProperty",
+  "RecordDeclarationStaticProperty",
+  "RecordExpressionProperties",
 ];
 
 let visitorKeys = unionVisitorKeys(
@@ -68,9 +72,9 @@ let visitorKeys = unionVisitorKeys(
   tsVisitorKeys,
   flowVisitorKeys,
   angularVisitorKeys,
-  additionalVisitorKeys,
 );
 
+visitorKeys = addVisitorKeys(visitorKeys, additionalVisitorKeys);
 visitorKeys = removeNodeTypes(visitorKeys, excludeNodeTypes);
 visitorKeys = removeVisitorKeys(visitorKeys, excludeVisitorKeys);
 

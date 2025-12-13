@@ -210,8 +210,17 @@ export type ESNode =
   | MatchPattern
   | MatchRestPattern
   | MatchObjectPatternProperty
+  | MatchInstanceObjectPattern
   | MatchExpressionCase
   | MatchStatementCase
+  // Records
+  | RecordDeclaration
+  | RecordDeclarationImplements
+  | RecordDeclarationBody
+  | RecordDeclarationProperty
+  | RecordDeclarationStaticProperty
+  | RecordExpression
+  | RecordExpressionProperties
   // JSX
   | JSXNode;
 
@@ -279,7 +288,8 @@ export type Statement =
   | VariableDeclaration
   | WhileStatement
   | WithStatement
-  | MatchStatement;
+  | MatchStatement
+  | RecordDeclaration;
 
 // nodes that can be the direct parent of a statement
 export type StatementParentSingle =
@@ -489,6 +499,7 @@ export type Expression =
   | AsExpression
   | AsConstExpression
   | MatchExpression
+  | RecordExpression
   | JSXFragment
   | JSXElement;
 
@@ -513,18 +524,24 @@ export interface ObjectExpression extends BaseNode {
 // and object desturcturing properties.
 export type Property = ObjectProperty | DestructuringObjectProperty;
 
+export type ObjectPropertyKey =
+  | Identifier
+  | StringLiteral
+  | NumericLiteral
+  | BigIntLiteral;
+
 export type ObjectProperty =
   | ObjectPropertyWithNonShorthandStaticName
   | ObjectPropertyWithShorthandStaticName
   | ObjectPropertyWithComputedName;
 interface ObjectPropertyBase extends BaseNode {
-  parent: ObjectExpression | ObjectPattern;
+  parent: ObjectExpression | ObjectPattern | RecordExpressionProperties;
 }
 export interface ObjectPropertyWithNonShorthandStaticName extends ObjectPropertyBase {
   type: "Property";
   computed: false;
   // non-computed, non-shorthand names are constrained significantly
-  key: Identifier | StringLiteral | NumericLiteral;
+  key: ObjectPropertyKey;
   value: Expression;
   kind: "init" | "get" | "set";
   method: boolean;
@@ -568,7 +585,7 @@ export interface DestructuringObjectPropertyWithNonShorthandStaticName extends D
   type: "Property";
   computed: false;
   // non-computed, non-shorthand names are constrained significantly
-  key: Identifier | StringLiteral | NumericLiteral;
+  key: ObjectPropertyKey;
   // destructuring properties cannot have any value
   value: DestructuringPattern;
   shorthand: false;
@@ -912,7 +929,7 @@ interface BaseClass extends BaseNode {
   body: ClassBody;
 
   typeParameters: null | TypeParameterDeclaration;
-  superTypeParameters: null | TypeParameterInstantiation;
+  superTypeArguments: null | TypeParameterInstantiation;
   implements: ReadonlyArray<ClassImplements>;
   decorators: ReadonlyArray<Decorator>;
 }
@@ -923,8 +940,7 @@ export type PropertyName =
 export type ClassPropertyNameComputed = Expression;
 export type ClassPropertyNameNonComputed =
   | PrivateIdentifier
-  | Identifier
-  | StringLiteral;
+  | ObjectPropertyKey;
 
 export type ClassMember = PropertyDefinition | MethodDefinition | StaticBlock;
 export type ClassMemberWithNonComputedName =
@@ -1085,7 +1101,8 @@ export type NamedDeclaration =
   | TypeAlias
   | OpaqueType
   | InterfaceDeclaration
-  | EnumDeclaration;
+  | EnumDeclaration
+  | RecordDeclaration;
 
 interface ExportNamedDeclarationBase extends BaseNode {
   type: "ExportNamedDeclaration";
@@ -1149,6 +1166,9 @@ export type TypeAnnotationType =
   | ThisTypeAnnotation
   | MixedTypeAnnotation
   | VoidTypeAnnotation
+  | UnknownTypeAnnotation
+  | NeverTypeAnnotation
+  | UndefinedTypeAnnotation
   | StringLiteralTypeAnnotation
   | NumberLiteralTypeAnnotation
   | BigIntLiteralTypeAnnotation
@@ -1243,6 +1263,15 @@ export interface MixedTypeAnnotation extends BaseNode {
 export interface VoidTypeAnnotation extends BaseNode {
   type: "VoidTypeAnnotation";
 }
+export interface UnknownTypeAnnotation extends BaseNode {
+  type: "UnknownTypeAnnotation";
+}
+export interface NeverTypeAnnotation extends BaseNode {
+  type: "NeverTypeAnnotation";
+}
+export interface UndefinedTypeAnnotation extends BaseNode {
+  type: "UndefinedTypeAnnotation";
+}
 export interface StringLiteralTypeAnnotation extends BaseNode {
   type: "StringLiteralTypeAnnotation";
   value: string;
@@ -1301,7 +1330,7 @@ export interface KeyofTypeAnnotation extends BaseNode {
 }
 export interface TupleTypeAnnotation extends BaseNode {
   type: "TupleTypeAnnotation";
-  types: ReadonlyArray<TypeAnnotationType>;
+  elementTypes: ReadonlyArray<TypeAnnotationType>;
   inexact: boolean;
 }
 export interface TupleTypeSpreadElement extends BaseNode {
@@ -1448,7 +1477,7 @@ export interface ObjectTypeAnnotation extends BaseNode {
 }
 interface ObjectTypePropertyBase extends BaseNode {
   type: "ObjectTypeProperty";
-  key: Identifier | StringLiteral;
+  key: ObjectPropertyKey;
   value: TypeAnnotationType;
   method: boolean;
   optional: boolean;
@@ -2042,6 +2071,7 @@ export type MatchPattern =
   | MatchMemberPattern
   | MatchBindingPattern
   | MatchObjectPattern
+  | MatchInstancePattern
   | MatchArrayPattern;
 
 export interface MatchOrPattern extends BaseNode {
@@ -2086,9 +2116,19 @@ export interface MatchObjectPattern extends BaseNode {
 }
 export interface MatchObjectPatternProperty extends BaseNode {
   type: "MatchObjectPatternProperty";
-  key: Identifier | StringLiteral | NumericLiteral | BigIntLiteral;
+  key: ObjectPropertyKey;
   pattern: MatchPattern;
   shorthand: boolean;
+}
+export interface MatchInstancePattern extends BaseNode {
+  type: "MatchInstancePattern";
+  targetConstructor: MatchIdentifierPattern | MatchMemberPattern;
+  properties: MatchInstanceObjectPattern;
+}
+export interface MatchInstanceObjectPattern extends BaseNode {
+  type: "MatchInstanceObjectPattern";
+  properties: ReadonlyArray<MatchObjectPatternProperty>;
+  rest: MatchRestPattern | null;
 }
 export interface MatchArrayPattern extends BaseNode {
   type: "MatchArrayPattern";
@@ -2098,6 +2138,58 @@ export interface MatchArrayPattern extends BaseNode {
 export interface MatchRestPattern extends BaseNode {
   type: "MatchRestPattern";
   argument: MatchBindingPattern | null;
+}
+
+/***********
+ * Records *
+ ***********/
+export interface RecordDeclaration extends BaseNode {
+  type: "RecordDeclaration";
+  id: Identifier;
+  typeParameters: TypeParameterDeclaration | null;
+  implements: ReadonlyArray<RecordDeclarationImplements>;
+  body: RecordDeclarationBody;
+}
+
+export interface RecordDeclarationImplements extends BaseNode {
+  type: "RecordDeclarationImplements";
+  id: Identifier;
+  typeArguments: TypeParameterInstantiation | null;
+}
+
+export interface RecordDeclarationBody extends BaseNode {
+  type: "RecordDeclarationBody";
+  elements: ReadonlyArray<
+    | RecordDeclarationProperty
+    | RecordDeclarationStaticProperty
+    | MethodDefinition
+  >;
+}
+
+export interface RecordDeclarationProperty extends BaseNode {
+  type: "RecordDeclarationProperty";
+  key: ObjectPropertyKey;
+  typeAnnotation: TypeAnnotation;
+  defaultValue: Expression | null;
+}
+
+export interface RecordDeclarationStaticProperty extends BaseNode {
+  type: "RecordDeclarationStaticProperty";
+  key: ObjectPropertyKey;
+  typeAnnotation: TypeAnnotation;
+  value: Expression;
+}
+
+export interface RecordExpression extends BaseNode {
+  type: "RecordExpression";
+  recordConstructor: Expression;
+  typeArguments: TypeParameterInstantiation | null;
+  properties: RecordExpressionProperties;
+}
+
+export interface RecordExpressionProperties extends BaseNode {
+  type: "RecordExpressionProperties";
+  properties: ReadonlyArray<ObjectProperty | SpreadElement>;
 }
 
 /******************************************************

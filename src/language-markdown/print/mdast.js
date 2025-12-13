@@ -13,36 +13,31 @@ import {
   markAsRoot,
   replaceEndOfLine,
   softline,
-} from "../document/index.js";
-import getMaxContinuousCount from "../utilities/get-max-continuous-count.js";
-import getMinNotPresentContinuousCount from "../utilities/get-min-not-present-continuous-count.js";
-import getPreferredQuote from "../utilities/get-preferred-quote.js";
-import UnexpectedNodeError from "../utilities/unexpected-node-error.js";
-import clean from "./clean.js";
-import embed from "./embed.js";
-import getVisitorKeys from "./get-visitor-keys.js";
-import { locEnd, locStart } from "./loc.js";
-import { insertPragma } from "./pragma.js";
-import { printChildren } from "./print/children.js";
-import { printHeading } from "./print/heading.js";
-import { printList, printListLegacy } from "./print/list.js";
-import { printTable } from "./print/table.js";
-import { printWord, printWordLegacy } from "./print/word.js";
-import { printParagraph } from "./print-paragraph.js";
-import preprocess from "./print-preprocess.js";
-import { printSentence } from "./print-sentence.js";
-import { printWhitespace } from "./print-whitespace.js";
+} from "../../document/index.js";
+import getMaxContinuousCount from "../../utilities/get-max-continuous-count.js";
+import getMinNotPresentContinuousCount from "../../utilities/get-min-not-present-continuous-count.js";
+import getPreferredQuote from "../../utilities/get-preferred-quote.js";
+import UnexpectedNodeError from "../../utilities/unexpected-node-error.js";
+import { locEnd, locStart } from "../loc.js";
 import {
   getFencedCodeBlockValue,
   getNthListSiblingIndex,
   isAutolink,
   isPrettierIgnore,
   splitText,
-} from "./utilities.js";
+} from "../utilities.js";
+import { printChildren } from "./children.js";
+import { printHeading } from "./heading.js";
+import { printList, printListLegacy } from "./list.js";
+import { printParagraph } from "./paragraph.js";
+import { printSentence } from "./sentence.js";
+import { printTable } from "./table.js";
+import { printWhitespace } from "./whitespace.js";
+import { printWord, printWordLegacy } from "./word.js";
 
 /**
- * @import AstPath from "../common/ast-path.js"
- * @import {Doc} from "../document/index.js"
+ * @import AstPath from "../../common/ast-path.js";
+ * @import {Doc} from "../../document/index.js";
  */
 
 function prevOrNextWord(path) {
@@ -57,7 +52,7 @@ function prevOrNextWord(path) {
   return hasPrevOrNextWord;
 }
 
-function genericPrint(path, options, print) {
+function printMdast(path, options, print) {
   const { node } = path;
 
   if (shouldRemainTheSameContent(path)) {
@@ -528,10 +523,6 @@ function printTitle(title, options, printSpace = true) {
   return `${quote}${title}${quote}`;
 }
 
-function hasPrettierIgnore(path) {
-  return path.index > 0 && isPrettierIgnore(path.previous) === "next";
-}
-
 function printLinkReference(node, options) {
   // `remark-parse` lowercase the `label` as `identifier`, we don't want do that
   // https://github.com/remarkjs/remark/blob/daddcb463af2d5b2115496c395d0571c0ff87d15/packages/remark-parse/lib/tokenize/reference.js
@@ -555,51 +546,4 @@ function printImageAlt(node, options) {
   return node.alt || "";
 }
 
-/**
- * @param {AstPath} path
- * @param {*} options
- * @returns {Doc}
- */
-function printPrettierIgnored(path, options) {
-  const originalText = options.originalText.slice(
-    path.node.position.start.offset,
-    path.node.position.end.offset,
-  );
-
-  if (options.parser === "mdx") {
-    return originalText;
-  }
-
-  switch (path.node.type) {
-    case "list":
-      if (
-        path.findAncestor((p) => p.type === "blockquote") &&
-        options.proseWrap !== "always"
-      ) {
-        return originalText.replace(/\n>\s*$/u, "");
-      }
-      return originalText;
-    default:
-      return originalText;
-  }
-}
-
-const printer = {
-  features: {
-    experimental_frontMatterSupport: {
-      massageAstNode: true,
-      embed: true,
-      print: true,
-    },
-  },
-  preprocess,
-  print: genericPrint,
-  embed,
-  massageAstNode: clean,
-  hasPrettierIgnore,
-  printPrettierIgnored,
-  insertPragma,
-  getVisitorKeys,
-};
-
-export default printer;
+export { printMdast };
