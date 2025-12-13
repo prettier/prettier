@@ -4,7 +4,13 @@ import { FRONT_MATTER_MARK } from "./constants.js";
 const DELIMITER_LENGTH = 3;
 
 /**
-@typedef {{index: number, line: number, column: number}} Position
+@typedef {{
+  index: number,
+  // 1-based line number
+  line: number,
+  // 0-based column number
+  column: number,
+}} Position
 @typedef {{
   language: string,
   explicitLanguage: string | null,

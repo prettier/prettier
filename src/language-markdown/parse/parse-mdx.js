@@ -22,27 +22,21 @@ import wikiLink from "./unified-plugins/wiki-link.js";
  * interface Sentence { children: Array<Word | Whitespace> }
  * interface InlineCode { children: Array<Sentence> }
  */
-function createParse({ isMDX }) {
-  return (text) => {
-    const processor = unified()
-      .use(remarkParse, {
-        commonmark: true,
-        ...(isMDX && { blocks: [BLOCKS_REGEX] }),
-      })
-      .use(footnotes)
-      .use(frontMatter)
-      .use(remarkMath)
-      .use(isMDX ? esSyntax : noop)
-      .use(liquid)
-      .use(isMDX ? htmlToJsx : noop)
-      .use(wikiLink);
-    return processor.run(processor.parse(text));
-  };
+
+function parseMdx(text) {
+  const processor = unified()
+    .use(remarkParse, {
+      commonmark: true,
+      blocks: [BLOCKS_REGEX],
+    })
+    .use(footnotes)
+    .use(frontMatter)
+    .use(remarkMath)
+    .use(esSyntax)
+    .use(liquid)
+    .use(htmlToJsx)
+    .use(wikiLink);
+  return processor.run(processor.parse(text));
 }
 
-function noop() {}
-
-const parseMarkdown = /* @__PURE__ */ createParse({ isMDX: false });
-const parseMdx = /* @__PURE__ */ createParse({ isMDX: true });
-
-export { parseMarkdown, parseMdx };
+export { parseMdx };

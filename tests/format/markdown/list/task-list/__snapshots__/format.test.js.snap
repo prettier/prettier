@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`in-html.md format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<details>
+  <summary><h2>Checklist</h2></summary>
+
+- [ ] I checked for duplicate issues.
+</details>
+<details>
+  <summary><h2>Checklist</h2></summary>
+
+- [ ] I checked for duplicate issues.
+- [ ] I checked for duplicate issues.
+</details>
+
+=====================================output=====================================
+<details>
+  <summary><h2>Checklist</h2></summary>
+
+- [ ] I checked for duplicate issues.
+
+</details>
+<details>
+  <summary><h2>Checklist</h2></summary>
+
+- [ ] I checked for duplicate issues.
+- [ ] I checked for duplicate issues.
+
+</details>
+
+================================================================================
+`;

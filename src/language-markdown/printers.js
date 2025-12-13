@@ -1,7 +1,7 @@
 import clean from "./clean.js";
 import embed from "./embed.js";
 import { insertPragma } from "./pragma.js";
-import { printMdast } from "./print/index.js";
+import { printMdast, printPrettierIgnored } from "./print/index.js";
 import preprocess from "./print/preprocess.js";
 import getVisitorKeys from "./traverse/get-visitor-keys.js";
 import { hasPrettierIgnore } from "./utilities.js";
@@ -21,6 +21,7 @@ const printer = {
   hasPrettierIgnore,
   insertPragma,
   getVisitorKeys,
+  printPrettierIgnored,
 };
 
 export { printer as mdast };
