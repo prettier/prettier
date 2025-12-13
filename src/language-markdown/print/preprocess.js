@@ -1,5 +1,5 @@
-import htmlWhitespace from "../utilities/html-whitespace.js";
-import { getOrderedListItemInfo, mapAst, splitText } from "./utilities.js";
+import htmlWhitespace from "../../utilities/html-whitespace.js";
+import { getOrderedListItemInfo, mapAst, splitText } from "../utilities.js";
 
 // 0x0 ~ 0x10ffff
 const isSingleCharRegex = /^\\?.$/su;

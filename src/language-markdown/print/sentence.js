@@ -1,9 +1,9 @@
 /**
- * @import AstPath from "../common/ast-path.js"
- * @import {Doc} from "../document/index.js"
+ * @import AstPath from "../../common/ast-path.js"
+ * @import {Doc} from "../../document/index.js"
  */
 
-import { DOC_TYPE_STRING, fill, getDocType } from "../document/index.js";
+import { DOC_TYPE_STRING, fill, getDocType } from "../../document/index.js";
 
 /**
  * @param {AstPath} path
