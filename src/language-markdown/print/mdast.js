@@ -50,7 +50,7 @@ function prevOrNextWord(path) {
   return hasPrevOrNextWord;
 }
 
-function printMarkdown(path, options, print) {
+function printMdast(path, options, print) {
   const { node } = path;
 
   if (shouldRemainTheSameContent(path)) {
@@ -507,4 +507,4 @@ function printFootnoteReference(node) {
   return `[^${node.label}]`;
 }
 
-export { printMarkdown };
+export { printMdast };

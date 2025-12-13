@@ -1,1 +1,1 @@
-export { printMarkdown as printMdast } from "./markdown.js";
+export { printMdast } from "./mdast.js";
