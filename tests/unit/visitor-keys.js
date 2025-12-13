@@ -4,7 +4,7 @@ import glimmerVisitorKeys from "../../src/language-handlebars/visitor-keys.js";
 import htmlVisitorKeys from "../../src/language-html/visitor-keys.evaluate.js";
 import estreeVisitorKeys from "../../src/language-js/traverse/visitor-keys.evaluate.js";
 import jsonVisitorKeys from "../../src/language-json/visitor-keys.evaluate.js";
-import remarkVisitorKeys from "../../src/language-markdown/visitor-keys.evaluate.js";
+import remarkVisitorKeys from "../../src/language-markdown/traverse/visitor-keys.evaluate.js";
 import yamlVisitorKeys from "../../src/language-yaml/visitor-keys.evaluate.js";
 
 // Keep eye on package change
