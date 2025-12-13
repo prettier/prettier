@@ -1,5 +1,51 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`check-accidental.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+long long long long long long long long long long long long long long long > > > > this is not quote
+
+=====================================output=====================================
+long long long long long long long long long long long long long long
+long > > > > this is not quote
+
+================================================================================
+`;
+
+exports[`check-accidental.md - {"proseWrap":"never"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "never"
+                                                                                | printWidth
+=====================================input======================================
+long long long long long long long long long long long long long long long > > > > this is not quote
+
+=====================================output=====================================
+long long long long long long long long long long long long long long long > > > > this is not quote
+
+================================================================================
+`;
+
+exports[`check-accidental.md - {"proseWrap":"preserve"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "preserve"
+                                                                                | printWidth
+=====================================input======================================
+long long long long long long long long long long long long long long long > > > > this is not quote
+
+=====================================output=====================================
+long long long long long long long long long long long long long long long > > > > this is not quote
+
+================================================================================
+`;
+
 exports[`code.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
@@ -469,6 +515,122 @@ proseWrap: "preserve"
 > const x = 1,
 > b = 2
 > \`\`\`
+
+================================================================================
+`;
+
+exports[`list.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+> - list in quote
+>   with multiple lines
+>   - nested list item
+>   - nested list item 2
+>     across multiple lines
+>     > quote in nested list in quote
+>     > with multiple lines
+
+- > quote in list
+  > with multiple lines
+  > - list item in quote in list
+  >   > quote in list item in quote in list
+  >   > with multiple lines
+  - nested list
+
+
+=====================================output=====================================
+> - list in quote with multiple lines
+>   - nested list item
+>   - nested list item 2 across multiple lines
+>     > quote in nested list in quote > with multiple lines
+
+- > quote in list > with multiple lines
+  >
+  > - list item in quote in list
+  >   > quote in list item in quote in list > > with multiple lines
+  - nested list
+
+================================================================================
+`;
+
+exports[`list.md - {"proseWrap":"never"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "never"
+                                                                                | printWidth
+=====================================input======================================
+> - list in quote
+>   with multiple lines
+>   - nested list item
+>   - nested list item 2
+>     across multiple lines
+>     > quote in nested list in quote
+>     > with multiple lines
+
+- > quote in list
+  > with multiple lines
+  > - list item in quote in list
+  >   > quote in list item in quote in list
+  >   > with multiple lines
+  - nested list
+
+
+=====================================output=====================================
+> - list in quote with multiple lines
+>   - nested list item
+>   - nested list item 2 across multiple lines
+>     > quote in nested list in quote > with multiple lines
+
+- > quote in list > with multiple lines
+  >
+  > - list item in quote in list
+  >   > quote in list item in quote in list > > with multiple lines
+  - nested list
+
+================================================================================
+`;
+
+exports[`list.md - {"proseWrap":"preserve"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "preserve"
+                                                                                | printWidth
+=====================================input======================================
+> - list in quote
+>   with multiple lines
+>   - nested list item
+>   - nested list item 2
+>     across multiple lines
+>     > quote in nested list in quote
+>     > with multiple lines
+
+- > quote in list
+  > with multiple lines
+  > - list item in quote in list
+  >   > quote in list item in quote in list
+  >   > with multiple lines
+  - nested list
+
+
+=====================================output=====================================
+> - list in quote
+>   with multiple lines
+>   - nested list item
+>   - nested list item 2
+>     across multiple lines
+>     > quote in nested list in quote > with multiple lines
+
+- > quote in list > with multiple lines
+  >
+  > - list item in quote in list
+  >   > quote in list item in quote in list > > with multiple lines
+  - nested list
 
 ================================================================================
 `;
