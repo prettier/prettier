@@ -8,7 +8,7 @@ const DELIMITER_LENGTH = 3;
   index: number,
   // 1-based line number
   line: number,
-  // 0-based line number
+  // 0-based column number
   column: number,
 }} Position
 @typedef {{
