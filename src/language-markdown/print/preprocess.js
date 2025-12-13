@@ -186,12 +186,24 @@ function splitTextIntoSentences(ast) {
       paragraphIndex === -1 ? undefined : parentStack[paragraphIndex];
 
     if (paragraphNode) {
-      if (
-        parentStack
-          .slice(paragraphIndex + 1)
-          .some((ancestor) => ancestor?.type === "blockquote")
-      ) {
-        text = text.replaceAll("\n> ", "\n");
+      const blockquoteDepth = parentStack
+        .slice(paragraphIndex + 1)
+        .filter((ancestor) => ancestor?.type === "blockquote").length;
+
+      if (blockquoteDepth > 0) {
+        const lines = text.split("\n").map((line, i) => {
+          if (i === 0) {
+            return line;
+          }
+          for (let i = 0; i < blockquoteDepth; i++) {
+            if (!/^ *>[ \t]?/u.test(line)) {
+              break;
+            }
+            line = line.replace(/^ *>[ \t]?/u, "");
+          }
+          return line;
+        });
+        text = lines.join("\n");
       }
 
       const parentNode = parentStack[0];
