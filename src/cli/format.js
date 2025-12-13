@@ -320,6 +320,10 @@ async function formatFiles(context) {
         context.argv.check ||
         context.argv.listDifferent)
     ) {
+      // If the file is ignored remove it from the cache
+      // - it won't be formatted anymore
+      // - if it has been restored, we shouldn't keep the old cache entry
+      formatResultsCache?.removeFormatResultsCache(filename);
       continue;
     }
 
