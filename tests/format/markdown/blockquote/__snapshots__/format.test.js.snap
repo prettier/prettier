@@ -519,6 +519,102 @@ proseWrap: "preserve"
 ================================================================================
 `;
 
+exports[`interrupt-others.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+This paragraphi
+> is interrupted by block quote.
+
+[This link
+> is intterrupted by block quote.](http://example.com)
+
+[[This wiki link
+> is interrupted by block quote.]]
+
+=====================================output=====================================
+This paragraphi
+
+> is interrupted by block quote.
+
+[This link
+
+> is intterrupted by block quote.](http://example.com)
+
+[[This wiki link
+
+> is interrupted by block quote.]]
+
+================================================================================
+`;
+
+exports[`interrupt-others.md - {"proseWrap":"never"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "never"
+                                                                                | printWidth
+=====================================input======================================
+This paragraphi
+> is interrupted by block quote.
+
+[This link
+> is intterrupted by block quote.](http://example.com)
+
+[[This wiki link
+> is interrupted by block quote.]]
+
+=====================================output=====================================
+This paragraphi
+
+> is interrupted by block quote.
+
+[This link
+
+> is intterrupted by block quote.](http://example.com)
+
+[[This wiki link
+
+> is interrupted by block quote.]]
+
+================================================================================
+`;
+
+exports[`interrupt-others.md - {"proseWrap":"preserve"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "preserve"
+                                                                                | printWidth
+=====================================input======================================
+This paragraphi
+> is interrupted by block quote.
+
+[This link
+> is intterrupted by block quote.](http://example.com)
+
+[[This wiki link
+> is interrupted by block quote.]]
+
+=====================================output=====================================
+This paragraphi
+
+> is interrupted by block quote.
+
+[This link
+
+> is intterrupted by block quote.](http://example.com)
+
+[[This wiki link
+
+> is interrupted by block quote.]]
+
+================================================================================
+`;
+
 exports[`list.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
