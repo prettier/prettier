@@ -1,88 +1,185 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`atx.md - {"proseWrap":"always"} format 1`] = `
+exports[`child.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
-proseWrap: "always"
                                                                                 | printWidth
 =====================================input======================================
-# h1
+>>> bar
+>>> ===
 
-## h2
+- in list
+    - in list
+      heading
+      =======
+    - in list
+      >>> heading
+      >>> =======
 
 =====================================output=====================================
-# h1
+> > > bar
+> > > ===
 
-## h2
+- in list
+  - in list
+    heading
+    =======
+  - in list
+    > > > heading
+    > > > =======
 
 ================================================================================
 `;
 
-exports[`hash-sign.md - {"proseWrap":"always"} format 1`] = `
+exports[`definition-before.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
-proseWrap: "always"
                                                                                 | printWidth
 =====================================input======================================
-# Programming languages
+<!-- https://spec.commonmark.org/0.31.2/#example-215 -->
+[foo]: /url1
+[foo]: /url2
+bar
+===
 
-## C#
+[foo]: /url1
+[foo]: /url2
 
-## JavaScript
+bar
+===
 
 =====================================output=====================================
-# Programming languages
+<!-- https://spec.commonmark.org/0.31.2/#example-215 -->
 
-## C#
+[foo]: /url1
+[foo]: /url2
+bar
+===
 
-## JavaScript
+[foo]: /url1
+[foo]: /url2
+
+bar
+===
 
 ================================================================================
 `;
 
-exports[`long-heading.md - {"proseWrap":"always"} format 1`] = `
+exports[`issue-6013.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
-proseWrap: "always"
                                                                                 | printWidth
 =====================================input======================================
-# this is a long long long long long long long long long long long long long long heading.
+Setext Heading 1
+================
+
+Setext Heading 2
+----------------
+
+## ATX Heading 2
 
 =====================================output=====================================
-# this is a long long long long long long long long long long long long long long heading.
+Setext Heading 1
+================
+
+Setext Heading 2
+----------------
+
+## ATX Heading 2
 
 ================================================================================
 `;
 
-exports[`mixed.md - {"proseWrap":"always"} format 1`] = `
+exports[`issue-6013-2.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
-proseWrap: "always"
                                                                                 | printWidth
 =====================================input======================================
-## LaraCart - Laravel Shopping Cart Package (<a href="http://laracart.lukepolo.com/">http://laracart.lukepolo.com</a>)
+Heading
+[![Shields.io badge](https://img.shields.io/badge/Shields.io-badge-brightgreen)](https://shields.io)
+=======
 
 =====================================output=====================================
-## LaraCart - Laravel Shopping Cart Package (<a href="http://laracart.lukepolo.com/">http://laracart.lukepolo.com</a>)
+Heading
+[![Shields.io badge](https://img.shields.io/badge/Shields.io-badge-brightgreen)](https://shields.io)
+=======
 
 ================================================================================
 `;
 
-exports[`unbreakable.md - {"proseWrap":"always"} format 1`] = `
+exports[`setext.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
-proseWrap: "always"
                                                                                 | printWidth
 =====================================input======================================
-### \`reporters\` [array<moduleName | [moduleName, options]>]
+h1
+===
+
+h2
+---
 
 =====================================output=====================================
-### \`reporters\` [array<moduleName | [moduleName, options]>]
+h1
+===
+
+h2
+---
+
+================================================================================
+`;
+
+exports[`snippet: #0 format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+Multi\\
+Line  
+Setext\\
+Heading
+=======
+
+Multi\\
+Line  
+Setext\\
+Heading
+-------
+=====================================output=====================================
+Multi\\
+Line  
+Setext\\
+Heading
+=======
+
+Multi\\
+Line  
+Setext\\
+Heading
+-------
+
+================================================================================
+`;
+
+exports[`snippet: #1 format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+[foo]: /url 
+  bar
+===
+=====================================output=====================================
+[foo]: /url
+
+bar
+===
 
 ================================================================================
 `;

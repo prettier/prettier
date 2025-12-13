@@ -24,6 +24,7 @@ import getVisitorKeys from "./get-visitor-keys.js";
 import { locEnd, locStart } from "./loc.js";
 import { insertPragma } from "./pragma.js";
 import { printChildren } from "./print/children.js";
+import { printHeading } from "./print/heading.js";
 import { printList, printListLegacy } from "./print/list.js";
 import { printTable } from "./print/table.js";
 import { printWord, printWordLegacy } from "./print/word.js";
@@ -78,7 +79,13 @@ function genericPrint(path, options, print) {
         parts.push([parts.pop(), node.value]);
         continue;
       }
-      const doc = printWhitespace(path, node.value, options.proseWrap, true);
+      const doc = printWhitespace(
+        path,
+        node.value,
+        options.proseWrap,
+        true,
+        options,
+      );
       if (getDocType(doc) === DOC_TYPE_STRING) {
         parts.push([parts.pop(), doc]);
         continue;
@@ -111,7 +118,7 @@ function genericPrint(path, options, print) {
           ? "never"
           : options.proseWrap;
 
-      return printWhitespace(path, node.value, proseWrap);
+      return printWhitespace(path, node.value, proseWrap, false, options);
     }
     case "emphasis": {
       let style;
@@ -200,7 +207,7 @@ function genericPrint(path, options, print) {
     case "image":
       return [
         "![",
-        getImageAltText(node, options),
+        printImageAlt(node, options),
         "](",
         printUrl(node.url, ")"),
         printTitle(node.title, options),
@@ -209,10 +216,7 @@ function genericPrint(path, options, print) {
     case "blockquote":
       return ["> ", align("> ", printChildren(path, options, print))];
     case "heading":
-      return [
-        "#".repeat(node.depth) + " ",
-        printChildren(path, options, print),
-      ];
+      return printHeading(path, options, print);
     case "code": {
       if (node.isIndented) {
         // indented code block
@@ -282,18 +286,21 @@ function genericPrint(path, options, print) {
             ? "[]"
             : "",
       ];
-    case "imageReference":
+    case "imageReference": {
+      const alt = printImageAlt(node, options);
+
       switch (node.referenceType) {
         case "full":
-          return ["![", node.alt || "", "]", printLinkReference(node)];
+          return ["![", alt, "]", printLinkReference(node)];
         default:
           return [
             ...(options.parser === "mdx"
-              ? ["![", node.alt, "]"]
+              ? ["![", alt, "]"]
               : ["!", printLinkReference(node)]),
             node.referenceType === "collapsed" ? "[]" : "",
           ];
       }
+    }
     case "definition": {
       const lineOrSpace = options.proseWrap === "always" ? line : " ";
       return group([
@@ -540,7 +547,7 @@ function printFootnoteReference(node) {
   return `[^${node.label}]`;
 }
 
-function getImageAltText(node, options) {
+function printImageAlt(node, options) {
   if (options.parser !== "mdx" && node.originalAltText) {
     return node.originalAltText;
   }

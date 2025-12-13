@@ -3,6 +3,7 @@ import {
   INLINE_NODE_TYPES,
   INLINE_NODE_WRAPPER_TYPES,
   isPrettierIgnore,
+  isSetextHeading,
 } from "../utilities.js";
 
 /**
@@ -74,13 +75,22 @@ function shouldPrePrintDoubleHardline(path, options) {
     ) {
       return true;
     }
-  } else if (
-    isPreviousNodeLooseListItem(path) ||
-    (node.type === "list" &&
-      parent.type === "listItem" &&
-      previous.type === "code")
-  ) {
-    return true;
+  } else {
+    if (
+      isSetextHeading(node) &&
+      node.position.start.line < previous.position.end.line
+    ) {
+      return false;
+    }
+
+    if (
+      isPreviousNodeLooseListItem(path) ||
+      (node.type === "list" &&
+        parent.type === "listItem" &&
+        previous.type === "code")
+    ) {
+      return true;
+    }
   }
 
   const isSequence = previous.type === node.type;

@@ -298,10 +298,16 @@ function transformIndentedCodeblockAndMarkItsParentList(ast, options) {
 function markOriginalImageAndLinkAlt(ast, options) {
   const { originalText } = options;
   return mapAst(ast, (node) => {
-    if (!(node.type === "image" || node.type === "link")) {
+    if (node.type === "image" || node.type === "imageReference") {
+      node.originalAltText = getBracketContent(
+        originalText,
+        node.position.start.offset,
+        node.position.end.offset,
+      );
       return node;
     }
-    if (!node.url) {
+
+    if (node.type !== "link" || !node.url) {
       return node;
     }
 
@@ -312,11 +318,7 @@ function markOriginalImageAndLinkAlt(ast, options) {
     );
 
     if (originalAlt && /[[\]]/u.test(originalAlt)) {
-      if (node.type === "image") {
-        node.originalAltText = originalAlt;
-      } else {
-        node.originalLabelText = originalAlt;
-      }
+      node.originalLabelText = originalAlt;
     }
 
     return node;

@@ -43,6 +43,14 @@ function clean(original, cloned, parent) {
     cloned.label = collapseWhiteSpace(original.label);
   }
 
+  // Maybe we should fix this
+  if (
+    original.type === "imageReference" &&
+    original.referenceType === "collapsed"
+  ) {
+    cloned.alt = collapseWhiteSpace(original.alt);
+  }
+
   if (
     (original.type === "link" || original.type === "image") &&
     original.url &&
