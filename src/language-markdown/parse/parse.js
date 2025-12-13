@@ -42,7 +42,7 @@ function createParse({ isMDX }) {
 
 function noop() {}
 
-const parseMarkdown = createParse({ isMDX: false });
-const parseMdx = createParse({ isMDX: true });
+const parseMarkdown = /* @__PURE__ */ createParse({ isMDX: false });
+const parseMdx = /* @__PURE__ */ createParse({ isMDX: true });
 
 export { parseMarkdown, parseMdx };
