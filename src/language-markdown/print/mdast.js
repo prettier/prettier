@@ -19,13 +19,6 @@ import getMinNotPresentContinuousCount from "../../utilities/get-min-not-present
 import getPreferredQuote from "../../utilities/get-preferred-quote.js";
 import UnexpectedNodeError from "../../utilities/unexpected-node-error.js";
 import { locEnd, locStart } from "../loc.js";
-import { printChildren } from "../print/children.js";
-import { printList } from "../print/list.js";
-import { printParagraph } from "../print/paragraph.js";
-import { printSentence } from "../print/sentence.js";
-import { printTable } from "../print/table.js";
-import { printWhitespace } from "../print/whitespace.js";
-import { printWord } from "../print/word.js";
 import {
   getFencedCodeBlockValue,
   getNthListSiblingIndex,
@@ -33,6 +26,13 @@ import {
   isPrettierIgnore,
   splitText,
 } from "../utilities.js";
+import { printChildren } from "./children.js";
+import { printList } from "./list.js";
+import { printParagraph } from "./paragraph.js";
+import { printSentence } from "./sentence.js";
+import { printTable } from "./table.js";
+import { printWhitespace } from "./whitespace.js";
+import { printWord } from "./word.js";
 
 /**
  * @import {Doc} from "../../document/index.js"
