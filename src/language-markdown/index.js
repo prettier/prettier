@@ -1,4 +1,4 @@
-import printer from "./printer-markdown.js";
+import printer from "./markdown.js";
 
 export const printers = {
   mdast: printer,

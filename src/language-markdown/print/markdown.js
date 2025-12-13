@@ -13,34 +13,34 @@ import {
   markAsRoot,
   replaceEndOfLine,
   softline,
-} from "../document/index.js";
-import getMaxContinuousCount from "../utilities/get-max-continuous-count.js";
-import getMinNotPresentContinuousCount from "../utilities/get-min-not-present-continuous-count.js";
-import getPreferredQuote from "../utilities/get-preferred-quote.js";
-import UnexpectedNodeError from "../utilities/unexpected-node-error.js";
-import clean from "./clean.js";
-import embed from "./embed.js";
-import getVisitorKeys from "./get-visitor-keys.js";
-import { locEnd, locStart } from "./loc.js";
-import { insertPragma } from "./pragma.js";
-import { printChildren } from "./print/children.js";
-import { printList } from "./print/list.js";
-import { printParagraph } from "./print/paragraph.js";
-import preprocess from "./print/preprocess.js";
-import { printSentence } from "./print/sentence.js";
-import { printTable } from "./print/table.js";
-import { printWhitespace } from "./print/whitespace.js";
-import { printWord } from "./print/word.js";
+} from "../../document/index.js";
+import getMaxContinuousCount from "../../utilities/get-max-continuous-count.js";
+import getMinNotPresentContinuousCount from "../../utilities/get-min-not-present-continuous-count.js";
+import getPreferredQuote from "../../utilities/get-preferred-quote.js";
+import UnexpectedNodeError from "../../utilities/unexpected-node-error.js";
+import clean from "../clean.js";
+import embed from "../embed.js";
+import getVisitorKeys from "../get-visitor-keys.js";
+import { locEnd, locStart } from "../loc.js";
+import { insertPragma } from "../pragma.js";
+import { printChildren } from "../print/children.js";
+import { printList } from "../print/list.js";
+import { printParagraph } from "../print/paragraph.js";
+import preprocess from "../print/preprocess.js";
+import { printSentence } from "../print/sentence.js";
+import { printTable } from "../print/table.js";
+import { printWhitespace } from "../print/whitespace.js";
+import { printWord } from "../print/word.js";
 import {
   getFencedCodeBlockValue,
   getNthListSiblingIndex,
   isAutolink,
   isPrettierIgnore,
   splitText,
-} from "./utilities.js";
+} from "../utilities.js";
 
 /**
- * @import {Doc} from "../document/index.js"
+ * @import {Doc} from "../../document/index.js"
  */
 
 function prevOrNextWord(path) {
