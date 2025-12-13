@@ -187,7 +187,7 @@ function getOrderedListItemInfo(orderListItem, options) {
   );
   if (options.parser !== "mdx") {
     const firstChild = orderListItem.children[0];
-    if (firstChild?.position) {
+    if (firstChild) {
       text = options.originalText.slice(
         orderListItem.position.start.offset,
         firstChild.position.start.offset,
@@ -257,10 +257,6 @@ function mapAst(ast, handler) {
 function isAutolink(node) {
   if (node?.type !== "link" || node.children.length !== 1) {
     return false;
-  }
-
-  if (!node.position) {
-    return true;
   }
 
   const [child] = node.children;

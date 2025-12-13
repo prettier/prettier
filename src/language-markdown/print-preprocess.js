@@ -67,12 +67,10 @@ function addRawToText(ast, options) {
   return mapAst(ast, (node) => {
     if (node.type === "text") {
       // https://github.com/remarkjs/remark-gfm/issues/16
-      node.raw = node.position
-        ? options.originalText.slice(
-            node.position.start.offset,
-            node.position.end.offset,
-          )
-        : node.value;
+      node.raw = options.originalText.slice(
+        node.position.start.offset,
+        node.position.end.offset,
+      );
     }
     return node;
   });
@@ -309,7 +307,7 @@ function markOriginalImageAndLinkAlt(ast, options) {
       return node;
     }
 
-    if (node.type !== "link" || !node.url || !node.position) {
+    if (node.type !== "link" || !node.url) {
       return node;
     }
 
