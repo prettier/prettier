@@ -18,15 +18,10 @@ import getMaxContinuousCount from "../../utilities/get-max-continuous-count.js";
 import getMinNotPresentContinuousCount from "../../utilities/get-min-not-present-continuous-count.js";
 import getPreferredQuote from "../../utilities/get-preferred-quote.js";
 import UnexpectedNodeError from "../../utilities/unexpected-node-error.js";
-import clean from "../clean.js";
-import embed from "../embed.js";
-import getVisitorKeys from "../get-visitor-keys.js";
 import { locEnd, locStart } from "../loc.js";
-import { insertPragma } from "../pragma.js";
 import { printChildren } from "../print/children.js";
 import { printList } from "../print/list.js";
 import { printParagraph } from "../print/paragraph.js";
-import preprocess from "../print/preprocess.js";
 import { printSentence } from "../print/sentence.js";
 import { printTable } from "../print/table.js";
 import { printWhitespace } from "../print/whitespace.js";
@@ -55,7 +50,7 @@ function prevOrNextWord(path) {
   return hasPrevOrNextWord;
 }
 
-function genericPrint(path, options, print) {
+function printMarkdown(path, options, print) {
   const { node } = path;
 
   if (shouldRemainTheSameContent(path)) {
@@ -502,10 +497,6 @@ function printTitle(title, options, printSpace = true) {
   return `${quote}${title}${quote}`;
 }
 
-function hasPrettierIgnore(path) {
-  return path.index > 0 && isPrettierIgnore(path.previous) === "next";
-}
-
 // `remark-parse` lowercase the `label` as `identifier`, we don't want do that
 // https://github.com/remarkjs/remark/blob/daddcb463af2d5b2115496c395d0571c0ff87d15/packages/remark-parse/lib/tokenize/reference.js
 function printLinkReference(node) {
@@ -516,21 +507,4 @@ function printFootnoteReference(node) {
   return `[^${node.label}]`;
 }
 
-const printer = {
-  features: {
-    experimental_frontMatterSupport: {
-      massageAstNode: true,
-      embed: true,
-      print: true,
-    },
-  },
-  preprocess,
-  print: genericPrint,
-  embed,
-  massageAstNode: clean,
-  hasPrettierIgnore,
-  insertPragma,
-  getVisitorKeys,
-};
-
-export default printer;
+export { printMarkdown };

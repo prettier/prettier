@@ -1,5 +1,5 @@
+import { INLINE_NODE_WRAPPER_TYPES, mapAst } from "../../utilities.js";
 import { COMMENT_REGEX } from "../mdx.js";
-import { INLINE_NODE_WRAPPER_TYPES, mapAst } from "../utilities.js";
 
 function htmlToJsx() {
   return (ast) =>

@@ -1,4 +1,4 @@
-import { parseFrontMatter } from "../../main/front-matter/index.js";
+import { parseFrontMatter } from "../../../main/front-matter/index.js";
 
 /** @import {Plugin, Settings} from "unified" */
 

@@ -1,4 +1,4 @@
-import { generateReferenceSharedVisitorKeys } from "../utilities/visitor-keys.js";
+import { generateReferenceSharedVisitorKeys } from "../../utilities/visitor-keys.js";
 
 const visitorKeys = generateReferenceSharedVisitorKeys({
   root: ["children"],
