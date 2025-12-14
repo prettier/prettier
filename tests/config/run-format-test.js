@@ -612,14 +612,18 @@ async function loadPlugins(options) {
     return options;
   }
 
-  builtinParserNames ||= await getBuiltinParserNames();
+  if (!builtinParserNames) {
+    builtinParserNames = await getBuiltinParserNames();
+  }
   const { parser } = options;
 
   if (builtinParserNames.has(parser)) {
     return options;
   }
 
-  externalParsers ||= await getExternalPlugins();
+  if (!externalParsers) {
+    externalParsers = await getExternalPlugins();
+  }
   if (!externalParsers.has(parser)) {
     throw new Error(`Unknown parser '${parser}'.`);
   }
