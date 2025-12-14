@@ -625,7 +625,7 @@ async function loadPlugins(options) {
     externalParsers = await getExternalPlugins();
   }
   if (!externalParsers.has(parser)) {
-    throw new Error(`Unknown parser '${parser}'.`);
+    return options;
   }
   const plugin = externalParsers.get(parser);
 
