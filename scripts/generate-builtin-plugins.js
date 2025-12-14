@@ -111,7 +111,7 @@ function getPluginExportStatement(plugin, file) {
     properties[property] =
       variableNames.length === 1
         ? variableNames
-        : `${isArray ? "[" : "{"}${variableNames.map((variableName) => `...${variableName},`).join(",")}${isArray ? "]" : "}"}`;
+        : `${isArray ? "[" : "{"}${variableNames.map((variableName) => `...${variableName},`).join("")}${isArray ? "]" : "}"}`;
   }
 
   if (plugin.parserNames) {
@@ -217,10 +217,17 @@ async function locateLanguageOrOptions(pluginData, value, kind) {
           data.variableName === camelcase(`json-${kind}`)),
     );
 
-    const languages = entries.flatMap((entry) => entry.implementation);
+    const languages = entries
+      .flatMap((entry) => entry.implementation)
+      .toSorted((languageA, languageB) =>
+        languageA.name.localeCompare(languageB.name),
+      );
     assert.equal(languages.length, value.length);
+    const sorted = value.toSorted((languageA, languageB) =>
+      languageA.name.localeCompare(languageB.name),
+    );
     for (const [index, language] of languages.entries()) {
-      assert.equal(language, value[index]);
+      assert.equal(language, sorted[index]);
     }
 
     return entries;

@@ -58,7 +58,7 @@ export const estree = /* @__PURE__ */ toLazyLoadPlugin({
   name: "estree",
   importPlugin: () => import("../../../plugins/estree.js"),
   options: jsOptions,
-  languages: [...jsonLanguages, , ...jsLanguages],
+  languages: [...jsonLanguages, ...jsLanguages],
   printerNames: ["estree", "estree-json"],
 });
 export const flow = /* @__PURE__ */ toLazyLoadPlugin({
