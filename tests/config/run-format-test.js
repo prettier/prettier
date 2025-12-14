@@ -608,7 +608,7 @@ async function getBuiltinParserNames() {
 let builtinParserNames;
 let externalParsers;
 async function loadPlugins(options) {
-  if (!isProduction) {
+  if (!isProduction || !options.parser) {
     return options;
   }
 
