@@ -1,7 +1,6 @@
 import { parse, parseExpression } from "@babel/parser";
 import createError from "../../common/parser-create-error.js";
 import createBabelParseError from "../../language-js/parse/utilities/create-babel-parse-error.js";
-import createParser from "../../language-js/parse/utilities/create-parser.js";
 import wrapBabelExpression from "../../language-js/parse/utilities/wrap-babel-expression.js";
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
 
@@ -172,18 +171,4 @@ function assertJsonNode(node) {
   }
 }
 
-const json = /* @__PURE__ */ createParser({
-  parse: (text) => parseJson(text),
-  hasPragma: () => true,
-  hasIgnorePragma: () => false,
-});
-const json5 = /* @__PURE__ */ createParser((text) => parseJson(text));
-const jsonc = /* @__PURE__ */ createParser((text) =>
-  parseJson(text, { allowEmpty: true }),
-);
-const jsonStringify = /* @__PURE__ */ createParser({
-  parse: (text) => parseJson(text, { allowComments: false }),
-  astFormat: "estree-json",
-});
-
-export { json, json5, jsonc, jsonStringify as "json-stringify" };
+export { parseJson };
