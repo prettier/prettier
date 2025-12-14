@@ -206,10 +206,12 @@
     "fix": "run-s --continue-on-error fix:eslint fix:prettier",
     "fix:eslint": "yarn lint:eslint --fix",
     "fix:prettier": "yarn lint:prettier --write",
+    "fix:builtin-plugins": "yarn generate-builtin-plugins",
     "build": "node ./scripts/build/build.js",
     "build:website": "node ./scripts/build-website.js",
     "build:website:pr": "cross-env PULL_REQUEST=true yarn build:website",
     "generate-changelog": "node ./scripts/generate-changelog.js",
+    "generate-builtin-plugins": "node scripts/generate-builtin-plugins.js",
     "debug": "node bin/prettier.js --ignore-path=.prettierignore",
     "debug:watch": "node --watch bin/prettier.js --ignore-path=.prettierignore",
     "debug:inspect": "node --inspect-brk bin/prettier.js --ignore-path=.prettierignore"
