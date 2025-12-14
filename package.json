@@ -233,6 +233,7 @@
       "src/document/debug.js",
       "src/universal/*.browser.js",
       "src/utilities/unexpected-node-error.js",
+      "src/plugins/**",
       "src/language-js/types/estree.d.ts",
       "src/**/**/*.d.ts"
     ]
