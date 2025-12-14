@@ -29,6 +29,7 @@ import {
 import { toLazyLoadPlugin } from "./utilities.js";
 
 export const css = /* @__PURE__ */ toLazyLoadPlugin({
+  name: "css",
   importPlugin: () => import("../../../language-css/index.js"),
   options: cssOptions,
   languages: cssLanguages,
@@ -36,6 +37,7 @@ export const css = /* @__PURE__ */ toLazyLoadPlugin({
   printerNames: ["postcss"],
 });
 export const graphql = /* @__PURE__ */ toLazyLoadPlugin({
+  name: "graphql",
   importPlugin: () => import("../../../language-graphql/index.js"),
   options: graphqlOptions,
   languages: graphqlLanguages,
@@ -43,12 +45,14 @@ export const graphql = /* @__PURE__ */ toLazyLoadPlugin({
   printerNames: ["graphql"],
 });
 export const handlebars = /* @__PURE__ */ toLazyLoadPlugin({
+  name: "handlebars",
   importPlugin: () => import("../../../language-handlebars/index.js"),
   languages: handlebarsLanguages,
   parserNames: ["glimmer"],
   printerNames: ["glimmer"],
 });
 export const html = /* @__PURE__ */ toLazyLoadPlugin({
+  name: "html",
   importPlugin: () => import("../../../language-html/index.js"),
   options: htmlOptions,
   languages: htmlLanguages,
@@ -56,6 +60,7 @@ export const html = /* @__PURE__ */ toLazyLoadPlugin({
   printerNames: ["html"],
 });
 export const js = /* @__PURE__ */ toLazyLoadPlugin({
+  name: "js",
   importPlugin: () => import("../../../language-js/index.js"),
   options: jsOptions,
   languages: jsLanguages,
@@ -86,12 +91,14 @@ export const js = /* @__PURE__ */ toLazyLoadPlugin({
   printerNames: ["estree"],
 });
 export const json = /* @__PURE__ */ toLazyLoadPlugin({
+  name: "json",
   importPlugin: () => import("../../../language-json/index.js"),
   languages: jsonLanguages,
   parserNames: ["parsers"],
   printerNames: ["estree-json"],
 });
 export const markdown = /* @__PURE__ */ toLazyLoadPlugin({
+  name: "markdown",
   importPlugin: () => import("../../../language-markdown/index.js"),
   options: markdownOptions,
   languages: markdownLanguages,
@@ -99,6 +106,7 @@ export const markdown = /* @__PURE__ */ toLazyLoadPlugin({
   printerNames: ["mdast"],
 });
 export const yaml = /* @__PURE__ */ toLazyLoadPlugin({
+  name: "yaml",
   importPlugin: () => import("../../../language-yaml/index.js"),
   options: yamlOptions,
   languages: yamlLanguages,

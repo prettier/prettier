@@ -1,5 +1,6 @@
 /**
 @param {{
+  name: string,
   importPlugin: () => Promise<any>,
   options?: any,
   languages?: any[],
@@ -10,37 +11,41 @@
 */
 
 function toLazyLoadPlugin({
+  name,
   importPlugin,
   options,
   languages,
-  parserNames = [],
-  printerNames = [],
+  parserNames,
+  printerNames,
 }) {
-  const parsers = Object.create(null);
-  const printers = Object.create(null);
-
-  const loadPlugin = async () => {
-    const plugin = await importPlugin();
-    Object.assign(parsers, plugin.parsers);
-    Object.assign(printers, plugin.printers);
-    return plugin;
-  };
-
-  for (const parserName of parserNames) {
-    parsers[parserName] = async () => (await loadPlugin()).parsers[parserName];
+  const plugin = { name };
+  if (options) {
+    plugin.options = options;
   }
 
-  for (const printerName of printerNames) {
-    printers[printerName] = async () =>
-      (await loadPlugin()).printers[printerName];
+  if (languages) {
+    plugin.languages = languages;
   }
 
-  return {
-    options,
-    languages,
-    parsers,
-    printers,
-  };
+  for (const { property, names } of [
+    { property: "parsers", names: parserNames },
+    { property: "printers", names: printerNames },
+  ]) {
+    if (names) {
+      plugin[property] = Object.fromEntries(
+        names.map((name) => [
+          name,
+          async () => {
+            const loaded = await importPlugin();
+            Object.assign(plugin, loaded);
+            return loaded[property][name];
+          },
+        ]),
+      );
+    }
+  }
+
+  return plugin;
 }
 
 export { toLazyLoadPlugin };

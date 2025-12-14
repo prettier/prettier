@@ -86,6 +86,7 @@ function getImportStatements(plugin) {
 
 function getPluginExportStatement(plugin) {
   const properties = {
+    name: JSON.stringify(plugin.name),
     importPlugin: `() => import("${plugin.importSource}")`,
   };
 
