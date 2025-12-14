@@ -637,6 +637,8 @@ proseWrap: "always"
   >   > with multiple lines
   - nested list
 
+-   > quote in list
+	> this line is indented by tab
 
 =====================================output=====================================
 > - list in quote with multiple lines
@@ -649,6 +651,8 @@ proseWrap: "always"
   > - list item in quote in list
   >   > quote in list item in quote in list > > with multiple lines
   - nested list
+
+- > quote in list > this line is indented by tab
 
 ================================================================================
 `;
@@ -675,6 +679,8 @@ proseWrap: "never"
   >   > with multiple lines
   - nested list
 
+-   > quote in list
+	> this line is indented by tab
 
 =====================================output=====================================
 > - list in quote with multiple lines
@@ -687,6 +693,8 @@ proseWrap: "never"
   > - list item in quote in list
   >   > quote in list item in quote in list > > with multiple lines
   - nested list
+
+- > quote in list > this line is indented by tab
 
 ================================================================================
 `;
@@ -713,6 +721,8 @@ proseWrap: "preserve"
   >   > with multiple lines
   - nested list
 
+-   > quote in list
+	> this line is indented by tab
 
 =====================================output=====================================
 > - list in quote
@@ -727,6 +737,8 @@ proseWrap: "preserve"
   > - list item in quote in list
   >   > quote in list item in quote in list > > with multiple lines
   - nested list
+
+- > quote in list > this line is indented by tab
 
 ================================================================================
 `;

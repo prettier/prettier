@@ -63,3 +63,6 @@ comment
 
 [[test19 <span>text</span>
 text]]
+
+> [[quote test
+> text]]
