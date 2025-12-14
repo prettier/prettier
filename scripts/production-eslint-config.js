@@ -98,10 +98,9 @@ const nodejsRestrictedSyntaxes = [
   },
 ];
 
-/* TODO[@fisker]: Fix `no-restricted-syntax` */
-
 export default [
   {
+    name: "All files",
     plugins: {
       compat: eslintPluginCompat,
     },
@@ -125,6 +124,7 @@ export default [
   },
 
   {
+    name: "Browser files",
     files: browserFiles,
     rules: {
       "no-restricted-syntax": [
@@ -136,6 +136,7 @@ export default [
   },
 
   {
+    name: "Node.js files",
     files: nodejsFiles,
     rules: {
       "no-restricted-syntax": [
@@ -147,6 +148,7 @@ export default [
   },
 
   {
+    name: "Prettier bin file",
     files: ["bin/prettier.cjs"],
     languageOptions: {
       ecmaVersion: 5,
