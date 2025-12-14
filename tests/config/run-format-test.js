@@ -596,30 +596,14 @@ async function getExternalPlugins() {
   }
   return externalParsers;
 }
-async function getBuiltinParserNames() {
-  const productionBuiltPlugins =
-    await import("../../src/main/plugins/builtin-plugins/production-plugins.js");
-  const parsers = Object.values(productionBuiltPlugins).flatMap((plugin) =>
-    Object.keys(plugin.parsers ?? {}),
-  );
-  return new Set(parsers);
-}
 
-let builtinParserNames;
 let externalParsers;
 async function loadPlugins(options) {
   if (!isProduction || !options.parser) {
     return options;
   }
 
-  if (!builtinParserNames) {
-    builtinParserNames = await getBuiltinParserNames();
-  }
   const { parser } = options;
-
-  if (builtinParserNames.has(parser)) {
-    return options;
-  }
 
   if (!externalParsers) {
     externalParsers = await getExternalPlugins();
