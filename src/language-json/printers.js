@@ -9,3 +9,4 @@ const estreeJsonPrinter = {
 };
 
 export { estreeJsonPrinter as "estree-json" };
+export { estree } from "../language-js/printers.js";
