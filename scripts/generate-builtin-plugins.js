@@ -216,6 +216,13 @@ async function locateLanguageOrOptions(pluginData, value, kind) {
         (data.variableName === camelcase(`js-${kind}`) ||
           data.variableName === camelcase(`json-${kind}`)),
     );
+
+    const languages = entries.flatMap((entry) => entry.implementation);
+    assert.equal(languages.length, value.length);
+    for (const [index, language] of languages.entries()) {
+      assert.equal(language, value[index]);
+    }
+
     return entries;
   }
 
