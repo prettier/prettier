@@ -86,6 +86,7 @@ const ignoredProperties = new Set([
   "range",
   "tokens",
 ]);
+
 function clean(original, cloned /* , parent*/) {
   const { type } = original;
 
