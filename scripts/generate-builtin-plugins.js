@@ -20,15 +20,15 @@ const pluginFiles = [
     ),
     getPluginName: (file) => path.dirname(file).slice("language-".length),
   },
-  // {
-  //   kind: "production",
-  //   pattern: "plugins/*.js",
-  //   file: new URL(
-  //     "main/plugins/builtin-plugins/production-plugins.js",
-  //     sourceDirectory,
-  //   ),
-  //   getPluginName: (file) => path.basename(file, path.extname(file)),
-  // },
+  {
+    kind: "production",
+    pattern: "plugins/*.js",
+    file: new URL(
+      "main/plugins/builtin-plugins/production-plugins.js",
+      sourceDirectory,
+    ),
+    getPluginName: (file) => path.basename(file, path.extname(file)),
+  },
 ];
 
 function getImportSource(from, to) {
@@ -47,13 +47,13 @@ async function getPluginData(file, pluginFile, getPluginName) {
     `Invalid plugin name '${pluginName}'.`,
   );
 
-  pluginFile = new URL(pluginFile, sourceDirectory);
+  const url = new URL(pluginFile, sourceDirectory);
 
-  const implementation = await import(pluginFile);
+  const implementation = await import(url);
 
   const pluginData = {
     name: pluginName,
-    file: pluginFile,
+    url,
     parserNames: Object.hasOwn(implementation, "parsers")
       ? Object.keys(implementation.parsers)
       : undefined,
@@ -70,95 +70,48 @@ async function getPluginData(file, pluginFile, getPluginName) {
     const value = implementation[property];
     pluginData[property] = {
       value,
-      variableName: camelcase(`${pluginName}-${property}`),
+      // If we import `languages` and `options` from the `index.js`
+      // It will be much slower to load builtin plugins
+      entries: await locateLanguageOrOptions(pluginData, value, property),
     };
-
-    // If we import `languages` and `options` from the `index.js`
-    // It will be much slower to load builtin plugins
-    const entry = await locateLanguageOrOptions(pluginData, value, property);
-
-    pluginData[property].entry = entry;
   }
 
   return pluginData;
 }
 
-function getImportStatements(file, plugin) {
-  const statements = new Map();
-
-  for (const property of ["languages", "options"]) {
-    if (!plugin[property]) {
-      continue;
-    }
-
-    const { entry } = plugin[property];
-    const { url } = entry;
-    const specifier = {
-      imported: entry.specifier,
-      local: entry.variableName,
-    };
-
-    if (!statements.has(url)) {
-      statements.set(url, []);
-    }
-
-    statements.get(url).push(specifier);
-  }
-
-  if (statements.size === 0) {
-    return;
-  }
-
-  const statementsText = [];
-  for (const [url, specifiers] of statements) {
-    let defaultSpecifier = "";
-    const namedSpecifiers = [];
-    for (const [index, { local, imported }] of specifiers.entries()) {
-      if (imported === "default") {
-        assert.ok(
-          index === 0,
-          `Unexpected specifier '${imported}' at index '${index}'.`,
-        );
-      }
-      if (imported === "default") {
-        defaultSpecifier = local;
-      } else {
-        namedSpecifiers.push(`${imported} as ${local}`);
-      }
-    }
-    let statementText = "import";
-    if (defaultSpecifier) {
-      statementText += ` ${defaultSpecifier}`;
-    }
-
-    if (namedSpecifiers.length > 0) {
-      if (defaultSpecifier) {
-        statementText += ",";
-      }
-
-      statementText += ` {${namedSpecifiers.join(",")}}`;
-    }
-
-    const source = getImportSource(file, url);
-    statementText += ` from "${source}";`;
-    statementsText.push(statementText);
-  }
-
-  return statementsText.join("\n");
+function getImportStatements(plugins, file) {
+  const entries = plugins.flatMap((plugin) =>
+    ["languages", "options"].flatMap(
+      (property) => plugin[property]?.entries ?? [],
+    ),
+  );
+  return sortByUrl(entries)
+    .map(
+      (entry) => outdent`
+        import ${entry.specifier === "default" ? "" : "* as "}${entry.variableName} from "${getImportSource(file, entry.url)}";
+      `,
+    )
+    .join("\n");
 }
 
 function getPluginExportStatement(plugin, file) {
   const properties = {
     name: JSON.stringify(plugin.name),
-    importPlugin: `() => import("${getImportSource(file, plugin.file)}")`,
+    importPlugin: `() => import("${getImportSource(file, plugin.url)}")`,
   };
 
-  if (plugin.options) {
-    properties.options = plugin.options.variableName;
-  }
-
-  if (plugin.languages) {
-    properties.languages = plugin.languages.variableName;
+  for (const property of ["options", "languages"]) {
+    if (!plugin[property]) {
+      continue;
+    }
+    const variableNames = plugin[property].entries.map(
+      ({ variableName }) => variableName,
+    );
+    const isArray = property === "languages";
+    properties[property] =
+      variableNames.length === 1
+        ? variableNames
+        : `${isArray ? "[" : "{"}${variableNames.map((variableName) => `...${variableName},`).join(",")}${isArray ? "]" : "}"}`;
   }
 
   if (plugin.parserNames) {
@@ -195,23 +148,19 @@ async function buildPlugins({ kind, file, pattern, getPluginName }) {
     plugins.push(estreePlugin);
   }
 
-  plugins.sort((pluginA, pluginB) =>
-    pluginA.file.href.localeCompare(pluginB.file.href),
-  );
-
   const code = outdent`
     /*
     Generated file, do NOT edit
     Run \`${buildScript}\` to regenerate
     */
 
-    ${plugins
-      .map((plugin) => getImportStatements(file, plugin))
-      .filter(Boolean)
-      .join("\n")}
+    ${getImportStatements(plugins, file)}
     import {toLazyLoadPlugin} from "./utilities.js";
 
-    ${plugins.map((plugin) => getPluginExportStatement(plugin, file)).join("\n")}
+
+    ${sortByUrl(plugins)
+      .map((plugin) => getPluginExportStatement(plugin, file))
+      .join("\n")}
   `;
 
   const formatted = await format(code, { parser: "meriyah" });
@@ -257,11 +206,27 @@ async function locateLanguageOrOptions(pluginData, value, kind) {
     (data) => data.kind === kind && data.implementation === value,
   );
   if (directImport) {
-    return directImport;
+    return [directImport];
+  }
+
+  if (pluginData.name === "estree" && kind === "languages") {
+    const entries = languagesAndOptions.filter(
+      (data) =>
+        data.kind === kind &&
+        (data.variableName === camelcase(`js-${kind}`) ||
+          data.variableName === camelcase(`json-${kind}`)),
+    );
+    return entries;
   }
 
   throw new Error(
     `Can not locate '${kind}' entry for plugin '${pluginData.name}'.`,
+  );
+}
+
+function sortByUrl(array) {
+  return array.toSorted((elementA, elementB) =>
+    elementA.url.href.localeCompare(elementB.url.href),
   );
 }
 

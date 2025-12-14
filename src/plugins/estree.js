@@ -5,7 +5,6 @@
 //   printers as jsPrinters,
 // } from "../language-js/index.js";
 import jsLanguages from "../language-js/languages.evaluate.js";
-import jsOptions from "../language-js/options.js";
 import * as jsPrinters from "../language-js/printers.js";
 import {
   languages as jsonLanguages,
@@ -17,4 +16,5 @@ export const printers = {
   ...jsonPrinters,
 };
 export const languages = [...jsLanguages, ...jsonLanguages];
-export const options = { ...jsOptions };
+
+export { default as options } from "../language-js/options.js";
