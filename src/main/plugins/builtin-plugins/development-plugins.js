@@ -3,32 +3,20 @@ Generated file, do NOT edit
 Run `node scripts/generate-builtin-plugins.js` to regenerate
 */
 
-import {
-  languages as cssLanguages,
-  options as cssOptions,
-} from "../../../language-css/index.js";
-import {
-  languages as graphqlLanguages,
-  options as graphqlOptions,
-} from "../../../language-graphql/index.js";
-import { languages as handlebarsLanguages } from "../../../language-handlebars/index.js";
-import {
-  languages as htmlLanguages,
-  options as htmlOptions,
-} from "../../../language-html/index.js";
-import {
-  languages as jsLanguages,
-  options as jsOptions,
-} from "../../../language-js/index.js";
-import { languages as jsonLanguages } from "../../../language-json/index.js";
-import {
-  languages as markdownLanguages,
-  options as markdownOptions,
-} from "../../../language-markdown/index.js";
-import {
-  languages as yamlLanguages,
-  options as yamlOptions,
-} from "../../../language-yaml/index.js";
+import cssLanguages from "../../../language-css/languages.evaluate.js";
+import cssOptions from "../../../language-css/options.js";
+import graphqlLanguages from "../../../language-graphql/languages.evaluate.js";
+import graphqlOptions from "../../../language-graphql/options.js";
+import handlebarsLanguages from "../../../language-handlebars/languages.evaluate.js";
+import htmlLanguages from "../../../language-html/languages.evaluate.js";
+import htmlOptions from "../../../language-html/options.js";
+import jsLanguages from "../../../language-js/languages.evaluate.js";
+import jsOptions from "../../../language-js/options.js";
+import jsonLanguages from "../../../language-json/languages.evaluate.js";
+import markdownLanguages from "../../../language-markdown/languages.evaluate.js";
+import markdownOptions from "../../../language-markdown/options.js";
+import yamlLanguages from "../../../language-yaml/languages.evaluate.js";
+import yamlOptions from "../../../language-yaml/options.js";
 import { toLazyLoadPlugin } from "./utilities.js";
 
 export const css = /* @__PURE__ */ toLazyLoadPlugin({
