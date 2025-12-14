@@ -70,8 +70,8 @@ async function getPluginData(file, pluginFile, getPluginName) {
     const value = implementation[property];
     pluginData[property] = {
       value,
-      // If we import `languages` and `options` from the `index.js`
-      // It will be much slower to load builtin plugins
+      // If we import `languages` and `options` from the plugin entry
+      // It will be much slower to load the Prettier entry
       entries: await locateLanguageOrOptions(pluginData, value, property),
     };
   }
