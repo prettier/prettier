@@ -35,11 +35,18 @@ function toLazyLoadPlugin({
       plugin[property] = Object.fromEntries(
         names.map((name) => [
           name,
-          async () => {
-            const loaded = await importPlugin();
-            Object.assign(plugin, loaded);
-            return loaded[property][name];
-          },
+          process.env.NODE_ENV === "production"
+            ? async () => {
+                const loaded = await importPlugin();
+                Object.assign(plugin, loaded);
+                return loaded[property][name];
+              }
+            : async () => {
+                const loaded = await importPlugin();
+                // Hide `estree` printer in js plugin
+                plugin[property] = loaded[property];
+                return loaded[property][name];
+              },
         ]),
       );
     }

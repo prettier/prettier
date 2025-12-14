@@ -1,4 +1,7 @@
-// Generated file, do NOT edit
+/*
+Generated file, do NOT edit
+Run `node scripts/generate-builtin-plugins.js` to regenerate
+*/
 
 import {
   languages as estreeLanguages,

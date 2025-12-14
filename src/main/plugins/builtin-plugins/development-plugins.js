@@ -1,4 +1,7 @@
-// Generated file, do NOT edit
+/*
+Generated file, do NOT edit
+Run `node scripts/generate-builtin-plugins.js` to regenerate
+*/
 
 import {
   languages as cssLanguages,
@@ -88,6 +91,10 @@ export const js = /* @__PURE__ */ toLazyLoadPlugin({
     "oxc-ts",
     "typescript",
   ],
+});
+export const estree = /* @__PURE__ */ toLazyLoadPlugin({
+  name: "estree",
+  importPlugin: () => import("../../../language-js/index.js"),
   printerNames: ["estree"],
 });
 export const json = /* @__PURE__ */ toLazyLoadPlugin({
@@ -95,7 +102,7 @@ export const json = /* @__PURE__ */ toLazyLoadPlugin({
   importPlugin: () => import("../../../language-json/index.js"),
   languages: jsonLanguages,
   parserNames: ["json", "json-stringify", "json5", "jsonc"],
-  printerNames: ["estree-json"],
+  printerNames: ["estree", "estree-json"],
 });
 export const markdown = /* @__PURE__ */ toLazyLoadPlugin({
   name: "markdown",

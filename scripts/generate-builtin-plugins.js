@@ -3,10 +3,12 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { isValidIdentifier } from "@babel/types";
 import { outdent } from "outdent";
+import { format } from "prettier";
 import { toPath } from "url-or-path";
-import { format } from "../node_modules/prettier/index.mjs";
 
-const sourceDirectory = new URL("../src/", import.meta.url);
+const projectRoot = new URL("../", import.meta.url);
+const sourceDirectory = new URL("./src/", projectRoot);
+const buildScript = `node ${import.meta.url.slice(projectRoot.href.length)}`;
 const pluginFiles = [
   {
     kind: "development",
@@ -115,18 +117,35 @@ function getPluginExportStatement(plugin) {
   `;
 }
 
-async function buildPlugins({ file, pattern, getPluginName }) {
+async function buildPlugins({ kind, file, pattern, getPluginName }) {
   const plugins = await Array.fromAsync(
     fs.glob(pattern, { cwd: sourceDirectory }),
     (pluginFile) => getPluginData(file, pluginFile, getPluginName),
   );
+
+  // Split js plugin for https://github.com/prettier/prettier/pull/18481
+  if (kind === "development") {
+    const jsPlugin = plugins.find(({ name }) => name === "js");
+    const estreePlugin = {
+      ...jsPlugin,
+      name: "estree",
+      hasLanguages: false,
+      hasOptions: false,
+    };
+    delete estreePlugin.parserNames;
+    delete jsPlugin.printerNames;
+    plugins.push(estreePlugin);
+  }
 
   plugins.sort((pluginA, pluginB) =>
     pluginA.importSource.localeCompare(pluginB.importSource),
   );
 
   const code = outdent`
-    // Generated file, do NOT edit
+    /*
+    Generated file, do NOT edit
+    Run \`${buildScript}\` to regenerate
+    */
 
     ${plugins
       .map((plugin) => getImportStatements(plugin))
@@ -134,7 +153,7 @@ async function buildPlugins({ file, pattern, getPluginName }) {
       .join("\n")}
     import {toLazyLoadPlugin} from "./utilities.js";
 
-    ${plugins.map((plugin) => getPluginExportStatement(plugin)).join("\n")}
+    ${plugins.map((plugin) => getPluginExportStatement(plugin, kind)).join("\n")}
   `;
 
   const formatted = await format(code, { parser: "meriyah" });
