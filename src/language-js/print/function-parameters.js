@@ -14,6 +14,7 @@ import getNextNonSpaceNonCommentCharacter from "../../utilities/get-next-non-spa
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
 import { locEnd } from "../loc.js";
 import {
+  CommentCheckFlags,
   getFunctionParameters,
   hasComment,
   hasRestParameter,
@@ -46,16 +47,28 @@ function printFunctionParameters(
       : "";
 
   if (parameters.length === 0) {
+    const commentFilter = (comment) =>
+      getNextNonSpaceNonCommentCharacter(
+        options.originalText,
+        locEnd(comment),
+      ) === ")";
+
+    const hasDanglingLineComment = hasComment(
+      functionNode,
+      CommentCheckFlags.Dangling | CommentCheckFlags.Line,
+      commentFilter,
+    );
+
+    const danglingComments = printDanglingComments(path, options, {
+      filter: commentFilter,
+      indent: hasDanglingLineComment,
+    });
+
     return [
       typeParametersDoc,
       "(",
-      printDanglingComments(path, options, {
-        filter: (comment) =>
-          getNextNonSpaceNonCommentCharacter(
-            options.originalText,
-            locEnd(comment),
-          ) === ")",
-      }),
+      danglingComments,
+      hasDanglingLineComment && danglingComments ? softline : "",
       ")",
     ];
   }
