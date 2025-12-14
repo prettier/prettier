@@ -578,27 +578,30 @@ async function getExternalPlugins() {
       .filter((directory) => directory.startsWith("plugin-"))
       .map(async (directory) => {
         const url = new URL(`./${directory}/index.mjs`, distDirectory);
+        const implementation = await import(url);
         return {
           url,
-          implementation: await import(url),
+          implementation,
         };
       }),
   );
   const externalParsers = new Map();
   for (const plugin of plugins) {
-    if (plugin.parsers) {
-      for (const parser of Object.keys(plugin.parsers)) {
+    const { parsers } = plugin.implementation;
+    if (parsers) {
+      for (const parser of Object.keys(parsers)) {
         externalParsers.set(parser, plugin);
       }
     }
   }
   return externalParsers;
 }
-
 async function getBuiltinParserNames() {
-  const prettier = await getPrettier();
-  const { languages } = await prettier.getSupportInfo();
-  const parsers = languages.flatMap(({ parsers }) => parsers);
+  const productionBuiltPlugins =
+    await import("../../src/main/plugins/builtin-plugins/production-plugins.js");
+  const parsers = Object.values(productionBuiltPlugins).flatMap((plugin) =>
+    Object.keys(plugin.parsers ?? {}),
+  );
   return new Set(parsers);
 }
 
@@ -615,13 +618,14 @@ async function loadPlugins(options) {
   if (builtinParserNames.has(parser)) {
     return options;
   }
-  const plugins = options.plugins ?? [];
 
   externalParsers ??= await getExternalPlugins();
   if (!externalParsers.has(parser)) {
     throw new Error(`Unknown parser '${parser}'.`);
   }
   const plugin = externalParsers.get(parser);
+
+  const plugins = options.plugins ?? [];
   plugins.push(TEST_STANDALONE ? plugin.implementation : plugin.url);
 
   return { ...options, plugins };
