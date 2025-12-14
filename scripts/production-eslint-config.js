@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import eslintPluginCompat from "eslint-plugin-compat";
 import packageBuildConfigs from "./build/packages/index.js";
-import { DIST_DIR } from "./utilities/index.js";
+import { DIST_DIR, PROJECT_ROOT } from "./utilities/index.js";
 
 const { browserslist: targets } = JSON.parse(
   await fs.readFile(new URL("../package.json", import.meta.url)),
@@ -17,17 +17,17 @@ const jsFiles = packageBuildConfigs
         .map((file) => path.join(packageConfig.distDirectory, file.output)),
     ),
   )
-  .map((file) => path.relative(DIST_DIR, file).replaceAll("\\", "/"));
+  .map((file) => path.relative(PROJECT_ROOT, file).replaceAll("\\", "/"));
 
 const nodejsFiles = jsFiles.filter(
   (file) =>
     file.endsWith(".cjs") ||
     [
-      "prettier/index.mjs",
-      "prettier/internal/legacy-cli.mjs",
-      "prettier/internal/experimental-cli.mjs",
-      "prettier/internal/experimental-cli-worker.mjs",
-      "plugin-oxc/index.mjs",
+      "dist/prettier/index.mjs",
+      "dist/prettier/internal/legacy-cli.mjs",
+      "dist/prettier/internal/experimental-cli.mjs",
+      "dist/prettier/internal/experimental-cli-worker.mjs",
+      "dist/plugin-oxc/index.mjs",
     ].includes(file),
 );
 
