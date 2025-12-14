@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { isValidIdentifier } from "@babel/types";
+import camelcase from "camelcase";
 import { outdent } from "outdent";
 import { format } from "prettier";
 import { toPath } from "url-or-path";
@@ -19,15 +20,15 @@ const pluginFiles = [
     ),
     getPluginName: (file) => path.dirname(file).slice("language-".length),
   },
-  {
-    kind: "production",
-    pattern: "plugins/*.js",
-    file: new URL(
-      "main/plugins/builtin-plugins/production-plugins.js",
-      sourceDirectory,
-    ),
-    getPluginName: (file) => path.basename(file, path.extname(file)),
-  },
+  // {
+  //   kind: "production",
+  //   pattern: "plugins/*.js",
+  //   file: new URL(
+  //     "main/plugins/builtin-plugins/production-plugins.js",
+  //     sourceDirectory,
+  //   ),
+  //   getPluginName: (file) => path.basename(file, path.extname(file)),
+  // },
 ];
 
 function getImportSource(from, to) {
@@ -39,7 +40,7 @@ function getImportSource(from, to) {
   return relation.replaceAll("\\", "/");
 }
 
-async function getPluginData(file, pluginFile, getPluginName, kind) {
+async function getPluginData(file, pluginFile, getPluginName) {
   const pluginName = getPluginName(pluginFile);
   assert.ok(
     isValidIdentifier(pluginName),
@@ -49,11 +50,9 @@ async function getPluginData(file, pluginFile, getPluginName, kind) {
   pluginFile = new URL(pluginFile, sourceDirectory);
 
   const implementation = await import(pluginFile);
-  const importSource = getImportSource(file, pluginFile);
 
   const pluginData = {
     name: pluginName,
-    importSource,
     file: pluginFile,
     parserNames: Object.hasOwn(implementation, "parsers")
       ? Object.keys(implementation.parsers)
@@ -71,18 +70,12 @@ async function getPluginData(file, pluginFile, getPluginName, kind) {
     const value = implementation[property];
     pluginData[property] = {
       value,
-      variableName: `${pluginName}${property[0].toUpperCase() + property.slice(1)}`,
+      variableName: camelcase(`${pluginName}-${property}`),
     };
 
-    const entry =
-      kind === "development"
-        ? // If we import `languages` and `options` from the `index.js`
-          // It will be much slower to load builtin plugins
-          await locateLanguageOrOptions(pluginData, property)
-        : {
-            url: pluginFile,
-            specifier: property,
-          };
+    // If we import `languages` and `options` from the `index.js`
+    // It will be much slower to load builtin plugins
+    const entry = await locateLanguageOrOptions(pluginData, value, property);
 
     pluginData[property].entry = entry;
   }
@@ -98,11 +91,11 @@ function getImportStatements(file, plugin) {
       continue;
     }
 
-    const { entry, variableName } = plugin[property];
+    const { entry } = plugin[property];
     const { url } = entry;
     const specifier = {
       imported: entry.specifier,
-      local: variableName,
+      local: entry.variableName,
     };
 
     if (!statements.has(url)) {
@@ -154,10 +147,10 @@ function getImportStatements(file, plugin) {
   return statementsText.join("\n");
 }
 
-function getPluginExportStatement(plugin) {
+function getPluginExportStatement(plugin, file) {
   const properties = {
     name: JSON.stringify(plugin.name),
-    importPlugin: `() => import("${plugin.importSource}")`,
+    importPlugin: `() => import("${getImportSource(file, plugin.file)}")`,
   };
 
   if (plugin.options) {
@@ -203,7 +196,7 @@ async function buildPlugins({ kind, file, pattern, getPluginName }) {
   }
 
   plugins.sort((pluginA, pluginB) =>
-    pluginA.importSource.localeCompare(pluginB.importSource),
+    pluginA.file.href.localeCompare(pluginB.file.href),
   );
 
   const code = outdent`
@@ -218,7 +211,7 @@ async function buildPlugins({ kind, file, pattern, getPluginName }) {
       .join("\n")}
     import {toLazyLoadPlugin} from "./utilities.js";
 
-    ${plugins.map((plugin) => getPluginExportStatement(plugin, kind)).join("\n")}
+    ${plugins.map((plugin) => getPluginExportStatement(plugin, file)).join("\n")}
   `;
 
   const formatted = await format(code, { parser: "meriyah" });
@@ -226,33 +219,49 @@ async function buildPlugins({ kind, file, pattern, getPluginName }) {
   await fs.writeFile(file, formatted);
 }
 
-async function locateLanguageOrOptions(plugin, property) {
-  const directory = new URL("./", plugin.file);
-  const possibleEntries = await Array.fromAsync(
-    fs.glob(
-      property === "languages"
-        ? ["languages.js", "languages.evaluate.js"]
-        : ["options.js"],
-      { cwd: directory },
-    ),
+async function collectLanguagesAndOptions() {
+  const data = await Array.fromAsync(
+    fs.glob(["language-*/{languages,languages.evaluate,options}.js"], {
+      cwd: sourceDirectory,
+    }),
+    async (file) => {
+      const url = new URL(file, sourceDirectory);
+      let implementation = await import(url);
+
+      let specifier = "*";
+      if (Object.hasOwn(implementation, "default")) {
+        specifier = "default";
+        implementation = implementation.default;
+      }
+
+      const kind = Array.isArray(implementation) ? "languages" : "options";
+      const languageName = path.dirname(file).slice("language-".length);
+
+      return {
+        kind,
+        url,
+        specifier,
+        implementation,
+        variableName: camelcase(`${languageName}-${kind}`),
+      };
+    },
   );
-  assert.equal(
-    possibleEntries.length,
-    1,
-    `Can not locate '${property}' entry for plugin '${plugin.name}'.`,
+
+  return data;
+}
+
+let languagesAndOptions;
+async function locateLanguageOrOptions(pluginData, value, kind) {
+  languagesAndOptions ??= await collectLanguagesAndOptions();
+  const directImport = languagesAndOptions.find(
+    (data) => data.kind === kind && data.implementation === value,
   );
-  const [file] = possibleEntries;
-  const url = new URL(file, directory);
-  const implementation = await import(url);
-  if (implementation.default === plugin[property].value) {
-    return {
-      url,
-      specifier: "default",
-    };
+  if (directImport) {
+    return directImport;
   }
 
   throw new Error(
-    `Can not locate '${property}' entry for plugin '${plugin.name}'.`,
+    `Can not locate '${kind}' entry for plugin '${pluginData.name}'.`,
   );
 }
 
