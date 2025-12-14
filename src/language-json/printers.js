@@ -1,6 +1,6 @@
-import massageAstNode from "./clean.js";
 import getVisitorKeys from "./get-visitor-keys.js";
 import { printJson } from "./print/index.js";
+import { clean as massageAstNode } from "./print/json.js";
 
 const estreeJsonPrinter = {
   massageAstNode,
