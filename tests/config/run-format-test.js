@@ -570,27 +570,61 @@ async function format(originalText, originalOptions) {
   };
 }
 
-const externalPlugins = new Map([
-  ["oxc", "plugin-oxc"],
-  ["oxc-ts", "plugin-oxc"],
-  ["hermes", "plugin-hermes"],
-]);
+async function getExternalPlugins() {
+  const distDirectory = new URL("../../dist/", import.meta.url);
+  const directories = fs.readdirSync(distDirectory);
+  const plugins = await Promise.all(
+    directories
+      .filter((directory) => directory.startsWith("plugin-"))
+      .map(async (directory) => {
+        const url = new URL(`./${directory}/index.mjs`, distDirectory);
+        return {
+          url,
+          implementation: await import(url),
+        };
+      }),
+  );
+  const externalParsers = new Map();
+  for (const plugin of plugins) {
+    if (plugin.parsers) {
+      for (const parser of Object.keys(plugin.parsers)) {
+        externalParsers.set(parser, plugin);
+      }
+    }
+  }
+  return externalParsers;
+}
+
+async function getBuiltinParserNames() {
+  const prettier = await getPrettier();
+  const { languages } = await prettier.getSupportInfo();
+  const parsers = languages.flatMap(({ parsers }) => parsers);
+  return new Set(parsers);
+}
+
+let builtinParserNames;
+let externalParsers;
 async function loadPlugins(options) {
-  const { parser } = options;
-  if (isProduction && externalPlugins.has(options.parser)) {
-    const plugins = options.plugins ?? [];
-    const pluginName = externalPlugins.get(parser);
-    const url = new URL(
-      isProduction
-        ? `../../dist/${pluginName}/index.mjs`
-        : `../../packages/${pluginName}/index.js`,
-      import.meta.url,
-    );
-    plugins.push(TEST_STANDALONE ? await import(url) : url);
-    return { ...options, plugins };
+  if (!isProduction) {
+    return options;
   }
 
-  return options;
+  builtinParserNames ??= await getBuiltinParserNames();
+  const { parser } = options;
+
+  if (builtinParserNames.has(parser)) {
+    return options;
+  }
+  const plugins = options.plugins ?? [];
+
+  externalParsers ??= await getExternalPlugins();
+  if (externalParsers.has(parser)) {
+    throw new Error(`Unknown parser '${parser}'.`);
+  }
+  const plugin = externalParsers.get(parser);
+  plugins.push(TEST_STANDALONE ? plugin.implementation : plugin.url);
+
+  return { ...options, plugins };
 }
 
 export default runFormatTest;
