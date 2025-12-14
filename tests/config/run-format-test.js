@@ -577,7 +577,7 @@ const externalPlugins = new Map([
 ]);
 async function loadPlugins(options) {
   const { parser } = options;
-  if (externalPlugins.has(options.parser)) {
+  if (isProduction && externalPlugins.has(options.parser)) {
     const plugins = options.plugins ?? [];
     const pluginName = externalPlugins.get(parser);
     const url = new URL(
