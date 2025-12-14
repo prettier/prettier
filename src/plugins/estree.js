@@ -1,8 +1,12 @@
-import {
-  languages as jsLanguages,
-  options as jsOptions,
-  printers as jsPrinters,
-} from "../language-js/index.js";
+// Can't bundle due to side effects
+// import {
+//   languages as jsLanguages,
+//   options as jsOptions,
+//   printers as jsPrinters,
+// } from "../language-js/index.js";
+import jsLanguages from "../language-js/languages.evaluate.js";
+import jsOptions from "../language-js/options.js";
+import * as jsPrinters from "../language-js/printers.js";
 import {
   languages as jsonLanguages,
   printers as jsonPrinters,
