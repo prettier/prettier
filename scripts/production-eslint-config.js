@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import eslintPluginCompat from "eslint-plugin-compat";
 import packageBuildConfigs from "./build/packages/index.js";
-import { DIST_DIR, PROJECT_ROOT } from "./utilities/index.js";
+import { PROJECT_ROOT } from "./utilities/index.js";
 
 const { browserslist: targets } = JSON.parse(
   await fs.readFile(new URL("../package.json", import.meta.url)),
