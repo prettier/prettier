@@ -1,7 +1,14 @@
-import builtinPluginsProxy from "../../plugins/builtin-plugins-proxy.js";
-
-function loadBuiltinPlugins() {
-  return builtinPluginsProxy;
-}
+const loadBuiltinPlugins =
+  process.env.NODE_ENV === "production"
+    ? async function () {
+        return Object.values(
+          await import("./builtin-plugins/production-plugins.js"),
+        );
+      }
+    : async function () {
+        return Object.values(
+          await import("./builtin-plugins/development-plugins.js"),
+        );
+      };
 
 export default loadBuiltinPlugins;
