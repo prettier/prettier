@@ -230,39 +230,41 @@ const allowedReasonCodes = new Set([
 ]);
 
 const babelParserOptionsCombinations = [appendPlugins(["jsx"])];
-const babel = createBabelParser({
+const babel = /* @__PURE__ */ createBabelParser({
   optionsCombinations: babelParserOptionsCombinations,
 });
-const babelTs = createBabelParser({
+const babelTs = /* @__PURE__ */ createBabelParser({
   optionsCombinations: [
     appendPlugins(["jsx", "typescript"]),
     appendPlugins(["typescript"]),
   ],
 });
-const babelExpression = createBabelParser({
+const babelExpression = /* @__PURE__ */ createBabelParser({
   isExpression: true,
   optionsCombinations: [appendPlugins(["jsx"])],
 });
-const babelTSExpression = createBabelParser({
+const babelTSExpression = /* @__PURE__ */ createBabelParser({
   isExpression: true,
   optionsCombinations: [appendPlugins(["typescript"])],
 });
-const babelFlow = createBabelParser({
+const babelFlow = /* @__PURE__ */ createBabelParser({
   optionsCombinations: [
     appendPlugins(["jsx", ["flow", { all: true }], "flowComments"]),
   ],
 });
-const babelEstree = createBabelParser({
+const babelEstree = /* @__PURE__ */ createBabelParser({
   optionsCombinations: babelParserOptionsCombinations.map((options) =>
     appendPlugins(["estree"], options),
   ),
 });
 
-export { babel, babelFlow as "babel-flow", babelTs as "babel-ts" };
-
-/** @internal */
 // eslint-disable-next-line simple-import-sort/exports
 export {
+  babel,
+  babelFlow as "babel-flow",
+  babelTs as "babel-ts",
+
+  /** @internal */
   babelExpression as __js_expression,
   babelTSExpression as __ts_expression,
   /** for vue filter */

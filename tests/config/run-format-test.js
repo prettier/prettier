@@ -570,27 +570,54 @@ async function format(originalText, originalOptions) {
   };
 }
 
-const externalPlugins = new Map([
-  ["oxc", "plugin-oxc"],
-  ["oxc-ts", "plugin-oxc"],
-  ["hermes", "plugin-hermes"],
-]);
+async function getExternalPlugins() {
+  const distDirectory = new URL("../../dist/", import.meta.url);
+  const directories = fs.readdirSync(distDirectory);
+  const plugins = await Promise.all(
+    directories
+      .filter((directory) => directory.startsWith("plugin-"))
+      .map(async (directory) => {
+        const url = new URL(`./${directory}/index.mjs`, distDirectory);
+        const implementation = await import(url);
+        return {
+          url,
+          implementation,
+        };
+      }),
+  );
+  const externalParsers = new Map();
+  for (const plugin of plugins) {
+    const { parsers } = plugin.implementation;
+    if (parsers) {
+      for (const parser of Object.keys(parsers)) {
+        externalParsers.set(parser, plugin);
+      }
+    }
+  }
+  return externalParsers;
+}
+
+let externalParsers;
 async function loadPlugins(options) {
-  const { parser } = options;
-  if (externalPlugins.has(options.parser)) {
-    const plugins = options.plugins ?? [];
-    const pluginName = externalPlugins.get(parser);
-    const url = new URL(
-      isProduction
-        ? `../../dist/${pluginName}/index.mjs`
-        : `../../packages/${pluginName}/index.js`,
-      import.meta.url,
-    );
-    plugins.push(TEST_STANDALONE ? await import(url) : url);
-    return { ...options, plugins };
+  if (!isProduction || !options.parser) {
+    return options;
   }
 
-  return options;
+  const { parser } = options;
+
+  if (!externalParsers) {
+    externalParsers = getExternalPlugins();
+    externalParsers = await externalParsers;
+  }
+  if (!externalParsers.has(parser)) {
+    return options;
+  }
+  const plugin = externalParsers.get(parser);
+
+  const plugins = options.plugins ?? [];
+  plugins.push(TEST_STANDALONE ? plugin.implementation : plugin.url);
+
+  return { ...options, plugins };
 }
 
 export default runFormatTest;

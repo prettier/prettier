@@ -106,4 +106,4 @@ function parse(text, options) {
   return postprocess(ast, { parser: "typescript", text });
 }
 
-export const typescript = createParser(parse);
+export const typescript = /* @__PURE__ */ createParser(parse);
