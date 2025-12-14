@@ -94,7 +94,7 @@ export const json = /* @__PURE__ */ toLazyLoadPlugin({
   name: "json",
   importPlugin: () => import("../../../language-json/index.js"),
   languages: jsonLanguages,
-  parserNames: ["parsers"],
+  parserNames: ["json", "json-stringify", "json5", "jsonc"],
   printerNames: ["estree-json"],
 });
 export const markdown = /* @__PURE__ */ toLazyLoadPlugin({

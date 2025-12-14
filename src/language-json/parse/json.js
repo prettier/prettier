@@ -172,14 +172,16 @@ function assertJsonNode(node) {
   }
 }
 
-const json = createParser({
+const json = /* @__PURE__ */ createParser({
   parse: (text) => parseJson(text),
   hasPragma: () => true,
   hasIgnorePragma: () => false,
 });
-const json5 = createParser((text) => parseJson(text));
-const jsonc = createParser((text) => parseJson(text, { allowEmpty: true }));
-const jsonStringify = createParser({
+const json5 = /* @__PURE__ */ createParser((text) => parseJson(text));
+const jsonc = /* @__PURE__ */ createParser((text) =>
+  parseJson(text, { allowEmpty: true }),
+);
+const jsonStringify = /* @__PURE__ */ createParser({
   parse: (text) => parseJson(text, { allowComments: false }),
   astFormat: "estree-json",
 });
