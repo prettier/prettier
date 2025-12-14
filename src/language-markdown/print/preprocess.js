@@ -194,7 +194,7 @@ function splitTextIntoSentences(ast) {
           .slice(paragraphIndex + 1)
           .some((ancestor) => ancestor?.type === "blockquote")
       ) {
-        text = text.replaceAll("\n> ", "\n");
+        text = getBlockquoteRawText(text, node);
       }
 
       const parentNode = parentStack[0];
@@ -245,6 +245,19 @@ function splitTextIntoSentences(ast) {
       }
     }
   }
+}
+
+function getBlockquoteRawText(text, node) {
+  const angleBracketsRegex = /^([ \t]*>[ \t]*)*/u;
+  const rawLines = text.split("\n");
+  const valueLines = node.value.split("\n");
+  const resultLines = rawLines.map((rawLine, index) => {
+    const valueLine = valueLines[index] || "";
+    const leadingTextAngleBrackets =
+      valueLine.match(angleBracketsRegex)[0] ?? "";
+    return rawLine.replace(angleBracketsRegex, leadingTextAngleBrackets);
+  });
+  return resultLines.join("\n");
 }
 
 function transformIndentedCodeblock(ast, options) {
