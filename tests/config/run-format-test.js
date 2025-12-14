@@ -606,7 +606,8 @@ async function loadPlugins(options) {
   const { parser } = options;
 
   if (!externalParsers) {
-    externalParsers = await getExternalPlugins();
+    externalParsers = getExternalPlugins();
+    externalParsers = await externalParsers;
   }
   if (!externalParsers.has(parser)) {
     return options;
