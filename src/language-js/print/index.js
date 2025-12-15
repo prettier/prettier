@@ -98,4 +98,4 @@ function print(path, options, print, args) {
   ]);
 }
 
-export default print;
+export { print as printEstree };

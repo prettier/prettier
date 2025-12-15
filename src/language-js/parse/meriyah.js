@@ -102,4 +102,4 @@ function parse(text, options) {
   return postprocess(ast, { parser: "meriyah", text });
 }
 
-export const meriyah = createParser(parse);
+export const meriyah = /* @__PURE__ */ createParser(parse);
