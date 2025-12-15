@@ -210,6 +210,87 @@ proseWrap: "preserve"
 ================================================================================
 `;
 
+exports[`inline-html.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+text
+<em>text</em>
+text
+
+![image](https://example.com)
+<img src="image.png" />
+
+=====================================output=====================================
+text
+
+<em>text</em>
+text
+
+![image](https://example.com)
+
+<img src="image.png" />
+
+================================================================================
+`;
+
+exports[`inline-html.md - {"proseWrap":"never"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "never"
+                                                                                | printWidth
+=====================================input======================================
+text
+<em>text</em>
+text
+
+![image](https://example.com)
+<img src="image.png" />
+
+=====================================output=====================================
+text
+
+<em>text</em>
+text
+
+![image](https://example.com)
+
+<img src="image.png" />
+
+================================================================================
+`;
+
+exports[`inline-html.md - {"proseWrap":"preserve"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "preserve"
+                                                                                | printWidth
+=====================================input======================================
+text
+<em>text</em>
+text
+
+![image](https://example.com)
+<img src="image.png" />
+
+=====================================output=====================================
+text
+
+<em>text</em>
+text
+
+![image](https://example.com)
+
+<img src="image.png" />
+
+================================================================================
+`;
+
 exports[`multiline.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
