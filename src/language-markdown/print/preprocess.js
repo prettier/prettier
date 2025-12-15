@@ -176,6 +176,9 @@ function splitTextIntoSentences(ast) {
       return node;
     }
 
+    // NOTE: there's trade-off between using `node.value` or `node.raw` here.
+    // Using `node.raw`, we can better preserve the original text, especially escaped characters.
+    // Using `node.value`, we don't need to care about markers like `\n > ` in `blockquote`s.
     let text = node.raw;
 
     const paragraphIndex = parentStack.findIndex(
@@ -191,7 +194,7 @@ function splitTextIntoSentences(ast) {
           .slice(paragraphIndex + 1)
           .some((ancestor) => ancestor?.type === "blockquote")
       ) {
-        text = text.replaceAll("\n> ", "\n");
+        text = getBlockquoteRawText(text, node);
       }
 
       const parentNode = parentStack[0];
@@ -242,6 +245,19 @@ function splitTextIntoSentences(ast) {
       }
     }
   }
+}
+
+function getBlockquoteRawText(text, node) {
+  const angleBracketsRegex = /^([ \t]*>[ \t]*)*/u;
+  const rawLines = text.split("\n");
+  const valueLines = node.value.split("\n");
+  const resultLines = rawLines.map((rawLine, index) => {
+    const valueLine = valueLines[index] ?? "";
+    const leadingTextAngleBrackets =
+      valueLine.match(angleBracketsRegex)[0] ?? "";
+    return rawLine.replace(angleBracketsRegex, leadingTextAngleBrackets);
+  });
+  return resultLines.join("\n");
 }
 
 function transformIndentedCodeblock(ast, options) {
