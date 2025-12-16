@@ -110,7 +110,7 @@ function genericPrint(path, options, print) {
       const { between: rawBetween } = node.raws;
       const trimmedBetween = rawBetween.trim();
       const isColon = trimmedBetween === ":";
-      const isSpaceAfterColon = rawBetween.endsWith(" ") && isColon;
+      const hasSpaceAfterColon = rawBetween.endsWith(" ") && isColon;
       const isValueAllSpace =
         typeof node.value === "string" && /^ *$/u.test(node.value);
       let value = typeof node.value === "string" ? node.value : print("value");
@@ -136,7 +136,7 @@ function genericPrint(path, options, print) {
         trimmedBetween,
         node.extend ||
         isValueAllSpace ||
-        (!isSpaceAfterColon &&
+        (!hasSpaceAfterColon &&
           node.isNested &&
           (isAtWordPlaceholderNode(node.value.group.group) ||
             isAtWordPlaceholderNode(node.value.group.group.groups?.[0])))
