@@ -1,18 +1,17 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`test.yml - {"proseWrap":"always","printWidth":20} format 1`] = `
+exports[`test.yml - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 20
+printWidth: 80
 proseWrap: "always"
-                    | printWidth
+                                                                                | printWidth
 =====================================input======================================
-foo foo foo foo foo foo foo foo foo: bar
+long long long long long long long long long long long long long long long long long long key: bar
 
 =====================================output=====================================
-? foo foo foo foo
-  foo foo foo foo
-  foo
+? long long long long long long long long long long long long long long long
+  long long long key
 : bar
 
 ================================================================================
@@ -24,10 +23,10 @@ parsers: ["yaml"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-foo foo foo foo foo foo foo foo foo: bar
+long long long long long long long long long long long long long long long long long long key: bar
 
 =====================================output=====================================
-foo foo foo foo foo foo foo foo foo: bar
+long long long long long long long long long long long long long long long long long long key: bar
 
 ================================================================================
 `;
