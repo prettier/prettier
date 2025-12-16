@@ -138,14 +138,8 @@ function genericPrint(path, options, print) {
         isValueAllSpace ||
         (!isSpaceAfterColon &&
           node.isNested &&
-          path.call(
-            ({ node: groupNode }) =>
-              isAtWordPlaceholderNode(groupNode) ||
-              isAtWordPlaceholderNode(groupNode?.groups?.[0]),
-            "value",
-            "group",
-            "group",
-          ))
+          (isAtWordPlaceholderNode(node.value.group.group) ||
+            isAtWordPlaceholderNode(node.value.group.group.groups?.[0])))
           ? ""
           : " ",
         options.parser === "less" && node.extend && node.selector
