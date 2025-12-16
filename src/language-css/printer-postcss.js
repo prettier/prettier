@@ -37,6 +37,7 @@ import {
   insideAtRuleNode,
   insideIcssRuleNode,
   insideValueFunctionNode,
+  isAtWordPlaceholderNode,
   isDetachedRulesetCallNode,
   isDetachedRulesetDeclarationNode,
   isKeyframeAtRuleKeywords,
@@ -109,6 +110,7 @@ function genericPrint(path, options, print) {
       const { between: rawBetween } = node.raws;
       const trimmedBetween = rawBetween.trim();
       const isColon = trimmedBetween === ":";
+      const hasSpaceAfterColon = rawBetween.endsWith(" ") && isColon;
       const isValueAllSpace =
         typeof node.value === "string" && /^ *$/u.test(node.value);
       let value = typeof node.value === "string" ? node.value : print("value");
@@ -132,7 +134,14 @@ function genericPrint(path, options, print) {
           : maybeToLowerCase(node.prop),
         trimmedBetween.startsWith("//") ? " " : "",
         trimmedBetween,
-        node.extend || isValueAllSpace ? "" : " ",
+        node.extend ||
+        isValueAllSpace ||
+        (!hasSpaceAfterColon &&
+          node.isNested &&
+          (isAtWordPlaceholderNode(node.value.group.group) ||
+            isAtWordPlaceholderNode(node.value.group.group.groups?.[0])))
+          ? ""
+          : " ",
         options.parser === "less" && node.extend && node.selector
           ? ["extend(", print("selector"), ")"]
           : "",
@@ -155,7 +164,9 @@ function genericPrint(path, options, print) {
         node.nodes
           ? [
               " {",
-              indent([softline, printSequence(path, options, print)]),
+              node.nodes.length > 0
+                ? indent([softline, printSequence(path, options, print)])
+                : "",
               softline,
               "}",
             ]
@@ -202,10 +213,9 @@ function genericPrint(path, options, print) {
             node.nodes
               ? [
                   "{",
-                  indent([
-                    node.nodes.length > 0 ? softline : "",
-                    printSequence(path, options, print),
-                  ]),
+                  node.nodes.length > 0
+                    ? indent([softline, printSequence(path, options, print)])
+                    : "",
                   softline,
                   "}",
                 ]
@@ -275,10 +285,9 @@ function genericPrint(path, options, print) {
                   ? line
                   : " ",
               "{",
-              indent([
-                node.nodes.length > 0 ? softline : "",
-                printSequence(path, options, print),
-              ]),
+              node.nodes.length > 0
+                ? indent([softline, printSequence(path, options, print)])
+                : "",
               softline,
               "}",
             ]
