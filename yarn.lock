@@ -5040,10 +5040,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"html-ua-styles@npm:0.2.0":
-  version: 0.2.0
-  resolution: "html-ua-styles@npm:0.2.0"
-  checksum: 10/b42a1ce576c639d44c1a9101ccb5acea6efc898aec06c7feebb3ce4106351fd7bd51af68c92c89d4cede36a03dcf17c74a7591019ca75304686eec0415d411a9
+"html-ua-styles@npm:0.3.1":
+  version: 0.3.1
+  resolution: "html-ua-styles@npm:0.3.1"
+  checksum: 10/013811f604c15206cecfc1ec404a7b6e16aa90d21992a57dadbef6f9c5628f7bbf6a86250a4f17970b77e591eea3561fda920640d84727ec77289b7120e0d5a6
   languageName: node
   linkType: hard
 
@@ -7347,7 +7347,7 @@ __metadata:
     graphql: "npm:16.12.0"
     hermes-parser: "npm:0.33.0"
     html-element-attributes: "npm:3.5.0"
-    html-ua-styles: "npm:0.2.0"
+    html-ua-styles: "npm:0.3.1"
     ignore: "npm:7.0.5"
     import-meta-resolve: "npm:4.2.0"
     index-to-position: "npm:1.2.0"
