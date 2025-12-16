@@ -619,3 +619,37 @@ printWidth: 80
 
 ================================================================================
 `;
+
+exports[`trace-entrypoints.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+new ((require("./webpack/plugins/next-trace-entrypoints-plugin")).TraceEntryPointsPlugin as P)({
+  rootDir: dir,
+});
+
+((require("./webpack/plugins/next-trace-entrypoints-plugin")).TraceEntryPointsPlugin as P)({
+  rootDir: dir,
+});
+
+
+
+=====================================output=====================================
+new (
+  require("./webpack/plugins/next-trace-entrypoints-plugin")
+    .TraceEntryPointsPlugin as P
+)({
+  rootDir: dir,
+});
+
+(
+  require("./webpack/plugins/next-trace-entrypoints-plugin")
+    .TraceEntryPointsPlugin as P
+)({
+  rootDir: dir,
+});
+
+================================================================================
+`;
