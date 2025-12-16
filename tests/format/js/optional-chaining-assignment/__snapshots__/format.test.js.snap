@@ -498,9 +498,9 @@ Cause: [1:3-1:5]: \`let\` declaration not allowed here and \`let\` cannot be a r
 `;
 
 exports[`valid-complex-case.js [oxc] format 1`] = `
-"Unexpected token (1:4)
+"Cannot assign to this expression (1:1)
 > 1 | let?.()[a] =1;
-    |    ^^
+    | ^^^^^^^^^^
   2 | let?.[a] = 1;
   3 |"
 `;
