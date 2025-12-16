@@ -164,10 +164,9 @@ function genericPrint(path, options, print) {
         node.nodes
           ? [
               " {",
-              indent([
-                node.nodes.length > 0 ? softline : "",
-                printSequence(path, options, print),
-              ]),
+              node.nodes.length > 0
+                ? indent([softline, printSequence(path, options, print)])
+                : "",
               softline,
               "}",
             ]
@@ -214,10 +213,9 @@ function genericPrint(path, options, print) {
             node.nodes
               ? [
                   "{",
-                  indent([
-                    node.nodes.length > 0 ? softline : "",
-                    printSequence(path, options, print),
-                  ]),
+                  node.nodes.length > 0
+                    ? indent([softline, printSequence(path, options, print)])
+                    : "",
                   softline,
                   "}",
                 ]
@@ -287,10 +285,9 @@ function genericPrint(path, options, print) {
                   ? line
                   : " ",
               "{",
-              indent([
-                node.nodes.length > 0 ? softline : "",
-                printSequence(path, options, print),
-              ]),
+              node.nodes.length > 0
+                ? indent([softline, printSequence(path, options, print)])
+                : "",
               softline,
               "}",
             ]
