@@ -491,6 +491,16 @@ proseWrap: "always"
       line 2
     "></div>
 
+> in blockquote
+>
+> <unknown title="line 1
+>   line 2
+> "></unknown>
+>
+> <div title="line 1
+>   line 2
+> "></div>
+
 =====================================output=====================================
 <unknown title="line 1
   line 2
@@ -510,6 +520,16 @@ proseWrap: "always"
     <div title="line 1
       line 2
     "></div>
+
+> in blockquote
+>
+> <unknown title="line 1
+>   line 2
+> "></unknown>
+>
+> <div title="line 1
+>   line 2
+> "></div>
 
 ================================================================================
 `;
@@ -541,6 +561,16 @@ proseWrap: "never"
       line 2
     "></div>
 
+> in blockquote
+>
+> <unknown title="line 1
+>   line 2
+> "></unknown>
+>
+> <div title="line 1
+>   line 2
+> "></div>
+
 =====================================output=====================================
 <unknown title="line 1
   line 2
@@ -560,6 +590,16 @@ proseWrap: "never"
     <div title="line 1
       line 2
     "></div>
+
+> in blockquote
+>
+> <unknown title="line 1
+>   line 2
+> "></unknown>
+>
+> <div title="line 1
+>   line 2
+> "></div>
 
 ================================================================================
 `;
@@ -591,6 +631,16 @@ proseWrap: "preserve"
       line 2
     "></div>
 
+> in blockquote
+>
+> <unknown title="line 1
+>   line 2
+> "></unknown>
+>
+> <div title="line 1
+>   line 2
+> "></div>
+
 =====================================output=====================================
 <unknown title="line 1
   line 2
@@ -610,6 +660,16 @@ proseWrap: "preserve"
     <div title="line 1
       line 2
     "></div>
+
+> in blockquote
+>
+> <unknown title="line 1
+>   line 2
+> "></unknown>
+>
+> <div title="line 1
+>   line 2
+> "></div>
 
 ================================================================================
 `;
