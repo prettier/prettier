@@ -18,6 +18,10 @@
   </em>
   <br />
   <em>
+    Handlebars
+  </em>
+  <br />
+  <em>
     HTML
     · Vue
     · Angular
