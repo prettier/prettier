@@ -1,3 +1,4 @@
+import { htmlBlockNames, htmlRawNames } from "micromark-util-html-tag-name";
 import htmlWhitespace from "../../utilities/html-whitespace.js";
 import { getOrderedListItemInfo, mapAst, splitText } from "../utilities.js";
 
@@ -24,6 +25,9 @@ function preprocess(ast, options) {
     ast = markAlignedListLegacy(ast, options);
   } else {
     ast = markAlignedList(ast, options);
+  }
+  if (options.parser !== "mdx") {
+    ast = transformInlineHtml(ast);
   }
   if (options.parser === "mdx") {
     ast = splitTextIntoSentencesLegacy(ast);
@@ -597,6 +601,61 @@ function markAlignedListLegacy(ast, options) {
     const secondInfo = getOrderedListItemInfo(secondItem, options);
     return secondInfo.leadingSpaces.length > 1;
   }
+}
+
+function transformInlineHtml(ast) {
+  return mapAst(ast, (node) => {
+    if (!node.children) {
+      return node;
+    }
+
+    const { children } = node;
+    for (let i = 0; i < children.length; i++) {
+      const prev = children[i - 1];
+      const child = children[i];
+      if (prev?.type !== "paragraph" || child.type !== "html") {
+        continue;
+      }
+      const tagName = child.value
+        .match(/^<\/?([a-z0-9-]+)/iu)?.[1]
+        .toLowerCase();
+      if (!tagName) {
+        continue;
+      }
+      if (
+        htmlBlockNames.slice().includes(tagName) ||
+        htmlRawNames.includes(tagName)
+      ) {
+        continue;
+      }
+      const lineDifference = child.position.start.line - prev.position.end.line;
+      if (lineDifference > 1) {
+        continue;
+      }
+      if (lineDifference === 1) {
+        prev.children.push({
+          type: "text",
+          value: "\n",
+          position: {
+            start: {
+              line: prev.position.end.line,
+              column: prev.position.end.column,
+              offset: prev.position.end.offset,
+            },
+            end: {
+              line: prev.position.end.line + 1,
+              column: 1,
+              offset: prev.position.end.offset + 1,
+            },
+          },
+        });
+      }
+      prev.children.push(child);
+      children.splice(i, 1);
+      i--;
+    }
+    return node;
+  });
 }
 
 export default preprocess;
