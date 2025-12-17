@@ -623,7 +623,7 @@ function transformInlineHtml(ast) {
         continue;
       }
       if (
-        htmlBlockNames.slice().includes(tagName) ||
+        [...htmlBlockNames].includes(tagName) ||
         htmlRawNames.includes(tagName)
       ) {
         continue;
