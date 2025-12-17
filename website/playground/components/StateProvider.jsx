@@ -1,8 +1,9 @@
 import { reactive, watch } from "vue";
-import * as storage from "./storage.js";
+import { STORE_KEY } from "../constants/index.js";
+import * as storage from "../utils/storage.js";
 
 export default {
-  name: "EditorState",
+  name: "PlaygroundStateProvider",
   setup(_, { slots }) {
     const stateToggler = (property) => () => {
       state[property] = !state[property];
@@ -26,7 +27,7 @@ export default {
       toggleInput: stateToggler("showInput"),
       toggleOutput: stateToggler("showOutput"),
       toggleEmbedErrors: stateToggler("rethrowEmbedErrors"),
-      ...storage.get("editor_state"),
+      ...storage.get(STORE_KEY),
     });
 
     const render = () => slots.default(state);
@@ -34,7 +35,7 @@ export default {
     watch(
       () => state,
       () => {
-        storage.set("editor_state", state);
+        storage.set(STORE_KEY, state);
       },
       { deep: true },
     );

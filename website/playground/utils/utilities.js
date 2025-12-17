@@ -97,16 +97,6 @@ export function getAstAutoFold(parser) {
   }
 }
 
-export function convertSelectionToRange({ head, anchor }, content) {
-  const lines = content.split("\n");
-  return [head, anchor]
-    .map(
-      ({ ch, line }) =>
-        lines.slice(0, line).join("\n").length + ch + (line ? 1 : 0),
-    )
-    .sort((a, b) => a - b);
-}
-
 export function convertOffsetToSelection(offset, content) {
   let line = 0;
   let ch = 0;

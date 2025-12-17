@@ -1,4 +1,6 @@
-import { Checkbox, NumberInput, Select } from "./inputs.jsx";
+import Checkbox from "../ui/Checkbox.jsx";
+import NumberInput from "../ui/NumberInput.jsx";
+import Select from "../ui/Select.jsx";
 
 function BooleanOption({ option, value }, { emit }) {
   const onChange = (option, value) => emit("change", option, value);
@@ -77,7 +79,6 @@ Option.props = {
   value: { type: [Boolean, String, Number], default: undefined },
 };
 Option.emits = ["change"];
-
 function getDescription(option) {
   const description = option.inverted
     ? option.oppositeDescription

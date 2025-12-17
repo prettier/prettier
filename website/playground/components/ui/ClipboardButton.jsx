@@ -1,17 +1,12 @@
-import { onMounted, reactive, ref } from "vue";
+import { onMounted, reactive, useTemplateRef } from "vue";
+import Button from "./Button";
 
 const { ClipboardJS } = window;
-
-export const Button = (props, { slots, attrs }) => (
-  <button type="button" class="btn" {...attrs}>
-    {slots.default()}
-  </button>
-);
 
 function setup(props, { slots, attrs }) {
   const state = reactive({ showTooltip: false, tooltipText: "" });
   let timer = null;
-  const buttonRef = ref();
+  const buttonRef = useTemplateRef("button");
 
   const componentDidMount = () => {
     const clipboard = new ClipboardJS(buttonRef.value, {
@@ -41,8 +36,12 @@ function setup(props, { slots, attrs }) {
     const children = slots.default();
 
     return (
-      <Button ref={buttonRef} {...attrs}>
-        {showTooltip ? <span class="tooltip">{tooltipText}</span> : null}
+      <Button ref="button" variant={props.variant} {...attrs}>
+        <span
+          class={["button__tooltip", showTooltip && "button__tooltip--visible"]}
+        >
+          {tooltipText}
+        </span>
         {children}
       </Button>
     );
@@ -52,10 +51,11 @@ function setup(props, { slots, attrs }) {
   return render;
 }
 
-export const ClipboardButton = {
+export default {
   name: "ClipboardButton",
   props: {
     copy: { type: [String, Function], required: true },
+    variant: { type: String },
   },
   setup,
 };

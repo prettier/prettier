@@ -1,4 +1,4 @@
-export default function getCodeSamples(parser) {
+export function getCodeSample(parser) {
   switch (parser) {
     case "babel":
     case "acorn":

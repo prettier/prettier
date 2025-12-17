@@ -1,0 +1,76 @@
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  background-color: var(--color-background);
+  color: var(--color-text);
+  color-scheme: light dark;
+  font-family:
+    -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial,
+    sans-serif;
+  font-size: 12px;
+  line-height: 1.25;
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+html[data-theme="light"] {
+  color-scheme: light;
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-gray-400);
+  border-radius: 6px;
+  border: 2px solid var(--color-background);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-gray-500);
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: var(--color-gray-600);
+}
+
+::-webkit-scrollbar-corner {
+  background: var(--color-background);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-gray-400) var(--color-background);
+}
+
+label {
+  font-family:
+    Consolas,
+    Courier New,
+    Courier,
+    monospace;
+  display: block;
+}

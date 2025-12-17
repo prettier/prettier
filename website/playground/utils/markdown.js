@@ -1,4 +1,4 @@
-function formatMarkdown({
+export function formatMarkdown({
   input,
   output,
   output2,
@@ -82,5 +82,3 @@ function codeBlock(content, syntax) {
     "\n",
   );
 }
-
-export default formatMarkdown;

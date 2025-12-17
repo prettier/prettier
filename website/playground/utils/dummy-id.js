@@ -51,7 +51,7 @@ function camelCase(string) {
   return string.replaceAll(/_(\w)/gu, (_, c) => c.toUpperCase());
 }
 
-export default function generateDummyId() {
+export function generateDummyId() {
   return camelCase(
     [dummyAdjectives, dummyNouns, dummyFinalNouns]
       .map(getRandomElement)
