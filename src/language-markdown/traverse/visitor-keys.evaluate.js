@@ -35,6 +35,7 @@ const visitorKeys = generateReferenceSharedVisitorKeys({
   esComment: [],
   jsx: [],
   math: [],
+  newLineHack: [],
   inlineMath: [],
   tableRow: ["children"],
   listItem: ["children"],

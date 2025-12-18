@@ -1,4 +1,3 @@
-import { htmlBlockNames, htmlRawNames } from "micromark-util-html-tag-name";
 import htmlWhitespace from "../../utilities/html-whitespace.js";
 import { getOrderedListItemInfo, mapAst, splitText } from "../utilities.js";
 
@@ -25,9 +24,6 @@ function preprocess(ast, options) {
     ast = markAlignedListLegacy(ast, options);
   } else {
     ast = markAlignedList(ast, options);
-  }
-  if (options.parser !== "mdx") {
-    ast = transformInlineHtml(ast);
   }
   if (options.parser === "mdx") {
     ast = splitTextIntoSentencesLegacy(ast);
@@ -176,6 +172,13 @@ function splitTextIntoSentences(ast) {
   });
 
   return mapAst(ast, (node, index, parentStack) => {
+    if (node.type === "newLineHack") {
+      return {
+        type: "sentence",
+        position: node.position,
+        children: splitText(node.raw),
+      };
+    }
     if (node.type !== "text") {
       return node;
     }
@@ -600,118 +603,6 @@ function markAlignedListLegacy(ast, options) {
      */
     const secondInfo = getOrderedListItemInfo(secondItem, options);
     return secondInfo.leadingSpaces.length > 1;
-  }
-}
-
-function transformInlineHtml(ast) {
-  return mapAst(ast, (node) => {
-    if (!node.children) {
-      return node;
-    }
-
-    const { children } = node;
-    for (let i = 0; i < children.length; i++) {
-      const child = children[i];
-      if (child.type !== "html") {
-        continue;
-      }
-      const tagName = child.value
-        .match(/^<\/?([a-z0-9-]+)/iu)?.[1]
-        .toLowerCase();
-      if (!tagName) {
-        continue;
-      }
-      if (
-        [...htmlBlockNames].includes(tagName) ||
-        htmlRawNames.includes(tagName)
-      ) {
-        continue;
-      }
-      const prev = children[i - 1];
-      const next = children[i + 1];
-
-      const previousLineDifference =
-        prev?.type !== "paragraph"
-          ? null
-          : child.position.start.line - prev.position.end.line;
-      /** @type {"immediate" | "with-new-line" | "none"} */
-      const mergePrevious =
-        previousLineDifference === null
-          ? "none"
-          : previousLineDifference === 0
-            ? "immediate"
-            : previousLineDifference === 1
-              ? "with-new-line"
-              : "none";
-
-      const nextLineDifference =
-        next?.type !== "paragraph"
-          ? null
-          : next.position.start.line - child.position.end.line;
-      /** @type {"immediate" | "with-new-line" | "none"} */
-      const mergeNext =
-        previousLineDifference === null
-          ? "none"
-          : nextLineDifference === 0
-            ? "immediate"
-            : nextLineDifference === 1
-              ? "with-new-line"
-              : "none";
-
-      if (mergePrevious === "none" && mergeNext === "none") {
-        continue;
-      }
-
-      if (mergePrevious !== "none") {
-        if (mergePrevious === "with-new-line") {
-          prev.children.push(newlineTextAfter(prev));
-        }
-        prev.children.push(child);
-        prev.position.end = child.position.end;
-        children.splice(i, 1);
-        i--;
-
-        if (mergeNext === "none") {
-          continue;
-        }
-        if (mergeNext === "with-new-line") {
-          prev.children.push(newlineTextAfter(child));
-        }
-        prev.children.push(...next.children);
-        prev.position.end = next.position.end;
-        children.splice(i + 1, 1);
-        continue;
-      }
-
-      // mergeNext must be not "none" here
-      if (mergeNext === "with-new-line") {
-        next.children.unshift(newlineTextAfter(child));
-      }
-      next.children.unshift(child);
-      next.position.start = child.position.start;
-      children.splice(i, 1);
-    }
-    return node;
-  });
-
-  function newlineTextAfter(node) {
-    return {
-      type: "text",
-      value: "\n",
-      raw: "\n",
-      position: {
-        start: {
-          line: node.position.end.line,
-          column: node.position.end.column,
-          offset: node.position.end.offset,
-        },
-        end: {
-          line: node.position.end.line + 1,
-          column: 1,
-          offset: node.position.end.offset + 1,
-        },
-      },
-    };
   }
 }
 

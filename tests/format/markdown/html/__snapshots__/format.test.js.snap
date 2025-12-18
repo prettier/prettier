@@ -225,14 +225,10 @@ text
 <img src="image.png" />
 
 =====================================output=====================================
+text <em>text</em>
 text
 
-<em>text</em>
-text
-
-![image](https://example.com)
-
-<img src="image.png" />
+![image](https://example.com) <img src="image.png" />
 
 ================================================================================
 `;
@@ -252,14 +248,10 @@ text
 <img src="image.png" />
 
 =====================================output=====================================
+text <em>text</em>
 text
 
-<em>text</em>
-text
-
-![image](https://example.com)
-
-<img src="image.png" />
+![image](https://example.com) <img src="image.png" />
 
 ================================================================================
 `;
@@ -280,12 +272,10 @@ text
 
 =====================================output=====================================
 text
-
 <em>text</em>
 text
 
 ![image](https://example.com)
-
 <img src="image.png" />
 
 ================================================================================

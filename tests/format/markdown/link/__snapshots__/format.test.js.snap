@@ -80,8 +80,8 @@ singleQuote: true
 ![link](https://www.google.fr/foo-<bar)
 ![link](https://www.google.fr/foo-%3Cbar) [link]:
 https://www.google.fr/()foo->bar [link]: https://www.google.fr/foo->bar [link]:
-https://www.google.fr/foo-%3Ebar [link]: https://www.google.fr/foo-<bar [link]:
-https://www.google.fr/foo-%3Cbar
+https://www.google.fr/foo-%3Ebar [link]: https://www.google.fr/foo-<bar
+[link]: https://www.google.fr/foo-%3Cbar
 
 ================================================================================
 `;
@@ -118,8 +118,8 @@ proseWrap: "always"
 ![link](https://www.google.fr/foo-<bar)
 ![link](https://www.google.fr/foo-%3Cbar) [link]:
 https://www.google.fr/()foo->bar [link]: https://www.google.fr/foo->bar [link]:
-https://www.google.fr/foo-%3Ebar [link]: https://www.google.fr/foo-<bar [link]:
-https://www.google.fr/foo-%3Cbar
+https://www.google.fr/foo-%3Ebar [link]: https://www.google.fr/foo-<bar
+[link]: https://www.google.fr/foo-%3Cbar
 
 ================================================================================
 `;

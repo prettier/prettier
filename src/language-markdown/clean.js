@@ -84,6 +84,10 @@ function clean(original, cloned, parent) {
   ) {
     return null;
   }
+
+  if (original.type === "newLineHack") {
+    return null;
+  }
 }
 
 clean.ignoredProperties = ignoredProperties;
