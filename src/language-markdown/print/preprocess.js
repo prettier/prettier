@@ -636,6 +636,7 @@ function transformInlineHtml(ast) {
         prev.children.push({
           type: "text",
           value: "\n",
+          raw: "\n",
           position: {
             start: {
               line: prev.position.end.line,
