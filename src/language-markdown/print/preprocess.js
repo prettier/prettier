@@ -634,28 +634,28 @@ function transformInlineHtml(ast) {
         prev?.type !== "paragraph"
           ? null
           : child.position.start.line - prev.position.end.line;
-      /** @type {"immediate" | "with-line-break" | "none"} */
+      /** @type {"immediate" | "with-new-line" | "none"} */
       const mergePrevious =
         previousLineDifference === null
           ? "none"
           : previousLineDifference === 0
             ? "immediate"
             : previousLineDifference === 1
-              ? "with-line-break"
+              ? "with-new-line"
               : "none";
 
       const nextLineDifference =
         next?.type !== "paragraph"
           ? null
           : next.position.start.line - child.position.end.line;
-      /** @type {"immediate" | "with-line-break" | "none"} */
+      /** @type {"immediate" | "with-new-line" | "none"} */
       const mergeNext =
         previousLineDifference === null
           ? "none"
           : nextLineDifference === 0
             ? "immediate"
             : nextLineDifference === 1
-              ? "with-line-break"
+              ? "with-new-line"
               : "none";
 
       if (mergePrevious === "none" && mergeNext === "none") {
@@ -663,7 +663,7 @@ function transformInlineHtml(ast) {
       }
 
       if (mergePrevious !== "none") {
-        if (mergePrevious === "with-line-break") {
+        if (mergePrevious === "with-new-line") {
           prev.children.push(newlineTextAfter(prev));
         }
         prev.children.push(child);
@@ -674,7 +674,7 @@ function transformInlineHtml(ast) {
         if (mergeNext === "none") {
           continue;
         }
-        if (mergeNext === "with-line-break") {
+        if (mergeNext === "with-new-line") {
           prev.children.push(newlineTextAfter(child));
         }
         prev.children.push(...next.children);
@@ -684,10 +684,10 @@ function transformInlineHtml(ast) {
       }
 
       // mergeNext must be not "none" here
-      if (mergeNext === "with-line-break") {
+      if (mergeNext === "with-new-line") {
         next.children.unshift(newlineTextAfter(child));
       }
-      next.chilren.unshift(child);
+      next.children.unshift(child);
       next.position.start = child.position.start;
       children.splice(i, 1);
     }
