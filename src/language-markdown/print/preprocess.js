@@ -611,9 +611,8 @@ function transformInlineHtml(ast) {
 
     const { children } = node;
     for (let i = 0; i < children.length; i++) {
-      const prev = children[i - 1];
       const child = children[i];
-      if (prev?.type !== "paragraph" || child.type !== "html") {
+      if (child.type !== "html") {
         continue;
       }
       const tagName = child.value
@@ -628,35 +627,92 @@ function transformInlineHtml(ast) {
       ) {
         continue;
       }
-      const lineDifference = child.position.start.line - prev.position.end.line;
-      if (lineDifference > 1) {
+      const prev = children[i - 1];
+      const next = children[i + 1];
+
+      const previousLineDifference =
+        prev?.type !== "paragraph"
+          ? null
+          : child.position.start.line - prev.position.end.line;
+      /** @type {"immediate" | "with-line-break" | "none"} */
+      const mergePrevious =
+        previousLineDifference === null
+          ? "none"
+          : previousLineDifference === 0
+            ? "immediate"
+            : previousLineDifference === 1
+              ? "with-line-break"
+              : "none";
+
+      const nextLineDifference =
+        next?.type !== "paragraph"
+          ? null
+          : next.position.start.line - child.position.end.line;
+      /** @type {"immediate" | "with-line-break" | "none"} */
+      const mergeNext =
+        previousLineDifference === null
+          ? "none"
+          : nextLineDifference === 0
+            ? "immediate"
+            : nextLineDifference === 1
+              ? "with-line-break"
+              : "none";
+
+      if (mergePrevious === "none" && mergeNext === "none") {
         continue;
       }
-      if (lineDifference === 1) {
-        prev.children.push({
-          type: "text",
-          value: "\n",
-          raw: "\n",
-          position: {
-            start: {
-              line: prev.position.end.line,
-              column: prev.position.end.column,
-              offset: prev.position.end.offset,
-            },
-            end: {
-              line: prev.position.end.line + 1,
-              column: 1,
-              offset: prev.position.end.offset + 1,
-            },
-          },
-        });
+
+      if (mergePrevious !== "none") {
+        if (mergePrevious === "with-line-break") {
+          prev.children.push(newlineTextAfter(prev));
+        }
+        prev.children.push(child);
+        prev.position.end = child.position.end;
+        children.splice(i, 1);
+        i--;
+
+        if (mergeNext === "none") {
+          continue;
+        }
+        if (mergeNext === "with-line-break") {
+          prev.children.push(newlineTextAfter(child));
+        }
+        prev.children.push(...next.children);
+        prev.position.end = next.position.end;
+        children.splice(i + 1, 1);
+        continue;
       }
-      prev.children.push(child);
+
+      // mergeNext must be not "none" here
+      if (mergeNext === "with-line-break") {
+        next.children.unshift(newlineTextAfter(child));
+      }
+      next.chilren.unshift(child);
+      next.position.start = child.position.start;
       children.splice(i, 1);
-      i--;
     }
     return node;
   });
+
+  function newlineTextAfter(node) {
+    return {
+      type: "text",
+      value: "\n",
+      raw: "\n",
+      position: {
+        start: {
+          line: node.position.end.line,
+          column: node.position.end.column,
+          offset: node.position.end.offset,
+        },
+        end: {
+          line: node.position.end.line + 1,
+          column: 1,
+          offset: node.position.end.offset + 1,
+        },
+      },
+    };
+  }
 }
 
 export default preprocess;
