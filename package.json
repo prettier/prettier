@@ -93,7 +93,6 @@
     "mdast-util-math": "3.0.0",
     "mdast-util-wiki-link": "0.1.2",
     "meriyah": "7.0.0",
-    "micromark-core-commonmark": "2.0.3",
     "micromark-extension-gfm": "3.0.0",
     "micromark-extension-math": "3.1.0",
     "micromark-extension-wiki-link": "0.0.4",

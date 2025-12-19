@@ -6754,7 +6754,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"micromark-core-commonmark@npm:2.0.3, micromark-core-commonmark@npm:^2.0.0":
+"micromark-core-commonmark@npm:^2.0.0":
   version: 2.0.3
   resolution: "micromark-core-commonmark@npm:2.0.3"
   dependencies:
@@ -8048,7 +8048,6 @@ __metadata:
     mdast-util-math: "npm:3.0.0"
     mdast-util-wiki-link: "npm:0.1.2"
     meriyah: "npm:7.0.0"
-    micromark-core-commonmark: "npm:2.0.3"
     micromark-extension-gfm: "npm:3.0.0"
     micromark-extension-math: "npm:3.1.0"
     micromark-extension-wiki-link: "npm:0.0.4"
