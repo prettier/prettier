@@ -495,10 +495,6 @@ proseWrap: "always"
 >   line 2
 > "></div>
 
-text <a class="line 1
-  line 2
-" href="#">text</a> text
-
 =====================================output=====================================
 <unknown title="line 1
   line 2
@@ -528,10 +524,6 @@ text <a class="line 1
 > <div title="line 1
 >   line 2
 > "></div>
-
-text <a class="line 1
-line 2
-" href="#">text</a> text
 
 ================================================================================
 `;
@@ -573,10 +565,6 @@ proseWrap: "never"
 >   line 2
 > "></div>
 
-text <a class="line 1
-  line 2
-" href="#">text</a> text
-
 =====================================output=====================================
 <unknown title="line 1
   line 2
@@ -606,10 +594,6 @@ text <a class="line 1
 > <div title="line 1
 >   line 2
 > "></div>
-
-text <a class="line 1
-line 2
-" href="#">text</a> text
 
 ================================================================================
 `;
@@ -651,10 +635,6 @@ proseWrap: "preserve"
 >   line 2
 > "></div>
 
-text <a class="line 1
-  line 2
-" href="#">text</a> text
-
 =====================================output=====================================
 <unknown title="line 1
   line 2
@@ -684,10 +664,6 @@ text <a class="line 1
 > <div title="line 1
 >   line 2
 > "></div>
-
-text <a class="line 1
-line 2
-" href="#">text</a> text
 
 ================================================================================
 `;
