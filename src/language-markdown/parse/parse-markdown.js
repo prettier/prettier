@@ -4,10 +4,7 @@ import { gfm as gfmSyntax } from "micromark-extension-gfm";
 import { math as mathSyntax } from "micromark-extension-math";
 import { syntax as wikiLinkSyntax } from "micromark-extension-wiki-link";
 import parseFrontMatter from "../../main/front-matter/parse.js";
-import {
-  fromMarkdown,
-  htmlFlowHackSyntax,
-} from "./micromark/html-flow-hack.js";
+import { fromMarkdown } from "./micromark/html-flow-hack.js";
 import { gfmFromMarkdown } from "./micromark/mdast-util-gfm.js";
 import {
   liquidFromMarkdown,
@@ -17,13 +14,7 @@ import {
 let markdownParseOptions;
 function getMarkdownParseOptions() {
   return (markdownParseOptions ??= {
-    extensions: [
-      gfmSyntax(),
-      mathSyntax(),
-      wikiLinkSyntax(),
-      liquidSyntax(),
-      htmlFlowHackSyntax(),
-    ],
+    extensions: [gfmSyntax(), mathSyntax(), wikiLinkSyntax(), liquidSyntax()],
     mdastExtensions: [
       gfmFromMarkdown(),
       mathFromMarkdown(),

@@ -4,9 +4,7 @@ To enforce all html tags parse like `<div>`
 https://github.com/remarkjs/remark-gfm/issues/81
 */
 import { fromMarkdown as originalFromMarkdown } from "mdast-util-from-markdown";
-import { htmlFlow } from "micromark-core-commonmark";
 import { htmlBlockNames, htmlRawNames } from "micromark-util-html-tag-name";
-import { codes } from "micromark-util-symbol";
 import * as assert from "#universal/assert";
 
 const isProduction = process.env.NODE_ENV !== "production";
@@ -50,16 +48,4 @@ if (isProduction) {
   };
 }
 
-// interrupt html-text by html-flow to hack html tags in paragraphs
-function htmlFlowHackSyntax() {
-  return {
-    text: {
-      [codes.lessThan]: {
-        ...htmlFlow,
-        add: "before",
-      },
-    },
-  };
-}
-
-export { fromMarkdown, htmlFlowHackSyntax };
+export { fromMarkdown };
