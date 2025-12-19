@@ -27,3 +27,7 @@
 > <div title="line 1
 >   line 2
 > "></div>
+
+text <a class="line 1
+  line 2
+" href="#">text</a> text
