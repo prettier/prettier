@@ -1,3 +1,4 @@
+import { htmlBlockNames, htmlRawNames } from "micromark-util-html-tag-name";
 import { hardline } from "../../document/index.js";
 import {
   INLINE_NODE_TYPES,
@@ -115,13 +116,27 @@ function shouldPrePrintDoubleHardline(path, options) {
     parent.type === "listItem" &&
     previous.type === "paragraph" &&
     previous.position.end.line + 1 === node.position.start.line;
+  let isInlineHtmlInterruptingParagraph = false;
+  if (
+    options.parser !== "mdx" &&
+    node.type === "html" &&
+    previous.type === "paragraph"
+  ) {
+    const tagName = node.value.match(/^<\/?([a-z0-9-]+)/iu)?.[1].toLowerCase();
+    const isInlineTag =
+      tagName && ![...htmlBlockNames, ...htmlRawNames].includes(tagName);
+    isInlineHtmlInterruptingParagraph =
+      isInlineTag &&
+      previous.position.end.line + 1 === node.position.start.line;
+  }
 
   return !(
     isSiblingNode ||
     isInTightListItem ||
     isPrevNodePrettierIgnore ||
     isBlockHtmlWithoutBlankLineBetweenPrevHtml ||
-    isHtmlDirectAfterListItem
+    isHtmlDirectAfterListItem ||
+    isInlineHtmlInterruptingParagraph
   );
 }
 
