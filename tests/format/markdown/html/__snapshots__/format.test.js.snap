@@ -230,6 +230,22 @@ text
 ![image](https://example.com)
 <img src="image.png" />
 
+Foo
+<div>
+bar
+</div>
+
+Foo
+
+<div>
+bar
+</div>
+
+Foo
+ <div>
+bar
+</div>
+
 =====================================output=====================================
 text
 <em>text</em>
@@ -243,6 +259,22 @@ text
 
 ![image](https://example.com)
 <img src="image.png" />
+
+Foo
+<div>
+bar
+</div>
+
+Foo
+
+<div>
+bar
+</div>
+
+Foo
+ <div>
+bar
+</div>
 
 ================================================================================
 `;
@@ -267,6 +299,22 @@ text
 ![image](https://example.com)
 <img src="image.png" />
 
+Foo
+<div>
+bar
+</div>
+
+Foo
+
+<div>
+bar
+</div>
+
+Foo
+ <div>
+bar
+</div>
+
 =====================================output=====================================
 text
 <em>text</em>
@@ -280,6 +328,22 @@ text
 
 ![image](https://example.com)
 <img src="image.png" />
+
+Foo
+<div>
+bar
+</div>
+
+Foo
+
+<div>
+bar
+</div>
+
+Foo
+ <div>
+bar
+</div>
 
 ================================================================================
 `;
@@ -304,6 +368,22 @@ text
 ![image](https://example.com)
 <img src="image.png" />
 
+Foo
+<div>
+bar
+</div>
+
+Foo
+
+<div>
+bar
+</div>
+
+Foo
+ <div>
+bar
+</div>
+
 =====================================output=====================================
 text
 <em>text</em>
@@ -317,6 +397,22 @@ text
 
 ![image](https://example.com)
 <img src="image.png" />
+
+Foo
+<div>
+bar
+</div>
+
+Foo
+
+<div>
+bar
+</div>
+
+Foo
+ <div>
+bar
+</div>
 
 ================================================================================
 `;
