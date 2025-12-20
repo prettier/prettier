@@ -202,6 +202,19 @@ function getOrderedListItemInfo(orderListItem, options) {
   return { number: Number(numberText), leadingSpaces };
 }
 
+function getUnorderedListItemInfo(unorderedListItem, options) {
+  const text = options.originalText.slice(
+    unorderedListItem.position.start.offset,
+    unorderedListItem.position.end.offset,
+  );
+
+  const { leadingSpaces } = text.match(
+    /^\s*[-*+](?<leadingSpaces>\s*)/u,
+  ).groups;
+
+  return { leadingSpaces };
+}
+
 function hasGitDiffFriendlyOrderedList(node, options) {
   if (!node.ordered || node.children.length < 2) {
     return false;
@@ -327,6 +340,7 @@ export {
   getFencedCodeBlockValue,
   getNthListSiblingIndex,
   getOrderedListItemInfo,
+  getUnorderedListItemInfo,
   hasGitDiffFriendlyOrderedList,
   hasPrettierIgnore,
   INLINE_NODE_TYPES,
