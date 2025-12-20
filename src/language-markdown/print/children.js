@@ -122,7 +122,9 @@ function shouldPrePrintDoubleHardline(path, options) {
     node.type === "html" &&
     previous.type === "paragraph"
   ) {
-    const tagName = node.value.match(/^<\/?([a-z0-9-]+)/iu)?.[1].toLowerCase();
+    const tagName = node.value
+      .match(/^\s*<\/?([a-z0-9-]+)/iu)?.[1]
+      .toLowerCase();
     const isInlineTag =
       tagName && ![...htmlBlockNames, ...htmlRawNames].includes(tagName);
     isInlineHtmlInterruptingParagraph =
