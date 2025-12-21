@@ -245,6 +245,7 @@ const configs = [
       "unicorn/no-for-loop": "off",
       "unicorn/no-hex-escape": "off",
       "unicorn/no-negated-condition": "off",
+      "unicorn/no-nested-ternary": "error",
       "unicorn/no-null": "off",
       "unicorn/no-process-exit": "off",
       "unicorn/no-thenable": "off",
