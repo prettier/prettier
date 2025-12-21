@@ -86,10 +86,7 @@ class WhitespaceUtilities {
     const pattern = `[${escapeStringRegexp(
       [...this.#whitespaceCharacters].join(""),
     )}]+`;
-    const regexp = new RegExp(
-      captureWhitespace ? `(${pattern})` : pattern,
-      "u",
-    );
+    const regexp = new RegExp(captureWhitespace ? `(${pattern})` : pattern);
     return text.split(regexp);
   }
 

@@ -471,7 +471,6 @@ function printUrl(url, dangerousCharOrChars = []) {
 
   return new RegExp(
     dangerousChars.map((x) => escapeStringRegexp(x)).join("|"),
-    "u",
   ).test(url)
     ? `<${encodeUrl(url, "<>")}>`
     : url;

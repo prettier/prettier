@@ -73,7 +73,7 @@ class TypeScriptModuleSource {
         escapeStringRegexp(end),
         "(?=\n)",
       ].join(""),
-      "gsu",
+      "gs",
     );
 
     this.#source.replaceAll(regexp, replacement);

@@ -140,7 +140,12 @@ const configs = [
           exceptRange: true,
         },
       ],
-      "no-restricted-syntax": ["error", "Literal[regex.flags=/u/]"],
+      "no-restricted-syntax": [
+        "error",
+        // Forbid `u` flag in regexp, kept for refactoring
+        // "Literal[regex.flags=/u/]",
+        // 'NewExpression[callee.name="RegExp"] > Literal.arguments:nth-child(2)[value=/u/]',
+      ],
 
       // Internal rules
       "prettier-internal-rules/jsx-identifier-case": "error",

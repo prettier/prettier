@@ -484,7 +484,7 @@ const pluginFiles = [
           text = text.replaceAll(
             new RegExp(
               String.raw`".*?" in (?:${typescriptVariables.join("|")})(?=\W)`,
-              "gu",
+              "g",
             ),
             "true",
           );

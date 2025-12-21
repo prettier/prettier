@@ -34,7 +34,7 @@ async function printEmbedHtmlLike(parser, textToDoc, print, path, options) {
 
   const placeholderRegex = new RegExp(
     composePlaceholder(String.raw`(\d+)`),
-    "gu",
+    "g",
   );
   let topLevelCount = 0;
   const doc = await textToDoc(text, {

@@ -15,7 +15,7 @@ async function printEmbedMarkdown(textToDoc, print, path /* , options*/) {
   const indentation = getIndentation(text);
   const hasIndent = indentation !== "";
   if (hasIndent) {
-    text = text.replaceAll(new RegExp(`^${indentation}`, "gmu"), "");
+    text = text.replaceAll(new RegExp(`^${indentation}`, "gm"), "");
   }
   const doc = escapeTemplateCharacters(
     await textToDoc(text, { parser: "markdown", __inJsTemplate: true }),
