@@ -72,65 +72,83 @@ function printChild(path, options, print) {
 }
 
 function printBetweenLine(prevNode, nextNode) {
-  return isTextLikeNode(prevNode) && isTextLikeNode(nextNode)
-    ? prevNode.isTrailingSpaceSensitive
-      ? prevNode.hasTrailingSpaces
-        ? preferHardlineAsLeadingSpaces(nextNode)
-          ? hardline
-          : line
-        : ""
-      : preferHardlineAsLeadingSpaces(nextNode)
-        ? hardline
-        : softline
-    : (needsToBorrowNextOpeningTagStartMarker(prevNode) &&
-          (hasPrettierIgnore(nextNode) ||
-            /**
-             *     123<a
-             *          ~
-             *       ><b>
-             */
-            nextNode.firstChild ||
-            /**
-             *     123<!--
-             *            ~
-             *     -->
-             */
-            nextNode.isSelfClosing ||
-            /**
-             *     123<span
-             *             ~
-             *       attr
-             */
-            (nextNode.kind === "element" && nextNode.attrs.length > 0))) ||
+  if (isTextLikeNode(prevNode) && isTextLikeNode(nextNode)) {
+    if (prevNode.isTrailingSpaceSensitive) {
+      if (prevNode.hasTrailingSpaces) {
+        if (preferHardlineAsLeadingSpaces(nextNode)) {
+          return hardline;
+        }
+
+        return line;
+      }
+
+      return "";
+    }
+
+    if (preferHardlineAsLeadingSpaces(nextNode)) {
+      return hardline;
+    }
+
+    return softline;
+  }
+
+  if (
+    (needsToBorrowNextOpeningTagStartMarker(prevNode) &&
+      (hasPrettierIgnore(nextNode) ||
         /**
-         *     <img
-         *       src="long"
-         *                 ~
-         *     />123
+         *     123<a
+         *          ~
+         *       ><b>
          */
-        (prevNode.kind === "element" &&
-          prevNode.isSelfClosing &&
-          needsToBorrowPrevClosingTagEndMarker(nextNode))
-      ? ""
-      : !nextNode.isLeadingSpaceSensitive ||
-          preferHardlineAsLeadingSpaces(nextNode) ||
-          /**
-           *       Want to write us a letter? Use our<a
-           *         ><b><a>mailing address</a></b></a
-           *                                          ~
-           *       >.
-           */
-          (needsToBorrowPrevClosingTagEndMarker(nextNode) &&
-            prevNode.lastChild &&
-            needsToBorrowParentClosingTagStartMarker(prevNode.lastChild) &&
-            prevNode.lastChild.lastChild &&
-            needsToBorrowParentClosingTagStartMarker(
-              prevNode.lastChild.lastChild,
-            ))
-        ? hardline
-        : nextNode.hasLeadingSpaces
-          ? line
-          : softline;
+        nextNode.firstChild ||
+        /**
+         *     123<!--
+         *            ~
+         *     -->
+         */
+        nextNode.isSelfClosing ||
+        /**
+         *     123<span
+         *             ~
+         *       attr
+         */
+        (nextNode.kind === "element" && nextNode.attrs.length > 0))) ||
+    /**
+     *     <img
+     *       src="long"
+     *                 ~
+     *     />123
+     */
+    (prevNode.kind === "element" &&
+      prevNode.isSelfClosing &&
+      needsToBorrowPrevClosingTagEndMarker(nextNode))
+  ) {
+    return "";
+  }
+
+  if (
+    !nextNode.isLeadingSpaceSensitive ||
+    preferHardlineAsLeadingSpaces(nextNode) ||
+    /**
+     *       Want to write us a letter? Use our<a
+     *         ><b><a>mailing address</a></b></a
+     *                                          ~
+     *       >.
+     */
+    (needsToBorrowPrevClosingTagEndMarker(nextNode) &&
+      prevNode.lastChild &&
+      needsToBorrowParentClosingTagStartMarker(prevNode.lastChild) &&
+      prevNode.lastChild.lastChild &&
+      needsToBorrowParentClosingTagStartMarker(prevNode.lastChild.lastChild))
+  ) {
+    return hardline;
+  }
+
+  if (nextNode.hasLeadingSpaces) {
+    return line;
+  }
+
+  return softline;
 }
 
 function printChildren(path, options, print) {
