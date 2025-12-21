@@ -23,9 +23,9 @@ exports[`invalid_keyword_symbol.js [flow] format 1`] = `
 `;
 
 exports[`module-attributes-static.js [flow] format 1`] = `
-"Unexpected token \`with\`, expected the token \`;\` (1:28)
+"Unexpected token \`type\`, expected the token \`{\` (1:33)
 > 1 | import foo from "foo.json" with type: "json";
-    |                            ^^^^
+    |                                 ^^^^
   2 |"
 `;
 
