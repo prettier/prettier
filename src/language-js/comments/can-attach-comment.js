@@ -4,6 +4,7 @@ import {
   getFunctionParameters,
   isMeaningfulEmptyStatement,
   isMethod,
+  isShorthandSpecifier,
   isTsAsConstExpression,
 } from "../utilities/index.js";
 
@@ -49,7 +50,15 @@ const isChildWontPrint = (node, [parent]) =>
     parent.shorthand &&
     parent.key === node &&
     !isMethod(parent) &&
-    parent.value !== parent.key);
+    parent.value !== parent.key) ||
+  (parent?.type === "ImportSpecifier" &&
+    isShorthandSpecifier(parent) &&
+    parent.imported === node &&
+    parent.imported !== parent.local) ||
+  (parent?.type === "ExportSpecifier" &&
+    isShorthandSpecifier(parent) &&
+    parent.local === node &&
+    parent.local !== parent.exported);
 
 /**
 Prevent attaching comments to FunctionExpression in this case:

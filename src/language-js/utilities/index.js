@@ -5,7 +5,7 @@ import isNextLineEmptyAfterIndex from "../../utilities/is-next-line-empty.js";
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
 import isObject from "../../utilities/is-object.js";
 import printString from "../../utilities/print-string.js";
-import { hasSameLocStart, locEnd, locStart } from "../loc.js";
+import { hasSameLoc, hasSameLocStart, locEnd, locStart } from "../loc.js";
 import getVisitorKeys from "../traverse/get-visitor-keys.js";
 import createTypeCheckFunction from "./create-type-check-function.js";
 import getRaw from "./get-raw.js";
@@ -1066,6 +1066,43 @@ function isBooleanTypeCoercion(node) {
   );
 }
 
+function isShorthandSpecifier(specifier) {
+  if (
+    specifier.type !== "ImportSpecifier" &&
+    specifier.type !== "ExportSpecifier"
+  ) {
+    return false;
+  }
+
+  const {
+    local,
+    [specifier.type === "ImportSpecifier" ? "imported" : "exported"]:
+      importedOrExported,
+  } = specifier;
+
+  if (
+    local.type !== importedOrExported.type ||
+    !hasSameLoc(local, importedOrExported)
+  ) {
+    return false;
+  }
+
+  if (isStringLiteral(local)) {
+    return (
+      local.value === importedOrExported.value &&
+      getRaw(local) === getRaw(importedOrExported)
+    );
+  }
+
+  switch (local.type) {
+    case "Identifier":
+      return local.name === importedOrExported.name;
+    default:
+      /* c8 ignore next */
+      return false;
+  }
+}
+
 export {
   CommentCheckFlags,
   createTypeCheckFunction,
@@ -1112,6 +1149,7 @@ export {
   isPrettierIgnoreComment,
   isRegExpLiteral,
   isReturnOrThrowStatement,
+  isShorthandSpecifier,
   isSignedNumericLiteral,
   isSimpleCallArgument,
   isSimpleExpressionByNodeCount,
