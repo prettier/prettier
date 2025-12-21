@@ -85,7 +85,7 @@ export function makeString(
   const otherQuote = enclosingQuote === '"' ? "'" : '"';
 
   // Matches _any_ escape and unescaped quotes (both single and double).
-  const regex = /\\(.)|(["'])/gsu;
+  const regex = /\\(.)|(["'])/gs;
 
   // Escape and unescape single and double quotes as needed to be able to
   // enclose `rawText` with `enclosingQuote`.
@@ -111,7 +111,7 @@ export function makeString(
     // Unescape any unnecessarily escaped character.
     // Adapted from https://github.com/eslint/eslint/blob/de0b4ad7bd820ade41b1f606008bea68683dc11a/lib/rules/no-useless-escape.js#L27
     return unescapeUnnecessaryEscapes &&
-      /^[^\n\r"'0-7\\bfnrt-vx\u2028\u2029]$/u.test(escaped)
+      /^[^\n\r"'0-7\\bfnrt-vx\u2028\u2029]$/.test(escaped)
       ? escaped
       : "\\" + escaped;
   });

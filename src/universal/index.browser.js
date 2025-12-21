@@ -2,7 +2,7 @@
 @param {string | URL} file
 @returns {string}
 */
-const getFileBasename = (file) => String(file).split(/[/\\]/u).pop();
+const getFileBasename = (file) => String(file).split(/[/\\]/).pop();
 
 // Ideally, we should only allow `URL` with `file:` protocol and
 // string starts with `file:`, but `URL` is missing in some environments

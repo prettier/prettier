@@ -2,8 +2,8 @@ import htmlWhitespace from "../../utilities/html-whitespace.js";
 import { getOrderedListItemInfo, mapAst, splitText } from "../utilities.js";
 
 // 0x0 ~ 0x10ffff
-const isSingleCharRegex = /^\\?.$/su;
-const isNewLineBlockquoteRegex = /^\n *>[ >]*$/u;
+const isSingleCharRegex = /^\\?.$/s;
+const isNewLineBlockquoteRegex = /^\n *>[ >]*$/;
 
 function preprocess(ast, options) {
   ast = restoreUnescapedCharacter(ast, options);
@@ -116,7 +116,7 @@ function transformIndentedCodeblockAndMarkItsParentList(ast, options) {
   return mapAst(ast, (node, index, parentStack) => {
     if (node.type === "code") {
       // the first char may point to `\n`, e.g. `\n\t\tbar`, just ignore it
-      const isIndented = /^\n?(?: {4,}|\t)/u.test(
+      const isIndented = /^\n?(?: {4,}|\t)/.test(
         options.originalText.slice(
           node.position.start.offset,
           node.position.end.offset,

@@ -69,7 +69,7 @@ function normalizeAngularControlFlowBlock(node) {
     return;
   }
 
-  node.name = node.name.toLowerCase().replaceAll(/\s+/gu, " ").trim();
+  node.name = node.name.toLowerCase().replaceAll(/\s+/g, " ").trim();
   node.kind = "angularControlFlowBlock";
 
   if (!isNonEmptyArray(node.parameters)) {
@@ -157,7 +157,7 @@ function restoreNameAndValue(node) {
           attr.value = null;
         } else {
           attr.value = attr.valueSpan.toString();
-          if (/["']/u.test(attr.value[0])) {
+          if (/["']/.test(attr.value[0])) {
             attr.value = attr.value.slice(1, -1);
           }
         }

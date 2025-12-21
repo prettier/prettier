@@ -449,7 +449,7 @@ async function runTest({
   if (!shouldSkipEolTest(code, formatResult.options)) {
     for (const eol of ["\r\n", "\r"]) {
       const { eolVisualizedOutput: output } = await format(
-        code.replace(/\n/gu, eol),
+        code.replace(/\n/g, eol),
         formatOptions,
       );
       // Only if `endOfLine: "auto"` the result will be different
@@ -457,7 +457,7 @@ async function runTest({
         formatOptions.endOfLine === "auto"
           ? visualizeEndOfLine(
               // All `code` use `LF`, so the `eol` of result is always `LF`
-              formatResult.outputWithCursor.replace(/\n/gu, eol),
+              formatResult.outputWithCursor.replace(/\n/g, eol),
             )
           : formatResult.eolVisualizedOutput;
       expect(output).toEqual(expected);

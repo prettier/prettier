@@ -150,7 +150,7 @@ function printMdast(path, options, print) {
       if (options.proseWrap === "preserve") {
         contents = node.value;
       } else {
-        contents = node.value.replaceAll(/[\t\n]+/gu, " ");
+        contents = node.value.replaceAll(/[\t\n]+/g, " ");
       }
 
       return ["[[", contents, "]]"];
@@ -233,7 +233,7 @@ function printMdast(path, options, print) {
       const { parent, isLast } = path;
       const value =
         parent.type === "root" && isLast ? node.value.trimEnd() : node.value;
-      const isHtmlComment = /^<!--.*-->$/su.test(value);
+      const isHtmlComment = /^<!--.*-->$/s.test(value);
 
       return replaceEndOfLine(
         value,
@@ -486,7 +486,7 @@ function printTitle(title, options, printSpace = true) {
   }
 
   // title is escaped after `remark-parse` v7
-  title = title.replaceAll(/\\(?=["')])/gu, "");
+  title = title.replaceAll(/\\(?=["')])/g, "");
 
   if (title.includes('"') && title.includes("'") && !title.includes(")")) {
     return `(${title})`; // avoid escaped quotes

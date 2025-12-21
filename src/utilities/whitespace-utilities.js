@@ -11,7 +11,7 @@ class WhitespaceUtilities {
       (this.#whitespaceCharacters.size === 0 ||
         Array.prototype.some.call(
           whitespaceCharacters,
-          (character) => !/^\s$/u.test(character),
+          (character) => !/^\s$/.test(character),
         ))
     ) {
       throw new TypeError(
