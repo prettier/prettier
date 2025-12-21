@@ -92,10 +92,10 @@ Cause: Unexpected token, expected ")" (4:24)"
 `;
 
 exports[`invalid-using-binding-pattern.js [flow] format 1`] = `
-"Unexpected token \`{\`, expected the end of an expression statement (\`;\`) (2:9)
+"Invalid left-hand side in assignment (2:3)
   1 | {
 > 2 |   using { foo } = f();
-    |         ^
+    |   ^^^^^^^^^^^^^
   3 |   using [ bar ] = g();
   4 |   for (using { qux } of h());
   5 |   for (using [ quux ] of i());"

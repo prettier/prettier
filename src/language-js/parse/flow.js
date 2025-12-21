@@ -20,6 +20,7 @@ const parseOptions = {
   esproposal_export_star_as: true,
   // Undocumented
   pattern_matching: true,
+  records: true,
   // `types` (boolean, default `true`) - enable parsing of Flow types
   // types: true,
   // `use_strict` (boolean, default `false`) - treat the file as strict, without needing a "use strict" directive

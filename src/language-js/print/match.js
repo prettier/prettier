@@ -112,19 +112,12 @@ export function printMatchPattern(path, options, print) {
     }
     case "MatchBindingPattern":
       return [node.kind, " ", print("id")];
-    case "MatchObjectPattern": {
-      const properties = path.map(print, "properties");
-      if (node.rest) {
-        properties.push(print("rest"));
-      }
-      return group([
-        "{",
-        indent([softline, join([",", line], properties)]),
-        node.rest ? "" : ifBreak(","),
-        softline,
-        "}",
-      ]);
-    }
+    case "MatchObjectPattern":
+    case "MatchInstanceObjectPattern":
+      return printMatchObjectPattern(path, options, print);
+    case "MatchInstancePattern":
+      return group([print("targetConstructor"), " ", print("properties")]);
+
     case "MatchArrayPattern": {
       const elements = path.map(print, "elements");
       if (node.rest) {
@@ -151,6 +144,21 @@ export function printMatchPattern(path, options, print) {
       return parts;
     }
   }
+}
+
+function printMatchObjectPattern(path, options, print) {
+  const { node } = path;
+  const properties = path.map(print, "properties");
+  if (node.rest) {
+    properties.push(print("rest"));
+  }
+  return group([
+    "{",
+    indent([softline, join([",", line], properties)]),
+    node.rest ? "" : ifBreak(","),
+    softline,
+    "}",
+  ]);
 }
 
 const isSimpleMatchPattern = createTypeCheckFunction([

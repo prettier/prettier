@@ -39,6 +39,7 @@ import { printFlowMappedTypeProperty } from "./mapped-type.js";
 import { printMatch, printMatchCase, printMatchPattern } from "./match.js";
 import { printDeclareToken, printOptionalToken } from "./miscellaneous.js";
 import { printExportDeclaration } from "./module.js";
+import { printObject } from "./object.js";
 import { printOpaqueType } from "./opaque-type.js";
 import { printPropertyKey } from "./property.js";
 import { printSpreadElement } from "./rest-element.js";
@@ -328,6 +329,8 @@ function printFlow(path, options, print) {
     case "MatchLiteralPattern":
     case "MatchUnaryPattern":
     case "MatchIdentifierPattern":
+    case "MatchInstancePattern":
+    case "MatchInstanceObjectPattern":
     case "MatchMemberPattern":
     case "MatchBindingPattern":
     case "MatchObjectPattern":
@@ -335,6 +338,37 @@ function printFlow(path, options, print) {
     case "MatchRestPattern":
     case "MatchArrayPattern":
       return printMatchPattern(path, options, print);
+
+    case "RecordExpression":
+      return [
+        print("recordConstructor"),
+        print("typeArguments"),
+        " ",
+        print("properties"),
+      ];
+    case "RecordExpressionProperties":
+      return printObject(path, options, print);
+
+    case "RecordDeclaration":
+      return printClass(path, options, print);
+    case "RecordDeclarationImplements":
+      return [print("id"), print("typeArguments")];
+    case "RecordDeclarationBody":
+      return printClassBody(path, options, print);
+    case "RecordDeclarationProperty":
+    case "RecordDeclarationStaticProperty": {
+      const isStatic = node.type === "RecordDeclarationStaticProperty";
+      const parts = isStatic ? ["static "] : [];
+      parts.push(
+        printPropertyKey(path, options, print),
+        printTypeAnnotationProperty(path, print),
+      );
+      const exprKey = isStatic ? "value" : "defaultValue";
+      if (node[exprKey]) {
+        parts.push(" = ", print(exprKey));
+      }
+      return parts;
+    }
   }
 }
 
