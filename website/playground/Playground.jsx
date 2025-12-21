@@ -565,11 +565,15 @@ function getReportLink(reportBody) {
 }
 
 function getSecondFormat(formatted, reformatted) {
-  return formatted === ""
-    ? ""
-    : formatted === reformatted
-      ? "✓ Second format is unchanged."
-      : (reformatted ?? "");
+  if (formatted === "") {
+    return "";
+  }
+
+  if (formatted === reformatted) {
+    return "✓ Second format is unchanged.";
+  }
+
+  return reformatted ?? "";
 }
 
 export default Playground;

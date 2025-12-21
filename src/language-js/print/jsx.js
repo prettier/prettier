@@ -18,7 +18,7 @@ import {
   printComments,
   printDanglingComments,
 } from "../../main/comments/print.js";
-import getPreferredQuote from "../../utilities/get-preferred-quote.js";
+import { getPreferredQuote } from "../../utilities/get-preferred-quote.js";
 import UnexpectedNodeError from "../../utilities/unexpected-node-error.js";
 import WhitespaceUtilities from "../../utilities/whitespace-utilities.js";
 import needsParentheses from "../parentheses/needs-parentheses.js";

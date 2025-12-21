@@ -15,18 +15,20 @@ async function getCoreInfo() {
   );
 
   const options = Object.fromEntries(
-    supportInfo.options.map((option) => [
-      option.name,
-      {
-        type: option.type,
-        default: option.default,
-        ...(option.type === "int"
-          ? { range: option.range }
-          : option.type === "choice"
-            ? { choices: option.choices.map((choice) => choice.value) }
-            : null),
-      },
-    ]),
+    supportInfo.options.map((rawOption) => {
+      const option = {
+        type: rawOption.type,
+        default: rawOption.default,
+      };
+
+      if (rawOption.type === "int") {
+        option.range = rawOption.range;
+      } else if (rawOption.type === "choice") {
+        option.choices = rawOption.choices.map((choice) => choice.value);
+      }
+
+      return [rawOption.name, option];
+    }),
   );
 
   return { languages, options };

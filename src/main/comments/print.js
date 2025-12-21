@@ -15,7 +15,7 @@ import skipNewline from "../../utilities/skip-newline.js";
 
 /**
  * @import AstPath from "../../common/ast-path.js"
- * @import {Doc} from "../../document/index.js"
+ * @import {Doc, HardLine, Line} from "../../document/index.js"
  */
 
 const returnTrue = () => true;
@@ -36,13 +36,15 @@ function printLeadingComment(path, options) {
   // Leading block comments should see if they need to stay on the
   // same line or not.
   if (isBlock) {
-    const lineBreak = hasNewline(originalText, locEnd(comment))
-      ? hasNewline(originalText, locStart(comment), {
-          backwards: true,
-        })
-        ? hardline
-        : line
-      : " ";
+    /** @type {HardLine | Line | " "} */
+    let lineBreak = " ";
+    if (hasNewline(originalText, locEnd(comment))) {
+      if (hasNewline(originalText, locStart(comment), { backwards: true })) {
+        lineBreak = hardline;
+      } else {
+        lineBreak = line;
+      }
+    }
 
     parts.push(lineBreak);
   } else {

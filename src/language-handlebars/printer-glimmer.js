@@ -10,7 +10,7 @@ import {
   replaceEndOfLine,
   softline,
 } from "../document/index.js";
-import getPreferredQuote from "../utilities/get-preferred-quote.js";
+import { getPreferredQuote } from "../utilities/get-preferred-quote.js";
 import htmlWhitespace from "../utilities/html-whitespace.js";
 import isNonEmptyArray from "../utilities/is-non-empty-array.js";
 import UnexpectedNodeError from "../utilities/unexpected-node-error.js";

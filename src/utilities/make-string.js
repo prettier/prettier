@@ -1,3 +1,5 @@
+import { DOUBLE_QUOTE, SINGLE_QUOTE } from "./get-preferred-quote.js";
+
 /** @import {Quote} from "./get-preferred-quote.js" */
 
 // Matches _any_ escape and unescaped quotes (both single and double).
@@ -10,7 +12,8 @@ const REGEX = /\\(["'\\])|(["'])/gu;
  * @returns {string}
  */
 function makeString(rawText, enclosingQuote) {
-  const otherQuote = enclosingQuote === '"' ? "'" : '"';
+  const otherQuote =
+    enclosingQuote === DOUBLE_QUOTE ? SINGLE_QUOTE : DOUBLE_QUOTE;
 
   // Escape and unescape single and double quotes as needed to be able to
   // enclose `rawText` with `enclosingQuote`.
