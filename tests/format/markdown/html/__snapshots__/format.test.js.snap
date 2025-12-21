@@ -51,6 +51,108 @@ quoted sentence2</p>
 ================================================================================
 `;
 
+exports[`beginning-tag-after-a-list-item.md - {"proseWrap":"never"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "never"
+                                                                                | printWidth
+=====================================input======================================
+- A list item.
+<details><summary>Summary</summary>
+<p>
+
+- A list item.
+
+</p>
+</details>
+
+- A list item.
+<blockquote>
+
+<p>quoted sentence1<br>
+quoted sentence2</p>
+</blockquote>
+
+- indented html is formatted as it is
+  <blockquote>asdf</blockquote>
+
+=====================================output=====================================
+- A list item.
+
+<details><summary>Summary</summary>
+<p>
+
+- A list item.
+
+</p>
+</details>
+
+- A list item.
+
+<blockquote>
+
+<p>quoted sentence1<br>
+quoted sentence2</p>
+</blockquote>
+
+- indented html is formatted as it is
+  <blockquote>asdf</blockquote>
+
+================================================================================
+`;
+
+exports[`beginning-tag-after-a-list-item.md - {"proseWrap":"preserve"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "preserve"
+                                                                                | printWidth
+=====================================input======================================
+- A list item.
+<details><summary>Summary</summary>
+<p>
+
+- A list item.
+
+</p>
+</details>
+
+- A list item.
+<blockquote>
+
+<p>quoted sentence1<br>
+quoted sentence2</p>
+</blockquote>
+
+- indented html is formatted as it is
+  <blockquote>asdf</blockquote>
+
+=====================================output=====================================
+- A list item.
+
+<details><summary>Summary</summary>
+<p>
+
+- A list item.
+
+</p>
+</details>
+
+- A list item.
+
+<blockquote>
+
+<p>quoted sentence1<br>
+quoted sentence2</p>
+</blockquote>
+
+- indented html is formatted as it is
+  <blockquote>asdf</blockquote>
+
+================================================================================
+`;
+
 exports[`blank-line-between-htmls.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
@@ -66,6 +168,251 @@ proseWrap: "always"
 <!--lint disable no-html-->
 <p align="center"><img src="logo/vertical.png" alt="labelify" height="150px"></p>
 <!--lint enable no-html-->
+
+================================================================================
+`;
+
+exports[`blank-line-between-htmls.md - {"proseWrap":"never"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "never"
+                                                                                | printWidth
+=====================================input======================================
+<!--lint disable no-html-->
+<p align="center"><img src="logo/vertical.png" alt="labelify" height="150px"></p>
+<!--lint enable no-html-->
+
+=====================================output=====================================
+<!--lint disable no-html-->
+<p align="center"><img src="logo/vertical.png" alt="labelify" height="150px"></p>
+<!--lint enable no-html-->
+
+================================================================================
+`;
+
+exports[`blank-line-between-htmls.md - {"proseWrap":"preserve"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "preserve"
+                                                                                | printWidth
+=====================================input======================================
+<!--lint disable no-html-->
+<p align="center"><img src="logo/vertical.png" alt="labelify" height="150px"></p>
+<!--lint enable no-html-->
+
+=====================================output=====================================
+<!--lint disable no-html-->
+<p align="center"><img src="logo/vertical.png" alt="labelify" height="150px"></p>
+<!--lint enable no-html-->
+
+================================================================================
+`;
+
+exports[`inline-html.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+text
+<em>text</em>
+text
+
+text
+ <em>text</em>
+
+text
+  <em>text</em>
+
+![image](https://example.com)
+<img src="image.png" />
+
+Foo
+<div>
+bar
+</div>
+
+Foo
+
+<div>
+bar
+</div>
+
+Foo
+ <div>
+bar
+</div>
+
+=====================================output=====================================
+text
+<em>text</em>
+text
+
+text
+ <em>text</em>
+
+text
+  <em>text</em>
+
+![image](https://example.com)
+<img src="image.png" />
+
+Foo
+<div>
+bar
+</div>
+
+Foo
+
+<div>
+bar
+</div>
+
+Foo
+ <div>
+bar
+</div>
+
+================================================================================
+`;
+
+exports[`inline-html.md - {"proseWrap":"never"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "never"
+                                                                                | printWidth
+=====================================input======================================
+text
+<em>text</em>
+text
+
+text
+ <em>text</em>
+
+text
+  <em>text</em>
+
+![image](https://example.com)
+<img src="image.png" />
+
+Foo
+<div>
+bar
+</div>
+
+Foo
+
+<div>
+bar
+</div>
+
+Foo
+ <div>
+bar
+</div>
+
+=====================================output=====================================
+text
+<em>text</em>
+text
+
+text
+ <em>text</em>
+
+text
+  <em>text</em>
+
+![image](https://example.com)
+<img src="image.png" />
+
+Foo
+<div>
+bar
+</div>
+
+Foo
+
+<div>
+bar
+</div>
+
+Foo
+ <div>
+bar
+</div>
+
+================================================================================
+`;
+
+exports[`inline-html.md - {"proseWrap":"preserve"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "preserve"
+                                                                                | printWidth
+=====================================input======================================
+text
+<em>text</em>
+text
+
+text
+ <em>text</em>
+
+text
+  <em>text</em>
+
+![image](https://example.com)
+<img src="image.png" />
+
+Foo
+<div>
+bar
+</div>
+
+Foo
+
+<div>
+bar
+</div>
+
+Foo
+ <div>
+bar
+</div>
+
+=====================================output=====================================
+text
+<em>text</em>
+text
+
+text
+ <em>text</em>
+
+text
+  <em>text</em>
+
+![image](https://example.com)
+<img src="image.png" />
+
+Foo
+<div>
+bar
+</div>
+
+Foo
+
+<div>
+bar
+</div>
+
+Foo
+ <div>
+bar
+</div>
 
 ================================================================================
 `;
@@ -129,6 +476,120 @@ proseWrap: "always"
 ================================================================================
 `;
 
+exports[`multiline.md - {"proseWrap":"never"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "never"
+                                                                                | printWidth
+=====================================input======================================
+1.  Some test text, the goal is to have the html table below nested within this number. When formating on save Prettier will continue to add an indent each time pushing the table further and further out of sync. 
+
+    <table class="table table-striped">
+    <tr>
+    <th>Test</th>
+    <th>Table</th>
+    </tr>
+    <tbody>
+        <tr>
+        <td>will</td>
+        <td>be</td>
+        </tr>
+        <tr>
+        <td>pushed</td>
+        <td>When</td>
+        </tr>
+        <tr>
+        <td>Format on</td>
+        <td>Save</td>
+        </tr>
+    </tbody>
+    </table>
+
+=====================================output=====================================
+1.  Some test text, the goal is to have the html table below nested within this number. When formating on save Prettier will continue to add an indent each time pushing the table further and further out of sync.
+
+    <table class="table table-striped">
+    <tr>
+    <th>Test</th>
+    <th>Table</th>
+    </tr>
+    <tbody>
+        <tr>
+        <td>will</td>
+        <td>be</td>
+        </tr>
+        <tr>
+        <td>pushed</td>
+        <td>When</td>
+        </tr>
+        <tr>
+        <td>Format on</td>
+        <td>Save</td>
+        </tr>
+    </tbody>
+    </table>
+
+================================================================================
+`;
+
+exports[`multiline.md - {"proseWrap":"preserve"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "preserve"
+                                                                                | printWidth
+=====================================input======================================
+1.  Some test text, the goal is to have the html table below nested within this number. When formating on save Prettier will continue to add an indent each time pushing the table further and further out of sync. 
+
+    <table class="table table-striped">
+    <tr>
+    <th>Test</th>
+    <th>Table</th>
+    </tr>
+    <tbody>
+        <tr>
+        <td>will</td>
+        <td>be</td>
+        </tr>
+        <tr>
+        <td>pushed</td>
+        <td>When</td>
+        </tr>
+        <tr>
+        <td>Format on</td>
+        <td>Save</td>
+        </tr>
+    </tbody>
+    </table>
+
+=====================================output=====================================
+1.  Some test text, the goal is to have the html table below nested within this number. When formating on save Prettier will continue to add an indent each time pushing the table further and further out of sync.
+
+    <table class="table table-striped">
+    <tr>
+    <th>Test</th>
+    <th>Table</th>
+    </tr>
+    <tbody>
+        <tr>
+        <td>will</td>
+        <td>be</td>
+        </tr>
+        <tr>
+        <td>pushed</td>
+        <td>When</td>
+        </tr>
+        <tr>
+        <td>Format on</td>
+        <td>Save</td>
+        </tr>
+    </tbody>
+    </table>
+
+================================================================================
+`;
+
 exports[`multiline-attribute.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
@@ -156,6 +617,16 @@ proseWrap: "always"
       line 2
     "></div>
 
+> in blockquote
+>
+> <unknown title="line 1
+>   line 2
+> "></unknown>
+>
+> <div title="line 1
+>   line 2
+> "></div>
+
 =====================================output=====================================
 <unknown title="line 1
   line 2
@@ -175,6 +646,156 @@ proseWrap: "always"
     <div title="line 1
       line 2
     "></div>
+
+> in blockquote
+>
+> <unknown title="line 1
+>   line 2
+> "></unknown>
+>
+> <div title="line 1
+>   line 2
+> "></div>
+
+================================================================================
+`;
+
+exports[`multiline-attribute.md - {"proseWrap":"never"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "never"
+                                                                                | printWidth
+=====================================input======================================
+<unknown title="line 1
+  line 2
+"></unknown>
+
+<div title="line 1
+  line 2
+"></div>
+
+- In list
+
+  - In list
+
+    <unknown title="line 1
+      line 2
+    "></unknown>
+
+    <div title="line 1
+      line 2
+    "></div>
+
+> in blockquote
+>
+> <unknown title="line 1
+>   line 2
+> "></unknown>
+>
+> <div title="line 1
+>   line 2
+> "></div>
+
+=====================================output=====================================
+<unknown title="line 1
+  line 2
+"></unknown>
+
+<div title="line 1
+  line 2
+"></div>
+
+- In list
+  - In list
+
+    <unknown title="line 1
+      line 2
+    "></unknown>
+
+    <div title="line 1
+      line 2
+    "></div>
+
+> in blockquote
+>
+> <unknown title="line 1
+>   line 2
+> "></unknown>
+>
+> <div title="line 1
+>   line 2
+> "></div>
+
+================================================================================
+`;
+
+exports[`multiline-attribute.md - {"proseWrap":"preserve"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "preserve"
+                                                                                | printWidth
+=====================================input======================================
+<unknown title="line 1
+  line 2
+"></unknown>
+
+<div title="line 1
+  line 2
+"></div>
+
+- In list
+
+  - In list
+
+    <unknown title="line 1
+      line 2
+    "></unknown>
+
+    <div title="line 1
+      line 2
+    "></div>
+
+> in blockquote
+>
+> <unknown title="line 1
+>   line 2
+> "></unknown>
+>
+> <div title="line 1
+>   line 2
+> "></div>
+
+=====================================output=====================================
+<unknown title="line 1
+  line 2
+"></unknown>
+
+<div title="line 1
+  line 2
+"></div>
+
+- In list
+  - In list
+
+    <unknown title="line 1
+      line 2
+    "></unknown>
+
+    <div title="line 1
+      line 2
+    "></div>
+
+> in blockquote
+>
+> <unknown title="line 1
+>   line 2
+> "></unknown>
+>
+> <div title="line 1
+>   line 2
+> "></div>
 
 ================================================================================
 `;
@@ -238,11 +859,155 @@ proseWrap: "always"
 ================================================================================
 `;
 
+exports[`multiline-with-trailing-space.md - {"proseWrap":"never"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "never"
+                                                                                | printWidth
+=====================================input======================================
+1.  Some test text, the goal is to have the html table below nested within this number. When formating on save Prettier will continue to add an indent each time pushing the table further and further out of sync. 
+
+    <table class="table table-striped">
+    <tr>
+    <th>Test</th>
+    <th>Table</th>
+    </tr>
+    <tbody>
+        <tr>
+        <td>will</td>  
+        <td>be</td>
+        </tr>
+        <tr>  
+        <td>pushed</td>  
+        <td>When</td>
+        </tr>  
+        <tr>  
+        <td>Format on</td>  
+        <td>Save</td>  
+        </tr>
+    </tbody>
+    </table>
+
+=====================================output=====================================
+1.  Some test text, the goal is to have the html table below nested within this number. When formating on save Prettier will continue to add an indent each time pushing the table further and further out of sync.
+
+    <table class="table table-striped">
+    <tr>
+    <th>Test</th>
+    <th>Table</th>
+    </tr>
+    <tbody>
+        <tr>
+        <td>will</td>  
+        <td>be</td>
+        </tr>
+        <tr>  
+        <td>pushed</td>  
+        <td>When</td>
+        </tr>  
+        <tr>  
+        <td>Format on</td>  
+        <td>Save</td>  
+        </tr>
+    </tbody>
+    </table>
+
+================================================================================
+`;
+
+exports[`multiline-with-trailing-space.md - {"proseWrap":"preserve"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "preserve"
+                                                                                | printWidth
+=====================================input======================================
+1.  Some test text, the goal is to have the html table below nested within this number. When formating on save Prettier will continue to add an indent each time pushing the table further and further out of sync. 
+
+    <table class="table table-striped">
+    <tr>
+    <th>Test</th>
+    <th>Table</th>
+    </tr>
+    <tbody>
+        <tr>
+        <td>will</td>  
+        <td>be</td>
+        </tr>
+        <tr>  
+        <td>pushed</td>  
+        <td>When</td>
+        </tr>  
+        <tr>  
+        <td>Format on</td>  
+        <td>Save</td>  
+        </tr>
+    </tbody>
+    </table>
+
+=====================================output=====================================
+1.  Some test text, the goal is to have the html table below nested within this number. When formating on save Prettier will continue to add an indent each time pushing the table further and further out of sync.
+
+    <table class="table table-striped">
+    <tr>
+    <th>Test</th>
+    <th>Table</th>
+    </tr>
+    <tbody>
+        <tr>
+        <td>will</td>  
+        <td>be</td>
+        </tr>
+        <tr>  
+        <td>pushed</td>  
+        <td>When</td>
+        </tr>  
+        <tr>  
+        <td>Format on</td>  
+        <td>Save</td>  
+        </tr>
+    </tbody>
+    </table>
+
+================================================================================
+`;
+
 exports[`simple.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
 proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+<!-- hello world -->
+
+=====================================output=====================================
+<!-- hello world -->
+
+================================================================================
+`;
+
+exports[`simple.md - {"proseWrap":"never"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "never"
+                                                                                | printWidth
+=====================================input======================================
+<!-- hello world -->
+
+=====================================output=====================================
+<!-- hello world -->
+
+================================================================================
+`;
+
+exports[`simple.md - {"proseWrap":"preserve"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "preserve"
                                                                                 | printWidth
 =====================================input======================================
 <!-- hello world -->
