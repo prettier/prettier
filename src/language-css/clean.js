@@ -31,7 +31,7 @@ function clean(original, cloned, parent) {
       delete cloned.text;
 
       // standalone pragma
-      if (/^\*\s*@(?:format|prettier)\s*$/u.test(original.text)) {
+      if (/^\*\s*@(?:format|prettier)\s*$/.test(original.text)) {
         return null;
       }
     }
@@ -76,7 +76,7 @@ function clean(original, cloned, parent) {
   }
 
   if (original.type === "selector-combinator") {
-    cloned.value = cloned.value.replaceAll(/\s+/gu, " ");
+    cloned.value = cloned.value.replaceAll(/\s+/g, " ");
   }
 
   if (original.type === "media-feature") {
@@ -105,7 +105,7 @@ function clean(original, cloned, parent) {
     cloned.unit = original.unit.toLowerCase();
   }
   if (original.type === "value-unknown") {
-    cloned.value = cloned.value.replaceAll(/;$/gu, "");
+    cloned.value = cloned.value.replaceAll(/;$/g, "");
   }
 
   if (original.type === "selector-attribute") {
@@ -118,7 +118,7 @@ function clean(original, cloned, parent) {
     if (original.value) {
       let { value } = cloned;
       // Parser only understands the `i` flag
-      if (/\s[a-zA-Z]$/u.test(value)) {
+      if (/\s[a-z]$/i.test(value)) {
         // Add an extra property to make sure flag is preserved
         cloned.__prettier_attribute_selector_flag = value.at(-1);
         value = value.slice(0, -1);
@@ -127,7 +127,7 @@ function clean(original, cloned, parent) {
       value = value.trim();
 
       value = value.replace(
-        /^(?<quote>["'])(?<value>.*?)\k<quote>$/u,
+        /^(?<quote>["'])(?<value>.*?)\k<quote>$/,
         "$<value>",
       );
 
@@ -147,7 +147,7 @@ function clean(original, cloned, parent) {
     original.value
   ) {
     cloned.value = cloned.value.replaceAll(
-      /([\d+.e-]+)([a-z]*)/giu,
+      /([\d+.e-]+)([a-z]*)/gi,
       (match, numStr, unit) => {
         const num = Number(numStr);
         return Number.isNaN(num) ? match : num + unit.toLowerCase();
@@ -220,7 +220,7 @@ function clean(original, cloned, parent) {
 clean.ignoredProperties = ignoredProperties;
 
 function cleanCSSStrings(value) {
-  return value.replaceAll("'", '"').replaceAll(/\\([^\da-f])/giu, "$1");
+  return value.replaceAll("'", '"').replaceAll(/\\([^\da-f])/gi, "$1");
 }
 
 export default clean;

@@ -36,7 +36,7 @@ function clean(original, cloned, parent) {
   }
 
   if (original.type === "wikiLink") {
-    cloned.value = original.value.trim().replaceAll(/[\t\n]+/gu, " ");
+    cloned.value = original.value.trim().replaceAll(/[\t\n]+/g, " ");
   }
 
   if (
@@ -66,7 +66,7 @@ function clean(original, cloned, parent) {
       original.type === "image") &&
     original.title
   ) {
-    cloned.title = original.title.replaceAll(/\\(?=["')])/gu, "");
+    cloned.title = original.title.replaceAll(/\\(?=["')])/g, "");
   }
 
   // for insert pragma

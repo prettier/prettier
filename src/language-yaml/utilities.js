@@ -39,7 +39,7 @@ function isNextLineEmpty(node, text) {
       newlineCount++;
     }
 
-    if (newlineCount === 1 && /\S/u.test(char)) {
+    if (newlineCount === 1 && /\S/.test(char)) {
       return false;
     }
 
@@ -145,7 +145,7 @@ function hasEndComments(node) {
 @param {string} text
 */
 function splitWithSingleSpace(text) {
-  return text ? text.split(/(?<!^| ) (?! |$)/u) : [];
+  return text ? text.split(/(?<!^| ) (?! |$)/) : [];
 }
 
 /**
@@ -207,7 +207,7 @@ function getBlockValueLineContents(
       : options.originalText
           .slice(node.position.start.offset, node.position.end.offset)
           // exclude open line `>` or `|`
-          .match(/^[^\n]*\n(.*)$/su)[1];
+          .match(/^[^\n]*\n(.*)$/s)[1];
 
   if (content === "") {
     return [];
@@ -216,7 +216,7 @@ function getBlockValueLineContents(
   /** @type {number} */
   let leadingSpaceCount;
   if (node.indent === null) {
-    const matches = content.match(/^(?<leadingSpace> *)[^\n\r ]/mu);
+    const matches = content.match(/^(?<leadingSpace> *)[^\n\r ]/m);
     leadingSpaceCount = matches
       ? matches.groups.leadingSpace.length
       : Number.POSITIVE_INFINITY;
@@ -243,11 +243,11 @@ function getBlockValueLineContents(
       index > 0 &&
       words.length > 0 &&
       rawLineContents[index - 1].length > 0 &&
-      !/^\s/u.test(words[0]) &&
+      !/^\s/.test(words[0]) &&
       // This test against a `string[]`, should be a mistake
       // originally introduced in https://github.com/prettier/prettier/pull/4742/files#diff-a4dc2e1922e1d8d5ac20818480f777c9a2d5af739eaa3a0409b08bf29a9d0f74R282
       // @ts-expect-error -- see comment above
-      !/^\s|\s$/u.test(lines.at(-1))
+      !/^\s|\s$/.test(lines.at(-1))
     ) {
       lines[lines.length - 1] = [...lines.at(-1), ...words];
     } else {
@@ -259,7 +259,7 @@ function getBlockValueLineContents(
     const words = [];
     for (const word of originalWords) {
       // disallow trailing spaces
-      if (words.length > 0 && /\s$/u.test(words.at(-1))) {
+      if (words.length > 0 && /\s$/.test(words.at(-1))) {
         words[words.length - 1] += " " + word;
       } else {
         words.push(word);
@@ -286,9 +286,7 @@ function getBlockValueLineContents(
 
     let trailingNewlineCount = 0;
     for (let i = lineContents.length - 1; i >= 0; i--) {
-      if (
-        lineContents[i].every((line) => line.replace(/[ \t]+$/u, "") === "")
-      ) {
+      if (lineContents[i].every((line) => line.replace(/[ \t]+$/, "") === "")) {
         trailingNewlineCount++;
       } else {
         break;

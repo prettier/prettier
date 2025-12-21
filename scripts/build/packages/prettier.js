@@ -99,17 +99,17 @@ const mainModule = {
             );
 
             text = text.replaceAll(
-              /(?<=\n)let tokenize;\n\{\n.*?\n\}(?=\n)/gsu,
+              /(?<=\n)let tokenize;\n\{\n.*?\n\}(?=\n)/gs,
               "",
             );
 
             text = text.replaceAll(
-              /(?<=\n)function highlight\(text\) \{\n.*?\n\}(?=\n)/gsu,
+              /(?<=\n)function highlight\(text\) \{\n.*?\n\}(?=\n)/gs,
               "function highlight(text) {return text}",
             );
 
             text = text.replaceAll(
-              /(?<=\n)function getDefs\(enabled\) \{\n.*?\n\}(?=\n)/gsu,
+              /(?<=\n)function getDefs\(enabled\) \{\n.*?\n\}(?=\n)/gs,
               outdent`
                 function getDefs() {
                   return new Proxy({}, {get: () => (text) => text})
@@ -269,7 +269,7 @@ const pluginFiles = [
         module: require.resolve("@babel/parser"),
         process: (text) =>
           text.replaceAll(
-            /const entity\s?=\s?entities\[desc\];/gu,
+            /const entity\s?=\s?entities\[desc\];/g,
             "const entity = undefined;",
           ),
       },
@@ -360,7 +360,7 @@ const pluginFiles = [
       {
         module: "*",
         process(text, file) {
-          if (/require\(["'](?:typescript|ts-api-utils)["']\)/u.test(text)) {
+          if (/require\(["'](?:typescript|ts-api-utils)["']\)/.test(text)) {
             throw new Error(`Unexpected \`require("typescript")\` in ${file}.`);
           }
 
@@ -476,7 +476,7 @@ const pluginFiles = [
         process(text) {
           const typescriptVariables = [
             ...text.matchAll(
-              /import (?<variable>\w+) from ["']typescript["']/gu,
+              /import (?<variable>\w+) from ["']typescript["']/g,
             ),
           ].map((match) => match.groups.variable);
 
@@ -484,13 +484,13 @@ const pluginFiles = [
           text = text.replaceAll(
             new RegExp(
               String.raw`".*?" in (?:${typescriptVariables.join("|")})(?=\W)`,
-              "gu",
+              "g",
             ),
             "true",
           );
 
           text = text.replaceAll(
-            /(?<=import )(?=\w+ from ["']typescript["'])/gu,
+            /(?<=import )(?=\w+ from ["']typescript["'])/g,
             "* as ",
           );
 
@@ -601,10 +601,10 @@ const pluginFiles = [
           );
           text = text.replace("const _visitor = new _Visitor$2()", "");
           text = text.replaceAll(
-            /const (.*?) = new BuiltinType\(BuiltinTypeName\..*?\);/gu,
+            /const (.*?) = new BuiltinType\(BuiltinTypeName\..*?\);/g,
             "const $1 = undefined;",
           );
-          text = text.replaceAll(/var output_ast =.*?;\n/gsu, "var output_ast");
+          text = text.replaceAll(/var output_ast =.*?;\n/gs, "var output_ast");
 
           text = text.replace(
             "const serializer = new IcuSerializerVisitor();",
@@ -616,62 +616,62 @@ const pluginFiles = [
           );
 
           text = text.replaceAll(
-            /function transformExpressionsInExpression\(.*?\n.*?\n\}\n/gsu,
+            /function transformExpressionsInExpression\(.*?\n.*?\n\}\n/gs,
             "function transformExpressionsInExpression(){}",
           );
 
           text = text.replaceAll(
-            /const deferTriggerToR3TriggerInstructionsMap = new Map\(\[\n.*?\n\]\);\n/gsu,
+            /const deferTriggerToR3TriggerInstructionsMap = new Map\(\[\n.*?\n\]\);\n/gs,
             "const deferTriggerToR3TriggerInstructionsMap = undefined;",
           );
 
           text = text.replaceAll(
-            /const BINARY_OPERATORS = new Map\(\[\n.*?\n\]\);\n/gsu,
+            /const BINARY_OPERATORS = new Map\(\[\n.*?\n\]\);\n/gs,
             "const BINARY_OPERATORS = undefined;",
           );
 
           text = text.replaceAll(
-            /const PIPE_BINDINGS = \[\n.*?\n\];\n/gsu,
+            /const PIPE_BINDINGS = \[\n.*?\n\];\n/gs,
             "const PIPE_BINDINGS = undefined;",
           );
 
           text = text.replaceAll(
-            /const TEXT_INTERPOLATE_CONFIG = \{\n.*?\n\};\n/gsu,
+            /const TEXT_INTERPOLATE_CONFIG = \{\n.*?\n\};\n/gs,
             "const TEXT_INTERPOLATE_CONFIG = undefined;",
           );
 
           text = text.replaceAll(
-            /const CHAINABLE = new Set\(\[\n.*?\n\]\);\n/gsu,
+            /const CHAINABLE = new Set\(\[\n.*?\n\]\);\n/gs,
             "const CHAINABLE = undefined;",
           );
 
           text = text.replaceAll(
-            /const PROPERTY_INTERPOLATE_CONFIG = \{\n.*?\n\};\n/gsu,
+            /const PROPERTY_INTERPOLATE_CONFIG = \{\n.*?\n\};\n/gs,
             "const PROPERTY_INTERPOLATE_CONFIG = undefined;",
           );
           text = text.replaceAll(
-            /const STYLE_PROP_INTERPOLATE_CONFIG = \{\n.*?\n\};\n/gsu,
+            /const STYLE_PROP_INTERPOLATE_CONFIG = \{\n.*?\n\};\n/gs,
             "const STYLE_PROP_INTERPOLATE_CONFIG = undefined;",
           );
 
           text = text.replaceAll(
-            /const ATTRIBUTE_INTERPOLATE_CONFIG = \{\n.*?\n\};\n/gsu,
+            /const ATTRIBUTE_INTERPOLATE_CONFIG = \{\n.*?\n\};\n/gs,
             "const ATTRIBUTE_INTERPOLATE_CONFIG = undefined;",
           );
           text = text.replaceAll(
-            /const STYLE_MAP_INTERPOLATE_CONFIG = \{\n.*?\n\};\n/gsu,
+            /const STYLE_MAP_INTERPOLATE_CONFIG = \{\n.*?\n\};\n/gs,
             "const STYLE_MAP_INTERPOLATE_CONFIG = undefined;",
           );
           text = text.replaceAll(
-            /const CLASS_MAP_INTERPOLATE_CONFIG = \{\n.*?\n\};\n/gsu,
+            /const CLASS_MAP_INTERPOLATE_CONFIG = \{\n.*?\n\};\n/gs,
             "const CLASS_MAP_INTERPOLATE_CONFIG = undefined;",
           );
           text = text.replaceAll(
-            /const PURE_FUNCTION_CONFIG = \{\n.*?\n\};\n/gsu,
+            /const PURE_FUNCTION_CONFIG = \{\n.*?\n\};\n/gs,
             "const PURE_FUNCTION_CONFIG = undefined;",
           );
           text = text.replaceAll(
-            /const NAMED_ENTITIES = \{\n.*?\n\};\n/gsu,
+            /const NAMED_ENTITIES = \{\n.*?\n\};\n/gs,
             "const NAMED_ENTITIES = {};",
           );
 
@@ -749,15 +749,15 @@ const pluginFiles = [
           );
 
           // This passed to plugins, our plugin don't need access to the options
-          text = text.replace(/(?<=\sconst syntax = )\{.*?\n\}(?=;\n)/su, "{}");
+          text = text.replace(/(?<=\sconst syntax = )\{.*?\n\}(?=;\n)/s, "{}");
 
           text = text.replaceAll(
-            /\sclass \S+ extends[(\s]+node\(.*?\).*?\{(?:\n.*?\n)?\}\n/gsu,
+            /\sclass \S+ extends[(\s]+node\(.*?\).*?\{(?:\n.*?\n)?\}\n/gs,
             "\n",
           );
 
           text = text.replaceAll(
-            /\nvar api\S* = \s*(?:\/\*#__PURE__\*\/)?\s*Object\.freeze\(\{.*?\n\}\);/gsu,
+            /\nvar api\S* = \s*(?:\/\*#__PURE__\*\/)?\s*Object\.freeze\(\{.*?\n\}\);/gs,
             "",
           );
 
@@ -777,7 +777,7 @@ const pluginFiles = [
           );
 
           text = text.replace(
-            /(?<=\n)export .*?;/u,
+            /(?<=\n)export .*?;/,
             "export { preprocess, getVoidTags, visitorKeys };",
           );
 
@@ -801,7 +801,7 @@ function createPluginModule(file) {
 
   const { input, ...buildOptions } = file;
   const { pluginName } = input.match(
-    /\/plugins\/(?<pluginName>.*?)\.js$/u,
+    /\/plugins\/(?<pluginName>.*?)\.js$/,
   ).groups;
 
   const umdVariableName = `prettierPlugins.${pluginName}`;

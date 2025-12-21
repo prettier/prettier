@@ -29,7 +29,7 @@ function clean(original, cloned /* , parent */) {
       if (original.chomping === "keep") {
         cloned.value = original.value
           .split("\n")
-          .map((line) => line.replace(/[ \t]+$/u, ""))
+          .map((line) => line.replace(/[ \t]+$/, ""))
           .join("\n");
       }
       break;

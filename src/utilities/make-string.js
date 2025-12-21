@@ -4,7 +4,7 @@ import { DOUBLE_QUOTE, SINGLE_QUOTE } from "./get-preferred-quote.js";
 
 // Matches _any_ escape and unescaped quotes (both single and double).
 // Matching `\` in first group, so we won't treat `\\"` as escaped quote.
-const REGEX = /\\(["'\\])|(["'])/gu;
+const REGEX = /\\(["'\\])|(["'])/g;
 
 /**
  * @param {string} rawText

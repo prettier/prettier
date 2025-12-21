@@ -48,7 +48,7 @@ export function getEntries(dirPath, options) {
     const filePath = path.join(dirPath, fileName);
     let [title, ...rest] = fs.readFileSync(filePath, "utf8").trim().split("\n");
 
-    const improvement = title.match(/\[IMPROVEMENT(:(\d+))?\]/u);
+    const improvement = title.match(/\[IMPROVEMENT(:(\d+))?\]/);
 
     const section = title.includes("[HIGHLIGHT]")
       ? "highlight"
@@ -100,11 +100,11 @@ export function replaceVersions(data, prevVer, newVer, isPatch = false) {
 
   return data
     .replaceAll(
-      /prettier stable/giu,
+      /prettier stable/gi,
       `Prettier ${isPatch ? prevVer : formatVersion(prevVer)}`,
     )
     .replaceAll(
-      /prettier main/giu,
+      /prettier main/gi,
       `Prettier ${isPatch ? newVer : formatVersion(newVer)}`,
     );
 }
@@ -115,12 +115,12 @@ function formatVersion(version) {
 
 function processTitle(title) {
   return title
-    .replaceAll(/\[(BREAKING|HIGHLIGHT|IMPROVEMENT(:\d+)?)\]/gu, "")
-    .replaceAll(/\s+/gu, " ")
-    .replace(/^#{4} [a-z]/u, (s) => s.toUpperCase())
-    .replaceAll(/(?<![[`])@([\w-]+)/gu, "[@$1](https://github.com/$1)")
+    .replaceAll(/\[(BREAKING|HIGHLIGHT|IMPROVEMENT(:\d+)?)\]/g, "")
+    .replaceAll(/\s+/g, " ")
+    .replace(/^#{4} [a-z]/, (s) => s.toUpperCase())
+    .replaceAll(/(?<![[`])@([\w-]+)/g, "[@$1](https://github.com/$1)")
     .replaceAll(
-      /(?<![[`])#(\d{4,})/gu,
+      /(?<![[`])#(\d{4,})/g,
       "[#$1](https://github.com/prettier/prettier/pull/$1)",
     );
 }

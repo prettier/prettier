@@ -123,7 +123,7 @@ function augmentOption(option) {
   option.cliName =
     "--" +
     (option.inverted ? "no-" : "") +
-    option.name.replaceAll(/(?<=[a-z])(?=[A-Z])/gu, "-").toLowerCase();
+    option.name.replaceAll(/(?<=[a-z])(?=[A-Z])/g, "-").toLowerCase();
 
   return option;
 }

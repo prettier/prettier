@@ -13,12 +13,11 @@ for (const size of [1, 1e1, 1e2]) {
     },
     {
       loop: () => trimIndentation(text).text,
-      "RegExp (inline)": () => text.replace(/[ \t]*$/u, ""),
+      "RegExp (inline)": () => text.replace(/[ \t]*$/, ""),
       "RegExp (stored)": (
         (regexp) => () =>
           text.replace(regexp, "")
-      )(/[ \t]*$/gu),
-      "RegExp (no `u` flag)": () => text.replace(/[ \t]*$/, ""),
+      )(/[ \t]*$/g),
     },
   );
 }

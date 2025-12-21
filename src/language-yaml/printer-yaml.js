@@ -266,7 +266,7 @@ function printNode(path, options, print) {
 
       if (
         (node.type === "quoteSingle" && raw.includes("\\")) ||
-        (node.type === "quoteDouble" && /\\[^"]/u.test(raw))
+        (node.type === "quoteDouble" && /\\[^"]/.test(raw))
       ) {
         // only quoteDouble can use escape chars
         // and quoteSingle do not need to escape backslashes

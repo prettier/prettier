@@ -44,11 +44,11 @@ export default function llmsTxtPlugin(context) {
             let title = entry.name.replace(".md", "");
             let description = "";
 
-            const frontmatterMatch = content.match(/^---\n(.*?)\n---/su);
+            const frontmatterMatch = content.match(/^---\n(.*?)\n---/s);
             if (frontmatterMatch) {
-              const titleMatch = frontmatterMatch[1].match(/title:\s*(.+)/u);
+              const titleMatch = frontmatterMatch[1].match(/title:\s*(.+)/);
               const descriptionMatch =
-                frontmatterMatch[1].match(/description:\s*(.+)/u);
+                frontmatterMatch[1].match(/description:\s*(.+)/);
 
               if (titleMatch) {
                 title = titleMatch[1].trim();

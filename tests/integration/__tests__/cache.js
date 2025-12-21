@@ -114,7 +114,7 @@ describe("--cache option", () => {
     ]);
     expect(stderr.trim()).toEqual(
       expect.stringMatching(
-        /\[error\] Resolved --cache-location '.+' is a directory/u,
+        /\[error\] Resolved --cache-location '.+' is a directory/,
       ),
     );
   });
@@ -144,8 +144,8 @@ describe("--cache option", () => {
       ]);
       expect(firstStdout.split("\n")).toEqual(
         expect.arrayContaining([
-          expect.stringMatching(/^a\.js .+ms$/u),
-          expect.stringMatching(/^b\.js .+ms \(unchanged\)$/u),
+          expect.stringMatching(/^a\.js .+ms$/),
+          expect.stringMatching(/^b\.js .+ms \(unchanged\)$/),
         ]),
       );
 
@@ -158,8 +158,8 @@ describe("--cache option", () => {
       ]);
       expect(secondStdout.split("\n")).toEqual(
         expect.arrayContaining([
-          expect.stringMatching(/^a\.js .+ms \(unchanged\) \(cached\)$/u),
-          expect.stringMatching(/^b\.js .+ms \(unchanged\) \(cached\)$/u),
+          expect.stringMatching(/^a\.js .+ms \(unchanged\) \(cached\)$/),
+          expect.stringMatching(/^b\.js .+ms \(unchanged\) \(cached\)$/),
         ]),
       );
     });
@@ -178,8 +178,8 @@ describe("--cache option", () => {
       );
       expect(firstStdout.split("\n")).toEqual(
         expect.arrayContaining([
-          expect.stringMatching(/^a\.js .+ms$/u),
-          expect.stringMatching(/^b\.js .+ms \(unchanged\)$/u),
+          expect.stringMatching(/^a\.js .+ms$/),
+          expect.stringMatching(/^b\.js .+ms \(unchanged\)$/),
         ]),
       );
 
@@ -193,8 +193,8 @@ describe("--cache option", () => {
       expect(secondStdout.split("\n")).toEqual(
         // the cache of `b.js` is only available.
         expect.arrayContaining([
-          expect.stringMatching(/^a\.js .+ms$/u),
-          expect.stringMatching(/^b\.js .+ms \(unchanged\) \(cached\)$/u),
+          expect.stringMatching(/^a\.js .+ms$/),
+          expect.stringMatching(/^b\.js .+ms \(unchanged\) \(cached\)$/),
         ]),
       );
     });
@@ -213,8 +213,8 @@ describe("--cache option", () => {
       );
       expect(firstStdout.split("\n")).toEqual(
         expect.arrayContaining([
-          expect.stringMatching(/^a\.js .+ms$/u),
-          expect.stringMatching(/^b\.js .+ms \(unchanged\)$/u),
+          expect.stringMatching(/^a\.js .+ms$/),
+          expect.stringMatching(/^b\.js .+ms \(unchanged\)$/),
         ]),
       );
 
@@ -229,8 +229,8 @@ describe("--cache option", () => {
       expect(secondStdout.split("\n")).toEqual(
         // the cache of `b.js` is only available.
         expect.arrayContaining([
-          expect.stringMatching(/^a\.js .+ms$/u),
-          expect.stringMatching(/^b\.js .+ms \(unchanged\) \(cached\)$/u),
+          expect.stringMatching(/^a\.js .+ms$/),
+          expect.stringMatching(/^b\.js .+ms \(unchanged\) \(cached\)$/),
         ]),
       );
     });
@@ -245,8 +245,8 @@ describe("--cache option", () => {
       ]);
       expect(firstStdout.split("\n")).toEqual(
         expect.arrayContaining([
-          expect.stringMatching(/^a\.js .+ms$/u),
-          expect.stringMatching(/^b\.js .+ms \(unchanged\)$/u),
+          expect.stringMatching(/^a\.js .+ms$/),
+          expect.stringMatching(/^b\.js .+ms \(unchanged\)$/),
         ]),
       );
 
@@ -261,8 +261,8 @@ describe("--cache option", () => {
       ]);
       expect(secondStdout.split("\n")).toEqual(
         expect.arrayContaining([
-          expect.stringMatching(/^a\.js .+ms$/u),
-          expect.stringMatching(/^b\.js .+ms \(unchanged\)$/u),
+          expect.stringMatching(/^a\.js .+ms$/),
+          expect.stringMatching(/^b\.js .+ms \(unchanged\)$/),
         ]),
       );
     });
@@ -284,8 +284,8 @@ describe("--cache option", () => {
       ]);
       expect(secondStdout.split("\n")).toEqual(
         expect.arrayContaining([
-          expect.stringMatching(/^a\.js .+ms$/u),
-          expect.stringMatching(/^b\.js .+ms \(unchanged\) \(cached\)$/u),
+          expect.stringMatching(/^a\.js .+ms$/),
+          expect.stringMatching(/^b\.js .+ms \(unchanged\) \(cached\)$/),
         ]),
       );
     });
@@ -320,8 +320,8 @@ describe("--cache option", () => {
       );
       expect(thirdStdout.split("\n")).toEqual(
         expect.arrayContaining([
-          expect.stringMatching(/^a\.js .+ms$/u),
-          expect.stringMatching(/^b\.js .+ms \(unchanged\) \(cached\)$/u),
+          expect.stringMatching(/^a\.js .+ms$/),
+          expect.stringMatching(/^b\.js .+ms \(unchanged\) \(cached\)$/),
         ]),
       );
     });
@@ -347,8 +347,8 @@ describe("--cache option", () => {
       );
       expect(firstStdout.split("\n")).toEqual(
         expect.arrayContaining([
-          expect.stringMatching(/^a\.js .+ms$/u),
-          expect.stringMatching(/^b\.js .+ms \(unchanged\)$/u),
+          expect.stringMatching(/^a\.js .+ms$/),
+          expect.stringMatching(/^b\.js .+ms \(unchanged\)$/),
         ]),
       );
 
@@ -405,8 +405,8 @@ describe("--cache option", () => {
       );
       expect(firstStdout.split("\n")).toEqual(
         expect.arrayContaining([
-          expect.stringMatching(/^a\.js .+ms$/u),
-          expect.stringMatching(/^b\.js .+ms \(unchanged\)$/u),
+          expect.stringMatching(/^a\.js .+ms$/),
+          expect.stringMatching(/^b\.js .+ms \(unchanged\)$/),
         ]),
       );
 
@@ -416,8 +416,8 @@ describe("--cache option", () => {
       );
       expect(secondStdout.split("\n")).toEqual(
         expect.arrayContaining([
-          expect.stringMatching(/^a\.js .+ms \(unchanged\) \(cached\)$/u),
-          expect.stringMatching(/^b\.js .+ms \(unchanged\) \(cached\)$/u),
+          expect.stringMatching(/^a\.js .+ms \(unchanged\) \(cached\)$/),
+          expect.stringMatching(/^b\.js .+ms \(unchanged\) \(cached\)$/),
         ]),
       );
     });
@@ -436,8 +436,8 @@ describe("--cache option", () => {
       );
       expect(firstStdout.split("\n")).toEqual(
         expect.arrayContaining([
-          expect.stringMatching(/^a\.js .+ms$/u),
-          expect.stringMatching(/^b\.js .+ms \(unchanged\)$/u),
+          expect.stringMatching(/^a\.js .+ms$/),
+          expect.stringMatching(/^b\.js .+ms \(unchanged\)$/),
         ]),
       );
 
@@ -451,8 +451,8 @@ describe("--cache option", () => {
       expect(secondStdout.split("\n")).toEqual(
         // the cache of `b.js` is only available.
         expect.arrayContaining([
-          expect.stringMatching(/^a\.js .+ms$/u),
-          expect.stringMatching(/^b\.js .+ms \(unchanged\) \(cached\)$/u),
+          expect.stringMatching(/^a\.js .+ms$/),
+          expect.stringMatching(/^b\.js .+ms \(unchanged\) \(cached\)$/),
         ]),
       );
     });
@@ -471,8 +471,8 @@ describe("--cache option", () => {
       );
       expect(firstStdout.split("\n")).toEqual(
         expect.arrayContaining([
-          expect.stringMatching(/^a\.js .+ms$/u),
-          expect.stringMatching(/^b\.js .+ms \(unchanged\)$/u),
+          expect.stringMatching(/^a\.js .+ms$/),
+          expect.stringMatching(/^b\.js .+ms \(unchanged\)$/),
         ]),
       );
 
@@ -486,8 +486,8 @@ describe("--cache option", () => {
       );
       expect(secondStdout.split("\n")).toEqual(
         expect.arrayContaining([
-          expect.stringMatching(/^a\.js .+ms \(unchanged\) \(cached\)$/u),
-          expect.stringMatching(/^b\.js .+ms \(unchanged\) \(cached\)$/u),
+          expect.stringMatching(/^a\.js .+ms \(unchanged\) \(cached\)$/),
+          expect.stringMatching(/^b\.js .+ms \(unchanged\) \(cached\)$/),
         ]),
       );
     });
@@ -502,8 +502,8 @@ describe("--cache option", () => {
       ]);
       expect(firstStdout.split("\n")).toEqual(
         expect.arrayContaining([
-          expect.stringMatching(/^a\.js .+ms$/u),
-          expect.stringMatching(/^b\.js .+ms \(unchanged\)$/u),
+          expect.stringMatching(/^a\.js .+ms$/),
+          expect.stringMatching(/^b\.js .+ms \(unchanged\)$/),
         ]),
       );
 
@@ -518,8 +518,8 @@ describe("--cache option", () => {
       ]);
       expect(secondStdout.split("\n")).toEqual(
         expect.arrayContaining([
-          expect.stringMatching(/^a\.js .+ms$/u),
-          expect.stringMatching(/^b\.js .+ms \(unchanged\)$/u),
+          expect.stringMatching(/^a\.js .+ms$/),
+          expect.stringMatching(/^b\.js .+ms \(unchanged\)$/),
         ]),
       );
     });
@@ -541,8 +541,8 @@ describe("--cache option", () => {
       ]);
       expect(secondStdout.split("\n")).toEqual(
         expect.arrayContaining([
-          expect.stringMatching(/^a\.js .+ms$/u),
-          expect.stringMatching(/^b\.js .+ms \(unchanged\) \(cached\)$/u),
+          expect.stringMatching(/^a\.js .+ms$/),
+          expect.stringMatching(/^b\.js .+ms \(unchanged\) \(cached\)$/),
         ]),
       );
     });
@@ -577,8 +577,8 @@ describe("--cache option", () => {
       );
       expect(thirdStdout.split("\n")).toEqual(
         expect.arrayContaining([
-          expect.stringMatching(/^a\.js .+ms$/u),
-          expect.stringMatching(/^b\.js .+ms \(unchanged\) \(cached\)$/u),
+          expect.stringMatching(/^a\.js .+ms$/),
+          expect.stringMatching(/^b\.js .+ms \(unchanged\) \(cached\)$/),
         ]),
       );
     });
@@ -604,8 +604,8 @@ describe("--cache option", () => {
       );
       expect(firstStdout.split("\n")).toEqual(
         expect.arrayContaining([
-          expect.stringMatching(/^a\.js .+ms$/u),
-          expect.stringMatching(/^b\.js .+ms \(unchanged\)$/u),
+          expect.stringMatching(/^a\.js .+ms$/),
+          expect.stringMatching(/^b\.js .+ms \(unchanged\)$/),
         ]),
       );
 
@@ -653,7 +653,7 @@ describe("--cache option", () => {
         "*.js",
       ]);
       expect(stderr.trim()).toEqual(
-        expect.stringMatching(/\[error\] '.+' isn't a valid JSON file/u),
+        expect.stringMatching(/\[error\] '.+' isn't a valid JSON file/),
       );
     });
 
@@ -686,8 +686,8 @@ describe("--cache option", () => {
         );
         expect(firstStdout.split("\n")).toEqual(
           expect.arrayContaining([
-            expect.stringMatching(/^a\.js .+ms$/u),
-            expect.stringMatching(/^b\.js .+ms \(unchanged\)$/u),
+            expect.stringMatching(/^a\.js .+ms$/),
+            expect.stringMatching(/^b\.js .+ms \(unchanged\)$/),
           ]),
         );
 
@@ -697,8 +697,8 @@ describe("--cache option", () => {
         );
         expect(secondStdout.split("\n")).toEqual(
           expect.arrayContaining([
-            expect.stringMatching(/^a\.js .+ms \(unchanged\) \(cached\)$/u),
-            expect.stringMatching(/^b\.js .+ms \(unchanged\) \(cached\)$/u),
+            expect.stringMatching(/^a\.js .+ms \(unchanged\) \(cached\)$/),
+            expect.stringMatching(/^b\.js .+ms \(unchanged\) \(cached\)$/),
           ]),
         );
       });
