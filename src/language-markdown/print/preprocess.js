@@ -2,7 +2,7 @@ import htmlWhitespace from "../../utilities/html-whitespace.js";
 import { getOrderedListItemInfo, mapAst, splitText } from "../utilities.js";
 
 // 0x0 ~ 0x10ffff
-const isSingleCharRegex = /^\\?.$/s;
+const isSingleCharRegex = /^\\?.$/su;
 const isNewLineBlockquoteRegex = /^\n *>[ >]*$/;
 
 function preprocess(ast, options) {
