@@ -48,4 +48,4 @@ async function parse(text /* , options*/) {
   return postprocess(ast, { text, parser: "hermes" });
 }
 
-export const hermes = createParser(parse);
+export const hermes = /* @__PURE__ */ createParser(parse);

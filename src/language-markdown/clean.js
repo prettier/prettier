@@ -70,7 +70,7 @@ function clean(original, cloned, parent) {
       original.type === "image") &&
     original.title
   ) {
-    cloned.title = original.title.replaceAll(/\\(?=["')])/gu, "");
+    cloned.title = original.title.replaceAll(/\\(?=["')])/g, "");
   }
 
   // for insert pragma

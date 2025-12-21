@@ -37,6 +37,7 @@ import {
   insideAtRuleNode,
   insideIcssRuleNode,
   insideValueFunctionNode,
+  isAtWordPlaceholderNode,
   isDetachedRulesetCallNode,
   isDetachedRulesetDeclarationNode,
   isKeyframeAtRuleKeywords,
@@ -109,8 +110,9 @@ function genericPrint(path, options, print) {
       const { between: rawBetween } = node.raws;
       const trimmedBetween = rawBetween.trim();
       const isColon = trimmedBetween === ":";
+      const hasSpaceAfterColon = rawBetween.endsWith(" ") && isColon;
       const isValueAllSpace =
-        typeof node.value === "string" && /^ *$/u.test(node.value);
+        typeof node.value === "string" && /^ *$/.test(node.value);
       let value = typeof node.value === "string" ? node.value : print("value");
 
       value = hasComposesNode(node) ? removeLines(value) : value;
@@ -124,7 +126,7 @@ function genericPrint(path, options, print) {
       }
 
       return [
-        node.raws.before.replaceAll(/[\s;]/gu, ""),
+        node.raws.before.replaceAll(/[\s;]/g, ""),
         // Less variable
         (parentNode.type === "css-atrule" && parentNode.variable) ||
         insideIcssRuleNode(path)
@@ -132,30 +134,39 @@ function genericPrint(path, options, print) {
           : maybeToLowerCase(node.prop),
         trimmedBetween.startsWith("//") ? " " : "",
         trimmedBetween,
-        node.extend || isValueAllSpace ? "" : " ",
+        node.extend ||
+        isValueAllSpace ||
+        (!hasSpaceAfterColon &&
+          node.isNested &&
+          (isAtWordPlaceholderNode(node.value.group.group) ||
+            isAtWordPlaceholderNode(node.value.group.group.groups?.[0])))
+          ? ""
+          : " ",
         options.parser === "less" && node.extend && node.selector
           ? ["extend(", print("selector"), ")"]
           : "",
         value,
         node.raws.important
-          ? node.raws.important.replace(/\s*!\s*important/iu, " !important")
+          ? node.raws.important.replace(/\s*!\s*important/i, " !important")
           : node.important
             ? " !important"
             : "",
         node.raws.scssDefault
-          ? node.raws.scssDefault.replace(/\s*!default/iu, " !default")
+          ? node.raws.scssDefault.replace(/\s*!default/i, " !default")
           : node.scssDefault
             ? " !default"
             : "",
         node.raws.scssGlobal
-          ? node.raws.scssGlobal.replace(/\s*!global/iu, " !global")
+          ? node.raws.scssGlobal.replace(/\s*!global/i, " !global")
           : node.scssGlobal
             ? " !global"
             : "",
         node.nodes
           ? [
               " {",
-              indent([softline, printSequence(path, options, print)]),
+              node.nodes.length > 0
+                ? indent([softline, printSequence(path, options, print)])
+                : "",
               softline,
               "}",
             ]
@@ -202,10 +213,9 @@ function genericPrint(path, options, print) {
             node.nodes
               ? [
                   "{",
-                  indent([
-                    node.nodes.length > 0 ? softline : "",
-                    printSequence(path, options, print),
-                  ]),
+                  node.nodes.length > 0
+                    ? indent([softline, printSequence(path, options, print)])
+                    : "",
                   softline,
                   "}",
                 ]
@@ -238,9 +248,9 @@ function genericPrint(path, options, print) {
                     ? ""
                     : node.name.endsWith(":")
                       ? " "
-                      : /^\s*\n\s*\n/u.test(node.raws.afterName)
+                      : /^\s*\n\s*\n/.test(node.raws.afterName)
                         ? [hardline, hardline]
-                        : /^\s*\n/u.test(node.raws.afterName)
+                        : /^\s*\n/.test(node.raws.afterName)
                           ? hardline
                           : " "
                   : " ",
@@ -275,10 +285,9 @@ function genericPrint(path, options, print) {
                   ? line
                   : " ",
               "{",
-              indent([
-                node.nodes.length > 0 ? softline : "",
-                printSequence(path, options, print),
-              ]),
+              node.nodes.length > 0
+                ? indent([softline, printSequence(path, options, print)])
+                : "",
               softline,
               "}",
             ]
@@ -314,7 +323,7 @@ function genericPrint(path, options, print) {
 
     case "media-feature":
       return maybeToLowerCase(
-        adjustStrings(node.value.replaceAll(/ +/gu, " "), options),
+        adjustStrings(node.value.replaceAll(/ +/g, " "), options),
       );
 
     case "media-colon":
@@ -328,9 +337,7 @@ function genericPrint(path, options, print) {
 
     case "media-url":
       return adjustStrings(
-        node.value
-          .replaceAll(/^url\(\s+/giu, "url(")
-          .replaceAll(/\s+\)$/gu, ")"),
+        node.value.replaceAll(/^url\(\s+/gi, "url(").replaceAll(/\s+\)$/g, ")"),
         options,
       );
 

@@ -33,13 +33,13 @@ function getInterpreter(file) {
   }
 
   // #!/bin/env node, #!/usr/bin/env node
-  const m1 = firstLine.match(/^#!\/(?:usr\/)?bin\/env\s+(\S+)/u);
+  const m1 = firstLine.match(/^#!\/(?:usr\/)?bin\/env\s+(\S+)/);
   if (m1) {
     return m1[1];
   }
 
   // #!/bin/node, #!/usr/bin/node, #!/usr/local/bin/node
-  const m2 = firstLine.match(/^#!\/(?:usr\/(?:local\/)?)?bin\/(\S+)/u);
+  const m2 = firstLine.match(/^#!\/(?:usr\/(?:local\/)?)?bin\/(\S+)/);
   if (m2) {
     return m2[1];
   }

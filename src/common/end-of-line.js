@@ -40,9 +40,9 @@ function convertEndOfLineOptionToCharacter(endOfLineOption) {
 }
 
 const regexps = new Map([
-  [CHARACTER_LF, /\n/gu],
-  [CHARACTER_CR, /\r/gu],
-  [CHARACTER_CRLF, /\r\n/gu],
+  [CHARACTER_LF, /\n/g],
+  [CHARACTER_CR, /\r/g],
+  [CHARACTER_CRLF, /\r\n/g],
 ]);
 /**
 @param {string} text
@@ -63,7 +63,7 @@ function countEndOfLineCharacters(text, endOfLineCharacter) {
   return text.match(regex)?.length ?? 0;
 }
 
-const END_OF_LINE_REGEXP = /\r\n?/gu;
+const END_OF_LINE_REGEXP = /\r\n?/g;
 /**
 @param {string} text
 @returns {string}

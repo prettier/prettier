@@ -7,7 +7,7 @@ async function getNpmDependentsCount() {
     fetchText("https://www.npmjs.com/package/prettier"),
   );
   const dependentsCountNpm = Number(
-    npmPage.match(/"dependentsCount":"(?<dependentsCount>\d+)",/u).groups
+    npmPage.match(/"dependentsCount":"(?<dependentsCount>\d+)",/).groups
       .dependentsCount,
   );
   if (Number.isNaN(dependentsCountNpm)) {
@@ -28,7 +28,7 @@ async function getGithubDependentsCount() {
     githubPage
       .replaceAll("\n", "")
       .match(
-        /<svg.*?octicon-code-square.*?>.*?<\/svg>\s*(?<dependentsCount>[\d,]+)\s*Repositories\s*<\/a>/u,
+        /<svg.*?octicon-code-square.*?>.*?<\/svg>\s*(?<dependentsCount>[\d,]+)\s*Repositories\s*<\/a>/,
       )
       .groups.dependentsCount.replaceAll(",", ""),
   );
@@ -54,14 +54,14 @@ async function update({ repo }) {
     processFile("website/src/pages/index.jsx", (content) => {
       if (dependentsCountNpm) {
         content = content.replace(
-          /(<strong data-placeholder="dependent-npm">)(.*?)(<\/strong>)/u,
+          /(<strong data-placeholder="dependent-npm">)(.*?)(<\/strong>)/,
           `$1${formatNumber(dependentsCountNpm)}$3`,
         );
       }
 
       if (dependentsCountGithub) {
         content = content.replace(
-          /(<strong data-placeholder="dependent-github">)(.*?)(<\/strong>)/u,
+          /(<strong data-placeholder="dependent-github">)(.*?)(<\/strong>)/,
           `$1${formatNumber(dependentsCountGithub)}$3`,
         );
       }

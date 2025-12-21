@@ -7,7 +7,7 @@ import {
 } from "get-east-asian-width";
 import narrowEmojis from "./narrow-emojis.evaluate.js";
 
-const notAsciiRegex = /[^\x20-\x7F]/u;
+const notAsciiRegex = /[^\x20-\x7F]/;
 const narrowEmojisSet = new Set(narrowEmojis);
 
 // Similar to https://github.com/sindresorhus/string-width

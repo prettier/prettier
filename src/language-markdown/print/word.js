@@ -141,7 +141,7 @@ function printWordLegacy(path) {
       ))
   ) {
     // backslash is parsed as part of autolinks, so we need to remove it
-    escapedValue = escapedValue.replace(/^(\\?[*_])+/u, (prefix) =>
+    escapedValue = escapedValue.replace(/^(\\?[*_])+/, (prefix) =>
       prefix.replaceAll("\\", ""),
     );
   }

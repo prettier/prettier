@@ -71,7 +71,7 @@ function getFrontMatter(text) {
   const frontMatterEndIndex = endDelimiterIndex + 1 + DELIMITER_LENGTH;
 
   const nextCharacter = text.charAt(frontMatterEndIndex + 1);
-  if (!/\s?/u.test(nextCharacter)) {
+  if (!/\s?/.test(nextCharacter)) {
     return;
   }
 

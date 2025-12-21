@@ -55,4 +55,4 @@ function parse(text, options) {
   return postprocess(ast, { parser: "espree", text });
 }
 
-export const espree = createParser(parse);
+export const espree = /* @__PURE__ */ createParser(parse);

@@ -44,7 +44,7 @@ function createParseError(error) {
 
   const { line, column } = loc;
 
-  return createError(message.replace(/ \(\d+:\d+\)$/u, ""), {
+  return createError(message.replace(/ \(\d+:\d+\)$/, ""), {
     loc: {
       start: { line, column: column + 1 },
     },
@@ -99,4 +99,4 @@ function parse(text, options) {
   return postprocess(ast, { text });
 }
 
-export const acorn = createParser(parse);
+export const acorn = /* @__PURE__ */ createParser(parse);

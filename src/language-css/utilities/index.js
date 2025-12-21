@@ -123,8 +123,8 @@ function isDetachedRulesetDeclarationNode(node) {
   }
 
   return (
-    (typeof selector === "string" && /^@.+:.*$/u.test(selector)) ||
-    (selector.value && /^@.+:.*$/u.test(selector.value))
+    (typeof selector === "string" && /^@.+:.*$/.test(selector)) ||
+    (selector.value && /^@.+:.*$/.test(selector.value))
   );
 }
 
@@ -194,7 +194,7 @@ function isSCSSControlDirectiveNode(node, options) {
 }
 
 function isDetachedRulesetCallNode(node) {
-  return node.raws?.params && /^\(\s*\)$/u.test(node.raws.params);
+  return node.raws?.params && /^\(\s*\)$/.test(node.raws.params);
 }
 
 function isTemplatePlaceholderNode(node) {
@@ -258,6 +258,18 @@ function isSCSSMapItemNode(path, options) {
 
   // Ignore empty item (i.e. `$key: ()`)
   if (node.groups.length === 0) {
+    return false;
+  }
+
+  const parentNode = path.parent;
+
+  // Don't treat SCSS if function arguments as maps (`if(sass(condition): value; else: value)`)
+  // https://sass-lang.com/documentation/breaking-changes/if-function/
+  if (
+    parentNode &&
+    parentNode.type === "value-func" &&
+    parentNode.value === "if"
+  ) {
     return false;
   }
 
@@ -344,7 +356,7 @@ function isColorAdjusterFuncNode(node) {
 }
 
 function lastLineHasInlineComment(text) {
-  return /\/\//u.test(text.split(/[\n\r]/u).pop());
+  return /\/\//.test(text.split(/[\n\r]/).pop());
 }
 
 function isAtWordPlaceholderNode(node) {

@@ -72,7 +72,7 @@ const appendPlugins = (plugins, options = parseOptions) => ({
 
 // Similar to babel
 // https://github.com/babel/babel/pull/7934/files#diff-a739835084910b0ee3ea649df5a4d223R67
-const FLOW_PRAGMA_REGEX = /@(?:no)?flow\b/u;
+const FLOW_PRAGMA_REGEX = /@(?:no)?flow\b/;
 function isFlowFile(text, filepath) {
   if (filepath?.endsWith(".js.flow")) {
     return true;
@@ -135,7 +135,7 @@ function createParse({ isExpression = false, optionsCombinations }) {
       }));
     }
 
-    const shouldEnableV8intrinsicPlugin = /%[A-Z]/u.test(text);
+    const shouldEnableV8intrinsicPlugin = /%[A-Z]/.test(text);
     if (text.includes("|>")) {
       const conflictsPlugins = shouldEnableV8intrinsicPlugin
         ? [...pipelineOperatorPlugins, v8intrinsicPlugin]
@@ -230,39 +230,41 @@ const allowedReasonCodes = new Set([
 ]);
 
 const babelParserOptionsCombinations = [appendPlugins(["jsx"])];
-const babel = createBabelParser({
+const babel = /* @__PURE__ */ createBabelParser({
   optionsCombinations: babelParserOptionsCombinations,
 });
-const babelTs = createBabelParser({
+const babelTs = /* @__PURE__ */ createBabelParser({
   optionsCombinations: [
     appendPlugins(["jsx", "typescript"]),
     appendPlugins(["typescript"]),
   ],
 });
-const babelExpression = createBabelParser({
+const babelExpression = /* @__PURE__ */ createBabelParser({
   isExpression: true,
   optionsCombinations: [appendPlugins(["jsx"])],
 });
-const babelTSExpression = createBabelParser({
+const babelTSExpression = /* @__PURE__ */ createBabelParser({
   isExpression: true,
   optionsCombinations: [appendPlugins(["typescript"])],
 });
-const babelFlow = createBabelParser({
+const babelFlow = /* @__PURE__ */ createBabelParser({
   optionsCombinations: [
     appendPlugins(["jsx", ["flow", { all: true }], "flowComments"]),
   ],
 });
-const babelEstree = createBabelParser({
+const babelEstree = /* @__PURE__ */ createBabelParser({
   optionsCombinations: babelParserOptionsCombinations.map((options) =>
     appendPlugins(["estree"], options),
   ),
 });
 
-export { babel, babelFlow as "babel-flow", babelTs as "babel-ts" };
-
-/** @internal */
 // eslint-disable-next-line simple-import-sort/exports
 export {
+  babel,
+  babelFlow as "babel-flow",
+  babelTs as "babel-ts",
+
+  /** @internal */
   babelExpression as __js_expression,
   babelTSExpression as __ts_expression,
   /** for vue filter */

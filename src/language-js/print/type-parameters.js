@@ -39,7 +39,7 @@ function shouldForceTrailingComma(path, options, paramsKey) {
     node.type.startsWith("TS") &&
     !node[paramsKey][0].constraint &&
     path.parent.type === "ArrowFunctionExpression" &&
-    !(options.filepath && /\.ts$/u.test(options.filepath))
+    !(options.filepath && /\.ts$/.test(options.filepath))
   );
 }
 

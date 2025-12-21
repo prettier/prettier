@@ -1,8 +1,9 @@
-import { hardline, indent, join } from "../document/index.js";
-import printString from "../utilities/print-string.js";
-import UnexpectedNodeError from "../utilities/unexpected-node-error.js";
+import { hardline, indent, join } from "../../document/index.js";
+import printString from "../../utilities/print-string.js";
+import UnexpectedNodeError from "../../utilities/unexpected-node-error.js";
+import { getRaw } from "../utilities.js";
 
-function genericPrint(path, options, print) {
+function printJson(path, options, print) {
   const { node } = path;
   switch (node.type) {
     case "JsonRoot":
@@ -67,10 +68,6 @@ function genericPrint(path, options, print) {
       /* c8 ignore next */
       throw new UnexpectedNodeError(node, "JSON");
   }
-}
-
-function getRaw(node) {
-  return node.extra.raw;
 }
 
 function isObjectKey(path) {
@@ -153,5 +150,4 @@ function clean(original, cloned /* , parent*/) {
 
 clean.ignoredProperties = ignoredProperties;
 
-export { clean as massageAstNode, genericPrint as print };
-export { default as getVisitorKeys } from "./get-visitor-keys.js";
+export { clean, printJson };

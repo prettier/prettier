@@ -16,7 +16,7 @@ import {
 } from "../../document/index.js";
 import getMaxContinuousCount from "../../utilities/get-max-continuous-count.js";
 import getMinNotPresentContinuousCount from "../../utilities/get-min-not-present-continuous-count.js";
-import getPreferredQuote from "../../utilities/get-preferred-quote.js";
+import { getPreferredQuote } from "../../utilities/get-preferred-quote.js";
 import UnexpectedNodeError from "../../utilities/unexpected-node-error.js";
 import { locEnd, locStart } from "../loc.js";
 import {
@@ -109,7 +109,7 @@ function printMdast(path, options, print) {
 
       const proseWrap =
         // leading char that may cause different syntax
-        next && /^>|^(?:[*+-]|#{1,6}|\d+[).])$/u.test(next.value)
+        next && /^>|^(?:[*+-]|#{1,6}|\d+[).])$/.test(next.value)
           ? "never"
           : options.proseWrap;
 
@@ -154,7 +154,7 @@ function printMdast(path, options, print) {
       const padding =
         code.startsWith("`") ||
         code.endsWith("`") ||
-        (/^[\n ]/u.test(code) && /[\n ]$/u.test(code) && /[^\n ]/u.test(code))
+        (/^[\n ]/.test(code) && /[\n ]$/.test(code) && /[^\n ]/.test(code))
           ? " "
           : "";
       return [backtickString, padding, code, padding, backtickString];
@@ -164,7 +164,7 @@ function printMdast(path, options, print) {
       if (options.proseWrap === "preserve") {
         contents = node.value;
       } else {
-        contents = node.value.replaceAll(/[\t\n]+/gu, " ");
+        contents = node.value.replaceAll(/[\t\n]+/g, " ");
       }
 
       return ["[[", contents, "]]"];
@@ -246,7 +246,7 @@ function printMdast(path, options, print) {
       const { parent, isLast } = path;
       const value =
         parent.type === "root" && isLast ? node.value.trimEnd() : node.value;
-      const isHtmlComment = /^<!--.*-->$/su.test(value);
+      const isHtmlComment = /^<!--.*-->$/s.test(value);
 
       return replaceEndOfLine(
         value,
@@ -348,7 +348,7 @@ function printMdast(path, options, print) {
     case "tableCell":
       return printChildren(path, options, print);
     case "break":
-      return /\s/u.test(options.originalText[node.position.start.offset])
+      return /\s/.test(options.originalText[node.position.start.offset])
         ? ["  ", markAsRoot(literalline)]
         : ["\\", hardline];
     case "liquidNode":
@@ -495,7 +495,6 @@ function printUrl(url, dangerousCharOrChars = []) {
 
   return new RegExp(
     dangerousChars.map((x) => escapeStringRegexp(x)).join("|"),
-    "u",
   ).test(url)
     ? `<${encodeUrl(url, "<>")}>`
     : url;
@@ -511,7 +510,7 @@ function printTitle(title, options, printSpace = true) {
 
   // title is escaped before `remark-parse` v10
   if (options.parser === "mdx") {
-    title = title.replaceAll(/\\(?=["')])/gu, "");
+    title = title.replaceAll(/\\(?=["')])/g, "");
   }
 
   if (title.includes('"') && title.includes("'") && !title.includes(")")) {

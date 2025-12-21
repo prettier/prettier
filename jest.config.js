@@ -40,8 +40,8 @@ if (isProduction) {
   );
 }
 
-if (nodejsMajorVersion <= 16) {
-  // Uses import attributes
+if (nodejsMajorVersion <= 18) {
+  // Uses import attributes and `Array#toSorted()`
   testPathIgnorePatterns.push(
     "<rootDir>/tests/integration/__tests__/help-options.js",
   );

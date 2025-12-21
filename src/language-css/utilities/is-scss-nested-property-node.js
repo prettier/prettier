@@ -9,8 +9,8 @@ function isSCSSNestedPropertyNode(node, options) {
   }
 
   return node.selector
-    .replace(/\/\*.*?\*\//u, "")
-    .replace(/\/\/.*\n/u, "")
+    .replace(/\/\*.*?\*\//, "")
+    .replace(/\/\/.*\n/, "")
     .trim()
     .endsWith(":");
 }
