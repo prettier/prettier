@@ -26,7 +26,8 @@ function printBinaryCastExpression(path, options, print) {
   ];
 
   if (
-    (key === "callee" && isCallExpression(parent)) ||
+    (key === "callee" &&
+      (isCallExpression(parent) || parent.type === "NewExpression")) ||
     (key === "object" && isMemberExpression(parent))
   ) {
     return group([indent([softline, ...parts]), softline]);
