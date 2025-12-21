@@ -1,5 +1,9 @@
 import * as assert from "#universal/assert";
-import getPreferredQuote from "./get-preferred-quote.js";
+import {
+  DOUBLE_QUOTE,
+  getPreferredQuote,
+  SINGLE_QUOTE,
+} from "./get-preferred-quote.js";
 import makeString from "./make-string.js";
 
 /** @import {Quote} from "./get-preferred-quote.js" */
@@ -12,7 +16,9 @@ function printString(raw, options) {
   const rawContent = raw.slice(1, -1);
 
   /** @type {Quote} */
-  const enclosingQuote =
+  let enclosingQuote;
+
+  if (
     options.parser === "json" ||
     options.parser === "jsonc" ||
     options.parser === "json-stringify" ||
@@ -25,10 +31,13 @@ function printString(raw, options) {
     (options.parser === "json5" &&
       options.quoteProps === "preserve" &&
       !options.singleQuote)
-      ? '"'
-      : options.__isInHtmlAttribute
-        ? "'"
-        : getPreferredQuote(rawContent, options.singleQuote);
+  ) {
+    enclosingQuote = DOUBLE_QUOTE;
+  } else if (options.__isInHtmlAttribute) {
+    enclosingQuote = SINGLE_QUOTE;
+  } else {
+    enclosingQuote = getPreferredQuote(rawContent, options.singleQuote);
+  }
 
   const originalQuote = raw.charAt(0);
 

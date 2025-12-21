@@ -10,7 +10,7 @@ import {
   line,
   replaceEndOfLine,
 } from "../document/index.js";
-import getPreferredQuote from "../utilities/get-preferred-quote.js";
+import { getPreferredQuote } from "../utilities/get-preferred-quote.js";
 import htmlWhitespace from "../utilities/html-whitespace.js";
 import UnexpectedNodeError from "../utilities/unexpected-node-error.js";
 import clean from "./clean.js";

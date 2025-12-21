@@ -16,7 +16,7 @@ import {
 } from "../../document/index.js";
 import getMaxContinuousCount from "../../utilities/get-max-continuous-count.js";
 import getMinNotPresentContinuousCount from "../../utilities/get-min-not-present-continuous-count.js";
-import getPreferredQuote from "../../utilities/get-preferred-quote.js";
+import { getPreferredQuote } from "../../utilities/get-preferred-quote.js";
 import UnexpectedNodeError from "../../utilities/unexpected-node-error.js";
 import { locEnd, locStart } from "../loc.js";
 import {

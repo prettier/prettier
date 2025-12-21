@@ -10,11 +10,15 @@ function printSeparator(description = "") {
 }
 
 function stringify(value) {
-  return value === Number.POSITIVE_INFINITY
-    ? "Infinity"
-    : Array.isArray(value)
-      ? `[${value.map((v) => JSON.stringify(v)).join(", ")}]`
-      : JSON.stringify(value);
+  if (value === Number.POSITIVE_INFINITY) {
+    return "Infinity";
+  }
+
+  if (Array.isArray(value)) {
+    return `[${value.map((v) => JSON.stringify(v)).join(", ")}]`;
+  }
+
+  return JSON.stringify(value);
 }
 
 function printOptions(options) {

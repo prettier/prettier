@@ -38,23 +38,30 @@ async function mockImplementations(options) {
 
   cliMockable.mockImplementations({
     clearStreamText(stream, text) {
-      const streamName =
-        stream === process.stdout
-          ? "process.stdout"
-          : stream === process.stderr
-            ? "process.stderr"
-            : "unknown stream";
+      let streamName;
+      if (stream === process.stdout) {
+        streamName = "process.stdout";
+      } else if (stream === process.stderr) {
+        streamName = "process.stderr";
+      } else {
+        streamName = "unknown stream";
+      }
       stream.write(`\n[[Clear text(${streamName}): ${text}]]\n`);
     },
     // Time measure in format test
     getTimestamp: () => 0,
     isCI: () => Boolean(options.ci),
-    isStreamTTY: (stream) =>
-      stream === process.stdin
-        ? Boolean(options.isTTY)
-        : stream === process.stdout
-          ? Boolean(options.stdoutIsTTY)
-          : stream.isTTY,
+    isStreamTTY(stream) {
+      if (process.stdin) {
+        return Boolean(options.isTTY);
+      }
+
+      if (process.stdout) {
+        return Boolean(options.stdoutIsTTY);
+      }
+
+      return stream.isTTY;
+    },
     // eslint-disable-next-line require-await
     async writeFormattedFile(filename, content) {
       filename = normalizeToPosix(path.relative(process.cwd(), filename));
