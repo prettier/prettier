@@ -52,11 +52,11 @@ async function mockImplementations(options) {
     getTimestamp: () => 0,
     isCI: () => Boolean(options.ci),
     isStreamTTY(stream) {
-      if (process.stdin) {
+      if (stream === process.stdin) {
         return Boolean(options.isTTY);
       }
 
-      if (process.stdout) {
+      if (stream === process.stdout) {
         return Boolean(options.stdoutIsTTY);
       }
 
