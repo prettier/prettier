@@ -60,7 +60,7 @@ async function printEmbedHtmlLike(parser, textToDoc, print, path, options) {
           component = uncookTemplateElementValue(component);
           if (options.__embeddedInHtml) {
             component = component.replaceAll(
-              /<\/(?=script\b)/giu,
+              /<\/(?=script\b)/gi,
               String.raw`<\/`,
             );
           }
@@ -76,8 +76,8 @@ async function printEmbedHtmlLike(parser, textToDoc, print, path, options) {
     return parts;
   });
 
-  const leadingWhitespace = /^\s/u.test(text) ? " " : "";
-  const trailingWhitespace = /\s$/u.test(text) ? " " : "";
+  const leadingWhitespace = /^\s/.test(text) ? " " : "";
+  const trailingWhitespace = /\s$/.test(text) ? " " : "";
 
   const linebreak =
     options.htmlWhitespaceSensitivity === "ignore"

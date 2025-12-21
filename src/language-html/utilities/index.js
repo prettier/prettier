@@ -20,7 +20,7 @@ import {
 import isUnknownNamespace from "./is-unknown-namespace.js";
 
 const htmlTrimLeadingBlankLines = (string) =>
-  string.replaceAll(/^[\t\f\r ]*\n/gu, "");
+  string.replaceAll(/^[\t\f\r ]*\n/g, "");
 const htmlTrimPreserveIndentation = (string) =>
   htmlTrimLeadingBlankLines(htmlWhitespace.trimEnd(string));
 const getLeadingAndTrailingHtmlWhitespace = (string) => {
@@ -482,7 +482,7 @@ function getNodeCssStyleDisplay(node, options) {
 
   if (node.prev?.kind === "comment") {
     // <!-- display: block -->
-    const match = node.prev.value.match(/^\s*display:\s*([a-z]+)\s*$/u);
+    const match = node.prev.value.match(/^\s*display:\s*([a-z]+)\s*$/);
     if (match) {
       return match[1];
     }
@@ -614,7 +614,7 @@ function shouldUnquoteAttributeValue(node, options) {
 
   return (
     // Embedded HTML in JS: `` /* HTML */ `<my-element data-for={value}></my-element>` ``
-    /^PRETTIER_HTML_PLACEHOLDER_\d+_\d+_IN_JS$/u.test(value) ||
+    /^PRETTIER_HTML_PLACEHOLDER_\d+_\d+_IN_JS$/.test(value) ||
     // LWC `<div foo={value}></div>`
     (options.parser === "lwc" && value.startsWith("{") && value.endsWith("}"))
   );

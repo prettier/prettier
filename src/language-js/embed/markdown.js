@@ -9,7 +9,7 @@ import { escapeTemplateCharacters } from "../print/template-literal.js";
 async function printEmbedMarkdown(textToDoc, print, path /* , options*/) {
   const { node } = path;
   let text = node.quasis[0].value.raw.replaceAll(
-    /((?:\\\\)*)\\`/gu,
+    /((?:\\\\)*)\\`/g,
     (_, backslashes) => "\\".repeat(backslashes.length / 2) + "`",
   );
   const indentation = getIndentation(text);
@@ -30,7 +30,7 @@ async function printEmbedMarkdown(textToDoc, print, path /* , options*/) {
 }
 
 function getIndentation(str) {
-  const firstMatchedIndent = str.match(/^([^\S\n]*)\S/mu);
+  const firstMatchedIndent = str.match(/^([^\S\n]*)\S/m);
   return firstMatchedIndent === null ? "" : firstMatchedIndent[1];
 }
 

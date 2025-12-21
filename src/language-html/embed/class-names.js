@@ -12,6 +12,6 @@ const isClassNames = ({ node }, options) =>
 
 /** @type {AttributeValuePrint} */
 const printClassNames = (textToDoc, print, path /* , options*/) =>
-  getUnescapedAttributeValue(path.node).trim().split(/\s+/u).join(" ");
+  getUnescapedAttributeValue(path.node).trim().split(/\s+/).join(" ");
 
 export { isClassNames, printClassNames };

@@ -12,7 +12,7 @@ function printAngularControlFlowBlockParameters(
     node.sourceSpan.start.offset,
     node.sourceSpan.end.offset,
   );
-  const isEmpty = /^\s*$/u.test(content);
+  const isEmpty = /^\s*$/.test(content);
 
   if (isEmpty) {
     return "";

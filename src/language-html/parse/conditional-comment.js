@@ -10,17 +10,17 @@ const parseFunctions = [
   {
     // <!--[if ... ]> ... <![endif]-->
     regex:
-      /^(?<openingTagSuffix>\[if(?<condition>[^\]]*)\]>)(?<data>.*?)<!\s*\[endif\]$/su,
+      /^(?<openingTagSuffix>\[if(?<condition>[^\]]*)\]>)(?<data>.*?)<!\s*\[endif\]$/s,
     parse: parseIeConditionalStartEndComment,
   },
   {
     // <!--[if ... ]><!-->
-    regex: /^\[if(?<condition>[^\]]*)\]><!$/u,
+    regex: /^\[if(?<condition>[^\]]*)\]><!$/,
     parse: parseIeConditionalStartComment,
   },
   {
     // <!--<![endif]-->
-    regex: /^<!\s*\[endif\]$/u,
+    regex: /^<!\s*\[endif\]$/,
     parse: parseIeConditionalEndComment,
   },
 ];
@@ -64,7 +64,7 @@ function parseIeConditionalStartEndComment(node, match, parseHtml) {
     kind: "ieConditionalComment",
     complete,
     children,
-    condition: condition.trim().replaceAll(/\s+/gu, " "),
+    condition: condition.trim().replaceAll(/\s+/g, " "),
     sourceSpan: node.sourceSpan,
     startSourceSpan: new ParseSourceSpan(
       node.sourceSpan.start,
@@ -81,7 +81,7 @@ function parseIeConditionalStartComment(node, match /* , parseHtml */) {
   const { condition } = match.groups;
   return {
     kind: "ieConditionalStartComment",
-    condition: condition.trim().replaceAll(/\s+/gu, " "),
+    condition: condition.trim().replaceAll(/\s+/g, " "),
     sourceSpan: node.sourceSpan,
   };
 }

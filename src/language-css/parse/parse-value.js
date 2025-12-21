@@ -192,7 +192,7 @@ function parseValue(value, options) {
 
   const parsedResult = parseNestedValue(result, options);
 
-  return addTypePrefix(parsedResult, "value-", /^selector-/u);
+  return addTypePrefix(parsedResult, "value-", /^selector-/);
 }
 
 export default parseValue;

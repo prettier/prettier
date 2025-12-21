@@ -90,7 +90,7 @@ function genericPrint(path, options, print) {
     case "text": {
       if (node.parent.kind === "interpolation") {
         // replace the trailing literalline with hardline for better readability
-        const trailingNewlineRegex = /\n[^\S\n]*$/u;
+        const trailingNewlineRegex = /\n[^\S\n]*$/;
         const hasTrailingNewline = trailingNewlineRegex.test(node.value);
         const value = hasTrailingNewline
           ? node.value.replace(trailingNewlineRegex, "")
@@ -115,7 +115,7 @@ function genericPrint(path, options, print) {
         group([
           printOpeningTagStart(node, options),
           " ",
-          node.value.replace(/^html\b/iu, "html").replaceAll(/\s+/gu, " "),
+          node.value.replace(/^html\b/i, "html").replaceAll(/\s+/g, " "),
         ]),
         printClosingTagEnd(node, options),
       ];
