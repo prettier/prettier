@@ -11,13 +11,13 @@ import {
 import { printDanglingComments } from "../../main/comments/print.js";
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
 import UnexpectedNodeError from "../../utilities/unexpected-node-error.js";
-import { hasSameLoc, locEnd, locStart } from "../loc.js";
-import getRaw from "../utilities/get-raw.js";
+import { locEnd, locStart } from "../loc.js";
 import getTextWithoutComments from "../utilities/get-text-without-comments.js";
 import {
   CommentCheckFlags,
   createTypeCheckFunction,
   hasComment,
+  isShorthandSpecifier,
   isStringLiteral,
   needsHardlineAfterDanglingComment,
   shouldPrintComma,
@@ -357,43 +357,6 @@ function printModuleSpecifier(path, options, print) {
     left && right ? " as " : "",
     right,
   ];
-}
-
-function isShorthandSpecifier(specifier) {
-  if (
-    specifier.type !== "ImportSpecifier" &&
-    specifier.type !== "ExportSpecifier"
-  ) {
-    return false;
-  }
-
-  const {
-    local,
-    [specifier.type === "ImportSpecifier" ? "imported" : "exported"]:
-      importedOrExported,
-  } = specifier;
-
-  if (
-    local.type !== importedOrExported.type ||
-    !hasSameLoc(local, importedOrExported)
-  ) {
-    return false;
-  }
-
-  if (isStringLiteral(local)) {
-    return (
-      local.value === importedOrExported.value &&
-      getRaw(local) === getRaw(importedOrExported)
-    );
-  }
-
-  switch (local.type) {
-    case "Identifier":
-      return local.name === importedOrExported.name;
-    default:
-      /* c8 ignore next */
-      return false;
-  }
 }
 
 export {
