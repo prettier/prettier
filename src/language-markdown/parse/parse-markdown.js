@@ -1,10 +1,10 @@
+import { fromMarkdown } from "mdast-util-from-markdown";
 import { mathFromMarkdown } from "mdast-util-math";
 import { fromMarkdown as wikiLinkFromMarkdown } from "mdast-util-wiki-link";
 import { gfm as gfmSyntax } from "micromark-extension-gfm";
 import { math as mathSyntax } from "micromark-extension-math";
 import { syntax as wikiLinkSyntax } from "micromark-extension-wiki-link";
 import parseFrontMatter from "../../main/front-matter/parse.js";
-import { fromMarkdown } from "./micromark/html-flow-hack.js";
 import { gfmFromMarkdown } from "./micromark/mdast-util-gfm.js";
 import {
   liquidFromMarkdown,
