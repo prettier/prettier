@@ -19,6 +19,7 @@
   --color-background-active: oklch(94% 0% 0deg);
   --color-border: oklch(87% 0% 0deg);
   --color-text: oklch(20% 0% 0deg);
+  --color-overlay-background: oklch(91% 45% 98deg / 40%);
 }
 
 html[data-theme="dark"] {
@@ -42,4 +43,5 @@ html[data-theme="dark"] {
   --color-background-active: oklch(34% 1% 264deg);
   --color-border: oklch(30% 0.8% 264deg);
   --color-text: oklch(90% 1% 264deg);
+  --color-overlay-background: oklch(66% 35% 75deg / 40%);
 }

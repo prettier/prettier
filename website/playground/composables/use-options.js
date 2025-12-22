@@ -69,7 +69,15 @@ export function useOptions(availableOptions) {
   };
 
   const handleOptionValueChange = (option, value) => {
+    console.log(option, value);
+
     const options = { ...state.options };
+
+    if (option.name === "parser" && value !== options.parser) {
+      // Clear range options when changing parser
+      delete options.rangeStart;
+      delete options.rangeEnd;
+    }
 
     if (option.type === "int" && Number.isNaN(value)) {
       delete options[option.name];

@@ -96,17 +96,3 @@ export function getAstAutoFold(parser) {
       return astAutoFold[parser];
   }
 }
-
-export function convertOffsetToSelection(offset, content) {
-  let line = 0;
-  let ch = 0;
-  for (let i = 0; i < offset && i <= content.length; i++) {
-    if (content[i] === "\n") {
-      line++;
-      ch = 0;
-    } else {
-      ch++;
-    }
-  }
-  return { anchor: { line, ch } };
-}

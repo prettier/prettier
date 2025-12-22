@@ -1,0 +1,25 @@
+<script setup>
+defineProps({
+  width: { type: Number, default: 16 },
+  height: { type: Number, default: 16 },
+});
+</script>
+
+<template>
+  <svg
+    viewBox="0 0 24 24"
+    :width="width"
+    :height="height"
+    aria-hidden="true"
+  >
+    <path
+      fill="currentColor"
+      d="M2 13h2a1 1 0 0 0 0-2H2a1 1 0 0 0 0 2m18 0h2a1 1 0 0 0 0-2h-2a1 1 0 0 0 0 2M11 2v2a1 1 0 0 0 2 0V2a1 1 0 0 0-2 0m0 18v2a1 1 0 0 0 2 0v-2a1 1 0 0 0-2 0M5.99 4.58a1 1 0 1 0-1.41 1.41l1.06 1.06a1 1 0 1 0 1.41-1.41zm12.37 12.37a1 1 0 1 0-1.41 1.41l1.06 1.06a1 1 0 1 0 1.41-1.41zm1.06-10.96a1 1 0 1 0-1.41-1.41l-1.06 1.06a1 1 0 1 0 1.41 1.41zM7.05 18.36a1 1 0 1 0-1.41-1.41l-1.06 1.06a1 1 0 1 0 1.41 1.41z"
+    />
+    <path
+      fill="currentColor"
+      d="M12 9a1 1 0 0 1 0 6 1 1 0 0 1 0-6m0-2a5 5 0 1 0 0 10 5 5 0 0 0 0-10"
+    />
+  </svg>
+</template>
+

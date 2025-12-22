@@ -1,0 +1,159 @@
+<script setup>
+import { inject } from "vue";
+import { ISSUES_URL, COPY_MESSAGE, MAX_LENGTH } from "../constants";
+import Button from "./ui/Button.vue";
+import ClipboardButton from "./ui/ClipboardButton.vue";
+import { generateDummyId } from "../utils";
+
+const {getMarkdown} = defineProps({
+  getMarkdown: { type: Function, required: true },
+});
+
+
+const playgroundState = inject("playgroundState");
+const prettierFormatState = inject("prettierFormatState");
+const optionsState = inject("optionsState");
+
+const { options, content, selection } = optionsState.state;
+
+const fullReport = getMarkdown({
+  formatted: prettierFormatState.formatted,
+  reformatted: prettierFormatState.debug.reformatted,
+  full: true,
+});
+
+const showFullReport =  encodeURIComponent(fullReport).length < MAX_LENGTH
+
+function handleInsertDummyId() {
+  if (!selection) {
+    return;
+  }
+  const dummyId = generateDummyId();
+
+  const rangeStart = selection.main.from ?? 0;
+  const rangeEnd = selection.main.to ?? 0;
+
+  const modifiedContent =
+    content.slice(0, rangeStart) + dummyId + content.slice(rangeEnd);
+
+  Object.assign(state, {
+    content: modifiedContent,
+  });
+}
+
+function getCurrentHref() {
+  return window.location.href;
+}
+
+function getReportLink(reportBody) {
+  return `${ISSUES_URL}${encodeURIComponent(reportBody)}`;
+}
+</script>
+
+<template>
+  <div class="playground__bottom-bar">
+    <div
+      class="playground__bottom-bar-actions playground__bottom-bar-actions--left"
+    >
+      <Button @click="playgroundState.toggleSidebar">
+        {{ playgroundState.showSidebar ? "Hide" : "Show" }} options
+      </Button>
+      <Button @click="{ onClearContent }">Clear</Button>
+      <Button
+        @click="handleInsertDummyId"
+        @mousedown="(event) => event.preventDefault()"
+        title="Generate a nonsense variable name (Ctrl-Q)"
+      >
+        Insert dummy id
+      </Button>
+    </div>
+    <div
+      class="playground__bottom-bar-actions playground__bottom-bar-actions--right"
+    >
+      <ClipboardButton :copy="getCurrentHref" variant="primary">
+        Copy link
+      </ClipboardButton>
+      <ClipboardButton
+        :copy="
+          () =>
+            getMarkdown({
+              formatted,
+              reformatted: debug.reformatted,
+            })
+        "
+        variant="primary"
+      >
+        Copy markdown
+      </ClipboardButton>
+      <ClipboardButton
+        :copy="
+          JSON.stringify(
+            // Remove `parser` since people usually paste this
+            // into their .prettierrc and specifying a top-level
+            // parser there is an anti-pattern. Note:
+            // `JSON.stringify` omits keys whose values are
+            // `undefined`.
+            { ...options, parser: undefined },
+            null,
+            2,
+          )
+        "
+        variant="primary"
+      >
+        Copy config JSON
+      </ClipboardButton>
+      <a
+        :href="getReportLink(showFullReport ? fullReport : COPY_MESSAGE)"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <ClipboardButton
+          :copy="() => (showFullReport ? '' : fullReport)"
+          variant="danger"
+        >
+          Report issue
+        </ClipboardButton>
+      </a>
+    </div>
+  </div>
+</template>
+
+<style scoped>
+.playground__bottom-bar {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  background-color: var(--color-background);
+  flex-wrap: wrap;
+}
+
+.playground__bottom-bar-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.playground__bottom-bar-actions--left {
+  flex: 1;
+  justify-content: flex-start;
+}
+
+.playground__bottom-bar-actions--right {
+  justify-content: flex-end;
+}
+
+@media (max-width: 799px) {
+  .playground__bottom-bar {
+    padding: 0.5rem;
+    gap: 0.5rem;
+  }
+
+  .playground__bottom-bar-actions {
+    gap: 0.5rem;
+  }
+}
+</style>
