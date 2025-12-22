@@ -407,6 +407,57 @@ bar
 ================================================================================
 `;
 
+exports[`inline-vs-block.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+- <div>html</div>            text
+- <span>html</span>            text
+
+=====================================output=====================================
+- <div>html</div>            text
+- <span>html</span> text
+
+================================================================================
+`;
+
+exports[`inline-vs-block.md - {"proseWrap":"never"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "never"
+                                                                                | printWidth
+=====================================input======================================
+- <div>html</div>            text
+- <span>html</span>            text
+
+=====================================output=====================================
+- <div>html</div>            text
+- <span>html</span> text
+
+================================================================================
+`;
+
+exports[`inline-vs-block.md - {"proseWrap":"preserve"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "preserve"
+                                                                                | printWidth
+=====================================input======================================
+- <div>html</div>            text
+- <span>html</span>            text
+
+=====================================output=====================================
+- <div>html</div>            text
+- <span>html</span> text
+
+================================================================================
+`;
+
 exports[`multiline.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
@@ -617,6 +668,10 @@ proseWrap: "always"
 >   line 2
 > "></div>
 
+text <unknown title="line 1
+  line 2
+">text </unknown> text
+
 =====================================output=====================================
 <unknown title="line 1
 line 2
@@ -646,6 +701,10 @@ line 2
 > <div title="line 1
 >   line 2
 > "></div>
+
+text <unknown title="line 1
+line 2
+">text </unknown> text
 
 ================================================================================
 `;
@@ -687,6 +746,10 @@ proseWrap: "never"
 >   line 2
 > "></div>
 
+text <unknown title="line 1
+  line 2
+">text </unknown> text
+
 =====================================output=====================================
 <unknown title="line 1
 line 2
@@ -716,6 +779,10 @@ line 2
 > <div title="line 1
 >   line 2
 > "></div>
+
+text <unknown title="line 1
+line 2
+">text </unknown> text
 
 ================================================================================
 `;
@@ -757,6 +824,10 @@ proseWrap: "preserve"
 >   line 2
 > "></div>
 
+text <unknown title="line 1
+  line 2
+">text </unknown> text
+
 =====================================output=====================================
 <unknown title="line 1
 line 2
@@ -786,6 +857,10 @@ line 2
 > <div title="line 1
 >   line 2
 > "></div>
+
+text <unknown title="line 1
+line 2
+">text </unknown> text
 
 ================================================================================
 `;

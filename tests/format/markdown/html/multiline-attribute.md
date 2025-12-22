@@ -27,3 +27,7 @@
 > <div title="line 1
 >   line 2
 > "></div>
+
+text <unknown title="line 1
+  line 2
+">text </unknown> text

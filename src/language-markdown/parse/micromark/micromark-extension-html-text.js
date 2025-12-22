@@ -22,7 +22,11 @@ import {
 import { codes, constants, types } from "micromark-util-symbol";
 
 /** @type {Construct} */
-export const htmlText = { name: "htmlText", tokenize: tokenizeHtmlText };
+const htmlText = {
+  name: "htmlText",
+  tokenize: tokenizeHtmlText,
+  add: "before",
+};
 
 /**
  * @this {TokenizeContext}
@@ -37,6 +41,8 @@ function tokenizeHtmlText(effects, ok, nok) {
   let index;
   /** @type {State} */
   let returnState;
+  /** @type {boolean} */
+  let inQuotedAttributeValue = false;
 
   return start;
 
@@ -583,6 +589,7 @@ function tokenizeHtmlText(effects, ok, nok) {
     if (code === codes.quotationMark || code === codes.apostrophe) {
       effects.consume(code);
       marker = code;
+      inQuotedAttributeValue = true;
       return tagOpenAttributeValueQuoted;
     }
 
@@ -614,6 +621,7 @@ function tokenizeHtmlText(effects, ok, nok) {
     if (code === marker) {
       effects.consume(code);
       marker = undefined;
+      inQuotedAttributeValue = false;
       return tagOpenAttributeValueQuotedAfter;
     }
 
@@ -752,16 +760,24 @@ function tokenizeHtmlText(effects, ok, nok) {
       self.parser.constructs.disable.null,
       "expected `disable.null` to be populated",
     );
-    return markdownSpace(code)
-      ? factorySpace(
-          effects,
-          lineEndingAfterPrefix,
-          types.linePrefix,
-          self.parser.constructs.disable.null.includes("codeIndented")
-            ? undefined
-            : constants.tabSize,
-        )(code)
-      : lineEndingAfterPrefix(code);
+
+    if (!markdownSpace(code)) {
+      return lineEndingAfterPrefix(code);
+    }
+
+    if (inQuotedAttributeValue) {
+      effects.consume(code);
+      return lineEndingAfter;
+    }
+
+    return factorySpace(
+      effects,
+      lineEndingAfterPrefix,
+      types.linePrefix,
+      self.parser.constructs.disable.null.includes("codeIndented")
+        ? undefined
+        : constants.tabSize,
+    )(code);
   }
 
   /**
@@ -783,3 +799,13 @@ function tokenizeHtmlText(effects, ok, nok) {
     return returnState(code);
   }
 }
+
+function overrideHtmlTextSyntax() {
+  return {
+    text: {
+      [codes.lessThan]: htmlText,
+    },
+  };
+}
+
+export { overrideHtmlTextSyntax };
