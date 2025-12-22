@@ -193,9 +193,9 @@ Cause: [1:13-1:14]: Expected 'from'"
 `;
 
 exports[`no-default.js [oxc] format 1`] = `
-"Expected \`from\` but found \`Identifier\` (1:14)
+"Default imports are not allowed in a deferred import. (1:8)
 > 1 | import defer x from "x";
-    |              ^
+    |        ^^^^^
   2 |"
 `;
 
@@ -240,8 +240,8 @@ Cause: [1:13-1:14]: Expected 'from'"
 `;
 
 exports[`no-named.js [oxc] format 1`] = `
-"Expected \`from\` but found \`{\` (1:14)
+"Named imports are not allowed in a deferred import. (1:8)
 > 1 | import defer { x } from "x";
-    |              ^
+    |        ^^^^^
   2 |"
 `;
