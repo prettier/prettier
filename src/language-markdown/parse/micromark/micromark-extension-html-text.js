@@ -10,7 +10,6 @@
  * } from 'micromark-util-types'
  */
 
-import { ok as assert } from "devlop";
 import { factorySpace } from "micromark-factory-space";
 import {
   asciiAlpha,
@@ -34,6 +33,7 @@ const htmlText = {
  * @type {Tokenizer}
  */
 function tokenizeHtmlText(effects, ok, nok) {
+  // eslint-disable-next-line unicorn/no-this-assignment
   const self = this;
   /** @type {NonNullable<Code> | undefined} */
   let marker;
@@ -41,8 +41,6 @@ function tokenizeHtmlText(effects, ok, nok) {
   let index;
   /** @type {State} */
   let returnState;
-  /** @type {boolean} */
-  let inQuotedAttributeValue = false;
 
   return start;
 
@@ -589,7 +587,6 @@ function tokenizeHtmlText(effects, ok, nok) {
     if (code === codes.quotationMark || code === codes.apostrophe) {
       effects.consume(code);
       marker = code;
-      inQuotedAttributeValue = true;
       return tagOpenAttributeValueQuoted;
     }
 
@@ -621,7 +618,6 @@ function tokenizeHtmlText(effects, ok, nok) {
     if (code === marker) {
       effects.consume(code);
       marker = undefined;
-      inQuotedAttributeValue = false;
       return tagOpenAttributeValueQuotedAfter;
     }
 
@@ -765,9 +761,8 @@ function tokenizeHtmlText(effects, ok, nok) {
       return lineEndingAfterPrefix(code);
     }
 
-    if (inQuotedAttributeValue) {
-      effects.consume(code);
-      return lineEndingAfter;
+    if (marker === codes.quotationMark || marker === codes.apostrophe) {
+      return lineEndingAfterPrefix(code);
     }
 
     return factorySpace(
@@ -806,6 +801,11 @@ function overrideHtmlTextSyntax() {
       [codes.lessThan]: htmlText,
     },
   };
+}
+
+// eslint-disable-next-line no-unused-vars
+function assert(..._args) {
+  // Do nothing in Prettier
 }
 
 export { overrideHtmlTextSyntax };
