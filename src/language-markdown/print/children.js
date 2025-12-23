@@ -115,23 +115,13 @@ function shouldPrePrintDoubleHardline(path, options) {
     parent.type === "listItem" &&
     previous.type === "paragraph" &&
     previous.position.end.line + 1 === node.position.start.line;
-  let isInlineHtmlInterruptingParagraph = false;
-  if (
-    options.parser !== "mdx" &&
-    node.type === "html" &&
-    previous.type === "paragraph"
-  ) {
-    isInlineHtmlInterruptingParagraph =
-      previous.position.end.line + 1 === node.position.start.line;
-  }
 
   return !(
     isSiblingNode ||
     isInTightListItem ||
     isPrevNodePrettierIgnore ||
     isBlockHtmlWithoutBlankLineBetweenPrevHtml ||
-    isHtmlDirectAfterListItem ||
-    isInlineHtmlInterruptingParagraph
+    isHtmlDirectAfterListItem
   );
 }
 
