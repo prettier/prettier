@@ -4,11 +4,7 @@ import { startServer } from "./server.js";
 import { deserializeErrorInNode, serializeOptionsInNode } from "./utilities.js";
 
 async function getBrowserPrettier({ product = "chrome" } = {}) {
-  try {
-    await downloadBrowser({ product });
-  } catch (error) {
-    console.error(error);
-  }
+  await downloadBrowser({ product });
 
   const browser = await puppeteer.launch({ product });
   process.once("exit", async () => {
