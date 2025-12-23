@@ -8,11 +8,11 @@ const { version } = defineProps({
   },
 });
 
-const match = version.match(/^pr-(\d+)$/u);
+const match = version.match(/^pr-(\d+)$/);
 let href;
 if (match) {
   href = `pull/${match[1]}`;
-} else if (/\.0$/u.test(version)) {
+} else if (/\.0$/.test(version)) {
   href = `releases/tag/${version}`;
 } else {
   href = `blob/main/CHANGELOG.md#${version.replaceAll(".", "")}`;
