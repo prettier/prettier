@@ -21,8 +21,8 @@ function serializeErrorInBrowser(originalError) {
 
 const POSITIVE_INFINITY_PLACEHOLDER = "[[Number.POSITIVE_INFINITY]]";
 
-function serializeOptionsInNode(options) {
-  if (options?.printWidth === Number.POSITIVE_INFINITY) {
+function serializeOptionsInNode(options = {}) {
+  if (options.printWidth === Number.POSITIVE_INFINITY) {
     return {
       ...options,
       printWidth: POSITIVE_INFINITY_PLACEHOLDER,
@@ -32,8 +32,8 @@ function serializeOptionsInNode(options) {
   return options;
 }
 
-function deserializeOptionsInBrowser(options) {
-  if (options?.printWidth === POSITIVE_INFINITY_PLACEHOLDER) {
+function deserializeOptionsInBrowser(options = {}) {
+  if (options.printWidth === POSITIVE_INFINITY_PLACEHOLDER) {
     options.printWidth = Number.POSITIVE_INFINITY;
   }
 

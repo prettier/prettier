@@ -44,7 +44,7 @@ async function getBrowserPrettier({ product = "chrome" } = {}) {
         return result.value;
       }
 
-      throw deserializeErrorInNode(result.reason);
+      throw deserializeErrorInNode(result.serializeError);
     };
 
   return {

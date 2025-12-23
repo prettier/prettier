@@ -59,8 +59,8 @@ function proxyFunction(accessPath, optionsIndex = 1) {
     } catch (error) {
       return {
         status: "rejected",
-        error,
-        reason: serializeErrorInBrowser(error),
+        reason: error,
+        serializeError: serializeErrorInBrowser(error),
       };
     }
 

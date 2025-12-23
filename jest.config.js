@@ -48,6 +48,11 @@ if (isProduction) {
 if (TEST_RUNTIME !== "nodejs") {
   testPathIgnorePatterns.push(
     "<rootDir>/tests/format/misc/front-matter/with-plugins/format.test.js",
+    "<rootDir>/tests/format/misc/plugins/embed-async-printer/format.test.js",
+    "<rootDir>/tests/format/misc/errors/broken-plugin/format.test.js",
+    "<rootDir>/tests/format/vue/with-plugins/format.test.js",
+    "<rootDir>/tests/format/misc/plugins/async-printer/format.test.js",
+    "<rootDir>/tests/format/handlebars/front-matter/toml/format.test.js",
   );
 }
 
