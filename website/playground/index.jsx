@@ -1,11 +1,14 @@
 import "codemirror-graphql/cm6-legacy/mode.esm.js";
 import "./install-service-worker.js";
 
-import { createApp, onMounted, reactive, ref, watch } from "vue";
 import Playground from "./Playground.jsx";
 import { fixPrettierVersion } from "./utilities.js";
 import VersionLink from "./VersionLink.jsx";
 import WorkerApi from "./WorkerApi.js";
+
+const {
+  Vue: { createApp, onMounted, reactive, ref, watch },
+} = globalThis;
 
 function getInitialTheme() {
   const saved = localStorage.getItem("theme");

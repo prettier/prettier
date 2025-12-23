@@ -1,4 +1,3 @@
-import { reactive, watch } from "vue";
 import { Button, ClipboardButton } from "./buttons.jsx";
 import getCodeSample from "./codeSamples.mjs";
 import generateDummyId from "./dummyId.js";
@@ -19,6 +18,10 @@ import {
   getCodemirrorMode,
   getDefaults,
 } from "./utilities.js";
+
+const {
+  Vue: { reactive, watch },
+} = globalThis;
 
 const CATEGORIES_ORDER = [
   "Global",

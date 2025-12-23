@@ -13,6 +13,7 @@ toolbox.precache([
   "lib/package-manifest.mjs",
   ...packageFiles,
   "https://cdnjs.cloudflare.com/ajax/libs/sw-toolbox/3.6.0/sw-toolbox.js",
+  "https://cdnjs.cloudflare.com/ajax/libs/vue/3.5.22/vue.global.prod.min.js",
 
   // CodeMirror; keep this in sync with website/pages/playground/index.html
   "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css",

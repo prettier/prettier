@@ -1,4 +1,6 @@
-import { Teleport } from "vue";
+const {
+  Vue: { Teleport },
+} = globalThis;
 
 export default function VersionLink({ version }) {
   const match = version.match(/^pr-(\d+)$/);

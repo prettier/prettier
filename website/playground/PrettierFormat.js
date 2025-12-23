@@ -1,4 +1,6 @@
-import { onMounted, reactive, toRaw, watch } from "vue";
+const {
+  Vue: { onMounted, reactive, toRaw, watch },
+} = globalThis;
 
 function setup(props, { slots }) {
   const state = reactive({ formatted: "", debug: {} });
