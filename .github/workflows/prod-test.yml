@@ -163,7 +163,7 @@ jobs:
     env:
       FULL_TEST: ${{ matrix.FULL_TEST }}
       TEST_RUNTIME_BROWSER_PRODUCT: ${{ matrix.browser }}
-    name: ${{ matrix.FULL_TEST && '[Full Test] ' || '' }} {{ matrix.browser }} on ${{ startsWith(matrix.os, 'macos') && 'MacOS' || startsWith(matrix.os, 'windows') && 'Windows' || 'Linux' }}
+    name: ${{ matrix.FULL_TEST && '[Full Test] ' || '' }} ${{ matrix.browser }} on ${{ startsWith(matrix.os, 'macos') && 'MacOS' || startsWith(matrix.os, 'windows') && 'Windows' || 'Linux' }}
     runs-on: ${{ matrix.os }}
     needs: [build]
     steps:
@@ -194,8 +194,8 @@ jobs:
           name: dist
           path: dist
 
-      - name: Run Tests (Chrome)
-        run: test:browser
+      - name: Run Tests
+        run: test:production-browser
 
   cli:
     name: CLI
