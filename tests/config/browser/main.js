@@ -64,6 +64,14 @@ function proxyFunction(accessPath, optionsIndex = 1) {
       };
     }
 
+    // Comments in `graphql` can't be serialized
+    if (
+      function_ === prettier.formatWithCursor &&
+      options.parser === "graphql"
+    ) {
+      value.comments = [];
+    }
+
     return { status: "fulfilled", value };
   };
 }
