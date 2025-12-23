@@ -1,0 +1,75 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`angular-html.md format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+\`\`\`angular-html
+@if (orderForm.couponCode().disabled()) {
+      <div class="info">
+        @for (reason of orderForm.couponCode().disabledReasons(); track reason) {
+<p>{{ reason.message }}</p>
+        }</div>
+    }
+\`\`\`
+
+=====================================output=====================================
+\`\`\`angular-html
+@if (orderForm.couponCode().disabled()) {
+      <div class="info">
+        @for (reason of orderForm.couponCode().disabledReasons(); track reason) {
+<p>{{ reason.message }}</p>
+        }</div>
+    }
+\`\`\`
+
+================================================================================
+`;
+
+exports[`angular-ts.md format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+\`\`\`angular-ts
+type A ={
+        Ugly:string
+}
+
+@Component({template: \`
+@if (orderForm.couponCode().disabled()) {
+      <div class="info">
+        @for (reason of orderForm.couponCode().disabledReasons(); track reason) {
+<p>{{ reason.message }}</p>
+        }</div>
+    }
+  \`
+})
+export class Order {
+}
+\`\`\`
+
+=====================================output=====================================
+\`\`\`angular-ts
+type A ={
+        Ugly:string
+}
+
+@Component({template: \`
+@if (orderForm.couponCode().disabled()) {
+      <div class="info">
+        @for (reason of orderForm.couponCode().disabledReasons(); track reason) {
+<p>{{ reason.message }}</p>
+        }</div>
+    }
+  \`
+})
+export class Order {
+}
+\`\`\`
+
+================================================================================
+`;
