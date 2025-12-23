@@ -11,13 +11,12 @@ async function getBrowserPrettier({ product = "chrome" } = {}) {
     await browser.close();
   });
 
-  const page = await browser.newPage();
-
   const server = await startServer({ silent: true });
   process.once("exit", async () => {
     await server.close();
   });
 
+  const page = await browser.newPage();
   await page.goto(server.url);
 
   const proxyFunction =
