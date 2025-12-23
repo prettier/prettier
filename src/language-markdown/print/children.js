@@ -110,6 +110,11 @@ function shouldPrePrintDoubleHardline(path, options) {
     node.type === "html" &&
     previous.type === "html" &&
     previous.position.end.line + 1 === node.position.start.line;
+  const isBlockHtmlWithoutBlankLineBetweenPrevParagraph =
+    options.parser !== "mdx" &&
+    node.type === "html" &&
+    previous.type === "paragraph" &&
+    previous.position.end.line + 1 === node.position.start.line;
   const isHtmlDirectAfterListItem =
     node.type === "html" &&
     parent.type === "listItem" &&
@@ -121,6 +126,7 @@ function shouldPrePrintDoubleHardline(path, options) {
     isInTightListItem ||
     isPrevNodePrettierIgnore ||
     isBlockHtmlWithoutBlankLineBetweenPrevHtml ||
+    isBlockHtmlWithoutBlankLineBetweenPrevParagraph ||
     isHtmlDirectAfterListItem
   );
 }

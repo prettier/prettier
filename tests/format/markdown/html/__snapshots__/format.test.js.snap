@@ -256,7 +256,6 @@ text <em>text</em>
 ![image](https://example.com) <img src="image.png" />
 
 Foo
-
 <div>
 bar
 </div>
@@ -268,7 +267,6 @@ bar
 </div>
 
 Foo
-
  <div>
 bar
 </div>
@@ -322,7 +320,6 @@ text <em>text</em>
 ![image](https://example.com) <img src="image.png" />
 
 Foo
-
 <div>
 bar
 </div>
@@ -334,7 +331,6 @@ bar
 </div>
 
 Foo
-
  <div>
 bar
 </div>
@@ -393,7 +389,6 @@ text
 <img src="image.png" />
 
 Foo
-
 <div>
 bar
 </div>
@@ -405,7 +400,6 @@ bar
 </div>
 
 Foo
-
  <div>
 bar
 </div>
