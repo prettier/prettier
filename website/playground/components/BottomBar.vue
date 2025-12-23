@@ -1,5 +1,5 @@
 <script setup>
-import { inject } from "vue";
+import { computed, inject } from "vue";
 import { COPY_MESSAGE, ISSUES_URL, MAX_LENGTH } from "../constants";
 import Button from "./ui/Button.vue";
 import ClipboardButton from "./ui/ClipboardButton.vue";
@@ -14,13 +14,17 @@ const optionsState = inject("optionsState");
 
 const { clearContent, insertDummyId } = optionsState;
 
-const fullReport = getMarkdown({
-  formatted: prettierFormatState.formatted,
-  reformatted: prettierFormatState.debug.reformatted,
-  full: true,
-});
+const fullReport = computed(() =>
+  getMarkdown({
+    formatted: prettierFormatState.formatted,
+    reformatted: prettierFormatState.debug.reformatted,
+    full: true,
+  }),
+);
 
-const showFullReport = encodeURIComponent(fullReport).length < MAX_LENGTH;
+const showFullReport = computed(
+  () => encodeURIComponent(fullReport.value).length < MAX_LENGTH,
+);
 
 function getCurrentHref() {
   return window.location.href;

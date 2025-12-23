@@ -36,6 +36,7 @@ export function useOptions(availableOptions) {
 
   const clearContent = () => {
     state.content = "";
+    state.selection = undefined;
   };
 
   const insertDummyId = () => {
