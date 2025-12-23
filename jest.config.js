@@ -8,6 +8,7 @@ const isProduction = process.env.NODE_ENV === "production";
 // const ENABLE_CODE_COVERAGE = Boolean(process.env.ENABLE_CODE_COVERAGE);
 const TEST_STANDALONE = Boolean(process.env.TEST_STANDALONE);
 const INSTALL_PACKAGE = Boolean(process.env.INSTALL_PACKAGE);
+const TEST_RUNTIME = process.env.TEST_RUNTIME ?? "nodejs";
 // When debugging production test, this flag can skip installing package
 const SKIP_PRODUCTION_INSTALL = Boolean(process.env.SKIP_PRODUCTION_INSTALL);
 const nodejsMajorVersion = Number(process.versions.node.split(".")[0]);
@@ -18,7 +19,10 @@ let PRETTIER_DIR = isProduction
 let PRETTIER_INSTALLED_DIR = "";
 if (
   INSTALL_PACKAGE ||
-  (isProduction && !TEST_STANDALONE && !SKIP_PRODUCTION_INSTALL)
+  (isProduction &&
+    !TEST_STANDALONE &&
+    !SKIP_PRODUCTION_INSTALL &&
+    TEST_RUNTIME === "nodejs")
 ) {
   PRETTIER_INSTALLED_DIR = installPrettier(PRETTIER_DIR);
   PRETTIER_DIR = path.join(PRETTIER_INSTALLED_DIR, "node_modules/prettier");
@@ -27,7 +31,7 @@ process.env.PRETTIER_INSTALLED_DIR = PRETTIER_INSTALLED_DIR;
 process.env.PRETTIER_DIR = PRETTIER_DIR;
 
 const testPathIgnorePatterns = [];
-if (TEST_STANDALONE) {
+if (TEST_STANDALONE || TEST_RUNTIME !== "nodejs") {
   testPathIgnorePatterns.push("<rootDir>/tests/integration/");
 }
 if (isProduction) {
