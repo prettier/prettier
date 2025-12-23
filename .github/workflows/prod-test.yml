@@ -152,8 +152,8 @@ jobs:
       matrix:
         os:
           - "ubuntu-latest"
-          # - "macos-latest"
-          # - "windows-latest"
+          - "macos-latest"
+          - "windows-latest"
         include:
           - os: "ubuntu-latest"
             FULL_TEST: true
