@@ -109,7 +109,8 @@ export function useOptions(availableOptions) {
     }
 
     const content =
-      state.content === "" || state.content !== getCodeSample(options.parser)
+      state.content === "" ||
+      state.content === getCodeSample(state.options.parser)
         ? getCodeSample(options.parser)
         : state.content;
 
@@ -117,8 +118,7 @@ export function useOptions(availableOptions) {
   };
 
   const resetOptions = () => {
-    const content = getCodeSample(defaultOptions.parser);
-    Object.assign(state, { options: { ...defaultOptions }, content });
+    Object.assign(state, { options: { ...defaultOptions } });
   };
 
   watch(
