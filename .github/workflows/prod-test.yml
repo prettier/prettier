@@ -159,6 +159,7 @@ jobs:
           - "Firefox"
         include:
           - os: "ubuntu-latest"
+            browser: "Firefox"
             FULL_TEST: true
     env:
       FULL_TEST: ${{ matrix.FULL_TEST }}
@@ -195,7 +196,7 @@ jobs:
           path: dist
 
       - name: Run Tests
-        run: test:production-browser
+        run: yarn test:production-browser
 
   cli:
     name: CLI
