@@ -19,37 +19,58 @@ const esmFiles = {
   ],
 };
 
-async function getPrettier() {
-  const [prettier, ...builtinPlugins] = await Promise.all(
-    [esmFiles.prettier, ...esmFiles.plugins].map((file) => import(`/${file}`)),
-  );
+let prettier;
+let builtinPlugins;
 
-  const addBuiltinPlugins = (options = {}) => ({
-    ...options,
-    plugins: [...builtinPlugins, ...(options.plugins || [])],
-  });
+function proxyFunction(accessPath, optionsIndex = 1) {
+  let function_;
+  return async function (...arguments_) {
+    if (!prettier) {
+      [prettier, ...builtinPlugins] = await Promise.all(
+        [esmFiles.prettier, ...esmFiles.plugins].map(
+          (file) => import(`/${file}`),
+        ),
+      );
+    }
 
-  return { prettier, addBuiltinPlugins };
+    if (!function_) {
+      function_ = prettier;
+      for (const property of accessPath.split(".")) {
+        function_ = function_[property];
+      }
+    }
+
+    const options = arguments_[optionsIndex];
+    arguments_[optionsIndex] = {
+      ...options,
+      plugins: [...builtinPlugins, ...(options.plugins || [])],
+    };
+
+    let value;
+
+    try {
+      value = await function_(...arguments_);
+    } catch (error) {
+      return { status: "rejected", error, reason: serializeError(error) };
+    }
+
+    return { status: "fulfilled", value };
+  };
+}
+
+function serializeError(originalError) {
+  const error = { message: originalError.message, ...originalError };
+  delete error.cause;
+  if (originalError.cause instanceof Error) {
+    error.cause = serializeError(originalError.cause);
+  }
+  return error;
 }
 
 globalThis.__prettier = {
-  async formatWithCursor(input, options) {
-    const { prettier, addBuiltinPlugins } = await getPrettier();
-
-    return prettier.formatWithCursor(input, addBuiltinPlugins(options));
-  },
-  async getSupportInfo(options) {
-    const { prettier, addBuiltinPlugins } = await getPrettier();
-    return prettier.getSupportInfo(addBuiltinPlugins(options));
-  },
+  formatWithCursor: proxyFunction("formatWithCursor"),
+  getSupportInfo: proxyFunction("getSupportInfo", /* optionsIndex */ 0),
   __debug: {
-    async parse(input, options, devOptions) {
-      const { prettier, addBuiltinPlugins } = await getPrettier();
-      return prettier.__debug.parse(
-        input,
-        addBuiltinPlugins(options),
-        devOptions,
-      );
-    },
+    parse: proxyFunction("__debug.parse"),
   },
 };

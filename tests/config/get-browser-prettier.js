@@ -21,8 +21,8 @@ async function getBrowserPrettier({ product = "chrome" } = {}) {
 
   const proxyFunction =
     (accessPath) =>
-    (...arguments_) =>
-      page.evaluate(
+    async (...arguments_) => {
+      const result = await page.evaluate(
         ([arguments_, accessPath]) => {
           const prettier = globalThis.__prettier;
           let function_ = prettier;
@@ -35,6 +35,13 @@ async function getBrowserPrettier({ product = "chrome" } = {}) {
         [arguments_, accessPath],
       );
 
+      if (result.status === "fulfilled") {
+        return result.value;
+      }
+
+      throw deserializeError(result.reason);
+    };
+
   return {
     formatWithCursor: proxyFunction("formatWithCursor"),
     getSupportInfo: proxyFunction("getSupportInfo"),
@@ -42,6 +49,18 @@ async function getBrowserPrettier({ product = "chrome" } = {}) {
       parse: proxyFunction("__debug.parse"),
     },
   };
+}
+
+function deserializeError(serialized) {
+  const error = new Error(serialized.message);
+
+  Object.assign(error, serialized);
+
+  if (serialized.cause) {
+    error.cause = deserializeError(serialized.cause);
+  }
+
+  return error;
 }
 
 export { getBrowserPrettier };
