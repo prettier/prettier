@@ -181,8 +181,6 @@ jobs:
       - run: echo 0 | sudo tee /proc/sys/kernel/apparmor_restrict_unprivileged_userns
         if: matrix.os == 'ubuntu-latest'
 
-      - run: rm puppeteer.config.cjs
-
       - name: Install Dependencies
         run: yarn install --immutable
 
