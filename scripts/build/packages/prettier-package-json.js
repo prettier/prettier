@@ -26,11 +26,11 @@ function generatePackageJson(packageJson, { packageConfig }) {
             return [
               isPlugin ? `./plugins/${basename}` : `./${basename}`,
               {
-                types: `./${file.output.replace(/\.js$/u, ".d.ts")}`,
+                types: `./${file.output.replace(/\.js$/, ".d.ts")}`,
                 // `module-sync` condition can prevent CJS plugins from working: https://github.com/prettier/prettier/issues/17139
                 // Perform a test before re-adding it.
                 require: `./${file.output}`,
-                default: `./${file.output.replace(/\.js$/u, ".mjs")}`,
+                default: `./${file.output.replace(/\.js$/, ".mjs")}`,
               },
             ];
           }),
@@ -56,7 +56,7 @@ function generatePackageJson(packageJson, { packageConfig }) {
               [`./parser-${basename}.js`, `./${file.output}`],
               [
                 `./esm/parser-${basename}.mjs`,
-                `./${file.output.replace(/\.js$/u, ".mjs")}`,
+                `./${file.output.replace(/\.js$/, ".mjs")}`,
               ],
             ];
           }),

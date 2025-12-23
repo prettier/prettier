@@ -13,7 +13,7 @@ const jsFiles = packageBuildConfigs
   .flatMap((packageConfig) =>
     packageConfig.modules.flatMap((module) =>
       module.files
-        .filter((file) => /\.[cm]?js$/u.test(file.output))
+        .filter((file) => /\.[cm]?js$/.test(file.output))
         .map((file) => path.join(packageConfig.distDirectory, file.output)),
     ),
   )

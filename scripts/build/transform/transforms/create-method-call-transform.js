@@ -66,7 +66,7 @@ function transformMethodCallToFunctionCall(node, functionName) {
 function createMethodCallTransform({ methodName, argumentsLength }) {
   const functionName = `__${methodName}`;
   const fileName = `method-${methodName.replaceAll(
-    /[A-Z]/gu,
+    /[A-Z]/g,
     (character) => `-${character.toLowerCase()}`,
   )}.js`;
   const functionImplementationUrl = new URL(

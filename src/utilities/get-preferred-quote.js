@@ -52,4 +52,4 @@ function getPreferredQuote(text, preferredQuoteOrPreferSingleQuote) {
     .character;
 }
 
-export default getPreferredQuote;
+export { DOUBLE_QUOTE, getPreferredQuote, SINGLE_QUOTE };

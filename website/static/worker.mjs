@@ -70,14 +70,21 @@ function serializeError(error) {
 function serializeAst(ast) {
   return JSON.stringify(
     ast,
-    (_, value) =>
-      value instanceof Error
-        ? serializeError(value)
-        : typeof value === "bigint"
-          ? `BigInt('${String(value)}')`
-          : typeof value === "symbol"
-            ? String(value)
-            : value,
+    (_, value) => {
+      if (value instanceof Error) {
+        return serializeError(value);
+      }
+
+      if (typeof value === "bigint") {
+        return `BigInt('${String(value)}')`;
+      }
+
+      if (typeof value === "symbol") {
+        return String(value);
+      }
+
+      return value;
+    },
     2,
   );
 }

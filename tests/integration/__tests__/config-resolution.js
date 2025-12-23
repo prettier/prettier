@@ -292,7 +292,7 @@ test(".js config file", async () => {
     await expect(prettier.resolveConfig(file)).resolves.toMatchObject(config);
   }
 
-  const cjsError = /module is not defined in ES module scope/u;
+  const cjsError = /module is not defined in ES module scope/;
   for (const directoryName of [
     "cjs-prettier-config-js-in-type-module",
     "cjs-prettierrc-js-in-type-module",
@@ -301,7 +301,7 @@ test(".js config file", async () => {
     await expect(prettier.resolveConfig(file)).rejects.toThrow(cjsError);
   }
 
-  const mjsError = /Unexpected token 'export'/u;
+  const mjsError = /Unexpected token 'export'/;
   for (const directoryName of [
     "mjs-prettier-config-js-in-type-commonjs",
     // Node.js v22.7 throws `MODULE_TYPELESS_PACKAGE_JSON` when `type` missed in package.json
@@ -371,7 +371,7 @@ test(".json5 config file", async () => {
 test(".json5 config file(invalid)", async () => {
   const parentDirectory = new URL("../cli/config/rc-json5/", import.meta.url);
   const file = new URL("./invalid/foo.js", parentDirectory);
-  const error = /JSON5: invalid end of input at 2:1/u;
+  const error = /JSON5: invalid end of input at 2:1/;
   await expect(prettier.resolveConfig(file)).rejects.toThrow(error);
 });
 

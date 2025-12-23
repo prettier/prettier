@@ -66,20 +66,20 @@ function toDts(text) {
   text = text.replaceAll("'use strict';", "  ");
 
   // `{+foo: string}` -> `{foo: string}`
-  text = text.replaceAll(/(?<=\n)(?<indention>[ {2}]+)\+/gu, "$<indention>");
+  text = text.replaceAll(/(?<=\n)(?<indention>[ {2}]+)\+/g, "$<indention>");
 
   // `{foo: interface {}}` -> `{foo: {}}`
   text = text.replaceAll(": interface {", ": {");
 
   // `{foo: interface extends T {}}` -> `{foo: T & {}}`
   text = text.replaceAll(
-    /(?<=: )interface extends (?<type>\w+)(?= \{)/gu,
+    /(?<=: )interface extends (?<type>\w+)(?= \{)/g,
     "$<type> & ",
   );
 
   // `$ReadOnlyArray<?T>` -> `ReadonlyArray<T | null>`
   text = text.replaceAll(
-    /\$ReadOnlyArray<\?(\w+)>/gu,
+    /\$ReadOnlyArray<\?(\w+)>/g,
     "ReadonlyArray<$1 | null>",
   );
 
@@ -91,7 +91,7 @@ function toDts(text) {
 
   // `{[string]: T}` -> `{[key: string]: T}`
   text = text.replaceAll(
-    /(?<=\n)(?<indention>[ {2}]+)\[(?<type>string)\](?=: )/gu,
+    /(?<=\n)(?<indention>[ {2}]+)\[(?<type>string)\](?=: )/g,
     "$<indention>[key: $<type>]",
   );
 

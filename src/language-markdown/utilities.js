@@ -65,13 +65,13 @@ function splitText(text) {
   /** @type {Array<TextNode>} */
   const nodes = [];
 
-  const tokens = text.split(/([\t\n ]+)/u);
+  const tokens = text.split(/([\t\n ]+)/);
   for (const [index, token] of tokens.entries()) {
     // whitespace
     if (index % 2 === 1) {
       nodes.push({
         type: "whitespace",
-        value: /\n/u.test(token) ? "\n" : " ",
+        value: /\n/.test(token) ? "\n" : " ",
       });
       continue;
     }
@@ -165,7 +165,7 @@ function splitText(text) {
       lastNode?.type === "word" &&
       !isBetween(KIND_NON_CJK, KIND_CJK_PUNCTUATION) &&
       // disallow leading/trailing full-width whitespace
-      ![lastNode.value, node.value].some((value) => /\u3000/u.test(value))
+      ![lastNode.value, node.value].some((value) => /\u3000/.test(value))
     ) {
       nodes.push({ type: "whitespace", value: "" });
     }
@@ -187,7 +187,7 @@ function getOrderedListItemInfo(orderListItem, options) {
   );
 
   const { numberText, leadingSpaces } = text.match(
-    /^\s*(?<numberText>\d+)(\.|\))(?<leadingSpaces>\s*)/u,
+    /^\s*(?<numberText>\d+)(\.|\))(?<leadingSpaces>\s*)/,
   ).groups;
 
   return { number: Number(numberText), leadingSpaces };
@@ -257,9 +257,7 @@ function isPrettierIgnore(node) {
   let match;
 
   if (node.type === "html") {
-    match = node.value.match(
-      /^<!--\s*prettier-ignore(?:-(start|end))?\s*-->$/u,
-    );
+    match = node.value.match(/^<!--\s*prettier-ignore(?:-(start|end))?\s*-->$/);
   } else {
     let comment;
 
@@ -274,7 +272,7 @@ function isPrettierIgnore(node) {
     }
 
     if (comment) {
-      match = comment.value.match(/^prettier-ignore(?:-(start|end))?$/u);
+      match = comment.value.match(/^prettier-ignore(?:-(start|end))?$/);
     }
   }
 

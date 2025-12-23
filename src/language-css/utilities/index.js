@@ -123,8 +123,8 @@ function isDetachedRulesetDeclarationNode(node) {
   }
 
   return (
-    (typeof selector === "string" && /^@.+:.*$/u.test(selector)) ||
-    (selector.value && /^@.+:.*$/u.test(selector.value))
+    (typeof selector === "string" && /^@.+:.*$/.test(selector)) ||
+    (selector.value && /^@.+:.*$/.test(selector.value))
   );
 }
 
@@ -194,7 +194,7 @@ function isSCSSControlDirectiveNode(node, options) {
 }
 
 function isDetachedRulesetCallNode(node) {
-  return node.raws?.params && /^\(\s*\)$/u.test(node.raws.params);
+  return node.raws?.params && /^\(\s*\)$/.test(node.raws.params);
 }
 
 function isTemplatePlaceholderNode(node) {
@@ -356,7 +356,7 @@ function isColorAdjusterFuncNode(node) {
 }
 
 function lastLineHasInlineComment(text) {
-  return /\/\//u.test(text.split(/[\n\r]/u).pop());
+  return /\/\//.test(text.split(/[\n\r]/).pop());
 }
 
 function isAtWordPlaceholderNode(node) {
