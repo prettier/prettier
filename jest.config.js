@@ -44,6 +44,13 @@ if (isProduction) {
   );
 }
 
+// Currently can't load plugins in browser
+if (TEST_RUNTIME !== "nodejs") {
+  testPathIgnorePatterns.push(
+    "<rootDir>/tests/format/misc/front-matter/with-plugins/format.test.js",
+  );
+}
+
 if (nodejsMajorVersion <= 18) {
   // Uses import attributes and `Array#toSorted()`
   testPathIgnorePatterns.push(

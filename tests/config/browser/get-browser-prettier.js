@@ -1,6 +1,7 @@
 import puppeteer from "puppeteer";
-import { downloadBrowser } from "./browser/download-browser.js";
-import { startServer } from "./browser/server.js";
+import { downloadBrowser } from "./download-browser.js";
+import { startServer } from "./server.js";
+import { deserializeErrorInNode, serializeOptionsInNode } from "./utilities.js";
 
 async function getBrowserPrettier({ product = "chrome" } = {}) {
   await downloadBrowser({ product });
@@ -20,8 +21,12 @@ async function getBrowserPrettier({ product = "chrome" } = {}) {
   await page.goto(server.url);
 
   const proxyFunction =
-    (accessPath) =>
+    (accessPath, optionsIndex = 1) =>
     async (...arguments_) => {
+      arguments_[optionsIndex] = serializeOptionsInNode(
+        arguments_[optionsIndex],
+      );
+
       const result = await page.evaluate(
         ([arguments_, accessPath]) => {
           const prettier = globalThis.__prettier;
@@ -39,28 +44,16 @@ async function getBrowserPrettier({ product = "chrome" } = {}) {
         return result.value;
       }
 
-      throw deserializeError(result.reason);
+      throw deserializeErrorInNode(result.reason);
     };
 
   return {
     formatWithCursor: proxyFunction("formatWithCursor"),
-    getSupportInfo: proxyFunction("getSupportInfo"),
+    getSupportInfo: proxyFunction("getSupportInfo", /* optionsIndex */ 0),
     __debug: {
       parse: proxyFunction("__debug.parse"),
     },
   };
-}
-
-function deserializeError(serialized) {
-  const error = new Error(serialized.message);
-
-  Object.assign(error, serialized);
-
-  if (serialized.cause) {
-    error.cause = deserializeError(serialized.cause);
-  }
-
-  return error;
 }
 
 export { getBrowserPrettier };

@@ -1,3 +1,8 @@
+import {
+  deserializeOptionsInBrowser,
+  serializeErrorInBrowser,
+} from "./utilities.js";
+
 const esmFiles = {
   prettier: "prettier/standalone.mjs",
   plugins: [
@@ -40,7 +45,8 @@ function proxyFunction(accessPath, optionsIndex = 1) {
       }
     }
 
-    const options = arguments_[optionsIndex];
+    const options = deserializeOptionsInBrowser(arguments_[optionsIndex]);
+
     arguments_[optionsIndex] = {
       ...options,
       plugins: [...builtinPlugins, ...(options.plugins || [])],
@@ -51,20 +57,15 @@ function proxyFunction(accessPath, optionsIndex = 1) {
     try {
       value = await function_(...arguments_);
     } catch (error) {
-      return { status: "rejected", error, reason: serializeError(error) };
+      return {
+        status: "rejected",
+        error,
+        reason: serializeErrorInBrowser(error),
+      };
     }
 
     return { status: "fulfilled", value };
   };
-}
-
-function serializeError(originalError) {
-  const error = { message: originalError.message, ...originalError };
-  delete error.cause;
-  if (originalError.cause instanceof Error) {
-    error.cause = serializeError(originalError.cause);
-  }
-  return error;
 }
 
 globalThis.__prettier = {

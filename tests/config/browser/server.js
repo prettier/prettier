@@ -10,7 +10,7 @@ async function getContent(url) {
   assert.ok(url.startsWith("/"));
   url = url.slice(1);
 
-  if (url === "index.html" || url === "main.js") {
+  if (url === "index.html" || url === "main.js" || url === "utilities.js") {
     return await fs.readFile(new URL(url, import.meta.url), "utf8");
   }
 
