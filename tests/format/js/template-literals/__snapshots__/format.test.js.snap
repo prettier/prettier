@@ -220,7 +220,8 @@ a = \`\${[[1, 2, 3], [4, 5, 6]]}\`
 
 =====================================output=====================================
 const long1 = \`long \${
-  a.b //comment
+  a //comment
+  .b
 } long longlong \${a.b.c.d.e} long longlong \${a.b.c.d.e} long longlong \${a.b.c.d.e} long long\`;
 const long2 = \`long \${a.b.c.d.e} long longlong \${loooooooooooooooooong} long longlong \${loooooooooooooooooong} long longlong \${loooooooooooooooooong} long long\`;
 
