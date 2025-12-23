@@ -9,6 +9,7 @@ const config = {
       entry: [
         "src/plugins/*",
         "scripts/**",
+        "tests/config/browser/get-browser-prettier.js",
         // We use `new Function()` to create `import()` in our `bin` file (bin/prettier.cjs)
         // so there is no actual use of the CLI files
         "src/cli/index.js",
