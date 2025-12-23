@@ -2,7 +2,7 @@ import path from "node:path";
 import { pathToFileURL } from "node:url";
 
 function getPrettierInternal() {
-  if (process.env.TEST_RUNTIME === "chrome") {
+  if (process.env.TEST_RUNTIME === "browser") {
     return import("./browser/get-browser-prettier.js").then(
       ({ getBrowserPrettier }) => getBrowserPrettier(),
     );

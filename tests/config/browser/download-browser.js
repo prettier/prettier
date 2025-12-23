@@ -1,6 +1,6 @@
 const puppeteerBrowsers = ["chrome", "chrome-headless-shell", "firefox"];
 
-async function downloadBrowser({ product } = {}) {
+async function downloadBrowser({ product }) {
   const { downloadBrowsers } =
     await import("puppeteer/internal/node/install.js");
   const originalEnv = { ...process.env };

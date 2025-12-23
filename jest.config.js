@@ -45,7 +45,7 @@ if (isProduction) {
 }
 
 // Currently can't load plugins in browser
-if (TEST_RUNTIME !== "nodejs") {
+if (TEST_RUNTIME === "browser") {
   testPathIgnorePatterns.push(
     "<rootDir>/tests/format/misc/front-matter/with-plugins/format.test.js",
     "<rootDir>/tests/format/misc/plugins/embed-async-printer/format.test.js",

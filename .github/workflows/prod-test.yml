@@ -154,12 +154,16 @@ jobs:
           - "ubuntu-latest"
           - "macos-latest"
           - "windows-latest"
+        browser:
+          - "Chrome"
+          - "Firefox"
         include:
           - os: "ubuntu-latest"
             FULL_TEST: true
     env:
       FULL_TEST: ${{ matrix.FULL_TEST }}
-    name: ${{ matrix.FULL_TEST && '[Full Test] ' || '' }} Chrome on ${{ startsWith(matrix.os, 'macos') && 'MacOS' || startsWith(matrix.os, 'windows') && 'Windows' || 'Linux' }}
+      TEST_RUNTIME_BROWSER_PRODUCT: ${{ matrix.browser }}
+    name: ${{ matrix.FULL_TEST && '[Full Test] ' || '' }} {{ matrix.browser }} on ${{ startsWith(matrix.os, 'macos') && 'MacOS' || startsWith(matrix.os, 'windows') && 'Windows' || 'Linux' }}
     runs-on: ${{ matrix.os }}
     needs: [build]
     steps:
@@ -190,8 +194,8 @@ jobs:
           name: dist
           path: dist
 
-      - name: Run Tests
-        run: yarn test:production-chrome
+      - name: Run Tests (Chrome)
+        run: test:browser
 
   cli:
     name: CLI
