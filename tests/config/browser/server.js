@@ -1,7 +1,6 @@
 import assert from "node:assert";
 import fs from "node:fs/promises";
 import http from "node:http";
-import { inspect } from "node:util";
 import getPort from "get-port";
 
 const distDirectory = new URL("../../../dist/", import.meta.url);
@@ -49,8 +48,7 @@ async function startServer({ silent = false, port: preferredPort } = {}) {
       }
 
       response.statusCode = error.code === "ENOENT" ? 404 : 500;
-      const errorMessage = inspect(error);
-      response.end(errorMessage);
+      response.end("Error occurred");
       return;
     }
 
