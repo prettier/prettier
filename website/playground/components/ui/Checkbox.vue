@@ -82,6 +82,12 @@ defineEmits(["change"]);
   background-color: var(--color-primary);
 }
 
+.checkbox__root:has(.checkbox__input:focus-visible) {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: 0.25rem;
+}
+
 .checkbox__input {
   position: absolute;
   width: 0;
