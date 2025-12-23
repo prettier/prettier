@@ -674,7 +674,7 @@ text <unknown title="line 1
 
 =====================================output=====================================
 <unknown title="line 1
-line 2
+  line 2
 "></unknown>
 
 <div title="line 1
@@ -685,7 +685,7 @@ line 2
   - In list
 
     <unknown title="line 1
-    line 2
+      line 2
     "></unknown>
 
     <div title="line 1
@@ -695,7 +695,7 @@ line 2
 > in blockquote
 >
 > <unknown title="line 1
-> line 2
+>   line 2
 > "></unknown>
 >
 > <div title="line 1
@@ -703,7 +703,7 @@ line 2
 > "></div>
 
 text <unknown title="line 1
-line 2
+  line 2
 ">text </unknown> text
 
 ================================================================================
@@ -752,7 +752,7 @@ text <unknown title="line 1
 
 =====================================output=====================================
 <unknown title="line 1
-line 2
+  line 2
 "></unknown>
 
 <div title="line 1
@@ -763,7 +763,7 @@ line 2
   - In list
 
     <unknown title="line 1
-    line 2
+      line 2
     "></unknown>
 
     <div title="line 1
@@ -773,7 +773,7 @@ line 2
 > in blockquote
 >
 > <unknown title="line 1
-> line 2
+>   line 2
 > "></unknown>
 >
 > <div title="line 1
@@ -781,7 +781,7 @@ line 2
 > "></div>
 
 text <unknown title="line 1
-line 2
+  line 2
 ">text </unknown> text
 
 ================================================================================
@@ -830,7 +830,7 @@ text <unknown title="line 1
 
 =====================================output=====================================
 <unknown title="line 1
-line 2
+  line 2
 "></unknown>
 
 <div title="line 1
@@ -841,7 +841,7 @@ line 2
   - In list
 
     <unknown title="line 1
-    line 2
+      line 2
     "></unknown>
 
     <div title="line 1
@@ -851,7 +851,7 @@ line 2
 > in blockquote
 >
 > <unknown title="line 1
-> line 2
+>   line 2
 > "></unknown>
 >
 > <div title="line 1
@@ -859,7 +859,7 @@ line 2
 > "></div>
 
 text <unknown title="line 1
-line 2
+  line 2
 ">text </unknown> text
 
 ================================================================================
