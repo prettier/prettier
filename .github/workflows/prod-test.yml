@@ -159,7 +159,6 @@ jobs:
             FULL_TEST: true
     env:
       FULL_TEST: ${{ matrix.FULL_TEST }}
-      PUPPETEER_SKIP_DOWNLOAD: false
     name: ${{ matrix.FULL_TEST && '[Full Test] ' || '' }} Chrome on ${{ startsWith(matrix.os, 'macos') && 'MacOS' || startsWith(matrix.os, 'windows') && 'Windows' || 'Linux' }}
     runs-on: ${{ matrix.os }}
     needs: [build]
