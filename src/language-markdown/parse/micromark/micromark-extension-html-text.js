@@ -1,4 +1,5 @@
 // copied from https://github.com/micromark/micromark/blob/774a70c6bae6dd94486d3385dbd9a0f14550b709/packages/micromark-core-commonmark/dev/lib/html-text.js
+// and modified to preserve whitespace inside quoted attribute values
 
 /**
  * @import {
