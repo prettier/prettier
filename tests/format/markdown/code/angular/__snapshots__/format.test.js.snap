@@ -18,11 +18,12 @@ printWidth: 80
 =====================================output=====================================
 \`\`\`angular-html
 @if (orderForm.couponCode().disabled()) {
-      <div class="info">
-        @for (reason of orderForm.couponCode().disabledReasons(); track reason) {
-<p>{{ reason.message }}</p>
-        }</div>
+  <div class="info">
+    @for (reason of orderForm.couponCode().disabledReasons(); track reason) {
+      <p>{{ reason.message }}</p>
     }
+  </div>
+}
 \`\`\`
 
 ================================================================================
@@ -54,21 +55,25 @@ export class Order {
 
 =====================================output=====================================
 \`\`\`angular-ts
-type A ={
-        Ugly:string
-}
+type A = {
+  Ugly: string;
+};
 
-@Component({template: \`
-@if (orderForm.couponCode().disabled()) {
+@Component({
+  template: \`
+    @if (orderForm.couponCode().disabled()) {
       <div class="info">
-        @for (reason of orderForm.couponCode().disabledReasons(); track reason) {
-<p>{{ reason.message }}</p>
-        }</div>
+        @for (
+          reason of orderForm.couponCode().disabledReasons();
+          track reason
+        ) {
+          <p>{{ reason.message }}</p>
+        }
+      </div>
     }
-  \`
+  \`,
 })
-export class Order {
-}
+export class Order {}
 \`\`\`
 
 ================================================================================
