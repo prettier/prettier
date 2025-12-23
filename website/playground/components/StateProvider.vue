@@ -1,16 +1,15 @@
 <script setup>
-import { watch, provide } from "vue";
-import { STORE_KEY } from "../constants/index.js";
-import * as storage from "../utils/storage.js";
+import { provide, watch } from "vue";
 import {
   usePlaygroundState,
   usePrettierFormatState,
 } from "../composables/use-playground-state.js";
+import { STORE_KEY } from "../constants/index.js";
+import * as storage from "../utils/storage.js";
 
 const playgroundState = usePlaygroundState();
 const prettierFormatState = usePrettierFormatState();
 
-// Persist playground state changes to local storage
 watch(
   playgroundState,
   (newState) => {

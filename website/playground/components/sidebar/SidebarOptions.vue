@@ -1,4 +1,5 @@
 <script setup>
+import { computed } from "vue";
 import Collapsible from "../ui/Collapsible.vue";
 import Option from "./Options.vue";
 
@@ -14,6 +15,10 @@ const props = defineProps({
 defineEmits(["option-value-change"]);
 
 const options = groupBy(props.availableOptions, (option) => option.category);
+
+const availableCategories = computed(() => {
+  return props.categories.filter((category) => options[category]?.length > 0);
+});
 
 function groupBy(array, iteratee) {
   const result = Object.create(null);
@@ -33,7 +38,11 @@ function groupBy(array, iteratee) {
 </script>
 
 <template>
-  <Collapsible v-for="category in categories" :key="category" :title="category">
+  <Collapsible
+    v-for="category in availableCategories"
+    :key="category"
+    :title="category"
+  >
     <Option
       v-for="option in options[category]"
       :key="option.name"

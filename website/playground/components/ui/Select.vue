@@ -53,30 +53,30 @@ function handleChange(event) {
   position: relative;
   display: inline-block;
   vertical-align: middle;
-  margin-left: 0.75rem;
   max-width: 10rem;
+  margin-left: 0.75rem;
 }
 
 .select__trigger {
-  box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 0.625rem;
+  box-sizing: border-box;
+  width: 100%;
   height: 1.875rem;
-  padding-left: 0.625rem;
-  padding-right: 0.625rem;
   margin: 0;
+  padding-right: 0.625rem;
+  padding-left: 0.625rem;
   outline: 0;
   border: 1px solid var(--color-gray-200);
   border-radius: 0.25rem;
   background-color: var(--color-background);
+  gap: 0.625rem;
   font-size: 13px;
   line-height: 1.5rem;
   color: var(--color-gray-900);
-  user-select: none;
-  width: 100%;
   cursor: pointer;
+  user-select: none;
 }
 
 .select__trigger:hover {

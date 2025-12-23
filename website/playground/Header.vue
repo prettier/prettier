@@ -37,24 +37,15 @@ defineProps({
 
 <style scoped>
 .header {
-  display: flex;
-  flex-wrap: nowrap;
-  justify-content: space-between;
-  align-items: center;
-
-  height: 30px;
-  padding: 11px 27px;
-
   position: relative;
   z-index: 20;
-
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  height: 30px;
+  padding: 11px 27px;
   border-bottom: 1px solid var(--color-border);
-}
-
-@media (max-width: 400px) {
-  .header {
-    padding: 10px;
-  }
 }
 
 .header a,
@@ -77,14 +68,14 @@ defineProps({
 }
 
 .header__title {
-  font-size: 20px;
-  display: block;
-  font-family: inherit;
-  font-weight: 400;
-  line-height: 18px;
   position: relative;
   z-index: 9999;
+  display: block;
   margin: 0;
+  font-family: inherit;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 18px;
 }
 
 #version {
@@ -95,12 +86,18 @@ defineProps({
 
 .header__links {
   display: flex;
+  align-items: center;
   gap: 8px;
   font-size: 16px;
-  align-items: center;
 }
 
 .header__links > * {
   display: flex;
+}
+
+@media (max-width: 400px) {
+  .header {
+    padding: 10px;
+  }
 }
 </style>

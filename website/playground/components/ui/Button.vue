@@ -37,13 +37,13 @@ const computedCls = computed(() => {
 <style scoped>
 .button {
   position: relative;
-  box-sizing: border-box;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  box-sizing: border-box;
   height: 2.5rem;
-  padding: 0 0.875rem;
   margin: 0;
+  padding: 0 0.875rem;
   outline: 0;
   border: 1px solid var(--color-gray-200);
   border-radius: 0.375rem;
@@ -67,25 +67,25 @@ const computedCls = computed(() => {
 }
 
 .button--primary {
-  background-color: var(--color-primary);
   border-color: var(--color-primary);
+  background-color: var(--color-primary);
   color: #fff;
 }
 
 .button--primary:hover {
-  background-color: #147a82;
   border-color: #147a82;
+  background-color: #147a82;
 }
 
 .button--danger {
-  background-color: var(--color-red);
   border-color: var(--color-red);
+  background-color: var(--color-red);
   color: #fff;
 }
 
 .button--danger:hover {
-  background-color: #cb2431;
   border-color: #cb2431;
+  background-color: #cb2431;
 }
 
 .button__icon {

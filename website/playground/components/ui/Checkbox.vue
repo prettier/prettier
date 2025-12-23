@@ -50,27 +50,27 @@ defineEmits(["change"]);
 .checkbox__label {
   display: flex;
   align-items: center;
+  flex-wrap: nowrap;
   gap: 0.625rem;
   font-size: 13px;
   line-height: 1.5rem;
   color: var(--color-gray-700);
   cursor: pointer;
-  flex-wrap: nowrap;
 }
 
 .checkbox__root {
-  box-sizing: border-box;
+  position: relative;
   display: flex;
-  width: 1.25rem;
-  height: 1.25rem;
   align-items: center;
   justify-content: center;
-  border-radius: 0.25rem;
-  outline: 0;
-  padding: 0;
+  box-sizing: border-box;
+  width: 1.25rem;
+  height: 1.25rem;
   margin: 0;
+  padding: 0;
+  outline: 0;
   border: none;
-  position: relative;
+  border-radius: 0.25rem;
 }
 
 .checkbox--unchecked {
@@ -84,7 +84,6 @@ defineEmits(["change"]);
 
 .checkbox__input {
   position: absolute;
-  opacity: 0;
   width: 0;
   height: 0;
   margin: 0;

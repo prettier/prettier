@@ -4,7 +4,7 @@ import LoadingIcon from "./icons/LoadingIcon.vue";
 
 <template>
   <div class="loading-container">
-    <LoadingIcon width="48" height="48" />
+    <LoadingIcon />
     Loading ...
   </div>
 </template>
@@ -17,7 +17,7 @@ import LoadingIcon from "./icons/LoadingIcon.vue";
   justify-content: center;
   gap: 1rem;
   height: 100%;
-  color: var(--color-text);
   font-size: 1.5rem;
+  color: var(--color-text);
 }
 </style>

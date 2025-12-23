@@ -24,7 +24,6 @@ function maybeInvert(value) {
 function handleChange(value) {
   emit("change", props.option, value);
 }
-
 </script>
 
 <template>
@@ -50,7 +49,7 @@ function handleChange(value) {
     :min="option.range.start"
     :max="option.range.end"
     :step="option.range.step"
-    :value="Number(value)"
+    :value="value != null ? Number(value) : undefined"
     @change="handleChange"
   />
 </template>

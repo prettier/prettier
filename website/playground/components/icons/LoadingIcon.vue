@@ -1,15 +1,8 @@
-<script setup>
-defineProps({
-  width: { type: Number, default: 16 },
-  height: { type: Number, default: 16 },
-});
-</script>
-
 <template>
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    :width="width"
-    :height="height"
+    width="48"
+    height="48"
     viewBox="0 0 24 24"
   >
     <g
@@ -19,7 +12,11 @@ defineProps({
       stroke-linejoin="round"
       stroke-width="2"
     >
-      <path stroke-dasharray="16" stroke-dashoffset="16" d="M12 3c4.97 0 9 4.03 9 9">
+      <path
+        stroke-dasharray="16"
+        stroke-dashoffset="16"
+        d="M12 3c4.97 0 9 4.03 9 9"
+      >
         <animate
           fill="freeze"
           attributeName="stroke-dashoffset"
@@ -50,4 +47,3 @@ defineProps({
     </g>
   </svg>
 </template>
-

@@ -4,10 +4,8 @@ import CodeEditor from "./CodeEditor.vue";
 
 <template>
   <CodeEditor
-    v-bind="$attrs"
     :read-only="true"
     :line-numbers="true"
     ruler-color="currentColor"
   />
 </template>
-

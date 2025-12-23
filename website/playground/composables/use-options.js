@@ -1,6 +1,6 @@
 import { reactive, watch } from "vue";
 import { ENABLED_OPTIONS } from "../constants/index.js";
-import { getCodeSample, getDefaults } from "../utils/index.js";
+import { generateDummyId, getCodeSample, getDefaults } from "../utils";
 import * as urlHash from "../utils/url-hash.js";
 
 export function useOptions(availableOptions) {
@@ -38,6 +38,30 @@ export function useOptions(availableOptions) {
     state.content = "";
   };
 
+  const insertDummyId = () => {
+    const { content, selection } = state;
+    if (!selection) {
+      return;
+    }
+    const dummyId = generateDummyId();
+    const modifiedContent =
+      content.slice(0, selection.main.from) +
+      dummyId +
+      content.slice(selection.main.to);
+
+    Object.assign(state, {
+      content: modifiedContent,
+      selection: {
+        ...selection,
+        main: {
+          ...selection.main,
+          from: selection.main.from + dummyId.length,
+          to: selection.main.from + dummyId.length,
+        },
+      },
+    });
+  };
+
   const setSelection = (selection) => {
     if (!selection) {
       return;
@@ -69,8 +93,6 @@ export function useOptions(availableOptions) {
   };
 
   const handleOptionValueChange = (option, value) => {
-    console.log(option, value);
-
     const options = { ...state.options };
 
     if (option.name === "parser" && value !== options.parser) {
@@ -94,7 +116,8 @@ export function useOptions(availableOptions) {
   };
 
   const resetOptions = () => {
-    Object.assign(state, { options: { ...defaultOptions } });
+    const content = getCodeSample(defaultOptions.parser);
+    Object.assign(state, { options: { ...defaultOptions }, content });
   };
 
   watch(
@@ -115,6 +138,7 @@ export function useOptions(availableOptions) {
     setContent,
     clearContent,
     setSelection,
+    insertDummyId,
     setSelectionAsRange,
     handleOptionValueChange,
     resetOptions,

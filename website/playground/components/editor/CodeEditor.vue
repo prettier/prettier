@@ -32,7 +32,6 @@ import { onMounted, onUnmounted, ref, watch } from "vue";
 const props = defineProps({
   value: { type: String, required: true },
   selection: { type: Object, default: undefined },
-  onSelectionChange: { type: Function, default: undefined },
   ruler: { type: Number, default: undefined },
   rulerColor: { type: String, default: undefined },
   overlayStart: { type: Number, default: undefined },
@@ -49,7 +48,7 @@ const props = defineProps({
   readOnly: { type: Boolean, default: false },
 });
 
-const emit = defineEmits(["change", "selectionChange"]);
+const emit = defineEmits(["change", "selection-change"]);
 
 const editorRef = ref(null);
 let view = null;
@@ -64,7 +63,7 @@ const highlightOverlayField = StateField.define({
     for (const effect of tr.effects) {
       if (effect.is(highlightOverlay)) {
         const { start, end } = effect.value;
-        if (start !== undefined && end !== undefined) {
+        if (start !== undefined && end !== undefined && start < end) {
           return Decoration.set([overlayMark.range(start, end)]);
         }
         return Decoration.none;
@@ -219,8 +218,8 @@ onMounted(async () => {
         if (update.docChanged) {
           emit("change", update.state.doc.toString());
         }
-        if (update.selectionSet && props.onSelectionChange) {
-          props.onSelectionChange(update.state.selection);
+        if (update.selectionSet) {
+          emit("selection-change", update.state.selection);
         }
       }),
     ].filter(Boolean),
@@ -233,7 +232,11 @@ onMounted(async () => {
 
   applyAutoFold(view, props.value);
 
-  if (props.overlayStart !== undefined && props.overlayEnd !== undefined) {
+  if (
+    props.overlayStart !== undefined &&
+    props.overlayEnd !== undefined &&
+    props.overlayStart < props.overlayEnd
+  ) {
     view.dispatch({
       effects: highlightOverlay.of({
         start: props.overlayStart,
@@ -244,23 +247,30 @@ onMounted(async () => {
 });
 
 onUnmounted(() => {
-  if (view) {
-    view.destroy();
-    view = null;
-  }
+  view.destroy();
+  view = null;
 });
 
 watch(
   () => props.value,
   (newValue) => {
-    if (view && newValue !== view.state.doc.toString()) {
-      view.dispatch({
+    if (newValue !== view?.state.doc.toString()) {
+      const transaction = {
         changes: {
           from: 0,
           to: view.state.doc.length,
           insert: newValue,
         },
-      });
+      };
+
+      if (props.selection && props.selection.main) {
+        transaction.selection = {
+          anchor: props.selection.main.from,
+          head: props.selection.main.to,
+        };
+      }
+
+      view.dispatch(transaction);
 
       applyAutoFold(view, newValue);
     }
@@ -282,28 +292,46 @@ watch(
 watch(
   () => props.ruler,
   (newRuler) => {
-    if (view) {
-      view.dispatch({
-        effects: rulerTheme.reconfigure(
-          createRulerTheme(newRuler, props.rulerColor),
-        ),
-      });
-    }
+    view?.dispatch({
+      effects: rulerTheme.reconfigure(
+        createRulerTheme(newRuler, props.rulerColor),
+      ),
+    });
   },
 );
 
 watch(
   () => [props.overlayStart, props.overlayEnd],
   ([newStart, newEnd]) => {
-    if (view) {
+    view?.dispatch({
+      effects: highlightOverlay.of({
+        start: newStart,
+        end: newEnd,
+      }),
+    });
+  },
+);
+
+watch(
+  () => props.selection,
+  (newSelection) => {
+    if (!view || !newSelection?.main) {
+      return;
+    }
+    const currentSelection = view.state.selection.main;
+    if (
+      currentSelection.from !== newSelection.main.from ||
+      currentSelection.to !== newSelection.main.to
+    ) {
       view.dispatch({
-        effects: highlightOverlay.of({
-          start: newStart,
-          end: newEnd,
-        }),
+        selection: {
+          anchor: newSelection.main.from,
+          head: newSelection.main.to,
+        },
       });
     }
   },
+  { deep: true },
 );
 </script>
 
@@ -313,3 +341,22 @@ watch(
   </div>
 </template>
 
+<style>
+.cm-overlay-highlight {
+  background-color: var(--color-overlay-background);
+}
+
+@media (min-width: 800px) {
+  .playground__editor {
+    flex-basis: 50%;
+    margin-left: -1px;
+    border-left: 1px solid var(--color-border);
+  }
+}
+
+@media (min-width: 1200px) {
+  .playground__editor {
+    flex-basis: 25%;
+  }
+}
+</style>

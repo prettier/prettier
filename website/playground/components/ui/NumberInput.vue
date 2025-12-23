@@ -10,19 +10,19 @@ defineProps({
   },
   min: {
     type: Number,
-    required: false,
+    default: undefined,
   },
   max: {
     type: Number,
-    required: false,
+    default: undefined,
   },
   step: {
     type: Number,
-    required: false,
+    default: 1,
   },
   value: {
     type: Number,
-    required: true,
+    default: undefined,
   },
 });
 
@@ -39,7 +39,7 @@ defineEmits(["change"]);
       :max="max"
       :step="step"
       :value="value"
-      @input="$emit('change', $event.target.valueAsNumber)"
+      @input="(event) => $emit('change', event.target.valueAsNumber)"
     />
   </label>
 </template>
@@ -53,12 +53,14 @@ defineEmits(["change"]);
 }
 
 .number-input__input {
-  box-sizing: border-box;
   display: inline-block;
+  box-sizing: border-box;
   vertical-align: middle;
+  width: auto;
+  max-width: 5rem;
   height: 1.875rem;
-  padding: 0 0.625rem;
   margin-left: 0.75rem;
+  padding: 0 0.625rem;
   outline: 0;
   border: 1px solid var(--color-gray-200);
   border-radius: 0.25rem;
@@ -66,8 +68,6 @@ defineEmits(["change"]);
   font-size: 13px;
   line-height: 1.5rem;
   color: var(--color-gray-900);
-  max-width: 5rem;
-  width: auto;
 }
 
 .number-input__input:hover {

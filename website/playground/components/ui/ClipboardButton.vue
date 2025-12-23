@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, useTemplateRef, reactive } from "vue";
+import { onMounted, reactive, useTemplateRef } from "vue";
 import Button from "./Button.vue";
 
 const props = defineProps({
@@ -71,15 +71,15 @@ onMounted(() => {
   z-index: 6;
   bottom: 100%;
   left: 50%;
-  transform: translateX(-50%) translateY(4px);
   margin-top: 4px;
   padding: 0.4em 0.8em;
-  background-color: var(--color-background);
   border: 1px solid var(--color-border);
-  color: var(--color-text);
   border-radius: 0.4em;
+  background-color: var(--color-background);
+  color: var(--color-text);
   pointer-events: none;
   opacity: 0;
+  transform: translateX(-50%) translateY(4px);
   transition:
     opacity 0.2s ease-in-out,
     transform 0.2s ease-in-out;
@@ -95,9 +95,9 @@ onMounted(() => {
   position: absolute;
   top: 100%;
   left: 50%;
-  transform: translateX(-50%);
   border: 6px solid transparent;
-  border-bottom: none;
   border-top-color: var(--color-background);
+  border-bottom: none;
+  transform: translateX(-50%);
 }
 </style>

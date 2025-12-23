@@ -8,7 +8,7 @@ import OutputPanel from "./editor/OutputPanel.vue";
 const prettierFormatState = inject("prettierFormatState");
 const playgroundState = inject("playgroundState");
 const optionsState = inject("optionsState");
-const { state, setContent, setSelection } = optionsState;
+const { state, setContent, setSelection, insertDummyId } = optionsState;
 
 const parser = computed(() => state.options.parser);
 const printWidth = computed(() => state.options.printWidth);
@@ -19,16 +19,20 @@ const formatInput = () => {
   if (parser.value !== "doc-explorer") {
     return;
   }
-
-  // TODO: This needs a worker instance to be passed in
-  // For now, this feature is disabled
-  console.warn("Format input is not yet implemented in Vue version");
 };
 
 const isDocExplorer = computed(() => parser.value === "doc-explorer");
 
 const getSecondFormat = (formatted, reformatted) => {
-  return formatted === reformatted ? "" : reformatted;
+  if (formatted === "") {
+    return "";
+  }
+
+  if (formatted === reformatted) {
+    return "✓ Second format is unchanged.";
+  }
+
+  return reformatted ?? "";
 };
 </script>
 
@@ -44,9 +48,10 @@ const getSecondFormat = (formatted, reformatted) => {
       :overlayStart="rangeStart"
       :overlayEnd="rangeEnd"
       @change="setContent"
-      :onSelectionChange="setSelection"
+      @selection-change="setSelection"
       :extraKeys="{
-        'Shift-Alt-F': formatInput,
+        'Shift-Alt-f': formatInput,
+        'Ctrl-q': insertDummyId,
       }"
       :foldGutter="parser === 'doc-explorer'"
     />
@@ -59,6 +64,10 @@ const getSecondFormat = (formatted, reformatted) => {
       v-if="playgroundState.showPreprocessedAst && !isDocExplorer"
       :value="prettierFormatState.debug?.preprocessedAst || ''"
       :auto-fold="getAstAutoFold(parser)"
+    />
+    <DebugPanel
+      v-if="playgroundState.showDoc && !isDocExplorer"
+      :value="prettierFormatState.debug?.doc || ''"
     />
     <DebugPanel
       v-if="playgroundState.showComments && !isDocExplorer"
@@ -86,7 +95,7 @@ const getSecondFormat = (formatted, reformatted) => {
       :value="
         getSecondFormat(
           prettierFormatState.formatted,
-          prettierFormatState.debug?.reformatted,
+          prettierFormatState.debug?.reformatted || '',
         )
       "
       :ruler="printWidth"
@@ -96,18 +105,18 @@ const getSecondFormat = (formatted, reformatted) => {
 
 <style scoped>
 .playground__editor {
-  box-sizing: border-box;
-  display: flex;
-  flex: 1 1 100%;
   position: relative;
+  display: flex;
+  box-sizing: border-box;
+  flex: 1 1 100%;
   border-bottom: 1px solid var(--color-border);
 }
 
 @media (min-width: 800px) {
   .playground__editor {
     flex-basis: 50%;
-    border-left: 1px solid var(--color-border);
     margin-left: -1px;
+    border-left: 1px solid var(--color-border);
   }
 }
 

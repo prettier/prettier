@@ -4,7 +4,6 @@ import CodeEditor from "./CodeEditor.vue";
 
 <template>
   <CodeEditor
-    v-bind="$attrs"
     :line-numbers="true"
     :auto-close-brackets="true"
     :match-brackets="true"
@@ -13,4 +12,3 @@ import CodeEditor from "./CodeEditor.vue";
     ruler-color="color-mix(in oklab, currentColor 10%, transparent)"
   />
 </template>
-

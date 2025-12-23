@@ -17,6 +17,7 @@ export function usePlaygroundState() {
     showInput: true,
     showOutput: true,
     rethrowEmbedErrors: false,
+    ...storage.get(STORE_KEY),
     toggleSidebar: stateToggler("showSidebar"),
     toggleAst: stateToggler("showAst"),
     togglePreprocessedAst: stateToggler("showPreprocessedAst"),
@@ -24,9 +25,8 @@ export function usePlaygroundState() {
     toggleComments: stateToggler("showComments"),
     toggleSecondFormat: stateToggler("showSecondFormat"),
     toggleInput: stateToggler("showInput"),
-    toggleOutput: stateToggler("toggleOutput"),
+    toggleOutput: stateToggler("showOutput"),
     toggleEmbedErrors: stateToggler("rethrowEmbedErrors"),
-    ...storage.get(STORE_KEY),
   });
 
   return state;

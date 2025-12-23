@@ -1,20 +1,18 @@
 <script setup>
 import { inject } from "vue";
-import { ISSUES_URL, COPY_MESSAGE, MAX_LENGTH } from "../constants";
+import { COPY_MESSAGE, ISSUES_URL, MAX_LENGTH } from "../constants";
 import Button from "./ui/Button.vue";
 import ClipboardButton from "./ui/ClipboardButton.vue";
-import { generateDummyId } from "../utils";
 
-const {getMarkdown} = defineProps({
+const { getMarkdown } = defineProps({
   getMarkdown: { type: Function, required: true },
 });
-
 
 const playgroundState = inject("playgroundState");
 const prettierFormatState = inject("prettierFormatState");
 const optionsState = inject("optionsState");
 
-const { options, content, selection } = optionsState.state;
+const { clearContent, insertDummyId } = optionsState;
 
 const fullReport = getMarkdown({
   formatted: prettierFormatState.formatted,
@@ -22,24 +20,7 @@ const fullReport = getMarkdown({
   full: true,
 });
 
-const showFullReport =  encodeURIComponent(fullReport).length < MAX_LENGTH
-
-function handleInsertDummyId() {
-  if (!selection) {
-    return;
-  }
-  const dummyId = generateDummyId();
-
-  const rangeStart = selection.main.from ?? 0;
-  const rangeEnd = selection.main.to ?? 0;
-
-  const modifiedContent =
-    content.slice(0, rangeStart) + dummyId + content.slice(rangeEnd);
-
-  Object.assign(state, {
-    content: modifiedContent,
-  });
-}
+const showFullReport = encodeURIComponent(fullReport).length < MAX_LENGTH;
 
 function getCurrentHref() {
   return window.location.href;
@@ -58,9 +39,9 @@ function getReportLink(reportBody) {
       <Button @click="playgroundState.toggleSidebar">
         {{ playgroundState.showSidebar ? "Hide" : "Show" }} options
       </Button>
-      <Button @click="{ onClearContent }">Clear</Button>
+      <Button @click="clearContent">Clear</Button>
       <Button
-        @click="handleInsertDummyId"
+        @click="insertDummyId"
         @mousedown="(event) => event.preventDefault()"
         title="Generate a nonsense variable name (Ctrl-Q)"
       >
@@ -77,8 +58,8 @@ function getReportLink(reportBody) {
         :copy="
           () =>
             getMarkdown({
-              formatted,
-              reformatted: debug.reformatted,
+              formatted: prettierFormatState.formatted,
+              reformatted: prettierFormatState.debug.reformatted,
             })
         "
         variant="primary"
@@ -93,7 +74,7 @@ function getReportLink(reportBody) {
             // parser there is an anti-pattern. Note:
             // `JSON.stringify` omits keys whose values are
             // `undefined`.
-            { ...options, parser: undefined },
+            { ...optionsState.state.options, parser: undefined },
             null,
             2,
           )
@@ -122,19 +103,19 @@ function getReportLink(reportBody) {
 .playground__bottom-bar {
   position: relative;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
   gap: 1rem;
   padding: 0.75rem 1rem;
   background-color: var(--color-background);
-  flex-wrap: wrap;
 }
 
 .playground__bottom-bar-actions {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
   flex-wrap: wrap;
+  gap: 0.75rem;
 }
 
 .playground__bottom-bar-actions--left {
@@ -148,8 +129,8 @@ function getReportLink(reportBody) {
 
 @media (max-width: 799px) {
   .playground__bottom-bar {
-    padding: 0.5rem;
     gap: 0.5rem;
+    padding: 0.5rem;
   }
 
   .playground__bottom-bar-actions {

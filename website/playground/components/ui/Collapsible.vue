@@ -35,33 +35,32 @@ defineProps({
   border-bottom: 0;
 }
 
-.collapsible__icon {
-  width: 0.75rem;
-  height: 0.75rem;
-  flex-shrink: 0;
-  transition: transform 150ms ease-out;
-}
-
 .collapsible__trigger {
   display: flex;
   align-items: center;
   gap: 0.625rem;
-  width: 100%;
   margin: 0;
   padding: 0.5rem 0.75rem;
+  outline: 0;
   border: 0;
-  color: var(--color-gray-900);
   font-size: 15px;
   font-weight: bold;
   line-height: 1.75rem;
+  color: var(--color-gray-900);
   text-align: left;
   cursor: pointer;
-  outline: 0;
 }
 
 .collapsible__trigger:focus-visible {
   outline: 2px solid var(--color-primary);
   outline-offset: -1px;
+}
+
+.collapsible__icon {
+  flex-shrink: 0;
+  width: 0.75rem;
+  height: 0.75rem;
+  transition: transform 150ms ease-out;
 }
 
 .collapsible[open] .collapsible__icon {

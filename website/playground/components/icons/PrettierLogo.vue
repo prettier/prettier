@@ -7,4 +7,3 @@ import { theme } from "../../composables/theme";
 <template>
   <img :src="theme === 'dark' ? darkLogo : lightLogo" alt="Prettier" />
 </template>
-

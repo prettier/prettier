@@ -17,4 +17,3 @@ defineProps({
     mode="jsx"
   />
 </template>
-

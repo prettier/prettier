@@ -1,15 +1,8 @@
-<script setup>
-defineProps({
-  width: { type: Number, default: 10 },
-  height: { type: Number, default: 10 },
-});
-</script>
-
 <template>
   <svg
     fill="currentColor"
-    :width="width"
-    :height="height"
+    width="10"
+    height="10"
     viewBox="0 0 10 10"
     aria-hidden="true"
   >
@@ -18,4 +11,3 @@ defineProps({
     />
   </svg>
 </template>
-

@@ -1,14 +1,7 @@
-<script setup>
-defineProps({
-  width: { type: Number, default: 8 },
-  height: { type: Number, default: 12 },
-});
-</script>
-
 <template>
   <svg
-    :width="width"
-    :height="height"
+    width="8"
+    height="12"
     viewBox="0 0 8 12"
     fill="none"
     stroke="currentColor"
@@ -19,4 +12,3 @@ defineProps({
     <path d="M0.5 7.5L4 10.5L7.5 7.5" />
   </svg>
 </template>
-

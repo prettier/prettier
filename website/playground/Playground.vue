@@ -64,10 +64,10 @@ function getMarkdown({ formatted, reformatted, full, doc }) {
 <style>
 #root,
 .playground {
-  height: 100%;
   display: flex;
   flex: 1;
   flex-direction: column;
+  height: 100%;
   overflow: hidden;
 }
 
@@ -79,36 +79,14 @@ function getMarkdown({ formatted, reformatted, full, doc }) {
 
 .playground__editors {
   display: flex;
-  flex-flow: row wrap;
   flex: 1;
+  flex-flow: row wrap;
 }
 
 .playground__cursor-tracking {
-  width: 100%;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-}
-
-@media (min-width: 800px) {
-  .playground__sidebar {
-    border-right: 0;
-  }
-
-  .playground__editor {
-    flex-basis: 50%;
-    border-left: 1px solid var(--color-border);
-    margin-left: -1px;
-  }
-}
-
-@media (min-width: 1200px) {
-  .playground__editor {
-    flex-basis: 25%;
-  }
-}
-
-.cm-overlay-highlight {
-  background-color: var(--color-overlay-background);
+  justify-content: space-between;
+  width: 100%;
 }
 </style>

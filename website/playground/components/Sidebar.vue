@@ -192,11 +192,11 @@ const isDocExplorer = computed(() => state.options.parser === "doc-explorer");
 .playground__sidebar {
   display: none;
   box-sizing: border-box;
+  flex: 0 1 auto;
   width: 225px;
   overflow-y: auto;
-  border-bottom: 1px solid var(--color-border);
   border-right: 1px solid var(--color-border);
-  flex: 0 1 auto;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .playground__sidebar--open {
@@ -222,5 +222,11 @@ const isDocExplorer = computed(() => state.options.parser === "doc-explorer");
 
 .playground__sidebar-section > .button {
   margin-left: 10px;
+}
+
+@media (min-width: 800px) {
+  .playground__sidebar {
+    border-right: 0;
+  }
 }
 </style>
