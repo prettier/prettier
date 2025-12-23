@@ -49,7 +49,8 @@ async function startServer({ silent = false, port: preferredPort } = {}) {
       }
 
       response.statusCode = error.code === "ENOENT" ? 404 : 500;
-      response.end(inspect(error));
+      const errorMessage = inspect(error);
+      response.end(errorMessage);
       return;
     }
 
