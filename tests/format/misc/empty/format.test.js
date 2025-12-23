@@ -1,4 +1,4 @@
-import * as prettier from "../../../../src/index.js";
+import prettier from "../../../config/prettier-entry.js";
 
 const parsers = (await prettier.getSupportInfo()).options
   .find((option) => option.name === "parser")
