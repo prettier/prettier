@@ -67,7 +67,7 @@ function handleChange(event) {
   margin: 0;
   padding-right: 0.625rem;
   padding-left: 0.625rem;
-  outline: 0;
+  outline: none;
   border: 1px solid var(--color-gray-200);
   border-radius: 0.25rem;
   background-color: var(--color-background);
@@ -81,5 +81,10 @@ function handleChange(event) {
 
 .select__trigger:hover {
   background-color: var(--color-gray-100);
+}
+
+.select__trigger:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
 }
 </style>

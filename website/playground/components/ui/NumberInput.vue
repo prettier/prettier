@@ -61,7 +61,7 @@ defineEmits(["change"]);
   height: 1.875rem;
   margin-left: 0.75rem;
   padding: 0 0.625rem;
-  outline: 0;
+  outline: none;
   border: 1px solid var(--color-gray-200);
   border-radius: 0.25rem;
   background-color: var(--color-background);
@@ -74,10 +74,9 @@ defineEmits(["change"]);
   border-color: var(--color-gray-300);
 }
 
-.number-input__input:focus {
+.number-input__input:focus-visible {
   outline: 2px solid var(--color-primary);
-  outline-offset: -1px;
-  border-color: var(--color-primary);
+  outline-offset: 2px;
 }
 
 .number-input__input:disabled {
