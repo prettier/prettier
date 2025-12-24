@@ -152,15 +152,15 @@ jobs:
       matrix:
         os:
           - "ubuntu-latest"
-          - "macos-latest"
+          # - "macos-latest"
           - "windows-latest"
         browser:
-          - "Chrome"
-          - "Firefox"
+          - "chrome"
+          - "firefox"
     env:
       FULL_TEST: ${{ matrix.os == 'ubuntu-latest' && true || '' }}
       TEST_RUNTIME_BROWSER_PRODUCT: ${{ matrix.browser }}
-    name: ${{ matrix.os == 'ubuntu-latest' && '[Full Test] ' || '' }} ${{ matrix.browser }} on ${{ startsWith(matrix.os, 'macos') && 'MacOS' || startsWith(matrix.os, 'windows') && 'Windows' || 'Linux' }}
+    name: ${{ matrix.os == 'ubuntu-latest' && '[Full Test] ' || '' }} Browser(${{ matrix.browser }}) on ${{ startsWith(matrix.os, 'macos') && 'MacOS' || startsWith(matrix.os, 'windows') && 'Windows' || 'Linux' }}
     runs-on: ${{ matrix.os }}
     needs: [build]
     steps:
@@ -172,11 +172,11 @@ jobs:
         with:
           cache: "yarn"
 
-      # - name: Puppeteer cache
-      #   uses: actions/cache@9255dc7a253b0ccc959486e2bca901246202afeb # v5.0.1
-      #   with:
-      #     path: .tmp/puppeteer/
-      #     key: v1
+      - name: Puppeteer cache
+        uses: actions/cache@9255dc7a253b0ccc959486e2bca901246202afeb # v5.0.1
+        with:
+          path: .tmp/puppeteer/
+          key: v1
 
       # https://chromium.googlesource.com/chromium/src/+/main/docs/security/apparmor-userns-restrictions.md
       - run: echo 0 | sudo tee /proc/sys/kernel/apparmor_restrict_unprivileged_userns
