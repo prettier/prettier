@@ -1,10 +1,15 @@
 function responseInBrowser(function_, context) {
   const { accessPath, optionsIndex, browser } = context;
 
-  function resolve(value, options) {
+  function resolve(value) {
     // Comments in `graphql` can't be serialized, and we are not using it in format test
-    if (accessPath === "formatWithCursor" && options.parser === "graphql") {
+    if (accessPath === "formatWithCursor") {
       value.comments = [];
+    }
+
+    // `BigInt` can't be serialized in chrome
+    if (accessPath === "__debug.parse" && browser === "chrome") {
+      value.ast = serializeAst(value.ast);
     }
 
     return { status: "fulfilled", value };
@@ -23,11 +28,14 @@ function responseInBrowser(function_, context) {
   }
 
   return async function (...arguments_) {
-    const options = deserializeOptions(arguments_[optionsIndex]);
-    arguments_[optionsIndex] = options;
+    // `Infinity` can't be serialized in chrome
+    if (browser === "chrome") {
+      const options = deserializeOptions(arguments_[optionsIndex]);
+      arguments_[optionsIndex] = options;
+    }
 
     try {
-      return resolve(await function_(...arguments_), options);
+      return resolve(await function_(...arguments_));
     } catch (error) {
       return reject(error);
     }
@@ -35,25 +43,32 @@ function responseInBrowser(function_, context) {
 }
 
 function requestFromNode(function_, context) {
-  const {
-    // accessPath,
-    optionsIndex,
-    // browser,
-  } = context;
+  const { accessPath, optionsIndex, browser } = context;
 
-  function resolve(response) {
-    return response.value;
+  function resolve({ value }) {
+    // `BigInt` can't be serialized in chrome
+    if (accessPath === "__debug.parse" && browser === "chrome") {
+      value.ast = deserializeAst(value.ast);
+    }
+
+    return value;
   }
 
   function reject(response) {
-    throw deserializeError(response.serializedError);
+    const error = deserializeError(response.serializedError);
+    throw error;
   }
 
   return async function (...arguments_) {
-    arguments_[optionsIndex] = serializeOptions(arguments_[optionsIndex]);
+    // `Infinity` can't be serialized in chrome
+    if (browser === "chrome") {
+      const options = arguments_[optionsIndex];
+      arguments_[optionsIndex] = serializeOptions(options);
+    }
 
     const response = await function_(...arguments_);
-    if (response.status === "reject") {
+
+    if (response.status === "rejected") {
       return reject(response);
     }
 
@@ -82,28 +97,64 @@ function serializeError(originalError) {
   return error;
 }
 
-const POSITIVE_INFINITY_PLACEHOLDER = "[[Number.POSITIVE_INFINITY]]";
-
 function serializeOptions(options = {}) {
-  if (options.printWidth === Number.POSITIVE_INFINITY) {
-    return {
-      ...options,
-      printWidth: POSITIVE_INFINITY_PLACEHOLDER,
-    };
-  }
-
-  return options;
+  return {
+    ...options,
+    printWidth: serializeValue(options?.printWidth),
+  };
 }
 
 function deserializeOptions(options = {}) {
-  if (options.printWidth === POSITIVE_INFINITY_PLACEHOLDER) {
-    options = {
-      ...options,
-      printWidth: Number.POSITIVE_INFINITY,
-    };
+  return {
+    ...options,
+    printWidth: deserializeValue(options?.printWidth),
+  };
+}
+
+function serializeAst(ast) {
+  let shouldSerialize = false;
+
+  const serialized = JSON.stringify(ast, (_, value) => {
+    const serialized = serializeValue(value);
+    if (serialized !== value) {
+      shouldSerialize ||= true;
+    }
+    return serialized;
+  });
+
+  return shouldSerialize ? serialized : ast;
+}
+
+function deserializeAst(ast) {
+  if (typeof ast !== "string") {
+    return ast;
   }
 
-  return options;
+  return JSON.parse(ast, (_, value) => deserializeValue(value));
+}
+
+const INTERNAL_VALUE_KIND = "[[INTERNAL_VALUE_KIND]]";
+function deserializeValue(value) {
+  switch (value?.[INTERNAL_VALUE_KIND]) {
+    case "Number.POSITIVE_INFINITY":
+      return Number.POSITIVE_INFINITY;
+    case "bigint":
+      return BigInt(value.bigint);
+  }
+
+  return value;
+}
+
+function serializeValue(value) {
+  if (value === Number.POSITIVE_INFINITY) {
+    return { [INTERNAL_VALUE_KIND]: "Number.POSITIVE_INFINITY" };
+  }
+
+  if (typeof value === "bigint") {
+    return { [INTERNAL_VALUE_KIND]: "bigint", bigint: String(value) };
+  }
+
+  return value;
 }
 
 export { requestFromNode, responseInBrowser };

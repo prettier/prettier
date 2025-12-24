@@ -1,6 +1,6 @@
 import { responseInBrowser } from "./utilities.js";
 
-const browser = navigator.product === "Gecko" ? "firefox" : "chrome";
+const browser = navigator.userAgent.includes("Firefox/") ? "firefox" : "chrome";
 
 const esmFiles = {
   prettier: "prettier/standalone.mjs",
