@@ -358,6 +358,5 @@ html[data-theme="dark"] .cm-overlay-highlight {
 }
 
 html[data-theme="dark"] .cm-gutters {
-  background-color: var(--background-color);
-  border-color: var(--color-border);
+  background-color: #121212;
 }

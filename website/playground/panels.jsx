@@ -5,7 +5,6 @@ import {
   history,
   historyKeymap,
   indentWithTab,
-  selectAll,
 } from "@codemirror/commands";
 import {
   bracketMatching,
@@ -162,14 +161,6 @@ function setup(props, { emit }) {
         EditorState.readOnly.of(props.readOnly ?? false),
 
         rulerTheme.of(createRulerTheme(props.ruler, props.rulerColor)),
-
-        EditorView.domEventHandlers({
-          focus(event, view) {
-            if (view.state.doc.toString() === props.codeSample) {
-              selectAll(view);
-            }
-          },
-        }),
 
         EditorView.updateListener.of((update) => {
           if (update.docChanged) {
