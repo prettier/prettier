@@ -1,9 +1,6 @@
 import { launchBrowser } from "./browser.js";
 import { startServer } from "./server.js";
-import {
-  deserializeResponseInNode,
-  serializeOptionsInNode,
-} from "./utilities.js";
+import { requestFromNode } from "./utilities.js";
 
 async function getBrowserPrettier() {
   const product =
@@ -22,34 +19,27 @@ async function getBrowserPrettier() {
   const page = await browser.newPage();
   await page.goto(server.url);
 
-  const proxyFunction =
-    (accessPath, optionsIndex = 1) =>
-    async (...arguments_) => {
-      arguments_[optionsIndex] = serializeOptionsInNode(
-        arguments_[optionsIndex],
-      );
+  const proxyFunction = (accessPath, optionsIndex = 1) =>
+    requestFromNode(
+      (...arguments_) =>
+        page.evaluate(
+          ([arguments_, accessPath]) => {
+            const prettier = globalThis.__prettier;
+            let function_ = prettier;
+            for (const property of accessPath.split(".")) {
+              function_ = function_[property];
+            }
 
-      const response = await page.evaluate(
-        ([arguments_, accessPath]) => {
-          const prettier = globalThis.__prettier;
-          let function_ = prettier;
-          for (const property of accessPath.split(".")) {
-            function_ = function_[property];
-          }
-
-          return function_(...arguments_);
-        },
-        [arguments_, accessPath],
-      );
-
-      const result = deserializeResponseInNode(response);
-
-      if (result.status === "rejected") {
-        throw result.reason;
-      }
-
-      return result.value;
-    };
+            return function_(...arguments_);
+          },
+          [arguments_, accessPath],
+        ),
+      {
+        browser: product,
+        accessPath,
+        optionsIndex,
+      },
+    );
 
   return {
     formatWithCursor: proxyFunction("formatWithCursor"),

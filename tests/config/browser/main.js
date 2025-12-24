@@ -1,9 +1,6 @@
-import {
-  deserializeOptionsInBrowser,
-  serializeResponseInBrowser,
-} from "./utilities.js";
+import { responseInBrowser } from "./utilities.js";
 
-const isFirefox = navigator.product === "Gecko";
+const browser = navigator.product === "Gecko" ? "firefox" : "chrome";
 
 const esmFiles = {
   prettier: "prettier/standalone.mjs",
@@ -31,47 +28,38 @@ let builtinPlugins;
 
 function proxyFunction(accessPath, optionsIndex = 1) {
   let function_;
-  return async function (...arguments_) {
-    if (!prettier) {
-      [prettier, ...builtinPlugins] = await Promise.all(
-        [esmFiles.prettier, ...esmFiles.plugins].map(
-          (file) => import(`/${file}`),
-        ),
-      );
-    }
-
-    if (!function_) {
-      function_ = prettier;
-      for (const property of accessPath.split(".")) {
-        function_ = function_[property];
+  return responseInBrowser(
+    async (...arguments_) => {
+      if (!prettier) {
+        [prettier, ...builtinPlugins] = await Promise.all(
+          [esmFiles.prettier, ...esmFiles.plugins].map(
+            (file) => import(`/${file}`),
+          ),
+        );
       }
-    }
 
-    const options = deserializeOptionsInBrowser(arguments_[optionsIndex]);
+      if (!function_) {
+        function_ = prettier;
+        for (const property of accessPath.split(".")) {
+          function_ = function_[property];
+        }
+      }
 
-    arguments_[optionsIndex] = {
-      ...options,
-      plugins: [...builtinPlugins, ...(options.plugins || [])],
-    };
+      const options = arguments_[optionsIndex];
 
-    let value;
+      arguments_[optionsIndex] = {
+        ...options,
+        plugins: [...builtinPlugins, ...(options.plugins || [])],
+      };
 
-    try {
-      value = await function_(...arguments_);
-    } catch (error) {
-      return serializeResponseInBrowser({ status: "rejected", reason: error });
-    }
-
-    // Comments in `graphql` can't be serialized
-    if (
-      function_ === prettier.formatWithCursor &&
-      options.parser === "graphql"
-    ) {
-      value.comments = [];
-    }
-
-    return { status: "fulfilled", value };
-  };
+      return function_(...arguments_);
+    },
+    {
+      browser,
+      accessPath,
+      optionsIndex,
+    },
+  );
 }
 
 globalThis.__prettier = {
