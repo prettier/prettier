@@ -1,4 +1,4 @@
-import { ensurePromise,responseInBrowser } from "./utilities.js";
+import { ensurePromise, responseInBrowser } from "./utilities.js";
 
 const browser = navigator.userAgent.includes("Firefox/") ? "firefox" : "chrome";
 
