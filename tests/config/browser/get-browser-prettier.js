@@ -3,7 +3,10 @@ import { startServer } from "./server.js";
 import { requestFromNode } from "./utilities.js";
 
 async function getBrowserPrettier() {
+  /** @type {"chrome" | "firefox"} */
   const browserName = process.env.TEST_RUNTIME_BROWSER ?? "chrome";
+  /** @type {"esm" | "umd"} */
+  const prettierBundleFormat = process.env.TEST_BUNDLE_FORMAT ?? "esm";
   const browser = await launchBrowser({ browser: browserName });
 
   process.once("exit", async () => {
@@ -16,14 +19,14 @@ async function getBrowserPrettier() {
   });
 
   const page = await browser.newPage();
-  await page.goto(server.url + "/esm.html");
+  await page.goto(server.url);
 
   const proxyFunction = (accessPath, optionsIndex = 1) =>
     requestFromNode(
       (...arguments_) =>
         page.evaluate(
-          ([arguments_, accessPath]) => {
-            const prettier = globalThis.__prettier;
+          ([arguments_, accessPath, prettierBundleFormat]) => {
+            const prettier = globalThis[`__prettier_${prettierBundleFormat}`];
             let function_ = prettier;
             for (const property of accessPath.split(".")) {
               function_ = function_[property];
@@ -31,7 +34,7 @@ async function getBrowserPrettier() {
 
             return function_(...arguments_);
           },
-          [arguments_, accessPath],
+          [arguments_, accessPath, prettierBundleFormat],
         ),
       {
         browser: browserName,
