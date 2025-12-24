@@ -157,14 +157,10 @@ jobs:
         browser:
           - "Chrome"
           - "Firefox"
-        include:
-          - os: "ubuntu-latest"
-            browser: "Chrome"
-            FULL_TEST: true
     env:
-      FULL_TEST: ${{ matrix.FULL_TEST }}
+      FULL_TEST: ${{ matrix.os == 'ubuntu-latest' && true || '' }}
       TEST_RUNTIME_BROWSER_PRODUCT: ${{ matrix.browser }}
-    name: ${{ matrix.FULL_TEST && '[Full Test] ' || '' }} ${{ matrix.browser }} on ${{ startsWith(matrix.os, 'macos') && 'MacOS' || startsWith(matrix.os, 'windows') && 'Windows' || 'Linux' }}
+    name: ${{ matrix.os == 'ubuntu-latest' && '[Full Test] ' || '' }} ${{ matrix.browser }} on ${{ startsWith(matrix.os, 'macos') && 'MacOS' || startsWith(matrix.os, 'windows') && 'Windows' || 'Linux' }}
     runs-on: ${{ matrix.os }}
     needs: [build]
     steps:

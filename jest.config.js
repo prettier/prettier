@@ -36,47 +36,45 @@ process.env.PRETTIER_DIR = PRETTIER_DIR;
 
 const testPathIgnorePatterns = [];
 if (TEST_STANDALONE || TEST_RUNTIME !== "nodejs") {
-  testPathIgnorePatterns.push("<rootDir>/tests/integration/");
+  testPathIgnorePatterns.push("tests/integration/");
 }
 if (isProduction) {
   // Only run unit test for development
-  testPathIgnorePatterns.push("<rootDir>/tests/unit/");
+  testPathIgnorePatterns.push("tests/unit/");
 } else {
   // Only test bundles for production
-  testPathIgnorePatterns.push(
-    "<rootDir>/tests/integration/__tests__/bundle.js",
-  );
+  testPathIgnorePatterns.push("tests/integration/__tests__/bundle.js");
 }
 
 // Currently can't load plugins in browser
 if (TEST_RUNTIME === "browser") {
   testPathIgnorePatterns.push(
-    "<rootDir>/tests/format/misc/front-matter/with-plugins/format.test.js",
-    "<rootDir>/tests/format/misc/plugins/embed-async-printer/format.test.js",
-    "<rootDir>/tests/format/misc/errors/broken-plugin/format.test.js",
-    "<rootDir>/tests/format/vue/with-plugins/format.test.js",
-    "<rootDir>/tests/format/misc/plugins/async-printer/format.test.js",
-    "<rootDir>/tests/format/handlebars/front-matter/toml/format.test.js",
+    "tests/format/misc/front-matter/with-plugins/format.test.js",
+    "tests/format/misc/plugins/embed-async-printer/format.test.js",
+    "tests/format/misc/errors/broken-plugin/format.test.js",
+    "tests/format/vue/with-plugins/format.test.js",
+    "tests/format/misc/plugins/async-printer/format.test.js",
+    "tests/format/handlebars/front-matter/toml/format.test.js",
+    "tests/format/markdown/broken-plugins/format.test.js",
+    "tests/format/vue/broken-plugins/format.test.js",
   );
 }
 
 if (nodejsMajorVersion <= 18) {
   // Uses import attributes and `Array#toSorted()`
-  testPathIgnorePatterns.push(
-    "<rootDir>/tests/integration/__tests__/help-options.js",
-  );
+  testPathIgnorePatterns.push("tests/integration/__tests__/help-options.js");
 }
 
 if (nodejsMajorVersion <= 14) {
   testPathIgnorePatterns.push(
-    "<rootDir>/tests/integration/__tests__/plugin-parsers.js",
-    "<rootDir>/tests/integration/__tests__/normalize-doc.js",
-    "<rootDir>/tests/integration/__tests__/doc-utilities-clean-doc.js",
-    "<rootDir>/tests/integration/__tests__/config-invalid.js",
+    "tests/integration/__tests__/plugin-parsers.js",
+    "tests/integration/__tests__/normalize-doc.js",
+    "tests/integration/__tests__/doc-utilities-clean-doc.js",
+    "tests/integration/__tests__/config-invalid.js",
     // `@prettier/cli` uses `node:stream/consumers`, not available on Node.js v14
-    "<rootDir>/tests/integration/__tests__/experimental-cli.js",
+    "tests/integration/__tests__/experimental-cli.js",
     // Fails on Node.js v14
-    "<rootDir>/tests/dts/unit/run.js",
+    "tests/dts/unit/run.js",
   );
 }
 
@@ -96,7 +94,9 @@ const config = {
     "<rootDir>/tests/unit/**/*.js",
     "<rootDir>/tests/dts/unit/**/*.js",
   ],
-  testPathIgnorePatterns,
+  testPathIgnorePatterns: testPathIgnorePatterns.map(
+    (file) => `<rootDir>/${file}`,
+  ),
   // collectCoverage: ENABLE_CODE_COVERAGE,
   collectCoverageFrom: ["<rootDir>/src/**/*.js", "<rootDir>/bin/**/*.js"],
   coveragePathIgnorePatterns: [
