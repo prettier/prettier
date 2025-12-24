@@ -1,6 +1,6 @@
 import {
   deserializeOptionsInBrowser,
-  serializeErrorInBrowser,
+  serializeResponseInBrowser,
 } from "./utilities.js";
 
 const isFirefox = navigator.product === "Gecko";
@@ -59,11 +59,7 @@ function proxyFunction(accessPath, optionsIndex = 1) {
     try {
       value = await function_(...arguments_);
     } catch (error) {
-      console.error(error);
-      return {
-        status: "rejected",
-        serializeError: serializeErrorInBrowser(error),
-      };
+      return serializeResponseInBrowser({ status: "rejected", reason: error });
     }
 
     // Comments in `graphql` can't be serialized

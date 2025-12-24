@@ -10,6 +10,28 @@ function deserializeErrorInNode(serialized) {
   return error;
 }
 
+function deserializeResponseInNode(response) {
+  if (response.status === "fulfilled") {
+    return response;
+  }
+
+  return {
+    status: response.status,
+    reason: deserializeErrorInNode(response.serializedError),
+  };
+}
+
+function serializeResponseInBrowser(response) {
+  if (response.status === "fulfilled") {
+    return response;
+  }
+
+  return {
+    status: response.status,
+    serializedError: serializeErrorInBrowser(response.reason),
+  };
+}
+
 function serializeErrorInBrowser(originalError) {
   const error = { message: originalError.message, ...originalError };
   delete error.cause;
@@ -41,8 +63,8 @@ function deserializeOptionsInBrowser(options = {}) {
 }
 
 export {
-  deserializeErrorInNode,
   deserializeOptionsInBrowser,
-  serializeErrorInBrowser,
+  deserializeResponseInNode,
   serializeOptionsInNode,
+  serializeResponseInBrowser,
 };

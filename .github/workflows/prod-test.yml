@@ -159,7 +159,7 @@ jobs:
           - "Firefox"
         include:
           - os: "ubuntu-latest"
-            browser: "Firefox"
+            browser: "Chrome"
             FULL_TEST: true
     env:
       FULL_TEST: ${{ matrix.FULL_TEST }}

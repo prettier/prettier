@@ -1,6 +1,9 @@
 import { launchBrowser } from "./browser.js";
 import { startServer } from "./server.js";
-import { deserializeErrorInNode, serializeOptionsInNode } from "./utilities.js";
+import {
+  deserializeResponseInNode,
+  serializeOptionsInNode,
+} from "./utilities.js";
 
 async function getBrowserPrettier() {
   const product =
@@ -26,7 +29,7 @@ async function getBrowserPrettier() {
         arguments_[optionsIndex],
       );
 
-      const result = await page.evaluate(
+      const response = await page.evaluate(
         ([arguments_, accessPath]) => {
           const prettier = globalThis.__prettier;
           let function_ = prettier;
@@ -39,11 +42,13 @@ async function getBrowserPrettier() {
         [arguments_, accessPath],
       );
 
-      if (result.status === "fulfilled") {
-        return result.value;
+      const result = deserializeResponseInNode(response);
+
+      if (result.status === "rejected") {
+        throw result.reason;
       }
 
-      throw deserializeErrorInNode(result.serializeError);
+      return result.value;
     };
 
   return {

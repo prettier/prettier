@@ -599,7 +599,7 @@ async function getExternalPlugins() {
 
 let externalParsers;
 async function loadPlugins(options) {
-  if (!isProduction || !options.parser || TEST_RUNTIME === "chrome") {
+  if (!isProduction || !options.parser || TEST_RUNTIME === "browser") {
     return options;
   }
 
