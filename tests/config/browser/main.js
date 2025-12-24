@@ -3,6 +3,8 @@ import {
   serializeErrorInBrowser,
 } from "./utilities.js";
 
+const isFirefox = navigator.product === "Gecko";
+
 const esmFiles = {
   prettier: "prettier/standalone.mjs",
   plugins: [
@@ -57,9 +59,9 @@ function proxyFunction(accessPath, optionsIndex = 1) {
     try {
       value = await function_(...arguments_);
     } catch (error) {
+      console.error(error);
       return {
         status: "rejected",
-        reason: error,
         serializeError: serializeErrorInBrowser(error),
       };
     }
