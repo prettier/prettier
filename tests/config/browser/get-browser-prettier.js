@@ -16,7 +16,7 @@ async function getBrowserPrettier() {
   });
 
   const page = await browser.newPage();
-  await page.goto(server.url);
+  await page.goto(server.url + "/esm.html");
 
   const proxyFunction = (accessPath, optionsIndex = 1) =>
     requestFromNode(
@@ -34,7 +34,7 @@ async function getBrowserPrettier() {
           [arguments_, accessPath],
         ),
       {
-        browser: product,
+        browser: browserName,
         accessPath,
         optionsIndex,
       },

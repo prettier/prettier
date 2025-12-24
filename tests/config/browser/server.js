@@ -9,7 +9,7 @@ async function getContent(url) {
   assert.ok(url.startsWith("/"));
   url = url.slice(1);
 
-  if (url === "index.html" || url === "main.js" || url === "utilities.js") {
+  if (url === "esm.html" || url === "main.js" || url === "utilities.js") {
     return await fs.readFile(new URL(url, import.meta.url), "utf8");
   }
 
@@ -29,7 +29,7 @@ async function startServer({ silent = false, port: preferredPort } = {}) {
     }
 
     if (url === "/") {
-      url = "/index.html";
+      url = "/esm.html";
     }
 
     // Only allow `.mjs`,  `.js` and `.html`
