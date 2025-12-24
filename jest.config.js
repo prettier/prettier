@@ -1,5 +1,6 @@
 import path from "node:path";
 import createEsmUtils from "esm-utils";
+import installBrowser from "./tests/config/install-browser.js";
 import installPrettier from "./tests/config/install-prettier.js";
 
 const { dirname: PROJECT_ROOT } = createEsmUtils(import.meta);
@@ -26,6 +27,9 @@ if (
 ) {
   PRETTIER_INSTALLED_DIR = installPrettier(PRETTIER_DIR);
   PRETTIER_DIR = path.join(PRETTIER_INSTALLED_DIR, "node_modules/prettier");
+}
+if (TEST_RUNTIME === "browser") {
+  installBrowser();
 }
 process.env.PRETTIER_INSTALLED_DIR = PRETTIER_INSTALLED_DIR;
 process.env.PRETTIER_DIR = PRETTIER_DIR;

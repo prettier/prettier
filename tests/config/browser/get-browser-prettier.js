@@ -1,14 +1,10 @@
 import puppeteer from "puppeteer";
-import { downloadBrowser } from "./download-browser.js";
 import { startServer } from "./server.js";
 import { deserializeErrorInNode, serializeOptionsInNode } from "./utilities.js";
 
 async function getBrowserPrettier() {
   const product =
     process.env.TEST_RUNTIME_BROWSER_PRODUCT?.toLowerCase() ?? "chrome";
-
-  await downloadBrowser({ product });
-
   const browser = await puppeteer.launch({ product });
   process.once("exit", async () => {
     await browser.close();
