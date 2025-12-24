@@ -101,11 +101,15 @@ async function loadUmdPrettier() {
   return { prettier, builtinPlugins };
 }
 
-function createPrettier(format) {
+/**
+@param {"esm" | "umd"} prettierBundleFormat
+*/
+function createPrettier(prettierBundleFormat) {
   let cache;
   function loadPrettier() {
     if (!cache) {
-      cache = format === "esm" ? loadEsmPrettier() : loadUmdPrettier();
+      cache =
+        prettierBundleFormat === "esm" ? loadEsmPrettier() : loadUmdPrettier();
     }
 
     return cache;
