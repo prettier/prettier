@@ -1,4 +1,4 @@
-import { responseInBrowser } from "./utilities.js";
+import { ensurePromise,responseInBrowser } from "./utilities.js";
 
 const browser = navigator.userAgent.includes("Firefox/") ? "firefox" : "chrome";
 
@@ -138,7 +138,7 @@ function createPrettier(prettierBundleFormat) {
           plugins: [...builtinPlugins, ...(options.plugins || [])],
         };
 
-        return function_(...arguments_);
+        return ensurePromise(function_(...arguments_));
       },
       {
         browser,

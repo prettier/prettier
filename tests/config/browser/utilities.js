@@ -157,4 +157,12 @@ function serializeValue(value) {
   return value;
 }
 
-export { requestFromNode, responseInBrowser };
+const ensurePromise = (value) => {
+  if (!(value instanceof Promise)) {
+    throw new TypeError("Expected value to be a 'Promise'.");
+  }
+
+  return value;
+};
+
+export { ensurePromise, requestFromNode, responseInBrowser };
