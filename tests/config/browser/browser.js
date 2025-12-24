@@ -1,3 +1,6 @@
+import assert from "node:assert/strict";
+import puppeteer from "puppeteer";
+
 const puppeteerBrowsers = ["chrome", "chrome-headless-shell", "firefox"];
 
 async function downloadBrowser({ product }) {
@@ -30,4 +33,29 @@ async function downloadBrowser({ product }) {
   }
 }
 
-export { downloadBrowser };
+async function isBrowserInstalled({ product }) {
+  try {
+    const browser = await launchBrowser({ product });
+    await browser.close();
+    return true;
+  } catch {
+    // Noop
+  }
+
+  return false;
+}
+
+async function launchBrowser({ product }) {
+  const browser = await puppeteer.launch({
+    browser: product,
+    enableExtensions: false,
+    waitForInitialPage: false,
+  });
+
+  const version = await browser.version();
+  assert.ok(version.toLowerCase().startsWith(`${product}/`));
+
+  return browser;
+}
+
+export { downloadBrowser, isBrowserInstalled, launchBrowser };
