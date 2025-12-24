@@ -52,8 +52,8 @@ async function launchBrowser({ product }) {
     waitForInitialPage: false,
   });
 
-  const version = await browser.version();
   try {
+    const version = await browser.version();
     assert.ok(version.toLowerCase().startsWith(`${product}/`));
   } catch (error) {
     await browser.close();
