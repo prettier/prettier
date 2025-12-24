@@ -45,7 +45,7 @@ function proxyFunction(accessPath, optionsIndex = 1) {
         }
       }
 
-      const options = arguments_[optionsIndex];
+      const options = arguments_[optionsIndex] ?? {};
 
       arguments_[optionsIndex] = {
         ...options,
