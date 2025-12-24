@@ -1,4 +1,3 @@
-import "codemirror-graphql/cm6-legacy/mode.esm.js";
 import "./install-service-worker.js";
 
 import { createApp, onMounted, reactive, ref, watch } from "vue";

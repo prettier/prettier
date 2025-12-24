@@ -13,8 +13,6 @@ import SidebarOptions from "./sidebar/SidebarOptions.jsx";
 import * as urlHash from "./urlHash.js";
 import {
   buildCliArgs,
-  convertOffsetToSelection,
-  convertSelectionToRange,
   getAstAutoFold,
   getCodemirrorMode,
   getDefaults,
@@ -114,16 +112,21 @@ function setup(props) {
   const setSelection = (selection) => {
     Object.assign(state, { selection });
     if (state.trackCursorOffset) {
-      handleOptionValueChange(
-        cursorOffsetOption,
-        convertSelectionToRange(selection, state.content)[0],
-      );
+      handleOptionValueChange(cursorOffsetOption, selection?.anchor ?? -1);
     }
   };
 
   const setSelectionAsRange = () => {
-    const { selection, content, options } = state;
-    const [rangeStart, rangeEnd] = convertSelectionToRange(selection, content);
+    const { selection, options } = state;
+    if (!selection) {
+      return;
+    }
+    const anchor = selection.anchor ?? 0;
+    const head = selection.head ?? anchor;
+
+    const rangeStart = Math.min(anchor, head);
+    const rangeEnd = Math.max(anchor, head);
+
     const updatedOptions = { ...options, rangeStart, rangeEnd };
     if (rangeStart === rangeEnd) {
       delete updatedOptions.rangeStart;
@@ -194,7 +197,7 @@ function setup(props) {
     return props.worker
       .format(content, {
         parser: "__js_expression",
-        cursorOffset: convertSelectionToRange(selection, content)[0],
+        cursorOffset: selection?.anchor ?? -1,
       })
       .then(({ error, formatted, cursorOffset }) => {
         if (error) {
@@ -203,24 +206,34 @@ function setup(props) {
 
         Object.assign(state, {
           content: formatted,
-          selection: convertOffsetToSelection(cursorOffset, formatted),
+          selection:
+            cursorOffset >= 0
+              ? { anchor: cursorOffset, head: cursorOffset }
+              : {},
         });
       });
   };
 
   const insertDummyId = () => {
     const { content, selection } = state;
+    if (!selection) {
+      return;
+    }
+    const anchor = selection.anchor ?? 0;
+    const head = selection.head ?? anchor;
+    const start = Math.min(anchor, head);
+    const end = Math.max(anchor, head);
+
     const dummyId = generateDummyId();
-    const range = convertSelectionToRange(selection, content);
     const modifiedContent =
-      content.slice(0, range[0]) + dummyId + content.slice(range[1]);
+      content.slice(0, start) + dummyId + content.slice(end);
 
     Object.assign(state, {
       content: modifiedContent,
-      selection: convertOffsetToSelection(
-        range[0] + dummyId.length,
-        modifiedContent,
-      ),
+      selection: {
+        anchor: start + dummyId.length,
+        head: start + dummyId.length,
+      },
     });
   };
 
@@ -417,8 +430,8 @@ function setup(props) {
                           onChange={setContent}
                           onSelectionChange={setSelection}
                           extraKeys={{
-                            "Shift-Alt-F": formatInput,
-                            "Ctrl-Q": insertDummyId,
+                            "Shift-Alt-f": formatInput,
+                            "Ctrl-q": insertDummyId,
                           }}
                           foldGutter={options.parser === "doc-explorer"}
                         />

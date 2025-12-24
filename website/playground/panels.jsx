@@ -1,17 +1,114 @@
+import { closeBrackets, closeBracketsKeymap } from "@codemirror/autocomplete";
+import {
+  defaultKeymap,
+  history,
+  historyKeymap,
+  indentWithTab,
+  selectAll,
+} from "@codemirror/commands";
+import {
+  bracketMatching,
+  defaultHighlightStyle,
+  foldable,
+  foldEffect,
+  foldGutter as foldGutterExt,
+  foldKeymap,
+  syntaxHighlighting,
+} from "@codemirror/language";
+import {
+  Compartment,
+  EditorState,
+  StateEffect,
+  StateField,
+} from "@codemirror/state";
+import {
+  Decoration,
+  EditorView,
+  keymap,
+  lineNumbers as lineNumbersExt,
+} from "@codemirror/view";
 import { onMounted, onUnmounted, useTemplateRef, watch } from "vue";
 
-const { CodeMirror } = window;
-
 function setup(props, { emit }) {
-  const textareaRef = useTemplateRef("textarea");
+  const editorRef = useTemplateRef("editorRef");
+
   let _codeMirror = null;
   let _cached = "";
-  let _overlay = null;
+  const _overlay = StateEffect.define();
+
+  const overlayField = StateField.define({
+    create() {
+      return Decoration.none;
+    },
+    update(decorations, tr) {
+      for (const effect of tr.effects) {
+        if (effect.is(_overlay)) {
+          const { start, end } = effect.value;
+          if (start !== undefined && end !== undefined && start < end) {
+            return Decoration.set([overlayMark.range(start, end)]);
+          }
+          return Decoration.none;
+        }
+      }
+      return decorations.map(tr.changes);
+    },
+    provide: (f) => EditorView.decorations.from(f),
+  });
+
+  const overlayMark = Decoration.mark({
+    class: "cm-overlay-highlight",
+  });
+
+  const languageExt = new Compartment();
+  const rulerTheme = new Compartment();
+  const foldGutterCompartment = new Compartment();
+
   const onChange = (value) => {
     emit("change", value);
   };
 
-  const componentDidMount = () => {
+  const createRulerTheme = (printWidth, color) => {
+    if (!printWidth) {
+      return EditorView.theme({});
+    }
+
+    return EditorView.theme({
+      ".cm-content::before": {
+        content: '""',
+        position: "absolute",
+        top: "0",
+        bottom: "0",
+        left: `${printWidth}ch`,
+        width: "1px",
+        backgroundColor: color || "var(--color-gray-300)",
+        pointerEvents: "none",
+        zIndex: "1",
+      },
+    });
+  };
+
+  async function getLanguageExtension(mode) {
+    switch (mode) {
+      case "css": {
+        const { css } = await import("@codemirror/lang-css");
+        return css();
+      }
+      case "graphql": {
+        const { graphql } = await import("cm6-graphql");
+        return graphql();
+      }
+      case "markdown": {
+        const { markdown } = await import("@codemirror/lang-markdown");
+        return markdown();
+      }
+      default: {
+        const { javascript } = await import("@codemirror/lang-javascript");
+        return javascript({ jsx: true, typescript: true });
+      }
+    }
+  }
+
+  const componentDidMount = async () => {
     const options = { ...props };
     for (const property of [
       "ruler",
@@ -29,123 +126,281 @@ function setup(props, { emit }) {
       }
     }
 
-    options.rulers = [makeRuler(props)];
-    options.gutters = makeGutters(props);
+    const state = EditorState.create({
+      doc: props.value || "",
+      extensions: [
+        props.lineNumbers && lineNumbersExt(),
+        foldGutterCompartment.of(props.foldGutter ? foldGutterExt() : []),
+        props.autoCloseBrackets && closeBrackets(),
+        props.matchBrackets && bracketMatching(),
 
-    options.rulers = [makeRuler(props)];
-    options.gutters = makeGutters(props);
+        languageExt.of(await getLanguageExtension(props.mode)),
+        syntaxHighlighting(defaultHighlightStyle),
+        overlayField,
 
-    _codeMirror = CodeMirror.fromTextArea(textareaRef.value, options);
-    _codeMirror.on("change", handleChange);
-    _codeMirror.on("focus", handleFocus);
-    _codeMirror.on("beforeSelectionChange", handleSelectionChange);
+        history(),
+        keymap.of([
+          ...defaultKeymap,
+          ...closeBracketsKeymap,
+          ...historyKeymap,
+          ...foldKeymap,
+          indentWithTab,
+          { key: "Ctrl-l", run: () => false },
+          ...(props.extraKeys
+            ? Object.entries(props.extraKeys).map(([key, cmd]) => ({
+                key,
+                run: cmd,
+              }))
+            : []),
+        ]),
 
-    window.CodeMirror.keyMap.pcSublime["Ctrl-L"] = false;
-    window.CodeMirror.keyMap.sublime["Ctrl-L"] = false;
+        EditorState.tabSize.of(props.tabSize ?? 4),
+        EditorState.readOnly.of(props.readOnly ?? false),
 
-    updateValue(props.value || "");
+        rulerTheme.of(createRulerTheme(props.ruler, props.rulerColor)),
+        EditorView.theme({
+          "&": {
+            height: "100%",
+          },
+          "&.cm-focused": {
+            outline: "none",
+          },
+          ".cm-gutters": {
+            backgroundColor: "",
+            padding: "0 8px",
+            borderRight: "none",
+          },
+          ".cm-content": {
+            position: "relative",
+          },
+        }),
+
+        EditorView.domEventHandlers({
+          focus(event, view) {
+            if (view.state.doc.toString() === props.codeSample) {
+              selectAll(view);
+            }
+          },
+        }),
+
+        EditorView.updateListener.of((update) => {
+          if (update.docChanged) {
+            const value = update.state.doc.toString();
+            if (value !== _cached) {
+              handleChange(value);
+            }
+          }
+
+          if (update.selectionSet) {
+            const selection = update.state.selection.main;
+            handleSelectionChange(selection);
+          }
+        }),
+      ].filter(Boolean),
+    });
+
+    _codeMirror = new EditorView({
+      state,
+      parent: editorRef.value,
+    });
+
     updateSelection();
     updateOverlay();
   };
 
   const componentWillUnmount = () => {
-    _codeMirror?.toTextArea();
-  };
-
-  const componentDidUpdate = (_, prevProps) => {
-    if (!_codeMirror) {
-      return;
-    }
-
-    if (props.value !== _cached) {
-      updateValue(props.value);
-    }
-    if (
-      !isEqualSelection(props.selection, prevProps.selection) &&
-      !isEqualSelection(props.selection, _codeMirror.listSelections()[0])
-    ) {
-      updateSelection();
-    }
-    if (
-      props.overlayStart !== prevProps.overlayStart ||
-      props.overlayEnd !== prevProps.overlayEnd
-    ) {
-      updateOverlay();
-    }
-    if (props.mode !== prevProps.mode) {
-      _codeMirror.setOption("mode", props.mode);
-    }
-    if (props.ruler !== prevProps.ruler) {
-      _codeMirror.setOption("rulers", [makeRuler(props)]);
-    }
-    if (props.foldGutter !== prevProps.foldGutter) {
-      _codeMirror.setOption("gutters", makeGutters(props));
-    }
+    _codeMirror?.destroy();
   };
 
   const updateValue = (value) => {
+    if (_cached === value) {
+      return;
+    }
     _cached = value;
-    _codeMirror.setValue(value);
+    _codeMirror.dispatch({
+      changes: {
+        from: 0,
+        to: _codeMirror.state.doc.length,
+        insert: value,
+      },
+    });
 
-    if (props.autoFold instanceof RegExp) {
-      const lines = value.split("\n");
-      // going backwards to prevent unfolding folds created earlier
-      for (let i = lines.length - 1; i >= 0; i--) {
-        if (props.autoFold.test(lines[i])) {
-          _codeMirror.foldCode(i);
+    if (!(props.autoFold instanceof RegExp)) {
+      return;
+    }
+
+    const lines = value.split("\n");
+    const effects = [];
+
+    for (let i = lines.length - 1; i >= 0; i--) {
+      if (props.autoFold.test(lines[i])) {
+        const lineNumber = i + 1;
+        const range = foldable(
+          _codeMirror.state,
+          _codeMirror.state.doc.line(lineNumber).from,
+          _codeMirror.state.doc.line(lineNumber).to,
+        );
+
+        if (range) {
+          effects.push(foldEffect.of(range));
         }
       }
+    }
+
+    if (effects.length > 0) {
+      _codeMirror.dispatch({ effects });
     }
   };
 
   const updateSelection = () => {
-    _codeMirror.setSelection(
-      props.selection?.anchor ?? { line: 0, ch: 0 },
-      props.selection?.head,
-    );
+    if (!props.selection || !_codeMirror) {
+      return;
+    }
+
+    const anchor = props.selection.anchor ?? 0;
+    const head = props.selection.head ?? anchor;
+
+    const currentSelection = _codeMirror.state.selection.main;
+    if (currentSelection.anchor !== anchor || currentSelection.head !== head) {
+      _codeMirror.dispatch({
+        selection: { anchor, head },
+      });
+    }
   };
 
   const updateOverlay = () => {
-    if (_overlay) {
-      _codeMirror.removeOverlay(_overlay);
+    if (!_codeMirror) {
+      return;
     }
-    if (props.overlayStart !== undefined) {
-      const [start, end] = getIndexPosition(props.value, [
-        props.overlayStart,
-        props.overlayEnd,
-      ]);
-      _overlay = createOverlay(start, end);
-      _codeMirror.addOverlay(_overlay);
-    }
+
+    _codeMirror.dispatch({
+      effects: _overlay.of({
+        start: props.overlayStart,
+        end: props.overlayEnd,
+      }),
+    });
   };
 
-  const handleFocus = (/* codeMirror, event */) => {
-    if (_codeMirror.getValue() === props.codeSample) {
-      _codeMirror.execCommand("selectAll");
-    }
+  const handleChange = (value) => {
+    _cached = value;
+    onChange(value);
+    updateOverlay();
   };
 
-  const handleChange = (doc, change) => {
-    if (change.origin !== "setValue") {
-      _cached = doc.getValue();
-      onChange(_cached);
-      updateOverlay();
+  const handleSelectionChange = (selection) => {
+    if (!props.onSelectionChange || !selection) {
+      return;
     }
-  };
 
-  const handleSelectionChange = (doc, change) => {
-    props.onSelectionChange?.(change.ranges[0]);
+    props.onSelectionChange({
+      anchor: selection.anchor,
+      head: selection.head,
+    });
   };
 
   const render = () => (
     <div class="editor input">
-      <textarea ref="textarea" />
+      <div ref="editorRef" style={{ position: "absolute", inset: 0 }} />
     </div>
   );
 
   onMounted(componentDidMount);
   onUnmounted(componentWillUnmount);
-  watch(() => props, componentDidUpdate, { deep: true });
+
+  watch(
+    () => props.value,
+    (value) => {
+      if (!_codeMirror) {
+        return;
+      }
+
+      if (value !== _cached) {
+        updateValue(value);
+      }
+    },
+  );
+
+  watch(
+    () => props.mode,
+    async (mode) => {
+      if (!_codeMirror) {
+        return;
+      }
+
+      _codeMirror.dispatch({
+        effects: languageExt.reconfigure(await getLanguageExtension(mode)),
+      });
+    },
+  );
+
+  watch(
+    () => props.ruler,
+    (ruler) => {
+      if (!_codeMirror) {
+        return;
+      }
+
+      _codeMirror.dispatch({
+        effects: rulerTheme.reconfigure(
+          createRulerTheme(ruler, props.rulerColor),
+        ),
+      });
+    },
+  );
+
+  watch(
+    () => props.rulerColor,
+    (rulerColor) => {
+      if (!_codeMirror) {
+        return;
+      }
+
+      _codeMirror.dispatch({
+        effects: rulerTheme.reconfigure(
+          createRulerTheme(props.ruler, rulerColor),
+        ),
+      });
+    },
+  );
+
+  watch(
+    () => props.selection,
+    () => {
+      if (!_codeMirror) {
+        return;
+      }
+
+      updateSelection();
+    },
+    { deep: true },
+  );
+
+  watch(
+    () => [props.overlayStart, props.overlayEnd],
+    () => {
+      if (!_codeMirror) {
+        return;
+      }
+
+      updateOverlay();
+    },
+  );
+
+  watch(
+    () => props.foldGutter,
+    (foldGutter) => {
+      if (!_codeMirror) {
+        return;
+      }
+
+      _codeMirror.dispatch({
+        effects: foldGutterCompartment.reconfigure(
+          foldGutter ? foldGutterExt() : [],
+        ),
+      });
+    },
+  );
+
   return render;
 }
 
@@ -170,80 +425,11 @@ const CodeMirrorPanel = {
     showCursorWhenSelecting: { type: Boolean, default: undefined },
     tabSize: { type: Number, default: undefined },
     readOnly: { type: Boolean, default: undefined },
+    extraKeys: { type: Object, default: undefined },
   },
   emits: ["change"],
   setup,
 };
-
-function getIndexPosition(text, indexes) {
-  indexes = [...indexes];
-  let line = 0;
-  let count = 0;
-  let lineStart = 0;
-  const result = [];
-
-  while (indexes.length > 0) {
-    const index = indexes.shift();
-
-    while (count < index && count < text.length) {
-      if (text[count] === "\n") {
-        line++;
-        lineStart = count + 1;
-      }
-      count++;
-    }
-
-    result.push({ line, pos: count - lineStart });
-  }
-
-  return result;
-}
-
-function createOverlay(start, end) {
-  return {
-    token(stream) {
-      const { line } = stream.lineOracle;
-
-      if (line < start.line || line > end.line) {
-        stream.skipToEnd();
-      } else if (line === start.line && stream.pos < start.pos) {
-        stream.pos = start.pos;
-      } else if (line === end.line) {
-        if (stream.pos < end.pos) {
-          stream.pos = end.pos;
-          return "searching";
-        }
-        stream.skipToEnd();
-      } else {
-        stream.skipToEnd();
-        return "searching";
-      }
-    },
-  };
-}
-
-function makeRuler(props) {
-  return { column: props.ruler, color: props.rulerColor };
-}
-
-function makeGutters(props) {
-  return props.foldGutter
-    ? ["CodeMirror-linenumbers", "CodeMirror-foldgutter"]
-    : [];
-}
-
-function isEqualSelection(selection1, selection2) {
-  const anchor1 = selection1?.anchor ?? { line: 0, ch: 0 };
-  const head1 = selection1?.head ?? anchor1;
-  const anchor2 = selection2?.anchor ?? { line: 0, ch: 0 };
-  const head2 = selection2?.head ?? anchor2;
-  return (
-    head1.line === head2.line &&
-    head1.ch === head2.ch &&
-    anchor1.line === anchor2.line &&
-    anchor1.ch === anchor2.ch
-  );
-}
 
 export function InputPanel(props) {
   return (
