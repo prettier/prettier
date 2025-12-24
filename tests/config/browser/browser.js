@@ -53,7 +53,12 @@ async function launchBrowser({ product }) {
   });
 
   const version = await browser.version();
-  assert.ok(version.toLowerCase().startsWith(`${product}/`));
+  try {
+    assert.ok(version.toLowerCase().startsWith(`${product}/`));
+  } catch (error) {
+    await browser.close();
+    throw error;
+  }
 
   return browser;
 }
