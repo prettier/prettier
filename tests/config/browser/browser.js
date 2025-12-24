@@ -3,17 +3,18 @@ import puppeteer from "puppeteer";
 
 const puppeteerBrowsers = ["chrome", "chrome-headless-shell", "firefox"];
 
-async function downloadBrowser({ product }) {
+async function downloadBrowser({ browser }) {
   const { downloadBrowsers } =
     await import("puppeteer/internal/node/install.js");
   const originalEnv = { ...process.env };
 
   const envOverrides = {
+    npm_config_loglevel: "silent",
     PUPPETEER_SKIP_DOWNLOAD: JSON.stringify(false),
     ...Object.fromEntries(
-      puppeteerBrowsers.map((browser) => [
-        `PUPPETEER_${browser.replaceAll("-", "_").toUpperCase()}_SKIP_DOWNLOAD`,
-        JSON.stringify(browser !== product),
+      puppeteerBrowsers.map((name) => [
+        `PUPPETEER_${name.replaceAll("-", "_").toUpperCase()}_SKIP_DOWNLOAD`,
+        JSON.stringify(name !== browser),
       ]),
     ),
   };
@@ -33,9 +34,9 @@ async function downloadBrowser({ product }) {
   }
 }
 
-async function isBrowserInstalled({ product }) {
+async function isBrowserInstalled({ browser: browserName }) {
   try {
-    const browser = await launchBrowser({ product });
+    const browser = await launchBrowser({ browser: browserName });
     await browser.close();
     return true;
   } catch {
@@ -45,16 +46,16 @@ async function isBrowserInstalled({ product }) {
   return false;
 }
 
-async function launchBrowser({ product }) {
+async function launchBrowser({ browser: browserName }) {
   const browser = await puppeteer.launch({
-    browser: product,
+    browser: browserName,
     enableExtensions: false,
     waitForInitialPage: false,
   });
 
   try {
     const version = await browser.version();
-    assert.ok(version.toLowerCase().startsWith(`${product}/`));
+    assert.ok(version.toLowerCase().startsWith(`${browserName}/`));
   } catch (error) {
     await browser.close();
     throw error;
@@ -63,12 +64,12 @@ async function launchBrowser({ product }) {
   return browser;
 }
 
-async function installBrowser({ product }) {
-  if (await isBrowserInstalled({ product })) {
+async function installBrowser({ browser }) {
+  if (await isBrowserInstalled({ browser })) {
     return;
   }
 
-  await downloadBrowser({ product });
+  await downloadBrowser({ browser });
 }
 
 export { downloadBrowser, installBrowser, isBrowserInstalled, launchBrowser };

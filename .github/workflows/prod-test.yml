@@ -159,7 +159,7 @@ jobs:
           - "firefox"
     env:
       FULL_TEST: ${{ matrix.os == 'ubuntu-latest' && true || '' }}
-      TEST_RUNTIME_BROWSER_PRODUCT: ${{ matrix.browser }}
+      TEST_RUNTIME_BROWSER: ${{ matrix.browser }}
     name: ${{ matrix.os == 'ubuntu-latest' && '[Full Test] ' || '' }} Browser(${{ matrix.browser }}) on ${{ startsWith(matrix.os, 'macos') && 'MacOS' || startsWith(matrix.os, 'windows') && 'Windows' || 'Linux' }}
     runs-on: ${{ matrix.os }}
     needs: [build]

@@ -3,8 +3,8 @@ import { startServer } from "./server.js";
 import { requestFromNode } from "./utilities.js";
 
 async function getBrowserPrettier() {
-  const product = process.env.TEST_RUNTIME_BROWSER_PRODUCT ?? "chrome";
-  const browser = await launchBrowser({ product });
+  const browserName = process.env.TEST_RUNTIME_BROWSER ?? "chrome";
+  const browser = await launchBrowser({ browser: browserName });
 
   process.once("exit", async () => {
     await browser.close();

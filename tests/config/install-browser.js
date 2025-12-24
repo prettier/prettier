@@ -8,9 +8,9 @@ function installBrowserSync() {
     new URL("./browser/browser.js", import.meta.url),
   );
 
-  const product = process.env.TEST_RUNTIME_BROWSER_PRODUCT || "chrome";
+  const browser = process.env.TEST_RUNTIME_BROWSER || "chrome";
 
-  installBrowser({ product });
+  installBrowser({ browser });
 }
 
 export default installBrowserSync;
