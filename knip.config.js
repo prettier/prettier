@@ -7,18 +7,20 @@ const config = {
   workspaces: {
     ".": {
       entry: [
+        // Production plugin entries
         "src/plugins/*",
+        "packages/plugin-oxc/index.js",
+        "packages/plugin-hermes/index.js",
+
         "scripts/**",
+
         // We use `new Function()` to create `import()` in our `bin` file (bin/prettier.cjs)
         // so there is no actual use of the CLI files
         "src/cli/index.js",
         "src/experimental-cli/index.js",
-        "packages/plugin-oxc/index.js",
-        "packages/plugin-hermes/index.js",
+
         // Tests
-        "tests/config/browser/get-browser-prettier.js",
-        "tests/config/browser/start.js",
-        "tests/config/browser/server.js",
+        "tests/config/browser/**",
       ],
       project: ["src/**", "scripts/**"],
       ignore: [
