@@ -1,5 +1,6 @@
 import path from "node:path";
 import createEsmUtils from "esm-utils";
+import installBrowser from "./tests/config/install-browser.js";
 import installPrettier from "./tests/config/install-prettier.js";
 
 const { dirname: PROJECT_ROOT } = createEsmUtils(import.meta);
@@ -8,6 +9,7 @@ const isProduction = process.env.NODE_ENV === "production";
 // const ENABLE_CODE_COVERAGE = Boolean(process.env.ENABLE_CODE_COVERAGE);
 const TEST_STANDALONE = Boolean(process.env.TEST_STANDALONE);
 const INSTALL_PACKAGE = Boolean(process.env.INSTALL_PACKAGE);
+const TEST_RUNTIME = process.env.TEST_RUNTIME ?? "nodejs";
 // When debugging production test, this flag can skip installing package
 const SKIP_PRODUCTION_INSTALL = Boolean(process.env.SKIP_PRODUCTION_INSTALL);
 const nodejsMajorVersion = Number(process.versions.node.split(".")[0]);
@@ -18,45 +20,61 @@ let PRETTIER_DIR = isProduction
 let PRETTIER_INSTALLED_DIR = "";
 if (
   INSTALL_PACKAGE ||
-  (isProduction && !TEST_STANDALONE && !SKIP_PRODUCTION_INSTALL)
+  (isProduction &&
+    !TEST_STANDALONE &&
+    !SKIP_PRODUCTION_INSTALL &&
+    TEST_RUNTIME === "nodejs")
 ) {
   PRETTIER_INSTALLED_DIR = installPrettier(PRETTIER_DIR);
   PRETTIER_DIR = path.join(PRETTIER_INSTALLED_DIR, "node_modules/prettier");
+}
+if (TEST_RUNTIME === "browser") {
+  installBrowser();
 }
 process.env.PRETTIER_INSTALLED_DIR = PRETTIER_INSTALLED_DIR;
 process.env.PRETTIER_DIR = PRETTIER_DIR;
 
 const testPathIgnorePatterns = [];
-if (TEST_STANDALONE) {
-  testPathIgnorePatterns.push("<rootDir>/tests/integration/");
+if (TEST_STANDALONE || TEST_RUNTIME !== "nodejs") {
+  testPathIgnorePatterns.push("tests/integration/");
 }
 if (isProduction) {
   // Only run unit test for development
-  testPathIgnorePatterns.push("<rootDir>/tests/unit/");
+  testPathIgnorePatterns.push("tests/unit/");
 } else {
   // Only test bundles for production
+  testPathIgnorePatterns.push("tests/integration/__tests__/bundle.js");
+}
+
+// Currently can't load plugins in browser
+if (TEST_RUNTIME === "browser") {
   testPathIgnorePatterns.push(
-    "<rootDir>/tests/integration/__tests__/bundle.js",
+    "tests/format/misc/front-matter/with-plugins/format.test.js",
+    "tests/format/misc/plugins/embed-async-printer/format.test.js",
+    "tests/format/misc/errors/broken-plugin/format.test.js",
+    "tests/format/vue/with-plugins/format.test.js",
+    "tests/format/misc/plugins/async-printer/format.test.js",
+    "tests/format/handlebars/front-matter/toml/format.test.js",
+    "tests/format/markdown/broken-plugins/format.test.js",
+    "tests/format/vue/broken-plugins/format.test.js",
   );
 }
 
 if (nodejsMajorVersion <= 18) {
   // Uses import attributes and `Array#toSorted()`
-  testPathIgnorePatterns.push(
-    "<rootDir>/tests/integration/__tests__/help-options.js",
-  );
+  testPathIgnorePatterns.push("tests/integration/__tests__/help-options.js");
 }
 
 if (nodejsMajorVersion <= 14) {
   testPathIgnorePatterns.push(
-    "<rootDir>/tests/integration/__tests__/plugin-parsers.js",
-    "<rootDir>/tests/integration/__tests__/normalize-doc.js",
-    "<rootDir>/tests/integration/__tests__/doc-utilities-clean-doc.js",
-    "<rootDir>/tests/integration/__tests__/config-invalid.js",
+    "tests/integration/__tests__/plugin-parsers.js",
+    "tests/integration/__tests__/normalize-doc.js",
+    "tests/integration/__tests__/doc-utilities-clean-doc.js",
+    "tests/integration/__tests__/config-invalid.js",
     // `@prettier/cli` uses `node:stream/consumers`, not available on Node.js v14
-    "<rootDir>/tests/integration/__tests__/experimental-cli.js",
+    "tests/integration/__tests__/experimental-cli.js",
     // Fails on Node.js v14
-    "<rootDir>/tests/dts/unit/run.js",
+    "tests/dts/unit/run.js",
   );
 }
 
@@ -76,7 +94,9 @@ const config = {
     "<rootDir>/tests/unit/**/*.js",
     "<rootDir>/tests/dts/unit/**/*.js",
   ],
-  testPathIgnorePatterns,
+  testPathIgnorePatterns: testPathIgnorePatterns.map(
+    (file) => `<rootDir>/${file}`,
+  ),
   // collectCoverage: ENABLE_CODE_COVERAGE,
   collectCoverageFrom: ["<rootDir>/src/**/*.js", "<rootDir>/bin/**/*.js"],
   coveragePathIgnorePatterns: [

@@ -11,7 +11,7 @@ import visualizeEndOfLine from "./utilities/visualize-end-of-line.js";
 
 const { __dirname } = createEsmUtils(import.meta);
 
-const { FULL_TEST, TEST_STANDALONE, NODE_ENV } = process.env;
+const { FULL_TEST, TEST_STANDALONE, NODE_ENV, TEST_RUNTIME } = process.env;
 const isProduction = NODE_ENV === "production";
 const BOM = "\uFEFF";
 
@@ -599,7 +599,7 @@ async function getExternalPlugins() {
 
 let externalParsers;
 async function loadPlugins(options) {
-  if (!isProduction || !options.parser) {
+  if (!isProduction || !options.parser || TEST_RUNTIME === "browser") {
     return options;
   }
 

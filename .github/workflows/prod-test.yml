@@ -145,6 +145,55 @@ jobs:
         working-directory: dist/prettier
         run: node bin/prettier.cjs --debug-benchmark package.json 2>&1 >/dev/null | grep "Latency avg" || exit 1
 
+  browser-test:
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - "ubuntu-latest"
+          # - "macos-latest"
+          - "windows-latest"
+        browser:
+          - "chrome"
+          - "firefox"
+    env:
+      FULL_TEST: ${{ matrix.os == 'ubuntu-latest' && true || '' }}
+      TEST_RUNTIME_BROWSER: ${{ matrix.browser }}
+    name: ${{ matrix.os == 'ubuntu-latest' && '[Full Test] ' || '' }} Browser(${{ matrix.browser }}) on ${{ startsWith(matrix.os, 'macos') && 'MacOS' || startsWith(matrix.os, 'windows') && 'Windows' || 'Linux' }}
+    runs-on: ${{ matrix.os }}
+    needs: [build]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@395ad3262231945c25e8478fd5baf05154b1d79f # v6.1.0
+        with:
+          cache: "yarn"
+
+      - name: Puppeteer cache
+        uses: actions/cache@9255dc7a253b0ccc959486e2bca901246202afeb # v5.0.1
+        with:
+          path: .tmp/puppeteer/
+          key: v1
+
+      # https://chromium.googlesource.com/chromium/src/+/main/docs/security/apparmor-userns-restrictions.md
+      - run: echo 0 | sudo tee /proc/sys/kernel/apparmor_restrict_unprivileged_userns
+        if: matrix.os == 'ubuntu-latest'
+
+      - name: Install Dependencies
+        run: yarn install --immutable
+
+      - name: Download Artifact
+        uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
+        with:
+          name: dist
+          path: dist
+
+      - name: Run Tests
+        run: yarn test:production-browser
+
   cli:
     name: CLI
     runs-on: ubuntu-latest
