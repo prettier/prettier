@@ -5,6 +5,6 @@ const IS_CI = Boolean(process.env.CI);
 
 module.exports = {
   // Will download when execute
-  skipDownload: !IS_CI,
+  skipDownload: false,
   cacheDirectory: IS_CI ? path.join(__dirname, "./.tmp/puppeteer/") : undefined,
 };
