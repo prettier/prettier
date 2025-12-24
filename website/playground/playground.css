@@ -349,6 +349,14 @@ input[type="number"] {
   padding: 0 8px;
 }
 
+.cm-overlay-highlight {
+  background-color: rgba(255, 220, 120, 0.45);
+}
+
+html[data-theme="dark"] .cm-overlay-highlight {
+  background-color: rgba(255, 220, 120, 0.32);
+}
+
 html[data-theme="dark"] .cm-gutters {
   background-color: var(--background-color);
   border-color: var(--color-border);
