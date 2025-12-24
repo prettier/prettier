@@ -1,6 +1,14 @@
 import "./install-service-worker.js";
 
-import { createApp, onMounted, reactive, ref, watch } from "vue";
+import {
+  createApp,
+  inject,
+  onMounted,
+  provide,
+  reactive,
+  ref,
+  watch,
+} from "vue";
 import Playground from "./Playground.jsx";
 import { fixPrettierVersion } from "./utilities.js";
 import VersionLink from "./VersionLink.jsx";
@@ -21,9 +29,9 @@ function applyTheme(theme) {
   document.documentElement.dataset.theme = theme;
 }
 
-function ThemeToggle() {
-  const theme = ref(getInitialTheme());
+const theme = ref(getInitialTheme());
 
+function ThemeToggle() {
   const toggleTheme = () => {
     const newTheme = theme.value === "dark" ? "light" : "dark";
     theme.value = newTheme;
@@ -79,6 +87,8 @@ const App = {
   setup() {
     const state = reactive({ loaded: false });
     const worker = new WorkerApi();
+
+    provide("theme", theme);
 
     const componentDidMount = async () => {
       const { supportInfo, version } = await worker.getMetadata();

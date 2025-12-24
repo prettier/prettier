@@ -1,3 +1,4 @@
+import { catppuccinLatte, catppuccinMocha } from "@catppuccin/codemirror";
 import { closeBrackets, closeBracketsKeymap } from "@codemirror/autocomplete";
 import {
   defaultKeymap,
@@ -8,12 +9,10 @@ import {
 } from "@codemirror/commands";
 import {
   bracketMatching,
-  defaultHighlightStyle,
   foldable,
   foldEffect,
   foldGutter as foldGutterExt,
   foldKeymap,
-  syntaxHighlighting,
 } from "@codemirror/language";
 import {
   Compartment,
@@ -27,7 +26,7 @@ import {
   keymap,
   lineNumbers as lineNumbersExt,
 } from "@codemirror/view";
-import { onMounted, onUnmounted, useTemplateRef, watch } from "vue";
+import { inject, onMounted, onUnmounted, useTemplateRef, watch } from "vue";
 
 function setup(props, { emit }) {
   const editorRef = useTemplateRef("editorRef");
@@ -62,6 +61,9 @@ function setup(props, { emit }) {
   const languageExt = new Compartment();
   const rulerTheme = new Compartment();
   const foldGutterCompartment = new Compartment();
+
+  const theme = inject("theme");
+  const editorTheme = new Compartment();
 
   const onChange = (value) => {
     emit("change", value);
@@ -135,7 +137,9 @@ function setup(props, { emit }) {
         props.matchBrackets && bracketMatching(),
 
         languageExt.of(await getLanguageExtension(props.mode)),
-        syntaxHighlighting(defaultHighlightStyle),
+        editorTheme.of(
+          theme.value === "dark" ? catppuccinMocha : catppuccinLatte,
+        ),
         overlayField,
 
         history(),
@@ -158,22 +162,6 @@ function setup(props, { emit }) {
         EditorState.readOnly.of(props.readOnly ?? false),
 
         rulerTheme.of(createRulerTheme(props.ruler, props.rulerColor)),
-        EditorView.theme({
-          "&": {
-            height: "100%",
-          },
-          "&.cm-focused": {
-            outline: "none",
-          },
-          ".cm-gutters": {
-            backgroundColor: "",
-            padding: "0 8px",
-            borderRight: "none",
-          },
-          ".cm-content": {
-            position: "relative",
-          },
-        }),
 
         EditorView.domEventHandlers({
           focus(event, view) {
@@ -400,6 +388,14 @@ function setup(props, { emit }) {
       });
     },
   );
+
+  watch(theme, (newTheme) => {
+    _codeMirror.dispatch({
+      effects: editorTheme.reconfigure(
+        newTheme === "dark" ? catppuccinMocha : catppuccinLatte,
+      ),
+    });
+  });
 
   return render;
 }

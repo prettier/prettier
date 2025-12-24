@@ -15,6 +15,7 @@
     "update-stable-docs": "node ./scripts/update-stable-docs.mjs"
   },
   "dependencies": {
+    "@catppuccin/codemirror": "1.0.1",
     "@codemirror/commands": "6.10.1",
     "@codemirror/lang-css": "6.3.1",
     "@codemirror/lang-javascript": "6.2.4",

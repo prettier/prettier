@@ -1519,6 +1519,26 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@catppuccin/codemirror@npm:1.0.1":
+  version: 1.0.1
+  resolution: "@catppuccin/codemirror@npm:1.0.1"
+  dependencies:
+    "@catppuccin/palette": "npm:^1.7.1"
+    "@codemirror/language": "npm:^6.0.0"
+    "@codemirror/state": "npm:^6.0.0"
+    "@codemirror/view": "npm:^6.0.0"
+    "@lezer/highlight": "npm:^1.0.0"
+  checksum: 10/a4baa31a5e8ad47bd87f8d617e41eef85812f6c8ec3dc2d37aa018a130c57a846c1ce9e7dd9ca08e9c654118e0266c343c8519dcf513e02f736a2b72fd61e867
+  languageName: node
+  linkType: hard
+
+"@catppuccin/palette@npm:^1.7.1":
+  version: 1.7.1
+  resolution: "@catppuccin/palette@npm:1.7.1"
+  checksum: 10/a7e2fdde2e3b73857eb90250529a72ebf11679e1cc7e383a05685a11751075afc0389697cc2068a691558a0e37963e519fa1281e83073713641a428782b42ac3
+  languageName: node
+  linkType: hard
+
 "@codemirror/autocomplete@npm:^6.0.0, @codemirror/autocomplete@npm:^6.7.1":
   version: 6.20.0
   resolution: "@codemirror/autocomplete@npm:6.20.0"
@@ -12711,6 +12731,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "root-workspace-0b6124@workspace:."
   dependencies:
+    "@catppuccin/codemirror": "npm:1.0.1"
     "@codemirror/commands": "npm:6.10.1"
     "@codemirror/lang-css": "npm:6.3.1"
     "@codemirror/lang-javascript": "npm:6.2.4"

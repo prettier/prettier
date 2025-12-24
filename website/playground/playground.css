@@ -5,6 +5,7 @@
 
 html {
   background-color: light-dark(#fafafa, #1b1b1d);
+  --background-color: light-dark(#fafafa, #1b1b1d);
   color: light-dark(#6a6a6a, #e3e3e3);
   --color-border: light-dark(#ddd, #606770);
   color-scheme: light dark;
@@ -329,4 +330,26 @@ input[type="number"] {
   border: 6px solid transparent;
   border-bottom: none;
   border-top-color: #000;
+}
+
+.cm-editor {
+  height: 100%;
+  background-color: var(--background-color) !important;
+}
+
+.cm-editor.cm-focused {
+  outline: none;
+}
+
+.cm-content {
+  position: "relative";
+}
+
+.cm-gutters {
+  padding: 0 8px;
+}
+
+html[data-theme="dark"] .cm-gutters {
+  background-color: var(--background-color);
+  border-color: var(--color-border);
 }
