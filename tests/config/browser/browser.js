@@ -63,4 +63,12 @@ async function launchBrowser({ product }) {
   return browser;
 }
 
-export { downloadBrowser, isBrowserInstalled, launchBrowser };
+async function installBrowser({ product }) {
+  if (await isBrowserInstalled({ product })) {
+    return;
+  }
+
+  await downloadBrowser({ product });
+}
+
+export { downloadBrowser, installBrowser, isBrowserInstalled, launchBrowser };

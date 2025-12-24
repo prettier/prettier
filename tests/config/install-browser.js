@@ -1,18 +1,17 @@
-import makeSynchronized from "make-synchronized";
+import { createRequire } from "node:module";
 
-async function installBrowser() {
+function installBrowserSync() {
+  const { default: makeSynchronized } = createRequire(import.meta.url)(
+    "make-synchronized",
+  );
+  const { installBrowser } = makeSynchronized(
+    new URL("./browser/browser.js", import.meta.url),
+  );
+
   const product =
     process.env.TEST_RUNTIME_BROWSER_PRODUCT?.toLowerCase() || "chrome";
 
-  // Syntax error on Node.js v14
-  const { downloadBrowser, isBrowserInstalled } =
-    await import("./browser/browser.js");
-
-  if (await isBrowserInstalled({ product })) {
-    return;
-  }
-
-  await downloadBrowser({ product });
+  installBrowser({ product });
 }
 
-export default makeSynchronized(import.meta, installBrowser);
+export default installBrowserSync;
