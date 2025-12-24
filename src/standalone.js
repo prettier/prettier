@@ -6,7 +6,6 @@ function withPlugins(
   optionsArgumentIndex = 1, // Usually `options` is the 2nd argument
 ) {
   // Returns Promises to consistent with functions in `index.js`
-  // eslint-disable-next-line require-await
   return async (...args) => {
     const options = args[optionsArgumentIndex] ?? {};
     const plugins = options.plugins ?? [];
@@ -16,7 +15,7 @@ function withPlugins(
       plugins: Array.isArray(plugins) ? plugins : Object.values(plugins),
     };
 
-    return fn(...args);
+    return await fn(...args);
   };
 }
 

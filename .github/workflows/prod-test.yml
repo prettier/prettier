@@ -145,7 +145,7 @@ jobs:
         working-directory: dist/prettier
         run: node bin/prettier.cjs --debug-benchmark package.json 2>&1 >/dev/null | grep "Latency avg" || exit 1
 
-  browser-test:
+  browser:
     timeout-minutes: 15
     strategy:
       fail-fast: false
@@ -191,8 +191,15 @@ jobs:
           name: dist
           path: dist
 
-      - name: Run Tests
-        run: yarn test:production-browser
+      - name: Run Tests (ESM)
+        env:
+          TEST_BUNDLE_FORMAT: esm
+        run: yarn test:production:browser
+
+      - name: Run Tests (UMD)
+        env:
+          TEST_BUNDLE_FORMAT: umd
+        run: yarn test:production:browser
 
   cli:
     name: CLI
