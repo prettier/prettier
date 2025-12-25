@@ -358,16 +358,13 @@ function printFlow(path, options, print) {
     case "RecordDeclarationProperty":
     case "RecordDeclarationStaticProperty": {
       const isStatic = node.type === "RecordDeclarationStaticProperty";
-      const parts = isStatic ? ["static "] : [];
-      parts.push(
+      const valueKey = isStatic ? "value" : "defaultValue";
+      return [
+        isStatic ? "static " : "",
         printPropertyKey(path, options, print),
         printTypeAnnotationProperty(path, print),
-      );
-      const exprKey = isStatic ? "value" : "defaultValue";
-      if (node[exprKey]) {
-        parts.push(" = ", print(exprKey));
-      }
-      return parts;
+        node[valueKey] ? ["=", print(valueKey)] : "",
+      ];
     }
   }
 }
