@@ -13,7 +13,16 @@ function embed(path, options) {
         return;
       }
 
-      const parser = inferParser(options, { language });
+      let parser;
+      // https://shiki.style/references/engine-js-compat#supported-languages
+      if (language === "angular-ts") {
+        parser = inferParser(options, { language: "typescript" });
+      } else if (language === "angular-html") {
+        parser = "angular";
+      } else {
+        parser = inferParser(options, { language });
+      }
+
       if (!parser) {
         return;
       }
