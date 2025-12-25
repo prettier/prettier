@@ -361,7 +361,7 @@ function printFlow(path, options, print) {
         isStatic ? "static " : "",
         printPropertyKey(path, options, print),
         printTypeAnnotationProperty(path, print),
-        node[valueKey] ? ["=", print(valueKey)] : "",
+        node[valueKey] ? [" = ", print(valueKey)] : "",
       ];
     }
   }
