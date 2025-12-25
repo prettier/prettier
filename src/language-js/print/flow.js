@@ -192,12 +192,17 @@ function printFlow(path, options, print) {
     case "DeclareInterface":
     case "InterfaceDeclaration":
     case "InterfaceTypeAnnotation":
+    case "RecordDeclaration":
       return printClass(path, options, print);
     case "ObjectTypeAnnotation":
+    case "RecordDeclarationBody":
       return printClassBody(path, options, print);
     case "ClassImplements":
     case "InterfaceExtends":
+      // Use `typeArguments` once https://github.com/facebook/flow/issues/9343 get fixed
       return [print("id"), print("typeParameters")];
+    case "RecordDeclarationImplements":
+      return [print("id"), print("typeArguments")];
     case "NullableTypeAnnotation":
       return ["?", print("typeAnnotation")];
     case "Variance": {
@@ -348,13 +353,6 @@ function printFlow(path, options, print) {
       ];
     case "RecordExpressionProperties":
       return printObject(path, options, print);
-
-    case "RecordDeclaration":
-      return printClass(path, options, print);
-    case "RecordDeclarationImplements":
-      return [print("id"), print("typeArguments")];
-    case "RecordDeclarationBody":
-      return printClassBody(path, options, print);
     case "RecordDeclarationProperty":
     case "RecordDeclarationStaticProperty": {
       const isStatic = node.type === "RecordDeclarationStaticProperty";
