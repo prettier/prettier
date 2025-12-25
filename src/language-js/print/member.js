@@ -1,4 +1,10 @@
-import { group, indent, label, softline } from "../../document/index.js";
+import {
+  group,
+  indent,
+  label,
+  lineSuffixBoundary,
+  softline,
+} from "../../document/index.js";
 import {
   getCallArguments,
   isCallExpression,
@@ -62,6 +68,7 @@ function printMemberExpression(path, options, print) {
 
   return label(objectDoc.label, [
     objectDoc,
+    lineSuffixBoundary,
     shouldInline ? lookupDoc : group(indent([softline, lookupDoc])),
   ]);
 }
