@@ -76,7 +76,8 @@ function printMappingItem(path, options, print) {
     !hasLeadingComments(value.content) &&
     !hasMiddleComments(value.content) &&
     !hasEndComments(value) &&
-    isAbsolutelyPrintedAsSingleLineNode(value.content, options)
+    isAbsolutelyPrintedAsSingleLineNode(value.content, options) &&
+    isAbsolutelyPrintedAsSingleLineNode(key.content, options)
   ) {
     return [printedKey, spaceBeforeColon, ": ", printedValue];
   }
