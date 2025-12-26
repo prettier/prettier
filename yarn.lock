@@ -7628,6 +7628,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"narrow-emojis@npm:0.0.1":
+  version: 0.0.1
+  resolution: "narrow-emojis@npm:0.0.1"
+  checksum: 10/f63e59a64f527524f272ef541d9f52f3b734c05752c68f6b81927460104c70789383218ad6978540ac1fe036e447556e7b6f03f83602fee11723b9e5fd645c51
+  languageName: node
+  linkType: hard
+
 "natural-compare@npm:^1.4.0":
   version: 1.4.0
   resolution: "natural-compare@npm:1.4.0"
@@ -8454,6 +8461,7 @@ __metadata:
     minimist: "npm:1.2.8"
     n-readlines: "npm:3.4.0"
     nano-spawn: "npm:2.0.0"
+    narrow-emojis: "npm:0.0.1"
     node-style-text: "npm:2.1.2"
     npm-run-all2: "npm:8.0.4"
     open-editor: "npm:6.0.0"

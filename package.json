@@ -103,6 +103,7 @@
     "micromatch": "4.0.8",
     "minimist": "1.2.8",
     "n-readlines": "3.4.0",
+    "narrow-emojis": "0.0.1",
     "outdent": "0.8.0",
     "oxc-parser": "0.106.0",
     "parse-json": "8.3.0",

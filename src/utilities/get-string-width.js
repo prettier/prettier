@@ -5,10 +5,9 @@ import {
   // @ts-expect-error -- Private
   _isWide as isWide,
 } from "get-east-asian-width";
-import narrowEmojis from "./narrow-emojis.evaluate.js";
+import { isNarrowEmojiCharacter } from "narrow-emojis";
 
 const notAsciiRegex = /[^\x20-\x7F]/;
-const narrowEmojisSet = new Set(narrowEmojis);
 
 // Similar to https://github.com/sindresorhus/string-width
 // We don't strip ansi, always treat ambiguous width characters as having narrow width.
@@ -26,10 +25,11 @@ function getStringWidth(text) {
     return text.length;
   }
 
-  text = text.replace(emojiRegex(), (match) =>
-    narrowEmojisSet.has(match) ? " " : "  ",
-  );
   let width = 0;
+  text = text.replace(emojiRegex(), (character) => {
+    width += isNarrowEmojiCharacter(character) ? 1 : 2;
+    return "";
+  });
 
   // Use `Intl.Segmenter` when we drop support for Node.js v14
   // https://github.com/prettier/prettier/pull/14793#discussion_r1185840038
