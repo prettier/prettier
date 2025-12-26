@@ -352,7 +352,6 @@ function printMdast(path, options, print) {
         ? ["  ", markAsRoot(literalline)]
         : ["\\", hardline];
     case "liquidNode":
-    case "liquidBlock":
       return replaceEndOfLine(node.value, hardline);
     // MDX
     // fallback to the original text if multiparser failed

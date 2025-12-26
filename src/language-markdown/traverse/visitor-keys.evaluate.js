@@ -29,7 +29,6 @@ const visitorKeys = generateReferenceSharedVisitorKeys({
   tableCell: ["children"],
   break: [],
   liquidNode: [],
-  liquidBlock: [],
   import: [],
   export: [],
   esComment: [],
