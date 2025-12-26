@@ -367,7 +367,7 @@ function printMdast(path, options, print) {
     }
 
     case "mdxJsxAttribute":
-      return [node.name, node.value === null ? ['="', node.value, '"'] : ""];
+      return [node.name, node.value !== null ? ['="', node.value, '"'] : ""];
     case "math":
       return [
         "$$",
