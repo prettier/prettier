@@ -292,6 +292,11 @@ function isSCSSMapItemNode(path, options) {
 
   // List as value of key inside SCSS map (i.e. `$map: (key: (value other-value other-other-value))`)
   if (isKeyValuePairInParenGroupNode(parentParentNode)) {
+    // If there is any operator in the value, it is not a map item
+    if (parentNode.groups.some((node) => isMathOperatorNode(node))) {
+      return false;
+    }
+
     return true;
   }
 
