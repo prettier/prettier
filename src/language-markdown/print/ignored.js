@@ -24,7 +24,7 @@ function printPrettierIgnored(path, options) {
         path.findAncestor((p) => p.type === "blockquote") &&
         options.proseWrap !== "always"
       ) {
-        return originalText.replace(/\n>\s*$/u, "");
+        return originalText.replace(/\n>\s*$/, "");
       }
       return originalText;
     default:

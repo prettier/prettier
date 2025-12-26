@@ -124,7 +124,7 @@ function requiredIndent(path) {
     return 0;
   }
 
-  const leadingSpaces = /^[ \t]*/u.exec(next.value)?.[0] ?? "";
+  const leadingSpaces = /^[ \t]*/.exec(next.value)?.[0] ?? "";
   return (
     4 + // base indent of the code block
     [...leadingSpaces].reduce(

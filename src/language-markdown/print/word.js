@@ -33,7 +33,7 @@ function printWord(path) {
 
   // escape internal `*` or `_` that can open or close emphasis/strong
   text = text.replaceAll(
-    /(\\+|^|.)(\*+|_+)($|.)/gu,
+    /(\\+|^|.)(\*+|_+)($|.)/g,
     (match, preceding, delimiterRun, following) => {
       if (
         [...preceding].every((c) => c === "\\") &&

@@ -248,7 +248,7 @@ function splitTextIntoSentences(ast) {
 }
 
 function getBlockquoteRawText(text, node) {
-  const angleBracketsRegex = /^([ \t]*>[ \t]*)*/u;
+  const angleBracketsRegex = /^([ \t]*>[ \t]*)*/;
   const rawLines = text.split("\n");
   const valueLines = node.value.split("\n");
   const resultLines = rawLines.map((rawLine, index) => {
@@ -266,7 +266,7 @@ function transformIndentedCodeblock(ast, options) {
       return node;
     }
     // the first char may point to `\n`, e.g. `\n\t\tbar`, just ignore it
-    const isIndented = /^\n?(?: {4,}|\t)/u.test(
+    const isIndented = /^\n?(?: {4,}|\t)/.test(
       options.originalText.slice(
         node.position.start.offset,
         node.position.end.offset,
@@ -333,7 +333,7 @@ function markOriginalImageAndLinkAlt(ast, options) {
       node.position.end.offset,
     );
 
-    if (originalAlt && /[[\]]/u.test(originalAlt)) {
+    if (originalAlt && /[[\]]/.test(originalAlt)) {
       node.originalLabelText = originalAlt;
     }
 
