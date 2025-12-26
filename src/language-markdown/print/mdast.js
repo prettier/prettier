@@ -8,6 +8,7 @@ import {
   group,
   hardline,
   indent,
+  join,
   line,
   literalline,
   markAsRoot,
@@ -103,7 +104,7 @@ function printMdast(path, options, print) {
     case "sentence":
       return printSentence(path, print);
     case "word":
-      return options.parser !== "mdx" ? printWord(path) : printWordLegacy(path);
+      return printWord(path);
     case "whitespace": {
       const { next } = path;
 
@@ -143,10 +144,7 @@ function printMdast(path, options, print) {
         options.proseWrap === "preserve"
           ? node.value
           : node.value.replaceAll("\n", " ");
-      if (
-        options.parser !== "mdx" &&
-        path.hasAncestor((node) => node.type === "tableCell")
-      ) {
+      if (path.hasAncestor((node) => node.type === "tableCell")) {
         code = code.replaceAll("|", String.raw`\|`);
       }
       const backtickCount = getMinNotPresentContinuousCount(code, "`");
@@ -232,12 +230,7 @@ function printMdast(path, options, print) {
         node.lang || "",
         node.meta ? " " + node.meta : "",
         hardline,
-        replaceEndOfLine(
-          options.parser === "mdx"
-            ? getFencedCodeBlockValue(node, options.originalText)
-            : node.value,
-          hardline,
-        ),
+        replaceEndOfLine(node.value, hardline),
         hardline,
         style,
       ];
@@ -254,9 +247,6 @@ function printMdast(path, options, print) {
       );
     }
     case "list":
-      if (options.parser === "mdx") {
-        return printListLegacy(path, options, print);
-      }
       return printList(path, options, print);
     case "thematicBreak": {
       const { ancestors } = path;
@@ -289,9 +279,8 @@ function printMdast(path, options, print) {
           return ["![", alt, "]", printLinkReference(node)];
         default:
           return [
-            ...(options.parser === "mdx"
-              ? ["![", alt, "]"]
-              : ["!", printLinkReference(node)]),
+            "!",
+            printLinkReference(node),
             node.referenceType === "collapsed" ? "[]" : "",
           ];
       }
@@ -303,9 +292,7 @@ function printMdast(path, options, print) {
         ":",
         indent([
           lineOrSpace,
-          options.parser !== "mdx" && node.url === ""
-            ? "<>"
-            : printUrl(node.url),
+          node.url === "" ? "<>" : printUrl(node.url),
           node.title === null
             ? ""
             : [lineOrSpace, printTitle(node.title, options, false)],
@@ -356,12 +343,29 @@ function printMdast(path, options, print) {
     // MDX
     // fallback to the original text if multiparser failed
     // or `embeddedLanguageFormatting: "off"`
-    case "import":
-    case "export":
-    case "jsx":
+    case "mdxjsEsm":
       return node.value.trimEnd();
-    case "esComment":
-      return ["{/* ", node.value, " */}"];
+    case "mdxFlowExpression":
+      return ["{", node.value, "}"];
+    case "mdxJsxFlowElement":
+    case "mdxJsxTextElement": {
+      const isSelfClosing =
+        node.type === "mdxJsxTextElement" && node.children.length === 0;
+      return [
+        "<",
+        node.name,
+        node.attributes.length > 0
+          ? [" ", join(" ", path.map(print, "attributes"))]
+          : "",
+        isSelfClosing
+          ? "/"
+          : [">", path.map(print, "children"), "</", node.name],
+        ">",
+      ];
+    }
+
+    case "mdxJsxAttribute":
+      return [node.name, node.value === null ? ['="', node.value, '"'] : ""];
     case "math":
       return [
         "$$",
@@ -507,11 +511,6 @@ function printTitle(title, options, printSpace = true) {
     return " " + printTitle(title, options, false);
   }
 
-  // title is escaped before `remark-parse` v10
-  if (options.parser === "mdx") {
-    title = title.replaceAll(/\\(?=["')])/g, "");
-  }
-
   if (title.includes('"') && title.includes("'") && !title.includes(")")) {
     return `(${title})`; // avoid escaped quotes
   }
@@ -521,13 +520,10 @@ function printTitle(title, options, printSpace = true) {
   return `${quote}${title}${quote}`;
 }
 
-function printLinkReference(node, options) {
+function printLinkReference(node) {
   // `remark-parse` lowercase the `label` as `identifier`, we don't want do that
   // https://github.com/remarkjs/remark/blob/daddcb463af2d5b2115496c395d0571c0ff87d15/packages/remark-parse/lib/tokenize/reference.js
   const label = collapseWhiteSpace(node.label);
-  if (options?.parser === "mdx") {
-    return `[${label}]`;
-  }
   const name = label.replaceAll(/[\\[\]]/g, (s) => `\\${s}`);
   return `[${name}]`;
 }
@@ -536,8 +532,8 @@ function printFootnoteReference(node) {
   return `[^${node.label}]`;
 }
 
-function printImageAlt(node, options) {
-  if (options.parser !== "mdx" && node.originalAltText) {
+function printImageAlt(node) {
+  if (node.originalAltText) {
     return node.originalAltText;
   }
 
