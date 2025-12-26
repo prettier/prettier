@@ -1,18 +1,11 @@
 import commonmarkTestSuite from "commonmark-test-suite";
 
 const BUGS = new Set([
-  "[FIXED] example-11.md",
   "example-43.md",
   "example-47.md",
   "example-77.md",
   "example-146.md",
-  "[FIXED] example-196.md",
-  "[FIXED] example-273.md",
-  "[FIXED] example-274.md",
   "example-349.md",
-  "[FIXED] example-417.md",
-  "[FIXED] example-493.md",
-  "[FIXED] example-493.md",
 ]);
 
 runFormatTest(
