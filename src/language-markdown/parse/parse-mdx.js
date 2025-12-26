@@ -6,6 +6,7 @@ import { gfm as gfmSyntax } from "micromark-extension-gfm";
 import { math as mathSyntax } from "micromark-extension-math";
 import { mdxjs } from "micromark-extension-mdxjs";
 import { syntax as wikiLinkSyntax } from "micromark-extension-wiki-link";
+import { comment, commentFromMarkdown } from "remark-comment";
 import parseFrontMatter from "../../main/front-matter/parse.js";
 import { gfmFromMarkdown } from "./micromark/mdast-util-gfm.js";
 import { overrideHtmlTextSyntax } from "./micromark/micromark-extension-html-text.js";
@@ -33,6 +34,7 @@ function getMarkdownParseOptions() {
           },
         },
       }),
+      comment,
     ],
     mdastExtensions: [
       gfmFromMarkdown(),
@@ -40,6 +42,7 @@ function getMarkdownParseOptions() {
       // wikiLinkFromMarkdown(),
       // liquidFromMarkdown(),
       mdxFromMarkdown(),
+      commentFromMarkdown({ ast: true }),
     ],
   });
 }
