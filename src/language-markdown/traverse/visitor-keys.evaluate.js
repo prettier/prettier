@@ -17,6 +17,7 @@ const visitorKeys = generateReferenceSharedVisitorKeys({
   heading: ["children"],
   code: [],
   html: [],
+  comment: [],
   list: ["children"],
   thematicBreak: [],
   linkReference: ["children"],

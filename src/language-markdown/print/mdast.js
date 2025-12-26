@@ -235,11 +235,13 @@ function printMdast(path, options, print) {
         style,
       ];
     }
+    case "comment":
     case "html": {
       const { parent, isLast } = path;
       const value =
         parent.type === "root" && isLast ? node.value.trimEnd() : node.value;
-      const isHtmlComment = /^<!--.*-->$/s.test(value);
+      const isHtmlComment =
+        node.type === "comment" || /^<!--.*-->$/s.test(value);
 
       return replaceEndOfLine(
         value,
