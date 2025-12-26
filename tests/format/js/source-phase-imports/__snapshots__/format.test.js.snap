@@ -283,9 +283,9 @@ Cause: [1:14-1:15]: Expected 'from'"
 `;
 
 exports[`no-named.js [oxc] format 1`] = `
-"Expected \`from\` but found \`{\` (1:15)
+"Only a single default import is allowed in a source phase import. (1:8)
 > 1 | import source { x } from "x";
-    |               ^
+    |        ^^^^^^
   2 |"
 `;
 
@@ -330,8 +330,8 @@ Cause: [1:14-1:15]: Expected 'from'"
 `;
 
 exports[`no-namespace.js [oxc] format 1`] = `
-"Expected \`from\` but found \`*\` (1:15)
+"Only a single default import is allowed in a source phase import. (1:8)
 > 1 | import source * as x from "x";
-    |               ^
+    |        ^^^^^^
   2 |"
 `;

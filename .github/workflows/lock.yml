@@ -1,6 +1,7 @@
 name: "Lock"
 
 on:
+  workflow_dispatch:
   schedule:
     # “At 00:00.” https://crontab.guru/#0_0_*_*_*
     - cron: "0 0 * * *"
@@ -16,10 +17,11 @@ jobs:
       - uses: dessant/lock-threads@7266a7ce5c1df01b1c6db85bf8cd86c737dadbe7 # v6.0.0
         with:
           # https://github.com/dessant/lock-threads
-          github-token: ${{ github.token }}
+          process-only: "issues"
+          # github-token: ${{ github.token }}
           issue-inactive-days: "90"
-          exclude-issue-created-before: ""
+          # exclude-issue-created-before: ""
           exclude-any-issue-labels: "keep-unlocked, status:awaiting response"
           add-issue-labels: "locked-due-to-inactivity"
-          issue-comment: ""
+          # issue-comment: ""
           issue-lock-reason: "resolved"

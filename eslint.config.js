@@ -320,6 +320,7 @@ const configs = [
       "scripts/**/*",
       "benchmarks/**",
       "tests/config/install-prettier.js",
+      "tests/config/browser/**/*",
     ],
     rules: {
       "no-console": "off",
