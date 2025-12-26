@@ -22,6 +22,7 @@ const options = {
   },
   bracketSameLine: commonOptions.bracketSameLine,
   objectWrap: commonOptions.objectWrap,
+  destructuringWrap: commonOptions.destructuringWrap,
   bracketSpacing: commonOptions.bracketSpacing,
   jsxBracketSameLine: {
     category: CATEGORY_JAVASCRIPT,
