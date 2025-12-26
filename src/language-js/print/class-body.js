@@ -25,11 +25,13 @@ import { shouldHugTheOnlyParameter } from "./function-parameters.js";
 - `TSInterfaceBody` (TypeScript)
 - `TSTypeLiteral` (TypeScript)
 - `ObjectTypeAnnotation` (Flow)
+- `RecordDeclarationBody` (Flow)
 */
 function printClassBody(path, options, print) {
   const { node } = path;
   const parts = [];
   const isFlowTypeAnnotation = node.type === "ObjectTypeAnnotation";
+  const isFlowRecordDeclaration = node.type === "RecordDeclarationBody";
   const isObjectType = !isClassBody(path);
   const separator = isObjectType ? line : hardline;
   const hasDanglingComments = hasComment(node, CommentCheckFlags.Dangling);
@@ -42,7 +44,7 @@ function printClassBody(path, options, print) {
     firstMember ??= node;
     parts.push(print());
 
-    if (isObjectType && isFlowTypeAnnotation) {
+    if (!isFlowRecordDeclaration && isObjectType && isFlowTypeAnnotation) {
       const { parent } = path;
 
       if (parent.inexact || !isLast) {
@@ -52,7 +54,12 @@ function printClassBody(path, options, print) {
       }
     }
 
+    if (isFlowRecordDeclaration && node.type !== "MethodDefinition") {
+      parts.push(",");
+    }
+
     if (
+      !isFlowRecordDeclaration &&
       !isObjectType &&
       (shouldPrintSemicolonAfterClassProperty({ node, next }, options) ||
         shouldPrintSemicolonAfterInterfaceProperty({ node, next }, options))
@@ -158,7 +165,11 @@ function isClassBody(path) {
     );
   }
 
-  return node.type === "ClassBody" || node.type === "TSInterfaceBody";
+  return (
+    node.type === "ClassBody" ||
+    node.type === "TSInterfaceBody" ||
+    node.type === "RecordDeclarationBody"
+  );
 }
 
 function iterateClassMembers(path, iteratee) {
@@ -170,6 +181,11 @@ function iterateClassMembers(path, iteratee) {
 
   if (node.type === "TSTypeLiteral") {
     path.each(iteratee, "members");
+    return;
+  }
+
+  if (node.type === "RecordDeclarationBody") {
+    path.each(iteratee, "elements");
     return;
   }
 

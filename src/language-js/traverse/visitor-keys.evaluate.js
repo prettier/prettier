@@ -48,23 +48,12 @@ const excludeNodeTypes = [
   // Babel will remove in v8
   // https://github.com/babel/babel/pull/17242
   "TupleExpression",
-  "RecordExpression",
   // Babel, Won't exist since we use `createImportExpressions` when parsing with babel
   "Import",
 
   // https://github.com/typescript-eslint/typescript-eslint/blob/d2d7ace4e52bedf07482fd879d8e31a52b38fc26/packages/visitor-keys/tests/visitor-keys.test.ts#L14-L18
   "ExperimentalRestProperty",
   "ExperimentalSpreadProperty",
-
-  // Unsupported flow features
-  "MatchInstanceObjectPattern",
-  "MatchInstancePattern",
-  "RecordDeclaration",
-  "RecordDeclarationBody",
-  "RecordDeclarationImplements",
-  "RecordDeclarationProperty",
-  "RecordDeclarationStaticProperty",
-  "RecordExpressionProperties",
 ];
 
 let visitorKeys = unionVisitorKeys(

@@ -539,6 +539,14 @@ exports[`visitor keys estree 1`] = `
   "MatchIdentifierPattern": [
     "id",
   ],
+  "MatchInstanceObjectPattern": [
+    "properties",
+    "rest",
+  ],
+  "MatchInstancePattern": [
+    "properties",
+    "targetConstructor",
+  ],
   "MatchLiteralPattern": [
     "literal",
   ],
@@ -748,6 +756,37 @@ exports[`visitor keys estree 1`] = `
   "QualifiedTypeofIdentifier": [
     "id",
     "qualification",
+  ],
+  "RecordDeclaration": [
+    "body",
+    "id",
+    "implements",
+    "typeParameters",
+  ],
+  "RecordDeclarationBody": [
+    "elements",
+  ],
+  "RecordDeclarationImplements": [
+    "id",
+    "typeArguments",
+  ],
+  "RecordDeclarationProperty": [
+    "defaultValue",
+    "key",
+    "typeAnnotation",
+  ],
+  "RecordDeclarationStaticProperty": [
+    "key",
+    "typeAnnotation",
+    "value",
+  ],
+  "RecordExpression": [
+    "properties",
+    "recordConstructor",
+    "typeArguments",
+  ],
+  "RecordExpressionProperties": [
+    "properties",
   ],
   "RegExpLiteral": [],
   "RestElement": [
