@@ -6,6 +6,7 @@ import { shouldPrintLeadingSemicolon } from "../semicolon/semicolon.js";
 import { createTypeCheckFunction } from "../utilities/index.js";
 import isIgnored from "../utilities/is-ignored.js";
 import { printAngular } from "./angular.js";
+import { printUnmovableComments } from "./comment.js";
 import { printDecorators } from "./decorators.js";
 import { printEstree } from "./estree.js";
 import { printFlow } from "./flow.js";
@@ -93,7 +94,7 @@ function print(path, options, print, args) {
     needsParens ? "(" : "",
     needsParens && isClassExpression && hasDecorators
       ? [indent([line, decoratorsDoc, doc]), line]
-      : [decoratorsDoc, doc],
+      : [decoratorsDoc, printUnmovableComments(path, doc, options)],
     needsParens ? ")" : "",
   ]);
 }
