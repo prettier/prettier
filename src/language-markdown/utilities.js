@@ -181,10 +181,19 @@ function splitText(text) {
 }
 
 function getOrderedListItemInfo(orderListItem, options) {
-  const text = options.originalText.slice(
+  let text = options.originalText.slice(
     orderListItem.position.start.offset,
     orderListItem.position.end.offset,
   );
+  if (options.parser !== "mdx") {
+    const firstChild = orderListItem.children[0];
+    if (firstChild) {
+      text = options.originalText.slice(
+        orderListItem.position.start.offset,
+        firstChild.position.start.offset,
+      );
+    }
+  }
 
   const { numberText, leadingSpaces } = text.match(
     /^\s*(?<numberText>\d+)(\.|\))(?<leadingSpaces>\s*)/,
@@ -218,6 +227,7 @@ function hasGitDiffFriendlyOrderedList(node, options) {
 
 // The final new line should not include in value
 // https://github.com/remarkjs/remark/issues/512
+// TODO[@fisker]: Use `node.value` directly when we update mdx to use latest remark
 function getFencedCodeBlockValue(node, originalText) {
   const { value } = node;
   if (
@@ -248,6 +258,7 @@ function isAutolink(node) {
   if (node?.type !== "link" || node.children.length !== 1) {
     return false;
   }
+
   const [child] = node.children;
   return locStart(node) === locStart(child) && locEnd(node) === locEnd(child);
 }
@@ -307,6 +318,11 @@ function hasPrettierIgnore(path) {
   return path.index > 0 && isPrettierIgnore(path.previous) === "next";
 }
 
+function isSetextHeading(node) {
+  const { start, end } = node.position;
+  return start.line !== end.line;
+}
+
 export {
   getFencedCodeBlockValue,
   getNthListSiblingIndex,
@@ -317,6 +333,7 @@ export {
   INLINE_NODE_WRAPPER_TYPES,
   isAutolink,
   isPrettierIgnore,
+  isSetextHeading,
   KIND_CJ_LETTER,
   KIND_CJK_PUNCTUATION,
   KIND_K_LETTER,

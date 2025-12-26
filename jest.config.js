@@ -84,6 +84,9 @@ const config = {
     "<rootDir>/tests/integration/integration-test-setup.js",
   ],
   runner: "jest-light-runner/child-process",
+  testEnvironmentOptions: {
+    customExportConditions: ["development"],
+  },
   snapshotSerializers: [
     "jest-snapshot-serializer-raw",
     "jest-snapshot-serializer-ansi",

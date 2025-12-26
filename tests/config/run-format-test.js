@@ -27,8 +27,6 @@ const unstableTests = new Map(
     "js/comments/return-statement.js",
     "js/comments/tagged-template-literal.js",
     "js/for/9812-unstable.js",
-    "markdown/spec/example-234.md",
-    "markdown/spec/example-235.md",
     [
       "js/multiparser-markdown/codeblock.js",
       (options) => options.proseWrap === "always",
@@ -362,6 +360,7 @@ async function runTest({
 }) {
   let formatOptions = mainParserFormatOptions;
   let formatResult = mainParserFormatResult;
+  expect(formatResult).toBeDefined();
 
   // Verify parsers or error tests
   if (

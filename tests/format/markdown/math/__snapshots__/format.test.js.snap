@@ -55,7 +55,7 @@ Paragraph with $14 million.    But if more $dollars on the same line...
 =====================================output=====================================
 $10 - $20
 
-Paragraph with $14 million. But if more $dollars on the same line...
+Paragraph with $14 million.    But if more $dollars on the same line...
 
 ================================================================================
 `;
@@ -226,8 +226,7 @@ $$
 
 ---
 
-$$
-must
+$$ must
 \\alpha
 $$
 
