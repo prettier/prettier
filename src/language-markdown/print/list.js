@@ -36,15 +36,12 @@ function printList(path, options, print) {
         childNode.children[0].position.start.column !==
           childNode.children[1].position.start.column
       ) {
-        return [prefix, printListItem(path, options, print, prefix)];
+        return [prefix, printListItem(path, options, print)];
       }
 
       return [
         prefix,
-        align(
-          " ".repeat(prefix.length),
-          printListItem(path, options, print, prefix),
-        ),
+        align(" ".repeat(prefix.length), printListItem(path, options, print)),
       ];
 
       function getPrefix() {
@@ -59,9 +56,8 @@ function printList(path, options, print) {
             ? "- "
             : "* ";
 
-        return (node.isAligned ||
-          /* workaround for https://github.com/remarkjs/remark/issues/315 */ node.hasIndentedCodeblock) &&
-          node.ordered
+        return node.isAligned ||
+          /* workaround for https://github.com/remarkjs/remark/issues/315 */ node.hasIndentedCodeblock
           ? alignListPrefix(rawPrefix, options)
           : rawPrefix;
       }
@@ -69,21 +65,22 @@ function printList(path, options, print) {
   });
 }
 
-function printListItem(path, options, print, listPrefix) {
+function printListItem(path, options, print) {
   const { node } = path;
   const prefix = node.checked === null ? "" : node.checked ? "[x] " : "[ ] ";
   return [
     prefix,
     printChildren(path, options, print, {
       processor({ node, isFirst }) {
-        if (isFirst && node.type !== "list") {
-          return align(" ".repeat(prefix.length), print());
+        // All children should align consistently with the checkbox prefix.
+        // The outer align() in printList handles alignment with the list marker.
+        // Following CommonMark spec, subsequent content should align with where
+        // text starts after the list marker.
+        if (node.type === "list" && !isFirst) {
+          // Nested lists don't need extra alignment for the checkbox prefix
+          return print();
         }
-
-        const alignment = " ".repeat(
-          clamp(options.tabWidth - listPrefix.length, 0, 3), // 4+ will cause indented code block
-        );
-        return [alignment, align(alignment, print())];
+        return align(" ".repeat(prefix.length), print());
       },
     }),
   ];
@@ -102,10 +99,6 @@ function alignListPrefix(prefix, options) {
     const restSpaces = prefix.length % options.tabWidth;
     return restSpaces === 0 ? 0 : options.tabWidth - restSpaces;
   }
-}
-
-function clamp(value, min, max) {
-  return Math.max(min, Math.min(value, max));
 }
 
 export { printList };
