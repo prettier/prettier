@@ -1,42 +1,71 @@
-import footnotes from "remark-footnotes";
-import remarkMath from "remark-math";
-import remarkParse from "remark-parse";
-import unified from "unified";
-import { BLOCKS_REGEX, esSyntax } from "./mdx.js";
-import frontMatter from "./unified-plugins/front-matter.js";
-import htmlToJsx from "./unified-plugins/html-to-jsx.js";
-import liquid from "./unified-plugins/liquid.js";
-import wikiLink from "./unified-plugins/wiki-link.js";
+import { fromMarkdown } from "mdast-util-from-markdown";
+import { mathFromMarkdown } from "mdast-util-math";
+import { mdxFromMarkdown } from "mdast-util-mdx";
+import { fromMarkdown as wikiLinkFromMarkdown } from "mdast-util-wiki-link";
+import { gfm as gfmSyntax } from "micromark-extension-gfm";
+import { math as mathSyntax } from "micromark-extension-math";
+import { mdxjs } from "micromark-extension-mdxjs";
+import { syntax as wikiLinkSyntax } from "micromark-extension-wiki-link";
+import parseFrontMatter from "../../main/front-matter/parse.js";
+import { gfmFromMarkdown } from "./micromark/mdast-util-gfm.js";
+import { overrideHtmlTextSyntax } from "./micromark/micromark-extension-html-text.js";
+import {
+  liquidFromMarkdown,
+  liquidSyntax,
+} from "./micromark/micromark-extension-liquid.js";
 
-/**
- * based on [MDAST](https://github.com/syntax-tree/mdast) with following modifications:
- *
- * 1. restore unescaped character (Text)
- * 2. merge continuous Texts
- * 3. replace whitespaces in InlineCode#value with one whitespace
- *    reference: http://spec.commonmark.org/0.25/#example-605
- * 4. split Text into Sentence
- *
- * interface Word { value: string }
- * interface Whitespace { value: string }
- * interface Sentence { children: Array<Word | Whitespace> }
- * interface InlineCode { children: Array<Sentence> }
- */
+let markdownParseOptions;
+function getMarkdownParseOptions() {
+  return (markdownParseOptions ??= {
+    extensions: [
+      gfmSyntax(),
+      // mathSyntax(),
+      // wikiLinkSyntax(),
+      // liquidSyntax(),
+      // overrideHtmlTextSyntax(),
+      mdxjs({
+        acorn: {
+          parse(text) {
+            return { type: "Program", start: 0, end: text.length, body: [] };
+          },
+          parseExpressionAt(text) {
+            return { type: "Literal", start: 0, end: text.length };
+          },
+        },
+      }),
+    ],
+    mdastExtensions: [
+      gfmFromMarkdown(),
+      // mathFromMarkdown(),
+      // wikiLinkFromMarkdown(),
+      // liquidFromMarkdown(),
+      mdxFromMarkdown(),
+    ],
+  });
+}
 
 function parseMdx(text) {
-  const processor = unified()
-    .use(remarkParse, {
-      commonmark: true,
-      blocks: [BLOCKS_REGEX],
-    })
-    .use(footnotes)
-    .use(frontMatter)
-    .use(remarkMath)
-    .use(esSyntax)
-    .use(liquid)
-    .use(htmlToJsx)
-    .use(wikiLink);
-  return processor.run(processor.parse(text));
+  const { frontMatter, content } = parseFrontMatter(text);
+  const ast = fromMarkdown(content, getMarkdownParseOptions());
+
+  if (frontMatter) {
+    const [start, end] = [frontMatter.start, frontMatter.end].map(
+      ({ line, column, index }) => ({
+        line,
+        column: column + 1,
+        offset: index,
+      }),
+    );
+
+    ast.children.unshift({
+      ...frontMatter,
+      // @ts-expect-error -- Expected
+      type: "frontMatter",
+      position: { start, end },
+    });
+  }
+
+  return ast;
 }
 
 export { parseMdx };

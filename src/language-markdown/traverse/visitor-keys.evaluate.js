@@ -29,15 +29,17 @@ const visitorKeys = generateReferenceSharedVisitorKeys({
   tableCell: ["children"],
   break: [],
   liquidNode: [],
-  import: [],
-  export: [],
   esComment: [],
-  jsx: [],
   math: [],
   inlineMath: [],
   tableRow: ["children"],
   listItem: ["children"],
   text: [],
+  mdxjsEsm: [],
+  mdxFlowExpression: [],
+  mdxJsxFlowElement: ["attributes", "children"],
+  mdxJsxTextElement: ["attributes", "children"],
+  mdxJsxAttribute: [],
 });
 
 export default visitorKeys;

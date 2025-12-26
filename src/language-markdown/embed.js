@@ -40,12 +40,7 @@ function embed(path, options) {
           textToDocOptions.filepath = "dummy.tsx";
         }
 
-        const doc = await textToDoc(
-          options.parser === "mdx"
-            ? getFencedCodeBlockValue(node, options.originalText)
-            : node.value,
-          textToDocOptions,
-        );
+        const doc = await textToDoc(node.value, textToDocOptions);
 
         const styleUnit = options.__inJsTemplate ? "~" : "`";
         const style = styleUnit.repeat(
@@ -65,23 +60,47 @@ function embed(path, options) {
     }
 
     // MDX
-    case "import":
-    case "export":
+    case "mdxjsEsm":
       return (textToDoc) =>
         textToDoc(node.value, {
           // TODO: Rename this option since it's not used in HTML
           __onHtmlBindingRoot: (ast) => validateImportExport(ast, node.type),
           parser: "babel",
         });
-    case "jsx":
-      return (textToDoc) =>
-        textToDoc(`<$>${node.value}</$>`, {
-          parser: "__js_expression",
-          rootMarker: "mdx",
-        });
-  }
 
-  return null;
+    case "mdxFlowExpression":
+      return async (textToDoc) => [
+        "{ ",
+        await printMdxJsExpression(textToDoc, node.value),
+        " }",
+      ];
+  }
+}
+
+function isEmptyExpressionError(error) {
+  const cause = error?.cause;
+  return (
+    cause?.code === "BABEL_PARSER_SYNTAX_ERROR" &&
+    cause?.reasonCode === "ParseExpressionEmptyInput"
+  );
+}
+
+async function printMdxJsExpression(textToDoc, code) {
+  try {
+    return await textToDoc(code, {
+      parser: "__js_expression",
+    });
+  } catch (error) {
+    if (isEmptyExpressionError(error)) {
+      try {
+        return await textToDoc(code, { parser: "babel" });
+      } catch {
+        // Throw the expression print error instead
+      }
+    }
+
+    throw error;
+  }
 }
 
 function validateImportExport(ast, type) {
