@@ -6918,7 +6918,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"micromark-factory-space@npm:^2.0.0":
+"micromark-factory-space@npm:2.0.1, micromark-factory-space@npm:^2.0.0":
   version: 2.0.1
   resolution: "micromark-factory-space@npm:2.0.1"
   dependencies:
@@ -7020,7 +7020,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"micromark-util-html-tag-name@npm:2.0.1, micromark-util-html-tag-name@npm:^2.0.0":
+"micromark-util-html-tag-name@npm:^2.0.0":
   version: 2.0.1
   resolution: "micromark-util-html-tag-name@npm:2.0.1"
   checksum: 10/dea365f5ad28ad74ff29fcb581f7b74fc1f80271c5141b3b2bc91c454cbb6dfca753f28ae03730d657874fcbd89d0494d0e3965dfdca06d9855f467c576afa9d
@@ -8051,8 +8051,8 @@ __metadata:
     micromark-extension-gfm: "npm:3.0.0"
     micromark-extension-math: "npm:3.1.0"
     micromark-extension-wiki-link: "npm:0.0.4"
+    micromark-factory-space: "npm:2.0.1"
     micromark-util-character: "npm:2.1.1"
-    micromark-util-html-tag-name: "npm:2.0.1"
     micromark-util-symbol: "npm:2.0.1"
     micromark-util-types: "npm:2.0.2"
     micromatch: "npm:4.0.8"
