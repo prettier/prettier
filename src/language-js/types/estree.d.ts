@@ -26,7 +26,10 @@ type FlowAdditionalNode = {
   typeAnnotation: FlowESTree.TypeAnnotationType;
 };
 
-type PrettierNode = { type: "JsExpressionRoot"; node: Babel.Expression };
+type PrettierNode =
+  | { type: "JsExpressionRoot"; node: Babel.Expression }
+  | { type: "JsonRoot"; node: Babel.Expression }
+  | { type: "NGRoot"; node: Babel.Expression | NGNode };
 
 export type Comment = (
   | Babel.Comment
