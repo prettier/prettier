@@ -1,6 +1,7 @@
-import { onMounted, onUnmounted, useTemplateRef, watch } from "vue";
-
-const { CodeMirror } = window;
+const {
+  CodeMirror,
+  Vue: { onMounted, onUnmounted, useTemplateRef, watch },
+} = globalThis;
 
 function setup(props, { emit }) {
   const textareaRef = useTemplateRef("textarea");

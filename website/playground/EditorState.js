@@ -1,5 +1,8 @@
-import { reactive, watch } from "vue";
 import * as storage from "./storage.js";
+
+const {
+  Vue: { reactive, watch },
+} = globalThis;
 
 export default {
   name: "EditorState",
