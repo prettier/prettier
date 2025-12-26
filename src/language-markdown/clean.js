@@ -8,14 +8,13 @@ const ignoredProperties = new Set([
 ]);
 function clean(original, cloned, parent) {
   // for codeblock
-  if (
-    original.type === "code" ||
-    original.type === "yaml" ||
-    original.type === "import" ||
-    original.type === "export" ||
-    original.type === "jsx"
-  ) {
+  if (original.type === "code" || original.type === "yaml") {
     delete cloned.value;
+  }
+
+  if (original.type === "mdxjsEsm") {
+    delete cloned.value;
+    delete cloned.data.estree;
   }
 
   if (original.type === "list") {
