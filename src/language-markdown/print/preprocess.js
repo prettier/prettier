@@ -6,30 +6,12 @@ const isSingleCharRegex = /^\\?.$/su;
 const isNewLineBlockquoteRegex = /^\n *>[ >]*$/;
 
 function preprocess(ast, options) {
-  if (options.parser === "mdx") {
-    ast = restoreUnescapedCharacter(ast, options);
-  } else {
-    ast = addRawToText(ast, options);
-  }
+  ast = addRawToText(ast, options);
   ast = mergeContinuousTexts(ast);
-  if (options.parser === "mdx") {
-    ast = transformIndentedCodeblockAndMarkItsParentList(ast, options);
-  } else {
-    ast = transformIndentedCodeblock(ast, options);
-  }
-  if (options.parser !== "mdx") {
-    ast = markOriginalImageAndLinkAlt(ast, options);
-  }
-  if (options.parser === "mdx") {
-    ast = markAlignedListLegacy(ast, options);
-  } else {
-    ast = markAlignedList(ast, options);
-  }
-  if (options.parser === "mdx") {
-    ast = splitTextIntoSentencesLegacy(ast);
-  } else {
-    ast = splitTextIntoSentences(ast);
-  }
+  ast = transformIndentedCodeblock(ast, options);
+  ast = markOriginalImageAndLinkAlt(ast, options);
+  ast = markAlignedList(ast, options);
+  ast = splitTextIntoSentences(ast);
   return ast;
 }
 

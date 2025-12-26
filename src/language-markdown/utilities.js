@@ -185,14 +185,13 @@ function getOrderedListItemInfo(orderListItem, options) {
     orderListItem.position.start.offset,
     orderListItem.position.end.offset,
   );
-  if (options.parser !== "mdx") {
-    const firstChild = orderListItem.children[0];
-    if (firstChild) {
-      text = options.originalText.slice(
-        orderListItem.position.start.offset,
-        firstChild.position.start.offset,
-      );
-    }
+
+  const firstChild = orderListItem.children[0];
+  if (firstChild) {
+    text = options.originalText.slice(
+      orderListItem.position.start.offset,
+      firstChild.position.start.offset,
+    );
   }
 
   const { numberText, leadingSpaces } = text.match(
