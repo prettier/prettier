@@ -61,6 +61,7 @@ function handleOwnLineComment(context) {
   return [
     handleIgnoreComments,
     handleConditionalExpressionComments,
+    handleCommentInEmptyParens,
     handleLastFunctionArgComments,
     handleLastComponentArgComments,
     handleMemberExpressionComments,
@@ -623,7 +624,11 @@ function handleCommentInEmptyParens({ comment, enclosingNode, text }) {
   if (
     enclosingNode &&
     ((isRealFunctionLikeNode(enclosingNode) &&
-      getFunctionParameters(enclosingNode).length === 0) ||
+      getFunctionParameters(enclosingNode).length === 0 &&
+      // Make sure comment is before the function body (not in return value parentheses)
+      (!("body" in enclosingNode) ||
+        !enclosingNode.body ||
+        locStart(comment) < locStart(enclosingNode.body))) ||
       (isCallLikeExpression(enclosingNode) &&
         getCallArguments(enclosingNode).length === 0))
   ) {
