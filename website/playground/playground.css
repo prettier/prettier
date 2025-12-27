@@ -353,6 +353,28 @@ input[type="number"] {
   background-color: rgba(255, 220, 120, 0.45);
 }
 
+.cm-foldGutter .cm-gutterElement {
+  cursor: pointer;
+}
+
+.cm-foldGutter .cm-gutterElement > span {
+  font-size: 0;
+  color: #999;
+  font-family: arial;
+}
+.cm-foldGutter .cm-gutterElement > span::after {
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.cm-foldGutter .cm-gutterElement > span[title^="Fold "]::after {
+  content: "\25BE";
+}
+
+.cm-foldGutter .cm-gutterElement > span[title^="Unfold "]::after {
+  content: "\25B8";
+}
+
 html[data-theme="dark"] .cm-overlay-highlight {
   background-color: rgba(255, 220, 120, 0.32);
 }
