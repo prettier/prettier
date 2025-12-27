@@ -78,6 +78,10 @@
       groupName: "docusaurus",
       matchPackageNames: ["@docusaurus/*"],
     },
+    {
+      groupName: "CodeMirror",
+      matchPackageNames: ["@codemirror/*", "cm6-graphql"],
+    },
   ],
   ignoreDeps: [
     // It's a dependency of `remark-parse`, use same version to reduce size
