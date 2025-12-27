@@ -1,49 +1,14 @@
 import "./install-service-worker.js";
 
-import {
-  createApp,
-  inject,
-  onMounted,
-  provide,
-  reactive,
-  ref,
-  watch,
-} from "vue";
+import { createApp, onMounted, reactive } from "vue";
+import { useTheme } from "./composables/use-theme.js";
 import Playground from "./Playground.jsx";
 import { fixPrettierVersion } from "./utilities.js";
 import VersionLink from "./VersionLink.jsx";
 import WorkerApi from "./WorkerApi.js";
 
-function getInitialTheme() {
-  const saved = localStorage.getItem("theme");
-  if (saved) {
-    return saved;
-  }
-
-  return window.matchMedia("(prefers-color-scheme: dark)").matches
-    ? "dark"
-    : "light";
-}
-
-function applyTheme(theme) {
-  document.documentElement.dataset.theme = theme;
-}
-
-const theme = ref(getInitialTheme());
-
 function ThemeToggle() {
-  const toggleTheme = () => {
-    const newTheme = theme.value === "dark" ? "light" : "dark";
-    theme.value = newTheme;
-    localStorage.setItem("theme", newTheme);
-    applyTheme(newTheme);
-  };
-
-  applyTheme(theme.value);
-
-  watch(theme, (newTheme) => {
-    applyTheme(newTheme);
-  });
+  const { theme, toggleTheme } = useTheme();
 
   return (
     <button
@@ -87,8 +52,6 @@ const App = {
   setup() {
     const state = reactive({ loaded: false });
     const worker = new WorkerApi();
-
-    provide("theme", theme);
 
     const componentDidMount = async () => {
       const { supportInfo, version } = await worker.getMetadata();

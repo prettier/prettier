@@ -26,6 +26,7 @@ import {
   lineNumbers as lineNumbersExt,
 } from "@codemirror/view";
 import { inject, onMounted, onUnmounted, useTemplateRef, watch } from "vue";
+import { useTheme } from "./composables/use-theme.js";
 
 function setup(props, { emit }) {
   const editorRef = useTemplateRef("editorRef");
@@ -61,7 +62,7 @@ function setup(props, { emit }) {
   const rulerTheme = new Compartment();
   const foldGutterCompartment = new Compartment();
 
-  const theme = inject("theme");
+  const { theme } = useTheme();
   const editorTheme = new Compartment();
 
   const onChange = (value) => {
