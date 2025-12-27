@@ -131,10 +131,10 @@ function setup(props, { emit }) {
     const state = EditorState.create({
       doc: props.value || "",
       extensions: [
-        props.lineNumbers && lineNumbersExt(),
+        props.lineNumbers ? lineNumbersExt() : undefined,
         foldGutterCompartment.of(props.foldGutter ? foldGutterExt() : []),
-        props.autoCloseBrackets && closeBrackets(),
-        props.matchBrackets && bracketMatching(),
+        props.autoCloseBrackets ? closeBrackets() : undefined,
+        props.matchBrackets ? bracketMatching() : undefined,
 
         languageExt.of(await getLanguageExtension(props.mode)),
         editorTheme.of(
