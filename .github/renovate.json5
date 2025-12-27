@@ -82,6 +82,10 @@
       groupName: "Markdown dependencies",
       matchPackageNames: ["micromark-*", "mdast-", "remark-", "unified"],
     },
+    {
+      groupName: "CodeMirror",
+      matchPackageNames: ["@codemirror/*", "cm6-graphql"],
+    },
   ],
   ignoreDeps: [
     // It's a dependency of `remark-parse`, use same version to reduce size
