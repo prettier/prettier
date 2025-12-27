@@ -337,6 +337,16 @@ input[type="number"] {
   background-color: var(--background-color) !important;
 }
 
+.ͼ1 .cm-scroller {
+  font-family:
+    Consolas,
+    Monaco,
+    Andale Mono,
+    Ubuntu Mono,
+    monospace;
+  line-height: 1.6;
+}
+
 .cm-editor.cm-focused {
   outline: none;
 }
