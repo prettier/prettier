@@ -337,7 +337,7 @@ input[type="number"] {
   background-color: var(--background-color) !important;
 }
 
-.ͼ1 .cm-scroller {
+.cm-editor .cm-scroller {
   font-family:
     Consolas,
     Monaco,
@@ -352,7 +352,11 @@ input[type="number"] {
 }
 
 .cm-content {
-  position: "relative";
+  position: relative;
+}
+
+.cm-editor .cm-line {
+  padding-inline-start: 0;
 }
 
 .cm-gutters {
