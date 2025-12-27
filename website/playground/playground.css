@@ -356,9 +356,13 @@ input[type="number"] {
 }
 
 .cm-editor .cm-gutters {
-  padding: 0 3px 0 5px;
   border-right: 1px solid var(--color-border);
   background: #f7f7f7;
+}
+
+.cm-gutter.cm-lineNumbers {
+  padding-inline-start: 5px;
+  padding-inline-end: 3px;
 }
 
 .cm-overlay-highlight {
