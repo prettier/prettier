@@ -397,6 +397,6 @@ html[data-theme="dark"] .cm-overlay-highlight {
 
 html[data-theme="dark"] .cm-gutters {
   background-color: #121212;
-  border-right: 0;
+  border-right-color: transparent;
   color: #424242;
 }
