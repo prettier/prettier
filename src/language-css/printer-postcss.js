@@ -378,19 +378,21 @@ function genericPrint(path, options, print) {
     case "selector-string":
       return adjustStrings(node.value, options);
 
-    case "selector-tag":
+    case "selector-tag": {
+      const value = node.raws?.value ?? node.value;
       return [
         node.namespace
           ? [node.namespace === true ? "" : node.namespace.trim(), "|"]
           : "",
         path.previous?.type === "selector-nesting"
-          ? node.value
+          ? value
           : adjustNumbers(
-              isKeyframeAtRuleKeywords(path, node.value)
-                ? node.value.toLowerCase()
-                : node.value,
+              isKeyframeAtRuleKeywords(path, value)
+                ? value.toLowerCase()
+                : value,
             ),
       ];
+    }
 
     case "selector-id":
       return ["#", node.value];
@@ -398,7 +400,9 @@ function genericPrint(path, options, print) {
     case "selector-class":
       return [".", adjustNumbers(adjustStrings(node.value, options))];
 
-    case "selector-attribute":
+    case "selector-attribute": {
+      const quotedValue = JSON.stringify(node.value);
+
       return [
         "[",
         node.namespace
@@ -406,15 +410,13 @@ function genericPrint(path, options, print) {
           : "",
         node.attribute.trim(),
         node.operator ?? "",
-        node.value
-          ? quoteAttributeValue(
-              adjustStrings(node.value.trim(), options),
-              options,
-            )
+        quotedValue
+          ? quoteAttributeValue(adjustStrings(quotedValue, options), options)
           : "",
         node.insensitive ? " i" : "",
         "]",
       ];
+    }
 
     case "selector-combinator": {
       if (
