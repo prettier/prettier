@@ -85,6 +85,7 @@ function setup(props, { emit }) {
         backgroundColor: color || "var(--color-gray-300)",
         pointerEvents: "none",
         zIndex: "1",
+        marginLeft: "6px",
       },
     });
   };
