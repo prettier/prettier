@@ -35,16 +35,20 @@ function clean(original, cloned, parent) {
     cloned.value = original.value.replaceAll("\n", " ");
   }
 
-  if (original.type === "wikiLink") {
-    cloned.value = original.value.trim().replaceAll(/[\t\n]+/g, " ");
-  }
-
   if (
     original.type === "definition" ||
     original.type === "linkReference" ||
     original.type === "imageReference"
   ) {
     cloned.label = collapseWhiteSpace(original.label);
+  }
+
+  // Maybe we should fix this
+  if (
+    original.type === "imageReference" &&
+    original.referenceType === "collapsed"
+  ) {
+    cloned.alt = collapseWhiteSpace(original.alt);
   }
 
   if (

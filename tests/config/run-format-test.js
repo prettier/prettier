@@ -11,7 +11,7 @@ import visualizeEndOfLine from "./utilities/visualize-end-of-line.js";
 
 const { __dirname } = createEsmUtils(import.meta);
 
-const { FULL_TEST, TEST_STANDALONE, NODE_ENV } = process.env;
+const { FULL_TEST, TEST_STANDALONE, NODE_ENV, TEST_RUNTIME } = process.env;
 const isProduction = NODE_ENV === "production";
 const BOM = "\uFEFF";
 
@@ -27,8 +27,6 @@ const unstableTests = new Map(
     "js/comments/return-statement.js",
     "js/comments/tagged-template-literal.js",
     "js/for/9812-unstable.js",
-    "markdown/spec/example-234.md",
-    "markdown/spec/example-235.md",
     [
       "js/multiparser-markdown/codeblock.js",
       (options) => options.proseWrap === "always",
@@ -362,6 +360,7 @@ async function runTest({
 }) {
   let formatOptions = mainParserFormatOptions;
   let formatResult = mainParserFormatResult;
+  expect(formatResult).toBeDefined();
 
   // Verify parsers or error tests
   if (
@@ -599,7 +598,7 @@ async function getExternalPlugins() {
 
 let externalParsers;
 async function loadPlugins(options) {
-  if (!isProduction || !options.parser) {
+  if (!isProduction || !options.parser || TEST_RUNTIME === "browser") {
     return options;
   }
 
