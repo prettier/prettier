@@ -328,7 +328,7 @@ function printMemberChain(path, options, print) {
     if (groups.length === 0) {
       return "";
     }
-    return indent(group([hardline, join(hardline, groups.map(printGroup))]));
+    return indent([hardline, join(hardline, groups.map(printGroup))]);
   }
 
   const printedGroups = groups.map(printGroup);
@@ -414,7 +414,7 @@ function printMemberChain(path, options, print) {
       // that means that the parent group has already been broken
       // naturally
       willBreak(oneLine) || shouldHaveEmptyLineBeforeIndent ? breakParent : "",
-      conditionalGroup([oneLine.map((doc) => group(doc)), group(expanded)]),
+      conditionalGroup([oneLine, expanded]),
     ];
   }
 
