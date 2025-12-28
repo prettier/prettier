@@ -75,12 +75,12 @@
       matchManagers: ["github-actions"],
     },
     {
-      groupName: "Docusaurus",
-      matchPackageNames: ["@docusaurus/*"],
-    },
-    {
       groupName: "Markdown dependencies",
       matchPackageNames: ["micromark-*", "mdast-", "remark-", "unified"],
+    },
+    {
+      groupName: "Docusaurus",
+      matchPackageNames: ["@docusaurus/*"],
     },
     {
       groupName: "CodeMirror",
