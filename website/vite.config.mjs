@@ -22,17 +22,9 @@ export default defineConfig({
   resolve: {
     // Dedupe packages to avoid duplicate instances
     alias: {
-      "@codemirror/state": path.resolve(
-        __dirname,
-        "node_modules/@codemirror/state",
-      ),
       "@codemirror/view": path.resolve(
         __dirname,
         "node_modules/@codemirror/view",
-      ),
-      "@codemirror/language": path.resolve(
-        __dirname,
-        "node_modules/@codemirror/language",
       ),
     },
   },
