@@ -25,7 +25,7 @@ import {
   keymap,
   lineNumbers as lineNumbersExt,
 } from "@codemirror/view";
-import { inject, onMounted, onUnmounted, useTemplateRef, watch } from "vue";
+import { onMounted, onUnmounted, useTemplateRef, watch } from "vue";
 import { useTheme } from "./composables/use-theme.js";
 
 function setup(props, { emit }) {
@@ -133,7 +133,14 @@ function setup(props, { emit }) {
       doc: props.value || "",
       extensions: [
         props.lineNumbers ? lineNumbersExt() : undefined,
-        foldGutterCompartment.of(props.foldGutter ? foldGutterExt() : []),
+        foldGutterCompartment.of(
+          props.foldGutter
+            ? foldGutterExt({
+                openText: "▾",
+                closedText: "▸",
+              })
+            : [],
+        ),
         props.autoCloseBrackets ? closeBrackets() : undefined,
         props.matchBrackets ? bracketMatching() : undefined,
 

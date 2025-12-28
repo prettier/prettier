@@ -360,7 +360,7 @@ input[type="number"] {
   background: #f7f7f7;
 }
 
-.cm-gutter.cm-lineNumbers {
+.cm-gutter {
   padding-inline-start: 5px;
   padding-inline-end: 3px;
 }
@@ -371,24 +371,6 @@ input[type="number"] {
 
 .cm-foldGutter .cm-gutterElement {
   cursor: pointer;
-}
-
-.cm-foldGutter .cm-gutterElement > span {
-  font-size: 0;
-  color: #999;
-  font-family: arial;
-}
-.cm-foldGutter .cm-gutterElement > span::after {
-  font-size: 12px;
-  line-height: 1.6;
-}
-
-.cm-foldGutter .cm-gutterElement > span[title^="Fold "]::after {
-  content: "\25BE";
-}
-
-.cm-foldGutter .cm-gutterElement > span[title^="Unfold "]::after {
-  content: "\25B8";
 }
 
 html[data-theme="dark"] .cm-overlay-highlight {
