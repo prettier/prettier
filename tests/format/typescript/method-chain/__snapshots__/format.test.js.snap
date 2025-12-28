@@ -116,3 +116,33 @@ model = types
 
 ================================================================================
 `;
+
+exports[`issue-18136-2.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript", "flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+{
+  const x = async (xxxxxxxx: string): Promise<void> => {
+    await (
+      await (await xxxx.xxxx.x(xxxxxxxxxxxxxxx))?.xxxxxxxxxxxx()
+    )
+      ?.xxxxxxx(xxxxxxxx)
+      .xxxxxxxx();
+  };
+}
+
+=====================================output=====================================
+{
+  const x = async (xxxxxxxx: string): Promise<void> => {
+    await (
+      await (await xxxx.xxxx.x(xxxxxxxxxxxxxxx))?.xxxxxxxxxxxx()
+    )
+      ?.xxxxxxx(xxxxxxxx)
+      .xxxxxxxx();
+  };
+}
+
+================================================================================
+`;
