@@ -10730,7 +10730,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"open@npm:^8.4.0":
+"open@npm:^8.0.0, open@npm:^8.4.0":
   version: 8.4.2
   resolution: "open@npm:8.4.2"
   dependencies:
@@ -11018,7 +11018,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"picomatch@npm:^4.0.3":
+"picomatch@npm:^4.0.2, picomatch@npm:^4.0.3":
   version: 4.0.3
   resolution: "picomatch@npm:4.0.3"
   checksum: 10/57b99055f40b16798f2802916d9c17e9744e620a0db136554af01d19598b96e45e2f00014c91d1b8b13874b80caa8c295b3d589a3f72373ec4aaf54baa5962d5
@@ -12646,6 +12646,28 @@ __metadata:
   languageName: node
   linkType: hard
 
+"rollup-plugin-visualizer@npm:6.0.5":
+  version: 6.0.5
+  resolution: "rollup-plugin-visualizer@npm:6.0.5"
+  dependencies:
+    open: "npm:^8.0.0"
+    picomatch: "npm:^4.0.2"
+    source-map: "npm:^0.7.4"
+    yargs: "npm:^17.5.1"
+  peerDependencies:
+    rolldown: 1.x || ^1.0.0-beta
+    rollup: 2.x || 3.x || 4.x
+  peerDependenciesMeta:
+    rolldown:
+      optional: true
+    rollup:
+      optional: true
+  bin:
+    rollup-plugin-visualizer: dist/bin/cli.js
+  checksum: 10/e2bcad7ee239f1a911339bc50ae24f92fb5ec86405e2f62c1a29eb1b4e1b1d450edb303ba2e65d6edcdb84271c1948f50befe75cd5785feec31e186859bfacde
+  languageName: node
+  linkType: hard
+
 "rollup@npm:^4.43.0":
   version: 4.53.2
   resolution: "rollup@npm:4.53.2"
@@ -12757,6 +12779,7 @@ __metadata:
     react-dom: "npm:19.2.1"
     react-markdown: "npm:10.1.0"
     react-tweet: "npm:3.2.2"
+    rollup-plugin-visualizer: "npm:6.0.5"
     vite: "npm:7.2.7"
     vue: "npm:3.5.25"
     yaml: "npm:2.8.2"
@@ -13267,7 +13290,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"source-map@npm:^0.7.0":
+"source-map@npm:^0.7.0, source-map@npm:^0.7.4":
   version: 0.7.6
   resolution: "source-map@npm:0.7.6"
   checksum: 10/c8d2da7c57c14f3fd7568f764b39ad49bbf9dd7632b86df3542b31fed117d4af2fb74a4f886fc06baf7a510fee68e37998efc3080aacdac951c36211dc29a7a3
@@ -14566,7 +14589,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yargs@npm:17.7.2":
+"yargs@npm:17.7.2, yargs@npm:^17.5.1":
   version: 17.7.2
   resolution: "yargs@npm:17.7.2"
   dependencies:
