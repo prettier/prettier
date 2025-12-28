@@ -235,7 +235,10 @@ function printMdast(path, options, print) {
         style,
       ];
     }
-    case "comment":
+    case "comment": {
+      const value = node.commentValue;
+      return ["<!--", replaceEndOfLine(value, hardline) ?? "", "-->"];
+    }
     case "html": {
       const { parent, isLast } = path;
       const value =
@@ -459,13 +462,12 @@ function printIgnoreComment(node) {
     return node.value;
   }
 
-  if (
-    node.type === "paragraph" &&
-    Array.isArray(node.children) &&
-    node.children.length === 1 &&
-    node.children[0].type === "esComment"
-  ) {
-    return ["{/* ", node.children[0].value, " */}"];
+  if (node.type === "mdxFlowExpression") {
+    return ["{", node.value, "}"];
+  }
+
+  if (node.type === "comment") {
+    return ["<!-- ", node.commentValue.trim(), " -->"];
   }
 }
 
