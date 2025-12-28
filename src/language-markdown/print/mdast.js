@@ -237,7 +237,7 @@ function printMdast(path, options, print) {
     }
     case "comment": {
       const value = node.commentValue;
-      return ["<!--", replaceEndOfLine(value, hardline) ?? "", "-->"];
+      return ["<!--", replaceEndOfLine(value, hardline), "-->"];
     }
     case "html": {
       const { parent, isLast } = path;
