@@ -9,11 +9,9 @@ import {
 import {
   bracketMatching,
   foldable,
-  foldedRanges,
   foldEffect,
   foldGutter as foldGutterExt,
   foldKeymap,
-  foldState,
   unfoldEffect,
 } from "@codemirror/language";
 import {
