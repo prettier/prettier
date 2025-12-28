@@ -30,7 +30,6 @@ const visitorKeys = generateReferenceSharedVisitorKeys({
   tableCell: ["children"],
   break: [],
   liquidNode: [],
-  esComment: [],
   math: [],
   inlineMath: [],
   tableRow: ["children"],

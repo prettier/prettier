@@ -22,62 +22,6 @@
  * THE SOFTWARE.
  */
 
-const IMPORT_REGEX = /^import\s/;
-const EXPORT_REGEX = /^export\s/;
-const BLOCKS_REGEX = String.raw`[a-z][a-z0-9]*(\.[a-z][a-z0-9]*)*|`;
 const COMMENT_REGEX = /<!---->|<!---?[^>-](?:-?[^-])*-->/;
-const ES_COMMENT_REGEX = /^\{\s*\/\*(.*)\*\/\s*\}/;
-const EMPTY_NEWLINE = "\n\n";
 
-const isImport = (text) => IMPORT_REGEX.test(text);
-const isExport = (text) => EXPORT_REGEX.test(text);
-const isImportOrExport = (text) => isImport(text) || isExport(text);
-
-const tokenizeEsSyntax = (eat, value) => {
-  const index = value.indexOf(EMPTY_NEWLINE);
-  const subvalue = index === -1 ? value : value.slice(0, index);
-
-  if (isImportOrExport(subvalue)) {
-    return eat(subvalue)({
-      type: isExport(subvalue) ? "export" : "import",
-      value: subvalue,
-    });
-  }
-};
-
-tokenizeEsSyntax.notInBlock = true;
-
-tokenizeEsSyntax.locator = (value /* , fromIndex*/) =>
-  isImportOrExport(value) ? -1 : 1;
-
-const tokenizeEsComment = (eat, value) => {
-  const match = ES_COMMENT_REGEX.exec(value);
-
-  if (match) {
-    return eat(match[0])({
-      type: "esComment",
-      value: match[1].trim(),
-    });
-  }
-};
-
-tokenizeEsComment.locator = (value, fromIndex) => value.indexOf("{", fromIndex);
-
-/** @import {Plugin, Settings} from "unified" */
-
-/**
- * @type {Plugin<[], Settings>}
- */
-const esSyntax = function () {
-  const { Parser } = this;
-  const { blockTokenizers, blockMethods, inlineTokenizers, inlineMethods } =
-    Parser.prototype;
-
-  blockTokenizers.esSyntax = tokenizeEsSyntax;
-  inlineTokenizers.esComment = tokenizeEsComment;
-
-  blockMethods.splice(blockMethods.indexOf("paragraph"), 0, "esSyntax");
-  inlineMethods.splice(inlineMethods.indexOf("text"), 0, "esComment");
-};
-
-export { BLOCKS_REGEX, COMMENT_REGEX, esSyntax };
+export { COMMENT_REGEX };
