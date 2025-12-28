@@ -21,7 +21,7 @@
     "@codemirror/lang-css": "6.3.1",
     "@codemirror/lang-javascript": "6.2.4",
     "@codemirror/lang-markdown": "6.5.0",
-    "@codemirror/language": "6.11.3",
+    "@codemirror/language": "6.12.1",
     "@codemirror/state": "6.5.3",
     "@codemirror/view": "6.39.4",
     "@docusaurus/core": "3.9.2",
