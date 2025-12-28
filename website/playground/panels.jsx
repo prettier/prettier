@@ -9,9 +9,12 @@ import {
 import {
   bracketMatching,
   foldable,
+  foldedRanges,
   foldEffect,
   foldGutter as foldGutterExt,
   foldKeymap,
+  foldState,
+  unfoldEffect,
 } from "@codemirror/language";
 import {
   Compartment,
@@ -230,7 +233,7 @@ function setup(props, { emit }) {
         );
 
         if (range) {
-          effects.push(foldEffect.of(range));
+          effects.push(foldEffect.of(range), unfoldEffect.of(range));
         }
       }
     }
