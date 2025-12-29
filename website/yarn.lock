@@ -1637,7 +1637,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@codemirror/lint@npm:^6.0.0":
+"@codemirror/lint@npm:6.9.2, @codemirror/lint@npm:^6.0.0":
   version: 6.9.2
   resolution: "@codemirror/lint@npm:6.9.2"
   dependencies:
@@ -3356,7 +3356,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@lezer/highlight@npm:^1.0.0, @lezer/highlight@npm:^1.1.3":
+"@lezer/highlight@npm:1.2.3, @lezer/highlight@npm:^1.0.0, @lezer/highlight@npm:^1.1.3":
   version: 1.2.3
   resolution: "@lezer/highlight@npm:1.2.3"
   dependencies:
@@ -4743,7 +4743,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:*":
+"@types/react@npm:*, @types/react@npm:19.2.7":
   version: 19.2.7
   resolution: "@types/react@npm:19.2.7"
   dependencies:
@@ -8090,6 +8090,13 @@ __metadata:
   bin:
     graphql: dist/temp-bin.js
   checksum: 10/7f398395cab50faaad717d107413df5424ac102bf33ac4a5e4ef34bf7c2e13a27d51fd93456601f560874801bf93bec281589164d901bab3aef56f4518782f60
+  languageName: node
+  linkType: hard
+
+"graphql@npm:16.12.0":
+  version: 16.12.0
+  resolution: "graphql@npm:16.12.0"
+  checksum: 10/e299bc97cca178e549c8c1ed4cb164f631f07be987d3657f76cdf18c0250040cc0d456d4b6d41c87b855cac97b15a62ed345557527efcb0546492895a893bb87
   languageName: node
   linkType: hard
 
@@ -12815,6 +12822,7 @@ __metadata:
     "@codemirror/lang-javascript": "npm:6.2.4"
     "@codemirror/lang-markdown": "npm:6.5.0"
     "@codemirror/language": "npm:6.12.1"
+    "@codemirror/lint": "npm:6.9.2"
     "@codemirror/state": "npm:6.5.3"
     "@codemirror/view": "npm:6.39.4"
     "@docusaurus/core": "npm:3.9.2"
@@ -12822,13 +12830,16 @@ __metadata:
     "@docusaurus/module-type-aliases": "npm:3.9.2"
     "@docusaurus/preset-classic": "npm:3.9.2"
     "@docusaurus/types": "npm:3.9.2"
+    "@lezer/highlight": "npm:1.2.3"
     "@mdx-js/react": "npm:3.1.1"
     "@sandhose/prettier-animated-logo": "npm:1.0.3"
+    "@types/react": "npm:19.2.7"
     "@vitejs/plugin-vue": "npm:6.0.2"
     "@vitejs/plugin-vue-jsx": "npm:5.1.2"
     clsx: "npm:2.1.1"
     cm6-graphql: "npm:0.2.1"
     concurrently: "npm:9.2.1"
+    graphql: "npm:16.12.0"
     prism-react-renderer: "npm:2.4.1"
     react: "npm:19.2.1"
     react-dom: "npm:19.2.1"
