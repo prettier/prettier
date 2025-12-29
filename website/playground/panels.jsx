@@ -44,12 +44,11 @@ function setup(props, { emit }) {
         if (effect.is(_overlay)) {
           let { start, end } = effect.value;
           if (start !== undefined && end !== undefined) {
-            const { doc } = _codeMirror.state;
             if (end < start) {
               [start, end] = [end, start];
             }
             start = Math.max(start, 0);
-            end = Math.min(end, doc.length);
+            end = Math.min(end, _codeMirror.state.doc.length);
             return Decoration.set([overlayMark.range(start, end)]);
           }
           return Decoration.none;
