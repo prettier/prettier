@@ -12,6 +12,7 @@ const DEPENDENCIES_EXCLUDE_FROM_CDN = new Set([
   "@codemirror/lang-markdown",
   "@codemirror/language",
   "@lezer/highlight",
+  "cm6-graphql",
 ]);
 
 export default defineConfig(() => ({
