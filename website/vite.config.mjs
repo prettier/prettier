@@ -8,6 +8,7 @@ const IS_PRODUCTION = process.env.NODE_ENV === "production";
 const IS_CI = Boolean(process.env.CI);
 const DEPENDENCIES_EXCLUDE_FROM_CDN = new Set([
   "@catppuccin/codemirror",
+  "@codemirror/lang-css",
   "@codemirror/lang-javascript",
   "@codemirror/lang-markdown",
   "@codemirror/language",
