@@ -6,7 +6,13 @@ import packageJson from "./package.json" with { type: "json" };
 
 const IS_PRODUCTION = process.env.NODE_ENV === "production";
 const IS_CI = Boolean(process.env.CI);
-const DEPENDENCIES_EXCLUDE_FROM_CDN = new Set(["vue"]);
+const DEPENDENCIES_EXCLUDE_FROM_CDN = new Set([
+  "@catppuccin/codemirror",
+  "@codemirror/lang-javascript",
+  "@codemirror/lang-markdown",
+  "@codemirror/language",
+  "@lezer/highlight",
+]);
 
 export default defineConfig(() => ({
   base: IS_PRODUCTION ? "/playground/" : undefined,
