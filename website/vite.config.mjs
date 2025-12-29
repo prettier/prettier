@@ -74,10 +74,8 @@ async function getPackageJson(name, base) {
   };
 }
 
-const cache = new Map();
 async function getPackageDependenciesWithoutCache(name, base) {
   const { url, packageJson } = await getPackageJson(name, base);
-
   const dependencies = [{ name, version: packageJson.version }];
   for (const name of Object.keys(packageJson.dependencies ?? {})) {
     dependencies.push(...(await getPackageDependencies(name, url)));
@@ -85,6 +83,7 @@ async function getPackageDependenciesWithoutCache(name, base) {
   return dependencies;
 }
 
+const cache = new Map();
 function getPackageDependencies(name, base) {
   const cacheKey = JSON.stringify({ name, base });
 
