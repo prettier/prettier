@@ -13,6 +13,7 @@
   )(),
   (// prettier-ignore
   function () {      })(),
+  (function () {}/* trialing 2 */)(),
 
 
   (// leading 1
@@ -25,8 +26,8 @@
   // trialing 1
   )(),
 
-  (
-  function (/*dangling 1*/) {})(),
+  ((/*dangling 1*/) =>{})(),
+  ( () => {}/* trialing 2 */)(),
 
   (/* not a comment for function */function() {}()),
 ]
