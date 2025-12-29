@@ -231,7 +231,7 @@ function setup(props, { emit }) {
         );
 
         if (range) {
-          effects.push(foldEffect.of(range), unfoldEffect.of(range));
+          effects.push(foldEffect.of(range));
         }
       }
     }

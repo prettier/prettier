@@ -94,6 +94,8 @@
     "prettier",
     // Old versions are required to test
     "node",
+    // Only pinned version works, https://github.com/prettier/prettier/pull/18524#issuecomment-3694806317
+    "@codemirror/view",
   ],
   ignorePaths: ["tests/**", "packages/**"],
 }
