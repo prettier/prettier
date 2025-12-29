@@ -79,6 +79,7 @@ const meriyahDisabledTests = new Set(
 const babelTsDisabledTests = new Set(
   [
     "conformance/types/moduleDeclaration/kind-detection.ts",
+    // https://github.com/babel/babel/pull/17659
     "conformance/internalModules/importDeclarations/circularImportAlias.ts",
     "conformance/internalModules/importDeclarations/exportImportAlias.ts",
     "conformance/internalModules/importDeclarations/importAliasIdentifiers.ts",
