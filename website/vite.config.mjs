@@ -30,9 +30,9 @@ export default defineConfig(() => ({
 }));
 
 function buildCdnAlias() {
-  if (!IS_PRODUCTION) {
-    return;
-  }
+  // if (!IS_PRODUCTION) {
+  //   return;
+  // }
 
   const alias = {};
 

@@ -6121,6 +6121,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"clipboard@npm:2.0.11":
+  version: 2.0.11
+  resolution: "clipboard@npm:2.0.11"
+  dependencies:
+    good-listener: "npm:^1.2.2"
+    select: "npm:^1.1.2"
+    tiny-emitter: "npm:^2.0.0"
+  checksum: 10/929e92c5667d53cb3beb9482d2e6fe7612588fb3c08982a6001a65ea306b38cd462412a902a7ced75dac3c2eac2e075f5d4be1297e0bf1a9e891e10bb7150b47
+  languageName: node
+  linkType: hard
+
 "cliui@npm:^8.0.1":
   version: 8.0.1
   resolution: "cliui@npm:8.0.1"
@@ -6861,6 +6872,13 @@ __metadata:
     has-property-descriptors: "npm:^1.0.0"
     object-keys: "npm:^1.1.1"
   checksum: 10/b4ccd00597dd46cb2d4a379398f5b19fca84a16f3374e2249201992f36b30f6835949a9429669ee6b41b6e837205a163eadd745e472069e70dfc10f03e5fcc12
+  languageName: node
+  linkType: hard
+
+"delegate@npm:^3.1.2":
+  version: 3.2.0
+  resolution: "delegate@npm:3.2.0"
+  checksum: 10/d943058fe05897228b158cbd1bab05164df28c8f54127873231d6b03b0a5acc1b3ee1f98ac70ccc9b79cd84aa47118a7de111fee2923753491583905069da27d
   languageName: node
   linkType: hard
 
@@ -8035,6 +8053,15 @@ __metadata:
     merge2: "npm:^1.4.1"
     slash: "npm:^4.0.0"
   checksum: 10/4494a9d2162a7e4d327988b26be66d8eab87d7f59a83219e74b065e2c3ced23698f68fb10482bf9337133819281803fb886d6ae06afbb2affa743623eb0b1949
+  languageName: node
+  linkType: hard
+
+"good-listener@npm:^1.2.2":
+  version: 1.2.2
+  resolution: "good-listener@npm:1.2.2"
+  dependencies:
+    delegate: "npm:^3.1.2"
+  checksum: 10/14a755ad2eeb5ca65b98359438a0bd0ed0ae27304913b1f0866e1424fdff957133644d455d03178fbcb0f83d2cdaae414cc9cbdfebf4bd04a690854cd4a657ee
   languageName: node
   linkType: hard
 
@@ -9435,6 +9462,15 @@ __metadata:
   dependencies:
     yallist: "npm:^3.0.2"
   checksum: 10/951d2673dcc64a7fb888bf3d13bc2fdf923faca97d89cdb405ba3dfff77e2b26e5798d405e78fcd7094c9e7b8b4dab2ddc5a4f8a11928af24a207b7c738ca3f8
+  languageName: node
+  linkType: hard
+
+"lz-string@npm:1.5.0":
+  version: 1.5.0
+  resolution: "lz-string@npm:1.5.0"
+  bin:
+    lz-string: bin/bin.js
+  checksum: 10/e86f0280e99a8d8cd4eef24d8601ddae15ce54e43ac9990dfcb79e1e081c255ad24424a30d78d2ad8e51a8ce82a66a930047fed4b4aa38c6f0b392ff9300edfc
   languageName: node
   linkType: hard
 
@@ -12836,10 +12872,12 @@ __metadata:
     "@types/react": "npm:19.2.7"
     "@vitejs/plugin-vue": "npm:6.0.2"
     "@vitejs/plugin-vue-jsx": "npm:5.1.2"
+    clipboard: "npm:2.0.11"
     clsx: "npm:2.1.1"
     cm6-graphql: "npm:0.2.1"
     concurrently: "npm:9.2.1"
     graphql: "npm:16.12.0"
+    lz-string: "npm:1.5.0"
     prism-react-renderer: "npm:2.4.1"
     react: "npm:19.2.1"
     react-dom: "npm:19.2.1"
@@ -12980,6 +13018,13 @@ __metadata:
   version: 2.0.0
   resolution: "select-hose@npm:2.0.0"
   checksum: 10/08cdd629a394d20e9005e7956f0624307c702cf950cc0458953e9b87ea961d3b1b72ac02266bdb93ac1eec4fcf42b41db9cabe93aa2b7683d71513d133c44fb5
+  languageName: node
+  linkType: hard
+
+"select@npm:^1.1.2":
+  version: 1.1.2
+  resolution: "select@npm:1.1.2"
+  checksum: 10/4346151e94f226ea6131e44e68e6d837f3fdee64831b756dd657cc0b02f4cb5107f867cb34a1d1216ab7737d0bf0645d44546afb030bbd8d64e891f5e4c4814e
   languageName: node
   linkType: hard
 
@@ -13727,6 +13772,13 @@ __metadata:
   version: 1.1.0
   resolution: "thunky@npm:1.1.0"
   checksum: 10/825e3bd07ab3c9fd6f753c457a60957c628cacba5dd0656fd93b037c445e2828b43cf0805a9f2b16b0c5f5a10fd561206271acddb568df4f867f0aea0eb2772f
+  languageName: node
+  linkType: hard
+
+"tiny-emitter@npm:^2.0.0":
+  version: 2.1.0
+  resolution: "tiny-emitter@npm:2.1.0"
+  checksum: 10/75633f4de4f47f43af56aff6162f25b87be7efc6f669fda256658f3c3f4a216f23dc0d13200c6fafaaf1b0c7142f0201352fb06aec0b77f68aea96be898f4516
   languageName: node
   linkType: hard
 
