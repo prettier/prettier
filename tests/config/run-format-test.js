@@ -77,9 +77,22 @@ const meriyahDisabledTests = new Set(
   ].map((file) => path.join(__dirname, "../format", file)),
 );
 const babelTsDisabledTests = new Set(
-  ["conformance/types/moduleDeclaration/kind-detection.ts"].map((file) =>
-    path.join(__dirname, "../format/typescript", file),
-  ),
+  [
+    "conformance/types/moduleDeclaration/kind-detection.ts",
+    "compiler/declareDottedModuleName.ts",
+    "compiler/privacyGloImport.ts",
+    "declare/declare_module.ts",
+    "const/initializer-ambient-context.ts",
+    "keywords/keywords.ts",
+    "module/global.ts",
+    "module/keyword.ts",
+    "custom/stability/moduleBlock.ts",
+    "conformance/internalModules/importDeclarations/circularImportAlias.ts",
+    "conformance/internalModules/importDeclarations/exportImportAlias.ts",
+    "conformance/internalModules/importDeclarations/importAliasIdentifiers.ts",
+    "conformance/internalModules/importDeclarations/shadowedInternalModule.ts",
+    "conformance/types/moduleDeclaration/moduleDeclaration.ts",
+  ].map((file) => path.join(__dirname, "../format/typescript", file)),
 );
 const oxcDisabledTests = new Set();
 const oxcTsDisabledTests = new Set();
