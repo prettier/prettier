@@ -8,15 +8,7 @@ import packageJson from "./package.json" with { type: "json" };
 
 const IS_PRODUCTION = process.env.NODE_ENV === "production";
 const IS_CI = Boolean(process.env.CI);
-const DEPENDENCIES_EXCLUDE_FROM_CDN = new Set([
-  "@catppuccin/codemirror",
-  "@codemirror/lang-css",
-  "@codemirror/lang-javascript",
-  "@codemirror/lang-markdown",
-  "@codemirror/language",
-  "@lezer/highlight",
-  "cm6-graphql",
-]);
+const DEPENDENCIES_EXCLUDE_FROM_CDN = new Set(["cm6-graphql"]);
 
 export default defineConfig(async () => ({
   base: IS_PRODUCTION ? "/playground/" : undefined,
