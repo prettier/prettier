@@ -56,6 +56,10 @@ printWidth: 80
   (// prettier-ignore
   function () {      })(),
   (function () {}/* trialing 2 */)(),
+  (// tagged
+  function () {      })\`\`,
+  (// prettier-ignore
+  function () {      })\`\`,
 
 
   (// leading 1
@@ -67,6 +71,10 @@ printWidth: 80
   (() => {}
   // trialing 1
   )(),
+  (// tagged
+  () => {})\`\`,
+  (// prettier-ignore
+  () => {})\`\`,
 
   ((/*dangling 1*/) =>{})(),
   ( () => {}/* trialing 2 */)(),
@@ -98,6 +106,14 @@ printWidth: 80
     function () {      }
   )(),
   (function () {} /* trialing 2 */)(),
+  (
+    // tagged
+    function () {}
+  )\`\`,
+  (
+    // prettier-ignore
+    function () {      }
+  )\`\`,
 
   (
     // leading 1
@@ -112,6 +128,14 @@ printWidth: 80
     () => {}
     // trialing 1
   )(),
+  (
+    // tagged
+    () => {}
+  )\`\`,
+  (
+    // prettier-ignore
+    () => {}
+  )\`\`,
 
   ((/*dangling 1*/) => {})(),
   (() => {} /* trialing 2 */)(),

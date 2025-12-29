@@ -14,6 +14,10 @@
   (// prettier-ignore
   function () {      })(),
   (function () {}/* trialing 2 */)(),
+  (// tagged
+  function () {      })``,
+  (// prettier-ignore
+  function () {      })``,
 
 
   (// leading 1
@@ -25,6 +29,10 @@
   (() => {}
   // trialing 1
   )(),
+  (// tagged
+  () => {})``,
+  (// prettier-ignore
+  () => {})``,
 
   ((/*dangling 1*/) =>{})(),
   ( () => {}/* trialing 2 */)(),
