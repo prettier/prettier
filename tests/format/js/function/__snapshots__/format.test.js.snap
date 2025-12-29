@@ -55,6 +55,7 @@ printWidth: 80
   )(),
   (// prettier-ignore
   function () {      })(),
+  (function () {}/* trialing 2 */)(),
 
 
   (// leading 1
@@ -67,8 +68,8 @@ printWidth: 80
   // trialing 1
   )(),
 
-  (
-  function (/*dangling 1*/) {})(),
+  ((/*dangling 1*/) =>{})(),
+  ( () => {}/* trialing 2 */)(),
 
   (/* not a comment for function */function() {}()),
 ]
@@ -96,6 +97,7 @@ printWidth: 80
     // prettier-ignore
     function () {      }
   )(),
+  (function () {} /* trialing 2 */)(),
 
   (
     // leading 1
@@ -111,7 +113,8 @@ printWidth: 80
     // trialing 1
   )(),
 
-  (function (/*dangling 1*/) {})(),
+  ((/*dangling 1*/) => {})(),
+  (() => {} /* trialing 2 */)(),
 
   /* not a comment for function */ (function () {})(),
 ];

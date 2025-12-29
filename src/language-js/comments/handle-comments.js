@@ -9,6 +9,7 @@ import hasNewline from "../../utilities/has-newline.js";
 import hasNewlineInRange from "../../utilities/has-newline-in-range.js";
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
 import { locEnd, locStart } from "../loc.js";
+import getTextWithoutComments from "../utilities/get-text-without-comments.js";
 import {
   createTypeCheckFunction,
   getCallArguments,
@@ -613,31 +614,50 @@ function handleCommentAfterArrowParams({ comment, enclosingNode, text }) {
   return false;
 }
 
-function handleCommentInEmptyParens({ comment, enclosingNode, text }) {
-  if (getNextNonSpaceNonCommentCharacter(text, locEnd(comment)) !== ")") {
+function isInArgumentOrParameterParentheses(node, comment, options) {
+  const nodeStart = locStart(node);
+  const nodeText = getTextWithoutComments(options, nodeStart, locEnd(node));
+
+  return (
+    nodeText
+      .slice(0, locStart(comment) - nodeStart)
+      .trimEnd()
+      .endsWith("(") &&
+    nodeText
+      .slice(locEnd(comment) - nodeStart)
+      .trimStart()
+      .startsWith(")")
+  );
+}
+
+function handleCommentInEmptyParens({ comment, enclosingNode, options }) {
+  if (!enclosingNode) {
     return false;
   }
 
   // Only add dangling comments to fix the case when no params are present,
   // i.e. a function without any argument.
   if (
-    enclosingNode &&
     ((isRealFunctionLikeNode(enclosingNode) &&
       getFunctionParameters(enclosingNode).length === 0) ||
       (isCallLikeExpression(enclosingNode) &&
-        getCallArguments(enclosingNode).length === 0))
+        getCallArguments(enclosingNode).length === 0)) &&
+    isInArgumentOrParameterParentheses(enclosingNode, comment, options)
   ) {
     addDanglingComment(enclosingNode, comment);
     return true;
   }
+
   if (
-    (enclosingNode?.type === "MethodDefinition" ||
-      enclosingNode?.type === "TSAbstractMethodDefinition") &&
-    getFunctionParameters(enclosingNode.value).length === 0
+    (enclosingNode.type === "MethodDefinition" ||
+      enclosingNode.type === "TSAbstractMethodDefinition") &&
+    getFunctionParameters(enclosingNode.value).length === 0 &&
+    isInArgumentOrParameterParentheses(enclosingNode, comment, options)
   ) {
     addDanglingComment(enclosingNode.value, comment);
     return true;
   }
+
   return false;
 }
 
