@@ -42,8 +42,14 @@ function setup(props, { emit }) {
     update(decorations, tr) {
       for (const effect of tr.effects) {
         if (effect.is(_overlay)) {
-          const { start, end } = effect.value;
-          if (start !== undefined && end !== undefined && start < end) {
+          let { start, end } = effect.value;
+          if (start !== undefined && end !== undefined) {
+            const { doc } = _codeMirror.state;
+            if (end < start) {
+              [start, end] = [end, start];
+            }
+            start = Math.max(start, 0);
+            end = Math.min(end, doc.length);
             return Decoration.set([overlayMark.range(start, end)]);
           }
           return Decoration.none;
@@ -257,20 +263,15 @@ function setup(props, { emit }) {
   };
 
   const updateOverlay = () => {
-    if (
-      !_codeMirror ||
-      props.overlayStart === undefined ||
-      props.overlayEnd === undefined
-    ) {
+    if (!_codeMirror) {
       return;
     }
 
-    const { doc } = _codeMirror.state;
-    const start = Math.max(props.overlayStart, 0);
-    const end = Math.min(props.overlayEnd, doc.length);
-
     _codeMirror.dispatch({
-      effects: _overlay.of({ start, end }),
+      effects: _overlay.of({
+        start: props.overlayStart,
+        end: props.overlayEnd,
+      }),
     });
   };
 
