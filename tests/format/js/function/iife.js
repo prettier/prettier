@@ -11,6 +11,8 @@
   (function () {}
   // block 2
   )(),
+  (// prettier-ignore
+  function () {      })(),
 
 
   (// leading 1

@@ -53,6 +53,8 @@ printWidth: 80
   (function () {}
   // block 2
   )(),
+  (// prettier-ignore
+  function () {      })(),
 
 
   (// leading 1
@@ -89,6 +91,10 @@ printWidth: 80
   (
     function () {}
     // block 2
+  )(),
+  (
+    // prettier-ignore
+    function () {      }
   )(),
 
   (
