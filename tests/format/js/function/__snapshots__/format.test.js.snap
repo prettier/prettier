@@ -34,6 +34,85 @@ new (function () {})();
 ================================================================================
 `;
 
+exports[`iife.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+[
+  (// leading 1
+  function () {})(),
+  (// leading 2
+  function () {})?.(),
+  (/*block 1*/
+  function () {})(),
+  (function () {}
+  // trialing 1
+  )(),
+  (function () {}
+  // block 2
+  )(),
+
+
+  (// leading 1
+  () => {})(),
+  (// leading 2
+  () => {})?.(),
+  (/*block 1*/
+  () => {})(),
+  (() => {}
+  // trialing 1
+  )(),
+
+  (
+  function (/*dangling 1*/) {})(),
+
+  (/* not a comment for function */function() {}()),
+]
+
+=====================================output=====================================
+[
+  (
+    // leading 1
+    function () {}
+  )(),
+  (
+    // leading 2
+    function () {}
+  )?.(),
+  (/*block 1*/ function () {})(),
+  (
+    function () {}
+    // trialing 1
+  )(),
+  (
+    function () {}
+    // block 2
+  )(),
+
+  (
+    // leading 1
+    () => {}
+  )(),
+  (
+    // leading 2
+    () => {}
+  )?.(),
+  (/*block 1*/ () => {})(),
+  (
+    () => {}
+    // trialing 1
+  )(),
+
+  (function (/*dangling 1*/) {})(),
+
+  /* not a comment for function */ (function () {})(),
+];
+
+================================================================================
+`;
+
 exports[`issue-10277.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
