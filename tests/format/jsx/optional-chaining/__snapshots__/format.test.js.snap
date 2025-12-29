@@ -86,11 +86,11 @@ function Component() {
 function Component() {
   return (
     <div>
-      {aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa?.bbbbbbbbbbbbbbbbbbbbbbbbb().map(
-        (p, i) => (
+      {aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+        ?.bbbbbbbbbbbbbbbbbbbbbbbbb()
+        .map((p, i) => (
           <p key={i}>{p}</p>
-        ),
-      )}
+        ))}
     </div>
   );
 }
