@@ -1103,13 +1103,13 @@ function isShorthandSpecifier(specifier) {
   }
 }
 
-function isIifeCallee(path) {
+function isIifeCalleeOrTaggedTemplateExpressionTag(path) {
   const { node } = path;
   return (
     (node.type === "FunctionExpression" ||
       node.type === "ArrowFunctionExpression") &&
-    path.key === "callee" &&
-    isCallExpression(path.parent)
+    ((path.key === "callee" && isCallExpression(path.parent)) ||
+      (path.key === "tag" && path.parent.type === "TaggedTemplateExpression"))
   );
 }
 
@@ -1142,7 +1142,7 @@ export {
   isFlowObjectTypePropertyAFunction,
   isFunctionCompositionArgs,
   isFunctionOrArrowExpression,
-  isIifeCallee,
+  isIifeCalleeOrTaggedTemplateExpressionTag,
   isIntersectionType,
   isJsxElement,
   isLiteral,

@@ -14,7 +14,7 @@ import {
   CommentCheckFlags,
   createTypeCheckFunction,
   hasComment,
-  isIifeCallee,
+  isIifeCalleeOrTaggedTemplateExpressionTag,
 } from "../utilities/index.js";
 import isIgnored from "../utilities/is-ignored.js";
 import { printAngular } from "./angular.js";
@@ -85,7 +85,7 @@ function print(path, options, print, args) {
     return doc;
   }
 
-  doc = printCommentsForIifeCallee(path, options, doc);
+  doc = printCommentsForFunction(path, options, doc);
 
   const hasDecorators = isNonEmptyArray(node.decorators);
   const decoratorsDoc = printDecorators(path, options, print);
@@ -112,13 +112,13 @@ function print(path, options, print, args) {
   ]);
 }
 
-function printCommentsForIifeCallee(path, options, doc) {
+function printCommentsForFunction(path, options, doc) {
   const { node } = path;
 
   if (
     (hasComment(node, CommentCheckFlags.Leading) ||
       hasComment(node, CommentCheckFlags.Trailing)) &&
-    isIifeCallee(path)
+    isIifeCalleeOrTaggedTemplateExpressionTag(path)
   ) {
     return [indent([softline, printComments(path, doc, options)]), softline];
   }
