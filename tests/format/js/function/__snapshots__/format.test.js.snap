@@ -74,7 +74,7 @@ printWidth: 80
   (// tagged
   () => {})\`\`,
   (// prettier-ignore
-  () => {})\`\`,
+  () => {      })\`\`,
 
   ((/*dangling 1*/) =>{})(),
   ( () => {}/* trialing 2 */)(),
@@ -134,7 +134,7 @@ printWidth: 80
   )\`\`,
   (
     // prettier-ignore
-    () => {}
+    () => {      }
   )\`\`,
 
   ((/*dangling 1*/) => {})(),
