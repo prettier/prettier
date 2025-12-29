@@ -1,6 +1,7 @@
 import {
   createTypeCheckFunction,
   hasNodeIgnoreComment,
+  isIifeCallee,
   isJsxElement,
   isUnionType,
   shouldUnionTypePrintOwnComments,
@@ -38,7 +39,8 @@ function willPrintOwnComments(path) {
     ((key === "id" || key === "typeParameters") &&
       isClassOrInterface(parent)) ||
     // Not tested, don't know how to
-    (key === "patterns" && parent.type === "MatchOrPattern")
+    (key === "patterns" && parent.type === "MatchOrPattern") ||
+    isIifeCallee(path)
   ) {
     return true;
   }

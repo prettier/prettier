@@ -1,9 +1,21 @@
-import { group, indent, inheritLabel, line } from "../../document/index.js";
+import {
+  group,
+  indent,
+  inheritLabel,
+  line,
+  softline,
+} from "../../document/index.js";
+import { printComments } from "../../main/comments/print.js";
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
 import { locEnd, locStart } from "../loc.js";
 import needsParentheses from "../parentheses/needs-parentheses.js";
 import { shouldPrintLeadingSemicolon } from "../semicolon/semicolon.js";
-import { createTypeCheckFunction } from "../utilities/index.js";
+import {
+  CommentCheckFlags,
+  createTypeCheckFunction,
+  hasComment,
+  isIifeCallee,
+} from "../utilities/index.js";
 import isIgnored from "../utilities/is-ignored.js";
 import { printAngular } from "./angular.js";
 import { printDecorators } from "./decorators.js";
@@ -62,7 +74,7 @@ function print(path, options, print, args) {
 
   const { node } = path;
 
-  const doc = isIgnored(path)
+  let doc = isIgnored(path)
     ? options.originalText.slice(locStart(node), locEnd(node))
     : printWithoutParentheses(path, options, print, args);
   if (!doc) {
@@ -72,6 +84,8 @@ function print(path, options, print, args) {
   if (shouldPrintDirectly(node)) {
     return doc;
   }
+
+  doc = printCommentsForIifeCallee(path, options, doc);
 
   const hasDecorators = isNonEmptyArray(node.decorators);
   const decoratorsDoc = printDecorators(path, options, print);
@@ -96,6 +110,20 @@ function print(path, options, print, args) {
       : [decoratorsDoc, doc],
     needsParens ? ")" : "",
   ]);
+}
+
+function printCommentsForIifeCallee(path, options, doc) {
+  const { node } = path;
+
+  if (
+    (hasComment(node, CommentCheckFlags.Leading) ||
+      hasComment(node, CommentCheckFlags.Trailing)) &&
+    isIifeCallee(path)
+  ) {
+    return [indent([softline, printComments(path, doc, options)]), softline];
+  }
+
+  return doc;
 }
 
 export { print as printEstree };
