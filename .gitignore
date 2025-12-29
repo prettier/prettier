@@ -9,7 +9,6 @@
 .tmp
 *.log
 *.tgz
-!babel-parser-17659.tgz
 /errors
 /test*.*
 /.vscode/**/*

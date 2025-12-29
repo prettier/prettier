@@ -209,14 +209,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/parser@file:./babel-parser-17659.tgz::locator=prettier%40workspace%3A.":
-  version: 7.28.5
-  resolution: "@babel/parser@file:./babel-parser-17659.tgz#./babel-parser-17659.tgz::hash=b6198f&locator=prettier%40workspace%3A."
+"@babel/parser@npm:8.0.0-beta.3, @babel/parser@npm:^8.0.0-beta.3":
+  version: 8.0.0-beta.3
+  resolution: "@babel/parser@npm:8.0.0-beta.3"
   dependencies:
-    "@babel/types": "npm:8.0.0-beta.3"
+    "@babel/types": "npm:^8.0.0-beta.3"
   bin:
     parser: ./bin/babel-parser.js
-  checksum: 10/ef08831a2549113a53f776f15555d87098baaf71b126a27095263c456bf1aa5b8e8742c5150594bbb2d09ec2446066e77adfa68cddaffed902aff9aaa4ce74c9
+  checksum: 10/4ddc4112a8f5888c4f0ccc1c187ef0a8736de5f079dcf4e7bcd246a378eec83a37106ea16c08ae948b939be8cedbeeeb32ae97a6be5bede8bf6e59837d2c43a8
   languageName: node
   linkType: hard
 
@@ -228,17 +228,6 @@ __metadata:
   bin:
     parser: ./bin/babel-parser.js
   checksum: 10/8d9bfb437af6c97a7f6351840b9ac06b4529ba79d6d3def24d6c2996ab38ff7f1f9d301e868ca84a93a3050fadb3d09dbc5105b24634cd281671ac11eebe8df7
-  languageName: node
-  linkType: hard
-
-"@babel/parser@npm:^8.0.0-beta.3":
-  version: 8.0.0-beta.3
-  resolution: "@babel/parser@npm:8.0.0-beta.3"
-  dependencies:
-    "@babel/types": "npm:^8.0.0-beta.3"
-  bin:
-    parser: ./bin/babel-parser.js
-  checksum: 10/4ddc4112a8f5888c4f0ccc1c187ef0a8736de5f079dcf4e7bcd246a378eec83a37106ea16c08ae948b939be8cedbeeeb32ae97a6be5bede8bf6e59837d2c43a8
   languageName: node
   linkType: hard
 
@@ -8366,7 +8355,7 @@ __metadata:
     "@angular/compiler": "npm:21.0.6"
     "@babel/code-frame": "npm:8.0.0-beta.3"
     "@babel/generator": "npm:8.0.0-beta.3"
-    "@babel/parser": "file:./babel-parser-17659.tgz"
+    "@babel/parser": "npm:8.0.0-beta.3"
     "@babel/types": "npm:8.0.0-beta.3"
     "@eslint/js": "npm:9.39.1"
     "@glimmer/syntax": "npm:0.95.0"
