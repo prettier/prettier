@@ -12,7 +12,6 @@ import {
   foldEffect,
   foldGutter as foldGutterExt,
   foldKeymap,
-  unfoldEffect,
 } from "@codemirror/language";
 import {
   Compartment,
@@ -150,7 +149,6 @@ function setup(props, { emit }) {
           theme.value === "dark" ? catppuccinMocha : catppuccinLatte,
         ),
         overlayField,
-
         history(),
         keymap.of([
           ...defaultKeymap,
@@ -246,8 +244,9 @@ function setup(props, { emit }) {
       return;
     }
 
-    const anchor = props.selection.anchor ?? 0;
-    const head = props.selection.head ?? anchor;
+    const { doc } = _codeMirror.state;
+    const anchor = Math.max(props.selection.anchor ?? 0, 0);
+    const head = Math.min(props.selection.head ?? anchor, doc.length);
 
     const currentSelection = _codeMirror.state.selection.main;
     if (currentSelection.anchor !== anchor || currentSelection.head !== head) {
@@ -258,15 +257,20 @@ function setup(props, { emit }) {
   };
 
   const updateOverlay = () => {
-    if (!_codeMirror) {
+    if (
+      !_codeMirror ||
+      props.overlayStart === undefined ||
+      props.overlayEnd === undefined
+    ) {
       return;
     }
 
+    const { doc } = _codeMirror.state;
+    const start = Math.max(props.overlayStart, 0);
+    const end = Math.min(props.overlayEnd, doc.length);
+
     _codeMirror.dispatch({
-      effects: _overlay.of({
-        start: props.overlayStart,
-        end: props.overlayEnd,
-      }),
+      effects: _overlay.of({ start, end }),
     });
   };
 
