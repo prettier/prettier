@@ -8,7 +8,10 @@ import packageJson from "./package.json" with { type: "json" };
 
 const IS_PRODUCTION = process.env.NODE_ENV === "production";
 const IS_CI = Boolean(process.env.CI);
-const DEPENDENCIES_EXCLUDE_FROM_CDN = new Set(["cm6-graphql"]);
+const DEPENDENCIES_EXCLUDE_FROM_CDN = new Set([
+  "cm6-graphql",
+  "@docusaurus/preset-classic",
+]);
 
 export default defineConfig(async () => ({
   base: IS_PRODUCTION ? "/playground/" : undefined,
@@ -44,9 +47,7 @@ async function buildCdnAlias() {
     }
 
     const url = new URL(`https://esm.sh/${name}@${version}`);
-    let deps = await Array.fromAsync(
-      getPackageDependencies(name, import.meta.url),
-    );
+    let deps = await getPackageDependencies(name, import.meta.url);
 
     // Exclude self
     deps = deps.filter((dependency) => dependency.name !== name);
@@ -73,15 +74,23 @@ async function getPackageJson(name, base) {
   };
 }
 
-async function* getPackageDependencies(name, base) {
-  const {
-    url,
-    packageJson: { dependencies, version },
-  } = await getPackageJson(name, base);
+const cache = new Map();
+async function getPackageDependenciesWithoutCache(name, base) {
+  const { url, packageJson } = await getPackageJson(name, base);
 
-  for (const name of Object.keys(dependencies ?? {})) {
-    yield* getPackageDependencies(name, url);
+  const dependencies = [{ name, version: packageJson.version }];
+  for (const name of Object.keys(packageJson.dependencies ?? {})) {
+    dependencies.push(...(await getPackageDependencies(name, url)));
+  }
+  return dependencies;
+}
+
+function getPackageDependencies(name, base) {
+  const cacheKey = JSON.stringify({ name, base });
+
+  if (!cache.has(cacheKey)) {
+    cache.set(cacheKey, getPackageDependenciesWithoutCache(name, base));
   }
 
-  yield { name, version };
+  return cache.get(cacheKey);
 }
