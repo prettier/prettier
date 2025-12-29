@@ -6,6 +6,7 @@ import packageJson from "./package.json" with { type: "json" };
 
 const IS_PRODUCTION = process.env.NODE_ENV === "production";
 const IS_CI = Boolean(process.env.CI);
+const DEPENDENCIES_EXCLUDE_FROM_CDN = new Set(["vue"]);
 
 export default defineConfig(() => ({
   base: IS_PRODUCTION ? "/playground/" : undefined,
@@ -36,6 +37,10 @@ function buildCdnAlias() {
   const alias = {};
 
   for (const [name, version] of Object.entries(packageJson.dependencies)) {
+    if (DEPENDENCIES_EXCLUDE_FROM_CDN.has(name)) {
+      continue;
+    }
+
     alias[name] = `https://esm.sh/${name}@${version}`;
   }
 
