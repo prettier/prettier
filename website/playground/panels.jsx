@@ -47,9 +47,12 @@ function setup(props, { emit }) {
             if (end < start) {
               [start, end] = [end, start];
             }
-            start = Math.max(start, 0);
-            end = Math.min(end, _codeMirror.state.doc.length);
-            return Decoration.set([overlayMark.range(start, end)]);
+            const { length } = _codeMirror.state.doc;
+            start = Math.min(Math.max(start, 0), length);
+            end = Math.min(Math.max(end, 0), length);
+            if (start !== end) {
+              return Decoration.set([overlayMark.range(start, end)]);
+            }
           }
           return Decoration.none;
         }
