@@ -83,3 +83,7 @@ record Static {
   static 'one-two': string = '',
   static 2n: bigint = 0n,
 }
+
+record Looooooooooooooooooooooooooooooong implements ILoooooooooooooooooooooooooooooooongA ,ILoooooooooooooooooooooooooooooooongB {
+  a: number,
+}

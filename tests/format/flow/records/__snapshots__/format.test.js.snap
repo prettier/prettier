@@ -92,6 +92,10 @@ record Static {
   static 2n: bigint = 0n,
 }
 
+record Looooooooooooooooooooooooooooooong implements ILoooooooooooooooooooooooooooooooongA ,ILoooooooooooooooooooooooooooooooongB {
+  a: number,
+}
+
 =====================================output=====================================
 record Empty {}
 
@@ -177,6 +181,14 @@ record Static {
   static 42: number = 0,
   static "one-two": string = "",
   static 2n: bigint = 0n,
+}
+
+record Looooooooooooooooooooooooooooooong
+  implements
+    ILoooooooooooooooooooooooooooooooongA,
+    ILoooooooooooooooooooooooooooooooongB
+{
+  a: number,
 }
 
 ================================================================================

@@ -150,7 +150,9 @@ function isNonEmptyClassBody(node) {
     ? ["properties", "indexers", "callProperties", "internalSlots"].some(
         (property) => isNonEmptyArray(node[property]),
       )
-    : isNonEmptyArray(node.body);
+    : node.type === "RecordDeclarationBody"
+      ? isNonEmptyArray(node.elements)
+      : isNonEmptyArray(node.body);
 }
 
 function hasMultipleHeritage(node) {
