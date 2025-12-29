@@ -137,3 +137,34 @@ printWidth: 80
 
 ================================================================================
 `;
+
+exports[`issue-12967.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+a = (
+/**
+ * @param {number} a
+ * @param {number} b
+ */
+(a, b) => { // <-- in editor hints apply the types to a and b
+  console.log(a + b);
+}
+)()
+
+=====================================output=====================================
+a = (
+  /**
+   * @param {number} a
+   * @param {number} b
+   */
+  (a, b) => {
+    // <-- in editor hints apply the types to a and b
+    console.log(a + b);
+  }
+)();
+
+================================================================================
+`;
