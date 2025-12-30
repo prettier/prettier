@@ -3,7 +3,6 @@
   dependencyDashboardApproval: true,
   labels: ["dependency"],
   baseBranchPatterns: ["main"],
-  schedule: ["after 01:00 on sunday"],
   postUpdateOptions: ["yarnDedupeHighest"],
   prHourlyLimit: 0,
   prConcurrentLimit: 0,
@@ -57,24 +56,6 @@
       matchPackageNames: ["url-or-path", "search-closest"],
     },
     {
-      branchPrefix: "renovate/website/",
-      matchFileNames: ["website/package.json"],
-      labels: ["dependency:website"],
-    },
-    {
-      branchPrefix: "renovate/tools/",
-      matchFileNames: [
-        "scripts/release/package.json",
-        "scripts/tools/bundle-test/package.json",
-        "scripts/tools/eslint-plugin-prettier-internal-rules/package.json",
-      ],
-      labels: ["dependency:tools"],
-    },
-    {
-      groupName: "GitHub Actions",
-      matchManagers: ["github-actions"],
-    },
-    {
       groupName: "Markdown dependencies",
       matchPackageNames: ["micromark-*", "mdast-", "remark-", "unified"],
     },
@@ -89,6 +70,10 @@
         "cm6-graphql",
         "@xiechao/codemirror-lang-handlebars",
       ],
+    },
+    {
+      groupName: "GitHub Actions",
+      matchManagers: ["github-actions"],
     },
     {
       groupName: "devDependencies",
