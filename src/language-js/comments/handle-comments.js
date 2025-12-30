@@ -640,11 +640,7 @@ function handleCommentInEmptyParens({ comment, enclosingNode, options }) {
   // i.e. a function without any argument.
   if (
     ((isRealFunctionLikeNode(enclosingNode) &&
-      getFunctionParameters(enclosingNode).length === 0 &&
-      // Make sure comment is before the function body (not in return value parentheses)
-      (!("body" in enclosingNode) ||
-        !enclosingNode.body ||
-        locStart(comment) < locStart(enclosingNode.body))) ||
+      getFunctionParameters(enclosingNode).length === 0) ||
       (isCallLikeExpression(enclosingNode) &&
         getCallArguments(enclosingNode).length === 0)) &&
     isInArgumentOrParameterParentheses(enclosingNode, comment, options)
