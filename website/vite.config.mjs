@@ -62,9 +62,9 @@ async function buildCdnAlias() {
   );
 }
 
-async function getPackageCdnUrl(name) {
-  const { version, dependencies } = await getPackageDependencies({
-    name,
+async function getPackageCdnUrl(dependencyName) {
+  const { name, version, dependencies } = await getPackageDependencies({
+    name: dependencyName,
     base: import.meta.url,
     overrideDependencies: cdnDependencies.overrideDependencies,
     ignoreDependencies: cdnDependencies.ignoreDependencies,
