@@ -2,11 +2,12 @@
 import { render } from "github-buttons";
 import { useTemplateRef, onMounted } from "vue";
 
-const anchor = useTemplateRef("anchor");
+const anchorRef = useTemplateRef("anchor");
 
 onMounted(() => {
-  render(anchor.value, function (el) {
-    anchor.value.parentNode.replaceChild(el, anchor.value);
+  const anchor = anchorRef.value;
+  render(anchor, function (el) {
+    anchor.parentNode.replaceChild(el, anchor);
   });
 });
 </script>
