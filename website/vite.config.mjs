@@ -9,13 +9,15 @@ import packageJson from "./package.json" with { type: "json" };
 const IS_PRODUCTION = process.env.NODE_ENV === "production";
 const IS_CI = Boolean(process.env.CI);
 const OUT_DIRECTORY = "./static/playground/";
-const DEPENDENCIES_EXCLUDE_FROM_CDN = new Set(
-  [
-    IS_PRODUCTION ? undefined : "vue",
-    "cm6-graphql",
-    "@docusaurus/preset-classic",
-  ].filter(Boolean),
-);
+const DEPENDENCIES_EXCLUDE_FROM_CDN = new Set([
+  "cm6-graphql",
+  "@docusaurus/preset-classic",
+]);
+
+// Local develop require local `vue`
+if (!IS_PRODUCTION) {
+  DEPENDENCIES_EXCLUDE_FROM_CDN.add("vue");
+}
 
 export default defineConfig(async () => ({
   base: IS_PRODUCTION ? "/playground/" : undefined,
