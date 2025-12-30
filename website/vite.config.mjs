@@ -49,9 +49,9 @@ export default defineConfig(async () => {
 });
 
 async function buildCdnAlias() {
-  // if (!IS_PRODUCTION) {
-  //   return;
-  // }
+  if (!IS_PRODUCTION) {
+    return;
+  }
 
   return Object.fromEntries(
     await Promise.all(
