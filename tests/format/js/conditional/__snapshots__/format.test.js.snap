@@ -2166,14 +2166,11 @@ const isEmpty = (obj) =>
   );
 
 // Again, this case is a bit hard to distinguish the alternate.
-const eventsFromOrders =
-  orderIds && orders ?
-    orderIds.map((id) => ({
+const eventsFromOrders = orderIds && orders ? orderIds.map((id) => ({
       type: "order",
       date: orders[id].date,
       data: orders[id],
-    }))
-  : [];
+    })) : [];
 
 // Kinda weird to have dedents to the level of "return" in a function.
 function foo() {
@@ -2499,14 +2496,11 @@ const isEmpty = (obj) =>
       shallowEqual(obj, {});
 
 // Again, this case is a bit hard to distinguish the alternate.
-const eventsFromOrders =
-  orderIds && orders
-    ? orderIds.map((id) => ({
+const eventsFromOrders = orderIds && orders ? orderIds.map((id) => ({
         type: "order",
         date: orders[id].date,
         data: orders[id],
-      }))
-    : [];
+      })) : [];
 
 // Kinda weird to have dedents to the level of "return" in a function.
 function foo() {

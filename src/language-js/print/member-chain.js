@@ -16,6 +16,7 @@ import needsParentheses from "../parentheses/needs-parentheses.js";
 import {
   CommentCheckFlags,
   hasComment,
+  isArrayExpression,
   isCallExpression,
   isFunctionOrArrowExpression,
   isLongCurriedCallExpression,
@@ -23,6 +24,7 @@ import {
   isMemberish,
   isNextLineEmpty,
   isNumericLiteral,
+  isObjectExpression,
   isSimpleCallArgument,
 } from "../utilities/index.js";
 import { printBindExpressionCallee } from "./bind-expression.js";
@@ -409,11 +411,27 @@ function printMemberChain(path, options, print) {
   ) {
     result = group(expanded);
   } else {
+    // Check if last call has arrow function with object/array body
+    // These can have unstable willBreak due to objectWrap: "preserve"
+    // checking original text for newlines, causing idempotency issues
+    const lastCall = callExpressions.at(-1);
+    const hasUnstableArrowArg =
+      lastCall &&
+      lastCall.arguments.some(
+        (arg) =>
+          arg.type === "ArrowFunctionExpression" &&
+          (isObjectExpression(arg.body) || isArrayExpression(arg.body)),
+      );
+
     result = [
       // We only need to check `oneLine` because if `expanded` is chosen
       // that means that the parent group has already been broken
       // naturally
-      willBreak(oneLine) || shouldHaveEmptyLineBeforeIndent ? breakParent : "",
+      // Skip breakParent for unstable arrow args to ensure idempotency
+      !hasUnstableArrowArg &&
+      (willBreak(oneLine) || shouldHaveEmptyLineBeforeIndent)
+        ? breakParent
+        : "",
       conditionalGroup([oneLine, expanded]),
     ];
   }

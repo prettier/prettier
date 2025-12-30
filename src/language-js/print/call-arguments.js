@@ -164,6 +164,23 @@ function printCallArguments(path, options, print) {
       throw caught;
     }
 
+    // For arrow functions with object/array bodies, always force the object
+    // to expand to ensure consistent behavior regardless of original text
+    // formatting (fixes idempotency issues with objectWrap: "preserve")
+    const lastArgNode = args.at(-1);
+    const hasExpandableArrowBody =
+      lastArgNode.type === "ArrowFunctionExpression" &&
+      (isObjectExpression(lastArgNode.body) ||
+        isArrayExpression(lastArgNode.body));
+
+    if (hasExpandableArrowBody) {
+      // Always use the expanded form for arrow functions with object/array bodies
+      return conditionalGroup([
+        ["(", ...headArgs, group(lastArg, { shouldBreak: true }), ")"],
+        allArgsBrokenOut(),
+      ]);
+    }
+
     if (willBreak(lastArg)) {
       return [
         breakParent,
