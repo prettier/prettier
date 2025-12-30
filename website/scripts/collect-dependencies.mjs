@@ -90,10 +90,9 @@ async function getPackageDependencies({
   packageJsonUrls.delete(packageJsonUrl);
 
   const [packageJsonData, ...dependencies] = await Promise.all(
-    [packageJsonUrl, ...packageJsonUrls].map(async (packageJsonUrl) => {
-      const { name, version } = await getPackageJson(packageJsonUrl);
-      return { name, version, url: packageJsonUrl };
-    }),
+    [packageJsonUrl, ...packageJsonUrls].map((packageJsonUrl) =>
+      getPackageJson(packageJsonUrl),
+    ),
   );
 
   return {
