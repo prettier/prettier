@@ -46,6 +46,15 @@ function getPackageJson(packageJsonUrl) {
   return packageJsonCache.get(packageJsonUrl);
 }
 
+/**
+@param {{
+  name: string,
+  base: string | URL,
+  overrideDependencies?: Map<string, string[]>,
+  ignoreDependencies?: (name: string) => boolean,
+}} param0
+@returns
+*/
 async function getPackageDependencies({
   name,
   base,
@@ -67,7 +76,9 @@ async function getPackageDependencies({
     let dependencies;
 
     if (overrideDependencies.has(name)) {
-      dependencies = overrideDependencies.get(name);
+      dependencies = overrideDependencies
+        .get(name)
+        .map((name) => ({ name, packageJsonUrl: findPackageJSON(name, base) }));
     } else {
       ({ dependencies } = await getPackageJson(packageJsonUrl));
     }
