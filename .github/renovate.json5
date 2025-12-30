@@ -84,7 +84,11 @@
     },
     {
       groupName: "CodeMirror",
-      matchPackageNames: ["@codemirror/*", "cm6-graphql"],
+      matchPackageNames: [
+        "@codemirror/*",
+        "cm6-graphql",
+        "@xiechao/codemirror-lang-handlebars",
+      ],
     },
   ],
   ignoreDeps: [

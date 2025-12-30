@@ -1551,7 +1551,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@codemirror/commands@npm:6.10.1":
+"@codemirror/commands@npm:6.10.1, @codemirror/commands@npm:^6.0.0":
   version: 6.10.1
   resolution: "@codemirror/commands@npm:6.10.1"
   dependencies:
@@ -1613,7 +1613,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@codemirror/lang-html@npm:^6.0.0":
+"@codemirror/lang-html@npm:^6.0.0, @codemirror/lang-html@npm:^6.4.7":
   version: 6.4.11
   resolution: "@codemirror/lang-html@npm:6.4.11"
   dependencies:
@@ -1902,6 +1902,17 @@ __metadata:
     "@codemirror/view": "npm:^6.35.0"
     crelt: "npm:^1.0.5"
   checksum: 10/22e04e25476f55dd8d3178009d03bd231c7933028df90c0ab0120afc5136ffb1e035a8b30c7c9d15e1b6bdd9158c3a9e83c8c1598fd140ede6e65d2bde77bda9
+  languageName: node
+  linkType: hard
+
+"@codemirror/search@npm:^6.0.0":
+  version: 6.5.11
+  resolution: "@codemirror/search@npm:6.5.11"
+  dependencies:
+    "@codemirror/state": "npm:^6.0.0"
+    "@codemirror/view": "npm:^6.0.0"
+    crelt: "npm:^1.0.5"
+  checksum: 10/d057f37cb369460b25625d7eb72f40636bf78ecd140608da53010cf3660f982a9e613826e38d85d87c9c2ff11e45c9482429987bfd4f29cbbd192f1ee3fd2695
   languageName: node
   linkType: hard
 
@@ -5626,6 +5637,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@xiechao/codemirror-lang-handlebars@npm:1.0.4":
+  version: 1.0.4
+  resolution: "@xiechao/codemirror-lang-handlebars@npm:1.0.4"
+  dependencies:
+    "@codemirror/lang-html": "npm:^6.4.7"
+    "@codemirror/language": "npm:^6.0.0"
+    "@lezer/common": "npm:^1.2.0"
+    "@lezer/highlight": "npm:^1.0.0"
+    "@lezer/lr": "npm:^1.0.0"
+    codemirror: "npm:^6.0.1"
+  checksum: 10/f305566c1e321d89a426d41876ecc5a2898630df6e71fb51140d26318af327a398eda098e1b74a887d36e6bd83020aad82ed8b9b22de0d4b48b4a0cff377ca6f
+  languageName: node
+  linkType: hard
+
 "@xtuc/ieee754@npm:^1.2.0":
   version: 1.2.0
   resolution: "@xtuc/ieee754@npm:1.2.0"
@@ -6542,6 +6567,21 @@ __metadata:
     "@lezer/highlight": ^1.0.0
     graphql: ^15.5.0 || ^16.0.0 || ^17.0.0
   checksum: 10/7a73a8d0cf92cf2cd4e7f993aecd498ce56ed03f924be5d2709d982e492d5eb215e74277469388c2e2cf5323d2cd76a56393ca152e704e523136d567c090cbe6
+  languageName: node
+  linkType: hard
+
+"codemirror@npm:^6.0.1":
+  version: 6.0.2
+  resolution: "codemirror@npm:6.0.2"
+  dependencies:
+    "@codemirror/autocomplete": "npm:^6.0.0"
+    "@codemirror/commands": "npm:^6.0.0"
+    "@codemirror/language": "npm:^6.0.0"
+    "@codemirror/lint": "npm:^6.0.0"
+    "@codemirror/search": "npm:^6.0.0"
+    "@codemirror/state": "npm:^6.0.0"
+    "@codemirror/view": "npm:^6.0.0"
+  checksum: 10/bd73c9ebbd8cb709a697fa4e2484c188c44aafce4b4d2a342807a5648c6be5bd5876f0caac47db0c1181f1ec8d86e38bd2b6efe51b971bf240fd3382bef0b371
   languageName: node
   linkType: hard
 
@@ -13244,6 +13284,7 @@ __metadata:
     "@types/react": "npm:19.2.7"
     "@vitejs/plugin-vue": "npm:6.0.2"
     "@vitejs/plugin-vue-jsx": "npm:5.1.2"
+    "@xiechao/codemirror-lang-handlebars": "npm:1.0.4"
     clipboard: "npm:2.0.11"
     clsx: "npm:2.1.1"
     cm6-graphql: "npm:0.2.1"
