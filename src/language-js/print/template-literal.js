@@ -90,7 +90,7 @@ function printJestEachTemplateLiteral(path, options, print) {
    * ${2} | ${1} | ${3}
    */
   const { node } = path;
-  const headerNames = node.quasis[0].value.raw.trim().split(/\s*\|\s*/u);
+  const headerNames = node.quasis[0].value.raw.trim().split(/\s*\|\s*/);
   if (
     headerNames.length > 1 ||
     headerNames.some((headerName) => headerName.length > 0)
@@ -275,7 +275,7 @@ function escapeTemplateCharacters(doc, raw) {
   return mapDoc(doc, (currentDoc) => {
     if (typeof currentDoc === "string") {
       return raw
-        ? currentDoc.replaceAll(/(\\*)`/gu, "$1$1\\`")
+        ? currentDoc.replaceAll(/(\\*)`/g, "$1$1\\`")
         : uncookTemplateElementValue(currentDoc);
     }
 
@@ -284,7 +284,7 @@ function escapeTemplateCharacters(doc, raw) {
 }
 
 function uncookTemplateElementValue(cookedValue) {
-  return cookedValue.replaceAll(/([\\`]|\$\{)/gu, String.raw`\$1`);
+  return cookedValue.replaceAll(/([\\`]|\$\{)/g, String.raw`\$1`);
 }
 
 /**
@@ -297,7 +297,7 @@ function uncookTemplateElementValue(cookedValue) {
  *
  * Ref: https://github.com/facebook/jest/pull/6102
  */
-const jestEachTriggerRegex = /^[fx]?(?:describe|it|test)$/u;
+const jestEachTriggerRegex = /^[fx]?(?:describe|it|test)$/;
 function isJestEachTemplateLiteral({ node, parent }) {
   return (
     node.type === "TemplateLiteral" &&

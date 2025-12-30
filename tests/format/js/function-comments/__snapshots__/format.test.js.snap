@@ -1,5 +1,21 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`comments-after-callee.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+a = (foo /* comment */)()
+a = new (A /* comment */)()
+
+=====================================output=====================================
+a = foo /* comment */();
+a = new A /* comment */();
+
+================================================================================
+`;
+
 exports[`params-trail-comments.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]

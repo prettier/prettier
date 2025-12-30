@@ -14,7 +14,7 @@ const languages = [
         throw new Error("Unexpected non absolute path");
       }
 
-      return /(?<separator>[\\/])\.husky\k<separator>[^\\/]+$/u.test(filepath);
+      return /(?<separator>[\\/])\.husky\k<separator>[^\\/]+$/.test(filepath);
     },
   },
 ];

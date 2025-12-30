@@ -4,7 +4,13 @@ import { FRONT_MATTER_MARK } from "./constants.js";
 const DELIMITER_LENGTH = 3;
 
 /**
-@typedef {{index: number, line: number, column: number}} Position
+@typedef {{
+  index: number,
+  // 1-based line number
+  line: number,
+  // 0-based column number
+  column: number,
+}} Position
 @typedef {{
   language: string,
   explicitLanguage: string | null,
@@ -65,7 +71,7 @@ function getFrontMatter(text) {
   const frontMatterEndIndex = endDelimiterIndex + 1 + DELIMITER_LENGTH;
 
   const nextCharacter = text.charAt(frontMatterEndIndex + 1);
-  if (!/\s?/u.test(nextCharacter)) {
+  if (!/\s?/.test(nextCharacter)) {
     return;
   }
 

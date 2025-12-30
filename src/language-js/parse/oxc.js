@@ -67,7 +67,7 @@ async function parseWithOptions(filepath, text, options) {
       error.severity === "Error" &&
       (error.message ===
         "A 'return' statement can only be used within a function body." ||
-        /^Identifier `.*` has already been declared$/u.test(error.message))
+        /^Identifier `.*` has already been declared$/.test(error.message))
     ) {
       continue;
     }
@@ -103,7 +103,7 @@ function getLanguageCombinations(text, options) {
   const filepath = options?.filepath;
 
   if (typeof filepath === "string") {
-    if (/\.(?:jsx|tsx)$/iu.test(filepath)) {
+    if (/\.(?:jsx|tsx)$/i.test(filepath)) {
       return ["tsx"];
     }
 

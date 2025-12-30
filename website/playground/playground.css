@@ -5,6 +5,7 @@
 
 html {
   background-color: light-dark(#fafafa, #1b1b1d);
+  --background-color: light-dark(#fafafa, #1b1b1d);
   color: light-dark(#6a6a6a, #e3e3e3);
   --color-border: light-dark(#ddd, #606770);
   color-scheme: light dark;
@@ -169,94 +170,6 @@ header h1 {
   opacity: 0;
 }
 
-.CodeMirror {
-  height: auto;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  line-height: 1.6;
-  font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
-
-  &:is([data-theme="dark"] *) {
-    /* Credit: Chris Kempson, Gerard Braad */
-    background: #000000;
-    color: #eaeaea;
-    div.CodeMirror-selected {
-      background: #424242;
-    }
-    .CodeMirror-gutters {
-      background: #000000;
-      border-right: 0px;
-    }
-    .CodeMirror-guttermarker {
-      color: #e78c45;
-    }
-    .CodeMirror-guttermarker-subtle {
-      color: #777;
-    }
-    .CodeMirror-linenumber {
-      color: #424242;
-    }
-    .CodeMirror-cursor {
-      border-left: 1px solid #6a6a6a;
-    }
-
-    span.cm-comment {
-      color: #d27b53;
-    }
-    span.cm-atom {
-      color: #a16a94;
-    }
-    span.cm-number {
-      color: #a16a94;
-    }
-
-    span.cm-property,
-    span.cm-attribute {
-      color: #99cc99;
-    }
-    span.cm-keyword {
-      color: #d54e53;
-    }
-    span.cm-string {
-      color: #e7c547;
-    }
-
-    span.cm-variable {
-      color: #b9ca4a;
-    }
-    span.cm-variable-2 {
-      color: #7aa6da;
-    }
-    span.cm-def {
-      color: #e78c45;
-    }
-    span.cm-bracket {
-      color: #eaeaea;
-    }
-    span.cm-tag {
-      color: #d54e53;
-    }
-    span.cm-link {
-      color: #a16a94;
-    }
-    span.cm-error {
-      background: #d54e53;
-      color: #6a6a6a;
-    }
-
-    .CodeMirror-activeline-background {
-      background: #2a2a2a;
-    }
-    .CodeMirror-matchingbracket {
-      text-decoration: underline;
-      color: white !important;
-    }
-  }
-}
-
 .bottom-bar {
   position: relative;
 }
@@ -417,4 +330,55 @@ input[type="number"] {
   border: 6px solid transparent;
   border-bottom: none;
   border-top-color: #000;
+}
+
+.cm-editor {
+  height: 100%;
+  background-color: var(--background-color) !important;
+}
+
+.cm-editor .cm-scroller {
+  font-family:
+    Consolas,
+    Monaco,
+    Andale Mono,
+    Ubuntu Mono,
+    monospace;
+  line-height: 1.6;
+}
+
+.cm-editor.cm-focused {
+  outline: none;
+}
+
+.cm-content {
+  position: relative;
+}
+
+.cm-editor .cm-gutters {
+  border-right: 1px solid var(--color-border);
+  background: #f7f7f7;
+}
+
+.cm-gutter {
+  padding-inline-start: 5px;
+  padding-inline-end: 3px;
+}
+
+.cm-overlay-highlight {
+  background-color: rgba(255, 220, 120, 0.45);
+}
+
+.cm-foldGutter .cm-gutterElement {
+  cursor: pointer;
+}
+
+html[data-theme="dark"] .cm-overlay-highlight {
+  background-color: rgba(255, 220, 120, 0.32);
+}
+
+html[data-theme="dark"] .cm-gutters {
+  background-color: #121212;
+  border-right-color: transparent;
+  color: #424242;
 }

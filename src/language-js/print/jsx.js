@@ -18,7 +18,7 @@ import {
   printComments,
   printDanglingComments,
 } from "../../main/comments/print.js";
-import getPreferredQuote from "../../utilities/get-preferred-quote.js";
+import { getPreferredQuote } from "../../utilities/get-preferred-quote.js";
 import UnexpectedNodeError from "../../utilities/unexpected-node-error.js";
 import WhitespaceUtilities from "../../utilities/whitespace-utilities.js";
 import needsParentheses from "../parentheses/needs-parentheses.js";
@@ -347,7 +347,7 @@ function printJsxChildren(
         // Starts with whitespace
         if (words[0] === "") {
           words.shift();
-          if (/\n/u.test(words[0])) {
+          if (/\n/.test(words[0])) {
             pushLine(
               separatorWithWhitespace(
                 isFacebookTranslationTag,
@@ -383,7 +383,7 @@ function printJsxChildren(
         }
 
         if (endWhitespace !== undefined) {
-          if (/\n/u.test(endWhitespace)) {
+          if (/\n/.test(endWhitespace)) {
             pushLine(
               separatorWithWhitespace(
                 isFacebookTranslationTag,
@@ -405,10 +405,10 @@ function printJsxChildren(
             ),
           );
         }
-      } else if (/\n/u.test(text)) {
+      } else if (/\n/.test(text)) {
         // Keep (up to one) blank line between tags/expressions/text.
         // Note: We don't keep blank lines between text elements.
-        if (text.match(/\n/gu).length > 1) {
+        if (text.match(/\n/g).length > 1) {
           pushLine(hardline);
         }
       } else {
@@ -864,7 +864,7 @@ function isMeaningfulJsxText(node) {
   return (
     node.type === "JSXText" &&
     (jsxWhitespace.hasNonWhitespaceCharacter(getRaw(node)) ||
-      !/\n/u.test(getRaw(node)))
+      !/\n/.test(getRaw(node)))
   );
 }
 

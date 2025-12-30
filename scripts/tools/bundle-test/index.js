@@ -50,7 +50,7 @@ for (const packageConfig of packageBuildConfigs) {
   /* `require` in `parser-typescript.js`, #12338 */
   for (const module of modules) {
     for (const file of module.files) {
-      if (!/\.m?js$/u.test(file.output) || excludedFiles.has(file.output)) {
+      if (!/\.m?js$/.test(file.output) || excludedFiles.has(file.output)) {
         continue;
       }
       console.log(`${file.output}: `);

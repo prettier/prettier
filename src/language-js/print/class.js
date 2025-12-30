@@ -53,18 +53,22 @@ const isInterface = createTypeCheckFunction([
 - `DeclareInterface`(flow)
 - `InterfaceDeclaration`(flow)
 - `InterfaceTypeAnnotation`(flow)
+- `RecordDeclaration`(flow)
 - `TSInterfaceDeclaration`(TypeScript)
 */
 function printClass(path, options, print) {
   const { node } = path;
   const isPrintingInterface = isInterface(node);
+  const isPrintingRecord = node.type === "RecordDeclaration";
+
+  const keyword = isPrintingInterface
+    ? "interface"
+    : isPrintingRecord
+      ? "record"
+      : "class";
 
   /** @type {Doc[]} */
-  const parts = [
-    printDeclareToken(path),
-    printAbstractToken(path),
-    isPrintingInterface ? "interface" : "class",
-  ];
+  const parts = [printDeclareToken(path), printAbstractToken(path), keyword];
 
   // Keep old behaviour of extends in same line
   // If there is only on extends and there are not comments
@@ -146,7 +150,9 @@ function isNonEmptyClassBody(node) {
     ? ["properties", "indexers", "callProperties", "internalSlots"].some(
         (property) => isNonEmptyArray(node[property]),
       )
-    : isNonEmptyArray(node.body);
+    : node.type === "RecordDeclarationBody"
+      ? isNonEmptyArray(node.elements)
+      : isNonEmptyArray(node.body);
 }
 
 function hasMultipleHeritage(node) {

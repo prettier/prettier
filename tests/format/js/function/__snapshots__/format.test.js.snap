@@ -34,6 +34,118 @@ new (function () {})();
 ================================================================================
 `;
 
+exports[`iife.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+[
+  (// leading 1
+  function () {})(),
+  (// leading 2
+  function () {})?.(),
+  (/*block 1*/
+  function () {})(),
+  (function () {}
+  // trialing 1
+  )(),
+  (function () {}
+  // block 2
+  )(),
+  (// prettier-ignore
+  function () {      })(),
+  (function () {}/* trialing 2 */)(),
+  (// tagged
+  function () {      })\`\`,
+  (// prettier-ignore
+  function () {      })\`\`,
+
+
+  (// leading 1
+  () => {})(),
+  (// leading 2
+  () => {})?.(),
+  (/*block 1*/
+  () => {})(),
+  (() => {}
+  // trialing 1
+  )(),
+  (// tagged
+  () => {})\`\`,
+  (// prettier-ignore
+  () => {      })\`\`,
+
+  ((/*dangling 1*/) =>{})(),
+  ( () => {}/* trialing 2 */)(),
+
+  (/* not a comment for function */function() {}()),
+]
+
+=====================================output=====================================
+[
+  (
+    // leading 1
+    function () {}
+  )(),
+  (
+    // leading 2
+    function () {}
+  )?.(),
+  (/*block 1*/ function () {})(),
+  (
+    function () {}
+    // trialing 1
+  )(),
+  (
+    function () {}
+    // block 2
+  )(),
+  (
+    // prettier-ignore
+    function () {      }
+  )(),
+  (function () {} /* trialing 2 */)(),
+  (
+    // tagged
+    function () {}
+  )\`\`,
+  (
+    // prettier-ignore
+    function () {      }
+  )\`\`,
+
+  (
+    // leading 1
+    () => {}
+  )(),
+  (
+    // leading 2
+    () => {}
+  )?.(),
+  (/*block 1*/ () => {})(),
+  (
+    () => {}
+    // trialing 1
+  )(),
+  (
+    // tagged
+    () => {}
+  )\`\`,
+  (
+    // prettier-ignore
+    () => {      }
+  )\`\`,
+
+  ((/*dangling 1*/) => {})(),
+  (() => {} /* trialing 2 */)(),
+
+  /* not a comment for function */ (function () {})(),
+];
+
+================================================================================
+`;
+
 exports[`issue-10277.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -49,6 +161,37 @@ printWidth: 80
       return algebra(fmap(doFold)(v));
     },
 );
+
+================================================================================
+`;
+
+exports[`issue-12967.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+a = (
+/**
+ * @param {number} a
+ * @param {number} b
+ */
+(a, b) => { // <-- in editor hints apply the types to a and b
+  console.log(a + b);
+}
+)()
+
+=====================================output=====================================
+a = (
+  /**
+   * @param {number} a
+   * @param {number} b
+   */
+  (a, b) => {
+    // <-- in editor hints apply the types to a and b
+    console.log(a + b);
+  }
+)();
 
 ================================================================================
 `;

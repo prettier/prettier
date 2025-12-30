@@ -830,10 +830,10 @@ Cause: Unexpected token {"
 `;
 
 exports[`valid-module-block-top-level-await-using-binding.js [flow] format 1`] = `
-"Unexpected token \`{\`, expected the token \`;\` (1:18)
-> 1 | const m = module {
-    |                  ^
-  2 |   await using foo = bar();
+"Unexpected identifier, expected the token \`,\` (2:9)
+  1 | const m = module {
+> 2 |   await using foo = bar();
+    |         ^^^^^
   3 | }
   4 |"
 `;
@@ -927,10 +927,10 @@ Cause: Unexpected token {"
 `;
 
 exports[`valid-module-block-top-level-using-binding.js [flow] format 1`] = `
-"Unexpected token \`{\`, expected the end of an expression statement (\`;\`) (1:8)
-> 1 | module {
-    |        ^
-  2 |   using foo = bar();
+"Unexpected identifier, expected the token \`,\` (2:9)
+  1 | module {
+> 2 |   using foo = bar();
+    |         ^^^
   3 | }
   4 |"
 `;

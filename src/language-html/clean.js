@@ -64,12 +64,12 @@ function clean(original, cloned, parent) {
     ) {
       delete cloned.value;
     } else if (value) {
-      cloned.value = value.replaceAll(/'|&quot;|&apos;/gu, '"');
+      cloned.value = value.replaceAll(/'|&quot;|&apos;/g, '"');
     }
   }
 
   if (original.kind === "docType") {
-    cloned.value = original.value.toLowerCase().replaceAll(/\s+/gu, " ");
+    cloned.value = original.value.toLowerCase().replaceAll(/\s+/g, " ");
   }
 
   if (

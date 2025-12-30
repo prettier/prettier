@@ -3,6 +3,7 @@ import {
   INLINE_NODE_TYPES,
   INLINE_NODE_WRAPPER_TYPES,
   isPrettierIgnore,
+  isSetextHeading,
 } from "../utilities.js";
 
 /**
@@ -58,25 +59,61 @@ function shouldPrePrintHardline({ node, parent }) {
 
 const SIBLING_NODE_TYPES = new Set(["listItem", "definition"]);
 
-function shouldPrePrintDoubleHardline({ node, previous, parent }, options) {
-  if (
-    isLooseListItem(previous, options) ||
-    (node.type === "list" &&
-      parent.type === "listItem" &&
-      previous.type === "code")
-  ) {
-    return true;
+/**
+ * @param {AstPath} path
+ * @returns {boolean}
+ */
+function shouldPrePrintDoubleHardline(path, options) {
+  const { node, previous, parent } = path;
+
+  if (options.parser === "mdx") {
+    if (
+      isLooseListItemLegacy(previous, options) ||
+      (node.type === "list" &&
+        parent.type === "listItem" &&
+        previous.type === "code")
+    ) {
+      return true;
+    }
+  } else {
+    if (
+      isSetextHeading(node) &&
+      node.position.start.line < previous.position.end.line
+    ) {
+      return false;
+    }
+
+    if (
+      isPreviousNodeLooseListItem(path) ||
+      (node.type === "list" &&
+        parent.type === "listItem" &&
+        previous.type === "code")
+    ) {
+      return true;
+    }
   }
 
   const isSequence = previous.type === node.type;
   const isSiblingNode = isSequence && SIBLING_NODE_TYPES.has(node.type);
-  const isInTightListItem =
-    parent.type === "listItem" &&
-    (node.type === "list" || !isLooseListItem(parent, options));
+  let isInTightListItem;
+  if (options.parser === "mdx") {
+    isInTightListItem =
+      parent.type === "listItem" &&
+      (node.type === "list" || !isLooseListItemLegacy(parent, options));
+  } else {
+    isInTightListItem =
+      parent.type === "listItem" &&
+      (node.type === "list" || !path.callParent(isLooseListItem));
+  }
   const isPrevNodePrettierIgnore = isPrettierIgnore(previous) === "next";
   const isBlockHtmlWithoutBlankLineBetweenPrevHtml =
     node.type === "html" &&
     previous.type === "html" &&
+    previous.position.end.line + 1 === node.position.start.line;
+  const isBlockHtmlWithoutBlankLineBetweenPrevParagraph =
+    options.parser !== "mdx" &&
+    node.type === "html" &&
+    previous.type === "paragraph" &&
     previous.position.end.line + 1 === node.position.start.line;
   const isHtmlDirectAfterListItem =
     node.type === "html" &&
@@ -89,6 +126,7 @@ function shouldPrePrintDoubleHardline({ node, previous, parent }, options) {
     isInTightListItem ||
     isPrevNodePrettierIgnore ||
     isBlockHtmlWithoutBlankLineBetweenPrevHtml ||
+    isBlockHtmlWithoutBlankLineBetweenPrevParagraph ||
     isHtmlDirectAfterListItem
   );
 }
@@ -100,7 +138,7 @@ function shouldPrePrintTripleHardline({ node, previous }) {
   return isPrevNodeList && isIndentedCode;
 }
 
-function isLooseListItem(node, options) {
+function isLooseListItemLegacy(node, options) {
   return (
     node.type === "listItem" &&
     (node.spread ||
@@ -108,6 +146,31 @@ function isLooseListItem(node, options) {
       // since it can't be empty, so we only need check the last character
       options.originalText.charAt(node.position.end.offset - 1) === "\n")
   );
+}
+
+function isLooseListItem({ node, parent, next }) {
+  return (
+    node.type === "listItem" &&
+    (node.spread ||
+      (parent.type === "list" &&
+        next?.type === "listItem" &&
+        node.position.end.line + 1 < next.position.start.line))
+  );
+}
+
+/**
+ * @param {AstPath} path
+ * @returns {boolean}
+ */
+function isPreviousNodeLooseListItem(path) {
+  if (path.index === 0) {
+    return false;
+  }
+  return isLooseListItem({
+    node: path.previous,
+    parent: path.parent,
+    next: path.node,
+  });
 }
 
 export { printChildren };

@@ -140,7 +140,6 @@ function printElement(path, options, print) {
           node.isIndentationSensitive)) &&
       new RegExp(
         String.raw`\n[\t ]{${options.tabWidth * (path.ancestors.length - 1)}}$`,
-        "u",
       ).test(node.lastChild.value)
     ) {
       return "";

@@ -16,11 +16,11 @@ export function getSourceType(filepath) {
 
   filepath = filepath.toLowerCase();
 
-  if (/\.(?:mjs|mts)$/iu.test(filepath)) {
+  if (/\.(?:mjs|mts)$/i.test(filepath)) {
     return SOURCE_TYPE_MODULE;
   }
 
-  if (/\.(?:cjs|cts)$/iu.test(filepath)) {
+  if (/\.(?:cjs|cts)$/i.test(filepath)) {
     return SOURCE_TYPE_COMMONJS;
   }
 }

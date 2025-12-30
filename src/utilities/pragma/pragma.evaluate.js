@@ -8,7 +8,6 @@ export const FORMAT_PRAGMA_TO_INSERT = FORMAT_PRAGMAS[0];
 
 export const YAML_IS_PRAGMA_REGEXP = new RegExp(
   String.raw`^\s*@(?:${FORMAT_PRAGMAS.join("|")})\s*$`,
-  "u",
 );
 
 export const [YAML_HAS_PRAGMA_REGEXP, YAML_HAS_IGNORE_PRAGMA_REGEXP] = [
@@ -16,10 +15,7 @@ export const [YAML_HAS_PRAGMA_REGEXP, YAML_HAS_IGNORE_PRAGMA_REGEXP] = [
   FORMAT_IGNORE_PRAGMAS,
 ].map(
   (pragmas) =>
-    new RegExp(
-      String.raw`^\s*#[^\S\n]*@(?:${pragmas.join("|")})\s*?(?:\n|$)`,
-      "u",
-    ),
+    new RegExp(String.raw`^\s*#[^\S\n]*@(?:${pragmas.join("|")})\s*?(?:\n|$)`),
 );
 
 export const [GRAPHQL_HAS_PRAGMA_REGEXP, GRAPHQL_HAS_IGNORE_PRAGMA_REGEXP] = [
@@ -27,10 +23,7 @@ export const [GRAPHQL_HAS_PRAGMA_REGEXP, GRAPHQL_HAS_IGNORE_PRAGMA_REGEXP] = [
   FORMAT_IGNORE_PRAGMAS,
 ].map(
   (pragmas) =>
-    new RegExp(
-      String.raw`^\s*#[^\S\n]*@(?:${pragmas.join("|")})\s*(?:\n|$)`,
-      "u",
-    ),
+    new RegExp(String.raw`^\s*#[^\S\n]*@(?:${pragmas.join("|")})\s*(?:\n|$)`),
 );
 
 export const [HTML_HAS_PRAGMA_REGEXP, HTML_HAS_IGNORE_PRAGMA_REGEXP] = [
@@ -38,7 +31,7 @@ export const [HTML_HAS_PRAGMA_REGEXP, HTML_HAS_IGNORE_PRAGMA_REGEXP] = [
   FORMAT_IGNORE_PRAGMAS,
 ].map(
   (pragmas) =>
-    new RegExp(String.raw`^\s*<!--\s*@(?:${pragmas.join("|")})\s*-->`, "u"),
+    new RegExp(String.raw`^\s*<!--\s*@(?:${pragmas.join("|")})\s*-->`),
 );
 
 export const [MARKDOWN_HAS_PRAGMA_REGEXP, MARKDOWN_HAS_IGNORE_PRAGMA_REGEXP] = [
@@ -52,6 +45,6 @@ export const [MARKDOWN_HAS_PRAGMA_REGEXP, MARKDOWN_HAS_IGNORE_PRAGMA_REGEXP] = [
       String.raw`\{\s*\/\*\s*${pragma}\s*\*\/\s*\}`,
       `<!--.*\r?\n[\\s\\S]*(^|\n)[^\\S\n]*${pragma}[^\\S\n]*($|\n)[\\s\\S]*\n.*-->`,
     ].join("|"),
-    "mu",
+    "m",
   );
 });

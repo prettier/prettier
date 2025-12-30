@@ -65,13 +65,13 @@ function splitText(text) {
   /** @type {Array<TextNode>} */
   const nodes = [];
 
-  const tokens = text.split(/([\t\n ]+)/u);
+  const tokens = text.split(/([\t\n ]+)/);
   for (const [index, token] of tokens.entries()) {
     // whitespace
     if (index % 2 === 1) {
       nodes.push({
         type: "whitespace",
-        value: /\n/u.test(token) ? "\n" : " ",
+        value: /\n/.test(token) ? "\n" : " ",
       });
       continue;
     }
@@ -165,7 +165,7 @@ function splitText(text) {
       lastNode?.type === "word" &&
       !isBetween(KIND_NON_CJK, KIND_CJK_PUNCTUATION) &&
       // disallow leading/trailing full-width whitespace
-      ![lastNode.value, node.value].some((value) => /\u3000/u.test(value))
+      ![lastNode.value, node.value].some((value) => /\u3000/.test(value))
     ) {
       nodes.push({ type: "whitespace", value: "" });
     }
@@ -181,13 +181,22 @@ function splitText(text) {
 }
 
 function getOrderedListItemInfo(orderListItem, options) {
-  const text = options.originalText.slice(
+  let text = options.originalText.slice(
     orderListItem.position.start.offset,
     orderListItem.position.end.offset,
   );
+  if (options.parser !== "mdx") {
+    const firstChild = orderListItem.children[0];
+    if (firstChild) {
+      text = options.originalText.slice(
+        orderListItem.position.start.offset,
+        firstChild.position.start.offset,
+      );
+    }
+  }
 
   const { numberText, leadingSpaces } = text.match(
-    /^\s*(?<numberText>\d+)(\.|\))(?<leadingSpaces>\s*)/u,
+    /^\s*(?<numberText>\d+)(\.|\))(?<leadingSpaces>\s*)/,
   ).groups;
 
   return { number: Number(numberText), leadingSpaces };
@@ -218,6 +227,7 @@ function hasGitDiffFriendlyOrderedList(node, options) {
 
 // The final new line should not include in value
 // https://github.com/remarkjs/remark/issues/512
+// TODO[@fisker]: Use `node.value` directly when we update mdx to use latest remark
 function getFencedCodeBlockValue(node, originalText) {
   const { value } = node;
   if (
@@ -248,6 +258,7 @@ function isAutolink(node) {
   if (node?.type !== "link" || node.children.length !== 1) {
     return false;
   }
+
   const [child] = node.children;
   return locStart(node) === locStart(child) && locEnd(node) === locEnd(child);
 }
@@ -257,9 +268,7 @@ function isPrettierIgnore(node) {
   let match;
 
   if (node.type === "html") {
-    match = node.value.match(
-      /^<!--\s*prettier-ignore(?:-(start|end))?\s*-->$/u,
-    );
+    match = node.value.match(/^<!--\s*prettier-ignore(?:-(start|end))?\s*-->$/);
   } else {
     let comment;
 
@@ -274,7 +283,7 @@ function isPrettierIgnore(node) {
     }
 
     if (comment) {
-      match = comment.value.match(/^prettier-ignore(?:-(start|end))?$/u);
+      match = comment.value.match(/^prettier-ignore(?:-(start|end))?$/);
     }
   }
 
@@ -309,6 +318,11 @@ function hasPrettierIgnore(path) {
   return path.index > 0 && isPrettierIgnore(path.previous) === "next";
 }
 
+function isSetextHeading(node) {
+  const { start, end } = node.position;
+  return start.line !== end.line;
+}
+
 export {
   getFencedCodeBlockValue,
   getNthListSiblingIndex,
@@ -319,6 +333,7 @@ export {
   INLINE_NODE_WRAPPER_TYPES,
   isAutolink,
   isPrettierIgnore,
+  isSetextHeading,
   KIND_CJ_LETTER,
   KIND_CJK_PUNCTUATION,
   KIND_K_LETTER,

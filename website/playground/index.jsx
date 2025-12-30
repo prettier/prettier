@@ -1,42 +1,14 @@
-import "codemirror-graphql/cm6-legacy/mode.esm.js";
 import "./install-service-worker.js";
 
-import { createApp, onMounted, reactive, ref, watch } from "vue";
+import { createApp, onMounted, reactive } from "vue";
+import { useTheme } from "./composables/use-theme.js";
 import Playground from "./Playground.jsx";
 import { fixPrettierVersion } from "./utilities.js";
 import VersionLink from "./VersionLink.jsx";
 import WorkerApi from "./WorkerApi.js";
 
-function getInitialTheme() {
-  const saved = localStorage.getItem("theme");
-  if (saved) {
-    return saved;
-  }
-
-  return window.matchMedia("(prefers-color-scheme: dark)").matches
-    ? "dark"
-    : "light";
-}
-
-function applyTheme(theme) {
-  document.documentElement.dataset.theme = theme;
-}
-
 function ThemeToggle() {
-  const theme = ref(getInitialTheme());
-
-  const toggleTheme = () => {
-    const newTheme = theme.value === "dark" ? "light" : "dark";
-    theme.value = newTheme;
-    localStorage.setItem("theme", newTheme);
-    applyTheme(newTheme);
-  };
-
-  applyTheme(theme.value);
-
-  watch(theme, (newTheme) => {
-    applyTheme(newTheme);
-  });
+  const { theme, toggleTheme } = useTheme();
 
   return (
     <button
@@ -123,7 +95,7 @@ function augmentOption(option) {
   option.cliName =
     "--" +
     (option.inverted ? "no-" : "") +
-    option.name.replaceAll(/(?<=[a-z])(?=[A-Z])/gu, "-").toLowerCase();
+    option.name.replaceAll(/(?<=[a-z])(?=[A-Z])/g, "-").toLowerCase();
 
   return option;
 }

@@ -50,7 +50,7 @@ function createParseError(error) {
 
 // https://typescript-eslint.io/packages/parser/#jsx
 const isKnownFileType = (filepath) =>
-  filepath && /\.(?:js|mjs|cjs|jsx|ts|mts|cts|tsx)$/iu.test(filepath);
+  filepath && /\.(?:js|mjs|cjs|jsx|ts|mts|cts|tsx)$/i.test(filepath);
 
 function getParseOptionsCombinations(text, filepath) {
   let combinations = [{ ...baseParseOptions, filePath: filepath }];

@@ -15,12 +15,24 @@
     "update-stable-docs": "node ./scripts/update-stable-docs.mjs"
   },
   "dependencies": {
+    "@catppuccin/codemirror": "1.0.1",
+    "@codemirror/autocomplete": "6.20.0",
+    "@codemirror/commands": "6.10.1",
+    "@codemirror/lang-css": "6.3.1",
+    "@codemirror/lang-javascript": "6.2.4",
+    "@codemirror/lang-markdown": "6.5.0",
+    "@codemirror/language": "6.12.1",
+    "@codemirror/lint": "6.9.2",
+    "@codemirror/state": "6.5.3",
+    "@codemirror/view": "6.39.4",
     "@docusaurus/core": "3.9.2",
     "@docusaurus/preset-classic": "3.9.2",
+    "@lezer/highlight": "1.2.3",
     "@mdx-js/react": "3.1.1",
     "@sandhose/prettier-animated-logo": "1.0.3",
+    "@types/react": "19.2.7",
     "clsx": "2.1.1",
-    "codemirror-graphql": "2.2.4",
+    "cm6-graphql": "0.2.1",
     "graphql": "16.12.0",
     "prism-react-renderer": "2.4.1",
     "react": "19.2.1",
@@ -36,8 +48,12 @@
     "@vitejs/plugin-vue": "6.0.2",
     "@vitejs/plugin-vue-jsx": "5.1.2",
     "concurrently": "9.2.1",
+    "rollup-plugin-visualizer": "6.0.5",
     "vite": "7.2.7",
     "yaml": "2.8.2"
+  },
+  "resolutions": {
+    "@codemirror/view": "6.39.4"
   },
   "browserslist": {
     "production": [

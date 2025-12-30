@@ -70,7 +70,7 @@ function printTypeScriptMappedType(path, options, print) {
       start + 1,
       locStart(node.key),
     );
-    const nextTokenIndex = start + 1 + textAfter.search(/\S/u);
+    const nextTokenIndex = start + 1 + textAfter.search(/\S/);
     if (hasNewlineInRange(options.originalText, start, nextTokenIndex)) {
       shouldBreak = true;
     }

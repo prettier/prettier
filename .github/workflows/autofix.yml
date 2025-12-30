@@ -13,6 +13,5 @@ jobs:
   fix:
     name: Run automated fix
     uses: prettier/shared-workflows/.github/workflows/automated-fix.yml@main
-    permissions: {}
     with:
       repository: prettier/prettier

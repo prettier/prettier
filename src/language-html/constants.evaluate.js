@@ -5,7 +5,7 @@ function expandHeadingPseudoClassSelector(selector) {
     return ["h1", "h2", "h3", "h4", "h5", "h6"];
   }
 
-  const match = selector.match(/^:heading\((?<levels>\d+(?:,\s*\d+)*)\)$/u);
+  const match = selector.match(/^:heading\((?<levels>\d+(?:,\s*\d+)*)\)$/);
   if (!match) {
     return;
   }
@@ -28,7 +28,7 @@ const getCssStyleTags = (property) =>
       return selectors.flatMap((selector) => {
         const tagNames =
           expandHeadingPseudoClassSelector(selector) ??
-          (/^[\da-z]+$/iu.test(selector) ? [selector] : []);
+          (/^[\da-z]+$/i.test(selector) ? [selector] : []);
 
         return tagNames.map((tagName) => [tagName, style.value]);
       });

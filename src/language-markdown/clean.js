@@ -35,16 +35,20 @@ function clean(original, cloned, parent) {
     cloned.value = original.value.replaceAll("\n", " ");
   }
 
-  if (original.type === "wikiLink") {
-    cloned.value = original.value.trim().replaceAll(/[\t\n]+/gu, " ");
-  }
-
   if (
     original.type === "definition" ||
     original.type === "linkReference" ||
     original.type === "imageReference"
   ) {
     cloned.label = collapseWhiteSpace(original.label);
+  }
+
+  // Maybe we should fix this
+  if (
+    original.type === "imageReference" &&
+    original.referenceType === "collapsed"
+  ) {
+    cloned.alt = collapseWhiteSpace(original.alt);
   }
 
   if (
@@ -66,7 +70,7 @@ function clean(original, cloned, parent) {
       original.type === "image") &&
     original.title
   ) {
-    cloned.title = original.title.replaceAll(/\\(?=["')])/gu, "");
+    cloned.title = original.title.replaceAll(/\\(?=["')])/g, "");
   }
 
   // for insert pragma

@@ -83,8 +83,8 @@ proseWrap: "always"
 Braces {%  doesn't    match so   these   words should not   be   considered as *liquid node* }}
 
 =====================================output=====================================
-Braces {% doesn't match so these words should not be considered as _liquid node_
-}}
+Braces
+{%  doesn't    match so   these   words should not   be   considered as *liquid node* }}
 
 ================================================================================
 `;
@@ -99,7 +99,7 @@ printWidth: 80
 Braces {%  doesn't    match so   these   words should not   be   considered as *liquid node* }}
 
 =====================================output=====================================
-Braces {% doesn't match so these words should not be considered as _liquid node_ }}
+Braces {%  doesn't    match so   these   words should not   be   considered as *liquid node* }}
 
 ================================================================================
 `;

@@ -8,5 +8,5 @@ export default new RegExp(
     "|",
     "^[^/]{2}.*/>", // Contains "/>" on line not starting with "//"
   ].join(""),
-  "mu",
+  "m",
 );

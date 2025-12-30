@@ -44,7 +44,7 @@ function createParseError(error) {
 
   const { line, column } = loc;
 
-  return createError(message.replace(/ \(\d+:\d+\)$/u, ""), {
+  return createError(message.replace(/ \(\d+:\d+\)$/, ""), {
     loc: {
       start: { line, column: column + 1 },
     },

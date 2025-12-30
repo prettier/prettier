@@ -1,6 +1,6 @@
 function consistentEndOfLine(text) {
   let firstEndOfLine;
-  return text.replace(/\r\n?|\n/gu, (endOfLine) => {
+  return text.replace(/\r\n?|\n/g, (endOfLine) => {
     firstEndOfLine = firstEndOfLine ?? endOfLine;
     return firstEndOfLine;
   });

@@ -52,9 +52,9 @@ const printers = [
       const name = path.node.fullName;
       return (
         (name.startsWith("[") && name.endsWith("]")) ||
-        /^bind(?:on)?-/u.test(name) ||
+        /^bind(?:on)?-/.test(name) ||
         // Unofficial rudimentary support for some of the most used directives of AngularJS 1.x
-        /^ng-(?:if|show|hide|class|style)$/u.test(name)
+        /^ng-(?:if|show|hide|class|style)$/.test(name)
       );
     },
     print: createAngularPrinter("__ng_binding"),
@@ -71,7 +71,7 @@ const printers = [
     - `i18n="longDescription"`
     - `i18n-attr="longDescription"`
     */
-    test: (path /* , options */) => /^i18n(?:-.+)?$/u.test(path.node.fullName),
+    test: (path /* , options */) => /^i18n(?:-.+)?$/.test(path.node.fullName),
     print: printAngularI18n,
   },
   {

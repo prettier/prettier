@@ -6,7 +6,7 @@ import { PROJECT_ROOT, writeFile } from "../../utilities/index.js";
 import UNUSED_SPECIFIERS from "./typescript-unused-specifiers.js";
 
 function* getModules(text) {
-  const parts = text.split(/(?<=\n)(\/\/ src\/\S+\n)/u);
+  const parts = text.split(/(?<=\n)(\/\/ src\/\S+\n)/);
 
   let start = parts[0].length;
 
@@ -73,7 +73,7 @@ class TypeScriptModuleSource {
         escapeStringRegexp(end),
         "(?=\n)",
       ].join(""),
-      "gsu",
+      "gs",
     );
 
     this.#source.replaceAll(regexp, replacement);
@@ -150,7 +150,7 @@ function getExports(entry) {
   const exports = lines
     .map((line) => {
       const match = line.match(
-        /^\s*(?<specifier>.*?): \(\) => (?<variable>.*?),?$/u,
+        /^\s*(?<specifier>.*?): \(\) => (?<variable>.*?),?$/,
       );
 
       if (!match) {

@@ -192,7 +192,7 @@ function needsToBorrowNextOpeningTagStartMarker(node) {
 }
 
 function getPrettierIgnoreAttributeCommentData(value) {
-  const match = value.trim().match(/^prettier-ignore-attribute(?:\s+(.+))?$/su);
+  const match = value.trim().match(/^prettier-ignore-attribute(?:\s+(.+))?$/s);
 
   if (!match) {
     return false;
@@ -202,7 +202,7 @@ function getPrettierIgnoreAttributeCommentData(value) {
     return true;
   }
 
-  return match[1].split(/\s+/u);
+  return match[1].split(/\s+/);
 }
 
 function needsToBorrowParentOpeningTagEndMarker(node) {
@@ -356,7 +356,7 @@ function printOpeningTagStartMarker(node, options) {
       // Only lowercase HTML5 doctype in `.html` and `.htm` files
       if (node.value === "html") {
         const { filepath } = options;
-        if (filepath && /\.html?$/u.test(filepath)) {
+        if (filepath && /\.html?$/.test(filepath)) {
           return HTML5_DOCTYPE_START_MARKER;
         }
       }

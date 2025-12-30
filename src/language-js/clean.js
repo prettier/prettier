@@ -118,10 +118,10 @@ function clean(original, cloned, parent) {
   if (
     original.type === "JSXAttribute" &&
     original.value?.type === "Literal" &&
-    /["']|&quot;|&apos;/u.test(original.value.value)
+    /["']|&quot;|&apos;/.test(original.value.value)
   ) {
     cloned.value.value = original.value.value.replaceAll(
-      /["']|&quot;|&apos;/gu,
+      /["']|&quot;|&apos;/g,
       '"',
     );
   }

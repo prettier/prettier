@@ -1,18 +1,24 @@
 import * as assert from "#universal/assert";
-import getPreferredQuote from "./get-preferred-quote.js";
+import {
+  DOUBLE_QUOTE,
+  getPreferredQuote,
+  SINGLE_QUOTE,
+} from "./get-preferred-quote.js";
 import makeString from "./make-string.js";
 
 /** @import {Quote} from "./get-preferred-quote.js" */
 
 function printString(raw, options) {
-  assert.ok(/^(?<quote>["']).*\k<quote>$/su.test(raw));
+  assert.ok(/^(?<quote>["']).*\k<quote>$/s.test(raw));
 
   // `rawContent` is the string exactly like it appeared in the input source
   // code, without its enclosing quotes.
   const rawContent = raw.slice(1, -1);
 
   /** @type {Quote} */
-  const enclosingQuote =
+  let enclosingQuote;
+
+  if (
     options.parser === "json" ||
     options.parser === "jsonc" ||
     options.parser === "json-stringify" ||
@@ -25,10 +31,13 @@ function printString(raw, options) {
     (options.parser === "json5" &&
       options.quoteProps === "preserve" &&
       !options.singleQuote)
-      ? '"'
-      : options.__isInHtmlAttribute
-        ? "'"
-        : getPreferredQuote(rawContent, options.singleQuote);
+  ) {
+    enclosingQuote = DOUBLE_QUOTE;
+  } else if (options.__isInHtmlAttribute) {
+    enclosingQuote = SINGLE_QUOTE;
+  } else {
+    enclosingQuote = getPreferredQuote(rawContent, options.singleQuote);
+  }
 
   const originalQuote = raw.charAt(0);
 

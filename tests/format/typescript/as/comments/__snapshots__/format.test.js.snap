@@ -1,5 +1,33 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`17407.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript", "flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+function getClassNameFromPrototypeMethod(container) {
+  return ((container // a
+    .left as PropertyAccessExpression) // b
+    .expression as PropertyAccessExpression) // c
+    .expression; // d
+}
+
+=====================================output=====================================
+function getClassNameFromPrototypeMethod(container) {
+  return (
+    (
+      container // a
+      .left as PropertyAccessExpression
+    ) // b
+    .expression as PropertyAccessExpression
+  ) // c
+  .expression; // d
+}
+
+================================================================================
+`;
+
 exports[`18160.ts [hermes] format 1`] = `
 "';' expected (7:2)
    5 | comment

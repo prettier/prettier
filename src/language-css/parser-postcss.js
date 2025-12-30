@@ -19,8 +19,8 @@ import { hasIgnorePragma, hasPragma } from "./pragma.js";
 import isModuleRuleName from "./utilities/is-module-rule-name.js";
 import isSCSSNestedPropertyNode from "./utilities/is-scss-nested-property-node.js";
 
-const DEFAULT_SCSS_DIRECTIVE = /(\s*)(!default).*$/u;
-const GLOBAL_SCSS_DIRECTIVE = /(\s*)(!global).*$/u;
+const DEFAULT_SCSS_DIRECTIVE = /(\s*)(!default).*$/;
+const GLOBAL_SCSS_DIRECTIVE = /(\s*)(!global).*$/;
 
 function parseNestedCSS(node, options) {
   if (isObject(node)) {
@@ -232,7 +232,7 @@ function parseNestedCSS(node, options) {
 
       // only css support custom-selector
       if (options.parser === "css" && node.name === "custom-selector") {
-        const customSelector = node.params.match(/:--\S+\s+/u)[0].trim();
+        const customSelector = node.params.match(/:--\S+\s+/)[0].trim();
         node.customSelector = customSelector;
         node.selector = parseSelector(
           node.params.slice(customSelector.length).trim(),
@@ -307,7 +307,7 @@ function parseNestedCSS(node, options) {
       }
 
       if (name === "at-root") {
-        if (/^\(\s*(?:without|with)\s*:.+\)$/su.test(params)) {
+        if (/^\(\s*(?:without|with)\s*:.+\)$/s.test(params)) {
           node.params = parseValue(params, options);
         } else {
           node.selector = parseSelector(params);
@@ -344,11 +344,11 @@ function parseNestedCSS(node, options) {
       ) {
         // Remove unnecessary spaces in SCSS variable arguments
         // Move spaces after the `...`, so we can keep the range correct
-        params = params.replace(/(\$\S+?)(\s+)?\.{3}/u, "$1...$2");
+        params = params.replace(/(\$\S+?)(\s+)?\.{3}/, "$1...$2");
         // Remove unnecessary spaces before SCSS control, mixin and function directives
         // Move spaces after the `(`, so we can keep the range correct
         // Only match the first function call at the beginning, not nested ones
-        params = params.replace(/^(?!if)([^"'\s(]+)(\s+)\(/u, "$1($2");
+        params = params.replace(/^(?!if)([^"'\s(]+)(\s+)\(/, "$1($2");
 
         node.value = parseValue(params, options);
         delete node.params;

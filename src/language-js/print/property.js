@@ -10,7 +10,7 @@ const needsQuoteProps = new WeakMap();
 
 // Matches “simple” numbers like `123` and `2.5` but not `1_000`, `1e+100` or `0b10`.
 function isSimpleNumber(numberString) {
-  return /^(?:\d+|\d+\.\d+)$/u.test(numberString);
+  return /^(?:\d+|\d+\.\d+)$/.test(numberString);
 }
 
 // Note: Quoting/unquoting numbers in TypeScript is not safe.
@@ -169,7 +169,7 @@ function printPropertyKey(path, options, print) {
       () =>
         printComments(
           path,
-          /^\d/u.test(key.value) ? printNumber(key.value) : key.value,
+          /^\d/.test(key.value) ? printNumber(key.value) : key.value,
           options,
         ),
       "key",

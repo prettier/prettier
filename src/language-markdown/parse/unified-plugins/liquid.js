@@ -10,7 +10,7 @@ const liquid = function () {
   proto.inlineTokenizers.liquid = tokenizer;
 
   function tokenizer(eat, value) {
-    const match = value.match(/^(\{%.*?%\}|\{\{.*?\}\})/su);
+    const match = value.match(/^(\{%.*?%\}|\{\{.*?\}\})/s);
 
     if (match) {
       return eat(match[0])({

@@ -109,7 +109,7 @@ function getValueRootOffset(node) {
 
   if (node.type === "css-atrule" && typeof node.name === "string") {
     result +=
-      1 + node.name.length + node.raws.afterName.match(/^\s*:?\s*/u)[0].length;
+      1 + node.name.length + node.raws.afterName.match(/^\s*:?\s*/)[0].length;
   }
 
   if (node.type !== "css-atrule" && typeof node.raws?.between === "string") {
@@ -238,7 +238,7 @@ function replaceQuotesInInlineComments(text) {
   for (const [start, end] of inlineCommentsToReplace) {
     text =
       text.slice(0, start) +
-      text.slice(start, end).replaceAll(/["'*]/gu, " ") +
+      text.slice(start, end).replaceAll(/["'*]/g, " ") +
       text.slice(end);
   }
 

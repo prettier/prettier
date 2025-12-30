@@ -71,7 +71,7 @@ function formatCLIOptions(cliOptions) {
 }
 
 function codeBlock(content, syntax) {
-  const backtickSequences = content.match(/`+/gu) || [];
+  const backtickSequences = content.match(/`+/g) || [];
   const longestBacktickSequenceLength = Math.max(
     ...backtickSequences.map(({ length }) => length),
   );

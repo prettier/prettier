@@ -61,7 +61,7 @@ async function inlineWasmBinary(directory) {
   `;
 
   text = text.replaceAll(
-    /new URL\((?<url>".*?"), import\.meta\.url\)/gu,
+    /new URL\((?<url>".*?"), import\.meta\.url\)/g,
     "{/* $<url> */}",
   );
 

@@ -11,7 +11,7 @@ import visualizeEndOfLine from "./utilities/visualize-end-of-line.js";
 
 const { __dirname } = createEsmUtils(import.meta);
 
-const { FULL_TEST, TEST_STANDALONE, NODE_ENV } = process.env;
+const { FULL_TEST, TEST_STANDALONE, NODE_ENV, TEST_RUNTIME } = process.env;
 const isProduction = NODE_ENV === "production";
 const BOM = "\uFEFF";
 
@@ -27,8 +27,6 @@ const unstableTests = new Map(
     "js/comments/return-statement.js",
     "js/comments/tagged-template-literal.js",
     "js/for/9812-unstable.js",
-    "markdown/spec/example-234.md",
-    "markdown/spec/example-235.md",
     [
       "js/multiparser-markdown/codeblock.js",
       (options) => options.proseWrap === "always",
@@ -50,6 +48,10 @@ const unstableTests = new Map(
     "typescript/import-type/long-module-name/long-module-name4.ts",
     // Unstable due to lack of indent information
     "js/multiparser-comments/comment-inside.js",
+    [
+      "typescript/method-chain/object/issue-17239.ts",
+      (options) => options.objectWrap !== "collapse",
+    ],
   ].map((fixture) => {
     const [file, isUnstable = () => true] = Array.isArray(fixture)
       ? fixture
@@ -75,9 +77,27 @@ const meriyahDisabledTests = new Set(
   ].map((file) => path.join(__dirname, "../format", file)),
 );
 const babelTsDisabledTests = new Set(
-  ["conformance/types/moduleDeclaration/kind-detection.ts"].map((file) =>
-    path.join(__dirname, "../format/typescript", file),
-  ),
+  [
+    "conformance/types/moduleDeclaration/kind-detection.ts",
+    // https://github.com/babel/babel/pull/17659
+    "conformance/internalModules/importDeclarations/circularImportAlias.ts",
+    "conformance/internalModules/importDeclarations/exportImportAlias.ts",
+    "conformance/internalModules/importDeclarations/importAliasIdentifiers.ts",
+    "conformance/internalModules/importDeclarations/shadowedInternalModule.ts",
+    "conformance/types/moduleDeclaration/moduleDeclaration.ts",
+    "conformance/types/ambient/ambientDeclarations.ts",
+    "compiler/declareDottedModuleName.ts",
+    "compiler/privacyGloImport.ts",
+    "declare/declare_module.ts",
+    "const/initializer-ambient-context.ts",
+    "keywords/keywords.ts",
+    "keywords/module.ts",
+    "module/global.ts",
+    "module/keyword.ts",
+    "module/module_nested.ts",
+    "custom/stability/moduleBlock.ts",
+    "interface2/module.ts",
+  ].map((file) => path.join(__dirname, "../format/typescript", file)),
 );
 const oxcDisabledTests = new Set();
 const oxcTsDisabledTests = new Set();
@@ -362,6 +382,7 @@ async function runTest({
 }) {
   let formatOptions = mainParserFormatOptions;
   let formatResult = mainParserFormatResult;
+  expect(formatResult).toBeDefined();
 
   // Verify parsers or error tests
   if (
@@ -449,7 +470,7 @@ async function runTest({
   if (!shouldSkipEolTest(code, formatResult.options)) {
     for (const eol of ["\r\n", "\r"]) {
       const { eolVisualizedOutput: output } = await format(
-        code.replace(/\n/gu, eol),
+        code.replace(/\n/g, eol),
         formatOptions,
       );
       // Only if `endOfLine: "auto"` the result will be different
@@ -457,7 +478,7 @@ async function runTest({
         formatOptions.endOfLine === "auto"
           ? visualizeEndOfLine(
               // All `code` use `LF`, so the `eol` of result is always `LF`
-              formatResult.outputWithCursor.replace(/\n/gu, eol),
+              formatResult.outputWithCursor.replace(/\n/g, eol),
             )
           : formatResult.eolVisualizedOutput;
       expect(output).toEqual(expected);
@@ -599,7 +620,7 @@ async function getExternalPlugins() {
 
 let externalParsers;
 async function loadPlugins(options) {
-  if (!isProduction || !options.parser) {
+  if (!isProduction || !options.parser || TEST_RUNTIME === "browser") {
     return options;
   }
 

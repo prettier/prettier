@@ -76,7 +76,8 @@ function printMappingItem(path, options, print) {
     !hasLeadingComments(value.content) &&
     !hasMiddleComments(value.content) &&
     !hasEndComments(value) &&
-    isAbsolutelyPrintedAsSingleLineNode(value.content, options)
+    isAbsolutelyPrintedAsSingleLineNode(value.content, options) &&
+    isAbsolutelyPrintedAsSingleLineNode(key.content, options)
   ) {
     return [printedKey, spaceBeforeColon, ": ", printedValue];
   }
@@ -173,7 +174,7 @@ function isAbsolutelyPrintedAsSingleLineNode(node, options) {
 
   if (
     // backslash-newline
-    /\\$/mu.test(
+    /\\$/m.test(
       options.originalText.slice(
         node.position.start.offset,
         node.position.end.offset,
@@ -187,7 +188,7 @@ function isAbsolutelyPrintedAsSingleLineNode(node, options) {
     case "never":
       return !node.value.includes("\n");
     case "always":
-      return !/[\n ]/u.test(node.value);
+      return !/[\n ]/.test(node.value);
     default:
       /* c8 ignore next */
       return false;
