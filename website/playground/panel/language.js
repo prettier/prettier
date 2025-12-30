@@ -51,6 +51,8 @@ function getCodemirrorMode(parser) {
       return "YAML";
 
     case "glimmer":
+      return "Handlebars";
+
     case "html":
     case "mjml":
     case "lwc":
@@ -73,6 +75,12 @@ async function getLanguageExtension(mode) {
   if (mode === "GraphQl") {
     const { graphql } = await import("cm6-graphql");
     return graphql();
+  }
+
+  if (mode === "Handlebars") {
+    const { handlebarsLanguage } =
+      await import("@xiechao/codemirror-lang-handlebars");
+    return handlebarsLanguage;
   }
 
   if (!languageExtensions) {
