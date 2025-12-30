@@ -93,10 +93,11 @@ async function getPackageJson(name, base) {
 async function getPackageDependenciesWithoutCache(name, base) {
   const { url, packageJson } = await getPackageJson(name, base);
   const dependencies = [{ name, version: packageJson.version }];
-  for (const dependencyType of ["dependencies", "peerDependencies"]) {
-    for (const name of Object.keys(packageJson[dependencyType] ?? {})) {
-      dependencies.push(...(await getPackageDependencies(name, url)));
-    }
+  for (const name of Object.keys({
+    ...packageJson.dependencies,
+    ...packageJson.peerDependencies,
+  })) {
+    dependencies.push(...(await getPackageDependencies(name, url)));
   }
   return dependencies;
 }
