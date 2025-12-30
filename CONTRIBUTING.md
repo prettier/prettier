@@ -127,3 +127,10 @@ You can run `FULL_TEST=1 jest` for a more robust test run, which includes the fo
 - **BOM** - checks that adding BOM (`U+FEFF`) to the input affects the output in only one way: the BOM is preserved.
 
 Usually there is no need to run these extra checks locally, since they're run on the CI anyway.
+
+## AI usage policy
+
+- Only submit code you fully understand and have tested.
+- Be prepared to explain your changes.
+- Do not ignore our issue and PR templates.
+- Low-quality AI content will be closed immediately.

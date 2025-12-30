@@ -1,4 +1,4 @@
-const { LZString } = window;
+import LZString from "lz-string";
 
 export function read() {
   const hash = document.location.hash.slice(1);

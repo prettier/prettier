@@ -37,21 +37,6 @@ export function buildCliArgs(availableOptions, options) {
   return args;
 }
 
-export function getCodemirrorMode(parser) {
-  switch (parser) {
-    case "css":
-    case "less":
-    case "scss":
-      return "css";
-    case "graphql":
-      return "graphql";
-    case "markdown":
-      return "markdown";
-    default:
-      return "jsx";
-  }
-}
-
 const astAutoFold = {
   estree: /^\s*"(loc|start|end|tokens|\w+Comments|comments)":/,
   postcss: /^\s*"(source|input|raws|file)":/,

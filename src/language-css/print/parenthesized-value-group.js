@@ -12,6 +12,7 @@ import {
   indent,
   join,
   line,
+  lineSuffixBoundary,
   softline,
 } from "../../document/index.js";
 import isNextLineEmpty from "../../utilities/is-next-line-empty.js";
@@ -131,6 +132,7 @@ function printParenthesizedValueGroup(path, options, print) {
 
     return parts;
   }, "groups");
+
   const isKey = isKeyInValuePairNode(node, parent);
   const isConfiguration = isConfigurationNode(node, parent);
   const isSCSSMapItem = isSCSSMapItemNode(path, options);
@@ -142,6 +144,7 @@ function printParenthesizedValueGroup(path, options, print) {
       node.open ? print("open") : "",
       indent([softline, join(line, parts)]),
       softline,
+      lineSuffixBoundary,
       node.close ? print("close") : "",
     ],
     {
