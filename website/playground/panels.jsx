@@ -137,6 +137,8 @@ function setup(props, { emit }) {
       }
     }
 
+    const lang = await getLanguageExtension(props.mode);
+
     const state = EditorState.create({
       doc: props.value || "",
       extensions: [
@@ -152,7 +154,7 @@ function setup(props, { emit }) {
         props.autoCloseBrackets ? closeBrackets() : undefined,
         props.matchBrackets ? bracketMatching() : undefined,
 
-        languageExt.of(await getLanguageExtension(props.mode)),
+        languageExt.of(lang),
         editorTheme.of(
           theme.value === "dark" ? catppuccinMocha : catppuccinLatte,
         ),
