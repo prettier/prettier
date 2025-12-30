@@ -61,7 +61,7 @@ describe("allow overriding flags", () => {
 });
 
 describe("number file/dir", () => {
-  const patterns = ["1", "2.2", "3", "4.44"];
+  const patterns = ["1", "2.2", "3", "4.44", "1e3"];
   for (const pattern of patterns) {
     runCli("cli/arg-parsing/number", [
       "--parser=babel",
@@ -80,18 +80,6 @@ describe("number file/dir", () => {
   ]).test({
     stderr: "",
     status: 1,
-    write: [],
-  });
-});
-
-describe("scientific notation as file path", () => {
-  runCli("cli/arg-parsing/number", [
-    "1e3",
-    "--parser=babel",
-    "--list-different",
-  ]).test({
-    status: 1,
-    stderr: "",
     write: [],
   });
 });
