@@ -39,30 +39,34 @@ async function buildCdnAlias() {
   //   return;
   // }
 
-  const alias = {};
+  return Object.fromEntries(
+    await Promise.all(
+      Object.keys(packageJson.dependencies)
+        .filter((name) => !DEPENDENCIES_EXCLUDE_FROM_CDN.has(name))
+        .map(async (name) => [name, await getPackageCdnUrl(name)]),
+    ),
+  );
+}
 
-  for (const [name, version] of Object.entries(packageJson.dependencies)) {
-    if (DEPENDENCIES_EXCLUDE_FROM_CDN.has(name)) {
-      continue;
-    }
+async function getPackageCdnUrl(name) {
+  const version = packageJson.dependencies[name];
+  const url = new URL(`https://esm.sh/${name}@${version}`);
+  let deps = await getPackageDependencies(name, import.meta.url);
 
-    const url = new URL(`https://esm.sh/${name}@${version}`);
-    let deps = await getPackageDependencies(name, import.meta.url);
-
+  deps = deps
     // Exclude self
-    deps = deps.filter((dependency) => dependency.name !== name);
+    .filter((dependency) => dependency.name !== name)
+    // Sort alphabetically
+    .toSorted(({ name: nameA }, { name: nameB }) => nameA.localeCompare(nameB));
 
-    if (deps.length > 0) {
-      url.searchParams.set(
-        "deps",
-        deps.map(({ name, version }) => `${name}@${version}`).join(","),
-      );
-    }
-
-    alias[name] = url;
+  if (deps.length > 0) {
+    url.searchParams.set(
+      "deps",
+      deps.map(({ name, version }) => `${name}@${version}`).join(","),
+    );
   }
 
-  return alias;
+  return url;
 }
 
 async function getPackageJson(name, base) {
@@ -85,6 +89,11 @@ async function getPackageDependenciesWithoutCache(name, base) {
 
 const cache = new Map();
 function getPackageDependencies(name, base) {
+  // We don't need deps from `vue`
+  if (name === "vue") {
+    return [];
+  }
+
   const cacheKey = JSON.stringify({ name, base });
 
   if (!cache.has(cacheKey)) {
