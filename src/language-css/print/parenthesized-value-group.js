@@ -12,6 +12,7 @@ import {
   indent,
   join,
   line,
+  lineSuffixBoundary,
   softline,
 } from "../../document/index.js";
 import isNextLineEmpty from "../../utilities/is-next-line-empty.js";
@@ -19,7 +20,6 @@ import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
 import { locEnd, locStart } from "../loc.js";
 import {
   isConfigurationNode,
-  isInlineValueCommentNode,
   isKeyInValuePairNode,
   isKeyValuePairNode,
   isSCSSMapItemNode,
@@ -94,52 +94,44 @@ function printParenthesizedValueGroup(path, options, print) {
     );
   }
 
-  const isSingleInlineComment =
-    node.groups.length === 1 && isInlineValueCommentNode(node.groups[0]);
+  const parts = path.map(({ node: child, isLast, index }) => {
+    let doc = groupDocs[index];
 
-  const parts = isSingleInlineComment
-    ? [groupDocs[0]]
-    : path.map(({ node: child, isLast, index }) => {
-        let doc = groupDocs[index];
+    // Key/Value pair in open paren already indented
+    if (
+      isKeyValuePairNode(child) &&
+      child.type === "value-comma_group" &&
+      child.groups &&
+      child.groups[0].type !== "value-paren_group" &&
+      child.groups[2]?.type === "value-paren_group" &&
+      getDocType(doc) === DOC_TYPE_GROUP &&
+      getDocType(doc.contents) === DOC_TYPE_INDENT &&
+      getDocType(doc.contents.contents) === DOC_TYPE_FILL
+    ) {
+      doc = group(dedent(doc));
+    }
 
-        // Key/Value pair in open paren already indented
-        if (
-          isKeyValuePairNode(child) &&
-          child.type === "value-comma_group" &&
-          child.groups &&
-          child.groups[0].type !== "value-paren_group" &&
-          child.groups[2]?.type === "value-paren_group" &&
-          getDocType(doc) === DOC_TYPE_GROUP &&
-          getDocType(doc.contents) === DOC_TYPE_INDENT &&
-          getDocType(doc.contents.contents) === DOC_TYPE_FILL
-        ) {
-          doc = group(dedent(doc));
-        }
+    const parts = [doc, isLast ? printTrailingComma(path, options) : ","];
 
-        const parts = [doc, isLast ? printTrailingComma(path, options) : ","];
+    if (
+      !isLast &&
+      child.type === "value-comma_group" &&
+      isNonEmptyArray(child.groups)
+    ) {
+      let last = child.groups.at(-1);
 
-        if (
-          !isLast &&
-          child.type === "value-comma_group" &&
-          isNonEmptyArray(child.groups)
-        ) {
-          let last = child.groups.at(-1);
+      // `value-paren_group` does not have location info, but its closing parenthesis does.
+      if (!last.source && last.close) {
+        last = last.close;
+      }
 
-          // `value-paren_group` does not have location info, but its closing parenthesis does.
-          if (!last.source && last.close) {
-            last = last.close;
-          }
+      if (last.source && isNextLineEmpty(options.originalText, locEnd(last))) {
+        parts.push(hardline);
+      }
+    }
 
-          if (
-            last.source &&
-            isNextLineEmpty(options.originalText, locEnd(last))
-          ) {
-            parts.push(hardline);
-          }
-        }
-
-        return parts;
-      }, "groups");
+    return parts;
+  }, "groups");
 
   const isKey = isKeyInValuePairNode(node, parent);
   const isConfiguration = isConfigurationNode(node, parent);
@@ -151,7 +143,8 @@ function printParenthesizedValueGroup(path, options, print) {
     [
       node.open ? print("open") : "",
       indent([softline, join(line, parts)]),
-      isSingleInlineComment ? hardline : softline,
+      softline,
+      lineSuffixBoundary,
       node.close ? print("close") : "",
     ],
     {

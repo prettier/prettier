@@ -7,6 +7,7 @@ import {
   indent,
   join,
   line,
+  lineSuffix,
   removeLines,
   softline,
 } from "../document/index.js";
@@ -506,9 +507,12 @@ function genericPrint(path, options, print) {
     case "value-root":
       return print("group");
 
-    case "value-comment":
-      return options.originalText.slice(locStart(node), locEnd(node));
-
+    case "value-comment": {
+      const text = options.originalText.slice(locStart(node), locEnd(node));
+      const isLineComment =
+        node.inline && path.parent?.type === "value-paren_group";
+      return isLineComment ? lineSuffix(text) : text;
+    }
     case "value-comma_group":
       return printCommaSeparatedValueGroup(path, options, print);
 
