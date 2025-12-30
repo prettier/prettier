@@ -9,7 +9,7 @@ defineProps({ version: { type: String, required: true } });
 <template>
   <header>
     <a href="/" class="logo-wrapper">
-      <img class="logo" src="/icon.png" alt="" />
+      <img class="logo" src="../static/icon.png" alt="" />
       <h1>
         Prettier <VersionLink :version></VersionLink>
       </h1>
