@@ -99,7 +99,7 @@ function setup(props, { emit }) {
     });
   };
 
-  const componentDidMount = async () => {
+  const componentDidMount = () => {
     const options = { ...props };
     for (const property of [
       "ruler",
@@ -117,8 +117,6 @@ function setup(props, { emit }) {
       }
     }
 
-    const lang = await getLanguageExtension(props.mode);
-
     const state = EditorState.create({
       doc: props.value || "",
       extensions: [
@@ -134,7 +132,7 @@ function setup(props, { emit }) {
         props.autoCloseBrackets ? closeBrackets() : undefined,
         props.matchBrackets ? bracketMatching() : undefined,
 
-        languageExt.of(lang),
+        languageExt.of([]),
         editorTheme.of(
           theme.value === "dark" ? catppuccinMocha : catppuccinLatte,
         ),
@@ -183,6 +181,7 @@ function setup(props, { emit }) {
 
     updateSelection();
     updateOverlay();
+    updateMode();
     foldCode();
   };
 
@@ -251,15 +250,21 @@ function setup(props, { emit }) {
   };
 
   const updateOverlay = () => {
-    if (!_codeMirror) {
-      return;
-    }
-
-    _codeMirror.dispatch({
+    _codeMirror?.dispatch({
       effects: _overlay.of({
         start: props.overlayStart,
         end: props.overlayEnd,
       }),
+    });
+  };
+
+  const updateMode = async () => {
+    if (!_codeMirror) {
+      return;
+    }
+
+    _codeMirror?.dispatch({
+      effects: languageExt.reconfigure(await getLanguageExtension(props.mode)),
     });
   };
 
@@ -302,18 +307,7 @@ function setup(props, { emit }) {
     },
   );
 
-  watch(
-    () => props.mode,
-    async (mode) => {
-      if (!_codeMirror) {
-        return;
-      }
-
-      _codeMirror.dispatch({
-        effects: languageExt.reconfigure(await getLanguageExtension(mode)),
-      });
-    },
-  );
+  watch(() => props.mode, updateMode);
 
   watch(
     () => props.ruler,
