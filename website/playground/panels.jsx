@@ -182,7 +182,6 @@ function setup(props, { emit }) {
     updateSelection();
     updateOverlay();
     updateMode();
-    foldCode();
   };
 
   const componentWillUnmount = () => {
@@ -262,6 +261,7 @@ function setup(props, { emit }) {
     _codeMirror?.dispatch({
       effects: languageExt.reconfigure(await getLanguageExtension(props.mode)),
     });
+    foldCode();
   };
 
   const handleChange = (value) => {
