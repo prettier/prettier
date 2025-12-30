@@ -5,7 +5,9 @@ import VersionLink from "./version-link.vue";
 
 const logo = "/icon.png";
 
-defineProps({ version: { type: String, required: true } });
+defineProps({
+  version: { type: String, required: true },
+});
 </script>
 
 <template>

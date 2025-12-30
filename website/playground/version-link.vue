@@ -1,7 +1,9 @@
 <script setup>
 import { computed, watch } from "vue";
 
-const props = defineProps({ version: { type: String, required: true } });
+const props = defineProps({
+  version: { type: String, required: true },
+});
 
 const versionData = computed(() => {
   const match = props.version.match(/^pr-(\d+)$/);
