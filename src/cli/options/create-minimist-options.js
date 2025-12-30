@@ -1,6 +1,6 @@
 export default function createMinimistOptions(detailedOptions) {
   const booleanNames = [];
-  const stringNames = [];
+  const stringNames = ["_"];
   const defaultValues = {};
 
   for (const option of detailedOptions) {
