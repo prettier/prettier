@@ -14,7 +14,7 @@ const DEPENDENCIES_EXCLUDE_FROM_CDN = new Set([
   "@docusaurus/preset-classic",
 ]);
 
-// Local develop require local `vue`
+// Local develop requires `vue` for HMR
 if (!IS_PRODUCTION) {
   DEPENDENCIES_EXCLUDE_FROM_CDN.add("vue");
 }
