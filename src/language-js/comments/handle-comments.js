@@ -626,7 +626,8 @@ function handleCommentInEmptyParens({ comment, enclosingNode, text }) {
     ((isRealFunctionLikeNode(enclosingNode) &&
       getFunctionParameters(enclosingNode).length === 0 &&
       // Make sure comment is before the function body (not in return value parentheses)
-      (!enclosingNode.body || locStart(comment) < locStart(enclosingNode.body))) ||
+      (!enclosingNode.body ||
+        locStart(comment) < locStart(enclosingNode.body))) ||
       (isCallLikeExpression(enclosingNode) &&
         getCallArguments(enclosingNode).length === 0))
   ) {
