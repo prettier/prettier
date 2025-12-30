@@ -3,16 +3,16 @@ import GithubButton from "./github-button.vue";
 import ThemeToggle from "./theme-toggle.vue";
 import VersionLink from "./VersionLink.jsx";
 
+const logo = "/icon.png";
+
 defineProps({ version: { type: String, required: true } });
 </script>
 
 <template>
   <header>
     <a href="/" class="logo-wrapper">
-      <img class="logo" src="../static/icon.png" alt="" />
-      <h1>
-        Prettier <VersionLink :version></VersionLink>
-      </h1>
+      <img class="logo" :src="logo" alt="" />
+      <h1>Prettier <VersionLink :version></VersionLink></h1>
     </a>
 
     <span class="links">
