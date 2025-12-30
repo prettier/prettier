@@ -509,9 +509,9 @@ function genericPrint(path, options, print) {
 
     case "value-comment": {
       const text = options.originalText.slice(locStart(node), locEnd(node));
-      const isLineComment =
-        node.inline && path.parent?.type === "value-paren_group";
-      return isLineComment ? lineSuffix(text) : text;
+      return node.inline && path.parent.type === "value-paren_group"
+        ? lineSuffix(text)
+        : text;
     }
     case "value-comma_group":
       return printCommaSeparatedValueGroup(path, options, print);
