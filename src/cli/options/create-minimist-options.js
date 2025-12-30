@@ -1,5 +1,8 @@
 export default function createMinimistOptions(detailedOptions) {
   const booleanNames = [];
+  // Numeric-looking arguments will be returned as numbers unless opts.string or opts.boolean contains that argument name.
+  // To disable numeric conversion for non-option arguments, add '_' to opts.string.
+  // https://github.com/minimistjs/minimist#const-argv--parseargsargs-opts
   const stringNames = ["_"];
   const defaultValues = {};
 
