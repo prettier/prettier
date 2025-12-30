@@ -16,15 +16,13 @@ export default function VersionLink({ version }) {
   document.title = `Prettier ${formattedVersion}`;
 
   return (
-    <Teleport to="#version">
-      <a
-        href={`https://github.com/prettier/prettier/${href}`}
-        target="_blank"
-        rel="noreferrer noopener"
-      >
-        {formattedVersion}
-      </a>
-    </Teleport>
+    <a
+      href={`https://github.com/prettier/prettier/${href}`}
+      target="_blank"
+      rel="noreferrer noopener"
+    >
+      {formattedVersion}
+    </a>
   );
 }
 VersionLink.props = {

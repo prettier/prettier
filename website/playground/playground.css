@@ -94,15 +94,6 @@ header h1 {
   opacity: 0.5;
 }
 
-.links {
-  display: flex;
-  gap: 8px;
-  font-size: 16px;
-  align-items: center;
-}
-.links > * {
-  display: flex;
-}
 .theme-icon {
   padding-block: 2px;
 }

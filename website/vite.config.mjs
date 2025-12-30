@@ -12,6 +12,7 @@ const OUT_DIRECTORY = "./static/playground/";
 const DEPENDENCIES_EXCLUDE_FROM_CDN = new Set([
   "cm6-graphql",
   "@docusaurus/preset-classic",
+  "vue-github-button",
 ]);
 
 export default defineConfig(async () => ({

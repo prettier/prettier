@@ -7968,6 +7968,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"github-buttons@npm:^2.22.0":
+  version: 2.29.1
+  resolution: "github-buttons@npm:2.29.1"
+  checksum: 10/ca7c2ad1714e68041f41d09d5ce5f35219ff5a54490158586b112e193ccaa557bb0a8bee95de8fc054879d08cc8b4985bde88dde01d8d5ca4208dd6b938615c1
+  languageName: node
+  linkType: hard
+
 "github-slugger@npm:^1.5.0":
   version: 1.5.0
   resolution: "github-slugger@npm:1.5.0"
@@ -12886,6 +12893,7 @@ __metadata:
     rollup-plugin-visualizer: "npm:6.0.5"
     vite: "npm:7.2.7"
     vue: "npm:3.5.25"
+    vue-github-button: "npm:3.1.3"
     yaml: "npm:2.8.2"
   languageName: unknown
   linkType: soft
@@ -14284,6 +14292,15 @@ __metadata:
   version: 3.17.5
   resolution: "vscode-languageserver-types@npm:3.17.5"
   checksum: 10/900d0b81df5bef8d90933e75be089142f6989cc70fdb2d5a3a5f11fa20feb396aaea23ccffc8fbcc83a2f0e1b13c6ee48ff8151f236cbd6e61a4f856efac1a58
+  languageName: node
+  linkType: hard
+
+"vue-github-button@npm:3.1.3":
+  version: 3.1.3
+  resolution: "vue-github-button@npm:3.1.3"
+  dependencies:
+    github-buttons: "npm:^2.22.0"
+  checksum: 10/5bc099873f666b4f9adfc57ca207fee1b8d30dafa452ef9ac237ed27e2547f62d89ddb5e692124c60a596c2c8e2d48fe1aafae9372433a679a67d9fad63b55d7
   languageName: node
   linkType: hard
 
