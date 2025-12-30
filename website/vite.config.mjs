@@ -8,6 +8,7 @@ import packageJson from "./package.json" with { type: "json" };
 
 const IS_PRODUCTION = process.env.NODE_ENV === "production";
 const IS_CI = Boolean(process.env.CI);
+const OUT_DIRECTORY = "./static/playground/";
 const DEPENDENCIES_EXCLUDE_FROM_CDN = new Set([
   "cm6-graphql",
   "@docusaurus/preset-classic",
@@ -22,14 +23,14 @@ export default defineConfig(async () => ({
     IS_CI || !IS_PRODUCTION
       ? undefined
       : rollupPluginVisualizer({
-          filename: "./static/playground/report.html",
+          filename: `${OUT_DIRECTORY}bundle-report.html`,
         }),
   ].filter(Boolean),
   resolve: {
     alias: await buildCdnAlias(),
   },
   build: {
-    outDir: "./static/playground/",
+    outDir: OUT_DIRECTORY,
     minify: IS_CI,
   },
 }));
