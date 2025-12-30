@@ -4,6 +4,7 @@ import getCodeSample from "./codeSamples.mjs";
 import generateDummyId from "./dummyId.js";
 import EditorState from "./EditorState.js";
 import formatMarkdown from "./markdown.js";
+import { getCodemirrorMode } from "./panel/language.js";
 import { DebugPanel, InputPanel, OutputPanel } from "./panels.jsx";
 import PrettierFormat from "./PrettierFormat.js";
 import { Sidebar, SidebarCategory } from "./sidebar/components.jsx";
@@ -11,12 +12,7 @@ import { Checkbox } from "./sidebar/inputs.jsx";
 import Option from "./sidebar/options.jsx";
 import SidebarOptions from "./sidebar/SidebarOptions.jsx";
 import * as urlHash from "./urlHash.js";
-import {
-  buildCliArgs,
-  getAstAutoFold,
-  getCodemirrorMode,
-  getDefaults,
-} from "./utilities.js";
+import { buildCliArgs, getAstAutoFold, getDefaults } from "./utilities.js";
 
 const CATEGORIES_ORDER = [
   "Global",
@@ -438,21 +434,24 @@ function setup(props) {
                       ) : null}
                       {editorState.showAst ? (
                         <DebugPanel
+                          mode="JSON"
                           value={debug.ast || ""}
                           autoFold={getAstAutoFold(options.parser)}
                         />
                       ) : null}
                       {editorState.showPreprocessedAst && !isDocExplorer ? (
                         <DebugPanel
+                          mode="JSON"
                           value={debug.preprocessedAst || ""}
                           autoFold={getAstAutoFold(options.parser)}
                         />
                       ) : null}
                       {editorState.showDoc && !isDocExplorer ? (
-                        <DebugPanel value={debug.doc || ""} />
+                        <DebugPanel mode="JSX" value={debug.doc || ""} />
                       ) : null}
                       {editorState.showComments && !isDocExplorer ? (
                         <DebugPanel
+                          mode="JSON"
                           value={debug.comments || ""}
                           autoFold={getAstAutoFold(options.parser)}
                         />
