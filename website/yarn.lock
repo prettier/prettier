@@ -7968,6 +7968,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"github-buttons@npm:2.29.1":
+  version: 2.29.1
+  resolution: "github-buttons@npm:2.29.1"
+  checksum: 10/ca7c2ad1714e68041f41d09d5ce5f35219ff5a54490158586b112e193ccaa557bb0a8bee95de8fc054879d08cc8b4985bde88dde01d8d5ca4208dd6b938615c1
+  languageName: node
+  linkType: hard
+
 "github-slugger@npm:^1.5.0":
   version: 1.5.0
   resolution: "github-slugger@npm:1.5.0"
@@ -12876,6 +12883,7 @@ __metadata:
     clsx: "npm:2.1.1"
     cm6-graphql: "npm:0.2.1"
     concurrently: "npm:9.2.1"
+    github-buttons: "npm:2.29.1"
     graphql: "npm:16.12.0"
     lz-string: "npm:1.5.0"
     prism-react-renderer: "npm:2.4.1"

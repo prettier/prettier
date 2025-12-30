@@ -88,21 +88,6 @@ header h1 {
   margin: 0;
 }
 
-#version {
-  font-size: 0.5em;
-  line-height: 0;
-  opacity: 0.5;
-}
-
-.links {
-  display: flex;
-  gap: 8px;
-  font-size: 16px;
-  align-items: center;
-}
-.links > * {
-  display: flex;
-}
 .theme-icon {
   padding-block: 2px;
 }
