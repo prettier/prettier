@@ -1,6 +1,4 @@
 <script setup>
-import { defineProps } from "vue";
-
 import GithubButton from "vue-github-button";
 import ThemeToggle from "./theme-toggle.vue";
 import VersionLink from "./VersionLink.jsx";
@@ -13,7 +11,7 @@ defineProps({ version: { type: String, required: true } });
     <a href="/" class="logo-wrapper">
       <img class="logo" src="/icon.png" alt="" />
       <h1>
-        Prettier <span id="version"><VersionLink :version></VersionLink></span>
+        Prettier <VersionLink :version></VersionLink>
       </h1>
     </a>
 

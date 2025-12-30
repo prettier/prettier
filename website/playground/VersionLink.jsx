@@ -1,5 +1,3 @@
-import { Teleport } from "vue";
-
 export default function VersionLink({ version }) {
   const match = version.match(/^pr-(\d+)$/);
   let href;

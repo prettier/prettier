@@ -33,6 +33,7 @@ export default defineConfig(async () => ({
   build: {
     outDir: OUT_DIRECTORY,
     minify: IS_CI,
+    rollupOptions: { external: ["vue", "/icon.png"] },
   },
 }));
 
