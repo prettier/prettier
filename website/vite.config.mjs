@@ -9,10 +9,7 @@ import packageJson from "./package.json" with { type: "json" };
 const IS_PRODUCTION = process.env.NODE_ENV === "production";
 const IS_CI = Boolean(process.env.CI);
 const OUT_DIRECTORY = "./static/playground/";
-const DEPENDENCIES_EXCLUDE_FROM_CDN = new Set([
-  "cm6-graphql",
-  "@docusaurus/preset-classic",
-]);
+const DEPENDENCIES_EXCLUDE_FROM_CDN = new Set(["@docusaurus/preset-classic"]);
 
 // Local develop requires `vue` for HMR
 if (!IS_PRODUCTION) {
@@ -57,18 +54,27 @@ async function buildCdnAlias() {
 async function getPackageCdnUrl(name) {
   const version = packageJson.dependencies[name];
   const url = new URL(`https://esm.sh/${name}@${version}`);
-  let deps = await getPackageDependencies(name, import.meta.url);
 
-  deps = deps
+  let dependencies = await getPackageDependencies(name, import.meta.url);
+
+  dependencies = dependencies
     // Exclude self
     .filter((dependency) => dependency.name !== name)
     // Sort alphabetically
-    .toSorted(({ name: nameA }, { name: nameB }) => nameA.localeCompare(nameB));
+    .toSorted(({ name: nameA }, { name: nameB }) => nameA.localeCompare(nameB))
+    // Dedupe
+    .filter(
+      ({ name, version }, index, dependencies) =>
+        dependencies.findIndex(
+          (searching) =>
+            searching.name === name && searching.version === version,
+        ) === index,
+    );
 
-  if (deps.length > 0) {
+  if (dependencies.length > 0) {
     url.searchParams.set(
       "deps",
-      deps.map(({ name, version }) => `${name}@${version}`).join(","),
+      dependencies.map(({ name, version }) => `${name}@${version}`).join(","),
     );
   }
 
@@ -87,8 +93,10 @@ async function getPackageJson(name, base) {
 async function getPackageDependenciesWithoutCache(name, base) {
   const { url, packageJson } = await getPackageJson(name, base);
   const dependencies = [{ name, version: packageJson.version }];
-  for (const name of Object.keys(packageJson.dependencies ?? {})) {
-    dependencies.push(...(await getPackageDependencies(name, url)));
+  for (const dependencyType of ["dependencies", "peerDependencies"]) {
+    for (const name of Object.keys(packageJson[dependencyType] ?? {})) {
+      dependencies.push(...(await getPackageDependencies(name, url)));
+    }
   }
   return dependencies;
 }
