@@ -63,6 +63,7 @@ function getCodemirrorMode(parser) {
     case "mdx":
       return "Markdown";
   }
+
   return "TSX";
 }
 
@@ -83,6 +84,7 @@ async function getLanguageExtension(mode) {
 
   const language =
     languageExtensions.get(mode) ?? languageExtensions.get("TSX");
+
   return await language.loadFunc();
 }
 
