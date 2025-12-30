@@ -8,6 +8,7 @@ import {
   join,
   line,
   lineSuffix,
+  lineSuffixBoundary,
   removeLines,
   softline,
 } from "../document/index.js";
@@ -209,7 +210,7 @@ function genericPrint(path, options, print) {
             "@",
             node.name,
             ": ",
-            node.value ? print("value") : "",
+            node.value ? [print("value"), lineSuffixBoundary] : "",
             node.raws.between.trim() ? node.raws.between.trim() + " " : "",
             node.nodes
               ? [
@@ -509,9 +510,7 @@ function genericPrint(path, options, print) {
 
     case "value-comment": {
       const text = options.originalText.slice(locStart(node), locEnd(node));
-      return node.inline && path.parent.type === "value-paren_group"
-        ? lineSuffix(text)
-        : text;
+      return node.inline ? lineSuffix(text.trimEnd()) : text;
     }
     case "value-comma_group":
       return printCommaSeparatedValueGroup(path, options, print);
