@@ -69,12 +69,14 @@ async function getPackageCdnUrl(dependencyName) {
     overrideDependencies: cdnDependencies.overrideDependencies,
     ignoreDependencies: cdnDependencies.ignoreDependencies,
   });
-  const url = new URL(`https://esm.sh/${name}@${version}`);
 
   assertDependenciesUnique(name, dependencies);
+  const url = new URL(`https://esm.sh/${name}@${version}`);
+  const { searchParams } = url;
+  // searchParams.set("conditions", ["browser"]);
 
   if (dependencies.length > 0) {
-    url.searchParams.set(
+    searchParams.set(
       "deps",
       dependencies.map(({ name, version }) => `${name}@${version}`).join(","),
     );
