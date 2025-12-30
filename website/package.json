@@ -22,7 +22,7 @@
     "@codemirror/language-data": "6.5.2",
     "@codemirror/lint": "6.9.2",
     "@codemirror/state": "6.5.3",
-    "@codemirror/view": "6.39.4",
+    "@codemirror/view": "6.39.8",
     "@docusaurus/preset-classic": "3.9.2",
     "@lezer/highlight": "1.2.3",
     "@mdx-js/react": "3.1.1",
@@ -52,9 +52,6 @@
     "rollup-plugin-visualizer": "6.0.5",
     "vite": "7.2.7",
     "yaml": "2.8.2"
-  },
-  "resolutions": {
-    "@codemirror/view": "6.39.4"
   },
   "browserslist": {
     "production": [

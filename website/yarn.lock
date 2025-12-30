@@ -1914,15 +1914,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@codemirror/view@npm:6.39.4":
-  version: 6.39.4
-  resolution: "@codemirror/view@npm:6.39.4"
+"@codemirror/view@npm:6.39.8, @codemirror/view@npm:^6.0.0, @codemirror/view@npm:^6.17.0, @codemirror/view@npm:^6.23.0, @codemirror/view@npm:^6.27.0, @codemirror/view@npm:^6.35.0":
+  version: 6.39.8
+  resolution: "@codemirror/view@npm:6.39.8"
   dependencies:
     "@codemirror/state": "npm:^6.5.0"
     crelt: "npm:^1.0.6"
     style-mod: "npm:^4.1.0"
     w3c-keyname: "npm:^2.2.4"
-  checksum: 10/8fa1122f2c1dec38eb3a68cd7173c77ea21625bcf2164374bef482213b35222a7811bcc74f221c932c165f8d0a13a17b57456bed6fbae2b12cb9b8355664995a
+  checksum: 10/a15941940fabc9b595da00a7760947cf7ce83f3f819be31250a73d2a1de5d1b5528a5803aa19c74656d2d7cbc39f47daec4962190ffc0849f4f359e45b4f1c3a
   languageName: node
   linkType: hard
 
@@ -13232,7 +13232,7 @@ __metadata:
     "@codemirror/language-data": "npm:6.5.2"
     "@codemirror/lint": "npm:6.9.2"
     "@codemirror/state": "npm:6.5.3"
-    "@codemirror/view": "npm:6.39.4"
+    "@codemirror/view": "npm:6.39.8"
     "@docusaurus/core": "npm:3.9.2"
     "@docusaurus/faster": "npm:3.9.2"
     "@docusaurus/module-type-aliases": "npm:3.9.2"
