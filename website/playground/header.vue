@@ -1,5 +1,5 @@
 <script setup>
-import GithubButton from "vue-github-button";
+import GithubButton from "./github-button.vue";
 import ThemeToggle from "./theme-toggle.vue";
 import VersionLink from "./VersionLink.jsx";
 

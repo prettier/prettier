@@ -32,6 +32,7 @@
     "clipboard": "2.0.11",
     "clsx": "2.1.1",
     "cm6-graphql": "0.2.1",
+    "github-buttons": "2.29.1",
     "graphql": "16.12.0",
     "lz-string": "1.5.0",
     "prism-react-renderer": "2.4.1",
@@ -39,8 +40,7 @@
     "react-dom": "19.2.1",
     "react-markdown": "10.1.0",
     "react-tweet": "3.2.2",
-    "vue": "3.5.25",
-    "vue-github-button": "3.1.3"
+    "vue": "3.5.25"
   },
   "devDependencies": {
     "@docusaurus/core": "3.9.2",

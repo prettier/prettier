@@ -9,11 +9,13 @@ import packageJson from "./package.json" with { type: "json" };
 const IS_PRODUCTION = process.env.NODE_ENV === "production";
 const IS_CI = Boolean(process.env.CI);
 const OUT_DIRECTORY = "./static/playground/";
-const DEPENDENCIES_EXCLUDE_FROM_CDN = new Set([
-  "cm6-graphql",
-  "@docusaurus/preset-classic",
-  "vue-github-button",
-]);
+const DEPENDENCIES_EXCLUDE_FROM_CDN = new Set(
+  [
+    IS_PRODUCTION ? undefined : "vue",
+    "cm6-graphql",
+    "@docusaurus/preset-classic",
+  ].filter(Boolean),
+);
 
 export default defineConfig(async () => ({
   base: IS_PRODUCTION ? "/playground/" : undefined,
@@ -33,7 +35,7 @@ export default defineConfig(async () => ({
   build: {
     outDir: OUT_DIRECTORY,
     minify: IS_CI,
-    rollupOptions: { external: ["vue", "/icon.png"] },
+    rollupOptions: { external: ["/icon.png"] },
   },
 }));
 
