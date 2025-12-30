@@ -1,7 +1,7 @@
 <script setup>
 import GithubButton from "./github-button.vue";
 import ThemeToggle from "./theme-toggle.vue";
-import VersionLink from "./VersionLink.jsx";
+import VersionLink from "./version-link.vue";
 
 const logo = "/icon.png";
 
