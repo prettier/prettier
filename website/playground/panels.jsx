@@ -99,7 +99,7 @@ function setup(props, { emit }) {
     });
   };
 
-  const componentDidMount = async () => {
+  const componentDidMount = () => {
     const options = { ...props };
     for (const property of [
       "ruler",
@@ -117,8 +117,6 @@ function setup(props, { emit }) {
       }
     }
 
-    const lang = await getLanguageExtension(props.mode);
-
     const state = EditorState.create({
       doc: props.value || "",
       extensions: [
@@ -134,7 +132,7 @@ function setup(props, { emit }) {
         props.autoCloseBrackets ? closeBrackets() : undefined,
         props.matchBrackets ? bracketMatching() : undefined,
 
-        languageExt.of(lang),
+        languageExt.of([]),
         editorTheme.of(
           theme.value === "dark" ? catppuccinMocha : catppuccinLatte,
         ),
@@ -183,30 +181,19 @@ function setup(props, { emit }) {
 
     updateSelection();
     updateOverlay();
+    updateMode();
   };
 
   const componentWillUnmount = () => {
     _codeMirror?.destroy();
   };
 
-  const updateValue = (value) => {
-    if (_cached === value) {
-      return;
-    }
-    _cached = value;
-    _codeMirror.dispatch({
-      changes: {
-        from: 0,
-        to: _codeMirror.state.doc.length,
-        insert: value,
-      },
-    });
-
-    if (!(props.autoFold instanceof RegExp)) {
+  const foldCode = () => {
+    if (!_codeMirror || !(props.autoFold instanceof RegExp)) {
       return;
     }
 
-    const lines = value.split("\n");
+    const lines = props.value.split("\n");
     const effects = [];
 
     for (let i = lines.length - 1; i >= 0; i--) {
@@ -229,6 +216,21 @@ function setup(props, { emit }) {
     }
   };
 
+  const updateValue = (value) => {
+    if (_cached === value) {
+      return;
+    }
+    _cached = value;
+    _codeMirror?.dispatch({
+      changes: {
+        from: 0,
+        to: _codeMirror.state.doc.length,
+        insert: value,
+      },
+    });
+    foldCode();
+  };
+
   const updateSelection = () => {
     if (!props.selection || !_codeMirror) {
       return;
@@ -247,16 +249,19 @@ function setup(props, { emit }) {
   };
 
   const updateOverlay = () => {
-    if (!_codeMirror) {
-      return;
-    }
-
-    _codeMirror.dispatch({
+    _codeMirror?.dispatch({
       effects: _overlay.of({
         start: props.overlayStart,
         end: props.overlayEnd,
       }),
     });
+  };
+
+  const updateMode = async () => {
+    _codeMirror?.dispatch({
+      effects: languageExt.reconfigure(await getLanguageExtension(props.mode)),
+    });
+    foldCode();
   };
 
   const handleChange = (value) => {
@@ -298,18 +303,7 @@ function setup(props, { emit }) {
     },
   );
 
-  watch(
-    () => props.mode,
-    async (mode) => {
-      if (!_codeMirror) {
-        return;
-      }
-
-      _codeMirror.dispatch({
-        effects: languageExt.reconfigure(await getLanguageExtension(mode)),
-      });
-    },
-  );
+  watch(() => props.mode, updateMode);
 
   watch(
     () => props.ruler,
