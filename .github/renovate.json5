@@ -90,6 +90,10 @@
         "@xiechao/codemirror-lang-handlebars",
       ],
     },
+    {
+      groupName: "devDependencies",
+      matchDepTypes: ["devDependencies"],
+    },
   ],
   ignoreDeps: [
     // It's a dependency of `remark-parse`, use same version to reduce size
