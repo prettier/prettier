@@ -259,10 +259,6 @@ function setup(props, { emit }) {
   };
 
   const updateMode = async () => {
-    if (!_codeMirror) {
-      return;
-    }
-
     _codeMirror?.dispatch({
       effects: languageExt.reconfigure(await getLanguageExtension(props.mode)),
     });
