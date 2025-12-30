@@ -1,6 +1,5 @@
+import ClipboardJS from "clipboard";
 import { onMounted, reactive, ref } from "vue";
-
-const { ClipboardJS } = window;
 
 export const Button = (props, { slots, attrs }) => (
   <button type="button" class="btn" {...attrs}>
