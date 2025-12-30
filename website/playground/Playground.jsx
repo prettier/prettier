@@ -447,7 +447,7 @@ function setup(props) {
                         />
                       ) : null}
                       {editorState.showDoc && !isDocExplorer ? (
-                        <DebugPanel mode="JSX" value={debug.doc || ""} />
+                        <DebugPanel mode="JavaScript" value={debug.doc || ""} />
                       ) : null}
                       {editorState.showComments && !isDocExplorer ? (
                         <DebugPanel

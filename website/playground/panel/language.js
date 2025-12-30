@@ -1,4 +1,13 @@
+/**
+@import {languages} from "@codemirror/language-data";
+@typedef {typeof languages[number]["name"] | "GraphQl"} LanguageNames
+*/
+
 // TODO: we should be able to get this from plugin languages
+/**
+@param {string} parser
+@returns {LanguageNames}
+*/
 function getCodemirrorMode(parser) {
   switch (parser) {
     case "babel":
@@ -6,8 +15,10 @@ function getCodemirrorMode(parser) {
     case "espree":
     case "meriyah":
     case "oxc":
-    case "doc-explorer":
       return "JSX";
+
+    case "doc-explorer":
+      return "JavaScript";
 
     case "flow":
     case "babel-flow":
@@ -47,6 +58,7 @@ function getCodemirrorMode(parser) {
 
     case "angular":
       return "Angular Template";
+
     case "markdown":
     case "mdx":
       return "Markdown";
@@ -55,6 +67,7 @@ function getCodemirrorMode(parser) {
 }
 
 let languageExtensions;
+/** @param {LanguageNames} mode */
 async function getLanguageExtension(mode) {
   if (mode === "GraphQl") {
     const { graphql } = await import("cm6-graphql");
