@@ -183,30 +183,19 @@ function setup(props, { emit }) {
 
     updateSelection();
     updateOverlay();
+    foldCode();
   };
 
   const componentWillUnmount = () => {
     _codeMirror?.destroy();
   };
 
-  const updateValue = (value) => {
-    if (_cached === value) {
-      return;
-    }
-    _cached = value;
-    _codeMirror.dispatch({
-      changes: {
-        from: 0,
-        to: _codeMirror.state.doc.length,
-        insert: value,
-      },
-    });
-
-    if (!(props.autoFold instanceof RegExp)) {
+  const foldCode = () => {
+    if (!_codeMirror || !(props.autoFold instanceof RegExp)) {
       return;
     }
 
-    const lines = value.split("\n");
+    const lines = props.value.split("\n");
     const effects = [];
 
     for (let i = lines.length - 1; i >= 0; i--) {
@@ -227,6 +216,21 @@ function setup(props, { emit }) {
     if (effects.length > 0) {
       _codeMirror.dispatch({ effects });
     }
+  };
+
+  const updateValue = (value) => {
+    if (_cached === value) {
+      return;
+    }
+    _cached = value;
+    _codeMirror?.dispatch({
+      changes: {
+        from: 0,
+        to: _codeMirror.state.doc.length,
+        insert: value,
+      },
+    });
+    foldCode();
   };
 
   const updateSelection = () => {
