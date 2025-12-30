@@ -1,5 +1,5 @@
 <script setup>
-import { computed, watch } from "vue";
+import { computed, watch, onMounted } from "vue";
 
 const props = defineProps({
   version: { type: String, required: true },
@@ -22,12 +22,13 @@ const versionData = computed(() => {
   };
 });
 
-watch(
-  () => props.version,
-  () => {
-    document.title = `Prettier ${versionData.value.formattedVersion}`;
-  },
-);
+const updateTitle = () => {
+  document.title = `Prettier ${versionData.value.formattedVersion}`;
+};
+
+watch(() => props.version, updateTitle);
+
+onMounted(updateTitle);
 </script>
 
 <template>
