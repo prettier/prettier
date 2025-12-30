@@ -27,6 +27,7 @@ import {
 } from "@codemirror/view";
 import { onMounted, onUnmounted, useTemplateRef, watch } from "vue";
 import { useTheme } from "./composables/use-theme.js";
+import { getLanguageExtension } from "./panel/language.js";
 
 function setup(props, { emit }) {
   const editorRef = useTemplateRef("editorRef");
@@ -97,27 +98,6 @@ function setup(props, { emit }) {
       },
     });
   };
-
-  async function getLanguageExtension(mode) {
-    switch (mode) {
-      case "css": {
-        const { css } = await import("@codemirror/lang-css");
-        return css();
-      }
-      case "graphql": {
-        const { graphql } = await import("cm6-graphql");
-        return graphql();
-      }
-      case "markdown": {
-        const { markdown } = await import("@codemirror/lang-markdown");
-        return markdown();
-      }
-      default: {
-        const { javascript } = await import("@codemirror/lang-javascript");
-        return javascript({ jsx: true, typescript: true });
-      }
-    }
-  }
 
   const componentDidMount = async () => {
     const options = { ...props };
@@ -463,14 +443,14 @@ export function OutputPanel(props) {
   );
 }
 
-export function DebugPanel({ value, autoFold }) {
+export function DebugPanel({ mode, value, autoFold }) {
   return (
     <CodeMirrorPanel
       readOnly={true}
       lineNumbers={false}
       foldGutter={true}
       autoFold={autoFold}
-      mode="jsx"
+      mode={mode}
       value={value}
     />
   );
