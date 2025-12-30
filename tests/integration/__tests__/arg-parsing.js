@@ -85,8 +85,12 @@ describe("number file/dir", () => {
 });
 
 describe("scientific notation as file path", () => {
-  runCli("cli/arg-parsing/number", ["1e3", "--parser=babel"]).test({
-    status: 0,
+  runCli("cli/arg-parsing/number", [
+    "1e3",
+    "--parser=babel",
+    "--list-different",
+  ]).test({
+    status: 1,
     stderr: "",
     write: [],
   });

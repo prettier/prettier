@@ -57,17 +57,10 @@ exports[`number file/dir  4`] = `
 
 exports[`number file/dir  5`] = `
 {
-  "stdout": "1e3",
-}
-`;
-
-exports[`number file/dir  6`] = `
-{
   "stdout": "1/file-in-dir-named-1.js
 2.2/file-in-dir-named-2.2.js
 3
-4.44
-1e3",
+4.44",
 }
 `;
 
@@ -82,6 +75,12 @@ exports[`options with \`cliName\` should not allow to pass directly  2`] = `
   "stderr": "[warn] Ignored unknown option --filepath=file.js.
 [error] No parser and no file path given, couldn't infer a parser.",
   "stdout": "",
+}
+`;
+
+exports[`scientific notation as file path  1`] = `
+{
+  "stdout": "1e3",
 }
 `;
 
