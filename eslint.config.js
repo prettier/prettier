@@ -29,6 +29,7 @@ coverage/
 dist*/
 **/node_modules/**
 website/build/
+website/dev-dist/
 website/static/lib/
 website/static/playground/
 website/.docusaurus

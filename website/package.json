@@ -52,6 +52,7 @@
     "concurrently": "9.2.1",
     "rollup-plugin-visualizer": "6.0.5",
     "vite": "7.3.0",
+    "vite-plugin-pwa": "1.2.0",
     "yaml": "2.8.2"
   },
   "browserslist": {

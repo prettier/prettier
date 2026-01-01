@@ -1,5 +1,3 @@
-import "./install-service-worker.js";
-
 import { createApp, onMounted, reactive } from "vue";
 import Header from "./header.vue";
 import Playground from "./Playground.jsx";
