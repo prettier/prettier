@@ -47,7 +47,9 @@ const languages = [
   createLanguage(linguistLanguages["JSON with Comments"], () => ({
     parsers: ["jsonc"],
     vscodeLanguageIds: ["jsonc"],
-    extensions: data.extensions.filter((extension) => extension !== ".tsconfig.json"),
+    extensions: data.extensions.filter(
+      (extension) => extension !== ".tsconfig.json",
+    ),
     filenames: [],
   })),
   createLanguage(linguistLanguages.JSON5, () => ({
