@@ -30,6 +30,7 @@
     - "[CommonMark](https://commonmark.org/)"
     - "[GitHub-Flavored Markdown](https://github.github.com/gfm/)"
     - "[MDX v1](https://mdxjs.com/)"
+    - Fenced code blocks are formatted in any supported language
 - name: GraphQL
   nameLink: https://graphql.org
   image: /images/languages/tools_gql.svg
