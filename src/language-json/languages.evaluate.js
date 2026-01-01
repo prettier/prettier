@@ -44,7 +44,7 @@ const languages = [
       ".swcrc",
     ],
   })),
-  createLanguage(linguistLanguages["JSON with Comments"], () => ({
+  createLanguage(linguistLanguages["JSON with Comments"], (data) => ({
     parsers: ["jsonc"],
     vscodeLanguageIds: ["jsonc"],
     extensions: data.extensions.filter(
