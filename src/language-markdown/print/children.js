@@ -82,6 +82,13 @@ function shouldPrePrintDoubleHardline(path, options) {
     return true;
   }
 
+  if (
+    node.type === "mdxJsxFlowElement" ||
+    previous.type === "mdxJsxFlowElement"
+  ) {
+    return previous.position.end.line + 1 !== node.position.start.line;
+  }
+
   const isSequence = previous.type === node.type;
   const isSiblingNode = isSequence && SIBLING_NODE_TYPES.has(node.type);
   const isInTightListItem =
