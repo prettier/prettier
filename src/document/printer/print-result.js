@@ -5,7 +5,6 @@ class printResult {
   #settledTexts = [];
   #unsettledText = "";
   #settledTextLength = 0;
-
   /** @type {number[]} */
   #settledPositions = [];
   /** @type {number[]} */
@@ -23,7 +22,6 @@ class printResult {
     for (const position of this.#unsettledPositions) {
       this.#settledPositions.push(Math.min(position, this.#settledTextLength));
     }
-
     this.#unsettledPositions.length = 0;
   }
 
