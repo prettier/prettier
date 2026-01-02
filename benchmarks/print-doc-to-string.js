@@ -9,7 +9,7 @@ assert.notEqual(prettierProduction.version, prettierDevelopment.version);
 
 const text = await fs.readFile(new URL(import.meta.url), "utf8");
 
-for (const size of [1, 1e1, 1e2, 1e3, 5e3]) {
+for (const size of [1, 1e1, 1e2, 1e3]) {
   const doc = await Promise.all(
     Array.from({ length: size }, (_, index) =>
       // @ts-expect-error -- No types
