@@ -6689,10 +6689,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"linguist-languages@npm:9.1.11":
-  version: 9.1.11
-  resolution: "linguist-languages@npm:9.1.11"
-  checksum: 10/d36b6578e3aef89239ee9d682ccb701cab55d517975a42f0b0da3f35aaea7cad95f692db13832b43f048ef47a1ab7e3ba79d8c762907e42e09d8b1e659c755e6
+"linguist-languages@npm:9.2.0":
+  version: 9.2.0
+  resolution: "linguist-languages@npm:9.2.0"
+  checksum: 10/07683a1b07b137aba0de4bc68f7ec0d70f3f02f4d769827f98a837f5ea813ee020a539de6fa5675a2f50520db15d0b8a2edad1edb42f59bf5396f260eb8b3861
   languageName: node
   linkType: hard
 
@@ -8428,7 +8428,7 @@ __metadata:
     json5: "npm:2.2.3"
     knip: "npm:5.78.0"
     leven: "npm:4.1.0"
-    linguist-languages: "npm:9.1.11"
+    linguist-languages: "npm:9.2.0"
     magic-string: "npm:0.30.21"
     make-synchronized: "npm:0.8.0"
     mdast-util-from-markdown: "npm:2.0.2"
