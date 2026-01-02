@@ -83,8 +83,10 @@ function shouldPrePrintDoubleHardline(path, options) {
   }
 
   if (
-    node.type === "mdxJsxFlowElement" ||
-    previous.type === "mdxJsxFlowElement"
+    (previous.type === "mdxJsxFlowElement" &&
+      node.type === "mdxJsxFlowElement") ||
+    (previous.type === "paragraph" && node.type === "mdxJsxFlowElement") ||
+    (previous.type === "mdxJsxFlowElement" && node.type === "paragraph")
   ) {
     return previous.position.end.line + 1 !== node.position.start.line;
   }
