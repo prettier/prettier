@@ -305,6 +305,7 @@ and as you can see_ once you close the italics, it will break incorrectly when p
 | **<InlineCode>Row 2 Code</InlineCode>** | Some text. |
 
 =====================================output=====================================
+This is an example of a component _being used in some italic markdown with some <Bolded />,
 and as you can see_ once you close the italics, it will break incorrectly when prettier formats it.
 
 | Column 1                                | Column 2   |
