@@ -46,7 +46,7 @@ Once your MCP server is configured, you can use it with [GitHub Copilot's agent 
 2. Ensure agent mode is enabled (look for the agent icon in the chat input)
 3. Toggle on the Prettier MCP server tools using the "Tools" button in the chat view
 4. Ask Copilot to perform Prettier tasks, such as:
-   - "Format this file"
+   - "Format this file."
    - "Is this file well formatted?"
 
 ## Troubleshooting
