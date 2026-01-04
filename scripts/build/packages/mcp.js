@@ -45,7 +45,9 @@ packageConfig.modules.push(
         dependencies: Object.fromEntries(
           dependencies.map((name) => [
             name,
-            projectPackageJson.dependencies[name],
+            name === "prettier"
+              ? projectPackageJson.devDependencies[name]
+              : projectPackageJson.dependencies[name],
           ]),
         ),
       };

@@ -77,6 +77,20 @@ function createPackageJsonBuilder({ process }) {
       });
     }
 
+    if (packageJson.dependencies) {
+      for (const [name, version] of Object.entries(packageJson.dependencies)) {
+        assert.ok(
+          typeof version === "string",
+          `Dependency '${name}' is missing.`,
+        );
+      }
+      packageJson.dependencies = Object.fromEntries(
+        Object.keys(packageJson.dependencies)
+          .sort()
+          .map((name) => [name, packageJson.dependencies[name]]),
+      );
+    }
+
     await writeJson(path.join(distDirectory, file.output), packageJson);
   };
 }
