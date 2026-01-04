@@ -4,8 +4,8 @@
   importPlugin: () => Promise<any>,
   options?: any,
   languages?: any[],
-  parserNames?: string[],
-  printerNames?: string[],
+  parsers?: string[],
+  printers?: string[],
 }} param0
 @returns
 */
@@ -15,8 +15,8 @@ function toLazyLoadPlugin({
   importPlugin,
   options,
   languages,
-  parserNames,
-  printerNames,
+  parsers: parserNames,
+  printers: printerNames,
 }) {
   const plugin = { name };
   if (options) {

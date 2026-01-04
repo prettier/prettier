@@ -54,10 +54,10 @@ async function getPluginData(file, pluginFile, getPluginName) {
   const pluginData = {
     name: pluginName,
     url,
-    parserNames: Object.hasOwn(implementation, "parsers")
+    parsers: Object.hasOwn(implementation, "parsers")
       ? Object.keys(implementation.parsers)
       : undefined,
-    printerNames: Object.hasOwn(implementation, "printers")
+    printers: Object.hasOwn(implementation, "printers")
       ? Object.keys(implementation.printers)
       : undefined,
   };
@@ -114,12 +114,12 @@ function getPluginExportStatement(plugin, file) {
         : `${isArray ? "[" : "{"}${variableNames.map((variableName) => `...${variableName},`).join("")}${isArray ? "]" : "}"}`;
   }
 
-  if (plugin.parserNames) {
-    properties.parserNames = JSON.stringify(plugin.parserNames);
+  if (plugin.parsers) {
+    properties.parsers = JSON.stringify(plugin.parsers);
   }
 
-  if (plugin.printerNames) {
-    properties.printerNames = JSON.stringify(plugin.printerNames);
+  if (plugin.printers) {
+    properties.printers = JSON.stringify(plugin.printers);
   }
 
   return outdent`
@@ -143,8 +143,8 @@ async function buildPlugins({ kind, file, pattern, getPluginName }) {
     const estreePlugin = { ...jsPlugin, name: "estree" };
     delete estreePlugin.languages;
     delete estreePlugin.options;
-    delete estreePlugin.parserNames;
-    delete jsPlugin.printerNames;
+    delete estreePlugin.parsers;
+    delete jsPlugin.printers;
     plugins.push(estreePlugin);
   }
 

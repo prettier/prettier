@@ -24,38 +24,38 @@ export const css = /* @__PURE__ */ toLazyLoadPlugin({
   importPlugin: () => import("../../../language-css/index.js"),
   options: cssOptions,
   languages: cssLanguages,
-  parserNames: ["css", "less", "scss"],
-  printerNames: ["postcss"],
+  parsers: ["css", "less", "scss"],
+  printers: ["postcss"],
 });
 export const graphql = /* @__PURE__ */ toLazyLoadPlugin({
   name: "graphql",
   importPlugin: () => import("../../../language-graphql/index.js"),
   options: graphqlOptions,
   languages: graphqlLanguages,
-  parserNames: ["graphql"],
-  printerNames: ["graphql"],
+  parsers: ["graphql"],
+  printers: ["graphql"],
 });
 export const handlebars = /* @__PURE__ */ toLazyLoadPlugin({
   name: "handlebars",
   importPlugin: () => import("../../../language-handlebars/index.js"),
   languages: handlebarsLanguages,
-  parserNames: ["glimmer"],
-  printerNames: ["glimmer"],
+  parsers: ["glimmer"],
+  printers: ["glimmer"],
 });
 export const html = /* @__PURE__ */ toLazyLoadPlugin({
   name: "html",
   importPlugin: () => import("../../../language-html/index.js"),
   options: htmlOptions,
   languages: htmlLanguages,
-  parserNames: ["angular", "html", "lwc", "mjml", "vue"],
-  printerNames: ["html"],
+  parsers: ["angular", "html", "lwc", "mjml", "vue"],
+  printers: ["html"],
 });
 export const js = /* @__PURE__ */ toLazyLoadPlugin({
   name: "js",
   importPlugin: () => import("../../../language-js/index.js"),
   options: jsOptions,
   languages: jsLanguages,
-  parserNames: [
+  parsers: [
     "__babel_estree",
     "__js_expression",
     "__ng_action",
@@ -83,28 +83,28 @@ export const js = /* @__PURE__ */ toLazyLoadPlugin({
 export const estree = /* @__PURE__ */ toLazyLoadPlugin({
   name: "estree",
   importPlugin: () => import("../../../language-js/index.js"),
-  printerNames: ["estree"],
+  printers: ["estree"],
 });
 export const json = /* @__PURE__ */ toLazyLoadPlugin({
   name: "json",
   importPlugin: () => import("../../../language-json/index.js"),
   languages: jsonLanguages,
-  parserNames: ["json", "json-stringify", "json5", "jsonc"],
-  printerNames: ["estree", "estree-json"],
+  parsers: ["json", "json-stringify", "json5", "jsonc"],
+  printers: ["estree", "estree-json"],
 });
 export const markdown = /* @__PURE__ */ toLazyLoadPlugin({
   name: "markdown",
   importPlugin: () => import("../../../language-markdown/index.js"),
   options: markdownOptions,
   languages: markdownLanguages,
-  parserNames: ["markdown", "mdx", "remark"],
-  printerNames: ["mdast"],
+  parsers: ["markdown", "mdx", "remark"],
+  printers: ["mdast"],
 });
 export const yaml = /* @__PURE__ */ toLazyLoadPlugin({
   name: "yaml",
   importPlugin: () => import("../../../language-yaml/index.js"),
   options: yamlOptions,
   languages: yamlLanguages,
-  parserNames: ["yaml"],
-  printerNames: ["yaml"],
+  parsers: ["yaml"],
+  printers: ["yaml"],
 });
