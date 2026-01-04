@@ -9,7 +9,7 @@ title: MCP Server Setup
 
 To use MCP servers in VS Code, you must have the [Copilot Chat](https://code.visualstudio.com/docs/copilot/copilot-chat) extension installed. After that, follow these steps so add the Prettier MCP server:
 
-### 1. Create MCP Configuration File
+### Create MCP Configuration File
 
 Create a `.vscode/mcp.json` file in your project with the following configuration:
 
@@ -28,15 +28,11 @@ Create a `.vscode/mcp.json` file in your project with the following configuratio
 Alternatively, you can use the Command Palette:
 
 1. Press `Ctrl+Shift+P` (Windows/Linux) or `Cmd+Shift+P` (macOS)
-2. Type and select `MCP: Add Server`
-3. Select `Command (stdio)` from the dropdown
-4. Enter `npx @prettier/mcp` as the command
-5. Type `Prettier` as the server ID
-6. Choose `Workspace Settings` to create the configuration in `.vscode/mcp.json`
-
-### 2. Enable MCP Server in User Settings (Optional)
-
-If you want to use the Prettier MCP server across all workspaces, you can follow the previous steps and choose `User Settings` instead of `Workspace Settings` to add the MCP server to your `settings.json` file.
+1. Type and select `MCP: Add Server`
+1. Select `Command (stdio)` from the dropdown
+1. Enter `npx @prettier/mcp` as the command
+1. Type `Prettier` as the server ID
+1. Choose `Workspace Settings` to create the configuration in `.vscode/mcp.json`
 
 ### Using the Prettier MCP Server with GitHub Copilot
 
