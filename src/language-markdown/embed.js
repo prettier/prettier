@@ -70,6 +70,13 @@ function embed(path, options) {
 
     case "mdxFlowExpression":
       return async (textToDoc) => [
+        path.parent.type === "mdxJsxFlowElement" ? hardline : "",
+        "{",
+        await printMdxJsExpression(textToDoc, node.value),
+        "}",
+      ];
+    case "mdxTexExpression":
+      return async (textToDoc) => [
         "{",
         await printMdxJsExpression(textToDoc, node.value),
         "}",

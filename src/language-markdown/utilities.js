@@ -20,6 +20,7 @@ const INLINE_NODE_TYPES = new Set([
   "word",
   "break",
   "inlineMath",
+  "mdxTextExpression",
 ]);
 
 const INLINE_NODE_WRAPPER_TYPES = new Set([
