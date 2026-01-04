@@ -16,7 +16,7 @@ Create a `.vscode/mcp.json` file in your project with the following configuratio
 ```jsonc title=".vscode/mcp.json"
 {
   "servers": {
-    "ESLint": {
+    "Prettier": {
       "type": "stdio",
       "command": "npx",
       "args": ["@prettier/mcp"],
@@ -30,7 +30,7 @@ Alternatively, you can use the Command Palette:
 1. Press `Ctrl+Shift+P` (Windows/Linux) or `Cmd+Shift+P` (macOS)
 2. Type and select `MCP: Add Server`
 3. Select `Command (stdio)` from the dropdown
-4. Enter `npx @prettier/mcp@latest` as the command
+4. Enter `npx @prettier/mcp` as the command
 5. Type `Prettier` as the server ID
 6. Choose `Workspace Settings` to create the configuration in `.vscode/mcp.json`
 
