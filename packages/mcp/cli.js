@@ -2,7 +2,7 @@
 
 import process from "node:process";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
-import server from "./server.js";
+import { server } from "./server.js";
 
 async function start() {
   await server.connect(new StdioServerTransport());
