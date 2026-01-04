@@ -13,7 +13,7 @@ server.registerTool(
   {
     title: "Format files",
     description:
-      "Please provide a list of file urls to the files you want to format.",
+      "Please provide a list of file paths to the files you want to format.",
     inputSchema: {
       files: z.array(z.string().min(1)).nonempty().describe("Files to format"),
     },
