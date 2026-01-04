@@ -12,6 +12,10 @@
   "funding": "https://github.com/prettier/prettier?sponsor=1",
   "homepage": "https://github.com/prettier/prettier/tree/main/packages/mcp",
   "author": "fisker Cheung <lionkay@gmail.com>",
+  "keywords": [
+    "prettier",
+    "mcp"
+  ],
   "license": "MIT",
   "sideEffects": false
 }

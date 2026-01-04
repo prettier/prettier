@@ -25,6 +25,7 @@ const keysToKeep = [
   "files",
   "preferUnplugged",
   "sideEffects",
+  "keywords",
 ];
 
 const publishConfig = {
