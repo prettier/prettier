@@ -16,7 +16,8 @@
       "cli",
       "api",
       "browser",
-      "ci"
+      "ci",
+      "mcp"
     ],
     "Configuring Prettier": [
       "options",
