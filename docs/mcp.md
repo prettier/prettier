@@ -13,15 +13,15 @@ To use MCP servers in VS Code, you must have the [Copilot Chat](https://code.vis
 
 Create a `.vscode/mcp.json` file in your project with the following configuration:
 
-```json
+```jsonc
 {
-	"servers": {
-		"ESLint": {
-			"type": "stdio",
-			"command": "npx",
-			"args": ["@prettier/mcp"]
-		}
-	}
+  "servers": {
+    "ESLint": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["@prettier/mcp"],
+    },
+  },
 }
 ```
 
@@ -46,8 +46,8 @@ Once your MCP server is configured, you can use it with [GitHub Copilot's agent 
 2. Ensure agent mode is enabled (look for the agent icon in the chat input)
 3. Toggle on the Prettier MCP server tools using the "Tools" button in the chat view
 4. Ask Copilot to perform Prettier tasks, such as:
-    - "Format this file"
-    - "Is this file well formatted?"
+   - "Format this file"
+   - "Is this file well formatted?"
 
 ## Troubleshooting
 
