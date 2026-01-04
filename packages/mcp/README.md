@@ -7,6 +7,10 @@
 
 ## Usage
 
+The Prettier MCP server is designed to be run by an IDE-based MCP client like [Visual Studio Code's Copilot](https://code.visualstudio.com/docs/copilot/chat/chat-agent-mode). The command is:
+
 ```bash
 npx @prettier/mcp
 ```
+
+For further instructions please see the [documentation](https://prettier.io/docs/mcp).
