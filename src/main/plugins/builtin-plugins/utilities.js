@@ -1,7 +1,7 @@
 /**
 @param {{
   name: string,
-  importPlugin: () => Promise<any>,
+  load: () => Promise<any>,
   options?: any,
   languages?: any[],
   parsers?: string[],
@@ -12,7 +12,7 @@
 
 function toLazyLoadPlugin({
   name,
-  importPlugin,
+  load,
   options,
   languages,
   parsers: parserNames,
@@ -37,12 +37,12 @@ function toLazyLoadPlugin({
           name,
           process.env.NODE_ENV === "production"
             ? async () => {
-                const loaded = await importPlugin();
+                const loaded = await load();
                 Object.assign(plugin, loaded);
                 return loaded[property][name];
               }
             : async () => {
-                const loaded = await importPlugin();
+                const loaded = await load();
                 // Hide `estree` printer in js plugin
                 plugin[property] = loaded[property];
                 return loaded[property][name];

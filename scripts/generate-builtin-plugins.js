@@ -97,7 +97,7 @@ function getImportStatements(plugins, file) {
 function getPluginExportStatement(plugin, file) {
   const properties = {
     name: JSON.stringify(plugin.name),
-    importPlugin: `() => import("${getImportSource(file, plugin.url)}")`,
+    load: `() => import("${getImportSource(file, plugin.url)}")`,
   };
 
   for (const property of ["options", "languages"]) {
@@ -163,7 +163,10 @@ async function buildPlugins({ kind, file, pattern, getPluginName }) {
       .join("\n")}
   `;
 
-  const formatted = await format(code, { parser: "meriyah" });
+  const formatted = await format(code, {
+    parser: "meriyah",
+    objectWrap: "collapse",
+  });
 
   await fs.writeFile(file, formatted);
 }

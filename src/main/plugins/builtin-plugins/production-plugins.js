@@ -21,12 +21,12 @@ import { toLazyLoadPlugin } from "./utilities.js";
 
 export const acorn = /* @__PURE__ */ toLazyLoadPlugin({
   name: "acorn",
-  importPlugin: () => import("../../../plugins/acorn.js"),
+  load: () => import("../../../plugins/acorn.js"),
   parsers: ["acorn", "espree"],
 });
 export const angular = /* @__PURE__ */ toLazyLoadPlugin({
   name: "angular",
-  importPlugin: () => import("../../../plugins/angular.js"),
+  load: () => import("../../../plugins/angular.js"),
   parsers: [
     "__ng_action",
     "__ng_binding",
@@ -36,7 +36,7 @@ export const angular = /* @__PURE__ */ toLazyLoadPlugin({
 });
 export const babel = /* @__PURE__ */ toLazyLoadPlugin({
   name: "babel",
-  importPlugin: () => import("../../../plugins/babel.js"),
+  load: () => import("../../../plugins/babel.js"),
   parsers: [
     "__babel_estree",
     "__js_expression",
@@ -56,26 +56,26 @@ export const babel = /* @__PURE__ */ toLazyLoadPlugin({
 });
 export const estree = /* @__PURE__ */ toLazyLoadPlugin({
   name: "estree",
-  importPlugin: () => import("../../../plugins/estree.js"),
+  load: () => import("../../../plugins/estree.js"),
   options: jsOptions,
   languages: [...jsonLanguages, ...jsLanguages],
   printers: ["estree", "estree-json"],
 });
 export const flow = /* @__PURE__ */ toLazyLoadPlugin({
   name: "flow",
-  importPlugin: () => import("../../../plugins/flow.js"),
+  load: () => import("../../../plugins/flow.js"),
   parsers: ["flow"],
 });
 export const glimmer = /* @__PURE__ */ toLazyLoadPlugin({
   name: "glimmer",
-  importPlugin: () => import("../../../plugins/glimmer.js"),
+  load: () => import("../../../plugins/glimmer.js"),
   languages: handlebarsLanguages,
   parsers: ["glimmer"],
   printers: ["glimmer"],
 });
 export const graphql = /* @__PURE__ */ toLazyLoadPlugin({
   name: "graphql",
-  importPlugin: () => import("../../../plugins/graphql.js"),
+  load: () => import("../../../plugins/graphql.js"),
   options: graphqlOptions,
   languages: graphqlLanguages,
   parsers: ["graphql"],
@@ -83,7 +83,7 @@ export const graphql = /* @__PURE__ */ toLazyLoadPlugin({
 });
 export const html = /* @__PURE__ */ toLazyLoadPlugin({
   name: "html",
-  importPlugin: () => import("../../../plugins/html.js"),
+  load: () => import("../../../plugins/html.js"),
   options: htmlOptions,
   languages: htmlLanguages,
   parsers: ["angular", "html", "lwc", "mjml", "vue"],
@@ -91,7 +91,7 @@ export const html = /* @__PURE__ */ toLazyLoadPlugin({
 });
 export const markdown = /* @__PURE__ */ toLazyLoadPlugin({
   name: "markdown",
-  importPlugin: () => import("../../../plugins/markdown.js"),
+  load: () => import("../../../plugins/markdown.js"),
   options: markdownOptions,
   languages: markdownLanguages,
   parsers: ["markdown", "mdx", "remark"],
@@ -99,12 +99,12 @@ export const markdown = /* @__PURE__ */ toLazyLoadPlugin({
 });
 export const meriyah = /* @__PURE__ */ toLazyLoadPlugin({
   name: "meriyah",
-  importPlugin: () => import("../../../plugins/meriyah.js"),
+  load: () => import("../../../plugins/meriyah.js"),
   parsers: ["meriyah"],
 });
 export const postcss = /* @__PURE__ */ toLazyLoadPlugin({
   name: "postcss",
-  importPlugin: () => import("../../../plugins/postcss.js"),
+  load: () => import("../../../plugins/postcss.js"),
   options: cssOptions,
   languages: cssLanguages,
   parsers: ["css", "less", "scss"],
@@ -112,12 +112,12 @@ export const postcss = /* @__PURE__ */ toLazyLoadPlugin({
 });
 export const typescript = /* @__PURE__ */ toLazyLoadPlugin({
   name: "typescript",
-  importPlugin: () => import("../../../plugins/typescript.js"),
+  load: () => import("../../../plugins/typescript.js"),
   parsers: ["typescript"],
 });
 export const yaml = /* @__PURE__ */ toLazyLoadPlugin({
   name: "yaml",
-  importPlugin: () => import("../../../plugins/yaml.js"),
+  load: () => import("../../../plugins/yaml.js"),
   options: yamlOptions,
   languages: yamlLanguages,
   parsers: ["yaml"],

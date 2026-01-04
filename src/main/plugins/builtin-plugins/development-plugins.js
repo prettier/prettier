@@ -21,7 +21,7 @@ import { toLazyLoadPlugin } from "./utilities.js";
 
 export const css = /* @__PURE__ */ toLazyLoadPlugin({
   name: "css",
-  importPlugin: () => import("../../../language-css/index.js"),
+  load: () => import("../../../language-css/index.js"),
   options: cssOptions,
   languages: cssLanguages,
   parsers: ["css", "less", "scss"],
@@ -29,7 +29,7 @@ export const css = /* @__PURE__ */ toLazyLoadPlugin({
 });
 export const graphql = /* @__PURE__ */ toLazyLoadPlugin({
   name: "graphql",
-  importPlugin: () => import("../../../language-graphql/index.js"),
+  load: () => import("../../../language-graphql/index.js"),
   options: graphqlOptions,
   languages: graphqlLanguages,
   parsers: ["graphql"],
@@ -37,14 +37,14 @@ export const graphql = /* @__PURE__ */ toLazyLoadPlugin({
 });
 export const handlebars = /* @__PURE__ */ toLazyLoadPlugin({
   name: "handlebars",
-  importPlugin: () => import("../../../language-handlebars/index.js"),
+  load: () => import("../../../language-handlebars/index.js"),
   languages: handlebarsLanguages,
   parsers: ["glimmer"],
   printers: ["glimmer"],
 });
 export const html = /* @__PURE__ */ toLazyLoadPlugin({
   name: "html",
-  importPlugin: () => import("../../../language-html/index.js"),
+  load: () => import("../../../language-html/index.js"),
   options: htmlOptions,
   languages: htmlLanguages,
   parsers: ["angular", "html", "lwc", "mjml", "vue"],
@@ -52,7 +52,7 @@ export const html = /* @__PURE__ */ toLazyLoadPlugin({
 });
 export const js = /* @__PURE__ */ toLazyLoadPlugin({
   name: "js",
-  importPlugin: () => import("../../../language-js/index.js"),
+  load: () => import("../../../language-js/index.js"),
   options: jsOptions,
   languages: jsLanguages,
   parsers: [
@@ -82,19 +82,19 @@ export const js = /* @__PURE__ */ toLazyLoadPlugin({
 });
 export const estree = /* @__PURE__ */ toLazyLoadPlugin({
   name: "estree",
-  importPlugin: () => import("../../../language-js/index.js"),
+  load: () => import("../../../language-js/index.js"),
   printers: ["estree"],
 });
 export const json = /* @__PURE__ */ toLazyLoadPlugin({
   name: "json",
-  importPlugin: () => import("../../../language-json/index.js"),
+  load: () => import("../../../language-json/index.js"),
   languages: jsonLanguages,
   parsers: ["json", "json-stringify", "json5", "jsonc"],
   printers: ["estree", "estree-json"],
 });
 export const markdown = /* @__PURE__ */ toLazyLoadPlugin({
   name: "markdown",
-  importPlugin: () => import("../../../language-markdown/index.js"),
+  load: () => import("../../../language-markdown/index.js"),
   options: markdownOptions,
   languages: markdownLanguages,
   parsers: ["markdown", "mdx", "remark"],
@@ -102,7 +102,7 @@ export const markdown = /* @__PURE__ */ toLazyLoadPlugin({
 });
 export const yaml = /* @__PURE__ */ toLazyLoadPlugin({
   name: "yaml",
-  importPlugin: () => import("../../../language-yaml/index.js"),
+  load: () => import("../../../language-yaml/index.js"),
   options: yamlOptions,
   languages: yamlLanguages,
   parsers: ["yaml"],
