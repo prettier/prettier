@@ -1,15 +1,9 @@
-const loadBuiltinPluginsWithoutCache =
-  process.env.NODE_ENV === "production"
-    ? async function () {
-        return Object.values(
-          await import("./builtin-plugins/production-plugins.js"),
-        );
-      }
-    : async function () {
-        return Object.values(
-          await import("./builtin-plugins/development-plugins.js"),
-        );
-      };
+const loadBuiltinPluginsWithoutCache = async function () {
+  const { plugins } = await (process.env.NODE_ENV === "production"
+    ? import("./builtin-plugins/production-plugins.js")
+    : import("./builtin-plugins/development-plugins.js"));
+  return plugins;
+};
 
 let cache;
 function loadBuiltinPlugins() {

@@ -1,15 +1,17 @@
 /**
-@param {{
+@typedef {{
   name: string,
   load: () => Promise<any>,
   options?: any,
   languages?: any[],
   parsers?: string[],
   printers?: string[],
-}} param0
-@returns
+}} PluginInformation
 */
 
+/**
+@param {PluginInformation} param0
+*/
 function toLazyLoadPlugin({
   name,
   load,
@@ -55,4 +57,11 @@ function toLazyLoadPlugin({
   return plugin;
 }
 
-export { toLazyLoadPlugin };
+/**
+@param  {...PluginInformation} plugins
+*/
+function toLazyLoadPlugins(...plugins) {
+  return plugins.map((plugin) => toLazyLoadPlugin(plugin));
+}
+
+export { toLazyLoadPlugins };

@@ -94,40 +94,48 @@ function getImportStatements(plugins, file) {
     .join("\n");
 }
 
-function getPluginExportStatement(plugin, file) {
-  const properties = {
-    name: JSON.stringify(plugin.name),
-    load: `() => import("${getImportSource(file, plugin.url)}")`,
-  };
+function getExportStatements(plugins, file) {
+  const codes = sortByUrl(plugins).map((plugin) => {
+    const properties = {
+      name: JSON.stringify(plugin.name),
+      load: `() => import("${getImportSource(file, plugin.url)}")`,
+    };
 
-  for (const property of ["options", "languages"]) {
-    if (!plugin[property]) {
-      continue;
+    for (const property of ["options", "languages"]) {
+      if (!plugin[property]) {
+        continue;
+      }
+      const variableNames = plugin[property].entries.map(
+        ({ variableName }) => variableName,
+      );
+      const isArray = property === "languages";
+      properties[property] =
+        variableNames.length === 1
+          ? variableNames
+          : `${isArray ? "[" : "{"}${variableNames.map((variableName) => `...${variableName},`).join("")}${isArray ? "]" : "}"}`;
     }
-    const variableNames = plugin[property].entries.map(
-      ({ variableName }) => variableName,
-    );
-    const isArray = property === "languages";
-    properties[property] =
-      variableNames.length === 1
-        ? variableNames
-        : `${isArray ? "[" : "{"}${variableNames.map((variableName) => `...${variableName},`).join("")}${isArray ? "]" : "}"}`;
-  }
 
-  if (plugin.parsers) {
-    properties.parsers = JSON.stringify(plugin.parsers);
-  }
+    if (plugin.parsers) {
+      properties.parsers = JSON.stringify(plugin.parsers);
+    }
 
-  if (plugin.printers) {
-    properties.printers = JSON.stringify(plugin.printers);
-  }
+    if (plugin.printers) {
+      properties.printers = JSON.stringify(plugin.printers);
+    }
+
+    return outdent`
+      {
+        ${Object.entries(properties)
+          .map(([property, code]) => `${property}: ${code},`)
+          .join("\n")}
+      },
+    `;
+  });
 
   return outdent`
-    export const ${plugin.name} = /* @__PURE__ */ toLazyLoadPlugin({
-      ${Object.entries(properties)
-        .map(([property, code]) => `${property}: ${code},`)
-        .join("\n")}
-    });
+    export const plugins = /* @__PURE__ */ toLazyLoadPlugins(
+      ${codes.join("\n")}
+    );
   `;
 }
 
@@ -155,12 +163,9 @@ async function buildPlugins({ kind, file, pattern, getPluginName }) {
     */
 
     ${getImportStatements(plugins, file)}
-    import {toLazyLoadPlugin} from "./utilities.js";
+    import {toLazyLoadPlugins} from "./utilities.js";
 
-
-    ${sortByUrl(plugins)
-      .map((plugin) => getPluginExportStatement(plugin, file))
-      .join("\n")}
+    ${getExportStatements(plugins, file)}
   `;
 
   const formatted = await format(code, {
