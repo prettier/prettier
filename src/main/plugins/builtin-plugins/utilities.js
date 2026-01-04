@@ -1,22 +1,24 @@
 /**
-@param {{
+@typedef {{
   name: string,
-  importPlugin: () => Promise<any>,
+  load: () => Promise<any>,
   options?: any,
   languages?: any[],
-  parserNames?: string[],
-  printerNames?: string[],
-}} param0
-@returns
+  parsers?: string[],
+  printers?: string[],
+}} PluginInformation
 */
 
+/**
+@param {PluginInformation} param0
+*/
 function toLazyLoadPlugin({
   name,
-  importPlugin,
+  load,
   options,
   languages,
-  parserNames,
-  printerNames,
+  parsers: parserNames,
+  printers: printerNames,
 }) {
   const plugin = { name };
   if (options) {
@@ -37,12 +39,12 @@ function toLazyLoadPlugin({
           name,
           process.env.NODE_ENV === "production"
             ? async () => {
-                const loaded = await importPlugin();
+                const loaded = await load();
                 Object.assign(plugin, loaded);
                 return loaded[property][name];
               }
             : async () => {
-                const loaded = await importPlugin();
+                const loaded = await load();
                 // Hide `estree` printer in js plugin
                 plugin[property] = loaded[property];
                 return loaded[property][name];
@@ -55,4 +57,11 @@ function toLazyLoadPlugin({
   return plugin;
 }
 
-export { toLazyLoadPlugin };
+/**
+@param  {...PluginInformation} plugins
+*/
+function toLazyLoadPlugins(...plugins) {
+  return plugins.map((plugin) => toLazyLoadPlugin(plugin));
+}
+
+export { toLazyLoadPlugins };
