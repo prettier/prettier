@@ -33,7 +33,7 @@ async function formatFile(file) {
     Math.min(getMaxContinuousCount(formatted, "`") + 1, 3),
   );
 
-  return `Formatted code:\n\n${backtickString}\n${formatted}\n${backtickString}`;
+  return `Formatted '${file}' code:\n\n${backtickString}\n${formatted}\n${backtickString}`;
 }
 
 export { formatFile };
