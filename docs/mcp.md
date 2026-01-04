@@ -13,7 +13,7 @@ To use MCP servers in VS Code, you must have the [Copilot Chat](https://code.vis
 
 Create a `.vscode/mcp.json` file in your project with the following configuration:
 
-```jsonc
+```jsonc title=".vscode/mcp.json"
 {
   "servers": {
     "ESLint": {
