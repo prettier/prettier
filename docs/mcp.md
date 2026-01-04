@@ -39,9 +39,9 @@ Alternatively, you can use the Command Palette:
 Once your MCP server is configured, you can use it with [GitHub Copilot's agent mode](https://code.visualstudio.com/docs/copilot/chat/chat-agent-mode):
 
 1. Open the Copilot Chat view in VS Code
-2. Ensure agent mode is enabled (look for the agent icon in the chat input)
-3. Toggle on the Prettier MCP server tools using the "Tools" button in the chat view
-4. Ask Copilot to perform Prettier tasks, such as:
+1. Ensure agent mode is enabled (look for the agent icon in the chat input)
+1. Toggle on the Prettier MCP server tools using the "Tools" button in the chat view
+1. Ask Copilot to perform Prettier tasks, such as:
    - "Format this file."
    - "Is this file well formatted?"
 
@@ -50,9 +50,9 @@ Once your MCP server is configured, you can use it with [GitHub Copilot's agent 
 If you encounter issues with the Prettier MCP server:
 
 1. Check the MCP server status by running `MCP: List Servers` from the Command Palette
-2. Select the Prettier server and choose `Show Output` to view server logs
-3. Ensure that Prettier is installed in your project
-4. Verify that your MCP configuration is correct
+1. Select the Prettier server and choose `Show Output` to view server logs
+1. Ensure that Prettier is installed in your project
+1. Verify that your MCP configuration is correct
 
 ## Additional Resources
 
