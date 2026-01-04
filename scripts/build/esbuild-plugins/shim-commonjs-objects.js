@@ -14,21 +14,32 @@ export default function esbuildPluginShimCommonjsObjects() {
           throw new Error(`${file} not exists`);
         }
 
-        const text = fs.readFileSync(file, "utf8");
+        const lines = fs.readFileSync(file, "utf8").split("\n");
+
+        const before = [];
+        const after = lines;
+
+        const [firstLine] = lines;
+        if (firstLine.startsWith("#!")) {
+          before.push(after.shift(), "");
+        }
 
         // Use `__prettier` prefix to avoid possible conflicts
         fs.writeFileSync(
           file,
-          outdent`
-            import { createRequire as __prettierCreateRequire } from "module";
-            import { fileURLToPath as __prettierFileUrlToPath } from "url";
-            import { dirname as __prettierDirname } from "path";
-            const require = __prettierCreateRequire(import.meta.url);
-            const __filename = __prettierFileUrlToPath(import.meta.url);
-            const __dirname = __prettierDirname(__filename);
+          [
+            ...before,
+            outdent`
+              import { createRequire as __prettierCreateRequire } from "module";
+              import { fileURLToPath as __prettierFileUrlToPath } from "url";
+              import { dirname as __prettierDirname } from "path";
 
-            ${text}
-          `,
+              var require = __prettierCreateRequire(import.meta.url);
+              var __filename = __prettierFileUrlToPath(import.meta.url);
+              var __dirname = __prettierDirname(__filename);
+            `,
+            ...after,
+          ].join("\n"),
         );
       });
     },

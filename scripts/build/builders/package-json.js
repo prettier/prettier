@@ -53,7 +53,12 @@ function createPackageJsonBuilder({ process }) {
 
     // Rewrite `bin`
     if (original.bin) {
-      const originalBinFile = path.join(sourceDirectory, original.bin);
+      let originalBin = original.bin;
+      if (original.name === "prettier") {
+        originalBin = originalBin.prettier;
+      }
+
+      const originalBinFile = path.join(sourceDirectory, originalBin);
       const bin = packageFiles.find(
         (file) =>
           file.input &&
