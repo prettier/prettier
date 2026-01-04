@@ -1,6 +1,6 @@
 ---
 id: mcp
-title: MCP Server Setup
+title: MCP Server
 ---
 
 [Model Context Protocol](https://modelcontextprotocol.io) (MCP) is an open standard that enables AI models to interact with external tools and services through a unified interface. The [`@prettier/mcp`](https://www.npmjs.com/package/@prettier/mcp) package provides an MCP server that you can register with your code editor to allow LLMs to use Prettier directly.
