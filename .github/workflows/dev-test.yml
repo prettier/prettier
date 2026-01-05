@@ -72,7 +72,7 @@ jobs:
 
       - name: Upload Coverage
         uses: codecov/codecov-action@671740ac38dd9b0130fbe1cec585b89eea48d3de # v5.5.2
-        if: ${{ matrix.ENABLE_CODE_COVERAGE }}
+        if: ${{ matrix.ENABLE_CODE_COVERAGE && github.repository == 'prettier/prettier' }}
         with:
           fail_ci_if_error: true
           disable_search: true
