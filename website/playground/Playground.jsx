@@ -238,16 +238,7 @@ function setup(props) {
     const { content, options } = state;
 
     return (
-      <PrettierFormat
-        code={content}
-        options={options}
-        debugAst={editorState.showAst}
-        debugPreprocessedAst={editorState.showPreprocessedAst}
-        debugDoc={editorState.showDoc}
-        debugComments={editorState.showComments}
-        reformat={editorState.showSecondFormat}
-        rethrowEmbedErrors={editorState.rethrowEmbedErrors}
-      >
+      <PrettierFormat code={content} options={options}>
         {({ formatted, debug, cursorOffset }) => {
           const { content, options } = state;
           const fullReport = getMarkdown({

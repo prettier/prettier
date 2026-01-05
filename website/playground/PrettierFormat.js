@@ -1,4 +1,5 @@
 import { onMounted, reactive, toRaw, watch } from "vue";
+import { editorState } from "./composables/editor-state.js";
 import { worker } from "./composables/prettier-worker.js";
 
 function setup(props, { slots }) {
@@ -9,19 +10,16 @@ function setup(props, { slots }) {
   };
 
   const format = async () => {
-    let {
-      code,
-      options,
-      debugAst: ast,
-      debugPreprocessedAst: preprocessedAst,
-      debugDoc: doc,
-      debugComments: comments,
-      reformat,
+    const {
+      showAst: ast,
+      showPreprocessedAst: preprocessedAst,
+      showDoc: doc,
+      showComments: comments,
+      showSecondFormat: reformat,
       rethrowEmbedErrors,
-    } = props;
-    options = toRaw(options);
+    } = editorState;
 
-    const result = await worker.format(code, options, {
+    const result = await worker.format(props.code, toRaw(props.options), {
       ast,
       preprocessedAst,
       doc,
@@ -37,18 +35,16 @@ function setup(props, { slots }) {
 
   onMounted(componentDidMount);
   watch(
-    () =>
-      [
-        "enabled",
-        "code",
-        "options",
-        "debugAst",
-        "debugPreprocessedAst",
-        "debugDoc",
-        "debugComments",
-        "reformat",
-        "rethrowEmbedErrors",
-      ].map((property) => props[property]),
+    () => [
+      props.code,
+      props.options,
+      editorState.showAst,
+      editorState.showPreprocessedAst,
+      editorState.showDoc,
+      editorState.showComments,
+      editorState.reformat,
+      editorState.rethrowEmbedErrors,
+    ],
     () => {
       format();
     },
@@ -62,12 +58,6 @@ export default {
   props: {
     code: String,
     options: Object,
-    debugAst: Boolean,
-    debugPreprocessedAst: Boolean,
-    debugDoc: Boolean,
-    debugComments: Boolean,
-    reformat: Boolean,
-    rethrowEmbedErrors: Boolean,
   },
   setup,
 };
