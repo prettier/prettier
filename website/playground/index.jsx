@@ -1,16 +1,15 @@
 import "./install-service-worker.js";
 
 import { createApp, onMounted, reactive } from "vue";
+import { worker } from "./composables/prettier-worker.js";
 import Header from "./header.vue";
 import Playground from "./Playground.jsx";
 import { fixPrettierVersion } from "./utilities.js";
-import WorkerApi from "./WorkerApi.js";
 
 const App = {
   name: "App",
   setup() {
     const state = reactive({ loaded: false });
-    const worker = new WorkerApi();
 
     const componentDidMount = async () => {
       const { supportInfo, version } = await worker.getMetadata();
@@ -32,11 +31,7 @@ const App = {
       return (
         <>
           <Header version={version}></Header>
-          <Playground
-            worker={worker}
-            availableOptions={availableOptions}
-            version={version}
-          />
+          <Playground availableOptions={availableOptions} version={version} />
         </>
       );
     };

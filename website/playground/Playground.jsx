@@ -2,6 +2,7 @@ import { reactive, watch } from "vue";
 import { Button, ClipboardButton } from "./buttons.jsx";
 import getCodeSample from "./codeSamples.mjs";
 import { editorState } from "./composables/editor-state.js";
+import { worker } from "./composables/prettier-worker.js";
 import generateDummyId from "./dummyId.js";
 import formatMarkdown from "./markdown.js";
 import { getCodemirrorMode } from "./panel/language.js";
@@ -190,7 +191,7 @@ function setup(props) {
 
     const { content, selection } = state;
 
-    return props.worker
+    return worker
       .format(content, {
         parser: "__js_expression",
         cursorOffset: selection?.anchor ?? -1,
@@ -234,12 +235,10 @@ function setup(props) {
   };
 
   const render = () => {
-    const { worker } = props;
     const { content, options } = state;
 
     return (
       <PrettierFormat
-        worker={worker}
         code={content}
         options={options}
         debugAst={editorState.showAst}
@@ -546,7 +545,6 @@ function setup(props) {
 const Playground = {
   name: "Playground",
   props: {
-    worker: { type: Object, required: true },
     availableOptions: { type: Array, required: true },
     version: { type: String, required: true },
   },
