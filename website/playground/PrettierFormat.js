@@ -1,4 +1,5 @@
 import { onMounted, reactive, toRaw, watch } from "vue";
+import { worker } from "./composables/prettier-worker.js";
 
 function setup(props, { slots }) {
   const state = reactive({ formatted: "", debug: {} });
@@ -9,7 +10,6 @@ function setup(props, { slots }) {
 
   const format = async () => {
     let {
-      worker,
       code,
       options,
       debugAst: ast,
@@ -60,7 +60,6 @@ function setup(props, { slots }) {
 export default {
   name: "PrettierFormat",
   props: {
-    worker: Object,
     code: String,
     options: Object,
     debugAst: Boolean,
