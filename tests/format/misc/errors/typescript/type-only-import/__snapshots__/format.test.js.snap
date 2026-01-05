@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`snippet: #0 [babel-ts] format 1`] = `
+"A type-only import can specify a default import or named bindings, but not both. (1:1)
+> 1 | import type foo, {named} from "foo"
+    | ^
+Cause: A type-only import can specify a default import or named bindings, but not both. (1:0)"
+`;
+
+exports[`snippet: #0 [oxc-ts] format 1`] = `
+"A type-only import can specify a default import or named bindings, but not both. (1:1)
+> 1 | import type foo, {named} from "foo"
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
+`;

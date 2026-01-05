@@ -203,7 +203,6 @@ const allowedReasonCodes = new Set([
   "OptionalTypeBeforeRequired",
   "PatternIsOptional",
   "DeclareClassFieldHasInitializer",
-  "TypeImportCannotSpecifyDefaultAndNamed",
 
   "VarRedeclaration",
   "InvalidPrivateFieldResolution",
