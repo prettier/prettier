@@ -8,6 +8,14 @@
   prConcurrentLimit: 0,
   packageRules: [
     {
+      groupName: "GitHub Actions",
+      matchManagers: ["github-actions"],
+    },
+    {
+      groupName: "devDependencies",
+      matchDepTypes: ["devDependencies"],
+    },
+    {
       groupName: "react",
       matchPackageNames: ["react", "react-dom"],
     },
@@ -70,14 +78,6 @@
         "cm6-graphql",
         "@xiechao/codemirror-lang-handlebars",
       ],
-    },
-    {
-      groupName: "GitHub Actions",
-      matchManagers: ["github-actions"],
-    },
-    {
-      groupName: "devDependencies",
-      matchDepTypes: ["devDependencies"],
     },
   ],
   ignoreDeps: [
