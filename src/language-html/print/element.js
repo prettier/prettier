@@ -153,6 +153,17 @@ function printElement(path, options, print) {
     );
   }
 
+  if (node.name === "a") {
+    return printTag([
+      forceBreakContent(node) ? breakParent : "",
+      printChildrenDoc([
+        printLineBeforeChildren(),
+        printChildren(path, options, print),
+      ]),
+      printLineAfterChildren(),
+    ]);
+  }
+
   return printTag([
     forceBreakContent(node) ? breakParent : "",
     printChildrenDoc([
