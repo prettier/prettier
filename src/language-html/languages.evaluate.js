@@ -6,7 +6,7 @@ const languages = [
     name: "Angular",
     parsers: ["angular"],
     vscodeLanguageIds: ["html"],
-    extensions: [".component.html"],
+    extensions: [".html"],
     filenames: [],
   })),
   createLanguage(linguistLanguages.HTML, () => ({
