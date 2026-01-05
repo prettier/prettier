@@ -1,8 +1,8 @@
 import { reactive, watch } from "vue";
 import { Button, ClipboardButton } from "./buttons.jsx";
 import getCodeSample from "./codeSamples.mjs";
+import { editorState } from "./composables/editor-state.js";
 import generateDummyId from "./dummyId.js";
-import EditorState from "./EditorState.js";
 import formatMarkdown from "./markdown.js";
 import { getCodemirrorMode } from "./panel/language.js";
 import { DebugPanel, InputPanel, OutputPanel } from "./panels.jsx";
@@ -238,309 +238,299 @@ function setup(props) {
     const { content, options } = state;
 
     return (
-      <EditorState>
-        {(editorState) => (
-          <PrettierFormat
-            worker={worker}
-            code={content}
-            options={options}
-            debugAst={editorState.showAst}
-            debugPreprocessedAst={editorState.showPreprocessedAst}
-            debugDoc={editorState.showDoc}
-            debugComments={editorState.showComments}
-            reformat={editorState.showSecondFormat}
-            rethrowEmbedErrors={editorState.rethrowEmbedErrors}
-          >
-            {({ formatted, debug, cursorOffset }) => {
-              const { content, options } = state;
-              const fullReport = getMarkdown({
-                formatted,
-                reformatted: debug.reformatted,
-                full: true,
-              });
-              const showFullReport =
-                encodeURIComponent(fullReport).length < MAX_LENGTH;
-              const isDocExplorer = options.parser === "doc-explorer";
+      <PrettierFormat
+        worker={worker}
+        code={content}
+        options={options}
+        debugAst={editorState.showAst}
+        debugPreprocessedAst={editorState.showPreprocessedAst}
+        debugDoc={editorState.showDoc}
+        debugComments={editorState.showComments}
+        reformat={editorState.showSecondFormat}
+        rethrowEmbedErrors={editorState.rethrowEmbedErrors}
+      >
+        {({ formatted, debug, cursorOffset }) => {
+          const { content, options } = state;
+          const fullReport = getMarkdown({
+            formatted,
+            reformatted: debug.reformatted,
+            full: true,
+          });
+          const showFullReport =
+            encodeURIComponent(fullReport).length < MAX_LENGTH;
+          const isDocExplorer = options.parser === "doc-explorer";
 
-              return (
-                <>
-                  <div class="editors-container">
-                    <Sidebar visible={editorState.showSidebar}>
-                      <SidebarOptions
-                        categories={CATEGORIES_ORDER}
-                        availableOptions={enabledOptions}
-                        optionValues={options}
-                        onOption-value-change={handleOptionValueChange}
-                      />
-                      {isDocExplorer ? null : (
-                        <SidebarCategory title="Range">
-                          <label>
-                            The selected range will be highlighted in yellow in
-                            the input editor
-                          </label>
-                          <Option
-                            option={rangeStartOption}
-                            value={
-                              typeof options.rangeStart === "number"
-                                ? options.rangeStart
-                                : undefined
-                            }
-                            onChange={handleOptionValueChange}
-                          />
-                          <Option
-                            option={rangeEndOption}
-                            value={
-                              typeof options.rangeEnd === "number"
-                                ? options.rangeEnd
-                                : undefined
-                            }
-                            overrideMax={content.length}
-                            onChange={handleOptionValueChange}
-                          />
-
-                          <Button onClick={setSelectionAsRange}>
-                            Set selected text as range
-                          </Button>
-                        </SidebarCategory>
-                      )}
-                      {isDocExplorer ? null : (
-                        <SidebarCategory title="Cursor">
-                          <Option
-                            option={cursorOffsetOption}
-                            value={
-                              options.cursorOffset >= 0
-                                ? options.cursorOffset
-                                : undefined
-                            }
-                            onChange={handleOptionValueChange}
-                          />
-                          <div
-                            style={{
-                              display: "flex",
-                              alignItems: "baseline",
-                              gap: "10px",
-                            }}
-                          >
-                            <Checkbox
-                              label="track"
-                              checked={Boolean(state.trackCursorOffset)}
-                              onChange={() => {
-                                state.trackCursorOffset =
-                                  !state.trackCursorOffset;
-                              }}
-                            />
-                            {options.cursorOffset >= 0 ? (
-                              <>
-                                <Button
-                                  onClick={() => {
-                                    handleOptionValueChange(
-                                      cursorOffsetOption,
-                                      -1,
-                                    );
-                                  }}
-                                >
-                                  Reset
-                                </Button>
-                                <label>Result: {cursorOffset}</label>
-                              </>
-                            ) : null}
-                          </div>
-                        </SidebarCategory>
-                      )}
-                      <SidebarCategory title="Debug">
-                        <Checkbox
-                          label="show input"
-                          checked={editorState.showInput}
-                          onChange={editorState.toggleInput}
-                        />
-                        <Checkbox
-                          label="show AST"
-                          checked={editorState.showAst}
-                          onChange={editorState.toggleAst}
-                        />
-                        {isDocExplorer ? null : (
-                          <Checkbox
-                            label="show preprocessed AST"
-                            checked={editorState.showPreprocessedAst}
-                            onChange={editorState.togglePreprocessedAst}
-                          />
-                        )}
-                        {isDocExplorer ? null : (
-                          <Checkbox
-                            label="show doc"
-                            checked={editorState.showDoc}
-                            onChange={editorState.toggleDoc}
-                          />
-                        )}
-                        {isDocExplorer ? null : (
-                          <Checkbox
-                            label="show comments"
-                            checked={editorState.showComments}
-                            onChange={editorState.toggleComments}
-                          />
-                        )}
-                        <Checkbox
-                          label="show output"
-                          checked={editorState.showOutput}
-                          onChange={editorState.toggleOutput}
-                        />
-                        {isDocExplorer ? null : (
-                          <Checkbox
-                            label="show second format"
-                            checked={editorState.showSecondFormat}
-                            onChange={editorState.toggleSecondFormat}
-                          />
-                        )}
-                        {isDocExplorer ? null : (
-                          <Checkbox
-                            label="rethrow embed errors"
-                            checked={editorState.rethrowEmbedErrors}
-                            onChange={editorState.toggleEmbedErrors}
-                          />
-                        )}
-                        {editorState.showDoc && !isDocExplorer ? (
-                          <ClipboardButton
-                            copy={() => getMarkdown({ doc: debug.doc })}
-                            disabled={!debug.doc}
-                          >
-                            Copy doc
-                          </ClipboardButton>
-                        ) : null}
-                      </SidebarCategory>
-                      <div class="sub-options">
-                        <Button onClick={resetOptions}>
-                          Reset to defaults
-                        </Button>
-                      </div>
-                    </Sidebar>
-                    <div class="editors">
-                      {editorState.showInput ? (
-                        <InputPanel
-                          mode={getCodemirrorMode(options.parser)}
-                          ruler={options.printWidth}
-                          value={content}
-                          selection={state.selection}
-                          codeSample={getCodeSample(options.parser)}
-                          overlayStart={options.rangeStart}
-                          overlayEnd={options.rangeEnd}
-                          onChange={setContent}
-                          onSelectionChange={setSelection}
-                          extraKeys={{
-                            "Shift-Alt-f": formatInput,
-                            "Ctrl-q": insertDummyId,
-                          }}
-                          foldGutter={options.parser === "doc-explorer"}
-                        />
-                      ) : null}
-                      {editorState.showAst ? (
-                        <DebugPanel
-                          mode="JSON"
-                          value={debug.ast || ""}
-                          autoFold={getAstAutoFold(options.parser)}
-                        />
-                      ) : null}
-                      {editorState.showPreprocessedAst && !isDocExplorer ? (
-                        <DebugPanel
-                          mode="JSON"
-                          value={debug.preprocessedAst || ""}
-                          autoFold={getAstAutoFold(options.parser)}
-                        />
-                      ) : null}
-                      {editorState.showDoc && !isDocExplorer ? (
-                        <DebugPanel mode="JavaScript" value={debug.doc || ""} />
-                      ) : null}
-                      {editorState.showComments && !isDocExplorer ? (
-                        <DebugPanel
-                          mode="JSON"
-                          value={debug.comments || ""}
-                          autoFold={getAstAutoFold(options.parser)}
-                        />
-                      ) : null}
-                      {editorState.showOutput ? (
-                        <OutputPanel
-                          mode={getCodemirrorMode(options.parser)}
-                          value={formatted}
-                          ruler={options.printWidth}
-                          overlayStart={
-                            cursorOffset === -1 ? undefined : cursorOffset
-                          }
-                          overlayEnd={
-                            cursorOffset === -1 ? undefined : cursorOffset + 1
-                          }
-                        />
-                      ) : null}
-                      {editorState.showSecondFormat && !isDocExplorer ? (
-                        <OutputPanel
-                          mode={getCodemirrorMode(options.parser)}
-                          value={getSecondFormat(formatted, debug.reformatted)}
-                          ruler={options.printWidth}
-                        />
-                      ) : null}
-                    </div>
-                  </div>
-                  <div class="bottom-bar">
-                    <div class="bottom-bar-buttons">
-                      <Button onClick={editorState.toggleSidebar}>
-                        {editorState.showSidebar ? "Hide" : "Show"} options
-                      </Button>
-                      <Button onClick={clearContent}>Clear</Button>
-                      <ClipboardButton
-                        copy={JSON.stringify(
-                          // Remove `parser` since people usually paste this
-                          // into their .prettierrc and specifying a top-level
-                          // parser there is an anti-pattern. Note:
-                          // `JSON.stringify` omits keys whose values are
-                          // `undefined`.
-                          { ...options, parser: undefined },
-                          null,
-                          2,
-                        )}
-                      >
-                        Copy config JSON
-                      </ClipboardButton>
-                      <Button
-                        onClick={insertDummyId}
-                        onMousedown={(event) => event.preventDefault()} // prevent button from focusing
-                        title="Generate a nonsense variable name (Ctrl-Q)"
-                      >
-                        Insert dummy id
-                      </Button>
-                    </div>
-                    <div class="bottom-bar-buttons bottom-bar-buttons-right">
-                      <ClipboardButton copy={window.location.href}>
-                        Copy link
-                      </ClipboardButton>
-                      <ClipboardButton
-                        copy={() =>
-                          getMarkdown({
-                            formatted,
-                            reformatted: debug.reformatted,
-                          })
+          return (
+            <>
+              <div class="editors-container">
+                <Sidebar visible={editorState.showSidebar}>
+                  <SidebarOptions
+                    categories={CATEGORIES_ORDER}
+                    availableOptions={enabledOptions}
+                    optionValues={options}
+                    onOption-value-change={handleOptionValueChange}
+                  />
+                  {isDocExplorer ? null : (
+                    <SidebarCategory title="Range">
+                      <label>
+                        The selected range will be highlighted in yellow in the
+                        input editor
+                      </label>
+                      <Option
+                        option={rangeStartOption}
+                        value={
+                          typeof options.rangeStart === "number"
+                            ? options.rangeStart
+                            : undefined
                         }
+                        onChange={handleOptionValueChange}
+                      />
+                      <Option
+                        option={rangeEndOption}
+                        value={
+                          typeof options.rangeEnd === "number"
+                            ? options.rangeEnd
+                            : undefined
+                        }
+                        overrideMax={content.length}
+                        onChange={handleOptionValueChange}
+                      />
+
+                      <Button onClick={setSelectionAsRange}>
+                        Set selected text as range
+                      </Button>
+                    </SidebarCategory>
+                  )}
+                  {isDocExplorer ? null : (
+                    <SidebarCategory title="Cursor">
+                      <Option
+                        option={cursorOffsetOption}
+                        value={
+                          options.cursorOffset >= 0
+                            ? options.cursorOffset
+                            : undefined
+                        }
+                        onChange={handleOptionValueChange}
+                      />
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "baseline",
+                          gap: "10px",
+                        }}
                       >
-                        Copy markdown
+                        <Checkbox
+                          label="track"
+                          checked={Boolean(state.trackCursorOffset)}
+                          onChange={() => {
+                            state.trackCursorOffset = !state.trackCursorOffset;
+                          }}
+                        />
+                        {options.cursorOffset >= 0 ? (
+                          <>
+                            <Button
+                              onClick={() => {
+                                handleOptionValueChange(cursorOffsetOption, -1);
+                              }}
+                            >
+                              Reset
+                            </Button>
+                            <label>Result: {cursorOffset}</label>
+                          </>
+                        ) : null}
+                      </div>
+                    </SidebarCategory>
+                  )}
+                  <SidebarCategory title="Debug">
+                    <Checkbox
+                      label="show input"
+                      checked={editorState.showInput}
+                      onChange={editorState.toggleInput}
+                    />
+                    <Checkbox
+                      label="show AST"
+                      checked={editorState.showAst}
+                      onChange={editorState.toggleAst}
+                    />
+                    {isDocExplorer ? null : (
+                      <Checkbox
+                        label="show preprocessed AST"
+                        checked={editorState.showPreprocessedAst}
+                        onChange={editorState.togglePreprocessedAst}
+                      />
+                    )}
+                    {isDocExplorer ? null : (
+                      <Checkbox
+                        label="show doc"
+                        checked={editorState.showDoc}
+                        onChange={editorState.toggleDoc}
+                      />
+                    )}
+                    {isDocExplorer ? null : (
+                      <Checkbox
+                        label="show comments"
+                        checked={editorState.showComments}
+                        onChange={editorState.toggleComments}
+                      />
+                    )}
+                    <Checkbox
+                      label="show output"
+                      checked={editorState.showOutput}
+                      onChange={editorState.toggleOutput}
+                    />
+                    {isDocExplorer ? null : (
+                      <Checkbox
+                        label="show second format"
+                        checked={editorState.showSecondFormat}
+                        onChange={editorState.toggleSecondFormat}
+                      />
+                    )}
+                    {isDocExplorer ? null : (
+                      <Checkbox
+                        label="rethrow embed errors"
+                        checked={editorState.rethrowEmbedErrors}
+                        onChange={editorState.toggleEmbedErrors}
+                      />
+                    )}
+                    {editorState.showDoc && !isDocExplorer ? (
+                      <ClipboardButton
+                        copy={() => getMarkdown({ doc: debug.doc })}
+                        disabled={!debug.doc}
+                      >
+                        Copy doc
                       </ClipboardButton>
-                      <a
-                        href={getReportLink(
-                          showFullReport ? fullReport : COPY_MESSAGE,
-                        )}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <ClipboardButton
-                          copy={() => (showFullReport ? "" : fullReport)}
-                        >
-                          Report issue
-                        </ClipboardButton>
-                      </a>
-                    </div>
+                    ) : null}
+                  </SidebarCategory>
+                  <div class="sub-options">
+                    <Button onClick={resetOptions}>Reset to defaults</Button>
                   </div>
-                </>
-              );
-            }}
-          </PrettierFormat>
-        )}
-      </EditorState>
+                </Sidebar>
+                <div class="editors">
+                  {editorState.showInput ? (
+                    <InputPanel
+                      mode={getCodemirrorMode(options.parser)}
+                      ruler={options.printWidth}
+                      value={content}
+                      selection={state.selection}
+                      codeSample={getCodeSample(options.parser)}
+                      overlayStart={options.rangeStart}
+                      overlayEnd={options.rangeEnd}
+                      onChange={setContent}
+                      onSelectionChange={setSelection}
+                      extraKeys={{
+                        "Shift-Alt-f": formatInput,
+                        "Ctrl-q": insertDummyId,
+                      }}
+                      foldGutter={options.parser === "doc-explorer"}
+                    />
+                  ) : null}
+                  {editorState.showAst ? (
+                    <DebugPanel
+                      mode="JSON"
+                      value={debug.ast || ""}
+                      autoFold={getAstAutoFold(options.parser)}
+                    />
+                  ) : null}
+                  {editorState.showPreprocessedAst && !isDocExplorer ? (
+                    <DebugPanel
+                      mode="JSON"
+                      value={debug.preprocessedAst || ""}
+                      autoFold={getAstAutoFold(options.parser)}
+                    />
+                  ) : null}
+                  {editorState.showDoc && !isDocExplorer ? (
+                    <DebugPanel mode="JavaScript" value={debug.doc || ""} />
+                  ) : null}
+                  {editorState.showComments && !isDocExplorer ? (
+                    <DebugPanel
+                      mode="JSON"
+                      value={debug.comments || ""}
+                      autoFold={getAstAutoFold(options.parser)}
+                    />
+                  ) : null}
+                  {editorState.showOutput ? (
+                    <OutputPanel
+                      mode={getCodemirrorMode(options.parser)}
+                      value={formatted}
+                      ruler={options.printWidth}
+                      overlayStart={
+                        cursorOffset === -1 ? undefined : cursorOffset
+                      }
+                      overlayEnd={
+                        cursorOffset === -1 ? undefined : cursorOffset + 1
+                      }
+                    />
+                  ) : null}
+                  {editorState.showSecondFormat && !isDocExplorer ? (
+                    <OutputPanel
+                      mode={getCodemirrorMode(options.parser)}
+                      value={getSecondFormat(formatted, debug.reformatted)}
+                      ruler={options.printWidth}
+                    />
+                  ) : null}
+                </div>
+              </div>
+              <div class="bottom-bar">
+                <div class="bottom-bar-buttons">
+                  <Button onClick={editorState.toggleSidebar}>
+                    {editorState.showSidebar ? "Hide" : "Show"} options
+                  </Button>
+                  <Button onClick={clearContent}>Clear</Button>
+                  <ClipboardButton
+                    copy={JSON.stringify(
+                      // Remove `parser` since people usually paste this
+                      // into their .prettierrc and specifying a top-level
+                      // parser there is an anti-pattern. Note:
+                      // `JSON.stringify` omits keys whose values are
+                      // `undefined`.
+                      { ...options, parser: undefined },
+                      null,
+                      2,
+                    )}
+                  >
+                    Copy config JSON
+                  </ClipboardButton>
+                  <Button
+                    onClick={insertDummyId}
+                    onMousedown={(event) => event.preventDefault()} // prevent button from focusing
+                    title="Generate a nonsense variable name (Ctrl-Q)"
+                  >
+                    Insert dummy id
+                  </Button>
+                </div>
+                <div class="bottom-bar-buttons bottom-bar-buttons-right">
+                  <ClipboardButton copy={window.location.href}>
+                    Copy link
+                  </ClipboardButton>
+                  <ClipboardButton
+                    copy={() =>
+                      getMarkdown({
+                        formatted,
+                        reformatted: debug.reformatted,
+                      })
+                    }
+                  >
+                    Copy markdown
+                  </ClipboardButton>
+                  <a
+                    href={getReportLink(
+                      showFullReport ? fullReport : COPY_MESSAGE,
+                    )}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <ClipboardButton
+                      copy={() => (showFullReport ? "" : fullReport)}
+                    >
+                      Report issue
+                    </ClipboardButton>
+                  </a>
+                </div>
+              </div>
+            </>
+          );
+        }}
+      </PrettierFormat>
     );
   };
 
