@@ -639,6 +639,7 @@ function handleCommentInEmptyParens({ comment, enclosingNode, options }) {
   // i.e. a function without any argument.
   if (
     ((isRealFunctionLikeNode(enclosingNode) &&
+      enclosingNode.type !== "TSAbstractMethodDefinition" &&
       getFunctionParameters(enclosingNode).length === 0) ||
       (isCallLikeExpression(enclosingNode) &&
         getCallArguments(enclosingNode).length === 0)) &&
@@ -1227,6 +1228,7 @@ const isRealFunctionLikeNode = createTypeCheckFunction([
   "TSConstructorType",
   "TSFunctionType",
   "TSDeclareMethod",
+  "TSAbstractMethodDefinition",
 ]);
 
 const handleComments = {
