@@ -7628,10 +7628,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"narrow-emojis@npm:0.0.2":
-  version: 0.0.2
-  resolution: "narrow-emojis@npm:0.0.2"
-  checksum: 10/3a3327ce8ee41e2bad64ad304eb9bc6831a02b6042c387e70898025b3060d950ec9b6c17e9b9feeec00724c072c59a47f832424c04d662611ccdbc6bebc51e70
+"narrow-emojis@npm:0.0.3":
+  version: 0.0.3
+  resolution: "narrow-emojis@npm:0.0.3"
+  checksum: 10/873587143c5bf5feea0b023c0388bc3527e290004da97f41123724898a2f65c88bacc07a4bcd9c651249888f24d7ef7da177e0c1bad119810dd9a67089418b21
   languageName: node
   linkType: hard
 
@@ -8461,7 +8461,7 @@ __metadata:
     minimist: "npm:1.2.8"
     n-readlines: "npm:3.4.0"
     nano-spawn: "npm:2.0.0"
-    narrow-emojis: "npm:0.0.2"
+    narrow-emojis: "npm:0.0.3"
     node-style-text: "npm:2.1.2"
     npm-run-all2: "npm:8.0.4"
     open-editor: "npm:6.0.0"
