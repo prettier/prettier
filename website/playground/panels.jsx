@@ -182,6 +182,7 @@ function setup(props, { emit }) {
     updateSelection();
     updateOverlay();
     updateMode();
+    _cached = props.value;
   };
 
   const componentWillUnmount = () => {
