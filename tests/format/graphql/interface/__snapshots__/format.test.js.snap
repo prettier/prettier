@@ -92,6 +92,29 @@ extend interface Bar implements A & B & C {
 ================================================================================
 `;
 
+exports[`many-interfaces.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+type Foo implements InterfaceOne & InterfaceTwo & InterfaceThree & InterfaceFour & InterfaceFive & InterfaceSix {
+  id: ID!
+}
+
+=====================================output=====================================
+type Foo implements InterfaceOne &
+  InterfaceTwo &
+  InterfaceThree &
+  InterfaceFour &
+  InterfaceFive &
+  InterfaceSix {
+  id: ID!
+}
+
+================================================================================
+`;
+
 exports[`object_type_def.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
@@ -310,23 +333,29 @@ type Type2 implements A & B & C & D {
 }
 
 type Type3 implements A &
-# &&&&&&&& comment line 1
-# &&&&&&&& comment line 2
-B & C & D {
+  # &&&&&&&& comment line 1
+  # &&&&&&&& comment line 2
+  B &
+  C &
+  D {
   a: a
 }
 
 type Type4 implements A &
-# &&&&&&&& comment line 1
-# &&&&&&&& comment line 2
-B & C & D {
+  # &&&&&&&& comment line 1
+  # &&&&&&&& comment line 2
+  B &
+  C &
+  D {
   a: a
 }
 
 type Type5 implements A &
-# &&&&&&&& comment line 1
-# &&&&&&&& comment line 2
-B & C & D {
+  # &&&&&&&& comment line 1
+  # &&&&&&&& comment line 2
+  B &
+  C &
+  D {
   a: a
 }
 

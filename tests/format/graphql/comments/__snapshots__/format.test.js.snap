@@ -60,11 +60,13 @@ A & B &
  E {a: a}
 
 =====================================output=====================================
-type Type1 implements A & B &
-# comment 1
-C & D &
-# comment 2
-E {
+type Type1 implements A &
+  B &
+  # comment 1
+  C &
+  D &
+  # comment 2
+  E {
   a: a
 }
 
