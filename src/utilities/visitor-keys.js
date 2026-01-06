@@ -103,6 +103,11 @@ function generateReferenceSharedVisitorKeys(visitorKeys) {
   const result = {};
 
   for (const [type, keys] of Object.entries(visitorKeys)) {
+    // Don't share empty keys, since it's shorter
+    if (keys.length === 0) {
+      result[type] = keys;
+      continue;
+    }
     const cacheKey = keys.toSorted().join("\0");
     if (!cache.has(cacheKey)) {
       cache.set(cacheKey, keys);
