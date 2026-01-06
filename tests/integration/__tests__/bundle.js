@@ -100,7 +100,7 @@ describe("standalone", () => {
     [
       "graphql",
       {
-        sharedVisitorKeys: false,
+        sharedVisitorKeys: true,
         nodes: [{ kind: "StringValue" }, { kind: "BooleanValue" }],
       },
     ],
