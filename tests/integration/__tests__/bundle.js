@@ -86,7 +86,7 @@ describe("standalone", () => {
     [
       "estree-json",
       {
-        sharedVisitorKeys: true,
+        sharedVisitorKeys: false,
         nodes: [{ type: "StringLiteral" }, { type: "Identifier" }],
       },
     ],
@@ -94,28 +94,34 @@ describe("standalone", () => {
       "glimmer",
       {
         sharedVisitorKeys: false,
-        nodes: [{ type: "Template" }, { type: "Block" }],
+        nodes: [
+          { type: "MustacheStatement" },
+          { type: "ElementModifierStatement" },
+        ],
       },
     ],
     [
       "graphql",
       {
         sharedVisitorKeys: true,
-        nodes: [{ kind: "StringValue" }, { kind: "BooleanValue" }],
+        nodes: [
+          { kind: "ObjectTypeExtension" },
+          { kind: "InterfaceTypeExtension" },
+        ],
       },
     ],
     [
       "html",
       {
         sharedVisitorKeys: true,
-        nodes: [{ kind: "comment" }, { kind: "cdata" }],
+        nodes: [{ kind: "interpolation" }, { kind: "ieConditionalComment" }],
       },
     ],
     [
       "mdast",
       {
         sharedVisitorKeys: true,
-        nodes: [{ type: "code" }, { type: "image" }],
+        nodes: [{ type: "table" }, { type: "tableCell" }],
       },
     ],
     [
@@ -138,42 +144,47 @@ describe("standalone", () => {
     for (const [name, printer] of esmPlugins.flatMap((plugin) =>
       Object.entries(plugin.printers ?? {}),
     )) {
-      try {
-        expect(printerVisitorKeysSettings.has(name)).toBe(true);
-      } catch {
-        throw new Error(`Missing settings for printer '${name}'.`);
-      }
-      const { getVisitorKeys } = printer;
-      expect(typeof getVisitorKeys).toBe("function");
-      const { sharedVisitorKeys, nodes } = printerVisitorKeysSettings.get(name);
-      expect(
-        typeof sharedVisitorKeys === "boolean" &&
-          Array.isArray(nodes) &&
-          nodes.length > 1,
-      ).toBe(true);
-      const keys = nodes.map((node) => getVisitorKeys(node));
-
-      try {
-        expect(keys.every((keys) => Array.isArray(keys))).toBe(true);
-      } catch {
-        throw new Error(
-          `Missing visitor keys for '${name}' nodes: ${inspect(nodes)}.`,
-        );
-      }
-      const [firstNodeKeys, ...restNodeKeys] = keys;
-      if (sharedVisitorKeys) {
-        // Should be same reference
-        expect(restNodeKeys.every((keys) => keys === firstNodeKeys)).toBe(true);
-      } else {
-        // Should be same, but not same reference
+      test(name, () => {
+        try {
+          expect(printerVisitorKeysSettings.has(name)).toBe(true);
+        } catch {
+          throw new Error(`Missing settings for printer '${name}'.`);
+        }
+        const { getVisitorKeys } = printer;
+        expect(typeof getVisitorKeys).toBe("function");
+        const { sharedVisitorKeys, nodes } =
+          printerVisitorKeysSettings.get(name);
         expect(
-          restNodeKeys.every(
-            (keys) =>
-              keys !== firstNodeKeys &&
-              JSON.stringify(keys) === JSON.stringify(firstNodeKeys),
-          ),
+          typeof sharedVisitorKeys === "boolean" &&
+            Array.isArray(nodes) &&
+            nodes.length > 1,
         ).toBe(true);
-      }
+        const keys = nodes.map((node) => getVisitorKeys(node));
+
+        try {
+          expect(keys.every((keys) => Array.isArray(keys))).toBe(true);
+        } catch {
+          throw new Error(
+            `Missing visitor keys for '${name}' nodes: ${inspect(nodes)}.`,
+          );
+        }
+        const [firstNodeKeys, ...restNodeKeys] = keys;
+        if (sharedVisitorKeys) {
+          // Should be same reference
+          expect(restNodeKeys.every((keys) => keys === firstNodeKeys)).toBe(
+            true,
+          );
+        } else {
+          // Should be same, but not same reference
+          expect(
+            restNodeKeys.every(
+              (keys) =>
+                keys !== firstNodeKeys &&
+                JSON.stringify(keys) === JSON.stringify(firstNodeKeys),
+            ),
+          ).toBe(true);
+        }
+      });
     }
   });
 });
