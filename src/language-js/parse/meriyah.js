@@ -1,4 +1,4 @@
-import { parse as meriyahParse } from "meriyah";
+import { parse as meriyahParse, ParseError } from "meriyah";
 import createError from "../../common/parser-create-error.js";
 import { tryCombinationsSync } from "../../utilities/try-combinations.js";
 import postprocess from "./postprocess/index.js";
@@ -64,12 +64,12 @@ function parseWithOptions(text, sourceType) {
 }
 
 function createParseError(error) {
-  const { description, loc } = error;
-
   /* c8 ignore next 3 */
-  if (!loc) {
+  if (!(error instanceof ParseError)) {
     return error;
   }
+
+  const { description, loc } = error;
 
   return createError(description, {
     loc: {

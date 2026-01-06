@@ -1,4 +1,4 @@
-import { parse as parseYaml } from "yaml-unist-parser/lib/parse.js";
+import { parse as parseYaml, YAMLSyntaxError } from "yaml-unist-parser";
 import createError from "../common/parser-create-error.js";
 import { locEnd, locStart } from "./loc.js";
 import { hasIgnorePragma, hasPragma } from "./pragma.js";
@@ -21,7 +21,7 @@ function parse(text) {
 
     return root;
   } catch (/** @type {any} */ error) {
-    if (error?.position) {
+    if (error instanceof YAMLSyntaxError) {
       throw createError(error.message, {
         loc: error.position,
         cause: error,
