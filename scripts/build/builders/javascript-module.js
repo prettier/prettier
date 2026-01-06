@@ -200,6 +200,7 @@ function getEsbuildOptions({ packageConfig, file, cliOptions, buildOptions }) {
       buildOptions.addDefaultExport && esbuildPluginAddDefaultExport(),
     ].filter(Boolean),
     minify: shouldMinify,
+    treeShaking: true,
     legalComments: "none",
     external: ["pnpapi", ...(buildOptions.external ?? [])],
     // Disable esbuild auto discover `tsconfig.json` file
