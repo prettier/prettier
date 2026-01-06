@@ -733,19 +733,7 @@ const pluginFiles = [
       },
     ],
   },
-  {
-    input: "src/plugins/graphql.js",
-    replaceModule: [
-      {
-        module: getPackageFile("graphql/language/ast.mjs"),
-        process: (text) =>
-          text.replace(
-            "const kindValues = new Set(Object.keys(QueryDocumentKeys));",
-            "const kindValues = /* @__PURE__ */ new Set( /* @__PURE__ */ Object.keys(QueryDocumentKeys));",
-          ),
-      },
-    ],
-  },
+  "src/plugins/graphql.js",
   {
     input: "src/plugins/markdown.js",
     replaceModule: [
