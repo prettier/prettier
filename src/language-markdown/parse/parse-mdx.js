@@ -1,3 +1,4 @@
+import { Parser as acorn } from "acorn";
 import { fromMarkdown } from "mdast-util-from-markdown";
 import { mathFromMarkdown } from "mdast-util-math";
 import { mdxFromMarkdown } from "mdast-util-mdx";
@@ -29,8 +30,13 @@ function getMarkdownParseOptions() {
           parse(text) {
             return { type: "Program", start: 0, end: text.length, body: [] };
           },
-          parseExpressionAt(text) {
-            return { type: "Literal", start: 0, end: text.length };
+          parseExpressionAt(...args) {
+            const original = acorn.parseExpressionAt(...args); // need actual parsing to get end of expression
+            return {
+              type: "Literal",
+              start: original.start,
+              end: original.end,
+            };
           },
         },
       }),
