@@ -81,7 +81,6 @@ updateElbowArrowPoints(newElement, elementsMap, {
   ),
 });
 
-
 // https://github.com/vuejs/core/blob/aac7e1898907445c8f89b22047a9bfcf0a6e91b8/packages-private/sfc-playground/src/App.vue#L50
 sfcOptions = computed(
   (): SFCOptions => ({
