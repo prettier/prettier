@@ -209,17 +209,6 @@ function couldExpandArg(arg, arrowChainRecursion = false) {
     (isBinaryCastExpression(arg) && couldExpandArg(arg.expression)) ||
     arg.type === "FunctionExpression" ||
     (arg.type === "ArrowFunctionExpression" &&
-      // we want to avoid breaking inside composite return types but not simple keywords
-      // https://github.com/prettier/prettier/issues/4070
-      // export class Thing implements OtherThing {
-      //   do: (type: Type) => Provider<Prop> = memoize(
-      //     (type: ObjectType): Provider<Opts> => {}
-      //   );
-      // }
-      // https://github.com/prettier/prettier/issues/6099
-      // app.get("/", (req, res): void => {
-      //   res.send("Hello World!");
-      // });
       (arg.body.type === "BlockStatement" ||
         (arg.body.type === "ArrowFunctionExpression" &&
           couldExpandArg(arg.body, true)) ||
@@ -239,6 +228,7 @@ function shouldExpandLastArg(args, argDocs, options) {
 
   if (args.length === 1) {
     const lastArgDoc = argDocs.at(-1);
+
     if (lastArgDoc.label?.embed && lastArgDoc.label?.hug !== false) {
       return true;
     }
