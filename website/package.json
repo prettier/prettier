@@ -50,6 +50,7 @@
     "@vitejs/plugin-vue": "6.0.3",
     "@vitejs/plugin-vue-jsx": "5.1.3",
     "concurrently": "9.2.1",
+    "package-dependencies-tree": "0.0.1",
     "rollup-plugin-visualizer": "6.0.5",
     "vite": "7.3.0",
     "yaml": "2.8.2"
