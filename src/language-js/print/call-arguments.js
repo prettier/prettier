@@ -227,7 +227,6 @@ function shouldExpandLastArg(args, argDocs, options) {
 
   if (args.length === 1) {
     const lastArgDoc = argDocs.at(-1);
-
     if (lastArgDoc.label?.embed && lastArgDoc.label?.hug !== false) {
       return true;
     }
