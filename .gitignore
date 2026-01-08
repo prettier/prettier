@@ -14,6 +14,7 @@
 /.vscode/**/*
 !/.vscode/extensions.json
 !/.vscode/settings.example.json
+!/.vscode/mcp.example.json
 /dist*
 /website/build
 /website/i18n

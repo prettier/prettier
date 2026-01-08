@@ -1,0 +1,21 @@
+{
+  "name": "@prettier/mcp",
+  "version": "0.0.1",
+  "description": "MCP server for Prettier.",
+  "type": "module",
+  "bin": "./cli.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/prettier/prettier.git",
+    "directory": "packages/mcp"
+  },
+  "funding": "https://github.com/prettier/prettier?sponsor=1",
+  "homepage": "https://github.com/prettier/prettier/tree/main/packages/mcp",
+  "author": "fisker Cheung <lionkay@gmail.com>",
+  "keywords": [
+    "prettier",
+    "mcp"
+  ],
+  "license": "MIT",
+  "sideEffects": false
+}

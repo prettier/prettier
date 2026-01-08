@@ -13,11 +13,11 @@ const extensions = {
   cjs: ".cjs",
 };
 
-function createPackageJsonConfig({ "package.json": process }) {
+function createPackageJsonConfig({ packageName, "package.json": process }) {
   return {
     input: "package.json",
     output: "package.json",
-    build: createPackageJsonBuilder({ process }),
+    build: createPackageJsonBuilder({ packageName, process }),
   };
 }
 

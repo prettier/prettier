@@ -1,4 +1,5 @@
 **/.yarn/*
+!**/.yarn/plugins
 
 # Ignore directories and files in 'tests/format'
 /tests/format/**/*.*

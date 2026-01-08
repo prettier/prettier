@@ -1,0 +1,14 @@
+{
+  "servers": {
+    "Prettier": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["@prettier/mcp"],
+    },
+    "Prettier Dev": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["./packages/mcp/cli.js"],
+    },
+  },
+}

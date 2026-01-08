@@ -25,6 +25,7 @@ const keysToKeep = [
   "files",
   "preferUnplugged",
   "sideEffects",
+  "keywords",
 ];
 
 const publishConfig = {
@@ -53,7 +54,12 @@ function createPackageJsonBuilder({ process }) {
 
     // Rewrite `bin`
     if (original.bin) {
-      const originalBinFile = path.join(sourceDirectory, original.bin);
+      let originalBin = original.bin;
+      if (original.name === "prettier") {
+        originalBin = originalBin.prettier;
+      }
+
+      const originalBinFile = path.join(sourceDirectory, originalBin);
       const bin = packageFiles.find(
         (file) =>
           file.input &&
@@ -70,6 +76,20 @@ function createPackageJsonBuilder({ process }) {
         originalPackageJson: original,
         projectPackageJson,
       });
+    }
+
+    if (packageJson.dependencies) {
+      for (const [name, version] of Object.entries(packageJson.dependencies)) {
+        assert.ok(
+          typeof version === "string",
+          `Dependency '${name}' is missing.`,
+        );
+      }
+      packageJson.dependencies = Object.fromEntries(
+        Object.keys(packageJson.dependencies)
+          .sort()
+          .map((name) => [name, packageJson.dependencies[name]]),
+      );
     }
 
     await writeJson(path.join(distDirectory, file.output), packageJson);

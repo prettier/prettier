@@ -18,6 +18,14 @@
   "funding": "https://github.com/prettier/prettier?sponsor=1",
   "homepage": "https://github.com/prettier/prettier/tree/main/packages/plugin-hermes",
   "author": "fisker Cheung <lionkay@gmail.com>",
+  "keywords": [
+    "prettier",
+    "prettierplugin",
+    "prettier-plugin",
+    "flow",
+    "javascript",
+    "hermes"
+  ],
   "license": "MIT",
   "sideEffects": false
 }

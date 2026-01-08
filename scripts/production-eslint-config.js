@@ -28,6 +28,7 @@ const nodejsFiles = jsFiles.filter(
       "dist/prettier/internal/experimental-cli.mjs",
       "dist/prettier/internal/experimental-cli-worker.mjs",
       "dist/plugin-oxc/index.mjs",
+      "dist/mcp/cli.mjs",
     ].includes(file),
 );
 
