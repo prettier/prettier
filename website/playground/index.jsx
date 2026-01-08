@@ -1,5 +1,3 @@
-import "./install-service-worker.js";
-
 import { createApp, onMounted, reactive } from "vue";
 import { worker } from "./composables/prettier-worker.js";
 import Header from "./header.vue";

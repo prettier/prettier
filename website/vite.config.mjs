@@ -3,6 +3,7 @@ import vitePluginVue from "@vitejs/plugin-vue";
 import vitePluginVueJsx from "@vitejs/plugin-vue-jsx";
 import { visualizer as rollupPluginVisualizer } from "rollup-plugin-visualizer";
 import { defineConfig } from "vite";
+import { VitePWA as vitePluginPwa } from "vite-plugin-pwa";
 import packageJson from "./package.json" with { type: "json" };
 import { getPackageDependencies } from "./scripts/collect-dependencies.mjs";
 
@@ -32,6 +33,15 @@ export default defineConfig(async () => {
     plugins: [
       vitePluginVue(),
       vitePluginVueJsx(),
+      vitePluginPwa({
+        minify: IS_CI,
+        registerType: "autoUpdate",
+        devOptions: {
+          enabled: true,
+          type: "module",
+        },
+        injectRegister: "inline",
+      }),
       IS_CI || !IS_PRODUCTION
         ? undefined
         : rollupPluginVisualizer({
