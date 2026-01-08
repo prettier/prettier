@@ -220,11 +220,6 @@ function couldExpandArg(arg, arrowChainRecursion = false) {
       // app.get("/", (req, res): void => {
       //   res.send("Hello World!");
       // });
-      (!arg.returnType ||
-        !arg.returnType.typeAnnotation ||
-        arg.returnType.typeAnnotation.type !== "TSTypeReference" ||
-        // https://github.com/prettier/prettier/issues/7542
-        isNonEmptyBlockStatement(arg.body)) &&
       (arg.body.type === "BlockStatement" ||
         (arg.body.type === "ArrowFunctionExpression" &&
           couldExpandArg(arg.body, true)) ||
