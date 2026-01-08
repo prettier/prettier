@@ -367,14 +367,6 @@ function isValidHookCallbackAndDepsFormat(args, baseIndex) {
   );
 }
 
-function isNonEmptyBlockStatement(node) {
-  return (
-    node.type === "BlockStatement" &&
-    (node.body.some((node) => node.type !== "EmptyStatement") ||
-      hasComment(node, CommentCheckFlags.Dangling))
-  );
-}
-
 // `{ type: "module" }` and `{"type": "module"}`
 function isTypeModuleObjectExpression(node) {
   if (!(node.type === "ObjectExpression" && node.properties.length === 1)) {
