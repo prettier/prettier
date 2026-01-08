@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import getDependencies from "package-dependencies-tree";
 
 /**
-@import {PackageJson} from 'package-dependencies-tree'
+@import {PackageJson} from "package-dependencies-tree"
 */
 
 /**
