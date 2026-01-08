@@ -1,106 +1,102 @@
-import fs from "node:fs/promises";
-import { findPackageJSON } from "node:module";
-
-async function _getPackageJson(packageJsonUrl) {
-  const packageJson = JSON.parse(await fs.readFile(packageJsonUrl, "utf8"));
-  const dependencies = new Set();
-
-  for (const { dependencyType, optional } of [
-    { dependencyType: "dependencies", optional: false },
-    { dependencyType: "peerDependencies", optional: true },
-  ]) {
-    if (!packageJson[dependencyType]) {
-      continue;
-    }
-
-    for (const name of Object.keys(packageJson[dependencyType])) {
-      let dependencyPackageJsonUrl;
-
-      try {
-        dependencyPackageJsonUrl = findPackageJSON(name, packageJsonUrl);
-      } catch (error) {
-        if (optional && error.code === "ERR_MODULE_NOT_FOUND") {
-          continue;
-        }
-        throw error;
-      }
-
-      dependencies.add({ name, packageJsonUrl: dependencyPackageJsonUrl });
-    }
-  }
-
-  return {
-    name: packageJson.name,
-    version: packageJson.version,
-    packageJsonUrl,
-    dependencies: [...dependencies],
-  };
-}
-
-const packageJsonCache = new Map();
-function getPackageJson(packageJsonUrl) {
-  if (!packageJsonCache.has(packageJsonUrl)) {
-    packageJsonCache.set(packageJsonUrl, _getPackageJson(packageJsonUrl));
-  }
-
-  return packageJsonCache.get(packageJsonUrl);
-}
+import assert from "node:assert/strict";
+import getDependencies from "package-dependencies-tree";
 
 /**
-@param {{
-  name: string,
-  base: string | URL,
-  overrideDependencies?: Map<string, string[]>,
-  ignoreDependencies?: (name: string) => boolean,
-}} param0
-@returns
+@import {PackageJson} from 'package-dependencies-tree'
 */
-async function getPackageDependencies({
-  name,
-  base,
+
+/**
+@param {PackageJson} packageJson
+@param {{
+  overrideDependencies: Map<string, string[]>
+  ignoreDependencies = (name) => boolean,
+  seen: Set<PackageJson>
+}} seen
+@returns {Generator<PackageJson>}
+*/
+function* collectDependencies(packageJson, options) {
+  if (!options.seen) {
+    options = { ...options, seen: new Set() };
+  }
+
+  const { seen, overrideDependencies, ignoreDependencies } = options;
+
+  if (overrideDependencies.has(packageJson.name)) {
+    yield* overrideDependencies.get(packageJson.name);
+    return;
+  }
+
+  for (const { type, optional } of [
+    { type: "dependencies", optional: false },
+    { type: "peerDependencies", optional: true },
+  ]) {
+    for (const dependency of packageJson[type].values()) {
+      if (ignoreDependencies(dependency.name)) {
+        continue;
+      }
+
+      const { resolved } = dependency;
+      if (!optional) {
+        assert.ok(
+          resolved,
+          `Unable to resolve ${dependency.type} '${dependency.name}@${dependency.version}' from '${dependency.base}'.`,
+        );
+      }
+
+      if (resolved && !seen.has(resolved)) {
+        seen.add(resolved);
+        yield resolved;
+        yield* collectDependencies(resolved, options);
+      }
+    }
+  }
+}
+
+function assertDependenciesUnique(packageJson, dependencies) {
+  const versions = new Map();
+
+  for (const dependency of dependencies) {
+    assert.ok(
+      !versions.has(dependency.name),
+      `Multiple version of '${dependency.name}' in dependency tree of '${packageJson.name}', '${versions.get(dependency.name)?.version}' and '${dependency.version}'.`,
+    );
+    versions.set(dependency.name, dependency);
+  }
+}
+
+function getPackageDependencies({
+  file,
+  exclude,
   overrideDependencies = new Map(),
   ignoreDependencies = () => false,
 }) {
-  const packageJsonUrl = findPackageJSON(name, base);
-  const packageJsonUrls = new Set();
+  return Array.from(
+    getDependencies(file).dependencies.entries(),
+    ([name, dependency]) => {
+      if (exclude.has(name)) {
+        return;
+      }
 
-  const packages = [{ name, packageJsonUrl }];
-  while (packages.length > 0) {
-    const { name, packageJsonUrl } = packages.pop();
-    if (ignoreDependencies(name) || packageJsonUrls.has(packageJsonUrl)) {
-      continue;
-    }
+      const packageJson = dependency.resolved;
 
-    packageJsonUrls.add(packageJsonUrl);
+      const dependencies = [
+        ...collectDependencies(packageJson, {
+          overrideDependencies,
+          ignoreDependencies,
+        }),
+      ].toSorted(({ name: nameA }, { name: nameB }) =>
+        nameA.localeCompare(nameB),
+      );
 
-    let dependencies;
+      assertDependenciesUnique(packageJson, dependencies);
 
-    if (overrideDependencies.has(name)) {
-      dependencies = overrideDependencies
-        .get(name)
-        .map((name) => ({ name, packageJsonUrl: findPackageJSON(name, base) }));
-    } else {
-      ({ dependencies } = await getPackageJson(packageJsonUrl));
-    }
-
-    packages.push(...dependencies);
-  }
-
-  // Delete self
-  packageJsonUrls.delete(packageJsonUrl);
-
-  const [packageJsonData, ...dependencies] = await Promise.all(
-    [packageJsonUrl, ...packageJsonUrls].map((packageJsonUrl) =>
-      getPackageJson(packageJsonUrl),
-    ),
-  );
-
-  return {
-    ...packageJsonData,
-    dependencies: dependencies.toSorted(({ name: nameA }, { name: nameB }) =>
-      nameA.localeCompare(nameB),
-    ),
-  };
+      return {
+        name,
+        packageJson,
+        dependencies,
+      };
+    },
+  ).filter(Boolean);
 }
 
 export { getPackageDependencies };

@@ -11350,6 +11350,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"package-dependencies-tree@npm:0.0.1":
+  version: 0.0.1
+  resolution: "package-dependencies-tree@npm:0.0.1"
+  checksum: 10/018fa5be276997bc618eccb8aac827135fb7eb788dc8f1bfbc1da55ee59b3bcd8037ae39dc023de655d30b125c1358e4523afa07cc4dca6aec3cd9a8c89e2530
+  languageName: node
+  linkType: hard
+
 "package-json@npm:^8.1.0":
   version: 8.1.1
   resolution: "package-json@npm:8.1.1"
@@ -13292,6 +13299,7 @@ __metadata:
     github-buttons: "npm:2.29.1"
     graphql: "npm:16.12.0"
     lz-string: "npm:1.5.0"
+    package-dependencies-tree: "npm:0.0.1"
     prism-react-renderer: "npm:2.4.1"
     react: "npm:19.2.1"
     react-dom: "npm:19.2.1"
