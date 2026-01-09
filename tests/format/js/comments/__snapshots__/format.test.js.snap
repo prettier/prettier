@@ -3422,7 +3422,7 @@ function HelloWorld() {
 }
 
 /**
- * Trailing double spaces should be preserverd
+ * Trailing double spaces should be preserverd  
  * because it's significant in markdown.
  *
  * Trailing single space should be ignored.
@@ -3522,7 +3522,7 @@ function HelloWorld() {
 }
 
 /**
- * Trailing double spaces should be preserverd
+ * Trailing double spaces should be preserverd  
  * because it's significant in markdown.
  *
  * Trailing single space should be ignored.
