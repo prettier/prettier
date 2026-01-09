@@ -1,4 +1,9 @@
-import { hardline, join, replaceEndOfLine } from "../../document/index.js";
+import {
+  hardline,
+  literalline,
+  markAsRoot,
+  replaceEndOfLine,
+} from "../../document/index.js";
 import { locEnd, locStart } from "../loc.js";
 import isBlockComment from "../utilities/is-block-comment.js";
 import isIndentableBlockComment from "../utilities/is-indentable-block-comment.js";
@@ -27,18 +32,25 @@ function printComment(path, options) {
 }
 
 function printIndentableBlockComment(comment) {
+  /** @type {string[]} */
   const lines = comment.value.split("\n");
+  const isJSDoc = comment.value[0] === "*" && comment.value[1] !== "*";
 
   return [
     "/*",
-    join(
-      hardline,
-      lines.map((line, index) =>
-        index === 0
-          ? line.trimEnd()
-          : " " + (index < lines.length - 1 ? line.trim() : line.trimStart()),
-      ),
-    ),
+    lines.map((line, index) => {
+      if (index === 0) {
+        return [line.trimEnd(), hardline];
+      }
+      if (index === lines.length - 1) {
+        return [" ", line.trimStart()];
+      }
+      const content = [" ", line.trim()];
+      if (isJSDoc && line.endsWith("  ")) {
+        return [content, "  ", markAsRoot(literalline)];
+      }
+      return [content, hardline];
+    }),
     "*/",
   ];
 }
