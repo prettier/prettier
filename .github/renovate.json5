@@ -52,7 +52,7 @@
       ],
     },
     {
-      groupName: "Angular Estree",
+      groupName: "Angular Estree parser",
       matchPackageNames: ["@angular/compiler", "angular-estree-parser"],
     },
     {
