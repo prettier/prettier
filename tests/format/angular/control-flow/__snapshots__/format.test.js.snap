@@ -571,8 +571,10 @@ printWidth: 80
       }
     </div>
 
-@switch(1){@default @case(2){'default before case'}}
-@switch(1){@case(1) @case(2){} @case(3) {}}
+@switch(a){@default @case(2){<div>default before case</div>}}
+@switch(a){@case(1) @case(2){} @case(3) {<div>3</div>}}
+
+@switch(a){@case(1) @case(2) {<!-- comment -->}}
 
 =====================================output=====================================
 <!-- https://github.com/angular/angular/pull/66210 -->
@@ -614,16 +616,25 @@ printWidth: 80
   }
 </div>
 
-@switch (1) {
+@switch (a) {
   @default
   @case (2) {
-    'default before case'
+    <div>default before case</div>
   }
 }
-@switch (1) {
+@switch (a) {
   @case (1)
   @case (2)
-  @case (3) {}
+  @case (3) {
+    <div>3</div>
+  }
+}
+
+@switch (a) {
+  @case (1)
+  @case (2) {
+    <!-- comment -->
+  }
 }
 
 ================================================================================
