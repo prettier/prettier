@@ -571,6 +571,8 @@ printWidth: 80
       }
     </div>
 
+@switch(1){@default @case(2){'default before case'}}
+
 =====================================output=====================================
 <!-- https://github.com/angular/angular/pull/66210 -->
 
@@ -610,6 +612,13 @@ printWidth: 80
     }
   }
 </div>
+
+@switch (1) {
+  @default
+  @case (2) {
+    'default before case'
+  }
+}
 
 ================================================================================
 `;
