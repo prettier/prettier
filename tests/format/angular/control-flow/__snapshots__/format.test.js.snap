@@ -575,7 +575,7 @@ printWidth: 80
 <!-- https://github.com/angular/angular/pull/66210 -->
 
 @switch (expr) {
-  @case ("one") {}
+  @case ("one")
   @case ("two") {
     {{ oneOrTwo() }}
   }
@@ -585,11 +585,11 @@ printWidth: 80
 }
 
 @switch (expr) {
-  @case (1) {}
+  @case (1)
   @case (2) {
     {{ oneOrTwo() }}
   }
-  @case (3) {}
+  @case (3)
   @default {
     {{ default() }}
   }
@@ -598,7 +598,7 @@ printWidth: 80
 <div>
   {{ message }}
   @switch (value()) {
-    @case (0) {}
+    @case (0)
     @case (1) {
       case 01
     }

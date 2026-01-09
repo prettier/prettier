@@ -24,18 +24,20 @@ function printAngularControlFlowBlock(path, options, print) {
     docs.push(" (", group(print("parameters")), ")");
   }
 
-  docs.push(" {");
+  if (!isSwitchFallthroughCase(node)) {
+    docs.push(" {");
 
-  const shouldPrintCloseBracket = shouldCloseBlock(node);
-  if (node.children.length > 0) {
-    node.firstChild.hasLeadingSpaces = true;
-    node.lastChild.hasTrailingSpaces = true;
-    docs.push(indent([hardline, printChildren(path, options, print)]));
-    if (shouldPrintCloseBracket) {
-      docs.push(hardline, "}");
+    const shouldPrintCloseBracket = shouldCloseBlock(node);
+    if (node.children.length > 0) {
+      node.firstChild.hasLeadingSpaces = true;
+      node.lastChild.hasTrailingSpaces = true;
+      docs.push(indent([hardline, printChildren(path, options, print)]));
+      if (shouldPrintCloseBracket) {
+        docs.push(hardline, "}");
+      }
+    } else if (shouldPrintCloseBracket) {
+      docs.push("}");
     }
-  } else if (shouldPrintCloseBracket) {
-    docs.push("}");
   }
 
   return group(docs, { shouldBreak: true });
@@ -45,6 +47,17 @@ function shouldCloseBlock(node) {
   return !(
     node.next?.kind === "angularControlFlowBlock" &&
     ANGULAR_CONTROL_FLOW_BLOCK_SETTINGS.get(node.name)?.has(node.next.name)
+  );
+}
+
+const isSwitchCaseBlock = (node) =>
+  node?.kind === "angularControlFlowBlock" &&
+  (node.name === "case" || node.name === "default");
+function isSwitchFallthroughCase(node) {
+  return (
+    isSwitchCaseBlock(node) &&
+    node.children.length === 0 &&
+    isSwitchCaseBlock(node.next)
   );
 }
 
