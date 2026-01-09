@@ -53,11 +53,13 @@ function shouldCloseBlock(node) {
 const isSwitchCaseBlock = (node) =>
   node?.kind === "angularControlFlowBlock" &&
   (node.name === "case" || node.name === "default");
+// https://github.com/angular/angular/commit/0ad3adc7c6d4094f1e3432a3f2e3bdc9862cb4fa#diff-77a6f285c6ea13d6644ef635e7495e71134d1141af2650cb9ae5631ff1f38bf2R263
+// https://github.com/prettier/prettier/issues/18563#issuecomment-3728354491
 function isSwitchFallthroughCase(node) {
   return (
     isSwitchCaseBlock(node) &&
-    node.children.length === 0 &&
-    isSwitchCaseBlock(node.next)
+    node.endSourceSpan &&
+    node.endSourceSpan.start.offset === node.endSourceSpan.end.offset
   );
 }
 

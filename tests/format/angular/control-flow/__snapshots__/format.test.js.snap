@@ -624,7 +624,7 @@ printWidth: 80
 }
 @switch (a) {
   @case (1)
-  @case (2)
+  @case (2) {}
   @case (3) {
     <div>3</div>
   }
