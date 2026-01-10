@@ -1,3 +1,5 @@
+import { outdent } from "outdent";
+
 const fixtures = {
   importMeta: import.meta,
   snippets: [
@@ -5,21 +7,42 @@ const fixtures = {
     "var a = { /* comment */\nb };",
     {
       name: "Preserve trailing double spaces in JSDoc",
-      code: "/**\n * This is a JSDoc comment with two spaces at the end of this line.  \n */\n",
-      output:
-        "/**\n * This is a JSDoc comment with two spaces at the end of this line.  \n */\n",
+      code: outdent`
+        /**
+         * This is a JSDoc comment with two spaces at the end of this line.${" ".repeat(2)}
+         */
+      `,
+      output: outdent`
+        /**
+         * This is a JSDoc comment with two spaces at the end of this line.${" ".repeat(2)}
+         */\n
+      `,
     },
     {
       name: "Remove trailing single space in JSDoc",
-      code: "/**\n * This is a JSDoc comment with one space at the end of this line. \n */\n",
-      output:
-        "/**\n * This is a JSDoc comment with one space at the end of this line.\n */\n",
+      code: outdent`
+        /**
+         * This is a JSDoc comment with one space at the end of this line.${" ".repeat(1)}
+         */
+      `,
+      output: outdent`
+        /**
+         * This is a JSDoc comment with one space at the end of this line.
+         */\n
+      `,
     },
     {
       name: "Remove trailing single space in non-JSDoc",
-      code: "/***\n * This is a JSDoc comment with two spaces at the end of this line.  \n */\n",
-      output:
-        "/***\n * This is a JSDoc comment with two spaces at the end of this line.\n */\n",
+      code: outdent`
+        /***
+          * This is a JSDoc comment with two spaces at the end of this line.${" ".repeat(2)}
+          */
+      `,
+      output: outdent`
+        /***
+         * This is a JSDoc comment with two spaces at the end of this line.
+         */\n
+      `,
     },
   ],
 };
