@@ -17,6 +17,19 @@ const fixtures = {
       `,
     },
     {
+      name: "Preserve trailing 2+ spaces in JSDoc",
+      code: outdent`
+        /**
+         * 3 spaces.${" ".repeat(3)}
+         */
+      `,
+      output: outdent`
+        /**
+         * 3 spaces.${" ".repeat(2)}
+         */\n
+      `,
+    },
+    {
       name: "Remove trailing single space in JSDoc",
       code: outdent`
         /**
