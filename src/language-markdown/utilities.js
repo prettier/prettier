@@ -6,7 +6,6 @@ const INLINE_NODE_TYPES = new Set([
   "liquidNode",
   "inlineCode",
   "emphasis",
-  "esComment",
   "strong",
   "delete",
   "wikiLink",
@@ -21,6 +20,7 @@ const INLINE_NODE_TYPES = new Set([
   "word",
   "break",
   "inlineMath",
+  "mdxTextExpression",
 ]);
 
 const INLINE_NODE_WRAPPER_TYPES = new Set([
@@ -185,14 +185,13 @@ function getOrderedListItemInfo(orderListItem, options) {
     orderListItem.position.start.offset,
     orderListItem.position.end.offset,
   );
-  if (options.parser !== "mdx") {
-    const firstChild = orderListItem.children[0];
-    if (firstChild) {
-      text = options.originalText.slice(
-        orderListItem.position.start.offset,
-        firstChild.position.start.offset,
-      );
-    }
+
+  const firstChild = orderListItem.children[0];
+  if (firstChild) {
+    text = options.originalText.slice(
+      orderListItem.position.start.offset,
+      firstChild.position.start.offset,
+    );
   }
 
   const { numberText, leadingSpaces } = text.match(
@@ -267,24 +266,24 @@ function isAutolink(node) {
 function isPrettierIgnore(node) {
   let match;
 
-  if (node.type === "html") {
-    match = node.value.match(/^<!--\s*prettier-ignore(?:-(start|end))?\s*-->$/);
-  } else {
-    let comment;
-
-    if (node.type === "esComment") {
-      comment = node;
-    } else if (
-      node.type === "paragraph" &&
-      node.children.length === 1 &&
-      node.children[0].type === "esComment"
-    ) {
-      comment = node.children[0];
-    }
-
-    if (comment) {
-      match = comment.value.match(/^prettier-ignore(?:-(start|end))?$/);
-    }
+  switch (node.type) {
+    case "html":
+      match = node.value.match(
+        /^<!--\s*prettier-ignore(?:-(start|end))?\s*-->$/,
+      );
+      break;
+    case "mdxFlowExpression":
+      match = node.value.match(
+        /^\/\*\s*prettier-ignore(?:-(start|end))?\s*\*\/$/,
+      );
+      break;
+    case "comment":
+      match = node.commentValue
+        .trim()
+        .match(/^prettier-ignore(?:-(start|end))?$/);
+      break;
+    default:
+      return false;
   }
 
   return match ? match[1] || "next" : false;
