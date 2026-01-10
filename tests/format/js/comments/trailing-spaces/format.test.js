@@ -7,12 +7,12 @@ const fixtures = {
       name: "Preserve trailing double spaces in JSDoc",
       code: outdent`
         /**
-         * This is a JSDoc comment with two spaces at the end of this line.${" ".repeat(2)}
+         * 2 spaces.${" ".repeat(2)}
          */
       `,
       output: outdent`
         /**
-         * This is a JSDoc comment with two spaces at the end of this line.${" ".repeat(2)}
+         * 2 spaces.${" ".repeat(2)}
          */\n
       `,
     },
@@ -20,12 +20,12 @@ const fixtures = {
       name: "Remove trailing single space in JSDoc",
       code: outdent`
         /**
-         * This is a JSDoc comment with one space at the end of this line.${" ".repeat(1)}
+         * 1 space.${" ".repeat(1)}
          */
       `,
       output: outdent`
         /**
-         * This is a JSDoc comment with one space at the end of this line.
+         * 1 space.
          */\n
       `,
     },
@@ -33,12 +33,12 @@ const fixtures = {
       name: "Remove trailing single space in non-JSDoc",
       code: outdent`
         /***
-          * This is a JSDoc comment with two spaces at the end of this line.${" ".repeat(2)}
+          * NOT JSDOC.${" ".repeat(2)}
           */
       `,
       output: outdent`
         /***
-         * This is a JSDoc comment with two spaces at the end of this line.
+         * NOT JSDOC.
          */\n
       `,
     },
