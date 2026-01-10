@@ -75,7 +75,7 @@ function embed(path, options) {
         await printMdxJsExpression(textToDoc, node.value),
         "}",
       ];
-    case "mdxTexExpression":
+    case "mdxTextExpression":
       return async (textToDoc) => [
         "{",
         await printMdxJsExpression(textToDoc, node.value),
