@@ -1,4 +1,4 @@
-import { parse as parseGraphql } from "graphql/language/parser.mjs";
+import { GraphQLError, parse as parseGraphql } from "graphql";
 import createError from "../common/parser-create-error.js";
 import { locEnd, locStart } from "./loc.js";
 import { hasIgnorePragma, hasPragma } from "./pragma.js";
@@ -20,16 +20,17 @@ const parseOptions = {
 };
 
 function createParseError(error) {
-  if (error?.name === "GraphQLError") {
-    const {
-      message,
-      locations: [start],
-    } = error;
-    return createError(message, { loc: { start }, cause: error });
+  /* c8 ignore next */
+  if (!(error instanceof GraphQLError)) {
+    return error;
   }
 
-  /* c8 ignore next */
-  return error;
+  const {
+    message,
+    locations: [start],
+  } = error;
+
+  return createError(message, { loc: { start }, cause: error });
 }
 
 function parse(text /* , options */) {

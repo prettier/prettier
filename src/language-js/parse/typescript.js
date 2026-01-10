@@ -1,4 +1,7 @@
-import { parse as parseTypeScript } from "@typescript-eslint/typescript-estree";
+import {
+  parse as parseTypeScript,
+  TSError,
+} from "@typescript-eslint/typescript-estree";
 import createError from "../../common/parser-create-error.js";
 import { tryCombinationsSync } from "../../utilities/try-combinations.js";
 import postprocess from "./postprocess/index.js";
@@ -30,14 +33,15 @@ const baseParseOptions = {
 };
 
 function createParseError(error) {
-  const { message, location } = error;
-
-  /* c8 ignore next 3 -- not a parse error */
-  if (!location) {
+  /* c8 ignore next 3 */
+  if (!(error instanceof TSError)) {
     return error;
   }
 
-  const { start, end } = location;
+  const {
+    message,
+    location: { start, end },
+  } = error;
 
   return createError(message, {
     loc: {
