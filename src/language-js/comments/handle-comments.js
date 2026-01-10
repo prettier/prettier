@@ -62,6 +62,7 @@ function handleOwnLineComment(context) {
   return [
     handleIgnoreComments,
     handleConditionalExpressionComments,
+    handleCommentInEmptyParens,
     handleLastFunctionArgComments,
     handleLastComponentArgComments,
     handleMemberExpressionComments,
