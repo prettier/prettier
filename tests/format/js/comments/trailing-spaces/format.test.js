@@ -69,8 +69,8 @@ const fixtures = {
       `,
     },
     /**
-    > Each comment must start with a /** sequence in order to be recognized by the JSDoc parser.
-    > Comments beginning with /*, /***, or more than 3 stars will be ignored.
+    > Each comment must start with a `/**` sequence in order to be recognized by the JSDoc parser.
+    > Comments beginning with `/*`, `/***`, or more than 3 stars will be ignored.
     > This is a feature to allow you to suppress parsing of comment blocks.
 
     https://jsdoc.app/about-getting-started
