@@ -537,6 +537,10 @@ const pluginFiles = [
         module: getPackageFile("espree/lib/espree.js"),
         process(text) {
           // We are currently not using tokens
+          text = text.replace(
+            'import TokenTranslator from "./token-translator.js";',
+            "",
+          );
           text = text.replaceAll("options.tokens === true", "false");
           return text;
         },
