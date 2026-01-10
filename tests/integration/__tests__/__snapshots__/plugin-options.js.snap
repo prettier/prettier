@@ -60,7 +60,7 @@ exports[`show external options with \`--help\` 1`] = `
 "===================================================================
 --- Without plugin
 +++ With plugin
-@@ -28,17 +28,19 @@
+@@ -31,17 +31,19 @@
                             Where to print operators when binary expressions wrap lines.
                             Defaults to end.
    --no-experimental-ternaries
