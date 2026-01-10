@@ -223,24 +223,6 @@ function getEsbuildOptions({ packageConfig, file, cliOptions, buildOptions }) {
       "class-private-method": true,
     },
     packages: "bundle",
-    pure: [
-      "Object.create",
-      "Object.entries",
-      "Object.fromEntries",
-      "Object.getOwnPropertyDescriptor",
-      "Object.getOwnPropertyDescriptors",
-      "Object.getOwnPropertyNames",
-      "Object.getOwnPropertySymbols",
-      "Object.getPrototypeOf",
-      "Object.groupBy",
-      "Object.hasOwn",
-      "Object.is",
-      "Object.isExtensible",
-      "Object.isFrozen",
-      "Object.isSealed",
-      "Object.keys",
-      "Object.values",
-    ],
   };
 
   if (buildOptions.platform === "universal") {
