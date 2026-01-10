@@ -17,6 +17,36 @@ const fixtures = {
       `,
     },
     {
+      name: "Misaligned",
+      code: outdent`
+        /**
+           * 2 spaces.${" ".repeat(2)}
+        */
+      `,
+      output: outdent`
+        /**
+         * 2 spaces.${" ".repeat(2)}
+         */\n
+      `,
+    },
+    {
+      name: "Non-top-level",
+      code: outdent`
+        function foo() {
+                /**
+                 * 2 spaces.${" ".repeat(2)}
+                 */
+        }
+      `,
+      output: outdent`
+        function foo() {
+          /**
+           * 2 spaces.${" ".repeat(2)}
+           */
+        }\n
+      `,
+    },
+    {
       name: "Preserve trailing 2+ spaces in JSDoc",
       code: outdent`
         /**
