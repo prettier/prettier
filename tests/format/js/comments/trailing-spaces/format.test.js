@@ -30,6 +30,19 @@ const fixtures = {
       `,
     },
     {
+      name: "Remove on blank line",
+      code: outdent`
+        /**
+         *${" ".repeat(2)}
+         */
+      `,
+      output: outdent`
+        /**
+         *
+         */\n
+      `,
+    },
+    {
       name: "Remove trailing single space in JSDoc",
       code: outdent`
         /**
