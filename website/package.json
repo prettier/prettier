@@ -39,7 +39,7 @@
     "react-dom": "19.2.1",
     "react-markdown": "10.1.0",
     "react-tweet": "3.2.2",
-    "vue": "3.5.25"
+    "vue": "3.5.26"
   },
   "devDependencies": {
     "@docusaurus/core": "3.9.2",
