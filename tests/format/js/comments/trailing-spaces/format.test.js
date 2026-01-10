@@ -30,6 +30,19 @@ const fixtures = {
       `,
     },
     {
+      name: "Spaces on start line",
+      code: outdent`
+        /**${" ".repeat(2)}
+         * 2 spaces.${" ".repeat(2)}
+         */
+      `,
+      output: outdent`
+        /**
+         * 2 spaces.${" ".repeat(2)}
+         */\n
+      `,
+    },
+    {
       name: "Remove on blank line",
       code: outdent`
         /**
