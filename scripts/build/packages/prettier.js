@@ -503,7 +503,7 @@ const pluginFiles = [
     input: "src/plugins/acorn.js",
     replaceModule: [
       {
-        module: resolveEsmModulePath("espree"),
+        module: getPackageFile("espree"),
         process(text) {
           const lines = text.split("\n");
 
@@ -530,6 +530,18 @@ const pluginFiles = [
 
           text = [...lines, ...parserCodeLines].join("\n");
 
+          return text;
+        },
+      },
+      {
+        module: getPackageFile("espree/lib/espree.js"),
+        process(text) {
+          // We are currently not using tokens
+          text = text.replace(
+            'import TokenTranslator from "./token-translator.js";',
+            "",
+          );
+          text = text.replaceAll("options.tokens === true", "false");
           return text;
         },
       },

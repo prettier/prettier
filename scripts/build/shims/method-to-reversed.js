@@ -6,7 +6,7 @@ const arrayToReversed =
     return [...this].reverse();
   };
 
-const toReversed = createMethodShim("toReversed", function () {
+const toReversed = /* @__PURE__ */ createMethodShim("toReversed", function () {
   if (Array.isArray(this)) {
     return arrayToReversed;
   }
