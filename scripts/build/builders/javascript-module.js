@@ -224,12 +224,8 @@ function getEsbuildOptions({ packageConfig, file, cliOptions, buildOptions }) {
     },
     packages: "bundle",
     pure: [
-      "Object.assign",
       "Object.create",
-      "Object.defineProperties",
-      "Object.defineProperty",
       "Object.entries",
-      "Object.freeze",
       "Object.fromEntries",
       "Object.getOwnPropertyDescriptor",
       "Object.getOwnPropertyDescriptors",
@@ -243,9 +239,6 @@ function getEsbuildOptions({ packageConfig, file, cliOptions, buildOptions }) {
       "Object.isFrozen",
       "Object.isSealed",
       "Object.keys",
-      "Object.preventExtensions",
-      "Object.seal",
-      "Object.setPrototypeOf",
       "Object.values",
     ],
   };
