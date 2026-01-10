@@ -1,4 +1,4 @@
-import { parse as parseGraphql } from "graphql/language/parser.mjs";
+import { parse as parseGraphql } from "graphql";
 import createError from "../common/parser-create-error.js";
 import { locEnd, locStart } from "./loc.js";
 import { hasIgnorePragma, hasPragma } from "./pragma.js";
