@@ -12,7 +12,7 @@ const stringReplaceAll =
     return this.split(pattern).join(replacement);
   };
 
-const replaceAll = createMethodShim("replaceAll", function () {
+const replaceAll = /* @__PURE__ */ createMethodShim("replaceAll", function () {
   if (typeof this === "string") {
     return stringReplaceAll;
   }

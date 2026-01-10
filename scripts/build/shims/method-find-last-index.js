@@ -13,10 +13,13 @@ const arrayFindLastIndex =
     return -1;
   };
 
-const findLastIndex = createMethodShim("findLastIndex", function () {
-  if (Array.isArray(this)) {
-    return arrayFindLastIndex;
-  }
-});
+const findLastIndex = /* @__PURE__ */ createMethodShim(
+  "findLastIndex",
+  function () {
+    if (Array.isArray(this)) {
+      return arrayFindLastIndex;
+    }
+  },
+);
 
 export default findLastIndex;

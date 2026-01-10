@@ -11,7 +11,7 @@ const arrayFindLast =
     }
   };
 
-const findLast = createMethodShim("findLast", function () {
+const findLast = /* @__PURE__ */ createMethodShim("findLast", function () {
   if (Array.isArray(this)) {
     return arrayFindLast;
   }

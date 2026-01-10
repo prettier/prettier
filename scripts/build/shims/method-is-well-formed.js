@@ -33,10 +33,13 @@ const stringIsWellFormed =
     return true;
   };
 
-const isWellFormed = createMethodShim("isWellFormed", function () {
-  if (typeof this === "string") {
-    return stringIsWellFormed;
-  }
-});
+const isWellFormed = /* @__PURE__ */ createMethodShim(
+  "isWellFormed",
+  function () {
+    if (typeof this === "string") {
+      return stringIsWellFormed;
+    }
+  },
+);
 
 export default isWellFormed;
