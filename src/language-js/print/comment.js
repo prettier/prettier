@@ -45,8 +45,9 @@ function printIndentableBlockComment(comment) {
       if (index === lines.length - 1) {
         return [" ", line.trimStart()];
       }
-      const content = [" ", line.trim()];
-      if (isJSDoc && line.endsWith("  ")) {
+      const trimmed = line.trim();
+      const content = [" ", trimmed];
+      if (isJSDoc && line.endsWith("  ") && trimmed !== "*") {
         return [content, "  ", markAsRoot(literalline)];
       }
       return [content, hardline];
