@@ -25,7 +25,7 @@ const parseExpressionAt = (text, position, options) => {
     onComment: comments,
   });
   return Object.defineProperty(
-    { type: "Literal", value: 0, start: ast.start, end: ast.end },
+    { type: "ThisExpression", start: ast.start, end: ast.end },
     "raw",
     { value: { ast, text, comments } },
   );
