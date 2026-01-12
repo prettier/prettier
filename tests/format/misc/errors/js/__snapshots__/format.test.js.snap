@@ -12,22 +12,6 @@ exports[`html-like-comments.js [babel] format 1`] = `
 Cause: Unexpected token (3:0)"
 `;
 
-exports[`import-assertions-for-export-without-from.js [babel] format 1`] = `
-"Missing semicolon. (1:26)
-> 1 | export { default as foo } assert { type: "json" };
-    |                          ^
-  2 |
-Cause: Missing semicolon. (1:25)"
-`;
-
-exports[`import-assertions-with-parens.js [babel] format 1`] = `
-"Unexpected token, expected "{" (1:19)
-> 1 | import "x" assert ({type: 'json'});
-    |                   ^
-  2 |
-Cause: Unexpected token, expected "{" (1:18)"
-`;
-
 exports[`import-attributes-for-export-without-from.js [babel] format 1`] = `
 "Unexpected token, expected "(" (1:32)
 > 1 | export { default as foo } with { type: "json" };
@@ -166,24 +150,24 @@ Cause: Unexpected token (1:1)"
 `;
 
 exports[`snippet: #10 [babel] format 1`] = `
-"Invalid decimal. (1:1)
+"Identifier directly after number. (1:12)
 > 1 | 0b101011101m;
-    | ^
-Cause: Invalid decimal. (1:0)"
+    |            ^
+Cause: Identifier directly after number. (1:11)"
 `;
 
 exports[`snippet: #11 [babel] format 1`] = `
-"Invalid decimal. (1:1)
+"Identifier directly after number. (1:8)
 > 1 | 0x16432m;
-    | ^
-Cause: Invalid decimal. (1:0)"
+    |        ^
+Cause: Identifier directly after number. (1:7)"
 `;
 
 exports[`snippet: #12 [babel] format 1`] = `
-"Invalid decimal. (1:1)
+"Identifier directly after number. (1:8)
 > 1 | 0o16432m;
-    | ^
-Cause: Invalid decimal. (1:0)"
+    |        ^
+Cause: Identifier directly after number. (1:7)"
 `;
 
 exports[`static-import-source-should-not-has-extra-token.js [babel] format 1`] = `
