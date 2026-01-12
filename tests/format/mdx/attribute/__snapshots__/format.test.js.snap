@@ -11,12 +11,12 @@ printWidth: 80
 color:     'red'}}></Foo>
 
 =====================================output=====================================
-<Foo foo=({ color: "red" });>
+<Foo foo={{ color: "red" }}>
 
 </Foo>
-<Foo foo=({
+<Foo foo={{
   color: "red",
-});>
+}}>
 
 </Foo>
 

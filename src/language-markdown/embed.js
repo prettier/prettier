@@ -1,4 +1,5 @@
 import { hardline, markAsRoot, replaceEndOfLine } from "../document/index.js";
+import wrapBabelExpression from "../language-js/parse/utilities/wrap-babel-expression.js";
 import getMaxContinuousCount from "../utilities/get-max-continuous-count.js";
 import inferParser from "../utilities/infer-parser.js";
 import replaceNonLineBreaksWithSpace from "../utilities/replace-non-line-breaks-with-space.js";
@@ -72,8 +73,6 @@ function embed(path, options) {
         "}",
       ];
     case "mdxJsxAttributeValueExpression":
-      return printMdxJsExpression;
-
     case "mdxTextExpression":
       return async (textToDoc, print, path, options) => [
         "{",
@@ -85,8 +84,10 @@ function embed(path, options) {
 
 function printMdxJsExpression(textToDoc, print, path, options) {
   const { node } = path;
-  const expression = node.data.estree;
-  const text = options.originalText.slice(0, expression.start) + node.value;
+  const ast = node.data.estree;
+  const text =
+    replaceNonLineBreaksWithSpace(options.originalText.slice(0, ast.start)) +
+    node.value;
 
   return textToDoc(text, {
     parser: "__mdx-js-repression",
@@ -96,7 +97,16 @@ function printMdxJsExpression(textToDoc, print, path, options) {
         parsers: {
           "__mdx-js-repression": {
             astFormat: "estree",
-            parse: () => expression,
+            parse(text, options) {
+              options.parser = "__js_expression";
+              const { expression } = ast.body[0];
+              // TODO: rename `wrapBabelExpression`
+              const expressionRoot = wrapBabelExpression(expression, { text });
+
+              // TODO: Run js parser's postprocess
+
+              return expressionRoot;
+            },
           },
         },
       },
@@ -107,7 +117,9 @@ function printMdxJsExpression(textToDoc, print, path, options) {
 function printMdxEstree(textToDoc, print, path, options) {
   const { node } = path;
   const ast = node.data.estree;
-  const text = options.originalText.slice(0, ast.start) + node.value;
+  const text =
+    replaceNonLineBreaksWithSpace(options.originalText.slice(0, ast.start)) +
+    node.value;
 
   return textToDoc(text, {
     parser: "__mdx-estree",
@@ -117,7 +129,13 @@ function printMdxEstree(textToDoc, print, path, options) {
         parsers: {
           "__mdx-estree": {
             astFormat: "estree",
-            parse: () => ast,
+            parse(_text, options) {
+              options.parser = "acorn";
+
+              // TODO: Run js parser's postprocess
+
+              return ast;
+            },
           },
         },
       },
