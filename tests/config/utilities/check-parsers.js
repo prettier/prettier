@@ -69,6 +69,7 @@ const categoryParsers = new Map([
         "babel-flow",
         "typescript",
         "babel-ts",
+        "hermes",
       ],
       extensions: [".js", ".cjs", ".mjs"],
     },
