@@ -159,7 +159,6 @@ function postprocess(ast, options) {
           }
           break;
 
-        // https://github.com/facebook/hermes/issues/1712
         case "ImportDeclaration":
           if (parser === "hermes" && node.assertions && !node.attributes) {
             node.attributes = node.assertions;
