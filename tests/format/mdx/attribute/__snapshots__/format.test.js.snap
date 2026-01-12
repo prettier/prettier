@@ -9,6 +9,7 @@ printWidth: 80
 <Foo foo={{color:     'red'}}></Foo>
 <Foo foo={{
 color:     'red'}}></Foo>
+<Foo foo={{color:    /** @type {'red'} */('red')}}></Foo>
 
 =====================================output=====================================
 <Foo foo={{ color: "red" }}>
@@ -17,6 +18,9 @@ color:     'red'}}></Foo>
 <Foo foo={{
   color: "red",
 }}>
+
+</Foo>
+<Foo foo={{ color: /** @type {'red'} */ ("red") }}>
 
 </Foo>
 

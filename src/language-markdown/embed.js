@@ -1,4 +1,6 @@
 import { hardline, markAsRoot, replaceEndOfLine } from "../document/index.js";
+import * as jsLoc from "../language-js/loc.js";
+import jsParserPostprocess from "../language-js/parse/postprocess/index.js";
 import wrapBabelExpression from "../language-js/parse/utilities/wrap-babel-expression.js";
 import getMaxContinuousCount from "../utilities/get-max-continuous-count.js";
 import inferParser from "../utilities/infer-parser.js";
@@ -84,12 +86,9 @@ function embed(path, options) {
 
 function printMdxJsExpression(textToDoc, print, path, options) {
   const { node } = path;
-  const ast = node.data.estree;
-  const text =
-    replaceNonLineBreaksWithSpace(options.originalText.slice(0, ast.start)) +
-    node.value;
+  const { ast, text, comments } = path.node.data.estree.body[0].expression.raw;
 
-  return textToDoc(text, {
+  return textToDoc(node.value, {
     parser: "__mdx-js-repression",
     plugins: [
       ...options.plugins,
@@ -98,14 +97,18 @@ function printMdxJsExpression(textToDoc, print, path, options) {
           "__mdx-js-repression": {
             astFormat: "estree",
             parse(text, options) {
-              options.parser = "__js_expression";
-              const { expression } = ast.body[0];
+              Object.assign(options, {
+                parser: "__js_expression",
+                // eslint-disable-next-line prettier-internal-rules/directly-loc-start-end
+                locEnd: jsLoc.locEnd,
+                // eslint-disable-next-line prettier-internal-rules/directly-loc-start-end
+                locStart: jsLoc.locStart,
+              });
               // TODO: rename `wrapBabelExpression`
-              const expressionRoot = wrapBabelExpression(expression, { text });
+              const expressionRoot = wrapBabelExpression(ast, { text });
+              expressionRoot.comments = comments;
 
-              // TODO: Run js parser's postprocess
-
-              return expressionRoot;
+              return jsParserPostprocess(expressionRoot, { text });
             },
           },
         },
@@ -116,10 +119,7 @@ function printMdxJsExpression(textToDoc, print, path, options) {
 
 function printMdxEstree(textToDoc, print, path, options) {
   const { node } = path;
-  const ast = node.data.estree;
-  const text =
-    replaceNonLineBreaksWithSpace(options.originalText.slice(0, ast.start)) +
-    node.value;
+  const { ast, text, comments } = node.data.estree.raw;
 
   return textToDoc(text, {
     parser: "__mdx-estree",
@@ -130,16 +130,24 @@ function printMdxEstree(textToDoc, print, path, options) {
           "__mdx-estree": {
             astFormat: "estree",
             parse(_text, options) {
-              options.parser = "acorn";
-
-              // TODO: Run js parser's postprocess
-
-              return ast;
+              Object.assign(options, {
+                parser: "acorn",
+                // eslint-disable-next-line prettier-internal-rules/directly-loc-start-end
+                locEnd: jsLoc.locEnd,
+                // eslint-disable-next-line prettier-internal-rules/directly-loc-start-end
+                locStart: jsLoc.locStart,
+              });
+              ast.comments = comments;
+              return jsParserPostprocess(ast, { text });
             },
           },
         },
       },
     ],
+    // eslint-disable-next-line prettier-internal-rules/directly-loc-start-end
+    locEnd: jsLoc.locEnd,
+    // eslint-disable-next-line prettier-internal-rules/directly-loc-start-end
+    locStart: jsLoc.locStart,
   });
 }
 
