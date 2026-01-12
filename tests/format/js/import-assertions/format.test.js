@@ -1,4 +1,4 @@
-runFormatTest(import.meta, ["oxc", "typescript"], {
+runFormatTest(import.meta, ["oxc", "typescript", "hermes"], {
   errors: {
     "babel-ts": [
       "empty.js",
@@ -9,5 +9,6 @@ runFormatTest(import.meta, ["oxc", "typescript"], {
       "non-type.js",
       "keyword-detect.js",
     ],
+    hermes: ["keyword-detect.js", "empty.js", "re-export.js"],
   },
 });
