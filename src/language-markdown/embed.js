@@ -1,10 +1,7 @@
 import { hardline, markAsRoot, replaceEndOfLine } from "../document/index.js";
-import * as jsLoc from "../language-js/loc.js";
-import jsParserPostprocess from "../language-js/parse/postprocess/index.js";
-import wrapBabelExpression from "../language-js/parse/utilities/wrap-babel-expression.js";
 import getMaxContinuousCount from "../utilities/get-max-continuous-count.js";
 import inferParser from "../utilities/infer-parser.js";
-import replaceNonLineBreaksWithSpace from "../utilities/replace-non-line-breaks-with-space.js";
+import { printJsExpression, printJsProgram } from "./acorn/printer.js";
 import { getFencedCodeBlockValue } from "./utilities.js";
 
 function embed(path, options) {
@@ -65,90 +62,23 @@ function embed(path, options) {
 
     // MDX
     case "mdxjsEsm":
-      return printMdxEstree;
+      return printJsProgram;
 
     case "mdxFlowExpression":
       return async (textToDoc, print, path, options) => [
         path.parent.type === "mdxJsxFlowElement" ? hardline : "",
         "{",
-        await printMdxJsExpression(textToDoc, print, path, options),
+        await printJsExpression(textToDoc, print, path, options),
         "}",
       ];
     case "mdxJsxAttributeValueExpression":
     case "mdxTextExpression":
       return async (textToDoc, print, path, options) => [
         "{",
-        await printMdxJsExpression(textToDoc, print, path, options),
+        await printJsExpression(textToDoc, print, path, options),
         "}",
       ];
   }
-}
-
-function printMdxJsExpression(textToDoc, print, path, options) {
-  const { node } = path;
-  const { ast, text, comments } = path.node.data.estree.body[0].expression.raw;
-
-  return textToDoc(node.value, {
-    parser: "__mdx-js-repression",
-    plugins: [
-      ...options.plugins,
-      {
-        parsers: {
-          "__mdx-js-repression": {
-            astFormat: "estree",
-            parse(text, options) {
-              Object.assign(options, {
-                parser: "__js_expression",
-                // eslint-disable-next-line prettier-internal-rules/directly-loc-start-end
-                locEnd: jsLoc.locEnd,
-                // eslint-disable-next-line prettier-internal-rules/directly-loc-start-end
-                locStart: jsLoc.locStart,
-              });
-              // TODO: rename `wrapBabelExpression`
-              const expressionRoot = wrapBabelExpression(ast, { text });
-              expressionRoot.comments = comments;
-
-              return jsParserPostprocess(expressionRoot, { text });
-            },
-          },
-        },
-      },
-    ],
-  });
-}
-
-function printMdxEstree(textToDoc, print, path, options) {
-  const { node } = path;
-  const { ast, text, comments } = node.data.estree.raw;
-
-  return textToDoc(text, {
-    parser: "__mdx-estree",
-    plugins: [
-      ...options.plugins,
-      {
-        parsers: {
-          "__mdx-estree": {
-            astFormat: "estree",
-            parse(_text, options) {
-              Object.assign(options, {
-                parser: "acorn",
-                // eslint-disable-next-line prettier-internal-rules/directly-loc-start-end
-                locEnd: jsLoc.locEnd,
-                // eslint-disable-next-line prettier-internal-rules/directly-loc-start-end
-                locStart: jsLoc.locStart,
-              });
-              ast.comments = comments;
-              return jsParserPostprocess(ast, { text });
-            },
-          },
-        },
-      },
-    ],
-    // eslint-disable-next-line prettier-internal-rules/directly-loc-start-end
-    locEnd: jsLoc.locEnd,
-    // eslint-disable-next-line prettier-internal-rules/directly-loc-start-end
-    locStart: jsLoc.locStart,
-  });
 }
 
 export default embed;
