@@ -4,12 +4,11 @@ import createParser from "../../language-js/parse/utilities/create-parser.js";
 import wrapExpression from "../../language-js/parse/utilities/wrap-expression.js";
 
 const transformJsExpression = ({ text, ast, comments }) => {
-  const expressionRoot = wrapExpression(ast, { text });
-  expressionRoot.comments = comments;
-
-  if (ast.type === "Program") {
-    delete expressionRoot.node;
-  }
+  const expressionRoot = wrapExpression({
+    expression: ast,
+    comments,
+    text,
+  });
 
   return postprocess(expressionRoot, { text });
 };
