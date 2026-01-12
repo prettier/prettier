@@ -7,6 +7,10 @@ const transformJsExpression = ({ text, ast, comments }) => {
   const expressionRoot = wrapExpression(ast, { text });
   expressionRoot.comments = comments;
 
+  if (ast.type === "Program") {
+    delete expressionRoot.node;
+  }
+
   return postprocess(expressionRoot, { text });
 };
 
