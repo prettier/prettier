@@ -64,7 +64,7 @@
     "css-units-list": "2.1.0",
     "dashify": "2.0.0",
     "deno-path-from-file-url": "0.0.6",
-    "diff": "8.0.2",
+    "diff": "8.0.3",
     "editorconfig-without-wasm": "0.0.4",
     "emoji-regex": "10.6.0",
     "escape-string-regexp": "5.0.0",
