@@ -6,6 +6,11 @@ import {
 } from "angular-estree-parser";
 import createError from "../../common/parser-create-error.js";
 import { locEnd, locStart } from "../loc.js";
+import wrapExpression from "./utilities/wrap-expression.js";
+
+/**
+@import {TupleTypeAnnotation} from "@babel/types"
+*/
 
 function createParseError(error) {
   /* c8 ignore next 3 */
@@ -27,7 +32,12 @@ function createParseError(error) {
 }
 
 /**
-@typedef {parseAction | parseBinding | parseInterpolationExpression | parseTemplateBindings} Parsers
+@typedef {
+  | parseAction
+  | parseBinding
+  | parseInterpolationExpression
+  | parseTemplateBindings
+} Parsers
 */
 
 /**
@@ -38,7 +48,7 @@ function createParser(parseMethod) {
   return {
     astFormat: "estree",
     parse(text) {
-      /** @type {ReturnType<ParseMethod>} */
+      /** @type {Exclude<ReturnType<ParseMethod>, TupleTypeAnnotation>} */
       let node;
 
       try {
@@ -57,11 +67,12 @@ function createParser(parseMethod) {
         node = { ...node, type: "NGChainedExpression", expressions: [node] };
       }
 
-      return {
+      return wrapExpression({
         type: "NGRoot",
-        node,
+        expression: node,
         comments,
-      };
+        text,
+      });
     },
     locStart,
     locEnd,

@@ -1,7 +1,7 @@
 import { parse, parseExpression } from "@babel/parser";
 import createError from "../../common/parser-create-error.js";
 import createBabelParseError from "../../language-js/parse/utilities/create-babel-parse-error.js";
-import wrapBabelExpression from "../../language-js/parse/utilities/wrap-babel-expression.js";
+import wrapExpression from "../../language-js/parse/utilities/wrap-expression.js";
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
 
 const babelParseOptions = {
@@ -30,15 +30,17 @@ function parseEmptyJson(text) {
     return;
   }
 
-  return file;
+  return { comments: file.comments };
 }
 
 function parseJson(text, options = {}) {
   const { allowComments = true, allowEmpty = false } = options;
 
   let ast;
+  let comments;
   try {
     ast = parseExpression(text, babelParseOptions);
+    comments = ast.comments;
   } catch (/** @type {any} */ error) {
     if (
       allowEmpty &&
@@ -46,28 +48,26 @@ function parseJson(text, options = {}) {
       error.reasonCode === "ParseExpressionEmptyInput"
     ) {
       try {
-        ast = parseEmptyJson(text);
+        ({ comments } = parseEmptyJson(text));
       } catch {
         // No op
       }
     }
 
-    if (!ast) {
+    if (!comments) {
       throw createBabelParseError(error);
     }
   }
 
-  if (!allowComments && isNonEmptyArray(ast.comments)) {
-    throw createJsonError(ast.comments[0], "Comment");
+  if (!allowComments && isNonEmptyArray(comments)) {
+    throw createJsonError(comments[0], "Comment");
   }
 
-  ast = wrapBabelExpression(ast, { type: "JsonRoot", text });
-
-  if (ast.node.type === "File") {
-    delete ast.node;
-  } else {
-    assertJsonNode(ast.node);
+  if (!allowEmpty || ast) {
+    assertJsonNode(ast);
   }
+
+  ast = wrapExpression({ type: "JsonRoot", expression: ast, comments, text });
 
   return ast;
 }

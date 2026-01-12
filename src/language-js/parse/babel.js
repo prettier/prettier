@@ -10,7 +10,7 @@ import {
   SOURCE_TYPE_COMMONJS,
   SOURCE_TYPE_MODULE,
 } from "./utilities/source-types.js";
-import wrapBabelExpression from "./utilities/wrap-babel-expression.js";
+import wrapExpression from "./utilities/wrap-expression.js";
 
 const createBabelParser = (options) => createParser(createParse(options));
 
@@ -166,7 +166,11 @@ function createParse({ isExpression = false, optionsCombinations }) {
     }
 
     if (isExpression) {
-      ast = wrapBabelExpression(ast, { text, rootMarker: options.rootMarker });
+      ast = wrapExpression({
+        expression: ast,
+        text,
+        rootMarker: options.rootMarker,
+      });
     }
 
     return postprocess(ast, { text });
