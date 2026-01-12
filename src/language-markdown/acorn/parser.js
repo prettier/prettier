@@ -1,3 +1,5 @@
+// TODO[@fisker]: Move this part to acorn parser and access from `options`
+
 import { Parser as AcornParser } from "acorn";
 import acornJsx from "acorn-jsx";
 
