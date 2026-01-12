@@ -7,6 +7,7 @@ import {
   line,
   softline,
 } from "../document/index.js";
+import { printDanglingComments } from "../main/comments/print.js";
 import isNextLineEmpty from "../utilities/is-next-line-empty.js";
 import isNonEmptyArray from "../utilities/is-non-empty-array.js";
 import UnexpectedNodeError from "../utilities/unexpected-node-error.js";
@@ -145,10 +146,15 @@ function genericPrint(path, options, print) {
       return group([
         "{",
         bracketSpace,
-        indent([
-          softline,
-          join([ifBreak("", ", "), softline], path.map(print, "fields")),
-        ]),
+        printDanglingComments(path, options, { indent: true }),
+        isNonEmptyArray(node.fields)
+          ? [
+              indent([
+                softline,
+                join([ifBreak("", ", "), softline], path.map(print, "fields")),
+              ]),
+            ]
+          : "",
         softline,
         ifBreak("", bracketSpace),
         "}",
@@ -217,7 +223,10 @@ function genericPrint(path, options, print) {
       parts.push(" ", print("name"));
 
       if (!kind.startsWith("InputObjectType") && node.interfaces.length > 0) {
-        parts.push(" implements ", ...printInterfaces(path, options, print));
+        parts.push(
+          " implements ",
+          indent([group([join([" &", line], path.map(print, "interfaces"))])]),
+        );
       }
 
       parts.push(printDirectives(path, print, node));
@@ -461,30 +470,6 @@ function printComment({ node: comment }) {
 
   /* c8 ignore next */
   throw new Error("Not a comment: " + JSON.stringify(comment));
-}
-
-function printInterfaces(path, options, print) {
-  const { node } = path;
-  const parts = [];
-  const { interfaces } = node;
-  const printed = path.map(print, "interfaces");
-
-  for (let index = 0; index < interfaces.length; index++) {
-    const interfaceNode = interfaces[index];
-    parts.push(printed[index]);
-    const nextInterfaceNode = interfaces[index + 1];
-    if (nextInterfaceNode) {
-      const textBetween = options.originalText.slice(
-        interfaceNode.loc.end,
-        nextInterfaceNode.loc.start,
-      );
-      const hasComment = textBetween.includes("#");
-
-      parts.push(" &", hasComment ? line : " ");
-    }
-  }
-
-  return parts;
 }
 
 function printVariableDefinitions(path, print) {

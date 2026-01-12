@@ -108,6 +108,7 @@ function generateReferenceSharedVisitorKeys(visitorKeys) {
       result[type] = keys;
       continue;
     }
+
     const cacheKey = keys.toSorted().join("\0");
     if (!cache.has(cacheKey)) {
       cache.set(cacheKey, keys);
