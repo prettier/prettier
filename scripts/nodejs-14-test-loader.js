@@ -9,18 +9,26 @@ import esbuild from "esbuild";
 
 export async function getSource(url, context, defaultGetSource) {
   if (
-    !/node_modules\/@babel\/(?:code-frame|highlight)/.test(url) ||
-    context.format !== "module"
+    /node_modules\/@babel\/(?:code-frame|highlight)/.test(url) &&
+    context.format === "module"
   ) {
-    return defaultGetSource(url, context, defaultGetSource);
+    const raw = await readFile(fileURLToPath(url));
+    try {
+      const result = await esbuild.transform(raw, { target: "node14" });
+      return { source: result.code };
+    } catch (error) {
+      error.message += ` (in ${url})`;
+      throw error;
+    }
   }
 
-  const raw = await readFile(fileURLToPath(url));
-  try {
-    const result = await esbuild.transform(raw, { target: "node14" });
-    return { source: result.code };
-  } catch (error) {
-    error.message += ` (in ${url})`;
-    throw error;
+  if (/node_modules\/js-tokens\//.test(url) && context.format === "module") {
+    const text = await readFile(fileURLToPath(url));
+    const commonJsExport = 'export { jsTokens as "module.exports" };';
+    if (text.includes(commonJsExport)) {
+      return { source: text.replace(commonJsExport, "") };
+    }
   }
+
+  return defaultGetSource(url, context, defaultGetSource);
 }
