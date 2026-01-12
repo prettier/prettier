@@ -1,16 +1,15 @@
-// These two cases should both be syntax error
-// https://github.com/typescript-eslint/typescript-eslint/pull/11930
-// runFormatTest(
-//   {
-//     importMeta: import.meta,
-//     snippets: [
-//       'import type foo, {} from "foo"',
-//       'import type foo, {named} from "foo"',
-//       'import type foo, * as namespace from "foo"',
-//     ],
-//   },
-//   ["typescript", "babel-ts", "oxc-ts"],
-// );
+runFormatTest(
+  {
+    importMeta: import.meta,
+    snippets: ['import type foo, {} from "foo"'],
+  },
+  [
+    "typescript",
+    // `babel-ts` didn't reject
+    // "babel-ts",
+    "oxc-ts",
+  ],
+);
 runFormatTest(
   {
     importMeta: import.meta,
@@ -19,5 +18,5 @@ runFormatTest(
       'import type foo, * as namespace from "foo"',
     ],
   },
-  ["babel-ts", "oxc-ts"],
+  ["typescript", "babel-ts", "oxc-ts"],
 );
