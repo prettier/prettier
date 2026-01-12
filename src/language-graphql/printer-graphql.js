@@ -7,6 +7,7 @@ import {
   line,
   softline,
 } from "../document/index.js";
+import { printDanglingComments } from "../main/comments/print.js";
 import isNextLineEmpty from "../utilities/is-next-line-empty.js";
 import isNonEmptyArray from "../utilities/is-non-empty-array.js";
 import UnexpectedNodeError from "../utilities/unexpected-node-error.js";
@@ -145,10 +146,15 @@ function genericPrint(path, options, print) {
       return group([
         "{",
         bracketSpace,
-        indent([
-          softline,
-          join([ifBreak("", ", "), softline], path.map(print, "fields")),
-        ]),
+        printDanglingComments(path, options, { indent: true }),
+        isNonEmptyArray(node.fields)
+          ? [
+              indent([
+                softline,
+                join([ifBreak("", ", "), softline], path.map(print, "fields")),
+              ]),
+            ]
+          : "",
         softline,
         ifBreak("", bracketSpace),
         "}",
