@@ -1,0 +1,14 @@
+.long-classname-classname-classname div[foo="bar\
+bar"] {
+  color: red;
+}
+
+.long-classname-classname-classname div[foo="bar\
+bar-bar-bar-bar-bar-bar-bar"] {
+  color: red;
+}
+
+.long-classname-classname-classname-classname-classname-classname-classname-classname-classname div[foo="bar\
+bar-bar-bar-bar-bar-bar-bar"] {
+  color: red;
+}

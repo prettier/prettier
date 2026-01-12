@@ -144,6 +144,89 @@ section:has(:not([type="radio" I], [type="checkbox" I])) {
 ================================================================================
 `;
 
+exports[`literal.css - {"singleQuote":true} format 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+singleQuote: true
+                                                                                | printWidth
+=====================================input======================================
+.long-classname-classname-classname div[foo="bar\\
+bar"] {
+  color: red;
+}
+
+.long-classname-classname-classname div[foo="bar\\
+bar-bar-bar-bar-bar-bar-bar"] {
+  color: red;
+}
+
+.long-classname-classname-classname-classname-classname-classname-classname-classname-classname div[foo="bar\\
+bar-bar-bar-bar-bar-bar-bar"] {
+  color: red;
+}
+
+=====================================output=====================================
+.long-classname-classname-classname div[foo='bar\\
+bar'] {
+  color: red;
+}
+
+.long-classname-classname-classname div[foo='bar\\
+bar-bar-bar-bar-bar-bar-bar'] {
+  color: red;
+}
+
+.long-classname-classname-classname-classname-classname-classname-classname-classname-classname
+  div[foo='bar\\
+bar-bar-bar-bar-bar-bar-bar'] {
+  color: red;
+}
+
+================================================================================
+`;
+
+exports[`literal.css format 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+.long-classname-classname-classname div[foo="bar\\
+bar"] {
+  color: red;
+}
+
+.long-classname-classname-classname div[foo="bar\\
+bar-bar-bar-bar-bar-bar-bar"] {
+  color: red;
+}
+
+.long-classname-classname-classname-classname-classname-classname-classname-classname-classname div[foo="bar\\
+bar-bar-bar-bar-bar-bar-bar"] {
+  color: red;
+}
+
+=====================================output=====================================
+.long-classname-classname-classname div[foo="bar\\
+bar"] {
+  color: red;
+}
+
+.long-classname-classname-classname div[foo="bar\\
+bar-bar-bar-bar-bar-bar-bar"] {
+  color: red;
+}
+
+.long-classname-classname-classname-classname-classname-classname-classname-classname-classname
+  div[foo="bar\\
+bar-bar-bar-bar-bar-bar-bar"] {
+  color: red;
+}
+
+================================================================================
+`;
+
 exports[`namespaces.css - {"singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["css"]

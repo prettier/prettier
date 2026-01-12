@@ -9,7 +9,9 @@ import {
   line,
   lineSuffix,
   lineSuffixBoundary,
+  literallineWithoutBreakParent,
   removeLines,
+  replaceEndOfLine,
   softline,
 } from "../document/index.js";
 import isNonEmptyArray from "../utilities/is-non-empty-array.js";
@@ -409,9 +411,12 @@ function genericPrint(path, options, print) {
         node.attribute.trim(),
         node.operator ?? "",
         node.value
-          ? quoteAttributeValue(
-              adjustStrings(node.value.trim(), options),
-              options,
+          ? replaceEndOfLine(
+              quoteAttributeValue(
+                adjustStrings(node.value.trim(), options),
+                options,
+              ),
+              literallineWithoutBreakParent,
             )
           : "",
         node.insensitive ? " i" : "",
