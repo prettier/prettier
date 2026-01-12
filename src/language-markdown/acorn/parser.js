@@ -1,7 +1,7 @@
 // TODO[@fisker]: Move this part to acorn parser and access from `options`
-
 import { Parser as AcornParser } from "acorn";
 import acornJsx from "acorn-jsx";
+import * as assert from "#universal/assert";
 
 let acorn;
 const createParse =
@@ -11,10 +11,16 @@ const createParse =
 
     acorn ??= AcornParser.extend(acornJsx());
 
-    const ast = parse(acorn, parseOptions);
-    const comments = parseOptions.options.onComment.map((comment) => ({
-      ...comment,
-    }));
+    const comments = parseOptions.options.onComment;
+
+    if (process.env.NODE_ENV !== "production") {
+      assert.ok(Array.isArray(comments) && comments.length === 0);
+    }
+
+    const ast = parse(acorn, {
+      ...parseOptions,
+      options: { ...parseOptions.options, ranges: true },
+    });
 
     return Object.defineProperty(
       {
@@ -26,7 +32,10 @@ const createParse =
       {
         value: {
           ast,
-          comments,
+          comments: comments.map((comment) => ({
+            ...comment,
+            range: [...comment.range],
+          })),
           text: parseOptions.text,
         },
       },
