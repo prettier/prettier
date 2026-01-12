@@ -151,7 +151,9 @@ function postprocess(ast, options) {
         // For hack-style pipeline
         case "TopicReference":
           ast.extra = { ...ast.extra, __isUsingHackPipeline: true };
-          break; // In Flow parser, it doesn't generate union/intersection types for single type
+          break;
+
+        // In Flow parser, it doesn't generate union/intersection types for single type
         case "TSUnionType":
         case "TSIntersectionType":
           if (node.types.length === 1) {
