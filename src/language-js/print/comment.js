@@ -9,6 +9,11 @@ import isBlockComment from "../utilities/is-block-comment.js";
 import isIndentableBlockComment from "../utilities/is-indentable-block-comment.js";
 import isLineComment from "../utilities/is-line-comment.js";
 
+/**
+@import {Doc} from "../../document/index.js"
+@import {Comment} from "../types/estree.js"
+*/
+
 function printComment(path, options) {
   const comment = path.node;
 
@@ -31,10 +36,13 @@ function printComment(path, options) {
   throw new Error("Not a comment: " + JSON.stringify(comment));
 }
 
+/**
+@param {Comment} comment
+@returns {Doc}
+*/
 function printIndentableBlockComment(comment) {
-  /** @type {string[]} */
   const lines = comment.value.split("\n");
-  const isJSDoc = comment.value[0] === "*" && comment.value[1] !== "*";
+  const isJsdoc = comment.value[0] === "*" && comment.value[1] !== "*";
 
   return [
     "/*",
@@ -42,14 +50,17 @@ function printIndentableBlockComment(comment) {
       if (index === 0) {
         return [line.trimEnd(), hardline];
       }
+
       if (index === lines.length - 1) {
         return [" ", line.trimStart()];
       }
+
       const trimmed = line.trim();
       const content = [" ", trimmed];
-      if (isJSDoc && line.endsWith("  ") && trimmed !== "*") {
+      if (isJsdoc && trimmed !== "*" && line.endsWith("  ")) {
         return [content, "  ", markAsRoot(literalline)];
       }
+
       return [content, hardline];
     }),
     "*/",
