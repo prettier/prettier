@@ -3,7 +3,7 @@
 exports[`dynamic-import.js - {"bracketSpacing":false} format 1`] = `
 ====================================options=====================================
 bracketSpacing: false
-parsers: ["typescript"]
+parsers: ["oxc", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -25,7 +25,7 @@ Cause: Missing semicolon. (1:31)"
 exports[`empty.js - {"bracketSpacing":false} format 1`] = `
 ====================================options=====================================
 bracketSpacing: false
-parsers: ["typescript"]
+parsers: ["oxc", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -47,7 +47,7 @@ Cause: Missing semicolon. (1:42)"
 exports[`re-export.js - {"bracketSpacing":false} format 1`] = `
 ====================================options=====================================
 bracketSpacing: false
-parsers: ["typescript"]
+parsers: ["oxc", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -70,7 +70,7 @@ Cause: Missing semicolon. (1:29)"
 exports[`static-import.js - {"bracketSpacing":false} format 1`] = `
 ====================================options=====================================
 bracketSpacing: false
-parsers: ["typescript"]
+parsers: ["oxc", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

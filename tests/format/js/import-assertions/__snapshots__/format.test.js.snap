@@ -2,7 +2,7 @@
 
 exports[`dynamic-import.js format 1`] = `
 ====================================options=====================================
-parsers: ["typescript"]
+parsers: ["oxc", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -27,7 +27,7 @@ Cause: Missing semicolon. (2:31)"
 
 exports[`empty.js format 1`] = `
 ====================================options=====================================
-parsers: ["typescript"]
+parsers: ["oxc", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -62,7 +62,7 @@ Cause: Missing semicolon. (1:20)"
 
 exports[`keyword-detect.js format 1`] = `
 ====================================options=====================================
-parsers: ["typescript"]
+parsers: ["oxc", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -94,7 +94,7 @@ Cause: Unexpected token (1:57)"
 
 exports[`multi-types.js format 1`] = `
 ====================================options=====================================
-parsers: ["typescript"]
+parsers: ["oxc", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -116,7 +116,7 @@ Cause: Missing semicolon. (1:26)"
 
 exports[`non-type.js format 1`] = `
 ====================================options=====================================
-parsers: ["typescript"]
+parsers: ["oxc", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -130,7 +130,7 @@ import foo from "foo.json" assert { lazy: "true" };
 
 exports[`not-import-assertions.js format 1`] = `
 ====================================options=====================================
-parsers: ["typescript"]
+parsers: ["oxc", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -156,7 +156,7 @@ Cause: Missing semicolon. (1:42)"
 
 exports[`re-export.js format 1`] = `
 ====================================options=====================================
-parsers: ["typescript"]
+parsers: ["oxc", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -182,7 +182,7 @@ Cause: Missing semicolon. (1:29)"
 
 exports[`static-import.js format 1`] = `
 ====================================options=====================================
-parsers: ["typescript"]
+parsers: ["oxc", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -204,7 +204,7 @@ Cause: Missing semicolon. (1:12)"
 
 exports[`without-from.js format 1`] = `
 ====================================options=====================================
-parsers: ["typescript"]
+parsers: ["oxc", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

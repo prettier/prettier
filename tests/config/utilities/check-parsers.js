@@ -57,16 +57,7 @@ const categoryParsers = new Map([
   [
     "js",
     {
-      parsers: [
-        "babel",
-        "acorn",
-        "espree",
-        "meriyah",
-        "oxc",
-        "oxc-ts",
-        // Remove this parser when we drop support for "import assertions"
-        "typescript",
-      ],
+      parsers: ["babel", "acorn", "espree", "meriyah", "oxc"],
       verifyParsers: [
         "babel",
         "acorn",
