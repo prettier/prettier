@@ -1,3 +1,4 @@
+import assert from "node:assert/strict";
 import postprocess from "../../language-js/parse/postprocess/index.js";
 import createParser from "../../language-js/parse/utilities/create-parser.js";
 import wrapExpression from "../../language-js/parse/utilities/wrap-expression.js";
@@ -47,7 +48,25 @@ const createPrint =
 
 const printJsExpression = createPrint({
   jsParserName: "__js_expression",
-  raw: (path) => path.node.data.estree.body[0].expression.raw,
+  raw(path) {
+    const program = path.node.data.estree;
+
+    if (program.isProgram) {
+      return program.raw;
+    }
+
+    const { body } = program; /* c8 ignore next */
+    if (process.env.NODE_ENV !== "production") {
+      assert.ok(
+        body.length === 1 &&
+          body[0].type === "ExpressionStatement" &&
+          body[0].expression.type === "ThisExpression" &&
+          body[0].expression.isExpressionRoot,
+      );
+    }
+
+    return body[0].expression.raw;
+  },
   transform: transformJsExpression,
 });
 
