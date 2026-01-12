@@ -1,4 +1,4 @@
-import assert from "node:assert/strict";
+import * as assert from "#universal/assert";
 import postprocess from "../../language-js/parse/postprocess/index.js";
 import createParser from "../../language-js/parse/utilities/create-parser.js";
 import wrapExpression from "../../language-js/parse/utilities/wrap-expression.js";
