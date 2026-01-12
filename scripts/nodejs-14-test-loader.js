@@ -10,7 +10,7 @@ import esbuild from "esbuild";
 export async function getSource(url, context, defaultGetSource) {
   if (context.format === "module") {
     if (url.includes("/node_modules/js-tokens/")) {
-      const text = await readFile(fileURLToPath(url));
+      const text = await readFile(fileURLToPath(url), "utf8");
       const commonJsExport = 'export { jsTokens as "module.exports" };';
       if (text.includes(commonJsExport)) {
         return { source: text.replace(commonJsExport, "") };
@@ -21,9 +21,9 @@ export async function getSource(url, context, defaultGetSource) {
       url.includes("/node_modules/@babel/code-frame/") ||
       url.includes("/node_modules/@babel/highlight/")
     ) {
-      const text = await readFile(fileURLToPath(url));
+      const raw = await readFile(fileURLToPath(url));
       try {
-        const result = await esbuild.transform(text, { target: "node14" });
+        const result = await esbuild.transform(raw, { target: "node14" });
         return { source: result.code };
       } catch (error) {
         error.message += ` (in ${url})`;
