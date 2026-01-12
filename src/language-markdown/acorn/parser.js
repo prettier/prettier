@@ -33,7 +33,7 @@ const createParse =
       assert.equal(preserveParens, true);
     }
 
-    // Make `result.raw` non-enumerable, so it won't be processed by `micromark-extension-mdx-expression`
+    // Make `result.parseResult` non-enumerable, so it won't be processed by `micromark-extension-mdx-expression`
     // https://github.com/micromark/micromark-extension-mdx-expression/blob/2891b75ff9e985c6df208a47348e76ced05dbfed/packages/micromark-util-events-to-acorn/dev/lib/index.js#L124
     return Object.defineProperty(
       {
@@ -41,7 +41,7 @@ const createParse =
         end: ast.end,
         ...result,
       },
-      "raw",
+      "parseResult",
       { value: { ast, comments, text: parseOptions.text } },
     );
   };
