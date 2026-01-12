@@ -30,7 +30,7 @@ function parseEmptyJson(text) {
     return;
   }
 
-  return file.comments;
+  return { comments: file.comments };
 }
 
 function parseJson(text, options = {}) {
@@ -48,13 +48,13 @@ function parseJson(text, options = {}) {
       error.reasonCode === "ParseExpressionEmptyInput"
     ) {
       try {
-        comments = parseEmptyJson(text);
+        ({ comments } = parseEmptyJson(text));
       } catch {
         // No op
       }
     }
 
-    if (!ast && !comments) {
+    if (!comments) {
       throw createBabelParseError(error);
     }
   }
@@ -63,9 +63,11 @@ function parseJson(text, options = {}) {
     throw createJsonError(comments[0], "Comment");
   }
 
-  ast = wrapExpression({ type: "JsonRoot", expression: ast, comments, text });
+  if (!allowEmpty || ast) {
+    assertJsonNode(ast);
+  }
 
-  assertJsonNode(ast.node);
+  ast = wrapExpression({ type: "JsonRoot", expression: ast, comments, text });
 
   return ast;
 }
