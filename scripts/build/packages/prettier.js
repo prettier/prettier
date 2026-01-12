@@ -89,16 +89,6 @@ const mainModule = {
           module: require.resolve("@babel/code-frame"),
           process(text) {
             text = text.replaceAll(
-              "var picocolors = require('picocolors');",
-              "",
-            );
-            text = text.replaceAll("var jsTokens = require('js-tokens');", "");
-            text = text.replaceAll(
-              "var helperValidatorIdentifier = require('@babel/helper-validator-identifier');",
-              "",
-            );
-
-            text = text.replaceAll(
               /(?<=\n)let tokenize;\n\{\n.*?\n\}(?=\n)/gs,
               "",
             );
@@ -130,9 +120,6 @@ const mainModule = {
               "const shouldHighlight = opts.forceColor || isColorSupported() && opts.highlightCode;",
               "const shouldHighlight = false;",
             );
-
-            text = text.replaceAll("exports.default = index;", "");
-            text = text.replaceAll("exports.highlight = highlight;", "");
 
             return text;
           },
