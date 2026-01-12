@@ -454,7 +454,7 @@ const configs = [
         "src/language-js/parse/json.js",
         "src/language-js/parse/acorn.js",
         "src/language-js/parse/oxc.js",
-        "src/language-js/parse/utilities/wrap-babel-expression.js",
+        "src/language-js/parse/utilities/wrap-expression.js",
       ],
       "prettier-internal-rules/prefer-create-type-check-function": [
         "error",
