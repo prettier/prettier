@@ -38,6 +38,7 @@ const createPrint =
   async (textToDoc, print, path, options) => {
     const mdxParserName = `__mdx_${jsParserName.startsWith("__") ? jsParserName.slice(2) : jsParserName}`;
     const rawResult = raw(path);
+    delete rawResult.ast.comments;
     const plugin = createPlugin(mdxParserName, jsParserName, transform);
 
     return await textToDoc(rawResult.text, {
