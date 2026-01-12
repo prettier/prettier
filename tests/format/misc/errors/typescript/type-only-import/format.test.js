@@ -6,6 +6,7 @@
 //     snippets: [
 //       'import type foo, {} from "foo"',
 //       'import type foo, {named} from "foo"',
+//       'import type foo, * as namespace from "foo"',
 //     ],
 //   },
 //   ["typescript", "babel-ts", "oxc-ts"],
@@ -13,7 +14,10 @@
 runFormatTest(
   {
     importMeta: import.meta,
-    snippets: ['import type foo, {named} from "foo"'],
+    snippets: [
+      'import type foo, {named} from "foo"',
+      'import type foo, * as namespace from "foo"',
+    ],
   },
   ["babel-ts", "oxc-ts"],
 );
