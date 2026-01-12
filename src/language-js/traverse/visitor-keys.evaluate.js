@@ -38,16 +38,10 @@ const excludeVisitorKeys = {
 
   // Flow node from Babel
   TupleTypeAnnotation: ["types"],
-
-  // https://github.com/babel/babel/issues/17506
-  TSImportType: ["argument"],
 };
 
 // https://github.com/babel/babel/issues/17524
 const excludeNodeTypes = [
-  // Babel will remove in v8
-  // https://github.com/babel/babel/pull/17242
-  "TupleExpression",
   // Babel, Won't exist since we use `createImportExpressions` when parsing with babel
   "Import",
 
