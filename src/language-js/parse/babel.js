@@ -213,15 +213,6 @@ const allowedReasonCodes = new Set([
   "DuplicateExport",
 
   /*
-  Legacy syntax
-
-  ```js
-  import json from "./json.json" assert {type: "json"};
-  ```
-  */
-  "ImportAttributesUseAssert",
-
-  /*
   Allow const without initializer in `.d.ts` files
   https://github.com/prettier/prettier/issues/17649
 

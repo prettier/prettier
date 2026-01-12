@@ -184,15 +184,6 @@ function postprocess(ast, options) {
             return rebalanceLogicalTree(node);
           }
           break;
-
-        // https://github.com/babel/babel/issues/17506
-        // It's possible to have parenthesized `argument`, need do this in `onLeave`
-        case "TSImportType":
-          if (!node.source && node.argument.type === "TSLiteralType") {
-            node.source = node.argument.literal;
-            delete node.argument;
-          }
-          break;
       }
 
       /* c8 ignore next 3 */
