@@ -1247,44 +1247,6 @@ import("./foo.json", { assert: { type: "json" } });
 ================================================================================
 `;
 
-exports[`import-assertions-static.js [acorn] format 1`] = `
-"Unexpected token (1:31)
-> 1 | import json from "./foo.json" assert { type: "json" };
-    |                               ^
-  2 |
-Cause: Unexpected token (1:30)"
-`;
-
-exports[`import-assertions-static.js [espree] format 1`] = `
-"Unexpected token assert (1:31)
-> 1 | import json from "./foo.json" assert { type: "json" };
-    |                               ^
-  2 |
-Cause: Unexpected token assert"
-`;
-
-exports[`import-assertions-static.js [meriyah] format 1`] = `
-"Unexpected token: 'identifier' (1:31)
-> 1 | import json from "./foo.json" assert { type: "json" };
-    |                               ^^^^^^
-  2 |
-Cause: [1:30-1:36]: Unexpected token: 'identifier'"
-`;
-
-exports[`import-assertions-static.js format 1`] = `
-====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-import json from "./foo.json" assert { type: "json" };
-
-=====================================output=====================================
-import json from "./foo.json" assert { type: "json" };
-
-================================================================================
-`;
-
 exports[`import-attributes-dynamic.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "babel-ts", "babel-flow"]
