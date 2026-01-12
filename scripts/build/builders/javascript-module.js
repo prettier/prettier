@@ -223,7 +223,6 @@ function getEsbuildOptions({ packageConfig, file, cliOptions, buildOptions }) {
       "class-private-method": true,
     },
     packages: "bundle",
-    pure: ["Object.keys"],
   };
 
   if (buildOptions.platform === "universal") {
