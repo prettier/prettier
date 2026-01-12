@@ -1,12 +1,9 @@
-import { locEnd, locStart } from "../../language-js/loc.js";
-import { __js_expression } from "../../language-js/parse/babel.js";
 import postprocess from "../../language-js/parse/postprocess/index.js";
 import createParser from "../../language-js/parse/utilities/create-parser.js";
-import wrapBabelExpression from "../../language-js/parse/utilities/wrap-babel-expression.js";
+import wrapExpression from "../../language-js/parse/utilities/wrap-expression.js";
 
 const transformJsExpression = ({ text, ast, comments }) => {
-  // TODO: rename `wrapBabelExpression`
-  const expressionRoot = wrapBabelExpression(ast, { text });
+  const expressionRoot = wrapExpression(ast, { text });
   expressionRoot.comments = comments;
 
   return postprocess(expressionRoot, { text });
