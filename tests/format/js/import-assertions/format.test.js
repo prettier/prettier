@@ -1,3 +1,5 @@
+// `typescript` is the only parser supports `assertions`
+// Remove it from "check-parsers.js" when we drop support for "import assertions"
 runFormatTest(import.meta, ["typescript"], {
   errors: {
     "babel-ts": [

@@ -1,8 +1,6 @@
-runFormatTest(import.meta, ["babel"], {
+// `typescript` is the only parser supports `assertions`
+// Remove it from "check-parsers.js" when we drop support for "import assertions"
+runFormatTest(import.meta, ["typescript"], {
   bracketSpacing: false,
-  errors: {
-    acorn: ["static-import.js", "re-export.js", "empty.js"],
-    espree: ["static-import.js", "re-export.js", "empty.js"],
-    meriyah: ["static-import.js", "re-export.js", "empty.js"],
-  },
+  errors: { "babel-ts": ["static-import.js", "re-export.js", "empty.js"] },
 });
