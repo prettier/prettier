@@ -1,6 +1,7 @@
 import { hardline, markAsRoot, replaceEndOfLine } from "../document/index.js";
 import getMaxContinuousCount from "../utilities/get-max-continuous-count.js";
 import inferParser from "../utilities/infer-parser.js";
+import replaceNonLineBreaksWithSpace from "../utilities/replace-non-line-breaks-with-space.js";
 import { getFencedCodeBlockValue } from "./utilities.js";
 
 function embed(path, options) {
@@ -61,71 +62,67 @@ function embed(path, options) {
 
     // MDX
     case "mdxjsEsm":
-      return (textToDoc) =>
-        textToDoc(node.value, {
-          // TODO: Rename this option since it's not used in HTML
-          __onHtmlBindingRoot: (ast) => validateImportExport(ast, node.type),
-          parser: "babel",
-        });
+      return printMdxEstree;
 
     case "mdxFlowExpression":
-      return async (textToDoc) => [
+      return async (textToDoc, print, path, options) => [
         path.parent.type === "mdxJsxFlowElement" ? hardline : "",
         "{",
-        await printMdxJsExpression(textToDoc, node.value),
+        await printMdxJsExpression(textToDoc, print, path, options),
         "}",
       ];
+    case "mdxJsxAttributeValueExpression":
+      return printMdxJsExpression;
+
     case "mdxTextExpression":
-      return async (textToDoc) => [
+      return async (textToDoc, print, path, options) => [
         "{",
-        await printMdxJsExpression(textToDoc, node.value),
+        await printMdxJsExpression(textToDoc, print, path, options),
         "}",
       ];
   }
 }
 
-function isEmptyExpressionError(error) {
-  const cause = error?.cause;
-  return (
-    cause?.code === "BABEL_PARSER_SYNTAX_ERROR" &&
-    cause?.reasonCode === "ParseExpressionEmptyInput"
-  );
+function printMdxJsExpression(textToDoc, print, path, options) {
+  const { node } = path;
+  const expression = node.data.estree;
+  const text = options.originalText.slice(0, expression.start) + node.value;
+
+  return textToDoc(text, {
+    parser: "__mdx-js-repression",
+    plugins: [
+      ...options.plugins,
+      {
+        parsers: {
+          "__mdx-js-repression": {
+            astFormat: "estree",
+            parse: () => expression,
+          },
+        },
+      },
+    ],
+  });
 }
 
-async function printMdxJsExpression(textToDoc, code) {
-  try {
-    return await textToDoc(code, {
-      parser: "__js_expression",
-    });
-  } catch (error) {
-    if (isEmptyExpressionError(error)) {
-      try {
-        return await textToDoc(code, { parser: "babel" });
-      } catch {
-        // Throw the expression print error instead
-      }
-    }
+function printMdxEstree(textToDoc, print, path, options) {
+  const { node } = path;
+  const ast = node.data.estree;
+  const text = options.originalText.slice(0, ast.start) + node.value;
 
-    throw error;
-  }
-}
-
-function validateImportExport(ast, type) {
-  const {
-    program: { body },
-  } = ast;
-
-  // https://github.com/mdx-js/mdx/blob/3430138958c9c0344ecad9d59e0d6b5d72bedae3/packages/remark-mdx/extract-imports-and-exports.js#L16
-  if (
-    !body.every(
-      (node) =>
-        node.type === "ImportDeclaration" ||
-        node.type === "ExportDefaultDeclaration" ||
-        node.type === "ExportNamedDeclaration",
-    )
-  ) {
-    throw new Error(`Unexpected '${type}' in MDX.`);
-  }
+  return textToDoc(text, {
+    parser: "__mdx-estree",
+    plugins: [
+      ...options.plugins,
+      {
+        parsers: {
+          "__mdx-estree": {
+            astFormat: "estree",
+            parse: () => ast,
+          },
+        },
+      },
+    ],
+  });
 }
 
 export default embed;

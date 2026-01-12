@@ -25,21 +25,7 @@ function getMarkdownParseOptions() {
       // wikiLinkSyntax(),
       // liquidSyntax(),
       // overrideHtmlTextSyntax(),
-      mdxjs({
-        acorn: {
-          parse(text) {
-            return { type: "Program", start: 0, end: text.length, body: [] };
-          },
-          parseExpressionAt(...args) {
-            const original = acorn.parseExpressionAt(...args); // need actual parsing to get end of expression
-            return {
-              type: "Literal",
-              start: original.start,
-              end: original.end,
-            };
-          },
-        },
-      }),
+      mdxjs(),
       comment,
     ],
     mdastExtensions: [
