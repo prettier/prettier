@@ -30,13 +30,12 @@ import { printTypeAnnotationProperty } from "./type-annotation.js";
 
 function printEmptyArrayElements(path, options, openBracket, closeBracket) {
   const { node } = path;
-  if (!hasComment(node, CommentCheckFlags.Dangling)) {
-    return [openBracket, closeBracket];
-  }
+
   return group([
     openBracket,
-    printDanglingComments(path, options, { indent: true }),
-    softline,
+    hasComment(node, CommentCheckFlags.Dangling)
+      ? [indent([softline, printDanglingComments(path, options)]), softline]
+      : [],
     closeBracket,
   ]);
 }
