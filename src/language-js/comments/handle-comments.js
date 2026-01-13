@@ -618,8 +618,19 @@ function handleCommentAfterArrowParams({ comment, enclosingNode, text }) {
 }
 
 function isInArgumentOrParameterParentheses(node, comment, options) {
+  const commentStart = locStart(comment);
+  const nodeEnd = locEnd(node);
+  if (commentStart >= nodeEnd) {
+    return false;
+  }
+
+  const commentEnd = locEnd(comment);
   const nodeStart = locStart(node);
-  const nodeText = getTextWithoutComments(options, nodeStart, locEnd(node));
+  if (commentEnd <= nodeStart) {
+    return false;
+  }
+
+  const nodeText = getTextWithoutComments(options, nodeStart, nodeEnd);
 
   return (
     nodeText
@@ -638,31 +649,36 @@ function handleCommentInEmptyParens({ comment, enclosingNode, options }) {
     return false;
   }
 
-  // This condition should be removed, but excluded for function parameters in #18615 to make PRs smaller
-  const isRemainingComment = comment.placement === "remaining";
-
-  // Only add dangling comments to fix the case when no params are present,
-  // i.e. a function without any argument.
   if (
-    ((isRemainingComment &&
-      isRealFunctionLikeNode(enclosingNode) &&
-      getFunctionParameters(enclosingNode).length === 0) ||
-      (isCallLikeExpression(enclosingNode) &&
-        getCallArguments(enclosingNode).length === 0)) &&
+    isCallLikeExpression(enclosingNode) &&
+    getCallArguments(enclosingNode).length === 0 &&
     isInArgumentOrParameterParentheses(enclosingNode, comment, options)
   ) {
     addDanglingComment(enclosingNode, comment);
     return true;
   }
 
+  // This condition should be removed, but excluded for function parameters in #18615 to make PRs smaller
+  if (comment.placement !== "remaining") {
+    return false;
+  }
+
+  // Only add dangling comments to fix the case when no params are present,
+  // i.e. a function without any argument.
+
+  const functionNode = isRealFunctionLikeNode(enclosingNode)
+    ? enclosingNode
+    : enclosingNode.type === "MethodDefinition" ||
+        enclosingNode.type === "TSAbstractMethodDefinition"
+      ? enclosingNode.value
+      : undefined;
+
   if (
-    isRemainingComment &&
-    (enclosingNode.type === "MethodDefinition" ||
-      enclosingNode.type === "TSAbstractMethodDefinition") &&
-    getFunctionParameters(enclosingNode.value).length === 0 &&
-    isInArgumentOrParameterParentheses(enclosingNode, comment, options)
+    functionNode &&
+    getFunctionParameters(functionNode).length === 0 &&
+    isInArgumentOrParameterParentheses(functionNode, comment, options)
   ) {
-    addDanglingComment(enclosingNode.value, comment);
+    addDanglingComment(functionNode, comment);
     return true;
   }
 
