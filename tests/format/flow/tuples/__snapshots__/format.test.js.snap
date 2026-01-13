@@ -1,5 +1,33 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`comments.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+type Empty1 = [
+// comment
+...];
+type Empty2 = [// comment
+...];
+type Empty3 = [
+...// comment
+];
+type Empty4 = [
+...
+// comment
+];
+
+=====================================output=====================================
+type Empty1 = [...// comment];
+type Empty2 = [...// comment];
+type Empty3 = [...// comment];
+type Empty4 = [...// comment];
+
+================================================================================
+`;
+
 exports[`inexact.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
