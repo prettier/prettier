@@ -14,7 +14,6 @@ import hasNewline from "../../utilities/has-newline.js";
 import { locEnd } from "../loc.js";
 import {
   CommentCheckFlags,
-  getComments,
   getFunctionParameters,
   hasComment,
   isObjectType,
