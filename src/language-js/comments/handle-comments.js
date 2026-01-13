@@ -65,7 +65,7 @@ function handleOwnLineComment(context) {
     handleCommentInEmptyParens,
     handleIgnoreComments,
     handleConditionalExpressionComments,
-    handleLastFunctionArgComments,
+    handleLastFunctionParameterComments,
     handleLastComponentArgComments,
     handleMemberExpressionComments,
     handleIfStatementComments,
@@ -96,7 +96,7 @@ function handleEndOfLineComment(context) {
   return [
     handleCommentInEmptyParens,
     handleClosureTypeCastComments,
-    handleLastFunctionArgComments,
+    handleLastFunctionParameterComments,
     handleConditionalExpressionComments,
     handleModuleSpecifiersComments,
     handleIfStatementComments,
@@ -714,8 +714,7 @@ function handleLastComponentArgComments({
   return false;
 }
 
-// This function seem doing bad job for cases that `handleCommentInEmptyParens` do
-function handleLastFunctionArgComments({
+function handleLastFunctionParameterComments({
   comment,
   precedingNode,
   enclosingNode,
