@@ -137,7 +137,15 @@ function printObject(path, options, print) {
     content = group([
       "{",
       hasComment(node, CommentCheckFlags.Dangling)
-        ? [indent([softline, printDanglingComments(path, options)]), softline]
+        ? [
+            indent([softline, printDanglingComments(path, options)]),
+            hasComment(
+              node,
+              CommentCheckFlags.Dangling | CommentCheckFlags.Line,
+            )
+              ? hardline
+              : softline,
+          ]
         : [],
       "}",
       printOptionalToken(path),

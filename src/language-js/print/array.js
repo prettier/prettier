@@ -34,7 +34,12 @@ function printEmptyArrayElements(path, options) {
   return group([
     "[",
     hasComment(node, CommentCheckFlags.Dangling)
-      ? [indent([softline, printDanglingComments(path, options)]), softline]
+      ? [
+          indent([softline, printDanglingComments(path, options)]),
+          hasComment(node, CommentCheckFlags.Dangling | CommentCheckFlags.Line)
+            ? hardline
+            : softline,
+        ]
       : [],
     "]",
   ]);
@@ -51,7 +56,6 @@ function printArray(path, options, print) {
   /** @type{Doc[]} */
   const parts = [];
 
-  const closeBracket = "]";
   const elementsProperty = isTupleType(node) ? "elementTypes" : "elements";
   const elements = node[elementsProperty];
   if (elements.length === 0 && !node.inexact) {
