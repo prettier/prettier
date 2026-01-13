@@ -91,8 +91,8 @@ function printCallExpression(path, options, print) {
   const contents = [
     isNewExpression ? "new " : "",
     printCallee(path, print),
-    lineSuffixBoundary,
     optional,
+    lineSuffixBoundary,
     typeArgumentsDoc,
     lineSuffixBoundary,
     printCallArguments(path, options, print),
