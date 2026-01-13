@@ -148,9 +148,7 @@ enum E2 of number {
   // D = 100
 }
 
-enum E3 {
-  /*Q*/
-}
+enum E3 {/*Q*/}
 
 enum E4 of string {
   /*Q*/ Foo = "foo",

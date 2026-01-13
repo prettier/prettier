@@ -36,9 +36,7 @@ type Foo6 = [
 
 
 =====================================output=====================================
-type Foo1 = [
-  /* comment */
-];
+type Foo1 = [/* comment */];
 
 type Foo2 = [
   // comment
@@ -54,9 +52,7 @@ type Foo4 = [
   // comment2
 ];
 
-type Foo5 = [
-  /* comment1 */
-];
+type Foo5 = [/* comment1 */];
 
 type Foo6 = [
   /* comment1 */
@@ -102,9 +98,7 @@ type Foo6 = [
 
 
 =====================================output=====================================
-type Foo1 = [
-  /* comment */
-];
+type Foo1 = [/* comment */];
 
 type Foo2 = [
   // comment
@@ -120,9 +114,7 @@ type Foo4 = [
   // comment2
 ];
 
-type Foo5 = [
-  /* comment1 */
-];
+type Foo5 = [/* comment1 */];
 
 type Foo6 = [
   /* comment1 */
@@ -168,9 +160,7 @@ type Foo6 = [
 
 
 =====================================output=====================================
-type Foo1 = [
-  /* comment */
-];
+type Foo1 = [/* comment */];
 
 type Foo2 = [
   // comment
@@ -186,9 +176,7 @@ type Foo4 = [
   // comment2
 ];
 
-type Foo5 = [
-  /* comment1 */
-];
+type Foo5 = [/* comment1 */];
 
 type Foo6 = [
   /* comment1 */

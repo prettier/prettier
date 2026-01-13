@@ -28,16 +28,20 @@ import { printTypeAnnotationProperty } from "./type-annotation.js";
 
 /** @import {Doc} from "../../document/index.js" */
 
-function printEmptyArrayElements(path, options, openBracket, closeBracket) {
+function printEmptyArrayElements(path, options) {
   const { node } = path;
-  if (!hasComment(node, CommentCheckFlags.Dangling)) {
-    return [openBracket, closeBracket];
-  }
+
   return group([
-    openBracket,
-    printDanglingComments(path, options, { indent: true }),
-    softline,
-    closeBracket,
+    "[",
+    hasComment(node, CommentCheckFlags.Dangling)
+      ? [
+          indent([softline, printDanglingComments(path, options)]),
+          hasComment(node, CommentCheckFlags.Dangling | CommentCheckFlags.Line)
+            ? hardline
+            : softline,
+        ]
+      : [],
+    "]",
   ]);
 }
 
@@ -52,14 +56,10 @@ function printArray(path, options, print) {
   /** @type{Doc[]} */
   const parts = [];
 
-  const openBracket = "[";
-  const closeBracket = "]";
   const elementsProperty = isTupleType(node) ? "elementTypes" : "elements";
   const elements = node[elementsProperty];
   if (elements.length === 0 && !node.inexact) {
-    parts.push(
-      printEmptyArrayElements(path, options, openBracket, closeBracket),
-    );
+    parts.push(printEmptyArrayElements(path, options));
   } else {
     const lastElem = elements.at(-1);
     const canHaveTrailingComma =
@@ -116,7 +116,7 @@ function printArray(path, options, print) {
     parts.push(
       group(
         [
-          openBracket,
+          "[",
           indent([
             softline,
             shouldUseConciseFormatting
@@ -134,7 +134,7 @@ function printArray(path, options, print) {
             printDanglingComments(path, options),
           ]),
           softline,
-          closeBracket,
+          "]",
         ],
         { shouldBreak, id: groupId },
       ),
