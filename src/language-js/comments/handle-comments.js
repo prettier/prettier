@@ -101,6 +101,7 @@ function handleEndOfLineComment(context) {
     handleTryStatementComments,
     handleClassComments,
     handleLabeledStatementComments,
+    handleCallExpressionComments,
     handlePropertyComments,
     handleOnlyComments,
     handleVariableDeclaratorComments,
@@ -770,6 +771,22 @@ function handleBreakAndContinueStatementComments({ comment, enclosingNode }) {
     !enclosingNode.label
   ) {
     addTrailingComment(enclosingNode, comment);
+    return true;
+  }
+  return false;
+}
+
+function handleCallExpressionComments({
+  comment,
+  precedingNode,
+  enclosingNode,
+}) {
+  if (
+    isCallExpression(enclosingNode) &&
+    enclosingNode.callee === precedingNode &&
+    enclosingNode.arguments.length > 0
+  ) {
+    addLeadingComment(enclosingNode.arguments[0], comment);
     return true;
   }
   return false;
