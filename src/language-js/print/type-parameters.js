@@ -44,17 +44,26 @@ function shouldForceTrailingComma(path, options, paramsKey) {
 }
 
 /**
- * @param {AstPath} path
- */
+@param {AstPath} path
+
+- `GenericTypeAnnotation` (Flow)
+- `TypeParameterDeclaration` (Flow)
+- `TypeParameterInstantiation` (Flow)
+- `TSTypeParameterDeclaration` (TypeScript)
+- `TSTypeParameterInstantiation` (TypeScript)
+- `TSImportType` (TypeScript)
+- `TSTypeReference` (TypeScript)
+*/
 function printTypeParameters(path, options, print, paramsKey) {
   const { node } = path;
+  const parameters = node[paramsKey];
 
-  if (!node[paramsKey]) {
+  if (!parameters) {
     return "";
   }
 
   // for TypeParameterDeclaration typeParameters is a single node
-  if (!Array.isArray(node[paramsKey])) {
+  if (!Array.isArray(parameters)) {
     return print(paramsKey);
   }
 
@@ -70,12 +79,13 @@ function printTypeParameters(path, options, print, paramsKey) {
   );
 
   const shouldInline =
-    node[paramsKey].length === 0 ||
-    (!isArrowFunctionVariable &&
+    parameters.length === 0 ||
+    (!parameters.some((node) => hasComment(node, CommentCheckFlags.Line)) &&
+      !isArrowFunctionVariable &&
       (isParameterInTestCall ||
-        (node[paramsKey].length === 1 &&
-          (node[paramsKey][0].type === "NullableTypeAnnotation" ||
-            shouldHugType(node[paramsKey][0])))));
+        (parameters.length === 1 &&
+          (parameters[0].type === "NullableTypeAnnotation" ||
+            shouldHugType(parameters[0])))));
 
   if (shouldInline) {
     return [
