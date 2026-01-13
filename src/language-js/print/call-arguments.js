@@ -49,7 +49,12 @@ function printCallArguments(path, options, print) {
   const { node } = path;
 
   const args = getCallArguments(node);
+
   if (args.length === 0) {
+    if (!hasComment(node, CommentCheckFlags.Dangling)) {
+      return "()";
+    }
+
     return [
       "(",
       printDanglingComments(path, options, { indent: true }),
