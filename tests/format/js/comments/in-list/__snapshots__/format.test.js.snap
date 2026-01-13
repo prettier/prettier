@@ -43,12 +43,38 @@ method(
 get getter(
 /* class getter parameter */){}
 }
-
 object = {
 method(
 /* object method parameter */){},
 get getter(
 /* object getter parameter */){}
+}
+
+array = [/* array */
+]
+object = {/* object */
+}
+call = call(/* call argument */
+)
+fn = function(/* function parameter */
+) {}
+arrow = (/* function parameter */
+) => {}
+newFoo = new Foo(/* new argument */
+)
+c = class {
+constructor(/* class constructor parameter */
+){}
+method(/* class method parameter */
+){}
+get getter(/* class getter parameter */
+){}
+}
+object = {
+method(/* object method parameter */
+){},
+get getter(/* object getter parameter */
+){}
 }
 
 array = [/* array long long long long long long long long long long long long long long long long */]
@@ -100,12 +126,27 @@ c = class {
   get getter() {}
   /* class getter parameter */
 };
-
 object = {
   method() {},
   /* object method parameter */
   get getter() {},
   /* object getter parameter */
+};
+
+array = [/* array */];
+object = {/* object */};
+call = call(/* call argument */);
+fn = function (/* function parameter */) {};
+arrow = (/* function parameter */) => {};
+newFoo = new Foo(/* new argument */);
+c = class {
+  constructor /* class constructor parameter */() {}
+  method /* class method parameter */() {}
+  get getter /* class getter parameter */() {}
+};
+object = {
+  method /* object method parameter */() {},
+  get getter /* object getter parameter */() {},
 };
 
 array = [
