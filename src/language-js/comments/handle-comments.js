@@ -740,7 +740,7 @@ function handleLastFunctionParameterComments({
       precedingNode?.type === "RestElement" ||
       precedingNode?.type === "TSParameterProperty") &&
     isRealFunctionLikeNode(enclosingNode) &&
-    getFunctionParameters(enclosingNode).at(-1) === precedingNode
+    getNextNonSpaceNonCommentCharacter(text, locEnd(comment)) === ")"
   ) {
     addTrailingComment(precedingNode, comment);
     return true;
