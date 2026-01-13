@@ -82,6 +82,7 @@ function handleOwnLineComment(context) {
     handleCommentsInDestructuringPattern,
     handleTSMappedTypeComments,
     handleBinaryCastExpressionComment,
+    handleCommentInEmptyParens,
   ].some((fn) => fn(context));
 }
 
