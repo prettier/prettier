@@ -1364,8 +1364,9 @@ interface Foo {
 =====================================output=====================================
 functionName<A /* A comment */>();
 
-functionName<A> // comment
-();
+functionName<
+  A // comment
+>();
 interface Foo {
   <
     A, // comment

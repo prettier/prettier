@@ -46,6 +46,56 @@ type A<
 ================================================================================
 `;
 
+exports[`18604.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+foo<
+  // Comment
+  Type
+>(
+  // Comment
+  value
+)
+
+foo<
+  /* Comment */
+  Type
+>(
+  /* Comment */
+  value
+)
+
+foo<
+  /* Comment */ Type
+>(
+  /* Comment */ value
+)
+
+=====================================output=====================================
+foo<
+  // Comment
+  Type
+>(
+  // Comment
+  value,
+);
+
+foo<
+  /* Comment */
+  Type
+>(
+  /* Comment */
+  value,
+);
+
+foo</* Comment */ Type>(/* Comment */ value);
+
+================================================================================
+`;
+
 exports[`class-method.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
