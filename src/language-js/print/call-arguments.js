@@ -209,22 +209,6 @@ function couldExpandArg(arg, arrowChainRecursion = false) {
     (isBinaryCastExpression(arg) && couldExpandArg(arg.expression)) ||
     arg.type === "FunctionExpression" ||
     (arg.type === "ArrowFunctionExpression" &&
-      // we want to avoid breaking inside composite return types but not simple keywords
-      // https://github.com/prettier/prettier/issues/4070
-      // export class Thing implements OtherThing {
-      //   do: (type: Type) => Provider<Prop> = memoize(
-      //     (type: ObjectType): Provider<Opts> => {}
-      //   );
-      // }
-      // https://github.com/prettier/prettier/issues/6099
-      // app.get("/", (req, res): void => {
-      //   res.send("Hello World!");
-      // });
-      (!arg.returnType ||
-        !arg.returnType.typeAnnotation ||
-        arg.returnType.typeAnnotation.type !== "TSTypeReference" ||
-        // https://github.com/prettier/prettier/issues/7542
-        isNonEmptyBlockStatement(arg.body)) &&
       (arg.body.type === "BlockStatement" ||
         (arg.body.type === "ArrowFunctionExpression" &&
           couldExpandArg(arg.body, true)) ||
@@ -380,14 +364,6 @@ function isValidHookCallbackAndDepsFormat(args, baseIndex) {
     maybeArrowFunction.body.type === "BlockStatement" &&
     maybeDepsArray.type === "ArrayExpression" &&
     !args.some((arg) => hasComment(arg))
-  );
-}
-
-function isNonEmptyBlockStatement(node) {
-  return (
-    node.type === "BlockStatement" &&
-    (node.body.some((node) => node.type !== "EmptyStatement") ||
-      hasComment(node, CommentCheckFlags.Dangling))
   );
 }
 
