@@ -610,7 +610,7 @@ function handleCommentAfterArrowParams({ comment, enclosingNode, text }) {
 
   const index = getNextNonSpaceNonCommentCharacterIndex(text, locEnd(comment));
   if (index !== false && text.slice(index, index + 2) === "=>") {
-    addDanglingComment(enclosingNode, comment);
+    addDanglingComment(enclosingNode, comment, "commentBeforeArrow");
     return true;
   }
 
@@ -1189,17 +1189,18 @@ function handleBinaryCastExpressionComment({
 }
 
 /**
- * Handle a comment after an arrow, like:
- *   ```ts
- *   const test = (): any => /* first line
- *   second line
- *   *\/
- *   null;
- *   ```
- *
- * @param {CommentContext} context
- * @returns {boolean}
- */
+Avoid attaching multiline comment to node before arrow
+
+```ts
+const test = (): any => /* first line
+second line
+*\/
+null;
+```
+
+@param {CommentContext} context
+@returns {boolean}
+*/
 function handleCommentAfterArrowExpression({
   comment,
   enclosingNode,
@@ -1210,6 +1211,8 @@ function handleCommentAfterArrowExpression({
     return false;
   }
 
+  // TODO[@fisker]: This should only matters when it's before `=>`,
+  // The node type of `ArrowFunctionExpression.returnType` shouldn't check
   if (
     enclosingNode.type === "ArrowFunctionExpression" &&
     enclosingNode.returnType === precedingNode &&

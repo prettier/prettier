@@ -10,9 +10,7 @@ import {
   willBreak,
 } from "../../document/index.js";
 import { printDanglingComments } from "../../main/comments/print.js";
-import getNextNonSpaceNonCommentCharacter from "../../utilities/get-next-non-space-non-comment-character.js";
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
-import { locEnd } from "../loc.js";
 import {
   getFunctionParameters,
   hasComment,
@@ -73,11 +71,7 @@ function printFunctionParameters(
       typeParametersDoc,
       "(",
       printDanglingComments(path, options, {
-        filter: (comment) =>
-          getNextNonSpaceNonCommentCharacter(
-            options.originalText,
-            locEnd(comment),
-          ) === ")",
+        filter: (comment) => comment.mark !== "commentBeforeArrow",
       }),
       ")",
     ];
