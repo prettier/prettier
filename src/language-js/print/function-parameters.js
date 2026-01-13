@@ -12,6 +12,7 @@ import {
 import { printDanglingComments } from "../../main/comments/print.js";
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
 import {
+  CommentCheckFlags,
   getFunctionParameters,
   hasComment,
   hasRestParameter,
@@ -28,6 +29,10 @@ import {
 } from "../utilities/index.js";
 
 /** @import AstPath from "../../common/ast-path.js" */
+
+// `ArrowFunctionExpression` has other dangling comments
+const functionParameterDanglingCommentFilter = (comment) =>
+  comment.mark !== "commentBeforeArrow";
 
 /*
 - `ArrowFunctionExpression`
@@ -70,9 +75,27 @@ function printFunctionParameters(
     return [
       typeParametersDoc,
       "(",
-      printDanglingComments(path, options, {
-        filter: (comment) => comment.mark !== "commentBeforeArrow",
-      }),
+      hasComment(
+        functionNode,
+        CommentCheckFlags.Dangling,
+        functionParameterDanglingCommentFilter,
+      )
+        ? [
+            indent([
+              softline,
+              printDanglingComments(path, options, {
+                filter: functionParameterDanglingCommentFilter,
+              }),
+            ]),
+            hasComment(
+              functionNode,
+              CommentCheckFlags.Dangling | CommentCheckFlags.Line,
+              functionParameterDanglingCommentFilter,
+            )
+              ? hardline
+              : softline,
+          ]
+        : [],
       ")",
     ];
   }

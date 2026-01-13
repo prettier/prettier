@@ -21,6 +21,7 @@ import {
   isConditionalType,
   isIntersectionType,
   isMemberExpression,
+  isMethod,
   isObjectProperty,
   isPrettierIgnoreComment,
   isUnionType,
@@ -61,6 +62,7 @@ const isSingleLineComment = (comment, text) =>
  */
 function handleOwnLineComment(context) {
   return [
+    handleCommentInEmptyParens,
     handleIgnoreComments,
     handleConditionalExpressionComments,
     handleLastFunctionArgComments,
@@ -83,7 +85,6 @@ function handleOwnLineComment(context) {
     handleCommentsInDestructuringPattern,
     handleTSMappedTypeComments,
     handleBinaryCastExpressionComment,
-    handleCommentInEmptyParens,
   ].some((fn) => fn(context));
 }
 
@@ -93,6 +94,7 @@ function handleOwnLineComment(context) {
  */
 function handleEndOfLineComment(context) {
   return [
+    handleCommentInEmptyParens,
     handleClosureTypeCastComments,
     handleLastFunctionArgComments,
     handleConditionalExpressionComments,
@@ -114,7 +116,6 @@ function handleEndOfLineComment(context) {
     handleCommentAfterArrowExpression,
     handlePropertySignatureComments,
     handleBinaryCastExpressionComment,
-    handleCommentInEmptyParens,
   ].some((fn) => fn(context));
 }
 
@@ -124,10 +125,10 @@ function handleEndOfLineComment(context) {
  */
 function handleRemainingComment(context) {
   return [
+    handleCommentInEmptyParens,
     handleIgnoreComments,
     handleIfStatementComments,
     handleWhileComments,
-    handleCommentInEmptyParens,
     handleMethodNameComments,
     handleOnlyComments,
     handleCommentAfterArrowParams,
@@ -658,18 +659,14 @@ function handleCommentInEmptyParens({ comment, enclosingNode, options }) {
     return true;
   }
 
-  // This condition should be removed, but excluded for function parameters in #18615 to make PRs smaller
-  if (comment.placement !== "remaining") {
-    return false;
-  }
-
   // Only add dangling comments to fix the case when no params are present,
   // i.e. a function without any argument.
 
   const functionNode = isRealFunctionLikeNode(enclosingNode)
     ? enclosingNode
     : enclosingNode.type === "MethodDefinition" ||
-        enclosingNode.type === "TSAbstractMethodDefinition"
+        enclosingNode.type === "TSAbstractMethodDefinition" ||
+        (enclosingNode.type === "Property" && isMethod(enclosingNode))
       ? enclosingNode.value
       : undefined;
 
@@ -717,6 +714,7 @@ function handleLastComponentArgComments({
   return false;
 }
 
+// This function seem doing bad job for cases that `handleCommentInEmptyParens` do
 function handleLastFunctionArgComments({
   comment,
   precedingNode,
