@@ -30,13 +30,11 @@ import { printTypeAnnotationProperty } from "./type-annotation.js";
 
 function printEmptyArrayElements(path, options, openBracket, closeBracket) {
   const { node } = path;
-  const inexact = node.inexact ? "..." : "";
   if (!hasComment(node, CommentCheckFlags.Dangling)) {
-    return [openBracket, inexact, closeBracket];
+    return [openBracket, closeBracket];
   }
   return group([
     openBracket,
-    inexact,
     printDanglingComments(path, options, { indent: true }),
     softline,
     closeBracket,
@@ -58,7 +56,7 @@ function printArray(path, options, print) {
   const closeBracket = "]";
   const elementsProperty = isTupleType(node) ? "elementTypes" : "elements";
   const elements = node[elementsProperty];
-  if (elements.length === 0) {
+  if (elements.length === 0 && !node.inexact) {
     parts.push(
       printEmptyArrayElements(path, options, openBracket, closeBracket),
     );
@@ -82,23 +80,26 @@ function printArray(path, options, print) {
     const groupId = Symbol("array");
 
     const shouldBreak =
-      !options.__inJestEach &&
-      elements.length > 1 &&
-      elements.every((element, i, elements) => {
-        const elementType = element?.type;
-        if (!isArrayExpression(element) && !isObjectExpression(element)) {
-          return false;
-        }
+      (!options.__inJestEach &&
+        elements.length > 1 &&
+        elements.every((element, i, elements) => {
+          const elementType = element?.type;
+          if (!isArrayExpression(element) && !isObjectExpression(element)) {
+            return false;
+          }
 
-        const nextElement = elements[i + 1];
-        if (nextElement && elementType !== nextElement.type) {
-          return false;
-        }
+          const nextElement = elements[i + 1];
+          if (nextElement && elementType !== nextElement.type) {
+            return false;
+          }
 
-        const itemsKey = isArrayExpression(element) ? "elements" : "properties";
+          const itemsKey = isArrayExpression(element)
+            ? "elements"
+            : "properties";
 
-        return element[itemsKey] && element[itemsKey].length > 1;
-      });
+          return element[itemsKey] && element[itemsKey].length > 1;
+        })) ||
+      hasComment(node, CommentCheckFlags.Dangling | CommentCheckFlags.Line);
 
     const shouldUseConciseFormatting = isConciselyPrintedArray(node, options);
 
