@@ -10,6 +10,9 @@ import {
 } from "./miscellaneous.js";
 import { printTypeAnnotationProperty } from "./type-annotation.js";
 
+/*
+- `TSMethodSignature` (TypeScript)
+*/
 function printMethodSignature(path, options, print) {
   const { node } = path;
   const parts = [];

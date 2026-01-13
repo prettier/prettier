@@ -12,7 +12,7 @@ import { printDeclareToken } from "./miscellaneous.js";
  */
 
 /*
-- "HookDeclaration"
+- `HookDeclaration` (Flow)
 */
 function printHook(path, options, print) {
   const { node } = path;

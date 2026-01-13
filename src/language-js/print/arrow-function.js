@@ -60,6 +60,9 @@ function shouldAddParensIfNotBreak(node) {
 // so that the required parentheses end up on their own lines.
 const shouldAlwaysAddParens = (node) => node.type === "SequenceExpression";
 
+/*
+- `ArrowFunctionExpression`
+*/
 function printArrowFunction(path, options, print, args = {}) {
   /** @type {Doc[]} */
   const signatureDocs = [];

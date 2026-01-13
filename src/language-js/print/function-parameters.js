@@ -31,6 +31,29 @@ import {
 
 /** @import AstPath from "../../common/ast-path.js" */
 
+/*
+- `ArrowFunctionExpression`
+- `FunctionDeclaration`
+- `FunctionExpression`
+- `ObjectMethod`
+- `Property`
+- `ObjectProperty`
+- `ClassMethod`
+- `ClassPrivateMethod`
+- `MethodDefinition
+- `TSFunctionType` (TypeScript)
+- `TSCallSignatureDeclaration` (TypeScript)
+- `TSConstructorType` (TypeScript)
+- `TSConstructSignatureDeclaration` (TypeScript)
+- `TSDeclareFunction`(TypeScript)
+- `TSAbstractMethodDefinition` (TypeScript)
+- `TSDeclareMethod` (TypeScript)
+- `TSEmptyBodyFunctionExpression` (TypeScript)
+- `TSMethodSignature` (TypeScript)
+- `FunctionTypeAnnotation` (Flow)
+- `HookDeclaration` (Flow)
+- `HookTypeAnnotation` (Flow)
+*/
 function printFunctionParameters(
   path,
   options,
