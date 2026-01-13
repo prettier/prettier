@@ -13,7 +13,6 @@ import { printDanglingComments } from "../../main/comments/print.js";
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
 import {
   CommentCheckFlags,
-  getComments,
   getFunctionParameters,
   hasComment,
   hasRestParameter,
