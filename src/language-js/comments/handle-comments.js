@@ -618,8 +618,19 @@ function handleCommentAfterArrowParams({ comment, enclosingNode, text }) {
 }
 
 function isInArgumentOrParameterParentheses(node, comment, options) {
+  const commentStart = locStart(comment);
+  const nodeEnd = locEnd(node);
+  if (commentStart >= nodeEnd) {
+    return false;
+  }
+
+  const commentEnd = locEnd(comment);
   const nodeStart = locStart(node);
-  const nodeText = getTextWithoutComments(options, nodeStart, locEnd(node));
+  if (commentEnd <= nodeStart) {
+    return false;
+  }
+
+  const nodeText = getTextWithoutComments(options, nodeStart, nodeEnd);
 
   return (
     nodeText
@@ -665,7 +676,7 @@ function handleCommentInEmptyParens({ comment, enclosingNode, options }) {
   if (
     functionNode &&
     getFunctionParameters(functionNode).length === 0 &&
-    isInArgumentOrParameterParentheses(enclosingNode, comment, options)
+    isInArgumentOrParameterParentheses(functionNode, comment, options)
   ) {
     addDanglingComment(functionNode, comment);
     return true;

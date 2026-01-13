@@ -7,16 +7,16 @@ function getTextWithoutComments(options, start, end) {
   for (const comment of options[Symbol.for("comments")]) {
     const commentStart = locStart(comment);
     // Comments are sorted, we can escape if the comment is after the range
-    if (commentStart > end) {
+    if (commentStart >= end) {
       break;
     }
 
     const commentEnd = locEnd(comment);
-    if (commentEnd < start) {
+    if (commentEnd <= start) {
       continue;
     }
 
-    const startIndex = commentStart - start;
+    const startIndex = Math.max(commentStart - start, 0);
     const endIndex = commentEnd - start;
 
     text =
