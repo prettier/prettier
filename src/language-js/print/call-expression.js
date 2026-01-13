@@ -32,7 +32,7 @@ function printCallExpression(path, options, print) {
   // `TSImportType.typeArguments` is after `qualifier`, not before the "arguments"
   const typeArgumentsDoc =
     node.type !== "TSImportType" && node.typeArguments
-      ? [print("typeArguments"), lineSuffixBoundary]
+      ? print("typeArguments")
       : "";
 
   const isTemplateLiteralSingleArg =
@@ -93,6 +93,7 @@ function printCallExpression(path, options, print) {
     printCallee(path, print),
     optional,
     typeArgumentsDoc,
+    lineSuffixBoundary,
     printCallArguments(path, options, print),
   ];
 
