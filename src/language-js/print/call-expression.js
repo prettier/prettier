@@ -94,6 +94,7 @@ function printCallExpression(path, options, print) {
     optional,
     lineSuffixBoundary,
     typeArgumentsDoc,
+    lineSuffixBoundary,
     printCallArguments(path, options, print),
   ];
 
