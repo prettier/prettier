@@ -22,7 +22,7 @@
     "@codemirror/language-data": "6.5.2",
     "@codemirror/lint": "6.9.2",
     "@codemirror/state": "6.5.3",
-    "@codemirror/view": "6.39.9",
+    "@codemirror/view": "6.39.10",
     "@docusaurus/preset-classic": "3.9.2",
     "@lezer/highlight": "1.2.3",
     "@mdx-js/react": "3.1.1",
