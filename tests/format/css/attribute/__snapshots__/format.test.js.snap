@@ -166,6 +166,18 @@ bar-bar-bar-bar-bar-bar-bar"] {
   color: red;
 }
 
+div {
+  .long-classname-classname-classname div[foo="bar\\
+  bar-bar-bar-bar-bar-bar-bar"] {
+    color: red;
+  }
+
+  .long-classname-classname-classname-classname-classname-classname-classname-classname-classname div[foo="bar\\
+  bar-bar-bar-bar-bar-bar-bar"] {
+    color: red;
+  }
+}
+
 =====================================output=====================================
 .long-classname-classname-classname div[foo='bar\\
 bar'] {
@@ -181,6 +193,19 @@ bar-bar-bar-bar-bar-bar-bar'] {
   div[foo='bar\\
 bar-bar-bar-bar-bar-bar-bar'] {
   color: red;
+}
+
+div {
+  .long-classname-classname-classname div[foo='bar\\
+  bar-bar-bar-bar-bar-bar-bar'] {
+    color: red;
+  }
+
+  .long-classname-classname-classname-classname-classname-classname-classname-classname-classname
+    div[foo='bar\\
+  bar-bar-bar-bar-bar-bar-bar'] {
+    color: red;
+  }
 }
 
 ================================================================================
@@ -207,6 +232,18 @@ bar-bar-bar-bar-bar-bar-bar"] {
   color: red;
 }
 
+div {
+  .long-classname-classname-classname div[foo="bar\\
+  bar-bar-bar-bar-bar-bar-bar"] {
+    color: red;
+  }
+
+  .long-classname-classname-classname-classname-classname-classname-classname-classname-classname div[foo="bar\\
+  bar-bar-bar-bar-bar-bar-bar"] {
+    color: red;
+  }
+}
+
 =====================================output=====================================
 .long-classname-classname-classname div[foo="bar\\
 bar"] {
@@ -222,6 +259,19 @@ bar-bar-bar-bar-bar-bar-bar"] {
   div[foo="bar\\
 bar-bar-bar-bar-bar-bar-bar"] {
   color: red;
+}
+
+div {
+  .long-classname-classname-classname div[foo="bar\\
+  bar-bar-bar-bar-bar-bar-bar"] {
+    color: red;
+  }
+
+  .long-classname-classname-classname-classname-classname-classname-classname-classname-classname
+    div[foo="bar\\
+  bar-bar-bar-bar-bar-bar-bar"] {
+    color: red;
+  }
 }
 
 ================================================================================
