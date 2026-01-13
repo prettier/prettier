@@ -113,7 +113,7 @@ function printTrailingComment(path, options, previousComment) {
  * @param {AstPath} path
  * @param {{
  *  indent?: boolean,
- *  marker?: symbol,
+ *  marker?: symbol | string,
  *  filter?: (comment) => boolean,
  * }} [danglingCommentsPrintOptions]
  * @returns {Doc}
