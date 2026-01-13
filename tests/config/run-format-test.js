@@ -52,6 +52,7 @@ const unstableTests = new Map(
       "typescript/method-chain/object/issue-17239.ts",
       (options) => options.objectWrap !== "collapse",
     ],
+    "typescript/call/callee-comments.ts",
   ].map((fixture) => {
     const [file, isUnstable = () => true] = Array.isArray(fixture)
       ? fixture
