@@ -23,7 +23,10 @@ import {
   shouldPrintComma,
 } from "../utilities/index.js";
 import { shouldHugTheOnlyParameter } from "./function-parameters.js";
-import { printOptionalToken } from "./miscellaneous.js";
+import {
+  printDanglingCommentsInList,
+  printOptionalToken,
+} from "./miscellaneous.js";
 import { printTypeAnnotationProperty } from "./type-annotation.js";
 
 /** @import {Doc} from "../../document/index.js" */
@@ -136,17 +139,7 @@ function printObject(path, options, print) {
   if (parts.length === 0) {
     content = group([
       "{",
-      hasComment(node, CommentCheckFlags.Dangling)
-        ? [
-            indent([softline, printDanglingComments(path, options)]),
-            hasComment(
-              node,
-              CommentCheckFlags.Dangling | CommentCheckFlags.Line,
-            )
-              ? hardline
-              : softline,
-          ]
-        : [],
+      printDanglingCommentsInList(path, options),
       "}",
       printOptionalToken(path),
       printTypeAnnotationProperty(path, print),

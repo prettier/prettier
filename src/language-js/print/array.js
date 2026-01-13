@@ -23,27 +23,13 @@ import {
   isTupleType,
   shouldPrintComma,
 } from "../utilities/index.js";
-import { printOptionalToken } from "./miscellaneous.js";
+import {
+  printDanglingCommentsInList,
+  printOptionalToken,
+} from "./miscellaneous.js";
 import { printTypeAnnotationProperty } from "./type-annotation.js";
 
 /** @import {Doc} from "../../document/index.js" */
-
-function printEmptyArrayElements(path, options) {
-  const { node } = path;
-
-  return group([
-    "[",
-    hasComment(node, CommentCheckFlags.Dangling)
-      ? [
-          indent([softline, printDanglingComments(path, options)]),
-          hasComment(node, CommentCheckFlags.Dangling | CommentCheckFlags.Line)
-            ? hardline
-            : softline,
-        ]
-      : [],
-    "]",
-  ]);
-}
 
 /*
 - `ArrayExpression`
@@ -59,7 +45,7 @@ function printArray(path, options, print) {
   const elementsProperty = isTupleType(node) ? "elementTypes" : "elements";
   const elements = node[elementsProperty];
   if (elements.length === 0 && !node.inexact) {
-    parts.push(printEmptyArrayElements(path, options));
+    parts.push(group(["[", printDanglingCommentsInList(path, options), "]"]));
   } else {
     const lastElem = elements.at(-1);
     const canHaveTrailingComma =

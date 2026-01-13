@@ -9,10 +9,8 @@ import {
   softline,
   willBreak,
 } from "../../document/index.js";
-import { printDanglingComments } from "../../main/comments/print.js";
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
 import {
-  CommentCheckFlags,
   getFunctionParameters,
   hasComment,
   hasRestParameter,
@@ -27,6 +25,7 @@ import {
   iterateFunctionParametersPath,
   shouldPrintComma,
 } from "../utilities/index.js";
+import { printDanglingCommentsInList } from "./miscellaneous.js";
 
 /** @import AstPath from "../../common/ast-path.js" */
 
@@ -75,27 +74,11 @@ function printFunctionParameters(
     return [
       typeParametersDoc,
       "(",
-      hasComment(
-        functionNode,
-        CommentCheckFlags.Dangling,
+      printDanglingCommentsInList(
+        path,
+        options,
         functionParameterDanglingCommentFilter,
-      )
-        ? [
-            indent([
-              softline,
-              printDanglingComments(path, options, {
-                filter: functionParameterDanglingCommentFilter,
-              }),
-            ]),
-            hasComment(
-              functionNode,
-              CommentCheckFlags.Dangling | CommentCheckFlags.Line,
-              functionParameterDanglingCommentFilter,
-            )
-              ? hardline
-              : softline,
-          ]
-        : [],
+      ),
       ")",
     ];
   }
