@@ -13,7 +13,9 @@ array = [/* a long long long long long long long long long long long long commen
 object = {/* a long long long long long long long long long long long long comment */};
 
 =====================================output=====================================
-call(/* a long long long long long long long long long long long long comment */);
+call(
+  /* a long long long long long long long long long long long long comment */
+);
 
 array = [
   /* a long long long long long long long long long long long long comment */
@@ -21,30 +23,6 @@ array = [
 
 object = {
   /* a long long long long long long long long long long long long comment */
-};
-
-================================================================================
-`;
-
-exports[`block-comment.js format 1`] = `
-====================================options=====================================
-parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-new Thing(/* dangling */);
-Thing(/* dangling */);
-a = [/* dangling */];
-o = {/* dangling */};
-
-=====================================output=====================================
-new Thing(/* dangling */);
-Thing(/* dangling */);
-a = [
-  /* dangling */
-];
-o = {
-  /* dangling */
 };
 
 ================================================================================
