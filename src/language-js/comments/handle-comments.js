@@ -662,14 +662,13 @@ function handleCommentInEmptyParens({ comment, enclosingNode, options }) {
   // Only add dangling comments to fix the case when no params are present,
   // i.e. a function without any argument.
 
-  const functionNode =
-    isRealFunctionLikeNode(enclosingNode) ||
-    (enclosingNode.type === "Property" && isMethod(enclosingNode))
-      ? enclosingNode
-      : enclosingNode.type === "MethodDefinition" ||
-          enclosingNode.type === "TSAbstractMethodDefinition"
-        ? enclosingNode.value
-        : undefined;
+  const functionNode = isRealFunctionLikeNode(enclosingNode)
+    ? enclosingNode
+    : enclosingNode.type === "MethodDefinition" ||
+        enclosingNode.type === "TSAbstractMethodDefinition" ||
+        (enclosingNode.type === "Property" && isMethod(enclosingNode))
+      ? enclosingNode.value
+      : undefined;
 
   if (
     functionNode &&
