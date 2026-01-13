@@ -100,8 +100,8 @@ function printFunction(path, options, print, args) {
 }
 
 /*
-- "FunctionDeclaration"
-- "FunctionExpression"
+- `FunctionDeclaration`
+- `FunctionExpression`
 - `TSDeclareFunction`(TypeScript)
 - `ObjectMethod`
 - `Property`
