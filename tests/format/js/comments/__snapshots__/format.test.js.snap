@@ -1580,15 +1580,11 @@ Thing(/* dangling */);
 export /* dangling */{};
 
 =====================================output=====================================
-var a = {
-  /* dangling */
-}
+var a = {/* dangling */}
 var b = {
   // dangling
 }
-var b = [
-  /* dangling */
-]
+var b = [/* dangling */]
 function d() {
   /* dangling */
 }
@@ -1618,15 +1614,11 @@ Thing(/* dangling */);
 export /* dangling */{};
 
 =====================================output=====================================
-var a = {
-  /* dangling */
-};
+var a = {/* dangling */};
 var b = {
   // dangling
 };
-var b = [
-  /* dangling */
-];
+var b = [/* dangling */];
 function d() {
   /* dangling */
 }
