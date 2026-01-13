@@ -130,7 +130,6 @@ function handleRemainingComment(context) {
     handleCommentInEmptyParens,
     handleMethodNameComments,
     handleOnlyComments,
-    handleCommentAfterArrowParams,
     handleFunctionNameComments,
     handleBreakAndContinueStatementComments,
     handleTSFunctionTrailingComments,
@@ -600,20 +599,6 @@ function handleFunctionNameComments({
     addTrailingComment(precedingNode, comment);
     return true;
   }
-  return false;
-}
-
-function handleCommentAfterArrowParams({ comment, enclosingNode, text }) {
-  if (enclosingNode?.type !== "ArrowFunctionExpression") {
-    return false;
-  }
-
-  const index = getNextNonSpaceNonCommentCharacterIndex(text, locEnd(comment));
-  if (index !== false && text.slice(index, index + 2) === "=>") {
-    addDanglingComment(enclosingNode, comment);
-    return true;
-  }
-
   return false;
 }
 

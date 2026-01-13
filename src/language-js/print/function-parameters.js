@@ -10,9 +10,7 @@ import {
   willBreak,
 } from "../../document/index.js";
 import { printDanglingComments } from "../../main/comments/print.js";
-import getNextNonSpaceNonCommentCharacter from "../../utilities/get-next-non-space-non-comment-character.js";
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
-import { locEnd } from "../loc.js";
 import {
   getFunctionParameters,
   hasComment,
@@ -46,18 +44,7 @@ function printFunctionParameters(
       : "";
 
   if (parameters.length === 0) {
-    return [
-      typeParametersDoc,
-      "(",
-      printDanglingComments(path, options, {
-        filter: (comment) =>
-          getNextNonSpaceNonCommentCharacter(
-            options.originalText,
-            locEnd(comment),
-          ) === ")",
-      }),
-      ")",
-    ];
+    return [typeParametersDoc, "(", printDanglingComments(path, options), ")"];
   }
 
   const { parent } = path;

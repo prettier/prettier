@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`comment-before-arrow.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+a = () /* single line */ =>
+null;
+
+=====================================output=====================================
+a = () => /* single line */ null;
+
+================================================================================
+`;

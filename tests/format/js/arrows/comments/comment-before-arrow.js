@@ -1,0 +1,2 @@
+a = () /* single line */ =>
+null;
