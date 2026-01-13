@@ -200,21 +200,6 @@ function printArrowFunctionSignature(path, options, print, args) {
     );
   }
 
-  const dangling = printDanglingComments(path, options, {
-    filter(comment) {
-      const nextCharacter = getNextNonSpaceNonCommentCharacterIndex(
-        options.originalText,
-        locEnd(comment),
-      );
-      return (
-        nextCharacter !== false &&
-        options.originalText.slice(nextCharacter, nextCharacter + 2) === "=>"
-      );
-    },
-  });
-  if (dangling) {
-    parts.push(" ", dangling);
-  }
   return parts;
 }
 

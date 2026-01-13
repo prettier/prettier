@@ -111,7 +111,6 @@ function handleEndOfLineComment(context) {
     handleLastUnionElementInExpression,
     handleLastBinaryOperatorOperand,
     handleTSMappedTypeComments,
-    handleCommentAfterArrowExpression,
     handlePropertySignatureComments,
     handleBinaryCastExpressionComment,
     handleCommentInEmptyParens,
@@ -1171,41 +1170,6 @@ function handleBinaryCastExpressionComment({
     }
     return true;
   }
-}
-
-/**
- * Handle a comment after an arrow, like:
- *   ```ts
- *   const test = (): any => /* first line
- *   second line
- *   *\/
- *   null;
- *   ```
- *
- * @param {CommentContext} context
- * @returns {boolean}
- */
-function handleCommentAfterArrowExpression({
-  comment,
-  enclosingNode,
-  followingNode,
-  precedingNode,
-}) {
-  if (!(enclosingNode && followingNode && precedingNode)) {
-    return false;
-  }
-
-  if (
-    enclosingNode.type === "ArrowFunctionExpression" &&
-    enclosingNode.returnType === precedingNode &&
-    (precedingNode.type === "TSTypeAnnotation" ||
-      precedingNode.type === "TypeAnnotation")
-  ) {
-    addLeadingComment(followingNode, comment);
-    return true;
-  }
-
-  return false;
 }
 
 const isRealFunctionLikeNode = createTypeCheckFunction([
