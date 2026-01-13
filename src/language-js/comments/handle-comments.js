@@ -648,7 +648,7 @@ function handleCommentInEmptyParens({ comment, enclosingNode, options }) {
   }
 
   // This condition should be removed, but excluded for function parameters in #18615 to make PRs smaller
-  if (comment.placement === "remaining") {
+  if (comment.placement !== "remaining") {
     return false;
   }
 
