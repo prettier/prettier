@@ -14,8 +14,6 @@ import {
   printCommentsSeparately,
   printDanglingComments,
 } from "../../main/comments/print.js";
-import getNextNonSpaceNonCommentCharacterIndex from "../../utilities/get-next-non-space-non-comment-character-index.js";
-import { locEnd } from "../loc.js";
 import {
   CommentCheckFlags,
   getFunctionParameters,
@@ -200,6 +198,12 @@ function printArrowFunctionSignature(path, options, print, args) {
     );
   }
 
+  const dangling = printDanglingComments(path, options, {
+    marker: "commentBeforeArrow",
+  });
+  if (dangling) {
+    parts.push(" ", dangling);
+  }
   return parts;
 }
 

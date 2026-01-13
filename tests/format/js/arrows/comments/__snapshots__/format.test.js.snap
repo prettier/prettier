@@ -6,11 +6,17 @@ parsers: ["babel", "typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-a = () /* single line */ =>
+a = () /* before arrow */ =>
+null;
+a = () => /* after arrow */
+null;
+a = (/* in parentheses */) =>
 null;
 
 =====================================output=====================================
-a = () => /* single line */ null;
+a = () /* before arrow */ => null;
+a = () => /* after arrow */ null;
+a = (/* in parentheses */) => null;
 
 ================================================================================
 `;

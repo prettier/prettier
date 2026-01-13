@@ -111,6 +111,7 @@ function handleEndOfLineComment(context) {
     handleLastUnionElementInExpression,
     handleLastBinaryOperatorOperand,
     handleTSMappedTypeComments,
+    handleCommentAfterArrowExpression,
     handlePropertySignatureComments,
     handleBinaryCastExpressionComment,
     handleCommentInEmptyParens,
@@ -129,6 +130,7 @@ function handleRemainingComment(context) {
     handleCommentInEmptyParens,
     handleMethodNameComments,
     handleOnlyComments,
+    handleCommentAfterArrowParams,
     handleFunctionNameComments,
     handleBreakAndContinueStatementComments,
     handleTSFunctionTrailingComments,
@@ -598,6 +600,20 @@ function handleFunctionNameComments({
     addTrailingComment(precedingNode, comment);
     return true;
   }
+  return false;
+}
+
+function handleCommentAfterArrowParams({ comment, enclosingNode, text }) {
+  if (enclosingNode?.type !== "ArrowFunctionExpression") {
+    return false;
+  }
+
+  const index = getNextNonSpaceNonCommentCharacterIndex(text, locEnd(comment));
+  if (index !== false && text.slice(index, index + 2) === "=>") {
+    addDanglingComment(enclosingNode, comment, "commentBeforeArrow");
+    return true;
+  }
+
   return false;
 }
 
@@ -1170,6 +1186,41 @@ function handleBinaryCastExpressionComment({
     }
     return true;
   }
+}
+
+/**
+ * Handle a comment after an arrow, like:
+ *   ```ts
+ *   const test = (): any => /* first line
+ *   second line
+ *   *\/
+ *   null;
+ *   ```
+ *
+ * @param {CommentContext} context
+ * @returns {boolean}
+ */
+function handleCommentAfterArrowExpression({
+  comment,
+  enclosingNode,
+  followingNode,
+  precedingNode,
+}) {
+  if (!(enclosingNode && followingNode && precedingNode)) {
+    return false;
+  }
+
+  if (
+    enclosingNode.type === "ArrowFunctionExpression" &&
+    enclosingNode.returnType === precedingNode &&
+    (precedingNode.type === "TSTypeAnnotation" ||
+      precedingNode.type === "TypeAnnotation")
+  ) {
+    addLeadingComment(followingNode, comment);
+    return true;
+  }
+
+  return false;
 }
 
 const isRealFunctionLikeNode = createTypeCheckFunction([

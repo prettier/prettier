@@ -44,7 +44,14 @@ function printFunctionParameters(
       : "";
 
   if (parameters.length === 0) {
-    return [typeParametersDoc, "(", printDanglingComments(path, options), ")"];
+    return [
+      typeParametersDoc,
+      "(",
+      printDanglingComments(path, options, {
+        filter: (comment) => comment.mark !== "commentBeforeArrow",
+      }),
+      ")",
+    ];
   }
 
   const { parent } = path;
