@@ -34,8 +34,8 @@ const isMethodValue = ({ node, key, parent }) =>
     (parent.type === "Property" && isMethod(parent)));
 
 /*
-- "FunctionDeclaration"
-- "FunctionExpression"
+- `FunctionDeclaration`
+- `FunctionExpression`
 - `TSDeclareFunction`(TypeScript)
 */
 function printFunction(path, options, print, args) {
@@ -100,6 +100,9 @@ function printFunction(path, options, print, args) {
 }
 
 /*
+- `FunctionDeclaration`
+- `FunctionExpression`
+- `TSDeclareFunction`(TypeScript)
 - `ObjectMethod`
 - `Property`
 - `ObjectProperty`
@@ -139,6 +142,17 @@ function printMethod(path, options, print) {
   return parts;
 }
 
+/*
+- `ObjectMethod`
+- `Property`
+- `ObjectProperty`
+- `ClassMethod`
+- `ClassPrivateMethod`
+- `MethodDefinition
+- `TSAbstractMethodDefinition` (TypeScript)
+- `TSDeclareMethod` (TypeScript)
+- `TSEmptyBodyFunctionExpression` (TypeScript)
+*/
 function printMethodValue(path, options, print) {
   const { node } = path;
   const parametersDoc = printFunctionParameters(path, options, print);
