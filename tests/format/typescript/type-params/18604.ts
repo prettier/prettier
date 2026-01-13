@@ -6,7 +6,6 @@ foo<
   value
 )
 
-// TODO[@fisker]: Fix this
 foo<
   /* Comment */
   Type

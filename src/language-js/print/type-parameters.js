@@ -10,8 +10,11 @@ import {
   softline,
 } from "../../document/index.js";
 import { printDanglingComments } from "../../main/comments/print.js";
+import hasNewline from "../../utilities/has-newline.js";
+import { locEnd } from "../loc.js";
 import {
   CommentCheckFlags,
+  getComments,
   getFunctionParameters,
   hasComment,
   isObjectType,
@@ -80,12 +83,20 @@ function printTypeParameters(path, options, print, paramsKey) {
 
   const shouldInline =
     parameters.length === 0 ||
-    (!parameters.some((node) => hasComment(node, CommentCheckFlags.Line)) &&
-      !isArrowFunctionVariable &&
+    (!isArrowFunctionVariable &&
       (isParameterInTestCall ||
         (parameters.length === 1 &&
           (parameters[0].type === "NullableTypeAnnotation" ||
-            shouldHugType(parameters[0])))));
+            shouldHugType(parameters[0])))) &&
+      !parameters.some(
+        (node) =>
+          hasComment(node, CommentCheckFlags.Line) ||
+          // This condition base on existing one in class-body.js
+          // It is not really correct, but we don't have a way to check how comments are printed
+          hasComment(node, CommentCheckFlags.Last, (comment) =>
+            hasNewline(options.originalText, locEnd(comment)),
+          ),
+      ));
 
   if (shouldInline) {
     return [

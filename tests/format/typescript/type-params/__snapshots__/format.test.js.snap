@@ -60,7 +60,6 @@ foo<
   value
 )
 
-// TODO[@fisker]: Fix this
 foo<
   /* Comment */
   Type
@@ -84,9 +83,10 @@ foo<
   value,
 );
 
-// TODO[@fisker]: Fix this
-foo</* Comment */
-Type>(
+foo<
+  /* Comment */
+  Type
+>(
   /* Comment */
   value,
 );
