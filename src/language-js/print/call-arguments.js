@@ -10,7 +10,6 @@ import {
   softline,
   willBreak,
 } from "../../document/index.js";
-import { printDanglingComments } from "../../main/comments/print.js";
 import {
   CommentCheckFlags,
   getCallArguments,
@@ -36,6 +35,7 @@ import {
   shouldPrintComma,
 } from "../utilities/index.js";
 import { isConciselyPrintedArray } from "./array.js";
+import { printDanglingCommentsInList } from "./miscellaneous.js";
 
 /*
 - `NewExpression`
@@ -51,21 +51,7 @@ function printCallArguments(path, options, print) {
   const args = getCallArguments(node);
 
   if (args.length === 0) {
-    return group([
-      "(",
-      hasComment(node, CommentCheckFlags.Dangling)
-        ? [
-            indent([softline, printDanglingComments(path, options)]),
-            hasComment(
-              node,
-              CommentCheckFlags.Dangling | CommentCheckFlags.Line,
-            )
-              ? hardline
-              : softline,
-          ]
-        : [],
-      ")",
-    ]);
+    return group(["(", printDanglingCommentsInList(path, options), ")"]);
   }
 
   const lastArgIndex = args.length - 1;

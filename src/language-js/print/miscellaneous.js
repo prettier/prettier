@@ -1,4 +1,11 @@
-import { group, indent, line, softline } from "../../document/index.js";
+import {
+  group,
+  hardline,
+  indent,
+  line,
+  softline,
+} from "../../document/index.js";
+import { printDanglingComments } from "../../main/comments/print.js";
 import {
   CommentCheckFlags,
   createTypeCheckFunction,
@@ -8,9 +15,10 @@ import {
 } from "../utilities/index.js";
 
 /**
- * @import AstPath from "../../common/ast-path.js"
- * @import {Doc} from "../../document/index.js"
- */
+@import AstPath from "../../common/ast-path.js"
+@import {Doc} from "../../document/index.js"
+@import {Comment} from "../types/estree.js"
+*/
 
 /**
  * @param {AstPath} path
@@ -164,9 +172,31 @@ function printIfOrWhileCondition(path, options, print) {
   return group([indent([softline, conditionDoc]), softline]);
 }
 
+/**
+@param {(comment: Comment) => boolean} [filter]
+@returns {Doc}
+*/
+function printDanglingCommentsInList(path, options, filter) {
+  const { node } = path;
+
+  return hasComment(node, CommentCheckFlags.Dangling, filter)
+    ? [
+        indent([softline, printDanglingComments(path, options, { filter })]),
+        hasComment(
+          node,
+          CommentCheckFlags.Dangling | CommentCheckFlags.Line,
+          filter,
+        )
+          ? hardline
+          : softline,
+      ]
+    : "";
+}
+
 export {
   adjustClause,
   printAbstractToken,
+  printDanglingCommentsInList,
   printDeclareToken,
   printDefiniteToken,
   printIfOrWhileCondition as printDoWhileStatementCondition,
