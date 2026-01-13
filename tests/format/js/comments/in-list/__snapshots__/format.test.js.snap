@@ -6,56 +6,58 @@ parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-a = [/* array */]
+array = [/* array */]
 object = [/* object */]
-call(/* call argument */)
-function A(/* function parameter */) {}
-new Foo(/* new argument */)
+call = call(/* call argument */)
+fn = function(/* function parameter */) {}
+newFoo = new Foo(/* new argument */)
 
-a = [
+// TODO[@fisker]: fix the following
+array = [
 /* array */]
 object = [
 /* object */]
-call(
+call = call(
 /* call argument */)
-function A(
+fn = function(
 /* function parameter */) {}
-new Foo(
-/* new argument */)
+newFoo = new Foo
+(/* new argument */)
 
-a = [/* array long long long long long long long long long long long long long long */]
+array = [/* array long long long long long long long long long long long long long long */]
 object = [/* object long long long long long long long long long long long long long long */]
-// TODO[@fisker]: fix the following
-call(/* call argument long long long long long long long long long long long long long long */)
-function A(/* function long parameter long long long long long long long long long long long long long */) {}
-new Foo(/* new argument long long long long long long long long long long long long long long */)
+call = call(/* call argument long long long long long long long long long long long long long long */)
+fn = function (/* function long parameter long long long long long long long long long long long long long */) {}
+newFoo = new Foo(/* new argument long long long long long long long long long long long long long long */)
 
 =====================================output=====================================
-a = [/* array */];
+array = [/* array */];
 object = [/* object */];
-call(/* call argument */);
-function A(/* function parameter */) {}
-new Foo(/* new argument */);
+call = call(/* call argument */);
+fn = function (/* function parameter */) {};
+newFoo = new Foo(/* new argument */);
 
-a = [/* array */];
+// TODO[@fisker]: fix the following
+array = [/* array */];
 object = [/* object */];
-call();
-/* call argument */
-function A() {}
-/* function parameter */
-new Foo();
-/* new argument */
+call =
+  call();
+  /* call argument */
+fn = function () /* function parameter */ {};
+newFoo = new Foo(/* new argument */);
 
-a = [
+array = [
   /* array long long long long long long long long long long long long long long */
 ];
 object = [
   /* object long long long long long long long long long long long long long long */
 ];
-// TODO[@fisker]: fix the following
-call(/* call argument long long long long long long long long long long long long long long */);
-function A(/* function long parameter long long long long long long long long long long long long long */) {}
-new Foo(/* new argument long long long long long long long long long long long long long long */);
+call =
+  call(/* call argument long long long long long long long long long long long long long long */);
+fn =
+  function (/* function long parameter long long long long long long long long long long long long long */) {};
+newFoo =
+  new Foo(/* new argument long long long long long long long long long long long long long long */);
 
 ================================================================================
 `;
