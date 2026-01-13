@@ -32,18 +32,14 @@ newFoo = new Foo(/* new argument long long long long long long long long long lo
 
 =====================================output=====================================
 array = [/* array */];
-object = {
-  /* object */
-};
+object = {/* object */};
 call = call(/* call argument */);
 fn = function (/* function parameter */) {};
 newFoo = new Foo(/* new argument */);
 
 // TODO[@fisker]: fix the following
 array = [/* array */];
-object = {
-  /* object */
-};
+object = {/* object */};
 call =
   call();
   /* call argument */

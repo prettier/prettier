@@ -134,14 +134,11 @@ function printObject(path, options, print) {
 
   let content;
   if (parts.length === 0) {
-    if (!hasComment(node, CommentCheckFlags.Dangling)) {
-      return ["{}", printTypeAnnotationProperty(path, print)];
-    }
-
     content = group([
       "{",
-      printDanglingComments(path, options, { indent: true }),
-      softline,
+      hasComment(node, CommentCheckFlags.Dangling)
+        ? [indent([softline, printDanglingComments(path, options)]), softline]
+        : [],
       "}",
       printOptionalToken(path),
       printTypeAnnotationProperty(path, print),
