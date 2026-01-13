@@ -9,6 +9,7 @@ import hasNewline from "../../utilities/has-newline.js";
 import hasNewlineInRange from "../../utilities/has-newline-in-range.js";
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
 import { locEnd, locStart } from "../loc.js";
+import { isInsideCallExpressionParentheses } from "../utilities/call-expression-parentheses.js";
 import getTextWithoutComments from "../utilities/get-text-without-comments.js";
 import {
   createTypeCheckFunction,
@@ -780,11 +781,13 @@ function handleCallExpressionComments({
   comment,
   precedingNode,
   enclosingNode,
+  options,
 }) {
   if (
     isCallExpression(enclosingNode) &&
     enclosingNode.callee === precedingNode &&
-    enclosingNode.arguments.length > 0
+    enclosingNode.arguments.length > 0 &&
+    isInsideCallExpressionParentheses(enclosingNode, comment, options)
   ) {
     addLeadingComment(enclosingNode.arguments[0], comment);
     return true;
