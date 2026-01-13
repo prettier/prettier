@@ -4,6 +4,17 @@ call(/* call argument */)
 function A(/* function parameter */) {}
 new Foo(/* new argument */)
 
+a = [
+/* array */]
+object = [
+/* object */]
+call(
+/* call argument */)
+function A(
+/* function parameter */) {}
+new Foo(
+/* new argument */)
+
 a = [/* array long long long long long long long long long long long long long long */]
 object = [/* object long long long long long long long long long long long long long long */]
 // TODO[@fisker]: fix the following
