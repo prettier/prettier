@@ -82,6 +82,7 @@ function handleOwnLineComment(context) {
     handleCommentsInDestructuringPattern,
     handleTSMappedTypeComments,
     handleBinaryCastExpressionComment,
+    handleCommentInEmptyParens,
   ].some((fn) => fn(context));
 }
 
@@ -112,6 +113,7 @@ function handleEndOfLineComment(context) {
     handleCommentAfterArrowExpression,
     handlePropertySignatureComments,
     handleBinaryCastExpressionComment,
+    handleCommentInEmptyParens,
   ].some((fn) => fn(context));
 }
 
@@ -635,10 +637,14 @@ function handleCommentInEmptyParens({ comment, enclosingNode, options }) {
     return false;
   }
 
+  // This condition should be removed, but excluded for function parameters in #18615 to make PRs smaller
+  const isRemainingComment = comment.placement === "remaining";
+
   // Only add dangling comments to fix the case when no params are present,
   // i.e. a function without any argument.
   if (
-    ((isRealFunctionLikeNode(enclosingNode) &&
+    ((isRemainingComment &&
+      isRealFunctionLikeNode(enclosingNode) &&
       getFunctionParameters(enclosingNode).length === 0) ||
       (isCallLikeExpression(enclosingNode) &&
         getCallArguments(enclosingNode).length === 0)) &&
@@ -649,6 +655,7 @@ function handleCommentInEmptyParens({ comment, enclosingNode, options }) {
   }
 
   if (
+    isRemainingComment &&
     (enclosingNode.type === "MethodDefinition" ||
       enclosingNode.type === "TSAbstractMethodDefinition") &&
     getFunctionParameters(enclosingNode.value).length === 0 &&

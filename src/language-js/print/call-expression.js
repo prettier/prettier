@@ -1,4 +1,4 @@
-import { group, join } from "../../document/index.js";
+import { group, join, lineSuffixBoundary } from "../../document/index.js";
 import needsParentheses from "../parentheses/needs-parentheses.js";
 import {
   getCallArguments,
@@ -93,6 +93,7 @@ function printCallExpression(path, options, print) {
     printCallee(path, print),
     optional,
     typeArgumentsDoc,
+    lineSuffixBoundary,
     printCallArguments(path, options, print),
   ];
 

@@ -27,7 +27,6 @@ const unstableTests = new Map(
     "js/comments/return-statement.js",
     "js/comments/tagged-template-literal.js",
     "js/for/9812-unstable.js",
-    "js/comments/in-list/dangling-comment-in-list.js",
     [
       "js/multiparser-markdown/codeblock.js",
       (options) => options.proseWrap === "always",
