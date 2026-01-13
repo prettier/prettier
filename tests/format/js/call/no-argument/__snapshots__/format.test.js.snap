@@ -1,5 +1,162 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`18403.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+call(/* a long long long long long long long long long long long long comment */);
+
+array = [/* a long long long long long long long long long long long long comment */];
+
+object = {/* a long long long long long long long long long long long long comment */};
+
+=====================================output=====================================
+call(/* a long long long long long long long long long long long long comment */);
+
+array = [
+  /* a long long long long long long long long long long long long comment */
+];
+
+object = {
+  /* a long long long long long long long long long long long long comment */
+};
+
+================================================================================
+`;
+
+exports[`block-comment.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+new Thing(/* dangling */);
+Thing(/* dangling */);
+a = [/* dangling */];
+o = {/* dangling */};
+
+=====================================output=====================================
+new Thing(/* dangling */);
+Thing(/* dangling */);
+a = [
+  /* dangling */
+];
+o = {
+  /* dangling */
+};
+
+================================================================================
+`;
+
+exports[`no-arguments.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+call// 101
+()
+call
+// 102
+()
+call(// 103
+  )
+call
+  (// 104
+  )
+call(
+  // 105
+  )
+call// 106
+?.(
+  )
+call// 107
+?.(
+  )
+call?.// 108
+(
+  )
+
+call/* 201 */
+()
+call
+/* 202 */
+()
+call/* 203 */()
+call(/* 204 */
+  )
+call(
+  /* 205 */
+  )
+call/* 206 */?.
+()
+call/* 207 */
+?.
+()
+call
+/* 208 */?.
+()
+
+call/* 209 */
+?.
+()
+call?./* 210 */
+()
+call
+?./* 211 */
+()
+call
+?.
+/* 212 */
+()
+
+=====================================output=====================================
+call // 101
+();
+call
+// 102
+();
+call(
+  // 103
+);
+call(
+  // 104
+);
+call(
+  // 105
+);
+call?. // 106
+();
+call?. // 107
+();
+call?. // 108
+();
+
+call /* 201 */();
+call
+/* 202 */
+();
+call /* 203 */();
+call(/* 204 */);
+call(/* 205 */);
+call /* 206 */?.();
+call /* 207 */?.();
+call?.
+/* 208 */
+();
+
+call /* 209 */?.();
+call /* 210 */?.();
+call /* 211 */?.();
+call?.
+/* 212 */
+();
+
+================================================================================
+`;
+
 exports[`special-cases.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]

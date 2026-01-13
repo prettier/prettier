@@ -51,16 +51,16 @@ function printCallArguments(path, options, print) {
   const args = getCallArguments(node);
 
   if (args.length === 0) {
-    if (!hasComment(node, CommentCheckFlags.Dangling)) {
-      return "()";
+    if (hasComment(node, CommentCheckFlags.Dangling | CommentCheckFlags.Line)) {
+      return [
+        "(",
+        printDanglingComments(path, options, { indent: true }),
+        softline,
+        ")",
+      ];
     }
 
-    return [
-      "(",
-      printDanglingComments(path, options, { indent: true }),
-      softline,
-      ")",
-    ];
+    return ["(", printDanglingComments(path, options), ")"];
   }
 
   const lastArgIndex = args.length - 1;
