@@ -119,18 +119,13 @@ fn = function (/* function parameter */) {};
 arrow = (/* arrow parameter */) => {};
 newFoo = new Foo(/* new argument */);
 c = class {
-  constructor() {}
-  /* class constructor parameter */
-  method() {}
-  /* class method parameter */
-  get getter() {}
-  /* class getter parameter */
+  constructor(/* class constructor parameter */) {}
+  method(/* class method parameter */) {}
+  get getter(/* class getter parameter */) {}
 };
 object = {
-  method() {},
-  /* object method parameter */
-  get getter() {},
-  /* object getter parameter */
+  method(/* object method parameter */) {},
+  get getter(/* object getter parameter */) {},
 };
 
 array = [/* array */];
@@ -140,13 +135,13 @@ fn = function (/* function parameter */) {};
 arrow = (/* function parameter */) => {};
 newFoo = new Foo(/* new argument */);
 c = class {
-  constructor /* class constructor parameter */() {}
-  method /* class method parameter */() {}
-  get getter /* class getter parameter */() {}
+  constructor(/* class constructor parameter */) {}
+  method(/* class method parameter */) {}
+  get getter(/* class getter parameter */) {}
 };
 object = {
-  method /* object method parameter */() {},
-  get getter /* object getter parameter */() {},
+  method(/* object method parameter */) {},
+  get getter(/* object getter parameter */) {},
 };
 
 array = [
@@ -180,10 +175,12 @@ c = class {
   ) {}
 };
 object = {
-  method() {},
-  /* object method parameter long long long long long long long long long long long long long long */
-  get getter() {},
-  /* object getter parameter long long long long long long long long long long long long long long */
+  method(
+    /* object method parameter long long long long long long long long long long long long long long */
+  ) {},
+  get getter(
+    /* object getter parameter long long long long long long long long long long long long long long */
+  ) {},
 };
 
 ================================================================================

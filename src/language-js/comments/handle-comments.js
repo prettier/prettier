@@ -62,6 +62,7 @@ const isSingleLineComment = (comment, text) =>
  */
 function handleOwnLineComment(context) {
   return [
+    handleCommentInEmptyParens,
     handleIgnoreComments,
     handleConditionalExpressionComments,
     handleLastFunctionArgComments,
@@ -84,7 +85,6 @@ function handleOwnLineComment(context) {
     handleCommentsInDestructuringPattern,
     handleTSMappedTypeComments,
     handleBinaryCastExpressionComment,
-    handleCommentInEmptyParens,
   ].some((fn) => fn(context));
 }
 
@@ -94,6 +94,7 @@ function handleOwnLineComment(context) {
  */
 function handleEndOfLineComment(context) {
   return [
+    handleCommentInEmptyParens,
     handleClosureTypeCastComments,
     handleLastFunctionArgComments,
     handleConditionalExpressionComments,
@@ -115,7 +116,6 @@ function handleEndOfLineComment(context) {
     handleCommentAfterArrowExpression,
     handlePropertySignatureComments,
     handleBinaryCastExpressionComment,
-    handleCommentInEmptyParens,
   ].some((fn) => fn(context));
 }
 
@@ -125,10 +125,10 @@ function handleEndOfLineComment(context) {
  */
 function handleRemainingComment(context) {
   return [
+    handleCommentInEmptyParens,
     handleIgnoreComments,
     handleIfStatementComments,
     handleWhileComments,
-    handleCommentInEmptyParens,
     handleMethodNameComments,
     handleOnlyComments,
     handleCommentAfterArrowParams,
@@ -715,6 +715,7 @@ function handleLastComponentArgComments({
   return false;
 }
 
+// This function seem doing bad job for cases that `handleCommentInEmptyParens` do
 function handleLastFunctionArgComments({
   comment,
   precedingNode,
