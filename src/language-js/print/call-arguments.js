@@ -50,7 +50,12 @@ function printCallArguments(path, options, print) {
 
   const args = getCallArguments(node);
   if (args.length === 0) {
-    return ["(", printDanglingComments(path, options), ")"];
+    return [
+      "(",
+      printDanglingComments(path, options, { indent: true }),
+      softline,
+      ")",
+    ];
   }
 
   const lastArgIndex = args.length - 1;

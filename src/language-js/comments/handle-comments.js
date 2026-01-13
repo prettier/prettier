@@ -112,6 +112,7 @@ function handleEndOfLineComment(context) {
     handleCommentAfterArrowExpression,
     handlePropertySignatureComments,
     handleBinaryCastExpressionComment,
+    handleCommentInEmptyParens,
   ].some((fn) => fn(context));
 }
 
