@@ -55,6 +55,9 @@ const functionParameterDanglingCommentFilter = (comment) =>
 - `FunctionTypeAnnotation` (Flow)
 - `HookDeclaration` (Flow)
 - `HookTypeAnnotation` (Flow)
+- `ComponentDeclaration` (Flow)
+- `DeclareComponent` (Flow)
+- `ComponentTypeAnnotation` (Flow)
 */
 function printFunctionParameters(
   path,
