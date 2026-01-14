@@ -43,7 +43,7 @@ declare component MyComponent(
   // Trailing comment
 );
 
-// declare component MyComponent(
-//   ...props: $ReadOnly<{k: string, reallllllllllllllllllllllllllllllllllllllyLong: string}>
-//   // Trailing comment
-// ) renders SomeComponent;
+declare component MyComponent(
+  ...props: $ReadOnly<{k: string, reallllllllllllllllllllllllllllllllllllllyLong: string}>
+  // Trailing comment
+) renders SomeComponent;

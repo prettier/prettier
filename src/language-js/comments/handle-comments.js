@@ -704,7 +704,8 @@ function handleLastComponentArgComments({
   if (
     (precedingNode?.type === "ComponentParameter" ||
       precedingNode?.type === "RestElement") &&
-    enclosingNode?.type === "ComponentDeclaration" &&
+    (enclosingNode?.type === "ComponentDeclaration" ||
+      enclosingNode?.type === "DeclareComponent") &&
     getNextNonSpaceNonCommentCharacter(text, locEnd(comment)) === ")"
   ) {
     addTrailingComment(precedingNode, comment);
