@@ -41,7 +41,7 @@ type _Node =
   | PrettierNode
   | Exclude<Babel.Node, Babel.TupleTypeAnnotation>
   | TSESTree.Node
-  | Exclude<NGTree.NGNode, Babel.Node>
+  | Exclude<NGTree.NGAst, Babel.Node>
   | FlowESTree.ESNode
   | FlowAdditionalNode;
 
