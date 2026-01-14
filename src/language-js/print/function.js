@@ -65,20 +65,6 @@ function printFunction(path, options, print, args) {
   }
 
   const isFlowHookDeclareFunction = node.type === "HookDeclaration";
-
-  const parts = [];
-
-  if (isFlowHookDeclareFunction) {
-    parts.push("hook");
-  } else {
-    parts.push(
-      printDeclareToken(path),
-      node.async ? "async " : "",
-      `function${node.generator ? "*" : ""} `,
-      node.id ? print("id") : "",
-    );
-  }
-
   const parametersDoc = printFunctionParameters(
     path,
     options,
@@ -91,6 +77,22 @@ function printFunction(path, options, print, args) {
     node,
     returnTypeDoc,
   );
+
+  const parts = [];
+
+  if (isFlowHookDeclareFunction) {
+    parts.push("hook ");
+  } else {
+    parts.push(
+      printDeclareToken(path),
+      node.async ? "async " : "",
+      `function${node.generator ? "*" : ""} `,
+    );
+  }
+
+  if (node.id) {
+    parts.push(print("id"));
+  }
 
   if (!isFlowHookDeclareFunction) {
     parts.push(print("typeParameters"));
