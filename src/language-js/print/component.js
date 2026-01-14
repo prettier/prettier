@@ -6,9 +6,6 @@ import {
   line,
   softline,
 } from "../../document/index.js";
-import { printDanglingComments } from "../../main/comments/print.js";
-import getNextNonSpaceNonCommentCharacter from "../../utilities/get-next-non-space-non-comment-character.js";
-import { locEnd } from "../loc.js";
 import {
   getComponentParameters,
   isNextLineEmpty,
