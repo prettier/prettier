@@ -76,24 +76,16 @@ function printFunction(path, options, print, args) {
     returnTypeDoc,
   );
 
-  const parts = [];
   const isFlowHookDeclareFunction = node.type === "HookDeclaration";
+  const keyword = isFlowHookDeclareFunction ? "hook" : "function";
 
-  if (isFlowHookDeclareFunction) {
-    parts.push("hook ");
-  } else {
-    parts.push(
-      printDeclareToken(path),
-      node.async ? "async " : "",
-      `function${node.generator ? "*" : ""} `,
-    );
-  }
-
-  if (node.id) {
-    parts.push(print("id"));
-  }
-
-  parts.push(
+  return [
+    printDeclareToken(path),
+    node.async ? "async " : "",
+    keyword,
+    `${node.generator ? "*" : ""}`,
+    " ",
+    node.id ? print("id") : "",
     print("typeParameters"),
     group([
       shouldGroupParameters ? group(parametersDoc) : parametersDoc,
@@ -101,17 +93,8 @@ function printFunction(path, options, print, args) {
     ]),
     node.body ? " " : "",
     print("body"),
-  );
-
-  if (
-    !isFlowHookDeclareFunction &&
-    options.semi &&
-    (node.declare || !node.body)
-  ) {
-    parts.push(";");
-  }
-
-  return parts;
+    options.semi && (node.declare || !node.body) ? ";" : "",
+  ];
 }
 
 /*
