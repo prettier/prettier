@@ -28,7 +28,6 @@ const createParse =
     if (process.env.NODE_ENV !== "production") {
       const { onComment, onToken, preserveParens } = parseOptions.options;
       assert.ok(Array.isArray(onComment) && onComment.length === 0);
-      assert.ok(Array.isArray(onComment) && onComment.length === 0);
       assert.equal(onToken, undefined);
       assert.equal(preserveParens, true);
     }
