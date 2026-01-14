@@ -18,19 +18,39 @@ exports[`snippet: Should not support front matter [__js_expression] format 1`] =
 Cause: Unexpected parseExpression() input: The input should contain exactly one expression, but the first expression is followed by the unexpected character \`M\`. (2:6)"
 `;
 
-exports[`snippet: Should not support front matter [__ng_action] format 1`] = `"Unexpected token 'Matter'"`;
+exports[`snippet: Should not support front matter [__ng_action] format 1`] = `
+"Parser Error: Unexpected token 'Matter'
+Cause: Parser Error: Unexpected token 'Matter' at column 11 in [---
+Front Matter content
+---] in test.html@0:0"
+`;
 
-exports[`snippet: Should not support front matter [__ng_binding] format 1`] = `"Unexpected token 'Matter'"`;
+exports[`snippet: Should not support front matter [__ng_binding] format 1`] = `
+"Parser Error: Unexpected token 'Matter'
+Cause: Parser Error: Unexpected token 'Matter' at column 11 in [---
+Front Matter content
+---] in test.html@0:0"
+`;
 
 exports[`snippet: Should not support front matter [__ng_directive] format 1`] = `
-"Unexpected end of expression: ---
+"Parser Error: Unexpected end of expression: ---
+Front Matter content
+--- at the end of the expression [---
+Front Matter content
+---]
+Cause: Parser Error: Unexpected end of expression: ---
 Front Matter content
 --- at the end of the expression [---
 Front Matter content
 ---] in test.html@0:0"
 `;
 
-exports[`snippet: Should not support front matter [__ng_interpolation] format 1`] = `"Unexpected token 'Matter'"`;
+exports[`snippet: Should not support front matter [__ng_interpolation] format 1`] = `
+"Parser Error: Unexpected token 'Matter'
+Cause: Parser Error: Unexpected token 'Matter' at column 11 in [---
+Front Matter content
+---] in test.html@0:0"
+`;
 
 exports[`snippet: Should not support front matter [__ts_expression] format 1`] = `
 "The input should contain exactly one expression, but the first expression is followed by the unexpected character \`M\`. (2:7)
