@@ -1,4 +1,3 @@
-import { Parser as acorn } from "acorn";
 import { fromMarkdown } from "mdast-util-from-markdown";
 import { mathFromMarkdown } from "mdast-util-math";
 import { mdxFromMarkdown } from "mdast-util-mdx";
@@ -9,6 +8,7 @@ import { mdxjs } from "micromark-extension-mdxjs";
 import { syntax as wikiLinkSyntax } from "micromark-extension-wiki-link";
 import { comment, commentFromMarkdown } from "remark-comment";
 import parseFrontMatter from "../../main/front-matter/parse.js";
+import * as acorn from "../acorn/parser.js";
 import { gfmFromMarkdown } from "./micromark/mdast-util-gfm.js";
 import { overrideHtmlTextSyntax } from "./micromark/micromark-extension-html-text.js";
 import {
@@ -25,21 +25,7 @@ function getMarkdownParseOptions() {
       // wikiLinkSyntax(),
       // liquidSyntax(),
       // overrideHtmlTextSyntax(),
-      mdxjs({
-        acorn: {
-          parse(text) {
-            return { type: "Program", start: 0, end: text.length, body: [] };
-          },
-          parseExpressionAt(...args) {
-            const original = acorn.parseExpressionAt(...args); // need actual parsing to get end of expression
-            return {
-              type: "Literal",
-              start: original.start,
-              end: original.end,
-            };
-          },
-        },
-      }),
+      mdxjs({ acorn }),
       comment,
     ],
     mdastExtensions: [
