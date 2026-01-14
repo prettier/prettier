@@ -4,14 +4,16 @@ on:
   push:
     branches:
       - main
-      - patch-release
       - next
+      - v*
+      - patch-release
       - "!renovate/**"
   pull_request:
     branches:
       - main
-      - patch-release
       - next
+      - v*
+      - patch-release
       - "!renovate/**"
 
 permissions:
