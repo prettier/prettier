@@ -54,7 +54,7 @@ const functionParameterDanglingCommentFilter = (comment) =>
 - `TSMethodSignature` (TypeScript)
 - `FunctionTypeAnnotation` (Flow)
 - `HookDeclaration` (Flow)
-- `HookTypeAnnotation` (Flow)/*
+- `HookTypeAnnotation` (Flow)
 - `ComponentDeclaration` (Flow)
 - `DeclareComponent` (Flow)
 - `ComponentTypeAnnotation` (Flow)
