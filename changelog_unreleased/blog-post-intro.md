@@ -3,7 +3,7 @@ authors: "fisker"
 title: "Prettier 3.8: Angular v21.1 support"
 ---
 
-We're excited to announce that Prettier now fully supports the fresh features landing in Angular v21.1 (released this week 🎉)!
+We're excited to announce that Prettier now fully supports the fresh features landing in Angular v21.1 (released today 🎉)!
 
 This update brings cleaner, more expressive templates with:
 - Consecutive `@case` statements in `@switch` blocks.
