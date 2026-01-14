@@ -27,11 +27,7 @@ import {
 } from "./enum.js";
 import { printFunction } from "./function.js";
 import { printFunctionType } from "./function-type.js";
-import {
-  printDeclareHook,
-  printHook,
-  printHookTypeAnnotation,
-} from "./hook.js";
+import { printDeclareHook, printHookTypeAnnotation } from "./hook.js";
 import { printIndexedAccessType } from "./indexed-access-type.js";
 import { printInferType } from "./infer-type.js";
 import { printIntersectionType } from "./intersection-type.js";

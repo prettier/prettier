@@ -664,7 +664,6 @@ function handleCommentInEmptyParens({ comment, enclosingNode, options }) {
 
   const functionNode =
     isRealFunctionLikeNode(enclosingNode) ||
-    enclosingNode.type === "HookDeclaration" ||
     enclosingNode.type === "HookTypeAnnotation"
       ? enclosingNode
       : enclosingNode.type === "MethodDefinition" ||
@@ -1256,6 +1255,7 @@ const isRealFunctionLikeNode = createTypeCheckFunction([
   "TSConstructorType",
   "TSFunctionType",
   "TSDeclareMethod",
+  "HookDeclaration",
 ]);
 
 const handleComments = {
