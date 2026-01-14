@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`snippet: #0 [flow] format 1`] = `
+"Unexpected token \`{\`, expected the token \`;\` (1:24)
+> 1 | const a = not_a_record {}
+    |                        ^"
+`;
+
+exports[`snippet: #0 [hermes] format 1`] = `
+"';' expected (1:23)
+> 1 | const a = not_a_record {}
+    |                       ^
+Cause: ';' expected (1:23)
+const a = not_a_record {}
+                       ^"
+`;
