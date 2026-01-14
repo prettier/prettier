@@ -1,6 +1,6 @@
 ---
 authors: "fisker"
-title: "Prettier 3.8: Angular v21.1 support"
+title: "Prettier 3.8: Support for Angular v21.1"
 ---
 
 We're excited to announce that Prettier now fully supports the fresh features landing in Angular v21.1 (released today 🎉)!
