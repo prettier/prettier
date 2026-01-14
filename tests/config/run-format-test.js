@@ -108,6 +108,9 @@ const hermesDisabledTests = new Set([
     // Not supported
     "flow/comments",
     "flow-repo/union_new",
+
+    // Different result
+    "flow/hook/comments-before-arrow.js",
   ].map((file) => path.join(__dirname, "../format", file)),
 ]);
 const flowDisabledTests = new Set(
