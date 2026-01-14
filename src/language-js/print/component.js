@@ -15,7 +15,10 @@ import {
   iterateComponentParametersPath,
   shouldPrintComma,
 } from "../utilities/index.js";
-import { printDeclareToken } from "./miscellaneous.js";
+import {
+  printDanglingCommentsInList,
+  printDeclareToken,
+} from "./miscellaneous.js";
 
 /**
  * @import AstPath from "../../common/ast-path.js"
@@ -60,17 +63,7 @@ function printComponentParameters(path, options, print) {
   const parameters = getComponentParameters(componentNode);
 
   if (parameters.length === 0) {
-    return [
-      "(",
-      printDanglingComments(path, options, {
-        filter: (comment) =>
-          getNextNonSpaceNonCommentCharacter(
-            options.originalText,
-            locEnd(comment),
-          ) === ")",
-      }),
-      ")",
-    ];
+    return ["(", printDanglingCommentsInList(path, options), ")"];
   }
 
   const printed = [];

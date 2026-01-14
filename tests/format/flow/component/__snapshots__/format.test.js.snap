@@ -51,8 +51,12 @@ component C12() // 12
 declare component C13(); // 13
 declare component C14();
 // 14
-type T11 = component(//15);
-type T12 = component(//16);
+type T11 = component(
+  //15
+);
+type T12 = component(
+  //16
+);
 
 component C21 /* 21 */() {}
 component C22() /* 22*/
