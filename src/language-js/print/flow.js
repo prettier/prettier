@@ -25,6 +25,7 @@ import {
   printEnumMember,
   printFlowEnumBody,
 } from "./enum.js";
+import { printFunction } from "./function.js";
 import { printFunctionType } from "./function-type.js";
 import {
   printDeclareHook,
@@ -74,7 +75,7 @@ function printFlow(path, options, print) {
     case "ComponentTypeParameter":
       return printComponentTypeParameter(path, options, print);
     case "HookDeclaration":
-      return printHook(path, options, print);
+      return printFunction(path, options, print);
     case "DeclareHook":
       return printDeclareHook(path, options, print);
     case "HookTypeAnnotation":

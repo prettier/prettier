@@ -36,6 +36,7 @@ const isMethodValue = ({ node, key, parent }) =>
 /*
 - `FunctionDeclaration`
 - `FunctionExpression`
+- `HookDeclaration` (Flow)
 - `TSDeclareFunction`(TypeScript)
 */
 function printFunction(path, options, print, args) {
@@ -63,18 +64,27 @@ function printFunction(path, options, print, args) {
     }
   }
 
-  const parts = [
-    printDeclareToken(path),
-    node.async ? "async " : "",
-    `function${node.generator ? "*" : ""} `,
-    node.id ? print("id") : "",
-  ];
+  const isFlowHookDeclareFunction = node.type === "HookDeclaration";
+
+  const parts = [];
+
+  if (isFlowHookDeclareFunction) {
+    parts.push("hook");
+  } else {
+    parts.push(
+      printDeclareToken(path),
+      node.async ? "async " : "",
+      `function${node.generator ? "*" : ""} `,
+      node.id ? print("id") : "",
+    );
+  }
 
   const parametersDoc = printFunctionParameters(
     path,
     options,
     print,
     shouldExpandArgument,
+    /* shouldPrintTypeParameters */ isFlowHookDeclareFunction,
   );
   const returnTypeDoc = printReturnType(path, print);
   const shouldGroupParameters = shouldGroupFunctionParameters(
@@ -82,8 +92,11 @@ function printFunction(path, options, print, args) {
     returnTypeDoc,
   );
 
+  if (!isFlowHookDeclareFunction) {
+    parts.push(print("typeParameters"));
+  }
+
   parts.push(
-    print("typeParameters"),
     group([
       shouldGroupParameters ? group(parametersDoc) : parametersDoc,
       returnTypeDoc,
@@ -92,7 +105,11 @@ function printFunction(path, options, print, args) {
     print("body"),
   );
 
-  if (options.semi && (node.declare || !node.body)) {
+  if (
+    !isFlowHookDeclareFunction &&
+    options.semi &&
+    (node.declare || !node.body)
+  ) {
     parts.push(";");
   }
 
