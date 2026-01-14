@@ -83,7 +83,7 @@ function printFunction(path, options, print, args) {
     printDeclareToken(path),
     node.async ? "async " : "",
     keyword,
-    `${node.generator ? "*" : ""}`,
+    node.generator ? "*" : "",
     " ",
     node.id ? print("id") : "",
     print("typeParameters"),
