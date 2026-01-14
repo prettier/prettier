@@ -7,9 +7,9 @@ import {
   softline,
 } from "../../document/index.js";
 import {
-  getComponentParameters,
+  getFunctionParameters,
   isNextLineEmpty,
-  iterateComponentParametersPath,
+  iterateFunctionParametersPath,
   shouldPrintComma,
 } from "../utilities/index.js";
 import {
@@ -57,14 +57,14 @@ function printComponent(path, options, print) {
 
 function printComponentParameters(path, options, print) {
   const { node: componentNode } = path;
-  const parameters = getComponentParameters(componentNode);
+  const parameters = getFunctionParameters(componentNode);
 
   if (parameters.length === 0) {
     return ["(", printDanglingCommentsInList(path, options), ")"];
   }
 
   const printed = [];
-  iterateComponentParametersPath(path, (parameterPath, index) => {
+  iterateFunctionParametersPath(path, (parameterPath, index) => {
     const isLastParameter = index === parameters.length - 1;
     if (isLastParameter && componentNode.rest) {
       printed.push("...");

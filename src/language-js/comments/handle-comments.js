@@ -14,7 +14,6 @@ import getTextWithoutComments from "../utilities/get-text-without-comments.js";
 import {
   createTypeCheckFunction,
   getCallArguments,
-  getComponentParameters,
   getFunctionParameters,
   isBinaryCastExpression,
   isCallExpression,
@@ -67,7 +66,6 @@ function handleOwnLineComment(context) {
     handleIgnoreComments,
     handleConditionalExpressionComments,
     handleLastFunctionParameterComments,
-    handleLastComponentArgComments,
     handleMemberExpressionComments,
     handleIfStatementComments,
     handleWhileComments,
@@ -666,20 +664,12 @@ function handleCommentInEmptyParens({ comment, enclosingNode, options }) {
     return true;
   }
 
-  if (
-    isFlowComponent(enclosingNode) &&
-    getComponentParameters(enclosingNode).length === 0 &&
-    isInArgumentOrParameterParentheses(enclosingNode, comment, options)
-  ) {
-    addDanglingComment(enclosingNode, comment);
-    return true;
-  }
-
   // Only add dangling comments to fix the case when no params are present,
   // i.e. a function without any argument.
 
   const functionNode =
     isRealFunctionLikeNode(enclosingNode) ||
+    isFlowComponent(enclosingNode) ||
     enclosingNode.type === "HookTypeAnnotation"
       ? enclosingNode
       : enclosingNode.type === "MethodDefinition" ||
@@ -694,39 +684,6 @@ function handleCommentInEmptyParens({ comment, enclosingNode, options }) {
     isInArgumentOrParameterParentheses(functionNode, comment, options)
   ) {
     addDanglingComment(functionNode, comment);
-    return true;
-  }
-
-  return false;
-}
-
-function handleLastComponentArgComments({
-  comment,
-  precedingNode,
-  enclosingNode,
-  followingNode,
-  text,
-}) {
-  // "DeclareComponent" and "ComponentTypeAnnotation" definitions
-  if (
-    precedingNode?.type === "ComponentTypeParameter" &&
-    (enclosingNode?.type === "DeclareComponent" ||
-      enclosingNode?.type === "ComponentTypeAnnotation") &&
-    followingNode?.type !== "ComponentTypeParameter"
-  ) {
-    addTrailingComment(precedingNode, comment);
-    return true;
-  }
-
-  // "ComponentParameter" definitions
-  if (
-    (precedingNode?.type === "ComponentParameter" ||
-      precedingNode?.type === "RestElement") &&
-    (enclosingNode?.type === "ComponentDeclaration" ||
-      enclosingNode?.type === "DeclareComponent") &&
-    getNextNonSpaceNonCommentCharacter(text, locEnd(comment)) === ")"
-  ) {
-    addTrailingComment(precedingNode, comment);
     return true;
   }
 
@@ -750,6 +707,17 @@ function handleLastFunctionParameterComments({
     return true;
   }
 
+  // "DeclareComponent" and "ComponentTypeAnnotation" definitions
+  if (
+    precedingNode?.type === "ComponentTypeParameter" &&
+    (enclosingNode?.type === "DeclareComponent" ||
+      enclosingNode?.type === "ComponentTypeAnnotation") &&
+    followingNode?.type !== "ComponentTypeParameter"
+  ) {
+    addTrailingComment(precedingNode, comment);
+    return true;
+  }
+
   // Real functions and TypeScript function type definitions
   if (
     (precedingNode?.type === "Identifier" ||
@@ -759,6 +727,18 @@ function handleLastFunctionParameterComments({
       precedingNode?.type === "RestElement" ||
       precedingNode?.type === "TSParameterProperty") &&
     isRealFunctionLikeNode(enclosingNode) &&
+    getNextNonSpaceNonCommentCharacter(text, locEnd(comment)) === ")"
+  ) {
+    addTrailingComment(precedingNode, comment);
+    return true;
+  }
+
+  // "ComponentParameter" definitions
+  if (
+    (precedingNode?.type === "ComponentParameter" ||
+      precedingNode?.type === "RestElement") &&
+    (enclosingNode?.type === "ComponentDeclaration" ||
+      enclosingNode?.type === "DeclareComponent") &&
     getNextNonSpaceNonCommentCharacter(text, locEnd(comment)) === ")"
   ) {
     addTrailingComment(precedingNode, comment);
