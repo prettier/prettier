@@ -1,12 +1,14 @@
 ---
 authors: "fisker"
-title: "Prettier 3.8: Angular 21.1 support"
+title: "Prettier 3.8: Angular v21.1 support"
 ---
 
-This release adds support for Angular 21.1 features.
+We're excited to announce that Prettier now fully supports the fresh features landing in Angular v21.1 (released this week 🎉)!
 
-Highlights include support for consecutive switch cases in Angular templates, spread elements in Angular array literals, object literals, and function calls.
+This update brings cleaner, more expressive templates with:
+- Consecutive `@case` statements in `@switch` blocks.
+- Spread elements (`...`) in array literals, object literals, and function calls inside templates.
 
-We also added support for the ability to format Angular syntax in Markdown code blocks.
+We've also added the ability to format Angular syntax beautifully inside Markdown code blocks.
 
-If you appreciate Prettier and would like to support our work, please consider sponsoring us directly via [OpenCollective](https://opencollective.com/prettier) or by sponsoring the projects we depend on. Thank you for your continued support!
+If you find Prettier valuable and want to help us keep pace with fast-moving frameworks like Angular, please consider [sponsoring us on OpenCollective](https://opencollective.com/prettier) or supporting the projects we rely on. Thank you for being part of this community — your support means a lot!
