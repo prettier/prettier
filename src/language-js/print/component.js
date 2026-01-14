@@ -6,11 +6,16 @@ import {
   line,
   softline,
 } from "../../document/index.js";
-import { printDanglingComments } from "../../main/comments/print.js";
-import getNextNonSpaceNonCommentCharacter from "../../utilities/get-next-non-space-non-comment-character.js";
-import { locEnd } from "../loc.js";
-import { isNextLineEmpty, shouldPrintComma } from "../utilities/index.js";
-import { printDeclareToken } from "./miscellaneous.js";
+import {
+  getComponentParameters,
+  isNextLineEmpty,
+  iterateComponentParametersPath,
+  shouldPrintComma,
+} from "../utilities/index.js";
+import {
+  printDanglingCommentsInList,
+  printDeclareToken,
+} from "./miscellaneous.js";
 
 /**
  * @import AstPath from "../../common/ast-path.js"
@@ -52,23 +57,10 @@ function printComponent(path, options, print) {
 
 function printComponentParameters(path, options, print) {
   const { node: componentNode } = path;
-  let parameters = componentNode.params;
-  if (componentNode.rest) {
-    parameters = [...parameters, componentNode.rest];
-  }
+  const parameters = getComponentParameters(componentNode);
 
   if (parameters.length === 0) {
-    return [
-      "(",
-      printDanglingComments(path, options, {
-        filter: (comment) =>
-          getNextNonSpaceNonCommentCharacter(
-            options.originalText,
-            locEnd(comment),
-          ) === ")",
-      }),
-      ")",
-    ];
+    return ["(", printDanglingCommentsInList(path, options), ")"];
   }
 
   const printed = [];
@@ -105,16 +97,6 @@ function printComponentParameters(path, options, print) {
 
 function hasRestParameter(componentNode, parameters) {
   return componentNode.rest || parameters.at(-1)?.type === "RestElement";
-}
-
-function iterateComponentParametersPath(path, iteratee) {
-  const { node } = path;
-  let index = 0;
-  const callback = (childPath) => iteratee(childPath, index++);
-  path.each(callback, "params");
-  if (node.rest) {
-    path.call(callback, "rest");
-  }
 }
 
 /*

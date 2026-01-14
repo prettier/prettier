@@ -849,6 +849,31 @@ function iterateFunctionParametersPath(path, iteratee) {
   }
 }
 
+const componentParametersCache = new WeakMap();
+function getComponentParameters(node) {
+  if (componentParametersCache.has(node)) {
+    return componentParametersCache.get(node);
+  }
+
+  const parameters = [...node.params];
+  if (node.rest) {
+    parameters.push(node.rest);
+  }
+
+  componentParametersCache.set(node, parameters);
+  return parameters;
+}
+
+function iterateComponentParametersPath(path, iteratee) {
+  const { node } = path;
+  let index = 0;
+  const callback = () => iteratee(path, index++);
+  path.each(callback, "params");
+  if (node.rest) {
+    path.call(callback, "rest");
+  }
+}
+
 const callArgumentsCache = new WeakMap();
 function getCallArguments(node) {
   if (callArgumentsCache.has(node)) {
@@ -1119,6 +1144,7 @@ export {
   getCallArguments,
   getCallArgumentSelector,
   getComments,
+  getComponentParameters,
   getFunctionParameters,
   getLeftSide,
   getLeftSidePathName,
@@ -1174,6 +1200,7 @@ export {
   isTypeAnnotationAFunction,
   isUnionType,
   iterateCallArgumentsPath,
+  iterateComponentParametersPath,
   iterateFunctionParametersPath,
   needsHardlineAfterDanglingComment,
   shouldFlatten,

@@ -14,6 +14,7 @@ import getTextWithoutComments from "../utilities/get-text-without-comments.js";
 import {
   createTypeCheckFunction,
   getCallArguments,
+  getComponentParameters,
   getFunctionParameters,
   isBinaryCastExpression,
   isCallExpression,
@@ -645,6 +646,12 @@ function isInArgumentOrParameterParentheses(node, comment, options) {
   );
 }
 
+const isFlowComponent = createTypeCheckFunction([
+  "ComponentDeclaration",
+  "DeclareComponent",
+  "ComponentTypeAnnotation",
+]);
+
 function handleCommentInEmptyParens({ comment, enclosingNode, options }) {
   if (!enclosingNode) {
     return false;
@@ -653,6 +660,15 @@ function handleCommentInEmptyParens({ comment, enclosingNode, options }) {
   if (
     isCallLikeExpression(enclosingNode) &&
     getCallArguments(enclosingNode).length === 0 &&
+    isInArgumentOrParameterParentheses(enclosingNode, comment, options)
+  ) {
+    addDanglingComment(enclosingNode, comment);
+    return true;
+  }
+
+  if (
+    isFlowComponent(enclosingNode) &&
+    getComponentParameters(enclosingNode).length === 0 &&
     isInArgumentOrParameterParentheses(enclosingNode, comment, options)
   ) {
     addDanglingComment(enclosingNode, comment);
