@@ -76,8 +76,8 @@ function printFunction(path, options, print, args) {
     returnTypeDoc,
   );
 
-  const isFlowHookDeclareFunction = node.type === "HookDeclaration";
-  const keyword = isFlowHookDeclareFunction ? "hook" : "function";
+  const isFlowHookDeclaration = node.type === "HookDeclaration";
+  const keyword = isFlowHookDeclaration ? "hook" : "function";
 
   return [
     printDeclareToken(path),
