@@ -1,5 +1,4 @@
 import { group } from "../../document/index.js";
-import { printReturnType } from "./function.js";
 import {
   printFunctionParameters,
   shouldGroupFunctionParameters,
@@ -10,43 +9,6 @@ import { printDeclareToken } from "./miscellaneous.js";
  * @import AstPath from "../../common/ast-path.js"
  * @import {Doc} from "../../document/index.js"
  */
-
-/*
-- `HookDeclaration` (Flow)
-*/
-function printHook(path, options, print) {
-  const { node } = path;
-
-  /** @type {Array<Doc>} */
-  const parts = ["hook"];
-  if (node.id) {
-    parts.push(" ", print("id"));
-  }
-
-  const parametersDoc = printFunctionParameters(
-    path,
-    options,
-    print,
-    /* shouldExpandArgument */ false,
-    /* shouldPrintTypeParameters*/ true,
-  );
-  const returnTypeDoc = printReturnType(path, print);
-  const shouldGroupParameters = shouldGroupFunctionParameters(
-    node,
-    returnTypeDoc,
-  );
-
-  parts.push(
-    group([
-      shouldGroupParameters ? group(parametersDoc) : parametersDoc,
-      returnTypeDoc,
-    ]),
-    node.body ? " " : "",
-    print("body"),
-  );
-
-  return parts;
-}
 
 /*
 - "DeclareHook"
@@ -107,4 +69,4 @@ function printHookTypeAnnotation(path, options, print) {
   ]);
 }
 
-export { printDeclareHook, printHook, printHookTypeAnnotation };
+export { printDeclareHook, printHookTypeAnnotation };
