@@ -83,43 +83,43 @@ c */? foo : bar : bar;
 type T = any extends B
     // Comment
     // Multiline comment
-    ? undefined | NonNullable<B>[foo]
-    : B[foo];
+    ? C
+    : D;
 T = any instanceof B
     // Comment
     // Multiline comment
-    ? undefined | NonNullable<B>[foo]
-    : B[foo];
+    ? C
+    : D;
 
 type T = any extends B
     // Comment
-    ? undefined | NonNullable<B>[foo]
-    : B[foo];
+    ? C
+    : D;
 T = any instanceof B
     // Comment
-    ? undefined | NonNullable<B>[foo]
-    : B[foo];
+    ? C
+    : D;
 
 type T = any extends B
   /**
   * Comment
   */
-    ? undefined | NonNullable<B>[foo]
-    : B[foo];
+    ? C
+    : D;
 T = any instanceof B
   /**
   * Comment
   */
-    ? undefined | NonNullable<B>[foo]
-    : B[foo];
+    ? C
+    : D;
 type T = any extends B
-  /* Comment */
-    ? undefined | NonNullable<B>[foo]
-    : B[foo];
+  ?/* Comment */
+     C
+    : D;
 T = any instanceof B
-  /* Comment */
-    ? undefined | NonNullable<B>[foo]
-    : B[foo];
+  ?/* Comment */
+     C
+    : D;
 
 =====================================output=====================================
 type A =
@@ -203,50 +203,42 @@ c */
 type T =
   any extends B ?
     // Comment
-      // Multiline comment
-      undefined | NonNullable<B>[foo]
-  : B[foo];
+    // Multiline comment
+    C
+  : D;
 T =
   any instanceof B ?
     // Comment
     // Multiline comment
-    undefined | (NonNullable < B > [foo])
-  : B[foo];
+    C
+  : D;
 
 type T =
   any extends B ?
     // Comment
-      undefined | NonNullable<B>[foo]
-  : B[foo];
+    C
+  : D;
 T =
   any instanceof B ?
     // Comment
-    undefined | (NonNullable < B > [foo])
-  : B[foo];
+    C
+  : D;
 
 type T =
   any extends B ?
     /**
-       * Comment
-       */
-      undefined | NonNullable<B>[foo]
-  : B[foo];
+     * Comment
+     */
+    C
+  : D;
 T = any instanceof B ?
     /**
      * Comment
      */
-    undefined | (NonNullable < B > [foo])
-  : B[foo];
-type T =
-  any extends B ?
-    /* Comment */
-      undefined | NonNullable<B>[foo]
-  : B[foo];
-T =
-  any instanceof B ?
-    /* Comment */
-    undefined | (NonNullable < B > [foo])
-  : B[foo];
+    C
+  : D;
+type T = any extends B ? /* Comment */ C : D;
+T = any instanceof B ? /* Comment */ C : D;
 
 ================================================================================
 `;
@@ -333,43 +325,43 @@ c */? foo : bar : bar;
 type T = any extends B
     // Comment
     // Multiline comment
-    ? undefined | NonNullable<B>[foo]
-    : B[foo];
+    ? C
+    : D;
 T = any instanceof B
     // Comment
     // Multiline comment
-    ? undefined | NonNullable<B>[foo]
-    : B[foo];
+    ? C
+    : D;
 
 type T = any extends B
     // Comment
-    ? undefined | NonNullable<B>[foo]
-    : B[foo];
+    ? C
+    : D;
 T = any instanceof B
     // Comment
-    ? undefined | NonNullable<B>[foo]
-    : B[foo];
+    ? C
+    : D;
 
 type T = any extends B
   /**
   * Comment
   */
-    ? undefined | NonNullable<B>[foo]
-    : B[foo];
+    ? C
+    : D;
 T = any instanceof B
   /**
   * Comment
   */
-    ? undefined | NonNullable<B>[foo]
-    : B[foo];
+    ? C
+    : D;
 type T = any extends B
-  /* Comment */
-    ? undefined | NonNullable<B>[foo]
-    : B[foo];
+  ?/* Comment */
+     C
+    : D;
 T = any instanceof B
-  /* Comment */
-    ? undefined | NonNullable<B>[foo]
-    : B[foo];
+  ?/* Comment */
+     C
+    : D;
 
 =====================================output=====================================
 type A = B extends T
@@ -445,47 +437,40 @@ c */
 type T = any extends B
   ? // Comment
     // Multiline comment
-    undefined | NonNullable<B>[foo]
-  : B[foo];
+    C
+  : D;
 T =
   any instanceof B
     ? // Comment
       // Multiline comment
-      undefined | (NonNullable < B > [foo])
-    : B[foo];
+      C
+    : D;
 
 type T = any extends B
   ? // Comment
-    undefined | NonNullable<B>[foo]
-  : B[foo];
+    C
+  : D;
 T =
   any instanceof B
     ? // Comment
-      undefined | (NonNullable < B > [foo])
-    : B[foo];
+      C
+    : D;
 
 type T = any extends B
   ? /**
      * Comment
      */
-    undefined | NonNullable<B>[foo]
-  : B[foo];
+    C
+  : D;
 T =
   any instanceof B
     ? /**
        * Comment
        */
-      undefined | (NonNullable < B > [foo])
-    : B[foo];
-type T = any extends B
-  ? /* Comment */
-    undefined | NonNullable<B>[foo]
-  : B[foo];
-T =
-  any instanceof B
-    ? /* Comment */
-      undefined | (NonNullable < B > [foo])
-    : B[foo];
+      C
+    : D;
+type T = any extends B ? /* Comment */ C : D;
+T = any instanceof B ? /* Comment */ C : D;
 
 ================================================================================
 `;

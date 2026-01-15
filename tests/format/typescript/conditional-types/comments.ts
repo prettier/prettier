@@ -74,40 +74,40 @@ c */? foo : bar : bar;
 type T = any extends B
     // Comment
     // Multiline comment
-    ? undefined | NonNullable<B>[foo]
-    : B[foo];
+    ? C
+    : D;
 T = any instanceof B
     // Comment
     // Multiline comment
-    ? undefined | NonNullable<B>[foo]
-    : B[foo];
+    ? C
+    : D;
 
 type T = any extends B
     // Comment
-    ? undefined | NonNullable<B>[foo]
-    : B[foo];
+    ? C
+    : D;
 T = any instanceof B
     // Comment
-    ? undefined | NonNullable<B>[foo]
-    : B[foo];
+    ? C
+    : D;
 
 type T = any extends B
   /**
   * Comment
   */
-    ? undefined | NonNullable<B>[foo]
-    : B[foo];
+    ? C
+    : D;
 T = any instanceof B
   /**
   * Comment
   */
-    ? undefined | NonNullable<B>[foo]
-    : B[foo];
+    ? C
+    : D;
 type T = any extends B
-  /* Comment */
-    ? undefined | NonNullable<B>[foo]
-    : B[foo];
+  ?/* Comment */
+     C
+    : D;
 T = any instanceof B
-  /* Comment */
-    ? undefined | NonNullable<B>[foo]
-    : B[foo];
+  ?/* Comment */
+     C
+    : D;
