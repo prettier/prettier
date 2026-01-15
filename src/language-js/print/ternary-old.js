@@ -149,7 +149,8 @@ function shouldExtraIndentForConditionalExpression(path) {
       (node.type === "ChainExpression" && node.expression === child) ||
       (isCallExpression(node) && node.callee === child) ||
       (isMemberExpression(node) && node.object === child) ||
-      (node.type === "TSNonNullExpression" && node.expression === child)
+      (node.type === "TSNonNullExpression" && node.expression === child) ||
+      (node.type === "NonNullExpression" && node.argument === child)
     ) {
       child = node;
       continue;

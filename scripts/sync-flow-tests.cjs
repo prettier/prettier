@@ -16,7 +16,7 @@ function tryParse(file, content) {
     enums: true,
     match: true,
     components: true,
-    // assert_operator: true,
+    assert_operator: true,
     esproposal_decorators: true,
     pattern_matching: true,
     records: true,
