@@ -49,14 +49,14 @@ function printUnionType(path, options, print) {
     parent.type !== "TSTypeAssertion" &&
     !isTupleType(parent) &&
     !(
-      isConditionalType(parent) &&
-      !options.experimentalTernaries &&
-      hasLeadingOwnLineComment(options.originalText, node)
-    ) &&
-    !(
       parent.type === "FunctionTypeParam" &&
       !parent.name &&
       path.grandparent.this !== parent
+    ) &&
+    !(
+      isConditionalType(parent) &&
+      !options.experimentalTernaries &&
+      hasLeadingOwnLineComment(options.originalText, node)
     ) &&
     !(
       (isTypeAlias(parent) || parent.type === "VariableDeclarator") &&
