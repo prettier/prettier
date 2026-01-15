@@ -1,0 +1,23 @@
+div span[foo="bar\
+baz"] {
+  color: red;
+}
+
+/* Should not break before `div`, since it doesn't reach printWidth */
+div span[foo="bar\
+baz-baz-baz"] {
+  color: red;
+}
+
+div {
+  div span[foo="bar\
+baz"] {
+    color: red;
+  }
+  
+  /* Should not break before `div`, since it doesn't reach printWidth */
+  div span[foo="bar\
+baz-baz-baz"] {
+    color: red;
+  }
+}

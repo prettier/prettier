@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`test.css - {"printWidth":30} format 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 30
+                              | printWidth
+=====================================input======================================
+div span[foo="bar\\
+baz"] {
+  color: red;
+}
+
+/* Should not break before \`div\`, since it doesn't reach printWidth */
+div span[foo="bar\\
+baz-baz-baz"] {
+  color: red;
+}
+
+div {
+  div span[foo="bar\\
+baz"] {
+    color: red;
+  }
+  
+  /* Should not break before \`div\`, since it doesn't reach printWidth */
+  div span[foo="bar\\
+baz-baz-baz"] {
+    color: red;
+  }
+}
+
+=====================================output=====================================
+div span[foo="bar\\
+baz"] {
+  color: red;
+}
+
+/* Should not break before \`div\`, since it doesn't reach printWidth */
+div span[foo="bar\\
+baz-baz-baz"] {
+  color: red;
+}
+
+div {
+  div span[foo="bar\\
+baz"] {
+    color: red;
+  }
+
+  /* Should not break before \`div\`, since it doesn't reach printWidth */
+  div span[foo="bar\\
+baz-baz-baz"] {
+    color: red;
+  }
+}
+
+================================================================================
+`;
