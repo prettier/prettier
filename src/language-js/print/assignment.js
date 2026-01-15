@@ -419,7 +419,7 @@ function isObjectPropertyWithShortKey(node, keyDoc, options) {
 }
 
 function isCallExpressionWithComplexTypeArguments(node, print) {
-  const typeArgs = getTypeArgumentsFromCallExpression(node);
+  const typeArgs = node.typeArguments?.params;
   if (isNonEmptyArray(typeArgs)) {
     if (typeArgs.length > 1) {
       return true;
@@ -435,18 +435,11 @@ function isCallExpressionWithComplexTypeArguments(node, print) {
         return true;
       }
     }
-    const typeArgsKeyName = node.typeParameters
-      ? "typeParameters"
-      : "typeArguments";
-    if (willBreak(print(typeArgsKeyName))) {
+    if (willBreak(print("typeArguments"))) {
       return true;
     }
   }
   return false;
-}
-
-function getTypeArgumentsFromCallExpression(node) {
-  return (node.typeParameters ?? node.typeArguments)?.params;
 }
 
 function isGeneric(node) {
