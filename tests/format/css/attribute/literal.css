@@ -3,6 +3,7 @@ bar"] {
   color: red;
 }
 
+/* Should not break before `div`, since it doesn't reach 80 width */
 .long-classname-classname-classname div[foo="bar\
 bar-bar-bar-bar-bar-bar-bar"] {
   color: red;
@@ -14,6 +15,7 @@ bar-bar-bar-bar-bar-bar-bar"] {
 }
 
 div {
+  /* Should break before `div`, since it reaches 80 width */
   .long-classname-classname-classname div[foo="bar\
 bar-bar-bar-bar-bar-bar-bar"] {
   color: red;
