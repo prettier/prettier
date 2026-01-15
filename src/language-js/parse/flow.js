@@ -29,9 +29,10 @@ const parseOptions = {
   assert_operator: true,
   // `esproposal_decorators` (boolean, default `false`) - enable parsing of decorators
   esproposal_decorators: true,
-  // // `esproposal_export_star_as` (boolean, default `false`) - enable parsing of `export * as` syntax
-  // esproposal_export_star_as: true,
-  // records: true,
+  // Undocumented
+  pattern_matching: true,
+  // Undocumented
+  records: true,
 };
 
 function createParseError(error) {
