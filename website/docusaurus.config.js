@@ -268,6 +268,7 @@ const config = {
           "vim",
           "scss",
           "less",
+          "flow",
         ],
         theme: prismThemes.github,
         darkTheme: prismThemes.dracula,
