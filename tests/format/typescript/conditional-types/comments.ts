@@ -3,12 +3,6 @@ type A = B extends T
     foo
   : bar;
 
-type T = any extends B
-    // Comment
-    // Multiline comment
-    ? undefined | NonNullable<B>[foo]
-    : B[foo];
-
 type A = B extends test /* comment
   comment
       comment
@@ -75,3 +69,45 @@ type T = test extends B
 
 type T = test extends B ? test extends B /* c
 c */? foo : bar : bar;
+
+
+type T = any extends B
+    // Comment
+    // Multiline comment
+    ? undefined | NonNullable<B>[foo]
+    : B[foo];
+T = any instanceof B
+    // Comment
+    // Multiline comment
+    ? undefined | NonNullable<B>[foo]
+    : B[foo];
+
+type T = any extends B
+    // Comment
+    ? undefined | NonNullable<B>[foo]
+    : B[foo];
+T = any instanceof B
+    // Comment
+    ? undefined | NonNullable<B>[foo]
+    : B[foo];
+
+type T = any extends B
+  /*
+  * Comment
+  */
+    ? undefined | NonNullable<B>[foo]
+    : B[foo];
+T = any instanceof B
+  /*
+  * Comment
+  */
+    ? undefined | NonNullable<B>[foo]
+    : B[foo];
+type T = any extends B
+  /* Comment */
+    ? undefined | NonNullable<B>[foo]
+    : B[foo];
+T = any instanceof B
+  /* Comment */
+    ? undefined | NonNullable<B>[foo]
+    : B[foo];
