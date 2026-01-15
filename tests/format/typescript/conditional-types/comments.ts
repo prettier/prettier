@@ -92,13 +92,13 @@ T = any instanceof B
     : B[foo];
 
 type T = any extends B
-  /*
+  /**
   * Comment
   */
     ? undefined | NonNullable<B>[foo]
     : B[foo];
 T = any instanceof B
-  /*
+  /**
   * Comment
   */
     ? undefined | NonNullable<B>[foo]
