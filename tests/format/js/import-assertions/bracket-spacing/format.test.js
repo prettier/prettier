@@ -1,8 +1,7 @@
-runFormatTest(import.meta, ["babel"], {
+runFormatTest(import.meta, ["oxc", "typescript", "hermes"], {
   bracketSpacing: false,
   errors: {
-    acorn: ["static-import.js", "re-export.js", "empty.js"],
-    espree: ["static-import.js", "re-export.js", "empty.js"],
-    meriyah: ["static-import.js", "re-export.js", "empty.js"],
+    "babel-ts": ["static-import.js", "re-export.js", "empty.js"],
+    hermes: ["empty.js", "re-export.js"],
   },
 });

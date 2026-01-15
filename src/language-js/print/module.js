@@ -254,11 +254,6 @@ function shouldPrintSpecifiers(node, options) {
 }
 
 function getImportAttributesKeyword(node, options) {
-  // Babel parser add this property to indicate the keyword is `assert`
-  if (node.extra?.deprecatedAssertSyntax) {
-    return "assert";
-  }
-
   const textBetweenSourceAndAttributes = getTextWithoutComments(
     options,
     locEnd(node.source),

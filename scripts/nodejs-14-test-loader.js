@@ -8,19 +8,29 @@ import esbuild from "esbuild";
 // We can use an `--experimental-loader` to compile them on-the-fly with esbuild.
 
 export async function getSource(url, context, defaultGetSource) {
-  if (
-    !/node_modules\/@babel\/(?:code-frame|highlight)/.test(url) ||
-    context.format !== "module"
-  ) {
-    return defaultGetSource(url, context, defaultGetSource);
+  if (context.format === "module") {
+    if (url.includes("/node_modules/js-tokens/")) {
+      const text = await readFile(fileURLToPath(url), "utf8");
+      const commonJsExport = 'export { jsTokens as "module.exports" };';
+      if (text.includes(commonJsExport)) {
+        return { source: text.replace(commonJsExport, "") };
+      }
+    }
+
+    if (
+      url.includes("/node_modules/@babel/code-frame/") ||
+      url.includes("/node_modules/@babel/highlight/")
+    ) {
+      const raw = await readFile(fileURLToPath(url));
+      try {
+        const result = await esbuild.transform(raw, { target: "node14" });
+        return { source: result.code };
+      } catch (error) {
+        error.message += ` (in ${url})`;
+        throw error;
+      }
+    }
   }
 
-  const raw = await readFile(fileURLToPath(url));
-  try {
-    const result = await esbuild.transform(raw, { target: "node14" });
-    return { source: result.code };
-  } catch (error) {
-    error.message += ` (in ${url})`;
-    throw error;
-  }
+  return defaultGetSource(url, context, defaultGetSource);
 }
