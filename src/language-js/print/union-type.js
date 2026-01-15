@@ -43,7 +43,6 @@ function printUnionType(path, options, print) {
   // If there's a leading comment, the parent is doing the indentation
   const shouldIndent =
     parent.type !== "TypeParameterInstantiation" &&
-    (!isConditionalType(parent) || !options.experimentalTernaries) &&
     parent.type !== "TSTypeParameterInstantiation" &&
     parent.type !== "GenericTypeAnnotation" &&
     parent.type !== "TSTypeReference" &&
@@ -53,6 +52,11 @@ function printUnionType(path, options, print) {
       parent.type === "FunctionTypeParam" &&
       !parent.name &&
       path.grandparent.this !== parent
+    ) &&
+    !(
+      isConditionalType(parent) &&
+      !options.experimentalTernaries &&
+      hasLeadingOwnLineComment(options.originalText, node)
     ) &&
     !(
       (isTypeAlias(parent) || parent.type === "VariableDeclarator") &&
