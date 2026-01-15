@@ -14,8 +14,12 @@ function tryParse(file, content) {
   const ast = flowParser.parse(content, {
     comments: false,
     enums: true,
+    match: true,
+    components: true,
+    // assert_operator: true,
     esproposal_decorators: true,
-    esproposal_export_star_as: true,
+    pattern_matching: true,
+    records: true,
   });
 
   if (ast.errors.length > 0) {
