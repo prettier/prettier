@@ -32,6 +32,7 @@ import {
   printTypeScriptAccessibilityToken,
 } from "./miscellaneous.js";
 import { printModuleDeclaration } from "./module-declaration.js";
+import { printNonNulExpression } from "./non-null-expression.js";
 import { printObject } from "./object.js";
 import { printRestType } from "./rest-type.js";
 import { printTemplateLiteral } from "./template-literal.js";
@@ -139,7 +140,7 @@ function printTypescript(path, options, print, args) {
     case "TSTypePredicate":
       return printTypePredicate(path, print);
     case "TSNonNullExpression":
-      return [print("expression"), "!"];
+      return printNonNulExpression(path, options, print);
     case "TSImportType":
       return [
         printCallExpression(path, options, print),

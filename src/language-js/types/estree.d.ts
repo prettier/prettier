@@ -22,9 +22,11 @@ type PrettierCommentAdditionalProperties = {
   marker?: string | symbol;
 };
 
-type FlowAdditionalNode = {
-  type: "EnumBody";
-} & Omit<FlowESTree.EnumDeclaration["body"], "type">;
+type FlowAdditionalNode =
+  | ({
+      type: "EnumBody";
+    } & Omit<FlowESTree.EnumDeclaration["body"], "type">)
+  | { type: "NonNullExpression"; expression: FlowESTree.Expression };
 
 type PrettierNode = { type: "JsExpressionRoot"; node: Babel.Expression };
 

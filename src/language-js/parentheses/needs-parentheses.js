@@ -14,6 +14,7 @@ import {
   isConditionalType,
   isIntersectionType,
   isMemberExpression,
+  isNonNullExpression,
   isNumericLiteral,
   isObjectExpression,
   isReturnOrThrowStatement,
@@ -154,6 +155,7 @@ function needsParentheses(path, options) {
           return key === "left" && parent.operator === "**";
 
         case "TSNonNullExpression":
+        case "NonNullExpression":
         case "TSInstantiationExpression":
           return true;
 
@@ -221,6 +223,7 @@ function needsParentheses(path, options) {
         case "BindExpression":
         case "AwaitExpression":
         case "TSNonNullExpression":
+        case "NonNullExpression":
         case "TSInstantiationExpression":
         case "UpdateExpression":
           return true;
@@ -325,6 +328,7 @@ function needsParentheses(path, options) {
         case "TSAsExpression":
         case "TSSatisfiesExpression":
         case "TSNonNullExpression":
+        case "NonNullExpression":
         case "AsExpression":
         case "AsConstExpression":
         case "SatisfiesExpression":
@@ -695,6 +699,7 @@ function needsParentheses(path, options) {
         case "AsConstExpression":
         case "SatisfiesExpression":
         case "TSNonNullExpression":
+        case "NonNullExpression":
         case "TSInstantiationExpression":
           return true;
 
@@ -753,6 +758,7 @@ function needsParentheses(path, options) {
         case "AsConstExpression":
         case "SatisfiesExpression":
         case "TSNonNullExpression":
+        case "NonNullExpression":
         case "BindExpression":
         case "TaggedTemplateExpression":
         case "UnaryExpression":
@@ -785,6 +791,7 @@ function needsParentheses(path, options) {
     case "OptionalCallExpression":
     case "ChainExpression":
     case "TSNonNullExpression":
+    case "NonNullExpression":
       if (shouldAddParenthesesToChainElement(path)) {
         return true;
       }
@@ -815,6 +822,7 @@ function needsParentheses(path, options) {
               object = object.tag;
               break;
             case "TSNonNullExpression":
+            case "NonNullExpression":
               object = object.expression;
               break;
             default:
@@ -900,7 +908,7 @@ function needsParentheses(path, options) {
         (key === "callee" && parent.type === "NewExpression") ||
         (key === "tag" && parent.type === "TaggedTemplateExpression") ||
         (key === "expression" &&
-          (parent.type === "TSNonNullExpression" ||
+          (isNonNullExpression(parent) ||
             parent.type === "TSInstantiationExpression")) ||
         (key === "superClass" && isClass(parent))
       ) {

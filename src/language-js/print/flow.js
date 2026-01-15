@@ -50,6 +50,7 @@ import {
 } from "./miscellaneous.js";
 import { printExportDeclaration } from "./module.js";
 import { printModuleDeclaration } from "./module-declaration.js";
+import { printNonNulExpression } from "./non-null-expression.js";
 import { printObject } from "./object.js";
 import { printOpaqueType } from "./opaque-type.js";
 import { printSpreadElement } from "./rest-element.js";
@@ -418,6 +419,8 @@ function printFlow(path, options, print, args) {
         node[valueKey] ? [" = ", print(valueKey)] : "",
       ];
     }
+    case "NonNullExpression":
+      return printNonNulExpression(path, options, print);
   }
 }
 

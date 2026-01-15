@@ -24,6 +24,9 @@ const additionalVisitorKeys = {
 
   // flow-parser@0.337.0
   EnumBigIntBody: ["members"],
+
+  // Missing
+  NonNullExpression: ["expression"],
 };
 
 const excludeVisitorKeys = {

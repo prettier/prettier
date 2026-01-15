@@ -160,6 +160,7 @@ export const isCallLikeExpression = createTypeCheckFunction([
 export const isChainElementWrapper = createTypeCheckFunction([
   "ChainExpression",
   "TSNonNullExpression",
+  "NonNullExpression",
 ]);
 
 export const isArrayType = createTypeCheckFunction([
@@ -200,5 +201,10 @@ export const isEnumDeclaration = createTypeCheckFunction([
 ]);
 
 export const isEnumBody = createTypeCheckFunction(["TSEnumBody", "EnumBody"]);
+
+export const isNonNullExpression = createTypeCheckFunction([
+  "TSNonNullExpression",
+  "NonNullExpression",
+]);
 
 export * from "./literal.js";
