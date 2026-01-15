@@ -87,6 +87,26 @@ printWidth: 80
 ================================================================================
 `;
 
+exports[`no-specifier.mdx format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+
+import {           } from "foo";
+import "foo";
+
+=====================================output=====================================
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+
+import {} from "foo";
+import "foo";
+
+================================================================================
+`;
+
 exports[`paragraph.mdx format 1`] = `
 ====================================options=====================================
 parsers: ["mdx"]
