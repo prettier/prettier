@@ -4,8 +4,10 @@ on:
   push:
     branches:
       - main
-      - patch-release
       - next
+      - v*
+      - patch-release
+      - "!renovate/**"
     paths:
       - "scripts/tools/eslint-plugin-prettier-internal-rules/**"
       # This workflow file
