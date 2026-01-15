@@ -168,14 +168,14 @@ bar-bar-bar-bar-bar-bar-bar"] {
 
 div {
   .long-classname-classname-classname div[foo="bar\\
-  bar-bar-bar-bar-bar-bar-bar"] {
-    color: red;
-  }
+bar-bar-bar-bar-bar-bar-bar"] {
+  color: red;
+}
 
   .long-classname-classname-classname-classname-classname-classname-classname-classname-classname div[foo="bar\\
-  bar-bar-bar-bar-bar-bar-bar"] {
-    color: red;
-  }
+bar-bar-bar-bar-bar-bar-bar"] {
+  color: red;
+}
 }
 
 =====================================output=====================================
@@ -197,13 +197,13 @@ bar-bar-bar-bar-bar-bar-bar'] {
 
 div {
   .long-classname-classname-classname div[foo='bar\\
-  bar-bar-bar-bar-bar-bar-bar'] {
+bar-bar-bar-bar-bar-bar-bar'] {
     color: red;
   }
 
   .long-classname-classname-classname-classname-classname-classname-classname-classname-classname
     div[foo='bar\\
-  bar-bar-bar-bar-bar-bar-bar'] {
+bar-bar-bar-bar-bar-bar-bar'] {
     color: red;
   }
 }
@@ -234,14 +234,14 @@ bar-bar-bar-bar-bar-bar-bar"] {
 
 div {
   .long-classname-classname-classname div[foo="bar\\
-  bar-bar-bar-bar-bar-bar-bar"] {
-    color: red;
-  }
+bar-bar-bar-bar-bar-bar-bar"] {
+  color: red;
+}
 
   .long-classname-classname-classname-classname-classname-classname-classname-classname-classname div[foo="bar\\
-  bar-bar-bar-bar-bar-bar-bar"] {
-    color: red;
-  }
+bar-bar-bar-bar-bar-bar-bar"] {
+  color: red;
+}
 }
 
 =====================================output=====================================
@@ -263,13 +263,13 @@ bar-bar-bar-bar-bar-bar-bar"] {
 
 div {
   .long-classname-classname-classname div[foo="bar\\
-  bar-bar-bar-bar-bar-bar-bar"] {
+bar-bar-bar-bar-bar-bar-bar"] {
     color: red;
   }
 
   .long-classname-classname-classname-classname-classname-classname-classname-classname-classname
     div[foo="bar\\
-  bar-bar-bar-bar-bar-bar-bar"] {
+bar-bar-bar-bar-bar-bar-bar"] {
     color: red;
   }
 }
