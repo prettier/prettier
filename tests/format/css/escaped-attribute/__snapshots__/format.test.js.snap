@@ -1,56 +1,56 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`test.css - {"printWidth":30} format 1`] = `
+exports[`test.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
-printWidth: 30
-                              | printWidth
+printWidth: 80
+                                                                                | printWidth
 =====================================input======================================
-div span[foo="bar\\
-baz"] {
+div span[foo="bar short\\
+short"] {
   color: red;
 }
 
-/* Should not break before \`div\`, since it doesn't reach printWidth */
-div span[foo="bar\\
-baz-baz-baz"] {
+/* Should not break before \`span\`, since it doesn't reach printWidth */
+div span[foo="bar long long long\\
+long long long long long long long long long long long long"] {
   color: red;
 }
 
 div {
-  div span[foo="bar\\
-baz"] {
+  & span[foo="bar short\\
+short"] {
     color: red;
   }
-  
-  /* Should not break before \`div\`, since it doesn't reach printWidth */
-  div span[foo="bar\\
-baz-baz-baz"] {
+
+  /* Should not break before \`span\`, since it doesn't reach printWidth */
+  & span[foo="bar long long long\\
+long long long long long long long long long long long long"] {
     color: red;
   }
 }
 
 =====================================output=====================================
-div span[foo="bar\\
-baz"] {
+div span[foo="bar short\\
+short"] {
   color: red;
 }
 
-/* Should not break before \`div\`, since it doesn't reach printWidth */
-div span[foo="bar\\
-baz-baz-baz"] {
+/* Should not break before \`span\`, since it doesn't reach printWidth */
+div span[foo="bar long long long\\
+long long long long long long long long long long long long"] {
   color: red;
 }
 
 div {
-  div span[foo="bar\\
-baz"] {
+  & span[foo="bar short\\
+short"] {
     color: red;
   }
 
-  /* Should not break before \`div\`, since it doesn't reach printWidth */
-  div span[foo="bar\\
-baz-baz-baz"] {
+  /* Should not break before \`span\`, since it doesn't reach printWidth */
+  & span[foo="bar long long long\\
+long long long long long long long long long long long long"] {
     color: red;
   }
 }

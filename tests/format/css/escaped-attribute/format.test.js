@@ -1,1 +1,1 @@
-runFormatTest(import.meta, ["css"], { printWidth: 30 });
+runFormatTest(import.meta, ["css"]);
