@@ -25,9 +25,8 @@ const parseOptions = {
   match: true,
   // `components` (boolean, default `false`) - enable parsing of Flow component syntax
   components: true,
-  // TODO: Support it
   // `assert_operator` (boolean, default `false`) - enable parsing of the assert operator
-  // assert_operator: true,
+  assert_operator: true,
   // `esproposal_decorators` (boolean, default `false`) - enable parsing of decorators
   esproposal_decorators: true,
   // Undocumented
