@@ -70,44 +70,43 @@ type T = test extends B
 type T = test extends B ? test extends B /* c
 c */? foo : bar : bar;
 
-
 type T = any extends B
     // Comment
     // Multiline comment
-    ? C
+    ? B | C
     : D;
 T = any instanceof B
     // Comment
     // Multiline comment
-    ? C
+    ? B | C
     : D;
 
 type T = any extends B
     // Comment
-    ? C
+    ? B | C
     : D;
 T = any instanceof B
     // Comment
-    ? C
+    ? B | C
     : D;
 
 type T = any extends B
   /**
   * Comment
   */
-    ? C
+    ? B | C
     : D;
 T = any instanceof B
   /**
   * Comment
   */
-    ? C
+    ? B | C
     : D;
 type T = any extends B
   ?/* Comment */
-     C
+     B | C
     : D;
 T = any instanceof B
   ?/* Comment */
-     C
+     B | C
     : D;
