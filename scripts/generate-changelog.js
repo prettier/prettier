@@ -159,6 +159,7 @@ function getSyntaxFromCategory(category) {
     case "mdx":
       return "mdx";
     case "flow":
+      return "flow";
     case "javascript":
     case "api":
     case "misc":
