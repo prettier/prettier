@@ -1,5 +1,5 @@
 import {
-  parse as angularHtmlParserParse,
+  parseHtml as angularHtmlParserParse,
   ParseLocation,
   ParseSourceFile,
   ParseSourceSpan,
@@ -14,7 +14,7 @@ import {
 import { postprocess } from "./postprocess.js";
 
 /**
-@import {ParseOptions as AngularHtmlParserParseOptions, Ast, ParseTreeResult} from "angular-html-parser";
+@import {HtmlParseOptions, Ast, ParseTreeResult} from "angular-html-parser";
 @import {RawParseOptions, ParseOptions} from "./parse-options.js";
 @import {FrontMatter} from "../../main/front-matter/parse.js"
 @typedef {{filepath?: string}} Options
