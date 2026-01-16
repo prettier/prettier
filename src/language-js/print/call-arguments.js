@@ -201,25 +201,43 @@ function printCallArguments(path, options, print) {
 }
 
 function couldExpandArg(arg, arrowChainRecursion = false) {
-  return (
-    (isObjectExpression(arg) &&
-      (arg.properties.length > 0 || hasComment(arg))) ||
-    (isArrayExpression(arg) && (arg.elements.length > 0 || hasComment(arg))) ||
-    (arg.type === "TSTypeAssertion" && couldExpandArg(arg.expression)) ||
-    (isBinaryCastExpression(arg) && couldExpandArg(arg.expression)) ||
+  if (
+    isObjectExpression(arg) &&
+    (arg.properties.length > 0 || hasComment(arg))
+  ) {
+    return true;
+  }
+
+  if (isArrayExpression(arg) && (arg.elements.length > 0 || hasComment(arg))) {
+    return true;
+  }
+
+  if (
+    (isBinaryCastExpression(arg) || arg.type === "TSTypeAssertion") &&
+    couldExpandArg(arg.expression)
+  ) {
+    return true;
+  }
+
+  if (
     arg.type === "FunctionExpression" ||
-    (arg.type === "ArrowFunctionExpression" &&
-      (arg.body.type === "BlockStatement" ||
-        (arg.body.type === "ArrowFunctionExpression" &&
-          couldExpandArg(arg.body, true)) ||
-        isObjectExpression(arg.body) ||
-        isArrayExpression(arg.body) ||
-        (!arrowChainRecursion &&
-          (isCallExpression(arg.body) ||
-            arg.body.type === "ConditionalExpression")) ||
-        isJsxElement(arg.body))) ||
     arg.type === "DoExpression" ||
     arg.type === "ModuleExpression"
+  ) {
+    return true;
+  }
+
+  return (
+    arg.type === "ArrowFunctionExpression" &&
+    (arg.body.type === "BlockStatement" ||
+      (arg.body.type === "ArrowFunctionExpression" &&
+        couldExpandArg(arg.body, true)) ||
+      isObjectExpression(arg.body) ||
+      isArrayExpression(arg.body) ||
+      (!arrowChainRecursion &&
+        (isCallExpression(arg.body) ||
+          arg.body.type === "ConditionalExpression")) ||
+      isJsxElement(arg.body))
   );
 }
 
