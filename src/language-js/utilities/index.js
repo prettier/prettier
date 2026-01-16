@@ -511,7 +511,6 @@ function isFunctionCompositionArgs(args) {
   if (args.length <= 1) {
     return false;
   }
-
   let count = 0;
   for (let arg of args) {
     if (isFunctionOrArrowExpression(arg)) {
@@ -530,7 +529,6 @@ function isFunctionCompositionArgs(args) {
       }
     }
   }
-
   return false;
 }
 
