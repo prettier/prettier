@@ -169,7 +169,10 @@ function hasMultipleHeritage(node) {
 }
 
 function isMemberish(node) {
-  if (node?.type === "ChainExpression") {
+  if (
+    node?.type === "ChainExpression" ||
+    node?.type === "TSNonNullExpression"
+  ) {
     return isMemberish(node.expression);
   }
 
