@@ -567,6 +567,8 @@ function isSimpleCallArgument(node, depth = 2) {
 
   const isChildSimple = (child) => isSimpleCallArgument(child, depth - 1);
 
+  node = stripChainElementWrappers(node);
+
   if (isRegExpLiteral(node)) {
     return getStringWidth(node.pattern ?? node.regex.pattern) <= 5;
   }
@@ -602,16 +604,6 @@ function isSimpleCallArgument(node, depth = 2) {
     return node.elements.every((x) => x === null || isChildSimple(x));
   }
 
-  if (
-    (node.type === "UnaryExpression" &&
-      simpleCallArgumentUnaryOperators.has(node.operator)) ||
-    node.type === "UpdateExpression"
-  ) {
-    return isSimpleCallArgument(node.argument, depth);
-  }
-
-  node = stripChainElementWrappers(node);
-
   if (isCallLikeExpression(node)) {
     if (
       node.type === "ImportExpression" ||
@@ -628,6 +620,14 @@ function isSimpleCallArgument(node, depth = 2) {
       isSimpleCallArgument(node.object, depth) &&
       isSimpleCallArgument(node.property, depth)
     );
+  }
+
+  if (
+    (node.type === "UnaryExpression" &&
+      simpleCallArgumentUnaryOperators.has(node.operator)) ||
+    node.type === "UpdateExpression"
+  ) {
+    return isSimpleCallArgument(node.argument, depth);
   }
 
   return false;
