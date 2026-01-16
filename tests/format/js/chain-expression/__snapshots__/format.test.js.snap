@@ -61,19 +61,13 @@ printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
 function someFunctionName(
-  someLongBreakingParameterName,
-  anotherLongParameterName,
 ) {
   return isEqual(a?.map(([t, _]) => t?.id), b?.map(([t, _]) => t?.id));
   return isEqual(a.map(([t, _]) => t?.id), b.map(([t, _]) => t?.id));
 }
 
-
 =====================================output=====================================
-function someFunctionName(
-  someLongBreakingParameterName,
-  anotherLongParameterName,
-) {
+function someFunctionName() {
   return isEqual(
     a?.map(([t, _]) => t?.id),
     b?.map(([t, _]) => t?.id),
