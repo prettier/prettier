@@ -285,6 +285,7 @@ function setup(props, { emit }) {
   const render = () => (
     <div class="editor input">
       <div ref="editorRef" style={{ position: "absolute", inset: 0 }} />
+      <div class="editor__name">{props.name}</div>
     </div>
   );
 
@@ -388,6 +389,7 @@ function setup(props, { emit }) {
 const CodeMirrorPanel = {
   name: "CodeMirrorPanel",
   props: {
+    name: { type: String, required: true },
     value: { type: String, required: true },
     selection: { type: Object, default: undefined },
     onSelectionChange: { type: Function, default: undefined },
@@ -438,7 +440,7 @@ export function OutputPanel(props) {
   );
 }
 
-export function DebugPanel({ mode, value, autoFold }) {
+export function DebugPanel({ mode, value, autoFold, name }) {
   return (
     <CodeMirrorPanel
       readOnly={true}
@@ -447,6 +449,7 @@ export function DebugPanel({ mode, value, autoFold }) {
       autoFold={autoFold}
       mode={mode}
       value={value}
+      name={name}
     />
   );
 }

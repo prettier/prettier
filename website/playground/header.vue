@@ -34,7 +34,6 @@ defineProps({
 .links {
   display: flex;
   gap: 8px;
-  font-size: 16px;
   align-items: flex-end;
 }
 

@@ -398,6 +398,7 @@ function setup(props) {
                 <div class="editors">
                   {editorState.showInput ? (
                     <InputPanel
+                      name="Input"
                       mode={getCodemirrorMode(options.parser)}
                       ruler={options.printWidth}
                       value={content}
@@ -416,6 +417,7 @@ function setup(props) {
                   ) : null}
                   {editorState.showAst ? (
                     <DebugPanel
+                      name="AST"
                       mode="JSON"
                       value={debug.ast || ""}
                       autoFold={getAstAutoFold(options.parser)}
@@ -423,16 +425,22 @@ function setup(props) {
                   ) : null}
                   {editorState.showPreprocessedAst && !isDocExplorer ? (
                     <DebugPanel
+                      name="Preprocessed AST"
                       mode="JSON"
                       value={debug.preprocessedAst || ""}
                       autoFold={getAstAutoFold(options.parser)}
                     />
                   ) : null}
                   {editorState.showDoc && !isDocExplorer ? (
-                    <DebugPanel mode="JavaScript" value={debug.doc || ""} />
+                    <DebugPanel
+                      name="Doc"
+                      mode="JavaScript"
+                      value={debug.doc || ""}
+                    />
                   ) : null}
                   {editorState.showComments && !isDocExplorer ? (
                     <DebugPanel
+                      name="Comments"
                       mode="JSON"
                       value={debug.comments || ""}
                       autoFold={getAstAutoFold(options.parser)}
@@ -440,6 +448,7 @@ function setup(props) {
                   ) : null}
                   {editorState.showOutput ? (
                     <OutputPanel
+                      name="Output"
                       mode={getCodemirrorMode(options.parser)}
                       value={formatted}
                       ruler={options.printWidth}
@@ -453,6 +462,7 @@ function setup(props) {
                   ) : null}
                   {editorState.showSecondFormat && !isDocExplorer ? (
                     <OutputPanel
+                      name="Output (Second format)"
                       mode={getCodemirrorMode(options.parser)}
                       value={getSecondFormat(formatted, debug.reformatted)}
                       ruler={options.printWidth}
