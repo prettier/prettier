@@ -11,14 +11,12 @@ import {
   isChainElementWrapper,
   isMemberExpression,
   isNumericLiteral,
+  stripChainElementWrappers,
 } from "../utilities/index.js";
 import { printOptionalToken } from "./miscellaneous.js";
 
 const isCallExpressionWithArguments = (node) => {
-  // TODO[@fisker]: Use `stripChainElementWrappers`
-  if (isChainElementWrapper(node)) {
-    node = node.expression;
-  }
+  node = stripChainElementWrappers(node);
   return isCallExpression(node) && getCallArguments(node).length > 0;
 };
 
