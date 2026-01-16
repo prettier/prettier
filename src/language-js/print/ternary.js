@@ -18,6 +18,7 @@ import {
   hasComment,
   isBinaryCastExpression,
   isCallExpression,
+  isChainElementWrapper,
   isConditionalType,
   isJsxElement,
   isLoneShortArgument,
@@ -103,9 +104,7 @@ function shouldExtraIndentForConditionalExpression(path) {
     const node = path.getParentNode(ancestorCount);
 
     if (
-      ((node.type === "ChainExpression" ||
-        node.type === "TSNonNullExpression") &&
-        node.expression === child) ||
+      (isChainElementWrapper(node) && node.expression === child) ||
       (isCallExpression(node) && node.callee === child) ||
       (isMemberExpression(node) && node.object === child)
     ) {

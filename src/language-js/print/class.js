@@ -18,6 +18,7 @@ import {
   CommentCheckFlags,
   createTypeCheckFunction,
   hasComment,
+  isChainElementWrapper,
   isMemberExpression,
 } from "../utilities/index.js";
 import { printAssignment } from "./assignment.js";
@@ -169,10 +170,8 @@ function hasMultipleHeritage(node) {
 }
 
 function isMemberish(node) {
-  if (
-    node?.type === "ChainExpression" ||
-    node?.type === "TSNonNullExpression"
-  ) {
+  // TODO[@fisker]: Should use `stripChainElementWrappers` instead, since it can be in multiple wrappers
+  if (isChainElementWrapper(node)) {
     return isMemberish(node.expression);
   }
 

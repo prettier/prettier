@@ -5,3 +5,8 @@ const { somePropThatHasAReallyLongName2, anotherPropThatHasALongName2 } = this.p
 this.foo.get("bar")!.doThings().more();
 
 foo!.bar().baz().what();
+
+xyz.a(b).a(b).a(b)
+xyz.a(b!).a(b!).a(b!)
+xyz.a(/a/).a(/a/).a(/a/)
+xyz.a(/a/!).a(/a/!).a(/a/!)

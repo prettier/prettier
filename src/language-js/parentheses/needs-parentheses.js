@@ -1263,6 +1263,7 @@ function canDecoratorExpressionUnparenthesized(node) {
   return (
     isDecoratorMemberExpression(node) ||
     (isCallExpression(node) &&
+      // @ts-expect-error -- doesn't exists on `CallExpression`
       !node.optional &&
       isDecoratorMemberExpression(node.callee))
   );

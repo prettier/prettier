@@ -140,6 +140,73 @@ foo(a?.b!);
 ================================================================================
 `;
 
+exports[`issue-15785-1.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+function someFunctionName(
+) {
+  return isEqual(a?.map(([t, _]) => t?.id), b?.map(([t, _]) => t?.id));
+  return isEqual(a?.map(([t, _]) => t?.id)!, b?.map(([t, _]) => t?.id)!);
+  return isEqual(a.map(([t, _]) => t?.id), b.map(([t, _]) => t?.id));
+  return isEqual(a.map(([t, _]) => t?.id)!, b.map(([t, _]) => t?.id)!);
+}
+
+=====================================output=====================================
+function someFunctionName() {
+  return isEqual(
+    a?.map(([t, _]) => t?.id),
+    b?.map(([t, _]) => t?.id),
+  );
+  return isEqual(
+    a?.map(([t, _]) => t?.id)!,
+    b?.map(([t, _]) => t?.id)!,
+  );
+  return isEqual(
+    a.map(([t, _]) => t?.id),
+    b.map(([t, _]) => t?.id),
+  );
+  return isEqual(
+    a.map(([t, _]) => t?.id)!,
+    b.map(([t, _]) => t?.id)!,
+  );
+}
+
+================================================================================
+`;
+
+exports[`issue-15785-2.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const theValue = Object.entries(someLongObjectName).filter(
+  ([listingId]) => someListToCompareToHere?.includes(listingId),
+);
+const theValue2 = Object.entries(someLongObjectName).filter(
+  ([listingId]) => someListToCompareToHere.includes(listingId),
+);
+const theValue3 = Object.entries(someLongObjectName).filter(
+  ([listingId]) => someListToCompareToHere.includes(listingId)!,
+);
+
+=====================================output=====================================
+const theValue = Object.entries(someLongObjectName).filter(([listingId]) =>
+  someListToCompareToHere?.includes(listingId),
+);
+const theValue2 = Object.entries(someLongObjectName).filter(([listingId]) =>
+  someListToCompareToHere.includes(listingId),
+);
+const theValue3 = Object.entries(someLongObjectName).filter(([listingId]) =>
+  someListToCompareToHere.includes(listingId)!,
+);
+
+================================================================================
+`;
+
 exports[`member-expression.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]

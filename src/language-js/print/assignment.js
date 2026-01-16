@@ -16,6 +16,7 @@ import {
   isBinaryish,
   isBooleanLiteral,
   isCallExpression,
+  isChainElementWrapper,
   isIntersectionType,
   isLoneShortArgument,
   isMemberExpression,
@@ -365,7 +366,7 @@ function isPoorlyBreakableMemberOrCallChain(
   const goDeeper = () =>
     isPoorlyBreakableMemberOrCallChain(path, options, print, true);
 
-  if (node.type === "ChainExpression" || node.type === "TSNonNullExpression") {
+  if (isChainElementWrapper(node)) {
     return path.call(goDeeper, "expression");
   }
 
