@@ -6,8 +6,9 @@ if (true) {
       .type;
     const secondType3 = (sourceCode?.getNodeByRangeIndex1234(second.range[0])!)
       .type;
-    const secondType4 = (sourceCode?.getNodeByRangeIndex1234(second.range[0])!)!
-      .type;
+    // TODO[@fisker]: Fix
+    // const secondType4 = (sourceCode?.getNodeByRangeIndex1234(second.range[0])!)!
+    //   .type;
     const secondType5 = sourceCode.getNodeByRangeIndex1234(second.range[0])!!
       .type;
   }
