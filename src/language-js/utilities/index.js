@@ -879,26 +879,24 @@ function iterateCallArgumentsPath(path, iteratee) {
 }
 
 function getCallArgumentSelector(node, index) {
-  const selectors = [];
-
   if (node.type === "ImportExpression" || node.type === "TSImportType") {
     if (index === 0 || index === (node.options ? -2 : -1)) {
-      return [...selectors, "source"];
+      return ["source"];
     }
     if (node.options && (index === 1 || index === -1)) {
-      return [...selectors, "options"];
+      return ["options"];
     }
     throw new RangeError("Invalid argument index");
   } else if (node.type === "TSExternalModuleReference") {
     if (index === 0 || index === -1) {
-      return [...selectors, "expression"];
+      return ["expression"];
     }
   } else {
     if (index < 0) {
       index = node.arguments.length + index;
     }
     if (index >= 0 && index < node.arguments.length) {
-      return [...selectors, "arguments", index];
+      return ["arguments", index];
     }
   }
 
