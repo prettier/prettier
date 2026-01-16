@@ -512,14 +512,26 @@ function isFunctionCompositionArgs(args) {
   if (args.length <= 1) {
     return false;
   }
+
   let count = 0;
-  for (const arg of args) {
+  for (let arg of args) {
     if (isFunctionOrArrowExpression(arg)) {
       count += 1;
       if (count > 1) {
         return true;
       }
-    } else if (isCallExpression(arg)) {
+
+      continue;
+    }
+
+    while (
+      arg.type === "ChainExpression" ||
+      arg.type === "TSNonNullExpression"
+    ) {
+      arg = arg.expression;
+    }
+
+    if (isCallExpression(arg)) {
       for (const childArg of getCallArguments(arg)) {
         if (isFunctionOrArrowExpression(childArg)) {
           return true;
