@@ -240,8 +240,8 @@ function couldExpandArg(arg, arrowChainRecursion = false) {
       return true;
     }
 
-    if (body.type === "ArrowFunctionExpression") {
-      return couldExpandArg(body, true);
+    if (body.type === "ArrowFunctionExpression" && couldExpandArg(body, true)) {
+      return true;
     }
 
     if (!arrowChainRecursion) {
