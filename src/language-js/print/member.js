@@ -15,10 +15,8 @@ import {
 } from "../utilities/index.js";
 import { printOptionalToken } from "./miscellaneous.js";
 
-const isCallExpressionWithArguments = (node) => {
-  node = stripChainElementWrappers(node);
-  return isCallExpression(node) && getCallArguments(node).length > 0;
-};
+const isCallExpressionWithArguments = (node) =>
+  isCallExpression(node) && getCallArguments(node).length > 0;
 
 function shouldInlineNewExpressionCallee(path) {
   let { node: child, ancestors } = path;
@@ -62,7 +60,7 @@ function printMemberExpression(path, options, print) {
       !isMemberExpression(firstNonChainElementWrapperParent)) ||
     ((firstNonChainElementWrapperParent.type === "AssignmentExpression" ||
       firstNonChainElementWrapperParent.type === "VariableDeclarator") &&
-      (isCallExpressionWithArguments(node.object) ||
+      (isCallExpressionWithArguments(stripChainElementWrappers) ||
         objectDoc.label?.memberChain));
 
   return label(objectDoc.label, [
