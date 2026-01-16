@@ -694,9 +694,9 @@ function startsWithNoLookaheadToken(node, predicate) {
     case "SequenceExpression":
       return startsWithNoLookaheadToken(node.expressions[0], predicate);
     case "ChainExpression":
+    case "TSNonNullExpression":
     case "TSSatisfiesExpression":
     case "TSAsExpression":
-    case "TSNonNullExpression":
     case "AsExpression":
     case "AsConstExpression":
     case "SatisfiesExpression":
@@ -845,10 +845,6 @@ function getCallArguments(node) {
     return callArgumentsCache.get(node);
   }
 
-  if (node.type === "ChainExpression") {
-    return getCallArguments(node.expression);
-  }
-
   let args;
   if (node.type === "ImportExpression" || node.type === "TSImportType") {
     args = [node.source];
@@ -869,13 +865,6 @@ function getCallArguments(node) {
 function iterateCallArgumentsPath(path, iteratee) {
   const { node } = path;
 
-  if (node.type === "ChainExpression") {
-    return path.call(
-      () => iterateCallArgumentsPath(path, iteratee),
-      "expression",
-    );
-  }
-
   if (node.type === "ImportExpression" || node.type === "TSImportType") {
     path.call(() => iteratee(path, 0), "source");
 
@@ -891,10 +880,6 @@ function iterateCallArgumentsPath(path, iteratee) {
 
 function getCallArgumentSelector(node, index) {
   const selectors = [];
-  if (node.type === "ChainExpression") {
-    node = node.expression;
-    selectors.push("expression");
-  }
 
   if (node.type === "ImportExpression" || node.type === "TSImportType") {
     if (index === 0 || index === (node.options ? -2 : -1)) {
