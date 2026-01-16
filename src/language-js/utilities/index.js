@@ -603,6 +603,16 @@ function isSimpleCallArgument(node, depth = 2) {
     return node.elements.every((x) => x === null || isChildSimple(x));
   }
 
+  if (
+    (node.type === "UnaryExpression" &&
+      simpleCallArgumentUnaryOperators.has(node.operator)) ||
+    node.type === "UpdateExpression"
+  ) {
+    return isSimpleCallArgument(node.argument, depth);
+  }
+
+  node = stripChainElementWrappers(node);
+
   if (isCallLikeExpression(node)) {
     if (
       node.type === "ImportExpression" ||
@@ -614,15 +624,6 @@ function isSimpleCallArgument(node, depth = 2) {
     return false;
   }
 
-  if (
-    (node.type === "UnaryExpression" &&
-      simpleCallArgumentUnaryOperators.has(node.operator)) ||
-    node.type === "UpdateExpression"
-  ) {
-    return isSimpleCallArgument(node.argument, depth);
-  }
-
-  node = stripChainElementWrappers(node);
   if (isMemberExpression(node)) {
     return (
       isSimpleCallArgument(node.object, depth) &&
