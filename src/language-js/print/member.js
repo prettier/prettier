@@ -8,13 +8,15 @@ import {
 import {
   getCallArguments,
   isCallExpression,
+  isChainElementWrapper,
   isMemberExpression,
   isNumericLiteral,
 } from "../utilities/index.js";
 import { printOptionalToken } from "./miscellaneous.js";
 
 const isCallExpressionWithArguments = (node) => {
-  if (node.type === "ChainExpression" || node.type === "TSNonNullExpression") {
+  // TODO[@fisker]: Use `stripChainElementWrappers`
+  if (isChainElementWrapper(node)) {
     node = node.expression;
   }
   return isCallExpression(node) && getCallArguments(node).length > 0;
@@ -48,8 +50,7 @@ function printMemberExpression(path, options, print) {
       !(isMemberExpression(node) || node.type === "TSNonNullExpression"),
   );
   const firstNonChainElementWrapperParent = path.findAncestor(
-    (node) =>
-      !(node.type === "ChainExpression" || node.type === "TSNonNullExpression"),
+    (node) => !isChainElementWrapper(node),
   );
 
   const shouldInline =

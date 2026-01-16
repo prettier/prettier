@@ -588,6 +588,7 @@ function printJsxExpressionContainer(path, options, print) {
           (shouldInline(node.argument, node) ||
             node.argument.type === "JSXElement")) ||
         isCallExpression(node) ||
+        // TODO[@fisker]: Use `stripChainElementWrappers`
         (node.type === "ChainExpression" &&
           isCallExpression(node.expression)) ||
         node.type === "FunctionExpression" ||

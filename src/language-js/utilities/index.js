@@ -64,8 +64,7 @@ function hasNakedLeftSide(node) {
     node.type === "BindExpression" ||
     (node.type === "UpdateExpression" && !node.prefix) ||
     isBinaryCastExpression(node) ||
-    node.type === "TSNonNullExpression" ||
-    node.type === "ChainExpression"
+    isChainElementWrapper(node)
   );
 }
 
@@ -515,23 +514,14 @@ function isFunctionCompositionArgs(args) {
 
   let count = 0;
   for (let arg of args) {
+    arg = stripChainElementWrappers(arg);
+
     if (isFunctionOrArrowExpression(arg)) {
       count += 1;
       if (count > 1) {
         return true;
       }
-
-      continue;
-    }
-
-    while (
-      arg.type === "ChainExpression" ||
-      arg.type === "TSNonNullExpression"
-    ) {
-      arg = arg.expression;
-    }
-
-    if (isCallExpression(arg)) {
+    } else if (isCallExpression(arg)) {
       for (const childArg of getCallArguments(arg)) {
         if (isFunctionOrArrowExpression(childArg)) {
           return true;
@@ -539,6 +529,7 @@ function isFunctionCompositionArgs(args) {
       }
     }
   }
+
   return false;
 }
 
@@ -573,10 +564,6 @@ const simpleCallArgumentUnaryOperators = new Set(["!", "-", "+", "~"]);
 function isSimpleCallArgument(node, depth = 2) {
   if (depth <= 0) {
     return false;
-  }
-
-  if (node.type === "ChainExpression" || node.type === "TSNonNullExpression") {
-    return isSimpleCallArgument(node.expression, depth);
   }
 
   const isChildSimple = (child) => isSimpleCallArgument(child, depth - 1);
@@ -627,19 +614,20 @@ function isSimpleCallArgument(node, depth = 2) {
     return false;
   }
 
-  if (isMemberExpression(node)) {
-    return (
-      isSimpleCallArgument(node.object, depth) &&
-      isSimpleCallArgument(node.property, depth)
-    );
-  }
-
   if (
     (node.type === "UnaryExpression" &&
       simpleCallArgumentUnaryOperators.has(node.operator)) ||
     node.type === "UpdateExpression"
   ) {
     return isSimpleCallArgument(node.argument, depth);
+  }
+
+  node = stripChainElementWrappers(node);
+  if (isMemberExpression(node)) {
+    return (
+      isSimpleCallArgument(node.object, depth) &&
+      isSimpleCallArgument(node.property, depth)
+    );
   }
 
   return false;
@@ -1098,6 +1086,23 @@ function isIifeCalleeOrTaggedTemplateExpressionTag(path) {
   );
 }
 
+const isChainElementWrapper = createTypeCheckFunction([
+  "ChainExpression",
+  "TSNonNullExpression",
+]);
+
+/**
+@param {Node} node
+@returns {Exclude<Node, NodeMap["ChainExpression"] | NodeMap["TSNonNullExpression"]>}
+*/
+function stripChainElementWrappers(node) {
+  while (isChainElementWrapper(node)) {
+    node = node.expression;
+  }
+
+  return node;
+}
+
 export {
   CommentCheckFlags,
   createTypeCheckFunction,
@@ -1122,6 +1127,7 @@ export {
   isBooleanTypeCoercion,
   isCallExpression,
   isCallLikeExpression,
+  isChainElementWrapper,
   isConditionalType,
   isExportDeclaration,
   isFlowObjectTypePropertyAFunction,
@@ -1165,6 +1171,7 @@ export {
   shouldPrintComma,
   shouldUnionTypePrintOwnComments,
   startsWithNoLookaheadToken,
+  stripChainElementWrappers,
 };
 export { default as isMeaningfulEmptyStatement } from "./is-meaningful-empty-statement.js";
 export { default as isNodeMatches } from "./is-node-matches.js";

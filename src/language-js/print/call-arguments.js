@@ -33,6 +33,7 @@ import {
   isStringLiteral,
   iterateCallArgumentsPath,
   shouldPrintComma,
+  stripChainElementWrappers,
 } from "../utilities/index.js";
 import { isConciselyPrintedArray } from "./array.js";
 import { printDanglingCommentsInList } from "./miscellaneous.js";
@@ -248,15 +249,7 @@ function couldExpandArg(arg, arrowChainRecursion = false) {
         return true;
       }
 
-      let node = body;
-      while (
-        node.type === "ChainExpression" ||
-        node.type === "TSNonNullExpression"
-      ) {
-        node = node.expression;
-      }
-
-      if (isCallExpression(node)) {
+      if (isCallExpression(stripChainElementWrappers(body))) {
         return true;
       }
     }

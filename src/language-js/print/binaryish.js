@@ -243,6 +243,7 @@ function printBinaryishExpressions(
 
   const shouldInline = shouldInlineLogicalExpression(node);
   const rightNodeToCheckComments =
+    // TODO[@fisker]: Use `stripChainElementWrappers`
     node.right.type === "ChainExpression" ? node.right.expression : node.right;
   const lineBeforeOperator =
     (node.type === "NGPipeExpression" ||

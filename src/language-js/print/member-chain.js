@@ -47,6 +47,7 @@ import { printOptionalToken } from "./miscellaneous.js";
 // MemberExpression and CallExpression. We need to traverse the AST
 // and make groups out of it to print it in the desired way.
 function printMemberChain(path, options, print) {
+  // TODO[@fisker]: skip `TSNonNullExpression`
   /* c8 ignore next 6 */
   if (path.node.type === "ChainExpression") {
     return path.call(
