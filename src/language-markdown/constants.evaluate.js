@@ -76,6 +76,7 @@ const PUNCTUATION_REGEXP = new RegExp(
   `(?:${[
     new Charset(
       ...asciiPunctuationCharacters,
+      "\u{3000}", // ASCII space around it is excessive. https://bugzilla.mozilla.org/show_bug.cgi?id=1950321
       "\u{ff5e}", // Used as a substitute for U+301C in Windows. https://bugzilla.mozilla.org/show_bug.cgi?id=1941096
     ).toRegExp("u").source,
     ...unicodePunctuationClasses.map(
