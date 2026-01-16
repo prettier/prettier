@@ -1243,6 +1243,7 @@ function isDecoratorMemberExpression(node) {
   if (isMemberExpression(node)) {
     return (
       !node.computed &&
+      // @ts-expect-error -- doesn't exists on `MemberExpression`
       !node.optional &&
       node.property.type === "Identifier" &&
       isDecoratorMemberExpression(node.object)
