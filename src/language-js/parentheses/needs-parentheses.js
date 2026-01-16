@@ -22,6 +22,7 @@ import {
   isUnionType,
   shouldFlatten,
   startsWithNoLookaheadToken,
+  stripChainElementWrappers,
 } from "../utilities/index.js";
 import { returnArgumentHasLeadingComment } from "../utilities/return-statement-has-leading-comment.js";
 import { shouldAddParenthesesToIdentifier } from "./identifier.js";
@@ -111,25 +112,27 @@ function needsParentheses(path, options) {
     case "ClassExpression":
       // Add parens around the extends clause of a class. It is needed for almost
       // all expressions.
-      if (
-        key === "superClass" &&
-        (node.type === "ArrowFunctionExpression" ||
-          node.type === "AssignmentExpression" ||
-          node.type === "AwaitExpression" ||
-          node.type === "BinaryExpression" ||
-          node.type === "ConditionalExpression" ||
-          node.type === "LogicalExpression" ||
-          node.type === "NewExpression" ||
-          node.type === "ObjectExpression" ||
-          node.type === "SequenceExpression" ||
-          node.type === "TaggedTemplateExpression" ||
-          node.type === "UnaryExpression" ||
-          node.type === "UpdateExpression" ||
-          node.type === "YieldExpression" ||
-          node.type === "TSNonNullExpression" ||
-          (node.type === "ClassExpression" && isNonEmptyArray(node.decorators)))
-      ) {
-        return true;
+      if (key === "superClass") {
+        const superClass = stripChainElementWrappers(node);
+        if (
+          superClass.type === "ArrowFunctionExpression" ||
+          superClass.type === "AssignmentExpression" ||
+          superClass.type === "AwaitExpression" ||
+          superClass.type === "BinaryExpression" ||
+          superClass.type === "ConditionalExpression" ||
+          superClass.type === "LogicalExpression" ||
+          superClass.type === "NewExpression" ||
+          superClass.type === "ObjectExpression" ||
+          superClass.type === "SequenceExpression" ||
+          superClass.type === "TaggedTemplateExpression" ||
+          superClass.type === "UnaryExpression" ||
+          superClass.type === "UpdateExpression" ||
+          superClass.type === "YieldExpression" ||
+          (superClass.type === "ClassExpression" &&
+            isNonEmptyArray(superClass.decorators))
+        ) {
+          return true;
+        }
       }
       break;
 

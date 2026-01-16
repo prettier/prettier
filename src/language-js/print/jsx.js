@@ -34,6 +34,7 @@ import {
   isJsxElement,
   isObjectExpression,
   isStringLiteral,
+  stripChainElementWrappers,
 } from "../utilities/index.js";
 
 /**
@@ -587,10 +588,7 @@ function printJsxExpressionContainer(path, options, print) {
         (node.type === "AwaitExpression" &&
           (shouldInline(node.argument, node) ||
             node.argument.type === "JSXElement")) ||
-        isCallExpression(node) ||
-        // TODO[@fisker]: Use `stripChainElementWrappers`
-        (node.type === "ChainExpression" &&
-          isCallExpression(node.expression)) ||
+        isCallExpression(stripChainElementWrappers(node)) ||
         node.type === "FunctionExpression" ||
         node.type === "TemplateLiteral" ||
         node.type === "TaggedTemplateExpression" ||

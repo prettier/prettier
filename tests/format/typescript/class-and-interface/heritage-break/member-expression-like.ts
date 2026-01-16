@@ -9,6 +9,10 @@ class A_long_long_long_long_long_long_long_long_name12
 
 class A_long_long_long_long_long_long_long_long_name12
   extends eslint.Rule.RuleModule! {}
+class A_long_long_long_long_long_long_long_long_name12
+  extends eslint?.Rule.RuleModule! {}
+class A_long_long_long_long_long_long_long_long_name12
+  extends eslint.Rule.RuleModule!! {}
 
 interface A_long_long_long_long_long_long_long_long_name2
   extends eslint.Rule.RuleModule {}

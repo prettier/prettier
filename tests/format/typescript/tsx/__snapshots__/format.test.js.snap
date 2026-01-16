@@ -126,6 +126,74 @@ const footer = "<footer></footer>";
 ================================================================================
 `;
 
+exports[`optional-chainning.tsx format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+a = (
+    <div>
+      {aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa?.bbbbbbbbbbbbbbbbbbbbbbbbb.map(
+        (p, i) => <p key={i}>{p}</p>
+      )}
+    </div>
+  );
+a = (
+    <div>
+      {aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa?.bbbbbbbbbbbbbbbbbbbbbbbbb.map(
+        (p, i) => <p key={i}>{p}</p>
+      )!}
+    </div>
+  );
+a = (
+    <div>
+      {aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.bbbbbbbbbbbbbbbbbbbbbbbbb.map(
+        (p, i) => <p key={i}>{p}</p>
+      )}
+    </div>
+  );
+a = (
+    <div>
+      {aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.bbbbbbbbbbbbbbbbbbbbbbbbb.map(
+        (p, i) => <p key={i}>{p}</p>
+      )!}
+    </div>
+  );
+
+=====================================output=====================================
+a = (
+  <div>
+    {aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa?.bbbbbbbbbbbbbbbbbbbbbbbbb.map((p, i) => (
+      <p key={i}>{p}</p>
+    ))}
+  </div>
+);
+a = (
+  <div>
+    {aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa?.bbbbbbbbbbbbbbbbbbbbbbbbb.map((p, i) => (
+      <p key={i}>{p}</p>
+    ))!}
+  </div>
+);
+a = (
+  <div>
+    {aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.bbbbbbbbbbbbbbbbbbbbbbbbb.map((p, i) => (
+      <p key={i}>{p}</p>
+    ))}
+  </div>
+);
+a = (
+  <div>
+    {aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.bbbbbbbbbbbbbbbbbbbbbbbbb.map((p, i) => (
+      <p key={i}>{p}</p>
+    ))!}
+  </div>
+);
+
+================================================================================
+`;
+
 exports[`react.tsx format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
