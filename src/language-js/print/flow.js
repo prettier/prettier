@@ -361,6 +361,8 @@ function printFlow(path, options, print) {
         node[valueKey] ? [" = ", print(valueKey)] : "",
       ];
     }
+    case "NonNullExpression":
+      return [print("argument"), "!"];
   }
 }
 

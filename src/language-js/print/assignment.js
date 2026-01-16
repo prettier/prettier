@@ -245,6 +245,9 @@ function shouldBreakAfterOperator(path, options, print, hasShortKey) {
     } else if (node.type === "TSNonNullExpression") {
       node = node.expression;
       propertiesForPath.push("expression");
+    } else if (node.type === "NonNullExpression") {
+      node = node.argument;
+      propertiesForPath.push("argument");
     } else {
       break;
     }
@@ -367,6 +370,10 @@ function isPoorlyBreakableMemberOrCallChain(
 
   if (node.type === "ChainExpression" || node.type === "TSNonNullExpression") {
     return path.call(goDeeper, "expression");
+  }
+
+  if (node.type === "NonNullExpression") {
+    return path.call(goDeeper, "argument");
   }
 
   if (isCallExpression(node)) {

@@ -25,6 +25,8 @@ const additionalVisitorKeys = {
   // Flow
   // `SatisfiesExpression` is a private feature https://github.com/facebook/hermes/issues/1808#issuecomment-3392476828
   SatisfiesExpression: ["expression", "typeAnnotation"],
+  // Hermes doesn't support
+  NonNullExpression: ["argument"],
 };
 
 const excludeVisitorKeys = {

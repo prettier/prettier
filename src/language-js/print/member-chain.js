@@ -133,12 +133,18 @@ function printMemberChain(path, options, print) {
         ),
       });
       path.call(rec, "object");
-    } else if (node.type === "TSNonNullExpression") {
+    } else if (
+      node.type === "TSNonNullExpression" ||
+      node.type === "NonNullExpression"
+    ) {
       printedNodes.unshift({
         node,
         printed: printComments(path, "!", options),
       });
-      path.call(rec, "expression");
+      path.call(
+        rec,
+        node.type === "NonNullExpression" ? "argument" : "expression",
+      );
     } else {
       printedNodes.unshift({
         node,
@@ -194,6 +200,7 @@ function printMemberChain(path, options, print) {
   for (; i < printedNodes.length; ++i) {
     if (
       printedNodes[i].node.type === "TSNonNullExpression" ||
+      printedNodes[i].node.type === "NonNullExpression" ||
       isCallExpression(printedNodes[i].node) ||
       (isMemberExpression(printedNodes[i].node) &&
         printedNodes[i].node.computed &&

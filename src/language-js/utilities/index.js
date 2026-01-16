@@ -65,6 +65,7 @@ function hasNakedLeftSide(node) {
     (node.type === "UpdateExpression" && !node.prefix) ||
     isBinaryCastExpression(node) ||
     node.type === "TSNonNullExpression" ||
+    node.type === "NonNullExpression" ||
     node.type === "ChainExpression"
   );
 }
@@ -577,6 +578,10 @@ function isSimpleCallArgument(node, depth = 2) {
     return isSimpleCallArgument(node.expression, depth);
   }
 
+  if (node.type === "NonNullExpression") {
+    return isSimpleCallArgument(node.argument, depth);
+  }
+
   const isChildSimple = (child) => isSimpleCallArgument(child, depth - 1);
 
   if (isRegExpLiteral(node)) {
@@ -711,6 +716,8 @@ function startsWithNoLookaheadToken(node, predicate) {
     case "AsConstExpression":
     case "SatisfiesExpression":
       return startsWithNoLookaheadToken(node.expression, predicate);
+    case "NonNullExpression":
+      return startsWithNoLookaheadToken(node.argument, predicate);
     default:
       return predicate(node);
   }

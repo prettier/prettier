@@ -20,11 +20,13 @@ type PrettierCommentAdditionalProperties = {
   leading?: boolean;
 };
 
-type FlowAdditionalNode = {
-  type: "SatisfiesExpression";
-  expression: FlowESTree.Expression;
-  typeAnnotation: FlowESTree.TypeAnnotationType;
-};
+type FlowAdditionalNode =
+  | {
+      type: "SatisfiesExpression";
+      expression: FlowESTree.Expression;
+      typeAnnotation: FlowESTree.TypeAnnotationType;
+    }
+  | { type: "NonNullExpression"; argument: FlowESTree.Expression };
 
 type PrettierNode = { type: "JsExpressionRoot"; node: Babel.Expression };
 

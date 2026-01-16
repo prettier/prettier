@@ -636,6 +636,9 @@ exports[`visitor keys estree 1`] = `
     "callee",
     "typeArguments",
   ],
+  "NonNullExpression": [
+    "argument",
+  ],
   "NullLiteral": [],
   "NullLiteralTypeAnnotation": [],
   "NullableTypeAnnotation": [

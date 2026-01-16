@@ -17,6 +17,9 @@ const isCallExpressionWithArguments = (node) => {
   if (node.type === "ChainExpression" || node.type === "TSNonNullExpression") {
     node = node.expression;
   }
+  if (node.type === "NonNullExpression") {
+    node = node.argument;
+  }
   return isCallExpression(node) && getCallArguments(node).length > 0;
 };
 
@@ -27,7 +30,8 @@ function shouldInlineNewExpressionCallee(path) {
       !(
         (isMemberExpression(ancestor) && ancestor.object === child) ||
         (ancestor.type === "TSNonNullExpression" &&
-          ancestor.expression === child)
+          ancestor.expression === child) ||
+        (ancestor.type === "NonNullExpression" && ancestor.argument === child)
       )
     ) {
       return ancestor.type === "NewExpression" && ancestor.callee === child;
@@ -45,11 +49,19 @@ function printMemberExpression(path, options, print) {
   const { node } = path;
   const firstNonMemberParent = path.findAncestor(
     (node) =>
-      !(isMemberExpression(node) || node.type === "TSNonNullExpression"),
+      !(
+        isMemberExpression(node) ||
+        node.type === "TSNonNullExpression" ||
+        node.type === "NonNullExpression"
+      ),
   );
   const firstNonChainElementWrapperParent = path.findAncestor(
     (node) =>
-      !(node.type === "ChainExpression" || node.type === "TSNonNullExpression"),
+      !(
+        node.type === "ChainExpression" ||
+        node.type === "TSNonNullExpression" ||
+        node.type === "NonNullExpression"
+      ),
   );
 
   const shouldInline =

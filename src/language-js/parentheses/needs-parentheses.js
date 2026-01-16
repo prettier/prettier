@@ -127,6 +127,7 @@ function needsParentheses(path, options) {
           node.type === "UpdateExpression" ||
           node.type === "YieldExpression" ||
           node.type === "TSNonNullExpression" ||
+          node.type === "NonNullExpression" ||
           (node.type === "ClassExpression" && isNonEmptyArray(node.decorators)))
       ) {
         return true;
@@ -234,6 +235,7 @@ function needsParentheses(path, options) {
           return key === "left" && parent.operator === "**";
 
         case "TSNonNullExpression":
+        case "NonNullExpression":
           return true;
 
         default:
@@ -300,6 +302,7 @@ function needsParentheses(path, options) {
         case "BindExpression":
         case "AwaitExpression":
         case "TSNonNullExpression":
+        case "NonNullExpression":
         case "UpdateExpression":
           return true;
         case "UnaryExpression":
@@ -403,6 +406,7 @@ function needsParentheses(path, options) {
         case "TSAsExpression":
         case "TSSatisfiesExpression":
         case "TSNonNullExpression":
+        case "NonNullExpression":
         case "AsExpression":
         case "AsConstExpression":
         case "SatisfiesExpression":
@@ -738,6 +742,7 @@ function needsParentheses(path, options) {
         case "AsConstExpression":
         case "SatisfiesExpression":
         case "TSNonNullExpression":
+        case "NonNullExpression":
           return true;
 
         case "NewExpression":
@@ -795,6 +800,7 @@ function needsParentheses(path, options) {
         case "AsConstExpression":
         case "SatisfiesExpression":
         case "TSNonNullExpression":
+        case "NonNullExpression":
         case "BindExpression":
         case "TaggedTemplateExpression":
         case "UnaryExpression":
@@ -834,6 +840,7 @@ function needsParentheses(path, options) {
     // fallthrough
     case "TaggedTemplateExpression":
     case "TSNonNullExpression":
+    case "NonNullExpression":
       if (
         key === "callee" &&
         (parent.type === "BindExpression" || parent.type === "NewExpression")
@@ -856,6 +863,9 @@ function needsParentheses(path, options) {
               break;
             case "TSNonNullExpression":
               object = object.expression;
+              break;
+            case "NonNullExpression":
+              object = object.argument;
               break;
             default:
               return false;
@@ -1133,7 +1143,8 @@ function shouldAddParenthesesToChainElement(path) {
         node.type === "OptionalCallExpression" ||
         node.type === "OptionalMemberExpression",
       (node, name) =>
-        name === "expression" && node.type === "TSNonNullExpression",
+        (name === "expression" && node.type === "TSNonNullExpression") ||
+        (name === "argument" && node.type === "NonNullExpression"),
       (node, name) =>
         name === "tag" && node.type === "TaggedTemplateExpression",
     ) ||
@@ -1142,7 +1153,8 @@ function shouldAddParenthesesToChainElement(path) {
       undefined,
       (node, name) => name === "expression" && node.type === "ChainExpression",
       (node, name) =>
-        name === "expression" && node.type === "TSNonNullExpression",
+        (name === "expression" && node.type === "TSNonNullExpression") ||
+        (name === "argument" && node.type === "NonNullExpression"),
       (node, name) =>
         name === "tag" && node.type === "TaggedTemplateExpression",
     ) ||
@@ -1150,7 +1162,8 @@ function shouldAddParenthesesToChainElement(path) {
     path.match(
       undefined,
       (node, name) =>
-        name === "expression" && node.type === "TSNonNullExpression",
+        (name === "expression" && node.type === "TSNonNullExpression") ||
+        (name === "argument" && node.type === "NonNullExpression"),
       (node, name) => name === "expression" && node.type === "ChainExpression",
       (node, name) =>
         name === "tag" && node.type === "TaggedTemplateExpression",
@@ -1174,7 +1187,8 @@ function shouldAddParenthesesToChainElement(path) {
         node.type === "OptionalMemberExpression" ||
         node.type === "OptionalCallExpression",
       (node, name) =>
-        name === "expression" && node.type === "TSNonNullExpression",
+        (name === "expression" && node.type === "TSNonNullExpression") ||
+        (name === "argument" && node.type === "NonNullExpression"),
       (node, name) =>
         (name === "object" && node.type === "MemberExpression") ||
         (name === "callee" && node.type === "CallExpression"),
@@ -1205,7 +1219,8 @@ function shouldAddParenthesesToChainElement(path) {
         undefined,
         undefined,
         (node, name) =>
-          name === "expression" && node.type === "TSNonNullExpression",
+          (name === "expression" && node.type === "TSNonNullExpression") ||
+          (name === "argument" && node.type === "NonNullExpression"),
         (node, name) =>
           (name === "object" && node.type === "MemberExpression") ||
           (name === "callee" && node.type === "CallExpression"),
@@ -1221,7 +1236,8 @@ function shouldAddParenthesesToChainElement(path) {
       (node) =>
         node.type === "CallExpression" || node.type === "MemberExpression",
       (node, name) =>
-        name === "expression" && node.type === "TSNonNullExpression",
+        (name === "expression" && node.type === "TSNonNullExpression") ||
+        (name === "argument" && node.type === "NonNullExpression"),
       (node, name) => name === "expression" && node.type === "ChainExpression",
       (node, name) =>
         (name === "object" && node.type === "MemberExpression") ||
