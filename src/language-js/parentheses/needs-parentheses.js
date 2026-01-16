@@ -126,6 +126,7 @@ function needsParentheses(path, options) {
           node.type === "UnaryExpression" ||
           node.type === "UpdateExpression" ||
           node.type === "YieldExpression" ||
+          node.type === "TSNonNullExpression" ||
           (node.type === "ClassExpression" && isNonEmptyArray(node.decorators)))
       ) {
         return true;
