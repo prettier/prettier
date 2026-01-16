@@ -227,18 +227,34 @@ function couldExpandArg(arg, arrowChainRecursion = false) {
     return true;
   }
 
-  return (
-    arg.type === "ArrowFunctionExpression" &&
-    (arg.body.type === "BlockStatement" ||
-      (arg.body.type === "ArrowFunctionExpression" &&
-        couldExpandArg(arg.body, true)) ||
-      isObjectExpression(arg.body) ||
-      isArrayExpression(arg.body) ||
-      (!arrowChainRecursion &&
-        (isCallExpression(arg.body) ||
-          arg.body.type === "ConditionalExpression")) ||
-      isJsxElement(arg.body))
-  );
+  if (arg.type === "ArrowFunctionExpression") {
+    const { body } = arg;
+
+    if (
+      body.type === "BlockStatement" ||
+      isJsxElement(body) ||
+      isObjectExpression(body) ||
+      isArrayExpression(body)
+    ) {
+      return true;
+    }
+
+    if (body.type === "ArrowFunctionExpression") {
+      return couldExpandArg(body, true);
+    }
+
+    if (!arrowChainRecursion) {
+      if (body.type === "ConditionalExpression") {
+        return true;
+      }
+
+      if (isCallExpression(body)) {
+        return true;
+      }
+    }
+  }
+
+  return false;
 }
 
 function shouldExpandLastArg(args, argDocs, options) {
