@@ -18,7 +18,6 @@ import {
   CommentCheckFlags,
   createTypeCheckFunction,
   hasComment,
-  isChainElementWrapper,
   isMemberExpression,
   stripChainElementWrappers,
 } from "../utilities/index.js";
