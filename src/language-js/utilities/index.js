@@ -364,21 +364,10 @@ function isTestCall(node, parent) {
   return false;
 }
 
-/**
-@template {ReturnType<createTypeCheckFunction>} TypeCheckFunction
-@param {TypeCheckFunction} fn
-@return {(node: Node) => boolean} */
-const skipChainExpression = (fn) => (node) => {
-  if (node?.type === "ChainExpression") {
-    node = node.expression;
-  }
-
-  return fn(node);
-};
-
-const isCallExpression = skipChainExpression(
-  createTypeCheckFunction(["CallExpression", "OptionalCallExpression"]),
-);
+const isCallExpression = createTypeCheckFunction([
+  "CallExpression",
+  "OptionalCallExpression",
+]);
 
 const isMemberExpression = createTypeCheckFunction([
   "MemberExpression",
