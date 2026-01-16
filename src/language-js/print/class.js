@@ -20,6 +20,7 @@ import {
   hasComment,
   isChainElementWrapper,
   isMemberExpression,
+  stripChainElementWrappers,
 } from "../utilities/index.js";
 import { printAssignment } from "./assignment.js";
 import { printClassMemberDecorators } from "./decorators.js";
@@ -169,15 +170,6 @@ function hasMultipleHeritage(node) {
   return count > 1;
 }
 
-function isMemberish(node) {
-  // TODO[@fisker]: Should use `stripChainElementWrappers` instead, since it can be in multiple wrappers
-  if (isChainElementWrapper(node)) {
-    return isMemberish(node.expression);
-  }
-
-  return isMemberExpression(node);
-}
-
 /**
 @returns {boolean}
 */
@@ -197,7 +189,10 @@ function shouldPrintClassInGroupModeWithoutCache(path) {
       return false;
     }
 
-    return !node.superTypeArguments && isMemberish(node.superClass);
+    return (
+      !node.superTypeArguments &&
+      isMemberExpression(stripChainElementWrappers(node.superClass))
+    );
   }
 
   const heritage =
