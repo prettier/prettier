@@ -514,17 +514,18 @@ function isFunctionCompositionArgs(args) {
 
   let count = 0;
   for (let arg of args) {
-    arg = stripChainElementWrappers(arg);
-
     if (isFunctionOrArrowExpression(arg)) {
       count += 1;
       if (count > 1) {
         return true;
       }
-    } else if (isCallExpression(arg)) {
-      for (const childArg of getCallArguments(arg)) {
-        if (isFunctionOrArrowExpression(childArg)) {
-          return true;
+    } else {
+      arg = stripChainElementWrappers(arg);
+      if (isCallExpression(arg)) {
+        for (const childArg of getCallArguments(arg)) {
+          if (isFunctionOrArrowExpression(childArg)) {
+            return true;
+          }
         }
       }
     }
