@@ -95,10 +95,6 @@ function printMemberChain(path, options, print) {
   function rec() {
     const { node } = path;
 
-    if (node.type === "ChainExpression") {
-      return path.call(rec, "expression");
-    }
-
     if (
       isCallExpression(node) &&
       (isMemberish(node.callee) || isCallExpression(node.callee))

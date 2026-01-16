@@ -26,6 +26,7 @@ import {
   stripChainElementWrappers,
 } from "../utilities/index.js";
 import { returnArgumentHasLeadingComment } from "../utilities/return-statement-has-leading-comment.js";
+import { shouldAddParenthesesToChainElement } from "./chain-expression.js";
 import { shouldAddParenthesesToIdentifier } from "./identifier.js";
 
 /**
@@ -829,15 +830,16 @@ function needsParentheses(path, options) {
       }
     case "OptionalMemberExpression":
     case "OptionalCallExpression":
-    case "CallExpression":
-    case "MemberExpression":
+    case "ChainExpression":
       if (shouldAddParenthesesToChainElement(path)) {
         return true;
       }
 
     // fallthrough
-    case "TaggedTemplateExpression":
     case "TSNonNullExpression":
+    case "CallExpression":
+    case "MemberExpression":
+    case "TaggedTemplateExpression":
       if (
         key === "callee" &&
         (parent.type === "BindExpression" || parent.type === "NewExpression")
@@ -1084,158 +1086,6 @@ function shouldWrapFunctionForExportDefault(path, options) {
     () => shouldWrapFunctionForExportDefault(path, options),
     ...getLeftSidePathName(node),
   );
-}
-
-/*
-Matches following cases:
-
-```js
-(a?.b).c;
-(a?.()).b;
-(a?.b!).c;
-(a?.()!).b;
-(a?.b)!.c;
-(a?.())!.b;
-
-(a?.b)();
-(a?.())();
-
-new (a?.b)();
-new (a?.())();
-
-(a?.b)``;
-(a?.())``;
-```
-*/
-/**
- * @param {AstPath} path
- * @returns {boolean}
- */
-function shouldAddParenthesesToChainElement(path) {
-  if (
-    // ESTree
-    path.match(
-      undefined,
-      (node, name) => name === "expression" && node.type === "ChainExpression",
-      (node, name) =>
-        name === "tag" && node.type === "TaggedTemplateExpression",
-    ) ||
-    // Babel
-    path.match(
-      (node) =>
-        node.type === "OptionalCallExpression" ||
-        node.type === "OptionalMemberExpression",
-      (node, name) =>
-        name === "tag" && node.type === "TaggedTemplateExpression",
-    ) ||
-    // Babel-ts
-    // (a?.b)!``;
-    // (a?.b!)``;
-    path.match(
-      (node) =>
-        node.type === "OptionalCallExpression" ||
-        node.type === "OptionalMemberExpression",
-      (node, name) =>
-        name === "expression" && node.type === "TSNonNullExpression",
-      (node, name) =>
-        name === "tag" && node.type === "TaggedTemplateExpression",
-    ) ||
-    // case (a?.b)!``; in Typescript
-    path.match(
-      undefined,
-      (node, name) => name === "expression" && node.type === "ChainExpression",
-      (node, name) =>
-        name === "expression" && node.type === "TSNonNullExpression",
-      (node, name) =>
-        name === "tag" && node.type === "TaggedTemplateExpression",
-    ) ||
-    // case (a?.b!)``; in Typescript
-    path.match(
-      undefined,
-      (node, name) =>
-        name === "expression" && node.type === "TSNonNullExpression",
-      (node, name) => name === "expression" && node.type === "ChainExpression",
-      (node, name) =>
-        name === "tag" && node.type === "TaggedTemplateExpression",
-    )
-  ) {
-    return true;
-  }
-
-  if (
-    path.match(
-      (node) =>
-        node.type === "OptionalMemberExpression" ||
-        node.type === "OptionalCallExpression",
-      (node, name) =>
-        (name === "object" && node.type === "MemberExpression") ||
-        (name === "callee" &&
-          (node.type === "CallExpression" || node.type === "NewExpression")),
-    ) ||
-    path.match(
-      (node) =>
-        node.type === "OptionalMemberExpression" ||
-        node.type === "OptionalCallExpression",
-      (node, name) =>
-        name === "expression" && node.type === "TSNonNullExpression",
-      (node, name) =>
-        (name === "object" && node.type === "MemberExpression") ||
-        (name === "callee" && node.type === "CallExpression"),
-    )
-  ) {
-    return true;
-  }
-
-  // ESTree, same logic as babel
-  if (
-    path.match(
-      (node) =>
-        node.type === "CallExpression" || node.type === "MemberExpression",
-      (node, name) => name === "expression" && node.type === "ChainExpression",
-    ) &&
-    (path.match(
-      undefined,
-      undefined,
-      (node, name) =>
-        (name === "callee" &&
-          ((node.type === "CallExpression" && !node.optional) ||
-            node.type === "NewExpression")) ||
-        (name === "object" &&
-          node.type === "MemberExpression" &&
-          !node.optional),
-    ) ||
-      path.match(
-        undefined,
-        undefined,
-        (node, name) =>
-          name === "expression" && node.type === "TSNonNullExpression",
-        (node, name) =>
-          (name === "object" && node.type === "MemberExpression") ||
-          (name === "callee" && node.type === "CallExpression"),
-      ))
-  ) {
-    return true;
-  }
-
-  // Babel treat `(a?.b!).c` and `(a?.b)!.c` the same, https://github.com/babel/babel/discussions/15077
-  // Use this to align with babel
-  if (
-    path.match(
-      (node) =>
-        node.type === "CallExpression" || node.type === "MemberExpression",
-      (node, name) =>
-        name === "expression" && node.type === "TSNonNullExpression",
-      (node, name) => name === "expression" && node.type === "ChainExpression",
-      (node, name) =>
-        (name === "object" && node.type === "MemberExpression") ||
-        (name === "callee" && node.type === "CallExpression"),
-    )
-  ) {
-    return true;
-  }
-
-  // This function only handle cases above
-  return false;
 }
 
 function isDecoratorMemberExpression(node) {

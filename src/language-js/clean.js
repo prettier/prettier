@@ -176,16 +176,6 @@ function clean(original, cloned, parent) {
   if (original.type === "TemplateLiteral") {
     removeTemplateElementsValue(cloned);
   }
-
-  // We print `(a?.b!).c` as `(a?.b)!.c`, but `typescript` parse them differently
-  if (
-    original.type === "ChainExpression" &&
-    original.expression.type === "TSNonNullExpression"
-  ) {
-    // Ideally, we should swap these two nodes, but `type` is the only difference
-    cloned.type = "TSNonNullExpression";
-    cloned.expression.type = "ChainExpression";
-  }
 }
 
 clean.ignoredProperties = ignoredProperties;
