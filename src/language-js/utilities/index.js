@@ -380,9 +380,10 @@ const isCallExpression = skipChainExpression(
   createTypeCheckFunction(["CallExpression", "OptionalCallExpression"]),
 );
 
-const isMemberExpression = skipChainExpression(
-  createTypeCheckFunction(["MemberExpression", "OptionalMemberExpression"]),
-);
+const isMemberExpression = createTypeCheckFunction([
+  "MemberExpression",
+  "OptionalMemberExpression",
+]);
 
 /**
  * Attempts to gauge the rough complexity of a node, for example

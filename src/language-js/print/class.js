@@ -168,6 +168,17 @@ function hasMultipleHeritage(node) {
   return count > 1;
 }
 
+function isMemberish(node) {
+  if (
+    node?.type === "ChainExpression" ||
+    node?.type === "TSNonNullExpression"
+  ) {
+    return isMemberish(node.expression);
+  }
+
+  return isMemberExpression(node);
+}
+
 /**
 @returns {boolean}
 */
@@ -187,7 +198,7 @@ function shouldPrintClassInGroupModeWithoutCache(path) {
       return false;
     }
 
-    return !node.superTypeArguments && isMemberExpression(node.superClass);
+    return !node.superTypeArguments && isMemberish(node.superClass);
   }
 
   const heritage =
