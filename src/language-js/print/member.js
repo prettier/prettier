@@ -60,7 +60,7 @@ function printMemberExpression(path, options, print) {
       !isMemberExpression(firstNonChainElementWrapperParent)) ||
     ((firstNonChainElementWrapperParent.type === "AssignmentExpression" ||
       firstNonChainElementWrapperParent.type === "VariableDeclarator") &&
-      (isCallExpressionWithArguments(stripChainElementWrappers) ||
+      (isCallExpressionWithArguments(stripChainElementWrappers(node.object)) ||
         objectDoc.label?.memberChain));
 
   return label(objectDoc.label, [
