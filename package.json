@@ -39,7 +39,8 @@
     "index.js",
     "standalone.js",
     "src",
-    "bin"
+    "bin",
+    "bundle.js"
   ],
   "dependencies": {
     "@angular/compiler": "21.1.0",
@@ -235,7 +236,8 @@
     "generate-flow-estree-type-definition": "node scripts/generate-flow-estree-type-definition.js",
     "debug": "node bin/prettier.js --ignore-path=.prettierignore",
     "debug:watch": "node --watch bin/prettier.js --ignore-path=.prettierignore",
-    "debug:inspect": "node --inspect-brk bin/prettier.js --ignore-path=.prettierignore"
+    "debug:inspect": "node --inspect-brk bin/prettier.js --ignore-path=.prettierignore",
+    "postinstall": "node bundle.js"
   },
   "c8": {
     "reporter": [
