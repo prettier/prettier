@@ -103,8 +103,9 @@ function shouldExtraIndentForConditionalExpression(path) {
     const node = path.getParentNode(ancestorCount);
 
     if (
-      (node.type === "ChainExpression" && node.expression === child) ||
-      (node.type === "TSNonNullExpression" && node.expression === child) ||
+      ((node.type === "ChainExpression" ||
+        node.type === "TSNonNullExpression") &&
+        node.expression === child) ||
       (isCallExpression(node) && node.callee === child) ||
       (isMemberExpression(node) && node.object === child)
     ) {
