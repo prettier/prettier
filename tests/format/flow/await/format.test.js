@@ -1,3 +1,5 @@
 runFormatTest(import.meta, ["flow"], {
-  errors: { "babel-flow": ["await-keywords.js"] },
+  errors: {
+    hermes: ["await-keywords.js"],
+  },
 });

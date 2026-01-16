@@ -5,16 +5,16 @@ import {
   indent,
   line,
   softline,
-} from "../../document/builders.js";
+} from "../../document/index.js";
 import { printDanglingComments } from "../../main/comments/print.js";
-import getNextNonSpaceNonCommentCharacter from "../../utils/get-next-non-space-non-comment-character.js";
+import getNextNonSpaceNonCommentCharacter from "../../utilities/get-next-non-space-non-comment-character.js";
 import { locEnd } from "../loc.js";
-import { isNextLineEmpty, shouldPrintComma } from "../utils/index.js";
+import { isNextLineEmpty, shouldPrintComma } from "../utilities/index.js";
 import { printDeclareToken } from "./misc.js";
 
 /**
  * @import AstPath from "../../common/ast-path.js"
- * @import {Doc} from "../../document/builders.js"
+ * @import {Doc} from "../../document/index.js"
  */
 
 /*
@@ -32,7 +32,7 @@ function printComponent(path, options, print) {
 
   parts.push(print("typeParameters"));
 
-  const parametersDoc = printComponentParameters(path, print, options);
+  const parametersDoc = printComponentParameters(path, options, print);
   if (node.rendersType) {
     parts.push(group([parametersDoc, " ", print("rendersType")]));
   } else {
@@ -50,7 +50,7 @@ function printComponent(path, options, print) {
   return parts;
 }
 
-function printComponentParameters(path, print, options) {
+function printComponentParameters(path, options, print) {
   const { node: componentNode } = path;
   let parameters = componentNode.params;
   if (componentNode.rest) {
@@ -117,6 +117,9 @@ function iterateComponentParametersPath(path, iteratee) {
   }
 }
 
+/*
+- `ComponentParameter` (Flow)
+*/
 function printComponentParameter(path, options, print) {
   const { node } = path;
   if (node.shorthand) {

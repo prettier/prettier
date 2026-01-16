@@ -1,4 +1,4 @@
-// TODO: Implement this in `utils.js` when jest.importActual is landed.
+// TODO: Implement this in `utilities.js` when jest.importActual is landed.
 export default function getFormattedDate() {
   const date = new Date();
   const isoStr = date.toISOString();

@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`character_escaping.css format 1`] = `
 ====================================options=====================================
@@ -118,7 +118,7 @@ printWidth: 80
 }
 #\\3A hover {
 }
-#\\3A hover\\3a focus\\3a active {
+#\\3A hover\\3A focus\\3A active {
 }
 #\\[attr\\=value\\] {
 }

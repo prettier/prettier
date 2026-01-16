@@ -1,14 +1,14 @@
-import { hardline, indent } from "../../document/builders.js";
+import { hardline, indent } from "../../document/index.js";
 import { printDanglingComments } from "../../main/comments/print.js";
-import isNonEmptyArray from "../../utils/is-non-empty-array.js";
+import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
 import {
   CommentCheckFlags,
   hasComment,
   isNextLineEmpty,
-} from "../utils/index.js";
+} from "../utilities/index.js";
 import { printStatementSequence } from "./statement.js";
 
-/** @import {Doc} from "../../document/builders.js" */
+/** @import {Doc} from "../../document/index.js" */
 
 /*
 - `Program`
@@ -52,6 +52,7 @@ function printBlock(path, options, print) {
         parent.type === "ModuleExpression" ||
         (parent.type === "CatchClause" && !parentParent.finalizer) ||
         parent.type === "TSModuleDeclaration" ||
+        parent.type === "MatchStatementCase" ||
         node.type === "StaticBlock"
       )
     ) {

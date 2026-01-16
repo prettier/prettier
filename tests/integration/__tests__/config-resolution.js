@@ -37,6 +37,14 @@ describe("resolves external configuration from package.json (esm package)", () =
   });
 });
 
+describe("resolves external configuration from package.json (esm package with TLA)", () => {
+  runCli("cli/config/external-config/esm-package-with-tla", ["index.js"]).test({
+    status: 0,
+    stderr: "",
+    write: [],
+  });
+});
+
 describe("resolves external configuration from package.json (esm file)", () => {
   runCli("cli/config/external-config/esm-package", ["index.js"]).test({
     status: 0,
@@ -450,4 +458,22 @@ test("package.json/package.yaml", async () => {
       "printWidth": 101,
     }
   `);
+});
+
+test("'config' option should accept `URL` and `string`", async () => {
+  const configFileUrl = new URL(
+    "../cli/config/custom-config-file-location/my-prettier-config.mjs",
+    import.meta.url,
+  );
+  const file = new URL("./file.js", configFileUrl);
+
+  for (const configFile of [
+    configFileUrl,
+    configFileUrl.href,
+    url.fileURLToPath(configFileUrl),
+  ]) {
+    await expect(
+      prettier.resolveConfig(file, { config: configFile }),
+    ).resolves.toEqual({ tabWidth: 7 });
+  }
 });

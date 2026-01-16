@@ -1,5 +1,3 @@
-"use strict";
-
 const selector = [
   "CallExpression",
   "[optional=false]",
@@ -13,12 +11,9 @@ const selector = [
 
 const messageId = "no-empty-flat-contents-for-if-break";
 
-module.exports = {
+export default {
   meta: {
     type: "suggestion",
-    docs: {
-      url: "https://github.com/prettier/prettier/blob/main/scripts/tools/eslint-plugin-prettier-internal-rules/no-empty-flat-contents-for-if-break.js",
-    },
     messages: {
       [messageId]:
         "Please don't pass an empty string to second parameter of ifBreak.",

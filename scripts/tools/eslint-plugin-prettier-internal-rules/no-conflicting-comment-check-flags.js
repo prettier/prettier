@@ -1,4 +1,3 @@
-"use strict";
 const MESSAGE_ID_UNIQUE = "unique";
 const MESSAGE_ID_CONFLICTING = "conflicting";
 
@@ -37,12 +36,9 @@ const flatFlags = (node) => {
   return flags.map((node) => node.property.name);
 };
 
-module.exports = {
+export default {
   meta: {
     type: "suggestion",
-    docs: {
-      url: "https://github.com/prettier/prettier/blob/main/scripts/tools/eslint-plugin-prettier-internal-rules/no-conflicting-comment-check-flags.js",
-    },
     messages: {
       [MESSAGE_ID_UNIQUE]: "Do not use same flag multiple times.",
       [MESSAGE_ID_CONFLICTING]: "Do not use {{flags}} together.",

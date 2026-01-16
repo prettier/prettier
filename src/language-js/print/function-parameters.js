@@ -5,48 +5,49 @@ import {
   ifBreak,
   indent,
   line,
+  removeLines,
   softline,
-} from "../../document/builders.js";
-import { removeLines, willBreak } from "../../document/utils.js";
+  willBreak,
+} from "../../document/index.js";
 import { printDanglingComments } from "../../main/comments/print.js";
-import getNextNonSpaceNonCommentCharacter from "../../utils/get-next-non-space-non-comment-character.js";
-import isNonEmptyArray from "../../utils/is-non-empty-array.js";
+import getNextNonSpaceNonCommentCharacter from "../../utilities/get-next-non-space-non-comment-character.js";
+import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
 import { locEnd } from "../loc.js";
 import {
   getFunctionParameters,
   hasComment,
   hasRestParameter,
-  isArrayOrTupleExpression,
+  isArrayExpression,
   isFlowObjectTypePropertyAFunction,
   isNextLineEmpty,
-  isObjectOrRecordExpression,
+  isObjectExpression,
   isObjectType,
   isSimpleType,
   isTestCall,
   isTypeAnnotationAFunction,
   iterateFunctionParametersPath,
   shouldPrintComma,
-} from "../utils/index.js";
-import { printFunctionTypeParameters } from "./misc.js";
+} from "../utilities/index.js";
 
 /** @import AstPath from "../../common/ast-path.js" */
 
 function printFunctionParameters(
   path,
-  print,
   options,
-  expandArg,
-  printTypeParams,
+  print,
+  shouldExpandArgument,
+  shouldPrintTypeParameters,
 ) {
   const functionNode = path.node;
   const parameters = getFunctionParameters(functionNode);
-  const typeParams = printTypeParams
-    ? printFunctionTypeParameters(path, options, print)
-    : "";
+  const typeParametersDoc =
+    shouldPrintTypeParameters && functionNode.typeParameters
+      ? print("typeParameters")
+      : "";
 
   if (parameters.length === 0) {
     return [
-      typeParams,
+      typeParametersDoc,
       "(",
       printDanglingComments(path, options, {
         filter: (comment) =>
@@ -92,12 +93,17 @@ function printFunctionParameters(
   //     }                     b,
   //   )                     ) => {
   //                         })
-  if (expandArg && !isDecoratedFunction(path)) {
-    if (willBreak(typeParams) || willBreak(printed)) {
+  if (shouldExpandArgument && !isDecoratedFunction(path)) {
+    if (willBreak(typeParametersDoc) || willBreak(printed)) {
       // Removing lines in this case leads to broken or ugly output
       throw new ArgExpansionBailout();
     }
-    return group([removeLines(typeParams), "(", removeLines(printed), ")"]);
+    return group([
+      removeLines(typeParametersDoc),
+      "(",
+      removeLines(printed),
+      ")",
+    ]);
   }
 
   // Single object destructuring should hug
@@ -111,12 +117,12 @@ function printFunctionParameters(
     (node) => !isNonEmptyArray(node.decorators),
   );
   if (shouldHugParameters && hasNotParameterDecorator) {
-    return [typeParams, "(", ...printed, ")"];
+    return [typeParametersDoc, "(", ...printed, ")"];
   }
 
   // don't break in specs, eg; `it("should maintain parens around done even when long", (done) => {})`
   if (isParametersInTestCall) {
-    return [typeParams, "(", ...printed, ")"];
+    return [typeParametersDoc, "(", ...printed, ")"];
   }
 
   const isFlowShorthandWithOneArg =
@@ -147,7 +153,7 @@ function printFunctionParameters(
   }
 
   return [
-    typeParams,
+    typeParametersDoc,
     "(",
     indent([softline, ...printed]),
     ifBreak(
@@ -185,9 +191,9 @@ function shouldHugTheOnlyFunctionParameter(node) {
         (parameter.left.type === "ObjectPattern" ||
           parameter.left.type === "ArrayPattern") &&
         (parameter.right.type === "Identifier" ||
-          (isObjectOrRecordExpression(parameter.right) &&
+          (isObjectExpression(parameter.right) &&
             parameter.right.properties.length === 0) ||
-          (isArrayOrTupleExpression(parameter.right) &&
+          (isArrayExpression(parameter.right) &&
             parameter.right.elements.length === 0))))
   );
 }
@@ -292,9 +298,16 @@ function shouldBreakFunctionParameters(functionNode) {
   );
 }
 
+function shouldHugTheOnlyParameter(node, name) {
+  return (
+    (name === "params" || name === "this" || name === "rest") &&
+    shouldHugTheOnlyFunctionParameter(node)
+  );
+}
+
 export {
   printFunctionParameters,
   shouldBreakFunctionParameters,
   shouldGroupFunctionParameters,
-  shouldHugTheOnlyFunctionParameter,
+  shouldHugTheOnlyParameter,
 };

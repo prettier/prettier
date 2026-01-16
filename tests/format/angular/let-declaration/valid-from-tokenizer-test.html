@@ -1,4 +1,8 @@
-<!-- import from https://github.com/angular/angular/commit/62c5b66b4119b7e1dfaf1e28c100e5f8431cb05b -->
+<!--
+from
+https://github.com/angular/angular/commit/62c5b66b4119b7e1dfaf1e28c100e5f8431cb05b
+https://github.com/angular/angular/commit/18a675081f945ed4d7f4c0ee83172ca1528e7b2e
+-->
 
 @let foo = 123 + 456;
 
@@ -29,7 +33,7 @@ foo = 123;
  789
  ;
 
-@block {@let foo = 123 + 456;}
+@defer {@let foo = 123 + 456;}
 
 @let foo = 'a; b';
 @let foo = "';'";

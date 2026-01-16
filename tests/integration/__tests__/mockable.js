@@ -1,7 +1,12 @@
-import prettier from "../../config/prettier-entry.js";
+import url from "node:url";
+import { prettierCliMockableEntry } from "../env.js";
 
-const { mockable } = prettier.__debug;
+async function getCliMockable() {
+  const cli = await import(url.pathToFileURL(prettierCliMockableEntry));
+  return cli.mockable;
+}
 
-test("isCI", () => {
-  expect(typeof mockable.isCI()).toBe("boolean");
+test("isCI", async () => {
+  const mockable = await getCliMockable();
+  expect(typeof mockable.implementations.isCI()).toBe("boolean");
 });

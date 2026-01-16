@@ -4,4 +4,4 @@ new interface();
 ({ interface: "foo" });
 (interface, "foo");
 void interface;
-const interface = "foo";
+var interface = "foo";

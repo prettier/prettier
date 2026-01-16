@@ -1,5 +1,5 @@
 /**
- * modified from https://github.com/mdx-js/mdx/blob/master/packages/mdx
+ * modified from https://github.com/mdx-js/mdx/blob/c91b00c673bcf3e7c28b861fd692b69016026c45/packages/remark-mdx/index.js
  *
  * The MIT License (MIT)
  *
@@ -31,18 +31,24 @@ const EMPTY_NEWLINE = "\n\n";
 
 const isImport = (text) => IMPORT_REGEX.test(text);
 const isExport = (text) => EXPORT_REGEX.test(text);
+const isImportOrExport = (text) => isImport(text) || isExport(text);
 
 const tokenizeEsSyntax = (eat, value) => {
   const index = value.indexOf(EMPTY_NEWLINE);
-  const subvalue = value.slice(0, index);
+  const subvalue = index === -1 ? value : value.slice(0, index);
 
-  if (isExport(subvalue) || isImport(subvalue)) {
+  if (isImportOrExport(subvalue)) {
     return eat(subvalue)({
       type: isExport(subvalue) ? "export" : "import",
       value: subvalue,
     });
   }
 };
+
+tokenizeEsSyntax.notInBlock = true;
+
+tokenizeEsSyntax.locator = (value /* , fromIndex*/) =>
+  isImportOrExport(value) ? -1 : 1;
 
 const tokenizeEsComment = (eat, value) => {
   const match = ES_COMMENT_REGEX.exec(value);
@@ -54,10 +60,6 @@ const tokenizeEsComment = (eat, value) => {
     });
   }
 };
-
-/* c8 ignore next 2 */
-tokenizeEsSyntax.locator = (value /*, fromIndex*/) =>
-  isExport(value) || isImport(value) ? -1 : 1;
 
 tokenizeEsComment.locator = (value, fromIndex) => value.indexOf("{", fromIndex);
 

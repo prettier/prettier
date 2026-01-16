@@ -1,3 +1,12 @@
+/**
+@typedef {"auto" | "lf" | "crlf" | "cr"} EndOfLineOption
+@typedef {"\r" | "\r\n" | "\n"} EndOfLine
+*/
+
+/**
+@param {string} text
+@returns {EndOfLineOption}
+*/
 function guessEndOfLine(text) {
   const index = text.indexOf("\r");
   if (index !== -1) {
@@ -6,6 +15,10 @@ function guessEndOfLine(text) {
   return "lf";
 }
 
+/**
+@param {EndOfLineOption} value
+@returns {EndOfLine}
+*/
 function convertEndOfLineToChars(value) {
   switch (value) {
     case "cr":
@@ -17,6 +30,11 @@ function convertEndOfLineToChars(value) {
   }
 }
 
+/**
+@param {string} text
+@param {EndOfLine} eol
+@returns {number}
+*/
 function countEndOfLineChars(text, eol) {
   let regex;
 
@@ -39,6 +57,10 @@ function countEndOfLineChars(text, eol) {
   return endOfLines ? endOfLines.length : 0;
 }
 
+/**
+@param {string} text
+@returns {string}
+*/
 function normalizeEndOfLine(text) {
   return text.replaceAll(/\r\n?/gu, "\n");
 }

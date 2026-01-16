@@ -1,4 +1,159 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`18146.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class x {
+  a() // class 1
+  {
+  }
+
+  b() // class 2
+  {
+    // comment
+  }
+
+  c() // class 3
+  {
+    call()
+  }
+
+  constructor() // class constructor
+  {}
+
+  static staticMethod() // class static
+  {}
+
+  get getter() // class getter
+  {}
+}
+
+const x2 = {
+  a() // object 1
+  {
+  },
+
+  b() // object 2
+  {
+    // comment
+  },
+
+  c() // object 3
+  {
+    call()
+  }
+}
+
+function a() // function declaration 1
+{
+    // comment
+}
+
+function b() // function declaration 1
+{
+}
+
+function c() // function declaration 1
+{
+    call()
+}
+
+a = [
+  function a() // function expression 1
+  {
+      // comment
+  },
+
+  function b() // function expression 1
+  {
+  },
+
+  function c() // function expression 1
+  {
+      call()
+  },
+]
+
+=====================================output=====================================
+class x {
+  a() {
+    // class 1
+  }
+
+  b() {
+    // class 2
+    // comment
+  }
+
+  c() {
+    // class 3
+    call();
+  }
+
+  constructor() {
+    // class constructor
+  }
+
+  static staticMethod() {
+    // class static
+  }
+
+  get getter() {
+    // class getter
+  }
+}
+
+const x2 = {
+  a() {
+    // object 1
+  },
+
+  b() {
+    // object 2
+    // comment
+  },
+
+  c() {
+    // object 3
+    call();
+  },
+};
+
+function a() {
+  // function declaration 1
+  // comment
+}
+
+function b() {
+  // function declaration 1
+}
+
+function c() {
+  // function declaration 1
+  call();
+}
+
+a = [
+  function a() {
+    // function expression 1
+    // comment
+  },
+
+  function b() {
+    // function expression 1
+  },
+
+  function c() {
+    // function expression 1
+    call();
+  },
+];
+
+================================================================================
+`;
 
 exports[`between-parentheses-and-function-body.js format 1`] = `
 ====================================options=====================================
@@ -42,6 +197,17 @@ a = {
   {},
 }
 
+class A {
+
+  foo()
+  // this is a function
+  {}
+
+  bar = function()
+  // this is a function
+  {}
+}
+
 =====================================output=====================================
 function function_declaration() {
   // this is a function
@@ -73,6 +239,16 @@ a = {
     // this is a function
   },
 };
+
+class A {
+  foo() {
+    // this is a function
+  }
+
+  bar = function () {
+    // this is a function
+  };
+}
 
 ================================================================================
 `;

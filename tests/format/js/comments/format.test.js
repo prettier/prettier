@@ -6,16 +6,5 @@ const fixtures = {
   ],
 };
 
-const errors = {
-  acorn: ["tuple-and-record.js"],
-  espree: ["tuple-and-record.js"],
-  meriyah: ["tuple-and-record.js"],
-  typescript: ["tuple-and-record.js"],
-  flow: ["tuple-and-record.js"],
-};
-
-runFormatTest(fixtures, ["babel", "flow", "typescript"], { errors });
-runFormatTest(fixtures, ["babel", "flow", "typescript"], {
-  semi: false,
-  errors,
-});
+runFormatTest(fixtures, ["babel", "flow", "typescript"]);
+runFormatTest(fixtures, ["babel", "flow", "typescript"], { semi: false });

@@ -1,6 +1,12 @@
 import fs from "node:fs";
 import semver from "semver";
-import { logPromise, readJson, runGit, runYarn, writeJson } from "../utils.js";
+import {
+  logPromise,
+  readJson,
+  runGit,
+  runYarn,
+  writeJson,
+} from "../utilities.js";
 
 async function format() {
   await runYarn(["fix:prettier"]);

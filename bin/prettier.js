@@ -7,6 +7,4 @@ instead of `node bin/prettier.cjs`.
 This file should only used for development.
 */
 
-import { run } from "../src/cli/index.js";
-
-await run();
+import "./prettier.cjs";

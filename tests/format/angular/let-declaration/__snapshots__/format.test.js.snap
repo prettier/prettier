@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`basic-01.html format 1`] = `
 ====================================options=====================================
@@ -185,7 +185,11 @@ parsers: ["angular"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-<!-- import from https://github.com/angular/angular/commit/62c5b66b4119b7e1dfaf1e28c100e5f8431cb05b -->
+<!--
+from
+https://github.com/angular/angular/commit/62c5b66b4119b7e1dfaf1e28c100e5f8431cb05b
+https://github.com/angular/angular/commit/18a675081f945ed4d7f4c0ee83172ca1528e7b2e
+-->
 
 @let foo = 123 + 456;
 
@@ -216,7 +220,7 @@ foo = 123;
  789
  ;
 
-@block {@let foo = 123 + 456;}
+@defer {@let foo = 123 + 456;}
 
 @let foo = 'a; b';
 @let foo = "';'";
@@ -236,7 +240,11 @@ foo = 123;
 @let foo = fn({a: 1, b: [otherFn([{c: ";"}], 321, {d: [',']})]});
 
 =====================================output=====================================
-<!-- import from https://github.com/angular/angular/commit/62c5b66b4119b7e1dfaf1e28c100e5f8431cb05b -->
+<!--
+from
+https://github.com/angular/angular/commit/62c5b66b4119b7e1dfaf1e28c100e5f8431cb05b
+https://github.com/angular/angular/commit/18a675081f945ed4d7f4c0ee83172ca1528e7b2e
+-->
 
 @let foo = 123 + 456;
 
@@ -255,7 +263,7 @@ foo = 123;
 
 @let foo = 123 + 456 + 789;
 
-@block {
+@defer {
   @let foo = 123 + 456;
 }
 

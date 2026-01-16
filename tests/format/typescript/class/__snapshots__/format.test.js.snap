@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`abstract-method.ts format 1`] = `
 ====================================options=====================================
@@ -47,15 +47,11 @@ class F {constructor(public a: number) {}}
 class G {constructor(readonly a: number) {}}
 
 class A {
-    'constructor': typeof A
     static Foo() {
         return new A()
     }
 }
 
-class B {
-  constructor<>() {}
-}
 
 =====================================output=====================================
 class C {
@@ -75,14 +71,9 @@ class G {
 }
 
 class A {
-  "constructor": typeof A;
   static Foo() {
     return new A();
   }
-}
-
-class B {
-  constructor<>() {}
 }
 
 ================================================================================
@@ -243,6 +234,8 @@ class ImplementsInterfaceAndExtendsAbstractClass1<Foo>
   implements FOOOOOOOOOOOOOOOOO, BARRRRRRRRRR {}
 
 class Foo<FOOOOOOOOOOOOOOOOOOOOOOOOOOO, FOOOOOOOOOOOOOOOOOOOOOOOOOOO> implements Foo {}
+class Foo___<FOOOOOOOOOOOOOOOOOOOOOOOOOOO, FOOOOOOOOOOOOOOOOOOOOOOOOOOO> extends Foo {}
+interface Foo<FOOOOOOOOOOOOOOOOOOOOOOOOOOO, FOOOOOOOOOOOOOOOOOOOOOOOOOO> extends Foo {}
 
 class ImplementsInterfaceAndExtendsAbstractClass2<
     TypeArgumentNumberOne,
@@ -324,14 +317,24 @@ class ImplementsInterfaceAndExtendsAbstractClass1<Foo>
   extends FOOOOOOOOOOOOOOOOO
   implements FOOOOOOOOOOOOOOOOO, BARRRRRRRRRR {}
 
-class Foo<FOOOOOOOOOOOOOOOOOOOOOOOOOOO, FOOOOOOOOOOOOOOOOOOOOOOOOOOO>
-  implements Foo {}
+class Foo<
+  FOOOOOOOOOOOOOOOOOOOOOOOOOOO,
+  FOOOOOOOOOOOOOOOOOOOOOOOOOOO,
+> implements Foo {}
+class Foo___<
+  FOOOOOOOOOOOOOOOOOOOOOOOOOOO,
+  FOOOOOOOOOOOOOOOOOOOOOOOOOOO,
+> extends Foo {}
+interface Foo<
+  FOOOOOOOOOOOOOOOOOOOOOOOOOOO,
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+> extends Foo {}
 
 class ImplementsInterfaceAndExtendsAbstractClass2<
-    TypeArgumentNumberOne,
-    TypeArgumentNumberTwo,
-    TypeArgumentNumberThree,
-  >
+  TypeArgumentNumberOne,
+  TypeArgumentNumberTwo,
+  TypeArgumentNumberThree,
+>
   extends FOOOOOOOOOOOOOOOOOO
   implements BaseInterface {}
 
@@ -342,10 +345,10 @@ class ImplementsInterfaceClass1<
 > implements BaseInterface {}
 
 class ImplementsInterfaceClassWithComments1<
-    TypeArgumentNumberOne,
-    TypeArgumentNumberTwo,
-    TypeArgumentNumberThree,
-  > // comments
+  TypeArgumentNumberOne,
+  TypeArgumentNumberTwo,
+  TypeArgumentNumberThree,
+> // comments
   implements BaseInterface {}
 
 ================================================================================
@@ -388,10 +391,65 @@ export class JiraCreatePixFraudDetectionGateway
     });
   }
 }
+export class JiraCreatePixFraudDetectionGateway
+  extends Pick<IssuePixFraudDetectionGateway___, "createPixFraudDetectionIssue">
+{
+  constructor(private readonly logger: Logger) {
+    this.logger = logger.child({
+      context: JiraCreatePixFraudDetectionGateway.name,
+    });
+  }
+}
+export interface JiraCreatePiFraudDetectionGate
+  extends Pick<IssuePixFraudDetectionGateway, "createPixFraudDetectionIssue">
+{
+  method(logger: Logger): string
+}
+
+export class JiraCreatePixFraudDetectionGateway
+  implements
+    Pick<IssuePixFraudDetectionGateway, "createPixFraudDetectionIssue">,
+    Pick<IssuePixFraudDetectionGateway, "createPixFraudDetectionIssue">
+{
+  constructor(private readonly logger: Logger) {
+    this.logger = logger.child({
+      context: JiraCreatePixFraudDetectionGateway.name,
+    });
+  }
+}
 
 =====================================output=====================================
+export class JiraCreatePixFraudDetectionGateway implements Pick<
+  IssuePixFraudDetectionGateway,
+  "createPixFraudDetectionIssue"
+> {
+  constructor(private readonly logger: Logger) {
+    this.logger = logger.child({
+      context: JiraCreatePixFraudDetectionGateway.name,
+    });
+  }
+}
+export class JiraCreatePixFraudDetectionGateway extends Pick<
+  IssuePixFraudDetectionGateway___,
+  "createPixFraudDetectionIssue"
+> {
+  constructor(private readonly logger: Logger) {
+    this.logger = logger.child({
+      context: JiraCreatePixFraudDetectionGateway.name,
+    });
+  }
+}
+export interface JiraCreatePiFraudDetectionGate extends Pick<
+  IssuePixFraudDetectionGateway,
+  "createPixFraudDetectionIssue"
+> {
+  method(logger: Logger): string;
+}
+
 export class JiraCreatePixFraudDetectionGateway
-  implements Pick<IssuePixFraudDetectionGateway, "createPixFraudDetectionIssue">
+  implements
+    Pick<IssuePixFraudDetectionGateway, "createPixFraudDetectionIssue">,
+    Pick<IssuePixFraudDetectionGateway, "createPixFraudDetectionIssue">
 {
   constructor(private readonly logger: Logger) {
     this.logger = logger.child({

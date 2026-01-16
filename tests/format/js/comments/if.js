@@ -51,9 +51,9 @@ true
 else /* comment */
 {true}
 
-if (14) // comment
-/* comment */
-// comment
+if (14) // comment 1
+/* comment 2 */
+// comment 3
 {true}
 else if (15) // comment
 /* comment */

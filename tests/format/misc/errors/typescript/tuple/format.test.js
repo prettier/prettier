@@ -8,5 +8,5 @@ runFormatTest(
       "type T = [x<y>: A];",
     ],
   },
-  ["babel-ts", "typescript"],
+  ["typescript", "babel-ts", "oxc-ts"],
 );

@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`comments.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
@@ -81,35 +81,35 @@ interface Foo<
 
 =====================================output=====================================
 interface ReallyReallyLongName<
-    TypeArgumentNumberOne,
-    TypeArgumentNumberTwo,
-    TypeArgumentNumberThree,
-  > // 1
+  TypeArgumentNumberOne,
+  TypeArgumentNumberTwo,
+  TypeArgumentNumberThree,
+> // 1
   extends BaseInterface {}
 
 interface ReallyReallyLongName2<
-    TypeArgumentNumberOne,
-    TypeArgumentNumberTwo,
-    TypeArgumentNumberThree,
-  > // 1
+  TypeArgumentNumberOne,
+  TypeArgumentNumberTwo,
+  TypeArgumentNumberThree,
+> // 1
   // 2
   extends BaseInterface {}
 
 interface ReallyReallyLongName3<
-    TypeArgumentNumberOne,
-    TypeArgumentNumberTwo,
-    TypeArgumentNumberThree,
-  > // 1
+  TypeArgumentNumberOne,
+  TypeArgumentNumberTwo,
+  TypeArgumentNumberThree,
+> // 1
   // 2
   extends BaseInterface {
   // 3
 }
 
 interface Foo<
-    FOOOOOOOOOOOOOOOOOOOOOOOOOO,
-    FOOOOOOOOOOOOOOOOOOOOOOOOOO,
-    FOOOOOOOOOOOOOOOOOOOOOOOOOO,
-  > // comments
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+> // comments
   extends Foo {}
 
 ================================================================================
@@ -154,35 +154,35 @@ interface Foo<
 
 =====================================output=====================================
 interface ReallyReallyLongName<
-    TypeArgumentNumberOne,
-    TypeArgumentNumberTwo,
-    TypeArgumentNumberThree,
-  > // 1
+  TypeArgumentNumberOne,
+  TypeArgumentNumberTwo,
+  TypeArgumentNumberThree,
+> // 1
   extends BaseInterface {}
 
 interface ReallyReallyLongName2<
-    TypeArgumentNumberOne,
-    TypeArgumentNumberTwo,
-    TypeArgumentNumberThree,
-  > // 1
+  TypeArgumentNumberOne,
+  TypeArgumentNumberTwo,
+  TypeArgumentNumberThree,
+> // 1
   // 2
   extends BaseInterface {}
 
 interface ReallyReallyLongName3<
-    TypeArgumentNumberOne,
-    TypeArgumentNumberTwo,
-    TypeArgumentNumberThree,
-  > // 1
+  TypeArgumentNumberOne,
+  TypeArgumentNumberTwo,
+  TypeArgumentNumberThree,
+> // 1
   // 2
   extends BaseInterface {
   // 3
 }
 
 interface Foo<
-    FOOOOOOOOOOOOOOOOOOOOOOOOOO,
-    FOOOOOOOOOOOOOOOOOOOOOOOOOO,
-    FOOOOOOOOOOOOOOOOOOOOOOOOOO,
-  > // comments
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+> // comments
   extends Foo {}
 
 ================================================================================
@@ -197,6 +197,8 @@ semi: false
 =====================================input======================================
 interface Foo<FOOOOOOOOOOOOOOOOOOOOOOOOOO,FOOOOOOOOOOOOOOOOOOOOOOO>
   extends Foo {}
+class Foo____<FOOOOOOOOOOOOOOOOOOOOOOOOOO,FOOOOOOOOOOOOOOOOOOOOOOO>
+  extends Foo {}
 
 interface Foo<
   FOOOOOOOOOOOOOOOOOOOOOOOOOO,
@@ -205,8 +207,14 @@ interface Foo<
 > extends Foo {}
 
 =====================================output=====================================
-interface Foo<FOOOOOOOOOOOOOOOOOOOOOOOOOO, FOOOOOOOOOOOOOOOOOOOOOOO>
-  extends Foo {}
+interface Foo<
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+  FOOOOOOOOOOOOOOOOOOOOOOO,
+> extends Foo {}
+class Foo____<
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+  FOOOOOOOOOOOOOOOOOOOOOOO,
+> extends Foo {}
 
 interface Foo<
   FOOOOOOOOOOOOOOOOOOOOOOOOOO,
@@ -225,6 +233,8 @@ printWidth: 80
 =====================================input======================================
 interface Foo<FOOOOOOOOOOOOOOOOOOOOOOOOOO,FOOOOOOOOOOOOOOOOOOOOOOO>
   extends Foo {}
+class Foo____<FOOOOOOOOOOOOOOOOOOOOOOOOOO,FOOOOOOOOOOOOOOOOOOOOOOO>
+  extends Foo {}
 
 interface Foo<
   FOOOOOOOOOOOOOOOOOOOOOOOOOO,
@@ -233,8 +243,14 @@ interface Foo<
 > extends Foo {}
 
 =====================================output=====================================
-interface Foo<FOOOOOOOOOOOOOOOOOOOOOOOOOO, FOOOOOOOOOOOOOOOOOOOOOOO>
-  extends Foo {}
+interface Foo<
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+  FOOOOOOOOOOOOOOOOOOOOOOO,
+> extends Foo {}
+class Foo____<
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+  FOOOOOOOOOOOOOOOOOOOOOOO,
+> extends Foo {}
 
 interface Foo<
   FOOOOOOOOOOOOOOOOOOOOOOOOOO,
@@ -708,6 +724,9 @@ export interface I extends A, B, C {
 export interface ThirdVeryLongAndBoringInterfaceName extends ALongAndBoringInterfaceName {
   c: string;
 }
+export class ThirdVeryLongAndBoringInterfaceName____ extends ALongAndBoringInterfaceName {
+  c: string;
+}
 
 export interface ThirdVeryLongAndBoringInterfaceName extends ALongAndBoringInterfaceName, AnotherLongAndBoringInterfaceName {
   c: string;
@@ -726,25 +745,28 @@ export interface I extends A, B, C {
   c: string
 }
 
-export interface ThirdVeryLongAndBoringInterfaceName
-  extends ALongAndBoringInterfaceName {
+export interface ThirdVeryLongAndBoringInterfaceName extends ALongAndBoringInterfaceName {
+  c: string
+}
+export class ThirdVeryLongAndBoringInterfaceName____ extends ALongAndBoringInterfaceName {
   c: string
 }
 
 export interface ThirdVeryLongAndBoringInterfaceName
-  extends ALongAndBoringInterfaceName,
-    AnotherLongAndBoringInterfaceName {
+  extends ALongAndBoringInterfaceName, AnotherLongAndBoringInterfaceName {
   c: string
 }
 
 export interface ThirdVeryLongAndBoringInterfaceName
-  extends AVeryLongAndBoringInterfaceName,
+  extends
+    AVeryLongAndBoringInterfaceName,
     AnotherVeryLongAndBoringInterfaceName {
   c: string
 }
 
 export interface ThirdVeryLongAndBoringInterfaceName
-  extends A_AVeryLongAndBoringInterfaceName,
+  extends
+    A_AVeryLongAndBoringInterfaceName,
     B_AVeryLongAndBoringInterfaceName,
     C_AVeryLongAndBoringInterfaceName {
   c: string
@@ -766,6 +788,9 @@ export interface I extends A, B, C {
 export interface ThirdVeryLongAndBoringInterfaceName extends ALongAndBoringInterfaceName {
   c: string;
 }
+export class ThirdVeryLongAndBoringInterfaceName____ extends ALongAndBoringInterfaceName {
+  c: string;
+}
 
 export interface ThirdVeryLongAndBoringInterfaceName extends ALongAndBoringInterfaceName, AnotherLongAndBoringInterfaceName {
   c: string;
@@ -784,25 +809,28 @@ export interface I extends A, B, C {
   c: string;
 }
 
-export interface ThirdVeryLongAndBoringInterfaceName
-  extends ALongAndBoringInterfaceName {
+export interface ThirdVeryLongAndBoringInterfaceName extends ALongAndBoringInterfaceName {
+  c: string;
+}
+export class ThirdVeryLongAndBoringInterfaceName____ extends ALongAndBoringInterfaceName {
   c: string;
 }
 
 export interface ThirdVeryLongAndBoringInterfaceName
-  extends ALongAndBoringInterfaceName,
-    AnotherLongAndBoringInterfaceName {
+  extends ALongAndBoringInterfaceName, AnotherLongAndBoringInterfaceName {
   c: string;
 }
 
 export interface ThirdVeryLongAndBoringInterfaceName
-  extends AVeryLongAndBoringInterfaceName,
+  extends
+    AVeryLongAndBoringInterfaceName,
     AnotherVeryLongAndBoringInterfaceName {
   c: string;
 }
 
 export interface ThirdVeryLongAndBoringInterfaceName
-  extends A_AVeryLongAndBoringInterfaceName,
+  extends
+    A_AVeryLongAndBoringInterfaceName,
     B_AVeryLongAndBoringInterfaceName,
     C_AVeryLongAndBoringInterfaceName {
   c: string;

@@ -1,7 +1,7 @@
 "use strict";
 const vm = require("vm");
 const fastGlob = require("fast-glob");
-const createSandBox = require("./utils/create-sandbox.cjs");
+const createSandBox = require("./utilities/create-sandbox.cjs");
 
 const sandbox = createSandBox({
   files: fastGlob.sync(["standalone.js", "plugins/*.js"], {

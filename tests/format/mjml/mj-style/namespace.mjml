@@ -1,0 +1,17 @@
+<mjml>
+
+<mj-style> .should-format{
+  as: 'css'
+}</mj-style>
+
+<unknown:mj-style> .should-not-format{
+  as: 'css'
+}</unknown:mj-style>
+
+    <unknown:mj-section>
+<mj-style> .should-not-format{
+  as: 'css'
+}</mj-style>
+    </unknown:mj-section>
+
+</mjml>

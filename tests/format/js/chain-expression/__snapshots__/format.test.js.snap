@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`call-expression.js format 1`] = `
 ====================================options=====================================
@@ -290,6 +290,52 @@ new ((a?.())())();
 
 // Not \`.callee\`
 new Foo(a?.b);
+
+================================================================================
+`;
+
+exports[`number.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+(1.).toString();
+(1.).toString?.();
+(1.)?.toString();
+(1).toString();
+(1)?.toString();
+
+(1.).toString;
+(1.)?.toString;
+
+a[1.].toString();
+a[1.].toString?.();
+a[1.]?.toString();
+a?.[1.].toString();
+
+a[1.].toString;
+a[1.]?.toString;
+a?.[1.].toString;
+
+=====================================output=====================================
+(1).toString();
+(1).toString?.();
+(1)?.toString();
+(1).toString();
+(1)?.toString();
+
+(1).toString;
+(1)?.toString;
+
+a[1].toString();
+a[1].toString?.();
+a[1]?.toString();
+a?.[1].toString();
+
+a[1].toString;
+a[1]?.toString;
+a?.[1].toString;
 
 ================================================================================
 `;

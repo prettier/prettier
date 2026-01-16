@@ -1,6 +1,11 @@
 import {
+  assertDocArray,
   dedent,
+  DOC_TYPE_FILL,
+  DOC_TYPE_GROUP,
+  DOC_TYPE_INDENT,
   fill,
+  getDocType,
   group,
   hardline,
   ifBreak,
@@ -8,16 +13,9 @@ import {
   join,
   line,
   softline,
-} from "../../document/builders.js";
-import {
-  DOC_TYPE_FILL,
-  DOC_TYPE_GROUP,
-  DOC_TYPE_INDENT,
-} from "../../document/constants.js";
-import { getDocType } from "../../document/utils.js";
-import { assertDocArray } from "../../document/utils/assert-doc.js";
-import isNextLineEmpty from "../../utils/is-next-line-empty.js";
-import isNonEmptyArray from "../../utils/is-non-empty-array.js";
+} from "../../document/index.js";
+import isNextLineEmpty from "../../utilities/is-next-line-empty.js";
+import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
 import { locEnd, locStart } from "../loc.js";
 import {
   isConfigurationNode,
@@ -26,16 +24,16 @@ import {
   isSCSSMapItemNode,
   isURLFunctionNode,
   isVarFunctionNode,
-} from "../utils/index.js";
+} from "../utilities/index.js";
 import { shouldPrintTrailingComma } from "./misc.js";
 
 function hasComma({ node, parent }, options) {
   return Boolean(
     node.source &&
-      options.originalText
-        .slice(locStart(node), locStart(parent.close))
-        .trimEnd()
-        .endsWith(","),
+    options.originalText
+      .slice(locStart(node), locStart(parent.close))
+      .trimEnd()
+      .endsWith(","),
   );
 }
 
@@ -88,7 +86,11 @@ function printParenthesizedValueGroup(path, options, print) {
     assertDocArray(groupDocs);
     const withComma = chunk(join(",", groupDocs), 2);
     const parts = join(forceHardLine ? hardline : line, withComma);
-    return indent(forceHardLine ? [hardline, parts] : group(fill(parts)));
+    return indent(
+      forceHardLine
+        ? [hardline, parts]
+        : group([shouldPrecededBySoftline(path) ? softline : "", fill(parts)]),
+    );
   }
 
   const parts = path.map(({ node: child, isLast, index }) => {
@@ -162,6 +164,15 @@ function shouldBreakList(path) {
       key === "value" &&
       ((node.type === "css-decl" && !node.prop.startsWith("--")) ||
         (node.type === "css-atrule" && node.variable)),
+  );
+}
+
+function shouldPrecededBySoftline(path) {
+  return path.match(
+    (node) => node.type === "value-paren_group" && !node.open,
+    (node, key) => key === "group" && node.type === "value-value",
+    (node, key) => key === "group" && node.type === "value-root",
+    (node, key) => key === "value" && node.type === "css-decl",
   );
 }
 

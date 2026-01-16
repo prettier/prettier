@@ -1,12 +1,12 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`snippet: #0 [acorn] format 1`] = `
-"Cannot use keyword 'await' outside an async function (2:20)
+"Unexpected token (2:26)
   1 | async function foo() {
 > 2 |   function bar(x = await 2) {}
-    |                    ^
+    |                          ^
   3 | }
-Cause: Cannot use keyword 'await' outside an async function (2:19)"
+Cause: Unexpected token (2:25)"
 `;
 
 exports[`snippet: #0 [acorn] format 2`] = `

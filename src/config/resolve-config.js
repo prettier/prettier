@@ -1,7 +1,7 @@
 import path from "node:path";
 import micromatch from "micromatch";
 import { toPath } from "url-or-path";
-import partition from "../utils/partition.js";
+import partition from "../utilities/partition.js";
 import {
   clearEditorconfigCache,
   loadEditorconfig as loadEditorconfigForFile,
@@ -17,6 +17,13 @@ function clearCache() {
   clearEditorconfigCache();
 }
 
+/**
+@param {string} file
+@param {{
+  editorconfig?: boolean,
+  useCache?: boolean,
+}} options
+*/
 function loadEditorconfig(file, options) {
   if (!file || !options.editorconfig) {
     return;
@@ -26,6 +33,17 @@ function loadEditorconfig(file, options) {
   return loadEditorconfigForFile(file, { shouldCache });
 }
 
+/**
+@param {string} file
+@param {{
+  useCache?: boolean,
+  config?: string | URL
+}} options
+@returns {{
+  config: any,
+  configFile: string,
+} | void}
+*/
 async function loadPrettierConfig(file, options) {
   const shouldCache = options.useCache;
   let configFile = options.config;
@@ -39,11 +57,16 @@ async function loadPrettierConfig(file, options) {
     return;
   }
 
+  configFile = toPath(configFile);
   const config = await loadPrettierConfigFile(configFile, { shouldCache });
 
   return { config, configFile };
 }
 
+/**
+@param {string | URL} fileUrlOrPath
+@param {*} options
+*/
 async function resolveConfig(fileUrlOrPath, options) {
   options = { useCache: true, ...options };
   const filePath = toPath(fileUrlOrPath);
@@ -73,6 +96,9 @@ async function resolveConfig(fileUrlOrPath, options) {
   return merged;
 }
 
+/**
+@param {string | URL} fileUrlOrPath
+*/
 async function resolveConfigFile(fileUrlOrPath) {
   const directory = fileUrlOrPath
     ? path.dirname(path.resolve(toPath(fileUrlOrPath)))

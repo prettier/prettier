@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`assignment-operator.html format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<b (click)="
+  a   = b"></b>
+<b (click)="
+  a   += b"></b>
+<b (click)="
+  a   -= b"></b>
+<b (click)="
+  a   *= b"></b>
+<b (click)="
+  a   /= b"></b>
+<b (click)="
+  a   %= b"></b>
+<b (click)="
+  a   **= b"></b>
+<b (click)="
+  a   &&= b"></b>
+<b (click)="
+  a   ||= b"></b>
+<b (click)="
+  a   ??= b"></b>
+
+=====================================output=====================================
+<b (click)="a = b"></b>
+<b (click)="a += b"></b>
+<b (click)="a -= b"></b>
+<b (click)="a *= b"></b>
+<b (click)="a /= b"></b>
+<b (click)="a %= b"></b>
+<b (click)="a **= b"></b>
+<b (click)="a &&= b"></b>
+<b (click)="a ||= b"></b>
+<b (click)="a ??= b"></b>
+
+================================================================================
+`;

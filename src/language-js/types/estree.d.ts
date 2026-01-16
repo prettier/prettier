@@ -2,7 +2,7 @@ import * as ESTree from "estree";
 import * as Babel from "@babel/types";
 import { TSESTree } from "@typescript-eslint/typescript-estree";
 import { ESTree as Meriyah } from "meriyah";
-import * as NGTree from "angular-estree-parser/lib/types.js";
+import { NGTree } from "angular-estree-parser";
 
 type AdditionalFields = {
   extra?: {

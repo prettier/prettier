@@ -1,0 +1,18 @@
+<div
+  (action)="
+      `   hello, ${   world   }  `
+  "
+  [binding]="
+      `   hello, ${   world   }  `
+  "
+  *directive="
+      `   hello, ${   world   }  `
+  "
+>
+{{
+`   hello, ${   world   }  `
+}}
+
+{{   ``  }}  {{   (   ( `a ${b} \u0063  `))}}
+</div>
+

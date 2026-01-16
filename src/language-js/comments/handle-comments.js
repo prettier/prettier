@@ -2,28 +2,30 @@ import {
   addDanglingComment,
   addLeadingComment,
   addTrailingComment,
-} from "../../main/comments/utils.js";
-import getNextNonSpaceNonCommentCharacter from "../../utils/get-next-non-space-non-comment-character.js";
-import getNextNonSpaceNonCommentCharacterIndex from "../../utils/get-next-non-space-non-comment-character-index.js";
-import hasNewline from "../../utils/has-newline.js";
-import hasNewlineInRange from "../../utils/has-newline-in-range.js";
-import isNonEmptyArray from "../../utils/is-non-empty-array.js";
+} from "../../main/comments/utilities.js";
+import getNextNonSpaceNonCommentCharacter from "../../utilities/get-next-non-space-non-comment-character.js";
+import getNextNonSpaceNonCommentCharacterIndex from "../../utilities/get-next-non-space-non-comment-character-index.js";
+import hasNewline from "../../utilities/has-newline.js";
+import hasNewlineInRange from "../../utilities/has-newline-in-range.js";
+import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
 import { locEnd, locStart } from "../loc.js";
 import {
   createTypeCheckFunction,
   getCallArguments,
   getFunctionParameters,
+  isBinaryCastExpression,
   isCallExpression,
   isCallLikeExpression,
+  isConditionalType,
   isIntersectionType,
-  isLineComment,
   isMemberExpression,
   isObjectProperty,
   isPrettierIgnoreComment,
   isUnionType,
-} from "../utils/index.js";
-import isBlockComment from "../utils/is-block-comment.js";
-import isTypeCastComment from "../utils/is-type-cast-comment.js";
+} from "../utilities/index.js";
+import isBlockComment from "../utilities/is-block-comment.js";
+import isLineComment from "../utilities/is-line-comment.js";
+import isTypeCastComment from "../utilities/is-type-cast-comment.js";
 
 /** @import * as Estree from "../types/estree.js" */
 
@@ -38,6 +40,10 @@ import isTypeCastComment from "../utils/is-type-cast-comment.js";
  * @property {Estree.Node} ast
  * @property {boolean} isLastComment
  */
+
+const isSingleLineComment = (comment, text) =>
+  isLineComment(comment) ||
+  !hasNewlineInRange(text, locStart(comment), locEnd(comment));
 
 /**
  * @param {CommentContext} context
@@ -56,6 +62,7 @@ function handleOwnLineComment(context) {
     handleClassComments,
     handleForComments,
     handleUnionTypeComments,
+    handleMatchOrPatternComments,
     handleOnlyComments,
     handleModuleSpecifiersComments,
     handleAssignmentPatternComments,
@@ -64,6 +71,8 @@ function handleOwnLineComment(context) {
     handleBreakAndContinueStatementComments,
     handleNestedConditionalExpressionComments,
     handleCommentsInDestructuringPattern,
+    handleTSMappedTypeComments,
+    handleBinaryCastExpressionComment,
   ].some((fn) => fn(context));
 }
 
@@ -90,6 +99,10 @@ function handleEndOfLineComment(context) {
     handleSwitchDefaultCaseComments,
     handleLastUnionElementInExpression,
     handleLastBinaryOperatorOperand,
+    handleTSMappedTypeComments,
+    handleCommentAfterArrowExpression,
+    handlePropertySignatureComments,
+    handleBinaryCastExpressionComment,
   ].some((fn) => fn(context));
 }
 
@@ -102,15 +115,14 @@ function handleRemainingComment(context) {
     handleIgnoreComments,
     handleIfStatementComments,
     handleWhileComments,
-    handleObjectPropertyAssignment,
     handleCommentInEmptyParens,
     handleMethodNameComments,
     handleOnlyComments,
     handleCommentAfterArrowParams,
     handleFunctionNameComments,
-    handleTSMappedTypeComments,
     handleBreakAndContinueStatementComments,
     handleTSFunctionTrailingComments,
+    handleBinaryCastExpressionComment,
   ].some((fn) => fn(context));
 }
 
@@ -191,6 +203,17 @@ function handleIfStatementComments({
     return true;
   }
 
+  // if comment is positioned between the condition and its body
+  if (
+    followingNode.type === "BlockStatement" &&
+    followingNode === enclosingNode.consequent &&
+    locStart(comment) >= locEnd(precedingNode) &&
+    locEnd(comment) <= locStart(followingNode)
+  ) {
+    addLeadingComment(followingNode, comment);
+    return true;
+  }
+
   // Comments before `else`:
   // - treat as trailing comments of the consequent, if it's a BlockStatement
   // - treat as a dangling comment otherwise
@@ -202,6 +225,17 @@ function handleIfStatementComments({
       text,
       locEnd(enclosingNode.consequent),
     );
+
+    // if comment is positioned between the `else` token and its body
+    if (
+      followingNode.type === "BlockStatement" &&
+      locStart(comment) >= maybeElseTokenIndex &&
+      locEnd(comment) <= locStart(followingNode)
+    ) {
+      addLeadingComment(followingNode, comment);
+      return true;
+    }
+
     // With the above conditions alone, this code would also match. This is a false positive.
     // So, ignore cases where the token "else" appears immediately after the consequent:
     //
@@ -213,22 +247,23 @@ function handleIfStatementComments({
     ) {
       if (precedingNode.type === "BlockStatement") {
         addTrailingComment(precedingNode, comment);
-      } else {
-        const isSingleLineComment =
-          isLineComment(comment) ||
-          comment.loc.start.line === comment.loc.end.line;
-        const isSameLineComment =
-          comment.loc.start.line === precedingNode.loc.start.line;
-        if (isSingleLineComment && isSameLineComment) {
-          // example:
-          //   if (cond1) expr1; // comment A
-          //   else if (cond2) expr2; // comment A
-          //   else expr3;
-          addTrailingComment(precedingNode, comment);
-        } else {
-          addDanglingComment(enclosingNode, comment);
-        }
+        return true;
       }
+
+      if (
+        isSingleLineComment(comment, text) &&
+        // Comment and `precedingNode` are on same line
+        !hasNewlineInRange(text, locStart(precedingNode), locStart(comment))
+      ) {
+        // example:
+        //   if (cond1) expr1; // comment A
+        //   else if (cond2) expr2; // comment A
+        //   else expr3;
+        addTrailingComment(precedingNode, comment);
+        return true;
+      }
+
+      addDanglingComment(enclosingNode, comment);
       return true;
     }
   }
@@ -360,8 +395,7 @@ function handleNestedConditionalExpressionComments({
 
   const enclosingIsCond =
     enclosingNode?.type === "ConditionalExpression" ||
-    enclosingNode?.type === "ConditionalTypeAnnotation" ||
-    enclosingNode?.type === "TSConditionalType";
+    isConditionalType(enclosingNode);
 
   if (!enclosingIsCond) {
     return false;
@@ -369,8 +403,7 @@ function handleNestedConditionalExpressionComments({
 
   const followingIsCond =
     followingNode?.type === "ConditionalExpression" ||
-    followingNode?.type === "ConditionalTypeAnnotation" ||
-    followingNode?.type === "TSConditionalType";
+    isConditionalType(followingNode);
 
   if (followingIsCond) {
     addDanglingComment(enclosingNode, comment);
@@ -394,8 +427,7 @@ function handleConditionalExpressionComments({
   if (
     (!precedingNode || !isSameLineAsPrecedingNode) &&
     (enclosingNode?.type === "ConditionalExpression" ||
-      enclosingNode?.type === "ConditionalTypeAnnotation" ||
-      enclosingNode?.type === "TSConditionalType") &&
+      isConditionalType(enclosingNode)) &&
     followingNode
   ) {
     if (
@@ -419,24 +451,7 @@ function handleConditionalExpressionComments({
   return false;
 }
 
-function handleObjectPropertyAssignment({
-  comment,
-  precedingNode,
-  enclosingNode,
-}) {
-  if (
-    isObjectProperty(enclosingNode) &&
-    enclosingNode.shorthand &&
-    enclosingNode.key === precedingNode &&
-    enclosingNode.value.type === "AssignmentPattern"
-  ) {
-    addTrailingComment(enclosingNode.value.left, comment);
-    return true;
-  }
-  return false;
-}
-
-const classLikeNodeTypes = new Set([
+const isClassLikeNode = createTypeCheckFunction([
   "ClassDeclaration",
   "ClassExpression",
   "DeclareClass",
@@ -450,7 +465,7 @@ function handleClassComments({
   enclosingNode,
   followingNode,
 }) {
-  if (classLikeNodeTypes.has(enclosingNode?.type)) {
+  if (isClassLikeNode(enclosingNode)) {
     if (
       isNonEmptyArray(enclosingNode.decorators) &&
       !(followingNode?.type === "Decorator")
@@ -498,7 +513,7 @@ function handleClassComments({
   return false;
 }
 
-const propertyLikeNodeTypes = new Set([
+const isPropertyLikeNode = createTypeCheckFunction([
   "ClassMethod",
   "ClassProperty",
   "PropertyDefinition",
@@ -524,7 +539,7 @@ function handleMethodNameComments({
     enclosingNode &&
     precedingNode &&
     getNextNonSpaceNonCommentCharacter(text, locEnd(comment)) === "(" &&
-    // "MethodDefinition" is handled in getCommentChildNodes
+    // "MethodDefinition" is handled in `canAttachComment`
     (enclosingNode.type === "Property" ||
       enclosingNode.type === "TSDeclareMethod" ||
       enclosingNode.type === "TSAbstractMethodDefinition") &&
@@ -542,8 +557,8 @@ function handleMethodNameComments({
   // on the decorator node instead of the method node
   if (
     precedingNode?.type === "Decorator" &&
-    propertyLikeNodeTypes.has(enclosingNode?.type) &&
-    isLineComment(comment)
+    isPropertyLikeNode(enclosingNode) &&
+    (isLineComment(comment) || comment.placement === "ownLine")
   ) {
     addTrailingComment(precedingNode, comment);
     return true;
@@ -552,7 +567,7 @@ function handleMethodNameComments({
   return false;
 }
 
-const functionLikeNodeTypes = new Set([
+const isFunctionLikeNode = createTypeCheckFunction([
   "FunctionDeclaration",
   "FunctionExpression",
   "ClassMethod",
@@ -568,7 +583,7 @@ function handleFunctionNameComments({
   if (getNextNonSpaceNonCommentCharacter(text, locEnd(comment)) !== "(") {
     return false;
   }
-  if (precedingNode && functionLikeNodeTypes.has(enclosingNode?.type)) {
+  if (precedingNode && isFunctionLikeNode(enclosingNode)) {
     addTrailingComment(precedingNode, comment);
     return true;
   }
@@ -684,19 +699,21 @@ function handleLastFunctionArgComments({
   // Comment between function parameters parentheses and function body
   if (
     !isBlockComment(comment) &&
-    (enclosingNode?.type === "FunctionDeclaration" ||
-      enclosingNode?.type === "FunctionExpression" ||
-      enclosingNode?.type === "ObjectMethod") &&
     followingNode?.type === "BlockStatement" &&
-    enclosingNode.body === followingNode
+    isFunctionLikeNode(enclosingNode)
   ) {
-    const characterAfterCommentIndex = getNextNonSpaceNonCommentCharacterIndex(
-      text,
-      locEnd(comment),
-    );
-    if (characterAfterCommentIndex === locStart(followingNode)) {
-      addBlockStatementFirstComment(followingNode, comment);
-      return true;
+    const functionBody =
+      enclosingNode.type === "MethodDefinition"
+        ? enclosingNode.value.body
+        : enclosingNode.body;
+
+    if (functionBody === followingNode) {
+      const characterAfterCommentIndex =
+        getNextNonSpaceNonCommentCharacterIndex(text, locEnd(comment));
+      if (characterAfterCommentIndex === locStart(followingNode)) {
+        addBlockStatementFirstComment(followingNode, comment);
+        return true;
+      }
     }
   }
 
@@ -766,6 +783,36 @@ function handleUnionTypeComments({
   return false;
 }
 
+function handleMatchOrPatternComments({
+  comment,
+  precedingNode,
+  enclosingNode,
+  followingNode,
+}) {
+  if (enclosingNode && enclosingNode.type === "MatchOrPattern") {
+    if (isPrettierIgnoreComment(comment)) {
+      followingNode.prettierIgnore = true;
+      comment.unignore = true;
+    }
+    if (precedingNode) {
+      addTrailingComment(precedingNode, comment);
+      return true;
+    }
+    return false;
+  }
+
+  if (
+    followingNode &&
+    followingNode.type === "MatchOrPattern" &&
+    isPrettierIgnoreComment(comment)
+  ) {
+    followingNode.types[0].prettierIgnore = true;
+    comment.unignore = true;
+  }
+
+  return false;
+}
+
 function handlePropertyComments({ comment, enclosingNode }) {
   if (isObjectProperty(enclosingNode)) {
     addLeadingComment(enclosingNode, comment);
@@ -801,10 +848,11 @@ function handleOnlyComments({ comment, enclosingNode, ast, isLastComment }) {
   return false;
 }
 
-function handleForComments({ comment, enclosingNode }) {
+function handleForComments({ comment, enclosingNode, followingNode }) {
   if (
-    enclosingNode?.type === "ForInStatement" ||
-    enclosingNode?.type === "ForOfStatement"
+    (enclosingNode?.type === "ForInStatement" ||
+      enclosingNode?.type === "ForOfStatement") &&
+    followingNode !== enclosingNode.body
   ) {
     addLeadingComment(enclosingNode, comment);
     return true;
@@ -850,17 +898,15 @@ function handleAssignmentPatternComments({ comment, enclosingNode }) {
   return false;
 }
 
-const assignmentLikeNodeTypes = new Set([
+const isAssignmentLikeNode = createTypeCheckFunction([
   "VariableDeclarator",
   "AssignmentExpression",
   "TypeAlias",
   "TSTypeAliasDeclaration",
 ]);
-const complexExprNodeTypes = new Set([
+const isComplexExprNode = createTypeCheckFunction([
   "ObjectExpression",
-  "RecordExpression",
   "ArrayExpression",
-  "TupleExpression",
   "TemplateLiteral",
   "TaggedTemplateExpression",
   "ObjectTypeAnnotation",
@@ -872,9 +918,9 @@ function handleVariableDeclaratorComments({
   followingNode,
 }) {
   if (
-    assignmentLikeNodeTypes.has(enclosingNode?.type) &&
+    isAssignmentLikeNode(enclosingNode) &&
     followingNode &&
-    (complexExprNodeTypes.has(followingNode.type) || isBlockComment(comment))
+    (isComplexExprNode(followingNode) || isBlockComment(comment))
   ) {
     addLeadingComment(followingNode, comment);
     return true;
@@ -885,6 +931,7 @@ function handleVariableDeclaratorComments({
 function handleTSFunctionTrailingComments({
   comment,
   enclosingNode,
+  precedingNode,
   followingNode,
   text,
 }) {
@@ -893,6 +940,7 @@ function handleTSFunctionTrailingComments({
     (enclosingNode?.type === "TSMethodSignature" ||
       enclosingNode?.type === "TSDeclareFunction" ||
       enclosingNode?.type === "TSAbstractMethodDefinition") &&
+    (!precedingNode || precedingNode !== enclosingNode.returnType) &&
     getNextNonSpaceNonCommentCharacter(text, locEnd(comment)) === ";"
   ) {
     addTrailingComment(enclosingNode, comment);
@@ -905,8 +953,7 @@ function handleIgnoreComments({ comment, enclosingNode, followingNode }) {
   if (
     isPrettierIgnoreComment(comment) &&
     enclosingNode?.type === "TSMappedType" &&
-    followingNode?.type === "TSTypeParameter" &&
-    followingNode.constraint
+    followingNode === enclosingNode.key
   ) {
     enclosingNode.prettierIgnore = true;
     comment.unignore = true;
@@ -914,27 +961,15 @@ function handleIgnoreComments({ comment, enclosingNode, followingNode }) {
   }
 }
 
-function handleTSMappedTypeComments({
-  comment,
-  precedingNode,
-  enclosingNode,
-  followingNode,
-}) {
+function handleTSMappedTypeComments({ comment, precedingNode, enclosingNode }) {
   if (enclosingNode?.type !== "TSMappedType") {
-    return false;
+    return;
   }
 
-  if (followingNode?.type === "TSTypeParameter" && followingNode.name) {
-    addLeadingComment(followingNode.name, comment);
+  if (!precedingNode) {
+    addDanglingComment(enclosingNode, comment);
     return true;
   }
-
-  if (precedingNode?.type === "TSTypeParameter" && precedingNode.constraint) {
-    addTrailingComment(precedingNode.constraint, comment);
-    return true;
-  }
-
-  return false;
 }
 
 function handleSwitchDefaultCaseComments({
@@ -1040,6 +1075,7 @@ function handleLastBinaryOperatorOperand({
   precedingNode,
   enclosingNode,
   followingNode,
+  text,
 }) {
   // "baz" should be a trailing comment of `cond3`:
   //
@@ -1057,19 +1093,96 @@ function handleLastBinaryOperatorOperand({
     //   !(
     //     (cond1 || cond2) // foo
     //   );
-    const isMultilineExpression =
-      enclosingNode.argument.loc?.start.line !==
-      precedingNode.right.loc.start.line;
-    const isSingleLineComment =
-      isLineComment(comment) || comment.loc.start.line === comment.loc.end.line;
-    const isSameLineComment =
-      comment.loc.start.line === precedingNode.right.loc.start.line;
-
-    if (isMultilineExpression && isSingleLineComment && isSameLineComment) {
+    // eslint-disable-next-line unicorn/no-lonely-if
+    if (
+      // Multiline expression
+      hasNewlineInRange(
+        text,
+        locStart(enclosingNode.argument),
+        locStart(precedingNode.right),
+      ) &&
+      isSingleLineComment(comment, text) &&
+      // Comment and `precedingNode.right` are on same line
+      !hasNewlineInRange(text, locStart(precedingNode.right), locStart(comment))
+    ) {
       addTrailingComment(precedingNode.right, comment);
       return true;
     }
   }
+  return false;
+}
+
+function handlePropertySignatureComments({
+  enclosingNode,
+  followingNode,
+  comment,
+}) {
+  if (
+    enclosingNode &&
+    (enclosingNode.type === "TSPropertySignature" ||
+      enclosingNode.type === "ObjectTypeProperty") &&
+    (isUnionType(followingNode) || isIntersectionType(followingNode))
+  ) {
+    addLeadingComment(followingNode, comment);
+    return true;
+  }
+}
+
+function handleBinaryCastExpressionComment({
+  enclosingNode,
+  precedingNode,
+  followingNode,
+  comment,
+  text,
+}) {
+  // Avoid break before `as` and `satisfies`
+  if (
+    isBinaryCastExpression(enclosingNode) &&
+    precedingNode === enclosingNode.expression &&
+    !isSingleLineComment(comment, text)
+  ) {
+    if (followingNode) {
+      addLeadingComment(followingNode, comment);
+    } else {
+      addTrailingComment(enclosingNode, comment);
+    }
+    return true;
+  }
+}
+
+/**
+ * Handle a comment after an arrow, like:
+ *   ```ts
+ *   const test = (): any => /* first line
+ *   second line
+ *   *\/
+ *   null;
+ *   ```
+ *
+ * @param {CommentContext} context
+ * @returns {boolean}
+ */
+function handleCommentAfterArrowExpression({
+  comment,
+  enclosingNode,
+  followingNode,
+  precedingNode,
+}) {
+  if (!(enclosingNode && followingNode && precedingNode)) {
+    return false;
+  }
+
+  if (
+    enclosingNode.type === "ArrowFunctionExpression" &&
+    // @ts-expect-error -- Safe
+    enclosingNode.returnType === precedingNode &&
+    (precedingNode.type === "TSTypeAnnotation" ||
+      precedingNode.type === "TypeAnnotation")
+  ) {
+    addLeadingComment(followingNode, comment);
+    return true;
+  }
+
   return false;
 }
 
@@ -1092,8 +1205,10 @@ const isRealFunctionLikeNode = createTypeCheckFunction([
   "TSDeclareMethod",
 ]);
 
-export {
-  handleEndOfLineComment as endOfLine,
-  handleOwnLineComment as ownLine,
-  handleRemainingComment as remaining,
+const handleComments = {
+  endOfLine: handleEndOfLineComment,
+  ownLine: handleOwnLineComment,
+  remaining: handleRemainingComment,
 };
+
+export default handleComments;

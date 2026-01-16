@@ -7,7 +7,7 @@ describe("should not write file or print code when `--debug-benchmark` or `--deb
     ).toBe(true);
   };
 
-  // Can't test `--debug-benchmark`, since it requires `benchmark` package
+  // Can't test `--debug-benchmark`, since it requires `tinybench` package
   runCli(
     "cli/performance-flags",
     ["--debug-repeat", "2", "--parser", "babel"],

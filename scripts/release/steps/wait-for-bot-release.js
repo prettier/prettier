@@ -1,6 +1,6 @@
-import chalk from "chalk";
+import styleText from "node-style-text";
 import outdent from "outdent";
-import { logPromise, waitForEnter } from "../utils.js";
+import { logPromise, waitForEnter } from "../utilities.js";
 
 export async function isVersionReleased(version) {
   const response = await fetch("https://registry.npmjs.org/prettier/");
@@ -14,13 +14,6 @@ export async function isVersionReleased(version) {
   return versionExists;
 }
 
-async function checkBotPermission() {
-  const response = await fetch("https://registry.npmjs.org/prettier/");
-  const { maintainers } = await response.json();
-
-  return maintainers.some(({ name }) => name === "prettier-bot");
-}
-
 const sleep = () =>
   new Promise((resolve) => {
     setTimeout(resolve, 30_000);
@@ -31,46 +24,18 @@ export default async function waitForBotRelease({ dry, version, next }) {
     return;
   }
 
-  if (!(await checkBotPermission())) {
-    console.log(
-      outdent`
-        1. Go to ${chalk.green.underline(
-          "https://www.npmjs.com/package/prettier/access",
-        )}
-        2. Add "${chalk.yellow("prettier-bot")}" as prettier package maintainer.
-      `,
-    );
-
-    await waitForEnter();
-  }
-
   console.log(
     outdent`
-      1. Go to ${chalk.green.underline(
-        "https://www.npmjs.com/package/prettier/access",
-      )}
-      2. Make sure "${chalk.yellow(
-        "Publishing access",
-      )}" section is set to "${chalk.yellow(
-        "Require two-factor authentication or automation tokens",
-      )}".
-    `,
-  );
-
-  await waitForEnter();
-
-  console.log(
-    outdent`
-      1. Go to ${chalk.green.underline(
+      1. Go to ${styleText.green.underline(
         "https://github.com/prettier/release-workflow/actions/workflows/release.yml",
       )}
-      2. Click "${chalk.green(
+      2. Click "${styleText.green(
         "Run workflow",
-      )}" button, type "${chalk.yellow.underline(
+      )}" button, type "${styleText.yellow.underline(
         version,
       )}" in "Version to release", ${
         next ? 'check only "Unstable version"' : "uncheck all checkboxes"
-      }, hit the "${chalk.bgGreen("Run workflow")}" button.
+      }, hit the "${styleText.bgGreen("Run workflow")}" button.
     `,
   );
 

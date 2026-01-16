@@ -1,14 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`inexact.js [babel-flow] format 1`] = `
-"Unexpected token (1:15)
-> 1 | type Empty = [...];
-    |               ^
-  2 |
-  3 | type One = [number, ...];
-  4 |
-Cause: Unexpected token (1:14)"
-`;
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`inexact.js format 1`] = `
 ====================================options=====================================
@@ -28,14 +18,6 @@ type One = [number, ...];
 ================================================================================
 `;
 
-exports[`labeled.js [babel-flow] format 1`] = `
-"Unexpected token, expected "," (1:12)
-> 1 | type T = [a: string, b: number];
-    |            ^
-  2 |
-Cause: Unexpected token, expected "," (1:11)"
-`;
-
 exports[`labeled.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
@@ -48,16 +30,6 @@ type T = [a: string, b: number];
 type T = [a: string, b: number];
 
 ================================================================================
-`;
-
-exports[`optional.js [babel-flow] format 1`] = `
-"Unexpected token, expected "," (1:12)
-> 1 | type A = [a?: string, +b?: number, -c?: boolean];
-    |            ^
-  2 |
-  3 | // Unaffected
-  4 | type B = [?string, [?string], (?string) => boolean];
-Cause: Unexpected token, expected "," (1:11)"
 `;
 
 exports[`optional.js format 1`] = `
@@ -78,14 +50,6 @@ type A = [a?: string, +b?: number, -c?: boolean];
 type B = [?string, [?string], (?string) => boolean];
 
 ================================================================================
-`;
-
-exports[`variance.js [babel-flow] format 1`] = `
-"Unexpected token, expected "," (1:12)
-> 1 | type T = [a: string, +b: number, -c: boolean];
-    |            ^
-  2 |
-Cause: Unexpected token, expected "," (1:11)"
 `;
 
 exports[`variance.js format 1`] = `

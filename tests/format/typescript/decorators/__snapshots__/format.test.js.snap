@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`abstract-method.ts [babel-ts] format 1`] = `
 ====================================options=====================================
@@ -18,6 +18,16 @@ class A {
 }
 
 ================================================================================
+`;
+
+exports[`abstract-method.ts [oxc-ts] format 1`] = `
+"A decorator can only decorate a method implementation, not an overload. (2:5)
+  1 | class A {
+> 2 |     @decorator()
+    |     ^^^^^^^^^^^^
+  3 |     abstract method(): Array<string>
+  4 | }
+  5 |"
 `;
 
 exports[`abstract-method.ts [typescript] format 1`] = `

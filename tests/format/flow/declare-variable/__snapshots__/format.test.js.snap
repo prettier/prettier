@@ -1,15 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`decare.js [babel-flow] format 1`] = `
-"Unexpected token (2:9)
-  1 | declare var a: string;
-> 2 | declare let b: string;
-    |         ^
-  3 | declare const c: string;
-  4 | declare export var a: string;
-  5 | declare export let b: string;
-Cause: Unexpected token (2:8)"
-`;
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`decare.js format 1`] = `
 ====================================options=====================================

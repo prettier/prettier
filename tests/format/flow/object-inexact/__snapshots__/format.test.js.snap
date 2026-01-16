@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`comments.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
@@ -81,7 +81,10 @@ type Foo = {
   ...
 };
 
-type Foo = { /* comment */ ... };
+type Foo = {
+  /* comment */
+  ...
+};
 
 type Foo = {
   /* comment */
@@ -216,7 +219,10 @@ type Foo = {
   ...
 };
 
-type Foo = { /* comment */ ... };
+type Foo = {
+  /* comment */
+  ...
+};
 
 type Foo = {
   /* comment */
@@ -351,7 +357,10 @@ type Foo = {
   ...
 };
 
-type Foo = { /* comment */ ... };
+type Foo = {
+  /* comment */
+  ...
+};
 
 type Foo = {
   /* comment */

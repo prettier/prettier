@@ -1,65 +1,53 @@
-function removeUnset(editorConfig) {
-  const result = {};
-  const keys = Object.keys(editorConfig);
-  for (let i = 0; i < keys.length; i++) {
-    const key = keys[i];
-    if (editorConfig[key] === "unset") {
-      continue;
-    }
-    result[key] = editorConfig[key];
-  }
-  return result;
-}
+const isPositiveInteger = (value) => Number.isSafeInteger(value) && value > 0;
 
 function editorConfigToPrettier(editorConfig) {
   if (!editorConfig) {
-    return null;
-  }
-
-  editorConfig = removeUnset(editorConfig);
-
-  if (Object.keys(editorConfig).length === 0) {
-    return null;
+    return;
   }
 
   const result = {};
 
-  if (editorConfig.indent_style) {
-    result.useTabs = editorConfig.indent_style === "tab";
-  }
+  const {
+    indent_style,
+    indent_size,
+    tab_width,
+    max_line_length,
+    quote_type,
+    end_of_line,
+  } = editorConfig;
 
-  if (editorConfig.indent_size === "tab") {
+  if (indent_style === "space") {
+    result.useTabs = false;
+  } else if (indent_style === "tab" || indent_size === "tab") {
     result.useTabs = true;
   }
 
-  if (result.useTabs && editorConfig.tab_width) {
-    result.tabWidth = editorConfig.tab_width;
-  } else if (
-    editorConfig.indent_style === "space" &&
-    editorConfig.indent_size &&
-    editorConfig.indent_size !== "tab"
-  ) {
-    result.tabWidth = editorConfig.indent_size;
-  } else if (editorConfig.tab_width !== undefined) {
-    result.tabWidth = editorConfig.tab_width;
+  // This part not strictly following https://github.com/editorconfig/editorconfig/wiki/EditorConfig-Properties
+  if (result.useTabs === false && isPositiveInteger(indent_size)) {
+    result.tabWidth = indent_size;
+  } else if (isPositiveInteger(tab_width)) {
+    result.tabWidth = tab_width;
   }
 
-  if (editorConfig.max_line_length) {
-    if (editorConfig.max_line_length === "off") {
-      result.printWidth = Number.POSITIVE_INFINITY;
-    } else {
-      result.printWidth = editorConfig.max_line_length;
-    }
+  if (max_line_length === "off") {
+    result.printWidth = Number.POSITIVE_INFINITY;
+  } else if (isPositiveInteger(max_line_length)) {
+    result.printWidth = max_line_length;
   }
 
-  if (editorConfig.quote_type === "single") {
+  // Undocumented feature, https://github.com/prettier/prettier/pull/12780
+  if (quote_type === "single") {
     result.singleQuote = true;
-  } else if (editorConfig.quote_type === "double") {
+  } else if (quote_type === "double") {
     result.singleQuote = false;
   }
 
-  if (["cr", "crlf", "lf"].includes(editorConfig.end_of_line)) {
-    result.endOfLine = editorConfig.end_of_line;
+  if (end_of_line === "lf" || end_of_line === "crlf" || end_of_line === "cr") {
+    result.endOfLine = end_of_line;
+  }
+
+  if (Object.keys(result).length === 0) {
+    return;
   }
 
   return result;

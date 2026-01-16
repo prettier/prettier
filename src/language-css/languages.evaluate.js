@@ -1,5 +1,5 @@
-import linguistLanguages from "linguist-languages";
-import createLanguage from "../utils/create-language.js";
+import * as linguistLanguages from "linguist-languages";
+import createLanguage from "../utilities/create-language.js";
 
 const languages = [
   createLanguage(linguistLanguages.CSS, (data) => ({

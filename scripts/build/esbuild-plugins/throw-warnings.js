@@ -71,7 +71,10 @@ const logOverride = Object.fromEntries(
 export default function esbuildPluginThrowWarnings({
   allowDynamicRequire,
   allowDynamicImport,
+  allowedWarnings,
 }) {
+  allowedWarnings = new Set(allowedWarnings);
+
   return {
     name: "throw-warnings",
     setup(build) {
@@ -87,6 +90,10 @@ export default function esbuildPluginThrowWarnings({
         }
 
         for (const warning of result.warnings) {
+          if (allowedWarnings.has(warning.id)) {
+            continue;
+          }
+
           if (
             allowDynamicRequire &&
             ["unsupported-require-call", "indirect-require"].includes(
@@ -110,18 +117,6 @@ export default function esbuildPluginThrowWarnings({
               "dist/_parser-flow.js.esm.mjs",
             ].includes(warning.location.file) &&
             warning.id === "duplicate-case"
-          ) {
-            continue;
-          }
-
-          if (
-            warning.id === "package.json" &&
-            warning.location.file.startsWith("node_modules/") &&
-            (warning.text ===
-              'The condition "default" here will never be used as it comes after both "import" and "require"' ||
-              // `lines-and-columns`
-              warning.text ===
-                'The condition "types" here will never be used as it comes after both "import" and "require"')
           ) {
             continue;
           }

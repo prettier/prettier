@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`async-arrow-invalid.js [flow] format 1`] = `
 "Unexpected token ILLEGAL (4:1)

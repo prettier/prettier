@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`comment.js format 1`] = `
 ====================================options=====================================
@@ -14,7 +14,7 @@ const myValue = (callcallcallcallcallcall(87689769876876897698768768976987687689
 const myValue = (callcallcallcallcallcall(
   87689769876876897698768768976987687689769876,
 ): // Comment
-| one
+  | one
   | two
   | thre
   | jdkxhflksjdhfglkjsdhfglkjhsdkfljghskdjhfgkljshdfgkjhsdkljfhgkljshdfgjdfklgjhklj);

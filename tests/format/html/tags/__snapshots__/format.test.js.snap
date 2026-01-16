@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`case-sensitive.html - {"htmlWhitespaceSensitivity":"ignore"} format 1`] = `
 ====================================options=====================================
@@ -656,21 +656,27 @@ printWidth: 1
 <menu>
   <li>
     <button
-      onclick="copy()"
+      onclick="
+        copy()
+      "
     >
       Copy
     </button>
   </li>
   <li>
     <button
-      onclick="cut()"
+      onclick="
+        cut()
+      "
     >
       Cut
     </button>
   </li>
   <li>
     <button
-      onclick="paste()"
+      onclick="
+        paste()
+      "
     >
       Paste
     </button>

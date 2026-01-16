@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`abstract.ts [babel-ts] format 1`] = `
 "Method 'foo' cannot have an implementation because it is marked abstract. (2:5)

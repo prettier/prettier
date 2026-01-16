@@ -1,4 +1,4 @@
-/** @import {Doc} from "../../document/builders.js" */
+/** @import {Doc} from "../../document/index.js" */
 
 import {
   conditionalGroup,
@@ -6,7 +6,7 @@ import {
   hardline,
   ifBreak,
   line,
-} from "../../document/builders.js";
+} from "../../document/index.js";
 import {
   hasEndComments,
   hasLeadingComments,
@@ -15,10 +15,10 @@ import {
   isEmptyNode,
   isInlineNode,
   isNode,
-} from "../utils.js";
+} from "../utilities.js";
 import { alignWithSpaces } from "./misc.js";
 
-function printMappingItem(path, print, options) {
+function printMappingItem(path, options, print) {
   const { node, parent } = path;
   const { key, value } = node;
 
@@ -98,6 +98,13 @@ function printMappingItem(path, print, options) {
   // as part of the mapping value
   const implicitMappingValueParts = [spaceBeforeColon, ":"];
   if (
+    hasEndComments(value) &&
+    value.content &&
+    isNode(value.content, ["flowMapping", "flowSequence"]) &&
+    value.content.children.length === 0
+  ) {
+    implicitMappingValueParts.push(" ");
+  } else if (
     hasLeadingComments(value.content) ||
     (hasEndComments(value) &&
       value.content &&
@@ -128,6 +135,7 @@ function printMappingItem(path, print, options) {
     isAbsolutelyPrintedAsSingleLineNode(key.content, options) &&
     !hasLeadingComments(key.content) &&
     !hasMiddleComments(key.content) &&
+    !hasTrailingComment(key.content) &&
     !hasEndComments(key)
   ) {
     return conditionalGroup([[printedKey, implicitMappingValue]]);

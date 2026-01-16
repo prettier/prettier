@@ -33,3 +33,14 @@ a = {
   // this is a function
   {},
 }
+
+class A {
+
+  foo()
+  // this is a function
+  {}
+
+  bar = function()
+  // this is a function
+  {}
+}

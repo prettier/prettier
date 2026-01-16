@@ -1,7 +1,7 @@
-import { hardline, line } from "../../document/builders.js";
-import isFrontMatter from "../../utils/front-matter/is-front-matter.js";
-import hasNewline from "../../utils/has-newline.js";
-import isNextLineEmpty from "../../utils/is-next-line-empty.js";
+import { hardline, line } from "../../document/index.js";
+import { isFrontMatter } from "../../main/front-matter/index.js";
+import hasNewline from "../../utilities/has-newline.js";
+import isNextLineEmpty from "../../utilities/is-next-line-empty.js";
 import { locEnd, locStart } from "../loc.js";
 
 function printSequence(path, options, print) {

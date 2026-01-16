@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`classes.js [acorn] format 1`] = `
 "Unexpected character '@' (1:1)
@@ -20,9 +20,31 @@ exports[`classes.js [espree] format 1`] = `
 Cause: Unexpected character '@'"
 `;
 
+exports[`classes.js [flow] format 1`] = `
+"Unexpected token \`@\` (7:13)
+   5 | @deco export default class Baz {}
+   6 |
+>  7 | const foo = @deco class {
+     |             ^
+   8 |   //
+   9 | };
+  10 |"
+`;
+
+exports[`classes.js [hermes] format 1`] = `
+"unrecognized character '@' (1:0)
+> 1 | @deco class Foo {}
+  2 |
+  3 | @deco export class Bar {}
+  4 |
+Cause: unrecognized character '@' (1:0)
+@deco class Foo {}
+^"
+`;
+
 exports[`classes.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -91,9 +113,22 @@ exports[`comments.js [espree] format 1`] = `
 Cause: Unexpected character '@'"
 `;
 
+exports[`comments.js [hermes] format 1`] = `
+"unrecognized character '@' (3:0)
+  1 | var x = 100
+  2 |
+> 3 | @Hello({
+  4 |   a: 'a', // Comment is in the wrong place
+  5 |   // test
+  6 |   b: '2'
+Cause: unrecognized character '@' (3:0)
+@Hello({
+^"
+`;
+
 exports[`comments.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -196,9 +231,23 @@ exports[`member-expression.js [espree] format 1`] = `
 Cause: Unexpected character '@'"
 `;
 
+exports[`member-expression.js [hermes] format 1`] = `
+"unrecognized character '@' (3:4)
+  1 | [
+  2 |   class {
+> 3 |     @(decorator)
+    |    ^
+  4 |     method() {}
+  5 |   },
+  6 |   class {
+Cause: unrecognized character '@' (3:4)
+    @(decorator)
+    ^"
+`;
+
 exports[`member-expression.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -364,9 +413,23 @@ exports[`methods.js [espree] format 1`] = `
 Cause: Unexpected character '@'"
 `;
 
+exports[`methods.js [hermes] format 1`] = `
+"unrecognized character '@' (3:2)
+  1 |
+  2 | class Yo {
+> 3 |   @foo("hello")
+    |  ^
+  4 |   async plop() {}
+  5 |
+  6 |   @anotherDecoratorWithALongName("and a very long string as a first argument")
+Cause: unrecognized character '@' (3:2)
+  @foo("hello")
+  ^"
+`;
+
 exports[`methods.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -420,9 +483,22 @@ exports[`mixed.js [espree] format 1`] = `
 Cause: Unexpected character '@'"
 `;
 
+exports[`mixed.js [hermes] format 1`] = `
+"unrecognized character '@' (3:0)
+  1 | // https://github.com/prettier/prettier/issues/6747
+  2 |
+> 3 | @foo
+  4 | export default class MyComponent {
+  5 |   @task
+  6 |   *foo() {
+Cause: unrecognized character '@' (3:0)
+@foo
+^"
+`;
+
 exports[`mixed.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -470,9 +546,22 @@ exports[`mobx.js [espree] format 1`] = `
 Cause: Unexpected character '@'"
 `;
 
+exports[`mobx.js [hermes] format 1`] = `
+"unrecognized character '@' (3:0)
+  1 | import {observable} from "mobx";
+  2 |
+> 3 | @observer class OrderLine {
+  4 |   @observable price = 0;
+  5 |   @observable amount = 1;
+  6 |
+Cause: unrecognized character '@' (3:0)
+@observer class OrderLine {
+^"
+`;
+
 exports[`mobx.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -584,9 +673,22 @@ exports[`multiline.js [espree] format 1`] = `
 Cause: Unexpected character '@'"
 `;
 
+exports[`multiline.js [hermes] format 1`] = `
+"unrecognized character '@' (2:2)
+  1 | class Foo {
+> 2 |   @deco([
+    |  ^
+  3 |     foo,
+  4 |     bar
+  5 |   ]) prop = value;
+Cause: unrecognized character '@' (2:2)
+  @deco([
+  ^"
+`;
+
 exports[`multiline.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -645,9 +747,22 @@ exports[`multiple.js [espree] format 1`] = `
 Cause: Unexpected character '@'"
 `;
 
+exports[`multiple.js [hermes] format 1`] = `
+"unrecognized character '@' (2:2)
+  1 | const dog = class {
+> 2 |   @readonly
+    |  ^
+  3 |   @nonenumerable
+  4 |   @doubledValue
+  5 |   legs = 4;
+Cause: unrecognized character '@' (2:2)
+  @readonly
+  ^"
+`;
+
 exports[`multiple.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -716,9 +831,22 @@ exports[`parens.js [espree] format 1`] = `
 Cause: Unexpected character '@'"
 `;
 
+exports[`parens.js [hermes] format 1`] = `
+"unrecognized character '@' (2:2)
+  1 | class X {
+> 2 |   @(computed().volatile())
+    |  ^
+  3 |   x
+  4 | }
+  5 |
+Cause: unrecognized character '@' (2:2)
+  @(computed().volatile())
+  ^"
+`;
+
 exports[`parens.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -756,9 +884,20 @@ exports[`redux.js [espree] format 1`] = `
 Cause: Unexpected character '@'"
 `;
 
+exports[`redux.js [hermes] format 1`] = `
+"unrecognized character '@' (1:0)
+> 1 | @connect(mapStateToProps, mapDispatchToProps)
+  2 | export class MyApp extends React.Component {}
+  3 |
+  4 | @connect(state => ({ todos: state.todos }))
+Cause: unrecognized character '@' (1:0)
+@connect(mapStateToProps, mapDispatchToProps)
+^"
+`;
+
 exports[`redux.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

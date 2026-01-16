@@ -1,22 +1,37 @@
 import { Parser as AcornParser } from "acorn";
 import acornJsx from "acorn-jsx";
 import createError from "../../common/parser-create-error.js";
-import tryCombinations from "../../utils/try-combinations.js";
+import { tryCombinationsSync } from "../../utilities/try-combinations.js";
 import postprocess from "./postprocess/index.js";
-import createParser from "./utils/create-parser.js";
-import getSourceType from "./utils/get-source-type.js";
+import createParser from "./utilities/create-parser.js";
+import {
+  getSourceType,
+  SOURCE_TYPE_COMBINATIONS,
+  SOURCE_TYPE_COMMONJS,
+  SOURCE_TYPE_MODULE,
+  SOURCE_TYPE_SCRIPT,
+} from "./utilities/source-types.js";
 
-/** @import {Options} from "acorn" */
+/**
+@import {Options} from "acorn";
+*/
 
 /** @type {Options} */
 const parseOptions = {
   ecmaVersion: "latest",
   // sourceType: "module",
+  // onInsertedSemicolon: null,
+  // onTrailingComma: null,
+  allowReserved: true,
   allowReturnOutsideFunction: true,
   // allowImportExportEverywhere: true,
+  // allowAwaitOutsideFunction: null,
   allowSuperOutsideMethod: true,
-  locations: true,
+  // allowHashBang: true,
+  checkPrivateFields: false,
+  locations: false,
   ranges: true,
+  preserveParens: true,
 };
 
 function createParseError(error) {
@@ -44,37 +59,39 @@ const getParser = () => {
   return parser;
 };
 
+/**
+@param {string} text
+@param {SOURCE_TYPE_MODULE | SOURCE_TYPE_COMMONJS | undefined} sourceType
+*/
 function parseWithOptions(text, sourceType) {
   const parser = getParser();
 
   const comments = [];
-  const tokens = [];
 
   const ast = parser.parse(text, {
     ...parseOptions,
-    sourceType,
-    allowImportExportEverywhere: sourceType === "module",
+    // https://github.com/acornjs/acorn/pull/1377 not released yet
+    sourceType:
+      sourceType === SOURCE_TYPE_COMMONJS ? SOURCE_TYPE_SCRIPT : sourceType,
+    allowImportExportEverywhere: sourceType === SOURCE_TYPE_MODULE,
     onComment: comments,
-    onToken: tokens,
   });
 
   // @ts-expect-error -- expected
   ast.comments = comments;
-  // @ts-expect-error -- expected
-  ast.tokens = tokens;
 
   return ast;
 }
 
-function parse(text, options = {}) {
-  const sourceType = getSourceType(options);
-  const combinations = (sourceType ? [sourceType] : ["module", "script"]).map(
-    (sourceType) => () => parseWithOptions(text, sourceType),
-  );
+function parse(text, options) {
+  const sourceType = getSourceType(options?.filepath);
+  const combinations = (
+    sourceType ? [sourceType] : SOURCE_TYPE_COMBINATIONS
+  ).map((sourceType) => () => parseWithOptions(text, sourceType));
 
   let ast;
   try {
-    ast = tryCombinations(combinations);
+    ast = tryCombinationsSync(combinations);
   } catch (/** @type {any} */ { errors: [error] }) {
     throw createParseError(error);
   }

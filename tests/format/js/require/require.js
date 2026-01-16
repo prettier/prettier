@@ -15,3 +15,5 @@ const plugin2 = require(
     global.STANDALONE ? "../standalone.js" : '..'
   )
 );
+
+const plugin3 = require('./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module')

@@ -6,35 +6,36 @@ import {
   indentIfBreak,
   join,
   line,
+  removeLines,
   softline,
-} from "../../document/builders.js";
-import { removeLines, willBreak } from "../../document/utils.js";
+  willBreak,
+} from "../../document/index.js";
 import {
   printCommentsSeparately,
   printDanglingComments,
 } from "../../main/comments/print.js";
-import getNextNonSpaceNonCommentCharacterIndex from "../../utils/get-next-non-space-non-comment-character-index.js";
+import getNextNonSpaceNonCommentCharacterIndex from "../../utilities/get-next-non-space-non-comment-character-index.js";
 import { locEnd } from "../loc.js";
 import {
   CommentCheckFlags,
   getFunctionParameters,
   hasComment,
   hasLeadingOwnLineComment,
-  isArrayOrTupleExpression,
+  isArrayExpression,
   isBinaryish,
   isCallLikeExpression,
   isJsxElement,
-  isObjectOrRecordExpression,
+  isObjectExpression,
   isTemplateOnItsOwnLine,
   shouldPrintComma,
   startsWithNoLookaheadToken,
-} from "../utils/index.js";
+} from "../utilities/index.js";
 import { printReturnType, shouldPrintParamsWithoutParens } from "./function.js";
 import { printFunctionParameters } from "./function-parameters.js";
 
 /**
  * @import AstPath from "../../common/ast-path.js"
- * @import {Doc} from "../../document/builders.js"
+ * @import {Doc} from "../../document/index.js"
  */
 
 // In order to avoid confusion between
@@ -177,9 +178,9 @@ function printArrowFunctionSignature(path, options, print, args) {
   if (shouldPrintParamsWithoutParens(path, options)) {
     parts.push(print(["params", 0]));
   } else {
-    const expandArg = args.expandLastArg || args.expandFirstArg;
+    const shouldExpandArgument = args.expandLastArg || args.expandFirstArg;
     let returnTypeDoc = printReturnType(path, print);
-    if (expandArg) {
+    if (shouldExpandArgument) {
       if (willBreak(returnTypeDoc)) {
         throw new ArgExpansionBailout();
       }
@@ -189,10 +190,10 @@ function printArrowFunctionSignature(path, options, print, args) {
       group([
         printFunctionParameters(
           path,
-          print,
           options,
-          expandArg,
-          /* printTypeParams */ true,
+          print,
+          shouldExpandArgument,
+          /* shouldPrintTypeParameters */ true,
         ),
         returnTypeDoc,
       ]),
@@ -226,8 +227,8 @@ function printArrowFunctionSignature(path, options, print, args) {
  */
 function mayBreakAfterShortPrefix(functionBody, bodyDoc, options) {
   return (
-    isArrayOrTupleExpression(functionBody) ||
-    isObjectOrRecordExpression(functionBody) ||
+    isArrayExpression(functionBody) ||
+    isObjectExpression(functionBody) ||
     functionBody.type === "ArrowFunctionExpression" ||
     functionBody.type === "DoExpression" ||
     functionBody.type === "BlockStatement" ||
@@ -324,10 +325,6 @@ function printArrowFunctionBody(
       ]),
       bodyComments,
     ];
-  }
-
-  if (shouldAlwaysAddParens(functionBody)) {
-    bodyDoc = group(["(", indent([softline, bodyDoc]), softline, ")"]);
   }
 
   return shouldPutBodyOnSameLine

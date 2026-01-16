@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`option.hbs - {"htmlWhitespaceSensitivity":"ignore","printWidth":40} format 1`] = `
 ====================================options=====================================
@@ -209,11 +209,9 @@ expressions. sometimes{{nogaps}}areimportant
   some {{text}}
 </HelloWorld>
 
-<div class="a list of classes">
-</div>
+<div class="a list of classes"></div>
 
-<div class="a list of classes">
-</div>
+<div class="a list of classes"></div>
 
 <span>
   This is your name: {{name}}.
@@ -303,8 +301,7 @@ expressions. sometimes{{nogaps}}areimportant
 
 <table>
   <thead>
-    <tr>
-    </tr>
+    <tr></tr>
   </thead>
 </table>
 ================================================================================

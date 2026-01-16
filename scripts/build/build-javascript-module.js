@@ -2,9 +2,11 @@ import path from "node:path";
 import url from "node:url";
 import browserslistToEsbuild from "browserslist-to-esbuild";
 import esbuild from "esbuild";
-import { nodeModulesPolyfillPlugin as esbuildPluginNodeModulePolyfills } from "esbuild-plugins-node-modules-polyfill";
 import createEsmUtils from "esm-utils";
-import { DIST_DIR, PROJECT_ROOT } from "../utils/index.js";
+import {
+  PRODUCTION_MINIMAL_NODE_JS_VERSION,
+  PROJECT_ROOT,
+} from "../utilities/index.js";
 import esbuildPluginAddDefaultExport from "./esbuild-plugins/add-default-export.js";
 import esbuildPluginEvaluate from "./esbuild-plugins/evaluate.js";
 import esbuildPluginPrimitiveDefine from "./esbuild-plugins/primitive-define.js";
@@ -15,10 +17,9 @@ import esbuildPluginThrowWarnings from "./esbuild-plugins/throw-warnings.js";
 import esbuildPluginUmd from "./esbuild-plugins/umd.js";
 import esbuildPluginVisualizer from "./esbuild-plugins/visualizer.js";
 import transform from "./transform/index.js";
-import { getPackageFile } from "./utils.js";
+import { getPackageFile } from "./utilities.js";
 
 const {
-  dirname,
   readJsonSync,
   require,
   resolve: importMetaResolve,
@@ -35,23 +36,13 @@ const getRelativePath = (from, to) => {
   return relativePath;
 };
 
-function getEsbuildOptions({ file, files, cliOptions }) {
+function getEsbuildOptions({ packageConfig, file, cliOptions }) {
+  const { distDirectory, files } = packageConfig;
+
   // Save dependencies to file
   file.dependencies = [];
 
   const replaceModule = [
-    // Use `require` directly
-    {
-      module: "*",
-      find: "const require = createRequire(import.meta.url);",
-      replacement: "",
-    },
-    // Use `__dirname` directly
-    {
-      module: "*",
-      find: "const __dirname = path.dirname(fileURLToPath(import.meta.url));",
-      replacement: "",
-    },
     /*
     `jest-docblock` try to detect new line in code, and it will fallback to `os.EOL`,
     We already replaced line end to `\n` before calling it
@@ -104,7 +95,7 @@ function getEsbuildOptions({ file, files, cliOptions }) {
     // Transform `.at`, `Object.hasOwn`, and `String#replaceAll`
     {
       module: "*",
-      process: transform,
+      process: (text, file) => transform(text, file, buildOptions),
     },
     // #12493, not sure what the problem is, but replace the cjs version with esm version seems fix it
     {
@@ -177,39 +168,16 @@ function getEsbuildOptions({ file, files, cliOptions }) {
           };
         }),
     );
-  } else {
-    replaceModule.push(
-      // When running build script with `--no-minify`, `esbuildPluginNodeModulePolyfills` shim `module` module incorrectly
-      {
-        module: "*",
-        find: 'import { createRequire } from "node:module";',
-        replacement: "",
-      },
-      // Prevent `esbuildPluginNodeModulePolyfills` shim `assert`, which will include a big `buffer` shim
-      // TODO[@fisker]: Find a better way
-      {
-        module: "*",
-        find: ' from "node:assert";',
-        replacement: ` from ${JSON.stringify(
-          path.join(dirname, "./shims/assert.js"),
-        )};`,
-      },
-      // Prevent `esbuildPluginNodeModulePolyfills` include shim for this module
-      {
-        module: "assert",
-        path: path.join(dirname, "./shims/assert.js"),
-      },
-      // `esbuildPluginNodeModulePolyfills` didn't shim this module
-      {
-        module: "module",
-        text: "export const createRequire = () => {};",
-      },
-      // This module requires file access, should not include in universal bundle
-      {
-        module: path.join(PROJECT_ROOT, "src/utils/get-interpreter.js"),
-        text: "export default undefined;",
-      },
-    );
+  }
+
+  // Current version of `yaml` is not tree-shakable,
+  // but when we update it, we may reduce size,
+  // since the UMD version don't need expose `__parsePrettierYamlConfig`
+  if (file.output.format === "umd" && file.output.file === "plugins/yaml.js") {
+    replaceModule.push({
+      module: path.join(PROJECT_ROOT, file.input),
+      text: 'export * from "../language-yaml/index.js";',
+    });
   }
 
   const { buildOptions } = file;
@@ -221,18 +189,18 @@ function getEsbuildOptions({ file, files, cliOptions }) {
     bundle: true,
     metafile: true,
     plugins: [
-      esbuildPluginPrimitiveDefine(define),
+      esbuildPluginPrimitiveDefine({ ...define, ...buildOptions.define }),
       esbuildPluginEvaluate(),
       esbuildPluginStripNodeProtocol(),
       esbuildPluginReplaceModule({
-        replacements: [...replaceModule, ...(buildOptions.replaceModule ?? [])],
+        replacements: [...(buildOptions.replaceModule ?? []), ...replaceModule],
       }),
-      file.platform === "universal" && esbuildPluginNodeModulePolyfills(),
       cliOptions.reports &&
         esbuildPluginVisualizer({ formats: cliOptions.reports }),
       esbuildPluginThrowWarnings({
         allowDynamicRequire: file.platform === "node",
         allowDynamicImport: file.platform === "node",
+        allowedWarnings: buildOptions.allowedWarnings,
       }),
       buildOptions.addDefaultExport && esbuildPluginAddDefaultExport(),
     ].filter(Boolean),
@@ -241,15 +209,24 @@ function getEsbuildOptions({ file, files, cliOptions }) {
     external: ["pnpapi", ...(buildOptions.external ?? [])],
     // Disable esbuild auto discover `tsconfig.json` file
     tsconfigRaw: JSON.stringify({}),
-    target: [...(buildOptions.target ?? ["node14"])],
+    target: [
+      ...(buildOptions.target ?? [`node${PRODUCTION_MINIMAL_NODE_JS_VERSION}`]),
+    ],
     logLevel: "error",
     format: file.output.format,
-    outfile: path.join(DIST_DIR, cliOptions.saveAs ?? file.output.file),
+    outfile: path.join(distDirectory, cliOptions.saveAs ?? file.output.file),
     // https://esbuild.github.io/api/#main-fields
     mainFields: file.platform === "node" ? ["module", "main"] : undefined,
     supported: {
+      ...buildOptions.supported,
       // https://github.com/evanw/esbuild/issues/3471
       "regexp-unicode-property-escapes": true,
+      // Maybe because Node.js v14 doesn't support "spread parameters after optional chaining" https://node.green/
+      "optional-chain": true,
+      // Maybe because https://github.com/evanw/esbuild/pull/3167?
+      "class-field": true,
+      "class-private-field": true,
+      "class-private-method": true,
     },
     packages: "bundle",
   };

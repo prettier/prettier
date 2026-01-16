@@ -5,8 +5,8 @@ import {
   join,
   line,
   softline,
-} from "../../document/builders.js";
-import { hasPrettierIgnore } from "../utils/index.js";
+} from "../../document/index.js";
+import { hasPrettierIgnore } from "../utilities/index.js";
 import ANGULAR_CONTROL_FLOW_BLOCK_SETTINGS from "./angular-control-flow-block-settings.evaluate.js";
 import { printChildren } from "./children.js";
 
@@ -43,7 +43,7 @@ function printAngularControlFlowBlock(path, options, print) {
 
 function shouldCloseBlock(node) {
   return !(
-    node.next?.type === "angularControlFlowBlock" &&
+    node.next?.kind === "angularControlFlowBlock" &&
     ANGULAR_CONTROL_FLOW_BLOCK_SETTINGS.get(node.name)?.has(node.next.name)
   );
 }
@@ -51,7 +51,7 @@ function shouldCloseBlock(node) {
 function isPreviousBlockUnClosed(path) {
   const { previous } = path;
   return (
-    previous?.type === "angularControlFlowBlock" &&
+    previous?.kind === "angularControlFlowBlock" &&
     !hasPrettierIgnore(previous) &&
     !shouldCloseBlock(previous)
   );

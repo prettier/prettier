@@ -1,8 +1,10 @@
 ---
-id: version-stable-precommit
+id: precommit
 title: Pre-commit Hook
-original_id: precommit
 ---
+
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
 
 You can use Prettier with a pre-commit tool. This can re-format your files that are marked as “staged” via `git add` before you commit.
 
@@ -20,7 +22,54 @@ This will install [husky](https://github.com/typicode/husky) and [lint-staged](h
 
 Read more at the [lint-staged](https://github.com/okonet/lint-staged#configuration) repo.
 
-## Option 2. [Husky.Net](https://github.com/alirezanet/Husky.Net)
+## Option 2. [pretty-quick](https://github.com/prettier/pretty-quick)
+
+**Use Case:** Great for when you want an entire file formatting on your changed/staged files.
+
+Install it along with [simple-git-hooks](https://github.com/toplenboren/simple-git-hooks):
+
+<Tabs groupId="package-manager">
+<TabItem value="npm">
+
+```bash
+npm install --save-dev simple-git-hooks pretty-quick
+echo '{\n  "pre-commit": "npx pretty-quick --staged"\n}\n' > .simple-git-hooks.json
+npx simple-git-hooks
+```
+
+</TabItem>
+<TabItem value="yarn">
+
+```bash
+yarn add --dev simple-git-hooks pretty-quick
+echo '{\n  "pre-commit": "yarn pretty-quick --staged"\n}\n' > .simple-git-hooks.json
+yarn simple-git-hooks
+```
+
+</TabItem>
+<TabItem value="pnpm">
+
+```bash
+pnpm add --save-dev simple-git-hooks pretty-quick
+echo '{\n  "pre-commit": "pnpm pretty-quick --staged"\n}\n' > .simple-git-hooks.json
+pnpm simple-git-hooks
+```
+
+</TabItem>
+<TabItem value="bun">
+
+```bash
+bun add --dev simple-git-hooks pretty-quick
+echo '{\n  "pre-commit": "bun pretty-quick --staged"\n}\n' > .simple-git-hooks.json
+bun simple-git-hooks
+```
+
+</TabItem>
+</Tabs>
+
+Read more at the [pretty-quick](https://github.com/prettier/pretty-quick) repo.
+
+## Option 3. [Husky.Net](https://github.com/alirezanet/Husky.Net)
 
 **Use Case:** A dotnet solution to use Prettier along with other code quality tools (e.g. dotnet-format, ESLint, Stylelint, etc.). It supports multiple file states (staged - last-commit, git-files etc.)
 
@@ -41,7 +90,7 @@ after installation you can add prettier task to the `task-runner.json`.
 }
 ```
 
-## Option 3. [git-format-staged](https://github.com/hallettj/git-format-staged)
+## Option 4. [git-format-staged](https://github.com/hallettj/git-format-staged)
 
 **Use Case:** Great for when you want to format partially-staged files, and other options do not provide a good fit for your project.
 
@@ -54,8 +103,8 @@ Git-format-staged is used to run any formatter that can accept file content via 
 
 Git-format-staged requires Python v3 or v2.7. Python is usually pre-installed on Linux and macOS, but not on Windows. Use git-format-staged with [husky](https://github.com/typicode/husky):
 
-<!--DOCUSAURUS_CODE_TABS-->
-<!--npm-->
+<Tabs groupId="package-manager">
+<TabItem value="npm">
 
 ```bash
 npx husky init
@@ -63,7 +112,8 @@ npm install --save-dev git-format-staged
 node --eval "fs.writeFileSync('.husky/pre-commit', 'git-format-staged -f \'prettier --ignore-unknown --stdin --stdin-filepath \"{}\"\' .\n')"
 ```
 
-<!--yarn-->
+</TabItem>
+<TabItem value="yarn">
 
 ```bash
 yarn husky init
@@ -71,7 +121,8 @@ yarn add --dev git-format-staged
 node --eval "fs.writeFileSync('.husky/pre-commit', 'git-format-staged -f \'prettier --ignore-unknown --stdin --stdin-filepath \"{}\"\' .\n')"
 ```
 
-<!--pnpm-->
+</TabItem>
+<TabItem value="pnpm">
 
 ```bash
 pnpm exec husky init
@@ -79,7 +130,8 @@ pnpm add --save-dev git-format-staged
 node --eval "fs.writeFileSync('.husky/pre-commit', 'git-format-staged -f \'prettier --ignore-unknown --stdin --stdin-filepath \"{}\"\' .\n')"
 ```
 
-<!--bun-->
+</TabItem>
+<TabItem value="bun">
 
 ```bash
 bunx husky init
@@ -87,13 +139,14 @@ bun add --dev git-format-staged
 bun --eval "fs.writeFileSync('.husky/pre-commit', 'git-format-staged -f \'prettier --ignore-unknown --stdin --stdin-filepath \"{}\"\' .\n')"
 ```
 
-<!--END_DOCUSAURUS_CODE_TABS-->
+</TabItem>
+</Tabs>
 
 Add or remove file extensions to suit your project. Note that regardless of which extensions you list formatting will respect any `.prettierignore` files in your project.
 
 To read about how git-format-staged works see [Automatic Code Formatting for Partially-Staged Files](https://www.olioapps.com/blog/automatic-code-formatting/).
 
-## Option 4. Shell script
+## Option 5. Shell script
 
 Alternately you can save this script as `.git/hooks/pre-commit` and give it execute permission:
 

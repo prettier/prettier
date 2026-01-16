@@ -129,7 +129,7 @@ class AstPath {
     let value = stack.at(-1);
 
     for (const name of names) {
-      value = value[name];
+      value = value?.[name];
       stack.push(name, value);
     }
     try {

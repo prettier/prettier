@@ -1,0 +1,115 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`esm.mdx format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<!-- https://mdxjs.com/docs/what-is-mdx/#esm -->
+
+import {   External} from './some/place.js'
+
+export const   Local = properties => <span style={{color: 'red'}} {...properties} />
+
+export const Local = (properties) => (
+         <span    style={{   color: "red" }} {...properties} />
+);
+
+An <External>external</External> component and a <Local>local one</Local>.
+
+=====================================output=====================================
+<!-- https://mdxjs.com/docs/what-is-mdx/#esm -->
+
+import { External } from "./some/place.js";
+
+export const Local = (properties) => (
+  <span style={{ color: "red" }} {...properties} />
+);
+
+export const Local = (properties) => (
+  <span style={{ color: "red" }} {...properties} />
+);
+
+An <External>external</External> component and a <Local>local one</Local>.
+
+================================================================================
+`;
+
+exports[`like-import-declaration.mdx format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<!-- These are not \`import\`s -->
+
+import .meta.resolve (         foo)
+
+import .meta; export {} from "./foo"
+
+import .meta; import {} from "./foo"
+
+import ("./foo")
+
+import {} from   "./foo";            export {}
+
+=====================================output=====================================
+<!-- These are not \`import\`s -->
+
+import .meta.resolve (         foo)
+
+import .meta; export {} from "./foo"
+
+import .meta; import {} from "./foo"
+
+import ("./foo")
+
+import {} from "./foo";
+export {};
+
+================================================================================
+`;
+
+exports[`list.mdx format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+- import is a word in lists
+- export is a word in lists, too!
+
+=====================================output=====================================
+- import is a word in lists
+- export is a word in lists, too!
+
+================================================================================
+`;
+
+exports[`paragraph.mdx format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import is a word
+
+=====================================output=====================================
+import is a word
+
+================================================================================
+`;
+
+exports[`snippet: #0 format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import is a word
+=====================================output=====================================
+import is a word
+
+================================================================================
+`;

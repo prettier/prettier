@@ -77,6 +77,8 @@ test.only(`does something really long and complicated so I have to write a very 
 
 test.skip(`does something really long and complicated so I have to write a very long name for the test`, () => {});
 
+test.fixme(`does something really long and complicated so I have to write a very long name for the test`, () => {});
+
 ftest("does something really long and complicated so I have to write a very long name for the describe block", () => {});
 
 xtest("does something really long and complicated so I have to write a very long name for the describe block", () => {});
@@ -94,6 +96,10 @@ test.describe("does something really long and complicated so I have to write a v
 test.describe(`does something really long and complicated so I have to write a very long name for the test`, () => {});
 
 test.describe.only("does something really long and complicated so I have to write a very long name for the test", () => {});
+
+test.describe.skip("does something really long and complicated so I have to write a very long name for the test", () => {});
+
+test.describe.fixme("does something really long and complicated so I have to write a very long name for the test", () => {});
 
 test.describe.only(`does something really long and complicated so I have to write a very long name for the test`, () => {});
 

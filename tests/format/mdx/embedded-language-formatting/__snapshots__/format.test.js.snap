@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`issue-9260.mdx - {"embeddedLanguageFormatting":"off"} format 1`] = `
 ====================================options=====================================

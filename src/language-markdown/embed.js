@@ -1,9 +1,7 @@
-import { hardline, markAsRoot } from "../document/builders.js";
-import { replaceEndOfLine } from "../document/utils.js";
-import printFrontMatter from "../utils/front-matter/print.js";
-import getMaxContinuousCount from "../utils/get-max-continuous-count.js";
-import inferParser from "../utils/infer-parser.js";
-import { getFencedCodeBlockValue } from "./utils.js";
+import { hardline, markAsRoot, replaceEndOfLine } from "../document/index.js";
+import getMaxContinuousCount from "../utilities/get-max-continuous-count.js";
+import inferParser from "../utilities/infer-parser.js";
+import { getFencedCodeBlockValue } from "./utilities.js";
 
 function embed(path, options) {
   const { node } = path;
@@ -47,13 +45,15 @@ function embed(path, options) {
   }
 
   switch (node.type) {
-    case "front-matter":
-      return (textToDoc) => printFrontMatter(node, textToDoc);
-
     // MDX
     case "import":
     case "export":
-      return (textToDoc) => textToDoc(node.value, { parser: "babel" });
+      return (textToDoc) =>
+        textToDoc(node.value, {
+          // TODO: Rename this option since it's not used in HTML
+          __onHtmlBindingRoot: (ast) => validateImportExport(ast, node.type),
+          parser: "babel",
+        });
     case "jsx":
       return (textToDoc) =>
         textToDoc(`<$>${node.value}</$>`, {
@@ -63,6 +63,24 @@ function embed(path, options) {
   }
 
   return null;
+}
+
+function validateImportExport(ast, type) {
+  const {
+    program: { body },
+  } = ast;
+
+  // https://github.com/mdx-js/mdx/blob/3430138958c9c0344ecad9d59e0d6b5d72bedae3/packages/remark-mdx/extract-imports-and-exports.js#L16
+  if (
+    !body.every(
+      (node) =>
+        node.type === "ImportDeclaration" ||
+        node.type === "ExportDefaultDeclaration" ||
+        node.type === "ExportNamedDeclaration",
+    )
+  ) {
+    throw new Error(`Unexpected '${type}' in MDX.`);
+  }
 }
 
 export default embed;

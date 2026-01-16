@@ -94,10 +94,10 @@ const options = {
     type: "boolean",
   },
   color: {
-    // The supports-color package (a sub sub dependency) looks directly at
+    // The colors packages looks directly at
     // `process.argv` for `--no-color` and such-like options. The reason it is
     // listed here is to avoid "Ignored unknown option: --no-color" warnings.
-    // See https://github.com/chalk/supports-color/#info for more information.
+    // See https://github.com/alexeyraspopov/picocolors/blob/0e7c4af2de299dd7bc5916f2bddd151fa2f66740/picocolors.js#L3.
     default: true,
     description: "Colorize error messages.",
     oppositeDescription: "Do not colorize error messages.",

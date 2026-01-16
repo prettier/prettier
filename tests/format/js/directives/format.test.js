@@ -42,6 +42,11 @@ runFormatTest(
             // comment
           ` + "\n",
       },
+      {
+        // should be kept as directive for all parsers https://github.com/prettier/prettier/issues/17458
+        code: '"";',
+        output: '"";' + "\n",
+      },
     ],
   },
   ["babel", "flow", "typescript"],

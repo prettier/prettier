@@ -1,5 +1,8 @@
-import InvalidDocError from "../../src/document/invalid-doc-error.js";
-import { findInDoc, traverseDoc } from "../../src/document/utils.js";
+import {
+  findInDoc,
+  InvalidDocError,
+  traverseDoc,
+} from "../../src/document/index.js";
 
 test("traverse", () => {
   const doc = [["a", "b"]];

@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`asterisk.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
@@ -73,6 +73,10 @@ proseWrap: "always"
 
 ！_1_！
 
+1***2***3
+
+1 ***2*** 3
+
 =====================================output=====================================
 0*1*2
 
@@ -105,6 +109,10 @@ proseWrap: "always"
 0*1*！ <!-- remark-misparsing, should be formatted as \`0_1\\_！\` -->
 
 ！_1_！
+
+1***2***3
+
+1 **_2_** 3
 
 ================================================================================
 `;

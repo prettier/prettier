@@ -1,4 +1,4 @@
-import { hardline } from "../document/builders.js";
+import { hardline } from "../document/index.js";
 
 function embed(path, options) {
   const { node } = path;

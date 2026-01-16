@@ -1,1 +1,1 @@
-runFormatTest(import.meta, ["babel", "acorn", "espree", "meriyah"]);
+runFormatTest(import.meta, ["acorn", "espree", "meriyah"]);

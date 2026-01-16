@@ -1,10 +1,4 @@
-import {
-  group,
-  indent,
-  join,
-  line,
-  softline,
-} from "../../document/builders.js";
+import { group, indent, join, line, softline } from "../../document/index.js";
 
 function printHtmlBinding(path, options, print) {
   if (options.__isVueBindings || options.__isVueForBindingLeft) {

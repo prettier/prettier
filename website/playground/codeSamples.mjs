@@ -4,6 +4,7 @@ export default function getCodeSamples(parser) {
     case "acorn":
     case "espree":
     case "meriyah":
+    case "oxc":
       return [
         'function HelloWorld({greeting = "hello", greeted = \'"World"\', silent = false, onMouseOver,}) {',
         "",
@@ -28,7 +29,7 @@ export default function getCodeSamples(parser) {
         "}",
       ].join("\n");
     case "flow":
-    case "babel-flow":
+    case "hermes":
       return [
         "declare export function graphql<Props, Variables, Component: React$ComponentType<Props>>",
         "  (query: GQLDocument, config?: Config<Props, QueryConfigOptions<Variables>>):",
@@ -41,6 +42,7 @@ export default function getCodeSamples(parser) {
       ].join("\n");
     case "typescript":
     case "babel-ts":
+    case "oxc-ts":
       return [
         "interface MyInterface {",
         "  foo(): string,",
@@ -308,6 +310,18 @@ export default function getCodeSamples(parser) {
         '    <SCRIPT src="https://www.google-analytics.com/analytics.js" ASYNC DEFER></SCRIPT>',
         "  </body>",
         "</HTML>",
+      ].join("\n");
+    case "mjml":
+      return [
+        "<mjml> <mj-body>",
+        "    <mj-section>",
+        "      <mj-column>",
+        "<mj-text> Hello World!",
+        "        </mj-text>",
+        "      </mj-column>",
+        "    </mj-section>",
+        "  </mj-body>",
+        "  </mjml>",
       ].join("\n");
     case "doc-explorer":
       return [

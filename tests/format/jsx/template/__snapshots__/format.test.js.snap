@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`styled-components.js format 1`] = `
 ====================================options=====================================
@@ -25,6 +25,15 @@ printWidth: 80
   \`}
 </style>;
 
+// #5886
+<style jsx>{\`
+  .class {
+    flex-direction: column\${long_cond && long_cond && long_cond
+        ? "-reverse"
+        : ""};
+  }
+\`}</style>;
+
 =====================================output=====================================
 <style jsx>{\`
   p {
@@ -45,6 +54,15 @@ printWidth: 80
     }
   \`}
 </style>;
+
+// #5886
+<style jsx>{\`
+  .class {
+    flex-direction: column\${long_cond && long_cond && long_cond
+        ? "-reverse"
+        : ""};
+  }
+\`}</style>;
 
 ================================================================================
 `;

@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`html-template-literals.js - {"htmlWhitespaceSensitivity":"ignore"} format 1`] = `
 ====================================options=====================================
@@ -39,6 +39,18 @@ setFoo(
   </div>\`,
   secondArgument
 );
+
+// Attribute quotes
+a = /* HTML */ \`<div
+    double-quoted="\${foo}"
+single-quoted='\${foo}'
+        unquoted=\${foo}>   </div>
+\`
+a = /* HTML */ \`<div
+    style="\${foo}"
+style='\${foo}'
+        style=\${foo}>   </div>
+\`
 
 =====================================output=====================================
 const nestedFun = /* HTML */ \`
@@ -88,6 +100,14 @@ setFoo(
   secondArgument,
 );
 
+// Attribute quotes
+a = /* HTML */ \`
+  <div double-quoted="\${foo}" single-quoted="\${foo}" unquoted=\${foo}></div>
+\`;
+a = /* HTML */ \`
+  <div style="\${foo}" style="\${foo}" style=\${foo}></div>
+\`;
+
 ================================================================================
 `;
 
@@ -130,6 +150,18 @@ setFoo(
   secondArgument
 );
 
+// Attribute quotes
+a = /* HTML */ \`<div
+    double-quoted="\${foo}"
+single-quoted='\${foo}'
+        unquoted=\${foo}>   </div>
+\`
+a = /* HTML */ \`<div
+    style="\${foo}"
+style='\${foo}'
+        style=\${foo}>   </div>
+\`
+
 =====================================output=====================================
 const nestedFun = /* HTML */ \`\${outerExpr(1)}
   <script>
@@ -163,6 +195,14 @@ setFoo(
   </div>\`,
   secondArgument,
 );
+
+// Attribute quotes
+a = /* HTML */ \`<div
+  double-quoted="\${foo}"
+  single-quoted="\${foo}"
+  unquoted=\${foo}
+></div> \`;
+a = /* HTML */ \`<div style="\${foo}" style="\${foo}" style=\${foo}></div> \`;
 
 ================================================================================
 `;

@@ -1,8 +1,24 @@
-import { label } from "../../document/builders.js";
-import printCss from "./css.js";
-import printGraphQL from "./graphql.js";
-import printHtml from "./html.js";
-import printMarkdown from "./markdown.js";
+import { label } from "../../document/index.js";
+import { isEmbedCss, printEmbedCss } from "./css.js";
+import { isEmbedGraphQL, printEmbedGraphQL } from "./graphql.js";
+import {
+  isAngularComponentTemplate,
+  isEmbedHtml,
+  printEmbedAngular,
+  printEmbedHtml,
+} from "./html.js";
+import { isEmbedMarkdown, printEmbedMarkdown } from "./markdown.js";
+
+const printers = [
+  { test: isEmbedCss, print: printEmbedCss },
+  { test: isEmbedGraphQL, print: printEmbedGraphQL },
+  { test: isEmbedHtml, print: printEmbedHtml },
+  { test: isAngularComponentTemplate, print: printEmbedAngular },
+  { test: isEmbedMarkdown, print: printEmbedMarkdown },
+].map(({ test, print }) => ({
+  test,
+  print: createTemplateLiteralPrint(print),
+}));
 
 function embed(path) {
   const { node } = path;
@@ -16,29 +32,28 @@ function embed(path) {
     return;
   }
 
-  let embedder;
-  for (const getEmbedder of [
-    printCss,
-    printGraphQL,
-    printHtml,
-    printMarkdown,
-  ]) {
-    embedder = getEmbedder(path);
+  const printer = printers.find(({ test }) => test(path));
 
-    if (!embedder) {
-      continue;
-    }
-
-    // Special case: whitespace-only template literals
-    if (node.quasis.length === 1 && node.quasis[0].value.raw.trim() === "") {
-      return "``";
-    }
-
-    return async (...args) => {
-      const doc = await embedder(...args);
-      return doc && label({ embed: true, ...doc.label }, doc);
-    };
+  if (!printer) {
+    return;
   }
+
+  if (
+    // Special case: whitespace-only template literals
+    node.quasis.length === 1 &&
+    node.quasis[0].value.raw.trim() === ""
+  ) {
+    return "``";
+  }
+
+  return printer.print;
+}
+
+function createTemplateLiteralPrint(print) {
+  return async (...args) => {
+    const doc = await print(...args);
+    return doc && label({ embed: true, ...doc.label }, doc);
+  };
 }
 
 function hasInvalidCookedValue({ quasis }) {

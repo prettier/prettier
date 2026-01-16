@@ -1,5 +1,5 @@
 #!/usr/bin/env node
 
-import { generateSchema } from "./utils/generate-schema.js";
+import { generateSchema } from "./utilities/generate-schema.js";
 
 console.log(await generateSchema());

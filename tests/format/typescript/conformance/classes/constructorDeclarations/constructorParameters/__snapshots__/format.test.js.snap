@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`constructorDefaultValuesReferencingThis.ts format 1`] = `
 ====================================options=====================================
@@ -507,6 +507,15 @@ exports[`readonlyReadonly.ts [babel-ts] format 1`] = `
   3 |     constructor(readonly readonly y: number) {}
   4 | }
 Cause: Duplicate modifier: 'readonly'. (2:13)"
+`;
+
+exports[`readonlyReadonly.ts [oxc-ts] format 1`] = `
+"'readonly' modifier already seen. (2:14)
+  1 | class C {
+> 2 |     readonly readonly x: number;
+    |              ^^^^^^^^
+  3 |     constructor(readonly readonly y: number) {}
+  4 | }"
 `;
 
 exports[`readonlyReadonly.ts format 1`] = `

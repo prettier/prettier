@@ -1,10 +1,19 @@
-import { group, indent, line } from "../../document/builders.js";
-import { replaceEndOfLine } from "../../document/utils.js";
-import { formatAttributeValue } from "./utils.js";
+import { group, indent, line, replaceEndOfLine } from "../../document/index.js";
+import { getUnescapedAttributeValue } from "../utilities/index.js";
+import { formatAttributeValue } from "./utilities.js";
 
 const interpolationRegex = /\{\{(.+?)\}\}/su;
 
-async function printAngularInterpolation(text, textToDoc) {
+const isAngularInterpolation = ({ node: { value } } /* , options*/) =>
+  interpolationRegex.test(value);
+
+async function printAngularInterpolation(
+  textToDoc,
+  print,
+  path,
+  /* , options*/
+) {
+  const text = getUnescapedAttributeValue(path.node);
   const parts = [];
   for (const [index, part] of text.split(interpolationRegex).entries()) {
     if (index % 2 === 0) {
@@ -34,4 +43,4 @@ async function printAngularInterpolation(text, textToDoc) {
   return parts;
 }
 
-export { interpolationRegex, printAngularInterpolation };
+export { isAngularInterpolation, printAngularInterpolation };

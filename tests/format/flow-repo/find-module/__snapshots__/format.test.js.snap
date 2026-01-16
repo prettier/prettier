@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`req.js format 1`] = `
 ====================================options=====================================
@@ -12,6 +12,21 @@ module.exports = 0;
 module.exports = 0;
 
 ================================================================================
+`;
+
+exports[`test.js [hermes] format 1`] = `
+"Identifier 'x' is already declared (4:7)
+  2 | (x: string);
+  3 |
+> 4 | import x from './req';
+    |       ^
+  5 |
+Cause: Identifier 'x' is already declared (4:7)
+import x from './req';
+       ^
+note: previous declaration (1:4)
+var x = require('./req');
+    ^"
 `;
 
 exports[`test.js format 1`] = `

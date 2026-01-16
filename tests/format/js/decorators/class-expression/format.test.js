@@ -1,5 +1,6 @@
 const errors = {
   flow: true,
+  hermes: true,
   acorn: true,
   espree: true,
 };

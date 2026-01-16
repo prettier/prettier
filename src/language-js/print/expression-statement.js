@@ -1,31 +1,41 @@
 import {
+  isSingleHtmlEventHandlerExpressionStatement,
+  isSingleJsxExpressionStatementInMarkdown,
+  isSingleVueEventBindingExpressionStatement,
+} from "../semicolon/semicolon.js";
+import {
   isVueEventBindingFunctionExpression,
   isVueEventBindingMemberExpression,
   unwrapVueEventBindingTsNode,
-} from "../utils/vue-event-binding.js";
-import {
-  isSingleJsxExpressionStatementInMarkdown,
-  isSingleVueEventBindingExpressionStatement,
-} from "./semicolon.js";
+} from "../utilities/vue-event-binding.js";
 
-function printExpressionStatement(path, options, print) {
-  const parts = [print("expression")];
-
+function shouldPrintSemicolon(path, options) {
   if (isSingleVueEventBindingExpressionStatement(path, options)) {
     const expression = unwrapVueEventBindingTsNode(path.node.expression);
-    if (
+    return (
       isVueEventBindingFunctionExpression(expression) ||
       isVueEventBindingMemberExpression(expression)
-    ) {
-      parts.push(";");
-    }
-  } else if (isSingleJsxExpressionStatementInMarkdown(path, options)) {
-    // Do not append semicolon after the only JSX element in a program
-  } else if (options.semi) {
-    parts.push(";");
+    );
   }
 
-  return parts;
+  if (!options.semi) {
+    return false;
+  }
+
+  if (
+    // Do not append semicolon after the only JSX element in a program
+    isSingleJsxExpressionStatementInMarkdown(path, options) ||
+    // Do not append semicolon after the only HTML event binding expression in a program
+    isSingleHtmlEventHandlerExpressionStatement(path, options)
+  ) {
+    return false;
+  }
+
+  return true;
+}
+
+function printExpressionStatement(path, options, print) {
+  return [print("expression"), shouldPrintSemicolon(path, options) ? ";" : ""];
 }
 
 export { printExpressionStatement };

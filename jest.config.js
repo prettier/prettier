@@ -10,10 +10,12 @@ const TEST_STANDALONE = Boolean(process.env.TEST_STANDALONE);
 const INSTALL_PACKAGE = Boolean(process.env.INSTALL_PACKAGE);
 // When debugging production test, this flag can skip installing package
 const SKIP_PRODUCTION_INSTALL = Boolean(process.env.SKIP_PRODUCTION_INSTALL);
-const SKIP_TESTS_WITH_NEW_SYNTAX = process.versions.node.startsWith("14.");
+
+// New CLI not supported yet
+process.env.PRETTIER_LEGACY_CLI = "1";
 
 let PRETTIER_DIR = isProduction
-  ? path.join(PROJECT_ROOT, "dist")
+  ? path.join(PROJECT_ROOT, "dist/prettier")
   : PROJECT_ROOT;
 let PRETTIER_INSTALLED_DIR = "";
 if (
@@ -40,32 +42,18 @@ if (isProduction) {
   );
 }
 
-if (SKIP_TESTS_WITH_NEW_SYNTAX) {
-  testPathIgnorePatterns.push(
-    "<rootDir>/tests/integration/__tests__/help-options.js",
-    "<rootDir>/tests/integration/__tests__/plugin-parsers.js",
-    "<rootDir>/tests/integration/__tests__/normalize-doc.js",
-    "<rootDir>/tests/integration/__tests__/doc-utils-clean-doc.js",
-    "<rootDir>/tests/integration/__tests__/config-invalid.js",
-    // Fails on Node.js v14
-    "<rootDir>/tests/dts/unit/run.js",
-  );
-}
-
 const config = {
   setupFiles: [
     "<rootDir>/tests/config/format-test-setup.js",
     "<rootDir>/tests/integration/integration-test-setup.js",
   ],
-  runner: "jest-light-runner",
+  runner: "jest-light-runner/child-process",
   snapshotSerializers: [
     "jest-snapshot-serializer-raw",
     "jest-snapshot-serializer-ansi",
   ],
   testMatch: [
     "<rootDir>/tests/format/**/format.test.js",
-    // TODO: Remove this in 2025
-    "<rootDir>/tests/format/**/jsfmt.spec.js",
     "<rootDir>/tests/integration/__tests__/**/*.js",
     "<rootDir>/tests/unit/**/*.js",
     "<rootDir>/tests/dts/unit/**/*.js",

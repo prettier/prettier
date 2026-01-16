@@ -1,6 +1,6 @@
 import { ConfigError } from "../../src/common/errors.js";
 import { getPrinterPluginByAstFormat } from "../../src/main/parser-and-printer.js";
-import createPlugin from "../config/utils/create-plugin.cjs";
+import createPlugin from "../config/utilities/create-plugin.cjs";
 
 describe("unit tests for getPrinterPluginByAstFormat", () => {
   const getMockPlugins = (name) => [

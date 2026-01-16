@@ -1,6 +1,7 @@
 import {
   DOC_TYPE_ALIGN,
   DOC_TYPE_BREAK_PARENT,
+  DOC_TYPE_CURSOR,
   DOC_TYPE_FILL,
   DOC_TYPE_GROUP,
   DOC_TYPE_IF_BREAK,
@@ -11,7 +12,7 @@ import {
   DOC_TYPE_LINE_SUFFIX,
   DOC_TYPE_LINE_SUFFIX_BOUNDARY,
   DOC_TYPE_TRIM,
-} from "./constants.js";
+} from "./builders/index.js";
 
 function flattenDoc(doc) {
   if (!doc) {
@@ -191,6 +192,10 @@ function printDocToDebug(doc) {
 
     if (doc.type === DOC_TYPE_LABEL) {
       return `label(${JSON.stringify(doc.label)}, ${printDoc(doc.contents)})`;
+    }
+
+    if (doc.type === DOC_TYPE_CURSOR) {
+      return "cursor";
     }
 
     throw new Error("Unknown doc type " + doc.type);

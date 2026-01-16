@@ -1,6 +1,7 @@
-import * as React from "react";
 import { shallowEqual, stateToggler } from "./helpers.js";
 import * as storage from "./storage.js";
+
+const { React } = window;
 
 export default class EditorState extends React.Component {
   constructor() {

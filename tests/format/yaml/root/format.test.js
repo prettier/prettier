@@ -1,1 +1,1 @@
-runFormatTest(import.meta, ["yaml"]);
+runFormatTest({ importMeta: import.meta, snippets: [""] }, ["yaml"]);

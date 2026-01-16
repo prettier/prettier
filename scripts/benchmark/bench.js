@@ -7,7 +7,8 @@ const groupSize = Number(groupSizeString);
 const { format } = await import(`./${version}/dist/index.mjs`);
 
 const sourceText = readFileSync(
-  process.env.PRETTIER_PERF_FILENAME || "../../src/language-js/utils/index.js",
+  process.env.PRETTIER_PERF_FILENAME ||
+    "../../src/language-js/utilities/index.js",
   "utf8",
 );
 

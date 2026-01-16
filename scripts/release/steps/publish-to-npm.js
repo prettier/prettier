@@ -1,6 +1,6 @@
 import enquirer from "enquirer";
-import { execa } from "execa";
-import { waitForEnter } from "../utils.js";
+import spawn from "nano-spawn";
+import { waitForEnter } from "../utilities.js";
 
 export default async function publishToNpm({ dry }) {
   console.log(`Ready to publish to NPM${dry ? "(--dry-run)" : ""}`);
@@ -24,7 +24,7 @@ export default async function publishToNpm({ dry }) {
       args.push("--otp", otp);
     }
 
-    await execa("npm", args, { cwd: "./dist" });
+    await spawn("npm", args, { cwd: "./dist/prettier" });
   };
 
   /**

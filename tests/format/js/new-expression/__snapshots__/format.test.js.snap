@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`call.js format 1`] = `
 ====================================options=====================================
@@ -67,6 +67,13 @@ function functionName() {
   }
 }
 
+foo = new long_long_member.long_long_member.long_long_member.long_long_member.long_long_member();
+new long_long_member.long_long_member.long_long_member.long_long_member.long_long_member();
+new long_long_member.long_long_member.long_long_member.long_long_member.long_long_member(x);
+foo = long_long_member.long_long_member.long_long_member.long_long_member.long_long_member();
+long_long_member.long_long_member.long_long_member.long_long_member.long_long_member();
+long_long_member.long_long_member.long_long_member.long_long_member.long_long_member(x);
+
 =====================================output=====================================
 function functionName() {
   // indent to make the line break
@@ -78,6 +85,19 @@ function functionName() {
     );
   }
 }
+
+foo =
+  new long_long_member.long_long_member.long_long_member.long_long_member.long_long_member();
+new long_long_member.long_long_member.long_long_member.long_long_member.long_long_member();
+new long_long_member.long_long_member.long_long_member.long_long_member.long_long_member(
+  x,
+);
+foo =
+  long_long_member.long_long_member.long_long_member.long_long_member.long_long_member();
+long_long_member.long_long_member.long_long_member.long_long_member.long_long_member();
+long_long_member.long_long_member.long_long_member.long_long_member.long_long_member(
+  x,
+);
 
 ================================================================================
 `;

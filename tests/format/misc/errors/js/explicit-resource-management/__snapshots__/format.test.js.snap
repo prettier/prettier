@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`invalid-for-await-using-binding-of-of.js [babel] format 1`] = `
 "Unexpected token, expected ")" (1:24)

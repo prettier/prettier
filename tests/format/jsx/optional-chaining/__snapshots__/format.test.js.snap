@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`optional-chaining.jsx format 1`] = `
 ====================================options=====================================
@@ -18,6 +18,46 @@ function foo() {
   )
 }
 
+function Component( ) {
+  return (
+    <div>
+      {aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa?.bbbbbbbbbbbbbbbbbbbbbbbbb.map(
+        (p, i) => <p key={i}>{p}</p>
+      )}
+    </div>
+  );
+}
+
+function Component() {
+  return (
+    <div>
+      {aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa?.bbbbbbbbbbbbbbbbbbbbbbbbb().map(
+        (p, i) => <p key={i}>{p}</p>
+      )}
+    </div>
+  );
+}
+
+function Component() {
+  return (
+    <div>
+      {aaa?.aaa()?.aaa()?.map(
+        (p, i) => <p key={i}>{p}</p>
+      )}
+    </div>
+  );
+}
+
+function Component() {
+  return (
+    <div>
+      {aaa?.aaa?.()?.aaa?.()?.map?.(
+        (p, i) => <p key={i}>{p}</p>
+      )}
+    </div>
+  );
+}
+
 =====================================output=====================================
 function foo() {
   // https://github.com/marmelab/react-admin/blob/5ae855aa958ba54438b144bf0907b1437c5a5d77/examples/demo/src/orders/Totals.tsx#L38-L43
@@ -28,6 +68,56 @@ function foo() {
         currency: "USD",
       })}
     </TableCell>
+  );
+}
+
+function Component() {
+  return (
+    <div>
+      {aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa?.bbbbbbbbbbbbbbbbbbbbbbbbb.map(
+        (p, i) => (
+          <p key={i}>{p}</p>
+        ),
+      )}
+    </div>
+  );
+}
+
+function Component() {
+  return (
+    <div>
+      {aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+        ?.bbbbbbbbbbbbbbbbbbbbbbbbb()
+        .map((p, i) => (
+          <p key={i}>{p}</p>
+        ))}
+    </div>
+  );
+}
+
+function Component() {
+  return (
+    <div>
+      {aaa
+        ?.aaa()
+        ?.aaa()
+        ?.map((p, i) => (
+          <p key={i}>{p}</p>
+        ))}
+    </div>
+  );
+}
+
+function Component() {
+  return (
+    <div>
+      {aaa
+        ?.aaa?.()
+        ?.aaa?.()
+        ?.map?.((p, i) => (
+          <p key={i}>{p}</p>
+        ))}
+    </div>
   );
 }
 

@@ -1,16 +1,11 @@
-"use strict";
-
 const MESSAGE_ID = "jsx-identifier-case";
 
 // To ignore variables, config eslint like this
 // {'prettier-internal-rules/jsx-identifier-case': ['error', 'name1', ... 'nameN']}
 
-module.exports = {
+export default {
   meta: {
     type: "suggestion",
-    docs: {
-      url: "https://github.com/prettier/prettier/blob/main/scripts/tools/eslint-plugin-prettier-internal-rules/jsx-identifier-case.js",
-    },
     messages: {
       [MESSAGE_ID]: "Please rename '{{name}}' to '{{fixed}}'.",
     },

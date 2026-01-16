@@ -4,7 +4,7 @@ function jsdocCastInReturn() {
   return /** @type {ThisIsAVeryLongTypeThatShouldTriggerLineWrapping} */ (fooBarBaz);
 }
 
-const myLongVariableName = /** @type {ThisIsAVeryLongTypeThatShouldTriggerLineWrapping} */
+const myLongVariableFoo1 = /** @type {ThisIsAVeryLongTypeThatShouldTriggerLineWrapping} */
       (fooBarBaz);
 
 function jsdocCastInReturn() {
@@ -12,7 +12,7 @@ function jsdocCastInReturn() {
     (fooBarBaz));
 }
 
-const myLongVariableName = /** @type {ThisIsAVeryLongTypeThatShouldTriggerLineWrapping} */
+const myLongVariableFoo2 = /** @type {ThisIsAVeryLongTypeThatShouldTriggerLineWrapping} */
       (fooBarBaz);
 
 function jsdocCastInReturn() {

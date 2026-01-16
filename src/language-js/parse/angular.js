@@ -13,14 +13,21 @@ function createParser(parseMethod) {
   return {
     astFormat: "estree",
     parse(text) {
-      const node = parseMethod(text);
+      let node = parseMethod(text);
+      // @ts-expect-error -- safe
+      const { comments } = node;
+      // @ts-expect-error -- safe
+      delete node.comments;
+
+      if (parseMethod === parseAction && node.type !== "NGChainedExpression") {
+        // @ts-expect-error -- expected
+        node = { ...node, type: "NGChainedExpression", expressions: [node] };
+      }
 
       return {
         type: "NGRoot",
-        node:
-          parseMethod === parseAction && node.type !== "NGChainedExpression"
-            ? { ...node, type: "NGChainedExpression", expressions: [node] }
-            : node,
+        node,
+        comments,
       };
     },
     locStart,

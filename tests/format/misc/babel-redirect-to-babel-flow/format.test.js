@@ -1,1 +1,0 @@
-runFormatTest(import.meta, ["babel"]);

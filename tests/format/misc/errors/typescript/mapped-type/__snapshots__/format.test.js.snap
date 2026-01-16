@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`mapped-type.ts [babel-ts] format 1`] = `
 "Unexpected token, expected "}" (3:3)
@@ -9,6 +9,16 @@ exports[`mapped-type.ts [babel-ts] format 1`] = `
   4 | };
   5 |
 Cause: Unexpected token, expected "}" (3:2)"
+`;
+
+exports[`mapped-type.ts [oxc-ts] format 1`] = `
+"Expected \`}\` but found \`Identifier\` (3:3)
+  1 | type Mapped = {
+  2 |   [key in keyof O]: number;
+> 3 |   extra_member: should_not_allowed
+    |   ^^^^^^^^^^^^
+  4 | };
+  5 |"
 `;
 
 exports[`mapped-type.ts [typescript] format 1`] = `

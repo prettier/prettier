@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`class-implements.ts format 1`] = `
 ====================================options=====================================
@@ -255,8 +255,8 @@ class G3<T> // g3
 }
 
 class G4<
-    T, // g4
-  >
+  T, // g4
+>
   extends U
   implements IPoly<T>
 {

@@ -1,4 +1,4 @@
-import { generateSchemaData } from "../../../scripts/utils/generate-schema.js";
+import { generateSchemaData } from "../../../scripts/utilities/generate-schema.js";
 import prettier from "../../config/prettier-entry.js";
 
 test("schema", async () => {

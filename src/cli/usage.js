@@ -1,7 +1,7 @@
 import camelCase from "camelcase";
 import { categoryOrder, usageSummary } from "./constants.evaluate.js";
 import { formatOptionsHiddenDefaults } from "./prettier-internal.js";
-import { groupBy } from "./utils.js";
+import { groupBy } from "./utilities.js";
 
 const OPTION_USAGE_THRESHOLD = 25;
 const CHOICE_USAGE_MARGIN = 3;

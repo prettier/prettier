@@ -1,10 +1,15 @@
-import { indent, line } from "../../document/builders.js";
-import { isCallExpression, isMemberExpression } from "../utils/index.js";
-import { printTypeAnnotationProperty } from "./type-annotation.js";
+import { indent, line } from "../../document/index.js";
+import {
+  CommentCheckFlags,
+  createTypeCheckFunction,
+  hasComment,
+  isCallExpression,
+  isMemberExpression,
+} from "../utilities/index.js";
 
 /**
  * @import AstPath from "../../common/ast-path.js"
- * @import {Doc} from "../../document/builders.js"
+ * @import {Doc} from "../../document/index.js"
  */
 
 /**
@@ -46,7 +51,7 @@ function printDefiniteToken(path) {
     : "";
 }
 
-const flowDeclareNodeTypes = new Set([
+const isFlowDeclareNode = createTypeCheckFunction([
   "DeclareClass",
   "DeclareComponent",
   "DeclareFunction",
@@ -59,6 +64,7 @@ const flowDeclareNodeTypes = new Set([
   "DeclareEnum",
   "DeclareInterface",
 ]);
+
 /**
  * @param {AstPath} path
  * @returns {Doc}
@@ -70,44 +76,30 @@ function printDeclareToken(path) {
     // TypeScript
     node.declare ||
       // Flow
-      (flowDeclareNodeTypes.has(node.type) &&
+      (isFlowDeclareNode(node) &&
         path.parent.type !== "DeclareExportDeclaration")
       ? "declare "
       : ""
   );
 }
 
-const tsAbstractNodeTypes = new Set([
+const isTsAbstractNode = createTypeCheckFunction([
   "TSAbstractMethodDefinition",
   "TSAbstractPropertyDefinition",
   "TSAbstractAccessorProperty",
 ]);
+
 /**
  * @param {AstPath} param0
  * @returns {Doc}
  */
 function printAbstractToken({ node }) {
-  return node.abstract || tsAbstractNodeTypes.has(node.type) ? "abstract " : "";
-}
-
-function printFunctionTypeParameters(path, options, print) {
-  const fun = path.node;
-  if (fun.typeArguments) {
-    return print("typeArguments");
-  }
-  if (fun.typeParameters) {
-    return print("typeParameters");
-  }
-  return "";
-}
-
-function printBindExpressionCallee(path, options, print) {
-  return ["::", print("callee")];
+  return node.abstract || isTsAbstractNode(node) ? "abstract " : "";
 }
 
 function adjustClause(node, clause, forceSpace) {
   if (node.type === "EmptyStatement") {
-    return ";";
+    return hasComment(node, CommentCheckFlags.Leading) ? [" ", clause] : clause;
   }
 
   if (node.type === "BlockStatement" || forceSpace) {
@@ -117,10 +109,6 @@ function adjustClause(node, clause, forceSpace) {
   return indent([line, clause]);
 }
 
-function printRestSpread(path, print) {
-  return ["...", print("argument"), printTypeAnnotationProperty(path, print)];
-}
-
 function printTypeScriptAccessibilityToken(node) {
   return node.accessibility ? node.accessibility + " " : "";
 }
@@ -128,11 +116,8 @@ function printTypeScriptAccessibilityToken(node) {
 export {
   adjustClause,
   printAbstractToken,
-  printBindExpressionCallee,
   printDeclareToken,
   printDefiniteToken,
-  printFunctionTypeParameters,
   printOptionalToken,
-  printRestSpread,
   printTypeScriptAccessibilityToken,
 };

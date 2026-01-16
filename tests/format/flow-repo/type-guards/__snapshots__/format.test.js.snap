@@ -1,16 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`comments-in-type-annotations.js [babel-flow] format 1`] = `
-"Unexpected token, expected "{" (3:51)
-  1 | type F = (x: mixed) /* C1 */ => /* C2 */ x /* C3 */ is /* C4 */ number;
-  2 |
-> 3 | function f(x: any) /* C1 */ : /* C2 */ x /* C3 */ is /* C4 */ number /* C5 */ { return true; }
-    |                                                   ^
-  4 |
-  5 | const arrow = (x: any): /* C1 */ x is (number /* C2 */ => /* C3 */ x /* C4 */ is /* C5 */ string /* C6 */ => /* C7 */ x /* C8 */ is /* C9 */ boolean) => true;
-  6 |
-Cause: Unexpected token, expected "{" (3:50)"
-`;
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`comments-in-type-annotations.js format 1`] = `
 ====================================options=====================================
@@ -40,18 +28,6 @@ const arrow = (
 ) => /* C7 */ x /* C8 */ is /* C9 */ boolean) => true;
 
 ================================================================================
-`;
-
-exports[`passing.js [babel-flow] format 1`] = `
-"Unexpected token, expected "{" (5:20)
-  3 | type F = (x: mixed) => x is A;
-  4 |
-> 5 | function f(any): x is A { return true; }
-    |                    ^
-  6 |
-  7 | const arrow0 = (x: any): x is A => true;
-  8 | const arrow1 = (x: any): x is (y: A) => B => true;
-Cause: Unexpected token, expected "{" (5:19)"
 `;
 
 exports[`passing.js format 1`] = `

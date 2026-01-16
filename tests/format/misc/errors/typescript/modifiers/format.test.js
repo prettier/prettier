@@ -138,7 +138,21 @@ runFormatTest(
           declare [index: string]: number
         }
       `,
+
+      // `ObjectLiteral`
+      // https://github.com/typescript-eslint/typescript-eslint/issues/11687
+      ...POSSIBLE_MODIFIERS.filter((modifier) => modifier !== "async").map(
+        (modifier) => `({${modifier} method(){}})`,
+      ),
+
+      // TODO[@fisker]: Enable this test
+      // Class parameter properties
+      // ...POSSIBLE_MODIFIERS.flatMap((modifier) => [
+      //   `class A {constructor(${modifier} []){}}`,
+      //   `class A {constructor(${modifier} {}){}}`,
+      //   `class A {constructor(${modifier} ...a){}}`,
+      // ]),
     ],
   },
-  ["babel-ts", "typescript"],
+  ["typescript", "babel-ts", "oxc-ts"],
 );

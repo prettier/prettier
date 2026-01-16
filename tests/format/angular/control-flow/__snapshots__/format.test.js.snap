@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`after-close-tag.html format 1`] = `
 ====================================options=====================================
@@ -291,6 +291,12 @@ item of
   <div *ngFor="item of items; let i = $index; track block"></div>
 </div>
 
+<div>
+  @for (item of items; let i = $index; let count = $count; track block) {}
+
+  <div *ngFor="item of items; let i = $index; let count = $count; track block"></div>
+</div>
+
 =====================================output=====================================
 <ul>
   @for (let item of items; index as i; trackBy: trackByFn) {
@@ -342,6 +348,14 @@ item of
   @for (item of items; let i = $index; track block) {}
 
   <div *ngFor="item of items; let i = $index; track block"></div>
+</div>
+
+<div>
+  @for (item of items; let i = $index; let count = $count; track block) {}
+
+  <div
+    *ngFor="item of items; let i = $index; let count = $count; track block"
+  ></div>
 </div>
 
 ================================================================================
@@ -574,23 +588,6 @@ printWidth: 80
 @empty {}
 
 @else {}
-
-================================================================================
-`;
-
-exports[`unknown-block.html format 1`] = `
-====================================options=====================================
-parsers: ["angular"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-@unknown (foo) {
-} @unknown (foo) {
-}
-
-=====================================output=====================================
-@unknown (foo) {}
-@unknown (foo) {}
 
 ================================================================================
 `;

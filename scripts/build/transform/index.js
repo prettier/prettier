@@ -1,40 +1,68 @@
 import path from "node:path";
-import babelGenerator from "@babel/generator";
+import generate from "@babel/generator";
 import { parse } from "@babel/parser";
 import { traverseFast as traverse } from "@babel/types";
 import { outdent } from "outdent";
-import { PROJECT_ROOT, SOURCE_DIR } from "../../utils/index.js";
-import allTransforms from "./transforms/index.js";
+import { PROJECT_ROOT, SOURCE_DIR } from "../../utilities/index.js";
+import * as transforms from "./transforms/index.js";
 
-const generate = babelGenerator.default;
+const packageTransforms = new Map([
+  /* spell-checker: disable */
+  [
+    transforms["method-replace-all"],
+    [
+      "@prettier/cli",
+      "@typescript-eslint/typescript-estree",
+      "camelcase",
+      "fast-ignore",
+      "fast-string-truncated-width",
+      "hashery",
+      "hermes-parser",
+      "jest-docblock",
+      "kasi",
+      "meriyah",
+    ],
+  ],
+  [
+    transforms["method-at"],
+    ["@glimmer/syntax", "angular-estree-parser", "espree"],
+  ],
+  [transforms["string-raw"], ["camelcase", "@angular/compiler"]],
+  [transforms["method-is-well-formed"], ["meriyah"]],
+  /* spell-checker: enable */
+]);
 
-/* Doesn't work for dependencies, optional call, computed property, and spread arguments */
+const allTransforms = Object.values(transforms);
+const sourceTransforms = allTransforms.filter(
+  (transform) => transform !== transforms["method-is-well-formed"],
+);
+const isPackageFile = (file, packageName) =>
+  file.startsWith(path.join(PROJECT_ROOT, `node_modules/${packageName}/`));
 
-function transform(original, file) {
-  if (
-    !(
-      file.startsWith(SOURCE_DIR) ||
-      file.startsWith(path.join(PROJECT_ROOT, "node_modules/camelcase/")) ||
-      file.startsWith(
-        path.join(PROJECT_ROOT, "node_modules/angular-estree-parser/"),
-      ) ||
-      file.startsWith(path.join(PROJECT_ROOT, "node_modules/jest-docblock/")) ||
-      file.startsWith(path.join(PROJECT_ROOT, "node_modules/espree/")) ||
-      file.startsWith(
-        path.join(
-          PROJECT_ROOT,
-          "node_modules/@typescript-eslint/typescript-estree/",
-        ),
-      ) ||
-      file.startsWith(path.join(PROJECT_ROOT, "node_modules/meriyah/"))
-    )
-  ) {
-    return original;
+function getTransforms(original, file) {
+  if (file.startsWith(SOURCE_DIR)) {
+    return sourceTransforms;
   }
 
-  const transforms = allTransforms.filter(
-    (transform) => !transform.shouldSkip(original, file),
-  );
+  const transforms = [];
+  for (const [transform, packageNames] of packageTransforms) {
+    if (packageNames.some((packageName) => isPackageFile(file, packageName))) {
+      transforms.push(transform);
+    }
+  }
+
+  return transforms;
+}
+
+function transform(original, file, buildOptions) {
+  const transforms = // For test
+    (
+      buildOptions.__isSyntaxTransformUnitTest
+        ? allTransforms
+        : getTransforms(original, file, buildOptions)
+    ).filter(
+      (transform) => !transform.shouldSkip(original, file, buildOptions),
+    );
 
   if (transforms.length === 0) {
     return original;
@@ -51,17 +79,20 @@ function transform(original, file) {
   });
   traverse(ast, (node) => {
     for (const transform of transforms) {
-      if (!transform.test(node)) {
+      if (!transform.test(node, file)) {
         continue;
       }
 
-      transform.transform(node);
+      changed ||= true;
 
       if (transform.inject) {
         injected.add(transform.inject);
       }
 
-      changed ||= true;
+      const replacement = transform.transform(node, file);
+      if (replacement && replacement !== node) {
+        replaceNode(node, replacement);
+      }
     }
   });
 
@@ -73,8 +104,6 @@ function transform(original, file) {
     ast,
     {
       sourceFileName: file,
-      experimental_preserveFormat: true,
-      retainLines: true,
       comments: true,
       jsescOption: null,
       minified: false,
@@ -92,6 +121,14 @@ function transform(original, file) {
   }
 
   return code;
+}
+
+function replaceNode(original, object) {
+  for (const key of Object.keys(original)) {
+    delete original[key];
+  }
+
+  Object.assign(original, object);
 }
 
 export default transform;

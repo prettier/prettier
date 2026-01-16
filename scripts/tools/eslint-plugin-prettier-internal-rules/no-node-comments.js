@@ -1,5 +1,4 @@
-"use strict";
-const path = require("path");
+import path from "node:path";
 
 // `node.comments`
 const memberExpressionSelector = [
@@ -25,12 +24,9 @@ const selector = `:matches(${memberExpressionSelector}, ${objectPatternSelector}
 
 const messageId = "no-node-comments";
 
-module.exports = {
+export default {
   meta: {
     type: "suggestion",
-    docs: {
-      url: "https://github.com/prettier/prettier/blob/main/scripts/tools/eslint-plugin-prettier-internal-rules/no-node-comments.js",
-    },
     messages: {
       [messageId]: "Do not access node.comments.",
     },
@@ -62,7 +58,7 @@ module.exports = {
         }
         const { file, functions } = option;
         return [
-          path.join(__dirname, "../../..", file),
+          path.join(import.meta.dirname, "../../..", file),
           functions ? new Set(functions) : true,
         ];
       }),

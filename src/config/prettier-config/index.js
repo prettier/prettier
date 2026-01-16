@@ -3,6 +3,10 @@ import mockable from "../../common/mockable.js";
 import getConfigSearcher from "./config-searcher.js";
 import loadConfig from "./load-config.js";
 
+/**
+@import {FileSearcher} from 'search-closest'
+*/
+
 const loadCache = new Map();
 const searchCache = new Map();
 function clearPrettierConfigCache() {
@@ -27,8 +31,9 @@ function loadPrettierConfig(configFile, { shouldCache }) {
 }
 
 /**
- * @param {string} stopDirectory
- */
+@param {string} stopDirectory
+@returns {FileSearcher["search"]}
+*/
 function getSearchFunction(stopDirectory) {
   stopDirectory = stopDirectory ? path.resolve(stopDirectory) : undefined;
 
@@ -44,7 +49,7 @@ function getSearchFunction(stopDirectory) {
 /**
  * @param {string} startDirectory
  * @param {{shouldCache?: boolean}} options
- * @returns {Promise<string>}
+ * @returns {Promise<string | void>}
  */
 function searchPrettierConfig(startDirectory, options = {}) {
   startDirectory = startDirectory
@@ -55,7 +60,7 @@ function searchPrettierConfig(startDirectory, options = {}) {
 
   const search = getSearchFunction(stopDirectory);
 
-  return search(startDirectory, { shouldCache: options.shouldCache });
+  return search(startDirectory, { cache: options.shouldCache });
 }
 
 export { clearPrettierConfigCache, loadPrettierConfig, searchPrettierConfig };

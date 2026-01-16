@@ -12,6 +12,16 @@ yarn build
 
 ## Flags
 
+### `--package`
+
+What package to build, will build all packages if omitted.
+
+```
+yarn build
+yarn build --package prettier
+yarn build --package prettier --package @prettier/plugin-oxc
+```
+
 ### `--clean`
 
 Remove `dist` directory before bundle files.

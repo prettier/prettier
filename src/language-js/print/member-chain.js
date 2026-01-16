@@ -6,13 +6,13 @@ import {
   indent,
   join,
   label,
-} from "../../document/builders.js";
-import { willBreak } from "../../document/utils.js";
+  willBreak,
+} from "../../document/index.js";
 import { printComments } from "../../main/comments/print.js";
-import getNextNonSpaceNonCommentCharacterIndex from "../../utils/get-next-non-space-non-comment-character-index.js";
-import isNextLineEmptyAfterIndex from "../../utils/is-next-line-empty.js";
+import getNextNonSpaceNonCommentCharacterIndex from "../../utilities/get-next-non-space-non-comment-character-index.js";
+import isNextLineEmptyAfterIndex from "../../utilities/is-next-line-empty.js";
 import { locEnd } from "../loc.js";
-import pathNeedsParens from "../needs-parens.js";
+import needsParentheses from "../parentheses/needs-parentheses.js";
 import {
   CommentCheckFlags,
   hasComment,
@@ -24,17 +24,14 @@ import {
   isNextLineEmpty,
   isNumericLiteral,
   isSimpleCallArgument,
-} from "../utils/index.js";
+} from "../utilities/index.js";
+import { printBindExpressionCallee } from "./bind-expression.js";
 import printCallArguments from "./call-arguments.js";
 import { printMemberLookup } from "./member.js";
-import {
-  printBindExpressionCallee,
-  printFunctionTypeParameters,
-  printOptionalToken,
-} from "./misc.js";
+import { printOptionalToken } from "./misc.js";
 
 /**
- * @import {Doc} from "../../document/builders.js"
+ * @import {Doc} from "../../document/index.js"
  * @typedef {{ node: any, printed: Doc, needsParens?: boolean, shouldInline?: boolean, hasTrailingEmptyLine?: boolean }} PrintedNode
  */
 
@@ -58,9 +55,9 @@ function printMemberChain(path, options, print) {
     );
   }
 
-  const { parent } = path;
   const isExpressionStatement =
-    !parent || parent.type === "ExpressionStatement";
+    (path.parent.type === "ChainExpression" ? path.grandparent : path.parent)
+      .type === "ExpressionStatement";
 
   // The first phase is to linearize the AST by traversing it down.
   //
@@ -114,7 +111,7 @@ function printMemberChain(path, options, print) {
             path,
             [
               printOptionalToken(path),
-              printFunctionTypeParameters(path, options, print),
+              print("typeArguments"),
               printCallArguments(path, options, print),
             ],
             options,
@@ -126,7 +123,7 @@ function printMemberChain(path, options, print) {
     } else if (isMemberish(node)) {
       printedNodes.unshift({
         node,
-        needsParens: pathNeedsParens(path, options),
+        needsParens: needsParentheses(path, options),
         printed: printComments(
           path,
           isMemberExpression(node)
@@ -157,7 +154,7 @@ function printMemberChain(path, options, print) {
     node,
     printed: [
       printOptionalToken(path),
-      printFunctionTypeParameters(path, options, print),
+      print("typeArguments"),
       printCallArguments(path, options, print),
     ],
   });

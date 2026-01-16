@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`class-property.js format 1`] = `
 ====================================options=====================================
@@ -41,7 +41,8 @@ class x {
 
 =====================================output=====================================
 class x {
-  focus() { // comment 1
+  focus() {
+    // comment 1
     // comment 2
   }
 }
@@ -96,6 +97,9 @@ class C2  // comment
 extends Base
 {  foo(){} }
 
+(class A10 extends /* a */ /* prettier-ignore */B {});
+class A10 extends /* a */ /* prettier-ignore */B {}
+
 =====================================output=====================================
 class A // comment 1
   // comment 2
@@ -140,6 +144,9 @@ class C2 // comment
 {
   foo() {}
 }
+
+(class A10 extends /* a */ /* prettier-ignore */ B {});
+class A10 extends /* a */ /* prettier-ignore */ B {}
 
 ================================================================================
 `;

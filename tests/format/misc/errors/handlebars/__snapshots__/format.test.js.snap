@@ -1,7 +1,7 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`invalid.hbs [glimmer] format 1`] = `
-"Expecting 'CLOSE_RAW_BLOCK', 'CLOSE', 'CLOSE_UNESCAPED', 'OPEN_SEXPR', 'CLOSE_SEXPR', 'ID', 'OPEN_BLOCK_PARAMS', 'STRING', 'NUMBER', 'BOOLEAN', 'UNDEFINED', 'NULL', 'DATA', 'SEP', got 'INVALID' (2:11)
+"Expecting 'CLOSE_RAW_BLOCK', 'CLOSE', 'CLOSE_UNESCAPED', 'OPEN_SEXPR', 'CLOSE_SEXPR', 'ID', 'OPEN_ARRAY', 'CLOSE_ARRAY', 'OPEN_BLOCK_PARAMS', 'STRING', 'NUMBER', 'BOOLEAN', 'UNDEFINED', 'NULL', 'DATA', 'SEP', 'PRIVATE_SEP', got 'INVALID' (2:11)
   1 | <A >
 > 2 | x, {{@name}
     |           ^
@@ -9,7 +9,7 @@ exports[`invalid.hbs [glimmer] format 1`] = `
 Cause: Parse error on line 2:
 <A >x, {{@name}
 --------------^
-Expecting 'CLOSE_RAW_BLOCK', 'CLOSE', 'CLOSE_UNESCAPED', 'OPEN_SEXPR', 'CLOSE_SEXPR', 'ID', 'OPEN_BLOCK_PARAMS', 'STRING', 'NUMBER', 'BOOLEAN', 'UNDEFINED', 'NULL', 'DATA', 'SEP', got 'INVALID'"
+Expecting 'CLOSE_RAW_BLOCK', 'CLOSE', 'CLOSE_UNESCAPED', 'OPEN_SEXPR', 'CLOSE_SEXPR', 'ID', 'OPEN_ARRAY', 'CLOSE_ARRAY', 'OPEN_BLOCK_PARAMS', 'STRING', 'NUMBER', 'BOOLEAN', 'UNDEFINED', 'NULL', 'DATA', 'SEP', 'PRIVATE_SEP', got 'INVALID'"
 `;
 
 exports[`invalid-2.hbs [glimmer] format 1`] = `
@@ -29,7 +29,7 @@ Cause: Unclosed element \`@name\`:
 `;
 
 exports[`invalid-3.hbs [glimmer] format 1`] = `
-"Expecting 'OPEN_SEXPR', 'ID', 'STRING', 'NUMBER', 'BOOLEAN', 'UNDEFINED', 'NULL', 'DATA', got 'CLOSE' (3:3)
+"Expecting 'OPEN_SEXPR', 'ID', 'OPEN_ARRAY', 'STRING', 'NUMBER', 'BOOLEAN', 'UNDEFINED', 'NULL', 'DATA', got 'CLOSE' (3:3)
   1 | <a>
   2 |
 > 3 | {{}}
@@ -38,7 +38,7 @@ exports[`invalid-3.hbs [glimmer] format 1`] = `
 Cause: Parse error on line 3:
 <a>{{}}
 -----^
-Expecting 'OPEN_SEXPR', 'ID', 'STRING', 'NUMBER', 'BOOLEAN', 'UNDEFINED', 'NULL', 'DATA', got 'CLOSE'"
+Expecting 'OPEN_SEXPR', 'ID', 'OPEN_ARRAY', 'STRING', 'NUMBER', 'BOOLEAN', 'UNDEFINED', 'NULL', 'DATA', got 'CLOSE'"
 `;
 
 exports[`snippet: IMG [glimmer] format 1`] = `
@@ -406,23 +406,23 @@ Cause: <wbr> elements do not need end tags. You should remove it:
 `;
 
 exports[`tilde-comments-1.hbs [glimmer] format 1`] = `
-"Expecting 'OPEN_SEXPR', 'ID', 'STRING', 'NUMBER', 'BOOLEAN', 'UNDEFINED', 'NULL', 'DATA', got 'CLOSE' (1:4)
+"Expecting 'OPEN_SEXPR', 'ID', 'OPEN_ARRAY', 'STRING', 'NUMBER', 'BOOLEAN', 'UNDEFINED', 'NULL', 'DATA', got 'CLOSE' (1:4)
 > 1 | {{~}}
     |    ^
   2 |
 Cause: Parse error on line 1:
 {{~}}
 ---^
-Expecting 'OPEN_SEXPR', 'ID', 'STRING', 'NUMBER', 'BOOLEAN', 'UNDEFINED', 'NULL', 'DATA', got 'CLOSE'"
+Expecting 'OPEN_SEXPR', 'ID', 'OPEN_ARRAY', 'STRING', 'NUMBER', 'BOOLEAN', 'UNDEFINED', 'NULL', 'DATA', got 'CLOSE'"
 `;
 
 exports[`tilde-comments-2.hbs [glimmer] format 1`] = `
-"Expecting 'OPEN_SEXPR', 'ID', 'STRING', 'NUMBER', 'BOOLEAN', 'UNDEFINED', 'NULL', 'DATA', got 'CLOSE' (1:4)
+"Expecting 'OPEN_SEXPR', 'ID', 'OPEN_ARRAY', 'STRING', 'NUMBER', 'BOOLEAN', 'UNDEFINED', 'NULL', 'DATA', got 'CLOSE' (1:4)
 > 1 | {{~~}}
     |    ^
   2 |
 Cause: Parse error on line 1:
 {{~~}}
 ---^
-Expecting 'OPEN_SEXPR', 'ID', 'STRING', 'NUMBER', 'BOOLEAN', 'UNDEFINED', 'NULL', 'DATA', got 'CLOSE'"
+Expecting 'OPEN_SEXPR', 'ID', 'OPEN_ARRAY', 'STRING', 'NUMBER', 'BOOLEAN', 'UNDEFINED', 'NULL', 'DATA', got 'CLOSE'"
 `;

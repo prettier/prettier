@@ -1,16 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`comments.js [babel-flow] format 1`] = `
-"Unexpected token (3:12)
-  1 | // @flow
-  2 |
-> 3 | type A = B extends T
-    |            ^
-  4 |   ? // comment
-  5 |     foo
-  6 |   : bar;
-Cause: Unexpected token (3:11)"
-`;
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`comments.js format 1`] = `
 ====================================options=====================================

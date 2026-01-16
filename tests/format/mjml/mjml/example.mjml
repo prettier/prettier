@@ -1,0 +1,19 @@
+<!-- https://github.com/prettier/prettier/pull/17400#issuecomment-2829653054 -->
+
+<mjml>
+  <mj-boDy>
+    <mj-seCTion>
+      <mj-column>
+
+        <!-- both are equivalent -->
+        <mj-iMage width="100px" src="/assets/img/logo-small.png"></mj-iMage>
+        <mj-image width="100px" src="/assets/img/logo-small.png" />
+
+        <mj-divider border-color="#F45E43"></mj-divider>
+
+        <mj-text font-size="20px" color="#F45E43" font-family="helvetica">Hello World</mj-text>
+
+      </mj-column>
+    </mj-seCTion>
+  </mj-boDy>
+</mjml>

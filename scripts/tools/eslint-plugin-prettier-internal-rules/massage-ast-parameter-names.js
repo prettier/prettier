@@ -1,5 +1,3 @@
-"use strict";
-
 const MESSAGE_ID = "massage-ast-parameter-names";
 
 const massageAstFunctionSelector = [
@@ -17,12 +15,9 @@ const getVariableIdentifiers = ({ identifiers, references }) => [
   ]),
 ];
 
-module.exports = {
+export default {
   meta: {
     type: "suggestion",
-    docs: {
-      url: "https://github.com/prettier/prettier/blob/main/scripts/tools/eslint-plugin-prettier-internal-rules/massage-ast-parameter-names.js",
-    },
     messages: {
       [MESSAGE_ID]:
         "The {{name}} node parameter '{{original}}' should be named '{{name}}'.",

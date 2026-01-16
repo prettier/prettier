@@ -2,20 +2,20 @@ import {
   breakParent,
   hardline,
   indent,
+  inheritLabel,
   join,
   line,
   lineSuffix,
-} from "../../document/builders.js";
-import { inheritLabel } from "../../document/utils.js";
-import hasNewline from "../../utils/has-newline.js";
-import isNonEmptyArray from "../../utils/is-non-empty-array.js";
-import isPreviousLineEmpty from "../../utils/is-previous-line-empty.js";
-import { skipSpaces } from "../../utils/skip.js";
-import skipNewline from "../../utils/skip-newline.js";
+} from "../../document/index.js";
+import hasNewline from "../../utilities/has-newline.js";
+import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
+import isPreviousLineEmpty from "../../utilities/is-previous-line-empty.js";
+import { skipSpaces } from "../../utilities/skip.js";
+import skipNewline from "../../utilities/skip-newline.js";
 
 /**
  * @import AstPath from "../../common/ast-path.js"
- * @import {Doc} from "../../document/builders.js"
+ * @import {Doc} from "../../document/index.js"
  */
 
 const returnTrue = () => true;

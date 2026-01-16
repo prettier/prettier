@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`snippet: #0 [babel] format 1`] = `
 "Decorators can be placed *either* before or after the 'export' keyword, but not in both locations at the same time. (2:8)
