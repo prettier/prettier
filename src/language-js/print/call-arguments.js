@@ -248,7 +248,15 @@ function couldExpandArg(arg, arrowChainRecursion = false) {
         return true;
       }
 
-      if (isCallExpression(body)) {
+      let node = body;
+      while (
+        node.type === "ChainExpression" ||
+        node.type === "TSNonNullExpression"
+      ) {
+        node = node.expression;
+      }
+
+      if (isCallExpression(node)) {
         return true;
       }
     }
