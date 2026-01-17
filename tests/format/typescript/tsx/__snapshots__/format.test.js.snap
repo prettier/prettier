@@ -126,7 +126,7 @@ const footer = "<footer></footer>";
 ================================================================================
 `;
 
-exports[`optional-chainning.tsx format 1`] = `
+exports[`optional-chaining.tsx format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

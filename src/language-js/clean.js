@@ -176,14 +176,6 @@ function clean(original, cloned, parent) {
   if (original.type === "TemplateLiteral") {
     removeTemplateElementsValue(cloned);
   }
-
-  // We remove unnecessary parens around `ChainExpression`, `(a?.b)!`
-  if (
-    original.type === "TSNonNullExpression" &&
-    original.expression.type === "ChainExpression"
-  ) {
-    cloned.expression.type = cloned.expression.expression;
-  }
 }
 
 clean.ignoredProperties = ignoredProperties;

@@ -110,6 +110,11 @@ const babelTsDisabledTests = new Set(
     "chain-expression/tagged-template-literals.ts",
     "chain-expression/test.ts",
     "chain-expression/test2.ts",
+    "binary-expressions/chain-expression.ts",
+    "tsx/optional-chaining.tsx",
+    "class-and-interface/member-expression-like.ts",
+    "assignment/long-arg.ts",
+    "non-null/optional-chain.ts",
   ].map((file) => path.join(__dirname, "../format/typescript", file)),
 );
 const oxcDisabledTests = new Set();

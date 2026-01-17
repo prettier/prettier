@@ -7,11 +7,8 @@ import { createTypeCheckFunction } from "../utilities/index.js";
 function shouldAddParenthesesToChainExpression(path) {
   const { key, parent } = path;
 
-  if (key === "expression" && parent.type === "TSNonNullExpression") {
-    return path.callParent(shouldAddParenthesesToChainExpression);
-  }
-
   return (
+    (key === "expression" && parent.type === "TSNonNullExpression") ||
     (key === "object" &&
       parent.type === "MemberExpression" &&
       !parent.optional) ||
