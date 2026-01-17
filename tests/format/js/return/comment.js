@@ -22,6 +22,9 @@ function x() {
   return func2
       //comment
       .bar();
+  return func2
+      //comment
+      ?.bar();
 }
 
 function f() {
@@ -30,6 +33,11 @@ function f() {
       // comment
       .bar()
   );
+  return (
+    foo
+      // comment
+      ?.bar()
+  );
 }
 
 fn(function f() {
@@ -37,5 +45,10 @@ fn(function f() {
     foo
       // comment
       .bar()
+  );
+  return (
+    foo
+      // comment
+      ?.bar()
   );
 });
