@@ -21,7 +21,7 @@ import {
   isArrayExpression,
   isBinaryish,
   isBooleanTypeCoercion,
-  isCallExpression,
+  isCallOrNewExpression,
   isJsxElement,
   isMemberExpression,
   isObjectExpression,
@@ -85,8 +85,7 @@ function printBinaryishExpression(path, options, print) {
   //     c
   //   ).call()
   if (
-    (key === "callee" &&
-      (isCallExpression(parent) || parent.type === "NewExpression")) ||
+    (key === "callee" && isCallOrNewExpression(parent)) ||
     // `UnaryExpression` adds parentheses and indention when argument has comment
     (parent.type === "UnaryExpression" && !hasComment(node)) ||
     (isMemberExpression(parent) && !parent.computed)
@@ -110,8 +109,7 @@ function printBinaryishExpression(path, options, print) {
     (node !== parent.body && parent.type === "ForStatement") ||
     (parent.type === "ConditionalExpression" &&
       !isReturnOrThrowStatement(grandparent) &&
-      !isCallExpression(grandparent) &&
-      grandparent.type !== "NewExpression") ||
+      !isCallOrNewExpression(grandparent)) ||
     parent.type === "TemplateLiteral" ||
     (key === "argument" && parent.type === "UnaryExpression") ||
     (key === "arguments" && isBooleanTypeCoercion(parent));

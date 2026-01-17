@@ -1,7 +1,7 @@
 import { group, indent, softline } from "../../document/index.js";
 import {
   createTypeCheckFunction,
-  isCallExpression,
+  isCallOrNewExpression,
   isMemberExpression,
 } from "../utilities/index.js";
 
@@ -26,8 +26,7 @@ function printBinaryCastExpression(path, options, print) {
   ];
 
   if (
-    (key === "callee" &&
-      (isCallExpression(parent) || parent.type === "NewExpression")) ||
+    (key === "callee" && isCallOrNewExpression(parent)) ||
     (key === "object" && isMemberExpression(parent))
   ) {
     return group([indent([softline, ...parts]), softline]);

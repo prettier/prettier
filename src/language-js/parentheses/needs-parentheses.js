@@ -11,6 +11,7 @@ import {
   isBinaryCastExpression,
   isBitwiseOperator,
   isCallExpression,
+  isCallOrNewExpression,
   isConditionalType,
   isIntersectionType,
   isMemberExpression,
@@ -903,7 +904,6 @@ function needsParentheses(path, options) {
           parent.type !== "AssignmentExpression" &&
           parent.type !== "AssignmentPattern" &&
           parent.type !== "BinaryExpression" &&
-          parent.type !== "NewExpression" &&
           parent.type !== "ConditionalExpression" &&
           parent.type !== "ExpressionStatement" &&
           parent.type !== "JsExpressionRoot" &&
@@ -912,7 +912,7 @@ function needsParentheses(path, options) {
           parent.type !== "JSXExpressionContainer" &&
           parent.type !== "JSXFragment" &&
           parent.type !== "LogicalExpression" &&
-          !isCallExpression(parent) &&
+          !isCallOrNewExpression(parent) &&
           !isObjectProperty(parent) &&
           !isReturnOrThrowStatement(parent) &&
           parent.type !== "TypeCastExpression" &&

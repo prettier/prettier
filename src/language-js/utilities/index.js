@@ -30,6 +30,9 @@ import {
   isTupleType,
   isTypeAlias,
   isUnionType,
+  isCallExpression,
+  isCallOrNewExpression,
+  isCallLikeExpression,
 } from "./node-types.js";
 
 /**
@@ -362,22 +365,6 @@ function isTestCall(node, parent) {
   }
   return false;
 }
-
-const isCallExpression = createTypeCheckFunction([
-  "CallExpression",
-  "OptionalCallExpression",
-]);
-
-const isMemberExpression = createTypeCheckFunction([
-  "MemberExpression",
-  "OptionalMemberExpression",
-]);
-
-const isCallOrNewExpression = createTypeCheckFunction([
-  "CallExpression",
-  "OptionalCallExpression",
-  "NewExpression",
-]);
 
 /**
  * Attempts to gauge the rough complexity of a node, for example
@@ -996,14 +983,6 @@ function getComments(node, flags, fn) {
  */
 const isNextLineEmpty = (node, { originalText }) =>
   isNextLineEmptyAfterIndex(originalText, locEnd(node));
-
-function isCallLikeExpression(node) {
-  return (
-    isCallExpression(node) ||
-    node.type === "NewExpression" ||
-    node.type === "ImportExpression"
-  );
-}
 
 function isObjectProperty(node) {
   return (
