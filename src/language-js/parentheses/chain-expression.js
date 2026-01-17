@@ -8,17 +8,18 @@ import {
 */
 
 function shouldAddParenthesesToChainExpression(path) {
-  const { key } = path;
-  const parent = stripChainElementWrappers(path.parent);
+  const { key, parent } = path;
+
+  if (key === "expression" && parent.type === "TSNonNullExpression") {
+    return path.callParent(shouldAddParenthesesToChainExpression);
+  }
 
   return (
     (key === "object" &&
       parent.type === "MemberExpression" &&
-      // @ts-expect-error -- safe
       !parent.optional) ||
     (key === "callee" &&
       parent.type === "CallExpression" &&
-      // @ts-expect-error -- safe
       !parent.optional) ||
     (key === "callee" && parent.type === "NewExpression") ||
     (key === "tag" && parent.type === "TaggedTemplateExpression")
