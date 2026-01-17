@@ -79,7 +79,6 @@ function handleOwnLineComment(context) {
     handleAssignmentPatternComments,
     handleMethodNameComments,
     handleLabeledStatementComments,
-    handleBreakAndContinueStatementComments,
     handleNestedConditionalExpressionComments,
     handleCommentsInDestructuringPattern,
     handleTSMappedTypeComments,
@@ -107,7 +106,6 @@ function handleEndOfLineComment(context) {
     handlePropertyComments,
     handleOnlyComments,
     handleVariableDeclaratorComments,
-    handleBreakAndContinueStatementComments,
     handleSwitchDefaultCaseComments,
     handleLastUnionElementInExpression,
     handleLastBinaryOperatorOperand,
@@ -132,7 +130,6 @@ function handleRemainingComment(context) {
     handleOnlyComments,
     handleCommentAfterArrowParams,
     handleFunctionNameComments,
-    handleBreakAndContinueStatementComments,
     handleTSFunctionTrailingComments,
     handleBinaryCastExpressionComment,
   ].some((fn) => fn(context));
@@ -772,18 +769,6 @@ function handleLastFunctionParameterComments({
 function handleLabeledStatementComments({ comment, enclosingNode }) {
   if (enclosingNode?.type === "LabeledStatement") {
     addLeadingComment(enclosingNode, comment);
-    return true;
-  }
-  return false;
-}
-
-function handleBreakAndContinueStatementComments({ comment, enclosingNode }) {
-  if (
-    (enclosingNode?.type === "ContinueStatement" ||
-      enclosingNode?.type === "BreakStatement") &&
-    !enclosingNode.label
-  ) {
-    addTrailingComment(enclosingNode, comment);
     return true;
   }
   return false;
