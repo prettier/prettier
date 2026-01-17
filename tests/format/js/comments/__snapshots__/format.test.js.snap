@@ -1360,8 +1360,8 @@ loop: for (;;) {
 
 =====================================output=====================================
 for (;;) {
-  break /* comment */
-  continue /* comment */
+  break
+  continue /* comment */ /* comment */
 }
 
 loop: for (;;) {
@@ -1394,15 +1394,15 @@ loop: for (;;) {
 
 =====================================output=====================================
 for (;;) {
-  break; /* comment */
-  continue; /* comment */
+  break;
+  continue; /* comment */ /* comment */
 }
 
 loop: for (;;) {
   break /* comment */ loop;
-  break loop /* comment */;
+  break loop; /* comment */
   continue /* comment */ loop;
-  continue loop /* comment */;
+  continue loop; /* comment */
 }
 
 ================================================================================
@@ -1481,26 +1481,27 @@ lbl: for (;;) {
 }
 
 for (;;) {
-  break // comment
+  break
   continue // comment
+  // comment
 }
 
 for (;;) {
   break
-  // comment
   continue
   // comment
-}
-
-for (;;) {
-  break /* comment */
-  continue /* comment */
+  // comment
 }
 
 for (;;) {
   break
+  continue /* comment */ /* comment */
+}
+
+for (;;) {
+  break
+  continue
   /* comment */
-  continue
   /* comment */
 }
 
@@ -1579,27 +1580,119 @@ lbl: for (;;) {
 }
 
 for (;;) {
-  break; // comment
+  break;
   continue; // comment
-}
-
-for (;;) {
-  break;
-  // comment
-  continue;
   // comment
 }
 
 for (;;) {
-  break; /* comment */
-  continue; /* comment */
+  break;
+  continue;
+  // comment
+  // comment
 }
 
 for (;;) {
   break;
-  /* comment */
+  continue; /* comment */ /* comment */
+}
+
+for (;;) {
+  break;
   continue;
   /* comment */
+  /* comment */
+}
+
+================================================================================
+`;
+
+exports[`break-continue-statements-3.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+// https://github.com/prettier/prettier/issues/7126
+for (;;) {
+  if (condition){ continue
+
+  // breaking comment
+  ;(possibleArray || []).sort()
+  }
+}
+
+lbl: for (;;) {
+  if (condition){ continue lbl
+
+  // breaking comment
+  ;(possibleArray || []).sort()
+  }
+}
+
+=====================================output=====================================
+// https://github.com/prettier/prettier/issues/7126
+for (;;) {
+  if (condition) {
+    continue
+    // breaking comment
+    ;(possibleArray || []).sort()
+  }
+}
+
+lbl: for (;;) {
+  if (condition) {
+    continue lbl
+
+    // breaking comment
+    ;(possibleArray || []).sort()
+  }
+}
+
+================================================================================
+`;
+
+exports[`break-continue-statements-3.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// https://github.com/prettier/prettier/issues/7126
+for (;;) {
+  if (condition){ continue
+
+  // breaking comment
+  ;(possibleArray || []).sort()
+  }
+}
+
+lbl: for (;;) {
+  if (condition){ continue lbl
+
+  // breaking comment
+  ;(possibleArray || []).sort()
+  }
+}
+
+=====================================output=====================================
+// https://github.com/prettier/prettier/issues/7126
+for (;;) {
+  if (condition) {
+    continue;
+    // breaking comment
+    (possibleArray || []).sort();
+  }
+}
+
+lbl: for (;;) {
+  if (condition) {
+    continue lbl;
+
+    // breaking comment
+    (possibleArray || []).sort();
+  }
 }
 
 ================================================================================

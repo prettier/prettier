@@ -440,11 +440,11 @@ do {
 } while (true);
 
 label1: for (;;) {
-  continue label1 /* comment */;
+  continue label1; /* comment */
 }
 
 label2: {
-  break label2 /* comment */;
+  break label2; /* comment */
 }
 
 ================================================================================
@@ -839,21 +839,17 @@ for (;;)
   break;
   // comment
 
-for (const f of [])
-  continue;
-  // comment
+// comment
+for (const f of []) continue;
 
-for (const f of [])
-  break;
-  // comment
+// comment
+for (const f of []) break;
 
-for (const f in {})
-  continue;
-  // comment
+// comment
+for (const f in {}) continue;
 
-for (const f in {})
-  break;
-  // comment
+// comment
+for (const f in {}) break;
 
 for (;;)
   continue; // comment
@@ -893,23 +889,19 @@ for (;;)
   break;
   /* comment */
 
-for (const f of [])
-  continue;
-  /* comment */
+/* comment */
+for (const f of []) continue;
 
-for (const f of [])
-  break;
-  /* comment */
+/* comment */
+for (const f of []) break;
 
-for (const f in {})
-  continue;
-  /* comment */
+/* comment */
+for (const f in {}) continue;
 
-for (const f in {})
-  break;
-  /* comment */
+/* comment */
+for (const f in {}) break;
 
-label1: for (;;) continue label1 /* comment */;
+label1: for (;;) continue label1; /* comment */
 
 label1: for (;;)
   continue label1;
