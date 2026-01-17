@@ -888,6 +888,7 @@ function handleForComments({ comment, enclosingNode, followingNode }) {
   if (
     (enclosingNode?.type === "ForInStatement" ||
       enclosingNode?.type === "ForOfStatement") &&
+    followingNode &&
     followingNode !== enclosingNode.body
   ) {
     addLeadingComment(enclosingNode, comment);

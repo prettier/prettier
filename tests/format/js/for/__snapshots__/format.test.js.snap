@@ -839,17 +839,21 @@ for (;;)
   break;
   // comment
 
-// comment3
-for (const f of []) continue;
+for (const f of [])
+  continue;
+  // comment3
 
-// comment4
-for (const f of []) break;
+for (const f of [])
+  break;
+  // comment4
 
-// comment5
-for (const f in {}) continue;
+for (const f in {})
+  continue;
+  // comment5
 
-// comment6
-for (const f in {}) break;
+for (const f in {})
+  break;
+  // comment6
 
 for (;;)
   continue; // comment
@@ -889,17 +893,21 @@ for (;;)
   break;
   /* comment */
 
-/* comment 33 */
-for (const f of []) continue;
+for (const f of [])
+  continue;
+  /* comment 33 */
 
-/* comment 34 */
-for (const f of []) break;
+for (const f of [])
+  break;
+  /* comment 34 */
 
-/* comment 35 */
-for (const f in {}) continue;
+for (const f in {})
+  continue;
+  /* comment 35 */
 
-/* comment 36 */
-for (const f in {}) break;
+for (const f in {})
+  break;
+  /* comment 36 */
 
 label1: for (;;) continue label1; /* comment */
 
