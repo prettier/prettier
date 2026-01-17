@@ -109,3 +109,8 @@ export const isCallLikeExpression = createTypeCheckFunction([
   "NewExpression",
   "ImportExpression",
 ]);
+
+export const isChainElementWrapper = createTypeCheckFunction([
+  "ChainExpression",
+  "TSNonNullExpression",
+]);

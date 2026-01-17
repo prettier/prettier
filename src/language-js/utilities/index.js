@@ -21,6 +21,7 @@ import {
   isCallExpression,
   isCallLikeExpression,
   isCallOrNewExpression,
+  isChainElementWrapper,
   isConditionalType,
   isExportDeclaration,
   isFunctionOrArrowExpression,
@@ -1071,11 +1072,6 @@ function isIifeCalleeOrTaggedTemplateExpressionTag(path) {
       (path.key === "tag" && path.parent.type === "TaggedTemplateExpression"))
   );
 }
-
-const isChainElementWrapper = createTypeCheckFunction([
-  "ChainExpression",
-  "TSNonNullExpression",
-]);
 
 /**
 @param {Node} node
