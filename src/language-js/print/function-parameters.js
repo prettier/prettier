@@ -63,7 +63,7 @@ function printFunctionParameters(
   path,
   options,
   print,
-  shouldExpandArgument,
+  shouldExpandParameters,
   shouldPrintTypeParameters,
 ) {
   const functionNode = path.node;
@@ -119,7 +119,7 @@ function printFunctionParameters(
   //     }                     b,
   //   )                     ) => {
   //                         })
-  if (shouldExpandArgument && !isDecoratedFunction(path)) {
+  if (shouldExpandParameters && !isDecoratedFunction(path)) {
     if (willBreak(typeParametersDoc) || willBreak(printed)) {
       // Removing lines in this case leads to broken or ugly output
       throw new ArgExpansionBailout();

@@ -30,7 +30,7 @@ function printMethodSignature(path, options, print) {
     path,
     options,
     print,
-    /* shouldExpandArgument */ false,
+    /* shouldExpandParameters */ false,
     /* shouldPrintTypeParameters */ true,
   );
 
