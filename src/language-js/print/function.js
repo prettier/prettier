@@ -46,12 +46,8 @@ function printFunction(path, options, print, args) {
 
   const { node } = path;
 
-  let shouldExpandArgument = false;
-  if (
-    (node.type === "FunctionDeclaration" ||
-      node.type === "FunctionExpression") &&
-    args?.expandLastArg
-  ) {
+  let shouldExpandParameters = false;
+  if (node.type === "FunctionExpression" && args?.expandLastArg) {
     const { parent } = path;
     if (
       isCallExpression(parent) &&
@@ -60,7 +56,7 @@ function printFunction(path, options, print, args) {
           (param) => param.type === "Identifier" && !param.typeAnnotation,
         ))
     ) {
-      shouldExpandArgument = true;
+      shouldExpandParameters = true;
     }
   }
 
@@ -68,7 +64,7 @@ function printFunction(path, options, print, args) {
     path,
     options,
     print,
-    shouldExpandArgument,
+    shouldExpandParameters,
   );
   const returnTypeDoc = printReturnType(path, print);
   const shouldGroupParameters = shouldGroupFunctionParameters(
