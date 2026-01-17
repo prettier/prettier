@@ -1,7 +1,4 @@
-import {
-  createTypeCheckFunction,
-  stripChainElementWrappers,
-} from "../utilities/index.js";
+import { createTypeCheckFunction } from "../utilities/index.js";
 
 /**
 @import AstPath from "../../common/ast-path.js"

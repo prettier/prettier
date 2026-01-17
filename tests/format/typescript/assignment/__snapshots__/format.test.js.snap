@@ -525,7 +525,7 @@ if (true) {
     )).type;
     const secondType3 = (sourceCode?.getNodeByRangeIndex1234(
       second.range[0],
-    ))!.type;
+    )!).type;
     // TODO[@fisker]: Fix
     // const secondType4 = (sourceCode?.getNodeByRangeIndex1234(second.range[0])!)!
     //   .type;
