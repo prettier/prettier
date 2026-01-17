@@ -86,3 +86,31 @@ export const isBinaryish = createTypeCheckFunction([
   "LogicalExpression",
   "NGPipeExpression",
 ]);
+
+export const isCallExpression = createTypeCheckFunction([
+  "CallExpression",
+  "OptionalCallExpression",
+]);
+
+export const isMemberExpression = createTypeCheckFunction([
+  "MemberExpression",
+  "OptionalMemberExpression",
+]);
+
+export const isCallOrNewExpression = createTypeCheckFunction([
+  "CallExpression",
+  "OptionalCallExpression",
+  "NewExpression",
+]);
+
+export const isCallLikeExpression = createTypeCheckFunction([
+  "CallExpression",
+  "OptionalCallExpression",
+  "NewExpression",
+  "ImportExpression",
+]);
+
+export const isChainElementWrapper = createTypeCheckFunction([
+  "ChainExpression",
+  "TSNonNullExpression",
+]);

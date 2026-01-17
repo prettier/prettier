@@ -18,12 +18,17 @@ import {
   isArrayExpression,
   isBinaryCastExpression,
   isBinaryish,
+  isCallExpression,
+  isCallLikeExpression,
+  isCallOrNewExpression,
+  isChainElementWrapper,
   isConditionalType,
   isExportDeclaration,
   isFunctionOrArrowExpression,
   isIntersectionType,
   isJsxElement,
   isLiteral,
+  isMemberExpression,
   isObjectExpression,
   isObjectType,
   isReturnOrThrowStatement,
@@ -362,22 +367,6 @@ function isTestCall(node, parent) {
   }
   return false;
 }
-
-const isCallExpression = createTypeCheckFunction([
-  "CallExpression",
-  "OptionalCallExpression",
-]);
-
-const isMemberExpression = createTypeCheckFunction([
-  "MemberExpression",
-  "OptionalMemberExpression",
-]);
-
-const isCallOrNewExpression = createTypeCheckFunction([
-  "CallExpression",
-  "OptionalCallExpression",
-  "NewExpression",
-]);
 
 /**
  * Attempts to gauge the rough complexity of a node, for example
@@ -997,14 +986,6 @@ function getComments(node, flags, fn) {
 const isNextLineEmpty = (node, { originalText }) =>
   isNextLineEmptyAfterIndex(originalText, locEnd(node));
 
-function isCallLikeExpression(node) {
-  return (
-    isCallExpression(node) ||
-    node.type === "NewExpression" ||
-    node.type === "ImportExpression"
-  );
-}
-
 function isObjectProperty(node) {
   return (
     node &&
@@ -1091,11 +1072,6 @@ function isIifeCalleeOrTaggedTemplateExpressionTag(path) {
       (path.key === "tag" && path.parent.type === "TaggedTemplateExpression"))
   );
 }
-
-const isChainElementWrapper = createTypeCheckFunction([
-  "ChainExpression",
-  "TSNonNullExpression",
-]);
 
 /**
 @param {Node} node
