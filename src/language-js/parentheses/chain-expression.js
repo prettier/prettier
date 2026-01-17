@@ -12,8 +12,12 @@ function shouldAddParenthesesToChainExpression(path) {
 
   return (
     (key === "expression" && parent.type === "TSNonNullExpression") ||
-    (key === "object" && parent.type === "MemberExpression") ||
-    (key === "callee" && parent.type === "CallExpression") ||
+    (key === "object" &&
+      parent.type === "MemberExpression" &&
+      !parent.optional) ||
+    (key === "callee" &&
+      parent.type === "CallExpression" &&
+      !parent.optional) ||
     (key === "callee" && parent.type === "NewExpression") ||
     (key === "tag" && parent.type === "TaggedTemplateExpression")
   );
