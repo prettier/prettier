@@ -25,8 +25,7 @@ const baseParseOptions = {
   loggerFn: false,
   project: false,
   jsDocParsingMode: "none",
-  // TODO: Use new properties when update printer
-  suppressDeprecatedPropertyWarnings: true,
+  suppressDeprecatedPropertyWarnings: process.env.NODE_ENV === "production",
 };
 
 function createParseError(error) {
