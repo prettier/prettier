@@ -373,6 +373,12 @@ const isMemberExpression = createTypeCheckFunction([
   "OptionalMemberExpression",
 ]);
 
+const isCallOrNewExpression = createTypeCheckFunction([
+  "CallExpression",
+  "OptionalCallExpression",
+  "NewExpression",
+]);
+
 /**
  * Attempts to gauge the rough complexity of a node, for example
  * to detect deeply-nested booleans, call expressions with lots of arguments, etc.
@@ -1127,6 +1133,7 @@ export {
   isBooleanTypeCoercion,
   isCallExpression,
   isCallLikeExpression,
+  isCallOrNewExpression,
   isChainElementWrapper,
   isConditionalType,
   isExportDeclaration,
