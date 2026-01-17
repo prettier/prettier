@@ -22,6 +22,14 @@ function locStart(node) {
 }
 
 function locEnd(node) {
+  if (node.type === "BreakStatement" || node.type === "ContinueStatement") {
+    const start = locStart(node);
+    return node.label
+      ? locEnd(node.label)
+      : start +
+          (node.type === "BreakStatement" ? "break".length : "continue".length);
+  }
+
   const end = node.range?.[1] ?? node.end;
 
   /* c8 ignore next 3 */

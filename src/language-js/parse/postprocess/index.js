@@ -173,23 +173,6 @@ function postprocess(ast, options) {
             node.elementTypes = node.types;
           }
           break;
-
-        case "BreakStatement":
-        case "ContinueStatement": {
-          const start = locStart(node);
-          if (node.label) {
-            node.range = [start, locEnd(node.label)];
-          } else {
-            node.range = [
-              start,
-              start +
-                (node.type === "BreakStatement"
-                  ? "break".length
-                  : "continue".length),
-            ];
-          }
-          break;
-        }
       }
     },
     onLeave(node) {
