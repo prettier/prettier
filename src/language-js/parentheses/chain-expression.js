@@ -24,39 +24,6 @@ const isBabelOptionalChainElement = createTypeCheckFunction([
   "OptionalCallExpression",
 ]);
 
-const isParenthesizedNonNullExpression = (node) =>
-  node.type === "TSNonNullExpression" && node.extra?.parenthesized;
-
-function shouldAddParenthesesToBebelOptionalChainElement(
-  path,
-  nonNullExpressions = [],
-) {
-  const { key, parent } = path;
-  if (key === "expression" && parent.type === "TSNonNullExpression") {
-    nonNullExpressions.push(parent);
-    return path.callParent(() =>
-      shouldAddParenthesesToBebelOptionalChainElement(path, nonNullExpressions),
-    );
-  }
-
-  // If we need add parentheses, but parenthesized nonNullExpression will do it for us
-  if (shouldAddParenthesesToChainExpression(path)) {
-    if (nonNullExpressions.some((node) => node.extra?.parenthesized)) {
-      return false;
-    }
-
-    return true;
-  }
-
-  return shouldAddParenthesesToChainExpression(path);
-}
-
-const isPossibleChainExpressionRoot = createTypeCheckFunction([
-  "OptionalMemberExpression",
-  "OptionalCallExpression",
-  "TSNonNullExpression",
-]);
-
 /**
 @param {AstPath} path
 */
@@ -65,11 +32,12 @@ function isChainExpressionRoot(path) {
 
   // ESTree
   if (node.type === "ChainExpression") {
+    // console.log(node.expression);
     return true;
   }
 
   // Babel
-  if (!isBabelOptionalChainElement(stripChainElementWrappers(node))) {
+  if (!isBabelOptionalChainElement(node)) {
     return false;
   }
 
@@ -83,14 +51,6 @@ function isChainExpressionRoot(path) {
     return false;
   }
 
-  // if (
-  //   key === "expression" &&
-  //   node.type === "TSNonNullExpression" &&
-  //   !node.extra?.parenthesized
-  // ) {
-  //   return false;
-  // }
-
   return true;
 }
 
@@ -99,26 +59,9 @@ function isChainExpressionRoot(path) {
 @returns {boolean}
 */
 function shouldAddParenthesesToChainElement(path) {
-  if (isChainExpressionRoot(path)) {
-    return shouldAddParenthesesToChainExpression(path);
-  }
-
-  return false;
-
-  // // Babel
-  // if (isBabelOptionalChainElement(node)) {
-  //   return shouldAddParenthesesToBebelOptionalChainElement(path);
-  // }
-
-  // // Babel, https://github.com/babel/babel/discussions/15077
-  // if (
-  //   isParenthesizedNonNullExpression(node) &&
-  //   isBabelOptionalChainElement(node.expression)
-  // ) {
-  //   return shouldAddParenthesesToBebelOptionalChainElement(path);
-  // }
-
-  return false;
+  return (
+    isChainExpressionRoot(path) && shouldAddParenthesesToChainExpression(path)
+  );
 }
 
 export { shouldAddParenthesesToChainElement };
