@@ -2,12 +2,13 @@ import { locEnd, locStart } from "../loc.js";
 import getTextWithoutComments from "../utilities/get-text-without-comments.js";
 
 /**
-@import {NodeMap} from "../types/estree.js"
+@import {Node, Comment, NodeMap} from "../types/estree.js"
 @typedef {
   | NodeMap["CallExpression"]
   | NodeMap["OptionalCallExpression"]
-  | NodeMap["OptionalCallExpression"]
+  | NodeMap["NewExpression"]
 } CallOrNewExpression
+@typedef {Node | Comment} NodeOrComment
 */
 
 /**
@@ -72,6 +73,7 @@ function getCallOrNewExpressionOpeningParenthesisIndex(
 
 /**
 @param {CallOrNewExpression} callOrNewExpression
+@param {NodeOrComment} nodeOrComment
 @returns {boolean}
 */
 function isInsideCallOrNewExpressionParentheses(
