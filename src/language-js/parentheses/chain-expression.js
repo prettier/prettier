@@ -1,19 +1,24 @@
-import { createTypeCheckFunction } from "../utilities/index.js";
+import {
+  createTypeCheckFunction,
+  stripChainElementWrappers,
+} from "../utilities/index.js";
 
 /**
 @import AstPath from "../../common/ast-path.js"
 */
 
 function shouldAddParenthesesToChainExpression(path) {
-  const { key, parent } = path;
+  const { key } = path;
+  const parent = stripChainElementWrappers(path.parent);
 
   return (
-    (key === "expression" && parent.type === "TSNonNullExpression") ||
     (key === "object" &&
       parent.type === "MemberExpression" &&
+      // @ts-expect-error -- safe
       !parent.optional) ||
     (key === "callee" &&
       parent.type === "CallExpression" &&
+      // @ts-expect-error -- safe
       !parent.optional) ||
     (key === "callee" && parent.type === "NewExpression") ||
     (key === "tag" && parent.type === "TaggedTemplateExpression")
