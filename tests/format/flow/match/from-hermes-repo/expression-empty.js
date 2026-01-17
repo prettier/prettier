@@ -1,0 +1,1 @@
+const e = match (a) {};

@@ -1,0 +1,271 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`comments-in-type-annotation.js format 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+type A = () => infer R extends/* comment */ string
+
+=====================================output=====================================
+type A = () => infer R extends /* comment */ string;
+
+================================================================================
+`;
+
+exports[`conditional-types.js format 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+export type DeepReadonly<T> = T extends any[] ? DeepReadonlyArray<T[number]> : T extends object ? DeepReadonlyObject<T> : T;
+
+interface DeepReadonlyArray<T> extends ReadonlyArray<DeepReadonly<T>> {}
+
+type TypeName<T> =
+  T extends string ? "string" :
+  T extends number ? "number" :
+  T extends boolean ? "boolean" :
+  T extends undefined ? "undefined" :
+  T extends Function ? "function" :
+  "object";
+
+type Type01 = 0 extends (1 extends 2  ? 3 : 4) ? 5 : 6;
+type Type02 = 0 extends ((1 extends 2  ? 3 : 4)) ? 5 : 6;
+type Type03 = 0 extends (((1 extends 2  ? 3 : 4))) ? 5 : 6;
+type Type04 = 0 extends ((((1 extends 2  ? 3 : 4)))) ? 5 : 6;
+type Type05 = (0 extends 1 ? 2 : 3) extends 4 ? 5 : 6;
+type Type06 = ((0 extends 1 ? 2 : 3)) extends 4 ? 5 : 6;
+type Type07 = (((0 extends 1 ? 2 : 3))) extends 4 ? 5 : 6;
+type Type08 = ((((0 extends 1 ? 2 : 3)))) extends 4 ? 5 : 6;
+
+type T1 = () => void extends T ? U : V;
+type T1a = () => (void extends T ? U : V);
+type T1b = () => (void) extends T ? U : V;
+type T2 = (() => void) extends T ? U : V;
+
+=====================================output=====================================
+// @flow
+
+export type DeepReadonly<T> = T extends any[]
+  ? DeepReadonlyArray<T[number]>
+  : T extends object
+    ? DeepReadonlyObject<T>
+    : T;
+
+interface DeepReadonlyArray<T> extends ReadonlyArray<DeepReadonly<T>> {}
+
+type TypeName<T> = T extends string
+  ? "string"
+  : T extends number
+    ? "number"
+    : T extends boolean
+      ? "boolean"
+      : T extends undefined
+        ? "undefined"
+        : T extends Function
+          ? "function"
+          : "object";
+
+type Type01 = 0 extends (1 extends 2 ? 3 : 4) ? 5 : 6;
+type Type02 = 0 extends (1 extends 2 ? 3 : 4) ? 5 : 6;
+type Type03 = 0 extends (1 extends 2 ? 3 : 4) ? 5 : 6;
+type Type04 = 0 extends (1 extends 2 ? 3 : 4) ? 5 : 6;
+type Type05 = (0 extends 1 ? 2 : 3) extends 4 ? 5 : 6;
+type Type06 = (0 extends 1 ? 2 : 3) extends 4 ? 5 : 6;
+type Type07 = (0 extends 1 ? 2 : 3) extends 4 ? 5 : 6;
+type Type08 = (0 extends 1 ? 2 : 3) extends 4 ? 5 : 6;
+
+type T1 = () => void extends T ? U : V;
+type T1a = () => void extends T ? U : V;
+type T1b = () => void extends T ? U : V;
+type T2 = (() => void) extends T ? U : V;
+
+================================================================================
+`;
+
+exports[`cursor.js format 1`] = `
+====================================options=====================================
+cursorOffset: 31
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+type A = () => infer R extends <|>string
+
+=====================================output=====================================
+type A = () => infer R extends <|>string;
+
+================================================================================
+`;
+
+exports[`infer-type.js format 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+type TestReturnType<T extends (...args: any[]) => any> = T extends (...args: any[]) => infer R ? R : any;
+
+type Unpacked<T> =
+  T extends (infer U)[] ? U :
+  T extends (...args: any[]) => infer U ? U :
+  T extends Promise<infer U> ? U :
+  T;
+
+=====================================output=====================================
+// @flow
+
+type TestReturnType<T extends (...args: any[]) => any> = T extends (
+  ...args: any[]
+) => infer R
+  ? R
+  : any;
+
+type Unpacked<T> = T extends (infer U)[]
+  ? U
+  : T extends (...args: any[]) => infer U
+    ? U
+    : T extends Promise<infer U>
+      ? U
+      : T;
+
+================================================================================
+`;
+
+exports[`nested-in-condition.js format 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+type Foo =
+  (ThingamabobberFactory extends AbstractThingamabobberFactory ? GobbledygookProvider : CompositeGobbledygookProvider) extends
+  DoubleGobbledygookProvider
+    ? UniqueDalgametreService
+    : CompositeZamazingoResolver;
+
+type Foo2 =
+  DoubleGobbledygookProvider extends
+  (ThingamabobberFactory extends AbstractThingamabobberFactory ? GobbledygookProvider : CompositeGobbledygookProvider)
+    ? UniqueDalgametreService
+    : CompositeZamazingoResolver;
+
+type Foo3 =
+  (ThingamabobberFactory extends AbstractThingamabobberFactory ? GobbledygookProvider : CompositeGobbledygookProvider) extends
+  (DoubleGobbledygookProvider extends MockGobbledygookProvider ? MockThingamabobberFactory : ThingamabobberFactory)
+    ? UniqueDalgametreService
+    : CompositeZamazingoResolver;
+
+=====================================output=====================================
+// @flow
+
+type Foo = (
+  ThingamabobberFactory extends AbstractThingamabobberFactory
+    ? GobbledygookProvider
+    : CompositeGobbledygookProvider
+) extends DoubleGobbledygookProvider
+  ? UniqueDalgametreService
+  : CompositeZamazingoResolver;
+
+type Foo2 = DoubleGobbledygookProvider extends (
+  ThingamabobberFactory extends AbstractThingamabobberFactory
+    ? GobbledygookProvider
+    : CompositeGobbledygookProvider
+)
+  ? UniqueDalgametreService
+  : CompositeZamazingoResolver;
+
+type Foo3 = (
+  ThingamabobberFactory extends AbstractThingamabobberFactory
+    ? GobbledygookProvider
+    : CompositeGobbledygookProvider
+) extends (
+  DoubleGobbledygookProvider extends MockGobbledygookProvider
+    ? MockThingamabobberFactory
+    : ThingamabobberFactory
+)
+  ? UniqueDalgametreService
+  : CompositeZamazingoResolver;
+
+================================================================================
+`;
+
+exports[`new-ternary-spec.js format 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+// TypeScript examples:
+type TypeName<T> =
+  T extends string ? "string"
+  : T extends number ? "number"
+  : T extends boolean ? "boolean"
+  : T extends undefined ? "undefined"
+  : T extends Function ? "function"
+  : "object";
+
+type Unpacked<T> =
+  T extends (infer U)[] ? U
+  : T extends (...args: any[]) => infer U ?
+    SomeReallyLongThingThatBreaksTheLine<U>
+  : T extends Promise<infer U> ? U
+  : T;
+
+=====================================output=====================================
+// @flow
+
+// TypeScript examples:
+type TypeName<T> = T extends string
+  ? "string"
+  : T extends number
+    ? "number"
+    : T extends boolean
+      ? "boolean"
+      : T extends undefined
+        ? "undefined"
+        : T extends Function
+          ? "function"
+          : "object";
+
+type Unpacked<T> = T extends (infer U)[]
+  ? U
+  : T extends (...args: any[]) => infer U
+    ? SomeReallyLongThingThatBreaksTheLine<U>
+    : T extends Promise<infer U>
+      ? U
+      : T;
+
+================================================================================
+`;
+
+exports[`parentheses.js format 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+// #13275
+type Foo<T> = T extends ((...a: any[]) => infer R extends string) ? R : never;
+
+=====================================output=====================================
+// @flow
+
+// #13275
+type Foo<T> = T extends ((...a: any[]) => infer R extends string) ? R : never;
+
+================================================================================
+`;

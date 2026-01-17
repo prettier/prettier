@@ -1,0 +1,88 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`apply editorconfig for stdin-filepath with a deep path  1`] = `
+{
+  "stderr": "",
+  "stdout": "function f() {
+	console.log("should be indented with a tab")
+}",
+  "write": [],
+}
+`;
+
+exports[`apply editorconfig for stdin-filepath with a deep path  2`] = `
+{
+  "stderr": "",
+  "stdout": "function f() {
+	console.log("should be indented with a tab")
+}",
+  "write": [],
+}
+`;
+
+exports[`apply editorconfig for stdin-filepath with nonexistent directory  1`] = `
+{
+  "stderr": "",
+  "stdout": "function f() {
+	console.log("should be indented with a tab")
+}",
+  "write": [],
+}
+`;
+
+exports[`apply editorconfig for stdin-filepath with nonexistent file  1`] = `
+{
+  "stderr": "",
+  "stdout": "function f() {
+	console.log("should be indented with a tab")
+}",
+  "write": [],
+}
+`;
+
+exports[`don’t apply editorconfig outside project for stdin-filepath with nonexistent directory  1`] = `
+{
+  "stderr": "",
+  "stdout": "function f() {
+  console.log("should be indented with 2 spaces")
+}",
+  "write": [],
+}
+`;
+
+exports[`format correctly if stdin content compatible with stdin-filepath  1`] = `
+{
+  "stderr": "",
+  "stdout": ".name {
+  display: none;
+}",
+  "write": [],
+}
+`;
+
+exports[`gracefully handle stdin-filepath with nonexistent directory  1`] = `
+{
+  "stderr": "",
+  "stdout": ".name {
+  display: none;
+}",
+  "write": [],
+}
+`;
+
+exports[`output file as-is if stdin-filepath matched patterns in ignore-path  1`] = `
+{
+  "stderr": "",
+  "write": [],
+}
+`;
+
+exports[`throw error if stdin content incompatible with stdin-filepath  1`] = `
+{
+  "stderr": "[error] abc.js: SyntaxError: Unexpected token (1:1)
+[error] > 1 | .name { display: none; }
+[error]     | ^",
+  "stdout": "",
+  "write": [],
+}
+`;

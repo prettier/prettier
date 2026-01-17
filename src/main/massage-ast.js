@@ -1,32 +1,48 @@
-"use strict";
+import isObject from "../utilities/is-object.js";
 
-function massageAST(ast, options, parent) {
-  if (Array.isArray(ast)) {
-    return ast.map(e => massageAST(e, options, parent)).filter(e => e);
-  }
+function massageAst(ast, options) {
+  const { printer } = options;
+  const clean = printer.massageAstNode;
 
-  if (!ast || typeof ast !== "object") {
+  if (!clean) {
     return ast;
   }
 
-  const newObj = {};
-  for (const key of Object.keys(ast)) {
-    if (typeof ast[key] !== "function") {
-      newObj[key] = massageAST(ast[key], options, ast);
-    }
-  }
+  const { getVisitorKeys } = printer;
+  const { ignoredProperties } = clean;
 
-  if (options.printer.massageAstNode) {
-    const result = options.printer.massageAstNode(ast, newObj, parent);
+  return recurse(ast);
+
+  function recurse(original, parent) {
+    if (!isObject(original)) {
+      return original;
+    }
+
+    if (Array.isArray(original)) {
+      return original.map((child) => recurse(child, parent)).filter(Boolean);
+    }
+
+    const cloned = {};
+    const childrenKeys = new Set(getVisitorKeys(original));
+    for (const key in original) {
+      if (!Object.hasOwn(original, key) || ignoredProperties?.has(key)) {
+        continue;
+      }
+
+      if (childrenKeys.has(key)) {
+        cloned[key] = recurse(original[key], original);
+      } else {
+        cloned[key] = original[key];
+      }
+    }
+
+    const result = clean(original, cloned, parent);
     if (result === null) {
-      return undefined;
+      return;
     }
-    if (result) {
-      return result;
-    }
-  }
 
-  return newObj;
+    return result ?? cloned;
+  }
 }
 
-module.exports = massageAST;
+export default massageAst;

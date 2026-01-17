@@ -1,55 +1,8 @@
-"use strict";
+import printer from "./printer-html.js";
 
-const printer = require("./printer-html");
-const createLanguage = require("../utils/create-language");
-const options = require("./options");
-
-const languages = [
-  createLanguage(require("linguist-languages/data/HTML"), data =>
-    Object.assign(data, {
-      name: "Angular",
-      since: "1.15.0",
-      parsers: ["angular"],
-      vscodeLanguageIds: ["html"],
-      extensions: [".component.html"],
-      filenames: []
-    })
-  ),
-  createLanguage(require("linguist-languages/data/HTML"), data =>
-    Object.assign(data, {
-      since: "1.15.0",
-      parsers: ["html"],
-      vscodeLanguageIds: ["html"],
-      extensions: data.extensions.concat([
-        ".mjml" // MJML is considered XML in Linguist but it should be formatted as HTML
-      ])
-    })
-  ),
-  createLanguage(require("linguist-languages/data/HTML"), data =>
-    Object.assign(data, {
-      name: "Lightning Web Components",
-      since: "1.17.0",
-      parsers: ["lwc"],
-      vscodeLanguageIds: ["html"],
-      extensions: [],
-      filenames: []
-    })
-  ),
-  createLanguage(require("linguist-languages/data/Vue"), data =>
-    Object.assign(data, {
-      since: "1.10.0",
-      parsers: ["vue"],
-      vscodeLanguageIds: ["vue"]
-    })
-  )
-];
-
-const printers = {
-  html: printer
+export const printers = {
+  html: printer,
 };
-
-module.exports = {
-  languages,
-  printers,
-  options
-};
+export { default as languages } from "./languages.evaluate.js";
+export { default as options } from "./options.js";
+export * as parsers from "./parse/parsers.js";

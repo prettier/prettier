@@ -1,0 +1,18 @@
+directive @a on QUERY
+directive @a(as: String) on QUERY
+directive @a(as: String = 1) on QUERY
+directive @a(as: String, b: Int!) on QUERY
+directive @a(as: String! = 1 @deprecated) on QUERY
+directive @a(as: String! = 1 @deprecated) on QUERY | MUTATION
+directive @a(as: String! = 1 @deprecated) repeatable on QUERY | MUTATION
+
+directive @a on QUERY
+directive @a repeatable on QUERY
+
+
+directive @a(as: String) on QUERY
+
+
+
+
+directive @a(as: String = 1) on QUERY

@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`error on unmatched pattern  1`] = `
+{
+  "stderr": "[error] No files matching the pattern were found: "**/*.toml".",
+  "stdout": "",
+  "write": [],
+}
+`;
+
+exports[`error on unmatched pattern when 2nd glob has no match  1`] = `
+{
+  "stderr": "[error] No files matching the pattern were found: "**/*.toml".",
+  "stdout": "const hello = "there";
+{
+  "hello": "there"
+}
+hello: there",
+  "write": [],
+}
+`;
+
+exports[`no error on unmatched pattern  1`] = `
+{
+  "stderr": "",
+  "stdout": "const hello = "there";",
+  "write": [],
+}
+`;
+
+exports[`no error on unmatched pattern when 2nd glob has no match  1`] = `
+{
+  "stderr": "",
+  "stdout": "const hello = "there";
+{
+  "hello": "there"
+}
+hello: there",
+  "write": [],
+}
+`;

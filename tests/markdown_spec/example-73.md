@@ -1,4 +1,0 @@
-Foo
-bar
-* * *
-baz

@@ -1,0 +1,11 @@
+<GlimmerComponent
+  class="medium"
+  @autocomplete="off"
+  @errors={{or this.aProp (and this.bProp (get bike "number" "message"))}}
+/>
+
+<GlimmerComponent
+  class='medium'
+  @autocomplete='off'
+  @errors={{or this.aProp (and this.bProp (get bike 'number' 'message'))}}
+/>

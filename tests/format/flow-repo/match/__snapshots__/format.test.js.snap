@@ -1,0 +1,2590 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`expression.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// Type of body and abnormal handling
+{
+  declare const x: empty;
+  const out = match (x) {};
+
+  out as empty; // OK
+}
+
+declare const x: 1 | 2;
+
+{
+  const out = match (x) {
+    1 => true,
+    2 => false,
+  };
+
+  out as boolean; // OK
+  out as empty; // ERROR
+}
+
+{
+  const out = match (x) {
+    1 => true,
+    2 => 's',
+  };
+  out as boolean | string; // OK
+  out as empty; // ERROR
+}
+
+declare function invariant(boolean): empty;
+
+{
+  const out = match (x) {
+    1 => true,
+    2 => invariant(false),
+  };
+  out as boolean; // OK
+  out as empty; // ERROR
+}
+
+function f1() {
+  const out = match (x) {
+    1 => invariant(false),
+    2 => invariant(false),
+  };
+  out; // ERROR: unreachable
+}
+
+// Throws in guards
+function f2() {
+  const out = match (x) {
+    1 if (invariant(false)) => true,
+    _ => 's',
+  };
+  out as string; // OK
+  out as empty; // ERROR
+}
+
+// Nested matches
+{
+  const out = match (x) {
+    1 => 1,
+    const a => match (a) {
+      const a => a,
+    },
+  };
+
+  out as number; // OK
+}
+
+// Guards can refine values which are not the argument
+{
+  declare const y: number | string;
+
+  const out = match (x) {
+    1 if (typeof y === 'number') => y as number, // OK
+    const a if (a === 1) => a as 1,
+    _ => 0,
+  };
+}
+
+// Case body provider and refinement analysis
+{
+  let target;
+  const out = match (x) {
+    1 => target = "foo",
+    2 => target = true,
+  };
+
+  target as string | boolean; // OK
+}
+{
+  let target;
+  const out = match (x) {
+    const a => target = "foo" as const,
+  };
+  a; // ERROR
+
+  target as "foo"; // OK
+}
+{
+  declare const x: [number] | number;
+  let target = null;
+  const out = match (x) {
+    [const a] => target = "foo",
+    const a => target = true,
+  };
+  a; // ERROR
+
+  target as string | boolean; // OK
+}
+{
+  let target;
+  const out = match (x) {
+    1 => target = "foo",
+    2 => invariant(false),
+  };
+
+  target as string; // OK
+}
+{
+  declare const o: {prop: number};
+  const out = match (x) {
+    1 => o.prop = 1,
+    2 => o.prop = 2,
+  };
+
+  o.prop as 1 | 2; // OK
+}
+{
+  const a = [];
+  const out = match (x) {
+    1 => a.push(1),
+    2 => a.push(2),
+  };
+
+  a as Array<number>; // OK
+}
+
+// Natural inference hint
+{
+  const out: 'a' | 'b' = match (x) {
+    1 => 'b', // OK
+    2 => 'xxx', // ERROR: 'xxx' is not a subtype of 'a' | 'b'
+  };
+}
+{
+  declare const dict: {['a' | 'b']: number};
+  dict[match (x) {
+    1 => 'b', // OK
+    2 => 'xxx', // ERROR: 'xxx' is not a subtype of 'a' | 'b'
+  }];
+}
+
+=====================================output=====================================
+// Type of body and abnormal handling
+{
+  declare const x: empty;
+  const out = match (x) {
+  };
+
+  out as empty; // OK
+}
+
+declare const x: 1 | 2;
+
+{
+  const out = match (x) {
+    1 => true,
+    2 => false,
+  };
+
+  out as boolean; // OK
+  out as empty; // ERROR
+}
+
+{
+  const out = match (x) {
+    1 => true,
+    2 => "s",
+  };
+  out as boolean | string; // OK
+  out as empty; // ERROR
+}
+
+declare function invariant(boolean): empty;
+
+{
+  const out = match (x) {
+    1 => true,
+    2 => invariant(false),
+  };
+  out as boolean; // OK
+  out as empty; // ERROR
+}
+
+function f1() {
+  const out = match (x) {
+    1 => invariant(false),
+    2 => invariant(false),
+  };
+  out; // ERROR: unreachable
+}
+
+// Throws in guards
+function f2() {
+  const out = match (x) {
+    1 if (invariant(false)) => true,
+    _ => "s",
+  };
+  out as string; // OK
+  out as empty; // ERROR
+}
+
+// Nested matches
+{
+  const out = match (x) {
+    1 => 1,
+    const a =>
+      match (a) {
+        const a => a,
+      },
+  };
+
+  out as number; // OK
+}
+
+// Guards can refine values which are not the argument
+{
+  declare const y: number | string;
+
+  const out = match (x) {
+    1 if (typeof y === "number") => y as number, // OK
+    const a if (a === 1) => a as 1,
+    _ => 0,
+  };
+}
+
+// Case body provider and refinement analysis
+{
+  let target;
+  const out = match (x) {
+    1 => (target = "foo"),
+    2 => (target = true),
+  };
+
+  target as string | boolean; // OK
+}
+{
+  let target;
+  const out = match (x) {
+    const a => (target = "foo" as const),
+  };
+  a; // ERROR
+
+  target as "foo"; // OK
+}
+{
+  declare const x: [number] | number;
+  let target = null;
+  const out = match (x) {
+    [const a] => (target = "foo"),
+    const a => (target = true),
+  };
+  a; // ERROR
+
+  target as string | boolean; // OK
+}
+{
+  let target;
+  const out = match (x) {
+    1 => (target = "foo"),
+    2 => invariant(false),
+  };
+
+  target as string; // OK
+}
+{
+  declare const o: { prop: number };
+  const out = match (x) {
+    1 => (o.prop = 1),
+    2 => (o.prop = 2),
+  };
+
+  o.prop as 1 | 2; // OK
+}
+{
+  const a = [];
+  const out = match (x) {
+    1 => a.push(1),
+    2 => a.push(2),
+  };
+
+  a as Array<number>; // OK
+}
+
+// Natural inference hint
+{
+  const out: "a" | "b" = match (x) {
+    1 => "b", // OK
+    2 => "xxx", // ERROR: 'xxx' is not a subtype of 'a' | 'b'
+  };
+}
+{
+  declare const dict: { ["a" | "b"]: number };
+  dict[
+    match (x) {
+      1 => "b", // OK
+      2 => "xxx", // ERROR: 'xxx' is not a subtype of 'a' | 'b'
+    }
+  ];
+}
+
+================================================================================
+`;
+
+exports[`hints.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// Annotation hint
+type F = string => boolean;
+{
+  declare const x: 'a';
+
+  const out: F = match (x) {
+      'a' => (y => true), // OK
+  };
+}
+
+// Sibling before
+{
+  declare const x: 'a' | 'b';
+
+  const out = match (x) {
+      'a' => [1],
+      'b' => [], // Should be \`Array<number>\`
+  };
+  out as Array<number>; // OK
+}
+
+// Sibling after
+{
+  declare const x: 'a' | 'b';
+
+  const out = match (x) {
+      'a' => [], // Should be \`Array<number>\`
+      'b' => [1],
+  };
+  out as Array<number>; // OK
+}
+
+// Multiple siblings, one valid
+{
+  declare const x: 'a' | 'b' | 'c' | 'd';
+
+  const out = match (x) {
+      'a' => 1,
+      'b' => {},
+      'c' => [1],
+      'd' => [], // Should be \`Array<number>\`
+  };
+  out as number | {} | Array<number>; // OK
+}
+
+// Multiple siblings, multiple valid
+{
+  declare const x: 'a' | 'b' | 'c';
+
+  const out = match (x) {
+      'a' => [true],
+      'b' => [1],
+      'c' => [],
+  };
+  out as Array<boolean> | Array<number>; // OK
+}
+{
+  declare const x: 'a' | 'b' | 'c';
+
+  const out = match (x) {
+      'a' => ((x: number) => 1),
+      'b' => ((x: string) => true),
+      'c' => (x => x as number), // OK
+  };
+}
+
+// Cycles avoided
+{
+  declare const x: 'a' | 'b';
+
+  const out: (x: number) => void = match (x) { // OK
+    'a' => ((x) => {}),
+    'b' => ((x) => {}),
+  };
+}
+{
+  declare const x: 'a' | 'b';
+
+  const out: Array<number> = match (x) { // OK
+    'a' => [],
+    'b' => [],
+  };
+}
+
+=====================================output=====================================
+// Annotation hint
+type F = (string) => boolean;
+{
+  declare const x: "a";
+
+  const out: F = match (x) {
+    "a" => ((y) => true), // OK
+  };
+}
+
+// Sibling before
+{
+  declare const x: "a" | "b";
+
+  const out = match (x) {
+    "a" => [1],
+    "b" => [], // Should be \`Array<number>\`
+  };
+  out as Array<number>; // OK
+}
+
+// Sibling after
+{
+  declare const x: "a" | "b";
+
+  const out = match (x) {
+    "a" => [], // Should be \`Array<number>\`
+    "b" => [1],
+  };
+  out as Array<number>; // OK
+}
+
+// Multiple siblings, one valid
+{
+  declare const x: "a" | "b" | "c" | "d";
+
+  const out = match (x) {
+    "a" => 1,
+    "b" => {},
+    "c" => [1],
+    "d" => [], // Should be \`Array<number>\`
+  };
+  out as number | {} | Array<number>; // OK
+}
+
+// Multiple siblings, multiple valid
+{
+  declare const x: "a" | "b" | "c";
+
+  const out = match (x) {
+    "a" => [true],
+    "b" => [1],
+    "c" => [],
+  };
+  out as Array<boolean> | Array<number>; // OK
+}
+{
+  declare const x: "a" | "b" | "c";
+
+  const out = match (x) {
+    "a" => ((x: number) => 1),
+    "b" => ((x: string) => true),
+    "c" => ((x) => x as number), // OK
+  };
+}
+
+// Cycles avoided
+{
+  declare const x: "a" | "b";
+
+  const out: (x: number) => void = match (
+    x // OK
+  ) {
+    "a" => ((x) => {}),
+    "b" => ((x) => {}),
+  };
+}
+{
+  declare const x: "a" | "b";
+
+  const out: Array<number> = match (
+    x // OK
+  ) {
+    "a" => [],
+    "b" => [],
+  };
+}
+
+================================================================================
+`;
+
+exports[`matching.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// Primitive value union
+{
+  declare const x: 1 | -2 | 3n | 's' | false | null;
+
+  const e1 = match (x) {
+    1 => 0,
+    -2 => 0,
+    3n => 0,
+    's' => 0,
+    false => 0,
+    null => 0,
+  };
+
+  const e2 = match (x) { // ERROR: not all members checked
+    1 => 0,
+    false => 0,
+    3n => 0,
+    null => 0,
+  };
+}
+
+// Identifier patterns
+{
+  declare const x: 1 | 2;
+
+  declare const one: 1;
+  declare const two: 2;
+
+  const e1 = match (x) {
+    one => 0,
+    two => 0,
+  };
+
+  const e2 = match (x) { // ERROR: \`2\` not checked
+    one => 0,
+  };
+}
+
+// \`undefined\`
+{
+  declare const x: 1 | void;
+
+  const e1 = match (x) {
+    1 => 0,
+    undefined => 0,
+  };
+
+  const e2 = match (x) { // ERROR: \`undefined\` not checked
+    1 => 0,
+  };
+}
+
+// Maybe types
+{
+  declare const x: ?1;
+
+  const e1 = match (x) {
+    1 => 0,
+    undefined => 0,
+    null => 0,
+  };
+
+  const e2 = match (x) { // ERROR: \`null\` and \`undefined\` not checked
+    1 => 0,
+  };
+}
+
+// Member patterns
+{
+  declare const x: 1 | 2;
+
+  declare const o: {
+    one: 1,
+    two: 2,
+  };
+
+  const e1 = match (x) {
+    o.one => 0,
+    o.two => 0,
+  };
+
+  const e2 = match (x) { // ERROR: \`2\` not checked
+    o.one => 0,
+  };
+}
+
+// \`as\` pattern refines using its pattern
+{
+  declare const x: 1 | 2;
+
+  const e1 = match (x) {
+    1 as a => a as 1, // OK
+    2 as a => a as 2, // OK
+  };
+}
+{
+  declare const x: {type: 'foo', value: 1}
+                 | {type: 'bar', value: 2};
+
+  // Nested \`as\` pattern
+  const e1 = match (x) {
+    {type: 'foo' as a, const value} => (a as 'foo', value as 1), // OK
+    {type: 'bar' as a, const value} => (a as 'bar', value as 2), // OK
+  };
+}
+
+// Top level binding and wildcard
+{
+  declare const x: 1 | 2;
+
+  const e1 = match (x) {
+    1 => 0,
+    const a => a as 2, // OK
+  };
+
+  const e2 = match (x) {
+    1 => 0,
+    _ => 0, // OK
+  };
+}
+
+// Non-ident/member argument still works
+{
+  declare const f: () => 1 | 2;
+
+  const e1 = match (f()) {
+    1 => 0,
+    2 => 0,
+  };
+
+  const e2 = match (f()) { // ERROR: \`2\` not checked
+    1 => 0,
+  };
+}
+
+// Or pattern
+{
+  declare const x: 1 | 2 | 3;
+
+  const e1 = match (x) {
+    1 | 2 | 3 => true,
+  };
+
+  const e2 = match (x) { // ERROR: \`3\` not checked
+    1 | 2 => true,
+  };
+}
+
+// Patterns with guard could match or not match
+{
+  declare const x: 1 | 2;
+
+  declare function f(): boolean;
+
+  const e1 = match (x) { // ERROR: \`2\` not checked
+    1 => 0,
+    2 if (f()) => 0,
+  };
+
+  const e2 = match (x) {
+    1 => 0,
+    2 if (f()) => 0,
+    2 => 0,
+  };
+}
+
+// Property exists
+{
+  declare const x: {foo: void, a: 0} | {bar: void, a: 1};
+
+  const e1 = match (x) {
+    {foo: _, const a} => a as 0, // OK
+    {bar: _, const a} => a as 1, // OK
+  };
+}
+{
+  declare const x:
+    | {foo: void, a: 0}
+    | {bar: void, a: 1}
+    | {baz: void, a: 2}
+    | {zap: void, a: 3};
+
+  declare const u: void;
+  declare const o: {u: void};
+
+  const e1 = match (x) {
+    {foo: u, const a} => a as 0, // OK
+    {bar: o.u, const a} => a as 1, // OK
+    {baz: undefined as v, const a} => a as 2, // OK
+    {zap: u, const a} => a as 3, // OK
+  };
+}
+
+// Disjoint object union
+{
+  declare const x: {type: 'foo', val: number}
+                 | {type: 'bar', val: string}
+                 | {type: 'baz', val: boolean};
+
+  const e1 = match (x) {
+    {type: 'foo', val: const a} => a as number, // OK
+    {type: 'bar', val: const a} => a as string, // OK
+    {type: 'baz', val: const a} => a as boolean, // OK
+  };
+
+  const e2 = match (x) { // ERROR: \`type: 'baz'\` not checked
+    {type: 'foo', val: const a} => a as number, // OK
+    {type: 'bar', val: const a} => a as string, // OK
+  };
+
+  // Using idents as pattern
+  declare const foo: 'foo';
+  declare const bar: 'bar';
+  declare const baz: 'baz';
+  const e3 = match (x) {
+    {type: foo, val: const a} => a as number, // OK
+    {type: bar, val: const a} => a as string, // OK
+    {type: baz, val: const a} => a as boolean, // OK
+  };
+
+  // Using members as pattern
+  declare const o: {
+    foo: 'foo',
+    bar: 'bar',
+    baz: 'baz',
+  };
+  const e4 = match (x) {
+    {type: o.foo, val: const a} => a as number, // OK
+    {type: o.bar, val: const a} => a as string, // OK
+    {type: o.baz, val: const a} => a as boolean, // OK
+  };
+}
+
+// Disjoint object union with multiple pivot props
+{
+  declare const x: {type: 'foo', val: number}
+                 | {type: 'bar', n: 1, val: string}
+                 | {type: 'bar', n: 2, val: boolean};
+
+  const e1 = match (x) {
+    {type: 'foo', val: const a} => a as number, // OK
+    {type: 'bar', val: const a, ...} => a as string | boolean, // OK
+  };
+
+  const e2 = match (x) {
+    {type: 'foo', val: const a} => a as number, // OK
+    {type: 'bar', n: 1, val: const a} => a as string, // OK
+    {type: 'bar', n: 2, val: const a} => a as boolean, // OK
+  };
+
+  const e3 = match (x) { // ERROR: \`type: 'bar', n: 2\` not checked
+    {type: 'foo', val: const a} => a as number, // OK
+    {type: 'bar', n: 1, val: const a} => a as string, // OK
+  };
+}
+
+// Combo union of object with sentinel property and primitive value
+{
+  declare const x: null | {type: 'bar', val: number};
+
+  const e1 = match (x) {
+    {type: 'bar', val: const a} => a as number, // OK
+    null => 0,
+  };
+}
+
+// Or pattern: objects
+{
+  declare const x: {type: 'foo', val: number}
+                 | {type: 'bar', val: string}
+                 | {type: 'baz', val: boolean};
+
+  const e1 = match (x) {
+    {type: 'foo', ...} | {type: 'bar', ...} | {type: 'baz', ...} => 0,
+  };
+
+  const e2 = match (x) { // ERROR: \`type: 'bar'\` not checked
+    {type: 'foo', ...} | {type: 'baz', ...} => 0,
+  };
+}
+
+// Disjoint tuple union
+{
+  declare const x: ['foo', number]
+                 | ['bar', string]
+                 | ['baz', boolean];
+
+  const e1 = match (x) {
+    ['foo', const a] => a as number, // OK
+    ['bar', const a] => a as string, // OK
+    ['baz', const a] => a as boolean, // OK
+  };
+
+  const e2 = match (x) { // ERROR: \`'baz'\` element not checked
+    ['foo', const a] => a as number, // OK
+    ['bar', const a] => a as string, // OK
+  };
+
+  // Using idents as pattern
+  declare const foo: 'foo';
+  declare const bar: 'bar';
+  declare const baz: 'baz';
+  const e3 = match (x) {
+    [foo, const a] => a as number, // OK
+    [bar, const a] => a as string, // OK
+    [baz, const a] => a as boolean, // OK
+  };
+}
+
+// Combo union of tuples with sentinel property and primitive value
+{
+  declare const x: null | ['bar', number] | ['foo', string];
+
+  const e1 = match (x) {
+    ['bar', const a] => a as number, // OK
+    ['foo', const a] => a as string, // OK
+    null => 0,
+  };
+}
+
+// Tuple length refinements
+{
+  declare const x: [number]
+                 | [string, string]
+                 | [boolean, boolean, boolean];
+
+  const e1 = match (x) {
+    [const a] => a as number, // OK
+    [const a, _] => a as string, // OK
+    [const a, _, _] => a as empty, // ERROR: \`boolean\` is not \`empty\`
+  };
+
+  const e2 = match (x) {
+    [...] => 0, // OK: matches all
+  }
+
+  const e3 = match (x) {
+    [const a, _, ...] => a as string | boolean, // OK
+    [const a] => a as number, // OK
+  }
+}
+{
+  declare const x: [number] | Array<string>;
+
+  const e1 = match (x) {
+    [] => 0, // OK
+    [const a] => a as string, // ERROR: \`number\` is not \`string\`
+    [const a, _] => a as string, // OK
+    const d => d as Array<string>, // OK: tuple checked, but array could have other lengths
+  };
+
+  const e2 = match (x) {
+    [...] => 0, // OK: matches all
+  }
+}
+
+// Optional tuple elements
+{
+  declare const x: [a: 0, b?: 1, c?: 2];
+
+  const e1 = match (x) {
+    [_, ...] => 0,
+  };
+
+  const e2 = match (x) { // ERROR: does not match all possibilities
+    [_, _, ...] => 0,
+  };
+
+  const e3 = match (x) { // ERROR: does not match all possibilities
+    [_] => 0,
+  };
+
+  const e4 = match (x) { // ERROR: does not match all possibilities
+    [_, _, _] => 0,
+  };
+}
+
+// Inexact tuple types
+{
+  declare const x: [a: 0, ...];
+
+  const e1 = match (x) {
+    [_, ...] => 0,
+  };
+
+  const e2 = match (x) { // ERROR: does not match all elements
+    [_] => 0,
+  };
+}
+
+// Exhaustive checking error points to definition
+{
+  type T = {foo: 1} | {foo: 2};
+  declare const x: T;
+
+  const e1 = match (x) {
+    {foo: 1} => 0,
+  };
+}
+
+=====================================output=====================================
+// Primitive value union
+{
+  declare const x: 1 | -2 | 3n | "s" | false | null;
+
+  const e1 = match (x) {
+    1 => 0,
+    -2 => 0,
+    3n => 0,
+    "s" => 0,
+    false => 0,
+    null => 0,
+  };
+
+  const e2 = match (
+    x // ERROR: not all members checked
+  ) {
+    1 => 0,
+    false => 0,
+    3n => 0,
+    null => 0,
+  };
+}
+
+// Identifier patterns
+{
+  declare const x: 1 | 2;
+
+  declare const one: 1;
+  declare const two: 2;
+
+  const e1 = match (x) {
+    one => 0,
+    two => 0,
+  };
+
+  const e2 = match (
+    x // ERROR: \`2\` not checked
+  ) {
+    one => 0,
+  };
+}
+
+// \`undefined\`
+{
+  declare const x: 1 | void;
+
+  const e1 = match (x) {
+    1 => 0,
+    undefined => 0,
+  };
+
+  const e2 = match (
+    x // ERROR: \`undefined\` not checked
+  ) {
+    1 => 0,
+  };
+}
+
+// Maybe types
+{
+  declare const x: ?1;
+
+  const e1 = match (x) {
+    1 => 0,
+    undefined => 0,
+    null => 0,
+  };
+
+  const e2 = match (
+    x // ERROR: \`null\` and \`undefined\` not checked
+  ) {
+    1 => 0,
+  };
+}
+
+// Member patterns
+{
+  declare const x: 1 | 2;
+
+  declare const o: {
+    one: 1,
+    two: 2,
+  };
+
+  const e1 = match (x) {
+    o.one => 0,
+    o.two => 0,
+  };
+
+  const e2 = match (
+    x // ERROR: \`2\` not checked
+  ) {
+    o.one => 0,
+  };
+}
+
+// \`as\` pattern refines using its pattern
+{
+  declare const x: 1 | 2;
+
+  const e1 = match (x) {
+    1 as a => a as 1, // OK
+    2 as a => a as 2, // OK
+  };
+}
+{
+  declare const x: { type: "foo", value: 1 } | { type: "bar", value: 2 };
+
+  // Nested \`as\` pattern
+  const e1 = match (x) {
+    {type: "foo" as a, const value} => (a as "foo", value as 1), // OK
+    {type: "bar" as a, const value} => (a as "bar", value as 2), // OK
+  };
+}
+
+// Top level binding and wildcard
+{
+  declare const x: 1 | 2;
+
+  const e1 = match (x) {
+    1 => 0,
+    const a => a as 2, // OK
+  };
+
+  const e2 = match (x) {
+    1 => 0,
+    _ => 0, // OK
+  };
+}
+
+// Non-ident/member argument still works
+{
+  declare const f: () => 1 | 2;
+
+  const e1 = match (f()) {
+    1 => 0,
+    2 => 0,
+  };
+
+  const e2 = match (
+    f() // ERROR: \`2\` not checked
+  ) {
+    1 => 0,
+  };
+}
+
+// Or pattern
+{
+  declare const x: 1 | 2 | 3;
+
+  const e1 = match (x) {
+    1 | 2 | 3 => true,
+  };
+
+  const e2 = match (
+    x // ERROR: \`3\` not checked
+  ) {
+    1 | 2 => true,
+  };
+}
+
+// Patterns with guard could match or not match
+{
+  declare const x: 1 | 2;
+
+  declare function f(): boolean;
+
+  const e1 = match (
+    x // ERROR: \`2\` not checked
+  ) {
+    1 => 0,
+    2 if (f()) => 0,
+  };
+
+  const e2 = match (x) {
+    1 => 0,
+    2 if (f()) => 0,
+    2 => 0,
+  };
+}
+
+// Property exists
+{
+  declare const x: { foo: void, a: 0 } | { bar: void, a: 1 };
+
+  const e1 = match (x) {
+    {foo: _, const a} => a as 0, // OK
+    {bar: _, const a} => a as 1, // OK
+  };
+}
+{
+  declare const x:
+    | { foo: void, a: 0 }
+    | { bar: void, a: 1 }
+    | { baz: void, a: 2 }
+    | { zap: void, a: 3 };
+
+  declare const u: void;
+  declare const o: { u: void };
+
+  const e1 = match (x) {
+    {foo: u, const a} => a as 0, // OK
+    {bar: o.u, const a} => a as 1, // OK
+    {baz: undefined as v, const a} => a as 2, // OK
+    {zap: u, const a} => a as 3, // OK
+  };
+}
+
+// Disjoint object union
+{
+  declare const x:
+    | { type: "foo", val: number }
+    | { type: "bar", val: string }
+    | { type: "baz", val: boolean };
+
+  const e1 = match (x) {
+    {type: "foo", val: const a} => a as number, // OK
+    {type: "bar", val: const a} => a as string, // OK
+    {type: "baz", val: const a} => a as boolean, // OK
+  };
+
+  const e2 = match (
+    x // ERROR: \`type: 'baz'\` not checked
+  ) {
+    {type: "foo", val: const a} => a as number, // OK
+    {type: "bar", val: const a} => a as string, // OK
+  };
+
+  // Using idents as pattern
+  declare const foo: "foo";
+  declare const bar: "bar";
+  declare const baz: "baz";
+  const e3 = match (x) {
+    {type: foo, val: const a} => a as number, // OK
+    {type: bar, val: const a} => a as string, // OK
+    {type: baz, val: const a} => a as boolean, // OK
+  };
+
+  // Using members as pattern
+  declare const o: {
+    foo: "foo",
+    bar: "bar",
+    baz: "baz",
+  };
+  const e4 = match (x) {
+    {type: o.foo, val: const a} => a as number, // OK
+    {type: o.bar, val: const a} => a as string, // OK
+    {type: o.baz, val: const a} => a as boolean, // OK
+  };
+}
+
+// Disjoint object union with multiple pivot props
+{
+  declare const x:
+    | { type: "foo", val: number }
+    | { type: "bar", n: 1, val: string }
+    | { type: "bar", n: 2, val: boolean };
+
+  const e1 = match (x) {
+    {type: "foo", val: const a} => a as number, // OK
+    {type: "bar", val: const a, ...} => a as string | boolean, // OK
+  };
+
+  const e2 = match (x) {
+    {type: "foo", val: const a} => a as number, // OK
+    {type: "bar", n: 1, val: const a} => a as string, // OK
+    {type: "bar", n: 2, val: const a} => a as boolean, // OK
+  };
+
+  const e3 = match (
+    x // ERROR: \`type: 'bar', n: 2\` not checked
+  ) {
+    {type: "foo", val: const a} => a as number, // OK
+    {type: "bar", n: 1, val: const a} => a as string, // OK
+  };
+}
+
+// Combo union of object with sentinel property and primitive value
+{
+  declare const x: null | { type: "bar", val: number };
+
+  const e1 = match (x) {
+    {type: "bar", val: const a} => a as number, // OK
+    null => 0,
+  };
+}
+
+// Or pattern: objects
+{
+  declare const x:
+    | { type: "foo", val: number }
+    | { type: "bar", val: string }
+    | { type: "baz", val: boolean };
+
+  const e1 = match (x) {
+    {type: "foo", ...} | {type: "bar", ...} | {type: "baz", ...} => 0,
+  };
+
+  const e2 = match (
+    x // ERROR: \`type: 'bar'\` not checked
+  ) {
+    {type: "foo", ...} | {type: "baz", ...} => 0,
+  };
+}
+
+// Disjoint tuple union
+{
+  declare const x: ["foo", number] | ["bar", string] | ["baz", boolean];
+
+  const e1 = match (x) {
+    ["foo", const a] => a as number, // OK
+    ["bar", const a] => a as string, // OK
+    ["baz", const a] => a as boolean, // OK
+  };
+
+  const e2 = match (
+    x // ERROR: \`'baz'\` element not checked
+  ) {
+    ["foo", const a] => a as number, // OK
+    ["bar", const a] => a as string, // OK
+  };
+
+  // Using idents as pattern
+  declare const foo: "foo";
+  declare const bar: "bar";
+  declare const baz: "baz";
+  const e3 = match (x) {
+    [foo, const a] => a as number, // OK
+    [bar, const a] => a as string, // OK
+    [baz, const a] => a as boolean, // OK
+  };
+}
+
+// Combo union of tuples with sentinel property and primitive value
+{
+  declare const x: null | ["bar", number] | ["foo", string];
+
+  const e1 = match (x) {
+    ["bar", const a] => a as number, // OK
+    ["foo", const a] => a as string, // OK
+    null => 0,
+  };
+}
+
+// Tuple length refinements
+{
+  declare const x: [number] | [string, string] | [boolean, boolean, boolean];
+
+  const e1 = match (x) {
+    [const a] => a as number, // OK
+    [const a, _] => a as string, // OK
+    [const a, _, _] => a as empty, // ERROR: \`boolean\` is not \`empty\`
+  };
+
+  const e2 = match (x) {
+    [...] => 0, // OK: matches all
+  };
+
+  const e3 = match (x) {
+    [const a, _, ...] => a as string | boolean, // OK
+    [const a] => a as number, // OK
+  };
+}
+{
+  declare const x: [number] | Array<string>;
+
+  const e1 = match (x) {
+    [] => 0, // OK
+    [const a] => a as string, // ERROR: \`number\` is not \`string\`
+    [const a, _] => a as string, // OK
+    const d => d as Array<string>, // OK: tuple checked, but array could have other lengths
+  };
+
+  const e2 = match (x) {
+    [...] => 0, // OK: matches all
+  };
+}
+
+// Optional tuple elements
+{
+  declare const x: [a: 0, b?: 1, c?: 2];
+
+  const e1 = match (x) {
+    [_, ...] => 0,
+  };
+
+  const e2 = match (
+    x // ERROR: does not match all possibilities
+  ) {
+    [_, _, ...] => 0,
+  };
+
+  const e3 = match (
+    x // ERROR: does not match all possibilities
+  ) {
+    [_] => 0,
+  };
+
+  const e4 = match (
+    x // ERROR: does not match all possibilities
+  ) {
+    [_, _, _] => 0,
+  };
+}
+
+// Inexact tuple types
+{
+  declare const x: [a: 0, ...];
+
+  const e1 = match (x) {
+    [_, ...] => 0,
+  };
+
+  const e2 = match (
+    x // ERROR: does not match all elements
+  ) {
+    [_] => 0,
+  };
+}
+
+// Exhaustive checking error points to definition
+{
+  type T = { foo: 1 } | { foo: 2 };
+  declare const x: T;
+
+  const e1 = match (x) {
+    {foo: 1} => 0,
+  };
+}
+
+================================================================================
+`;
+
+exports[`pattern-errors.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// Match expressions only allow \`const\` bindings
+{
+  declare const x: 0 | 1 | [2] | {a: 3, b: 4};
+
+  const e1 = match (x) {
+     [...let a] => 0, // ERROR
+     {let a, ...let b} => 0, // ERROR
+     0 as let a => 0, // ERROR
+     let a => 0, // ERROR
+  };
+
+  const e2 = match (x) {
+     [...var a] => 0, // ERROR
+     {var a, ...var b} => 0, // ERROR
+     0 as var a => 0, // ERROR
+     var a => 0, // ERROR
+  };
+}
+
+// Invalid numeric property
+{
+  declare const x: {1: true};
+
+  const e1 = match (x) {
+    {1.1: _} => 0, // ERROR
+    _ => 0,
+  };
+}
+
+// Unary pattern on \`0\` banned
+{
+  declare const x: 0;
+
+  const e1 = match (x) {
+    -0 => true, // ERROR
+    +0 => true, // ERROR
+    0 => true, // OK
+  };
+}
+
+// Unary \`+\` on bigint banned
+{
+  declare const x: 1n;
+
+  const e1 = match (x) {
+    +1n => true, // ERROR
+    1n => true, // OK
+  };
+}
+
+// Duplicate object keys banned
+{
+  declare const x: {foo: boolean};
+
+  const e1 = match (x) {
+    {foo: true, foo: false} => 0, // ERROR
+    _ => 0,
+  };
+
+  const e2 = match (x) {
+    {foo: true, const foo} => 0, // ERROR
+    _ => 0,
+  };
+
+  const e3 = match (x) {
+    {foo: true, 'foo': false} => 0, // ERROR
+    _ => 0,
+  };
+}
+
+// Duplicate binding names
+{
+  declare const x: [boolean, boolean];
+
+  const e1 = match (x) {
+    [const a, true as a] => 0, // ERROR
+    [const a, const a] => 0, // ERROR
+    _ => 0,
+  };
+
+  const e2 = match (x) {
+    [const a, true as const a] => 0, // ERROR
+    [const a, ...const a] => 0, // ERROR
+    _ => 0,
+  };
+}
+{
+  declare const x: {a: boolean, b: boolean};
+  const e1 = match (x) {
+    {const a, b: true as a} => 0, // ERROR
+    {const a, ...const a} => 0, // ERROR
+    _ => 0,
+  };
+}
+
+// Bindings in 'or' patterns are not yet supported
+{
+  declare const x: [boolean] | [string];
+
+  const e1 = match (x) {
+    [true as a] | ['s'] => 0, // ERROR
+    [false as const a] | ['s'] => 0, // ERROR
+    _ => 0,
+  };
+
+  const e2 = match (x) {
+    [true as const a] | ['s'] => 0, // ERROR
+    ['t'] | [...const a] => 0, // ERROR
+    _ => 0,
+  };
+}
+{
+  declare const x: {a: boolean} | {a: string};
+
+  const e1 = match (x) {
+    {a: true as a} | {a: 's'} => 0, // ERROR
+    {a: false as const a} | {a: 's'} => 0, // ERROR
+    _ => 0,
+  };
+}
+
+// As pattern on binding pattern
+{
+  declare const x: [boolean];
+
+  const e1 = match (x) {
+    [const a as b] => 0, // ERROR
+    _ => 0,
+  };
+
+  const e2 = match (x) {
+    const a as const b => 0, // ERROR
+  };
+}
+
+// Reference before declaration
+{
+  declare const x: [number, number];
+
+  const out = match (x) {
+    [a, const a] => a, // ERROR: reference before declaration
+    _ => 0,
+  };
+}
+{
+  declare const x: [number, {foo: number}];
+
+  const out = match (x) {
+    [a.foo, const a] => a, // ERROR: reference before declaration
+    _ => 0,
+  };
+}
+
+// Reference binding introduced in same pattern
+{
+  declare const x: [number, number];
+
+  const out = match (x) {
+    [const a, a] => a, // ERROR
+    _ => 0,
+  };
+}
+{
+  declare const x: [{foo: number}, number];
+
+  const out = match (x) {
+    [const a, a.foo] => a, // ERROR
+    _ => 0,
+  };
+}
+
+// // Invalid object property shorthand
+// {
+//   declare const x: {foo: 1, bar: boolean};
+
+//   const out = match (x) {
+//     {foo} => 0, // ERROR
+//     {foo, bar: true} => 0, // ERROR
+//     _ => 0,
+//   };
+// }
+
+// BigInt property usage
+{
+  declare const x: mixed;
+
+  const out = match (x) {
+    {1n: 1, ...} => 0, // ERROR
+    _ => 0,
+  };
+}
+
+=====================================output=====================================
+// Match expressions only allow \`const\` bindings
+{
+  declare const x: 0 | 1 | [2] | { a: 3, b: 4 };
+
+  const e1 = match (x) {
+    [...let a] => 0, // ERROR
+    {let a, ...let b} => 0, // ERROR
+    0 as let a => 0, // ERROR
+    let a => 0, // ERROR
+  };
+
+  const e2 = match (x) {
+    [...var a] => 0, // ERROR
+    {var a, ...var b} => 0, // ERROR
+    0 as var a => 0, // ERROR
+    var a => 0, // ERROR
+  };
+}
+
+// Invalid numeric property
+{
+  declare const x: { 1: true };
+
+  const e1 = match (x) {
+    {1.1: _} => 0, // ERROR
+    _ => 0,
+  };
+}
+
+// Unary pattern on \`0\` banned
+{
+  declare const x: 0;
+
+  const e1 = match (x) {
+    -0 => true, // ERROR
+    +0 => true, // ERROR
+    0 => true, // OK
+  };
+}
+
+// Unary \`+\` on bigint banned
+{
+  declare const x: 1n;
+
+  const e1 = match (x) {
+    +1n => true, // ERROR
+    1n => true, // OK
+  };
+}
+
+// Duplicate object keys banned
+{
+  declare const x: { foo: boolean };
+
+  const e1 = match (x) {
+    {foo: true, foo: false} => 0, // ERROR
+    _ => 0,
+  };
+
+  const e2 = match (x) {
+    {foo: true, const foo} => 0, // ERROR
+    _ => 0,
+  };
+
+  const e3 = match (x) {
+    {foo: true, "foo": false} => 0, // ERROR
+    _ => 0,
+  };
+}
+
+// Duplicate binding names
+{
+  declare const x: [boolean, boolean];
+
+  const e1 = match (x) {
+    [const a, true as a] => 0, // ERROR
+    [const a, const a] => 0, // ERROR
+    _ => 0,
+  };
+
+  const e2 = match (x) {
+    [const a, true as const a] => 0, // ERROR
+    [const a, ...const a] => 0, // ERROR
+    _ => 0,
+  };
+}
+{
+  declare const x: { a: boolean, b: boolean };
+  const e1 = match (x) {
+    {const a, b: true as a} => 0, // ERROR
+    {const a, ...const a} => 0, // ERROR
+    _ => 0,
+  };
+}
+
+// Bindings in 'or' patterns are not yet supported
+{
+  declare const x: [boolean] | [string];
+
+  const e1 = match (x) {
+    [true as a] | ["s"] => 0, // ERROR
+    [false as const a] | ["s"] => 0, // ERROR
+    _ => 0,
+  };
+
+  const e2 = match (x) {
+    [true as const a] | ["s"] => 0, // ERROR
+    ["t"] | [...const a] => 0, // ERROR
+    _ => 0,
+  };
+}
+{
+  declare const x: { a: boolean } | { a: string };
+
+  const e1 = match (x) {
+    {a: true as a} | {a: "s"} => 0, // ERROR
+    {a: false as const a} | {a: "s"} => 0, // ERROR
+    _ => 0,
+  };
+}
+
+// As pattern on binding pattern
+{
+  declare const x: [boolean];
+
+  const e1 = match (x) {
+    [const a as b] => 0, // ERROR
+    _ => 0,
+  };
+
+  const e2 = match (x) {
+    const a as const b => 0, // ERROR
+  };
+}
+
+// Reference before declaration
+{
+  declare const x: [number, number];
+
+  const out = match (x) {
+    [a, const a] => a, // ERROR: reference before declaration
+    _ => 0,
+  };
+}
+{
+  declare const x: [number, { foo: number }];
+
+  const out = match (x) {
+    [a.foo, const a] => a, // ERROR: reference before declaration
+    _ => 0,
+  };
+}
+
+// Reference binding introduced in same pattern
+{
+  declare const x: [number, number];
+
+  const out = match (x) {
+    [const a, a] => a, // ERROR
+    _ => 0,
+  };
+}
+{
+  declare const x: [{ foo: number }, number];
+
+  const out = match (x) {
+    [const a, a.foo] => a, // ERROR
+    _ => 0,
+  };
+}
+
+// // Invalid object property shorthand
+// {
+//   declare const x: {foo: 1, bar: boolean};
+
+//   const out = match (x) {
+//     {foo} => 0, // ERROR
+//     {foo, bar: true} => 0, // ERROR
+//     _ => 0,
+//   };
+// }
+
+// BigInt property usage
+{
+  declare const x: mixed;
+
+  const out = match (x) {
+    {1n: 1, ...} => 0, // ERROR
+    _ => 0,
+  };
+}
+
+================================================================================
+`;
+
+exports[`patterns.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// Top level binding with \`const\`
+{
+  declare const x: number;
+
+  const out = match (x) {
+    const a => a,
+  };
+  out as number; // OK
+  out as empty; // ERROR
+}
+
+// Binding doesn't leak to outer scope
+{
+  declare const x: number;
+
+  const out = match (x) {
+    const a => a,
+  };
+
+  a; // ERROR: cannot resolve name
+}
+
+// Array pattern
+{
+  declare const x: [number];
+
+  const out = match (x) {
+    [const a] => a,
+  };
+  out as number; // OK
+  out as empty; // ERROR
+}
+
+// Object pattern
+{
+  declare const x: {foo: number};
+
+  const out = match (x) {
+    {foo: const a} => a,
+  };
+
+  out as number; // OK
+  out as empty; // ERROR
+}
+
+// Object shorthand pattern
+{
+  declare const x: {foo: number};
+
+  const out = match (x) {
+    {const foo} => foo,
+  };
+
+  out as number; // OK
+  out as empty; // ERROR
+}
+
+// Nested patterns
+{
+  declare const x: {foo: [{bar: number}]};
+
+  const out1 = match (x) {
+    {foo: [{bar: const a}]} => a,
+    _ => 0,
+  };
+  out1 as number; // OK
+  out1 as empty; // ERROR
+
+  const out2 = match (x) {
+    {foo: const a} => a[0].bar,
+  };
+  out2 as number; // OK
+  out2 as empty; // ERROR
+}
+
+// Guards
+{
+  declare const x: {foo: number};
+  declare const f: number => boolean;
+
+  const out = match (x) {
+    {foo: const n} if (n === 0) => n, // OK
+    {foo: const n} if (f(n)) => n, // OK
+    {foo: const n} if (n as empty) => n, // ERROR
+    _ => 0,
+  };
+}
+
+// As pattern
+{
+  declare const x: {foo: [number]};
+
+  const out = match (x) {
+    {foo: [1] as n} => n as [number], // OK
+    {foo: [1 as n]} => n as number, // OK
+    _ => 0,
+  };
+}
+{
+  declare const x: {foo: [number]};
+
+  const out = match (x) {
+    {foo: [1] as const n} => n as [number], // OK
+    {foo: [1 as const n]} => n as number, // OK
+    _ => 0,
+  };
+}
+{
+  declare const x: {foo: {bar: number}};
+
+  const out = match (x) {
+    {foo: {bar: 1}} => 0, // OK
+    {foo: {bar: 2} as const a} => 0, // OK
+    {foo: {bar: 3 as const a}} => 0, // OK
+    {foo: {bar: const a}} => 0, // OK
+    _ => 0,
+  };
+}
+
+// Array rest
+{
+  declare const x: [1, 2, 3];
+
+  const out1 = match (x) {
+    [1, 2, ...const xs] => xs as [3], // OK
+    _ => 0,
+  };
+  const out2 = match (x) {
+    [1, ...const xs] => xs as [2, 3], // OK
+    _ => 0,
+  };
+  const out3 = match (x) {
+    [...const xs] => xs as [1, 2, 3], // OK
+    _ => 0,
+  };
+}
+
+// Object rest
+{
+  declare const x: {foo: 1, bar: 2, baz: 3};
+
+  const out1 = match (x) {
+    {foo: _, bar: _, ...const xs} => xs as {baz: 3}, // OK
+  };
+  const out2 = match (x) {
+    {bar: _, ...const xs} => xs as {foo: 1, baz: 3}, // OK
+  };
+  const out3 = match (x) {
+    {...const xs} => xs as {foo: 1, bar: 2, baz: 3}, // OK
+  };
+}
+
+// Identifier, member, literal
+{
+  declare const A: 3;
+  declare const O: {B: 2};
+  declare const x: number;
+
+  const out = match (x) {
+    0 => 0,
+    -1 => 0,
+    +1 => 0,
+    A => 0,
+    O.B => 0,
+    _ => 0,
+  };
+}
+
+// Or pattern
+{
+  declare const x: number;
+
+  const out = match (x) {
+    1 | 2 | 3 => 0,
+    _ => 0,
+  };
+}
+
+// Array pattern applied to array literal
+{
+  const x = [1, 'foo'] as const;
+
+  const out = match (x) {
+    [_, const b] => b as string, // OK
+  };
+}
+
+// BigInt member pattern
+{
+  declare const x: string;
+  declare const O: {[bigint]: 'foo'};
+
+  const out = match (x) {
+    O[1n] => 0, // OK
+    _ => 0,
+  };
+}
+
+=====================================output=====================================
+// Top level binding with \`const\`
+{
+  declare const x: number;
+
+  const out = match (x) {
+    const a => a,
+  };
+  out as number; // OK
+  out as empty; // ERROR
+}
+
+// Binding doesn't leak to outer scope
+{
+  declare const x: number;
+
+  const out = match (x) {
+    const a => a,
+  };
+
+  a; // ERROR: cannot resolve name
+}
+
+// Array pattern
+{
+  declare const x: [number];
+
+  const out = match (x) {
+    [const a] => a,
+  };
+  out as number; // OK
+  out as empty; // ERROR
+}
+
+// Object pattern
+{
+  declare const x: { foo: number };
+
+  const out = match (x) {
+    {foo: const a} => a,
+  };
+
+  out as number; // OK
+  out as empty; // ERROR
+}
+
+// Object shorthand pattern
+{
+  declare const x: { foo: number };
+
+  const out = match (x) {
+    {const foo} => foo,
+  };
+
+  out as number; // OK
+  out as empty; // ERROR
+}
+
+// Nested patterns
+{
+  declare const x: { foo: [{ bar: number }] };
+
+  const out1 = match (x) {
+    {foo: [{bar: const a}]} => a,
+    _ => 0,
+  };
+  out1 as number; // OK
+  out1 as empty; // ERROR
+
+  const out2 = match (x) {
+    {foo: const a} => a[0].bar,
+  };
+  out2 as number; // OK
+  out2 as empty; // ERROR
+}
+
+// Guards
+{
+  declare const x: { foo: number };
+  declare const f: (number) => boolean;
+
+  const out = match (x) {
+    {foo: const n} if (n === 0) => n, // OK
+    {foo: const n} if (f(n)) => n, // OK
+    {foo: const n} if (n as empty) => n, // ERROR
+    _ => 0,
+  };
+}
+
+// As pattern
+{
+  declare const x: { foo: [number] };
+
+  const out = match (x) {
+    {foo: [1] as n} => n as [number], // OK
+    {foo: [1 as n]} => n as number, // OK
+    _ => 0,
+  };
+}
+{
+  declare const x: { foo: [number] };
+
+  const out = match (x) {
+    {foo: [1] as const n} => n as [number], // OK
+    {foo: [1 as const n]} => n as number, // OK
+    _ => 0,
+  };
+}
+{
+  declare const x: { foo: { bar: number } };
+
+  const out = match (x) {
+    {foo: {bar: 1}} => 0, // OK
+    {foo: {bar: 2} as const a} => 0, // OK
+    {foo: {bar: 3 as const a}} => 0, // OK
+    {foo: {bar: const a}} => 0, // OK
+    _ => 0,
+  };
+}
+
+// Array rest
+{
+  declare const x: [1, 2, 3];
+
+  const out1 = match (x) {
+    [1, 2, ...const xs] => xs as [3], // OK
+    _ => 0,
+  };
+  const out2 = match (x) {
+    [1, ...const xs] => xs as [2, 3], // OK
+    _ => 0,
+  };
+  const out3 = match (x) {
+    [...const xs] => xs as [1, 2, 3], // OK
+    _ => 0,
+  };
+}
+
+// Object rest
+{
+  declare const x: { foo: 1, bar: 2, baz: 3 };
+
+  const out1 = match (x) {
+    {foo: _, bar: _, ...const xs} => xs as { baz: 3 }, // OK
+  };
+  const out2 = match (x) {
+    {bar: _, ...const xs} => xs as { foo: 1, baz: 3 }, // OK
+  };
+  const out3 = match (x) {
+    {...const xs} => xs as { foo: 1, bar: 2, baz: 3 }, // OK
+  };
+}
+
+// Identifier, member, literal
+{
+  declare const A: 3;
+  declare const O: { B: 2 };
+  declare const x: number;
+
+  const out = match (x) {
+    0 => 0,
+    -1 => 0,
+    +1 => 0,
+    A => 0,
+    O.B => 0,
+    _ => 0,
+  };
+}
+
+// Or pattern
+{
+  declare const x: number;
+
+  const out = match (x) {
+    1 | 2 | 3 => 0,
+    _ => 0,
+  };
+}
+
+// Array pattern applied to array literal
+{
+  const x = [1, "foo"] as const;
+
+  const out = match (x) {
+    [_, const b] => b as string, // OK
+  };
+}
+
+// BigInt member pattern
+{
+  declare const x: string;
+  declare const O: { [bigint]: "foo" };
+
+  const out = match (x) {
+    O[1n] => 0, // OK
+    _ => 0,
+  };
+}
+
+================================================================================
+`;
+
+exports[`rules-of-hooks.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+declare const x: 1 | 2;
+
+hook useHook() {}
+
+component WithMatchStatement() {
+  match (x) {
+    1 => {
+      useHook(); // ERROR
+    }
+    2 => {}
+  }
+  return null
+}
+
+component WithMatchExpression() {
+  return match (x) {
+    1 => useHook(), // ERROR
+    2 => undefined,
+  };
+}
+
+match (x) {
+  1 => {
+    component NestedInMatch() {
+      useHook(); // OK
+      return null;
+    }
+  }
+  2 => {}
+}
+
+=====================================output=====================================
+declare const x: 1 | 2;
+
+hook useHook() {}
+
+component WithMatchStatement() {
+  match (x) {
+    1 => {
+      useHook(); // ERROR
+    }
+    2 => {}
+  }
+  return null;
+}
+
+component WithMatchExpression() {
+  return match (x) {
+    1 => useHook(), // ERROR
+    2 => undefined,
+  };
+}
+
+match (x) {
+  1 => {
+    component NestedInMatch() {
+      useHook(); // OK
+      return null;
+    }
+  }
+  2 => {}
+}
+
+================================================================================
+`;
+
+exports[`statement.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+{
+  declare const x: empty;
+  match (x) {}; // OK
+}
+
+declare const x: 1 | 2;
+
+match (x) {
+  1 => {}
+  2 => {}
+}
+
+function f1() {
+  match (x) {
+    1 => {
+      throw 0;
+    }
+    2 => {
+      throw 0;
+    }
+  };
+  x; // ERROR: unreachable
+}
+
+// Throws in guards
+function f2() {
+  declare function invariant(boolean): empty;
+
+  match (x) {
+    1 => {}
+    2 if (invariant(false)) => {}
+  };
+
+  x; // OK: not unreachable
+}
+
+// Nested matches
+{
+  match (x) {
+    1 => {}
+    const a => {
+      match (a) {
+        _ => {}
+      }
+    }
+  }
+}
+
+// Body makes refinements
+{
+  let target;
+  match (x) {
+    1 => {
+      target = "foo";
+    }
+    2 => {
+      target = true;
+    }
+  }
+
+  target as string | boolean; // OK
+}
+{
+  let target;
+  match (x) {
+    const a => {
+      target = "foo" as const;
+    }
+  }
+  a; // ERROR
+
+  target as "foo"; // OK
+}
+{
+  declare const x: [number] | number;
+  let target = null;
+  match (x) {
+    [const a] => {
+      target = "foo";
+    }
+    const a => {
+      target = true;
+    }
+  }
+  a; // ERROR
+
+  target as string | boolean; // OK
+}
+{
+  let target;
+  match (x) {
+    1 => {
+      target = "foo";
+    }
+    2 => {
+      throw 0;
+    }
+  }
+
+  target as string; // OK
+}
+{
+  declare const o: {prop: number};
+  match (x) {
+    1 => {
+      o.prop = 1;
+    }
+    2 => {
+      o.prop = 2;
+    }
+  }
+
+  o.prop as 1 | 2; // OK
+}
+{
+  const a = [];
+  match (x) {
+    1 => {
+      a.push(1);
+    }
+    2 => {
+      a.push(2);
+    }
+  }
+
+  a as Array<number>; // OK
+}
+
+// Abnormal exits functions
+function t1(): boolean {
+  match (x) {
+    1 => {
+      return true;
+    }
+    2 => {
+      return false;
+    }
+  }
+}
+
+function t2(): boolean {
+  match (x) {
+    1 => {
+      throw 0;
+    }
+    2 => {
+      return false;
+    }
+  }
+}
+
+// Abnormals in loops
+{
+  for (let i = 0; i < 2; i++) {
+    match (i) {
+      0 => {
+        break;
+      }
+      _ => {}
+    }
+  }
+}
+{
+  label: for (let i = 0; i < 2; i++) {
+    match (i) {
+      0 => {
+        break label;
+      }
+      _ => {}
+    }
+  }
+}
+
+// // Invalid case body
+// function t3() {
+//   match (x) {
+//     1 => return 1; // ERROR
+//     2 => throw false; // ERROR
+//   }
+// }
+
+=====================================output=====================================
+{
+  declare const x: empty;
+  match (x) {
+  } // OK
+}
+
+declare const x: 1 | 2;
+
+match (x) {
+  1 => {}
+  2 => {}
+}
+
+function f1() {
+  match (x) {
+    1 => {
+      throw 0;
+    }
+    2 => {
+      throw 0;
+    }
+  }
+  x; // ERROR: unreachable
+}
+
+// Throws in guards
+function f2() {
+  declare function invariant(boolean): empty;
+
+  match (x) {
+    1 => {}
+    2 if (invariant(false)) => {}
+  }
+
+  x; // OK: not unreachable
+}
+
+// Nested matches
+{
+  match (x) {
+    1 => {}
+    const a => {
+      match (a) {
+        _ => {}
+      }
+    }
+  }
+}
+
+// Body makes refinements
+{
+  let target;
+  match (x) {
+    1 => {
+      target = "foo";
+    }
+    2 => {
+      target = true;
+    }
+  }
+
+  target as string | boolean; // OK
+}
+{
+  let target;
+  match (x) {
+    const a => {
+      target = "foo" as const;
+    }
+  }
+  a; // ERROR
+
+  target as "foo"; // OK
+}
+{
+  declare const x: [number] | number;
+  let target = null;
+  match (x) {
+    [const a] => {
+      target = "foo";
+    }
+    const a => {
+      target = true;
+    }
+  }
+  a; // ERROR
+
+  target as string | boolean; // OK
+}
+{
+  let target;
+  match (x) {
+    1 => {
+      target = "foo";
+    }
+    2 => {
+      throw 0;
+    }
+  }
+
+  target as string; // OK
+}
+{
+  declare const o: { prop: number };
+  match (x) {
+    1 => {
+      o.prop = 1;
+    }
+    2 => {
+      o.prop = 2;
+    }
+  }
+
+  o.prop as 1 | 2; // OK
+}
+{
+  const a = [];
+  match (x) {
+    1 => {
+      a.push(1);
+    }
+    2 => {
+      a.push(2);
+    }
+  }
+
+  a as Array<number>; // OK
+}
+
+// Abnormal exits functions
+function t1(): boolean {
+  match (x) {
+    1 => {
+      return true;
+    }
+    2 => {
+      return false;
+    }
+  }
+}
+
+function t2(): boolean {
+  match (x) {
+    1 => {
+      throw 0;
+    }
+    2 => {
+      return false;
+    }
+  }
+}
+
+// Abnormals in loops
+{
+  for (let i = 0; i < 2; i++) {
+    match (i) {
+      0 => {
+        break;
+      }
+      _ => {}
+    }
+  }
+}
+{
+  label: for (let i = 0; i < 2; i++) {
+    match (i) {
+      0 => {
+        break label;
+      }
+      _ => {}
+    }
+  }
+}
+
+// // Invalid case body
+// function t3() {
+//   match (x) {
+//     1 => return 1; // ERROR
+//     2 => throw false; // ERROR
+//   }
+// }
+
+================================================================================
+`;

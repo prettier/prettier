@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`do not write file with --write + formatted file  1`] = `
+{
+  "stderr": "",
+  "stdout": "formatted.js 0ms (unchanged)",
+}
+`;
+
+exports[`do not write file with --write + invalid file  1`] = `
+{
+  "stderr": "[error] invalid.js: SyntaxError: Unexpected token (1:17)
+[error] > 1 | this is invalid!
+[error]     |                 ^",
+  "stdout": "",
+}
+`;
+
+exports[`write file with --write + unformatted file  1`] = `
+{
+  "stderr": "",
+  "stdout": "unformatted.js 0ms",
+  "write": [
+    {
+      "content": "var x = 1;
+",
+      "filename": "unformatted.js",
+    },
+  ],
+}
+`;
+
+exports[`write file with -w + unformatted file  1`] = `
+{
+  "stderr": "",
+  "stdout": "unformatted.js 0ms",
+  "write": [
+    {
+      "content": "var x = 1;
+",
+      "filename": "unformatted.js",
+    },
+  ],
+}
+`;

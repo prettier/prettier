@@ -1,0 +1,12 @@
+{
+  "overrides": [
+    {
+      "files": "*.foo",
+      "options": { "parser": "foo-parser" }
+    },
+    {
+      "files": "*.js",
+      "options": { "parser": "override-js-parser" }
+    }
+  ]
+}

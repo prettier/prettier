@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`missing-comments.vue format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<template lang="missing-comments">
+      This should not be replaced.</template>
+
+=====================================output=====================================
+<template lang="missing-comments">
+      This should not be replaced.</template>
+
+================================================================================
+`;

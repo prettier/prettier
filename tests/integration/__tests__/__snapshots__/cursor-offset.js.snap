@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`cursorOffset should not be affected by full-width character  1`] = `
+{
+  "stdout": "const x = [
+  "中文",
+  "中文",
+  "中文",
+  "中文",
+  "中文",
+  "中文",
+  "中文",
+  "中文",
+  "中文",
+  "中文",
+  "中文",
+];",
+  "write": [],
+}
+`;
+
+exports[`write cursorOffset to stderr with --cursor-offset <int>  1`] = `
+{
+  "stderr": "1",
+  "stdout": "1;",
+  "write": [],
+}
+`;

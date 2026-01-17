@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`declare-type.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+declare export type DeclareExportType = number
+;
+
+=====================================output=====================================
+declare export type DeclareExportType = number;
+
+================================================================================
+`;

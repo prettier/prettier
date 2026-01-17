@@ -1,82 +1,122 @@
-"use strict";
+import * as prettier from "../index.js";
+import Context from "./context.js";
+import logFileInfoOrDie from "./file-info.js";
+import logResolvedConfigPathOrDie from "./find-config-path.js";
+import { formatFiles, formatStdin } from "./format.js";
+import createLogger from "./logger.js";
+import mockable from "./mockable.js";
+import { parseArgvWithoutPlugins } from "./options/parse-cli-arguments.js";
+import printSupportInfo from "./print-support-info.js";
+import { createDetailedUsage, createUsage } from "./usage.js";
+import { printToScreen } from "./utilities.js";
 
-const prettier = require("../../index");
-const stringify = require("json-stable-stringify");
-const util = require("./util");
-
-function run(args) {
-  const context = util.createContext(args);
+async function run(rawArguments = process.argv.slice(2)) {
+  // Create a default level logger, so we can log errors during `logLevel` parsing
+  let logger = createLogger();
 
   try {
-    util.initContext(context);
-
-    context.logger.debug(`normalized argv: ${JSON.stringify(context.argv)}`);
-
-    if (context.argv["check"] && context.argv["list-different"]) {
-      context.logger.error("Cannot use --check and --list-different together.");
-      process.exit(1);
+    const { logLevel } = parseArgvWithoutPlugins(
+      rawArguments,
+      logger,
+      "log-level",
+    );
+    if (logLevel !== logger.logLevel) {
+      logger = createLogger(logLevel);
+    }
+    const context = new Context({ rawArguments, logger });
+    await context.init();
+    if (logger.logLevel !== "debug" && context.performanceTestFlag) {
+      context.logger = createLogger("debug");
     }
 
-    if (context.argv["write"] && context.argv["debug-check"]) {
-      context.logger.error("Cannot use --write and --debug-check together.");
-      process.exit(1);
-    }
-
-    if (context.argv["find-config-path"] && context.filePatterns.length) {
-      context.logger.error("Cannot use --find-config-path with multiple files");
-      process.exit(1);
-    }
-
-    if (context.argv["file-info"] && context.filePatterns.length) {
-      context.logger.error("Cannot use --file-info with multiple files");
-      process.exit(1);
-    }
-
-    if (context.argv["version"]) {
-      context.logger.log(prettier.version);
-      process.exit(0);
-    }
-
-    if (context.argv["help"] !== undefined) {
-      context.logger.log(
-        typeof context.argv["help"] === "string" && context.argv["help"] !== ""
-          ? util.createDetailedUsage(context, context.argv["help"])
-          : util.createUsage(context)
-      );
-      process.exit(0);
-    }
-
-    if (context.argv["support-info"]) {
-      context.logger.log(
-        prettier.format(stringify(prettier.getSupportInfo()), {
-          parser: "json"
-        })
-      );
-      process.exit(0);
-    }
-
-    const hasFilePatterns = context.filePatterns.length !== 0;
-    const useStdin =
-      context.argv["stdin"] || (!hasFilePatterns && !process.stdin.isTTY);
-
-    if (context.argv["find-config-path"]) {
-      util.logResolvedConfigPathOrDie(context);
-    } else if (context.argv["file-info"]) {
-      util.logFileInfoOrDie(context);
-    } else if (useStdin) {
-      util.formatStdin(context);
-    } else if (hasFilePatterns) {
-      util.formatFiles(context);
-    } else {
-      context.logger.log(util.createUsage(context));
-      process.exit(1);
-    }
+    await main(context);
   } catch (error) {
-    context.logger.error(error.message);
-    process.exit(1);
+    logger.error(error.message);
+    process.exitCode = 1;
   }
 }
 
-module.exports = {
-  run
-};
+async function main(context) {
+  context.logger.debug(`normalized argv: ${JSON.stringify(context.argv)}`);
+
+  if (
+    (context.argv.config === false && context.argv.__raw.config !== false) ||
+    (context.argv.config && context.rawArguments.includes("--no-config"))
+  ) {
+    throw new Error("Cannot use --no-config and --config together.");
+  }
+
+  if (context.argv.check && context.argv.listDifferent) {
+    throw new Error("Cannot use --check and --list-different together.");
+  }
+
+  if (context.argv.write && context.argv.debugCheck) {
+    throw new Error("Cannot use --write and --debug-check together.");
+  }
+
+  if (context.argv.findConfigPath && context.filePatterns.length > 0) {
+    throw new Error("Cannot use --find-config-path with multiple files");
+  }
+
+  if (context.argv.fileInfo && context.filePatterns.length > 0) {
+    throw new Error("Cannot use --file-info with multiple files");
+  }
+
+  if (!context.argv.cache && context.argv.cacheStrategy) {
+    throw new Error("`--cache-strategy` cannot be used without `--cache`.");
+  }
+
+  if (context.argv.version) {
+    printToScreen(prettier.version);
+    return;
+  }
+
+  if (context.argv.help !== undefined) {
+    printToScreen(
+      typeof context.argv.help === "string" && context.argv.help !== ""
+        ? createDetailedUsage(context, context.argv.help)
+        : createUsage(context),
+    );
+    return;
+  }
+
+  if (context.argv.supportInfo) {
+    return printSupportInfo();
+  }
+
+  if (context.argv.findConfigPath) {
+    await logResolvedConfigPathOrDie(context);
+    return;
+  }
+
+  if (context.argv.fileInfo) {
+    await logFileInfoOrDie(context);
+    return;
+  }
+
+  const hasFilePatterns = context.filePatterns.length > 0;
+  const useStdin =
+    !hasFilePatterns &&
+    (!mockable.isStreamTTY(process.stdin) || context.argv.filepath);
+
+  if (useStdin) {
+    if (context.argv.cache) {
+      throw new Error("`--cache` cannot be used when formatting stdin.");
+    }
+
+    await formatStdin(context);
+    return;
+  }
+
+  if (hasFilePatterns) {
+    await formatFiles(context);
+    return;
+  }
+
+  process.exitCode = 1;
+  printToScreen(createUsage(context));
+}
+
+export { run };
+// Exposed for tests
+export { mockable } from "./mockable.js";

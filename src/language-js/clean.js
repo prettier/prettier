@@ -1,199 +1,193 @@
-"use strict";
+import {
+  isArrayExpression,
+  isMeaningfulEmptyStatement,
+  isNumericLiteral,
+  isStringLiteral,
+} from "./utilities/index.js";
 
-function clean(ast, newObj, parent) {
-  [
-    "range",
-    "raw",
-    "comments",
-    "leadingComments",
-    "trailingComments",
-    "extra",
-    "start",
-    "end",
-    "loc",
-    "flags",
-    "errors",
-    "tokens"
-  ].forEach(name => {
-    delete newObj[name];
-  });
+const ignoredProperties = new Set([
+  "range",
+  "raw",
+  "comments",
+  "leadingComments",
+  "trailingComments",
+  "innerComments",
+  "extra",
+  "start",
+  "end",
+  "loc",
+  "flags",
+  "errors",
+  "tokens",
+]);
 
-  if (ast.type === "BigIntLiteral") {
-    newObj.value = newObj.value.toLowerCase();
+const removeTemplateElementsValue = (node) => {
+  for (const templateElement of node.quasis) {
+    delete templateElement.value;
+  }
+};
+
+function clean(original, cloned, parent) {
+  if (original.type === "Program") {
+    delete cloned.sourceType;
+  }
+
+  if (
+    (original.type === "BigIntLiteral" || original.type === "Literal") &&
+    original.bigint
+  ) {
+    cloned.bigint = original.bigint.toLowerCase();
   }
 
   // We remove extra `;` and add them when needed
-  if (ast.type === "EmptyStatement") {
+  if (
+    original.type === "EmptyStatement" &&
+    !isMeaningfulEmptyStatement({ node: original, parent })
+  ) {
     return null;
   }
 
   // We move text around, including whitespaces and add {" "}
-  if (ast.type === "JSXText") {
+  if (original.type === "JSXText") {
     return null;
   }
   if (
-    ast.type === "JSXExpressionContainer" &&
-    ast.expression.type === "Literal" &&
-    ast.expression.value === " "
+    original.type === "JSXExpressionContainer" &&
+    (original.expression.type === "Literal" ||
+      original.expression.type === "StringLiteral") &&
+    original.expression.value === " "
   ) {
     return null;
   }
 
-  // (TypeScript) Ignore `static` in `constructor(static p) {}`
-  // and `export` in `constructor(export p) {}`
+  // We change {'key': value} into {key: value}.
+  // And {key: value} into {'key': value}.
+  // Also for (some) number keys.
   if (
-    ast.type === "TSParameterProperty" &&
-    ast.accessibility === null &&
-    !ast.readonly
+    (original.type === "Property" ||
+      original.type === "ObjectProperty" ||
+      original.type === "MethodDefinition" ||
+      original.type === "ClassProperty" ||
+      original.type === "ClassMethod" ||
+      original.type === "PropertyDefinition" ||
+      original.type === "TSDeclareMethod" ||
+      original.type === "TSPropertySignature" ||
+      original.type === "ObjectTypeProperty" ||
+      original.type === "ImportAttribute") &&
+    original.key &&
+    !original.computed
   ) {
-    return {
-      type: "Identifier",
-      name: ast.parameter.name,
-      typeAnnotation: newObj.parameter.typeAnnotation,
-      decorators: newObj.decorators
-    };
-  }
-
-  // (TypeScript) ignore empty `specifiers` array
-  if (
-    ast.type === "TSNamespaceExportDeclaration" &&
-    ast.specifiers &&
-    ast.specifiers.length === 0
-  ) {
-    delete newObj.specifiers;
-  }
-
-  // We convert <div></div> to <div />
-  if (ast.type === "JSXOpeningElement") {
-    delete newObj.selfClosing;
-  }
-  if (ast.type === "JSXElement") {
-    delete newObj.closingElement;
-  }
-
-  // We change {'key': value} into {key: value}
-  if (
-    (ast.type === "Property" ||
-      ast.type === "ObjectProperty" ||
-      ast.type === "MethodDefinition" ||
-      ast.type === "ClassProperty" ||
-      ast.type === "TSPropertySignature" ||
-      ast.type === "ObjectTypeProperty") &&
-    typeof ast.key === "object" &&
-    ast.key &&
-    (ast.key.type === "Literal" ||
-      ast.key.type === "StringLiteral" ||
-      ast.key.type === "Identifier")
-  ) {
-    delete newObj.key;
-  }
-
-  if (ast.type === "OptionalMemberExpression" && ast.optional === false) {
-    newObj.type = "MemberExpression";
-    delete newObj.optional;
+    const { key } = original;
+    if (isStringLiteral(key) || isNumericLiteral(key)) {
+      cloned.key = String(key.value);
+    } else if (key.type === "Identifier") {
+      cloned.key = key.name;
+    }
   }
 
   // Remove raw and cooked values from TemplateElement when it's CSS
   // styled-jsx
   if (
-    ast.type === "JSXElement" &&
-    ast.openingElement.name.name === "style" &&
-    ast.openingElement.attributes.some(attr => attr.name.name === "jsx")
+    original.type === "JSXElement" &&
+    original.openingElement.name.name === "style" &&
+    original.openingElement.attributes.some(
+      (attr) => attr.type === "JSXAttribute" && attr.name.name === "jsx",
+    )
   ) {
-    const templateLiterals = newObj.children
-      .filter(
-        child =>
-          child.type === "JSXExpressionContainer" &&
-          child.expression.type === "TemplateLiteral"
-      )
-      .map(container => container.expression);
-
-    const quasis = templateLiterals.reduce(
-      (quasis, templateLiteral) => quasis.concat(templateLiteral.quasis),
-      []
-    );
-
-    quasis.forEach(q => delete q.value);
+    for (const { type, expression } of cloned.children) {
+      if (
+        type === "JSXExpressionContainer" &&
+        expression.type === "TemplateLiteral"
+      ) {
+        removeTemplateElementsValue(expression);
+      }
+    }
   }
 
   // CSS template literals in css prop
   if (
-    ast.type === "JSXAttribute" &&
-    ast.name.name === "css" &&
-    ast.value.type === "JSXExpressionContainer" &&
-    ast.value.expression.type === "TemplateLiteral"
+    original.type === "JSXAttribute" &&
+    original.name.name === "css" &&
+    original.value.type === "JSXExpressionContainer" &&
+    original.value.expression.type === "TemplateLiteral"
   ) {
-    newObj.value.expression.quasis.forEach(q => delete q.value);
+    removeTemplateElementsValue(cloned.value.expression);
+  }
+
+  // We change quotes
+  if (
+    original.type === "JSXAttribute" &&
+    original.value?.type === "Literal" &&
+    /["']|&quot;|&apos;/.test(original.value.value)
+  ) {
+    cloned.value.value = original.value.value.replaceAll(
+      /["']|&quot;|&apos;/g,
+      '"',
+    );
   }
 
   // Angular Components: Inline HTML template and Inline CSS styles
-  const expression = ast.expression || ast.callee;
+  const expression = original.expression || original.callee;
   if (
-    ast.type === "Decorator" &&
+    original.type === "Decorator" &&
     expression.type === "CallExpression" &&
     expression.callee.name === "Component" &&
     expression.arguments.length === 1
   ) {
-    const astProps = ast.expression.arguments[0].properties;
-    newObj.expression.arguments[0].properties.forEach((prop, index) => {
-      let templateLiteral = null;
-
+    const astProps = original.expression.arguments[0].properties;
+    for (const [
+      index,
+      prop,
+    ] of cloned.expression.arguments[0].properties.entries()) {
       switch (astProps[index].key.name) {
         case "styles":
-          if (prop.value.type === "ArrayExpression") {
-            templateLiteral = prop.value.elements[0];
+          if (isArrayExpression(prop.value)) {
+            removeTemplateElementsValue(prop.value.elements[0]);
           }
           break;
         case "template":
           if (prop.value.type === "TemplateLiteral") {
-            templateLiteral = prop.value;
+            removeTemplateElementsValue(prop.value);
           }
           break;
       }
-
-      if (templateLiteral) {
-        templateLiteral.quasis.forEach(q => delete q.value);
-      }
-    });
+    }
   }
 
   // styled-components, graphql, markdown
   if (
-    ast.type === "TaggedTemplateExpression" &&
-    (ast.tag.type === "MemberExpression" ||
-      (ast.tag.type === "Identifier" &&
-        (ast.tag.name === "gql" ||
-          ast.tag.name === "graphql" ||
-          ast.tag.name === "css" ||
-          ast.tag.name === "md" ||
-          ast.tag.name === "markdown" ||
-          ast.tag.name === "html")) ||
-      ast.tag.type === "CallExpression")
+    original.type === "TaggedTemplateExpression" &&
+    (original.tag.type === "MemberExpression" ||
+      (original.tag.type === "Identifier" &&
+        (original.tag.name === "gql" ||
+          original.tag.name === "graphql" ||
+          original.tag.name === "css" ||
+          original.tag.name === "md" ||
+          original.tag.name === "markdown" ||
+          original.tag.name === "html")) ||
+      original.tag.type === "CallExpression")
   ) {
-    newObj.quasi.quasis.forEach(quasi => delete quasi.value);
+    removeTemplateElementsValue(cloned.quasi);
   }
-  if (ast.type === "TemplateLiteral") {
-    // This checks for a leading comment that is exactly `/* GraphQL */`
-    // In order to be in line with other implementations of this comment tag
-    // we will not trim the comment value and we will expect exactly one space on
-    // either side of the GraphQL string
-    // Also see ./embed.js
-    const hasLanguageComment =
-      ast.leadingComments &&
-      ast.leadingComments.some(
-        comment =>
-          comment.type === "CommentBlock" &&
-          ["GraphQL", "HTML"].some(
-            languageName => comment.value === ` ${languageName} `
-          )
-      );
-    if (
-      hasLanguageComment ||
-      (parent.type === "CallExpression" && parent.callee.name === "graphql")
-    ) {
-      newObj.quasis.forEach(quasi => delete quasi.value);
-    }
+
+  // TODO: Only delete value when there is leading comment which is exactly
+  // `/* GraphQL */` or `/* HTML */`
+  // Also see ./embed.js
+  if (original.type === "TemplateLiteral") {
+    removeTemplateElementsValue(cloned);
+  }
+
+  // We print `(a?.b!).c` as `(a?.b)!.c`, but `typescript` parse them differently
+  if (
+    original.type === "ChainExpression" &&
+    original.expression.type === "TSNonNullExpression"
+  ) {
+    // Ideally, we should swap these two nodes, but `type` is the only difference
+    cloned.type = "TSNonNullExpression";
+    cloned.expression.type = "ChainExpression";
   }
 }
 
-module.exports = clean;
+clean.ignoredProperties = ignoredProperties;
+
+export default clean;

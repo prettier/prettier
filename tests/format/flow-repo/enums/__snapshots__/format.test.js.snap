@@ -1,0 +1,83 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`declared.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+declare enum E {
+  A,
+  B,
+}
+
+(E.A: E); // OK
+(E.A: empty); // ERROR
+
+declare export enum F {
+  N,
+  M,
+}
+
+(F.N: F); // OK
+(F.N: empty); // ERROR
+
+=====================================output=====================================
+// @flow
+
+declare enum E {
+  A,
+  B,
+}
+
+(E.A: E); // OK
+(E.A: empty); // ERROR
+
+declare export enum F {
+  N,
+  M,
+}
+
+(F.N: F); // OK
+(F.N: empty); // ERROR
+
+================================================================================
+`;
+
+exports[`lib.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+declare module 'declared-module' {
+  declare enum G {
+    J,
+    K,
+  }
+  declare export enum H {
+    X,
+    Y,
+  }
+}
+
+=====================================output=====================================
+// @flow
+
+declare module "declared-module" {
+  declare enum G {
+    J,
+    K,
+  }
+  declare export enum H {
+    X,
+    Y,
+  }
+}
+
+================================================================================
+`;

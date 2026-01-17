@@ -7,14 +7,13 @@ export function read() {
   }
 
   // backwards support for old json encoded URIComponent
-  const decode =
-    hash.indexOf("%7B%22") !== -1
-      ? decodeURIComponent
-      : LZString.decompressFromEncodedURIComponent;
+  const decode = hash.includes("%7B%22")
+    ? decodeURIComponent
+    : LZString.decompressFromEncodedURIComponent;
 
   try {
     return JSON.parse(decode(hash));
-  } catch (_) {
+  } catch {
     return {};
   }
 }

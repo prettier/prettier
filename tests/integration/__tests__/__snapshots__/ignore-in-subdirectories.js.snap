@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`formats files when executing in a subdirectory  1`] = `
+{
+  "stderr": "",
+  "stdout": "should-not-ignore.js",
+  "write": [],
+}
+`;
+
+exports[`formats files when executing in a subdirectory  2`] = `
+{
+  "stderr": "",
+  "stdout": "should-not-ignore.js",
+  "write": [],
+}
+`;
+
+exports[`formats files when executing in a subdirectory and using stdin  1`] = `
+{
+  "stderr": "",
+  "write": [],
+}
+`;
+
+exports[`ignore files when executing in a subdirectory and using stdin  1`] = `
+{
+  "stderr": "",
+  "write": [],
+}
+`;
+
+exports[`ignores files when executing in a subdirectory  1`] = `
+{
+  "stderr": "",
+  "stdout": "",
+  "write": [],
+}
+`;
+
+exports[`ignores files when executing in a subdirectory  2`] = `
+{
+  "stderr": "",
+  "stdout": "",
+  "write": [],
+}
+`;

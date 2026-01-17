@@ -1,14 +1,51 @@
 ---
-id: version-stable-ignore
+id: ignore
 title: Ignoring Code
-original_id: ignore
 ---
 
-Prettier offers an escape hatch to ignore a block of code or prevent entire files from being formatted.
+Use `.prettierignore` to ignore (i.e. not reformat) certain files and folders completely.
 
-## Ignoring Files
+Use “prettier-ignore” comments to ignore parts of files.
 
-To exclude files from formatting, add entries to a `.prettierignore` file in the project root or set the [`--ignore-path` CLI option](cli.md#ignore-path). `.prettierignore` uses [gitignore syntax](https://git-scm.com/docs/gitignore#_pattern_format).
+## Ignoring Files: .prettierignore
+
+To exclude files from formatting, create a `.prettierignore` file in the root of your project. `.prettierignore` uses [gitignore syntax](https://git-scm.com/docs/gitignore#_pattern_format).
+
+Example:
+
+```text
+# Ignore artifacts:
+build
+coverage
+
+# Ignore all HTML files:
+**/*.html
+```
+
+It’s recommended to have a `.prettierignore` in your project! This way you can run `prettier --write .` to make sure that everything is formatted (without mangling files you don’t want, or choking on generated files). And – your editor will know which files _not_ to format!
+
+By default prettier ignores files in version control systems directories (".git", ".jj", ".sl", ".svn" and ".hg") and `node_modules` (unless the [`--with-node-modules` CLI option](cli.md#--with-node-modules) is specified). Prettier will also follow rules specified in the ".gitignore" file if it exists in the same directory from which it is run.
+
+So by default it will be
+
+```text
+**/.git
+**/.svn
+**/.hg
+**/node_modules
+```
+
+and
+
+```text
+**/.git
+**/.svn
+**/.hg
+```
+
+if [`--with-node-modules` CLI option](cli.md#--with-node-modules) provided
+
+(See also the [`--ignore-path` CLI option](cli.md#--ignore-path).)
 
 ## JavaScript
 
@@ -108,6 +145,18 @@ This type of ignore is only allowed to be used in top-level and aimed to disable
 <!-- prettier-ignore-end -->
 ```
 
+**Important:** You must have a blank line before `<!-- prettier-ignore-start -->` and `<!-- prettier-ignore-end -->` for Prettier to recognize the comments.
+
+## YAML
+
+To ignore a part of a YAML file, `# prettier-ignore` should be placed on the line immediately above the ignored node:
+
+```yaml
+# prettier-ignore
+key  : value
+hello: world
+```
+
 ## GraphQL
 
 ```graphql
@@ -118,3 +167,28 @@ This type of ignore is only allowed to be used in top-level and aimed to disable
   }
 }
 ```
+
+## Handlebars
+
+<!-- prettier-ignore -->
+```hbs
+{{! prettier-ignore }}
+<div>
+  "hello! my parent was ignored"
+  {{#my-crazy-component     "shall"     be="preserved"}}
+    <This
+      is  =  "also preserved as is"
+    />
+  {{/my-crazy-component}}
+</div>
+```
+
+## Command Line File Patterns
+
+For one-off commands, when you want to exclude some files without adding them to `.prettierignore`, negative patterns can come in handy:
+
+```bash
+prettier . "!**/*.{js,jsx,vue}" --write
+```
+
+See [fast-glob](https://prettier.io/docs/cli#file-patterns) to learn more about advanced glob syntax.

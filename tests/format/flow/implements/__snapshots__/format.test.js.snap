@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`implements.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class A implements B {}
+class B implements B, C {}
+declare class C implements B {}
+declare class D mixins B implements C {}
+declare class E implements B, C {}
+
+=====================================output=====================================
+class A implements B {}
+class B implements B, C {}
+declare class C implements B {}
+declare class D mixins B implements C {}
+declare class E implements B, C {}
+
+================================================================================
+`;

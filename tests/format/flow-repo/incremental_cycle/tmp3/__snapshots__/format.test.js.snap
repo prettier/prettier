@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`B.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+var A = require ('./A');
+import type C from './C';
+
+
+export type B = string;
+
+=====================================output=====================================
+// @flow
+var A = require("./A");
+import type C from "./C";
+
+export type B = string;
+
+================================================================================
+`;

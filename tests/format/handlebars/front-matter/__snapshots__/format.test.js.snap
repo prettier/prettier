@@ -1,0 +1,277 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`close.hbs format 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+---
+title: An ancient philosophy...
+keywords:
+- ancient
+- philosophy
+---
+<h1>{{title}}</h1>
+<p>
+  Keywords: {{#each keywords}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}
+</p>
+
+=====================================output=====================================
+---
+title: An ancient philosophy...
+keywords:
+  - ancient
+  - philosophy
+---
+
+<h1>{{title}}</h1>
+<p>
+  Keywords:
+  {{#each keywords}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}
+</p>
+================================================================================
+`;
+
+exports[`empty.hbs format 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+---
+---
+
+<h1>Uh oh!</h1>
+
+=====================================output=====================================
+---
+---
+
+<h1>Uh oh!</h1>
+================================================================================
+`;
+
+exports[`empty-no-newline.hbs format 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+--- ---
+
+=====================================output=====================================
+--- ---
+================================================================================
+`;
+
+exports[`explicit-language.hbs format 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+---yaml
+foo:    bar
+"additional information ":
+- Yes
+- No
+data: {x:1,
+ y:100000000}
+---
+
+{{! Some handlebars code can go here.}}
+
+=====================================output=====================================
+---yaml
+foo: bar
+"additional information ":
+  - Yes
+  - No
+data: { x:1, y:100000000 }
+---
+
+{{! Some handlebars code can go here.}}
+================================================================================
+`;
+
+exports[`invalid-yaml.hbs format 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+---
+first: Thing
+  second Thing
+---
+
+<div class="  class-a"></div>
+
+=====================================output=====================================
+---
+first: Thing
+  second Thing
+---
+
+<div class="class-a"></div>
+================================================================================
+`;
+
+exports[`spaced.hbs format 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+---
+title: An ancient philosophy...
+keywords:
+  - ancient
+  - philosophy
+---
+
+<h1>{{title}}</h1>
+<p>
+  Keywords: {{#each keywords}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}
+</p>
+
+=====================================output=====================================
+---
+title: An ancient philosophy...
+keywords:
+  - ancient
+  - philosophy
+---
+
+<h1>{{title}}</h1>
+<p>
+  Keywords:
+  {{#each keywords}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}
+</p>
+================================================================================
+`;
+
+exports[`touching.hbs format 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+---
+name: Smith
+--- <head>
+  <title>{{name}}</title>
+</head>
+
+=====================================output=====================================
+---
+name: Smith
+---
+
+<head>
+  <title>{{name}}</title>
+</head>
+================================================================================
+`;
+
+exports[`very-ugly-yaml.hbs format 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+---
+foo:        bar
+test:       "   word"
+
+
+nest  :
+
+  x: 100
+  y:   false
+"more stuff":
+  - do
+  -    do
+long_text: >
+  lots of text
+    content
+  to put here and other
+            places?
+
+---
+
+=====================================output=====================================
+---
+foo: bar
+test: "   word"
+
+nest:
+  x: 100
+  y: false
+"more stuff":
+  - do
+  - do
+long_text: >
+  lots of text
+    content
+  to put here and other
+            places?
+---
+================================================================================
+`;
+
+exports[`yaml-format.hbs format 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+---
+title: "Example Document"
+date: 1993-02-01
+author:
+  name: Arthur Mitchell
+tags:
+- tutorial
+- example
+summary: >
+  A very long example document written for a person other than me, I don't know
+  why this is so long. Very good example... Yes!
+---
+
+<html lang="en">
+<head>
+  <title>{{title}}</title>
+</head>
+<body>
+  {{! comment --- }}
+  {{summary}}
+</body>
+</html>
+
+=====================================output=====================================
+---
+title: "Example Document"
+date: 1993-02-01
+author:
+  name: Arthur Mitchell
+tags:
+  - tutorial
+  - example
+summary: >
+  A very long example document written for a person other than me, I don't know
+  why this is so long. Very good example... Yes!
+---
+
+<html lang="en">
+  <head>
+    <title>{{title}}</title>
+  </head>
+  <body>
+    {{! comment --- }}
+    {{summary}}
+  </body>
+</html>
+================================================================================
+`;

@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`checks stdin with --debug-check  1`] = `
+{
+  "write": [],
+}
+`;
+
+exports[`doesn't crash when --debug-check is passed  1`] = `
+{
+  "write": [],
+}
+`;
+
+exports[`should not exit non-zero for already prettified code with --debug-check + --check  1`] = `
+{
+  "stderr": "",
+  "stdout": "Checking formatting...
+issue-4599.js
+All matched files use Prettier code style!",
+  "write": [],
+}
+`;
+
+exports[`should not exit non-zero for already prettified code with --debug-check + --list-different  1`] = `
+{
+  "stderr": "",
+  "stdout": "issue-4599.js",
+  "write": [],
+}
+`;
+
+exports[`should not exit non-zero for jsx style element with spread attribute  1`] = `
+{
+  "stderr": "",
+  "stdout": "issue-15094.jsx",
+  "write": [],
+}
+`;
+
+exports[`show diff for 2+ error files with --debug-check  1`] = `
+{
+  "stderr": "[error] a.debug-check: prettier(input) !== prettier(prettier(input))
+[error] Index: 
+[error] ===================================================================
+[error] --- 	
+[error] +++ 	
+[error] @@ -1,2 +1,4 @@
+[error]  hello
+[error]  hello
+[error] +hello
+[error] +hello
+[error] 
+[error] b.debug-check: prettier(input) !== prettier(prettier(input))
+[error] Index: 
+[error] ===================================================================
+[error] --- 	
+[error] +++ 	
+[error] @@ -1,2 +1,4 @@
+[error]  world
+[error]  world
+[error] +world
+[error] +world
+[error] ",
+  "stdout": "",
+  "write": [],
+}
+`;

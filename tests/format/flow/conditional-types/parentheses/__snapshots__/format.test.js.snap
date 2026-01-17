@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`union.js format 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+type T<U> = 'a' | ('b' extends U ? 'c' : empty);
+type T<U> = 'a' & ('b' extends U ? 'c' : empty);
+
+=====================================output=====================================
+type T<U> = "a" | ("b" extends U ? "c" : empty);
+type T<U> = "a" & ("b" extends U ? "c" : empty);
+
+================================================================================
+`;

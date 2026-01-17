@@ -1,0 +1,100 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`no file diffs with --check + formatted file  1`] = `
+{
+  "stderr": "",
+  "stdout": "Checking formatting...
+formatted.js
+[[Clear text(process.stdout): formatted.js]]
+All matched files use Prettier code style!",
+  "write": [],
+}
+`;
+
+exports[`no file diffs with --check + formatted file  2`] = `
+{
+  "stderr": "",
+  "stdout": "Checking formatting...
+All matched files use Prettier code style!",
+  "write": [],
+}
+`;
+
+exports[`no file diffs with --list-different + formatted file  1`] = `
+{
+  "stderr": "",
+  "stdout": "formatted.js
+[[Clear text(process.stdout): formatted.js]]",
+  "write": [],
+}
+`;
+
+exports[`no file diffs with --list-different + formatted file  2`] = `
+{
+  "stderr": "",
+  "stdout": "",
+  "write": [],
+}
+`;
+
+exports[`output with --check + unformatted differs when piped  1`] = `
+{
+  "stderr": "[warn] unformatted.js
+[warn] Code style issues fixed in the above file.",
+  "stdout": "Checking formatting...
+unformatted.js
+[[Clear text(process.stdout): unformatted.js]]",
+  "write": [
+    {
+      "content": "var x = 1;
+",
+      "filename": "unformatted.js",
+    },
+  ],
+}
+`;
+
+exports[`output with --check + unformatted differs when piped  2`] = `
+{
+  "stderr": "[warn] unformatted.js
+[warn] Code style issues fixed in the above file.",
+  "stdout": "Checking formatting...",
+  "write": [
+    {
+      "content": "var x = 1;
+",
+      "filename": "unformatted.js",
+    },
+  ],
+}
+`;
+
+exports[`output with --list-different + unformatted differs when piped  1`] = `
+{
+  "stderr": "",
+  "stdout": "unformatted.js
+[[Clear text(process.stdout): unformatted.js]]
+unformatted.js",
+  "write": [
+    {
+      "content": "var x = 1;
+",
+      "filename": "unformatted.js",
+    },
+  ],
+}
+`;
+
+exports[`output with --list-different + unformatted differs when piped  2`] = `
+{
+  "stderr": "",
+  "stdout": "unformatted.js",
+  "write": [
+    {
+      "content": "var x = 1;
+",
+      "filename": "unformatted.js",
+    },
+  ],
+}
+`;

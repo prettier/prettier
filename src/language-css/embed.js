@@ -1,42 +1,8 @@
-"use strict";
+// A empty function to provide visitor keys, and let core format front matter
+function embed() {}
 
-const {
-  builders: { hardline, literalline, concat, markAsRoot },
-  utils: { mapDoc }
-} = require("../doc");
+// `front-matter` only available on `css-root`
+embed.getVisitorKeys = (node) =>
+  node.type === "css-root" ? ["frontMatter"] : [];
 
-function embed(path, print, textToDoc /*, options */) {
-  const node = path.getValue();
-
-  if (node.type === "yaml") {
-    return markAsRoot(
-      concat([
-        "---",
-        hardline,
-        node.value.trim()
-          ? replaceNewlinesWithLiterallines(
-              textToDoc(node.value, { parser: "yaml" })
-            )
-          : "",
-        "---",
-        hardline
-      ])
-    );
-  }
-
-  return null;
-
-  function replaceNewlinesWithLiterallines(doc) {
-    return mapDoc(doc, currentDoc =>
-      typeof currentDoc === "string" && currentDoc.includes("\n")
-        ? concat(
-            currentDoc
-              .split(/(\n)/g)
-              .map((v, i) => (i % 2 === 0 ? v : literalline))
-          )
-        : currentDoc
-    );
-  }
-}
-
-module.exports = embed;
+export default embed;

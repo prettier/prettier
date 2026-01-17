@@ -1,0 +1,117 @@
+import styleText from "node-style-text";
+import { fetchText, logPromise, processFile, runGit } from "../utilities.js";
+
+async function getNpmDependentsCount() {
+  const npmPage = await logPromise(
+    "Fetching npm dependents count",
+    fetchText("https://www.npmjs.com/package/prettier"),
+  );
+  const dependentsCountNpm = Number(
+    npmPage.match(/"dependentsCount":"(?<dependentsCount>\d+)",/).groups
+      .dependentsCount,
+  );
+  if (Number.isNaN(dependentsCountNpm)) {
+    throw new TypeError(
+      "Invalid data from https://www.npmjs.com/package/prettier",
+    );
+  }
+
+  return dependentsCountNpm;
+}
+
+async function getGithubDependentsCount() {
+  const githubPage = await logPromise(
+    "Fetching github dependents count",
+    fetchText("https://github.com/prettier/prettier/network/dependents"),
+  );
+  const dependentsCountGithub = Number(
+    githubPage
+      .replaceAll("\n", "")
+      .match(
+        /<svg.*?octicon-code-square.*?>.*?<\/svg>\s*(?<dependentsCount>[\d,]+)\s*Repositories\s*<\/a>/,
+      )
+      .groups.dependentsCount.replaceAll(",", ""),
+  );
+  if (Number.isNaN(dependentsCountGithub)) {
+    throw new TypeError(
+      "Invalid data from https://github.com/prettier/prettier/network/dependents",
+    );
+  }
+
+  return dependentsCountGithub;
+}
+
+async function update({ repo }) {
+  const [
+    { value: dependentsCountNpm, reason: dependentsNpmError },
+    { value: dependentsCountGithub, reason: dependentsGithubError },
+  ] = await Promise.allSettled([
+    getNpmDependentsCount(),
+    getGithubDependentsCount(),
+  ]);
+
+  if (dependentsCountNpm || dependentsCountGithub) {
+    processFile("website/src/pages/index.jsx", (content) => {
+      if (dependentsCountNpm) {
+        content = content.replace(
+          /(<strong data-placeholder="dependent-npm">)(.*?)(<\/strong>)/,
+          `$1${formatNumber(dependentsCountNpm)}$3`,
+        );
+      }
+
+      if (dependentsCountGithub) {
+        content = content.replace(
+          /(<strong data-placeholder="dependent-github">)(.*?)(<\/strong>)/,
+          `$1${formatNumber(dependentsCountGithub)}$3`,
+        );
+      }
+
+      return content;
+    });
+
+    const isUpdated = await logPromise(
+      "Checking if dependents count has been updated",
+      async () =>
+        (await runGit(["diff", "--name-only"])).stdout ===
+        "website/src/pages/index.jsx",
+    );
+
+    if (isUpdated) {
+      await logPromise("Committing and pushing to remote", async () => {
+        await runGit(["add", "."]);
+        await runGit(["commit", "-m", "Update dependents count"]);
+        await runGit(["push", "--repo", repo]);
+      });
+    }
+  }
+
+  if (dependentsNpmError) {
+    throw dependentsNpmError;
+  }
+
+  if (dependentsGithubError) {
+    throw dependentsGithubError;
+  }
+}
+
+function formatNumber(value) {
+  if (value < 1e4) {
+    return String(value).slice(0, 1) + "0".repeat(String(value).length - 1);
+  }
+  if (value < 1e6) {
+    return Math.floor(value / 1e2) / 10 + "k";
+  }
+  return Math.floor(value / 1e5) / 10 + " million";
+}
+
+export default async function updateDependentsCount({ dry, next, repo }) {
+  if (dry || next) {
+    return;
+  }
+
+  try {
+    await update({ repo });
+  } catch (error) {
+    console.log(styleText.red.bold(error.message));
+  }
+}

@@ -1,4 +1,4 @@
-comment: off
+comment: false
 
 coverage:
   status:
@@ -7,4 +7,4 @@ coverage:
         target: 80%
     project:
       default:
-        target: auto
+        target: 95%

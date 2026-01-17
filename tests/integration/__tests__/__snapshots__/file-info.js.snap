@@ -1,0 +1,103 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`extracts file-info for a file in not_node_modules  1`] = `
+{
+  "stderr": "",
+  "stdout": "{ "ignored": false, "inferredParser": "babel" }",
+  "write": [],
+}
+`;
+
+exports[`extracts file-info for a js file  1`] = `
+{
+  "stderr": "",
+  "stdout": "{ "ignored": false, "inferredParser": "babel" }",
+  "write": [],
+}
+`;
+
+exports[`extracts file-info for a known markdown file with no extension  1`] = `
+{
+  "stderr": "",
+  "stdout": "{ "ignored": false, "inferredParser": "markdown" }",
+  "write": [],
+}
+`;
+
+exports[`extracts file-info for a markdown file  1`] = `
+{
+  "stderr": "",
+  "stdout": "{ "ignored": false, "inferredParser": "markdown" }",
+  "write": [],
+}
+`;
+
+exports[`extracts file-info with ignored=false for a file in node_modules when --with-node-modules provided  1`] = `
+{
+  "stderr": "",
+  "stdout": "{ "ignored": false, "inferredParser": "babel" }",
+  "write": [],
+}
+`;
+
+exports[`extracts file-info with ignored=true for a file in .prettierignore  1`] = `
+{
+  "stderr": "",
+  "stdout": "{ "ignored": true, "inferredParser": null }",
+  "write": [],
+}
+`;
+
+exports[`extracts file-info with ignored=true for a file in a hand-picked ignore file  1`] = `
+{
+  "stderr": "",
+  "stdout": "{ "ignored": true, "inferredParser": null }",
+  "write": [],
+}
+`;
+
+exports[`extracts file-info with inferredParser=foo when a plugin is hand-picked  1`] = `
+{
+  "stderr": "",
+  "stdout": "{ "ignored": false, "inferredParser": "foo" }",
+  "write": [],
+}
+`;
+
+exports[`extracts file-info with inferredParser=null for file.foo  1`] = `
+{
+  "stderr": "",
+  "stdout": "{ "ignored": false, "inferredParser": null }",
+  "write": [],
+}
+`;
+
+exports[`extracts file-info with with ignored=true for a file in node_modules  1`] = `
+{
+  "stderr": "",
+  "stdout": "{ "ignored": true, "inferredParser": null }",
+  "write": [],
+}
+`;
+
+exports[`file-info should not try resolve config with --no-config  1`] = `
+{
+  "stdout": "{ "ignored": false, "inferredParser": "babel" }",
+}
+`;
+
+exports[`file-info should try resolve config  1`] = `
+{
+  "stderr": "",
+  "stdout": "{ "ignored": false, "inferredParser": "override-js-parser" }",
+  "write": [],
+}
+`;
+
+exports[`non-exists ignore path  1`] = `
+{
+  "stderr": "",
+  "stdout": "{ "ignored": false, "inferredParser": "babel" }",
+  "write": [],
+}
+`;

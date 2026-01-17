@@ -5,18 +5,21 @@ title: What is Prettier?
 
 Prettier is an opinionated code formatter with support for:
 
-- JavaScript, including [ES2017](https://github.com/tc39/proposals/blob/master/finished-proposals.md)
+- JavaScript (including experimental features)
 - [JSX](https://facebook.github.io/jsx/)
-- [Angular](https://angular.io/)
+- [Angular](https://angular.dev/)
 - [Vue](https://vuejs.org/)
 - [Flow](https://flow.org/)
 - [TypeScript](https://www.typescriptlang.org/)
-- CSS, [Less](http://lesscss.org/), and [SCSS](https://sass-lang.com)
+- CSS, [Less](https://lesscss.org/), and [SCSS](https://sass-lang.com)
 - [HTML](https://en.wikipedia.org/wiki/HTML)
-- [JSON](http://json.org/)
+- [Ember/Handlebars](https://emberjs.com/)
+- [JSON](https://json.org/)
 - [GraphQL](https://graphql.org/)
-- [Markdown](https://commonmark.org/), including [GFM](https://github.github.com/gfm/) and [MDX](https://mdxjs.com/)
+- [Markdown](https://commonmark.org/), including [GFM](https://github.github.com/gfm/) and [MDX v1](https://mdxjs.com/)
 - [YAML](https://yaml.org/)
+- [Lightning Web Components (LWC)](https://developer.salesforce.com/developer-centers/lightning-web-components)
+- [MJML](https://mjml.io/)
 
 It removes all original styling[\*](#footnotes) and ensures that all outputted code conforms to a consistent style. (See this [blog post](https://jlongster.com/A-Prettier-Formatter))
 
@@ -24,11 +27,12 @@ Prettier takes your code and reprints it from scratch by taking the line length 
 
 For example, take the following code:
 
+<!-- prettier-ignore -->
 ```js
 foo(arg1, arg2, arg3, arg4);
 ```
 
-It fits in a single line so it's going to stay as is. However, we've all run into this situation:
+It fits in a single line so it’s going to stay as is. However, we've all run into this situation:
 
 <!-- prettier-ignore -->
 ```js
@@ -42,17 +46,17 @@ foo(
   reallyLongArg(),
   omgSoManyParameters(),
   IShouldRefactorThis(),
-  isThereSeriouslyAnotherOne()
+  isThereSeriouslyAnotherOne(),
 );
 ```
 
-Prettier enforces a consistent code **style** (i.e. code formatting that won't affect the AST) across your entire codebase because it disregards the original styling[\*](#footnotes) by parsing it away and re-printing the parsed AST with its own rules that take the maximum line length into account, wrapping code when necessary.
+Prettier enforces a consistent code **style** (i.e. code formatting that won’t affect the AST) across your entire codebase because it disregards the original styling[\*](#footnotes) by parsing it away and re-printing the parsed AST with its own rules that take the maximum line length into account, wrapping code when necessary.
 
 If you want to learn more, these two conference talks are great introductions:
 
-[![A Prettier Printer by James Long on React Conf 2017](/docs/assets/youtube-cover/a-prettier-printer-by-james-long-on-react-conf-2017.png)](https://www.youtube.com/watch?v=hkfBvpEfWdA)
+[![A Prettier Printer by James Long on React Conf 2017](/images/youtube-cover/a-prettier-printer-by-james-long-on-react-conf-2017.png)](https://www.youtube.com/watch?v=hkfBvpEfWdA)
 
-[![JavaScript Code Formatting by Christopher Chedeau on React London 2017](/docs/assets/youtube-cover/javascript-code-formatting-by-christopher-chedeau-on-react-london-2017.png)](https://www.youtube.com/watch?v=0Q4kUNx85_4)
+[![JavaScript Code Formatting by Christopher Chedeau on React London 2017](/images/youtube-cover/javascript-code-formatting-by-christopher-chedeau-on-react-london-2017.png)](https://www.youtube.com/watch?v=0Q4kUNx85_4)
 
 #### Footnotes
 

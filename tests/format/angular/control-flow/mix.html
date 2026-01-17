@@ -1,0 +1,10 @@
+@if (user.isHuman) {
+<human-profile [data]="user" />
+} @else if (user.isRobot) {
+<!-- robot users are rare, so load their profiles lazily -->
+@defer {
+<robot-profile [data]="user" />
+}
+} @else {
+<p>The profile is unknown!</p>
+}

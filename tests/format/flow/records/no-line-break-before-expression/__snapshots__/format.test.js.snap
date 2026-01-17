@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`expression.js format 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// Not a \`RecordExpression\`
+const x = Foo
+{
+};
+
+=====================================output=====================================
+// Not a \`RecordExpression\`
+const x = Foo;
+{
+}
+
+================================================================================
+`;

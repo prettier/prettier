@@ -1,0 +1,31 @@
+<li class="
+{{if showAsCarousel "career-interests__pill--slide-item" "career-interests__pill"}}
+"></li>
+
+{{
+  yield
+  (hash
+    header=(component "fluid-table/thead")
+    body=(component "fluid-table/tbody")
+    th=(component "fluid-table/th")
+    td=(component "fluid-table/td")
+  )
+}}
+
+<LinkTo
+  @query={{
+    hash
+    filter=(compute this.computeFilterWithEmail this.filter campaignPic.userEmail)
+  }}
+  class="text-xs hover:underline"
+  data-test-user-email
+>
+  {{campaignPic.userEmail}}
+</LinkTo>
+
+{{if abcdefghijklmnopqrstuvwxyz (t 'abcdefghijklmnopq') (t 'abcdefghijklmnopq')}}
+
+{{#if (eq abcdefghijklmnopqrstuvwxyzabcdefgh abcdefghijklmnopqrstuvwxyzabcdefgh)}}
+foo{{/if}}
+
+{{some-helper abcdefghijklmnopqrstuvwxyz abcdefghijklmnopqrstuvwxyz abcdefghijkl}}

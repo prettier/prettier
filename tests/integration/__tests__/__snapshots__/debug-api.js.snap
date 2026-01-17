@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`API prettier.formatDoc 1`] = `
+"[
+  group([
+    "const",
+    " ",
+    group([group("foo"), " =", group(indent([line, '"bar"']))]),
+    indent([]),
+    ";",
+  ]),
+  hardline,
+]"
+`;

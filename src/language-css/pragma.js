@@ -1,21 +1,18 @@
-"use strict";
+import {
+  hasIgnorePragma as jsHasIgnorePragma,
+  hasPragma as jsHasPragma,
+  insertPragma as jsInsertPragma,
+} from "../language-js/pragma.js";
+import { parseFrontMatter } from "../main/front-matter/index.js";
 
-const jsPragma = require("../language-js/pragma");
-const parseFrontMatter = require("../utils/front-matter");
-
-function hasPragma(text) {
-  return jsPragma.hasPragma(parseFrontMatter(text).content);
-}
-
-function insertPragma(text) {
+const hasPragma = (text) => jsHasPragma(parseFrontMatter(text).content);
+const hasIgnorePragma = (text) =>
+  jsHasIgnorePragma(parseFrontMatter(text).content);
+const insertPragma = (text) => {
   const { frontMatter, content } = parseFrontMatter(text);
   return (
-    (frontMatter ? frontMatter.raw + "\n\n" : "") +
-    jsPragma.insertPragma(content)
+    (frontMatter ? frontMatter.raw + "\n\n" : "") + jsInsertPragma(content)
   );
-}
-
-module.exports = {
-  hasPragma,
-  insertPragma
 };
+
+export { hasIgnorePragma, hasPragma, insertPragma };

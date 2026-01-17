@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`infers postcss parser  1`] = `
+{
+  "stderr": "",
+  "stdout": "/* JavaScript */
+"use strict";
+/* Stylesheet */
+* {
+  outline: none;
+}",
+  "write": [],
+}
+`;
+
+exports[`infers postcss parser with --check  1`] = `
+{
+  "stderr": "",
+  "stdout": "Checking formatting...
+All matched files use Prettier code style!",
+  "write": [],
+}
+`;
+
+exports[`infers postcss parser with --list-different  1`] = `
+{
+  "stderr": "",
+  "stdout": "",
+  "write": [],
+}
+`;

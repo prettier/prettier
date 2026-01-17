@@ -1,0 +1,198 @@
+import {
+  group,
+  hardline,
+  ifBreak,
+  indent,
+  indentIfBreak,
+  join,
+  line,
+  lineSuffixBoundary,
+  softline,
+} from "../../document/index.js";
+import { printDanglingComments } from "../../main/comments/print.js";
+import hasNewline from "../../utilities/has-newline.js";
+import { locEnd } from "../loc.js";
+import {
+  CommentCheckFlags,
+  getFunctionParameters,
+  hasComment,
+  isObjectType,
+  isTestCall,
+  shouldPrintComma,
+} from "../utilities/index.js";
+import { isArrowFunctionVariableDeclarator } from "./assignment.js";
+import {
+  printTypeAnnotationProperty,
+  shouldHugType,
+} from "./type-annotation.js";
+
+/**
+ * @import {Doc} from "../../document/index.js"
+ * @import AstPath from "../../common/ast-path.js"
+ */
+
+// Keep comma if the file extension not `.ts` and
+// has one type parameter that isn't extend with any types.
+// Because, otherwise formatted result will be invalid as tsx.
+function shouldForceTrailingComma(path, options, paramsKey) {
+  const { node } = path;
+  return (
+    getFunctionParameters(node).length === 1 &&
+    node.type.startsWith("TS") &&
+    !node[paramsKey][0].constraint &&
+    path.parent.type === "ArrowFunctionExpression" &&
+    !(options.filepath && /\.ts$/.test(options.filepath))
+  );
+}
+
+/**
+@param {AstPath} path
+
+- `GenericTypeAnnotation` (Flow)
+- `TypeParameterDeclaration` (Flow)
+- `TypeParameterInstantiation` (Flow)
+- `TSTypeParameterDeclaration` (TypeScript)
+- `TSTypeParameterInstantiation` (TypeScript)
+- `TSImportType` (TypeScript)
+- `TSTypeReference` (TypeScript)
+*/
+function printTypeParameters(path, options, print, paramsKey) {
+  const { node } = path;
+  const parameters = node[paramsKey];
+
+  if (!parameters) {
+    return "";
+  }
+
+  // for TypeParameterDeclaration typeParameters is a single node
+  if (!Array.isArray(parameters)) {
+    return print(paramsKey);
+  }
+
+  const isParameterInTestCall = isTestCall(path.grandparent);
+
+  const isArrowFunctionVariable = path.match(
+    (node) =>
+      !(node[paramsKey].length === 1 && isObjectType(node[paramsKey][0])),
+    undefined,
+    (node, name) => name === "typeAnnotation",
+    (node) => node.type === "Identifier",
+    isArrowFunctionVariableDeclarator,
+  );
+
+  const shouldInline =
+    parameters.length === 0 ||
+    (!isArrowFunctionVariable &&
+      (isParameterInTestCall ||
+        (parameters.length === 1 &&
+          (parameters[0].type === "NullableTypeAnnotation" ||
+            shouldHugType(parameters[0])))) &&
+      !parameters.some(
+        (node) =>
+          hasComment(node, CommentCheckFlags.Line) ||
+          // This condition base on existing one in class-body.js
+          // It is not really correct, but we don't have a way to check how comments are printed
+          hasComment(node, CommentCheckFlags.Last, (comment) =>
+            hasNewline(options.originalText, locEnd(comment)),
+          ),
+      ));
+
+  if (shouldInline) {
+    return [
+      "<",
+      join(", ", path.map(print, paramsKey)),
+      printDanglingCommentsForInline(path, options),
+      ">",
+    ];
+  }
+
+  const trailingComma =
+    node.type === "TSTypeParameterInstantiation" // https://github.com/microsoft/TypeScript/issues/21984
+      ? ""
+      : shouldForceTrailingComma(path, options, paramsKey)
+        ? ","
+        : shouldPrintComma(options)
+          ? ifBreak(",")
+          : "";
+
+  return group([
+    "<",
+    indent([softline, join([",", line], path.map(print, paramsKey))]),
+    trailingComma,
+    softline,
+    ">",
+  ]);
+}
+
+function printDanglingCommentsForInline(path, options) {
+  const { node } = path;
+  if (!hasComment(node, CommentCheckFlags.Dangling)) {
+    return "";
+  }
+  const hasOnlyBlockComments = !hasComment(node, CommentCheckFlags.Line);
+  const printed = printDanglingComments(path, options, {
+    indent: !hasOnlyBlockComments,
+  });
+  if (hasOnlyBlockComments) {
+    return printed;
+  }
+  return [printed, hardline];
+}
+
+// `TSTypeParameter` and `TypeParameter`
+function printTypeParameter(path, options, print) {
+  const { node } = path;
+
+  /**
+   * @type {Doc[]}
+   */
+  const parts = [node.const ? "const " : ""];
+
+  const name = node.type === "TSTypeParameter" ? print("name") : node.name;
+
+  if (node.variance) {
+    parts.push(print("variance"));
+  }
+
+  if (node.in) {
+    parts.push("in ");
+  }
+
+  if (node.out) {
+    parts.push("out ");
+  }
+
+  parts.push(name);
+
+  if (node.bound) {
+    if (node.usesExtendsBound) {
+      parts.push(" extends ");
+    }
+
+    parts.push(printTypeAnnotationProperty(path, print, "bound"));
+  }
+
+  if (node.constraint) {
+    const groupId = Symbol("constraint");
+    parts.push(
+      " extends",
+      group(indent(line), { id: groupId }),
+      lineSuffixBoundary,
+      indentIfBreak(print("constraint"), { groupId }),
+    );
+  }
+
+  if (node.default) {
+    const groupId = Symbol("default");
+    parts.push(
+      " =",
+      group(indent(line), { id: groupId }),
+      lineSuffixBoundary,
+      indentIfBreak(print("default"), { groupId }),
+    );
+  }
+
+  return group(parts);
+}
+
+export { printTypeParameter, printTypeParameters };

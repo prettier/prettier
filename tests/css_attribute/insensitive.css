@@ -1,3 +1,0 @@
-input[type="radio" i] {}
-img[alt~="person" i][src*="lorem" i] {}
-section:has(:not([type="radio" i], [type="checkbox" i])) {}

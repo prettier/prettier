@@ -1,0 +1,63 @@
+<GlimmerComponent @progress={{aPropertyEngdingAfterEightiethColumnToHighlightAWeirdClosingParenIssue}}
+/>
+
+<GlimmerComponent
+  class="medium"
+  @autocomplete="off"
+  @errors={{or this.aLProp (and this.aProperty (v-get bike "number" "message"))}}
+  data-test-beneficiary-account-number
+/>
+
+<GlimmerComponent
+  class="medium"
+  @autocomplete="off"
+  @errors={{or this.aVeryLongProperty (and this.aProperty (v-get bike "number" "message"))}}
+  data-test-beneficiary-account-number
+/>
+
+<div class="a long list of classes more than 80 chars with a complex mustache statement {{if (or this.a this.b) this.c this.d}}">
+</div>
+
+<div class="a multi line list of classes with a complex mustache statement
+           {{if (or this.a this.b) this.c this.d}}">
+</div>
+
+<div class="a-first-class {{if this.optionOne "optionOne"}} {{if this.optionTwo "optionTwo"}} {{if this.optionThree "optionThree"}} {{if this.optionFour "optionFour"}} {{if this.optionFive "optionFive"}} {{this.class}}" ...attributes >
+</div>
+
+<div
+  class="a-first-class
+    {{if this.optionOne "optionOne"}}
+    
+    {{if this.optionTwo "optionTwo"}}
+    
+    {{if this.optionThree "optionThree"}}
+    
+    {{if this.optionFour "optionFour"}}
+    
+    {{if this.optionFive "optionFive"}}
+    
+    {{this.class}}"
+  ...attributes >
+</div>
+
+<div>
+  {{classic-component-with-many-properties
+    class="hello"
+    param=this.someValue
+    secondParam=this.someValue
+    thirdParam=this.someValue
+  }}
+</div>
+
+<div>
+  {{yield (hash
+    title=(component title)
+    header=(component header)
+    language=(component language)
+  )}}
+</div>
+
+<div>
+  {{a-helper "that takes some arguments" this.anotherOne "why not" @aLastOneLongEnoughToBreak}}
+</div>

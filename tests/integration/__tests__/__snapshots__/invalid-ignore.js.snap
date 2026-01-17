@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`throw error with invalid ignore  1`] = `
+{
+  "stderr": "[error] Unable to read '.prettierignore': EISDIR: illegal operation on a directory, read",
+  "stdout": "",
+  "write": [],
+}
+`;

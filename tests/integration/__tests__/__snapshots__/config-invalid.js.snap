@@ -1,0 +1,97 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`resolves external configuration from package.json  1`] = `
+{
+  "stderr": "[error] Invalid configuration for file "<cli>/config-external-config-syntax-error/syntax-error.js":
+[error] THIS ERROR MESSAGE MUST COME FROM THIS syntax-error.js FILE",
+  "stdout": "",
+  "write": [],
+}
+`;
+
+exports[`show warning with kebab-case option key  1`] = `
+{
+  "stderr": "[warn] Ignored unknown option { "print-width": 3 }. Did you mean printWidth?",
+  "stdout": "",
+  "write": [],
+}
+`;
+
+exports[`show warning with unknown option  1`] = `
+{
+  "stderr": "[warn] Ignored unknown option { hello: "world" }.",
+  "stdout": "",
+  "write": [],
+}
+`;
+
+exports[`throw error for unsupported extension  1`] = `
+{
+  "stderr": "[error] Invalid configuration:
+[error] No loader specified for extension ".unsupported"",
+  "stdout": "",
+  "write": [],
+}
+`;
+
+exports[`throw error if both --config and --no-config are submitted  1`] = `
+{
+  "stderr": "[error] Cannot use --no-config and --config together.",
+}
+`;
+
+exports[`throw error if both --config and --no-config are submitted  2`] = `
+{
+  "stderr": "[error] Cannot use --no-config and --config together.",
+}
+`;
+
+exports[`throw error with invalid config format  1`] = `
+{
+  "stdout": "",
+  "write": [],
+}
+`;
+
+exports[`throw error with invalid config format  2`] = `
+{
+  "stdout": "",
+  "write": [],
+}
+`;
+
+exports[`throw error with invalid config option (int)  1`] = `
+{
+  "stderr": "[error] Invalid tabWidth value. Expected an integer, but received 0.5.",
+  "stdout": "",
+  "write": [],
+}
+`;
+
+exports[`throw error with invalid config option (trailingComma)  1`] = `
+{
+  "stderr": "[error] Invalid trailingComma value. Expected "all", "es5" or "none", but received "wow".",
+  "stdout": "",
+  "write": [],
+}
+`;
+
+exports[`throw error with invalid config precedence option (configPrecedence)  1`] = `
+{
+  "stderr": "[error] Invalid --config-precedence value. Expected one of the following values, but received "option/configPrecedence".
+[error] - "cli-override"
+[error] - "file-override"
+[error] - "prefer-file"",
+  "stdout": "",
+  "write": [],
+}
+`;
+
+exports[`throw error with invalid config target (directory)  1`] = `
+{
+  "stderr": "[error] Invalid configuration:
+[error] Unable to read '<cli>/config/invalid/folder/.prettierrc': EISDIR: illegal operation on a directory, read",
+  "stdout": "",
+  "write": [],
+}
+`;

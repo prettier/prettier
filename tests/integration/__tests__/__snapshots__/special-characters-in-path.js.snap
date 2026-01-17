@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`ignores file name contains emoji  1`] = `
+{
+  "stderr": "",
+  "stdout": "not-ignored.js",
+  "write": [],
+}
+`;
+
+exports[`square-brackets-and-dash  1`] = `
+{
+  "status": 0,
+  "stderr": "",
+  "stdout": "function a() {
+    const foo = "bar";
+}",
+  "write": [],
+}
+`;
+
+exports[`stdin  1`] = `
+{
+  "stderr": "",
+  "stdout": ".name {                         display: none; }",
+  "write": [],
+}
+`;

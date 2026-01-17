@@ -1,0 +1,9 @@
+<mjml>
+    <mj-style>
+.some-class {
+  color: red;
+      background-color: blue;
+padding:10px;
+}
+    </mj-style>
+  </mjml>

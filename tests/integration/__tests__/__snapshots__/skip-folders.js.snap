@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`skip folders passed specifically  1`] = `
+{
+  "stdout": "a/file.js
+b/file.js",
+  "write": [],
+}
+`;
+
+exports[`skips folders in glob  1`] = `
+{
+  "stdout": "a/file.js
+b/file.js",
+  "write": [],
+}
+`;

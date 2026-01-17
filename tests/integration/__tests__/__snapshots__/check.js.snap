@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`--checks should print the number of files that need formatting  1`] = `
+{
+  "stderr": "[warn] unformatted.js
+[warn] unformatted2.js
+[warn] Code style issues found in 2 files. Run Prettier with --write to fix.",
+  "stdout": "Checking formatting...",
+  "write": [],
+}
+`;
+
+exports[`--checks works in CI just as in a non-TTY mode  1`] = `
+{
+  "stderr": "[warn] unformatted.js
+[warn] Code style issues found in the above file. Run Prettier with --write to fix.",
+  "stdout": "Checking formatting...",
+  "write": [],
+}
+`;
+
+exports[`--checks works in CI just as in a non-TTY mode  2`] = `
+{
+  "stderr": "[warn] unformatted.js
+[warn] Code style issues found in the above file. Run Prettier with --write to fix.",
+  "stdout": "Checking formatting...",
+  "write": [],
+}
+`;
+
+exports[`checks stdin with --check  1`] = `
+{
+  "write": [],
+}
+`;
+
+exports[`checks stdin with -c (alias for --check)  1`] = `
+{
+  "write": [],
+}
+`;

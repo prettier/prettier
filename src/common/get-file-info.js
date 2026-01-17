@@ -1,102 +1,69 @@
-"use strict";
-
-const createIgnorer = require("./create-ignorer");
-const options = require("../main/options");
-const config = require("../config/resolve-config");
-const path = require("path");
+import { resolveConfig } from "../config/resolve-config.js";
+import { loadBuiltinPlugins, loadPlugins } from "../main/plugins/index.js";
+import { isIgnored } from "../utilities/ignore.js";
+import inferParser from "../utilities/infer-parser.js";
 
 /**
- * @typedef {{ ignorePath?: string, withNodeModules?: boolean, plugins: object }} FileInfoOptions
+ * @typedef {{ ignorePath?: string | URL | (string | URL)[], withNodeModules?: boolean, plugins: object, resolveConfig?: boolean }} FileInfoOptions
  * @typedef {{ ignored: boolean, inferredParser: string | null }} FileInfoResult
  */
 
 /**
- * @param {string} filePath
- * @param {FileInfoOptions} opts
+ * @param {string | URL} file
+ * @param {FileInfoOptions} options
  * @returns {Promise<FileInfoResult>}
  *
- * Please note that prettier.getFileInfo() expects opts.plugins to be an array of paths,
- * not an object. A transformation from this array to an object is automatically done
- * internally by the method wrapper. See withPlugins() in index.js.
+ * Please note that prettier.getFileInfo() expects options.plugins to be an array of paths,
+ * not an object.
  */
-function getFileInfo(filePath, opts) {
-  if (typeof filePath !== "string") {
-    return Promise.reject(
-      new TypeError(
-        `expect \`filePath\` to be a string, got \`${typeof filePath}\``
-      )
-    );
-  }
-
-  return createIgnorer(opts.ignorePath, opts.withNodeModules).then(ignorer =>
-    _getFileInfo({
-      ignorer,
-      filePath: normalizeFilePath(filePath, opts.ignorePath),
-      plugins: opts.plugins,
-      resolveConfig: opts.resolveConfig,
-      sync: false
-    })
-  );
-}
-
-/**
- * @param {string} filePath
- * @param {FileInfoOptions} opts
- * @returns {FileInfoResult}
- */
-getFileInfo.sync = function(filePath, opts) {
-  if (typeof filePath !== "string") {
+async function getFileInfo(file, options = {}) {
+  if (typeof file !== "string" && !(file instanceof URL)) {
     throw new TypeError(
-      `expect \`filePath\` to be a string, got \`${typeof filePath}\``
+      `expect \`file\` to be a string or URL, got \`${typeof file}\``,
     );
   }
 
-  const ignorer = createIgnorer.sync(opts.ignorePath, opts.withNodeModules);
-  return _getFileInfo({
-    ignorer,
-    filePath: normalizeFilePath(filePath, opts.ignorePath),
-    plugins: opts.plugins,
-    resolveConfig: opts.resolveConfig,
-    sync: true
-  });
-};
-
-function _getFileInfo({
-  ignorer,
-  filePath,
-  plugins,
-  resolveConfig = false,
-  sync = false
-}) {
-  const fileInfo = {
-    ignored: ignorer.ignores(filePath),
-    inferredParser: options.inferParser(filePath, plugins) || null
-  };
-
-  if (!fileInfo.inferredParser && resolveConfig) {
-    if (!sync) {
-      return config.resolveConfig(filePath).then(resolvedConfig => {
-        if (resolvedConfig && resolvedConfig.parser) {
-          fileInfo.inferredParser = resolvedConfig.parser;
-        }
-
-        return fileInfo;
-      });
-    }
-
-    const resolvedConfig = config.resolveConfig.sync(filePath);
-    if (resolvedConfig && resolvedConfig.parser) {
-      fileInfo.inferredParser = resolvedConfig.parser;
-    }
+  let { ignorePath, withNodeModules } = options;
+  // In API we allow single `ignorePath`
+  if (!Array.isArray(ignorePath)) {
+    ignorePath = [ignorePath];
   }
 
-  return fileInfo;
+  const ignored = await isIgnored(file, { ignorePath, withNodeModules });
+  let inferredParser;
+  if (!ignored) {
+    inferredParser = options.parser ?? (await getParser(file, options));
+  }
+
+  return {
+    ignored,
+    inferredParser: inferredParser ?? null,
+  };
 }
 
-function normalizeFilePath(filePath, ignorePath) {
-  return ignorePath
-    ? path.relative(path.dirname(ignorePath), filePath)
-    : filePath;
+async function getParser(file, options) {
+  let config;
+  if (options.resolveConfig !== false) {
+    config = await resolveConfig(file, {
+      // No need read `.editorconfig`
+      editorconfig: false,
+    });
+  }
+
+  if (config?.parser) {
+    return config.parser;
+  }
+
+  let plugins = options.plugins ?? config?.plugins ?? [];
+
+  // We should wrap this function with `withPlugins` and use `options.plugins` directly instead of loading plugins here
+  // See #18375 #18081
+  // But somehow it breaks VSCode extension, see #18353
+  plugins = (
+    await Promise.all([loadBuiltinPlugins(), loadPlugins(plugins)])
+  ).flat();
+
+  return inferParser({ plugins }, { physicalFile: file });
 }
 
-module.exports = getFileInfo;
+export default getFileInfo;

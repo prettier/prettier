@@ -1,17 +1,42 @@
-/.cache
+# node_modules
+# We have `node_modules` directory for tests, don't ignore them all
 /node_modules
-/scripts/release/node_modules
-*.log
-/errors
-/test.*
-/.vscode
-/dist
 /website/node_modules
+/scripts/release/node_modules
+/scripts/tools/bundle-test/node_modules
+/scripts/tools/eslint-plugin-prettier-internal-rules/node_modules
+
+.tmp
+*.log
+*.tgz
+/errors
+/test*.*
+/.vscode/**/*
+!/.vscode/extensions.json
+!/.vscode/settings.example.json
+/dist*
 /website/build
 /website/i18n
-/website/static/playground.js
+/website/static/playground
 /website/static/lib
+/website/.docusaurus
 .DS_Store
-coverage
+/coverage
 .idea
 package-lock.json
+**/.yarn/*
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+**/.pnp.*
+.nyc_output
+.devcontainer
+.node-version
+*.swp
+
+# For 0x flamegraph directory (https://github.com/davidmarkclements/0x)
+*.0x/
+
+# For Node.js builtin cpu profile file
+*.cpuprofile

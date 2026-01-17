@@ -1,49 +1,126 @@
-"use strict";
+import path from "node:path";
+import createEsmUtils from "esm-utils";
+import installBrowser from "./tests/config/install-browser.js";
+import installPrettier from "./tests/config/install-prettier.js";
 
-const ENABLE_TEST_RESULTS = !!process.env.ENABLE_TEST_RESULTS;
-const ENABLE_CODE_COVERAGE = !!process.env.ENABLE_CODE_COVERAGE;
+const { dirname: PROJECT_ROOT } = createEsmUtils(import.meta);
+const isProduction = process.env.NODE_ENV === "production";
+// Disabled https://github.com/nicolo-ribaudo/jest-light-runner/pull/13
+// const ENABLE_CODE_COVERAGE = Boolean(process.env.ENABLE_CODE_COVERAGE);
+const TEST_STANDALONE = Boolean(process.env.TEST_STANDALONE);
+const INSTALL_PACKAGE = Boolean(process.env.INSTALL_PACKAGE);
+const TEST_RUNTIME = process.env.TEST_RUNTIME ?? "nodejs";
+// When debugging production test, this flag can skip installing package
+const SKIP_PRODUCTION_INSTALL = Boolean(process.env.SKIP_PRODUCTION_INSTALL);
+const nodejsMajorVersion = Number(process.versions.node.split(".")[0]);
 
-const requiresPrettierInternals = [
-  "tests_integration/__tests__/util-shared.js",
-  "tests_integration/__tests__/help-options.js"
-];
+let PRETTIER_DIR = isProduction
+  ? path.join(PROJECT_ROOT, "dist/prettier")
+  : PROJECT_ROOT;
+let PRETTIER_INSTALLED_DIR = "";
+if (
+  INSTALL_PACKAGE ||
+  (isProduction &&
+    !TEST_STANDALONE &&
+    !SKIP_PRODUCTION_INSTALL &&
+    TEST_RUNTIME === "nodejs")
+) {
+  PRETTIER_INSTALLED_DIR = installPrettier(PRETTIER_DIR);
+  PRETTIER_DIR = path.join(PRETTIER_INSTALLED_DIR, "node_modules/prettier");
+}
+if (TEST_RUNTIME === "browser") {
+  installBrowser();
+}
+process.env.PRETTIER_INSTALLED_DIR = PRETTIER_INSTALLED_DIR;
+process.env.PRETTIER_DIR = PRETTIER_DIR;
 
-const semver = require("semver");
-const isOldNode = semver.parse(process.version).major <= 4;
+const testPathIgnorePatterns = [];
+if (TEST_STANDALONE || TEST_RUNTIME !== "nodejs") {
+  testPathIgnorePatterns.push("tests/integration/");
+}
+if (isProduction) {
+  // Only run unit test for development
+  testPathIgnorePatterns.push("tests/unit/");
+} else {
+  // Only test bundles for production
+  testPathIgnorePatterns.push("tests/integration/__tests__/bundle.js");
+}
 
-module.exports = {
-  setupFiles: ["<rootDir>/tests_config/run_spec.js"],
+// Currently can't load plugins in browser
+if (TEST_RUNTIME === "browser") {
+  testPathIgnorePatterns.push(
+    "tests/format/misc/front-matter/with-plugins/format.test.js",
+    "tests/format/misc/plugins/embed-async-printer/format.test.js",
+    "tests/format/misc/errors/broken-plugin/format.test.js",
+    "tests/format/vue/with-plugins/format.test.js",
+    "tests/format/misc/plugins/async-printer/format.test.js",
+    "tests/format/handlebars/front-matter/toml/format.test.js",
+    "tests/format/markdown/broken-plugins/format.test.js",
+    "tests/format/vue/broken-plugins/format.test.js",
+  );
+}
+
+if (nodejsMajorVersion <= 18) {
+  // Uses import attributes and `Array#toSorted()`
+  testPathIgnorePatterns.push("tests/integration/__tests__/help-options.js");
+}
+
+if (nodejsMajorVersion <= 14) {
+  testPathIgnorePatterns.push(
+    "tests/integration/__tests__/plugin-parsers.js",
+    "tests/integration/__tests__/normalize-doc.js",
+    "tests/integration/__tests__/doc-utilities-clean-doc.js",
+    "tests/integration/__tests__/config-invalid.js",
+    // `@prettier/cli` uses `node:stream/consumers`, not available on Node.js v14
+    "tests/integration/__tests__/experimental-cli.js",
+    // Fails on Node.js v14
+    "tests/dts/unit/run.js",
+  );
+}
+
+const config = {
+  setupFiles: [
+    "<rootDir>/tests/config/format-test-setup.js",
+    "<rootDir>/tests/integration/integration-test-setup.js",
+  ],
+  runner: "jest-light-runner/child-process",
+  testEnvironmentOptions: {
+    customExportConditions: ["development"],
+  },
   snapshotSerializers: [
     "jest-snapshot-serializer-raw",
-    "jest-snapshot-serializer-ansi"
+    "jest-snapshot-serializer-ansi",
   ],
-  testRegex: "jsfmt\\.spec\\.js$|__tests__/.*\\.js$",
-  testPathIgnorePatterns: ["tests/new_react", "tests/more_react"].concat(
-    isOldNode ? requiresPrettierInternals : []
+  testMatch: [
+    "<rootDir>/tests/format/**/format.test.js",
+    "<rootDir>/tests/integration/__tests__/**/*.js",
+    "<rootDir>/tests/unit/**/*.js",
+    "<rootDir>/tests/dts/unit/**/*.js",
+  ],
+  testPathIgnorePatterns: testPathIgnorePatterns.map(
+    (file) => `<rootDir>/${file}`,
   ),
-  collectCoverage: ENABLE_CODE_COVERAGE,
-  collectCoverageFrom: ["src/**/*.js", "index.js", "!<rootDir>/node_modules/"],
+  // collectCoverage: ENABLE_CODE_COVERAGE,
+  collectCoverageFrom: ["<rootDir>/src/**/*.js", "<rootDir>/bin/**/*.js"],
   coveragePathIgnorePatterns: [
-    "<rootDir>/standalone.js",
-    "<rootDir>/src/doc/doc-debug.js",
-    "<rootDir>/src/main/massage-ast.js"
+    "<rootDir>/src/standalone.js",
+    "<rootDir>/src/document/debug.js",
   ],
-  coverageReporters: ["text", "html", "cobertura"],
+  coverageReporters: ["text", "lcov"],
   moduleNameMapper: {
-    // Jest wires `fs` to `graceful-fs`, which causes a memory leak when
-    // `graceful-fs` does `require('fs')`.
-    // Ref: https://github.com/facebook/jest/issues/2179#issuecomment-355231418
-    // If this is removed, see also scripts/build/build.js.
-    "graceful-fs": "<rootDir>/tests_config/fs.js",
-
-    "prettier/local": "<rootDir>/tests_config/require_prettier.js",
-    "prettier/standalone": "<rootDir>/tests_config/require_standalone.js"
+    "prettier-local": "<rootDir>/tests/config/prettier-entry.js",
+    "prettier-standalone": "<rootDir>/tests/config/require-standalone.cjs",
   },
-  testEnvironment: "node",
+  modulePathIgnorePatterns: [
+    "<rootDir>/dist",
+    "<rootDir>/website",
+    "<rootDir>/scripts/release",
+  ],
   transform: {},
   watchPlugins: [
     "jest-watch-typeahead/filename",
-    "jest-watch-typeahead/testname"
+    "jest-watch-typeahead/testname",
   ],
-  reporters: ["default"].concat(ENABLE_TEST_RESULTS ? "jest-junit" : [])
 };
+
+export default config;

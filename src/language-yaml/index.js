@@ -1,21 +1,8 @@
-"use strict";
+import printer from "./printer-yaml.js";
 
-const printer = require("./printer-yaml");
-const options = require("./options");
-const createLanguage = require("../utils/create-language");
-
-const languages = [
-  createLanguage(require("linguist-languages/data/YAML"), data =>
-    Object.assign(data, {
-      since: "1.14.0",
-      parsers: ["yaml"],
-      vscodeLanguageIds: ["yaml"]
-    })
-  )
-];
-
-module.exports = {
-  languages,
-  printers: { yaml: printer },
-  options
+export const printers = {
+  yaml: printer,
 };
+export { default as languages } from "./languages.evaluate.js";
+export { default as options } from "./options.js";
+export * as parsers from "./parser-yaml.js";

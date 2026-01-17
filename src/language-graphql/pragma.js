@@ -1,14 +1,11 @@
-"use strict";
+import {
+  FORMAT_PRAGMA_TO_INSERT,
+  GRAPHQL_HAS_IGNORE_PRAGMA_REGEXP,
+  GRAPHQL_HAS_PRAGMA_REGEXP,
+} from "../utilities/pragma/pragma.evaluate.js";
 
-function hasPragma(text) {
-  return /^\s*#[^\n\S]*@(format|prettier)\s*(\n|$)/.test(text);
-}
+const hasPragma = (text) => GRAPHQL_HAS_PRAGMA_REGEXP.test(text);
+const hasIgnorePragma = (text) => GRAPHQL_HAS_IGNORE_PRAGMA_REGEXP.test(text);
+const insertPragma = (text) => `# @${FORMAT_PRAGMA_TO_INSERT}\n\n${text}`;
 
-function insertPragma(text) {
-  return "# @format\n\n" + text;
-}
-
-module.exports = {
-  hasPragma,
-  insertPragma
-};
+export { hasIgnorePragma, hasPragma, insertPragma };

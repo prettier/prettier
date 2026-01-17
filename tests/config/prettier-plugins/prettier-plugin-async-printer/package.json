@@ -1,0 +1,6 @@
+{
+  "private": true,
+  "name": "prettier-plugin-async-printer",
+  "version": "1.0.0",
+  "main": "./index.cjs"
+}

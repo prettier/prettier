@@ -1,0 +1,11 @@
+import * as linguistLanguages from "linguist-languages";
+import createLanguage from "../utilities/create-language.js";
+
+const languages = [
+  createLanguage(linguistLanguages.GraphQL, () => ({
+    parsers: ["graphql"],
+    vscodeLanguageIds: ["graphql"],
+  })),
+];
+
+export default languages;

@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`test.yml - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["yaml"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+long long long long long long long long long long long long long long long long long long key: bar
+
+=====================================output=====================================
+? long long long long long long long long long long long long long long long
+  long long long key
+: bar
+
+================================================================================
+`;
+
+exports[`test.yml format 1`] = `
+====================================options=====================================
+parsers: ["yaml"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+long long long long long long long long long long long long long long long long long long key: bar
+
+=====================================output=====================================
+long long long long long long long long long long long long long long long long long long key: bar
+
+================================================================================
+`;

@@ -1,686 +1,524 @@
-"use strict";
-
-const {
-  concat,
-  join,
+import {
+  group,
   hardline,
+  ifBreak,
+  indent,
+  join,
   line,
   softline,
-  group,
-  indent,
-  ifBreak
-} = require("../doc").builders;
-const { hasIgnoreComment } = require("../common/util");
-const { isNextLineEmpty } = require("../common/util-shared");
-const { insertPragma } = require("./pragma");
+} from "../document/index.js";
+import { printDanglingComments } from "../main/comments/print.js";
+import isNextLineEmpty from "../utilities/is-next-line-empty.js";
+import isNonEmptyArray from "../utilities/is-non-empty-array.js";
+import UnexpectedNodeError from "../utilities/unexpected-node-error.js";
+import getVisitorKeys from "./get-visitor-keys.js";
+import { locEnd, locStart } from "./loc.js";
+import { insertPragma } from "./pragma.js";
+import printDescription from "./print/description.js";
 
 function genericPrint(path, options, print) {
-  const n = path.getValue();
-  if (!n) {
-    return "";
-  }
+  const { node } = path;
 
-  if (typeof n === "string") {
-    return n;
-  }
-
-  switch (n.kind) {
-    case "Document": {
-      const parts = [];
-      path.map((pathChild, index) => {
-        parts.push(concat([pathChild.call(print)]));
-        if (index !== n.definitions.length - 1) {
-          parts.push(hardline);
-          if (
-            isNextLineEmpty(options.originalText, pathChild.getValue(), options)
-          ) {
-            parts.push(hardline);
-          }
-        }
-      }, "definitions");
-      return concat([concat(parts), hardline]);
-    }
-    case "OperationDefinition": {
-      const hasOperation = options.originalText[options.locStart(n)] !== "{";
-      const hasName = !!n.name;
-      return concat([
-        hasOperation ? n.operation : "",
-        hasOperation && hasName ? concat([" ", path.call(print, "name")]) : "",
-        n.variableDefinitions && n.variableDefinitions.length
-          ? group(
-              concat([
-                "(",
-                indent(
-                  concat([
-                    softline,
-                    join(
-                      concat([ifBreak("", ", "), softline]),
-                      path.map(print, "variableDefinitions")
-                    )
-                  ])
-                ),
-                softline,
-                ")"
-              ])
-            )
-          : "",
-        printDirectives(path, print, n),
-        n.selectionSet ? (!hasOperation && !hasName ? "" : " ") : "",
-        path.call(print, "selectionSet")
-      ]);
-    }
-    case "FragmentDefinition": {
-      return concat([
-        "fragment ",
-        path.call(print, "name"),
-        n.variableDefinitions && n.variableDefinitions.length
-          ? group(
-              concat([
-                "(",
-                indent(
-                  concat([
-                    softline,
-                    join(
-                      concat([ifBreak("", ", "), softline]),
-                      path.map(print, "variableDefinitions")
-                    )
-                  ])
-                ),
-                softline,
-                ")"
-              ])
-            )
-          : "",
-        " on ",
-        path.call(print, "typeCondition"),
-        printDirectives(path, print, n),
-        " ",
-        path.call(print, "selectionSet")
-      ]);
-    }
-    case "SelectionSet": {
-      return concat([
-        "{",
-        indent(
-          concat([
-            hardline,
-            join(
-              hardline,
-              path.call(
-                selectionsPath => printSequence(selectionsPath, options, print),
-                "selections"
-              )
-            )
-          ])
-        ),
+  switch (node.kind) {
+    case "Document":
+      return [
+        ...join(hardline, printSequence(path, options, print, "definitions")),
         hardline,
-        "}"
+      ];
+
+    case "OperationDefinition": {
+      const hasOperation = options.originalText[locStart(node)] !== "{";
+      const hasName = Boolean(node.name);
+      return [
+        printDescription(path, options, print),
+        hasOperation ? node.operation : "",
+        hasOperation && hasName ? [" ", print("name")] : "",
+        hasOperation && !hasName && isNonEmptyArray(node.variableDefinitions)
+          ? " "
+          : "",
+        printVariableDefinitions(path, print),
+        printDirectives(path, print, node),
+        !hasOperation && !hasName ? "" : " ",
+        print("selectionSet"),
+      ];
+    }
+    case "FragmentDefinition":
+      return [
+        printDescription(path, options, print),
+        "fragment ",
+        print("name"),
+        printVariableDefinitions(path, print),
+        " on ",
+        print("typeCondition"),
+        printDirectives(path, print, node),
+        " ",
+        print("selectionSet"),
+      ];
+
+    case "SelectionSet":
+      return [
+        "{",
+        indent([
+          hardline,
+          join(hardline, printSequence(path, options, print, "selections")),
+        ]),
+        hardline,
+        "}",
+      ];
+
+    case "Field":
+      return group([
+        node.alias ? [print("alias"), ": "] : "",
+        print("name"),
+        node.arguments.length > 0
+          ? group([
+              "(",
+              indent([
+                softline,
+                join(
+                  [ifBreak("", ", "), softline],
+                  printSequence(path, options, print, "arguments"),
+                ),
+              ]),
+              softline,
+              ")",
+            ])
+          : "",
+        printDirectives(path, print, node),
+        node.selectionSet ? " " : "",
+        print("selectionSet"),
       ]);
-    }
-    case "Field": {
-      return group(
-        concat([
-          n.alias ? concat([path.call(print, "alias"), ": "]) : "",
-          path.call(print, "name"),
-          n.arguments.length > 0
-            ? group(
-                concat([
-                  "(",
-                  indent(
-                    concat([
-                      softline,
-                      join(
-                        concat([ifBreak("", ", "), softline]),
-                        path.call(
-                          argsPath => printSequence(argsPath, options, print),
-                          "arguments"
-                        )
-                      )
-                    ])
-                  ),
-                  softline,
-                  ")"
-                ])
-              )
-            : "",
-          printDirectives(path, print, n),
-          n.selectionSet ? " " : "",
-          path.call(print, "selectionSet")
-        ])
-      );
-    }
-    case "Name": {
-      return n.value;
-    }
-    case "StringValue": {
-      if (n.block) {
-        return concat([
-          '"""',
-          hardline,
-          join(hardline, n.value.replace(/"""/g, "\\$&").split("\n")),
-          hardline,
-          '"""'
-        ]);
+
+    case "Name":
+      return node.value;
+
+    case "StringValue":
+      if (node.block) {
+        const lines = node.value
+          .replaceAll('"""', String.raw`\"""`)
+          .split("\n");
+        if (lines.length === 1) {
+          lines[0] = lines[0].trim();
+        }
+
+        if (lines.every((line) => line === "")) {
+          lines.length = 0;
+        }
+
+        return join(hardline, ['"""', ...lines, '"""']);
       }
-      return concat([
+      return [
         '"',
-        n.value.replace(/["\\]/g, "\\$&").replace(/\n/g, "\\n"),
-        '"'
-      ]);
-    }
+        node.value
+          .replaceAll(/["\\]/g, String.raw`\$&`)
+          .replaceAll("\n", String.raw`\n`),
+        '"',
+      ];
+
     case "IntValue":
     case "FloatValue":
-    case "EnumValue": {
-      return n.value;
-    }
-    case "BooleanValue": {
-      return n.value ? "true" : "false";
-    }
-    case "NullValue": {
+    case "EnumValue":
+      return node.value;
+
+    case "BooleanValue":
+      return node.value ? "true" : "false";
+
+    case "NullValue":
       return "null";
-    }
-    case "Variable": {
-      return concat(["$", path.call(print, "name")]);
-    }
-    case "ListValue": {
-      return group(
-        concat([
-          "[",
-          indent(
-            concat([
-              softline,
-              join(
-                concat([ifBreak("", ", "), softline]),
-                path.map(print, "values")
-              )
-            ])
-          ),
+
+    case "Variable":
+      return ["$", print("name")];
+
+    case "ListValue":
+      return group([
+        "[",
+        indent([
           softline,
-          "]"
-        ])
-      );
-    }
+          join([ifBreak("", ", "), softline], path.map(print, "values")),
+        ]),
+        softline,
+        "]",
+      ]);
+
     case "ObjectValue": {
-      return group(
-        concat([
-          "{",
-          options.bracketSpacing && n.fields.length > 0 ? " " : "",
-          indent(
-            concat([
-              softline,
-              join(
-                concat([ifBreak("", ", "), softline]),
-                path.map(print, "fields")
-              )
-            ])
-          ),
-          softline,
-          ifBreak("", options.bracketSpacing && n.fields.length > 0 ? " " : ""),
-          "}"
-        ])
-      );
-    }
-    case "ObjectField":
-    case "Argument": {
-      return concat([
-        path.call(print, "name"),
-        ": ",
-        path.call(print, "value")
-      ]);
-    }
-
-    case "Directive": {
-      return concat([
-        "@",
-        path.call(print, "name"),
-        n.arguments.length > 0
-          ? group(
-              concat([
-                "(",
-                indent(
-                  concat([
-                    softline,
-                    join(
-                      concat([ifBreak("", ", "), softline]),
-                      path.call(
-                        argsPath => printSequence(argsPath, options, print),
-                        "arguments"
-                      )
-                    )
-                  ])
-                ),
+      const bracketSpace =
+        options.bracketSpacing && node.fields.length > 0 ? " " : "";
+      return group([
+        "{",
+        bracketSpace,
+        printDanglingComments(path, options, { indent: true }),
+        isNonEmptyArray(node.fields)
+          ? [
+              indent([
                 softline,
-                ")"
-              ])
-            )
-          : ""
+                join([ifBreak("", ", "), softline], path.map(print, "fields")),
+              ]),
+            ]
+          : "",
+        softline,
+        ifBreak("", bracketSpace),
+        "}",
       ]);
     }
 
-    case "NamedType": {
-      return path.call(print, "name");
-    }
+    case "ObjectField":
+    case "Argument":
+      return [print("name"), ": ", print("value")];
 
-    case "VariableDefinition": {
-      return concat([
-        path.call(print, "variable"),
+    case "Directive":
+      return [
+        "@",
+        print("name"),
+        node.arguments.length > 0
+          ? group([
+              "(",
+              indent([
+                softline,
+                join(
+                  [ifBreak("", ", "), softline],
+                  printSequence(path, options, print, "arguments"),
+                ),
+              ]),
+              softline,
+              ")",
+            ])
+          : "",
+      ];
+
+    case "NamedType":
+      return print("name");
+
+    case "VariableDefinition":
+      return [
+        printDescription(path, options, print),
+        print("variable"),
         ": ",
-        path.call(print, "type"),
-        n.defaultValue ? concat([" = ", path.call(print, "defaultValue")]) : "",
-        printDirectives(path, print, n)
-      ]);
-    }
-
-    case "TypeExtensionDefinition": {
-      return concat(["extend ", path.call(print, "definition")]);
-    }
+        print("type"),
+        node.defaultValue ? [" = ", print("defaultValue")] : "",
+        printDirectives(path, print, node),
+      ];
 
     case "ObjectTypeExtension":
-    case "ObjectTypeDefinition": {
-      return concat([
-        path.call(print, "description"),
-        n.description ? hardline : "",
-        n.kind === "ObjectTypeExtension" ? "extend " : "",
-        "type ",
-        path.call(print, "name"),
-        n.interfaces.length > 0
-          ? concat([
-              " implements ",
-              join(
-                determineInterfaceSeparator(
-                  options.originalText.substr(
-                    options.locStart(n),
-                    options.locEnd(n)
-                  )
-                ),
-                path.map(print, "interfaces")
-              )
-            ])
-          : "",
-        printDirectives(path, print, n),
-        n.fields.length > 0
-          ? concat([
-              " {",
-              indent(
-                concat([
-                  hardline,
-                  join(
-                    hardline,
-                    path.call(
-                      fieldsPath => printSequence(fieldsPath, options, print),
-                      "fields"
-                    )
-                  )
-                ])
-              ),
-              hardline,
-              "}"
-            ])
-          : ""
-      ]);
+    case "ObjectTypeDefinition":
+    case "InputObjectTypeExtension":
+    case "InputObjectTypeDefinition":
+    case "InterfaceTypeExtension":
+    case "InterfaceTypeDefinition": {
+      const { kind } = node;
+      const parts = [];
+
+      if (kind.endsWith("TypeDefinition")) {
+        parts.push(printDescription(path, options, print));
+      } else {
+        parts.push("extend ");
+      }
+
+      if (kind.startsWith("ObjectType")) {
+        parts.push("type");
+      } else if (kind.startsWith("InputObjectType")) {
+        parts.push("input");
+      } else {
+        parts.push("interface");
+      }
+      parts.push(" ", print("name"));
+
+      if (!kind.startsWith("InputObjectType") && node.interfaces.length > 0) {
+        parts.push(
+          " implements ",
+          indent([group([join([" &", line], path.map(print, "interfaces"))])]),
+        );
+      }
+
+      parts.push(printDirectives(path, print, node));
+
+      if (node.fields.length > 0) {
+        parts.push([
+          " {",
+          indent([
+            hardline,
+            join(hardline, printSequence(path, options, print, "fields")),
+          ]),
+          hardline,
+          "}",
+        ]);
+      }
+
+      return parts;
     }
 
-    case "FieldDefinition": {
-      return concat([
-        path.call(print, "description"),
-        n.description ? hardline : "",
-        path.call(print, "name"),
-        n.arguments.length > 0
-          ? group(
-              concat([
-                "(",
-                indent(
-                  concat([
-                    softline,
-                    join(
-                      concat([ifBreak("", ", "), softline]),
-                      path.call(
-                        argsPath => printSequence(argsPath, options, print),
-                        "arguments"
-                      )
-                    )
-                  ])
-                ),
+    case "FieldDefinition":
+      return [
+        printDescription(path, options, print),
+        print("name"),
+        node.arguments.length > 0
+          ? group([
+              "(",
+              indent([
                 softline,
-                ")"
-              ])
-            )
+                join(
+                  [ifBreak("", ", "), softline],
+                  printSequence(path, options, print, "arguments"),
+                ),
+              ]),
+              softline,
+              ")",
+            ])
           : "",
         ": ",
-        path.call(print, "type"),
-        printDirectives(path, print, n)
-      ]);
-    }
+        print("type"),
+        printDirectives(path, print, node),
+      ];
 
-    case "DirectiveDefinition": {
-      return concat([
-        path.call(print, "description"),
-        n.description ? hardline : "",
+    case "DirectiveDefinition":
+      return [
+        printDescription(path, options, print),
         "directive ",
         "@",
-        path.call(print, "name"),
-        n.arguments.length > 0
-          ? group(
-              concat([
-                "(",
-                indent(
-                  concat([
-                    softline,
-                    join(
-                      concat([ifBreak("", ", "), softline]),
-                      path.call(
-                        argsPath => printSequence(argsPath, options, print),
-                        "arguments"
-                      )
-                    )
-                  ])
-                ),
+        print("name"),
+        node.arguments.length > 0
+          ? group([
+              "(",
+              indent([
                 softline,
-                ")"
-              ])
-            )
+                join(
+                  [ifBreak("", ", "), softline],
+                  printSequence(path, options, print, "arguments"),
+                ),
+              ]),
+              softline,
+              ")",
+            ])
           : "",
-        concat([" on ", join(" | ", path.map(print, "locations"))])
-      ]);
-    }
+        node.repeatable ? " repeatable" : "",
+        " on ",
+        ...join(" | ", path.map(print, "locations")),
+      ];
 
     case "EnumTypeExtension":
-    case "EnumTypeDefinition": {
-      return concat([
-        path.call(print, "description"),
-        n.description ? hardline : "",
-        n.kind === "EnumTypeExtension" ? "extend " : "",
+    case "EnumTypeDefinition":
+      return [
+        printDescription(path, options, print),
+        node.kind === "EnumTypeExtension" ? "extend " : "",
         "enum ",
-        path.call(print, "name"),
-        printDirectives(path, print, n),
-
-        n.values.length > 0
-          ? concat([
+        print("name"),
+        printDirectives(path, print, node),
+        node.values.length > 0
+          ? [
               " {",
-              indent(
-                concat([
-                  hardline,
-                  join(
-                    hardline,
-                    path.call(
-                      valuesPath => printSequence(valuesPath, options, print),
-                      "values"
-                    )
-                  )
-                ])
-              ),
+              indent([
+                hardline,
+                join(hardline, printSequence(path, options, print, "values")),
+              ]),
               hardline,
-              "}"
-            ])
-          : ""
-      ]);
-    }
+              "}",
+            ]
+          : "",
+      ];
 
-    case "EnumValueDefinition": {
-      return concat([
-        path.call(print, "description"),
-        n.description ? hardline : "",
-        path.call(print, "name"),
-        printDirectives(path, print, n)
-      ]);
-    }
+    case "EnumValueDefinition":
+      return [
+        printDescription(path, options, print),
+        print("name"),
+        printDirectives(path, print, node),
+      ];
 
-    case "InputValueDefinition": {
-      return concat([
-        path.call(print, "description"),
-        n.description ? (n.description.block ? hardline : line) : "",
-        path.call(print, "name"),
+    case "InputValueDefinition":
+      return [
+        printDescription(path, options, print),
+        print("name"),
         ": ",
-        path.call(print, "type"),
-        n.defaultValue ? concat([" = ", path.call(print, "defaultValue")]) : "",
-        printDirectives(path, print, n)
-      ]);
-    }
+        print("type"),
+        node.defaultValue ? [" = ", print("defaultValue")] : "",
+        printDirectives(path, print, node),
+      ];
 
-    case "InputObjectTypeExtension":
-    case "InputObjectTypeDefinition": {
-      return concat([
-        path.call(print, "description"),
-        n.description ? hardline : "",
-        n.kind === "InputObjectTypeExtension" ? "extend " : "",
-        "input ",
-        path.call(print, "name"),
-        printDirectives(path, print, n),
-        n.fields.length > 0
-          ? concat([
+    case "SchemaExtension":
+      return [
+        "extend schema",
+        printDirectives(path, print, node),
+        ...(node.operationTypes.length > 0
+          ? [
               " {",
-              indent(
-                concat([
-                  hardline,
-                  join(
-                    hardline,
-                    path.call(
-                      fieldsPath => printSequence(fieldsPath, options, print),
-                      "fields"
-                    )
-                  )
-                ])
-              ),
-              hardline,
-              "}"
-            ])
-          : ""
-      ]);
-    }
-
-    case "SchemaDefinition": {
-      return concat([
-        "schema",
-        printDirectives(path, print, n),
-        " {",
-        n.operationTypes.length > 0
-          ? indent(
-              concat([
+              indent([
                 hardline,
                 join(
                   hardline,
-                  path.call(
-                    opsPath => printSequence(opsPath, options, print),
-                    "operationTypes"
-                  )
-                )
-              ])
-            )
+                  printSequence(path, options, print, "operationTypes"),
+                ),
+              ]),
+              hardline,
+              "}",
+            ]
+          : []),
+      ];
+
+    case "SchemaDefinition":
+      return [
+        printDescription(path, options, print),
+        "schema",
+        printDirectives(path, print, node),
+        " {",
+        node.operationTypes.length > 0
+          ? indent([
+              hardline,
+              join(
+                hardline,
+                printSequence(path, options, print, "operationTypes"),
+              ),
+            ])
           : "",
         hardline,
-        "}"
-      ]);
-    }
+        "}",
+      ];
 
-    case "OperationTypeDefinition": {
-      return concat([
-        path.call(print, "operation"),
-        ": ",
-        path.call(print, "type")
-      ]);
-    }
+    case "OperationTypeDefinition":
+      return [node.operation, ": ", print("type")];
 
-    case "InterfaceTypeExtension":
-    case "InterfaceTypeDefinition": {
-      return concat([
-        path.call(print, "description"),
-        n.description ? hardline : "",
-        n.kind === "InterfaceTypeExtension" ? "extend " : "",
-        "interface ",
-        path.call(print, "name"),
-        printDirectives(path, print, n),
+    case "FragmentSpread":
+      return ["...", print("name"), printDirectives(path, print, node)];
 
-        n.fields.length > 0
-          ? concat([
-              " {",
-              indent(
-                concat([
-                  hardline,
-                  join(
-                    hardline,
-                    path.call(
-                      fieldsPath => printSequence(fieldsPath, options, print),
-                      "fields"
-                    )
-                  )
-                ])
-              ),
-              hardline,
-              "}"
-            ])
-          : ""
-      ]);
-    }
-
-    case "FragmentSpread": {
-      return concat([
+    case "InlineFragment":
+      return [
         "...",
-        path.call(print, "name"),
-        printDirectives(path, print, n)
-      ]);
-    }
-
-    case "InlineFragment": {
-      return concat([
-        "...",
-        n.typeCondition
-          ? concat([" on ", path.call(print, "typeCondition")])
-          : "",
-        printDirectives(path, print, n),
+        node.typeCondition ? [" on ", print("typeCondition")] : "",
+        printDirectives(path, print, node),
         " ",
-        path.call(print, "selectionSet")
-      ]);
-    }
+        print("selectionSet"),
+      ];
 
     case "UnionTypeExtension":
-    case "UnionTypeDefinition": {
-      return group(
-        concat([
-          path.call(print, "description"),
-          n.description ? hardline : "",
-          group(
-            concat([
-              n.kind === "UnionTypeExtension" ? "extend " : "",
-              "union ",
-              path.call(print, "name"),
-              printDirectives(path, print, n),
-              n.types.length > 0
-                ? concat([
-                    " =",
-                    ifBreak("", " "),
-                    indent(
-                      concat([
-                        ifBreak(concat([line, "  "])),
-                        join(concat([line, "| "]), path.map(print, "types"))
-                      ])
-                    )
-                  ])
-                : ""
-            ])
-          )
-        ])
-      );
-    }
+    case "UnionTypeDefinition":
+      return group([
+        printDescription(path, options, print),
+        group([
+          node.kind === "UnionTypeExtension" ? "extend " : "",
+          "union ",
+          print("name"),
+          printDirectives(path, print, node),
+          node.types.length > 0
+            ? [
+                " =",
+                ifBreak("", " "),
+                indent([
+                  ifBreak([line, "| "]),
+                  join([line, "| "], path.map(print, "types")),
+                ]),
+              ]
+            : "",
+        ]),
+      ]);
 
     case "ScalarTypeExtension":
-    case "ScalarTypeDefinition": {
-      return concat([
-        path.call(print, "description"),
-        n.description ? hardline : "",
-        n.kind === "ScalarTypeExtension" ? "extend " : "",
+    case "ScalarTypeDefinition":
+      return [
+        printDescription(path, options, print),
+        node.kind === "ScalarTypeExtension" ? "extend " : "",
         "scalar ",
-        path.call(print, "name"),
-        printDirectives(path, print, n)
-      ]);
-    }
+        print("name"),
+        printDirectives(path, print, node),
+      ];
 
-    case "NonNullType": {
-      return concat([path.call(print, "type"), "!"]);
-    }
+    case "NonNullType":
+      return [print("type"), "!"];
 
-    case "ListType": {
-      return concat(["[", path.call(print, "type"), "]"]);
-    }
+    case "ListType":
+      return ["[", print("type"), "]"];
 
     default:
-      /* istanbul ignore next */
-      throw new Error("unknown graphql type: " + JSON.stringify(n.kind));
+      /* c8 ignore next */
+      throw new UnexpectedNodeError(node, "Graphql", "kind");
   }
 }
 
-function printDirectives(path, print, n) {
-  if (n.directives.length === 0) {
+function printDirectives(path, print, node) {
+  if (node.directives.length === 0) {
     return "";
   }
 
-  return concat([
-    " ",
-    group(
-      indent(
-        concat([
-          softline,
-          join(
-            concat([ifBreak("", " "), softline]),
-            path.map(print, "directives")
-          )
-        ])
-      )
-    )
-  ]);
+  const printed = join(line, path.map(print, "directives"));
+
+  if (
+    node.kind === "FragmentDefinition" ||
+    node.kind === "OperationDefinition"
+  ) {
+    return group([line, printed]);
+  }
+
+  return [" ", group(indent([softline, printed]))];
 }
 
-function printSequence(sequencePath, options, print) {
-  const count = sequencePath.getValue().length;
+function printSequence(path, options, print, property) {
+  return path.map(({ isLast, node }) => {
+    const printed = print();
 
-  return sequencePath.map((path, i) => {
-    const printed = print(path);
-
-    if (
-      isNextLineEmpty(options.originalText, path.getValue(), options) &&
-      i < count - 1
-    ) {
-      return concat([printed, hardline]);
+    if (!isLast && isNextLineEmpty(options.originalText, locEnd(node))) {
+      return [printed, hardline];
     }
 
     return printed;
-  });
+  }, property);
 }
 
-function canAttachComment(node) {
-  return node.kind && node.kind !== "Comment";
+function canAttachComment(node /* , ancestors */) {
+  return node.kind !== "Comment";
 }
 
-function printComment(commentPath) {
-  const comment = commentPath.getValue();
+function printComment({ node: comment }) {
   if (comment.kind === "Comment") {
-    return "#" + comment.value.trimRight();
+    return "#" + comment.value.trimEnd();
   }
 
+  /* c8 ignore next */
   throw new Error("Not a comment: " + JSON.stringify(comment));
 }
 
-function determineInterfaceSeparator(originalSource) {
-  const start = originalSource.indexOf("implements");
-  if (start === -1) {
-    throw new Error("Must implement interfaces: " + originalSource);
+function printVariableDefinitions(path, print) {
+  const { node } = path;
+  if (!isNonEmptyArray(node.variableDefinitions)) {
+    return "";
   }
-  let end = originalSource.indexOf("{");
-  if (end === -1) {
-    end = originalSource.length;
-  }
-  return originalSource.substr(start, end).includes("&") ? " & " : ", ";
+  return group([
+    "(",
+    indent([
+      softline,
+      join(
+        [ifBreak("", ", "), softline],
+        path.map(print, "variableDefinitions"),
+      ),
+    ]),
+    softline,
+    ")",
+  ]);
 }
 
-function clean(node, newNode /*, parent*/) {
-  delete newNode.loc;
-  delete newNode.comments;
+function clean(original, cloned /* , parent */) {
+  // We print single line `""" string """` as multiple line string,
+  // and the parser ignores space in multiple line string
+  if (
+    original.kind === "StringValue" &&
+    original.block &&
+    !original.value.includes("\n")
+  ) {
+    cloned.value = original.value.trim();
+  }
+}
+clean.ignoredProperties = new Set(["loc", "comments"]);
+
+function hasPrettierIgnore(path) {
+  const { node } = path;
+  return node?.comments?.some(
+    (comment) => comment.value.trim() === "prettier-ignore",
+  );
 }
 
-module.exports = {
+const printer = {
   print: genericPrint,
   massageAstNode: clean,
-  hasPrettierIgnore: hasIgnoreComment,
+  hasPrettierIgnore,
   insertPragma,
   printComment,
-  canAttachComment
+  canAttachComment,
+  getVisitorKeys,
 };
+
+export default printer;

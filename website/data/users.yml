@@ -43,10 +43,12 @@
   greyImage: /images/users/used_by_storybook.svg
   infoLink: https://storybook.js.org/
   pinned: true
-- caption: ZEIT
-  image: /images/users/zeit-200x100.png
-  greyImage: /images/users/used_by_zeit.svg
-  infoLink: https://zeit.co
+- caption: Vercel
+  image: /images/users/vercel-logotype-dark.svg
+  infoLink: https://vercel.com/
+- caption: Spotify
+  image: /images/users/used_by_spotify.svg
+  infoLink: https://spotify.github.io
 - caption: PayPal
   image: /images/users/paypal-200x100.png
   infoLink: https://github.com/paypal/
@@ -236,3 +238,24 @@
 - caption: Estalee
   image: /images/users/estalee.svg
   infoLink: https://estalee.com/
+- caption: SwissDev DevOps Jobs
+  image: /images/users/swissdev-devops-jobs-200-100.png
+  infoLink: https://swissdevjobs.ch/jobs/Dev-Ops/All
+- caption: Tradie Training
+  image: /images/users/tradie-training.png
+  infoLink: https://tt.edu.au
+- caption: ChilliCream
+  image: /images/users/chillicream.svg
+  infoLink: https://chillicream.com/
+- caption: Toptal
+  image: /images/users/toptal.png
+  infoLink: https://www.toptal.com
+- caption: Aircall
+  image: /images/users/aircall.svg
+  infoLink: https://www.aircall.io
+- caption: Icons8
+  image: /images/users/icons8.svg
+  infoLink: https://icons8.com
+- caption: Dev IT jobs
+  image: /images/users/dev-it-jobs-200-100.jpg
+  infoLink: https://devitjobs.uk

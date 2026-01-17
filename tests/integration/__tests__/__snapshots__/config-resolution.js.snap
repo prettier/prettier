@@ -1,0 +1,74 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`accepts configuration from --config  1`] = `
+{
+  "stderr": "",
+  "stdout": "function js() {
+ console.log("js/file.js should have tab width 8 (1 if CLI)")
+}",
+  "write": [],
+}
+`;
+
+exports[`prints error message when no file found with --find-config-path  1`] = `
+{
+  "stderr": "[error] Can not find configure file for "../--non-exits-filename--".",
+  "write": [],
+}
+`;
+
+exports[`resolves configuration file with --find-config-path file  1`] = `
+{
+  "stderr": "",
+  "stdout": ".prettierrc",
+  "write": [],
+}
+`;
+
+exports[`resolves external configuration from package.json (cjs package)  1`] = `
+{
+  "stdout": "console.log("should have no semi")",
+}
+`;
+
+exports[`resolves external configuration from package.json (esm file)  1`] = `
+{
+  "stdout": "console.log("should have no semi")",
+}
+`;
+
+exports[`resolves external configuration from package.json (esm package with TLA)  1`] = `
+{
+  "stdout": "console.log("should have no semi")",
+}
+`;
+
+exports[`resolves external configuration from package.json (esm package)  1`] = `
+{
+  "stdout": "console.log("should have no semi")",
+}
+`;
+
+exports[`resolves json configuration file with --find-config-path file  1`] = `
+{
+  "stderr": "",
+  "stdout": "rc-json/.prettierrc.json",
+  "write": [],
+}
+`;
+
+exports[`resolves toml configuration file with --find-config-path file  1`] = `
+{
+  "stderr": "",
+  "stdout": "rc-toml/.prettierrc.toml",
+  "write": [],
+}
+`;
+
+exports[`resolves yaml configuration file with --find-config-path file  1`] = `
+{
+  "stderr": "",
+  "stdout": "rc-yaml/.prettierrc.yaml",
+  "write": [],
+}
+`;

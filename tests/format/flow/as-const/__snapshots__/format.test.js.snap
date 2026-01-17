@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`embedded.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const GQL_QUERY_WITH_CONST = /* GraphQL */ \`
+  query S { shop }
+\` as const;
+
+const HTML_WITH_CONST = /* HTML */ \`
+<div>
+<h1>foo</h1>
+  <p>foo</p>
+</div>
+\` as const;
+
+=====================================output=====================================
+const GQL_QUERY_WITH_CONST = /* GraphQL */ \`
+  query S {
+    shop
+  }
+\` as const;
+
+const HTML_WITH_CONST = /* HTML */ \`
+  <div>
+    <h1>foo</h1>
+    <p>foo</p>
+  </div>
+\` as const;
+
+================================================================================
+`;
