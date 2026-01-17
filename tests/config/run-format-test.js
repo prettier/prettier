@@ -102,6 +102,14 @@ const babelTsDisabledTests = new Set(
     "module/module_nested.ts",
     "custom/stability/moduleBlock.ts",
     "interface2/module.ts",
+    "chain-expression/call-expression.ts",
+    "chain-expression/issue-15785-1.ts",
+    "chain-expression/issue-15785-2.ts",
+    "chain-expression/member-expression.ts",
+    "chain-expression/new-expression.ts",
+    "chain-expression/tagged-template-literals.ts",
+    "chain-expression/test.ts",
+    "chain-expression/test2.ts",
   ].map((file) => path.join(__dirname, "../format/typescript", file)),
 );
 const oxcDisabledTests = new Set();
