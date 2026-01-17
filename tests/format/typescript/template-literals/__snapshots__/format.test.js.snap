@@ -34,3 +34,53 @@ const bar = tag<number>\`but where will prettier wrap such a long tagged templat
 
 ================================================================================
 `;
+
+exports[`member-expression.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+long1 = \`long \${a//comment
+  .b} long longlong \${a.b.c.d.e} long longlong \${a.b.c.d.e} long longlong \${a.b.c.d.e} long long\`;
+
+long1 = \`long \${a//comment
+  ?.b} long longlong \${a.b.c.d.e} long longlong \${a.b.c.d.e} long longlong \${a.b.c.d.e} long long\`;
+
+long1 = \`long \${a//comment
+  .b!} long longlong \${a.b.c.d.e} long longlong \${a.b.c.d.e} long longlong \${a.b.c.d.e} long long\`;
+
+long1 = \`long \${a//comment
+  ?.b!} long longlong \${a.b.c.d.e} long longlong \${a.b.c.d.e} long longlong \${a.b.c.d.e} long long\`;
+
+long1 = \`long \${(a//comment
+  ?.b)!} long longlong \${a.b.c.d.e} long longlong \${a.b.c.d.e} long longlong \${a.b.c.d.e} long long\`;
+
+=====================================output=====================================
+long1 = \`long \${
+  a //comment
+  .b
+} long longlong \${a.b.c.d.e} long longlong \${a.b.c.d.e} long longlong \${a.b.c.d.e} long long\`;
+
+long1 = \`long \${
+  a //comment
+  ?.b
+} long longlong \${a.b.c.d.e} long longlong \${a.b.c.d.e} long longlong \${a.b.c.d.e} long long\`;
+
+long1 = \`long \${
+  a //comment
+  .b!
+} long longlong \${a.b.c.d.e} long longlong \${a.b.c.d.e} long longlong \${a.b.c.d.e} long long\`;
+
+long1 = \`long \${
+  a //comment
+  ?.b!
+} long longlong \${a.b.c.d.e} long longlong \${a.b.c.d.e} long longlong \${a.b.c.d.e} long long\`;
+
+long1 = \`long \${
+  a //comment
+  ?.b!
+} long longlong \${a.b.c.d.e} long longlong \${a.b.c.d.e} long longlong \${a.b.c.d.e} long long\`;
+
+================================================================================
+`;
