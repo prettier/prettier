@@ -1,5 +1,5 @@
 import { locEnd, locStart } from "../loc.js";
-import getTextWithoutComments from "../utilities/get-text-without-comments.js";
+import getTextWithoutComments from "./get-text-without-comments.js";
 
 /**
 @import {Node, Comment, NodeMap} from "../types/estree.js"
