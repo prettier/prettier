@@ -44,6 +44,7 @@ import isTypeCastComment from "../utilities/is-type-cast-comment.js";
   options: any,
   ast: NodeMap["File"] | NodeMap["Program"],
   isLastComment: boolean,
+  placement: "ownLine" | "endOfLine" | "remaining"
 }} CommentContext
 */
 
@@ -540,6 +541,7 @@ const isPropertyLikeNode = createTypeCheckFunction([
   "TSParameterProperty",
 ]);
 function handleMethodNameComments({
+  placement,
   comment,
   precedingNode,
   enclosingNode,
@@ -571,7 +573,7 @@ function handleMethodNameComments({
   if (
     precedingNode?.type === "Decorator" &&
     isPropertyLikeNode(enclosingNode) &&
-    (isLineComment(comment) || comment.placement === "ownLine")
+    (isLineComment(comment) || placement === "ownLine")
   ) {
     addTrailingComment(precedingNode, comment);
     return true;

@@ -139,6 +139,8 @@ function attachComments(ast, options) {
     options,
     ast,
     isLastComment: comments.length - 1 === index,
+    // TODO: Move placement here
+    placement: undefined,
   }));
 
   // For easier debug, save these to comment even `avoidAstMutation`
@@ -165,6 +167,7 @@ function attachComments(ast, options) {
 
     let args;
     if (avoidAstMutation) {
+      context.placement = placement;
       args = [context];
     } else {
       args = [comment, text, options, ast, isLastComment];
