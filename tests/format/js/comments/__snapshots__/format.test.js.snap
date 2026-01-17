@@ -1408,6 +1408,203 @@ loop: for (;;) {
 ================================================================================
 `;
 
+exports[`break-continue-statements-2.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+// https://github.com/prettier/prettier/issues/7126
+for (;;) {
+  if (condition) continue
+
+  // breaking comment
+  ;(possibleArray || []).sort()
+}
+
+lbl: for (;;) {
+  if (condition) continue lbl
+
+  // breaking comment
+  ;(possibleArray || []).sort()
+}
+
+for (;;) {
+  break // comment
+  ;
+  continue // comment
+  ;
+}
+
+for (;;) {
+  break
+  // comment
+  ;
+  continue
+  // comment
+  ;
+}
+
+for (;;) {
+  break /* comment */
+  ;
+  continue /* comment */
+  ;
+}
+
+for (;;) {
+  break
+  /* comment */
+  ;
+  continue
+  /* comment */
+  ;
+}
+
+=====================================output=====================================
+// https://github.com/prettier/prettier/issues/7126
+for (;;) {
+  if (condition)
+    continue
+
+    // breaking comment
+  ;(possibleArray || []).sort()
+}
+
+lbl: for (;;) {
+  if (condition)
+    continue lbl
+
+    // breaking comment
+  ;(possibleArray || []).sort()
+}
+
+for (;;) {
+  break // comment
+  continue // comment
+}
+
+for (;;) {
+  break
+  // comment
+  continue
+  // comment
+}
+
+for (;;) {
+  break /* comment */
+  continue /* comment */
+}
+
+for (;;) {
+  break
+  /* comment */
+  continue
+  /* comment */
+}
+
+================================================================================
+`;
+
+exports[`break-continue-statements-2.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// https://github.com/prettier/prettier/issues/7126
+for (;;) {
+  if (condition) continue
+
+  // breaking comment
+  ;(possibleArray || []).sort()
+}
+
+lbl: for (;;) {
+  if (condition) continue lbl
+
+  // breaking comment
+  ;(possibleArray || []).sort()
+}
+
+for (;;) {
+  break // comment
+  ;
+  continue // comment
+  ;
+}
+
+for (;;) {
+  break
+  // comment
+  ;
+  continue
+  // comment
+  ;
+}
+
+for (;;) {
+  break /* comment */
+  ;
+  continue /* comment */
+  ;
+}
+
+for (;;) {
+  break
+  /* comment */
+  ;
+  continue
+  /* comment */
+  ;
+}
+
+=====================================output=====================================
+// https://github.com/prettier/prettier/issues/7126
+for (;;) {
+  if (condition)
+    continue;
+
+    // breaking comment
+  (possibleArray || []).sort();
+}
+
+lbl: for (;;) {
+  if (condition)
+    continue lbl;
+
+    // breaking comment
+  (possibleArray || []).sort();
+}
+
+for (;;) {
+  break; // comment
+  continue; // comment
+}
+
+for (;;) {
+  break;
+  // comment
+  continue;
+  // comment
+}
+
+for (;;) {
+  break; /* comment */
+  continue; /* comment */
+}
+
+for (;;) {
+  break;
+  /* comment */
+  continue;
+  /* comment */
+}
+
+================================================================================
+`;
+
 exports[`call_comment.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
