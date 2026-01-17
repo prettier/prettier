@@ -1360,8 +1360,8 @@ loop: for (;;) {
 
 =====================================output=====================================
 for (;;) {
-  break
-  continue /* comment */ /* comment */
+  break /* comment */
+  continue /* comment */
 }
 
 loop: for (;;) {
@@ -1394,8 +1394,8 @@ loop: for (;;) {
 
 =====================================output=====================================
 for (;;) {
-  break;
-  continue; /* comment */ /* comment */
+  break; /* comment */
+  continue; /* comment */
 }
 
 loop: for (;;) {
@@ -1481,27 +1481,26 @@ lbl: for (;;) {
 }
 
 for (;;) {
-  break
+  break // comment
   continue // comment
-  // comment
 }
 
 for (;;) {
   break
+  // comment
   continue
   // comment
-  // comment
+}
+
+for (;;) {
+  break /* comment */
+  continue /* comment */
 }
 
 for (;;) {
   break
-  continue /* comment */ /* comment */
-}
-
-for (;;) {
-  break
-  continue
   /* comment */
+  continue
   /* comment */
 }
 
@@ -1580,27 +1579,26 @@ lbl: for (;;) {
 }
 
 for (;;) {
-  break;
+  break; // comment
   continue; // comment
-  // comment
 }
 
 for (;;) {
   break;
+  // comment
   continue;
   // comment
-  // comment
+}
+
+for (;;) {
+  break; /* comment */
+  continue; /* comment */
 }
 
 for (;;) {
   break;
-  continue; /* comment */ /* comment */
-}
-
-for (;;) {
-  break;
-  continue;
   /* comment */
+  continue;
   /* comment */
 }
 
@@ -1636,6 +1634,7 @@ lbl: for (;;) {
 for (;;) {
   if (condition) {
     continue
+
     // breaking comment
     ;(possibleArray || []).sort()
   }
@@ -1681,6 +1680,7 @@ lbl: for (;;) {
 for (;;) {
   if (condition) {
     continue;
+
     // breaking comment
     (possibleArray || []).sort();
   }

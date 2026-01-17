@@ -91,8 +91,8 @@ switch (x) {
 }
 
 switch (x) {
-  default:
-    break; // comment
+  default: // comment
+    break;
 }
 
 switch (x) {
@@ -104,13 +104,14 @@ switch (x) {
 
 switch (x) {
   default: {
-    break; // comment
+    // comment
+    break;
   }
 }
 
 switch (x) {
-  default:
-    break; /* comment */
+  default: /* comment */
+    break;
 }
 
 switch (x) {
@@ -121,7 +122,8 @@ switch (x) {
 
 switch (x) {
   default: {
-    break; /* comment */
+    /* comment */
+    break;
   }
 }
 
@@ -173,22 +175,22 @@ switch (2) {
 }
 
 switch (3) {
-  default:
-    break; // comment3 // comment3a
+  default: // comment3
+    break; // comment3a
 }
 
 switch (4) {
-  default:
-    break; // comment4
-    // comment4a // comment4b
+  default: // comment4
+    // comment4a
+    break; // comment4b
 }
 
 switch (5) {
   default: // comment5
     // comment5a
     foo();
-    bar();
-    break; //comment5b // comment5c
+    bar(); //comment5b
+    break; // comment5c
 }
 
 ================================================================================

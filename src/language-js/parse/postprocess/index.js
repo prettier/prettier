@@ -182,9 +182,10 @@ function postprocess(ast, options) {
           } else {
             node.range = [
               start,
-              start + node.type === "BreakStatement"
-                ? "break".length
-                : "continue".length,
+              start +
+                (node.type === "BreakStatement"
+                  ? "break".length
+                  : "continue".length),
             ];
           }
           break;

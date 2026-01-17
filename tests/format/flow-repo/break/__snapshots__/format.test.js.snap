@@ -97,8 +97,8 @@ function bar(b) {
       var y: number = x; // error: boolean !~> number
       x = "";
     case 1:
-      var z: number = x;
-      break; // 2 errors: (boolean | string) !~> number
+      var z: number = x; // 2 errors: (boolean | string) !~> number
+      break;
     case 2:
   }
   var w: number = x; // 2 errors: (boolean | string) !~> number
@@ -113,8 +113,8 @@ function bar2(b) {
       x = "";
     }
     case 1: {
-      let z: number = x;
-      break; // 2 errors: (boolean | string) !~> number
+      let z: number = x; // 2 errors: (boolean | string) !~> number
+      break;
     }
     case 2:
   }

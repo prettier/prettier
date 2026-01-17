@@ -651,11 +651,11 @@ function switch_scope(x: string) {
   switch (x) {
     case "foo":
       let a = ""; // ok: local to switch
-      var b = "";
-      break; // error: string ~> number
+      var b = ""; // error: string ~> number
+      break;
     case "bar":
-      let a = "";
-      break; // error: a already bound in switch
+      let a = ""; // error: a already bound in switch
+      break;
   }
 }
 
@@ -665,20 +665,20 @@ function switch_scope(x: string) {
 function switch_scope2(x: number) {
   switch (x) {
     case 0:
-      a = "";
-      break; // error: assign before declaration
+      a = ""; // error: assign before declaration
+      break;
     case 1:
-      var b = a;
-      break; // error: use before declaration
+      var b = a; // error: use before declaration
+      break;
     case 2:
       let a = "";
       break;
     case 3:
-      a = "";
-      break; // error: skipped initializer
+      a = ""; // error: skipped initializer
+      break;
     case 4:
-      var c: string = a;
-      break; // error: skipped initializer
+      var c: string = a; // error: skipped initializer
+      break;
   }
   a = ""; // error: a no longer in scope
 }
