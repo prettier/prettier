@@ -142,8 +142,8 @@ function attachComments(ast, options) {
   } = handleComments;
   const commentDecorateOptions = {
     cache: childNodesCache,
-    locStart: options.locStart,
-    locEnd: options.locEnd,
+    locStart: getLocForCommentAttach?.locStart ?? options.locStart,
+    locEnd: getLocForCommentAttach?.locEnd ?? options.locEnd,
     getVisitorKeys,
     filter: canAttachComment,
     getChildren: getCommentChildNodes,
