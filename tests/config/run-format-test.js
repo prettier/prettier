@@ -112,8 +112,8 @@ const babelTsDisabledTests = new Set(
     "chain-expression/test2.ts",
     "binary-expressions/chain-expression.ts",
     "tsx/optional-chaining.tsx",
-    "class-and-interface/member-expression-like.ts",
-    "assignment/long-arg.ts",
+    "class-and-interface/heritage-break/member-expression-like.ts",
+    "assignment/lone-arg.ts",
     "non-null/optional-chain.ts",
   ].map((file) => path.join(__dirname, "../format/typescript", file)),
 );
