@@ -403,9 +403,8 @@ for (const division of collidingDivisions) {
       endParagraph !== division.endParagraph &&
       division.canContainSingleParagraph(endParagraph)
     )
-      continue;
-    else // selection ending in r/o div: OK to delete IF it is NOT last paragraph (which would get absorbed)
-    {
+      continue; // selection ending in r/o div: OK to delete IF it is NOT last paragraph (which would get absorbed)
+    else {
       // selection over whole r/o div OR ending in last paragraph (which would get absorbed) -> FAIL
       console.warn(
         "deleteSelectedTextAndJoinRemainingNodes(): cannot delete because of must-keep division: " +

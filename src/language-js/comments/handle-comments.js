@@ -234,6 +234,14 @@ function handleIfStatementComments({
       text,
       locEnd(enclosingNode.consequent),
     );
+    const isElseToken =
+      maybeElseTokenIndex !== false &&
+      text.slice(maybeElseTokenIndex, maybeElseTokenIndex + 4) === "else";
+
+    if (!isElseToken) {
+      addTrailingComment(precedingNode, comment);
+      return true;
+    }
 
     // if comment is positioned between the `else` token and its body
     if (
