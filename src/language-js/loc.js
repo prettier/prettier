@@ -30,6 +30,11 @@ function locEnd(node) {
           (node.type === "BreakStatement" ? "break".length : "continue".length);
   }
 
+  if (node.type === "VariableDeclaration") {
+    const lastDeclaration = node.declarations.at(-1);
+    return locEnd(lastDeclaration);
+  }
+
   const end = node.range?.[1] ?? node.end;
 
   /* c8 ignore next 3 */

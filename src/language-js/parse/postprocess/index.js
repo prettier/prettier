@@ -135,15 +135,6 @@ function postprocess(ast, options) {
           }
           break;
 
-        // fix unexpected locEnd caused by --no-semi style
-        case "VariableDeclaration": {
-          const lastDeclaration = node.declarations.at(-1);
-          if (lastDeclaration?.init && text[locEnd(lastDeclaration)] !== ";") {
-            node.range = [locStart(node), locEnd(lastDeclaration)];
-          }
-          break;
-        }
-
         // remove redundant TypeScript nodes
         case "TSParenthesizedType":
           return node.typeAnnotation;
