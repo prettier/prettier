@@ -282,11 +282,6 @@ function handleIfStatementComments({
     return true;
   }
 
-  if (followingNode.type === "IfStatement") {
-    addBlockOrNotComment(followingNode.consequent, comment);
-    return true;
-  }
-
   // For comments positioned after the condition parenthesis in an if statement
   // before the consequent without brackets on, such as
   // if (a) /* comment */ true,
