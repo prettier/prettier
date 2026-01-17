@@ -44,6 +44,7 @@ import isTypeCastComment from "../utilities/is-type-cast-comment.js";
   options: any,
   ast: NodeMap["File"] | NodeMap["Program"],
   isLastComment: boolean,
+  placement: "ownLine" | "endOfLine" | "remaining"
 }} CommentContext
 */
 
@@ -79,7 +80,6 @@ function handleOwnLineComment(context) {
     handleAssignmentPatternComments,
     handleMethodNameComments,
     handleLabeledStatementComments,
-    handleBreakAndContinueStatementComments,
     handleNestedConditionalExpressionComments,
     handleCommentsInDestructuringPattern,
     handleTSMappedTypeComments,
@@ -107,7 +107,6 @@ function handleEndOfLineComment(context) {
     handlePropertyComments,
     handleOnlyComments,
     handleVariableDeclaratorComments,
-    handleBreakAndContinueStatementComments,
     handleSwitchDefaultCaseComments,
     handleLastUnionElementInExpression,
     handleLastBinaryOperatorOperand,
@@ -132,7 +131,6 @@ function handleRemainingComment(context) {
     handleOnlyComments,
     handleCommentAfterArrowParams,
     handleFunctionNameComments,
-    handleBreakAndContinueStatementComments,
     handleTSFunctionTrailingComments,
     handleBinaryCastExpressionComment,
   ].some((fn) => fn(context));
@@ -237,6 +235,14 @@ function handleIfStatementComments({
       text,
       locEnd(enclosingNode.consequent),
     );
+    const isElseToken =
+      maybeElseTokenIndex !== false &&
+      text.slice(maybeElseTokenIndex, maybeElseTokenIndex + 4) === "else";
+
+    if (!isElseToken) {
+      addTrailingComment(precedingNode, comment);
+      return true;
+    }
 
     // if comment is positioned between the `else` token and its body
     if (
@@ -282,11 +288,6 @@ function handleIfStatementComments({
 
   if (followingNode.type === "BlockStatement") {
     addBlockStatementFirstComment(followingNode, comment);
-    return true;
-  }
-
-  if (followingNode.type === "IfStatement") {
-    addBlockOrNotComment(followingNode.consequent, comment);
     return true;
   }
 
@@ -540,6 +541,7 @@ const isPropertyLikeNode = createTypeCheckFunction([
   "TSParameterProperty",
 ]);
 function handleMethodNameComments({
+  placement,
   comment,
   precedingNode,
   enclosingNode,
@@ -571,7 +573,7 @@ function handleMethodNameComments({
   if (
     precedingNode?.type === "Decorator" &&
     isPropertyLikeNode(enclosingNode) &&
-    (isLineComment(comment) || comment.placement === "ownLine")
+    (isLineComment(comment) || placement === "ownLine")
   ) {
     addTrailingComment(precedingNode, comment);
     return true;
@@ -777,18 +779,6 @@ function handleLabeledStatementComments({ comment, enclosingNode }) {
   return false;
 }
 
-function handleBreakAndContinueStatementComments({ comment, enclosingNode }) {
-  if (
-    (enclosingNode?.type === "ContinueStatement" ||
-      enclosingNode?.type === "BreakStatement") &&
-    !enclosingNode.label
-  ) {
-    addTrailingComment(enclosingNode, comment);
-    return true;
-  }
-  return false;
-}
-
 function handleCallExpressionComments({
   comment,
   precedingNode,
@@ -903,6 +893,7 @@ function handleForComments({ comment, enclosingNode, followingNode }) {
   if (
     (enclosingNode?.type === "ForInStatement" ||
       enclosingNode?.type === "ForOfStatement") &&
+    followingNode &&
     followingNode !== enclosingNode.body
   ) {
     addLeadingComment(enclosingNode, comment);
