@@ -25,7 +25,8 @@ const punctuationLike = [
 ];
 const code2 = `${preamble}\n${punctuationLike.map((cp) => `U+${cp.toString(16).toUpperCase()}${String.fromCodePoint(cp)}`).join("\n")}\n`;
 // Only first newline is replaced with space
-const output2 = `${code2.replace("\n", " ").replaceAll("\n", "")}\n`;
+// Note: replaceAll is not supported in Node 14.
+const output2 = `${code2.replace("\n", " ").replace(/\n/g, "")}\n`;
 
 runFormatTest(
   {
