@@ -85,7 +85,8 @@ function printDeclareToken(path) {
     node.declare ||
       // Flow
       (isFlowDeclareNode(node) &&
-        path.parent.type !== "DeclareExportDeclaration")
+        path.parent.type !== "DeclareExportDeclaration" &&
+        !(node.type === "DeclareFunction" && node.implicitDeclare))
       ? "declare "
       : ""
   );
