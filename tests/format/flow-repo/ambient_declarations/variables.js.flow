@@ -1,0 +1,18 @@
+// @flow
+// Test ambient variable declarations in .js.flow files
+
+// Implicit ambient declarations (without 'declare' keyword)
+const foo: string;
+let bar: number;
+var baz: boolean;
+
+// Generic types
+const genericVal: Array<string>;
+
+// Mix: ambient and regular
+const ambient: number;
+const regular = 123;
+const withBoth: string = "test";
+
+// Export them so they can be used in other files
+declare export { foo, bar, baz, genericVal, ambient, regular, withBoth };

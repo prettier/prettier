@@ -1,0 +1,507 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`component_namespace.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// Test components in declare namespace
+declare namespace ComponentNamespace {
+  // Ambient component declarations with simple types
+  component Card(title: string, content: string);
+
+  component Modal(isOpen: boolean, onClose: () => void);
+}
+
+export { ComponentNamespace };
+
+=====================================output=====================================
+// Test components in declare namespace
+declare namespace ComponentNamespace {
+  // Ambient component declarations with simple types
+  declare component Card(title: string, content: string);
+
+  declare component Modal(isOpen: boolean, onClose: () => void);
+}
+
+export { ComponentNamespace };
+
+================================================================================
+`;
+
+exports[`components.js.flow format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+// Test ambient component declarations in .flow files (implicit ambient context)
+
+// Ambient components without body - these should be allowed
+component Button(props: { label: string });
+
+component Input(value: string, onChange: (string) => void);
+
+// Export them
+declare export { Button, Input };
+
+=====================================output=====================================
+// @flow
+// Test ambient component declarations in .flow files (implicit ambient context)
+
+// Ambient components without body - these should be allowed
+declare component Button(props: { label: string });
+
+declare component Input(value: string, onChange: (string) => void);
+
+// Export them
+declare export { Button, Input };
+
+================================================================================
+`;
+
+exports[`implicit_functions.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// Test implicit declare function (function without 'declare' keyword in ambient context)
+declare namespace ImplicitFunctions {
+  // Simple implicit declare functions
+  function greet(name: string): string;
+  function add(a: number, b: number): number;
+
+  // Explicit declare function still works
+  declare function explicitHelper(): void;
+}
+
+export {ImplicitFunctions};
+
+=====================================output=====================================
+// Test implicit declare function (function without 'declare' keyword in ambient context)
+declare namespace ImplicitFunctions {
+  // Simple implicit declare functions
+  declare function greet(name: string): string;
+  declare function add(a: number, b: number): number;
+
+  // Explicit declare function still works
+  declare function explicitHelper(): void;
+}
+
+export { ImplicitFunctions };
+
+================================================================================
+`;
+
+exports[`namespace.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// Test ambient declarations in declare namespace blocks
+declare namespace MyNamespace {
+  // Implicit ambient variables (without 'declare' keyword)
+  const value: number;
+  let mutableValue: string;
+
+  // Implicit ambient functions (without 'declare' keyword)
+  function helper(x: string): number;
+
+  // Explicit 'declare' keyword still works
+  declare function explicitHelper(x: string): number;
+  declare class Helper {
+    method(): void;
+  }
+
+  // Type declarations still work
+  type MyType = string;
+  interface MyInterface {
+    prop: number;
+  }
+}
+
+export {MyNamespace}
+
+=====================================output=====================================
+// Test ambient declarations in declare namespace blocks
+declare namespace MyNamespace {
+  // Implicit ambient variables (without 'declare' keyword)
+  const value: number;
+  let mutableValue: string;
+
+  // Implicit ambient functions (without 'declare' keyword)
+  declare function helper(x: string): number;
+
+  // Explicit 'declare' keyword still works
+  declare function explicitHelper(x: string): number;
+  declare class Helper {
+    method(): void;
+  }
+
+  // Type declarations still work
+  type MyType = string;
+  interface MyInterface {
+    prop: number;
+  }
+}
+
+export { MyNamespace };
+
+================================================================================
+`;
+
+exports[`regular_component.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+// Test that component with body in regular .js file still works
+import * as React from 'react';
+
+component RegularComponent(props: { name: string }) {
+  return <div>{props.name}</div>;
+}
+
+export { RegularComponent };
+
+=====================================output=====================================
+// @flow
+// Test that component with body in regular .js file still works
+import * as React from "react";
+
+component RegularComponent(props: { name: string }) {
+  return <div>{props.name}</div>;
+}
+
+export { RegularComponent };
+
+================================================================================
+`;
+
+exports[`use_component_namespace.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+// Test using ambient components from namespace
+import * as React from 'react';
+
+import { ComponentNamespace } from './component_namespace.js';
+
+// These should work
+const card = <ComponentNamespace.Card title="Hello" content="World" />;
+
+const modal = <ComponentNamespace.Modal isOpen={true} onClose={() => {}} />;
+
+// Type errors
+const badCard = <ComponentNamespace.Card title={123} content="World" />; // Error: number is not compatible with string
+
+const badModal = <ComponentNamespace.Modal isOpen="true" onClose={() => {}} />; // Error: string is not compatible with boolean
+
+=====================================output=====================================
+// @flow
+// Test using ambient components from namespace
+import * as React from "react";
+
+import { ComponentNamespace } from "./component_namespace.js";
+
+// These should work
+const card = <ComponentNamespace.Card title="Hello" content="World" />;
+
+const modal = <ComponentNamespace.Modal isOpen={true} onClose={() => {}} />;
+
+// Type errors
+const badCard = <ComponentNamespace.Card title={123} content="World" />; // Error: number is not compatible with string
+
+const badModal = <ComponentNamespace.Modal isOpen="true" onClose={() => {}} />; // Error: string is not compatible with boolean
+
+================================================================================
+`;
+
+exports[`use_components.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+// Test using ambient component declarations from .flow file
+import * as React from 'react';
+
+import { Button, Input } from './components.js';
+
+// These should type-check correctly
+const button = <Button props={{ label: "Click me" }} />;
+
+const input = <Input value="test" onChange={(v) => console.log(v)} />;
+
+// Type errors
+const badButton = <Button props={{ label: 123 }} />; // Error: number is not compatible with string
+
+const badInput = <Input value="test" onChange={(v: number) => console.log(v)} />; // Error: string is not compatible with number
+
+=====================================output=====================================
+// @flow
+// Test using ambient component declarations from .flow file
+import * as React from "react";
+
+import { Button, Input } from "./components.js";
+
+// These should type-check correctly
+const button = <Button props={{ label: "Click me" }} />;
+
+const input = <Input value="test" onChange={(v) => console.log(v)} />;
+
+// Type errors
+const badButton = <Button props={{ label: 123 }} />; // Error: number is not compatible with string
+
+const badInput = (
+  <Input value="test" onChange={(v: number) => console.log(v)} />
+); // Error: string is not compatible with number
+
+================================================================================
+`;
+
+exports[`use_flow_typed.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+// Test that implicit ambient declarations in flow-typed/lib.js work correctly
+
+const testModule = require('test-module');
+
+// Use the functions that reference the implicitly declared variables via typeof
+const x: string = testModule.getFoo(); // OK - returns string
+const y: number = testModule.getBar(); // OK - returns number
+const z: boolean = testModule.getBaz(); // OK - returns boolean
+
+// These should error - wrong types
+const badX: number = testModule.getFoo(); // Error: string is not compatible with number
+const badY: string = testModule.getBar(); // Error: number is not compatible with string
+const badZ: number = testModule.getBaz(); // Error: boolean is not compatible with number
+
+=====================================output=====================================
+// @flow
+// Test that implicit ambient declarations in flow-typed/lib.js work correctly
+
+const testModule = require("test-module");
+
+// Use the functions that reference the implicitly declared variables via typeof
+const x: string = testModule.getFoo(); // OK - returns string
+const y: number = testModule.getBar(); // OK - returns number
+const z: boolean = testModule.getBaz(); // OK - returns boolean
+
+// These should error - wrong types
+const badX: number = testModule.getFoo(); // Error: string is not compatible with number
+const badY: string = testModule.getBar(); // Error: number is not compatible with string
+const badZ: number = testModule.getBaz(); // Error: boolean is not compatible with number
+
+================================================================================
+`;
+
+exports[`use_flow_typed_components.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+// Test using components from flow-typed
+
+import { Button, Icon } from 'component-library';
+
+const button = <Button label="Click" />;
+const icon = <Icon name="star" />;
+
+// Error
+const badButton = <Button label={42} />; // Error: number is not compatible with string
+
+=====================================output=====================================
+// @flow
+// Test using components from flow-typed
+
+import { Button, Icon } from "component-library";
+
+const button = <Button label="Click" />;
+const icon = <Icon name="star" />;
+
+// Error
+const badButton = <Button label={42} />; // Error: number is not compatible with string
+
+================================================================================
+`;
+
+exports[`use_implicit_functions.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// Test using implicit declare functions
+import {ImplicitFunctions} from './implicit_functions';
+
+// Valid uses
+const greeting: string = ImplicitFunctions.greet("World");
+const sum: number = ImplicitFunctions.add(1, 2);
+
+// Explicit helper still works
+ImplicitFunctions.explicitHelper();
+
+// Error cases - type mismatches
+const badGreeting: number = ImplicitFunctions.greet("World"); // Error: string not assignable to number
+const badAdd: string = ImplicitFunctions.add(1, 2); // Error: number not assignable to string
+ImplicitFunctions.greet(123); // Error: number not assignable to string
+ImplicitFunctions.add("a", "b"); // Error: string not assignable to number
+
+=====================================output=====================================
+// Test using implicit declare functions
+import { ImplicitFunctions } from "./implicit_functions";
+
+// Valid uses
+const greeting: string = ImplicitFunctions.greet("World");
+const sum: number = ImplicitFunctions.add(1, 2);
+
+// Explicit helper still works
+ImplicitFunctions.explicitHelper();
+
+// Error cases - type mismatches
+const badGreeting: number = ImplicitFunctions.greet("World"); // Error: string not assignable to number
+const badAdd: string = ImplicitFunctions.add(1, 2); // Error: number not assignable to string
+ImplicitFunctions.greet(123); // Error: number not assignable to string
+ImplicitFunctions.add("a", "b"); // Error: string not assignable to number
+
+================================================================================
+`;
+
+exports[`use_namespace.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+// Test that MyNamespace implicit ambient declarations work
+
+import {MyNamespace} from './namespace';
+
+// Test direct access to namespace members
+const x: number = MyNamespace.value; // OK - value is number
+const y: string = MyNamespace.mutableValue; // OK - mutableValue is string
+
+// Test function that uses the implicit declarations
+const result: number = MyNamespace.helper("test"); // OK - helper returns number
+
+// Test class
+const instance = new MyNamespace.Helper(); // OK
+instance.method(); // OK
+
+// Test type aliases
+const str: MyNamespace.MyType = "hello"; // OK - MyType is string
+const obj: MyNamespace.MyInterface = { prop: 42 }; // OK
+
+// These should error - wrong types
+const badX: string = MyNamespace.value; // Error: number is not compatible with string
+const badY: number = MyNamespace.mutableValue; // Error: string is not compatible with number
+const badResult: string = MyNamespace.helper("test"); // Error: number is not compatible with string
+
+=====================================output=====================================
+// @flow
+// Test that MyNamespace implicit ambient declarations work
+
+import { MyNamespace } from "./namespace";
+
+// Test direct access to namespace members
+const x: number = MyNamespace.value; // OK - value is number
+const y: string = MyNamespace.mutableValue; // OK - mutableValue is string
+
+// Test function that uses the implicit declarations
+const result: number = MyNamespace.helper("test"); // OK - helper returns number
+
+// Test class
+const instance = new MyNamespace.Helper(); // OK
+instance.method(); // OK
+
+// Test type aliases
+const str: MyNamespace.MyType = "hello"; // OK - MyType is string
+const obj: MyNamespace.MyInterface = { prop: 42 }; // OK
+
+// These should error - wrong types
+const badX: string = MyNamespace.value; // Error: number is not compatible with string
+const badY: number = MyNamespace.mutableValue; // Error: string is not compatible with number
+const badResult: string = MyNamespace.helper("test"); // Error: number is not compatible with string
+
+================================================================================
+`;
+
+exports[`use_variables.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+// Test that implicit ambient declarations in variables.js.flow work correctly
+
+// Import the ambient variables from variables.js.flow
+// These were declared as: const foo: string; let bar: number; var baz: boolean;
+import { foo, bar, baz, genericVal, ambient, regular, withBoth } from './variables.js';
+
+// Use the imported values with correct types
+const x: string = foo; // OK
+const y: number = bar; // OK
+const z: boolean = baz; // OK
+const arr: Array<string> = genericVal; // OK
+const n: number = ambient; // OK
+const r: number = regular; // OK - regular = 123
+const w: string = withBoth; // OK - withBoth = "test"
+
+// These should error - wrong types
+const badX: number = foo; // Error: string is not compatible with number
+const badY: string = bar; // Error: number is not compatible with string
+const badZ: string = baz; // Error: boolean is not compatible with string
+const badArr: Array<number> = genericVal; // Error: Array<string> is not compatible with Array<number>
+
+=====================================output=====================================
+// @flow
+// Test that implicit ambient declarations in variables.js.flow work correctly
+
+// Import the ambient variables from variables.js.flow
+// These were declared as: const foo: string; let bar: number; var baz: boolean;
+import {
+  foo,
+  bar,
+  baz,
+  genericVal,
+  ambient,
+  regular,
+  withBoth,
+} from "./variables.js";
+
+// Use the imported values with correct types
+const x: string = foo; // OK
+const y: number = bar; // OK
+const z: boolean = baz; // OK
+const arr: Array<string> = genericVal; // OK
+const n: number = ambient; // OK
+const r: number = regular; // OK - regular = 123
+const w: string = withBoth; // OK - withBoth = "test"
+
+// These should error - wrong types
+const badX: number = foo; // Error: string is not compatible with number
+const badY: string = bar; // Error: number is not compatible with string
+const badZ: string = baz; // Error: boolean is not compatible with string
+const badArr: Array<number> = genericVal; // Error: Array<string> is not compatible with Array<number>
+
+================================================================================
+`;
