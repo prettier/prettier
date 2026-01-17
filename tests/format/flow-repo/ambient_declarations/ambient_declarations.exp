@@ -1,0 +1,350 @@
+Error ----------------------------------------------------------------------------------------------- not_ambient.js:4:7
+
+Const must be initialized [ParseError]
+
+   4| const x: string; // Error - const must be initialized
+            ^^^^^^^^^
+
+
+Error --------------------------------------------------------------------------------- use_component_namespace.js:13:49
+
+Cannot create `ComponentNamespace.Card` element because in property `title`: number [1] is incompatible with string [2].
+[incompatible-type]
+
+   use_component_namespace.js:13:49
+   13| const badCard = <ComponentNamespace.Card title={123} content="World" />; // Error: number is not compatible with string
+                                                       ^^^ [1]
+
+References:
+   component_namespace.js:4:25
+    4|   component Card(title: string, content: string);
+                               ^^^^^^ [2]
+
+
+Error --------------------------------------------------------------------------------- use_component_namespace.js:15:51
+
+Cannot create `ComponentNamespace.Modal` element because in property `isOpen`: string [1] is incompatible with
+boolean [2]. [incompatible-type]
+
+   use_component_namespace.js:15:51
+   15| const badModal = <ComponentNamespace.Modal isOpen="true" onClose={() => {}} />; // Error: string is not compatible with boolean
+                                                         ^^^^^^ [1]
+
+References:
+   component_namespace.js:6:27
+    6|   component Modal(isOpen: boolean, onClose: () => void);
+                                 ^^^^^^^ [2]
+
+
+Error ------------------------------------------------------------------------------------------ use_components.js:13:43
+
+Cannot create `Button` element because in property `props.label`: number [1] is incompatible with string [2].
+[incompatible-type]
+
+   use_components.js:13:43
+   13| const badButton = <Button props={{ label: 123 }} />; // Error: number is not compatible with string
+                                                 ^^^ [1]
+
+References:
+   components.js.flow:5:34
+    5| component Button(props: { label: string });
+                                        ^^^^^^ [2]
+
+
+Error ------------------------------------------------------------------------------------------ use_components.js:15:52
+
+Cannot create `Input` element because in property `onChange` > the first parameter: number [1] is incompatible with
+string [2]. [incompatible-type]
+
+   use_components.js:15:52
+   15| const badInput = <Input value="test" onChange={(v: number) => console.log(v)} />; // Error: string is not compatible with number
+                                                          ^^^^^^ [1]
+
+References:
+   components.js.flow:7:43
+    7| component Input(value: string, onChange: (string) => void);
+                                                 ^^^^^^ [2]
+
+
+Error ------------------------------------------------------------------------------------------ use_flow_typed.js:12:22
+
+Cannot assign `testModule.getFoo()` to `badX` because string [1] is incompatible with number [2]. [incompatible-type]
+
+   use_flow_typed.js:12:22
+   12| const badX: number = testModule.getFoo(); // Error: string is not compatible with number
+                            ^^^^^^^^^^^^^^^^^^^
+
+References:
+   flow-typed/lib.js:9:37
+    9|   declare export function getFoo(): typeof foo;
+                                           ^^^^^^^^^^ [1]
+   use_flow_typed.js:12:13
+   12| const badX: number = testModule.getFoo(); // Error: string is not compatible with number
+                   ^^^^^^ [2]
+
+
+Error ------------------------------------------------------------------------------------------ use_flow_typed.js:13:22
+
+Cannot assign `testModule.getBar()` to `badY` because number [1] is incompatible with string [2]. [incompatible-type]
+
+   use_flow_typed.js:13:22
+   13| const badY: string = testModule.getBar(); // Error: number is not compatible with string
+                            ^^^^^^^^^^^^^^^^^^^
+
+References:
+   flow-typed/lib.js:10:37
+   10|   declare export function getBar(): typeof bar;
+                                           ^^^^^^^^^^ [1]
+   use_flow_typed.js:13:13
+   13| const badY: string = testModule.getBar(); // Error: number is not compatible with string
+                   ^^^^^^ [2]
+
+
+Error ------------------------------------------------------------------------------------------ use_flow_typed.js:14:22
+
+Cannot assign `testModule.getBaz()` to `badZ` because boolean [1] is incompatible with number [2]. [incompatible-type]
+
+   use_flow_typed.js:14:22
+   14| const badZ: number = testModule.getBaz(); // Error: boolean is not compatible with number
+                            ^^^^^^^^^^^^^^^^^^^
+
+References:
+   flow-typed/lib.js:11:37
+   11|   declare export function getBaz(): typeof baz;
+                                           ^^^^^^^^^^ [1]
+   use_flow_typed.js:14:13
+   14| const badZ: number = testModule.getBaz(); // Error: boolean is not compatible with number
+                   ^^^^^^ [2]
+
+
+Error ------------------------------------------------------------------------------- use_flow_typed_components.js:10:34
+
+Cannot create `Button` element because in property `label`: number [1] is incompatible with string [2].
+[incompatible-type]
+
+   use_flow_typed_components.js:10:34
+   10| const badButton = <Button label={42} />; // Error: number is not compatible with string
+                                        ^^ [1]
+
+References:
+   flow-typed/components.js:3:27
+    3|   component Button(label: string);
+                                 ^^^^^^ [2]
+
+
+Error ---------------------------------------------------------------------------------- use_implicit_functions.js:12:29
+
+Cannot assign `ImplicitFunctions.greet(...)` to `badGreeting` because string [1] is incompatible with number [2].
+[incompatible-type]
+
+   use_implicit_functions.js:12:29
+   12| const badGreeting: number = ImplicitFunctions.greet("World"); // Error: string not assignable to number
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+References:
+   implicit_functions.js:4:33
+    4|   function greet(name: string): string;
+                                       ^^^^^^ [1]
+   use_implicit_functions.js:12:20
+   12| const badGreeting: number = ImplicitFunctions.greet("World"); // Error: string not assignable to number
+                          ^^^^^^ [2]
+
+
+Error ---------------------------------------------------------------------------------- use_implicit_functions.js:13:24
+
+Cannot assign `ImplicitFunctions.add(...)` to `badAdd` because number [1] is incompatible with string [2].
+[incompatible-type]
+
+   use_implicit_functions.js:13:24
+   13| const badAdd: string = ImplicitFunctions.add(1, 2); // Error: number not assignable to string
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+References:
+   implicit_functions.js:5:39
+    5|   function add(a: number, b: number): number;
+                                             ^^^^^^ [1]
+   use_implicit_functions.js:13:15
+   13| const badAdd: string = ImplicitFunctions.add(1, 2); // Error: number not assignable to string
+                     ^^^^^^ [2]
+
+
+Error ---------------------------------------------------------------------------------- use_implicit_functions.js:14:25
+
+Cannot call `ImplicitFunctions.greet` with `123` bound to `name` because number [1] is incompatible with string [2].
+[incompatible-type]
+
+   use_implicit_functions.js:14:25
+   14| ImplicitFunctions.greet(123); // Error: number not assignable to string
+                               ^^^ [1]
+
+References:
+   implicit_functions.js:4:24
+    4|   function greet(name: string): string;
+                              ^^^^^^ [2]
+
+
+Error ---------------------------------------------------------------------------------- use_implicit_functions.js:15:23
+
+Cannot call `ImplicitFunctions.add` with `"a"` bound to `a` because string [1] is incompatible with number [2].
+[incompatible-type]
+
+   use_implicit_functions.js:15:23
+   15| ImplicitFunctions.add("a", "b"); // Error: string not assignable to number
+                             ^^^ [1]
+
+References:
+   implicit_functions.js:5:19
+    5|   function add(a: number, b: number): number;
+                         ^^^^^^ [2]
+
+
+Error ---------------------------------------------------------------------------------- use_implicit_functions.js:15:28
+
+Cannot call `ImplicitFunctions.add` with `"b"` bound to `b` because string [1] is incompatible with number [2].
+[incompatible-type]
+
+   use_implicit_functions.js:15:28
+   15| ImplicitFunctions.add("a", "b"); // Error: string not assignable to number
+                                  ^^^ [1]
+
+References:
+   implicit_functions.js:5:30
+    5|   function add(a: number, b: number): number;
+                                    ^^^^^^ [2]
+
+
+Error ------------------------------------------------------------------------------------------- use_namespace.js:22:22
+
+Cannot assign `MyNamespace.value` to `badX` because number [1] is incompatible with string [2]. [incompatible-type]
+
+   use_namespace.js:22:22
+   22| const badX: string = MyNamespace.value; // Error: number is not compatible with string
+                            ^^^^^^^^^^^^^^^^^
+
+References:
+   namespace.js:4:16
+    4|   const value: number;
+                      ^^^^^^ [1]
+   use_namespace.js:22:13
+   22| const badX: string = MyNamespace.value; // Error: number is not compatible with string
+                   ^^^^^^ [2]
+
+
+Error ------------------------------------------------------------------------------------------- use_namespace.js:23:22
+
+Cannot assign `MyNamespace.mutableValue` to `badY` because string [1] is incompatible with number [2].
+[incompatible-type]
+
+   use_namespace.js:23:22
+   23| const badY: number = MyNamespace.mutableValue; // Error: string is not compatible with number
+                            ^^^^^^^^^^^^^^^^^^^^^^^^
+
+References:
+   namespace.js:5:21
+    5|   let mutableValue: string;
+                           ^^^^^^ [1]
+   use_namespace.js:23:13
+   23| const badY: number = MyNamespace.mutableValue; // Error: string is not compatible with number
+                   ^^^^^^ [2]
+
+
+Error ------------------------------------------------------------------------------------------- use_namespace.js:24:27
+
+Cannot assign `MyNamespace.helper(...)` to `badResult` because number [1] is incompatible with string [2].
+[incompatible-type]
+
+   use_namespace.js:24:27
+   24| const badResult: string = MyNamespace.helper("test"); // Error: number is not compatible with string
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+References:
+   namespace.js:8:31
+    8|   function helper(x: string): number;
+                                     ^^^^^^ [1]
+   use_namespace.js:24:18
+   24| const badResult: string = MyNamespace.helper("test"); // Error: number is not compatible with string
+                        ^^^^^^ [2]
+
+
+Error ------------------------------------------------------------------------------------------- use_variables.js:18:22
+
+Cannot assign `foo` to `badX` because string [1] is incompatible with number [2]. [incompatible-type]
+
+   use_variables.js:18:22
+   18| const badX: number = foo; // Error: string is not compatible with number
+                            ^^^
+
+References:
+   variables.js.flow:5:12
+    5| const foo: string;
+                  ^^^^^^ [1]
+   use_variables.js:18:13
+   18| const badX: number = foo; // Error: string is not compatible with number
+                   ^^^^^^ [2]
+
+
+Error ------------------------------------------------------------------------------------------- use_variables.js:19:22
+
+Cannot assign `bar` to `badY` because number [1] is incompatible with string [2]. [incompatible-type]
+
+   use_variables.js:19:22
+   19| const badY: string = bar; // Error: number is not compatible with string
+                            ^^^
+
+References:
+   variables.js.flow:6:10
+    6| let bar: number;
+                ^^^^^^ [1]
+   use_variables.js:19:13
+   19| const badY: string = bar; // Error: number is not compatible with string
+                   ^^^^^^ [2]
+
+
+Error ------------------------------------------------------------------------------------------- use_variables.js:20:22
+
+Cannot assign `baz` to `badZ` because boolean [1] is incompatible with string [2]. [incompatible-type]
+
+   use_variables.js:20:22
+   20| const badZ: string = baz; // Error: boolean is not compatible with string
+                            ^^^
+
+References:
+   variables.js.flow:7:10
+    7| var baz: boolean;
+                ^^^^^^^ [1]
+   use_variables.js:20:13
+   20| const badZ: string = baz; // Error: boolean is not compatible with string
+                   ^^^^^^ [2]
+
+
+Error ------------------------------------------------------------------------------------------- use_variables.js:21:31
+
+Cannot assign `genericVal` to `badArr` because in array element: `string` [1] is not exactly the same as `number` [2].
+[incompatible-type]
+
+The above-mentioned two types must be the same because arrays are invariantly typed. To fix the error,
+- Either make `Array<string>` [3] and `Array<number>` [4] exactly the same
+- Or make array type [4] a `ReadonlyArray`.
+See https://flow.org/en/docs/faq/#why-cant-i-pass-an-arraystring-to-a-function-that-takes-an-arraystring-number.
+
+   use_variables.js:21:31
+   21| const badArr: Array<number> = genericVal; // Error: Array<string> is not compatible with Array<number>
+                                     ^^^^^^^^^^
+
+References:
+   variables.js.flow:10:25
+   10| const genericVal: Array<string>;
+                               ^^^^^^ [1]
+   use_variables.js:21:21
+   21| const badArr: Array<number> = genericVal; // Error: Array<string> is not compatible with Array<number>
+                           ^^^^^^ [2]
+   variables.js.flow:10:19
+   10| const genericVal: Array<string>;
+                         ^^^^^^^^^^^^^ [3]
+   use_variables.js:21:15
+   21| const badArr: Array<number> = genericVal; // Error: Array<string> is not compatible with Array<number>
+                     ^^^^^^^^^^^^^ [4]
+
+
+
+Found 21 errors
