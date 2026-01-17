@@ -61,4 +61,22 @@ function hasSameLoc(nodeA, nodeB) {
   return hasSameLocStart(nodeA, nodeB) && hasSameLocEnd(nodeA, nodeB);
 }
 
-export { hasSameLoc, hasSameLocStart, locEnd, locStart };
+function locEndForCommentAttach(node) {
+  if (node.type === "BreakStatement" || node.type === "ContinueStatement") {
+    const start = locStart(node);
+    return node.label
+      ? locEnd(node.label)
+      : start +
+          (node.type === "BreakStatement" ? "break".length : "continue".length);
+  }
+
+  return locEnd(node);
+}
+
+export {
+  hasSameLoc,
+  hasSameLocStart,
+  locEnd,
+  locEndForCommentAttach,
+  locStart,
+};
