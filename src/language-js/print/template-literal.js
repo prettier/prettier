@@ -22,6 +22,7 @@ import {
   isBinaryCastExpression,
   isBinaryish,
   isMemberExpression,
+  stripChainElementWrappers,
 } from "../utilities/index.js";
 
 /**
@@ -228,7 +229,7 @@ function printTemplateExpression(path, options, print) {
     interpolationHasNewline &&
     (hasComment(node) ||
       node.type === "Identifier" ||
-      isMemberExpression(node) ||
+      isMemberExpression(stripChainElementWrappers(node)) ||
       node.type === "ConditionalExpression" ||
       node.type === "SequenceExpression" ||
       isBinaryCastExpression(node) ||
