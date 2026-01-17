@@ -32,10 +32,7 @@ function locEnd(node) {
 
   if (node.type === "VariableDeclaration") {
     const lastDeclaration = node.declarations.at(-1);
-    // This should be removed
-    if (lastDeclaration.init) {
-      return locEnd(lastDeclaration);
-    }
+    return locEnd(lastDeclaration);
   }
 
   const end = node.range?.[1] ?? node.end;
