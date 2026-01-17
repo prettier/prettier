@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`components.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// Declare module with ambient components
+declare module 'component-library' {
+  component Button(label: string);
+  component Icon(name: string);
+
+  declare export { Button, Icon };
+}
+
+=====================================output=====================================
+// Declare module with ambient components
+declare module "component-library" {
+  declare component Button(label: string);
+  declare component Icon(name: string);
+
+  declare export { Button, Icon };
+}
+
+================================================================================
+`;
+
+exports[`lib.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// Test ambient variable declarations in declare module within flow-typed
+declare module 'test-module' {
+  // Implicit ambient const/let/var (without 'declare' keyword)
+  const foo: string;
+  let bar: number;
+  var baz: boolean;
+
+  // These can be used in type expressions within the module
+  declare export function getFoo(): typeof foo;
+  declare export function getBar(): typeof bar;
+  declare export function getBaz(): typeof baz;
+}
+
+=====================================output=====================================
+// Test ambient variable declarations in declare module within flow-typed
+declare module "test-module" {
+  // Implicit ambient const/let/var (without 'declare' keyword)
+  const foo: string;
+  let bar: number;
+  var baz: boolean;
+
+  // These can be used in type expressions within the module
+  declare export function getFoo(): typeof foo;
+  declare export function getBar(): typeof bar;
+  declare export function getBaz(): typeof baz;
+}
+
+================================================================================
+`;

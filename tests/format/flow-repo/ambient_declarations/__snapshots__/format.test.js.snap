@@ -84,8 +84,8 @@ export {ImplicitFunctions};
 // Test implicit declare function (function without 'declare' keyword in ambient context)
 declare namespace ImplicitFunctions {
   // Simple implicit declare functions
-  declare function greet(name: string): string;
-  declare function add(a: number, b: number): number;
+  function greet(name: string): string;
+  function add(a: number, b: number): number;
 
   // Explicit declare function still works
   declare function explicitHelper(): void;
@@ -134,7 +134,7 @@ declare namespace MyNamespace {
   let mutableValue: string;
 
   // Implicit ambient functions (without 'declare' keyword)
-  declare function helper(x: string): number;
+  function helper(x: string): number;
 
   // Explicit 'declare' keyword still works
   declare function explicitHelper(x: string): number;
@@ -150,6 +150,30 @@ declare namespace MyNamespace {
 }
 
 export { MyNamespace };
+
+================================================================================
+`;
+
+exports[`not_ambient.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+// Test that uninitialized const/var/let is NOT allowed in regular .js files
+
+// const x: string; // Error - const must be initialized
+let y: number; // OK - let can be uninitialized
+var z: boolean; // OK - var can be uninitialized
+
+=====================================output=====================================
+// @flow
+// Test that uninitialized const/var/let is NOT allowed in regular .js files
+
+// const x: string; // Error - const must be initialized
+let y: number; // OK - let can be uninitialized
+var z: boolean; // OK - var can be uninitialized
 
 ================================================================================
 `;
