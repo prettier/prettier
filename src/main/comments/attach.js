@@ -210,32 +210,36 @@ function attachComments(ast, options) {
         /* c8 ignore next */
         addDanglingComment(ast, comment);
       }
-    } else if (handleRemainingComment(...args)) {
-      // We're good
-    } else if (precedingNode && followingNode) {
-      // Otherwise, text exists both before and after the comment on
-      // the same line. If there is both a preceding and following
-      // node, use a tie-breaking algorithm to determine if it should
-      // be attached to the next or previous node. In the last case,
-      // simply attach the right node;
-      const tieCount = tiesToBreak.length;
-      if (tieCount > 0) {
-        const lastTie = tiesToBreak[tieCount - 1];
-        if (lastTie.followingNode !== followingNode) {
-          breakTies(tiesToBreak, options);
-        }
-      }
-      tiesToBreak.push(context);
-    } else if (precedingNode) {
-      addTrailingComment(precedingNode, comment);
-    } else if (followingNode) {
-      addLeadingComment(followingNode, comment);
-    } else if (enclosingNode) {
-      addDanglingComment(enclosingNode, comment);
     } else {
-      // There are no nodes, let's attach it to the root of the ast
-      /* c8 ignore next */
-      addDanglingComment(ast, comment);
+      // Remaining
+      // eslint-disable-next-line no-lonely-if
+      if (handleRemainingComment(...args)) {
+        // We're good
+      } else if (precedingNode && followingNode) {
+        // Otherwise, text exists both before and after the comment on
+        // the same line. If there is both a preceding and following
+        // node, use a tie-breaking algorithm to determine if it should
+        // be attached to the next or previous node. In the last case,
+        // simply attach the right node;
+        const tieCount = tiesToBreak.length;
+        if (tieCount > 0) {
+          const lastTie = tiesToBreak[tieCount - 1];
+          if (lastTie.followingNode !== followingNode) {
+            breakTies(tiesToBreak, options);
+          }
+        }
+        tiesToBreak.push(context);
+      } else if (precedingNode) {
+        addTrailingComment(precedingNode, comment);
+      } else if (followingNode) {
+        addLeadingComment(followingNode, comment);
+      } else if (enclosingNode) {
+        addDanglingComment(enclosingNode, comment);
+      } else {
+        // There are no nodes, let's attach it to the root of the ast
+        /* c8 ignore next */
+        addDanglingComment(ast, comment);
+      }
     }
   }
 
