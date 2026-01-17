@@ -141,6 +141,10 @@ function attachComments(ast, options) {
     isLastComment: comments.length - 1 === index,
   }));
 
+  // For easier debug, save these to comment even `avoidAstMutation`
+  const attachPropertiesToComment =
+    process.env.NODE_ENV !== "production" || !avoidAstMutation;
+
   for (const [index, context] of decoratedComments.entries()) {
     const {
       comment,
@@ -153,18 +157,27 @@ function attachComments(ast, options) {
       isLastComment,
     } = context;
 
+    const placement = isOwnLineComment(text, options, decoratedComments, index)
+      ? "ownLine"
+      : isEndOfLineComment(text, options, decoratedComments, index)
+        ? "endOfLine"
+        : "remaining";
+
     let args;
     if (avoidAstMutation) {
       args = [context];
     } else {
-      comment.enclosingNode = enclosingNode;
-      comment.precedingNode = precedingNode;
-      comment.followingNode = followingNode;
       args = [comment, text, options, ast, isLastComment];
     }
 
-    if (isOwnLineComment(text, options, decoratedComments, index)) {
-      comment.placement = "ownLine";
+    if (attachPropertiesToComment) {
+      comment.placement = placement;
+      comment.enclosingNode = enclosingNode;
+      comment.precedingNode = precedingNode;
+      comment.followingNode = followingNode;
+    }
+
+    if (placement === "ownLine") {
       // If a comment exists on its own line, prefer a leading comment.
       // We also need to check if it's the first line of the file.
       if (handleOwnLineComment(...args)) {
@@ -181,8 +194,7 @@ function attachComments(ast, options) {
         /* c8 ignore next */
         addDanglingComment(ast, comment);
       }
-    } else if (isEndOfLineComment(text, options, decoratedComments, index)) {
-      comment.placement = "endOfLine";
+    } else if (placement === "endOfLine") {
       if (handleEndOfLineComment(...args)) {
         // We're good
       } else if (precedingNode) {
@@ -198,41 +210,38 @@ function attachComments(ast, options) {
         /* c8 ignore next */
         addDanglingComment(ast, comment);
       }
-    } else {
-      comment.placement = "remaining";
-      if (handleRemainingComment(...args)) {
-        // We're good
-      } else if (precedingNode && followingNode) {
-        // Otherwise, text exists both before and after the comment on
-        // the same line. If there is both a preceding and following
-        // node, use a tie-breaking algorithm to determine if it should
-        // be attached to the next or previous node. In the last case,
-        // simply attach the right node;
-        const tieCount = tiesToBreak.length;
-        if (tieCount > 0) {
-          const lastTie = tiesToBreak[tieCount - 1];
-          if (lastTie.followingNode !== followingNode) {
-            breakTies(tiesToBreak, options);
-          }
+    } else if (handleRemainingComment(...args)) {
+      // We're good
+    } else if (precedingNode && followingNode) {
+      // Otherwise, text exists both before and after the comment on
+      // the same line. If there is both a preceding and following
+      // node, use a tie-breaking algorithm to determine if it should
+      // be attached to the next or previous node. In the last case,
+      // simply attach the right node;
+      const tieCount = tiesToBreak.length;
+      if (tieCount > 0) {
+        const lastTie = tiesToBreak[tieCount - 1];
+        if (lastTie.followingNode !== followingNode) {
+          breakTies(tiesToBreak, options);
         }
-        tiesToBreak.push(context);
-      } else if (precedingNode) {
-        addTrailingComment(precedingNode, comment);
-      } else if (followingNode) {
-        addLeadingComment(followingNode, comment);
-      } else if (enclosingNode) {
-        addDanglingComment(enclosingNode, comment);
-      } else {
-        // There are no nodes, let's attach it to the root of the ast
-        /* c8 ignore next */
-        addDanglingComment(ast, comment);
       }
+      tiesToBreak.push(context);
+    } else if (precedingNode) {
+      addTrailingComment(precedingNode, comment);
+    } else if (followingNode) {
+      addLeadingComment(followingNode, comment);
+    } else if (enclosingNode) {
+      addDanglingComment(enclosingNode, comment);
+    } else {
+      // There are no nodes, let's attach it to the root of the ast
+      /* c8 ignore next */
+      addDanglingComment(ast, comment);
     }
   }
 
   breakTies(tiesToBreak, options);
 
-  if (!avoidAstMutation) {
+  if (attachPropertiesToComment) {
     for (const comment of comments) {
       // These node references were useful for breaking ties, but we
       // don't need them anymore, and they create cycles in the AST that
