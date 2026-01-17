@@ -2,12 +2,6 @@ import * as assert from "#universal/assert";
 import { childNodesCache } from "./comments/attach.js";
 import getSortedChildNodes from "./utilities/get-sorted-child-nodes.js";
 
-const isJsonParser = ({ parser }) =>
-  parser === "json" ||
-  parser === "json5" ||
-  parser === "jsonc" ||
-  parser === "json-stringify";
-
 function findCommonAncestor(startNodeAndAncestors, endNodeAndAncestors) {
   endNodeAndAncestors = new Set(endNodeAndAncestors);
   return startNodeAndAncestors.find(
@@ -242,7 +236,7 @@ function calculateRange(text, opts, ast) {
 
   let startNode;
   let endNode;
-  if (isJsonParser(opts)) {
+  if (ast.type === "JsonRoot") {
     const commonAncestor = findCommonAncestor(
       startNodeAndAncestors,
       endNodeAndAncestors,
