@@ -1,17 +1,30 @@
 import { locEnd, locStart } from "../loc.js";
 import getTextWithoutComments from "../utilities/get-text-without-comments.js";
 
+/**
+@import {NodeMap} from "../types/estree.js"
+@typedef {
+  | NodeMap["CallExpression"]
+  | NodeMap["OptionalCallExpression"]
+  | NodeMap["OptionalCallExpression"]
+} CallOrNewExpression
+*/
+
+/**
+@param {CallOrNewExpression} callOrNewExpression
+@returns {number | void}
+*/
 function getCallOrNewExpressionClosingParenthesisIndex(
-  callExpression,
+  callOrNewExpression,
   options,
 ) {
-  const closingParenthesisIndex = locEnd(callExpression) - 1;
+  const closingParenthesisIndex = locEnd(callOrNewExpression) - 1;
 
   /* c8 ignore next 6 */
   if (options.originalText[closingParenthesisIndex] !== ")") {
     if (process.env.NODE_ENV !== "production") {
       throw new Error(
-        `Unable to get '${callExpression.type}' closing parenthesis.`,
+        `Unable to get '${callOrNewExpression.type}' closing parenthesis.`,
       );
     }
     return;
@@ -20,12 +33,16 @@ function getCallOrNewExpressionClosingParenthesisIndex(
   return closingParenthesisIndex;
 }
 
+/**
+@param {CallOrNewExpression} callOrNewExpression
+@returns {number | void}
+*/
 function getCallOrNewExpressionOpeningParenthesisIndex(
-  callExpression,
+  callOrNewExpression,
   options,
 ) {
   const closingParenthesisIndex = getCallOrNewExpressionClosingParenthesisIndex(
-    callExpression,
+    callOrNewExpression,
     options,
   );
 
@@ -34,7 +51,9 @@ function getCallOrNewExpressionOpeningParenthesisIndex(
     return;
   }
 
-  const start = locEnd(callExpression.typeArguments ?? callExpression.callee);
+  const start = locEnd(
+    callOrNewExpression.typeArguments ?? callOrNewExpression.callee,
+  );
   const text = getTextWithoutComments(options, start, closingParenthesisIndex);
   const openingParenthesisIndex = text.indexOf("(");
 
@@ -42,7 +61,7 @@ function getCallOrNewExpressionOpeningParenthesisIndex(
   if (openingParenthesisIndex === -1) {
     if (process.env.NODE_ENV !== "production") {
       throw new Error(
-        `Unable to get '${callExpression.type}' opening parenthesis.`,
+        `Unable to get '${callOrNewExpression.type}' opening parenthesis.`,
       );
     }
     return;
@@ -51,13 +70,17 @@ function getCallOrNewExpressionOpeningParenthesisIndex(
   return start + openingParenthesisIndex;
 }
 
+/**
+@param {CallOrNewExpression} callOrNewExpression
+@returns {boolean}
+*/
 function isInsideCallOrNewExpressionParentheses(
-  callExpression,
+  callOrNewExpression,
   nodeOrComment,
   options,
 ) {
   const closingParenthesisIndex = getCallOrNewExpressionClosingParenthesisIndex(
-    callExpression,
+    callOrNewExpression,
     options,
   );
 
@@ -71,7 +94,7 @@ function isInsideCallOrNewExpressionParentheses(
   }
 
   const openingParenthesisIndex = getCallOrNewExpressionOpeningParenthesisIndex(
-    callExpression,
+    callOrNewExpression,
     options,
   );
 
