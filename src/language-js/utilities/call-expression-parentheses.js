@@ -1,7 +1,10 @@
 import { locEnd, locStart } from "../loc.js";
 import getTextWithoutComments from "../utilities/get-text-without-comments.js";
 
-function getCallExpressionClosingParenthesisIndex(callExpression, options) {
+function getCallOrNewExpressionClosingParenthesisIndex(
+  callExpression,
+  options,
+) {
   const closingParenthesisIndex = locEnd(callExpression) - 1;
 
   /* c8 ignore next 6 */
@@ -17,8 +20,11 @@ function getCallExpressionClosingParenthesisIndex(callExpression, options) {
   return closingParenthesisIndex;
 }
 
-function getCallExpressionOpeningParenthesisIndex(callExpression, options) {
-  const closingParenthesisIndex = getCallExpressionClosingParenthesisIndex(
+function getCallOrNewExpressionOpeningParenthesisIndex(
+  callExpression,
+  options,
+) {
+  const closingParenthesisIndex = getCallOrNewExpressionClosingParenthesisIndex(
     callExpression,
     options,
   );
@@ -45,12 +51,12 @@ function getCallExpressionOpeningParenthesisIndex(callExpression, options) {
   return start + openingParenthesisIndex;
 }
 
-function isInsideCallExpressionParentheses(
+function isInsideCallOrNewExpressionParentheses(
   callExpression,
   nodeOrComment,
   options,
 ) {
-  const closingParenthesisIndex = getCallExpressionClosingParenthesisIndex(
+  const closingParenthesisIndex = getCallOrNewExpressionClosingParenthesisIndex(
     callExpression,
     options,
   );
@@ -64,7 +70,7 @@ function isInsideCallExpressionParentheses(
     return false;
   }
 
-  const openingParenthesisIndex = getCallExpressionOpeningParenthesisIndex(
+  const openingParenthesisIndex = getCallOrNewExpressionOpeningParenthesisIndex(
     callExpression,
     options,
   );
@@ -77,4 +83,4 @@ function isInsideCallExpressionParentheses(
   return locStart(nodeOrComment) > openingParenthesisIndex;
 }
 
-export { isInsideCallExpressionParentheses };
+export { isInsideCallOrNewExpressionParentheses };
