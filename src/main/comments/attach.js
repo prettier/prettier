@@ -135,11 +135,7 @@ function attachComments(ast, options) {
     originalText: text,
     getVisitorKeys,
   } = options;
-  const {
-    ownLine: handleOwnLineComment = returnFalse,
-    endOfLine: handleEndOfLineComment = returnFalse,
-    remaining: handleRemainingComment = returnFalse,
-  } = handleComments;
+
   const commentDecorateOptions = {
     cache: childNodesCache,
     locStart: getLocForCommentAttach?.locStart ?? options.locStart,
@@ -159,6 +155,12 @@ function attachComments(ast, options) {
     // TODO: Move placement here
     placement: undefined,
   }));
+
+  const {
+    ownLine: handleOwnLineComment = returnFalse,
+    endOfLine: handleEndOfLineComment = returnFalse,
+    remaining: handleRemainingComment = returnFalse,
+  } = handleComments;
 
   // For easier debug, save these to comment even `avoidAstMutation`
   const attachPropertiesToComment =
