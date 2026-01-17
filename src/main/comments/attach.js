@@ -37,14 +37,7 @@ function decorateComment(
   const commentStart = locStart(comment);
   const commentEnd = locEnd(comment);
 
-  const childNodes = getSortedChildNodes(node, ancestors, {
-    cache: childNodesCache,
-    locStart,
-    locEnd,
-    getVisitorKeys: options.getVisitorKeys,
-    filter: options.printer.canAttachComment,
-    getChildren: options.printer.getCommentChildNodes,
-  });
+  const childNodes = getSortedChildNodes(node, ancestors, options);
 
   let precedingNode;
   let followingNode;
@@ -131,19 +124,33 @@ function attachComments(ast, options) {
   const tiesToBreak = [];
   const {
     printer: {
-      features: { experimental_avoidAstMutation: avoidAstMutation },
+      features: {
+        experimental_avoidAstMutation: avoidAstMutation,
+        experimental_getLocForCommentAttach: getLocForCommentAttach,
+      },
       handleComments = {},
+      getCommentChildNodes,
+      canAttachComment,
     },
     originalText: text,
+    getVisitorKeys,
   } = options;
   const {
     ownLine: handleOwnLineComment = returnFalse,
     endOfLine: handleEndOfLineComment = returnFalse,
     remaining: handleRemainingComment = returnFalse,
   } = handleComments;
+  const commentDecorateOptions = {
+    cache: childNodesCache,
+    locStart: options.locStart,
+    locEnd: options.locEnd,
+    getVisitorKeys,
+    filter: canAttachComment,
+    getChildren: getCommentChildNodes,
+  };
 
   const decoratedComments = comments.map((comment, index) => ({
-    ...decorateComment(ast, comment, options),
+    ...decorateComment(ast, comment, commentDecorateOptions),
     comment,
     text,
     options,
