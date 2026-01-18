@@ -17,10 +17,17 @@ lbl: for (;;) {
 
 lbl: for (;;) {
   if (condition){
-  // prettier-ignore
-  continue                   lbl
+    // prettier-ignore
+    continue                   lbl
 
-  // breaking comment
-  ;(possibleArray || []).sort()
+    // breaking comment
+    ;(possibleArray || []).sort()
+  }
+  if (condition){
+    // prettier-ignore
+    break                   lbl;
+
+    // breaking comment
+    ;(possibleArray || []).sort()
   }
 }
