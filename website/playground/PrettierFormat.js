@@ -42,7 +42,7 @@ function setup(props, { slots }) {
       editorState.showPreprocessedAst,
       editorState.showDoc,
       editorState.showComments,
-      editorState.reformat,
+      editorState.showSecondFormat,
       editorState.rethrowEmbedErrors,
     ],
     () => {
