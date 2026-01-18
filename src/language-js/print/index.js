@@ -7,7 +7,6 @@ import {
 } from "../../document/index.js";
 import { printComments } from "../../main/comments/print.js";
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
-import { locEnd, locStart } from "../loc.js";
 import needsParentheses from "../parentheses/needs-parentheses.js";
 import { shouldPrintLeadingSemicolon } from "../semicolon/semicolon.js";
 import {
@@ -21,6 +20,7 @@ import { printAngular } from "./angular.js";
 import { printDecorators } from "./decorators.js";
 import { printEstree } from "./estree.js";
 import { printFlow } from "./flow.js";
+import { printIgnored } from "./ignored.js";
 import { printJsx } from "./jsx.js";
 import { printTypescript } from "./typescript.js";
 
@@ -75,7 +75,7 @@ function print(path, options, print, args) {
   const { node } = path;
 
   let doc = isIgnored(path)
-    ? options.originalText.slice(locStart(node), locEnd(node))
+    ? printIgnored(path, options)
     : printWithoutParentheses(path, options, print, args);
   if (!doc) {
     return "";

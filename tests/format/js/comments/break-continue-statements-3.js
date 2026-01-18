@@ -14,3 +14,20 @@ lbl: for (;;) {
   ;(possibleArray || []).sort()
   }
 }
+
+lbl: for (;;) {
+  if (condition){
+    // prettier-ignore
+    continue                   lbl
+
+    // breaking comment
+    ;(possibleArray || []).sort()
+  }
+  if (condition){
+    // prettier-ignore
+    break                   lbl;
+
+    // breaking comment
+    ;(possibleArray || []).sort()
+  }
+}
