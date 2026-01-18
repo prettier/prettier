@@ -1639,7 +1639,7 @@ lbl: for (;;) {
   }
   if (condition){
     // prettier-ignore
-    continue                   lbl;
+    break                   lbl;
 
     // breaking comment
     ;(possibleArray || []).sort()
@@ -1676,7 +1676,7 @@ lbl: for (;;) {
   }
   if (condition) {
     // prettier-ignore
-    continue                   lbl
+    break                   lbl
 
     // breaking comment
     ;(possibleArray || []).sort()
@@ -1719,7 +1719,7 @@ lbl: for (;;) {
   }
   if (condition){
     // prettier-ignore
-    continue                   lbl;
+    break                   lbl;
 
     // breaking comment
     ;(possibleArray || []).sort()
@@ -1756,7 +1756,7 @@ lbl: for (;;) {
   }
   if (condition) {
     // prettier-ignore
-    continue                   lbl;
+    break                   lbl;
 
     // breaking comment
     (possibleArray || []).sort();
