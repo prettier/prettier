@@ -140,7 +140,6 @@ function postprocess(ast, options) {
           const lastDeclaration = node.declarations.at(-1);
           if (lastDeclaration.init && text[locEnd(lastDeclaration)] !== ";") {
             node.range = [locStart(node), locEnd(lastDeclaration)];
-            break;
           }
           break;
         }
