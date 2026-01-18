@@ -1629,6 +1629,16 @@ lbl: for (;;) {
   }
 }
 
+lbl: for (;;) {
+  if (condition){
+  // prettier-ignore
+  continue                   lbl
+
+  // breaking comment
+  ;(possibleArray || []).sort()
+  }
+}
+
 =====================================output=====================================
 // https://github.com/prettier/prettier/issues/7126
 for (;;) {
@@ -1643,6 +1653,16 @@ for (;;) {
 lbl: for (;;) {
   if (condition) {
     continue lbl
+
+    // breaking comment
+    ;(possibleArray || []).sort()
+  }
+}
+
+lbl: for (;;) {
+  if (condition) {
+    // prettier-ignore
+    continue                   lbl
 
     // breaking comment
     ;(possibleArray || []).sort()
@@ -1675,6 +1695,16 @@ lbl: for (;;) {
   }
 }
 
+lbl: for (;;) {
+  if (condition){
+  // prettier-ignore
+  continue                   lbl
+
+  // breaking comment
+  ;(possibleArray || []).sort()
+  }
+}
+
 =====================================output=====================================
 // https://github.com/prettier/prettier/issues/7126
 for (;;) {
@@ -1689,6 +1719,16 @@ for (;;) {
 lbl: for (;;) {
   if (condition) {
     continue lbl;
+
+    // breaking comment
+    (possibleArray || []).sort();
+  }
+}
+
+lbl: for (;;) {
+  if (condition) {
+    // prettier-ignore
+    continue                   lbl
 
     // breaking comment
     (possibleArray || []).sort();
