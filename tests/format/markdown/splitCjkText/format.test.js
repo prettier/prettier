@@ -34,7 +34,7 @@ const snippets = [
     name: "Should remove newline around CJ(K) punctuation(-like)",
     code,
     // Note: replaceAll is not supported in Node 14.
-    output: `${code.replace(/\n/g, "")}\n`,
+    output: `${code.replaceAll("\n", "")}\n`,
   });
 }
 
