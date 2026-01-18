@@ -22,20 +22,19 @@ const snippets = [
 
 {
   // Switches to insert-space (2.x-style) mode
-  const preamble = "测试 Test テスト Test";
+  const postamble = "测试 Test テスト Test";
   const punctuationLike = [
     0x3000, // Fullwidth Space but should be treated like punctuation
     0x301c, // Genuine CJ(K) punctuation
     0xff5e, // Nearly equivalent to U+301C but its Unicode category is "Sm"
     0x1f221, // "end" symbol. Should be placed at end
   ];
-  const code = `${preamble}\n${punctuationLike.map((cp) => `U+${cp.toString(16).toUpperCase()}${String.fromCodePoint(cp)}`).join("\n")}\n`;
+  const code = `${punctuationLike.map((cp) => `U+${cp.toString(16).toUpperCase()}${String.fromCodePoint(cp)}`).join("\n")} ${postamble}\n`;
   snippets.push({
     name: "Should remove newline around CJ(K) punctuation(-like)",
     code,
-    // Only first newline is replaced with space
     // Note: replaceAll is not supported in Node 14.
-    output: `${code.replace("\n", " ").replace(/\n/g, "")}\n`,
+    output: `${code.replace(/\n/g, "")}\n`,
   });
 }
 
