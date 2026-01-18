@@ -1,31 +1,26 @@
 import * as assert from "#universal/assert";
 
-/** @import {Language as LinguistLanguage} from 'linguist-languages' */
 /**
-@typedef {{
-  name: string;
+@import {Language as LinguistLanguage} from "linguist-languages"
+@typedef {keyof LinguistLanguage} LinguistLanguageFields
+@typedef {"color" | "languageId"} ExcludedLinguistLanguageFields
+@typedef {Omit<LinguistLanguage, "color" | "languageId"> & {
   parsers?: readonly string[];
-  group?: string | undefined;
-  tmScope?: string | undefined;
-  aceMode?: string | undefined;
-  codemirrorMode?: string | undefined;
-  codemirrorMimeType?: string | undefined;
-  aliases?: readonly string[] | undefined;
-  extensions?: readonly string[] | undefined;
-  filenames?: readonly string[] | undefined;
-  linguistLanguageId?: number | undefined;
-  vscodeLanguageIds?: readonly string[] | undefined;
+  linguistLanguageId?: LinguistLanguage["languageId"];
+  vscodeLanguageIds?: string[];
   interpreters?: readonly string[] | undefined;
   isSupported?: ((options: {filepath: string}) => boolean) | undefined;
 }} Language
 */
 
+/** @type {Set<ExcludedLinguistLanguageFields>} */
 const excludedFields = new Set([
   "color",
   // Rename as `linguistLanguageId`
   "languageId",
 ]);
 
+/** @type {Set<keyof Language>} */
 const arrayTypeFields = new Set([
   "parsers",
   "aliases",

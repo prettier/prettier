@@ -66,7 +66,6 @@ const languages = [
     aceMode: "javascript",
     codemirrorMode: "jsx",
     codemirrorMimeType: "text/jsx",
-    color: undefined,
   })),
   createLanguage(linguistLanguages.TypeScript, () => ({
     parsers: ["typescript", "babel-ts"],
