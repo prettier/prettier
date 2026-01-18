@@ -138,8 +138,9 @@ function postprocess(ast, options) {
         // fix unexpected locEnd caused by --no-semi style
         case "VariableDeclaration": {
           const lastDeclaration = node.declarations.at(-1);
-          if (lastDeclaration?.init && text[locEnd(lastDeclaration)] !== ";") {
+          if (lastDeclaration.init && text[locEnd(lastDeclaration)] !== ";") {
             node.range = [locStart(node), locEnd(lastDeclaration)];
+            break;
           }
           break;
         }
