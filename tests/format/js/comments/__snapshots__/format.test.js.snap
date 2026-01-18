@@ -1728,7 +1728,7 @@ lbl: for (;;) {
 lbl: for (;;) {
   if (condition) {
     // prettier-ignore
-    continue                   lbl
+    continue                   lbl;
 
     // breaking comment
     (possibleArray || []).sort();
