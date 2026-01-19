@@ -4,7 +4,8 @@ import * as assert from "#universal/assert";
 @import {Language as LinguistLanguage} from "linguist-languages"
 @typedef {keyof LinguistLanguage} LinguistLanguageFields
 @typedef {"color" | "languageId"} ExcludedLinguistLanguageFields
-@typedef {Omit<LinguistLanguage, "color" | "languageId"> & {
+@typedef {Omit<LinguistLanguage, "name" | "color" | "languageId"> & {
+  name: string;
   parsers?: readonly string[];
   linguistLanguageId?: LinguistLanguage["languageId"];
   vscodeLanguageIds?: string[];
@@ -32,7 +33,7 @@ const arrayTypeFields = new Set([
 
 /**
  * @param {LinguistLanguage} linguistLanguage
- * @param {(data: LinguistLanguage) => Partial<LinguistLanguage & Language>} getOverrides
+ * @param {(data: LinguistLanguage) => Partial<Language>} getOverrides
  * @returns {Language}
  */
 function createLanguage(linguistLanguage, getOverrides) {
