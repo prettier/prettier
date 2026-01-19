@@ -738,7 +738,7 @@ exports[`CLI --support-info  1`] = `
       "linguistLanguageId": 391,
       "name": "Vue",
       "parsers": ["vue"],
-      "tmScope": "source.vue",
+      "tmScope": "text.html.vue",
       "type": "markup",
       "vscodeLanguageIds": ["vue"]
     },
