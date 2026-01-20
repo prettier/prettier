@@ -8,8 +8,6 @@ import jsxRegexp from "./utilities/jsx-regexp.evaluate.js";
 import {
   getSourceType,
   SOURCE_TYPE_COMBINATIONS,
-  SOURCE_TYPE_COMMONJS,
-  SOURCE_TYPE_SCRIPT,
 } from "./utilities/source-types.js";
 
 /** @import {ParseResult, ParserOptions as ParserOptionsWithoutExperimentalRawTransfer} from "oxc-parser" */
