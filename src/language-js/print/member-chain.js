@@ -130,6 +130,7 @@ function printMemberChain(path, options, print) {
     } else if (node.type === "TSNonNullExpression") {
       printedNodes.unshift({
         node,
+        needsParens: needsParentheses(path, options),
         printed: printComments(path, "!", options),
       });
       path.call(rec, "expression");
