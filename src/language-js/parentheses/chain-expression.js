@@ -49,7 +49,7 @@ function isBabelChainExpressionRoot(path) {
     return true;
   }
 
-  return (
+  return !(
     path.key === "expression" && path.parent.type === "TSNonNullExpression"
   );
 }
