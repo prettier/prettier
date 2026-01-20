@@ -1,3 +1,5 @@
+import { createTypeCheckFunction } from "../utilities/index.js";
+
 /**
 @import AstPath from "../../common/ast-path.js"
 */
@@ -19,6 +21,13 @@ function shouldAddParenthesesToChainExpression(path) {
 }
 
 const isParenthesized = (node) => node.extra?.parenthesized;
+const isBabelOptionalChainElement = createTypeCheckFunction([
+  "OptionalCallExpression",
+  "OptionalMemberExpression",
+]);
+const isInBabelOptionalChain = ({ key, parent }) =>
+  (key === "object" && parent.type === "OptionalMemberExpression") ||
+  (key === "callee" && parent.type === "OptionalCallExpression");
 
 /**
 @param {AstPath} path
@@ -33,12 +42,7 @@ function isBabelTsChainExpressionRoot(path) {
     children.unshift(child);
   }
 
-  if (
-    !(
-      child.type === "OptionalCallExpression" ||
-      child.type === "OptionalMemberExpression"
-    )
-  ) {
+  if (!isBabelOptionalChainElement(child)) {
     return false;
   }
 
@@ -48,24 +52,15 @@ function isBabelTsChainExpressionRoot(path) {
     return firstParenthesized === node;
   }
 
-  const { key, parent } = path;
   return !(
-    (key === "expression" && parent.type === "TSNonNullExpression") ||
-    (key === "object" && parent.type === "OptionalMemberExpression") ||
-    (key === "callee" && parent.type === "OptionalCallExpression")
+    isInBabelOptionalChain(path) ||
+    (path.key === "expression" && path.parent.type === "TSNonNullExpression")
   );
 }
 
 function isBabelJsExpressionRoot(path) {
-  const { key, node, parent } = path;
-
   return (
-    (node.type === "OptionalCallExpression" ||
-      node.type === "OptionalMemberExpression") &&
-    !(
-      (key === "object" && parent.type === "OptionalMemberExpression") ||
-      (key === "callee" && parent.type === "OptionalCallExpression")
-    )
+    isBabelOptionalChainElement(path.node) && !isInBabelOptionalChain(path)
   );
 }
 
