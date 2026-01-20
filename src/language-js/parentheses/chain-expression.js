@@ -50,7 +50,9 @@ function isBabelOptionalChainRoot(path) {
   }
 
   return !(
-    path.key === "expression" && path.parent.type === "TSNonNullExpression"
+    (path.key === "expression" && path.parent.type === "TSNonNullExpression")
+    // We should exclude if it's in `OptionalCallExpression` or `OptionalMemberExpression`
+    // But in these cases it should not matter, since we don't need parentheses anyway
   );
 }
 
