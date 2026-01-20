@@ -35,21 +35,21 @@ const isInBabelOptionalChain = ({ key, parent }) =>
 function isBabelChainExpressionRoot(path) {
   const { node } = path;
 
-  const children = [node];
   let child = node;
   while (child.type === "TSNonNullExpression") {
     child = child.expression;
-    children.unshift(child);
+
+    if (isParenthesized(child)) {
+      return false;
+    }
   }
 
   if (!isBabelOptionalChainElement(child)) {
     return false;
   }
 
-  const firstParenthesized = children.find((node) => isParenthesized(node));
-
-  if (firstParenthesized) {
-    return firstParenthesized === node;
+  if (isParenthesized(node)) {
+    return true;
   }
 
   return !(
