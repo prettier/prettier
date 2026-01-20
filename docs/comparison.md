@@ -1,4 +1,4 @@
----
+
 id: comparison
 title: Prettier vs. Linters
 ---
