@@ -7596,10 +7596,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"n-readlines@npm:3.4.0":
-  version: 3.4.0
-  resolution: "n-readlines@npm:3.4.0"
-  checksum: 10/8655b550cf25023c5692705ff4c0829955bedaf89e8cdc19bf09ef35501dc31d5ac8e14b35d0e1d60bdb509c41637150e67b07aa0e4b5e6295c8031252fff507
+"n-readlines@npm:3.4.1":
+  version: 3.4.1
+  resolution: "n-readlines@npm:3.4.1"
+  checksum: 10/f1ce7311a591a77cb90c2cfdc593e8159007a48d15921029fe9b8b5b33dd379a824d9494a5a44c2f2d6017f749a700744483a61134c14f975412a6aef133e408
   languageName: node
   linkType: hard
 
@@ -8459,7 +8459,7 @@ __metadata:
     micromark-util-types: "npm:2.0.2"
     micromatch: "npm:4.0.8"
     minimist: "npm:1.2.8"
-    n-readlines: "npm:3.4.0"
+    n-readlines: "npm:3.4.1"
     nano-spawn: "npm:2.0.0"
     narrow-emojis: "npm:0.0.3"
     node-style-text: "npm:2.1.2"
