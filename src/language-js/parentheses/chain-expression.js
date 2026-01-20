@@ -23,7 +23,7 @@ const isParenthesized = (node) => node.extra?.parenthesized;
 /**
 @param {AstPath} path
 */
-function isBabelChainExpressionRoot(path) {
+function isBabelTsChainExpressionRoot(path) {
   const { node } = path;
 
   const children = [node];
@@ -56,7 +56,7 @@ function isBabelChainExpressionRoot(path) {
   );
 }
 
-function isFlowChainExpressionRoot(path) {
+function isBabelJsExpressionRoot(path) {
   const { key, node, parent } = path;
 
   return (
@@ -70,15 +70,11 @@ function isFlowChainExpressionRoot(path) {
 }
 
 function isChainExpressionRoot(path, { parser }) {
-  if (parser === "babel-ts" || parser === "babel") {
-    return isBabelChainExpressionRoot(path);
+  if (parser === "babel-ts") {
+    return isBabelTsChainExpressionRoot(path);
   }
 
-  if (parser === "flow") {
-    return isFlowChainExpressionRoot(path);
-  }
-
-  return path.node.type === "ChainExpression";
+  return path.node.type === "ChainExpression" || isBabelJsExpressionRoot(path);
 }
 
 /**
