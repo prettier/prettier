@@ -50,10 +50,7 @@ function printMemberChain(path, options, print) {
   // TODO[@fisker]: skip `TSNonNullExpression`
   /* c8 ignore next 6 */
   if (path.node.type === "ChainExpression") {
-    return path.call(
-      () => printMemberChain(path, options, print),
-      "expression",
-    );
+    return print("expression");
   }
 
   const isExpressionStatement =

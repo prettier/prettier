@@ -832,7 +832,7 @@ function needsParentheses(path, options) {
     case "OptionalCallExpression":
     case "ChainExpression":
     case "TSNonNullExpression":
-      if (shouldAddParenthesesToChainElement(path)) {
+      if (shouldAddParenthesesToChainElement(path, options)) {
         return true;
       }
 

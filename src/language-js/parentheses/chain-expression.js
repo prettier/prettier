@@ -1,5 +1,3 @@
-import { createTypeCheckFunction } from "../utilities/index.js";
-
 /**
 @import AstPath from "../../common/ast-path.js"
 */
@@ -20,48 +18,84 @@ function shouldAddParenthesesToChainExpression(path) {
   );
 }
 
-const isBabelOptionalChainElement = createTypeCheckFunction([
-  "OptionalMemberExpression",
-  "OptionalCallExpression",
-]);
+const isParenthesized = (node) => node.extra?.parenthesized;
 
 /**
 @param {AstPath} path
 */
-function isChainExpressionRoot(path) {
+function isBabelChainExpressionRoot(path) {
   const { node } = path;
 
-  // ESTree
-  if (node.type === "ChainExpression") {
-    // console.log(node.expression);
-    return true;
+  const children = [node];
+  let current = node;
+  while (current.type === "TSNonNullExpression") {
+    current = current.expression;
+    children.unshift(current);
+    if (
+      current.type === "OptionalCallExpression" ||
+      current.type === "OptionalMemberExpression"
+    ) {
+      break;
+    }
   }
 
-  // Babel
-  if (!isBabelOptionalChainElement(node)) {
+  const [child] = children;
+  if (
+    !(
+      child.type === "OptionalCallExpression" ||
+      child.type === "OptionalMemberExpression"
+    )
+  ) {
     return false;
+  }
+
+  const firstParenthesized = children.find((node) => isParenthesized(node));
+
+  if (firstParenthesized) {
+    return firstParenthesized === node;
   }
 
   const { key, parent } = path;
+  return !(
+    (key === "expression" && parent.type === "TSNonNullExpression") ||
+    (key === "object" && parent.type === "OptionalMemberExpression") ||
+    (key === "callee" && parent.type === "OptionalCallExpression")
+  );
+}
 
-  if (key === "object" && parent.type === "OptionalMemberExpression") {
-    return false;
+function isFlowChainExpressionRoot(path) {
+  const { key, node, parent } = path;
+
+  return (
+    (node.type === "OptionalCallExpression" ||
+      node.type === "OptionalMemberExpression") &&
+    !(
+      (key === "object" && parent.type === "OptionalMemberExpression") ||
+      (key === "callee" && parent.type === "OptionalCallExpression")
+    )
+  );
+}
+
+function isChainExpressionRoot(path, { parser }) {
+  if (parser === "babel-ts" || parser === "babel") {
+    return isBabelChainExpressionRoot(path);
   }
 
-  if (key === "callee" && parent.type === "OptionalCallExpression") {
-    return false;
+  if (parser === "flow") {
+    return isFlowChainExpressionRoot(path);
   }
 
-  return true;
+  return path.node.type === "ChainExpression";
 }
 
 /**
 @param {AstPath} path
 @returns {boolean}
 */
-function shouldAddParenthesesToChainElement(path) {
+function shouldAddParenthesesToChainElement(path, options) {
   return (
-    isChainExpressionRoot(path) && shouldAddParenthesesToChainExpression(path)
+    isChainExpressionRoot(path, options) &&
+    shouldAddParenthesesToChainExpression(path)
   );
 }
 
