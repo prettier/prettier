@@ -25,9 +25,6 @@ const isBabelOptionalChainElement = createTypeCheckFunction([
   "OptionalCallExpression",
   "OptionalMemberExpression",
 ]);
-const isInBabelOptionalChain = ({ key, parent }) =>
-  (key === "object" && parent.type === "OptionalMemberExpression") ||
-  (key === "callee" && parent.type === "OptionalCallExpression");
 
 /**
 @param {AstPath} path
@@ -52,9 +49,8 @@ function isBabelChainExpressionRoot(path) {
     return true;
   }
 
-  return !(
-    isInBabelOptionalChain(path) ||
-    (path.key === "expression" && path.parent.type === "TSNonNullExpression")
+  return (
+    path.key === "expression" && path.parent.type === "TSNonNullExpression"
   );
 }
 
