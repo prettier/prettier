@@ -17,11 +17,28 @@ runFormatTest(
     snippets: [
       // A required element cannot follow an optional element.
       "type T = [x?: A, y: B];",
+      // Type parameters cannot appear on a constructor declaration.
+      "class A { constructor<a>() {} }",
     ],
   },
   [
     // "typescript",
     "babel-ts",
     "oxc-ts",
+  ],
+);
+
+runFormatTest(
+  {
+    importMeta: import.meta,
+    snippets: [
+      // Type parameters cannot appear on a constructor declaration.
+      "class A { 'constructor'<a>() {} }",
+    ],
+  },
+  [
+    // "typescript",
+    "babel-ts",
+    // "oxc-ts",
   ],
 );
