@@ -27,19 +27,12 @@ function isBabelChainExpressionRoot(path) {
   const { node } = path;
 
   const children = [node];
-  let current = node;
-  while (current.type === "TSNonNullExpression") {
-    current = current.expression;
-    children.unshift(current);
-    if (
-      current.type === "OptionalCallExpression" ||
-      current.type === "OptionalMemberExpression"
-    ) {
-      break;
-    }
+  let child = node;
+  while (child.type === "TSNonNullExpression") {
+    child = child.expression;
+    children.unshift(child);
   }
 
-  const [child] = children;
   if (
     !(
       child.type === "OptionalCallExpression" ||
