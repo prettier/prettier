@@ -192,8 +192,6 @@ const allowedReasonCodes = new Set([
   "StrictFunction",
   "ForInOfLoopInitializer",
 
-  "ConstructorHasTypeParameters",
-
   "DecoratorExportClass",
   "ParamDupe",
   "InvalidDecimal",

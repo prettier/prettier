@@ -14,6 +14,13 @@ exports[`snippet: #0 [babel-ts] format 2`] = `
 Cause: A required element cannot follow an optional element. (1:17)"
 `;
 
+exports[`snippet: #0 [babel-ts] format 3`] = `
+"Type parameters cannot appear on a constructor declaration. (1:24)
+> 1 | class A { 'constructor'<a>() {} }
+    |                        ^
+Cause: Type parameters cannot appear on a constructor declaration. (1:23)"
+`;
+
 exports[`snippet: #0 [oxc-ts] format 1`] = `
 "Expected \`,\` or \`]\` but found \`:\` (1:14)
 > 1 | type T = [x.y: A];
@@ -40,10 +47,23 @@ exports[`snippet: #1 [babel-ts] format 1`] = `
 Cause: Tuple members must be labeled with a simple identifier. (1:10)"
 `;
 
+exports[`snippet: #1 [babel-ts] format 2`] = `
+"Type parameters cannot appear on a constructor declaration. (1:22)
+> 1 | class A { constructor<a>() {} }
+    |                      ^
+Cause: Type parameters cannot appear on a constructor declaration. (1:21)"
+`;
+
 exports[`snippet: #1 [oxc-ts] format 1`] = `
 "Expected \`,\` or \`]\` but found \`:\` (1:15)
 > 1 | type T = [x<y>: A];
     |               ^"
+`;
+
+exports[`snippet: #1 [oxc-ts] format 2`] = `
+"Type parameters cannot appear on a constructor declaration (1:22)
+> 1 | class A { constructor<a>() {} }
+    |                      ^^^"
 `;
 
 exports[`snippet: #1 [typescript] format 1`] = `
