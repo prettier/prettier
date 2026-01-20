@@ -29,7 +29,7 @@ const isBabelOptionalChainElement = createTypeCheckFunction([
 /**
 @param {AstPath} path
 */
-function isBabelChainExpressionRoot(path) {
+function isBabelOptionalChainRoot(path) {
   const { node } = path;
 
   let child = node;
@@ -60,8 +60,7 @@ function isBabelChainExpressionRoot(path) {
 */
 function shouldAddParenthesesToChainElement(path) {
   return (
-    (path.node.type === "ChainExpression" ||
-      isBabelChainExpressionRoot(path)) &&
+    (path.node.type === "ChainExpression" || isBabelOptionalChainRoot(path)) &&
     shouldAddParenthesesToChainExpression(path)
   );
 }
