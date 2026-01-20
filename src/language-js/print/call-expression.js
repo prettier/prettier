@@ -72,6 +72,21 @@ function printCallExpression(path, options, print) {
     node.type === "TSImportType" ||
     node.type === "TSExternalModuleReference";
 
+  // We detect calls on member lookups and possibly print them in a
+  // special chain format. See `printMemberChain` for more info.
+  if (
+    !isDynamicImportLike &&
+    !isNewExpression &&
+    isMemberish(node.callee) &&
+    !path.call(
+      () => needsParentheses(path, options),
+      "callee",
+      ...(node.callee.type === "ChainExpression" ? ["expression"] : []),
+    )
+  ) {
+    return printMemberChain(path, options, print);
+  }
+
   const contents = [
     printCallee(path, print),
     optional,
