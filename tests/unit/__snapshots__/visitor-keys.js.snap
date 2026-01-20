@@ -883,7 +883,6 @@ exports[`visitor keys estree 1`] = `
   ],
   "TSDeclareKeyword": [],
   "TSDeclareMethod": [
-    "decorators",
     "key",
     "params",
     "returnType",
