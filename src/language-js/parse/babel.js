@@ -204,7 +204,6 @@ const allowedReasonCodes = new Set([
   "ModuleAttributesWithDuplicateKeys",
   "InvalidEscapeSequenceTemplate",
   "NonAbstractClassHasAbstractMethod",
-  "OptionalTypeBeforeRequired",
   "PatternIsOptional",
   "DeclareClassFieldHasInitializer",
 
