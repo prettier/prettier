@@ -7,8 +7,7 @@ import createParser from "./utilities/create-parser.js";
 import jsxRegexp from "./utilities/jsx-regexp.evaluate.js";
 import {
   getSourceType,
-  SOURCE_TYPE_COMMONJS,
-  SOURCE_TYPE_SCRIPT,
+  SOURCE_TYPE_COMBINATIONS,
 } from "./utilities/source-types.js";
 
 /** @import {ParseResult, ParserOptions as ParserOptionsWithoutExperimentalRawTransfer} from "oxc-parser" */
@@ -48,17 +47,10 @@ function createParseError(error, { text }) {
 @returns {Promise<ParseResult>}
 */
 async function parseWithOptions(filepath, text, options) {
-  let { sourceType } = options;
-  // https://github.com/oxc-project/oxc/issues/16200
-  if (sourceType === SOURCE_TYPE_COMMONJS) {
-    sourceType = SOURCE_TYPE_SCRIPT;
-  }
-
   const result = await oxcParse(filepath, text, {
     preserveParens: true,
     showSemanticErrors: false,
     ...options,
-    sourceType,
   });
 
   const { errors } = result;
@@ -78,17 +70,30 @@ async function parseWithOptions(filepath, text, options) {
 }
 
 async function parseJs(text, options) {
-  const filepath = options?.filepath;
+  let filepath = options?.filepath;
   const sourceType = getSourceType(filepath);
 
-  const { program: ast, comments } = await parseWithOptions(
-    typeof filepath === "string" ? filepath : "prettier.jsx",
-    text,
-    {
-      sourceType,
-      lang: "jsx",
-    },
+  if (typeof filepath !== "string") {
+    filepath = "prettier.tsx";
+  }
+  const combinations = (
+    sourceType ? [sourceType] : SOURCE_TYPE_COMBINATIONS
+  ).map(
+    (sourceType) => () =>
+      parseWithOptions(filepath, text, { sourceType, lang: "jsx" }),
   );
+
+  let result;
+  try {
+    result = await tryCombinations(combinations);
+  } catch ({
+    // @ts-expect-error -- expected
+    errors: [error],
+  }) {
+    throw error;
+  }
+
+  const { program: ast, comments } = result;
 
   // @ts-expect-error -- expected
   ast.comments = comments;
@@ -118,6 +123,7 @@ function getLanguageCombinations(text, options) {
 
 async function parseTs(text, options) {
   let filepath = options?.filepath;
+
   const sourceType = getSourceType(filepath);
   const languageCombinations = getLanguageCombinations(text, options);
 
@@ -125,18 +131,18 @@ async function parseTs(text, options) {
     filepath = "prettier.tsx";
   }
 
+  const combinations = (
+    sourceType ? [sourceType] : SOURCE_TYPE_COMBINATIONS
+  ).flatMap((sourceType) =>
+    languageCombinations.map(
+      (lang) => () =>
+        parseWithOptions(filepath, text, { astType: "ts", sourceType, lang }),
+    ),
+  );
+
   let result;
   try {
-    result = await tryCombinations(
-      languageCombinations.map(
-        (language) => () =>
-          parseWithOptions(filepath, text, {
-            sourceType,
-            astType: "ts",
-            lang: language,
-          }),
-      ),
-    );
+    result = await tryCombinations(combinations);
   } catch ({
     // @ts-expect-error -- expected
     errors: [error],
