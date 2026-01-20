@@ -10,3 +10,18 @@ runFormatTest(
   },
   ["typescript", "babel-ts", "oxc-ts"],
 );
+
+runFormatTest(
+  {
+    importMeta: import.meta,
+    snippets: [
+      // A required element cannot follow an optional element.
+      "type T = [x?: A, y: B];",
+    ],
+  },
+  [
+    // "typescript",
+    "babel-ts",
+    "oxc-ts",
+  ],
+);
