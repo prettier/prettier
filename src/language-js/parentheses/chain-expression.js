@@ -32,7 +32,7 @@ const isInBabelOptionalChain = ({ key, parent }) =>
 /**
 @param {AstPath} path
 */
-function isBabelTsChainExpressionRoot(path) {
+function isBabelChainExpressionRoot(path) {
   const { node } = path;
 
   const children = [node];
@@ -58,27 +58,14 @@ function isBabelTsChainExpressionRoot(path) {
   );
 }
 
-function isBabelJsExpressionRoot(path) {
-  return (
-    isBabelOptionalChainElement(path.node) && !isInBabelOptionalChain(path)
-  );
-}
-
-function isChainExpressionRoot(path, { parser }) {
-  if (parser === "babel-ts") {
-    return isBabelTsChainExpressionRoot(path);
-  }
-
-  return path.node.type === "ChainExpression" || isBabelJsExpressionRoot(path);
-}
-
 /**
 @param {AstPath} path
 @returns {boolean}
 */
-function shouldAddParenthesesToChainElement(path, options) {
+function shouldAddParenthesesToChainElement(path) {
   return (
-    isChainExpressionRoot(path, options) &&
+    (path.node.type === "ChainExpression" ||
+      isBabelChainExpressionRoot(path)) &&
     shouldAddParenthesesToChainExpression(path)
   );
 }
