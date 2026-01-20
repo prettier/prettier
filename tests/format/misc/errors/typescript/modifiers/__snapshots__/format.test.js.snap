@@ -3708,20 +3708,20 @@ Cause: A parameter property is only allowed in a constructor implementation."
 
 exports[`snippet: #167 [babel-ts] format 1`] = `
 "A parameter property is only allowed in a constructor implementation. (1:33)
-> 1 | class Foo {['const' + 'ructor'](private parameter) {}}
+> 1 | class Foo {['construct' + 'or'](private parameter) {}}
     |                                 ^
 Cause: A parameter property is only allowed in a constructor implementation. (1:32)"
 `;
 
 exports[`snippet: #167 [oxc-ts] format 1`] = `
 "'private' modifier cannot appear on a parameter. (1:33)
-> 1 | class Foo {['const' + 'ructor'](private parameter) {}}
+> 1 | class Foo {['construct' + 'or'](private parameter) {}}
     |                                 ^^^^^^^"
 `;
 
 exports[`snippet: #167 [typescript] format 1`] = `
 "A parameter property is only allowed in a constructor implementation. (1:33)
-> 1 | class Foo {['const' + 'ructor'](private parameter) {}}
+> 1 | class Foo {['construct' + 'or'](private parameter) {}}
     |                                 ^^^^^^^
 Cause: A parameter property is only allowed in a constructor implementation."
 `;
