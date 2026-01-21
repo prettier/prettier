@@ -68,8 +68,8 @@ function isNumberSafeToQuote(numericLiteral, options) {
 // (Vue supports unquoted numbers in expressions, but let’s keep it simple.)
 //
 // Identifiers can be unquoted in more circumstances, though.
-function isStringKeySafeToUnquote(node, options, property) {
-  const key = node[property];
+function isStringKeySafeToUnquote(node, options) {
+  const key = getKey(node);
 
   if (
     options.parser === "json" ||
@@ -125,7 +125,7 @@ function shouldQuoteKey(path, options) {
 
 function shouldUnquoteKey(path, options) {
   return (
-    isStringKeySafeToUnquote(path.node, options, getKeyProperty(path.node)) &&
+    isStringKeySafeToUnquote(path.node, options) &&
     (options.quoteProps === "as-needed" ||
       (options.quoteProps === "consistent" &&
         !needsQuoteProps.get(path.parent)))
@@ -171,7 +171,7 @@ function printKey(path, options, print) {
       (prop) =>
         (isTsEnumMember || !prop.computed) &&
         isStringLiteral(prop[property]) &&
-        !isStringKeySafeToUnquote(prop, options, property),
+        !isStringKeySafeToUnquote(prop, options),
     );
     needsQuoteProps.set(parent, objectHasStringProp);
   }
