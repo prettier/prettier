@@ -123,6 +123,15 @@ function shouldQuoteKey(path, options) {
   );
 }
 
+function shouldUnquoteKey(path, options) {
+  return (
+    isStringKeySafeToUnquote(path.node, options, getKeyProperty(path.node)) &&
+    (options.quoteProps === "as-needed" ||
+      (options.quoteProps === "consistent" &&
+        !needsQuoteProps.get(path.parent)))
+  );
+}
+
 /*
 - `ClassProperty`
 - `PropertyDefinition`
@@ -180,11 +189,7 @@ function printKey(path, options, print) {
     return path.call(() => printComments(path, printed, options), property);
   }
 
-  if (
-    isStringKeySafeToUnquote(node, options, property) &&
-    (options.quoteProps === "as-needed" ||
-      (options.quoteProps === "consistent" && !needsQuoteProps.get(parent)))
-  ) {
+  if (shouldUnquoteKey(path, options)) {
     // 'a' -> a
     // '1' -> 1
     // '1.5' -> 1.5
