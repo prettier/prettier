@@ -1,3 +1,4 @@
+import { printKey } from "./key.js";
 import { printDeclareToken } from "./miscellaneous.js";
 import { printObject } from "./object.js";
 
@@ -26,11 +27,14 @@ function printFlowEnumBody(path, options, print) {
 - `EnumDefaultedMember`(flow)
 - `TSEnumMember`(TypeScript)
 */
-function printEnumMember(path, print) {
+function printEnumMember(path, options, print) {
   const { node } = path;
   const isTsEnumMember = node.type === "TSEnumMember";
 
-  const idDoc = print("id");
+  const idDoc = isTsEnumMember
+    ? printKey(path, options, print)
+    : // Flow only allow identifier
+      print("id");
   const initializerProperty = isTsEnumMember ? "initializer" : "init";
   if (!node[initializerProperty]) {
     return idDoc;

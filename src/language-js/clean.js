@@ -27,6 +27,44 @@ const removeTemplateElementsValue = (node) => {
   }
 };
 
+function cleanKey(original, cloned) {
+  // We change {'key': value} into {key: value}.
+  // And {key: value} into {'key': value}.
+  // Also for (some) number keys.
+
+  let key;
+
+  if (original.type === "TSEnumMember") {
+    key = original.id;
+  } else if (
+    (original.type === "Property" ||
+      original.type === "ObjectProperty" ||
+      original.type === "MethodDefinition" ||
+      original.type === "ClassProperty" ||
+      original.type === "ClassMethod" ||
+      original.type === "PropertyDefinition" ||
+      original.type === "TSDeclareMethod" ||
+      original.type === "TSPropertySignature" ||
+      original.type === "ObjectTypeProperty" ||
+      original.type === "ImportAttribute") &&
+    !original.computed
+  ) {
+    key = original.key;
+  }
+
+  if (!key) {
+    return;
+  }
+
+  if (isStringLiteral(key) || isNumericLiteral(key)) {
+    cloned.key = String(key.value);
+  }
+
+  if (key.type === "Identifier") {
+    cloned.key = key.name;
+  }
+}
+
 function clean(original, cloned, parent) {
   if (original.type === "Program") {
     delete cloned.sourceType;
@@ -60,30 +98,7 @@ function clean(original, cloned, parent) {
     return null;
   }
 
-  // We change {'key': value} into {key: value}.
-  // And {key: value} into {'key': value}.
-  // Also for (some) number keys.
-  if (
-    (original.type === "Property" ||
-      original.type === "ObjectProperty" ||
-      original.type === "MethodDefinition" ||
-      original.type === "ClassProperty" ||
-      original.type === "ClassMethod" ||
-      original.type === "PropertyDefinition" ||
-      original.type === "TSDeclareMethod" ||
-      original.type === "TSPropertySignature" ||
-      original.type === "ObjectTypeProperty" ||
-      original.type === "ImportAttribute") &&
-    original.key &&
-    !original.computed
-  ) {
-    const { key } = original;
-    if (isStringLiteral(key) || isNumericLiteral(key)) {
-      cloned.key = String(key.value);
-    } else if (key.type === "Identifier") {
-      cloned.key = key.name;
-    }
-  }
+  cleanKey(original, cloned, parent);
 
   // Remove raw and cooked values from TemplateElement when it's CSS
   // styled-jsx

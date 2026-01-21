@@ -162,7 +162,7 @@ function printTypescript(path, options, print) {
     case "TSEnumBody":
       return printObject(path, options, print);
     case "TSEnumMember":
-      return printEnumMember(path, print);
+      return printEnumMember(path, options, print);
 
     case "TSImportEqualsDeclaration":
       return [
