@@ -1,4 +1,5 @@
 import * as prettier from "../../../../dist/prettier/index.js";
+import { expectType } from "ts-expect";
 
 import * as prettierPluginEstree from "../../../../dist/prettier/plugins/estree.js";
 import * as prettierPluginBabel from "../../../../dist/prettier/plugins/babel.js";
@@ -104,3 +105,6 @@ prettier.format("hello world", {
     prettierPluginYaml,
   ],
 });
+
+expectType<prettier.Printer>(prettierPluginEstree.printers.estree);
+expectType<prettier.Printer>(prettierPluginEstree.printers["estree-json"]);
