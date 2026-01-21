@@ -160,8 +160,8 @@ function isSignedNumericLiteral(node) {
  */
 function isStringLiteral(node) {
   return (
-    node.type === "StringLiteral" ||
-    (node.type === "Literal" && typeof node.value === "string")
+    node?.type === "StringLiteral" ||
+    (node?.type === "Literal" && typeof node.value === "string")
   );
 }
 
