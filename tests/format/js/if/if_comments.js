@@ -54,5 +54,6 @@ async function f5() {
   }
 }
 
+// https://github.com/prettier/prettier/issues/13079
 if (dotPos > this.pos) /** transition forward */;
       else /** transition backward */;
