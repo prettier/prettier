@@ -10,6 +10,10 @@ import { isNumericLiteral, isStringLiteral } from "../utilities/index.js";
 */
 
 const needsQuoteProps = new WeakMap();
+const isTsEnumMember = (node) => node.type === "TSEnumMember";
+const getKeyProperty = (node) => (isTsEnumMember(node) ? "id" : "key");
+const getKey = (node) => node[getKeyProperty(node)];
+const isComputedKey = (node) => !isTsEnumMember(node) && node.computed;
 
 // Matches “simple” numbers like `123` and `2.5` but not `1_000`, `1e+100` or `0b10`.
 function isSimpleNumber(numberString) {
@@ -108,8 +112,8 @@ function isStringKeySafeToUnquote(node, options, property) {
   return false;
 }
 
-function shouldQuotePropertyKey(path, options, property) {
-  const key = path.node[property];
+function shouldQuoteKey(path, options) {
+  const key = getKey(path.node);
   return (
     (key.type === "Identifier" ||
       (isNumericLiteral(key) && isNumberSafeToQuote(key, options))) &&
@@ -163,7 +167,7 @@ function printKey(path, options, print) {
     needsQuoteProps.set(parent, objectHasStringProp);
   }
 
-  if (shouldQuotePropertyKey(path, options, property)) {
+  if (shouldQuoteKey(path, options)) {
     // a -> "a"
     // 1 -> "1"
     // 1.5 -> "1.5"
