@@ -1,17 +1,5 @@
 import { printDeclareToken } from "./miscellaneous.js";
-import { printObject as printEnumMembers } from "./object.js";
-
-/*
-- `EnumBooleanBody`(flow)
-- `EnumNumberBody`(flow)
-- `EnumBigIntBody`(flow)
-- `EnumStringBody`(flow)
-- `EnumSymbolBody`(flow)
-- `TSEnumBody`(TypeScript)
-*/
-function printEnumBody(path, options, print) {
-  return printEnumMembers(path, options, print);
-}
+import { printObject } from "./object.js";
 
 function printFlowEnumBody(path, options, print) {
   const { node } = path;
@@ -26,7 +14,7 @@ function printFlowEnumBody(path, options, print) {
           )
           .toLowerCase()} `
       : "",
-    printEnumBody(path, options, print),
+    printObject(path, options, print),
   ];
 }
 
