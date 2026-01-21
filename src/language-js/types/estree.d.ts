@@ -65,3 +65,7 @@ type ExtendNode<Input> = Input extends _Node
 export type NumericLiteral =
   | NodeMap["NumericLiteral"]
   | (NodeMap["Literal"] & { value: number });
+
+export type StringLiteral =
+  | NodeMap["StringLiteral"]
+  | (NodeMap["Literal"] & { value: string });
