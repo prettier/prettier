@@ -159,7 +159,7 @@ function printKey(path, options, print) {
   const isTsEnumMember = node.type === "TSEnumMember";
   const property = isTsEnumMember ? "id" : "key";
 
-  if (!isTsEnumMember && node.computed) {
+  if (isComputedKey(node)) {
     return ["[", print(property), "]"];
   }
 
@@ -169,7 +169,7 @@ function printKey(path, options, print) {
   if (options.quoteProps === "consistent" && !needsQuoteProps.has(parent)) {
     const objectHasStringProp = path.siblings.some(
       (prop) =>
-        (isTsEnumMember || !prop.computed) &&
+        !isComputedKey(node) &&
         isStringLiteral(prop[property]) &&
         !isStringKeySafeToUnquote(prop, options),
     );
