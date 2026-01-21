@@ -28,7 +28,7 @@ function isNumberSafeToQuote(numericLiteral, options) {
   const { parser } = options;
 
   // Quoting number keys is safe in JS and Flow, but not in TypeScript (as
-  // mentioned in `isStringKeySafeToUnquote`).
+  // mentioned in `isKeySafeToUnquote`).
   if (parser === "typescript" || parser === "babel-ts" || parser === "oxc-ts") {
     return false;
   }
@@ -68,7 +68,7 @@ function isNumberSafeToQuote(numericLiteral, options) {
 // (Vue supports unquoted numbers in expressions, but let’s keep it simple.)
 //
 // Identifiers can be unquoted in more circumstances, though.
-function isStringKeySafeToUnquote(node, options) {
+function isKeySafeToUnquote(node, options) {
   const key = getKey(node);
 
   if (
@@ -125,7 +125,7 @@ function shouldQuoteKey(path, options) {
 
 function shouldUnquoteKey(path, options) {
   return (
-    isStringKeySafeToUnquote(path.node, options) &&
+    isKeySafeToUnquote(path.node, options) &&
     (options.quoteProps === "as-needed" ||
       (options.quoteProps === "consistent" &&
         !needsQuoteProps.get(path.parent)))
@@ -172,9 +172,7 @@ function printKey(path, options, print) {
         return false;
       }
       const key = getKey(sibling);
-      return (
-        isStringLiteral(key) && !isStringKeySafeToUnquote(sibling, options)
-      );
+      return isStringLiteral(key) && !isKeySafeToUnquote(sibling, options);
     });
     needsQuoteProps.set(parent, hasStringKey);
   }
