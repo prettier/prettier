@@ -13,8 +13,8 @@ import {
   shouldBreakFunctionParameters,
   shouldGroupFunctionParameters,
 } from "./function-parameters.js";
+import { printKey } from "./key.js";
 import { printDeclareToken } from "./miscellaneous.js";
-import { printPropertyKey } from "./property.js";
 import { printTypeAnnotationProperty } from "./type-annotation.js";
 
 /**
@@ -128,7 +128,7 @@ function printMethod(path, options, print) {
   }
 
   parts.push(
-    printPropertyKey(path, options, print),
+    printKey(path, options, print),
     node.optional ? "?" : "",
     node === value ? printMethodValue(path, options, print) : print("value"),
   );

@@ -31,6 +31,7 @@ import { printDeclareHook, printHookTypeAnnotation } from "./hook.js";
 import { printIndexedAccessType } from "./indexed-access-type.js";
 import { printInferType } from "./infer-type.js";
 import { printIntersectionType } from "./intersection-type.js";
+import { printKey } from "./key.js";
 import { printBigInt } from "./literal.js";
 import { printFlowMappedTypeProperty } from "./mapped-type.js";
 import { printMatch, printMatchCase, printMatchPattern } from "./match.js";
@@ -38,7 +39,6 @@ import { printDeclareToken, printOptionalToken } from "./miscellaneous.js";
 import { printExportDeclaration } from "./module.js";
 import { printObject } from "./object.js";
 import { printOpaqueType } from "./opaque-type.js";
-import { printPropertyKey } from "./property.js";
 import { printSpreadElement } from "./rest-element.js";
 import { printRestType } from "./rest-type.js";
 import { printTernary } from "./ternary.js";
@@ -243,7 +243,7 @@ function printFlow(path, options, print) {
         modifier,
         node.kind !== "init" ? node.kind + " " : "",
         node.variance ? print("variance") : "",
-        printPropertyKey(path, options, print),
+        printKey(path, options, print),
         printOptionalToken(path),
         isMethod(node) ? "" : ": ",
         print("value"),
@@ -356,7 +356,7 @@ function printFlow(path, options, print) {
       const valueKey = isStatic ? "value" : "defaultValue";
       return [
         isStatic ? "static " : "",
-        printPropertyKey(path, options, print),
+        printKey(path, options, print),
         printTypeAnnotationProperty(path, print),
         node[valueKey] ? [" = ", print(valueKey)] : "",
       ];
