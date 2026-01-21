@@ -167,13 +167,13 @@ function printKey(path, options, print) {
     // a -> "a"
     // 1 -> "1"
     // 1.5 -> "1.5"
-    const prop = printString(
+    const printed = printString(
       JSON.stringify(
         key.type === "Identifier" ? key.name : key.value.toString(),
       ),
       options,
     );
-    return path.call(() => printComments(path, prop, options), property);
+    return path.call(() => printComments(path, printed, options), property);
   }
 
   if (
@@ -184,15 +184,8 @@ function printKey(path, options, print) {
     // 'a' -> a
     // '1' -> 1
     // '1.5' -> 1.5
-    return path.call(
-      () =>
-        printComments(
-          path,
-          /^\d/.test(key.value) ? printNumber(key.value) : key.value,
-          options,
-        ),
-      property,
-    );
+    const printed = /^\d/.test(key.value) ? printNumber(key.value) : key.value;
+    return path.call(() => printComments(path, printed, options), property);
   }
 
   return print(property);
