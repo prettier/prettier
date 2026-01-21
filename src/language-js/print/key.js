@@ -38,7 +38,7 @@ function isSimpleNumber(numberString) {
 // (Vue supports unquoted numbers in expressions, but let’s keep it simple.)
 //
 // Identifiers can be unquoted in more circumstances, though.
-function isStringKeySafeToUnquote(node, options, property = "key") {
+function isStringKeySafeToUnquote(node, options, property) {
   const key = node[property];
 
   if (
@@ -142,7 +142,7 @@ function printKey(path, options, print) {
       (prop) =>
         (isTsEnumMember || !prop.computed) &&
         isStringLiteral(prop[property]) &&
-        !isStringKeySafeToUnquote(prop, options),
+        !isStringKeySafeToUnquote(prop, options, property),
     );
     needsQuoteProps.set(parent, objectHasStringProp);
   }
