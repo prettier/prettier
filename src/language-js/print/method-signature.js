@@ -4,6 +4,7 @@ import {
   printFunctionParameters,
   shouldGroupFunctionParameters,
 } from "./function-parameters.js";
+import { printKey } from "./key.js";
 import {
   printOptionalToken,
   printTypeScriptAccessibilityToken,
@@ -20,9 +21,7 @@ function printMethodSignature(path, options, print) {
   parts.push(
     printTypeScriptAccessibilityToken(node),
     kind,
-    node.computed ? "[" : "",
-    print("key"),
-    node.computed ? "]" : "",
+    printKey(path, options, print),
     printOptionalToken(path),
   );
 
