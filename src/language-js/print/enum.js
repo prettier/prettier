@@ -71,9 +71,4 @@ function printEnumDeclaration(path, print) {
   ];
 }
 
-export {
-  printEnumBody,
-  printEnumDeclaration,
-  printEnumMember,
-  printFlowEnumBody,
-};
+export { printEnumDeclaration, printEnumMember, printFlowEnumBody };

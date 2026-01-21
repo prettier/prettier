@@ -12,11 +12,7 @@ import {
   printClassMethod,
   printClassProperty,
 } from "./class.js";
-import {
-  printEnumBody,
-  printEnumDeclaration,
-  printEnumMember,
-} from "./enum.js";
+import { printEnumDeclaration, printEnumMember } from "./enum.js";
 import { printFunction, printMethodValue } from "./function.js";
 import { printFunctionType } from "./function-type.js";
 import { printIndexSignature } from "./index-signature.js";
@@ -32,6 +28,7 @@ import {
 } from "./miscellaneous.js";
 import { printImportKind } from "./module.js";
 import { printModuleDeclaration } from "./module-declaration.js";
+import { printObject } from "./object.js";
 import { printPropertyKey } from "./property.js";
 import { printRestType } from "./rest-type.js";
 import { printTemplateLiteral } from "./template-literal.js";
@@ -163,7 +160,7 @@ function printTypescript(path, options, print) {
     case "TSEnumDeclaration":
       return printEnumDeclaration(path, print);
     case "TSEnumBody":
-      return printEnumBody(path, options, print);
+      return printObject(path, options, print);
     case "TSEnumMember":
       return printEnumMember(path, print);
 
