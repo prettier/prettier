@@ -108,6 +108,8 @@ function isKeySafeToUnquote(node, options) {
   }
 
   // Safe to unquote as number
+  // Note: Flow parses number keys, but errors on them during type checking, so we don’t unquote number keys for the `flow` and `babel-flow` parsers.
+  // https://github.com/prettier/prettier/pull/8508
   if (
     (parser === "babel" ||
       parser === "acorn" ||
@@ -187,6 +189,8 @@ function shouldUnquoteKey(path, options) {
 - `TSPropertySignature` (TypeScript)
 - `TSEnumMember`(TypeScript)
 - `ObjectTypeProperty` (Flow)
+- `RecordDeclarationProperty` (Flow)
+- `RecordDeclarationStaticProperty` (Flow)
 */
 function printKey(path, options, print) {
   const { node } = path;

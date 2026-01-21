@@ -85,7 +85,9 @@ function clean(original, cloned, parent) {
       original.type === "TSPropertySignature" ||
       original.type === "TSMethodSignature" ||
       original.type === "ObjectTypeProperty" ||
-      original.type === "ImportAttribute") &&
+      original.type === "ImportAttribute" ||
+      original.type === "RecordDeclarationProperty" ||
+      original.type === "RecordDeclarationStaticProperty") &&
     !original.computed
   ) {
     cleanKey(cloned, original, "key");
