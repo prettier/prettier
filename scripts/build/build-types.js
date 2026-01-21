@@ -36,15 +36,19 @@ async function buildPluginTypes({ packageConfig, file: { input, output } }) {
   );
   const plugin = pluginModule.default ?? pluginModule;
   const parserNames = Object.keys(plugin.parsers ?? {});
+  const printerNames = Object.keys(plugin.printers ?? {});
+  const typesImportPath =
+    packageConfig.packageName === "prettier" ? "../index.js" : "prettier";
 
-  // We only add `parsers` to types file, printers should not be used alone
-  // For `estree` plugin, we just export an empty object to ensure it treated as a module
-  const code =
-    parserNames.length === 0
-      ? "export {};"
-      : outdent`
-        import { Parser } from "${packageConfig.packageName === "prettier" ? "../index.js" : "prettier"}";
+  // Export available `parsers` and `printers` as types. If none are available,
+  // export an empty module object to ensure the file is treated as a module
+  const types = [];
+  const declarations = [];
 
+  if (parserNames.length > 0) {
+    types.push("Parser");
+    declarations.push(
+      outdent`
         export declare const parsers: {
         ${parserNames
           .map(
@@ -53,6 +57,33 @@ async function buildPluginTypes({ packageConfig, file: { input, output } }) {
           )
           .join("\n")}
         };
+      `,
+    );
+  }
+
+  if (printerNames.length > 0) {
+    types.push("Printer");
+    declarations.push(
+      outdent`
+        export declare const printers: {
+        ${printerNames
+          .map(
+            (printerName) =>
+              `${" ".repeat(2)}${toPropertyKey(printerName)}: Printer;`,
+          )
+          .join("\n")}
+        };
+      `,
+    );
+  }
+
+  const code =
+    declarations.length === 0
+      ? "export {};"
+      : outdent`
+        import { ${types.join(", ")} } from "${typesImportPath}";
+
+        ${declarations.join("\n\n")}
       `;
 
   await writeFile(
