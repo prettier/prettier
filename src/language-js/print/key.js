@@ -140,7 +140,7 @@ function printKey(path, options, print) {
   if (options.quoteProps === "consistent" && !needsQuoteProps.has(parent)) {
     const objectHasStringProp = path.siblings.some(
       (prop) =>
-        !prop.computed &&
+        (isTsEnumMember || !prop.computed) &&
         isStringLiteral(prop[property]) &&
         !isStringKeySafeToUnquote(prop, options),
     );
