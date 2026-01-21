@@ -6,7 +6,7 @@ import getRaw from "../utilities/get-raw.js";
 import { isNumericLiteral, isStringLiteral } from "../utilities/index.js";
 
 /**
-@import {Node} from "../types/estree.js"
+@import {Node, NodeMap, NumericLiteral, StringLiteral} from "../types/estree.js"
 */
 
 const needsQuoteProps = new WeakMap();
@@ -190,6 +190,7 @@ function printKey(path, options, print) {
   }
 
   if (shouldQuoteKey(path, options)) {
+    /** @type {NodeMap["Identifier"] | NumericLiteral} */
     const key = getKey(node);
     // a -> "a"
     // 1 -> "1"
@@ -204,6 +205,7 @@ function printKey(path, options, print) {
   }
 
   if (shouldUnquoteKey(path, options)) {
+    /** @type {StringLiteral} */
     const { value } = getKey(node);
     // 'a' -> a
     // '1' -> 1
