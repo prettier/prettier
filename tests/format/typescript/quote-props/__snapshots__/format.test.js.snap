@@ -162,7 +162,7 @@ interface I2 {
 
 =====================================output=====================================
 interface I1 {
-  "method"(): string;
+  method(): string;
   method2(): string;
   "method-3"(): string;
 }
@@ -198,7 +198,7 @@ interface I2 {
 =====================================output=====================================
 interface I1 {
   "method"(): string;
-  method2(): string;
+  "method2"(): string;
   "method-3"(): string;
 }
 
@@ -267,7 +267,7 @@ type T2 = {
 
 =====================================output=====================================
 type T1 = {
-  "method"(): string;
+  method(): string;
   method2(): string;
   "method-3"(): string;
 };
@@ -303,7 +303,7 @@ type T2 = {
 =====================================output=====================================
 type T1 = {
   "method"(): string;
-  method2(): string;
+  "method2"(): string;
   "method-3"(): string;
 };
 

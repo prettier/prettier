@@ -83,6 +83,7 @@ function clean(original, cloned, parent) {
       original.type === "PropertyDefinition" ||
       original.type === "TSDeclareMethod" ||
       original.type === "TSPropertySignature" ||
+      original.type === "TSMethodSignature" ||
       original.type === "ObjectTypeProperty" ||
       original.type === "ImportAttribute") &&
     !original.computed
