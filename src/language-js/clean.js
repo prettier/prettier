@@ -87,11 +87,11 @@ function clean(original, cloned, parent) {
       original.type === "ImportAttribute") &&
     !original.computed
   ) {
-    cloned.key = cleanKey(cloned, original, "key");
+    cleanKey(cloned, original, "key");
   }
 
   if (original.type === "TSEnumMember") {
-    cloned.id = cleanKey(cloned, original, "id");
+    cleanKey(cloned, original, "id");
   }
 
   // Remove raw and cooked values from TemplateElement when it's CSS
