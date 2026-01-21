@@ -1151,6 +1151,179 @@ Object.entries({
 ================================================================================
 `;
 
+exports[`records.js - {"quoteProps":"as-needed"} format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+quoteProps: "as-needed"
+                                                                                | printWidth
+=====================================input======================================
+record R {
+  42: 0,
+  "43": 1,
+  "property1": 2,
+  property2: 3,
+  "property-3": 4,
+}
+
+r = R {
+  42: 0,
+  "43": 1,
+  "property1": 2,
+  property2: 3,
+  "property-3": 4,
+}
+
+=====================================output=====================================
+record R {
+  42: 0,
+  "43": 1,
+  property1: 2,
+  property2: 3,
+  "property-3": 4,
+}
+
+r = R {
+  42: 0,
+  "43": 1,
+  property1: 2,
+  property2: 3,
+  "property-3": 4,
+};
+
+================================================================================
+`;
+
+exports[`records.js - {"quoteProps":"consistent","singleQuote":true} format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+quoteProps: "consistent"
+singleQuote: true
+                                                                                | printWidth
+=====================================input======================================
+record R {
+  42: 0,
+  "43": 1,
+  "property1": 2,
+  property2: 3,
+  "property-3": 4,
+}
+
+r = R {
+  42: 0,
+  "43": 1,
+  "property1": 2,
+  property2: 3,
+  "property-3": 4,
+}
+
+=====================================output=====================================
+record R {
+  '42': 0,
+  '43': 1,
+  'property1': 2,
+  'property2': 3,
+  'property-3': 4,
+}
+
+r = R {
+  '42': 0,
+  '43': 1,
+  'property1': 2,
+  'property2': 3,
+  'property-3': 4,
+};
+
+================================================================================
+`;
+
+exports[`records.js - {"quoteProps":"consistent"} format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+quoteProps: "consistent"
+                                                                                | printWidth
+=====================================input======================================
+record R {
+  42: 0,
+  "43": 1,
+  "property1": 2,
+  property2: 3,
+  "property-3": 4,
+}
+
+r = R {
+  42: 0,
+  "43": 1,
+  "property1": 2,
+  property2: 3,
+  "property-3": 4,
+}
+
+=====================================output=====================================
+record R {
+  "42": 0,
+  "43": 1,
+  "property1": 2,
+  "property2": 3,
+  "property-3": 4,
+}
+
+r = R {
+  "42": 0,
+  "43": 1,
+  "property1": 2,
+  "property2": 3,
+  "property-3": 4,
+};
+
+================================================================================
+`;
+
+exports[`records.js - {"quoteProps":"preserve"} format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+quoteProps: "preserve"
+                                                                                | printWidth
+=====================================input======================================
+record R {
+  42: 0,
+  "43": 1,
+  "property1": 2,
+  property2: 3,
+  "property-3": 4,
+}
+
+r = R {
+  42: 0,
+  "43": 1,
+  "property1": 2,
+  property2: 3,
+  "property-3": 4,
+}
+
+=====================================output=====================================
+record R {
+  42: 0,
+  "43": 1,
+  "property1": 2,
+  property2: 3,
+  "property-3": 4,
+}
+
+r = R {
+  42: 0,
+  "43": 1,
+  "property1": 2,
+  property2: 3,
+  "property-3": 4,
+};
+
+================================================================================
+`;
+
 exports[`with_member_expressions.js - {"quoteProps":"as-needed"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
