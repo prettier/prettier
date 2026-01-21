@@ -177,7 +177,6 @@ function printKey(path, options, print) {
   }
 
   const { parent } = path;
-  const { [property]: key } = node;
 
   if (options.quoteProps === "consistent" && !needsQuoteProps.has(parent)) {
     const hasStringKey = path.siblings.some((sibling) => {
@@ -191,6 +190,7 @@ function printKey(path, options, print) {
   }
 
   if (shouldQuoteKey(path, options)) {
+    const key = getKey(node);
     // a -> "a"
     // 1 -> "1"
     // 1.5 -> "1.5"
@@ -204,10 +204,11 @@ function printKey(path, options, print) {
   }
 
   if (shouldUnquoteKey(path, options)) {
+    const { value } = getKey(node);
     // 'a' -> a
     // '1' -> 1
     // '1.5' -> 1.5
-    const printed = /^\d/.test(key.value) ? printNumber(key.value) : key.value;
+    const printed = /^\d/.test(value) ? printNumber(value) : value;
     return path.call(() => printComments(path, printed, options), property);
   }
 
