@@ -189,6 +189,8 @@ function shouldUnquoteKey(path, options) {
 - `TSPropertySignature` (TypeScript)
 - `TSEnumMember`(TypeScript)
 - `ObjectTypeProperty` (Flow)
+- `RecordDeclarationProperty` (Flow)
+- `RecordDeclarationStaticProperty` (Flow)
 */
 function printKey(path, options, print) {
   const { node } = path;
