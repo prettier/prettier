@@ -69,11 +69,14 @@ function isNumberSafeToQuote(numericLiteral, options) {
 //
 // Identifiers can be unquoted in more circumstances, though.
 function isKeySafeToUnquote(node, options) {
+  const { parser } = options;
+  if (parser === "json" || parser === "jsonc") {
+    return false;
+  }
+
   const key = getKey(node);
 
   if (
-    options.parser === "json" ||
-    options.parser === "jsonc" ||
     !isStringLiteral(key) ||
     printString(getRaw(key), options).slice(1, -1) !== key.value
   ) {
@@ -86,8 +89,8 @@ function isKeySafeToUnquote(node, options) {
     // With `--strictPropertyInitialization`, TS treats properties with quoted names differently than unquoted ones.
     // See https://github.com/microsoft/TypeScript/pull/20075
     !(
-      (options.parser === "babel-ts" && node.type === "ClassProperty") ||
-      ((options.parser === "typescript" || options.parser === "oxc-ts") &&
+      (parser === "babel-ts" && node.type === "ClassProperty") ||
+      ((parser === "typescript" || parser === "oxc-ts") &&
         node.type === "PropertyDefinition")
     )
   ) {
@@ -99,12 +102,12 @@ function isKeySafeToUnquote(node, options) {
     isSimpleNumber(key.value) &&
     String(Number(key.value)) === key.value &&
     node.type !== "ImportAttribute" &&
-    (options.parser === "babel" ||
-      options.parser === "acorn" ||
-      options.parser === "oxc" ||
-      options.parser === "espree" ||
-      options.parser === "meriyah" ||
-      options.parser === "__babel_estree")
+    (parser === "babel" ||
+      parser === "acorn" ||
+      parser === "oxc" ||
+      parser === "espree" ||
+      parser === "meriyah" ||
+      parser === "__babel_estree")
   ) {
     return true;
   }
