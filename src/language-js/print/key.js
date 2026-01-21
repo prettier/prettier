@@ -76,38 +76,41 @@ function isKeySafeToUnquote(node, options) {
 
   const key = getKey(node);
 
-  if (
-    !isStringLiteral(key) ||
-    printString(getRaw(key), options).slice(1, -1) !== key.value
-  ) {
+  if (!isStringLiteral(key)) {
+    return false;
+  }
+
+  const { value } = key;
+
+  if (printString(getRaw(key), options).slice(1, -1) !== value) {
     return false;
   }
 
   // Safe to unquote as identifier
   if (
-    isEs5IdentifierName(key.value) &&
     // With `--strictPropertyInitialization`, TS treats properties with quoted names differently than unquoted ones.
     // See https://github.com/microsoft/TypeScript/pull/20075
     !(
       (parser === "babel-ts" && node.type === "ClassProperty") ||
       ((parser === "typescript" || parser === "oxc-ts") &&
         node.type === "PropertyDefinition")
-    )
+    ) &&
+    isEs5IdentifierName(value)
   ) {
     return true;
   }
 
   // Safe to unquote as number
   if (
-    isSimpleNumber(key.value) &&
-    String(Number(key.value)) === key.value &&
-    node.type !== "ImportAttribute" &&
     (parser === "babel" ||
       parser === "acorn" ||
       parser === "oxc" ||
       parser === "espree" ||
       parser === "meriyah" ||
-      parser === "__babel_estree")
+      parser === "__babel_estree") &&
+    node.type !== "ImportAttribute" &&
+    isSimpleNumber(value) &&
+    String(Number(value)) === value
   ) {
     return true;
   }
