@@ -46,16 +46,12 @@ import { printOptionalToken } from "./miscellaneous.js";
 // The way it is structured in the AST is via a nested sequence of
 // MemberExpression and CallExpression. We need to traverse the AST
 // and make groups out of it to print it in the desired way.
+/*
+- `BindExpression`
+- `MemberExpression`
+- `OptionalMemberExpression`
+*/
 function printMemberChain(path, options, print) {
-  // TODO[@fisker]: skip `TSNonNullExpression`
-  /* c8 ignore next 6 */
-  if (path.node.type === "ChainExpression") {
-    return path.call(
-      () => printMemberChain(path, options, print),
-      "expression",
-    );
-  }
-
   const isExpressionStatement =
     (path.parent.type === "ChainExpression" ? path.grandparent : path.parent)
       .type === "ExpressionStatement";
@@ -95,10 +91,6 @@ function printMemberChain(path, options, print) {
   function rec() {
     const { node } = path;
 
-    if (node.type === "ChainExpression") {
-      return path.call(rec, "expression");
-    }
-
     if (
       isCallExpression(node) &&
       (isMemberish(node.callee) || isCallExpression(node.callee))
@@ -137,6 +129,7 @@ function printMemberChain(path, options, print) {
     } else if (node.type === "TSNonNullExpression") {
       printedNodes.unshift({
         node,
+        needsParens: needsParentheses(path, options),
         printed: printComments(path, "!", options),
       });
       path.call(rec, "expression");
