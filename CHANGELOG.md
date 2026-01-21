@@ -1,3 +1,23 @@
+# 3.8.1
+
+[diff](https://github.com/prettier/prettier/compare/3.8.0...3.8.1)
+
+#### API: Include available `printers` in plugin type declarations ([#18706](https://github.com/prettier/prettier/pull/18706) by [@porada](https://github.com/porada))
+
+<!-- prettier-ignore -->
+```ts
+// Input
+import * as prettierPluginEstree from "prettier/plugins/estree";
+
+// Prettier 3.8.0
+// Property 'printers' does not exist on type 'typeof import("prettier/plugins/estree")'. ts(2339)
+prettierPluginEstree.printers.estree; //=> any
+
+// Prettier 3.8.1
+prettierPluginEstree.printers.estree; //=> Printer
+prettierPluginEstree.printers["estree-json"]; //=> Printer
+```
+
 # 3.8.0
 
 [diff](https://github.com/prettier/prettier/compare/3.7.4...3.8.0)
