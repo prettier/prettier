@@ -27,16 +27,15 @@ const removeTemplateElementsValue = (node) => {
   }
 };
 
-function cleanKey(key) {
+function cleanKey(cloned, original, property) {
+  const key = original[property];
   if (isStringLiteral(key) || isNumericLiteral(key)) {
-    return String(key.value);
+    cloned[property] = String(key.value);
   }
 
   if (key.type === "Identifier") {
-    return key.name;
+    cloned[property] = key.name;
   }
-
-  return key;
 }
 
 function clean(original, cloned, parent) {
@@ -88,11 +87,11 @@ function clean(original, cloned, parent) {
       original.type === "ImportAttribute") &&
     !original.computed
   ) {
-    cloned.key = cleanKey(original.key);
+    cloned.key = cleanKey(cloned, original, "key");
   }
 
   if (original.type === "TSEnumMember") {
-    cloned.id = cleanKey(original.id);
+    cloned.id = cleanKey(cloned, original, "id");
   }
 
   // Remove raw and cooked values from TemplateElement when it's CSS
