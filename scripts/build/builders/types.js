@@ -55,7 +55,7 @@ async function buildPluginTypes({ packageConfig, file: { input, output } }) {
           )
           .join("\n")}
         };
-      `.trim(),
+      `,
     );
   }
 
@@ -71,18 +71,18 @@ async function buildPluginTypes({ packageConfig, file: { input, output } }) {
           )
           .join("\n")}
         };
-      `.trim(),
+      `,
     );
   }
 
   const code =
     declarations.length === 0
       ? "export {};"
-      : [
-          `import { ${types.join(", ")} } from "${typesImportPath}";`,
-          "",
-          declarations.join("\n\n"),
-        ].join("\n");
+      : outdent`
+        import { ${types.join(", ")} } from "${typesImportPath}";
+
+        ${declarations.join("\n\n")}
+      `;
 
   await writeFile(path.join(packageConfig.distDirectory, output), `${code}\n`);
 }
