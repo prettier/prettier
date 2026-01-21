@@ -5,11 +5,37 @@ import printString from "../../utilities/print-string.js";
 import getRaw from "../utilities/get-raw.js";
 import { isNumericLiteral, isStringLiteral } from "../utilities/index.js";
 
+/**
+@import {NumericLiteral} from "../types/estree.js"
+*/
+
 const needsQuoteProps = new WeakMap();
 
 // Matches “simple” numbers like `123` and `2.5` but not `1_000`, `1e+100` or `0b10`.
 function isSimpleNumber(numberString) {
   return /^(?:\d+|\d+\.\d+)$/.test(numberString);
+}
+
+/**
+@param {NumericLiteral} numericLiteral
+@returns {boolean}
+*/
+function isNumberSafeToQuote(numericLiteral, options) {
+  const { parser } = options;
+
+  // Quoting number keys is safe in JS and Flow, but not in TypeScript (as
+  // mentioned in `isStringKeySafeToUnquote`).
+  if (parser === "typescript" || parser === "babel-ts" || parser === "oxc-ts") {
+    return false;
+  }
+
+  const printedNumber = printNumber(getRaw(numericLiteral));
+
+  return (
+    // Avoid converting 999999999999999999999 to 1e+21, 0.99999999999999999 to 1 and 1.0 to 1.
+    String(numericLiteral.value) === printedNumber &&
+    isSimpleNumber(printedNumber)
+  );
 }
 
 // Note: Quoting/unquoting numbers in TypeScript is not safe.
@@ -86,17 +112,7 @@ function shouldQuotePropertyKey(path, options, property) {
   const key = path.node[property];
   return (
     (key.type === "Identifier" ||
-      (isNumericLiteral(key) &&
-        isSimpleNumber(printNumber(getRaw(key))) &&
-        // Avoid converting 999999999999999999999 to 1e+21, 0.99999999999999999 to 1 and 1.0 to 1.
-        String(key.value) === printNumber(getRaw(key)) &&
-        // Quoting number keys is safe in JS and Flow, but not in TypeScript (as
-        // mentioned in `isStringKeySafeToUnquote`).
-        !(
-          options.parser === "typescript" ||
-          options.parser === "babel-ts" ||
-          options.parser === "oxc-ts"
-        ))) &&
+      (isNumericLiteral(key) && isNumberSafeToQuote(key, options))) &&
     (options.parser === "json" ||
       options.parser === "jsonc" ||
       (options.quoteProps === "consistent" && needsQuoteProps.get(path.parent)))

@@ -61,3 +61,7 @@ type ExtendNode<Input> = Input extends _Node
   : Input extends readonly any[]
     ? ExtendNode<Input[number]>[]
     : Input;
+
+export type NumericLiteral =
+  | NodeMap["NumericLiteral"]
+  | (NodeMap["Literal"] & { value: number });
