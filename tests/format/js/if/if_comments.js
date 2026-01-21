@@ -53,3 +53,6 @@ async function f5() {
     /* Allow Untracked */ allowUntracked = true;
   }
 }
+
+if (dotPos > this.pos) /** transition forward */;
+      else /** transition backward */;

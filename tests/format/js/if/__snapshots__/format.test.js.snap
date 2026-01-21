@@ -323,6 +323,9 @@ async function f5() {
   }
 }
 
+if (dotPos > this.pos) /** transition forward */;
+      else /** transition backward */;
+
 =====================================output=====================================
 async function f1() {
   if (untrackedChoice === 0) /* Cancel */ {
@@ -374,6 +377,9 @@ async function f5() {
     /* Allow Untracked */ allowUntracked = true;
   }
 }
+
+if (dotPos > this.pos) /** transition forward */ ;
+else /** transition backward */ ;
 
 ================================================================================
 `;
