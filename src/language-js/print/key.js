@@ -38,19 +38,21 @@ function isSimpleNumber(numberString) {
 // (Vue supports unquoted numbers in expressions, but let’s keep it simple.)
 //
 // Identifiers can be unquoted in more circumstances, though.
-function isStringKeySafeToUnquote(node, options) {
+function isStringKeySafeToUnquote(node, options, property = "key") {
+  const key = node[property];
+
   if (
     options.parser === "json" ||
     options.parser === "jsonc" ||
-    !isStringLiteral(node.key) ||
-    printString(getRaw(node.key), options).slice(1, -1) !== node.key.value
+    !isStringLiteral(key) ||
+    printString(getRaw(key), options).slice(1, -1) !== key.value
   ) {
     return false;
   }
 
   // Safe to unquote as identifier
   if (
-    isEs5IdentifierName(node.key.value) &&
+    isEs5IdentifierName(key.value) &&
     // With `--strictPropertyInitialization`, TS treats properties with quoted names differently than unquoted ones.
     // See https://github.com/microsoft/TypeScript/pull/20075
     !(
@@ -64,8 +66,8 @@ function isStringKeySafeToUnquote(node, options) {
 
   // Safe to unquote as number
   if (
-    isSimpleNumber(node.key.value) &&
-    String(Number(node.key.value)) === node.key.value &&
+    isSimpleNumber(key.value) &&
+    String(Number(key.value)) === key.value &&
     node.type !== "ImportAttribute" &&
     (options.parser === "babel" ||
       options.parser === "acorn" ||
@@ -80,8 +82,8 @@ function isStringKeySafeToUnquote(node, options) {
   return false;
 }
 
-function shouldQuotePropertyKey(path, options) {
-  const { key } = path.node;
+function shouldQuotePropertyKey(path, options, property) {
+  const key = path.node[property];
   return (
     (key.type === "Identifier" ||
       (isNumericLiteral(key) &&
@@ -125,25 +127,27 @@ function shouldQuotePropertyKey(path, options) {
 */
 function printKey(path, options, print) {
   const { node } = path;
+  const isTsEnumMember = node.type === "TSEnumMember";
+  const property = isTsEnumMember ? "id" : "key";
 
-  if (node.computed) {
-    return ["[", print("key"), "]"];
+  if (!isTsEnumMember && node.computed) {
+    return ["[", print(property), "]"];
   }
 
   const { parent } = path;
-  const { key } = node;
+  const { [property]: key } = node;
 
   if (options.quoteProps === "consistent" && !needsQuoteProps.has(parent)) {
     const objectHasStringProp = path.siblings.some(
       (prop) =>
-        !prop.computed &&
-        isStringLiteral(prop.key) &&
+        (isTsEnumMember || !prop.computed) &&
+        isStringLiteral(prop[property]) &&
         !isStringKeySafeToUnquote(prop, options),
     );
     needsQuoteProps.set(parent, objectHasStringProp);
   }
 
-  if (shouldQuotePropertyKey(path, options)) {
+  if (shouldQuotePropertyKey(path, options, property)) {
     // a -> "a"
     // 1 -> "1"
     // 1.5 -> "1.5"
@@ -153,11 +157,11 @@ function printKey(path, options, print) {
       ),
       options,
     );
-    return path.call(() => printComments(path, prop, options), "key");
+    return path.call(() => printComments(path, prop, options), property);
   }
 
   if (
-    isStringKeySafeToUnquote(node, options) &&
+    isStringKeySafeToUnquote(node, options, property) &&
     (options.quoteProps === "as-needed" ||
       (options.quoteProps === "consistent" && !needsQuoteProps.get(parent)))
   ) {
@@ -171,11 +175,11 @@ function printKey(path, options, print) {
           /^\d/.test(key.value) ? printNumber(key.value) : key.value,
           options,
         ),
-      "key",
+      property,
     );
   }
 
-  return print("key");
+  return print(property);
 }
 
 export { printKey };

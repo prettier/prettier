@@ -167,7 +167,7 @@ function printFlow(path, options, print) {
     case "EnumBigIntMember":
     case "EnumStringMember":
     case "EnumDefaultedMember":
-      return printEnumMember(path, print);
+      return printEnumMember(path, options, print);
 
     case "FunctionTypeParam": {
       const name = node.name

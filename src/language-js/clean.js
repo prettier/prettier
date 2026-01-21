@@ -27,6 +27,17 @@ const removeTemplateElementsValue = (node) => {
   }
 };
 
+function cleanKey(cloned, original, property) {
+  const key = original[property];
+  if (isStringLiteral(key) || isNumericLiteral(key)) {
+    cloned[property] = String(key.value);
+  }
+
+  if (key.type === "Identifier") {
+    cloned[property] = key.name;
+  }
+}
+
 function clean(original, cloned, parent) {
   if (original.type === "Program") {
     delete cloned.sourceType;
@@ -74,15 +85,13 @@ function clean(original, cloned, parent) {
       original.type === "TSPropertySignature" ||
       original.type === "ObjectTypeProperty" ||
       original.type === "ImportAttribute") &&
-    original.key &&
     !original.computed
   ) {
-    const { key } = original;
-    if (isStringLiteral(key) || isNumericLiteral(key)) {
-      cloned.key = String(key.value);
-    } else if (key.type === "Identifier") {
-      cloned.key = key.name;
-    }
+    cleanKey(cloned, original, "key");
+  }
+
+  if (original.type === "TSEnumMember") {
+    cleanKey(cloned, original, "id");
   }
 
   // Remove raw and cooked values from TemplateElement when it's CSS
