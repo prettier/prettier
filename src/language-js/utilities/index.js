@@ -38,7 +38,7 @@ import {
 } from "./node-types.js";
 
 /**
-@import {Node, NodeMap, Comment} from "../types/estree.js";
+@import {Node, NodeMap, Comment, NumericLiteral, StringLiteral} from "../types/estree.js";
 @import AstPath from "../../common/ast-path.js";
 */
 
@@ -126,7 +126,7 @@ function isNullishCoalescing(node) {
 
 /**
  * @param {Node} node
- * @returns {boolean}
+ * @returns {node is NumericLiteral}
  */
 function isNumericLiteral(node) {
   return (
@@ -156,13 +156,12 @@ function isSignedNumericLiteral(node) {
 
 /**
  * @param {Node} node
- * @returns {boolean}
+ * @returns {node is StringLiteral}
  */
 function isStringLiteral(node) {
-  return Boolean(
-    node &&
-    (node.type === "StringLiteral" ||
-      (node.type === "Literal" && typeof node.value === "string")),
+  return (
+    node?.type === "StringLiteral" ||
+    (node?.type === "Literal" && typeof node.value === "string")
   );
 }
 

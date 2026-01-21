@@ -5,11 +5,48 @@ import printString from "../../utilities/print-string.js";
 import getRaw from "../utilities/get-raw.js";
 import { isNumericLiteral, isStringLiteral } from "../utilities/index.js";
 
-const needsQuoteProps = new WeakMap();
+/**
+@import {Node, NodeMap, NumericLiteral, StringLiteral} from "../types/estree.js"
+*/
+
+const isTsEnumMember = (node) => node.type === "TSEnumMember";
+const getKeyProperty = (node) => (isTsEnumMember(node) ? "id" : "key");
+const getKey = (node) => node[getKeyProperty(node)];
+const isComputedKey = (node) => !isTsEnumMember(node) && node.computed;
 
 // Matches “simple” numbers like `123` and `2.5` but not `1_000`, `1e+100` or `0b10`.
 function isSimpleNumber(numberString) {
   return /^(?:\d+|\d+\.\d+)$/.test(numberString);
+}
+
+/**
+@param {Node} node
+@returns {boolean}
+*/
+function isKeySafeToQuote(node, options) {
+  const key = getKey(node);
+  if (key.type === "Identifier") {
+    return true;
+  }
+
+  if (!isNumericLiteral(key)) {
+    return false;
+  }
+
+  const { parser } = options;
+
+  // Quoting number keys is safe in JS and Flow, but not in TypeScript (as
+  // mentioned in `isKeySafeToUnquote`).
+  if (parser === "typescript" || parser === "babel-ts" || parser === "oxc-ts") {
+    return false;
+  }
+
+  const printedNumber = printNumber(getRaw(key));
+
+  return (
+    // Avoid converting 999999999999999999999 to 1e+21, 0.99999999999999999 to 1 and 1.0 to 1.
+    String(key.value) === printedNumber && isSimpleNumber(printedNumber)
+  );
 }
 
 // Note: Quoting/unquoting numbers in TypeScript is not safe.
@@ -38,43 +75,49 @@ function isSimpleNumber(numberString) {
 // (Vue supports unquoted numbers in expressions, but let’s keep it simple.)
 //
 // Identifiers can be unquoted in more circumstances, though.
-function isStringKeySafeToUnquote(node, options, property) {
-  const key = node[property];
+function isKeySafeToUnquote(node, options) {
+  const { parser } = options;
+  if (parser === "json" || parser === "jsonc") {
+    return false;
+  }
 
-  if (
-    options.parser === "json" ||
-    options.parser === "jsonc" ||
-    !isStringLiteral(key) ||
-    printString(getRaw(key), options).slice(1, -1) !== key.value
-  ) {
+  const key = getKey(node);
+
+  if (!isStringLiteral(key)) {
+    return false;
+  }
+
+  const { value } = key;
+
+  if (printString(getRaw(key), options).slice(1, -1) !== value) {
     return false;
   }
 
   // Safe to unquote as identifier
   if (
-    isEs5IdentifierName(key.value) &&
     // With `--strictPropertyInitialization`, TS treats properties with quoted names differently than unquoted ones.
     // See https://github.com/microsoft/TypeScript/pull/20075
     !(
-      (options.parser === "babel-ts" && node.type === "ClassProperty") ||
-      ((options.parser === "typescript" || options.parser === "oxc-ts") &&
+      (parser === "babel-ts" && node.type === "ClassProperty") ||
+      ((parser === "typescript" || parser === "oxc-ts") &&
         node.type === "PropertyDefinition")
-    )
+    ) &&
+    isEs5IdentifierName(value)
   ) {
     return true;
   }
 
   // Safe to unquote as number
   if (
-    isSimpleNumber(key.value) &&
-    String(Number(key.value)) === key.value &&
+    (parser === "babel" ||
+      parser === "acorn" ||
+      parser === "oxc" ||
+      parser === "espree" ||
+      parser === "meriyah" ||
+      parser === "__babel_estree") &&
     node.type !== "ImportAttribute" &&
-    (options.parser === "babel" ||
-      options.parser === "acorn" ||
-      options.parser === "oxc" ||
-      options.parser === "espree" ||
-      options.parser === "meriyah" ||
-      options.parser === "__babel_estree")
+    isSimpleNumber(value) &&
+    String(Number(value)) === value
   ) {
     return true;
   }
@@ -82,24 +125,43 @@ function isStringKeySafeToUnquote(node, options, property) {
   return false;
 }
 
-function shouldQuotePropertyKey(path, options, property) {
-  const key = path.node[property];
+const needQuoteKeysCache = new WeakMap();
+function hasSiblingsRequireQuoted(path, options) {
+  if (options.quoteProps !== "consistent") {
+    return false;
+  }
+
+  const { parent } = path;
+
+  if (!needQuoteKeysCache.has(parent)) {
+    const hasStringKey = path.siblings.some((sibling) => {
+      if (isComputedKey(sibling)) {
+        return false;
+      }
+      const key = getKey(sibling);
+      return isStringLiteral(key) && !isKeySafeToUnquote(sibling, options);
+    });
+    needQuoteKeysCache.set(parent, hasStringKey);
+  }
+
+  return needQuoteKeysCache.get(parent);
+}
+
+function shouldQuoteKey(path, options) {
   return (
-    (key.type === "Identifier" ||
-      (isNumericLiteral(key) &&
-        isSimpleNumber(printNumber(getRaw(key))) &&
-        // Avoid converting 999999999999999999999 to 1e+21, 0.99999999999999999 to 1 and 1.0 to 1.
-        String(key.value) === printNumber(getRaw(key)) &&
-        // Quoting number keys is safe in JS and Flow, but not in TypeScript (as
-        // mentioned in `isStringKeySafeToUnquote`).
-        !(
-          options.parser === "typescript" ||
-          options.parser === "babel-ts" ||
-          options.parser === "oxc-ts"
-        ))) &&
     (options.parser === "json" ||
       options.parser === "jsonc" ||
-      (options.quoteProps === "consistent" && needsQuoteProps.get(path.parent)))
+      hasSiblingsRequireQuoted(path, options)) &&
+    isKeySafeToQuote(path.node, options)
+  );
+}
+
+function shouldUnquoteKey(path, options) {
+  return (
+    (options.quoteProps === "as-needed" ||
+      (options.quoteProps === "consistent" &&
+        !hasSiblingsRequireQuoted(path, options))) &&
+    isKeySafeToUnquote(path.node, options)
   );
 }
 
@@ -123,60 +185,38 @@ function shouldQuotePropertyKey(path, options, property) {
 - `TSAbstractMethodDefinition` (TypeScript)
 - `TSDeclareMethod` (TypeScript)
 - `TSPropertySignature` (TypeScript)
+- `TSEnumMember`(TypeScript)
 - `ObjectTypeProperty` (Flow)
 */
 function printKey(path, options, print) {
   const { node } = path;
-  const isTsEnumMember = node.type === "TSEnumMember";
-  const property = isTsEnumMember ? "id" : "key";
+  const property = getKeyProperty(node);
 
-  if (!isTsEnumMember && node.computed) {
+  if (isComputedKey(node)) {
     return ["[", print(property), "]"];
   }
 
-  const { parent } = path;
-  const { [property]: key } = node;
-
-  if (options.quoteProps === "consistent" && !needsQuoteProps.has(parent)) {
-    const objectHasStringProp = path.siblings.some(
-      (prop) =>
-        (isTsEnumMember || !prop.computed) &&
-        isStringLiteral(prop[property]) &&
-        !isStringKeySafeToUnquote(prop, options, property),
-    );
-    needsQuoteProps.set(parent, objectHasStringProp);
-  }
-
-  if (shouldQuotePropertyKey(path, options, property)) {
+  if (shouldQuoteKey(path, options)) {
+    /** @type {NodeMap["Identifier"] | NumericLiteral} */
+    const key = getKey(node);
     // a -> "a"
     // 1 -> "1"
     // 1.5 -> "1.5"
-    const prop = printString(
-      JSON.stringify(
-        key.type === "Identifier" ? key.name : key.value.toString(),
-      ),
+    const printed = printString(
+      JSON.stringify(key.type === "Identifier" ? key.name : String(key.value)),
       options,
     );
-    return path.call(() => printComments(path, prop, options), property);
+    return path.call(() => printComments(path, printed, options), property);
   }
 
-  if (
-    isStringKeySafeToUnquote(node, options, property) &&
-    (options.quoteProps === "as-needed" ||
-      (options.quoteProps === "consistent" && !needsQuoteProps.get(parent)))
-  ) {
+  if (shouldUnquoteKey(path, options)) {
+    /** @type {StringLiteral} */
+    const { value } = getKey(node);
     // 'a' -> a
     // '1' -> 1
     // '1.5' -> 1.5
-    return path.call(
-      () =>
-        printComments(
-          path,
-          /^\d/.test(key.value) ? printNumber(key.value) : key.value,
-          options,
-        ),
-      property,
-    );
+    const printed = /^\d/.test(value) ? printNumber(value) : value;
+    return path.call(() => printComments(path, printed, options), property);
   }
 
   return print(property);
