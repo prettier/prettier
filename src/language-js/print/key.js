@@ -6,7 +6,7 @@ import getRaw from "../utilities/get-raw.js";
 import { isNumericLiteral, isStringLiteral } from "../utilities/index.js";
 
 /**
-@import {NumericLiteral} from "../types/estree.js"
+@import {Node} from "../types/estree.js"
 */
 
 const needsQuoteProps = new WeakMap();
@@ -21,10 +21,19 @@ function isSimpleNumber(numberString) {
 }
 
 /**
-@param {NumericLiteral} numericLiteral
+@param {Node} node
 @returns {boolean}
 */
-function isNumberSafeToQuote(numericLiteral, options) {
+function isKeySafeToQuote(node, options) {
+  const key = getKey(node);
+  if (key.type === "Identifier") {
+    return true;
+  }
+
+  if (!isNumericLiteral(key)) {
+    return false;
+  }
+
   const { parser } = options;
 
   // Quoting number keys is safe in JS and Flow, but not in TypeScript (as
@@ -33,12 +42,11 @@ function isNumberSafeToQuote(numericLiteral, options) {
     return false;
   }
 
-  const printedNumber = printNumber(getRaw(numericLiteral));
+  const printedNumber = printNumber(getRaw(key));
 
   return (
     // Avoid converting 999999999999999999999 to 1e+21, 0.99999999999999999 to 1 and 1.0 to 1.
-    String(numericLiteral.value) === printedNumber &&
-    isSimpleNumber(printedNumber)
+    String(key.value) === printedNumber && isSimpleNumber(printedNumber)
   );
 }
 
@@ -119,10 +127,8 @@ function isKeySafeToUnquote(node, options) {
 }
 
 function shouldQuoteKey(path, options) {
-  const key = getKey(path.node);
   return (
-    (key.type === "Identifier" ||
-      (isNumericLiteral(key) && isNumberSafeToQuote(key, options))) &&
+    isKeySafeToQuote(path.node, options) &&
     (options.parser === "json" ||
       options.parser === "jsonc" ||
       (options.quoteProps === "consistent" && needsQuoteProps.get(path.parent)))
@@ -158,6 +164,7 @@ function shouldUnquoteKey(path, options) {
 - `TSAbstractMethodDefinition` (TypeScript)
 - `TSDeclareMethod` (TypeScript)
 - `TSPropertySignature` (TypeScript)
+- `TSEnumMember`(TypeScript)
 - `ObjectTypeProperty` (Flow)
 */
 function printKey(path, options, print) {
