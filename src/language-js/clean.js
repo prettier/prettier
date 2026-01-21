@@ -32,10 +32,10 @@ function cleanKey(original, cloned) {
   // And {key: value} into {'key': value}.
   // Also for (some) number keys.
 
-  let key;
+  let property;
 
   if (original.type === "TSEnumMember") {
-    key = original.id;
+    property = "id";
   } else if (
     (original.type === "Property" ||
       original.type === "ObjectProperty" ||
@@ -49,19 +49,18 @@ function cleanKey(original, cloned) {
       original.type === "ImportAttribute") &&
     !original.computed
   ) {
-    key = original.key;
-  }
-
-  if (!key) {
+    property = "key";
+  } else {
     return;
   }
 
+  const key = original[property];
   if (isStringLiteral(key) || isNumericLiteral(key)) {
-    cloned.key = String(key.value);
+    cloned[property] = String(key.value);
   }
 
   if (key.type === "Identifier") {
-    cloned.key = key.name;
+    cloned[property] = key.name;
   }
 }
 
