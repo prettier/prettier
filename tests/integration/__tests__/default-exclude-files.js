@@ -57,7 +57,10 @@ async function getMatchedFiles(patterns) {
 
   const lines = stderr.split("\n");
 
-  expect(lines.at(-1).endsWith("Run Prettier with --write to fix.")).toBe(true);
+  expect(
+    // eslint-disable-next-line unicorn/prefer-at
+    lines[lines.length - 1].endsWith("Run Prettier with --write to fix."),
+  ).toBe(true);
   expect(lines.every((line) => line.startsWith(EXPECTED_LOG_PREFIX))).toBe(
     true,
   );
