@@ -195,9 +195,7 @@ function printKey(path, options, print) {
     // 1 -> "1"
     // 1.5 -> "1.5"
     const printed = printString(
-      JSON.stringify(
-        key.type === "Identifier" ? key.name : key.value.toString(),
-      ),
+      JSON.stringify(key.type === "Identifier" ? key.name : String(key.value)),
       options,
     );
     return path.call(() => printComments(path, printed, options), property);
