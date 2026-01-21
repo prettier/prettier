@@ -1,0 +1,15 @@
+#### Include available `printers` in plugin type declarations (#XXXX by @porada)
+
+<!-- prettier-ignore -->
+```ts
+// Input
+import * as prettierPluginEstree from "prettier/plugins/estree";
+
+// Prettier stable
+// Property 'printers' does not exist on type 'typeof import("prettier/plugins/estree")'. ts(2339)
+prettierPluginEstree.printers.estree; //=> any
+
+// Prettier main
+prettierPluginEstree.printers.estree; //=> Printer
+prettierPluginEstree.printers["estree-json"]; //=> Printer
+```
