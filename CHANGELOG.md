@@ -2,7 +2,7 @@
 
 [diff](https://github.com/prettier/prettier/compare/3.8.0...3.8.1)
 
-#### API: Include available `printers` in plugin type declarations ([#18706](https://github.com/prettier/prettier/pull/18706) by [@porada](https://github.com/porada))
+#### Include available `printers` in plugin type declarations ([#18706](https://github.com/prettier/prettier/pull/18706) by [@porada](https://github.com/porada))
 
 <!-- prettier-ignore -->
 ```ts
