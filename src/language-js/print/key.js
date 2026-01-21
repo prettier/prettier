@@ -167,13 +167,16 @@ function printKey(path, options, print) {
   const { [property]: key } = node;
 
   if (options.quoteProps === "consistent" && !needsQuoteProps.has(parent)) {
-    const objectHasStringProp = path.siblings.some(
-      (prop) =>
-        !isComputedKey(node) &&
-        isStringLiteral(prop[property]) &&
-        !isStringKeySafeToUnquote(prop, options),
-    );
-    needsQuoteProps.set(parent, objectHasStringProp);
+    const hasStringKey = path.siblings.some((sibling) => {
+      if (isComputedKey(sibling)) {
+        return false;
+      }
+      const key = getKey(sibling);
+      return (
+        isStringLiteral(key) && !isStringKeySafeToUnquote(sibling, options)
+      );
+    });
+    needsQuoteProps.set(parent, hasStringKey);
   }
 
   if (shouldQuoteKey(path, options)) {
