@@ -1,5 +1,5 @@
 import { printAssignment } from "./assignment.js";
-import { printPropertyKey } from "./property-key.js";
+import { printKey } from "./key.js";
 
 /*
 - `Property`
@@ -16,10 +16,10 @@ function printProperty(path, options, print) {
     path,
     options,
     print,
-    printPropertyKey(path, options, print),
+    printKey(path, options, print),
     ":",
     "value",
   );
 }
 
-export { printProperty, printPropertyKey };
+export { printProperty };

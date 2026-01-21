@@ -123,7 +123,7 @@ function shouldQuotePropertyKey(path, options) {
 - `TSPropertySignature` (TypeScript)
 - `ObjectTypeProperty` (Flow)
 */
-function printPropertyKey(path, options, print) {
+function printKey(path, options, print) {
   const { node } = path;
 
   if (node.computed) {
@@ -178,4 +178,4 @@ function printPropertyKey(path, options, print) {
   return print("key");
 }
 
-export { printPropertyKey };
+export { printKey };

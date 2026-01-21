@@ -20,6 +20,7 @@ import { printIndexedAccessType } from "./indexed-access-type.js";
 import { printInferType } from "./infer-type.js";
 import { printIntersectionType } from "./intersection-type.js";
 import { printJSDocType } from "./js-doc-type.js";
+import { printKey } from "./key.js";
 import { printTypeScriptMappedType } from "./mapped-type.js";
 import { printMethodSignature } from "./method-signature.js";
 import {
@@ -29,7 +30,6 @@ import {
 import { printImportKind } from "./module.js";
 import { printModuleDeclaration } from "./module-declaration.js";
 import { printObject } from "./object.js";
-import { printPropertyKey } from "./property.js";
 import { printRestType } from "./rest-type.js";
 import { printTemplateLiteral } from "./template-literal.js";
 import { printTernary } from "./ternary.js";
@@ -111,7 +111,7 @@ function printTypescript(path, options, print) {
     case "TSPropertySignature":
       return [
         node.readonly ? "readonly " : "",
-        printPropertyKey(path, options, print),
+        printKey(path, options, print),
         printOptionalToken(path),
         printTypeAnnotationProperty(path, print),
         printClassMemberSemicolon(path, options),

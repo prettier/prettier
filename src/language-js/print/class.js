@@ -24,6 +24,7 @@ import {
 import { printAssignment } from "./assignment.js";
 import { printClassMemberDecorators } from "./decorators.js";
 import { printMethod } from "./function.js";
+import { printKey } from "./key.js";
 import {
   printAbstractToken,
   printDeclareToken,
@@ -31,7 +32,6 @@ import {
   printOptionalToken,
   printTypeScriptAccessibilityToken,
 } from "./miscellaneous.js";
-import { printPropertyKey } from "./property.js";
 import { printTypeAnnotationProperty } from "./type-annotation.js";
 
 /**
@@ -339,7 +339,7 @@ function printClassProperty(path, options, print) {
     parts.push("accessor ");
   }
   parts.push(
-    printPropertyKey(path, options, print),
+    printKey(path, options, print),
     printOptionalToken(path),
     printDefiniteToken(path),
     printTypeAnnotationProperty(path, print),
