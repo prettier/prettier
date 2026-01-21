@@ -169,8 +169,7 @@ function shouldUnquoteKey(path, options) {
 */
 function printKey(path, options, print) {
   const { node } = path;
-  const isTsEnumMember = node.type === "TSEnumMember";
-  const property = isTsEnumMember ? "id" : "key";
+  const property = getKeyProperty(node);
 
   if (isComputedKey(node)) {
     return ["[", print(property), "]"];
