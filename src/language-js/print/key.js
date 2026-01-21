@@ -9,7 +9,6 @@ import { isNumericLiteral, isStringLiteral } from "../utilities/index.js";
 @import {Node, NodeMap, NumericLiteral, StringLiteral} from "../types/estree.js"
 */
 
-const needsQuoteProps = new WeakMap();
 const isTsEnumMember = (node) => node.type === "TSEnumMember";
 const getKeyProperty = (node) => (isTsEnumMember(node) ? "id" : "key");
 const getKey = (node) => node[getKeyProperty(node)];
@@ -126,21 +125,43 @@ function isKeySafeToUnquote(node, options) {
   return false;
 }
 
+const needQuoteKeysCache = new WeakMap();
+function hasSiblingsRequireQuoted(path, options) {
+  if (options.quoteProps !== "consistent") {
+    return false;
+  }
+
+  const { parent } = path;
+
+  if (!needQuoteKeysCache.has(parent)) {
+    const hasStringKey = path.siblings.some((sibling) => {
+      if (isComputedKey(sibling)) {
+        return false;
+      }
+      const key = getKey(sibling);
+      return isStringLiteral(key) && !isKeySafeToUnquote(sibling, options);
+    });
+    needQuoteKeysCache.set(parent, hasStringKey);
+  }
+
+  return needQuoteKeysCache.get(parent);
+}
+
 function shouldQuoteKey(path, options) {
   return (
-    isKeySafeToQuote(path.node, options) &&
     (options.parser === "json" ||
       options.parser === "jsonc" ||
-      (options.quoteProps === "consistent" && needsQuoteProps.get(path.parent)))
+      hasSiblingsRequireQuoted(path, options)) &&
+    isKeySafeToQuote(path.node, options)
   );
 }
 
 function shouldUnquoteKey(path, options) {
   return (
-    isKeySafeToUnquote(path.node, options) &&
     (options.quoteProps === "as-needed" ||
       (options.quoteProps === "consistent" &&
-        !needsQuoteProps.get(path.parent)))
+        !hasSiblingsRequireQuoted(path, options))) &&
+    isKeySafeToUnquote(path.node, options)
   );
 }
 
@@ -173,19 +194,6 @@ function printKey(path, options, print) {
 
   if (isComputedKey(node)) {
     return ["[", print(property), "]"];
-  }
-
-  const { parent } = path;
-
-  if (options.quoteProps === "consistent" && !needsQuoteProps.has(parent)) {
-    const hasStringKey = path.siblings.some((sibling) => {
-      if (isComputedKey(sibling)) {
-        return false;
-      }
-      const key = getKey(sibling);
-      return isStringLiteral(key) && !isKeySafeToUnquote(sibling, options);
-    });
-    needsQuoteProps.set(parent, hasStringKey);
   }
 
   if (shouldQuoteKey(path, options)) {
