@@ -28,30 +28,15 @@ function printFlowEnumBody(path, options, print) {
 */
 function printEnumMember(path, print) {
   const { node } = path;
+  const isTsEnumMember = node.type === "TSEnumMember";
 
-  let idDoc = print("id");
-
-  if (node.computed) {
-    idDoc = ["[", idDoc, "]"];
-  }
-
-  let initializerDoc = "";
-
-  // `TSEnumMember`
-  if (node.initializer) {
-    initializerDoc = print("initializer");
-  }
-
-  // Flow
-  if (node.init) {
-    initializerDoc = print("init");
-  }
-
-  if (!initializerDoc) {
+  const idDoc = print("id");
+  const initializerProperty = isTsEnumMember ? "initializer" : "init";
+  if (!node[initializerProperty]) {
     return idDoc;
   }
 
-  return [idDoc, " = ", initializerDoc];
+  return [idDoc, " = ", print(initializerProperty)];
 }
 
 /*
