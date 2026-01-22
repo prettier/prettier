@@ -1,3 +1,8 @@
+const shouldSerializeAst = () =>
+  // `BigInt` can't be serialized in chrome
+  // `/(?ims:^[a-z])/u` can't be serialized in Node.js v20 (firefox)
+  true;
+
 function responseInBrowser(function_, context) {
   const { accessPath, optionsIndex, browser } = context;
 
@@ -7,9 +12,7 @@ function responseInBrowser(function_, context) {
       value.comments = [];
     }
 
-    // `BigInt` can't be serialized in chrome
-    // `/(?ims:^[a-z])/u` can't be serialized in Node.js v20 (firefox)
-    if (accessPath === "__debug.parse") {
+    if (accessPath === "__debug.parse" && shouldSerializeAst(context)) {
       value.ast = serializeAst(value.ast);
     }
 
@@ -47,8 +50,7 @@ function requestFromNode(function_, context) {
   const { accessPath, optionsIndex, browser } = context;
 
   function resolve({ value }) {
-    // `BigInt` can't be serialized in chrome
-    if (accessPath === "__debug.parse" && browser === "chrome") {
+    if (accessPath === "__debug.parse" && shouldSerializeAst(context)) {
       value.ast = deserializeAst(value.ast);
     }
 
