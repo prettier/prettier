@@ -222,6 +222,11 @@ function clean(original, cloned, parent) {
   if (original.type === "TemplateLiteral") {
     removeTemplateElementsValue(cloned);
   }
+
+  // We don't add parentheses to `(a?.b)?.c`
+  if (original.type === "ChainExpression") {
+    return cloned.expression;
+  }
 }
 
 clean.ignoredProperties = ignoredProperties;
