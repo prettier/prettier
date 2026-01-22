@@ -8,7 +8,8 @@ function responseInBrowser(function_, context) {
     }
 
     // `BigInt` can't be serialized in chrome
-    if (accessPath === "__debug.parse" && browser === "chrome") {
+    // `/(?ims:^[a-z])/u` can't be serialized in Node.js v20 (firefox)
+    if (accessPath === "__debug.parse") {
       value.ast = serializeAst(value.ast);
     }
 
@@ -140,6 +141,12 @@ function deserializeValue(value) {
       return Number.POSITIVE_INFINITY;
     case "bigint":
       return BigInt(value.bigint);
+    case "regex":
+      try {
+        return new RegExp(value.pattern, value.flags);
+      } catch {
+        return null;
+      }
   }
 
   return value;
@@ -152,6 +159,14 @@ function serializeValue(value) {
 
   if (typeof value === "bigint") {
     return { [INTERNAL_VALUE_KIND]: "bigint", bigint: String(value) };
+  }
+
+  if (value instanceof RegExp) {
+    return {
+      [INTERNAL_VALUE_KIND]: "regex",
+      source: value.source,
+      flags: value.flags,
+    };
   }
 
   return value;
