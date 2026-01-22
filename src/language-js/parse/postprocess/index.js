@@ -166,6 +166,7 @@ function postprocess(ast, options) {
         case "ImportDeclaration":
           if (parser === "hermes" && node.assertions && !node.attributes) {
             node.attributes = node.assertions;
+            delete node.assertions;
           }
           break;
 
