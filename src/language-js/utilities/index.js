@@ -180,7 +180,9 @@ function isStringLiteral(node) {
 function isRegExpLiteral(node) {
   return (
     node.type === "RegExpLiteral" ||
-    (node.type === "Literal" && "regex" in node)
+    (node.type === "Literal" &&
+      // @ts-expect-error -- Safe
+      Boolean(node.regex))
   );
 }
 
@@ -191,7 +193,9 @@ function isRegExpLiteral(node) {
 function isBigIntLiteral(node) {
   return (
     node.type === "BigIntLiteral" ||
-    (node.type === "Literal" && "bigint" in node)
+    (node.type === "Literal" &&
+      // @ts-expect-error -- Safe
+      Boolean(node.bigint))
   );
 }
 
