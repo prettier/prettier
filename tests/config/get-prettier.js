@@ -3,8 +3,8 @@ import { pathToFileURL } from "node:url";
 
 function getPrettierInternal() {
   if (process.env.TEST_RUNTIME === "browser") {
-    return import("./browser/get-browser-prettier.js").then(
-      ({ getBrowserPrettier }) => getBrowserPrettier(),
+    return import("./browser/browser-prettier.js").then(
+      ({ prettier }) => prettier,
     );
   }
 
