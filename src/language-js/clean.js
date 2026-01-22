@@ -55,7 +55,10 @@ function clean(original, cloned, parent) {
     delete cloned.sourceType;
   }
 
-  if (isBigIntLiteral(original) && "bigint" in original) {
+  if (
+    (isBigIntLiteral(original) && "bigint" in original) ||
+    original.type === "BigIntLiteralTypeAnnotation"
+  ) {
     cloned.bigint = original.bigint.toLowerCase();
   }
 
