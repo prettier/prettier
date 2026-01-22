@@ -19,6 +19,8 @@ const ignoredProperties = new Set([
   "flags",
   "errors",
   "tokens",
+  // Hermes
+  "trailingComma",
 ]);
 
 const removeTemplateElementsValue = (node) => {
