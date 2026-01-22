@@ -420,8 +420,9 @@ async function runTest({
     expect(formatResult.eolVisualizedOutput).toBe(visualizeEndOfLine(output));
   }
 
+  const isMainParser = mainParserFormatOptions.parser === parser;
   // All parsers have the same result, only snapshot the result from main parser
-  if (mainParserFormatOptions.parser === parser) {
+  if (isMainParser) {
     expect(
       createSnapshot(formatResult, {
         parsers,
@@ -432,6 +433,25 @@ async function runTest({
   }
 
   if (!FULL_TEST) {
+    return;
+  }
+
+  // Some parsers skip parsing empty files
+  if (formatResult.changed && code.trim()) {
+    const { input, output } = formatResult;
+    const [originalAst, formattedAst] = await Promise.all(
+      [input, output].map((code) => parse(code, format)),
+    );
+    const isAstUnstableTest = isAstUnstable(filename, formatOptions);
+
+    if (isAstUnstableTest) {
+      expect(formattedAst).not.toEqual(originalAst);
+    } else {
+      expect(formattedAst).toEqual(originalAst);
+    }
+  }
+
+  if (!isMainParser) {
     return;
   }
 
