@@ -62,10 +62,10 @@
 
 
 // Not `.object`
-_[a?.b!]
+_[a?.b!];
 
 // Computed
-(a?.b!)   [foo]
+(a?.b!)   [foo];
 
 // In optional chaining
 (a?.b!)?.c;
