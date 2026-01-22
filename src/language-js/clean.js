@@ -207,6 +207,15 @@ function clean(original, cloned, parent) {
     removeTemplateElementsValue(cloned.quasi);
   }
 
+  if (
+    (original.type === "CallExpression" ||
+      original.type === "MemberExpression") &&
+    // @ts-expect-error -- safe
+    !original.optional
+  ) {
+    delete cloned.optional;
+  }
+
   // TODO: Only delete value when there is leading comment which is exactly
   // `/* GraphQL */` or `/* HTML */`
   // Also see ./embed.js
