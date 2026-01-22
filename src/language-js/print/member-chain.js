@@ -93,7 +93,8 @@ function printMemberChain(path, options, print) {
 
     if (
       isCallExpression(node) &&
-      (isMemberish(node.callee) || isCallExpression(node.callee))
+      (isMemberish(node.callee) || isCallExpression(node.callee)) &&
+      !needsParentheses(path, options)
     ) {
       const hasTrailingEmptyLine = shouldInsertEmptyLineAfter(node);
       printedNodes.unshift({
@@ -113,10 +114,9 @@ function printMemberChain(path, options, print) {
         ],
       });
       path.call(rec, "callee");
-    } else if (isMemberish(node)) {
+    } else if (isMemberish(node) && !needsParentheses(path, options)) {
       printedNodes.unshift({
         node,
-        needsParens: needsParentheses(path, options),
         printed: printComments(
           path,
           isMemberExpression(node)
@@ -126,10 +126,12 @@ function printMemberChain(path, options, print) {
         ),
       });
       path.call(rec, "object");
-    } else if (node.type === "TSNonNullExpression") {
+    } else if (
+      node.type === "TSNonNullExpression" &&
+      !needsParentheses(path, options)
+    ) {
       printedNodes.unshift({
         node,
-        needsParens: needsParentheses(path, options),
         printed: printComments(path, "!", options),
       });
       path.call(rec, "expression");
