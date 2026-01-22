@@ -418,9 +418,8 @@ async function runTest({
   if (typeof output === "string") {
     expect(formatResult.eolVisualizedOutput).toBe(visualizeEndOfLine(output));
   }
-
   // All parsers have the same result, only snapshot the result from main parser
-  if (isMainParser) {
+  else if (isMainParser) {
     expect(
       createSnapshot(formatResult, {
         parsers,
