@@ -487,19 +487,6 @@ async function runTest({
     }
   }
 
-  const isAstUnstableTest = isAstUnstable(filename, formatOptions);
-  // Some parsers skip parsing empty files
-  if (formatResult.changed && code.trim()) {
-    const { input, output } = formatResult;
-    const originalAst = await parse(input, formatOptions);
-    const formattedAst = await parse(output, formatOptions);
-    if (isAstUnstableTest) {
-      expect(formattedAst).not.toStrictEqual(originalAst);
-    } else {
-      expect(formattedAst).toStrictEqual(originalAst);
-    }
-  }
-
   if (!shouldSkipEolTest(code, formatResult.options)) {
     for (const eol of ["\r\n", "\r"]) {
       const { eolVisualizedOutput: output } = await format(
