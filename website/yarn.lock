@@ -5121,12 +5121,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:*, @types/react@npm:19.2.7":
-  version: 19.2.7
-  resolution: "@types/react@npm:19.2.7"
+"@types/react@npm:*, @types/react@npm:19.2.9":
+  version: 19.2.9
+  resolution: "@types/react@npm:19.2.9"
   dependencies:
     csstype: "npm:^3.2.2"
-  checksum: 10/dc0b756eee2c9782d282ae47eaa8d537b2a569eb889a6808c4b172d70fb690b2b1d8fe6239db451aa1c90d2a947cc21c9b537ce177ba9e6121468e403e4079c5
+  checksum: 10/580a4acf91cb596edfcf280e3d94380bd5bc675fdce257787432cc77ab67440374fd17a1abde869f3bd47ec1705bf2d66e442a9e9e371603f628e34f9d5790a6
   languageName: node
   linkType: hard
 
@@ -13231,7 +13231,7 @@ __metadata:
     "@lezer/highlight": "npm:1.2.3"
     "@mdx-js/react": "npm:3.1.1"
     "@sandhose/prettier-animated-logo": "npm:1.0.3"
-    "@types/react": "npm:19.2.7"
+    "@types/react": "npm:19.2.9"
     "@vitejs/plugin-vue": "npm:6.0.3"
     "@vitejs/plugin-vue-jsx": "npm:5.1.3"
     "@xiechao/codemirror-lang-handlebars": "npm:1.0.4"
@@ -13249,7 +13249,7 @@ __metadata:
     react-markdown: "npm:10.1.0"
     react-tweet: "npm:3.2.2"
     rollup-plugin-visualizer: "npm:6.0.5"
-    vite: "npm:7.3.0"
+    vite: "npm:7.3.1"
     vue: "npm:3.5.26"
     yaml: "npm:2.8.2"
   languageName: unknown
@@ -14590,9 +14590,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite@npm:7.3.0":
-  version: 7.3.0
-  resolution: "vite@npm:7.3.0"
+"vite@npm:7.3.1":
+  version: 7.3.1
+  resolution: "vite@npm:7.3.1"
   dependencies:
     esbuild: "npm:^0.27.0"
     fdir: "npm:^6.5.0"
@@ -14641,7 +14641,7 @@ __metadata:
       optional: true
   bin:
     vite: bin/vite.js
-  checksum: 10/044490133aaf4cc024700995edaac10ff182262c721a44a8ac7839207b3e5af435c8b9dd8ee4658dc0f47147fa4211632cca3120177aa4bab99a7cb095e5149e
+  checksum: 10/62e48ffa4283b688f0049005405a004447ad38ffc99a0efea4c3aa9b7eed739f7402b43f00668c0ee5a895b684dc953d62f0722d8a92c5b2f6c95f051bceb208
   languageName: node
   linkType: hard
 
