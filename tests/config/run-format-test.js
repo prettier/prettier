@@ -451,9 +451,9 @@ async function runTest({
     const isAstUnstableTest = isAstUnstable(filename, formatOptions);
 
     if (isAstUnstableTest) {
-      expect(formattedAst).not.toEqual(originalAst);
+      expect(formattedAst).not.toStrictEqual(originalAst);
     } else {
-      expect(formattedAst).toEqual(originalAst);
+      expect(formattedAst).toStrictEqual(originalAst);
     }
   }
 
