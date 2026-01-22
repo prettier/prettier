@@ -392,11 +392,10 @@ async function runTest({
   let formatResult = mainParserFormatResult;
   expect(formatResult).toBeDefined();
 
+  const isMainParser = mainParserFormatOptions.parser === parser;
+
   // Verify parsers or error tests
-  if (
-    mainParserFormatResult.error ||
-    mainParserFormatOptions.parser !== parser
-  ) {
+  if (mainParserFormatResult.error || !isMainParser) {
     formatOptions = { ...mainParserFormatResult.options, parser };
     const runFormat = () => format(code, formatOptions);
 
@@ -420,7 +419,6 @@ async function runTest({
     expect(formatResult.eolVisualizedOutput).toBe(visualizeEndOfLine(output));
   }
 
-  const isMainParser = mainParserFormatOptions.parser === parser;
   // All parsers have the same result, only snapshot the result from main parser
   if (isMainParser) {
     expect(
@@ -440,7 +438,7 @@ async function runTest({
   if (formatResult.changed && code.trim()) {
     const { input, output } = formatResult;
     const [originalAst, formattedAst] = await Promise.all(
-      [input, output].map((code) => parse(code, format)),
+      [input, output].map((code) => parse(code, formatOptions)),
     );
     const isAstUnstableTest = isAstUnstable(filename, formatOptions);
 
