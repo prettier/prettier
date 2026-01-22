@@ -62,3 +62,9 @@
 
 // Not `.callee`
 foo((a?.b)!)
+
+// In optional chaining
+(a?.b()!)?.();
+(a?.b())!?.();
+(a?.b!()).c?.();
+(a?.b())!.c?.();

@@ -61,4 +61,8 @@ new   ((a?.()!)())   ();
 new   ((a!?.())())   ();
 
 // Not `.callee`
-new Foo(a?.b!)
+new Foo(a?.b!);
+
+// In optional chaining
+new ((a?.b!)?.c)();
+new ((a?.b)!?.c)();

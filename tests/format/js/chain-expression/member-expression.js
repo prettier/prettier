@@ -22,3 +22,7 @@ _[a?.b];
 
 // Computed
 (a?.b)   [foo];
+
+// In optional chaining
+(a?.b)?.c;
+(a?.b).c?.d;
