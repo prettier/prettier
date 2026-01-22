@@ -45,6 +45,46 @@ function cleanKey(cloned, original, property) {
   }
 }
 
+function cleanEstreeChainExpression(node) {
+  while (true) {
+    if (node.type === "MemberExpression") {
+      if (node.object.type === "ChainExpression") {
+        node.object = node.object.expression;
+      }
+      node = node.object;
+      continue;
+    }
+
+    if (node.type === "CallExpression") {
+      if (node.callee.type === "ChainExpression") {
+        node.callee = node.callee.expression;
+      }
+      node = node.callee;
+      continue;
+    }
+
+    return;
+  }
+}
+
+function cleanBabelChainExpression(node) {
+  while (true) {
+    if (node.type === "MemberExpression") {
+      node.type = "OptionalMemberExpression";
+      node = node.object;
+      continue;
+    }
+
+    if (node.type === "CallExpression") {
+      node.type = "OptionalCallExpression";
+      node = node.callee;
+      continue;
+    }
+
+    return;
+  }
+}
+
 /**
 @param {Node} original
 @param {any} cloned
@@ -225,7 +265,13 @@ function clean(original, cloned, parent) {
 
   // We don't add parentheses to `(a?.b)?.c`
   if (original.type === "ChainExpression") {
-    return cloned.expression;
+    cleanEstreeChainExpression(cloned.expression);
+  }
+  if (original.type === "OptionalMemberExpression") {
+    cleanBabelChainExpression(cloned.object);
+  }
+  if (original.type === "OptionalCallExpression") {
+    cleanBabelChainExpression(cloned.callee);
   }
 
   // https://github.com/babel/babel/issues/17719

@@ -18,4 +18,8 @@
 ((a?.())())   ();
 
 // Not `.callee`
-foo(a?.b)
+foo(a?.b);
+
+// In optional chaining
+(a?.b())?.();
+// FIXME: (a?.b()).c?.();
