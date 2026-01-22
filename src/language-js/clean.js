@@ -130,14 +130,15 @@ function clean(original, cloned, parent) {
   }
 
   // We change quotes
-  if (original.type === "JSXAttribute") {
-    const attributeValue = original.value;
-    if (isStringLiteral(attributeValue)) {
-      const { value } = attributeValue;
-      if (/["']|&quot;|&apos;/.test(value)) {
-        cloned.value.value = value.replaceAll(/["']|&quot;|&apos;/g, '"');
-      }
-    }
+  if (
+    original.type === "JSXAttribute" &&
+    isStringLiteral(original.value) &&
+    /["']|&quot;|&apos;/.test(original.value.value)
+  ) {
+    cloned.value.value = original.value.value.replaceAll(
+      /["']|&quot;|&apos;/g,
+      '"',
+    );
   }
 
   // Angular Components: Inline HTML template and Inline CSS styles
