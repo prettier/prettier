@@ -29,7 +29,8 @@ export default function searchUsers(action$) {
     .map((action) => action.payload.query)
     .filter((q) => !!q)
     .switchMap((q) =>
-      Observable.timer(800) // debounce
+      Observable
+        .timer(800) // debounce
         .takeUntil(action$.ofType(ActionTypes.CLEARED_SEARCH_RESULTS))
         .mergeMap(() =>
           Observable.merge(
