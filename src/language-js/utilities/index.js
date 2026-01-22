@@ -588,11 +588,8 @@ function isSimpleCallArgument(node, depth = 2) {
 
   if (isRegExpLiteral(node)) {
     return (
-      getStringWidth(
-        node.pattern ??
-          // @ts-expect-error -- safe
-          node.regex.pattern,
-      ) <= 5
+      // @ts-expect-error -- safe
+      getStringWidth(node.pattern ?? node.regex.pattern) <= 5
     );
   }
 

@@ -105,6 +105,7 @@ function clean(original, cloned, parent) {
       original.type === "ImportAttribute" ||
       original.type === "RecordDeclarationProperty" ||
       original.type === "RecordDeclarationStaticProperty") &&
+    // @ts-expect-error -- safe
     !original.computed
   ) {
     cleanKey(cloned, original, "key");
@@ -118,6 +119,7 @@ function clean(original, cloned, parent) {
   // styled-jsx
   if (
     original.type === "JSXElement" &&
+    original.openingElement.name.type === "JSXIdentifier" &&
     original.openingElement.name.name === "style" &&
     original.openingElement.attributes.some(
       (attr) => attr.type === "JSXAttribute" && attr.name.name === "jsx",
@@ -156,6 +158,7 @@ function clean(original, cloned, parent) {
   }
 
   // Angular Components: Inline HTML template and Inline CSS styles
+  // @ts-expect-error -- Fixme
   const expression = original.expression || original.callee;
   if (
     original.type === "Decorator" &&
@@ -163,6 +166,7 @@ function clean(original, cloned, parent) {
     expression.callee.name === "Component" &&
     expression.arguments.length === 1
   ) {
+    // @ts-expect-error -- Fixme
     const astProps = original.expression.arguments[0].properties;
     for (const [
       index,
