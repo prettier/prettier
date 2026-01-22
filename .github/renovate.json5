@@ -17,7 +17,7 @@
     },
     {
       groupName: "react",
-      matchPackageNames: ["react", "react-dom"],
+      matchPackageNames: ["react", "react-dom", "@types/react"],
     },
     {
       groupName: "babel",
