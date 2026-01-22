@@ -15,18 +15,18 @@ test("plugins", async () => {
       parser: "uppercase-rocks",
       plugins: [pluginUrl],
     }),
-  ).resolves.toEqual(expectedOutput);
+  ).resolves.toBe(expectedOutput);
 
   await expect(
     prettier.format(input, {
       parser: "uppercase-rocks",
       plugins: [pluginUrl.href],
     }),
-  ).resolves.toEqual(expectedOutput);
+  ).resolves.toBe(expectedOutput);
   await expect(
     prettier.format(input, {
       parser: "uppercase-rocks",
       plugins: [url.fileURLToPath(pluginUrl)],
     }),
-  ).resolves.toEqual(expectedOutput);
+  ).resolves.toBe(expectedOutput);
 });

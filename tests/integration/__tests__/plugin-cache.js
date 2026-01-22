@@ -17,5 +17,5 @@ test("Plugin instance should not cached", async () => {
       ],
       parser: "baz",
     }),
-  ]).toEqual(["1", "2"]);
+  ]).toStrictEqual(["1", "2"]);
 });

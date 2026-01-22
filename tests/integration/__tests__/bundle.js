@@ -217,24 +217,24 @@ test("Commonjs version", () => {
     path.join(distDirectory, "index.cjs"),
   );
 
-  expect(Object.keys(prettierCommonjsVersion).sort()).toEqual(
+  expect(Object.keys(prettierCommonjsVersion).sort()).toStrictEqual(
     Object.keys(prettier)
       .filter((key) => key !== "default" && key !== "__internal")
       .sort(),
   );
   expect(typeof prettierCommonjsVersion.format).toBe("function");
 
-  expect(Object.keys(prettierCommonjsVersion.doc)).toEqual(
+  expect(Object.keys(prettierCommonjsVersion.doc)).toStrictEqual(
     Object.keys(prettier.doc).filter((key) => key !== "default"),
   );
   expect(typeof prettierCommonjsVersion.doc.builders.fill).toBe("function");
 
-  expect(Object.keys(prettierCommonjsVersion.util)).toEqual(
+  expect(Object.keys(prettierCommonjsVersion.util)).toStrictEqual(
     Object.keys(prettier.util),
   );
   expect(typeof prettierCommonjsVersion.util.getStringWidth).toBe("function");
 
-  expect(Object.keys(prettierCommonjsVersion.__debug).sort()).toEqual(
+  expect(Object.keys(prettierCommonjsVersion.__debug).sort()).toStrictEqual(
     Object.keys(prettier.__debug)
       .filter((key) => key !== "mockable")
       .sort(),

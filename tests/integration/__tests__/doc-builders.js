@@ -71,6 +71,6 @@ describe("doc builders", () => {
       },
     ],
   ])("%s", (_, doc, expected) => {
-    expect(doc).toEqual(expected);
+    expect(doc).toStrictEqual(expected);
   });
 });
