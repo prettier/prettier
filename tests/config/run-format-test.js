@@ -418,17 +418,18 @@ async function runTest({
   // The result is assert to equals to `output`
   if (typeof output === "string") {
     expect(formatResult.eolVisualizedOutput).toBe(visualizeEndOfLine(output));
-    return;
   }
 
   // All parsers have the same result, only snapshot the result from main parser
-  expect(
-    createSnapshot(formatResult, {
-      parsers,
-      formatOptions,
-      CURSOR_PLACEHOLDER,
-    }),
-  ).toMatchSnapshot();
+  if (mainParserFormatOptions.parser === parser) {
+    expect(
+      createSnapshot(formatResult, {
+        parsers,
+        formatOptions,
+        CURSOR_PLACEHOLDER,
+      }),
+    ).toMatchSnapshot();
+  }
 
   if (!FULL_TEST) {
     return;
