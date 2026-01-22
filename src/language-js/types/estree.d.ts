@@ -76,4 +76,4 @@ export type RegExpLiteral =
 
 export type BigIntLiteral =
   | NodeMap["BigIntLiteral"]
-  | Extract<NodeMap["Literal"], { bigint: string }>;
+  | (NodeMap["Literal"] & { bigint: string });
