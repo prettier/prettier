@@ -1,9 +1,14 @@
 import {
   isArrayExpression,
+  isBigIntLiteral,
   isMeaningfulEmptyStatement,
   isNumericLiteral,
   isStringLiteral,
 } from "./utilities/index.js";
+
+/**
+@import {Node} from "./types/estree.js"
+*/
 
 const ignoredProperties = new Set([
   "range",
@@ -16,7 +21,6 @@ const ignoredProperties = new Set([
   "start",
   "end",
   "loc",
-  "flags",
   "errors",
   "tokens",
   // Hermes
@@ -41,16 +45,26 @@ function cleanKey(cloned, original, property) {
   }
 }
 
+/**
+@param {Node} original
+@param {any} cloned
+@param {Node | undefined} parent
+*/
 function clean(original, cloned, parent) {
   if (original.type === "Program") {
     delete cloned.sourceType;
   }
 
-  if (
-    (original.type === "BigIntLiteral" || original.type === "Literal") &&
-    original.bigint
-  ) {
+  if (isBigIntLiteral(original) && "bigint" in original) {
     cloned.bigint = original.bigint.toLowerCase();
+  }
+
+  if (original.type === "RegExpLiteral") {
+    cloned.flags = [...original.flags].sort().join("");
+  }
+
+  if (original.type === "Literal" && "regex" in original) {
+    cloned.regex.flags = [...original.regex.flags].sort().join("");
   }
 
   // We remove extra `;` and add them when needed

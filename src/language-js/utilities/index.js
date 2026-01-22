@@ -38,7 +38,15 @@ import {
 } from "./node-types.js";
 
 /**
-@import {Node, NodeMap, Comment, NumericLiteral, StringLiteral} from "../types/estree.js";
+@import {
+  Node,
+  NodeMap,
+  Comment,
+  NumericLiteral,
+  StringLiteral,
+  RegExpLiteral,
+  BigIntLiteral,
+} from "../types/estree.js";
 @import AstPath from "../../common/ast-path.js";
 */
 
@@ -165,10 +173,25 @@ function isStringLiteral(node) {
   );
 }
 
+/**
+ * @param {Node} node
+ * @returns {node is RegExpLiteral}
+ */
 function isRegExpLiteral(node) {
   return (
     node.type === "RegExpLiteral" ||
-    (node.type === "Literal" && Boolean(node.regex))
+    (node.type === "Literal" && "regex" in node)
+  );
+}
+
+/**
+ * @param {Node} node
+ * @returns {node is BigIntLiteral}
+ */
+function isBigIntLiteral(node) {
+  return (
+    node.type === "BigIntLiteral" ||
+    (node.type === "Literal" && "bigint" in node)
   );
 }
 
@@ -564,7 +587,13 @@ function isSimpleCallArgument(node, depth = 2) {
   node = stripChainElementWrappers(node);
 
   if (isRegExpLiteral(node)) {
-    return getStringWidth(node.pattern ?? node.regex.pattern) <= 5;
+    return (
+      getStringWidth(
+        node.pattern ??
+          // @ts-expect-error -- safe
+          node.regex.pattern,
+      ) <= 5
+    );
   }
 
   if (
@@ -1101,6 +1130,7 @@ export {
   hasNodeIgnoreComment,
   hasRestParameter,
   isArrayExpression,
+  isBigIntLiteral,
   isBinaryCastExpression,
   isBinaryish,
   isBitwiseOperator,
