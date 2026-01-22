@@ -21,6 +21,7 @@ const ignoredProperties = new Set([
   "tokens",
   // Hermes
   "trailingComma",
+  "docblock",
 ]);
 
 const removeTemplateElementsValue = (node) => {
@@ -43,16 +44,6 @@ function cleanKey(cloned, original, property) {
 function clean(original, cloned, parent) {
   if (original.type === "Program") {
     delete cloned.sourceType;
-
-    // Hermes
-    if (original.docblock?.comment) {
-      const { comment } = cloned.docblock;
-      delete comment.loc;
-      delete comment.range;
-      comment.value = original.docblock.comment.value
-        .split("\n")
-        .map((line) => line.trim());
-    }
   }
 
   if (
@@ -139,15 +130,14 @@ function clean(original, cloned, parent) {
   }
 
   // We change quotes
-  if (
-    original.type === "JSXAttribute" &&
-    original.value?.type === "Literal" &&
-    /["']|&quot;|&apos;/.test(original.value.value)
-  ) {
-    cloned.value.value = original.value.value.replaceAll(
-      /["']|&quot;|&apos;/g,
-      '"',
-    );
+  if (original.type === "JSXAttribute") {
+    const attributeValue = original.value;
+    if (isStringLiteral(attributeValue)) {
+      const { value } = attributeValue;
+      if (/["']|&quot;|&apos;/.test(value)) {
+        cloned.value.value = value.replaceAll(/["']|&quot;|&apos;/g, '"');
+      }
+    }
   }
 
   // Angular Components: Inline HTML template and Inline CSS styles
