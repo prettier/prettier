@@ -96,7 +96,6 @@ function print(path, options, print, args) {
   }
 
   const needsParens = needsParentheses(path, options);
-
   const needsSemi = shouldPrintLeadingSemicolon(path, options);
 
   if (!decoratorsDoc && !needsParens && !needsSemi) {
