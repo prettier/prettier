@@ -411,15 +411,13 @@ async function runTest({
   }
 
   // Make sure output has consistent EOL
-  expect(formatResult.eolVisualizedOutput).toStrictEqual(
+  expect(formatResult.eolVisualizedOutput).toBe(
     visualizeEndOfLine(consistentEndOfLine(formatResult.outputWithCursor)),
   );
 
   // The result is assert to equals to `output`
   if (typeof output === "string") {
-    expect(formatResult.eolVisualizedOutput).toStrictEqual(
-      visualizeEndOfLine(output),
-    );
+    expect(formatResult.eolVisualizedOutput).toBe(visualizeEndOfLine(output));
     return;
   }
 
@@ -456,9 +454,9 @@ async function runTest({
 
       // To keep eye on failed tests, this assert never supposed to pass,
       // if it fails, just remove the file from `unstableTests`
-      expect(secondOutput).not.toStrictEqual(firstOutput);
+      expect(secondOutput).not.toBe(firstOutput);
     } else {
-      expect(secondOutput).toStrictEqual(firstOutput);
+      expect(secondOutput).toBe(firstOutput);
     }
   }
 
@@ -489,7 +487,7 @@ async function runTest({
               formatResult.outputWithCursor.replace(/\n/g, eol),
             )
           : formatResult.eolVisualizedOutput;
-      expect(output).toStrictEqual(expected);
+      expect(output).toBe(expected);
     }
   }
 
@@ -499,7 +497,7 @@ async function runTest({
       formatOptions,
     );
     const expected = BOM + formatResult.eolVisualizedOutput;
-    expect(output).toStrictEqual(expected);
+    expect(output).toBe(expected);
   }
 }
 
