@@ -848,7 +848,6 @@ function needsParentheses(path, options) {
         while (object) {
           switch (object.type) {
             case "CallExpression":
-            case "OptionalCallExpression":
               return true;
             case "MemberExpression":
             case "OptionalMemberExpression":

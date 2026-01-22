@@ -22,4 +22,4 @@ foo(a?.b);
 
 // In optional chaining
 (a?.b())?.();
-// FIXME: (a?.b()).c?.();
+(a?.b()).c?.();

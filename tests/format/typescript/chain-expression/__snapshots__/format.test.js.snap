@@ -24,7 +24,7 @@ printWidth: 80
 (a[b!?.c])   ();
 ((a?.b).c)!   ();
 ((a?.b).c!)   ();
-// FIXME: ((a?.b!).c)   ();
+((a?.b!).c)   ();
 ((a!?.b).c)   ();
 (a[b?.()])!   ();
 (a[b?.()]!)   ();
@@ -33,8 +33,8 @@ printWidth: 80
 (a![b?.()])   ();
 ((a?.b).c)!   ();
 ((a?.b).c!)   ();
-// FIXME: ((a?.b)!.c)   ();
-// FIXME: ((a?.b!).c)   ();
+((a?.b)!.c)   ();
+((a?.b!).c)   ();
 ((a!?.b).c)   ();
 ((a?.()).b)!   ();
 ((a?.()).b!)   ();
@@ -75,7 +75,7 @@ foo((a?.b)!);
 (a?.b()!)?.();
 (a?.b())!?.();
 (a?.b!()).c?.();
-// FIXME: (a?.b())!.c?.();
+(a?.b())!.c?.();
 
 =====================================output=====================================
 // Member expressions
@@ -96,7 +96,7 @@ a[b?.c!]();
 a[b!?.c]();
 (a?.b).c!();
 (a?.b).c!();
-// FIXME: ((a?.b!).c)   ();
+(a?.b!).c();
 (a!?.b).c();
 a[b?.()]!();
 a[b?.()]!();
@@ -105,8 +105,8 @@ a[b!?.()]();
 a![b?.()]();
 (a?.b).c!();
 (a?.b).c!();
-// FIXME: ((a?.b)!.c)   ();
-// FIXME: ((a?.b!).c)   ();
+(a?.b)!.c();
+(a?.b!).c();
 (a!?.b).c();
 (a?.()).b!();
 (a?.()).b!();
@@ -147,7 +147,7 @@ foo((a?.b)!);
 a?.b()!?.();
 (a?.b())!?.();
 (a?.b!()).c?.();
-// FIXME: (a?.b())!.c?.();
+(a?.b())!.c?.();
 
 ================================================================================
 `;
@@ -385,15 +385,15 @@ printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
 // Member expressions
-// FIXME: new   (a?.b)!   ();
-// FIXME: new   (a?.b!)   ();
+new   (a?.b)!   ();
+new   (a?.b!)   ();
 new   (a!?.b)   ();
-// FIXME: new   (a.b?.c)!   ();
-// FIXME: new   (a.b?.c!)   ();
+new   (a.b?.c)!   ();
+new   (a.b?.c!)   ();
 new   (a.b!?.c)   ();
 new   (a!.b?.c)   ();
-// FIXME: new   (a?.b.c)!   ();
-// FIXME: new   (a?.b.c!)   ();
+new   (a?.b.c)!   ();
+new   (a?.b.c!)   ();
 new   (a?.b!.c)   ();
 new   (a!?.b.c)   ();
 new   (a[b?.c])!   ();
@@ -414,24 +414,24 @@ new   ((a?.b).c!)   ();
 new   ((a?.b)!.c)   ();
 new   ((a?.b!).c)   ();
 new   ((a!?.b).c)   ();
-// FIXME: new   ((a?.()).b)!   ();
-// FIXME: new   ((a?.()).b!)   ();
-// FIXME: new   ((a?.())!.b)   ();
-// FIXME: new   ((a?.()!).b)   ();
-// FIXME: new   ((a!?.()).b)   ();
+new   ((a?.()).b)!   ();
+new   ((a?.()).b!)   ();
+new   ((a?.())!.b)   ();
+new   ((a?.()!).b)   ();
+new   ((a!?.()).b)   ();
 
 // Call expressions
-// FIXME: new   (a?.())!   ();
-// FIXME: new   (a?.()!)   ();
+new   (a?.())!   ();
+new   (a?.()!)   ();
 new   (a!?.())   ();
-// FIXME: new   (a.b.c?.())!   ();
-// FIXME: new   (a.b.c?.()!)   ();
+new   (a.b.c?.())!   ();
+new   (a.b.c?.()!)   ();
 new   (a.b.c!?.())   ();
-// FIXME: new   (a.b?.c())!   ();
-// FIXME: new   (a.b?.c()!)   ();
+new   (a.b?.c())!   ();
+new   (a.b?.c()!)   ();
 new   (a.b!?.c())   ();
-// FIXME: new   (a?.b.c())!   ();
-// FIXME: new   (a?.b.c()!)   ();
+new   (a?.b.c())!   ();
+new   (a?.b.c()!)   ();
 new   (a?.b!.c())   ();
 new   (a(b?.c))!   ();
 new   (a(b?.c)!)   ();
@@ -455,15 +455,15 @@ new ((a?.b)!?.c)();
 
 =====================================output=====================================
 // Member expressions
-// FIXME: new   (a?.b)!   ();
-// FIXME: new   (a?.b!)   ();
+new (a?.b)!();
+new (a?.b!)();
 new (a!?.b)();
-// FIXME: new   (a.b?.c)!   ();
-// FIXME: new   (a.b?.c!)   ();
+new (a.b?.c)!();
+new (a.b?.c!)();
 new (a.b!?.c)();
 new (a!.b?.c)();
-// FIXME: new   (a?.b.c)!   ();
-// FIXME: new   (a?.b.c!)   ();
+new (a?.b.c)!();
+new (a?.b.c!)();
 new (a?.b!.c)();
 new (a!?.b.c)();
 new a[b?.c]!();
@@ -484,24 +484,24 @@ new (a?.b).c!();
 new (a?.b)!.c();
 new (a?.b!).c();
 new (a!?.b).c();
-// FIXME: new   ((a?.()).b)!   ();
-// FIXME: new   ((a?.()).b!)   ();
-// FIXME: new   ((a?.())!.b)   ();
-// FIXME: new   ((a?.()!).b)   ();
-// FIXME: new   ((a!?.()).b)   ();
+new (a?.()).b!();
+new (a?.()).b!();
+new (a?.())!.b();
+new (a?.()!).b();
+new (a!?.()).b();
 
 // Call expressions
-// FIXME: new   (a?.())!   ();
-// FIXME: new   (a?.()!)   ();
+new (a?.())!();
+new (a?.()!)();
 new (a!?.())();
-// FIXME: new   (a.b.c?.())!   ();
-// FIXME: new   (a.b.c?.()!)   ();
+new (a.b.c?.())!();
+new (a.b.c?.()!)();
 new (a.b.c!?.())();
-// FIXME: new   (a.b?.c())!   ();
-// FIXME: new   (a.b?.c()!)   ();
+new (a.b?.c())!();
+new (a.b?.c()!)();
 new (a.b!?.c())();
-// FIXME: new   (a?.b.c())!   ();
-// FIXME: new   (a?.b.c()!)   ();
+new (a?.b.c())!();
+new (a?.b.c()!)();
 new (a?.b!.c())();
 new (a(b?.c)!)();
 new (a(b?.c)!)();
