@@ -20,7 +20,7 @@ describe("output with --check + unformatted differs when piped", () => {
     const result1 = await cli1;
 
     expect(result0.stdout.length).toBeGreaterThan(result1.stdout.length);
-    expect(result0.write).toBe(result1.write);
+    expect(result0.write).toStrictEqual(result1.write);
   });
 });
 
@@ -47,7 +47,7 @@ describe("no file diffs with --check + formatted file", () => {
 
     expect(result0.stdout).not.toBe(result1.stdout);
     expect(result0.stdout.length).toBeGreaterThan(result1.stdout.length);
-    expect(result0.write).toBe(result1.write);
+    expect(result0.write).toStrictEqual(result1.write);
   });
 });
 
@@ -73,7 +73,7 @@ describe("output with --list-different + unformatted differs when piped", () => 
     const result1 = await cli1;
 
     expect(result0.stdout.length).toBeGreaterThan(result1.stdout.length);
-    expect(result0.write).toBe(result1.write);
+    expect(result0.write).toStrictEqual(result1.write);
   });
 });
 
@@ -100,6 +100,6 @@ describe("no file diffs with --list-different + formatted file", () => {
 
     expect(result0.stdout).not.toBe(result1.stdout);
     expect(result0.stdout.length).toBeGreaterThan(result1.stdout.length);
-    expect(result0.write).toBe(result1.write);
+    expect(result0.write).toStrictEqual(result1.write);
   });
 });
