@@ -73,8 +73,17 @@ const commentClosureTypecaseTests = new Set(
   ].map((directory) => path.join(__dirname, "../format/js", directory)),
 );
 
-const espreeDisabledTests = commentClosureTypecaseTests;
-const acornDisabledTests = new Set();
+const espreeDisabledTests = new Set([
+  ...commentClosureTypecaseTests,
+  ...["explicit-resource-management/valid-await-using-asi-assignment.js"].map(
+    (file) => path.join(__dirname, "../format/js", file),
+  ),
+]);
+const acornDisabledTests = new Set(
+  ["explicit-resource-management/valid-await-using-asi-assignment.js"].map(
+    (file) => path.join(__dirname, "../format/js", file),
+  ),
+);
 const meriyahDisabledTests = new Set(
   [
     // Parsing to different ASTs
