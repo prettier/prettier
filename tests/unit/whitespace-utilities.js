@@ -111,7 +111,7 @@ describe("split", () => {
     " a a   a ",
   ]) {
     it(JSON.stringify(string), () => {
-      expect(utils.split(string)).toEqual(string.split(/ +/));
+      expect(utils.split(string)).toStrictEqual(string.split(/ +/));
     });
   }
 });

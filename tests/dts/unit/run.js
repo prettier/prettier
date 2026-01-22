@@ -30,7 +30,7 @@ describe("Unit tests for dts files", () => {
     /** @type {import("typescript").Diagnostic[]} */
     const diagnostics = ts.getPreEmitDiagnostics(program);
 
-    expect(diagnostics.map(formatDiagnostic)).toEqual([]);
+    expect(diagnostics.map(formatDiagnostic)).toStrictEqual([]);
   });
 });
 

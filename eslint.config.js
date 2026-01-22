@@ -361,6 +361,7 @@ const configs = [
         },
       ],
       "jest/prefer-to-be": "error",
+      "jest/prefer-strict-equal": "error",
     },
   },
   {

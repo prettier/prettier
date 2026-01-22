@@ -196,7 +196,7 @@ function runCli(dir, args = [], options = {}) {
           } else if (typeof testOptions[name] === "function") {
             testOptions[name](value);
           } else {
-            expect(value).toEqual(testOptions[name]);
+            expect(value).toStrictEqual(testOptions[name]);
           }
         } else {
           snapshot = snapshot ?? {};

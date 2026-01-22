@@ -25,5 +25,5 @@ test("massageAst", () => {
   expect(result.ignored).toBeUndefined();
   expect(result.nonNodeObject).toBe(nonNodeObject);
   expect(result.nodeObject).not.toBe(nodeObject);
-  expect(result.nodeObject).toEqual(nodeObject);
+  expect(result.nodeObject).toStrictEqual(nodeObject);
 });
