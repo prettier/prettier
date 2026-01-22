@@ -52,8 +52,10 @@ function postprocess(ast, options) {
     delete program.interpreter;
   }
 
-  if (isOxcTs && ast.hashbang) {
-    comments.unshift(ast.hashbang);
+  if (ast.hashbang) {
+    if (isOxcTs) {
+      comments.unshift(ast.hashbang);
+    }
     delete ast.hashbang;
   }
 
