@@ -35,8 +35,8 @@
     "graphql": "16.12.0",
     "lz-string": "1.5.0",
     "prism-react-renderer": "2.4.1",
-    "react": "19.2.1",
-    "react-dom": "19.2.1",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
     "react-markdown": "10.1.0",
     "react-tweet": "3.2.2",
     "vue": "3.5.26"
