@@ -41,6 +41,16 @@ function cleanKey(cloned, original, property) {
 function clean(original, cloned, parent) {
   if (original.type === "Program") {
     delete cloned.sourceType;
+
+    // Hermes
+    if (original.docblock?.comment) {
+      const { comment } = cloned.docblock;
+      delete comment.loc;
+      delete comment.range;
+      comment.value = original.docblock.comment.value
+        .split("\n")
+        .map((line) => line.trim());
+    }
   }
 
   if (
