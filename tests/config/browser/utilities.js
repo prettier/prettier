@@ -1,3 +1,8 @@
+const shouldSerializeAst = () =>
+  // `BigInt` can't be serialized in chrome
+  // `/(?ims:^[a-z])/u` can't be serialized in Node.js v20 (firefox)
+  true;
+
 function responseInBrowser(function_, context) {
   const { accessPath, optionsIndex, browser } = context;
 
@@ -7,8 +12,7 @@ function responseInBrowser(function_, context) {
       value.comments = [];
     }
 
-    // `BigInt` can't be serialized in chrome
-    if (accessPath === "__debug.parse" && browser === "chrome") {
+    if (accessPath === "__debug.parse" && shouldSerializeAst(context)) {
       value.ast = serializeAst(value.ast);
     }
 
@@ -46,8 +50,7 @@ function requestFromNode(function_, context) {
   const { accessPath, optionsIndex, browser } = context;
 
   function resolve({ value }) {
-    // `BigInt` can't be serialized in chrome
-    if (accessPath === "__debug.parse" && browser === "chrome") {
+    if (accessPath === "__debug.parse" && shouldSerializeAst(context)) {
       value.ast = deserializeAst(value.ast);
     }
 
@@ -140,6 +143,12 @@ function deserializeValue(value) {
       return Number.POSITIVE_INFINITY;
     case "bigint":
       return BigInt(value.bigint);
+    case "regex":
+      try {
+        return new RegExp(value.pattern, value.flags);
+      } catch {
+        return null;
+      }
   }
 
   return value;
@@ -152,6 +161,14 @@ function serializeValue(value) {
 
   if (typeof value === "bigint") {
     return { [INTERNAL_VALUE_KIND]: "bigint", bigint: String(value) };
+  }
+
+  if (value instanceof RegExp) {
+    return {
+      [INTERNAL_VALUE_KIND]: "regex",
+      source: value.source,
+      flags: value.flags,
+    };
   }
 
   return value;

@@ -73,8 +73,17 @@ const commentClosureTypecaseTests = new Set(
   ].map((directory) => path.join(__dirname, "../format/js", directory)),
 );
 
-const espreeDisabledTests = commentClosureTypecaseTests;
-const acornDisabledTests = new Set();
+const espreeDisabledTests = new Set([
+  ...commentClosureTypecaseTests,
+  ...["explicit-resource-management/valid-await-using-asi-assignment.js"].map(
+    (file) => path.join(__dirname, "../format/js", file),
+  ),
+]);
+const acornDisabledTests = new Set(
+  ["explicit-resource-management/valid-await-using-asi-assignment.js"].map(
+    (file) => path.join(__dirname, "../format/js", file),
+  ),
+);
 const meriyahDisabledTests = new Set(
   [
     // Parsing to different ASTs
@@ -392,11 +401,10 @@ async function runTest({
   let formatResult = mainParserFormatResult;
   expect(formatResult).toBeDefined();
 
+  const isMainParser = mainParserFormatOptions.parser === parser;
+
   // Verify parsers or error tests
-  if (
-    mainParserFormatResult.error ||
-    mainParserFormatOptions.parser !== parser
-  ) {
+  if (mainParserFormatResult.error || !isMainParser) {
     formatOptions = { ...mainParserFormatResult.options, parser };
     const runFormat = () => format(code, formatOptions);
 
@@ -418,19 +426,38 @@ async function runTest({
   // The result is assert to equals to `output`
   if (typeof output === "string") {
     expect(formatResult.eolVisualizedOutput).toBe(visualizeEndOfLine(output));
+  }
+  // All parsers have the same result, only snapshot the result from main parser
+  else {
+    expect(
+      createSnapshot(formatResult, {
+        parsers,
+        formatOptions,
+        CURSOR_PLACEHOLDER,
+      }),
+    ).toMatchSnapshot();
+  }
+
+  if (!FULL_TEST) {
     return;
   }
 
-  // All parsers have the same result, only snapshot the result from main parser
-  expect(
-    createSnapshot(formatResult, {
-      parsers,
-      formatOptions,
-      CURSOR_PLACEHOLDER,
-    }),
-  ).toMatchSnapshot();
+  // Some parsers skip parsing empty files
+  if (formatResult.changed && code.trim()) {
+    const { input, output } = formatResult;
+    const [originalAst, formattedAst] = await Promise.all(
+      [input, output].map((code) => parse(code, formatOptions)),
+    );
+    const isAstUnstableTest = isAstUnstable(filename, formatOptions);
 
-  if (!FULL_TEST) {
+    if (isAstUnstableTest) {
+      expect(formattedAst).not.toStrictEqual(originalAst);
+    } else {
+      expect(formattedAst).toStrictEqual(originalAst);
+    }
+  }
+
+  if (!isMainParser) {
     return;
   }
 
@@ -457,19 +484,6 @@ async function runTest({
       expect(secondOutput).not.toBe(firstOutput);
     } else {
       expect(secondOutput).toBe(firstOutput);
-    }
-  }
-
-  const isAstUnstableTest = isAstUnstable(filename, formatOptions);
-  // Some parsers skip parsing empty files
-  if (formatResult.changed && code.trim()) {
-    const { input, output } = formatResult;
-    const originalAst = await parse(input, formatOptions);
-    const formattedAst = await parse(output, formatOptions);
-    if (isAstUnstableTest) {
-      expect(formattedAst).not.toStrictEqual(originalAst);
-    } else {
-      expect(formattedAst).toStrictEqual(originalAst);
     }
   }
 

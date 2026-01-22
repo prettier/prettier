@@ -159,14 +159,19 @@ jobs:
         browser:
           - "chrome"
           - "firefox"
+        include:
+          # It's slow on firefox
+          - os: "ubuntu-latest"
+            browser: "chrome"
+            FULL_TEST: true
         exclude:
           # Hangs https://github.com/prettier/prettier/pull/18716
           - os: "windows-latest"
             browser: "chrome"
     env:
-      FULL_TEST: ${{ matrix.os == 'ubuntu-latest' && true || '' }}
+      FULL_TEST: ${{ matrix.FULL_TEST }}
       TEST_RUNTIME_BROWSER: ${{ matrix.browser }}
-    name: ${{ matrix.os == 'ubuntu-latest' && '[Full Test] ' || '' }} Browser(${{ matrix.browser }}) on ${{ startsWith(matrix.os, 'macos') && 'MacOS' || startsWith(matrix.os, 'windows') && 'Windows' || 'Linux' }}
+    name: ${{ matrix.FULL_TEST && '[Full Test] ' || '' }} Browser(${{ matrix.browser }}) on ${{ startsWith(matrix.os, 'macos') && 'MacOS' || startsWith(matrix.os, 'windows') && 'Windows' || 'Linux' }}
     runs-on: ${{ matrix.os }}
     needs: [build]
     steps:

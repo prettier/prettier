@@ -34,9 +34,11 @@ function shouldAddParenthesesToIdentifier(path) {
   }
 
   // `for ((let.a) of []);`
+  // `for ((let.a) in []);`
   if (node.name === "let") {
     const expression = path.findAncestor(
-      (node) => node.type === "ForOfStatement",
+      (node) =>
+        node.type === "ForOfStatement" || node.type === "ForInStatement",
     )?.left;
     if (
       expression &&

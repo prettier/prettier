@@ -69,3 +69,11 @@ export type NumericLiteral =
 export type StringLiteral =
   | NodeMap["StringLiteral"]
   | (NodeMap["Literal"] & { value: string });
+
+export type RegExpLiteral =
+  | NodeMap["RegExpLiteral"]
+  | (NodeMap["Literal"] & { regexp: { pattern: string; flags: string } });
+
+export type BigIntLiteral =
+  | NodeMap["BigIntLiteral"]
+  | (NodeMap["Literal"] & { bigint: string });

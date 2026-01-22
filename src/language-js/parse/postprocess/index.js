@@ -52,8 +52,10 @@ function postprocess(ast, options) {
     delete program.interpreter;
   }
 
-  if (isOxcTs && ast.hashbang) {
-    comments.unshift(ast.hashbang);
+  if (ast.hashbang) {
+    if (isOxcTs) {
+      comments.unshift(ast.hashbang);
+    }
     delete ast.hashbang;
   }
 
@@ -164,6 +166,7 @@ function postprocess(ast, options) {
         case "ImportDeclaration":
           if (parser === "hermes" && node.assertions && !node.attributes) {
             node.attributes = node.assertions;
+            delete node.assertions;
           }
           break;
 

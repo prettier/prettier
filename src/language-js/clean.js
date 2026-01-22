@@ -1,9 +1,14 @@
 import {
   isArrayExpression,
+  isBigIntLiteral,
   isMeaningfulEmptyStatement,
   isNumericLiteral,
   isStringLiteral,
 } from "./utilities/index.js";
+
+/**
+@import {Node} from "./types/estree.js"
+*/
 
 const ignoredProperties = new Set([
   "range",
@@ -16,9 +21,11 @@ const ignoredProperties = new Set([
   "start",
   "end",
   "loc",
-  "flags",
   "errors",
   "tokens",
+  // Hermes
+  "trailingComma",
+  "docblock",
 ]);
 
 const removeTemplateElementsValue = (node) => {
@@ -38,16 +45,30 @@ function cleanKey(cloned, original, property) {
   }
 }
 
+/**
+@param {Node} original
+@param {any} cloned
+@param {Node | undefined} parent
+*/
 function clean(original, cloned, parent) {
   if (original.type === "Program") {
     delete cloned.sourceType;
   }
 
   if (
-    (original.type === "BigIntLiteral" || original.type === "Literal") &&
-    original.bigint
+    (isBigIntLiteral(original) ||
+      original.type === "BigIntLiteralTypeAnnotation") &&
+    "bigint" in original
   ) {
     cloned.bigint = original.bigint.toLowerCase();
+  }
+
+  if (original.type === "RegExpLiteral") {
+    cloned.flags = [...original.flags].sort().join("");
+  }
+
+  if (original.type === "Literal" && "regex" in original) {
+    cloned.regex.flags = [...original.regex.flags].sort().join("");
   }
 
   // We remove extra `;` and add them when needed
@@ -88,6 +109,7 @@ function clean(original, cloned, parent) {
       original.type === "ImportAttribute" ||
       original.type === "RecordDeclarationProperty" ||
       original.type === "RecordDeclarationStaticProperty") &&
+    // @ts-expect-error -- safe
     !original.computed
   ) {
     cleanKey(cloned, original, "key");
@@ -101,6 +123,7 @@ function clean(original, cloned, parent) {
   // styled-jsx
   if (
     original.type === "JSXElement" &&
+    original.openingElement.name.type === "JSXIdentifier" &&
     original.openingElement.name.name === "style" &&
     original.openingElement.attributes.some(
       (attr) => attr.type === "JSXAttribute" && attr.name.name === "jsx",
@@ -129,7 +152,7 @@ function clean(original, cloned, parent) {
   // We change quotes
   if (
     original.type === "JSXAttribute" &&
-    original.value?.type === "Literal" &&
+    isStringLiteral(original.value) &&
     /["']|&quot;|&apos;/.test(original.value.value)
   ) {
     cloned.value.value = original.value.value.replaceAll(
@@ -139,6 +162,7 @@ function clean(original, cloned, parent) {
   }
 
   // Angular Components: Inline HTML template and Inline CSS styles
+  // @ts-expect-error -- Fixme
   const expression = original.expression || original.callee;
   if (
     original.type === "Decorator" &&
@@ -146,6 +170,7 @@ function clean(original, cloned, parent) {
     expression.callee.name === "Component" &&
     expression.arguments.length === 1
   ) {
+    // @ts-expect-error -- Fixme
     const astProps = original.expression.arguments[0].properties;
     for (const [
       index,
@@ -182,11 +207,40 @@ function clean(original, cloned, parent) {
     removeTemplateElementsValue(cloned.quasi);
   }
 
+  if (
+    (original.type === "CallExpression" ||
+      original.type === "MemberExpression") &&
+    // @ts-expect-error -- safe
+    !original.optional
+  ) {
+    delete cloned.optional;
+  }
+
   // TODO: Only delete value when there is leading comment which is exactly
   // `/* GraphQL */` or `/* HTML */`
   // Also see ./embed.js
   if (original.type === "TemplateLiteral") {
     removeTemplateElementsValue(cloned);
+  }
+
+  // We don't add parentheses to `(a?.b)?.c`
+  if (original.type === "ChainExpression") {
+    return cloned.expression;
+  }
+
+  // https://github.com/babel/babel/issues/17719
+  if (
+    (original.type === "ClassDeclaration" ||
+      original.type === "ClassExpression") &&
+    !original.superTypeArguments &&
+    original.superClass?.type === "TSInstantiationExpression" &&
+    original.superClass.typeArguments
+  ) {
+    const {
+      superClass: { typeArguments, expression },
+    } = cloned;
+    cloned.superTypeArguments = typeArguments;
+    cloned.superClass = expression;
   }
 }
 
