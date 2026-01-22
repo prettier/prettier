@@ -26,6 +26,6 @@ describe("markAsRoot", () => {
     const result = printDocToString(doc, { printWidth: 80, tabWidth: 2 });
 
     expect(result).toBeDefined();
-    expect(result.formatted).toStrictEqual(expected);
+    expect(result.formatted).toBe(expected);
   });
 });
