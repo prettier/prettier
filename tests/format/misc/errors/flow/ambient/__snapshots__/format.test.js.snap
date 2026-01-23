@@ -2,7 +2,7 @@
 
 exports[`ambient.js [flow] format 1`] = `
 "Const must be initialized (1:7) (1:8)
-> 1 | const foo: string
+> 1 | const foo: string;
     |        ^^^^^^^^^^^
   2 |
 Cause: Const must be initialized (1:7)"
@@ -10,7 +10,7 @@ Cause: Const must be initialized (1:7)"
 
 exports[`ambient.unknown [flow] format 1`] = `
 "Const must be initialized (1:7) (1:8)
-> 1 | const foo: string
+> 1 | const foo: string;
     |        ^^^^^^^^^^^
   2 |
 Cause: Const must be initialized (1:7)"

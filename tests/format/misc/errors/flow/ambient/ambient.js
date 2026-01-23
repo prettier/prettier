@@ -1,1 +1,1 @@
-const foo: string
+const foo: string;
