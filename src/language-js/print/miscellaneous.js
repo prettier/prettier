@@ -87,7 +87,10 @@ function printDeclareToken(path) {
       // Flow
       (isFlowDeclareNode(node) &&
         path.parent.type !== "DeclareExportDeclaration" &&
-        !(node.type === "DeclareFunction" && node.implicitDeclare))
+        // @ts-expect-error -- wrong types
+        !(node.type === "DeclareFunction" && node.implicitDeclare) &&
+        // @ts-expect-error -- FIXME
+        !(node.type === "DeclareComponent" && node.body === null))
       ? "declare "
       : ""
   );
@@ -164,6 +167,7 @@ function shouldInlineCondition(node) {
   return node.type === "LogicalExpression";
 }
 
+// @ts-expect-error
 function printIfOrWhileCondition(path, options, print) {
   const conditionDoc = print("test");
 

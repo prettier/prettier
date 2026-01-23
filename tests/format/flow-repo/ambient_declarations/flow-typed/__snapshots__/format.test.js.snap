@@ -31,8 +31,8 @@ declare module 'component-library' {
 =====================================output=====================================
 // Declare module with ambient components
 declare module "component-library" {
-  declare component Button(label: string);
-  declare component Icon(name: string);
+  component Button(label: string);
+  component Icon(name: string);
 
   declare export { Button, Icon };
 }
