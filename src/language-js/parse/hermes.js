@@ -6,6 +6,7 @@ import createParser from "./utilities/create-parser.js";
 function createParseError(error) {
   let { message, loc } = error;
 
+  /* c8 ignore next 3 */
   if (!loc) {
     return error;
   }
@@ -14,11 +15,10 @@ function createParseError(error) {
 
   message = message.split("\n")[0];
 
-  const suffix = `(${line}:${column})`;
+  const suffix = ` (${line}:${column})`;
   if (message.endsWith(suffix)) {
     message = message.slice(0, -suffix.length);
   }
-  message = message.trim();
 
   return createError(message, {
     loc: {
