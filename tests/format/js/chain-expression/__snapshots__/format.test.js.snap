@@ -182,6 +182,45 @@ const randomFuncion = (value) => {
 ================================================================================
 `;
 
+exports[`member-chain.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+bifornCringerMoshedPerplexSawder = (
+    glimseGlyphsHazardNoopsTieTie
+    ?. averredBathersBoxroomBuggyNurl
+    ?.anodyneCondosMalateOverateRetinol
+  )
+  .annularCooeedSplicesWalksWayWay
+  .annularCooeedSplicesWalksWayWay(annularCooeedSplicesWalksWayWay)
+  .annularCooeedSplicesWalksWayWay();
+
+bifornCringerMoshedPerplexSawder = (
+    glimseGlyphsHazardNoopsTieTie
+    ?. averredBathersBoxroomBuggyNurl
+    ?.anodyneCondosMalateOverateRetinol
+  )
+  ?.annularCooeedSplicesWalksWayWay
+  .annularCooeedSplicesWalksWayWay(annularCooeedSplicesWalksWayWay)
+  .annularCooeedSplicesWalksWayWay();
+
+=====================================output=====================================
+bifornCringerMoshedPerplexSawder = (glimseGlyphsHazardNoopsTieTie
+  ?.averredBathersBoxroomBuggyNurl
+  ?.anodyneCondosMalateOverateRetinol).annularCooeedSplicesWalksWayWay
+  .annularCooeedSplicesWalksWayWay(annularCooeedSplicesWalksWayWay)
+  .annularCooeedSplicesWalksWayWay();
+
+bifornCringerMoshedPerplexSawder =
+  glimseGlyphsHazardNoopsTieTie?.averredBathersBoxroomBuggyNurl?.anodyneCondosMalateOverateRetinol?.annularCooeedSplicesWalksWayWay
+    .annularCooeedSplicesWalksWayWay(annularCooeedSplicesWalksWayWay)
+    .annularCooeedSplicesWalksWayWay();
+
+================================================================================
+`;
+
 exports[`member-expression.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]

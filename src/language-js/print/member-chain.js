@@ -32,7 +32,7 @@ import { printOptionalToken } from "./miscellaneous.js";
 
 /**
  * @import {Doc} from "../../document/index.js"
- * @typedef {{ node: any, printed: Doc, needsParens?: boolean, shouldInline?: boolean, hasTrailingEmptyLine?: boolean }} PrintedNode
+ * @typedef {{ node: any, printed: Doc, shouldInline?: boolean, hasTrailingEmptyLine?: boolean }} PrintedNode
  */
 
 // We detect calls on member expressions specially to format a
@@ -127,6 +127,11 @@ function printMemberChain(path, options, print) {
       });
       path.call(rec, "object");
     } else if (
+      node.type === "ChainExpression" &&
+      !needsParentheses(path, options)
+    ) {
+      path.call(rec, "expression");
+    } else if (
       node.type === "TSNonNullExpression" &&
       !needsParentheses(path, options)
     ) {
@@ -190,6 +195,7 @@ function printMemberChain(path, options, print) {
   for (; i < printedNodes.length; ++i) {
     if (
       printedNodes[i].node.type === "TSNonNullExpression" ||
+      printedNodes[i].node.type === "ChainExpression" ||
       isCallExpression(printedNodes[i].node) ||
       (isMemberExpression(printedNodes[i].node) &&
         printedNodes[i].node.computed &&
