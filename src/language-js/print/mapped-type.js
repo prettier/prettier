@@ -101,26 +101,21 @@ function printTypeScriptMappedType(path, options, print) {
       "{",
       indent([
         options.bracketSpacing ? line : softline,
-        group([
-          ...danglingCommentsDoc,
-          node.readonly
-            ? [
-                printTypeScriptMappedTypeModifier(node.readonly, "readonly"),
-                " ",
-              ]
-            : "",
-          "[",
-          print("key"),
-          " in ",
-          print("constraint"),
-          node.nameType ? [" as ", print("nameType")] : "",
-          "]",
-          node.optional
-            ? printTypeScriptMappedTypeModifier(node.optional, "?")
-            : "",
-          node.typeAnnotation ? ": " : "",
-          print("typeAnnotation"),
-        ]),
+        ...danglingCommentsDoc,
+        node.readonly
+          ? [printTypeScriptMappedTypeModifier(node.readonly, "readonly"), " "]
+          : "",
+        "[",
+        print("key"),
+        " in ",
+        print("constraint"),
+        node.nameType ? [" as ", print("nameType")] : "",
+        "]",
+        node.optional
+          ? printTypeScriptMappedTypeModifier(node.optional, "?")
+          : "",
+        node.typeAnnotation ? ": " : "",
+        print("typeAnnotation"),
         options.semi ? ifBreak(";") : "",
       ]),
       options.bracketSpacing ? line : softline,
