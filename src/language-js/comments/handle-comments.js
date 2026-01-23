@@ -1015,7 +1015,7 @@ function isAfterMappedTypeOpeningBracket(node, comment, options) {
     start + 1,
     locStart(node.key),
   );
-  const nextTokenIndex = start + 1 + textAfter.search(/\S/);
+  const nextTokenIndex = start + 1 + textAfter.indexOf("[");
   return locEnd(comment) < nextTokenIndex;
 }
 
