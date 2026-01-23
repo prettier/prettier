@@ -1,5 +1,19 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`component_namespace.js [hermes] format 1`] = `
+"'{' expected in component declaration (4:48)
+  2 | declare namespace ComponentNamespace {
+  3 |   // Ambient component declarations with simple types
+> 4 |   component Card(title: string, content: string);
+    |                                                ^
+  5 |
+  6 |   component Modal(isOpen: boolean, onClose: () => void);
+  7 | }
+Cause: '{' expected in component declaration (4:48)
+  component Card(title: string, content: string);
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^"
+`;
+
 exports[`component_namespace.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
@@ -28,6 +42,20 @@ declare namespace ComponentNamespace {
 export { ComponentNamespace };
 
 ================================================================================
+`;
+
+exports[`components.js.flow [hermes] format 1`] = `
+"'{' expected in component declaration (5:42)
+  3 |
+  4 | // Ambient components without body - these should be allowed
+> 5 | component Button(props: { label: string });
+    |                                          ^
+  6 |
+  7 | component Input(value: string, onChange: (string) => void);
+  8 |
+Cause: '{' expected in component declaration (5:42)
+component Button(props: { label: string });
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^"
 `;
 
 exports[`components.js.flow format 1`] = `
@@ -62,6 +90,20 @@ declare export { Button, Input };
 ================================================================================
 `;
 
+exports[`implicit_functions.js [hermes] format 1`] = `
+"'{' expected in function declaration (4:38)
+  2 | declare namespace ImplicitFunctions {
+  3 |   // Simple implicit declare functions
+> 4 |   function greet(name: string): string;
+    |                                      ^
+  5 |   function add(a: number, b: number): number;
+  6 |
+  7 |   // Explicit declare function still works
+Cause: '{' expected in function declaration (4:38)
+  function greet(name: string): string;
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^"
+`;
+
 exports[`implicit_functions.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
@@ -94,6 +136,20 @@ declare namespace ImplicitFunctions {
 export { ImplicitFunctions };
 
 ================================================================================
+`;
+
+exports[`namespace.js [hermes] format 1`] = `
+"missing initializer in const declaration (4:8)
+  2 | declare namespace MyNamespace {
+  3 |   // Implicit ambient variables (without 'declare' keyword)
+> 4 |   const value: number;
+    |        ^
+  5 |   let mutableValue: string;
+  6 |
+  7 |   // Implicit ambient functions (without 'declare' keyword)
+Cause: missing initializer in const declaration (4:8)
+  const value: number;
+        ^~~~~~~~~~~~~"
 `;
 
 exports[`namespace.js format 1`] = `
@@ -526,6 +582,68 @@ const badX: number = foo; // Error: string is not compatible with number
 const badY: string = bar; // Error: number is not compatible with string
 const badZ: string = baz; // Error: boolean is not compatible with string
 const badArr: Array<number> = genericVal; // Error: Array<string> is not compatible with Array<number>
+
+================================================================================
+`;
+
+exports[`variables.js.flow [hermes] format 1`] = `
+"missing initializer in const declaration (5:6)
+  3 |
+  4 | // Implicit ambient declarations (without 'declare' keyword)
+> 5 | const foo: string;
+    |      ^
+  6 | let bar: number;
+  7 | var baz: boolean;
+  8 |
+Cause: missing initializer in const declaration (5:6)
+const foo: string;
+      ^~~~~~~~~~~"
+`;
+
+exports[`variables.js.flow format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+// Test ambient variable declarations in .js.flow files
+
+// Implicit ambient declarations (without 'declare' keyword)
+const foo: string;
+let bar: number;
+var baz: boolean;
+
+// Generic types
+const genericVal: Array<string>;
+
+// Mix: ambient and regular
+const ambient: number;
+const regular = 123;
+const withBoth: string = "test";
+
+// Export them so they can be used in other files
+declare export { foo, bar, baz, genericVal, ambient, regular, withBoth };
+
+=====================================output=====================================
+// @flow
+// Test ambient variable declarations in .js.flow files
+
+// Implicit ambient declarations (without 'declare' keyword)
+const foo: string;
+let bar: number;
+var baz: boolean;
+
+// Generic types
+const genericVal: Array<string>;
+
+// Mix: ambient and regular
+const ambient: number;
+const regular = 123;
+const withBoth: string = "test";
+
+// Export them so they can be used in other files
+declare export { foo, bar, baz, genericVal, ambient, regular, withBoth };
 
 ================================================================================
 `;

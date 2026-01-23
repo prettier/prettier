@@ -1,5 +1,19 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`components.js [hermes] format 1`] = `
+"'{' expected in component declaration (3:33)
+  1 | // Declare module with ambient components
+  2 | declare module 'component-library' {
+> 3 |   component Button(label: string);
+    |                                 ^
+  4 |   component Icon(name: string);
+  5 |
+  6 |   declare export { Button, Icon };
+Cause: '{' expected in component declaration (3:33)
+  component Button(label: string);
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^"
+`;
+
 exports[`components.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
@@ -24,6 +38,20 @@ declare module "component-library" {
 }
 
 ================================================================================
+`;
+
+exports[`lib.js [hermes] format 1`] = `
+"missing initializer in const declaration (4:8)
+  2 | declare module 'test-module' {
+  3 |   // Implicit ambient const/let/var (without 'declare' keyword)
+> 4 |   const foo: string;
+    |        ^
+  5 |   let bar: number;
+  6 |   var baz: boolean;
+  7 |
+Cause: missing initializer in const declaration (4:8)
+  const foo: string;
+        ^~~~~~~~~~~"
 `;
 
 exports[`lib.js format 1`] = `
