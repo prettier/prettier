@@ -185,10 +185,9 @@ function printFunctionParameters(
     typeParametersDoc,
     "(",
     indent([softline, ...printed]),
-
     !hasRestParameter(functionNode) &&
     // Angular does not allow trailing comma
-    !options.parser.startsWith("__ng_")
+    path.root.type !== "NGRoot"
       ? printTrailingComma(options, "all")
       : "",
     softline,
