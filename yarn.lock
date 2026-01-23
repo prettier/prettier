@@ -2883,12 +2883,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"angular-estree-parser@npm:15.4.1":
-  version: 15.4.1
-  resolution: "angular-estree-parser@npm:15.4.1"
+"angular-estree-parser@npm:15.4.2":
+  version: 15.4.2
+  resolution: "angular-estree-parser@npm:15.4.2"
   peerDependencies:
     "@angular/compiler": ">=21.0.7 || >= 21.2.0-0"
-  checksum: 10/88fe1198b7305c36d7896d636d29b43eaa4aa6939bf01473d1eda7e5885715ac6d6ec083f8ab276f631001e5fd116dcaab69a1973ab096f20ef29fe3ef527dde
+  checksum: 10/e78b91049a330deff1a204dab906f2d93a764e163e38019140113d4481e156f78865c3e8b876890c14120d8cf472750657fb00bd61f999a4d210eeadb7b0caba
   languageName: node
   linkType: hard
 
@@ -8376,7 +8376,7 @@ __metadata:
     "@typescript-eslint/visitor-keys": "npm:8.53.1"
     acorn: "npm:8.15.0"
     acorn-jsx: "npm:5.3.2"
-    angular-estree-parser: "npm:15.4.1"
+    angular-estree-parser: "npm:15.4.2"
     angular-html-parser: "npm:10.4.0"
     base64-arraybuffer-es6: "npm:3.1.0"
     browserslist: "npm:4.28.1"
