@@ -18,7 +18,7 @@ trailing, comma
     not,
     print,
     trailing,
-    comma,
+    comma
   ) =>
     componentValue +
     a +
