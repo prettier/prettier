@@ -82,18 +82,18 @@ function printTypeScriptMappedType(path, options, print) {
     }
   }
 
-  /** @type {Doc} */
-  let danglingCommentsDoc = "";
+  /** @type {Doc[]} */
+  const danglingCommentsDoc = [];
   const danglingComments = getComments(node, CommentCheckFlags.Dangling);
   if (danglingComments.length > 0) {
     const lastComment = danglingComments.at(-1);
-    danglingCommentsDoc = group([
+    danglingCommentsDoc.push(
       printDanglingComments(path, options),
       isLineComment(lastComment) ||
-      hasNewline(options.originalText, locEnd(lastComment))
+        hasNewline(options.originalText, locEnd(lastComment))
         ? hardline
         : " ",
-    ]);
+    );
   }
 
   return group(
@@ -102,7 +102,7 @@ function printTypeScriptMappedType(path, options, print) {
       indent([
         options.bracketSpacing ? line : softline,
         group([
-          danglingCommentsDoc,
+          ...danglingCommentsDoc,
           node.readonly
             ? [
                 printTypeScriptMappedTypeModifier(node.readonly, "readonly"),
