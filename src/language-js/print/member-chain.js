@@ -127,6 +127,11 @@ function printMemberChain(path, options, print) {
       });
       path.call(rec, "object");
     } else if (
+      node.type === "ChainExpression" &&
+      !needsParentheses(path, options)
+    ) {
+      path.call(rec, "expression");
+    } else if (
       node.type === "TSNonNullExpression" &&
       !needsParentheses(path, options)
     ) {
