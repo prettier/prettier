@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`snippet: #0 - {"arrowParens":"avoid"} format 1`] = `
+====================================options=====================================
+arrowParens: "avoid"
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+@let fn = (   oneArgument) =>   1;
+=====================================output=====================================
+@let fn = oneArgument => 1;
+
+================================================================================
+`;
+
+exports[`snippet: #0 - {"printWidth":1,"trailingComma":"all"} format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 1
+trailingComma: "all"
+ | printWidth
+=====================================input======================================
+@let fn = (   should, not, print,trailing, comma) =>   1;
+=====================================output=====================================
+@let fn =
+  (
+    should,
+    not,
+    print,
+    trailing,
+    comma
+  ) =>
+    1;
+
+================================================================================
+`;
+
+exports[`snippet: #1 - {"arrowParens":"avoid"} format 1`] = `
+====================================options=====================================
+arrowParens: "avoid"
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+@let fn = oneArgument =>   1;
+=====================================output=====================================
+@let fn = oneArgument => 1;
+
+================================================================================
+`;
