@@ -63,6 +63,11 @@ function cleanEstreeChainExpression(node) {
       continue;
     }
 
+    if (node.type === "TSNonNullExpression") {
+      node = node.expression;
+      continue;
+    }
+
     return;
   }
 }
