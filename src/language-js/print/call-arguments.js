@@ -90,7 +90,7 @@ function printCallArguments(path, options, print) {
 
   const maybeTrailingComma =
     // Angular does not allow trailing comma
-    !options.parser.startsWith("__ng_") &&
+    path.root.type !== "NGRoot" &&
     // Dynamic imports cannot have trailing commas
     node.type !== "ImportExpression" &&
     node.type !== "TSImportType" &&
