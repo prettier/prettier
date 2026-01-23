@@ -219,6 +219,102 @@ const theValue3 = Object.entries(someLongObjectName).filter(([listingId]) =>
 ================================================================================
 `;
 
+exports[`member-chain.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+bifornCringerMoshedPerplexSawder = (
+    glimseGlyphsHazardNoopsTieTie
+    ?. averredBathersBoxroomBuggyNurl
+    ?.anodyneCondosMalateOverateRetinol!
+  )
+  .annularCooeedSplicesWalksWayWay
+  .annularCooeedSplicesWalksWayWay(annularCooeedSplicesWalksWayWay)
+  .annularCooeedSplicesWalksWayWay();
+bifornCringerMoshedPerplexSawder = (
+    glimseGlyphsHazardNoopsTieTie
+    ?. averredBathersBoxroomBuggyNurl
+    ?.anodyneCondosMalateOverateRetinol
+  )!
+  .annularCooeedSplicesWalksWayWay
+  .annularCooeedSplicesWalksWayWay(annularCooeedSplicesWalksWayWay)
+  .annularCooeedSplicesWalksWayWay();
+bifornCringerMoshedPerplexSawder = (
+    glimseGlyphsHazardNoopsTieTie
+    ?. averredBathersBoxroomBuggyNurl
+    ?.anodyneCondosMalateOverateRetinol
+  )
+  .annularCooeedSplicesWalksWayWay
+  .annularCooeedSplicesWalksWayWay(annularCooeedSplicesWalksWayWay)
+  .annularCooeedSplicesWalksWayWay()!;
+
+bifornCringerMoshedPerplexSawder = (
+    glimseGlyphsHazardNoopsTieTie
+    ?. averredBathersBoxroomBuggyNurl
+    ?.anodyneCondosMalateOverateRetinol!
+  )
+  ?.annularCooeedSplicesWalksWayWay
+  .annularCooeedSplicesWalksWayWay(annularCooeedSplicesWalksWayWay)
+  .annularCooeedSplicesWalksWayWay();
+
+bifornCringerMoshedPerplexSawder = (
+    glimseGlyphsHazardNoopsTieTie
+    ?. averredBathersBoxroomBuggyNurl
+    ?.anodyneCondosMalateOverateRetinol
+  )!
+  ?.annularCooeedSplicesWalksWayWay
+  .annularCooeedSplicesWalksWayWay(annularCooeedSplicesWalksWayWay)
+  .annularCooeedSplicesWalksWayWay();
+
+bifornCringerMoshedPerplexSawder = (
+    glimseGlyphsHazardNoopsTieTie
+    ?. averredBathersBoxroomBuggyNurl
+    ?.anodyneCondosMalateOverateRetinol
+  )
+  ?.annularCooeedSplicesWalksWayWay
+  .annularCooeedSplicesWalksWayWay(annularCooeedSplicesWalksWayWay)
+  .annularCooeedSplicesWalksWayWay()!;
+
+=====================================output=====================================
+bifornCringerMoshedPerplexSawder = (glimseGlyphsHazardNoopsTieTie
+  ?.averredBathersBoxroomBuggyNurl
+  ?.anodyneCondosMalateOverateRetinol!).annularCooeedSplicesWalksWayWay
+  .annularCooeedSplicesWalksWayWay(annularCooeedSplicesWalksWayWay)
+  .annularCooeedSplicesWalksWayWay();
+bifornCringerMoshedPerplexSawder = (glimseGlyphsHazardNoopsTieTie
+  ?.averredBathersBoxroomBuggyNurl
+  ?.anodyneCondosMalateOverateRetinol)!.annularCooeedSplicesWalksWayWay
+  .annularCooeedSplicesWalksWayWay(annularCooeedSplicesWalksWayWay)
+  .annularCooeedSplicesWalksWayWay();
+bifornCringerMoshedPerplexSawder = (glimseGlyphsHazardNoopsTieTie
+  ?.averredBathersBoxroomBuggyNurl
+  ?.anodyneCondosMalateOverateRetinol).annularCooeedSplicesWalksWayWay
+  .annularCooeedSplicesWalksWayWay(annularCooeedSplicesWalksWayWay)
+  .annularCooeedSplicesWalksWayWay()!;
+
+bifornCringerMoshedPerplexSawder = glimseGlyphsHazardNoopsTieTie
+  ?.averredBathersBoxroomBuggyNurl
+  ?.anodyneCondosMalateOverateRetinol!?.annularCooeedSplicesWalksWayWay
+  .annularCooeedSplicesWalksWayWay(annularCooeedSplicesWalksWayWay)
+  .annularCooeedSplicesWalksWayWay();
+
+bifornCringerMoshedPerplexSawder = (glimseGlyphsHazardNoopsTieTie
+  ?.averredBathersBoxroomBuggyNurl
+  ?.anodyneCondosMalateOverateRetinol)!?.annularCooeedSplicesWalksWayWay
+  .annularCooeedSplicesWalksWayWay(annularCooeedSplicesWalksWayWay)
+  .annularCooeedSplicesWalksWayWay();
+
+bifornCringerMoshedPerplexSawder = glimseGlyphsHazardNoopsTieTie
+  ?.averredBathersBoxroomBuggyNurl
+  ?.anodyneCondosMalateOverateRetinol?.annularCooeedSplicesWalksWayWay
+  .annularCooeedSplicesWalksWayWay(annularCooeedSplicesWalksWayWay)
+  .annularCooeedSplicesWalksWayWay()!;
+
+================================================================================
+`;
+
 exports[`member-expression.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
