@@ -166,7 +166,6 @@ function shouldInlineCondition(node) {
   return node.type === "LogicalExpression";
 }
 
-// @ts-expect-error
 function printIfOrWhileCondition(path, options, print) {
   const conditionDoc = print("test");
 
