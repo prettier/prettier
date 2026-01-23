@@ -126,15 +126,6 @@ function printMemberChain(path, options, print) {
         ),
       });
       path.call(rec, "object");
-    } else if (
-      node.type === "TSNonNullExpression" &&
-      !needsParentheses(path, options)
-    ) {
-      printedNodes.unshift({
-        node,
-        printed: printComments(path, "!", options),
-      });
-      path.call(rec, "expression");
     } else {
       printedNodes.unshift({
         node,
