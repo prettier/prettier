@@ -4,7 +4,7 @@ import postprocess from "./postprocess/index.js";
 import createParser from "./utilities/create-parser.js";
 
 function createParseError(error) {
-  let { message, loc } = error;
+  const { loc } = error;
 
   /* c8 ignore next 3 */
   if (!loc) {
@@ -12,8 +12,7 @@ function createParseError(error) {
   }
 
   const { line, column } = loc;
-
-  message = message.split("\n")[0];
+  let [message] = error.message.split("\n");
 
   const suffix = ` (${line}:${column})`;
   if (message.endsWith(suffix)) {
