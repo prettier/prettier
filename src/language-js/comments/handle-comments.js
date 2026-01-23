@@ -1008,15 +1008,15 @@ function handleIgnoreComments({ comment, enclosingNode, followingNode }) {
 @param {NodeMap["TSMappedType"]} node
 @param {Comment} comment
 */
-function isAfterMappedTypeOpeningBracket(node, comment, options) {
+function isBeforeMappedTypeOpeningBracket(node, comment, options) {
   const start = locStart(node);
   const textAfter = getTextWithoutComments(
     options,
     start + 1,
     locStart(node.key),
   );
-  const nextTokenIndex = start + 1 + textAfter.indexOf("[");
-  return locEnd(comment) < nextTokenIndex;
+  const bracketIndex = start + 1 + textAfter.indexOf("[");
+  return locEnd(comment) < bracketIndex;
 }
 
 function handleTSMappedTypeComments({ comment, enclosingNode, options }) {
@@ -1024,7 +1024,7 @@ function handleTSMappedTypeComments({ comment, enclosingNode, options }) {
     return;
   }
 
-  if (isAfterMappedTypeOpeningBracket(enclosingNode, comment, options)) {
+  if (isBeforeMappedTypeOpeningBracket(enclosingNode, comment, options)) {
     addDanglingComment(enclosingNode, comment);
     return true;
   }
