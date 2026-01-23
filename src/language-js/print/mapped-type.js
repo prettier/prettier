@@ -87,12 +87,16 @@ function printTypeScriptMappedType(path, options, print) {
   const danglingComments = getComments(node, CommentCheckFlags.Dangling);
   if (danglingComments.length > 0) {
     const lastComment = danglingComments.at(-1);
+    const parts = /** @type {Doc[]} */ (printDanglingComments(path, options));
     danglingCommentsDoc.push(
-      printDanglingComments(path, options),
-      isLineComment(lastComment) ||
+      ...parts.slice(0, -1),
+      group([
+        parts.at(-1),
+        isLineComment(lastComment) ||
         hasNewline(options.originalText, locEnd(lastComment))
-        ? hardline
-        : " ",
+          ? hardline
+          : line,
+      ]),
     );
   }
 

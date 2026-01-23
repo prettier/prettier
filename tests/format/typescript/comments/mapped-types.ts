@@ -56,3 +56,12 @@ type M3= {
   /* 23 */ /* 24 */
   [b in B]: string
 }
+
+type M4  = {
+  /* a long long long long long long long long long long long long long long comment */ [b in B]: string
+}
+
+type M5  = {
+  /* Multi
+line */ [b in B]: string
+}

@@ -974,7 +974,7 @@ export type WrappedFormUtils = {
 ================================================================================
 `;
 
-exports[`mapped_types.ts format 1`] = `
+exports[`mapped-types.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -1039,6 +1039,15 @@ type M3= {
   [b in B]: string
 }
 
+type M4  = {
+  /* a long long long long long long long long long long long long long long comment */ [b in B]: string
+}
+
+type M5  = {
+  /* Multi
+line */ [b in B]: string
+}
+
 =====================================output=====================================
 type A = {
   // commentA
@@ -1098,6 +1107,17 @@ type M2 = {
 type M3 = {
   /* 23 */
   /* 24 */
+  [b in B]: string;
+};
+
+type M4 = {
+  /* a long long long long long long long long long long long long long long comment */
+  [b in B]: string;
+};
+
+type M5 = {
+  /* Multi
+line */
   [b in B]: string;
 };
 
