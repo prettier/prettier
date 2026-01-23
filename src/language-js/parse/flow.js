@@ -82,7 +82,7 @@ function parse(text, options) {
     // @ts-expect-error -- expected
     errors: [error],
   }) {
-    throw createParseError(error);
+    throw error;
   }
 
   return postprocess(ast, { parser: "flow", text });
