@@ -109,12 +109,18 @@ function printTypeScriptMappedType(path, options, print) {
         node.readonly
           ? [printTypeScriptMappedTypeModifier(node.readonly, "readonly"), " "]
           : "",
-        "[",
-        print("key"),
-        " in ",
-        print("constraint"),
-        node.nameType ? [" as ", print("nameType")] : "",
-        "]",
+        group([
+          "[",
+          indent([
+            softline,
+            print("key"),
+            " in ",
+            print("constraint"),
+            node.nameType ? [" as ", print("nameType")] : "",
+          ]),
+          softline,
+          "]",
+        ]),
         node.optional
           ? printTypeScriptMappedTypeModifier(node.optional, "?")
           : "",

@@ -65,3 +65,11 @@ type M5  = {
   /* Multi
 line */ [b in B]: string
 }
+
+type M6  = {
+  /* 61 */ [b in long_long_long_long_long_long_type|long_long_long_long_long_long_type|long_long_long_long_long_long_type]: string
+}
+
+type M7  = {
+  /* 71 */ [b in X]: long_long_long_long_long_long_type|long_long_long_long_long_long_type|long_long_long_long_long_long_type
+}
