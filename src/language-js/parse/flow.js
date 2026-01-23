@@ -56,6 +56,10 @@ function createParseError(error) {
   });
 }
 
+/**
+@param {string} text
+@param {{filename: string}} options
+*/
 function parseWithOptions(text, options) {
   const ast = flowParser.parse(text, { ...parseOptions, ...options });
   const [error] = ast.errors;
