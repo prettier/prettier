@@ -1,6 +1,5 @@
 import flowParser from "flow-parser";
 import createError from "../../common/parser-create-error.js";
-import { tryCombinationsSync } from "../../utilities/try-combinations.js";
 import postprocess from "./postprocess/index.js";
 import createParser from "./utilities/create-parser.js";
 
@@ -56,37 +55,16 @@ function createParseError(error) {
   });
 }
 
-/**
-@param {string} text
-@param {{filename: string}} options
-*/
-function parseWithOptions(text, options) {
-  const ast = flowParser.parse(text, { ...parseOptions, ...options });
+function parse(text, options) {
+  const filepath = options?.filepath;
+
+  const ast = flowParser.parse(text, {
+    filename: typeof filepath === "string" ? filepath : "prettier.js.flow",
+    ...parseOptions,
+  });
   const [error] = ast.errors;
   if (error) {
     throw createParseError(error);
-  }
-
-  return ast;
-}
-
-function parse(text, options) {
-  const filepath = options?.filepath;
-  const combinations = (
-    typeof filepath === "string"
-      ? [filepath]
-      : ["prettier.js.flow", "prettier.js"]
-  ).map((filename) => () => parseWithOptions(text, { filename }));
-
-  let ast;
-
-  try {
-    ast = tryCombinationsSync(combinations);
-  } catch ({
-    // @ts-expect-error -- expected
-    errors: [error],
-  }) {
-    throw error;
   }
 
   return postprocess(ast, { parser: "flow", text });
