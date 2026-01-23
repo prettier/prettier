@@ -152,6 +152,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/helper-string-parser@https://pkg.pr.new/babel/babel/@babel/helper-string-parser@ee22146b5e1fc3db6dd061b09756d0c121a45be6":
+  version: 8.0.0-beta.4
+  resolution: "@babel/helper-string-parser@https://pkg.pr.new/babel/babel/@babel/helper-string-parser@ee22146b5e1fc3db6dd061b09756d0c121a45be6"
+  checksum: 10/39fe9a7a2fcb7418d40248e515e7e40bc63a9f4320d7dc5e748094fa96cc20646a4e48e8492d507bdefcb94c558fefeb4acdc29cd510a1fd87c7a33f3f77d0d7
+  languageName: node
+  linkType: hard
+
 "@babel/helper-string-parser@npm:^7.27.1":
   version: 7.27.1
   resolution: "@babel/helper-string-parser@npm:7.27.1"
@@ -163,6 +170,13 @@ __metadata:
   version: 8.0.0-beta.4
   resolution: "@babel/helper-string-parser@npm:8.0.0-beta.4"
   checksum: 10/39fe9a7a2fcb7418d40248e515e7e40bc63a9f4320d7dc5e748094fa96cc20646a4e48e8492d507bdefcb94c558fefeb4acdc29cd510a1fd87c7a33f3f77d0d7
+  languageName: node
+  linkType: hard
+
+"@babel/helper-validator-identifier@https://pkg.pr.new/babel/babel/@babel/helper-validator-identifier@ee22146b5e1fc3db6dd061b09756d0c121a45be6":
+  version: 8.0.0-beta.4
+  resolution: "@babel/helper-validator-identifier@https://pkg.pr.new/babel/babel/@babel/helper-validator-identifier@ee22146b5e1fc3db6dd061b09756d0c121a45be6"
+  checksum: 10/f011422956084af1f4ce51a1453083b77b20abb48eb95aef33df52d3328460c95848aaa92e59b618a9f334f58fb50d27f3fd66235fbfdd77e0a382c2a9aa650c
   languageName: node
   linkType: hard
 
@@ -209,14 +223,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/parser@npm:8.0.0-beta.4, @babel/parser@npm:^8.0.0-beta.4":
+"@babel/parser@https://pkg.pr.new/babel/babel/@babel/parser@ee22146b5e1fc3db6dd061b09756d0c121a45be6.tgz":
   version: 8.0.0-beta.4
-  resolution: "@babel/parser@npm:8.0.0-beta.4"
+  resolution: "@babel/parser@https://pkg.pr.new/babel/babel/@babel/parser@ee22146b5e1fc3db6dd061b09756d0c121a45be6.tgz"
   dependencies:
-    "@babel/types": "npm:^8.0.0-beta.4"
+    "@babel/types": "https://pkg.pr.new/babel/babel/@babel/types@ee22146b5e1fc3db6dd061b09756d0c121a45be6"
   bin:
     parser: ./bin/babel-parser.js
-  checksum: 10/41ea150c87ad2153efa245013fc6f6fa5be303403e2de0c4f2547f8529b92f242ae7a8a19f076a0bf63c494595fe40924421a6fbf4bc944378570d9df7849b82
+  checksum: 10/5879a3c73255d3428504be244b7e490f8e019b424607405da1c9622f1679287fc6bcd972d71e02be74d51d02e883248ee8e600baefe6ecc02d2cc6e024d6aa0c
   languageName: node
   linkType: hard
 
@@ -228,6 +242,17 @@ __metadata:
   bin:
     parser: ./bin/babel-parser.js
   checksum: 10/8d9bfb437af6c97a7f6351840b9ac06b4529ba79d6d3def24d6c2996ab38ff7f1f9d301e868ca84a93a3050fadb3d09dbc5105b24634cd281671ac11eebe8df7
+  languageName: node
+  linkType: hard
+
+"@babel/parser@npm:^8.0.0-beta.4":
+  version: 8.0.0-beta.4
+  resolution: "@babel/parser@npm:8.0.0-beta.4"
+  dependencies:
+    "@babel/types": "npm:^8.0.0-beta.4"
+  bin:
+    parser: ./bin/babel-parser.js
+  checksum: 10/41ea150c87ad2153efa245013fc6f6fa5be303403e2de0c4f2547f8529b92f242ae7a8a19f076a0bf63c494595fe40924421a6fbf4bc944378570d9df7849b82
   languageName: node
   linkType: hard
 
@@ -448,6 +473,16 @@ __metadata:
     "@babel/types": "npm:^7.28.5"
     debug: "npm:^4.3.1"
   checksum: 10/1fce426f5ea494913c40f33298ce219708e703f71cac7ac045ebde64b5a7b17b9275dfa4e05fb92c3f123136913dff62c8113172f4a5de66dab566123dbe7437
+  languageName: node
+  linkType: hard
+
+"@babel/types@https://pkg.pr.new/babel/babel/@babel/types@ee22146b5e1fc3db6dd061b09756d0c121a45be6":
+  version: 8.0.0-beta.4
+  resolution: "@babel/types@https://pkg.pr.new/babel/babel/@babel/types@ee22146b5e1fc3db6dd061b09756d0c121a45be6"
+  dependencies:
+    "@babel/helper-string-parser": "https://pkg.pr.new/babel/babel/@babel/helper-string-parser@ee22146b5e1fc3db6dd061b09756d0c121a45be6"
+    "@babel/helper-validator-identifier": "https://pkg.pr.new/babel/babel/@babel/helper-validator-identifier@ee22146b5e1fc3db6dd061b09756d0c121a45be6"
+  checksum: 10/3ac633a7fb797d81c6f3abd6961b4d49911729cffefadf59fb91be87cdf7e648bc85b7219e7334be163f7b3576038fb7fbd7306777ef98896da2041146cfa483
   languageName: node
   linkType: hard
 
@@ -8360,7 +8395,7 @@ __metadata:
     "@angular/compiler": "npm:21.1.1"
     "@babel/code-frame": "npm:8.0.0-beta.4"
     "@babel/generator": "npm:8.0.0-beta.4"
-    "@babel/parser": "npm:8.0.0-beta.4"
+    "@babel/parser": "https://pkg.pr.new/babel/babel/@babel/parser@ee22146b5e1fc3db6dd061b09756d0c121a45be6.tgz"
     "@babel/types": "npm:8.0.0-beta.4"
     "@eslint/js": "npm:9.39.2"
     "@glimmer/syntax": "npm:0.95.0"
