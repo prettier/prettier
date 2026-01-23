@@ -7,11 +7,17 @@ import {
   softline,
 } from "../../document/index.js";
 import { printDanglingComments } from "../../main/comments/print.js";
+import hasNewline from "../../utilities/has-newline.js";
 import hasNewlineInRange from "../../utilities/has-newline-in-range.js";
-import { locStart } from "../loc.js";
+import { locEnd, locStart } from "../loc.js";
 import getTextWithoutComments from "../utilities/get-text-without-comments.js";
-import { CommentCheckFlags, hasComment } from "../utilities/index.js";
+import { CommentCheckFlags, getComments } from "../utilities/index.js";
+import isLineComment from "../utilities/is-line-comment.js";
 import { printClassMemberSemicolon } from "./class.js";
+
+/**
+@import {Doc} from "../../document/index.js"
+*/
 
 /**
  * @param {string | null} optional
@@ -76,15 +82,27 @@ function printTypeScriptMappedType(path, options, print) {
     }
   }
 
+  /** @type {Doc} */
+  let danglingCommentsDoc = "";
+  const danglingComments = getComments(node, CommentCheckFlags.Dangling);
+  if (danglingComments.length > 0) {
+    const lastComment = danglingComments.at(-1);
+    danglingCommentsDoc = group([
+      printDanglingComments(path, options),
+      isLineComment(lastComment) ||
+      hasNewline(options.originalText, locEnd(lastComment))
+        ? hardline
+        : " ",
+    ]);
+  }
+
   return group(
     [
       "{",
       indent([
         options.bracketSpacing ? line : softline,
-        hasComment(node, CommentCheckFlags.Dangling)
-          ? group([printDanglingComments(path, options), hardline])
-          : "",
         group([
+          danglingCommentsDoc,
           node.readonly
             ? [
                 printTypeScriptMappedTypeModifier(node.readonly, "readonly"),

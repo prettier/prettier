@@ -129,6 +129,7 @@ function handleRemainingComment(context) {
     handleWhileComments,
     handleMethodNameComments,
     handleOnlyComments,
+    handleTSMappedTypeComments,
     handleCommentAfterArrowParams,
     handleFunctionNameComments,
     handleTSFunctionTrailingComments,
@@ -1003,12 +1004,27 @@ function handleIgnoreComments({ comment, enclosingNode, followingNode }) {
   }
 }
 
-function handleTSMappedTypeComments({ comment, precedingNode, enclosingNode }) {
+/**
+@param {NodeMap["TSMappedType"]} node
+@param {Comment} comment
+*/
+function isAfterMappedTypeOpeningBracket(node, comment, options) {
+  const start = locStart(node);
+  const textAfter = getTextWithoutComments(
+    options,
+    start + 1,
+    locStart(node.key),
+  );
+  const nextTokenIndex = start + 1 + textAfter.search(/\S/);
+  return locEnd(comment) < nextTokenIndex;
+}
+
+function handleTSMappedTypeComments({ comment, enclosingNode, options }) {
   if (enclosingNode?.type !== "TSMappedType") {
     return;
   }
 
-  if (!precedingNode) {
+  if (isAfterMappedTypeOpeningBracket(enclosingNode, comment, options)) {
     addDanglingComment(enclosingNode, comment);
     return true;
   }

@@ -44,3 +44,15 @@ type MakeBrand<T extends string> = {
   /** @private using ~ to sort last in intellisense */
   [K in `~brand~${T}`]: T;
 };
+
+type M1 = {
+  /* 11 */ /* 12 */ [b in B]: string
+}
+type M2= {
+  /* 21 */
+  /* 22 */ [b in B]: string
+}
+type M3= {
+  /* 23 */ /* 24 */
+  [b in B]: string
+}
