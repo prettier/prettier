@@ -7,4 +7,5 @@ runFormatTest(
     importMeta: import.meta,
   },
   ["flow"],
+  { errors: { hermes: true } },
 );
