@@ -1,11 +1,17 @@
-import { locEndWithFullText, locStart } from "../loc.js";
+import { locEnd, locStart } from "../loc.js";
 
 function printIgnored(path, options /* , print*/) {
   const { node } = path;
-  const text = options.originalText.slice(
-    locStart(node),
-    locEndWithFullText(node),
-  );
+  let text = options.originalText.slice(locStart(node), locEnd(node));
+
+  if (
+    options.semi &&
+    (node.type === "BreakStatement" ||
+      node.type === "ContinueStatement" ||
+      node.type === "VariableDeclaration")
+  ) {
+    text += ";";
+  }
 
   return text;
 }
