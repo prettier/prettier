@@ -31,9 +31,8 @@ else {
   stuff;
 }
 
-if (cond)
-  stuff;
-  // comment
+if (cond) stuff;
+// comment
 else stuff;
 
 ================================================================================
