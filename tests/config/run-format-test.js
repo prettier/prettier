@@ -347,21 +347,24 @@ async function runTest({
   }
 
   if (!shouldSkipEolTest(code, formatResult.options)) {
-    for (const eol of ["\r\n", "\r"]) {
-      const { eolVisualizedOutput: output } = await format(
-        code.replace(/\n/g, eol),
-        formatOptions,
-      );
-      // Only if `endOfLine: "auto"` the result will be different
-      const expected =
-        formatOptions.endOfLine === "auto"
-          ? visualizeEndOfLine(
-              // All `code` use `LF`, so the `eol` of result is always `LF`
-              formatResult.outputWithCursor.replace(/\n/g, eol),
-            )
-          : formatResult.eolVisualizedOutput;
-      expect(output).toBe(expected);
-    }
+    await Promise.all(
+      ["\r\n", "\r"].map(async (eol) => {
+        const { eolVisualizedOutput: output } = await format(
+          code.replace(/\n/g, eol),
+          formatOptions,
+        );
+        // Only if `endOfLine: "auto"` the result will be different
+        const expected =
+          formatOptions.endOfLine === "auto"
+            ? visualizeEndOfLine(
+                // All `code` use `LF`, so the `eol` of result is always `LF`
+                formatResult.outputWithCursor.replace(/\n/g, eol),
+              )
+            : formatResult.eolVisualizedOutput;
+
+        expect(output).toBe(expected);
+      }),
+    );
   }
 
   if (code.charAt(0) !== BOM) {
