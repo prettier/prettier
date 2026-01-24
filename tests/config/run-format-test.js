@@ -24,7 +24,6 @@ const unstableTests = new Map(
   [
     ["js/comments/if.js", (options) => options.semi !== false],
     ["flow/no-semi/comments.js", (options) => options.semi === false],
-    ["js/ignore/semi/asi.js", (options) => options.semi === false],
     ["js/identifier/parentheses/let.js", (options) => options.semi === false],
     "js/comments/return-statement.js",
     "js/comments/tagged-template-literal.js",
