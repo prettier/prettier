@@ -132,8 +132,6 @@ singleQuote = true
 
 Overrides let you have different configuration for certain file extensions, folders and specific files.
 
-Prettier borrows ESLint’s [override format](https://eslint.org/docs/latest/use/configure/configuration-files#configuration-file-resolution).
-
 JSON:
 
 ```json title=".prettierrc"
