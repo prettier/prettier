@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`optional.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+fun = (a: number): (?(string => string)) => {
+  return a > 0 ? s => \`\${s}: \${a}\` : null;
+};
+
+fun = (a: number): ?((string => string)) => {
+  return a > 0 ? s => \`\${s}: \${a}\` : null;
+};
+
+=====================================output=====================================
+fun = (a: number): (?(string) => string) => {
+  return a > 0 ? (s) => \`\${s}: \${a}\` : null;
+};
+
+fun = (a: number): (?(string) => string) => {
+  return a > 0 ? (s) => \`\${s}: \${a}\` : null;
+};
+
+================================================================================
+`;
