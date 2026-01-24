@@ -1,4 +1,4 @@
-import { isFrontMatter } from "../main/front-matter/index.js";
+import { isFrontMatter } from "../../main/front-matter/index.js";
 
 const ignoredProperties = new Set([
   "raw", // front-matter
@@ -11,7 +11,7 @@ const ignoredProperties = new Set([
   "spaces",
 ]);
 
-function clean(original, cloned, parent) {
+function massageAstNode(original, cloned, parent) {
   if (
     original.type === "css-comment" &&
     parent.type === "css-root" &&
@@ -217,10 +217,10 @@ function clean(original, cloned, parent) {
   }
 }
 
-clean.ignoredProperties = ignoredProperties;
+massageAstNode.ignoredProperties = ignoredProperties;
 
 function cleanCSSStrings(value) {
   return value.replaceAll("'", '"').replaceAll(/\\([^\da-f])/gi, "$1");
 }
 
-export default clean;
+export { massageAstNode };
