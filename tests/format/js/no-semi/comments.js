@@ -9,3 +9,18 @@ x;
 x;
 
 [].response = response; /* comment */
+
+
+{
+  let foo
+
+  // comment
+  ;[foo] = [1]
+}
+
+{
+  let foo = 42
+
+  // comment
+  ;[foo] = [1]
+}
