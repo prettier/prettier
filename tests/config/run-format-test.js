@@ -213,14 +213,16 @@ function runFormatTest(fixtures, parsers, options) {
             try {
               result.formatResult = await runFormat();
             } catch (error) {
-              Object.assign(result, { failed: true, error });
+              result.error = error;
             }
 
             return result;
           }),
         );
 
-        firstSucceedResult = formatResults.find(({ failed }) => !failed);
+        firstSucceedResult = formatResults.find(({ formatResult }) =>
+          Boolean(formatResult),
+        );
         results = new Map(
           formatResults.map((formatResult) => [
             formatResult.parser,
@@ -261,8 +263,8 @@ async function runTest({
     return;
   }
 
-  const { failed, error, formatResult } = result;
-  if (failed) {
+  const { error, formatResult } = result;
+  if (!formatResult) {
     throw error;
   }
 
