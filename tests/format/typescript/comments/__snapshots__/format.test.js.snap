@@ -974,7 +974,7 @@ export type WrappedFormUtils = {
 ================================================================================
 `;
 
-exports[`mapped_types.ts format 1`] = `
+exports[`mapped-types.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -1027,6 +1027,35 @@ type MakeBrand<T extends string> = {
   [K in \`~brand~\${T}\`]: T;
 };
 
+type M1 = {
+  /* 11 */ /* 12 */ [b in B]: string
+}
+type M2= {
+  /* 21 */
+  /* 22 */ [b in B]: string
+}
+type M3= {
+  /* 23 */ /* 24 */
+  [b in B]: string
+}
+
+type M4  = {
+  /* a long long long long long long long long long long long long long long comment */ [b in B]: string
+}
+
+type M5  = {
+  /* Multi
+line */ [b in B]: string
+}
+
+type M6  = {
+  /* 61 */ [b in long_long_long_long_long_long_type|long_long_long_long_long_long_type|long_long_long_long_long_long_type]: string
+}
+
+type M7  = {
+  /* 71 */ [b in X]: long_long_long_long_long_long_type|long_long_long_long_long_long_type|long_long_long_long_long_long_type
+}
+
 =====================================output=====================================
 type A = {
   // commentA
@@ -1034,8 +1063,7 @@ type A = {
 };
 
 type B = {
-  /* commentB */
-  [b in B]: string;
+  /* commentB */ [b in B]: string;
 };
 
 type C = {
@@ -1058,7 +1086,7 @@ type G = {
   [g in G /* commentG */]: string;
 };
 
-type H = { [/* commentH */ h in H]: string };
+type H = { /* commentH */ [h in H]: string };
 
 type I = { [/* commentI */ i in I]: string };
 
@@ -1074,6 +1102,47 @@ type M = { [m in M /* commentG */]: string };
 type MakeBrand<T extends string> = {
   /** @private using ~ to sort last in intellisense */
   [K in \`~brand~\${T}\`]: T;
+};
+
+type M1 = {
+  /* 11 */
+  /* 12 */ [b in B]: string;
+};
+type M2 = {
+  /* 21 */
+  /* 22 */ [b in B]: string;
+};
+type M3 = {
+  /* 23 */
+  /* 24 */
+  [b in B]: string;
+};
+
+type M4 = {
+  /* a long long long long long long long long long long long long long long comment */
+  [b in B]: string;
+};
+
+type M5 = {
+  /* Multi
+line */
+  [b in B]: string;
+};
+
+type M6 = {
+  /* 61 */ [
+    b in
+      | long_long_long_long_long_long_type
+      | long_long_long_long_long_long_type
+      | long_long_long_long_long_long_type
+  ]: string;
+};
+
+type M7 = {
+  /* 71 */ [b in X]:
+    | long_long_long_long_long_long_type
+    | long_long_long_long_long_long_type
+    | long_long_long_long_long_long_type;
 };
 
 ================================================================================
