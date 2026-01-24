@@ -20,13 +20,13 @@ const CURSOR_PLACEHOLDER = "<|>";
 const RANGE_START_PLACEHOLDER = "<<<PRETTIER_RANGE_START>>>";
 const RANGE_END_PLACEHOLDER = "<<<PRETTIER_RANGE_END>>>";
 
-const shouldThrowOnFormat = (filename, options) => {
+const shouldThrowOnFormat = (filename, options, parser) => {
   const { errors = {} } = options;
   if (errors === true) {
     return true;
   }
 
-  const files = errors[options.parser];
+  const files = errors[parser];
 
   if (files === true || (Array.isArray(files) && files.includes(filename))) {
     return true;
@@ -135,7 +135,6 @@ function runFormatTest(fixtures, parsers, options) {
     checkParsers({ dirname, files }, parsers);
   }
 
-  const [parser] = parsers;
   const allParsers = [...parsers];
   const addParsers = (...parsers) => {
     for (const parser of parsers) {
@@ -177,47 +176,70 @@ function runFormatTest(fixtures, parsers, options) {
     }`;
 
     describe(title, () => {
-      const formatOptions = {
+      const basicOptions = {
         printWidth: 80,
         ...options,
         filepath: filename,
-        parser,
       };
-      const shouldThrowOnMainParserFormat = shouldThrowOnFormat(
-        name,
-        formatOptions,
+      const parsersToTest = allParsers.filter(
+        (parser) => !failedTests.shouldDisable(filename, parser),
+      );
+      const mainParser = parsersToTest.find(
+        (parser) => !shouldThrowOnFormat(name, options, parser),
       );
 
-      let mainParserFormatResult;
-      if (shouldThrowOnMainParserFormat) {
-        mainParserFormatResult = { options: formatOptions, error: true };
-      } else {
-        beforeAll(async () => {
-          mainParserFormatResult = await format(code, formatOptions);
-        });
-      }
+      let results;
+      let firstSucceedResult;
+      beforeAll(async () => {
+        const formatResults = await Promise.all(
+          parsersToTest.map(async (parser) => {
+            const formatOptions = { ...basicOptions, parser };
+            const result = {
+              parser,
+              code,
+              formatOptions,
+              expectFail:
+                IS_ERROR_TESTS || shouldThrowOnFormat(name, options, parser),
+              expectedOutput: output,
+            };
 
-      for (const currentParser of allParsers) {
-        if (failedTests.shouldDisable(filename, currentParser)) {
-          continue;
-        }
+            try {
+              Object.assign(result, {
+                failed: false,
+                formatResult: await format(code, formatOptions),
+              });
+            } catch (error) {
+              Object.assign(result, {
+                failed: true,
+                error,
+              });
+            }
 
+            return result;
+          }),
+        );
+
+        firstSucceedResult = formatResults.find(({ failed }) => !failed);
+        results = new Map(
+          formatResults.map((formatResult) => [
+            formatResult.parser,
+            formatResult,
+          ]),
+        );
+      });
+
+      for (const parser of parsersToTest) {
         const testTitle =
-          shouldThrowOnMainParserFormat ||
-          formatOptions.parser !== currentParser
-            ? `[${currentParser}] format`
-            : "format";
+          parser !== mainParser ? `[${parser}] format` : "format";
 
         test(testTitle, async () => {
           await runTest({
             parsers,
-            name,
             filename,
             code,
             output,
-            parser: currentParser,
-            mainParserFormatResult,
-            mainParserFormatOptions: formatOptions,
+            result: results.get(parser),
+            succeedResult: firstSucceedResult,
           });
         });
       }
@@ -227,58 +249,51 @@ function runFormatTest(fixtures, parsers, options) {
 
 async function runTest({
   parsers,
-  name,
   filename,
   code,
   output,
-  parser,
-  mainParserFormatResult,
-  mainParserFormatOptions,
+  result,
+  succeedResult,
 }) {
-  let formatOptions = mainParserFormatOptions;
-  let formatResult = mainParserFormatResult;
-  expect(formatResult).toBeDefined();
-
-  const isMainParser = mainParserFormatOptions.parser === parser;
-
-  // Verify parsers or error tests
-  if (mainParserFormatResult.error || !isMainParser) {
-    formatOptions = { ...mainParserFormatResult.options, parser };
-    const runFormat = () => format(code, formatOptions);
-
-    if (shouldThrowOnFormat(name, formatOptions)) {
-      await expect(runFormat()).rejects.toThrowErrorMatchingSnapshot();
-      return;
-    }
-
-    // Verify parsers format result should be the same as main parser
-    output = mainParserFormatResult.outputWithCursor;
-    formatResult = await runFormat();
+  if (result.expectFail) {
+    expect(() => {
+      throw result.error;
+    }).toThrowErrorMatchingSnapshot();
+    return;
   }
+
+  expect(result.failed).toBe(false);
+
+  const { formatResult } = result;
+  expect(formatResult).toBeDefined();
+  expect(succeedResult.formatResult).toBeDefined();
 
   // Make sure output has consistent EOL
   expect(formatResult.eolVisualizedOutput).toBe(
     visualizeEndOfLine(consistentEndOfLine(formatResult.outputWithCursor)),
   );
 
-  // The result is assert to equals to `output`
-  if (typeof output === "string") {
+  if (typeof result.expectedOutput === "string") {
     expect(formatResult.eolVisualizedOutput).toBe(visualizeEndOfLine(output));
-  }
-  // All parsers have the same result, only snapshot the result from main parser
-  else {
+  } else if (succeedResult === result) {
     expect(
       createSnapshot(formatResult, {
         parsers,
-        formatOptions,
+        formatOptions: result.formatOptions,
         CURSOR_PLACEHOLDER,
       }),
     ).toMatchSnapshot();
+  } else {
+    expect(formatResult.eolVisualizedOutput).toStrictEqual(
+      succeedResult.formatResult.eolVisualizedOutput,
+    );
   }
 
   if (!FULL_TEST) {
     return;
   }
+
+  const { formatOptions } = result;
 
   // Some parsers skip parsing empty files
   if (formatResult.changed && code.trim()) {
@@ -298,7 +313,7 @@ async function runTest({
     }
   }
 
-  if (!isMainParser) {
+  if (succeedResult === result) {
     return;
   }
 
