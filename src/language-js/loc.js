@@ -43,9 +43,10 @@ function locEnd(node) {
     return locEnd(node.alternate ?? node.consequent);
   }
 
-  // TODO[@fisker]: This is unsafe, since `node.expression` can be parenthesized
-  if (node.type === "ExpressionStatement") {
-    return locEnd(node.expression);
+  // @ts-expect-error -- Added in postprocess.js
+  if (node.type === "ExpressionStatement" && node.__end) {
+    // @ts-expect-error -- safe
+    return node.__end;
   }
 
   return locEndWithFullText(node);

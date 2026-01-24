@@ -8,7 +8,8 @@ function printIgnored(path, options /* , print*/) {
     options.semi &&
     (node.type === "BreakStatement" ||
       node.type === "ContinueStatement" ||
-      node.type === "VariableDeclaration")
+      node.type === "VariableDeclaration" ||
+      (node.type === "ExpressionStatement" && node.__end))
   ) {
     text += ";";
   }

@@ -1,7 +1,8 @@
 import * as assert from "#universal/assert";
-import { locEnd, locStart } from "../../loc.js";
+import { locEnd, locEndWithFullText, locStart } from "../../loc.js";
 import createTypeCheckFunction from "../../utilities/create-type-check-function.js";
 import getRaw from "../../utilities/get-raw.js";
+import getTextWithoutComments from "../../utilities/get-text-without-comments.js";
 import isBlockComment from "../../utilities/is-block-comment.js";
 import isLineComment from "../../utilities/is-line-comment.js";
 import isTypeCastComment from "../../utilities/is-type-cast-comment.js";
@@ -167,6 +168,10 @@ function postprocess(ast, options) {
             node.elementTypes = node.types;
           }
           break;
+
+        case "ExpressionStatement":
+          addExpressionStatementEnd(node, { comments, text });
+          break;
       }
     },
     onLeave(node) {
@@ -252,6 +257,18 @@ function assertRaw(node, text) {
 
   const raw = node.type === "TemplateElement" ? node.value.raw : getRaw(node);
   assert.equal(raw, text.slice(locStart(node), locEnd(node)));
+}
+
+function addExpressionStatementEnd(node, { comments, text: originalText }) {
+  const start = locStart(node);
+  const end = locEndWithFullText(node);
+  const text = getTextWithoutComments(
+    { [Symbol.for("comments")]: comments, originalText },
+    start,
+    end,
+  );
+  const cleaned = (text.at(-1) === ";" ? text.slice(0, -1) : text).trimEnd();
+  node.__end = end - (text.length - cleaned.length);
 }
 
 export default postprocess;
