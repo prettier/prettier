@@ -9,7 +9,12 @@ function printIgnored(path, options /* , print*/) {
     (node.type === "BreakStatement" ||
       node.type === "ContinueStatement" ||
       node.type === "VariableDeclaration" ||
-      ((node.type === "ExpressionStatement" || node.type === "Directive") &&
+      ((node.type === "ExpressionStatement" ||
+        node.type === "Directive" ||
+        node.type === "ImportDeclaration" ||
+        node.type === "ExportDefaultDeclaration" ||
+        node.type === "ExportNamedDeclaration" ||
+        node.type === "ExportAllDeclaration") &&
         node.__end))
   ) {
     text += ";";

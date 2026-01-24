@@ -155,13 +155,6 @@ function postprocess(ast, options) {
           }
           break;
 
-        case "ImportDeclaration":
-          if (parser === "hermes" && node.assertions && !node.attributes) {
-            node.attributes = node.assertions;
-            delete node.assertions;
-          }
-          break;
-
         // babel-flow
         case "TupleTypeAnnotation":
           if (node.types && !node.elementTypes) {
@@ -169,9 +162,18 @@ function postprocess(ast, options) {
           }
           break;
 
+        case "ImportDeclaration":
+          if (parser === "hermes" && node.assertions && !node.attributes) {
+            node.attributes = node.assertions;
+            delete node.assertions;
+          }
+        // fall through
         case "Directive":
         case "ExpressionStatement":
-          addExpressionStatementEnd(node, { comments, text });
+        case "ExportDefaultDeclaration":
+        case "ExportNamedDeclaration":
+        case "ExportAllDeclaration":
+          addEnd(node, { comments, text });
           break;
       }
     },
@@ -260,7 +262,7 @@ function assertRaw(node, text) {
   assert.equal(raw, text.slice(locStart(node), locEnd(node)));
 }
 
-function addExpressionStatementEnd(node, { comments, text: originalText }) {
+function addEnd(node, { comments, text: originalText }) {
   const start = locStart(node);
   const end = locEndWithFullText(node);
   const text = getTextWithoutComments(

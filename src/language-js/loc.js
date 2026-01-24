@@ -44,7 +44,12 @@ function locEnd(node) {
   }
 
   if (
-    (node.type === "ExpressionStatement" || node.type === "Directive") &&
+    (node.type === "ExpressionStatement" ||
+      node.type === "Directive" ||
+      node.type === "ImportDeclaration" ||
+      node.type === "ExportDefaultDeclaration" ||
+      node.type === "ExportNamedDeclaration" ||
+      node.type === "ExportAllDeclaration") &&
     // @ts-expect-error -- Added in postprocess.js
     node.__end
   ) {
