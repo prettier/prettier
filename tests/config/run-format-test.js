@@ -48,6 +48,8 @@ const unstableTests = new Map(
       (options) => options.objectWrap !== "collapse",
     ],
     "typescript/call/callee-comments.ts",
+    "js/arrows/arrow-chain-with-trailing-comments.js",
+    "typescript/as/comments/18160.ts",
   ].map((fixture) => {
     const [file, isUnstable = () => true] = Array.isArray(fixture)
       ? fixture
