@@ -9,7 +9,8 @@ function printIgnored(path, options /* , print*/) {
     (node.type === "BreakStatement" ||
       node.type === "ContinueStatement" ||
       node.type === "VariableDeclaration" ||
-      (node.type === "ExpressionStatement" && node.__end))
+      ((node.type === "ExpressionStatement" || node.type === "Directive") &&
+        node.__end))
   ) {
     text += ";";
   }

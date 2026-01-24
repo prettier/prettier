@@ -169,6 +169,7 @@ function postprocess(ast, options) {
           }
           break;
 
+        case "Directive":
         case "ExpressionStatement":
           addExpressionStatementEnd(node, { comments, text });
           break;

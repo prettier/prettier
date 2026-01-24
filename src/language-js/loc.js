@@ -44,7 +44,10 @@ function locEnd(node) {
   }
 
   // @ts-expect-error -- Added in postprocess.js
-  if (node.type === "ExpressionStatement" && node.__end) {
+  if (
+    (node.type === "ExpressionStatement" || node.type === "Directive") &&
+    node.__end
+  ) {
     // @ts-expect-error -- safe
     return node.__end;
   }
