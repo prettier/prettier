@@ -81,6 +81,7 @@ function cleanBabelChainExpression(node) {
     node.type === "MemberExpression" || node.type === "CallExpression";
     node = getChainElement(node)
   ) {
+    // @ts-expect-error -- intentionally to mutate
     node.type = `Optional${node.type}`;
   }
 }
