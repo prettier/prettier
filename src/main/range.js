@@ -186,12 +186,12 @@ function isSourceElement(opts, node, parentNode) {
 
 /**
 @param {string} text
-@param {*} opts
+@param {*} options
 @param {*} ast
 @returns {[number, number]}
 */
-function calculateRange(text, opts, ast) {
-  let { rangeStart: start, rangeEnd: end, locStart, locEnd } = opts;
+function calculateRange(text, options, ast) {
+  let { rangeStart: start, rangeEnd: end } = options;
   assert.ok(end > start);
   // Contract the range so that it has non-whitespace characters at its endpoints.
   // This ensures we can format a range that doesn't end on a node.
@@ -209,8 +209,8 @@ function calculateRange(text, opts, ast) {
   const startNodeAndAncestors = findNodeAtOffset(
     ast,
     start,
-    opts,
-    (node, parentNode) => isSourceElement(opts, node, parentNode),
+    options,
+    (node, parentNode) => isSourceElement(options, node, parentNode),
     [],
     "rangeStart",
   );
@@ -225,8 +225,8 @@ function calculateRange(text, opts, ast) {
       : findNodeAtOffset(
           ast,
           end,
-          opts,
-          (node) => isSourceElement(opts, node),
+          options,
+          (node) => isSourceElement(options, node),
           [],
           "rangeEnd",
         );
@@ -247,8 +247,15 @@ function calculateRange(text, opts, ast) {
     [startNode, endNode] = findSiblingAncestors(
       startNodeAndAncestors,
       endNodeAndAncestors,
-      opts,
+      options,
     );
+  }
+
+  let { locStart, locEnd } = options;
+
+  if (options.printer.features?.experimental_locForRangeFormat) {
+    ({ locStart, locEnd } =
+      options.printer.features.experimental_locForRangeFormat);
   }
 
   return [
