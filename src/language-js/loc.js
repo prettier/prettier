@@ -43,6 +43,11 @@ function locEnd(node) {
     return locEnd(node.alternate ?? node.consequent);
   }
 
+  // TODO[@fisker]: This is unsafe, since `node.expression` can be parenthesized
+  if (node.type === "ExpressionStatement") {
+    return locEnd(node.expression);
+  }
+
   return locEndWithFullText(node);
 }
 

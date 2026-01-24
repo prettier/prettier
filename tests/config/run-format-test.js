@@ -24,7 +24,6 @@ const unstableTests = new Map(
   [
     ["js/comments/dangling_array.js", (options) => options.semi === false],
     ["js/comments/jsx.js", (options) => options.semi === false],
-    ["js/no-semi/comments.js", (options) => options.semi === false],
     ["flow/no-semi/comments.js", (options) => options.semi === false],
     ["js/ignore/semi/asi.js", (options) => options.semi === false],
     ["js/identifier/parentheses/let.js", (options) => options.semi === false],
