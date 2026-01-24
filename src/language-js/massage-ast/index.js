@@ -1,14 +1,14 @@
-import { cleanChainExpression } from "./clean/chain-expression.js";
 import {
   isArrayExpression,
   isBigIntLiteral,
   isMeaningfulEmptyStatement,
   isNumericLiteral,
   isStringLiteral,
-} from "./utilities/index.js";
+} from "../utilities/index.js";
+import { cleanChainExpression } from "./chain-expression.js";
 
 /**
-@import {Node} from "./types/estree.js"
+@import {Node} from "../types/estree.js"
 */
 
 const ignoredProperties = new Set([
@@ -51,7 +51,7 @@ function cleanKey(cloned, original, property) {
 @param {any} cloned
 @param {Node | undefined} parent
 */
-function clean(original, cloned, parent) {
+function massageAstNode(original, cloned, parent) {
   if (original.type === "Program") {
     delete cloned.sourceType;
   }
@@ -243,6 +243,6 @@ function clean(original, cloned, parent) {
   }
 }
 
-clean.ignoredProperties = ignoredProperties;
+massageAstNode.ignoredProperties = ignoredProperties;
 
-export default clean;
+export { massageAstNode };
