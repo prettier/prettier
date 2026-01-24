@@ -17,3 +17,8 @@ export {foo}
 export * from 'foo'
 
 ;/* Should preserve line before */({})
+
+////////////////////////////////////////
+export {foo as bar} // 1
+// 2
+;/*3*/({})
