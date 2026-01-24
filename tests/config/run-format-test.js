@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import url from "node:url";
 import createEsmUtils from "esm-utils";
+import * as failedTests from "./failed-format-tests.js";
 import getPrettier from "./get-prettier.js";
 import checkParsers from "./utilities/check-parsers.js";
 import consistentEndOfLine from "./utilities/consistent-end-of-line.js";
@@ -18,140 +19,6 @@ const BOM = "\uFEFF";
 const CURSOR_PLACEHOLDER = "<|>";
 const RANGE_START_PLACEHOLDER = "<<<PRETTIER_RANGE_START>>>";
 const RANGE_END_PLACEHOLDER = "<<<PRETTIER_RANGE_END>>>";
-
-// TODO: these test files need fix
-const unstableTests = new Map(
-  [
-    ["js/identifier/parentheses/let.js", (options) => options.semi === false],
-    "js/comments/return-statement.js",
-    "js/comments/tagged-template-literal.js",
-    "js/for/9812-unstable.js",
-    [
-      "js/multiparser-markdown/codeblock.js",
-      (options) => options.proseWrap === "always",
-    ],
-    "flow/hook/declare-hook.js",
-    "flow/hook/hook-type-annotation.js",
-    "typescript/prettier-ignore/mapped-types.ts",
-    "typescript/prettier-ignore/issue-14238.ts",
-    "js/for/continue-and-break-comment-without-blocks.js",
-    "js/sequence-expression/parenthesized.js",
-    "typescript/satisfies-operators/comments-unstable.ts",
-    "jsx/comments/in-attributes.js",
-    "typescript/union/consistent-with-flow/single-type.ts",
-    "js/if/non-block.js",
-    "typescript/import-type/long-module-name/long-module-name4.ts",
-    // Unstable due to lack of indent information
-    "js/multiparser-comments/comment-inside.js",
-    [
-      "typescript/method-chain/object/issue-17239.ts",
-      (options) => options.objectWrap !== "collapse",
-    ],
-    "typescript/call/callee-comments.ts",
-    "js/arrows/arrow-chain-with-trailing-comments.js",
-    "typescript/as/comments/18160.ts",
-  ].map((fixture) => {
-    const [file, isUnstable = () => true] = Array.isArray(fixture)
-      ? fixture
-      : [fixture];
-    return [path.join(__dirname, "../format/", file), isUnstable];
-  }),
-);
-
-const unstableAstTests = new Map();
-const commentClosureTypecaseTests = new Set(
-  [
-    // These tests works on `babel`, `acorn`, `espree`, `oxc`, and `meriyah`
-    "comments-closure-typecast",
-  ].map((directory) => path.join(__dirname, "../format/js", directory)),
-);
-
-const espreeDisabledTests = new Set([
-  ...commentClosureTypecaseTests,
-  ...["explicit-resource-management/valid-await-using-asi-assignment.js"].map(
-    (file) => path.join(__dirname, "../format/js", file),
-  ),
-]);
-const acornDisabledTests = new Set(
-  ["explicit-resource-management/valid-await-using-asi-assignment.js"].map(
-    (file) => path.join(__dirname, "../format/js", file),
-  ),
-);
-const meriyahDisabledTests = new Set(
-  [
-    // Parsing to different ASTs
-    "js/decorators/member-expression.js",
-  ].map((file) => path.join(__dirname, "../format", file)),
-);
-const babelTsDisabledTests = new Set(
-  [
-    "conformance/types/moduleDeclaration/kind-detection.ts",
-    // https://github.com/babel/babel/pull/17659
-    "conformance/internalModules/importDeclarations/circularImportAlias.ts",
-    "conformance/internalModules/importDeclarations/exportImportAlias.ts",
-    "conformance/internalModules/importDeclarations/importAliasIdentifiers.ts",
-    "conformance/internalModules/importDeclarations/shadowedInternalModule.ts",
-    "conformance/types/moduleDeclaration/moduleDeclaration.ts",
-    "conformance/types/ambient/ambientDeclarations.ts",
-    "compiler/declareDottedModuleName.ts",
-    "compiler/privacyGloImport.ts",
-    "declare/declare_module.ts",
-    "const/initializer-ambient-context.ts",
-    "keywords/keywords.ts",
-    "keywords/module.ts",
-    "module/global.ts",
-    "module/keyword.ts",
-    "module/module_nested.ts",
-    "custom/stability/moduleBlock.ts",
-    "interface2/module.ts",
-  ].map((file) => path.join(__dirname, "../format/typescript", file)),
-);
-const oxcDisabledTests = new Set();
-const oxcTsDisabledTests = new Set();
-const hermesDisabledTests = new Set([
-  ...commentClosureTypecaseTests,
-  ...[
-    // Not supported
-    "flow/comments",
-    "flow-repo/union_new",
-
-    // Different result
-    "flow/hook/comments-before-arrow.js",
-  ].map((file) => path.join(__dirname, "../format", file)),
-]);
-const flowDisabledTests = new Set(
-  [
-    // Parsing to different ASTs
-    "js/decorators/member-expression.js",
-  ].map((file) => path.join(__dirname, "../format", file)),
-);
-const typescriptDisabledTests = new Set(
-  [
-    // https://github.com/typescript-eslint/typescript-eslint/issues/11389
-    "js/import/long-module-name/import-defer.js",
-    "js/import/long-module-name/import-source.js",
-  ].map((file) => path.join(__dirname, "../format", file)),
-);
-
-const isUnstable = (filename, options) => {
-  const testFunction = unstableTests.get(filename);
-
-  if (!testFunction) {
-    return false;
-  }
-
-  return testFunction(options);
-};
-
-const isAstUnstable = (filename, options) => {
-  const testFunction = unstableAstTests.get(filename);
-
-  if (!testFunction) {
-    return false;
-  }
-
-  return testFunction(options);
-};
 
 const shouldThrowOnFormat = (filename, options) => {
   const { errors = {} } = options;
@@ -270,45 +137,35 @@ function runFormatTest(fixtures, parsers, options) {
 
   const [parser] = parsers;
   const allParsers = [...parsers];
+  const addParsers = (...parsers) => {
+    for (const parser of parsers) {
+      if (
+        !allParsers.includes(parser) &&
+        !failedTests.shouldDisable(dirname, parser)
+      ) {
+        allParsers.push(parser);
+      }
+    }
+  };
 
   if (!IS_ERROR_TESTS) {
     if (
       parsers.includes("babel") &&
       (isTestDirectory(dirname, "js") || isTestDirectory(dirname, "jsx"))
     ) {
-      if (!parsers.includes("acorn") && !acornDisabledTests.has(dirname)) {
-        allParsers.push("acorn");
-      }
-      if (!parsers.includes("espree") && !espreeDisabledTests.has(dirname)) {
-        allParsers.push("espree");
-      }
-      if (!parsers.includes("meriyah") && !meriyahDisabledTests.has(dirname)) {
-        allParsers.push("meriyah");
-      }
-      if (!parsers.includes("acorn") && !oxcDisabledTests.has(dirname)) {
-        allParsers.push("oxc");
-      }
+      addParsers("acorn", "espree", "meriyah", "oxc");
     }
 
     if (parsers.includes("typescript") && !IS_TYPESCRIPT_ONLY_TEST) {
-      if (!parsers.includes("babel-ts")) {
-        allParsers.push("babel-ts");
-      }
-      if (!parsers.includes("oxc-ts")) {
-        allParsers.push("oxc-ts");
-      }
+      addParsers("babel-ts", "oxc-ts");
     }
 
-    if (
-      parsers.includes("flow") &&
-      !parsers.includes("hermes") &&
-      !hermesDisabledTests.has(dirname)
-    ) {
-      allParsers.push("hermes");
+    if (parsers.includes("flow")) {
+      addParsers("hermes");
     }
 
-    if (parsers.includes("babel") && !parsers.includes("__babel_estree")) {
-      allParsers.push("__babel_estree");
+    if (parsers.includes("babel")) {
+      addParsers("__babel_estree");
     }
   }
 
@@ -341,19 +198,7 @@ function runFormatTest(fixtures, parsers, options) {
       }
 
       for (const currentParser of allParsers) {
-        if (
-          (currentParser === "acorn" && acornDisabledTests.has(filename)) ||
-          (currentParser === "espree" && espreeDisabledTests.has(filename)) ||
-          (currentParser === "meriyah" && meriyahDisabledTests.has(filename)) ||
-          (currentParser === "oxc" && oxcDisabledTests.has(filename)) ||
-          (currentParser === "oxc-ts" && oxcTsDisabledTests.has(filename)) ||
-          (currentParser === "hermes" && hermesDisabledTests.has(filename)) ||
-          (currentParser === "flow" && flowDisabledTests.has(filename)) ||
-          (currentParser === "babel-ts" &&
-            babelTsDisabledTests.has(filename)) ||
-          (currentParser === "typescript" &&
-            typescriptDisabledTests.has(filename))
-        ) {
+        if (failedTests.shouldDisable(filename, currentParser)) {
           continue;
         }
 
@@ -441,7 +286,10 @@ async function runTest({
     const [originalAst, formattedAst] = await Promise.all(
       [input, output].map((code) => parse(code, formatOptions)),
     );
-    const isAstUnstableTest = isAstUnstable(filename, formatOptions);
+    const isAstUnstableTest = failedTests.isAstUnstable(
+      filename,
+      formatOptions,
+    );
 
     if (isAstUnstableTest) {
       expect(formattedAst).not.toStrictEqual(originalAst);
@@ -454,7 +302,7 @@ async function runTest({
     return;
   }
 
-  const isUnstableTest = isUnstable(filename, formatOptions);
+  const isUnstableTest = failedTests.isUnstable(filename, formatOptions);
   if (
     (formatResult.changed || isUnstableTest) &&
     // No range and cursor
