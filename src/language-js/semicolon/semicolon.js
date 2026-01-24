@@ -64,6 +64,9 @@ function expressionNeedsASIProtection(path, options) {
       }
       break;
 
+    case "TSTypeAssertion":
+      return true;
+
     case "Literal":
       if (node.regex) {
         return true;

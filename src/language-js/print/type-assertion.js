@@ -7,6 +7,9 @@ import {
 } from "../../document/index.js";
 import { isArrayExpression, isObjectExpression } from "../utilities/index.js";
 
+/*
+- `TSTypeAssertion` (TypeScript)
+*/
 function printTypeAssertion(path, options, print) {
   const { node } = path;
   const shouldBreakAfterCast = !(
