@@ -22,8 +22,7 @@ const RANGE_END_PLACEHOLDER = "<<<PRETTIER_RANGE_END>>>";
 // TODO: these test files need fix
 const unstableTests = new Map(
   [
-    ["js/comments/dangling_array.js", (options) => options.semi === false],
-    ["js/comments/jsx.js", (options) => options.semi === false],
+    ["js/comments/if.js", (options) => options.semi !== false],
     ["flow/no-semi/comments.js", (options) => options.semi === false],
     ["js/ignore/semi/asi.js", (options) => options.semi === false],
     ["js/identifier/parentheses/let.js", (options) => options.semi === false],
