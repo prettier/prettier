@@ -1,0 +1,43 @@
+<!-- https://github.com/angular/angular/pull/66210 -->
+
+@switch (expr) {
+  @case (   'one')
+  @case (     'two') {
+    {{                      oneOrTwo()}}
+  }
+  @case (                  'three') {
+    {{   three()}}
+  }
+}
+
+
+@switch (expr) {
+  @case      (1)
+  @case    (2) {
+    {{oneOrTwo()                 }}
+  }
+  @case     (3     )
+  @default {
+    {{default()                  }}
+  }
+}
+
+ <div>
+      {{message}}
+      @switch (value()) {
+        @case (         0)                  @case(1            ) {
+                                    case 01
+        }
+        @case (2) {
+          case 2
+        }
+        @default {
+          default
+        }
+      }
+    </div>
+
+@switch(a){@default @case(2){<div>default before case</div>}}
+@switch(a){@case(1) @case(2){} @case(3) {<div>3</div>}}
+
+@switch(a){@case(1) @case(2) {<!-- comment -->}}

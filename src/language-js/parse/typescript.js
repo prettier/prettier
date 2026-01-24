@@ -1,76 +1,108 @@
-"use strict";
+import { parse as parseTypeScript } from "@typescript-eslint/typescript-estree";
+import createError from "../../common/parser-create-error.js";
+import { tryCombinationsSync } from "../../utilities/try-combinations.js";
+import postprocess from "./postprocess/index.js";
+import createParser from "./utilities/create-parser.js";
+import jsxRegexp from "./utilities/jsx-regexp.evaluate.js";
+import replaceHashbang from "./utilities/replace-hashbang.js";
+import {
+  getSourceType,
+  SOURCE_TYPE_COMBINATIONS,
+} from "./utilities/source-types.js";
 
-const createError = require("../../common/parser-create-error.js");
-const tryCombinations = require("../../utils/try-combinations.js");
-const createParser = require("./utils/create-parser.js");
-const replaceHashbang = require("./utils/replace-hashbang.js");
-const postprocess = require("./postprocess/index.js");
+/** @import {TSESTreeOptions} from "@typescript-eslint/typescript-estree" */
 
-/** @type {import("@typescript-eslint/typescript-estree").TSESTreeOptions} */
-const parseOptions = {
+/** @type {TSESTreeOptions} */
+const baseParseOptions = {
   // `jest@<=26.4.2` rely on `loc`
   // https://github.com/facebook/jest/issues/10444
+  // Set `loc` and `range` to `true` also prevent AST traverse
+  // https://github.com/typescript-eslint/typescript-eslint/blob/733b3598c17d3a712cf6f043115587f724dbe3ef/packages/typescript-estree/src/ast-converter.ts#L38
   loc: true,
   range: true,
   comment: true,
-  jsx: true,
-  tokens: true,
+  tokens: false,
   loggerFn: false,
-  project: [],
+  project: false,
+  jsDocParsingMode: "none",
+  suppressDeprecatedPropertyWarnings: process.env.NODE_ENV === "production",
 };
 
 function createParseError(error) {
-  const { message, lineNumber, column } = error;
+  const { message, location } = error;
 
-  /* istanbul ignore next */
-  if (typeof lineNumber !== "number") {
+  /* c8 ignore next 3 -- not a parse error */
+  if (!location) {
     return error;
   }
 
+  const { start, end } = location;
+
   return createError(message, {
-    start: { line: lineNumber, column: column + 1 },
+    loc: {
+      start: { line: start.line, column: start.column + 1 },
+      end: { line: end.line, column: end.column + 1 },
+    },
+    cause: error,
   });
 }
 
-function parse(text, parsers, opts) {
-  const textToParse = replaceHashbang(text);
-  const jsx = isProbablyJsx(text);
+// https://typescript-eslint.io/packages/parser/#jsx
+const isKnownFileType = (filepath) =>
+  filepath && /\.(?:js|mjs|cjs|jsx|ts|mts|cts|tsx)$/i.test(filepath);
 
-  const { parseWithNodeMaps } = require("@typescript-eslint/typescript-estree");
-  const { result, error: firstError } = tryCombinations(
-    // Try passing with our best guess first.
-    () => parseWithNodeMaps(textToParse, { ...parseOptions, jsx }),
-    // But if we get it wrong, try the opposite.
-    () => parseWithNodeMaps(textToParse, { ...parseOptions, jsx: !jsx })
-  );
+function getParseOptionsCombinations(text, filepath) {
+  let combinations = [{ ...baseParseOptions, filePath: filepath }];
 
-  if (!result) {
-    // Suppose our guess is correct, throw the first error
-    throw createParseError(firstError);
+  const sourceType = getSourceType(filepath);
+  if (sourceType) {
+    combinations = combinations.map((parseOptions) => ({
+      ...parseOptions,
+      sourceType,
+    }));
+  } else {
+    combinations = SOURCE_TYPE_COMBINATIONS.flatMap((sourceType) =>
+      combinations.map((parseOptions) => ({ ...parseOptions, sourceType })),
+    );
   }
 
-  opts.originalText = text;
-  opts.tsParseResult = result;
-  return postprocess(result.ast, opts);
+  if (isKnownFileType(filepath)) {
+    return combinations;
+  }
+
+  const shouldEnableJsx = jsxRegexp.test(text);
+  return [shouldEnableJsx, !shouldEnableJsx].flatMap((jsx) =>
+    combinations.map((parseOptions) => ({ ...parseOptions, jsx })),
+  );
 }
 
-/**
- * Use a naive regular expression to detect JSX
- */
-function isProbablyJsx(text) {
-  return new RegExp(
-    [
-      "(?:^[^\"'`]*</)", // Contains "</" when probably not in a string
-      "|",
-      "(?:^[^/]{2}.*/>)", // Contains "/>" on line not starting with "//"
-    ].join(""),
-    "m"
-  ).test(text);
+function parse(text, options) {
+  let filepath = options?.filepath;
+  if (typeof filepath !== "string") {
+    filepath = undefined;
+  }
+
+  const textToParse = replaceHashbang(text);
+  const parseOptionsCombinations = getParseOptionsCombinations(text, filepath);
+
+  let ast;
+  try {
+    ast = tryCombinationsSync(
+      parseOptionsCombinations.map(
+        (parseOptions) => () => parseTypeScript(textToParse, parseOptions),
+      ),
+    );
+  } catch ({
+    // @ts-expect-error -- expected
+    errors: [
+      // Suppose our guess is correct, throw the first error
+      error,
+    ],
+  }) {
+    throw createParseError(error);
+  }
+
+  return postprocess(ast, { parser: "typescript", text });
 }
 
-// Export as a plugin so we can reuse the same bundle for UMD loading
-module.exports = {
-  parsers: {
-    typescript: createParser(parse),
-  },
-};
+export const typescript = /* @__PURE__ */ createParser(parse);

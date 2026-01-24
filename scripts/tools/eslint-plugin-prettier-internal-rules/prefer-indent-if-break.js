@@ -1,5 +1,3 @@
-"use strict";
-
 const selector = [
   "CallExpression",
   "[optional=false]",
@@ -18,12 +16,9 @@ const selector = [
 
 const messageId = "prefer-indent-if-break";
 
-module.exports = {
+export default {
   meta: {
     type: "suggestion",
-    docs: {
-      url: "https://github.com/prettier/prettier/blob/main/scripts/tools/eslint-plugin-prettier-internal-rules/prefer-indent-if-break.js",
-    },
     messages: {
       [messageId]: "Prefer `indentIfBreak(…)` over `ifBreak(indent(…), …)`.",
     },
@@ -48,15 +43,15 @@ module.exports = {
           *fix(fixer) {
             yield fixer.replaceText(node.callee, "indentIfBreak");
             const openingParenthesisToken = sourceCode.getTokenAfter(
-              node.callee
+              node.callee,
             );
             const commaToken = sourceCode.getTokenBefore(
               doc,
-              ({ type, value }) => type === "Punctuator" && value === ","
+              ({ type, value }) => type === "Punctuator" && value === ",",
             );
             yield fixer.replaceTextRange(
               [openingParenthesisToken.range[1], commaToken.range[1]],
-              ""
+              "",
             );
           },
         });

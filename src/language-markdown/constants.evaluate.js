@@ -1,58 +1,89 @@
-"use strict";
+import { all as getCjkCharset } from "cjk-regex";
+import { Charset } from "regexp-util";
+import unicodeRegex from "unicode-regex";
 
-const cjkRegex = require("cjk-regex");
-const regexpUtil = require("regexp-util");
-const unicodeRegex = require("unicode-regex");
-
-const cjkPattern = `(?:${cjkRegex()
-  .union(
-    unicodeRegex({
-      Script_Extensions: ["Han", "Katakana", "Hiragana", "Hangul", "Bopomofo"],
-      General_Category: [
-        "Other_Letter",
-        "Letter_Number",
-        "Other_Symbol",
-        "Modifier_Letter",
-        "Modifier_Symbol",
-        "Nonspacing_Mark",
-      ],
-    })
-  )
-  .toString()})(?:${unicodeRegex({
+const cjkCharset = new Charset(
+  getCjkCharset(),
+  unicodeRegex({
+    Script_Extensions: ["Han", "Katakana", "Hiragana", "Hangul", "Bopomofo"],
+    General_Category: [
+      "Other_Letter",
+      "Letter_Number",
+      "Other_Symbol",
+      "Modifier_Letter",
+      "Modifier_Symbol",
+      "Nonspacing_Mark",
+    ],
+  }),
+);
+const variationSelectorsCharset = unicodeRegex({
   Block: ["Variation_Selectors", "Variation_Selectors_Supplement"],
-}).toString()})?`;
+});
 
-const kPattern = unicodeRegex({ Script: ["Hangul"] })
-  .union(unicodeRegex({ Script_Extensions: ["Hangul"] }))
-  .toString();
-
-// http://spec.commonmark.org/0.25/#ascii-punctuation-character
-const asciiPunctuationCharset =
-  /* prettier-ignore */ regexpUtil.charset(
-  "!", '"', "#",  "$", "%", "&", "'", "(", ")", "*",
-  "+", ",", "-",  ".", "/", ":", ";", "<", "=", ">",
-  "?", "@", "[", "\\", "]", "^", "_", "`", "{", "|",
-  "}", "~"
+const CJK_REGEXP = new RegExp(
+  `(?:${cjkCharset.toString("u")})(?:${variationSelectorsCharset.toString("u")})?`,
+  "u",
 );
 
-// http://spec.commonmark.org/0.25/#punctuation-character
-const punctuationCharset = unicodeRegex({
-  // http://unicode.org/Public/5.1.0/ucd/UCD.html#General_Category_Values
-  General_Category: [
-    /* Pc */ "Connector_Punctuation",
-    /* Pd */ "Dash_Punctuation",
-    /* Pe */ "Close_Punctuation",
-    /* Pf */ "Final_Punctuation",
-    /* Pi */ "Initial_Punctuation",
-    /* Po */ "Other_Punctuation",
-    /* Ps */ "Open_Punctuation",
-  ],
-}).union(asciiPunctuationCharset);
+const asciiPunctuationCharacters = [
+  "!",
+  '"',
+  "#",
+  "$",
+  "%",
+  "&",
+  "'",
+  "(",
+  ")",
+  "*",
+  "+",
+  ",",
+  "-",
+  ".",
+  "/",
+  ":",
+  ";",
+  "<",
+  "=",
+  ">",
+  "?",
+  "@",
+  "[",
+  "\\",
+  "]",
+  "^",
+  "_",
+  "`",
+  "{",
+  "|",
+  "}",
+  "~",
+];
 
-const punctuationPattern = punctuationCharset.toString();
+// https://spec.commonmark.org/0.25/#punctuation-character
+// https://unicode.org/Public/5.1.0/ucd/UCD.html#General_Category_Values
+const unicodePunctuationClasses = [
+  /* Pc */ "Connector_Punctuation",
+  /* Pd */ "Dash_Punctuation",
+  /* Pe */ "Close_Punctuation",
+  /* Pf */ "Final_Punctuation",
+  /* Pi */ "Initial_Punctuation",
+  /* Po */ "Other_Punctuation",
+  /* Ps */ "Open_Punctuation",
+];
 
-module.exports = {
-  cjkPattern,
-  kPattern,
-  punctuationPattern,
-};
+const PUNCTUATION_REGEXP = new RegExp(
+  `(?:${[
+    new Charset(
+      ...asciiPunctuationCharacters,
+      "\u{3000}", // ASCII space around it is excessive. https://bugzilla.mozilla.org/show_bug.cgi?id=1950321
+      "\u{ff5e}", // Used as a substitute for U+301C in Windows. https://bugzilla.mozilla.org/show_bug.cgi?id=1941096
+    ).toRegExp("u").source,
+    ...unicodePunctuationClasses.map(
+      (charset) => String.raw`\p{General_Category=${charset}}`,
+    ),
+  ].join("|")})`,
+  "u",
+);
+
+export { CJK_REGEXP, PUNCTUATION_REGEXP };

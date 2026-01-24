@@ -1,44 +1,39 @@
-"use strict";
-
-const {
-  builders: {
-    breakParent,
-    dedentToRoot,
-    group,
-    ifBreak,
-    indentIfBreak,
-    indent,
-    line,
-    softline,
-  },
-  utils: { replaceTextEndOfLine },
-} = require("../../document/index.js");
-const getNodeContent = require("../get-node-content.js");
-const {
-  shouldPreserveContent,
+import {
+  breakParent,
+  dedentToRoot,
+  group,
+  ifBreak,
+  indent,
+  indentIfBreak,
+  line,
+  replaceEndOfLine,
+  softline,
+} from "../../document/index.js";
+import getNodeContent from "../get-node-content.js";
+import {
+  forceBreakContent,
   isScriptLikeTag,
   isVueCustomBlock,
-  countParents,
-  forceBreakContent,
-} = require("../utils.js");
-const {
-  printOpeningTagPrefix,
-  printOpeningTag,
-  printClosingTagSuffix,
-  printClosingTag,
-  needsToBorrowPrevClosingTagEndMarker,
+  shouldPreserveContent,
+} from "../utilities/index.js";
+import { printChildren } from "./children.js";
+import {
   needsToBorrowLastChildClosingTagEndMarker,
-} = require("./tag.js");
-const { printChildren } = require("./children.js");
+  needsToBorrowPrevClosingTagEndMarker,
+  printClosingTag,
+  printClosingTagSuffix,
+  printOpeningTag,
+  printOpeningTagPrefix,
+} from "./tag.js";
 
 function printElement(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
 
   if (shouldPreserveContent(node, options)) {
     return [
       printOpeningTagPrefix(node, options),
       group(printOpeningTag(path, options, print)),
-      ...replaceTextEndOfLine(getNodeContent(node, options)),
+      replaceEndOfLine(getNodeContent(node, options)),
       ...printClosingTag(node, options),
       printClosingTagSuffix(node, options),
     ];
@@ -65,7 +60,8 @@ function printElement(path, options, print) {
    */
   const shouldHugContent =
     node.children.length === 1 &&
-    node.firstChild.type === "interpolation" &&
+    (node.firstChild.kind === "interpolation" ||
+      node.firstChild.kind === "angularIcuExpression") &&
     node.firstChild.isLeadingSpaceSensitive &&
     !node.firstChild.hasLeadingSpaces &&
     node.lastChild.isTrailingSpaceSensitive &&
@@ -85,8 +81,8 @@ function printElement(path, options, print) {
       return indentIfBreak(childrenDoc, { groupId: attrGroupId });
     }
     if (
-      (isScriptLikeTag(node) || isVueCustomBlock(node, options)) &&
-      node.parent.type === "root" &&
+      (isScriptLikeTag(node, options) || isVueCustomBlock(node, options)) &&
+      node.parent.kind === "root" &&
       options.parser === "vue" &&
       !options.vueIndentScriptAndStyle
     ) {
@@ -106,7 +102,7 @@ function printElement(path, options, print) {
       return line;
     }
     if (
-      node.firstChild.type === "text" &&
+      node.firstChild.kind === "text" &&
       node.isWhitespaceSensitive &&
       node.isIndentationSensitive
     ) {
@@ -138,18 +134,12 @@ function printElement(path, options, print) {
       return line;
     }
     if (
-      (node.lastChild.type === "comment" ||
-        (node.lastChild.type === "text" &&
+      (node.lastChild.kind === "comment" ||
+        (node.lastChild.kind === "text" &&
           node.isWhitespaceSensitive &&
           node.isIndentationSensitive)) &&
       new RegExp(
-        `\\n[\\t ]{${
-          options.tabWidth *
-          countParents(
-            path,
-            (node) => node.parent && node.parent.type !== "root"
-          )
-        }}$`
+        String.raw`\n[\t ]{${options.tabWidth * (path.ancestors.length - 1)}}$`,
       ).test(node.lastChild.value)
     ) {
       return "";
@@ -159,7 +149,7 @@ function printElement(path, options, print) {
 
   if (node.children.length === 0) {
     return printTag(
-      node.hasDanglingSpaces && node.isDanglingSpaceSensitive ? line : ""
+      node.hasDanglingSpaces && node.isDanglingSpaceSensitive ? line : "",
     );
   }
 
@@ -173,4 +163,4 @@ function printElement(path, options, print) {
   ]);
 }
 
-module.exports = { printElement };
+export { printElement };

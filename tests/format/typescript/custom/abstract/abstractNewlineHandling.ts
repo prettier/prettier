@@ -3,7 +3,7 @@ abstract
 class X {}
 
 const
-abstract
+abstract = 1;
 class Y {}
 
 export let

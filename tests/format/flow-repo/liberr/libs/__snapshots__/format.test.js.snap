@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`type_error.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+declare function foo(x: number): Array;
+
+=====================================output=====================================
+// @flow
+declare function foo(x: number): Array;
+
+================================================================================
+`;

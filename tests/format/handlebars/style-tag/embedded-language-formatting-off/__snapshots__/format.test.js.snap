@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`test.hbs - {"embeddedLanguageFormatting":"off"} format 1`] = `
+====================================options=====================================
+embeddedLanguageFormatting: "off"
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+
+<div>
+  <style>
+    .a {
+
+
+
+      color: red;
+    }
+              .b { color:     blue
+
+};
+  </style>
+</div>
+
+
+=====================================output=====================================
+<div>
+  <style>
+        .a {
+
+
+
+          color: red;
+        }
+                  .b { color:     blue
+
+    };
+  </style>
+</div>
+================================================================================
+`;

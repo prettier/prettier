@@ -1,0 +1,137 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`fragment.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+# https://github.com/graphql/graphql-js/pull/4482
+
+"Fragment description" fragment Foo on Bar { baz }
+
+=====================================output=====================================
+# https://github.com/graphql/graphql-js/pull/4482
+
+"Fragment description"
+fragment Foo on Bar {
+  baz
+}
+
+================================================================================
+`;
+
+exports[`fragment-with-variable-description(legacy).graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+# https://github.com/graphql/graphql-js/pull/4482
+
+fragment Foo("desc" $foo: Int) on Bar { baz }
+
+=====================================output=====================================
+# https://github.com/graphql/graphql-js/pull/4482
+
+fragment Foo(
+  "desc"
+  $foo: Int
+) on Bar {
+  baz
+}
+
+================================================================================
+`;
+
+exports[`nameless-query-with-description.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+# https://github.com/graphql/graphql-js/pull/4482
+
+"Description"
+query {
+  node {
+    id
+  }
+}
+
+=====================================output=====================================
+# https://github.com/graphql/graphql-js/pull/4482
+
+"Description"
+query {
+  node {
+    id
+  }
+}
+
+================================================================================
+`;
+
+exports[`operation-and-variable-definition-descriptions.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+# https://github.com/graphql/graphql-js/pull/4482
+
+"Operation description"
+query myQuery(
+  "Variable a description"
+  $a: Int,
+  """Variable b\\nmultiline description"""
+  $b: String
+) {
+  field(a: $a, b: $b)
+}
+
+=====================================output=====================================
+# https://github.com/graphql/graphql-js/pull/4482
+
+"Operation description"
+query myQuery(
+  "Variable a description"
+  $a: Int
+  """
+  Variable b\\nmultiline description
+  """
+  $b: String
+) {
+  field(a: $a, b: $b)
+}
+
+================================================================================
+`;
+
+exports[`variable-definition-with-description-default value-and-directives.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+# https://github.com/graphql/graphql-js/pull/4482
+
+query (
+  "desc"
+  $foo: Int = 42 @dir
+) {
+  field(foo: $foo)
+}
+
+=====================================output=====================================
+# https://github.com/graphql/graphql-js/pull/4482
+
+query (
+  "desc"
+  $foo: Int = 42 @dir
+) {
+  field(foo: $foo)
+}
+
+================================================================================
+`;

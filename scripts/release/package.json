@@ -2,19 +2,18 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "NODE_OPTIONS=--experimental-vm-modules jest"
+    "test": "node --test"
   },
   "dependencies": {
-    "chalk": "4.1.2",
-    "execa": "5.1.1",
-    "minimist": "1.2.5",
-    "node-fetch": "3.1.0",
+    "enquirer": "2.4.1",
+    "fast-glob": "3.3.3",
+    "nano-spawn": "2.0.0",
+    "node-style-text": "2.1.2",
     "outdent": "0.8.0",
-    "semver": "7.3.5",
-    "string-width": "5.0.1"
+    "semver": "7.7.3"
   },
-  "devDependencies": {
-    "@jest/globals": "27.3.1",
-    "jest": "27.3.1"
-  }
+  "engines": {
+    "node": ">=20"
+  },
+  "packageManager": "yarn@4.12.0"
 }

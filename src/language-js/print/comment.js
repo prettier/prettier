@@ -1,16 +1,21 @@
-"use strict";
+import {
+  hardline,
+  literalline,
+  markAsRoot,
+  replaceEndOfLine,
+} from "../../document/index.js";
+import { locEnd, locStart } from "../loc.js";
+import isBlockComment from "../utilities/is-block-comment.js";
+import isIndentableBlockComment from "../utilities/is-indentable-block-comment.js";
+import isLineComment from "../utilities/is-line-comment.js";
 
-const { hasNewline } = require("../../common/util.js");
-const {
-  builders: { join, hardline },
-  utils: { replaceTextEndOfLine },
-} = require("../../document/index.js");
+/**
+@import {Doc} from "../../document/index.js"
+@import {Comment} from "../types/estree.js"
+*/
 
-const { isLineComment, isBlockComment } = require("../utils.js");
-const { locStart, locEnd } = require("../loc.js");
-
-function printComment(commentPath, options) {
-  const comment = commentPath.getValue();
+function printComment(path, options) {
+  const comment = path.node;
 
   if (isLineComment(comment)) {
     // Supports `//`, `#!`, `<!--`, and `-->`
@@ -19,61 +24,47 @@ function printComment(commentPath, options) {
       .trimEnd();
   }
 
-  if (isBlockComment(comment)) {
-    if (isIndentableBlockComment(comment)) {
-      const printed = printIndentableBlockComment(comment);
-      // We need to prevent an edge case of a previous trailing comment
-      // printed as a `lineSuffix` which causes the comments to be
-      // interleaved. See https://github.com/prettier/prettier/issues/4412
-      if (
-        comment.trailing &&
-        !hasNewline(options.originalText, locStart(comment), {
-          backwards: true,
-        })
-      ) {
-        return [hardline, printed];
-      }
-      return printed;
-    }
-
-    const commentEnd = locEnd(comment);
-    const isInsideFlowComment =
-      options.originalText.slice(commentEnd - 3, commentEnd) === "*-/";
-    return [
-      "/*",
-      replaceTextEndOfLine(comment.value),
-      isInsideFlowComment ? "*-/" : "*/",
-    ];
+  if (isIndentableBlockComment(comment)) {
+    return printIndentableBlockComment(comment);
   }
 
-  /* istanbul ignore next */
+  if (isBlockComment(comment)) {
+    return ["/*", replaceEndOfLine(comment.value), "*/"];
+  }
+
+  /* c8 ignore next */
   throw new Error("Not a comment: " + JSON.stringify(comment));
 }
 
-function isIndentableBlockComment(comment) {
-  // If the comment has multiple lines and every line starts with a star
-  // we can fix the indentation of each line. The stars in the `/*` and
-  // `*/` delimiters are not included in the comment value, so add them
-  // back first.
-  const lines = `*${comment.value}*`.split("\n");
-  return lines.length > 1 && lines.every((line) => line.trim()[0] === "*");
-}
-
+/**
+@param {Comment} comment
+@returns {Doc}
+*/
 function printIndentableBlockComment(comment) {
   const lines = comment.value.split("\n");
+  const isJsdoc = comment.value[0] === "*" && comment.value[1] !== "*";
 
   return [
     "/*",
-    join(
-      hardline,
-      lines.map((line, index) =>
-        index === 0
-          ? line.trimEnd()
-          : " " + (index < lines.length - 1 ? line.trim() : line.trimStart())
-      )
-    ),
+    lines.map((line, index) => {
+      if (index === 0) {
+        return [line.trimEnd(), hardline];
+      }
+
+      if (index === lines.length - 1) {
+        return [" ", line.trimStart()];
+      }
+
+      const trimmed = line.trim();
+      const content = [" ", trimmed];
+      if (isJsdoc && trimmed !== "*" && line.endsWith("  ")) {
+        return [content, "  ", markAsRoot(literalline)];
+      }
+
+      return [content, hardline];
+    }),
     "*/",
   ];
 }
 
-module.exports = { printComment };
+export { printComment };

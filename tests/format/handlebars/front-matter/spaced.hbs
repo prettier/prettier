@@ -1,0 +1,11 @@
+---
+title: An ancient philosophy...
+keywords:
+  - ancient
+  - philosophy
+---
+
+<h1>{{title}}</h1>
+<p>
+  Keywords: {{#each keywords}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}
+</p>

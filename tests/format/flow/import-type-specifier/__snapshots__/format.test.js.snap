@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`test.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/**
+ * @flow
+ */
+
+import { Foo, type Baz } from "../module";
+import type {} from 'foo';
+
+import type {somethingSuperLongsomethingSuperLong} from 'somethingSuperLongsomethingSuperLongsomethingSuperLong'
+import type {a, somethingSuperLongsomethingSuperLon2} from 'somethingSuperLongsomethingSuperLongsomethingSuperLong'
+
+import transformRouterContext, { type TransformedContextRouter } from '../../helpers/transformRouterContext';
+
+=====================================output=====================================
+/**
+ * @flow
+ */
+
+import { Foo, type Baz } from "../module";
+import type {} from "foo";
+
+import type { somethingSuperLongsomethingSuperLong } from "somethingSuperLongsomethingSuperLongsomethingSuperLong";
+import type {
+  a,
+  somethingSuperLongsomethingSuperLon2,
+} from "somethingSuperLongsomethingSuperLongsomethingSuperLong";
+
+import transformRouterContext, {
+  type TransformedContextRouter,
+} from "../../helpers/transformRouterContext";
+
+================================================================================
+`;

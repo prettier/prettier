@@ -1,16 +1,8 @@
-"use strict";
-const {
-  builders: { hardline },
-} = require("../document/index.js");
-const printFrontMatter = require("../utils/front-matter/print.js");
+// A empty function to provide visitor keys, and let core format front matter
+function embed() {}
 
-function embed(path, print, textToDoc /*, options */) {
-  const node = path.getValue();
+// `front-matter` only available on `css-root`
+embed.getVisitorKeys = (node) =>
+  node.type === "css-root" ? ["frontMatter"] : [];
 
-  if (node.type === "front-matter") {
-    const doc = printFrontMatter(node, textToDoc);
-    return doc ? [doc, hardline] : "";
-  }
-}
-
-module.exports = embed;
+export default embed;

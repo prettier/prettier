@@ -1,11 +1,4 @@
-"use strict";
+const locStart = (node) => node.position.start.offset;
+const locEnd = (node) => node.position.end.offset;
 
-function locStart(node) {
-  return node.position.start.offset;
-}
-
-function locEnd(node) {
-  return node.position.end.offset;
-}
-
-module.exports = { locStart, locEnd };
+export { locEnd, locStart };

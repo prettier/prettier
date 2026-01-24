@@ -1,7 +1,6 @@
 ---
-id: version-stable-watching-files
+id: watching-files
 title: Watching For Changes
-original_id: watching-files
 ---
 
 You can have Prettier watch for changes from the command line by using [onchange](https://www.npmjs.com/package/onchange). For example:

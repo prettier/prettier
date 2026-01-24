@@ -14,12 +14,6 @@ async do {
   await 42
 }
 
-function iter() {
-  return async do {
-    return 1;
-  }
-};
-
 let x = async do {
   let tmp = f();
   tmp * tmp + 1

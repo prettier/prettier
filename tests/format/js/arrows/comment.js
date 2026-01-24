@@ -28,3 +28,24 @@ export const bem = block =>
   ) => <span>{info.item.widget.missingProp}</span>}
   data={data}
 />
+
+func(() => // comment
+a);
+func(() => () => // comment
+a);
+func(() => () => () => // comment
+a);
+
+func(() => // comment
+a ? b : c);
+func(() => () => // comment
+a ? b : c);
+func(() => () => () => // comment
+a ? b : c);
+
+func(() => // comment
+(a , b , c))
+func(() => () => // comment
+(a , b , c))
+func(() => () => () => // comment
+(a , b , c))

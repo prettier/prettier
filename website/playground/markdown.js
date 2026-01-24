@@ -27,7 +27,10 @@ function formatMarkdown({
     ...(isIdempotent
       ? []
       : ["", "**Second Output:**", codeBlock(output2, syntax)]),
-    ...(full ? ["", "**Expected behavior:**", ""] : []),
+    ...(full ? ["", "**Expected output:**", codeBlock("", syntax)] : []),
+    ...(full
+      ? ["", "**Why?**", "", "<!-- short explanation of expected output -->"]
+      : []),
   ]
     .filter((part) => part !== null)
     .join("\n");
@@ -38,8 +41,11 @@ function getMarkdownSyntax(options) {
     case "babel":
     case "babel-flow":
     case "flow":
+    case "hermes":
+    case "acorn":
     case "espree":
     case "meriyah":
+    case "doc-explorer":
       return "jsx";
     case "babel-ts":
     case "typescript":
@@ -51,6 +57,7 @@ function getMarkdownSyntax(options) {
       return "hbs";
     case "angular":
     case "lwc":
+    case "mjml":
       return "html";
     default:
       return options.parser;
@@ -66,14 +73,14 @@ function formatCLIOptions(cliOptions) {
 function codeBlock(content, syntax) {
   const backtickSequences = content.match(/`+/g) || [];
   const longestBacktickSequenceLength = Math.max(
-    ...backtickSequences.map(({ length }) => length)
+    ...backtickSequences.map(({ length }) => length),
   );
   const prettierIgnoreComment = "<!-- prettier-ignore -->";
   const fenceLength = Math.max(3, longestBacktickSequenceLength + 1);
   const fence = "`".repeat(fenceLength);
   return [prettierIgnoreComment, fence + (syntax || ""), content, fence].join(
-    "\n"
+    "\n",
   );
 }
 
-module.exports = formatMarkdown;
+export default formatMarkdown;

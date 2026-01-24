@@ -1,32 +1,25 @@
-"use strict";
+import { parseFrontMatter } from "../main/front-matter/index.js";
+import {
+  FORMAT_PRAGMA_TO_INSERT,
+  MARKDOWN_HAS_IGNORE_PRAGMA_REGEXP,
+  MARKDOWN_HAS_PRAGMA_REGEXP,
+} from "../utilities/pragma/pragma.evaluate.js";
 
-const parseFrontMatter = require("../utils/front-matter/parse.js");
+const hasPragma = (text) =>
+  parseFrontMatter(text).content.trimStart().match(MARKDOWN_HAS_PRAGMA_REGEXP)
+    ?.index === 0;
 
-const pragmas = ["format", "prettier"];
+const hasIgnorePragma = (text) =>
+  parseFrontMatter(text)
+    .content.trimStart()
+    .match(MARKDOWN_HAS_IGNORE_PRAGMA_REGEXP)?.index === 0;
 
-function startWithPragma(text) {
-  const pragma = `@(${pragmas.join("|")})`;
-  const regex = new RegExp(
-    [
-      `<!--\\s*${pragma}\\s*-->`,
-      `{\\s*\\/\\*\\s*${pragma}\\s*\\*\\/\\s*}`,
-      `<!--.*\r?\n[\\s\\S]*(^|\n)[^\\S\n]*${pragma}[^\\S\n]*($|\n)[\\s\\S]*\n.*-->`,
-    ].join("|"),
-    "m"
-  );
-  const matched = text.match(regex);
-  return matched && matched.index === 0;
-}
-
-module.exports = {
-  startWithPragma,
-  hasPragma: (text) =>
-    startWithPragma(parseFrontMatter(text).content.trimStart()),
-  insertPragma: (text) => {
-    const extracted = parseFrontMatter(text);
-    const pragma = `<!-- @${pragmas[0]} -->`;
-    return extracted.frontMatter
-      ? `${extracted.frontMatter.raw}\n\n${pragma}\n\n${extracted.content}`
-      : `${pragma}\n\n${extracted.content}`;
-  },
+const insertPragma = (text) => {
+  const { frontMatter } = parseFrontMatter(text);
+  const pragma = `<!-- @${FORMAT_PRAGMA_TO_INSERT} -->`;
+  return frontMatter
+    ? `${frontMatter.raw}\n\n${pragma}\n\n${text.slice(frontMatter.end.index)}`
+    : `${pragma}\n\n${text}`;
 };
+
+export { hasIgnorePragma, hasPragma, insertPragma };

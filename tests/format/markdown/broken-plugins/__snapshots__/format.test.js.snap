@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`missing-comments.md format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+\`\`\`\`\`\`missing-comments
+        This should not be replaced.
+\`\`\`\`\`\`
+
+=====================================output=====================================
+\`\`\`missing-comments
+        This should not be replaced.
+\`\`\`
+
+================================================================================
+`;

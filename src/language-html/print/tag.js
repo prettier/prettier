@@ -1,23 +1,26 @@
-"use strict";
-
 /**
- * @typedef {import("../../document").Doc} Doc
+ * @import {Doc} from "../../document/index.js"
  */
 
-const assert = require("assert");
-const { isNonEmptyArray } = require("../../common/util.js");
-const {
-  builders: { indent, join, line, softline },
-  utils: { replaceTextEndOfLine },
-} = require("../../document/index.js");
-const { locStart, locEnd } = require("../loc.js");
-const {
-  isTextLikeNode,
+import * as assert from "#universal/assert";
+import {
+  hardline,
+  indent,
+  join,
+  line,
+  replaceEndOfLine,
+  softline,
+} from "../../document/index.js";
+import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
+import { locEnd, locStart } from "../loc.js";
+import {
   getLastDescendant,
-  isPreLikeNode,
   hasPrettierIgnore,
+  isPreLikeNode,
+  isTextLikeNode,
+  isVueSfcBlock,
   shouldPreserveContent,
-} = require("../utils.js");
+} from "../utilities/index.js";
 
 function printClosingTag(node, options) {
   return [
@@ -59,17 +62,20 @@ function printClosingTagSuffix(node, options) {
   return needsToBorrowParentClosingTagStartMarker(node)
     ? printClosingTagStartMarker(node.parent, options)
     : needsToBorrowNextOpeningTagStartMarker(node)
-    ? printOpeningTagStartMarker(node.next)
-    : "";
+      ? printOpeningTagStartMarker(node.next, options)
+      : "";
 }
 
 function printClosingTagStartMarker(node, options) {
-  assert(!node.isSelfClosing);
-  /* istanbul ignore next */
+  /* c8 ignore next 3 */
+  if (process.env.NODE_ENV !== "production") {
+    assert.ok(!node.isSelfClosing);
+  }
+  /* c8 ignore next 3 */
   if (shouldNotPrintClosingTag(node, options)) {
     return "";
   }
-  switch (node.type) {
+  switch (node.kind) {
     case "ieConditionalComment":
       return "<!";
     case "element":
@@ -86,7 +92,7 @@ function printClosingTagEndMarker(node, options) {
   if (shouldNotPrintClosingTag(node, options)) {
     return "";
   }
-  switch (node.type) {
+  switch (node.kind) {
     case "ieConditionalComment":
     case "ieConditionalEndComment":
       return "[endif]-->";
@@ -94,6 +100,8 @@ function printClosingTagEndMarker(node, options) {
       return "]><!-->";
     case "interpolation":
       return "}}";
+    case "angularIcuExpression":
+      return "}";
     case "element":
       if (node.isSelfClosing) {
         return "/>";
@@ -124,7 +132,8 @@ function needsToBorrowPrevClosingTagEndMarker(node) {
    */
   return (
     node.prev &&
-    node.prev.type !== "docType" &&
+    node.prev.kind !== "docType" &&
+    node.kind !== "angularControlFlowBlock" &&
     !isTextLikeNode(node.prev) &&
     node.isLeadingSpaceSensitive &&
     !node.hasLeadingSpaces
@@ -140,8 +149,7 @@ function needsToBorrowLastChildClosingTagEndMarker(node) {
    *     >
    */
   return (
-    node.lastChild &&
-    node.lastChild.isTrailingSpaceSensitive &&
+    node.lastChild?.isTrailingSpaceSensitive &&
     !node.lastChild.hasTrailingSpaces &&
     !isTextLikeNode(getLastDescendant(node.lastChild)) &&
     !isPreLikeNode(node)
@@ -211,7 +219,7 @@ function needsToBorrowParentOpeningTagEndMarker(node) {
 }
 
 function printAttributes(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
 
   if (!isNonEmptyArray(node.attrs)) {
     return node.isSelfClosing
@@ -224,38 +232,44 @@ function printAttributes(path, options, print) {
   }
 
   const ignoreAttributeData =
-    node.prev &&
-    node.prev.type === "comment" &&
+    node.prev?.kind === "comment" &&
     getPrettierIgnoreAttributeCommentData(node.prev.value);
 
   const hasPrettierIgnoreAttribute =
     typeof ignoreAttributeData === "boolean"
       ? () => ignoreAttributeData
       : Array.isArray(ignoreAttributeData)
-      ? (attribute) => ignoreAttributeData.includes(attribute.rawName)
-      : () => false;
+        ? (attribute) => ignoreAttributeData.includes(attribute.rawName)
+        : () => false;
 
-  const printedAttributes = path.map((attributePath) => {
-    const attribute = attributePath.getValue();
-    return hasPrettierIgnoreAttribute(attribute)
-      ? replaceTextEndOfLine(
-          options.originalText.slice(locStart(attribute), locEnd(attribute))
-        )
-      : print();
-  }, "attrs");
+  const printedAttributes = path.map(
+    ({ node: attribute }) =>
+      hasPrettierIgnoreAttribute(attribute)
+        ? replaceEndOfLine(
+            options.originalText.slice(locStart(attribute), locEnd(attribute)),
+          )
+        : print(),
+    "attrs",
+  );
 
   const forceNotToBreakAttrContent =
-    node.type === "element" &&
+    node.kind === "element" &&
     node.fullName === "script" &&
     node.attrs.length === 1 &&
     node.attrs[0].fullName === "src" &&
     node.children.length === 0;
 
+  const shouldPrintAttributePerLine =
+    options.singleAttributePerLine &&
+    node.attrs.length > 1 &&
+    !isVueSfcBlock(node, options);
+  const attributeLine = shouldPrintAttributePerLine ? hardline : line;
+
   /** @type {Doc[]} */
   const parts = [
     indent([
       forceNotToBreakAttrContent ? " " : line,
-      join(line, printedAttributes),
+      join(attributeLine, printedAttributes),
     ]),
   ];
 
@@ -286,8 +300,8 @@ function printAttributes(path, options, print) {
           ? " "
           : ""
         : node.isSelfClosing
-        ? line
-        : softline
+          ? line
+          : softline,
     );
   }
 
@@ -302,7 +316,7 @@ function printOpeningTagEnd(node) {
 }
 
 function printOpeningTag(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
 
   return [
     printOpeningTagStart(node, options),
@@ -314,19 +328,23 @@ function printOpeningTag(path, options, print) {
 function printOpeningTagStart(node, options) {
   return node.prev && needsToBorrowNextOpeningTagStartMarker(node.prev)
     ? ""
-    : [printOpeningTagPrefix(node, options), printOpeningTagStartMarker(node)];
+    : [
+        printOpeningTagPrefix(node, options),
+        printOpeningTagStartMarker(node, options),
+      ];
 }
 
 function printOpeningTagPrefix(node, options) {
   return needsToBorrowParentOpeningTagEndMarker(node)
     ? printOpeningTagEndMarker(node.parent)
     : needsToBorrowPrevClosingTagEndMarker(node)
-    ? printClosingTagEndMarker(node.prev, options)
-    : "";
+      ? printClosingTagEndMarker(node.prev, options)
+      : "";
 }
 
-function printOpeningTagStartMarker(node) {
-  switch (node.type) {
+const HTML5_DOCTYPE_START_MARKER = "<!doctype";
+function printOpeningTagStartMarker(node, options) {
+  switch (node.kind) {
     case "ieConditionalComment":
     case "ieConditionalStartComment":
       return `<!--[if ${node.condition}`;
@@ -334,8 +352,24 @@ function printOpeningTagStartMarker(node) {
       return "<!--<!";
     case "interpolation":
       return "{{";
-    case "docType":
-      return "<!DOCTYPE";
+    case "docType": {
+      // Only lowercase HTML5 doctype in `.html` and `.htm` files
+      if (node.value === "html") {
+        const { filepath } = options;
+        if (filepath && /\.html?$/.test(filepath)) {
+          return HTML5_DOCTYPE_START_MARKER;
+        }
+      }
+
+      const start = locStart(node);
+      return options.originalText.slice(
+        start,
+        start + HTML5_DOCTYPE_START_MARKER.length,
+      );
+    }
+
+    case "angularIcuExpression":
+      return "{";
     case "element":
       if (node.condition) {
         return `<!--[if ${node.condition}]><!--><${node.rawName}`;
@@ -347,8 +381,11 @@ function printOpeningTagStartMarker(node) {
 }
 
 function printOpeningTagEndMarker(node) {
-  assert(!node.isSelfClosing);
-  switch (node.type) {
+  /* c8 ignore next 3 */
+  if (process.env.NODE_ENV !== "production") {
+    assert.ok(!node.isSelfClosing);
+  }
+  switch (node.kind) {
     case "ieConditionalComment":
       return "]>";
     case "element":
@@ -361,21 +398,20 @@ function printOpeningTagEndMarker(node) {
   }
 }
 
-module.exports = {
-  printClosingTag,
-  printClosingTagStart,
-  printClosingTagStartMarker,
-  printClosingTagEndMarker,
-  printClosingTagSuffix,
-  printClosingTagEnd,
+export {
   needsToBorrowLastChildClosingTagEndMarker,
-  needsToBorrowParentClosingTagStartMarker,
-  needsToBorrowPrevClosingTagEndMarker,
-  printOpeningTag,
-  printOpeningTagStart,
-  printOpeningTagPrefix,
-  printOpeningTagStartMarker,
-  printOpeningTagEndMarker,
   needsToBorrowNextOpeningTagStartMarker,
+  needsToBorrowParentClosingTagStartMarker,
   needsToBorrowParentOpeningTagEndMarker,
+  needsToBorrowPrevClosingTagEndMarker,
+  printClosingTag,
+  printClosingTagEnd,
+  printClosingTagEndMarker,
+  printClosingTagStartMarker,
+  printClosingTagSuffix,
+  printOpeningTag,
+  printOpeningTagEndMarker,
+  printOpeningTagPrefix,
+  printOpeningTagStart,
+  printOpeningTagStartMarker,
 };

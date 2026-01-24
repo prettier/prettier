@@ -1,6 +1,0 @@
-# Heading
-    foo
-Heading
-------
-    foo
-----

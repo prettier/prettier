@@ -1,0 +1,111 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`commonmark-0.30-example-334.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+\` \`
+\`  \`
+
+=====================================output=====================================
+\` \` \`  \`
+
+================================================================================
+`;
+
+exports[`example-11.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+<!-- placeholder for continuous thematic breaks not being treated as yaml -->
+
+***
+---
+___
+
+=====================================output=====================================
+<!-- placeholder for continuous thematic breaks not being treated as yaml -->
+
+---
+
+---
+
+---
+
+================================================================================
+`;
+
+exports[`example-15.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+<!-- placeholder for continuous thematic breaks not being treated as yaml -->
+
+ ***
+  ***
+   ***
+
+=====================================output=====================================
+<!-- placeholder for continuous thematic breaks not being treated as yaml -->
+
+---
+
+---
+
+---
+
+================================================================================
+`;
+
+exports[`example-46.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+<!-- placeholder for continuous thematic breaks not being treated as yaml -->
+
+****
+## foo
+****
+
+=====================================output=====================================
+<!-- placeholder for continuous thematic breaks not being treated as yaml -->
+
+---
+
+## foo
+
+---
+
+================================================================================
+`;
+
+exports[`example-215.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+- one
+
+two
+
+=====================================output=====================================
+- one
+
+two
+
+================================================================================
+`;

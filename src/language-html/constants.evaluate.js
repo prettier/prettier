@@ -1,25 +1,42 @@
-"use strict";
+import htmlUaStyles from "html-ua-styles";
 
-const htmlStyles = require("html-styles");
+function expandHeadingPseudoClassSelector(selector) {
+  if (selector === ":heading") {
+    return ["h1", "h2", "h3", "h4", "h5", "h6"];
+  }
+
+  const match = selector.match(/^:heading\((?<levels>\d+(?:,\s*\d+)*)\)$/);
+  if (!match) {
+    return;
+  }
+
+  return match.groups.levels.split(",").map((level) => `h${level.trim()}`);
+}
 
 const getCssStyleTags = (property) =>
   Object.fromEntries(
-    htmlStyles
-      .filter((htmlStyle) => htmlStyle.style[property])
-      .flatMap((htmlStyle) =>
-        htmlStyle.selectorText
-          .split(",")
-          .map((selector) => selector.trim())
-          .filter((selector) => /^[\dA-Za-z]+$/.test(selector))
-          .map((tagName) => [tagName, htmlStyle.style[property]])
-      )
+    htmlUaStyles.flatMap(({ type, selectors, styles }) => {
+      if (type !== "Styles") {
+        return [];
+      }
+
+      const style = styles.find((style) => style.property === property);
+      if (!style) {
+        return [];
+      }
+
+      return selectors.flatMap((selector) => {
+        const tagNames =
+          expandHeadingPseudoClassSelector(selector) ??
+          (/^[\da-z]+$/i.test(selector) ? [selector] : []);
+
+        return tagNames.map((tagName) => [tagName, style.value]);
+      });
+    }),
   );
 
 const CSS_DISPLAY_TAGS = {
   ...getCssStyleTags("display"),
-
-  // TODO: send PR to upstream
-  button: "inline-block",
 
   // special cases for some css display=none elements
   template: "inline",
@@ -32,9 +49,6 @@ const CSS_DISPLAY_TAGS = {
   // noscript: "inline",
 
   // there's no css display for these elements but they behave these ways
-  details: "block",
-  summary: "block",
-  dialog: "block",
   meter: "inline-block",
   progress: "inline-block",
   object: "inline-block",
@@ -48,9 +62,9 @@ const CSS_DISPLAY_DEFAULT = "inline";
 const CSS_WHITE_SPACE_TAGS = getCssStyleTags("white-space");
 const CSS_WHITE_SPACE_DEFAULT = "normal";
 
-module.exports = {
-  CSS_DISPLAY_TAGS,
+export {
   CSS_DISPLAY_DEFAULT,
-  CSS_WHITE_SPACE_TAGS,
+  CSS_DISPLAY_TAGS,
   CSS_WHITE_SPACE_DEFAULT,
+  CSS_WHITE_SPACE_TAGS,
 };

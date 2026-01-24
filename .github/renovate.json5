@@ -1,0 +1,92 @@
+{
+  $schema: "https://docs.renovatebot.com/renovate-schema.json",
+  dependencyDashboardApproval: true,
+  labels: ["dependency"],
+  baseBranchPatterns: ["main"],
+  postUpdateOptions: ["yarnDedupeHighest"],
+  prHourlyLimit: 0,
+  prConcurrentLimit: 0,
+  packageRules: [
+    {
+      groupName: "GitHub Actions",
+      matchManagers: ["github-actions"],
+    },
+    {
+      groupName: "devDependencies",
+      matchDepTypes: ["devDependencies"],
+    },
+    {
+      groupName: "react",
+      matchPackageNames: ["react", "react-dom", "@types/react"],
+    },
+    {
+      groupName: "babel",
+      matchPackageNames: ["@babel/*"],
+    },
+    {
+      groupName: "typescript-eslint",
+      matchPackageNames: ["@typescript-eslint/*"],
+    },
+    {
+      groupName: "glimmer",
+      matchPackageNames: ["@glimmer/*"],
+    },
+    {
+      groupName: "flow-parser",
+      matchPackageNames: ["flow-parser", "hermes-parser"],
+    },
+    {
+      groupName: "ESLint related dependencies",
+      matchPackageNames: [
+        "eslint",
+        "@eslint/*",
+        "@stylistic/eslint-plugin",
+        "eslint-config-prettier",
+        "eslint-plugin-compat",
+        "eslint-plugin-jest",
+        "eslint-plugin-n",
+        "eslint-plugin-regexp",
+        "eslint-plugin-simple-import-sort",
+        "eslint-plugin-unicorn",
+        "globals",
+      ],
+    },
+    {
+      groupName: "Angular Estree parser",
+      matchPackageNames: ["@angular/compiler", "angular-estree-parser"],
+    },
+    {
+      groupName: "Regex related dependencies",
+      matchPackageNames: ["regexp-util", "unicode-regex", "cjk-regex"],
+    },
+    {
+      groupName: "Config search related dependencies",
+      matchPackageNames: ["url-or-path", "search-closest"],
+    },
+    {
+      groupName: "Markdown dependencies",
+      matchPackageNames: ["micromark-*", "mdast-", "remark-", "unified"],
+    },
+    {
+      groupName: "Docusaurus",
+      matchPackageNames: ["@docusaurus/*"],
+    },
+    {
+      groupName: "CodeMirror",
+      matchPackageNames: [
+        "@codemirror/*",
+        "cm6-graphql",
+        "@xiechao/codemirror-lang-handlebars",
+      ],
+    },
+  ],
+  ignoreDeps: [
+    // It's a dependency of `remark-parse`, use same version to reduce size
+    "collapse-white-space",
+    // It will be updated by release script
+    "prettier",
+    // Old versions are required to test
+    "node",
+  ],
+  ignorePaths: ["tests/**", "packages/**"],
+}

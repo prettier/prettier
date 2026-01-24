@@ -1,17 +1,16 @@
 ---
-id: version-stable-for-enterprise
+id: for-enterprise
 title: For Enterprise
-original_id: for-enterprise
 ---
 
 ## Available as part of the Tidelift Subscription
 
 Tidelift is working with the maintainers of Prettier and thousands of other open source projects to deliver commercial support and maintenance for the open source dependencies you use to build your applications. Save time, reduce risk, and improve code health, while paying the maintainers of the exact dependencies you use.
 
-<a class="button" href="https://tidelift.com/subscription/pkg/npm-prettier?utm_source=npm-prettier&utm_medium=referral&utm_campaign=enterprise">Learn more</a>
-<a class="button" href="https://tidelift.com/subscription/request-a-demo?utm_source=npm-prettier&utm_medium=referral&utm_campaign=enterprise">Request a demo</a>
+<a class="button button--primary" href="https://tidelift.com/subscription/pkg/npm-prettier?utm_source=npm-prettier&utm_medium=referral&utm_campaign=enterprise">Learn more</a>
+<a class="button button--primary" href="https://tidelift.com/subscription/request-a-demo?utm_source=npm-prettier&utm_medium=referral&utm_campaign=enterprise">Request a demo</a>
 
-<br>
+<br />
 
 ### Enterprise-ready open source software—managed for you
 
@@ -45,5 +44,5 @@ Tidelift works with GitHub, GitLab, BitBucket, and more. We support every cloud 
 
 The end result? All of the capabilities you expect from commercial-grade software, for the full breadth of open source you use. That means less time grappling with esoteric open source trivia, and more time building your own applications—and your business.
 
-<a class="button" href="https://tidelift.com/subscription/pkg/npm-prettier?utm_source=npm-prettier&utm_medium=referral&utm_campaign=enterprise">Learn more</a>
-<a class="button" href="https://tidelift.com/subscription/request-a-demo?utm_source=npm-prettier&utm_medium=referral&utm_campaign=enterprise">Request a demo</a>
+<a class="button button--primary" href="https://tidelift.com/subscription/pkg/npm-prettier?utm_source=npm-prettier&utm_medium=referral&utm_campaign=enterprise">Learn more</a>
+<a class="button button--primary" href="https://tidelift.com/subscription/request-a-demo?utm_source=npm-prettier&utm_medium=referral&utm_campaign=enterprise">Request a demo</a>

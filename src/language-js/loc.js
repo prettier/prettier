@@ -1,29 +1,74 @@
-"use strict";
-
-const { isNonEmptyArray } = require("../common/util.js");
-
 /**
- * @typedef {import("./types/estree").Node} Node
- */
+@import {Node, Comment} from "./types/estree.js";
+*/
 
-function locStart(node, opts) {
-  const { ignoreDecorators } = opts || {};
+const isIndex = (value) => Number.isInteger(value) && value >= 0;
 
-  // Handle nodes with decorators. They should start at the first decorator
-  if (!ignoreDecorators) {
-    const decorators =
-      (node.declaration && node.declaration.decorators) || node.decorators;
+function locStart(node) {
+  const start = node.range?.[0] ?? node.start;
 
-    if (isNonEmptyArray(decorators)) {
-      return locStart(decorators[0]);
-    }
+  /* c8 ignore next 3 */
+  if (process.env.NODE_ENV !== "production" && !isIndex(start)) {
+    throw new TypeError("Can't not locate node.");
   }
 
-  return node.range ? node.range[0] : node.start;
+  // Handle nodes with decorators. They should start at the first decorator
+  const firstDecorator = (node.declaration?.decorators ?? node.decorators)?.[0];
+  if (firstDecorator) {
+    return Math.min(locStart(firstDecorator), start);
+  }
+
+  return start;
 }
 
+/**
+@param {Node | Comment} node
+@return {number}
+*/
 function locEnd(node) {
-  return node.range ? node.range[1] : node.end;
+  if (node.type === "BreakStatement" || node.type === "ContinueStatement") {
+    const start = locStart(node);
+    return node.label
+      ? locEnd(node.label)
+      : start +
+          (node.type === "BreakStatement" ? "break".length : "continue".length);
+  }
+
+  if (node.type === "VariableDeclaration") {
+    const lastDeclaration = node.declarations.at(-1);
+    return locEnd(lastDeclaration);
+  }
+
+  if (node.type === "IfStatement") {
+    return locEnd(node.alternate ?? node.consequent);
+  }
+
+  if (
+    (node.type === "ExpressionStatement" ||
+      node.type === "Directive" ||
+      node.type === "ImportDeclaration" ||
+      node.type === "ExportDefaultDeclaration" ||
+      node.type === "ExportNamedDeclaration" ||
+      node.type === "ExportAllDeclaration") &&
+    // @ts-expect-error -- Added in postprocess.js
+    node.__end
+  ) {
+    // @ts-expect-error -- safe
+    return node.__end;
+  }
+
+  return locEndWithFullText(node);
+}
+
+function locEndWithFullText(node) {
+  const end = node.range?.[1] ?? node.end;
+
+  /* c8 ignore next 3 */
+  if (process.env.NODE_ENV !== "production" && !isIndex(end)) {
+    throw new TypeError("Can't not locate node.");
+  }
+
+  return end;
 }
 
 /**
@@ -32,7 +77,8 @@ function locEnd(node) {
  * @returns {boolean}
  */
 function hasSameLocStart(nodeA, nodeB) {
-  return locStart(nodeA) === locStart(nodeB);
+  const nodeAStart = locStart(nodeA);
+  return isIndex(nodeAStart) && nodeAStart === locStart(nodeB);
 }
 
 /**
@@ -41,7 +87,8 @@ function hasSameLocStart(nodeA, nodeB) {
  * @returns {boolean}
  */
 function hasSameLocEnd(nodeA, nodeB) {
-  return locEnd(nodeA) === locEnd(nodeB);
+  const nodeAEnd = locEnd(nodeA);
+  return isIndex(nodeAEnd) && nodeAEnd === locEnd(nodeB);
 }
 
 /**
@@ -53,9 +100,4 @@ function hasSameLoc(nodeA, nodeB) {
   return hasSameLocStart(nodeA, nodeB) && hasSameLocEnd(nodeA, nodeB);
 }
 
-module.exports = {
-  locStart,
-  locEnd,
-  hasSameLocStart,
-  hasSameLoc,
-};
+export { hasSameLoc, hasSameLocStart, locEnd, locEndWithFullText, locStart };

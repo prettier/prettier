@@ -1,48 +1,63 @@
-import * as React from "react";
+import { onMounted, reactive, toRaw, watch } from "vue";
+import { editorState } from "./composables/editor-state.js";
+import { worker } from "./composables/prettier-worker.js";
 
-export default class PrettierFormat extends React.Component {
-  constructor() {
-    super();
-    this.state = { formatted: "", debug: {} };
-  }
+function setup(props, { slots }) {
+  const state = reactive({ formatted: "", debug: {} });
 
-  componentDidMount() {
-    this.format();
-  }
+  const componentDidMount = () => {
+    format();
+  };
 
-  componentDidUpdate(prevProps) {
-    for (const key of [
-      "code",
-      "options",
-      "debugAst",
-      "debugDoc",
-      "debugComments",
-      "reformat",
-    ]) {
-      if (prevProps[key] !== this.props[key]) {
-        this.format();
-        break;
-      }
-    }
-  }
-
-  format() {
+  const format = async () => {
     const {
-      worker,
-      code,
-      options,
-      debugAst: ast,
-      debugDoc: doc,
-      debugComments: comments,
+      showAst: ast,
+      showPreprocessedAst: preprocessedAst,
+      showDoc: doc,
+      showComments: comments,
+      showSecondFormat: reformat,
+      rethrowEmbedErrors,
+    } = editorState;
+
+    const result = await worker.format(props.code, toRaw(props.options), {
+      ast,
+      preprocessedAst,
+      doc,
+      comments,
       reformat,
-    } = this.props;
+      rethrowEmbedErrors,
+    });
 
-    worker
-      .format(code, options, { ast, doc, comments, reformat })
-      .then((result) => this.setState(result));
-  }
+    Object.assign(state, result);
+  };
 
-  render() {
-    return this.props.children(this.state);
-  }
+  const render = () => slots.default(state);
+
+  onMounted(componentDidMount);
+  watch(
+    () => [
+      props.code,
+      props.options,
+      editorState.showAst,
+      editorState.showPreprocessedAst,
+      editorState.showDoc,
+      editorState.showComments,
+      editorState.showSecondFormat,
+      editorState.rethrowEmbedErrors,
+    ],
+    () => {
+      format();
+    },
+    { deep: true },
+  );
+  return render;
 }
+
+export default {
+  name: "PrettierFormat",
+  props: {
+    code: String,
+    options: Object,
+  },
+  setup,
+};

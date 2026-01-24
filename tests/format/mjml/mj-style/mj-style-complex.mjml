@@ -1,0 +1,20 @@
+<mjml>
+    <mj-style>
+      @media only screen and (max-width: 480px) {
+        .mobile-full-width {
+        width: 100% !important;
+        }
+      .mobile-center {
+    text-align:center!important;
+      }
+}
+
+      .custom-btn {
+        background-color: #FF5733;
+        border-radius: 5px;
+                             padding: 10px 20px;
+margin:0px;
+transform: translateY(0);
+      }
+    </mj-style>
+</mjml>

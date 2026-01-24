@@ -1,0 +1,216 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`18106.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript", "flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+export interface DirectiveArgumentNode1 extends ArrayExpression {
+  elements: // dir, exp, arg, modifiers
+    | [string]
+    | [string, ExpressionNode]
+    | [string, ExpressionNode, ExpressionNode]
+    | [string, ExpressionNode, ExpressionNode, ObjectExpression]
+}
+
+export class DirectiveArgumentNode12 extends ArrayExpression {
+  elements: // dir, exp, arg, modifiers
+    | [string]
+    | [string, ExpressionNode]
+    | [string, ExpressionNode, ExpressionNode]
+    | [string, ExpressionNode, ExpressionNode, ObjectExpression]
+  = 1
+}
+
+type A = // dir, exp, arg, modifiers
+  | [string]
+  | [string, ExpressionNode]
+  | [string, ExpressionNode, ExpressionNode]
+  | [string, ExpressionNode, ExpressionNode, ObjectExpression]
+
+const elements: // dir, exp, arg, modifiers
+  | [string]
+  | [string, ExpressionNode]
+  | [string, ExpressionNode, ExpressionNode]
+  | [string, ExpressionNode, ExpressionNode, ObjectExpression]
+  = 1
+
+type A2 = /* block comment */
+  | [string]
+  | [string, ExpressionNode]
+  | [string, ExpressionNode, ExpressionNode]
+  | [string, ExpressionNode, ExpressionNode, ObjectExpression]
+
+type A3 = /* block comment
+ */
+  | [string]
+  | [string, ExpressionNode]
+  | [string, ExpressionNode, ExpressionNode]
+  | [string, ExpressionNode, ExpressionNode, ObjectExpression]
+
+=====================================output=====================================
+export interface DirectiveArgumentNode1 extends ArrayExpression {
+  elements: // dir, exp, arg, modifiers
+    | [string]
+    | [string, ExpressionNode]
+    | [string, ExpressionNode, ExpressionNode]
+    | [string, ExpressionNode, ExpressionNode, ObjectExpression];
+}
+
+export class DirectiveArgumentNode12 extends ArrayExpression {
+  elements: // dir, exp, arg, modifiers
+    | [string]
+    | [string, ExpressionNode]
+    | [string, ExpressionNode, ExpressionNode]
+    | [string, ExpressionNode, ExpressionNode, ObjectExpression] = 1;
+}
+
+type A = // dir, exp, arg, modifiers
+  | [string]
+  | [string, ExpressionNode]
+  | [string, ExpressionNode, ExpressionNode]
+  | [string, ExpressionNode, ExpressionNode, ObjectExpression];
+
+const elements: // dir, exp, arg, modifiers
+  | [string]
+  | [string, ExpressionNode]
+  | [string, ExpressionNode, ExpressionNode]
+  | [string, ExpressionNode, ExpressionNode, ObjectExpression] = 1;
+
+type A2 =
+  /* block comment */
+  | [string]
+  | [string, ExpressionNode]
+  | [string, ExpressionNode, ExpressionNode]
+  | [string, ExpressionNode, ExpressionNode, ObjectExpression];
+
+type A3 =
+  /* block comment
+   */
+  | [string]
+  | [string, ExpressionNode]
+  | [string, ExpressionNode, ExpressionNode]
+  | [string, ExpressionNode, ExpressionNode, ObjectExpression];
+
+================================================================================
+`;
+
+exports[`18379.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript", "flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+type A1 =
+  (
+    A | B // comment 1
+  ) & (
+    // comment2
+    A | B
+  )
+
+type A2 =
+  (
+  	A | B // prettier-ignore
+  ) & (
+  	// prettier-ignore
+    A | B
+  )
+
+type A1 =
+  // comment 1
+  (A | B)
+  & (
+  	// comment2
+    A | B
+  )
+
+type A1 =
+  // prettier-ignore
+  (A | B)
+  & (
+  	// prettier-ignore
+    A | B
+  )
+
+=====================================output=====================================
+type A1 = (
+  | A
+  | B // comment 1
+) &
+  // comment2
+  (A | B);
+
+type A2 = (
+  | A
+  | B // prettier-ignore
+) &
+  // prettier-ignore
+  (A | B);
+
+type A1 =
+  // comment 1
+  (A | B) &
+    // comment2
+    (A | B);
+
+type A1 =
+  // prettier-ignore
+  (A | B)
+  & (
+  	// prettier-ignore
+    A | B
+  );
+
+================================================================================
+`;
+
+exports[`18389.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript", "flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+type A1 =     | /**
+     * octahedralRhinocerosTransformer
+     */
+    a
+    | (b | c);
+
+type A2 =     | /**
+     * hippopotamicKangarooMutator
+     */
+    (a | b)
+    | c;
+
+type A4 =
+  (
+  	A | B // comment 1
+  ) | (
+  	// comment2
+    A | B
+  )
+
+=====================================output=====================================
+type A1 =
+  | /**
+   * octahedralRhinocerosTransformer
+   */
+  a
+  | (b | c);
+
+type A2 =
+  | /**
+   * hippopotamicKangarooMutator
+   */
+  (a | b)
+  | c;
+
+type A4 =
+  | (A | B) // comment 1
+  // comment2
+  | (A | B);
+
+================================================================================
+`;

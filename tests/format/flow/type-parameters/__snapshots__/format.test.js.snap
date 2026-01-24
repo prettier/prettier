@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`simple-types.js format 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const foo1: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo<bigint> = a;
+const foo2: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo<1n> = a;
+const foo3: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo<1_1n> = a;
+const foo4: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo<0xDeeD_BeeFn> = a;
+
+=====================================output=====================================
+const foo1: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo<bigint> =
+  a;
+const foo2: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo<1n> =
+  a;
+const foo3: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo<1_1n> =
+  a;
+const foo4: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo<0xdeed_beefn> =
+  a;
+
+================================================================================
+`;

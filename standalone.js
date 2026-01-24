@@ -1,3 +1,1 @@
-"use strict";
-
-module.exports = require("./src/standalone.js");
+export * from "./src/standalone.js";

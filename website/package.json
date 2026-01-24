@@ -1,26 +1,71 @@
 {
+  "private": true,
   "license": "MIT",
   "scripts": {
-    "build": "webpack --mode=production && docusaurus-build",
-    "start": "concurrently \"docusaurus-start\" \"webpack --mode=development --watch\"",
-    "update-stable-docs": "rm -rf ./versioned_docs ./versions.json && docusaurus-version stable"
+    "playground:build": "vite build",
+    "playground:watch": "vite",
+    "docusaurus": "docusaurus",
+    "start": "concurrently \"yarn playground:watch\" \"docusaurus start\"",
+    "build": "yarn playground:build && docusaurus build",
+    "swizzle": "docusaurus swizzle",
+    "clear": "docusaurus clear",
+    "serve": "docusaurus serve",
+    "write-translations": "docusaurus write-translations",
+    "write-heading-ids": "docusaurus write-heading-ids",
+    "update-stable-docs": "node ./scripts/update-stable-docs.mjs"
   },
   "dependencies": {
-    "clipboard": "2.0.8",
-    "codemirror-graphql": "1.1.0",
-    "lz-string": "1.4.4",
-    "prop-types": "15.7.2",
-    "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "@catppuccin/codemirror": "1.0.1",
+    "@codemirror/autocomplete": "6.20.0",
+    "@codemirror/commands": "6.10.1",
+    "@codemirror/language": "6.12.1",
+    "@codemirror/language-data": "6.5.2",
+    "@codemirror/lint": "6.9.2",
+    "@codemirror/state": "6.5.4",
+    "@codemirror/view": "6.39.11",
+    "@docusaurus/preset-classic": "3.9.2",
+    "@lezer/highlight": "1.2.3",
+    "@mdx-js/react": "3.1.1",
+    "@sandhose/prettier-animated-logo": "1.0.3",
+    "@xiechao/codemirror-lang-handlebars": "1.0.4",
+    "clipboard": "2.0.11",
+    "clsx": "2.1.1",
+    "cm6-graphql": "0.2.1",
+    "github-buttons": "2.30.0",
+    "graphql": "16.12.0",
+    "lz-string": "1.5.0",
+    "prism-react-renderer": "2.4.1",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "react-markdown": "10.1.0",
+    "react-tweet": "3.2.2",
+    "vue": "3.5.26"
   },
   "devDependencies": {
-    "@babel/preset-react": "7.16.0",
-    "@sandhose/prettier-animated-logo": "1.0.3",
-    "babel-loader": "8.2.3",
-    "concurrently": "6.4.0",
-    "docusaurus": "1.14.7",
-    "js-yaml": "4.1.0",
-    "webpack": "5.64.0",
-    "webpack-cli": "4.9.1"
-  }
+    "@docusaurus/core": "3.9.2",
+    "@docusaurus/faster": "3.9.2",
+    "@docusaurus/module-type-aliases": "3.9.2",
+    "@docusaurus/types": "3.9.2",
+    "@types/react": "19.2.9",
+    "@vitejs/plugin-vue": "6.0.3",
+    "@vitejs/plugin-vue-jsx": "5.1.3",
+    "concurrently": "9.2.1",
+    "package-dependencies-tree": "0.0.1",
+    "rollup-plugin-visualizer": "6.0.5",
+    "vite": "7.3.1",
+    "yaml": "2.8.2"
+  },
+  "browserslist": {
+    "production": [
+      ">0.5%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 3 chrome version",
+      "last 3 firefox version",
+      "last 5 safari version"
+    ]
+  },
+  "packageManager": "yarn@4.12.0"
 }

@@ -1,23 +1,7 @@
-"use strict";
+import printer from "./printer-glimmer.js";
 
-const createLanguage = require("../utils/create-language.js");
-const printer = require("./printer-glimmer.js");
-const parsers = require("./parsers.js");
-
-const languages = [
-  createLanguage(require("linguist-languages/data/Handlebars.json"), () => ({
-    since: "2.3.0",
-    parsers: ["glimmer"],
-    vscodeLanguageIds: ["handlebars"],
-  })),
-];
-
-const printers = {
+export const printers = {
   glimmer: printer,
 };
-
-module.exports = {
-  languages,
-  printers,
-  parsers,
-};
+export { default as languages } from "./languages.evaluate.js";
+export * as parsers from "./parser-glimmer.js";

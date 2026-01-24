@@ -3,6 +3,9 @@ id: precommit
 title: Pre-commit Hook
 ---
 
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+
 You can use Prettier with a pre-commit tool. This can re-format your files that are marked as “staged” via `git add` before you commit.
 
 ## Option 1. [lint-staged](https://github.com/okonet/lint-staged)
@@ -19,47 +22,73 @@ This will install [husky](https://github.com/typicode/husky) and [lint-staged](h
 
 Read more at the [lint-staged](https://github.com/okonet/lint-staged#configuration) repo.
 
-## Option 2. [pretty-quick](https://github.com/azz/pretty-quick)
+## Option 2. [pretty-quick](https://github.com/prettier/pretty-quick)
 
 **Use Case:** Great for when you want an entire file formatting on your changed/staged files.
 
-Install it along with [husky](https://github.com/typicode/husky):
+Install it along with [simple-git-hooks](https://github.com/toplenboren/simple-git-hooks):
 
-<!--DOCUSAURUS_CODE_TABS-->
-<!--npm-->
-
-```bash
-npx husky-init
-npm install --save-dev pretty-quick
-npx husky set .husky/pre-commit "npx pretty-quick --staged"
-```
-
-<!--yarn-->
+<Tabs groupId="package-manager">
+<TabItem value="npm">
 
 ```bash
-npx husky-init # add --yarn2 for Yarn 2
-yarn add --dev pretty-quick
-yarn husky set .husky/pre-commit "npx pretty-quick --staged"
+npm install --save-dev simple-git-hooks pretty-quick
+node --eval "fs.writeFileSync('.simple-git-hooks.json',JSON.stringify({'pre-commit':'npx pretty-quick --staged'},undefined,2)+'\n')"
+npx simple-git-hooks
 ```
 
-<!--END_DOCUSAURUS_CODE_TABS-->
+</TabItem>
+<TabItem value="yarn">
 
-Read more at the [pretty-quick](https://github.com/azz/pretty-quick) repo.
-
-## Option 3. [pre-commit](https://github.com/pre-commit/pre-commit)
-
-**Use Case:** Great when working with multi-language projects.
-
-Copy the following config into your `.pre-commit-config.yaml` file:
-
-```yaml
-- repo: https://github.com/pre-commit/mirrors-prettier
-  rev: "" # Use the sha or tag you want to point at
-  hooks:
-    - id: prettier
+```bash
+yarn add --dev simple-git-hooks pretty-quick
+node --eval "fs.writeFileSync('.simple-git-hooks.json',JSON.stringify({'pre-commit':'yarn pretty-quick --staged'},undefined,2)+'\n')"
+yarn simple-git-hooks
 ```
 
-Read more at [mirror of prettier package for pre-commit](https://github.com/pre-commit/mirrors-prettier) and the [pre-commit](https://pre-commit.com) website.
+</TabItem>
+<TabItem value="pnpm">
+
+```bash
+pnpm add --save-dev simple-git-hooks pretty-quick
+node --eval "fs.writeFileSync('.simple-git-hooks.json',JSON.stringify({'pre-commit':'pnpm pretty-quick --staged'},undefined,2)+'\n')"
+pnpm simple-git-hooks
+```
+
+</TabItem>
+<TabItem value="bun">
+
+```bash
+bun add --dev simple-git-hooks pretty-quick
+node --eval "fs.writeFileSync('.simple-git-hooks.json',JSON.stringify({'pre-commit':'bun pretty-quick --staged'},undefined,2)+'\n')"
+bun simple-git-hooks
+```
+
+</TabItem>
+</Tabs>
+
+Read more at the [pretty-quick](https://github.com/prettier/pretty-quick) repo.
+
+## Option 3. [Husky.Net](https://github.com/alirezanet/Husky.Net)
+
+**Use Case:** A dotnet solution to use Prettier along with other code quality tools (e.g. dotnet-format, ESLint, Stylelint, etc.). It supports multiple file states (staged - last-commit, git-files etc.)
+
+```bash
+dotnet new tool-manifest
+dotnet tool install husky
+dotnet husky install
+dotnet husky add pre-commit
+```
+
+after installation you can add prettier task to the `task-runner.json`.
+
+```json title="task-runner.json"
+{
+  "command": "npx",
+  "args": ["prettier", "--ignore-unknown", "--write", "${staged}"],
+  "pathMode": "absolute"
+}
+```
 
 ## Option 4. [git-format-staged](https://github.com/hallettj/git-format-staged)
 
@@ -74,24 +103,44 @@ Git-format-staged is used to run any formatter that can accept file content via 
 
 Git-format-staged requires Python v3 or v2.7. Python is usually pre-installed on Linux and macOS, but not on Windows. Use git-format-staged with [husky](https://github.com/typicode/husky):
 
-<!--DOCUSAURUS_CODE_TABS-->
-<!--npm-->
+<Tabs groupId="package-manager">
+<TabItem value="npm">
 
 ```bash
-npx husky-init
+npx husky init
 npm install --save-dev git-format-staged
-npx husky set .husky/pre-commit "git-format-staged -f 'prettier --ignore-unknown --stdin --stdin-filepath \"{}\"' ."
+node --eval "fs.writeFileSync('.husky/pre-commit', 'git-format-staged -f \'prettier --ignore-unknown --stdin --stdin-filepath \"{}\"\' .\n')"
 ```
 
-<!--yarn-->
+</TabItem>
+<TabItem value="yarn">
 
 ```bash
-npx husky-init # add --yarn2 for Yarn 2
+yarn husky init
 yarn add --dev git-format-staged
-yarn husky set .husky/pre-commit "git-format-staged -f 'prettier --ignore-unknown --stdin --stdin-filepath \"{}\"' ."
+node --eval "fs.writeFileSync('.husky/pre-commit', 'git-format-staged -f \'prettier --ignore-unknown --stdin --stdin-filepath \"{}\"\' .\n')"
 ```
 
-<!--END_DOCUSAURUS_CODE_TABS-->
+</TabItem>
+<TabItem value="pnpm">
+
+```bash
+pnpm exec husky init
+pnpm add --save-dev git-format-staged
+node --eval "fs.writeFileSync('.husky/pre-commit', 'git-format-staged -f \'prettier --ignore-unknown --stdin --stdin-filepath \"{}\"\' .\n')"
+```
+
+</TabItem>
+<TabItem value="bun">
+
+```bash
+bunx husky init
+bun add --dev git-format-staged
+bun --eval "fs.writeFileSync('.husky/pre-commit', 'git-format-staged -f \'prettier --ignore-unknown --stdin --stdin-filepath \"{}\"\' .\n')"
+```
+
+</TabItem>
+</Tabs>
 
 Add or remove file extensions to suit your project. Note that regardless of which extensions you list formatting will respect any `.prettierignore` files in your project.
 
@@ -101,7 +150,7 @@ To read about how git-format-staged works see [Automatic Code Formatting for Par
 
 Alternately you can save this script as `.git/hooks/pre-commit` and give it execute permission:
 
-```sh
+```sh title=".git/hooks/pre-commit"
 #!/bin/sh
 FILES=$(git diff --cached --name-only --diff-filter=ACMR | sed 's| |\\ |g')
 [ -z "$FILES" ] && exit 0
@@ -119,7 +168,7 @@ If git is reporting that your prettified files are still modified after committi
 
 Add something like the following to `.git/hooks/post-commit`:
 
-```sh
+```sh title=".git/hooks/post-commit"
 #!/bin/sh
 git update-index -g
 ```

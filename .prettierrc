@@ -1,4 +1,0 @@
-overrides:
-  - files: "**/*.{js,mjs}"
-    options:
-      parser: meriyah

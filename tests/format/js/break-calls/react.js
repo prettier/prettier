@@ -62,3 +62,37 @@ function Comp4() {
 function Comp5() {
   const { firstName, lastName } = useMemo(() => func(), [foo]);
 }
+
+function Component1() {
+  useImperativeHandle(ref, () => {
+    /* Function body */
+  }, []);
+  useImperativeHandle(ref, () => {
+    /* Function body */
+  }, [props.value]);
+  useImperativeHandle(ref, () => {
+    /* Function body */
+  }, [props.value, props.value, props.value, props.value, props.value, props.value, props.value, props.value, props.value, props.value, props.value]);
+}
+
+function Component2() {
+  React.useImperativeHandle(ref, () => {
+    /* Function body */
+  }, []);
+  React.useImperativeHandle(ref, () => {
+    /* Function body */
+  }, [props.value]);
+  React.useImperativeHandle(ref, () => {
+    /* Function body */
+  }, [props.value, props.value, props.value, props.value, props.value, props.value, props.value, props.value, props.value, props.value, props.value]);
+}
+
+function Component3() {
+  useImperativeHandle(
+    ref,
+    () => {
+      /* Function body */
+    },
+    [],
+  );
+}

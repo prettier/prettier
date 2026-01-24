@@ -1,0 +1,5 @@
+{
+  "prettier": "./my-prettier-config-file.js",
+  "private": true,
+  "type": "module"
+}

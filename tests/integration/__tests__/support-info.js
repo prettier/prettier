@@ -1,35 +1,34 @@
-"use strict";
+import prettier from "../../config/prettier-entry.js";
 
-const prettier = require("prettier-local");
-const runPrettier = require("../runPrettier.js");
-
-test("API getSupportInfo()", () => {
-  expect(getCoreInfo()).toMatchSnapshot();
+test("API getSupportInfo()", async () => {
+  expect(await getCoreInfo()).toMatchSnapshot();
 });
 
 describe("CLI --support-info", () => {
-  runPrettier("cli", "--support-info").test({ status: 0 });
+  runCli("cli", "--support-info").test({ status: 0 });
 });
 
-function getCoreInfo() {
-  const supportInfo = prettier.getSupportInfo();
+async function getCoreInfo() {
+  const supportInfo = await prettier.getSupportInfo();
   const languages = Object.fromEntries(
-    supportInfo.languages.map(({ name, parsers }) => [name, parsers])
+    supportInfo.languages.map(({ name, parsers }) => [name, parsers]),
   );
 
   const options = Object.fromEntries(
-    supportInfo.options.map((option) => [
-      option.name,
-      {
-        type: option.type,
-        default: option.default,
-        ...(option.type === "int"
-          ? { range: option.range }
-          : option.type === "choice"
-          ? { choices: option.choices.map((choice) => choice.value) }
-          : null),
-      },
-    ])
+    supportInfo.options.map((rawOption) => {
+      const option = {
+        type: rawOption.type,
+        default: rawOption.default,
+      };
+
+      if (rawOption.type === "int") {
+        option.range = rawOption.range;
+      } else if (rawOption.type === "choice") {
+        option.choices = rawOption.choices.map((choice) => choice.value);
+      }
+
+      return [rawOption.name, option];
+    }),
   );
 
   return { languages, options };

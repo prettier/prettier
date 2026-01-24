@@ -1,88 +1,79 @@
-import * as ESTree from "estree";
-import * as Babel from "@babel/types";
-import { TSESTree } from "@typescript-eslint/typescript-estree";
-import { ESTree as Meriyah } from "meriyah";
-import * as NGTree from "angular-estree-parser/lib/types";
+import type { ESTree as MeriyahESTree } from "meriyah";
+import type * as Babel from "@babel/types";
+import type { NGTree } from "angular-estree-parser";
+import type * as TSESTree from "./typescript-estree.ts";
+import type * as FlowESTree from "./flow-estree.js";
+import type * as Babel from "./babel.js";
 
-type AdditionalFields = {
+type PrettierNodeAdditionalProperties = {
   extra?: {
     parenthesized?: boolean;
     raw?: string;
   };
   comments?: Comment[];
-  trailingComments?: ReadonlyArray<Comment> | Comment[];
-  leadingComments?: ReadonlyArray<Comment> | Comment[];
+  prettierIgnore?: boolean;
 };
 
-export type Comment = (
-  | ESTree.Comment
-  | Babel.Comment
-  | TSESTree.Comment
-  | Meriyah.Comment
-) & {
+type PrettierCommentAdditionalProperties = {
   printed?: boolean;
   trailing?: boolean;
   leading?: boolean;
 };
 
-export type Node = (ESTree.Node | Babel.Node | TSESTree.Node | NGTree.NGNode) &
-  AdditionalFields;
+type FlowAdditionalNode = {
+  type: "SatisfiesExpression";
+  expression: FlowESTree.Expression;
+  typeAnnotation: FlowESTree.TypeAnnotationType;
+};
 
-export type TemplateLiteral = (
-  | ESTree.TemplateLiteral
-  | Babel.TemplateLiteral
-  | TSESTree.TemplateLiteral
+type PrettierNode = { type: "JsExpressionRoot"; node: Babel.Expression };
+
+export type Comment = (
+  | Babel.Comment
+  | TSESTree.Comment
+  | MeriyahESTree.Comment
+  | { type: "Hashbang"; value: string }
+  | Babel.InterpreterDirective
 ) &
-  AdditionalFields;
+  PrettierCommentAdditionalProperties;
 
-export type CallExpression = (
-  | ESTree.CallExpression
-  | Babel.CallExpression
-  | TSESTree.CallExpression
-) &
-  AdditionalFields;
+type _Node =
+  | PrettierNode
+  | Exclude<Babel.Node, Babel.TupleTypeAnnotation>
+  | TSESTree.Node
+  | Exclude<NGTree.NGAst, Babel.Node>
+  | FlowESTree.ESNode
+  | FlowAdditionalNode;
 
-export type OptionalCallExpression = Babel.OptionalCallExpression &
-  AdditionalFields;
+export type Node = ExtendNode<_Node>;
 
-export type MemberExpression = (
-  | ESTree.MemberExpression
-  | Babel.MemberExpression
-  | TSESTree.MemberExpression
-) &
-  AdditionalFields;
+export type NodeMap = CreateNodeMap<Node>;
+export type CommentMap = CreateNodeMap<Comment>;
 
-export type OptionalMemberExpression = Babel.OptionalMemberExpression &
-  AdditionalFields;
+type CreateNodeMap<Input extends Node | Comment> = {
+  [NodeType in Input["type"]]: Extract<Input, { type: NodeType }>;
+};
 
-export type Expression = (
-  | ESTree.Expression
-  | Babel.Expression
-  | TSESTree.Expression
-) &
-  AdditionalFields;
+type ExtendNode<Input> = Input extends _Node
+  ? {
+      [Key in keyof Input]: ExtendNode<Input[Key]>;
+    } & PrettierNodeAdditionalProperties
+  : Input extends readonly any[]
+    ? ExtendNode<Input[number]>[]
+    : Input;
 
-export type BindExpression = Babel.BindExpression & AdditionalFields;
+export type NumericLiteral =
+  | NodeMap["NumericLiteral"]
+  | (NodeMap["Literal"] & { value: number });
 
-export type Property = (ESTree.Property | Babel.Property | TSESTree.Property) &
-  AdditionalFields;
+export type StringLiteral =
+  | NodeMap["StringLiteral"]
+  | (NodeMap["Literal"] & { value: string });
 
-export type ClassPrivateProperty = Babel.ClassPrivateProperty &
-  AdditionalFields;
+export type RegExpLiteral =
+  | NodeMap["RegExpLiteral"]
+  | (NodeMap["Literal"] & { regexp: { pattern: string; flags: string } });
 
-export type ObjectTypeProperty = Babel.ObjectTypeProperty & AdditionalFields;
-
-export type JSXElement = (Babel.JSXElement | TSESTree.JSXElement) &
-  AdditionalFields;
-
-export type TaggedTemplateExpression = (
-  | ESTree.TaggedTemplateExpression
-  | Babel.TaggedTemplateExpression
-  | TSESTree.TaggedTemplateExpression
-) &
-  AdditionalFields;
-
-export type Literal = (ESTree.Literal | Babel.Literal | TSESTree.Literal) &
-  AdditionalFields;
-
-export { ESTree, Babel, TSESTree, NGTree };
+export type BigIntLiteral =
+  | NodeMap["BigIntLiteral"]
+  | (NodeMap["Literal"] & { bigint: string });

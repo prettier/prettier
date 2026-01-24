@@ -1,4 +1,4 @@
 {
-    "plugins": ["./plugin"],
-    "fooOption": "baz"
+  "plugins": ["./plugin.cjs"],
+  "fooOption": "baz"
 }

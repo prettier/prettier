@@ -1,0 +1,83 @@
+export function fixPrettierVersion(version) {
+  const match = version.match(/^\d+\.\d+\.\d+-pr.(\d+)$/);
+  if (match) {
+    return `pr-${match[1]}`;
+  }
+  return version;
+}
+
+export function getDefaults(availableOptions, optionNames) {
+  const defaults = {};
+  for (const option of availableOptions) {
+    if (optionNames.includes(option.name)) {
+      defaults[option.name] =
+        option.name === "parser" ? "babel" : option.default;
+    }
+  }
+  return defaults;
+}
+
+export function buildCliArgs(availableOptions, options) {
+  const args = [];
+  for (const option of availableOptions) {
+    const value = options[option.name];
+
+    if (value === undefined) {
+      continue;
+    }
+
+    if (option.type === "boolean") {
+      if ((value && !option.inverted) || (!value && option.inverted)) {
+        args.push([option.cliName, true]);
+      }
+    } else if (value !== option.default || option.name === "rangeStart") {
+      args.push([option.cliName, value]);
+    }
+  }
+  return args;
+}
+
+const astAutoFold = {
+  estree: /^\s*"(loc|start|end|tokens|\w+Comments|comments)":/,
+  postcss: /^\s*"(source|input|raws|file)":/,
+  html: /^\s*"(\w+Span|valueTokens|tokens|file|tagDefinition)":/,
+  mdast: /^\s*"position":/,
+  yaml: /^\s*"position":/,
+  glimmer: /^\s*"loc":/,
+  graphql: /^\s*"loc":/,
+};
+
+export function getAstAutoFold(parser) {
+  switch (parser) {
+    case "flow":
+    case "hermes":
+    case "babel":
+    case "babel-flow":
+    case "babel-ts":
+    case "typescript":
+    case "acorn":
+    case "espree":
+    case "meriyah":
+    case "json":
+    case "json5":
+    case "json-stringify":
+      return astAutoFold.estree;
+    case "css":
+    case "less":
+    case "scss":
+      return astAutoFold.postcss;
+    case "html":
+    case "angular":
+    case "vue":
+    case "lwc":
+    case "mjml":
+      return astAutoFold.html;
+    case "markdown":
+    case "mdx":
+      return astAutoFold.mdast;
+    case "yaml":
+      return astAutoFold.yaml;
+    default:
+      return astAutoFold[parser];
+  }
+}

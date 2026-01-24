@@ -6,11 +6,11 @@ const prop = /** @type {Object} */(myObject.property).someProp;
 const test = /** @type (function (*): ?|undefined) */
       (goog.partial(NewThing.onTemplateChange, rationaleField, typeField));
 
-const test = /** @type (function (*): ?|undefined) */ (goog.partial(NewThing.onTemplateChange, rationaleField, typeField));
+const foo1 = /** @type (function (*): ?|undefined) */ (goog.partial(NewThing.onTemplateChange, rationaleField, typeField));
 
 const model = /** @type {?{getIndex: Function}} */ (model);
 
 const foo = /** @type {string} */
   (bar);
 
-const test = /** @type (function (*): ?|undefined) */ (foo);
+const foo2 = /** @type (function (*): ?|undefined) */ (foo);

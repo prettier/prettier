@@ -86,6 +86,7 @@ test
          comment
      comment
            comment
+      A newline will be added after this comment, unfortunately – but it can be removed manually, see next statement.
     */
   test
   ? foo
@@ -94,6 +95,23 @@ test
     comment
    */
     bar;
+
+
+// It is at least possible to delete the extra newline that was
+// unfortunately added before the second condition above:
+test ?
+  foo :/* comment
+         comment
+     comment
+           comment
+    */
+test ?
+  foo :
+  /* comment
+  comment
+    comment
+   */
+  bar;
 
 test
   ? foo

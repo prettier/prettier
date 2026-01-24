@@ -1,6 +1,6 @@
 ## Description
 
-<!-- Please provide a brief summary of your changes: -->
+<!-- Please provide a brief summary of your changes -->
 
 ## Checklist
 
@@ -11,7 +11,3 @@
 - [ ] (If changing the API or CLI) I’ve documented the changes I’ve made (in the `docs/` directory).
 - [ ] (If the change is user-facing) I’ve added my changes to `changelog_unreleased/*/XXXX.md` file following `changelog_unreleased/TEMPLATE.md`.
 - [ ] I’ve read the [contributing guidelines](https://github.com/prettier/prettier/blob/main/CONTRIBUTING.md).
-
-<!-- Please DO NOT remove the playground link -->
-
-**✨[Try the playground for this PR](https://prettier.io/playground-redirect)✨**

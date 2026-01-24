@@ -1,26 +1,25 @@
-"use strict";
-
 const MESSAGE_ID = "jsx-identifier-case";
 
 // To ignore variables, config eslint like this
 // {'prettier-internal-rules/jsx-identifier-case': ['error', 'name1', ... 'nameN']}
 
-module.exports = {
+export default {
   meta: {
     type: "suggestion",
-    docs: {
-      url: "https://github.com/prettier/prettier/blob/main/scripts/tools/eslint-plugin-prettier-internal-rules/jsx-identifier-case.js",
-    },
     messages: {
       [MESSAGE_ID]: "Please rename '{{name}}' to '{{fixed}}'.",
     },
     fixable: "code",
+    schema: {
+      type: "array",
+      uniqueItems: true,
+    },
   },
   create(context) {
     const ignored = new Set(context.options);
     return {
       "Identifier[name=/JSX/]:not(ObjectExpression > Property.properties > .key)"(
-        node
+        node,
       ) {
         const { name } = node;
 
@@ -28,7 +27,7 @@ module.exports = {
           return;
         }
 
-        const fixed = name.replace(/JSX/g, "Jsx");
+        const fixed = name.replaceAll("JSX", "Jsx");
         context.report({
           node,
           messageId: MESSAGE_ID,
@@ -37,9 +36,5 @@ module.exports = {
         });
       },
     };
-  },
-  schema: {
-    type: "array",
-    uniqueItems: true,
   },
 };

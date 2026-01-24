@@ -1,5 +1,10 @@
 #!/usr/bin/env node
 
-"use strict";
+/*
+Add this file so we can use `node bin/prettier` or `node bin/prettier.js`
+instead of `node bin/prettier.cjs`.
 
-module.exports = require("../src/cli/index.js").run(process.argv.slice(2));
+This file should only used for development.
+*/
+
+import "./prettier.cjs";

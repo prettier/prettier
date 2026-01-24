@@ -1,0 +1,333 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`snippet: #0 [__babel_estree] format 1`] = `
+"An export name cannot include a lone surrogate, found '\\ud83c'. (1:10)
+> 1 | import { "\\uD83C" as b } from "./foo";
+    |          ^
+Cause: An export name cannot include a lone surrogate, found '\\ud83c'. (1:9)"
+`;
+
+exports[`snippet: #0 [acorn] format 1`] = `
+"An export name cannot include a lone surrogate. (1:10)
+> 1 | import { "\\uD83C" as b } from "./foo";
+    |          ^
+Cause: An export name cannot include a lone surrogate. (1:9)"
+`;
+
+exports[`snippet: #0 [babel] format 1`] = `
+"An export name cannot include a lone surrogate, found '\\ud83c'. (1:10)
+> 1 | import { "\\uD83C" as b } from "./foo";
+    |          ^
+Cause: An export name cannot include a lone surrogate, found '\\ud83c'. (1:9)"
+`;
+
+exports[`snippet: #0 [babel-flow] format 1`] = `
+"An export name cannot include a lone surrogate, found '\\ud83c'. (1:10)
+> 1 | import { "\\uD83C" as b } from "./foo";
+    |          ^
+Cause: An export name cannot include a lone surrogate, found '\\ud83c'. (1:9)"
+`;
+
+exports[`snippet: #0 [babel-ts] format 1`] = `
+"An export name cannot include a lone surrogate, found '\\ud83c'. (1:10)
+> 1 | import { "\\uD83C" as b } from "./foo";
+    |          ^
+Cause: An export name cannot include a lone surrogate, found '\\ud83c'. (1:9)"
+`;
+
+exports[`snippet: #0 [espree] format 1`] = `
+"An export name cannot include a lone surrogate. (1:10)
+> 1 | import { "\\uD83C" as b } from "./foo";
+    |          ^
+Cause: An export name cannot include a lone surrogate."
+`;
+
+exports[`snippet: #0 [espree] format 2`] = `
+"An export name cannot include a lone surrogate. (1:10)
+> 1 | import { "\\uD83C" as b } from "./foo";
+    |          ^
+Cause: An export name cannot include a lone surrogate."
+`;
+
+exports[`snippet: #0 [flow] format 1`] = `
+"Unexpected string, expected an identifier (1:10)
+> 1 | import { "\\uD83C" as b } from "./foo";
+    |          ^^^^^^^^"
+`;
+
+exports[`snippet: #0 [hermes] format 1`] = `
+"'identifier' expected in import specifier (1:9)
+> 1 | import { "\\uD83C" as b } from "./foo";
+    |         ^
+Cause: 'identifier' expected in import specifier (1:9)
+import { "\\uD83C" as b } from "./foo";
+       ~~^"
+`;
+
+exports[`snippet: #0 [meriyah] format 1`] = `
+"An export name cannot include a lone surrogate (1:10)
+> 1 | import { "\\uD83C" as b } from "./foo";
+    |          ^^^^^^^^
+Cause: [1:9-1:17]: An export name cannot include a lone surrogate"
+`;
+
+exports[`snippet: #0 [oxc] format 1`] = `
+"An export name cannot include a unicode lone surrogate (1:10)
+> 1 | import { "\\uD83C" as b } from "./foo";
+    |          ^^^^^^^^"
+`;
+
+exports[`snippet: #0 [oxc-ts] format 1`] = `
+"An export name cannot include a unicode lone surrogate (1:10)
+> 1 | import { "\\uD83C" as b } from "./foo";
+    |          ^^^^^^^^"
+`;
+
+exports[`snippet: #1 [__babel_estree] format 1`] = `
+"An export name cannot include a lone surrogate, found '\\ud83c'. (1:10)
+> 1 | export { "\\uD83C" } from "./foo";
+    |          ^
+Cause: An export name cannot include a lone surrogate, found '\\ud83c'. (1:9)"
+`;
+
+exports[`snippet: #1 [acorn] format 1`] = `
+"An export name cannot include a lone surrogate. (1:10)
+> 1 | export { "\\uD83C" } from "./foo";
+    |          ^
+Cause: An export name cannot include a lone surrogate. (1:9)"
+`;
+
+exports[`snippet: #1 [babel] format 1`] = `
+"An export name cannot include a lone surrogate, found '\\ud83c'. (1:10)
+> 1 | export { "\\uD83C" } from "./foo";
+    |          ^
+Cause: An export name cannot include a lone surrogate, found '\\ud83c'. (1:9)"
+`;
+
+exports[`snippet: #1 [babel-flow] format 1`] = `
+"An export name cannot include a lone surrogate, found '\\ud83c'. (1:10)
+> 1 | export { "\\uD83C" } from "./foo";
+    |          ^
+Cause: An export name cannot include a lone surrogate, found '\\ud83c'. (1:9)"
+`;
+
+exports[`snippet: #1 [babel-ts] format 1`] = `
+"An export name cannot include a lone surrogate, found '\\ud83c'. (1:10)
+> 1 | export { "\\uD83C" } from "./foo";
+    |          ^
+Cause: An export name cannot include a lone surrogate, found '\\ud83c'. (1:9)"
+`;
+
+exports[`snippet: #1 [espree] format 1`] = `
+"An export name cannot include a lone surrogate. (1:10)
+> 1 | export { "\\uD83C" } from "./foo";
+    |          ^
+Cause: An export name cannot include a lone surrogate."
+`;
+
+exports[`snippet: #1 [espree] format 2`] = `
+"An export name cannot include a lone surrogate. (1:10)
+> 1 | export { "\\uD83C" } from "./foo";
+    |          ^
+Cause: An export name cannot include a lone surrogate."
+`;
+
+exports[`snippet: #1 [flow] format 1`] = `
+"Unexpected string, expected an identifier (1:10)
+> 1 | export { "\\uD83C" } from "./foo";
+    |          ^^^^^^^^"
+`;
+
+exports[`snippet: #1 [hermes] format 1`] = `
+"'identifier' expected in export clause (1:9)
+> 1 | export { "\\uD83C" } from "./foo";
+    |         ^
+Cause: 'identifier' expected in export clause (1:9)
+export { "\\uD83C" } from "./foo";
+       ~~^"
+`;
+
+exports[`snippet: #1 [meriyah] format 1`] = `
+"An export name cannot include a lone surrogate (1:10)
+> 1 | export { "\\uD83C" } from "./foo";
+    |          ^^^^^^^^
+Cause: [1:9-1:17]: An export name cannot include a lone surrogate"
+`;
+
+exports[`snippet: #1 [oxc] format 1`] = `
+"An export name cannot include a unicode lone surrogate (1:10)
+> 1 | export { "\\uD83C" } from "./foo";
+    |          ^^^^^^^^"
+`;
+
+exports[`snippet: #1 [oxc-ts] format 1`] = `
+"An export name cannot include a unicode lone surrogate (1:10)
+> 1 | export { "\\uD83C" } from "./foo";
+    |          ^^^^^^^^"
+`;
+
+exports[`snippet: #2 [__babel_estree] format 1`] = `
+"An export name cannot include a lone surrogate, found '\\ud83c'. (1:10)
+> 1 | export { "\\uD83C" as b } from "./foo";
+    |          ^
+Cause: An export name cannot include a lone surrogate, found '\\ud83c'. (1:9)"
+`;
+
+exports[`snippet: #2 [acorn] format 1`] = `
+"An export name cannot include a lone surrogate. (1:10)
+> 1 | export { "\\uD83C" as b } from "./foo";
+    |          ^
+Cause: An export name cannot include a lone surrogate. (1:9)"
+`;
+
+exports[`snippet: #2 [babel] format 1`] = `
+"An export name cannot include a lone surrogate, found '\\ud83c'. (1:10)
+> 1 | export { "\\uD83C" as b } from "./foo";
+    |          ^
+Cause: An export name cannot include a lone surrogate, found '\\ud83c'. (1:9)"
+`;
+
+exports[`snippet: #2 [babel-flow] format 1`] = `
+"An export name cannot include a lone surrogate, found '\\ud83c'. (1:10)
+> 1 | export { "\\uD83C" as b } from "./foo";
+    |          ^
+Cause: An export name cannot include a lone surrogate, found '\\ud83c'. (1:9)"
+`;
+
+exports[`snippet: #2 [babel-ts] format 1`] = `
+"An export name cannot include a lone surrogate, found '\\ud83c'. (1:10)
+> 1 | export { "\\uD83C" as b } from "./foo";
+    |          ^
+Cause: An export name cannot include a lone surrogate, found '\\ud83c'. (1:9)"
+`;
+
+exports[`snippet: #2 [espree] format 1`] = `
+"An export name cannot include a lone surrogate. (1:10)
+> 1 | export { "\\uD83C" as b } from "./foo";
+    |          ^
+Cause: An export name cannot include a lone surrogate."
+`;
+
+exports[`snippet: #2 [espree] format 2`] = `
+"An export name cannot include a lone surrogate. (1:10)
+> 1 | export { "\\uD83C" as b } from "./foo";
+    |          ^
+Cause: An export name cannot include a lone surrogate."
+`;
+
+exports[`snippet: #2 [flow] format 1`] = `
+"Unexpected string, expected an identifier (1:10)
+> 1 | export { "\\uD83C" as b } from "./foo";
+    |          ^^^^^^^^"
+`;
+
+exports[`snippet: #2 [hermes] format 1`] = `
+"'identifier' expected in export clause (1:9)
+> 1 | export { "\\uD83C" as b } from "./foo";
+    |         ^
+Cause: 'identifier' expected in export clause (1:9)
+export { "\\uD83C" as b } from "./foo";
+       ~~^"
+`;
+
+exports[`snippet: #2 [meriyah] format 1`] = `
+"An export name cannot include a lone surrogate (1:10)
+> 1 | export { "\\uD83C" as b } from "./foo";
+    |          ^^^^^^^^
+Cause: [1:9-1:17]: An export name cannot include a lone surrogate"
+`;
+
+exports[`snippet: #2 [oxc] format 1`] = `
+"An export name cannot include a unicode lone surrogate (1:10)
+> 1 | export { "\\uD83C" as b } from "./foo";
+    |          ^^^^^^^^"
+`;
+
+exports[`snippet: #2 [oxc-ts] format 1`] = `
+"An export name cannot include a unicode lone surrogate (1:10)
+> 1 | export { "\\uD83C" as b } from "./foo";
+    |          ^^^^^^^^"
+`;
+
+exports[`snippet: #3 [__babel_estree] format 1`] = `
+"An export name cannot include a lone surrogate, found '\\ud83c'. (1:15)
+> 1 | export { b as "\\uD83C" } from "./foo";
+    |               ^
+Cause: An export name cannot include a lone surrogate, found '\\ud83c'. (1:14)"
+`;
+
+exports[`snippet: #3 [acorn] format 1`] = `
+"An export name cannot include a lone surrogate. (1:15)
+> 1 | export { b as "\\uD83C" } from "./foo";
+    |               ^
+Cause: An export name cannot include a lone surrogate. (1:14)"
+`;
+
+exports[`snippet: #3 [babel] format 1`] = `
+"An export name cannot include a lone surrogate, found '\\ud83c'. (1:15)
+> 1 | export { b as "\\uD83C" } from "./foo";
+    |               ^
+Cause: An export name cannot include a lone surrogate, found '\\ud83c'. (1:14)"
+`;
+
+exports[`snippet: #3 [babel-flow] format 1`] = `
+"An export name cannot include a lone surrogate, found '\\ud83c'. (1:15)
+> 1 | export { b as "\\uD83C" } from "./foo";
+    |               ^
+Cause: An export name cannot include a lone surrogate, found '\\ud83c'. (1:14)"
+`;
+
+exports[`snippet: #3 [babel-ts] format 1`] = `
+"An export name cannot include a lone surrogate, found '\\ud83c'. (1:15)
+> 1 | export { b as "\\uD83C" } from "./foo";
+    |               ^
+Cause: An export name cannot include a lone surrogate, found '\\ud83c'. (1:14)"
+`;
+
+exports[`snippet: #3 [espree] format 1`] = `
+"An export name cannot include a lone surrogate. (1:15)
+> 1 | export { b as "\\uD83C" } from "./foo";
+    |               ^
+Cause: An export name cannot include a lone surrogate."
+`;
+
+exports[`snippet: #3 [espree] format 2`] = `
+"An export name cannot include a lone surrogate. (1:15)
+> 1 | export { b as "\\uD83C" } from "./foo";
+    |               ^
+Cause: An export name cannot include a lone surrogate."
+`;
+
+exports[`snippet: #3 [flow] format 1`] = `
+"Unexpected string, expected an identifier (1:15)
+> 1 | export { b as "\\uD83C" } from "./foo";
+    |               ^^^^^^^^"
+`;
+
+exports[`snippet: #3 [hermes] format 1`] = `
+"'identifier' expected in export clause (1:14)
+> 1 | export { b as "\\uD83C" } from "./foo";
+    |              ^
+Cause: 'identifier' expected in export clause (1:14)
+export { b as "\\uD83C" } from "./foo";
+       ~~~~~~~^"
+`;
+
+exports[`snippet: #3 [meriyah] format 1`] = `
+"An export name cannot include a lone surrogate (1:15)
+> 1 | export { b as "\\uD83C" } from "./foo";
+    |               ^^^^^^^^
+Cause: [1:14-1:22]: An export name cannot include a lone surrogate"
+`;
+
+exports[`snippet: #3 [oxc] format 1`] = `
+"An export name cannot include a unicode lone surrogate (1:15)
+> 1 | export { b as "\\uD83C" } from "./foo";
+    |               ^^^^^^^^"
+`;
+
+exports[`snippet: #3 [oxc-ts] format 1`] = `
+"An export name cannot include a unicode lone surrogate (1:15)
+> 1 | export { b as "\\uD83C" } from "./foo";
+    |               ^^^^^^^^"
+`;

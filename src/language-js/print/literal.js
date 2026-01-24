@@ -1,25 +1,29 @@
-"use strict";
-const { printString, printNumber } = require("../../common/util.js");
+import { replaceEndOfLine } from "../../document/index.js";
+import printNumber from "../../utilities/print-number.js";
+import printString from "../../utilities/print-string.js";
 
-function printLiteral(path, options /*, print*/) {
-  const node = path.getNode();
+/**
+@import {Node} from "../types/estree.js";
+*/
+
+function printLiteral(path, options /* , print*/) {
+  const { node } = path;
 
   switch (node.type) {
-    case "RegExpLiteral": // Babel 6 Literal split
+    case "RegExpLiteral": // Babel
       return printRegex(node);
-    case "BigIntLiteral":
-      // babel: node.extra.raw, flow: node.bigint
-      return printBigInt(node.bigint || node.extra.raw);
-    case "NumericLiteral": // Babel 6 Literal split
+    case "BigIntLiteral": // Babel
+      return printBigInt(node.extra.raw);
+    case "NumericLiteral": // Babel
       return printNumber(node.extra.raw);
-    case "StringLiteral": // Babel 6 Literal split
-      return printString(node.extra.raw, options);
-    case "NullLiteral": // Babel 6 Literal split
+    case "StringLiteral": // Babel
+      return replaceEndOfLine(printString(node.extra.raw, options));
+    case "NullLiteral": // Babel
       return "null";
-    case "BooleanLiteral": // Babel 6 Literal split
+    case "BooleanLiteral": // Babel
       return String(node.value);
-    case "DecimalLiteral":
-      return printNumber(node.value) + "m";
+    case "DirectiveLiteral":
+      return printDirective(node.extra.raw, options);
     case "Literal": {
       if (node.regex) {
         return printRegex(node.regex);
@@ -29,10 +33,6 @@ function printLiteral(path, options /*, print*/) {
         return printBigInt(node.raw);
       }
 
-      if (node.decimal) {
-        return printNumber(node.decimal) + "m";
-      }
-
       const { value } = node;
 
       if (typeof value === "number") {
@@ -40,12 +40,25 @@ function printLiteral(path, options /*, print*/) {
       }
 
       if (typeof value === "string") {
-        return printString(node.raw, options);
+        return isDirective(path)
+          ? printDirective(node.raw, options)
+          : replaceEndOfLine(printString(node.raw, options));
       }
-
       return String(value);
     }
   }
+}
+
+function isDirective(path) {
+  if (path.key !== "expression") {
+    return;
+  }
+
+  const { parent } = path;
+  return (
+    parent.type === "ExpressionStatement" &&
+    typeof parent.directive === "string"
+  );
 }
 
 function printBigInt(raw) {
@@ -57,6 +70,27 @@ function printRegex({ pattern, flags }) {
   return `/${pattern}/${flags}`;
 }
 
-module.exports = {
-  printLiteral,
-};
+const DIRECTIVE_USE_STRICT = "use strict";
+function printDirective(rawText, options) {
+  const rawContent = rawText.slice(1, -1);
+
+  // Check for the alternate quote, to determine if we're allowed to swap
+  // the quotes on a DirectiveLiteral.
+  // Perf https://tinyurl.com/388dmh3v
+  if (
+    rawContent === DIRECTIVE_USE_STRICT ||
+    !(rawContent.includes('"') || rawContent.includes("'"))
+  ) {
+    const enclosingQuote = options.singleQuote ? "'" : '"';
+
+    // Directives are exact code unit sequences, which means that you can't
+    // change the escape sequences they use.
+    // See https://github.com/prettier/prettier/issues/1555
+    // and https://tc39.github.io/ecma262/#directive-prologue
+    return enclosingQuote + rawContent + enclosingQuote;
+  }
+
+  return rawText;
+}
+
+export { printBigInt, printLiteral };

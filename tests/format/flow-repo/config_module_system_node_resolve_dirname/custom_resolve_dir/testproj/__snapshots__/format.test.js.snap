@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`index.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+export var name: "otherdir/testproj" = "otherdir/testproj";
+
+=====================================output=====================================
+// @flow
+
+export var name: "otherdir/testproj" = "otherdir/testproj";
+
+================================================================================
+`;

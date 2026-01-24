@@ -1,2 +1,0 @@
-[link](   /uri
-  "title"  )

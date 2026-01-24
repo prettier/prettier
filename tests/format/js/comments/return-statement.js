@@ -105,6 +105,12 @@ function sequenceExpressionInside() {
   return ( // Reason for a
     a, b
   );
+  throw ( // Reason for a
+    a, b
+  );
+  return ( // Reason for a
+    a = 1
+  );
 }
 
 function taggedTemplate() {
@@ -118,4 +124,51 @@ function inlineComment() {
   return (
     /* hi */ 42
   ) || 42
+}
+
+function multilineBlockSameLine() {
+  return (
+    /**
+    * @type {string}
+    */ 'result'
+  )
+}
+
+function multilineBlockNextLine() {
+  return (
+    /**
+    * @type {string}
+    */
+    'result'
+  )
+}
+
+function multilineBlockSameLineJsx() {
+  return (
+    /**
+    * JSX Same line
+    */ <div></div>
+  )
+}
+
+function multilineBlockNextLineJsx() {
+  return (
+    /**
+    * JSX Next line
+    */
+    <div></div>
+  )
+}
+
+function singleLineBlockSameLine() {
+  return (
+    /** Result -> */ 'result'
+  )
+}
+
+function singleLineBlockNextLine() {
+  return (
+    /** Result below */
+    'result'
+  )
 }

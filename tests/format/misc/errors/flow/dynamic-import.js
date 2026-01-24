@@ -1,1 +1,0 @@
-import('./prettier.mjs', {})
