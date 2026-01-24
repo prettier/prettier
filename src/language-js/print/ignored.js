@@ -6,7 +6,9 @@ function printIgnored(path, options /* , print*/) {
 
   if (
     options.semi &&
-    (node.type === "BreakStatement" || node.type === "ContinueStatement")
+    (node.type === "BreakStatement" ||
+      node.type === "ContinueStatement" ||
+      node.type === "VariableDeclaration")
   ) {
     text += ";";
   }

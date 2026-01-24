@@ -30,6 +30,15 @@ function locEnd(node) {
           (node.type === "BreakStatement" ? "break".length : "continue".length);
   }
 
+  if (node.type === "VariableDeclaration") {
+    const lastDeclaration = node.declarations.at(-1);
+    return locEnd(lastDeclaration);
+  }
+
+  return locEndWithFullText(node);
+}
+
+function locEndWithFullText(node) {
   const end = node.range?.[1] ?? node.end;
 
   /* c8 ignore next 3 */
@@ -69,4 +78,4 @@ function hasSameLoc(nodeA, nodeB) {
   return hasSameLocStart(nodeA, nodeB) && hasSameLocEnd(nodeA, nodeB);
 }
 
-export { hasSameLoc, hasSameLocStart, locEnd, locStart };
+export { hasSameLoc, hasSameLocStart, locEnd, locEndWithFullText, locStart };

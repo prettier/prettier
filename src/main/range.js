@@ -191,7 +191,7 @@ function isSourceElement(opts, node, parentNode) {
 @returns {[number, number]}
 */
 function calculateRange(text, opts, ast) {
-  let { rangeStart: start, rangeEnd: end, locStart, locEnd } = opts;
+  let { rangeStart: start, rangeEnd: end } = opts;
   assert.ok(end > start);
   // Contract the range so that it has non-whitespace characters at its endpoints.
   // This ensures we can format a range that doesn't end on a node.
@@ -250,6 +250,9 @@ function calculateRange(text, opts, ast) {
       opts,
     );
   }
+
+  const { locStart, locEnd } =
+    opts.printer.features?.experimental_locForRangeFormat ?? opts;
 
   return [
     Math.min(locStart(startNode), locStart(endNode)),
