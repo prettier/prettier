@@ -194,25 +194,26 @@ function runFormatTest(fixtures, parsers, options) {
         const formatResults = await Promise.all(
           parsersToTest.map(async (parser) => {
             const formatOptions = { ...basicOptions, parser };
+            const expectFail =
+              IS_ERROR_TESTS || shouldThrowOnFormat(name, options, parser);
+            const runFormat = () => format(code, formatOptions);
             const result = {
               parser,
               code,
               formatOptions,
-              expectFail:
-                IS_ERROR_TESTS || shouldThrowOnFormat(name, options, parser),
+              expectFail,
               expectedOutput: output,
             };
 
+            if (expectFail) {
+              result.runFormat = runFormat;
+              return result;
+            }
+
             try {
-              Object.assign(result, {
-                failed: false,
-                formatResult: await format(code, formatOptions),
-              });
+              result.formatResult = await runFormat();
             } catch (error) {
-              Object.assign(result, {
-                failed: true,
-                error,
-              });
+              Object.assign(result, { failed: true, error });
             }
 
             return result;
@@ -256,15 +257,15 @@ async function runTest({
   succeedResult,
 }) {
   if (result.expectFail) {
-    expect(() => {
-      throw result.error;
-    }).toThrowErrorMatchingSnapshot();
+    await expect(result.runFormat).rejects.toThrowErrorMatchingSnapshot();
     return;
   }
 
-  expect(result.failed).toBe(false);
+  const { failed, error, formatResult } = result;
+  if (failed) {
+    throw error;
+  }
 
-  const { formatResult } = result;
   expect(formatResult).toBeDefined();
   expect(succeedResult.formatResult).toBeDefined();
 
