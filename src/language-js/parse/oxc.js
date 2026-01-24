@@ -98,7 +98,7 @@ async function parseJs(text, options) {
   // @ts-expect-error -- expected
   ast.comments = comments;
 
-  return postprocess(ast, { text, parser: "oxc" });
+  return postprocess(ast, { text, astType: "oxc-js" });
 }
 
 /**
@@ -154,7 +154,7 @@ async function parseTs(text, options) {
 
   // @ts-expect-error -- expected
   ast.comments = comments;
-  return postprocess(ast, { text, parser: "oxc", oxcAstType: "ts" });
+  return postprocess(ast, { text, astType: "oxc-ts" });
 }
 
 const oxc = /* @__PURE__ */ createParser(parseJs);

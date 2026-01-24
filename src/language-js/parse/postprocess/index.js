@@ -33,14 +33,13 @@ const isNodeWithRaw = createTypeCheckFunction([
 /**
  * @param {{
  *   text: string,
- *   parser?: string,
- *   oxcAstType?: string,
+ *   astType?: "espree" | "flow" | "hermes" | "meriyah" | "oxc-js" | "oxc-ts" | "typescript",
  * }} options
  */
 function postprocess(ast, options) {
-  const { parser, text } = options;
+  const { text, astType } = options;
+  const isOxcTs = astType === "oxc-ts";
   const { comments } = ast;
-  const isOxcTs = parser === "oxc" && options.oxcAstType === "ts";
 
   mergeNestledJsdocComments(comments);
 
@@ -125,10 +124,10 @@ function postprocess(ast, options) {
           // `flow`, `hermes`, `typescript`, and `oxc`(with `{astType: 'ts'}`) follows the `espree` style positions
           // https://github.com/eslint/js/blob/5826877f7b33548e5ba984878dd4a8eac8448f87/packages/espree/lib/espree.js#L213
           if (
-            parser === "flow" ||
-            parser === "hermes" ||
-            parser === "espree" ||
-            parser === "typescript" ||
+            astType === "flow" ||
+            astType === "hermes" ||
+            astType === "espree" ||
+            astType === "typescript" ||
             isOxcTs
           ) {
             const start = locStart(node) + 1;
@@ -163,7 +162,7 @@ function postprocess(ast, options) {
           break;
 
         case "ImportDeclaration":
-          if (parser === "hermes" && node.assertions && !node.attributes) {
+          if (astType === "hermes" && node.assertions && !node.attributes) {
             node.attributes = node.assertions;
             delete node.assertions;
           }

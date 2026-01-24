@@ -102,7 +102,7 @@ function parse(text, options) {
     throw createParseError(error);
   }
 
-  return postprocess(ast, { parser: "typescript", text });
+  return postprocess(ast, { text, astType: "typescript" });
 }
 
 export const typescript = /* @__PURE__ */ createParser(parse);

@@ -67,7 +67,7 @@ function parse(text, options) {
     throw createParseError(error);
   }
 
-  return postprocess(ast, { parser: "flow", text });
+  return postprocess(ast, { text, astType: "flow" });
 }
 
 export const flow = /* @__PURE__ */ createParser(parse);

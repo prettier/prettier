@@ -52,7 +52,7 @@ function parse(text, options) {
     throw createParseError(error);
   }
 
-  return postprocess(ast, { parser: "espree", text });
+  return postprocess(ast, { text, astType: "espree" });
 }
 
 export const espree = /* @__PURE__ */ createParser(parse);

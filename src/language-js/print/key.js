@@ -19,6 +19,10 @@ function isSimpleNumber(numberString) {
   return /^(?:\d+|\d+\.\d+)$/.test(numberString);
 }
 
+// TODO[@fisker]: `__vue_ts_expression` and `__vue_ts_event_binding`
+const isTypeScript = ({ parser }) =>
+  parser === "typescript" || parser === "babel-ts" || parser === "oxc-ts";
+
 /**
 @param {Node} node
 @returns {boolean}
@@ -33,11 +37,9 @@ function isKeySafeToQuote(node, options) {
     return false;
   }
 
-  const { parser } = options;
-
   // Quoting number keys is safe in JS and Flow, but not in TypeScript (as
   // mentioned in `isKeySafeToUnquote`).
-  if (parser === "typescript" || parser === "babel-ts" || parser === "oxc-ts") {
+  if (isTypeScript(options)) {
     return false;
   }
 
@@ -108,7 +110,8 @@ function isKeySafeToUnquote(node, options) {
   }
 
   // Safe to unquote as number
-  // Note: Flow parses number keys, but errors on them during type checking, so we don’t unquote number keys for the `flow` and `babel-flow` parsers.
+  // Note: Flow parses number keys, but errors on them during type checking, so we don’t unquote number keys for the `flow`, `babel-flow`, and `hermes` parsers.
+  // Note: It's also not safe for TypeScript as mentioned above
   // https://github.com/prettier/prettier/pull/8508
   if (
     (parser === "babel" ||
@@ -129,10 +132,6 @@ function isKeySafeToUnquote(node, options) {
 
 const needQuoteKeysCache = new WeakMap();
 function hasSiblingsRequireQuoted(path, options) {
-  if (options.quoteProps !== "consistent") {
-    return false;
-  }
-
   const { parent } = path;
 
   if (!needQuoteKeysCache.has(parent)) {
@@ -153,7 +152,8 @@ function shouldQuoteKey(path, options) {
   return (
     (options.parser === "json" ||
       options.parser === "jsonc" ||
-      hasSiblingsRequireQuoted(path, options)) &&
+      (options.quoteProps === "consistent" &&
+        hasSiblingsRequireQuoted(path, options))) &&
     isKeySafeToQuote(path.node, options)
   );
 }
