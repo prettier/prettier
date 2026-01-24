@@ -1,5 +1,5 @@
 /**
-@import {Node} from "./types/estree.js";
+@import {Node, Comment} from "./types/estree.js";
 */
 
 const isIndex = (value) => Number.isInteger(value) && value >= 0;
@@ -22,7 +22,7 @@ function locStart(node) {
 }
 
 /**
-@param {Node} node
+@param {Node | Comment} node
 @return {number}
 */
 function locEnd(node) {
