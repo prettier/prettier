@@ -1,5 +1,5 @@
 /**
-@import {Node} from "./types/estree.js";
+@import {Node, Comment} from "./types/estree.js";
 */
 
 const isIndex = (value) => Number.isInteger(value) && value >= 0;
@@ -21,6 +21,10 @@ function locStart(node) {
   return start;
 }
 
+/**
+@param {Node | Comment} node
+@return {number}
+*/
 function locEnd(node) {
   if (node.type === "BreakStatement" || node.type === "ContinueStatement") {
     const start = locStart(node);
@@ -33,6 +37,10 @@ function locEnd(node) {
   if (node.type === "VariableDeclaration") {
     const lastDeclaration = node.declarations.at(-1);
     return locEnd(lastDeclaration);
+  }
+
+  if (node.type === "IfStatement") {
+    return locEnd(node.alternate ?? node.consequent);
   }
 
   return locEndWithFullText(node);
