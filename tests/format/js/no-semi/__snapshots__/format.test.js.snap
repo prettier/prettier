@@ -572,22 +572,22 @@ semi: false
 // #10870
 import foo from "foo"
 
-;/* Should preserve line before */({})
+;({}) /* Should preserve line before */
 
 ////////////////////////////////////////
 export default {}
 
-;/* Should preserve line before */({})
+;({}) /* Should preserve line before */
 
 ////////////////////////////////////////
 export {foo}
 
-;/* Should preserve line before */({})
+;({}) /* Should preserve line before */
 
 ////////////////////////////////////////
 export * from 'foo'
 
-;/* Should preserve line before */({})
+;({}) /* Should preserve line before */
 
 ////////////////////////////////////////
 export {foo as bar} // 1
@@ -598,22 +598,22 @@ export {foo as bar} // 1
 // #10870
 import foo from "foo"
 
-/* Should preserve line before */ ;({})
+;({}) /* Should preserve line before */
 
 ////////////////////////////////////////
 export default {}
 
-/* Should preserve line before */ ;({})
+;({}) /* Should preserve line before */
 
 ////////////////////////////////////////
 export { foo }
 
-/* Should preserve line before */ ;({})
+;({}) /* Should preserve line before */
 
 ////////////////////////////////////////
 export * from "foo"
 
-/* Should preserve line before */ ;({})
+;({}) /* Should preserve line before */
 
 ////////////////////////////////////////
 export { foo as bar } // 1
@@ -632,22 +632,22 @@ printWidth: 80
 // #10870
 import foo from "foo"
 
-;/* Should preserve line before */({})
+;({}) /* Should preserve line before */
 
 ////////////////////////////////////////
 export default {}
 
-;/* Should preserve line before */({})
+;({}) /* Should preserve line before */
 
 ////////////////////////////////////////
 export {foo}
 
-;/* Should preserve line before */({})
+;({}) /* Should preserve line before */
 
 ////////////////////////////////////////
 export * from 'foo'
 
-;/* Should preserve line before */({})
+;({}) /* Should preserve line before */
 
 ////////////////////////////////////////
 export {foo as bar} // 1
@@ -658,22 +658,22 @@ export {foo as bar} // 1
 // #10870
 import foo from "foo";
 
-/* Should preserve line before */ ({});
+({}); /* Should preserve line before */
 
 ////////////////////////////////////////
 export default {};
 
-/* Should preserve line before */ ({});
+({}); /* Should preserve line before */
 
 ////////////////////////////////////////
 export { foo };
 
-/* Should preserve line before */ ({});
+({}); /* Should preserve line before */
 
 ////////////////////////////////////////
 export * from "foo";
 
-/* Should preserve line before */ ({});
+({}); /* Should preserve line before */
 
 ////////////////////////////////////////
 export { foo as bar }; // 1
