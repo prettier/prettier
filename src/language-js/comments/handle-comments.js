@@ -240,7 +240,8 @@ function handleIfStatementComments({
       ifStatementTxt,
       locEnd(enclosingNode.consequent) - start,
     );
-    if (elseTokenIndex !== false && text[elseTokenIndex] === ";") {
+
+    if (elseTokenIndex !== false && ifStatementTxt[elseTokenIndex] === ";") {
       elseTokenIndex = getNextNonSpaceNonCommentCharacterIndex(
         ifStatementTxt,
         elseTokenIndex + 1,
