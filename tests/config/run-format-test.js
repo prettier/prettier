@@ -53,7 +53,7 @@ const ensurePromise = (value) => {
   return value;
 };
 
-function runFormatTest(fixtures, parsers, options) {
+function runFormatTest(fixtures, parsers, options = {}) {
   let { importMeta, snippets = [] } = fixtures.importMeta
     ? fixtures
     : { importMeta: fixtures };
