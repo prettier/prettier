@@ -113,7 +113,7 @@ const isUnstable = (filename, options) =>
   unstableTests.get(filename)?.(options);
 
 const isAstUnstable = (filename, options) =>
-  unstableAstTests.get(filename)(options);
+  unstableAstTests.get(filename)?.(options);
 
 const shouldDisable = (dirnameOrFilename, parser) =>
   disabledTests.get(parser)?.has(dirnameOrFilename);
