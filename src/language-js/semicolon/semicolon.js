@@ -39,12 +39,14 @@ function expressionNeedsASIProtection(path, options) {
   switch (node.type) {
     case "ParenthesizedExpression":
     case "TypeCastExpression":
+    case "TSTypeAssertion":
     case "ArrayExpression":
     case "ArrayPattern":
     case "TemplateLiteral":
     case "TemplateElement":
     case "RegExpLiteral":
       return true;
+
     case "ArrowFunctionExpression":
       if (!shouldPrintParamsWithoutParens(path, options)) {
         return true;
