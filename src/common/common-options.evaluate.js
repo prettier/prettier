@@ -26,6 +26,23 @@ const options = {
       },
     ],
   },
+  destructuringWrap: {
+    category: CATEGORY_COMMON,
+    type: "choice",
+    default: "collapse",
+    description: "How to wrap object destructuring patterns.",
+    choices: [
+      {
+        value: "preserve",
+        description:
+          "Keep as multi-line, if there is a newline between the opening brace and first property.",
+      },
+      {
+        value: "collapse",
+        description: "Fit to a single line when possible.",
+      },
+    ],
+  },
   singleQuote: {
     category: CATEGORY_COMMON,
     type: "boolean",

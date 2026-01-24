@@ -119,6 +119,14 @@ exports[`API getSupportInfo() 1`] = `
       },
       "type": "int",
     },
+    "destructuringWrap": {
+      "choices": [
+        "preserve",
+        "collapse",
+      ],
+      "default": "collapse",
+      "type": "choice",
+    },
     "embeddedLanguageFormatting": {
       "choices": [
         "auto",
@@ -837,6 +845,24 @@ exports[`CLI --support-info  1`] = `
       "pluginDefaults": {},
       "range": { "end": null, "start": -1, "step": 1 },
       "type": "int"
+    },
+    {
+      "category": "Common",
+      "choices": [
+        {
+          "description": "Keep as multi-line, if there is a newline between the opening brace and first property.",
+          "value": "preserve"
+        },
+        {
+          "description": "Fit to a single line when possible.",
+          "value": "collapse"
+        }
+      ],
+      "default": "collapse",
+      "description": "How to wrap object destructuring patterns.",
+      "name": "destructuringWrap",
+      "pluginDefaults": {},
+      "type": "choice"
     },
     {
       "category": "Global",
