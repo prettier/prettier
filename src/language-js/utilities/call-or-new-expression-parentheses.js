@@ -13,7 +13,7 @@ import getTextWithoutComments from "./get-text-without-comments.js";
 
 /**
 @param {CallOrNewExpression} callOrNewExpression
-@returns {number | void}
+@returns {number | undefined}
 */
 function getCallOrNewExpressionClosingParenthesisIndex(
   callOrNewExpression,

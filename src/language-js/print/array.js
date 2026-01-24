@@ -168,9 +168,8 @@ function isLineAfterElementEmpty({ node }, { originalText: text }) {
       break;
     }
 
-    currentIdx = skipInlineComment(
-      text,
-      skipTrailingComment(text, currentIdx + 1),
+    currentIdx = /** @type {number} */ (
+      skipInlineComment(text, skipTrailingComment(text, currentIdx + 1))
     );
   }
 
