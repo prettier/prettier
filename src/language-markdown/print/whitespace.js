@@ -178,14 +178,13 @@ function isNonCJKOrKoreanLetter(kind) {
  * @param {boolean} isLink
  * @returns {boolean}
  */
-function isBreakable(path, value, proseWrap, isLink, options) {
+function isBreakable(path, value, proseWrap, isLink) {
   if (
     proseWrap !== "always" ||
     path.hasAncestor(
       (node) =>
         SINGLE_LINE_NODE_TYPES.has(node.type) ||
-        (node.type === "heading" &&
-          (options.parser === "mdx" || !isSetextHeading(node))),
+        (node.type === "heading" && !isSetextHeading(node)),
     )
   ) {
     return false;

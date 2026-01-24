@@ -383,14 +383,14 @@ printWidth: 80
 semi: false
                                                                                 | printWidth
 =====================================input======================================
-<Heading hi='there'>Hello, world!
-</Heading>
+<Heading hi='there'>Hello, world!</Heading>
 
 ---
 
 <Hello>
     test   <World />   test
-</Hello>123
+</Hello>
+123
 
 ---
 
@@ -399,22 +399,26 @@ semi: false
 </Hello>
 <Hello>
     test   <World />   test
-</Hello>123
+</Hello>
+123
 
 ---
 
 <Hello>
     test   <World />   test
-</Hello>       123
+</Hello>
+123
 <Hello>
     test   <World />   test
-</Hello>       234
+</Hello>
+234
 
 ---
 
 <>
     test   <World        />   test
-</>       123
+</>
+123
 
 ---
 
@@ -489,14 +493,14 @@ parsers: ["mdx"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-<Heading hi='there'>Hello, world!
-</Heading>
+<Heading hi='there'>Hello, world!</Heading>
 
 ---
 
 <Hello>
     test   <World />   test
-</Hello>123
+</Hello>
+123
 
 ---
 
@@ -505,22 +509,26 @@ printWidth: 80
 </Hello>
 <Hello>
     test   <World />   test
-</Hello>123
+</Hello>
+123
 
 ---
 
 <Hello>
     test   <World />   test
-</Hello>       123
+</Hello>
+123
 <Hello>
     test   <World />   test
-</Hello>       234
+</Hello>
+234
 
 ---
 
 <>
     test   <World        />   test
-</>       123
+</>
+123
 
 ---
 

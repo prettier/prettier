@@ -52,7 +52,7 @@ function printTable(path, options, print) {
   function printAlign(isCompact) {
     return columnMaxWidths
       .map((width, index) => {
-        if (options.parser !== "mdx" && index >= contents[0].length) {
+        if (index >= contents[0].length) {
           // The header row must match the delimiter row in the number of cells. If not, a table will not be recognized
           // https://github.github.com/gfm/#example-203
           return null;

@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`attribute.mdx format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<Foo foo={{color:     'red'}}></Foo>
+<Foo foo={{
+color:     'red'}}></Foo>
+<Foo foo={{color:    /** @type {'red'} */('red')}}></Foo>
+
+=====================================output=====================================
+<Foo foo={{ color: "red" }}>
+
+</Foo>
+<Foo foo={{
+  color: "red",
+}}>
+
+</Foo>
+<Foo foo={{ color: /** @type {'red'} */ ("red") }}>
+
+</Foo>
+
+================================================================================
+`;

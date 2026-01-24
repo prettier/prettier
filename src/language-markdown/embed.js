@@ -1,6 +1,7 @@
 import { hardline, markAsRoot, replaceEndOfLine } from "../document/index.js";
 import getMaxContinuousCount from "../utilities/get-max-continuous-count.js";
 import inferParser from "../utilities/infer-parser.js";
+import { printJsExpression, printJsProgram } from "./acorn/printer.js";
 import { getFencedCodeBlockValue } from "./utilities.js";
 
 function embed(path, options) {
@@ -40,12 +41,7 @@ function embed(path, options) {
           textToDocOptions.filepath = "dummy.tsx";
         }
 
-        const doc = await textToDoc(
-          options.parser === "mdx"
-            ? getFencedCodeBlockValue(node, options.originalText)
-            : node.value,
-          textToDocOptions,
-        );
+        const doc = await textToDoc(node.value, textToDocOptions);
 
         const styleUnit = options.__inJsTemplate ? "~" : "`";
         const style = styleUnit.repeat(
@@ -65,40 +61,23 @@ function embed(path, options) {
     }
 
     // MDX
-    case "import":
-    case "export":
-      return (textToDoc) =>
-        textToDoc(node.value, {
-          // TODO: Rename this option since it's not used in HTML
-          __onHtmlBindingRoot: (ast) => validateImportExport(ast, node.type),
-          parser: "babel",
-        });
-    case "jsx":
-      return (textToDoc) =>
-        textToDoc(`<$>${node.value}</$>`, {
-          parser: "__js_expression",
-          rootMarker: "mdx",
-        });
-  }
+    case "mdxjsEsm":
+      return printJsProgram;
 
-  return null;
-}
-
-function validateImportExport(ast, type) {
-  const {
-    program: { body },
-  } = ast;
-
-  // https://github.com/mdx-js/mdx/blob/3430138958c9c0344ecad9d59e0d6b5d72bedae3/packages/remark-mdx/extract-imports-and-exports.js#L16
-  if (
-    !body.every(
-      (node) =>
-        node.type === "ImportDeclaration" ||
-        node.type === "ExportDefaultDeclaration" ||
-        node.type === "ExportNamedDeclaration",
-    )
-  ) {
-    throw new Error(`Unexpected '${type}' in MDX.`);
+    case "mdxFlowExpression":
+      return async (textToDoc, print, path, options) => [
+        path.parent.type === "mdxJsxFlowElement" ? hardline : "",
+        "{",
+        await printJsExpression(textToDoc, print, path, options),
+        "}",
+      ];
+    case "mdxJsxAttributeValueExpression":
+    case "mdxTextExpression":
+      return async (textToDoc, print, path, options) => [
+        "{",
+        await printJsExpression(textToDoc, print, path, options),
+        "}",
+      ];
   }
 }
 
