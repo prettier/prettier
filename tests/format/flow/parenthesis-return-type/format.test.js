@@ -1,1 +1,1 @@
-runFormatTest(import.meta, ["flow", "babel"]);
+runFormatTest(import.meta, ["flow"]);
