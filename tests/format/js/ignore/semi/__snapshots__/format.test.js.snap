@@ -14,7 +14,7 @@ foo;
 =====================================output=====================================
 foo
 // prettier-ignore
-;[1].map();
+;[1].map()
 
 ================================================================================
 `;
@@ -56,12 +56,12 @@ function foo() {
 
 =====================================output=====================================
 // prettier-ignore
-'use strict';
+'use strict'
 ;[].forEach()
 
 function foo() {
   // prettier-ignore
-  'use strict';
+  'use strict'
   ;[].forEach()
 }
 

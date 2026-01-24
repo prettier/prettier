@@ -28,6 +28,8 @@ const ignoredProperties = new Set([
   // Hermes
   "trailingComma",
   "docblock",
+  // Prettier
+  "__end",
 ]);
 
 const removeTemplateElementsValue = (node) => {

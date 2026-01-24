@@ -121,7 +121,7 @@ namespace TypeScript.WebTsc {
     const fso = new RealActiveXObject("Scripting.FileSystemObject");
 
     const fileStream = new ActiveXObject("ADODB.Stream");
-    fileStream.Type = 2 /*text*/;
+    fileStream.Type = 2; /*text*/
 
     const args: string[] = [];
     for (let i = 0; i < WScript.Arguments.length; i++) {

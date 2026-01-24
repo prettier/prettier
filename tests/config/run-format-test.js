@@ -22,11 +22,6 @@ const RANGE_END_PLACEHOLDER = "<<<PRETTIER_RANGE_END>>>";
 // TODO: these test files need fix
 const unstableTests = new Map(
   [
-    ["js/comments/dangling_array.js", (options) => options.semi === false],
-    ["js/comments/jsx.js", (options) => options.semi === false],
-    ["js/no-semi/comments.js", (options) => options.semi === false],
-    ["flow/no-semi/comments.js", (options) => options.semi === false],
-    ["js/ignore/semi/asi.js", (options) => options.semi === false],
     ["js/identifier/parentheses/let.js", (options) => options.semi === false],
     "js/comments/return-statement.js",
     "js/comments/tagged-template-literal.js",
@@ -53,6 +48,8 @@ const unstableTests = new Map(
       (options) => options.objectWrap !== "collapse",
     ],
     "typescript/call/callee-comments.ts",
+    "js/arrows/arrow-chain-with-trailing-comments.js",
+    "typescript/as/comments/18160.ts",
   ].map((fixture) => {
     const [file, isUnstable = () => true] = Array.isArray(fixture)
       ? fixture

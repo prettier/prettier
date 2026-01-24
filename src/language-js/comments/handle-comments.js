@@ -195,6 +195,7 @@ function handleIfStatementComments({
   enclosingNode,
   followingNode,
   text,
+  options,
 }) {
   if (enclosingNode?.type !== "IfStatement" || !followingNode) {
     return false;
@@ -232,23 +233,35 @@ function handleIfStatementComments({
     precedingNode === enclosingNode.consequent &&
     followingNode === enclosingNode.alternate
   ) {
-    const maybeElseTokenIndex = getNextNonSpaceNonCommentCharacterIndex(
-      text,
-      locEnd(enclosingNode.consequent),
+    const start = locStart(enclosingNode);
+    const end = locEnd(enclosingNode);
+    const ifStatementTxt = getTextWithoutComments(options, start, end);
+    let elseTokenIndex = getNextNonSpaceNonCommentCharacterIndex(
+      ifStatementTxt,
+      locEnd(enclosingNode.consequent) - start,
     );
+
+    if (elseTokenIndex !== false && ifStatementTxt[elseTokenIndex] === ";") {
+      elseTokenIndex = getNextNonSpaceNonCommentCharacterIndex(
+        ifStatementTxt,
+        elseTokenIndex + 1,
+      );
+    }
     const isElseToken =
-      maybeElseTokenIndex !== false &&
-      text.slice(maybeElseTokenIndex, maybeElseTokenIndex + 4) === "else";
+      elseTokenIndex !== false &&
+      ifStatementTxt.slice(elseTokenIndex, elseTokenIndex + 4) === "else";
 
     if (!isElseToken) {
       addTrailingComment(precedingNode, comment);
       return true;
     }
 
+    elseTokenIndex += start;
+
     // if comment is positioned between the `else` token and its body
     if (
       followingNode.type === "BlockStatement" &&
-      locStart(comment) >= maybeElseTokenIndex &&
+      locStart(comment) >= elseTokenIndex &&
       locEnd(comment) <= locStart(followingNode)
     ) {
       addLeadingComment(followingNode, comment);
@@ -261,7 +274,7 @@ function handleIfStatementComments({
     //   if (cond) a;
     //   else /* foo */ b;
     if (
-      locStart(comment) < maybeElseTokenIndex ||
+      locStart(comment) < elseTokenIndex ||
       enclosingNode.alternate.type === "BlockStatement"
     ) {
       if (precedingNode.type === "BlockStatement") {
