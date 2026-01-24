@@ -251,12 +251,8 @@ function calculateRange(text, options, ast) {
     );
   }
 
-  let { locStart, locEnd } = options;
-
-  if (options.printer.features?.experimental_locForRangeFormat) {
-    ({ locStart, locEnd } =
-      options.printer.features.experimental_locForRangeFormat);
-  }
+  const { locStart, locEnd } =
+    options.printer.features?.experimental_locForRangeFormat ?? options;
 
   return [
     Math.min(locStart(startNode), locStart(endNode)),
