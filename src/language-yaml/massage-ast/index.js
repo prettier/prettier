@@ -1,6 +1,6 @@
-import { isPragma } from "./pragma.js";
+import { isPragma } from "../pragma.js";
 
-function clean(original, cloned /* , parent */) {
+function massageAstNode(original, cloned /* , parent */) {
   switch (original.type) {
     case "comment":
       // insert pragma
@@ -35,6 +35,6 @@ function clean(original, cloned /* , parent */) {
       break;
   }
 }
-clean.ignoredProperties = new Set(["position"]);
+massageAstNode.ignoredProperties = new Set(["position"]);
 
-export default clean;
+export { massageAstNode };

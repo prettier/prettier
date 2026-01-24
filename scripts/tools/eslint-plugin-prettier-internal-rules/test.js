@@ -960,6 +960,12 @@ test("massage-ast-parameter-names", {
       output: "function clean(original, cloned) {delete cloned.property}",
       errors: 1,
     },
+    {
+      code: "function clean(original, cloned, theParentNode) {delete theParentNode.property}",
+      output:
+        "function clean(original, cloned, parent) {delete parent.property}",
+      errors: 1,
+    },
   ],
 });
 

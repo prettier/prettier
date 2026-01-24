@@ -21,7 +21,7 @@ const embeddedAngularControlFlowBlocks = new Set([
   "case",
 ]);
 
-function clean(original, cloned, parent) {
+function massageAstNode(original, cloned, parent) {
   if (original.kind === "text" || original.kind === "comment") {
     return null;
   }
@@ -103,6 +103,6 @@ function clean(original, cloned, parent) {
   }
 }
 
-clean.ignoredProperties = ignoredProperties;
+massageAstNode.ignoredProperties = ignoredProperties;
 
-export default clean;
+export { massageAstNode };
