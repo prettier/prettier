@@ -558,12 +558,31 @@ function needsParentheses(path, options) {
       );
     case "InferTypeAnnotation":
     case "NullableTypeAnnotation":
-      return (
+      if (
         parent.type === "ArrayTypeAnnotation" ||
         (key === "objectType" &&
           (parent.type === "IndexedAccessType" ||
             parent.type === "OptionalIndexedAccessType"))
-      );
+      ) {
+        return true;
+      }
+
+      // If the return type is a nullable arrow function, then we need a paren
+      // otherwise the inner => can be assumed to be for the outer one.
+      if (
+        node.type === "NullableTypeAnnotation" &&
+        path.match(
+          undefined,
+          (node, key) =>
+            key === "typeAnnotation" && node.type === "TypeAnnotation",
+          (node, key) =>
+            key === "returnType" && node.type === "ArrowFunctionExpression",
+        )
+      ) {
+        return true;
+      }
+
+      break;
 
     case "ComponentTypeAnnotation":
     case "FunctionTypeAnnotation": {
@@ -634,13 +653,7 @@ function needsParentheses(path, options) {
           parent.name === null &&
           getFunctionParameters(node).some(
             (param) => param.typeAnnotation?.type === "NullableTypeAnnotation",
-          )) ||
-        // If the return type is a nullable arrow function, then we need a paren
-        // otherwise the inner => can be assumed to be for the outer one.
-        (parent.type === "NullableTypeAnnotation" &&
-          path.grandparent.type === "TypeAnnotation" &&
-          path.getParentNode(2).type === "ArrowFunctionExpression" &&
-          path.getParentNode(2).returnType === path.grandparent)
+          ))
       );
     }
 
