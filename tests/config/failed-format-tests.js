@@ -2,6 +2,7 @@ import path from "node:path";
 import createEsmUtils from "esm-utils";
 
 const { __dirname } = createEsmUtils(import.meta);
+const fixturesDirectory = path.join(__dirname, "../format/");
 
 // TODO: these test files need fix
 const unstableTests = new Map(
@@ -38,108 +39,75 @@ const unstableTests = new Map(
     const [file, isUnstable = () => true] = Array.isArray(fixture)
       ? fixture
       : [fixture];
-    return [path.join(__dirname, "../format/", file), isUnstable];
+    return [path.join(fixturesDirectory, file), isUnstable];
   }),
 );
 
 const unstableAstTests = new Map();
 
 // These tests works on `babel`, `acorn`, `espree`, `oxc`, and `meriyah`
-const commentClosureTypecaseTests = new Set(
-  ["comments-closure-typecast"].map((directory) =>
-    path.join(__dirname, "../format/js", directory),
-  ),
+const commentClosureTypecaseTests = ["js/comments-closure-typecast/"];
+
+const disabledTests = new Map(
+  Object.entries({
+    espree: [
+      ...commentClosureTypecaseTests,
+      "js/explicit-resource-management/valid-await-using-asi-assignment.js",
+    ],
+    acorn: [
+      "js/explicit-resource-management/valid-await-using-asi-assignment.js",
+    ],
+    meriyah: [
+      // Parsing to different ASTs
+      "js/decorators/member-expression.js",
+    ],
+    "babel-ts": [
+      "typescript/conformance/types/moduleDeclaration/kind-detection.ts",
+      // https://github.com/babel/babel/pull/17659
+      "typescript/conformance/internalModules/importDeclarations/circularImportAlias.ts",
+      "typescript/conformance/internalModules/importDeclarations/exportImportAlias.ts",
+      "typescript/conformance/internalModules/importDeclarations/importAliasIdentifiers.ts",
+      "typescript/conformance/internalModules/importDeclarations/shadowedInternalModule.ts",
+      "typescript/conformance/types/moduleDeclaration/moduleDeclaration.ts",
+      "typescript/conformance/types/ambient/ambientDeclarations.ts",
+      "typescript/compiler/declareDottedModuleName.ts",
+      "typescript/compiler/privacyGloImport.ts",
+      "typescript/declare/declare_module.ts",
+      "typescript/const/initializer-ambient-context.ts",
+      "typescript/keywords/keywords.ts",
+      "typescript/keywords/module.ts",
+      "typescript/module/global.ts",
+      "typescript/module/keyword.ts",
+      "typescript/module/module_nested.ts",
+      "typescript/custom/stability/moduleBlock.ts",
+      "typescript/interface2/module.ts",
+    ],
+    oxc: [],
+    "oxc-ts": [],
+    hermes: [
+      ...commentClosureTypecaseTests,
+
+      // Not supported
+      "flow/comments",
+      "flow-repo/union_new",
+
+      // Different result
+      "flow/hook/comments-before-arrow.js",
+    ],
+    flow: [
+      // Parsing to different ASTs
+      "js/decorators/member-expression.js",
+    ],
+    typescript: [
+      // https://github.com/typescript-eslint/typescript-eslint/issues/11389
+      "js/import/long-module-name/import-defer.js",
+      "js/import/long-module-name/import-source.js",
+    ],
+  }).map(([parser, tests]) => [
+    parser,
+    new Set(tests.map((file) => path.join(__dirname, "../format", file))),
+  ]),
 );
-
-const disabledTests = new Map([
-  [
-    "espree",
-    new Set([
-      ...commentClosureTypecaseTests,
-      ...[
-        "explicit-resource-management/valid-await-using-asi-assignment.js",
-      ].map((file) => path.join(__dirname, "../format/js", file)),
-    ]),
-  ],
-  [
-    "acorn",
-    new Set(
-      ["explicit-resource-management/valid-await-using-asi-assignment.js"].map(
-        (file) => path.join(__dirname, "../format/js", file),
-      ),
-    ),
-  ],
-  [
-    "meriyah",
-    new Set(
-      [
-        // Parsing to different ASTs
-        "js/decorators/member-expression.js",
-      ].map((file) => path.join(__dirname, "../format", file)),
-    ),
-  ],
-  [
-    "babel-ts",
-    new Set(
-      [
-        "conformance/types/moduleDeclaration/kind-detection.ts",
-        // https://github.com/babel/babel/pull/17659
-        "conformance/internalModules/importDeclarations/circularImportAlias.ts",
-        "conformance/internalModules/importDeclarations/exportImportAlias.ts",
-        "conformance/internalModules/importDeclarations/importAliasIdentifiers.ts",
-        "conformance/internalModules/importDeclarations/shadowedInternalModule.ts",
-        "conformance/types/moduleDeclaration/moduleDeclaration.ts",
-        "conformance/types/ambient/ambientDeclarations.ts",
-        "compiler/declareDottedModuleName.ts",
-        "compiler/privacyGloImport.ts",
-        "declare/declare_module.ts",
-        "const/initializer-ambient-context.ts",
-        "keywords/keywords.ts",
-        "keywords/module.ts",
-        "module/global.ts",
-        "module/keyword.ts",
-        "module/module_nested.ts",
-        "custom/stability/moduleBlock.ts",
-        "interface2/module.ts",
-      ].map((file) => path.join(__dirname, "../format/typescript", file)),
-    ),
-  ],
-  ["oxc", new Set()],
-  ["oxc-ts", new Set()],
-  [
-    "hermes",
-    new Set([
-      ...commentClosureTypecaseTests,
-      ...[
-        // Not supported
-        "flow/comments",
-        "flow-repo/union_new",
-
-        // Different result
-        "flow/hook/comments-before-arrow.js",
-      ].map((file) => path.join(__dirname, "../format", file)),
-    ]),
-  ],
-  [
-    "flow",
-    new Set(
-      [
-        // Parsing to different ASTs
-        "js/decorators/member-expression.js",
-      ].map((file) => path.join(__dirname, "../format", file)),
-    ),
-  ],
-  [
-    "typescript",
-    new Set(
-      [
-        // https://github.com/typescript-eslint/typescript-eslint/issues/11389
-        "js/import/long-module-name/import-defer.js",
-        "js/import/long-module-name/import-source.js",
-      ].map((file) => path.join(__dirname, "../format", file)),
-    ),
-  ],
-]);
 
 const isUnstable = (filename, options) =>
   unstableTests.get(filename)?.(options);
