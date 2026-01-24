@@ -1,5 +1,5 @@
-import clean from "./clean.js";
 import embed from "./embed.js";
+import { massageAstNode } from "./massage-ast/index.js";
 import { insertPragma } from "./pragma.js";
 import { printMdast, printPrettierIgnored } from "./print/index.js";
 import preprocess from "./print/preprocess.js";
@@ -17,7 +17,7 @@ const printer = {
   preprocess,
   print: printMdast,
   embed,
-  massageAstNode: clean,
+  massageAstNode,
   hasPrettierIgnore,
   insertPragma,
   getVisitorKeys,

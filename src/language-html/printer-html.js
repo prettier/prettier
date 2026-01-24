@@ -13,10 +13,10 @@ import {
 import { getPreferredQuote } from "../utilities/get-preferred-quote.js";
 import htmlWhitespace from "../utilities/html-whitespace.js";
 import UnexpectedNodeError from "../utilities/unexpected-node-error.js";
-import clean from "./clean.js";
 import embed from "./embed.js";
 import getVisitorKeys from "./get-visitor-keys.js";
 import { locEnd, locStart } from "./loc.js";
+import { massageAstNode } from "./massage-ast/index.js";
 import { insertPragma } from "./pragma.js";
 import {
   printAngularControlFlowBlock,
@@ -169,7 +169,7 @@ const printer = {
   preprocess,
   print: genericPrint,
   insertPragma,
-  massageAstNode: clean,
+  massageAstNode,
   embed,
   getVisitorKeys,
 };

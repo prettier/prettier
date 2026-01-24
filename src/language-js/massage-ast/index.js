@@ -1,14 +1,15 @@
-import { cleanChainExpression } from "./clean/chain-expression.js";
 import {
   isArrayExpression,
   isBigIntLiteral,
   isMeaningfulEmptyStatement,
-  isNumericLiteral,
   isStringLiteral,
-} from "./utilities/index.js";
+} from "../utilities/index.js";
+import { cleanChainExpression } from "./chain-expression.js";
+import { cleanKey } from "./key.js";
+import { cleanRegExpLiteral } from "./regexp-literal.js";
 
 /**
-@import {Node} from "./types/estree.js"
+@import {Node} from "../types/estree.js"
 */
 
 const ignoredProperties = new Set([
@@ -35,26 +36,24 @@ const removeTemplateElementsValue = (node) => {
   }
 };
 
-function cleanKey(cloned, original, property) {
-  const key = original[property];
-  if (isStringLiteral(key) || isNumericLiteral(key)) {
-    cloned[property] = String(key.value);
-  }
-
-  if (key.type === "Identifier") {
-    cloned[property] = key.name;
-  }
-}
-
 /**
 @param {Node} original
 @param {any} cloned
 @param {Node | undefined} parent
 */
-function clean(original, cloned, parent) {
+function massageAstNode(original, cloned, parent) {
   if (original.type === "Program") {
     delete cloned.sourceType;
   }
+
+  // We don't add parentheses to `(a?.b)?.c`
+  cleanChainExpression(original, cloned);
+
+  // We quote/unquote keys
+  cleanKey(original, cloned);
+
+  // We sort regex flags
+  cleanRegExpLiteral(original, cloned);
 
   if (
     (isBigIntLiteral(original) ||
@@ -62,14 +61,6 @@ function clean(original, cloned, parent) {
     "bigint" in original
   ) {
     cloned.bigint = original.bigint.toLowerCase();
-  }
-
-  if (original.type === "RegExpLiteral") {
-    cloned.flags = [...original.flags].sort().join("");
-  }
-
-  if (original.type === "Literal" && "regex" in original) {
-    cloned.regex.flags = [...original.regex.flags].sort().join("");
   }
 
   // We remove extra `;` and add them when needed
@@ -91,33 +82,6 @@ function clean(original, cloned, parent) {
     original.expression.value === " "
   ) {
     return null;
-  }
-
-  // We change {'key': value} into {key: value}.
-  // And {key: value} into {'key': value}.
-  // Also for (some) number keys.
-  if (
-    (original.type === "Property" ||
-      original.type === "ObjectProperty" ||
-      original.type === "MethodDefinition" ||
-      original.type === "ClassProperty" ||
-      original.type === "ClassMethod" ||
-      original.type === "PropertyDefinition" ||
-      original.type === "TSDeclareMethod" ||
-      original.type === "TSPropertySignature" ||
-      original.type === "TSMethodSignature" ||
-      original.type === "ObjectTypeProperty" ||
-      original.type === "ImportAttribute" ||
-      original.type === "RecordDeclarationProperty" ||
-      original.type === "RecordDeclarationStaticProperty") &&
-    // @ts-expect-error -- safe
-    !original.computed
-  ) {
-    cleanKey(cloned, original, "key");
-  }
-
-  if (original.type === "TSEnumMember") {
-    cleanKey(cloned, original, "id");
   }
 
   // Remove raw and cooked values from TemplateElement when it's CSS
@@ -224,9 +188,6 @@ function clean(original, cloned, parent) {
     removeTemplateElementsValue(cloned);
   }
 
-  // We don't add parentheses to `(a?.b)?.c`
-  cleanChainExpression(cloned, original);
-
   // https://github.com/babel/babel/issues/17719
   if (
     (original.type === "ClassDeclaration" ||
@@ -243,6 +204,6 @@ function clean(original, cloned, parent) {
   }
 }
 
-clean.ignoredProperties = ignoredProperties;
+massageAstNode.ignoredProperties = ignoredProperties;
 
-export default clean;
+export { massageAstNode };

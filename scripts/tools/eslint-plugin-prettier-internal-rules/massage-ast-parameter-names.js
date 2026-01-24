@@ -5,7 +5,7 @@ const massageAstFunctionSelector = [
   "[async!=true]",
   "[generator!=true]",
   '[id.type="Identifier"]',
-  '[id.name="clean"]',
+  '[id.name="massageAstNode"]',
 ].join("");
 
 const getVariableIdentifiers = ({ identifiers, references }) => [
@@ -30,7 +30,7 @@ export default {
   },
   create: (context) =>
     Object.fromEntries(
-      ["original", "cloned"].map((name, index) => [
+      ["original", "cloned", "parent"].map((name, index) => [
         `${massageAstFunctionSelector} > Identifier[name!="${name}"].params:nth-child(${index + 1})`,
         (parameter) => {
           const variables = context.sourceCode.getDeclaredVariables(

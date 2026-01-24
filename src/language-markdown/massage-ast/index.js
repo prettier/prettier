@@ -1,12 +1,12 @@
 import collapseWhiteSpace from "collapse-white-space";
-import { isFrontMatter } from "../main/front-matter/index.js";
-import { hasPragma } from "./pragma.js";
+import { isFrontMatter } from "../../main/front-matter/index.js";
+import { hasPragma } from "../pragma.js";
 
 const ignoredProperties = new Set([
   "position",
   "raw", // front-matter
 ]);
-function clean(original, cloned, parent) {
+function massageAstNode(original, cloned, parent) {
   // for codeblock
   if (
     original.type === "code" ||
@@ -86,6 +86,6 @@ function clean(original, cloned, parent) {
   }
 }
 
-clean.ignoredProperties = ignoredProperties;
+massageAstNode.ignoredProperties = ignoredProperties;
 
-export default clean;
+export { massageAstNode };

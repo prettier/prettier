@@ -1,6 +1,6 @@
-import htmlWhitespace from "../utilities/html-whitespace.js";
+import htmlWhitespace from "../../utilities/html-whitespace.js";
 
-function clean(original, cloned, parent) {
+function massageAstNode(original, cloned, parent) {
   // (Glimmer/HTML) ignore TextNode
   if (original.type === "TextNode") {
     const trimmed = original.chars.trim();
@@ -48,6 +48,6 @@ function clean(original, cloned, parent) {
   }
 }
 
-clean.ignoredProperties = new Set(["loc", "selfClosing"]);
+massageAstNode.ignoredProperties = new Set(["loc", "selfClosing"]);
 
-export default clean;
+export { massageAstNode };
