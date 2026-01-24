@@ -562,6 +562,99 @@ x;
 ================================================================================
 `;
 
+exports[`imports.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+// #10870
+import foo from "foo"
+
+;/* Should preserve line before */({})
+
+////////////////////////////////////////
+export default {}
+
+;/* Should preserve line before */({})
+
+////////////////////////////////////////
+export {foo}
+
+;/* Should preserve line before */({})
+
+////////////////////////////////////////
+export * from 'foo'
+
+;/* Should preserve line before */({})
+
+=====================================output=====================================
+// #10870
+import foo from "foo"
+/* Should preserve line before */ ;({})
+
+////////////////////////////////////////
+export default {}
+/* Should preserve line before */ ;({})
+
+////////////////////////////////////////
+export { foo }
+/* Should preserve line before */ ;({})
+
+////////////////////////////////////////
+export * from "foo"
+/* Should preserve line before */ ;({})
+
+================================================================================
+`;
+
+exports[`imports.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// #10870
+import foo from "foo"
+
+;/* Should preserve line before */({})
+
+////////////////////////////////////////
+export default {}
+
+;/* Should preserve line before */({})
+
+////////////////////////////////////////
+export {foo}
+
+;/* Should preserve line before */({})
+
+////////////////////////////////////////
+export * from 'foo'
+
+;/* Should preserve line before */({})
+
+=====================================output=====================================
+// #10870
+import foo from "foo";
+/* Should preserve line before */ ({});
+
+////////////////////////////////////////
+export default {};
+/* Should preserve line before */ ({});
+
+////////////////////////////////////////
+export { foo };
+/* Should preserve line before */ ({});
+
+////////////////////////////////////////
+export * from "foo";
+/* Should preserve line before */ ({});
+
+================================================================================
+`;
+
 exports[`issue-1510.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow"]
