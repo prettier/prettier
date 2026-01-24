@@ -5,7 +5,13 @@ import isNextLineEmptyAfterIndex from "../../utilities/is-next-line-empty.js";
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
 import isObject from "../../utilities/is-object.js";
 import printString from "../../utilities/print-string.js";
-import { hasSameLoc, hasSameLocStart, locEnd, locStart } from "../loc.js";
+import {
+  hasSameLoc,
+  hasSameLocStart,
+  locEnd,
+  locEndWithFullText,
+  locStart,
+} from "../loc.js";
 import getVisitorKeys from "../traverse/get-visitor-keys.js";
 import createTypeCheckFunction from "./create-type-check-function.js";
 import getRaw from "./get-raw.js";
@@ -1012,8 +1018,20 @@ function getComments(node, flags, fn) {
  * @param {Node} node
  * @returns {boolean}
  */
-const isNextLineEmpty = (node, { originalText }) =>
-  isNextLineEmptyAfterIndex(originalText, locEnd(node));
+const isNextLineEmpty = (node, { originalText }) => {
+  const end = locEnd(node);
+
+  if (isNextLineEmptyAfterIndex(originalText, end)) {
+    return true;
+  }
+
+  const endWithSemicolon = locEndWithFullText(node);
+  if (endWithSemicolon === end) {
+    return false;
+  }
+
+  return isNextLineEmptyAfterIndex(originalText, endWithSemicolon);
+};
 
 function isObjectProperty(node) {
   return (
