@@ -22,7 +22,6 @@ const RANGE_END_PLACEHOLDER = "<<<PRETTIER_RANGE_END>>>";
 // TODO: these test files need fix
 const unstableTests = new Map(
   [
-    ["flow/no-semi/comments.js", (options) => options.semi === false],
     ["js/identifier/parentheses/let.js", (options) => options.semi === false],
     "js/comments/return-statement.js",
     "js/comments/tagged-template-literal.js",
