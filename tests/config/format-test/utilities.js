@@ -24,8 +24,8 @@ const ensurePromise = (value) => {
   return value;
 };
 
-const shouldThrowOnFormat = ({ filename }, options, parser) => {
-  const { errors = {} } = options;
+const shouldThrowOnFormat = ({ filename }, options) => {
+  const { errors = {}, parser } = options;
   if (errors === true) {
     return true;
   }
