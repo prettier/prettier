@@ -79,7 +79,7 @@ async function loadPlugins(options) {
 }
 
 async function getExternalPlugins() {
-  const distDirectory = new URL("../../dist/", import.meta.url);
+  const distDirectory = new URL("../../../dist/", import.meta.url);
   const directories = fs.readdirSync(distDirectory);
   const plugins = await Promise.all(
     directories
