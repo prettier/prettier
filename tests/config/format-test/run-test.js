@@ -1,3 +1,4 @@
+import { FULL_TEST } from "./constants.js";
 import * as failedTests from "./failed-format-tests.js";
 import { replacePlaceholders } from "./replace-placeholders.js";
 import { format } from "./run-prettier.js";
@@ -50,12 +51,12 @@ function testFixture(fixture) {
             testFormat.run(testCase, name, testCaseForSnapshot),
         },
       },
-      { name: "ast compare", test: testAstCompare },
+      { name: "ast compare", test: testAstCompare, skip: () => !FULL_TEST },
       // The following cases only need run on main parser
       {
         name: "second format",
         test: testSecondFormat,
-        skip: (testCase) => testCase !== testCaseForSnapshot,
+        skip: (testCase) => !FULL_TEST || testCase !== testCaseForSnapshot,
       },
       {
         name: "end of line (CRLF)",
@@ -63,7 +64,7 @@ function testFixture(fixture) {
           ...testEndOfLine,
           run: (testCase, name) => testEndOfLine.run(testCase, name, "\r\n"),
         },
-        skip: (testCase) => testCase !== testCaseForSnapshot,
+        skip: (testCase) => !FULL_TEST || testCase !== testCaseForSnapshot,
       },
       {
         name: "end of line (CR)",
@@ -71,12 +72,12 @@ function testFixture(fixture) {
           ...testEndOfLine,
           run: (testCase, name) => testEndOfLine.run(testCase, name, "\r"),
         },
-        skip: (testCase) => testCase !== testCaseForSnapshot,
+        skip: (testCase) => !FULL_TEST || testCase !== testCaseForSnapshot,
       },
       {
         name: "BOM",
         test: testBom,
-        skip: (testCase) => testCase !== testCaseForSnapshot,
+        skip: (testCase) => !FULL_TEST || testCase !== testCaseForSnapshot,
       },
     ]) {
       for (const testCase of testCases) {

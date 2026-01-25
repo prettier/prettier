@@ -1,4 +1,3 @@
-import { FULL_TEST } from "./constants.js";
 import { replacePlaceholders } from "./replace-placeholders.js";
 import { format } from "./run-prettier.js";
 import visualizeEndOfLine from "./visualize-end-of-line.js";
@@ -42,7 +41,7 @@ function testEndOfLine(testCase, name, eol) {
 @return {boolean}
 */
 function shouldSkip(testCase) {
-  if (!FULL_TEST || testCase.expectFail || testCase.isEmpty) {
+  if (testCase.expectFail || testCase.isEmpty) {
     return;
   }
 

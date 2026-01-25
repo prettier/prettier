@@ -1,4 +1,3 @@
-import { FULL_TEST } from "./constants.js";
 import * as failedTests from "./failed-format-tests.js";
 import { format } from "./run-prettier.js";
 
@@ -48,7 +47,7 @@ function testSecondFormat(testCase, name) {
 }
 
 function shouldSkip(testCase) {
-  if (!FULL_TEST || testCase.expectFail) {
+  if (testCase.expectFail) {
     return true;
   }
 

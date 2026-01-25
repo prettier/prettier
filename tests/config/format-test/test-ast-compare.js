@@ -1,4 +1,3 @@
-import { FULL_TEST } from "./constants.js";
 import * as failedTests from "./failed-format-tests.js";
 import { parse } from "./run-prettier.js";
 
@@ -12,7 +11,6 @@ import { parse } from "./run-prettier.js";
 */
 function testAstCompare(testCase, name) {
   if (
-    !FULL_TEST ||
     testCase.expectFail ||
     // Some parsers skip parsing empty files
     testCase.isEmpty

@@ -1,4 +1,4 @@
-import { BOM, FULL_TEST } from "./constants.js";
+import { BOM } from "./constants.js";
 import { replacePlaceholders } from "./replace-placeholders.js";
 import { format } from "./run-prettier.js";
 
@@ -29,7 +29,7 @@ function testBom(testCase, name) {
 }
 
 function shouldSkip(testCase) {
-  return !FULL_TEST || testCase.expectFail || testCase.code.charAt(0) === BOM;
+  return testCase.expectFail || testCase.code.charAt(0) === BOM;
 }
 
 export { testBom as run, shouldSkip as skip };
