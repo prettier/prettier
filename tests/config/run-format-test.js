@@ -165,8 +165,8 @@ function runFormatTest(fixtures, parsers, options = {}) {
     describe(title, () => {
       const basicOptions = {
         printWidth: 80,
-        ...options,
         filepath: filename,
+        ...options,
       };
       const parsersToTest = allParsers.filter(
         (parser) => !failedTests.shouldDisable(filename, parser),
