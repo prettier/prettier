@@ -45,10 +45,9 @@ function runFormatTest(
 ): void;
 ```
 
-
 ### **`fixtures`**
 
-Must be set to `import.meta` or to an object of the shape `{ importMeta: import.meta, ... }`. 
+Must be set to `import.meta` or to an object of the shape `{ importMeta: import.meta, ... }`.
 
 The object may have the `snippets` property to specify an array of extra input entries in addition to the files in the current directory.
 
