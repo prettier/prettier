@@ -65,27 +65,11 @@ function runFormatTest(fixtures, parsers, options = {}) {
 
   const dirname = path.dirname(url.fileURLToPath(importMeta.url));
 
-  // `IS_PARSER_INFERENCE_TESTS` mean to test `inferParser` on `standalone`
-  const IS_PARSER_INFERENCE_TESTS = isTestDirectory(
-    dirname,
-    "misc/parser-inference",
-  );
-
-  // `IS_ERROR_TESTS` mean to watch errors like:
+  // Files in `_errors_` mean to watch errors like:
   // - syntax parser hasn't supported yet
   // - syntax errors that should throws
-  const IS_ERROR_TESTS = isTestDirectory(dirname, "misc/errors");
-  if (IS_ERROR_TESTS) {
+  if (dirname.includes(`${path.sep}_errors${path.sep}`)) {
     options = { errors: true, ...options };
-  }
-
-  const IS_TYPESCRIPT_ONLY_TEST = isTestDirectory(
-    dirname,
-    "misc/typescript-only",
-  );
-
-  if (IS_PARSER_INFERENCE_TESTS) {
-    parsers = [undefined];
   }
 
   snippets = snippets.map((test, index) => {
@@ -147,25 +131,23 @@ function runFormatTest(fixtures, parsers, options = {}) {
     }
   };
 
-  if (!IS_ERROR_TESTS) {
-    if (
-      parsers.includes("babel") &&
-      (isTestDirectory(dirname, "js") || isTestDirectory(dirname, "jsx"))
-    ) {
-      addParsers("acorn", "espree", "meriyah", "oxc");
-    }
+  if (
+    parsers.includes("babel") &&
+    (isTestDirectory(dirname, "js") || isTestDirectory(dirname, "jsx"))
+  ) {
+    addParsers("acorn", "espree", "meriyah", "oxc");
+  }
 
-    if (parsers.includes("typescript") && !IS_TYPESCRIPT_ONLY_TEST) {
-      addParsers("babel-ts", "oxc-ts");
-    }
+  if (parsers.includes("typescript")) {
+    addParsers("babel-ts", "oxc-ts");
+  }
 
-    if (parsers.includes("flow")) {
-      addParsers("hermes");
-    }
+  if (parsers.includes("flow")) {
+    addParsers("hermes");
+  }
 
-    if (parsers.includes("babel")) {
-      addParsers("__babel_estree");
-    }
+  if (parsers.includes("babel")) {
+    addParsers("__babel_estree");
   }
 
   const stringifiedOptions = stringifyOptionsForTitle(options);
@@ -194,8 +176,7 @@ function runFormatTest(fixtures, parsers, options = {}) {
         const formatResults = await Promise.all(
           parsersToTest.map(async (parser) => {
             const formatOptions = { ...basicOptions, parser };
-            const expectFail =
-              IS_ERROR_TESTS || shouldThrowOnFormat(name, options, parser);
+            const expectFail = shouldThrowOnFormat(name, options, parser);
             const runFormat = () => format(code, formatOptions);
             const result = {
               parser,
