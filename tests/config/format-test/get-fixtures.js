@@ -47,14 +47,14 @@ function* getSnippets(context) {
       throw Object.assign(new Error("Invalid test"), { testCase });
     }
 
-    let { output } = testCase;
+    let { output, name } = testCase;
     if (typeof output === "string") {
       output = visualizeEndOfLine(output);
     }
 
-    testCase.name = `snippet: ${testCase.name || `#${index}`}`;
+    name = `snippet: ${name || `#${index}`}`;
 
-    yield { context, ...testCase, output };
+    yield { context, ...testCase, output, name };
   }
 }
 
