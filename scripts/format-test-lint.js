@@ -45,7 +45,7 @@ for await (const { directory, ok } of checkDirectory(FORMAT_TEST_DIRECTORY)) {
   const name = path.relative(PROJECT_ROOT, directory).replaceAll("\\", "/");
 
   if (!ok) {
-    console.log(`- ${name}`);
+    console.log(` - ${name}`);
     directories.push(name);
   }
 }
