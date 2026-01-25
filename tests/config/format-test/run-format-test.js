@@ -1,16 +1,15 @@
 import fs from "node:fs";
 import path from "node:path";
 import url from "node:url";
-import createEsmUtils from "esm-utils";
 import getPrettier from "../get-prettier.js";
 import checkParsers from "./check-parsers.js";
 import consistentEndOfLine from "./consistent-end-of-line.js";
 import createSnapshot from "./create-snapshot.js";
 import * as failedTests from "./failed-format-tests.js";
+import { getParsers } from "./get-parsers.js";
 import stringifyOptionsForTitle from "./stringify-options-for-title.js";
+import { isErrorTest, normalizeDirectory } from "./utilities.js";
 import visualizeEndOfLine from "./visualize-end-of-line.js";
-
-const { __dirname } = createEsmUtils(import.meta);
 
 const { FULL_TEST, TEST_STANDALONE, NODE_ENV, TEST_RUNTIME } = process.env;
 const isProduction = NODE_ENV === "production";
@@ -35,11 +34,6 @@ const shouldThrowOnFormat = (filename, options, parser) => {
   return false;
 };
 
-const isTestDirectory = (dirname, name) =>
-  (dirname + path.sep).startsWith(
-    path.join(__dirname, "../format", name) + path.sep,
-  );
-
 const ensurePromise = (value) => {
   const isPromise = TEST_STANDALONE
     ? // In standalone test, promise is from another context
@@ -63,14 +57,14 @@ function runFormatTest(fixtures, parsers, options = {}) {
     throw new Error(`Format test should run in file named 'format.test.js'.`);
   }
 
-  const dirname = path.normalize(
-    path.dirname(url.fileURLToPath(importMeta.url)) + path.sep,
+  const dirname = normalizeDirectory(
+    path.dirname(url.fileURLToPath(importMeta.url)),
   );
 
   // `IS_ERROR_TEST` mean to watch errors like:
   // - syntax parser hasn't supported yet
   // - syntax errors that should throws
-  const IS_ERROR_TEST = dirname.includes(`${path.sep}_errors_${path.sep}`);
+  const IS_ERROR_TEST = isErrorTest(dirname);
   if (IS_ERROR_TEST) {
     options = { errors: true, ...options };
   }
@@ -122,75 +116,39 @@ function runFormatTest(fixtures, parsers, options = {}) {
     checkParsers({ dirname, files }, parsers);
   }
 
-  const allParsers = [...parsers];
-  const addParsers = (...parsers) => {
-    if (IS_ERROR_TEST) {
-      return;
-    }
-
-    for (const parser of parsers) {
-      if (
-        !allParsers.includes(parser) &&
-        !failedTests.shouldDisable(dirname, parser)
-      ) {
-        allParsers.push(parser);
-      }
-    }
-  };
-
-  if (
-    parsers.includes("babel") &&
-    (isTestDirectory(dirname, "js") || isTestDirectory(dirname, "jsx"))
-  ) {
-    addParsers("acorn", "espree", "meriyah", "oxc");
-  }
-
-  if (parsers.includes("typescript")) {
-    addParsers("babel-ts", "oxc-ts");
-  }
-
-  if (parsers.includes("flow")) {
-    addParsers("hermes");
-  }
-
-  if (parsers.includes("babel")) {
-    addParsers("__babel_estree");
-  }
-
   const stringifiedOptions = stringifyOptionsForTitle(options);
+  const { allParsers } = getParsers(dirname, parsers);
+  const basicOptions = {
+    printWidth: 80,
+    filepath: filename,
+    ...options,
+  };
 
   for (const { name, filename, code, output } of [...files, ...snippets]) {
     const title = `${name}${
       stringifiedOptions ? ` - ${stringifiedOptions}` : ""
     }`;
+    const testCases = allParsers
+      .filter((parser) => !failedTests.shouldDisable(filename, parser))
+      .map((parser) => {
+        const formatOptions = { ...basicOptions, parser };
+        const expectFail = shouldThrowOnFormat(name, options, parser);
+        return {
+          parser,
+          explicitParsers: parsers,
+          code,
+          formatOptions,
+          expectFail,
+          expectedOutput: output,
+          runFormat: () => format(code, formatOptions),
+        };
+      });
+    const testCaseForSnapshot = testCases.find(
+      (testCase) =>
+        !testCase.expectFail && typeof testCase.expectedOutput !== "string",
+    );
 
     describe(title, () => {
-      const basicOptions = {
-        printWidth: 80,
-        filepath: filename,
-        ...options,
-      };
-
-      const testCases = allParsers
-        .filter((parser) => !failedTests.shouldDisable(filename, parser))
-        .map((parser) => {
-          const formatOptions = { ...basicOptions, parser };
-          const expectFail = shouldThrowOnFormat(name, options, parser);
-          return {
-            parser,
-            explicitParsers: parsers,
-            code,
-            formatOptions,
-            expectFail,
-            expectedOutput: output,
-            runFormat: () => format(code, formatOptions),
-          };
-        });
-      const testCaseForSnapshot = testCases.find(
-        (testCase) =>
-          !testCase.expectFail && typeof testCase.expectedOutput !== "string",
-      );
-
       beforeAll(async () => {
         await Promise.all(
           testCases.map(async (test) => {
