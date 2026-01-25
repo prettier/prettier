@@ -1,5 +1,91 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`no-semi.js [acorn] format 1`] = `
+"Unexpected token (2:2)
+  1 | a
+> 2 | ;::b.c
+    |  ^
+  3 |
+  4 | class A {
+  5 |   a = b;
+Cause: Unexpected token (2:1)"
+`;
+
+exports[`no-semi.js [espree] format 1`] = `
+"Unexpected token : (2:2)
+  1 | a
+> 2 | ;::b.c
+    |  ^
+  3 |
+  4 | class A {
+  5 |   a = b;
+Cause: Unexpected token :"
+`;
+
+exports[`no-semi.js [meriyah] format 1`] = `
+"Unexpected token: ':' (2:2)
+  1 | a
+> 2 | ;::b.c
+    |  ^
+  3 |
+  4 | class A {
+  5 |   a = b;
+Cause: [2:1-2:2]: Unexpected token: ':'"
+`;
+
+exports[`no-semi.js [oxc] format 1`] = `
+"Unexpected token (2:2)
+  1 | a
+> 2 | ;::b.c
+    |  ^
+  3 |
+  4 | class A {
+  5 |   a = b;"
+`;
+
+exports[`no-semi.js - {"semi":false} [acorn] format 1`] = `
+"Unexpected token (2:2)
+  1 | a
+> 2 | ;::b.c
+    |  ^
+  3 |
+  4 | class A {
+  5 |   a = b;
+Cause: Unexpected token (2:1)"
+`;
+
+exports[`no-semi.js - {"semi":false} [espree] format 1`] = `
+"Unexpected token : (2:2)
+  1 | a
+> 2 | ;::b.c
+    |  ^
+  3 |
+  4 | class A {
+  5 |   a = b;
+Cause: Unexpected token :"
+`;
+
+exports[`no-semi.js - {"semi":false} [meriyah] format 1`] = `
+"Unexpected token: ':' (2:2)
+  1 | a
+> 2 | ;::b.c
+    |  ^
+  3 |
+  4 | class A {
+  5 |   a = b;
+Cause: [2:1-2:2]: Unexpected token: ':'"
+`;
+
+exports[`no-semi.js - {"semi":false} [oxc] format 1`] = `
+"Unexpected token (2:2)
+  1 | a
+> 2 | ;::b.c
+    |  ^
+  3 |
+  4 | class A {
+  5 |   a = b;"
+`;
+
 exports[`no-semi.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
@@ -35,49 +121,6 @@ class A {
 ================================================================================
 `;
 
-exports[`no-semi.js - {"semi":false} format[acorn] 1`] = `
-"Unexpected token (2:2)
-  1 | a
-> 2 | ;::b.c
-    |  ^
-  3 |
-  4 | class A {
-  5 |   a = b;
-Cause: Unexpected token (2:1)"
-`;
-
-exports[`no-semi.js - {"semi":false} format[espree] 1`] = `
-"Unexpected token : (2:2)
-  1 | a
-> 2 | ;::b.c
-    |  ^
-  3 |
-  4 | class A {
-  5 |   a = b;
-Cause: Unexpected token :"
-`;
-
-exports[`no-semi.js - {"semi":false} format[meriyah] 1`] = `
-"Unexpected token: ':' (2:2)
-  1 | a
-> 2 | ;::b.c
-    |  ^
-  3 |
-  4 | class A {
-  5 |   a = b;
-Cause: [2:1-2:2]: Unexpected token: ':'"
-`;
-
-exports[`no-semi.js - {"semi":false} format[oxc] 1`] = `
-"Unexpected token (2:2)
-  1 | a
-> 2 | ;::b.c
-    |  ^
-  3 |
-  4 | class A {
-  5 |   a = b;"
-`;
-
 exports[`no-semi.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
@@ -110,47 +153,4 @@ class A {
 }
 
 ================================================================================
-`;
-
-exports[`no-semi.js format[acorn] 1`] = `
-"Unexpected token (2:2)
-  1 | a
-> 2 | ;::b.c
-    |  ^
-  3 |
-  4 | class A {
-  5 |   a = b;
-Cause: Unexpected token (2:1)"
-`;
-
-exports[`no-semi.js format[espree] 1`] = `
-"Unexpected token : (2:2)
-  1 | a
-> 2 | ;::b.c
-    |  ^
-  3 |
-  4 | class A {
-  5 |   a = b;
-Cause: Unexpected token :"
-`;
-
-exports[`no-semi.js format[meriyah] 1`] = `
-"Unexpected token: ':' (2:2)
-  1 | a
-> 2 | ;::b.c
-    |  ^
-  3 |
-  4 | class A {
-  5 |   a = b;
-Cause: [2:1-2:2]: Unexpected token: ':'"
-`;
-
-exports[`no-semi.js format[oxc] 1`] = `
-"Unexpected token (2:2)
-  1 | a
-> 2 | ;::b.c
-    |  ^
-  3 |
-  4 | class A {
-  5 |   a = b;"
 `;

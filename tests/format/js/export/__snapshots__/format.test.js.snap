@@ -345,6 +345,38 @@ export * as foo from "./baz";
 ================================================================================
 `;
 
+exports[`undefined.js [acorn] format 1`] = `
+"Export 'undefinedExport' is not defined (1:10)
+> 1 | export { undefinedExport };
+    |          ^
+  2 |
+Cause: Export 'undefinedExport' is not defined (1:9)"
+`;
+
+exports[`undefined.js [espree] format 1`] = `
+"Export 'undefinedExport' is not defined (1:10)
+> 1 | export { undefinedExport };
+    |          ^
+  2 |
+Cause: Export 'undefinedExport' is not defined"
+`;
+
+exports[`undefined.js - {"bracketSpacing":false} [acorn] format 1`] = `
+"Export 'undefinedExport' is not defined (1:10)
+> 1 | export { undefinedExport };
+    |          ^
+  2 |
+Cause: Export 'undefinedExport' is not defined (1:9)"
+`;
+
+exports[`undefined.js - {"bracketSpacing":false} [espree] format 1`] = `
+"Export 'undefinedExport' is not defined (1:10)
+> 1 | export { undefinedExport };
+    |          ^
+  2 |
+Cause: Export 'undefinedExport' is not defined"
+`;
+
 exports[`undefined.js - {"bracketSpacing":false} format 1`] = `
 ====================================options=====================================
 bracketSpacing: false
@@ -360,22 +392,6 @@ export {undefinedExport};
 ================================================================================
 `;
 
-exports[`undefined.js - {"bracketSpacing":false} format[acorn] 1`] = `
-"Export 'undefinedExport' is not defined (1:10)
-> 1 | export { undefinedExport };
-    |          ^
-  2 |
-Cause: Export 'undefinedExport' is not defined (1:9)"
-`;
-
-exports[`undefined.js - {"bracketSpacing":false} format[espree] 1`] = `
-"Export 'undefinedExport' is not defined (1:10)
-> 1 | export { undefinedExport };
-    |          ^
-  2 |
-Cause: Export 'undefinedExport' is not defined"
-`;
-
 exports[`undefined.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -388,20 +404,4 @@ export { undefinedExport };
 export { undefinedExport };
 
 ================================================================================
-`;
-
-exports[`undefined.js format[acorn] 1`] = `
-"Export 'undefinedExport' is not defined (1:10)
-> 1 | export { undefinedExport };
-    |          ^
-  2 |
-Cause: Export 'undefinedExport' is not defined (1:9)"
-`;
-
-exports[`undefined.js format[espree] 1`] = `
-"Export 'undefinedExport' is not defined (1:10)
-> 1 | export { undefinedExport };
-    |          ^
-  2 |
-Cause: Export 'undefinedExport' is not defined"
 `;

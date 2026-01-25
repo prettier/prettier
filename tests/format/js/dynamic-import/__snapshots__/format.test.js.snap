@@ -14,6 +14,60 @@ import("./foo.json", { assert: { type: "json" } });
 ================================================================================
 `;
 
+exports[`import-phase.js [acorn] format 1`] = `
+"The only valid meta property for import is 'import.meta' (1:8)
+> 1 | import.source(\`data:text/javascript,
+    |        ^
+  2 |     console.log("RUN");
+  3 | \`)
+  4 |
+Cause: The only valid meta property for import is 'import.meta' (1:7)"
+`;
+
+exports[`import-phase.js [espree] format 1`] = `
+"The only valid meta property for import is 'import.meta' (1:8)
+> 1 | import.source(\`data:text/javascript,
+    |        ^
+  2 |     console.log("RUN");
+  3 | \`)
+  4 |
+Cause: The only valid meta property for import is 'import.meta'"
+`;
+
+exports[`import-phase.js [flow] format 1`] = `
+"Unexpected identifier, expected the identifier \`meta\` (1:8)
+> 1 | import.source(\`data:text/javascript,
+    |        ^^^^^^
+  2 |     console.log("RUN");
+  3 | \`)
+  4 |"
+`;
+
+exports[`import-phase.js [hermes] format 1`] = `
+"'meta' expected in member expression (1:7)
+> 1 | import.source(\`data:text/javascript,
+    |       ^
+  2 |     console.log("RUN");
+  3 | \`)
+  4 |
+Cause: 'meta' expected in member expression (1:7)
+import.source(\`data:text/javascript,
+       ^~~~~~
+note: start of member expression (1:0)
+import.source(\`data:text/javascript,
+^"
+`;
+
+exports[`import-phase.js [meriyah] format 1`] = `
+"The only valid meta property for import is 'import.meta' (1:8)
+> 1 | import.source(\`data:text/javascript,
+    |        ^^^^^^
+  2 |     console.log("RUN");
+  3 | \`)
+  4 |
+Cause: [1:7-1:13]: The only valid meta property for import is 'import.meta'"
+`;
+
 exports[`import-phase.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -40,58 +94,25 @@ import.source(String.raw\`data:text/javascript,
 ================================================================================
 `;
 
-exports[`import-phase.js format[acorn] 1`] = `
-"The only valid meta property for import is 'import.meta' (1:8)
-> 1 | import.source(\`data:text/javascript,
-    |        ^
+exports[`template-literal.js [flow] format 1`] = `
+"Unexpected token \`import\`, expected the end of an expression statement (\`;\`) (1:20)
+> 1 | module   =   await import(\`data:text/javascript,
+    |                    ^^^^^^
   2 |     console.log("RUN");
-  3 | \`)
-  4 |
-Cause: The only valid meta property for import is 'import.meta' (1:7)"
-`;
-
-exports[`import-phase.js format[espree] 1`] = `
-"The only valid meta property for import is 'import.meta' (1:8)
-> 1 | import.source(\`data:text/javascript,
-    |        ^
-  2 |     console.log("RUN");
-  3 | \`)
-  4 |
-Cause: The only valid meta property for import is 'import.meta'"
-`;
-
-exports[`import-phase.js format[flow] 1`] = `
-"Unexpected identifier, expected the identifier \`meta\` (1:8)
-> 1 | import.source(\`data:text/javascript,
-    |        ^^^^^^
-  2 |     console.log("RUN");
-  3 | \`)
+  3 | \`);
   4 |"
 `;
 
-exports[`import-phase.js format[hermes] 1`] = `
-"'meta' expected in member expression (1:7)
-> 1 | import.source(\`data:text/javascript,
-    |       ^
+exports[`template-literal.js [hermes] format 1`] = `
+"unexpected token after assignment expression (1:19)
+> 1 | module   =   await import(\`data:text/javascript,
+    |                   ^
   2 |     console.log("RUN");
-  3 | \`)
+  3 | \`);
   4 |
-Cause: 'meta' expected in member expression (1:7)
-import.source(\`data:text/javascript,
-       ^~~~~~
-note: start of member expression (1:0)
-import.source(\`data:text/javascript,
-^"
-`;
-
-exports[`import-phase.js format[meriyah] 1`] = `
-"The only valid meta property for import is 'import.meta' (1:8)
-> 1 | import.source(\`data:text/javascript,
-    |        ^^^^^^
-  2 |     console.log("RUN");
-  3 | \`)
-  4 |
-Cause: [1:7-1:13]: The only valid meta property for import is 'import.meta'"
+Cause: unexpected token after assignment expression (1:19)
+module   =   await import(\`data:text/javascript,
+                   ^"
 `;
 
 exports[`template-literal.js format 1`] = `
@@ -118,27 +139,6 @@ module = await import(String.raw\`data:text/javascript,
 \`);
 
 ================================================================================
-`;
-
-exports[`template-literal.js format[flow] 1`] = `
-"Unexpected token \`import\`, expected the end of an expression statement (\`;\`) (1:20)
-> 1 | module   =   await import(\`data:text/javascript,
-    |                    ^^^^^^
-  2 |     console.log("RUN");
-  3 | \`);
-  4 |"
-`;
-
-exports[`template-literal.js format[hermes] 1`] = `
-"unexpected token after assignment expression (1:19)
-> 1 | module   =   await import(\`data:text/javascript,
-    |                   ^
-  2 |     console.log("RUN");
-  3 | \`);
-  4 |
-Cause: unexpected token after assignment expression (1:19)
-module   =   await import(\`data:text/javascript,
-                   ^"
 `;
 
 exports[`test.js format 1`] = `

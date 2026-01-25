@@ -38,6 +38,18 @@ export class Y {}
 ================================================================================
 `;
 
+exports[`abstractProperties.ts [babel-ts] format 1`] = `
+"'static' modifier cannot be used with 'abstract' modifier. (4:12)
+  2 |     abstract private a: 1;
+  3 |     private abstract b: 2;
+> 4 |     static abstract c: 3;
+    |            ^
+  5 |     abstract private ['g'];
+  6 |     private abstract ['h'];
+  7 |     static abstract ['i'];
+Cause: 'static' modifier cannot be used with 'abstract' modifier. (4:11)"
+`;
+
 exports[`abstractProperties.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
@@ -64,16 +76,4 @@ abstract class Foo {
 }
 
 ================================================================================
-`;
-
-exports[`abstractProperties.ts format[babel-ts] 1`] = `
-"'static' modifier cannot be used with 'abstract' modifier. (4:12)
-  2 |     abstract private a: 1;
-  3 |     private abstract b: 2;
-> 4 |     static abstract c: 3;
-    |            ^
-  5 |     abstract private ['g'];
-  6 |     private abstract ['h'];
-  7 |     static abstract ['i'];
-Cause: 'static' modifier cannot be used with 'abstract' modifier. (4:11)"
 `;

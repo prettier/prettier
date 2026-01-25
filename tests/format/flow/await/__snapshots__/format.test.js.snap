@@ -1,5 +1,18 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`await-keywords.js [hermes] format 1`] = `
+"'await' not in an async function (2:6)
+  1 | export class C1 {
+> 2 |   p = await (0);
+    |      ^
+  3 | }
+  4 |
+  5 | await (0);
+Cause: 'await' not in an async function (2:6)
+  p = await (0);
+      ^~~~~~~~~"
+`;
+
 exports[`await-keywords.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
@@ -78,17 +91,4 @@ export class C {
 await(0);
 
 ================================================================================
-`;
-
-exports[`await-keywords.js format[hermes] 1`] = `
-"'await' not in an async function (2:6)
-  1 | export class C1 {
-> 2 |   p = await (0);
-    |      ^
-  3 | }
-  4 |
-  5 | await (0);
-Cause: 'await' not in an async function (2:6)
-  p = await (0);
-      ^~~~~~~~~"
 `;

@@ -84,6 +84,23 @@ const foo12: Foooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
 ================================================================================
 `;
 
+exports[`template-literal-types.ts [flow] format 1`] = `
+"Flow does not support template literal types. (1:84)
+> 1 | const foo1: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo<\`Hello, \${keyof World}\`> = a;
+    |                                                                                    ^
+  2 |"
+`;
+
+exports[`template-literal-types.ts [hermes] format 1`] = `
+"unexpected token in type annotation (1:83)
+> 1 | const foo1: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo<\`Hello, \${keyof World}\`> = a;
+    |                                                                                   ^
+  2 |
+Cause: unexpected token in type annotation (1:83)
+const foo1: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo<\`Hello, \${keyof World}\`> = a;
+                                                                                   ^"
+`;
+
 exports[`template-literal-types.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow"]
@@ -97,23 +114,6 @@ const foo1: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
   a;
 
 ================================================================================
-`;
-
-exports[`template-literal-types.ts format[flow] 1`] = `
-"Flow does not support template literal types. (1:84)
-> 1 | const foo1: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo<\`Hello, \${keyof World}\`> = a;
-    |                                                                                    ^
-  2 |"
-`;
-
-exports[`template-literal-types.ts format[hermes] 1`] = `
-"unexpected token in type annotation (1:83)
-> 1 | const foo1: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo<\`Hello, \${keyof World}\`> = a;
-    |                                                                                   ^
-  2 |
-Cause: unexpected token in type annotation (1:83)
-const foo1: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo<\`Hello, \${keyof World}\`> = a;
-                                                                                   ^"
 `;
 
 exports[`typescript-only.ts format 1`] = `

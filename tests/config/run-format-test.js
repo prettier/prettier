@@ -215,7 +215,7 @@ function runFormatTest(fixtures, parsers, options = {}) {
       const hasMultipleParsers = testCases.length > 1;
 
       for (const testCase of testCases) {
-        const testTitle = `format${hasMultipleParsers ? `[${testCase.parser}]` : ""}`;
+        const testTitle = `${hasMultipleParsers ? `[${testCase.parser}] ` : ""}format`;
 
         test(testTitle, async () => {
           await runTest({

@@ -178,6 +178,30 @@ import(
 ================================================================================
 `;
 
+exports[`multi-types.js [acorn] format 1`] = `
+"Duplicate attribute key 'type' (1:52)
+> 1 | import json from "./foo.json" with { type: "json", type: "bar" };
+    |                                                    ^
+  2 |
+Cause: Duplicate attribute key 'type' (1:51)"
+`;
+
+exports[`multi-types.js [espree] format 1`] = `
+"Duplicate attribute key 'type' (1:52)
+> 1 | import json from "./foo.json" with { type: "json", type: "bar" };
+    |                                                    ^
+  2 |
+Cause: Duplicate attribute key 'type'"
+`;
+
+exports[`multi-types.js [meriyah] format 1`] = `
+"Duplicate binding 'type' (1:64)
+> 1 | import json from "./foo.json" with { type: "json", type: "bar" };
+    |                                                                ^
+  2 |
+Cause: [1:63-1:64]: Duplicate binding 'type'"
+`;
+
 exports[`multi-types.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]
@@ -190,30 +214,6 @@ import json from "./foo.json" with { type: "json", type: "bar" };
 import json from "./foo.json" with { type: "json", type: "bar" };
 
 ================================================================================
-`;
-
-exports[`multi-types.js format[acorn] 1`] = `
-"Duplicate attribute key 'type' (1:52)
-> 1 | import json from "./foo.json" with { type: "json", type: "bar" };
-    |                                                    ^
-  2 |
-Cause: Duplicate attribute key 'type' (1:51)"
-`;
-
-exports[`multi-types.js format[espree] 1`] = `
-"Duplicate attribute key 'type' (1:52)
-> 1 | import json from "./foo.json" with { type: "json", type: "bar" };
-    |                                                    ^
-  2 |
-Cause: Duplicate attribute key 'type'"
-`;
-
-exports[`multi-types.js format[meriyah] 1`] = `
-"Duplicate binding 'type' (1:64)
-> 1 | import json from "./foo.json" with { type: "json", type: "bar" };
-    |                                                                ^
-  2 |
-Cause: [1:63-1:64]: Duplicate binding 'type'"
 `;
 
 exports[`multiple.js format 1`] = `
