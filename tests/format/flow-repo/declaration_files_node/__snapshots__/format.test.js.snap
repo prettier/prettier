@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`A.js format 1`] = `
+exports[`A.js format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -18,7 +18,7 @@ module.exports.fun = (): string => "hello there!";
 ================================================================================
 `;
 
-exports[`CJS.js format 1`] = `
+exports[`CJS.js format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -34,7 +34,7 @@ module.exports = 42;
 ================================================================================
 `;
 
-exports[`test_absolute.js format 1`] = `
+exports[`test_absolute.js format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -88,7 +88,7 @@ var F = require("package_with_dir_main");
 ================================================================================
 `;
 
-exports[`test_relative.js format 1`] = `
+exports[`test_relative.js format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

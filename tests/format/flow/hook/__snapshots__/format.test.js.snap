@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`comments-before-arrow.js format 1`] = `
+exports[`comments-before-arrow.js format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -62,7 +62,7 @@ a = () => /* 23 */ {};
 ================================================================================
 `;
 
-exports[`dangling-comments.js format 1`] = `
+exports[`dangling-comments.js format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -139,7 +139,7 @@ type T23 = hook (/* 29*/) => void;
 ================================================================================
 `;
 
-exports[`declare-hook.js format 1`] = `
+exports[`declare-hook.js format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -264,7 +264,7 @@ SomeComponent;
 ================================================================================
 `;
 
-exports[`hook-declaration.js format 1`] = `
+exports[`hook-declaration.js format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -342,7 +342,7 @@ hook useFoo14<
 ================================================================================
 `;
 
-exports[`hook-type-annotation.js format 1`] = `
+exports[`hook-type-annotation.js format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

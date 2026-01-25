@@ -1,45 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`throw_expression.js [acorn] format 1`] = `
-"Unexpected token (1:26)
-> 1 | function save(filename = throw new TypeError("Argument required")) {}
-    |                          ^
-  2 |
-  3 | lint(ast, {
-  4 |   with: () => throw new Error("avoid using 'with' statements.")
-Cause: Unexpected token (1:25)"
-`;
-
-exports[`throw_expression.js [espree] format 1`] = `
-"Unexpected token throw (1:26)
-> 1 | function save(filename = throw new TypeError("Argument required")) {}
-    |                          ^
-  2 |
-  3 | lint(ast, {
-  4 |   with: () => throw new Error("avoid using 'with' statements.")
-Cause: Unexpected token throw"
-`;
-
-exports[`throw_expression.js [meriyah] format 1`] = `
-"Unexpected token: 'throw' (1:26)
-> 1 | function save(filename = throw new TypeError("Argument required")) {}
-    |                          ^^^^^
-  2 |
-  3 | lint(ast, {
-  4 |   with: () => throw new Error("avoid using 'with' statements.")
-Cause: [1:25-1:30]: Unexpected token: 'throw'"
-`;
-
-exports[`throw_expression.js [oxc] format 1`] = `
-"Unexpected token (1:26)
-> 1 | function save(filename = throw new TypeError("Argument required")) {}
-    |                          ^^^^^
-  2 |
-  3 | lint(ast, {
-  4 |   with: () => throw new Error("avoid using 'with' statements.")"
-`;
-
-exports[`throw_expression.js format 1`] = `
+exports[`throw_expression.js format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -91,4 +52,43 @@ class Product {
 }
 
 ================================================================================
+`;
+
+exports[`throw_expression.js format[babel]} 2`] = `
+"Unexpected token (1:26)
+> 1 | function save(filename = throw new TypeError("Argument required")) {}
+    |                          ^
+  2 |
+  3 | lint(ast, {
+  4 |   with: () => throw new Error("avoid using 'with' statements.")
+Cause: Unexpected token (1:25)"
+`;
+
+exports[`throw_expression.js format[babel]} 3`] = `
+"Unexpected token throw (1:26)
+> 1 | function save(filename = throw new TypeError("Argument required")) {}
+    |                          ^
+  2 |
+  3 | lint(ast, {
+  4 |   with: () => throw new Error("avoid using 'with' statements.")
+Cause: Unexpected token throw"
+`;
+
+exports[`throw_expression.js format[babel]} 4`] = `
+"Unexpected token: 'throw' (1:26)
+> 1 | function save(filename = throw new TypeError("Argument required")) {}
+    |                          ^^^^^
+  2 |
+  3 | lint(ast, {
+  4 |   with: () => throw new Error("avoid using 'with' statements.")
+Cause: [1:25-1:30]: Unexpected token: 'throw'"
+`;
+
+exports[`throw_expression.js format[babel]} 5`] = `
+"Unexpected token (1:26)
+> 1 | function save(filename = throw new TypeError("Argument required")) {}
+    |                          ^^^^^
+  2 |
+  3 | lint(ast, {
+  4 |   with: () => throw new Error("avoid using 'with' statements.")"
 `;

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`empty.js - {"insertPragma":true} format 1`] = `
+exports[`empty.js - {"insertPragma":true} format[flow]} 1`] = `
 ====================================options=====================================
 insertPragma: true
 parsers: ["flow", "babel", "typescript"]
@@ -14,7 +14,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`module-with-late-docblock.js - {"insertPragma":true} format 1`] = `
+exports[`module-with-late-docblock.js - {"insertPragma":true} format[flow]} 1`] = `
 ====================================options=====================================
 insertPragma: true
 parsers: ["flow", "babel", "typescript"]
@@ -45,7 +45,7 @@ const fruit = "tomatoes";
 ================================================================================
 `;
 
-exports[`module-with-multiple-same-pragma.js - {"insertPragma":true} format 1`] = `
+exports[`module-with-multiple-same-pragma.js - {"insertPragma":true} format[flow]} 1`] = `
 ====================================options=====================================
 insertPragma: true
 parsers: ["flow", "babel", "typescript"]
@@ -67,7 +67,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`module-with-pragma.js - {"insertPragma":true} format 1`] = `
+exports[`module-with-pragma.js - {"insertPragma":true} format[flow]} 1`] = `
 ====================================options=====================================
 insertPragma: true
 parsers: ["flow", "babel", "typescript"]
@@ -100,7 +100,7 @@ function foo(bar) {
 ================================================================================
 `;
 
-exports[`module-without-docblock.js - {"insertPragma":true} format 1`] = `
+exports[`module-without-docblock.js - {"insertPragma":true} format[flow]} 1`] = `
 ====================================options=====================================
 insertPragma: true
 parsers: ["flow", "babel", "typescript"]
@@ -121,7 +121,7 @@ function foo(bar) {
 ================================================================================
 `;
 
-exports[`module-without-pragma.js - {"insertPragma":true} format 1`] = `
+exports[`module-without-pragma.js - {"insertPragma":true} format[flow]} 1`] = `
 ====================================options=====================================
 insertPragma: true
 parsers: ["flow", "babel", "typescript"]
@@ -153,7 +153,7 @@ function foo(bar) {
 ================================================================================
 `;
 
-exports[`shebang-only-with-pragma.js - {"insertPragma":true} format 1`] = `
+exports[`shebang-only-with-pragma.js - {"insertPragma":true} format[flow]} 1`] = `
 ====================================options=====================================
 insertPragma: true
 parsers: ["flow", "babel", "typescript"]
@@ -170,7 +170,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`shebang-only-without-pragma.js - {"insertPragma":true} format 1`] = `
+exports[`shebang-only-without-pragma.js - {"insertPragma":true} format[flow]} 1`] = `
 ====================================options=====================================
 insertPragma: true
 parsers: ["flow", "babel", "typescript"]
@@ -186,7 +186,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`shebang-with-pragma.js - {"insertPragma":true} format 1`] = `
+exports[`shebang-with-pragma.js - {"insertPragma":true} format[flow]} 1`] = `
 ====================================options=====================================
 insertPragma: true
 parsers: ["flow", "babel", "typescript"]
@@ -212,7 +212,7 @@ function test() {
 ================================================================================
 `;
 
-exports[`shebang-without-pragma.js - {"insertPragma":true} format 1`] = `
+exports[`shebang-without-pragma.js - {"insertPragma":true} format[flow]} 1`] = `
 ====================================options=====================================
 insertPragma: true
 parsers: ["flow", "babel", "typescript"]
@@ -234,7 +234,7 @@ function test() {
 ================================================================================
 `;
 
-exports[`trailing-spaces-first-line.js - {"insertPragma":true} format 1`] = `
+exports[`trailing-spaces-first-line.js - {"insertPragma":true} format[flow]} 1`] = `
 ====================================options=====================================
 insertPragma: true
 parsers: ["flow", "babel", "typescript"]
@@ -263,7 +263,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`with-comment.js - {"insertPragma":true} format 1`] = `
+exports[`with-comment.js - {"insertPragma":true} format[flow]} 1`] = `
 ====================================options=====================================
 insertPragma: true
 parsers: ["flow", "babel", "typescript"]

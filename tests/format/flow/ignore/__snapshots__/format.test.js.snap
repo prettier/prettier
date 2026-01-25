@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`ignore.js format 1`] = `
+exports[`ignore.js format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -35,7 +35,7 @@ function a() {
 ================================================================================
 `;
 
-exports[`type-cast-expression.js format 1`] = `
+exports[`type-cast-expression.js format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

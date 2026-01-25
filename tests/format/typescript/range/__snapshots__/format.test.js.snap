@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`export-assignment.ts format 1`] = `
+exports[`export-assignment.ts format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -21,7 +21,7 @@ g(  )
 ================================================================================
 `;
 
-exports[`issue-4926.ts format 1`] = `
+exports[`issue-4926.ts format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -61,7 +61,7 @@ class Foo {
 ================================================================================
 `;
 
-exports[`issue-7148.ts format 1`] = `
+exports[`issue-7148.ts format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`comments.ts - {"semi":false} format 1`] = `
+exports[`comments.ts - {"semi":false} format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -21,7 +21,7 @@ interface ScreenObject {
 ================================================================================
 `;
 
-exports[`comments.ts format 1`] = `
+exports[`comments.ts format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -41,7 +41,7 @@ interface ScreenObject {
 ================================================================================
 `;
 
-exports[`comments-generic.ts - {"semi":false} format 1`] = `
+exports[`comments-generic.ts - {"semi":false} format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -115,7 +115,7 @@ interface Foo<
 ================================================================================
 `;
 
-exports[`comments-generic.ts format 1`] = `
+exports[`comments-generic.ts format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -188,7 +188,7 @@ interface Foo<
 ================================================================================
 `;
 
-exports[`generic.ts - {"semi":false} format 1`] = `
+exports[`generic.ts - {"semi":false} format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -225,7 +225,7 @@ interface Foo<
 ================================================================================
 `;
 
-exports[`generic.ts format 1`] = `
+exports[`generic.ts format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -261,7 +261,7 @@ interface Foo<
 ================================================================================
 `;
 
-exports[`ignore.ts - {"semi":false} format 1`] = `
+exports[`ignore.ts - {"semi":false} format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -486,7 +486,7 @@ interface I {
 ================================================================================
 `;
 
-exports[`ignore.ts format 1`] = `
+exports[`ignore.ts format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -710,7 +710,7 @@ interface I {
 ================================================================================
 `;
 
-exports[`long-extends.ts - {"semi":false} format 1`] = `
+exports[`long-extends.ts - {"semi":false} format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -775,7 +775,7 @@ export interface ThirdVeryLongAndBoringInterfaceName
 ================================================================================
 `;
 
-exports[`long-extends.ts format 1`] = `
+exports[`long-extends.ts format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -839,7 +839,7 @@ export interface ThirdVeryLongAndBoringInterfaceName
 ================================================================================
 `;
 
-exports[`pattern-parameters.ts - {"semi":false} format 1`] = `
+exports[`pattern-parameters.ts - {"semi":false} format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -862,7 +862,7 @@ interface B {
 ================================================================================
 `;
 
-exports[`pattern-parameters.ts format 1`] = `
+exports[`pattern-parameters.ts format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -884,7 +884,7 @@ interface B {
 ================================================================================
 `;
 
-exports[`separator.ts - {"semi":false} format 1`] = `
+exports[`separator.ts - {"semi":false} format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -930,7 +930,7 @@ interface Test {
 ================================================================================
 `;
 
-exports[`separator.ts format 1`] = `
+exports[`separator.ts format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

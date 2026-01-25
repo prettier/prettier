@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`classes.js format 1`] = `
+exports[`classes.js format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -74,7 +74,7 @@ function bar(x: Bar): string {
 ================================================================================
 `;
 
-exports[`interfaces-neg.js format 1`] = `
+exports[`interfaces-neg.js format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -138,7 +138,7 @@ if (data.kind === "user") {
 ================================================================================
 `;
 
-exports[`interfaces-pos.js format 1`] = `
+exports[`interfaces-pos.js format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -202,7 +202,7 @@ if (data.kind === "system") {
 ================================================================================
 `;
 
-exports[`type-decls-neg.js format 1`] = `
+exports[`type-decls-neg.js format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -274,7 +274,7 @@ if (data.kind === "user") {
 ================================================================================
 `;
 
-exports[`type-decls-pos.js format 1`] = `
+exports[`type-decls-pos.js format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

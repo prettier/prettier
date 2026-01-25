@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`comment.ts format 1`] = `
+exports[`comment.ts format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow"]
 printWidth: 80
@@ -17,7 +17,7 @@ type A1 = /* 4 */ (A & B)[];
 ================================================================================
 `;
 
-exports[`intersection-parens.ts format 1`] = `
+exports[`intersection-parens.ts format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow"]
 printWidth: 80

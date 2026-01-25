@@ -1,6 +1,20 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`ambient.js.flow [hermes] format 1`] = `
+exports[`ambient.js.flow format[flow]} 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const foo: string;
+
+=====================================output=====================================
+const foo: string;
+
+================================================================================
+`;
+
+exports[`ambient.js.flow format[flow]} 2`] = `
 "missing initializer in const declaration (1:6)
 > 1 | const foo: string;
     |      ^
@@ -10,38 +24,24 @@ const foo: string;
       ^~~~~~~~~~~"
 `;
 
-exports[`ambient.js.flow format 1`] = `
+exports[`snippet: #0 format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
 const foo: string;
-
 =====================================output=====================================
 const foo: string;
 
 ================================================================================
 `;
 
-exports[`snippet: #0 [hermes] format 1`] = `
+exports[`snippet: #0 format[flow]} 2`] = `
 "missing initializer in const declaration (1:6)
 > 1 | const foo: string;
     |      ^
 Cause: missing initializer in const declaration (1:6)
 const foo: string;
       ^~~~~~~~~~~"
-`;
-
-exports[`snippet: #0 format 1`] = `
-====================================options=====================================
-parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-const foo: string;
-=====================================output=====================================
-const foo: string;
-
-================================================================================
 `;

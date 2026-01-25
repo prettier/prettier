@@ -1,26 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`optional-chaining.js [espree] format 1`] = `
-"Private field '#x' must be declared in an enclosing class (3:13)
-  1 | // https://github.com/babel/babel/pull/11669
-  2 |
-> 3 | delete obj?.#x.a
-    |             ^
-  4 |
-Cause: Private field '#x' must be declared in an enclosing class"
-`;
-
-exports[`optional-chaining.js - {"semi":false} [espree] format 1`] = `
-"Private field '#x' must be declared in an enclosing class (3:13)
-  1 | // https://github.com/babel/babel/pull/11669
-  2 |
-> 3 | delete obj?.#x.a
-    |             ^
-  4 |
-Cause: Private field '#x' must be declared in an enclosing class"
-`;
-
-exports[`optional-chaining.js - {"semi":false} format 1`] = `
+exports[`optional-chaining.js - {"semi":false} format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -39,7 +19,17 @@ delete obj?.#x.a
 ================================================================================
 `;
 
-exports[`optional-chaining.js format 1`] = `
+exports[`optional-chaining.js - {"semi":false} format[babel]} 2`] = `
+"Private field '#x' must be declared in an enclosing class (3:13)
+  1 | // https://github.com/babel/babel/pull/11669
+  2 |
+> 3 | delete obj?.#x.a
+    |             ^
+  4 |
+Cause: Private field '#x' must be declared in an enclosing class"
+`;
+
+exports[`optional-chaining.js format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -57,7 +47,17 @@ delete obj?.#x.a;
 ================================================================================
 `;
 
-exports[`private_fields.js - {"semi":false} format 1`] = `
+exports[`optional-chaining.js format[babel]} 2`] = `
+"Private field '#x' must be declared in an enclosing class (3:13)
+  1 | // https://github.com/babel/babel/pull/11669
+  2 |
+> 3 | delete obj?.#x.a
+    |             ^
+  4 |
+Cause: Private field '#x' must be declared in an enclosing class"
+`;
+
+exports[`private_fields.js - {"semi":false} format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -186,7 +186,7 @@ class F {
 ================================================================================
 `;
 
-exports[`private_fields.js format 1`] = `
+exports[`private_fields.js format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -314,7 +314,7 @@ class F {
 ================================================================================
 `;
 
-exports[`with_comments.js - {"semi":false} format 1`] = `
+exports[`with_comments.js - {"semi":false} format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -341,7 +341,7 @@ class A {
 ================================================================================
 `;
 
-exports[`with_comments.js format 1`] = `
+exports[`with_comments.js format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`classes.js - {"quoteProps":"as-needed"} format 1`] = `
+exports[`classes.js - {"quoteProps":"as-needed"} format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -47,7 +47,7 @@ class D {
 ================================================================================
 `;
 
-exports[`classes.js - {"quoteProps":"consistent","singleQuote":true} format 1`] = `
+exports[`classes.js - {"quoteProps":"consistent","singleQuote":true} format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -95,7 +95,7 @@ class D {
 ================================================================================
 `;
 
-exports[`classes.js - {"quoteProps":"consistent"} format 1`] = `
+exports[`classes.js - {"quoteProps":"consistent"} format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -142,7 +142,7 @@ class D {
 ================================================================================
 `;
 
-exports[`classes.js - {"quoteProps":"preserve"} format 1`] = `
+exports[`classes.js - {"quoteProps":"preserve"} format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -189,7 +189,7 @@ class D {
 ================================================================================
 `;
 
-exports[`enums.js - {"quoteProps":"as-needed"} format 1`] = `
+exports[`enums.js - {"quoteProps":"as-needed"} format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -208,7 +208,7 @@ enum E1 {
 ================================================================================
 `;
 
-exports[`enums.js - {"quoteProps":"consistent","singleQuote":true} format 1`] = `
+exports[`enums.js - {"quoteProps":"consistent","singleQuote":true} format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -228,7 +228,7 @@ enum E1 {
 ================================================================================
 `;
 
-exports[`enums.js - {"quoteProps":"consistent"} format 1`] = `
+exports[`enums.js - {"quoteProps":"consistent"} format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -247,7 +247,7 @@ enum E1 {
 ================================================================================
 `;
 
-exports[`enums.js - {"quoteProps":"preserve"} format 1`] = `
+exports[`enums.js - {"quoteProps":"preserve"} format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -266,7 +266,7 @@ enum E1 {
 ================================================================================
 `;
 
-exports[`objects.js - {"quoteProps":"as-needed"} format 1`] = `
+exports[`objects.js - {"quoteProps":"as-needed"} format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -487,7 +487,7 @@ Object.entries({
 ================================================================================
 `;
 
-exports[`objects.js - {"quoteProps":"consistent","singleQuote":true} format 1`] = `
+exports[`objects.js - {"quoteProps":"consistent","singleQuote":true} format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -709,7 +709,7 @@ Object.entries({
 ================================================================================
 `;
 
-exports[`objects.js - {"quoteProps":"consistent"} format 1`] = `
+exports[`objects.js - {"quoteProps":"consistent"} format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -930,7 +930,7 @@ Object.entries({
 ================================================================================
 `;
 
-exports[`objects.js - {"quoteProps":"preserve"} format 1`] = `
+exports[`objects.js - {"quoteProps":"preserve"} format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -1151,7 +1151,7 @@ Object.entries({
 ================================================================================
 `;
 
-exports[`records.js - {"quoteProps":"as-needed"} format 1`] = `
+exports[`records.js - {"quoteProps":"as-needed"} format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -1210,7 +1210,7 @@ r = R {
 ================================================================================
 `;
 
-exports[`records.js - {"quoteProps":"consistent","singleQuote":true} format 1`] = `
+exports[`records.js - {"quoteProps":"consistent","singleQuote":true} format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -1270,7 +1270,7 @@ r = R {
 ================================================================================
 `;
 
-exports[`records.js - {"quoteProps":"consistent"} format 1`] = `
+exports[`records.js - {"quoteProps":"consistent"} format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -1329,7 +1329,7 @@ r = R {
 ================================================================================
 `;
 
-exports[`records.js - {"quoteProps":"preserve"} format 1`] = `
+exports[`records.js - {"quoteProps":"preserve"} format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -1388,7 +1388,7 @@ r = R {
 ================================================================================
 `;
 
-exports[`with_member_expressions.js - {"quoteProps":"as-needed"} format 1`] = `
+exports[`with_member_expressions.js - {"quoteProps":"as-needed"} format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -1419,7 +1419,7 @@ class Foo {
 ================================================================================
 `;
 
-exports[`with_member_expressions.js - {"quoteProps":"consistent","singleQuote":true} format 1`] = `
+exports[`with_member_expressions.js - {"quoteProps":"consistent","singleQuote":true} format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -1451,7 +1451,7 @@ class Foo {
 ================================================================================
 `;
 
-exports[`with_member_expressions.js - {"quoteProps":"consistent"} format 1`] = `
+exports[`with_member_expressions.js - {"quoteProps":"consistent"} format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -1482,7 +1482,7 @@ class Foo {
 ================================================================================
 `;
 
-exports[`with_member_expressions.js - {"quoteProps":"preserve"} format 1`] = `
+exports[`with_member_expressions.js - {"quoteProps":"preserve"} format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -1513,7 +1513,7 @@ class Foo {
 ================================================================================
 `;
 
-exports[`with_numbers.js - {"quoteProps":"as-needed"} format 1`] = `
+exports[`with_numbers.js - {"quoteProps":"as-needed"} format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -1554,7 +1554,7 @@ obj = {
 ================================================================================
 `;
 
-exports[`with_numbers.js - {"quoteProps":"consistent","singleQuote":true} format 1`] = `
+exports[`with_numbers.js - {"quoteProps":"consistent","singleQuote":true} format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -1596,7 +1596,7 @@ obj = {
 ================================================================================
 `;
 
-exports[`with_numbers.js - {"quoteProps":"consistent"} format 1`] = `
+exports[`with_numbers.js - {"quoteProps":"consistent"} format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -1637,7 +1637,7 @@ obj = {
 ================================================================================
 `;
 
-exports[`with_numbers.js - {"quoteProps":"preserve"} format 1`] = `
+exports[`with_numbers.js - {"quoteProps":"preserve"} format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

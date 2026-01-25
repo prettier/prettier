@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`conditional-types.ts format 1`] = `
+exports[`conditional-types.ts format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -34,7 +34,7 @@ export type UnwrappedResultRow<T> = {
 ================================================================================
 `;
 
-exports[`keyword-types-with-parens-comments.ts format 1`] = `
+exports[`keyword-types-with-parens-comments.ts format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

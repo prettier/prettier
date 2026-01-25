@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`81-characters.ts format 1`] = `
+exports[`81-characters.ts format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow"]
 printWidth: 80
@@ -97,7 +97,7 @@ type ClassLike________80 = TSESTree.ClassDeclaration | TSESTree.ClassExpression;
 ================================================================================
 `;
 
-exports[`comment.ts format 1`] = `
+exports[`comment.ts format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow"]
 printWidth: 80
@@ -154,7 +154,7 @@ type SuperLongTypeNameLoremIpsumLoremIpsumBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBl2 =
 ================================================================================
 `;
 
-exports[`comments.ts format 1`] = `
+exports[`comments.ts format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow"]
 printWidth: 80
@@ -186,7 +186,7 @@ type B3 = a | /* 1 */ /* 2 */ b;
 ================================================================================
 `;
 
-exports[`prettier-ignore.ts format 1`] = `
+exports[`prettier-ignore.ts format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow"]
 printWidth: 80
@@ -248,7 +248,7 @@ export type c =
 ================================================================================
 `;
 
-exports[`single-type.ts format 1`] = `
+exports[`single-type.ts format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow"]
 printWidth: 80
@@ -380,7 +380,7 @@ type B2 =
 ================================================================================
 `;
 
-exports[`within-tuple.ts format 1`] = `
+exports[`within-tuple.ts format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow"]
 printWidth: 80

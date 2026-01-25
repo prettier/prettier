@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`snippet: #0 format 1`] = `
+exports[`snippet: #0 format[markdown]} 1`] = `
 ====================================options=====================================
 parsers: ["markdown", "mdx", "css", "scss", "less", "html"]
 printWidth: 80
@@ -18,7 +18,7 @@ TOML Front Matter content
 ================================================================================
 `;
 
-exports[`snippet: #1 format 1`] = `
+exports[`snippet: #1 format[markdown]} 1`] = `
 ====================================options=====================================
 parsers: ["markdown", "mdx", "css", "scss", "less", "html"]
 printWidth: 80

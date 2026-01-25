@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`single-attribute-per-line.js - {"singleAttributePerLine":true} format 1`] = `
+exports[`single-attribute-per-line.js - {"singleAttributePerLine":true} format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -85,7 +85,7 @@ const Component = () => (
 ================================================================================
 `;
 
-exports[`single-attribute-per-line.js format 1`] = `
+exports[`single-attribute-per-line.js format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80

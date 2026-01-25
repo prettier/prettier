@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`declare-export-declaration.js format 1`] = `
+exports[`declare-export-declaration.js format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -41,7 +41,7 @@ declare type FetchPolicy= "cache-first" | "cache-and-network" | "network-only" |
 ================================================================================
 `;
 
-exports[`type-parameter-declaration.js format 1`] = `
+exports[`type-parameter-declaration.js format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

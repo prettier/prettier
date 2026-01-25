@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`const.js - {"semi":false} format 1`] = `
+exports[`const.js - {"semi":false} format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]
 printWidth: 80
@@ -15,7 +15,7 @@ const [a = (let[0] = 1)] = 2
 ================================================================================
 `;
 
-exports[`const.js format 1`] = `
+exports[`const.js format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]
 printWidth: 80
@@ -29,7 +29,7 @@ const [a = (let[0] = 1)] = 2;
 ================================================================================
 `;
 
-exports[`let.js - {"semi":false} format 1`] = `
+exports[`let.js - {"semi":false} format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]
 printWidth: 80
@@ -255,7 +255,7 @@ a[1] + (let[2] = 2)
 ================================================================================
 `;
 
-exports[`let.js format 1`] = `
+exports[`let.js format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]
 printWidth: 80

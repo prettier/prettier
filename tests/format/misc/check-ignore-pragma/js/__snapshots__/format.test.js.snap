@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`module-with-noformat-pragma.js - {"checkIgnorePragma":true} format 1`] = `
+exports[`module-with-noformat-pragma.js - {"checkIgnorePragma":true} format[flow]} 1`] = `
 ====================================options=====================================
 checkIgnorePragma: true
 parsers: ["flow", "babel", "typescript"]
@@ -41,7 +41,7 @@ function      foo(bar)
 ================================================================================
 `;
 
-exports[`module-with-noprettier-pragma.js - {"checkIgnorePragma":true} format 1`] = `
+exports[`module-with-noprettier-pragma.js - {"checkIgnorePragma":true} format[flow]} 1`] = `
 ====================================options=====================================
 checkIgnorePragma: true
 parsers: ["flow", "babel", "typescript"]
@@ -82,7 +82,7 @@ function      foo(bar)
 ================================================================================
 `;
 
-exports[`module-with-noprettier-pragma-comments.js - {"checkIgnorePragma":true} format 1`] = `
+exports[`module-with-noprettier-pragma-comments.js - {"checkIgnorePragma":true} format[flow]} 1`] = `
 ====================================options=====================================
 checkIgnorePragma: true
 parsers: ["flow", "babel", "typescript"]
@@ -123,7 +123,7 @@ function      foo(bar)
 ================================================================================
 `;
 
-exports[`module-without-pragma.js - {"checkIgnorePragma":true} format 1`] = `
+exports[`module-without-pragma.js - {"checkIgnorePragma":true} format[flow]} 1`] = `
 ====================================options=====================================
 checkIgnorePragma: true
 parsers: ["flow", "babel", "typescript"]

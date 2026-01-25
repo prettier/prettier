@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`break.ts format 1`] = `
+exports[`break.ts format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -38,7 +38,7 @@ export default class AddAssetHtmlPlugin {
 ================================================================================
 `;
 
-exports[`decorated-function.tsx format 1`] = `
+exports[`decorated-function.tsx format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -166,7 +166,7 @@ const Counter = decorator("foo")(
 ================================================================================
 `;
 
-exports[`edge_case.ts format 1`] = `
+exports[`edge_case.ts format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -198,7 +198,7 @@ var listener = DOM.listen(
 ================================================================================
 `;
 
-exports[`forward-ref.tsx format 1`] = `
+exports[`forward-ref.tsx format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

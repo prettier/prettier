@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`consistent.ts format 1`] = `
+exports[`consistent.ts format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -62,7 +62,7 @@ type X = {
 ================================================================================
 `;
 
-exports[`single-parameter.ts format 1`] = `
+exports[`single-parameter.ts format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -83,7 +83,7 @@ type Y = new (options: {
 ================================================================================
 `;
 
-exports[`type-annotation.ts format 1`] = `
+exports[`type-annotation.ts format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

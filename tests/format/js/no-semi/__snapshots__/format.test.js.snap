@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`class.js - {"semi":false} format 1`] = `
+exports[`class.js - {"semi":false} format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
@@ -247,7 +247,7 @@ class G4 {
 ================================================================================
 `;
 
-exports[`class.js format 1`] = `
+exports[`class.js format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
@@ -493,7 +493,7 @@ class G4 {
 ================================================================================
 `;
 
-exports[`comments.js - {"semi":false} format 1`] = `
+exports[`comments.js - {"semi":false} format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
@@ -557,7 +557,7 @@ x
 ================================================================================
 `;
 
-exports[`comments.js format 1`] = `
+exports[`comments.js format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
@@ -620,7 +620,7 @@ x;
 ================================================================================
 `;
 
-exports[`imports.js - {"semi":false} format 1`] = `
+exports[`imports.js - {"semi":false} format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
@@ -681,7 +681,7 @@ export { foo as bar } // 1
 ================================================================================
 `;
 
-exports[`imports.js format 1`] = `
+exports[`imports.js format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
@@ -741,7 +741,7 @@ export { foo as bar }; // 1
 ================================================================================
 `;
 
-exports[`issue-1510.js - {"semi":false} format 1`] = `
+exports[`issue-1510.js - {"semi":false} format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
@@ -780,7 +780,7 @@ a
 ================================================================================
 `;
 
-exports[`issue-1510.js format 1`] = `
+exports[`issue-1510.js format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
@@ -818,7 +818,7 @@ a;
 ================================================================================
 `;
 
-exports[`issue2006.js - {"semi":false} format 1`] = `
+exports[`issue2006.js - {"semi":false} format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
@@ -847,7 +847,7 @@ var c = a.e
 ================================================================================
 `;
 
-exports[`issue2006.js format 1`] = `
+exports[`issue2006.js format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
@@ -875,7 +875,7 @@ var c = a.e;
 ================================================================================
 `;
 
-exports[`no-semi.js - {"semi":false} format 1`] = `
+exports[`no-semi.js - {"semi":false} format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
@@ -1059,7 +1059,7 @@ aReallyLongLine012345678901234567890123456789012345678901234567890123456789 *
 ================================================================================
 `;
 
-exports[`no-semi.js format 1`] = `
+exports[`no-semi.js format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
@@ -1242,7 +1242,7 @@ aReallyLongLine012345678901234567890123456789012345678901234567890123456789 *
 ================================================================================
 `;
 
-exports[`private-field.js - {"semi":false} format 1`] = `
+exports[`private-field.js - {"semi":false} format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
@@ -1263,7 +1263,7 @@ class C {
 ================================================================================
 `;
 
-exports[`private-field.js format 1`] = `
+exports[`private-field.js format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80

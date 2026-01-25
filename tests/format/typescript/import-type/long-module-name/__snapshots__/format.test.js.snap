@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`long-module-name.ts format 1`] = `
+exports[`long-module-name.ts format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -16,7 +16,7 @@ export default plugin as typeof import("@babel/plugin-transform-react-jsx").defa
 ================================================================================
 `;
 
-exports[`long-module-name2.ts format 1`] = `
+exports[`long-module-name2.ts format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -37,7 +37,7 @@ export default plugin as typeof import(
 ================================================================================
 `;
 
-exports[`long-module-name3.ts format 1`] = `
+exports[`long-module-name3.ts format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -51,7 +51,7 @@ declare const bit: import("../../../../scripts/babel-plugin-bit-decorator/types.
 ================================================================================
 `;
 
-exports[`long-module-name4.ts format 1`] = `
+exports[`long-module-name4.ts format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -122,7 +122,7 @@ interface RuleMap {
 ================================================================================
 `;
 
-exports[`long-module-name5.ts format 1`] = `
+exports[`long-module-name5.ts format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

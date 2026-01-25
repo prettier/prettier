@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`ClassDeclaration22.ts format 1`] = `
+exports[`ClassDeclaration22.ts format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -20,7 +20,7 @@ class C {
 ================================================================================
 `;
 
-exports[`anyIsAssignableToObject.ts format 1`] = `
+exports[`anyIsAssignableToObject.ts format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -47,7 +47,7 @@ interface Q extends P {
 ================================================================================
 `;
 
-exports[`castOfAwait.ts format 1`] = `
+exports[`castOfAwait.ts format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -75,7 +75,7 @@ async function f() {
 ================================================================================
 `;
 
-exports[`castParentheses.ts format 1`] = `
+exports[`castParentheses.ts format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -109,7 +109,7 @@ var b = (<any>new a()).b;
 ================================================================================
 `;
 
-exports[`castTest.ts format 1`] = `
+exports[`castTest.ts format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -181,7 +181,7 @@ var p_cast = <Point>{
 ================================================================================
 `;
 
-exports[`checkInfiniteExpansionTermination.ts format 1`] = `
+exports[`checkInfiniteExpansionTermination.ts format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -229,7 +229,7 @@ values = values2;
 ================================================================================
 `;
 
-exports[`commentInNamespaceDeclarationWithIdentifierPathName.ts format 1`] = `
+exports[`commentInNamespaceDeclarationWithIdentifierPathName.ts format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -248,7 +248,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`commentsInterface.ts format 1`] = `
+exports[`commentsInterface.ts format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -266,7 +266,7 @@ interface i2 {
 ================================================================================
 `;
 
-exports[`contextualSignatureInstantiation2.ts format 1`] = `
+exports[`contextualSignatureInstantiation2.ts format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -291,7 +291,7 @@ var r23 = dot(id)(id);
 ================================================================================
 `;
 
-exports[`declareDottedModuleName.ts format 1`] = `
+exports[`declareDottedModuleName.ts format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -325,7 +325,7 @@ module T.U {
 ================================================================================
 `;
 
-exports[`decrementAndIncrementOperators.ts format 1`] = `
+exports[`decrementAndIncrementOperators.ts format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -367,7 +367,7 @@ x[x++]++;
 ================================================================================
 `;
 
-exports[`es5ExportDefaultClassDeclaration4.ts format 1`] = `
+exports[`es5ExportDefaultClassDeclaration4.ts format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -410,7 +410,7 @@ declare module "foo" {
 ================================================================================
 `;
 
-exports[`functionOverloadsOnGenericArity1.ts format 1`] = `
+exports[`functionOverloadsOnGenericArity1.ts format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -444,7 +444,7 @@ interface C {
 ================================================================================
 `;
 
-exports[`globalIsContextualKeyword.ts format 1`] = `
+exports[`globalIsContextualKeyword.ts format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -485,7 +485,7 @@ let obj = {
 ================================================================================
 `;
 
-exports[`indexSignatureWithInitializer.ts format 1`] = `
+exports[`indexSignatureWithInitializer.ts format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -512,7 +512,7 @@ class C {
 ================================================================================
 `;
 
-exports[`mappedTypeWithCombinedTypeMappers.ts format 1`] = `
+exports[`mappedTypeWithCombinedTypeMappers.ts format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -560,7 +560,7 @@ const shouldFail: { important: boolean } = output.x.children;
 ================================================================================
 `;
 
-exports[`modifiersOnInterfaceIndexSignature1.ts format 1`] = `
+exports[`modifiersOnInterfaceIndexSignature1.ts format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -578,7 +578,7 @@ interface I {
 ================================================================================
 `;
 
-exports[`privacyGloImport.ts format 1`] = `
+exports[`privacyGloImport.ts format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

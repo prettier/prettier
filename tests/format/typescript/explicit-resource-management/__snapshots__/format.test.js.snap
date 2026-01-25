@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`await-using-with-type-declaration.ts format 1`] = `
+exports[`await-using-with-type-declaration.ts format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -18,7 +18,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`using-with-type-declaration.ts format 1`] = `
+exports[`using-with-type-declaration.ts format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

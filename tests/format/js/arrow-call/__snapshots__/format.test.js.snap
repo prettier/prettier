@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`arrow_call.js - {"arrowParens":"always"} format 1`] = `
+exports[`arrow_call.js - {"arrowParens":"always"} format[babel]} 1`] = `
 ====================================options=====================================
 arrowParens: "always"
 parsers: ["babel", "flow", "typescript"]
@@ -101,7 +101,7 @@ promise.then((result) =>
 ================================================================================
 `;
 
-exports[`arrow_call.js - {"trailingComma":"all"} format 1`] = `
+exports[`arrow_call.js - {"trailingComma":"all"} format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -202,7 +202,7 @@ promise.then((result) =>
 ================================================================================
 `;
 
-exports[`arrow_call.js - {"trailingComma":"es5"} format 1`] = `
+exports[`arrow_call.js - {"trailingComma":"es5"} format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -303,7 +303,7 @@ promise.then((result) =>
 ================================================================================
 `;
 
-exports[`class-property.js - {"arrowParens":"always"} format 1`] = `
+exports[`class-property.js - {"arrowParens":"always"} format[babel]} 1`] = `
 ====================================options=====================================
 arrowParens: "always"
 parsers: ["babel", "flow", "typescript"]
@@ -324,7 +324,7 @@ const composition = (ViewComponent, ContainerComponent) =>
 ================================================================================
 `;
 
-exports[`class-property.js - {"trailingComma":"all"} format 1`] = `
+exports[`class-property.js - {"trailingComma":"all"} format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -345,7 +345,7 @@ const composition = (ViewComponent, ContainerComponent) =>
 ================================================================================
 `;
 
-exports[`class-property.js - {"trailingComma":"es5"} format 1`] = `
+exports[`class-property.js - {"trailingComma":"es5"} format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80

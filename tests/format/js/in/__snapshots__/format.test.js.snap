@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`arrow-function.js format 1`] = `
+exports[`arrow-function.js format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -18,7 +18,7 @@ const y = () => [] in x;
 ================================================================================
 `;
 
-exports[`arrow-function-invalid.js format 1`] = `
+exports[`arrow-function-invalid.js format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80

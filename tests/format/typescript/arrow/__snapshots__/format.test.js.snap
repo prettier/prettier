@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`16067.ts - {"semi":false} format 1`] = `
+exports[`16067.ts - {"semi":false} format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -97,7 +97,7 @@ foo4 =
 ================================================================================
 `;
 
-exports[`16067.ts format 1`] = `
+exports[`16067.ts format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -193,7 +193,7 @@ foo4 =
 ================================================================================
 `;
 
-exports[`arrow_regression.ts - {"semi":false} format 1`] = `
+exports[`arrow_regression.ts - {"semi":false} format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -235,7 +235,7 @@ app.get("/", (req, res): void => {
 ================================================================================
 `;
 
-exports[`arrow_regression.ts format 1`] = `
+exports[`arrow_regression.ts format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -276,7 +276,7 @@ app.get("/", (req, res): void => {
 ================================================================================
 `;
 
-exports[`comments.ts - {"semi":false} format 1`] = `
+exports[`comments.ts - {"semi":false} format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -308,7 +308,7 @@ const fn2 = () => {
 ================================================================================
 `;
 
-exports[`comments.ts format 1`] = `
+exports[`comments.ts format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -339,7 +339,7 @@ const fn2 = () => {
 ================================================================================
 `;
 
-exports[`issue-6107-curry.ts - {"semi":false} format 1`] = `
+exports[`issue-6107-curry.ts - {"semi":false} format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -388,7 +388,7 @@ const getIconEngagementTypeFrom2 =
 ================================================================================
 `;
 
-exports[`issue-6107-curry.ts format 1`] = `
+exports[`issue-6107-curry.ts format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

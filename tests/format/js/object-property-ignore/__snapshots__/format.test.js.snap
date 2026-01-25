@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`ignore.js - {"trailingComma":"all"} format 1`] = `
+exports[`ignore.js - {"trailingComma":"all"} format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -105,7 +105,7 @@ foo = {
 ================================================================================
 `;
 
-exports[`ignore.js - {"trailingComma":"es5"} format 1`] = `
+exports[`ignore.js - {"trailingComma":"es5"} format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -210,7 +210,7 @@ foo = {
 ================================================================================
 `;
 
-exports[`ignore.js - {"trailingComma":"none"} format 1`] = `
+exports[`ignore.js - {"trailingComma":"none"} format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -315,7 +315,7 @@ foo = {
 ================================================================================
 `;
 
-exports[`issue-5678.js - {"trailingComma":"all"} format 1`] = `
+exports[`issue-5678.js - {"trailingComma":"all"} format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -432,7 +432,7 @@ export default {
 ================================================================================
 `;
 
-exports[`issue-5678.js - {"trailingComma":"es5"} format 1`] = `
+exports[`issue-5678.js - {"trailingComma":"es5"} format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -549,7 +549,7 @@ export default {
 ================================================================================
 `;
 
-exports[`issue-5678.js - {"trailingComma":"none"} format 1`] = `
+exports[`issue-5678.js - {"trailingComma":"none"} format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80

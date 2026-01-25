@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`attr-element.js format 1`] = `
+exports[`attr-element.js format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80

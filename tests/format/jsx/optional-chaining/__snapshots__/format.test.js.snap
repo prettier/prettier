@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`optional-chaining.jsx format 1`] = `
+exports[`optional-chaining.jsx format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80

@@ -1,49 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`block-comments.js [acorn] format 1`] = `
-"Unexpected token (2:2)
-  1 | bifornCringerMoshedPerplexSawder
-> 2 | |> foo1
-    |  ^
-  3 | |> foo2 /* comment1 */
-  4 | |> foo3 /* comment2 */
-  5 | |> kochabCooieGameOnOboleUnweave
-Cause: Unexpected token (2:1)"
-`;
-
-exports[`block-comments.js [espree] format 1`] = `
-"Unexpected token > (2:2)
-  1 | bifornCringerMoshedPerplexSawder
-> 2 | |> foo1
-    |  ^
-  3 | |> foo2 /* comment1 */
-  4 | |> foo3 /* comment2 */
-  5 | |> kochabCooieGameOnOboleUnweave
-Cause: Unexpected token >"
-`;
-
-exports[`block-comments.js [meriyah] format 1`] = `
-"Unexpected token: '>' (2:2)
-  1 | bifornCringerMoshedPerplexSawder
-> 2 | |> foo1
-    |  ^
-  3 | |> foo2 /* comment1 */
-  4 | |> foo3 /* comment2 */
-  5 | |> kochabCooieGameOnOboleUnweave
-Cause: [2:1-2:2]: Unexpected token: '>'"
-`;
-
-exports[`block-comments.js [oxc] format 1`] = `
-"Unexpected token (2:2)
-  1 | bifornCringerMoshedPerplexSawder
-> 2 | |> foo1
-    |  ^
-  3 | |> foo2 /* comment1 */
-  4 | |> foo3 /* comment2 */
-  5 | |> kochabCooieGameOnOboleUnweave"
-`;
-
-exports[`block-comments.js format 1`] = `
+exports[`block-comments.js format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -67,50 +24,50 @@ bifornCringerMoshedPerplexSawder
 ================================================================================
 `;
 
-exports[`fsharp_style_pipeline_operator.js [acorn] format 1`] = `
-"Unexpected token (2:4)
-  1 | promise
-> 2 |   |> await
-    |    ^
-  3 |   |> x => doubleSay(x, ', ')
-  4 |   |> capitalize
-  5 |   |> x => x + '!'
-Cause: Unexpected token (2:3)"
+exports[`block-comments.js format[babel]} 2`] = `
+"Unexpected token (2:2)
+  1 | bifornCringerMoshedPerplexSawder
+> 2 | |> foo1
+    |  ^
+  3 | |> foo2 /* comment1 */
+  4 | |> foo3 /* comment2 */
+  5 | |> kochabCooieGameOnOboleUnweave
+Cause: Unexpected token (2:1)"
 `;
 
-exports[`fsharp_style_pipeline_operator.js [espree] format 1`] = `
-"Unexpected token > (2:4)
-  1 | promise
-> 2 |   |> await
-    |    ^
-  3 |   |> x => doubleSay(x, ', ')
-  4 |   |> capitalize
-  5 |   |> x => x + '!'
+exports[`block-comments.js format[babel]} 3`] = `
+"Unexpected token > (2:2)
+  1 | bifornCringerMoshedPerplexSawder
+> 2 | |> foo1
+    |  ^
+  3 | |> foo2 /* comment1 */
+  4 | |> foo3 /* comment2 */
+  5 | |> kochabCooieGameOnOboleUnweave
 Cause: Unexpected token >"
 `;
 
-exports[`fsharp_style_pipeline_operator.js [meriyah] format 1`] = `
-"Unexpected token: '>' (2:4)
-  1 | promise
-> 2 |   |> await
-    |    ^
-  3 |   |> x => doubleSay(x, ', ')
-  4 |   |> capitalize
-  5 |   |> x => x + '!'
-Cause: [2:3-2:4]: Unexpected token: '>'"
+exports[`block-comments.js format[babel]} 4`] = `
+"Unexpected token: '>' (2:2)
+  1 | bifornCringerMoshedPerplexSawder
+> 2 | |> foo1
+    |  ^
+  3 | |> foo2 /* comment1 */
+  4 | |> foo3 /* comment2 */
+  5 | |> kochabCooieGameOnOboleUnweave
+Cause: [2:1-2:2]: Unexpected token: '>'"
 `;
 
-exports[`fsharp_style_pipeline_operator.js [oxc] format 1`] = `
-"Unexpected token (2:4)
-  1 | promise
-> 2 |   |> await
-    |    ^
-  3 |   |> x => doubleSay(x, ', ')
-  4 |   |> capitalize
-  5 |   |> x => x + '!'"
+exports[`block-comments.js format[babel]} 5`] = `
+"Unexpected token (2:2)
+  1 | bifornCringerMoshedPerplexSawder
+> 2 | |> foo1
+    |  ^
+  3 | |> foo2 /* comment1 */
+  4 | |> foo3 /* comment2 */
+  5 | |> kochabCooieGameOnOboleUnweave"
 `;
 
-exports[`fsharp_style_pipeline_operator.js format 1`] = `
+exports[`fsharp_style_pipeline_operator.js format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -205,46 +162,50 @@ const f = x |> (f) => f |> f;
 ================================================================================
 `;
 
-exports[`hack_pipeline_operator.js [acorn] format 1`] = `
-"Unexpected token (1:4)
-> 1 | a |> await % |> % * 3;
+exports[`fsharp_style_pipeline_operator.js format[babel]} 2`] = `
+"Unexpected token (2:4)
+  1 | promise
+> 2 |   |> await
     |    ^
-  2 |
-  3 | foo
-  4 |   |> await %
-Cause: Unexpected token (1:3)"
+  3 |   |> x => doubleSay(x, ', ')
+  4 |   |> capitalize
+  5 |   |> x => x + '!'
+Cause: Unexpected token (2:3)"
 `;
 
-exports[`hack_pipeline_operator.js [espree] format 1`] = `
-"Unexpected token > (1:4)
-> 1 | a |> await % |> % * 3;
+exports[`fsharp_style_pipeline_operator.js format[babel]} 3`] = `
+"Unexpected token > (2:4)
+  1 | promise
+> 2 |   |> await
     |    ^
-  2 |
-  3 | foo
-  4 |   |> await %
+  3 |   |> x => doubleSay(x, ', ')
+  4 |   |> capitalize
+  5 |   |> x => x + '!'
 Cause: Unexpected token >"
 `;
 
-exports[`hack_pipeline_operator.js [meriyah] format 1`] = `
-"Unexpected token: '>' (1:4)
-> 1 | a |> await % |> % * 3;
+exports[`fsharp_style_pipeline_operator.js format[babel]} 4`] = `
+"Unexpected token: '>' (2:4)
+  1 | promise
+> 2 |   |> await
     |    ^
-  2 |
-  3 | foo
-  4 |   |> await %
-Cause: [1:3-1:4]: Unexpected token: '>'"
+  3 |   |> x => doubleSay(x, ', ')
+  4 |   |> capitalize
+  5 |   |> x => x + '!'
+Cause: [2:3-2:4]: Unexpected token: '>'"
 `;
 
-exports[`hack_pipeline_operator.js [oxc] format 1`] = `
-"Unexpected token (1:4)
-> 1 | a |> await % |> % * 3;
+exports[`fsharp_style_pipeline_operator.js format[babel]} 5`] = `
+"Unexpected token (2:4)
+  1 | promise
+> 2 |   |> await
     |    ^
-  2 |
-  3 | foo
-  4 |   |> await %"
+  3 |   |> x => doubleSay(x, ', ')
+  4 |   |> capitalize
+  5 |   |> x => x + '!'"
 `;
 
-exports[`hack_pipeline_operator.js format 1`] = `
+exports[`hack_pipeline_operator.js format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -358,46 +319,46 @@ async function* f() {
 ================================================================================
 `;
 
-exports[`minimal_pipeline_operator.js [acorn] format 1`] = `
+exports[`hack_pipeline_operator.js format[babel]} 2`] = `
 "Unexpected token (1:4)
-> 1 | a |> b |> c;
+> 1 | a |> await % |> % * 3;
     |    ^
   2 |
-  3 | a |> (b |> c);
-  4 |
+  3 | foo
+  4 |   |> await %
 Cause: Unexpected token (1:3)"
 `;
 
-exports[`minimal_pipeline_operator.js [espree] format 1`] = `
+exports[`hack_pipeline_operator.js format[babel]} 3`] = `
 "Unexpected token > (1:4)
-> 1 | a |> b |> c;
+> 1 | a |> await % |> % * 3;
     |    ^
   2 |
-  3 | a |> (b |> c);
-  4 |
+  3 | foo
+  4 |   |> await %
 Cause: Unexpected token >"
 `;
 
-exports[`minimal_pipeline_operator.js [meriyah] format 1`] = `
+exports[`hack_pipeline_operator.js format[babel]} 4`] = `
 "Unexpected token: '>' (1:4)
-> 1 | a |> b |> c;
+> 1 | a |> await % |> % * 3;
     |    ^
   2 |
-  3 | a |> (b |> c);
-  4 |
+  3 | foo
+  4 |   |> await %
 Cause: [1:3-1:4]: Unexpected token: '>'"
 `;
 
-exports[`minimal_pipeline_operator.js [oxc] format 1`] = `
+exports[`hack_pipeline_operator.js format[babel]} 5`] = `
 "Unexpected token (1:4)
-> 1 | a |> b |> c;
+> 1 | a |> await % |> % * 3;
     |    ^
   2 |
-  3 | a |> (b |> c);
-  4 |"
+  3 | foo
+  4 |   |> await %"
 `;
 
-exports[`minimal_pipeline_operator.js format 1`] = `
+exports[`minimal_pipeline_operator.js format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -506,4 +467,43 @@ const result =
 const result2 = [4, 9].map((x) => x |> inc |> double);
 
 ================================================================================
+`;
+
+exports[`minimal_pipeline_operator.js format[babel]} 2`] = `
+"Unexpected token (1:4)
+> 1 | a |> b |> c;
+    |    ^
+  2 |
+  3 | a |> (b |> c);
+  4 |
+Cause: Unexpected token (1:3)"
+`;
+
+exports[`minimal_pipeline_operator.js format[babel]} 3`] = `
+"Unexpected token > (1:4)
+> 1 | a |> b |> c;
+    |    ^
+  2 |
+  3 | a |> (b |> c);
+  4 |
+Cause: Unexpected token >"
+`;
+
+exports[`minimal_pipeline_operator.js format[babel]} 4`] = `
+"Unexpected token: '>' (1:4)
+> 1 | a |> b |> c;
+    |    ^
+  2 |
+  3 | a |> (b |> c);
+  4 |
+Cause: [1:3-1:4]: Unexpected token: '>'"
+`;
+
+exports[`minimal_pipeline_operator.js format[babel]} 5`] = `
+"Unexpected token (1:4)
+> 1 | a |> b |> c;
+    |    ^
+  2 |
+  3 | a |> (b |> c);
+  4 |"
 `;

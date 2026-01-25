@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`template-literal-types.ts format 1`] = `
+exports[`template-literal-types.ts format[babel-ts]} 1`] = `
 ====================================options=====================================
 parsers: ["babel-ts", "typescript"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`array.js format 1`] = `
+exports[`array.js format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow"]
 printWidth: 80
@@ -108,7 +108,7 @@ promise.then(
 ================================================================================
 `;
 
-exports[`array-and-object.js format 1`] = `
+exports[`array-and-object.js format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow"]
 printWidth: 80
@@ -164,7 +164,7 @@ function StatelessFunctionalComponent3([
 ================================================================================
 `;
 
-exports[`object.js format 1`] = `
+exports[`object.js format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow"]
 printWidth: 80

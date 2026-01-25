@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`comments.js format 1`] = `
+exports[`comments.js format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -58,7 +58,7 @@ type Empty26 = [.../* 25 */];
 ================================================================================
 `;
 
-exports[`inexact.js format 1`] = `
+exports[`inexact.js format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -76,7 +76,7 @@ type One = [number, ...];
 ================================================================================
 `;
 
-exports[`labeled.js format 1`] = `
+exports[`labeled.js format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -90,7 +90,7 @@ type T = [a: string, b: number];
 ================================================================================
 `;
 
-exports[`optional.js format 1`] = `
+exports[`optional.js format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -110,7 +110,7 @@ type B = [?string, [?string], (?string) => boolean];
 ================================================================================
 `;
 
-exports[`variance.js format 1`] = `
+exports[`variance.js format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

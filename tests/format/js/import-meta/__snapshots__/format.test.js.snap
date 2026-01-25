@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`import_meta.js format 1`] = `
+exports[`import_meta.js format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80

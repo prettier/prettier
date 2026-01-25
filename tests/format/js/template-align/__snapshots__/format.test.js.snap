@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`indent.js - {"useTabs":true,"tabWidth":8} format 1`] = `
+exports[`indent.js - {"useTabs":true,"tabWidth":8} format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -68,7 +68,7 @@ Tabs:
 ================================================================================
 `;
 
-exports[`indent.js format 1`] = `
+exports[`indent.js format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`as.js format 1`] = `
+exports[`as.js format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -119,7 +119,7 @@ x as any as T;
 ================================================================================
 `;
 
-exports[`as-const.js format 1`] = `
+exports[`as-const.js format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -159,7 +159,7 @@ export const LOG_LEVEL = {
 ================================================================================
 `;
 
-exports[`assignment.js format 1`] = `
+exports[`assignment.js format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -213,7 +213,7 @@ this.intervalID = setInterval(() => {
 ================================================================================
 `;
 
-exports[`export_default_as.js format 1`] = `
+exports[`export_default_as.js format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -231,7 +231,7 @@ export default (function log() {} as typeof console.log);
 ================================================================================
 `;
 
-exports[`long-identifiers.js format 1`] = `
+exports[`long-identifiers.js format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -276,7 +276,7 @@ averredBathersBoxroomBuggyNurl(
 ================================================================================
 `;
 
-exports[`nested-await-and-as.js format 1`] = `
+exports[`nested-await-and-as.js format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -307,7 +307,7 @@ const getAccountCount = async () =>
 ================================================================================
 `;
 
-exports[`return.js format 1`] = `
+exports[`return.js format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -335,21 +335,7 @@ function foo() {
 ================================================================================
 `;
 
-exports[`satisfies.js [hermes] format 1`] = `
-"';' expected (3:12)
-  1 | // @flow
-  2 |
-> 3 | const x = y satisfies T;
-    |            ^
-  4 |
-  5 | // demonstrating how "satisfies" expression can be practically used as expression statement.
-  6 | const _ = (type: 'foo' | 'bar') => {
-Cause: ';' expected (3:12)
-const x = y satisfies T;
-            ^"
-`;
-
-exports[`satisfies.js format 1`] = `
+exports[`satisfies.js format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -441,20 +427,21 @@ function satisfiesChain() {
 ================================================================================
 `;
 
-exports[`ternary.js [hermes] format 1`] = `
-"invalid assignment left-hand side (3:0)
+exports[`satisfies.js format[flow]} 2`] = `
+"';' expected (3:12)
   1 | // @flow
   2 |
-> 3 | foo = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
-  4 |     ? baaaaaaaaaaaaaaaaaaaaar
-  5 |     : baaaaaaaaaaaaaaaaaaaaaz) as Fooooooooooo;
-  6 |
-Cause: invalid assignment left-hand side (3:0)
-foo = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
-^~~"
+> 3 | const x = y satisfies T;
+    |            ^
+  4 |
+  5 | // demonstrating how "satisfies" expression can be practically used as expression statement.
+  6 | const _ = (type: 'foo' | 'bar') => {
+Cause: ';' expected (3:12)
+const x = y satisfies T;
+            ^"
 `;
 
-exports[`ternary.js format 1`] = `
+exports[`ternary.js format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -558,4 +545,17 @@ bifornCringerMoshedPerplexSawder =
     : anodyneCondosMalateOverateRetinol) as AnnularCooeedSplicesWalksWayWay);
 
 ================================================================================
+`;
+
+exports[`ternary.js format[flow]} 2`] = `
+"invalid assignment left-hand side (3:0)
+  1 | // @flow
+  2 |
+> 3 | foo = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+  4 |     ? baaaaaaaaaaaaaaaaaaaaar
+  5 |     : baaaaaaaaaaaaaaaaaaaaaz) as Fooooooooooo;
+  6 |
+Cause: invalid assignment left-hand side (3:0)
+foo = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+^~~"
 `;

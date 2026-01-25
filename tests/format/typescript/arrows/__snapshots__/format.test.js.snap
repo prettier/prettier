@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`arrow_function_expression.ts - {"arrowParens":"always"} format 1`] = `
+exports[`arrow_function_expression.ts - {"arrowParens":"always"} format[typescript]} 1`] = `
 ====================================options=====================================
 arrowParens: "always"
 parsers: ["typescript", "flow"]
@@ -15,7 +15,7 @@ a = (b?) => c;
 ================================================================================
 `;
 
-exports[`arrow_function_expression.ts - {"arrowParens":"avoid"} format 1`] = `
+exports[`arrow_function_expression.ts - {"arrowParens":"avoid"} format[typescript]} 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 parsers: ["typescript", "flow"]
@@ -30,7 +30,7 @@ a = (b?) => c;
 ================================================================================
 `;
 
-exports[`short_body.ts - {"arrowParens":"always"} format 1`] = `
+exports[`short_body.ts - {"arrowParens":"always"} format[typescript]} 1`] = `
 ====================================options=====================================
 arrowParens: "always"
 parsers: ["typescript", "flow"]
@@ -55,7 +55,7 @@ const initializeSnapshotState = (
 ================================================================================
 `;
 
-exports[`short_body.ts - {"arrowParens":"avoid"} format 1`] = `
+exports[`short_body.ts - {"arrowParens":"avoid"} format[typescript]} 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 parsers: ["typescript", "flow"]
@@ -80,7 +80,7 @@ const initializeSnapshotState = (
 ================================================================================
 `;
 
-exports[`type_params.ts - {"arrowParens":"always"} format 1`] = `
+exports[`type_params.ts - {"arrowParens":"always"} format[typescript]} 1`] = `
 ====================================options=====================================
 arrowParens: "always"
 parsers: ["typescript", "flow"]
@@ -95,7 +95,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`type_params.ts - {"arrowParens":"avoid"} format 1`] = `
+exports[`type_params.ts - {"arrowParens":"avoid"} format[typescript]} 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 parsers: ["typescript", "flow"]

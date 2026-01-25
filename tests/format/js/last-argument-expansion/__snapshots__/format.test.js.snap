@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`arrow.js format 1`] = `
+exports[`arrow.js format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
@@ -46,7 +46,7 @@ export default function searchUsers(action$) {
 ================================================================================
 `;
 
-exports[`assignment-pattern.js format 1`] = `
+exports[`assignment-pattern.js format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
@@ -69,7 +69,7 @@ bob.doL(
 ================================================================================
 `;
 
-exports[`break-parent.js format 1`] = `
+exports[`break-parent.js format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
@@ -133,7 +133,7 @@ true ? (
 ================================================================================
 `;
 
-exports[`dangling-comment-in-arrow-function.js format 1`] = `
+exports[`dangling-comment-in-arrow-function.js format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
@@ -153,7 +153,7 @@ foo((
 ================================================================================
 `;
 
-exports[`edge_case.js format 1`] = `
+exports[`edge_case.js format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
@@ -290,7 +290,7 @@ someReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReal
 ================================================================================
 `;
 
-exports[`embed.js format 1`] = `
+exports[`embed.js format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
@@ -351,7 +351,7 @@ const c = (b) => /* HTML */ \`
 ================================================================================
 `;
 
-exports[`empty-lines.js format 1`] = `
+exports[`empty-lines.js format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
@@ -379,7 +379,7 @@ all_verylongcall_verylongcall_verylongcall_verylongcall_verylongcall(
 ================================================================================
 `;
 
-exports[`empty-object.js format 1`] = `
+exports[`empty-object.js format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
@@ -441,7 +441,7 @@ func(
 ================================================================================
 `;
 
-exports[`function-body-in-mode-break.js format 1`] = `
+exports[`function-body-in-mode-break.js format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
@@ -483,7 +483,7 @@ fs.readdirSync(suiteLoc).forEach(function (testName) {
 ================================================================================
 `;
 
-exports[`function-expression.js format 1`] = `
+exports[`function-expression.js format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
@@ -535,7 +535,7 @@ function mySagas2() {
 ================================================================================
 `;
 
-exports[`function-expression-issue-2239.js format 1`] = `
+exports[`function-expression-issue-2239.js format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
@@ -556,7 +556,7 @@ someFunctionCallWithBigArgumentsAndACallback(
 ================================================================================
 `;
 
-exports[`issue-7518.js format 1`] = `
+exports[`issue-7518.js format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
@@ -593,7 +593,7 @@ const Broken = React.forwardRef(
 ================================================================================
 `;
 
-exports[`issue-10708.js format 1`] = `
+exports[`issue-10708.js format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
@@ -619,7 +619,7 @@ bob.doL(
 ================================================================================
 `;
 
-exports[`issue-18143.js format 1`] = `
+exports[`issue-18143.js format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
@@ -646,7 +646,7 @@ assert.deepStrictEqual(
 ================================================================================
 `;
 
-exports[`jsx.js format 1`] = `
+exports[`jsx.js format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
@@ -668,7 +668,7 @@ const els = items.map((item) => (
 ================================================================================
 `;
 
-exports[`number-only-array.js format 1`] = `
+exports[`number-only-array.js format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
@@ -692,7 +692,7 @@ instantiate(game, [
 ================================================================================
 `;
 
-exports[`object.js format 1`] = `
+exports[`object.js format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
@@ -742,7 +742,7 @@ export const log = (y) => {
 ================================================================================
 `;
 
-exports[`overflow.js format 1`] = `
+exports[`overflow.js format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80

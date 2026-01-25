@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`argument-expansion.js format 1`] = `
+exports[`argument-expansion.js format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -18,7 +18,7 @@ const bar1 = [1, 2, 3].reduce((carry, value) => {
 ================================================================================
 `;
 
-exports[`expression.js format 1`] = `
+exports[`expression.js format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -38,7 +38,7 @@ const foo = ((1 ? 2 : 3): number);
 ================================================================================
 `;
 
-exports[`statement.js format 1`] = `
+exports[`statement.js format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

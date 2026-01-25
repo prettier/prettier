@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`declare-module-exports.js format 1`] = `
+exports[`declare-module-exports.js format[flow]} 1`] = `
 ====================================options=====================================
 cursorOffset: 22
 parsers: ["flow"]
@@ -15,7 +15,7 @@ declare module.exports<|>: A;
 ================================================================================
 `;
 
-exports[`function-predicate.js format 1`] = `
+exports[`function-predicate.js format[flow]} 1`] = `
 ====================================options=====================================
 cursorOffset: 12
 parsers: ["flow"]
@@ -30,7 +30,7 @@ function a()<|>: %checks(a) {}
 ================================================================================
 `;
 
-exports[`function-predicate-2.js format 1`] = `
+exports[`function-predicate-2.js format[flow]} 1`] = `
 ====================================options=====================================
 cursorOffset: 12
 parsers: ["flow"]
@@ -45,7 +45,7 @@ function a()<|>: %checks {}
 ================================================================================
 `;
 
-exports[`function-return-type.js format 1`] = `
+exports[`function-return-type.js format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -59,7 +59,7 @@ function a(): boolean {}
 ================================================================================
 `;
 
-exports[`function-return-type-and-predicate.js format 1`] = `
+exports[`function-return-type-and-predicate.js format[flow]} 1`] = `
 ====================================options=====================================
 cursorOffset: 12
 parsers: ["flow"]
@@ -74,7 +74,7 @@ function a()<|>: boolean %checks(a) {}
 ================================================================================
 `;
 
-exports[`function-return-type-and-predicate-2.js format 1`] = `
+exports[`function-return-type-and-predicate-2.js format[flow]} 1`] = `
 ====================================options=====================================
 cursorOffset: 12
 parsers: ["flow"]
@@ -89,7 +89,7 @@ function a()<|>: boolean %checks {}
 ================================================================================
 `;
 
-exports[`function-type-parameter-bound.js format 1`] = `
+exports[`function-type-parameter-bound.js format[flow]} 1`] = `
 ====================================options=====================================
 cursorOffset: 12
 parsers: ["flow"]
@@ -104,7 +104,7 @@ function a<T<|>: X>() {}
 ================================================================================
 `;
 
-exports[`type-cast-expression.js format 1`] = `
+exports[`type-cast-expression.js format[flow]} 1`] = `
 ====================================options=====================================
 cursorOffset: 2
 parsers: ["flow"]

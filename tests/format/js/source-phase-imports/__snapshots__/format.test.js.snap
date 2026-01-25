@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`default-binding.js format 1`] = `
+exports[`default-binding.js format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -14,7 +14,21 @@ import source from "x";
 ================================================================================
 `;
 
-exports[`import-source.js [acorn] format 1`] = `
+exports[`import-source.js format[babel]} 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import source x from "x";
+
+=====================================output=====================================
+import source x from "x";
+
+================================================================================
+`;
+
+exports[`import-source.js format[babel]} 2`] = `
 "Unexpected token (1:15)
 > 1 | import source x from "x";
     |               ^
@@ -22,7 +36,7 @@ exports[`import-source.js [acorn] format 1`] = `
 Cause: Unexpected token (1:14)"
 `;
 
-exports[`import-source.js [espree] format 1`] = `
+exports[`import-source.js format[babel]} 3`] = `
 "Unexpected token x (1:15)
 > 1 | import source x from "x";
     |               ^
@@ -30,7 +44,7 @@ exports[`import-source.js [espree] format 1`] = `
 Cause: Unexpected token x"
 `;
 
-exports[`import-source.js [meriyah] format 1`] = `
+exports[`import-source.js format[babel]} 4`] = `
 "Expected 'from' (1:15)
 > 1 | import source x from "x";
     |               ^
@@ -38,21 +52,21 @@ exports[`import-source.js [meriyah] format 1`] = `
 Cause: [1:14-1:15]: Expected 'from'"
 `;
 
-exports[`import-source.js format 1`] = `
+exports[`import-source-attributes-declaration.js format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-import source x from "x";
+import source s from "x" with { attr: "val" };
 
 =====================================output=====================================
-import source x from "x";
+import source s from "x" with { attr: "val" };
 
 ================================================================================
 `;
 
-exports[`import-source-attributes-declaration.js [acorn] format 1`] = `
+exports[`import-source-attributes-declaration.js format[babel]} 2`] = `
 "Unexpected token (1:15)
 > 1 | import source s from "x" with { attr: "val" };
     |               ^
@@ -60,7 +74,7 @@ exports[`import-source-attributes-declaration.js [acorn] format 1`] = `
 Cause: Unexpected token (1:14)"
 `;
 
-exports[`import-source-attributes-declaration.js [espree] format 1`] = `
+exports[`import-source-attributes-declaration.js format[babel]} 3`] = `
 "Unexpected token s (1:15)
 > 1 | import source s from "x" with { attr: "val" };
     |               ^
@@ -68,7 +82,7 @@ exports[`import-source-attributes-declaration.js [espree] format 1`] = `
 Cause: Unexpected token s"
 `;
 
-exports[`import-source-attributes-declaration.js [meriyah] format 1`] = `
+exports[`import-source-attributes-declaration.js format[babel]} 4`] = `
 "Expected 'from' (1:15)
 > 1 | import source s from "x" with { attr: "val" };
     |               ^
@@ -76,21 +90,21 @@ exports[`import-source-attributes-declaration.js [meriyah] format 1`] = `
 Cause: [1:14-1:15]: Expected 'from'"
 `;
 
-exports[`import-source-attributes-declaration.js format 1`] = `
+exports[`import-source-attributes-expression.js format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-import source s from "x" with { attr: "val" };
+import.source("x", { with: { attr: "val" } });
 
 =====================================output=====================================
-import source s from "x" with { attr: "val" };
+import.source("x", { with: { attr: "val" } });
 
 ================================================================================
 `;
 
-exports[`import-source-attributes-expression.js [acorn] format 1`] = `
+exports[`import-source-attributes-expression.js format[babel]} 2`] = `
 "The only valid meta property for import is 'import.meta' (1:8)
 > 1 | import.source("x", { with: { attr: "val" } });
     |        ^
@@ -98,7 +112,7 @@ exports[`import-source-attributes-expression.js [acorn] format 1`] = `
 Cause: The only valid meta property for import is 'import.meta' (1:7)"
 `;
 
-exports[`import-source-attributes-expression.js [espree] format 1`] = `
+exports[`import-source-attributes-expression.js format[babel]} 3`] = `
 "The only valid meta property for import is 'import.meta' (1:8)
 > 1 | import.source("x", { with: { attr: "val" } });
     |        ^
@@ -106,7 +120,7 @@ exports[`import-source-attributes-expression.js [espree] format 1`] = `
 Cause: The only valid meta property for import is 'import.meta'"
 `;
 
-exports[`import-source-attributes-expression.js [meriyah] format 1`] = `
+exports[`import-source-attributes-expression.js format[babel]} 4`] = `
 "The only valid meta property for import is 'import.meta' (1:8)
 > 1 | import.source("x", { with: { attr: "val" } });
     |        ^^^^^^
@@ -114,21 +128,21 @@ exports[`import-source-attributes-expression.js [meriyah] format 1`] = `
 Cause: [1:7-1:13]: The only valid meta property for import is 'import.meta'"
 `;
 
-exports[`import-source-attributes-expression.js format 1`] = `
+exports[`import-source-binding-from.js format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-import.source("x", { with: { attr: "val" } });
+import source from from "x";
 
 =====================================output=====================================
-import.source("x", { with: { attr: "val" } });
+import source from from "x";
 
 ================================================================================
 `;
 
-exports[`import-source-binding-from.js [acorn] format 1`] = `
+exports[`import-source-binding-from.js format[babel]} 2`] = `
 "Unexpected token (1:20)
 > 1 | import source from from "x";
     |                    ^
@@ -136,7 +150,7 @@ exports[`import-source-binding-from.js [acorn] format 1`] = `
 Cause: Unexpected token (1:19)"
 `;
 
-exports[`import-source-binding-from.js [espree] format 1`] = `
+exports[`import-source-binding-from.js format[babel]} 3`] = `
 "Unexpected token from (1:20)
 > 1 | import source from from "x";
     |                    ^
@@ -144,7 +158,7 @@ exports[`import-source-binding-from.js [espree] format 1`] = `
 Cause: Unexpected token from"
 `;
 
-exports[`import-source-binding-from.js [meriyah] format 1`] = `
+exports[`import-source-binding-from.js format[babel]} 4`] = `
 "Import source must be string (1:20)
 > 1 | import source from from "x";
     |                    ^^^^
@@ -152,21 +166,21 @@ exports[`import-source-binding-from.js [meriyah] format 1`] = `
 Cause: [1:19-1:23]: Import source must be string"
 `;
 
-exports[`import-source-binding-from.js format 1`] = `
+exports[`import-source-binding-source.js format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-import source from from "x";
+import source source from "x";
 
 =====================================output=====================================
-import source from from "x";
+import source source from "x";
 
 ================================================================================
 `;
 
-exports[`import-source-binding-source.js [acorn] format 1`] = `
+exports[`import-source-binding-source.js format[babel]} 2`] = `
 "Unexpected token (1:15)
 > 1 | import source source from "x";
     |               ^
@@ -174,7 +188,7 @@ exports[`import-source-binding-source.js [acorn] format 1`] = `
 Cause: Unexpected token (1:14)"
 `;
 
-exports[`import-source-binding-source.js [espree] format 1`] = `
+exports[`import-source-binding-source.js format[babel]} 3`] = `
 "Unexpected token source (1:15)
 > 1 | import source source from "x";
     |               ^
@@ -182,7 +196,7 @@ exports[`import-source-binding-source.js [espree] format 1`] = `
 Cause: Unexpected token source"
 `;
 
-exports[`import-source-binding-source.js [meriyah] format 1`] = `
+exports[`import-source-binding-source.js format[babel]} 4`] = `
 "Expected 'from' (1:15)
 > 1 | import source source from "x";
     |               ^^^^^^
@@ -190,21 +204,21 @@ exports[`import-source-binding-source.js [meriyah] format 1`] = `
 Cause: [1:14-1:20]: Expected 'from'"
 `;
 
-exports[`import-source-binding-source.js format 1`] = `
+exports[`import-source-dynamic-import.js format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-import source source from "x";
+import.source("foo");
 
 =====================================output=====================================
-import source source from "x";
+import.source("foo");
 
 ================================================================================
 `;
 
-exports[`import-source-dynamic-import.js [acorn] format 1`] = `
+exports[`import-source-dynamic-import.js format[babel]} 2`] = `
 "The only valid meta property for import is 'import.meta' (1:8)
 > 1 | import.source("foo");
     |        ^
@@ -212,7 +226,7 @@ exports[`import-source-dynamic-import.js [acorn] format 1`] = `
 Cause: The only valid meta property for import is 'import.meta' (1:7)"
 `;
 
-exports[`import-source-dynamic-import.js [espree] format 1`] = `
+exports[`import-source-dynamic-import.js format[babel]} 3`] = `
 "The only valid meta property for import is 'import.meta' (1:8)
 > 1 | import.source("foo");
     |        ^
@@ -220,7 +234,7 @@ exports[`import-source-dynamic-import.js [espree] format 1`] = `
 Cause: The only valid meta property for import is 'import.meta'"
 `;
 
-exports[`import-source-dynamic-import.js [meriyah] format 1`] = `
+exports[`import-source-dynamic-import.js format[babel]} 4`] = `
 "The only valid meta property for import is 'import.meta' (1:8)
 > 1 | import.source("foo");
     |        ^^^^^^
@@ -228,21 +242,7 @@ exports[`import-source-dynamic-import.js [meriyah] format 1`] = `
 Cause: [1:7-1:13]: The only valid meta property for import is 'import.meta'"
 `;
 
-exports[`import-source-dynamic-import.js format 1`] = `
-====================================options=====================================
-parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-import.source("foo");
-
-=====================================output=====================================
-import.source("foo");
-
-================================================================================
-`;
-
-exports[`no-named.js [__babel_estree] format 1`] = `
+exports[`no-named.js format[babel]} 1`] = `
 "Only \`import source x from "./module"\` is valid. (1:17)
 > 1 | import source { x } from "x";
     |                 ^
@@ -250,7 +250,7 @@ exports[`no-named.js [__babel_estree] format 1`] = `
 Cause: Only \`import source x from "./module"\` is valid. (1:16)"
 `;
 
-exports[`no-named.js [acorn] format 1`] = `
+exports[`no-named.js format[babel]} 2`] = `
 "Unexpected token (1:15)
 > 1 | import source { x } from "x";
     |               ^
@@ -258,15 +258,7 @@ exports[`no-named.js [acorn] format 1`] = `
 Cause: Unexpected token (1:14)"
 `;
 
-exports[`no-named.js [babel] format 1`] = `
-"Only \`import source x from "./module"\` is valid. (1:17)
-> 1 | import source { x } from "x";
-    |                 ^
-  2 |
-Cause: Only \`import source x from "./module"\` is valid. (1:16)"
-`;
-
-exports[`no-named.js [espree] format 1`] = `
+exports[`no-named.js format[babel]} 3`] = `
 "Unexpected token { (1:15)
 > 1 | import source { x } from "x";
     |               ^
@@ -274,7 +266,7 @@ exports[`no-named.js [espree] format 1`] = `
 Cause: Unexpected token {"
 `;
 
-exports[`no-named.js [meriyah] format 1`] = `
+exports[`no-named.js format[babel]} 4`] = `
 "Expected 'from' (1:15)
 > 1 | import source { x } from "x";
     |               ^
@@ -282,14 +274,22 @@ exports[`no-named.js [meriyah] format 1`] = `
 Cause: [1:14-1:15]: Expected 'from'"
 `;
 
-exports[`no-named.js [oxc] format 1`] = `
+exports[`no-named.js format[babel]} 5`] = `
 "Only a single default import is allowed in a source phase import. (1:8)
 > 1 | import source { x } from "x";
     |        ^^^^^^
   2 |"
 `;
 
-exports[`no-namespace.js [__babel_estree] format 1`] = `
+exports[`no-named.js format[babel]} 6`] = `
+"Only \`import source x from "./module"\` is valid. (1:17)
+> 1 | import source { x } from "x";
+    |                 ^
+  2 |
+Cause: Only \`import source x from "./module"\` is valid. (1:16)"
+`;
+
+exports[`no-namespace.js format[babel]} 1`] = `
 "Only \`import source x from "./module"\` is valid. (1:15)
 > 1 | import source * as x from "x";
     |               ^
@@ -297,7 +297,7 @@ exports[`no-namespace.js [__babel_estree] format 1`] = `
 Cause: Only \`import source x from "./module"\` is valid. (1:14)"
 `;
 
-exports[`no-namespace.js [acorn] format 1`] = `
+exports[`no-namespace.js format[babel]} 2`] = `
 "Unexpected token (1:15)
 > 1 | import source * as x from "x";
     |               ^
@@ -305,15 +305,7 @@ exports[`no-namespace.js [acorn] format 1`] = `
 Cause: Unexpected token (1:14)"
 `;
 
-exports[`no-namespace.js [babel] format 1`] = `
-"Only \`import source x from "./module"\` is valid. (1:15)
-> 1 | import source * as x from "x";
-    |               ^
-  2 |
-Cause: Only \`import source x from "./module"\` is valid. (1:14)"
-`;
-
-exports[`no-namespace.js [espree] format 1`] = `
+exports[`no-namespace.js format[babel]} 3`] = `
 "Unexpected token * (1:15)
 > 1 | import source * as x from "x";
     |               ^
@@ -321,7 +313,7 @@ exports[`no-namespace.js [espree] format 1`] = `
 Cause: Unexpected token *"
 `;
 
-exports[`no-namespace.js [meriyah] format 1`] = `
+exports[`no-namespace.js format[babel]} 4`] = `
 "Expected 'from' (1:15)
 > 1 | import source * as x from "x";
     |               ^
@@ -329,9 +321,17 @@ exports[`no-namespace.js [meriyah] format 1`] = `
 Cause: [1:14-1:15]: Expected 'from'"
 `;
 
-exports[`no-namespace.js [oxc] format 1`] = `
+exports[`no-namespace.js format[babel]} 5`] = `
 "Only a single default import is allowed in a source phase import. (1:8)
 > 1 | import source * as x from "x";
     |        ^^^^^^
   2 |"
+`;
+
+exports[`no-namespace.js format[babel]} 6`] = `
+"Only \`import source x from "./module"\` is valid. (1:15)
+> 1 | import source * as x from "x";
+    |               ^
+  2 |
+Cause: Only \`import source x from "./module"\` is valid. (1:14)"
 `;

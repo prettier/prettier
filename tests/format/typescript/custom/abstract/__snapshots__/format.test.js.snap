@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`abstractNewlineHandling.ts format 1`] = `
+exports[`abstractNewlineHandling.ts format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -38,19 +38,7 @@ export class Y {}
 ================================================================================
 `;
 
-exports[`abstractProperties.ts [babel-ts] format 1`] = `
-"'static' modifier cannot be used with 'abstract' modifier. (4:12)
-  2 |     abstract private a: 1;
-  3 |     private abstract b: 2;
-> 4 |     static abstract c: 3;
-    |            ^
-  5 |     abstract private ['g'];
-  6 |     private abstract ['h'];
-  7 |     static abstract ['i'];
-Cause: 'static' modifier cannot be used with 'abstract' modifier. (4:11)"
-`;
-
-exports[`abstractProperties.ts format 1`] = `
+exports[`abstractProperties.ts format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -76,4 +64,16 @@ abstract class Foo {
 }
 
 ================================================================================
+`;
+
+exports[`abstractProperties.ts format[typescript]} 2`] = `
+"'static' modifier cannot be used with 'abstract' modifier. (4:12)
+  2 |     abstract private a: 1;
+  3 |     private abstract b: 2;
+> 4 |     static abstract c: 3;
+    |            ^
+  5 |     abstract private ['g'];
+  6 |     private abstract ['h'];
+  7 |     static abstract ['i'];
+Cause: 'static' modifier cannot be used with 'abstract' modifier. (4:11)"
 `;

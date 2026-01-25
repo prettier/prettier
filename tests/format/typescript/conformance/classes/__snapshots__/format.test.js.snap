@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`abstract.ts format 1`] = `
+exports[`abstract.ts format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -18,7 +18,7 @@ abstract class AbstractSocket {
 ================================================================================
 `;
 
-exports[`classExpression.ts format 1`] = `
+exports[`classExpression.ts format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -47,7 +47,7 @@ var z = class C4 {};
 ================================================================================
 `;
 
-exports[`mixinAccessModifiers.ts format 1`] = `
+exports[`mixinAccessModifiers.ts format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -275,7 +275,7 @@ class C6 extends Mix(Public, Public2) {
 ================================================================================
 `;
 
-exports[`mixinClassesAnnotated.ts format 1`] = `
+exports[`mixinClassesAnnotated.ts format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -417,7 +417,7 @@ class Thing3 extends Thing2 {
 ================================================================================
 `;
 
-exports[`mixinClassesAnonymous.ts format 1`] = `
+exports[`mixinClassesAnonymous.ts format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -565,7 +565,7 @@ const Timestamped = <CT extends Constructor<object>>(Base: CT) => {
 ================================================================================
 `;
 
-exports[`mixinClassesMembers.ts format 1`] = `
+exports[`mixinClassesMembers.ts format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -777,7 +777,7 @@ class C3 extends Mixed3 {
 ================================================================================
 `;
 
-exports[`nestedClassDeclaration.ts format 1`] = `
+exports[`nestedClassDeclaration.ts format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

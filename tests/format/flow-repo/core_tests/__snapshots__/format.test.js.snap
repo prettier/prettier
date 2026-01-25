@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`boolean.js format 1`] = `
+exports[`boolean.js format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -96,7 +96,7 @@ let tests = [
 ================================================================================
 `;
 
-exports[`map.js format 1`] = `
+exports[`map.js format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -172,7 +172,7 @@ let tests = [
 ================================================================================
 `;
 
-exports[`regexp.js format 1`] = `
+exports[`regexp.js format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -242,7 +242,7 @@ let tests = [
 ================================================================================
 `;
 
-exports[`weakset.js format 1`] = `
+exports[`weakset.js format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

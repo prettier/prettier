@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`unary.js format 1`] = `
+exports[`unary.js format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -50,21 +50,7 @@ function x4(y: string): boolean {
 ================================================================================
 `;
 
-exports[`update.js [hermes] format 1`] = `
-"invalid operand in update operation (31:4)
-  29 |   function() {
-  30 |     const y = 123;
-> 31 |     y++; // error, can't update const
-     |    ^
-  32 |     y--; // error, can't update const
-  33 |   },
-  34 |
-Cause: invalid operand in update operation (31:4)
-    y++; // error, can't update const
-    ^"
-`;
-
-exports[`update.js format 1`] = `
+exports[`update.js format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -150,4 +136,18 @@ let tests = [
 ];
 
 ================================================================================
+`;
+
+exports[`update.js format[flow]} 2`] = `
+"invalid operand in update operation (31:4)
+  29 |   function() {
+  30 |     const y = 123;
+> 31 |     y++; // error, can't update const
+     |    ^
+  32 |     y--; // error, can't update const
+  33 |   },
+  34 |
+Cause: invalid operand in update operation (31:4)
+    y++; // error, can't update const
+    ^"
 `;

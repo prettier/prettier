@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`17192.js - {"experimentalOperatorPosition":"start"} format 1`] = `
+exports[`17192.js - {"experimentalOperatorPosition":"start"} format[babel]} 1`] = `
 ====================================options=====================================
 experimentalOperatorPosition: "start"
 parsers: ["babel", "flow", "typescript"]
@@ -35,7 +35,7 @@ ErrorLike = SerializedProps && // cause is a new addition to Error that is not y
 ================================================================================
 `;
 
-exports[`17192.js format 1`] = `
+exports[`17192.js format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80

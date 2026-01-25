@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`arrow-return-type.ts format 1`] = `
+exports[`arrow-return-type.ts format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -128,7 +128,7 @@ export const getVehicleDescriptor = async (
 ================================================================================
 `;
 
-exports[`issue-6899.ts format 1`] = `
+exports[`issue-6899.ts format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -160,7 +160,7 @@ export const SUPPORTED_VEHICLE_TYPES: Array<
 ================================================================================
 `;
 
-exports[`object-method.ts format 1`] = `
+exports[`object-method.ts format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -182,7 +182,7 @@ export default {
 ================================================================================
 `;
 
-exports[`ungrouped-parameters.ts format 1`] = `
+exports[`ungrouped-parameters.ts format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

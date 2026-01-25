@@ -1,53 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`pipeline_own_line.js [acorn] format 1`] = `
-"Unexpected token (4:3)
-  2 | 	0
-  3 | 	// Comment
-> 4 | 	|> x
-    | 	 ^
-  5 | }
-  6 |
-  7 | bifornCringerMoshedPerplexSawder(
-Cause: Unexpected token (4:2)"
-`;
-
-exports[`pipeline_own_line.js [espree] format 1`] = `
-"Unexpected token > (4:3)
-  2 | 	0
-  3 | 	// Comment
-> 4 | 	|> x
-    | 	 ^
-  5 | }
-  6 |
-  7 | bifornCringerMoshedPerplexSawder(
-Cause: Unexpected token >"
-`;
-
-exports[`pipeline_own_line.js [meriyah] format 1`] = `
-"Unexpected token: '>' (4:3)
-  2 | 	0
-  3 | 	// Comment
-> 4 | 	|> x
-    | 	 ^
-  5 | }
-  6 |
-  7 | bifornCringerMoshedPerplexSawder(
-Cause: [4:2-4:3]: Unexpected token: '>'"
-`;
-
-exports[`pipeline_own_line.js [oxc] format 1`] = `
-"Unexpected token (4:3)
-  2 | 	0
-  3 | 	// Comment
-> 4 | 	|> x
-    | 	 ^
-  5 | }
-  6 |
-  7 | bifornCringerMoshedPerplexSawder("
-`;
-
-exports[`pipeline_own_line.js format 1`] = `
+exports[`pipeline_own_line.js format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -133,4 +86,51 @@ bifornCringerMoshedPerplexSawder[
   |> glimseGlyphsHazardNoopsTieTie;
 
 ================================================================================
+`;
+
+exports[`pipeline_own_line.js format[babel]} 2`] = `
+"Unexpected token (4:3)
+  2 | 	0
+  3 | 	// Comment
+> 4 | 	|> x
+    | 	 ^
+  5 | }
+  6 |
+  7 | bifornCringerMoshedPerplexSawder(
+Cause: Unexpected token (4:2)"
+`;
+
+exports[`pipeline_own_line.js format[babel]} 3`] = `
+"Unexpected token > (4:3)
+  2 | 	0
+  3 | 	// Comment
+> 4 | 	|> x
+    | 	 ^
+  5 | }
+  6 |
+  7 | bifornCringerMoshedPerplexSawder(
+Cause: Unexpected token >"
+`;
+
+exports[`pipeline_own_line.js format[babel]} 4`] = `
+"Unexpected token: '>' (4:3)
+  2 | 	0
+  3 | 	// Comment
+> 4 | 	|> x
+    | 	 ^
+  5 | }
+  6 |
+  7 | bifornCringerMoshedPerplexSawder(
+Cause: [4:2-4:3]: Unexpected token: '>'"
+`;
+
+exports[`pipeline_own_line.js format[babel]} 5`] = `
+"Unexpected token (4:3)
+  2 | 	0
+  3 | 	// Comment
+> 4 | 	|> x
+    | 	 ^
+  5 | }
+  6 |
+  7 | bifornCringerMoshedPerplexSawder("
 `;

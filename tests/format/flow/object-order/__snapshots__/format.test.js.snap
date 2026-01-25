@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`order.js - {"trailingComma":"all"} format 1`] = `
+exports[`order.js - {"trailingComma":"all"} format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -37,7 +37,7 @@ type Foo = {
 ================================================================================
 `;
 
-exports[`order.js - {"trailingComma":"es5"} format 1`] = `
+exports[`order.js - {"trailingComma":"es5"} format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

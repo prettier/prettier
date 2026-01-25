@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`issue-16897.js format 1`] = `
+exports[`issue-16897.js format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -39,7 +39,7 @@ function HelloWorld() {
 ================================================================================
 `;
 
-exports[`test.js format 1`] = `
+exports[`test.js format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80

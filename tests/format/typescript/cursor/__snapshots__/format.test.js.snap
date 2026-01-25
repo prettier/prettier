@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`array-pattern.ts format 1`] = `
+exports[`array-pattern.ts format[typescript]} 1`] = `
 ====================================options=====================================
 cursorOffset: 6
 parsers: ["typescript", "flow"]
@@ -15,7 +15,7 @@ let []<|>: T = [];
 ================================================================================
 `;
 
-exports[`arrow-function-type.ts format 1`] = `
+exports[`arrow-function-type.ts format[typescript]} 1`] = `
 ====================================options=====================================
 cursorOffset: 14
 parsers: ["typescript", "flow"]
@@ -30,7 +30,7 @@ type foo = () <|>=> boolean;
 ================================================================================
 `;
 
-exports[`class-property.ts format 1`] = `
+exports[`class-property.ts format[typescript]} 1`] = `
 ====================================options=====================================
 cursorOffset: 15
 parsers: ["typescript", "flow"]
@@ -49,7 +49,7 @@ class A {
 ================================================================================
 `;
 
-exports[`function-return-type.ts format 1`] = `
+exports[`function-return-type.ts format[typescript]} 1`] = `
 ====================================options=====================================
 cursorOffset: 12
 parsers: ["typescript", "flow"]
@@ -64,7 +64,7 @@ function a()<|>: boolean {}
 ================================================================================
 `;
 
-exports[`identifier-1.ts format 1`] = `
+exports[`identifier-1.ts format[typescript]} 1`] = `
 ====================================options=====================================
 cursorOffset: 5
 parsers: ["typescript", "flow"]
@@ -79,7 +79,7 @@ let i<|>: T;
 ================================================================================
 `;
 
-exports[`identifier-2.ts format 1`] = `
+exports[`identifier-2.ts format[typescript]} 1`] = `
 ====================================options=====================================
 cursorOffset: 6
 parsers: ["typescript", "flow"]
@@ -94,7 +94,7 @@ let i:<|> T;
 ================================================================================
 `;
 
-exports[`identifier-3.ts format 1`] = `
+exports[`identifier-3.ts format[typescript]} 1`] = `
 ====================================options=====================================
 cursorOffset: 5
 parsers: ["typescript", "flow"]
@@ -109,7 +109,7 @@ let i<|>: T;
 ================================================================================
 `;
 
-exports[`method-signature.ts format 1`] = `
+exports[`method-signature.ts format[typescript]} 1`] = `
 ====================================options=====================================
 cursorOffset: 21
 parsers: ["typescript", "flow"]
@@ -128,7 +128,7 @@ interface A {
 ================================================================================
 `;
 
-exports[`property-signature.ts format 1`] = `
+exports[`property-signature.ts format[typescript]} 1`] = `
 ====================================options=====================================
 cursorOffset: 19
 parsers: ["typescript", "flow"]
@@ -147,7 +147,7 @@ interface A {
 ================================================================================
 `;
 
-exports[`rest.ts format 1`] = `
+exports[`rest.ts format[typescript]} 1`] = `
 ====================================options=====================================
 cursorOffset: 20
 parsers: ["typescript", "flow"]

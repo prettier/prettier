@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`Fun.js format 1`] = `
+exports[`Fun.js format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -79,7 +79,7 @@ module.exports = { fn: fix };
 ================================================================================
 `;
 
-exports[`Ycombinator.js format 1`] = `
+exports[`Ycombinator.js format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

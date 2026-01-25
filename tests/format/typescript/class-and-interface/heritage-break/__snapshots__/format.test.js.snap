@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`member-expression-like.ts format 1`] = `
+exports[`member-expression-like.ts format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -61,7 +61,7 @@ class A_long_long_long_long_long_long_long_long_name3
 ================================================================================
 `;
 
-exports[`type-arguments.ts format 1`] = `
+exports[`type-arguments.ts format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

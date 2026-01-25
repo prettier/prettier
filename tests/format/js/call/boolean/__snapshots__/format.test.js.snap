@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`boolean.js - {"experimentalOperatorPosition":"start"} format 1`] = `
+exports[`boolean.js - {"experimentalOperatorPosition":"start"} format[babel]} 1`] = `
 ====================================options=====================================
 experimentalOperatorPosition: "start"
 parsers: ["babel", "typescript", "flow"]
@@ -185,7 +185,7 @@ a = Boolean(
 ================================================================================
 `;
 
-exports[`boolean.js format 1`] = `
+exports[`boolean.js format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80

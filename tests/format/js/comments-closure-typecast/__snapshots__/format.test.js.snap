@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`array-and-object.js format 1`] = `
+exports[`array-and-object.js format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -38,7 +38,7 @@ foo = /** @type A */ ([
 ================================================================================
 `;
 
-exports[`binary-expr.js format 1`] = `
+exports[`binary-expr.js format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -53,7 +53,7 @@ var a = b || /** @type {string} */ (c);
 ================================================================================
 `;
 
-exports[`closure-compiler-type-cast.js format 1`] = `
+exports[`closure-compiler-type-cast.js format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -187,7 +187,7 @@ const style2 = /**
 ================================================================================
 `;
 
-exports[`comment-in-the-middle.js format 1`] = `
+exports[`comment-in-the-middle.js format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -221,7 +221,7 @@ console.log(a.foo());
 ================================================================================
 `;
 
-exports[`comment-placement.js format 1`] = `
+exports[`comment-placement.js format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -266,7 +266,7 @@ const foo5 = /** @type {string} */ (value);
 ================================================================================
 `;
 
-exports[`extra-spaces-and-asterisks.js format 1`] = `
+exports[`extra-spaces-and-asterisks.js format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -294,7 +294,7 @@ const foo8 = /** @type {!Foo}    ** *   *   */ (bar);
 ================================================================================
 `;
 
-exports[`iife.js format 1`] = `
+exports[`iife.js format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -332,7 +332,7 @@ const helpers = /** @type {Helpers} */ (
 ================================================================================
 `;
 
-exports[`iife-issue-5850-isolated.js format 1`] = `
+exports[`iife-issue-5850-isolated.js format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -347,7 +347,7 @@ const a = /** @param {*} b */ ((b) => {})();
 ================================================================================
 `;
 
-exports[`issue-4124.js format 1`] = `
+exports[`issue-4124.js format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -393,7 +393,7 @@ const foo2 = /** @type (function (*): ?|undefined) */ (foo);
 ================================================================================
 `;
 
-exports[`issue-8045.js format 1`] = `
+exports[`issue-8045.js format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -456,7 +456,7 @@ function jsdocCastInReturn() {
 ================================================================================
 `;
 
-exports[`issue-9358.js format 1`] = `
+exports[`issue-9358.js format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -487,7 +487,7 @@ const fooooba4 =
 ================================================================================
 `;
 
-exports[`member.js format 1`] = `
+exports[`member.js format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -501,7 +501,7 @@ foo = /** @type {!Baz} */ (baz).bar;
 ================================================================================
 `;
 
-exports[`nested.js format 1`] = `
+exports[`nested.js format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -531,7 +531,7 @@ const BarImpl = /** @type {BarConstructor} */ (
 ================================================================================
 `;
 
-exports[`non-casts.js format 1`] = `
+exports[`non-casts.js format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -579,7 +579,7 @@ const w1 = /** @typefoo Foo */ value;
 ================================================================================
 `;
 
-exports[`object-with-comment.js format 1`] = `
+exports[`object-with-comment.js format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -614,7 +614,7 @@ const objectWithComment2 = /** @type MyType */ (
 ================================================================================
 `;
 
-exports[`satisfies.js format 1`] = `
+exports[`satisfies.js format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -632,7 +632,7 @@ module.exports = /** @satisfies {Record<string, string>} */ ({
 ================================================================================
 `;
 
-exports[`styled-components.js format 1`] = `
+exports[`styled-components.js format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -664,7 +664,7 @@ const OverlapWrapper =
 ================================================================================
 `;
 
-exports[`superclass.js format 1`] = `
+exports[`superclass.js format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -678,7 +678,7 @@ class Foo extends /** @type {string} */ (Bar) {}
 ================================================================================
 `;
 
-exports[`ways-to-specify-type.js format 1`] = `
+exports[`ways-to-specify-type.js format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80

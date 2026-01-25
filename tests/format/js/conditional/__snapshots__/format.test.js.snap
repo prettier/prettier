@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`comments.js - {"experimentalTernaries":true} format 1`] = `
+exports[`comments.js - {"experimentalTernaries":true} format[babel]} 1`] = `
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["babel", "flow", "typescript"]
@@ -262,7 +262,7 @@ c */
 ================================================================================
 `;
 
-exports[`comments.js format 1`] = `
+exports[`comments.js format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -518,7 +518,7 @@ c */
 ================================================================================
 `;
 
-exports[`new-expression.js - {"experimentalTernaries":true} format 1`] = `
+exports[`new-expression.js - {"experimentalTernaries":true} format[babel]} 1`] = `
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["babel", "flow", "typescript"]
@@ -537,7 +537,7 @@ const testConsole = new TestConsole(
 ================================================================================
 `;
 
-exports[`new-expression.js format 1`] = `
+exports[`new-expression.js format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -555,7 +555,7 @@ const testConsole = new TestConsole(
 ================================================================================
 `;
 
-exports[`new-ternary-examples.js - {"experimentalTernaries":true} format 1`] = `
+exports[`new-ternary-examples.js - {"experimentalTernaries":true} format[babel]} 1`] = `
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["babel", "flow", "typescript"]
@@ -834,7 +834,7 @@ inJSXExpressionContainer.withNullConditional = (
 ================================================================================
 `;
 
-exports[`new-ternary-examples.js format 1`] = `
+exports[`new-ternary-examples.js format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -1129,7 +1129,7 @@ inJSXExpressionContainer.withNullConditional = (
 ================================================================================
 `;
 
-exports[`new-ternary-spec.js - {"experimentalTernaries":true} format 1`] = `
+exports[`new-ternary-spec.js - {"experimentalTernaries":true} format[babel]} 1`] = `
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["babel", "flow", "typescript"]
@@ -1530,7 +1530,7 @@ jsxExpressionContainer.inJSXAttribute.hasNoSpecialCasing = (
 ================================================================================
 `;
 
-exports[`new-ternary-spec.js format 1`] = `
+exports[`new-ternary-spec.js format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -1928,7 +1928,7 @@ jsxExpressionContainer.inJSXAttribute.hasNoSpecialCasing = (
 ================================================================================
 `;
 
-exports[`no-confusing-arrow.js - {"experimentalTernaries":true} format 1`] = `
+exports[`no-confusing-arrow.js - {"experimentalTernaries":true} format[babel]} 1`] = `
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["babel", "flow", "typescript"]
@@ -1947,7 +1947,7 @@ var x = a <= 1 ? 2 : 3;
 ================================================================================
 `;
 
-exports[`no-confusing-arrow.js format 1`] = `
+exports[`no-confusing-arrow.js format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -1965,7 +1965,7 @@ var x = a <= 1 ? 2 : 3;
 ================================================================================
 `;
 
-exports[`postfix-ternary-regressions.js - {"experimentalTernaries":true} format 1`] = `
+exports[`postfix-ternary-regressions.js - {"experimentalTernaries":true} format[babel]} 1`] = `
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["babel", "flow", "typescript"]
@@ -2301,7 +2301,7 @@ const anotherBadComment =
 ================================================================================
 `;
 
-exports[`postfix-ternary-regressions.js format 1`] = `
+exports[`postfix-ternary-regressions.js format[babel]} 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80

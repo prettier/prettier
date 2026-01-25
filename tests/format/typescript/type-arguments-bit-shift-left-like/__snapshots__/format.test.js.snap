@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`1.ts format 1`] = `
+exports[`1.ts format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -14,7 +14,7 @@ f << (<T>x);
 ================================================================================
 `;
 
-exports[`2.ts format 1`] = `
+exports[`2.ts format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -28,28 +28,7 @@ f<<T>(v: T) => void>();
 ================================================================================
 `;
 
-exports[`3.ts [babel-ts] format 1`] = `
-====================================options=====================================
-parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-(class extends f<<T>(v: T) => void> {});
-
-=====================================output=====================================
-(class extends f<<T>(v: T) => void> {});
-
-================================================================================
-`;
-
-exports[`3.ts [oxc-ts] format 1`] = `
-"Expected \`{\` but found \`<<\` (1:17)
-> 1 | (class extends f<<T>(v: T) => void> {});
-    |                 ^^
-  2 |"
-`;
-
-exports[`3.ts [typescript] format 1`] = `
+exports[`3.ts format[typescript]} 1`] = `
 "',' expected. (1:17)
 > 1 | (class extends f<<T>(v: T) => void> {});
     |                 ^
@@ -57,7 +36,28 @@ exports[`3.ts [typescript] format 1`] = `
 Cause: ',' expected."
 `;
 
-exports[`4.ts format 1`] = `
+exports[`3.ts format[typescript]} 2`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+(class extends f<<T>(v: T) => void> {});
+
+=====================================output=====================================
+(class extends f<<T>(v: T) => void> {});
+
+================================================================================
+`;
+
+exports[`3.ts format[typescript]} 3`] = `
+"Expected \`{\` but found \`<<\` (1:17)
+> 1 | (class extends f<<T>(v: T) => void> {});
+    |                 ^^
+  2 |"
+`;
+
+exports[`4.ts format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -74,7 +74,15 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`5.tsx [babel-ts] format 1`] = `
+exports[`5.tsx format[typescript]} 1`] = `
+"Identifier expected. (1:11)
+> 1 | <Component<<T>(v: T) => void> />
+    |           ^
+  2 |
+Cause: Identifier expected."
+`;
+
+exports[`5.tsx format[typescript]} 2`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -88,22 +96,14 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`5.tsx [oxc-ts] format 1`] = `
+exports[`5.tsx format[typescript]} 3`] = `
 "Unexpected token (1:11)
 > 1 | <Component<<T>(v: T) => void> />
     |           ^^
   2 |"
 `;
 
-exports[`5.tsx [typescript] format 1`] = `
-"Identifier expected. (1:11)
-> 1 | <Component<<T>(v: T) => void> />
-    |           ^
-  2 |
-Cause: Identifier expected."
-`;
-
-exports[`6.ts format 1`] = `
+exports[`6.ts format[typescript]} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

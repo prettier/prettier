@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`semi.js - {"arrowParens":"always","semi":false} format 1`] = `
+exports[`semi.js - {"arrowParens":"always","semi":false} format[babel]} 1`] = `
 ====================================options=====================================
 arrowParens: "always"
 parsers: ["babel", "typescript"]
@@ -16,7 +16,7 @@ a => {}
 ================================================================================
 `;
 
-exports[`semi.js - {"arrowParens":"avoid","semi":false} format 1`] = `
+exports[`semi.js - {"arrowParens":"avoid","semi":false} format[babel]} 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 parsers: ["babel", "typescript"]

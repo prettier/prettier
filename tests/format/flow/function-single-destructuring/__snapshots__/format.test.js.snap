@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`array.js format 1`] = `
+exports[`array.js format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -25,7 +25,7 @@ function excludeFirstFiveResults4([
 ================================================================================
 `;
 
-exports[`object.js format 1`] = `
+exports[`object.js format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -134,7 +134,7 @@ const X = (props: { a: boolean }) => <A />;
 ================================================================================
 `;
 
-exports[`object-type-in-declare-function.js format 1`] = `
+exports[`object-type-in-declare-function.js format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`comments.js format 1`] = `
+exports[`comments.js format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -62,7 +62,7 @@ declare class D5<T> // 1
 ================================================================================
 `;
 
-exports[`type.js format 1`] = `
+exports[`type.js format[flow]} 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
