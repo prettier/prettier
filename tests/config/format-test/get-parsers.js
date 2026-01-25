@@ -13,7 +13,10 @@ function getParsers(dirname, parsers) {
         }
       };
 
-  if (parsers.includes("babel") && (isLanguage("js") || isLanguage("jsx"))) {
+  if (
+    parsers.includes("babel") &&
+    (isLanguage(dirname, "js") || isLanguage(dirname, "jsx"))
+  ) {
     addParsers("acorn", "espree", "meriyah", "oxc");
   }
 
