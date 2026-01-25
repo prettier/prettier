@@ -40,7 +40,7 @@ function testFixture(fixture) {
           let name = "format";
           // Avoid parser display in snapshot
           if (testCaseForSnapshot !== testCase && hasMultipleParsers) {
-            name += ` [${testCase.parser}]`;
+            name += `[${testCase.parser}]`;
           }
           return name;
         },
