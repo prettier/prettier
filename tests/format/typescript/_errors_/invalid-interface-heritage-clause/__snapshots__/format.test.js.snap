@@ -13,14 +13,14 @@ exports[`snippet: #0 [oxc-ts] format 1`] = `
     |                         ^"
 `;
 
-exports[`snippet: #0 format 1`] = `
+exports[`snippet: #0 [typescript] format 1`] = `
 "'extends' list cannot be empty. (1:15)
 > 1 | interface Foo extends {}
     |               ^^^^^^^
 Cause: 'extends' list cannot be empty."
 `;
 
-exports[`snippet: #0 format 2`] = `
+exports[`snippet: #0 [typescript] format 2`] = `
 "'extends' list cannot be empty. (1:13)
 > 1 | interface F extends implements {}
     |             ^^^^^^^
@@ -40,7 +40,7 @@ exports[`snippet: #1 [oxc-ts] format 1`] = `
     |                        ^"
 `;
 
-exports[`snippet: #1 format 1`] = `
+exports[`snippet: #1 [typescript] format 1`] = `
 "Interface declaration cannot have 'implements' clause. (1:13)
 > 1 | interface F implements {}
     |             ^^^^^^^^^^
@@ -60,7 +60,7 @@ exports[`snippet: #2 [oxc-ts] format 1`] = `
     |             ^^^^^^^^^^"
 `;
 
-exports[`snippet: #2 format 1`] = `
+exports[`snippet: #2 [typescript] format 1`] = `
 "Interface declaration cannot have 'implements' clause. (1:13)
 > 1 | interface F implements A {}
     |             ^^^^^^^^^^^^

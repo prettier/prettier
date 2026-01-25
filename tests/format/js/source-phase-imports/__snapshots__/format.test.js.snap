@@ -258,6 +258,14 @@ exports[`no-named.js [acorn] format 1`] = `
 Cause: Unexpected token (1:14)"
 `;
 
+exports[`no-named.js [babel] format 1`] = `
+"Only \`import source x from "./module"\` is valid. (1:17)
+> 1 | import source { x } from "x";
+    |                 ^
+  2 |
+Cause: Only \`import source x from "./module"\` is valid. (1:16)"
+`;
+
 exports[`no-named.js [espree] format 1`] = `
 "Unexpected token { (1:15)
 > 1 | import source { x } from "x";
@@ -281,14 +289,6 @@ exports[`no-named.js [oxc] format 1`] = `
   2 |"
 `;
 
-exports[`no-named.js format 1`] = `
-"Only \`import source x from "./module"\` is valid. (1:17)
-> 1 | import source { x } from "x";
-    |                 ^
-  2 |
-Cause: Only \`import source x from "./module"\` is valid. (1:16)"
-`;
-
 exports[`no-namespace.js [__babel_estree] format 1`] = `
 "Only \`import source x from "./module"\` is valid. (1:15)
 > 1 | import source * as x from "x";
@@ -303,6 +303,14 @@ exports[`no-namespace.js [acorn] format 1`] = `
     |               ^
   2 |
 Cause: Unexpected token (1:14)"
+`;
+
+exports[`no-namespace.js [babel] format 1`] = `
+"Only \`import source x from "./module"\` is valid. (1:15)
+> 1 | import source * as x from "x";
+    |               ^
+  2 |
+Cause: Only \`import source x from "./module"\` is valid. (1:14)"
 `;
 
 exports[`no-namespace.js [espree] format 1`] = `
@@ -326,12 +334,4 @@ exports[`no-namespace.js [oxc] format 1`] = `
 > 1 | import source * as x from "x";
     |        ^^^^^^
   2 |"
-`;
-
-exports[`no-namespace.js format 1`] = `
-"Only \`import source x from "./module"\` is valid. (1:15)
-> 1 | import source * as x from "x";
-    |               ^
-  2 |
-Cause: Only \`import source x from "./module"\` is valid. (1:14)"
 `;

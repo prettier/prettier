@@ -10,7 +10,7 @@ exports[`decorator.ts [babel-ts] format 1`] = `
 Cause: Leading decorators must be attached to a class declaration. (4:0)"
 `;
 
-exports[`decorator.ts format 1`] = `
+exports[`decorator.ts [typescript] format 1`] = `
 "Decorators are not valid here. (3:1)
   1 | declare function dec<T>(target: T): T;
   2 |
@@ -33,7 +33,7 @@ exports[`enums.ts [babel-ts] format 1`] = `
 Cause: Leading decorators must be attached to a class declaration. (4:0)"
 `;
 
-exports[`enums.ts format 1`] = `
+exports[`enums.ts [typescript] format 1`] = `
 "Decorators are not valid here. (3:1)
   1 | // https://github.com/typescript-eslint/typescript-eslint/pull/2375
   2 |
@@ -55,7 +55,7 @@ exports[`function.ts [babel-ts] format 1`] = `
 Cause: Leading decorators must be attached to a class declaration. (4:0)"
 `;
 
-exports[`function.ts format 1`] = `
+exports[`function.ts [typescript] format 1`] = `
 "Decorators are not valid here. (3:1)
   1 | // https://github.com/typescript-eslint/typescript-eslint/pull/2375
   2 |
@@ -77,7 +77,7 @@ exports[`interface.ts [babel-ts] format 1`] = `
 Cause: Leading decorators must be attached to a class declaration. (5:0)"
 `;
 
-exports[`interface.ts format 1`] = `
+exports[`interface.ts [typescript] format 1`] = `
 "Decorators are not valid here. (4:1)
   2 | // #4632
   3 |
@@ -99,7 +99,7 @@ exports[`issue-9102.ts [babel-ts] format 1`] = `
 Cause: Leading decorators must be attached to a class declaration. (2:0)"
 `;
 
-exports[`issue-9102.ts format 1`] = `
+exports[`issue-9102.ts [typescript] format 1`] = `
 "Decorators are not valid here. (1:1)
 > 1 | @Decorator()
     | ^^^^^^^^^^^^

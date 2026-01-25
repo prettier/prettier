@@ -13,7 +13,7 @@ exports[`snippet: #0 [oxc-ts] format 1`] = `
     |                       ^^"
 `;
 
-exports[`snippet: #0 format 1`] = `
+exports[`snippet: #0 [typescript] format 1`] = `
 "A class can only implement an identifier/qualified-name with optional type arguments. (1:22)
 > 1 | class Foo implements A?.B {}
     |                      ^^^^
@@ -33,7 +33,7 @@ exports[`snippet: #1 [oxc-ts] format 1`] = `
     |                        ^^"
 `;
 
-exports[`snippet: #1 format 1`] = `
+exports[`snippet: #1 [typescript] format 1`] = `
 "A class can only implement an identifier/qualified-name with optional type arguments. (1:23)
 > 1 | (class Foo implements A?.B {})
     |                       ^^^^
@@ -53,7 +53,7 @@ exports[`snippet: #2 [oxc-ts] format 1`] = `
     |                      ^^^^^^^"
 `;
 
-exports[`snippet: #2 format 1`] = `
+exports[`snippet: #2 [typescript] format 1`] = `
 "A class can only implement an identifier/qualified-name with optional type arguments. (1:22)
 > 1 | class Foo implements "thing" {}
     |                      ^^^^^^^
@@ -73,7 +73,7 @@ exports[`snippet: #3 [oxc-ts] format 1`] = `
     |                       ^^^^^^^"
 `;
 
-exports[`snippet: #3 format 1`] = `
+exports[`snippet: #3 [typescript] format 1`] = `
 "A class can only implement an identifier/qualified-name with optional type arguments. (1:23)
 > 1 | (class Foo implements "thing" {})
     |                       ^^^^^^^

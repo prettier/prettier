@@ -7,6 +7,13 @@ exports[`snippet: #0 [acorn] format 1`] = `
 Cause: Unexpected token \`}\`. Did you mean \`&rbrace;\` or \`{"}"}\`? (1:14)"
 `;
 
+exports[`snippet: #0 [babel] format 1`] = `
+"Unexpected token \`}\`. Did you mean \`&rbrace;\` or \`{'}'}\`? (1:15)
+> 1 | let x1 = <div>}</div>;
+    |               ^
+Cause: Unexpected token \`}\`. Did you mean \`&rbrace;\` or \`{'}'}\`? (1:14)"
+`;
+
 exports[`snippet: #0 [babel-ts] format 1`] = `
 "Unexpected token \`}\`. Did you mean \`&rbrace;\` or \`{'}'}\`? (1:15)
 > 1 | let x1 = <div>}</div>;
@@ -46,18 +53,18 @@ exports[`snippet: #0 [typescript] format 1`] = `
 Cause: Unexpected token. Did you mean \`{'}'}\` or \`&rbrace;\`?"
 `;
 
-exports[`snippet: #0 format 1`] = `
-"Unexpected token \`}\`. Did you mean \`&rbrace;\` or \`{'}'}\`? (1:15)
-> 1 | let x1 = <div>}</div>;
-    |               ^
-Cause: Unexpected token \`}\`. Did you mean \`&rbrace;\` or \`{'}'}\`? (1:14)"
-`;
-
 exports[`snippet: #1 [acorn] format 1`] = `
 "Unexpected token \`>\`. Did you mean \`&gt;\` or \`{">"}\`? (1:15)
 > 1 | let x2 = <div>></div>;
     |               ^
 Cause: Unexpected token \`>\`. Did you mean \`&gt;\` or \`{">"}\`? (1:14)"
+`;
+
+exports[`snippet: #1 [babel] format 1`] = `
+"Unexpected token \`>\`. Did you mean \`&gt;\` or \`{'>'}\`? (1:15)
+> 1 | let x2 = <div>></div>;
+    |               ^
+Cause: Unexpected token \`>\`. Did you mean \`&gt;\` or \`{'>'}\`? (1:14)"
 `;
 
 exports[`snippet: #1 [babel-ts] format 1`] = `
@@ -99,14 +106,14 @@ exports[`snippet: #1 [typescript] format 1`] = `
 Cause: Unexpected token. Did you mean \`{'>'}\` or \`&gt;\`?"
 `;
 
-exports[`snippet: #1 format 1`] = `
-"Unexpected token \`>\`. Did you mean \`&gt;\` or \`{'>'}\`? (1:15)
-> 1 | let x2 = <div>></div>;
-    |               ^
-Cause: Unexpected token \`>\`. Did you mean \`&gt;\` or \`{'>'}\`? (1:14)"
+exports[`snippet: #2 [acorn] format 1`] = `
+"Unexpected token (1:16)
+> 1 | let x2 = <div><</div>;
+    |                ^
+Cause: Unexpected token (1:15)"
 `;
 
-exports[`snippet: #2 [acorn] format 1`] = `
+exports[`snippet: #2 [babel] format 1`] = `
 "Unexpected token (1:16)
 > 1 | let x2 = <div><</div>;
     |                ^
@@ -152,18 +159,18 @@ exports[`snippet: #2 [typescript] format 1`] = `
 Cause: Identifier expected."
 `;
 
-exports[`snippet: #2 format 1`] = `
-"Unexpected token (1:16)
-> 1 | let x2 = <div><</div>;
-    |                ^
-Cause: Unexpected token (1:15)"
-`;
-
 exports[`snippet: #3 [acorn] format 1`] = `
 "Unexpected token \`}\`. Did you mean \`&rbrace;\` or \`{"}"}\`? (1:22)
 > 1 | let x3 = <div>{"foo"}}</div>;
     |                      ^
 Cause: Unexpected token \`}\`. Did you mean \`&rbrace;\` or \`{"}"}\`? (1:21)"
+`;
+
+exports[`snippet: #3 [babel] format 1`] = `
+"Unexpected token \`}\`. Did you mean \`&rbrace;\` or \`{'}'}\`? (1:22)
+> 1 | let x3 = <div>{"foo"}}</div>;
+    |                      ^
+Cause: Unexpected token \`}\`. Did you mean \`&rbrace;\` or \`{'}'}\`? (1:21)"
 `;
 
 exports[`snippet: #3 [babel-ts] format 1`] = `
@@ -205,18 +212,18 @@ exports[`snippet: #3 [typescript] format 1`] = `
 Cause: ':' expected."
 `;
 
-exports[`snippet: #3 format 1`] = `
-"Unexpected token \`}\`. Did you mean \`&rbrace;\` or \`{'}'}\`? (1:22)
-> 1 | let x3 = <div>{"foo"}}</div>;
-    |                      ^
-Cause: Unexpected token \`}\`. Did you mean \`&rbrace;\` or \`{'}'}\`? (1:21)"
-`;
-
 exports[`snippet: #4 [acorn] format 1`] = `
 "Unexpected token \`>\`. Did you mean \`&gt;\` or \`{">"}\`? (1:22)
 > 1 | let x4 = <div>{"foo"}></div>;
     |                      ^
 Cause: Unexpected token \`>\`. Did you mean \`&gt;\` or \`{">"}\`? (1:21)"
+`;
+
+exports[`snippet: #4 [babel] format 1`] = `
+"Unexpected token \`>\`. Did you mean \`&gt;\` or \`{'>'}\`? (1:22)
+> 1 | let x4 = <div>{"foo"}></div>;
+    |                      ^
+Cause: Unexpected token \`>\`. Did you mean \`&gt;\` or \`{'>'}\`? (1:21)"
 `;
 
 exports[`snippet: #4 [babel-ts] format 1`] = `
@@ -258,14 +265,14 @@ exports[`snippet: #4 [typescript] format 1`] = `
 Cause: ':' expected."
 `;
 
-exports[`snippet: #4 format 1`] = `
-"Unexpected token \`>\`. Did you mean \`&gt;\` or \`{'>'}\`? (1:22)
-> 1 | let x4 = <div>{"foo"}></div>;
-    |                      ^
-Cause: Unexpected token \`>\`. Did you mean \`&gt;\` or \`{'>'}\`? (1:21)"
+exports[`snippet: #5 [acorn] format 1`] = `
+"Unexpected token (1:23)
+> 1 | let x4 = <div>{"foo"}<</div>;
+    |                       ^
+Cause: Unexpected token (1:22)"
 `;
 
-exports[`snippet: #5 [acorn] format 1`] = `
+exports[`snippet: #5 [babel] format 1`] = `
 "Unexpected token (1:23)
 > 1 | let x4 = <div>{"foo"}<</div>;
     |                       ^
@@ -311,18 +318,18 @@ exports[`snippet: #5 [typescript] format 1`] = `
 Cause: ':' expected."
 `;
 
-exports[`snippet: #5 format 1`] = `
-"Unexpected token (1:23)
-> 1 | let x4 = <div>{"foo"}<</div>;
-    |                       ^
-Cause: Unexpected token (1:22)"
-`;
-
 exports[`snippet: #6 [acorn] format 1`] = `
 "Unexpected token \`}\`. Did you mean \`&rbrace;\` or \`{"}"}\`? (1:15)
 > 1 | let x5 = <div>}{"foo"}</div>;
     |               ^
 Cause: Unexpected token \`}\`. Did you mean \`&rbrace;\` or \`{"}"}\`? (1:14)"
+`;
+
+exports[`snippet: #6 [babel] format 1`] = `
+"Unexpected token \`}\`. Did you mean \`&rbrace;\` or \`{'}'}\`? (1:15)
+> 1 | let x5 = <div>}{"foo"}</div>;
+    |               ^
+Cause: Unexpected token \`}\`. Did you mean \`&rbrace;\` or \`{'}'}\`? (1:14)"
 `;
 
 exports[`snippet: #6 [babel-ts] format 1`] = `
@@ -364,18 +371,18 @@ exports[`snippet: #6 [typescript] format 1`] = `
 Cause: Expression expected."
 `;
 
-exports[`snippet: #6 format 1`] = `
-"Unexpected token \`}\`. Did you mean \`&rbrace;\` or \`{'}'}\`? (1:15)
-> 1 | let x5 = <div>}{"foo"}</div>;
-    |               ^
-Cause: Unexpected token \`}\`. Did you mean \`&rbrace;\` or \`{'}'}\`? (1:14)"
-`;
-
 exports[`snippet: #7 [acorn] format 1`] = `
 "Unexpected token \`>\`. Did you mean \`&gt;\` or \`{">"}\`? (1:15)
 > 1 | let x6 = <div>>{"foo"}</div>;
     |               ^
 Cause: Unexpected token \`>\`. Did you mean \`&gt;\` or \`{">"}\`? (1:14)"
+`;
+
+exports[`snippet: #7 [babel] format 1`] = `
+"Unexpected token \`>\`. Did you mean \`&gt;\` or \`{'>'}\`? (1:15)
+> 1 | let x6 = <div>>{"foo"}</div>;
+    |               ^
+Cause: Unexpected token \`>\`. Did you mean \`&gt;\` or \`{'>'}\`? (1:14)"
 `;
 
 exports[`snippet: #7 [babel-ts] format 1`] = `
@@ -417,14 +424,14 @@ exports[`snippet: #7 [typescript] format 1`] = `
 Cause: Expression expected."
 `;
 
-exports[`snippet: #7 format 1`] = `
-"Unexpected token \`>\`. Did you mean \`&gt;\` or \`{'>'}\`? (1:15)
-> 1 | let x6 = <div>>{"foo"}</div>;
-    |               ^
-Cause: Unexpected token \`>\`. Did you mean \`&gt;\` or \`{'>'}\`? (1:14)"
+exports[`snippet: #8 [acorn] format 1`] = `
+"Unexpected token (1:16)
+> 1 | let x6 = <div><{"foo"}</div>;
+    |                ^
+Cause: Unexpected token (1:15)"
 `;
 
-exports[`snippet: #8 [acorn] format 1`] = `
+exports[`snippet: #8 [babel] format 1`] = `
 "Unexpected token (1:16)
 > 1 | let x6 = <div><{"foo"}</div>;
     |                ^
@@ -468,11 +475,4 @@ exports[`snippet: #8 [typescript] format 1`] = `
 > 1 | let x6 = <div><{"foo"}</div>;
     |                       ^
 Cause: '>' expected."
-`;
-
-exports[`snippet: #8 format 1`] = `
-"Unexpected token (1:16)
-> 1 | let x6 = <div><{"foo"}</div>;
-    |                ^
-Cause: Unexpected token (1:15)"
 `;

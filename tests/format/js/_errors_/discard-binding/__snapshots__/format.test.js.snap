@@ -10,6 +10,16 @@ exports[`invalid-array-expression.js [acorn] format 1`] = `
 Cause: Unexpected token (1:8)"
 `;
 
+exports[`invalid-array-expression.js [babel] format 1`] = `
+"'void' must be followed by an expression when not used in a binding position. (1:5)
+> 1 | ([[[void], x, ], y]);
+    |     ^
+  2 |
+  3 | ([[[x], void, ], y]);
+  4 |
+Cause: 'void' must be followed by an expression when not used in a binding position. (1:4)"
+`;
+
 exports[`invalid-array-expression.js [espree] format 1`] = `
 "Unexpected token ] (1:9)
 > 1 | ([[[void], x, ], y]);
@@ -70,17 +80,15 @@ exports[`invalid-array-expression.js [typescript] format 1`] = `
 Cause: Expression expected."
 `;
 
-exports[`invalid-array-expression.js format 1`] = `
-"'void' must be followed by an expression when not used in a binding position. (1:5)
-> 1 | ([[[void], x, ], y]);
-    |     ^
+exports[`invalid-assignment-expression.js [acorn] format 1`] = `
+"Unexpected token (1:6)
+> 1 | void = 0;
+    |      ^
   2 |
-  3 | ([[[x], void, ], y]);
-  4 |
-Cause: 'void' must be followed by an expression when not used in a binding position. (1:4)"
+Cause: Unexpected token (1:5)"
 `;
 
-exports[`invalid-assignment-expression.js [acorn] format 1`] = `
+exports[`invalid-assignment-expression.js [babel] format 1`] = `
 "Unexpected token (1:6)
 > 1 | void = 0;
     |      ^
@@ -136,15 +144,15 @@ exports[`invalid-assignment-expression.js [typescript] format 1`] = `
 Cause: Expression expected."
 `;
 
-exports[`invalid-assignment-expression.js format 1`] = `
-"Unexpected token (1:6)
-> 1 | void = 0;
-    |      ^
+exports[`invalid-assignment-for.js [acorn] format 1`] = `
+"Unexpected token (1:15)
+> 1 | for (void of []);
+    |               ^
   2 |
-Cause: Unexpected token (1:5)"
+Cause: Unexpected token (1:14)"
 `;
 
-exports[`invalid-assignment-for.js [acorn] format 1`] = `
+exports[`invalid-assignment-for.js [babel] format 1`] = `
 "Unexpected token (1:15)
 > 1 | for (void of []);
     |               ^
@@ -200,14 +208,6 @@ exports[`invalid-assignment-for.js [typescript] format 1`] = `
 Cause: An element access expression should take an argument."
 `;
 
-exports[`invalid-assignment-for.js format 1`] = `
-"Unexpected token (1:15)
-> 1 | for (void of []);
-    |               ^
-  2 |
-Cause: Unexpected token (1:14)"
-`;
-
 exports[`invalid-assignment-pattern.js [acorn] format 1`] = `
 "Unexpected keyword 'void' (3:14)
   1 | {
@@ -218,6 +218,18 @@ exports[`invalid-assignment-pattern.js [acorn] format 1`] = `
   5 | {
   6 |   // arrow function parameter
 Cause: Unexpected keyword 'void' (3:13)"
+`;
+
+exports[`invalid-assignment-pattern.js [babel] format 1`] = `
+"A void binding may not have an initializer. (3:14)
+  1 | {
+  2 |   // function parameter
+> 3 |   function f(void = 0) {}
+    |              ^
+  4 | }
+  5 | {
+  6 |   // arrow function parameter
+Cause: A void binding may not have an initializer. (3:13)"
 `;
 
 exports[`invalid-assignment-pattern.js [espree] format 1`] = `
@@ -292,18 +304,6 @@ exports[`invalid-assignment-pattern.js [typescript] format 1`] = `
 Cause: Identifier expected. 'void' is a reserved word that cannot be used here."
 `;
 
-exports[`invalid-assignment-pattern.js format 1`] = `
-"A void binding may not have an initializer. (3:14)
-  1 | {
-  2 |   // function parameter
-> 3 |   function f(void = 0) {}
-    |              ^
-  4 | }
-  5 | {
-  6 |   // arrow function parameter
-Cause: A void binding may not have an initializer. (3:13)"
-`;
-
 exports[`invalid-async-call-argument.js [acorn] format 1`] = `
 "Unexpected token (1:11)
 > 1 | async(void, x);
@@ -312,6 +312,16 @@ exports[`invalid-async-call-argument.js [acorn] format 1`] = `
   3 | async(x, void);
   4 |
 Cause: Unexpected token (1:10)"
+`;
+
+exports[`invalid-async-call-argument.js [babel] format 1`] = `
+"'void' must be followed by an expression when not used in a binding position. (1:7)
+> 1 | async(void, x);
+    |       ^
+  2 |
+  3 | async(x, void);
+  4 |
+Cause: 'void' must be followed by an expression when not used in a binding position. (1:6)"
 `;
 
 exports[`invalid-async-call-argument.js [espree] format 1`] = `
@@ -374,22 +384,20 @@ exports[`invalid-async-call-argument.js [typescript] format 1`] = `
 Cause: Expression expected."
 `;
 
-exports[`invalid-async-call-argument.js format 1`] = `
-"'void' must be followed by an expression when not used in a binding position. (1:7)
-> 1 | async(void, x);
-    |       ^
-  2 |
-  3 | async(x, void);
-  4 |
-Cause: 'void' must be followed by an expression when not used in a binding position. (1:6)"
-`;
-
 exports[`invalid-catch-parameter.js [acorn] format 1`] = `
 "Unexpected keyword 'void' (1:15)
 > 1 | try {} catch (void) {}
     |               ^
   2 |
 Cause: Unexpected keyword 'void' (1:14)"
+`;
+
+exports[`invalid-catch-parameter.js [babel] format 1`] = `
+"A void binding can not be the catch clause parameter. Use \`try { ... } catch { ... }\` if you want to discard the caught error. (1:15)
+> 1 | try {} catch (void) {}
+    |               ^
+  2 |
+Cause: A void binding can not be the catch clause parameter. Use \`try { ... } catch { ... }\` if you want to discard the caught error. (1:14)"
 `;
 
 exports[`invalid-catch-parameter.js [espree] format 1`] = `
@@ -440,15 +448,15 @@ exports[`invalid-catch-parameter.js [typescript] format 1`] = `
 Cause: Identifier expected. 'void' is a reserved word that cannot be used here."
 `;
 
-exports[`invalid-catch-parameter.js format 1`] = `
-"A void binding can not be the catch clause parameter. Use \`try { ... } catch { ... }\` if you want to discard the caught error. (1:15)
-> 1 | try {} catch (void) {}
-    |               ^
+exports[`invalid-lone-arrow-function-parameter.js [acorn] format 1`] = `
+"Unexpected token (1:6)
+> 1 | void => {}
+    |      ^
   2 |
-Cause: A void binding can not be the catch clause parameter. Use \`try { ... } catch { ... }\` if you want to discard the caught error. (1:14)"
+Cause: Unexpected token (1:5)"
 `;
 
-exports[`invalid-lone-arrow-function-parameter.js [acorn] format 1`] = `
+exports[`invalid-lone-arrow-function-parameter.js [babel] format 1`] = `
 "Unexpected token (1:6)
 > 1 | void => {}
     |      ^
@@ -504,20 +512,20 @@ exports[`invalid-lone-arrow-function-parameter.js [typescript] format 1`] = `
 Cause: Expression expected."
 `;
 
-exports[`invalid-lone-arrow-function-parameter.js format 1`] = `
-"Unexpected token (1:6)
-> 1 | void => {}
-    |      ^
-  2 |
-Cause: Unexpected token (1:5)"
-`;
-
 exports[`invalid-lone-async-arrow-function-parameter.js [acorn] format 1`] = `
 "Unexpected token (1:7)
 > 1 | async void => {}
     |       ^
   2 |
 Cause: Unexpected token (1:6)"
+`;
+
+exports[`invalid-lone-async-arrow-function-parameter.js [babel] format 1`] = `
+"Unexpected token (1:12)
+> 1 | async void => {}
+    |            ^
+  2 |
+Cause: Unexpected token (1:11)"
 `;
 
 exports[`invalid-lone-async-arrow-function-parameter.js [espree] format 1`] = `
@@ -568,14 +576,6 @@ exports[`invalid-lone-async-arrow-function-parameter.js [typescript] format 1`] 
 Cause: Unexpected keyword or identifier."
 `;
 
-exports[`invalid-lone-async-arrow-function-parameter.js format 1`] = `
-"Unexpected token (1:12)
-> 1 | async void => {}
-    |            ^
-  2 |
-Cause: Unexpected token (1:11)"
-`;
-
 exports[`invalid-object-expression.js [acorn] format 1`] = `
 "Unexpected token (1:22)
 > 1 | ({ p: { p: { p: void }, x, }, y});
@@ -584,6 +584,16 @@ exports[`invalid-object-expression.js [acorn] format 1`] = `
   3 | ({ p: { x: { x }, p: void, }, y});
   4 |
 Cause: Unexpected token (1:21)"
+`;
+
+exports[`invalid-object-expression.js [babel] format 1`] = `
+"'void' must be followed by an expression when not used in a binding position. (1:17)
+> 1 | ({ p: { p: { p: void }, x, }, y});
+    |                 ^
+  2 |
+  3 | ({ p: { x: { x }, p: void, }, y});
+  4 |
+Cause: 'void' must be followed by an expression when not used in a binding position. (1:16)"
 `;
 
 exports[`invalid-object-expression.js [espree] format 1`] = `
@@ -646,22 +656,20 @@ exports[`invalid-object-expression.js [typescript] format 1`] = `
 Cause: Expression expected."
 `;
 
-exports[`invalid-object-expression.js format 1`] = `
-"'void' must be followed by an expression when not used in a binding position. (1:17)
-> 1 | ({ p: { p: { p: void }, x, }, y});
-    |                 ^
-  2 |
-  3 | ({ p: { x: { x }, p: void, }, y});
-  4 |
-Cause: 'void' must be followed by an expression when not used in a binding position. (1:16)"
-`;
-
 exports[`invalid-parenthesized-assignment.js [acorn] format 1`] = `
 "Unexpected token (1:7)
 > 1 | [(void)] = [];
     |       ^
   2 |
 Cause: Unexpected token (1:6)"
+`;
+
+exports[`invalid-parenthesized-assignment.js [babel] format 1`] = `
+"'void' must be followed by an expression when not used in a binding position. (1:3)
+> 1 | [(void)] = [];
+    |   ^
+  2 |
+Cause: 'void' must be followed by an expression when not used in a binding position. (1:2)"
 `;
 
 exports[`invalid-parenthesized-assignment.js [espree] format 1`] = `
@@ -712,15 +720,15 @@ exports[`invalid-parenthesized-assignment.js [typescript] format 1`] = `
 Cause: Expression expected."
 `;
 
-exports[`invalid-parenthesized-assignment.js format 1`] = `
-"'void' must be followed by an expression when not used in a binding position. (1:3)
-> 1 | [(void)] = [];
-    |   ^
+exports[`invalid-parenthesized-binding.js [acorn] format 1`] = `
+"Unexpected token (1:10)
+> 1 | const [, (void), ] = value;
+    |          ^
   2 |
-Cause: 'void' must be followed by an expression when not used in a binding position. (1:2)"
+Cause: Unexpected token (1:9)"
 `;
 
-exports[`invalid-parenthesized-binding.js [acorn] format 1`] = `
+exports[`invalid-parenthesized-binding.js [babel] format 1`] = `
 "Unexpected token (1:10)
 > 1 | const [, (void), ] = value;
     |          ^
@@ -776,14 +784,6 @@ exports[`invalid-parenthesized-binding.js [typescript] format 1`] = `
 Cause: Array element destructuring pattern expected."
 `;
 
-exports[`invalid-parenthesized-binding.js format 1`] = `
-"Unexpected token (1:10)
-> 1 | const [, (void), ] = value;
-    |          ^
-  2 |
-Cause: Unexpected token (1:9)"
-`;
-
 exports[`invalid-rest-element-array-pattern.js [acorn] format 1`] = `
 "Unexpected keyword 'void' (2:12)
   1 | {
@@ -793,6 +793,17 @@ exports[`invalid-rest-element-array-pattern.js [acorn] format 1`] = `
   4 | {
   5 |   for (var [...void] of [[]]);
 Cause: Unexpected keyword 'void' (2:11)"
+`;
+
+exports[`invalid-rest-element-array-pattern.js [babel] format 1`] = `
+"Unexpected void binding. (2:12)
+  1 | {
+> 2 |   var [ ...void ] = [];
+    |            ^
+  3 | }
+  4 | {
+  5 |   for (var [...void] of [[]]);
+Cause: Unexpected void binding. (2:11)"
 `;
 
 exports[`invalid-rest-element-array-pattern.js [espree] format 1`] = `
@@ -861,18 +872,15 @@ exports[`invalid-rest-element-array-pattern.js [typescript] format 1`] = `
 Cause: Identifier expected. 'void' is a reserved word that cannot be used here."
 `;
 
-exports[`invalid-rest-element-array-pattern.js format 1`] = `
-"Unexpected void binding. (2:12)
-  1 | {
-> 2 |   var [ ...void ] = [];
-    |            ^
-  3 | }
-  4 | {
-  5 |   for (var [...void] of [[]]);
-Cause: Unexpected void binding. (2:11)"
+exports[`invalid-rest-element-array-pattern-for-lhs.js [acorn] format 1`] = `
+"Unexpected token (1:16)
+> 1 | for ([ ...void ] of []);
+    |                ^
+  2 |
+Cause: Unexpected token (1:15)"
 `;
 
-exports[`invalid-rest-element-array-pattern-for-lhs.js [acorn] format 1`] = `
+exports[`invalid-rest-element-array-pattern-for-lhs.js [babel] format 1`] = `
 "Unexpected token (1:16)
 > 1 | for ([ ...void ] of []);
     |                ^
@@ -928,15 +936,15 @@ exports[`invalid-rest-element-array-pattern-for-lhs.js [typescript] format 1`] =
 Cause: Expression expected."
 `;
 
-exports[`invalid-rest-element-array-pattern-for-lhs.js format 1`] = `
-"Unexpected token (1:16)
-> 1 | for ([ ...void ] of []);
-    |                ^
+exports[`invalid-rest-element-array-pattern-lhs.js [acorn] format 1`] = `
+"Unexpected token (1:12)
+> 1 | ([ ...void ] = []);
+    |            ^
   2 |
-Cause: Unexpected token (1:15)"
+Cause: Unexpected token (1:11)"
 `;
 
-exports[`invalid-rest-element-array-pattern-lhs.js [acorn] format 1`] = `
+exports[`invalid-rest-element-array-pattern-lhs.js [babel] format 1`] = `
 "Unexpected token (1:12)
 > 1 | ([ ...void ] = []);
     |            ^
@@ -992,14 +1000,6 @@ exports[`invalid-rest-element-array-pattern-lhs.js [typescript] format 1`] = `
 Cause: Expression expected."
 `;
 
-exports[`invalid-rest-element-array-pattern-lhs.js format 1`] = `
-"Unexpected token (1:12)
-> 1 | ([ ...void ] = []);
-    |            ^
-  2 |
-Cause: Unexpected token (1:11)"
-`;
-
 exports[`invalid-rest-element-object-pattern.js [acorn] format 1`] = `
 "Unexpected keyword 'void' (2:12)
   1 | {
@@ -1009,6 +1009,17 @@ exports[`invalid-rest-element-object-pattern.js [acorn] format 1`] = `
   4 | {
   5 |   for (var { ...void } of [{}]);
 Cause: Unexpected keyword 'void' (2:11)"
+`;
+
+exports[`invalid-rest-element-object-pattern.js [babel] format 1`] = `
+"Unexpected void binding. (2:12)
+  1 | {
+> 2 |   var { ...void } = {};
+    |            ^
+  3 | }
+  4 | {
+  5 |   for (var { ...void } of [{}]);
+Cause: Unexpected void binding. (2:11)"
 `;
 
 exports[`invalid-rest-element-object-pattern.js [espree] format 1`] = `
@@ -1077,18 +1088,15 @@ exports[`invalid-rest-element-object-pattern.js [typescript] format 1`] = `
 Cause: ':' expected."
 `;
 
-exports[`invalid-rest-element-object-pattern.js format 1`] = `
-"Unexpected void binding. (2:12)
-  1 | {
-> 2 |   var { ...void } = {};
-    |            ^
-  3 | }
-  4 | {
-  5 |   for (var { ...void } of [{}]);
-Cause: Unexpected void binding. (2:11)"
+exports[`invalid-rest-element-object-pattern-for-lhs.js [acorn] format 1`] = `
+"Unexpected token (1:16)
+> 1 | for ({ ...void } of []);
+    |                ^
+  2 |
+Cause: Unexpected token (1:15)"
 `;
 
-exports[`invalid-rest-element-object-pattern-for-lhs.js [acorn] format 1`] = `
+exports[`invalid-rest-element-object-pattern-for-lhs.js [babel] format 1`] = `
 "Unexpected token (1:16)
 > 1 | for ({ ...void } of []);
     |                ^
@@ -1144,15 +1152,15 @@ exports[`invalid-rest-element-object-pattern-for-lhs.js [typescript] format 1`] 
 Cause: Expression expected."
 `;
 
-exports[`invalid-rest-element-object-pattern-for-lhs.js format 1`] = `
-"Unexpected token (1:16)
-> 1 | for ({ ...void } of []);
-    |                ^
+exports[`invalid-rest-element-object-pattern-lhs.js [acorn] format 1`] = `
+"Unexpected token (1:12)
+> 1 | ({ ...void } = {});
+    |            ^
   2 |
-Cause: Unexpected token (1:15)"
+Cause: Unexpected token (1:11)"
 `;
 
-exports[`invalid-rest-element-object-pattern-lhs.js [acorn] format 1`] = `
+exports[`invalid-rest-element-object-pattern-lhs.js [babel] format 1`] = `
 "Unexpected token (1:12)
 > 1 | ({ ...void } = {});
     |            ^
@@ -1208,14 +1216,6 @@ exports[`invalid-rest-element-object-pattern-lhs.js [typescript] format 1`] = `
 Cause: Expression expected."
 `;
 
-exports[`invalid-rest-element-object-pattern-lhs.js format 1`] = `
-"Unexpected token (1:12)
-> 1 | ({ ...void } = {});
-    |            ^
-  2 |
-Cause: Unexpected token (1:11)"
-`;
-
 exports[`invalid-sequence-expression.js [acorn] format 1`] = `
 "Unexpected token (1:6)
 > 1 | (void, x);
@@ -1224,6 +1224,16 @@ exports[`invalid-sequence-expression.js [acorn] format 1`] = `
   3 | (x, void);
   4 |
 Cause: Unexpected token (1:5)"
+`;
+
+exports[`invalid-sequence-expression.js [babel] format 1`] = `
+"'void' must be followed by an expression when not used in a binding position. (1:2)
+> 1 | (void, x);
+    |  ^
+  2 |
+  3 | (x, void);
+  4 |
+Cause: 'void' must be followed by an expression when not used in a binding position. (1:1)"
 `;
 
 exports[`invalid-sequence-expression.js [espree] format 1`] = `
@@ -1286,16 +1296,6 @@ exports[`invalid-sequence-expression.js [typescript] format 1`] = `
 Cause: Expression expected."
 `;
 
-exports[`invalid-sequence-expression.js format 1`] = `
-"'void' must be followed by an expression when not used in a binding position. (1:2)
-> 1 | (void, x);
-    |  ^
-  2 |
-  3 | (x, void);
-  4 |
-Cause: 'void' must be followed by an expression when not used in a binding position. (1:1)"
-`;
-
 exports[`invalid-variable-declarator.js [acorn] format 1`] = `
 "Unexpected keyword 'void' (2:7)
   1 | {
@@ -1305,6 +1305,17 @@ exports[`invalid-variable-declarator.js [acorn] format 1`] = `
   4 | {
   5 |   let void = f(), void = g();
 Cause: Unexpected keyword 'void' (2:6)"
+`;
+
+exports[`invalid-variable-declarator.js [babel] format 1`] = `
+"Unexpected void binding. (2:7)
+  1 | {
+> 2 |   var void = f();
+    |       ^
+  3 | }
+  4 | {
+  5 |   let void = f(), void = g();
+Cause: Unexpected void binding. (2:6)"
 `;
 
 exports[`invalid-variable-declarator.js [espree] format 1`] = `
@@ -1371,15 +1382,4 @@ exports[`invalid-variable-declarator.js [typescript] format 1`] = `
   4 | {
   5 |   let void = f(), void = g();
 Cause: 'void' is not allowed as a variable declaration name."
-`;
-
-exports[`invalid-variable-declarator.js format 1`] = `
-"Unexpected void binding. (2:7)
-  1 | {
-> 2 |   var void = f();
-    |       ^
-  3 | }
-  4 | {
-  5 |   let void = f(), void = g();
-Cause: Unexpected void binding. (2:6)"
 `;

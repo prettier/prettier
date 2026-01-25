@@ -21,7 +21,7 @@ exports[`mapped-type.ts [oxc-ts] format 1`] = `
   5 |"
 `;
 
-exports[`mapped-type.ts format 1`] = `
+exports[`mapped-type.ts [typescript] format 1`] = `
 "A mapped type may not declare properties or methods. (3:3)
   1 | type Mapped = {
   2 |   [key in keyof O]: number;

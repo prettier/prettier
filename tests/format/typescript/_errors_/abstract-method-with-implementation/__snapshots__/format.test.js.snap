@@ -17,7 +17,7 @@ exports[`snippet: #0 [oxc-ts] format 1`] = `
   3 | }"
 `;
 
-exports[`snippet: #0 format 1`] = `
+exports[`snippet: #0 [typescript] format 1`] = `
 "Method 'method' cannot have an implementation because it is marked abstract. (2:12)
   1 | abstract class Foo  {
 > 2 |   abstract method() { }

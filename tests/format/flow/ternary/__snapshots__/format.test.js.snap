@@ -1,6 +1,17 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`arrows.js [hermes] format 1`] = `
+exports[`arrows.js [flow] format 1`] = `
+"Unexpected token \`)\`, expected the token \`:\` (6:22)
+  4 | //   ref: https://github.com/facebook/flow/issues/8731
+  5 |
+> 6 | (a ? (b = c) : d => e); // a ? (b = c) : (d => e)
+    |                      ^
+  7 | (a ? (b += c) : d => e); // a ? (b += c) : (d => e)
+  8 |
+  9 | (a ? (b = c) : d => e : f); // a ? ((b = c): d => e) : f"
+`;
+
+exports[`arrows.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -46,15 +57,4 @@ a
 a ? (b) => (): e => f : g; // ((a ? (b => (c += d)) : (e => f)) : g)
 
 ================================================================================
-`;
-
-exports[`arrows.js format 1`] = `
-"Unexpected token \`)\`, expected the token \`:\` (6:22)
-  4 | //   ref: https://github.com/facebook/flow/issues/8731
-  5 |
-> 6 | (a ? (b = c) : d => e); // a ? (b = c) : (d => e)
-    |                      ^
-  7 | (a ? (b += c) : d => e); // a ? (b += c) : (d => e)
-  8 |
-  9 | (a ? (b = c) : d => e : f); // a ? ((b = c): d => e) : f"
 `;

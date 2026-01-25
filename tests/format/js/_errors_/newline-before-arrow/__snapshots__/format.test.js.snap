@@ -9,6 +9,15 @@ exports[`newline-before-arrow.js [acorn] format 1`] = `
 Cause: Unexpected token (2:0)"
 `;
 
+exports[`newline-before-arrow.js [babel] format 1`] = `
+"No line break is allowed before '=>'. (2:3)
+  1 | async x
+> 2 | => x
+    |   ^
+  3 |
+Cause: No line break is allowed before '=>'. (2:2)"
+`;
+
 exports[`newline-before-arrow.js [babel-ts] format 1`] = `
 "No line break is allowed before '=>'. (2:3)
   1 | async x
@@ -68,13 +77,4 @@ exports[`newline-before-arrow.js [typescript] format 1`] = `
   2 | => x
   3 |
 Cause: Unexpected keyword or identifier."
-`;
-
-exports[`newline-before-arrow.js format 1`] = `
-"No line break is allowed before '=>'. (2:3)
-  1 | async x
-> 2 | => x
-    |   ^
-  3 |
-Cause: No line break is allowed before '=>'. (2:2)"
 `;

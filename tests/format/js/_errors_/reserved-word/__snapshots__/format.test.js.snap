@@ -1,5 +1,19 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`snippet: #0 [acorn] format 1`] = `
+"The keyword 'interface' is reserved (1:7)
+> 1 | class interface {}
+    |       ^
+Cause: The keyword 'interface' is reserved (1:6)"
+`;
+
+exports[`snippet: #0 [acorn] format 2`] = `
+"Unexpected token (1:8)
+> 1 | export asyn\\u{63} from "async";
+    |        ^
+Cause: Unexpected token (1:7)"
+`;
+
 exports[`snippet: #0 [espree] format 1`] = `
 "The keyword 'interface' is reserved (1:7)
 > 1 | class interface {}
@@ -68,18 +82,11 @@ exports[`snippet: #0 [typescript] format 1`] = `
 Cause: Declaration or statement expected."
 `;
 
-exports[`snippet: #0 format 1`] = `
-"The keyword 'interface' is reserved (1:7)
-> 1 | class interface {}
-    |       ^
-Cause: The keyword 'interface' is reserved (1:6)"
-`;
-
-exports[`snippet: #0 format 2`] = `
-"Unexpected token (1:8)
-> 1 | export asyn\\u{63} from "async";
+exports[`snippet: #1 [acorn] format 1`] = `
+"The keyword 'interface' is reserved (1:8)
+> 1 | import interface from "foo";
     |        ^
-Cause: Unexpected token (1:7)"
+Cause: The keyword 'interface' is reserved (1:7)"
 `;
 
 exports[`snippet: #1 [espree] format 1`] = `
@@ -100,11 +107,4 @@ exports[`snippet: #1 [meriyah] format 1`] = `
 > 1 | import interface from "foo";
     |        ^^^^^^^^^
 Cause: [1:7-1:16]: Unexpected strict mode reserved word"
-`;
-
-exports[`snippet: #1 format 1`] = `
-"The keyword 'interface' is reserved (1:8)
-> 1 | import interface from "foo";
-    |        ^
-Cause: The keyword 'interface' is reserved (1:7)"
 `;

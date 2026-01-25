@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`invalid.hbs format 1`] = `
+exports[`invalid.hbs [glimmer] format 1`] = `
 "Expecting 'CLOSE_RAW_BLOCK', 'CLOSE', 'CLOSE_UNESCAPED', 'OPEN_SEXPR', 'CLOSE_SEXPR', 'ID', 'OPEN_ARRAY', 'CLOSE_ARRAY', 'OPEN_BLOCK_PARAMS', 'STRING', 'NUMBER', 'BOOLEAN', 'UNDEFINED', 'NULL', 'DATA', 'SEP', 'PRIVATE_SEP', got 'INVALID' (2:11)
   1 | <A >
 > 2 | x, {{@name}
@@ -12,7 +12,7 @@ Cause: Parse error on line 2:
 Expecting 'CLOSE_RAW_BLOCK', 'CLOSE', 'CLOSE_UNESCAPED', 'OPEN_SEXPR', 'CLOSE_SEXPR', 'ID', 'OPEN_ARRAY', 'CLOSE_ARRAY', 'OPEN_BLOCK_PARAMS', 'STRING', 'NUMBER', 'BOOLEAN', 'UNDEFINED', 'NULL', 'DATA', 'SEP', 'PRIVATE_SEP', got 'INVALID'"
 `;
 
-exports[`invalid-2.hbs format 1`] = `
+exports[`invalid-2.hbs [glimmer] format 1`] = `
 "Unclosed element \`@name\` (3:0)
   1 | <a>
   2 |
@@ -28,7 +28,7 @@ Cause: Unclosed element \`@name\`:
 (error occurred in 'an unknown module' @ line 3 : column 0)"
 `;
 
-exports[`invalid-3.hbs format 1`] = `
+exports[`invalid-3.hbs [glimmer] format 1`] = `
 "Expecting 'OPEN_SEXPR', 'ID', 'OPEN_ARRAY', 'STRING', 'NUMBER', 'BOOLEAN', 'UNDEFINED', 'NULL', 'DATA', got 'CLOSE' (3:3)
   1 | <a>
   2 |
@@ -41,7 +41,7 @@ Cause: Parse error on line 3:
 Expecting 'OPEN_SEXPR', 'ID', 'OPEN_ARRAY', 'STRING', 'NUMBER', 'BOOLEAN', 'UNDEFINED', 'NULL', 'DATA', got 'CLOSE'"
 `;
 
-exports[`snippet: IMG format 1`] = `
+exports[`snippet: IMG [glimmer] format 1`] = `
 "Unclosed element \`IMG\` (1:0)
 > 1 | <IMG>
     | ^^^^^
@@ -54,7 +54,7 @@ Cause: Unclosed element \`IMG\`:
 (error occurred in 'an unknown module' @ line 1 : column 0)"
 `;
 
-exports[`snippet: INPUT format 1`] = `
+exports[`snippet: INPUT [glimmer] format 1`] = `
 "Unclosed element \`INPUT\` (1:0)
 > 1 | <INPUT>
     | ^^^^^^^
@@ -67,7 +67,7 @@ Cause: Unclosed element \`INPUT\`:
 (error occurred in 'an unknown module' @ line 1 : column 0)"
 `;
 
-exports[`snippet: area format 1`] = `
+exports[`snippet: area [glimmer] format 1`] = `
 "<area> elements do not need end tags. You should remove it (1:6)
 > 1 | <area></area>
     |      ^^^^^^^
@@ -80,7 +80,7 @@ Cause: <area> elements do not need end tags. You should remove it:
 (error occurred in 'an unknown module' @ line 1 : column 6)"
 `;
 
-exports[`snippet: base format 1`] = `
+exports[`snippet: base [glimmer] format 1`] = `
 "<base> elements do not need end tags. You should remove it (1:6)
 > 1 | <base></base>
     |      ^^^^^^^
@@ -93,7 +93,7 @@ Cause: <base> elements do not need end tags. You should remove it:
 (error occurred in 'an unknown module' @ line 1 : column 6)"
 `;
 
-exports[`snippet: basefont format 1`] = `
+exports[`snippet: basefont [glimmer] format 1`] = `
 "Unclosed element \`basefont\` (1:0)
 > 1 | <basefont>
     | ^^^^^^^^^^
@@ -106,7 +106,7 @@ Cause: Unclosed element \`basefont\`:
 (error occurred in 'an unknown module' @ line 1 : column 0)"
 `;
 
-exports[`snippet: bgsound format 1`] = `
+exports[`snippet: bgsound [glimmer] format 1`] = `
 "Unclosed element \`bgsound\` (1:0)
 > 1 | <bgsound>
     | ^^^^^^^^^
@@ -119,7 +119,7 @@ Cause: Unclosed element \`bgsound\`:
 (error occurred in 'an unknown module' @ line 1 : column 0)"
 `;
 
-exports[`snippet: br format 1`] = `
+exports[`snippet: br [glimmer] format 1`] = `
 "<br> elements do not need end tags. You should remove it (1:4)
 > 1 | <br></br>
     |    ^^^^^
@@ -132,7 +132,7 @@ Cause: <br> elements do not need end tags. You should remove it:
 (error occurred in 'an unknown module' @ line 1 : column 4)"
 `;
 
-exports[`snippet: col format 1`] = `
+exports[`snippet: col [glimmer] format 1`] = `
 "<col> elements do not need end tags. You should remove it (1:5)
 > 1 | <col></col>
     |     ^^^^^^
@@ -145,7 +145,7 @@ Cause: <col> elements do not need end tags. You should remove it:
 (error occurred in 'an unknown module' @ line 1 : column 5)"
 `;
 
-exports[`snippet: command format 1`] = `
+exports[`snippet: command [glimmer] format 1`] = `
 "<command> elements do not need end tags. You should remove it (1:9)
 > 1 | <command></command>
     |         ^^^^^^^^^^
@@ -158,7 +158,7 @@ Cause: <command> elements do not need end tags. You should remove it:
 (error occurred in 'an unknown module' @ line 1 : column 9)"
 `;
 
-exports[`snippet: div format 1`] = `
+exports[`snippet: div [glimmer] format 1`] = `
 "Unclosed element \`div\` (1:0)
 > 1 | <div>
     | ^^^^^
@@ -171,7 +171,7 @@ Cause: Unclosed element \`div\`:
 (error occurred in 'an unknown module' @ line 1 : column 0)"
 `;
 
-exports[`snippet: embed format 1`] = `
+exports[`snippet: embed [glimmer] format 1`] = `
 "<embed> elements do not need end tags. You should remove it (1:7)
 > 1 | <embed></embed>
     |       ^^^^^^^^
@@ -184,7 +184,7 @@ Cause: <embed> elements do not need end tags. You should remove it:
 (error occurred in 'an unknown module' @ line 1 : column 7)"
 `;
 
-exports[`snippet: frame format 1`] = `
+exports[`snippet: frame [glimmer] format 1`] = `
 "Unclosed element \`frame\` (1:0)
 > 1 | <frame>
     | ^^^^^^^
@@ -197,7 +197,7 @@ Cause: Unclosed element \`frame\`:
 (error occurred in 'an unknown module' @ line 1 : column 0)"
 `;
 
-exports[`snippet: hr format 1`] = `
+exports[`snippet: hr [glimmer] format 1`] = `
 "<hr> elements do not need end tags. You should remove it (1:4)
 > 1 | <hr></hr>
     |    ^^^^^
@@ -210,7 +210,7 @@ Cause: <hr> elements do not need end tags. You should remove it:
 (error occurred in 'an unknown module' @ line 1 : column 4)"
 `;
 
-exports[`snippet: imG format 1`] = `
+exports[`snippet: imG [glimmer] format 1`] = `
 "Unclosed element \`imG\` (1:0)
 > 1 | <imG>
     | ^^^^^
@@ -223,7 +223,7 @@ Cause: Unclosed element \`imG\`:
 (error occurred in 'an unknown module' @ line 1 : column 0)"
 `;
 
-exports[`snippet: image format 1`] = `
+exports[`snippet: image [glimmer] format 1`] = `
 "Unclosed element \`image\` (1:0)
 > 1 | <image>
     | ^^^^^^^
@@ -236,7 +236,7 @@ Cause: Unclosed element \`image\`:
 (error occurred in 'an unknown module' @ line 1 : column 0)"
 `;
 
-exports[`snippet: img format 1`] = `
+exports[`snippet: img [glimmer] format 1`] = `
 "<img> elements do not need end tags. You should remove it (1:5)
 > 1 | <img></img>
     |     ^^^^^^
@@ -249,7 +249,7 @@ Cause: <img> elements do not need end tags. You should remove it:
 (error occurred in 'an unknown module' @ line 1 : column 5)"
 `;
 
-exports[`snippet: input format 1`] = `
+exports[`snippet: input [glimmer] format 1`] = `
 "<input> elements do not need end tags. You should remove it (1:7)
 > 1 | <input></input>
     |       ^^^^^^^^
@@ -262,7 +262,7 @@ Cause: <input> elements do not need end tags. You should remove it:
 (error occurred in 'an unknown module' @ line 1 : column 7)"
 `;
 
-exports[`snippet: isindex format 1`] = `
+exports[`snippet: isindex [glimmer] format 1`] = `
 "Unclosed element \`isindex\` (1:0)
 > 1 | <isindex>
     | ^^^^^^^^^
@@ -275,7 +275,7 @@ Cause: Unclosed element \`isindex\`:
 (error occurred in 'an unknown module' @ line 1 : column 0)"
 `;
 
-exports[`snippet: keygen format 1`] = `
+exports[`snippet: keygen [glimmer] format 1`] = `
 "<keygen> elements do not need end tags. You should remove it (1:8)
 > 1 | <keygen></keygen>
     |        ^^^^^^^^^
@@ -288,7 +288,7 @@ Cause: <keygen> elements do not need end tags. You should remove it:
 (error occurred in 'an unknown module' @ line 1 : column 8)"
 `;
 
-exports[`snippet: lINk format 1`] = `
+exports[`snippet: lINk [glimmer] format 1`] = `
 "Unclosed element \`lINk\` (1:0)
 > 1 | <lINk>
     | ^^^^^^
@@ -301,7 +301,7 @@ Cause: Unclosed element \`lINk\`:
 (error occurred in 'an unknown module' @ line 1 : column 0)"
 `;
 
-exports[`snippet: link format 1`] = `
+exports[`snippet: link [glimmer] format 1`] = `
 "<link> elements do not need end tags. You should remove it (1:6)
 > 1 | <link></link>
     |      ^^^^^^^
@@ -314,7 +314,7 @@ Cause: <link> elements do not need end tags. You should remove it:
 (error occurred in 'an unknown module' @ line 1 : column 6)"
 `;
 
-exports[`snippet: menuitem format 1`] = `
+exports[`snippet: menuitem [glimmer] format 1`] = `
 "Unclosed element \`menuitem\` (1:0)
 > 1 | <menuitem>
     | ^^^^^^^^^^
@@ -327,7 +327,7 @@ Cause: Unclosed element \`menuitem\`:
 (error occurred in 'an unknown module' @ line 1 : column 0)"
 `;
 
-exports[`snippet: meta format 1`] = `
+exports[`snippet: meta [glimmer] format 1`] = `
 "<meta> elements do not need end tags. You should remove it (1:6)
 > 1 | <meta></meta>
     |      ^^^^^^^
@@ -340,7 +340,7 @@ Cause: <meta> elements do not need end tags. You should remove it:
 (error occurred in 'an unknown module' @ line 1 : column 6)"
 `;
 
-exports[`snippet: nextid format 1`] = `
+exports[`snippet: nextid [glimmer] format 1`] = `
 "Unclosed element \`nextid\` (1:0)
 > 1 | <nextid>
     | ^^^^^^^^
@@ -353,7 +353,7 @@ Cause: Unclosed element \`nextid\`:
 (error occurred in 'an unknown module' @ line 1 : column 0)"
 `;
 
-exports[`snippet: param format 1`] = `
+exports[`snippet: param [glimmer] format 1`] = `
 "<param> elements do not need end tags. You should remove it (1:7)
 > 1 | <param></param>
     |       ^^^^^^^^
@@ -366,7 +366,7 @@ Cause: <param> elements do not need end tags. You should remove it:
 (error occurred in 'an unknown module' @ line 1 : column 7)"
 `;
 
-exports[`snippet: source format 1`] = `
+exports[`snippet: source [glimmer] format 1`] = `
 "<source> elements do not need end tags. You should remove it (1:8)
 > 1 | <source></source>
     |        ^^^^^^^^^
@@ -379,7 +379,7 @@ Cause: <source> elements do not need end tags. You should remove it:
 (error occurred in 'an unknown module' @ line 1 : column 8)"
 `;
 
-exports[`snippet: track format 1`] = `
+exports[`snippet: track [glimmer] format 1`] = `
 "<track> elements do not need end tags. You should remove it (1:7)
 > 1 | <track></track>
     |       ^^^^^^^^
@@ -392,7 +392,7 @@ Cause: <track> elements do not need end tags. You should remove it:
 (error occurred in 'an unknown module' @ line 1 : column 7)"
 `;
 
-exports[`snippet: wbr format 1`] = `
+exports[`snippet: wbr [glimmer] format 1`] = `
 "<wbr> elements do not need end tags. You should remove it (1:5)
 > 1 | <wbr></wbr>
     |     ^^^^^^
@@ -405,7 +405,7 @@ Cause: <wbr> elements do not need end tags. You should remove it:
 (error occurred in 'an unknown module' @ line 1 : column 5)"
 `;
 
-exports[`tilde-comments-1.hbs format 1`] = `
+exports[`tilde-comments-1.hbs [glimmer] format 1`] = `
 "Expecting 'OPEN_SEXPR', 'ID', 'OPEN_ARRAY', 'STRING', 'NUMBER', 'BOOLEAN', 'UNDEFINED', 'NULL', 'DATA', got 'CLOSE' (1:4)
 > 1 | {{~}}
     |    ^
@@ -416,7 +416,7 @@ Cause: Parse error on line 1:
 Expecting 'OPEN_SEXPR', 'ID', 'OPEN_ARRAY', 'STRING', 'NUMBER', 'BOOLEAN', 'UNDEFINED', 'NULL', 'DATA', got 'CLOSE'"
 `;
 
-exports[`tilde-comments-2.hbs format 1`] = `
+exports[`tilde-comments-2.hbs [glimmer] format 1`] = `
 "Expecting 'OPEN_SEXPR', 'ID', 'OPEN_ARRAY', 'STRING', 'NUMBER', 'BOOLEAN', 'UNDEFINED', 'NULL', 'DATA', got 'CLOSE' (1:4)
 > 1 | {{~~}}
     |    ^

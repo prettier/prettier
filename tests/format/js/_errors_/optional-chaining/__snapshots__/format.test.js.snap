@@ -7,6 +7,13 @@ exports[`snippet: #0 [acorn] format 1`] = `
 Cause: Optional chaining cannot appear in the callee of new expressions (1:20)"
 `;
 
+exports[`snippet: #0 [babel] format 1`] = `
+"Constructors in/after an Optional Chain are not allowed. (1:21)
+> 1 | const baz3 = new obj?.foo?.bar?.baz(); // baz instance
+    |                     ^
+Cause: Constructors in/after an Optional Chain are not allowed. (1:20)"
+`;
+
 exports[`snippet: #0 [espree] format 1`] = `
 "Optional chaining cannot appear in the callee of new expressions (1:21)
 > 1 | const baz3 = new obj?.foo?.bar?.baz(); // baz instance
@@ -21,18 +28,18 @@ exports[`snippet: #0 [meriyah] format 1`] = `
 Cause: [1:20-1:22]: Invalid optional chain from new expression"
 `;
 
-exports[`snippet: #0 format 1`] = `
-"Constructors in/after an Optional Chain are not allowed. (1:21)
-> 1 | const baz3 = new obj?.foo?.bar?.baz(); // baz instance
-    |                     ^
-Cause: Constructors in/after an Optional Chain are not allowed. (1:20)"
-`;
-
 exports[`snippet: #1 [acorn] format 1`] = `
 "Optional chaining cannot appear in the callee of new expressions (1:22)
 > 1 | const safe5 = new obj?.qux?.baz(); // undefined
     |                      ^
 Cause: Optional chaining cannot appear in the callee of new expressions (1:21)"
+`;
+
+exports[`snippet: #1 [babel] format 1`] = `
+"Constructors in/after an Optional Chain are not allowed. (1:22)
+> 1 | const safe5 = new obj?.qux?.baz(); // undefined
+    |                      ^
+Cause: Constructors in/after an Optional Chain are not allowed. (1:21)"
 `;
 
 exports[`snippet: #1 [espree] format 1`] = `
@@ -49,18 +56,18 @@ exports[`snippet: #1 [meriyah] format 1`] = `
 Cause: [1:21-1:23]: Invalid optional chain from new expression"
 `;
 
-exports[`snippet: #1 format 1`] = `
-"Constructors in/after an Optional Chain are not allowed. (1:22)
-> 1 | const safe5 = new obj?.qux?.baz(); // undefined
-    |                      ^
-Cause: Constructors in/after an Optional Chain are not allowed. (1:21)"
-`;
-
 exports[`snippet: #2 [acorn] format 1`] = `
 "Optional chaining cannot appear in the callee of new expressions (1:22)
 > 1 | const safe6 = new obj?.foo.bar.qux?.(); // undefined
     |                      ^
 Cause: Optional chaining cannot appear in the callee of new expressions (1:21)"
+`;
+
+exports[`snippet: #2 [babel] format 1`] = `
+"Constructors in/after an Optional Chain are not allowed. (1:22)
+> 1 | const safe6 = new obj?.foo.bar.qux?.(); // undefined
+    |                      ^
+Cause: Constructors in/after an Optional Chain are not allowed. (1:21)"
 `;
 
 exports[`snippet: #2 [espree] format 1`] = `
@@ -77,18 +84,18 @@ exports[`snippet: #2 [meriyah] format 1`] = `
 Cause: [1:21-1:23]: Invalid optional chain from new expression"
 `;
 
-exports[`snippet: #2 format 1`] = `
-"Constructors in/after an Optional Chain are not allowed. (1:22)
-> 1 | const safe6 = new obj?.foo.bar.qux?.(); // undefined
-    |                      ^
-Cause: Constructors in/after an Optional Chain are not allowed. (1:21)"
-`;
-
 exports[`snippet: #3 [acorn] format 1`] = `
 "Optional chaining cannot appear in the callee of new expressions (1:26)
 > 1 | const willThrow = new obj?.foo.bar.qux(); // Error: not a constructor
     |                          ^
 Cause: Optional chaining cannot appear in the callee of new expressions (1:25)"
+`;
+
+exports[`snippet: #3 [babel] format 1`] = `
+"Constructors in/after an Optional Chain are not allowed. (1:26)
+> 1 | const willThrow = new obj?.foo.bar.qux(); // Error: not a constructor
+    |                          ^
+Cause: Constructors in/after an Optional Chain are not allowed. (1:25)"
 `;
 
 exports[`snippet: #3 [espree] format 1`] = `
@@ -105,13 +112,6 @@ exports[`snippet: #3 [meriyah] format 1`] = `
 Cause: [1:25-1:27]: Invalid optional chain from new expression"
 `;
 
-exports[`snippet: #3 format 1`] = `
-"Constructors in/after an Optional Chain are not allowed. (1:26)
-> 1 | const willThrow = new obj?.foo.bar.qux(); // Error: not a constructor
-    |                          ^
-Cause: Constructors in/after an Optional Chain are not allowed. (1:25)"
-`;
-
 exports[`snippet: #4 [acorn] format 1`] = `
 "Optional chaining cannot appear in the callee of new expressions (4:9)
   2 | class Test {
@@ -119,6 +119,15 @@ exports[`snippet: #4 [acorn] format 1`] = `
 > 4 | new Test?.(); // test instance
     |         ^
 Cause: Optional chaining cannot appear in the callee of new expressions (4:8)"
+`;
+
+exports[`snippet: #4 [babel] format 1`] = `
+"Constructors in/after an Optional Chain are not allowed. (4:9)
+  2 | class Test {
+  3 | }
+> 4 | new Test?.(); // test instance
+    |         ^
+Cause: Constructors in/after an Optional Chain are not allowed. (4:8)"
 `;
 
 exports[`snippet: #4 [espree] format 1`] = `
@@ -139,20 +148,18 @@ exports[`snippet: #4 [meriyah] format 1`] = `
 Cause: [4:8-4:10]: Invalid optional chain from new expression"
 `;
 
-exports[`snippet: #4 format 1`] = `
-"Constructors in/after an Optional Chain are not allowed. (4:9)
-  2 | class Test {
-  3 | }
-> 4 | new Test?.(); // test instance
-    |         ^
-Cause: Constructors in/after an Optional Chain are not allowed. (4:8)"
-`;
-
 exports[`snippet: #5 [acorn] format 1`] = `
 "Optional chaining cannot appear in the callee of new expressions (1:11)
 > 1 | new exists?.(); // undefined
     |           ^
 Cause: Optional chaining cannot appear in the callee of new expressions (1:10)"
+`;
+
+exports[`snippet: #5 [babel] format 1`] = `
+"Constructors in/after an Optional Chain are not allowed. (1:11)
+> 1 | new exists?.(); // undefined
+    |           ^
+Cause: Constructors in/after an Optional Chain are not allowed. (1:10)"
 `;
 
 exports[`snippet: #5 [espree] format 1`] = `
@@ -167,11 +174,4 @@ exports[`snippet: #5 [meriyah] format 1`] = `
 > 1 | new exists?.(); // undefined
     |           ^^
 Cause: [1:10-1:12]: Invalid optional chain from new expression"
-`;
-
-exports[`snippet: #5 format 1`] = `
-"Constructors in/after an Optional Chain are not allowed. (1:11)
-> 1 | new exists?.(); // undefined
-    |           ^
-Cause: Constructors in/after an Optional Chain are not allowed. (1:10)"
 `;
