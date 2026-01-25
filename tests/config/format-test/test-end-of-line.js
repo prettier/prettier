@@ -1,4 +1,5 @@
 import { FULL_TEST } from "./constants.js";
+import { replacePlaceholders } from "./replace-placeholders.js";
 import { format } from "./run-prettier.js";
 import visualizeEndOfLine from "./visualize-end-of-line.js";
 
@@ -12,26 +13,20 @@ import visualizeEndOfLine from "./visualize-end-of-line.js";
 @param {"\r\n" | "\r"} eol
 */
 function testEndOfLine(testCase, name, eol) {
-  if (
-    !FULL_TEST ||
-    testCase.expectFail ||
-    testCase.isEmpty ||
-    shouldSkipEolTest(testCase)
-  ) {
-    return;
-  }
-
-  const { code, formatOptions } = testCase;
-
   test(name, async () => {
+    const { text, options } = replacePlaceholders(
+      testCase.originalText.replace(/\n/g, eol),
+      testCase.formatOptions,
+    );
+
     const [formatResult, { eolVisualizedOutput: output }] = await Promise.all([
       testCase.runFormat(),
-      format(code.replace(/\n/g, eol), formatOptions),
+      format(text, options),
     ]);
 
     // Only if `endOfLine: "auto"` the result will be different
     const expected =
-      formatOptions.endOfLine === "auto"
+      options.endOfLine === "auto"
         ? visualizeEndOfLine(
             // All `code` use `LF`, so the `eol` of result is always `LF`
             formatResult.outputWithCursor.replace(/\n/g, eol),
@@ -46,17 +41,21 @@ function testEndOfLine(testCase, name, eol) {
 @param {TestCase} testCase
 @return {boolean}
 */
-function shouldSkipEolTest(testCase) {
+function shouldSkip(testCase) {
+  if (!FULL_TEST || testCase.expectFail || testCase.isEmpty) {
+    return;
+  }
+
   if (testCase.code.includes("\r")) {
     return true;
   }
 
-  const { requirePragma, checkIgnorePragma, rangeStart, rangeEnd } =
-    testCase.formatOptions;
+  const { requirePragma, checkIgnorePragma } = testCase.formatOptions;
   if (requirePragma || checkIgnorePragma) {
     return true;
   }
 
+  const { rangeStart, rangeEnd } = testCase.formatOptions;
   if (
     typeof rangeStart === "number" &&
     typeof rangeEnd === "number" &&
@@ -68,4 +67,4 @@ function shouldSkipEolTest(testCase) {
   return false;
 }
 
-export { testEndOfLine };
+export { testEndOfLine as run, shouldSkip as skip };

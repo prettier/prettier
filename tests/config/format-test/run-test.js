@@ -1,10 +1,11 @@
 import * as failedTests from "./failed-format-tests.js";
+import { replacePlaceholders } from "./replace-placeholders.js";
 import { format } from "./run-prettier.js";
-import { testAstCompare } from "./test-ast-compare.js";
-import { testBom } from "./test-bom.js";
-import { testEndOfLine } from "./test-end-of-line.js";
-import { testFormat } from "./test-format.js";
-import { testSecondFormat } from "./test-second-format.js";
+import * as testAstCompare from "./test-ast-compare.js";
+import * as testBom from "./test-bom.js";
+import * as testEndOfLine from "./test-end-of-line.js";
+import * as testFormat from "./test-format.js";
+import * as testSecondFormat from "./test-second-format.js";
 import { shouldThrowOnFormat } from "./utilities.js";
 
 /**
@@ -23,17 +24,17 @@ function testFixture(fixture) {
     stringifiedOptions ? ` - ${stringifiedOptions}` : ""
   }`;
 
-  const testCases = parsers
-    .filter((parser) => !failedTests.shouldDisable(filepath, parser))
-    .map((parser) => getTestCase(fixture, parser));
-
-  const testCaseForSnapshot = testCases.find(
-    (testCase) =>
-      !testCase.expectFail && typeof testCase.expectedOutput !== "string",
-  );
-  const hasMultipleParsers = testCases.length > 1;
-
   describe(title, () => {
+    const testCases = parsers
+      .filter((parser) => !failedTests.shouldDisable(filepath, parser))
+      .map((parser) => getTestCase(fixture, parser));
+
+    const testCaseForSnapshot = testCases.find(
+      (testCase) =>
+        !testCase.expectFail && typeof testCase.expectedOutput !== "string",
+    );
+    const hasMultipleParsers = testCases.length > 1;
+
     for (const functionality of [
       {
         name(testCase) {
@@ -44,8 +45,10 @@ function testFixture(fixture) {
           }
           return name;
         },
-        test: (testCase, name) =>
-          testFormat(testCase, name, testCaseForSnapshot),
+        test: {
+          run: (testCase, name) =>
+            testFormat.run(testCase, name, testCaseForSnapshot),
+        },
       },
       { name: "ast compare", test: testAstCompare },
       // The following cases only need run on main parser
@@ -56,12 +59,18 @@ function testFixture(fixture) {
       },
       {
         name: "end of line (CRLF)",
-        test: (testCase, name) => testEndOfLine(testCase, name, "\r\n"),
+        test: {
+          ...testEndOfLine,
+          run: (testCase, name) => testEndOfLine.run(testCase, name, "\r\n"),
+        },
         skip: (testCase) => testCase !== testCaseForSnapshot,
       },
       {
         name: "end of line (CR)",
-        test: (testCase, name) => testEndOfLine(testCase, name, "\r"),
+        test: {
+          ...testEndOfLine,
+          run: (testCase, name) => testEndOfLine.run(testCase, name, "\r"),
+        },
         skip: (testCase) => testCase !== testCaseForSnapshot,
       },
       {
@@ -71,7 +80,10 @@ function testFixture(fixture) {
       },
     ]) {
       for (const testCase of testCases) {
-        if (functionality.skip?.(testCase)) {
+        if (
+          functionality.skip?.(testCase) ||
+          functionality.test.skip?.(testCase)
+        ) {
           continue;
         }
 
@@ -82,7 +94,7 @@ function testFixture(fixture) {
           name += ` [${testCase.parser}]`;
         }
 
-        functionality.test(testCase, name);
+        functionality.test.run(testCase, name);
       }
     }
   });
@@ -93,10 +105,19 @@ function testFixture(fixture) {
 @param {string} parser
 */
 function getTestCase(fixture, parser) {
-  const { code, context, filepath } = fixture;
-  const { options } = context;
-  const formatOptions = { filepath, ...options, parser };
-  const expectFail = shouldThrowOnFormat(fixture, options, parser);
+  const { code: originalText, context, filepath } = fixture;
+
+  const { text: code, options: formatOptions } = replacePlaceholders(
+    originalText,
+    {
+      filepath,
+      ...context.options,
+      parser,
+    },
+  );
+
+  const expectFail = shouldThrowOnFormat(fixture, formatOptions);
+
   /** @type {ReturnType<format> | undefined} */
   let promise;
 
@@ -104,6 +125,7 @@ function getTestCase(fixture, parser) {
     context,
     parser,
     filepath,
+    originalText,
     code,
     formatOptions,
     expectFail,

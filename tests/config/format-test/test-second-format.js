@@ -11,33 +11,25 @@ import { format } from "./run-prettier.js";
 @param {string} name
 */
 function testSecondFormat(testCase, name) {
-  if (!FULL_TEST || testCase.expectFail) {
-    return;
-  }
-
   test(name, async () => {
-    const formatResult = await testCase.runFormat();
+    const {
+      changed,
+      eolVisualizedOutput: firstOutput,
+      output,
+    } = await testCase.runFormat();
 
-    if (!formatResult.changed) {
+    if (!changed) {
       return;
     }
 
-    const { filepath, formatOptions, code } = testCase;
+    const { filepath, formatOptions } = testCase;
 
-    // No range and cursor
-    // TODO[@fisker]: Move this check before format test
-    if (formatResult.input === code) {
-      return;
-    }
-
-    const isUnstableTest = failedTests.isUnstable(filepath, formatOptions);
-
-    const { eolVisualizedOutput: firstOutput, output } = formatResult;
     const { eolVisualizedOutput: secondOutput } = await format(
       output,
       formatOptions,
     );
 
+    const isUnstableTest = failedTests.isUnstable(filepath, formatOptions);
     if (isUnstableTest && secondOutput === firstOutput) {
       throw new Error(
         `Unstable file '${filepath}' is stable now, please remove from the 'unstableTests' list.`,
@@ -55,4 +47,23 @@ function testSecondFormat(testCase, name) {
   });
 }
 
-export { testSecondFormat };
+function shouldSkip(testCase) {
+  if (!FULL_TEST || testCase.expectFail) {
+    return true;
+  }
+
+  const { rangeStart, rangeEnd, cursorOffset } = testCase.formatOptions;
+
+  // No range and cursor
+  if (
+    typeof cursorOffset === "number" ||
+    typeof rangeStart === "number" ||
+    typeof rangeEnd === "number"
+  ) {
+    return true;
+  }
+
+  return false;
+}
+
+export { testSecondFormat as run, shouldSkip as skip };

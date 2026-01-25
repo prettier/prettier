@@ -48,4 +48,4 @@ function testFormat(testCase, name, testCaseForSnapshot) {
   });
 }
 
-export { testFormat };
+export { testFormat as run };

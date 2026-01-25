@@ -45,4 +45,4 @@ function testAstCompare(testCase, name) {
   });
 }
 
-export { testAstCompare };
+export { testAstCompare as run };

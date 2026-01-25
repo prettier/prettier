@@ -18,6 +18,11 @@ const indexProperties = [
     placeholder: RANGE_END_PLACEHOLDER,
   },
 ];
+
+/**
+@param {string} originalText
+@param {any} originalOptions
+*/
 function replacePlaceholders(originalText, originalOptions) {
   const indexes = indexProperties
     .map(({ property, placeholder }) => {
