@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`comment.ts format 1`] = `
+exports[`comment.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -16,7 +16,7 @@ a;
 ================================================================================
 `;
 
-exports[`default.ts format 1`] = `
+exports[`default.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -34,7 +34,7 @@ export default interface Foo {
 ================================================================================
 `;
 
-exports[`export.ts format 1`] = `
+exports[`export.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -60,7 +60,7 @@ declare module "hello" {
 ================================================================================
 `;
 
-exports[`export-as-ns.ts format 1`] = `
+exports[`export-as-ns.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -74,7 +74,7 @@ export * as utilities from "./utilities.js";
 ================================================================================
 `;
 
-exports[`export-class.ts format 1`] = `
+exports[`export-class.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -94,7 +94,7 @@ export default abstract class D {}
 ================================================================================
 `;
 
-exports[`export-type-star-from.ts format 1`] = `
+exports[`export-type-star-from.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -110,7 +110,7 @@ export type * as ns from "./mod";
 ================================================================================
 `;
 
-exports[`export-type-star-from-2.ts format 1`] = `
+exports[`export-type-star-from-2.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

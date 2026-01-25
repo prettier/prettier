@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`array.ts format 1`] = `
+exports[`array.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -16,7 +16,7 @@ declare const tuple: readonly [number, number];
 ================================================================================
 `;
 
-exports[`readonly.ts format 1`] = `
+exports[`readonly.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

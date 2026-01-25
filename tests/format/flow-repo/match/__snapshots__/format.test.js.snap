@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`expression.js format 1`] = `
+exports[`expression.js format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -322,7 +322,7 @@ function f2() {
 ================================================================================
 `;
 
-exports[`hints.js format 1`] = `
+exports[`hints.js format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -504,7 +504,7 @@ type F = (string) => boolean;
 ================================================================================
 `;
 
-exports[`matching.js format 1`] = `
+exports[`matching.js format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -1344,7 +1344,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`pattern-errors.js format 1`] = `
+exports[`pattern-errors.js format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -1738,7 +1738,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`patterns.js format 1`] = `
+exports[`patterns.js format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -2144,7 +2144,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`rules-of-hooks.js format 1`] = `
+exports[`rules-of-hooks.js format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -2216,7 +2216,7 @@ match (x) {
 ================================================================================
 `;
 
-exports[`statement.js format 1`] = `
+exports[`statement.js format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

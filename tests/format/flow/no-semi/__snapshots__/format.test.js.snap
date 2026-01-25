@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`comments.js - {"semi":false} format 1`] = `
+exports[`comments.js - {"semi":false} format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -35,7 +35,7 @@ x
 ================================================================================
 `;
 
-exports[`comments.js format 1`] = `
+exports[`comments.js format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -69,7 +69,7 @@ x;
 ================================================================================
 `;
 
-exports[`flow-class-properties.js - {"semi":false} format 1`] = `
+exports[`flow-class-properties.js - {"semi":false} format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -98,7 +98,7 @@ class A {
 ================================================================================
 `;
 
-exports[`flow-class-properties.js format 1`] = `
+exports[`flow-class-properties.js format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -126,7 +126,7 @@ class A {
 ================================================================================
 `;
 
-exports[`flow-interfaces.js - {"semi":false} format 1`] = `
+exports[`flow-interfaces.js - {"semi":false} format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -212,7 +212,7 @@ interface E {
 ================================================================================
 `;
 
-exports[`flow-interfaces.js format 1`] = `
+exports[`flow-interfaces.js format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -297,7 +297,7 @@ interface E {
 ================================================================================
 `;
 
-exports[`no-semi.js - {"semi":false} format 1`] = `
+exports[`no-semi.js - {"semi":false} format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -318,7 +318,7 @@ semi: false
 ================================================================================
 `;
 
-exports[`no-semi.js format 1`] = `
+exports[`no-semi.js format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

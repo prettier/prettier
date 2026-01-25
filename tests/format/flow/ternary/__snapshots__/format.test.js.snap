@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`arrows.js format 1`] = `
+exports[`arrows.js format[flow] 1`] = `
 "Unexpected token \`)\`, expected the token \`:\` (6:22)
   4 | //   ref: https://github.com/facebook/flow/issues/8731
   5 |
@@ -11,7 +11,7 @@ exports[`arrows.js format 1`] = `
   9 | (a ? (b = c) : d => e : f); // a ? ((b = c): d => e) : f"
 `;
 
-exports[`arrows.js format 2`] = `
+exports[`arrows.js format[hermes] 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

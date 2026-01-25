@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`intersection-parens.ts - {"experimentalOperatorPosition":"start"} format 1`] = `
+exports[`intersection-parens.ts - {"experimentalOperatorPosition":"start"} format[typescript] 1`] = `
 ====================================options=====================================
 experimentalOperatorPosition: "start"
 parsers: ["typescript"]
@@ -218,7 +218,7 @@ type Ctor = (new () => X) & Y;
 ================================================================================
 `;
 
-exports[`intersection-parens.ts - {"semi":false} format 1`] = `
+exports[`intersection-parens.ts - {"semi":false} format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -436,7 +436,7 @@ type Ctor = (new () => X) & Y
 ================================================================================
 `;
 
-exports[`intersection-parens.ts format 1`] = `
+exports[`intersection-parens.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -653,7 +653,7 @@ type Ctor = (new () => X) & Y;
 ================================================================================
 `;
 
-exports[`type-arguments.ts - {"experimentalOperatorPosition":"start"} format 1`] = `
+exports[`type-arguments.ts - {"experimentalOperatorPosition":"start"} format[typescript] 1`] = `
 ====================================options=====================================
 experimentalOperatorPosition: "start"
 parsers: ["typescript"]
@@ -693,7 +693,7 @@ export const MyLongNamedReactFunctionalComponent3: FunctionComponent<
 ================================================================================
 `;
 
-exports[`type-arguments.ts - {"semi":false} format 1`] = `
+exports[`type-arguments.ts - {"semi":false} format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -733,7 +733,7 @@ export const MyLongNamedReactFunctionalComponent3: FunctionComponent<
 ================================================================================
 `;
 
-exports[`type-arguments.ts format 1`] = `
+exports[`type-arguments.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

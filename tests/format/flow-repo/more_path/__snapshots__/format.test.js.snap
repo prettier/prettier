@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`Condition.js format 1`] = `
+exports[`Condition.js format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -133,7 +133,7 @@ module.exports = true;
 ================================================================================
 `;
 
-exports[`FlowSA.js format 1`] = `
+exports[`FlowSA.js format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -168,7 +168,7 @@ module.exports = FlowSA;
 ================================================================================
 `;
 
-exports[`Sigma.js format 1`] = `
+exports[`Sigma.js format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -266,7 +266,7 @@ module.exports = "sigma";
 ================================================================================
 `;
 
-exports[`test.js format 1`] = `
+exports[`test.js format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

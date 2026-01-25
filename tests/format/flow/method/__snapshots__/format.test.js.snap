@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`comment.js format 1`] = `
+exports[`comment.js format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -24,7 +24,7 @@ type Foo = {
 ================================================================================
 `;
 
-exports[`consistent-breaking.js format 1`] = `
+exports[`consistent-breaking.js format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -81,7 +81,7 @@ type Foo2 = {
 ================================================================================
 `;
 
-exports[`method.js format 1`] = `
+exports[`method.js format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

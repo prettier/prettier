@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`A.js format 1`] = `
+exports[`A.js format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -40,7 +40,7 @@ export default class {
 ================================================================================
 `;
 
-exports[`B.js format 1`] = `
+exports[`B.js format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -70,7 +70,7 @@ class B extends A {
 ================================================================================
 `;
 
-exports[`T.js format 1`] = `
+exports[`T.js format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

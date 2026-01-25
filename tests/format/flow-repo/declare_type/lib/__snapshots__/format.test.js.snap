@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`DeclareModule_TypeAlias.js format 1`] = `
+exports[`DeclareModule_TypeAlias.js format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -30,7 +30,7 @@ declare module ModuleAliasFoo {
 ================================================================================
 `;
 
-exports[`declare_type_exports.js format 1`] = `
+exports[`declare_type_exports.js format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

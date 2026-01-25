@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`call-expression.ts format 1`] = `
+exports[`call-expression.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -152,7 +152,7 @@ a?.b()!?.();
 ================================================================================
 `;
 
-exports[`issue-15785-1.ts format 1`] = `
+exports[`issue-15785-1.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -189,7 +189,7 @@ function someFunctionName() {
 ================================================================================
 `;
 
-exports[`issue-15785-2.ts format 1`] = `
+exports[`issue-15785-2.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -219,7 +219,7 @@ const theValue3 = Object.entries(someLongObjectName).filter(([listingId]) =>
 ================================================================================
 `;
 
-exports[`member-chain.ts format 1`] = `
+exports[`member-chain.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -315,7 +315,7 @@ bifornCringerMoshedPerplexSawder =
 ================================================================================
 `;
 
-exports[`member-expression.ts format 1`] = `
+exports[`member-expression.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -474,7 +474,7 @@ a?.b!?.c;
 ================================================================================
 `;
 
-exports[`new-expression.ts format 1`] = `
+exports[`new-expression.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -622,7 +622,7 @@ new ((a?.b)!?.c)();
 ================================================================================
 `;
 
-exports[`tagged-template-literals.ts format 1`] = `
+exports[`tagged-template-literals.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -764,7 +764,7 @@ a(b?.c!)\`\`;
 ================================================================================
 `;
 
-exports[`test.ts format 1`] = `
+exports[`test.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -784,7 +784,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`test2.ts format 1`] = `
+exports[`test2.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

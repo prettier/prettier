@@ -1,6 +1,15 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`avoid-conflicts-to-pipeline.js format 1`] = `
+exports[`avoid-conflicts-to-pipeline.js format[acorn] 1`] = `
+"Unexpected token (2:16)
+  1 | // |>
+> 2 | const status = %GetOptimizationStatus(fn);
+    |                ^
+  3 |
+Cause: Unexpected token (2:15)"
+`;
+
+exports[`avoid-conflicts-to-pipeline.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -16,16 +25,7 @@ const status = %GetOptimizationStatus(fn);
 ================================================================================
 `;
 
-exports[`avoid-conflicts-to-pipeline.js format 2`] = `
-"Unexpected token (2:16)
-  1 | // |>
-> 2 | const status = %GetOptimizationStatus(fn);
-    |                ^
-  3 |
-Cause: Unexpected token (2:15)"
-`;
-
-exports[`avoid-conflicts-to-pipeline.js format 3`] = `
+exports[`avoid-conflicts-to-pipeline.js format[espree] 1`] = `
 "Unexpected token % (2:16)
   1 | // |>
 > 2 | const status = %GetOptimizationStatus(fn);
@@ -34,7 +34,7 @@ exports[`avoid-conflicts-to-pipeline.js format 3`] = `
 Cause: Unexpected token %"
 `;
 
-exports[`avoid-conflicts-to-pipeline.js format 4`] = `
+exports[`avoid-conflicts-to-pipeline.js format[meriyah] 1`] = `
 "Unexpected token: '%' (2:16)
   1 | // |>
 > 2 | const status = %GetOptimizationStatus(fn);
@@ -43,7 +43,7 @@ exports[`avoid-conflicts-to-pipeline.js format 4`] = `
 Cause: [2:15-2:16]: Unexpected token: '%'"
 `;
 
-exports[`avoid-conflicts-to-pipeline.js format 5`] = `
+exports[`avoid-conflicts-to-pipeline.js format[oxc] 1`] = `
 "Unexpected token (2:16)
   1 | // |>
 > 2 | const status = %GetOptimizationStatus(fn);
@@ -51,7 +51,18 @@ exports[`avoid-conflicts-to-pipeline.js format 5`] = `
   3 |"
 `;
 
-exports[`intrinsic_call.js format 1`] = `
+exports[`intrinsic_call.js format[acorn] 1`] = `
+"Unexpected token (2:13)
+  1 | function doSmth()     {
+> 2 |             %DebugPrint
+    |             ^
+  3 |         (
+  4 |                 foo )
+  5 |   }
+Cause: Unexpected token (2:12)"
+`;
+
+exports[`intrinsic_call.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -97,18 +108,7 @@ function printFunc(f) {
 ================================================================================
 `;
 
-exports[`intrinsic_call.js format 2`] = `
-"Unexpected token (2:13)
-  1 | function doSmth()     {
-> 2 |             %DebugPrint
-    |             ^
-  3 |         (
-  4 |                 foo )
-  5 |   }
-Cause: Unexpected token (2:12)"
-`;
-
-exports[`intrinsic_call.js format 3`] = `
+exports[`intrinsic_call.js format[espree] 1`] = `
 "Unexpected token % (2:13)
   1 | function doSmth()     {
 > 2 |             %DebugPrint
@@ -119,7 +119,7 @@ exports[`intrinsic_call.js format 3`] = `
 Cause: Unexpected token %"
 `;
 
-exports[`intrinsic_call.js format 4`] = `
+exports[`intrinsic_call.js format[meriyah] 1`] = `
 "Unexpected token: '%' (2:13)
   1 | function doSmth()     {
 > 2 |             %DebugPrint
@@ -130,7 +130,7 @@ exports[`intrinsic_call.js format 4`] = `
 Cause: [2:12-2:13]: Unexpected token: '%'"
 `;
 
-exports[`intrinsic_call.js format 5`] = `
+exports[`intrinsic_call.js format[oxc] 1`] = `
 "Unexpected token (2:13)
   1 | function doSmth()     {
 > 2 |             %DebugPrint

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`type-paramters.js - {"trailingComma":"all"} format 1`] = `
+exports[`type-paramters.js - {"trailingComma":"all"} format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -20,7 +20,7 @@ type ShortName = Something<FirstParam, SecondParam>;
 ================================================================================
 `;
 
-exports[`type-paramters.js - {"trailingComma":"es5"} format 1`] = `
+exports[`type-paramters.js - {"trailingComma":"es5"} format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -40,7 +40,7 @@ type ShortName = Something<FirstParam, SecondParam>;
 ================================================================================
 `;
 
-exports[`type-paramters.js - {"trailingComma":"none"} format 1`] = `
+exports[`type-paramters.js - {"trailingComma":"none"} format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

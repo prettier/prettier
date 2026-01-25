@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`req.js format 1`] = `
+exports[`req.js format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -14,7 +14,7 @@ module.exports = 0;
 ================================================================================
 `;
 
-exports[`test.js format 1`] = `
+exports[`test.js format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -34,7 +34,7 @@ import x from "./req";
 ================================================================================
 `;
 
-exports[`test.js format 2`] = `
+exports[`test.js format[hermes] 1`] = `
 "Identifier 'x' is already declared (4:7)
   2 | (x: string);
   3 |

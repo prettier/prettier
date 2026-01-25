@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`comments.ts format 1`] = `
+exports[`comments.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -32,7 +32,7 @@ const B2 = require(
 ================================================================================
 `;
 
-exports[`import-require.ts format 1`] = `
+exports[`import-require.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -48,7 +48,7 @@ import JSONContributionRegistry = require("vs/platform/jsonschemas/common/jsonCo
 ================================================================================
 `;
 
-exports[`type-imports.ts format 1`] = `
+exports[`type-imports.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

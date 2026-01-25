@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`declare_class_fields.ts format 1`] = `
+exports[`declare_class_fields.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -32,7 +32,7 @@ declare class D {
 ================================================================================
 `;
 
-exports[`declare_enum.ts format 1`] = `
+exports[`declare_enum.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -48,7 +48,7 @@ declare enum Bar {}
 ================================================================================
 `;
 
-exports[`declare_function.ts format 1`] = `
+exports[`declare_function.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -78,7 +78,7 @@ declare function f([]?);
 ================================================================================
 `;
 
-exports[`declare_interface.ts format 1`] = `
+exports[`declare_interface.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -108,7 +108,7 @@ declare interface B {
 ================================================================================
 `;
 
-exports[`declare_module.ts format 1`] = `
+exports[`declare_module.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -130,7 +130,7 @@ declare module m {
 ================================================================================
 `;
 
-exports[`declare_namespace.ts format 1`] = `
+exports[`declare_namespace.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -152,7 +152,7 @@ declare namespace m {
 ================================================================================
 `;
 
-exports[`declare_var.ts format 1`] = `
+exports[`declare_var.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -174,7 +174,7 @@ declare const hello2 = 5;
 ================================================================================
 `;
 
-exports[`declare-get-set-field.ts format 1`] = `
+exports[`declare-get-set-field.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -194,7 +194,7 @@ class C {
 ================================================================================
 `;
 
-exports[`object-type-in-declare-function.ts format 1`] = `
+exports[`object-type-in-declare-function.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

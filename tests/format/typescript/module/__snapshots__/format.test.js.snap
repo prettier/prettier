@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`empty.ts format 1`] = `
+exports[`empty.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -14,7 +14,7 @@ declare module "autoprefixer";
 ================================================================================
 `;
 
-exports[`global.ts format 1`] = `
+exports[`global.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -42,7 +42,7 @@ declare namespace global {}
 ================================================================================
 `;
 
-exports[`keyword.ts format 1`] = `
+exports[`keyword.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -124,7 +124,7 @@ module /* namespace */ "x" {}
 ================================================================================
 `;
 
-exports[`module_nested.ts format 1`] = `
+exports[`module_nested.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -166,7 +166,7 @@ module abc4.def.ghi {}
 ================================================================================
 `;
 
-exports[`namespace_function.ts format 1`] = `
+exports[`namespace_function.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -184,7 +184,7 @@ namespace X {
 ================================================================================
 `;
 
-exports[`namespace_nested.ts format 1`] = `
+exports[`namespace_nested.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

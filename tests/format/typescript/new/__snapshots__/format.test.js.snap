@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`new-signature.ts format 1`] = `
+exports[`new-signature.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -141,7 +141,7 @@ interface TimerConstructor {
 ================================================================================
 `;
 
-exports[`with-member-expression.ts format 1`] = `
+exports[`with-member-expression.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

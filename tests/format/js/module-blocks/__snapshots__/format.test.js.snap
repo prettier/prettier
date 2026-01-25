@@ -1,6 +1,16 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`comments.js format 1`] = `
+exports[`comments.js format[acorn] 1`] = `
+"Unexpected token (1:32)
+> 1 | const m = /*A1*/ module /*A2*/ { /*A3*/
+    |                                ^
+  2 |   /*A4*/
+  3 |   export const foo = "foo";
+  4 |   export { foo }; /*A5*/
+Cause: Unexpected token (1:31)"
+`;
+
+exports[`comments.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -33,17 +43,7 @@ const m2 = module /* B1 */ {
 ================================================================================
 `;
 
-exports[`comments.js format 2`] = `
-"Unexpected token (1:32)
-> 1 | const m = /*A1*/ module /*A2*/ { /*A3*/
-    |                                ^
-  2 |   /*A4*/
-  3 |   export const foo = "foo";
-  4 |   export { foo }; /*A5*/
-Cause: Unexpected token (1:31)"
-`;
-
-exports[`comments.js format 3`] = `
+exports[`comments.js format[espree] 1`] = `
 "Unexpected token { (1:32)
 > 1 | const m = /*A1*/ module /*A2*/ { /*A3*/
     |                                ^
@@ -53,7 +53,7 @@ exports[`comments.js format 3`] = `
 Cause: Unexpected token {"
 `;
 
-exports[`comments.js format 4`] = `
+exports[`comments.js format[meriyah] 1`] = `
 "Unexpected token: '{' (1:32)
 > 1 | const m = /*A1*/ module /*A2*/ { /*A3*/
     |                                ^
@@ -63,7 +63,7 @@ exports[`comments.js format 4`] = `
 Cause: [1:31-1:32]: Unexpected token: '{'"
 `;
 
-exports[`comments.js format 5`] = `
+exports[`comments.js format[oxc] 1`] = `
 "Expected a semicolon or an implicit semicolon after a statement, but found none (1:24)
 > 1 | const m = /*A1*/ module /*A2*/ { /*A3*/
     |                        ^
@@ -72,7 +72,17 @@ exports[`comments.js format 5`] = `
   4 |   export { foo }; /*A5*/"
 `;
 
-exports[`module-blocks.js format 1`] = `
+exports[`module-blocks.js format[acorn] 1`] = `
+"Unexpected token (1:8)
+> 1 | module { await 3 };
+    |        ^
+  2 |
+  3 | class B {
+  4 |   #p() {
+Cause: Unexpected token (1:7)"
+`;
+
+exports[`module-blocks.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -172,17 +182,7 @@ let m = module {
 ================================================================================
 `;
 
-exports[`module-blocks.js format 2`] = `
-"Unexpected token (1:8)
-> 1 | module { await 3 };
-    |        ^
-  2 |
-  3 | class B {
-  4 |   #p() {
-Cause: Unexpected token (1:7)"
-`;
-
-exports[`module-blocks.js format 3`] = `
+exports[`module-blocks.js format[espree] 1`] = `
 "Unexpected token { (1:8)
 > 1 | module { await 3 };
     |        ^
@@ -192,7 +192,7 @@ exports[`module-blocks.js format 3`] = `
 Cause: Unexpected token {"
 `;
 
-exports[`module-blocks.js format 4`] = `
+exports[`module-blocks.js format[meriyah] 1`] = `
 "Unexpected token: '{' (1:8)
 > 1 | module { await 3 };
     |        ^
@@ -202,7 +202,7 @@ exports[`module-blocks.js format 4`] = `
 Cause: [1:7-1:8]: Unexpected token: '{'"
 `;
 
-exports[`module-blocks.js format 5`] = `
+exports[`module-blocks.js format[oxc] 1`] = `
 "Expected a semicolon or an implicit semicolon after a statement, but found none (1:7)
 > 1 | module { await 3 };
     |       ^
@@ -211,7 +211,7 @@ exports[`module-blocks.js format 5`] = `
   4 |   #p() {"
 `;
 
-exports[`non-module-blocks.js format 1`] = `
+exports[`non-module-blocks.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -228,7 +228,17 @@ const m = module;
 ================================================================================
 `;
 
-exports[`range.js format 1`] = `
+exports[`range.js format[acorn] 1`] = `
+"Unexpected token (1:26)
+> 1 | let moduleBlock = module {  export let y = 1;
+    |                          ^
+  2 | };
+  3 |
+  4 | foo(module { export let foo = "foo"; })
+Cause: Unexpected token (1:25)"
+`;
+
+exports[`range.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -257,17 +267,7 @@ foo(module {
 ================================================================================
 `;
 
-exports[`range.js format 2`] = `
-"Unexpected token (1:26)
-> 1 | let moduleBlock = module {  export let y = 1;
-    |                          ^
-  2 | };
-  3 |
-  4 | foo(module { export let foo = "foo"; })
-Cause: Unexpected token (1:25)"
-`;
-
-exports[`range.js format 3`] = `
+exports[`range.js format[espree] 1`] = `
 "Unexpected token { (1:26)
 > 1 | let moduleBlock = module {  export let y = 1;
     |                          ^
@@ -277,7 +277,7 @@ exports[`range.js format 3`] = `
 Cause: Unexpected token {"
 `;
 
-exports[`range.js format 4`] = `
+exports[`range.js format[meriyah] 1`] = `
 "Unexpected token: '{' (1:26)
 > 1 | let moduleBlock = module {  export let y = 1;
     |                          ^
@@ -287,7 +287,7 @@ exports[`range.js format 4`] = `
 Cause: [1:25-1:26]: Unexpected token: '{'"
 `;
 
-exports[`range.js format 5`] = `
+exports[`range.js format[oxc] 1`] = `
 "Expected a semicolon or an implicit semicolon after a statement, but found none (1:25)
 > 1 | let moduleBlock = module {  export let y = 1;
     |                         ^

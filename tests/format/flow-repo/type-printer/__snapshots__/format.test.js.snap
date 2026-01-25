@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`printBinaryExpression.js format 1`] = `
+exports[`printBinaryExpression.js format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -50,7 +50,7 @@ module.exports = printBinaryExpression;
 ================================================================================
 `;
 
-exports[`types.js format 1`] = `
+exports[`types.js format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

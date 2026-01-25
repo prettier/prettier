@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`comment.js format 1`] = `
+exports[`comment.js format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -22,7 +22,7 @@ const myValue = (callcallcallcallcallcall(
 ================================================================================
 `;
 
-exports[`comments.js format 1`] = `
+exports[`comments.js format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -53,7 +53,7 @@ type Foo = (
 ================================================================================
 `;
 
-exports[`union.js format 1`] = `
+exports[`union.js format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -133,7 +133,7 @@ export function aPrettyLongFunctionE(
 ================================================================================
 `;
 
-exports[`within-tuple.js format 1`] = `
+exports[`within-tuple.js format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

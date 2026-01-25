@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`FormData.js format 1`] = `
+exports[`FormData.js format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -155,7 +155,7 @@ for (let [x, y]: [number, number] of a.entries()) {
 ================================================================================
 `;
 
-exports[`MutationObserver.js format 1`] = `
+exports[`MutationObserver.js format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

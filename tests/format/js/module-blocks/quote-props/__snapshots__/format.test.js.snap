@@ -1,6 +1,16 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`worker.js format 1`] = `
+exports[`worker.js format[acorn] 1`] = `
+"Unexpected token (1:28)
+> 1 | worker = new Worker(module {
+    |                            ^
+  2 |   onmessage = function({data}) {
+  3 |     let mod = import(data);
+  4 |     postMessage(mod.fn());
+Cause: Unexpected token (1:27)"
+`;
+
+exports[`worker.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -97,17 +107,7 @@ worker.postMessage(module {
 ================================================================================
 `;
 
-exports[`worker.js format 2`] = `
-"Unexpected token (1:28)
-> 1 | worker = new Worker(module {
-    |                            ^
-  2 |   onmessage = function({data}) {
-  3 |     let mod = import(data);
-  4 |     postMessage(mod.fn());
-Cause: Unexpected token (1:27)"
-`;
-
-exports[`worker.js format 3`] = `
+exports[`worker.js format[espree] 1`] = `
 "Unexpected token { (1:28)
 > 1 | worker = new Worker(module {
     |                            ^
@@ -117,7 +117,7 @@ exports[`worker.js format 3`] = `
 Cause: Unexpected token {"
 `;
 
-exports[`worker.js format 4`] = `
+exports[`worker.js format[meriyah] 1`] = `
 "Expected ')' (1:28)
 > 1 | worker = new Worker(module {
     |                            ^
@@ -127,7 +127,7 @@ exports[`worker.js format 4`] = `
 Cause: [1:27-1:28]: Expected ')'"
 `;
 
-exports[`worker.js format 5`] = `
+exports[`worker.js format[oxc] 1`] = `
 "Expected \`,\` or \`)\` but found \`{\` (1:28)
 > 1 | worker = new Worker(module {
     |                            ^

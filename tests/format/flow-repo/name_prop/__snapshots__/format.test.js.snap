@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`class.js format 1`] = `
+exports[`class.js format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -32,7 +32,7 @@ var test6: number = a.constructor.name; // Error string ~> number
 ================================================================================
 `;
 
-exports[`function.js format 1`] = `
+exports[`function.js format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

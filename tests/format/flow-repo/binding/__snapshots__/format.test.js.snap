@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`const.js format 1`] = `
+exports[`const.js format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -66,7 +66,7 @@ for (const { baz } of bazzes) {
 ================================================================================
 `;
 
-exports[`const.js format 2`] = `
+exports[`const.js format[hermes] 1`] = `
 "invalid operand in update operation (4:0)
   2 |
   3 | // errors: const cannot be reassigned
@@ -79,7 +79,7 @@ x++;
 ^"
 `;
 
-exports[`rebinding.js format 1`] = `
+exports[`rebinding.js format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -485,7 +485,7 @@ function fn_params_clash_fn_binding(x, y) {
 ================================================================================
 `;
 
-exports[`rebinding.js format 2`] = `
+exports[`rebinding.js format[hermes] 1`] = `
 "Identifier 'A' is already declared (53:8)
   51 | function class_class() {
   52 |   class A {}
@@ -502,7 +502,7 @@ note: previous declaration (52:8)
         ^"
 `;
 
-exports[`scope.js format 1`] = `
+exports[`scope.js format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -736,7 +736,7 @@ function default_param_2() {
 ================================================================================
 `;
 
-exports[`scope.js format 2`] = `
+exports[`scope.js format[hermes] 1`] = `
 "Identifier 'a' is already declared (19:10)
   17 |       break;
   18 |     case "bar":
@@ -753,7 +753,7 @@ note: previous declaration (15:10)
           ^"
 `;
 
-exports[`tdz.js format 1`] = `
+exports[`tdz.js format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

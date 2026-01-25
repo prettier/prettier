@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`array-pattern.ts format 1`] = `
+exports[`array-pattern.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -14,7 +14,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`as.ts format 1`] = `
+exports[`as.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -133,7 +133,7 @@ const iter2 = createIterator(
 ================================================================================
 `;
 
-exports[`as-const-embedded.ts format 1`] = `
+exports[`as-const-embedded.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -167,7 +167,7 @@ const HTML_WITH_CONST = /* HTML */ \`
 ================================================================================
 `;
 
-exports[`assignment.ts format 1`] = `
+exports[`assignment.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -239,7 +239,7 @@ this.intervalID = setInterval(() => {
 ================================================================================
 `;
 
-exports[`assignment2.ts format 1`] = `
+exports[`assignment2.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -313,7 +313,7 @@ const originalPrototype = originalConstructor.prototype as TComponent &
 ================================================================================
 `;
 
-exports[`export_default_as.ts format 1`] = `
+exports[`export_default_as.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -327,7 +327,7 @@ export default (function log() {} as typeof console.log);
 ================================================================================
 `;
 
-exports[`expression-statement.ts format 1`] = `
+exports[`expression-statement.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -347,7 +347,7 @@ x as unknown;
 ================================================================================
 `;
 
-exports[`long-identifiers.ts format 1`] = `
+exports[`long-identifiers.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -388,7 +388,7 @@ averredBathersBoxroomBuggyNurl(
 ================================================================================
 `;
 
-exports[`nested-await-and-as.ts format 1`] = `
+exports[`nested-await-and-as.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -415,7 +415,7 @@ const getAccountCount = async () =>
 ================================================================================
 `;
 
-exports[`return.ts format 1`] = `
+exports[`return.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -439,7 +439,7 @@ function foo() {
 ================================================================================
 `;
 
-exports[`ternary.ts format 1`] = `
+exports[`ternary.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

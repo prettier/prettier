@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`abnormal.js format 1`] = `
+exports[`abnormal.js format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -52,7 +52,7 @@ function bar(x: boolean) {
 ================================================================================
 `;
 
-exports[`test.js format 1`] = `
+exports[`test.js format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

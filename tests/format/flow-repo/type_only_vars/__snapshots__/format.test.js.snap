@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`A.js format 1`] = `
+exports[`A.js format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -38,7 +38,7 @@ module.exports = {
 ================================================================================
 `;
 
-exports[`bad_shadowing.js format 1`] = `
+exports[`bad_shadowing.js format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -86,7 +86,7 @@ var duck: string = "quack";
 ================================================================================
 `;
 
-exports[`bad_shadowing.js format 2`] = `
+exports[`bad_shadowing.js format[hermes] 1`] = `
 "Identifier 'A' is already declared (13:4)
   11 |
   12 | // These string types should confict with the imported types
@@ -103,7 +103,7 @@ import typeof A from "./A.js";
               ^"
 `;
 
-exports[`good_shadowing.js format 1`] = `
+exports[`good_shadowing.js format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -155,7 +155,7 @@ var b: Foo = new A.Foo();
 ================================================================================
 `;
 
-exports[`good_shadowing.js format 2`] = `
+exports[`good_shadowing.js format[hermes] 1`] = `
 "Identifier 'A' is already declared (8:4)
    6 | import type {Foo, Bar as Baz} from "./A.js";
    7 |
@@ -172,7 +172,7 @@ import typeof A from "./A.js";
               ^"
 `;
 
-exports[`import_type.js format 1`] = `
+exports[`import_type.js format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -218,7 +218,7 @@ var a: Foo = new actualA.Foo();
 ================================================================================
 `;
 
-exports[`type_alias.js format 1`] = `
+exports[`type_alias.js format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

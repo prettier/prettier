@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`conditional.ts format 1`] = `
+exports[`conditional.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -73,7 +73,7 @@ export type Intersect<U1 extends any, U2 extends any> = U1 extends unknown
 ================================================================================
 `;
 
-exports[`issue-9874.ts format 1`] = `
+exports[`issue-9874.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -88,7 +88,7 @@ export type RequestNextDealAction =
 ================================================================================
 `;
 
-exports[`issue-100857.ts format 1`] = `
+exports[`issue-100857.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -181,7 +181,7 @@ type FieldLayoutWith<
 ================================================================================
 `;
 
-exports[`pattern-parameter.ts format 1`] = `
+exports[`pattern-parameter.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

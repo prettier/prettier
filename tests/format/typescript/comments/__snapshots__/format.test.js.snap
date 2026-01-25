@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`10260.ts format 1`] = `
+exports[`10260.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -70,7 +70,7 @@ type D2 =
 ================================================================================
 `;
 
-exports[`11662.ts format 1`] = `
+exports[`11662.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -98,7 +98,7 @@ foo<a>
 ================================================================================
 `;
 
-exports[`15707.ts format 1`] = `
+exports[`15707.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -220,7 +220,7 @@ const [
 ================================================================================
 `;
 
-exports[`16065.ts format 1`] = `
+exports[`16065.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -254,7 +254,7 @@ class Foo {
 ================================================================================
 `;
 
-exports[`16065-2.ts format 1`] = `
+exports[`16065-2.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -320,7 +320,7 @@ class Foo {
 ================================================================================
 `;
 
-exports[`16121.ts format 1`] = `
+exports[`16121.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -405,7 +405,7 @@ export type IntersectionType =
 ================================================================================
 `;
 
-exports[`16207.ts format 1`] = `
+exports[`16207.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -431,7 +431,7 @@ class Foo {
 ================================================================================
 `;
 
-exports[`16889.ts format 1`] = `
+exports[`16889.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -572,7 +572,7 @@ class A {
 ================================================================================
 `;
 
-exports[`abstract_class.ts format 1`] = `
+exports[`abstract_class.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -600,7 +600,7 @@ abstract class AbstractRule {
 ================================================================================
 `;
 
-exports[`abstract_methods.ts format 1`] = `
+exports[`abstract_methods.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -634,7 +634,7 @@ abstract class AbstractFoo {
 ================================================================================
 `;
 
-exports[`after_jsx_generic.tsx format 1`] = `
+exports[`after_jsx_generic.tsx format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -696,7 +696,7 @@ let comp = (
 ================================================================================
 `;
 
-exports[`declare_function.ts format 1`] = `
+exports[`declare_function.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -719,7 +719,7 @@ declare function /* foo */ f(/* baz */ a /* taz */); /* bar */
 ================================================================================
 `;
 
-exports[`interface.ts format 1`] = `
+exports[`interface.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -787,7 +787,7 @@ interface Foo {
 ================================================================================
 `;
 
-exports[`issues.ts format 1`] = `
+exports[`issues.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -865,7 +865,7 @@ export type AsyncExecuteOptions = child_process$execFileOpts & {
 ================================================================================
 `;
 
-exports[`jsx.tsx format 1`] = `
+exports[`jsx.tsx format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -887,7 +887,7 @@ var example2 = <div>/*test*/</div>;
 ================================================================================
 `;
 
-exports[`location.ts format 1`] = `
+exports[`location.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -974,7 +974,7 @@ export type WrappedFormUtils = {
 ================================================================================
 `;
 
-exports[`mapped-types.ts format 1`] = `
+exports[`mapped-types.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -1148,7 +1148,7 @@ type M7 = {
 ================================================================================
 `;
 
-exports[`method_types.ts format 1`] = `
+exports[`method_types.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -1238,7 +1238,7 @@ abstract class Test {
 ================================================================================
 `;
 
-exports[`methods.ts format 1`] = `
+exports[`methods.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -1348,7 +1348,7 @@ export class Point {
 ================================================================================
 `;
 
-exports[`ts-parameter-proerty.ts format 1`] = `
+exports[`ts-parameter-proerty.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -1373,7 +1373,7 @@ class A {
 ================================================================================
 `;
 
-exports[`type_literals.ts format 1`] = `
+exports[`type_literals.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -1413,7 +1413,7 @@ type Props3 = {
 ================================================================================
 `;
 
-exports[`type-parameters.ts format 1`] = `
+exports[`type-parameters.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -1447,7 +1447,7 @@ interface Foo {
 ================================================================================
 `;
 
-exports[`types.ts format 1`] = `
+exports[`types.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -1465,7 +1465,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`union.ts format 1`] = `
+exports[`union.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

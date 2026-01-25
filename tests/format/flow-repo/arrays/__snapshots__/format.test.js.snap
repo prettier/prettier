@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`Arrays.js format 1`] = `
+exports[`Arrays.js format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -89,7 +89,7 @@ module.exports = "arrays";
 ================================================================================
 `;
 
-exports[`numeric_elem.js format 1`] = `
+exports[`numeric_elem.js format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

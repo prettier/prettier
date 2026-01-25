@@ -1,6 +1,17 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`do.js format 1`] = `
+exports[`do.js format[acorn] 1`] = `
+"Unexpected token (2:4)
+  1 | <div>
+> 2 |   {do {
+    |    ^
+  3 | 	  1
+  4 |   }}
+  5 | </div>
+Cause: Unexpected token (2:3)"
+`;
+
+exports[`do.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -22,18 +33,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`do.js format 2`] = `
-"Unexpected token (2:4)
-  1 | <div>
-> 2 |   {do {
-    |    ^
-  3 | 	  1
-  4 |   }}
-  5 | </div>
-Cause: Unexpected token (2:3)"
-`;
-
-exports[`do.js format 3`] = `
+exports[`do.js format[espree] 1`] = `
 "Unexpected token do (2:4)
   1 | <div>
 > 2 |   {do {
@@ -44,7 +44,7 @@ exports[`do.js format 3`] = `
 Cause: Unexpected token do"
 `;
 
-exports[`do.js format 4`] = `
+exports[`do.js format[meriyah] 1`] = `
 "Unexpected token: 'do' (2:4)
   1 | <div>
 > 2 |   {do {
@@ -55,7 +55,7 @@ exports[`do.js format 4`] = `
 Cause: [2:3-2:5]: Unexpected token: 'do'"
 `;
 
-exports[`do.js format 5`] = `
+exports[`do.js format[oxc] 1`] = `
 "Unexpected token (2:4)
   1 | <div>
 > 2 |   {do {

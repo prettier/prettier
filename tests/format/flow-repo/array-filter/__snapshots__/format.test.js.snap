@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`test.js format 1`] = `
+exports[`test.js format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -30,7 +30,7 @@ function filterOutSmall(arr: Array<?number>): Array<?number> {
 ================================================================================
 `;
 
-exports[`test2.js format 1`] = `
+exports[`test2.js format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`keywords.ts format 1`] = `
+exports[`keywords.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -71,7 +71,7 @@ module YYY4 {
 ================================================================================
 `;
 
-exports[`keywords-2.ts format 1`] = `
+exports[`keywords-2.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -138,7 +138,7 @@ class Foo {
 ================================================================================
 `;
 
-exports[`module.ts format 1`] = `
+exports[`module.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

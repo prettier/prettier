@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`test1.js format 1`] = `
+exports[`test1.js format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -52,7 +52,7 @@ declare var b: B<any>;
 ================================================================================
 `;
 
-exports[`test2.js format 1`] = `
+exports[`test2.js format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

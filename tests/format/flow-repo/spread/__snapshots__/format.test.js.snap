@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`test.js format 1`] = `
+exports[`test.js format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -72,7 +72,7 @@ function parseTimeframe(line: string): { begin: number, end: number } {
 ================================================================================
 `;
 
-exports[`test2.js format 1`] = `
+exports[`test2.js format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -102,7 +102,7 @@ foo({ foo: 42 });
 ================================================================================
 `;
 
-exports[`test3.js format 1`] = `
+exports[`test3.js format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -148,7 +148,7 @@ var t: boolean = s.y; // error, string or number
 ================================================================================
 `;
 
-exports[`test4.js format 1`] = `
+exports[`test4.js format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -168,7 +168,7 @@ test(0, ...[1, 2, 3]);
 ================================================================================
 `;
 
-exports[`test5.js format 1`] = `
+exports[`test5.js format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -230,7 +230,7 @@ function test(
 ================================================================================
 `;
 
-exports[`test6.js format 1`] = `
+exports[`test6.js format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -282,7 +282,7 @@ for (var i = 0; i < 10; i++) {
 ================================================================================
 `;
 
-exports[`test7.js format 1`] = `
+exports[`test7.js format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

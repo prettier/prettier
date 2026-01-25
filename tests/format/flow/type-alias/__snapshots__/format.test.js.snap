@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`conditional.js format 1`] = `
+exports[`conditional.js format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -73,7 +73,7 @@ export type Intersect<U1: any, U2: any> = U1 extends mixed
 ================================================================================
 `;
 
-exports[`issue-100857.js format 1`] = `
+exports[`issue-100857.js format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

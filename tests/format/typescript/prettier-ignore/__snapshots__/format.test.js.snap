@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`issue-14238.ts format 1`] = `
+exports[`issue-14238.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -18,7 +18,7 @@ export const foo = // prettier-ignore
 ================================================================================
 `;
 
-exports[`issue-16927.ts format 1`] = `
+exports[`issue-16927.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -38,7 +38,7 @@ type Foo = {
 ================================================================================
 `;
 
-exports[`mapped-types.ts format 1`] = `
+exports[`mapped-types.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -181,7 +181,7 @@ type l = {
 ================================================================================
 `;
 
-exports[`prettier-ignore-nested-unions.ts format 1`] = `
+exports[`prettier-ignore-nested-unions.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -243,7 +243,7 @@ export type b =
 ================================================================================
 `;
 
-exports[`prettier-ignore-parenthesized-type.ts format 1`] = `
+exports[`prettier-ignore-parenthesized-type.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

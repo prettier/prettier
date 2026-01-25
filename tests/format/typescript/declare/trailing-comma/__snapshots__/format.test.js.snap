@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`function-rest-trailing-comma.ts - {"trailingComma":"all"} format 1`] = `
+exports[`function-rest-trailing-comma.ts - {"trailingComma":"all"} format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -19,7 +19,7 @@ declare function foo(
 ================================================================================
 `;
 
-exports[`function-rest-trailing-comma.ts - {"trailingComma":"es5"} format 1`] = `
+exports[`function-rest-trailing-comma.ts - {"trailingComma":"es5"} format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -38,7 +38,7 @@ declare function foo(
 ================================================================================
 `;
 
-exports[`function-rest-trailing-comma.ts - {"trailingComma":"none"} format 1`] = `
+exports[`function-rest-trailing-comma.ts - {"trailingComma":"none"} format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

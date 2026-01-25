@@ -1,6 +1,16 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`test.js format 1`] = `
+exports[`test.js format[acorn] 1`] = `
+"Unexpected token (1:23)
+> 1 | const addOne = add(1, ?); // apply from the left
+    |                       ^
+  2 | addOne(2); // 3
+  3 |
+  4 | const addTen = add(?, 10); // apply from the right
+Cause: Unexpected token (1:22)"
+`;
+
+exports[`test.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -30,17 +40,7 @@ let newScore = player.score |> add(7, ?) |> clamp(0, 100, ?); // shallow stack, 
 ================================================================================
 `;
 
-exports[`test.js format 2`] = `
-"Unexpected token (1:23)
-> 1 | const addOne = add(1, ?); // apply from the left
-    |                       ^
-  2 | addOne(2); // 3
-  3 |
-  4 | const addTen = add(?, 10); // apply from the right
-Cause: Unexpected token (1:22)"
-`;
-
-exports[`test.js format 3`] = `
+exports[`test.js format[espree] 1`] = `
 "Unexpected token ? (1:23)
 > 1 | const addOne = add(1, ?); // apply from the left
     |                       ^
@@ -50,7 +50,7 @@ exports[`test.js format 3`] = `
 Cause: Unexpected token ?"
 `;
 
-exports[`test.js format 4`] = `
+exports[`test.js format[meriyah] 1`] = `
 "Unexpected token: '?' (1:23)
 > 1 | const addOne = add(1, ?); // apply from the left
     |                       ^
@@ -60,7 +60,7 @@ exports[`test.js format 4`] = `
 Cause: [1:22-1:23]: Unexpected token: '?'"
 `;
 
-exports[`test.js format 5`] = `
+exports[`test.js format[oxc] 1`] = `
 "Unexpected token (1:23)
 > 1 | const addOne = add(1, ?); // apply from the left
     |                       ^

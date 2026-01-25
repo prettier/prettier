@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`client_object.js format 1`] = `
+exports[`client_object.js format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -18,7 +18,7 @@ var a: number = o.w.z.y;
 ================================================================================
 `;
 
-exports[`object.js format 1`] = `
+exports[`object.js format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -48,7 +48,7 @@ module.exports = o3;
 ================================================================================
 `;
 
-exports[`proto.js format 1`] = `
+exports[`proto.js format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -74,7 +74,7 @@ var o2: Foo = new Foo();
 ================================================================================
 `;
 
-exports[`super.js format 1`] = `
+exports[`super.js format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`circularImportAlias.ts format 1`] = `
+exports[`circularImportAlias.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -48,7 +48,7 @@ var c = new B.a.C();
 ================================================================================
 `;
 
-exports[`exportImportAlias.ts format 1`] = `
+exports[`exportImportAlias.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -199,7 +199,7 @@ var p: M.D.Point;
 ================================================================================
 `;
 
-exports[`exportInterface.ts format 1`] = `
+exports[`exportInterface.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -212,7 +212,7 @@ export interface I {}
 ================================================================================
 `;
 
-exports[`importAliasIdentifiers.ts format 1`] = `
+exports[`importAliasIdentifiers.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -319,7 +319,7 @@ var p: { x: number; y: number };
 ================================================================================
 `;
 
-exports[`invalidImportAliasIdentifiers.ts format 1`] = `
+exports[`invalidImportAliasIdentifiers.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -378,7 +378,7 @@ import i = I;
 ================================================================================
 `;
 
-exports[`shadowedInternalModule.ts format 1`] = `
+exports[`shadowedInternalModule.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

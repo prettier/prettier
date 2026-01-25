@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`snippet: cursor-1.js format 1`] = `
+exports[`snippet: cursor-1.js format[babel] 1`] = `
 ====================================options=====================================
 cursorOffset: 27
 parsers: ["babel"]
@@ -17,7 +17,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`snippet: cursor-and-range.js format 1`] = `
+exports[`snippet: cursor-and-range.js format[babel] 1`] = `
 ====================================options=====================================
 cursorOffset: 22
 parsers: ["babel"]
@@ -46,7 +46,7 @@ let    x
 ================================================================================
 `;
 
-exports[`snippet: range-1.js format 1`] = `
+exports[`snippet: range-1.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -76,7 +76,7 @@ let    x
 ================================================================================
 `;
 
-exports[`snippet: range-and-cursor-1.js format 1`] = `
+exports[`snippet: range-and-cursor-1.js format[babel] 1`] = `
 ====================================options=====================================
 cursorOffset: 23
 parsers: ["babel"]

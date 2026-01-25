@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`6215.ts format 1`] = `
+exports[`6215.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -46,7 +46,7 @@ export function foo3(text: string): { Foo: string; Bar: string } {
 ================================================================================
 `;
 
-exports[`18588.ts format 1`] = `
+exports[`18588.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

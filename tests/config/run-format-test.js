@@ -217,7 +217,7 @@ function runFormatTest(fixtures, parsers, options = {}) {
       });
 
       for (const parser of parsersToTest) {
-        const testTitle = `format${parsers.length === 1 ? "" : `[${parser}]`}`;
+        const testTitle = `format${parsersToTest.length === 1 ? "" : `[${parser}]`}`;
 
         test(testTitle, async () => {
           await runTest({

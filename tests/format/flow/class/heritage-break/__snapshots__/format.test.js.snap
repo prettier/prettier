@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`member-expression-like.js format 1`] = `
+exports[`member-expression-like.js format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -47,7 +47,7 @@ declare class A_long_long_long_long_long_long_long_long_name3
 ================================================================================
 `;
 
-exports[`type-arguments.js format 1`] = `
+exports[`type-arguments.js format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
