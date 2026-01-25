@@ -25,11 +25,12 @@ function testAstCompare(testCase, name) {
       return;
     }
 
-    const { filepath, formatOptions } = testCase;
-    const { input, output } = formatResult;
     const [originalAst, formattedAst] = await Promise.all(
-      [input, output].map((code) => parse(code, formatOptions)),
+      [formatResult.input, formatResult.output].map((code) =>
+        parse(code, formatResult.options),
+      ),
     );
+    const { filepath, formatOptions } = testCase;
     const isAstUnstableTest = failedTests.isAstUnstable(
       filepath,
       formatOptions,
