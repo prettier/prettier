@@ -55,20 +55,29 @@ function* getFiles(context) {
 */
 function* getSnippets(context) {
   for (const [index, snippet] of context.snippets.entries()) {
-    const testCase = typeof snippet === "string" ? { code: snippet } : snippet;
+    const testCase =
+      typeof snippet === "string"
+        ? { code: snippet, context }
+        : { ...snippet, context };
 
     if (typeof testCase.code !== "string") {
-      throw Object.assign(new Error("Invalid test"), { testCase });
+      throw Object.assign(new Error("Invalid test"), { snippet });
     }
 
-    let { output, name } = testCase;
-    if (typeof output === "string") {
-      output = visualizeEndOfLine(output);
+    if (typeof testCase.output === "string") {
+      testCase.output = visualizeEndOfLine(testCase.output);
     }
 
-    name = `snippet: ${name || `#${index}`}`;
+    testCase.name = `snippet: ${testCase.name || `#${index}`}`;
 
-    yield { context, ...testCase, output, name };
+    if (
+      typeof testCase.filepath !== "string" &&
+      typeof testCase.filename === "string"
+    ) {
+      testCase.filepath = path.join(context.dirname, testCase.filename);
+    }
+
+    yield testCase;
   }
 }
 
