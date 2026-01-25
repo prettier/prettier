@@ -29,10 +29,7 @@ function getParsers(dirname, parsers) {
     addParsers("__babel_estree");
   }
 
-  return {
-    explicitParsers: parsers,
-    allParsers,
-  };
+  return allParsers;
 }
 
 export { getParsers };

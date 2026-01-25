@@ -1,13 +1,12 @@
 import path from "node:path";
 import createEsmUtils from "esm-utils";
 import { outdent } from "outdent";
+import { FORMAT_TEST_DIRECTORY, FULL_TEST } from "./constants.js";
 
-const { __dirname, __filename } = createEsmUtils(import.meta);
-
-const TESTS_ROOT = path.join(__dirname, "../../format");
+const { __filename } = createEsmUtils(import.meta);
 
 const getCategory = (dirname) =>
-  path.relative(TESTS_ROOT, dirname).split(path.sep).shift();
+  path.relative(FORMAT_TEST_DIRECTORY, dirname).split(path.sep).shift();
 
 const categoryParsers = new Map([
   [
@@ -166,19 +165,28 @@ const getParserCategories = (parser) => {
   return categories;
 };
 
-const checkParser = ({ dirname, files }, parsers = []) => {
-  const category = getCategory(dirname);
-  const categoryAllowedParsers = categoryParsers.get(category);
+const verifyParsers = (context) => {
+  if (!FULL_TEST) {
+    return;
+  }
 
-  if (!categoryAllowedParsers) {
+  const { explicitParsers: parsers, dirname } = context;
+
+  if (!Array.isArray(parsers) || parsers.length === 0) {
+    throw new Error(`No parsers were specified for ${dirname}`);
+  }
+
+  const category = getCategory(dirname);
+  const settings = categoryParsers.get(category);
+
+  if (!settings) {
     return;
   }
 
   const {
     parsers: allowedParsers = [],
     verifyParsers: allowedVerifyParsers = [],
-    extensions = [],
-  } = categoryAllowedParsers;
+  } = settings;
 
   const [parser, ...verifyParsers] = parsers;
 
@@ -199,7 +207,9 @@ const checkParser = ({ dirname, files }, parsers = []) => {
         : outdent`
           Suggest move your tests to:
           ${suggestCategories
-            .map((category) => `- ${path.join(TESTS_ROOT, category)}`)
+            .map(
+              (category) => `- ${path.join(FORMAT_TEST_DIRECTORY, category)}`,
+            )
             .join("\n")}
 
           Or config to allow use this parser in "${__filename}".
@@ -224,19 +234,34 @@ const checkParser = ({ dirname, files }, parsers = []) => {
       }
     }
   }
+};
 
-  for (const { name, filename } of files) {
-    const ext = path.extname(filename);
-    if (!extensions.includes(ext)) {
-      throw new Error(
-        outdent`
-          File "${name}" should not tested in "${dirname}".
-          Allowed extensions: ${extensions.join(",")}.
-          Please rename it or config to allow test "${ext}" file in "${__filename}".
-        `,
-      );
-    }
+const verifyFilename = (context, basename, filename) => {
+  if (!FULL_TEST) {
+    return;
+  }
+
+  const { dirname } = context;
+
+  const category = getCategory(dirname);
+  const settings = categoryParsers.get(category);
+
+  if (!settings) {
+    return;
+  }
+
+  const { extensions = [] } = settings;
+
+  const ext = path.extname(filename);
+  if (!extensions.includes(ext)) {
+    throw new Error(
+      outdent`
+        File "${basename}" should not tested in "${dirname}".
+        Allowed extensions: ${extensions.join(",")}.
+        Please rename it or config to allow test "${ext}" file in "${__filename}".
+      `,
+    );
   }
 };
 
-export default checkParser;
+export { verifyFilename, verifyParsers };

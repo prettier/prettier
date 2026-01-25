@@ -1,4 +1,5 @@
 import { wrap as raw } from "jest-snapshot-serializer-raw";
+import { CURSOR_PLACEHOLDER } from "./constants.js";
 import visualizeEndOfLine from "./visualize-end-of-line.js";
 import visualizeRange from "./visualize-range.js";
 
@@ -50,10 +51,7 @@ function printWidthIndicator(printWidth, offset) {
   return `${before}${" ".repeat(printWidth)}| printWidth`;
 }
 
-function createSnapshot(
-  formatResult,
-  { parsers, formatOptions, CURSOR_PLACEHOLDER },
-) {
+function createSnapshot(formatResult, { parsers, formatOptions }) {
   let {
     inputWithCursor: input,
     outputWithCursor: output,
