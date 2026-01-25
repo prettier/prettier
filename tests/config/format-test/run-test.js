@@ -34,7 +34,10 @@ function testFixture(fixture) {
         formatOptions,
         expectFail,
         expectedOutput: fixture.output,
-        runFormat: () => (promise ??= format(code, formatOptions)),
+        runFormat: () =>
+          promise === undefined
+            ? (promise = format(code, formatOptions))
+            : promise,
       };
     });
 
