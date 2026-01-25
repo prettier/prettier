@@ -52,12 +52,9 @@ const proxyFunction = (accessPath, optionsIndex = 1) =>
     },
   );
 
-const prettier = {
-  formatWithCursor: proxyFunction("formatWithCursor"),
-  getSupportInfo: proxyFunction("getSupportInfo", /* optionsIndex */ 0),
-  __debug: {
-    parse: proxyFunction("__debug.parse"),
-  },
-};
-
-export { prettier };
+export const formatWithCursor = proxyFunction("formatWithCursor");
+export const getSupportInfo = proxyFunction(
+  "getSupportInfo",
+  /* optionsIndex */ 0,
+);
+export const __debug = { parse: proxyFunction("__debug.parse") };
