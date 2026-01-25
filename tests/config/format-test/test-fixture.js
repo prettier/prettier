@@ -6,6 +6,13 @@ import { format, parse } from "./run-prettier.js";
 import { shouldThrowOnFormat } from "./utilities.js";
 import visualizeEndOfLine from "./visualize-end-of-line.js";
 
+/**
+@import {Fixture} from "./get-fixtures.js"
+*/
+
+/**
+@param {Fixture} fixture
+*/
 function testFixture(fixture) {
   const { name, code, context, filepath } = fixture;
   const { stringifiedOptions, parsers, options } = context;

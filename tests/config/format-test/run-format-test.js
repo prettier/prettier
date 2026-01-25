@@ -9,15 +9,25 @@ import { isErrorTest, normalizeDirectory } from "./utilities.js";
 import { verifyParsers } from "./verify-fixtures.js";
 
 /**
+@typedef {
+  | string
+  | { code: string; name?: string; filename?: string; output?: string }
+} Snippet
+@typedef {{
+  dirname: string,
+  stringifiedOptions: string,
+  parsers: string[],
+  options: any,
+  explicitParsers: string[],
+  rawOptions: any,
+  snippets: Snippet[],
+}} Context
+*/
+
+/**
 @param {
   | ImportMeta
-  | {
-      importMeta: ImportMeta;
-      snippets?: Array<
-        | string
-        | { code: string; name?: string; filename?: string; output?: string }
-      >;
-    }
+  | { importMeta: ImportMeta, snippets?: Snippet[] }
 } rawFixtures
 @param {string[]} explicitParsers
 @param {any} rawOptions

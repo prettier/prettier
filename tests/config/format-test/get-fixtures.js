@@ -4,11 +4,22 @@ import { FORMAT_SCRIPT_FILENAME } from "./constants.js";
 import { verifyFilename } from "./verify-fixtures.js";
 import visualizeEndOfLine from "./visualize-end-of-line.js";
 
+/**
+@import {Context} from "./run-format-test.js"
+@typedef {Exclude<ReturnType<ReturnType<getFixtures>["next"]>["value"], void>} Fixture
+*/
+
+/**
+@param {Context} context
+*/
 function* getFixtures(context) {
   yield* getFiles(context);
   yield* getSnippets(context);
 }
 
+/**
+@param {Context} context
+*/
 function* getFiles(context) {
   const { dirname } = context;
   for (const file of fs.readdirSync(dirname, { withFileTypes: true })) {
@@ -39,6 +50,9 @@ function* getFiles(context) {
   }
 }
 
+/**
+@param {Context} context
+*/
 function* getSnippets(context) {
   for (const [index, snippet] of context.snippets.entries()) {
     const testCase = typeof snippet === "string" ? { code: snippet } : snippet;
