@@ -24,6 +24,7 @@ async function* checkDirectory(directory) {
     directory,
     ok:
       directory === FORMAT_TEST_DIRECTORY ||
+      files.some((file) => file.name === ".not-test-directory") ||
       !files.some(
         (file) => file.isFile() && file.name !== TEST_SCRIPT_FILE_NAME,
       ) ||
@@ -44,13 +45,12 @@ for await (const { directory, ok } of checkDirectory(FORMAT_TEST_DIRECTORY)) {
   const name = path.relative(PROJECT_ROOT, directory).replaceAll("\\", "/");
 
   if (!ok) {
-    console.log(name);
+    console.log(`- ${name}`);
     directories.push(name);
   }
 }
 
 if (directories.length > 0) {
-  console.log();
   console.error(
     `${directories.length > 1 ? "Directories" : "Directory"} above missing "${TEST_SCRIPT_FILE_NAME}" file.`,
   );
