@@ -46,6 +46,10 @@ function testSecondFormat(testCase, name) {
   });
 }
 
+/**
+@param {TestCase} testCase
+@return {boolean}
+*/
 function shouldSkip(testCase) {
   if (testCase.expectFail) {
     return true;

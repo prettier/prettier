@@ -28,6 +28,10 @@ function testBom(testCase, name) {
   });
 }
 
+/**
+@param {TestCase} testCase
+@return {boolean}
+*/
 function shouldSkip(testCase) {
   return testCase.expectFail || testCase.code.charAt(0) === BOM;
 }

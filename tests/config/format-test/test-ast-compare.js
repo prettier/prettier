@@ -10,14 +10,6 @@ import { parse } from "./run-prettier.js";
 @param {string} name
 */
 function testAstCompare(testCase, name) {
-  if (
-    testCase.expectFail ||
-    // Some parsers skip parsing empty files
-    testCase.isEmpty
-  ) {
-    return;
-  }
-
   test(name, async () => {
     const formatResult = await testCase.runFormat();
 
@@ -44,4 +36,16 @@ function testAstCompare(testCase, name) {
   });
 }
 
-export { testAstCompare as run };
+/**
+@param {TestCase} testCase
+@return {boolean}
+*/
+function shouldSkip(testCase) {
+  return (
+    testCase.expectFail ||
+    // Some parsers skip parsing empty files
+    testCase.isEmpty
+  );
+}
+
+export { testAstCompare as run, shouldSkip as skip };
