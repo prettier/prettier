@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
+import { FORMAT_SCRIPT_FILENAME } from "./constants.js";
 import { verifyFilename } from "./verify-fixtures.js";
 import visualizeEndOfLine from "./visualize-end-of-line.js";
 
@@ -17,7 +18,7 @@ function* getFiles(context) {
       path.extname(basename) === ".snap" ||
       !file.isFile() ||
       basename[0] === "." ||
-      basename === "format.test.js" ||
+      basename === FORMAT_SCRIPT_FILENAME ||
       // VSCode creates this file sometime https://github.com/microsoft/vscode/issues/105191
       basename === "debug.log"
     ) {
