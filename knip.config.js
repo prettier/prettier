@@ -20,7 +20,7 @@ const config = {
         "src/experimental-cli/index.js",
 
         // Tests
-        "tests/config/browser/**",
+        "tests/config/browser-prettier/**",
       ],
       project: ["src/**", "scripts/**"],
       ignore: [
