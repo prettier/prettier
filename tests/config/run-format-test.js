@@ -173,9 +173,6 @@ function runFormatTest(fixtures, parsers, options = {}) {
       const parsersToTest = allParsers.filter(
         (parser) => !failedTests.shouldDisable(filename, parser),
       );
-      const mainParser = parsersToTest.find(
-        (parser) => !shouldThrowOnFormat(name, options, parser),
-      );
 
       let results;
       let firstSucceedResult;
@@ -220,8 +217,7 @@ function runFormatTest(fixtures, parsers, options = {}) {
       });
 
       for (const parser of parsersToTest) {
-        const testTitle =
-          parser !== mainParser ? `[${parser}] format` : "format";
+        const testTitle = `format${parsers.length === 1 ? "" : `[${parser}]`}`;
 
         test(testTitle, async () => {
           await runTest({

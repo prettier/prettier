@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`asi.js format 1`] = `
+exports[`asi.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -21,7 +21,7 @@ class C {
 ================================================================================
 `;
 
-exports[`assignment.js format 1`] = `
+exports[`assignment.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -99,7 +99,7 @@ module.exports = class A extends B {
 ================================================================================
 `;
 
-exports[`binary.js format 1`] = `
+exports[`binary.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -119,7 +119,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`call.js format 1`] = `
+exports[`call.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -133,7 +133,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`class-fields-features.js format 1`] = `
+exports[`class-fields-features.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -177,7 +177,7 @@ class Foo {
 ================================================================================
 `;
 
-exports[`computed-constructor-property.js format 1`] = `
+exports[`computed-constructor-property.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -203,7 +203,7 @@ class B {
 ================================================================================
 `;
 
-exports[`constructor.js format 1`] = `
+exports[`constructor.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -233,7 +233,7 @@ class B {
 ================================================================================
 `;
 
-exports[`empty.js format 1`] = `
+exports[`empty.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -251,7 +251,7 @@ class A4 {
 ================================================================================
 `;
 
-exports[`member.js format 1`] = `
+exports[`member.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -267,7 +267,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`method.js format 1`] = `
+exports[`method.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -297,7 +297,7 @@ class C {
 ================================================================================
 `;
 
-exports[`multiple-static.js format 1`] = `
+exports[`multiple-static.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -319,7 +319,7 @@ class C {
 ================================================================================
 `;
 
-exports[`new.js format 1`] = `
+exports[`new.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -335,7 +335,7 @@ new Ctor(class {});
 ================================================================================
 `;
 
-exports[`property.js format 1`] = `
+exports[`property.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -383,7 +383,7 @@ class B {
 ================================================================================
 `;
 
-exports[`super.js format 1`] = `
+exports[`super.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -405,7 +405,7 @@ class A extends B {
 ================================================================================
 `;
 
-exports[`ternary.js format 1`] = `
+exports[`ternary.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80

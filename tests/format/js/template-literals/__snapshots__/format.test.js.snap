@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`binary-exporessions.js format 1`] = `
+exports[`binary-exporessions.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -22,7 +22,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`conditional-expressions.js format 1`] = `
+exports[`conditional-expressions.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -40,7 +40,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`css-prop.js format 1`] = `
+exports[`css-prop.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -111,7 +111,7 @@ const TestComponent = ({ children, ...props }) => (
 ================================================================================
 `;
 
-exports[`expression-break.js format 1`] = `
+exports[`expression-break.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -163,7 +163,7 @@ _ = html\`
 ================================================================================
 `;
 
-exports[`expressions.js format 1`] = `
+exports[`expressions.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -287,7 +287,7 @@ a = \`\${[
 ================================================================================
 `;
 
-exports[`indention.js format 1`] = `
+exports[`indention.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -463,7 +463,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`logical-expressions.js format 1`] = `
+exports[`logical-expressions.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -490,7 +490,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`sequence-expressions.js format 1`] = `
+exports[`sequence-expressions.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -504,7 +504,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`styled-components-with-expressions.js format 1`] = `
+exports[`styled-components-with-expressions.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -605,7 +605,7 @@ const header = css\`
 ================================================================================
 `;
 
-exports[`styled-jsx.js format 1`] = `
+exports[`styled-jsx.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -795,7 +795,7 @@ const headerGlobal = css.global\`
 ================================================================================
 `;
 
-exports[`styled-jsx-with-expressions.js format 1`] = `
+exports[`styled-jsx-with-expressions.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80

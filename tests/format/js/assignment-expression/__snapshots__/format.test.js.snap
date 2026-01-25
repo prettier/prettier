@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`assignment_expression.js format 1`] = `
+exports[`assignment_expression.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -14,7 +14,7 @@ this.size = this._origin = this._capacity = 0;
 ================================================================================
 `;
 
-exports[`property-key.js format 1`] = `
+exports[`property-key.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -46,7 +46,7 @@ class A {
 ================================================================================
 `;
 
-exports[`property-value.js format 1`] = `
+exports[`property-value.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`array-iter.js - {"singleQuote":false,"jsxSingleQuote":false} format 1`] = `
+exports[`array-iter.js - {"singleQuote":false,"jsxSingleQuote":false} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babel", "typescript"]
@@ -78,7 +78,7 @@ const TodoList = ({ todos }) => (
 ================================================================================
 `;
 
-exports[`array-iter.js - {"singleQuote":false,"jsxSingleQuote":true} format 1`] = `
+exports[`array-iter.js - {"singleQuote":false,"jsxSingleQuote":true} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
@@ -156,7 +156,7 @@ const TodoList = ({ todos }) => (
 ================================================================================
 `;
 
-exports[`array-iter.js - {"singleQuote":true,"jsxSingleQuote":false} format 1`] = `
+exports[`array-iter.js - {"singleQuote":true,"jsxSingleQuote":false} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babel", "typescript"]
@@ -234,7 +234,7 @@ const TodoList = ({ todos }) => (
 ================================================================================
 `;
 
-exports[`array-iter.js - {"singleQuote":true,"jsxSingleQuote":true} format 1`] = `
+exports[`array-iter.js - {"singleQuote":true,"jsxSingleQuote":true} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
@@ -312,7 +312,7 @@ const TodoList = ({ todos }) => (
 ================================================================================
 `;
 
-exports[`arrow.js - {"singleQuote":false,"jsxSingleQuote":false} format 1`] = `
+exports[`arrow.js - {"singleQuote":false,"jsxSingleQuote":false} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babel", "typescript"]
@@ -404,7 +404,7 @@ singleQuote: false
 ================================================================================
 `;
 
-exports[`arrow.js - {"singleQuote":false,"jsxSingleQuote":true} format 1`] = `
+exports[`arrow.js - {"singleQuote":false,"jsxSingleQuote":true} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
@@ -496,7 +496,7 @@ singleQuote: false
 ================================================================================
 `;
 
-exports[`arrow.js - {"singleQuote":true,"jsxSingleQuote":false} format 1`] = `
+exports[`arrow.js - {"singleQuote":true,"jsxSingleQuote":false} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babel", "typescript"]
@@ -588,7 +588,7 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`arrow.js - {"singleQuote":true,"jsxSingleQuote":true} format 1`] = `
+exports[`arrow.js - {"singleQuote":true,"jsxSingleQuote":true} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
@@ -680,7 +680,7 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`attr-comments.js - {"singleQuote":false,"jsxSingleQuote":false} format 1`] = `
+exports[`attr-comments.js - {"singleQuote":false,"jsxSingleQuote":false} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babel", "typescript"]
@@ -756,7 +756,7 @@ singleQuote: false
 ================================================================================
 `;
 
-exports[`attr-comments.js - {"singleQuote":false,"jsxSingleQuote":true} format 1`] = `
+exports[`attr-comments.js - {"singleQuote":false,"jsxSingleQuote":true} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
@@ -832,7 +832,7 @@ singleQuote: false
 ================================================================================
 `;
 
-exports[`attr-comments.js - {"singleQuote":true,"jsxSingleQuote":false} format 1`] = `
+exports[`attr-comments.js - {"singleQuote":true,"jsxSingleQuote":false} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babel", "typescript"]
@@ -908,7 +908,7 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`attr-comments.js - {"singleQuote":true,"jsxSingleQuote":true} format 1`] = `
+exports[`attr-comments.js - {"singleQuote":true,"jsxSingleQuote":true} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
@@ -984,7 +984,7 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`await.js - {"singleQuote":false,"jsxSingleQuote":false} format 1`] = `
+exports[`await.js - {"singleQuote":false,"jsxSingleQuote":false} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babel", "typescript"]
@@ -1082,7 +1082,7 @@ async function testFunction() {
 ================================================================================
 `;
 
-exports[`await.js - {"singleQuote":false,"jsxSingleQuote":true} format 1`] = `
+exports[`await.js - {"singleQuote":false,"jsxSingleQuote":true} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
@@ -1180,7 +1180,7 @@ async function testFunction() {
 ================================================================================
 `;
 
-exports[`await.js - {"singleQuote":true,"jsxSingleQuote":false} format 1`] = `
+exports[`await.js - {"singleQuote":true,"jsxSingleQuote":false} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babel", "typescript"]
@@ -1278,7 +1278,7 @@ async function testFunction() {
 ================================================================================
 `;
 
-exports[`await.js - {"singleQuote":true,"jsxSingleQuote":true} format 1`] = `
+exports[`await.js - {"singleQuote":true,"jsxSingleQuote":true} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
@@ -1376,7 +1376,7 @@ async function testFunction() {
 ================================================================================
 `;
 
-exports[`conditional-expression.js - {"singleQuote":false,"jsxSingleQuote":false} format 1`] = `
+exports[`conditional-expression.js - {"singleQuote":false,"jsxSingleQuote":false} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babel", "typescript"]
@@ -1693,7 +1693,7 @@ foo ? (
 ================================================================================
 `;
 
-exports[`conditional-expression.js - {"singleQuote":false,"jsxSingleQuote":true} format 1`] = `
+exports[`conditional-expression.js - {"singleQuote":false,"jsxSingleQuote":true} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
@@ -2010,7 +2010,7 @@ foo ? (
 ================================================================================
 `;
 
-exports[`conditional-expression.js - {"singleQuote":true,"jsxSingleQuote":false} format 1`] = `
+exports[`conditional-expression.js - {"singleQuote":true,"jsxSingleQuote":false} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babel", "typescript"]
@@ -2327,7 +2327,7 @@ foo ? (
 ================================================================================
 `;
 
-exports[`conditional-expression.js - {"singleQuote":true,"jsxSingleQuote":true} format 1`] = `
+exports[`conditional-expression.js - {"singleQuote":true,"jsxSingleQuote":true} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
@@ -2644,7 +2644,7 @@ foo ? (
 ================================================================================
 `;
 
-exports[`expression.js - {"singleQuote":false,"jsxSingleQuote":false} format 1`] = `
+exports[`expression.js - {"singleQuote":false,"jsxSingleQuote":false} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babel", "typescript"]
@@ -2888,7 +2888,7 @@ singleQuote: false
 ================================================================================
 `;
 
-exports[`expression.js - {"singleQuote":false,"jsxSingleQuote":true} format 1`] = `
+exports[`expression.js - {"singleQuote":false,"jsxSingleQuote":true} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
@@ -3132,7 +3132,7 @@ singleQuote: false
 ================================================================================
 `;
 
-exports[`expression.js - {"singleQuote":true,"jsxSingleQuote":false} format 1`] = `
+exports[`expression.js - {"singleQuote":true,"jsxSingleQuote":false} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babel", "typescript"]
@@ -3376,7 +3376,7 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`expression.js - {"singleQuote":true,"jsxSingleQuote":true} format 1`] = `
+exports[`expression.js - {"singleQuote":true,"jsxSingleQuote":true} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
@@ -3620,7 +3620,7 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`flow_fix_me.js - {"singleQuote":false,"jsxSingleQuote":false} format 1`] = `
+exports[`flow_fix_me.js - {"singleQuote":false,"jsxSingleQuote":false} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babel", "typescript"]
@@ -3644,7 +3644,7 @@ const aDiv = (
 ================================================================================
 `;
 
-exports[`flow_fix_me.js - {"singleQuote":false,"jsxSingleQuote":true} format 1`] = `
+exports[`flow_fix_me.js - {"singleQuote":false,"jsxSingleQuote":true} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
@@ -3668,7 +3668,7 @@ const aDiv = (
 ================================================================================
 `;
 
-exports[`flow_fix_me.js - {"singleQuote":true,"jsxSingleQuote":false} format 1`] = `
+exports[`flow_fix_me.js - {"singleQuote":true,"jsxSingleQuote":false} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babel", "typescript"]
@@ -3692,7 +3692,7 @@ const aDiv = (
 ================================================================================
 `;
 
-exports[`flow_fix_me.js - {"singleQuote":true,"jsxSingleQuote":true} format 1`] = `
+exports[`flow_fix_me.js - {"singleQuote":true,"jsxSingleQuote":true} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
@@ -3716,7 +3716,7 @@ const aDiv = (
 ================================================================================
 `;
 
-exports[`html_escape.js - {"singleQuote":false,"jsxSingleQuote":false} format 1`] = `
+exports[`html_escape.js - {"singleQuote":false,"jsxSingleQuote":false} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babel", "typescript"]
@@ -3736,7 +3736,7 @@ export default () => <a href="https://foo.bar?q1=foo&q2=bar" />;
 ================================================================================
 `;
 
-exports[`html_escape.js - {"singleQuote":false,"jsxSingleQuote":true} format 1`] = `
+exports[`html_escape.js - {"singleQuote":false,"jsxSingleQuote":true} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
@@ -3756,7 +3756,7 @@ export default () => <a href='https://foo.bar?q1=foo&q2=bar' />;
 ================================================================================
 `;
 
-exports[`html_escape.js - {"singleQuote":true,"jsxSingleQuote":false} format 1`] = `
+exports[`html_escape.js - {"singleQuote":true,"jsxSingleQuote":false} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babel", "typescript"]
@@ -3776,7 +3776,7 @@ export default () => <a href="https://foo.bar?q1=foo&q2=bar" />;
 ================================================================================
 `;
 
-exports[`html_escape.js - {"singleQuote":true,"jsxSingleQuote":true} format 1`] = `
+exports[`html_escape.js - {"singleQuote":true,"jsxSingleQuote":true} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
@@ -3796,7 +3796,7 @@ export default () => <a href='https://foo.bar?q1=foo&q2=bar' />;
 ================================================================================
 `;
 
-exports[`hug.js - {"singleQuote":false,"jsxSingleQuote":false} format 1`] = `
+exports[`hug.js - {"singleQuote":false,"jsxSingleQuote":false} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babel", "typescript"]
@@ -3878,7 +3878,7 @@ singleQuote: false
 ================================================================================
 `;
 
-exports[`hug.js - {"singleQuote":false,"jsxSingleQuote":true} format 1`] = `
+exports[`hug.js - {"singleQuote":false,"jsxSingleQuote":true} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
@@ -3960,7 +3960,7 @@ singleQuote: false
 ================================================================================
 `;
 
-exports[`hug.js - {"singleQuote":true,"jsxSingleQuote":false} format 1`] = `
+exports[`hug.js - {"singleQuote":true,"jsxSingleQuote":false} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babel", "typescript"]
@@ -4042,7 +4042,7 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`hug.js - {"singleQuote":true,"jsxSingleQuote":true} format 1`] = `
+exports[`hug.js - {"singleQuote":true,"jsxSingleQuote":true} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
@@ -4124,7 +4124,7 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`logical-expression.js - {"singleQuote":false,"jsxSingleQuote":false} format 1`] = `
+exports[`logical-expression.js - {"singleQuote":false,"jsxSingleQuote":false} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babel", "typescript"]
@@ -4202,7 +4202,7 @@ singleQuote: false
 ================================================================================
 `;
 
-exports[`logical-expression.js - {"singleQuote":false,"jsxSingleQuote":true} format 1`] = `
+exports[`logical-expression.js - {"singleQuote":false,"jsxSingleQuote":true} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
@@ -4280,7 +4280,7 @@ singleQuote: false
 ================================================================================
 `;
 
-exports[`logical-expression.js - {"singleQuote":true,"jsxSingleQuote":false} format 1`] = `
+exports[`logical-expression.js - {"singleQuote":true,"jsxSingleQuote":false} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babel", "typescript"]
@@ -4358,7 +4358,7 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`logical-expression.js - {"singleQuote":true,"jsxSingleQuote":true} format 1`] = `
+exports[`logical-expression.js - {"singleQuote":true,"jsxSingleQuote":true} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
@@ -4436,7 +4436,7 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`object-property.js - {"singleQuote":false,"jsxSingleQuote":false} format 1`] = `
+exports[`object-property.js - {"singleQuote":false,"jsxSingleQuote":false} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babel", "typescript"]
@@ -4476,7 +4476,7 @@ const tabs = [
 ================================================================================
 `;
 
-exports[`object-property.js - {"singleQuote":false,"jsxSingleQuote":true} format 1`] = `
+exports[`object-property.js - {"singleQuote":false,"jsxSingleQuote":true} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
@@ -4516,7 +4516,7 @@ const tabs = [
 ================================================================================
 `;
 
-exports[`object-property.js - {"singleQuote":true,"jsxSingleQuote":false} format 1`] = `
+exports[`object-property.js - {"singleQuote":true,"jsxSingleQuote":false} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babel", "typescript"]
@@ -4556,7 +4556,7 @@ const tabs = [
 ================================================================================
 `;
 
-exports[`object-property.js - {"singleQuote":true,"jsxSingleQuote":true} format 1`] = `
+exports[`object-property.js - {"singleQuote":true,"jsxSingleQuote":true} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
@@ -4596,7 +4596,7 @@ const tabs = [
 ================================================================================
 `;
 
-exports[`open-break.js - {"singleQuote":false,"jsxSingleQuote":false} format 1`] = `
+exports[`open-break.js - {"singleQuote":false,"jsxSingleQuote":false} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babel", "typescript"]
@@ -4640,7 +4640,7 @@ onClick={() => {
 ================================================================================
 `;
 
-exports[`open-break.js - {"singleQuote":false,"jsxSingleQuote":true} format 1`] = `
+exports[`open-break.js - {"singleQuote":false,"jsxSingleQuote":true} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
@@ -4684,7 +4684,7 @@ onClick={() => {
 ================================================================================
 `;
 
-exports[`open-break.js - {"singleQuote":true,"jsxSingleQuote":false} format 1`] = `
+exports[`open-break.js - {"singleQuote":true,"jsxSingleQuote":false} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babel", "typescript"]
@@ -4728,7 +4728,7 @@ onClick={() => {
 ================================================================================
 `;
 
-exports[`open-break.js - {"singleQuote":true,"jsxSingleQuote":true} format 1`] = `
+exports[`open-break.js - {"singleQuote":true,"jsxSingleQuote":true} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
@@ -4772,7 +4772,7 @@ onClick={() => {
 ================================================================================
 `;
 
-exports[`parens.js - {"singleQuote":false,"jsxSingleQuote":false} format 1`] = `
+exports[`parens.js - {"singleQuote":false,"jsxSingleQuote":false} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babel", "typescript"]
@@ -4824,7 +4824,7 @@ new Foo(<Component />);
 ================================================================================
 `;
 
-exports[`parens.js - {"singleQuote":false,"jsxSingleQuote":true} format 1`] = `
+exports[`parens.js - {"singleQuote":false,"jsxSingleQuote":true} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
@@ -4876,7 +4876,7 @@ new Foo(<Component />);
 ================================================================================
 `;
 
-exports[`parens.js - {"singleQuote":true,"jsxSingleQuote":false} format 1`] = `
+exports[`parens.js - {"singleQuote":true,"jsxSingleQuote":false} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babel", "typescript"]
@@ -4928,7 +4928,7 @@ new Foo(<Component />);
 ================================================================================
 `;
 
-exports[`parens.js - {"singleQuote":true,"jsxSingleQuote":true} format 1`] = `
+exports[`parens.js - {"singleQuote":true,"jsxSingleQuote":true} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
@@ -4980,7 +4980,7 @@ new Foo(<Component />);
 ================================================================================
 `;
 
-exports[`quotes.js - {"singleQuote":false,"jsxSingleQuote":false} format 1`] = `
+exports[`quotes.js - {"singleQuote":false,"jsxSingleQuote":false} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babel", "typescript"]
@@ -5070,7 +5070,7 @@ singleQuote: false
 ================================================================================
 `;
 
-exports[`quotes.js - {"singleQuote":false,"jsxSingleQuote":true} format 1`] = `
+exports[`quotes.js - {"singleQuote":false,"jsxSingleQuote":true} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
@@ -5160,7 +5160,7 @@ singleQuote: false
 ================================================================================
 `;
 
-exports[`quotes.js - {"singleQuote":true,"jsxSingleQuote":false} format 1`] = `
+exports[`quotes.js - {"singleQuote":true,"jsxSingleQuote":false} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babel", "typescript"]
@@ -5250,7 +5250,7 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`quotes.js - {"singleQuote":true,"jsxSingleQuote":true} format 1`] = `
+exports[`quotes.js - {"singleQuote":true,"jsxSingleQuote":true} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
@@ -5340,7 +5340,7 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`regex.js - {"singleQuote":false,"jsxSingleQuote":false} format 1`] = `
+exports[`regex.js - {"singleQuote":false,"jsxSingleQuote":false} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babel", "typescript"]
@@ -5362,7 +5362,7 @@ x = <a>{/w/.test(s)}</a>;
 ================================================================================
 `;
 
-exports[`regex.js - {"singleQuote":false,"jsxSingleQuote":true} format 1`] = `
+exports[`regex.js - {"singleQuote":false,"jsxSingleQuote":true} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
@@ -5384,7 +5384,7 @@ x = <a>{/w/.test(s)}</a>;
 ================================================================================
 `;
 
-exports[`regex.js - {"singleQuote":true,"jsxSingleQuote":false} format 1`] = `
+exports[`regex.js - {"singleQuote":true,"jsxSingleQuote":false} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babel", "typescript"]
@@ -5406,7 +5406,7 @@ x = <a>{/w/.test(s)}</a>;
 ================================================================================
 `;
 
-exports[`regex.js - {"singleQuote":true,"jsxSingleQuote":true} format 1`] = `
+exports[`regex.js - {"singleQuote":true,"jsxSingleQuote":true} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
@@ -5428,7 +5428,7 @@ x = <a>{/w/.test(s)}</a>;
 ================================================================================
 `;
 
-exports[`return-statement.js - {"singleQuote":false,"jsxSingleQuote":false} format 1`] = `
+exports[`return-statement.js - {"singleQuote":false,"jsxSingleQuote":false} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babel", "typescript"]
@@ -5542,7 +5542,7 @@ class BreakingClass extends React.component {
 ================================================================================
 `;
 
-exports[`return-statement.js - {"singleQuote":false,"jsxSingleQuote":true} format 1`] = `
+exports[`return-statement.js - {"singleQuote":false,"jsxSingleQuote":true} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
@@ -5656,7 +5656,7 @@ class BreakingClass extends React.component {
 ================================================================================
 `;
 
-exports[`return-statement.js - {"singleQuote":true,"jsxSingleQuote":false} format 1`] = `
+exports[`return-statement.js - {"singleQuote":true,"jsxSingleQuote":false} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babel", "typescript"]
@@ -5770,7 +5770,7 @@ class BreakingClass extends React.component {
 ================================================================================
 `;
 
-exports[`return-statement.js - {"singleQuote":true,"jsxSingleQuote":true} format 1`] = `
+exports[`return-statement.js - {"singleQuote":true,"jsxSingleQuote":true} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
@@ -5884,7 +5884,7 @@ class BreakingClass extends React.component {
 ================================================================================
 `;
 
-exports[`self-closing.js - {"singleQuote":false,"jsxSingleQuote":false} format 1`] = `
+exports[`self-closing.js - {"singleQuote":false,"jsxSingleQuote":false} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babel", "typescript"]
@@ -5902,7 +5902,7 @@ singleQuote: false
 ================================================================================
 `;
 
-exports[`self-closing.js - {"singleQuote":false,"jsxSingleQuote":true} format 1`] = `
+exports[`self-closing.js - {"singleQuote":false,"jsxSingleQuote":true} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
@@ -5920,7 +5920,7 @@ singleQuote: false
 ================================================================================
 `;
 
-exports[`self-closing.js - {"singleQuote":true,"jsxSingleQuote":false} format 1`] = `
+exports[`self-closing.js - {"singleQuote":true,"jsxSingleQuote":false} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babel", "typescript"]
@@ -5938,7 +5938,7 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`self-closing.js - {"singleQuote":true,"jsxSingleQuote":true} format 1`] = `
+exports[`self-closing.js - {"singleQuote":true,"jsxSingleQuote":true} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
@@ -5956,7 +5956,7 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`spacing.js - {"singleQuote":false,"jsxSingleQuote":false} format 1`] = `
+exports[`spacing.js - {"singleQuote":false,"jsxSingleQuote":false} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babel", "typescript"]
@@ -5996,7 +5996,7 @@ const Labels = {
 ================================================================================
 `;
 
-exports[`spacing.js - {"singleQuote":false,"jsxSingleQuote":true} format 1`] = `
+exports[`spacing.js - {"singleQuote":false,"jsxSingleQuote":true} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
@@ -6036,7 +6036,7 @@ const Labels = {
 ================================================================================
 `;
 
-exports[`spacing.js - {"singleQuote":true,"jsxSingleQuote":false} format 1`] = `
+exports[`spacing.js - {"singleQuote":true,"jsxSingleQuote":false} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babel", "typescript"]
@@ -6076,7 +6076,7 @@ const Labels = {
 ================================================================================
 `;
 
-exports[`spacing.js - {"singleQuote":true,"jsxSingleQuote":true} format 1`] = `
+exports[`spacing.js - {"singleQuote":true,"jsxSingleQuote":true} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
@@ -6116,7 +6116,7 @@ const Labels = {
 ================================================================================
 `;
 
-exports[`template-literal-in-attr.js - {"singleQuote":false,"jsxSingleQuote":false} format 1`] = `
+exports[`template-literal-in-attr.js - {"singleQuote":false,"jsxSingleQuote":false} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babel", "typescript"]
@@ -6148,7 +6148,7 @@ singleQuote: false
 ================================================================================
 `;
 
-exports[`template-literal-in-attr.js - {"singleQuote":false,"jsxSingleQuote":true} format 1`] = `
+exports[`template-literal-in-attr.js - {"singleQuote":false,"jsxSingleQuote":true} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
@@ -6180,7 +6180,7 @@ singleQuote: false
 ================================================================================
 `;
 
-exports[`template-literal-in-attr.js - {"singleQuote":true,"jsxSingleQuote":false} format 1`] = `
+exports[`template-literal-in-attr.js - {"singleQuote":true,"jsxSingleQuote":false} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babel", "typescript"]
@@ -6212,7 +6212,7 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`template-literal-in-attr.js - {"singleQuote":true,"jsxSingleQuote":true} format 1`] = `
+exports[`template-literal-in-attr.js - {"singleQuote":true,"jsxSingleQuote":true} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
@@ -6244,7 +6244,7 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`ternary.js - {"singleQuote":false,"jsxSingleQuote":false} format 1`] = `
+exports[`ternary.js - {"singleQuote":false,"jsxSingleQuote":false} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babel", "typescript"]
@@ -6260,7 +6260,7 @@ a == 3 ? (a = <h1>123</h1>) : (a = <h1>abc</h1>);
 ================================================================================
 `;
 
-exports[`ternary.js - {"singleQuote":false,"jsxSingleQuote":true} format 1`] = `
+exports[`ternary.js - {"singleQuote":false,"jsxSingleQuote":true} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
@@ -6276,7 +6276,7 @@ a == 3 ? (a = <h1>123</h1>) : (a = <h1>abc</h1>);
 ================================================================================
 `;
 
-exports[`ternary.js - {"singleQuote":true,"jsxSingleQuote":false} format 1`] = `
+exports[`ternary.js - {"singleQuote":true,"jsxSingleQuote":false} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babel", "typescript"]
@@ -6292,7 +6292,7 @@ a == 3 ? (a = <h1>123</h1>) : (a = <h1>abc</h1>);
 ================================================================================
 `;
 
-exports[`ternary.js - {"singleQuote":true,"jsxSingleQuote":true} format 1`] = `
+exports[`ternary.js - {"singleQuote":true,"jsxSingleQuote":true} format[flow] 1`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]

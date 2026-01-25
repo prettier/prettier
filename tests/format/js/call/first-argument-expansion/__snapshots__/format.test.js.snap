@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`expression-2nd-arg.js format 1`] = `
+exports[`expression-2nd-arg.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -51,7 +51,7 @@ call(
 ================================================================================
 `;
 
-exports[`issue-2456.js format 1`] = `
+exports[`issue-2456.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -78,7 +78,7 @@ f(
 ================================================================================
 `;
 
-exports[`issue-4401.js format 1`] = `
+exports[`issue-4401.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -104,7 +104,7 @@ export function test() {
 ================================================================================
 `;
 
-exports[`issue-5172.js format 1`] = `
+exports[`issue-5172.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -149,7 +149,7 @@ call(
 ================================================================================
 `;
 
-exports[`issue-12892.js format 1`] = `
+exports[`issue-12892.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -180,7 +180,7 @@ setTimeout(
 ================================================================================
 `;
 
-exports[`issue-13237.js format 1`] = `
+exports[`issue-13237.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -230,7 +230,7 @@ exportDefaultWhatever(function (
 ================================================================================
 `;
 
-exports[`issue-14454.js format 1`] = `
+exports[`issue-14454.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -247,7 +247,7 @@ f(
 ================================================================================
 `;
 
-exports[`jsx.js format 1`] = `
+exports[`jsx.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -267,7 +267,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`test.js format 1`] = `
+exports[`test.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80

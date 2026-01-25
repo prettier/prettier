@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`css-embed.js format 1`] = `
+exports[`css-embed.js format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`comment-inside.js format 1`] = `
+exports[`comment-inside.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow"]
 printWidth: 80
@@ -140,7 +140,7 @@ expr1 = html\`
 ================================================================================
 `;
 
-exports[`comments.js format 1`] = `
+exports[`comments.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow"]
 printWidth: 80
@@ -166,7 +166,7 @@ graphql.experimental\`
 ================================================================================
 `;
 
-exports[`tagged.js format 1`] = `
+exports[`tagged.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow"]
 printWidth: 80

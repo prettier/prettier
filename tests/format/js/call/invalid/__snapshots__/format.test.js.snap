@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`null-arguments-item.js [__babel_estree] format 1`] = `
+exports[`null-arguments-item.js format 1`] = `
 "Unexpected token ','. (1:12)
 > 1 | foor('a', , 'b');
     |            ^
@@ -10,7 +10,7 @@ exports[`null-arguments-item.js [__babel_estree] format 1`] = `
 Cause: Unexpected token ','. (1:11)"
 `;
 
-exports[`null-arguments-item.js [acorn] format 1`] = `
+exports[`null-arguments-item.js format 2`] = `
 "Unexpected token (1:11)
 > 1 | foor('a', , 'b');
     |           ^
@@ -20,17 +20,7 @@ exports[`null-arguments-item.js [acorn] format 1`] = `
 Cause: Unexpected token (1:10)"
 `;
 
-exports[`null-arguments-item.js [babel] format 1`] = `
-"Unexpected token ','. (1:12)
-> 1 | foor('a', , 'b');
-    |            ^
-  2 | foo('looooooooooooooooooooooooooooooooooooooooooooooong', , 'looooooooooooooooooooooooooooooooooooooooooooooong');
-  3 | foo("a",
-  4 |     //1
-Cause: Unexpected token ','. (1:11)"
-`;
-
-exports[`null-arguments-item.js [espree] format 1`] = `
+exports[`null-arguments-item.js format 3`] = `
 "Unexpected token , (1:11)
 > 1 | foor('a', , 'b');
     |           ^
@@ -40,7 +30,7 @@ exports[`null-arguments-item.js [espree] format 1`] = `
 Cause: Unexpected token ,"
 `;
 
-exports[`null-arguments-item.js [meriyah] format 1`] = `
+exports[`null-arguments-item.js format 4`] = `
 "Unexpected token: ',' (1:11)
 > 1 | foor('a', , 'b');
     |           ^
@@ -50,11 +40,21 @@ exports[`null-arguments-item.js [meriyah] format 1`] = `
 Cause: [1:10-1:11]: Unexpected token: ','"
 `;
 
-exports[`null-arguments-item.js [oxc] format 1`] = `
+exports[`null-arguments-item.js format 5`] = `
 "Unexpected token (1:11)
 > 1 | foor('a', , 'b');
     |           ^
   2 | foo('looooooooooooooooooooooooooooooooooooooooooooooong', , 'looooooooooooooooooooooooooooooooooooooooooooooong');
   3 | foo("a",
   4 |     //1"
+`;
+
+exports[`null-arguments-item.js format 6`] = `
+"Unexpected token ','. (1:12)
+> 1 | foor('a', , 'b');
+    |            ^
+  2 | foo('looooooooooooooooooooooooooooooooooooooooooooooong', , 'looooooooooooooooooooooooooooooooooooooooooooooong');
+  3 | foo("a",
+  4 |     //1
+Cause: Unexpected token ','. (1:11)"
 `;

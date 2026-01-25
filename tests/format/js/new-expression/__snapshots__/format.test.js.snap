@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`call.js format 1`] = `
+exports[`call.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -20,7 +20,7 @@ new (factory())(factory());
 ================================================================================
 `;
 
-exports[`new_expression.js format 1`] = `
+exports[`new_expression.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -50,7 +50,7 @@ new (a\`\`())();
 ================================================================================
 `;
 
-exports[`with-member-expression.js format 1`] = `
+exports[`with-member-expression.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80

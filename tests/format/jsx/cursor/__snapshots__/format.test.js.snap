@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`after-last-jsx-text.js format 1`] = `
+exports[`after-last-jsx-text.js format[babel] 1`] = `
 ====================================options=====================================
 cursorOffset: 32
 parsers: ["babel", "typescript", "flow"]
@@ -23,7 +23,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`after-tag.js format 1`] = `
+exports[`after-tag.js format[babel] 1`] = `
 ====================================options=====================================
 cursorOffset: 11
 parsers: ["babel", "typescript", "flow"]
@@ -44,7 +44,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`before-first-jsx-text.js format 1`] = `
+exports[`before-first-jsx-text.js format[babel] 1`] = `
 ====================================options=====================================
 cursorOffset: 2
 parsers: ["babel", "typescript", "flow"]
@@ -65,7 +65,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`before-tag.js format 1`] = `
+exports[`before-tag.js format[babel] 1`] = `
 ====================================options=====================================
 cursorOffset: 222
 parsers: ["babel", "typescript", "flow"]
@@ -92,7 +92,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`in-jsx-text.js format 1`] = `
+exports[`in-jsx-text.js format[babel] 1`] = `
 ====================================options=====================================
 cursorOffset: 17
 parsers: ["babel", "typescript", "flow"]
@@ -113,7 +113,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`in-tag.js format 1`] = `
+exports[`in-tag.js format[babel] 1`] = `
 ====================================options=====================================
 cursorOffset: 9
 parsers: ["babel", "typescript", "flow"]

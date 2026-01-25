@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`class-property.js format 1`] = `
+exports[`class-property.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -26,7 +26,7 @@ class X {
 ================================================================================
 `;
 
-exports[`misc.js format 1`] = `
+exports[`misc.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -50,7 +50,7 @@ class x {
 ================================================================================
 `;
 
-exports[`superclass.js format 1`] = `
+exports[`superclass.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80

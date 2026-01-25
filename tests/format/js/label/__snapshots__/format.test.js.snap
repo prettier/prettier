@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`block-statement-and-regexp.js format 1`] = `
+exports[`block-statement-and-regexp.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -17,7 +17,7 @@ a: {
 ================================================================================
 `;
 
-exports[`comment.js format 1`] = `
+exports[`comment.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -46,7 +46,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`empty_label.js format 1`] = `
+exports[`empty_label.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80

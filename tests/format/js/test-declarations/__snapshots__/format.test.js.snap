@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`angular_async.js - {"arrowParens":"avoid"} format 1`] = `
+exports[`angular_async.js - {"arrowParens":"avoid"} format[babel] 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 parsers: ["babel", "flow", "typescript"]
@@ -75,7 +75,7 @@ function x() {
 ================================================================================
 `;
 
-exports[`angular_async.js format 1`] = `
+exports[`angular_async.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -149,7 +149,7 @@ function x() {
 ================================================================================
 `;
 
-exports[`angular_fakeAsync.js - {"arrowParens":"avoid"} format 1`] = `
+exports[`angular_fakeAsync.js - {"arrowParens":"avoid"} format[babel] 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 parsers: ["babel", "flow", "typescript"]
@@ -213,7 +213,7 @@ function x() {
 ================================================================================
 `;
 
-exports[`angular_fakeAsync.js format 1`] = `
+exports[`angular_fakeAsync.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -276,7 +276,7 @@ function x() {
 ================================================================================
 `;
 
-exports[`angular_waitForAsync.js - {"arrowParens":"avoid"} format 1`] = `
+exports[`angular_waitForAsync.js - {"arrowParens":"avoid"} format[babel] 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 parsers: ["babel", "flow", "typescript"]
@@ -340,7 +340,7 @@ function x() {
 ================================================================================
 `;
 
-exports[`angular_waitForAsync.js format 1`] = `
+exports[`angular_waitForAsync.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -403,7 +403,7 @@ function x() {
 ================================================================================
 `;
 
-exports[`angularjs_inject.js - {"arrowParens":"avoid"} format 1`] = `
+exports[`angularjs_inject.js - {"arrowParens":"avoid"} format[babel] 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 parsers: ["babel", "flow", "typescript"]
@@ -473,7 +473,7 @@ function x() {
 ================================================================================
 `;
 
-exports[`angularjs_inject.js format 1`] = `
+exports[`angularjs_inject.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -542,7 +542,7 @@ function x() {
 ================================================================================
 `;
 
-exports[`jest-each.js - {"arrowParens":"avoid"} format 1`] = `
+exports[`jest-each.js - {"arrowParens":"avoid"} format[babel] 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 parsers: ["babel", "flow", "typescript"]
@@ -687,7 +687,7 @@ test.each([
 ================================================================================
 `;
 
-exports[`jest-each.js format 1`] = `
+exports[`jest-each.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -831,7 +831,7 @@ test.each([
 ================================================================================
 `;
 
-exports[`jest-each-template-string.js - {"arrowParens":"avoid"} format 1`] = `
+exports[`jest-each-template-string.js - {"arrowParens":"avoid"} format[babel] 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 parsers: ["babel", "flow", "typescript"]
@@ -871,7 +871,7 @@ test.each\`
 ================================================================================
 `;
 
-exports[`jest-each-template-string.js format 1`] = `
+exports[`jest-each-template-string.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -910,7 +910,7 @@ test.each\`
 ================================================================================
 `;
 
-exports[`optional.js - {"arrowParens":"avoid"} format 1`] = `
+exports[`optional.js - {"arrowParens":"avoid"} format[babel] 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 parsers: ["babel", "flow", "typescript"]
@@ -928,7 +928,7 @@ describe?.(
 ================================================================================
 `;
 
-exports[`optional.js format 1`] = `
+exports[`optional.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -945,7 +945,7 @@ describe?.(
 ================================================================================
 `;
 
-exports[`test_declarations.js - {"arrowParens":"avoid"} format 1`] = `
+exports[`test_declarations.js - {"arrowParens":"avoid"} format[babel] 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 parsers: ["babel", "flow", "typescript"]
@@ -1329,7 +1329,7 @@ it(
 ================================================================================
 `;
 
-exports[`test_declarations.js format 1`] = `
+exports[`test_declarations.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`multiple.ts format 1`] = `
+exports[`multiple.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "babel-ts"]
 printWidth: 80
@@ -36,7 +36,7 @@ class Foo {
 ================================================================================
 `;
 
-exports[`nested.ts format 1`] = `
+exports[`nested.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "babel-ts"]
 printWidth: 80
@@ -74,7 +74,7 @@ function foo() {
 ================================================================================
 `;
 
-exports[`static-blocks.ts format 1`] = `
+exports[`static-blocks.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "babel-ts"]
 printWidth: 80

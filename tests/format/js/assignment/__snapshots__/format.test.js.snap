@@ -1,19 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`binaryish.js [hermes] format 1`] = `
-"invalid assignment left-hand side (6:0)
-  4 |   descriptionLines;
-  5 |
-> 6 | computedDescriptionLines = (focused &&
-  7 |   !loading &&
-  8 |   descriptionLinesFocused) ||
-  9 |   descriptionLines;
-Cause: invalid assignment left-hand side (6:0)
-computedDescriptionLines = (focused &&
-^~~~~~~~~~~~~~~~~~~~~~~~"
-`;
-
-exports[`binaryish.js format 1`] = `
+exports[`binaryish.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -41,7 +28,20 @@ computedDescriptionLines =
 ================================================================================
 `;
 
-exports[`call-with-template.js format 1`] = `
+exports[`binaryish.js format[hermes] 1`] = `
+"invalid assignment left-hand side (6:0)
+  4 |   descriptionLines;
+  5 |
+> 6 | computedDescriptionLines = (focused &&
+  7 |   !loading &&
+  8 |   descriptionLinesFocused) ||
+  9 |   descriptionLines;
+Cause: invalid assignment left-hand side (6:0)
+computedDescriptionLines = (focused &&
+^~~~~~~~~~~~~~~~~~~~~~~~"
+`;
+
+exports[`call-with-template.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -72,7 +72,7 @@ const output = template(\`function f() %%A%%\`)({
 ================================================================================
 `;
 
-exports[`chain.js format 1`] = `
+exports[`chain.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -146,7 +146,7 @@ a = b = c;
 ================================================================================
 `;
 
-exports[`chain-two-segments.js format 1`] = `
+exports[`chain-two-segments.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -168,7 +168,7 @@ tt.parenR.updateContext = tt.braceR.updateContext = function () {
 ================================================================================
 `;
 
-exports[`destructuring.js format 1`] = `
+exports[`destructuring.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -206,7 +206,7 @@ const {
 ================================================================================
 `;
 
-exports[`destructuring-array.js format 1`] = `
+exports[`destructuring-array.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -225,7 +225,7 @@ const [width = nextWidth, height = nextHeight, baseline = nextBaseline] =
 ================================================================================
 `;
 
-exports[`destructuring-heuristic.js format 1`] = `
+exports[`destructuring-heuristic.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -291,7 +291,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`discussion-15196.js format 1`] = `
+exports[`discussion-15196.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -389,7 +389,7 @@ function* g() {
 ================================================================================
 `;
 
-exports[`issue-1419.js format 1`] = `
+exports[`issue-1419.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -409,7 +409,7 @@ someReallyLongThingStoredInAMapWithAReallyBigName[pageletID] =
 ================================================================================
 `;
 
-exports[`issue-1966.js format 1`] = `
+exports[`issue-1966.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -434,7 +434,7 @@ this.isaverylongmethodexpression.withmultiplelevels =
 ================================================================================
 `;
 
-exports[`issue-2184.js format 1`] = `
+exports[`issue-2184.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -454,7 +454,7 @@ const areaPercentageDiff = (
 ================================================================================
 `;
 
-exports[`issue-2482-1.js format 1`] = `
+exports[`issue-2482-1.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -495,7 +495,7 @@ aParticularlyLongAndObnoxiousNameForIllustrativePurposes =
 ================================================================================
 `;
 
-exports[`issue-2482-2.js format 1`] = `
+exports[`issue-2482-2.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -522,7 +522,7 @@ class foo {
 ================================================================================
 `;
 
-exports[`issue-2540.js format 1`] = `
+exports[`issue-2540.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -539,7 +539,7 @@ manifestCache[templateId] = readFileSync(
 ================================================================================
 `;
 
-exports[`issue-3819.js format 1`] = `
+exports[`issue-3819.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -573,7 +573,7 @@ this.dummy.type1.dummyPropertyFunction =
 ================================================================================
 `;
 
-exports[`issue-4094.js format 1`] = `
+exports[`issue-4094.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -593,7 +593,7 @@ if (something) {
 ================================================================================
 `;
 
-exports[`issue-5610.js format 1`] = `
+exports[`issue-5610.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -618,7 +618,7 @@ const { qfwvfkwjdqgz, bctsyljqucgz, xuodxhmgwwpw } = qbhtcuzxwedz(
 ================================================================================
 `;
 
-exports[`issue-6922.js format 1`] = `
+exports[`issue-6922.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -683,7 +683,7 @@ const data4 = request.delete(
 ================================================================================
 `;
 
-exports[`issue-7091.js format 1`] = `
+exports[`issue-7091.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -700,7 +700,7 @@ const { imStore, showChat, customerServiceAccount } =
 ================================================================================
 `;
 
-exports[`issue-7572.js format 1`] = `
+exports[`issue-7572.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -724,7 +724,7 @@ const t = {
 ================================================================================
 `;
 
-exports[`issue-7961.js format 1`] = `
+exports[`issue-7961.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -748,7 +748,7 @@ something.veeeeeery.looooooooooooooooooooooooooong =
 ================================================================================
 `;
 
-exports[`issue-8218.js format 1`] = `
+exports[`issue-8218.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -769,7 +769,7 @@ const pendingIndicatorz =
 ================================================================================
 `;
 
-exports[`issue-10218.js format 1`] = `
+exports[`issue-10218.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -797,7 +797,7 @@ const { _id: id3 } =
 ================================================================================
 `;
 
-exports[`issue-15534.js format 1`] = `
+exports[`issue-15534.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -824,7 +824,7 @@ params.redirectTo.bar.bar.ba.barab["foo"].abr =
 ================================================================================
 `;
 
-exports[`issue-17437.js format 1`] = `
+exports[`issue-17437.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -841,7 +841,7 @@ didScheduleRenderPhaseUpdateDuringThisPassFoo =
 ================================================================================
 `;
 
-exports[`lone-arg.js format 1`] = `
+exports[`lone-arg.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -892,7 +892,7 @@ const bifornCringerMoshedPerplexSawderGlyphsHb = someBigFunctionName(\`foo
 ================================================================================
 `;
 
-exports[`sequence.js format 1`] = `
+exports[`sequence.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -918,7 +918,7 @@ for (i = 0, len = arr.length; i < len; i++) {
 ================================================================================
 `;
 
-exports[`unary.js format 1`] = `
+exports[`unary.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80

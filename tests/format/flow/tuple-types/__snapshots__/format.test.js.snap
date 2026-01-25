@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`trailing-comma.js - {"trailingComma":"all"} format 1`] = `
+exports[`trailing-comma.js - {"trailingComma":"all"} format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel-flow"]
 printWidth: 80

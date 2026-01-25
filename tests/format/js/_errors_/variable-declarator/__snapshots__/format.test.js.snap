@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`invalid-const.js [acorn] format 1`] = `
+exports[`invalid-const.js format[acorn] 1`] = `
 "Unexpected token (1:10)
 > 1 | const foo;
     |          ^
@@ -8,7 +8,7 @@ exports[`invalid-const.js [acorn] format 1`] = `
 Cause: Unexpected token (1:9)"
 `;
 
-exports[`invalid-const.js [espree] format 1`] = `
+exports[`invalid-const.js format[espree] 1`] = `
 "Unexpected token ; (1:10)
 > 1 | const foo;
     |          ^
@@ -16,7 +16,7 @@ exports[`invalid-const.js [espree] format 1`] = `
 Cause: Unexpected token ;"
 `;
 
-exports[`invalid-const.js [meriyah] format 1`] = `
+exports[`invalid-const.js format[meriyah] 1`] = `
 "Missing initializer in const declaration (1:10)
 > 1 | const foo;
     |          ^

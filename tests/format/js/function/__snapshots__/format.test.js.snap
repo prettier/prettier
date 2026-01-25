@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`dangling-comments.js format 1`] = `
+exports[`dangling-comments.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -216,7 +216,7 @@ object = {
 ================================================================================
 `;
 
-exports[`function_expression.js format 1`] = `
+exports[`function_expression.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -250,7 +250,7 @@ new (function () {})();
 ================================================================================
 `;
 
-exports[`iife.js format 1`] = `
+exports[`iife.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -362,7 +362,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`issue-10277.js format 1`] = `
+exports[`issue-10277.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -381,7 +381,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`issue-12967.js format 1`] = `
+exports[`issue-12967.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80

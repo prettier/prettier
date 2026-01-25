@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`array-and-tuple.js format 1`] = `
+exports[`array-and-tuple.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -30,7 +30,7 @@ a = [
 ================================================================================
 `;
 
-exports[`empty.js format 1`] = `
+exports[`empty.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -48,7 +48,7 @@ const b =
 ================================================================================
 `;
 
-exports[`holes-in-args.js format 1`] = `
+exports[`holes-in-args.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -65,7 +65,7 @@ new Test().test().test([, 0]).test();
 ================================================================================
 `;
 
-exports[`issue-10159.js format 1`] = `
+exports[`issue-10159.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -99,7 +99,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`last.js format 1`] = `
+exports[`last.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -119,7 +119,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`nested.js format 1`] = `
+exports[`nested.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -229,7 +229,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`numbers-in-args.js format 1`] = `
+exports[`numbers-in-args.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -266,7 +266,7 @@ expect(bifornCringerMoshedPerplexSawder.getLongArrayOfNumbers()).toEqual([
 ================================================================================
 `;
 
-exports[`numbers-in-assignment.js format 1`] = `
+exports[`numbers-in-assignment.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -305,7 +305,7 @@ bifornCringerMoshedPerplex.bifornCringerMoshedPerplexSawder.arrayOfNumbers2 = [
 ================================================================================
 `;
 
-exports[`numbers-negative.js format 1`] = `
+exports[`numbers-negative.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -347,7 +347,7 @@ const numbers2 = [
 ================================================================================
 `;
 
-exports[`numbers-negative-comment-after-minus.js format 1`] = `
+exports[`numbers-negative-comment-after-minus.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -438,7 +438,7 @@ c = [
 ================================================================================
 `;
 
-exports[`numbers-trailing-comma.js format 1`] = `
+exports[`numbers-trailing-comma.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -459,7 +459,7 @@ c = [
 ================================================================================
 `;
 
-exports[`numbers-with-holes.js format 1`] = `
+exports[`numbers-with-holes.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -528,7 +528,7 @@ const numberWithHoles2 = [
 ================================================================================
 `;
 
-exports[`numbers-with-trailing-comments.js format 1`] = `
+exports[`numbers-with-trailing-comments.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -562,7 +562,7 @@ function isUnusedDiagnostic(code) {
 ================================================================================
 `;
 
-exports[`numbers-with-tricky-comments.js format 1`] = `
+exports[`numbers-with-tricky-comments.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -590,7 +590,7 @@ const lazyCatererNumbers = [
 ================================================================================
 `;
 
-exports[`numbers1.js format 1`] = `
+exports[`numbers1.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -723,7 +723,7 @@ const numbers1 = [
 ================================================================================
 `;
 
-exports[`numbers2.js format 1`] = `
+exports[`numbers2.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -809,7 +809,7 @@ const userIds4 = [
 ================================================================================
 `;
 
-exports[`numbers3.js format 1`] = `
+exports[`numbers3.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -855,7 +855,7 @@ let test_case = [
 ================================================================================
 `;
 
-exports[`preserve_empty_lines.js format 1`] = `
+exports[`preserve_empty_lines.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80

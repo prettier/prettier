@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`body.js format 1`] = `
+exports[`body.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -29,7 +29,7 @@ while (1);
 ================================================================================
 `;
 
-exports[`no-newline.js format 1`] = `
+exports[`no-newline.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80

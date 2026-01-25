@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`example.js format 1`] = `
+exports[`example.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]
 printWidth: 80
@@ -14,7 +14,7 @@ await something();
 ================================================================================
 `;
 
-exports[`in-expression.js format 1`] = `
+exports[`in-expression.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]
 printWidth: 80
@@ -30,7 +30,7 @@ call(await something());
 ================================================================================
 `;
 
-exports[`test.cjs format 1`] = `
+exports[`test.cjs format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]
 printWidth: 80
@@ -44,7 +44,7 @@ await(1);
 ================================================================================
 `;
 
-exports[`test.js format 1`] = `
+exports[`test.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]
 printWidth: 80
@@ -58,7 +58,7 @@ await 1;
 ================================================================================
 `;
 
-exports[`test.mjs format 1`] = `
+exports[`test.mjs format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]
 printWidth: 80

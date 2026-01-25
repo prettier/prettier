@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`in-unary-expression.js format 1`] = `
+exports[`in-unary-expression.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -176,7 +176,7 @@ const foo = () =>
 ================================================================================
 `;
 
-exports[`issue-7024.js format 1`] = `
+exports[`issue-7024.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -197,7 +197,7 @@ const radioSelectedAttr =
 ================================================================================
 `;
 
-exports[`logical-expression-operators.js format 1`] = `
+exports[`logical-expression-operators.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80

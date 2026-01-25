@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`class.js format 1`] = `
+exports[`class.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -25,7 +25,7 @@ class x {
 ================================================================================
 `;
 
-exports[`class-property.js format 1`] = `
+exports[`class-property.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -55,7 +55,7 @@ class Foo {
 ================================================================================
 `;
 
-exports[`empty_paren_comment.js format 1`] = `
+exports[`empty_paren_comment.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80

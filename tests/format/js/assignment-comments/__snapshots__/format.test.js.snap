@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`call.js format 1`] = `
+exports[`call.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -26,7 +26,7 @@ if (true)
 ================================================================================
 `;
 
-exports[`call2.js format 1`] = `
+exports[`call2.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -42,7 +42,7 @@ const kochabCooieGameOnOboleUnweave = // ???
 ================================================================================
 `;
 
-exports[`function.js format 1`] = `
+exports[`function.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -170,7 +170,7 @@ let f6 =
 ================================================================================
 `;
 
-exports[`identifier.js format 1`] = `
+exports[`identifier.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -196,7 +196,7 @@ const bifornCringerMoshedPerplexSawder = // !!!
 ================================================================================
 `;
 
-exports[`number.js format 1`] = `
+exports[`number.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -292,7 +292,7 @@ var fnNumber =
 ================================================================================
 `;
 
-exports[`string.js format 1`] = `
+exports[`string.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80

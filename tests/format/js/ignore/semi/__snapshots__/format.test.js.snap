@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`asi.js - {"semi":false} format 1`] = `
+exports[`asi.js - {"semi":false} format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -19,7 +19,7 @@ foo
 ================================================================================
 `;
 
-exports[`asi.js format 1`] = `
+exports[`asi.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -37,7 +37,7 @@ foo;
 ================================================================================
 `;
 
-exports[`directive.js - {"semi":false} format 1`] = `
+exports[`directive.js - {"semi":false} format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -68,7 +68,7 @@ function foo() {
 ================================================================================
 `;
 
-exports[`directive.js format 1`] = `
+exports[`directive.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`jsx_ignore.js format 1`] = `
+exports[`jsx_ignore.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "babel-flow", "babel-ts", "__babel_estree", "typescript", "flow", "meriyah", "acorn", "espree", "espree", "hermes", "oxc", "oxc-ts"]
 printWidth: 80
@@ -122,7 +122,7 @@ function f() {
 ================================================================================
 `;
 
-exports[`spread.js format 1`] = `
+exports[`spread.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "babel-flow", "babel-ts", "__babel_estree", "typescript", "flow", "meriyah", "acorn", "espree", "espree", "hermes", "oxc", "oxc-ts"]
 printWidth: 80

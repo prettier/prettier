@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`flow-only.ts format 1`] = `
+exports[`flow-only.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow"]
 printWidth: 80
@@ -19,7 +19,7 @@ const foo7: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
 ================================================================================
 `;
 
-exports[`issue-9501.ts format 1`] = `
+exports[`issue-9501.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow"]
 printWidth: 80
@@ -36,7 +36,7 @@ const name: SomeGeneric<Pick<Config, "ONE_LONG_PROP" | "ANOTHER_LONG_PROP">> =
 ================================================================================
 `;
 
-exports[`simple-types.ts format 1`] = `
+exports[`simple-types.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow"]
 printWidth: 80
@@ -84,14 +84,14 @@ const foo12: Foooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
 ================================================================================
 `;
 
-exports[`template-literal-types.ts [flow] format 1`] = `
+exports[`template-literal-types.ts format[flow] 1`] = `
 "Flow does not support template literal types. (1:84)
 > 1 | const foo1: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo<\`Hello, \${keyof World}\`> = a;
     |                                                                                    ^
   2 |"
 `;
 
-exports[`template-literal-types.ts [hermes] format 1`] = `
+exports[`template-literal-types.ts format[hermes] 1`] = `
 "unexpected token in type annotation (1:83)
 > 1 | const foo1: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo<\`Hello, \${keyof World}\`> = a;
     |                                                                                   ^
@@ -101,7 +101,7 @@ const foo1: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
                                                                                    ^"
 `;
 
-exports[`template-literal-types.ts format 1`] = `
+exports[`template-literal-types.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow"]
 printWidth: 80
@@ -116,7 +116,7 @@ const foo1: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
 ================================================================================
 `;
 
-exports[`typescript-only.ts format 1`] = `
+exports[`typescript-only.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow"]
 printWidth: 80

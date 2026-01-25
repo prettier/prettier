@@ -602,18 +602,6 @@ class A {
 ================================================================================
 `;
 
-exports[`classAbstractMixedWithModifiers.ts [babel-ts] format 1`] = `
-"'static' modifier cannot be used with 'abstract' modifier. (12:14)
-  10 |     abstract private foo_dd();
-  11 |     
-> 12 |     abstract static foo_d();
-     |              ^
-  13 |     
-  14 |     static abstract foo_e();
-  15 | }
-Cause: 'static' modifier cannot be used with 'abstract' modifier. (12:13)"
-`;
-
 exports[`classAbstractMixedWithModifiers.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
@@ -653,6 +641,18 @@ abstract class A {
 }
 
 ================================================================================
+`;
+
+exports[`classAbstractMixedWithModifiers.ts format 2`] = `
+"'static' modifier cannot be used with 'abstract' modifier. (12:14)
+  10 |     abstract private foo_dd();
+  11 |     
+> 12 |     abstract static foo_d();
+     |              ^
+  13 |     
+  14 |     static abstract foo_e();
+  15 | }
+Cause: 'static' modifier cannot be used with 'abstract' modifier. (12:13)"
 `;
 
 exports[`classAbstractOverloads.ts format 1`] = `

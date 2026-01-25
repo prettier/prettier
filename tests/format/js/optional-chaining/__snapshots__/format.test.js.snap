@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`as-key.js format 1`] = `
+exports[`as-key.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -106,7 +106,7 @@ class B {
 ================================================================================
 `;
 
-exports[`chaining.js format 1`] = `
+exports[`chaining.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -288,7 +288,7 @@ new (foo?.())();
 ================================================================================
 `;
 
-exports[`comments.js format 1`] = `
+exports[`comments.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -394,7 +394,7 @@ foo.bar.baz
 ================================================================================
 `;
 
-exports[`eval.js format 1`] = `
+exports[`eval.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80

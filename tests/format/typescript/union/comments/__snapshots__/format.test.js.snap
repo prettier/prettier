@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`18106.ts format 1`] = `
+exports[`18106.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow"]
 printWidth: 80
@@ -96,7 +96,7 @@ type A3 =
 ================================================================================
 `;
 
-exports[`18379.ts format 1`] = `
+exports[`18379.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow"]
 printWidth: 80
@@ -166,7 +166,7 @@ type A1 =
 ================================================================================
 `;
 
-exports[`18389.ts format 1`] = `
+exports[`18389.ts format[typescript] 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow"]
 printWidth: 80

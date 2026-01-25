@@ -450,18 +450,6 @@ class E extends D {
 ================================================================================
 `;
 
-exports[`readonlyInConstructorParameters.ts [babel-ts] format 1`] = `
-"'public' modifier must precede 'readonly' modifier. (7:26)
-   5 |
-   6 | class E {
->  7 |     constructor(readonly public x: number) {}
-     |                          ^
-   8 | }
-   9 |
-  10 | class F {
-Cause: 'public' modifier must precede 'readonly' modifier. (7:25)"
-`;
-
 exports[`readonlyInConstructorParameters.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
@@ -499,23 +487,16 @@ new F(1).x;
 ================================================================================
 `;
 
-exports[`readonlyReadonly.ts [babel-ts] format 1`] = `
-"Duplicate modifier: 'readonly'. (2:14)
-  1 | class C {
-> 2 |     readonly readonly x: number;
-    |              ^
-  3 |     constructor(readonly readonly y: number) {}
-  4 | }
-Cause: Duplicate modifier: 'readonly'. (2:13)"
-`;
-
-exports[`readonlyReadonly.ts [oxc-ts] format 1`] = `
-"'readonly' modifier already seen. (2:14)
-  1 | class C {
-> 2 |     readonly readonly x: number;
-    |              ^^^^^^^^
-  3 |     constructor(readonly readonly y: number) {}
-  4 | }"
+exports[`readonlyInConstructorParameters.ts format 2`] = `
+"'public' modifier must precede 'readonly' modifier. (7:26)
+   5 |
+   6 | class E {
+>  7 |     constructor(readonly public x: number) {}
+     |                          ^
+   8 | }
+   9 |
+  10 | class F {
+Cause: 'public' modifier must precede 'readonly' modifier. (7:25)"
 `;
 
 exports[`readonlyReadonly.ts format 1`] = `
@@ -535,4 +516,23 @@ class C {
 }
 
 ================================================================================
+`;
+
+exports[`readonlyReadonly.ts format 2`] = `
+"Duplicate modifier: 'readonly'. (2:14)
+  1 | class C {
+> 2 |     readonly readonly x: number;
+    |              ^
+  3 |     constructor(readonly readonly y: number) {}
+  4 | }
+Cause: Duplicate modifier: 'readonly'. (2:13)"
+`;
+
+exports[`readonlyReadonly.ts format 3`] = `
+"'readonly' modifier already seen. (2:14)
+  1 | class C {
+> 2 |     readonly readonly x: number;
+    |              ^^^^^^^^
+  3 |     constructor(readonly readonly y: number) {}
+  4 | }"
 `;

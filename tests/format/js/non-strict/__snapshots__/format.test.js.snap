@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`argument-name-clash.js format 1`] = `
+exports[`argument-name-clash.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]
 printWidth: 80
@@ -16,7 +16,7 @@ function f(a, a) {
 ================================================================================
 `;
 
-exports[`keywords.js format 1`] = `
+exports[`keywords.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]
 printWidth: 80
@@ -44,15 +44,7 @@ function myFunction() {
 ================================================================================
 `;
 
-exports[`octal-number.js [typescript] format 1`] = `
-"Octal literals are not allowed. Use the syntax '0o777'. (1:1)
-> 1 | 0777
-    | ^
-  2 |
-Cause: Octal literals are not allowed. Use the syntax '0o777'."
-`;
-
-exports[`octal-number.js format 1`] = `
+exports[`octal-number.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]
 printWidth: 80
@@ -64,4 +56,12 @@ printWidth: 80
 0777;
 
 ================================================================================
+`;
+
+exports[`octal-number.js format[typescript] 1`] = `
+"Octal literals are not allowed. Use the syntax '0o777'. (1:1)
+> 1 | 0777
+    | ^
+  2 |
+Cause: Octal literals are not allowed. Use the syntax '0o777'."
 `;

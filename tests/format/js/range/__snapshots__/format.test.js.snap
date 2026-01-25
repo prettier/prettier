@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`array.js format 1`] = `
+exports[`array.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -26,7 +26,7 @@ a = [, , , , , , , a];
 ================================================================================
 `;
 
-exports[`boundary.js format 1`] = `
+exports[`boundary.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -49,7 +49,7 @@ foo = 1.0000;bar = 1.0;baz=1.0000;
 ================================================================================
 `;
 
-exports[`boundary-2.js format 1`] = `
+exports[`boundary-2.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -81,7 +81,7 @@ function a(
 ================================================================================
 `;
 
-exports[`boundary-3.js format 1`] = `
+exports[`boundary-3.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -108,7 +108,7 @@ b (
 ================================================================================
 `;
 
-exports[`class-declaration.js format 1`] = `
+exports[`class-declaration.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -136,7 +136,7 @@ let    x
 ================================================================================
 `;
 
-exports[`different-levels.js format 1`] = `
+exports[`different-levels.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -163,7 +163,7 @@ function f() {
 ================================================================================
 `;
 
-exports[`directive.js format 1`] = `
+exports[`directive.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -182,7 +182,7 @@ rangeStart: 0
 ================================================================================
 `;
 
-exports[`function-body.js format 1`] = `
+exports[`function-body.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -203,7 +203,7 @@ let fn =a((x ) => {
 ================================================================================
 `;
 
-exports[`function-declaration.js format 1`] = `
+exports[`function-declaration.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -220,7 +220,7 @@ function ugly({ a = 1, b = 2 }) {}
 ================================================================================
 `;
 
-exports[`ignore-indentation.js format 1`] = `
+exports[`ignore-indentation.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -251,7 +251,7 @@ function ugly ( {a=1,     b     =   2     }      ) {
 ================================================================================
 `;
 
-exports[`issue-3789-1.js format 1`] = `
+exports[`issue-3789-1.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -284,7 +284,7 @@ export class F {
 ================================================================================
 `;
 
-exports[`issue-3789-2.js format 1`] = `
+exports[`issue-3789-2.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -317,7 +317,7 @@ export class F {
 ================================================================================
 `;
 
-exports[`issue-4206-1.js format 1`] = `
+exports[`issue-4206-1.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -339,7 +339,7 @@ export default class Foo {
 ================================================================================
 `;
 
-exports[`issue-4206-2.js format 1`] = `
+exports[`issue-4206-2.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -360,7 +360,7 @@ export default function Foo() {
 ================================================================================
 `;
 
-exports[`issue-4206-3.js format 1`] = `
+exports[`issue-4206-3.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -383,7 +383,7 @@ rangeStart: 16
 ================================================================================
 `;
 
-exports[`issue-4206-4.js format 1`] = `
+exports[`issue-4206-4.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -405,7 +405,7 @@ rangeStart: 17
 ================================================================================
 `;
 
-exports[`issue-7082.js format 1`] = `
+exports[`issue-7082.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -427,7 +427,7 @@ export const Button = styled.button\`
 ================================================================================
 `;
 
-exports[`issue-12540.js format 1`] = `
+exports[`issue-12540.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -444,7 +444,7 @@ let i = "format me!";
 ================================================================================
 `;
 
-exports[`large-dict.js format 1`] = `
+exports[`large-dict.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -477,7 +477,7 @@ function ugly() {
 ================================================================================
 `;
 
-exports[`module-export1.js format 1`] = `
+exports[`module-export1.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -510,7 +510,7 @@ export   default    42
 ================================================================================
 `;
 
-exports[`module-export2.js format 1`] = `
+exports[`module-export2.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -544,7 +544,7 @@ export   default    42
 ================================================================================
 `;
 
-exports[`module-export3.js format 1`] = `
+exports[`module-export3.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -577,7 +577,7 @@ export default 42;
 ================================================================================
 `;
 
-exports[`module-import.js format 1`] = `
+exports[`module-import.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -610,7 +610,7 @@ export   default    42
 ================================================================================
 `;
 
-exports[`multiple-statements.js format 1`] = `
+exports[`multiple-statements.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -655,7 +655,7 @@ call(
 ================================================================================
 `;
 
-exports[`multiple-statements2.js format 1`] = `
+exports[`multiple-statements2.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -704,7 +704,7 @@ call(
 ================================================================================
 `;
 
-exports[`nested.js format 1`] = `
+exports[`nested.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -733,7 +733,7 @@ try {
 ================================================================================
 `;
 
-exports[`nested-print-width.js format 1`] = `
+exports[`nested-print-width.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -760,7 +760,7 @@ function f() {
 ================================================================================
 `;
 
-exports[`nested2.js format 1`] = `
+exports[`nested2.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -789,7 +789,7 @@ catch (err) {}
 ================================================================================
 `;
 
-exports[`nested3.js format 1`] = `
+exports[`nested3.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -818,7 +818,7 @@ catch (err) {}
 ================================================================================
 `;
 
-exports[`object-expression.js format 1`] = `
+exports[`object-expression.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -835,7 +835,7 @@ const y = { a: 1, b: 2 };
 ================================================================================
 `;
 
-exports[`object-expression2.js format 1`] = `
+exports[`object-expression2.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -874,7 +874,7 @@ const y = [
 ================================================================================
 `;
 
-exports[`range.js format 1`] = `
+exports[`range.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -905,7 +905,7 @@ function ugly ( {a=1,     b     =   2     }      ) {
 ================================================================================
 `;
 
-exports[`range-end.js format 1`] = `
+exports[`range-end.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -937,7 +937,7 @@ call(1, 2, 3);
 ================================================================================
 `;
 
-exports[`range-start.js format 1`] = `
+exports[`range-start.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -971,7 +971,7 @@ call(
 ================================================================================
 `;
 
-exports[`reversed-range.js format 1`] = `
+exports[`reversed-range.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -990,7 +990,7 @@ foo = 1.0000;bar = 1.0000;baz=1.0000;
 ================================================================================
 `;
 
-exports[`start-equals-end.js format 1`] = `
+exports[`start-equals-end.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -1009,7 +1009,7 @@ foo = 1.0000;bar = 1.0000;baz=1.0000;
 ================================================================================
 `;
 
-exports[`try-catch.js format 1`] = `
+exports[`try-catch.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -1028,7 +1028,7 @@ try {
 ================================================================================
 `;
 
-exports[`whitespace.js format 1`] = `
+exports[`whitespace.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80

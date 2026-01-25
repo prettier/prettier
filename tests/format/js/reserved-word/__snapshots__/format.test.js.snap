@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`interfaces.js format 1`] = `
+exports[`interfaces.js format[acorn] 1`] = `
 ====================================options=====================================
 parsers: ["acorn", "espree", "meriyah", "babel"]
 printWidth: 80
@@ -26,7 +26,7 @@ var interface = "foo";
 ================================================================================
 `;
 
-exports[`let.js format 1`] = `
+exports[`let.js format[acorn] 1`] = `
 ====================================options=====================================
 parsers: ["acorn", "espree", "meriyah", "babel"]
 printWidth: 80
@@ -52,7 +52,7 @@ var let = "foo";
 ================================================================================
 `;
 
-exports[`yield.js format 1`] = `
+exports[`yield.js format[acorn] 1`] = `
 ====================================options=====================================
 parsers: ["acorn", "espree", "meriyah", "babel"]
 printWidth: 80

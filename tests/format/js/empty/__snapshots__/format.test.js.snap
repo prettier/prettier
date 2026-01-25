@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`snippet: #7 format 1`] = `
+exports[`snippet: #7 format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -13,7 +13,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`snippet: #8 format 1`] = `
+exports[`snippet: #8 format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -26,7 +26,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`snippet: #9 format 1`] = `
+exports[`snippet: #9 format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -40,7 +40,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`snippet: #10 format 1`] = `
+exports[`snippet: #10 format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -54,7 +54,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`snippet: #11 format 1`] = `
+exports[`snippet: #11 format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -69,7 +69,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`snippet: #12 format 1`] = `
+exports[`snippet: #12 format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -84,7 +84,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`snippet: #13 format 1`] = `
+exports[`snippet: #13 format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -98,7 +98,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`snippet: #14 format 1`] = `
+exports[`snippet: #14 format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -112,7 +112,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`snippet: #15 format 1`] = `
+exports[`snippet: #15 format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -127,7 +127,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`snippet: #16 format 1`] = `
+exports[`snippet: #16 format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80

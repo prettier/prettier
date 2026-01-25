@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`comments-in-type-annotation.js format 1`] = `
+exports[`comments-in-type-annotation.js format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -14,7 +14,7 @@ type A = () => infer R extends /* comment */ string;
 ================================================================================
 `;
 
-exports[`conditional-types.js format 1`] = `
+exports[`conditional-types.js format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -88,7 +88,7 @@ type T2 = (() => void) extends T ? U : V;
 ================================================================================
 `;
 
-exports[`cursor.js format 1`] = `
+exports[`cursor.js format[flow] 1`] = `
 ====================================options=====================================
 cursorOffset: 31
 parsers: ["flow", "typescript"]
@@ -103,7 +103,7 @@ type A = () => infer R extends <|>string;
 ================================================================================
 `;
 
-exports[`infer-type.js format 1`] = `
+exports[`infer-type.js format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -139,7 +139,7 @@ type Unpacked<T> = T extends (infer U)[]
 ================================================================================
 `;
 
-exports[`nested-in-condition.js format 1`] = `
+exports[`nested-in-condition.js format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -199,7 +199,7 @@ type Foo3 = (
 ================================================================================
 `;
 
-exports[`new-ternary-spec.js format 1`] = `
+exports[`new-ternary-spec.js format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -250,7 +250,7 @@ type Unpacked<T> = T extends (infer U)[]
 ================================================================================
 `;
 
-exports[`parentheses.js format 1`] = `
+exports[`parentheses.js format[flow] 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80

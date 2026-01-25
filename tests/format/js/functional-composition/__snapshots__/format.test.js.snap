@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`functional_compose.js format 1`] = `
+exports[`functional_compose.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -107,7 +107,7 @@ this.subscriptions.add(
 ================================================================================
 `;
 
-exports[`gobject_connect.js format 1`] = `
+exports[`gobject_connect.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -135,7 +135,7 @@ app.connect("activate", async () => {
 ================================================================================
 `;
 
-exports[`lodash_flow.js format 1`] = `
+exports[`lodash_flow.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -185,7 +185,7 @@ bar(6);
 ================================================================================
 `;
 
-exports[`lodash_flow_right.js format 1`] = `
+exports[`lodash_flow_right.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -235,7 +235,7 @@ bar(6);
 ================================================================================
 `;
 
-exports[`mongo_connect.js format 1`] = `
+exports[`mongo_connect.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -258,7 +258,7 @@ MongoClient.connect("mongodb://localhost:27017/posts", (err, db) => {
 ================================================================================
 `;
 
-exports[`pipe-function-calls.js format 1`] = `
+exports[`pipe-function-calls.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -330,7 +330,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`pipe-function-calls-with-comments.js format 1`] = `
+exports[`pipe-function-calls-with-comments.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -440,7 +440,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`ramda_compose.js format 1`] = `
+exports[`ramda_compose.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -542,7 +542,7 @@ const mapStateToProps = (state) => ({
 ================================================================================
 `;
 
-exports[`ramda_pipe.js format 1`] = `
+exports[`ramda_pipe.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -600,7 +600,7 @@ var followersForUser = R.pipeP(db.getUserById, db.getFollowers);
 ================================================================================
 `;
 
-exports[`redux_compose.js format 1`] = `
+exports[`redux_compose.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -634,7 +634,7 @@ const store = createStore(
 ================================================================================
 `;
 
-exports[`redux_connect.js format 1`] = `
+exports[`redux_connect.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -652,7 +652,7 @@ const ArtistInput = connect(
 ================================================================================
 `;
 
-exports[`reselect_createselector.js format 1`] = `
+exports[`reselect_createselector.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -685,7 +685,7 @@ const bar = createSelector([getIds, getObjects], (ids, objects) =>
 ================================================================================
 `;
 
-exports[`rxjs_pipe.js format 1`] = `
+exports[`rxjs_pipe.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80

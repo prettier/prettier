@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`yaml.css - {"embeddedLanguageFormatting":"off"} format 1`] = `
+exports[`yaml.css - {"embeddedLanguageFormatting":"off"} format[css] 1`] = `
 ====================================options=====================================
 embeddedLanguageFormatting: "off"
 parsers: ["css", "scss", "less"]

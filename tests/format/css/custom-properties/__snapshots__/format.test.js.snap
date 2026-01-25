@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`17806.css format 1`] = `
+exports[`17806.css format[css] 1`] = `
 ====================================options=====================================
 parsers: ["css", "scss", "less"]
 printWidth: 80
@@ -18,7 +18,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`emoji.css format 1`] = `
+exports[`emoji.css format[css] 1`] = `
 ====================================options=====================================
 parsers: ["css", "scss", "less"]
 printWidth: 80

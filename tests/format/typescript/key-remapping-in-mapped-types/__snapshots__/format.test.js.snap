@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`key-remapping.ts format 1`] = `
+exports[`key-remapping.ts format[babel-ts] 1`] = `
 ====================================options=====================================
 parsers: ["babel-ts", "typescript"]
 printWidth: 80

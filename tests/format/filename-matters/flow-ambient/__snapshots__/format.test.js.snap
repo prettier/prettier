@@ -1,15 +1,5 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`ambient.js.flow [hermes] format 1`] = `
-"missing initializer in const declaration (1:6)
-> 1 | const foo: string;
-    |      ^
-  2 |
-Cause: missing initializer in const declaration (1:6)
-const foo: string;
-      ^~~~~~~~~~~"
-`;
-
 exports[`ambient.js.flow format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
@@ -24,10 +14,11 @@ const foo: string;
 ================================================================================
 `;
 
-exports[`snippet: #0 [hermes] format 1`] = `
+exports[`ambient.js.flow format 2`] = `
 "missing initializer in const declaration (1:6)
 > 1 | const foo: string;
     |      ^
+  2 |
 Cause: missing initializer in const declaration (1:6)
 const foo: string;
       ^~~~~~~~~~~"
@@ -44,4 +35,13 @@ const foo: string;
 const foo: string;
 
 ================================================================================
+`;
+
+exports[`snippet: #0 format 2`] = `
+"missing initializer in const declaration (1:6)
+> 1 | const foo: string;
+    |      ^
+Cause: missing initializer in const declaration (1:6)
+const foo: string;
+      ^~~~~~~~~~~"
 `;

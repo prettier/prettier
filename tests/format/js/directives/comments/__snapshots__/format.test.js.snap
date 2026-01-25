@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`snippet: #0 - {"semi":false} format 1`] = `
+exports[`snippet: #0 - {"semi":false} format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -14,7 +14,7 @@ semi: false
 ================================================================================
 `;
 
-exports[`snippet: #0 format 1`] = `
+exports[`snippet: #0 format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -27,7 +27,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`snippet: #1 - {"semi":false} format 1`] = `
+exports[`snippet: #1 - {"semi":false} format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -45,7 +45,7 @@ function foo() {
 ================================================================================
 `;
 
-exports[`snippet: #1 format 1`] = `
+exports[`snippet: #1 format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -62,7 +62,7 @@ function foo() {
 ================================================================================
 `;
 
-exports[`snippet: #2 - {"semi":false} format 1`] = `
+exports[`snippet: #2 - {"semi":false} format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -76,7 +76,7 @@ semi: false
 ================================================================================
 `;
 
-exports[`snippet: #2 format 1`] = `
+exports[`snippet: #2 format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -89,7 +89,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`snippet: #3 - {"semi":false} format 1`] = `
+exports[`snippet: #3 - {"semi":false} format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -107,7 +107,7 @@ function foo() {
 ================================================================================
 `;
 
-exports[`snippet: #3 format 1`] = `
+exports[`snippet: #3 format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -124,7 +124,7 @@ function foo() {
 ================================================================================
 `;
 
-exports[`snippet: #4 - {"semi":false} format 1`] = `
+exports[`snippet: #4 - {"semi":false} format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -140,7 +140,7 @@ semi: false
 ================================================================================
 `;
 
-exports[`snippet: #4 format 1`] = `
+exports[`snippet: #4 format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -155,7 +155,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`snippet: #5 - {"semi":false} format 1`] = `
+exports[`snippet: #5 - {"semi":false} format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -175,7 +175,7 @@ function foo() {
 ================================================================================
 `;
 
-exports[`snippet: #5 format 1`] = `
+exports[`snippet: #5 format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -194,7 +194,7 @@ function foo() {
 ================================================================================
 `;
 
-exports[`snippet: #6 - {"semi":false} format 1`] = `
+exports[`snippet: #6 - {"semi":false} format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -208,7 +208,7 @@ semi: false
 ================================================================================
 `;
 
-exports[`snippet: #6 format 1`] = `
+exports[`snippet: #6 format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -221,7 +221,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`snippet: #7 - {"semi":false} format 1`] = `
+exports[`snippet: #7 - {"semi":false} format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -239,7 +239,7 @@ function foo() {
 ================================================================================
 `;
 
-exports[`snippet: #7 format 1`] = `
+exports[`snippet: #7 format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -256,7 +256,7 @@ function foo() {
 ================================================================================
 `;
 
-exports[`snippet: #8 - {"semi":false} format 1`] = `
+exports[`snippet: #8 - {"semi":false} format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -274,7 +274,7 @@ semi: false
 ================================================================================
 `;
 
-exports[`snippet: #8 format 1`] = `
+exports[`snippet: #8 format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -291,7 +291,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`snippet: #9 - {"semi":false} format 1`] = `
+exports[`snippet: #9 - {"semi":false} format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -313,7 +313,7 @@ function foo() {
 ================================================================================
 `;
 
-exports[`snippet: #9 format 1`] = `
+exports[`snippet: #9 format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -334,7 +334,7 @@ function foo() {
 ================================================================================
 `;
 
-exports[`snippet: #10 - {"semi":false} format 1`] = `
+exports[`snippet: #10 - {"semi":false} format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -352,7 +352,7 @@ semi: false
 ================================================================================
 `;
 
-exports[`snippet: #10 format 1`] = `
+exports[`snippet: #10 format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -369,7 +369,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`snippet: #11 - {"semi":false} format 1`] = `
+exports[`snippet: #11 - {"semi":false} format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -391,7 +391,7 @@ function foo() {
 ================================================================================
 `;
 
-exports[`snippet: #11 format 1`] = `
+exports[`snippet: #11 format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -412,7 +412,7 @@ function foo() {
 ================================================================================
 `;
 
-exports[`snippet: #12 - {"semi":false} format 1`] = `
+exports[`snippet: #12 - {"semi":false} format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -430,7 +430,7 @@ semi: false
 ================================================================================
 `;
 
-exports[`snippet: #12 format 1`] = `
+exports[`snippet: #12 format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -447,7 +447,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`snippet: #13 - {"semi":false} format 1`] = `
+exports[`snippet: #13 - {"semi":false} format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -469,7 +469,7 @@ function foo() {
 ================================================================================
 `;
 
-exports[`snippet: #13 format 1`] = `
+exports[`snippet: #13 format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -490,7 +490,7 @@ function foo() {
 ================================================================================
 `;
 
-exports[`snippet: #14 - {"semi":false} format 1`] = `
+exports[`snippet: #14 - {"semi":false} format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -508,7 +508,7 @@ semi: false
 ================================================================================
 `;
 
-exports[`snippet: #14 format 1`] = `
+exports[`snippet: #14 format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -525,7 +525,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`snippet: #15 - {"semi":false} format 1`] = `
+exports[`snippet: #15 - {"semi":false} format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -547,7 +547,7 @@ function foo() {
 ================================================================================
 `;
 
-exports[`snippet: #15 format 1`] = `
+exports[`snippet: #15 format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80

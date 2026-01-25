@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`array-and-object.js format 1`] = `
+exports[`array-and-object.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -18,7 +18,7 @@ class C extends [] {}
 ================================================================================
 `;
 
-exports[`complex.js format 1`] = `
+exports[`complex.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -66,7 +66,7 @@ class loooooooooooooooooooong3 extends class {
 ================================================================================
 `;
 
-exports[`extends.js format 1`] = `
+exports[`extends.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80

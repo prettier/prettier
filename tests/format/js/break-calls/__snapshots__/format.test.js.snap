@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`break.js format 1`] = `
+exports[`break.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -102,7 +102,7 @@ expect(
 ================================================================================
 `;
 
-exports[`parent.js format 1`] = `
+exports[`parent.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -132,7 +132,7 @@ runtimeAgent.getProperties(
 ================================================================================
 `;
 
-exports[`react.js format 1`] = `
+exports[`react.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -402,7 +402,7 @@ function Component3() {
 ================================================================================
 `;
 
-exports[`reduce.js format 1`] = `
+exports[`reduce.js format[babel] 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80

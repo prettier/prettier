@@ -28,14 +28,7 @@ f<<T>(v: T) => void>();
 ================================================================================
 `;
 
-exports[`3.ts [oxc-ts] format 1`] = `
-"Expected \`{\` but found \`<<\` (1:17)
-> 1 | (class extends f<<T>(v: T) => void> {});
-    |                 ^^
-  2 |"
-`;
-
-exports[`3.ts [typescript] format 1`] = `
+exports[`3.ts format 1`] = `
 "',' expected. (1:17)
 > 1 | (class extends f<<T>(v: T) => void> {});
     |                 ^
@@ -43,7 +36,7 @@ exports[`3.ts [typescript] format 1`] = `
 Cause: ',' expected."
 `;
 
-exports[`3.ts format 1`] = `
+exports[`3.ts format 2`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -55,6 +48,13 @@ printWidth: 80
 (class extends f<<T>(v: T) => void> {});
 
 ================================================================================
+`;
+
+exports[`3.ts format 3`] = `
+"Expected \`{\` but found \`<<\` (1:17)
+> 1 | (class extends f<<T>(v: T) => void> {});
+    |                 ^^
+  2 |"
 `;
 
 exports[`4.ts format 1`] = `
@@ -74,14 +74,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`5.tsx [oxc-ts] format 1`] = `
-"Unexpected token (1:11)
-> 1 | <Component<<T>(v: T) => void> />
-    |           ^^
-  2 |"
-`;
-
-exports[`5.tsx [typescript] format 1`] = `
+exports[`5.tsx format 1`] = `
 "Identifier expected. (1:11)
 > 1 | <Component<<T>(v: T) => void> />
     |           ^
@@ -89,7 +82,7 @@ exports[`5.tsx [typescript] format 1`] = `
 Cause: Identifier expected."
 `;
 
-exports[`5.tsx format 1`] = `
+exports[`5.tsx format 2`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -101,6 +94,13 @@ printWidth: 80
 <Component<<T>(v: T) => void> />;
 
 ================================================================================
+`;
+
+exports[`5.tsx format 3`] = `
+"Unexpected token (1:11)
+> 1 | <Component<<T>(v: T) => void> />
+    |           ^^
+  2 |"
 `;
 
 exports[`6.ts format 1`] = `

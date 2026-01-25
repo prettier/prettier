@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`unkown-block.html [angular] format 1`] = `
+exports[`unkown-block.html format 1`] = `
 "Unexpected character "EOF" (Do you have an unescaped "{" in your template? Use "{{ '{' }}") to escape it.) (4:1)
   2 | } @unknown (foo) {
   3 | }
