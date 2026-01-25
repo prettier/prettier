@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`issue-10846.js format[flow] 1`] = `
+exports[`issue-10846.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -83,7 +83,7 @@ const foo4 = call<
 ================================================================================
 `;
 
-exports[`issue-10850.js format[flow] 1`] = `
+exports[`issue-10850.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -111,7 +111,7 @@ const ma3: Map<Function, Foo<S>> = new Map();
 ================================================================================
 `;
 
-exports[`issue-12413.js format[flow] 1`] = `
+exports[`issue-12413.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

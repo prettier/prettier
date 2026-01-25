@@ -1,14 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`default-escaped.js format[acorn] 1`] = `
-"Unexpected token (2:8)
-  1 | // export asyn\\u{63} from "async";
-> 2 | export n\\u{63} from "async";
-    |        ^
-Cause: Unexpected token (2:7)"
-`;
-
-exports[`default-escaped.js format[babel] 1`] = `
+exports[`default-escaped.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow"]
 printWidth: 80
@@ -21,6 +13,14 @@ export n\\u{63} from "async";
 export nc from "async";
 
 ================================================================================
+`;
+
+exports[`default-escaped.js format[acorn] 1`] = `
+"Unexpected token (2:8)
+  1 | // export asyn\\u{63} from "async";
+> 2 | export n\\u{63} from "async";
+    |        ^
+Cause: Unexpected token (2:7)"
 `;
 
 exports[`default-escaped.js format[espree] 1`] = `

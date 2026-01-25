@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`declared.js format[flow] 1`] = `
+exports[`declared.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -46,7 +46,7 @@ declare export enum F {
 ================================================================================
 `;
 
-exports[`lib.js format[flow] 1`] = `
+exports[`lib.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

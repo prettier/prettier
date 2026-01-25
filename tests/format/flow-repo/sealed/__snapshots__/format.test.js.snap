@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`function.js format[flow] 1`] = `
+exports[`function.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -34,7 +34,7 @@ module.exports = Bar;
 ================================================================================
 `;
 
-exports[`proto.js format[flow] 1`] = `
+exports[`proto.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -80,7 +80,7 @@ module.exports = export_o;
 ================================================================================
 `;
 
-exports[`sealed.js format[flow] 1`] = `
+exports[`sealed.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

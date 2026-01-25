@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`export.js format[flow] 1`] = `
+exports[`export.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -15,7 +15,7 @@ export default match (a) {
 ================================================================================
 `;
 
-exports[`expression.js format[flow] 1`] = `
+exports[`expression.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -37,7 +37,7 @@ const e = match (a) {
 ================================================================================
 `;
 
-exports[`expression-empty.js format[flow] 1`] = `
+exports[`expression-empty.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -52,7 +52,7 @@ const e = match (a) {
 ================================================================================
 `;
 
-exports[`expression-guards.js format[flow] 1`] = `
+exports[`expression-guards.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -70,7 +70,7 @@ const e = match (a) {
 ================================================================================
 `;
 
-exports[`pattern-array.js format[flow] 1`] = `
+exports[`pattern-array.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -100,7 +100,7 @@ const e = match (x) {
 ================================================================================
 `;
 
-exports[`pattern-core.js format[flow] 1`] = `
+exports[`pattern-core.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -146,7 +146,7 @@ const e = match (x) {
 ================================================================================
 `;
 
-exports[`pattern-member.js format[flow] 1`] = `
+exports[`pattern-member.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -174,7 +174,7 @@ const e = match (x) {
 ================================================================================
 `;
 
-exports[`pattern-object.js format[flow] 1`] = `
+exports[`pattern-object.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -206,7 +206,7 @@ const e = match (x) {
 ================================================================================
 `;
 
-exports[`pattern-or-as.js format[flow] 1`] = `
+exports[`pattern-or-as.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -241,7 +241,7 @@ const e = match (x) {
 ================================================================================
 `;
 
-exports[`regression.js format[flow] 1`] = `
+exports[`regression.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -315,7 +315,7 @@ match(...b);
 ================================================================================
 `;
 
-exports[`statement.js format[flow] 1`] = `
+exports[`statement.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -351,7 +351,7 @@ match (a) {
 ================================================================================
 `;
 
-exports[`statement-empty.js format[flow] 1`] = `
+exports[`statement-empty.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -366,7 +366,7 @@ match (a) {
 ================================================================================
 `;
 
-exports[`statement-guards.js format[flow] 1`] = `
+exports[`statement-guards.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -400,7 +400,7 @@ match (a) {
 ================================================================================
 `;
 
-exports[`statement-sequence-arg.js format[flow] 1`] = `
+exports[`statement-sequence-arg.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

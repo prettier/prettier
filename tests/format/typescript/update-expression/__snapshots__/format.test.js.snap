@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`update-expressions.ts format[typescript] 1`] = `
+exports[`update-expressions.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

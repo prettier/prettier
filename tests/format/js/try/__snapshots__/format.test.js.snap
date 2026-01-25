@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`catch.js format[babel] 1`] = `
+exports[`catch.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -59,7 +59,7 @@ try {
 ================================================================================
 `;
 
-exports[`empty.js format[babel] 1`] = `
+exports[`empty.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -87,7 +87,7 @@ try {
 ================================================================================
 `;
 
-exports[`try.js format[babel] 1`] = `
+exports[`try.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80

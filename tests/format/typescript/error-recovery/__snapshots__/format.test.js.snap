@@ -1,5 +1,68 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`index-signature.ts - {"trailingComma":"all"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+trailingComma: "all"
+                                                                                | printWidth
+=====================================input======================================
+type A = { [key: string] };
+
+type TwoParams = {
+  [a: string, b: string]: string;
+};
+type ThreeParams = {
+  [a: string, b: string, c: string]: string;
+};
+
+type TooLong = {
+  [loooooooooooooooooooooooooong: string, looooooooooooooooooooooooooooooooooooooong: string]: string;
+}
+type TooLong81 = { [loooooooooooooooooooooooooong: string, loooooooooooooooooong: string]: string; }
+type TooLong80 = { [loooooooooooooooooooooooooong: string, looooooooooooooooong: string]: string; }
+
+// note lack of trailing comma in the index signature
+type TooLongSingleParam = {
+  [looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong: string]: string;
+}
+
+=====================================output=====================================
+type A = { [key: string] };
+
+type TwoParams = {
+  [a: string, b: string]: string;
+};
+type ThreeParams = {
+  [a: string, b: string, c: string]: string;
+};
+
+type TooLong = {
+  [
+    loooooooooooooooooooooooooong: string,
+    looooooooooooooooooooooooooooooooooooooong: string,
+  ]: string;
+};
+type TooLong81 = {
+  [
+    loooooooooooooooooooooooooong: string,
+    loooooooooooooooooong: string,
+  ]: string;
+};
+type TooLong80 = {
+  [loooooooooooooooooooooooooong: string, looooooooooooooooong: string]: string;
+};
+
+// note lack of trailing comma in the index signature
+type TooLongSingleParam = {
+  [
+    looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong: string
+  ]: string;
+};
+
+================================================================================
+`;
+
 exports[`index-signature.ts - {"trailingComma":"all"} format[babel-ts] 1`] = `
 "Unexpected token, expected "]" (4:13)
   2 |
@@ -21,11 +84,11 @@ exports[`index-signature.ts - {"trailingComma":"all"} format[oxc-ts] 1`] = `
   4 |   [a: string, b: string]: string;"
 `;
 
-exports[`index-signature.ts - {"trailingComma":"all"} format[typescript] 1`] = `
+exports[`index-signature.ts - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
-trailingComma: "all"
+trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 type A = { [key: string] };
@@ -105,11 +168,10 @@ exports[`index-signature.ts - {"trailingComma":"es5"} format[oxc-ts] 1`] = `
   4 |   [a: string, b: string]: string;"
 `;
 
-exports[`index-signature.ts - {"trailingComma":"es5"} format[typescript] 1`] = `
+exports[`index-signature.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
-trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 type A = { [key: string] };
@@ -189,64 +251,31 @@ exports[`index-signature.ts format[oxc-ts] 1`] = `
   4 |   [a: string, b: string]: string;"
 `;
 
-exports[`index-signature.ts format[typescript] 1`] = `
+exports[`jsdoc_only_types.ts - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
+trailingComma: "all"
                                                                                 | printWidth
 =====================================input======================================
-type A = { [key: string] };
-
-type TwoParams = {
-  [a: string, b: string]: string;
-};
-type ThreeParams = {
-  [a: string, b: string, c: string]: string;
-};
-
-type TooLong = {
-  [loooooooooooooooooooooooooong: string, looooooooooooooooooooooooooooooooooooooong: string]: string;
-}
-type TooLong81 = { [loooooooooooooooooooooooooong: string, loooooooooooooooooong: string]: string; }
-type TooLong80 = { [loooooooooooooooooooooooooong: string, looooooooooooooooong: string]: string; }
-
-// note lack of trailing comma in the index signature
-type TooLongSingleParam = {
-  [looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong: string]: string;
-}
+let a: *;
+function b(x: ?) {}
+let c: ?string;
+let d: string?;
+let e: ?(string | number);
+let f: !string;
+let g: string!;
+let h: !(string | number);
 
 =====================================output=====================================
-type A = { [key: string] };
-
-type TwoParams = {
-  [a: string, b: string]: string;
-};
-type ThreeParams = {
-  [a: string, b: string, c: string]: string;
-};
-
-type TooLong = {
-  [
-    loooooooooooooooooooooooooong: string,
-    looooooooooooooooooooooooooooooooooooooong: string,
-  ]: string;
-};
-type TooLong81 = {
-  [
-    loooooooooooooooooooooooooong: string,
-    loooooooooooooooooong: string,
-  ]: string;
-};
-type TooLong80 = {
-  [loooooooooooooooooooooooooong: string, looooooooooooooooong: string]: string;
-};
-
-// note lack of trailing comma in the index signature
-type TooLongSingleParam = {
-  [
-    looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong: string
-  ]: string;
-};
+let a: *;
+function b(x: ?) {}
+let c: ?string;
+let d: string?;
+let e: ?(string | number);
+let f: !string;
+let g: string!;
+let h: !(string | number);
 
 ================================================================================
 `;
@@ -270,11 +299,11 @@ exports[`jsdoc_only_types.ts - {"trailingComma":"all"} format[oxc-ts] 1`] = `
   4 | let d: string?;"
 `;
 
-exports[`jsdoc_only_types.ts - {"trailingComma":"all"} format[typescript] 1`] = `
+exports[`jsdoc_only_types.ts - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
-trailingComma: "all"
+trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 let a: *;
@@ -318,11 +347,10 @@ exports[`jsdoc_only_types.ts - {"trailingComma":"es5"} format[oxc-ts] 1`] = `
   4 | let d: string?;"
 `;
 
-exports[`jsdoc_only_types.ts - {"trailingComma":"es5"} format[typescript] 1`] = `
+exports[`jsdoc_only_types.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
-trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 let a: *;
@@ -364,32 +392,4 @@ exports[`jsdoc_only_types.ts format[oxc-ts] 1`] = `
   2 | function b(x: ?) {}
   3 | let c: ?string;
   4 | let d: string?;"
-`;
-
-exports[`jsdoc_only_types.ts format[typescript] 1`] = `
-====================================options=====================================
-parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-let a: *;
-function b(x: ?) {}
-let c: ?string;
-let d: string?;
-let e: ?(string | number);
-let f: !string;
-let g: string!;
-let h: !(string | number);
-
-=====================================output=====================================
-let a: *;
-function b(x: ?) {}
-let c: ?string;
-let d: string?;
-let e: ?(string | number);
-let f: !string;
-let g: string!;
-let h: !(string | number);
-
-================================================================================
 `;

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`array_of_functions.js format[flow] 1`] = `
+exports[`array_of_functions.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

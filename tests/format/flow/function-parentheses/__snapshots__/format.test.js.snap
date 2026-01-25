@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`single.js - {"arrowParens":"avoid"} format[flow] 1`] = `
+exports[`single.js - {"arrowParens":"avoid"} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 parsers: ["flow"]
@@ -25,7 +25,7 @@ const selectorByPath: Path => SomethingSelector<
 ================================================================================
 `;
 
-exports[`single.js - {"trailingComma":"all"} format[flow] 1`] = `
+exports[`single.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -50,7 +50,7 @@ const selectorByPath: (Path) => SomethingSelector<
 ================================================================================
 `;
 
-exports[`single.js - {"trailingComma":"es5"} format[flow] 1`] = `
+exports[`single.js - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -75,7 +75,7 @@ const selectorByPath: (Path) => SomethingSelector<
 ================================================================================
 `;
 
-exports[`test.js - {"arrowParens":"avoid"} format[flow] 1`] = `
+exports[`test.js - {"arrowParens":"avoid"} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 parsers: ["flow"]
@@ -212,7 +212,7 @@ type T8 = ??(() => A) | B;
 ================================================================================
 `;
 
-exports[`test.js - {"trailingComma":"all"} format[flow] 1`] = `
+exports[`test.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -349,7 +349,7 @@ type T8 = ??(() => A) | B;
 ================================================================================
 `;
 
-exports[`test.js - {"trailingComma":"es5"} format[flow] 1`] = `
+exports[`test.js - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

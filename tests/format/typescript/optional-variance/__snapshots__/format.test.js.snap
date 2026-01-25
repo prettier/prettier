@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`basic.ts format[typescript] 1`] = `
+exports[`basic.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -134,7 +134,7 @@ declare class StateNode<TContext, in out TEvent extends { type: string }> {
 ================================================================================
 `;
 
-exports[`with-jsx.tsx format[typescript] 1`] = `
+exports[`with-jsx.tsx format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

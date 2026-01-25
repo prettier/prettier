@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`cursor-without-pragma.js - {"requirePragma":true} format[babel] 1`] = `
+exports[`cursor-without-pragma.js - {"requirePragma":true} format 1`] = `
 ====================================options=====================================
 cursorOffset: 27
 parsers: ["babel", "typescript", "flow"]

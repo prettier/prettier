@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`comments-in-type-annotations.js format[flow] 1`] = `
+exports[`comments-in-type-annotations.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -30,7 +30,7 @@ const arrow = (
 ================================================================================
 `;
 
-exports[`passing.js format[flow] 1`] = `
+exports[`passing.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`eslint-disable.js - {"bracketSameLine":true} format[flow] 1`] = `
+exports[`eslint-disable.js - {"bracketSameLine":true} format 1`] = `
 ====================================options=====================================
 bracketSameLine: true
 parsers: ["flow", "babel", "typescript"]
@@ -27,7 +27,7 @@ const render = (items) => (
 ================================================================================
 `;
 
-exports[`in-attributes.js - {"bracketSameLine":true} format[flow] 1`] = `
+exports[`in-attributes.js - {"bracketSameLine":true} format 1`] = `
 ====================================options=====================================
 bracketSameLine: true
 parsers: ["flow", "babel", "typescript"]
@@ -83,7 +83,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`in-end-tag.js - {"bracketSameLine":true} format[flow] 1`] = `
+exports[`in-end-tag.js - {"bracketSameLine":true} format 1`] = `
 ====================================options=====================================
 bracketSameLine: true
 parsers: ["flow", "babel", "typescript"]
@@ -212,7 +212,7 @@ exports[`in-end-tag.js - {"bracketSameLine":true} format[typescript] 1`] = `
 Cause: Identifier expected."
 `;
 
-exports[`in-tags.js - {"bracketSameLine":true} format[flow] 1`] = `
+exports[`in-tags.js - {"bracketSameLine":true} format 1`] = `
 ====================================options=====================================
 bracketSameLine: true
 parsers: ["flow", "babel", "typescript"]
@@ -280,7 +280,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`jsx-tag-comment-after-prop.js - {"bracketSameLine":true} format[flow] 1`] = `
+exports[`jsx-tag-comment-after-prop.js - {"bracketSameLine":true} format 1`] = `
 ====================================options=====================================
 bracketSameLine: true
 parsers: ["flow", "babel", "typescript"]
@@ -316,7 +316,7 @@ const pure = () => {
 ================================================================================
 `;
 
-exports[`like-a-comment-in-jsx-text.js - {"bracketSameLine":true} format[flow] 1`] = `
+exports[`like-a-comment-in-jsx-text.js - {"bracketSameLine":true} format 1`] = `
 ====================================options=====================================
 bracketSameLine: true
 parsers: ["flow", "babel", "typescript"]

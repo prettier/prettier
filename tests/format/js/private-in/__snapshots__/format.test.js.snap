@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`private-in.js format[babel] 1`] = `
+exports[`private-in.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80

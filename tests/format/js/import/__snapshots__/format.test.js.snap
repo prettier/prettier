@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`brackets.js - {"bracketSpacing":false} format[babel] 1`] = `
+exports[`brackets.js - {"bracketSpacing":false} format 1`] = `
 ====================================options=====================================
 bracketSpacing: false
 parsers: ["babel", "flow", "typescript"]
@@ -35,7 +35,7 @@ import {fitsIn, oneLine} from ".";
 ================================================================================
 `;
 
-exports[`brackets.js format[babel] 1`] = `
+exports[`brackets.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -69,7 +69,7 @@ import { fitsIn, oneLine } from ".";
 ================================================================================
 `;
 
-exports[`comments.js - {"bracketSpacing":false} format[babel] 1`] = `
+exports[`comments.js - {"bracketSpacing":false} format 1`] = `
 ====================================options=====================================
 bracketSpacing: false
 parsers: ["babel", "flow", "typescript"]
@@ -174,7 +174,7 @@ import x, {
 ================================================================================
 `;
 
-exports[`comments.js format[babel] 1`] = `
+exports[`comments.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -278,7 +278,7 @@ import x, {
 ================================================================================
 `;
 
-exports[`inline.js - {"bracketSpacing":false} format[babel] 1`] = `
+exports[`inline.js - {"bracketSpacing":false} format 1`] = `
 ====================================options=====================================
 bracketSpacing: false
 parsers: ["babel", "flow", "typescript"]
@@ -304,7 +304,7 @@ import {
 ================================================================================
 `;
 
-exports[`inline.js format[babel] 1`] = `
+exports[`inline.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -329,7 +329,7 @@ import {
 ================================================================================
 `;
 
-exports[`long-line.js - {"bracketSpacing":false} format[babel] 1`] = `
+exports[`long-line.js - {"bracketSpacing":false} format 1`] = `
 ====================================options=====================================
 bracketSpacing: false
 parsers: ["babel", "flow", "typescript"]
@@ -344,7 +344,7 @@ import someCoolUtilWithARatherLongName from "../../../../utils/someCoolUtilWithA
 ================================================================================
 `;
 
-exports[`long-line.js format[babel] 1`] = `
+exports[`long-line.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -358,7 +358,7 @@ import someCoolUtilWithARatherLongName from "../../../../utils/someCoolUtilWithA
 ================================================================================
 `;
 
-exports[`multiple_standalones.js - {"bracketSpacing":false} format[babel] 1`] = `
+exports[`multiple_standalones.js - {"bracketSpacing":false} format 1`] = `
 ====================================options=====================================
 bracketSpacing: false
 parsers: ["babel", "flow", "typescript"]
@@ -373,7 +373,7 @@ import a, * as b from "a";
 ================================================================================
 `;
 
-exports[`multiple_standalones.js format[babel] 1`] = `
+exports[`multiple_standalones.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -387,7 +387,7 @@ import a, * as b from "a";
 ================================================================================
 `;
 
-exports[`same-local-and-imported.js - {"bracketSpacing":false} format[babel] 1`] = `
+exports[`same-local-and-imported.js - {"bracketSpacing":false} format 1`] = `
 ====================================options=====================================
 bracketSpacing: false
 parsers: ["babel", "flow", "typescript"]
@@ -406,7 +406,7 @@ import {c as /* comment */ c} from "c";
 ================================================================================
 `;
 
-exports[`same-local-and-imported.js format[babel] 1`] = `
+exports[`same-local-and-imported.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80

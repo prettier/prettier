@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`issue-10352-consistency.ts format[typescript] 1`] = `
+exports[`issue-10352-consistency.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -50,7 +50,7 @@ export function loadPlugin(
 ================================================================================
 `;
 
-exports[`method-signature.ts format[typescript] 1`] = `
+exports[`method-signature.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -94,7 +94,7 @@ type Bar = {
 ================================================================================
 `;
 
-exports[`method-signature-with-wrapped-return-type.ts format[typescript] 1`] = `
+exports[`method-signature-with-wrapped-return-type.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -128,7 +128,7 @@ type ReleaseToolConfig2 = {
 ================================================================================
 `;
 
-exports[`semi.ts format[typescript] 1`] = `
+exports[`semi.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -154,7 +154,7 @@ function pickCard(x: number): { suit: string; card: number };
 ================================================================================
 `;
 
-exports[`type_literal_optional_method.ts format[typescript] 1`] = `
+exports[`type_literal_optional_method.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

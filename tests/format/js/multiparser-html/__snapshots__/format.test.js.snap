@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`html-template-literals.js - {"htmlWhitespaceSensitivity":"ignore"} format[babel] 1`] = `
+exports[`html-template-literals.js - {"htmlWhitespaceSensitivity":"ignore"} format 1`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
 parsers: ["babel", "flow", "typescript"]
@@ -111,7 +111,7 @@ a = /* HTML */ \`
 ================================================================================
 `;
 
-exports[`html-template-literals.js format[babel] 1`] = `
+exports[`html-template-literals.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -207,7 +207,7 @@ a = /* HTML */ \`<div style="\${foo}" style="\${foo}" style=\${foo}></div> \`;
 ================================================================================
 `;
 
-exports[`issue-10691.js - {"htmlWhitespaceSensitivity":"ignore"} format[babel] 1`] = `
+exports[`issue-10691.js - {"htmlWhitespaceSensitivity":"ignore"} format 1`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
 parsers: ["babel", "flow", "typescript"]
@@ -239,7 +239,7 @@ export default function include_photoswipe(gallery_selector = ".my-gallery") {
 ================================================================================
 `;
 
-exports[`issue-10691.js format[babel] 1`] = `
+exports[`issue-10691.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -268,7 +268,7 @@ export default function include_photoswipe(gallery_selector = ".my-gallery") {
 ================================================================================
 `;
 
-exports[`lit-html.js - {"htmlWhitespaceSensitivity":"ignore"} format[babel] 1`] = `
+exports[`lit-html.js - {"htmlWhitespaceSensitivity":"ignore"} format 1`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
 parsers: ["babel", "flow", "typescript"]
@@ -516,7 +516,7 @@ html\`
 ================================================================================
 `;
 
-exports[`lit-html.js format[babel] 1`] = `
+exports[`lit-html.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80

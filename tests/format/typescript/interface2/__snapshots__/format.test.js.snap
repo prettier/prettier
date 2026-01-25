@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`comments.ts - {"trailingComma":"es5"} format[typescript] 1`] = `
+exports[`comments.ts - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow"]
 printWidth: 80
@@ -79,7 +79,7 @@ interface A6 // comment1
 ================================================================================
 `;
 
-exports[`comments-declare.ts - {"trailingComma":"es5"} format[typescript] 1`] = `
+exports[`comments-declare.ts - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow"]
 printWidth: 80
@@ -100,7 +100,7 @@ declare interface a // 1
 ================================================================================
 `;
 
-exports[`module.ts - {"trailingComma":"es5"} format[typescript] 1`] = `
+exports[`module.ts - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow"]
 printWidth: 80

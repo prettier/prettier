@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`destructuring.js format[babel] 1`] = `
+exports[`destructuring.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -129,7 +129,7 @@ a = ([s=1,]) => 1
 ^"
 `;
 
-exports[`issue-5988.js format[babel] 1`] = `
+exports[`issue-5988.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80

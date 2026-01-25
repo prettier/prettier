@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`argument-expansion.ts - {"semi":false} format[typescript] 1`] = `
+exports[`argument-expansion.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -63,7 +63,7 @@ const bar5 = [1, 2, 3].reduce((carry, value) => {
 ================================================================================
 `;
 
-exports[`argument-expansion.ts format[typescript] 1`] = `
+exports[`argument-expansion.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -125,7 +125,7 @@ const bar5 = [1, 2, 3].reduce((carry, value) => {
 ================================================================================
 `;
 
-exports[`assignment.ts - {"semi":false} format[typescript] 1`] = `
+exports[`assignment.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -181,7 +181,7 @@ this.intervalID = setInterval(() => {
 ================================================================================
 `;
 
-exports[`assignment.ts format[typescript] 1`] = `
+exports[`assignment.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -236,7 +236,7 @@ this.intervalID = setInterval(() => {
 ================================================================================
 `;
 
-exports[`basic.ts - {"semi":false} format[typescript] 1`] = `
+exports[`basic.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -309,7 +309,7 @@ var v = undefined satisfies 1
 ================================================================================
 `;
 
-exports[`basic.ts format[typescript] 1`] = `
+exports[`basic.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -381,7 +381,7 @@ var v = undefined satisfies 1;
 ================================================================================
 `;
 
-exports[`comments.ts - {"semi":false} format[typescript] 1`] = `
+exports[`comments.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -400,7 +400,7 @@ const t4 = {} /* comment1 */ satisfies /* comment2 */ {}
 ================================================================================
 `;
 
-exports[`comments.ts format[typescript] 1`] = `
+exports[`comments.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -418,7 +418,7 @@ const t4 = {} /* comment1 */ satisfies /* comment2 */ {};
 ================================================================================
 `;
 
-exports[`comments-unstable.ts - {"semi":false} format[typescript] 1`] = `
+exports[`comments-unstable.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -444,7 +444,7 @@ Record<string, number>
 ================================================================================
 `;
 
-exports[`comments-unstable.ts format[typescript] 1`] = `
+exports[`comments-unstable.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -469,7 +469,7 @@ Record<string, number>;
 ================================================================================
 `;
 
-exports[`export-default-as.ts - {"semi":false} format[typescript] 1`] = `
+exports[`export-default-as.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -484,7 +484,7 @@ export default (function log() {} satisfies typeof console.log)
 ================================================================================
 `;
 
-exports[`export-default-as.ts format[typescript] 1`] = `
+exports[`export-default-as.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -498,7 +498,7 @@ export default (function log() {} satisfies typeof console.log);
 ================================================================================
 `;
 
-exports[`expression-statement.ts - {"semi":false} format[typescript] 1`] = `
+exports[`expression-statement.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -586,7 +586,7 @@ function satisfiesChain() {
 ================================================================================
 `;
 
-exports[`expression-statement.ts format[typescript] 1`] = `
+exports[`expression-statement.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -673,7 +673,7 @@ function satisfiesChain() {
 ================================================================================
 `;
 
-exports[`gt-lt.ts - {"semi":false} format[typescript] 1`] = `
+exports[`gt-lt.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -690,7 +690,7 @@ x satisfies boolean ?? y; // (x satisfies boolean) ?? y;
 ================================================================================
 `;
 
-exports[`gt-lt.ts format[typescript] 1`] = `
+exports[`gt-lt.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -706,7 +706,7 @@ x satisfies boolean ?? y; // (x satisfies boolean) ?? y;
 ================================================================================
 `;
 
-exports[`hug-args.ts - {"semi":false} format[typescript] 1`] = `
+exports[`hug-args.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -729,7 +729,7 @@ window.postMessage({
 ================================================================================
 `;
 
-exports[`hug-args.ts format[typescript] 1`] = `
+exports[`hug-args.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -751,7 +751,7 @@ window.postMessage({
 ================================================================================
 `;
 
-exports[`lhs.ts - {"semi":false} format[typescript] 1`] = `
+exports[`lhs.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -779,7 +779,7 @@ semi: false
 ================================================================================
 `;
 
-exports[`lhs.ts format[typescript] 1`] = `
+exports[`lhs.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -806,7 +806,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`nested-await-and-satisfies.ts - {"semi":false} format[typescript] 1`] = `
+exports[`nested-await-and-satisfies.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -834,7 +834,7 @@ const getAccountCount = async () =>
 ================================================================================
 `;
 
-exports[`nested-await-and-satisfies.ts format[typescript] 1`] = `
+exports[`nested-await-and-satisfies.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -861,7 +861,7 @@ const getAccountCount = async () =>
 ================================================================================
 `;
 
-exports[`non-null.ts - {"semi":false} format[typescript] 1`] = `
+exports[`non-null.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -880,7 +880,7 @@ const el = ReactDOM.findDOMNode(ref)
 ================================================================================
 `;
 
-exports[`non-null.ts format[typescript] 1`] = `
+exports[`non-null.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -898,7 +898,7 @@ const el = ReactDOM.findDOMNode(ref);
 ================================================================================
 `;
 
-exports[`satisfies.ts - {"semi":false} format[typescript] 1`] = `
+exports[`satisfies.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -955,7 +955,7 @@ foo as unknown satisfies Bar
 ================================================================================
 `;
 
-exports[`satisfies.ts format[typescript] 1`] = `
+exports[`satisfies.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -1011,7 +1011,7 @@ foo as unknown satisfies Bar;
 ================================================================================
 `;
 
-exports[`template-literal.ts - {"semi":false} format[typescript] 1`] = `
+exports[`template-literal.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -1034,7 +1034,7 @@ const b = \`\${(veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongFoo + veryVe
 ================================================================================
 `;
 
-exports[`template-literal.ts format[typescript] 1`] = `
+exports[`template-literal.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -1056,7 +1056,7 @@ const b = \`\${(veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongFoo + veryVe
 ================================================================================
 `;
 
-exports[`ternary.ts - {"semi":false} format[typescript] 1`] = `
+exports[`ternary.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -1159,7 +1159,7 @@ bifornCringerMoshedPerplexSawder =
 ================================================================================
 `;
 
-exports[`ternary.ts format[typescript] 1`] = `
+exports[`ternary.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -1261,7 +1261,7 @@ bifornCringerMoshedPerplexSawder =
 ================================================================================
 `;
 
-exports[`types-comments.ts - {"semi":false} format[typescript] 1`] = `
+exports[`types-comments.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -1280,7 +1280,7 @@ semi: false
 ================================================================================
 `;
 
-exports[`types-comments.ts format[typescript] 1`] = `
+exports[`types-comments.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

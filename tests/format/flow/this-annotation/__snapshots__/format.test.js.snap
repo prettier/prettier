@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`declare_function.js - {"trailingComma":"all"} format[flow] 1`] = `
+exports[`declare_function.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -27,7 +27,7 @@ declare function baz(this: number, ...a: any): void;
 ================================================================================
 `;
 
-exports[`function_declaration.js - {"trailingComma":"all"} format[flow] 1`] = `
+exports[`function_declaration.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -54,7 +54,7 @@ function baz(this: number, ...a) {}
 ================================================================================
 `;
 
-exports[`function_type.js - {"trailingComma":"all"} format[flow] 1`] = `
+exports[`function_type.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -81,7 +81,7 @@ type V = (this: number) => void;
 ================================================================================
 `;
 
-exports[`line_break.js - {"trailingComma":"all"} format[flow] 1`] = `
+exports[`line_break.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -146,7 +146,7 @@ type B = (
 ================================================================================
 `;
 
-exports[`method.js - {"trailingComma":"all"} format[flow] 1`] = `
+exports[`method.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -173,7 +173,7 @@ class A {
 ================================================================================
 `;
 
-exports[`union_type.js - {"trailingComma":"all"} format[flow] 1`] = `
+exports[`union_type.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

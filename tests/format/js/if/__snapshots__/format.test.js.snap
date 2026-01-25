@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`comment_before_else.js format[babel] 1`] = `
+exports[`comment_before_else.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -38,7 +38,7 @@ else stuff;
 ================================================================================
 `;
 
-exports[`comment-between-condition-and-body.js format[babel] 1`] = `
+exports[`comment-between-condition-and-body.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -120,7 +120,7 @@ if (4) {
 ================================================================================
 `;
 
-exports[`else.js format[babel] 1`] = `
+exports[`else.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -169,7 +169,7 @@ function f() {
 ================================================================================
 `;
 
-exports[`expr_and_same_line_comments.js format[babel] 1`] = `
+exports[`expr_and_same_line_comments.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -261,7 +261,7 @@ function a() {
 ================================================================================
 `;
 
-exports[`if_comments.js format[babel] 1`] = `
+exports[`if_comments.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -386,7 +386,7 @@ else /** transition backward */ ;
 ================================================================================
 `;
 
-exports[`issue-15168.js format[babel] 1`] = `
+exports[`issue-15168.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -425,7 +425,7 @@ for (const division of collidingDivisions) {
 ================================================================================
 `;
 
-exports[`non-block.js format[babel] 1`] = `
+exports[`non-block.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -451,7 +451,7 @@ else bar();
 ================================================================================
 `;
 
-exports[`trailing_comment.js format[babel] 1`] = `
+exports[`trailing_comment.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`comments.ts format[typescript] 1`] = `
+exports[`comments.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -31,7 +31,7 @@ type Foo = (
 ================================================================================
 `;
 
-exports[`inlining.ts format[typescript] 1`] = `
+exports[`inlining.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -181,7 +181,7 @@ type T8 = number | ((arg: any) => void);
 ================================================================================
 `;
 
-exports[`union-parens.ts format[typescript] 1`] = `
+exports[`union-parens.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -412,7 +412,7 @@ type Ctor = (new () => X) | Y;
 ================================================================================
 `;
 
-exports[`with-type-params.ts format[typescript] 1`] = `
+exports[`with-type-params.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

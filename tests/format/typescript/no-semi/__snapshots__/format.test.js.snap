@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`no-semi.ts - {"semi":false} format[typescript] 1`] = `
+exports[`no-semi.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -35,7 +35,7 @@ class A {
 ================================================================================
 `;
 
-exports[`no-semi.ts format[typescript] 1`] = `
+exports[`no-semi.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -69,7 +69,7 @@ class A {
 ================================================================================
 `;
 
-exports[`non-null.ts - {"semi":false} format[typescript] 1`] = `
+exports[`non-null.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -88,7 +88,7 @@ const el = ReactDOM.findDOMNode(ref)
 ================================================================================
 `;
 
-exports[`non-null.ts format[typescript] 1`] = `
+exports[`non-null.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -106,7 +106,7 @@ const el = ReactDOM.findDOMNode(ref);
 ================================================================================
 `;
 
-exports[`type-assertion.ts - {"semi":false} format[typescript] 1`] = `
+exports[`type-assertion.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -137,7 +137,7 @@ a
 ================================================================================
 `;
 
-exports[`type-assertion.ts format[typescript] 1`] = `
+exports[`type-assertion.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

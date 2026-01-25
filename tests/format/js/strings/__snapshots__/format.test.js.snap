@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`escaped.js - {"trailingComma":"all"} format[babel] 1`] = `
+exports[`escaped.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow"]
 printWidth: 80
@@ -30,7 +30,7 @@ export const MSG_GENERIC_OPERATION_FAILURE_BODY_3 = goog.getMsg(
 ================================================================================
 `;
 
-exports[`escaped.js - {"trailingComma":"es5"} format[babel] 1`] = `
+exports[`escaped.js - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow"]
 printWidth: 80
@@ -60,7 +60,7 @@ export const MSG_GENERIC_OPERATION_FAILURE_BODY_3 = goog.getMsg(
 ================================================================================
 `;
 
-exports[`multiline-literal.js - {"trailingComma":"all"} format[babel] 1`] = `
+exports[`multiline-literal.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow"]
 printWidth: 80
@@ -93,7 +93,7 @@ const loremIpsumFooBazBar2 =
 ================================================================================
 `;
 
-exports[`multiline-literal.js - {"trailingComma":"es5"} format[babel] 1`] = `
+exports[`multiline-literal.js - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow"]
 printWidth: 80
@@ -126,19 +126,7 @@ const loremIpsumFooBazBar2 =
 ================================================================================
 `;
 
-exports[`non-octal-eight-and-nine.js - {"trailingComma":"all"} format[acorn] 1`] = `
-"Invalid escape sequence (3:3)
-  1 | // https://github.com/babel/babel/pull/11852
-  2 |
-> 3 | "\\8","\\9";
-    |   ^
-  4 | () => {
-  5 |   "use strict";
-  6 |   "\\8", "\\9";
-Cause: Invalid escape sequence (3:2)"
-`;
-
-exports[`non-octal-eight-and-nine.js - {"trailingComma":"all"} format[babel] 1`] = `
+exports[`non-octal-eight-and-nine.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow"]
 printWidth: 80
@@ -163,6 +151,18 @@ trailingComma: "all"
 };
 
 ================================================================================
+`;
+
+exports[`non-octal-eight-and-nine.js - {"trailingComma":"all"} format[acorn] 1`] = `
+"Invalid escape sequence (3:3)
+  1 | // https://github.com/babel/babel/pull/11852
+  2 |
+> 3 | "\\8","\\9";
+    |   ^
+  4 | () => {
+  5 |   "use strict";
+  6 |   "\\8", "\\9";
+Cause: Invalid escape sequence (3:2)"
 `;
 
 exports[`non-octal-eight-and-nine.js - {"trailingComma":"all"} format[espree] 1`] = `
@@ -189,19 +189,7 @@ exports[`non-octal-eight-and-nine.js - {"trailingComma":"all"} format[meriyah] 1
 Cause: [3:0-3:2]: Escapes \\8 or \\9 are not syntactically valid escapes"
 `;
 
-exports[`non-octal-eight-and-nine.js - {"trailingComma":"es5"} format[acorn] 1`] = `
-"Invalid escape sequence (3:3)
-  1 | // https://github.com/babel/babel/pull/11852
-  2 |
-> 3 | "\\8","\\9";
-    |   ^
-  4 | () => {
-  5 |   "use strict";
-  6 |   "\\8", "\\9";
-Cause: Invalid escape sequence (3:2)"
-`;
-
-exports[`non-octal-eight-and-nine.js - {"trailingComma":"es5"} format[babel] 1`] = `
+exports[`non-octal-eight-and-nine.js - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow"]
 printWidth: 80
@@ -228,6 +216,18 @@ trailingComma: "es5"
 ================================================================================
 `;
 
+exports[`non-octal-eight-and-nine.js - {"trailingComma":"es5"} format[acorn] 1`] = `
+"Invalid escape sequence (3:3)
+  1 | // https://github.com/babel/babel/pull/11852
+  2 |
+> 3 | "\\8","\\9";
+    |   ^
+  4 | () => {
+  5 |   "use strict";
+  6 |   "\\8", "\\9";
+Cause: Invalid escape sequence (3:2)"
+`;
+
 exports[`non-octal-eight-and-nine.js - {"trailingComma":"es5"} format[espree] 1`] = `
 "Invalid escape sequence (3:3)
   1 | // https://github.com/babel/babel/pull/11852
@@ -252,7 +252,7 @@ exports[`non-octal-eight-and-nine.js - {"trailingComma":"es5"} format[meriyah] 1
 Cause: [3:0-3:2]: Escapes \\8 or \\9 are not syntactically valid escapes"
 `;
 
-exports[`strings.js - {"trailingComma":"all"} format[babel] 1`] = `
+exports[`strings.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow"]
 printWidth: 80
@@ -315,7 +315,7 @@ trailingComma: "all"
 ================================================================================
 `;
 
-exports[`strings.js - {"trailingComma":"es5"} format[babel] 1`] = `
+exports[`strings.js - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow"]
 printWidth: 80
@@ -378,7 +378,7 @@ trailingComma: "es5"
 ================================================================================
 `;
 
-exports[`template-literals.js - {"trailingComma":"all"} format[babel] 1`] = `
+exports[`template-literals.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow"]
 printWidth: 80
@@ -598,7 +598,7 @@ message = \`whereas this messsage has a linebreak in the interpolation \${
 ================================================================================
 `;
 
-exports[`template-literals.js - {"trailingComma":"es5"} format[babel] 1`] = `
+exports[`template-literals.js - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`only-parameter.js - {"arrowParens":"always"} format[flow] 1`] = `
+exports[`only-parameter.js - {"arrowParens":"always"} format 1`] = `
 ====================================options=====================================
 arrowParens: "always"
 parsers: ["flow"]
@@ -19,7 +19,7 @@ type q = (this: string) => void;
 ================================================================================
 `;
 
-exports[`only-parameter.js - {"arrowParens":"avoid"} format[flow] 1`] = `
+exports[`only-parameter.js - {"arrowParens":"avoid"} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 parsers: ["flow"]

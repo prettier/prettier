@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`comment.ts format[typescript] 1`] = `
+exports[`comment.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -28,7 +28,7 @@ a = (x: any): /* comment */ asserts x is string => {};
 ================================================================================
 `;
 
-exports[`index.ts format[typescript] 1`] = `
+exports[`index.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

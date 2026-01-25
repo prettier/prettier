@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`override-modifier.ts format[typescript] 1`] = `
+exports[`override-modifier.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -28,7 +28,7 @@ class MyClass extends BaseClass {
 ================================================================================
 `;
 
-exports[`parameter-property.ts format[typescript] 1`] = `
+exports[`parameter-property.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

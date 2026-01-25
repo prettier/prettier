@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`custom-parser.css format[css] 1`] = `
+exports[`custom-parser.css format 1`] = `
 ====================================options=====================================
 parsers: ["css", "scss", "less"]
 printWidth: 80
@@ -27,7 +27,7 @@ description: Description
 ================================================================================
 `;
 
-exports[`empty.css format[css] 1`] = `
+exports[`empty.css format 1`] = `
 ====================================options=====================================
 parsers: ["css", "scss", "less"]
 printWidth: 80

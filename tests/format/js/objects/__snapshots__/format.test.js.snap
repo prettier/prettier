@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`bigint-key.js format[babel] 1`] = `
+exports[`bigint-key.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
@@ -18,7 +18,7 @@ a = { get 1n() {} };
 ================================================================================
 `;
 
-exports[`escape-sequence-key.js format[babel] 1`] = `
+exports[`escape-sequence-key.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
@@ -46,7 +46,7 @@ const b = {
 ================================================================================
 `;
 
-exports[`expand.js format[babel] 1`] = `
+exports[`expand.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
@@ -70,19 +70,7 @@ const Component2 = ({ props }) => <Text>Test</Text>;
 ================================================================================
 `;
 
-exports[`expression.js format[acorn] 1`] = `
-"Unexpected token (5:4)
-  3 | a = () => ({}).x;
-  4 | ({} && a, b);
-> 5 | ({}::b, 0);
-    |    ^
-  6 | ({}::b()\`\`[''].c++ && 0 ? 0 : 0, 0);
-  7 | ({}(), 0);
-  8 | ({} = 0);
-Cause: Unexpected token (5:3)"
-`;
-
-exports[`expression.js format[babel] 1`] = `
+exports[`expression.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
@@ -141,6 +129,18 @@ const a3 = {
 };
 
 ================================================================================
+`;
+
+exports[`expression.js format[acorn] 1`] = `
+"Unexpected token (5:4)
+  3 | a = () => ({}).x;
+  4 | ({} && a, b);
+> 5 | ({}::b, 0);
+    |    ^
+  6 | ({}::b()\`\`[''].c++ && 0 ? 0 : 0, 0);
+  7 | ({}(), 0);
+  8 | ({} = 0);
+Cause: Unexpected token (5:3)"
 `;
 
 exports[`expression.js format[espree] 1`] = `
@@ -226,7 +226,7 @@ exports[`expression.js format[typescript] 1`] = `
 Cause: ')' expected."
 `;
 
-exports[`getter-setter.js format[babel] 1`] = `
+exports[`getter-setter.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
@@ -250,7 +250,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`method.js format[babel] 1`] = `
+exports[`method.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
@@ -264,7 +264,7 @@ a = { f() {} };
 ================================================================================
 `;
 
-exports[`range.js format[babel] 1`] = `
+exports[`range.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
@@ -302,7 +302,7 @@ group(
 ================================================================================
 `;
 
-exports[`right-break.js format[babel] 1`] = `
+exports[`right-break.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80

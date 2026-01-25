@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`class-implements.ts format[typescript] 1`] = `
+exports[`class-implements.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow"]
 printWidth: 80
@@ -175,7 +175,7 @@ class a9
 ================================================================================
 `;
 
-exports[`declare.ts format[typescript] 1`] = `
+exports[`declare.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow"]
 printWidth: 80
@@ -211,7 +211,7 @@ declare class A1<T> // 1
 ================================================================================
 `;
 
-exports[`generic.ts format[typescript] 1`] = `
+exports[`generic.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow"]
 printWidth: 80
@@ -266,7 +266,7 @@ class G4<
 ================================================================================
 `;
 
-exports[`misc.ts format[typescript] 1`] = `
+exports[`misc.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow"]
 printWidth: 80

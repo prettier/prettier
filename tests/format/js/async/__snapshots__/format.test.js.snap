@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`async-iteration.js format[babel] 1`] = `
+exports[`async-iteration.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -31,7 +31,7 @@ class X {
 ================================================================================
 `;
 
-exports[`async-shorthand-method.js format[babel] 1`] = `
+exports[`async-shorthand-method.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -51,7 +51,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`await-parse.js format[babel] 1`] = `
+exports[`await-parse.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -95,7 +95,7 @@ async () => {
 ================================================================================
 `;
 
-exports[`conditional-expression.js format[babel] 1`] = `
+exports[`conditional-expression.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -133,7 +133,7 @@ async function f2() {
 ================================================================================
 `;
 
-exports[`exponentiation.js format[babel] 1`] = `
+exports[`exponentiation.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -147,7 +147,7 @@ async () => (await 5) ** 6;
 ================================================================================
 `;
 
-exports[`inline-await.js format[babel] 1`] = `
+exports[`inline-await.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -171,7 +171,7 @@ async function f() {
 ================================================================================
 `;
 
-exports[`nested.js format[babel] 1`] = `
+exports[`nested.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -198,7 +198,7 @@ const getAccountCount = async () =>
 ================================================================================
 `;
 
-exports[`nested2.js format[babel] 1`] = `
+exports[`nested2.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -223,7 +223,7 @@ async function f() {
 ================================================================================
 `;
 
-exports[`parens.js format[babel] 1`] = `
+exports[`parens.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -245,7 +245,7 @@ async function f2() {
 ================================================================================
 `;
 
-exports[`simple-nested-await.js format[babel] 1`] = `
+exports[`simple-nested-await.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`comments.js format[babel] 1`] = `
+exports[`comments.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -42,7 +42,7 @@ call(
 ================================================================================
 `;
 
-exports[`long-module-name.js format[babel] 1`] = `
+exports[`long-module-name.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -61,7 +61,7 @@ require.resolve
 ================================================================================
 `;
 
-exports[`require.js format[babel] 1`] = `
+exports[`require.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80

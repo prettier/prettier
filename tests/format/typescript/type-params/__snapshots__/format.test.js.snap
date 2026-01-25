@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`18041.ts format[typescript] 1`] = `
+exports[`18041.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -46,7 +46,7 @@ type A<
 ================================================================================
 `;
 
-exports[`18604.ts format[typescript] 1`] = `
+exports[`18604.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -96,7 +96,7 @@ foo</* Comment */ Type>(/* Comment */ value);
 ================================================================================
 `;
 
-exports[`class-method.ts format[typescript] 1`] = `
+exports[`class-method.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -382,7 +382,7 @@ const appIDs = createSelector(
 ================================================================================
 `;
 
-exports[`const.ts format[typescript] 1`] = `
+exports[`const.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -458,7 +458,7 @@ class _ {
 ================================================================================
 `;
 
-exports[`constraints-and-default.ts format[typescript] 1`] = `
+exports[`constraints-and-default.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -538,7 +538,7 @@ export type OuterType42<
 ================================================================================
 `;
 
-exports[`constraints-and-default-2.ts format[typescript] 1`] = `
+exports[`constraints-and-default-2.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -676,7 +676,7 @@ function makeChainWalker2<
 ================================================================================
 `;
 
-exports[`long-function-arg.ts format[typescript] 1`] = `
+exports[`long-function-arg.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -718,7 +718,7 @@ export const forwardS1 = R.curry(
 ================================================================================
 `;
 
-exports[`tagged-template-expression.ts format[typescript] 1`] = `
+exports[`tagged-template-expression.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

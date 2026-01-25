@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`exports_default.js format[flow] 1`] = `
+exports[`exports_default.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -22,7 +22,7 @@ export default x;
 ================================================================================
 `;
 
-exports[`exports_named.js format[flow] 1`] = `
+exports[`exports_named.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

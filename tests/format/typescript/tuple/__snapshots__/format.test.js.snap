@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`dangling-comments.ts - {"trailingComma":"all"} format[typescript] 1`] = `
+exports[`dangling-comments.ts - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -62,7 +62,7 @@ type Foo6 = [
 ================================================================================
 `;
 
-exports[`dangling-comments.ts - {"trailingComma":"es5"} format[typescript] 1`] = `
+exports[`dangling-comments.ts - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -124,7 +124,7 @@ type Foo6 = [
 ================================================================================
 `;
 
-exports[`dangling-comments.ts - {"trailingComma":"none"} format[typescript] 1`] = `
+exports[`dangling-comments.ts - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -186,7 +186,7 @@ type Foo6 = [
 ================================================================================
 `;
 
-exports[`trailing-comma.ts - {"trailingComma":"all"} format[typescript] 1`] = `
+exports[`trailing-comma.ts - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -227,7 +227,7 @@ export interface ShopQueryResult {
 ================================================================================
 `;
 
-exports[`trailing-comma.ts - {"trailingComma":"es5"} format[typescript] 1`] = `
+exports[`trailing-comma.ts - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -268,7 +268,7 @@ export interface ShopQueryResult {
 ================================================================================
 `;
 
-exports[`trailing-comma.ts - {"trailingComma":"none"} format[typescript] 1`] = `
+exports[`trailing-comma.ts - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -309,7 +309,7 @@ export interface ShopQueryResult {
 ================================================================================
 `;
 
-exports[`trailing-comma-for-empty-tuples.ts - {"trailingComma":"all"} format[typescript] 1`] = `
+exports[`trailing-comma-for-empty-tuples.ts - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -331,7 +331,7 @@ type Foo =
 ================================================================================
 `;
 
-exports[`trailing-comma-for-empty-tuples.ts - {"trailingComma":"es5"} format[typescript] 1`] = `
+exports[`trailing-comma-for-empty-tuples.ts - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -353,7 +353,7 @@ type Foo =
 ================================================================================
 `;
 
-exports[`trailing-comma-for-empty-tuples.ts - {"trailingComma":"none"} format[typescript] 1`] = `
+exports[`trailing-comma-for-empty-tuples.ts - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -375,7 +375,7 @@ type Foo =
 ================================================================================
 `;
 
-exports[`trailing-comma-trailing-rest.ts - {"trailingComma":"all"} format[typescript] 1`] = `
+exports[`trailing-comma-trailing-rest.ts - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -404,7 +404,7 @@ type ValidateArgs = [
 ================================================================================
 `;
 
-exports[`trailing-comma-trailing-rest.ts - {"trailingComma":"es5"} format[typescript] 1`] = `
+exports[`trailing-comma-trailing-rest.ts - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -433,7 +433,7 @@ type ValidateArgs = [
 ================================================================================
 `;
 
-exports[`trailing-comma-trailing-rest.ts - {"trailingComma":"none"} format[typescript] 1`] = `
+exports[`trailing-comma-trailing-rest.ts - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -462,7 +462,7 @@ type ValidateArgs = [
 ================================================================================
 `;
 
-exports[`tuple.ts - {"trailingComma":"all"} format[typescript] 1`] = `
+exports[`tuple.ts - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -492,7 +492,7 @@ export type SCMRawResource = [
 ================================================================================
 `;
 
-exports[`tuple.ts - {"trailingComma":"es5"} format[typescript] 1`] = `
+exports[`tuple.ts - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -522,7 +522,7 @@ export type SCMRawResource = [
 ================================================================================
 `;
 
-exports[`tuple.ts - {"trailingComma":"none"} format[typescript] 1`] = `
+exports[`tuple.ts - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -552,7 +552,7 @@ export type SCMRawResource = [
 ================================================================================
 `;
 
-exports[`tuple-labeled.ts - {"trailingComma":"all"} format[typescript] 1`] = `
+exports[`tuple-labeled.ts - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -595,7 +595,7 @@ type T = [...B, x: A];
 ================================================================================
 `;
 
-exports[`tuple-labeled.ts - {"trailingComma":"es5"} format[typescript] 1`] = `
+exports[`tuple-labeled.ts - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -638,7 +638,7 @@ type T = [...B, x: A];
 ================================================================================
 `;
 
-exports[`tuple-labeled.ts - {"trailingComma":"none"} format[typescript] 1`] = `
+exports[`tuple-labeled.ts - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -681,7 +681,7 @@ type T = [...B, x: A];
 ================================================================================
 `;
 
-exports[`tuple-rest-not-last.ts - {"trailingComma":"all"} format[typescript] 1`] = `
+exports[`tuple-rest-not-last.ts - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -700,7 +700,7 @@ let x: [...[number, string], string];
 ================================================================================
 `;
 
-exports[`tuple-rest-not-last.ts - {"trailingComma":"es5"} format[typescript] 1`] = `
+exports[`tuple-rest-not-last.ts - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -719,7 +719,7 @@ let x: [...[number, string], string];
 ================================================================================
 `;
 
-exports[`tuple-rest-not-last.ts - {"trailingComma":"none"} format[typescript] 1`] = `
+exports[`tuple-rest-not-last.ts - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

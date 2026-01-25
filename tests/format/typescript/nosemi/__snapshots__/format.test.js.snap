@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`index-signature.ts - {"semi":false} format[typescript] 1`] = `
+exports[`index-signature.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -21,7 +21,7 @@ class LocalStorage implements Storage {
 ================================================================================
 `;
 
-exports[`interface.ts - {"semi":false} format[typescript] 1`] = `
+exports[`interface.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -55,7 +55,7 @@ interface InlineMultiple {
 ================================================================================
 `;
 
-exports[`type.ts - {"semi":false} format[typescript] 1`] = `
+exports[`type.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`argument-list.js format[babel] 1`] = `
+exports[`argument-list.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -395,7 +395,7 @@ function foo(
 ================================================================================
 `;
 
-exports[`comments.js format[babel] 1`] = `
+exports[`comments.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -463,7 +463,7 @@ function a() {
 ================================================================================
 `;
 
-exports[`member-chain.js format[babel] 1`] = `
+exports[`member-chain.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -609,7 +609,7 @@ this.fetch("/foo")
 ================================================================================
 `;
 
-exports[`parameter-list.js format[babel] 1`] = `
+exports[`parameter-list.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80

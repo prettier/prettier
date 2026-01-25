@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`comments.js - {"trailingComma":"all"} format[flow] 1`] = `
+exports[`comments.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -138,7 +138,7 @@ type Foo = {
 ================================================================================
 `;
 
-exports[`comments.js - {"trailingComma":"es5"} format[flow] 1`] = `
+exports[`comments.js - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -276,7 +276,7 @@ type Foo = {
 ================================================================================
 `;
 
-exports[`comments.js - {"trailingComma":"none"} format[flow] 1`] = `
+exports[`comments.js - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -414,7 +414,7 @@ type Foo = {
 ================================================================================
 `;
 
-exports[`test.js - {"trailingComma":"all"} format[flow] 1`] = `
+exports[`test.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -527,7 +527,7 @@ type X = { ... };
 ================================================================================
 `;
 
-exports[`test.js - {"trailingComma":"es5"} format[flow] 1`] = `
+exports[`test.js - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -640,7 +640,7 @@ type X = { ... };
 ================================================================================
 `;
 
-exports[`test.js - {"trailingComma":"none"} format[flow] 1`] = `
+exports[`test.js - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

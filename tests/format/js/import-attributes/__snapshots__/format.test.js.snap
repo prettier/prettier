@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`dynamic-import.js format[babel] 1`] = `
+exports[`dynamic-import.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]
 printWidth: 80
@@ -14,7 +14,7 @@ import("./foo.json", { with: { type: "json" } });
 ================================================================================
 `;
 
-exports[`empty.js format[babel] 1`] = `
+exports[`empty.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]
 printWidth: 80
@@ -40,7 +40,7 @@ import * as baz from "baz.json" /* comment */ with {};
 ================================================================================
 `;
 
-exports[`keyword-detect.js format[babel] 1`] = `
+exports[`keyword-detect.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]
 printWidth: 80
@@ -64,7 +64,7 @@ export * from "./test.json" /* assert */ /* assert */ with { type: "json" };
 ================================================================================
 `;
 
-exports[`long-sources.js format[babel] 1`] = `
+exports[`long-sources.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]
 printWidth: 80
@@ -178,15 +178,7 @@ import(
 ================================================================================
 `;
 
-exports[`multi-types.js format[acorn] 1`] = `
-"Duplicate attribute key 'type' (1:52)
-> 1 | import json from "./foo.json" with { type: "json", type: "bar" };
-    |                                                    ^
-  2 |
-Cause: Duplicate attribute key 'type' (1:51)"
-`;
-
-exports[`multi-types.js format[babel] 1`] = `
+exports[`multi-types.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]
 printWidth: 80
@@ -198,6 +190,14 @@ import json from "./foo.json" with { type: "json", type: "bar" };
 import json from "./foo.json" with { type: "json", type: "bar" };
 
 ================================================================================
+`;
+
+exports[`multi-types.js format[acorn] 1`] = `
+"Duplicate attribute key 'type' (1:52)
+> 1 | import json from "./foo.json" with { type: "json", type: "bar" };
+    |                                                    ^
+  2 |
+Cause: Duplicate attribute key 'type' (1:51)"
 `;
 
 exports[`multi-types.js format[espree] 1`] = `
@@ -216,7 +216,7 @@ exports[`multi-types.js format[meriyah] 1`] = `
 Cause: [1:63-1:64]: Duplicate binding 'type'"
 `;
 
-exports[`multiple.js format[babel] 1`] = `
+exports[`multiple.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]
 printWidth: 80
@@ -260,7 +260,7 @@ import a4 from "foo" with { BABEL_8_BREAKING: "false" };
 ================================================================================
 `;
 
-exports[`non-type.js format[babel] 1`] = `
+exports[`non-type.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]
 printWidth: 80
@@ -274,7 +274,7 @@ import foo from "foo.json" with { lazy: "true" };
 ================================================================================
 `;
 
-exports[`re-export.js format[babel] 1`] = `
+exports[`re-export.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]
 printWidth: 80
@@ -292,7 +292,7 @@ export * as foo3 from "foo.json" with { type: "json" };
 ================================================================================
 `;
 
-exports[`static-import.js format[babel] 1`] = `
+exports[`static-import.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]
 printWidth: 80
@@ -306,7 +306,7 @@ import json from "./foo.json" with { type: "json" };
 ================================================================================
 `;
 
-exports[`without-from.js format[babel] 1`] = `
+exports[`without-from.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]
 printWidth: 80

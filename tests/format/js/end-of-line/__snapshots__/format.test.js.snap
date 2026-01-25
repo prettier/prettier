@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`example.js - {"endOfLine":"cr"} format[babel] 1`] = `
+exports[`example.js - {"endOfLine":"cr"} format 1`] = `
 ====================================options=====================================
 endOfLine: "cr"
 parsers: ["babel"]
@@ -19,7 +19,7 @@ function f() {<CR>
 ================================================================================
 `;
 
-exports[`example.js - {"endOfLine":"crlf"} format[babel] 1`] = `
+exports[`example.js - {"endOfLine":"crlf"} format 1`] = `
 ====================================options=====================================
 endOfLine: "crlf"
 parsers: ["babel"]
@@ -38,7 +38,7 @@ function f() {<CRLF>
 ================================================================================
 `;
 
-exports[`example.js - {"endOfLine":"lf"} format[babel] 1`] = `
+exports[`example.js - {"endOfLine":"lf"} format 1`] = `
 ====================================options=====================================
 endOfLine: "lf"
 parsers: ["babel"]

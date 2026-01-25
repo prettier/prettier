@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`multiline.js - {"objectWrap":"collapse"} format[flow] 1`] = `
+exports[`multiline.js - {"objectWrap":"collapse"} format 1`] = `
 ====================================options=====================================
 objectWrap: "collapse"
 parsers: ["flow"]
@@ -67,7 +67,7 @@ const e: E = { name1: "value1", name2: "value2" };
 ================================================================================
 `;
 
-exports[`multiline.js format[flow] 1`] = `
+exports[`multiline.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`escaped.js format[babel] 1`] = `
+exports[`escaped.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -82,7 +82,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`issue-7346.js format[babel] 1`] = `
+exports[`issue-7346.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -102,7 +102,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`last-line-0.js format[babel] 1`] = `
+exports[`last-line-0.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -115,7 +115,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`last-line-1.js format[babel] 1`] = `
+exports[`last-line-1.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -129,7 +129,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`last-line-2.js format[babel] 1`] = `
+exports[`last-line-2.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -144,7 +144,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`newline.js format[babel] 1`] = `
+exports[`newline.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -170,7 +170,7 @@ a();
 ================================================================================
 `;
 
-exports[`no-newline.js format[babel] 1`] = `
+exports[`no-newline.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -186,7 +186,7 @@ a;
 ================================================================================
 `;
 
-exports[`test.js format[babel] 1`] = `
+exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80

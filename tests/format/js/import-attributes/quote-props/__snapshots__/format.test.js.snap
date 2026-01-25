@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`quoted-keys.js - {"quoteProps":"consistent"} format[babel] 1`] = `
+exports[`quoted-keys.js - {"quoteProps":"consistent"} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]
 printWidth: 80
@@ -33,7 +33,7 @@ import json10 from "./mod.js" with { "03333": "json" };
 ================================================================================
 `;
 
-exports[`quoted-keys.js - {"quoteProps":"preserve"} format[babel] 1`] = `
+exports[`quoted-keys.js - {"quoteProps":"preserve"} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]
 printWidth: 80
@@ -66,7 +66,7 @@ import json10 from "./mod.js" with { "03333": "json" };
 ================================================================================
 `;
 
-exports[`quoted-keys.js format[babel] 1`] = `
+exports[`quoted-keys.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]
 printWidth: 80

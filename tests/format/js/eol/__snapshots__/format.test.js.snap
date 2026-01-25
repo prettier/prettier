@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`cursor-1.js - {"endOfLine":"auto"} format[babel] 1`] = `
+exports[`cursor-1.js - {"endOfLine":"auto"} format 1`] = `
 ====================================options=====================================
 cursorOffset: 26
 endOfLine: "auto"
@@ -18,7 +18,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`cursor-1.js - {"endOfLine":"cr"} format[babel] 1`] = `
+exports[`cursor-1.js - {"endOfLine":"cr"} format 1`] = `
 ====================================options=====================================
 cursorOffset: 26
 endOfLine: "cr"
@@ -36,7 +36,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`cursor-1.js - {"endOfLine":"crlf"} format[babel] 1`] = `
+exports[`cursor-1.js - {"endOfLine":"crlf"} format 1`] = `
 ====================================options=====================================
 cursorOffset: 26
 endOfLine: "crlf"
@@ -54,7 +54,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`cursor-1.js - {"endOfLine":"lf"} format[babel] 1`] = `
+exports[`cursor-1.js - {"endOfLine":"lf"} format 1`] = `
 ====================================options=====================================
 cursorOffset: 26
 endOfLine: "lf"
@@ -72,7 +72,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`cursor-and-range.js - {"endOfLine":"auto"} format[babel] 1`] = `
+exports[`cursor-and-range.js - {"endOfLine":"auto"} format 1`] = `
 ====================================options=====================================
 cursorOffset: 21
 endOfLine: "auto"
@@ -102,7 +102,7 @@ let    x
 ================================================================================
 `;
 
-exports[`cursor-and-range.js - {"endOfLine":"cr"} format[babel] 1`] = `
+exports[`cursor-and-range.js - {"endOfLine":"cr"} format 1`] = `
 ====================================options=====================================
 cursorOffset: 21
 endOfLine: "cr"
@@ -132,7 +132,7 @@ let    x
 ================================================================================
 `;
 
-exports[`cursor-and-range.js - {"endOfLine":"crlf"} format[babel] 1`] = `
+exports[`cursor-and-range.js - {"endOfLine":"crlf"} format 1`] = `
 ====================================options=====================================
 cursorOffset: 21
 endOfLine: "crlf"
@@ -162,7 +162,7 @@ let    x
 ================================================================================
 `;
 
-exports[`cursor-and-range.js - {"endOfLine":"lf"} format[babel] 1`] = `
+exports[`cursor-and-range.js - {"endOfLine":"lf"} format 1`] = `
 ====================================options=====================================
 cursorOffset: 21
 endOfLine: "lf"
@@ -192,7 +192,7 @@ let    x
 ================================================================================
 `;
 
-exports[`range-1.js - {"endOfLine":"auto"} format[babel] 1`] = `
+exports[`range-1.js - {"endOfLine":"auto"} format 1`] = `
 ====================================options=====================================
 endOfLine: "auto"
 parsers: ["babel"]
@@ -223,7 +223,7 @@ let    x<LF>
 ================================================================================
 `;
 
-exports[`range-1.js - {"endOfLine":"cr"} format[babel] 1`] = `
+exports[`range-1.js - {"endOfLine":"cr"} format 1`] = `
 ====================================options=====================================
 endOfLine: "cr"
 parsers: ["babel"]
@@ -254,7 +254,7 @@ let    x<CR>
 ================================================================================
 `;
 
-exports[`range-1.js - {"endOfLine":"crlf"} format[babel] 1`] = `
+exports[`range-1.js - {"endOfLine":"crlf"} format 1`] = `
 ====================================options=====================================
 endOfLine: "crlf"
 parsers: ["babel"]
@@ -285,7 +285,7 @@ let    x<CRLF>
 ================================================================================
 `;
 
-exports[`range-1.js - {"endOfLine":"lf"} format[babel] 1`] = `
+exports[`range-1.js - {"endOfLine":"lf"} format 1`] = `
 ====================================options=====================================
 endOfLine: "lf"
 parsers: ["babel"]
@@ -316,7 +316,7 @@ let    x<LF>
 ================================================================================
 `;
 
-exports[`range-and-cursor-1.js - {"endOfLine":"auto"} format[babel] 1`] = `
+exports[`range-and-cursor-1.js - {"endOfLine":"auto"} format 1`] = `
 ====================================options=====================================
 cursorOffset: 22
 endOfLine: "auto"
@@ -350,7 +350,7 @@ let    x <LF>
 ================================================================================
 `;
 
-exports[`range-and-cursor-1.js - {"endOfLine":"cr"} format[babel] 1`] = `
+exports[`range-and-cursor-1.js - {"endOfLine":"cr"} format 1`] = `
 ====================================options=====================================
 cursorOffset: 22
 endOfLine: "cr"
@@ -384,7 +384,7 @@ let    x <CR>
 ================================================================================
 `;
 
-exports[`range-and-cursor-1.js - {"endOfLine":"crlf"} format[babel] 1`] = `
+exports[`range-and-cursor-1.js - {"endOfLine":"crlf"} format 1`] = `
 ====================================options=====================================
 cursorOffset: 22
 endOfLine: "crlf"
@@ -418,7 +418,7 @@ let    x <CRLF>
 ================================================================================
 `;
 
-exports[`range-and-cursor-1.js - {"endOfLine":"lf"} format[babel] 1`] = `
+exports[`range-and-cursor-1.js - {"endOfLine":"lf"} format 1`] = `
 ====================================options=====================================
 cursorOffset: 22
 endOfLine: "lf"

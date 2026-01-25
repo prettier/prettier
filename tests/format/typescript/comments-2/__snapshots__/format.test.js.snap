@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`dangling.ts - {"semi":false} format[typescript] 1`] = `
+exports[`dangling.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow"]
 printWidth: 80
@@ -20,7 +20,7 @@ declare class Foo extends Qux<string> {
 ================================================================================
 `;
 
-exports[`dangling.ts format[typescript] 1`] = `
+exports[`dangling.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow"]
 printWidth: 80
@@ -39,7 +39,7 @@ declare class Foo extends Qux<string> {
 ================================================================================
 `;
 
-exports[`issues.ts - {"semi":false} format[typescript] 1`] = `
+exports[`issues.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow"]
 printWidth: 80
@@ -63,7 +63,7 @@ function f(
 ================================================================================
 `;
 
-exports[`issues.ts format[typescript] 1`] = `
+exports[`issues.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow"]
 printWidth: 80
@@ -86,7 +86,7 @@ function f(
 ================================================================================
 `;
 
-exports[`last-arg.ts - {"semi":false} format[typescript] 1`] = `
+exports[`last-arg.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow"]
 printWidth: 80
@@ -203,7 +203,7 @@ class X2 {
 ================================================================================
 `;
 
-exports[`last-arg.ts format[typescript] 1`] = `
+exports[`last-arg.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow"]
 printWidth: 80

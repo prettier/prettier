@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`comments.ts format[typescript] 1`] = `
+exports[`comments.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow"]
 printWidth: 80
@@ -27,7 +27,7 @@ interface A {
 ================================================================================
 `;
 
-exports[`intersection.ts format[typescript] 1`] = `
+exports[`intersection.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow"]
 printWidth: 80
@@ -53,7 +53,7 @@ export interface DirectiveArgumentNode extends ArrayExpression {
 ================================================================================
 `;
 
-exports[`union.ts format[typescript] 1`] = `
+exports[`union.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`arrow.js format[babel] 1`] = `
+exports[`arrow.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]
 printWidth: 80
@@ -22,7 +22,7 @@ function* f() {
 ================================================================================
 `;
 
-exports[`conditional.js format[babel] 1`] = `
+exports[`conditional.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]
 printWidth: 80
@@ -72,7 +72,7 @@ async function f3() {
 ================================================================================
 `;
 
-exports[`jsx.js format[babel] 1`] = `
+exports[`jsx.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]
 printWidth: 80
@@ -96,7 +96,7 @@ function* f() {
 ================================================================================
 `;
 
-exports[`jsx-without-parenthesis.js format[babel] 1`] = `
+exports[`jsx-without-parenthesis.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]
 printWidth: 80

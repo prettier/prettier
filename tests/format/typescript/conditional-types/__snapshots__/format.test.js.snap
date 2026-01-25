@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`comments.ts - {"experimentalTernaries":true} format[typescript] 1`] = `
+exports[`comments.ts - {"experimentalTernaries":true} format 1`] = `
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["typescript"]
@@ -242,7 +242,7 @@ T = any instanceof B ? /* Comment */ B | C : D;
 ================================================================================
 `;
 
-exports[`comments.ts format[typescript] 1`] = `
+exports[`comments.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -473,7 +473,7 @@ T = any instanceof B ? /* Comment */ B | C : D;
 ================================================================================
 `;
 
-exports[`conditional-types.ts - {"experimentalTernaries":true} format[typescript] 1`] = `
+exports[`conditional-types.ts - {"experimentalTernaries":true} format 1`] = `
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["typescript"]
@@ -563,7 +563,7 @@ type U2 = (new () => X) extends T ? U : V;
 ================================================================================
 `;
 
-exports[`conditional-types.ts format[typescript] 1`] = `
+exports[`conditional-types.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -657,7 +657,7 @@ type U2 = (new () => X) extends T ? U : V;
 ================================================================================
 `;
 
-exports[`infer-type.ts - {"experimentalTernaries":true} format[typescript] 1`] = `
+exports[`infer-type.ts - {"experimentalTernaries":true} format 1`] = `
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["typescript"]
@@ -685,7 +685,7 @@ type Unpacked<T> =
 ================================================================================
 `;
 
-exports[`infer-type.ts format[typescript] 1`] = `
+exports[`infer-type.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -717,7 +717,7 @@ type Unpacked<T> = T extends (infer U)[]
 ================================================================================
 `;
 
-exports[`nested-in-condition.ts - {"experimentalTernaries":true} format[typescript] 1`] = `
+exports[`nested-in-condition.ts - {"experimentalTernaries":true} format 1`] = `
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["typescript"]
@@ -777,7 +777,7 @@ type Foo3 =
 ================================================================================
 `;
 
-exports[`nested-in-condition.ts format[typescript] 1`] = `
+exports[`nested-in-condition.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -833,7 +833,7 @@ type Foo3 = (
 ================================================================================
 `;
 
-exports[`new-ternary-spec.ts - {"experimentalTernaries":true} format[typescript] 1`] = `
+exports[`new-ternary-spec.ts - {"experimentalTernaries":true} format 1`] = `
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["typescript"]
@@ -919,7 +919,7 @@ type Unpacked<T> =
 ================================================================================
 `;
 
-exports[`new-ternary-spec.ts format[typescript] 1`] = `
+exports[`new-ternary-spec.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -1003,7 +1003,7 @@ type Unpacked<T> = T extends (infer U)[]
 ================================================================================
 `;
 
-exports[`parentheses.ts - {"experimentalTernaries":true} format[typescript] 1`] = `
+exports[`parentheses.ts - {"experimentalTernaries":true} format 1`] = `
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["typescript"]
@@ -1060,7 +1060,7 @@ type Test<T> =
 ================================================================================
 `;
 
-exports[`parentheses.ts format[typescript] 1`] = `
+exports[`parentheses.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

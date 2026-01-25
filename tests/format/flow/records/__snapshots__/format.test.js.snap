@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`declaration.js format[flow] 1`] = `
+exports[`declaration.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -194,7 +194,7 @@ record Looooooooooooooooooooooooooooooong
 ================================================================================
 `;
 
-exports[`expression.js format[flow] 1`] = `
+exports[`expression.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

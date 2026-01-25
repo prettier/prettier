@@ -1,16 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`after_export.js format[acorn] 1`] = `
-"Unexpected character '@' (1:8)
-> 1 | export @decorator class Foo {}
-    |        ^
-  2 |
-  3 | export default @decorator class {}
-  4 |
-Cause: Unexpected character '@' (1:7)"
-`;
-
-exports[`after_export.js format[babel] 1`] = `
+exports[`after_export.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -32,6 +22,16 @@ class {}
 ================================================================================
 `;
 
+exports[`after_export.js format[acorn] 1`] = `
+"Unexpected character '@' (1:8)
+> 1 | export @decorator class Foo {}
+    |        ^
+  2 |
+  3 | export default @decorator class {}
+  4 |
+Cause: Unexpected character '@' (1:7)"
+`;
+
 exports[`after_export.js format[espree] 1`] = `
 "Unexpected character '@' (1:8)
 > 1 | export @decorator class Foo {}
@@ -42,17 +42,7 @@ exports[`after_export.js format[espree] 1`] = `
 Cause: Unexpected character '@'"
 `;
 
-exports[`before_export.js format[acorn] 1`] = `
-"Unexpected character '@' (1:1)
-> 1 | @decorator
-    | ^
-  2 | export class Foo {}
-  3 |
-  4 | @decorator
-Cause: Unexpected character '@' (1:0)"
-`;
-
-exports[`before_export.js format[babel] 1`] = `
+exports[`before_export.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -72,6 +62,16 @@ export class Foo {}
 export default class {}
 
 ================================================================================
+`;
+
+exports[`before_export.js format[acorn] 1`] = `
+"Unexpected character '@' (1:1)
+> 1 | @decorator
+    | ^
+  2 | export class Foo {}
+  3 |
+  4 | @decorator
+Cause: Unexpected character '@' (1:0)"
 `;
 
 exports[`before_export.js format[espree] 1`] = `

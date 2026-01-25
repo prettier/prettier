@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`argument_expansion.ts format[typescript] 1`] = `
+exports[`argument_expansion.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -106,7 +106,7 @@ const bar9 = [1, 2, 3].reduce((carry, value) => {
 ================================================================================
 `;
 
-exports[`arrow-with-return-type.ts format[typescript] 1`] = `
+exports[`arrow-with-return-type.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

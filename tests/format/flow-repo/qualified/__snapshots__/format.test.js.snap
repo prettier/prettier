@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`qualified.js format[flow] 1`] = `
+exports[`qualified.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

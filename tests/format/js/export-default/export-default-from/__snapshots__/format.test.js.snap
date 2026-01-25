@@ -1,17 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`export.js format[acorn] 1`] = `
-"Unexpected token (2:8)
-  1 | export * as ns from 'mod';
-> 2 | export v from 'mod';
-    |        ^
-  3 | export a, * as b from 'mod';
-  4 | export c, { foo } from 'mod';
-  5 | export * as d from 'mod';
-Cause: Unexpected token (2:7)"
-`;
-
-exports[`export.js format[babel] 1`] = `
+exports[`export.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -40,6 +29,17 @@ export {
 } from "fooooooooooooooooooooooooooooo";
 
 ================================================================================
+`;
+
+exports[`export.js format[acorn] 1`] = `
+"Unexpected token (2:8)
+  1 | export * as ns from 'mod';
+> 2 | export v from 'mod';
+    |        ^
+  3 | export a, * as b from 'mod';
+  4 | export c, { foo } from 'mod';
+  5 | export * as d from 'mod';
+Cause: Unexpected token (2:7)"
 `;
 
 exports[`export.js format[espree] 1`] = `

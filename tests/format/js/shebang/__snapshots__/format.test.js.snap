@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`shebang.js format[babel] 1`] = `
+exports[`shebang.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -16,7 +16,7 @@ function a() {}
 ================================================================================
 `;
 
-exports[`shebang-newline.js format[babel] 1`] = `
+exports[`shebang-newline.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -34,7 +34,7 @@ function a() {}
 ================================================================================
 `;
 
-exports[`snippet: Empty file with shebang format[babel] 1`] = `
+exports[`snippet: Empty file with shebang format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -47,7 +47,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`snippet: Empty file with shebang format[babel] 2`] = `
+exports[`snippet: Empty file with shebang format 2`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80

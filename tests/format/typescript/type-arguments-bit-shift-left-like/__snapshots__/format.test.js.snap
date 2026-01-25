@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`1.ts format[typescript] 1`] = `
+exports[`1.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -14,7 +14,7 @@ f << (<T>x);
 ================================================================================
 `;
 
-exports[`2.ts format[typescript] 1`] = `
+exports[`2.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -28,7 +28,7 @@ f<<T>(v: T) => void>();
 ================================================================================
 `;
 
-exports[`3.ts format[babel-ts] 1`] = `
+exports[`3.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -57,7 +57,7 @@ exports[`3.ts format[typescript] 1`] = `
 Cause: ',' expected."
 `;
 
-exports[`4.ts format[typescript] 1`] = `
+exports[`4.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -74,7 +74,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`5.tsx format[babel-ts] 1`] = `
+exports[`5.tsx format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -103,7 +103,7 @@ exports[`5.tsx format[typescript] 1`] = `
 Cause: Identifier expected."
 `;
 
-exports[`6.ts format[typescript] 1`] = `
+exports[`6.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

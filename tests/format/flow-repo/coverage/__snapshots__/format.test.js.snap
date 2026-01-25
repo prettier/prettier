@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`crash.js format[flow] 1`] = `
+exports[`crash.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -34,7 +34,7 @@ declare module bar {
 ================================================================================
 `;
 
-exports[`declare_module.js format[flow] 1`] = `
+exports[`declare_module.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -54,7 +54,7 @@ declare module foo {
 ================================================================================
 `;
 
-exports[`no_pragma.js format[flow] 1`] = `
+exports[`no_pragma.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -70,7 +70,7 @@ let x = 0;
 ================================================================================
 `;
 
-exports[`non-termination.js format[flow] 1`] = `
+exports[`non-termination.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

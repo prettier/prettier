@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`ambient.js.flow format[flow] 1`] = `
+exports[`ambient.js.flow format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -24,7 +24,7 @@ const foo: string;
       ^~~~~~~~~~~"
 `;
 
-exports[`snippet: #0 format[flow] 1`] = `
+exports[`snippet: #0 format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

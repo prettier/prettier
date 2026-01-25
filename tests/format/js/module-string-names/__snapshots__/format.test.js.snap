@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`module-string-names-export.js format[babel] 1`] = `
+exports[`module-string-names-export.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -27,7 +27,7 @@ export { "smile4" } from "./emojis.js";
 ================================================================================
 `;
 
-exports[`module-string-names-import.js format[babel] 1`] = `
+exports[`module-string-names-import.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80

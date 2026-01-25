@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`decorator-auto-accessors-new-line.ts format[typescript] 1`] = `
+exports[`decorator-auto-accessors-new-line.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -40,7 +40,7 @@ class Foo {
 ================================================================================
 `;
 
-exports[`decorator-auto-accessors-type-annotations.ts format[typescript] 1`] = `
+exports[`decorator-auto-accessors-type-annotations.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`semicolon.ts - {"semi":false} format[typescript] 1`] = `
+exports[`semicolon.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -21,7 +21,7 @@ abstract class C {
 ================================================================================
 `;
 
-exports[`semicolon.ts format[typescript] 1`] = `
+exports[`semicolon.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

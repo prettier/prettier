@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`OpenGraphAction.js format[flow] 1`] = `
+exports[`OpenGraphAction.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -18,7 +18,7 @@ var OpenGraphValueContainer = require("./OpenGraphValueContainer.js");
 ================================================================================
 `;
 
-exports[`OpenGraphObject.js format[flow] 1`] = `
+exports[`OpenGraphObject.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -36,7 +36,7 @@ var OpenGraphValueContainer = require("./OpenGraphValueContainer.js");
 ================================================================================
 `;
 
-exports[`OpenGraphValueContainer.js format[flow] 1`] = `
+exports[`OpenGraphValueContainer.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

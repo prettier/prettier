@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`array.js format[flow] 1`] = `
+exports[`array.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -30,7 +30,7 @@ function foo(x: Array<number>): [number, ?number] {
 ================================================================================
 `;
 
-exports[`optional.js format[flow] 1`] = `
+exports[`optional.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -54,7 +54,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`spread.js format[flow] 1`] = `
+exports[`spread.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -72,7 +72,7 @@ type B = [...foo: S];
 ================================================================================
 `;
 
-exports[`too-few.js format[flow] 1`] = `
+exports[`too-few.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -94,7 +94,7 @@ foo([{}]); // error, too few elements in array passed to a tuple
 ================================================================================
 `;
 
-exports[`tuples.js format[flow] 1`] = `
+exports[`tuples.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

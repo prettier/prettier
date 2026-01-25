@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`async.js - {"semi":false} format[babel] 1`] = `
+exports[`async.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -31,7 +31,7 @@ class B {
 ================================================================================
 `;
 
-exports[`async.js format[babel] 1`] = `
+exports[`async.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -61,7 +61,7 @@ class B {
 ================================================================================
 `;
 
-exports[`computed.js - {"semi":false} format[babel] 1`] = `
+exports[`computed.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -92,7 +92,7 @@ class C {
 ================================================================================
 `;
 
-exports[`computed.js format[babel] 1`] = `
+exports[`computed.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -122,7 +122,7 @@ class C {
 ================================================================================
 `;
 
-exports[`get.js - {"semi":false} format[babel] 1`] = `
+exports[`get.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -153,7 +153,7 @@ class B {
 ================================================================================
 `;
 
-exports[`get.js format[babel] 1`] = `
+exports[`get.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -183,7 +183,7 @@ class B {
 ================================================================================
 `;
 
-exports[`private.js - {"semi":false} format[babel] 1`] = `
+exports[`private.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -224,7 +224,7 @@ class C {
 ================================================================================
 `;
 
-exports[`private.js format[babel] 1`] = `
+exports[`private.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -264,7 +264,7 @@ class C {
 ================================================================================
 `;
 
-exports[`set.js - {"semi":false} format[babel] 1`] = `
+exports[`set.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -295,7 +295,7 @@ class B {
 ================================================================================
 `;
 
-exports[`set.js format[babel] 1`] = `
+exports[`set.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -325,7 +325,7 @@ class B {
 ================================================================================
 `;
 
-exports[`static.js - {"semi":false} format[babel] 1`] = `
+exports[`static.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -356,7 +356,7 @@ class B {
 ================================================================================
 `;
 
-exports[`static.js format[babel] 1`] = `
+exports[`static.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -386,7 +386,7 @@ class B {
 ================================================================================
 `;
 
-exports[`static-async.js - {"semi":false} format[babel] 1`] = `
+exports[`static-async.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -417,7 +417,7 @@ class B {
 ================================================================================
 `;
 
-exports[`static-async.js format[babel] 1`] = `
+exports[`static-async.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -447,7 +447,7 @@ class B {
 ================================================================================
 `;
 
-exports[`static-get.js - {"semi":false} format[babel] 1`] = `
+exports[`static-get.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -478,7 +478,7 @@ class B {
 ================================================================================
 `;
 
-exports[`static-get.js format[babel] 1`] = `
+exports[`static-get.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -508,7 +508,7 @@ class B {
 ================================================================================
 `;
 
-exports[`static-set.js - {"semi":false} format[babel] 1`] = `
+exports[`static-set.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -539,7 +539,7 @@ class B {
 ================================================================================
 `;
 
-exports[`static-set.js format[babel] 1`] = `
+exports[`static-set.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -569,7 +569,7 @@ class B {
 ================================================================================
 `;
 
-exports[`static-static.js - {"semi":false} format[babel] 1`] = `
+exports[`static-static.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -600,7 +600,7 @@ class B {
 ================================================================================
 `;
 
-exports[`static-static.js format[babel] 1`] = `
+exports[`static-static.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80

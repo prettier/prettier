@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`export-default.js format[babel] 1`] = `
+exports[`export-default.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -15,7 +15,7 @@ export default (1, 2);
 ================================================================================
 `;
 
-exports[`expression.js format[babel] 1`] = `
+exports[`expression.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -33,7 +33,7 @@ a, b
 ================================================================================
 `;
 
-exports[`ignore.js format[babel] 1`] = `
+exports[`ignore.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -67,7 +67,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`ignored.js format[babel] 1`] = `
+exports[`ignored.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -85,7 +85,7 @@ const a = () => () =>
 ================================================================================
 `;
 
-exports[`parenthesized.js format[babel] 1`] = `
+exports[`parenthesized.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -132,7 +132,7 @@ console.log(
 ================================================================================
 `;
 
-exports[`return.js format[babel] 1`] = `
+exports[`return.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80

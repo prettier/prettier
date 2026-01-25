@@ -1,15 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`arguments.js - {"semi":false} format[acorn] 1`] = `
-"Unexpected character '@' (1:13)
-> 1 | console.log(@deco class Foo {})
-    |             ^
-  2 | console.log(@deco class {})
-  3 |
-Cause: Unexpected character '@' (1:12)"
-`;
-
-exports[`arguments.js - {"semi":false} format[babel] 1`] = `
+exports[`arguments.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -30,6 +21,15 @@ console.log(
 )
 
 ================================================================================
+`;
+
+exports[`arguments.js - {"semi":false} format[acorn] 1`] = `
+"Unexpected character '@' (1:13)
+> 1 | console.log(@deco class Foo {})
+    |             ^
+  2 | console.log(@deco class {})
+  3 |
+Cause: Unexpected character '@' (1:12)"
 `;
 
 exports[`arguments.js - {"semi":false} format[espree] 1`] = `
@@ -60,16 +60,7 @@ console.log(@deco class Foo {})
             ^"
 `;
 
-exports[`arguments.js format[acorn] 1`] = `
-"Unexpected character '@' (1:13)
-> 1 | console.log(@deco class Foo {})
-    |             ^
-  2 | console.log(@deco class {})
-  3 |
-Cause: Unexpected character '@' (1:12)"
-`;
-
-exports[`arguments.js format[babel] 1`] = `
+exports[`arguments.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -89,6 +80,15 @@ console.log(
 );
 
 ================================================================================
+`;
+
+exports[`arguments.js format[acorn] 1`] = `
+"Unexpected character '@' (1:13)
+> 1 | console.log(@deco class Foo {})
+    |             ^
+  2 | console.log(@deco class {})
+  3 |
+Cause: Unexpected character '@' (1:12)"
 `;
 
 exports[`arguments.js format[espree] 1`] = `
@@ -119,17 +119,7 @@ console.log(@deco class Foo {})
             ^"
 `;
 
-exports[`class-expression.js - {"semi":false} format[acorn] 1`] = `
-"Unexpected character '@' (1:13)
-> 1 | const a1 = (@deco class Foo {});
-    |             ^
-  2 | const a2 = (@deco class {});
-  3 |
-  4 | (@deco class Foo {});
-Cause: Unexpected character '@' (1:12)"
-`;
-
-exports[`class-expression.js - {"semi":false} format[babel] 1`] = `
+exports[`class-expression.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -187,6 +177,16 @@ class Foo {}
 ================================================================================
 `;
 
+exports[`class-expression.js - {"semi":false} format[acorn] 1`] = `
+"Unexpected character '@' (1:13)
+> 1 | const a1 = (@deco class Foo {});
+    |             ^
+  2 | const a2 = (@deco class {});
+  3 |
+  4 | (@deco class Foo {});
+Cause: Unexpected character '@' (1:12)"
+`;
+
 exports[`class-expression.js - {"semi":false} format[espree] 1`] = `
 "Unexpected character '@' (1:13)
 > 1 | const a1 = (@deco class Foo {});
@@ -218,17 +218,7 @@ const a1 = (@deco class Foo {});
             ^"
 `;
 
-exports[`class-expression.js format[acorn] 1`] = `
-"Unexpected character '@' (1:13)
-> 1 | const a1 = (@deco class Foo {});
-    |             ^
-  2 | const a2 = (@deco class {});
-  3 |
-  4 | (@deco class Foo {});
-Cause: Unexpected character '@' (1:12)"
-`;
-
-exports[`class-expression.js format[babel] 1`] = `
+exports[`class-expression.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -285,6 +275,16 @@ class Foo {}
 ================================================================================
 `;
 
+exports[`class-expression.js format[acorn] 1`] = `
+"Unexpected character '@' (1:13)
+> 1 | const a1 = (@deco class Foo {});
+    |             ^
+  2 | const a2 = (@deco class {});
+  3 |
+  4 | (@deco class Foo {});
+Cause: Unexpected character '@' (1:12)"
+`;
+
 exports[`class-expression.js format[espree] 1`] = `
 "Unexpected character '@' (1:13)
 > 1 | const a1 = (@deco class Foo {});
@@ -316,16 +316,7 @@ const a1 = (@deco class Foo {});
             ^"
 `;
 
-exports[`member-expression.js - {"semi":false} format[acorn] 1`] = `
-"Unexpected character '@' (1:2)
-> 1 | (@deco class Foo {}).name;
-    |  ^
-  2 | (@deco class {}).name;
-  3 |
-Cause: Unexpected character '@' (1:1)"
-`;
-
-exports[`member-expression.js - {"semi":false} format[babel] 1`] = `
+exports[`member-expression.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -346,6 +337,15 @@ semi: false
 ).name
 
 ================================================================================
+`;
+
+exports[`member-expression.js - {"semi":false} format[acorn] 1`] = `
+"Unexpected character '@' (1:2)
+> 1 | (@deco class Foo {}).name;
+    |  ^
+  2 | (@deco class {}).name;
+  3 |
+Cause: Unexpected character '@' (1:1)"
 `;
 
 exports[`member-expression.js - {"semi":false} format[espree] 1`] = `
@@ -376,16 +376,7 @@ Cause: unrecognized character '@' (1:1)
  ^"
 `;
 
-exports[`member-expression.js format[acorn] 1`] = `
-"Unexpected character '@' (1:2)
-> 1 | (@deco class Foo {}).name;
-    |  ^
-  2 | (@deco class {}).name;
-  3 |
-Cause: Unexpected character '@' (1:1)"
-`;
-
-exports[`member-expression.js format[babel] 1`] = `
+exports[`member-expression.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -405,6 +396,15 @@ printWidth: 80
 ).name;
 
 ================================================================================
+`;
+
+exports[`member-expression.js format[acorn] 1`] = `
+"Unexpected character '@' (1:2)
+> 1 | (@deco class Foo {}).name;
+    |  ^
+  2 | (@deco class {}).name;
+  3 |
+Cause: Unexpected character '@' (1:1)"
 `;
 
 exports[`member-expression.js format[espree] 1`] = `
@@ -435,17 +435,7 @@ Cause: unrecognized character '@' (1:1)
  ^"
 `;
 
-exports[`super-class.js - {"semi":false} format[acorn] 1`] = `
-"Unexpected character '@' (1:20)
-> 1 | class Foo extends (@deco class Foo {}){}
-    |                    ^
-  2 |
-  3 | class Foo extends (@deco class {}){}
-  4 |
-Cause: Unexpected character '@' (1:19)"
-`;
-
-exports[`super-class.js - {"semi":false} format[babel] 1`] = `
+exports[`super-class.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -468,6 +458,16 @@ class Foo extends (
 ) {}
 
 ================================================================================
+`;
+
+exports[`super-class.js - {"semi":false} format[acorn] 1`] = `
+"Unexpected character '@' (1:20)
+> 1 | class Foo extends (@deco class Foo {}){}
+    |                    ^
+  2 |
+  3 | class Foo extends (@deco class {}){}
+  4 |
+Cause: Unexpected character '@' (1:19)"
 `;
 
 exports[`super-class.js - {"semi":false} format[espree] 1`] = `
@@ -501,17 +501,7 @@ class Foo extends (@deco class Foo {}){}
                    ^"
 `;
 
-exports[`super-class.js format[acorn] 1`] = `
-"Unexpected character '@' (1:20)
-> 1 | class Foo extends (@deco class Foo {}){}
-    |                    ^
-  2 |
-  3 | class Foo extends (@deco class {}){}
-  4 |
-Cause: Unexpected character '@' (1:19)"
-`;
-
-exports[`super-class.js format[babel] 1`] = `
+exports[`super-class.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -533,6 +523,16 @@ class Foo extends (
 ) {}
 
 ================================================================================
+`;
+
+exports[`super-class.js format[acorn] 1`] = `
+"Unexpected character '@' (1:20)
+> 1 | class Foo extends (@deco class Foo {}){}
+    |                    ^
+  2 |
+  3 | class Foo extends (@deco class {}){}
+  4 |
+Cause: Unexpected character '@' (1:19)"
 `;
 
 exports[`super-class.js format[espree] 1`] = `

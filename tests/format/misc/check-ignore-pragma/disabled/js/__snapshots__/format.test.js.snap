@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`module-with-noformat-pragma.js - {"checkIgnorePragma":false} format[flow] 1`] = `
+exports[`module-with-noformat-pragma.js - {"checkIgnorePragma":false} format 1`] = `
 ====================================options=====================================
 checkIgnorePragma: false
 parsers: ["flow", "babel", "typescript"]
@@ -35,7 +35,7 @@ function foo(bar) {
 ================================================================================
 `;
 
-exports[`module-with-noprettier-pragma.js - {"checkIgnorePragma":false} format[flow] 1`] = `
+exports[`module-with-noprettier-pragma.js - {"checkIgnorePragma":false} format 1`] = `
 ====================================options=====================================
 checkIgnorePragma: false
 parsers: ["flow", "babel", "typescript"]

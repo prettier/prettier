@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`issue-2322.ts format[typescript] 1`] = `
+exports[`issue-2322.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -15,7 +15,7 @@ export const listAuthorizedSitesForDefaultHandler: ListAuthorizedSitesForHandler
 ================================================================================
 `;
 
-exports[`issue-2482.ts format[typescript] 1`] = `
+exports[`issue-2482.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -41,7 +41,7 @@ export function countriesReceived(
 ================================================================================
 `;
 
-exports[`issue-2485.ts format[typescript] 1`] = `
+exports[`issue-2485.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -62,7 +62,7 @@ class x {
 ================================================================================
 `;
 
-exports[`issue-3122.ts format[typescript] 1`] = `
+exports[`issue-3122.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -96,7 +96,7 @@ export const findByDate: Resolver<void, Recipe[], { date: Date }> = (
 ================================================================================
 `;
 
-exports[`issue-5370.ts format[typescript] 1`] = `
+exports[`issue-5370.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -113,7 +113,7 @@ const durabilityMetricsSelectable: Immutable.OrderedSet<SomeReportingMetric> =
 ================================================================================
 `;
 
-exports[`issue-6783.ts format[typescript] 1`] = `
+exports[`issue-6783.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -138,7 +138,7 @@ export const enviromentProdValues: EnvironmentValues =
 ================================================================================
 `;
 
-exports[`issue-8619.ts format[typescript] 1`] = `
+exports[`issue-8619.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -165,7 +165,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`issue-9172.ts format[typescript] 1`] = `
+exports[`issue-9172.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -180,7 +180,7 @@ const firestorePersonallyIdentifiablePaths: Array<Collections.Users.Entity> =
 ================================================================================
 `;
 
-exports[`issue-10846.ts format[typescript] 1`] = `
+exports[`issue-10846.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -263,7 +263,7 @@ const foo = call<
 ================================================================================
 `;
 
-exports[`issue-10848.tsx format[typescript] 1`] = `
+exports[`issue-10848.tsx format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -407,7 +407,7 @@ const Query: FunctionComponent<QueryProps> = ({
 ================================================================================
 `;
 
-exports[`issue-10850.ts format[typescript] 1`] = `
+exports[`issue-10850.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -443,7 +443,7 @@ const map: Map<Function, Foo<S>> = new Map();
 ================================================================================
 `;
 
-exports[`issue-12413.ts format[typescript] 1`] = `
+exports[`issue-12413.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -492,7 +492,7 @@ let abc = func<{
 ================================================================================
 `;
 
-exports[`lone-arg.ts format[typescript] 1`] = `
+exports[`lone-arg.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -537,7 +537,7 @@ if (true) {
 ================================================================================
 `;
 
-exports[`parenthesized.ts format[typescript] 1`] = `
+exports[`parenthesized.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

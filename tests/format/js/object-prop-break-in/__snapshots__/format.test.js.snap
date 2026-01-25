@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`comment.js format[babel] 1`] = `
+exports[`comment.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -24,7 +24,7 @@ function foo() {
 ================================================================================
 `;
 
-exports[`long-value.js format[babel] 1`] = `
+exports[`long-value.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -42,7 +42,7 @@ const x = {
 ================================================================================
 `;
 
-exports[`short-keys.js format[babel] 1`] = `
+exports[`short-keys.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -95,7 +95,7 @@ var obj = {
 ================================================================================
 `;
 
-exports[`test.js format[babel] 1`] = `
+exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80

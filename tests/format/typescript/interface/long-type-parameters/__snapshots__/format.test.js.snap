@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`long-type-parameters.ts - {"printWidth":109} format[typescript] 1`] = `
+exports[`long-type-parameters.ts - {"printWidth":109} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 109
@@ -42,7 +42,7 @@ export interface MarkDef<
 ================================================================================
 `;
 
-exports[`long-type-parameters.ts - {"printWidth":110} format[typescript] 1`] = `
+exports[`long-type-parameters.ts - {"printWidth":110} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 110

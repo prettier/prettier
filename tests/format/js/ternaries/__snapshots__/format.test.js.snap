@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`binary.js - {"experimentalTernaries":true,"tabWidth":4} format[babel] 1`] = `
+exports[`binary.js - {"experimentalTernaries":true,"tabWidth":4} format 1`] = `
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["babel", "flow", "typescript"]
@@ -47,7 +47,7 @@ room = room.map((row, rowIndex) =>
 ================================================================================
 `;
 
-exports[`binary.js - {"experimentalTernaries":true,"useTabs":true,"tabWidth":4} format[babel] 1`] = `
+exports[`binary.js - {"experimentalTernaries":true,"useTabs":true,"tabWidth":4} format 1`] = `
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["babel", "flow", "typescript"]
@@ -95,7 +95,7 @@ room = room.map((row, rowIndex) =>
 ================================================================================
 `;
 
-exports[`binary.js - {"experimentalTernaries":true,"useTabs":true} format[babel] 1`] = `
+exports[`binary.js - {"experimentalTernaries":true,"useTabs":true} format 1`] = `
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["babel", "flow", "typescript"]
@@ -142,7 +142,7 @@ room = room.map((row, rowIndex) =>
 ================================================================================
 `;
 
-exports[`binary.js - {"experimentalTernaries":true} format[babel] 1`] = `
+exports[`binary.js - {"experimentalTernaries":true} format 1`] = `
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["babel", "flow", "typescript"]
@@ -188,7 +188,7 @@ room = room.map((row, rowIndex) =>
 ================================================================================
 `;
 
-exports[`binary.js - {"tabWidth":4} format[babel] 1`] = `
+exports[`binary.js - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -230,7 +230,7 @@ room = room.map((row, rowIndex) =>
 ================================================================================
 `;
 
-exports[`binary.js - {"useTabs":true,"tabWidth":4} format[babel] 1`] = `
+exports[`binary.js - {"useTabs":true,"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -273,7 +273,7 @@ room = room.map((row, rowIndex) =>
 ================================================================================
 `;
 
-exports[`binary.js - {"useTabs":true} format[babel] 1`] = `
+exports[`binary.js - {"useTabs":true} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -315,7 +315,7 @@ room = room.map((row, rowIndex) =>
 ================================================================================
 `;
 
-exports[`binary.js format[babel] 1`] = `
+exports[`binary.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -356,7 +356,7 @@ room = room.map((row, rowIndex) =>
 ================================================================================
 `;
 
-exports[`func-call.js - {"experimentalTernaries":true,"tabWidth":4} format[babel] 1`] = `
+exports[`func-call.js - {"experimentalTernaries":true,"tabWidth":4} format 1`] = `
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["babel", "flow", "typescript"]
@@ -390,7 +390,7 @@ fn(
 ================================================================================
 `;
 
-exports[`func-call.js - {"experimentalTernaries":true,"useTabs":true,"tabWidth":4} format[babel] 1`] = `
+exports[`func-call.js - {"experimentalTernaries":true,"useTabs":true,"tabWidth":4} format 1`] = `
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["babel", "flow", "typescript"]
@@ -425,7 +425,7 @@ fn(
 ================================================================================
 `;
 
-exports[`func-call.js - {"experimentalTernaries":true,"useTabs":true} format[babel] 1`] = `
+exports[`func-call.js - {"experimentalTernaries":true,"useTabs":true} format 1`] = `
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["babel", "flow", "typescript"]
@@ -459,7 +459,7 @@ fn(
 ================================================================================
 `;
 
-exports[`func-call.js - {"experimentalTernaries":true} format[babel] 1`] = `
+exports[`func-call.js - {"experimentalTernaries":true} format 1`] = `
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["babel", "flow", "typescript"]
@@ -492,7 +492,7 @@ fn(
 ================================================================================
 `;
 
-exports[`func-call.js - {"tabWidth":4} format[babel] 1`] = `
+exports[`func-call.js - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -523,7 +523,7 @@ fn(
 ================================================================================
 `;
 
-exports[`func-call.js - {"useTabs":true,"tabWidth":4} format[babel] 1`] = `
+exports[`func-call.js - {"useTabs":true,"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -555,7 +555,7 @@ fn(
 ================================================================================
 `;
 
-exports[`func-call.js - {"useTabs":true} format[babel] 1`] = `
+exports[`func-call.js - {"useTabs":true} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -586,7 +586,7 @@ fn(
 ================================================================================
 `;
 
-exports[`func-call.js format[babel] 1`] = `
+exports[`func-call.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -616,7 +616,7 @@ fn(
 ================================================================================
 `;
 
-exports[`indent.js - {"experimentalTernaries":true,"tabWidth":4} format[babel] 1`] = `
+exports[`indent.js - {"experimentalTernaries":true,"tabWidth":4} format 1`] = `
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["babel", "flow", "typescript"]
@@ -950,7 +950,7 @@ a ?
 ================================================================================
 `;
 
-exports[`indent.js - {"experimentalTernaries":true,"useTabs":true,"tabWidth":4} format[babel] 1`] = `
+exports[`indent.js - {"experimentalTernaries":true,"useTabs":true,"tabWidth":4} format 1`] = `
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["babel", "flow", "typescript"]
@@ -1285,7 +1285,7 @@ a ?
 ================================================================================
 `;
 
-exports[`indent.js - {"experimentalTernaries":true,"useTabs":true} format[babel] 1`] = `
+exports[`indent.js - {"experimentalTernaries":true,"useTabs":true} format 1`] = `
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["babel", "flow", "typescript"]
@@ -1619,7 +1619,7 @@ a ?
 ================================================================================
 `;
 
-exports[`indent.js - {"experimentalTernaries":true} format[babel] 1`] = `
+exports[`indent.js - {"experimentalTernaries":true} format 1`] = `
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["babel", "flow", "typescript"]
@@ -1952,7 +1952,7 @@ a ?
 ================================================================================
 `;
 
-exports[`indent.js - {"tabWidth":4} format[babel] 1`] = `
+exports[`indent.js - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -2282,7 +2282,7 @@ a
 ================================================================================
 `;
 
-exports[`indent.js - {"useTabs":true,"tabWidth":4} format[babel] 1`] = `
+exports[`indent.js - {"useTabs":true,"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -2617,7 +2617,7 @@ a
 ================================================================================
 `;
 
-exports[`indent.js - {"useTabs":true} format[babel] 1`] = `
+exports[`indent.js - {"useTabs":true} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -2947,7 +2947,7 @@ a
 ================================================================================
 `;
 
-exports[`indent.js format[babel] 1`] = `
+exports[`indent.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -3276,7 +3276,7 @@ a
 ================================================================================
 `;
 
-exports[`indent-after-paren.js - {"experimentalTernaries":true,"tabWidth":4} format[babel] 1`] = `
+exports[`indent-after-paren.js - {"experimentalTernaries":true,"tabWidth":4} format 1`] = `
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["babel", "flow", "typescript"]
@@ -3907,7 +3907,7 @@ fn?.[
 ================================================================================
 `;
 
-exports[`indent-after-paren.js - {"experimentalTernaries":true,"useTabs":true,"tabWidth":4} format[babel] 1`] = `
+exports[`indent-after-paren.js - {"experimentalTernaries":true,"useTabs":true,"tabWidth":4} format 1`] = `
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["babel", "flow", "typescript"]
@@ -4539,7 +4539,7 @@ fn?.[
 ================================================================================
 `;
 
-exports[`indent-after-paren.js - {"experimentalTernaries":true,"useTabs":true} format[babel] 1`] = `
+exports[`indent-after-paren.js - {"experimentalTernaries":true,"useTabs":true} format 1`] = `
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["babel", "flow", "typescript"]
@@ -5170,7 +5170,7 @@ fn?.[
 ================================================================================
 `;
 
-exports[`indent-after-paren.js - {"experimentalTernaries":true} format[babel] 1`] = `
+exports[`indent-after-paren.js - {"experimentalTernaries":true} format 1`] = `
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["babel", "flow", "typescript"]
@@ -5800,7 +5800,7 @@ fn?.[
 ================================================================================
 `;
 
-exports[`indent-after-paren.js - {"tabWidth":4} format[babel] 1`] = `
+exports[`indent-after-paren.js - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -6453,7 +6453,7 @@ fn?.[
 ================================================================================
 `;
 
-exports[`indent-after-paren.js - {"useTabs":true,"tabWidth":4} format[babel] 1`] = `
+exports[`indent-after-paren.js - {"useTabs":true,"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -7107,7 +7107,7 @@ fn?.[
 ================================================================================
 `;
 
-exports[`indent-after-paren.js - {"useTabs":true} format[babel] 1`] = `
+exports[`indent-after-paren.js - {"useTabs":true} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -7760,7 +7760,7 @@ fn?.[
 ================================================================================
 `;
 
-exports[`indent-after-paren.js format[babel] 1`] = `
+exports[`indent-after-paren.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -8412,7 +8412,7 @@ fn?.[
 ================================================================================
 `;
 
-exports[`nested.js - {"experimentalTernaries":true,"tabWidth":4} format[babel] 1`] = `
+exports[`nested.js - {"experimentalTernaries":true,"tabWidth":4} format 1`] = `
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["babel", "flow", "typescript"]
@@ -8679,7 +8679,7 @@ const result =
 ================================================================================
 `;
 
-exports[`nested.js - {"experimentalTernaries":true,"useTabs":true,"tabWidth":4} format[babel] 1`] = `
+exports[`nested.js - {"experimentalTernaries":true,"useTabs":true,"tabWidth":4} format 1`] = `
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["babel", "flow", "typescript"]
@@ -8947,7 +8947,7 @@ const result =
 ================================================================================
 `;
 
-exports[`nested.js - {"experimentalTernaries":true,"useTabs":true} format[babel] 1`] = `
+exports[`nested.js - {"experimentalTernaries":true,"useTabs":true} format 1`] = `
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["babel", "flow", "typescript"]
@@ -9214,7 +9214,7 @@ const result =
 ================================================================================
 `;
 
-exports[`nested.js - {"experimentalTernaries":true} format[babel] 1`] = `
+exports[`nested.js - {"experimentalTernaries":true} format 1`] = `
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["babel", "flow", "typescript"]
@@ -9480,7 +9480,7 @@ const result =
 ================================================================================
 `;
 
-exports[`nested.js - {"tabWidth":4} format[babel] 1`] = `
+exports[`nested.js - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -9766,7 +9766,7 @@ const result =
 ================================================================================
 `;
 
-exports[`nested.js - {"useTabs":true,"tabWidth":4} format[babel] 1`] = `
+exports[`nested.js - {"useTabs":true,"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -10053,7 +10053,7 @@ const result =
 ================================================================================
 `;
 
-exports[`nested.js - {"useTabs":true} format[babel] 1`] = `
+exports[`nested.js - {"useTabs":true} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -10339,7 +10339,7 @@ const result =
 ================================================================================
 `;
 
-exports[`nested.js format[babel] 1`] = `
+exports[`nested.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -10624,7 +10624,7 @@ const result =
 ================================================================================
 `;
 
-exports[`nested-in-condition.js - {"experimentalTernaries":true,"tabWidth":4} format[babel] 1`] = `
+exports[`nested-in-condition.js - {"experimentalTernaries":true,"tabWidth":4} format 1`] = `
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["babel", "flow", "typescript"]
@@ -10710,7 +10710,7 @@ const value =
 ================================================================================
 `;
 
-exports[`nested-in-condition.js - {"experimentalTernaries":true,"useTabs":true,"tabWidth":4} format[babel] 1`] = `
+exports[`nested-in-condition.js - {"experimentalTernaries":true,"useTabs":true,"tabWidth":4} format 1`] = `
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["babel", "flow", "typescript"]
@@ -10797,7 +10797,7 @@ const value =
 ================================================================================
 `;
 
-exports[`nested-in-condition.js - {"experimentalTernaries":true,"useTabs":true} format[babel] 1`] = `
+exports[`nested-in-condition.js - {"experimentalTernaries":true,"useTabs":true} format 1`] = `
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["babel", "flow", "typescript"]
@@ -10883,7 +10883,7 @@ const value =
 ================================================================================
 `;
 
-exports[`nested-in-condition.js - {"experimentalTernaries":true} format[babel] 1`] = `
+exports[`nested-in-condition.js - {"experimentalTernaries":true} format 1`] = `
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["babel", "flow", "typescript"]
@@ -10968,7 +10968,7 @@ const value =
 ================================================================================
 `;
 
-exports[`nested-in-condition.js - {"tabWidth":4} format[babel] 1`] = `
+exports[`nested-in-condition.js - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -11057,7 +11057,7 @@ const value = (
 ================================================================================
 `;
 
-exports[`nested-in-condition.js - {"useTabs":true,"tabWidth":4} format[babel] 1`] = `
+exports[`nested-in-condition.js - {"useTabs":true,"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -11147,7 +11147,7 @@ const value = (
 ================================================================================
 `;
 
-exports[`nested-in-condition.js - {"useTabs":true} format[babel] 1`] = `
+exports[`nested-in-condition.js - {"useTabs":true} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -11236,7 +11236,7 @@ const value = (
 ================================================================================
 `;
 
-exports[`nested-in-condition.js format[babel] 1`] = `
+exports[`nested-in-condition.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -11324,7 +11324,7 @@ const value = (
 ================================================================================
 `;
 
-exports[`parenthesis.js - {"experimentalTernaries":true,"tabWidth":4} format[babel] 1`] = `
+exports[`parenthesis.js - {"experimentalTernaries":true,"tabWidth":4} format 1`] = `
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["babel", "flow", "typescript"]
@@ -11366,7 +11366,7 @@ debug ?
 ================================================================================
 `;
 
-exports[`parenthesis.js - {"experimentalTernaries":true,"useTabs":true,"tabWidth":4} format[babel] 1`] = `
+exports[`parenthesis.js - {"experimentalTernaries":true,"useTabs":true,"tabWidth":4} format 1`] = `
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["babel", "flow", "typescript"]
@@ -11409,7 +11409,7 @@ debug ?
 ================================================================================
 `;
 
-exports[`parenthesis.js - {"experimentalTernaries":true,"useTabs":true} format[babel] 1`] = `
+exports[`parenthesis.js - {"experimentalTernaries":true,"useTabs":true} format 1`] = `
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["babel", "flow", "typescript"]
@@ -11451,7 +11451,7 @@ debug ?
 ================================================================================
 `;
 
-exports[`parenthesis.js - {"experimentalTernaries":true} format[babel] 1`] = `
+exports[`parenthesis.js - {"experimentalTernaries":true} format 1`] = `
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["babel", "flow", "typescript"]
@@ -11492,7 +11492,7 @@ debug ?
 ================================================================================
 `;
 
-exports[`parenthesis.js - {"tabWidth":4} format[babel] 1`] = `
+exports[`parenthesis.js - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -11529,7 +11529,7 @@ debug
 ================================================================================
 `;
 
-exports[`parenthesis.js - {"useTabs":true,"tabWidth":4} format[babel] 1`] = `
+exports[`parenthesis.js - {"useTabs":true,"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -11567,7 +11567,7 @@ debug
 ================================================================================
 `;
 
-exports[`parenthesis.js - {"useTabs":true} format[babel] 1`] = `
+exports[`parenthesis.js - {"useTabs":true} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -11604,7 +11604,7 @@ debug
 ================================================================================
 `;
 
-exports[`parenthesis.js format[babel] 1`] = `
+exports[`parenthesis.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -11640,7 +11640,7 @@ debug
 ================================================================================
 `;
 
-exports[`test.js - {"experimentalTernaries":true,"tabWidth":4} format[babel] 1`] = `
+exports[`test.js - {"experimentalTernaries":true,"tabWidth":4} format 1`] = `
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["babel", "flow", "typescript"]
@@ -11706,7 +11706,7 @@ const obj5 =
 ================================================================================
 `;
 
-exports[`test.js - {"experimentalTernaries":true,"useTabs":true,"tabWidth":4} format[babel] 1`] = `
+exports[`test.js - {"experimentalTernaries":true,"useTabs":true,"tabWidth":4} format 1`] = `
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["babel", "flow", "typescript"]
@@ -11773,7 +11773,7 @@ const obj5 =
 ================================================================================
 `;
 
-exports[`test.js - {"experimentalTernaries":true,"useTabs":true} format[babel] 1`] = `
+exports[`test.js - {"experimentalTernaries":true,"useTabs":true} format 1`] = `
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["babel", "flow", "typescript"]
@@ -11839,7 +11839,7 @@ const obj5 =
 ================================================================================
 `;
 
-exports[`test.js - {"experimentalTernaries":true} format[babel] 1`] = `
+exports[`test.js - {"experimentalTernaries":true} format 1`] = `
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["babel", "flow", "typescript"]
@@ -11904,7 +11904,7 @@ const obj5 =
 ================================================================================
 `;
 
-exports[`test.js - {"tabWidth":4} format[babel] 1`] = `
+exports[`test.js - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -11964,7 +11964,7 @@ const obj5 = conditionIsTruthy
 ================================================================================
 `;
 
-exports[`test.js - {"useTabs":true,"tabWidth":4} format[babel] 1`] = `
+exports[`test.js - {"useTabs":true,"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -12025,7 +12025,7 @@ const obj5 = conditionIsTruthy
 ================================================================================
 `;
 
-exports[`test.js - {"useTabs":true} format[babel] 1`] = `
+exports[`test.js - {"useTabs":true} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -12085,7 +12085,7 @@ const obj5 = conditionIsTruthy
 ================================================================================
 `;
 
-exports[`test.js format[babel] 1`] = `
+exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80

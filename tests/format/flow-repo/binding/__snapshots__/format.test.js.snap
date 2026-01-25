@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`const.js format[flow] 1`] = `
+exports[`const.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -79,7 +79,7 @@ x++;
 ^"
 `;
 
-exports[`rebinding.js format[flow] 1`] = `
+exports[`rebinding.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -502,7 +502,7 @@ note: previous declaration (52:8)
         ^"
 `;
 
-exports[`scope.js format[flow] 1`] = `
+exports[`scope.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -753,7 +753,7 @@ note: previous declaration (15:10)
           ^"
 `;
 
-exports[`tdz.js format[flow] 1`] = `
+exports[`tdz.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

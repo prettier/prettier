@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`for-await-using-of-comments.js format[babel] 1`] = `
+exports[`for-await-using-of-comments.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -39,18 +39,7 @@ exports[`for-await-using-of-comments.js format[meriyah] 1`] = `
 Cause: [1:50-1:52]: for await (... of ...) is only valid in async functions and async generators"
 `;
 
-exports[`invalid-duplicate-using-bindings.js format[acorn] 1`] = `
-"Identifier 'f' has already been declared (2:20)
-  1 | {
-> 2 |   using f = foo(), f = foo();
-    |                    ^
-  3 | }
-  4 | {
-  5 |   using g = foo();
-Cause: Identifier 'f' has already been declared (2:19)"
-`;
-
-exports[`invalid-duplicate-using-bindings.js format[babel] 1`] = `
+exports[`invalid-duplicate-using-bindings.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -75,6 +64,17 @@ printWidth: 80
 }
 
 ================================================================================
+`;
+
+exports[`invalid-duplicate-using-bindings.js format[acorn] 1`] = `
+"Identifier 'f' has already been declared (2:20)
+  1 | {
+> 2 |   using f = foo(), f = foo();
+    |                    ^
+  3 | }
+  4 | {
+  5 |   using g = foo();
+Cause: Identifier 'f' has already been declared (2:19)"
 `;
 
 exports[`invalid-duplicate-using-bindings.js format[espree] 1`] = `
@@ -122,7 +122,7 @@ exports[`invalid-duplicate-using-bindings.js format[meriyah] 1`] = `
 Cause: [2:8-2:9]: Unexpected token: 'identifier'"
 `;
 
-exports[`invalid-script-top-level-using-binding.js format[babel] 1`] = `
+exports[`invalid-script-top-level-using-binding.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -161,7 +161,7 @@ exports[`invalid-script-top-level-using-binding.js format[meriyah] 1`] = `
 Cause: [1:6-1:7]: Unexpected token: 'identifier'"
 `;
 
-exports[`using-declarations.js format[babel] 1`] = `
+exports[`using-declarations.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -222,18 +222,7 @@ exports[`using-declarations.js format[meriyah] 1`] = `
 Cause: [2:16-2:17]: Unexpected token: 'identifier'"
 `;
 
-exports[`valid-await-expr-using.js format[acorn] 1`] = `
-"Unexpected token (2:14)
-  1 | async function f() {
-> 2 |   await using[x];
-    |              ^
-  3 |   await using.x + await using(x) ? await using?.x : await using\`x\`;
-  4 | }
-  5 |
-Cause: Unexpected token (2:13)"
-`;
-
-exports[`valid-await-expr-using.js format[babel] 1`] = `
+exports[`valid-await-expr-using.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -253,6 +242,17 @@ async function f() {
 ================================================================================
 `;
 
+exports[`valid-await-expr-using.js format[acorn] 1`] = `
+"Unexpected token (2:14)
+  1 | async function f() {
+> 2 |   await using[x];
+    |              ^
+  3 |   await using.x + await using(x) ? await using?.x : await using\`x\`;
+  4 | }
+  5 |
+Cause: Unexpected token (2:13)"
+`;
+
 exports[`valid-await-expr-using.js format[espree] 1`] = `
 "Unexpected token [ (2:14)
   1 | async function f() {
@@ -264,17 +264,7 @@ exports[`valid-await-expr-using.js format[espree] 1`] = `
 Cause: Unexpected token ["
 `;
 
-exports[`valid-await-expr-using-in.js format[acorn] 1`] = `
-"Unexpected keyword 'in' (2:15)
-  1 | async function f() {
-> 2 |   await using in foo;
-    |               ^
-  3 | }
-  4 |
-Cause: Unexpected keyword 'in' (2:14)"
-`;
-
-exports[`valid-await-expr-using-in.js format[babel] 1`] = `
+exports[`valid-await-expr-using-in.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -292,6 +282,16 @@ async function f() {
 ================================================================================
 `;
 
+exports[`valid-await-expr-using-in.js format[acorn] 1`] = `
+"Unexpected keyword 'in' (2:15)
+  1 | async function f() {
+> 2 |   await using in foo;
+    |               ^
+  3 | }
+  4 |
+Cause: Unexpected keyword 'in' (2:14)"
+`;
+
 exports[`valid-await-expr-using-in.js format[espree] 1`] = `
 "Unexpected keyword 'in' (2:15)
   1 | async function f() {
@@ -302,17 +302,7 @@ exports[`valid-await-expr-using-in.js format[espree] 1`] = `
 Cause: Unexpected keyword 'in'"
 `;
 
-exports[`valid-await-expr-using-instanceof.js format[acorn] 1`] = `
-"Unexpected keyword 'instanceof' (2:15)
-  1 | async function f() {
-> 2 |   await using instanceof foo;
-    |               ^
-  3 | }
-  4 |
-Cause: Unexpected keyword 'instanceof' (2:14)"
-`;
-
-exports[`valid-await-expr-using-instanceof.js format[babel] 1`] = `
+exports[`valid-await-expr-using-instanceof.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -330,6 +320,16 @@ async function f() {
 ================================================================================
 `;
 
+exports[`valid-await-expr-using-instanceof.js format[acorn] 1`] = `
+"Unexpected keyword 'instanceof' (2:15)
+  1 | async function f() {
+> 2 |   await using instanceof foo;
+    |               ^
+  3 | }
+  4 |
+Cause: Unexpected keyword 'instanceof' (2:14)"
+`;
+
 exports[`valid-await-expr-using-instanceof.js format[espree] 1`] = `
 "Unexpected keyword 'instanceof' (2:15)
   1 | async function f() {
@@ -340,7 +340,7 @@ exports[`valid-await-expr-using-instanceof.js format[espree] 1`] = `
 Cause: Unexpected keyword 'instanceof'"
 `;
 
-exports[`valid-await-using-asi-assignment.js format[babel] 1`] = `
+exports[`valid-await-using-asi-assignment.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -360,7 +360,7 @@ async function f() {
 ================================================================================
 `;
 
-exports[`valid-await-using-binding-basic.js format[babel] 1`] = `
+exports[`valid-await-using-binding-basic.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -409,7 +409,7 @@ exports[`valid-await-using-binding-basic.js format[meriyah] 1`] = `
 Cause: [2:14-2:19]: Unexpected token: 'identifier'"
 `;
 
-exports[`valid-await-using-binding-escaped.js format[babel] 1`] = `
+exports[`valid-await-using-binding-escaped.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -458,7 +458,7 @@ exports[`valid-await-using-binding-escaped.js format[meriyah] 1`] = `
 Cause: [2:14-2:21]: Unexpected token: 'identifier'"
 `;
 
-exports[`valid-await-using-binding-non-bmp.js format[babel] 1`] = `
+exports[`valid-await-using-binding-non-bmp.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -506,7 +506,7 @@ exports[`valid-await-using-binding-non-bmp.js format[meriyah] 1`] = `
 Cause: [2:14-2:16]: Unexpected token: 'identifier'"
 `;
 
-exports[`valid-await-using-binding-using.js format[babel] 1`] = `
+exports[`valid-await-using-binding-using.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -560,7 +560,7 @@ exports[`valid-await-using-binding-using.js format[meriyah] 1`] = `
 Cause: [2:14-2:19]: Unexpected token: 'identifier'"
 `;
 
-exports[`valid-await-using-comments.js format[babel] 1`] = `
+exports[`valid-await-using-comments.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -640,7 +640,7 @@ exports[`valid-await-using-comments.js format[meriyah] 1`] = `
 Cause: [3:27-3:28]: Unexpected token: 'identifier'"
 `;
 
-exports[`valid-for-await-using-binding-escaped-of-of.js format[babel] 1`] = `
+exports[`valid-for-await-using-binding-escaped-of-of.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -656,7 +656,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`valid-for-using-binding-escaped-of-of.js format[babel] 1`] = `
+exports[`valid-for-using-binding-escaped-of-of.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -672,7 +672,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`valid-for-using-binding-of-of.js format[babel] 1`] = `
+exports[`valid-for-using-binding-of-of.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -726,7 +726,7 @@ exports[`valid-for-using-binding-of-of.js format[meriyah] 1`] = `
 Cause: [2:19-2:21]: Invalid left-hand side in for-of"
 `;
 
-exports[`valid-for-using-declaration.js format[babel] 1`] = `
+exports[`valid-for-using-declaration.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -775,17 +775,7 @@ exports[`valid-for-using-declaration.js format[meriyah] 1`] = `
 Cause: [2:19-2:24]: Expected ';'"
 `;
 
-exports[`valid-module-block-top-level-await-using-binding.js format[acorn] 1`] = `
-"Unexpected token (1:18)
-> 1 | const m = module {
-    |                  ^
-  2 |   await using foo = bar();
-  3 | }
-  4 |
-Cause: Unexpected token (1:17)"
-`;
-
-exports[`valid-module-block-top-level-await-using-binding.js format[babel] 1`] = `
+exports[`valid-module-block-top-level-await-using-binding.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -801,6 +791,16 @@ const m = module {
 };
 
 ================================================================================
+`;
+
+exports[`valid-module-block-top-level-await-using-binding.js format[acorn] 1`] = `
+"Unexpected token (1:18)
+> 1 | const m = module {
+    |                  ^
+  2 |   await using foo = bar();
+  3 | }
+  4 |
+Cause: Unexpected token (1:17)"
 `;
 
 exports[`valid-module-block-top-level-await-using-binding.js format[espree] 1`] = `
@@ -872,17 +872,7 @@ exports[`valid-module-block-top-level-await-using-binding.js format[typescript] 
 Cause: ',' expected."
 `;
 
-exports[`valid-module-block-top-level-using-binding.js format[acorn] 1`] = `
-"Unexpected token (1:8)
-> 1 | module {
-    |        ^
-  2 |   using foo = bar();
-  3 | }
-  4 |
-Cause: Unexpected token (1:7)"
-`;
-
-exports[`valid-module-block-top-level-using-binding.js format[babel] 1`] = `
+exports[`valid-module-block-top-level-using-binding.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -898,6 +888,16 @@ module {
 };
 
 ================================================================================
+`;
+
+exports[`valid-module-block-top-level-using-binding.js format[acorn] 1`] = `
+"Unexpected token (1:8)
+> 1 | module {
+    |        ^
+  2 |   using foo = bar();
+  3 | }
+  4 |
+Cause: Unexpected token (1:7)"
 `;
 
 exports[`valid-module-block-top-level-using-binding.js format[espree] 1`] = `
@@ -969,7 +969,7 @@ exports[`valid-module-block-top-level-using-binding.js format[typescript] 1`] = 
 Cause: Namespace must be given a name."
 `;
 
-exports[`valid-using-as-identifier-computed-member.js format[babel] 1`] = `
+exports[`valid-using-as-identifier-computed-member.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -985,7 +985,7 @@ for (using[x] of []);
 ================================================================================
 `;
 
-exports[`valid-using-as-identifier-expression-statement.js format[babel] 1`] = `
+exports[`valid-using-as-identifier-expression-statement.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -1001,7 +1001,7 @@ reader = getReader();
 ================================================================================
 `;
 
-exports[`valid-using-as-identifier-for-await-of.js format[babel] 1`] = `
+exports[`valid-using-as-identifier-for-await-of.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -1032,17 +1032,7 @@ for await (using of of);
 ~~~~^"
 `;
 
-exports[`valid-using-as-identifier-for-in.js format[acorn] 1`] = `
-"Unexpected keyword 'in' (1:12)
-> 1 | for (using in []);
-    |            ^
-  2 | for (using.foo in []);
-  3 | for (using().foo in []);
-  4 | for (using\`\`.foo in []);
-Cause: Unexpected keyword 'in' (1:11)"
-`;
-
-exports[`valid-using-as-identifier-for-in.js format[babel] 1`] = `
+exports[`valid-using-as-identifier-for-in.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -1062,6 +1052,16 @@ for (using\`\`.foo in []);
 ================================================================================
 `;
 
+exports[`valid-using-as-identifier-for-in.js format[acorn] 1`] = `
+"Unexpected keyword 'in' (1:12)
+> 1 | for (using in []);
+    |            ^
+  2 | for (using.foo in []);
+  3 | for (using().foo in []);
+  4 | for (using\`\`.foo in []);
+Cause: Unexpected keyword 'in' (1:11)"
+`;
+
 exports[`valid-using-as-identifier-for-in.js format[espree] 1`] = `
 "Unexpected keyword 'in' (1:12)
 > 1 | for (using in []);
@@ -1072,7 +1072,7 @@ exports[`valid-using-as-identifier-for-in.js format[espree] 1`] = `
 Cause: Unexpected keyword 'in'"
 `;
 
-exports[`valid-using-as-identifier-for-init.js format[babel] 1`] = `
+exports[`valid-using-as-identifier-for-init.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -1088,7 +1088,7 @@ for (using; (reader = getReader()); );
 ================================================================================
 `;
 
-exports[`valid-using-as-identifier-for-of.js format[babel] 1`] = `
+exports[`valid-using-as-identifier-for-of.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -1104,6 +1104,20 @@ for (using of of);
 for (using.foo of of);
 for (using().foo of of);
 for (using\`\`.foo of of);
+
+================================================================================
+`;
+
+exports[`valid-using-as-identifier-in.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+using in using instanceof using;
+
+=====================================output=====================================
+using in using instanceof using;
 
 ================================================================================
 `;
@@ -1116,20 +1130,6 @@ exports[`valid-using-as-identifier-in.js format[acorn] 1`] = `
 Cause: Unexpected keyword 'in' (1:6)"
 `;
 
-exports[`valid-using-as-identifier-in.js format[babel] 1`] = `
-====================================options=====================================
-parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-using in using instanceof using;
-
-=====================================output=====================================
-using in using instanceof using;
-
-================================================================================
-`;
-
 exports[`valid-using-as-identifier-in.js format[espree] 1`] = `
 "Unexpected keyword 'in' (1:7)
 > 1 | using in using instanceof using;
@@ -1138,7 +1138,7 @@ exports[`valid-using-as-identifier-in.js format[espree] 1`] = `
 Cause: Unexpected keyword 'in'"
 `;
 
-exports[`valid-using-binding-basic.js format[babel] 1`] = `
+exports[`valid-using-binding-basic.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -1187,7 +1187,7 @@ exports[`valid-using-binding-basic.js format[meriyah] 1`] = `
 Cause: [2:8-2:13]: Unexpected token: 'identifier'"
 `;
 
-exports[`valid-using-binding-escaped.js format[babel] 1`] = `
+exports[`valid-using-binding-escaped.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -1228,15 +1228,7 @@ exports[`valid-using-binding-escaped.js format[meriyah] 1`] = `
 Cause: [1:8-1:15]: Unexpected token: 'identifier'"
 `;
 
-exports[`valid-using-binding-non-bmp.js format[acorn] 1`] = `
-"Unexpected token (1:9)
-> 1 | { using 𠮷 = foo(); }
-    |         ^
-  2 |
-Cause: Unexpected token (1:8)"
-`;
-
-exports[`valid-using-binding-non-bmp.js format[babel] 1`] = `
+exports[`valid-using-binding-non-bmp.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -1250,6 +1242,14 @@ printWidth: 80
 }
 
 ================================================================================
+`;
+
+exports[`valid-using-binding-non-bmp.js format[acorn] 1`] = `
+"Unexpected token (1:9)
+> 1 | { using 𠮷 = foo(); }
+    |         ^
+  2 |
+Cause: Unexpected token (1:8)"
 `;
 
 exports[`valid-using-binding-non-bmp.js format[espree] 1`] = `
@@ -1284,7 +1284,7 @@ exports[`valid-using-binding-non-bmp.js format[meriyah] 1`] = `
 Cause: [1:8-1:10]: Unexpected token: 'identifier'"
 `;
 
-exports[`valid-using-binding-using.js format[babel] 1`] = `
+exports[`valid-using-binding-using.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`multiple.js format[babel] 1`] = `
+exports[`multiple.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -59,7 +59,7 @@ var templateTagsMapping = {
 ================================================================================
 `;
 
-exports[`string.js format[babel] 1`] = `
+exports[`string.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80

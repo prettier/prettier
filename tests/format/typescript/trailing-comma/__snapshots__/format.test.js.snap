@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`arrow-functions.tsx - {"trailingComma":"all"} format[typescript] 1`] = `
+exports[`arrow-functions.tsx - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -21,7 +21,7 @@ const f2 = <
 ================================================================================
 `;
 
-exports[`arrow-functions.tsx - {"trailingComma":"es5"} format[typescript] 1`] = `
+exports[`arrow-functions.tsx - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -42,7 +42,7 @@ const f2 = <
 ================================================================================
 `;
 
-exports[`arrow-functions.tsx - {"trailingComma":"none"} format[typescript] 1`] = `
+exports[`arrow-functions.tsx - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -63,7 +63,7 @@ const f2 = <
 ================================================================================
 `;
 
-exports[`trailing.ts - {"trailingComma":"all"} format[typescript] 1`] = `
+exports[`trailing.ts - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -107,7 +107,7 @@ const {
 ================================================================================
 `;
 
-exports[`trailing.ts - {"trailingComma":"es5"} format[typescript] 1`] = `
+exports[`trailing.ts - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -151,7 +151,7 @@ const {
 ================================================================================
 `;
 
-exports[`trailing.ts - {"trailingComma":"none"} format[typescript] 1`] = `
+exports[`trailing.ts - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -195,7 +195,7 @@ const {
 ================================================================================
 `;
 
-exports[`type-arguments.ts - {"trailingComma":"all"} format[typescript] 1`] = `
+exports[`type-arguments.ts - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -238,7 +238,7 @@ const baz = new Array<
 ================================================================================
 `;
 
-exports[`type-arguments.ts - {"trailingComma":"es5"} format[typescript] 1`] = `
+exports[`type-arguments.ts - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -281,7 +281,7 @@ const baz = new Array<
 ================================================================================
 `;
 
-exports[`type-arguments.ts - {"trailingComma":"none"} format[typescript] 1`] = `
+exports[`type-arguments.ts - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -324,7 +324,7 @@ const baz = new Array<
 ================================================================================
 `;
 
-exports[`type-parameters-vs-arguments.ts - {"trailingComma":"all"} format[typescript] 1`] = `
+exports[`type-parameters-vs-arguments.ts - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -363,7 +363,7 @@ const instance = new FooClass<
 ================================================================================
 `;
 
-exports[`type-parameters-vs-arguments.ts - {"trailingComma":"es5"} format[typescript] 1`] = `
+exports[`type-parameters-vs-arguments.ts - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -402,7 +402,7 @@ const instance = new FooClass<
 ================================================================================
 `;
 
-exports[`type-parameters-vs-arguments.ts - {"trailingComma":"none"} format[typescript] 1`] = `
+exports[`type-parameters-vs-arguments.ts - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

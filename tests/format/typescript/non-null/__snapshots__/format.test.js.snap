@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`braces.ts format[typescript] 1`] = `
+exports[`braces.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -44,7 +44,7 @@ class a extends ({}!) {}
 ================================================================================
 `;
 
-exports[`member-chain.ts format[typescript] 1`] = `
+exports[`member-chain.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -82,7 +82,7 @@ xyz.a(/a/!).a(/a/!).a(/a/!);
 ================================================================================
 `;
 
-exports[`optional-chain.ts format[typescript] 1`] = `
+exports[`optional-chain.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -134,7 +134,7 @@ a?.().b!.c?.c;
 ================================================================================
 `;
 
-exports[`parens.ts format[typescript] 1`] = `
+exports[`parens.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

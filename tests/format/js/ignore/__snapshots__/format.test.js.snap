@@ -1,18 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`class-expression-decorator.js format[acorn] 1`] = `
-"Unexpected character '@' (3:3)
-  1 | (
-  2 |   // prettier-ignore
-> 3 |   @decorator
-    |   ^
-  4 |   class {}
-  5 | );
-  6 |
-Cause: Unexpected character '@' (3:2)"
-`;
-
-exports[`class-expression-decorator.js format[babel] 1`] = `
+exports[`class-expression-decorator.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -32,6 +20,18 @@ printWidth: 80
 );
 
 ================================================================================
+`;
+
+exports[`class-expression-decorator.js format[acorn] 1`] = `
+"Unexpected character '@' (3:3)
+  1 | (
+  2 |   // prettier-ignore
+> 3 |   @decorator
+    |   ^
+  4 |   class {}
+  5 | );
+  6 |
+Cause: Unexpected character '@' (3:2)"
 `;
 
 exports[`class-expression-decorator.js format[espree] 1`] = `
@@ -71,17 +71,7 @@ Cause: unrecognized character '@' (3:2)
   ^"
 `;
 
-exports[`decorator.js format[acorn] 1`] = `
-"Unexpected character '@' (2:1)
-  1 | // prettier-ignore
-> 2 | @decorator
-    | ^
-  3 | class A {}
-  4 |
-Cause: Unexpected character '@' (2:0)"
-`;
-
-exports[`decorator.js format[babel] 1`] = `
+exports[`decorator.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -97,6 +87,16 @@ class A {}
 class A {}
 
 ================================================================================
+`;
+
+exports[`decorator.js format[acorn] 1`] = `
+"Unexpected character '@' (2:1)
+  1 | // prettier-ignore
+> 2 | @decorator
+    | ^
+  3 | class A {}
+  4 |
+Cause: Unexpected character '@' (2:0)"
 `;
 
 exports[`decorator.js format[espree] 1`] = `
@@ -120,7 +120,7 @@ Cause: unrecognized character '@' (2:0)
 ^"
 `;
 
-exports[`ignore.js format[babel] 1`] = `
+exports[`ignore.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -248,7 +248,7 @@ const response = {
 ================================================================================
 `;
 
-exports[`issue-9335.js format[babel] 1`] = `
+exports[`issue-9335.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -266,7 +266,7 @@ class foo
 ================================================================================
 `;
 
-exports[`issue-9877.js format[babel] 1`] = `
+exports[`issue-9877.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -300,7 +300,7 @@ export default function test() {
 ================================================================================
 `;
 
-exports[`issue-10661.js format[babel] 1`] = `
+exports[`issue-10661.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -364,7 +364,7 @@ because the prettier-ignore comment is attached as MemberExpression leading comm
 ================================================================================
 `;
 
-exports[`issue-11077.js format[babel] 1`] = `
+exports[`issue-11077.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -411,7 +411,7 @@ function HelloWorld(x) {
 ================================================================================
 `;
 
-exports[`issue-13737.js format[babel] 1`] = `
+exports[`issue-13737.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -440,7 +440,7 @@ a =
 ================================================================================
 `;
 
-exports[`issue-14404.js format[babel] 1`] = `
+exports[`issue-14404.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -464,7 +464,7 @@ async function foo() {
 ================================================================================
 `;
 
-exports[`issue-18303.js format[babel] 1`] = `
+exports[`issue-18303.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80

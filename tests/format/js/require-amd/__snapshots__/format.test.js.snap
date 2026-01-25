@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`named-amd-module.js format[babel] 1`] = `
+exports[`named-amd-module.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -21,7 +21,7 @@ define("foo/title", ["my/cart", "my/inventory"], function (cart, inventory) {
 ================================================================================
 `;
 
-exports[`non-amd-define.js format[babel] 1`] = `
+exports[`non-amd-define.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -43,7 +43,7 @@ const someVariable = define(
 ================================================================================
 `;
 
-exports[`require.js format[babel] 1`] = `
+exports[`require.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80

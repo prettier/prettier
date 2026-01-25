@@ -1,14 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`dynamic-import.js format[acorn] 1`] = `
-"The only valid meta property for import is 'import.meta' (1:8)
-> 1 | import.defer("foo");
-    |        ^
-  2 |
-Cause: The only valid meta property for import is 'import.meta' (1:7)"
-`;
-
-exports[`dynamic-import.js format[babel] 1`] = `
+exports[`dynamic-import.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -20,6 +12,14 @@ import.defer("foo");
 import.defer("foo");
 
 ================================================================================
+`;
+
+exports[`dynamic-import.js format[acorn] 1`] = `
+"The only valid meta property for import is 'import.meta' (1:8)
+> 1 | import.defer("foo");
+    |        ^
+  2 |
+Cause: The only valid meta property for import is 'import.meta' (1:7)"
 `;
 
 exports[`dynamic-import.js format[espree] 1`] = `
@@ -38,15 +38,7 @@ exports[`dynamic-import.js format[meriyah] 1`] = `
 Cause: [1:7-1:12]: The only valid meta property for import is 'import.meta'"
 `;
 
-exports[`dynamic-import-attributes-expression.js format[acorn] 1`] = `
-"The only valid meta property for import is 'import.meta' (1:8)
-> 1 | import.defer("x", { with: { attr: "val" } });
-    |        ^
-  2 |
-Cause: The only valid meta property for import is 'import.meta' (1:7)"
-`;
-
-exports[`dynamic-import-attributes-expression.js format[babel] 1`] = `
+exports[`dynamic-import-attributes-expression.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -58,6 +50,14 @@ import.defer("x", { with: { attr: "val" } });
 import.defer("x", { with: { attr: "val" } });
 
 ================================================================================
+`;
+
+exports[`dynamic-import-attributes-expression.js format[acorn] 1`] = `
+"The only valid meta property for import is 'import.meta' (1:8)
+> 1 | import.defer("x", { with: { attr: "val" } });
+    |        ^
+  2 |
+Cause: The only valid meta property for import is 'import.meta' (1:7)"
 `;
 
 exports[`dynamic-import-attributes-expression.js format[espree] 1`] = `
@@ -76,15 +76,7 @@ exports[`dynamic-import-attributes-expression.js format[meriyah] 1`] = `
 Cause: [1:7-1:12]: The only valid meta property for import is 'import.meta'"
 `;
 
-exports[`import-defer.js format[acorn] 1`] = `
-"Unexpected token (1:14)
-> 1 | import defer * as ns from "x";
-    |              ^
-  2 |
-Cause: Unexpected token (1:13)"
-`;
-
-exports[`import-defer.js format[babel] 1`] = `
+exports[`import-defer.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -96,6 +88,14 @@ import defer * as ns from "x";
 import defer * as ns from "x";
 
 ================================================================================
+`;
+
+exports[`import-defer.js format[acorn] 1`] = `
+"Unexpected token (1:14)
+> 1 | import defer * as ns from "x";
+    |              ^
+  2 |
+Cause: Unexpected token (1:13)"
 `;
 
 exports[`import-defer.js format[espree] 1`] = `
@@ -114,15 +114,7 @@ exports[`import-defer.js format[meriyah] 1`] = `
 Cause: [1:13-1:14]: Expected 'from'"
 `;
 
-exports[`import-defer-attributes-declaration.js format[acorn] 1`] = `
-"Unexpected token (1:14)
-> 1 | import defer * as ns from "x" with { attr: "val" };
-    |              ^
-  2 |
-Cause: Unexpected token (1:13)"
-`;
-
-exports[`import-defer-attributes-declaration.js format[babel] 1`] = `
+exports[`import-defer-attributes-declaration.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -134,6 +126,14 @@ import defer * as ns from "x" with { attr: "val" };
 import defer * as ns from "x" with { attr: "val" };
 
 ================================================================================
+`;
+
+exports[`import-defer-attributes-declaration.js format[acorn] 1`] = `
+"Unexpected token (1:14)
+> 1 | import defer * as ns from "x" with { attr: "val" };
+    |              ^
+  2 |
+Cause: Unexpected token (1:13)"
 `;
 
 exports[`import-defer-attributes-declaration.js format[espree] 1`] = `

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`await-expression.js - {"experimentalTernaries":true} format[babel] 1`] = `
+exports[`await-expression.js - {"experimentalTernaries":true} format 1`] = `
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["babel"]
@@ -20,7 +20,7 @@ stopDirectory = await (
 ================================================================================
 `;
 
-exports[`await-expression.js format[babel] 1`] = `
+exports[`await-expression.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80

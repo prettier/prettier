@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`issue-17239.ts - {"objectWrap":"collapse"} format[typescript] 1`] = `
+exports[`issue-17239.ts - {"objectWrap":"collapse"} format 1`] = `
 ====================================options=====================================
 objectWrap: "collapse"
 parsers: ["typescript", "flow"]
@@ -25,7 +25,7 @@ model = types
 ================================================================================
 `;
 
-exports[`issue-17239.ts format[typescript] 1`] = `
+exports[`issue-17239.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow"]
 printWidth: 80

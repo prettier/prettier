@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`13018.js format[babel] 1`] = `
+exports[`13018.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -28,7 +28,7 @@ foo(a--).bar().leet();
 ================================================================================
 `;
 
-exports[`18171.js format[babel] 1`] = `
+exports[`18171.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -68,7 +68,7 @@ new NewExpression(
 ================================================================================
 `;
 
-exports[`array-and-object.js format[babel] 1`] = `
+exports[`array-and-object.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -86,7 +86,7 @@ foo.a().b().c({ n, o });
 ================================================================================
 `;
 
-exports[`assignment-lhs.js format[babel] 1`] = `
+exports[`assignment-lhs.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -106,7 +106,7 @@ document.querySelector("p").textContent =
 ================================================================================
 `;
 
-exports[`bracket_0.js format[babel] 1`] = `
+exports[`bracket_0.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -137,7 +137,7 @@ function a() {
 ================================================================================
 `;
 
-exports[`bracket_0-1.js format[babel] 1`] = `
+exports[`bracket_0-1.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -154,7 +154,7 @@ const thingamabobMetaAlias = path.scope
 ================================================================================
 `;
 
-exports[`break-last-call.js format[babel] 1`] = `
+exports[`break-last-call.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -280,7 +280,7 @@ it("should group messages with same created time", () => {
 ================================================================================
 `;
 
-exports[`break-last-member.js format[babel] 1`] = `
+exports[`break-last-member.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -349,7 +349,7 @@ const {
 ================================================================================
 `;
 
-exports[`break-multiple.js format[babel] 1`] = `
+exports[`break-multiple.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -371,7 +371,7 @@ foo().bar.baz();
 ================================================================================
 `;
 
-exports[`comment.js format[babel] 1`] = `
+exports[`comment.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -498,7 +498,7 @@ angular
 ================================================================================
 `;
 
-exports[`complex-args.js format[babel] 1`] = `
+exports[`complex-args.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -518,7 +518,7 @@ client.execute(
 ================================================================================
 `;
 
-exports[`computed.js format[babel] 1`] = `
+exports[`computed.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -542,7 +542,7 @@ nock(/test/)
 ================================================================================
 `;
 
-exports[`computed-merge.js format[babel] 1`] = `
+exports[`computed-merge.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -586,7 +586,7 @@ window.Data[key]("foo")
 ================================================================================
 `;
 
-exports[`conditional.js format[babel] 1`] = `
+exports[`conditional.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -651,7 +651,7 @@ object[
 ================================================================================
 `;
 
-exports[`cypress.js format[babel] 1`] = `
+exports[`cypress.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -673,7 +673,7 @@ cy.get(".ready").should("have.text", "FOO").should("have.css", "color", "#aaa");
 ================================================================================
 `;
 
-exports[`d3.js format[babel] 1`] = `
+exports[`d3.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -716,7 +716,7 @@ not.d3.scaleLinear().domain([1950, 1980]).range([0, width]);
 ================================================================================
 `;
 
-exports[`first_long.js format[babel] 1`] = `
+exports[`first_long.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -795,7 +795,7 @@ function f() {
 ================================================================================
 `;
 
-exports[`fluent-configuration.js format[babel] 1`] = `
+exports[`fluent-configuration.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -834,7 +834,7 @@ domain.concept(CONCEPT_NAME).val("title").vals();
 ================================================================================
 `;
 
-exports[`inline_merge.js format[babel] 1`] = `
+exports[`inline_merge.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -879,7 +879,7 @@ var jqxhr = $.ajax("example.php").done(doneFn).fail(failFn);
 ================================================================================
 `;
 
-exports[`issue-3594.js format[babel] 1`] = `
+exports[`issue-3594.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -905,7 +905,7 @@ let column = new Column(null, conn).table(data.table).json(data.column);
 ================================================================================
 `;
 
-exports[`issue-3621.js format[babel] 1`] = `
+exports[`issue-3621.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -939,7 +939,7 @@ expect(cells.at(4).render().text()).toBe("link text4");
 ================================================================================
 `;
 
-exports[`issue-4125.js format[babel] 1`] = `
+exports[`issue-4125.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -1267,7 +1267,7 @@ var l = base
 ================================================================================
 `;
 
-exports[`issue-11298.js format[babel] 1`] = `
+exports[`issue-11298.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -1289,7 +1289,7 @@ foo1(/叱叱叱/)
 ================================================================================
 `;
 
-exports[`issue-17457.js format[babel] 1`] = `
+exports[`issue-17457.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -1305,7 +1305,7 @@ s.get(u)?.trigger({
 ================================================================================
 `;
 
-exports[`logical.js format[babel] 1`] = `
+exports[`logical.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -1359,7 +1359,7 @@ const someLongVariableName = (
 ================================================================================
 `;
 
-exports[`multiple-members.js format[babel] 1`] = `
+exports[`multiple-members.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -1453,7 +1453,7 @@ wrapper
 ================================================================================
 `;
 
-exports[`object-literal.js format[babel] 1`] = `
+exports[`object-literal.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -1495,7 +1495,7 @@ of("test")
 ================================================================================
 `;
 
-exports[`pr-7889.js format[babel] 1`] = `
+exports[`pr-7889.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -1529,7 +1529,7 @@ const Profile2 = view.with({ name }).as((props) => (
 ================================================================================
 `;
 
-exports[`short-names.js format[babel] 1`] = `
+exports[`short-names.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -1549,7 +1549,7 @@ const svgJsFiles = fs
 ================================================================================
 `;
 
-exports[`simple-args.js format[babel] 1`] = `
+exports[`simple-args.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -1567,7 +1567,7 @@ console.log(values.filter(isValid).map(extractId).slice(-5, -1));
 ================================================================================
 `;
 
-exports[`square_0.js format[babel] 1`] = `
+exports[`square_0.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -1597,7 +1597,7 @@ const component = find(".org-lclp-edit-copy-url-banner__link")[0]
 ================================================================================
 `;
 
-exports[`test.js format[babel] 1`] = `
+exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -1622,7 +1622,7 @@ method()
 ================================================================================
 `;
 
-exports[`this.js format[babel] 1`] = `
+exports[`this.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80

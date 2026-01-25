@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`await.js format[babel] 1`] = `
+exports[`await.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -24,7 +24,7 @@ async function a() {
 ================================================================================
 `;
 
-exports[`let.js format[babel] 1`] = `
+exports[`let.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80

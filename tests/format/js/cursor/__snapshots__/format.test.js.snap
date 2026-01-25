@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`comments-1.js format[babel] 1`] = `
+exports[`comments-1.js format 1`] = `
 ====================================options=====================================
 cursorOffset: 7
 parsers: ["babel", "typescript", "flow"]
@@ -21,7 +21,7 @@ function ehllooo() {
 ================================================================================
 `;
 
-exports[`comments-2.js format[babel] 1`] = `
+exports[`comments-2.js format 1`] = `
 ====================================options=====================================
 cursorOffset: 0
 parsers: ["babel", "typescript", "flow"]
@@ -41,7 +41,7 @@ const y = 5;
 ================================================================================
 `;
 
-exports[`comments-3.js format[babel] 1`] = `
+exports[`comments-3.js format 1`] = `
 ====================================options=====================================
 cursorOffset: 1
 parsers: ["babel", "typescript", "flow"]
@@ -60,7 +60,7 @@ const y = 5;
 ================================================================================
 `;
 
-exports[`comments-4.js format[babel] 1`] = `
+exports[`comments-4.js format 1`] = `
 ====================================options=====================================
 cursorOffset: 44
 parsers: ["babel", "typescript", "flow"]
@@ -81,7 +81,7 @@ const y = 5;
 ================================================================================
 `;
 
-exports[`cursor-0.js format[babel] 1`] = `
+exports[`cursor-0.js format 1`] = `
 ====================================options=====================================
 cursorOffset: 27
 parsers: ["babel", "typescript", "flow"]
@@ -98,7 +98,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`cursor-1.js format[babel] 1`] = `
+exports[`cursor-1.js format 1`] = `
 ====================================options=====================================
 cursorOffset: 26
 parsers: ["babel", "typescript", "flow"]
@@ -115,7 +115,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`cursor-2.js format[babel] 1`] = `
+exports[`cursor-2.js format 1`] = `
 ====================================options=====================================
 cursorOffset: 6
 parsers: ["babel", "typescript", "flow"]
@@ -131,7 +131,7 @@ foo<|>(bar);
 ================================================================================
 `;
 
-exports[`cursor-3.js format[babel] 1`] = `
+exports[`cursor-3.js format 1`] = `
 ====================================options=====================================
 cursorOffset: 4
 parsers: ["babel", "typescript", "flow"]
@@ -150,7 +150,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`cursor-4.js format[babel] 1`] = `
+exports[`cursor-4.js format 1`] = `
 ====================================options=====================================
 cursorOffset: 19
 parsers: ["babel", "typescript", "flow"]
@@ -173,7 +173,7 @@ const y = 5;
 ================================================================================
 `;
 
-exports[`cursor-5.js format[babel] 1`] = `
+exports[`cursor-5.js format 1`] = `
 ====================================options=====================================
 cursorOffset: 13
 parsers: ["babel", "typescript", "flow"]
@@ -188,7 +188,7 @@ const /* h<|>i */ y = 5;
 ================================================================================
 `;
 
-exports[`cursor-6.js format[babel] 1`] = `
+exports[`cursor-6.js format 1`] = `
 ====================================options=====================================
 cursorOffset: 20
 parsers: ["babel", "typescript", "flow"]
@@ -203,7 +203,7 @@ const y /* h<|>i */ = 5;
 ================================================================================
 `;
 
-exports[`cursor-7.js format[babel] 1`] = `
+exports[`cursor-7.js format 1`] = `
 ====================================options=====================================
 cursorOffset: 12
 parsers: ["babel", "typescript", "flow"]
@@ -223,7 +223,7 @@ const z = 9;
 ================================================================================
 `;
 
-exports[`cursor-8.js format[babel] 1`] = `
+exports[`cursor-8.js format 1`] = `
 ====================================options=====================================
 cursorOffset: 6
 parsers: ["babel", "typescript", "flow"]
@@ -237,7 +237,7 @@ func<|>tion banana() {}
 ================================================================================
 `;
 
-exports[`cursor-9.js format[babel] 1`] = `
+exports[`cursor-9.js format 1`] = `
 ====================================options=====================================
 cursorOffset: 26
 parsers: ["babel", "typescript", "flow"]
@@ -251,7 +251,7 @@ thisWillBeFormatted<|>(2, 3);
 ================================================================================
 `;
 
-exports[`cursor-10.js format[babel] 1`] = `
+exports[`cursor-10.js format 1`] = `
 ====================================options=====================================
 cursorOffset: 16
 parsers: ["babel", "typescript", "flow"]
@@ -271,7 +271,7 @@ const y = 5;
 ================================================================================
 `;
 
-exports[`cursor-11.js format[babel] 1`] = `
+exports[`cursor-11.js format 1`] = `
 ====================================options=====================================
 cursorOffset: 57
 parsers: ["babel", "typescript", "flow"]
@@ -309,7 +309,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`cursor-12.js format[babel] 1`] = `
+exports[`cursor-12.js format 1`] = `
 ====================================options=====================================
 cursorOffset: 330
 parsers: ["babel", "typescript", "flow"]
@@ -357,7 +357,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`cursor-13.js format[babel] 1`] = `
+exports[`cursor-13.js format 1`] = `
 ====================================options=====================================
 cursorOffset: 84
 parsers: ["babel", "typescript", "flow"]
@@ -378,7 +378,7 @@ function myFunction() {
 ================================================================================
 `;
 
-exports[`cursor-emoji.js format[babel] 1`] = `
+exports[`cursor-emoji.js format 1`] = `
 ====================================options=====================================
 cursorOffset: 9
 parsers: ["babel", "typescript", "flow"]
@@ -393,7 +393,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`file-start-with-comment-1.js format[babel] 1`] = `
+exports[`file-start-with-comment-1.js format 1`] = `
 ====================================options=====================================
 cursorOffset: 5
 parsers: ["babel", "typescript", "flow"]
@@ -410,7 +410,7 @@ haha();
 ================================================================================
 `;
 
-exports[`file-start-with-comment-2.js format[babel] 1`] = `
+exports[`file-start-with-comment-2.js format 1`] = `
 ====================================options=====================================
 cursorOffset: 16
 parsers: ["babel", "typescript", "flow"]
@@ -427,7 +427,7 @@ haha()<|>;
 ================================================================================
 `;
 
-exports[`file-start-with-comment-3.js format[babel] 1`] = `
+exports[`file-start-with-comment-3.js format 1`] = `
 ====================================options=====================================
 cursorOffset: 127
 parsers: ["babel", "typescript", "flow"]
@@ -446,7 +446,7 @@ import {<|>} from "fs";
 ================================================================================
 `;
 
-exports[`range-0.js format[babel] 1`] = `
+exports[`range-0.js format 1`] = `
 ====================================options=====================================
 cursorOffset: 56
 parsers: ["babel", "typescript", "flow"]
@@ -474,7 +474,7 @@ thisWontBeFormatted  ( 1  ,3)
 ================================================================================
 `;
 
-exports[`range-1.js format[babel] 1`] = `
+exports[`range-1.js format 1`] = `
 ====================================options=====================================
 cursorOffset: 64
 parsers: ["babel", "typescript", "flow"]
@@ -502,7 +502,7 @@ thisWontBeFormatted  ( 1  ,3)
 ================================================================================
 `;
 
-exports[`range-2.js format[babel] 1`] = `
+exports[`range-2.js format 1`] = `
 ====================================options=====================================
 cursorOffset: 67
 parsers: ["babel", "typescript", "flow"]
@@ -530,7 +530,7 @@ thisWontBeFormatted  ( 1  ,3)
 ================================================================================
 `;
 
-exports[`range-3.js format[babel] 1`] = `
+exports[`range-3.js format 1`] = `
 ====================================options=====================================
 cursorOffset: 20
 parsers: ["babel", "typescript", "flow"]
@@ -559,7 +559,7 @@ thisWontBeFormatted <|> ( 1  ,3)
 ================================================================================
 `;
 
-exports[`range-4.js format[babel] 1`] = `
+exports[`range-4.js format 1`] = `
 ====================================options=====================================
 cursorOffset: 101
 parsers: ["babel", "typescript", "flow"]
@@ -587,7 +587,7 @@ thisWontBeFormatted  ( 1  ,3)
 ================================================================================
 `;
 
-exports[`range-5.js format[babel] 1`] = `
+exports[`range-5.js format 1`] = `
 ====================================options=====================================
 cursorOffset: 23
 parsers: ["babel", "typescript", "flow"]
@@ -605,7 +605,7 @@ const myVar = aFunction<|>;
 ================================================================================
 `;
 
-exports[`range-6.js format[babel] 1`] = `
+exports[`range-6.js format 1`] = `
 ====================================options=====================================
 cursorOffset: 24
 parsers: ["babel", "typescript", "flow"]
@@ -623,7 +623,7 @@ const myVar = aFunction;<|>
 ================================================================================
 `;
 
-exports[`range-7.js format[babel] 1`] = `
+exports[`range-7.js format 1`] = `
 ====================================options=====================================
 cursorOffset: 23
 parsers: ["babel", "typescript", "flow"]
@@ -641,7 +641,7 @@ const myVar = aFunction<|>;
 ================================================================================
 `;
 
-exports[`range-8.js format[babel] 1`] = `
+exports[`range-8.js format 1`] = `
 ====================================options=====================================
 cursorOffset: 69
 parsers: ["babel", "typescript", "flow"]

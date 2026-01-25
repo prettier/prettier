@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`enums.ts - {"quoteProps":"as-needed"} format[typescript] 1`] = `
+exports[`enums.ts - {"quoteProps":"as-needed"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -47,7 +47,7 @@ enum E4 {
 ================================================================================
 `;
 
-exports[`enums.ts - {"quoteProps":"consistent"} format[typescript] 1`] = `
+exports[`enums.ts - {"quoteProps":"consistent"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -94,7 +94,7 @@ enum E4 {
 ================================================================================
 `;
 
-exports[`enums.ts - {"quoteProps":"preserve"} format[typescript] 1`] = `
+exports[`enums.ts - {"quoteProps":"preserve"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -141,7 +141,7 @@ enum E4 {
 ================================================================================
 `;
 
-exports[`interfaces.ts - {"quoteProps":"as-needed"} format[typescript] 1`] = `
+exports[`interfaces.ts - {"quoteProps":"as-needed"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -176,7 +176,7 @@ interface I2 {
 ================================================================================
 `;
 
-exports[`interfaces.ts - {"quoteProps":"consistent"} format[typescript] 1`] = `
+exports[`interfaces.ts - {"quoteProps":"consistent"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -211,7 +211,7 @@ interface I2 {
 ================================================================================
 `;
 
-exports[`interfaces.ts - {"quoteProps":"preserve"} format[typescript] 1`] = `
+exports[`interfaces.ts - {"quoteProps":"preserve"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -246,7 +246,7 @@ interface I2 {
 ================================================================================
 `;
 
-exports[`type-literal.ts - {"quoteProps":"as-needed"} format[typescript] 1`] = `
+exports[`type-literal.ts - {"quoteProps":"as-needed"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -281,7 +281,7 @@ type T2 = {
 ================================================================================
 `;
 
-exports[`type-literal.ts - {"quoteProps":"consistent"} format[typescript] 1`] = `
+exports[`type-literal.ts - {"quoteProps":"consistent"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -316,7 +316,7 @@ type T2 = {
 ================================================================================
 `;
 
-exports[`type-literal.ts - {"quoteProps":"preserve"} format[typescript] 1`] = `
+exports[`type-literal.ts - {"quoteProps":"preserve"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -351,7 +351,7 @@ type T2 = {
 ================================================================================
 `;
 
-exports[`types.ts - {"quoteProps":"as-needed"} format[typescript] 1`] = `
+exports[`types.ts - {"quoteProps":"as-needed"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -382,7 +382,7 @@ type U = {
 ================================================================================
 `;
 
-exports[`types.ts - {"quoteProps":"consistent"} format[typescript] 1`] = `
+exports[`types.ts - {"quoteProps":"consistent"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -413,7 +413,7 @@ type U = {
 ================================================================================
 `;
 
-exports[`types.ts - {"quoteProps":"preserve"} format[typescript] 1`] = `
+exports[`types.ts - {"quoteProps":"preserve"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

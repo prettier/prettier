@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`boolean-expression.js format[babel] 1`] = `
+exports[`boolean-expression.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -122,7 +122,7 @@ if (
 ================================================================================
 `;
 
-exports[`real-world-cases.js format[babel] 1`] = `
+exports[`real-world-cases.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -205,7 +205,7 @@ if (
 ================================================================================
 `;
 
-exports[`unary-expression.js format[babel] 1`] = `
+exports[`unary-expression.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80

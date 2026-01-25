@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`call-expression.js format[babel] 1`] = `
+exports[`call-expression.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
@@ -62,7 +62,7 @@ a?.b()?.();
 ================================================================================
 `;
 
-exports[`issue-15785-1.js format[babel] 1`] = `
+exports[`issue-15785-1.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
@@ -89,7 +89,7 @@ function someFunctionName() {
 ================================================================================
 `;
 
-exports[`issue-15785-2.js format[babel] 1`] = `
+exports[`issue-15785-2.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
@@ -113,7 +113,7 @@ const theValue2 = Object.entries(someLongObjectName).filter(([listingId]) =>
 ================================================================================
 `;
 
-exports[`issue-15785-3.js format[babel] 1`] = `
+exports[`issue-15785-3.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
@@ -137,7 +137,7 @@ logger.log(
 ================================================================================
 `;
 
-exports[`issue-15912.js format[babel] 1`] = `
+exports[`issue-15912.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
@@ -153,7 +153,7 @@ test().test2().test2(thing?.something);
 ================================================================================
 `;
 
-exports[`issue-15916.js format[babel] 1`] = `
+exports[`issue-15916.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
@@ -182,7 +182,7 @@ const randomFuncion = (value) => {
 ================================================================================
 `;
 
-exports[`member-chain.js format[babel] 1`] = `
+exports[`member-chain.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
@@ -221,7 +221,7 @@ bifornCringerMoshedPerplexSawder =
 ================================================================================
 `;
 
-exports[`member-expression.js format[babel] 1`] = `
+exports[`member-expression.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
@@ -289,7 +289,7 @@ a?.b?.c;
 ================================================================================
 `;
 
-exports[`new-expression.js format[babel] 1`] = `
+exports[`new-expression.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
@@ -349,7 +349,7 @@ new (a?.b?.c)();
 ================================================================================
 `;
 
-exports[`number.js format[babel] 1`] = `
+exports[`number.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
@@ -395,7 +395,7 @@ a?.[1].toString;
 ================================================================================
 `;
 
-exports[`tagged-template-literals.js format[babel] 1`] = `
+exports[`tagged-template-literals.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
@@ -450,7 +450,7 @@ a(b?.c)\`\`;
 ================================================================================
 `;
 
-exports[`test.js format[babel] 1`] = `
+exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
@@ -478,7 +478,7 @@ new (a?.())();
 ================================================================================
 `;
 
-exports[`test-2.js format[babel] 1`] = `
+exports[`test-2.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
@@ -504,7 +504,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`test-3.js format[babel] 1`] = `
+exports[`test-3.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
@@ -530,7 +530,7 @@ function getLanguageByInterpreter(languages, file) {
 ================================================================================
 `;
 
-exports[`test-4.js format[babel] 1`] = `
+exports[`test-4.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80

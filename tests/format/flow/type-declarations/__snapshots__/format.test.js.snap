@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`declare_export.js - {"semi":false} format[flow] 1`] = `
+exports[`declare_export.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -15,7 +15,7 @@ declare export default 5
 ================================================================================
 `;
 
-exports[`declare_export.js format[flow] 1`] = `
+exports[`declare_export.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -29,7 +29,7 @@ declare export default 5;
 ================================================================================
 `;
 
-exports[`declare_module.js - {"semi":false} format[flow] 1`] = `
+exports[`declare_module.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -53,7 +53,7 @@ declare module baz {
 ================================================================================
 `;
 
-exports[`declare_module.js format[flow] 1`] = `
+exports[`declare_module.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -76,7 +76,7 @@ declare module baz {
 ================================================================================
 `;
 
-exports[`declare_namespace.js - {"semi":false} format[flow] 1`] = `
+exports[`declare_namespace.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -95,7 +95,7 @@ declare namespace foo {
 ================================================================================
 `;
 
-exports[`declare_namespace.js format[flow] 1`] = `
+exports[`declare_namespace.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -113,7 +113,7 @@ declare namespace foo {
 ================================================================================
 `;
 
-exports[`declare_type.js - {"semi":false} format[flow] 1`] = `
+exports[`declare_type.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -128,7 +128,7 @@ declare type A = string
 ================================================================================
 `;
 
-exports[`declare_type.js format[flow] 1`] = `
+exports[`declare_type.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -142,7 +142,7 @@ declare type A = string;
 ================================================================================
 `;
 
-exports[`declare_var.js - {"semi":false} format[flow] 1`] = `
+exports[`declare_var.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -157,7 +157,7 @@ declare var bool: React$PropType$Primitive<boolean>
 ================================================================================
 `;
 
-exports[`declare_var.js format[flow] 1`] = `
+exports[`declare_var.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -171,7 +171,7 @@ declare var bool: React$PropType$Primitive<boolean>;
 ================================================================================
 `;
 
-exports[`long.js - {"semi":false} format[flow] 1`] = `
+exports[`long.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -203,7 +203,7 @@ type SomeOtherLongLongLongLongLongLongLongLongLongLongLongLongLongLongKey2 =
 ================================================================================
 `;
 
-exports[`long.js format[flow] 1`] = `
+exports[`long.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -234,7 +234,7 @@ type SomeOtherLongLongLongLongLongLongLongLongLongLongLongLongLongLongKey2 =
 ================================================================================
 `;
 
-exports[`opaque.js - {"semi":false} format[flow] 1`] = `
+exports[`opaque.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -303,7 +303,7 @@ declare opaque type Counter
 ================================================================================
 `;
 
-exports[`opaque.js format[flow] 1`] = `
+exports[`opaque.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

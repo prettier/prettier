@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`no-arguments.js format[babel] 1`] = `
+exports[`no-arguments.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -107,7 +107,7 @@ call
 ================================================================================
 `;
 
-exports[`special-cases.js format[babel] 1`] = `
+exports[`special-cases.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80

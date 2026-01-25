@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`15934.component.ts - {"trailingComma":"es5"} format[typescript] 1`] = `
+exports[`15934.component.ts - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -39,7 +39,7 @@ export class AppComponent {}
 ================================================================================
 `;
 
-exports[`15934.component.ts - {"trailingComma":"none"} format[typescript] 1`] = `
+exports[`15934.component.ts - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -78,7 +78,7 @@ export class AppComponent {}
 ================================================================================
 `;
 
-exports[`15934-computed.component.ts - {"trailingComma":"es5"} format[typescript] 1`] = `
+exports[`15934-computed.component.ts - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -117,7 +117,7 @@ export class AppComponent {}
 ================================================================================
 `;
 
-exports[`15934-computed.component.ts - {"trailingComma":"none"} format[typescript] 1`] = `
+exports[`15934-computed.component.ts - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -156,7 +156,7 @@ export class AppComponent {}
 ================================================================================
 `;
 
-exports[`15969-computed.component.ts - {"trailingComma":"es5"} format[typescript] 1`] = `
+exports[`15969-computed.component.ts - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -185,7 +185,7 @@ export class AppComponent {}
 ================================================================================
 `;
 
-exports[`15969-computed.component.ts - {"trailingComma":"none"} format[typescript] 1`] = `
+exports[`15969-computed.component.ts - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -214,7 +214,7 @@ export class AppComponent {}
 ================================================================================
 `;
 
-exports[`test.component.ts - {"trailingComma":"es5"} format[typescript] 1`] = `
+exports[`test.component.ts - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -261,7 +261,7 @@ class TestComponent {}
 ================================================================================
 `;
 
-exports[`test.component.ts - {"trailingComma":"none"} format[typescript] 1`] = `
+exports[`test.component.ts - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

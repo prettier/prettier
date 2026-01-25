@@ -470,16 +470,7 @@ exports[`invalid-inc-prefix.js format[oxc] 1`] = `
   2 |"
 `;
 
-exports[`valid-complex-case.js format[acorn] 1`] = `
-"The keyword 'let' is reserved (1:1)
-> 1 | let?.()[a] =1;
-    | ^
-  2 | let?.[a] = 1;
-  3 |
-Cause: The keyword 'let' is reserved (1:0)"
-`;
-
-exports[`valid-complex-case.js format[babel] 1`] = `
+exports[`valid-complex-case.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -493,6 +484,15 @@ let?.()[a] = 1;
 let?.[a] = 1;
 
 ================================================================================
+`;
+
+exports[`valid-complex-case.js format[acorn] 1`] = `
+"The keyword 'let' is reserved (1:1)
+> 1 | let?.()[a] =1;
+    | ^
+  2 | let?.[a] = 1;
+  3 |
+Cause: The keyword 'let' is reserved (1:0)"
 `;
 
 exports[`valid-complex-case.js format[espree] 1`] = `
@@ -521,15 +521,7 @@ exports[`valid-complex-case.js format[oxc] 1`] = `
   3 |"
 `;
 
-exports[`valid-lhs-eq.js format[acorn] 1`] = `
-"Optional chaining cannot appear in left-hand side (1:1)
-> 1 | a?.b.c = d;
-    | ^
-  2 |
-Cause: Optional chaining cannot appear in left-hand side (1:0)"
-`;
-
-exports[`valid-lhs-eq.js format[babel] 1`] = `
+exports[`valid-lhs-eq.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -541,6 +533,14 @@ a?.b.c = d;
 a?.b.c = d;
 
 ================================================================================
+`;
+
+exports[`valid-lhs-eq.js format[acorn] 1`] = `
+"Optional chaining cannot appear in left-hand side (1:1)
+> 1 | a?.b.c = d;
+    | ^
+  2 |
+Cause: Optional chaining cannot appear in left-hand side (1:0)"
 `;
 
 exports[`valid-lhs-eq.js format[espree] 1`] = `
@@ -558,15 +558,7 @@ exports[`valid-lhs-eq.js format[oxc] 1`] = `
   2 |"
 `;
 
-exports[`valid-lhs-plus-eq.js format[acorn] 1`] = `
-"Optional chaining cannot appear in left-hand side (1:1)
-> 1 | a?.b.c += d;
-    | ^
-  2 |
-Cause: Optional chaining cannot appear in left-hand side (1:0)"
-`;
-
-exports[`valid-lhs-plus-eq.js format[babel] 1`] = `
+exports[`valid-lhs-plus-eq.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -578,6 +570,14 @@ a?.b.c += d;
 a?.b.c += d;
 
 ================================================================================
+`;
+
+exports[`valid-lhs-plus-eq.js format[acorn] 1`] = `
+"Optional chaining cannot appear in left-hand side (1:1)
+> 1 | a?.b.c += d;
+    | ^
+  2 |
+Cause: Optional chaining cannot appear in left-hand side (1:0)"
 `;
 
 exports[`valid-lhs-plus-eq.js format[espree] 1`] = `
@@ -595,15 +595,7 @@ exports[`valid-lhs-plus-eq.js format[oxc] 1`] = `
   2 |"
 `;
 
-exports[`valid-parenthesized.js format[acorn] 1`] = `
-"Optional chaining cannot appear in left-hand side (1:2)
-> 1 | (a?.b) = c;
-    |  ^
-  2 |
-Cause: Optional chaining cannot appear in left-hand side (1:1)"
-`;
-
-exports[`valid-parenthesized.js format[babel] 1`] = `
+exports[`valid-parenthesized.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -615,6 +607,14 @@ printWidth: 80
 a?.b = c;
 
 ================================================================================
+`;
+
+exports[`valid-parenthesized.js format[acorn] 1`] = `
+"Optional chaining cannot appear in left-hand side (1:2)
+> 1 | (a?.b) = c;
+    |  ^
+  2 |
+Cause: Optional chaining cannot appear in left-hand side (1:1)"
 `;
 
 exports[`valid-parenthesized.js format[espree] 1`] = `

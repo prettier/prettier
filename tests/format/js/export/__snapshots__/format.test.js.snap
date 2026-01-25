@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`blank-line-between-specifiers.js - {"bracketSpacing":false} format[babel] 1`] = `
+exports[`blank-line-between-specifiers.js - {"bracketSpacing":false} format 1`] = `
 ====================================options=====================================
 bracketSpacing: false
 parsers: ["babel", "flow", "typescript"]
@@ -55,7 +55,7 @@ export {
 ================================================================================
 `;
 
-exports[`blank-line-between-specifiers.js format[babel] 1`] = `
+exports[`blank-line-between-specifiers.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -109,7 +109,7 @@ export {
 ================================================================================
 `;
 
-exports[`bracket.js - {"bracketSpacing":false} format[babel] 1`] = `
+exports[`bracket.js - {"bracketSpacing":false} format 1`] = `
 ====================================options=====================================
 bracketSpacing: false
 parsers: ["babel", "flow", "typescript"]
@@ -164,7 +164,7 @@ export {fitsIn, oneLine};
 ================================================================================
 `;
 
-exports[`bracket.js format[babel] 1`] = `
+exports[`bracket.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -218,7 +218,7 @@ export { fitsIn, oneLine };
 ================================================================================
 `;
 
-exports[`empty.js - {"bracketSpacing":false} format[babel] 1`] = `
+exports[`empty.js - {"bracketSpacing":false} format 1`] = `
 ====================================options=====================================
 bracketSpacing: false
 parsers: ["babel", "flow", "typescript"]
@@ -235,7 +235,7 @@ export {} from ".";
 ================================================================================
 `;
 
-exports[`empty.js format[babel] 1`] = `
+exports[`empty.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -251,7 +251,7 @@ export {} from ".";
 ================================================================================
 `;
 
-exports[`same-local-and-exported.js - {"bracketSpacing":false} format[babel] 1`] = `
+exports[`same-local-and-exported.js - {"bracketSpacing":false} format 1`] = `
 ====================================options=====================================
 bracketSpacing: false
 parsers: ["babel", "flow", "typescript"]
@@ -270,7 +270,7 @@ export {c as /* comment */ c} from "c";
 ================================================================================
 `;
 
-exports[`same-local-and-exported.js format[babel] 1`] = `
+exports[`same-local-and-exported.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -288,7 +288,7 @@ export { c as /* comment */ c } from "c";
 ================================================================================
 `;
 
-exports[`test.js - {"bracketSpacing":false} format[babel] 1`] = `
+exports[`test.js - {"bracketSpacing":false} format 1`] = `
 ====================================options=====================================
 bracketSpacing: false
 parsers: ["babel", "flow", "typescript"]
@@ -317,7 +317,7 @@ export * as foo from "./baz";
 ================================================================================
 `;
 
-exports[`test.js format[babel] 1`] = `
+exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -345,15 +345,7 @@ export * as foo from "./baz";
 ================================================================================
 `;
 
-exports[`undefined.js - {"bracketSpacing":false} format[acorn] 1`] = `
-"Export 'undefinedExport' is not defined (1:10)
-> 1 | export { undefinedExport };
-    |          ^
-  2 |
-Cause: Export 'undefinedExport' is not defined (1:9)"
-`;
-
-exports[`undefined.js - {"bracketSpacing":false} format[babel] 1`] = `
+exports[`undefined.js - {"bracketSpacing":false} format 1`] = `
 ====================================options=====================================
 bracketSpacing: false
 parsers: ["babel", "flow", "typescript"]
@@ -368,6 +360,14 @@ export {undefinedExport};
 ================================================================================
 `;
 
+exports[`undefined.js - {"bracketSpacing":false} format[acorn] 1`] = `
+"Export 'undefinedExport' is not defined (1:10)
+> 1 | export { undefinedExport };
+    |          ^
+  2 |
+Cause: Export 'undefinedExport' is not defined (1:9)"
+`;
+
 exports[`undefined.js - {"bracketSpacing":false} format[espree] 1`] = `
 "Export 'undefinedExport' is not defined (1:10)
 > 1 | export { undefinedExport };
@@ -376,15 +376,7 @@ exports[`undefined.js - {"bracketSpacing":false} format[espree] 1`] = `
 Cause: Export 'undefinedExport' is not defined"
 `;
 
-exports[`undefined.js format[acorn] 1`] = `
-"Export 'undefinedExport' is not defined (1:10)
-> 1 | export { undefinedExport };
-    |          ^
-  2 |
-Cause: Export 'undefinedExport' is not defined (1:9)"
-`;
-
-exports[`undefined.js format[babel] 1`] = `
+exports[`undefined.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -396,6 +388,14 @@ export { undefinedExport };
 export { undefinedExport };
 
 ================================================================================
+`;
+
+exports[`undefined.js format[acorn] 1`] = `
+"Export 'undefinedExport' is not defined (1:10)
+> 1 | export { undefinedExport };
+    |          ^
+  2 |
+Cause: Export 'undefinedExport' is not defined (1:9)"
 `;
 
 exports[`undefined.js format[espree] 1`] = `

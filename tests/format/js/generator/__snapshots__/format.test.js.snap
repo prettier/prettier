@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`anonymous.js format[babel] 1`] = `
+exports[`anonymous.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
@@ -52,7 +52,7 @@ const f3 = function* () {};
 ================================================================================
 `;
 
-exports[`async.js format[babel] 1`] = `
+exports[`async.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
@@ -94,7 +94,7 @@ const f = async function* (source, block, opts) {
 ================================================================================
 `;
 
-exports[`function-name-starts-with-get.js format[babel] 1`] = `
+exports[`function-name-starts-with-get.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80

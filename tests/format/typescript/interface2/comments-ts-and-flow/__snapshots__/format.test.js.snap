@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`18216.ts format[typescript] 1`] = `
+exports[`18216.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow"]
 printWidth: 80
@@ -60,7 +60,7 @@ class TSAbstractMethodDefinitionNonComputedName6
 ================================================================================
 `;
 
-exports[`18216-mutiple-clauses.ts format[typescript] 1`] = `
+exports[`18216-mutiple-clauses.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow"]
 printWidth: 80
@@ -120,7 +120,7 @@ class TSAbstractMethodDefinitionNonComputedName6
 ================================================================================
 `;
 
-exports[`18216-type-parameters.ts format[typescript] 1`] = `
+exports[`18216-type-parameters.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow"]
 printWidth: 80
@@ -180,7 +180,7 @@ class TSAbstractMethodDefinitionNonComputedName6<Foo>
 ================================================================================
 `;
 
-exports[`18216-type-parameters-mutiple-clauses.ts format[typescript] 1`] = `
+exports[`18216-type-parameters-mutiple-clauses.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow"]
 printWidth: 80

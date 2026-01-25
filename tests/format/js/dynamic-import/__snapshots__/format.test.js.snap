@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`assertions.js format[babel] 1`] = `
+exports[`assertions.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -10,6 +10,32 @@ import("./foo.json", { assert: { type: "json" } });
 
 =====================================output=====================================
 import("./foo.json", { assert: { type: "json" } });
+
+================================================================================
+`;
+
+exports[`import-phase.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import.source(\`data:text/javascript,
+    console.log("RUN");
+\`)
+
+import.source(String.raw\`data:text/javascript,
+    console.log("RUN");
+\`)
+
+=====================================output=====================================
+import.source(\`data:text/javascript,
+    console.log("RUN");
+\`);
+
+import.source(String.raw\`data:text/javascript,
+    console.log("RUN");
+\`);
 
 ================================================================================
 `;
@@ -22,32 +48,6 @@ exports[`import-phase.js format[acorn] 1`] = `
   3 | \`)
   4 |
 Cause: The only valid meta property for import is 'import.meta' (1:7)"
-`;
-
-exports[`import-phase.js format[babel] 1`] = `
-====================================options=====================================
-parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-import.source(\`data:text/javascript,
-    console.log("RUN");
-\`)
-
-import.source(String.raw\`data:text/javascript,
-    console.log("RUN");
-\`)
-
-=====================================output=====================================
-import.source(\`data:text/javascript,
-    console.log("RUN");
-\`);
-
-import.source(String.raw\`data:text/javascript,
-    console.log("RUN");
-\`);
-
-================================================================================
 `;
 
 exports[`import-phase.js format[espree] 1`] = `
@@ -94,7 +94,7 @@ exports[`import-phase.js format[meriyah] 1`] = `
 Cause: [1:7-1:13]: The only valid meta property for import is 'import.meta'"
 `;
 
-exports[`template-literal.js format[babel] 1`] = `
+exports[`template-literal.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -141,7 +141,7 @@ module   =   await import(\`data:text/javascript,
                    ^"
 `;
 
-exports[`test.js format[babel] 1`] = `
+exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80

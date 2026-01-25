@@ -1,18 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`call-arguments.js format[acorn] 1`] = `
-"Unexpected token (3:3)
-  1 | // from https://github.com/babel/babel/pull/13122/
-  2 | expect(
-> 3 |   do {
-    |   ^
-  4 |     var bar = "foo";
-  5 |     if (!bar) throw new Error(
-  6 |       "unreachable"
-Cause: Unexpected token (3:2)"
-`;
-
-exports[`call-arguments.js format[babel] 1`] = `
+exports[`call-arguments.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -98,6 +86,18 @@ expect(
 ================================================================================
 `;
 
+exports[`call-arguments.js format[acorn] 1`] = `
+"Unexpected token (3:3)
+  1 | // from https://github.com/babel/babel/pull/13122/
+  2 | expect(
+> 3 |   do {
+    |   ^
+  4 |     var bar = "foo";
+  5 |     if (!bar) throw new Error(
+  6 |       "unreachable"
+Cause: Unexpected token (3:2)"
+`;
+
 exports[`call-arguments.js format[espree] 1`] = `
 "Unexpected token do (3:3)
   1 | // from https://github.com/babel/babel/pull/13122/
@@ -133,19 +133,7 @@ exports[`call-arguments.js format[oxc] 1`] = `
   6 |       "unreachable""
 `;
 
-exports[`do.js format[acorn] 1`] = `
-"Unexpected token (3:5)
-  1 | const envSpecific = {
-  2 |   domain:
-> 3 |     do {
-    |     ^
-  4 |       if(env === 'production') 'https://abc.mno.com/';
-  5 |       else if(env === 'development') 'http://localhost:4000';
-  6 |     }
-Cause: Unexpected token (3:4)"
-`;
-
-exports[`do.js format[babel] 1`] = `
+exports[`do.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -294,6 +282,18 @@ function foo() {
 };
 
 ================================================================================
+`;
+
+exports[`do.js format[acorn] 1`] = `
+"Unexpected token (3:5)
+  1 | const envSpecific = {
+  2 |   domain:
+> 3 |     do {
+    |     ^
+  4 |       if(env === 'production') 'https://abc.mno.com/';
+  5 |       else if(env === 'development') 'http://localhost:4000';
+  6 |     }
+Cause: Unexpected token (3:4)"
 `;
 
 exports[`do.js format[espree] 1`] = `

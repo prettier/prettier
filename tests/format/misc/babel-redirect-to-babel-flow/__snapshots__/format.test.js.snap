@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`block-comment.js format[babel] 1`] = `
+exports[`block-comment.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -18,7 +18,7 @@ foo = { "1": bar }; // "1" should quoted
 ================================================================================
 `;
 
-exports[`block-comment-2.js format[babel] 1`] = `
+exports[`block-comment-2.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -36,7 +36,7 @@ foo = { "1": bar }; // "1" should quoted
 ================================================================================
 `;
 
-exports[`filename.js.flow format[babel] 1`] = `
+exports[`filename.js.flow format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -50,7 +50,7 @@ foo = { "1": bar }; // "1" should quoted
 ================================================================================
 `;
 
-exports[`inline-comment.js format[babel] 1`] = `
+exports[`inline-comment.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -68,7 +68,7 @@ foo = { "1": bar }; // "1" should quoted
 ================================================================================
 `;
 
-exports[`inline-comment-2.js format[babel] 1`] = `
+exports[`inline-comment-2.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -86,7 +86,7 @@ foo = { "1": bar }; // "1" should quoted
 ================================================================================
 `;
 
-exports[`inline-comment-3.js format[babel] 1`] = `
+exports[`inline-comment-3.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -106,7 +106,7 @@ foo = { "1": bar }; // "1" should quoted
 ================================================================================
 `;
 
-exports[`like-a-pragma.js format[babel] 1`] = `
+exports[`like-a-pragma.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -124,7 +124,7 @@ foo = { "1": bar }; // "1" should quoted
 ================================================================================
 `;
 
-exports[`not-flow.js format[babel] 1`] = `
+exports[`not-flow.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -138,7 +138,7 @@ foo = { 1: bar }; // "1" should unquoted
 ================================================================================
 `;
 
-exports[`not-flow-2.js format[babel] 1`] = `
+exports[`not-flow-2.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -156,7 +156,7 @@ foo = { 1: bar }; // "1" should unquoted
 ================================================================================
 `;
 
-exports[`not-flow-3.js format[babel] 1`] = `
+exports[`not-flow-3.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -172,7 +172,7 @@ foo = { 1: bar }; // "1" should unquoted
 ================================================================================
 `;
 
-exports[`not-flow-4.js format[babel] 1`] = `
+exports[`not-flow-4.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -188,7 +188,7 @@ foo = { 1: bar }; // "1" should unquoted
 ================================================================================
 `;
 
-exports[`not-flow-5.js format[babel] 1`] = `
+exports[`not-flow-5.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -204,7 +204,7 @@ foo = { 1: bar }; // "1" should unquoted
 ================================================================================
 `;
 
-exports[`pragma.js format[babel] 1`] = `
+exports[`pragma.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -226,7 +226,7 @@ foo = { "1": bar }; // "1" should quoted
 ================================================================================
 `;
 
-exports[`pragma-2.js format[babel] 1`] = `
+exports[`pragma-2.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -248,7 +248,7 @@ foo = { "1": bar }; // "1" should quoted
 ================================================================================
 `;
 
-exports[`pragma-react.js format[babel] 1`] = `
+exports[`pragma-react.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -284,7 +284,7 @@ foo = { "1": bar }; // "1" should quoted
 ================================================================================
 `;
 
-exports[`shebang-inline-comment.js format[babel] 1`] = `
+exports[`shebang-inline-comment.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -306,7 +306,7 @@ foo = { "1": bar }; // "1" should quoted
 ================================================================================
 `;
 
-exports[`shebang-pragma.js format[babel] 1`] = `
+exports[`shebang-pragma.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80

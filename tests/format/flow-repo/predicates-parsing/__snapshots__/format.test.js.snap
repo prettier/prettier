@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`fail-0.js format[flow] 1`] = `
+exports[`fail-0.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -22,7 +22,7 @@ declare function f2(x: mixed): boolean %checks;
 ================================================================================
 `;
 
-exports[`fail-1.js format[flow] 1`] = `
+exports[`fail-1.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -44,7 +44,7 @@ function f6(x: mixed): %checks(x !== null) {}
 ================================================================================
 `;
 
-exports[`fail-2.js format[flow] 1`] = `
+exports[`fail-2.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -68,7 +68,7 @@ var a2 = (x: mixed): %checks(x !== null) => {
 ================================================================================
 `;
 
-exports[`fail-3.js format[flow] 1`] = `
+exports[`fail-3.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -96,7 +96,7 @@ var a2 = (x: mixed): %checks(x !== null) => x !== null;
 ================================================================================
 `;
 
-exports[`pass.js format[flow] 1`] = `
+exports[`pass.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

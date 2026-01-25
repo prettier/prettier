@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`import-type.ts - {"singleQuote":true} format[typescript] 1`] = `
+exports[`import-type.ts - {"singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -43,7 +43,7 @@ type X = A<import('B').C<any>>;
 ================================================================================
 `;
 
-exports[`import-type.ts format[typescript] 1`] = `
+exports[`import-type.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

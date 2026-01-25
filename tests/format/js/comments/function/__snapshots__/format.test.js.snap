@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`18146.js format[babel] 1`] = `
+exports[`18146.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -155,7 +155,7 @@ a = [
 ================================================================================
 `;
 
-exports[`between-parentheses-and-function-body.js format[babel] 1`] = `
+exports[`between-parentheses-and-function-body.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80

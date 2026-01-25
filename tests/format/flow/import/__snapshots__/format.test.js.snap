@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`import-as-as.js format[flow] 1`] = `
+exports[`import-as-as.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -18,7 +18,7 @@ import { as as foo } from "foo";
 ================================================================================
 `;
 
-exports[`import-as-as2.js format[flow] 1`] = `
+exports[`import-as-as2.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -34,7 +34,7 @@ import { as as as } from "foo";
 ================================================================================
 `;
 
-exports[`type-import-as-as.js format[flow] 1`] = `
+exports[`type-import-as-as.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

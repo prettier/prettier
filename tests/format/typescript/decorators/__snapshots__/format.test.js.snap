@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`accessor.ts format[typescript] 1`] = `
+exports[`accessor.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -26,7 +26,7 @@ class A {
 ================================================================================
 `;
 
-exports[`argument-list-preserve-line.ts format[typescript] 1`] = `
+exports[`argument-list-preserve-line.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -63,7 +63,7 @@ class Foo {
 ================================================================================
 `;
 
-exports[`comments.ts format[typescript] 1`] = `
+exports[`comments.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -85,7 +85,7 @@ class Something {
 ================================================================================
 `;
 
-exports[`decorator-type-assertion.ts format[typescript] 1`] = `
+exports[`decorator-type-assertion.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -111,7 +111,7 @@ class Decorated {}
 ================================================================================
 `;
 
-exports[`decorators.ts format[typescript] 1`] = `
+exports[`decorators.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -261,7 +261,7 @@ class Class6 {
 ================================================================================
 `;
 
-exports[`decorators-comments.ts format[typescript] 1`] = `
+exports[`decorators-comments.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -344,7 +344,7 @@ class Something2 {
 ================================================================================
 `;
 
-exports[`inline-decorators.ts format[typescript] 1`] = `
+exports[`inline-decorators.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -456,7 +456,7 @@ class MyContainerComponent {
 ================================================================================
 `;
 
-exports[`legacy.ts format[typescript] 1`] = `
+exports[`legacy.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -494,7 +494,7 @@ class B {
 ================================================================================
 `;
 
-exports[`mobx.ts format[typescript] 1`] = `
+exports[`mobx.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

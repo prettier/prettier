@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`export-star.js format[babel] 1`] = `
+exports[`export-star.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -15,7 +15,7 @@ export * from "mod";
 ================================================================================
 `;
 
-exports[`export-star-as.js format[babel] 1`] = `
+exports[`export-star-as.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -30,7 +30,7 @@ export * as ns from "mod";
 ================================================================================
 `;
 
-exports[`export-star-as-default.js format[babel] 1`] = `
+exports[`export-star-as-default.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -44,7 +44,7 @@ export * as default from "foo";
 ================================================================================
 `;
 
-exports[`export-star-as-reserved-word.js format[babel] 1`] = `
+exports[`export-star-as-reserved-word.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -64,7 +64,7 @@ export * as from from "foo";
 ================================================================================
 `;
 
-exports[`export-star-as-string.js format[babel] 1`] = `
+exports[`export-star-as-string.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -95,7 +95,7 @@ export * as 'foo' from 'foo'
 ~~~~~~~~~~~~^"
 `;
 
-exports[`export-star-as-string2.js format[babel] 1`] = `
+exports[`export-star-as-string2.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
