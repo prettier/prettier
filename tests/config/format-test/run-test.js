@@ -51,7 +51,8 @@ function testFixture(fixture) {
 @param {string} parser
 */
 function getTestCase(fixture, parser) {
-  const { code, context, options, filepath } = fixture;
+  const { code, context, filepath } = fixture;
+  const { options } = context;
   const formatOptions = { filepath, ...options, parser };
   const expectFail = shouldThrowOnFormat(fixture, options, parser);
   /** @type {ReturnType<format> | undefined} */
@@ -60,6 +61,7 @@ function getTestCase(fixture, parser) {
   return {
     context,
     parser,
+    filepath,
     code,
     formatOptions,
     expectFail,

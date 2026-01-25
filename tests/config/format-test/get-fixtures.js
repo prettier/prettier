@@ -70,10 +70,7 @@ function* getSnippets(context) {
 
     testCase.name = `snippet: ${testCase.name || `#${index}`}`;
 
-    if (
-      typeof testCase.filepath !== "string" &&
-      typeof testCase.filename === "string"
-    ) {
+    if (typeof testCase.filename === "string") {
       testCase.filepath = path.join(context.dirname, testCase.filename);
     }
 
