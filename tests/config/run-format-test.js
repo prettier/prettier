@@ -65,10 +65,11 @@ function runFormatTest(fixtures, parsers, options = {}) {
 
   const dirname = path.dirname(url.fileURLToPath(importMeta.url));
 
-  // Files in `_errors_` mean to watch errors like:
+  // `IS_ERROR_TEST` mean to watch errors like:
   // - syntax parser hasn't supported yet
   // - syntax errors that should throws
-  if (dirname.includes(`${path.sep}_errors${path.sep}`)) {
+  const IS_ERROR_TEST = dirname.includes(`${path.sep}_errors${path.sep}`);
+  if (IS_ERROR_TEST) {
     options = { errors: true, ...options };
   }
 
@@ -121,6 +122,10 @@ function runFormatTest(fixtures, parsers, options = {}) {
 
   const allParsers = [...parsers];
   const addParsers = (...parsers) => {
+    if (IS_ERROR_TEST) {
+      return;
+    }
+
     for (const parser of parsers) {
       if (
         !allParsers.includes(parser) &&
