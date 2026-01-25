@@ -38,14 +38,6 @@ const categoryParsers = new Map([
     },
   ],
   [
-    "flow-repo",
-    {
-      parsers: ["flow", "babel-flow"],
-      verifyParsers: ["flow", "babel-flow", "typescript", "babel-ts"],
-      extensions: [".js", ".cjs", ".mjs"],
-    },
-  ],
-  [
     "graphql",
     { parsers: ["graphql"], verifyParsers: [], extensions: [".graphql"] },
   ],
@@ -147,10 +139,6 @@ const categoryParsers = new Map([
       verifyParsers: ["css", "less"],
       extensions: [".scss", ".unknown"],
     },
-  ],
-  [
-    "stylefmt-repo",
-    { parsers: ["css", "scss"], verifyParsers: [], extensions: [".css"] },
   ],
   [
     "typescript",

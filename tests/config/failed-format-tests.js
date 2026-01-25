@@ -90,7 +90,7 @@ const disabledTests = new Map(
 
       // Not supported
       "flow/comments/",
-      "flow-repo/union_new/",
+      "flow/flow-repo/union_new/",
 
       // Different result
       "flow/hook/comments-before-arrow.js",
