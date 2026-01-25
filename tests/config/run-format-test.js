@@ -63,7 +63,9 @@ function runFormatTest(fixtures, parsers, options = {}) {
     throw new Error(`Format test should run in file named 'format.test.js'.`);
   }
 
-  const dirname = path.dirname(url.fileURLToPath(importMeta.url)) + path.sep;
+  const dirname = path.normalize(
+    path.dirname(url.fileURLToPath(importMeta.url)) + path.sep,
+  );
 
   // `IS_ERROR_TEST` mean to watch errors like:
   // - syntax parser hasn't supported yet
