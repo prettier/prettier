@@ -23,7 +23,6 @@ function testEndOfLine(testCase, name, eol) {
       format(text, options),
     ]);
 
-    // Only if `endOfLine: "auto"` the result will be different
     const expected =
       options.endOfLine === "auto"
         ? visualizeEndOfLine(
@@ -42,6 +41,12 @@ function testEndOfLine(testCase, name, eol) {
 */
 function shouldSkip(testCase) {
   if (testCase.expectFail || testCase.isEmpty || testCase.code.includes("\r")) {
+    return true;
+  }
+
+  // They may prevent code been formatted
+  const { requirePragma, checkIgnorePragma } = testCase.formatOptions;
+  if (requirePragma || checkIgnorePragma) {
     return true;
   }
 
