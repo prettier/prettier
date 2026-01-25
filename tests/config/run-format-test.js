@@ -254,6 +254,7 @@ async function runTest({
     expect(formatResult.eolVisualizedOutput).toBe(visualizeEndOfLine(output));
   } else {
     expect(testCaseForSnapshot).toBeDefined();
+    expect(testCaseForSnapshot.formatResult).toBeDefined();
 
     if (testCaseForSnapshot === result) {
       expect(
