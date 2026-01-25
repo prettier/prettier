@@ -68,7 +68,7 @@ function runFormatTest(fixtures, parsers, options = {}) {
   // `IS_ERROR_TEST` mean to watch errors like:
   // - syntax parser hasn't supported yet
   // - syntax errors that should throws
-  const IS_ERROR_TEST = dirname.includes(`${path.sep}_errors${path.sep}`);
+  const IS_ERROR_TEST = dirname.includes(`${path.sep}_errors_${path.sep}`);
   if (IS_ERROR_TEST) {
     options = { errors: true, ...options };
   }
