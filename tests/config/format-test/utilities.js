@@ -24,7 +24,7 @@ const ensurePromise = (value) => {
   return value;
 };
 
-const shouldThrowOnFormat = ({ basename }, options, parser) => {
+const shouldThrowOnFormat = ({ filename }, options, parser) => {
   const { errors = {} } = options;
   if (errors === true) {
     return true;
@@ -32,7 +32,7 @@ const shouldThrowOnFormat = ({ basename }, options, parser) => {
 
   const files = errors[parser];
 
-  if (files === true || (Array.isArray(files) && files.includes(basename))) {
+  if (files === true || (Array.isArray(files) && files.includes(filename))) {
     return true;
   }
 
