@@ -50,12 +50,11 @@ function shouldSkip(testCase) {
     return true;
   }
 
-  // EOL test should not care about these indexes, unless they are directly in the raw options
-  const { rangeStart, rangeEnd, cursorOffset } = testCase.context.options;
+  const { rangeStart, rangeEnd } = testCase.formatOptions;
   if (
-    typeof cursorOffset === "number" ||
-    typeof rangeStart === "number" ||
-    typeof rangeEnd === "number"
+    typeof rangeStart === "number" &&
+    typeof rangeEnd === "number" &&
+    rangeStart >= rangeEnd
   ) {
     return true;
   }
