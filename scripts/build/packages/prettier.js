@@ -272,10 +272,26 @@ const pluginFiles = [
             /,(?<fsModuleNameVariableName>[\p{ID_Start}_$][\p{ID_Continue}$]*)="fs",/u,
           ).groups;
 
-          return text
+          text = text
             .replaceAll(`require(${fsModuleNameVariableName})`, "{}")
             .replaceAll('require("fs")', "{}")
             .replaceAll('require("constants")', "{}");
+
+          const { globalThisVariableName } = text.match(
+            /\(function\((?<globalThisVariableName>[\p{ID_Start}$][\p{ID_Continue}$]*)\)\{"use strict";/u,
+          ).groups;
+
+          // flow-parser adds a global error handler cause the error stack been huge
+          // https://github.com/facebook/flow/issues/9299
+          // NOTE: Can't reproduce in flow-parser@0.298.0, but the code still there
+          // NOTE2: This is not tested
+          text = text.replaceAll(`${globalThisVariableName}.process`, "({})");
+          text = text.replaceAll(
+            `${globalThisVariableName}.addEventListener`,
+            "(() =>{})",
+          );
+
+          return text;
         },
       },
     ],
