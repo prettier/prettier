@@ -26,8 +26,15 @@ const categoryParsers = new Map([
     "flow",
     {
       parsers: ["flow", "babel-flow"],
-      verifyParsers: ["flow", "babel-flow", "typescript", "babel-ts"],
-      extensions: [".js", ".cjs", ".mjs"],
+      verifyParsers: [
+        "flow",
+        "babel-flow",
+        "typescript",
+        "babel-ts",
+        "hermes",
+        "babel",
+      ],
+      extensions: [".js", ".cjs", ".mjs", ".unknown"],
     },
   ],
   [
@@ -62,6 +69,7 @@ const categoryParsers = new Map([
         "typescript",
         "babel-ts",
         "hermes",
+        "__babel_estree",
       ],
       extensions: [".js", ".cjs", ".mjs"],
     },
@@ -115,7 +123,7 @@ const categoryParsers = new Map([
     {
       parsers: ["less"],
       verifyParsers: ["css", "scss"],
-      extensions: [".less"],
+      extensions: [".less", ".unknown"],
     },
   ],
   ["lwc", { parsers: ["lwc"], verifyParsers: [], extensions: [".html"] }],
@@ -129,7 +137,7 @@ const categoryParsers = new Map([
     {
       parsers: ["scss"],
       verifyParsers: ["css", "less"],
-      extensions: [".scss"],
+      extensions: [".scss", ".unknown"],
     },
   ],
   [

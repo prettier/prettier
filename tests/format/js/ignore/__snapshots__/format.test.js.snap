@@ -1,54 +1,5 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`class-expression-decorator.js [acorn] format 1`] = `
-"Unexpected character '@' (3:3)
-  1 | (
-  2 |   // prettier-ignore
-> 3 |   @decorator
-    |   ^
-  4 |   class {}
-  5 | );
-  6 |
-Cause: Unexpected character '@' (3:2)"
-`;
-
-exports[`class-expression-decorator.js [espree] format 1`] = `
-"Unexpected character '@' (3:3)
-  1 | (
-  2 |   // prettier-ignore
-> 3 |   @decorator
-    |   ^
-  4 |   class {}
-  5 | );
-  6 |
-Cause: Unexpected character '@'"
-`;
-
-exports[`class-expression-decorator.js [flow] format 1`] = `
-"Unexpected token \`@\` (3:3)
-  1 | (
-  2 |   // prettier-ignore
-> 3 |   @decorator
-    |   ^
-  4 |   class {}
-  5 | );
-  6 |"
-`;
-
-exports[`class-expression-decorator.js [hermes] format 1`] = `
-"unrecognized character '@' (3:2)
-  1 | (
-  2 |   // prettier-ignore
-> 3 |   @decorator
-    |  ^
-  4 |   class {}
-  5 | );
-  6 |
-Cause: unrecognized character '@' (3:2)
-  @decorator
-  ^"
-`;
-
 exports[`class-expression-decorator.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -71,35 +22,53 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`decorator.js [acorn] format 1`] = `
-"Unexpected character '@' (2:1)
-  1 | // prettier-ignore
-> 2 | @decorator
-    | ^
-  3 | class A {}
-  4 |
-Cause: Unexpected character '@' (2:0)"
+exports[`class-expression-decorator.js format[acorn] 1`] = `
+"Unexpected character '@' (3:3)
+  1 | (
+  2 |   // prettier-ignore
+> 3 |   @decorator
+    |   ^
+  4 |   class {}
+  5 | );
+  6 |
+Cause: Unexpected character '@' (3:2)"
 `;
 
-exports[`decorator.js [espree] format 1`] = `
-"Unexpected character '@' (2:1)
-  1 | // prettier-ignore
-> 2 | @decorator
-    | ^
-  3 | class A {}
-  4 |
+exports[`class-expression-decorator.js format[espree] 1`] = `
+"Unexpected character '@' (3:3)
+  1 | (
+  2 |   // prettier-ignore
+> 3 |   @decorator
+    |   ^
+  4 |   class {}
+  5 | );
+  6 |
 Cause: Unexpected character '@'"
 `;
 
-exports[`decorator.js [hermes] format 1`] = `
-"unrecognized character '@' (2:0)
-  1 | // prettier-ignore
-> 2 | @decorator
-  3 | class A {}
-  4 |
-Cause: unrecognized character '@' (2:0)
-@decorator
-^"
+exports[`class-expression-decorator.js format[flow] 1`] = `
+"Unexpected token \`@\` (3:3)
+  1 | (
+  2 |   // prettier-ignore
+> 3 |   @decorator
+    |   ^
+  4 |   class {}
+  5 | );
+  6 |"
+`;
+
+exports[`class-expression-decorator.js format[hermes] 1`] = `
+"unrecognized character '@' (3:2)
+  1 | (
+  2 |   // prettier-ignore
+> 3 |   @decorator
+    |  ^
+  4 |   class {}
+  5 | );
+  6 |
+Cause: unrecognized character '@' (3:2)
+  @decorator
+  ^"
 `;
 
 exports[`decorator.js format 1`] = `
@@ -118,6 +87,37 @@ class A {}
 class A {}
 
 ================================================================================
+`;
+
+exports[`decorator.js format[acorn] 1`] = `
+"Unexpected character '@' (2:1)
+  1 | // prettier-ignore
+> 2 | @decorator
+    | ^
+  3 | class A {}
+  4 |
+Cause: Unexpected character '@' (2:0)"
+`;
+
+exports[`decorator.js format[espree] 1`] = `
+"Unexpected character '@' (2:1)
+  1 | // prettier-ignore
+> 2 | @decorator
+    | ^
+  3 | class A {}
+  4 |
+Cause: Unexpected character '@'"
+`;
+
+exports[`decorator.js format[hermes] 1`] = `
+"unrecognized character '@' (2:0)
+  1 | // prettier-ignore
+> 2 | @decorator
+  3 | class A {}
+  4 |
+Cause: unrecognized character '@' (2:0)
+@decorator
+^"
 `;
 
 exports[`ignore.js format 1`] = `

@@ -186,12 +186,11 @@ function runFormatTest(fixtures, parsers, options = {}) {
             runFormat: () => format(code, formatOptions),
           };
         });
-      const shouldSnapshotResult = testCases.some(
+      const testCaseForSnapshot = testCases.find(
         (testCase) =>
           !testCase.expectFail && typeof testCase.expectedOutput !== "string",
       );
 
-      let testCaseForSnapshot;
       beforeAll(async () => {
         await Promise.all(
           testCases.map(async (test) => {
@@ -206,16 +205,12 @@ function runFormatTest(fixtures, parsers, options = {}) {
             }
           }),
         );
-
-        testCaseForSnapshot = testCases.find(({ formatResult }) =>
-          Boolean(formatResult),
-        );
       });
 
       const hasMultipleParsers = testCases.length > 1;
 
       for (const testCase of testCases) {
-        const testTitle = `${hasMultipleParsers ? `[${testCase.parser}] ` : ""}format`;
+        const testTitle = `format${testCaseForSnapshot !== testCase && hasMultipleParsers ? `[${testCase.parser}]` : ""}`;
 
         test(testTitle, async () => {
           await runTest({
@@ -225,32 +220,10 @@ function runFormatTest(fixtures, parsers, options = {}) {
             result: testCase,
             testCaseForSnapshot,
           });
-
-          if (shouldSnapshotResult && !hasMultipleParsers) {
-            snapshotFormatResult(testCaseForSnapshot);
-          }
-        });
-      }
-
-      if (shouldSnapshotResult && hasMultipleParsers) {
-        test("format", () => {
-          snapshotFormatResult(testCaseForSnapshot);
         });
       }
     });
   }
-}
-
-function snapshotFormatResult(testCase) {
-  expect(testCase).toBeDefined();
-
-  expect(
-    createSnapshot(testCase.formatResult, {
-      parsers: testCase.explicitParsers,
-      formatOptions: testCase.formatOptions,
-      CURSOR_PLACEHOLDER,
-    }),
-  ).toMatchSnapshot();
 }
 
 async function runTest({
@@ -271,7 +244,6 @@ async function runTest({
   }
 
   expect(formatResult).toBeDefined();
-  expect(testCaseForSnapshot.formatResult).toBeDefined();
 
   // Make sure output has consistent EOL
   expect(formatResult.eolVisualizedOutput).toBe(
@@ -280,10 +252,23 @@ async function runTest({
 
   if (typeof result.expectedOutput === "string") {
     expect(formatResult.eolVisualizedOutput).toBe(visualizeEndOfLine(output));
-  } else if (testCaseForSnapshot !== result) {
-    expect(formatResult.eolVisualizedOutput).toStrictEqual(
-      testCaseForSnapshot.formatResult.eolVisualizedOutput,
-    );
+  } else {
+    expect(testCaseForSnapshot).toBeDefined();
+    expect(testCaseForSnapshot.formatResult).toBeDefined();
+
+    if (testCaseForSnapshot === result) {
+      expect(
+        createSnapshot(testCaseForSnapshot.formatResult, {
+          parsers: testCaseForSnapshot.explicitParsers,
+          formatOptions: testCaseForSnapshot.formatOptions,
+          CURSOR_PLACEHOLDER,
+        }),
+      ).toMatchSnapshot();
+    } else {
+      expect(formatResult.eolVisualizedOutput).toStrictEqual(
+        testCaseForSnapshot.formatResult.eolVisualizedOutput,
+      );
+    }
   }
 
   if (!FULL_TEST) {

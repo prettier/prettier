@@ -14,30 +14,6 @@ import("./foo.json", { assert: { type: "json" } });
 ================================================================================
 `;
 
-exports[`empty.js [babel-ts] format 1`] = `
-"Missing semicolon. (2:32)
-  1 | export * as foo from "foo.json"
-> 2 | export * as bar from "bar.json" assert { }
-    |                                ^
-  3 | export * as baz from "baz.json" assert { /* comment */ }
-  4 |
-  5 | import * as foo from "foo.json"
-Cause: Missing semicolon. (2:31)"
-`;
-
-exports[`empty.js [hermes] format 1`] = `
-"';' expected (2:32)
-  1 | export * as foo from "foo.json"
-> 2 | export * as bar from "bar.json" assert { }
-    |                                ^
-  3 | export * as baz from "baz.json" assert { /* comment */ }
-  4 |
-  5 | import * as foo from "foo.json"
-Cause: ';' expected (2:32)
-export * as bar from "bar.json" assert { }
-                                ^"
-`;
-
 exports[`empty.js format 1`] = `
 ====================================options=====================================
 parsers: ["oxc", "typescript", "hermes"]
@@ -63,28 +39,28 @@ import * as baz from "baz.json" /* comment */ assert {};
 ================================================================================
 `;
 
-exports[`keyword-detect.js [babel-ts] format 1`] = `
-"Missing semicolon. (1:21)
-> 1 | import "./test.json" /* with */ assert /* with */  { type: "json" }
-    |                     ^
-  2 | import {default as b} from "./test.json" /* with */ assert /* with */  { type: "json" }
-  3 |
-  4 | export {default as e} from "./test.json" /* with */ assert /* with */  { type: "json" }
-Cause: Missing semicolon. (1:20)"
+exports[`empty.js format[babel-ts] 1`] = `
+"Missing semicolon. (2:32)
+  1 | export * as foo from "foo.json"
+> 2 | export * as bar from "bar.json" assert { }
+    |                                ^
+  3 | export * as baz from "baz.json" assert { /* comment */ }
+  4 |
+  5 | import * as foo from "foo.json"
+Cause: Missing semicolon. (2:31)"
 `;
 
-exports[`keyword-detect.js [hermes] format 1`] = `
-"';' expected (4:52)
-  2 | import {default as b} from "./test.json" /* with */ assert /* with */  { type: "json" }
-  3 |
-> 4 | export {default as e} from "./test.json" /* with */ assert /* with */  { type: "json" }
-    |                                                    ^
-  5 |
-  6 | export * from "./test.json" /* with */ assert /* with */  { type: "json" }
-  7 |
-Cause: ';' expected (4:52)
-export {default as e} from "./test.json" /* with */ assert /* with */  { type: "json" }
-                                                    ^"
+exports[`empty.js format[hermes] 1`] = `
+"';' expected (2:32)
+  1 | export * as foo from "foo.json"
+> 2 | export * as bar from "bar.json" assert { }
+    |                                ^
+  3 | export * as baz from "baz.json" assert { /* comment */ }
+  4 |
+  5 | import * as foo from "foo.json"
+Cause: ';' expected (2:32)
+export * as bar from "bar.json" assert { }
+                                ^"
 `;
 
 exports[`keyword-detect.js format 1`] = `
@@ -111,12 +87,28 @@ export * from "./test.json" /* with */ /* with */ assert { type: "json" };
 ================================================================================
 `;
 
-exports[`multi-types.js [babel-ts] format 1`] = `
-"Unexpected token (1:58)
-> 1 | import json from "./foo.json" assert { type: "json", type: "bar" };
-    |                                                          ^
-  2 |
-Cause: Unexpected token (1:57)"
+exports[`keyword-detect.js format[babel-ts] 1`] = `
+"Missing semicolon. (1:21)
+> 1 | import "./test.json" /* with */ assert /* with */  { type: "json" }
+    |                     ^
+  2 | import {default as b} from "./test.json" /* with */ assert /* with */  { type: "json" }
+  3 |
+  4 | export {default as e} from "./test.json" /* with */ assert /* with */  { type: "json" }
+Cause: Missing semicolon. (1:20)"
+`;
+
+exports[`keyword-detect.js format[hermes] 1`] = `
+"';' expected (4:52)
+  2 | import {default as b} from "./test.json" /* with */ assert /* with */  { type: "json" }
+  3 |
+> 4 | export {default as e} from "./test.json" /* with */ assert /* with */  { type: "json" }
+    |                                                    ^
+  5 |
+  6 | export * from "./test.json" /* with */ assert /* with */  { type: "json" }
+  7 |
+Cause: ';' expected (4:52)
+export {default as e} from "./test.json" /* with */ assert /* with */  { type: "json" }
+                                                    ^"
 `;
 
 exports[`multi-types.js format 1`] = `
@@ -133,12 +125,12 @@ import json from "./foo.json" assert { type: "json", type: "bar" };
 ================================================================================
 `;
 
-exports[`non-type.js [babel-ts] format 1`] = `
-"Missing semicolon. (1:27)
-> 1 | import foo from "foo.json" assert { lazy: "true" };
-    |                           ^
+exports[`multi-types.js format[babel-ts] 1`] = `
+"Unexpected token (1:58)
+> 1 | import json from "./foo.json" assert { type: "json", type: "bar" };
+    |                                                          ^
   2 |
-Cause: Missing semicolon. (1:26)"
+Cause: Unexpected token (1:57)"
 `;
 
 exports[`non-type.js format 1`] = `
@@ -155,6 +147,14 @@ import foo from "foo.json" assert { lazy: "true" };
 ================================================================================
 `;
 
+exports[`non-type.js format[babel-ts] 1`] = `
+"Missing semicolon. (1:27)
+> 1 | import foo from "foo.json" assert { lazy: "true" };
+    |                           ^
+  2 |
+Cause: Missing semicolon. (1:26)"
+`;
+
 exports[`not-import-assertions.js format 1`] = `
 ====================================options=====================================
 parsers: ["oxc", "typescript", "hermes"]
@@ -169,28 +169,6 @@ import "x";
 assert({ type: "json" });
 
 ================================================================================
-`;
-
-exports[`re-export.js [babel-ts] format 1`] = `
-"Missing semicolon. (1:43)
-> 1 | export { default as foo2 } from "foo.json" assert { type: "json" };
-    |                                           ^
-  2 | export * from "foo.json" assert { type: "json" };
-  3 | export * as foo3 from "foo.json" assert { type: "json" };
-  4 |
-Cause: Missing semicolon. (1:42)"
-`;
-
-exports[`re-export.js [hermes] format 1`] = `
-"';' expected (1:43)
-> 1 | export { default as foo2 } from "foo.json" assert { type: "json" };
-    |                                           ^
-  2 | export * from "foo.json" assert { type: "json" };
-  3 | export * as foo3 from "foo.json" assert { type: "json" };
-  4 |
-Cause: ';' expected (1:43)
-export { default as foo2 } from "foo.json" assert { type: "json" };
-                                           ^"
 `;
 
 exports[`re-export.js format 1`] = `
@@ -211,12 +189,26 @@ export * as foo3 from "foo.json" assert { type: "json" };
 ================================================================================
 `;
 
-exports[`static-import.js [babel-ts] format 1`] = `
-"Missing semicolon. (1:30)
-> 1 | import json from "./foo.json" assert { type: "json" };
-    |                              ^
-  2 |
-Cause: Missing semicolon. (1:29)"
+exports[`re-export.js format[babel-ts] 1`] = `
+"Missing semicolon. (1:43)
+> 1 | export { default as foo2 } from "foo.json" assert { type: "json" };
+    |                                           ^
+  2 | export * from "foo.json" assert { type: "json" };
+  3 | export * as foo3 from "foo.json" assert { type: "json" };
+  4 |
+Cause: Missing semicolon. (1:42)"
+`;
+
+exports[`re-export.js format[hermes] 1`] = `
+"';' expected (1:43)
+> 1 | export { default as foo2 } from "foo.json" assert { type: "json" };
+    |                                           ^
+  2 | export * from "foo.json" assert { type: "json" };
+  3 | export * as foo3 from "foo.json" assert { type: "json" };
+  4 |
+Cause: ';' expected (1:43)
+export { default as foo2 } from "foo.json" assert { type: "json" };
+                                           ^"
 `;
 
 exports[`static-import.js format 1`] = `
@@ -233,12 +225,12 @@ import json from "./foo.json" assert { type: "json" };
 ================================================================================
 `;
 
-exports[`without-from.js [babel-ts] format 1`] = `
-"Missing semicolon. (1:13)
-> 1 | import "foo" assert { type: "json" }
-    |             ^
+exports[`static-import.js format[babel-ts] 1`] = `
+"Missing semicolon. (1:30)
+> 1 | import json from "./foo.json" assert { type: "json" };
+    |                              ^
   2 |
-Cause: Missing semicolon. (1:12)"
+Cause: Missing semicolon. (1:29)"
 `;
 
 exports[`without-from.js format 1`] = `
@@ -253,4 +245,12 @@ import "foo" assert { type: "json" }
 import "foo" assert { type: "json" };
 
 ================================================================================
+`;
+
+exports[`without-from.js format[babel-ts] 1`] = `
+"Missing semicolon. (1:13)
+> 1 | import "foo" assert { type: "json" }
+    |             ^
+  2 |
+Cause: Missing semicolon. (1:12)"
 `;

@@ -70,101 +70,6 @@ const Component2 = ({ props }) => <Text>Test</Text>;
 ================================================================================
 `;
 
-exports[`expression.js [acorn] format 1`] = `
-"Unexpected token (5:4)
-  3 | a = () => ({}).x;
-  4 | ({} && a, b);
-> 5 | ({}::b, 0);
-    |    ^
-  6 | ({}::b()\`\`[''].c++ && 0 ? 0 : 0, 0);
-  7 | ({}(), 0);
-  8 | ({} = 0);
-Cause: Unexpected token (5:3)"
-`;
-
-exports[`expression.js [espree] format 1`] = `
-"Unexpected token : (5:4)
-  3 | a = () => ({}).x;
-  4 | ({} && a, b);
-> 5 | ({}::b, 0);
-    |    ^
-  6 | ({}::b()\`\`[''].c++ && 0 ? 0 : 0, 0);
-  7 | ({}(), 0);
-  8 | ({} = 0);
-Cause: Unexpected token :"
-`;
-
-exports[`expression.js [flow] format 1`] = `
-"Unexpected token \`:\`, expected a type (5:5)
-  3 | a = () => ({}).x;
-  4 | ({} && a, b);
-> 5 | ({}::b, 0);
-    |     ^
-  6 | ({}::b()\`\`[''].c++ && 0 ? 0 : 0, 0);
-  7 | ({}(), 0);
-  8 | ({} = 0);"
-`;
-
-exports[`expression.js [hermes] format 1`] = `
-"unexpected token in type annotation (5:4)
-  3 | a = () => ({}).x;
-  4 | ({} && a, b);
-> 5 | ({}::b, 0);
-    |    ^
-  6 | ({}::b()\`\`[''].c++ && 0 ? 0 : 0, 0);
-  7 | ({}(), 0);
-  8 | ({} = 0);
-Cause: unexpected token in type annotation (5:4)
-({}::b, 0);
-    ^"
-`;
-
-exports[`expression.js [meriyah] format 1`] = `
-"Expected ')' (5:4)
-  3 | a = () => ({}).x;
-  4 | ({} && a, b);
-> 5 | ({}::b, 0);
-    |    ^
-  6 | ({}::b()\`\`[''].c++ && 0 ? 0 : 0, 0);
-  7 | ({}(), 0);
-  8 | ({} = 0);
-Cause: [5:3-5:4]: Expected ')'"
-`;
-
-exports[`expression.js [oxc] format 1`] = `
-"Expected \`,\` or \`)\` but found \`:\` (5:4)
-  3 | a = () => ({}).x;
-  4 | ({} && a, b);
-> 5 | ({}::b, 0);
-    |    ^
-  6 | ({}::b()\`\`[''].c++ && 0 ? 0 : 0, 0);
-  7 | ({}(), 0);
-  8 | ({} = 0);"
-`;
-
-exports[`expression.js [oxc-ts] format 1`] = `
-"Expected \`,\` or \`)\` but found \`:\` (5:4)
-  3 | a = () => ({}).x;
-  4 | ({} && a, b);
-> 5 | ({}::b, 0);
-    |    ^
-  6 | ({}::b()\`\`[''].c++ && 0 ? 0 : 0, 0);
-  7 | ({}(), 0);
-  8 | ({} = 0);"
-`;
-
-exports[`expression.js [typescript] format 1`] = `
-"')' expected. (5:4)
-  3 | a = () => ({}).x;
-  4 | ({} && a, b);
-> 5 | ({}::b, 0);
-    |    ^
-  6 | ({}::b()\`\`[''].c++ && 0 ? 0 : 0, 0);
-  7 | ({}(), 0);
-  8 | ({} = 0);
-Cause: ')' expected."
-`;
-
 exports[`expression.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
@@ -224,6 +129,101 @@ const a3 = {
 };
 
 ================================================================================
+`;
+
+exports[`expression.js format[acorn] 1`] = `
+"Unexpected token (5:4)
+  3 | a = () => ({}).x;
+  4 | ({} && a, b);
+> 5 | ({}::b, 0);
+    |    ^
+  6 | ({}::b()\`\`[''].c++ && 0 ? 0 : 0, 0);
+  7 | ({}(), 0);
+  8 | ({} = 0);
+Cause: Unexpected token (5:3)"
+`;
+
+exports[`expression.js format[espree] 1`] = `
+"Unexpected token : (5:4)
+  3 | a = () => ({}).x;
+  4 | ({} && a, b);
+> 5 | ({}::b, 0);
+    |    ^
+  6 | ({}::b()\`\`[''].c++ && 0 ? 0 : 0, 0);
+  7 | ({}(), 0);
+  8 | ({} = 0);
+Cause: Unexpected token :"
+`;
+
+exports[`expression.js format[flow] 1`] = `
+"Unexpected token \`:\`, expected a type (5:5)
+  3 | a = () => ({}).x;
+  4 | ({} && a, b);
+> 5 | ({}::b, 0);
+    |     ^
+  6 | ({}::b()\`\`[''].c++ && 0 ? 0 : 0, 0);
+  7 | ({}(), 0);
+  8 | ({} = 0);"
+`;
+
+exports[`expression.js format[hermes] 1`] = `
+"unexpected token in type annotation (5:4)
+  3 | a = () => ({}).x;
+  4 | ({} && a, b);
+> 5 | ({}::b, 0);
+    |    ^
+  6 | ({}::b()\`\`[''].c++ && 0 ? 0 : 0, 0);
+  7 | ({}(), 0);
+  8 | ({} = 0);
+Cause: unexpected token in type annotation (5:4)
+({}::b, 0);
+    ^"
+`;
+
+exports[`expression.js format[meriyah] 1`] = `
+"Expected ')' (5:4)
+  3 | a = () => ({}).x;
+  4 | ({} && a, b);
+> 5 | ({}::b, 0);
+    |    ^
+  6 | ({}::b()\`\`[''].c++ && 0 ? 0 : 0, 0);
+  7 | ({}(), 0);
+  8 | ({} = 0);
+Cause: [5:3-5:4]: Expected ')'"
+`;
+
+exports[`expression.js format[oxc] 1`] = `
+"Expected \`,\` or \`)\` but found \`:\` (5:4)
+  3 | a = () => ({}).x;
+  4 | ({} && a, b);
+> 5 | ({}::b, 0);
+    |    ^
+  6 | ({}::b()\`\`[''].c++ && 0 ? 0 : 0, 0);
+  7 | ({}(), 0);
+  8 | ({} = 0);"
+`;
+
+exports[`expression.js format[oxc-ts] 1`] = `
+"Expected \`,\` or \`)\` but found \`:\` (5:4)
+  3 | a = () => ({}).x;
+  4 | ({} && a, b);
+> 5 | ({}::b, 0);
+    |    ^
+  6 | ({}::b()\`\`[''].c++ && 0 ? 0 : 0, 0);
+  7 | ({}(), 0);
+  8 | ({} = 0);"
+`;
+
+exports[`expression.js format[typescript] 1`] = `
+"')' expected. (5:4)
+  3 | a = () => ({}).x;
+  4 | ({} && a, b);
+> 5 | ({}::b, 0);
+    |    ^
+  6 | ({}::b()\`\`[''].c++ && 0 ? 0 : 0, 0);
+  7 | ({}(), 0);
+  8 | ({} = 0);
+Cause: ')' expected."
 `;
 
 exports[`getter-setter.js format 1`] = `

@@ -28,20 +28,6 @@ function getClassNameFromPrototypeMethod(container) {
 ================================================================================
 `;
 
-exports[`18160.ts [hermes] format 1`] = `
-"';' expected (7:2)
-   5 | comment
-   6 | */Foo;
->  7 | 1 satisfies /*
-     |  ^
-   8 | comment
-   9 | */Foo;
-  10 |
-Cause: ';' expected (7:2)
-1 satisfies /*
-  ^"
-`;
-
 exports[`18160.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow"]
@@ -159,4 +145,18 @@ Foo;
 1 satisfies Foo; // comment
 
 ================================================================================
+`;
+
+exports[`18160.ts format[hermes] 1`] = `
+"';' expected (7:2)
+   5 | comment
+   6 | */Foo;
+>  7 | 1 satisfies /*
+     |  ^
+   8 | comment
+   9 | */Foo;
+  10 |
+Cause: ';' expected (7:2)
+1 satisfies /*
+  ^"
 `;

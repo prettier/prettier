@@ -1,91 +1,5 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`await.js [acorn] format 1`] = `
-"Unexpected token (3:27)
-  1 | const doBothThings = async () => {
-  2 |     const request = doAsyncThing();
-> 3 |     return (await request)::doSyncThing();
-    |                           ^
-  4 | };
-  5 |
-Cause: Unexpected token (3:26)"
-`;
-
-exports[`await.js [espree] format 1`] = `
-"Unexpected token : (3:27)
-  1 | const doBothThings = async () => {
-  2 |     const request = doAsyncThing();
-> 3 |     return (await request)::doSyncThing();
-    |                           ^
-  4 | };
-  5 |
-Cause: Unexpected token :"
-`;
-
-exports[`await.js [meriyah] format 1`] = `
-"Unexpected token: ':' (3:27)
-  1 | const doBothThings = async () => {
-  2 |     const request = doAsyncThing();
-> 3 |     return (await request)::doSyncThing();
-    |                           ^
-  4 | };
-  5 |
-Cause: [3:26-3:27]: Unexpected token: ':'"
-`;
-
-exports[`await.js [oxc] format 1`] = `
-"Expected a semicolon or an implicit semicolon after a statement, but found none (3:27)
-  1 | const doBothThings = async () => {
-  2 |     const request = doAsyncThing();
-> 3 |     return (await request)::doSyncThing();
-    |                           ^
-  4 | };
-  5 |"
-`;
-
-exports[`await.js - {"semi":false} [acorn] format 1`] = `
-"Unexpected token (3:27)
-  1 | const doBothThings = async () => {
-  2 |     const request = doAsyncThing();
-> 3 |     return (await request)::doSyncThing();
-    |                           ^
-  4 | };
-  5 |
-Cause: Unexpected token (3:26)"
-`;
-
-exports[`await.js - {"semi":false} [espree] format 1`] = `
-"Unexpected token : (3:27)
-  1 | const doBothThings = async () => {
-  2 |     const request = doAsyncThing();
-> 3 |     return (await request)::doSyncThing();
-    |                           ^
-  4 | };
-  5 |
-Cause: Unexpected token :"
-`;
-
-exports[`await.js - {"semi":false} [meriyah] format 1`] = `
-"Unexpected token: ':' (3:27)
-  1 | const doBothThings = async () => {
-  2 |     const request = doAsyncThing();
-> 3 |     return (await request)::doSyncThing();
-    |                           ^
-  4 | };
-  5 |
-Cause: [3:26-3:27]: Unexpected token: ':'"
-`;
-
-exports[`await.js - {"semi":false} [oxc] format 1`] = `
-"Expected a semicolon or an implicit semicolon after a statement, but found none (3:27)
-  1 | const doBothThings = async () => {
-  2 |     const request = doAsyncThing();
-> 3 |     return (await request)::doSyncThing();
-    |                           ^
-  4 | };
-  5 |"
-`;
-
 exports[`await.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
@@ -105,6 +19,49 @@ const doBothThings = async () => {
 }
 
 ================================================================================
+`;
+
+exports[`await.js - {"semi":false} format[acorn] 1`] = `
+"Unexpected token (3:27)
+  1 | const doBothThings = async () => {
+  2 |     const request = doAsyncThing();
+> 3 |     return (await request)::doSyncThing();
+    |                           ^
+  4 | };
+  5 |
+Cause: Unexpected token (3:26)"
+`;
+
+exports[`await.js - {"semi":false} format[espree] 1`] = `
+"Unexpected token : (3:27)
+  1 | const doBothThings = async () => {
+  2 |     const request = doAsyncThing();
+> 3 |     return (await request)::doSyncThing();
+    |                           ^
+  4 | };
+  5 |
+Cause: Unexpected token :"
+`;
+
+exports[`await.js - {"semi":false} format[meriyah] 1`] = `
+"Unexpected token: ':' (3:27)
+  1 | const doBothThings = async () => {
+  2 |     const request = doAsyncThing();
+> 3 |     return (await request)::doSyncThing();
+    |                           ^
+  4 | };
+  5 |
+Cause: [3:26-3:27]: Unexpected token: ':'"
+`;
+
+exports[`await.js - {"semi":false} format[oxc] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found none (3:27)
+  1 | const doBothThings = async () => {
+  2 |     const request = doAsyncThing();
+> 3 |     return (await request)::doSyncThing();
+    |                           ^
+  4 | };
+  5 |"
 `;
 
 exports[`await.js format 1`] = `
@@ -127,82 +84,47 @@ const doBothThings = async () => {
 ================================================================================
 `;
 
-exports[`bind_parens.js [acorn] format 1`] = `
-"Unexpected token (1:9)
-> 1 | (a || b)::c;
-    |         ^
-  2 | a || (b::c);
-  3 | ::obj.prop;
-  4 | (void 0)::func();
-Cause: Unexpected token (1:8)"
+exports[`await.js format[acorn] 1`] = `
+"Unexpected token (3:27)
+  1 | const doBothThings = async () => {
+  2 |     const request = doAsyncThing();
+> 3 |     return (await request)::doSyncThing();
+    |                           ^
+  4 | };
+  5 |
+Cause: Unexpected token (3:26)"
 `;
 
-exports[`bind_parens.js [espree] format 1`] = `
-"Unexpected token : (1:9)
-> 1 | (a || b)::c;
-    |         ^
-  2 | a || (b::c);
-  3 | ::obj.prop;
-  4 | (void 0)::func();
+exports[`await.js format[espree] 1`] = `
+"Unexpected token : (3:27)
+  1 | const doBothThings = async () => {
+  2 |     const request = doAsyncThing();
+> 3 |     return (await request)::doSyncThing();
+    |                           ^
+  4 | };
+  5 |
 Cause: Unexpected token :"
 `;
 
-exports[`bind_parens.js [meriyah] format 1`] = `
-"Unexpected token: ':' (1:9)
-> 1 | (a || b)::c;
-    |         ^
-  2 | a || (b::c);
-  3 | ::obj.prop;
-  4 | (void 0)::func();
-Cause: [1:8-1:9]: Unexpected token: ':'"
+exports[`await.js format[meriyah] 1`] = `
+"Unexpected token: ':' (3:27)
+  1 | const doBothThings = async () => {
+  2 |     const request = doAsyncThing();
+> 3 |     return (await request)::doSyncThing();
+    |                           ^
+  4 | };
+  5 |
+Cause: [3:26-3:27]: Unexpected token: ':'"
 `;
 
-exports[`bind_parens.js [oxc] format 1`] = `
-"Expected a semicolon or an implicit semicolon after a statement, but found none (1:9)
-> 1 | (a || b)::c;
-    |         ^
-  2 | a || (b::c);
-  3 | ::obj.prop;
-  4 | (void 0)::func();"
-`;
-
-exports[`bind_parens.js - {"semi":false} [acorn] format 1`] = `
-"Unexpected token (1:9)
-> 1 | (a || b)::c;
-    |         ^
-  2 | a || (b::c);
-  3 | ::obj.prop;
-  4 | (void 0)::func();
-Cause: Unexpected token (1:8)"
-`;
-
-exports[`bind_parens.js - {"semi":false} [espree] format 1`] = `
-"Unexpected token : (1:9)
-> 1 | (a || b)::c;
-    |         ^
-  2 | a || (b::c);
-  3 | ::obj.prop;
-  4 | (void 0)::func();
-Cause: Unexpected token :"
-`;
-
-exports[`bind_parens.js - {"semi":false} [meriyah] format 1`] = `
-"Unexpected token: ':' (1:9)
-> 1 | (a || b)::c;
-    |         ^
-  2 | a || (b::c);
-  3 | ::obj.prop;
-  4 | (void 0)::func();
-Cause: [1:8-1:9]: Unexpected token: ':'"
-`;
-
-exports[`bind_parens.js - {"semi":false} [oxc] format 1`] = `
-"Expected a semicolon or an implicit semicolon after a statement, but found none (1:9)
-> 1 | (a || b)::c;
-    |         ^
-  2 | a || (b::c);
-  3 | ::obj.prop;
-  4 | (void 0)::func();"
+exports[`await.js format[oxc] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found none (3:27)
+  1 | const doBothThings = async () => {
+  2 |     const request = doAsyncThing();
+> 3 |     return (await request)::doSyncThing();
+    |                           ^
+  4 | };
+  5 |"
 `;
 
 exports[`bind_parens.js - {"semi":false} format 1`] = `
@@ -286,6 +208,45 @@ f[a::b()]
 ================================================================================
 `;
 
+exports[`bind_parens.js - {"semi":false} format[acorn] 1`] = `
+"Unexpected token (1:9)
+> 1 | (a || b)::c;
+    |         ^
+  2 | a || (b::c);
+  3 | ::obj.prop;
+  4 | (void 0)::func();
+Cause: Unexpected token (1:8)"
+`;
+
+exports[`bind_parens.js - {"semi":false} format[espree] 1`] = `
+"Unexpected token : (1:9)
+> 1 | (a || b)::c;
+    |         ^
+  2 | a || (b::c);
+  3 | ::obj.prop;
+  4 | (void 0)::func();
+Cause: Unexpected token :"
+`;
+
+exports[`bind_parens.js - {"semi":false} format[meriyah] 1`] = `
+"Unexpected token: ':' (1:9)
+> 1 | (a || b)::c;
+    |         ^
+  2 | a || (b::c);
+  3 | ::obj.prop;
+  4 | (void 0)::func();
+Cause: [1:8-1:9]: Unexpected token: ':'"
+`;
+
+exports[`bind_parens.js - {"semi":false} format[oxc] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found none (1:9)
+> 1 | (a || b)::c;
+    |         ^
+  2 | a || (b::c);
+  3 | ::obj.prop;
+  4 | (void 0)::func();"
+`;
+
 exports[`bind_parens.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
@@ -366,98 +327,43 @@ f[a::b()];
 ================================================================================
 `;
 
-exports[`long_name_method.js [acorn] format 1`] = `
-"Unexpected token (3:54)
-  1 | class X {
-  2 |   constructor() {
-> 3 |     this.testLongNameMethodAndSomethingElseLallala = ::this.testLongNameMethodAndSomethingElseLallala;
-    |                                                      ^
-  4 |   }
-  5 |   
-  6 |   testLongNameMethodAndSomethingElseLallala() {
-Cause: Unexpected token (3:53)"
+exports[`bind_parens.js format[acorn] 1`] = `
+"Unexpected token (1:9)
+> 1 | (a || b)::c;
+    |         ^
+  2 | a || (b::c);
+  3 | ::obj.prop;
+  4 | (void 0)::func();
+Cause: Unexpected token (1:8)"
 `;
 
-exports[`long_name_method.js [espree] format 1`] = `
-"Unexpected token : (3:54)
-  1 | class X {
-  2 |   constructor() {
-> 3 |     this.testLongNameMethodAndSomethingElseLallala = ::this.testLongNameMethodAndSomethingElseLallala;
-    |                                                      ^
-  4 |   }
-  5 |   
-  6 |   testLongNameMethodAndSomethingElseLallala() {
+exports[`bind_parens.js format[espree] 1`] = `
+"Unexpected token : (1:9)
+> 1 | (a || b)::c;
+    |         ^
+  2 | a || (b::c);
+  3 | ::obj.prop;
+  4 | (void 0)::func();
 Cause: Unexpected token :"
 `;
 
-exports[`long_name_method.js [meriyah] format 1`] = `
-"Unexpected token: ':' (3:54)
-  1 | class X {
-  2 |   constructor() {
-> 3 |     this.testLongNameMethodAndSomethingElseLallala = ::this.testLongNameMethodAndSomethingElseLallala;
-    |                                                      ^
-  4 |   }
-  5 |   
-  6 |   testLongNameMethodAndSomethingElseLallala() {
-Cause: [3:53-3:54]: Unexpected token: ':'"
+exports[`bind_parens.js format[meriyah] 1`] = `
+"Unexpected token: ':' (1:9)
+> 1 | (a || b)::c;
+    |         ^
+  2 | a || (b::c);
+  3 | ::obj.prop;
+  4 | (void 0)::func();
+Cause: [1:8-1:9]: Unexpected token: ':'"
 `;
 
-exports[`long_name_method.js [oxc] format 1`] = `
-"Unexpected token (3:54)
-  1 | class X {
-  2 |   constructor() {
-> 3 |     this.testLongNameMethodAndSomethingElseLallala = ::this.testLongNameMethodAndSomethingElseLallala;
-    |                                                      ^
-  4 |   }
-  5 |   
-  6 |   testLongNameMethodAndSomethingElseLallala() {"
-`;
-
-exports[`long_name_method.js - {"semi":false} [acorn] format 1`] = `
-"Unexpected token (3:54)
-  1 | class X {
-  2 |   constructor() {
-> 3 |     this.testLongNameMethodAndSomethingElseLallala = ::this.testLongNameMethodAndSomethingElseLallala;
-    |                                                      ^
-  4 |   }
-  5 |   
-  6 |   testLongNameMethodAndSomethingElseLallala() {
-Cause: Unexpected token (3:53)"
-`;
-
-exports[`long_name_method.js - {"semi":false} [espree] format 1`] = `
-"Unexpected token : (3:54)
-  1 | class X {
-  2 |   constructor() {
-> 3 |     this.testLongNameMethodAndSomethingElseLallala = ::this.testLongNameMethodAndSomethingElseLallala;
-    |                                                      ^
-  4 |   }
-  5 |   
-  6 |   testLongNameMethodAndSomethingElseLallala() {
-Cause: Unexpected token :"
-`;
-
-exports[`long_name_method.js - {"semi":false} [meriyah] format 1`] = `
-"Unexpected token: ':' (3:54)
-  1 | class X {
-  2 |   constructor() {
-> 3 |     this.testLongNameMethodAndSomethingElseLallala = ::this.testLongNameMethodAndSomethingElseLallala;
-    |                                                      ^
-  4 |   }
-  5 |   
-  6 |   testLongNameMethodAndSomethingElseLallala() {
-Cause: [3:53-3:54]: Unexpected token: ':'"
-`;
-
-exports[`long_name_method.js - {"semi":false} [oxc] format 1`] = `
-"Unexpected token (3:54)
-  1 | class X {
-  2 |   constructor() {
-> 3 |     this.testLongNameMethodAndSomethingElseLallala = ::this.testLongNameMethodAndSomethingElseLallala;
-    |                                                      ^
-  4 |   }
-  5 |   
-  6 |   testLongNameMethodAndSomethingElseLallala() {"
+exports[`bind_parens.js format[oxc] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found none (1:9)
+> 1 | (a || b)::c;
+    |         ^
+  2 | a || (b::c);
+  3 | ::obj.prop;
+  4 | (void 0)::func();"
 `;
 
 exports[`long_name_method.js - {"semi":false} format 1`] = `
@@ -491,6 +397,53 @@ class X {
 ================================================================================
 `;
 
+exports[`long_name_method.js - {"semi":false} format[acorn] 1`] = `
+"Unexpected token (3:54)
+  1 | class X {
+  2 |   constructor() {
+> 3 |     this.testLongNameMethodAndSomethingElseLallala = ::this.testLongNameMethodAndSomethingElseLallala;
+    |                                                      ^
+  4 |   }
+  5 |   
+  6 |   testLongNameMethodAndSomethingElseLallala() {
+Cause: Unexpected token (3:53)"
+`;
+
+exports[`long_name_method.js - {"semi":false} format[espree] 1`] = `
+"Unexpected token : (3:54)
+  1 | class X {
+  2 |   constructor() {
+> 3 |     this.testLongNameMethodAndSomethingElseLallala = ::this.testLongNameMethodAndSomethingElseLallala;
+    |                                                      ^
+  4 |   }
+  5 |   
+  6 |   testLongNameMethodAndSomethingElseLallala() {
+Cause: Unexpected token :"
+`;
+
+exports[`long_name_method.js - {"semi":false} format[meriyah] 1`] = `
+"Unexpected token: ':' (3:54)
+  1 | class X {
+  2 |   constructor() {
+> 3 |     this.testLongNameMethodAndSomethingElseLallala = ::this.testLongNameMethodAndSomethingElseLallala;
+    |                                                      ^
+  4 |   }
+  5 |   
+  6 |   testLongNameMethodAndSomethingElseLallala() {
+Cause: [3:53-3:54]: Unexpected token: ':'"
+`;
+
+exports[`long_name_method.js - {"semi":false} format[oxc] 1`] = `
+"Unexpected token (3:54)
+  1 | class X {
+  2 |   constructor() {
+> 3 |     this.testLongNameMethodAndSomethingElseLallala = ::this.testLongNameMethodAndSomethingElseLallala;
+    |                                                      ^
+  4 |   }
+  5 |   
+  6 |   testLongNameMethodAndSomethingElseLallala() {"
+`;
+
 exports[`long_name_method.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
@@ -521,98 +474,51 @@ class X {
 ================================================================================
 `;
 
-exports[`method_chain.js [acorn] format 1`] = `
-"Unexpected token (10:9)
-   8 | function test(observable) {
-   9 |     return observable
-> 10 |         ::filter(data => data.someTest)
-     |         ^
-  11 |         ::throttle(() =>
-  12 |             interval(10)
-  13 |                 ::take(1)
-Cause: Unexpected token (10:8)"
+exports[`long_name_method.js format[acorn] 1`] = `
+"Unexpected token (3:54)
+  1 | class X {
+  2 |   constructor() {
+> 3 |     this.testLongNameMethodAndSomethingElseLallala = ::this.testLongNameMethodAndSomethingElseLallala;
+    |                                                      ^
+  4 |   }
+  5 |   
+  6 |   testLongNameMethodAndSomethingElseLallala() {
+Cause: Unexpected token (3:53)"
 `;
 
-exports[`method_chain.js [espree] format 1`] = `
-"Unexpected token : (10:9)
-   8 | function test(observable) {
-   9 |     return observable
-> 10 |         ::filter(data => data.someTest)
-     |         ^
-  11 |         ::throttle(() =>
-  12 |             interval(10)
-  13 |                 ::take(1)
+exports[`long_name_method.js format[espree] 1`] = `
+"Unexpected token : (3:54)
+  1 | class X {
+  2 |   constructor() {
+> 3 |     this.testLongNameMethodAndSomethingElseLallala = ::this.testLongNameMethodAndSomethingElseLallala;
+    |                                                      ^
+  4 |   }
+  5 |   
+  6 |   testLongNameMethodAndSomethingElseLallala() {
 Cause: Unexpected token :"
 `;
 
-exports[`method_chain.js [meriyah] format 1`] = `
-"Unexpected token: ':' (10:9)
-   8 | function test(observable) {
-   9 |     return observable
-> 10 |         ::filter(data => data.someTest)
-     |         ^
-  11 |         ::throttle(() =>
-  12 |             interval(10)
-  13 |                 ::take(1)
-Cause: [10:8-10:9]: Unexpected token: ':'"
+exports[`long_name_method.js format[meriyah] 1`] = `
+"Unexpected token: ':' (3:54)
+  1 | class X {
+  2 |   constructor() {
+> 3 |     this.testLongNameMethodAndSomethingElseLallala = ::this.testLongNameMethodAndSomethingElseLallala;
+    |                                                      ^
+  4 |   }
+  5 |   
+  6 |   testLongNameMethodAndSomethingElseLallala() {
+Cause: [3:53-3:54]: Unexpected token: ':'"
 `;
 
-exports[`method_chain.js [oxc] format 1`] = `
-"Unexpected token (10:9)
-   8 | function test(observable) {
-   9 |     return observable
-> 10 |         ::filter(data => data.someTest)
-     |         ^
-  11 |         ::throttle(() =>
-  12 |             interval(10)
-  13 |                 ::take(1)"
-`;
-
-exports[`method_chain.js - {"semi":false} [acorn] format 1`] = `
-"Unexpected token (10:9)
-   8 | function test(observable) {
-   9 |     return observable
-> 10 |         ::filter(data => data.someTest)
-     |         ^
-  11 |         ::throttle(() =>
-  12 |             interval(10)
-  13 |                 ::take(1)
-Cause: Unexpected token (10:8)"
-`;
-
-exports[`method_chain.js - {"semi":false} [espree] format 1`] = `
-"Unexpected token : (10:9)
-   8 | function test(observable) {
-   9 |     return observable
-> 10 |         ::filter(data => data.someTest)
-     |         ^
-  11 |         ::throttle(() =>
-  12 |             interval(10)
-  13 |                 ::take(1)
-Cause: Unexpected token :"
-`;
-
-exports[`method_chain.js - {"semi":false} [meriyah] format 1`] = `
-"Unexpected token: ':' (10:9)
-   8 | function test(observable) {
-   9 |     return observable
-> 10 |         ::filter(data => data.someTest)
-     |         ^
-  11 |         ::throttle(() =>
-  12 |             interval(10)
-  13 |                 ::take(1)
-Cause: [10:8-10:9]: Unexpected token: ':'"
-`;
-
-exports[`method_chain.js - {"semi":false} [oxc] format 1`] = `
-"Unexpected token (10:9)
-   8 | function test(observable) {
-   9 |     return observable
-> 10 |         ::filter(data => data.someTest)
-     |         ^
-  11 |         ::throttle(() =>
-  12 |             interval(10)
-  13 |                 ::take(1)"
+exports[`long_name_method.js format[oxc] 1`] = `
+"Unexpected token (3:54)
+  1 | class X {
+  2 |   constructor() {
+> 3 |     this.testLongNameMethodAndSomethingElseLallala = ::this.testLongNameMethodAndSomethingElseLallala;
+    |                                                      ^
+  4 |   }
+  5 |   
+  6 |   testLongNameMethodAndSomethingElseLallala() {"
 `;
 
 exports[`method_chain.js - {"semi":false} format 1`] = `
@@ -662,6 +568,53 @@ function test(observable) {
 ================================================================================
 `;
 
+exports[`method_chain.js - {"semi":false} format[acorn] 1`] = `
+"Unexpected token (10:9)
+   8 | function test(observable) {
+   9 |     return observable
+> 10 |         ::filter(data => data.someTest)
+     |         ^
+  11 |         ::throttle(() =>
+  12 |             interval(10)
+  13 |                 ::take(1)
+Cause: Unexpected token (10:8)"
+`;
+
+exports[`method_chain.js - {"semi":false} format[espree] 1`] = `
+"Unexpected token : (10:9)
+   8 | function test(observable) {
+   9 |     return observable
+> 10 |         ::filter(data => data.someTest)
+     |         ^
+  11 |         ::throttle(() =>
+  12 |             interval(10)
+  13 |                 ::take(1)
+Cause: Unexpected token :"
+`;
+
+exports[`method_chain.js - {"semi":false} format[meriyah] 1`] = `
+"Unexpected token: ':' (10:9)
+   8 | function test(observable) {
+   9 |     return observable
+> 10 |         ::filter(data => data.someTest)
+     |         ^
+  11 |         ::throttle(() =>
+  12 |             interval(10)
+  13 |                 ::take(1)
+Cause: [10:8-10:9]: Unexpected token: ':'"
+`;
+
+exports[`method_chain.js - {"semi":false} format[oxc] 1`] = `
+"Unexpected token (10:9)
+   8 | function test(observable) {
+   9 |     return observable
+> 10 |         ::filter(data => data.someTest)
+     |         ^
+  11 |         ::throttle(() =>
+  12 |             interval(10)
+  13 |                 ::take(1)"
+`;
+
 exports[`method_chain.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
@@ -708,98 +661,51 @@ function test(observable) {
 ================================================================================
 `;
 
-exports[`short_name_method.js [acorn] format 1`] = `
-"Unexpected token (3:24)
-  1 | class X {
-  2 |   constructor() {
-> 3 |     this.shortMethod = ::this.shortMethod;
-    |                        ^
-  4 |   }
-  5 |   
-  6 |   shortMethod() {
-Cause: Unexpected token (3:23)"
+exports[`method_chain.js format[acorn] 1`] = `
+"Unexpected token (10:9)
+   8 | function test(observable) {
+   9 |     return observable
+> 10 |         ::filter(data => data.someTest)
+     |         ^
+  11 |         ::throttle(() =>
+  12 |             interval(10)
+  13 |                 ::take(1)
+Cause: Unexpected token (10:8)"
 `;
 
-exports[`short_name_method.js [espree] format 1`] = `
-"Unexpected token : (3:24)
-  1 | class X {
-  2 |   constructor() {
-> 3 |     this.shortMethod = ::this.shortMethod;
-    |                        ^
-  4 |   }
-  5 |   
-  6 |   shortMethod() {
+exports[`method_chain.js format[espree] 1`] = `
+"Unexpected token : (10:9)
+   8 | function test(observable) {
+   9 |     return observable
+> 10 |         ::filter(data => data.someTest)
+     |         ^
+  11 |         ::throttle(() =>
+  12 |             interval(10)
+  13 |                 ::take(1)
 Cause: Unexpected token :"
 `;
 
-exports[`short_name_method.js [meriyah] format 1`] = `
-"Unexpected token: ':' (3:24)
-  1 | class X {
-  2 |   constructor() {
-> 3 |     this.shortMethod = ::this.shortMethod;
-    |                        ^
-  4 |   }
-  5 |   
-  6 |   shortMethod() {
-Cause: [3:23-3:24]: Unexpected token: ':'"
+exports[`method_chain.js format[meriyah] 1`] = `
+"Unexpected token: ':' (10:9)
+   8 | function test(observable) {
+   9 |     return observable
+> 10 |         ::filter(data => data.someTest)
+     |         ^
+  11 |         ::throttle(() =>
+  12 |             interval(10)
+  13 |                 ::take(1)
+Cause: [10:8-10:9]: Unexpected token: ':'"
 `;
 
-exports[`short_name_method.js [oxc] format 1`] = `
-"Unexpected token (3:24)
-  1 | class X {
-  2 |   constructor() {
-> 3 |     this.shortMethod = ::this.shortMethod;
-    |                        ^
-  4 |   }
-  5 |   
-  6 |   shortMethod() {"
-`;
-
-exports[`short_name_method.js - {"semi":false} [acorn] format 1`] = `
-"Unexpected token (3:24)
-  1 | class X {
-  2 |   constructor() {
-> 3 |     this.shortMethod = ::this.shortMethod;
-    |                        ^
-  4 |   }
-  5 |   
-  6 |   shortMethod() {
-Cause: Unexpected token (3:23)"
-`;
-
-exports[`short_name_method.js - {"semi":false} [espree] format 1`] = `
-"Unexpected token : (3:24)
-  1 | class X {
-  2 |   constructor() {
-> 3 |     this.shortMethod = ::this.shortMethod;
-    |                        ^
-  4 |   }
-  5 |   
-  6 |   shortMethod() {
-Cause: Unexpected token :"
-`;
-
-exports[`short_name_method.js - {"semi":false} [meriyah] format 1`] = `
-"Unexpected token: ':' (3:24)
-  1 | class X {
-  2 |   constructor() {
-> 3 |     this.shortMethod = ::this.shortMethod;
-    |                        ^
-  4 |   }
-  5 |   
-  6 |   shortMethod() {
-Cause: [3:23-3:24]: Unexpected token: ':'"
-`;
-
-exports[`short_name_method.js - {"semi":false} [oxc] format 1`] = `
-"Unexpected token (3:24)
-  1 | class X {
-  2 |   constructor() {
-> 3 |     this.shortMethod = ::this.shortMethod;
-    |                        ^
-  4 |   }
-  5 |   
-  6 |   shortMethod() {"
+exports[`method_chain.js format[oxc] 1`] = `
+"Unexpected token (10:9)
+   8 | function test(observable) {
+   9 |     return observable
+> 10 |         ::filter(data => data.someTest)
+     |         ^
+  11 |         ::throttle(() =>
+  12 |             interval(10)
+  13 |                 ::take(1)"
 `;
 
 exports[`short_name_method.js - {"semi":false} format 1`] = `
@@ -832,6 +738,53 @@ class X {
 ================================================================================
 `;
 
+exports[`short_name_method.js - {"semi":false} format[acorn] 1`] = `
+"Unexpected token (3:24)
+  1 | class X {
+  2 |   constructor() {
+> 3 |     this.shortMethod = ::this.shortMethod;
+    |                        ^
+  4 |   }
+  5 |   
+  6 |   shortMethod() {
+Cause: Unexpected token (3:23)"
+`;
+
+exports[`short_name_method.js - {"semi":false} format[espree] 1`] = `
+"Unexpected token : (3:24)
+  1 | class X {
+  2 |   constructor() {
+> 3 |     this.shortMethod = ::this.shortMethod;
+    |                        ^
+  4 |   }
+  5 |   
+  6 |   shortMethod() {
+Cause: Unexpected token :"
+`;
+
+exports[`short_name_method.js - {"semi":false} format[meriyah] 1`] = `
+"Unexpected token: ':' (3:24)
+  1 | class X {
+  2 |   constructor() {
+> 3 |     this.shortMethod = ::this.shortMethod;
+    |                        ^
+  4 |   }
+  5 |   
+  6 |   shortMethod() {
+Cause: [3:23-3:24]: Unexpected token: ':'"
+`;
+
+exports[`short_name_method.js - {"semi":false} format[oxc] 1`] = `
+"Unexpected token (3:24)
+  1 | class X {
+  2 |   constructor() {
+> 3 |     this.shortMethod = ::this.shortMethod;
+    |                        ^
+  4 |   }
+  5 |   
+  6 |   shortMethod() {"
+`;
+
 exports[`short_name_method.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
@@ -861,82 +814,51 @@ class X {
 ================================================================================
 `;
 
-exports[`unary.js [acorn] format 1`] = `
-"Unexpected token (1:3)
-> 1 | !x::y;
-    |   ^
-  2 | !(x::y /* foo */);
-  3 | !(/* foo */ x::y);
-  4 | !(
-Cause: Unexpected token (1:2)"
+exports[`short_name_method.js format[acorn] 1`] = `
+"Unexpected token (3:24)
+  1 | class X {
+  2 |   constructor() {
+> 3 |     this.shortMethod = ::this.shortMethod;
+    |                        ^
+  4 |   }
+  5 |   
+  6 |   shortMethod() {
+Cause: Unexpected token (3:23)"
 `;
 
-exports[`unary.js [espree] format 1`] = `
-"Unexpected token : (1:3)
-> 1 | !x::y;
-    |   ^
-  2 | !(x::y /* foo */);
-  3 | !(/* foo */ x::y);
-  4 | !(
+exports[`short_name_method.js format[espree] 1`] = `
+"Unexpected token : (3:24)
+  1 | class X {
+  2 |   constructor() {
+> 3 |     this.shortMethod = ::this.shortMethod;
+    |                        ^
+  4 |   }
+  5 |   
+  6 |   shortMethod() {
 Cause: Unexpected token :"
 `;
 
-exports[`unary.js [meriyah] format 1`] = `
-"Unexpected token: ':' (1:3)
-> 1 | !x::y;
-    |   ^
-  2 | !(x::y /* foo */);
-  3 | !(/* foo */ x::y);
-  4 | !(
-Cause: [1:2-1:3]: Unexpected token: ':'"
+exports[`short_name_method.js format[meriyah] 1`] = `
+"Unexpected token: ':' (3:24)
+  1 | class X {
+  2 |   constructor() {
+> 3 |     this.shortMethod = ::this.shortMethod;
+    |                        ^
+  4 |   }
+  5 |   
+  6 |   shortMethod() {
+Cause: [3:23-3:24]: Unexpected token: ':'"
 `;
 
-exports[`unary.js [oxc] format 1`] = `
-"Expected a semicolon or an implicit semicolon after a statement, but found none (1:3)
-> 1 | !x::y;
-    |   ^
-  2 | !(x::y /* foo */);
-  3 | !(/* foo */ x::y);
-  4 | !("
-`;
-
-exports[`unary.js - {"semi":false} [acorn] format 1`] = `
-"Unexpected token (1:3)
-> 1 | !x::y;
-    |   ^
-  2 | !(x::y /* foo */);
-  3 | !(/* foo */ x::y);
-  4 | !(
-Cause: Unexpected token (1:2)"
-`;
-
-exports[`unary.js - {"semi":false} [espree] format 1`] = `
-"Unexpected token : (1:3)
-> 1 | !x::y;
-    |   ^
-  2 | !(x::y /* foo */);
-  3 | !(/* foo */ x::y);
-  4 | !(
-Cause: Unexpected token :"
-`;
-
-exports[`unary.js - {"semi":false} [meriyah] format 1`] = `
-"Unexpected token: ':' (1:3)
-> 1 | !x::y;
-    |   ^
-  2 | !(x::y /* foo */);
-  3 | !(/* foo */ x::y);
-  4 | !(
-Cause: [1:2-1:3]: Unexpected token: ':'"
-`;
-
-exports[`unary.js - {"semi":false} [oxc] format 1`] = `
-"Expected a semicolon or an implicit semicolon after a statement, but found none (1:3)
-> 1 | !x::y;
-    |   ^
-  2 | !(x::y /* foo */);
-  3 | !(/* foo */ x::y);
-  4 | !("
+exports[`short_name_method.js format[oxc] 1`] = `
+"Unexpected token (3:24)
+  1 | class X {
+  2 |   constructor() {
+> 3 |     this.shortMethod = ::this.shortMethod;
+    |                        ^
+  4 |   }
+  5 |   
+  6 |   shortMethod() {"
 `;
 
 exports[`unary.js - {"semi":false} format 1`] = `
@@ -980,6 +902,45 @@ semi: false
 ================================================================================
 `;
 
+exports[`unary.js - {"semi":false} format[acorn] 1`] = `
+"Unexpected token (1:3)
+> 1 | !x::y;
+    |   ^
+  2 | !(x::y /* foo */);
+  3 | !(/* foo */ x::y);
+  4 | !(
+Cause: Unexpected token (1:2)"
+`;
+
+exports[`unary.js - {"semi":false} format[espree] 1`] = `
+"Unexpected token : (1:3)
+> 1 | !x::y;
+    |   ^
+  2 | !(x::y /* foo */);
+  3 | !(/* foo */ x::y);
+  4 | !(
+Cause: Unexpected token :"
+`;
+
+exports[`unary.js - {"semi":false} format[meriyah] 1`] = `
+"Unexpected token: ':' (1:3)
+> 1 | !x::y;
+    |   ^
+  2 | !(x::y /* foo */);
+  3 | !(/* foo */ x::y);
+  4 | !(
+Cause: [1:2-1:3]: Unexpected token: ':'"
+`;
+
+exports[`unary.js - {"semi":false} format[oxc] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found none (1:3)
+> 1 | !x::y;
+    |   ^
+  2 | !(x::y /* foo */);
+  3 | !(/* foo */ x::y);
+  4 | !("
+`;
+
 exports[`unary.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
@@ -1018,4 +979,43 @@ printWidth: 80
 );
 
 ================================================================================
+`;
+
+exports[`unary.js format[acorn] 1`] = `
+"Unexpected token (1:3)
+> 1 | !x::y;
+    |   ^
+  2 | !(x::y /* foo */);
+  3 | !(/* foo */ x::y);
+  4 | !(
+Cause: Unexpected token (1:2)"
+`;
+
+exports[`unary.js format[espree] 1`] = `
+"Unexpected token : (1:3)
+> 1 | !x::y;
+    |   ^
+  2 | !(x::y /* foo */);
+  3 | !(/* foo */ x::y);
+  4 | !(
+Cause: Unexpected token :"
+`;
+
+exports[`unary.js format[meriyah] 1`] = `
+"Unexpected token: ':' (1:3)
+> 1 | !x::y;
+    |   ^
+  2 | !(x::y /* foo */);
+  3 | !(/* foo */ x::y);
+  4 | !(
+Cause: [1:2-1:3]: Unexpected token: ':'"
+`;
+
+exports[`unary.js format[oxc] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found none (1:3)
+> 1 | !x::y;
+    |   ^
+  2 | !(x::y /* foo */);
+  3 | !(/* foo */ x::y);
+  4 | !("
 `;

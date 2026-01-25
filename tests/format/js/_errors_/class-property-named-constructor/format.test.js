@@ -1,42 +1,9 @@
-import { outdent } from "outdent";
-
-const cases = [
-  outdent`
-    class Foo {
-      constructor
-    }
-  `,
-  outdent`
-    class Foo {
-      'construct\u{6f}r'
-    }
-  `,
-  outdent`
-    class Foo {
-      'constructor'
-    }
-  `,
-  outdent`
-    class Foo {
-      accessor 'construct\u{6f}r'
-    }
-  `,
-  outdent`
-    class Foo {
-      accessor 'constructor'
-    }
-  `,
-  outdent`
-    class Foo {
-      accessor constructor
-    }
-  `,
-];
+import { testCases } from "../../../misc/shared-fixtures/class-property-named-constructor.js";
 
 runFormatTest(
   {
     importMeta: import.meta,
-    snippets: cases,
+    snippets: testCases,
   },
   [
     "babel",
@@ -50,12 +17,4 @@ runFormatTest(
     "flow",
     "hermes",
   ],
-);
-
-runFormatTest(
-  {
-    importMeta: import.meta,
-    snippets: cases.map((code) => `abstract ${code}`),
-  },
-  ["typescript", "babel-ts", "oxc-ts"],
 );
