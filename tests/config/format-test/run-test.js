@@ -31,6 +31,7 @@ function testFixture(fixture) {
       return {
         context,
         parser,
+        code,
         formatOptions,
         expectFail,
         expectedOutput: fixture.output,
