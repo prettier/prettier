@@ -357,11 +357,7 @@ function runFormatTest(fixtures, parsers, options) {
           continue;
         }
 
-        const testTitle =
-          shouldThrowOnMainParserFormat ||
-          formatOptions.parser !== currentParser
-            ? `[${currentParser}] format`
-            : "format";
+        const testTitle = `format${allParsers.length === 1 ? "" : `[${parser}]}`}`;
 
         test(testTitle, async () => {
           await runTest({
