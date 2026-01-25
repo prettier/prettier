@@ -3,8 +3,8 @@ import url from "node:url";
 import { FORMAT_SCRIPT_FILENAME } from "./constants.js";
 import { getFixtures } from "./get-fixtures.js";
 import { getParsers } from "./get-parsers.js";
+import { testFixture } from "./run-test.js";
 import { stringifyOptionsForTitle } from "./stringify-options-for-title.js";
-import { testFixture } from "./test-fixture.js";
 import { isErrorTest, normalizeDirectory } from "./utilities.js";
 import { verifyParsers } from "./verify-fixtures.js";
 

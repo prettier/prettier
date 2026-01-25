@@ -1,8 +1,5 @@
 import path from "node:path";
-import createEsmUtils from "esm-utils";
-
-const { __dirname } = createEsmUtils(import.meta);
-const fixturesDirectory = path.join(__dirname, "../format/");
+import { FORMAT_TEST_DIRECTORY } from "./constants.js";
 
 // TODO: these test files need fix
 const unstableTests = new Map(
@@ -39,7 +36,7 @@ const unstableTests = new Map(
     const [file, isUnstable = () => true] = Array.isArray(fixture)
       ? fixture
       : [fixture];
-    return [path.join(fixturesDirectory, file), isUnstable];
+    return [path.join(FORMAT_TEST_DIRECTORY, file), isUnstable];
   }),
 );
 
@@ -106,7 +103,7 @@ const disabledTests = new Map(
     ],
   }).map(([parser, tests]) => [
     parser,
-    new Set(tests.map((file) => path.join(__dirname, "../format", file))),
+    new Set(tests.map((file) => path.join(FORMAT_TEST_DIRECTORY, file))),
   ]),
 );
 
