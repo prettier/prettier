@@ -32,7 +32,7 @@ exports[`open-sigle-quote.less format 1`] = `
 Cause: <css input>:2:17: Unclosed string"
 `;
 
-exports[`scss-syntax.scss format 1`] = `
+exports[`scss-syntax.unknown format 1`] = `
 "CssSyntaxError: Unknown word $foo (1:15)
 > 1 | a {content: #{$foo}}
     |               ^
