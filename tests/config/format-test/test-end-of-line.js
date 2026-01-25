@@ -41,11 +41,17 @@ function testEndOfLine(testCase, name, eol) {
 @return {boolean}
 */
 function shouldSkip(testCase) {
-  if (testCase.expectFail || testCase.isEmpty) {
+  if (testCase.expectFail || testCase.isEmpty || testCase.code.includes("\r")) {
     return true;
   }
 
-  if (testCase.code.includes("\r")) {
+  // EOL test should not care about these indexes, unless they are directly in the raw options
+  const { rangeStart, rangeEnd, cursorOffset } = testCase.context.options;
+  if (
+    typeof cursorOffset === "number" ||
+    typeof rangeStart === "number" ||
+    typeof rangeEnd === "number"
+  ) {
     return true;
   }
 
