@@ -81,15 +81,16 @@ const disabledTests = new Map(
       "typescript/module/module_nested.ts",
       "typescript/custom/stability/moduleBlock.ts",
       "typescript/interface2/module.ts",
+      "typescript/typescript-only/",
     ],
     oxc: [],
-    "oxc-ts": [],
+    "oxc-ts": ["typescript/typescript-only/"],
     hermes: [
       ...commentClosureTypecaseTests,
 
       // Not supported
-      "flow/comments",
-      "flow-repo/union_new",
+      "flow/comments/",
+      "flow-repo/union_new/",
 
       // Different result
       "flow/hook/comments-before-arrow.js",
