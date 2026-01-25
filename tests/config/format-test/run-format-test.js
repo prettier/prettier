@@ -2,13 +2,13 @@ import fs from "node:fs";
 import path from "node:path";
 import url from "node:url";
 import createEsmUtils from "esm-utils";
+import getPrettier from "../get-prettier.js";
+import checkParsers from "./check-parsers.js";
+import consistentEndOfLine from "./consistent-end-of-line.js";
+import createSnapshot from "./create-snapshot.js";
 import * as failedTests from "./failed-format-tests.js";
-import getPrettier from "./get-prettier.js";
-import checkParsers from "./utilities/check-parsers.js";
-import consistentEndOfLine from "./utilities/consistent-end-of-line.js";
-import createSnapshot from "./utilities/create-snapshot.js";
-import stringifyOptionsForTitle from "./utilities/stringify-options-for-title.js";
-import visualizeEndOfLine from "./utilities/visualize-end-of-line.js";
+import stringifyOptionsForTitle from "./stringify-options-for-title.js";
+import visualizeEndOfLine from "./visualize-end-of-line.js";
 
 const { __dirname } = createEsmUtils(import.meta);
 
@@ -502,4 +502,4 @@ async function loadPlugins(options) {
   return { ...options, plugins };
 }
 
-export default runFormatTest;
+export { runFormatTest };
