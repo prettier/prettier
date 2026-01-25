@@ -7,7 +7,7 @@ import { shouldThrowOnFormat } from "./utilities.js";
 import visualizeEndOfLine from "./visualize-end-of-line.js";
 
 function testFixture(fixture) {
-  const { context, name, filename, code, output } = fixture;
+  const { name, code, context, filepath } = fixture;
   const { stringifiedOptions, parsers, options } = context;
 
   const title = `${name}${
@@ -15,14 +15,10 @@ function testFixture(fixture) {
   }`;
 
   const testCases = parsers
-    .filter((parser) => !failedTests.shouldDisable(filename, parser))
+    .filter((parser) => !failedTests.shouldDisable(filepath, parser))
     .map((parser) => {
-      const formatOptions = {
-        filepath: filename,
-        ...options,
-        parser,
-      };
-      const expectFail = shouldThrowOnFormat(name, options, parser);
+      const formatOptions = { filepath, ...options, parser };
+      const expectFail = shouldThrowOnFormat(fixture, options, parser);
       let promise;
 
       return {
@@ -30,7 +26,7 @@ function testFixture(fixture) {
         parser,
         formatOptions,
         expectFail,
-        expectedOutput: output,
+        expectedOutput: fixture.output,
         runFormat: () => (promise ??= format(code, formatOptions)),
       };
     });
@@ -87,7 +83,7 @@ async function runTest(testCase, testCaseForSnapshot) {
     return;
   }
 
-  const { filename, code, formatOptions } = testCase;
+  const { filepath, code, formatOptions } = testCase;
   // Some parsers skip parsing empty files
   if (formatResult.changed && code.trim()) {
     const { input, output } = formatResult;
@@ -95,7 +91,7 @@ async function runTest(testCase, testCaseForSnapshot) {
       [input, output].map((code) => parse(code, formatOptions)),
     );
     const isAstUnstableTest = failedTests.isAstUnstable(
-      filename,
+      filepath,
       formatOptions,
     );
 
@@ -111,7 +107,7 @@ async function runTest(testCase, testCaseForSnapshot) {
     return;
   }
 
-  const isUnstableTest = failedTests.isUnstable(filename, formatOptions);
+  const isUnstableTest = failedTests.isUnstable(filepath, formatOptions);
   if (
     (formatResult.changed || isUnstableTest) &&
     // No range and cursor
@@ -125,7 +121,7 @@ async function runTest(testCase, testCaseForSnapshot) {
     if (isUnstableTest) {
       if (secondOutput === firstOutput) {
         throw new Error(
-          `Unstable file '${filename}' is stable now, please remove from the 'unstableTests' list.`,
+          `Unstable file '${filepath}' is stable now, please remove from the 'unstableTests' list.`,
         );
       }
 

@@ -12,27 +12,28 @@ function* getFixtures(context) {
 function* getFiles(context) {
   const { dirname } = context;
   for (const file of fs.readdirSync(dirname, { withFileTypes: true })) {
-    const basename = file.name;
-    const filename = path.join(dirname, basename);
+    const filename = file.name;
+    const filepath = path.join(dirname, filename);
     if (
-      path.extname(basename) === ".snap" ||
       !file.isFile() ||
-      basename[0] === "." ||
-      basename === FORMAT_SCRIPT_FILENAME ||
+      filename[0] === "." ||
+      filename === FORMAT_SCRIPT_FILENAME ||
       // VSCode creates this file sometime https://github.com/microsoft/vscode/issues/105191
-      basename === "debug.log"
+      filename === "debug.log" ||
+      path.extname(filename) === ".snap"
     ) {
       continue;
     }
 
-    const text = fs.readFileSync(filename, "utf8");
+    const text = fs.readFileSync(filepath, "utf8");
 
-    verifyFilename(context, basename, filename);
+    verifyFilename(context, filename);
 
     yield {
       context,
-      name: basename,
+      name: filename,
       filename,
+      filepath,
       code: text,
     };
   }

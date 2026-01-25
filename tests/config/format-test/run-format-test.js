@@ -47,6 +47,7 @@ function runFormatTest(rawFixtures, explicitParsers, rawOptions) {
   // - syntax parser hasn't supported yet
   // - syntax errors that should throws
   const IS_ERROR_TEST = isErrorTest(dirname);
+
   if (IS_ERROR_TEST) {
     options = { errors: true, ...options };
   }

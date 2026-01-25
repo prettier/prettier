@@ -110,13 +110,13 @@ const disabledTests = new Map(
   ]),
 );
 
-const isUnstable = (filename, options) =>
-  unstableTests.get(filename)?.(options);
+const isUnstable = (filepath, options) =>
+  unstableTests.get(filepath)?.(options);
 
-const isAstUnstable = (filename, options) =>
-  unstableAstTests.get(filename)?.(options);
+const isAstUnstable = (filepath, options) =>
+  unstableAstTests.get(filepath)?.(options);
 
-const shouldDisable = (dirnameOrFilename, parser) =>
-  disabledTests.get(parser)?.has(dirnameOrFilename);
+const shouldDisable = (directoryOrFile, parser) =>
+  disabledTests.get(parser)?.has(directoryOrFile);
 
 export { isAstUnstable, isUnstable, shouldDisable };

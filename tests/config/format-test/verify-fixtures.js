@@ -236,7 +236,7 @@ const verifyParsers = (context) => {
   }
 };
 
-const verifyFilename = (context, basename, filename) => {
+const verifyFilename = (context, filename) => {
   if (!FULL_TEST) {
     return;
   }
@@ -256,7 +256,7 @@ const verifyFilename = (context, basename, filename) => {
   if (!extensions.includes(ext)) {
     throw new Error(
       outdent`
-        File "${basename}" should not tested in "${dirname}".
+        File "${filename}" should not tested in "${dirname}".
         Allowed extensions: ${extensions.join(",")}.
         Please rename it or config to allow test "${ext}" file in "${__filename}".
       `,

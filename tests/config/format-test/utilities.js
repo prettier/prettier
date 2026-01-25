@@ -8,9 +8,8 @@ const isLanguage = (dirname, language) =>
     normalizeDirectory(path.join(FORMAT_TEST_DIRECTORY, language)),
   );
 
-const isErrorTest = (dirname) => {
+const isErrorTest = (dirname) =>
   normalizeDirectory(dirname).includes(`${path.sep}_errors_${path.sep}`);
-};
 
 const ensurePromise = (value) => {
   const isPromise = TEST_STANDALONE
@@ -25,7 +24,7 @@ const ensurePromise = (value) => {
   return value;
 };
 
-const shouldThrowOnFormat = (filename, options, parser) => {
+const shouldThrowOnFormat = ({ basename }, options, parser) => {
   const { errors = {} } = options;
   if (errors === true) {
     return true;
@@ -33,7 +32,7 @@ const shouldThrowOnFormat = (filename, options, parser) => {
 
   const files = errors[parser];
 
-  if (files === true || (Array.isArray(files) && files.includes(filename))) {
+  if (files === true || (Array.isArray(files) && files.includes(basename))) {
     return true;
   }
 
