@@ -8,13 +8,14 @@ import { format } from "./run-prettier.js";
 
 /**
 @param {TestCase} testCase
+@param {string} name
 */
-function testSecondFormat(testCase) {
+function testSecondFormat(testCase, name) {
   if (!FULL_TEST || testCase.expectFail) {
     return;
   }
 
-  test(`second format [${testCase.parser}]`, async () => {
+  test(name, async () => {
     const formatResult = await testCase.runFormat();
 
     if (!formatResult.changed) {

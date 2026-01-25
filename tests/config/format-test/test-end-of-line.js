@@ -8,8 +8,10 @@ import visualizeEndOfLine from "./visualize-end-of-line.js";
 
 /**
 @param {TestCase} testCase
+@param {string} name
+@param {"\r\n" | "\r"} eol
 */
-function testEndOfLine(testCase) {
+function testEndOfLine(testCase, name, eol) {
   if (
     !FULL_TEST ||
     testCase.expectFail ||
@@ -21,24 +23,23 @@ function testEndOfLine(testCase) {
 
   const { code, formatOptions } = testCase;
 
-  for (const eol of ["\r\n", "\r"]) {
-    test(`end of line (${JSON.stringify(eol)}) [${testCase.parser}]`, async () => {
-      const [formatResult, { eolVisualizedOutput: output }] = await Promise.all(
-        [testCase.runFormat(), format(code.replace(/\n/g, eol), formatOptions)],
-      );
+  test(name, async () => {
+    const [formatResult, { eolVisualizedOutput: output }] = await Promise.all([
+      testCase.runFormat(),
+      format(code.replace(/\n/g, eol), formatOptions),
+    ]);
 
-      // Only if `endOfLine: "auto"` the result will be different
-      const expected =
-        formatOptions.endOfLine === "auto"
-          ? visualizeEndOfLine(
-              // All `code` use `LF`, so the `eol` of result is always `LF`
-              formatResult.outputWithCursor.replace(/\n/g, eol),
-            )
-          : formatResult.eolVisualizedOutput;
+    // Only if `endOfLine: "auto"` the result will be different
+    const expected =
+      formatOptions.endOfLine === "auto"
+        ? visualizeEndOfLine(
+            // All `code` use `LF`, so the `eol` of result is always `LF`
+            formatResult.outputWithCursor.replace(/\n/g, eol),
+          )
+        : formatResult.eolVisualizedOutput;
 
-      expect(output).toBe(expected);
-    });
-  }
+    expect(output).toBe(expected);
+  });
 }
 
 /**

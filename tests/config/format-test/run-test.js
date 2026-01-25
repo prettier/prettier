@@ -35,7 +35,18 @@ function testFixture(fixture) {
 
   describe(title, () => {
     for (const functionality of [
-      { name: "format", test: testFormat },
+      {
+        name(testCase) {
+          let name = "format";
+          // Avoid parser display in snapshot
+          if (testCaseForSnapshot !== testCase && hasMultipleParsers) {
+            name += ` [${testCase.parser}]`;
+          }
+          return name;
+        },
+        test: (testCase, name) =>
+          testFormat(testCase, name, testCaseForSnapshot),
+      },
       { name: "ast compare", test: testAstCompare },
       // The following cases only need run on main parser
       {
@@ -44,8 +55,13 @@ function testFixture(fixture) {
         skip: (testCase) => testCase !== testCaseForSnapshot,
       },
       {
-        name: "end of line",
-        test: testEndOfLine,
+        name: "end of line (CRLF)",
+        test: (testCase, name) => testEndOfLine(testCase, name, "\r\n"),
+        skip: (testCase) => testCase !== testCaseForSnapshot,
+      },
+      {
+        name: "end of line (CR)",
+        test: (testCase, name) => testEndOfLine(testCase, name, "\r"),
         skip: (testCase) => testCase !== testCaseForSnapshot,
       },
       {
@@ -59,7 +75,14 @@ function testFixture(fixture) {
           continue;
         }
 
-        functionality.test(testCase, testCaseForSnapshot, hasMultipleParsers);
+        let { name } = functionality;
+        if (typeof name === "function") {
+          name = name(testCase);
+        } else if (hasMultipleParsers) {
+          name += ` [${testCase.parser}]`;
+        }
+
+        functionality.test(testCase, name);
       }
     }
   });

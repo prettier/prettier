@@ -8,17 +8,11 @@ import visualizeEndOfLine from "./visualize-end-of-line.js";
 
 /**
 @param {TestCase} testCase
+@param {string} name
 @param {TestCase} testCaseForSnapshot
-@param {boolean} hasMultipleParsers
 */
-function testFormat(testCase, testCaseForSnapshot, hasMultipleParsers) {
-  let testTitle = "format";
-  // Avoid parser display in snapshot
-  if (testCaseForSnapshot !== testCase && hasMultipleParsers) {
-    testTitle += ` [${testCase.parser}]`;
-  }
-
-  test(testTitle, async () => {
+function testFormat(testCase, name, testCaseForSnapshot) {
+  test(name, async () => {
     if (testCase.expectFail) {
       await expect(testCase.runFormat).rejects.toThrowErrorMatchingSnapshot();
       return;

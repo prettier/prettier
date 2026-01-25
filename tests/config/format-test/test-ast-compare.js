@@ -8,8 +8,9 @@ import { parse } from "./run-prettier.js";
 
 /**
 @param {TestCase} testCase
+@param {string} name
 */
-function testAstCompare(testCase) {
+function testAstCompare(testCase, name) {
   if (
     !FULL_TEST ||
     testCase.expectFail ||
@@ -19,7 +20,7 @@ function testAstCompare(testCase) {
     return;
   }
 
-  test(`ast compare [${testCase.parser}]`, async () => {
+  test(name, async () => {
     const formatResult = await testCase.runFormat();
 
     if (!formatResult.changed) {
