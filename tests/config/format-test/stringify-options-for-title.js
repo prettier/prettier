@@ -1,4 +1,4 @@
-function stringifyOptions(options) {
+function stringifyOptionsForTitle(options) {
   const string = JSON.stringify(options || {}, (key, value) => {
     if (key === "plugins" || key === "errors") {
       return;
@@ -14,4 +14,4 @@ function stringifyOptions(options) {
   return string === "{}" ? "" : string;
 }
 
-export default stringifyOptions;
+export { stringifyOptionsForTitle };

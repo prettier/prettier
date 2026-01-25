@@ -1,8 +1,5 @@
 import path from "node:path";
-import createEsmUtils from "esm-utils";
-
-const { __dirname } = createEsmUtils(import.meta);
-const fixturesDirectory = path.join(__dirname, "../format/");
+import { FORMAT_TEST_DIRECTORY } from "./constants.js";
 
 // TODO: these test files need fix
 const unstableTests = new Map(
@@ -39,7 +36,7 @@ const unstableTests = new Map(
     const [file, isUnstable = () => true] = Array.isArray(fixture)
       ? fixture
       : [fixture];
-    return [path.join(fixturesDirectory, file), isUnstable];
+    return [path.join(FORMAT_TEST_DIRECTORY, file), isUnstable];
   }),
 );
 
@@ -106,17 +103,17 @@ const disabledTests = new Map(
     ],
   }).map(([parser, tests]) => [
     parser,
-    new Set(tests.map((file) => path.join(__dirname, "../format", file))),
+    new Set(tests.map((file) => path.join(FORMAT_TEST_DIRECTORY, file))),
   ]),
 );
 
-const isUnstable = (filename, options) =>
-  unstableTests.get(filename)?.(options);
+const isUnstable = (filepath, options) =>
+  unstableTests.get(filepath)?.(options);
 
-const isAstUnstable = (filename, options) =>
-  unstableAstTests.get(filename)?.(options);
+const isAstUnstable = (filepath, options) =>
+  unstableAstTests.get(filepath)?.(options);
 
-const shouldDisable = (dirnameOrFilename, parser) =>
-  disabledTests.get(parser)?.has(dirnameOrFilename);
+const shouldDisable = (directoryOrFile, parser) =>
+  disabledTests.get(parser)?.has(directoryOrFile);
 
 export { isAstUnstable, isUnstable, shouldDisable };
