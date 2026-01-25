@@ -11,7 +11,7 @@ exports[`arrows.js [flow] format 1`] = `
   9 | (a ? (b = c) : d => e : f); // a ? ((b = c): d => e) : f"
 `;
 
-exports[`arrows.js [hermes] format 1`] = `
+exports[`arrows.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

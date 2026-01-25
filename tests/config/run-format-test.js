@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import url from "node:url";
 import createEsmUtils from "esm-utils";
+import * as failedTests from "./failed-format-tests.js";
 import getPrettier from "./get-prettier.js";
 import checkParsers from "./utilities/check-parsers.js";
 import consistentEndOfLine from "./utilities/consistent-end-of-line.js";
@@ -19,147 +20,13 @@ const CURSOR_PLACEHOLDER = "<|>";
 const RANGE_START_PLACEHOLDER = "<<<PRETTIER_RANGE_START>>>";
 const RANGE_END_PLACEHOLDER = "<<<PRETTIER_RANGE_END>>>";
 
-// TODO: these test files need fix
-const unstableTests = new Map(
-  [
-    ["js/identifier/parentheses/let.js", (options) => options.semi === false],
-    "js/comments/return-statement.js",
-    "js/comments/tagged-template-literal.js",
-    "js/for/9812-unstable.js",
-    [
-      "js/multiparser-markdown/codeblock.js",
-      (options) => options.proseWrap === "always",
-    ],
-    "flow/hook/declare-hook.js",
-    "flow/hook/hook-type-annotation.js",
-    "typescript/prettier-ignore/mapped-types.ts",
-    "typescript/prettier-ignore/issue-14238.ts",
-    "js/for/continue-and-break-comment-without-blocks.js",
-    "js/sequence-expression/parenthesized.js",
-    "typescript/satisfies-operators/comments-unstable.ts",
-    "jsx/comments/in-attributes.js",
-    "typescript/union/consistent-with-flow/single-type.ts",
-    "js/if/non-block.js",
-    "typescript/import-type/long-module-name/long-module-name4.ts",
-    // Unstable due to lack of indent information
-    "js/multiparser-comments/comment-inside.js",
-    [
-      "typescript/method-chain/object/issue-17239.ts",
-      (options) => options.objectWrap !== "collapse",
-    ],
-    "typescript/call/callee-comments.ts",
-    "js/arrows/arrow-chain-with-trailing-comments.js",
-    "typescript/as/comments/18160.ts",
-  ].map((fixture) => {
-    const [file, isUnstable = () => true] = Array.isArray(fixture)
-      ? fixture
-      : [fixture];
-    return [path.join(__dirname, "../format/", file), isUnstable];
-  }),
-);
-
-const unstableAstTests = new Map();
-const commentClosureTypecaseTests = new Set(
-  [
-    // These tests works on `babel`, `acorn`, `espree`, `oxc`, and `meriyah`
-    "comments-closure-typecast",
-  ].map((directory) => path.join(__dirname, "../format/js", directory)),
-);
-
-const espreeDisabledTests = new Set([
-  ...commentClosureTypecaseTests,
-  ...["explicit-resource-management/valid-await-using-asi-assignment.js"].map(
-    (file) => path.join(__dirname, "../format/js", file),
-  ),
-]);
-const acornDisabledTests = new Set(
-  ["explicit-resource-management/valid-await-using-asi-assignment.js"].map(
-    (file) => path.join(__dirname, "../format/js", file),
-  ),
-);
-const meriyahDisabledTests = new Set(
-  [
-    // Parsing to different ASTs
-    "js/decorators/member-expression.js",
-  ].map((file) => path.join(__dirname, "../format", file)),
-);
-const babelTsDisabledTests = new Set(
-  [
-    "conformance/types/moduleDeclaration/kind-detection.ts",
-    // https://github.com/babel/babel/pull/17659
-    "conformance/internalModules/importDeclarations/circularImportAlias.ts",
-    "conformance/internalModules/importDeclarations/exportImportAlias.ts",
-    "conformance/internalModules/importDeclarations/importAliasIdentifiers.ts",
-    "conformance/internalModules/importDeclarations/shadowedInternalModule.ts",
-    "conformance/types/moduleDeclaration/moduleDeclaration.ts",
-    "conformance/types/ambient/ambientDeclarations.ts",
-    "compiler/declareDottedModuleName.ts",
-    "compiler/privacyGloImport.ts",
-    "declare/declare_module.ts",
-    "const/initializer-ambient-context.ts",
-    "keywords/keywords.ts",
-    "keywords/module.ts",
-    "module/global.ts",
-    "module/keyword.ts",
-    "module/module_nested.ts",
-    "custom/stability/moduleBlock.ts",
-    "interface2/module.ts",
-  ].map((file) => path.join(__dirname, "../format/typescript", file)),
-);
-const oxcDisabledTests = new Set();
-const oxcTsDisabledTests = new Set();
-const hermesDisabledTests = new Set([
-  ...commentClosureTypecaseTests,
-  ...[
-    // Not supported
-    "flow/comments",
-    "flow-repo/union_new",
-
-    // Different result
-    "flow/hook/comments-before-arrow.js",
-  ].map((file) => path.join(__dirname, "../format", file)),
-]);
-const flowDisabledTests = new Set(
-  [
-    // Parsing to different ASTs
-    "js/decorators/member-expression.js",
-  ].map((file) => path.join(__dirname, "../format", file)),
-);
-const typescriptDisabledTests = new Set(
-  [
-    // https://github.com/typescript-eslint/typescript-eslint/issues/11389
-    "js/import/long-module-name/import-defer.js",
-    "js/import/long-module-name/import-source.js",
-  ].map((file) => path.join(__dirname, "../format", file)),
-);
-
-const isUnstable = (filename, options) => {
-  const testFunction = unstableTests.get(filename);
-
-  if (!testFunction) {
-    return false;
-  }
-
-  return testFunction(options);
-};
-
-const isAstUnstable = (filename, options) => {
-  const testFunction = unstableAstTests.get(filename);
-
-  if (!testFunction) {
-    return false;
-  }
-
-  return testFunction(options);
-};
-
-const shouldThrowOnFormat = (filename, options) => {
+const shouldThrowOnFormat = (filename, options, parser) => {
   const { errors = {} } = options;
   if (errors === true) {
     return true;
   }
 
-  const files = errors[options.parser];
+  const files = errors[parser];
 
   if (files === true || (Array.isArray(files) && files.includes(filename))) {
     return true;
@@ -186,7 +53,7 @@ const ensurePromise = (value) => {
   return value;
 };
 
-function runFormatTest(fixtures, parsers, options) {
+function runFormatTest(fixtures, parsers, options = {}) {
   let { importMeta, snippets = [] } = fixtures.importMeta
     ? fixtures
     : { importMeta: fixtures };
@@ -196,29 +63,16 @@ function runFormatTest(fixtures, parsers, options) {
     throw new Error(`Format test should run in file named 'format.test.js'.`);
   }
 
-  const dirname = path.dirname(url.fileURLToPath(importMeta.url));
-
-  // `IS_PARSER_INFERENCE_TESTS` mean to test `inferParser` on `standalone`
-  const IS_PARSER_INFERENCE_TESTS = isTestDirectory(
-    dirname,
-    "misc/parser-inference",
+  const dirname = path.normalize(
+    path.dirname(url.fileURLToPath(importMeta.url)) + path.sep,
   );
 
-  // `IS_ERROR_TESTS` mean to watch errors like:
+  // `IS_ERROR_TEST` mean to watch errors like:
   // - syntax parser hasn't supported yet
   // - syntax errors that should throws
-  const IS_ERROR_TESTS = isTestDirectory(dirname, "misc/errors");
-  if (IS_ERROR_TESTS) {
+  const IS_ERROR_TEST = dirname.includes(`${path.sep}_errors_${path.sep}`);
+  if (IS_ERROR_TEST) {
     options = { errors: true, ...options };
-  }
-
-  const IS_TYPESCRIPT_ONLY_TEST = isTestDirectory(
-    dirname,
-    "misc/typescript-only",
-  );
-
-  if (IS_PARSER_INFERENCE_TESTS) {
-    parsers = [undefined];
   }
 
   snippets = snippets.map((test, index) => {
@@ -268,48 +122,39 @@ function runFormatTest(fixtures, parsers, options) {
     checkParsers({ dirname, files }, parsers);
   }
 
-  const [parser] = parsers;
   const allParsers = [...parsers];
-
-  if (!IS_ERROR_TESTS) {
-    if (
-      parsers.includes("babel") &&
-      (isTestDirectory(dirname, "js") || isTestDirectory(dirname, "jsx"))
-    ) {
-      if (!parsers.includes("acorn") && !acornDisabledTests.has(dirname)) {
-        allParsers.push("acorn");
-      }
-      if (!parsers.includes("espree") && !espreeDisabledTests.has(dirname)) {
-        allParsers.push("espree");
-      }
-      if (!parsers.includes("meriyah") && !meriyahDisabledTests.has(dirname)) {
-        allParsers.push("meriyah");
-      }
-      if (!parsers.includes("acorn") && !oxcDisabledTests.has(dirname)) {
-        allParsers.push("oxc");
-      }
+  const addParsers = (...parsers) => {
+    if (IS_ERROR_TEST) {
+      return;
     }
 
-    if (parsers.includes("typescript") && !IS_TYPESCRIPT_ONLY_TEST) {
-      if (!parsers.includes("babel-ts")) {
-        allParsers.push("babel-ts");
+    for (const parser of parsers) {
+      if (
+        !allParsers.includes(parser) &&
+        !failedTests.shouldDisable(dirname, parser)
+      ) {
+        allParsers.push(parser);
       }
-      if (!parsers.includes("oxc-ts")) {
-        allParsers.push("oxc-ts");
-      }
     }
+  };
 
-    if (
-      parsers.includes("flow") &&
-      !parsers.includes("hermes") &&
-      !hermesDisabledTests.has(dirname)
-    ) {
-      allParsers.push("hermes");
-    }
+  if (
+    parsers.includes("babel") &&
+    (isTestDirectory(dirname, "js") || isTestDirectory(dirname, "jsx"))
+  ) {
+    addParsers("acorn", "espree", "meriyah", "oxc");
+  }
 
-    if (parsers.includes("babel") && !parsers.includes("__babel_estree")) {
-      allParsers.push("__babel_estree");
-    }
+  if (parsers.includes("typescript")) {
+    addParsers("babel-ts", "oxc-ts");
+  }
+
+  if (parsers.includes("flow")) {
+    addParsers("hermes");
+  }
+
+  if (parsers.includes("babel")) {
+    addParsers("__babel_estree");
   }
 
   const stringifiedOptions = stringifyOptionsForTitle(options);
@@ -320,120 +165,132 @@ function runFormatTest(fixtures, parsers, options) {
     }`;
 
     describe(title, () => {
-      const formatOptions = {
+      const basicOptions = {
         printWidth: 80,
-        ...options,
         filepath: filename,
-        parser,
+        ...options,
       };
-      const shouldThrowOnMainParserFormat = shouldThrowOnFormat(
-        name,
-        formatOptions,
+
+      const testCases = allParsers
+        .filter((parser) => !failedTests.shouldDisable(filename, parser))
+        .map((parser) => {
+          const formatOptions = { ...basicOptions, parser };
+          const expectFail = shouldThrowOnFormat(name, options, parser);
+          return {
+            parser,
+            explicitParsers: parsers,
+            code,
+            formatOptions,
+            expectFail,
+            expectedOutput: output,
+            runFormat: () => format(code, formatOptions),
+          };
+        });
+      const shouldSnapshotResult = testCases.some(
+        (testCase) =>
+          !testCase.expectFail && typeof testCase.expectedOutput !== "string",
       );
 
-      let mainParserFormatResult;
-      if (shouldThrowOnMainParserFormat) {
-        mainParserFormatResult = { options: formatOptions, error: true };
-      } else {
-        beforeAll(async () => {
-          mainParserFormatResult = await format(code, formatOptions);
-        });
-      }
+      let testCaseForSnapshot;
+      beforeAll(async () => {
+        await Promise.all(
+          testCases.map(async (test) => {
+            if (test.expectFail) {
+              return;
+            }
 
-      for (const currentParser of allParsers) {
-        if (
-          (currentParser === "acorn" && acornDisabledTests.has(filename)) ||
-          (currentParser === "espree" && espreeDisabledTests.has(filename)) ||
-          (currentParser === "meriyah" && meriyahDisabledTests.has(filename)) ||
-          (currentParser === "oxc" && oxcDisabledTests.has(filename)) ||
-          (currentParser === "oxc-ts" && oxcTsDisabledTests.has(filename)) ||
-          (currentParser === "hermes" && hermesDisabledTests.has(filename)) ||
-          (currentParser === "flow" && flowDisabledTests.has(filename)) ||
-          (currentParser === "babel-ts" &&
-            babelTsDisabledTests.has(filename)) ||
-          (currentParser === "typescript" &&
-            typescriptDisabledTests.has(filename))
-        ) {
-          continue;
-        }
+            try {
+              test.formatResult = await test.runFormat();
+            } catch (error) {
+              test.error = error;
+            }
+          }),
+        );
 
-        const testTitle =
-          shouldThrowOnMainParserFormat ||
-          formatOptions.parser !== currentParser
-            ? `[${currentParser}] format`
-            : "format";
+        testCaseForSnapshot = testCases.find(({ formatResult }) =>
+          Boolean(formatResult),
+        );
+      });
+
+      const hasMultipleParsers = testCases.length > 1;
+
+      for (const testCase of testCases) {
+        const testTitle = `${hasMultipleParsers ? `[${testCase.parser}] ` : ""}format`;
 
         test(testTitle, async () => {
           await runTest({
-            parsers,
-            name,
             filename,
             code,
             output,
-            parser: currentParser,
-            mainParserFormatResult,
-            mainParserFormatOptions: formatOptions,
+            result: testCase,
+            testCaseForSnapshot,
           });
+
+          if (shouldSnapshotResult && !hasMultipleParsers) {
+            snapshotFormatResult(testCaseForSnapshot);
+          }
+        });
+      }
+
+      if (shouldSnapshotResult && hasMultipleParsers) {
+        test("format", () => {
+          snapshotFormatResult(testCaseForSnapshot);
         });
       }
     });
   }
 }
 
+function snapshotFormatResult(testCase) {
+  expect(testCase).toBeDefined();
+
+  expect(
+    createSnapshot(testCase.formatResult, {
+      parsers: testCase.explicitParsers,
+      formatOptions: testCase.formatOptions,
+      CURSOR_PLACEHOLDER,
+    }),
+  ).toMatchSnapshot();
+}
+
 async function runTest({
-  parsers,
-  name,
   filename,
   code,
   output,
-  parser,
-  mainParserFormatResult,
-  mainParserFormatOptions,
+  result,
+  testCaseForSnapshot,
 }) {
-  let formatOptions = mainParserFormatOptions;
-  let formatResult = mainParserFormatResult;
-  expect(formatResult).toBeDefined();
-
-  const isMainParser = mainParserFormatOptions.parser === parser;
-
-  // Verify parsers or error tests
-  if (mainParserFormatResult.error || !isMainParser) {
-    formatOptions = { ...mainParserFormatResult.options, parser };
-    const runFormat = () => format(code, formatOptions);
-
-    if (shouldThrowOnFormat(name, formatOptions)) {
-      await expect(runFormat()).rejects.toThrowErrorMatchingSnapshot();
-      return;
-    }
-
-    // Verify parsers format result should be the same as main parser
-    output = mainParserFormatResult.outputWithCursor;
-    formatResult = await runFormat();
+  if (result.expectFail) {
+    await expect(result.runFormat).rejects.toThrowErrorMatchingSnapshot();
+    return;
   }
+
+  const { error, formatResult } = result;
+  if (!formatResult) {
+    throw error;
+  }
+
+  expect(formatResult).toBeDefined();
+  expect(testCaseForSnapshot.formatResult).toBeDefined();
 
   // Make sure output has consistent EOL
   expect(formatResult.eolVisualizedOutput).toBe(
     visualizeEndOfLine(consistentEndOfLine(formatResult.outputWithCursor)),
   );
 
-  // The result is assert to equals to `output`
-  if (typeof output === "string") {
+  if (typeof result.expectedOutput === "string") {
     expect(formatResult.eolVisualizedOutput).toBe(visualizeEndOfLine(output));
-  }
-  // All parsers have the same result, only snapshot the result from main parser
-  else {
-    expect(
-      createSnapshot(formatResult, {
-        parsers,
-        formatOptions,
-        CURSOR_PLACEHOLDER,
-      }),
-    ).toMatchSnapshot();
+  } else if (testCaseForSnapshot !== result) {
+    expect(formatResult.eolVisualizedOutput).toStrictEqual(
+      testCaseForSnapshot.formatResult.eolVisualizedOutput,
+    );
   }
 
   if (!FULL_TEST) {
     return;
   }
+
+  const { formatOptions } = result;
 
   // Some parsers skip parsing empty files
   if (formatResult.changed && code.trim()) {
@@ -441,7 +298,10 @@ async function runTest({
     const [originalAst, formattedAst] = await Promise.all(
       [input, output].map((code) => parse(code, formatOptions)),
     );
-    const isAstUnstableTest = isAstUnstable(filename, formatOptions);
+    const isAstUnstableTest = failedTests.isAstUnstable(
+      filename,
+      formatOptions,
+    );
 
     if (isAstUnstableTest) {
       expect(formattedAst).not.toStrictEqual(originalAst);
@@ -450,11 +310,11 @@ async function runTest({
     }
   }
 
-  if (!isMainParser) {
+  if (testCaseForSnapshot === result) {
     return;
   }
 
-  const isUnstableTest = isUnstable(filename, formatOptions);
+  const isUnstableTest = failedTests.isUnstable(filename, formatOptions);
   if (
     (formatResult.changed || isUnstableTest) &&
     // No range and cursor
@@ -481,21 +341,24 @@ async function runTest({
   }
 
   if (!shouldSkipEolTest(code, formatResult.options)) {
-    for (const eol of ["\r\n", "\r"]) {
-      const { eolVisualizedOutput: output } = await format(
-        code.replace(/\n/g, eol),
-        formatOptions,
-      );
-      // Only if `endOfLine: "auto"` the result will be different
-      const expected =
-        formatOptions.endOfLine === "auto"
-          ? visualizeEndOfLine(
-              // All `code` use `LF`, so the `eol` of result is always `LF`
-              formatResult.outputWithCursor.replace(/\n/g, eol),
-            )
-          : formatResult.eolVisualizedOutput;
-      expect(output).toBe(expected);
-    }
+    await Promise.all(
+      ["\r\n", "\r"].map(async (eol) => {
+        const { eolVisualizedOutput: output } = await format(
+          code.replace(/\n/g, eol),
+          formatOptions,
+        );
+        // Only if `endOfLine: "auto"` the result will be different
+        const expected =
+          formatOptions.endOfLine === "auto"
+            ? visualizeEndOfLine(
+                // All `code` use `LF`, so the `eol` of result is always `LF`
+                formatResult.outputWithCursor.replace(/\n/g, eol),
+              )
+            : formatResult.eolVisualizedOutput;
+
+        expect(output).toBe(expected);
+      }),
+    );
   }
 
   if (code.charAt(0) !== BOM) {
@@ -641,8 +504,8 @@ async function loadPlugins(options) {
 
   if (!externalParsers) {
     externalParsers = getExternalPlugins();
-    externalParsers = await externalParsers;
   }
+  externalParsers = await externalParsers;
   if (!externalParsers.has(parser)) {
     return options;
   }

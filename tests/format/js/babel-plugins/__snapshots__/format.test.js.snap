@@ -997,42 +997,6 @@ exports[`flow.js [babel] format 1`] = `
 Cause: Unexpected token, expected "," (3:16)"
 `;
 
-exports[`flow.js [babel-flow] format 1`] = `
-====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-// https://babeljs.io/docs/babel-preset-flow
-
-function foo(one: any, two: number, three?): string {}
-
-=====================================output=====================================
-// https://babeljs.io/docs/babel-preset-flow
-
-function foo(one: any, two: number, three?): string {}
-
-================================================================================
-`;
-
-exports[`flow.js [babel-ts] format 1`] = `
-====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-// https://babeljs.io/docs/babel-preset-flow
-
-function foo(one: any, two: number, three?): string {}
-
-=====================================output=====================================
-// https://babeljs.io/docs/babel-preset-flow
-
-function foo(one: any, two: number, three?): string {}
-
-================================================================================
-`;
-
 exports[`flow.js [espree] format 1`] = `
 "Unexpected token : (3:17)
   1 | // https://babeljs.io/docs/babel-preset-flow
@@ -1060,6 +1024,24 @@ exports[`flow.js [oxc] format 1`] = `
 > 3 | function foo(one: any, two: number, three?): string {}
     |                 ^
   4 |"
+`;
+
+exports[`flow.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "babel-flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// https://babeljs.io/docs/babel-preset-flow
+
+function foo(one: any, two: number, three?): string {}
+
+=====================================output=====================================
+// https://babeljs.io/docs/babel-preset-flow
+
+function foo(one: any, two: number, three?): string {}
+
+================================================================================
 `;
 
 exports[`function-bind.js [acorn] format 1`] = `
@@ -2523,42 +2505,6 @@ exports[`typescript.js [babel] format 1`] = `
 Cause: Unexpected token (3:7)"
 `;
 
-exports[`typescript.js [babel-flow] format 1`] = `
-====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-// https://babeljs.io/docs/babel-preset-typescript
-
-const x: number = 0;
-
-=====================================output=====================================
-// https://babeljs.io/docs/babel-preset-typescript
-
-const x: number = 0;
-
-================================================================================
-`;
-
-exports[`typescript.js [babel-ts] format 1`] = `
-====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-// https://babeljs.io/docs/babel-preset-typescript
-
-const x: number = 0;
-
-=====================================output=====================================
-// https://babeljs.io/docs/babel-preset-typescript
-
-const x: number = 0;
-
-================================================================================
-`;
-
 exports[`typescript.js [espree] format 1`] = `
 "Unexpected token : (3:8)
   1 | // https://babeljs.io/docs/babel-preset-typescript
@@ -2586,6 +2532,24 @@ exports[`typescript.js [oxc] format 1`] = `
 > 3 | const x: number = 0;
     |       ^
   4 |"
+`;
+
+exports[`typescript.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "babel-flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// https://babeljs.io/docs/babel-preset-typescript
+
+const x: number = 0;
+
+=====================================output=====================================
+// https://babeljs.io/docs/babel-preset-typescript
+
+const x: number = 0;
+
+================================================================================
 `;
 
 exports[`v8intrinsic.js [acorn] format 1`] = `

@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`ambient.js format 1`] = `
+"Const must be initialized (1:7)
+> 1 | const foo: string;
+    |       ^^^^^^^^^^^
+  2 |"
+`;
+
+exports[`ambient.unknown format 1`] = `
+"Const must be initialized (1:7)
+> 1 | const foo: string;
+    |       ^^^^^^^^^^^
+  2 |"
+`;
