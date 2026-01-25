@@ -13,7 +13,7 @@ exports[`snippet: #0 [oxc-ts] format 1`] = `
     |             ^"
 `;
 
-exports[`snippet: #0 [typescript] format 1`] = `
+exports[`snippet: #0 format 1`] = `
 "Only a single variable declaration is allowed in a 'for...of' statement. (1:6)
 > 1 | for (var of X);
     |      ^^^
@@ -33,7 +33,7 @@ exports[`snippet: #1 [oxc-ts] format 1`] = `
     |               ^"
 `;
 
-exports[`snippet: #1 [typescript] format 1`] = `
+exports[`snippet: #1 format 1`] = `
 "Only a single variable declaration is allowed in a 'for...of' statement. (1:6)
 > 1 | for (var of of);
     |      ^^^
@@ -53,7 +53,7 @@ exports[`snippet: #2 [oxc-ts] format 1`] = `
     |          ^^"
 `;
 
-exports[`snippet: #2 [typescript] format 1`] = `
+exports[`snippet: #2 format 1`] = `
 "Only a single variable declaration is allowed in a 'for...in' statement. (1:6)
 > 1 | for (var in X);
     |      ^^^

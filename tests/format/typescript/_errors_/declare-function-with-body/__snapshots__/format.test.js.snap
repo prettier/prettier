@@ -13,7 +13,7 @@ exports[`snippet: #0 [oxc-ts] format 1`] = `
     |                        ^"
 `;
 
-exports[`snippet: #0 [typescript] format 1`] = `
+exports[`snippet: #0 format 1`] = `
 "An implementation cannot be declared in ambient contexts. (1:1)
 > 1 | declare function foo() {}
     | ^^^^^^^^^^^^^^^^^^^^^^^^^

@@ -8,14 +8,6 @@ exports[`invalid-exponent.js [acorn] format 1`] = `
 Cause: Invalid number (1:0)"
 `;
 
-exports[`invalid-exponent.js [babel] format 1`] = `
-"Floating-point numbers require a valid exponent after the 'e'. (1:1)
-> 1 | 12.3e
-    | ^
-  2 |
-Cause: Floating-point numbers require a valid exponent after the 'e'. (1:0)"
-`;
-
 exports[`invalid-exponent.js [espree] format 1`] = `
 "Invalid number (1:1)
 > 1 | 12.3e
@@ -30,4 +22,12 @@ exports[`invalid-exponent.js [meriyah] format 1`] = `
     | ^^^^^
   2 |
 Cause: [1:0-1:5]: Non-number found after exponent indicator"
+`;
+
+exports[`invalid-exponent.js format 1`] = `
+"Floating-point numbers require a valid exponent after the 'e'. (1:1)
+> 1 | 12.3e
+    | ^
+  2 |
+Cause: Floating-point numbers require a valid exponent after the 'e'. (1:0)"
 `;

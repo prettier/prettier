@@ -7,7 +7,7 @@ exports[`snippet: #0 [babel-ts] format 1`] = `
 Cause: An import alias can not use 'import type'. (1:16)"
 `;
 
-exports[`snippet: #0 [typescript] format 1`] = `
+exports[`snippet: #0 format 1`] = `
 "An import alias cannot use 'import type' (1:1)
 > 1 | import type F = T;
     | ^^^^^^^^^^^^^^^^^^

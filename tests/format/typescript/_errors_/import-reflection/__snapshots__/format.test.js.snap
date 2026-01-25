@@ -17,7 +17,7 @@ exports[`valid-flow-default-import.mts [oxc-ts] format 1`] = `
   3 |"
 `;
 
-exports[`valid-flow-default-import.mts [typescript] format 1`] = `
+exports[`valid-flow-default-import.mts format 1`] = `
 "'=' expected. (1:15)
 > 1 | import module foo from "./module.wasm";
     |               ^
@@ -43,7 +43,7 @@ exports[`valid-ts-default-import.mts [oxc-ts] format 1`] = `
   3 |"
 `;
 
-exports[`valid-ts-default-import.mts [typescript] format 1`] = `
+exports[`valid-ts-default-import.mts format 1`] = `
 "'=' expected. (1:15)
 > 1 | import module foo from "./module.wasm";
     |               ^

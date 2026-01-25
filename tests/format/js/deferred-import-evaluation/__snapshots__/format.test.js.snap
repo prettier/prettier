@@ -168,14 +168,6 @@ exports[`no-default.js [acorn] format 1`] = `
 Cause: Unexpected token (1:13)"
 `;
 
-exports[`no-default.js [babel] format 1`] = `
-"Only \`import defer * as x from "./module"\` is valid. (1:14)
-> 1 | import defer x from "x";
-    |              ^
-  2 |
-Cause: Only \`import defer * as x from "./module"\` is valid. (1:13)"
-`;
-
 exports[`no-default.js [espree] format 1`] = `
 "Unexpected token x (1:14)
 > 1 | import defer x from "x";
@@ -199,6 +191,14 @@ exports[`no-default.js [oxc] format 1`] = `
   2 |"
 `;
 
+exports[`no-default.js format 1`] = `
+"Only \`import defer * as x from "./module"\` is valid. (1:14)
+> 1 | import defer x from "x";
+    |              ^
+  2 |
+Cause: Only \`import defer * as x from "./module"\` is valid. (1:13)"
+`;
+
 exports[`no-named.js [__babel_estree] format 1`] = `
 "Only \`import defer * as x from "./module"\` is valid. (1:16)
 > 1 | import defer { x } from "x";
@@ -213,14 +213,6 @@ exports[`no-named.js [acorn] format 1`] = `
     |              ^
   2 |
 Cause: Unexpected token (1:13)"
-`;
-
-exports[`no-named.js [babel] format 1`] = `
-"Only \`import defer * as x from "./module"\` is valid. (1:16)
-> 1 | import defer { x } from "x";
-    |                ^
-  2 |
-Cause: Only \`import defer * as x from "./module"\` is valid. (1:15)"
 `;
 
 exports[`no-named.js [espree] format 1`] = `
@@ -244,4 +236,12 @@ exports[`no-named.js [oxc] format 1`] = `
 > 1 | import defer { x } from "x";
     |        ^^^^^
   2 |"
+`;
+
+exports[`no-named.js format 1`] = `
+"Only \`import defer * as x from "./module"\` is valid. (1:16)
+> 1 | import defer { x } from "x";
+    |                ^
+  2 |
+Cause: Only \`import defer * as x from "./module"\` is valid. (1:15)"
 `;

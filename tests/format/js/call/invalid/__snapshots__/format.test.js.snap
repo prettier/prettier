@@ -20,16 +20,6 @@ exports[`null-arguments-item.js [acorn] format 1`] = `
 Cause: Unexpected token (1:10)"
 `;
 
-exports[`null-arguments-item.js [babel] format 1`] = `
-"Unexpected token ','. (1:12)
-> 1 | foor('a', , 'b');
-    |            ^
-  2 | foo('looooooooooooooooooooooooooooooooooooooooooooooong', , 'looooooooooooooooooooooooooooooooooooooooooooooong');
-  3 | foo("a",
-  4 |     //1
-Cause: Unexpected token ','. (1:11)"
-`;
-
 exports[`null-arguments-item.js [espree] format 1`] = `
 "Unexpected token , (1:11)
 > 1 | foor('a', , 'b');
@@ -57,4 +47,14 @@ exports[`null-arguments-item.js [oxc] format 1`] = `
   2 | foo('looooooooooooooooooooooooooooooooooooooooooooooong', , 'looooooooooooooooooooooooooooooooooooooooooooooong');
   3 | foo("a",
   4 |     //1"
+`;
+
+exports[`null-arguments-item.js format 1`] = `
+"Unexpected token ','. (1:12)
+> 1 | foor('a', , 'b');
+    |            ^
+  2 | foo('looooooooooooooooooooooooooooooooooooooooooooooong', , 'looooooooooooooooooooooooooooooooooooooooooooooong');
+  3 | foo("a",
+  4 |     //1
+Cause: Unexpected token ','. (1:11)"
 `;

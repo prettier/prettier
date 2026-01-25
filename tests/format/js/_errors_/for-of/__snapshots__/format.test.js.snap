@@ -7,20 +7,6 @@ exports[`snippet: #0 [acorn] format 1`] = `
 Cause: Unexpected token (1:14)"
 `;
 
-exports[`snippet: #0 [babel] format 1`] = `
-"The left-hand side of a for-of loop may not start with 'let'. (1:6)
-> 1 | for (let.foo of []);
-    |      ^
-Cause: The left-hand side of a for-of loop may not start with 'let'. (1:5)"
-`;
-
-exports[`snippet: #0 [babel] format 2`] = `
-"The left-hand side of a for-of loop may not be 'async'. (1:6)
-> 1 | for (async of []);
-    |      ^
-Cause: The left-hand side of a for-of loop may not be 'async'. (1:5)"
-`;
-
 exports[`snippet: #0 [babel-flow] format 1`] = `
 "The left-hand side of a for-of loop may not start with 'let'. (1:6)
 > 1 | for (let.foo of []);
@@ -89,11 +75,18 @@ exports[`snippet: #0 [typescript] format 1`] = `
 Cause: Variable declaration expected."
 `;
 
-exports[`snippet: #1 [babel] format 1`] = `
+exports[`snippet: #0 format 1`] = `
 "The left-hand side of a for-of loop may not start with 'let'. (1:6)
-> 1 | for (let().bar of []);
+> 1 | for (let.foo of []);
     |      ^
 Cause: The left-hand side of a for-of loop may not start with 'let'. (1:5)"
+`;
+
+exports[`snippet: #0 format 2`] = `
+"The left-hand side of a for-of loop may not be 'async'. (1:6)
+> 1 | for (async of []);
+    |      ^
+Cause: The left-hand side of a for-of loop may not be 'async'. (1:5)"
 `;
 
 exports[`snippet: #1 [babel-flow] format 1`] = `
@@ -137,9 +130,9 @@ exports[`snippet: #1 [typescript] format 1`] = `
 Cause: Variable declaration expected."
 `;
 
-exports[`snippet: #2 [babel] format 1`] = `
+exports[`snippet: #1 format 1`] = `
 "The left-hand side of a for-of loop may not start with 'let'. (1:6)
-> 1 | for (let\`\`.bar of []);
+> 1 | for (let().bar of []);
     |      ^
 Cause: The left-hand side of a for-of loop may not start with 'let'. (1:5)"
 `;
@@ -183,4 +176,11 @@ exports[`snippet: #2 [typescript] format 1`] = `
 > 1 | for (let\`\`.bar of []);
     |         ^
 Cause: Variable declaration expected."
+`;
+
+exports[`snippet: #2 format 1`] = `
+"The left-hand side of a for-of loop may not start with 'let'. (1:6)
+> 1 | for (let\`\`.bar of []);
+    |      ^
+Cause: The left-hand side of a for-of loop may not start with 'let'. (1:5)"
 `;

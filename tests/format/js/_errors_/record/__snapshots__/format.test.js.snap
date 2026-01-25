@@ -7,13 +7,6 @@ exports[`snippet: #0 [acorn] format 1`] = `
 Cause: Unexpected character '{' (1:1)"
 `;
 
-exports[`snippet: #0 [babel] format 1`] = `
-"Unexpected token (1:1)
-> 1 | #{a() {}}
-    | ^
-Cause: Unexpected token (1:0)"
-`;
-
 exports[`snippet: #0 [espree] format 1`] = `
 "Unexpected character '{' (1:2)
 > 1 | #{a() {}}
@@ -28,18 +21,18 @@ exports[`snippet: #0 [meriyah] format 1`] = `
 Cause: [1:0-1:1]: '#' not followed by identifier"
 `;
 
+exports[`snippet: #0 format 1`] = `
+"Unexpected token (1:1)
+> 1 | #{a() {}}
+    | ^
+Cause: Unexpected token (1:0)"
+`;
+
 exports[`snippet: #1 [acorn] format 1`] = `
 "Unexpected character '{' (1:2)
 > 1 | #{async b() {}}
     |  ^
 Cause: Unexpected character '{' (1:1)"
-`;
-
-exports[`snippet: #1 [babel] format 1`] = `
-"Unexpected token (1:1)
-> 1 | #{async b() {}}
-    | ^
-Cause: Unexpected token (1:0)"
 `;
 
 exports[`snippet: #1 [espree] format 1`] = `
@@ -56,18 +49,18 @@ exports[`snippet: #1 [meriyah] format 1`] = `
 Cause: [1:0-1:1]: '#' not followed by identifier"
 `;
 
+exports[`snippet: #1 format 1`] = `
+"Unexpected token (1:1)
+> 1 | #{async b() {}}
+    | ^
+Cause: Unexpected token (1:0)"
+`;
+
 exports[`snippet: #2 [acorn] format 1`] = `
 "Unexpected character '{' (1:2)
 > 1 | #{get c() {}}
     |  ^
 Cause: Unexpected character '{' (1:1)"
-`;
-
-exports[`snippet: #2 [babel] format 1`] = `
-"Unexpected token (1:1)
-> 1 | #{get c() {}}
-    | ^
-Cause: Unexpected token (1:0)"
 `;
 
 exports[`snippet: #2 [espree] format 1`] = `
@@ -84,18 +77,18 @@ exports[`snippet: #2 [meriyah] format 1`] = `
 Cause: [1:0-1:1]: '#' not followed by identifier"
 `;
 
+exports[`snippet: #2 format 1`] = `
+"Unexpected token (1:1)
+> 1 | #{get c() {}}
+    | ^
+Cause: Unexpected token (1:0)"
+`;
+
 exports[`snippet: #3 [acorn] format 1`] = `
 "Unexpected character '{' (1:2)
 > 1 | #{set d(_) {}}
     |  ^
 Cause: Unexpected character '{' (1:1)"
-`;
-
-exports[`snippet: #3 [babel] format 1`] = `
-"Unexpected token (1:1)
-> 1 | #{set d(_) {}}
-    | ^
-Cause: Unexpected token (1:0)"
 `;
 
 exports[`snippet: #3 [espree] format 1`] = `
@@ -112,18 +105,18 @@ exports[`snippet: #3 [meriyah] format 1`] = `
 Cause: [1:0-1:1]: '#' not followed by identifier"
 `;
 
+exports[`snippet: #3 format 1`] = `
+"Unexpected token (1:1)
+> 1 | #{set d(_) {}}
+    | ^
+Cause: Unexpected token (1:0)"
+`;
+
 exports[`snippet: #4 [acorn] format 1`] = `
 "Unexpected character '{' (1:2)
 > 1 | #{*e() {}}
     |  ^
 Cause: Unexpected character '{' (1:1)"
-`;
-
-exports[`snippet: #4 [babel] format 1`] = `
-"Unexpected token (1:1)
-> 1 | #{*e() {}}
-    | ^
-Cause: Unexpected token (1:0)"
 `;
 
 exports[`snippet: #4 [espree] format 1`] = `
@@ -138,4 +131,11 @@ exports[`snippet: #4 [meriyah] format 1`] = `
 > 1 | #{*e() {}}
     | ^
 Cause: [1:0-1:1]: '#' not followed by identifier"
+`;
+
+exports[`snippet: #4 format 1`] = `
+"Unexpected token (1:1)
+> 1 | #{*e() {}}
+    | ^
+Cause: Unexpected token (1:0)"
 `;
