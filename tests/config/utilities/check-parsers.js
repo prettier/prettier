@@ -133,10 +133,6 @@ const categoryParsers = new Map([
     },
   ],
   [
-    "stylefmt-repo",
-    { parsers: ["css", "scss"], verifyParsers: [], extensions: [".css"] },
-  ],
-  [
     "typescript",
     {
       parsers: ["typescript", "babel-ts", "oxc-ts"],
