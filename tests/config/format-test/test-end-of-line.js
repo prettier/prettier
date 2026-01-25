@@ -42,24 +42,10 @@ function testEndOfLine(testCase, name, eol) {
 */
 function shouldSkip(testCase) {
   if (testCase.expectFail || testCase.isEmpty) {
-    return;
+    return true;
   }
 
   if (testCase.code.includes("\r")) {
-    return true;
-  }
-
-  const { requirePragma, checkIgnorePragma } = testCase.formatOptions;
-  if (requirePragma || checkIgnorePragma) {
-    return true;
-  }
-
-  const { rangeStart, rangeEnd } = testCase.formatOptions;
-  if (
-    typeof rangeStart === "number" &&
-    typeof rangeEnd === "number" &&
-    rangeStart >= rangeEnd
-  ) {
     return true;
   }
 
