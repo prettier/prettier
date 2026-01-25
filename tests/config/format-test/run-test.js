@@ -8,14 +8,15 @@ import visualizeEndOfLine from "./visualize-end-of-line.js";
 
 /**
 @import {Fixture} from "./get-fixtures.js"
+@typedef {ReturnType<getTestCase>} TestCase
 */
 
 /**
 @param {Fixture} fixture
 */
 function testFixture(fixture) {
-  const { name, code, context, filepath } = fixture;
-  const { stringifiedOptions, parsers, options } = context;
+  const { name, context, filepath } = fixture;
+  const { stringifiedOptions, parsers } = context;
 
   const title = `${name}${
     stringifiedOptions ? ` - ${stringifiedOptions}` : ""
@@ -23,24 +24,7 @@ function testFixture(fixture) {
 
   const testCases = parsers
     .filter((parser) => !failedTests.shouldDisable(filepath, parser))
-    .map((parser) => {
-      const formatOptions = { filepath, ...options, parser };
-      const expectFail = shouldThrowOnFormat(fixture, options, parser);
-      let promise;
-
-      return {
-        context,
-        parser,
-        code,
-        formatOptions,
-        expectFail,
-        expectedOutput: fixture.output,
-        runFormat: () =>
-          promise === undefined
-            ? (promise = format(code, formatOptions))
-            : promise,
-      };
-    });
+    .map((parser) => getTestCase(fixture, parser));
 
   const testCaseForSnapshot = testCases.find(
     (testCase) =>
@@ -62,6 +46,33 @@ function testFixture(fixture) {
   });
 }
 
+/**
+@param {Fixture} fixture
+@param {string} parser
+*/
+function getTestCase(fixture, parser) {
+  const { code, context, options, filepath } = fixture;
+  const formatOptions = { filepath, ...options, parser };
+  const expectFail = shouldThrowOnFormat(fixture, options, parser);
+  /** @type {ReturnType<format> | undefined} */
+  let promise;
+
+  return {
+    context,
+    parser,
+    code,
+    formatOptions,
+    expectFail,
+    expectedOutput: fixture.output,
+    runFormat: () =>
+      promise === undefined ? (promise = format(code, formatOptions)) : promise,
+  };
+}
+
+/**
+@param {TestCase} testCase
+@param {TestCase} testCaseForSnapshot
+*/
 async function runTest(testCase, testCaseForSnapshot) {
   if (testCase.expectFail) {
     await expect(testCase.runFormat).rejects.toThrowErrorMatchingSnapshot();
