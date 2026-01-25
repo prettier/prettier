@@ -83,17 +83,6 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`in-end-tag.js - {"bracketSameLine":true} [typescript] format 1`] = `
-"Identifier expected. (2:6)
-  1 | /* =========== before slash =========== */
-> 2 | <a><// line
-    |      ^
-  3 | /a>;
-  4 | <a></* block */
-  5 | /a>;
-Cause: Identifier expected."
-`;
-
 exports[`in-end-tag.js - {"bracketSameLine":true} format 1`] = `
 ====================================options=====================================
 bracketSameLine: true
@@ -210,6 +199,17 @@ a>;
 >;
 
 ================================================================================
+`;
+
+exports[`in-end-tag.js - {"bracketSameLine":true} format[typescript] 1`] = `
+"Identifier expected. (2:6)
+  1 | /* =========== before slash =========== */
+> 2 | <a><// line
+    |      ^
+  3 | /a>;
+  4 | <a></* block */
+  5 | /a>;
+Cause: Identifier expected."
 `;
 
 exports[`in-tags.js - {"bracketSameLine":true} format 1`] = `

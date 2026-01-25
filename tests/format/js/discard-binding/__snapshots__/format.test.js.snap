@@ -1,100 +1,5 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`array-pattern.js [acorn] format 1`] = `
-"Unexpected keyword 'void' (3:12)
-  1 | {
-  2 |   // destructuring binding
-> 3 |   const [, void, ] = value;
-    |            ^
-  4 | }
-  5 | {
-  6 |   // for-of destructuring binding
-Cause: Unexpected keyword 'void' (3:11)"
-`;
-
-exports[`array-pattern.js [espree] format 1`] = `
-"Unexpected keyword 'void' (3:12)
-  1 | {
-  2 |   // destructuring binding
-> 3 |   const [, void, ] = value;
-    |            ^
-  4 | }
-  5 | {
-  6 |   // for-of destructuring binding
-Cause: Unexpected keyword 'void'"
-`;
-
-exports[`array-pattern.js [flow] format 1`] = `
-"Unexpected reserved word (3:12)
-  1 | {
-  2 |   // destructuring binding
-> 3 |   const [, void, ] = value;
-    |            ^^^^
-  4 | }
-  5 | {
-  6 |   // for-of destructuring binding"
-`;
-
-exports[`array-pattern.js [hermes] format 1`] = `
-"identifier, '{' or '[' expected in binding pattern (3:11)
-  1 | {
-  2 |   // destructuring binding
-> 3 |   const [, void, ] = value;
-    |           ^
-  4 | }
-  5 | {
-  6 |   // for-of destructuring binding
-Cause: identifier, '{' or '[' expected in binding pattern (3:11)
-  const [, void, ] = value;
-           ^"
-`;
-
-exports[`array-pattern.js [meriyah] format 1`] = `
-"Unexpected token: ',' (3:16)
-  1 | {
-  2 |   // destructuring binding
-> 3 |   const [, void, ] = value;
-    |                ^
-  4 | }
-  5 | {
-  6 |   // for-of destructuring binding
-Cause: [3:15-3:16]: Unexpected token: ','"
-`;
-
-exports[`array-pattern.js [oxc] format 1`] = `
-"Identifier expected. 'void' is a reserved word that cannot be used here. (3:12)
-  1 | {
-  2 |   // destructuring binding
-> 3 |   const [, void, ] = value;
-    |            ^^^^
-  4 | }
-  5 | {
-  6 |   // for-of destructuring binding"
-`;
-
-exports[`array-pattern.js [oxc-ts] format 1`] = `
-"Identifier expected. 'void' is a reserved word that cannot be used here. (3:12)
-  1 | {
-  2 |   // destructuring binding
-> 3 |   const [, void, ] = value;
-    |            ^^^^
-  4 | }
-  5 | {
-  6 |   // for-of destructuring binding"
-`;
-
-exports[`array-pattern.js [typescript] format 1`] = `
-"Array element destructuring pattern expected. (3:12)
-  1 | {
-  2 |   // destructuring binding
-> 3 |   const [, void, ] = value;
-    |            ^
-  4 | }
-  5 | {
-  6 |   // for-of destructuring binding
-Cause: Array element destructuring pattern expected."
-`;
-
 exports[`array-pattern.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -180,82 +85,98 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`basic.js [acorn] format 1`] = `
-"Unexpected keyword 'void' (1:8)
-> 1 | const [void] = [,void] = [void,] = [];
-    |        ^
-  2 |
-  3 | function f(void, { p: void }, [ void ]) {}
-  4 |
-Cause: Unexpected keyword 'void' (1:7)"
+exports[`array-pattern.js format[acorn] 1`] = `
+"Unexpected keyword 'void' (3:12)
+  1 | {
+  2 |   // destructuring binding
+> 3 |   const [, void, ] = value;
+    |            ^
+  4 | }
+  5 | {
+  6 |   // for-of destructuring binding
+Cause: Unexpected keyword 'void' (3:11)"
 `;
 
-exports[`basic.js [espree] format 1`] = `
-"Unexpected keyword 'void' (1:8)
-> 1 | const [void] = [,void] = [void,] = [];
-    |        ^
-  2 |
-  3 | function f(void, { p: void }, [ void ]) {}
-  4 |
+exports[`array-pattern.js format[espree] 1`] = `
+"Unexpected keyword 'void' (3:12)
+  1 | {
+  2 |   // destructuring binding
+> 3 |   const [, void, ] = value;
+    |            ^
+  4 | }
+  5 | {
+  6 |   // for-of destructuring binding
 Cause: Unexpected keyword 'void'"
 `;
 
-exports[`basic.js [flow] format 1`] = `
-"Unexpected reserved word (1:8)
-> 1 | const [void] = [,void] = [void,] = [];
-    |        ^^^^
-  2 |
-  3 | function f(void, { p: void }, [ void ]) {}
-  4 |"
+exports[`array-pattern.js format[flow] 1`] = `
+"Unexpected reserved word (3:12)
+  1 | {
+  2 |   // destructuring binding
+> 3 |   const [, void, ] = value;
+    |            ^^^^
+  4 | }
+  5 | {
+  6 |   // for-of destructuring binding"
 `;
 
-exports[`basic.js [hermes] format 1`] = `
-"identifier, '{' or '[' expected in binding pattern (1:7)
-> 1 | const [void] = [,void] = [void,] = [];
-    |       ^
-  2 |
-  3 | function f(void, { p: void }, [ void ]) {}
-  4 |
-Cause: identifier, '{' or '[' expected in binding pattern (1:7)
-const [void] = [,void] = [void,] = [];
-       ^"
+exports[`array-pattern.js format[hermes] 1`] = `
+"identifier, '{' or '[' expected in binding pattern (3:11)
+  1 | {
+  2 |   // destructuring binding
+> 3 |   const [, void, ] = value;
+    |           ^
+  4 | }
+  5 | {
+  6 |   // for-of destructuring binding
+Cause: identifier, '{' or '[' expected in binding pattern (3:11)
+  const [, void, ] = value;
+           ^"
 `;
 
-exports[`basic.js [meriyah] format 1`] = `
-"Unexpected token: ']' (1:12)
-> 1 | const [void] = [,void] = [void,] = [];
+exports[`array-pattern.js format[meriyah] 1`] = `
+"Unexpected token: ',' (3:16)
+  1 | {
+  2 |   // destructuring binding
+> 3 |   const [, void, ] = value;
+    |                ^
+  4 | }
+  5 | {
+  6 |   // for-of destructuring binding
+Cause: [3:15-3:16]: Unexpected token: ','"
+`;
+
+exports[`array-pattern.js format[oxc] 1`] = `
+"Identifier expected. 'void' is a reserved word that cannot be used here. (3:12)
+  1 | {
+  2 |   // destructuring binding
+> 3 |   const [, void, ] = value;
+    |            ^^^^
+  4 | }
+  5 | {
+  6 |   // for-of destructuring binding"
+`;
+
+exports[`array-pattern.js format[oxc-ts] 1`] = `
+"Identifier expected. 'void' is a reserved word that cannot be used here. (3:12)
+  1 | {
+  2 |   // destructuring binding
+> 3 |   const [, void, ] = value;
+    |            ^^^^
+  4 | }
+  5 | {
+  6 |   // for-of destructuring binding"
+`;
+
+exports[`array-pattern.js format[typescript] 1`] = `
+"Array element destructuring pattern expected. (3:12)
+  1 | {
+  2 |   // destructuring binding
+> 3 |   const [, void, ] = value;
     |            ^
-  2 |
-  3 | function f(void, { p: void }, [ void ]) {}
-  4 |
-Cause: [1:11-1:12]: Unexpected token: ']'"
-`;
-
-exports[`basic.js [oxc] format 1`] = `
-"Identifier expected. 'void' is a reserved word that cannot be used here. (1:8)
-> 1 | const [void] = [,void] = [void,] = [];
-    |        ^^^^
-  2 |
-  3 | function f(void, { p: void }, [ void ]) {}
-  4 |"
-`;
-
-exports[`basic.js [oxc-ts] format 1`] = `
-"Identifier expected. 'void' is a reserved word that cannot be used here. (1:8)
-> 1 | const [void] = [,void] = [void,] = [];
-    |        ^^^^
-  2 |
-  3 | function f(void, { p: void }, [ void ]) {}
-  4 |"
-`;
-
-exports[`basic.js [typescript] format 1`] = `
-"Array element destructuring pattern expected. (1:8)
-> 1 | const [void] = [,void] = [void,] = [];
-    |        ^
-  2 |
-  3 | function f(void, { p: void }, [ void ]) {}
-  4 |
+  4 | }
+  5 | {
+  6 |   // for-of destructuring binding
 Cause: Array element destructuring pattern expected."
 `;
 
@@ -285,67 +206,83 @@ async (void, { p: void }, [void]) => {};
 ================================================================================
 `;
 
-exports[`discard-binding-arrow-params.js [acorn] format 1`] = `
-"Unexpected token (1:6)
-> 1 | (void) => {}
-    |      ^
+exports[`basic.js format[acorn] 1`] = `
+"Unexpected keyword 'void' (1:8)
+> 1 | const [void] = [,void] = [void,] = [];
+    |        ^
   2 |
-Cause: Unexpected token (1:5)"
+  3 | function f(void, { p: void }, [ void ]) {}
+  4 |
+Cause: Unexpected keyword 'void' (1:7)"
 `;
 
-exports[`discard-binding-arrow-params.js [espree] format 1`] = `
-"Unexpected token ) (1:6)
-> 1 | (void) => {}
-    |      ^
+exports[`basic.js format[espree] 1`] = `
+"Unexpected keyword 'void' (1:8)
+> 1 | const [void] = [,void] = [void,] = [];
+    |        ^
   2 |
-Cause: Unexpected token )"
+  3 | function f(void, { p: void }, [ void ]) {}
+  4 |
+Cause: Unexpected keyword 'void'"
 `;
 
-exports[`discard-binding-arrow-params.js [flow] format 1`] = `
-"Unexpected token \`)\` (1:6)
-> 1 | (void) => {}
-    |      ^
-  2 |"
-`;
-
-exports[`discard-binding-arrow-params.js [hermes] format 1`] = `
-"invalid expression (1:5)
-> 1 | (void) => {}
-    |     ^
+exports[`basic.js format[flow] 1`] = `
+"Unexpected reserved word (1:8)
+> 1 | const [void] = [,void] = [void,] = [];
+    |        ^^^^
   2 |
-Cause: invalid expression (1:5)
-(void) => {}
-     ^"
+  3 | function f(void, { p: void }, [ void ]) {}
+  4 |"
 `;
 
-exports[`discard-binding-arrow-params.js [meriyah] format 1`] = `
-"Unexpected token: ')' (1:6)
-> 1 | (void) => {}
-    |      ^
+exports[`basic.js format[hermes] 1`] = `
+"identifier, '{' or '[' expected in binding pattern (1:7)
+> 1 | const [void] = [,void] = [void,] = [];
+    |       ^
   2 |
-Cause: [1:5-1:6]: Unexpected token: ')'"
+  3 | function f(void, { p: void }, [ void ]) {}
+  4 |
+Cause: identifier, '{' or '[' expected in binding pattern (1:7)
+const [void] = [,void] = [void,] = [];
+       ^"
 `;
 
-exports[`discard-binding-arrow-params.js [oxc] format 1`] = `
-"Unexpected token (1:6)
-> 1 | (void) => {}
-    |      ^
-  2 |"
-`;
-
-exports[`discard-binding-arrow-params.js [oxc-ts] format 1`] = `
-"Unexpected token (1:6)
-> 1 | (void) => {}
-    |      ^
-  2 |"
-`;
-
-exports[`discard-binding-arrow-params.js [typescript] format 1`] = `
-"Expression expected. (1:6)
-> 1 | (void) => {}
-    |      ^
+exports[`basic.js format[meriyah] 1`] = `
+"Unexpected token: ']' (1:12)
+> 1 | const [void] = [,void] = [void,] = [];
+    |            ^
   2 |
-Cause: Expression expected."
+  3 | function f(void, { p: void }, [ void ]) {}
+  4 |
+Cause: [1:11-1:12]: Unexpected token: ']'"
+`;
+
+exports[`basic.js format[oxc] 1`] = `
+"Identifier expected. 'void' is a reserved word that cannot be used here. (1:8)
+> 1 | const [void] = [,void] = [void,] = [];
+    |        ^^^^
+  2 |
+  3 | function f(void, { p: void }, [ void ]) {}
+  4 |"
+`;
+
+exports[`basic.js format[oxc-ts] 1`] = `
+"Identifier expected. 'void' is a reserved word that cannot be used here. (1:8)
+> 1 | const [void] = [,void] = [void,] = [];
+    |        ^^^^
+  2 |
+  3 | function f(void, { p: void }, [ void ]) {}
+  4 |"
+`;
+
+exports[`basic.js format[typescript] 1`] = `
+"Array element destructuring pattern expected. (1:8)
+> 1 | const [void] = [,void] = [void,] = [];
+    |        ^
+  2 |
+  3 | function f(void, { p: void }, [ void ]) {}
+  4 |
+Cause: Array element destructuring pattern expected."
 `;
 
 exports[`discard-binding-arrow-params.js format 1`] = `
@@ -362,65 +299,65 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`discard-binding-assignment.js [acorn] format 1`] = `
-"Unexpected token (1:7)
-> 1 | ([void] = []);
-    |       ^
-  2 |
-Cause: Unexpected token (1:6)"
-`;
-
-exports[`discard-binding-assignment.js [espree] format 1`] = `
-"Unexpected token ] (1:7)
-> 1 | ([void] = []);
-    |       ^
-  2 |
-Cause: Unexpected token ]"
-`;
-
-exports[`discard-binding-assignment.js [flow] format 1`] = `
-"Unexpected token \`]\` (1:7)
-> 1 | ([void] = []);
-    |       ^
-  2 |"
-`;
-
-exports[`discard-binding-assignment.js [hermes] format 1`] = `
-"invalid expression (1:6)
-> 1 | ([void] = []);
+exports[`discard-binding-arrow-params.js format[acorn] 1`] = `
+"Unexpected token (1:6)
+> 1 | (void) => {}
     |      ^
   2 |
-Cause: invalid expression (1:6)
-([void] = []);
-      ^"
+Cause: Unexpected token (1:5)"
 `;
 
-exports[`discard-binding-assignment.js [meriyah] format 1`] = `
-"Unexpected token: ']' (1:7)
-> 1 | ([void] = []);
-    |       ^
+exports[`discard-binding-arrow-params.js format[espree] 1`] = `
+"Unexpected token ) (1:6)
+> 1 | (void) => {}
+    |      ^
   2 |
-Cause: [1:6-1:7]: Unexpected token: ']'"
+Cause: Unexpected token )"
 `;
 
-exports[`discard-binding-assignment.js [oxc] format 1`] = `
-"Unexpected token (1:7)
-> 1 | ([void] = []);
-    |       ^
+exports[`discard-binding-arrow-params.js format[flow] 1`] = `
+"Unexpected token \`)\` (1:6)
+> 1 | (void) => {}
+    |      ^
   2 |"
 `;
 
-exports[`discard-binding-assignment.js [oxc-ts] format 1`] = `
-"Unexpected token (1:7)
-> 1 | ([void] = []);
-    |       ^
+exports[`discard-binding-arrow-params.js format[hermes] 1`] = `
+"invalid expression (1:5)
+> 1 | (void) => {}
+    |     ^
+  2 |
+Cause: invalid expression (1:5)
+(void) => {}
+     ^"
+`;
+
+exports[`discard-binding-arrow-params.js format[meriyah] 1`] = `
+"Unexpected token: ')' (1:6)
+> 1 | (void) => {}
+    |      ^
+  2 |
+Cause: [1:5-1:6]: Unexpected token: ')'"
+`;
+
+exports[`discard-binding-arrow-params.js format[oxc] 1`] = `
+"Unexpected token (1:6)
+> 1 | (void) => {}
+    |      ^
   2 |"
 `;
 
-exports[`discard-binding-assignment.js [typescript] format 1`] = `
-"Expression expected. (1:7)
-> 1 | ([void] = []);
-    |       ^
+exports[`discard-binding-arrow-params.js format[oxc-ts] 1`] = `
+"Unexpected token (1:6)
+> 1 | (void) => {}
+    |      ^
+  2 |"
+`;
+
+exports[`discard-binding-arrow-params.js format[typescript] 1`] = `
+"Expression expected. (1:6)
+> 1 | (void) => {}
+    |      ^
   2 |
 Cause: Expression expected."
 `;
@@ -439,65 +376,65 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`discard-binding-async-arrow-params.js [acorn] format 1`] = `
-"Unexpected token (1:12)
-> 1 | async (void) => {}
-    |            ^
+exports[`discard-binding-assignment.js format[acorn] 1`] = `
+"Unexpected token (1:7)
+> 1 | ([void] = []);
+    |       ^
   2 |
-Cause: Unexpected token (1:11)"
+Cause: Unexpected token (1:6)"
 `;
 
-exports[`discard-binding-async-arrow-params.js [espree] format 1`] = `
-"Unexpected token ) (1:12)
-> 1 | async (void) => {}
-    |            ^
+exports[`discard-binding-assignment.js format[espree] 1`] = `
+"Unexpected token ] (1:7)
+> 1 | ([void] = []);
+    |       ^
   2 |
-Cause: Unexpected token )"
+Cause: Unexpected token ]"
 `;
 
-exports[`discard-binding-async-arrow-params.js [flow] format 1`] = `
-"Unexpected token \`)\` (1:12)
-> 1 | async (void) => {}
-    |            ^
+exports[`discard-binding-assignment.js format[flow] 1`] = `
+"Unexpected token \`]\` (1:7)
+> 1 | ([void] = []);
+    |       ^
   2 |"
 `;
 
-exports[`discard-binding-async-arrow-params.js [hermes] format 1`] = `
-"invalid expression (1:11)
-> 1 | async (void) => {}
-    |           ^
+exports[`discard-binding-assignment.js format[hermes] 1`] = `
+"invalid expression (1:6)
+> 1 | ([void] = []);
+    |      ^
   2 |
-Cause: invalid expression (1:11)
-async (void) => {}
-           ^"
+Cause: invalid expression (1:6)
+([void] = []);
+      ^"
 `;
 
-exports[`discard-binding-async-arrow-params.js [meriyah] format 1`] = `
-"Unexpected token: ')' (1:12)
-> 1 | async (void) => {}
-    |            ^
+exports[`discard-binding-assignment.js format[meriyah] 1`] = `
+"Unexpected token: ']' (1:7)
+> 1 | ([void] = []);
+    |       ^
   2 |
-Cause: [1:11-1:12]: Unexpected token: ')'"
+Cause: [1:6-1:7]: Unexpected token: ']'"
 `;
 
-exports[`discard-binding-async-arrow-params.js [oxc] format 1`] = `
-"Unexpected token (1:12)
-> 1 | async (void) => {}
-    |            ^
+exports[`discard-binding-assignment.js format[oxc] 1`] = `
+"Unexpected token (1:7)
+> 1 | ([void] = []);
+    |       ^
   2 |"
 `;
 
-exports[`discard-binding-async-arrow-params.js [oxc-ts] format 1`] = `
-"Unexpected token (1:12)
-> 1 | async (void) => {}
-    |            ^
+exports[`discard-binding-assignment.js format[oxc-ts] 1`] = `
+"Unexpected token (1:7)
+> 1 | ([void] = []);
+    |       ^
   2 |"
 `;
 
-exports[`discard-binding-async-arrow-params.js [typescript] format 1`] = `
-"Expression expected. (1:12)
-> 1 | async (void) => {}
-    |            ^
+exports[`discard-binding-assignment.js format[typescript] 1`] = `
+"Expression expected. (1:7)
+> 1 | ([void] = []);
+    |       ^
   2 |
 Cause: Expression expected."
 `;
@@ -516,67 +453,67 @@ async (void) => {};
 ================================================================================
 `;
 
-exports[`discard-binding-bindings.js [acorn] format 1`] = `
-"Unexpected keyword 'void' (1:12)
-> 1 | const { p: void } = {};
+exports[`discard-binding-async-arrow-params.js format[acorn] 1`] = `
+"Unexpected token (1:12)
+> 1 | async (void) => {}
     |            ^
   2 |
-Cause: Unexpected keyword 'void' (1:11)"
+Cause: Unexpected token (1:11)"
 `;
 
-exports[`discard-binding-bindings.js [espree] format 1`] = `
-"Unexpected keyword 'void' (1:12)
-> 1 | const { p: void } = {};
+exports[`discard-binding-async-arrow-params.js format[espree] 1`] = `
+"Unexpected token ) (1:12)
+> 1 | async (void) => {}
     |            ^
   2 |
-Cause: Unexpected keyword 'void'"
+Cause: Unexpected token )"
 `;
 
-exports[`discard-binding-bindings.js [flow] format 1`] = `
-"Unexpected reserved word (1:12)
-> 1 | const { p: void } = {};
-    |            ^^^^
+exports[`discard-binding-async-arrow-params.js format[flow] 1`] = `
+"Unexpected token \`)\` (1:12)
+> 1 | async (void) => {}
+    |            ^
   2 |"
 `;
 
-exports[`discard-binding-bindings.js [hermes] format 1`] = `
-"identifier, '{' or '[' expected in binding pattern (1:11)
-> 1 | const { p: void } = {};
+exports[`discard-binding-async-arrow-params.js format[hermes] 1`] = `
+"invalid expression (1:11)
+> 1 | async (void) => {}
     |           ^
   2 |
-Cause: identifier, '{' or '[' expected in binding pattern (1:11)
-const { p: void } = {};
+Cause: invalid expression (1:11)
+async (void) => {}
            ^"
 `;
 
-exports[`discard-binding-bindings.js [meriyah] format 1`] = `
-"Unexpected token: '}' (1:17)
-> 1 | const { p: void } = {};
-    |                 ^
-  2 |
-Cause: [1:16-1:17]: Unexpected token: '}'"
-`;
-
-exports[`discard-binding-bindings.js [oxc] format 1`] = `
-"Identifier expected. 'void' is a reserved word that cannot be used here. (1:12)
-> 1 | const { p: void } = {};
-    |            ^^^^
-  2 |"
-`;
-
-exports[`discard-binding-bindings.js [oxc-ts] format 1`] = `
-"Identifier expected. 'void' is a reserved word that cannot be used here. (1:12)
-> 1 | const { p: void } = {};
-    |            ^^^^
-  2 |"
-`;
-
-exports[`discard-binding-bindings.js [typescript] format 1`] = `
-"Identifier expected. 'void' is a reserved word that cannot be used here. (1:12)
-> 1 | const { p: void } = {};
+exports[`discard-binding-async-arrow-params.js format[meriyah] 1`] = `
+"Unexpected token: ')' (1:12)
+> 1 | async (void) => {}
     |            ^
   2 |
-Cause: Identifier expected. 'void' is a reserved word that cannot be used here."
+Cause: [1:11-1:12]: Unexpected token: ')'"
+`;
+
+exports[`discard-binding-async-arrow-params.js format[oxc] 1`] = `
+"Unexpected token (1:12)
+> 1 | async (void) => {}
+    |            ^
+  2 |"
+`;
+
+exports[`discard-binding-async-arrow-params.js format[oxc-ts] 1`] = `
+"Unexpected token (1:12)
+> 1 | async (void) => {}
+    |            ^
+  2 |"
+`;
+
+exports[`discard-binding-async-arrow-params.js format[typescript] 1`] = `
+"Expression expected. (1:12)
+> 1 | async (void) => {}
+    |            ^
+  2 |
+Cause: Expression expected."
 `;
 
 exports[`discard-binding-bindings.js format 1`] = `
@@ -593,83 +530,67 @@ const { p: void } = {};
 ================================================================================
 `;
 
-exports[`discard-binding-for-await-using-binding.js [acorn] format 1`] = `
-"Unexpected keyword 'void' (2:19)
-  1 | async () => {
-> 2 |   for(await using void of []);
-    |                   ^
-  3 | }
-  4 |
-Cause: Unexpected keyword 'void' (2:18)"
+exports[`discard-binding-bindings.js format[acorn] 1`] = `
+"Unexpected keyword 'void' (1:12)
+> 1 | const { p: void } = {};
+    |            ^
+  2 |
+Cause: Unexpected keyword 'void' (1:11)"
 `;
 
-exports[`discard-binding-for-await-using-binding.js [espree] format 1`] = `
-"Unexpected keyword 'void' (2:19)
-  1 | async () => {
-> 2 |   for(await using void of []);
-    |                   ^
-  3 | }
-  4 |
+exports[`discard-binding-bindings.js format[espree] 1`] = `
+"Unexpected keyword 'void' (1:12)
+> 1 | const { p: void } = {};
+    |            ^
+  2 |
 Cause: Unexpected keyword 'void'"
 `;
 
-exports[`discard-binding-for-await-using-binding.js [flow] format 1`] = `
-"Unexpected token \`void\`, expected the token \`;\` (2:19)
-  1 | async () => {
-> 2 |   for(await using void of []);
-    |                   ^^^^
-  3 | }
-  4 |"
+exports[`discard-binding-bindings.js format[flow] 1`] = `
+"Unexpected reserved word (1:12)
+> 1 | const { p: void } = {};
+    |            ^^^^
+  2 |"
 `;
 
-exports[`discard-binding-for-await-using-binding.js [hermes] format 1`] = `
-"';' or 'in' expected inside 'for' (2:18)
-  1 | async () => {
-> 2 |   for(await using void of []);
-    |                  ^
-  3 | }
-  4 |
-Cause: ';' or 'in' expected inside 'for' (2:18)
-  for(await using void of []);
-  ~~~~~~~~~~~~~~~~^"
+exports[`discard-binding-bindings.js format[hermes] 1`] = `
+"identifier, '{' or '[' expected in binding pattern (1:11)
+> 1 | const { p: void } = {};
+    |           ^
+  2 |
+Cause: identifier, '{' or '[' expected in binding pattern (1:11)
+const { p: void } = {};
+           ^"
 `;
 
-exports[`discard-binding-for-await-using-binding.js [meriyah] format 1`] = `
-"Expected ';' (2:19)
-  1 | async () => {
-> 2 |   for(await using void of []);
-    |                   ^^^^
-  3 | }
-  4 |
-Cause: [2:18-2:22]: Expected ';'"
+exports[`discard-binding-bindings.js format[meriyah] 1`] = `
+"Unexpected token: '}' (1:17)
+> 1 | const { p: void } = {};
+    |                 ^
+  2 |
+Cause: [1:16-1:17]: Unexpected token: '}'"
 `;
 
-exports[`discard-binding-for-await-using-binding.js [oxc] format 1`] = `
-"Identifier expected. 'void' is a reserved word that cannot be used here. (2:19)
-  1 | async () => {
-> 2 |   for(await using void of []);
-    |                   ^^^^
-  3 | }
-  4 |"
+exports[`discard-binding-bindings.js format[oxc] 1`] = `
+"Identifier expected. 'void' is a reserved word that cannot be used here. (1:12)
+> 1 | const { p: void } = {};
+    |            ^^^^
+  2 |"
 `;
 
-exports[`discard-binding-for-await-using-binding.js [oxc-ts] format 1`] = `
-"Identifier expected. 'void' is a reserved word that cannot be used here. (2:19)
-  1 | async () => {
-> 2 |   for(await using void of []);
-    |                   ^^^^
-  3 | }
-  4 |"
+exports[`discard-binding-bindings.js format[oxc-ts] 1`] = `
+"Identifier expected. 'void' is a reserved word that cannot be used here. (1:12)
+> 1 | const { p: void } = {};
+    |            ^^^^
+  2 |"
 `;
 
-exports[`discard-binding-for-await-using-binding.js [typescript] format 1`] = `
-"';' expected. (2:19)
-  1 | async () => {
-> 2 |   for(await using void of []);
-    |                   ^
-  3 | }
-  4 |
-Cause: ';' expected."
+exports[`discard-binding-bindings.js format[typescript] 1`] = `
+"Identifier expected. 'void' is a reserved word that cannot be used here. (1:12)
+> 1 | const { p: void } = {};
+    |            ^
+  2 |
+Cause: Identifier expected. 'void' is a reserved word that cannot be used here."
 `;
 
 exports[`discard-binding-for-await-using-binding.js format 1`] = `
@@ -690,67 +611,83 @@ async () => {
 ================================================================================
 `;
 
-exports[`discard-binding-for-bindings.js [acorn] format 1`] = `
-"Unexpected keyword 'void' (1:16)
-> 1 | for(const { p: void } of []);
-    |                ^
-  2 |
-Cause: Unexpected keyword 'void' (1:15)"
+exports[`discard-binding-for-await-using-binding.js format[acorn] 1`] = `
+"Unexpected keyword 'void' (2:19)
+  1 | async () => {
+> 2 |   for(await using void of []);
+    |                   ^
+  3 | }
+  4 |
+Cause: Unexpected keyword 'void' (2:18)"
 `;
 
-exports[`discard-binding-for-bindings.js [espree] format 1`] = `
-"Unexpected keyword 'void' (1:16)
-> 1 | for(const { p: void } of []);
-    |                ^
-  2 |
+exports[`discard-binding-for-await-using-binding.js format[espree] 1`] = `
+"Unexpected keyword 'void' (2:19)
+  1 | async () => {
+> 2 |   for(await using void of []);
+    |                   ^
+  3 | }
+  4 |
 Cause: Unexpected keyword 'void'"
 `;
 
-exports[`discard-binding-for-bindings.js [flow] format 1`] = `
-"Unexpected reserved word (1:16)
-> 1 | for(const { p: void } of []);
-    |                ^^^^
-  2 |"
+exports[`discard-binding-for-await-using-binding.js format[flow] 1`] = `
+"Unexpected token \`void\`, expected the token \`;\` (2:19)
+  1 | async () => {
+> 2 |   for(await using void of []);
+    |                   ^^^^
+  3 | }
+  4 |"
 `;
 
-exports[`discard-binding-for-bindings.js [hermes] format 1`] = `
-"identifier, '{' or '[' expected in binding pattern (1:15)
-> 1 | for(const { p: void } of []);
-    |               ^
-  2 |
-Cause: identifier, '{' or '[' expected in binding pattern (1:15)
-for(const { p: void } of []);
-               ^"
+exports[`discard-binding-for-await-using-binding.js format[hermes] 1`] = `
+"';' or 'in' expected inside 'for' (2:18)
+  1 | async () => {
+> 2 |   for(await using void of []);
+    |                  ^
+  3 | }
+  4 |
+Cause: ';' or 'in' expected inside 'for' (2:18)
+  for(await using void of []);
+  ~~~~~~~~~~~~~~~~^"
 `;
 
-exports[`discard-binding-for-bindings.js [meriyah] format 1`] = `
-"Unexpected token: '}' (1:21)
-> 1 | for(const { p: void } of []);
-    |                     ^
-  2 |
-Cause: [1:20-1:21]: Unexpected token: '}'"
+exports[`discard-binding-for-await-using-binding.js format[meriyah] 1`] = `
+"Expected ';' (2:19)
+  1 | async () => {
+> 2 |   for(await using void of []);
+    |                   ^^^^
+  3 | }
+  4 |
+Cause: [2:18-2:22]: Expected ';'"
 `;
 
-exports[`discard-binding-for-bindings.js [oxc] format 1`] = `
-"Identifier expected. 'void' is a reserved word that cannot be used here. (1:16)
-> 1 | for(const { p: void } of []);
-    |                ^^^^
-  2 |"
+exports[`discard-binding-for-await-using-binding.js format[oxc] 1`] = `
+"Identifier expected. 'void' is a reserved word that cannot be used here. (2:19)
+  1 | async () => {
+> 2 |   for(await using void of []);
+    |                   ^^^^
+  3 | }
+  4 |"
 `;
 
-exports[`discard-binding-for-bindings.js [oxc-ts] format 1`] = `
-"Identifier expected. 'void' is a reserved word that cannot be used here. (1:16)
-> 1 | for(const { p: void } of []);
-    |                ^^^^
-  2 |"
+exports[`discard-binding-for-await-using-binding.js format[oxc-ts] 1`] = `
+"Identifier expected. 'void' is a reserved word that cannot be used here. (2:19)
+  1 | async () => {
+> 2 |   for(await using void of []);
+    |                   ^^^^
+  3 | }
+  4 |"
 `;
 
-exports[`discard-binding-for-bindings.js [typescript] format 1`] = `
-"Identifier expected. 'void' is a reserved word that cannot be used here. (1:16)
-> 1 | for(const { p: void } of []);
-    |                ^
-  2 |
-Cause: Identifier expected. 'void' is a reserved word that cannot be used here."
+exports[`discard-binding-for-await-using-binding.js format[typescript] 1`] = `
+"';' expected. (2:19)
+  1 | async () => {
+> 2 |   for(await using void of []);
+    |                   ^
+  3 | }
+  4 |
+Cause: ';' expected."
 `;
 
 exports[`discard-binding-for-bindings.js format 1`] = `
@@ -767,67 +704,67 @@ for (const { p: void } of []);
 ================================================================================
 `;
 
-exports[`discard-binding-for-lhs.js [acorn] format 1`] = `
-"Unexpected token (1:15)
-> 1 | for({ p: void } of []);
-    |               ^
+exports[`discard-binding-for-bindings.js format[acorn] 1`] = `
+"Unexpected keyword 'void' (1:16)
+> 1 | for(const { p: void } of []);
+    |                ^
   2 |
-Cause: Unexpected token (1:14)"
+Cause: Unexpected keyword 'void' (1:15)"
 `;
 
-exports[`discard-binding-for-lhs.js [espree] format 1`] = `
-"Unexpected token } (1:15)
-> 1 | for({ p: void } of []);
-    |               ^
+exports[`discard-binding-for-bindings.js format[espree] 1`] = `
+"Unexpected keyword 'void' (1:16)
+> 1 | for(const { p: void } of []);
+    |                ^
   2 |
-Cause: Unexpected token }"
+Cause: Unexpected keyword 'void'"
 `;
 
-exports[`discard-binding-for-lhs.js [flow] format 1`] = `
-"Unexpected token \`}\` (1:15)
-> 1 | for({ p: void } of []);
-    |               ^
+exports[`discard-binding-for-bindings.js format[flow] 1`] = `
+"Unexpected reserved word (1:16)
+> 1 | for(const { p: void } of []);
+    |                ^^^^
   2 |"
 `;
 
-exports[`discard-binding-for-lhs.js [hermes] format 1`] = `
-"invalid expression (1:14)
-> 1 | for({ p: void } of []);
-    |              ^
-  2 |
-Cause: invalid expression (1:14)
-for({ p: void } of []);
-              ^"
-`;
-
-exports[`discard-binding-for-lhs.js [meriyah] format 1`] = `
-"Unexpected token: '}' (1:15)
-> 1 | for({ p: void } of []);
+exports[`discard-binding-for-bindings.js format[hermes] 1`] = `
+"identifier, '{' or '[' expected in binding pattern (1:15)
+> 1 | for(const { p: void } of []);
     |               ^
   2 |
-Cause: [1:14-1:15]: Unexpected token: '}'"
+Cause: identifier, '{' or '[' expected in binding pattern (1:15)
+for(const { p: void } of []);
+               ^"
 `;
 
-exports[`discard-binding-for-lhs.js [oxc] format 1`] = `
-"Unexpected token (1:15)
-> 1 | for({ p: void } of []);
-    |               ^
+exports[`discard-binding-for-bindings.js format[meriyah] 1`] = `
+"Unexpected token: '}' (1:21)
+> 1 | for(const { p: void } of []);
+    |                     ^
+  2 |
+Cause: [1:20-1:21]: Unexpected token: '}'"
+`;
+
+exports[`discard-binding-for-bindings.js format[oxc] 1`] = `
+"Identifier expected. 'void' is a reserved word that cannot be used here. (1:16)
+> 1 | for(const { p: void } of []);
+    |                ^^^^
   2 |"
 `;
 
-exports[`discard-binding-for-lhs.js [oxc-ts] format 1`] = `
-"Unexpected token (1:15)
-> 1 | for({ p: void } of []);
-    |               ^
+exports[`discard-binding-for-bindings.js format[oxc-ts] 1`] = `
+"Identifier expected. 'void' is a reserved word that cannot be used here. (1:16)
+> 1 | for(const { p: void } of []);
+    |                ^^^^
   2 |"
 `;
 
-exports[`discard-binding-for-lhs.js [typescript] format 1`] = `
-"Expression expected. (1:15)
-> 1 | for({ p: void } of []);
-    |               ^
+exports[`discard-binding-for-bindings.js format[typescript] 1`] = `
+"Identifier expected. 'void' is a reserved word that cannot be used here. (1:16)
+> 1 | for(const { p: void } of []);
+    |                ^
   2 |
-Cause: Expression expected."
+Cause: Identifier expected. 'void' is a reserved word that cannot be used here."
 `;
 
 exports[`discard-binding-for-lhs.js format 1`] = `
@@ -844,83 +781,67 @@ for ({ p: void } of []);
 ================================================================================
 `;
 
-exports[`discard-binding-for-using-binding.js [acorn] format 1`] = `
-"Unexpected keyword 'void' (2:13)
-  1 | {
-> 2 |   for(using void of []);
-    |             ^
-  3 | }
-  4 |
-Cause: Unexpected keyword 'void' (2:12)"
+exports[`discard-binding-for-lhs.js format[acorn] 1`] = `
+"Unexpected token (1:15)
+> 1 | for({ p: void } of []);
+    |               ^
+  2 |
+Cause: Unexpected token (1:14)"
 `;
 
-exports[`discard-binding-for-using-binding.js [espree] format 1`] = `
-"Unexpected keyword 'void' (2:13)
-  1 | {
-> 2 |   for(using void of []);
-    |             ^
-  3 | }
-  4 |
-Cause: Unexpected keyword 'void'"
+exports[`discard-binding-for-lhs.js format[espree] 1`] = `
+"Unexpected token } (1:15)
+> 1 | for({ p: void } of []);
+    |               ^
+  2 |
+Cause: Unexpected token }"
 `;
 
-exports[`discard-binding-for-using-binding.js [flow] format 1`] = `
-"Unexpected token \`void\`, expected the token \`;\` (2:13)
-  1 | {
-> 2 |   for(using void of []);
-    |             ^^^^
-  3 | }
-  4 |"
+exports[`discard-binding-for-lhs.js format[flow] 1`] = `
+"Unexpected token \`}\` (1:15)
+> 1 | for({ p: void } of []);
+    |               ^
+  2 |"
 `;
 
-exports[`discard-binding-for-using-binding.js [hermes] format 1`] = `
-"';' or 'in' expected inside 'for' (2:12)
-  1 | {
-> 2 |   for(using void of []);
-    |            ^
-  3 | }
-  4 |
-Cause: ';' or 'in' expected inside 'for' (2:12)
-  for(using void of []);
-  ~~~~~~~~~~^"
+exports[`discard-binding-for-lhs.js format[hermes] 1`] = `
+"invalid expression (1:14)
+> 1 | for({ p: void } of []);
+    |              ^
+  2 |
+Cause: invalid expression (1:14)
+for({ p: void } of []);
+              ^"
 `;
 
-exports[`discard-binding-for-using-binding.js [meriyah] format 1`] = `
-"Expected ';' (2:13)
-  1 | {
-> 2 |   for(using void of []);
-    |             ^^^^
-  3 | }
-  4 |
-Cause: [2:12-2:16]: Expected ';'"
+exports[`discard-binding-for-lhs.js format[meriyah] 1`] = `
+"Unexpected token: '}' (1:15)
+> 1 | for({ p: void } of []);
+    |               ^
+  2 |
+Cause: [1:14-1:15]: Unexpected token: '}'"
 `;
 
-exports[`discard-binding-for-using-binding.js [oxc] format 1`] = `
-"Expected \`;\` but found \`void\` (2:13)
-  1 | {
-> 2 |   for(using void of []);
-    |             ^^^^
-  3 | }
-  4 |"
+exports[`discard-binding-for-lhs.js format[oxc] 1`] = `
+"Unexpected token (1:15)
+> 1 | for({ p: void } of []);
+    |               ^
+  2 |"
 `;
 
-exports[`discard-binding-for-using-binding.js [oxc-ts] format 1`] = `
-"Expected \`;\` but found \`void\` (2:13)
-  1 | {
-> 2 |   for(using void of []);
-    |             ^^^^
-  3 | }
-  4 |"
+exports[`discard-binding-for-lhs.js format[oxc-ts] 1`] = `
+"Unexpected token (1:15)
+> 1 | for({ p: void } of []);
+    |               ^
+  2 |"
 `;
 
-exports[`discard-binding-for-using-binding.js [typescript] format 1`] = `
-"';' expected. (2:13)
-  1 | {
-> 2 |   for(using void of []);
-    |             ^
-  3 | }
-  4 |
-Cause: ';' expected."
+exports[`discard-binding-for-lhs.js format[typescript] 1`] = `
+"Expression expected. (1:15)
+> 1 | for({ p: void } of []);
+    |               ^
+  2 |
+Cause: Expression expected."
 `;
 
 exports[`discard-binding-for-using-binding.js format 1`] = `
@@ -941,99 +862,83 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`function-parameter.js [acorn] format 1`] = `
-"Unexpected keyword 'void' (3:14)
+exports[`discard-binding-for-using-binding.js format[acorn] 1`] = `
+"Unexpected keyword 'void' (2:13)
   1 | {
-  2 |   // function parameter
-> 3 |   function f(void) {}
-    |              ^
-  4 | }
-  5 | {
-  6 |   // arrow function parameter
-Cause: Unexpected keyword 'void' (3:13)"
+> 2 |   for(using void of []);
+    |             ^
+  3 | }
+  4 |
+Cause: Unexpected keyword 'void' (2:12)"
 `;
 
-exports[`function-parameter.js [espree] format 1`] = `
-"Unexpected keyword 'void' (3:14)
+exports[`discard-binding-for-using-binding.js format[espree] 1`] = `
+"Unexpected keyword 'void' (2:13)
   1 | {
-  2 |   // function parameter
-> 3 |   function f(void) {}
-    |              ^
-  4 | }
-  5 | {
-  6 |   // arrow function parameter
+> 2 |   for(using void of []);
+    |             ^
+  3 | }
+  4 |
 Cause: Unexpected keyword 'void'"
 `;
 
-exports[`function-parameter.js [flow] format 1`] = `
-"Unexpected reserved word (3:14)
+exports[`discard-binding-for-using-binding.js format[flow] 1`] = `
+"Unexpected token \`void\`, expected the token \`;\` (2:13)
   1 | {
-  2 |   // function parameter
-> 3 |   function f(void) {}
-    |              ^^^^
-  4 | }
-  5 | {
-  6 |   // arrow function parameter"
+> 2 |   for(using void of []);
+    |             ^^^^
+  3 | }
+  4 |"
 `;
 
-exports[`function-parameter.js [hermes] format 1`] = `
-"identifier, '{' or '[' expected in binding pattern (3:13)
+exports[`discard-binding-for-using-binding.js format[hermes] 1`] = `
+"';' or 'in' expected inside 'for' (2:12)
   1 | {
-  2 |   // function parameter
-> 3 |   function f(void) {}
+> 2 |   for(using void of []);
+    |            ^
+  3 | }
+  4 |
+Cause: ';' or 'in' expected inside 'for' (2:12)
+  for(using void of []);
+  ~~~~~~~~~~^"
+`;
+
+exports[`discard-binding-for-using-binding.js format[meriyah] 1`] = `
+"Expected ';' (2:13)
+  1 | {
+> 2 |   for(using void of []);
+    |             ^^^^
+  3 | }
+  4 |
+Cause: [2:12-2:16]: Expected ';'"
+`;
+
+exports[`discard-binding-for-using-binding.js format[oxc] 1`] = `
+"Expected \`;\` but found \`void\` (2:13)
+  1 | {
+> 2 |   for(using void of []);
+    |             ^^^^
+  3 | }
+  4 |"
+`;
+
+exports[`discard-binding-for-using-binding.js format[oxc-ts] 1`] = `
+"Expected \`;\` but found \`void\` (2:13)
+  1 | {
+> 2 |   for(using void of []);
+    |             ^^^^
+  3 | }
+  4 |"
+`;
+
+exports[`discard-binding-for-using-binding.js format[typescript] 1`] = `
+"';' expected. (2:13)
+  1 | {
+> 2 |   for(using void of []);
     |             ^
-  4 | }
-  5 | {
-  6 |   // arrow function parameter
-Cause: identifier, '{' or '[' expected in binding pattern (3:13)
-  function f(void) {}
-             ^"
-`;
-
-exports[`function-parameter.js [meriyah] format 1`] = `
-"Invalid keyword (3:14)
-  1 | {
-  2 |   // function parameter
-> 3 |   function f(void) {}
-    |              ^^^^
-  4 | }
-  5 | {
-  6 |   // arrow function parameter
-Cause: [3:13-3:17]: Invalid keyword"
-`;
-
-exports[`function-parameter.js [oxc] format 1`] = `
-"Identifier expected. 'void' is a reserved word that cannot be used here. (3:14)
-  1 | {
-  2 |   // function parameter
-> 3 |   function f(void) {}
-    |              ^^^^
-  4 | }
-  5 | {
-  6 |   // arrow function parameter"
-`;
-
-exports[`function-parameter.js [oxc-ts] format 1`] = `
-"Identifier expected. 'void' is a reserved word that cannot be used here. (3:14)
-  1 | {
-  2 |   // function parameter
-> 3 |   function f(void) {}
-    |              ^^^^
-  4 | }
-  5 | {
-  6 |   // arrow function parameter"
-`;
-
-exports[`function-parameter.js [typescript] format 1`] = `
-"Identifier expected. 'void' is a reserved word that cannot be used here. (3:14)
-  1 | {
-  2 |   // function parameter
-> 3 |   function f(void) {}
-    |              ^
-  4 | }
-  5 | {
-  6 |   // arrow function parameter
-Cause: Identifier expected. 'void' is a reserved word that cannot be used here."
+  3 | }
+  4 |
+Cause: ';' expected."
 `;
 
 exports[`function-parameter.js format 1`] = `
@@ -1090,98 +995,98 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`object-pattern.js [acorn] format 1`] = `
-"Unexpected keyword 'void' (3:17)
+exports[`function-parameter.js format[acorn] 1`] = `
+"Unexpected keyword 'void' (3:14)
   1 | {
-  2 |   // destructuring binding
-> 3 |   const { void: void } = value;
-    |                 ^
+  2 |   // function parameter
+> 3 |   function f(void) {}
+    |              ^
   4 | }
   5 | {
-  6 |   // for-of destructuring binding
-Cause: Unexpected keyword 'void' (3:16)"
+  6 |   // arrow function parameter
+Cause: Unexpected keyword 'void' (3:13)"
 `;
 
-exports[`object-pattern.js [espree] format 1`] = `
-"Unexpected keyword 'void' (3:17)
+exports[`function-parameter.js format[espree] 1`] = `
+"Unexpected keyword 'void' (3:14)
   1 | {
-  2 |   // destructuring binding
-> 3 |   const { void: void } = value;
-    |                 ^
+  2 |   // function parameter
+> 3 |   function f(void) {}
+    |              ^
   4 | }
   5 | {
-  6 |   // for-of destructuring binding
+  6 |   // arrow function parameter
 Cause: Unexpected keyword 'void'"
 `;
 
-exports[`object-pattern.js [flow] format 1`] = `
-"Unexpected reserved word (3:17)
+exports[`function-parameter.js format[flow] 1`] = `
+"Unexpected reserved word (3:14)
   1 | {
-  2 |   // destructuring binding
-> 3 |   const { void: void } = value;
-    |                 ^^^^
+  2 |   // function parameter
+> 3 |   function f(void) {}
+    |              ^^^^
   4 | }
   5 | {
-  6 |   // for-of destructuring binding"
+  6 |   // arrow function parameter"
 `;
 
-exports[`object-pattern.js [hermes] format 1`] = `
-"identifier, '{' or '[' expected in binding pattern (3:16)
+exports[`function-parameter.js format[hermes] 1`] = `
+"identifier, '{' or '[' expected in binding pattern (3:13)
   1 | {
-  2 |   // destructuring binding
-> 3 |   const { void: void } = value;
-    |                ^
+  2 |   // function parameter
+> 3 |   function f(void) {}
+    |             ^
   4 | }
   5 | {
-  6 |   // for-of destructuring binding
-Cause: identifier, '{' or '[' expected in binding pattern (3:16)
-  const { void: void } = value;
-                ^"
+  6 |   // arrow function parameter
+Cause: identifier, '{' or '[' expected in binding pattern (3:13)
+  function f(void) {}
+             ^"
 `;
 
-exports[`object-pattern.js [meriyah] format 1`] = `
-"Unexpected token: '}' (3:22)
+exports[`function-parameter.js format[meriyah] 1`] = `
+"Invalid keyword (3:14)
   1 | {
-  2 |   // destructuring binding
-> 3 |   const { void: void } = value;
-    |                      ^
+  2 |   // function parameter
+> 3 |   function f(void) {}
+    |              ^^^^
   4 | }
   5 | {
-  6 |   // for-of destructuring binding
-Cause: [3:21-3:22]: Unexpected token: '}'"
+  6 |   // arrow function parameter
+Cause: [3:13-3:17]: Invalid keyword"
 `;
 
-exports[`object-pattern.js [oxc] format 1`] = `
-"Identifier expected. 'void' is a reserved word that cannot be used here. (3:17)
+exports[`function-parameter.js format[oxc] 1`] = `
+"Identifier expected. 'void' is a reserved word that cannot be used here. (3:14)
   1 | {
-  2 |   // destructuring binding
-> 3 |   const { void: void } = value;
-    |                 ^^^^
+  2 |   // function parameter
+> 3 |   function f(void) {}
+    |              ^^^^
   4 | }
   5 | {
-  6 |   // for-of destructuring binding"
+  6 |   // arrow function parameter"
 `;
 
-exports[`object-pattern.js [oxc-ts] format 1`] = `
-"Identifier expected. 'void' is a reserved word that cannot be used here. (3:17)
+exports[`function-parameter.js format[oxc-ts] 1`] = `
+"Identifier expected. 'void' is a reserved word that cannot be used here. (3:14)
   1 | {
-  2 |   // destructuring binding
-> 3 |   const { void: void } = value;
-    |                 ^^^^
+  2 |   // function parameter
+> 3 |   function f(void) {}
+    |              ^^^^
   4 | }
   5 | {
-  6 |   // for-of destructuring binding"
+  6 |   // arrow function parameter"
 `;
 
-exports[`object-pattern.js [typescript] format 1`] = `
-"Identifier expected. 'void' is a reserved word that cannot be used here. (3:17)
+exports[`function-parameter.js format[typescript] 1`] = `
+"Identifier expected. 'void' is a reserved word that cannot be used here. (3:14)
   1 | {
-  2 |   // destructuring binding
-> 3 |   const { void: void } = value;
-    |                 ^
+  2 |   // function parameter
+> 3 |   function f(void) {}
+    |              ^
   4 | }
   5 | {
-  6 |   // for-of destructuring binding
+  6 |   // arrow function parameter
 Cause: Identifier expected. 'void' is a reserved word that cannot be used here."
 `;
 
@@ -1288,99 +1193,99 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`unary-expression-void.js [acorn] format 1`] = `
-"Unexpected token (4:10)
-  2 | void [
-  3 |   // pattern
-> 4 |   [ void ] = [{
-    |          ^
-  5 |     // expr
-  6 |     [ void [] ]:
-  7 |     // pattern
-Cause: Unexpected token (4:9)"
+exports[`object-pattern.js format[acorn] 1`] = `
+"Unexpected keyword 'void' (3:17)
+  1 | {
+  2 |   // destructuring binding
+> 3 |   const { void: void } = value;
+    |                 ^
+  4 | }
+  5 | {
+  6 |   // for-of destructuring binding
+Cause: Unexpected keyword 'void' (3:16)"
 `;
 
-exports[`unary-expression-void.js [espree] format 1`] = `
-"Unexpected token ] (4:10)
-  2 | void [
-  3 |   // pattern
-> 4 |   [ void ] = [{
-    |          ^
-  5 |     // expr
-  6 |     [ void [] ]:
-  7 |     // pattern
-Cause: Unexpected token ]"
+exports[`object-pattern.js format[espree] 1`] = `
+"Unexpected keyword 'void' (3:17)
+  1 | {
+  2 |   // destructuring binding
+> 3 |   const { void: void } = value;
+    |                 ^
+  4 | }
+  5 | {
+  6 |   // for-of destructuring binding
+Cause: Unexpected keyword 'void'"
 `;
 
-exports[`unary-expression-void.js [flow] format 1`] = `
-"Unexpected token \`]\` (4:10)
-  2 | void [
-  3 |   // pattern
-> 4 |   [ void ] = [{
-    |          ^
-  5 |     // expr
-  6 |     [ void [] ]:
-  7 |     // pattern"
+exports[`object-pattern.js format[flow] 1`] = `
+"Unexpected reserved word (3:17)
+  1 | {
+  2 |   // destructuring binding
+> 3 |   const { void: void } = value;
+    |                 ^^^^
+  4 | }
+  5 | {
+  6 |   // for-of destructuring binding"
 `;
 
-exports[`unary-expression-void.js [hermes] format 1`] = `
-"invalid expression (4:9)
-  2 | void [
-  3 |   // pattern
-> 4 |   [ void ] = [{
-    |         ^
-  5 |     // expr
-  6 |     [ void [] ]:
-  7 |     // pattern
-Cause: invalid expression (4:9)
-  [ void ] = [{
-         ^"
+exports[`object-pattern.js format[hermes] 1`] = `
+"identifier, '{' or '[' expected in binding pattern (3:16)
+  1 | {
+  2 |   // destructuring binding
+> 3 |   const { void: void } = value;
+    |                ^
+  4 | }
+  5 | {
+  6 |   // for-of destructuring binding
+Cause: identifier, '{' or '[' expected in binding pattern (3:16)
+  const { void: void } = value;
+                ^"
 `;
 
-exports[`unary-expression-void.js [meriyah] format 1`] = `
-"Unexpected token: ']' (4:10)
-  2 | void [
-  3 |   // pattern
-> 4 |   [ void ] = [{
-    |          ^
-  5 |     // expr
-  6 |     [ void [] ]:
-  7 |     // pattern
-Cause: [4:9-4:10]: Unexpected token: ']'"
+exports[`object-pattern.js format[meriyah] 1`] = `
+"Unexpected token: '}' (3:22)
+  1 | {
+  2 |   // destructuring binding
+> 3 |   const { void: void } = value;
+    |                      ^
+  4 | }
+  5 | {
+  6 |   // for-of destructuring binding
+Cause: [3:21-3:22]: Unexpected token: '}'"
 `;
 
-exports[`unary-expression-void.js [oxc] format 1`] = `
-"Unexpected token (4:10)
-  2 | void [
-  3 |   // pattern
-> 4 |   [ void ] = [{
-    |          ^
-  5 |     // expr
-  6 |     [ void [] ]:
-  7 |     // pattern"
+exports[`object-pattern.js format[oxc] 1`] = `
+"Identifier expected. 'void' is a reserved word that cannot be used here. (3:17)
+  1 | {
+  2 |   // destructuring binding
+> 3 |   const { void: void } = value;
+    |                 ^^^^
+  4 | }
+  5 | {
+  6 |   // for-of destructuring binding"
 `;
 
-exports[`unary-expression-void.js [oxc-ts] format 1`] = `
-"Unexpected token (4:10)
-  2 | void [
-  3 |   // pattern
-> 4 |   [ void ] = [{
-    |          ^
-  5 |     // expr
-  6 |     [ void [] ]:
-  7 |     // pattern"
+exports[`object-pattern.js format[oxc-ts] 1`] = `
+"Identifier expected. 'void' is a reserved word that cannot be used here. (3:17)
+  1 | {
+  2 |   // destructuring binding
+> 3 |   const { void: void } = value;
+    |                 ^^^^
+  4 | }
+  5 | {
+  6 |   // for-of destructuring binding"
 `;
 
-exports[`unary-expression-void.js [typescript] format 1`] = `
-"Expression expected. (4:10)
-  2 | void [
-  3 |   // pattern
-> 4 |   [ void ] = [{
-    |          ^
-  5 |     // expr
-  6 |     [ void [] ]:
-  7 |     // pattern
-Cause: Expression expected."
+exports[`object-pattern.js format[typescript] 1`] = `
+"Identifier expected. 'void' is a reserved word that cannot be used here. (3:17)
+  1 | {
+  2 |   // destructuring binding
+> 3 |   const { void: void } = value;
+    |                 ^
+  4 | }
+  5 | {
+  6 |   // for-of destructuring binding
+Cause: Identifier expected. 'void' is a reserved word that cannot be used here."
 `;
 
 exports[`unary-expression-void.js format 1`] = `
@@ -1429,91 +1334,99 @@ void [
 ================================================================================
 `;
 
-exports[`using.js [acorn] format 1`] = `
-"Unexpected keyword 'void' (2:9)
-  1 | {
-> 2 |   using void = f();
+exports[`unary-expression-void.js format[acorn] 1`] = `
+"Unexpected token (4:10)
+  2 | void [
+  3 |   // pattern
+> 4 |   [ void ] = [{
+    |          ^
+  5 |     // expr
+  6 |     [ void [] ]:
+  7 |     // pattern
+Cause: Unexpected token (4:9)"
+`;
+
+exports[`unary-expression-void.js format[espree] 1`] = `
+"Unexpected token ] (4:10)
+  2 | void [
+  3 |   // pattern
+> 4 |   [ void ] = [{
+    |          ^
+  5 |     // expr
+  6 |     [ void [] ]:
+  7 |     // pattern
+Cause: Unexpected token ]"
+`;
+
+exports[`unary-expression-void.js format[flow] 1`] = `
+"Unexpected token \`]\` (4:10)
+  2 | void [
+  3 |   // pattern
+> 4 |   [ void ] = [{
+    |          ^
+  5 |     // expr
+  6 |     [ void [] ]:
+  7 |     // pattern"
+`;
+
+exports[`unary-expression-void.js format[hermes] 1`] = `
+"invalid expression (4:9)
+  2 | void [
+  3 |   // pattern
+> 4 |   [ void ] = [{
     |         ^
-  3 | }
-  4 | async (void) => {
-  5 |   await using void = f();
-Cause: Unexpected keyword 'void' (2:8)"
+  5 |     // expr
+  6 |     [ void [] ]:
+  7 |     // pattern
+Cause: invalid expression (4:9)
+  [ void ] = [{
+         ^"
 `;
 
-exports[`using.js [espree] format 1`] = `
-"Unexpected keyword 'void' (2:9)
-  1 | {
-> 2 |   using void = f();
-    |         ^
-  3 | }
-  4 | async (void) => {
-  5 |   await using void = f();
-Cause: Unexpected keyword 'void'"
+exports[`unary-expression-void.js format[meriyah] 1`] = `
+"Unexpected token: ']' (4:10)
+  2 | void [
+  3 |   // pattern
+> 4 |   [ void ] = [{
+    |          ^
+  5 |     // expr
+  6 |     [ void [] ]:
+  7 |     // pattern
+Cause: [4:9-4:10]: Unexpected token: ']'"
 `;
 
-exports[`using.js [flow] format 1`] = `
-"Unexpected token \`void\`, expected the end of an expression statement (\`;\`) (2:9)
-  1 | {
-> 2 |   using void = f();
-    |         ^^^^
-  3 | }
-  4 | async (void) => {
-  5 |   await using void = f();"
+exports[`unary-expression-void.js format[oxc] 1`] = `
+"Unexpected token (4:10)
+  2 | void [
+  3 |   // pattern
+> 4 |   [ void ] = [{
+    |          ^
+  5 |     // expr
+  6 |     [ void [] ]:
+  7 |     // pattern"
 `;
 
-exports[`using.js [hermes] format 1`] = `
-"';' expected (2:8)
-  1 | {
-> 2 |   using void = f();
-    |        ^
-  3 | }
-  4 | async (void) => {
-  5 |   await using void = f();
-Cause: ';' expected (2:8)
-  using void = f();
-        ^"
+exports[`unary-expression-void.js format[oxc-ts] 1`] = `
+"Unexpected token (4:10)
+  2 | void [
+  3 |   // pattern
+> 4 |   [ void ] = [{
+    |          ^
+  5 |     // expr
+  6 |     [ void [] ]:
+  7 |     // pattern"
 `;
 
-exports[`using.js [meriyah] format 1`] = `
-"Unexpected token: 'void' (2:9)
-  1 | {
-> 2 |   using void = f();
-    |         ^^^^
-  3 | }
-  4 | async (void) => {
-  5 |   await using void = f();
-Cause: [2:8-2:12]: Unexpected token: 'void'"
-`;
-
-exports[`using.js [oxc] format 1`] = `
-"Expected a semicolon or an implicit semicolon after a statement, but found none (2:8)
-  1 | {
-> 2 |   using void = f();
-    |        ^
-  3 | }
-  4 | async (void) => {
-  5 |   await using void = f();"
-`;
-
-exports[`using.js [oxc-ts] format 1`] = `
-"Expected a semicolon or an implicit semicolon after a statement, but found none (2:8)
-  1 | {
-> 2 |   using void = f();
-    |        ^
-  3 | }
-  4 | async (void) => {
-  5 |   await using void = f();"
-`;
-
-exports[`using.js [typescript] format 1`] = `
-"Unexpected keyword or identifier. (2:3)
-  1 | {
-> 2 |   using void = f();
-    |   ^
-  3 | }
-  4 | async (void) => {
-  5 |   await using void = f();
-Cause: Unexpected keyword or identifier."
+exports[`unary-expression-void.js format[typescript] 1`] = `
+"Expression expected. (4:10)
+  2 | void [
+  3 |   // pattern
+> 4 |   [ void ] = [{
+    |          ^
+  5 |     // expr
+  6 |     [ void [] ]:
+  7 |     // pattern
+Cause: Expression expected."
 `;
 
 exports[`using.js format 1`] = `
@@ -1540,98 +1453,90 @@ async (void) => {
 ================================================================================
 `;
 
-exports[`using-variable-declarator.js [acorn] format 1`] = `
-"Unexpected keyword 'void' (3:9)
+exports[`using.js format[acorn] 1`] = `
+"Unexpected keyword 'void' (2:9)
   1 | {
-  2 |   // using 1 declarator
-> 3 |   using void = f();
+> 2 |   using void = f();
     |         ^
-  4 | }
-  5 | {
-  6 |   // using 2 declarators
-Cause: Unexpected keyword 'void' (3:8)"
+  3 | }
+  4 | async (void) => {
+  5 |   await using void = f();
+Cause: Unexpected keyword 'void' (2:8)"
 `;
 
-exports[`using-variable-declarator.js [espree] format 1`] = `
-"Unexpected keyword 'void' (3:9)
+exports[`using.js format[espree] 1`] = `
+"Unexpected keyword 'void' (2:9)
   1 | {
-  2 |   // using 1 declarator
-> 3 |   using void = f();
+> 2 |   using void = f();
     |         ^
-  4 | }
-  5 | {
-  6 |   // using 2 declarators
+  3 | }
+  4 | async (void) => {
+  5 |   await using void = f();
 Cause: Unexpected keyword 'void'"
 `;
 
-exports[`using-variable-declarator.js [flow] format 1`] = `
-"Unexpected token \`void\`, expected the end of an expression statement (\`;\`) (3:9)
+exports[`using.js format[flow] 1`] = `
+"Unexpected token \`void\`, expected the end of an expression statement (\`;\`) (2:9)
   1 | {
-  2 |   // using 1 declarator
-> 3 |   using void = f();
+> 2 |   using void = f();
     |         ^^^^
-  4 | }
-  5 | {
-  6 |   // using 2 declarators"
+  3 | }
+  4 | async (void) => {
+  5 |   await using void = f();"
 `;
 
-exports[`using-variable-declarator.js [hermes] format 1`] = `
-"';' expected (3:8)
+exports[`using.js format[hermes] 1`] = `
+"';' expected (2:8)
   1 | {
-  2 |   // using 1 declarator
-> 3 |   using void = f();
+> 2 |   using void = f();
     |        ^
-  4 | }
-  5 | {
-  6 |   // using 2 declarators
-Cause: ';' expected (3:8)
+  3 | }
+  4 | async (void) => {
+  5 |   await using void = f();
+Cause: ';' expected (2:8)
   using void = f();
         ^"
 `;
 
-exports[`using-variable-declarator.js [meriyah] format 1`] = `
-"Unexpected token: 'void' (3:9)
+exports[`using.js format[meriyah] 1`] = `
+"Unexpected token: 'void' (2:9)
   1 | {
-  2 |   // using 1 declarator
-> 3 |   using void = f();
+> 2 |   using void = f();
     |         ^^^^
-  4 | }
-  5 | {
-  6 |   // using 2 declarators
-Cause: [3:8-3:12]: Unexpected token: 'void'"
+  3 | }
+  4 | async (void) => {
+  5 |   await using void = f();
+Cause: [2:8-2:12]: Unexpected token: 'void'"
 `;
 
-exports[`using-variable-declarator.js [oxc] format 1`] = `
-"Expected a semicolon or an implicit semicolon after a statement, but found none (3:8)
+exports[`using.js format[oxc] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found none (2:8)
   1 | {
-  2 |   // using 1 declarator
-> 3 |   using void = f();
+> 2 |   using void = f();
     |        ^
-  4 | }
-  5 | {
-  6 |   // using 2 declarators"
+  3 | }
+  4 | async (void) => {
+  5 |   await using void = f();"
 `;
 
-exports[`using-variable-declarator.js [oxc-ts] format 1`] = `
-"Expected a semicolon or an implicit semicolon after a statement, but found none (3:8)
+exports[`using.js format[oxc-ts] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found none (2:8)
   1 | {
-  2 |   // using 1 declarator
-> 3 |   using void = f();
+> 2 |   using void = f();
     |        ^
-  4 | }
-  5 | {
-  6 |   // using 2 declarators"
+  3 | }
+  4 | async (void) => {
+  5 |   await using void = f();"
 `;
 
-exports[`using-variable-declarator.js [typescript] format 1`] = `
-"Unexpected keyword or identifier. (3:3)
+exports[`using.js format[typescript] 1`] = `
+"Unexpected keyword or identifier. (2:3)
   1 | {
-  2 |   // using 1 declarator
-> 3 |   using void = f();
+> 2 |   using void = f();
     |   ^
-  4 | }
-  5 | {
-  6 |   // using 2 declarators
+  3 | }
+  4 | async (void) => {
+  5 |   await using void = f();
 Cause: Unexpected keyword or identifier."
 `;
 
@@ -1717,4 +1622,99 @@ async () => {
 };
 
 ================================================================================
+`;
+
+exports[`using-variable-declarator.js format[acorn] 1`] = `
+"Unexpected keyword 'void' (3:9)
+  1 | {
+  2 |   // using 1 declarator
+> 3 |   using void = f();
+    |         ^
+  4 | }
+  5 | {
+  6 |   // using 2 declarators
+Cause: Unexpected keyword 'void' (3:8)"
+`;
+
+exports[`using-variable-declarator.js format[espree] 1`] = `
+"Unexpected keyword 'void' (3:9)
+  1 | {
+  2 |   // using 1 declarator
+> 3 |   using void = f();
+    |         ^
+  4 | }
+  5 | {
+  6 |   // using 2 declarators
+Cause: Unexpected keyword 'void'"
+`;
+
+exports[`using-variable-declarator.js format[flow] 1`] = `
+"Unexpected token \`void\`, expected the end of an expression statement (\`;\`) (3:9)
+  1 | {
+  2 |   // using 1 declarator
+> 3 |   using void = f();
+    |         ^^^^
+  4 | }
+  5 | {
+  6 |   // using 2 declarators"
+`;
+
+exports[`using-variable-declarator.js format[hermes] 1`] = `
+"';' expected (3:8)
+  1 | {
+  2 |   // using 1 declarator
+> 3 |   using void = f();
+    |        ^
+  4 | }
+  5 | {
+  6 |   // using 2 declarators
+Cause: ';' expected (3:8)
+  using void = f();
+        ^"
+`;
+
+exports[`using-variable-declarator.js format[meriyah] 1`] = `
+"Unexpected token: 'void' (3:9)
+  1 | {
+  2 |   // using 1 declarator
+> 3 |   using void = f();
+    |         ^^^^
+  4 | }
+  5 | {
+  6 |   // using 2 declarators
+Cause: [3:8-3:12]: Unexpected token: 'void'"
+`;
+
+exports[`using-variable-declarator.js format[oxc] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found none (3:8)
+  1 | {
+  2 |   // using 1 declarator
+> 3 |   using void = f();
+    |        ^
+  4 | }
+  5 | {
+  6 |   // using 2 declarators"
+`;
+
+exports[`using-variable-declarator.js format[oxc-ts] 1`] = `
+"Expected a semicolon or an implicit semicolon after a statement, but found none (3:8)
+  1 | {
+  2 |   // using 1 declarator
+> 3 |   using void = f();
+    |        ^
+  4 | }
+  5 | {
+  6 |   // using 2 declarators"
+`;
+
+exports[`using-variable-declarator.js format[typescript] 1`] = `
+"Unexpected keyword or identifier. (3:3)
+  1 | {
+  2 |   // using 1 declarator
+> 3 |   using void = f();
+    |   ^
+  4 | }
+  5 | {
+  6 |   // using 2 declarators
+Cause: Unexpected keyword or identifier."
 `;

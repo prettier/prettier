@@ -50,20 +50,6 @@ function x4(y: string): boolean {
 ================================================================================
 `;
 
-exports[`update.js [hermes] format 1`] = `
-"invalid operand in update operation (31:4)
-  29 |   function() {
-  30 |     const y = 123;
-> 31 |     y++; // error, can't update const
-     |    ^
-  32 |     y--; // error, can't update const
-  33 |   },
-  34 |
-Cause: invalid operand in update operation (31:4)
-    y++; // error, can't update const
-    ^"
-`;
-
 exports[`update.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
@@ -150,4 +136,18 @@ let tests = [
 ];
 
 ================================================================================
+`;
+
+exports[`update.js format[hermes] 1`] = `
+"invalid operand in update operation (31:4)
+  29 |   function() {
+  30 |     const y = 123;
+> 31 |     y++; // error, can't update const
+     |    ^
+  32 |     y--; // error, can't update const
+  33 |   },
+  34 |
+Cause: invalid operand in update operation (31:4)
+    y++; // error, can't update const
+    ^"
 `;
