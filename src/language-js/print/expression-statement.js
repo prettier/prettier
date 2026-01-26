@@ -37,16 +37,15 @@ function shouldPrintSemicolon(path, options) {
 }
 
 function printExpressionStatement(path, options, print) {
-  const doc = [
-    print("expression"),
-    shouldPrintSemicolon(path, options) ? ";" : "",
-  ];
+  const expressionDoc = print("expression");
 
   if (shouldExpressionStatementPrintOwnComments(path, options)) {
-    return printComments(path, doc, options);
+    return printComments(path, expressionDoc, options);
   }
 
-  return doc;
+  return shouldPrintSemicolon(path, options)
+    ? [expressionDoc, ";"]
+    : expressionDoc;
 }
 
 export { printExpressionStatement };
