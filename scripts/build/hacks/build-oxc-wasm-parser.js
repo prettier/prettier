@@ -5,6 +5,7 @@ import spawn from "nano-spawn";
 import { outdent } from "outdent";
 import packageJson from "../../../package.json" with { type: "json" };
 
+const CACHE_VERSION = "v1";
 const TEMPORARY_DIRECTORY = new URL("../../../.tmp/", import.meta.url);
 const DIRECTORY_NAME = "prettier-oxc-wasm-parser";
 const PACKAGE_NAME = "@oxc-parser/binding-wasm32-wasi";
@@ -78,7 +79,7 @@ async function buildOxcWasmParser() {
     `./${DIRECTORY_NAME}@${version}/`,
     TEMPORARY_DIRECTORY,
   );
-  const entry = new URL("./index.mjs", directory);
+  const entry = new URL(`./index-${CACHE_VERSION}.mjs`, directory);
 
   if (!existsSync(entry)) {
     await fs.rm(directory, { recursive: true, force: true });
