@@ -1,7 +1,7 @@
 import indexToPosition from "index-to-position";
-import { parse as oxcParse } from "oxc-parser";
+import { parseSync as oxcParse } from "oxc-parser";
 import createError from "../../common/parser-create-error.js";
-import { tryCombinations } from "../../utilities/try-combinations.js";
+import { tryCombinationsSync } from "../../utilities/try-combinations.js";
 import postprocess from "./postprocess/index.js";
 import createParser from "./utilities/create-parser.js";
 import jsxRegexp from "./utilities/jsx-regexp.evaluate.js";
@@ -10,11 +10,7 @@ import {
   SOURCE_TYPE_COMBINATIONS,
 } from "./utilities/source-types.js";
 
-/** @import {ParseResult, ParserOptions as ParserOptionsWithoutExperimentalRawTransfer} from "oxc-parser" */
-/** @typedef {Omit<ParserOptionsWithoutExperimentalRawTransfer, "sourceType"> & {
-  sourceType?: ParserOptionsWithoutExperimentalRawTransfer["sourceType"] | "commonjs",
-  experimentalRawTransfer?: boolean,
-}} ParserOptions */
+/** @import {ParserOptions} from "oxc-parser" */
 
 function createParseError(error, { text }) {
   /* c8 ignore next 3 */
@@ -44,10 +40,9 @@ function createParseError(error, { text }) {
 @param {string} filepath
 @param {string} text
 @param {ParserOptions} options
-@returns {Promise<ParseResult>}
 */
-async function parseWithOptions(filepath, text, options) {
-  const result = await oxcParse(filepath, text, {
+function parseWithOptions(filepath, text, options) {
+  const result = oxcParse(filepath, text, {
     preserveParens: true,
     showSemanticErrors: false,
     ...options,
@@ -69,7 +64,7 @@ async function parseWithOptions(filepath, text, options) {
   return result;
 }
 
-async function parseJs(text, options) {
+function parseJs(text, options) {
   let filepath = options?.filepath;
   const sourceType = getSourceType(filepath);
 
@@ -85,7 +80,7 @@ async function parseJs(text, options) {
 
   let result;
   try {
-    result = await tryCombinations(combinations);
+    result = tryCombinationsSync(combinations);
   } catch ({
     // @ts-expect-error -- expected
     errors: [error],
@@ -121,7 +116,7 @@ function getLanguageCombinations(text, options) {
   return shouldEnableJsx ? ["tsx", "ts", "dts"] : ["ts", "tsx", "dts"];
 }
 
-async function parseTs(text, options) {
+function parseTs(text, options) {
   let filepath = options?.filepath;
 
   const sourceType = getSourceType(filepath);
@@ -142,7 +137,7 @@ async function parseTs(text, options) {
 
   let result;
   try {
-    result = await tryCombinations(combinations);
+    result = tryCombinationsSync(combinations);
   } catch ({
     // @ts-expect-error -- expected
     errors: [error],
