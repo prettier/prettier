@@ -1,9 +1,33 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`type-cast-issue.js format 1`] = `
+exports[`multiline.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+/**
+@type {{
+  bar: string[]
+}}
+*/ (foo).bar.forEach(doStuff)
+
+=====================================output=====================================
+;/**
+@type {{
+  bar: string[]
+}}
+*/ (foo).bar.forEach(doStuff)
+
+================================================================================
+`;
+
+exports[`type-cast-issue.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+semi: false
                                                                                 | printWidth
 =====================================input======================================
 // https://github.com/prettier/prettier/issues/18307
@@ -18,20 +42,22 @@ class C {
 
 // https://github.com/prettier/prettier/issues/12794
 ;(/** @type {(token: Token)=>void} */ (onToken))(token)
+;(/* not a type cast comment */ (onToken))(token)
 
 =====================================output=====================================
 // https://github.com/prettier/prettier/issues/18307
 class C {
   /** @type {string | undefined} */
-  s;
+  s
 
   typeCastS() {
-    /** @type {string} */ (this.s).length
+    ;/** @type {string} */ (this.s).length
   }
 }
 
 // https://github.com/prettier/prettier/issues/12794
-/** @type {(token: Token)=>void} */ (onToken)(token)
+;/** @type {(token: Token)=>void} */ (onToken)(token)
+/* not a type cast comment */ onToken(token)
 
 ================================================================================
 `;

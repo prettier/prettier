@@ -10,3 +10,4 @@ class C {
 
 // https://github.com/prettier/prettier/issues/12794
 ;(/** @type {(token: Token)=>void} */ (onToken))(token)
+;(/* not a type cast comment */ (onToken))(token)
