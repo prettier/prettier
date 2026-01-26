@@ -9,7 +9,7 @@ import {
   shouldExpressionStatementPrintLeadingSemicolon,
 } from "../semicolon/semicolon.js";
 import { CommentCheckFlags, getComments } from "../utilities/index.js";
-import isTypeCastComment from "../utilities/is-type-cast-comment.js";
+import { shouldExpressionStatementPrintOwnComments } from "../utilities/should-expression-statement-print-own-comments.js";
 import {
   isVueEventBindingFunctionExpression,
   isVueEventBindingMemberExpression,
@@ -46,38 +46,36 @@ function shouldPrintSemicolon(path, options) {
 }
 
 function printExpressionStatement(path, options, print) {
-  const expressionDoc = print("expression");
-
-  if (!shouldExpressionStatementPrintLeadingSemicolon(path, options)) {
-    return shouldPrintSemicolon(path, options)
-      ? [expressionDoc, ";"]
-      : expressionDoc;
-  }
-
   /** @type {Doc[]} */
-  const parts = [";"];
-  const { node } = path;
-  // Note: this causes the following print differently
-  // `;/** @type {string[]} */ ([]).forEach(foo)`
-  // `;/* normal comment */ ([]).forEach(foo)`
-  // We may want consider just check it's a block comment on same line
-  const lastComment = getComments(node, CommentCheckFlags.Leading).at(-1);
-  if (lastComment && isTypeCastComment(lastComment)) {
-    // We have to print the last comment separately
+  const parts = [print("expression")];
 
-    // eslint-disable-next-line prettier-internal-rules/no-node-comments
-    const { comments } = node;
-    // eslint-disable-next-line prettier-internal-rules/no-node-comments
-    node.comments = [lastComment];
-    parts.push(printCommentsSeparately(path, options).leading);
-    // eslint-disable-next-line prettier-internal-rules/no-node-comments
-    node.comments = comments;
+  if (shouldExpressionStatementPrintLeadingSemicolon(path, options)) {
+    if (shouldExpressionStatementPrintOwnComments(path, options)) {
+      const { node } = path;
+      const typeCastComment = getComments(node, CommentCheckFlags.Leading).at(
+        -1,
+      );
 
-    // Make it printed, so `printComments` will ignore it
-    options[Symbol.for("printedComments")].add(lastComment);
+      // We have to print the last comment separately
+      // eslint-disable-next-line prettier-internal-rules/no-node-comments
+      const { comments } = node;
+      // eslint-disable-next-line prettier-internal-rules/no-node-comments
+      node.comments = [typeCastComment];
+      const typeCastCommentDoc = printCommentsSeparately(path, options).leading;
+      // eslint-disable-next-line prettier-internal-rules/no-node-comments
+      node.comments = comments;
+
+      // Make it printed, so `printComments` will ignore it
+      options[Symbol.for("printedComments")].add(typeCastComment);
+      return printComments(path, [";", typeCastCommentDoc, ...parts], options);
+    }
+
+    parts.unshift(";");
+  } else if (shouldPrintSemicolon(path, options)) {
+    parts.push(";");
   }
 
-  return printComments(path, [...parts, expressionDoc], options);
+  return parts;
 }
 
 export { printExpressionStatement };
