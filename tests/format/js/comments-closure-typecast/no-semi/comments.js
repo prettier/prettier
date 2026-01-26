@@ -9,13 +9,13 @@ class C {
 }
 
 // https://github.com/prettier/prettier/issues/12794
-;(/** @type {(token: Token)=>void} */ (onToken))(token)
-;/** @type {(token: Token)=>void} */ (onToken)(token)
+;(/** @type {(token: Token)=>void} */ (onToken))(token) // comment
+;/** @type {(token: Token)=>void} */ (onToken)(token) // comment
 
 // unparenthesized
-;/** @type {(token: Token)=>void} */ [onToken](token)
-;/** @type {(token: Token)=>void} */ onToken(token)
+;/** @type {(token: Token)=>void} */ [onToken](token) // comment
+;/** @type {(token: Token)=>void} */ onToken(token) // comment
 
-;/* not a type cast comment */ ([])(token)
+;/* not a type cast comment */ ([])(token) // comment
 
-;/* don't need leading semicolon */ (foo)(token)
+;/* don't need leading semicolon */ (foo)(token) // comment
