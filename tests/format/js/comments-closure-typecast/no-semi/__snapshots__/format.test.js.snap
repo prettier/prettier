@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`type-cast-issue.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// https://github.com/prettier/prettier/issues/18307
+class C {
+  /** @type {string | undefined} */
+  s
+
+  typeCastS() {
+    /** @type {string} */ (this.s).length
+  }
+}
+
+// https://github.com/prettier/prettier/issues/12794
+;(/** @type {(token: Token)=>void} */ (onToken))(token)
+
+=====================================output=====================================
+// https://github.com/prettier/prettier/issues/18307
+class C {
+  /** @type {string | undefined} */
+  s;
+
+  typeCastS() {
+    /** @type {string} */ (this.s).length
+  }
+}
+
+// https://github.com/prettier/prettier/issues/12794
+/** @type {(token: Token)=>void} */ (onToken)(token)
+
+================================================================================
+`;
