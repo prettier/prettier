@@ -50,11 +50,10 @@ async function inlineWasmBinary(directory) {
   let text = await fs.readFile(entryFile, "utf8");
   const wasmBase64String = await fs.readFile(wasmFile, "base64");
 
-  // https://issues.chromium.org/issues/467033528
   text = outdent`
     import { decode as __decode } from "base64-arraybuffer-es6";
     const __base64ToArrayBuffer = Uint8Array.fromBase64
-      ? (string) => Uint8Array.from(Uint8Array.fromBase64(string)).buffer
+      ? (string) => Uint8Array.fromBase64(string).buffer
       : __decode;
 
     ${text}
@@ -89,7 +88,7 @@ async function buildOxcWasmParser() {
 
     await fs.writeFile(
       entry,
-      `export {parseSync as parse} from '${PACKAGE_NAME}/browser-bundle.js'`,
+      `export {parseSync} from '${PACKAGE_NAME}/browser-bundle.js'`,
     );
 
     await inlineWasmBinary(directory);
