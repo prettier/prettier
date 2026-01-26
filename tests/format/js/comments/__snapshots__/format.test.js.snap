@@ -3766,10 +3766,10 @@ const x = (
   </div>
 )
 
-/**
+;/**
  * @type {object}
  */
-;() => (
+() => (
   <div>
     sajdfpoiasdjfpoiasdjfpoiasdjfpoiadsjfpaoisdjfapsdiofjapioisadfaskfaspiofjp
   </div>
