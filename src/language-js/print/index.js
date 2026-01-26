@@ -8,7 +8,6 @@ import {
 import { printComments } from "../../main/comments/print.js";
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
 import needsParentheses from "../parentheses/needs-parentheses.js";
-import { shouldPrintLeadingSemicolon } from "../semicolon/semicolon.js";
 import {
   CommentCheckFlags,
   createTypeCheckFunction,
@@ -96,14 +95,12 @@ function print(path, options, print, args) {
   }
 
   const needsParens = needsParentheses(path, options);
-  const needsSemi = shouldPrintLeadingSemicolon(path, options);
 
-  if (!decoratorsDoc && !needsParens && !needsSemi) {
+  if (!decoratorsDoc && !needsParens) {
     return doc;
   }
 
   return inheritLabel(doc, (doc) => [
-    needsSemi ? ";" : "",
     needsParens ? "(" : "",
     needsParens && isClassExpression && hasDecorators
       ? [indent([line, decoratorsDoc, doc]), line]

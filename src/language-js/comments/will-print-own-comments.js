@@ -1,3 +1,4 @@
+import { shouldExpressionStatementPrintLeadingSemicolon } from "../semicolon/semicolon.js";
 import {
   createTypeCheckFunction,
   hasNodeIgnoreComment,
@@ -5,7 +6,6 @@ import {
   shouldUnionTypePrintOwnComments,
 } from "../utilities/index.js";
 import { isJsxElement, isUnionType } from "../utilities/node-types.js";
-import { shouldExpressionStatementPrintOwnComments } from "../utilities/should-expression-statement-print-own-comments.js";
 
 /**
 @import {Node} from "../types/estree.js";
@@ -52,7 +52,7 @@ function willPrintOwnComments(path, options) {
   }
 
   if (node.type === "ExpressionStatement") {
-    return shouldExpressionStatementPrintOwnComments(path, options);
+    return shouldExpressionStatementPrintLeadingSemicolon(path, options);
   }
 
   if (isUnionType(node)) {

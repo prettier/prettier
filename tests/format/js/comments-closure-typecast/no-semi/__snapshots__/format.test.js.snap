@@ -1,5 +1,60 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`comments.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+// https://github.com/prettier/prettier/issues/18307
+class C {
+  /** @type {string | undefined} */
+  s
+
+  typeCastS() {
+    /** @type {string} */ (this.s).length
+  }
+}
+
+// https://github.com/prettier/prettier/issues/12794
+;(/** @type {(token: Token)=>void} */ (onToken))(token)
+;/** @type {(token: Token)=>void} */ (onToken)(token)
+
+// unparenthesized
+;/** @type {(token: Token)=>void} */ [onToken](token)
+;/** @type {(token: Token)=>void} */ onToken(token)
+
+;/* not a type cast comment */ ([])(token)
+
+;/* don't need leading semicolon */ (foo)(token)
+
+=====================================output=====================================
+// https://github.com/prettier/prettier/issues/18307
+class C {
+  /** @type {string | undefined} */
+  s
+
+  typeCastS() {
+    ;/** @type {string} */ (this.s).length
+  }
+}
+
+// https://github.com/prettier/prettier/issues/12794
+;/** @type {(token: Token)=>void} */ (onToken)(token)
+;/** @type {(token: Token)=>void} */ (onToken)(token)
+
+// unparenthesized
+;/** @type {(token: Token)=>void} */ [onToken](token)
+/** @type {(token: Token)=>void} */ onToken(token)
+
+/* not a type cast comment */ ;[](token)
+
+/* don't need leading semicolon */ foo(token)
+
+================================================================================
+`;
+
 exports[`multiline.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
@@ -68,7 +123,7 @@ class C {
 ;/** @type {(token: Token)=>void} */ (onToken)(token)
 
 // unparenthesized
-/** @type {(token: Token)=>void} */ ;[onToken](token)
+;/** @type {(token: Token)=>void} */ [onToken](token)
 /** @type {(token: Token)=>void} */ onToken(token)
 
 /* not a type cast comment */ ;[](token)
