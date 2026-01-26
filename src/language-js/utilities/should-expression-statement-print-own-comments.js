@@ -4,7 +4,7 @@ import isTypeCastComment from "./is-type-cast-comment.js";
 
 function shouldExpressionStatementPrintOwnComments(path, options) {
   if (!shouldPrintLeadingSemicolon(path, options)) {
-    return true;
+    return false;
   }
 
   // Note: this causes the following print differently
