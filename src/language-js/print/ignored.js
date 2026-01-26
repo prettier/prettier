@@ -1,4 +1,5 @@
 import { locEnd, locStart } from "../loc.js";
+import { shouldExpressionStatementPrintLeadingSemicolon } from "../semicolon/semicolon.js";
 
 function printIgnored(path, options /* , print*/) {
   const { node } = path;
@@ -18,6 +19,8 @@ function printIgnored(path, options /* , print*/) {
         node.__end))
   ) {
     text += ";";
+  } else if (shouldExpressionStatementPrintLeadingSemicolon(path, options)) {
+    text = `;${text}`;
   }
 
   return text;
