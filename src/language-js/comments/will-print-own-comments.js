@@ -51,11 +51,8 @@ function willPrintOwnComments(path, options) {
     return false;
   }
 
-  if (
-    node.type === "ExpressionStatement" &&
-    shouldExpressionStatementPrintOwnComments(path, options)
-  ) {
-    return true;
+  if (node.type === "ExpressionStatement") {
+    return shouldExpressionStatementPrintOwnComments(path, options);
   }
 
   if (isUnionType(node)) {
