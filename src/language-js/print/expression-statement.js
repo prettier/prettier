@@ -1,8 +1,10 @@
+import { printComments } from "../../main/comments/print.js";
 import {
   isSingleHtmlEventHandlerExpressionStatement,
   isSingleJsxExpressionStatementInMarkdown,
   isSingleVueEventBindingExpressionStatement,
 } from "../semicolon/semicolon.js";
+import { shouldExpressionStatementPrintOwnComments } from "../utilities/should-expression-statement-print-own-comments.js";
 import {
   isVueEventBindingFunctionExpression,
   isVueEventBindingMemberExpression,
@@ -35,7 +37,16 @@ function shouldPrintSemicolon(path, options) {
 }
 
 function printExpressionStatement(path, options, print) {
-  return [print("expression"), shouldPrintSemicolon(path, options) ? ";" : ""];
+  const doc = [
+    print("expression"),
+    shouldPrintSemicolon(path, options) ? ";" : "",
+  ];
+
+  if (shouldExpressionStatementPrintOwnComments(path, options)) {
+    return printComments(path, doc, options);
+  }
+
+  return doc;
 }
 
 export { printExpressionStatement };

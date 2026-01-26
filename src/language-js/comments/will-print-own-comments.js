@@ -5,6 +5,7 @@ import {
   shouldUnionTypePrintOwnComments,
 } from "../utilities/index.js";
 import { isJsxElement, isUnionType } from "../utilities/node-types.js";
+import { shouldExpressionStatementPrintOwnComments } from "../utilities/should-expression-statement-print-own-comments.js";
 
 /**
 @import {Node} from "../types/estree.js";
@@ -26,7 +27,7 @@ const isClassOrInterface = createTypeCheckFunction([
  * @param {AstPath} path
  * @returns {boolean}
  */
-function willPrintOwnComments(path) {
+function willPrintOwnComments(path, options) {
   const { key, parent } = path;
   if (
     (key === "types" && isUnionType(parent)) ||
@@ -45,6 +46,14 @@ function willPrintOwnComments(path) {
   }
 
   const { node } = path;
+
+  if (
+    node.type === "ExpressionStatement" &&
+    shouldExpressionStatementPrintOwnComments(path, options)
+  ) {
+    return true;
+  }
+
   if (hasNodeIgnoreComment(node)) {
     return false;
   }
