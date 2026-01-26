@@ -6,7 +6,7 @@
 ({}).bar.forEach(doStuff);
 
 
-// 11
+// 1
 
 /**
 @type {{
@@ -14,4 +14,21 @@
 }}
 */
 
+({}).bar.forEach(doStuff);
+
+/**
+@type {{
+  bar: string[]
+}}
+*/
+
+(foo.bar.forEach(doStuff));
+
+/**
+@type {{
+  bar: string[]
+}}
+*/
+
+// 2
 ({}).bar.forEach(doStuff);

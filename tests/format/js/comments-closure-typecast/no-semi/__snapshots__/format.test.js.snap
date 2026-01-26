@@ -87,7 +87,7 @@ semi: false
 ({}).bar.forEach(doStuff);
 
 
-// 11
+// 1
 
 /**
 @type {{
@@ -95,6 +95,23 @@ semi: false
 }}
 */
 
+({}).bar.forEach(doStuff);
+
+/**
+@type {{
+  bar: string[]
+}}
+*/
+
+(foo.bar.forEach(doStuff));
+
+/**
+@type {{
+  bar: string[]
+}}
+*/
+
+// 2
 ({}).bar.forEach(doStuff);
 
 =====================================output=====================================
@@ -105,7 +122,7 @@ semi: false
 */
 ({}).bar.forEach(doStuff)
 
-// 11
+// 1
 
 ;/**
 @type {{
@@ -114,6 +131,40 @@ semi: false
 */
 
 ({}).bar.forEach(doStuff)
+
+;/**
+@type {{
+  bar: string[]
+}}
+*/
+
+(foo.bar.forEach(doStuff))
+
+/**
+@type {{
+  bar: string[]
+}}
+*/
+
+// 2
+;({}).bar.forEach(doStuff)
+
+================================================================================
+`;
+
+exports[`with-other-comments.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+;/* 2 */ /** @type {{bar: string[]}} */ ({}).bar.forEach(doStuff)
+;/** @type {{bar: string[]}} */ /* 2 */ ({}).bar.forEach(doStuff)
+
+=====================================output=====================================
+/* 2 */ ;/** @type {{bar: string[]}} */ ({}).bar.forEach(doStuff)
+/** @type {{bar: string[]}} */ /* 2 */ ;({}).bar.forEach(doStuff)
 
 ================================================================================
 `;

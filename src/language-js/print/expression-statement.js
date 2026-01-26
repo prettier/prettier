@@ -56,7 +56,7 @@ function printExpressionStatement(path, options, print) {
         -1,
       );
 
-      // We have to print the last comment separately
+      // Print the type cast comment separately and print `;` before it
       // eslint-disable-next-line prettier-internal-rules/no-node-comments
       const { comments } = node;
       // eslint-disable-next-line prettier-internal-rules/no-node-comments
@@ -64,9 +64,9 @@ function printExpressionStatement(path, options, print) {
       const typeCastCommentDoc = printCommentsSeparately(path, options).leading;
       // eslint-disable-next-line prettier-internal-rules/no-node-comments
       node.comments = comments;
-
       // Make it printed, so `printComments` will ignore it
       options[Symbol.for("printedComments")].add(typeCastComment);
+
       return printComments(path, [";", typeCastCommentDoc, ...parts], options);
     }
 
