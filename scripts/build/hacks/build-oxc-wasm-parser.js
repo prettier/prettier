@@ -5,7 +5,6 @@ import spawn from "nano-spawn";
 import { outdent } from "outdent";
 import packageJson from "../../../package.json" with { type: "json" };
 
-const CACHE_VERSION = "v1";
 const TEMPORARY_DIRECTORY = new URL("../../../.tmp/", import.meta.url);
 const DIRECTORY_NAME = "prettier-oxc-wasm-parser";
 const PACKAGE_NAME = "@oxc-parser/binding-wasm32-wasi";
@@ -70,7 +69,7 @@ async function inlineWasmBinary(directory) {
     `__base64ToArrayBuffer(${JSON.stringify(wasmBase64String)})`,
   );
 
-  await fs.writeFile(entryFile, text);
+  return { entry: url.fileURLToPath(entryFile), text, directory };
 }
 
 async function buildOxcWasmParser() {
@@ -79,26 +78,15 @@ async function buildOxcWasmParser() {
     `./${DIRECTORY_NAME}@${version}/`,
     TEMPORARY_DIRECTORY,
   );
-  const entry = new URL(`./index-${CACHE_VERSION}.mjs`, directory);
 
-  if (!existsSync(entry)) {
+  if (!existsSync(directory)) {
     await fs.rm(directory, { recursive: true, force: true });
 
     const installDirectory = await install(version);
     await fs.rename(installDirectory, directory);
-
-    await fs.writeFile(
-      entry,
-      `export {parseSync} from '${PACKAGE_NAME}/browser-bundle.js'`,
-    );
-
-    await inlineWasmBinary(directory);
   }
 
-  return {
-    entry: url.fileURLToPath(entry),
-    directory: url.fileURLToPath(directory),
-  };
+  return await inlineWasmBinary(directory);
 }
 
 export default buildOxcWasmParser;
