@@ -47,15 +47,15 @@ function willPrintOwnComments(path, options) {
 
   const { node } = path;
 
+  if (hasNodeIgnoreComment(node)) {
+    return false;
+  }
+
   if (
     node.type === "ExpressionStatement" &&
     shouldExpressionStatementPrintOwnComments(path, options)
   ) {
     return true;
-  }
-
-  if (hasNodeIgnoreComment(node)) {
-    return false;
   }
 
   if (isUnionType(node)) {
