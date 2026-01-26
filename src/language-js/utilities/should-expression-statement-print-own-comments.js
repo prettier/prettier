@@ -7,6 +7,10 @@ function shouldExpressionStatementPrintOwnComments(path, options) {
     return true;
   }
 
+  // Note: this causes the following print differently
+  // `;/** @type {string[]} */ ([]).forEach(foo)`
+  // `;/* normal comment */ ([]).forEach(foo)`
+  // We may want consider remove the `isTypeCastComment` check
   const comments = getComments(path.node, CommentCheckFlags.Leading);
   if (comments.length === 1 && isTypeCastComment(comments[0])) {
     return true;
