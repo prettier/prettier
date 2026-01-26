@@ -10,4 +10,12 @@ class C {
 
 // https://github.com/prettier/prettier/issues/12794
 ;(/** @type {(token: Token)=>void} */ (onToken))(token)
-;(/* not a type cast comment */ (onToken))(token)
+;/** @type {(token: Token)=>void} */ (onToken)(token)
+
+// unparenthesized
+;/** @type {(token: Token)=>void} */ [onToken](token)
+;/** @type {(token: Token)=>void} */ onToken(token)
+
+;/* not a type cast comment */ ([])(token)
+
+;/* don't need leading semicolon */ (foo)(token)
