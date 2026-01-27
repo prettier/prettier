@@ -15,20 +15,22 @@ import {
   createTypeCheckFunction,
   getCallArguments,
   getFunctionParameters,
+  isMethod,
+  isObjectProperty,
+  isPrettierIgnoreComment,
+} from "../utilities/index.js";
+import isBlockComment from "../utilities/is-block-comment.js";
+import isLineComment from "../utilities/is-line-comment.js";
+import isTypeCastComment from "../utilities/is-type-cast-comment.js";
+import {
   isBinaryCastExpression,
   isCallLikeExpression,
   isCallOrNewExpression,
   isConditionalType,
   isIntersectionType,
   isMemberExpression,
-  isMethod,
-  isObjectProperty,
-  isPrettierIgnoreComment,
   isUnionType,
-} from "../utilities/index.js";
-import isBlockComment from "../utilities/is-block-comment.js";
-import isLineComment from "../utilities/is-line-comment.js";
-import isTypeCastComment from "../utilities/is-type-cast-comment.js";
+} from "../utilities/node-types.js";
 
 /**
 @import {Node, Comment, NodeMap} from "../types/estree.js";

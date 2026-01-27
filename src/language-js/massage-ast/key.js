@@ -1,4 +1,4 @@
-import { isNumericLiteral, isStringLiteral } from "../utilities/index.js";
+import { isNumericLiteral, isStringLiteral } from "../utilities/node-types.js";
 
 /**
 @import {Node} from "../types/estree.js"

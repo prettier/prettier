@@ -2,7 +2,7 @@ import {
   isCallExpression,
   isChainElementWrapper,
   isMemberExpression,
-} from "../utilities/index.js";
+} from "../utilities/node-types.js";
 
 /**
 @import {Node} from "../types/estree.js"

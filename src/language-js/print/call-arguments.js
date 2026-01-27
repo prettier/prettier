@@ -16,25 +16,27 @@ import {
   getCallArgumentSelector,
   getFunctionParameters,
   hasComment,
+  isFunctionCompositionArgs,
+  isLongCurriedCallExpression,
+  isNextLineEmpty,
+  isObjectProperty,
+  isSimpleCallArgument,
+  isSimpleType,
+  iterateCallArgumentsPath,
+  shouldPrintComma,
+  stripChainElementWrappers,
+} from "../utilities/index.js";
+import {
   isArrayExpression,
   isBinaryCastExpression,
   isBinaryish,
   isCallExpression,
   isCallLikeExpression,
-  isFunctionCompositionArgs,
   isJsxElement,
-  isLongCurriedCallExpression,
-  isNextLineEmpty,
   isObjectExpression,
-  isObjectProperty,
   isRegExpLiteral,
-  isSimpleCallArgument,
-  isSimpleType,
   isStringLiteral,
-  iterateCallArgumentsPath,
-  shouldPrintComma,
-  stripChainElementWrappers,
-} from "../utilities/index.js";
+} from "../utilities/node-types.js";
 import { isConciselyPrintedArray } from "./array.js";
 import { printDanglingCommentsInList } from "./miscellaneous.js";
 

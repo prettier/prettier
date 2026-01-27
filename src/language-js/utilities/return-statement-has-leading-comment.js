@@ -6,8 +6,8 @@ import {
   hasComment,
   hasLeadingOwnLineComment,
   hasNakedLeftSide,
-  isJsxElement,
 } from "./index.js";
+import { isJsxElement } from "./node-types.js";
 
 // This recurses the return argument, looking for the first token
 // (the leftmost leaf node) and, if it (or its parents) has any

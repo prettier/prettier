@@ -13,7 +13,7 @@ import {
   isChainElementWrapper,
   isJsxElement,
   isMemberExpression,
-} from "../utilities/index.js";
+} from "../utilities/node-types.js";
 
 /**
  * @import {Doc} from "../../document/index.js"

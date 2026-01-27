@@ -18,10 +18,10 @@ import {
   createTypeCheckFunction,
   hasComment,
   isShorthandSpecifier,
-  isStringLiteral,
   needsHardlineAfterDanglingComment,
   shouldPrintComma,
 } from "../utilities/index.js";
+import { isStringLiteral } from "../utilities/node-types.js";
 import { printDecoratorsBeforeExport } from "./decorators.js";
 import { printDeclareToken } from "./miscellaneous.js";
 import { printObject } from "./object.js";

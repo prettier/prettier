@@ -1,14 +1,9 @@
 import { group, indent, softline } from "../../document/index.js";
 import {
-  createTypeCheckFunction,
   isCallOrNewExpression,
   isMemberExpression,
-} from "../utilities/index.js";
-
-const isSatisfiesExpression = createTypeCheckFunction([
-  "SatisfiesExpression",
-  "TSSatisfiesExpression",
-]);
+  isSatisfiesExpression,
+} from "../utilities/node-types.js";
 
 function printBinaryCastExpression(path, options, print) {
   const { parent, node, key } = path;

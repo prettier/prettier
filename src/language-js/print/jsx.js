@@ -28,14 +28,16 @@ import {
   createTypeCheckFunction,
   hasComment,
   hasNodeIgnoreComment,
+  stripChainElementWrappers,
+} from "../utilities/index.js";
+import {
   isArrayExpression,
   isBinaryish,
   isCallExpression,
   isJsxElement,
   isObjectExpression,
   isStringLiteral,
-  stripChainElementWrappers,
-} from "../utilities/index.js";
+} from "../utilities/node-types.js";
 
 /**
 @import AstPath from "../../common/ast-path.js";

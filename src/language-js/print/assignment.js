@@ -13,19 +13,21 @@ import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
 import {
   getCallArguments,
   hasLeadingOwnLineComment,
+  isLoneShortArgument,
+  isObjectProperty,
+} from "../utilities/index.js";
+import {
   isBinaryish,
   isBooleanLiteral,
   isCallExpression,
   isChainElementWrapper,
   isIntersectionType,
-  isLoneShortArgument,
   isMemberExpression,
   isNumericLiteral,
-  isObjectProperty,
   isStringLiteral,
   isTypeAlias,
   isUnionType,
-} from "../utilities/index.js";
+} from "../utilities/node-types.js";
 import { shouldInlineLogicalExpression } from "./binaryish.js";
 import { printCallExpression } from "./call-expression.js";
 

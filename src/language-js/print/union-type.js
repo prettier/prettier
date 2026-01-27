@@ -17,11 +17,13 @@ import {
   createTypeCheckFunction,
   hasComment,
   hasLeadingOwnLineComment,
+  shouldUnionTypePrintOwnComments,
+} from "../utilities/index.js";
+import {
   isConditionalType,
   isTupleType,
   isTypeAlias,
-  shouldUnionTypePrintOwnComments,
-} from "../utilities/index.js";
+} from "../utilities/node-types.js";
 
 /**
 @import {Doc} from "../../document/index.js";

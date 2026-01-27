@@ -7,12 +7,14 @@ import {
 } from "../../document/index.js";
 import {
   getCallArguments,
+  stripChainElementWrappers,
+} from "../utilities/index.js";
+import {
   isCallExpression,
   isChainElementWrapper,
   isMemberExpression,
   isNumericLiteral,
-  stripChainElementWrappers,
-} from "../utilities/index.js";
+} from "../utilities/node-types.js";
 import { printOptionalToken } from "./miscellaneous.js";
 
 const isCallExpressionWithArguments = (node) =>

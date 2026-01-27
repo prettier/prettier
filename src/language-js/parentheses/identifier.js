@@ -1,7 +1,5 @@
-import {
-  isBinaryCastExpression,
-  startsWithNoLookaheadToken,
-} from "../utilities/index.js";
+import { startsWithNoLookaheadToken } from "../utilities/index.js";
+import { isBinaryCastExpression } from "../utilities/node-types.js";
 
 function shouldAddParenthesesToIdentifier(path) {
   const { node } = path;

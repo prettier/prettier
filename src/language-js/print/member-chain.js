@@ -16,15 +16,17 @@ import needsParentheses from "../parentheses/needs-parentheses.js";
 import {
   CommentCheckFlags,
   hasComment,
-  isCallExpression,
-  isFunctionOrArrowExpression,
   isLongCurriedCallExpression,
-  isMemberExpression,
   isMemberish,
   isNextLineEmpty,
-  isNumericLiteral,
   isSimpleCallArgument,
 } from "../utilities/index.js";
+import {
+  isCallExpression,
+  isFunctionOrArrowExpression,
+  isMemberExpression,
+  isNumericLiteral,
+} from "../utilities/node-types.js";
 import { printBindExpressionCallee } from "./bind-expression.js";
 import printCallArguments from "./call-arguments.js";
 import { printMemberLookup } from "./member.js";
