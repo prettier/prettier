@@ -22,22 +22,29 @@ function setup(props, { slots }) {
   const render = () => slots.default(state);
 
   onMounted(componentDidMount);
-  watch(
-    () => [
-      props.code,
-      props.options,
-      settings.showAst,
-      settings.showPreprocessedAst,
-      settings.showDoc,
-      settings.showComments,
-      settings.showSecondFormat,
-      settings.rethrowEmbedErrors,
-    ],
-    () => {
-      format();
-    },
-    { deep: true },
-  );
+  watch(() => props.code, format);
+  watch(() => props.options, format, { deep: true });
+
+  // Should not trigger format when these changes
+  const ignoredKeys = new Set(["showSidebar", "showInput"]);
+  for (const key of Object.keys(settings).filter(
+    (key) => !ignoredKeys.has(key),
+  )) {
+    watch(
+      () => settings[key],
+      (newValue, oldValue) => {
+        // Always triggers format
+        if (key === "rethrowEmbedErrors" && newValue !== oldValue) {
+          return format();
+        }
+        // Only if set to true
+        if (newValue) {
+          return format();
+        }
+      },
+    );
+  }
+
   return render;
 }
 

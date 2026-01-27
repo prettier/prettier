@@ -7,12 +7,12 @@ import * as storage from "../storage.js";
 
 const defaultSettings = {
   showSidebar: window.innerWidth > window.innerHeight,
+  showInput: true,
   showAst: false,
   showPreprocessedAst: false,
   showDoc: false,
   showComments: false,
   showSecondFormat: false,
-  showInput: true,
   showOutput: true,
   rethrowEmbedErrors: false,
 };
