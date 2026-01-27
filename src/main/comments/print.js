@@ -238,11 +238,11 @@ function printCommentsSeparately(path, options) {
 }
 
 function printComments(path, doc, options) {
-  const { leading, trailing } = printCommentsSeparately(path, options);
-  if (!leading && !trailing) {
-    return doc;
-  }
-  return inheritLabel(doc, (doc) => [leading, doc, trailing]);
+  const leading = printLeadingComments(path, options);
+  const trailing = printTrailingComments(path, options);
+  return leading || trailing
+    ? inheritLabel(doc, (doc) => [leading, doc, trailing])
+    : doc;
 }
 
 function ensureAllCommentsPrinted(options) {
