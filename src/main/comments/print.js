@@ -134,20 +134,23 @@ function printDanglingComments(
     marker,
     filter = returnTrue,
   } = danglingCommentsPrintOptions;
+  const danglingComments = new Set(
+    node?.comments?.filter(
+      (comment) =>
+        !(
+          comment.leading ||
+          comment.trailing ||
+          comment.marker !== marker ||
+          !filter(comment)
+        ),
+    ),
+  );
 
-  const parts = [];
-  path.each(({ node: comment }) => {
-    if (
-      comment.leading ||
-      comment.trailing ||
-      comment.marker !== marker ||
-      !filter(comment)
-    ) {
-      return;
-    }
-
-    parts.push(printComment(path, options));
-  }, "comments");
+  const parts = path.map(
+    ({ node: comment }) =>
+      danglingComments.has(comment) ? printLeadingComment(path, options) : "",
+    "comments",
+  );
 
   if (parts.length === 0) {
     return "";
@@ -165,7 +168,7 @@ function printLeadingComments(path, options) {
   const { node } = path;
   const ignored = options[Symbol.for("printedComments")];
   const leadingComments = new Set(
-    (node?.comments || []).filter(
+    node?.comments?.filter(
       (comment) => !ignored?.has(comment) && comment.leading,
     ),
   );
@@ -177,7 +180,7 @@ function printLeadingComments(path, options) {
   return path
     .map(
       ({ node: comment }) =>
-        leadingComments.has(comment) ? "" : printLeadingComment(path, options),
+        leadingComments.has(comment) ? printLeadingComment(path, options) : "",
       "comments",
     )
     .filter(Boolean);
@@ -191,7 +194,7 @@ function printTrailingComments(path, options) {
   const { node } = path;
   const ignored = options[Symbol.for("printedComments")];
   const trailingComments = new Set(
-    (node?.comments || []).filter(
+    node?.comments?.filter(
       (comment) => !ignored?.has(comment) && comment.trailing,
     ),
   );
