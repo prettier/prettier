@@ -20,11 +20,11 @@ import {
   isObjectExpression,
   isObjectType,
   isSimpleType,
-  isTestCall,
   isTypeAnnotationAFunction,
   iterateFunctionParametersPath,
   shouldPrintComma,
 } from "../utilities/index.js";
+import { isTestCall } from "../utilities/test-libraries.js";
 import { printDanglingCommentsInList } from "./miscellaneous.js";
 
 /** @import AstPath from "../../common/ast-path.js" */

@@ -8,9 +8,9 @@ import {
   isNodeMatches,
   isStringLiteral,
   isTemplateOnItsOwnLine,
-  isTestCall,
   iterateCallArgumentsPath,
 } from "../utilities/index.js";
+import { isTestCall } from "../utilities/test-libraries.js";
 import printCallArguments from "./call-arguments.js";
 import printMemberChain from "./member-chain.js";
 import { printOptionalToken } from "./miscellaneous.js";

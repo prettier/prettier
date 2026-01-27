@@ -17,9 +17,9 @@ import {
   getFunctionParameters,
   hasComment,
   isObjectType,
-  isTestCall,
   shouldPrintComma,
 } from "../utilities/index.js";
+import { isTestCall } from "../utilities/test-libraries.js";
 import { isArrowFunctionVariableDeclarator } from "./assignment.js";
 import {
   printTypeAnnotationProperty,
