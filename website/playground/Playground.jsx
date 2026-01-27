@@ -464,7 +464,7 @@ function setup(props) {
                     <OutputPanel
                       name="Output (Second format)"
                       mode={getCodemirrorMode(options.parser)}
-                      value={debug.reformatted}
+                      value={getSecondFormat(formatted, debug.reformatted)}
                       ruler={options.printWidth}
                     />
                   ) : null}
@@ -563,6 +563,18 @@ function orderOptions(availableOptions, order) {
 
 function getReportLink(reportBody) {
   return `${ISSUES_URL}${encodeURIComponent(reportBody)}`;
+}
+
+function getSecondFormat(formatted, reformatted) {
+  if (formatted === "") {
+    return "";
+  }
+
+  if (formatted === reformatted) {
+    return "✓ Second format is unchanged.";
+  }
+
+  return reformatted ?? "";
 }
 
 export default Playground;
