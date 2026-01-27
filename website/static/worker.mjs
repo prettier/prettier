@@ -2,6 +2,17 @@ import prettierPackageManifest from "./lib/package-manifest.mjs";
 import * as prettier from "./lib/prettier/standalone.mjs";
 import * as prettierPluginDocExplorer from "./prettier-plugin-doc-explorer.mjs";
 
+/**
+@import {PlaygroundSettings} from "../playground/composables/playground-settings.js"
+@typedef {{ type: "meta" }} MetaMessage
+@typedef {{
+  type: "format",
+  code: string,
+  options: any,
+  settings: PlaygroundSettings
+}} FormatMessage
+*/
+
 const pluginLoadPromises = new Map();
 async function importPlugin(plugin) {
   if (!pluginLoadPromises.has(plugin)) {
@@ -89,6 +100,9 @@ function serializeAst(ast) {
   );
 }
 
+/**
+@param {MetaMessage | FormatMessage} message
+*/
 function handleMessage(message) {
   switch (message.type) {
     case "meta":
@@ -109,20 +123,16 @@ async function handleMetaMessage() {
   };
 }
 
+/**
+@param {FormatMessage} message
+*/
 async function handleFormatMessage(message) {
-  const options = { ...message.options, plugins };
-
-  delete options.ast;
-  delete options.doc;
-  delete options.output2;
+  let { options, code, settings } = message;
+  options = { ...options, plugins };
 
   const isDocExplorer = options.parser === "doc-explorer";
 
-  const formatResult = await formatCode(
-    message.code,
-    options,
-    message.debug.rethrowEmbedErrors,
-  );
+  const formatResult = await formatCode(code, options, settings);
 
   const response = {
     formatted: formatResult.formatted,
@@ -136,12 +146,21 @@ async function handleFormatMessage(message) {
     },
   };
 
-  for (const key of ["ast", "preprocessedAst"]) {
-    if (!message.debug[key]) {
+  for (const { resultKey, settingsKey, preprocessForPrint } of [
+    {
+      resultKey: "ast",
+      settingsKey: "showAst",
+      preprocessForPrint: false,
+    },
+    {
+      resultKey: "preprocessedAst",
+      settingsKey: "showPreprocessedAst",
+      preprocessForPrint: true,
+    },
+  ]) {
+    if (!settings[settingsKey]) {
       continue;
     }
-
-    const preprocessForPrint = key === "preprocessedAst";
 
     if (isDocExplorer && preprocessForPrint) {
       continue;
@@ -150,7 +169,7 @@ async function handleFormatMessage(message) {
     let ast;
     let errored = false;
     try {
-      const parsed = await prettier.__debug.parse(message.code, options, {
+      const parsed = await prettier.__debug.parse(code, options, {
         preprocessForPrint,
       });
       ast = serializeAst(parsed.ast);
@@ -166,16 +185,16 @@ async function handleFormatMessage(message) {
         ast = serializeAst(ast);
       }
     }
-    response.debug[key] = ast;
+    response.debug[resultKey] = ast;
   }
 
-  if (!isDocExplorer && message.debug.doc) {
+  if (!isDocExplorer && settings.showDoc) {
     if (formatResult.error) {
       response.debug.doc = formatResult.formatted;
     } else {
       try {
         response.debug.doc = await prettier.__debug.formatDoc(
-          await prettier.__debug.printToDoc(message.code, options),
+          await prettier.__debug.printToDoc(code, options),
           { plugins },
         );
       } catch {
@@ -184,7 +203,7 @@ async function handleFormatMessage(message) {
     }
   }
 
-  if (!isDocExplorer && message.debug.comments) {
+  if (!isDocExplorer && settings.showComments) {
     if (formatResult.error) {
       response.debug.comments = formatResult.formatted;
     } else {
@@ -197,16 +216,21 @@ async function handleFormatMessage(message) {
     }
   }
 
-  if (!isDocExplorer && message.debug.reformat) {
+  if (!isDocExplorer && settings.showSecondFormat) {
     response.debug.reformatted = (
-      await formatCode(response.formatted, options)
+      await formatCode(response.formatted, options, settings)
     ).formatted;
   }
 
   return response;
 }
 
-async function formatCode(text, options, rethrowEmbedErrors) {
+/**
+@param {string} text
+@param {any} options
+@param {PlaygroundSettings} settings
+*/
+async function formatCode(text, options, settings = {}) {
   if (options.parser === "doc-explorer") {
     options = {
       ...options,
@@ -217,7 +241,7 @@ async function formatCode(text, options, rethrowEmbedErrors) {
   }
 
   try {
-    self.PRETTIER_DEBUG = rethrowEmbedErrors;
+    self.PRETTIER_DEBUG = settings.rethrowEmbedErrors;
     return await prettier.formatWithCursor(text, options);
   } catch (error) {
     if (error.constructor?.name === "SyntaxError") {

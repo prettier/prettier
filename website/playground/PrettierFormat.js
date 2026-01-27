@@ -10,23 +10,11 @@ function setup(props, { slots }) {
   };
 
   const format = async () => {
-    const {
-      showAst: ast,
-      showPreprocessedAst: preprocessedAst,
-      showDoc: doc,
-      showComments: comments,
-      showSecondFormat: reformat,
-      rethrowEmbedErrors,
-    } = settings;
-
-    const result = await worker.format(props.code, toRaw(props.options), {
-      ast,
-      preprocessedAst,
-      doc,
-      comments,
-      reformat,
-      rethrowEmbedErrors,
-    });
+    const result = await worker.format(
+      props.code,
+      toRaw(props.options),
+      toRaw(settings),
+    );
 
     Object.assign(state, result);
   };
