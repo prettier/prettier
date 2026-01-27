@@ -2,10 +2,10 @@ import { reactive, watch } from "vue";
 import * as storage from "../storage.js";
 
 /**
-@typedef {typeof defaultState} EditorState
+@typedef {typeof defaultSettings} PlaygroundSettings
 */
 
-const defaultState = {
+const defaultSettings = {
   showSidebar: window.innerWidth > window.innerHeight,
   showAst: false,
   showPreprocessedAst: false,
@@ -17,29 +17,29 @@ const defaultState = {
   rethrowEmbedErrors: false,
 };
 
-const editorStateTogglers = Object.fromEntries(
-  Object.keys(defaultState).map((property) => [
+const togglers = Object.fromEntries(
+  Object.keys(defaultSettings).map((property) => [
     property,
     () => {
-      editorState[property] = !editorState[property];
+      settings[property] = !settings[property];
     },
   ]),
 );
 
-/** @type {EditorState} */
-const initialState = {
-  ...defaultState,
+/** @type {PlaygroundSettings} */
+const initialSettings = {
+  ...defaultSettings,
   ...storage.get("editor_state"),
 };
 
-const editorState = reactive(initialState);
+const settings = reactive(initialSettings);
 
 watch(
-  () => editorState,
+  () => settings,
   () => {
-    storage.set("editor_state", editorState);
+    storage.set("editor_state", settings);
   },
   { deep: true },
 );
 
-export { editorState, editorStateTogglers };
+export { settings, togglers };
