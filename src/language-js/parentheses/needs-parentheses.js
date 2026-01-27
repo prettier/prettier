@@ -962,8 +962,19 @@ function isFollowedByRightBracket(path) {
       }
       break;
     case "UnaryExpression":
-      if (parent.prefix) {
-        return path.callParent(isFollowedByRightBracket);
+      // A user typing `!foo instanceof Bar` probably intended
+      // `!(foo instanceof Bar)`, so format to `(!foo) instance Bar` to what is
+      // really happening
+      if (
+        key === "left" &&
+        parent.type === "BinaryExpression" &&
+        (parent.operator === "in" || parent.operator === "instanceof")
+      ) {
+        return true;
+      }
+
+      if (parent.prefix && path.callParent(isFollowedByRightBracket)) {
+        return true;
       }
       break;
   }
