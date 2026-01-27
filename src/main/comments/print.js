@@ -159,18 +159,14 @@ function printDanglingComments(
 
 /**
 @param {AstPath} path
-@returns {Doc | undefined}
+@returns {Doc}
 */
 function printLeadingComments(path, options) {
-  const value = path.node;
-  if (!value) {
-    return;
-  }
-
+  const { node } = path;
   const ignored = options[Symbol.for("printedComments")];
   const leadingComments = new Set(
-    (value.comments || []).filter(
-      (comment) => !ignored.has(comment) && comment.leading,
+    (node?.comments || []).filter(
+      (comment) => !ignored?.has(comment) && comment.leading,
     ),
   );
 
@@ -189,18 +185,14 @@ function printLeadingComments(path, options) {
 
 /**
 @param {AstPath} path
-@returns {Doc | undefined}
+@returns {Doc}
 */
 function printTrailingComments(path, options) {
-  const value = path.node;
-  if (!value) {
-    return;
-  }
-
+  const { node } = path;
   const ignored = options[Symbol.for("printedComments")];
   const trailingComments = new Set(
-    (value.comments || []).filter(
-      (comment) => !ignored.has(comment) && comment.trailing,
+    (node?.comments || []).filter(
+      (comment) => !ignored?.has(comment) && comment.trailing,
     ),
   );
 
@@ -228,14 +220,9 @@ function printTrailingComments(path, options) {
 }
 
 /**
-@returns {{leading?: Doc, trailing?: Doc}}
+@returns {{leading: Doc, trailing: Doc}}
 */
 function printCommentsSeparately(path, options) {
-  const value = path.node;
-  if (!value) {
-    return {};
-  }
-
   return {
     leading: printLeadingComments(path, options),
     trailing: printTrailingComments(path, options),
