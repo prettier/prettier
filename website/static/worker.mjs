@@ -175,18 +175,22 @@ async function handleFormatMessage(message) {
         await prettier.__debug.printToDoc(message.code, options),
         { plugins },
       );
-    } catch {
-      response.debug.doc = "";
+    } catch (e) {
+      response.debug.doc = String(e);
     }
   }
 
   if (!isDocExplorer && message.debug.comments) {
-    response.debug.comments = (
-      await formatCode(JSON.stringify(formatResult.comments || []), {
-        parser: "json",
-        plugins,
-      })
-    ).formatted;
+    try {
+      response.debug.comments = (
+        await formatCode(JSON.stringify(formatResult.comments), {
+          parser: "json",
+          plugins,
+        })
+      ).formatted;
+    } catch (e) {
+      response.debug.comments = String(e);
+    }
   }
 
   if (!isDocExplorer && message.debug.reformat) {
