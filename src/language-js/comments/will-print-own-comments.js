@@ -4,7 +4,7 @@ import {
   isIifeCalleeOrTaggedTemplateExpressionTag,
   shouldUnionTypePrintOwnComments,
 } from "../utilities/index.js";
-import { isJsxElement, isUnionType } from "../utilities/node-types";
+import { isJsxElement, isUnionType } from "../utilities/node-types.js";
 
 /**
 @import {Node} from "../types/estree.js";
