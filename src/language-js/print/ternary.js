@@ -17,7 +17,6 @@ import {
   getComments,
   hasComment,
   isLoneShortArgument,
-  isReturnOrThrowStatement,
   isSimpleExpressionByNodeCount,
 } from "../utilities/index.js";
 import isBlockComment from "../utilities/is-block-comment.js";
@@ -28,6 +27,7 @@ import {
   isConditionalType,
   isJsxElement,
   isMemberExpression,
+  isReturnOrThrowStatement,
 } from "../utilities/node-types.js";
 import { printTernaryOld } from "./ternary-old.js";
 

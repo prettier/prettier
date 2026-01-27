@@ -10,7 +10,6 @@ import {
   isBitwiseOperator,
   isNullishCoalescing,
   isObjectProperty,
-  isReturnOrThrowStatement,
   shouldFlatten,
   startsWithNoLookaheadToken,
   stripChainElementWrappers,
@@ -25,6 +24,7 @@ import {
   isMemberExpression,
   isNumericLiteral,
   isObjectExpression,
+  isReturnOrThrowStatement,
   isUnionType,
 } from "../utilities/node-types.js";
 import { returnArgumentHasLeadingComment } from "../utilities/return-statement-has-leading-comment.js";

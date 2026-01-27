@@ -33,7 +33,6 @@ import {
   isNumericLiteral,
   isObjectExpression,
   isRegExpLiteral,
-  isReturnOrThrowStatement,
   isStringLiteral,
   isUnionType,
 } from "./node-types.js";
@@ -979,7 +978,6 @@ export {
   isBooleanTypeCoercion,
   isFlowObjectTypePropertyAFunction,
   isFunctionCompositionArgs,
-  isFunctionOrArrowExpression,
   isIifeCalleeOrTaggedTemplateExpressionTag,
   isLoneShortArgument,
   isLongCurriedCallExpression,
@@ -989,7 +987,6 @@ export {
   isNullishCoalescing,
   isObjectProperty,
   isPrettierIgnoreComment,
-  isReturnOrThrowStatement,
   isShorthandSpecifier,
   isSignedNumericLiteral,
   isSimpleCallArgument,

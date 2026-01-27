@@ -16,7 +16,6 @@ import needsParentheses from "../parentheses/needs-parentheses.js";
 import {
   CommentCheckFlags,
   hasComment,
-  isFunctionOrArrowExpression,
   isLongCurriedCallExpression,
   isMemberish,
   isNextLineEmpty,
@@ -24,6 +23,7 @@ import {
 } from "../utilities/index.js";
 import {
   isCallExpression,
+  isFunctionOrArrowExpression,
   isMemberExpression,
   isNumericLiteral,
 } from "../utilities/node-types.js";
