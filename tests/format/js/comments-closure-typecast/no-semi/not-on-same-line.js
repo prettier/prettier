@@ -5,7 +5,6 @@
 */
 ({}).bar.forEach(doStuff);
 
-
 // 1
 
 /**

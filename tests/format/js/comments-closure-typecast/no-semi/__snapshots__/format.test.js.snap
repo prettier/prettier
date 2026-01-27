@@ -86,7 +86,6 @@ semi: false
 */
 ({}).bar.forEach(doStuff);
 
-
 // 1
 
 /**
