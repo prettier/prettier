@@ -18,9 +18,9 @@ import {
   CommentCheckFlags,
   createTypeCheckFunction,
   hasComment,
-  isMemberExpression,
   stripChainElementWrappers,
 } from "../utilities/index.js";
+import { isMemberExpression } from "../utilities/node-types.js";
 import { printAssignment } from "./assignment.js";
 import { printClassMemberDecorators } from "./decorators.js";
 import { printMethod } from "./function.js";

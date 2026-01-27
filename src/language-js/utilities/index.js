@@ -22,23 +22,19 @@ import isTsKeywordType from "./is-ts-keyword-type.js";
 import {
   isArrayExpression,
   isBinaryCastExpression,
-  isBinaryish,
   isCallExpression,
   isCallLikeExpression,
-  isCallOrNewExpression,
   isChainElementWrapper,
-  isConditionalType,
-  isExportDeclaration,
   isFunctionOrArrowExpression,
   isIntersectionType,
   isJsxElement,
   isLiteral,
   isMemberExpression,
+  isNumericLiteral,
   isObjectExpression,
-  isObjectType,
+  isRegExpLiteral,
   isReturnOrThrowStatement,
-  isTupleType,
-  isTypeAlias,
+  isStringLiteral,
   isUnionType,
 } from "./node-types.js";
 
@@ -138,69 +134,14 @@ function isNullishCoalescing(node) {
 }
 
 /**
- * @param {Node} node
- * @returns {node is NumericLiteral}
- */
-function isNumericLiteral(node) {
-  return (
-    node.type === "NumericLiteral" ||
-    (node.type === "Literal" && typeof node.value === "number")
-  );
-}
-
-function isBooleanLiteral(node) {
-  return (
-    node.type === "BooleanLiteral" ||
-    (node.type === "Literal" && typeof node.value === "boolean")
-  );
-}
-
-/**
 @param {Node} node
-@returns {node is NodeMap["UnaryExpression"]}
+@returns {node is NodeMap["UnaryExpression"] & {operator: "+" | "-", argument: NumericLiteral}}
 */
 function isSignedNumericLiteral(node) {
   return (
     node.type === "UnaryExpression" &&
     (node.operator === "+" || node.operator === "-") &&
     isNumericLiteral(node.argument)
-  );
-}
-
-/**
- * @param {Node} node
- * @returns {node is StringLiteral}
- */
-function isStringLiteral(node) {
-  return (
-    node?.type === "StringLiteral" ||
-    (node?.type === "Literal" && typeof node.value === "string")
-  );
-}
-
-/**
- * @param {Node} node
- * @returns {node is RegExpLiteral}
- */
-function isRegExpLiteral(node) {
-  return (
-    node.type === "RegExpLiteral" ||
-    (node.type === "Literal" &&
-      // @ts-expect-error -- Safe
-      Boolean(node.regex))
-  );
-}
-
-/**
- * @param {Node} node
- * @returns {node is BigIntLiteral}
- */
-function isBigIntLiteral(node) {
-  return (
-    node.type === "BigIntLiteral" ||
-    (node.type === "Literal" &&
-      // @ts-expect-error -- Safe
-      Boolean(node.bigint))
   );
 }
 
@@ -1034,52 +975,29 @@ export {
   hasNode,
   hasNodeIgnoreComment,
   hasRestParameter,
-  isArrayExpression,
-  isBigIntLiteral,
-  isBinaryCastExpression,
-  isBinaryish,
   isBitwiseOperator,
-  isBooleanLiteral,
   isBooleanTypeCoercion,
-  isCallExpression,
-  isCallLikeExpression,
-  isCallOrNewExpression,
-  isChainElementWrapper,
-  isConditionalType,
-  isExportDeclaration,
   isFlowObjectTypePropertyAFunction,
   isFunctionCompositionArgs,
   isFunctionOrArrowExpression,
   isIifeCalleeOrTaggedTemplateExpressionTag,
-  isIntersectionType,
-  isJsxElement,
-  isLiteral,
   isLoneShortArgument,
   isLongCurriedCallExpression,
-  isMemberExpression,
   isMemberish,
   isMethod,
   isNextLineEmpty,
   isNullishCoalescing,
-  isNumericLiteral,
-  isObjectExpression,
   isObjectProperty,
-  isObjectType,
   isPrettierIgnoreComment,
-  isRegExpLiteral,
   isReturnOrThrowStatement,
   isShorthandSpecifier,
   isSignedNumericLiteral,
   isSimpleCallArgument,
   isSimpleExpressionByNodeCount,
   isSimpleType,
-  isStringLiteral,
   isTemplateOnItsOwnLine,
   isTsAsConstExpression,
-  isTupleType,
-  isTypeAlias,
   isTypeAnnotationAFunction,
-  isUnionType,
   iterateCallArgumentsPath,
   iterateFunctionParametersPath,
   needsHardlineAfterDanglingComment,

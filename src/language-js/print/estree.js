@@ -10,12 +10,14 @@ import UnexpectedNodeError from "../../utilities/unexpected-node-error.js";
 import {
   CommentCheckFlags,
   hasComment,
-  isArrayExpression,
-  isLiteral,
   isMeaningfulEmptyStatement,
   isMethod,
-  isObjectExpression,
 } from "../utilities/index.js";
+import {
+  isArrayExpression,
+  isLiteral,
+  isObjectExpression,
+} from "../utilities/node-types.js";
 import { printArray } from "./array.js";
 import { printArrowFunction } from "./arrow-function.js";
 import {

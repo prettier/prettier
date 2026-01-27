@@ -1,11 +1,11 @@
+import { getCallArguments, getFunctionParameters } from "./index.js";
+import isNodeMatches from "./is-node-matches.js";
 import {
-  getCallArguments,
-  getFunctionParameters,
+  isCallExpression,
+  isFunctionOrArrowExpression,
   isNumericLiteral,
   isStringLiteral,
-} from "./index.js";
-import isNodeMatches from "./is-node-matches.js";
-import { isCallExpression, isFunctionOrArrowExpression } from "./node-types.js";
+} from "./node-types.js";
 
 /**
 @import {

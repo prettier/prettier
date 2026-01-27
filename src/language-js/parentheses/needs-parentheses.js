@@ -7,24 +7,26 @@ import {
   hasComment,
   hasNakedLeftSide,
   hasNode,
+  isBitwiseOperator,
+  isNullishCoalescing,
+  isObjectProperty,
+  isReturnOrThrowStatement,
+  shouldFlatten,
+  startsWithNoLookaheadToken,
+  stripChainElementWrappers,
+} from "../utilities/index.js";
+import {
   isArrayExpression,
   isBinaryCastExpression,
-  isBitwiseOperator,
   isCallExpression,
   isCallOrNewExpression,
   isConditionalType,
   isIntersectionType,
   isMemberExpression,
-  isNullishCoalescing,
   isNumericLiteral,
   isObjectExpression,
-  isObjectProperty,
-  isReturnOrThrowStatement,
   isUnionType,
-  shouldFlatten,
-  startsWithNoLookaheadToken,
-  stripChainElementWrappers,
-} from "../utilities/index.js";
+} from "../utilities/node-types.js";
 import { returnArgumentHasLeadingComment } from "../utilities/return-statement-has-leading-comment.js";
 import { shouldAddParenthesesToChainElement } from "./chain-expression.js";
 import { shouldAddParenthesesToIdentifier } from "./identifier.js";

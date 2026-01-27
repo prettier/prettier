@@ -16,9 +16,9 @@ import {
   CommentCheckFlags,
   getFunctionParameters,
   hasComment,
-  isObjectType,
   shouldPrintComma,
 } from "../utilities/index.js";
+import { isObjectType } from "../utilities/node-types.js";
 import { isTestCall } from "../utilities/test-libraries.js";
 import { isArrowFunctionVariableDeclarator } from "./assignment.js";
 import {

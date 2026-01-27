@@ -10,9 +10,11 @@ import {
   CommentCheckFlags,
   createTypeCheckFunction,
   hasComment,
+} from "../utilities/index.js";
+import {
   isCallExpression,
   isMemberExpression,
-} from "../utilities/index.js";
+} from "../utilities/node-types.js";
 
 /**
 @import AstPath from "../../common/ast-path.js"

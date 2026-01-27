@@ -14,16 +14,18 @@ import {
   getFunctionParameters,
   hasComment,
   hasRestParameter,
-  isArrayExpression,
   isFlowObjectTypePropertyAFunction,
   isNextLineEmpty,
-  isObjectExpression,
-  isObjectType,
   isSimpleType,
   isTypeAnnotationAFunction,
   iterateFunctionParametersPath,
   shouldPrintComma,
 } from "../utilities/index.js";
+import {
+  isArrayExpression,
+  isObjectExpression,
+  isObjectType,
+} from "../utilities/node-types.js";
 import { isTestCall } from "../utilities/test-libraries.js";
 import { printDanglingCommentsInList } from "./miscellaneous.js";
 

@@ -5,9 +5,9 @@ import {
   getCallArguments,
   getFunctionParameters,
   hasComment,
-  isCallExpression,
   isMethod,
 } from "../utilities/index.js";
+import { isCallExpression } from "../utilities/node-types.js";
 import {
   printFunctionParameters,
   shouldBreakFunctionParameters,

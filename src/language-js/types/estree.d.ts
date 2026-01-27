@@ -77,3 +77,7 @@ export type RegExpLiteral =
 export type BigIntLiteral =
   | NodeMap["BigIntLiteral"]
   | (NodeMap["Literal"] & { bigint: string });
+
+export type BooleanLiteral =
+  | NodeMap["BigIntLiteral"]
+  | (NodeMap["BooleanLiteral"] & { value: boolean });

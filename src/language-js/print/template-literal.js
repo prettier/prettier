@@ -19,11 +19,13 @@ import {
   CommentCheckFlags,
   getComments,
   hasComment,
+  stripChainElementWrappers,
+} from "../utilities/index.js";
+import {
   isBinaryCastExpression,
   isBinaryish,
   isMemberExpression,
-  stripChainElementWrappers,
-} from "../utilities/index.js";
+} from "../utilities/node-types.js";
 
 /**
  * @import {Doc} from "../../document/index.js"

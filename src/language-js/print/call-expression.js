@@ -3,13 +3,12 @@ import needsParentheses from "../parentheses/needs-parentheses.js";
 import {
   getCallArguments,
   hasComment,
-  isCallExpression,
   isMemberish,
   isNodeMatches,
-  isStringLiteral,
   isTemplateOnItsOwnLine,
   iterateCallArgumentsPath,
 } from "../utilities/index.js";
+import { isCallExpression, isStringLiteral } from "../utilities/node-types.js";
 import { isTestCall } from "../utilities/test-libraries.js";
 import printCallArguments from "./call-arguments.js";
 import printMemberChain from "./member-chain.js";

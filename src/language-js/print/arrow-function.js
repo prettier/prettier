@@ -19,15 +19,17 @@ import {
   getFunctionParameters,
   hasComment,
   hasLeadingOwnLineComment,
+  isTemplateOnItsOwnLine,
+  shouldPrintComma,
+  startsWithNoLookaheadToken,
+} from "../utilities/index.js";
+import {
   isArrayExpression,
   isBinaryish,
   isCallLikeExpression,
   isJsxElement,
   isObjectExpression,
-  isTemplateOnItsOwnLine,
-  shouldPrintComma,
-  startsWithNoLookaheadToken,
-} from "../utilities/index.js";
+} from "../utilities/node-types.js";
 import { printReturnType, shouldPrintParamsWithoutParens } from "./function.js";
 import { printFunctionParameters } from "./function-parameters.js";
 

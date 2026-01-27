@@ -16,13 +16,15 @@ import { locEnd, locStart } from "../loc.js";
 import {
   CommentCheckFlags,
   hasComment,
+  isSignedNumericLiteral,
+  shouldPrintComma,
+} from "../utilities/index.js";
+import {
   isArrayExpression,
   isNumericLiteral,
   isObjectExpression,
-  isSignedNumericLiteral,
   isTupleType,
-  shouldPrintComma,
-} from "../utilities/index.js";
+} from "../utilities/node-types.js";
 import {
   printDanglingCommentsInList,
   printOptionalToken,

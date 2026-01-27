@@ -6,11 +6,8 @@ import {
   softline,
 } from "../../document/index.js";
 import { printDanglingComments } from "../../main/comments/print.js";
-import {
-  CommentCheckFlags,
-  hasComment,
-  isBinaryish,
-} from "../utilities/index.js";
+import { CommentCheckFlags, hasComment } from "../utilities/index.js";
+import { isBinaryish } from "../utilities/node-types.js";
 import { returnArgumentHasLeadingComment } from "../utilities/return-statement-has-leading-comment.js";
 
 /**

@@ -19,9 +19,9 @@ import {
   getComments,
   hasComment,
   isNextLineEmpty,
-  isObjectType,
   shouldPrintComma,
 } from "../utilities/index.js";
+import { isObjectType } from "../utilities/node-types.js";
 import { shouldHugTheOnlyParameter } from "./function-parameters.js";
 import {
   printDanglingCommentsInList,

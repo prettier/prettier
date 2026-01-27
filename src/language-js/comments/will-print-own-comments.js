@@ -2,10 +2,9 @@ import {
   createTypeCheckFunction,
   hasNodeIgnoreComment,
   isIifeCalleeOrTaggedTemplateExpressionTag,
-  isJsxElement,
-  isUnionType,
   shouldUnionTypePrintOwnComments,
 } from "../utilities/index.js";
+import { isJsxElement, isUnionType } from "../utilities/node-types";
 
 /**
 @import {Node} from "../types/estree.js";

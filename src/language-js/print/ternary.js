@@ -16,17 +16,19 @@ import {
   CommentCheckFlags,
   getComments,
   hasComment,
+  isLoneShortArgument,
+  isReturnOrThrowStatement,
+  isSimpleExpressionByNodeCount,
+} from "../utilities/index.js";
+import isBlockComment from "../utilities/is-block-comment.js";
+import {
   isBinaryCastExpression,
   isCallExpression,
   isChainElementWrapper,
   isConditionalType,
   isJsxElement,
-  isLoneShortArgument,
   isMemberExpression,
-  isReturnOrThrowStatement,
-  isSimpleExpressionByNodeCount,
-} from "../utilities/index.js";
-import isBlockComment from "../utilities/is-block-comment.js";
+} from "../utilities/node-types.js";
 import { printTernaryOld } from "./ternary-old.js";
 
 /**
