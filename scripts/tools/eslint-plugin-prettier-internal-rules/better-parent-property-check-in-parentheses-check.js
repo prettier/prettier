@@ -1,7 +1,7 @@
 import path from "node:path";
 
 const parentPropertyCheckSelector = [
-  ":function",
+  "FunctionDeclaration",
   ":matches(",
   ["needsParens", "needsParentheses"]
     .map((name) => `[id.name="${name}"]`)
