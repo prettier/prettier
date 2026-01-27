@@ -162,14 +162,19 @@ function printDanglingComments(
 
 /**
 @param {AstPath} path
+@param {{
+  filter?: (comment) => boolean,
+}} [leadingCommentsPrintOptions]
 @returns {Doc}
 */
-function printLeadingComments(path, options) {
+function printLeadingComments(path, options, leadingCommentsPrintOptions) {
   const { node } = path;
-  const ignored = options[Symbol.for("printedComments")];
+  const printed = options[Symbol.for("printedComments")];
+  const filter = leadingCommentsPrintOptions?.filter ?? returnTrue;
   const leadingComments = new Set(
     node?.comments?.filter(
-      (comment) => !ignored?.has(comment) && comment.leading,
+      (comment) =>
+        !printed?.has(comment) && comment.leading && !filter(comment),
     ),
   );
 
@@ -192,10 +197,10 @@ function printLeadingComments(path, options) {
 */
 function printTrailingComments(path, options) {
   const { node } = path;
-  const ignored = options[Symbol.for("printedComments")];
+  const printed = options[Symbol.for("printedComments")];
   const trailingComments = new Set(
     node?.comments?.filter(
-      (comment) => !ignored?.has(comment) && comment.trailing,
+      (comment) => !printed?.has(comment) && comment.trailing,
     ),
   );
 
