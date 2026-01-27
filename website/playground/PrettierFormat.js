@@ -1,5 +1,5 @@
 import { onMounted, reactive, toRaw, watch } from "vue";
-import { editorState } from "./composables/editor-state.js";
+import { settings } from "./composables/playground-settings.js";
 import { worker } from "./composables/prettier-worker.js";
 
 function setup(props, { slots }) {
@@ -17,7 +17,7 @@ function setup(props, { slots }) {
       showComments: comments,
       showSecondFormat: reformat,
       rethrowEmbedErrors,
-    } = editorState;
+    } = settings;
 
     const result = await worker.format(props.code, toRaw(props.options), {
       ast,
@@ -38,12 +38,12 @@ function setup(props, { slots }) {
     () => [
       props.code,
       props.options,
-      editorState.showAst,
-      editorState.showPreprocessedAst,
-      editorState.showDoc,
-      editorState.showComments,
-      editorState.showSecondFormat,
-      editorState.rethrowEmbedErrors,
+      settings.showAst,
+      settings.showPreprocessedAst,
+      settings.showDoc,
+      settings.showComments,
+      settings.showSecondFormat,
+      settings.rethrowEmbedErrors,
     ],
     () => {
       format();
