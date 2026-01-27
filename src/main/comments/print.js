@@ -14,9 +14,12 @@ import { skipSpaces } from "../../utilities/skip.js";
 import skipNewline from "../../utilities/skip-newline.js";
 
 /**
- * @import AstPath from "../../common/ast-path.js"
- * @import {Doc, HardLine, Line} from "../../document/index.js"
- */
+@import AstPath from "../../common/ast-path.js"
+@import {Doc, HardLine, Line} from "../../document/index.js"
+@typedef {{
+  filter?: (comment) => boolean,
+}} CommentPrintOptions
+*/
 
 const returnTrue = () => true;
 
@@ -111,10 +114,9 @@ function printTrailingComment(path, options, previousComment) {
 
 /**
  * @param {AstPath} path
- * @param {{
+ * @param {CommentPrintOptions & {
  *  indent?: boolean,
  *  marker?: symbol | string,
- *  filter?: (comment) => boolean,
  * }} [danglingCommentsPrintOptions]
  * @returns {Doc}
  */
@@ -162,15 +164,13 @@ function printDanglingComments(
 
 /**
 @param {AstPath} path
-@param {{
-  filter?: (comment) => boolean,
-}} [leadingCommentsPrintOptions]
+@param {CommentPrintOptions} [printOptions]
 @returns {Doc}
 */
-function printLeadingComments(path, options, leadingCommentsPrintOptions) {
+function printLeadingComments(path, options, printOptions) {
   const { node } = path;
   const printed = options[Symbol.for("printedComments")];
-  const filter = leadingCommentsPrintOptions?.filter ?? returnTrue;
+  const filter = printOptions?.filter ?? returnTrue;
   const leadingComments = new Set(
     node?.comments?.filter(
       (comment) =>
@@ -193,15 +193,15 @@ function printLeadingComments(path, options, leadingCommentsPrintOptions) {
 
 /**
 @param {AstPath} path
+@param {CommentPrintOptions} [printOptions]
 @returns {Doc}
 */
-function printTrailingComments(path, options) {
+function printTrailingComments(path, options, printOptions) {
   const { node } = path;
   const printed = options[Symbol.for("printedComments")];
+  const filter = printOptions?.filter ?? returnTrue;
   const trailingComments = new Set(
-    node?.comments?.filter(
-      (comment) => !printed?.has(comment) && comment.trailing,
-    ),
+    node?.comments?.filter((comment) => comment.trailing),
   );
 
   if (trailingComments.size === 0) {
@@ -210,8 +210,7 @@ function printTrailingComments(path, options) {
 
   const docs = [];
   let printedTrailingComment;
-  path.each(() => {
-    const comment = path.node;
+  path.each(({ node: comment }) => {
     if (!trailingComments.has(comment)) {
       return;
     }
@@ -221,25 +220,33 @@ function printTrailingComments(path, options) {
       options,
       printedTrailingComment,
     );
-    docs.push(printedTrailingComment.doc);
+
+    if (!printed?.has(comment) && !filter(comment)) {
+      docs.push(printedTrailingComment.doc);
+    }
   }, "comments");
 
   return docs;
 }
 
 /**
+@param {CommentPrintOptions} [printOptions]
 @returns {{leading: Doc, trailing: Doc}}
 */
-function printCommentsSeparately(path, options) {
+function printCommentsSeparately(path, options, printOptions) {
   return {
-    leading: printLeadingComments(path, options),
-    trailing: printTrailingComments(path, options),
+    leading: printLeadingComments(path, options, printOptions),
+    trailing: printTrailingComments(path, options, printOptions),
   };
 }
 
-function printComments(path, doc, options) {
-  const leading = printLeadingComments(path, options);
-  const trailing = printTrailingComments(path, options);
+/**
+@param {CommentPrintOptions} [printOptions]
+@returns {Doc}
+*/
+function printComments(path, doc, options, printOptions) {
+  const leading = printLeadingComments(path, options, printOptions);
+  const trailing = printTrailingComments(path, options, printOptions);
   return leading || trailing
     ? inheritLabel(doc, (doc) => [leading, doc, trailing])
     : doc;
@@ -268,4 +275,5 @@ export {
   printComments,
   printCommentsSeparately,
   printDanglingComments,
+  printLeadingComments,
 };

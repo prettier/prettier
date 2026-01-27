@@ -1,6 +1,6 @@
 import {
   printComments,
-  printCommentsSeparately,
+  printLeadingComments,
 } from "../../main/comments/print.js";
 import {
   isSingleHtmlEventHandlerExpressionStatement,
@@ -57,17 +57,13 @@ function printExpressionStatement(path, options, print) {
       );
 
       // Print the type cast comment separately and print `;` before it
-      // eslint-disable-next-line prettier-internal-rules/no-node-comments
-      const { comments } = node;
-      // eslint-disable-next-line prettier-internal-rules/no-node-comments
-      node.comments = [typeCastComment];
-      const typeCastCommentDoc = printCommentsSeparately(path, options).leading;
-      // eslint-disable-next-line prettier-internal-rules/no-node-comments
-      node.comments = comments;
-      // Make it printed, so `printComments` will ignore it
-      options[Symbol.for("printedComments")].add(typeCastComment);
+      const typeCastCommentDoc = printLeadingComments(path, options, {
+        filter: (comment) => comment === typeCastComment,
+      });
 
-      return printComments(path, [";", typeCastCommentDoc, ...parts], options);
+      return printComments(path, [";", typeCastCommentDoc, ...parts], options, {
+        filter: (comment) => comment !== typeCastComment,
+      });
     }
 
     parts.unshift(";");
