@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import { existsSync, promises as fs } from "node:fs";
+import path from "node:path";
 import url from "node:url";
 import spawn from "nano-spawn";
 import { outdent } from "outdent";
@@ -39,18 +40,22 @@ async function install(version) {
   return directory;
 }
 
+const wasmUrlPattern =
+  /var __wasmUrl = new URL\("(?<wasmFile>.\/[a-z0-9.-]+\.wasm)", import\.meta\.url\)\.href;/;
 async function inlineWasmBinary(directory) {
   const packageDirectory = new URL(
     "./node_modules/@oxc-parser/binding-wasm32-wasi/",
     directory,
   );
   const entryFile = new URL("./browser-bundle.js", packageDirectory);
-  const wasmFile = new URL("./parser.wasm32-wasi.wasm", packageDirectory);
+  let text = await fs.readFile(entryFile, "utf8");
 
-  let [text, wasmBase64String] = await Promise.all([
-    fs.readFile(entryFile, "utf8"),
-    fs.readFile(wasmFile, "base64"),
-  ]);
+  const { wasmFile } = text.match(wasmUrlPattern).groups;
+
+  const wasmBase64String = await fs.readFile(
+    new URL(wasmFile, entryFile),
+    "base64",
+  );
 
   text = outdent`
     import { decode as __decode } from "base64-arraybuffer-es6";
@@ -61,14 +66,15 @@ async function inlineWasmBinary(directory) {
     ${text}
   `;
 
+  text = text.replace(wasmUrlPattern, "");
+  text = text.replace(
+    "await fetch(__wasmUrl).then((res) => res.arrayBuffer())",
+    `/* "${wasmFile}" */ __base64ToArrayBuffer(${JSON.stringify(wasmBase64String)})`,
+  );
+
   text = text.replaceAll(
     /new URL\((?<url>".*?"), import\.meta\.url\)/g,
     "{/* $<url> */}",
-  );
-
-  text = text.replace(
-    "await fetch(__wasmUrl).then((res) => res.arrayBuffer())",
-    `__base64ToArrayBuffer(${JSON.stringify(wasmBase64String)})`,
   );
 
   return { entry: url.fileURLToPath(entryFile), text, directory };
