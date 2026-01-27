@@ -173,8 +173,7 @@ function printLeadingComments(path, options, printOptions) {
   const filter = printOptions?.filter ?? returnTrue;
   const leadingComments = new Set(
     node?.comments?.filter(
-      (comment) =>
-        !printed?.has(comment) && comment.leading && !filter(comment),
+      (comment) => !printed?.has(comment) && comment.leading && filter(comment),
     ),
   );
 
@@ -221,7 +220,7 @@ function printTrailingComments(path, options, printOptions) {
       printedTrailingComment,
     );
 
-    if (!printed?.has(comment) && !filter(comment)) {
+    if (!printed?.has(comment) && filter(comment)) {
       docs.push(printedTrailingComment.doc);
     }
   }, "comments");
