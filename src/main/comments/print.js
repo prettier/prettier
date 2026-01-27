@@ -148,15 +148,17 @@ function printDanglingComments(
     ),
   );
 
-  const parts = path.map(
-    ({ node: comment }) =>
-      danglingComments.has(comment) ? printComment(path, options) : "",
-    "comments",
-  );
-
-  if (parts.length === 0) {
+  if (danglingComments.size === 0) {
     return "";
   }
+
+  const parts = path
+    .map(
+      ({ node: comment }) =>
+        danglingComments.has(comment) ? printComment(path, options) : "",
+      "comments",
+    )
+    .filter(Boolean);
 
   const doc = join(hardline, parts);
   return shouldIndent ? indent([hardline, doc]) : doc;
