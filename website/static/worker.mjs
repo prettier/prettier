@@ -170,23 +170,31 @@ async function handleFormatMessage(message) {
   }
 
   if (!isDocExplorer && message.debug.doc) {
-    try {
-      response.debug.doc = await prettier.__debug.formatDoc(
-        await prettier.__debug.printToDoc(message.code, options),
-        { plugins },
-      );
-    } catch {
-      response.debug.doc = "";
+    if (formatResult.error) {
+      response.debug.doc = formatResult.formatted;
+    } else {
+      try {
+        response.debug.doc = await prettier.__debug.formatDoc(
+          await prettier.__debug.printToDoc(message.code, options),
+          { plugins },
+        );
+      } catch {
+        response.debug.doc = "";
+      }
     }
   }
 
   if (!isDocExplorer && message.debug.comments) {
-    response.debug.comments = (
-      await formatCode(JSON.stringify(formatResult.comments || []), {
-        parser: "json",
-        plugins,
-      })
-    ).formatted;
+    if (formatResult.error) {
+      response.debug.comments = formatResult.formatted;
+    } else {
+      response.debug.comments = (
+        await formatCode(JSON.stringify(formatResult.comments || []), {
+          parser: "json",
+          plugins,
+        })
+      ).formatted;
+    }
   }
 
   if (!isDocExplorer && message.debug.reformat) {
