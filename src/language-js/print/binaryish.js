@@ -26,10 +26,10 @@ import {
   isMemberExpression,
   isObjectExpression,
   isObjectProperty,
-  isReturnOrThrowStatement,
   shouldFlatten,
 } from "../utilities/index.js";
 import isTypeCastComment from "../utilities/is-type-cast-comment.js";
+import { isReturnOrThrowStatement } from "../utilities/node-types.js";
 
 /** @import {Doc} from "../../document/index.js" */
 
