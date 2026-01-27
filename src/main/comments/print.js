@@ -158,6 +158,76 @@ function printDanglingComments(
 }
 
 /**
+@param {AstPath} path
+@returns {Doc | undefined}
+*/
+function printLeadingComments(path, options) {
+  const value = path.node;
+  if (!value) {
+    return;
+  }
+
+  const ignored = options[Symbol.for("printedComments")];
+  const leadingComments = new Set(
+    (value.comments || []).filter(
+      (comment) => !ignored.has(comment) && comment.leading,
+    ),
+  );
+
+  if (leadingComments.size === 0) {
+    return "";
+  }
+
+  return path
+    .map(
+      ({ node: comment }) =>
+        leadingComments.has(comment) ? "" : printLeadingComment(path, options),
+      "comments",
+    )
+    .filter(Boolean);
+}
+
+/**
+@param {AstPath} path
+@returns {Doc | undefined}
+*/
+function printTrailingComments(path, options) {
+  const value = path.node;
+  if (!value) {
+    return;
+  }
+
+  const ignored = options[Symbol.for("printedComments")];
+  const trailingComments = new Set(
+    (value.comments || []).filter(
+      (comment) => !ignored.has(comment) && comment.trailing,
+    ),
+  );
+
+  if (trailingComments.size === 0) {
+    return "";
+  }
+
+  const docs = [];
+  let printedTrailingComment;
+  path.each(() => {
+    const comment = path.node;
+    if (!trailingComments.has(comment)) {
+      return;
+    }
+
+    printedTrailingComment = printTrailingComment(
+      path,
+      options,
+      printedTrailingComment,
+    );
+    docs.push(printedTrailingComment.doc);
+  }, "comments");
+
+  return docs;
+}
+
+/**
 @returns {{leading?: Doc, trailing?: Doc}}
 */
 function printCommentsSeparately(path, options) {
@@ -166,38 +236,10 @@ function printCommentsSeparately(path, options) {
     return {};
   }
 
-  const ignored = options[Symbol.for("printedComments")];
-  const comments = (value.comments || []).filter(
-    (comment) => !ignored.has(comment),
-  );
-
-  if (comments.length === 0) {
-    return { leading: "", trailing: "" };
-  }
-
-  const leadingParts = [];
-  const trailingParts = [];
-  let printedTrailingComment;
-  path.each(() => {
-    const comment = path.node;
-    if (ignored?.has(comment)) {
-      return;
-    }
-
-    const { leading, trailing } = comment;
-    if (leading) {
-      leadingParts.push(printLeadingComment(path, options));
-    } else if (trailing) {
-      printedTrailingComment = printTrailingComment(
-        path,
-        options,
-        printedTrailingComment,
-      );
-      trailingParts.push(printedTrailingComment.doc);
-    }
-  }, "comments");
-
-  return { leading: leadingParts, trailing: trailingParts };
+  return {
+    leading: printLeadingComments(path, options),
+    trailing: printTrailingComments(path, options),
+  };
 }
 
 function printComments(path, doc, options) {
