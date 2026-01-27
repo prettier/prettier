@@ -1,6 +1,5 @@
 import assert from "node:assert/strict";
 import { existsSync, promises as fs } from "node:fs";
-import path from "node:path";
 import url from "node:url";
 import spawn from "nano-spawn";
 import { outdent } from "outdent";
