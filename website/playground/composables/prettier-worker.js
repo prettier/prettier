@@ -1,3 +1,8 @@
+/**
+@import {PlaygroundSettings} from "./playground-settings.js"
+@import {FormatMessage, MetaMessage} from "../../static/worker.mjs"
+*/
+
 class WorkerApi {
   #worker = new Worker("/worker.mjs", { type: "module" });
   #counter = 0;
@@ -35,11 +40,20 @@ class WorkerApi {
   }
 
   getMetadata() {
-    return this.#postMessage({ type: "meta" });
+    /** @type {MetaMessage} */
+    const message = { type: "meta" };
+    return this.#postMessage(message);
   }
 
-  format(code, options, debug = {}) {
-    return this.#postMessage({ type: "format", code, options, debug });
+  /**
+   * @param {FormatMessage["code"]} code
+   * @param {FormatMessage["options"]} options
+   * @param {FormatMessage["settings"]} settings
+   */
+  format(code, options, settings) {
+    /** @type {FormatMessage} */
+    const message = { type: "format", code, options, settings };
+    return this.#postMessage(message);
   }
 }
 
