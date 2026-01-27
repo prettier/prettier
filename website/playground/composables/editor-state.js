@@ -1,11 +1,11 @@
 import { reactive, watch } from "vue";
 import * as storage from "../storage.js";
 
-const stateToggler = (property) => () => {
-  state[property] = !state[property];
-};
+/**
+@typedef {typeof defaultState} EditorState
+*/
 
-const state = reactive({
+const defaultState = {
   showSidebar: window.innerWidth > window.innerHeight,
   showAst: false,
   showPreprocessedAst: false,
@@ -15,24 +15,31 @@ const state = reactive({
   showInput: true,
   showOutput: true,
   rethrowEmbedErrors: false,
-  toggleSidebar: stateToggler("showSidebar"),
-  toggleAst: stateToggler("showAst"),
-  togglePreprocessedAst: stateToggler("showPreprocessedAst"),
-  toggleDoc: stateToggler("showDoc"),
-  toggleComments: stateToggler("showComments"),
-  toggleSecondFormat: stateToggler("showSecondFormat"),
-  toggleInput: stateToggler("showInput"),
-  toggleOutput: stateToggler("showOutput"),
-  toggleEmbedErrors: stateToggler("rethrowEmbedErrors"),
+};
+
+const editorStateTogglers = Object.fromEntries(
+  Object.keys(defaultState).map((property) => [
+    property,
+    () => {
+      editorState[property] = !editorState[property];
+    },
+  ]),
+);
+
+/** @type {EditorState} */
+const initialState = {
+  ...defaultState,
   ...storage.get("editor_state"),
-});
+};
+
+const editorState = reactive(initialState);
 
 watch(
-  () => state,
+  () => editorState,
   () => {
-    storage.set("editor_state", state);
+    storage.set("editor_state", editorState);
   },
   { deep: true },
 );
 
-export { state as editorState };
+export { editorState, editorStateTogglers };

@@ -1,7 +1,10 @@
 import { reactive, watch } from "vue";
 import { Button, ClipboardButton } from "./buttons.jsx";
 import getCodeSample from "./codeSamples.mjs";
-import { editorState } from "./composables/editor-state.js";
+import {
+  editorState,
+  editorStateTogglers,
+} from "./composables/editor-state.js";
 import { worker } from "./composables/prettier-worker.js";
 import generateDummyId from "./dummyId.js";
 import formatMarkdown from "./markdown.js";
@@ -335,51 +338,51 @@ function setup(props) {
                     <Checkbox
                       label="show input"
                       checked={editorState.showInput}
-                      onChange={editorState.toggleInput}
+                      onChange={editorStateTogglers.showInput}
                     />
                     <Checkbox
                       label="show AST"
                       checked={editorState.showAst}
-                      onChange={editorState.toggleAst}
+                      onChange={editorStateTogglers.showAst}
                     />
                     {isDocExplorer ? null : (
                       <Checkbox
                         label="show preprocessed AST"
                         checked={editorState.showPreprocessedAst}
-                        onChange={editorState.togglePreprocessedAst}
+                        onChange={editorStateTogglers.showPreprocessedAst}
                       />
                     )}
                     {isDocExplorer ? null : (
                       <Checkbox
                         label="show doc"
                         checked={editorState.showDoc}
-                        onChange={editorState.toggleDoc}
+                        onChange={editorStateTogglers.showDoc}
                       />
                     )}
                     {isDocExplorer ? null : (
                       <Checkbox
                         label="show comments"
                         checked={editorState.showComments}
-                        onChange={editorState.toggleComments}
+                        onChange={editorStateTogglers.showComments}
                       />
                     )}
                     <Checkbox
                       label="show output"
                       checked={editorState.showOutput}
-                      onChange={editorState.toggleOutput}
+                      onChange={editorStateTogglers.showOutput}
                     />
                     {isDocExplorer ? null : (
                       <Checkbox
                         label="show second format"
                         checked={editorState.showSecondFormat}
-                        onChange={editorState.toggleSecondFormat}
+                        onChange={editorStateTogglers.showSecondFormat}
                       />
                     )}
                     {isDocExplorer ? null : (
                       <Checkbox
                         label="rethrow embed errors"
                         checked={editorState.rethrowEmbedErrors}
-                        onChange={editorState.toggleEmbedErrors}
+                        onChange={editorStateTogglers.rethrowEmbedErrors}
                       />
                     )}
                     {editorState.showDoc && !isDocExplorer ? (
@@ -472,7 +475,7 @@ function setup(props) {
               </div>
               <div class="bottom-bar">
                 <div class="bottom-bar-buttons">
-                  <Button onClick={editorState.toggleSidebar}>
+                  <Button onClick={editorStateTogglers.showSidebar}>
                     {editorState.showSidebar ? "Hide" : "Show"} options
                   </Button>
                   <Button onClick={clearContent}>Clear</Button>
