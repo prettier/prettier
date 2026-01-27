@@ -11,13 +11,7 @@ import { isCallExpression, isFunctionOrArrowExpression } from "./node-types.js";
 @import {
   Node,
   NodeMap,
-  Comment,
-  NumericLiteral,
-  StringLiteral,
-  RegExpLiteral,
-  BigIntLiteral,
 } from "../types/estree.js";
-@import AstPath from "../../common/ast-path.js";
 */
 
 const testCallCalleePatterns = [
@@ -49,12 +43,16 @@ const testCallCalleePatterns = [
   "ftest",
 ];
 
+/**
+ * @param {Node} node
+ * @returns {boolean}
+ */
 function isTestCallCallee(node) {
   return isNodeMatches(node, testCallCalleePatterns);
 }
 
 /**
- * @param {*} node
+ * @param {Node} node
  * @returns {boolean}
  */
 function isUnitTestSetupIdentifier(node) {
