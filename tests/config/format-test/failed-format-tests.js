@@ -43,7 +43,10 @@ const unstableTests = new Map(
 const unstableAstTests = new Map();
 
 // These tests works on `babel`, `acorn`, `espree`, `oxc`, and `meriyah`
-const commentClosureTypecaseTests = ["js/comments-closure-typecast/"];
+const commentClosureTypecaseTests = [
+  "js/comments-closure-typecast/",
+  "js/comments-closure-typecast/no-semi/",
+];
 
 const disabledTests = new Map(
   Object.entries({
