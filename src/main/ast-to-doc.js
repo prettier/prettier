@@ -1,6 +1,6 @@
 import AstPath from "../common/ast-path.js";
 import { cursor, inheritLabel } from "../document/index.js";
-import { isNonEmptyArray } from "../utilities/is-non-empty-array.js";
+import isNonEmptyArray from "../utilities/is-non-empty-array.js";
 import isObject from "../utilities/is-object.js";
 import { attachComments } from "./comments/attach.js";
 import { ensureAllCommentsPrinted, printComments } from "./comments/print.js";
