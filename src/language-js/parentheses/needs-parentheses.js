@@ -134,7 +134,6 @@ function needsParentheses(path, options) {
           if (
             key === "left" &&
             node.type === "UnaryExpression" &&
-            node.operator === "!" &&
             parent.type === "BinaryExpression" &&
             (parent.operator === "in" || parent.operator === "instanceof")
           ) {
