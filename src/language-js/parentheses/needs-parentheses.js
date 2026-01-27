@@ -127,20 +127,6 @@ function needsParentheses(path, options) {
         case "BindExpression":
           return true;
 
-        case "BinaryExpression":
-          // A user typing `!foo instanceof Bar` probably intended
-          // `!(foo instanceof Bar)`, so format to `(!foo) instance Bar` to what is
-          // really happening
-          if (
-            key === "left" &&
-            node.type === "UnaryExpression" &&
-            parent.type === "BinaryExpression" &&
-            (parent.operator === "in" || parent.operator === "instanceof")
-          ) {
-            return true;
-          }
-          break;
-
         case "MemberExpression":
         case "OptionalMemberExpression":
           return key === "object";
@@ -154,6 +140,17 @@ function needsParentheses(path, options) {
           return key === "callee";
 
         case "BinaryExpression":
+          // A user typing `!foo instanceof Bar` probably intended
+          // `!(foo instanceof Bar)`, so format to `(!foo) instance Bar` to what is
+          // really happening
+          if (
+            key === "left" &&
+            node.type === "UnaryExpression" &&
+            (parent.operator === "in" || parent.operator === "instanceof")
+          ) {
+            return true;
+          }
+
           return key === "left" && parent.operator === "**";
 
         case "TSNonNullExpression":
