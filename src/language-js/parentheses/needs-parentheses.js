@@ -463,6 +463,10 @@ function needsParentheses(path, options) {
         return true;
       }
 
+      if (key === "constraint" && isConditionalType(node)) {
+        return true;
+      }
+
       if (key === "checkType" && isConditionalType(parent)) {
         return true;
       }
