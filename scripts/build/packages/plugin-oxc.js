@@ -21,7 +21,6 @@ const mainModule = {
     {
       input: "index.js",
       output: "index.mjs",
-      prepare: buildOxcWasmParser,
       build: createJavascriptModuleBuilder({
         input: "index.js",
         output: "index.mjs",
@@ -35,7 +34,7 @@ const mainModule = {
       input: "index.js",
       output: "index.browser.mjs",
       build: createJavascriptModuleBuilder(async () => {
-        const { entry } = await buildOxcWasmParser();
+        const { entry, text } = await buildOxcWasmParser();
         return {
           format: "esm",
           platform: "universal",
@@ -44,6 +43,10 @@ const mainModule = {
             {
               module: getPackageFile("oxc-parser/src-js/wasm.js"),
               path: entry,
+            },
+            {
+              module: entry,
+              text,
             },
           ],
           allowedWarnings: ["indirect-require", "package.json"],
