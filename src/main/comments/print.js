@@ -190,11 +190,20 @@ function printLeadingComments(path, options, printOptions) {
 @returns {Doc}
 */
 function printTrailingComments(path, options, printOptions) {
+  const comments = path.node?.comments;
   const trailingComments = new Set(
-    path.node?.comments?.filter((comment) => comment.trailing),
+    comments?.filter((comment) => comment.trailing),
+  );
+  const commentsShouldPrint = new Set(
+    comments?.filter(
+      (comment) =>
+        trailingComments.has(comment) &&
+        !printed?.has(comment) &&
+        filter(comment),
+    ),
   );
 
-  if (trailingComments.size === 0) {
+  if (commentsShouldPrint.size === 0) {
     return "";
   }
 
@@ -213,14 +222,10 @@ function printTrailingComments(path, options, printOptions) {
       printedTrailingComment,
     );
 
-    if (!printed?.has(comment) && filter(comment)) {
+    if (commentsShouldPrint.has(comment)) {
       docs.push(printedTrailingComment.doc);
     }
   }, "comments");
-
-  if (docs.length === 0) {
-    return "";
-  }
 
   return docs;
 }
