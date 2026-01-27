@@ -47,8 +47,10 @@ async function inlineWasmBinary(directory) {
   const entryFile = new URL("./browser-bundle.js", packageDirectory);
   const wasmFile = new URL("./parser.wasm32-wasi.wasm", packageDirectory);
 
-  let text = await fs.readFile(entryFile, "utf8");
-  const wasmBase64String = await fs.readFile(wasmFile, "base64");
+  let [text, wasmBase64String] = await Promise.all([
+    fs.readFile(entryFile, "utf8"),
+    fs.readFile(wasmFile, "base64"),
+  ]);
 
   text = outdent`
     import { decode as __decode } from "base64-arraybuffer-es6";
