@@ -148,7 +148,7 @@ function printDanglingComments(
 
   const parts = path.map(
     ({ node: comment }) =>
-      danglingComments.has(comment) ? printLeadingComment(path, options) : "",
+      danglingComments.has(comment) ? printComment(path, options) : "",
     "comments",
   );
 
