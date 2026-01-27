@@ -194,6 +194,8 @@ function printTrailingComments(path, options, printOptions) {
   const trailingComments = new Set(
     comments?.filter((comment) => comment.trailing),
   );
+  const printed = options[Symbol.for("printedComments")];
+  const filter = printOptions?.filter ?? returnTrue;
   const commentsShouldPrint = new Set(
     comments?.filter(
       (comment) =>
@@ -207,8 +209,6 @@ function printTrailingComments(path, options, printOptions) {
     return "";
   }
 
-  const printed = options[Symbol.for("printedComments")];
-  const filter = printOptions?.filter ?? returnTrue;
   const docs = [];
   let printedTrailingComment;
   path.each(({ node: comment }) => {
