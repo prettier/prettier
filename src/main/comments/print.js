@@ -8,7 +8,6 @@ import {
   lineSuffix,
 } from "../../document/index.js";
 import hasNewline from "../../utilities/has-newline.js";
-import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
 import isPreviousLineEmpty from "../../utilities/is-previous-line-empty.js";
 import { skipSpaces } from "../../utilities/skip.js";
 import skipNewline from "../../utilities/skip-newline.js";
@@ -125,19 +124,13 @@ function printDanglingComments(
   options,
   danglingCommentsPrintOptions = {},
 ) {
-  const { node } = path;
-
-  if (!isNonEmptyArray(node?.comments)) {
-    return "";
-  }
-
   const {
     indent: shouldIndent = false,
     marker,
     filter = returnTrue,
   } = danglingCommentsPrintOptions;
   const danglingComments = new Set(
-    node?.comments?.filter(
+    path.node?.comments?.filter(
       (comment) =>
         !(
           comment.leading ||
@@ -170,11 +163,10 @@ function printDanglingComments(
 @returns {Doc}
 */
 function printLeadingComments(path, options, printOptions) {
-  const { node } = path;
   const printed = options[Symbol.for("printedComments")];
   const filter = printOptions?.filter ?? returnTrue;
   const leadingComments = new Set(
-    node?.comments?.filter(
+    path.node?.comments?.filter(
       (comment) => !printed?.has(comment) && comment.leading && filter(comment),
     ),
   );
@@ -198,17 +190,16 @@ function printLeadingComments(path, options, printOptions) {
 @returns {Doc}
 */
 function printTrailingComments(path, options, printOptions) {
-  const { node } = path;
-  const printed = options[Symbol.for("printedComments")];
-  const filter = printOptions?.filter ?? returnTrue;
   const trailingComments = new Set(
-    node?.comments?.filter((comment) => comment.trailing),
+    path.node?.comments?.filter((comment) => comment.trailing),
   );
 
   if (trailingComments.size === 0) {
     return "";
   }
 
+  const printed = options[Symbol.for("printedComments")];
+  const filter = printOptions?.filter ?? returnTrue;
   const docs = [];
   let printedTrailingComment;
   path.each(({ node: comment }) => {
@@ -226,6 +217,10 @@ function printTrailingComments(path, options, printOptions) {
       docs.push(printedTrailingComment.doc);
     }
   }, "comments");
+
+  if (docs.length === 0) {
+    return "";
+  }
 
   return docs;
 }
