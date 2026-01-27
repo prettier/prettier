@@ -2,7 +2,11 @@ import path from "node:path";
 
 const parentPropertyCheckSelector = [
   "FunctionDeclaration",
-  '[id.name="needsParens"]',
+  ":matches(",
+  ["needsParens", "needsParentheses"]
+    .map((name) => `[id.name="${name}"]`)
+    .join(","),
+  ")",
   " ",
   "BinaryExpression",
   ":matches(",
@@ -85,6 +89,22 @@ export default {
         context.report({
           node,
           messageId: MESSAGE_ID_KEY_CHECK_FIRST,
+          fix(fixer) {
+            const operatorToken = sourceCode.getTokenAfter(
+              node.left,
+              (token) =>
+                token.type === "Punctuator" && token.value === node.operator,
+            );
+            const left = sourceCode.text.slice(
+              node.range[0],
+              operatorToken.range[0],
+            );
+            const right = sourceCode.text.slice(
+              operatorToken.range[1],
+              node.range[1],
+            );
+            return fixer.replaceText(node, `${right} ${node.operator} ${left}`);
+          },
         });
       },
     };

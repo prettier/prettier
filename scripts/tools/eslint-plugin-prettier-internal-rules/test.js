@@ -37,7 +37,9 @@ test("better-parent-property-check-in-parentheses-check", {
   valid: ["function needsParens() {return parent.test === node;}"],
   invalid: [
     {
-      code: 'return parent.type === "MemberExpression" && key === "object";',
+      code: 'return (( (( parent.type === "MemberExpression" )) && ((key === "object")) ));',
+      output:
+        'return ((  ((key === "object")) && (( parent.type === "MemberExpression" ))  ));',
       errors: [{ message: "`key` comparison should be on left side." }],
     },
     {

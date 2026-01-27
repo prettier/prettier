@@ -411,9 +411,9 @@ const configs = [
     },
   },
   {
-    files: ["src/language-js/needs-parens.js"],
+    files: ["src/language-js/parentheses/**"],
     rules: {
-      "prettier-internal-rules/better-parent-property-check-in-needs-parens":
+      "prettier-internal-rules/better-parent-property-check-in-parentheses-check":
         "error",
     },
   },
