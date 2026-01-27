@@ -140,6 +140,17 @@ function needsParentheses(path, options) {
           return key === "callee";
 
         case "BinaryExpression":
+          // A user typing `!foo instanceof Bar` probably intended
+          // `!(foo instanceof Bar)`, so format to `(!foo) instance Bar` to what is
+          // really happening
+          if (
+            key === "left" &&
+            node.type === "UnaryExpression" &&
+            (parent.operator === "in" || parent.operator === "instanceof")
+          ) {
+            return true;
+          }
+
           return key === "left" && parent.operator === "**";
 
         case "TSNonNullExpression":
@@ -962,8 +973,8 @@ function isFollowedByRightBracket(path) {
       }
       break;
     case "UnaryExpression":
-      if (parent.prefix) {
-        return path.callParent(isFollowedByRightBracket);
+      if (parent.prefix && path.callParent(isFollowedByRightBracket)) {
+        return true;
       }
       break;
   }

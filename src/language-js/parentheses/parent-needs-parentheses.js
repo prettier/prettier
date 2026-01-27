@@ -94,19 +94,6 @@ function parentNeedsParentheses(path, options, needsParentheses) {
       }
       break;
 
-    // A user typing `!foo instanceof Bar` probably intended
-    // `!(foo instanceof Bar)`, so format to `(!foo) instance Bar` to what is
-    // really happening
-    case "BinaryExpression":
-      if (
-        key === "left" &&
-        (parent.operator === "in" || parent.operator === "instanceof") &&
-        node.type === "UnaryExpression"
-      ) {
-        return true;
-      }
-      break;
-
     case "VariableDeclarator":
       // Legacy syntax
       // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Invalid_for-in_initializer
