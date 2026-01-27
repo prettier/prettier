@@ -198,9 +198,17 @@ async function handleFormatMessage(message) {
   }
 
   if (!isDocExplorer && message.debug.reformat) {
-    response.debug.reformatted = (
-      await formatCode(response.formatted, options)
-    ).formatted;
+    if (formatResult.error) {
+      response.debug.reformatted = formatResult.formatted;
+    } else {
+      const reformatted = (await formatCode(response.formatted, options))
+        .formatted;
+
+      response.debug.reformatted =
+        response.formatted === reformatted
+          ? "✓ Second format is unchanged."
+          : reformatted;
+    }
   }
 
   return response;
