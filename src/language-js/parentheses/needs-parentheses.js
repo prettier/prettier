@@ -463,7 +463,20 @@ function needsParentheses(path, options) {
         return true;
       }
 
-      if (key === "constraint" && isConditionalType(node)) {
+      if (
+        key === "constraint" &&
+        isConditionalType(node) &&
+        parent.type === "TSTypeParameter"
+      ) {
+        return true;
+      }
+
+      if (
+        key === "typeAnnotation" &&
+        isConditionalType(node) &&
+        parent.type === "TypeAnnotation" &&
+        path.grandparent?.type === "TypeParameter"
+      ) {
         return true;
       }
 
