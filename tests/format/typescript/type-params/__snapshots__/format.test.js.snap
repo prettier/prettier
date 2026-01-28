@@ -1,5 +1,41 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`10732.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const isNodeOrTokenOfTypeWithConditions = <
+  NodeOrTokenType extends (NodeOrToken extends TSESTree.Node ? AST_NODE_TYPES : AST_TOKEN_TYPES),
+>() => true;
+
+type A = {
+  [
+    NodeOrTokenType in 
+      NodeOrToken extends TSESTree.Node
+      ? AST_NODE_TYPES : AST_TOKEN_TYPES
+  ]: NodeOrTokenType
+}
+
+=====================================output=====================================
+const isNodeOrTokenOfTypeWithConditions = <
+  NodeOrTokenType extends (NodeOrToken extends TSESTree.Node
+    ? AST_NODE_TYPES
+    : AST_TOKEN_TYPES),
+>() => true;
+
+type A = {
+  [
+    NodeOrTokenType in NodeOrToken extends TSESTree.Node
+      ? AST_NODE_TYPES
+      : AST_TOKEN_TYPES
+  ]: NodeOrTokenType;
+};
+
+================================================================================
+`;
+
 exports[`18041.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
