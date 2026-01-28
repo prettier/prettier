@@ -4,7 +4,6 @@ import {
   conditionalGroup,
   group,
   hardline,
-  ifBreak,
   indent,
   line,
   softline,
