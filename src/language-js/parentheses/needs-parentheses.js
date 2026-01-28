@@ -463,6 +463,8 @@ function needsParentheses(path, options) {
         return true;
       }
 
+      // `const foo = <Foo extends (Bar extends Baz ? A : B)>() => true;`
+      //                            ^^^^^^^^^^^^^^^^^^^^^^^
       if (
         (key === "constraint" &&
           node.type === "TSConditionalType" &&
@@ -471,6 +473,7 @@ function needsParentheses(path, options) {
           node.type === "ConditionalTypeAnnotation" &&
           parent.type === "TypeAnnotation" &&
           path.grandparent.type === "TypeParameter" &&
+          path.grandparent.bound === parent &&
           path.grandparent.usesExtendsBound)
       ) {
         return true;
