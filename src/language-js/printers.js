@@ -9,7 +9,7 @@ import { insertPragma } from "./pragma.js";
 import { printComment } from "./print/comment.js";
 import { printEstree } from "./print/index.js";
 import getVisitorKeys from "./traverse/get-visitor-keys.js";
-import isBlockComment from "./utilities/is-block-comment.js";
+import { isBlockComment } from "./utilities/is-block-comment.js";
 import hasPrettierIgnore from "./utilities/is-ignored.js";
 
 const features = {

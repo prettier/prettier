@@ -1,3 +1,5 @@
+import { getCallArguments } from "./call-arguments.js";
+import { getFunctionParameters } from "./function-parameters.js";
 import { isNodeMatches } from "./is-node-matches.js";
 import {
   isCallExpression,
@@ -5,7 +7,6 @@ import {
   isNumericLiteral,
   isStringLiteral,
 } from "./node-types.js";
-import { getCallArguments, getFunctionParameters } from "./utilities.js";
 
 /**
 @import {

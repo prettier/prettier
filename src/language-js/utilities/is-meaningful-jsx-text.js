@@ -1,4 +1,4 @@
-import getRaw from "./get-raw.js";
+import { getRaw } from "./get-raw.js";
 import { jsxWhitespace } from "./jsx-whitespace.js";
 
 /**

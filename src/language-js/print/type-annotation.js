@@ -1,6 +1,6 @@
 import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
+import { isSimpleType } from "../utilities/is-simple-type.js";
 import { isObjectType, isUnionType } from "../utilities/node-types.js";
-import { isSimpleType } from "../utilities/utilities.js";
 import { shouldHugUnionType } from "./union-type.js";
 
 /**

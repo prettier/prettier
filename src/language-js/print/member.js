@@ -5,16 +5,14 @@ import {
   lineSuffixBoundary,
   softline,
 } from "../../document/index.js";
+import { getCallArguments } from "../utilities/call-arguments.js";
 import {
   isCallExpression,
   isChainElementWrapper,
   isMemberExpression,
   isNumericLiteral,
 } from "../utilities/node-types.js";
-import {
-  getCallArguments,
-  stripChainElementWrappers,
-} from "../utilities/utilities.js";
+import { stripChainElementWrappers } from "../utilities/strip-chain-element-wrappers.js";
 import { printOptionalToken } from "./miscellaneous.js";
 
 const isCallExpressionWithArguments = (node) =>

@@ -1,6 +1,6 @@
 import { shouldExpressionStatementPrintLeadingSemicolon } from "../semicolon/semicolon.js";
 import { CommentCheckFlags, getComments } from "./comments.js";
-import isTypeCastComment from "./is-type-cast-comment.js";
+import { isTypeCastComment } from "./is-type-cast-comment.js";
 
 function shouldExpressionStatementPrintOwnComments(path, options) {
   if (!shouldExpressionStatementPrintLeadingSemicolon(path, options)) {

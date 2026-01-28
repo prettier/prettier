@@ -3,7 +3,7 @@ import {
   isCallExpression,
   isMemberExpression,
 } from "../utilities/node-types.js";
-import { startsWithNoLookaheadToken } from "../utilities/utilities.js";
+import { startsWithNoLookaheadToken } from "../utilities/starts-with-no-lookahead-token.js";
 
 /**
  * @import AstPath from "../../common/ast-path.js"

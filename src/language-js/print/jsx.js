@@ -23,7 +23,7 @@ import UnexpectedNodeError from "../../utilities/unexpected-node-error.js";
 import needsParentheses from "../parentheses/needs-parentheses.js";
 import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
 import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
-import getRaw from "../utilities/get-raw.js";
+import { getRaw } from "../utilities/get-raw.js";
 import { isMeaningfulJsxText } from "../utilities/is-meaningful-jsx-text.js";
 import { jsxWhitespace } from "../utilities/jsx-whitespace.js";
 import {
@@ -34,7 +34,7 @@ import {
   isObjectExpression,
   isStringLiteral,
 } from "../utilities/node-types.js";
-import { stripChainElementWrappers } from "../utilities/utilities.js";
+import { stripChainElementWrappers } from "../utilities/strip-chain-element-wrappers.js";
 
 /**
 @import AstPath from "../../common/ast-path.js";

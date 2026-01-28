@@ -1,12 +1,12 @@
 import * as assert from "#universal/assert";
 import { locEnd, locEndWithFullText, locStart } from "../../loc.js";
 import { createTypeCheckFunction } from "../../utilities/create-type-check-function.js";
-import getRaw from "../../utilities/get-raw.js";
+import { getRaw } from "../../utilities/get-raw.js";
 import getTextWithoutComments from "../../utilities/get-text-without-comments.js";
-import isBlockComment from "../../utilities/is-block-comment.js";
-import isLineComment from "../../utilities/is-line-comment.js";
-import isTypeCastComment from "../../utilities/is-type-cast-comment.js";
-import mergeNestledJsdocComments from "./merge-nestled-jsdoc-comments.js";
+import { isBlockComment } from "../../utilities/is-block-comment.js";
+import { isLineComment } from "../../utilities/is-line-comment.js";
+import { isTypeCastComment } from "../../utilities/is-type-cast-comment.js";
+import { mergeNestledJsdocComments } from "./merge-nestled-jsdoc-comments.js";
 import visitNode from "./visit-node.js";
 
 const isNodeWithRaw = createTypeCheckFunction([

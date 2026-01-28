@@ -15,7 +15,10 @@ import {
 } from "../../document/index.js";
 import { printComments } from "../../main/comments/print.js";
 import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
-import isTypeCastComment from "../utilities/is-type-cast-comment.js";
+import { hasLeadingOwnLineComment } from "../utilities/has-leading-own-line-comment.js";
+import { isBooleanTypeCoercion } from "../utilities/is-boolean-type-coercion.js";
+import { isObjectProperty } from "../utilities/is-object-property.js";
+import { isTypeCastComment } from "../utilities/is-type-cast-comment.js";
 import {
   isArrayExpression,
   isBinaryish,
@@ -25,12 +28,7 @@ import {
   isObjectExpression,
   isReturnOrThrowStatement,
 } from "../utilities/node-types.js";
-import {
-  hasLeadingOwnLineComment,
-  isBooleanTypeCoercion,
-  isObjectProperty,
-  shouldFlatten,
-} from "../utilities/utilities.js";
+import { shouldFlatten } from "../utilities/should-flatten.js";
 
 /** @import {Doc} from "../../document/index.js" */
 
