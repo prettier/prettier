@@ -59,4 +59,4 @@ function isNodeMatches(node, nameOrPaths) {
   );
 }
 
-export default isNodeMatches;
+export { isNodeMatches };

@@ -1,10 +1,7 @@
 import { group, hardline } from "../../document/index.js";
 import { printDanglingComments } from "../../main/comments/print.js";
-import {
-  CommentCheckFlags,
-  hasComment,
-  needsHardlineAfterDanglingComment,
-} from "../utilities/index.js";
+import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
+import { needsHardlineAfterDanglingComment } from "../utilities/utilities.js";
 import { adjustClause, printIfStatementCondition } from "./miscellaneous.js";
 
 /**

@@ -13,13 +13,12 @@ import {
   printDanglingComments,
 } from "../../main/comments/print.js";
 import needsParentheses from "../parentheses/needs-parentheses.js";
+import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
+import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
 import {
-  CommentCheckFlags,
-  createTypeCheckFunction,
-  hasComment,
   hasLeadingOwnLineComment,
   isNextLineEmpty,
-} from "../utilities/index.js";
+} from "../utilities/utilities.js";
 
 /*
 - `MatchExpression` (Flow)

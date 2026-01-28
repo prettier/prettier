@@ -6,11 +6,8 @@ import {
   softline,
 } from "../../document/index.js";
 import { printDanglingComments } from "../../main/comments/print.js";
-import {
-  CommentCheckFlags,
-  createTypeCheckFunction,
-  hasComment,
-} from "../utilities/index.js";
+import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
+import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
 import {
   isCallExpression,
   isMemberExpression,

@@ -13,20 +13,19 @@ import getNextNonSpaceNonCommentCharacterIndex from "../../utilities/get-next-no
 import isNextLineEmptyAfterIndex from "../../utilities/is-next-line-empty.js";
 import { locEnd } from "../loc.js";
 import needsParentheses from "../parentheses/needs-parentheses.js";
-import {
-  CommentCheckFlags,
-  hasComment,
-  isLongCurriedCallExpression,
-  isMemberish,
-  isNextLineEmpty,
-  isSimpleCallArgument,
-} from "../utilities/index.js";
+import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
 import {
   isCallExpression,
   isFunctionOrArrowExpression,
   isMemberExpression,
   isNumericLiteral,
 } from "../utilities/node-types.js";
+import {
+  isLongCurriedCallExpression,
+  isMemberish,
+  isNextLineEmpty,
+  isSimpleCallArgument,
+} from "../utilities/utilities.js";
 import { printBindExpressionCallee } from "./bind-expression.js";
 import printCallArguments from "./call-arguments.js";
 import { printMemberLookup } from "./member.js";

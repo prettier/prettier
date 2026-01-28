@@ -14,13 +14,10 @@ import {
 } from "../../main/comments/print.js";
 import createGroupIdMapper from "../../utilities/create-group-id-mapper.js";
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
-import {
-  CommentCheckFlags,
-  createTypeCheckFunction,
-  hasComment,
-  stripChainElementWrappers,
-} from "../utilities/index.js";
+import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
+import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
 import { isMemberExpression } from "../utilities/node-types.js";
+import { stripChainElementWrappers } from "../utilities/utilities.js";
 import { printAssignment } from "./assignment.js";
 import { printClassMemberDecorators } from "./decorators.js";
 import { printMethod } from "./function.js";

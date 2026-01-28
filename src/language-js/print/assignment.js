@@ -11,12 +11,6 @@ import {
 import getStringWidth from "../../utilities/get-string-width.js";
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
 import {
-  getCallArguments,
-  hasLeadingOwnLineComment,
-  isLoneShortArgument,
-  isObjectProperty,
-} from "../utilities/index.js";
-import {
   isBinaryish,
   isBooleanLiteral,
   isCallExpression,
@@ -28,6 +22,12 @@ import {
   isTypeAlias,
   isUnionType,
 } from "../utilities/node-types.js";
+import {
+  getCallArguments,
+  hasLeadingOwnLineComment,
+  isLoneShortArgument,
+  isObjectProperty,
+} from "../utilities/utilities.js";
 import { shouldInlineLogicalExpression } from "./binaryish.js";
 import { printCallExpression } from "./call-expression.js";
 

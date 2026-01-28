@@ -1,16 +1,16 @@
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
 import {
-  getLeftSidePathName,
-  hasNakedLeftSide,
-  hasNode,
-  stripChainElementWrappers,
-} from "../utilities/index.js";
-import {
   isCallExpression,
   isMemberExpression,
   isReturnOrThrowStatement,
 } from "../utilities/node-types.js";
 import { returnArgumentHasLeadingComment } from "../utilities/return-statement-has-leading-comment.js";
+import {
+  getLeftSidePathName,
+  hasNakedLeftSide,
+  hasNode,
+  stripChainElementWrappers,
+} from "../utilities/utilities.js";
 
 /**
  * @import AstPath from "../../common/ast-path.js"

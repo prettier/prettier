@@ -1,7 +1,10 @@
 import needsParentheses from "../parentheses/needs-parentheses.js";
 import { shouldPrintParamsWithoutParens } from "../print/function.js";
-import { getLeftSidePathName, hasNakedLeftSide } from "../utilities/index.js";
 import { isJsxElement } from "../utilities/node-types.js";
+import {
+  getLeftSidePathName,
+  hasNakedLeftSide,
+} from "../utilities/utilities.js";
 
 function shouldExpressionStatementPrintLeadingSemicolon(path, options) {
   if (options.semi) {

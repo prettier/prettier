@@ -1,4 +1,4 @@
-import createTypeCheckFunction from "./create-type-check-function.js";
+import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
 
 // https://github.com/vuejs/core/blob/35785f3cd7bd86cbec3f8324022491da2d088b61/packages/compiler-core/src/babelUtils.ts#L498
 const isVueEventBindingTsNode = createTypeCheckFunction([

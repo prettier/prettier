@@ -1,4 +1,4 @@
-import { createTypeCheckFunction } from "../utilities/index.js";
+import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
 
 /**
 @import AstPath from "../../common/ast-path.js"

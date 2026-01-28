@@ -12,16 +12,15 @@ import { printDanglingComments } from "../../main/comments/print.js";
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
 import UnexpectedNodeError from "../../utilities/unexpected-node-error.js";
 import { locEnd, locStart } from "../loc.js";
+import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
+import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
 import getTextWithoutComments from "../utilities/get-text-without-comments.js";
+import { isStringLiteral } from "../utilities/node-types.js";
 import {
-  CommentCheckFlags,
-  createTypeCheckFunction,
-  hasComment,
   isShorthandSpecifier,
   needsHardlineAfterDanglingComment,
   shouldPrintComma,
-} from "../utilities/index.js";
-import { isStringLiteral } from "../utilities/node-types.js";
+} from "../utilities/utilities.js";
 import { printDecoratorsBeforeExport } from "./decorators.js";
 import { printDeclareToken } from "./miscellaneous.js";
 import { printObject } from "./object.js";

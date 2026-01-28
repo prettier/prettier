@@ -8,7 +8,7 @@ import {
   isSingleVueEventBindingExpressionStatement,
   shouldExpressionStatementPrintLeadingSemicolon,
 } from "../semicolon/semicolon.js";
-import { CommentCheckFlags, getComments } from "../utilities/index.js";
+import { CommentCheckFlags, getComments } from "../utilities/comments.js";
 import { shouldExpressionStatementPrintOwnComments } from "../utilities/should-expression-statement-print-own-comments.js";
 import {
   isVueEventBindingFunctionExpression,

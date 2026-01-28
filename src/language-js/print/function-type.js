@@ -1,6 +1,6 @@
 import { group } from "../../document/index.js";
 import { hasSameLocStart } from "../loc.js";
-import { isFlowObjectTypePropertyAFunction } from "../utilities/index.js";
+import { isFlowObjectTypePropertyAFunction } from "../utilities/utilities.js";
 import { printClassMemberSemicolon } from "./class.js";
 import {
   printFunctionParameters,

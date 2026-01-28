@@ -1,4 +1,4 @@
-import { isMeaningfulEmptyStatement } from "../utilities/index.js";
+import { isMeaningfulEmptyStatement } from "../utilities/is-meaningful-empty-statement.js";
 import {
   isArrayExpression,
   isBigIntLiteral,

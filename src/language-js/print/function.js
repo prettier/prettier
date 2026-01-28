@@ -1,13 +1,12 @@
 import * as assert from "#universal/assert";
 import { group } from "../../document/index.js";
+import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
+import { isCallExpression } from "../utilities/node-types.js";
 import {
-  CommentCheckFlags,
   getCallArguments,
   getFunctionParameters,
-  hasComment,
   isMethod,
-} from "../utilities/index.js";
-import { isCallExpression } from "../utilities/node-types.js";
+} from "../utilities/utilities.js";
 import {
   printFunctionParameters,
   shouldBreakFunctionParameters,

@@ -445,7 +445,7 @@ const configs = [
       "prettier-internal-rules/no-node-comments": [
         "error",
         {
-          file: "src/language-js/utilities/index.js",
+          file: "src/language-js/utilities/comments.js",
           functions: ["hasComment", "getComments"],
         },
         "src/language-js/pragma.js",
@@ -510,6 +510,12 @@ const configs = [
         "error",
         { replacements: { doc: false } },
       ],
+    },
+  },
+  {
+    files: ["src/language-js/utilities/utilities.js"],
+    rules: {
+      "unicorn/prefer-export-from": ["error", { ignoreUsedVariables: false }],
     },
   },
 ];

@@ -1,6 +1,6 @@
 import * as assert from "#universal/assert";
 import { locEnd, locEndWithFullText, locStart } from "../../loc.js";
-import createTypeCheckFunction from "../../utilities/create-type-check-function.js";
+import { createTypeCheckFunction } from "../../utilities/create-type-check-function.js";
 import getRaw from "../../utilities/get-raw.js";
 import getTextWithoutComments from "../../utilities/get-text-without-comments.js";
 import isBlockComment from "../../utilities/is-block-comment.js";

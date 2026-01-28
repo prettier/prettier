@@ -12,16 +12,15 @@ import hasNewline from "../../utilities/has-newline.js";
 import hasNewlineInRange from "../../utilities/has-newline-in-range.js";
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
 import { locEnd, locStart } from "../loc.js";
-import getTextWithoutComments from "../utilities/get-text-without-comments.js";
 import {
   CommentCheckFlags,
-  createTypeCheckFunction,
   getComments,
   hasComment,
-  isNextLineEmpty,
-  shouldPrintComma,
-} from "../utilities/index.js";
+} from "../utilities/comments.js";
+import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
+import getTextWithoutComments from "../utilities/get-text-without-comments.js";
 import { isObjectType } from "../utilities/node-types.js";
+import { isNextLineEmpty, shouldPrintComma } from "../utilities/utilities.js";
 import { shouldHugTheOnlyParameter } from "./function-parameters.js";
 import {
   printDanglingCommentsInList,
