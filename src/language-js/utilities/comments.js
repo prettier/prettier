@@ -1,6 +1,6 @@
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
-import isBlockComment from "./is-block-comment.js";
-import isLineComment from "./is-line-comment.js";
+import { isBlockComment } from "./is-block-comment.js";
+import { isLineComment } from "./is-line-comment.js";
 import { isPrettierIgnoreComment } from "./is-prettier-ignore-comment.js";
 
 /**

@@ -14,18 +14,16 @@ import isNextLineEmptyAfterIndex from "../../utilities/is-next-line-empty.js";
 import { locEnd } from "../loc.js";
 import needsParentheses from "../parentheses/needs-parentheses.js";
 import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
+import { isLongCurriedCallExpression } from "../utilities/is-long-curried-call-expression.js";
+import { isMemberish } from "../utilities/is-memberish.js";
+import { isNextLineEmpty } from "../utilities/is-next-line-empty.js";
+import { isSimpleCallArgument } from "../utilities/is-simple-call-argument.js";
 import {
   isCallExpression,
   isFunctionOrArrowExpression,
   isMemberExpression,
   isNumericLiteral,
 } from "../utilities/node-types.js";
-import {
-  isLongCurriedCallExpression,
-  isMemberish,
-  isNextLineEmpty,
-  isSimpleCallArgument,
-} from "../utilities/utilities.js";
 import { printBindExpressionCallee } from "./bind-expression.js";
 import printCallArguments from "./call-arguments.js";
 import { printMemberLookup } from "./member.js";

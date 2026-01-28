@@ -1,6 +1,6 @@
 import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
+import { isObjectProperty } from "../utilities/is-object-property.js";
 import { isArrayExpression } from "../utilities/node-types.js";
-import { isObjectProperty } from "../utilities/utilities.js";
 
 const angularComponentObjectExpressionPredicates = [
   (node, name) => name === "properties" && node.type === "ObjectExpression",

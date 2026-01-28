@@ -12,7 +12,7 @@ import hasNewlineInRange from "../../utilities/has-newline-in-range.js";
 import { locEnd, locStart } from "../loc.js";
 import { CommentCheckFlags, getComments } from "../utilities/comments.js";
 import getTextWithoutComments from "../utilities/get-text-without-comments.js";
-import isLineComment from "../utilities/is-line-comment.js";
+import { isLineComment } from "../utilities/is-line-comment.js";
 import { printClassMemberSemicolon } from "./class.js";
 
 /**

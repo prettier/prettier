@@ -10,6 +10,10 @@ import {
 } from "../../document/index.js";
 import getStringWidth from "../../utilities/get-string-width.js";
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
+import { getCallArguments } from "../utilities/call-arguments.js";
+import { hasLeadingOwnLineComment } from "../utilities/has-leading-own-line-comment.js";
+import { isLoneShortArgument } from "../utilities/is-lone-short-argument.js";
+import { isObjectProperty } from "../utilities/is-object-property.js";
 import {
   isBinaryish,
   isBooleanLiteral,
@@ -22,12 +26,6 @@ import {
   isTypeAlias,
   isUnionType,
 } from "../utilities/node-types.js";
-import {
-  getCallArguments,
-  hasLeadingOwnLineComment,
-  isLoneShortArgument,
-  isObjectProperty,
-} from "../utilities/utilities.js";
 import { shouldInlineLogicalExpression } from "./binaryish.js";
 import { printCallExpression } from "./call-expression.js";
 

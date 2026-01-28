@@ -10,7 +10,19 @@ import {
   softline,
   willBreak,
 } from "../../document/index.js";
+import {
+  getCallArguments,
+  getCallArgumentSelector,
+  iterateCallArgumentsPath,
+} from "../utilities/call-arguments.js";
 import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
+import { getFunctionParameters } from "../utilities/function-parameters.js";
+import { isFunctionCompositionArguments } from "../utilities/is-function-composition-arguments.js";
+import { isLongCurriedCallExpression } from "../utilities/is-long-curried-call-expression.js";
+import { isNextLineEmpty } from "../utilities/is-next-line-empty.js";
+import { isObjectProperty } from "../utilities/is-object-property.js";
+import { isSimpleCallArgument } from "../utilities/is-simple-call-argument.js";
+import { isSimpleType } from "../utilities/is-simple-type.js";
 import {
   isArrayExpression,
   isBinaryCastExpression,
@@ -22,20 +34,8 @@ import {
   isRegExpLiteral,
   isStringLiteral,
 } from "../utilities/node-types.js";
-import {
-  getCallArguments,
-  getCallArgumentSelector,
-  getFunctionParameters,
-  isFunctionCompositionArgs,
-  isLongCurriedCallExpression,
-  isNextLineEmpty,
-  isObjectProperty,
-  isSimpleCallArgument,
-  isSimpleType,
-  iterateCallArgumentsPath,
-  shouldPrintComma,
-  stripChainElementWrappers,
-} from "../utilities/utilities.js";
+import { shouldPrintComma } from "../utilities/should-print-comma.js";
+import { stripChainElementWrappers } from "../utilities/strip-chain-element-wrappers.js";
 import { isConciselyPrintedArray } from "./array.js";
 import { printDanglingCommentsInList } from "./miscellaneous.js";
 
@@ -109,7 +109,7 @@ function printCallArguments(path, options, print) {
 
   if (
     anyArgEmptyLine ||
-    (path.parent.type !== "Decorator" && isFunctionCompositionArgs(args))
+    (path.parent.type !== "Decorator" && isFunctionCompositionArguments(args))
   ) {
     return allArgsBrokenOut();
   }

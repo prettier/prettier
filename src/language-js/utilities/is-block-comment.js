@@ -15,4 +15,4 @@ const isBlockComment = createTypeCheckFunction([
   "MultiLine",
 ]);
 
-export default isBlockComment;
+export { isBlockComment };

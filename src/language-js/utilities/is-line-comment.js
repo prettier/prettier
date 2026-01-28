@@ -18,4 +18,4 @@ const isLineComment = createTypeCheckFunction([
   "InterpreterDirective",
 ]);
 
-export default isLineComment;
+export { isLineComment };

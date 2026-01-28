@@ -2,7 +2,7 @@ import isEs5IdentifierName from "is-es5-identifier-name";
 import { printComments } from "../../main/comments/print.js";
 import printNumber from "../../utilities/print-number.js";
 import printString from "../../utilities/print-string.js";
-import getRaw from "../utilities/get-raw.js";
+import { getRaw } from "../utilities/get-raw.js";
 import { isNumericLiteral, isStringLiteral } from "../utilities/node-types.js";
 
 /**

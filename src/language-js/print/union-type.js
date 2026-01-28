@@ -14,15 +14,13 @@ import {
 import needsParentheses from "../parentheses/needs-parentheses.js";
 import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
 import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
+import { hasLeadingOwnLineComment } from "../utilities/has-leading-own-line-comment.js";
 import {
   isConditionalType,
   isTupleType,
   isTypeAlias,
 } from "../utilities/node-types.js";
-import {
-  hasLeadingOwnLineComment,
-  shouldUnionTypePrintOwnComments,
-} from "../utilities/utilities.js";
+import { shouldUnionTypePrintOwnComments } from "../utilities/should-union-type-print-own-comments.js";
 
 /**
 @import {Doc} from "../../document/index.js";

@@ -15,12 +15,10 @@ import { locEnd, locStart } from "../loc.js";
 import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
 import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
 import getTextWithoutComments from "../utilities/get-text-without-comments.js";
+import { isShorthandSpecifier } from "../utilities/is-shorthand-specifier.js";
+import { needsHardlineAfterDanglingComment } from "../utilities/needs-hardline-after-dangling-comment.js";
 import { isStringLiteral } from "../utilities/node-types.js";
-import {
-  isShorthandSpecifier,
-  needsHardlineAfterDanglingComment,
-  shouldPrintComma,
-} from "../utilities/utilities.js";
+import { shouldPrintComma } from "../utilities/should-print-comma.js";
 import { printDecoratorsBeforeExport } from "./decorators.js";
 import { printDeclareToken } from "./miscellaneous.js";
 import { printObject } from "./object.js";

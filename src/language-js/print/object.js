@@ -19,8 +19,9 @@ import {
 } from "../utilities/comments.js";
 import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
 import getTextWithoutComments from "../utilities/get-text-without-comments.js";
+import { isNextLineEmpty } from "../utilities/is-next-line-empty.js";
 import { isObjectType } from "../utilities/node-types.js";
-import { isNextLineEmpty, shouldPrintComma } from "../utilities/utilities.js";
+import { shouldPrintComma } from "../utilities/should-print-comma.js";
 import { shouldHugTheOnlyParameter } from "./function-parameters.js";
 import {
   printDanglingCommentsInList,

@@ -5,7 +5,7 @@ import {
   join,
   softline,
 } from "../../document/index.js";
-import { shouldPrintComma } from "../utilities/utilities.js";
+import { shouldPrintComma } from "../utilities/should-print-comma.js";
 import { printClassMemberSemicolon } from "./class.js";
 import { printTypeAnnotationProperty } from "./type-annotation.js";
 

@@ -1,6 +1,6 @@
 import { group, indent, line } from "../../document/index.js";
+import { hasLeadingOwnLineComment } from "../utilities/has-leading-own-line-comment.js";
 import { isObjectType } from "../utilities/node-types.js";
-import { hasLeadingOwnLineComment } from "../utilities/utilities.js";
 
 // `TSIntersectionType` and `IntersectionTypeAnnotation`
 function printIntersectionType(path, options, print) {

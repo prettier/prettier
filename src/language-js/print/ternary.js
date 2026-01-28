@@ -17,7 +17,9 @@ import {
   getComments,
   hasComment,
 } from "../utilities/comments.js";
-import isBlockComment from "../utilities/is-block-comment.js";
+import { isBlockComment } from "../utilities/is-block-comment.js";
+import { isLoneShortArgument } from "../utilities/is-lone-short-argument.js";
+import { isSimpleExpressionByNodeCount } from "../utilities/is-simple-expression-by-node-count.js";
 import {
   isBinaryCastExpression,
   isCallExpression,
@@ -27,10 +29,6 @@ import {
   isMemberExpression,
   isReturnOrThrowStatement,
 } from "../utilities/node-types.js";
-import {
-  isLoneShortArgument,
-  isSimpleExpressionByNodeCount,
-} from "../utilities/utilities.js";
 import { printTernaryOld } from "./ternary-old.js";
 
 /**

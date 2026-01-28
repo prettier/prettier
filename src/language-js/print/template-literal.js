@@ -25,7 +25,7 @@ import {
   isBinaryish,
   isMemberExpression,
 } from "../utilities/node-types.js";
-import { stripChainElementWrappers } from "../utilities/utilities.js";
+import { stripChainElementWrappers } from "../utilities/strip-chain-element-wrappers.js";
 
 /**
  * @import {Doc} from "../../document/index.js"

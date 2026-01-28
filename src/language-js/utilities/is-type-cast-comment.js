@@ -1,4 +1,4 @@
-import isBlockComment from "./is-block-comment.js";
+import { isBlockComment } from "./is-block-comment.js";
 
 /**
 @import {Comment} from "../types/estree.js"
@@ -26,4 +26,4 @@ function isTypeCastComment(comment) {
   return cache.get(comment);
 }
 
-export default isTypeCastComment;
+export { isTypeCastComment };

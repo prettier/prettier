@@ -16,7 +16,8 @@ import {
   hasComment,
 } from "../utilities/comments.js";
 import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
-import { isNextLineEmpty, shouldPrintComma } from "../utilities/utilities.js";
+import { isNextLineEmpty } from "../utilities/is-next-line-empty.js";
+import { shouldPrintComma } from "../utilities/should-print-comma.js";
 import { shouldHugTheOnlyParameter } from "./function-parameters.js";
 
 /*
