@@ -14,14 +14,7 @@ import {
   softline,
 } from "../../document/index.js";
 import { printComments } from "../../main/comments/print.js";
-import {
-  CommentCheckFlags,
-  hasComment,
-  hasLeadingOwnLineComment,
-  isBooleanTypeCoercion,
-  isObjectProperty,
-  shouldFlatten,
-} from "../utilities/index.js";
+import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
 import isTypeCastComment from "../utilities/is-type-cast-comment.js";
 import {
   isArrayExpression,
@@ -32,6 +25,12 @@ import {
   isObjectExpression,
   isReturnOrThrowStatement,
 } from "../utilities/node-types.js";
+import {
+  hasLeadingOwnLineComment,
+  isBooleanTypeCoercion,
+  isObjectProperty,
+  shouldFlatten,
+} from "../utilities/utilities.js";
 
 /** @import {Doc} from "../../document/index.js" */
 

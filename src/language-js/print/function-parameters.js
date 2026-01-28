@@ -10,9 +10,15 @@ import {
   willBreak,
 } from "../../document/index.js";
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
+import { hasComment } from "../utilities/comments.js";
+import {
+  isArrayExpression,
+  isObjectExpression,
+  isObjectType,
+} from "../utilities/node-types.js";
+import { isTestCall } from "../utilities/test-libraries.js";
 import {
   getFunctionParameters,
-  hasComment,
   hasRestParameter,
   isFlowObjectTypePropertyAFunction,
   isNextLineEmpty,
@@ -20,13 +26,7 @@ import {
   isTypeAnnotationAFunction,
   iterateFunctionParametersPath,
   shouldPrintComma,
-} from "../utilities/index.js";
-import {
-  isArrayExpression,
-  isObjectExpression,
-  isObjectType,
-} from "../utilities/node-types.js";
-import { isTestCall } from "../utilities/test-libraries.js";
+} from "../utilities/utilities.js";
 import { printDanglingCommentsInList } from "./miscellaneous.js";
 
 /** @import AstPath from "../../common/ast-path.js" */

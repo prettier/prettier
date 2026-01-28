@@ -1,5 +1,5 @@
 import { group, indent, line } from "../../document/index.js";
-import { hasLeadingOwnLineComment } from "../utilities/index.js";
+import { hasLeadingOwnLineComment } from "../utilities/utilities.js";
 import { isObjectType } from "../utilities/node-types.js";
 
 // `TSIntersectionType` and `IntersectionTypeAnnotation`

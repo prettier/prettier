@@ -12,14 +12,13 @@ import {
 import { printDanglingComments } from "../../main/comments/print.js";
 import hasNewline from "../../utilities/has-newline.js";
 import { locEnd } from "../loc.js";
-import {
-  CommentCheckFlags,
-  getFunctionParameters,
-  hasComment,
-  shouldPrintComma,
-} from "../utilities/index.js";
+import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
 import { isObjectType } from "../utilities/node-types.js";
 import { isTestCall } from "../utilities/test-libraries.js";
+import {
+  getFunctionParameters,
+  shouldPrintComma,
+} from "../utilities/utilities.js";
 import { isArrowFunctionVariableDeclarator } from "./assignment.js";
 import {
   printTypeAnnotationProperty,

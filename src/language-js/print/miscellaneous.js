@@ -6,15 +6,12 @@ import {
   softline,
 } from "../../document/index.js";
 import { printDanglingComments } from "../../main/comments/print.js";
-import {
-  CommentCheckFlags,
-  createTypeCheckFunction,
-  hasComment,
-} from "../utilities/index.js";
+import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
 import {
   isCallExpression,
   isMemberExpression,
 } from "../utilities/node-types.js";
+import { createTypeCheckFunction } from "../utilities/utilities.js";
 
 /**
 @import AstPath from "../../common/ast-path.js"

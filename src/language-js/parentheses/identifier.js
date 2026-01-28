@@ -1,4 +1,4 @@
-import { startsWithNoLookaheadToken } from "../utilities/index.js";
+import { startsWithNoLookaheadToken } from "../utilities/utilities.js";
 import { isBinaryCastExpression } from "../utilities/node-types.js";
 
 function shouldAddParenthesesToIdentifier(path) {

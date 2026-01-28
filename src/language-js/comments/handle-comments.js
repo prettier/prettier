@@ -11,16 +11,9 @@ import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
 import { locEnd, locStart } from "../loc.js";
 import { isInsideCallOrNewExpressionParentheses } from "../utilities/call-or-new-expression-parentheses.js";
 import getTextWithoutComments from "../utilities/get-text-without-comments.js";
-import {
-  createTypeCheckFunction,
-  getCallArguments,
-  getFunctionParameters,
-  isMethod,
-  isObjectProperty,
-  isPrettierIgnoreComment,
-} from "../utilities/index.js";
 import isBlockComment from "../utilities/is-block-comment.js";
 import isLineComment from "../utilities/is-line-comment.js";
+import { isPrettierIgnoreComment } from "../utilities/is-prettier-ignore-comment.js";
 import isTypeCastComment from "../utilities/is-type-cast-comment.js";
 import {
   isBinaryCastExpression,
@@ -31,6 +24,13 @@ import {
   isMemberExpression,
   isUnionType,
 } from "../utilities/node-types.js";
+import {
+  createTypeCheckFunction,
+  getCallArguments,
+  getFunctionParameters,
+  isMethod,
+  isObjectProperty,
+} from "../utilities/utilities.js";
 
 /**
 @import {Node, Comment, NodeMap} from "../types/estree.js";

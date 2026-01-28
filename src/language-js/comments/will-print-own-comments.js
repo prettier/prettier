@@ -1,11 +1,11 @@
-import {
-  createTypeCheckFunction,
-  hasNodeIgnoreComment,
-  isIifeCalleeOrTaggedTemplateExpressionTag,
-  shouldUnionTypePrintOwnComments,
-} from "../utilities/index.js";
+import { hasNodeIgnoreComment } from "../utilities/has-node-ignore-comment.js";
 import { isJsxElement, isUnionType } from "../utilities/node-types.js";
 import { shouldExpressionStatementPrintOwnComments } from "../utilities/should-expression-statement-print-own-comments.js";
+import {
+  createTypeCheckFunction,
+  isIifeCalleeOrTaggedTemplateExpressionTag,
+  shouldUnionTypePrintOwnComments,
+} from "../utilities/utilities.js";
 
 /**
 @import {Node} from "../types/estree.js";

@@ -15,7 +15,7 @@ import {
   hasLeadingOwnLineComment,
   isLoneShortArgument,
   isObjectProperty,
-} from "../utilities/index.js";
+} from "../utilities/utilities.js";
 import {
   isBinaryish,
   isBooleanLiteral,

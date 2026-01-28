@@ -5,7 +5,7 @@ import { replaceEndOfLine } from "../../document/index.js";
 import printNumber from "../../utilities/print-number.js";
 import printString from "../../utilities/print-string.js";
 import getRaw from "../utilities/get-raw.js";
-import { isMethod } from "../utilities/index.js";
+import { isMethod } from "../utilities/utilities.js";
 import isFlowKeywordType from "../utilities/is-flow-keyword-type.js";
 import { printArray } from "./array.js";
 import { printArrayType } from "./array-type.js";

@@ -8,7 +8,7 @@ import {
 import {
   getCallArguments,
   stripChainElementWrappers,
-} from "../utilities/index.js";
+} from "../utilities/utilities.js";
 import {
   isCallExpression,
   isChainElementWrapper,

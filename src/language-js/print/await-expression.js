@@ -1,5 +1,5 @@
 import { group, indent, softline } from "../../document/index.js";
-import { startsWithNoLookaheadToken } from "../utilities/index.js";
+import { startsWithNoLookaheadToken } from "../utilities/utilities.js";
 import {
   isCallExpression,
   isMemberExpression,

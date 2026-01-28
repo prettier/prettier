@@ -10,22 +10,7 @@ import {
   softline,
   willBreak,
 } from "../../document/index.js";
-import {
-  CommentCheckFlags,
-  getCallArguments,
-  getCallArgumentSelector,
-  getFunctionParameters,
-  hasComment,
-  isFunctionCompositionArgs,
-  isLongCurriedCallExpression,
-  isNextLineEmpty,
-  isObjectProperty,
-  isSimpleCallArgument,
-  isSimpleType,
-  iterateCallArgumentsPath,
-  shouldPrintComma,
-  stripChainElementWrappers,
-} from "../utilities/index.js";
+import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
 import {
   isArrayExpression,
   isBinaryCastExpression,
@@ -37,6 +22,20 @@ import {
   isRegExpLiteral,
   isStringLiteral,
 } from "../utilities/node-types.js";
+import {
+  getCallArguments,
+  getCallArgumentSelector,
+  getFunctionParameters,
+  isFunctionCompositionArgs,
+  isLongCurriedCallExpression,
+  isNextLineEmpty,
+  isObjectProperty,
+  isSimpleCallArgument,
+  isSimpleType,
+  iterateCallArgumentsPath,
+  shouldPrintComma,
+  stripChainElementWrappers,
+} from "../utilities/utilities.js";
 import { isConciselyPrintedArray } from "./array.js";
 import { printDanglingCommentsInList } from "./miscellaneous.js";
 

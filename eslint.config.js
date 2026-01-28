@@ -445,7 +445,7 @@ const configs = [
       "prettier-internal-rules/no-node-comments": [
         "error",
         {
-          file: "src/language-js/utilities/index.js",
+          file: "src/language-js/utilities/comments.js",
           functions: ["hasComment", "getComments"],
         },
         "src/language-js/pragma.js",

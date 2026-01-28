@@ -1,11 +1,8 @@
 import { hardline, indent } from "../../document/index.js";
 import { printDanglingComments } from "../../main/comments/print.js";
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
-import {
-  CommentCheckFlags,
-  hasComment,
-  isNextLineEmpty,
-} from "../utilities/index.js";
+import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
+import { isNextLineEmpty } from "../utilities/utilities.js";
 import { printStatementSequence } from "./statement-sequence.js";
 
 /** @import {Doc} from "../../document/index.js" */

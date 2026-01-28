@@ -1,14 +1,4 @@
-import {
-  createTypeCheckFunction,
-  getFunctionParameters,
-  getPrecedence,
-  hasComment,
-  isBitwiseOperator,
-  isNullishCoalescing,
-  isObjectProperty,
-  shouldFlatten,
-  startsWithNoLookaheadToken,
-} from "../utilities/index.js";
+import { hasComment } from "../utilities/comments.js";
 import {
   isArrayExpression,
   isBinaryCastExpression,
@@ -22,6 +12,16 @@ import {
   isReturnOrThrowStatement,
   isUnionType,
 } from "../utilities/node-types.js";
+import {
+  createTypeCheckFunction,
+  getFunctionParameters,
+  getPrecedence,
+  isBitwiseOperator,
+  isNullishCoalescing,
+  isObjectProperty,
+  shouldFlatten,
+  startsWithNoLookaheadToken,
+} from "../utilities/utilities.js";
 import { shouldAddParenthesesToChainElement } from "./chain-expression.js";
 import { shouldAddParenthesesToIdentifier } from "./identifier.js";
 import { parentNeedsParentheses } from "./parent-needs-parentheses.js";

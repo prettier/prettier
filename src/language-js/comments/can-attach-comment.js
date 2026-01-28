@@ -6,7 +6,7 @@ import {
   isMethod,
   isShorthandSpecifier,
   isTsAsConstExpression,
-} from "../utilities/index.js";
+} from "../utilities/utilities.js";
 
 /**
 @import {Node} from "../types/estree.js";

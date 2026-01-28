@@ -14,15 +14,7 @@ import {
   printCommentsSeparately,
   printDanglingComments,
 } from "../../main/comments/print.js";
-import {
-  CommentCheckFlags,
-  getFunctionParameters,
-  hasComment,
-  hasLeadingOwnLineComment,
-  isTemplateOnItsOwnLine,
-  shouldPrintComma,
-  startsWithNoLookaheadToken,
-} from "../utilities/index.js";
+import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
 import {
   isArrayExpression,
   isBinaryish,
@@ -30,6 +22,13 @@ import {
   isJsxElement,
   isObjectExpression,
 } from "../utilities/node-types.js";
+import {
+  getFunctionParameters,
+  hasLeadingOwnLineComment,
+  isTemplateOnItsOwnLine,
+  shouldPrintComma,
+  startsWithNoLookaheadToken,
+} from "../utilities/utilities.js";
 import { printReturnType, shouldPrintParamsWithoutParens } from "./function.js";
 import { printFunctionParameters } from "./function-parameters.js";
 

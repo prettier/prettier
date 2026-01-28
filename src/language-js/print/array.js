@@ -13,18 +13,17 @@ import isNextLineEmptyAfterIndex from "../../utilities/is-next-line-empty.js";
 import skipInlineComment from "../../utilities/skip-inline-comment.js";
 import skipTrailingComment from "../../utilities/skip-trailing-comment.js";
 import { locEnd, locStart } from "../loc.js";
-import {
-  CommentCheckFlags,
-  hasComment,
-  isSignedNumericLiteral,
-  shouldPrintComma,
-} from "../utilities/index.js";
+import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
 import {
   isArrayExpression,
   isNumericLiteral,
   isObjectExpression,
   isTupleType,
 } from "../utilities/node-types.js";
+import {
+  isSignedNumericLiteral,
+  shouldPrintComma,
+} from "../utilities/utilities.js";
 import {
   printDanglingCommentsInList,
   printOptionalToken,

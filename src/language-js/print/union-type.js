@@ -12,18 +12,17 @@ import {
   printCommentsSeparately,
 } from "../../main/comments/print.js";
 import needsParentheses from "../parentheses/needs-parentheses.js";
-import {
-  CommentCheckFlags,
-  createTypeCheckFunction,
-  hasComment,
-  hasLeadingOwnLineComment,
-  shouldUnionTypePrintOwnComments,
-} from "../utilities/index.js";
+import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
 import {
   isConditionalType,
   isTupleType,
   isTypeAlias,
 } from "../utilities/node-types.js";
+import {
+  createTypeCheckFunction,
+  hasLeadingOwnLineComment,
+  shouldUnionTypePrintOwnComments,
+} from "../utilities/utilities.js";
 
 /**
 @import {Doc} from "../../document/index.js";

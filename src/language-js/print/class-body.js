@@ -12,12 +12,14 @@ import hasNewlineInRange from "../../utilities/has-newline-in-range.js";
 import { locEnd, locStart } from "../loc.js";
 import {
   CommentCheckFlags,
-  createTypeCheckFunction,
   getComments,
   hasComment,
+} from "../utilities/comments.js";
+import {
+  createTypeCheckFunction,
   isNextLineEmpty,
   shouldPrintComma,
-} from "../utilities/index.js";
+} from "../utilities/utilities.js";
 import { shouldHugTheOnlyParameter } from "./function-parameters.js";
 
 /*
