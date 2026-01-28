@@ -464,19 +464,14 @@ function needsParentheses(path, options) {
       }
 
       if (
-        key === "constraint" &&
-        isConditionalType(node) &&
-        parent.type === "TSTypeParameter"
-      ) {
-        return true;
-      }
-
-      if (
-        key === "typeAnnotation" &&
-        isConditionalType(node) &&
-        parent.type === "TypeAnnotation" &&
-        path.grandparent.type === "TypeParameter" &&
-        path.grandparent.bound === parent
+        (key === "constraint" &&
+          node.type === "TSConditionalType" &&
+          parent.type === "TSTypeParameter") ||
+        (key === "typeAnnotation" &&
+          node.type === "ConditionalTypeAnnotation" &&
+          parent.type === "TypeAnnotation" &&
+          path.grandparent.type === "TypeParameter" &&
+          path.grandparent.usesExtendsBound)
       ) {
         return true;
       }
