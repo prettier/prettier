@@ -1,9 +1,9 @@
 import { group, indent, softline } from "../../document/index.js";
-import { startsWithNoLookaheadToken } from "../utilities/utilities.js";
 import {
   isCallExpression,
   isMemberExpression,
 } from "../utilities/node-types.js";
+import { startsWithNoLookaheadToken } from "../utilities/utilities.js";
 
 /**
  * @import AstPath from "../../common/ast-path.js"

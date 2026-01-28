@@ -6,15 +6,15 @@ import {
   softline,
 } from "../../document/index.js";
 import {
-  getCallArguments,
-  stripChainElementWrappers,
-} from "../utilities/utilities.js";
-import {
   isCallExpression,
   isChainElementWrapper,
   isMemberExpression,
   isNumericLiteral,
 } from "../utilities/node-types.js";
+import {
+  getCallArguments,
+  stripChainElementWrappers,
+} from "../utilities/utilities.js";
 import { printOptionalToken } from "./miscellaneous.js";
 
 const isCallExpressionWithArguments = (node) =>
