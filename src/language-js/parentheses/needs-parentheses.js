@@ -475,7 +475,8 @@ function needsParentheses(path, options) {
         key === "typeAnnotation" &&
         isConditionalType(node) &&
         parent.type === "TypeAnnotation" &&
-        path.grandparent?.type === "TypeParameter"
+        path.grandparent.type === "TypeParameter" &&
+        path.grandparent.bound === parent
       ) {
         return true;
       }
@@ -662,7 +663,7 @@ function needsParentheses(path, options) {
         (key === "extendsType" &&
           parent.type === "ConditionalTypeAnnotation" &&
           node.returnType?.type === "InferTypeAnnotation" &&
-          node.returnType?.typeParameter.bound) ||
+          node.returnType.typeParameter.bound) ||
         // We should check ancestor's parent to know whether the parentheses
         // are really needed, but since ??T doesn't make sense this check
         // will almost never be true.
