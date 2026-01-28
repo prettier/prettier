@@ -18,9 +18,8 @@ import getTextWithoutComments from "../utilities/get-text-without-comments.js";
 import { isShorthandSpecifier } from "../utilities/is-shorthand-specifier.js";
 import { needsHardlineAfterDanglingComment } from "../utilities/needs-hardline-after-dangling-comment.js";
 import { isStringLiteral } from "../utilities/node-types.js";
-import { shouldPrintComma } from "../utilities/should-print-comma.js";
 import { printDecoratorsBeforeExport } from "./decorators.js";
-import { printDeclareToken } from "./miscellaneous.js";
+import { printDeclareToken, printTrailingComma } from "./miscellaneous.js";
 import { printObject } from "./object.js";
 
 /**
@@ -211,7 +210,7 @@ function printModuleSpecifiers(path, options, print) {
               options.bracketSpacing ? line : softline,
               join([",", line], groupedSpecifiers),
             ]),
-            ifBreak(shouldPrintComma(options) ? "," : ""),
+            ifBreak(printTrailingComma(options)),
             options.bracketSpacing ? line : softline,
             "}",
           ]),

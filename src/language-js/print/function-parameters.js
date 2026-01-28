@@ -2,7 +2,6 @@ import { ArgExpansionBailout } from "../../common/errors.js";
 import {
   group,
   hardline,
-  ifBreak,
   indent,
   line,
   removeLines,
@@ -25,9 +24,11 @@ import {
   isObjectExpression,
   isObjectType,
 } from "../utilities/node-types.js";
-import { shouldPrintComma } from "../utilities/should-print-comma.js";
 import { isTestCall } from "../utilities/test-libraries.js";
-import { printDanglingCommentsInList } from "./miscellaneous.js";
+import {
+  printDanglingCommentsInList,
+  printTrailingComma,
+} from "./miscellaneous.js";
 
 /** @import AstPath from "../../common/ast-path.js" */
 
@@ -184,11 +185,7 @@ function printFunctionParameters(
     typeParametersDoc,
     "(",
     indent([softline, ...printed]),
-    ifBreak(
-      !hasRestParameter(functionNode) && shouldPrintComma(options, "all")
-        ? ","
-        : "",
-    ),
+    !hasRestParameter(functionNode) ? printTrailingComma(options, "all") : "",
     softline,
     ")",
   ];

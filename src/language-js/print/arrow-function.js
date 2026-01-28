@@ -25,10 +25,10 @@ import {
   isJsxElement,
   isObjectExpression,
 } from "../utilities/node-types.js";
-import { shouldPrintComma } from "../utilities/should-print-comma.js";
 import { startsWithNoLookaheadToken } from "../utilities/starts-with-no-lookahead-token.js";
 import { printReturnType, shouldPrintParamsWithoutParens } from "./function.js";
 import { printFunctionParameters } from "./function-parameters.js";
+import { printTrailingComma } from "./miscellaneous.js";
 
 /**
  * @import AstPath from "../../common/ast-path.js"
@@ -291,8 +291,9 @@ function printArrowFunctionBody(
 ) {
   const { node, parent } = path;
 
-  const trailingComma =
-    args.expandLastArg && shouldPrintComma(options, "all") ? ifBreak(",") : "";
+  const trailingComma = args.expandLastArg
+    ? printTrailingComma(options, "all")
+    : "";
 
   // if the arrow function is expanded as last argument, we are adding a
   // level of indentation and need to add a softline to align the closing )

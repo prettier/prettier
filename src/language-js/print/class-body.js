@@ -17,8 +17,8 @@ import {
 } from "../utilities/comments.js";
 import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
 import { isNextLineEmpty } from "../utilities/is-next-line-empty.js";
-import { shouldPrintComma } from "../utilities/should-print-comma.js";
 import { shouldHugTheOnlyParameter } from "./function-parameters.js";
+import { printTrailingComma } from "./miscellaneous.js";
 
 /*
 - `ClassBody`
@@ -49,8 +49,8 @@ function printClassBody(path, options, print) {
 
       if (parent.inexact || !isLast) {
         parts.push(",");
-      } else if (shouldPrintComma(options)) {
-        parts.push(ifBreak(","));
+      } else {
+        parts.push(printTrailingComma(options));
       }
     }
 

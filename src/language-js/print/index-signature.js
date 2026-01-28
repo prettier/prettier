@@ -1,12 +1,6 @@
-import {
-  group,
-  ifBreak,
-  indent,
-  join,
-  softline,
-} from "../../document/index.js";
-import { shouldPrintComma } from "../utilities/should-print-comma.js";
+import { group, indent, join, softline } from "../../document/index.js";
 import { printClassMemberSemicolon } from "./class.js";
+import { printTrailingComma } from "./miscellaneous.js";
 import { printTypeAnnotationProperty } from "./type-annotation.js";
 
 function printIndexSignature(path, options, print) {
@@ -16,9 +10,7 @@ function printIndexSignature(path, options, print) {
   // aren't, this is more like a computed property name than an array.
   // So we leave off the trailing comma when there's just one parameter.
   const trailingComma =
-    node.parameters.length > 1
-      ? ifBreak(shouldPrintComma(options) ? "," : "")
-      : "";
+    node.parameters.length > 1 ? printTrailingComma(options) : "";
 
   const parametersGroup = group([
     indent([softline, join([", ", softline], path.map(print, "parameters"))]),

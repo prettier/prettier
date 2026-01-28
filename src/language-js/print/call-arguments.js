@@ -34,10 +34,12 @@ import {
   isRegExpLiteral,
   isStringLiteral,
 } from "../utilities/node-types.js";
-import { shouldPrintComma } from "../utilities/should-print-comma.js";
 import { stripChainElementWrappers } from "../utilities/strip-chain-element-wrappers.js";
 import { isConciselyPrintedArray } from "./array.js";
-import { printDanglingCommentsInList } from "./miscellaneous.js";
+import {
+  printDanglingCommentsInList,
+  printTrailingComma,
+} from "./miscellaneous.js";
 
 /*
 - `NewExpression`
@@ -95,9 +97,8 @@ function printCallArguments(path, options, print) {
     // Dynamic imports cannot have trailing commas
     node.type !== "ImportExpression" &&
     node.type !== "TSImportType" &&
-    node.type !== "TSExternalModuleReference" &&
-    shouldPrintComma(options, "all")
-      ? ","
+    node.type !== "TSExternalModuleReference"
+      ? printTrailingComma(options, "all")
       : "";
 
   function allArgsBrokenOut() {
@@ -187,7 +188,7 @@ function printCallArguments(path, options, print) {
   const contents = [
     "(",
     indent([softline, ...printedArguments]),
-    ifBreak(maybeTrailingComma),
+    maybeTrailingComma,
     softline,
     ")",
   ];
