@@ -13,7 +13,7 @@ import {
 } from "../loc.js";
 import getVisitorKeys from "../traverse/get-visitor-keys.js";
 import { CommentCheckFlags, getComments, hasComment } from "./comments.js";
-import createTypeCheckFunction from "./create-type-check-function.js";
+import { createTypeCheckFunction } from "./create-type-check-function.js";
 import getRaw from "./get-raw.js";
 import { hasNodeIgnoreComment } from "./has-node-ignore-comment.js";
 import isBlockComment from "./is-block-comment.js";
@@ -879,7 +879,6 @@ function stripChainElementWrappers(node) {
 }
 
 export {
-  createTypeCheckFunction,
   getCallArguments,
   getCallArgumentSelector,
   getFunctionParameters,

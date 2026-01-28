@@ -13,10 +13,10 @@ import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
 import UnexpectedNodeError from "../../utilities/unexpected-node-error.js";
 import { locEnd, locStart } from "../loc.js";
 import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
+import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
 import getTextWithoutComments from "../utilities/get-text-without-comments.js";
 import { isStringLiteral } from "../utilities/node-types.js";
 import {
-  createTypeCheckFunction,
   isShorthandSpecifier,
   needsHardlineAfterDanglingComment,
   shouldPrintComma,

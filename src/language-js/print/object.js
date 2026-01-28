@@ -17,13 +17,10 @@ import {
   getComments,
   hasComment,
 } from "../utilities/comments.js";
+import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
 import getTextWithoutComments from "../utilities/get-text-without-comments.js";
 import { isObjectType } from "../utilities/node-types.js";
-import {
-  createTypeCheckFunction,
-  isNextLineEmpty,
-  shouldPrintComma,
-} from "../utilities/utilities.js";
+import { isNextLineEmpty, shouldPrintComma } from "../utilities/utilities.js";
 import { shouldHugTheOnlyParameter } from "./function-parameters.js";
 import {
   printDanglingCommentsInList,

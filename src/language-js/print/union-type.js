@@ -13,13 +13,13 @@ import {
 } from "../../main/comments/print.js";
 import needsParentheses from "../parentheses/needs-parentheses.js";
 import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
+import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
 import {
   isConditionalType,
   isTupleType,
   isTypeAlias,
 } from "../utilities/node-types.js";
 import {
-  createTypeCheckFunction,
   hasLeadingOwnLineComment,
   shouldUnionTypePrintOwnComments,
 } from "../utilities/utilities.js";

@@ -1,4 +1,4 @@
-import createTypeCheckFunction from "./create-type-check-function.js";
+import { createTypeCheckFunction } from "./create-type-check-function.js";
 
 const isFlowKeywordType = createTypeCheckFunction([
   "AnyTypeAnnotation",

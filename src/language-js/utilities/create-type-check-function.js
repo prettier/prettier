@@ -31,4 +31,4 @@ function createTypeCheckFunction(typesArray) {
   return (node) => types.has(node?.type);
 }
 
-export default createTypeCheckFunction;
+export { createTypeCheckFunction };

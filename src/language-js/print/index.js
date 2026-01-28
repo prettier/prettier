@@ -9,11 +9,9 @@ import { printComments } from "../../main/comments/print.js";
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
 import needsParentheses from "../parentheses/needs-parentheses.js";
 import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
+import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
 import isIgnored from "../utilities/is-ignored.js";
-import {
-  createTypeCheckFunction,
-  isIifeCalleeOrTaggedTemplateExpressionTag,
-} from "../utilities/utilities.js";
+import { isIifeCalleeOrTaggedTemplateExpressionTag } from "../utilities/utilities.js";
 import { printAngular } from "./angular.js";
 import { printDecorators } from "./decorators.js";
 import { printEstree } from "./estree.js";

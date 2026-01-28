@@ -512,6 +512,12 @@ const configs = [
       ],
     },
   },
+  {
+    files: ["src/language-js/utilities/utilities.js"],
+    rules: {
+      "unicorn/prefer-export-from": ["error", { ignoreUsedVariables: false }],
+    },
+  },
 ];
 
 export default configs;

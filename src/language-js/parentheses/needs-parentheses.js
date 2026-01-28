@@ -1,4 +1,5 @@
 import { hasComment } from "../utilities/comments.js";
+import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
 import {
   isArrayExpression,
   isBinaryCastExpression,
@@ -13,7 +14,6 @@ import {
   isUnionType,
 } from "../utilities/node-types.js";
 import {
-  createTypeCheckFunction,
   getFunctionParameters,
   getPrecedence,
   isBitwiseOperator,
