@@ -23,4 +23,4 @@ function isMeaningfulEmptyStatement({ node, parent }) {
   return false;
 }
 
-export default isMeaningfulEmptyStatement;
+export { isMeaningfulEmptyStatement };

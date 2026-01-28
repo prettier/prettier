@@ -1,9 +1,9 @@
+import { isMeaningfulEmptyStatement } from "../utilities/is-meaningful-empty-statement.js";
 import {
   isArrayExpression,
   isBigIntLiteral,
   isStringLiteral,
 } from "../utilities/node-types.js";
-import { isMeaningfulEmptyStatement } from "../utilities/utilities.js";
 import { cleanChainExpression } from "./chain-expression.js";
 import { cleanKey } from "./key.js";
 import { cleanRegExpLiteral } from "./regexp-literal.js";

@@ -8,15 +8,13 @@ import {
 import { printDanglingComments } from "../../main/comments/print.js";
 import UnexpectedNodeError from "../../utilities/unexpected-node-error.js";
 import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
+import { isMeaningfulEmptyStatement } from "../utilities/is-meaningful-empty-statement.js";
 import {
   isArrayExpression,
   isLiteral,
   isObjectExpression,
 } from "../utilities/node-types.js";
-import {
-  isMeaningfulEmptyStatement,
-  isMethod,
-} from "../utilities/utilities.js";
+import { isMethod } from "../utilities/utilities.js";
 import { printArray } from "./array.js";
 import { printArrowFunction } from "./arrow-function.js";
 import {

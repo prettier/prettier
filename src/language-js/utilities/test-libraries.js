@@ -1,4 +1,4 @@
-import isNodeMatches from "./is-node-matches.js";
+import { isNodeMatches } from "./is-node-matches.js";
 import {
   isCallExpression,
   isFunctionOrArrowExpression,

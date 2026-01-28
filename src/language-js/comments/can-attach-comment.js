@@ -2,11 +2,11 @@ import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
 import {
   createTypeCheckFunction,
   getFunctionParameters,
-  isMeaningfulEmptyStatement,
   isMethod,
   isShorthandSpecifier,
   isTsAsConstExpression,
 } from "../utilities/utilities.js";
+export { isMeaningfulEmptyStatement } from "../utilities/is-meaningful-empty-statement.js";
 
 /**
 @import {Node} from "../types/estree.js";
