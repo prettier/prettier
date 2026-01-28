@@ -5,11 +5,11 @@ import {
   isReturnOrThrowStatement,
 } from "../utilities/node-types.js";
 import { returnArgumentHasLeadingComment } from "../utilities/return-statement-has-leading-comment.js";
+import { stripChainElementWrappers } from "../utilities/strip-chain-element-wrappers.js";
 import {
   getLeftSidePathName,
   hasNakedLeftSide,
   hasNode,
-  stripChainElementWrappers,
 } from "../utilities/utilities.js";
 
 /**

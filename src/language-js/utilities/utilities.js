@@ -1,5 +1,4 @@
 import { hasDescendant } from "../../utilities/ast.js";
-import getStringWidth from "../../utilities/get-string-width.js";
 import hasNewline from "../../utilities/has-newline.js";
 import isNextLineEmptyAfterIndex from "../../utilities/is-next-line-empty.js";
 import isObject from "../../utilities/is-object.js";
@@ -20,19 +19,14 @@ import isBlockComment from "./is-block-comment.js";
 import isFlowKeywordType from "./is-flow-keyword-type.js";
 import isTsKeywordType from "./is-ts-keyword-type.js";
 import {
-  isArrayExpression,
   isBinaryCastExpression,
   isCallExpression,
-  isCallLikeExpression,
   isChainElementWrapper,
-  isFunctionOrArrowExpression,
   isIntersectionType,
   isJsxElement,
   isLiteral,
   isMemberExpression,
   isNumericLiteral,
-  isObjectExpression,
-  isRegExpLiteral,
   isStringLiteral,
   isUnionType,
 } from "./node-types.js";
@@ -143,14 +137,6 @@ function isSignedNumericLiteral(node) {
     isNumericLiteral(node.argument)
   );
 }
-
-const isSingleWordType = createTypeCheckFunction([
-  "Identifier",
-  "ThisExpression",
-  "Super",
-  "PrivateName",
-  "PrivateIdentifier",
-]);
 
 function isMethod(node) {
   return (
@@ -357,34 +343,6 @@ function needsHardlineAfterDanglingComment(node) {
   return lastDanglingComment && !isBlockComment(lastDanglingComment);
 }
 
-// Logic to check for args with multiple anonymous functions. For instance,
-// the following call should be split on multiple lines for readability:
-// source.pipe(map((x) => x + x), filter((x) => x % 2 === 0))
-function isFunctionCompositionArgs(args) {
-  if (args.length <= 1) {
-    return false;
-  }
-  let count = 0;
-  for (let arg of args) {
-    if (isFunctionOrArrowExpression(arg)) {
-      count += 1;
-      if (count > 1) {
-        return true;
-      }
-    } else {
-      arg = stripChainElementWrappers(arg);
-      if (isCallExpression(arg)) {
-        for (const childArg of getCallArguments(arg)) {
-          if (isFunctionOrArrowExpression(childArg)) {
-            return true;
-          }
-        }
-      }
-    }
-  }
-  return false;
-}
-
 // Logic to determine if a call is a “long curried function call”.
 // See https://github.com/prettier/prettier/issues/1420.
 //
@@ -404,89 +362,6 @@ function isLongCurriedCallExpression(path) {
     parent.arguments.length > 0 &&
     node.arguments.length > parent.arguments.length
   );
-}
-
-const simpleCallArgumentUnaryOperators = new Set(["!", "-", "+", "~"]);
-
-/**
- * @param {any} node
- * @param {number} depth
- * @returns {boolean}
- */
-function isSimpleCallArgument(node, depth = 2) {
-  if (depth <= 0) {
-    return false;
-  }
-
-  const isChildSimple = (child) => isSimpleCallArgument(child, depth - 1);
-
-  node = stripChainElementWrappers(node);
-
-  if (isRegExpLiteral(node)) {
-    return (
-      // @ts-expect-error -- safe
-      getStringWidth(node.pattern ?? node.regex.pattern) <= 5
-    );
-  }
-
-  if (
-    isLiteral(node) ||
-    isSingleWordType(node) ||
-    node.type === "ArgumentPlaceholder"
-  ) {
-    return true;
-  }
-
-  if (node.type === "TemplateLiteral") {
-    return (
-      node.quasis.every((element) => !element.value.raw.includes("\n")) &&
-      node.expressions.every(isChildSimple)
-    );
-  }
-
-  if (isObjectExpression(node)) {
-    return node.properties.every(
-      (property) =>
-        // @ts-expect-error -- FIXME
-        !property.computed &&
-        // @ts-expect-error -- FIXME
-        (property.shorthand ||
-          // @ts-expect-error -- FIXME
-          (property.value && isChildSimple(property.value))),
-    );
-  }
-
-  if (isArrayExpression(node)) {
-    return node.elements.every((x) => x === null || isChildSimple(x));
-  }
-
-  if (isCallLikeExpression(node)) {
-    if (
-      node.type === "ImportExpression" ||
-      isSimpleCallArgument(node.callee, depth)
-    ) {
-      const args = getCallArguments(node);
-      return args.length <= depth && args.every(isChildSimple);
-    }
-    return false;
-  }
-
-  if (isMemberExpression(node)) {
-    return (
-      isSimpleCallArgument(node.object, depth) &&
-      isSimpleCallArgument(node.property, depth)
-    );
-  }
-
-  if (
-    (node.type === "UnaryExpression" &&
-      simpleCallArgumentUnaryOperators.has(node.operator)) ||
-    node.type === "UpdateExpression"
-  ) {
-    return isSimpleCallArgument(node.argument, depth);
-  }
-
-  return false;
 }
 
 /**
@@ -653,113 +528,6 @@ function isBitwiseOperator(operator) {
   );
 }
 
-function hasRestParameter(node) {
-  if (node.rest) {
-    return true;
-  }
-  const parameters = getFunctionParameters(node);
-  return parameters.at(-1)?.type === "RestElement";
-}
-
-const functionParametersCache = new WeakMap();
-function getFunctionParameters(node) {
-  if (functionParametersCache.has(node)) {
-    return functionParametersCache.get(node);
-  }
-  const parameters = [];
-  if (node.this) {
-    parameters.push(node.this);
-  }
-
-  parameters.push(...node.params);
-
-  if (node.rest) {
-    parameters.push(node.rest);
-  }
-  functionParametersCache.set(node, parameters);
-  return parameters;
-}
-
-function iterateFunctionParametersPath(path, iteratee) {
-  const { node } = path;
-  let index = 0;
-  const callback = () => iteratee(path, index++);
-  if (node.this) {
-    path.call(callback, "this");
-  }
-
-  path.each(callback, "params");
-
-  if (node.rest) {
-    path.call(callback, "rest");
-  }
-}
-
-const callArgumentsCache = new WeakMap();
-function getCallArguments(node) {
-  if (callArgumentsCache.has(node)) {
-    return callArgumentsCache.get(node);
-  }
-
-  let args;
-  if (node.type === "ImportExpression" || node.type === "TSImportType") {
-    args = [node.source];
-
-    if (node.options) {
-      args.push(node.options);
-    }
-  } else if (node.type === "TSExternalModuleReference") {
-    args = [node.expression];
-  } else {
-    args = node.arguments;
-  }
-
-  callArgumentsCache.set(node, args);
-  return args;
-}
-
-function iterateCallArgumentsPath(path, iteratee) {
-  const { node } = path;
-
-  if (node.type === "ImportExpression" || node.type === "TSImportType") {
-    path.call(() => iteratee(path, 0), "source");
-
-    if (node.options) {
-      path.call(() => iteratee(path, 1), "options");
-    }
-  } else if (node.type === "TSExternalModuleReference") {
-    path.call(() => iteratee(path, 0), "expression");
-  } else {
-    path.each(iteratee, "arguments");
-  }
-}
-
-function getCallArgumentSelector(node, index) {
-  if (node.type === "ImportExpression" || node.type === "TSImportType") {
-    if (index === 0 || index === (node.options ? -2 : -1)) {
-      return ["source"];
-    }
-    if (node.options && (index === 1 || index === -1)) {
-      return ["options"];
-    }
-    throw new RangeError("Invalid argument index");
-  } else if (node.type === "TSExternalModuleReference") {
-    if (index === 0 || index === -1) {
-      return ["expression"];
-    }
-  } else {
-    if (index < 0) {
-      index = node.arguments.length + index;
-    }
-    if (index >= 0 && index < node.arguments.length) {
-      return ["arguments", index];
-    }
-  }
-
-  /* c8 ignore next */
-  throw new RangeError("Invalid argument index");
-}
-
 /**
  * @param {Node} node
  * @returns {boolean}
@@ -866,33 +634,16 @@ function isIifeCalleeOrTaggedTemplateExpressionTag(path) {
   );
 }
 
-/**
-@param {Node} node
-@returns {Exclude<Node, NodeMap["ChainExpression"] | NodeMap["TSNonNullExpression"]>}
-*/
-function stripChainElementWrappers(node) {
-  while (isChainElementWrapper(node)) {
-    node = node.expression;
-  }
-
-  return node;
-}
-
 export {
-  getCallArguments,
-  getCallArgumentSelector,
-  getFunctionParameters,
   getLeftSide,
   getLeftSidePathName,
   getPrecedence,
   hasLeadingOwnLineComment,
   hasNakedLeftSide,
   hasNode,
-  hasRestParameter,
   isBitwiseOperator,
   isBooleanTypeCoercion,
   isFlowObjectTypePropertyAFunction,
-  isFunctionCompositionArgs,
   isIifeCalleeOrTaggedTemplateExpressionTag,
   isLoneShortArgument,
   isLongCurriedCallExpression,
@@ -903,18 +654,14 @@ export {
   isObjectProperty,
   isShorthandSpecifier,
   isSignedNumericLiteral,
-  isSimpleCallArgument,
   isSimpleExpressionByNodeCount,
   isSimpleType,
   isTemplateOnItsOwnLine,
   isTsAsConstExpression,
   isTypeAnnotationAFunction,
-  iterateCallArgumentsPath,
-  iterateFunctionParametersPath,
   needsHardlineAfterDanglingComment,
   shouldFlatten,
   shouldPrintComma,
   shouldUnionTypePrintOwnComments,
   startsWithNoLookaheadToken,
-  stripChainElementWrappers,
 };

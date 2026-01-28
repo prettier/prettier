@@ -14,6 +14,7 @@ import isNextLineEmptyAfterIndex from "../../utilities/is-next-line-empty.js";
 import { locEnd } from "../loc.js";
 import needsParentheses from "../parentheses/needs-parentheses.js";
 import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
+import { isSimpleCallArgument } from "../utilities/is-simple-call-argument.js";
 import {
   isCallExpression,
   isFunctionOrArrowExpression,
@@ -24,7 +25,6 @@ import {
   isLongCurriedCallExpression,
   isMemberish,
   isNextLineEmpty,
-  isSimpleCallArgument,
 } from "../utilities/utilities.js";
 import { printBindExpressionCallee } from "./bind-expression.js";
 import printCallArguments from "./call-arguments.js";

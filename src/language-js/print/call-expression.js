@@ -1,15 +1,14 @@
 import { group, join, lineSuffixBoundary } from "../../document/index.js";
 import needsParentheses from "../parentheses/needs-parentheses.js";
+import {
+  getCallArguments,
+  iterateCallArgumentsPath,
+} from "../utilities/call-arguments.js";
 import { hasComment } from "../utilities/comments.js";
 import { isNodeMatches } from "../utilities/is-node-matches.js";
 import { isCallExpression, isStringLiteral } from "../utilities/node-types.js";
 import { isTestCall } from "../utilities/test-libraries.js";
-import {
-  getCallArguments,
-  isMemberish,
-  isTemplateOnItsOwnLine,
-  iterateCallArgumentsPath,
-} from "../utilities/utilities.js";
+import { isMemberish, isTemplateOnItsOwnLine } from "../utilities/utilities.js";
 import printCallArguments from "./call-arguments.js";
 import printMemberChain from "./member-chain.js";
 import { printOptionalToken } from "./miscellaneous.js";

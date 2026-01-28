@@ -34,7 +34,7 @@ import {
   isObjectExpression,
   isStringLiteral,
 } from "../utilities/node-types.js";
-import { stripChainElementWrappers } from "../utilities/utilities.js";
+import { stripChainElementWrappers } from "../utilities/strip-chain-element-wrappers.js";
 
 /**
 @import AstPath from "../../common/ast-path.js";

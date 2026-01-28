@@ -1,8 +1,8 @@
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
 import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
+import { getFunctionParameters } from "../utilities/function-parameters.js";
 import { isMeaningfulEmptyStatement } from "../utilities/is-meaningful-empty-statement.js";
 import {
-  getFunctionParameters,
   isMethod,
   isShorthandSpecifier,
   isTsAsConstExpression,

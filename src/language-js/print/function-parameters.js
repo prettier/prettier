@@ -12,19 +12,21 @@ import {
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
 import { hasComment } from "../utilities/comments.js";
 import {
+  getFunctionParameters,
+  hasRestParameter,
+  iterateFunctionParametersPath,
+} from "../utilities/function-parameters.js";
+import {
   isArrayExpression,
   isObjectExpression,
   isObjectType,
 } from "../utilities/node-types.js";
 import { isTestCall } from "../utilities/test-libraries.js";
 import {
-  getFunctionParameters,
-  hasRestParameter,
   isFlowObjectTypePropertyAFunction,
   isNextLineEmpty,
   isSimpleType,
   isTypeAnnotationAFunction,
-  iterateFunctionParametersPath,
   shouldPrintComma,
 } from "../utilities/utilities.js";
 import { printDanglingCommentsInList } from "./miscellaneous.js";

@@ -10,6 +10,7 @@ import {
 } from "../../document/index.js";
 import getStringWidth from "../../utilities/get-string-width.js";
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
+import { getCallArguments } from "../utilities/call-arguments.js";
 import {
   isBinaryish,
   isBooleanLiteral,
@@ -23,7 +24,6 @@ import {
   isUnionType,
 } from "../utilities/node-types.js";
 import {
-  getCallArguments,
   hasLeadingOwnLineComment,
   isLoneShortArgument,
   isObjectProperty,

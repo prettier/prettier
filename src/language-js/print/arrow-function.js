@@ -15,6 +15,7 @@ import {
   printDanglingComments,
 } from "../../main/comments/print.js";
 import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
+import { getFunctionParameters } from "../utilities/function-parameters.js";
 import {
   isArrayExpression,
   isBinaryish,
@@ -23,7 +24,6 @@ import {
   isObjectExpression,
 } from "../utilities/node-types.js";
 import {
-  getFunctionParameters,
   hasLeadingOwnLineComment,
   isTemplateOnItsOwnLine,
   shouldPrintComma,

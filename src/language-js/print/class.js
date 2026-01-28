@@ -17,7 +17,7 @@ import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
 import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
 import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
 import { isMemberExpression } from "../utilities/node-types.js";
-import { stripChainElementWrappers } from "../utilities/utilities.js";
+import { stripChainElementWrappers } from "../utilities/strip-chain-element-wrappers.js";
 import { printAssignment } from "./assignment.js";
 import { printClassMemberDecorators } from "./decorators.js";
 import { printMethod } from "./function.js";
