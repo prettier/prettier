@@ -1,7 +1,6 @@
 import {
   group,
   hardline,
-  ifBreak,
   indent,
   join,
   line,
@@ -210,7 +209,7 @@ function printModuleSpecifiers(path, options, print) {
               options.bracketSpacing ? line : softline,
               join([",", line], groupedSpecifiers),
             ]),
-            ifBreak(printTrailingComma(options)),
+            printTrailingComma(options),
             options.bracketSpacing ? line : softline,
             "}",
           ]),
