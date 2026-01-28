@@ -90,7 +90,7 @@ function printCallArguments(path, options, print) {
     printedArguments.push(argDoc);
   });
 
-  const maybeTrailingComma =
+  const trailingComma =
     // Angular does not allow trailing comma
     path.root.type !== "NGRoot" &&
     // Dynamic imports cannot have trailing commas
@@ -102,7 +102,7 @@ function printCallArguments(path, options, print) {
 
   function allArgsBrokenOut() {
     return group(
-      ["(", indent([line, ...printedArguments]), maybeTrailingComma, line, ")"],
+      ["(", indent([line, ...printedArguments]), trailingComma, line, ")"],
       { shouldBreak: true },
     );
   }
@@ -187,7 +187,7 @@ function printCallArguments(path, options, print) {
   const contents = [
     "(",
     indent([softline, ...printedArguments]),
-    maybeTrailingComma,
+    trailingComma,
     softline,
     ")",
   ];
