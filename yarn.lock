@@ -5,12 +5,12 @@ __metadata:
   version: 8
   cacheKey: 10
 
-"@angular/compiler@npm:21.1.1":
-  version: 21.1.1
-  resolution: "@angular/compiler@npm:21.1.1"
+"@angular/compiler@npm:21.2.0-next.0":
+  version: 21.2.0-next.0
+  resolution: "@angular/compiler@npm:21.2.0-next.0"
   dependencies:
     tslib: "npm:^2.3.0"
-  checksum: 10/2c1cb821bb5d705751f9237bf54807458550012cbedcd7c6a2003ddf274d758023ef7fcb55ab53e7c0180417ef7324fdc14b35588a59c8a14834f6fb70f002f0
+  checksum: 10/61e5c75eff50de8ffcb3098fbbab7dbe3da885db5939d99965ab54cab1649771dc35dd57de0c7af0031a410f273afaac436ee66c63c639eb455175d38311b74a
   languageName: node
   linkType: hard
 
@@ -2883,12 +2883,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"angular-estree-parser@npm:15.3.0":
-  version: 15.3.0
-  resolution: "angular-estree-parser@npm:15.3.0"
+"angular-estree-parser@npm:15.4.3":
+  version: 15.4.3
+  resolution: "angular-estree-parser@npm:15.4.3"
   peerDependencies:
-    "@angular/compiler": ">=21.0.7 || >= 21.1.0-0"
-  checksum: 10/9266d6bf73fac7f2d96e6a7b306bef0a6b6563f4f11a36aa308d4ca2fda2868839c8831c2e95d5ea008636e061c1cdc0668c01fc9f9876eb1b5f6846217fc2ec
+    "@angular/compiler": ">=21.0.7 || >= 21.2.0-0"
+  checksum: 10/a31569c99bb89e20564c0caa77c8db28070170bbbb145fd5afdda77a0d535af71cd3bd13d1d25bd6fe6cffa81ae6ab57f37cd1a9ea1dcdb5039ac419945515ce
   languageName: node
   linkType: hard
 
@@ -8357,7 +8357,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "prettier@workspace:."
   dependencies:
-    "@angular/compiler": "npm:21.1.1"
+    "@angular/compiler": "npm:21.2.0-next.0"
     "@babel/code-frame": "npm:8.0.0-beta.4"
     "@babel/generator": "npm:8.0.0-beta.4"
     "@babel/parser": "npm:8.0.0-beta.4"
@@ -8376,7 +8376,7 @@ __metadata:
     "@typescript-eslint/visitor-keys": "npm:8.53.1"
     acorn: "npm:8.15.0"
     acorn-jsx: "npm:5.3.2"
-    angular-estree-parser: "npm:15.3.0"
+    angular-estree-parser: "npm:15.4.3"
     angular-html-parser: "npm:10.4.0"
     base64-arraybuffer-es6: "npm:3.1.0"
     browserslist: "npm:4.28.1"
