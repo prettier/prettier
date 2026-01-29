@@ -11,8 +11,8 @@ import hasNewline from "../../utilities/has-newline.js";
 import hasNewlineInRange from "../../utilities/has-newline-in-range.js";
 import { locEnd, locStart } from "../loc.js";
 import { CommentCheckFlags, getComments } from "../utilities/comments.js";
-import { stripComments } from "../utilities/strip-comments.js";
 import { isLineComment } from "../utilities/is-line-comment.js";
+import { stripComments } from "../utilities/strip-comments.js";
 import { printClassMemberSemicolon } from "./class.js";
 
 /**

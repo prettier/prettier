@@ -17,9 +17,9 @@ import {
   hasComment,
 } from "../utilities/comments.js";
 import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
-import { stripComments } from "../utilities/strip-comments.js";
 import { isNextLineEmpty } from "../utilities/is-next-line-empty.js";
 import { isObjectType } from "../utilities/node-types.js";
+import { stripComments } from "../utilities/strip-comments.js";
 import { shouldHugTheOnlyParameter } from "./function-parameters.js";
 import {
   printDanglingCommentsInList,
