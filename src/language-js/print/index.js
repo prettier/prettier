@@ -77,11 +77,9 @@ function print(path, options, print, args) {
 
   doc = printCommentsForFunction(path, options, doc);
 
-  const hasDecorators = isNonEmptyArray(node.decorators);
   const decoratorsDoc =
-    hasDecorators &&
     // `ClassExpression` prints own decorators
-    node.type !== "ClassExpression"
+    node.type !== "ClassExpression" && isNonEmptyArray(node.decorators)
       ? printDecorators(path, options, print)
       : "";
 
