@@ -5,7 +5,10 @@ import { getFixtures } from "./get-fixtures.js";
 import { getParsers } from "./get-parsers.js";
 import { testFixture } from "./run-test.js";
 import { stringifyOptionsForTitle } from "./stringify-options-for-title.js";
-import { isErrorTest, normalizeDirectory } from "./utilities.js";
+import {
+  isErrorTest as isErrorTestDirectory,
+  normalizeDirectory,
+} from "./utilities.js";
 import { verifyParsers } from "./verify-fixtures.js";
 
 /**
@@ -56,7 +59,7 @@ function runFormatTest(rawFixtures, explicitParsers, rawOptions) {
   // `IS_ERROR_TEST` mean to watch errors like:
   // - syntax parser hasn't supported yet
   // - syntax errors that should throws
-  const isErrorTest = isErrorTest(dirname);
+  const isErrorTest = isErrorTestDirectory(dirname);
 
   if (isErrorTest) {
     options = { errors: true, ...options };
