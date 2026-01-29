@@ -435,3 +435,44 @@ const getIconEngagementTypeFrom2 =
 
 ================================================================================
 `;
+
+exports[`issue-14563.ts - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+const myFunc =
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  <T extends any>(a: T) =>
+    (b: string) => {};
+
+=====================================output=====================================
+const myFunc =
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  <T extends any>(a: T) =>
+    (b: string) => {}
+
+================================================================================
+`;
+
+exports[`issue-14563.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const myFunc =
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  <T extends any>(a: T) =>
+    (b: string) => {};
+
+=====================================output=====================================
+const myFunc =
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  <T extends any>(a: T) =>
+    (b: string) => {};
+
+================================================================================
+`;

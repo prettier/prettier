@@ -4448,6 +4448,54 @@ const fastifyLoggerOptions = async (
 ================================================================================
 `;
 
+exports[`issue-14563.js - {"arrowParens":"always"} format 1`] = `
+====================================options=====================================
+arrowParens: "always"
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const createIdFilter =
+  /** @param {string} id */
+  (id) =>
+  /** @param {any} s */
+  (s) => s.id === id
+
+=====================================output=====================================
+const createIdFilter =
+  /** @param {string} id */
+  (id) =>
+    /** @param {any} s */
+    (s) =>
+      s.id === id;
+
+================================================================================
+`;
+
+exports[`issue-14563.js - {"arrowParens":"avoid"} format 1`] = `
+====================================options=====================================
+arrowParens: "avoid"
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const createIdFilter =
+  /** @param {string} id */
+  (id) =>
+  /** @param {any} s */
+  (s) => s.id === id
+
+=====================================output=====================================
+const createIdFilter =
+  /** @param {string} id */
+  id =>
+    /** @param {any} s */
+    s =>
+      s.id === id;
+
+================================================================================
+`;
+
 exports[`issue-14702.js - {"arrowParens":"always"} format 1`] = `
 ====================================options=====================================
 arrowParens: "always"
