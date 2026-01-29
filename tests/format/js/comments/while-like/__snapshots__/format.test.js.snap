@@ -1,0 +1,122 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`while.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+while(
+    true
+    // Comment
+  ) {}
+
+while(true)// Comment
+{}
+
+while(true){}// Comment
+
+while(true)/*Comment*/{}
+
+while(
+  true // Comment
+  && true // Comment
+  ){}
+
+while(true) {} // comment
+
+while(true) /* comment */ ++x; 
+
+while(1) // Comment
+  foo();
+
+=====================================output=====================================
+while (
+  true
+  // Comment
+) {}
+
+while (true) {
+  // Comment
+}
+
+while (true) {} // Comment
+
+while (true) {
+  /*Comment*/
+}
+
+while (
+  true && // Comment
+  true // Comment
+) {}
+
+while (true) {} // comment
+
+while (true) /* comment */ ++x;
+
+while (1)
+  // Comment
+  foo();
+
+================================================================================
+`;
+
+exports[`with.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+with(
+    true
+    // Comment
+  ) {}
+
+with(true)// Comment
+{}
+
+with(true){}// Comment
+
+with(true)/*Comment*/{}
+
+with(
+  true // Comment
+  && true // Comment
+  ){}
+
+with(true) {} // comment
+
+with(true) /* comment */ ++x;
+
+with(1) // Comment
+  foo();
+
+=====================================output=====================================
+with (true) // Comment
+{
+}
+
+with (true) { // Comment
+}
+
+with (true) {
+} // Comment
+
+with (true) /*Comment*/ {
+}
+
+with (true && // Comment
+  true) { // Comment
+}
+
+with (true) {
+} // comment
+
+with (true) /* comment */ ++x;
+
+with (1) // Comment
+  foo();
+
+================================================================================
+`;
