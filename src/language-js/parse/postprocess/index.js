@@ -254,7 +254,10 @@ function assertComments(comments, text) {
       // Flow
       const closingMark = commentText.endsWith("*-/") ? "*-/" : "*/";
       assert.equal("/*" + comment.value + closingMark, commentText);
+      return;
     }
+
+    throw new Error(`Unknown comment type '${comment.type}'.`);
   }
 }
 
