@@ -30,6 +30,7 @@ function testFixture(fixture) {
       .filter((parser) => !failedTests.shouldDisable(filepath, parser))
       .map((parser) => getTestCase(fixture, parser));
 
+    // If it's not in `_errors_`, it must have some tests can format
     if (!context.isErrorTest) {
       expect(testCases.some(({ expectFail }) => !expectFail)).toBe(true);
     }
