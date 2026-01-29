@@ -1,31 +1,54 @@
+import { commentsPropertyInOptions } from "../../constants.js";
 import replaceNonLineBreaksWithSpace from "../../utilities/replace-non-line-breaks-with-space.js";
 import { locEnd, locStart } from "../loc.js";
 
-function getTextWithoutComments(options, start, end) {
-  let text = options.originalText.slice(start, end);
+/**
+@import {Node, Comment} from "../types/estree.js"
+@typedef {Comment[]} Comments
+@typedef {{
+  originalText: string,
+  [commentsPropertyInOptions]: Comments
+}} Options
+*/
 
-  for (const comment of options[Symbol.for("comments")]) {
-    const commentStart = locStart(comment);
-    // Comments are sorted, we can escape if the comment is after the range
-    if (commentStart >= end) {
-      break;
-    }
+/**
+ */
 
-    const commentEnd = locEnd(comment);
-    if (commentEnd <= start) {
-      continue;
-    }
-
-    const startIndex = Math.max(commentStart - start, 0);
-    const endIndex = commentEnd - start;
+/**
+@param {string} text
+@param {Comments} comments
+@returns {string}
+*/
+function getTextWithoutCommentsInternal(text, comments) {
+  for (const comment of comments) {
+    const start = locStart(comment);
+    const end = locEnd(comment);
 
     text =
-      text.slice(0, startIndex) +
-      replaceNonLineBreaksWithSpace(text.slice(startIndex, endIndex)) +
-      text.slice(endIndex);
+      text.slice(0, start) +
+      replaceNonLineBreaksWithSpace(text.slice(start, end)) +
+      text.slice(end);
   }
 
   return text;
 }
 
-export default getTextWithoutComments;
+/** @type {WeakMap<Comment[], string>} */
+const cache = new WeakMap();
+
+/**
+@param {Options} options
+@returns {string}
+*/
+function getTextWithoutComments(options) {
+  const comments = options[commentsPropertyInOptions];
+  if (!cache.has(comments)) {
+    cache.set(
+      comments,
+      getTextWithoutCommentsInternal(options.originalText, comments),
+    );
+  }
+  return cache.get(comments);
+}
+
+export { getTextWithoutComments };

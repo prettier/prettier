@@ -11,7 +11,7 @@ import hasNewline from "../../utilities/has-newline.js";
 import hasNewlineInRange from "../../utilities/has-newline-in-range.js";
 import { locEnd, locStart } from "../loc.js";
 import { CommentCheckFlags, getComments } from "../utilities/comments.js";
-import getTextWithoutComments from "../utilities/get-text-without-comments.js";
+import { getTextWithoutComments } from "../utilities/get-text-without-comments.js";
 import { isLineComment } from "../utilities/is-line-comment.js";
 import { printClassMemberSemicolon } from "./class.js";
 
@@ -70,13 +70,11 @@ function printTypeScriptMappedType(path, options, print) {
   // Break after `{` like `printObject`
   let shouldBreak = false;
   if (options.objectWrap === "preserve") {
-    const start = locStart(node);
-    const textAfter = getTextWithoutComments(
-      options,
-      start + 1,
-      locStart(node.key),
-    );
-    const nextTokenIndex = start + 1 + textAfter.search(/\S/);
+    const text = getTextWithoutComments(options);
+    // Skip `{`
+    const start = locStart(node) + 1;
+    const textAfter = text.slice(start);
+    const nextTokenIndex = start + textAfter.search(/\S/);
     if (hasNewlineInRange(options.originalText, start, nextTokenIndex)) {
       shouldBreak = true;
     }
