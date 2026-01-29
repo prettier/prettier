@@ -16,7 +16,7 @@ import { locEnd, locStart } from "../loc.js";
 @param {Comments} comments
 @returns {string}
 */
-function stripCommentsInternal(text, comments) {
+function stripCommentsFromText(text, comments) {
   for (const comment of comments) {
     const start = locStart(comment);
     const end = locEnd(comment);
@@ -40,7 +40,7 @@ const cache = new WeakMap();
 function stripComments(options) {
   const comments = options[commentsPropertyInOptions];
   if (!cache.has(comments)) {
-    cache.set(comments, stripCommentsInternal(options.originalText, comments));
+    cache.set(comments, stripCommentsFromText(options.originalText, comments));
   }
   return cache.get(comments);
 }
