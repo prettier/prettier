@@ -41,9 +41,12 @@ function printFlowMappedTypeProperty(path, options, print) {
   return [
     group([
       node.variance ? print("variance") : "",
-      "[",
-      indent([print("keyTparam"), " in ", print("sourceType")]),
-      "]",
+      group([
+        "[",
+        indent([softline, print("keyTparam"), " in ", print("sourceType")]),
+        softline,
+        "]",
+      ]),
       printFlowMappedTypeOptionalModifier(node.optional),
       ": ",
       print("propType"),
