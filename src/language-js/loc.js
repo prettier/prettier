@@ -50,10 +50,8 @@ function locEnd(node) {
       node.type === "ExportDefaultDeclaration" ||
       node.type === "ExportNamedDeclaration" ||
       node.type === "ExportAllDeclaration") &&
-    // @ts-expect-error -- Added in postprocess.js
     node.__end
   ) {
-    // @ts-expect-error -- safe
     return node.__end;
   }
 
