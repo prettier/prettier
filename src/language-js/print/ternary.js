@@ -17,7 +17,7 @@ import {
   getComments,
   hasComment,
 } from "../utilities/comments.js";
-import { isBlockComment } from "../utilities/is-block-comment.js";
+import { isBlockComment } from "../utilities/comment-types.js";
 import { isLoneShortArgument } from "../utilities/is-lone-short-argument.js";
 import { isSimpleExpressionByNodeCount } from "../utilities/is-simple-expression-by-node-count.js";
 import {
