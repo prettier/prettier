@@ -68,7 +68,6 @@ function runFormatTest(rawFixtures, explicitParsers, rawOptions) {
   // Make sure tests are in correct location
 
   const context = {
-    isErrorTest,
     dirname,
     stringifiedOptions: stringifyOptionsForTitle(rawOptions),
     parsers: getParsers(dirname, explicitParsers),
