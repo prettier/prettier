@@ -86,7 +86,11 @@ function printDeclareToken(path) {
     node.declare ||
       // Flow
       (isFlowDeclareNode(node) &&
-        path.parent.type !== "DeclareExportDeclaration")
+        path.parent.type !== "DeclareExportDeclaration" &&
+        // @ts-expect-error -- wrong types
+        !(node.type === "DeclareFunction" && node.implicitDeclare) &&
+        // @ts-expect-error -- FIXME
+        !(node.type === "DeclareComponent" && node.body === null))
       ? "declare "
       : ""
   );
