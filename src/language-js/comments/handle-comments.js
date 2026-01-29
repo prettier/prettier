@@ -995,7 +995,7 @@ function handleSwitchDefaultCaseComments({
 }
 
 /**
- * Handle `Comment2` and `Comment4`.
+ * Handle `Comment2`, `Comment4`, `Comment6`.
  *
  *   type Foo = (
  *     | "thing1" // Comment1
@@ -1006,6 +1006,11 @@ function handleSwitchDefaultCaseComments({
  *     | "thing1" // Comment3
  *     | "thing2" // Comment4
  *   ) & Bar;
+ *
+ *   type Foo = (
+ *     | "thing1" // Comment5
+ *     | "thing2" // Comment6
+ *   ) | Bar;
  *
  * @param {CommentContext} context
  * @returns {boolean}
