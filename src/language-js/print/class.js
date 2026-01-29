@@ -56,6 +56,21 @@ const isInterface = createTypeCheckFunction([
 - `RecordDeclaration`(flow)
 - `TSInterfaceDeclaration`(TypeScript)
 */
+function printClass(path, options, print) {
+  const doc = printClassWithoutDecorators(path, options, print);
+
+  const { node } = path;
+  if (node.type === "ClassExpression" && isNonEmptyArray(node.decorators)) {
+    const decoratorsDoc = printDecorators(path, options, print);
+    const needsParens = needsParentheses(path, options);
+    return needsParens
+      ? [indent([softline, decoratorsDoc, doc]), softline]
+      : [decoratorsDoc, doc];
+  }
+
+  return doc;
+}
+
 function printClassWithoutDecorators(path, options, print) {
   const { node } = path;
   const isPrintingInterface = isInterface(node);
@@ -143,21 +158,6 @@ function printClassWithoutDecorators(path, options, print) {
   parts.push(print("body"));
 
   return parts;
-}
-
-function printClass(path, options, print) {
-  const doc = printClassWithoutDecorators(path, options, print);
-
-  const { node } = path;
-  if (node.type === "ClassExpression" && isNonEmptyArray(node.decorators)) {
-    const decoratorsDoc = printDecorators(path, options, print);
-    const needsParens = needsParentheses(path, options);
-    return needsParens
-      ? [indent([softline, decoratorsDoc, doc]), softline]
-      : [decoratorsDoc, doc];
-  }
-
-  return doc;
 }
 
 function hasMultipleHeritage(node) {
