@@ -1,6 +1,7 @@
 import {
   group,
   hardline,
+  ifBreak,
   indent,
   line,
   softline,
@@ -12,6 +13,7 @@ import {
   isCallExpression,
   isMemberExpression,
 } from "../utilities/node-types.js";
+import { shouldPrintTrailingComma } from "../utilities/should-print-trailing-comma.js";
 
 /**
 @import AstPath from "../../common/ast-path.js"
@@ -192,6 +194,14 @@ function printDanglingCommentsInList(path, options, filter) {
     : "";
 }
 
+/**
+ * @param {("es5" | "all")} [level]
+ * @returns {Doc}
+ */
+function printTrailingComma(options, level = "es5") {
+  return shouldPrintTrailingComma(options, level) ? ifBreak(",") : "";
+}
+
 export {
   adjustClause,
   printAbstractToken,
@@ -201,6 +211,7 @@ export {
   printIfOrWhileCondition as printDoWhileStatementCondition,
   printIfOrWhileCondition as printIfStatementCondition,
   printOptionalToken,
+  printTrailingComma,
   printTypeScriptAccessibilityToken,
   printIfOrWhileCondition as printWhileStatementCondition,
 };

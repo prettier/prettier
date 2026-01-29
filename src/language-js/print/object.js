@@ -2,7 +2,6 @@ import * as assert from "#universal/assert";
 import {
   group,
   hardline,
-  ifBreak,
   indent,
   line,
   softline,
@@ -21,11 +20,11 @@ import { createTypeCheckFunction } from "../utilities/create-type-check-function
 import getTextWithoutComments from "../utilities/get-text-without-comments.js";
 import { isNextLineEmpty } from "../utilities/is-next-line-empty.js";
 import { isObjectType } from "../utilities/node-types.js";
-import { shouldPrintComma } from "../utilities/should-print-comma.js";
 import { shouldHugTheOnlyParameter } from "./function-parameters.js";
 import {
   printDanglingCommentsInList,
   printOptionalToken,
+  printTrailingComma,
 } from "./miscellaneous.js";
 import { printTypeAnnotationProperty } from "./type-annotation.js";
 
@@ -149,7 +148,7 @@ function printObject(path, options, print) {
     content = [
       "{",
       indent([spacing, ...parts]),
-      ifBreak(canHaveTrailingSeparator && shouldPrintComma(options) ? "," : ""),
+      canHaveTrailingSeparator ? printTrailingComma(options) : "",
       spacing,
       "}",
       printOptionalToken(path),

@@ -4,7 +4,6 @@ import {
   conditionalGroup,
   group,
   hardline,
-  ifBreak,
   indent,
   line,
   softline,
@@ -34,10 +33,12 @@ import {
   isRegExpLiteral,
   isStringLiteral,
 } from "../utilities/node-types.js";
-import { shouldPrintComma } from "../utilities/should-print-comma.js";
 import { stripChainElementWrappers } from "../utilities/strip-chain-element-wrappers.js";
 import { isConciselyPrintedArray } from "./array.js";
-import { printDanglingCommentsInList } from "./miscellaneous.js";
+import {
+  printDanglingCommentsInList,
+  printTrailingComma,
+} from "./miscellaneous.js";
 
 /*
 - `NewExpression`
@@ -89,20 +90,19 @@ function printCallArguments(path, options, print) {
     printedArguments.push(argDoc);
   });
 
-  const maybeTrailingComma =
+  const trailingComma =
     // Angular does not allow trailing comma
     path.root.type !== "NGRoot" &&
     // Dynamic imports cannot have trailing commas
     node.type !== "ImportExpression" &&
     node.type !== "TSImportType" &&
-    node.type !== "TSExternalModuleReference" &&
-    shouldPrintComma(options, "all")
-      ? ","
+    node.type !== "TSExternalModuleReference"
+      ? printTrailingComma(options, "all")
       : "";
 
   function allArgsBrokenOut() {
     return group(
-      ["(", indent([line, ...printedArguments]), maybeTrailingComma, line, ")"],
+      ["(", indent([line, ...printedArguments]), trailingComma, line, ")"],
       { shouldBreak: true },
     );
   }
@@ -187,7 +187,7 @@ function printCallArguments(path, options, print) {
   const contents = [
     "(",
     indent([softline, ...printedArguments]),
-    ifBreak(maybeTrailingComma),
+    trailingComma,
     softline,
     ")",
   ];

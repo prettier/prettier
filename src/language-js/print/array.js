@@ -21,7 +21,7 @@ import {
   isObjectExpression,
   isTupleType,
 } from "../utilities/node-types.js";
-import { shouldPrintComma } from "../utilities/should-print-comma.js";
+import { shouldPrintTrailingComma } from "../utilities/should-print-trailing-comma.js";
 import {
   printDanglingCommentsInList,
   printOptionalToken,
@@ -92,7 +92,7 @@ function printArray(path, options, print) {
       ? ""
       : needsForcedTrailingComma
         ? ","
-        : !shouldPrintComma(options)
+        : !shouldPrintTrailingComma(options)
           ? ""
           : shouldUseConciseFormatting
             ? ifBreak(",", "", { groupId })
