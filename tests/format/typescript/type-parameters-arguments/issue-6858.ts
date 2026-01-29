@@ -8,7 +8,6 @@ testFunc<
 Some multiline string
 In here`);
 
-
 testFunc(
 //#region
 {
