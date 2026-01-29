@@ -111,7 +111,7 @@ function handleEndOfLineComment(context) {
     handleLastUnionElementInExpression,
     handleLastBinaryOperatorOperand,
     handleTSMappedTypeComments,
-    handleCommentAfterArrowExpression,
+    handleArrowExpressionComments,
     handlePropertySignatureComments,
     handleBinaryCastExpressionComment,
   ].some((fn) => fn(context));
@@ -1208,6 +1208,23 @@ function handleBinaryCastExpressionComment({
 }
 
 /**
+@param {Comment} comment
+@param {NodeMap["ArrowFunctionExpression"]} arrowFunctionExpression
+*/
+function isCommentBeforeArrowFunctionExpressionArrow(
+  comment,
+  arrowFunctionExpression,
+  options,
+) {
+  const arrowTokenIndex = stripComments(options).lastIndexOf(
+    "=>",
+    locStart(arrowFunctionExpression.body),
+  );
+
+  return locEnd(comment) < arrowTokenIndex;
+}
+
+/**
 Avoid attaching multiline comment to node before arrow
 
 ```ts
@@ -1220,25 +1237,30 @@ null;
 @param {CommentContext} context
 @returns {boolean}
 */
-function handleCommentAfterArrowExpression({
+function handleArrowExpressionComments({
   comment,
   enclosingNode,
   followingNode,
   precedingNode,
+  options,
 }) {
-  if (!(enclosingNode && followingNode && precedingNode)) {
+  if (
+    enclosingNode?.type !== "ArrowFunctionExpression" ||
+    !followingNode ||
+    !precedingNode
+  ) {
     return false;
   }
 
-  // TODO[@fisker]: This should only matters when it's before `=>`,
+  const isBeforeArrow = isCommentBeforeArrowFunctionExpressionArrow(
+    comment,
+    enclosingNode,
+    options,
+  );
+
   // The node type of `ArrowFunctionExpression.returnType` shouldn't check
-  if (
-    enclosingNode.type === "ArrowFunctionExpression" &&
-    enclosingNode.returnType === precedingNode &&
-    (precedingNode.type === "TSTypeAnnotation" ||
-      precedingNode.type === "TypeAnnotation")
-  ) {
-    addLeadingComment(followingNode, comment);
+  if (!isBeforeArrow) {
+    addBlockOrNotComment(followingNode, comment);
     return true;
   }
 

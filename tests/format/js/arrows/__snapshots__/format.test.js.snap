@@ -4448,6 +4448,262 @@ const fastifyLoggerOptions = async (
 ================================================================================
 `;
 
+exports[`issue-17421.js - {"arrowParens":"always"} format 1`] = `
+====================================options=====================================
+arrowParens: "always"
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+a =
+  (id) => // 11
+	(id) => id
+a =
+  (id) =>
+  // 12
+	(id) => id
+
+a =
+  (id) => // 21
+	{}
+a =
+  (id) =>
+  // 22
+	{}
+
+a =
+  (id) => // 21
+	{call()}
+a =
+  (id) =>
+  // 22
+	{call()}
+
+a =
+  () => // 31
+	(id) => id
+a =
+  () =>
+  // 32
+	(id) => id
+
+a =
+  (id) => /** @param {string} id */
+	(id) => id
+
+a =
+  (id) =>
+  /** @param {string} id */
+	(id) => id
+
+a =
+  (id) =>
+  /** @param {string} id */ (id) => id
+
+a =
+  () => /** @param {string} id */
+	(id) => id
+
+a =
+  () =>
+  /** @param {string} id */
+	(id) => id
+
+a =
+  () =>
+  /** @param {string} id */ (id) => id
+
+=====================================output=====================================
+a =
+  (id) =>
+  // 11
+  (id) =>
+    id;
+a =
+  (id) =>
+  // 12
+  (id) =>
+    id;
+
+a = (id) => {
+  // 21
+};
+a = (id) =>
+  // 22
+  {};
+
+a = (id) => {
+  // 21
+  call();
+};
+a = (id) =>
+  // 22
+  {
+    call();
+  };
+
+a =
+  () =>
+  // 31
+  (id) =>
+    id;
+a =
+  () =>
+  // 32
+  (id) =>
+    id;
+
+a = (id) => /** @param {string} id */ (id) => id;
+
+a =
+  (id) =>
+  /** @param {string} id */
+  (id) =>
+    id;
+
+a = (id) => /** @param {string} id */ (id) => id;
+
+a = () => /** @param {string} id */ (id) => id;
+
+a =
+  () =>
+  /** @param {string} id */
+  (id) =>
+    id;
+
+a = () => /** @param {string} id */ (id) => id;
+
+================================================================================
+`;
+
+exports[`issue-17421.js - {"arrowParens":"avoid"} format 1`] = `
+====================================options=====================================
+arrowParens: "avoid"
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+a =
+  (id) => // 11
+	(id) => id
+a =
+  (id) =>
+  // 12
+	(id) => id
+
+a =
+  (id) => // 21
+	{}
+a =
+  (id) =>
+  // 22
+	{}
+
+a =
+  (id) => // 21
+	{call()}
+a =
+  (id) =>
+  // 22
+	{call()}
+
+a =
+  () => // 31
+	(id) => id
+a =
+  () =>
+  // 32
+	(id) => id
+
+a =
+  (id) => /** @param {string} id */
+	(id) => id
+
+a =
+  (id) =>
+  /** @param {string} id */
+	(id) => id
+
+a =
+  (id) =>
+  /** @param {string} id */ (id) => id
+
+a =
+  () => /** @param {string} id */
+	(id) => id
+
+a =
+  () =>
+  /** @param {string} id */
+	(id) => id
+
+a =
+  () =>
+  /** @param {string} id */ (id) => id
+
+=====================================output=====================================
+a =
+  id =>
+  // 11
+  id =>
+    id;
+a =
+  id =>
+  // 12
+  id =>
+    id;
+
+a = id => {
+  // 21
+};
+a = id =>
+  // 22
+  {};
+
+a = id => {
+  // 21
+  call();
+};
+a = id =>
+  // 22
+  {
+    call();
+  };
+
+a =
+  () =>
+  // 31
+  id =>
+    id;
+a =
+  () =>
+  // 32
+  id =>
+    id;
+
+a = id => /** @param {string} id */ id => id;
+
+a =
+  id =>
+  /** @param {string} id */
+  id =>
+    id;
+
+a = id => /** @param {string} id */ id => id;
+
+a = () => /** @param {string} id */ id => id;
+
+a =
+  () =>
+  /** @param {string} id */
+  id =>
+    id;
+
+a = () => /** @param {string} id */ id => id;
+
+================================================================================
+`;
+
 exports[`long-call-no-args.js - {"arrowParens":"always"} format 1`] = `
 ====================================options=====================================
 arrowParens: "always"
