@@ -712,6 +712,53 @@ function makeChainWalker2<
 ================================================================================
 `;
 
+exports[`issue-6858.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+testFunc<
+//#region
+{
+    testProp: number
+}
+//#endregion
+>(parserFunc\`
+Some multiline string
+In here\`);
+
+
+testFunc(
+//#region
+{
+    testProp: number
+}
+//#endregion
+)
+
+=====================================output=====================================
+testFunc<
+  //#region
+  {
+    testProp: number;
+  }
+  //#endregion
+>(parserFunc\`
+Some multiline string
+In here\`);
+
+testFunc(
+  //#region
+  {
+    testProp: number,
+  },
+  //#endregion
+);
+
+================================================================================
+`;
+
 exports[`long-function-arg.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
