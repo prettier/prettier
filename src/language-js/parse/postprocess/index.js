@@ -1,13 +1,18 @@
 import * as assert from "#universal/assert";
+import { commentsPropertyInOptions } from "../../../constants.js";
 import { locEnd, locEndWithFullText, locStart } from "../../loc.js";
 import { createTypeCheckFunction } from "../../utilities/create-type-check-function.js";
 import { getRaw } from "../../utilities/get-raw.js";
-import getTextWithoutComments from "../../utilities/get-text-without-comments.js";
 import { isBlockComment } from "../../utilities/is-block-comment.js";
 import { isLineComment } from "../../utilities/is-line-comment.js";
 import { isTypeCastComment } from "../../utilities/is-type-cast-comment.js";
+import { stripComments } from "../../utilities/strip-comments.js";
 import { mergeNestledJsdocComments } from "./merge-nestled-jsdoc-comments.js";
 import visitNode from "./visit-node.js";
+
+/**
+@import {Node, Comment} from "../../types/estree.js"
+*/
 
 const isNodeWithRaw = createTypeCheckFunction([
   // Babel
@@ -172,7 +177,7 @@ function postprocess(ast, options) {
         case "ExportDefaultDeclaration":
         case "ExportNamedDeclaration":
         case "ExportAllDeclaration":
-          addEnd(node, { comments, text });
+          addNodeContentEnd(node, { comments, text });
           break;
       }
     },
@@ -261,16 +266,26 @@ function assertRaw(node, text) {
   assert.equal(raw, text.slice(locStart(node), locEnd(node)));
 }
 
-function addEnd(node, { comments, text: originalText }) {
-  const start = locStart(node);
-  const end = locEndWithFullText(node);
-  const text = getTextWithoutComments(
-    { [Symbol.for("comments")]: comments, originalText },
-    start,
-    end,
-  );
-  const cleaned = (text.at(-1) === ";" ? text.slice(0, -1) : text).trimEnd();
-  node.__end = end - (text.length - cleaned.length);
+/**
+@param {Node} node
+@param {{comments: Comment[], text: string}} param1
+*/
+function addNodeContentEnd(node, { comments, text: originalText }) {
+  let end = locEndWithFullText(node);
+  if (originalText[end - 1] !== ";") {
+    return;
+  }
+
+  const text = stripComments({
+    [commentsPropertyInOptions]: comments,
+    originalText,
+  });
+
+  end -= 1;
+  const textBeforeSemicolon = text.slice(locStart(node), end);
+  const cleaned = textBeforeSemicolon.trimEnd();
+
+  node.__contentEnd = end - (textBeforeSemicolon.length - cleaned.length);
 }
 
 export default postprocess;

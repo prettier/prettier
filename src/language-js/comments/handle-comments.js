@@ -13,7 +13,6 @@ import { getCallArguments } from "../utilities/call-arguments.js";
 import { isInsideCallOrNewExpressionParentheses } from "../utilities/call-or-new-expression-parentheses.js";
 import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
 import { getFunctionParameters } from "../utilities/function-parameters.js";
-import getTextWithoutComments from "../utilities/get-text-without-comments.js";
 import { isBlockComment } from "../utilities/is-block-comment.js";
 import { isLineComment } from "../utilities/is-line-comment.js";
 import { isMethod } from "../utilities/is-method.js";
@@ -29,6 +28,7 @@ import {
   isMemberExpression,
   isUnionType,
 } from "../utilities/node-types.js";
+import { stripComments } from "../utilities/strip-comments.js";
 
 /**
 @import {Node, Comment, NodeMap} from "../types/estree.js";
@@ -235,7 +235,7 @@ function handleIfStatementComments({
   ) {
     const start = locStart(enclosingNode);
     const end = locEnd(enclosingNode);
-    const ifStatementTxt = getTextWithoutComments(options, start, end);
+    const ifStatementTxt = stripComments(options).slice(start, end);
     let elseTokenIndex = getNextNonSpaceNonCommentCharacterIndex(
       ifStatementTxt,
       locEnd(enclosingNode.consequent) - start,
@@ -646,17 +646,10 @@ function isInArgumentOrParameterParentheses(node, comment, options) {
     return false;
   }
 
-  const nodeText = getTextWithoutComments(options, nodeStart, nodeEnd);
-
+  const text = stripComments(options);
   return (
-    nodeText
-      .slice(0, locStart(comment) - nodeStart)
-      .trimEnd()
-      .endsWith("(") &&
-    nodeText
-      .slice(locEnd(comment) - nodeStart)
-      .trimStart()
-      .startsWith(")")
+    text.slice(0, locStart(comment)).trimEnd().endsWith("(") &&
+    text.slice(locEnd(comment)).trimStart().startsWith(")")
   );
 }
 
@@ -1022,13 +1015,7 @@ function handleIgnoreComments({ comment, enclosingNode, followingNode }) {
 @param {Comment} comment
 */
 function isBeforeMappedTypeOpeningBracket(node, comment, options) {
-  const start = locStart(node);
-  const textAfter = getTextWithoutComments(
-    options,
-    start + 1,
-    locStart(node.key),
-  );
-  const bracketIndex = start + 1 + textAfter.indexOf("[");
+  const bracketIndex = stripComments(options).indexOf("[", locStart(node));
   return locEnd(comment) < bracketIndex;
 }
 

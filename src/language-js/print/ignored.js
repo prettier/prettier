@@ -16,7 +16,7 @@ function printIgnored(path, options /* , print*/) {
         node.type === "ExportDefaultDeclaration" ||
         node.type === "ExportNamedDeclaration" ||
         node.type === "ExportAllDeclaration") &&
-        node.__end))
+        node.__contentEnd))
   ) {
     text += ";";
   } else if (shouldExpressionStatementPrintLeadingSemicolon(path, options)) {

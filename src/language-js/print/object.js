@@ -17,9 +17,9 @@ import {
   hasComment,
 } from "../utilities/comments.js";
 import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
-import getTextWithoutComments from "../utilities/get-text-without-comments.js";
 import { isNextLineEmpty } from "../utilities/is-next-line-empty.js";
 import { isObjectType } from "../utilities/node-types.js";
+import { stripComments } from "../utilities/strip-comments.js";
 import { shouldHugTheOnlyParameter } from "./function-parameters.js";
 import {
   printDanglingCommentsInList,
@@ -196,17 +196,18 @@ function printObject(path, options, print) {
 
 function hasNewLineAfterOpeningBrace(node, firstProperty, options) {
   const text = options.originalText;
-  let openingBraceIndex = locStart(node);
   const firstPropertyStart = locStart(firstProperty);
 
+  let openingBraceIndex = locStart(node);
   if (isPrintingImportAttributes(node)) {
-    const start = locStart(node);
-    const textBeforeAttributes = getTextWithoutComments(
-      options,
-      start,
+    openingBraceIndex = stripComments(options).lastIndexOf(
+      "{",
       firstPropertyStart,
     );
-    openingBraceIndex = start + textBeforeAttributes.lastIndexOf("{");
+    /* c8 ignore next 3 */
+    if (process.env.NODE_ENV !== "production") {
+      assert.ok(openingBraceIndex !== -1);
+    }
   }
 
   /* c8 ignore next 3 */

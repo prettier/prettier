@@ -13,10 +13,10 @@ import UnexpectedNodeError from "../../utilities/unexpected-node-error.js";
 import { locEnd, locStart } from "../loc.js";
 import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
 import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
-import getTextWithoutComments from "../utilities/get-text-without-comments.js";
 import { isShorthandSpecifier } from "../utilities/is-shorthand-specifier.js";
 import { needsHardlineAfterDanglingComment } from "../utilities/needs-hardline-after-dangling-comment.js";
 import { isStringLiteral } from "../utilities/node-types.js";
+import { stripComments } from "../utilities/strip-comments.js";
 import { printDecoratorsBeforeExport } from "./decorators.js";
 import { printDeclareToken, printTrailingComma } from "./miscellaneous.js";
 import { printObject } from "./object.js";
@@ -239,8 +239,7 @@ function shouldPrintSpecifiers(node, options) {
     return true;
   }
 
-  const text = getTextWithoutComments(
-    options,
+  const text = stripComments(options).slice(
     locStart(node),
     locStart(node.source),
   );
@@ -249,11 +248,12 @@ function shouldPrintSpecifiers(node, options) {
 }
 
 function getImportAttributesKeyword(node, options) {
-  const textBetweenSourceAndAttributes = getTextWithoutComments(
-    options,
-    locEnd(node.source),
-    node.attributes?.[0] ? locStart(node.attributes[0]) : locEnd(node),
-  ).trimStart();
+  const textBetweenSourceAndAttributes = stripComments(options)
+    .slice(
+      locEnd(node.source),
+      node.attributes?.[0] ? locStart(node.attributes[0]) : locEnd(node),
+    )
+    .trimStart();
 
   if (textBetweenSourceAndAttributes.startsWith("assert")) {
     return "assert";

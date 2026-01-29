@@ -1,3 +1,4 @@
+import { commentsPropertyInOptions } from "../../constants.js";
 import {
   breakParent,
   hardline,
@@ -255,7 +256,7 @@ function printComments(path, doc, options, printOptions) {
 
 function ensureAllCommentsPrinted(options) {
   const {
-    [Symbol.for("comments")]: comments,
+    [commentsPropertyInOptions]: comments,
     [Symbol.for("printedComments")]: printedComments,
   } = options;
 
