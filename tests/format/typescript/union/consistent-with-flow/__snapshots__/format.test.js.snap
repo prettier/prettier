@@ -380,6 +380,49 @@ type B2 =
 ================================================================================
 `;
 
+exports[`union-last-comment.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript", "flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+type Foo = (
+  | "thing1" // Comment1
+  | "thing2" // Comment2
+)[]; // Final comment1
+
+type Foo = (
+  | "thing1" // Comment1
+  | "thing2" // Comment2
+) & Bar; // Final comment2
+
+type Foo = (
+  | "thing1" // Comment1
+  | "thing2" // Comment2
+) | Bar; // Final comment2
+
+=====================================output=====================================
+type Foo = (
+  | "thing1" // Comment1
+  | "thing2" // Comment2
+)[]; // Final comment1
+
+type Foo = (
+  | "thing1" // Comment1
+  | "thing2" // Comment2
+) &
+  Bar; // Final comment2
+
+type Foo =
+  | (
+      | "thing1" // Comment1
+      | "thing2" // Comment2
+    )
+  | Bar; // Final comment2
+
+================================================================================
+`;
+
 exports[`within-tuple.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow"]

@@ -20,6 +20,7 @@ import { isObjectProperty } from "../utilities/is-object-property.js";
 import { isPrettierIgnoreComment } from "../utilities/is-prettier-ignore-comment.js";
 import { isTypeCastComment } from "../utilities/is-type-cast-comment.js";
 import {
+  isArrayType,
   isBinaryCastExpression,
   isCallLikeExpression,
   isCallOrNewExpression,
@@ -1017,10 +1018,9 @@ function handleLastUnionElementInExpression({
 }) {
   if (
     isUnionType(precedingNode) &&
-    (((enclosingNode.type === "TSArrayType" ||
-      enclosingNode.type === "ArrayTypeAnnotation") &&
-      !followingNode) ||
-      isIntersectionType(enclosingNode))
+    ((isArrayType(enclosingNode) && !followingNode) ||
+      isIntersectionType(enclosingNode) ||
+      isUnionType(enclosingNode))
   ) {
     addTrailingComment(precedingNode.types.at(-1), comment);
     return true;
