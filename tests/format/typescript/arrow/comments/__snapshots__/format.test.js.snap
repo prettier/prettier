@@ -45,11 +45,11 @@ const fn6 = (): any =>
   // line comment
   null;
 
-const fn7 = (
-  a /*
+const fn7 = (a) =>
+  /*
 Multiple line
-*/,
-) => null;
+*/
+  null;
 
 const fn8 = () =>
   /*
