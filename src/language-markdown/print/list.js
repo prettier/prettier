@@ -86,6 +86,15 @@ function printList(path, options, print) {
   });
 }
 
+/**
+ * Print list item for micromark parser.
+ * First non-list children align with the checkbox prefix.
+ * Subsequent children (including nested lists) use tabWidth-based alignment
+ * for consistency with the legacy behavior.
+ * Indented code blocks are treated specially to preserve their leading spaces.
+ * Following CommonMark spec, subsequent content should align with where
+ * text starts after the list marker.
+ */
 function printListItem(path, options, print, listPrefix) {
   const { node } = path;
   const prefix = node.checked === null ? "" : node.checked ? "[x] " : "[ ] ";
@@ -97,9 +106,11 @@ function printListItem(path, options, print, listPrefix) {
           (isFirst && node.type !== "list") ||
           (node.type === "code" && node.isIndented)
         ) {
+          // First non-list child and indented code blocks align with checkbox prefix
           return align(" ".repeat(prefix.length), print());
         }
 
+        // For lists and non-first children, use tabWidth-based alignment
         const alignment = " ".repeat(
           clamp(options.tabWidth - listPrefix.length, 0, 3), // 4+ will cause indented code block
         );
