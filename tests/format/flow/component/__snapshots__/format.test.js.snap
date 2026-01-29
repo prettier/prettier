@@ -520,3 +520,33 @@ declare component MyComponent(
 
 ================================================================================
 `;
+
+exports[`implicit.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+declare module "foo" {
+  component Button(label: string);
+}
+
+=====================================output=====================================
+declare module "foo" {
+  component Button(label: string);
+}
+
+================================================================================
+`;
+
+exports[`implicit.js format[hermes] 1`] = `
+"'{' expected in component declaration (2:33)
+  1 | declare module "foo" {
+> 2 |   component Button(label: string);
+    |                                 ^
+  3 | }
+  4 |
+Cause: '{' expected in component declaration (2:33)
+  component Button(label: string);
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^"
+`;
