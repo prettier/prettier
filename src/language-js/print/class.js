@@ -14,13 +14,14 @@ import {
 } from "../../main/comments/print.js";
 import createGroupIdMapper from "../../utilities/create-group-id-mapper.js";
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
+import needsParentheses from "../parentheses/needs-parentheses.js";
 import { isNonEmptyClassBody } from "../utilities/class-members.js";
 import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
 import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
 import { isMemberExpression } from "../utilities/node-types.js";
 import { stripChainElementWrappers } from "../utilities/strip-chain-element-wrappers.js";
 import { printAssignment } from "./assignment.js";
-import { printClassMemberDecorators } from "./decorators.js";
+import { printClassMemberDecorators, printDecorators } from "./decorators.js";
 import { printMethod } from "./function.js";
 import { printKey } from "./key.js";
 import {
@@ -56,6 +57,21 @@ const isInterface = createTypeCheckFunction([
 - `TSInterfaceDeclaration`(TypeScript)
 */
 function printClass(path, options, print) {
+  const doc = printClassWithoutDecorators(path, options, print);
+
+  const { node } = path;
+  if (node.type === "ClassExpression" && isNonEmptyArray(node.decorators)) {
+    const decoratorsDoc = printDecorators(path, options, print);
+    const needsParens = needsParentheses(path, options);
+    return needsParens
+      ? [indent([softline, decoratorsDoc, doc]), softline]
+      : [decoratorsDoc, doc];
+  }
+
+  return doc;
+}
+
+function printClassWithoutDecorators(path, options, print) {
   const { node } = path;
   const isPrintingInterface = isInterface(node);
   const isPrintingRecord = node.type === "RecordDeclaration";

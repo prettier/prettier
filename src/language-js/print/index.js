@@ -1,10 +1,4 @@
-import {
-  group,
-  indent,
-  inheritLabel,
-  line,
-  softline,
-} from "../../document/index.js";
+import { group, indent, inheritLabel, softline } from "../../document/index.js";
 import { printComments } from "../../main/comments/print.js";
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
 import needsParentheses from "../parentheses/needs-parentheses.js";
@@ -83,13 +77,11 @@ function print(path, options, print, args) {
 
   doc = printCommentsForFunction(path, options, doc);
 
-  const hasDecorators = isNonEmptyArray(node.decorators);
-  const decoratorsDoc = printDecorators(path, options, print);
-  const isClassExpression = node.type === "ClassExpression";
-  // Nodes (except `ClassExpression`) with decorators can't have parentheses and don't need leading semicolons
-  if (hasDecorators && !isClassExpression) {
-    return inheritLabel(doc, (doc) => group([decoratorsDoc, doc]));
-  }
+  const decoratorsDoc =
+    // `ClassExpression` prints own decorators
+    node.type !== "ClassExpression" && isNonEmptyArray(node.decorators)
+      ? printDecorators(path, options, print)
+      : "";
 
   const needsParens = needsParentheses(path, options);
 
@@ -99,9 +91,7 @@ function print(path, options, print, args) {
 
   return inheritLabel(doc, (doc) => [
     needsParens ? "(" : "",
-    needsParens && isClassExpression && hasDecorators
-      ? [indent([line, decoratorsDoc, doc]), line]
-      : [decoratorsDoc, doc],
+    decoratorsDoc ? group([decoratorsDoc, doc]) : doc,
     needsParens ? ")" : "",
   ]);
 }

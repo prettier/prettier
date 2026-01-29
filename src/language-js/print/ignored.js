@@ -1,3 +1,5 @@
+import { indent, softline } from "../../document/index.js";
+import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
 import { locEnd, locStart } from "../loc.js";
 import { shouldExpressionStatementPrintLeadingSemicolon } from "../semicolon/semicolon.js";
 
@@ -21,6 +23,10 @@ function printIgnored(path, options /* , print*/) {
     text += ";";
   } else if (shouldExpressionStatementPrintLeadingSemicolon(path, options)) {
     text = `;${text}`;
+  }
+
+  if (node.type === "ClassExpression" && isNonEmptyArray(node.decorators)) {
+    return [indent([softline, text]), softline];
   }
 
   return text;
