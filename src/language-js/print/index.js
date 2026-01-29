@@ -84,12 +84,12 @@ function print(path, options, print, args) {
   doc = printCommentsForFunction(path, options, doc);
 
   const hasDecorators = isNonEmptyArray(node.decorators);
-  const decoratorsDoc = printDecorators(path, options, print);
-  const isClassExpression = node.type === "ClassExpression";
-  // Nodes (except `ClassExpression`) with decorators can't have parentheses and don't need leading semicolons
-  if (hasDecorators && !isClassExpression) {
-    return inheritLabel(doc, (doc) => group([decoratorsDoc, doc]));
-  }
+  const decoratorsDoc =
+    hasDecorators &&
+    // `ClassExpression` prints own decorators
+    node.type !== "ClassExpression"
+      ? printDecorators(path, options, print)
+      : "";
 
   const needsParens = needsParentheses(path, options);
 
@@ -99,9 +99,7 @@ function print(path, options, print, args) {
 
   return inheritLabel(doc, (doc) => [
     needsParens ? "(" : "",
-    needsParens && isClassExpression && hasDecorators
-      ? [indent([line, decoratorsDoc, doc]), line]
-      : [decoratorsDoc, doc],
+    decoratorsDoc ? group([decoratorsDoc, doc]) : doc,
     needsParens ? ")" : "",
   ]);
 }
