@@ -5,6 +5,11 @@ import { FORMAT_TEST_DIRECTORY } from "./constants.js";
 const unstableTests = new Map(
   [
     ["js/identifier/parentheses/let.js", (options) => options.semi === false],
+    [
+      "js/ignore/semi/class-expression-decorator.js",
+      (options) => options.semi === false,
+    ],
+    ["js/ignore/semi/head-ignored.js", (options) => options.semi === false],
     "js/comments/return-statement.js",
     "js/comments/tagged-template-literal.js",
     "js/for/9812-unstable.js",
