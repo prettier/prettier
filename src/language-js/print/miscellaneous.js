@@ -74,26 +74,27 @@ const isFlowDeclareNode = createTypeCheckFunction([
   "DeclareInterface",
 ]);
 
+const shouldPrintDeclareToken = (path) => {
+  const { node } = path;
+
+  if (isFlowDeclareNode(node)) {
+    return (
+      path.parent.type !== "DeclareExportDeclaration" &&
+      // @ts-expect-error -- hermes doesn't support yet
+      !node.implicitDeclare
+    );
+  }
+
+  // TypeScript
+  return node.declare;
+};
+
 /**
  * @param {AstPath} path
  * @returns {Doc}
  */
 function printDeclareToken(path) {
-  const { node } = path;
-
-  return (
-    // TypeScript
-    node.declare ||
-      // Flow
-      (isFlowDeclareNode(node) &&
-        path.parent.type !== "DeclareExportDeclaration" &&
-        // @ts-expect-error -- wrong types
-        !(node.type === "DeclareFunction" && node.implicitDeclare) &&
-        // @ts-expect-error -- FIXME
-        !(node.type === "DeclareComponent" && node.body === null))
-      ? "declare "
-      : ""
-  );
+  return shouldPrintDeclareToken(path) ? "declare " : "";
 }
 
 const isTsAbstractNode = createTypeCheckFunction([
