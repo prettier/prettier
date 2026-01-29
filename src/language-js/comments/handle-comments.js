@@ -1258,7 +1258,6 @@ function handleArrowExpressionComments({
     options,
   );
 
-  // The node type of `ArrowFunctionExpression.returnType` shouldn't check
   if (!isBeforeArrow) {
     addBlockOrNotComment(followingNode, comment);
     return true;
