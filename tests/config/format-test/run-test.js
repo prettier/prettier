@@ -30,7 +30,7 @@ function testFixture(fixture) {
       .filter((parser) => !failedTests.shouldDisable(filepath, parser))
       .map((parser) => getTestCase(fixture, parser));
 
-    if (!fixture.isErrorTest) {
+    if (!context.isErrorTest) {
       expect(testCases.some(({ expectFail }) => !expectFail)).toBe(true);
     }
 
