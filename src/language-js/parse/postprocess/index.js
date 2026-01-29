@@ -284,6 +284,7 @@ function addNodeContentEnd(node, { comments, text: originalText }) {
   end -= 1;
   const textBeforeSemicolon = text.slice(locStart(node), end);
   const cleaned = textBeforeSemicolon.trimEnd();
+
   node.__contentEnd = end - (textBeforeSemicolon.length - cleaned.length);
 }
 

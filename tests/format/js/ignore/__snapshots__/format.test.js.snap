@@ -405,7 +405,7 @@ function HelloWorld(x) {
     // eslint-disable-next-line
     x.a |
     x.b
-  ).call(null);
+  ).call(null)
 }
 
 ================================================================================
