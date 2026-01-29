@@ -271,17 +271,18 @@ function assertRaw(node, text) {
 @param {{comments: Comment[], text: string}} param1
 */
 function addNodeContentEnd(node, { comments, text: originalText }) {
-  const start = locStart(node);
-  const end = locEndWithFullText(node);
+  let end = locEndWithFullText(node);
+  if (originalText[end - 1] !== ";") {
+    return;
+  }
 
   const text = getTextWithoutComments({
     [commentsPropertyInOptions]: comments,
     originalText,
   });
-  const textBeforeSemicolon = text.slice(
-    start,
-    text[end - 1] === ";" ? end - 1 : end,
-  );
+
+  end -= 1;
+  const textBeforeSemicolon = text.slice(locStart(node), end);
   const cleaned = textBeforeSemicolon.trimEnd();
   node.__contentEnd = end - (textBeforeSemicolon.length - cleaned.length);
 }
