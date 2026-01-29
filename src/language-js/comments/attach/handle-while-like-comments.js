@@ -4,7 +4,7 @@ import {
 } from "../../../main/comments/utilities.js";
 import getNextNonSpaceNonCommentCharacter from "../../../utilities/get-next-non-space-non-comment-character.js";
 import { locEnd } from "../../loc.js";
-import { addBlockStatementFirstComment } from "./utilities.js";
+import { addBlockOrNotComment } from "./utilities.js";
 
 /**
 @import {CommentContext} from "../handle-comments.js"
@@ -44,13 +44,8 @@ function handleWhileLikeComments({
     return true;
   }
 
-  if (followingNode.type === "BlockStatement") {
-    addBlockStatementFirstComment(followingNode, comment);
-    return true;
-  }
-
   if (enclosingNode.body === followingNode) {
-    addLeadingComment(followingNode, comment);
+    addBlockOrNotComment(followingNode, comment);
     return true;
   }
 
