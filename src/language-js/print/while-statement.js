@@ -1,32 +1,17 @@
-import { group, hardline } from "../../document/index.js";
-import {
-  adjustClause,
-  printDoWhileStatementCondition,
-  printWhileStatementCondition,
-} from "./miscellaneous.js";
+import { group } from "../../document/index.js";
+import { adjustClause, printWhileStatementCondition } from "./miscellaneous.js";
 
 function printWhileStatement(path, options, print) {
+  const { node } = path;
+  const keyword = node.type === "WithStatement" ? "with" : "while";
+
   return group([
-    "while (",
+    keyword,
+    " (",
     printWhileStatementCondition(path, options, print),
     ")",
-    adjustClause(path.node.body, print("body")),
+    adjustClause(node.body, print("body")),
   ]);
 }
 
-function printDoWhileStatement(path, options, print) {
-  const { body } = path.node;
-  const clause = adjustClause(body, print("body"));
-  const doBody = group(["do", clause]);
-
-  return [
-    doBody,
-    body.type === "BlockStatement" ? " " : hardline,
-    "while (",
-    printDoWhileStatementCondition(path, options, print),
-    ")",
-    options.semi ? ";" : "",
-  ];
-}
-
-export { printDoWhileStatement, printWhileStatement };
+export { printWhileStatement };

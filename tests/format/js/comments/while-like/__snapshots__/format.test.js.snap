@@ -1,0 +1,129 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`while.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+while(
+    true
+    // 1
+  ) {}
+
+while(true)// 2
+{}
+
+while(true){}// 3
+
+while(true)/*4*/{}
+
+while(
+  true // 5
+  && true // 52
+  ){}
+
+while(true) {} // 6
+
+while(true) /* 7 */ ++x;
+
+while(1) // 8
+  foo();
+
+=====================================output=====================================
+while (
+  true
+  // 1
+) {}
+
+while (true) {
+  // 2
+}
+
+while (true) {} // 3
+
+while (true) {
+  /*4*/
+}
+
+while (
+  true && // 5
+  true // 52
+) {}
+
+while (true) {} // 6
+
+while (true) /* 7 */ ++x;
+
+while (1)
+  // 8
+  foo();
+
+================================================================================
+`;
+
+exports[`with.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+with(
+    foo
+    // 1
+  ) {}
+
+with(foo)// 2
+{}
+
+with(foo){}// 3
+
+with(foo)/*4*/{}
+
+with(
+  foo // 5
+  ?? bar // 52
+  ){}
+
+with(foo) {} // 6
+
+with(foo) /* 7 */ ++x;
+
+with(1) // 8
+  foo();
+
+=====================================output=====================================
+with (
+  foo
+  // 1
+) {
+}
+
+with (foo) {
+  // 2
+}
+
+with (foo) {
+} // 3
+
+with (foo) {
+  /*4*/
+}
+
+with (
+  foo ?? // 5
+    bar // 52
+) {
+}
+
+with (foo) {
+} // 6
+
+with (foo) /* 7 */ ++x;
+
+with (1)
+  // 8
+  foo();
+
+================================================================================
+`;
