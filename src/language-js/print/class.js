@@ -14,6 +14,7 @@ import {
 } from "../../main/comments/print.js";
 import createGroupIdMapper from "../../utilities/create-group-id-mapper.js";
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
+import { isNonEmptyClassBody } from "../utilities/class-members.js";
 import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
 import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
 import { isMemberExpression } from "../utilities/node-types.js";
@@ -141,16 +142,6 @@ function printClass(path, options, print) {
   parts.push(print("body"));
 
   return parts;
-}
-
-function isNonEmptyClassBody(node) {
-  return node.type === "ObjectTypeAnnotation"
-    ? ["properties", "indexers", "callProperties", "internalSlots"].some(
-        (property) => isNonEmptyArray(node[property]),
-      )
-    : node.type === "RecordDeclarationBody"
-      ? isNonEmptyArray(node.elements)
-      : isNonEmptyArray(node.body);
 }
 
 function hasMultipleHeritage(node) {
