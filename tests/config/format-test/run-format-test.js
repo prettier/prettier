@@ -56,15 +56,16 @@ function runFormatTest(rawFixtures, explicitParsers, rawOptions) {
   // `IS_ERROR_TEST` mean to watch errors like:
   // - syntax parser hasn't supported yet
   // - syntax errors that should throws
-  const IS_ERROR_TEST = isErrorTest(dirname);
+  const isErrorTest = isErrorTest(dirname);
 
-  if (IS_ERROR_TEST) {
+  if (isErrorTest) {
     options = { errors: true, ...options };
   }
 
   // Make sure tests are in correct location
 
   const context = {
+    isErrorTest,
     dirname,
     stringifiedOptions: stringifyOptionsForTitle(rawOptions),
     parsers: getParsers(dirname, explicitParsers),

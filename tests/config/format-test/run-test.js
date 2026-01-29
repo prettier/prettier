@@ -30,10 +30,15 @@ function testFixture(fixture) {
       .filter((parser) => !failedTests.shouldDisable(filepath, parser))
       .map((parser) => getTestCase(fixture, parser));
 
+    if (!fixture.isErrorTest) {
+      expect(testCases.some(({ expectFail }) => !expectFail)).toBe(true);
+    }
+
     const testCaseForSnapshot = testCases.find(
       (testCase) =>
         !testCase.expectFail && typeof testCase.expectedOutput !== "string",
     );
+
     const hasMultipleParsers = testCases.length > 1;
 
     for (const functionality of [
