@@ -153,7 +153,7 @@ function printClass(path, options, print) {
     const decoratorsDoc = printDecorators(path, options, print);
     const needsParens = needsParentheses(path, options);
     return needsParens
-      ? [indent([line, decoratorsDoc, doc]), line]
+      ? [indent([softline, decoratorsDoc, doc]), softline]
       : [decoratorsDoc, doc];
   }
 
