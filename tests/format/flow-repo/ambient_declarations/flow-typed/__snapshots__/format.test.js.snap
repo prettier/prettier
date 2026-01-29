@@ -1,0 +1,91 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`components.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// Declare module with ambient components
+declare module 'component-library' {
+  component Button(label: string);
+  component Icon(name: string);
+
+  declare export { Button, Icon };
+}
+
+=====================================output=====================================
+// Declare module with ambient components
+declare module "component-library" {
+  component Button(label: string);
+  component Icon(name: string);
+
+  declare export { Button, Icon };
+}
+
+================================================================================
+`;
+
+exports[`components.js format[hermes] 1`] = `
+"'{' expected in component declaration (3:33)
+  1 | // Declare module with ambient components
+  2 | declare module 'component-library' {
+> 3 |   component Button(label: string);
+    |                                 ^
+  4 |   component Icon(name: string);
+  5 |
+  6 |   declare export { Button, Icon };
+Cause: '{' expected in component declaration (3:33)
+  component Button(label: string);
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^"
+`;
+
+exports[`lib.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// Test ambient variable declarations in declare module within flow-typed
+declare module 'test-module' {
+  // Implicit ambient const/let/var (without 'declare' keyword)
+  const foo: string;
+  let bar: number;
+  var baz: boolean;
+
+  // These can be used in type expressions within the module
+  declare export function getFoo(): typeof foo;
+  declare export function getBar(): typeof bar;
+  declare export function getBaz(): typeof baz;
+}
+
+=====================================output=====================================
+// Test ambient variable declarations in declare module within flow-typed
+declare module "test-module" {
+  // Implicit ambient const/let/var (without 'declare' keyword)
+  const foo: string;
+  let bar: number;
+  var baz: boolean;
+
+  // These can be used in type expressions within the module
+  declare export function getFoo(): typeof foo;
+  declare export function getBar(): typeof bar;
+  declare export function getBaz(): typeof baz;
+}
+
+================================================================================
+`;
+
+exports[`lib.js format[hermes] 1`] = `
+"missing initializer in const declaration (4:8)
+  2 | declare module 'test-module' {
+  3 |   // Implicit ambient const/let/var (without 'declare' keyword)
+> 4 |   const foo: string;
+    |        ^
+  5 |   let bar: number;
+  6 |   var baz: boolean;
+  7 |
+Cause: missing initializer in const declaration (4:8)
+  const foo: string;
+        ^~~~~~~~~~~"
+`;

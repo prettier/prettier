@@ -34,6 +34,7 @@ function testFixture(fixture) {
       (testCase) =>
         !testCase.expectFail && typeof testCase.expectedOutput !== "string",
     );
+
     const hasMultipleParsers = testCases.length > 1;
 
     for (const functionality of [
