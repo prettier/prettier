@@ -15,9 +15,9 @@ while(
   && true // 52
   ){}
 
-while(true) {} // 53
+while(true) {} // 6
 
-while(true) /* 54 */ ++x;
+while(true) /* 7 */ ++x;
 
-while(1) // 55
+while(1) // 8
   foo();

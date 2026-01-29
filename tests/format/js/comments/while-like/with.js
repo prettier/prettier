@@ -15,9 +15,9 @@ with(
   ?? bar // 52
   ){}
 
-with(foo) {} // 53
+with(foo) {} // 6
 
-with(foo) /* 54 */ ++x;
+with(foo) /* 7 */ ++x;
 
-with(1) // 55
+with(1) // 8
   foo();
