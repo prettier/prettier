@@ -12,7 +12,7 @@ type PrettierNodeAdditionalProperties = {
   };
   comments?: Comment[];
   prettierIgnore?: boolean;
-  __end?: number;
+  __contentEnd?: number;
 };
 
 type PrettierCommentAdditionalProperties = {

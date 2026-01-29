@@ -50,9 +50,9 @@ function locEnd(node) {
       node.type === "ExportDefaultDeclaration" ||
       node.type === "ExportNamedDeclaration" ||
       node.type === "ExportAllDeclaration") &&
-    node.__end
+    node.__contentEnd
   ) {
-    return node.__end;
+    return node.__contentEnd;
   }
 
   return locEndWithFullText(node);

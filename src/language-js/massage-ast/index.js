@@ -29,7 +29,7 @@ const ignoredProperties = new Set([
   "trailingComma",
   "docblock",
   // Prettier
-  "__end",
+  "__contentEnd",
 ]);
 
 const removeTemplateElementsValue = (node) => {

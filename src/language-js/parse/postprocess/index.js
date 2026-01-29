@@ -177,7 +177,7 @@ function postprocess(ast, options) {
         case "ExportDefaultDeclaration":
         case "ExportNamedDeclaration":
         case "ExportAllDeclaration":
-          addEnd(node, { comments, text });
+          addNodeContentEnd(node, { comments, text });
           break;
       }
     },
@@ -270,15 +270,20 @@ function assertRaw(node, text) {
 @param {Node} node
 @param {{comments: Comment[], text: string}} param1
 */
-function addEnd(node, { comments, text: originalText }) {
+function addNodeContentEnd(node, { comments, text: originalText }) {
   const start = locStart(node);
   const end = locEndWithFullText(node);
+
   const text = getTextWithoutComments({
     [commentsPropertyInOptions]: comments,
     originalText,
-  }).slice(start, end);
-  const cleaned = (text[end] === ";" ? text.slice(0, -1) : text).trimEnd();
-  node.__end = end - (text.length - cleaned.length);
+  });
+  const textBeforeSemicolon = text.slice(
+    start,
+    text[end - 1] === ";" ? end - 1 : end,
+  );
+  const cleaned = textBeforeSemicolon.trimEnd();
+  node.__contentEnd = end - (textBeforeSemicolon.length - cleaned.length);
 }
 
 export default postprocess;
