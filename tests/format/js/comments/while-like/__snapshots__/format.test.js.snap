@@ -8,55 +8,55 @@ printWidth: 80
 =====================================input======================================
 while(
     true
-    // Comment
+    // 1
   ) {}
 
-while(true)// Comment
+while(true)// 2
 {}
 
-while(true){}// Comment
+while(true){}// 3
 
-while(true)/*Comment*/{}
+while(true)/*4*/{}
 
 while(
-  true // Comment
-  && true // Comment
+  true // 5
+  && true // 52
   ){}
 
-while(true) {} // comment
+while(true) {} // 53
 
-while(true) /* comment */ ++x; 
+while(true) /* 54 */ ++x;
 
-while(1) // Comment
+while(1) // 55
   foo();
 
 =====================================output=====================================
 while (
   true
-  // Comment
+  // 1
 ) {}
 
 while (true) {
-  // Comment
+  // 2
 }
 
-while (true) {} // Comment
+while (true) {} // 3
 
 while (true) {
-  /*Comment*/
+  /*4*/
 }
 
 while (
-  true && // Comment
-  true // Comment
+  true && // 5
+  true // 52
 ) {}
 
-while (true) {} // comment
+while (true) {} // 53
 
-while (true) /* comment */ ++x;
+while (true) /* 54 */ ++x;
 
 while (1)
-  // Comment
+  // 55
   foo();
 
 ================================================================================
@@ -85,16 +85,18 @@ with(
   ?? bar // 52
   ){}
 
-with(foo) {} // 6
+with(foo) {} // 53
 
-with(foo) /* 7 */ ++x;
+with(foo) /* 54 */ ++x;
 
-with(foo) // 8
+with(1) // 55
   foo();
 
 =====================================output=====================================
-with (foo) {
-// 1
+with (
+  foo
+  // 1
+) {
 }
 
 with (foo) {
@@ -108,17 +110,19 @@ with (foo) {
   /*4*/
 }
 
-with (foo ?? // 5
-  bar) { // 52
+with (
+  foo ?? // 5
+    bar // 52
+) {
 }
 
 with (foo) {
-} // 6
+} // 53
 
-with (foo) /* 7 */ ++x;
+with (foo) /* 54 */ ++x;
 
-with (foo)
-  // 8
+with (1)
+  // 55
   foo();
 
 ================================================================================

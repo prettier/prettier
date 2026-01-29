@@ -1,23 +1,23 @@
 while(
     true
-    // Comment
+    // 1
   ) {}
 
-while(true)// Comment
+while(true)// 2
 {}
 
-while(true){}// Comment
+while(true){}// 3
 
-while(true)/*Comment*/{}
+while(true)/*4*/{}
 
 while(
-  true // Comment
-  && true // Comment
+  true // 5
+  && true // 52
   ){}
 
-while(true) {} // comment
+while(true) {} // 53
 
-while(true) /* comment */ ++x; 
+while(true) /* 54 */ ++x;
 
-while(1) // Comment
+while(1) // 55
   foo();

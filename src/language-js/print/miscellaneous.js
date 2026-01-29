@@ -168,10 +168,12 @@ function shouldInlineCondition(node) {
   return node.type === "LogicalExpression";
 }
 
-function printIfOrWhileCondition(path, options, print) {
-  const conditionDoc = print("test");
+function printIfOrWhileConditionOrWithStatementObject(path, options, print) {
+  const { node } = path;
+  const property = node.type === "WithStatement" ? "object" : "test";
+  const conditionDoc = print(property);
 
-  if (shouldInlineCondition(path.node.test)) {
+  if (shouldInlineCondition(node[property])) {
     return conditionDoc;
   }
 
@@ -213,10 +215,10 @@ export {
   printDanglingCommentsInList,
   printDeclareToken,
   printDefiniteToken,
-  printIfOrWhileCondition as printDoWhileStatementCondition,
-  printIfOrWhileCondition as printIfStatementCondition,
+  printIfOrWhileConditionOrWithStatementObject as printDoWhileStatementCondition,
+  printIfOrWhileConditionOrWithStatementObject as printIfStatementCondition,
   printOptionalToken,
   printTrailingComma,
   printTypeScriptAccessibilityToken,
-  printIfOrWhileCondition as printWhileStatementCondition,
+  printIfOrWhileConditionOrWithStatementObject as printWhileStatementCondition,
 };

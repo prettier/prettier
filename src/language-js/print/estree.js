@@ -32,6 +32,7 @@ import {
   printClassMethod,
   printClassProperty,
 } from "./class.js";
+import { printDoWhileStatement } from "./do-while-statement.js";
 import { printExpressionStatement } from "./expression-statement.js";
 import { printForStatement } from "./for-statement.js";
 import { printFunction, printMethod } from "./function.js";
@@ -66,10 +67,7 @@ import { printTernary } from "./ternary.js";
 import { printCatchClause, printTryStatement } from "./try-statement.js";
 import { printTypeAnnotationProperty } from "./type-annotation.js";
 import { printVariableDeclaration } from "./variable-declaration.js";
-import {
-  printDoWhileStatement,
-  printWhileStatement,
-} from "./while-statement.js";
+import { printWhileStatement } from "./while-statement.js";
 
 /**
  * @import AstPath from "../../common/ast-path.js"
@@ -253,17 +251,11 @@ function printEstree(path, options, print, args) {
       return printTernary(path, options, print, args);
     case "VariableDeclaration":
       return printVariableDeclaration(path, options, print);
-    case "WithStatement":
-      return group([
-        "with (",
-        print("object"),
-        ")",
-        adjustClause(node.body, print("body")),
-      ]);
     case "IfStatement":
       return printIfStatement(path, options, print);
     case "ForStatement":
       return printForStatement(path, options, print);
+    case "WithStatement":
     case "WhileStatement":
       return printWhileStatement(path, options, print);
     case "DoWhileStatement":
