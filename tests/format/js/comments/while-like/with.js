@@ -1,23 +1,23 @@
 with(
-    true
-    // Comment
+    foo
+    // 1
   ) {}
 
-with(true)// Comment
+with(foo)// 2
 {}
 
-with(true){}// Comment
+with(foo){}// 3
 
-with(true)/*Comment*/{}
+with(foo)/*4*/{}
 
 with(
-  true // Comment
-  && true // Comment
+  foo // 5
+  ?? bar // 52
   ){}
 
-with(true) {} // comment
+with(foo) {} // 6
 
-with(true) /* comment */ ++x;
+with(foo) /* 7 */ ++x;
 
-with(1) // Comment
+with(foo) // 8
   foo();

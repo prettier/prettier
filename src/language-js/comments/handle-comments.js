@@ -29,6 +29,11 @@ import {
   isUnionType,
 } from "../utilities/node-types.js";
 import { stripComments } from "../utilities/strip-comments.js";
+import { handleWhileLikeComments } from "./attach/handle-while-like-comments.js";
+import {
+  addBlockOrNotComment,
+  addBlockStatementFirstComment,
+} from "./attach/utilities.js";
 
 /**
 @import {Node, Comment, NodeMap} from "../types/estree.js";
@@ -69,7 +74,7 @@ function handleOwnLineComment(context) {
     handleLastFunctionParameterComments,
     handleMemberExpressionComments,
     handleIfStatementComments,
-    handleWhileComments,
+    handleWhileLikeComments,
     handleTryStatementComments,
     handleClassComments,
     handleForComments,
@@ -99,7 +104,7 @@ function handleEndOfLineComment(context) {
     handleConditionalExpressionComments,
     handleModuleSpecifiersComments,
     handleIfStatementComments,
-    handleWhileComments,
+    handleWhileLikeComments,
     handleTryStatementComments,
     handleClassComments,
     handleLabeledStatementComments,
@@ -126,7 +131,7 @@ function handleRemainingComment(context) {
     handleCommentInEmptyParens,
     handleIgnoreComments,
     handleIfStatementComments,
-    handleWhileComments,
+    handleWhileLikeComments,
     handleMethodNameComments,
     handleOnlyComments,
     handleTSMappedTypeComments,
@@ -135,34 +140,6 @@ function handleRemainingComment(context) {
     handleTSFunctionTrailingComments,
     handleBinaryCastExpressionComment,
   ].some((fn) => fn(context));
-}
-
-/**
- * @param {Node} node
- * @returns {void}
- */
-function addBlockStatementFirstComment(node, comment) {
-  // @ts-expect-error
-  const firstNonEmptyNode = (node.body || node.properties).find(
-    ({ type }) => type !== "EmptyStatement",
-  );
-  if (firstNonEmptyNode) {
-    addLeadingComment(firstNonEmptyNode, comment);
-  } else {
-    addDanglingComment(node, comment);
-  }
-}
-
-/**
- * @param {Node} node
- * @returns {void}
- */
-function addBlockOrNotComment(node, comment) {
-  if (node.type === "BlockStatement") {
-    addBlockStatementFirstComment(node, comment);
-  } else {
-    addLeadingComment(node, comment);
-  }
 }
 
 function handleClosureTypeCastComments({ comment, followingNode }) {
@@ -311,44 +288,6 @@ function handleIfStatementComments({
   // we look at the next character to see if the following node
   // is the consequent for the if statement
   if (enclosingNode.consequent === followingNode) {
-    addLeadingComment(followingNode, comment);
-    return true;
-  }
-
-  return false;
-}
-
-function handleWhileComments({
-  comment,
-  precedingNode,
-  enclosingNode,
-  followingNode,
-  text,
-}) {
-  if (enclosingNode?.type !== "WhileStatement" || !followingNode) {
-    return false;
-  }
-
-  // We unfortunately have no way using the AST or location of nodes to know
-  // if the comment is positioned before the condition parenthesis:
-  //   while (a /* comment */) {}
-  // The only workaround I found is to look at the next character to see if
-  // it is a ).
-  const nextCharacter = getNextNonSpaceNonCommentCharacter(
-    text,
-    locEnd(comment),
-  );
-  if (nextCharacter === ")") {
-    addTrailingComment(precedingNode, comment);
-    return true;
-  }
-
-  if (followingNode.type === "BlockStatement") {
-    addBlockStatementFirstComment(followingNode, comment);
-    return true;
-  }
-
-  if (enclosingNode.body === followingNode) {
     addLeadingComment(followingNode, comment);
     return true;
   }
