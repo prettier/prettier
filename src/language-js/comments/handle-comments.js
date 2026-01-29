@@ -20,6 +20,7 @@ import { isObjectProperty } from "../utilities/is-object-property.js";
 import { isPrettierIgnoreComment } from "../utilities/is-prettier-ignore-comment.js";
 import { isTypeCastComment } from "../utilities/is-type-cast-comment.js";
 import {
+  isArrayType,
   isBinaryCastExpression,
   isCallLikeExpression,
   isCallOrNewExpression,
@@ -994,7 +995,7 @@ function handleSwitchDefaultCaseComments({
 }
 
 /**
- * Handle `Comment2` and `Comment4`.
+ * Handle `Comment2`, `Comment4`, `Comment6`.
  *
  *   type Foo = (
  *     | "thing1" // Comment1
@@ -1005,6 +1006,11 @@ function handleSwitchDefaultCaseComments({
  *     | "thing1" // Comment3
  *     | "thing2" // Comment4
  *   ) & Bar;
+ *
+ *   type Foo = (
+ *     | "thing1" // Comment5
+ *     | "thing2" // Comment6
+ *   ) | Bar;
  *
  * @param {CommentContext} context
  * @returns {boolean}
@@ -1017,10 +1023,9 @@ function handleLastUnionElementInExpression({
 }) {
   if (
     isUnionType(precedingNode) &&
-    (((enclosingNode.type === "TSArrayType" ||
-      enclosingNode.type === "ArrayTypeAnnotation") &&
-      !followingNode) ||
-      isIntersectionType(enclosingNode))
+    ((isArrayType(enclosingNode) && !followingNode) ||
+      isIntersectionType(enclosingNode) ||
+      isUnionType(enclosingNode))
   ) {
     addTrailingComment(precedingNode.types.at(-1), comment);
     return true;

@@ -208,7 +208,10 @@ type A2 =
   | c;
 
 type A4 =
-  | (A | B) // comment 1
+  | (
+      | A
+      | B // comment 1
+    )
   // comment2
   | (A | B);
 

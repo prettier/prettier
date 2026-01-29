@@ -132,4 +132,9 @@ export const isChainElementWrapper = createTypeCheckFunction([
   "TSNonNullExpression",
 ]);
 
+export const isArrayType = createTypeCheckFunction([
+  "TSArrayType",
+  "ArrayTypeAnnotation",
+]);
+
 export * from "./literal.js";
