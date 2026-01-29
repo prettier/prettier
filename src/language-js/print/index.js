@@ -1,10 +1,4 @@
-import {
-  group,
-  indent,
-  inheritLabel,
-  line,
-  softline,
-} from "../../document/index.js";
+import { group, indent, inheritLabel, softline } from "../../document/index.js";
 import { printComments } from "../../main/comments/print.js";
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
 import needsParentheses from "../parentheses/needs-parentheses.js";
