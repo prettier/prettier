@@ -5,6 +5,7 @@ import {
   guessEndOfLine,
   normalizeEndOfLine,
 } from "../common/end-of-line.js";
+import { commentsPropertyInOptions } from "../constants.js";
 import {
   addAlignmentToDoc,
   hardline,
@@ -69,7 +70,7 @@ async function coreFormat(originalText, opts, addAlignmentSize = 0) {
       trimmed + convertEndOfLineOptionToCharacter(opts.endOfLine);
   }
 
-  const comments = opts[Symbol.for("comments")];
+  const comments = opts[commentsPropertyInOptions];
 
   if (opts.cursorOffset >= 0) {
     // Roughly, our logic for preserving the user's cursor position is as

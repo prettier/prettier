@@ -1,4 +1,5 @@
 import AstPath from "../common/ast-path.js";
+import { commentsPropertyInOptions } from "../constants.js";
 import { cursor, inheritLabel } from "../document/index.js";
 import isNonEmptyArray from "../utilities/is-non-empty-array.js";
 import isObject from "../utilities/is-object.js";
@@ -144,7 +145,7 @@ function callPluginPrintFunction(path, options, printPath, args, embeds) {
 
 async function prepareToPrint(ast, options) {
   const comments = ast.comments ?? [];
-  options[Symbol.for("comments")] = comments;
+  options[commentsPropertyInOptions] = comments;
   // For JS printer to ignore attached comments
   options[Symbol.for("printedComments")] = new Set();
 
