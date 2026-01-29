@@ -1,5 +1,5 @@
 import { locEnd, locStart } from "../loc.js";
-import { getTextWithoutComments } from "./get-text-without-comments.js";
+import { stripComments } from "./strip-comments.js";
 
 /**
 @import {Node, Comment, NodeMap} from "../types/estree.js"
@@ -52,7 +52,7 @@ function getCallOrNewExpressionOpeningParenthesisIndex(
     return;
   }
 
-  const text = getTextWithoutComments(options);
+  const text = stripComments(options);
   const start = locEnd(
     callOrNewExpression.typeArguments ?? callOrNewExpression.callee,
   );

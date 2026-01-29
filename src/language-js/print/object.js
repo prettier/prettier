@@ -17,7 +17,7 @@ import {
   hasComment,
 } from "../utilities/comments.js";
 import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
-import { getTextWithoutComments } from "../utilities/get-text-without-comments.js";
+import { stripComments } from "../utilities/strip-comments.js";
 import { isNextLineEmpty } from "../utilities/is-next-line-empty.js";
 import { isObjectType } from "../utilities/node-types.js";
 import { shouldHugTheOnlyParameter } from "./function-parameters.js";
@@ -200,7 +200,7 @@ function hasNewLineAfterOpeningBrace(node, firstProperty, options) {
 
   let openingBraceIndex = locStart(node);
   if (isPrintingImportAttributes(node)) {
-    openingBraceIndex = getTextWithoutComments(options).lastIndexOf(
+    openingBraceIndex = stripComments(options).lastIndexOf(
       "{",
       firstPropertyStart,
     );
