@@ -12,9 +12,6 @@ import { locEnd, locStart } from "../loc.js";
 */
 
 /**
- */
-
-/**
 @param {string} text
 @param {Comments} comments
 @returns {string}
