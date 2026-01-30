@@ -1,6 +1,6 @@
 import { group, hardline } from "../../document/index.js";
 import { printDanglingComments } from "../../main/comments/print.js";
-import { locStart } from "../loc.js";
+import { isLineComment } from "../utilities/comment-types.js";
 import {
   CommentCheckFlags,
   getComments,
@@ -40,7 +40,12 @@ function printIfStatement(path, options, print) {
   let needSpace = isConsequentBlockStatement;
   if (
     !isConsequentBlockStatement ||
-    hasComment(consequent, CommentCheckFlags.Trailing)
+    hasComment(
+      consequent,
+      CommentCheckFlags.Trailing,
+      (comment) =>
+        isLineComment(comment) || isPreviousLineEmpty(comment, options),
+    )
   ) {
     parts.push(hardline);
     needSpace = false;
@@ -51,7 +56,6 @@ function printIfStatement(path, options, print) {
     const [firstComment] = danglingComments;
 
     parts.push(
-      // There is empty line before
       isPreviousLineEmpty(firstComment, options) ? hardline : "",
       printDanglingComments(path, options),
       needsHardlineAfterDanglingComment(node) ? hardline : " ",

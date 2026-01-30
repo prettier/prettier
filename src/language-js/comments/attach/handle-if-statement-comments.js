@@ -98,7 +98,6 @@ function handleCommentsBetween({
   // Comments before `else`:
   // - treat as trailing comments of the consequent, if it's a BlockStatement
   // - treat as a dangling comment otherwise
-
   if (
     isConsequentBlockStatement ||
     (isSingleLineComment &&
@@ -109,6 +108,7 @@ function handleCommentsBetween({
     //   if (cond1) expr1; // comment A
     //   else if (cond2) expr2; // comment A
     //   else expr3;
+
     addTrailingComment(precedingNode, comment);
     return true;
   }

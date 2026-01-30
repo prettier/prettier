@@ -135,8 +135,7 @@ else stuff;
 =====================================output=====================================
 if (cond) {
   stuff;
-} /* comment */
-else if (cond) {
+} /* comment */ else if (cond) {
   stuff;
 }
 // comment
@@ -145,7 +144,6 @@ else {
 }
 
 if (cond) stuff;
-
 // comment
 else stuff;
 
