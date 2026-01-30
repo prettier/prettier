@@ -21,6 +21,7 @@ const unstableTests = new Map(
     "typescript/prettier-ignore/mapped-types.ts",
     "typescript/prettier-ignore/issue-14238.ts",
     "js/for/continue-and-break-comment-without-blocks.js",
+    "js/for/comment.js",
     "js/sequence-expression/parenthesized.js",
     "typescript/satisfies-operators/comments-unstable.ts",
     "jsx/comments/in-attributes.js",
