@@ -15,35 +15,44 @@ import { printIfStatementCondition } from "./miscellaneous.js";
 
 function printIfStatement(path, options, print) {
   const { node } = path;
-  const consequent = printIfStatementConsequent(path, options, print);
   const opening = group([
     "if (",
     printIfStatementCondition(path, options, print),
     ")",
-    consequent,
+    printIfStatementConsequent(path, options, print),
   ]);
-  /** @type{Doc[]} */
-  const parts = [opening];
 
-  if (node.alternate) {
-    const commentOnOwnLine =
-      hasComment(
-        node.consequent,
-        CommentCheckFlags.Trailing | CommentCheckFlags.Line,
-      ) || needsHardlineAfterDanglingComment(node);
-    const elseOnSameLine =
-      node.consequent.type === "BlockStatement" && !commentOnOwnLine;
-    parts.push(elseOnSameLine ? " " : hardline);
-
-    if (hasComment(node, CommentCheckFlags.Dangling)) {
-      parts.push(
-        printDanglingComments(path, options),
-        commentOnOwnLine ? hardline : " ",
-      );
-    }
-
-    parts.push("else", group(printIfStatementAlternate(path, options, print)));
+  if (!node.alternate) {
+    return opening;
   }
+
+  const { consequent } = node;
+  const isConsequentBlockStatement = consequent.type === "BlockStatement";
+
+  /** @type {Doc[]} */
+  const parts = [opening];
+  let needSpace = isConsequentBlockStatement;
+  if (
+    !isConsequentBlockStatement ||
+    hasComment(consequent, CommentCheckFlags.Trailing)
+  ) {
+    parts.push(hardline);
+    needSpace = false;
+  }
+
+  if (hasComment(node, CommentCheckFlags.Dangling)) {
+    parts.push(
+      printDanglingComments(path, options),
+      needsHardlineAfterDanglingComment(node) ? hardline : " ",
+    );
+    needSpace = false;
+  }
+
+  parts.push(
+    needSpace ? " " : "",
+    "else",
+    group(printIfStatementAlternate(path, options, print)),
+  );
 
   return parts;
 }

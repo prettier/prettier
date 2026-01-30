@@ -55,13 +55,15 @@ else {
 /* 21 */
 if (1) {
   a();
-} else if (2) {
+}
 
 /* 22 */
+else if (2) {
   a();
-} else {
+}
 
 /* 23 */
+else {
   a();
 }
 
@@ -91,7 +93,8 @@ else stuff;
 =====================================output=====================================
 if (cond) {
   stuff;
-} /* comment */ else if (cond) {
+} /* comment */
+else if (cond) {
   stuff;
 }
 // comment
