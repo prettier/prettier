@@ -69,6 +69,11 @@ function handleIfStatementComments({
       locEnd(enclosingNode.consequent),
     );
 
+    if (locEnd(comment) > elseTokenIndex) {
+      addTrailingComment(precedingNode, comment);
+      return true;
+    }
+
     // if comment is positioned between the `else` token and its body
     if (
       followingNode.type === "BlockStatement" &&
