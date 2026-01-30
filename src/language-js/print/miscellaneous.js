@@ -112,23 +112,24 @@ function printAbstractToken({ node }) {
 }
 
 function printClause(path, print, property = "body") {
-  const node = path.node[property];
-  const clause = print(property);
+  return path.call(({ node }) => {
+    const doc = print();
 
-  if (node.type === "EmptyStatement") {
-    return hasComment(node, CommentCheckFlags.Leading) ? [" ", clause] : clause;
-  }
+    if (node.type === "EmptyStatement") {
+      return hasComment(node, CommentCheckFlags.Leading) ? [" ", doc] : doc;
+    }
 
-  if (
-    node.type === "BlockStatement" ||
-    (node.type === "IfStatement" &&
-      path.node.type === "IfStatement" &&
-      property === "alternate")
-  ) {
-    return [" ", clause];
-  }
+    if (
+      node.type === "BlockStatement" ||
+      (node.type === "IfStatement" &&
+        path.parent.type === "IfStatement" &&
+        path.key === "alternate")
+    ) {
+      return [" ", doc];
+    }
 
-  return indent([line, clause]);
+    return indent([line, doc]);
+  }, property);
 }
 
 function printTypeScriptAccessibilityToken(node) {

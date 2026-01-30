@@ -5,13 +5,9 @@ import {
 } from "./miscellaneous.js";
 
 function printDoWhileStatement(path, options, print) {
-  const { body } = path.node;
-  const clause = printClause(path, print);
-  const doBody = group(["do", clause]);
-
   return [
-    doBody,
-    body.type === "BlockStatement" ? " " : hardline,
+    group(["do", printClause(path, print)]),
+    path.body.type === "BlockStatement" ? " " : hardline,
     "while (",
     printDoWhileStatementCondition(path, options, print),
     ")",
