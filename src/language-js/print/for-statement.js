@@ -10,7 +10,7 @@ import { printForStatementBody } from "./clause.js";
 
 function printForStatement(path, options, print) {
   const { node } = path;
-  const body = printForStatementBody(path, print);
+  const body = printForStatementBody(path, options, print);
 
   // We want to keep dangling comments above the loop to stay consistent.
   // Any comment positioned between the for statement and the parentheses

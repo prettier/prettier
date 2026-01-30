@@ -44,76 +44,78 @@ parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-if (1) { // foo may not exist
+if (1) { // 11
   doThing(foo);
 }
-if (1){}else { // foo may not exist
+if (1){}else { // 12
   doThing(foo);
 }
 
 if (2)
-// foo may not exist
+// 21
 {
   doThing(foo);
 }
 if (2){}else
-// foo may not exist
+// 22
 {
   doThing(foo);
 }
 
-if (3)// foo may not exist
+if (3)// 31
 {
   doThing(foo);
 }
-if (3){}else// foo may not exist
+if (3){}else// 32
 {
   doThing(foo);
 }
 
-if (4)/* foo may not exist */{
+if (4)/* 41 */{
   doThing(foo);
 }
-if (4){}else/* foo may not exist */{
+if (4){}else/* 42 */{
   doThing(foo);
 }
 
 =====================================output=====================================
 if (1) {
-  // foo may not exist
+  // 11
   doThing(foo);
 }
 if (1) {
 } else {
-  // foo may not exist
+  // 12
   doThing(foo);
 }
 
-if (2) // foo may not exist
+if (2)
+// 21
 {
   doThing(foo);
 }
 if (2) {
-} else // foo may not exist
+} else
+// 22
 {
   doThing(foo);
 }
 
-if (3) // foo may not exist
+if (3) // 31
 {
   doThing(foo);
 }
 if (3) {
-} else // foo may not exist
+} else // 32
 {
   doThing(foo);
 }
 
-if (4) /* foo may not exist */ {
+if (4) /* 41 */ {
   doThing(foo);
 }
 if (4) {
-} else /* foo may not exist */ {
+} else /* 42 */ {
   doThing(foo);
 }
 
@@ -358,12 +360,15 @@ async function f3() {
 }
 
 async function f4() {
-  if (untrackedChoice === 0) /* Cancel */ {
+  if (untrackedChoice === 0)
+  /* Cancel */ {
     return null;
-  } else if (untrackedChoice === 1) /* Add */ {
+  } else if (untrackedChoice === 1)
+  /* Add */ {
     await repository.addAll(Array.from(untrackedChanges.keys()));
     shouldAmend = true;
-  } else if (untrackedChoice === 2) /* Allow Untracked */ {
+  } else if (untrackedChoice === 2)
+  /* Allow Untracked */ {
     allowUntracked = true;
   }
 }

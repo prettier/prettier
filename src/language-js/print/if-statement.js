@@ -15,7 +15,7 @@ import { printIfStatementCondition } from "./miscellaneous.js";
 
 function printIfStatement(path, options, print) {
   const { node } = path;
-  const consequent = printIfStatementConsequent(path, print);
+  const consequent = printIfStatementConsequent(path, options, print);
   const opening = group([
     "if (",
     printIfStatementCondition(path, options, print),
@@ -42,7 +42,7 @@ function printIfStatement(path, options, print) {
       );
     }
 
-    parts.push("else", group(printIfStatementAlternate(path, print)));
+    parts.push("else", group(printIfStatementAlternate(path, options, print)));
   }
 
   return parts;
