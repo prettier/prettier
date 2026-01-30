@@ -114,35 +114,37 @@ for (
 ================================================================================
 `;
 
-exports[`9812-unstable.js format 1`] = `
+exports[`9812-2.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
 for(x of y)
-// comment
+// 11
 {bar();}
 
 for(x of y)
-// comment
+// 21
 {}
 
 for(x of y)
-// comment
+// 31
 ;
 
 =====================================output=====================================
-for (x of y) // comment
+for (x of y)
+// 11
 {
   bar();
 }
 
-for (x of y) // comment
+for (x of y)
+// 21
 {
 }
 
-for (x of y) // comment
+for (x of y) // 31
 ;
 
 ================================================================================
@@ -193,31 +195,33 @@ for(x of
 y);
 
 =====================================output=====================================
-/*a*/
-for (x in y); //b //c
+for (x in /*a*/ //b
+y) //c
+;
 
 for (x /*a*/ in y); //b //c
 
 for (x /*a*/ in y); //b //c
 
-//a
-for (x in y);
+for (x in //a
+y);
 
-//a
-for (x in y);
+for (x in //a
+y);
 
-/*a*/
-for (x of y); //b //c
+for (x of /*a*/ //b
+y) //c
+;
 
 for (x /*a*/ of y); //b //c
 
 for (x /*a*/ of y); //b //c
 
-//a
-for (x of y);
+for (x of //a
+y);
 
-//a
-for (x of y);
+for (x of //a
+y);
 
 ================================================================================
 `;

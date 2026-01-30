@@ -133,14 +133,14 @@ with(a) /* */ /*
 =====================================output=====================================
 do // 11
 {} while (1);
-// 12
-for (a in b) {
+for (a in b) // 12
+{
 }
-// 13
-for (a of b) {
+for (a of b) // 13
+{
 }
-// 14
-for (;;) {}
+for (;;) // 14
+{}
 if (a) // 15
 {
 } else // 152
@@ -155,14 +155,17 @@ with (a) // 17
 do
 // 21
 {} while (1);
+for (a in b)
 // 22
-for (a in b) {
+{
 }
+for (a of b)
 // 23
-for (a of b) {
+{
 }
+for (;;)
 // 24
-for (;;) {}
+{}
 if (a)
 // 25
 {
@@ -179,14 +182,14 @@ with (a)
 }
 
 do /* 31 */ {} while (1);
-/* 32 */
-for (a in b) {
+for (a in b) /* 32 */
+{
 }
-/* 33 */
-for (a of b) {
+for (a of b) /* 33 */
+{
 }
-// 34 */
-for (;;) {}
+for (;;) // 34 */
+{}
 if (a) /* 35 */
 {
 } else /* 352 */
@@ -198,14 +201,14 @@ with (a) /* 37 */
 }
 
 do /* 41 */ {} while (1);
-/* 42 */
-for (a in b) {
+for (a in b) /* 42 */
+{
 }
-/* 43 */
-for (a of b) {
+for (a of b) /* 43 */
+{
 }
-// 34 */
-for (;;) {}
+for (;;) // 34 */
+{}
 if (a) /* 45 */
 {
 } else /* 452 */
@@ -220,16 +223,18 @@ do
 /*
 51 */
 {} while (1);
+for (a in b)
 /*
 52 */
-for (a in b) {
+{
 }
+for (a of b)
 /*
 53 */
-for (a of b) {
+{
 }
-// 54 */
-for (;;) {}
+for (;;) // 54 */
+{}
 if (a)
 /*
 55 */
@@ -252,16 +257,16 @@ with (a)
 do /* */ /*
 61 */
 {} while (1);
-/* */ /*
+for (a in b) /* */ /*
 62 */
-for (a in b) {
+{
 }
-/* */ /*
+for (a of b) /* */ /*
 63 */
-for (a of b) {
+{
 }
-// 54 */
-for (;;) {}
+for (;;) // 54 */
+{}
 if (a) /* */ /*
 65 */
 {
@@ -390,15 +395,16 @@ with(a) /*
 do // 11
 ;
 while (1);
-// 12
-for (a in b);
-// 13
-for (a of b);
-// 14
-for (;;);
+for (a in b) // 12
+;
+for (a of b) // 13
+;
+for (;;) // 14
+;
 if (a) // 15
-; // 152
-else;
+;
+else // 152
+;
 while (a) // 16
 ;
 with (a) // 17
@@ -407,12 +413,12 @@ with (a) // 17
 do // 21
 ;
 while (1);
-// 22
-for (a in b);
-// 23
-for (a of b);
-// 24
-for (;;);
+for (a in b) // 22
+;
+for (a of b) // 23
+;
+for (;;) // 24
+;
 if (a) // 25
 ;
 else // 252
@@ -424,27 +430,23 @@ with (a) // 27
 
 do /* 31 */ ;
 while (1);
-/* 32 */
-for (a in b);
-/* 33 */
-for (a of b);
-// 34 */
-for (;;);
-if (a) /* 35 */ ; /* 352 */
-else;
+for (a in b) /* 32 */ ;
+for (a of b) /* 33 */ ;
+for (;;) // 34 */
+;
+if (a) /* 35 */ ;
+else /* 352 */ ;
 while (a) /* 36 */ ;
 with (a) /* 37 */ ;
 
 do /* 41 */ ;
 while (1);
-/* 42 */
-for (a in b);
-/* 43 */
-for (a of b);
-// 34 */
-for (;;);
-if (a) /* 45 */ ; /* 452 */
-else;
+for (a in b) /* 42 */ ;
+for (a of b) /* 43 */ ;
+for (;;) // 34 */
+;
+if (a) /* 45 */ ;
+else /* 452 */ ;
 while (a) /* 46 */ ;
 with (a) /* 47 */ ;
 
@@ -452,19 +454,20 @@ do /*
 51 */
 ;
 while (1);
-/*
+for (a in b) /*
 52 */
-for (a in b);
-/*
+;
+for (a of b) /*
 53 */
-for (a of b);
-// 34 */
-for (;;);
+;
+for (;;) // 34 */
+;
 if (a) /*
 55 */
-; /*
+;
+else /*
 552 */
-else;
+;
 while (a) /*
 56 */
 ;
@@ -586,16 +589,21 @@ do
   // 11
   foo();
 while (1);
-// 12
-for (a in b) foo();
-// 13
-for (a of b) foo();
-// 14
-for (;;) foo();
+for (a in b)
+  // 12
+  foo();
+for (a of b)
+  // 13
+  foo();
+for (;;)
+  // 14
+  foo();
 if (a)
   // 15
-  foo(); // 152
-else foo();
+  foo();
+else
+  // 152
+  foo();
 while (a)
   // 16
   foo();
@@ -607,12 +615,15 @@ do
   // 21
   foo();
 while (1);
-// 22
-for (a in b) foo();
-// 23
-for (a of b) foo();
-// 24
-for (;;) foo();
+for (a in b)
+  // 22
+  foo();
+for (a of b)
+  // 23
+  foo();
+for (;;)
+  // 24
+  foo();
 if (a)
   // 25
   foo();
@@ -628,27 +639,25 @@ with (a)
 
 do /* 31 */ foo();
 while (1);
-/* 32 */
-for (a in b) foo();
-/* 33 */
-for (a of b) foo();
-// 34 */
-for (;;) foo();
-if (a) /* 35 */ foo(); /* 352 */
-else foo();
+for (a in b) /* 32 */ foo();
+for (a of b) /* 33 */ foo();
+for (;;)
+  // 34 */
+  foo();
+if (a) /* 35 */ foo();
+else /* 352 */ foo();
 while (a) /* 36 */ foo();
 with (a) /* 37 */ foo();
 
 do /* 41 */ foo();
 while (1);
-/* 42 */
-for (a in b) foo();
-/* 43 */
-for (a of b) foo();
-// 34 */
-for (;;) foo();
-if (a) /* 45 */ foo(); /* 452 */
-else foo();
+for (a in b) /* 42 */ foo();
+for (a of b) /* 43 */ foo();
+for (;;)
+  // 34 */
+  foo();
+if (a) /* 45 */ foo();
+else /* 452 */ foo();
 while (a) /* 46 */ foo();
 with (a) /* 47 */ foo();
 
@@ -657,20 +666,25 @@ do
 51 */
   foo();
 while (1);
-/*
+for (a in b)
+  /*
 52 */
-for (a in b) foo();
-/*
+  foo();
+for (a of b)
+  /*
 53 */
-for (a of b) foo();
-// 34 */
-for (;;) foo();
+  foo();
+for (;;)
+  // 34 */
+  foo();
 if (a)
   /*
 55 */
-  foo(); /*
+  foo();
+else
+  /*
 552 */
-else foo();
+  foo();
 while (a)
   /*
 56 */
