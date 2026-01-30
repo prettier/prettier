@@ -100,7 +100,7 @@ function handleCommentsBetween({
   if (
     isSingleLineComment(comment, text) &&
     // Comment and `precedingNode` are on same line
-    !hasNewlineInRange(text, locStart(precedingNode), locStart(comment))
+    !hasNewlineInRange(text, locEnd(precedingNode), locStart(comment))
   ) {
     // example:
     //   if (cond1) expr1; // comment A
