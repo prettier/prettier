@@ -3,8 +3,7 @@
 exports[`arrow-return-type.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export const getVehicleDescriptor = async (
   vehicleId: string
@@ -131,8 +130,7 @@ export const getVehicleDescriptor = async (
 exports[`issue-6899.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const getUnusedAuthorizationHoldDocuments = async (): Promise<DocumentData[]> => {}
 
@@ -163,8 +161,7 @@ export const SUPPORTED_VEHICLE_TYPES: Array<
 exports[`object-method.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export default {
   load<K, T>(k: K, t: T) {
@@ -185,8 +182,7 @@ export default {
 exports[`ungrouped-parameters.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function filterTooltipWithFoo<F extends Field>(oldEncoding: Encoding<F>): {
   customTooltipWithoutAggregatedField?:

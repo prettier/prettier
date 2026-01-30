@@ -3,8 +3,7 @@
 exports[`break.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class MyContractSelectionWidget extends React.Component<void,  MyContractSelectionWidgetPropsType, void> implements SomethingLarge {
   method() {}
@@ -94,8 +93,7 @@ export class VisTimelineComponent2
 exports[`break-heritage.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class looooooooooooooooooong1 extends looooooooooooooooooong implements loooooooooooooooooooong {
   // leading comment

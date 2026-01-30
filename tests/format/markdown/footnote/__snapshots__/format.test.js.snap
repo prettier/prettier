@@ -3,9 +3,8 @@
 exports[`footnote.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ^[inline]
 
@@ -18,9 +17,8 @@ proseWrap: "always"
 exports[`simple.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [^alpha bravo]
 

@@ -3,8 +3,7 @@
 exports[`comments.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type Empty11 = [
 // 11
@@ -61,8 +60,7 @@ type Empty26 = [.../* 25 */];
 exports[`inexact.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type Empty = [...];
 
@@ -79,8 +77,7 @@ type One = [number, ...];
 exports[`labeled.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type T = [a: string, b: number];
 
@@ -93,8 +90,7 @@ type T = [a: string, b: number];
 exports[`optional.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type A = [a?: string, +b?: number, -c?: boolean];
 
@@ -113,8 +109,7 @@ type B = [?string, [?string], (?string) => boolean];
 exports[`variance.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type T = [a: string, +b: number, -c: boolean];
 

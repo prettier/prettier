@@ -3,8 +3,7 @@
 exports[`nested-2.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 .btn {&:hover {
     color: red;

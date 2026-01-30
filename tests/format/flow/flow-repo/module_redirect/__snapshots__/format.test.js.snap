@@ -3,8 +3,7 @@
 exports[`A.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 declare module A {
   declare function foo(): string;
@@ -21,8 +20,7 @@ declare module A {
 exports[`B.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /**
  * @providesModule B
@@ -45,8 +43,7 @@ module.exports = require("A");
 exports[`C.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /**
  * @providesModule C
@@ -69,8 +66,7 @@ module.exports = require("B");
 exports[`D.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /**
  * @providesModule D

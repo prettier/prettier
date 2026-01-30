@@ -3,8 +3,7 @@
 exports[`A.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* @flow */
 
@@ -41,8 +40,7 @@ import { numVal as numVal2 } from "3DoesntExist"; // Error
 exports[`Exists.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /**
  * @providesModule Exists

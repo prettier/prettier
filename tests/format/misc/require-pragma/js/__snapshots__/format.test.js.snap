@@ -3,9 +3,8 @@
 exports[`module-with-pragma.js - {"requirePragma":true} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
-printWidth: 80
 requirePragma: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /**
  * @flow
@@ -38,9 +37,8 @@ function foo(bar) {
 exports[`module-without-pragma.js - {"requirePragma":true} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
-printWidth: 80
 requirePragma: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /**
  * @flow
@@ -77,11 +75,10 @@ function      foo(bar)
 exports[`range-with-pragma.js - {"requirePragma":true} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
-printWidth: 80
 rangeEnd: 36
 rangeStart: 21
 requirePragma: true
-     |                                                                                | printWidth
+     |                                                      printWidth: 80 (default) |
 =====================================input======================================
   1 | /**
   2 |  * @prettier
@@ -101,11 +98,10 @@ var test = true;
 exports[`range-without-pragma.js - {"requirePragma":true} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
-printWidth: 80
 rangeEnd: 15
 rangeStart: 0
 requirePragma: true
-     |                                                                                | printWidth
+     |                                                      printWidth: 80 (default) |
 =====================================input======================================
 > 1 | var test = true
     | ^^^^^^^^^^^^^^^
@@ -119,9 +115,8 @@ var test = true
 exports[`shebang-with-pragma.js - {"requirePragma":true} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
-printWidth: 80
 requirePragma: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 #!/usr/bin/env node
 /**
@@ -145,9 +140,8 @@ function test() {
 exports[`shebang-without-pragma.js - {"requirePragma":true} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
-printWidth: 80
 requirePragma: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 #!/usr/bin/env node
 function test() { const answer = 42;console.log("%s is the answer to life, the universe, and everything", answer);}
@@ -162,9 +156,8 @@ function test() { const answer = 42;console.log("%s is the answer to life, the u
 exports[`snippet: #0 - {"requirePragma":true} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
-printWidth: 80
 requirePragma: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ﻿#!/usr/bin/env node
 /** @format */

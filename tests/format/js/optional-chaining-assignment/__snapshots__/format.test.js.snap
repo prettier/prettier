@@ -473,8 +473,7 @@ exports[`invalid-inc-prefix.js format[oxc] 1`] = `
 exports[`valid-complex-case.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 let?.()[a] =1;
 let?.[a] = 1;
@@ -524,8 +523,7 @@ exports[`valid-complex-case.js format[oxc] 1`] = `
 exports[`valid-lhs-eq.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 a?.b.c = d;
 
@@ -561,8 +559,7 @@ exports[`valid-lhs-eq.js format[oxc] 1`] = `
 exports[`valid-lhs-plus-eq.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 a?.b.c += d;
 
@@ -598,8 +595,7 @@ exports[`valid-lhs-plus-eq.js format[oxc] 1`] = `
 exports[`valid-parenthesized.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 (a?.b) = c;
 

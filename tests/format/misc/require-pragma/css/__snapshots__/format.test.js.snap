@@ -3,9 +3,8 @@
 exports[`empty-front-matter-with-pragma.css - {"requirePragma":true} format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
-printWidth: 80
 requirePragma: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 ---
@@ -30,9 +29,8 @@ requirePragma: true
 exports[`empty-front-matter-without-pragma.css - {"requirePragma":true} format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
-printWidth: 80
 requirePragma: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 ---
@@ -51,9 +49,8 @@ requirePragma: true
 exports[`front-matter-with-pragma.css - {"requirePragma":true} format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
-printWidth: 80
 requirePragma: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 something
@@ -80,9 +77,8 @@ something
 exports[`front-matter-without-pragma.css - {"requirePragma":true} format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
-printWidth: 80
 requirePragma: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 something
@@ -103,9 +99,8 @@ something
 exports[`with-pragma.css - {"requirePragma":true} format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
-printWidth: 80
 requirePragma: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /** @prettier */
 
@@ -124,9 +119,8 @@ requirePragma: true
 exports[`with-pragma-in-multiline.css - {"requirePragma":true} format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
-printWidth: 80
 requirePragma: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /**
  * MIT LICENSE
@@ -157,9 +151,8 @@ requirePragma: true
 exports[`without-pragma.css - {"requirePragma":true} format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
-printWidth: 80
 requirePragma: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 .class {    display: none;    }
 

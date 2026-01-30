@@ -3,8 +3,7 @@
 exports[`license_with_flow.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* Copyright example */
 /* @flow */
@@ -23,8 +22,7 @@ printWidth: 80
 exports[`max_header_tokens.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* @flow */
 /* second token */
@@ -51,8 +49,7 @@ printWidth: 80
 exports[`multiple_flows_1.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* @flow */
 /* @flow */
@@ -67,8 +64,7 @@ printWidth: 80
 exports[`multiple_flows_2.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /**
  * @flow
@@ -87,8 +83,7 @@ printWidth: 80
 exports[`multiple_providesModule_1.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /**
  * @providesModule Foo
@@ -109,8 +104,7 @@ printWidth: 80
 exports[`multiple_providesModule_2.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /**
  * @providesModule Foo
@@ -135,8 +129,7 @@ printWidth: 80
 exports[`use_strict_with_flow.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 "use strict";
 /* @flow */
@@ -155,8 +148,7 @@ printWidth: 80
 exports[`with_flow.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* @flow */
 
@@ -173,8 +165,7 @@ printWidth: 80
 exports[`without_flow.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* some other comment */
 

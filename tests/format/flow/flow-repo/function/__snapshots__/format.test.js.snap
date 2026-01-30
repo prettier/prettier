@@ -3,8 +3,7 @@
 exports[`apply.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function test(a: string, b: number): number {
   return this.length; // expect []/"" this
@@ -115,8 +114,7 @@ function test3(x: { (a: string, b: string): void }) {
 exports[`bind.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @flow
 
@@ -182,8 +180,7 @@ let tests = [
 exports[`call.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @flow
 
@@ -280,8 +277,7 @@ function test3(x: { (a: string, b: string): void }) {
 exports[`function.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /**
  * @flow
@@ -426,8 +422,7 @@ var e = (d.bind(1): Function)();
 exports[`rest.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* regression tests */
 
@@ -575,8 +570,7 @@ requires_first_param(); // Error: missing first arg
 exports[`rest_type.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* regression tests */
 

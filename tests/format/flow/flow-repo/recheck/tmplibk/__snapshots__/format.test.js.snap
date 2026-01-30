@@ -3,8 +3,7 @@
 exports[`libk1.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type LibK = {}
 
@@ -17,8 +16,7 @@ type LibK = {};
 exports[`libk2.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type LibK = {
   p: string;

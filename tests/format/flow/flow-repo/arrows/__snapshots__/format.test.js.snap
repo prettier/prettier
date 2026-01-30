@@ -3,8 +3,7 @@
 exports[`advanced_arrows.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /**
  * @flow
@@ -37,8 +36,7 @@ var ident = <T>(x: T): T => x;
 exports[`arrows.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function selectBestEffortImageForWidth(
     maxWidth: number,

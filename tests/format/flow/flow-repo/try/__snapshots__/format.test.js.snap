@@ -3,8 +3,7 @@
 exports[`abnormals.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* @flow */
 
@@ -45,8 +44,7 @@ function foo() {
 exports[`init.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /***
  * test initialization tracking of hoisted stuff
@@ -361,8 +359,7 @@ function f(b) {
 exports[`return.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /**
  * @flow
@@ -501,8 +498,7 @@ function corge(): string {
 exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /***
  * test env state tracking thru try/catch/finally

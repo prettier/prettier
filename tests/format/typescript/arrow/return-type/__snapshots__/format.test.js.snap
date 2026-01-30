@@ -3,8 +3,7 @@
 exports[`6215.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export function foo1(text: string): {
   Foo: string;
@@ -49,8 +48,7 @@ export function foo3(text: string): { Foo: string; Bar: string } {
 exports[`18588.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 a.map(() => ({
   name,

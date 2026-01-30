@@ -3,9 +3,8 @@
 exports[`force-singleline-in-mapping-value.yml - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 no-whitesapce: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
 
@@ -39,9 +38,8 @@ newline: longlonglonglonglonglonglonglonglonglonglong
 exports[`force-singleline-in-mapping-value.yml - {"proseWrap":"never"} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
 proseWrap: "never"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 no-whitesapce: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
 
@@ -71,8 +69,7 @@ newline: longlonglonglonglonglonglonglonglonglonglong
 exports[`force-singleline-in-mapping-value.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 no-whitesapce: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
 
@@ -103,9 +100,8 @@ newline: longlonglonglonglonglonglonglonglonglonglong
 exports[`middle-comment.yml - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 !!str # comment
 hello
@@ -120,9 +116,8 @@ hello
 exports[`middle-comment.yml - {"proseWrap":"never"} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
 proseWrap: "never"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 !!str # comment
 hello
@@ -137,8 +132,7 @@ hello
 exports[`middle-comment.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 !!str # comment
 hello
@@ -153,9 +147,8 @@ hello
 exports[`middle-comments.yml - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 !!str # comment 1
 # comment 2
@@ -173,9 +166,8 @@ hello
 exports[`middle-comments.yml - {"proseWrap":"never"} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
 proseWrap: "never"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 !!str # comment 1
 # comment 2
@@ -193,8 +185,7 @@ hello
 exports[`middle-comments.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 !!str # comment 1
 # comment 2
@@ -212,9 +203,8 @@ hello
 exports[`multiline.yml - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 b:    
   123123123123123123123123123   
@@ -258,9 +248,8 @@ b: 123123123123123123123123123 123123123123123123123123123
 exports[`multiline.yml - {"proseWrap":"never"} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
 proseWrap: "never"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 b:    
   123123123123123123123123123   
@@ -302,8 +291,7 @@ b:
 exports[`multiline.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 b:    
   123123123123123123123123123   
@@ -350,9 +338,8 @@ b: 123123123123123123123123123
 exports[`true.yml - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 hello
 
@@ -365,9 +352,8 @@ hello
 exports[`true.yml - {"proseWrap":"never"} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
 proseWrap: "never"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 hello
 
@@ -380,8 +366,7 @@ hello
 exports[`true.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 hello
 
@@ -394,9 +379,8 @@ hello
 exports[`verbatim.yml - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 !<hello> hello
 
@@ -409,9 +393,8 @@ proseWrap: "always"
 exports[`verbatim.yml - {"proseWrap":"never"} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
 proseWrap: "never"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 !<hello> hello
 
@@ -424,8 +407,7 @@ proseWrap: "never"
 exports[`verbatim.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 !<hello> hello
 

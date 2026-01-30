@@ -3,9 +3,8 @@
 exports[`asi.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 foo;
 // prettier-ignore
@@ -22,8 +21,7 @@ foo
 exports[`asi.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 foo;
 // prettier-ignore
@@ -40,9 +38,8 @@ foo;
 exports[`class-expression-decorator.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 (
   // prettier-ignore
@@ -112,8 +109,7 @@ Cause: unrecognized character '@' (3:2)
 exports[`class-expression-decorator.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 (
   // prettier-ignore
@@ -183,9 +179,8 @@ Cause: unrecognized character '@' (3:2)
 exports[`directive.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // prettier-ignore
 'use strict';
@@ -214,8 +209,7 @@ function foo() {
 exports[`directive.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // prettier-ignore
 'use strict';
@@ -244,9 +238,8 @@ function foo() {
 exports[`head-ignored.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 (
   // prettier-ignore
@@ -263,8 +256,7 @@ semi: false
 exports[`head-ignored.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 (
   // prettier-ignore

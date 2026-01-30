@@ -3,8 +3,7 @@
 exports[`regular-expression.html format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <b>{{       /\\d/+}}</b>
 <!-- Invalid regular expression -->

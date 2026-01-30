@@ -3,8 +3,7 @@
 exports[`15948.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 h1 {
   --OFF: /* OFF */;
@@ -39,8 +38,7 @@ h1 {
 exports[`17479.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 .foo {
   background-image:
@@ -81,8 +79,7 @@ printWidth: 80
 exports[`CRLF.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /*
  * Comment 1
@@ -131,8 +128,7 @@ printWidth: 80
 exports[`at-rules.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 @charset "utf-8"; /* comment 1 */
 
@@ -347,8 +343,7 @@ printWidth: 80
 exports[`block.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* Kikoo */
 /**
@@ -367,8 +362,7 @@ printWidth: 80
 exports[`bug.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* Catchall baseclass */
 .glyphicon {
@@ -385,8 +379,7 @@ printWidth: 80
 exports[`custom-properties.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
    /* comment 1 */
        :root {
@@ -423,8 +416,7 @@ font-size: 12px;
 exports[`declaration.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 a {
     /* comment 1 */
@@ -596,8 +588,7 @@ body {
 exports[`nestled.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /*
  * First comment
@@ -624,8 +615,7 @@ printWidth: 80
 exports[`prettier-ignore.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 foo {
   /* prettier-ignore */
@@ -646,8 +636,7 @@ foo {
 exports[`selectors.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 .powerPathNavigator .helm button.pressedButton, /* comment 1 */
 .powerPathNavigator .helm button:active:not(.disabledButton),
@@ -1045,8 +1034,7 @@ article /* comment 168 */ :--heading /* comment 169 */ + /* comment 170 */ p /* 
 exports[`source-map.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 .foo {
     color: red;
@@ -1067,8 +1055,7 @@ printWidth: 80
 exports[`types.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* This is a basic comment */
 

@@ -3,8 +3,7 @@
 exports[`comments.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type X1 = {...Y/**/};
 type X2 = {/**/...Y};

@@ -3,8 +3,7 @@
 exports[`81-characters.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export type ButtonColor =
   | "primary"
@@ -100,8 +99,7 @@ type ClassLike________80 = TSESTree.ClassDeclaration | TSESTree.ClassExpression;
 exports[`comment.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type A1 = /* 4 */ (
   | A
@@ -157,8 +155,7 @@ type SuperLongTypeNameLoremIpsumLoremIpsumBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBlaBl2 =
 exports[`comments.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type A1 = a /* 1 */ | b;
 type A2 = a | /* 1 */ b;
@@ -189,8 +186,7 @@ type B3 = a | /* 1 */ /* 2 */ b;
 exports[`prettier-ignore.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export type a =
   // foo
@@ -251,8 +247,7 @@ export type c =
 exports[`single-type.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type A1 =
   | (
@@ -383,8 +378,7 @@ type B2 =
 exports[`union-last-comment.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type Foo = (
   | "thing1" // Comment1
@@ -426,8 +420,7 @@ type Foo =
 exports[`within-tuple.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type A = [AAAAAAAAAAAAAAAAAAAAAA | BBBBBBBBBBBBBBBBBBBBBB | CCCCCCCCCCCCCCCCCCCCCC | DDDDDDDDDDDDDDDDDDDDDD]
 

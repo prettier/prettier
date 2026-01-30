@@ -3,8 +3,7 @@
 exports[`cjs_with_types.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* @flow */
 
@@ -29,8 +28,7 @@ module.exports = {};
 exports[`importer.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* @flow */
 
@@ -105,8 +103,7 @@ var n: IFoo2 = { prop: 42 }; // Error: {prop:number} ~> {prop:string}
 exports[`types_only.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* @flow */
 
@@ -149,8 +146,7 @@ export interface IFoo {
 exports[`types_only2.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* @flow */
 

@@ -3,8 +3,7 @@
 exports[`bound.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // refinements of bound vars (closed-over locals)
 // should have the same lifetimes as heap objects.
@@ -144,8 +143,7 @@ var tests = [
 exports[`heap.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 var tests =
 [
@@ -634,8 +632,7 @@ var tests = [
 exports[`lex.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function block_scope(x: string | number) {
   {
@@ -718,8 +715,7 @@ function try_scope_catch(x: string | number) {
 exports[`local.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 var paths =
 [
@@ -899,8 +895,7 @@ var paths = [
 exports[`null_tests.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 var null_tests =
 [
@@ -1213,8 +1208,7 @@ class D extends C {
 exports[`switch.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @flow
 function foo(a,b,c) {
@@ -1351,8 +1345,7 @@ function exhaustion3(x): number {
 exports[`typeof_tests.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 var null_tests =
 [
@@ -1620,8 +1613,7 @@ class A {
 exports[`undef_tests.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 var undef_tests =
 [
@@ -1778,8 +1770,7 @@ class A {
 exports[`void_tests.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 var void_tests =
 [

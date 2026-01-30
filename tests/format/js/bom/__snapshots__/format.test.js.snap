@@ -4,8 +4,7 @@ exports[`snippet: cursor-1.js format 1`] = `
 ====================================options=====================================
 cursorOffset: 27
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ﻿(function(){return        <|>15})()
 
@@ -21,10 +20,9 @@ exports[`snippet: cursor-and-range.js format 1`] = `
 ====================================options=====================================
 cursorOffset: 22
 parsers: ["babel"]
-printWidth: 80
 rangeEnd: 27
 rangeStart: 11
-     |                                                                                | printWidth
+     |                                                      printWidth: 80 (default) |
 =====================================input======================================
   1 | ﻿
   2 |
@@ -49,10 +47,9 @@ let    x
 exports[`snippet: range-1.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
 rangeEnd: 27
 rangeStart: 11
-     |                                                                                | printWidth
+     |                                                      printWidth: 80 (default) |
 =====================================input======================================
   1 | ﻿
   2 |
@@ -80,10 +77,9 @@ exports[`snippet: range-and-cursor-1.js format 1`] = `
 ====================================options=====================================
 cursorOffset: 23
 parsers: ["babel"]
-printWidth: 80
 rangeEnd: 28
 rangeStart: 12
-     |                                                                                | printWidth
+     |                                                      printWidth: 80 (default) |
 =====================================input======================================
   1 | ﻿
   2 |

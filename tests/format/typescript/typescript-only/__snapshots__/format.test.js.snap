@@ -3,9 +3,8 @@
 exports[`await-with-parens.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function foo(promise) { await (promise); }
 
@@ -55,8 +54,7 @@ await 0
 exports[`await-with-parens.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function foo(promise) { await (promise); }
 
@@ -106,9 +104,8 @@ await 0;
 exports[`decorator-auto-accessors-abstract-class.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 abstract class Foo {
   declare accessor prop7: number;
@@ -139,8 +136,7 @@ abstract class Foo {
 exports[`decorator-auto-accessors-abstract-class.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 abstract class Foo {
   declare accessor prop7: number;
@@ -171,9 +167,8 @@ abstract class Foo {
 exports[`decorator-auto-accessors-declara-class.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 declare class C {
   accessor x = 1;
@@ -192,8 +187,7 @@ declare class C {
 exports[`decorator-auto-accessors-declara-class.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 declare class C {
   accessor x = 1;
@@ -212,9 +206,8 @@ declare class C {
 exports[`decorator-auto-accessors-mixed-modifiers.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 abstract class Foo {
   accessor prop: number = 1;
@@ -253,8 +246,7 @@ abstract class Foo {
 exports[`decorator-auto-accessors-mixed-modifiers.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 abstract class Foo {
   accessor prop: number = 1;
@@ -293,9 +285,8 @@ abstract class Foo {
 exports[`parenthesized-decorators-call-expression.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 @(test().x("global").y())
 class X {}
@@ -310,8 +301,7 @@ class X {}
 exports[`parenthesized-decorators-call-expression.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 @(test().x("global").y())
 class X {}
@@ -326,9 +316,8 @@ class X {}
 exports[`parenthesized-decorators-tagged-template.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class Test {
   @foo\`bar\`
@@ -347,8 +336,7 @@ class Test {
 exports[`parenthesized-decorators-tagged-template.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class Test {
   @foo\`bar\`
@@ -367,9 +355,8 @@ class Test {
 exports[`prettier-ignore-parenthesized-type.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type Foo =
   // prettier-ignore
@@ -388,8 +375,7 @@ type Foo =
 exports[`prettier-ignore-parenthesized-type.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type Foo =
   // prettier-ignore

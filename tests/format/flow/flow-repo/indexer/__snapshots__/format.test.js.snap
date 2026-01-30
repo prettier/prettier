@@ -3,8 +3,7 @@
 exports[`A.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // No indexer should be fine
 function foo0(): {} {
@@ -93,8 +92,7 @@ function foo7(): { [key: string]: number, foo: number } {
 exports[`multiple.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @flow
 

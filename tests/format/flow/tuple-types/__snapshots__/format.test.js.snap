@@ -3,9 +3,8 @@
 exports[`trailing-comma.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel-flow"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export interface ShopQueryResult {
   chic: boolean;
@@ -44,9 +43,8 @@ export interface ShopQueryResult {
 exports[`trailing-comma.js - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export interface ShopQueryResult {
   chic: boolean;
@@ -85,9 +83,8 @@ export interface ShopQueryResult {
 exports[`trailing-comma.js - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export interface ShopQueryResult {
   chic: boolean;

@@ -3,8 +3,7 @@
 exports[`issue-10846.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const foo1 =
   call<{
@@ -86,8 +85,7 @@ const foo4 = call<
 exports[`issue-10850.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const map: Map<Function, Map<string | void, { value: UnloadedDescriptor }>> =
   new Map();
@@ -114,8 +112,7 @@ const ma3: Map<Function, Foo<S>> = new Map();
 exports[`issue-12413.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 let emit =
   defineEmits<{ (event: "ready", canvas: HTMLCanvasElement): void; (event:"resize",canvas:HTMLCanvasElement):void; }>();

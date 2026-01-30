@@ -3,8 +3,7 @@
 exports[`1.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 f<<<T>(x)
 
@@ -17,8 +16,7 @@ f << (<T>x);
 exports[`2.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 f<<T>(v: T) => void>();
 
@@ -31,8 +29,7 @@ f<<T>(v: T) => void>();
 exports[`3.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 (class extends f<<T>(v: T) => void> {});
 
@@ -60,8 +57,7 @@ Cause: ',' expected."
 exports[`4.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 (@f<<T>(v: T) => void>() class {});
 
@@ -77,8 +73,7 @@ printWidth: 80
 exports[`5.tsx format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <Component<<T>(v: T) => void> />
 
@@ -106,8 +101,7 @@ Cause: Identifier expected."
 exports[`6.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 new f<<T>(v: T) => void>();
 

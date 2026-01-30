@@ -3,8 +3,7 @@
 exports[`babel.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <script type="text/babel" data-presets="react" data-type="module">
 import { h, 
@@ -53,8 +52,7 @@ alert(1)
 exports[`legacy.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 <script>
@@ -88,8 +86,7 @@ alert(2)
 exports[`module.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <script type="module">
 import prettier from "prettier/standalone";
@@ -134,8 +131,7 @@ async function foo() {
 exports[`module-attributes.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <script src="foo.wasm" type="module" withtype="webassembly"></script>
 
@@ -148,8 +144,7 @@ printWidth: 80
 exports[`script.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <script type="application/ld+json">
   {   "json": true }

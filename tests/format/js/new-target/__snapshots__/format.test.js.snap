@@ -3,8 +3,7 @@
 exports[`outside-functions.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const x = new.target;
 
@@ -50,10 +49,9 @@ const x = new.target;
 exports[`range.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 rangeEnd: 52
 rangeStart: 38
-     |                                                                                | printWidth
+     |                                                      printWidth: 80 (default) |
 =====================================input======================================
   1 | class A {
   2 |   constructor() {

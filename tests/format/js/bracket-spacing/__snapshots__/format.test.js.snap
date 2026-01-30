@@ -4,8 +4,7 @@ exports[`array.js - {"bracketSpacing":false} format 1`] = `
 ====================================options=====================================
 bracketSpacing: false
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const arr1 = [1,2,3,4];
 const arr2 = [1, 2, 3, 4];
@@ -20,8 +19,7 @@ const arr2 = [1, 2, 3, 4];
 exports[`array.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const arr1 = [1,2,3,4];
 const arr2 = [1, 2, 3, 4];
@@ -37,8 +35,7 @@ exports[`object.js - {"bracketSpacing":false} format 1`] = `
 ====================================options=====================================
 bracketSpacing: false
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const obj1 = {a:1, b:2, c:3}
 const obj2 = { a:1, b:2, c:3 };
@@ -53,8 +50,7 @@ const obj2 = {a: 1, b: 2, c: 3};
 exports[`object.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const obj1 = {a:1, b:2, c:3}
 const obj2 = { a:1, b:2, c:3 };

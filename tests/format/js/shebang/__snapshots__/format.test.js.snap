@@ -3,8 +3,7 @@
 exports[`shebang.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 #!/usr/bin/env node
 function a() {}
@@ -19,8 +18,7 @@ function a() {}
 exports[`shebang-newline.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 #!/usr/bin/env node
 
@@ -37,8 +35,7 @@ function a() {}
 exports[`snippet: Empty file with shebang format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 #!/usr/bin/env node
 =====================================output=====================================
@@ -50,8 +47,7 @@ printWidth: 80
 exports[`snippet: Empty file with shebang format 2`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 #!/usr/bin/env node
 

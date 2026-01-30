@@ -3,8 +3,7 @@
 exports[`basic.html format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <ng-container *ngTemplateOutlet="someTmpl; context: {app}"></ng-container>
 <div dir [input]="{   a,   b:   2   }"></div>

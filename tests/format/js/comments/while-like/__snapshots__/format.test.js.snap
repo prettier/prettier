@@ -3,8 +3,7 @@
 exports[`if.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 if(
     true
@@ -68,8 +67,7 @@ if (1)
 exports[`while.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 while(
     true
@@ -127,8 +125,7 @@ while (1)
 exports[`with.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 with(
     foo

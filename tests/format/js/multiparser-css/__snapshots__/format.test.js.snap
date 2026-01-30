@@ -3,8 +3,7 @@
 exports[`colons-after-substitutions.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const Icon = styled.div\`
   flex: none;
@@ -48,8 +47,7 @@ const Icon = styled.div\`
 exports[`colons-after-substitutions2.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const Icon = styled.div\`
   height: 48px;
@@ -106,8 +104,7 @@ const Icon3 = styled.div\`
 exports[`issue-2636.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export const ButtonWrapper = styled.button\`
   \${base}
@@ -148,8 +145,7 @@ export const ButtonWrapper2 = styled.button\`
 exports[`issue-2883.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export const foo = css\`
 &.foo .\${bar}::before,&.foo[value="hello"] .\${bar}::before {
@@ -194,8 +190,7 @@ export const global = css\`
 exports[`issue-5697.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const StyledH1 = styled.div\`
   font-size: 2.5em;
@@ -240,8 +235,7 @@ const StyledH1 = styled.div\`
 exports[`issue-5961.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const Steps = styled.div\`
   @media (min-width: 1px) {
@@ -323,8 +317,7 @@ const Steps2 = styled.div\`
 exports[`issue-6259.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export const Group = styled.div\`
   margin: 0;
@@ -365,8 +358,7 @@ export const Group = styled.div\`
 exports[`issue-8352.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const StyledComponent = styled.div\`
   margin-right: -4px;
@@ -407,8 +399,7 @@ const StyledComponent2 = styled.div\`
 exports[`issue-9072.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const style1 = css\`
   width:\${size+10}\${sizeUnit};
@@ -445,8 +436,7 @@ const style3 = css\`
 exports[`issue-11400.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 css\`foo:bar {}\`;
 css\`foo:\${bar} {}\`;
@@ -478,8 +468,7 @@ css\`
 exports[`issue-11797.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const paragraph1 = css\`
   font-size: 12px;
@@ -515,8 +504,7 @@ const paragraph3 = css\`
 exports[`issue-16692.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const c1 = styled.div\`
     border:    1px     \${solid}      red;
@@ -565,8 +553,7 @@ const c5 = styled.div\`
 exports[`styled-components.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const ListItem1 = styled.li\`\`;
 
@@ -1102,8 +1089,7 @@ const StyledDiv = styled.div\`
 exports[`styled-components-multiple-expressions.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const Header = styled.div\`
   \${something()}
@@ -1162,8 +1148,7 @@ styled.div\`
 exports[`url.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 styled.div\`color:red;background: url(http://example.com?q=\${foo})\`
 
@@ -1179,8 +1164,7 @@ styled.div\`
 exports[`var.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const Something = styled.div\`
   background: var(--\${one}); /* ... */

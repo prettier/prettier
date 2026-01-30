@@ -3,8 +3,7 @@
 exports[`declare_class_fields.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class B {p: number;}
 class C extends B {declare p: 256 | 1000;}
@@ -35,8 +34,7 @@ declare class D {
 exports[`declare_enum.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 declare const enum Foo {}
 declare enum Bar {}
@@ -51,8 +49,7 @@ declare enum Bar {}
 exports[`declare_function.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 declare function x();
 declare function y(): void;
@@ -81,8 +78,7 @@ declare function f([]?);
 exports[`declare_interface.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 declare interface Dictionary<T> {
   [index: string]: T
@@ -111,8 +107,7 @@ declare interface B {
 exports[`declare_module.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 declare module m {
   class C {
@@ -133,8 +128,7 @@ declare module m {
 exports[`declare_namespace.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 declare namespace m {
   class C {
@@ -155,8 +149,7 @@ declare namespace m {
 exports[`declare_var.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // tslint:disable-next-line:no-use-before-declare
 const hello = 5;
@@ -177,8 +170,7 @@ declare const hello2 = 5;
 exports[`declare-get-set-field.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class C {
   declare get: string
@@ -197,8 +189,7 @@ class C {
 exports[`object-type-in-declare-function.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 declare function foo(this: { a: boolean, b: string, c: number }):
   Promise<Array<foo>>

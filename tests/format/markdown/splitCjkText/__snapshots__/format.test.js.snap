@@ -3,9 +3,8 @@
 exports[`chinese-japanese.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 這是一段很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長的段落
 
@@ -42,9 +41,8 @@ nasalカ゚キ゚ク゚ケ゚コ゚カ゚キ゚ク゚ケ゚コ゚カ゚キ゚ク
 exports[`han-kana-alnum.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！
 
@@ -69,9 +67,8 @@ Prettierの最初のCommitは2016年11月29日に行われました。Prettier�
 exports[`korean.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 예문Latin예문Latin 예문Latin예문 Latin예문Latin 예문 Latin 예문
 
@@ -173,9 +170,8 @@ NVIDIA의 RTX3000 시리즈는 삼성전자와 TSMC에 의해 제조된다.
 exports[`link.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [這是一段很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長的段落][]
 
@@ -193,9 +189,8 @@ proseWrap: "always"
 exports[`mixed.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！
 
@@ -208,9 +203,8 @@ proseWrap: "always"
 exports[`space.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！
 
@@ -223,9 +217,8 @@ proseWrap: "always"
 exports[`symbolSpaceNewLine.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 日本語
 、

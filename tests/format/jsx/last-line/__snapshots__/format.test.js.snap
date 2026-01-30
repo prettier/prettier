@@ -4,8 +4,7 @@ exports[`last_line.js - {"bracketSameLine":false} format 1`] = `
 ====================================options=====================================
 bracketSameLine: false
 parsers: ["flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <SomeHighlyConfiguredComponent
   onEnter={this.onEnter}
@@ -37,8 +36,7 @@ exports[`last_line.js - {"bracketSameLine":true} format 1`] = `
 ====================================options=====================================
 bracketSameLine: true
 parsers: ["flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <SomeHighlyConfiguredComponent
   onEnter={this.onEnter}
@@ -69,8 +67,7 @@ exports[`single_prop_multiline_string.js - {"bracketSameLine":false} format 1`] 
 ====================================options=====================================
 bracketSameLine: false
 parsers: ["flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <path d="M4.765 16.829l3.069-2.946 5.813 5.748
   11.33-11.232 3.006 3.18-14.36 14.080z" />;
@@ -100,8 +97,7 @@ exports[`single_prop_multiline_string.js - {"bracketSameLine":true} format 1`] =
 ====================================options=====================================
 bracketSameLine: true
 parsers: ["flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <path d="M4.765 16.829l3.069-2.946 5.813 5.748
   11.33-11.232 3.006 3.18-14.36 14.080z" />;

@@ -3,9 +3,8 @@
 exports[`with-pragma.graphql - {"requirePragma":true} format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
-printWidth: 80
 requirePragma: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 # @prettier
 
@@ -24,9 +23,8 @@ query Browse($offset: Int) {
 exports[`without-pragma.graphql - {"requirePragma":true} format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
-printWidth: 80
 requirePragma: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 query Browse($offset:Int){browse(offset:$offset)}
 

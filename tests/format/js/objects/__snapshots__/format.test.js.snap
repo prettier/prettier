@@ -3,8 +3,7 @@
 exports[`bigint-key.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 a = {1n: ""}
 a = {1n() {}}
@@ -21,8 +20,7 @@ a = { get 1n() {} };
 exports[`escape-sequence-key.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // #6235
 const a = {
@@ -49,8 +47,7 @@ const b = {
 exports[`expand.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const Component1 = ({ props }) => (
   <Text>Test</Text>
@@ -73,8 +70,7 @@ const Component2 = ({ props }) => <Text>Test</Text>;
 exports[`expression.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 () => ({}\`\`);
 ({})\`\`;
@@ -229,8 +225,7 @@ Cause: ')' expected."
 exports[`getter-setter.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ({ set x(foo) {} });
 ({ get x() { return 1 } });
@@ -253,8 +248,7 @@ printWidth: 80
 exports[`method.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 a = { f() {} }
 
@@ -267,8 +261,7 @@ a = { f() {} };
 exports[`range.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 group(
   concat([
@@ -305,8 +298,7 @@ group(
 exports[`right-break.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const blablah =
   "aldkfkladfskladklsfkladklfkaldfadfkdaf" +

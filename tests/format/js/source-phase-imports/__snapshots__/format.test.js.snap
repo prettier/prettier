@@ -3,8 +3,7 @@
 exports[`default-binding.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import source from "x";
 
@@ -17,8 +16,7 @@ import source from "x";
 exports[`import-source.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import source x from "x";
 
@@ -55,8 +53,7 @@ Cause: [1:14-1:15]: Expected 'from'"
 exports[`import-source-attributes-declaration.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import source s from "x" with { attr: "val" };
 
@@ -93,8 +90,7 @@ Cause: [1:14-1:15]: Expected 'from'"
 exports[`import-source-attributes-expression.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import.source("x", { with: { attr: "val" } });
 
@@ -131,8 +127,7 @@ Cause: [1:7-1:13]: The only valid meta property for import is 'import.meta'"
 exports[`import-source-binding-from.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import source from from "x";
 
@@ -169,8 +164,7 @@ Cause: [1:19-1:23]: Import source must be string"
 exports[`import-source-binding-source.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import source source from "x";
 
@@ -207,8 +201,7 @@ Cause: [1:14-1:20]: Expected 'from'"
 exports[`import-source-dynamic-import.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import.source("foo");
 

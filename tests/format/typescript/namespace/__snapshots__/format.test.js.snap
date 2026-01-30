@@ -3,8 +3,7 @@
 exports[`invalid-await.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 namespace N {
   const x = await 42;

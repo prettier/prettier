@@ -3,8 +3,7 @@
 exports[`binary_and_template.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export default (function() {} + foo)\`\`;
 
@@ -17,8 +16,7 @@ export default (function () {} + foo)\`\`;
 exports[`body.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export default (class {}[1] = 1);
 
@@ -31,8 +29,7 @@ export default (class {}[1] = 1);
 exports[`class_instance.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export default (class {}.getInstance());
 
@@ -45,8 +42,7 @@ export default (class {}.getInstance());
 exports[`function_in_template.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export default (function templ() {})\`foo\`;
 
@@ -59,8 +55,7 @@ export default (function templ() {})\`foo\`;
 exports[`function_tostring.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export default (function() {}).toString();
 
@@ -73,8 +68,7 @@ export default (function () {}.toString());
 exports[`iife.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export default (function foo() {})();
 

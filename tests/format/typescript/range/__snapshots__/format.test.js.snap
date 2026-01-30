@@ -3,10 +3,9 @@
 exports[`export-assignment.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 rangeEnd: 18
 rangeStart: 15
-     |                                                                                | printWidth
+     |                                                      printWidth: 80 (default) |
 =====================================input======================================
   1 | f ( );
 > 2 | export   =   f;
@@ -24,10 +23,9 @@ g(  )
 exports[`issue-4926.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 rangeEnd: 304
 rangeStart: 102
-      |                                                                                | printWidth
+      |                                                      printWidth: 80 (default) |
 =====================================input======================================
    1 | class Foo {
    2 |     /** Does this key match a given MinimalKey extending object? */
@@ -64,10 +62,9 @@ class Foo {
 exports[`issue-7148.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 rangeEnd: 59
 rangeStart: 29
-     |                                                                                | printWidth
+     |                                                      printWidth: 80 (default) |
 =====================================input======================================
   1 | export default class Test {
 > 2 |   private obj = { isTest: true }

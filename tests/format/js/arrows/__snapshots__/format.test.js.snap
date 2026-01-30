@@ -4,8 +4,7 @@ exports[`array-and-object.js - {"arrowParens":"always"} format 1`] = `
 ====================================options=====================================
 arrowParens: "always"
 parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const fn12 = (a) => (b) => (c) => (d) => (e) =>
   ({ foo: bar, bar: baz, baz: foo });
@@ -44,8 +43,7 @@ exports[`array-and-object.js - {"arrowParens":"avoid"} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const fn12 = (a) => (b) => (c) => (d) => (e) =>
   ({ foo: bar, bar: baz, baz: foo });
@@ -80,8 +78,7 @@ exports[`arrow_function_expression.js - {"arrowParens":"always"} format 1`] = `
 ====================================options=====================================
 arrowParens: "always"
 parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 (a => {}).length
 typeof (() => {});
@@ -162,8 +159,7 @@ exports[`arrow_function_expression.js - {"arrowParens":"avoid"} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 (a => {}).length
 typeof (() => {});
@@ -244,8 +240,7 @@ exports[`arrow-chain-with-trailing-comments.js - {"arrowParens":"always"} format
 ====================================options=====================================
 arrowParens: "always"
 parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 x = (bifornCringerMoshedPerplexSawder) => ((askTrovenaBeenaDependsRowans, glimseGlyphsHazardNoopsTieTie) => (f00) => {
   averredBathersBoxroomBuggyNurl();
@@ -282,8 +277,7 @@ exports[`arrow-chain-with-trailing-comments.js - {"arrowParens":"avoid"} format 
 ====================================options=====================================
 arrowParens: "avoid"
 parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 x = (bifornCringerMoshedPerplexSawder) => ((askTrovenaBeenaDependsRowans, glimseGlyphsHazardNoopsTieTie) => (f00) => {
   averredBathersBoxroomBuggyNurl();
@@ -320,8 +314,7 @@ exports[`assignment-chain-with-arrow-chain.js - {"arrowParens":"always"} format 
 ====================================options=====================================
 arrowParens: "always"
 parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 bifornCringer = askTrovenaBeenaDepends = glimseGlyphs = (
   argumentOne,
@@ -420,8 +413,7 @@ exports[`assignment-chain-with-arrow-chain.js - {"arrowParens":"avoid"} format 1
 ====================================options=====================================
 arrowParens: "avoid"
 parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 bifornCringer = askTrovenaBeenaDepends = glimseGlyphs = (
   argumentOne,
@@ -518,8 +510,7 @@ exports[`block_like.js - {"arrowParens":"always"} format 1`] = `
 ====================================options=====================================
 arrowParens: "always"
 parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 a = () => ({} = this);
 
@@ -533,8 +524,7 @@ exports[`block_like.js - {"arrowParens":"avoid"} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 a = () => ({} = this);
 
@@ -548,8 +538,7 @@ exports[`call.js - {"arrowParens":"always"} format 1`] = `
 ====================================options=====================================
 arrowParens: "always"
 parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 Seq(typeDef.interface.groups).forEach(group =>
   Seq(group.members).forEach((member, memberName) =>
@@ -1345,8 +1334,7 @@ exports[`call.js - {"arrowParens":"avoid"} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 Seq(typeDef.interface.groups).forEach(group =>
   Seq(group.members).forEach((member, memberName) =>
@@ -2142,8 +2130,7 @@ exports[`chain-as-arg.js - {"arrowParens":"always"} format 1`] = `
 ====================================options=====================================
 arrowParens: "always"
 parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const w = a.b(
   (
@@ -2230,8 +2217,7 @@ exports[`chain-as-arg.js - {"arrowParens":"avoid"} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const w = a.b(
   (
@@ -2318,8 +2304,7 @@ exports[`chain-in-logical-expression.js - {"arrowParens":"always"} format 1`] = 
 ====================================options=====================================
 arrowParens: "always"
 parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const x = a.b ?? (
   (
@@ -2347,8 +2332,7 @@ exports[`chain-in-logical-expression.js - {"arrowParens":"avoid"} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const x = a.b ?? (
   (
@@ -2376,8 +2360,7 @@ exports[`comment.js - {"arrowParens":"always"} format 1`] = `
 ====================================options=====================================
 arrowParens: "always"
 parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /**
  * Curried function that ends with a BEM CSS Selector
@@ -2518,8 +2501,7 @@ exports[`comment.js - {"arrowParens":"avoid"} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /**
  * Curried function that ends with a BEM CSS Selector
@@ -2660,8 +2642,7 @@ exports[`curried.js - {"arrowParens":"always"} format 1`] = `
 ====================================options=====================================
 arrowParens: "always"
 parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const fn1 = a => 3;
 const fn2 = a => b => 3;
@@ -3102,8 +3083,7 @@ exports[`curried.js - {"arrowParens":"avoid"} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const fn1 = a => 3;
 const fn2 = a => b => 3;
@@ -3534,8 +3514,7 @@ exports[`currying.js - {"arrowParens":"always"} format 1`] = `
 ====================================options=====================================
 arrowParens: "always"
 parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const fn = b => c => d => {
   return 3;
@@ -3581,8 +3560,7 @@ exports[`currying.js - {"arrowParens":"avoid"} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const fn = b => c => d => {
   return 3;
@@ -3628,8 +3606,7 @@ exports[`currying-2.js - {"arrowParens":"always"} format 1`] = `
 ====================================options=====================================
 arrowParens: "always"
 parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const a =
   (x) => (y) => (z) =>
@@ -3677,8 +3654,7 @@ exports[`currying-2.js - {"arrowParens":"avoid"} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const a =
   (x) => (y) => (z) =>
@@ -3724,8 +3700,7 @@ exports[`currying-3.js - {"arrowParens":"always"} format 1`] = `
 ====================================options=====================================
 arrowParens: "always"
 parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ((b) => (c) => (d) => {
   return 3;
@@ -3804,8 +3779,7 @@ exports[`currying-3.js - {"arrowParens":"avoid"} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ((b) => (c) => (d) => {
   return 3;
@@ -3882,8 +3856,7 @@ exports[`currying-4.js - {"arrowParens":"always"} format 1`] = `
 ====================================options=====================================
 arrowParens: "always"
 parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 Y(() => a ? b : c);
 
@@ -4064,8 +4037,7 @@ exports[`currying-4.js - {"arrowParens":"avoid"} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 Y(() => a ? b : c);
 
@@ -4246,8 +4218,7 @@ exports[`issue-1389-curry.js - {"arrowParens":"always"} format 1`] = `
 ====================================options=====================================
 arrowParens: "always"
 parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const foobar = (argumentOne, argumentTwo, argumentThree) =>
   (...restOfTheArguments) => {
@@ -4305,8 +4276,7 @@ exports[`issue-1389-curry.js - {"arrowParens":"avoid"} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const foobar = (argumentOne, argumentTwo, argumentThree) =>
   (...restOfTheArguments) => {
@@ -4364,8 +4334,7 @@ exports[`issue-4166-curry.js - {"arrowParens":"always"} format 1`] = `
 ====================================options=====================================
 arrowParens: "always"
 parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const myCurriedFn = arg1 =>
   arg2 =>
@@ -4381,8 +4350,7 @@ exports[`issue-4166-curry.js - {"arrowParens":"avoid"} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const myCurriedFn = arg1 =>
   arg2 =>
@@ -4398,8 +4366,7 @@ exports[`issue-10814.js - {"arrowParens":"always"} format 1`] = `
 ====================================options=====================================
 arrowParens: "always"
 parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const fastifyLoggerOptions = async (
   fastify,
@@ -4425,8 +4392,7 @@ exports[`issue-10814.js - {"arrowParens":"avoid"} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const fastifyLoggerOptions = async (
   fastify,
@@ -4452,8 +4418,7 @@ exports[`issue-14563.js - {"arrowParens":"always"} format 1`] = `
 ====================================options=====================================
 arrowParens: "always"
 parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const createIdFilter =
   /** @param {string} id */
@@ -4476,8 +4441,7 @@ exports[`issue-14563.js - {"arrowParens":"avoid"} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const createIdFilter =
   /** @param {string} id */
@@ -4500,8 +4464,7 @@ exports[`issue-14702.js - {"arrowParens":"always"} format 1`] = `
 ====================================options=====================================
 arrowParens: "always"
 parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 a = () => (1, 2, 3 /* abc */);
 
@@ -4515,8 +4478,7 @@ exports[`issue-14702.js - {"arrowParens":"avoid"} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 a = () => (1, 2, 3 /* abc */);
 
@@ -4530,8 +4492,7 @@ exports[`issue-17421.js - {"arrowParens":"always"} format 1`] = `
 ====================================options=====================================
 arrowParens: "always"
 parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 a =
   (id) => // 11
@@ -4658,8 +4619,7 @@ exports[`issue-17421.js - {"arrowParens":"avoid"} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 a =
   (id) => // 11
@@ -4786,8 +4746,7 @@ exports[`long-call-no-args.js - {"arrowParens":"always"} format 1`] = `
 ====================================options=====================================
 arrowParens: "always"
 parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 veryLongCall(VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_LONG_CONSTANT, () => {})
 
@@ -4804,8 +4763,7 @@ exports[`long-call-no-args.js - {"arrowParens":"avoid"} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 veryLongCall(VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_LONG_CONSTANT, () => {})
 
@@ -4822,8 +4780,7 @@ exports[`long-contents.js - {"arrowParens":"always"} format 1`] = `
 ====================================options=====================================
 arrowParens: "always"
 parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const foo = () => {
   expect(arg1, arg2, arg3).toEqual({message: 'test', messageType: 'SMS', status: 'Unknown', created: '11/01/2017 13:36'});
@@ -4846,8 +4803,7 @@ exports[`long-contents.js - {"arrowParens":"avoid"} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const foo = () => {
   expect(arg1, arg2, arg3).toEqual({message: 'test', messageType: 'SMS', status: 'Unknown', created: '11/01/2017 13:36'});
@@ -4870,8 +4826,7 @@ exports[`parens.js - {"arrowParens":"always"} format 1`] = `
 ====================================options=====================================
 arrowParens: "always"
 parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 promise.then(
   (result) => result,
@@ -4933,8 +4888,7 @@ exports[`parens.js - {"arrowParens":"avoid"} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 promise.then(
   (result) => result,

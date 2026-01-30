@@ -3,8 +3,7 @@
 exports[`OpenGraphAction.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @flow
 
@@ -21,8 +20,7 @@ var OpenGraphValueContainer = require("./OpenGraphValueContainer.js");
 exports[`OpenGraphObject.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @flow
 
@@ -39,8 +37,7 @@ var OpenGraphValueContainer = require("./OpenGraphValueContainer.js");
 exports[`OpenGraphValueContainer.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @flow
 

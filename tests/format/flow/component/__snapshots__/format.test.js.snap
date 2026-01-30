@@ -3,8 +3,7 @@
 exports[`component-declaration.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 component MyComponent() {}
 
@@ -181,8 +180,7 @@ component MyComponent() /* Trailing comment */ {}
 exports[`component-type-annotation.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type T = component();
 
@@ -320,8 +318,7 @@ function A(
 exports[`dangling-comments.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 component C11(// 11
 ) {}
@@ -397,8 +394,7 @@ type T23 = component(/* 29*/);
 exports[`declare-component.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 declare component MyComponent();
 
@@ -524,8 +520,7 @@ declare component MyComponent(
 exports[`implicit.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 declare module "foo" {
   component Button(label: string);

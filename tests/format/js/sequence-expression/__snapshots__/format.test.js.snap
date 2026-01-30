@@ -3,8 +3,7 @@
 exports[`export-default.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export default (1,
 2);
@@ -18,8 +17,7 @@ export default (1, 2);
 exports[`expression.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 (a, b);
 
@@ -36,8 +34,7 @@ a, b
 exports[`ignore.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 +
   // prettier-ignore
@@ -70,8 +67,7 @@ printWidth: 80
 exports[`ignored.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const a = ()=>()=>
 // prettier-ignore
@@ -88,8 +84,7 @@ const a = () => () =>
 exports[`parenthesized.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 console.log(
   /* 1 */
@@ -135,8 +130,7 @@ console.log(
 exports[`return.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function a() {
   return (a, b);

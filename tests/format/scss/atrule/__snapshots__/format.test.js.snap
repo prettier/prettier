@@ -3,8 +3,7 @@
 exports[`each.scss format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 @each $animal in puma, sea-slug, egret, salamander {}
 @each $animal in puma,sea-slug,egret,salamander{}
@@ -307,8 +306,7 @@ h3
 exports[`for.scss format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 @for $i from 1 through 8 {}
 @for $i from 1 through 8{}
@@ -417,8 +415,7 @@ through
 exports[`if-else.scss format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 @if $media == phonePortrait {
     $k: .15625;
@@ -704,8 +701,7 @@ p {
 exports[`include.scss format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 @include mix(1px, 2px, $arg2: 10, 2px 4px 6px);
 @include mix(1px,2px,$arg2:10,2px 4px 6px);
@@ -932,8 +928,7 @@ a {
 exports[`while.scss format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 @while $i > 0 {}
 @while $i>0{}

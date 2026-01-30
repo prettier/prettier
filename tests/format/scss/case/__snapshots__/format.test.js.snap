@@ -3,8 +3,7 @@
 exports[`case.scss format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // Convention in this test file:
 // - The case should be preserved for things prefixed with "Keep".

@@ -3,9 +3,8 @@
 exports[`3748.scss - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 .card-column-simple {
   @include breakpoint( getBp( md ) ) {
@@ -56,9 +55,8 @@ trailingComma: "es5"
 exports[`3748.scss - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 .card-column-simple {
   @include breakpoint( getBp( md ) ) {
@@ -109,9 +107,8 @@ trailingComma: "none"
 exports[`5636.scss - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // #5636
 div {
@@ -130,9 +127,8 @@ div {
 exports[`5636.scss - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // #5636
 div {
@@ -151,9 +147,8 @@ div {
 exports[`15369.scss - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 div {
   margin: -double(-double(1em));
@@ -182,9 +177,8 @@ div {
 exports[`15369.scss - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 div {
   margin: -double(-double(1em));
@@ -213,9 +207,8 @@ div {
 exports[`18465.scss - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 $value: if(sass(false): 1; else: -1);
 
@@ -228,9 +221,8 @@ $value: if(sass(false): 1; else: -1);
 exports[`18465.scss - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 $value: if(sass(false): 1; else: -1);
 
@@ -243,9 +235,8 @@ $value: if(sass(false): 1; else: -1);
 exports[`arbitrary-arguments.scss - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 body {
   test: foo(return-list($list)...);
@@ -338,9 +329,8 @@ body {
 exports[`arbitrary-arguments.scss - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 body {
   test: foo(return-list($list)...);
@@ -433,9 +423,8 @@ body {
 exports[`arbitrary-arguments-comment.scss - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 @include bar (
     rgba(
@@ -460,9 +449,8 @@ trailingComma: "es5"
 exports[`arbitrary-arguments-comment.scss - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 @include bar (
     rgba(
@@ -487,9 +475,8 @@ trailingComma: "none"
 exports[`function-in-url.scss - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 @function concat($strings...) {
   $result: '';
@@ -522,9 +509,8 @@ a {
 exports[`function-in-url.scss - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 @function concat($strings...) {
   $result: '';

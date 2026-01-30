@@ -3,8 +3,7 @@
 exports[`initializer-ambient-context.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 declare module N {
   enum E {

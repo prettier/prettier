@@ -3,8 +3,7 @@
 exports[`binaryish.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const computedDescriptionLines = (showConfirm &&
   descriptionLinesConfirming) ||
@@ -44,8 +43,7 @@ computedDescriptionLines = (focused &&
 exports[`call-with-template.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const result = template(\`
   if (SOME_VAR === "") {}
@@ -75,8 +73,7 @@ const output = template(\`function f() %%A%%\`)({
 exports[`chain.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 let bifornCringerMoshedPerplexSawder=
 askTrovenaBeenaDependsRowans=
@@ -149,8 +146,7 @@ a = b = c;
 exports[`chain-two-segments.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 tt.parenR.updateContext = tt.braceR.updateContext = function () {
   if (this.state.context.length === 1) {
@@ -171,8 +167,7 @@ tt.parenR.updateContext = tt.braceR.updateContext = function () {
 exports[`destructuring.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 let {
   bottom: offsetBottom,
@@ -209,8 +204,7 @@ const {
 exports[`destructuring-array.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const [
   width= nextWidth,
@@ -228,8 +222,7 @@ const [width = nextWidth, height = nextHeight, baseline = nextBaseline] =
 exports[`destructuring-heuristic.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {{
   const {
@@ -294,8 +287,7 @@ printWidth: 80
 exports[`discussion-15196.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 async function f() {
   const { section, rubric, authors, tags } = await utils.upsertCommonData(mainData);
@@ -392,8 +384,7 @@ function* g() {
 exports[`issue-1419.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 someReallyLongThingStoredInAMapWithAReallyBigName[pageletID] =
   _someVariableThatWeAreCheckingForFalsiness
@@ -412,8 +403,7 @@ someReallyLongThingStoredInAMapWithAReallyBigName[pageletID] =
 exports[`issue-1966.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const aVeryLongNameThatGoesOnAndOn = this.someOtherObject.someOtherNestedObject.someLongFunctionName();
 
@@ -437,8 +427,7 @@ this.isaverylongmethodexpression.withmultiplelevels =
 exports[`issue-2184.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const areaPercentageDiff = (
     topRankedZoneFit.areaPercentageRemaining
@@ -457,8 +446,7 @@ const areaPercentageDiff = (
 exports[`issue-2482-1.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 aParticularlyLongAndObnoxiousNameForIllustrativePurposes =
   anotherVeryLongNameForIllustrativePurposes;
@@ -498,8 +486,7 @@ aParticularlyLongAndObnoxiousNameForIllustrativePurposes =
 exports[`issue-2482-2.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class foo {
     bar() {
@@ -525,8 +512,7 @@ class foo {
 exports[`issue-2540.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 manifestCache[templateId] = readFileSync(\`\${MANIFESTS_PATH}/\${templateId}.json\`, { encoding: 'utf-8' });
 
@@ -542,8 +528,7 @@ manifestCache[templateId] = readFileSync(
 exports[`issue-3819.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 this.dummy.type1.dummyPropertyFunction
       = this.dummy.type2.dummyPropertyFunction
@@ -576,8 +561,7 @@ this.dummy.type1.dummyPropertyFunction =
 exports[`issue-4094.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 if (something) {
   const otherBrandsWithThisAdjacencyCount123 = Object.values(edge.to.edges).length
@@ -596,8 +580,7 @@ if (something) {
 exports[`issue-5610.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // Function call wrapping is not optimal for readability:
 // Function names tend to get pushed to the right, whereas arguments end up on the left,
@@ -621,8 +604,7 @@ const { qfwvfkwjdqgz, bctsyljqucgz, xuodxhmgwwpw } = qbhtcuzxwedz(
 exports[`issue-6922.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 async function f() {
   const { data, status } = await request.delete(
@@ -686,8 +668,7 @@ const data4 = request.delete(
 exports[`issue-7091.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const {
   imStore, showChat, customerServiceAccount
@@ -703,8 +684,7 @@ const { imStore, showChat, customerServiceAccount } =
 exports[`issue-7572.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const t = {
   "hello": world(),
@@ -727,8 +707,7 @@ const t = {
 exports[`issue-7961.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // works as expected
 something.veeeeeery.looooooooooooooooooooooooooong = some.other.rather.long.chain;
@@ -751,8 +730,7 @@ something.veeeeeery.looooooooooooooooooooooooooong =
 exports[`issue-8218.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const pendingIndicators = shield.alarmGeneratorConfiguration.getPendingVersionColumnValues;
 
@@ -772,8 +750,7 @@ const pendingIndicatorz =
 exports[`issue-10218.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const _id1 = data.createTestMessageWithAReallyLongName.someVeryLongProperty.thisIsAlsoALongProperty._id;
 
@@ -800,8 +777,7 @@ const { _id: id3 } =
 exports[`issue-15534.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 params["redirectTo"] = \`\${window.location.pathname}\${window.location.search}\${window.location.hash}\`;
 
@@ -827,8 +803,7 @@ params.redirectTo.bar.bar.ba.barab["foo"].abr =
 exports[`issue-17437.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 didScheduleRenderPhaseUpdateDuringThisPassFoo =
 didScheduleRenderPhaseUpdate
@@ -844,8 +819,7 @@ didScheduleRenderPhaseUpdateDuringThisPassFoo =
 exports[`lone-arg.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 let vgChannel = pointPositionDefaultRef({
   model,
@@ -895,8 +869,7 @@ const bifornCringerMoshedPerplexSawderGlyphsHb = someBigFunctionName(\`foo
 exports[`sequence.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 for ((i = 0), (len = arr.length); i < len; i++) {
   console.log(arr[i])
@@ -921,8 +894,7 @@ for (i = 0, len = arr.length; i < len; i++) {
 exports[`unary.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const loooooooooooooooooooooooooong1 = void looooooooooooooong.looooooooooooooong.loooooong;
 const loooooooooooooooooooooooooong2 = void "looooooooooooooooooooooooooooooooooooooooooog";

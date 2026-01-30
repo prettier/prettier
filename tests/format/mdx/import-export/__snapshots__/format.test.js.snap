@@ -3,8 +3,7 @@
 exports[`esm.mdx format 1`] = `
 ====================================options=====================================
 parsers: ["mdx"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!-- https://mdxjs.com/docs/what-is-mdx/#esm -->
 
@@ -39,8 +38,7 @@ An <External>external</External> component and a <Local>local one</Local>.
 exports[`like-import-declaration.mdx format 1`] = `
 ====================================options=====================================
 parsers: ["mdx"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!-- These are not \`import\`s -->
 
@@ -74,8 +72,7 @@ export {};
 exports[`list.mdx format 1`] = `
 ====================================options=====================================
 parsers: ["mdx"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 - import is a word in lists
 - export is a word in lists, too!
@@ -90,8 +87,7 @@ printWidth: 80
 exports[`paragraph.mdx format 1`] = `
 ====================================options=====================================
 parsers: ["mdx"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import is a word
 
@@ -104,8 +100,7 @@ import is a word
 exports[`snippet: #0 format 1`] = `
 ====================================options=====================================
 parsers: ["mdx"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import is a word
 =====================================output=====================================

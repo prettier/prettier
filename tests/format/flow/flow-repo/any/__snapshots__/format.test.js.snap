@@ -3,8 +3,7 @@
 exports[`any.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @flow
 
@@ -39,8 +38,7 @@ var z: string = qux(0);
 exports[`anyexportflowfile.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @flow
 
@@ -57,8 +55,7 @@ module.exports = ((x: any) => x: any);
 exports[`flowfixme.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /*
   FlowFixMe is a synonym for any, used by the Flow team to
@@ -115,8 +112,7 @@ var w: string = baz(0);
 exports[`flowissue.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /*
   $FlowIssue is a synonym for any, used by JS devs to signal
@@ -173,8 +169,7 @@ var w: string = baz(0);
 exports[`nonflowfile.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @noflow
 
@@ -191,8 +186,7 @@ module.exports = (x) => x;
 exports[`propagate.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @flow
 
@@ -253,8 +247,7 @@ function bar2(x: mixed) {
 exports[`reach.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /**
  * like class and function values, any-typed values may be used in

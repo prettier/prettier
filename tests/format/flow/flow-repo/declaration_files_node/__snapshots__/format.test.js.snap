@@ -3,8 +3,7 @@
 exports[`A.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* @flow */
 
@@ -21,8 +20,7 @@ module.exports.fun = (): string => "hello there!";
 exports[`CJS.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @flow
 module.exports = 42;
@@ -37,8 +35,7 @@ module.exports = 42;
 exports[`test_absolute.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* @flow */
 
@@ -91,8 +88,7 @@ var F = require("package_with_dir_main");
 exports[`test_relative.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* @flow */
 

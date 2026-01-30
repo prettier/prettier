@@ -3,8 +3,7 @@
 exports[`9812.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 for (const p of ['fullName', 'organ', 'position', 'rank'])
   // comment
@@ -117,8 +116,7 @@ for (
 exports[`9812-2.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 for(x of y)
 // 11
@@ -153,8 +151,7 @@ for (x of y) // 31
 exports[`continue-and-break-comment-1.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 for(;;) {
     continue // comment
@@ -381,8 +378,7 @@ label2: {
 exports[`continue-and-break-comment-2.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 for(;;) {
     continue
@@ -657,8 +653,7 @@ label2: {
 exports[`continue-and-break-comment-without-blocks.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 for(;;) continue
 // comment
@@ -856,8 +851,7 @@ label1: for (;;)
 exports[`for.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 for (;;) {}
 for (var i = 0; i < 10; ++i) {}
@@ -878,8 +872,7 @@ for (var i = 0; i < 10; ++i) 0;
 exports[`for-in-with-initializer.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // https://github.com/babel/babel/blob/HEAD/packages/babel-generator/test/fixtures/parentheses/in-inside-for/input.js
 
@@ -943,8 +936,7 @@ Cause: ',' expected."
 exports[`in.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 for ((x in a);;) {}
 for (a=(a in b);;) {}
@@ -979,8 +971,7 @@ for (a in b) 0;
 exports[`no-update.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 for ( let i = 0, j = 0, len = allMatches.length, lenJ = selections.length;i < len;) {}
 
@@ -996,8 +987,7 @@ for (
 exports[`parentheses.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // https://github.com/babel/babel/blob/HEAD/packages/babel-generator/test/fixtures/parentheses/in-inside-for/input.js
 
@@ -1117,8 +1107,7 @@ Cause: ',' expected."
 exports[`var.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 for (a in b) var c = {}; [];
 

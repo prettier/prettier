@@ -3,8 +3,7 @@
 exports[`ambientDeclarations.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 declare type a = true;
 declare function b(): 'hello';

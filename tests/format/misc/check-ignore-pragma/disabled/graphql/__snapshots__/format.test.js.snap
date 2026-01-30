@@ -4,8 +4,7 @@ exports[`with-noformat-pragma.graphql - {"checkIgnorePragma":false} format 1`] =
 ====================================options=====================================
 checkIgnorePragma: false
 parsers: ["graphql"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 # @noformat
 
@@ -25,8 +24,7 @@ exports[`with-noprettier-pragma.graphql - {"checkIgnorePragma":false} format 1`]
 ====================================options=====================================
 checkIgnorePragma: false
 parsers: ["graphql"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 # @noprettier
 

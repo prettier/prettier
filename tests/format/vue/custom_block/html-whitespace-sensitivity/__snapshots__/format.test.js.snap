@@ -4,8 +4,7 @@ exports[`one-line.vue - {"htmlWhitespaceSensitivity":"css"} format 1`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "css"
 parsers: ["vue"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <docs lang=unknown></docs><docs lang=unknown></docs><!-- display: inline --><docs lang=unknown></docs><docs lang=unknown style="display: inline"></docs>
 
@@ -23,8 +22,7 @@ exports[`one-line.vue - {"htmlWhitespaceSensitivity":"ignore"} format 1`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
 parsers: ["vue"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <docs lang=unknown></docs><docs lang=unknown></docs><!-- display: inline --><docs lang=unknown></docs><docs lang=unknown style="display: inline"></docs>
 
@@ -42,8 +40,7 @@ exports[`one-line.vue - {"htmlWhitespaceSensitivity":"strict"} format 1`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "strict"
 parsers: ["vue"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <docs lang=unknown></docs><docs lang=unknown></docs><!-- display: inline --><docs lang=unknown></docs><docs lang=unknown style="display: inline"></docs>
 
@@ -60,8 +57,7 @@ printWidth: 80
 exports[`one-line.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <docs lang=unknown></docs><docs lang=unknown></docs><!-- display: inline --><docs lang=unknown></docs><docs lang=unknown style="display: inline"></docs>
 

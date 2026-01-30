@@ -3,8 +3,7 @@
 exports[`child.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 >>> bar
 >>> ===
@@ -35,8 +34,7 @@ printWidth: 80
 exports[`definition-before.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!-- https://spec.commonmark.org/0.31.2/#example-215 -->
 [foo]: /url1
@@ -70,8 +68,7 @@ bar
 exports[`issue-6013.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 Setext Heading 1
 ================
@@ -96,8 +93,7 @@ Setext Heading 2
 exports[`issue-6013-2.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 Heading
 [![Shields.io badge](https://img.shields.io/badge/Shields.io-badge-brightgreen)](https://shields.io)
@@ -114,8 +110,7 @@ Heading
 exports[`setext.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 h1
 ===
@@ -136,8 +131,7 @@ h2
 exports[`snippet: #0 format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 Multi\\
 Line  
@@ -169,8 +163,7 @@ Heading
 exports[`snippet: #1 format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [foo]: /url 
   bar

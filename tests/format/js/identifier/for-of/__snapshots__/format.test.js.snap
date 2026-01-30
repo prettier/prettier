@@ -3,8 +3,7 @@
 exports[`await.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 async function a() {
   for await((let) of foo);
@@ -27,8 +26,7 @@ async function a() {
 exports[`let.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 for ((let) of foo);
 for (foo of let);

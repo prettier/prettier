@@ -3,8 +3,7 @@
 exports[`class_with_generics.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel-flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import React from 'react';
 
@@ -34,8 +33,7 @@ class Component extends React.Component<Props, State> {}
 exports[`functions.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel-flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 export function updateStoreFromURL(

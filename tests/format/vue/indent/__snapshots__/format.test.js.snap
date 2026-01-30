@@ -3,9 +3,8 @@
 exports[`inside-template.vue - {"vueIndentScriptAndStyle":false} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 vueIndentScriptAndStyle: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <template>
     <style>
@@ -60,9 +59,8 @@ vueIndentScriptAndStyle: false
 exports[`inside-template.vue - {"vueIndentScriptAndStyle":true} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 vueIndentScriptAndStyle: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <template>
     <style>
@@ -117,9 +115,8 @@ vueIndentScriptAndStyle: true
 exports[`vue-tag-indent.vue - {"vueIndentScriptAndStyle":false} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 vueIndentScriptAndStyle: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <script>
   console.log('hello');
@@ -174,9 +171,8 @@ footer {
 exports[`vue-tag-indent.vue - {"vueIndentScriptAndStyle":true} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 vueIndentScriptAndStyle: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <script>
   console.log('hello');

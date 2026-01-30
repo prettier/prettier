@@ -3,8 +3,7 @@
 exports[`after-close-tag.html format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <ion-list class="timeline" appScrollItem>
   @for (let item of items; index as i; trackBy: trackByFn) {
@@ -56,8 +55,7 @@ printWidth: 80
 exports[`chid.html format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <span>@if (test) {text}</span>
 <div>@if (test) {text}</div>
@@ -80,8 +78,7 @@ printWidth: 80
 exports[`defer.html format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 @defer (when isCheckedDefer()) {
 <app-c1/>
@@ -211,8 +208,7 @@ printWidth: 80
 exports[`element-tags.html format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 @if (true) {<img />}
 
@@ -227,8 +223,7 @@ printWidth: 80
 exports[`for.html format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <ul>
 @for (
@@ -364,8 +359,7 @@ item of
 exports[`if.html format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <h3>&#64;if and &#64;else</h3>
 <div>
@@ -455,8 +449,7 @@ topStartToSideStartMaxSize) {
 exports[`ignore.html format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!-- prettier-ignore -->
 @if (condition) {
@@ -497,8 +490,7 @@ printWidth: 80
 exports[`mix.html format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 @if (user.isHuman) {
 <human-profile [data]="user" />
@@ -529,8 +521,7 @@ printWidth: 80
 exports[`multiple-switch-cases.html format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!-- https://github.com/angular/angular/pull/66210 -->
 
@@ -643,8 +634,7 @@ printWidth: 80
 exports[`switch.html format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 @switch (radioValue()) {
 @case (1) {
@@ -691,8 +681,7 @@ printWidth: 80
 exports[`unclosed.html format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 @empty{}
 
@@ -709,8 +698,7 @@ printWidth: 80
 exports[`with-comment.html format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <div>
   <!-- comment -->

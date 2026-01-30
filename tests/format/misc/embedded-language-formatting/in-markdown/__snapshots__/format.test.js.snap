@@ -4,8 +4,7 @@ exports[`front-matter-json.md - {"embeddedLanguageFormatting":"off"} format 1`] 
 ====================================options=====================================
 embeddedLanguageFormatting: "off"
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---json
 {
@@ -28,8 +27,7 @@ The above should be reformatted because it isn't parsed as json front matter.
 exports[`front-matter-json.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---json
 {
@@ -53,8 +51,7 @@ exports[`front-matter-pandoc.md - {"embeddedLanguageFormatting":"off"} format 1`
 ====================================options=====================================
 embeddedLanguageFormatting: "off"
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---yaml
   
@@ -82,8 +79,7 @@ Hello world!
 exports[`front-matter-pandoc.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---yaml
   
@@ -110,8 +106,7 @@ exports[`issue-16342.md - {"embeddedLanguageFormatting":"off"} format 1`] = `
 ====================================options=====================================
 embeddedLanguageFormatting: "off"
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 foo:
@@ -142,8 +137,7 @@ Markdown
 exports[`issue-16342.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 foo:
@@ -175,8 +169,7 @@ exports[`test.md - {"embeddedLanguageFormatting":"off"} format 1`] = `
 ====================================options=====================================
 embeddedLanguageFormatting: "off"
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 \`\`\`js
 1 +  2
@@ -193,8 +186,7 @@ printWidth: 80
 exports[`test.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 \`\`\`js
 1 +  2

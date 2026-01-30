@@ -3,9 +3,8 @@
 exports[`check-accidental.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 long long long long long long long long long long long long long long long > > > > this is not quote
 
@@ -19,9 +18,8 @@ long > > > > this is not quote
 exports[`check-accidental.md - {"proseWrap":"never"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "never"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 long long long long long long long long long long long long long long long > > > > this is not quote
 
@@ -34,9 +32,8 @@ long long long long long long long long long long long long long long long > > >
 exports[`check-accidental.md - {"proseWrap":"preserve"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "preserve"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 long long long long long long long long long long long long long long long > > > > this is not quote
 
@@ -49,9 +46,8 @@ long long long long long long long long long long long long long long long > > >
 exports[`code.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 > NOTE: To use \`unobtrusive\`, \`unobtrusive/import\`, \`unobtrusive/react\`, and \`unobtrusive/flowtype\` together, your eslint config would look like this:
 >\`\`\`json
@@ -92,9 +88,8 @@ proseWrap: "always"
 exports[`code.md - {"proseWrap":"never"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "never"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 > NOTE: To use \`unobtrusive\`, \`unobtrusive/import\`, \`unobtrusive/react\`, and \`unobtrusive/flowtype\` together, your eslint config would look like this:
 >\`\`\`json
@@ -134,9 +129,8 @@ proseWrap: "never"
 exports[`code.md - {"proseWrap":"preserve"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "preserve"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 > NOTE: To use \`unobtrusive\`, \`unobtrusive/import\`, \`unobtrusive/react\`, and \`unobtrusive/flowtype\` together, your eslint config would look like this:
 >\`\`\`json
@@ -176,9 +170,8 @@ proseWrap: "preserve"
 exports[`ignore-code.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 > \`\`\`\`md
 > <!-- prettier-ignore -->
@@ -292,9 +285,8 @@ proseWrap: "always"
 exports[`ignore-code.md - {"proseWrap":"never"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "never"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 > \`\`\`\`md
 > <!-- prettier-ignore -->
@@ -407,9 +399,8 @@ proseWrap: "never"
 exports[`ignore-code.md - {"proseWrap":"preserve"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "preserve"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 > \`\`\`\`md
 > <!-- prettier-ignore -->
@@ -522,9 +513,8 @@ proseWrap: "preserve"
 exports[`interrupt-others.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 This paragraph
 > is interrupted by block quote.
@@ -560,9 +550,8 @@ This paragraph
 exports[`interrupt-others.md - {"proseWrap":"never"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "never"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 This paragraph
 > is interrupted by block quote.
@@ -597,9 +586,8 @@ This paragraph
 exports[`interrupt-others.md - {"proseWrap":"preserve"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "preserve"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 This paragraph
 > is interrupted by block quote.
@@ -634,9 +622,8 @@ This paragraph
 exports[`list.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 > - list in quote
 >   with multiple lines
@@ -676,9 +663,8 @@ proseWrap: "always"
 exports[`list.md - {"proseWrap":"never"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "never"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 > - list in quote
 >   with multiple lines
@@ -718,9 +704,8 @@ proseWrap: "never"
 exports[`list.md - {"proseWrap":"preserve"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "preserve"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 > - list in quote
 >   with multiple lines
@@ -766,9 +751,8 @@ proseWrap: "preserve"
 exports[`nested.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 >>> 123
 
@@ -781,9 +765,8 @@ proseWrap: "always"
 exports[`nested.md - {"proseWrap":"never"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "never"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 >>> 123
 
@@ -796,9 +779,8 @@ proseWrap: "never"
 exports[`nested.md - {"proseWrap":"preserve"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "preserve"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 >>> 123
 
@@ -811,9 +793,8 @@ proseWrap: "preserve"
 exports[`notext-end.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 > [!NOTE]
 > \`DOOM\`
@@ -860,9 +841,8 @@ proseWrap: "always"
 exports[`notext-end.md - {"proseWrap":"never"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "never"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 > [!NOTE]
 > \`DOOM\`
@@ -907,9 +887,8 @@ proseWrap: "never"
 exports[`notext-end.md - {"proseWrap":"preserve"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "preserve"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 > [!NOTE]
 > \`DOOM\`
@@ -960,9 +939,8 @@ proseWrap: "preserve"
 exports[`paragraph.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 > This is a long long long long long long long long long long long long long long long paragraph.
 > This is a long long long long long long long long long long long long long long long paragraph.
@@ -978,9 +956,8 @@ proseWrap: "always"
 exports[`paragraph.md - {"proseWrap":"never"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "never"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 > This is a long long long long long long long long long long long long long long long paragraph.
 > This is a long long long long long long long long long long long long long long long paragraph.
@@ -994,9 +971,8 @@ proseWrap: "never"
 exports[`paragraph.md - {"proseWrap":"preserve"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "preserve"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 > This is a long long long long long long long long long long long long long long long paragraph.
 > This is a long long long long long long long long long long long long long long long paragraph.
@@ -1011,9 +987,8 @@ proseWrap: "preserve"
 exports[`simple.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 > 123
 
@@ -1026,9 +1001,8 @@ proseWrap: "always"
 exports[`simple.md - {"proseWrap":"never"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "never"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 > 123
 
@@ -1041,9 +1015,8 @@ proseWrap: "never"
 exports[`simple.md - {"proseWrap":"preserve"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "preserve"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 > 123
 

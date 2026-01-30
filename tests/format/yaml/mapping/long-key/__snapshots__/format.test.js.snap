@@ -3,9 +3,8 @@
 exports[`test.yml - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 long long long long long long long long long long long long long long long long long long key: bar
 
@@ -20,8 +19,7 @@ long long long long long long long long long long long long long long long long 
 exports[`test.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 long long long long long long long long long long long long long long long long long long key: bar
 

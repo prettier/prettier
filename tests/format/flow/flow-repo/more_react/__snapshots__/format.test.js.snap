@@ -3,8 +3,7 @@
 exports[`API.react.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 var app = require('JSX');
@@ -30,8 +29,7 @@ bar(app.props.children); // No error, App doesn't specify propTypes so anything 
 exports[`App.react.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 /**
@@ -127,8 +125,7 @@ module.exports = App;
 exports[`InitializedFields.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /**
  * @providesModule InitializedFields.react
@@ -167,8 +164,7 @@ module.exports = App;
 exports[`JSX.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 /* @providesModule JSX */
@@ -204,8 +200,7 @@ module.exports = app;
 exports[`checkPropTypes.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* @flow */
 
@@ -272,8 +267,7 @@ checkPropTypes(
 exports[`propTypes.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 var React = require('React');
 

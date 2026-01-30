@@ -3,8 +3,7 @@
 exports[`call-expression.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // Member expressions
 (a?.b)   ();
@@ -65,8 +64,7 @@ a?.b()?.();
 exports[`issue-15785-1.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function someFunctionName(
 ) {
@@ -92,8 +90,7 @@ function someFunctionName() {
 exports[`issue-15785-2.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const theValue = Object.entries(someLongObjectName).filter(
   ([listingId]) => someListToCompareToHere?.includes(listingId),
@@ -116,8 +113,7 @@ const theValue2 = Object.entries(someLongObjectName).filter(([listingId]) =>
 exports[`issue-15785-3.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 logger.log(
   \`A long template string with a conditional: \${channel?.id}, and then some more content that continues until \${JSON.stringify(location)}\`
@@ -140,8 +136,7 @@ logger.log(
 exports[`issue-15912.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 test()
   .test2()
@@ -156,8 +151,7 @@ test().test2().test2(thing?.something);
 exports[`issue-15916.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const randomFuncion = (value) => {
     if (value.a) {
@@ -185,8 +179,7 @@ const randomFuncion = (value) => {
 exports[`member-chain.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 bifornCringerMoshedPerplexSawder = (
     glimseGlyphsHazardNoopsTieTie
@@ -224,8 +217,7 @@ bifornCringerMoshedPerplexSawder =
 exports[`member-expression.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // Member expressions
 (a?.b)   .foo;
@@ -292,8 +284,7 @@ a?.b?.c;
 exports[`new-expression.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // Member expressions
 new   (a?.b)   ();
@@ -352,8 +343,7 @@ new (a?.b?.c)();
 exports[`number.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 (1.).toString();
 (1.).toString?.();
@@ -398,8 +388,7 @@ a?.[1].toString;
 exports[`tagged-template-literals.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // Member expressions
 (a?.b)   \`\`;
@@ -453,8 +442,7 @@ a(b?.c)\`\`;
 exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 (a?.b).c;
 (a?.()).b;
@@ -481,8 +469,7 @@ new (a?.())();
 exports[`test-2.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {{{{
         const [lastCommittedX, lastCommittedY] =
@@ -507,8 +494,7 @@ printWidth: 80
 exports[`test-3.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function getLanguageByInterpreter(languages, file) {
   return languages.find((language) => language.interpreters?.includes(interpreter),
@@ -533,8 +519,7 @@ function getLanguageByInterpreter(languages, file) {
 exports[`test-4.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // https://github.com/marmelab/react-admin/blob/8c1ddfeb4e011a94609d709c0f4f139fb5d480e8/packages/ra-data-localstorage/src/index.ts#L112
 export default (params) => {

@@ -3,8 +3,7 @@
 exports[`compatibility.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 let tests = [
   function(x: { x: { foo: string } }, y: { x: { bar: number } }) {
@@ -73,8 +72,7 @@ let tests = [
 exports[`conversion.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* @flow */
 
@@ -123,8 +121,7 @@ var z = Object(123); // error (next line makes this not match any signatures)
 exports[`objects.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* @flow */
 
@@ -171,8 +168,7 @@ y["bar"] = "abc"; // error, property not found
 exports[`unaliased_assign.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /**
  * test handling of unaliased value assignment.

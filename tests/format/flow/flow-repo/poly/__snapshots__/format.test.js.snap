@@ -3,8 +3,7 @@
 exports[`annot.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class A<X> { }
 new A; // OK, implicitly inferred type args
@@ -39,8 +38,7 @@ function bar(): A<*> {
 exports[`implicit_bounded_instantiation.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @flow
 
@@ -91,8 +89,7 @@ a.meth(new Base()); // Error: Base ~> Middle
 exports[`issue-1029.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @flow
 
@@ -139,8 +136,7 @@ unbox(bool);
 exports[`poly.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class Foo<T> {
     x:T;
@@ -191,8 +187,7 @@ var z: Foo<number> = Q.bar(foo, "");
 exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class C {
   foo<X>(x: X): X { return x; }

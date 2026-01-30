@@ -3,9 +3,8 @@
 exports[`alt.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [Image-reference]: a.png
 [   Image reference with \`\`backtick\`\`   ]: a.png
@@ -52,9 +51,8 @@ proseWrap: "always"
 exports[`simple.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ![hello](http://example.com/image.png)
 
@@ -67,9 +65,8 @@ proseWrap: "always"
 exports[`title.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ![hello](http://example.com/image.png "title")
 

@@ -4,8 +4,7 @@ exports[`only-parameter.js - {"arrowParens":"always"} format 1`] = `
 ====================================options=====================================
 arrowParens: "always"
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @flow
 
@@ -23,8 +22,7 @@ exports[`only-parameter.js - {"arrowParens":"avoid"} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @flow
 

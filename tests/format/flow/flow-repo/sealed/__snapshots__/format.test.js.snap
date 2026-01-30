@@ -3,8 +3,7 @@
 exports[`function.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* @flow */
 
@@ -37,8 +36,7 @@ module.exports = Bar;
 exports[`proto.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function Foo() { }
 var o = new Foo();
@@ -83,8 +81,7 @@ module.exports = export_o;
 exports[`sealed.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 var o = require('./proto');
 

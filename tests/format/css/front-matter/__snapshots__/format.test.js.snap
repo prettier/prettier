@@ -3,8 +3,7 @@
 exports[`custom-parser.css format 1`] = `
 ====================================options=====================================
 parsers: ["css", "scss", "less"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---mycustomparser
 title: Title
@@ -30,8 +29,7 @@ description: Description
 exports[`empty.css format 1`] = `
 ====================================options=====================================
 parsers: ["css", "scss", "less"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 ---

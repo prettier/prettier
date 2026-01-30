@@ -3,8 +3,7 @@
 exports[`client_optional.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 var qux = require('./optional');
 
@@ -21,8 +20,7 @@ qux(0);
 exports[`default.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function f<T>(foo, bar = foo): [T, T] {
   return [foo, bar];
@@ -39,8 +37,7 @@ function f<T>(foo, bar = foo): [T, T] {
 exports[`generic.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function x<T>(x: T = 0) {}
 
@@ -61,8 +58,7 @@ class C {
 exports[`loop.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* Regression test. Improper handling of OptionalT repositioning can cause
  * reasons to grow "optional x" -> "optional optional x" -> "optional optional
@@ -85,8 +81,7 @@ function f<T: *>(x: T, y?: T) {
 exports[`maybe.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function foo(x?: string): ?string {
     return x;
@@ -103,8 +98,7 @@ function foo(x?: string): ?string {
 exports[`nullable.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* @flow */
 
@@ -213,8 +207,7 @@ function optionalNullable8(x: { y?: ?number }) {
 exports[`optional.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function bar(x?,y?) { x * 0; }
 bar(0);
@@ -256,8 +249,7 @@ module.exports = qux;
 exports[`optional_param.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* @flow */
 function foo(x?: string): string {
@@ -350,8 +342,7 @@ function testOptionalNullableFlowingToNullable(x?: ?string): ?string {
 exports[`optional_param2.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 declare class I<V> {
     map<M>(
@@ -374,8 +365,7 @@ var j: I<number> = i.map((id) => id);
 exports[`optional_param3.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function foo(x?: number) {}
 foo(undefined); // ok
@@ -400,8 +390,7 @@ bar(undefined); // ok
 exports[`optional_param4.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* @flow */
 
@@ -437,8 +426,7 @@ foo(123, true); // ERROR boolean ~> string
 exports[`undefined.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 var x;
 
@@ -467,8 +455,7 @@ function bar() {
 exports[`undefined2.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 var x;
 

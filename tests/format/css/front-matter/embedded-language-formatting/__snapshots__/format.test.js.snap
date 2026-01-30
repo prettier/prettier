@@ -4,8 +4,7 @@ exports[`yaml.css - {"embeddedLanguageFormatting":"off"} format 1`] = `
 ====================================options=====================================
 embeddedLanguageFormatting: "off"
 parsers: ["css", "scss", "less"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---yaml
 

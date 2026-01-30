@@ -3,8 +3,7 @@
 exports[`async.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @flow
 
@@ -127,8 +126,7 @@ var objf: () => Promise<number> = obj.f;
 exports[`async_base_class.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // This is kind of weird, but it should parse. This works in babel without the
 // parens around (await promise). From the es6 and async/await specs I (nmote)
@@ -167,8 +165,7 @@ async function foo() {
 exports[`async_parse.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 async function f() {}
 async function ft<T>(a: T) {}
@@ -227,8 +224,7 @@ var y = { async };
 exports[`async_promise.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 async function f(): Promise<number> {
   return Promise.resolve(1);
@@ -245,8 +241,7 @@ async function f(): Promise<number> {
 exports[`async_return_void.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @flow
 
@@ -285,8 +280,7 @@ async function foo3(): Promise<string> {
 exports[`async2.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @flow
 
@@ -419,8 +413,7 @@ function test5() {
 exports[`async3.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @flow
 
@@ -494,8 +487,7 @@ async function baz() {
 exports[`await_parse.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 async function f() { await 1; }
 async function ft<T>(a: T) { await 1; }

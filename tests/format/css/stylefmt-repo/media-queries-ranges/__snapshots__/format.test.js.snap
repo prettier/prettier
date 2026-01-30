@@ -3,8 +3,7 @@
 exports[`media-queries-ranges.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 @media (width >= 500px) and (width <= 1200px) {
   .rule {color:red;}

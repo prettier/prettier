@@ -3,8 +3,7 @@
 exports[`optional-chaining.jsx format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function foo() {
   // https://github.com/marmelab/react-admin/blob/5ae855aa958ba54438b144bf0907b1437c5a5d77/examples/demo/src/orders/Totals.tsx#L38-L43

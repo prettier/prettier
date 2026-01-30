@@ -3,8 +3,7 @@
 exports[`jsx_ignore.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "babel-flow", "babel-ts", "__babel_estree", "typescript", "flow", "meriyah", "acorn", "espree", "espree", "hermes", "oxc", "oxc-ts"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // this should remain as-is
 <div>
@@ -125,8 +124,7 @@ function f() {
 exports[`spread.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "babel-flow", "babel-ts", "__babel_estree", "typescript", "flow", "meriyah", "acorn", "espree", "espree", "hermes", "oxc", "oxc-ts"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // #8736
 

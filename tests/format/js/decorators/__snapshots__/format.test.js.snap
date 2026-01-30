@@ -3,8 +3,7 @@
 exports[`classes.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 @deco class Foo {}
 
@@ -92,8 +91,7 @@ Cause: unrecognized character '@' (1:0)
 exports[`comments.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 var x = 100
 
@@ -210,8 +208,7 @@ Cause: unrecognized character '@' (3:0)
 exports[`member-expression.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [
   class {
@@ -392,8 +389,7 @@ Cause: unrecognized character '@' (3:4)
 exports[`methods.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 class Yo {
@@ -462,8 +458,7 @@ Cause: unrecognized character '@' (3:2)
 exports[`mixed.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // https://github.com/prettier/prettier/issues/6747
 
@@ -525,8 +520,7 @@ Cause: unrecognized character '@' (3:0)
 exports[`mobx.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import {observable} from "mobx";
 
@@ -654,8 +648,7 @@ Cause: unrecognized character '@' (3:0)
 exports[`multiline.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class Foo {
   @deco([
@@ -728,8 +721,7 @@ Cause: unrecognized character '@' (2:2)
 exports[`multiple.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const dog = class {
   @readonly
@@ -812,8 +804,7 @@ Cause: unrecognized character '@' (2:2)
 exports[`parens.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class X {
   @(computed().volatile())
@@ -867,8 +858,7 @@ Cause: unrecognized character '@' (2:2)
 exports[`redux.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 @connect(mapStateToProps, mapDispatchToProps)
 export class MyApp extends React.Component {}

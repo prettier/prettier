@@ -3,8 +3,7 @@
 exports[`array_rest.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 let xs = [0, "", true];
 let [a, ...ys] = xs;
@@ -39,8 +38,7 @@ let [...e] = 0;
 exports[`computed.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 var { ["key"]: val1 } = { key: "val" };
 (val1: void); // error: string ~> void
@@ -69,8 +67,7 @@ var { ["key"]: val3, ...spread } = { key: "val" };
 exports[`defaults.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* @flow */
 
@@ -249,8 +246,7 @@ function default_expr_scope({ a, b = a }) {}
 exports[`destructuring.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 declare var a:string;
 declare var b:string;
@@ -403,8 +399,7 @@ var cp2_err: string = others.childprop2; // Error: number ~> string
 exports[`eager.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 var x;
 ({x} = null); // error, property \`x\` can not be accessed on \`null\`
@@ -419,8 +414,7 @@ var x;
 exports[`poly.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @flow
 
@@ -497,8 +491,7 @@ function arr_rest_pattern<X>([_, ...a]: ArrRest<X>) {
 exports[`rec.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @flow
 
@@ -573,8 +566,7 @@ function baz() {
 exports[`refinement_non_termination.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @flow
 
@@ -605,8 +597,7 @@ class UndefinedValue extends Value {}
 exports[`string_lit.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 var { "key": val } = { key: "val" };
 (val: void); // error: string ~> void
@@ -627,8 +618,7 @@ var { "with-dash": with_dash } = { "with-dash": "motivating example" };
 exports[`unannotated.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @flow
 

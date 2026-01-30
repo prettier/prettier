@@ -3,8 +3,7 @@
 exports[`kind-detection.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 declare /* module */ namespace A {}
 
@@ -17,8 +16,7 @@ declare namespace /* module */ A {}
 exports[`moduleDeclaration.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 module A {
     export class A {

@@ -4,8 +4,7 @@ exports[`blank-line-between-specifiers.js - {"bracketSpacing":false} format 1`] 
 ====================================options=====================================
 bracketSpacing: false
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export {
   // a
@@ -58,8 +57,7 @@ export {
 exports[`blank-line-between-specifiers.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export {
   // a
@@ -113,8 +111,7 @@ exports[`bracket.js - {"bracketSpacing":false} format 1`] = `
 ====================================options=====================================
 bracketSpacing: false
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const {  runTaskForChanged,
   description,
@@ -167,8 +164,7 @@ export {fitsIn, oneLine};
 exports[`bracket.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const {  runTaskForChanged,
   description,
@@ -222,8 +218,7 @@ exports[`empty.js - {"bracketSpacing":false} format 1`] = `
 ====================================options=====================================
 bracketSpacing: false
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export {};
 export {} from ".";
@@ -238,8 +233,7 @@ export {} from ".";
 exports[`empty.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export {};
 export {} from ".";
@@ -255,8 +249,7 @@ exports[`same-local-and-exported.js - {"bracketSpacing":false} format 1`] = `
 ====================================options=====================================
 bracketSpacing: false
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export {a} from 'a';
 export {b as b} from 'b';
@@ -273,8 +266,7 @@ export {c as /* comment */ c} from "c";
 exports[`same-local-and-exported.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export {a} from 'a';
 export {b as b} from 'b';
@@ -292,8 +284,7 @@ exports[`test.js - {"bracketSpacing":false} format 1`] = `
 ====================================options=====================================
 bracketSpacing: false
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export { value1, value2 as value2_renamed, value3, value4 as value4_renamed, value5 } from "exports";
 
@@ -320,8 +311,7 @@ export * as foo from "./baz";
 exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export { value1, value2 as value2_renamed, value3, value4 as value4_renamed, value5 } from "exports";
 
@@ -349,8 +339,7 @@ exports[`undefined.js - {"bracketSpacing":false} format 1`] = `
 ====================================options=====================================
 bracketSpacing: false
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export { undefinedExport };
 
@@ -379,8 +368,7 @@ Cause: Export 'undefinedExport' is not defined"
 exports[`undefined.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export { undefinedExport };
 

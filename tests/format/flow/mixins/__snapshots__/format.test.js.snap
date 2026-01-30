@@ -3,8 +3,7 @@
 exports[`comments.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 declare class D1<T> // 1
 mixins C<T> {}
@@ -65,8 +64,7 @@ declare class D5<T> // 1
 exports[`type.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 declare class A<T> extends B<T> mixins C<T> {}
 declare class D<T> mixins C<T> {}

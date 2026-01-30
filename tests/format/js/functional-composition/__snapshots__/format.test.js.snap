@@ -3,8 +3,7 @@
 exports[`functional_compose.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 compose(
   sortBy(x => x),
@@ -110,8 +109,7 @@ this.subscriptions.add(
 exports[`gobject_connect.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 button.connect(
   "clicked",
@@ -138,8 +136,7 @@ app.connect("activate", async () => {
 exports[`lodash_flow.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import { flow } from "lodash";
 
@@ -188,8 +185,7 @@ bar(6);
 exports[`lodash_flow_right.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import { flowRight } from "lodash";
 
@@ -238,8 +234,7 @@ bar(6);
 exports[`mongo_connect.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 MongoClient.connect(
   "mongodb://localhost:27017/posts",
@@ -261,8 +256,7 @@ MongoClient.connect("mongodb://localhost:27017/posts", (err, db) => {
 exports[`pipe-function-calls.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 (() => {
   pipe(
@@ -333,8 +327,7 @@ printWidth: 80
 exports[`pipe-function-calls-with-comments.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // input with some comments added to avoid reformatting
 
@@ -443,8 +436,7 @@ printWidth: 80
 exports[`ramda_compose.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 var classyGreeting = (firstName, lastName) =>
   "The name's " + lastName + ", " + firstName + " " + lastName;
@@ -545,8 +537,7 @@ const mapStateToProps = (state) => ({
 exports[`ramda_pipe.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 var f = R.pipe(Math.pow, R.negate, R.inc);
 
@@ -603,8 +594,7 @@ var followersForUser = R.pipeP(db.getUserById, db.getFollowers);
 exports[`redux_compose.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
@@ -637,8 +627,7 @@ const store = createStore(
 exports[`redux_connect.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const ArtistInput = connect(mapStateToProps, mapDispatchToProps, mergeProps)(Component);
 
@@ -655,8 +644,7 @@ const ArtistInput = connect(
 exports[`reselect_createselector.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import { createSelector } from 'reselect';
 
@@ -688,8 +676,7 @@ const bar = createSelector([getIds, getObjects], (ids, objects) =>
 exports[`rxjs_pipe.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import { range } from 'rxjs/observable/range';
 import { map, filter, scan } from 'rxjs/operators';

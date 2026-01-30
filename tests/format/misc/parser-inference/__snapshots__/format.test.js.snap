@@ -3,8 +3,7 @@
 exports[`snippet: .prettierrc in json format 1`] = `
 ====================================options=====================================
 parsers: []
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {"printWidth": 100,
 "overrides": [
@@ -42,8 +41,7 @@ false,
 exports[`snippet: .prettierrc in json(empty) format 1`] = `
 ====================================options=====================================
 parsers: []
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {}
 =====================================output=====================================
@@ -55,8 +53,7 @@ printWidth: 80
 exports[`snippet: .prettierrc in yaml (with flowMapping) format 1`] = `
 ====================================options=====================================
 parsers: []
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 # comment
 printWidth: 100
@@ -79,8 +76,7 @@ overrides:
 exports[`snippet: .prettierrc in yaml format 1`] = `
 ====================================options=====================================
 parsers: []
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 # comment
 printWidth: 100
@@ -102,8 +98,7 @@ overrides:
 exports[`test.html format 1`] = `
 ====================================options=====================================
 parsers: []
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <foo>
                  <bar/>
@@ -120,8 +115,7 @@ printWidth: 80
 exports[`test.importmap format 1`] = `
 ====================================options=====================================
 parsers: []
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {"imports": {
     "prettier": "https://unpkg.com/prettier@2.6.2/esm/standalone.mjs",
@@ -143,8 +137,7 @@ printWidth: 80
 exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: []
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 foo(
                  'bar')
@@ -158,8 +151,7 @@ foo("bar");
 exports[`test.json format 1`] = `
 ====================================options=====================================
 parsers: []
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {foo:
                  'bar'}
@@ -173,8 +165,7 @@ printWidth: 80
 exports[`test.ts format 1`] = `
 ====================================options=====================================
 parsers: []
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type foo =
                  'bar'
@@ -188,8 +179,7 @@ type foo = "bar";
 exports[`test.wxs format 1`] = `
 ====================================options=====================================
 parsers: []
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 var msg =
 "hello world";
@@ -207,8 +197,7 @@ module.exports.message = msg;
 exports[`test.wxss format 1`] = `
 ====================================options=====================================
 parsers: []
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 view.foo {font-size: 14rpx;
 }
@@ -224,8 +213,7 @@ view.foo {
 exports[`test.yml format 1`] = `
 ====================================options=====================================
 parsers: []
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 foo:
                  - 'bar'

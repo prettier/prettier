@@ -3,8 +3,7 @@
 exports[`arrows.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // Test cases from babel
 //   ref: https://github.com/babel/babel/blob/614b48678095746b83bbe517c4d6b30ba8cd5c04/packages/babel-parser/test/fixtures/flow/arrows-in-ternaries/issue-13644/input.js

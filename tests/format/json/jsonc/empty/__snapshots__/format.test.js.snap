@@ -3,8 +3,7 @@
 exports[`snippet: #0 format 1`] = `
 ====================================options=====================================
 parsers: ["jsonc", "json", "json5", "json-stringify"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // Line comment 1
     /** Block comment 1 */

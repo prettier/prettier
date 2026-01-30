@@ -3,8 +3,7 @@
 exports[`interpolation.less format 1`] = `
 ====================================options=====================================
 parsers: ["less"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // https://github.com/shellscape/postcss-less/pull/159
 @{selector}-title{ @{prop}-size: @{color} }
@@ -21,8 +20,7 @@ printWidth: 80
 exports[`selector.less format 1`] = `
 ====================================options=====================================
 parsers: ["less"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 @prefix: foo;
 

@@ -3,8 +3,7 @@
 exports[`pattern-instance.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const e = match (x) {
   Bort {foo: 1, bar: 2} => 1,

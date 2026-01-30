@@ -3,9 +3,8 @@
 exports[`concat-statement.hbs - {"singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
-printWidth: 80
 singleQuote: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <div class="hello {{if goodbye true}}">
   Hello
@@ -61,8 +60,7 @@ singleQuote: true
 exports[`concat-statement.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <div class="hello {{if goodbye true}}">
   Hello
@@ -118,9 +116,8 @@ printWidth: 80
 exports[`in-attr-node.hbs - {"singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
-printWidth: 80
 singleQuote: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <div class="a very long list of classes that exceeds {{eighty}} chars with emtpy spaces">hey</div>
 <a href="a-very-long-href-from-a-third-party-marketing-platform{{id}}longer-than-eighty-chars">Link</a>
@@ -151,8 +148,7 @@ singleQuote: true
 exports[`in-attr-node.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <div class="a very long list of classes that exceeds {{eighty}} chars with emtpy spaces">hey</div>
 <a href="a-very-long-href-from-a-third-party-marketing-platform{{id}}longer-than-eighty-chars">Link</a>

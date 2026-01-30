@@ -4,8 +4,7 @@ exports[`no-pragma.html - {"insertPragma":true} format 1`] = `
 ====================================options=====================================
 insertPragma: true
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 
@@ -27,9 +26,8 @@ printWidth: 80
 exports[`no-pragma.html - {"requirePragma":true} format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
-printWidth: 80
 requirePragma: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 
@@ -53,8 +51,7 @@ exports[`with-pragma.html - {"insertPragma":true} format 1`] = `
 ====================================options=====================================
 insertPragma: true
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 
@@ -74,9 +71,8 @@ printWidth: 80
 exports[`with-pragma.html - {"requirePragma":true} format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
-printWidth: 80
 requirePragma: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 
@@ -97,8 +93,7 @@ exports[`with-pragma-2.html - {"insertPragma":true} format 1`] = `
 ====================================options=====================================
 insertPragma: true
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 
@@ -118,9 +113,8 @@ printWidth: 80
 exports[`with-pragma-2.html - {"requirePragma":true} format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
-printWidth: 80
 requirePragma: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 

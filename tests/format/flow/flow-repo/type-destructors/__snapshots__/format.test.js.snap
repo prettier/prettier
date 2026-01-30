@@ -3,8 +3,7 @@
 exports[`non_maybe_type.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @flow
 
@@ -40,8 +39,7 @@ function foo(x: ?string): $NonMaybeType<?string> {
 exports[`property_type.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type Malformed = $PropertyType<any, number>;
 
@@ -74,8 +72,7 @@ function foo(o: Obj): $PropertyType<Obj, "x"> {
 exports[`union.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 var x0: $NonMaybeType<number|string> = 0; // ok, number ~> number|string
 var x1: $NonMaybeType<number|string> = true; // err, boolean ~> number|string

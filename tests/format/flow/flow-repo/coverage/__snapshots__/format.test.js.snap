@@ -3,8 +3,7 @@
 exports[`crash.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // This file triggers a violation of the "disjoint-or-nested ranges invariant"
 // that we implicitly assume in type-at-pos and coverage implementations. In
@@ -37,8 +36,7 @@ declare module bar {
 exports[`declare_module.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // check coverage of declare module
 
@@ -57,8 +55,7 @@ declare module foo {
 exports[`no_pragma.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 let x = 0;
 (x: string);
@@ -73,8 +70,7 @@ let x = 0;
 exports[`non-termination.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // This file triggers a violation of the "disjoint-or-nested ranges invariant"
 // that we implicitly assume in type-at-pos and coverage implementations. In

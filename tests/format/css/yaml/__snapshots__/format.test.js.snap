@@ -3,8 +3,7 @@
 exports[`comment_after.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 title: Title
@@ -30,8 +29,7 @@ description: Description
 exports[`dirty.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 hello:     world
@@ -63,8 +61,7 @@ a:
 exports[`empty.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 ---
@@ -87,8 +84,7 @@ a {
 exports[`empty_newlines.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 
@@ -116,8 +112,7 @@ a {
 exports[`ignore.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 hello: world
@@ -140,8 +135,7 @@ hello: world
 exports[`malformed.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 aaa
@@ -161,8 +155,7 @@ a {
 exports[`malformed-2.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 foo: bar
@@ -196,8 +189,7 @@ a {
 exports[`only_comments.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 # comment 1
@@ -226,8 +218,7 @@ a {
 exports[`with_comments.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 title: Title
@@ -255,8 +246,7 @@ a {
 exports[`without-newline-after.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 title: Title
@@ -282,8 +272,7 @@ a {
 exports[`yaml.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 title: Title

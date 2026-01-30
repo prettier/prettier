@@ -3,9 +3,8 @@
 exports[`declare_export.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 declare export default 5;
 
@@ -18,8 +17,7 @@ declare export default 5
 exports[`declare_export.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 declare export default 5;
 
@@ -32,9 +30,8 @@ declare export default 5;
 exports[`declare_module.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 declare module "foo" {
   declare var bar: string;
@@ -56,8 +53,7 @@ declare module baz {
 exports[`declare_module.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 declare module "foo" {
   declare var bar: string;
@@ -79,9 +75,8 @@ declare module baz {
 exports[`declare_namespace.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 declare namespace foo {
   declare var bar: string;
@@ -98,8 +93,7 @@ declare namespace foo {
 exports[`declare_namespace.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 declare namespace foo {
   declare var bar: string;
@@ -116,9 +110,8 @@ declare namespace foo {
 exports[`declare_type.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 declare type A = string;
 
@@ -131,8 +124,7 @@ declare type A = string
 exports[`declare_type.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 declare type A = string;
 
@@ -145,9 +137,8 @@ declare type A = string;
 exports[`declare_var.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 declare var bool: React$PropType$Primitive<boolean>;
 
@@ -160,8 +151,7 @@ declare var bool: React$PropType$Primitive<boolean>
 exports[`declare_var.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 declare var bool: React$PropType$Primitive<boolean>;
 
@@ -174,9 +164,8 @@ declare var bool: React$PropType$Primitive<boolean>;
 exports[`long.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export type AdamPlacementValidationSingleErrorKey =
   'SOME_FANCY_TARGETS.GLOBAL_TARGET';
@@ -206,8 +195,7 @@ type SomeOtherLongLongLongLongLongLongLongLongLongLongLongLongLongLongKey2 =
 exports[`long.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export type AdamPlacementValidationSingleErrorKey =
   'SOME_FANCY_TARGETS.GLOBAL_TARGET';
@@ -237,9 +225,8 @@ type SomeOtherLongLongLongLongLongLongLongLongLongLongLongLongLongLongKey2 =
 exports[`opaque.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 declare export opaque type Foo;
 declare export opaque type Bar<T>;
@@ -306,8 +293,7 @@ declare opaque type Counter
 exports[`opaque.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 declare export opaque type Foo;
 declare export opaque type Bar<T>;

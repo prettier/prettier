@@ -3,8 +3,7 @@
 exports[`class.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class C<T> {
   a<A>(x:T, a:A) {
@@ -31,8 +30,7 @@ class C<T> {
 exports[`default_params.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function f<T>(a:T) {
   function g<U>(b:U, c:T = a) {
@@ -67,8 +65,7 @@ f(0); // ok
 exports[`method_shadow.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // Ensure method type params properly shadow outer type params. Subclass ensures
 // the generated insttype has the correct tvars. Should behave the same for

@@ -3,8 +3,7 @@
 exports[`export.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export default match (a) {}
 
@@ -18,8 +17,7 @@ export default match (a) {
 exports[`expression.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const e = match (a) {
   1 => true,
@@ -40,8 +38,7 @@ const e = match (a) {
 exports[`expression-empty.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const e = match (a) {};
 
@@ -55,8 +52,7 @@ const e = match (a) {
 exports[`expression-guards.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const e = match (a) {
   1 if (b) => true,
@@ -73,8 +69,7 @@ const e = match (a) {
 exports[`pattern-array.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const e = match (x) {
   [10] => 1,
@@ -103,8 +98,7 @@ const e = match (x) {
 exports[`pattern-core.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const e = match (x) {
   "s" => 1,
@@ -149,8 +143,7 @@ const e = match (x) {
 exports[`pattern-member.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const e = match (x) {
   foo.bar => true,
@@ -177,8 +170,7 @@ const e = match (x) {
 exports[`pattern-object.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const e = match (x) {
   {foo: 1, bar: 2} => 1,
@@ -209,8 +201,7 @@ const e = match (x) {
 exports[`pattern-or-as.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const e = match (x) {
   "s" | true | null => 1,
@@ -244,8 +235,7 @@ const e = match (x) {
 exports[`regression.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type match = number;
 {
@@ -318,8 +308,7 @@ match(...b);
 exports[`statement.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 match (a) {
   1 => {
@@ -354,8 +343,7 @@ match (a) {
 exports[`statement-empty.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 match (a) {}
 
@@ -369,8 +357,7 @@ match (a) {
 exports[`statement-guards.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 match (a) {
   1 if (b) => {
@@ -403,8 +390,7 @@ match (a) {
 exports[`statement-sequence-arg.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 match (a, b) {}
 

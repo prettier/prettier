@@ -3,8 +3,7 @@
 exports[`libA.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 declare function foo(x: number): void;
 
@@ -17,8 +16,7 @@ declare function foo(x: number): void;
 exports[`libB.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 declare function bar(x: string): void;
 
@@ -31,8 +29,7 @@ declare function bar(x: string): void;
 exports[`libtest.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 foo(123);
 bar(123);

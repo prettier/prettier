@@ -3,8 +3,7 @@
 exports[`member-expression-like.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class A_long_long_long_long_long_long_long_long_name1
   extends eslint.Rule.RuleModule {}
@@ -64,8 +63,7 @@ class A_long_long_long_long_long_long_long_long_name3
 exports[`type-arguments.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class CommentBox extends React.Component<
   { url: string; pollInterval: number },

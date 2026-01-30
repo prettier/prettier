@@ -3,8 +3,7 @@
 exports[`component.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <UserGreeting @name="Ricardo" @greeting="Olá" />
 {{@greeting}}, {{@name}}!
@@ -71,8 +70,7 @@ printWidth: 80
 exports[`literals.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {{mustache true}}
 {{mustache 5}}
@@ -96,8 +94,7 @@ printWidth: 80
 exports[`named-block.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <ComponentWithNamedBlocks>
   <:first-named-block></:first-named-block>
@@ -120,8 +117,7 @@ printWidth: 80
 exports[`nested-path.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <div class="entry">
   <h1>{{title}}</h1>
@@ -147,8 +143,7 @@ printWidth: 80
 exports[`raw.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <p>{{{raw}}}</p>
 

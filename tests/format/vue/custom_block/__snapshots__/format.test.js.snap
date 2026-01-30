@@ -4,8 +4,7 @@ exports[`graphql.vue - {"embeddedLanguageFormatting":"off"} format 1`] = `
 ====================================options=====================================
 embeddedLanguageFormatting: "off"
 parsers: ["vue"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <page-query lang="graphql">
 query { posts: allWordPressPost {
@@ -38,9 +37,8 @@ query { posts: allWordPressPost {
 exports[`graphql.vue - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <page-query lang="graphql">
 query { posts: allWordPressPost {
@@ -74,9 +72,8 @@ query {
 exports[`graphql.vue - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <page-query lang="graphql">
 query { posts: allWordPressPost {
@@ -110,9 +107,8 @@ query {
 exports[`graphql.vue - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <page-query lang="graphql">
 query { posts: allWordPressPost {
@@ -146,9 +142,8 @@ query {
 exports[`graphql.vue - {"vueIndentScriptAndStyle":true} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 vueIndentScriptAndStyle: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <page-query lang="graphql">
 query { posts: allWordPressPost {
@@ -183,8 +178,7 @@ exports[`handlebars.vue - {"embeddedLanguageFormatting":"off"} format 1`] = `
 ====================================options=====================================
 embeddedLanguageFormatting: "off"
 parsers: ["vue"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <custom type="text/x-handlebars-template">
 Handlebars <b>{{     doesWhat}}</b>
@@ -201,9 +195,8 @@ Handlebars <b>{{     doesWhat}}</b>
 exports[`handlebars.vue - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <custom type="text/x-handlebars-template">
 Handlebars <b>{{     doesWhat}}</b>
@@ -220,9 +213,8 @@ Handlebars <b>{{doesWhat}}</b>
 exports[`handlebars.vue - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <custom type="text/x-handlebars-template">
 Handlebars <b>{{     doesWhat}}</b>
@@ -239,9 +231,8 @@ Handlebars <b>{{doesWhat}}</b>
 exports[`handlebars.vue - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <custom type="text/x-handlebars-template">
 Handlebars <b>{{     doesWhat}}</b>
@@ -258,9 +249,8 @@ Handlebars <b>{{doesWhat}}</b>
 exports[`handlebars.vue - {"vueIndentScriptAndStyle":true} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 vueIndentScriptAndStyle: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <custom type="text/x-handlebars-template">
 Handlebars <b>{{     doesWhat}}</b>
@@ -278,8 +268,7 @@ exports[`json.vue - {"embeddedLanguageFormatting":"off"} format 1`] = `
 ====================================options=====================================
 embeddedLanguageFormatting: "off"
 parsers: ["vue"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <i18n lang="json">
 { "en": {
@@ -358,9 +347,8 @@ printWidth: 80
 exports[`json.vue - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <i18n lang="json">
 { "en": {
@@ -438,9 +426,8 @@ semi: false
 exports[`json.vue - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <i18n lang="json">
 { "en": {
@@ -518,9 +505,8 @@ trailingComma: "es5"
 exports[`json.vue - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <i18n lang="json">
 { "en": {
@@ -598,9 +584,8 @@ trailingComma: "none"
 exports[`json.vue - {"vueIndentScriptAndStyle":true} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 vueIndentScriptAndStyle: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <i18n lang="json">
 { "en": {
@@ -679,8 +664,7 @@ exports[`lang-attribute.vue - {"embeddedLanguageFormatting":"off"} format 1`] = 
 ====================================options=====================================
 embeddedLanguageFormatting: "off"
 parsers: ["vue"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <custom lang="js">
 const foo
@@ -699,9 +683,8 @@ const foo
 exports[`lang-attribute.vue - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <custom lang="js">
 const foo
@@ -719,9 +702,8 @@ const foo = "foo"
 exports[`lang-attribute.vue - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <custom lang="js">
 const foo
@@ -739,9 +721,8 @@ const foo = "foo";
 exports[`lang-attribute.vue - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <custom lang="js">
 const foo
@@ -759,9 +740,8 @@ const foo = "foo";
 exports[`lang-attribute.vue - {"vueIndentScriptAndStyle":true} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 vueIndentScriptAndStyle: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <custom lang="js">
 const foo
@@ -780,8 +760,7 @@ exports[`markdown.vue - {"embeddedLanguageFormatting":"off"} format 1`] = `
 ====================================options=====================================
 embeddedLanguageFormatting: "off"
 parsers: ["vue"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <docs lang="markdown">
 # Foo
@@ -838,9 +817,8 @@ printWidth: 80
 exports[`markdown.vue - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <docs lang="markdown">
 # Foo
@@ -899,9 +877,8 @@ semi: false
 exports[`markdown.vue - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <docs lang="markdown">
 # Foo
@@ -960,9 +937,8 @@ trailingComma: "es5"
 exports[`markdown.vue - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <docs lang="markdown">
 # Foo
@@ -1021,9 +997,8 @@ trailingComma: "none"
 exports[`markdown.vue - {"vueIndentScriptAndStyle":true} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 vueIndentScriptAndStyle: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <docs lang="markdown">
 # Foo
@@ -1083,8 +1058,7 @@ exports[`tag_like.vue - {"embeddedLanguageFormatting":"off"} format 1`] = `
 ====================================options=====================================
 embeddedLanguageFormatting: "off"
 parsers: ["vue"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <docs>
 This component takes an \`items\` prop (\`Array<Object>\`).
@@ -1113,9 +1087,8 @@ const foo =            "</"
 exports[`tag_like.vue - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <docs>
 This component takes an \`items\` prop (\`Array<Object>\`).
@@ -1144,9 +1117,8 @@ const foo = "</"
 exports[`tag_like.vue - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <docs>
 This component takes an \`items\` prop (\`Array<Object>\`).
@@ -1175,9 +1147,8 @@ const foo = "</";
 exports[`tag_like.vue - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <docs>
 This component takes an \`items\` prop (\`Array<Object>\`).
@@ -1206,9 +1177,8 @@ const foo = "</";
 exports[`tag_like.vue - {"vueIndentScriptAndStyle":true} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 vueIndentScriptAndStyle: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <docs>
 This component takes an \`items\` prop (\`Array<Object>\`).
@@ -1238,8 +1208,7 @@ exports[`unknown.vue - {"embeddedLanguageFormatting":"off"} format 1`] = `
 ====================================options=====================================
 embeddedLanguageFormatting: "off"
 parsers: ["vue"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <i18n lang="foooo">
 {"en": {
@@ -1300,9 +1269,8 @@ const foo = "foo";
 exports[`unknown.vue - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <i18n lang="foooo">
 {"en": {
@@ -1363,9 +1331,8 @@ const foo = "foo";
 exports[`unknown.vue - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <i18n lang="foooo">
 {"en": {
@@ -1426,9 +1393,8 @@ const foo = "foo";
 exports[`unknown.vue - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <i18n lang="foooo">
 {"en": {
@@ -1489,9 +1455,8 @@ const foo = "foo";
 exports[`unknown.vue - {"vueIndentScriptAndStyle":true} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 vueIndentScriptAndStyle: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <i18n lang="foooo">
 {"en": {
@@ -1553,8 +1518,7 @@ exports[`yaml.vue - {"embeddedLanguageFormatting":"off"} format 1`] = `
 ====================================options=====================================
 embeddedLanguageFormatting: "off"
 parsers: ["vue"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <i18n lang="yaml">
 en:
@@ -1577,9 +1541,8 @@ ja:
 exports[`yaml.vue - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <i18n lang="yaml">
 en:
@@ -1602,9 +1565,8 @@ ja:
 exports[`yaml.vue - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <i18n lang="yaml">
 en:
@@ -1627,9 +1589,8 @@ ja:
 exports[`yaml.vue - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <i18n lang="yaml">
 en:
@@ -1652,9 +1613,8 @@ ja:
 exports[`yaml.vue - {"vueIndentScriptAndStyle":true} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
 vueIndentScriptAndStyle: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <i18n lang="yaml">
 en:

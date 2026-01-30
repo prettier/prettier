@@ -4,8 +4,7 @@ exports[`after-last-jsx-text.js format 1`] = `
 ====================================options=====================================
 cursorOffset: 32
 parsers: ["babel", "typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <>a
   <div>
@@ -27,8 +26,7 @@ exports[`after-tag.js format 1`] = `
 ====================================options=====================================
 cursorOffset: 11
 parsers: ["babel", "typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <>a
   <div><|>
@@ -48,8 +46,7 @@ exports[`before-first-jsx-text.js format 1`] = `
 ====================================options=====================================
 cursorOffset: 2
 parsers: ["babel", "typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <><|>a
   <div>
@@ -69,8 +66,7 @@ exports[`before-tag.js format 1`] = `
 ====================================options=====================================
 cursorOffset: 222
 parsers: ["babel", "typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // The cursor position we end up with in this test case is perverse. I think
 // the cause is the one described in https://github.com/prettier/prettier/issues/15793.
@@ -96,8 +92,7 @@ exports[`in-jsx-text.js format 1`] = `
 ====================================options=====================================
 cursorOffset: 17
 parsers: ["babel", "typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <>a
   <div>
@@ -117,8 +112,7 @@ exports[`in-tag.js format 1`] = `
 ====================================options=====================================
 cursorOffset: 9
 parsers: ["babel", "typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <>a
   <di<|>v>

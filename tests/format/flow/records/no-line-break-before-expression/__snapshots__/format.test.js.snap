@@ -3,8 +3,7 @@
 exports[`expression.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // Not a \`RecordExpression\`
 const x = Foo

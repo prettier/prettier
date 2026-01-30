@@ -3,9 +3,8 @@
 exports[`function-rest-trailing-comma.ts - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 declare function foo(...args: any[], )
 declare function foo(...long_long_long_long_long_long_long_long_long_long_long_long_long_long_long_args: any[], )
@@ -22,9 +21,8 @@ declare function foo(
 exports[`function-rest-trailing-comma.ts - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 declare function foo(...args: any[], )
 declare function foo(...long_long_long_long_long_long_long_long_long_long_long_long_long_long_long_args: any[], )
@@ -41,9 +39,8 @@ declare function foo(
 exports[`function-rest-trailing-comma.ts - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 declare function foo(...args: any[], )
 declare function foo(...long_long_long_long_long_long_long_long_long_long_long_long_long_long_long_args: any[], )

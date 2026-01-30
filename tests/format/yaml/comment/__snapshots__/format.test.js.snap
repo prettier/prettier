@@ -3,8 +3,7 @@
 exports[`collection.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 a: # a.trailingComment
   123
@@ -73,8 +72,7 @@ empty_content:
 exports[`end-comment.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 parent:
   one: 1
@@ -111,8 +109,7 @@ A:
 exports[`flow-sequence-mapping.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
     a:
       [
@@ -189,8 +186,7 @@ e:
 exports[`in-empty-item-without-newlline.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 a:
   #123
@@ -204,8 +200,7 @@ a:
 exports[`issue-8378.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 # --- comments ---
 
@@ -218,8 +213,7 @@ printWidth: 80
 exports[`issue-9130.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 - foo: 0
   bar: 1
@@ -256,8 +250,7 @@ printWidth: 80
 exports[`issue-10922.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 foo: bar
 
@@ -274,8 +267,7 @@ foo: bar
 exports[`issue-16074.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 myDict: {}
@@ -322,8 +314,7 @@ myOtherList:
 exports[`map.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 foo1:
   - foo: item1
@@ -378,8 +369,7 @@ foo2:
 exports[`map-2.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 foo1:
   - foo
@@ -427,8 +417,7 @@ foo2:
 exports[`map-3.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 foo1:
   - foo
@@ -467,8 +456,7 @@ foo2:
 exports[`map-4.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 before:
 
@@ -530,8 +518,7 @@ none(2):
 exports[`object.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 #6445
 
@@ -570,8 +557,7 @@ obj:
 exports[`root.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 #hello world
 
@@ -584,8 +570,7 @@ printWidth: 80
 exports[`sequence.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 -  - a
 
@@ -622,8 +607,7 @@ printWidth: 80
 exports[`sequence-2.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 - before
 
@@ -685,8 +669,7 @@ printWidth: 80
 exports[`set.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 - 123
   # 456

@@ -3,8 +3,7 @@
 exports[`A.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class A {
   foo(x:number):void { }
@@ -25,8 +24,7 @@ module.exports = A;
 exports[`B.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 var A = require('./A');
 
@@ -53,8 +51,7 @@ module.exports = B;
 exports[`C.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 var B = require('./B');
 
@@ -85,8 +82,7 @@ module.exports = C;
 exports[`D.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class D { }
 class E { }
@@ -103,8 +99,7 @@ new E().x;
 exports[`class_shapes.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* @flow */
 
@@ -185,8 +180,7 @@ var w: Foo = z;
 exports[`expr.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 var Bar = class Foo {
   static factory(): Foo { // OK: Foo is a type in this scope
@@ -258,8 +252,7 @@ var alias2: Alias = _Alias.factory(); // error: bad pun
 exports[`extends_any.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const Base: any = class {}
 class Derived1 extends Base {}
@@ -280,8 +273,7 @@ class Derived2 extends Derived1 {
 exports[`loc.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* @flow */
 
@@ -302,8 +294,7 @@ class Foo {} // error, shadows type Foo
 exports[`statics.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* @flow */
 

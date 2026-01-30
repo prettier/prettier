@@ -3,9 +3,8 @@
 exports[`ignore.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 foo = {
   // prettier-ignore
@@ -108,9 +107,8 @@ foo = {
 exports[`ignore.js - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 foo = {
   // prettier-ignore
@@ -213,9 +211,8 @@ foo = {
 exports[`ignore.js - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 foo = {
   // prettier-ignore
@@ -318,9 +315,8 @@ foo = {
 exports[`issue-5678.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // #5678
 const refreshTokenPayload = {
@@ -435,9 +431,8 @@ export default {
 exports[`issue-5678.js - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // #5678
 const refreshTokenPayload = {
@@ -552,9 +547,8 @@ export default {
 exports[`issue-5678.js - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // #5678
 const refreshTokenPayload = {

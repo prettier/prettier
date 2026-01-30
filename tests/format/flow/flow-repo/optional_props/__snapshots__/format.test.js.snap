@@ -3,8 +3,7 @@
 exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 var x: { } = { foo: 0 };
 var y: { foo?: string } = x; // OK in TypeScript, not OK in Flow
@@ -39,8 +38,7 @@ bar({ foo: "" });
 exports[`test2.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 var a: { foo?: string } = {};
 a.foo = undefined; // This is not an error
@@ -77,8 +75,7 @@ var f: { foo?: ?string } = { foo: null }; // Also fine
 exports[`test3.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @flow
 
@@ -201,8 +198,7 @@ class A {
 exports[`test3_exact_annot.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* The logic that allows ({}: {p?:T}), described in test3.js, should _not_ also
    fire for exact annotations. */
@@ -227,8 +223,7 @@ b.b = 0; // because subsequent writes would widen the exact object
 exports[`test3_failure.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // generalization of failure in test3.js
 

@@ -4,8 +4,7 @@ exports[`dynamic-import.js - {"bracketSpacing":false} format 1`] = `
 ====================================options=====================================
 bracketSpacing: false
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import("./foo.json", { with: { type: "json" } });
 
@@ -19,8 +18,7 @@ exports[`empty.js - {"bracketSpacing":false} format 1`] = `
 ====================================options=====================================
 bracketSpacing: false
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export * as bar from "bar.json" with { }
 =====================================output=====================================
@@ -33,8 +31,7 @@ exports[`re-export.js - {"bracketSpacing":false} format 1`] = `
 ====================================options=====================================
 bracketSpacing: false
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export { default as foo2 } from "foo.json" with { type: "json" };
 
@@ -48,8 +45,7 @@ exports[`static-import.js - {"bracketSpacing":false} format 1`] = `
 ====================================options=====================================
 bracketSpacing: false
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import json from "./foo.json" with { type: "json" };
 

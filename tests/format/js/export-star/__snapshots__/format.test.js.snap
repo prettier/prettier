@@ -3,8 +3,7 @@
 exports[`export-star.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export * from "mod";
 
@@ -18,8 +17,7 @@ export * from "mod";
 exports[`export-star-as.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export * as ns from "mod";
 
@@ -33,8 +31,7 @@ export * as ns from "mod";
 exports[`export-star-as-default.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export * as default from 'foo'
 
@@ -47,8 +44,7 @@ export * as default from "foo";
 exports[`export-star-as-reserved-word.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export * as function from 'foo'
 export * as const from 'foo'
@@ -67,8 +63,7 @@ export * as from from "foo";
 exports[`export-star-as-string.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export * as 'foo' from 'foo'
 
@@ -98,8 +93,7 @@ export * as 'foo' from 'foo'
 exports[`export-star-as-string2.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export * as "foo" from 'foo'
 

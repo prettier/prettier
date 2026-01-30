@@ -3,8 +3,7 @@
 exports[`window1.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /*
 @providesModule Window1
@@ -23,8 +22,7 @@ module.exports = window.history;
 exports[`window2.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* @providesModule Window2 */
 

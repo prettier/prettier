@@ -4,8 +4,7 @@ exports[`comments.ts - {"experimentalTernaries":true} format 1`] = `
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type A = B extends T
   ? // comment
@@ -245,8 +244,7 @@ T = any instanceof B ? /* Comment */ B | C : D;
 exports[`comments.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type A = B extends T
   ? // comment
@@ -477,8 +475,7 @@ exports[`conditional-types.ts - {"experimentalTernaries":true} format 1`] = `
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export type DeepReadonly<T> = T extends any[] ? DeepReadonlyArray<T[number]> : T extends object ? DeepReadonlyObject<T> : T;
 
@@ -566,8 +563,7 @@ type U2 = (new () => X) extends T ? U : V;
 exports[`conditional-types.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export type DeepReadonly<T> = T extends any[] ? DeepReadonlyArray<T[number]> : T extends object ? DeepReadonlyObject<T> : T;
 
@@ -661,8 +657,7 @@ exports[`infer-type.ts - {"experimentalTernaries":true} format 1`] = `
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type TestReturnType<T extends (...args: any[]) => any> = T extends (...args: any[]) => infer R ? R : any;
 
@@ -688,8 +683,7 @@ type Unpacked<T> =
 exports[`infer-type.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type TestReturnType<T extends (...args: any[]) => any> = T extends (...args: any[]) => infer R ? R : any;
 
@@ -721,8 +715,7 @@ exports[`nested-in-condition.ts - {"experimentalTernaries":true} format 1`] = `
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type Foo =
   (ThingamabobberFactory extends AbstractThingamabobberFactory ? GobbledygookProvider : CompositeGobbledygookProvider) extends
@@ -780,8 +773,7 @@ type Foo3 =
 exports[`nested-in-condition.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type Foo =
   (ThingamabobberFactory extends AbstractThingamabobberFactory ? GobbledygookProvider : CompositeGobbledygookProvider) extends
@@ -837,8 +829,7 @@ exports[`new-ternary-spec.ts - {"experimentalTernaries":true} format 1`] = `
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // TypeScript has the same behavior, including a line break after =, but no parens around "conditional":
 type KnownKeys<T> =
@@ -922,8 +913,7 @@ type Unpacked<T> =
 exports[`new-ternary-spec.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // TypeScript has the same behavior, including a line break after =, but no parens around "conditional":
 type KnownKeys<T> =
@@ -1007,8 +997,7 @@ exports[`parentheses.ts - {"experimentalTernaries":true} format 1`] = `
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // #13275
 type Foo<T> = T extends ((...a: any[]) => infer R extends string) ? R : never;
@@ -1063,8 +1052,7 @@ type Test<T> =
 exports[`parentheses.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // #13275
 type Foo<T> = T extends ((...a: any[]) => infer R extends string) ? R : never;

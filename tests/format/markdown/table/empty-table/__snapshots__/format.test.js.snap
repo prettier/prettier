@@ -3,9 +3,8 @@
 exports[`empty-table.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 Text
 
@@ -38,9 +37,8 @@ Text
 exports[`empty-table.md - {"proseWrap":"never"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "never"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 Text
 
@@ -73,9 +71,8 @@ Text
 exports[`empty-table.md - {"proseWrap":"preserve"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "preserve"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 Text
 
@@ -108,8 +105,7 @@ Text
 exports[`empty-table.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 Text
 

@@ -3,8 +3,7 @@
 exports[`ExplicitProvidesModuleDifferentName.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /*
  * @providesModule ExplicitProvidesModuleDifferentName
@@ -27,8 +26,7 @@ module.exports.fun = (): string => "hello there";
 exports[`ExplicitProvidesModuleSameName.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /*
  * @providesModule ExplicitProvidesModuleSameName
@@ -51,8 +49,7 @@ module.exports.fun = (): string => "hello there";
 exports[`ImplicitProvidesModule.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /*
  * @providesModule ImplicitProvidesModule
@@ -75,8 +72,7 @@ module.exports.fun = (): string => "hello there";
 exports[`md5.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* @providesModule md5 */
 
@@ -89,8 +85,7 @@ printWidth: 80
 exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* @flow */
 

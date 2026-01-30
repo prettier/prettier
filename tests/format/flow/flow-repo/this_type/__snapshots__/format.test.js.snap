@@ -3,8 +3,7 @@
 exports[`class_expr.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* @flow */
 // issue #1191
@@ -31,8 +30,7 @@ const Thing = class Thing {
 exports[`contra.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // Counterexample with contravariant this type
 
@@ -159,8 +157,7 @@ class Misc {
 exports[`export.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export class A1 {
   foo(): this { return this; }
@@ -205,8 +202,7 @@ export class A3<X> extends A2<X> {}
 exports[`generics.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class Generic<X> {
   clone(): Generic<X> { return this; }
@@ -240,8 +236,7 @@ class ImplicitNumber extends Implicit {
 exports[`import.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // Check that imports are handled properly with this types
 
@@ -300,8 +295,7 @@ class B3<X> extends A3<X> {
 exports[`interface.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 interface I { xs: Array<this>; }
 interface J { f(): J; }
@@ -338,8 +332,7 @@ function bar(c: C): J {
 exports[`lib_client.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 (new DoublyLinkedList().prev(): DoublyLinkedList);
 (new DoublyLinkedList().next(): DoublyLinkedList)
@@ -370,8 +363,7 @@ class C {
 exports[`self.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class A {
   foo() { return this; } // return of foo is not annotated to get around
@@ -400,8 +392,7 @@ class A {
 exports[`statics.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // supporting \`this\` type in statics
 
@@ -447,8 +438,7 @@ class B extends A {} // inherits statics method too, with \`this\` bound to the 
 exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // Examples without \`this\` types (compare with examples below)
 

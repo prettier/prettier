@@ -4,8 +4,7 @@ exports[`issue-9260.mdx - {"embeddedLanguageFormatting":"off"} format 1`] = `
 ====================================options=====================================
 embeddedLanguageFormatting: "off"
 parsers: ["mdx"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 # title
 
@@ -33,8 +32,7 @@ exports[`multiline-comments.mdx - {"embeddedLanguageFormatting":"off"} format 1`
 ====================================options=====================================
 embeddedLanguageFormatting: "off"
 parsers: ["mdx"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 # title
 
@@ -128,8 +126,7 @@ exports[`pull-11563.mdx - {"embeddedLanguageFormatting":"off"} format 1`] = `
 ====================================options=====================================
 embeddedLanguageFormatting: "off"
 parsers: ["mdx"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 # title
 

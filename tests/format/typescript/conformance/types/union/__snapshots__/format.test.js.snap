@@ -3,8 +3,7 @@
 exports[`unionTypeCallSignatures.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ﻿var numOrDate: number | Date;
 var strOrBoolean: string | boolean;
@@ -185,8 +184,7 @@ strOrNum = unionWithRestParameter4("hello", "world");
 exports[`unionTypeCallSignatures3.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ﻿function f1(s: string) { }
 function f2(s?: string) { }
@@ -226,8 +224,7 @@ fUnion(""); // All constituents can be called by passing a single string.
 exports[`unionTypeCallSignatures4.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ﻿type F1 = (a: string, b?: string) => void;
 type F2 = (a: string, b?: string, c?: string) => void;
@@ -288,8 +285,7 @@ f12345("a", "b", "c"); // error
 exports[`unionTypeConstructSignatures.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ﻿var numOrDate: number | Date;
 var strOrBoolean: string | boolean;
@@ -462,8 +458,7 @@ strOrNum = new unionWithRestParameter3(); // error no call signature
 exports[`unionTypeEquivalence.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ﻿// A | B is equivalent to A if B is a subtype of A
 class C { }
@@ -512,8 +507,7 @@ var z1: string | typeof BC;
 exports[`unionTypeFromArrayLiteral.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ﻿// The resulting type an array literal expression is determined as follows:
 // If the array literal is empty, the resulting type is an array type with the element type Undefined.
@@ -578,8 +572,7 @@ var arr9 = [e, f]; // (E|F)[]
 exports[`unionTypeIndexSignature.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ﻿var numOrDate: number | Date;
 var anyVar: number;
@@ -642,8 +635,7 @@ anyVar = unionOfTypesWithAndWithoutStringSignature1[10]; // any
 exports[`unionTypePropertyAccessibility.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class Default {
     member: string;

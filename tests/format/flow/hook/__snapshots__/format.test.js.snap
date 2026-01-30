@@ -3,8 +3,7 @@
 exports[`comments-before-arrow.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /*
 The following should format like \`ArrowFunctionExpression\`,
@@ -65,8 +64,7 @@ a = () => /* 23 */ {};
 exports[`dangling-comments.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 hook C11(// 11
 ) {}
@@ -142,8 +140,7 @@ type T23 = hook (/* 29*/) => void;
 exports[`declare-hook.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 declare hook useFoo(): void;
 
@@ -267,8 +264,7 @@ SomeComponent;
 exports[`hook-declaration.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 hook useFoo1() {}
 
@@ -345,8 +341,7 @@ hook useFoo14<
 exports[`hook-type-annotation.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type T = hook () => void;
 

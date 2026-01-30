@@ -3,9 +3,8 @@
 exports[`list-item.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 - 1
         foo
@@ -23,8 +22,7 @@ proseWrap: "always"
 exports[`list-item.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 - 1
         foo

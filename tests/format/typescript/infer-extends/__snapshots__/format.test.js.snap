@@ -3,8 +3,7 @@
 exports[`basic.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type X3<T> = T extends [infer U extends number] ? MustBeNumber<U> : never;
 type X4<T> = T extends [infer U extends number, infer U extends number] ? MustBeNumber<U> : never;

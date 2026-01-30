@@ -3,8 +3,7 @@
 exports[`P.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 module.exports = require('M');
 
@@ -17,8 +16,7 @@ module.exports = require("M");
 exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 var M = require('M');
 var N = require('N');

@@ -3,8 +3,7 @@
 exports[`class.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class A {}
 
@@ -35,8 +34,7 @@ var test6: number = a.constructor.name; // Error string ~> number
 exports[`function.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* TODO - we currently say that a function's statics are an AnyObjT and
  * anything goes. When we start enforcing the statics properly, we'll need to

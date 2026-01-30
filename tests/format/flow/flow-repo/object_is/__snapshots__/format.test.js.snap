@@ -3,8 +3,7 @@
 exports[`object_is.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 Object.is(1, 1);
 Object.is(1, 2);

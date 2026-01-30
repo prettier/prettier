@@ -3,8 +3,7 @@
 exports[`for-await-using-of-comments.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /*1*/ for /* 2 */ await /*3*/ ( /*4*/ using /*5*/ fo /*6*/ of /*7*/ of /*8*/) /*9*/;
 
@@ -42,8 +41,7 @@ Cause: [1:50-1:52]: for await (... of ...) is only valid in async functions and 
 exports[`invalid-duplicate-using-bindings.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {
   using f = foo(), f = foo();
@@ -125,8 +123,7 @@ Cause: [2:8-2:9]: Unexpected token: 'identifier'"
 exports[`invalid-script-top-level-using-binding.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 using x = bar();
 
@@ -164,8 +161,7 @@ Cause: [1:6-1:7]: Unexpected token: 'identifier'"
 exports[`using-declarations.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {
   using /* 1 */ a = foo(), /* 2 */ b = foo()
@@ -225,8 +221,7 @@ Cause: [2:16-2:17]: Unexpected token: 'identifier'"
 exports[`valid-await-expr-using.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 async function f() {
   await using[x];
@@ -267,8 +262,7 @@ Cause: Unexpected token ["
 exports[`valid-await-expr-using-in.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 async function f() {
   await using in foo;
@@ -305,8 +299,7 @@ Cause: Unexpected keyword 'in'"
 exports[`valid-await-expr-using-instanceof.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 async function f() {
   await using instanceof foo;
@@ -343,8 +336,7 @@ Cause: Unexpected keyword 'instanceof'"
 exports[`valid-await-using-asi-assignment.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 async function f() {
   await using
@@ -363,8 +355,7 @@ async function f() {
 exports[`valid-await-using-binding-basic.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 async function f() {
   await using basic = getReader();
@@ -412,8 +403,7 @@ Cause: [2:14-2:19]: Unexpected token: 'identifier'"
 exports[`valid-await-using-binding-escaped.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 async function f() {
   await using \\u0061b = c;
@@ -461,8 +451,7 @@ Cause: [2:14-2:21]: Unexpected token: 'identifier'"
 exports[`valid-await-using-binding-non-bmp.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 async function f() {
   await using 𠮷 = foo();
@@ -509,8 +498,7 @@ Cause: [2:14-2:16]: Unexpected token: 'identifier'"
 exports[`valid-await-using-binding-using.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 async function f() {
   await using using = of;
@@ -563,8 +551,7 @@ Cause: [2:14-2:19]: Unexpected token: 'identifier'"
 exports[`valid-await-using-comments.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 async function f() {
 {
@@ -643,8 +630,7 @@ Cause: [3:27-3:28]: Unexpected token: 'identifier'"
 exports[`valid-for-await-using-binding-escaped-of-of.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // TODO: Fix this test
 // for await (using \\u006ff of of);
@@ -659,8 +645,7 @@ printWidth: 80
 exports[`valid-for-using-binding-escaped-of-of.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // TODO: Fix this test
 // for (using o\\u0066 of of);
@@ -675,8 +660,7 @@ printWidth: 80
 exports[`valid-for-using-binding-of-of.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 async function f() {
   for (await using of of of);
@@ -729,8 +713,7 @@ Cause: [2:19-2:21]: Invalid left-hand side in for-of"
 exports[`valid-for-using-declaration.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 async function f() {
   for (await using basic = reader();;);
@@ -778,8 +761,7 @@ Cause: [2:19-2:24]: Expected ';'"
 exports[`valid-module-block-top-level-await-using-binding.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const m = module {
   await using foo = bar();
@@ -875,8 +857,7 @@ Cause: ',' expected."
 exports[`valid-module-block-top-level-using-binding.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 module {
   using foo = bar();
@@ -972,8 +953,7 @@ Cause: Namespace must be given a name."
 exports[`valid-using-as-identifier-computed-member.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 using [x] = 0;
 for (using [x] of []);
@@ -988,8 +968,7 @@ for (using[x] of []);
 exports[`valid-using-as-identifier-expression-statement.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 using
 reader = getReader()
@@ -1004,8 +983,7 @@ reader = getReader();
 exports[`valid-using-as-identifier-for-await-of.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 for await (using of of);
 
@@ -1035,8 +1013,7 @@ for await (using of of);
 exports[`valid-using-as-identifier-for-in.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 for (using in []);
 for (using.foo in []);
@@ -1075,8 +1052,7 @@ Cause: Unexpected keyword 'in'"
 exports[`valid-using-as-identifier-for-init.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 for (
   using;
@@ -1091,8 +1067,7 @@ for (using; (reader = getReader()); );
 exports[`valid-using-as-identifier-for-of.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 for (using of of);
 for (using.foo of of);
@@ -1111,8 +1086,7 @@ for (using\`\`.foo of of);
 exports[`valid-using-as-identifier-in.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 using in using instanceof using;
 
@@ -1141,8 +1115,7 @@ Cause: Unexpected keyword 'in'"
 exports[`valid-using-binding-basic.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {
   using basic = getReader();
@@ -1190,8 +1163,7 @@ Cause: [2:8-2:13]: Unexpected token: 'identifier'"
 exports[`valid-using-binding-escaped.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 { using \\u0061b = c; }
 
@@ -1231,8 +1203,7 @@ Cause: [1:8-1:15]: Unexpected token: 'identifier'"
 exports[`valid-using-binding-non-bmp.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 { using 𠮷 = foo(); }
 
@@ -1287,8 +1258,7 @@ Cause: [1:8-1:10]: Unexpected token: 'identifier'"
 exports[`valid-using-binding-using.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {
   using using = of;

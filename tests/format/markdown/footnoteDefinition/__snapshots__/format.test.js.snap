@@ -3,9 +3,8 @@
 exports[`long.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [^hello]: this is a long long long long long long long long long long long long long paragraph.
 [^world]: this is a long long long long long long long long long long long long long paragraph.
@@ -27,9 +26,8 @@ proseWrap: "always"
 exports[`long.md - {"proseWrap":"never"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "never"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [^hello]: this is a long long long long long long long long long long long long long paragraph.
 [^world]: this is a long long long long long long long long long long long long long paragraph.
@@ -46,9 +44,8 @@ proseWrap: "never"
 exports[`long.md - {"proseWrap":"preserve"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "preserve"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [^hello]: this is a long long long long long long long long long long long long long paragraph.
 [^world]: this is a long long long long long long long long long long long long long paragraph.
@@ -67,9 +64,8 @@ proseWrap: "preserve"
 exports[`long.md - {"tabWidth":3} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 tabWidth: 3
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [^hello]: this is a long long long long long long long long long long long long long paragraph.
 [^world]: this is a long long long long long long long long long long long long long paragraph.
@@ -88,9 +84,8 @@ tabWidth: 3
 exports[`multiline.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [^fn1]:
 
@@ -148,9 +143,8 @@ proseWrap: "always"
 exports[`multiline.md - {"proseWrap":"never"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "never"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [^fn1]:
 
@@ -207,9 +201,8 @@ proseWrap: "never"
 exports[`multiline.md - {"proseWrap":"preserve"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "preserve"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [^fn1]:
 
@@ -266,9 +259,8 @@ proseWrap: "preserve"
 exports[`multiline.md - {"tabWidth":3} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 tabWidth: 3
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [^fn1]:
 
@@ -325,9 +317,8 @@ tabWidth: 3
 exports[`sibling.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [^a]: a
 [^a]: a
@@ -402,9 +393,8 @@ proseWrap: "always"
 exports[`sibling.md - {"proseWrap":"never"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "never"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [^a]: a
 [^a]: a
@@ -479,9 +469,8 @@ proseWrap: "never"
 exports[`sibling.md - {"proseWrap":"preserve"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "preserve"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [^a]: a
 [^a]: a
@@ -556,9 +545,8 @@ proseWrap: "preserve"
 exports[`sibling.md - {"tabWidth":3} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 tabWidth: 3
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [^a]: a
 [^a]: a
@@ -633,9 +621,8 @@ tabWidth: 3
 exports[`simple.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [^hello]: world
 
@@ -648,9 +635,8 @@ proseWrap: "always"
 exports[`simple.md - {"proseWrap":"never"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "never"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [^hello]: world
 
@@ -663,9 +649,8 @@ proseWrap: "never"
 exports[`simple.md - {"proseWrap":"preserve"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "preserve"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [^hello]: world
 
@@ -678,9 +663,8 @@ proseWrap: "preserve"
 exports[`simple.md - {"tabWidth":3} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 tabWidth: 3
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [^hello]: world
 

@@ -3,8 +3,7 @@
 exports[`importEqualsDeclaration.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import glo_m4 = require("glo_m4");
 

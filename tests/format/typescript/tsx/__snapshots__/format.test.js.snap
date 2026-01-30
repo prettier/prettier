@@ -3,8 +3,7 @@
 exports[`generic-component.tsx format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const c1 = <MyComponent<number> data={12} />
 
@@ -25,8 +24,7 @@ const c3 = <MyComponent<number> attr="value" />;
 exports[`keyword.tsx format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <try />;
 <object />
@@ -41,8 +39,7 @@ printWidth: 80
 exports[`member-expression.tsx format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 (<a />).method();
 (<a />).property;
@@ -101,8 +98,7 @@ printWidth: 80
 exports[`not-react.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /// <reference types="node" />
 
@@ -129,8 +125,7 @@ const footer = "<footer></footer>";
 exports[`optional-chaining.tsx format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 a = (
     <div>
@@ -197,8 +192,7 @@ a = (
 exports[`react.tsx format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const MyCoolList = ({ things }) =>
     <ul>
@@ -218,8 +212,7 @@ const MyCoolThing = ({ thingo }) => <li>{thingo}</li>;
 exports[`this.tsx format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <this.state.Component />;
 <this.Component />;
@@ -234,8 +227,7 @@ printWidth: 80
 exports[`type-parameters.tsx format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const functionName1 = <T,>(arg) => false;
 const functionName2 = <T extends any>(arg) => false;
@@ -288,8 +280,7 @@ type Type2 = Two<T>;
 exports[`url.tsx format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const link = <a href="example.com">http://example.com</a>;
 

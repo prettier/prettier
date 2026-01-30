@@ -3,8 +3,7 @@
 exports[`a.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* @providesModule IncrModuleA */
 
@@ -17,8 +16,7 @@ printWidth: 80
 exports[`b.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* @providesModule IncrModuleB
    @flow
@@ -39,8 +37,7 @@ var A = require("IncrModuleA");
 exports[`dup_a.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* @providesModule IncrModuleA */
 

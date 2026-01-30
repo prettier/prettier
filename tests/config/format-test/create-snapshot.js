@@ -3,7 +3,8 @@ import { CURSOR_PLACEHOLDER } from "./constants.js";
 import visualizeEndOfLine from "./visualize-end-of-line.js";
 import visualizeRange from "./visualize-range.js";
 
-const SEPARATOR_WIDTH = 80;
+const DEFAULT_PRINT_WIDTH = 80;
+const SEPARATOR_WIDTH = DEFAULT_PRINT_WIDTH;
 function printSeparator(description = "") {
   const leftLength = Math.floor((SEPARATOR_WIDTH - description.length) / 2);
   const rightLength = SEPARATOR_WIDTH - leftLength - description.length;
@@ -38,7 +39,6 @@ function printOptions(options) {
     .join("\n");
 }
 
-const DEFAULT_PRINT_WIDTH = 80;
 function makeWidthIndicator(printWidth) {
   const text =
     printWidth === undefined

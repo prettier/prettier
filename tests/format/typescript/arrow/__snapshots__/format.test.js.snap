@@ -3,9 +3,8 @@
 exports[`16067.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const foo1 = 
   // comment
@@ -100,8 +99,7 @@ foo4 =
 exports[`16067.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const foo1 = 
   // comment
@@ -196,9 +194,8 @@ foo4 =
 exports[`arrow_regression.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const bar = (...varargs:any[]) => {
   console.log(varargs);
@@ -238,8 +235,7 @@ app.get("/", (req, res): void => {
 exports[`arrow_regression.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const bar = (...varargs:any[]) => {
   console.log(varargs);
@@ -279,9 +275,8 @@ app.get("/", (req, res): void => {
 exports[`comments.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const fn1 = () => {
   return;
@@ -311,8 +306,7 @@ const fn2 = () => {
 exports[`comments.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const fn1 = () => {
   return;
@@ -342,9 +336,8 @@ const fn2 = () => {
 exports[`issue-6107-curry.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const getIconEngagementTypeFrom = (engagementTypes: Array<EngagementType>) =>
   iconEngagementType => engagementTypes.includes(iconEngagementType);
@@ -391,8 +384,7 @@ const getIconEngagementTypeFrom2 =
 exports[`issue-6107-curry.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const getIconEngagementTypeFrom = (engagementTypes: Array<EngagementType>) =>
   iconEngagementType => engagementTypes.includes(iconEngagementType);
@@ -439,9 +431,8 @@ const getIconEngagementTypeFrom2 =
 exports[`issue-14563.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const myFunc =
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -460,8 +451,7 @@ const myFunc =
 exports[`issue-14563.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const myFunc =
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

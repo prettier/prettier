@@ -3,8 +3,7 @@
 exports[`18148.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // 79 width until \`as\` or \`satisfies\` keyword
 const firstItem1 = ______________.items.find((item) => item.type === 'item') as const;

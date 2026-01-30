@@ -4,8 +4,7 @@ exports[`with-noformat-pragma.html - {"checkIgnorePragma":false} format 1`] = `
 ====================================options=====================================
 checkIgnorePragma: false
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!-- @noformat -->
 
@@ -24,8 +23,7 @@ exports[`with-noprettier-pragma.html - {"checkIgnorePragma":false} format 1`] = 
 ====================================options=====================================
 checkIgnorePragma: false
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!-- @noprettier -->
 

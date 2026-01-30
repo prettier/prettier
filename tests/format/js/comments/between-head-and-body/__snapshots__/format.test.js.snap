@@ -3,8 +3,7 @@
 exports[`between-head-and-body.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 do // 11
 {} while(1)
@@ -288,8 +287,7 @@ with (a) /* */ /*
 exports[`empty-statement.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 do // 11
 ; while(1)
@@ -481,8 +479,7 @@ with (a) /*
 exports[`non-block.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 do // 11
 foo(); while(1)

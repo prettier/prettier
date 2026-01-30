@@ -3,8 +3,7 @@
 exports[`intersection.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type Example = {
   [A in B]: T;
@@ -25,8 +24,7 @@ type Example = {
 exports[`issue-11098.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type Type = {
   // comment
@@ -138,8 +136,7 @@ type Type = {
 exports[`issue-17784.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export type A = B extends { C?: { [D in infer E]?: F } } ? G : H
 
@@ -152,8 +149,7 @@ export type A = B extends { C?: { [D in infer E]?: F } } ? G : H;
 exports[`mapped-type.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type Keys = 'option1' | 'option2';
 type A = { [K in Keys] };

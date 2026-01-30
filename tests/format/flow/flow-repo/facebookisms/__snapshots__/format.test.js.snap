@@ -3,8 +3,7 @@
 exports[`Bar.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 var Bar = { x: 0 };
 module.exports = Bar;
@@ -19,8 +18,7 @@ module.exports = Bar;
 exports[`copyProperties.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @flow
 
@@ -109,8 +107,7 @@ let tests = [
 exports[`invariant.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* @flow */
 
@@ -149,8 +146,7 @@ let tests = [
 exports[`lib.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 declare module "copyProperties" {
   declare var exports: Object$Assign;
@@ -183,8 +179,7 @@ declare module "mixin" {
 exports[`mergeInto.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @flow
 
@@ -263,8 +258,7 @@ let tests = [
 exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 var Bar = require('./Bar');
 var mixin = require('mixin');

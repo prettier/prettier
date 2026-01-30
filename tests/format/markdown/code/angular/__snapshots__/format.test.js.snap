@@ -4,8 +4,7 @@ exports[`angular-html.md - {"embeddedLanguageFormatting":"off"} format 1`] = `
 ====================================options=====================================
 embeddedLanguageFormatting: "off"
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 \`\`\`angular-html
 @if (orderForm.couponCode().disabled()) {
@@ -32,8 +31,7 @@ printWidth: 80
 exports[`angular-html.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 \`\`\`angular-html
 @if (orderForm.couponCode().disabled()) {
@@ -62,8 +60,7 @@ exports[`angular-html-invalid.md - {"embeddedLanguageFormatting":"off"} format 1
 ====================================options=====================================
 embeddedLanguageFormatting: "off"
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 \`\`\`angular-html
         @for (reason of orderForm.couponCode().disabledReasons(); track reason) {
@@ -86,8 +83,7 @@ printWidth: 80
 exports[`angular-html-invalid.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 \`\`\`angular-html
         @for (reason of orderForm.couponCode().disabledReasons(); track reason) {
@@ -111,8 +107,7 @@ exports[`angular-ts.md - {"embeddedLanguageFormatting":"off"} format 1`] = `
 ====================================options=====================================
 embeddedLanguageFormatting: "off"
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 \`\`\`angular-ts
 type A ={
@@ -157,8 +152,7 @@ export class Order {
 exports[`angular-ts.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 \`\`\`angular-ts
 type A ={
@@ -208,8 +202,7 @@ exports[`angular-ts-invalid.md - {"embeddedLanguageFormatting":"off"} format 1`]
 ====================================options=====================================
 embeddedLanguageFormatting: "off"
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 \`\`\`angular-ts
         Ugly:string
@@ -252,8 +245,7 @@ export class Order {
 exports[`angular-ts-invalid.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 \`\`\`angular-ts
         Ugly:string

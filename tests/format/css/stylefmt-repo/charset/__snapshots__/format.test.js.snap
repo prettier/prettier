@@ -3,8 +3,7 @@
 exports[`charset.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 @charset "utf-8";
 

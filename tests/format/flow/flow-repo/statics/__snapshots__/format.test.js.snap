@@ -3,8 +3,7 @@
 exports[`class_statics.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class C {
   static f(x:number) { }
@@ -36,8 +35,7 @@ C.x = 0;
 exports[`funstatics.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function C() { }
 C.prototype.f = function() { return C.g(0); }

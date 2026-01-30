@@ -3,8 +3,7 @@
 exports[`break.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export default class AddAssetHtmlPlugin {
   apply(compiler: WebpackCompilerType) {
@@ -41,8 +40,7 @@ export default class AddAssetHtmlPlugin {
 exports[`decorated-function.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const Counter = decorator("my-counter")(
   (props: { initialCount?: number; label?: string }) => {
@@ -122,8 +120,7 @@ export default decorators.decorator("my-counter")((props: {
 exports[`edge_case.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 var listener = DOM.listen(
   introCard,

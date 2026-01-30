@@ -3,8 +3,7 @@
 exports[`array.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 var a = ["..."];
 var b = a.map (function (x) { return 0; });
@@ -55,8 +54,7 @@ function g() {
 exports[`genericfoo.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class Foo<T> {
     x:T;

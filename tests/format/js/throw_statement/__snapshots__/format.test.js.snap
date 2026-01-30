@@ -3,8 +3,7 @@
 exports[`binaryish.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function f() {
   throw (
@@ -61,8 +60,7 @@ function f() {
 exports[`comment.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function x() {
   throw func2
@@ -117,8 +115,7 @@ fn(function f() {
 exports[`jsx.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function foo() {
   throw <Bar />;

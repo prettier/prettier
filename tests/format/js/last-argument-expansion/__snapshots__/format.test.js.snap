@@ -3,8 +3,7 @@
 exports[`arrow.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export default function searchUsers(action$) {
   return action$.ofType(ActionTypes.SEARCHED_USERS)
@@ -49,8 +48,7 @@ export default function searchUsers(action$) {
 exports[`assignment-pattern.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 bob.doL(({ a, b = () => {
   console.log;
@@ -72,8 +70,7 @@ bob.doL(
 exports[`break-parent.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ({
   processors: [
@@ -136,8 +133,7 @@ true ? (
 exports[`dangling-comment-in-arrow-function.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 foo(
   (
@@ -156,8 +152,7 @@ foo((
 exports[`edge_case.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 
@@ -293,8 +288,7 @@ someReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReal
 exports[`embed.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 foo(/* HTML */ \`<!-- bar1 --> bar <!-- bar2 -->\`);
 foo(/* HTML */ \` <!-- bar1 --> bar <!-- bar2 --> \`);
@@ -354,8 +348,7 @@ const c = (b) => /* HTML */ \`
 exports[`empty-lines.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 all_verylongcall_verylongcall_verylongcall_verylongcall_verylongcall(
   (a,
@@ -382,8 +375,7 @@ all_verylongcall_verylongcall_verylongcall_verylongcall_verylongcall(
 exports[`empty-object.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 func(first, second, third, fourth, fifth, aReallyLongArgumentsListToForceItToBreak, {
   // comment
@@ -444,8 +436,7 @@ func(
 exports[`function-body-in-mode-break.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 fs.readdirSync(suiteLoc).forEach(function (testName) {
   (skip ? it.skip : it)(
@@ -486,8 +477,7 @@ fs.readdirSync(suiteLoc).forEach(function (testName) {
 exports[`function-expression.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function* mySagas() {
   yield effects.takeEvery(
@@ -538,8 +528,7 @@ function mySagas2() {
 exports[`function-expression-issue-2239.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 someFunctionCallWithBigArgumentsAndACallback(thisArgumentIsQuiteLong, function(cool) {
   return cool
@@ -559,8 +548,7 @@ someFunctionCallWithBigArgumentsAndACallback(
 exports[`issue-7518.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const Broken = React.forwardRef(({
 	children,
@@ -596,8 +584,7 @@ const Broken = React.forwardRef(
 exports[`issue-10708.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 bob
 	.doL(({ a, b: {
@@ -622,8 +609,7 @@ bob.doL(
 exports[`issue-18143.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 assert.deepStrictEqual(linesCollection.getViewLinesIndentGuides____(-1, -1), []);
 assert.deepStrictEqual(linesCollection.getViewLinesIndentGuides___(-1, -1), [1]);
@@ -649,8 +635,7 @@ assert.deepStrictEqual(
 exports[`jsx.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const els = items.map(item => (
   <div className="whatever">
@@ -671,8 +656,7 @@ const els = items.map((item) => (
 exports[`number-only-array.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 instantiate(game, [
   transform([-0.7, 0.5, 0]),
@@ -695,8 +679,7 @@ instantiate(game, [
 exports[`object.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const formatData = pipe(
   zip,
@@ -745,8 +728,7 @@ export const log = (y) => {
 exports[`overflow.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 SuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperLongCall((err, result) => {
   // comment

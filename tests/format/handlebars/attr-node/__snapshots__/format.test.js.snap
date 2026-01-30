@@ -3,8 +3,7 @@
 exports[`attribute.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <div title='
 
@@ -88,8 +87,7 @@ printWidth: 80
 exports[`class-name.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <div class='class and other'></div>
 <div class=' class and other '></div>
@@ -134,8 +132,7 @@ weirdly formatted
 exports[`order.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <MyComponent
   {{! this is a comment for arg 1}}
@@ -169,8 +166,7 @@ printWidth: 80
 exports[`quotes.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <div title="'' {{ foo }}"></div>
 <div title='"" {{ bar }}'></div>

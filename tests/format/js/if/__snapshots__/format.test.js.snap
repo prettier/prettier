@@ -3,8 +3,7 @@
 exports[`blank-lines.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // 11
 if (1) {
@@ -139,8 +138,7 @@ else a();
 exports[`comment_before_else.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 if (cond) {
   stuff;
@@ -177,8 +175,7 @@ else stuff;
 exports[`comment-between-condition-and-body.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 if (1) { // 11
   doThing(foo);
@@ -261,8 +258,7 @@ if (4) {
 exports[`else.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // Both functions below should be formatted exactly the same
 
@@ -310,8 +306,7 @@ function f() {
 exports[`expr_and_same_line_comments.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
      if (a === 0) doSomething(); // comment A1
 else if (a === 1) doSomethingElse(); // comment B1
@@ -402,8 +397,7 @@ function a() {
 exports[`if_comments.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 async function f1() {
   if (untrackedChoice === 0) /* Cancel */ {
@@ -530,8 +524,7 @@ else /** transition backward */ ;
 exports[`issue-15168.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 for (const division of collidingDivisions) {
 	if (!division.properties.canRemove) {
@@ -569,8 +562,7 @@ for (const division of collidingDivisions) {
 exports[`non-block.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 if (foo) for (i = 2; i > 0; i--) console.log(i); // foo
 else bar();
@@ -595,8 +587,7 @@ else bar();
 exports[`trailing_comment.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 if (code === 92 /* '\\' */) {}
 if (code === 92 /* '\\' */ /* '\\' */) {}

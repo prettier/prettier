@@ -3,9 +3,8 @@
 exports[`dangling.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 Thing?.(/* dangling */);
@@ -23,8 +22,7 @@ declare class Foo extends Qux<string> {
 exports[`dangling.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 Thing?.(/* dangling */);
@@ -42,9 +40,8 @@ declare class Foo extends Qux<string> {
 exports[`issues.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function f(
   someReallyLongArgument: WithSomeLongType,
@@ -66,8 +63,7 @@ function f(
 exports[`issues.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function f(
   someReallyLongArgument: WithSomeLongType,
@@ -89,9 +85,8 @@ function f(
 exports[`last-arg.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type f1 = (
   currentRequest: {a: number},
@@ -206,8 +201,7 @@ class X2 {
 exports[`last-arg.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type f1 = (
   currentRequest: {a: number},

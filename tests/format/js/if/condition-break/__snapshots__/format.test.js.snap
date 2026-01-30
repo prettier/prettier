@@ -3,8 +3,7 @@
 exports[`boolean-expression.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 if (Boolean(
   node.type === "ImportExpression" ||
@@ -125,8 +124,7 @@ if (
 exports[`real-world-cases.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {{
 if (!doesImmediatelyReturnFunctionExpression({ node: current,returns,})) {
@@ -208,8 +206,7 @@ if (
 exports[`unary-expression.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 if (!(
   node.type === "ImportExpression" ||

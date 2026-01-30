@@ -3,9 +3,8 @@
 exports[`empty-front-matter-with-pragma.md - {"requirePragma":true} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 requirePragma: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 ---
@@ -28,9 +27,8 @@ I should be formatted !!
 exports[`empty-front-matter-without-pragma.md - {"requirePragma":true} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 requirePragma: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 ---
@@ -49,9 +47,8 @@ I     should      stay      as-is   !!
 exports[`front-matter-with-pragma.md - {"requirePragma":true} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 requirePragma: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 something
@@ -76,9 +73,8 @@ I should be formatted !!
 exports[`front-matter-without-pragma.md - {"requirePragma":true} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 requirePragma: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---
 something
@@ -99,9 +95,8 @@ I     should      stay      as-is   !!
 exports[`with-pragma.md - {"requirePragma":true} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 requirePragma: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!-- @prettier -->
 
@@ -118,9 +113,8 @@ I should be formatted !!
 exports[`with-pragma-in-multiline.md - {"requirePragma":true} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 requirePragma: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!--
   MIT LICENSE 
@@ -149,9 +143,8 @@ I should be formatted !!
 exports[`without-pragma.md - {"requirePragma":true} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 requirePragma: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 I     should      stay      as-is   !!
 

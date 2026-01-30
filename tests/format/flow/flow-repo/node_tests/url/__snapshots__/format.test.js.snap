@@ -3,8 +3,7 @@
 exports[`url.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const url = require('url');
 url.format(url.parse('https://example.com/foo'));

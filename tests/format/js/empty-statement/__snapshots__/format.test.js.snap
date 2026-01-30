@@ -3,8 +3,7 @@
 exports[`body.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 with (a);
 if (1); else if (2); else;
@@ -32,8 +31,7 @@ while (1);
 exports[`no-newline.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 if (a) {
   b;

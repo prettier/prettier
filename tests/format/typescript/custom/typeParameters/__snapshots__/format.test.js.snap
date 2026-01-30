@@ -3,8 +3,7 @@
 exports[`callAndConstructSignatureLong.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 interface Interface {
     <
@@ -41,8 +40,7 @@ interface Interface {
 exports[`functionTypeLong.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type AwkwardlyLongFunctionTypeDefinition = <
     GenericTypeNumberOne,
@@ -71,8 +69,7 @@ type AwkwardlyLongFunctionTypeDefinition = <
 exports[`interfaceParamsLong.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 interface ReallyReallyLongName<
     TypeArgumentNumberOne, 
@@ -93,8 +90,7 @@ interface ReallyReallyLongName<
 exports[`typeParametersLong.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type ReallyReallyReallyLongName<
     ReallyReallyReallyLongName1, ReallyReallyReallyLongName2
@@ -112,8 +108,7 @@ type ReallyReallyReallyLongName<
 exports[`variables.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const foo: SomeThing<boolean> = func();
 const bar: SomeThing<boolean, boolean> = func();
