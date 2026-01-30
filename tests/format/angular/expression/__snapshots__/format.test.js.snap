@@ -3,8 +3,7 @@
 exports[`arrow-function.html format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 @let fn = (a, b) =>   componentValue + a + b;
 One: {{fn(0, 1)}}
@@ -93,8 +92,7 @@ parsers: ["angular"]
 exports[`instanceof-operator.html format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {{
 

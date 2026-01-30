@@ -4,8 +4,7 @@ exports[`snippet: #0 - {"arrowParens":"avoid"} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 parsers: ["angular"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 @let fn = (   oneArgument) =>   1;
 =====================================output=====================================
@@ -19,7 +18,7 @@ exports[`snippet: #0 - {"printWidth":1,"trailingComma":"all"} format 1`] = `
 parsers: ["angular"]
 printWidth: 1
 trailingComma: "all"
- | printWidth
+ | printWidth: 1
 =====================================input======================================
 @let fn = (   should, not, print,trailing, comma) =>   1;
 =====================================output=====================================
@@ -40,8 +39,7 @@ exports[`snippet: #1 - {"arrowParens":"avoid"} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 parsers: ["angular"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 @let fn = oneArgument =>   1;
 =====================================output=====================================
