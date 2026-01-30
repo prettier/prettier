@@ -93,7 +93,7 @@ function createSnapshot(formatResult, { parsers, formatOptions }) {
     }
 
     input = visualizeRange(input, { rangeStart, rangeEnd });
-    codeOffset = input.match(/^>?\s+1 \|/)[0].length;
+    codeOffset = input.match(/^>?\s+1 \|/)[0].length + 1;
   }
 
   if ("endOfLine" in formatOptions) {
@@ -128,7 +128,7 @@ function addOffset(text, offset) {
     return text;
   }
 
-  const prefix = " ".repeat(offset - 1) + ":";
+  const prefix = " ".repeat(offset - 2) + ":";
   return text
     .split("\n")
     .map((line) => `${prefix}${line ? ` ${line}` : line}`)
