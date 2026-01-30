@@ -101,15 +101,12 @@ while (
   // 1
 ) {}
 
-while (true) {
-  // 2
-}
+while (true) // 2
+{}
 
 while (true) {} // 3
 
-while (true) {
-  /*4*/
-}
+while (true) /*4*/ {}
 
 while (
   true && // 5
@@ -164,15 +161,14 @@ with (
 ) {
 }
 
-with (foo) {
-  // 2
+with (foo) // 2
+{
 }
 
 with (foo) {
 } // 3
 
-with (foo) {
-  /*4*/
+with (foo) /*4*/ {
 }
 
 with (
