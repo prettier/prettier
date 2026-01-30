@@ -29,6 +29,7 @@ import {
   isUnionType,
 } from "../utilities/node-types.js";
 import { stripComments } from "../utilities/strip-comments.js";
+import { handleForXComments } from "./attach/handle-for-x-statement.js";
 import { handleIfStatementComments } from "./attach/handle-if-statement-comments.js";
 import { handleWhileLikeComments } from "./attach/handle-while-like-comments.js";
 import {
@@ -70,7 +71,7 @@ function handleOwnLineComment(context) {
     handleWhileLikeComments,
     handleTryStatementComments,
     handleClassComments,
-    handleForComments,
+    handleForXComments,
     handleUnionTypeComments,
     handleMatchOrPatternComments,
     handleOnlyComments,
@@ -100,6 +101,7 @@ function handleEndOfLineComment(context) {
     handleWhileLikeComments,
     handleTryStatementComments,
     handleClassComments,
+    handleForXComments,
     handleLabeledStatementComments,
     handleCallExpressionComments,
     handlePropertyComments,
@@ -125,6 +127,7 @@ function handleRemainingComment(context) {
     handleIgnoreComments,
     handleIfStatementComments,
     handleWhileLikeComments,
+    handleForXComments,
     handleMethodNameComments,
     handleOnlyComments,
     handleTSMappedTypeComments,
@@ -680,19 +683,6 @@ function handleOnlyComments({ comment, enclosingNode, ast, isLastComment }) {
     return true;
   }
 
-  return false;
-}
-
-function handleForComments({ comment, enclosingNode, followingNode }) {
-  if (
-    (enclosingNode?.type === "ForInStatement" ||
-      enclosingNode?.type === "ForOfStatement") &&
-    followingNode &&
-    followingNode !== enclosingNode.body
-  ) {
-    addLeadingComment(enclosingNode, comment);
-    return true;
-  }
   return false;
 }
 
