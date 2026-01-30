@@ -89,8 +89,8 @@ if (1) {
   doThing(foo);
 }
 
-if (2) {
-  // foo may not exist
+if (2) // foo may not exist
+{
   doThing(foo);
 }
 if (2) {
@@ -99,8 +99,8 @@ if (2) {
   doThing(foo);
 }
 
-if (3) {
-  // foo may not exist
+if (3) // foo may not exist
+{
   doThing(foo);
 }
 if (3) {
@@ -109,8 +109,8 @@ if (3) {
   doThing(foo);
 }
 
-if (4) {
-  /* foo may not exist */ doThing(foo);
+if (4) /* foo may not exist */ {
+  doThing(foo);
 }
 if (4) {
 } else /* foo may not exist */ {
@@ -329,13 +329,13 @@ if (dotPos > this.pos) /** transition forward */;
 
 =====================================output=====================================
 async function f1() {
-  if (untrackedChoice === 0) {
-    /* Cancel */ return null;
-  } else if (untrackedChoice === 1) {
-    /* Add */ await repository.addAll(Array.from(untrackedChanges.keys()));
+  if (untrackedChoice === 0) /* Cancel */ {
+    return null;
+  } else if (untrackedChoice === 1) /* Add */ {
+    await repository.addAll(Array.from(untrackedChanges.keys()));
     shouldAmend = true;
-  } else if (untrackedChoice === 2) {
-    /* Allow Untracked */ allowUntracked = true;
+  } else if (untrackedChoice === 2) /* Allow Untracked */ {
+    allowUntracked = true;
   }
 }
 
@@ -358,13 +358,13 @@ async function f3() {
 }
 
 async function f4() {
-  if (untrackedChoice === 0) {
-    /* Cancel */ return null;
-  } else if (untrackedChoice === 1) {
-    /* Add */ await repository.addAll(Array.from(untrackedChanges.keys()));
+  if (untrackedChoice === 0) /* Cancel */ {
+    return null;
+  } else if (untrackedChoice === 1) /* Add */ {
+    await repository.addAll(Array.from(untrackedChanges.keys()));
     shouldAmend = true;
-  } else if (untrackedChoice === 2) {
-    /* Allow Untracked */ allowUntracked = true;
+  } else if (untrackedChoice === 2) /* Allow Untracked */ {
+    allowUntracked = true;
   }
 }
 
@@ -476,8 +476,7 @@ if (code === 92 /* '\\' */) {
 if (code === 92 /* '\\' */ /* '\\' */) {
 }
 
-if (code === 92) {
-  /* '\\' */
+if (code === 92) /* '\\' */ {
 }
 if (code === 92) {
   /* '\\' */

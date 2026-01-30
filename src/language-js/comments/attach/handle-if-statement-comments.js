@@ -54,7 +54,7 @@ function handleIfStatementComments({
 
   // if comment is positioned between the condition and its body
   if (followingNode === enclosingNode.consequent) {
-    addBlockOrNotComment(followingNode, comment);
+    addLeadingComment(followingNode, comment);
     return true;
   }
 
