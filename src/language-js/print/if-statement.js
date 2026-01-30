@@ -2,19 +2,20 @@ import { group, hardline } from "../../document/index.js";
 import { printDanglingComments } from "../../main/comments/print.js";
 import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
 import { needsHardlineAfterDanglingComment } from "../utilities/needs-hardline-after-dangling-comment.js";
-import { printClause, printIfStatementCondition } from "./miscellaneous.js";
+import {
+  printIfStatementAlternate,
+  printIfStatementConsequent,
+} from "./clause.js";
+import { printIfStatementCondition } from "./miscellaneous.js";
 
 /**
  * @import AstPath from "../../common/ast-path.js"
  * @import {Doc} from "../../document/index.js"
  */
 
-const printConsequent = (path, print) => printClause(path, print, "consequent");
-const printAlternate = (path, print) => printClause(path, print, "alternate");
-
 function printIfStatement(path, options, print) {
   const { node } = path;
-  const consequent = printConsequent(path, print);
+  const consequent = printIfStatementConsequent(path, print);
   const opening = group([
     "if (",
     printIfStatementCondition(path, options, print),
@@ -41,7 +42,7 @@ function printIfStatement(path, options, print) {
       );
     }
 
-    parts.push("else", group(printAlternate(path, print)));
+    parts.push("else", group(printIfStatementAlternate(path, print)));
   }
 
   return parts;

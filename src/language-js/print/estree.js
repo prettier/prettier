@@ -32,6 +32,7 @@ import {
   printClassMethod,
   printClassProperty,
 } from "./class.js";
+import { printForInStatementBody, printForOfStatementBody } from "./clause.js";
 import { printDoWhileStatement } from "./do-while-statement.js";
 import { printExpressionStatement } from "./expression-statement.js";
 import { printForStatement } from "./for-statement.js";
@@ -40,11 +41,7 @@ import { printHtmlBinding } from "./html-binding.js";
 import { printIfStatement } from "./if-statement.js";
 import { printLiteral } from "./literal.js";
 import { printMemberExpression } from "./member.js";
-import {
-  printClause,
-  printDefiniteToken,
-  printOptionalToken,
-} from "./miscellaneous.js";
+import { printDefiniteToken, printOptionalToken } from "./miscellaneous.js";
 import {
   printExportDeclaration,
   printImportDeclaration,
@@ -268,7 +265,7 @@ function printEstree(path, options, print, args) {
         " in ",
         print("right"),
         ")",
-        printClause(path, print),
+        printForInStatementBody(path, print),
       ]);
 
     case "ForOfStatement":
@@ -280,7 +277,7 @@ function printEstree(path, options, print, args) {
         " of ",
         print("right"),
         ")",
-        printClause(path, print),
+        printForOfStatementBody(path, print),
       ]);
 
     case "DoExpression":

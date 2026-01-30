@@ -3,7 +3,6 @@ import {
   hardline,
   ifBreak,
   indent,
-  line,
   softline,
 } from "../../document/index.js";
 import { printDanglingComments } from "../../main/comments/print.js";
@@ -111,27 +110,6 @@ function printAbstractToken({ node }) {
   return node.abstract || isTsAbstractNode(node) ? "abstract " : "";
 }
 
-function printClause(path, print, property = "body") {
-  return path.call(({ node }) => {
-    const doc = print();
-
-    if (node.type === "EmptyStatement") {
-      return hasComment(node, CommentCheckFlags.Leading) ? [" ", doc] : doc;
-    }
-
-    if (
-      node.type === "BlockStatement" ||
-      (node.type === "IfStatement" &&
-        path.parent.type === "IfStatement" &&
-        path.key === "alternate")
-    ) {
-      return [" ", doc];
-    }
-
-    return indent([line, doc]);
-  }, property);
-}
-
 function printTypeScriptAccessibilityToken(node) {
   return node.accessibility ? node.accessibility + " " : "";
 }
@@ -220,7 +198,6 @@ function printTrailingComma(options, level = "es5") {
 
 export {
   printAbstractToken,
-  printClause,
   printDanglingCommentsInList,
   printDeclareToken,
   printDefiniteToken,
