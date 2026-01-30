@@ -58,9 +58,7 @@ const printIfStatementAlternate = (path, options, print) =>
 
 export {
   printClause as printDoWhileStatementBody,
-  printClause as printForInStatementBody,
-  printClause as printForOfStatementBody,
-  printClause as printForStatementBody,
+  printClause as printForXStatementBody,
   printIfStatementAlternate,
   printIfStatementConsequent,
   printClause as printWhileStatementBody,

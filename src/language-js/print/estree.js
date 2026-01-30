@@ -32,10 +32,10 @@ import {
   printClassMethod,
   printClassProperty,
 } from "./class.js";
-import { printForInStatementBody, printForOfStatementBody } from "./clause.js";
 import { printDoWhileStatement } from "./do-while-statement.js";
 import { printExpressionStatement } from "./expression-statement.js";
 import { printForStatement } from "./for-statement.js";
+import { printForXStatement } from "./for-x-statement.js";
 import { printFunction, printMethod } from "./function.js";
 import { printHtmlBinding } from "./html-binding.js";
 import { printIfStatement } from "./if-statement.js";
@@ -259,26 +259,8 @@ function printEstree(path, options, print, args) {
       return printDoWhileStatement(path, options, print);
 
     case "ForInStatement":
-      return group([
-        "for (",
-        print("left"),
-        " in ",
-        print("right"),
-        ")",
-        printForInStatementBody(path, options, print),
-      ]);
-
     case "ForOfStatement":
-      return group([
-        "for",
-        node.await ? " await" : "",
-        " (",
-        print("left"),
-        " of ",
-        print("right"),
-        ")",
-        printForOfStatementBody(path, options, print),
-      ]);
+      return printForXStatement(path, options, print);
 
     case "DoExpression":
       return [node.async ? "async " : "", "do ", print("body")];
