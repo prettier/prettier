@@ -3,8 +3,7 @@
 exports[`A.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // $FlowFixMe
 var test1: string = 123; // This error should be suppressed
@@ -63,8 +62,7 @@ var test6: string = 123;
 exports[`B.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // $FlowFixMe
 var test1: string = library_num;
@@ -79,8 +77,7 @@ var test1: string = library_num;
 exports[`C.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function takesAString(x: string): void {}
 
@@ -107,8 +104,7 @@ function runTest(y: number): void {
 exports[`D.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 declare var x: {
   x: { foo: string }
@@ -135,8 +131,7 @@ x = y;
 exports[`lib.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 declare var library_num: number;
 

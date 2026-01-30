@@ -3,8 +3,7 @@
 exports[`class.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class GeneratorExamples {
   *stmt_yield(): Generator<number, void, void> {
@@ -275,8 +274,7 @@ for (var x of examples.delegate_yield_iterable([])) {
 exports[`class_failure.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // generalization of failure in class.js
 
@@ -329,8 +327,7 @@ if (typeof infer_stmt_next === "undefined") {
 exports[`generators.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function *stmt_yield(): Generator<number, void, void> {
   yield 0; // ok
@@ -601,8 +598,7 @@ if (multiple_return_result.done) {
 exports[`refi.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function *a(x: {a: void | string}): Generator<void, void, void> {
   if (!x.a) return;
@@ -675,8 +671,7 @@ function* d(x: void | string): Generator<void, void, void> {
 exports[`return.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function test1(gen: Generator<void, string, void>) {
   // You can pass whatever you like to return, it doesn't need to be related to
@@ -729,8 +724,7 @@ if (refuse_return_result.done) {
 exports[`throw.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function *catch_return() {
   try {
@@ -791,8 +785,7 @@ if (yield_return_value !== undefined) {
 exports[`variance.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 declare var g1: Generator<string, string, ?string>;
 var g2: Generator<?string, ?string, string> = g1;

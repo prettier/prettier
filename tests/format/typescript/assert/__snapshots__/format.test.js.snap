@@ -3,8 +3,7 @@
 exports[`comment.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 a = (x: any): asserts x is string/* comment */ => {}
 a = (x: any): asserts x is /* comment */string => {}
@@ -31,8 +30,7 @@ a = (x: any): /* comment */ asserts x is string => {};
 exports[`index.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const assertString = (x: any): asserts x => {
   console.assert(typeof x === 'string');

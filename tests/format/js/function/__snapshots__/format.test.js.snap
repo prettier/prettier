@@ -3,8 +3,7 @@
 exports[`dangling-comments.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 arrow = (// 101
 ) => {}
@@ -219,8 +218,7 @@ object = {
 exports[`function_expression.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 (function() {}).length
 typeof (function() {});
@@ -253,8 +251,7 @@ new (function () {})();
 exports[`iife.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [
   (// leading 1
@@ -365,8 +362,7 @@ printWidth: 80
 exports[`issue-10277.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 (fold => fold)(fmap => algebra => function doFold(v) {return algebra(fmap(doFold)(v))})
 
@@ -384,8 +380,7 @@ printWidth: 80
 exports[`issue-12967.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 a = (
 /**

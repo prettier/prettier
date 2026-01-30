@@ -3,8 +3,7 @@
 exports[`ambient.js.flow format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const foo: string;
 
@@ -27,8 +26,7 @@ const foo: string;
 exports[`snippet: #0 format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const foo: string;
 =====================================output=====================================

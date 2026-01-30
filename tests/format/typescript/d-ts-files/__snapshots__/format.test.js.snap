@@ -3,8 +3,7 @@
 exports[`const-without-initializer.d.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export const    version: string;
 
@@ -17,8 +16,7 @@ export const version: string;
 exports[`const-without-initializer-in-namespace.d.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export namespace builders {
   const    breakParent: string;

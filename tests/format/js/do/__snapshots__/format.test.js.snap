@@ -3,8 +3,7 @@
 exports[`call-arguments.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // from https://github.com/babel/babel/pull/13122/
 expect(
@@ -136,8 +135,7 @@ exports[`call-arguments.js format[oxc] 1`] = `
 exports[`do.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const envSpecific = {
   domain:

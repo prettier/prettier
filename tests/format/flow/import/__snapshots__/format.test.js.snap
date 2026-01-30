@@ -3,8 +3,7 @@
 exports[`import-as-as.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @flow
 import { foo as as } from "foo";
@@ -21,8 +20,7 @@ import { as as foo } from "foo";
 exports[`import-as-as2.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @flow
 import { as as as } from "foo";
@@ -37,8 +35,7 @@ import { as as as } from "foo";
 exports[`type-import-as-as.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import {type foo as as} from "foo";
 

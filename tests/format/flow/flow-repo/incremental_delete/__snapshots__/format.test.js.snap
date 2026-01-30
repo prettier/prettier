@@ -3,8 +3,7 @@
 exports[`a.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @flow
 var a: string = 0;
@@ -21,8 +20,7 @@ module.exports = a;
 exports[`b.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @flow
 var a = require('./a');
@@ -41,8 +39,7 @@ module.exports = b;
 exports[`c.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @flow
 var b = require('./b');
@@ -61,8 +58,7 @@ module.exports = c;
 exports[`dupe1.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /**
  * Dupe provider 1/2
@@ -85,8 +81,7 @@ module.exports = "dupe1";
 exports[`dupe2.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /**
  * Dupe provider 2/2
@@ -109,8 +104,7 @@ module.exports = "dupe2";
 exports[`requires_dupe.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /**
  * depends on doubly-provided module
@@ -131,8 +125,7 @@ var dupe = require("Dupe");
 exports[`requires_unchecked.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /**
  * depends on an unchecked module, which will be deleted
@@ -153,8 +146,7 @@ var unchecked = require("Unchecked");
 exports[`unchecked.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /**
  * Not a flow module.

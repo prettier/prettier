@@ -3,9 +3,8 @@
 exports[`no-semi.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class A {
   bar: A;
@@ -38,8 +37,7 @@ class A {
 exports[`no-semi.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class A {
   bar: A;
@@ -72,9 +70,8 @@ class A {
 exports[`non-null.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // the 2nd line needs ASI protection
 const el = ReactDOM.findDOMNode(ref)
@@ -91,8 +88,7 @@ const el = ReactDOM.findDOMNode(ref)
 exports[`non-null.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // the 2nd line needs ASI protection
 const el = ReactDOM.findDOMNode(ref)
@@ -109,9 +105,8 @@ const el = ReactDOM.findDOMNode(ref);
 exports[`type-assertion.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // #14039
 a;
@@ -140,8 +135,7 @@ a
 exports[`type-assertion.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // #14039
 a;

@@ -4,8 +4,7 @@ exports[`array-and-object.js - {"experimentalOperatorPosition":"start"} format 1
 ====================================options=====================================
 experimentalOperatorPosition: "start"
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 foo = foo || [
   // comment
@@ -34,8 +33,7 @@ foo = foo || {
 exports[`array-and-object.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 foo = foo || [
   // comment
@@ -65,8 +63,7 @@ exports[`arrow.js - {"experimentalOperatorPosition":"start"} format 1`] = `
 ====================================options=====================================
 experimentalOperatorPosition: "start"
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function f() {
   const appEntities = getAppEntities(loadObject).filter(
@@ -117,8 +114,7 @@ function f2() {
 exports[`arrow.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function f() {
   const appEntities = getAppEntities(loadObject).filter(
@@ -170,8 +166,7 @@ exports[`bitwise-flags.js - {"experimentalOperatorPosition":"start"} format 1`] 
 ====================================options=====================================
 experimentalOperatorPosition: "start"
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const FLAG_A = 1 << 0;
 const FLAG_B = 1 << 1;
@@ -192,8 +187,7 @@ const all = FLAG_A | FLAG_B | FLAG_C;
 exports[`bitwise-flags.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const FLAG_A = 1 << 0;
 const FLAG_B = 1 << 1;
@@ -215,8 +209,7 @@ exports[`call.js - {"experimentalOperatorPosition":"start"} format 1`] = `
 ====================================options=====================================
 experimentalOperatorPosition: "start"
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 (
   aaaaaaaaaaaaaaaaaaaaaaaaa &&
@@ -345,8 +338,7 @@ printWidth: 80
 exports[`call.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 (
   aaaaaaaaaaaaaaaaaaaaaaaaa &&
@@ -476,8 +468,7 @@ exports[`chain-expression.js - {"experimentalOperatorPosition":"start"} format 1
 ====================================options=====================================
 experimentalOperatorPosition: "start"
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 if (
   true
@@ -504,8 +495,7 @@ if (
 exports[`chain-expression.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 if (
   true
@@ -533,8 +523,7 @@ exports[`comment.js - {"experimentalOperatorPosition":"start"} format 1`] = `
 ====================================options=====================================
 experimentalOperatorPosition: "start"
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 a = (
   // Comment 1
@@ -678,8 +667,7 @@ a
 exports[`comment.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 a = (
   // Comment 1
@@ -824,8 +812,7 @@ exports[`equality.js - {"experimentalOperatorPosition":"start"} format 1`] = `
 ====================================options=====================================
 experimentalOperatorPosition: "start"
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 x == y == z;
 x != y == z;
@@ -854,8 +841,7 @@ x !== y !== z;
 exports[`equality.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 x == y == z;
 x != y == z;
@@ -885,8 +871,7 @@ exports[`exp.js - {"experimentalOperatorPosition":"start"} format 1`] = `
 ====================================options=====================================
 experimentalOperatorPosition: "start"
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 a ** b ** c;
 (a ** b) ** c;
@@ -915,8 +900,7 @@ a ** (b * c);
 exports[`exp.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 a ** b ** c;
 (a ** b) ** c;
@@ -946,8 +930,7 @@ exports[`if.js - {"experimentalOperatorPosition":"start"} format 1`] = `
 ====================================options=====================================
 experimentalOperatorPosition: "start"
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 if (this.hasPlugin("dynamicImports") && this.lookahead().type) {}
 
@@ -985,8 +968,7 @@ if (
 exports[`if.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 if (this.hasPlugin("dynamicImports") && this.lookahead().type) {}
 
@@ -1025,8 +1007,7 @@ exports[`in_instanceof.js - {"experimentalOperatorPosition":"start"} format 1`] 
 ====================================options=====================================
 experimentalOperatorPosition: "start"
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 !foo in bar;
 (!foo in bar); 
@@ -1183,8 +1164,7 @@ typeof (0 instanceof bar);
 exports[`in_instanceof.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 !foo in bar;
 (!foo in bar); 
@@ -1342,8 +1322,7 @@ exports[`inline-jsx.js - {"experimentalOperatorPosition":"start"} format 1`] = `
 ====================================options=====================================
 experimentalOperatorPosition: "start"
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const user = renderedUser || <div><User name={this.state.user.name} age={this.state.user.age} /></div>;
 
@@ -1380,8 +1359,7 @@ const avatar2 = (hasAvatar || showPlaceholder) && (
 exports[`inline-jsx.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const user = renderedUser || <div><User name={this.state.user.name} age={this.state.user.age} /></div>;
 
@@ -1419,8 +1397,7 @@ exports[`inline-object-array.js - {"experimentalOperatorPosition":"start"} forma
 ====================================options=====================================
 experimentalOperatorPosition: "start"
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 prevState = prevState || {
   catalogs: [],
@@ -1613,8 +1590,7 @@ const obj = {
 exports[`inline-object-array.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 prevState = prevState || {
   catalogs: [],
@@ -1808,8 +1784,7 @@ exports[`jsx_parent.js - {"experimentalOperatorPosition":"start"} format 1`] = `
 ====================================options=====================================
 experimentalOperatorPosition: "start"
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <div
   src={
@@ -1892,8 +1867,7 @@ printWidth: 80
 exports[`jsx_parent.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <div
   src={
@@ -1977,8 +1951,7 @@ exports[`like-regexp.js - {"experimentalOperatorPosition":"start"} format 1`] = 
 ====================================options=====================================
 experimentalOperatorPosition: "start"
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 0 ? a : { b : 1 }/2;
 
@@ -1991,8 +1964,7 @@ printWidth: 80
 exports[`like-regexp.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 0 ? a : { b : 1 }/2;
 
@@ -2006,8 +1978,7 @@ exports[`math.js - {"experimentalOperatorPosition":"start"} format 1`] = `
 ====================================options=====================================
 experimentalOperatorPosition: "start"
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 x + y / z;
 x / y + z;
@@ -2062,8 +2033,7 @@ x & (y >> z);
 exports[`math.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 x + y / z;
 x / y + z;
@@ -2119,8 +2089,7 @@ exports[`return.js - {"experimentalOperatorPosition":"start"} format 1`] = `
 ====================================options=====================================
 experimentalOperatorPosition: "start"
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function foo() {
   return this.hasPlugin("dynamicImports") && this.lookahead().type === tt.parenLeft.right;
@@ -2166,8 +2135,7 @@ function foo3() {
 exports[`return.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function foo() {
   return this.hasPlugin("dynamicImports") && this.lookahead().type === tt.parenLeft.right;
@@ -2214,8 +2182,7 @@ exports[`short-right.js - {"experimentalOperatorPosition":"start"} format 1`] = 
 ====================================options=====================================
 experimentalOperatorPosition: "start"
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 this._cumulativeHeights &&
  Math.abs(
@@ -2260,8 +2227,7 @@ defaultContent.filter((defaultLocale) => {
 exports[`short-right.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 this._cumulativeHeights &&
  Math.abs(
@@ -2308,8 +2274,7 @@ exports[`test.js - {"experimentalOperatorPosition":"start"} format 1`] = `
 ====================================options=====================================
 experimentalOperatorPosition: "start"
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // It should always break the highest precedence operators first, and
 // break them all at the same time.
@@ -2397,8 +2362,7 @@ foo(
 exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // It should always break the highest precedence operators first, and
 // break them all at the same time.
@@ -2487,8 +2451,7 @@ exports[`unary.js - {"experimentalOperatorPosition":"start"} format 1`] = `
 ====================================options=====================================
 experimentalOperatorPosition: "start"
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const anyTestFailures = !(
   aggregatedResults.numFailedTests === 0 &&
@@ -2507,8 +2470,7 @@ const anyTestFailures = !(
 exports[`unary.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const anyTestFailures = !(
   aggregatedResults.numFailedTests === 0 &&

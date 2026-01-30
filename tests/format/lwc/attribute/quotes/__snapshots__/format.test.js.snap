@@ -4,8 +4,7 @@ exports[`quotes.html - {"embeddedLanguageFormatting":"off"} format 1`] = `
 ====================================options=====================================
 embeddedLanguageFormatting: "off"
 parsers: ["lwc"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <div double-quoted="{data}"    single-quoted='{data}'
 unquoted={data}>   </div>
@@ -42,8 +41,7 @@ class={data}>   </div>
 exports[`quotes.html format 1`] = `
 ====================================options=====================================
 parsers: ["lwc"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <div double-quoted="{data}"    single-quoted='{data}'
 unquoted={data}>   </div>

@@ -3,8 +3,7 @@
 exports[`snippet: #0 format 1`] = `
 ====================================options=====================================
 parsers: ["markdown", "mdx", "css", "scss", "less", "html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 +++
 TOML Front Matter content
@@ -21,8 +20,7 @@ TOML Front Matter content
 exports[`snippet: #1 format 1`] = `
 ====================================options=====================================
 parsers: ["markdown", "mdx", "css", "scss", "less", "html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---toml
 TOML Front Matter content

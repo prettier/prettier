@@ -3,8 +3,7 @@
 exports[`comments.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 interface A {
   property: // Comment
@@ -30,8 +29,7 @@ interface A {
 exports[`intersection.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export interface DirectiveArgumentNode extends ArrayExpression {
   elements: // dir, exp, arg, modifiers
@@ -56,8 +54,7 @@ export interface DirectiveArgumentNode extends ArrayExpression {
 exports[`union.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export interface DirectiveArgumentNode extends ArrayExpression {
   elements: // dir, exp, arg, modifiers

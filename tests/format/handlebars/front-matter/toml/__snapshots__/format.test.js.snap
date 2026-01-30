@@ -3,8 +3,7 @@
 exports[`toml.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ---toml
 test = "Toml test"
@@ -24,8 +23,7 @@ test = "Toml test"
 exports[`toml2.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 +++
 Test TOML data

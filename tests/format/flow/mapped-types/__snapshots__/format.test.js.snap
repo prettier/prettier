@@ -3,8 +3,7 @@
 exports[`comments.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type Type = {
   // comment
@@ -129,8 +128,7 @@ Cause: Property or signature expected."
 exports[`mapped-types.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 //@flow
 
@@ -234,8 +232,7 @@ Cause: Property or signature expected."
 exports[`ts-compatibility.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // Tests that on single-line mapped types Flow and TS make the same formatting decisions
 

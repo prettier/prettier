@@ -3,8 +3,7 @@
 exports[`comments.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const m = /*A1*/ module /*A2*/ { /*A3*/
   /*A4*/
@@ -75,8 +74,7 @@ exports[`comments.js format[oxc] 1`] = `
 exports[`module-blocks.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 module { await 3 };
 
@@ -214,8 +212,7 @@ exports[`module-blocks.js format[oxc] 1`] = `
 exports[`non-module-blocks.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const m = module
 {}
@@ -229,13 +226,12 @@ const m = module;
 `;
 
 exports[`range.js format 1`] = `
-====================================options=====================================
-parsers: ["babel"]
-printWidth: 80
-rangeEnd: 52
-rangeStart: 28
-     |                                                                                | printWidth
-=====================================input======================================
+    : ====================================options=====================================
+    : parsers: ["babel"]
+    : rangeEnd: 52
+    : rangeStart: 28
+    :                                                       printWidth: 80 (default) |
+    : =====================================input======================================
 > 1 | let moduleBlock = module {  export let y = 1;
     |                             ^^^^^^^^^^^^^^^^^
 > 2 | };
@@ -245,16 +241,16 @@ rangeStart: 28
 > 4 | foo(module { export let foo = "foo"; })
     | ^^
   5 |
-=====================================output=====================================
-let moduleBlock = module {
-  export let y = 1;
-};
-
-foo(module {
-  export let foo = "foo";
-});
-
-================================================================================
+    : =====================================output=====================================
+    : let moduleBlock = module {
+    :   export let y = 1;
+    : };
+    :
+    : foo(module {
+    :   export let foo = "foo";
+    : });
+    :
+    : ================================================================================
 `;
 
 exports[`range.js format[acorn] 1`] = `

@@ -3,8 +3,7 @@
 exports[`argument-list.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 longArgNamesWithComments(
 
@@ -398,8 +397,7 @@ function foo(
 exports[`comments.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function a() {
   const a = 5; // comment
@@ -466,8 +464,7 @@ function a() {
 exports[`member-chain.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 fooBar.doSomething('Hello World').doAnotherThing('Foo', { foo: bar })
 
@@ -612,8 +609,7 @@ this.fetch("/foo")
 exports[`parameter-list.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class Foo {
   constructor(

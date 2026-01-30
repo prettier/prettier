@@ -3,8 +3,7 @@
 exports[`dynamic-import.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import.defer("foo");
 
@@ -41,8 +40,7 @@ Cause: [1:7-1:12]: The only valid meta property for import is 'import.meta'"
 exports[`dynamic-import-attributes-expression.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import.defer("x", { with: { attr: "val" } });
 
@@ -79,8 +77,7 @@ Cause: [1:7-1:12]: The only valid meta property for import is 'import.meta'"
 exports[`import-defer.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import defer * as ns from "x";
 
@@ -117,8 +114,7 @@ Cause: [1:13-1:14]: Expected 'from'"
 exports[`import-defer-attributes-declaration.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import defer * as ns from "x" with { attr: "val" };
 

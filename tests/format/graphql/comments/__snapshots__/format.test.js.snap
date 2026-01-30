@@ -3,8 +3,7 @@
 exports[`argument_comment.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 query (
@@ -28,8 +27,7 @@ query (
 exports[`dangling.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 query {
   search(filters: {
@@ -56,8 +54,7 @@ query {
 exports[`fields.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 query { 
   someField # Trailing comment
@@ -76,8 +73,7 @@ query {
 exports[`interfaces.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type Type1
 implements
@@ -104,8 +100,7 @@ type Type1 implements A &
 exports[`tokens.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 # import "./claimsFragment.gql"
 

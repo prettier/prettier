@@ -3,8 +3,7 @@
 exports[`components.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // Declare module with ambient components
 declare module 'component-library' {
@@ -43,8 +42,7 @@ Cause: '{' expected in component declaration (3:33)
 exports[`lib.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // Test ambient variable declarations in declare module within flow-typed
 declare module 'test-module' {

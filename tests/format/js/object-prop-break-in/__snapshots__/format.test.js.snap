@@ -3,8 +3,7 @@
 exports[`comment.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function foo() {
   return {
@@ -27,8 +26,7 @@ function foo() {
 exports[`long-value.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const x = {
   "ABC": "12345678901234567890123456789012345678901234567890123456789012345678901234567890"
@@ -45,8 +43,7 @@ const x = {
 exports[`short-keys.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 var obj = {
   // an entry with a very long string
@@ -98,8 +95,7 @@ var obj = {
 exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const a = classnames({
   "some-prop": this.state.longLongLongLongLongLongLongLongLongTooLongProp

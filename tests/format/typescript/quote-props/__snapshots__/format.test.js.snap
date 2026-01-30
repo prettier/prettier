@@ -3,9 +3,8 @@
 exports[`enums.ts - {"quoteProps":"as-needed"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 quoteProps: "as-needed"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 enum E1 {
   a = "a"
@@ -50,9 +49,8 @@ enum E4 {
 exports[`enums.ts - {"quoteProps":"consistent"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 quoteProps: "consistent"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 enum E1 {
   a = "a"
@@ -97,9 +95,8 @@ enum E4 {
 exports[`enums.ts - {"quoteProps":"preserve"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 quoteProps: "preserve"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 enum E1 {
   a = "a"
@@ -144,9 +141,8 @@ enum E4 {
 exports[`interfaces.ts - {"quoteProps":"as-needed"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 quoteProps: "as-needed"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 interface I1 {
   "method"(): string;
@@ -179,9 +175,8 @@ interface I2 {
 exports[`interfaces.ts - {"quoteProps":"consistent"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 quoteProps: "consistent"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 interface I1 {
   "method"(): string;
@@ -214,9 +209,8 @@ interface I2 {
 exports[`interfaces.ts - {"quoteProps":"preserve"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 quoteProps: "preserve"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 interface I1 {
   "method"(): string;
@@ -249,9 +243,8 @@ interface I2 {
 exports[`type-literal.ts - {"quoteProps":"as-needed"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 quoteProps: "as-needed"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type T1 = {
   "method"(): string;
@@ -284,9 +277,8 @@ type T2 = {
 exports[`type-literal.ts - {"quoteProps":"consistent"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 quoteProps: "consistent"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type T1 = {
   "method"(): string;
@@ -319,9 +311,8 @@ type T2 = {
 exports[`type-literal.ts - {"quoteProps":"preserve"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 quoteProps: "preserve"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type T1 = {
   "method"(): string;
@@ -354,9 +345,8 @@ type T2 = {
 exports[`types.ts - {"quoteProps":"as-needed"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 quoteProps: "as-needed"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type T = {
   0: string;
@@ -385,9 +375,8 @@ type U = {
 exports[`types.ts - {"quoteProps":"consistent"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 quoteProps: "consistent"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type T = {
   0: string;
@@ -416,9 +405,8 @@ type U = {
 exports[`types.ts - {"quoteProps":"preserve"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 quoteProps: "preserve"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type T = {
   0: string;

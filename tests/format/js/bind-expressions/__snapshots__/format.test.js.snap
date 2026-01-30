@@ -3,9 +3,8 @@
 exports[`await.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const doBothThings = async () => {
     const request = doAsyncThing();
@@ -67,8 +66,7 @@ exports[`await.js - {"semi":false} format[oxc] 1`] = `
 exports[`await.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const doBothThings = async () => {
     const request = doAsyncThing();
@@ -130,9 +128,8 @@ exports[`await.js format[oxc] 1`] = `
 exports[`bind_parens.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 (a || b)::c;
 a || (b::c);
@@ -250,8 +247,7 @@ exports[`bind_parens.js - {"semi":false} format[oxc] 1`] = `
 exports[`bind_parens.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 (a || b)::c;
 a || (b::c);
@@ -369,9 +365,8 @@ exports[`bind_parens.js format[oxc] 1`] = `
 exports[`long_name_method.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class X {
   constructor() {
@@ -447,8 +442,7 @@ exports[`long_name_method.js - {"semi":false} format[oxc] 1`] = `
 exports[`long_name_method.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class X {
   constructor() {
@@ -524,9 +518,8 @@ exports[`long_name_method.js format[oxc] 1`] = `
 exports[`method_chain.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import {interval} from 'rxjs/observable/interval';
 import {filter} from 'rxjs/operator/filter';
@@ -618,8 +611,7 @@ exports[`method_chain.js - {"semi":false} format[oxc] 1`] = `
 exports[`method_chain.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import {interval} from 'rxjs/observable/interval';
 import {filter} from 'rxjs/operator/filter';
@@ -711,9 +703,8 @@ exports[`method_chain.js format[oxc] 1`] = `
 exports[`short_name_method.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class X {
   constructor() {
@@ -788,8 +779,7 @@ exports[`short_name_method.js - {"semi":false} format[oxc] 1`] = `
 exports[`short_name_method.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class X {
   constructor() {
@@ -864,9 +854,8 @@ exports[`short_name_method.js format[oxc] 1`] = `
 exports[`unary.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 !x::y;
 !(x::y /* foo */);
@@ -944,8 +933,7 @@ exports[`unary.js - {"semi":false} format[oxc] 1`] = `
 exports[`unary.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 !x::y;
 !(x::y /* foo */);

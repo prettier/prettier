@@ -3,8 +3,7 @@
 exports[`attribute-expr.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <script lang="ts"></script>
 
@@ -39,8 +38,7 @@ printWidth: 80
 exports[`basic.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <template>
   <p v-if="isFolder(file)">{{ (   file as   mymodule.Folder    ).deadline }}</p>
@@ -63,8 +61,7 @@ printWidth: 80
 exports[`comment.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <template>
   <div v-if="
@@ -107,8 +104,7 @@ printWidth: 80
 exports[`filter.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <script setup lang="ts"></script>
 
@@ -180,8 +176,7 @@ printWidth: 80
 exports[`not-working-with-non-ts-script.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <template>
   <p v-if="isFolder(file)">{{ (   file as   mymodule.Folder    ).deadline }}</p>

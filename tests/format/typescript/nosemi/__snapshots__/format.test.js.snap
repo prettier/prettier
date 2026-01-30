@@ -3,9 +3,8 @@
 exports[`index-signature.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class LocalStorage implements Storage {
   [index: number]: string;
@@ -24,9 +23,8 @@ class LocalStorage implements Storage {
 exports[`interface.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 interface Inline { x: string }
 
@@ -58,9 +56,8 @@ interface InlineMultiple {
 exports[`type.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type A = {disabled?: boolean, error?: string}
 

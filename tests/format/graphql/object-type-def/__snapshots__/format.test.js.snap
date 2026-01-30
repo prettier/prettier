@@ -3,8 +3,7 @@
 exports[`arguments.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type Video {
   playable_url(quality: String, preferred: String): Url
@@ -21,8 +20,7 @@ type Video {
 exports[`directives.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type PokemonType {
   pokemon_type: String @mock(value: "Electric")
@@ -39,8 +37,7 @@ type PokemonType {
 exports[`extend.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 extend type Feedback {
   custom_int: Int
@@ -57,8 +54,7 @@ extend type Feedback {
 exports[`implements.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type VRMConversation implements Node& Entity @foo {
   a: Int
@@ -75,8 +71,7 @@ type VRMConversation implements Node & Entity @foo {
 exports[`input.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 input Params {
   app_id: ID!
@@ -95,8 +90,7 @@ input Params {
 exports[`object_type_def.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type FeedHomeStories {
   debug_info: String

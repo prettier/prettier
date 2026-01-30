@@ -3,8 +3,7 @@
 exports[`description.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 """ Customer """
 type Person {name: String}
@@ -177,8 +176,7 @@ type Person {
 exports[`string.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 query X($a: Int) @relay(meta: "{\\"lowPri\\": true}") { a }
 

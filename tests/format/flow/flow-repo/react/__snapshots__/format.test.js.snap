@@ -3,8 +3,7 @@
 exports[`ArityError.react.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /**
  * @providesModule ArityError.react
@@ -37,8 +36,7 @@ module.exports = AudienceInsightsContainer;
 exports[`create_class.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import React from "react";
 
@@ -401,8 +399,7 @@ React.createClass(({}: {})); // error: spec must be [ ] exact and [x] sealed
 exports[`create_class_initial_state_sealed.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import React from "react";
 
@@ -589,8 +586,7 @@ React.createClass({
 exports[`create_class_statics_sealed.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import React from "react";
 
@@ -713,8 +709,7 @@ F.baz = 0;
 exports[`createElement_string.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @flow
 import React from 'react';
@@ -747,8 +742,7 @@ class Foo extends React.Component {
 exports[`createElementRequiredProp_string.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @flow
 import React from 'react';
@@ -799,8 +793,7 @@ class Foo extends React.Component {
 exports[`import_react.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* @flow */
 
@@ -825,8 +818,7 @@ var b: number = new react.Component(); // Error: ReactComponent ~> number
 exports[`jsx_spread.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* @flow */
 
@@ -859,8 +851,7 @@ var blah = <Foo {...props} />; // error bar, number given string expected
 exports[`proptype_any.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const React = require("react");
 
@@ -909,8 +900,7 @@ var AnyFunExample = React.createClass({
 exports[`proptype_arrayOf.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* @flow */
 
@@ -1011,8 +1001,7 @@ var InvalidExample = React.createClass({
 exports[`proptype_custom_validator.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const React = require("react");
 
@@ -1059,8 +1048,7 @@ var Example = React.createClass({
 exports[`proptype_func.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* @flow */
 
@@ -1099,8 +1087,7 @@ var fail_mistyped = <Example func={2} />;
 exports[`proptype_incompatible.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const React = require("react");
 
@@ -1131,8 +1118,7 @@ var Example = React.createClass({
 exports[`proptype_instanceOf.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* @flow */
 
@@ -1229,8 +1215,7 @@ var PolyDefaultExample = React.createClass({
 exports[`proptype_missing.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* @flow */
 
@@ -1305,8 +1290,7 @@ var Foo = React.createClass({
 exports[`proptype_object.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* @flow */
 
@@ -1343,8 +1327,7 @@ var fail_mistyped = <Example object={2} />;
 exports[`proptype_objectOf.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* @flow */
 
@@ -1445,8 +1428,7 @@ var InvalidExample = React.createClass({
 exports[`proptype_oneOf.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* @flow */
 
@@ -1631,8 +1613,7 @@ var NonLiteralElemExample = React.createClass({
 exports[`proptype_oneOfType.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* @flow */
 
@@ -1844,8 +1825,7 @@ var InvalidElemExample = React.createClass({
 exports[`proptype_shape.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* Shape should be a sealed, inexact object just like a type annotation. The
  * below component's \`foo\` property should be equivalent to \`{ bar: string }\`,
@@ -1926,8 +1906,7 @@ React.createClass({
 exports[`proptypes_builtins.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import React from "react";
 
@@ -1992,8 +1971,7 @@ type NoFun = (mixed) => empty;
 exports[`proptypes_sealed.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* propTypes should be a sealed, inexact object just like a type annotation. The
  * below component's propTypes should be equivalent to \`{ bar: string }\`, which

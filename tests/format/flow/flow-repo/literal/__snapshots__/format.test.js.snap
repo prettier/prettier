@@ -3,8 +3,7 @@
 exports[`enum.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 var APIKeys = {
     AGE: 'age',
@@ -27,8 +26,7 @@ module.exports = APIKeys;
 exports[`enum_client.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 var APIKeys = require('./enum');
 // object that maps "AGE" to "age", "NAME" to "name"
@@ -81,8 +79,7 @@ var red: string = tuple[indices.red]; // error: tuple[0] is a number
 exports[`number.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function test1(x: number): number {
   return -x;

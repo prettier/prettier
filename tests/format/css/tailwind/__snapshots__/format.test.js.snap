@@ -3,8 +3,7 @@
 exports[`utility-directive.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 @utility tab-* {
   tab-size: --value(--tab-size-*);

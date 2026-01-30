@@ -3,8 +3,7 @@
 exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function Foo() { return {}; }
 var foo: number = new Foo(); // error (returns object literal above)
@@ -69,8 +68,7 @@ function makeUnion(): number | { x: string } {
 exports[`test2.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 declare class D {
   constructor(): { x: number }; // OK

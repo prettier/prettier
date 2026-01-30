@@ -3,8 +3,7 @@
 exports[`A.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 /* @providesModule A */
@@ -42,8 +41,7 @@ f(A.x); // A.x is now a string, by def assign
 exports[`B.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 /* @providesModule B */
@@ -85,8 +83,7 @@ module.exports = B;
 exports[`C.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 /* @providesModule C */
@@ -124,8 +121,7 @@ module.exports = C;
 exports[`D.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 /* @providesModule D */
@@ -165,8 +161,7 @@ module.exports = "D for dummy";
 exports[`E.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 /* @providesModule E */
@@ -196,8 +191,7 @@ module.exports = { obj: o };
 exports[`F.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function fn2(x) { return x.length * 4; }
 fn2({length: 'hi'});
@@ -222,8 +216,7 @@ function foo(x: Array<number>): string {
 exports[`G.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 var a = { length: "duck" };
 a.length = 123;

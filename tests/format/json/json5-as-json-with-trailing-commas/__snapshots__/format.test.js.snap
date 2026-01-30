@@ -3,9 +3,8 @@
 exports[`nested-quotes.json - {"quoteProps":"preserve"} format 1`] = `
 ====================================options=====================================
 parsers: ["json5"]
-printWidth: 80
 quoteProps: "preserve"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {"allOn": "Single", "Line": "example",
 "noSpace":true,

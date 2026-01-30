@@ -3,9 +3,8 @@
 exports[`backtick.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 \`\` \`123\` \`\`
 
@@ -46,9 +45,8 @@ proseWrap: "always"
 exports[`backtick.md - {"proseWrap":"preserve"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "preserve"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 \`\` \`123\` \`\`
 
@@ -89,9 +87,8 @@ proseWrap: "preserve"
 exports[`cjk.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 \`const x = "中文123"\`
 
@@ -104,9 +101,8 @@ proseWrap: "always"
 exports[`cjk.md - {"proseWrap":"preserve"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "preserve"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 \`const x = "中文123"\`
 
@@ -119,9 +115,8 @@ proseWrap: "preserve"
 exports[`escape.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 \`1*2*3\`
 
@@ -134,9 +129,8 @@ proseWrap: "always"
 exports[`escape.md - {"proseWrap":"preserve"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "preserve"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 \`1*2*3\`
 
@@ -149,9 +143,8 @@ proseWrap: "preserve"
 exports[`inline-code-multiple-spaces.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 \`   three   spaces   everywhere   \`
 
@@ -174,9 +167,8 @@ proseWrap: "always"
 exports[`inline-code-multiple-spaces.md - {"proseWrap":"preserve"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "preserve"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 \`   three   spaces   everywhere   \`
 
@@ -201,9 +193,8 @@ proseWrap: "preserve"
 exports[`inline-code-newline.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod \`tempor
 incididunt\` ut labore et dolore magna aliqua. Ut enim ad minim veniam, \`quis
@@ -226,9 +217,8 @@ proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 exports[`inline-code-newline.md - {"proseWrap":"preserve"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "preserve"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod \`tempor
 incididunt\` ut labore et dolore magna aliqua. Ut enim ad minim veniam, \`quis
@@ -251,9 +241,8 @@ culpa qui officia deserunt mollit anim id est laborum.
 exports[`long.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 \`this is a long long long long long long long long long long long long long long long inline code\`
 
@@ -266,9 +255,8 @@ proseWrap: "always"
 exports[`long.md - {"proseWrap":"preserve"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "preserve"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 \`this is a long long long long long long long long long long long long long long long inline code\`
 
@@ -281,9 +269,8 @@ proseWrap: "preserve"
 exports[`simple.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 \`123\`
 
@@ -296,9 +283,8 @@ proseWrap: "always"
 exports[`simple.md - {"proseWrap":"preserve"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "preserve"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 \`123\`
 
@@ -311,9 +297,8 @@ proseWrap: "preserve"
 exports[`snippet: #0 - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 \` 
  \`
@@ -326,9 +311,8 @@ proseWrap: "always"
 exports[`snippet: #0 - {"proseWrap":"preserve"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "preserve"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 \` 
  \`
@@ -342,9 +326,8 @@ proseWrap: "preserve"
 exports[`snippet: #1 - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 \` 
 a  \`
@@ -357,9 +340,8 @@ a  \`
 exports[`snippet: #1 - {"proseWrap":"preserve"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "preserve"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 \` 
 a  \`

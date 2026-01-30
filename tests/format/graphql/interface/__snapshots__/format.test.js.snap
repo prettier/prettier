@@ -3,8 +3,7 @@
 exports[`interface.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 # https://github.com/graphql/graphql-spec/blob/master/spec/Section%203%20--%20Type%20System.md#interfaces
 
@@ -95,8 +94,7 @@ extend interface Bar implements A & B & C {
 exports[`many-interfaces.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type Foo implements InterfaceOne & InterfaceTwo & InterfaceThree & InterfaceFour & InterfaceFive & InterfaceSix {
   id: ID!
@@ -118,8 +116,7 @@ type Foo implements InterfaceOne &
 exports[`object_type_def.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type Artist implements Node & Entity {
   # The ID of an object
@@ -173,8 +170,7 @@ type Artist implements Node & Entity {
 exports[`object_type_def_mixed_syntax.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type MixedArtist implements Node& Entity & Releasable {
   # The ID of an object
@@ -228,8 +224,7 @@ type MixedArtist implements Node & Entity & Releasable {
 exports[`object_type_def_old_syntax.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type OldArtist implements Node& Entity {
   # The ID of an object
@@ -283,8 +278,7 @@ type OldArtist implements Node & Entity {
 exports[`separator-detection.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 # This file used to test legacy syntax of interfaces that already removed in \`graphql\` v16
 # Some comments are outdated

@@ -3,8 +3,7 @@
 exports[`innerTypeParameterShadowingOuterOne.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // inner type parameters shadow outer ones of the same name
 // no errors expected
@@ -71,8 +70,7 @@ function f2<T extends Date, U extends Date>() {
 exports[`innerTypeParameterShadowingOuterOne2.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // inner type parameters shadow outer ones of the same name
 // no errors expected
@@ -157,8 +155,7 @@ class C2<T extends Date, U extends Date> {
 exports[`staticMembersUsingClassTypeParameter.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // BUG 745747
 class C<T> {
@@ -199,8 +196,7 @@ class C3<T extends Date> {
 exports[`typeParametersAvailableInNestedScope2.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function foo<T, U>(x: T, y: U) {
     function bar<V>(z: V) {

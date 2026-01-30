@@ -3,9 +3,8 @@
 exports[`basic.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "babel-flow"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class Foo {
   accessor bar;
@@ -42,8 +41,7 @@ Cause: Unexpected token bar"
 exports[`basic.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "babel-flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class Foo {
   accessor bar;
@@ -80,9 +78,8 @@ Cause: Unexpected token bar"
 exports[`comments.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "babel-flow"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class A {
   @dec()
@@ -125,8 +122,7 @@ Cause: Unexpected character '@'"
 exports[`comments.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "babel-flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class A {
   @dec()
@@ -169,9 +165,8 @@ Cause: Unexpected character '@'"
 exports[`computed.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "babel-flow"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class Foo {
   accessor ["bar"];
@@ -208,8 +203,7 @@ Cause: Unexpected token ["
 exports[`computed.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "babel-flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class Foo {
   accessor ["bar"];
@@ -246,9 +240,8 @@ Cause: Unexpected token ["
 exports[`not-accessor-method.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "babel-flow"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class Foo {
   accessor() {}
@@ -265,8 +258,7 @@ class Foo {
 exports[`not-accessor-method.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "babel-flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class Foo {
   accessor() {}
@@ -283,9 +275,8 @@ class Foo {
 exports[`not-accessor-property.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "babel-flow"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class Foo {
   accessor = 123;
@@ -302,8 +293,7 @@ class Foo {
 exports[`not-accessor-property.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "babel-flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class Foo {
   accessor = 123;
@@ -320,9 +310,8 @@ class Foo {
 exports[`private.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "babel-flow"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class Foo {
   accessor #bar;
@@ -359,8 +348,7 @@ Cause: Unexpected token #bar"
 exports[`private.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "babel-flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class Foo {
   accessor #bar;
@@ -397,9 +385,8 @@ Cause: Unexpected token #bar"
 exports[`static.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "babel-flow"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class Foo {
   static accessor bar;
@@ -436,8 +423,7 @@ Cause: Unexpected token bar"
 exports[`static.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "babel-flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class Foo {
   static accessor bar;
@@ -474,9 +460,8 @@ Cause: Unexpected token bar"
 exports[`static-computed.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "babel-flow"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class Foo {
   static accessor ["bar"];
@@ -513,8 +498,7 @@ Cause: Unexpected token ["
 exports[`static-computed.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "babel-flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class Foo {
   static accessor ["bar"];
@@ -551,9 +535,8 @@ Cause: Unexpected token ["
 exports[`static-private.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "babel-flow"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class Foo {
   static accessor #bar;
@@ -590,8 +573,7 @@ Cause: Unexpected token #bar"
 exports[`static-private.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "babel-flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class Foo {
   static accessor #bar;
@@ -628,9 +610,8 @@ Cause: Unexpected token #bar"
 exports[`with-semicolon-1.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "babel-flow"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class C {
   accessor clicked = "value";
@@ -671,8 +652,7 @@ Cause: Unexpected token clicked"
 exports[`with-semicolon-1.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "babel-flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class C {
   accessor clicked = "value";
@@ -713,9 +693,8 @@ Cause: Unexpected token clicked"
 exports[`with-semicolon-2.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "babel-flow"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class C {
   accessor clicked = "value";
@@ -756,8 +735,7 @@ Cause: Unexpected token clicked"
 exports[`with-semicolon-2.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "babel-flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class C {
   accessor clicked = "value";

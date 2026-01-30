@@ -3,8 +3,7 @@
 exports[`arrays.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function foo(x) { return [x, x > 0, "number " + x]; }
 
@@ -25,8 +24,7 @@ n * s.length;
 exports[`export_class.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class C {
     x: number;
@@ -51,8 +49,7 @@ module.exports = C;
 exports[`generics.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* @flow */
 
@@ -74,8 +71,7 @@ function foo<X>(x: X): X {
 exports[`import_class.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 var C = require('./export_class');
 
@@ -92,8 +88,7 @@ var c = new C("");
 exports[`locals.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* @flow */
 
@@ -126,8 +121,7 @@ function bar(x: ?string): number {
 exports[`objects.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function C() { this.x = 0; }
 C.prototype.foo = function() { return this.x; }

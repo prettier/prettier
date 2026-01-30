@@ -3,8 +3,7 @@
 exports[`array-pattern.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [x as any] = x;
 
@@ -17,8 +16,7 @@ printWidth: 80
 exports[`as.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const name = (description as DescriptionObject).name || (description as string);
 this.isTabActionBar((e.target || e.srcElement) as HTMLElement);
@@ -136,8 +134,7 @@ const iter2 = createIterator(
 exports[`as-const-embedded.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const GQL_QUERY_WITH_CONST = /* GraphQL */ \`
   query S { shop }
@@ -170,8 +167,7 @@ const HTML_WITH_CONST = /* HTML */ \`
 exports[`assignment.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export const LOG_LEVEL = {
     EMERGENCY: 0,
@@ -242,8 +238,7 @@ this.intervalID = setInterval(() => {
 exports[`assignment2.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const defaultMaskGetter = $parse(attrs[directiveName]) as (
   scope: ng.IScope
@@ -316,8 +311,7 @@ const originalPrototype = originalConstructor.prototype as TComponent &
 exports[`export_default_as.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export default (function log() {} as typeof console.log)
 
@@ -330,8 +324,7 @@ export default (function log() {} as typeof console.log);
 exports[`expression-statement.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // expression statemnt of "as" expression hardly ever makes sense, but it's still valid.
 const [type, x] = [0, 0];
@@ -350,8 +343,7 @@ x as unknown;
 exports[`long-identifiers.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const bifornCringerMoshedPerplexSawder =
   askTrovenaBeenaDependsRowans as glimseGlyphsHazardNoopsTieTie;
@@ -391,8 +383,7 @@ averredBathersBoxroomBuggyNurl(
 exports[`nested-await-and-as.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const getAccountCount = async () =>
   (await
@@ -418,8 +409,7 @@ const getAccountCount = async () =>
 exports[`return.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function foo() {
   return {
@@ -442,8 +432,7 @@ function foo() {
 exports[`ternary.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 foo = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
     ? baaaaaaaaaaaaaaaaaaaaar

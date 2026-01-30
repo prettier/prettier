@@ -3,8 +3,7 @@
 exports[`decorator-auto-accessors-new-line.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class Foo {
   accessor
@@ -43,8 +42,7 @@ class Foo {
 exports[`decorator-auto-accessors-type-annotations.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 abstract class Foo {
   accessor prop: number = 1;

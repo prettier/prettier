@@ -3,8 +3,7 @@
 exports[`exponentiation-operators.html format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {{
   (a)   ** b
@@ -19,8 +18,7 @@ printWidth: 80
 exports[`in-operators.html format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {{
 
@@ -36,8 +34,7 @@ printWidth: 80
 exports[`spread-element.html format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {{
   [...   a]
@@ -69,8 +66,7 @@ foo:1, ...bar   }"></div>
 exports[`tagged-template-literal.html format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {{
 
@@ -86,8 +82,7 @@ printWidth: 80
 exports[`template-literal.html format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {{
 
@@ -103,8 +98,7 @@ printWidth: 80
 exports[`void-operators.html format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {{
 

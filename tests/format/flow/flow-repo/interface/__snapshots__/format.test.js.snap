@@ -3,8 +3,7 @@
 exports[`import.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 interface I { x: number }
 export type J = I; // workaround for export interface
@@ -21,8 +20,7 @@ export type J = I; // workaround for export interface
 exports[`indexer.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @flow
 
@@ -53,8 +51,7 @@ interface Bad {
 exports[`interface.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 declare class C { x: number; }
 
@@ -93,8 +90,7 @@ function testInterfaceName(o: I) {
 exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 interface I { y: string }
 interface I_ { x: number }
@@ -157,8 +153,7 @@ var e: E<number> = { x: "", y: "", z: "" }; // error: x and z should be numbers
 exports[`test2.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import type { J } from './import';
 interface K { }
@@ -199,8 +194,7 @@ function bar(m: M) {
 exports[`test3.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 interface I { x: number, y : string }
 interface J { y : number }
@@ -232,8 +226,7 @@ function foo(k: K) {
 exports[`test4.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 interface I { foo(x: number): void; }
 (function foo(x: number) { }: I); // error, property \`foo\` not found function

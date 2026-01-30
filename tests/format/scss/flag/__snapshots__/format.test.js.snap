@@ -3,9 +3,8 @@
 exports[`2799.scss - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 $default: #111111 !default;
 $default: #111111   !default;
@@ -46,9 +45,8 @@ $global: "very-long-long-long-long-long-long-long-long-long-long-long-value" !gl
 exports[`2799.scss - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 $default: #111111 !default;
 $default: #111111   !default;

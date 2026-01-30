@@ -3,8 +3,7 @@
 exports[`fragment_variables.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 fragment F($var: Int) on Type {
   field

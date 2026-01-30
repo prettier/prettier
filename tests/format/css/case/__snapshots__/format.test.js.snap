@@ -3,8 +3,7 @@
 exports[`case.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 @custom-media --KeepName (MIN-WIDTH: 500PX);
 
@@ -140,8 +139,7 @@ x-panel {
 exports[`custom-selectors.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 @custom-selector :--camelCase .my-css-selector;
 

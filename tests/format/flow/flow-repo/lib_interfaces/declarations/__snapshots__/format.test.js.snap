@@ -3,8 +3,7 @@
 exports[`underscore.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 interface C<T> {
   foo(): CArrays<T>;

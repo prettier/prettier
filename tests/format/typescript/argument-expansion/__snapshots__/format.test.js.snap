@@ -3,8 +3,7 @@
 exports[`argument_expansion.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const bar1 = [1,2,3].reduce((carry, value) => {
   return [...carry, value];
@@ -109,8 +108,7 @@ const bar9 = [1, 2, 3].reduce((carry, value) => {
 exports[`arrow-with-return-type.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 longfunctionWithCall1("bla", foo, (thing: string): complex<type<something>> => {
   code();

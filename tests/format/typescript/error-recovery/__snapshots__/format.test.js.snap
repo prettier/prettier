@@ -3,9 +3,8 @@
 exports[`index-signature.ts - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type A = { [key: string] };
 
@@ -87,9 +86,8 @@ exports[`index-signature.ts - {"trailingComma":"all"} format[oxc-ts] 1`] = `
 exports[`index-signature.ts - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type A = { [key: string] };
 
@@ -171,8 +169,7 @@ exports[`index-signature.ts - {"trailingComma":"es5"} format[oxc-ts] 1`] = `
 exports[`index-signature.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type A = { [key: string] };
 
@@ -254,9 +251,8 @@ exports[`index-signature.ts format[oxc-ts] 1`] = `
 exports[`jsdoc_only_types.ts - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 let a: *;
 function b(x: ?) {}
@@ -302,9 +298,8 @@ exports[`jsdoc_only_types.ts - {"trailingComma":"all"} format[oxc-ts] 1`] = `
 exports[`jsdoc_only_types.ts - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 let a: *;
 function b(x: ?) {}
@@ -350,8 +345,7 @@ exports[`jsdoc_only_types.ts - {"trailingComma":"es5"} format[oxc-ts] 1`] = `
 exports[`jsdoc_only_types.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 let a: *;
 function b(x: ?) {}

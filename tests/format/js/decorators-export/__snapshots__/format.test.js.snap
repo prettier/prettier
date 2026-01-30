@@ -3,8 +3,7 @@
 exports[`after_export.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export @decorator class Foo {}
 
@@ -45,8 +44,7 @@ Cause: Unexpected character '@'"
 exports[`before_export.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 @decorator
 export class Foo {}

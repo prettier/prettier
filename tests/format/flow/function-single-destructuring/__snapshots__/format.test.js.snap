@@ -3,8 +3,7 @@
 exports[`array.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function excludeFirstFiveResults4([first, second, third, fourth, fifth, ...rest]: Result[]) {
   return rest;
@@ -28,8 +27,7 @@ function excludeFirstFiveResults4([
 exports[`object.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function StatelessFunctionalComponent4({
   isActive,
@@ -137,8 +135,7 @@ const X = (props: { a: boolean }) => <A />;
 exports[`object-type-in-declare-function.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 declare function foo(this: { a: boolean, b: string, c: number }):
   Promise<Array<foo>>

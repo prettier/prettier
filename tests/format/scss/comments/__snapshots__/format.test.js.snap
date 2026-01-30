@@ -3,8 +3,7 @@
 exports[`4594.scss format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 .foo,
 // Comment
@@ -91,8 +90,7 @@ $my-map: (
 exports[`4878.scss format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 @function someVeryLongFunctionNameForJustAPow($base, $exponent) {
   $result: 1;
@@ -192,8 +190,7 @@ printWidth: 80
 exports[`14544.scss format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 $blah: (
 	"a": 42,
@@ -218,8 +215,7 @@ $blah: (
 exports[`CRLF.scss format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 $nice-blue: #5B83AD;
 $light-blue: $nice-blue + #111;
@@ -310,8 +306,7 @@ $light-blue: $nice-blue + #111;
 exports[`at-rule.scss format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 @at-root .foo
 // .bar
@@ -341,8 +336,7 @@ printWidth: 80
 exports[`between-decl.scss format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 selector {
 prop: // comment
@@ -489,8 +483,7 @@ selector {
 exports[`bug.scss format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 @font-face  {
   src: url(if(
@@ -525,8 +518,7 @@ printWidth: 80
 exports[`comments.scss format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // This comment won't be included in the CSS. 
 //This comment won't be included in the CSS.
@@ -561,8 +553,7 @@ printWidth: 80
 exports[`custom-properties.scss format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* custom properties set & @apply rule */
 :root {
@@ -590,8 +581,7 @@ printWidth: 80
 exports[`if-eslit-at-rule-decloration.scss format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 @function _normalize-include($section) {
 // Check if $section is in the $include list.
@@ -627,8 +617,7 @@ printWidth: 80
 exports[`in-value.scss format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 .real-world-example {
   background: radial-gradient(
@@ -667,8 +656,7 @@ printWidth: 80
 exports[`lists.scss format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 $my-list:
   'foo', // Foo
@@ -694,8 +682,7 @@ $my-list2: a // a
 exports[`maps.scss format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 $my-map: (
   'foo': 1, // Foo
@@ -715,8 +702,7 @@ $my-map: (
 exports[`mixed.scss format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* DO NOT ADD EXTRA CODE TO THIS FILE */
 
@@ -745,8 +731,7 @@ printWidth: 80
 exports[`mixed-2.scss format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* DO NOT ADD EXTRA CODE TO THIS FILE */
 @import "a";
@@ -769,8 +754,7 @@ printWidth: 80
 exports[`mixed-block.scss format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* DO NOT ADD EXTRA CODE TO THIS FILE */
 
@@ -799,8 +783,7 @@ printWidth: 80
 exports[`prettier-ignore.scss format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 foo {
@@ -822,8 +805,7 @@ foo {
 exports[`selectors.scss format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 .powerPathNavigator .helm button.pressedButton, // comment 1
 .powerPathNavigator .helm button:active:not(.disabledButton),
@@ -961,8 +943,7 @@ printWidth: 80
 exports[`trailing_star_slash.scss format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 @media (max-width: 1) {}
 a {
@@ -982,8 +963,7 @@ a {
 exports[`variable-declaration.scss format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 $var: /* comment 1 */ all /* comment 2 */ !default /* comment 3 */ ; /* comment 4 */
 

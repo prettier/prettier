@@ -3,9 +3,8 @@
 exports[`snippet: #0 - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* comment */ 'use strict';
 =====================================output=====================================
@@ -17,8 +16,7 @@ semi: false
 exports[`snippet: #0 format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* comment */ 'use strict';
 =====================================output=====================================
@@ -30,9 +28,8 @@ printWidth: 80
 exports[`snippet: #1 - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function foo() {
   /* comment */ 'use strict';
@@ -48,8 +45,7 @@ function foo() {
 exports[`snippet: #1 format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function foo() {
   /* comment */ 'use strict';
@@ -65,9 +61,8 @@ function foo() {
 exports[`snippet: #2 - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 'use strict' /* comment */;
 =====================================output=====================================
@@ -79,8 +74,7 @@ semi: false
 exports[`snippet: #2 format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 'use strict' /* comment */;
 =====================================output=====================================
@@ -92,9 +86,8 @@ printWidth: 80
 exports[`snippet: #3 - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function foo() {
   'use strict' /* comment */;
@@ -110,8 +103,7 @@ function foo() {
 exports[`snippet: #3 format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function foo() {
   'use strict' /* comment */;
@@ -127,9 +119,8 @@ function foo() {
 exports[`snippet: #4 - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // comment
 'use strict';
@@ -143,8 +134,7 @@ semi: false
 exports[`snippet: #4 format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // comment
 'use strict';
@@ -158,9 +148,8 @@ printWidth: 80
 exports[`snippet: #5 - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function foo() {
   // comment
@@ -178,8 +167,7 @@ function foo() {
 exports[`snippet: #5 format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function foo() {
   // comment
@@ -197,9 +185,8 @@ function foo() {
 exports[`snippet: #6 - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 'use strict' // comment
 =====================================output=====================================
@@ -211,8 +198,7 @@ semi: false
 exports[`snippet: #6 format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 'use strict' // comment
 =====================================output=====================================
@@ -224,9 +210,8 @@ printWidth: 80
 exports[`snippet: #7 - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function foo() {
   'use strict' // comment
@@ -242,8 +227,7 @@ function foo() {
 exports[`snippet: #7 format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function foo() {
   'use strict' // comment
@@ -259,9 +243,8 @@ function foo() {
 exports[`snippet: #8 - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 'use strict';
 /* comment */
@@ -277,8 +260,7 @@ semi: false
 exports[`snippet: #8 format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 'use strict';
 /* comment */
@@ -294,9 +276,8 @@ printWidth: 80
 exports[`snippet: #9 - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function foo() {
   'use strict';
@@ -316,8 +297,7 @@ function foo() {
 exports[`snippet: #9 format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function foo() {
   'use strict';
@@ -337,9 +317,8 @@ function foo() {
 exports[`snippet: #10 - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* comment */
 'use strict';
@@ -355,8 +334,7 @@ semi: false
 exports[`snippet: #10 format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* comment */
 'use strict';
@@ -372,9 +350,8 @@ printWidth: 80
 exports[`snippet: #11 - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function foo() {
   /* comment */
@@ -394,8 +371,7 @@ function foo() {
 exports[`snippet: #11 format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function foo() {
   /* comment */
@@ -415,9 +391,8 @@ function foo() {
 exports[`snippet: #12 - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 'use strict';
 // comment
@@ -433,8 +408,7 @@ semi: false
 exports[`snippet: #12 format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 'use strict';
 // comment
@@ -450,9 +424,8 @@ printWidth: 80
 exports[`snippet: #13 - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function foo() {
   'use strict';
@@ -472,8 +445,7 @@ function foo() {
 exports[`snippet: #13 format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function foo() {
   'use strict';
@@ -493,9 +465,8 @@ function foo() {
 exports[`snippet: #14 - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // comment
 'use strict';
@@ -511,8 +482,7 @@ semi: false
 exports[`snippet: #14 format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // comment
 'use strict';
@@ -528,9 +498,8 @@ printWidth: 80
 exports[`snippet: #15 - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function foo() {
   // comment
@@ -550,8 +519,7 @@ function foo() {
 exports[`snippet: #15 format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function foo() {
   // comment

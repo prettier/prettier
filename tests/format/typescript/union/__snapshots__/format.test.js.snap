@@ -3,8 +3,7 @@
 exports[`inlining.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 interface RelayProps {
   articles: a | null,
@@ -153,8 +152,7 @@ type T8 = number | ((arg: any) => void);
 exports[`union-parens.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 export type A = (
@@ -384,8 +382,7 @@ type Ctor = (new () => X) | Y;
 exports[`with-type-params.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type GetChatsSagaEffects =
   | CallEffect

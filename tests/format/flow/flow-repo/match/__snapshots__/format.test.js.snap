@@ -3,8 +3,7 @@
 exports[`expression.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // Type of body and abnormal handling
 {
@@ -325,8 +324,7 @@ function f2() {
 exports[`hints.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // Annotation hint
 type F = string => boolean;
@@ -507,8 +505,7 @@ type F = (string) => boolean;
 exports[`matching.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // Primitive value union
 {
@@ -1347,8 +1344,7 @@ printWidth: 80
 exports[`pattern-errors.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // Match expressions only allow \`const\` bindings
 {
@@ -1741,8 +1737,7 @@ printWidth: 80
 exports[`patterns.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // Top level binding with \`const\`
 {
@@ -2147,8 +2142,7 @@ printWidth: 80
 exports[`rules-of-hooks.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 declare const x: 1 | 2;
 
@@ -2219,8 +2213,7 @@ match (x) {
 exports[`statement.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {
   declare const x: empty;

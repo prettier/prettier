@@ -3,9 +3,8 @@
 exports[`block-comment.json - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["json"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {/*comment*/"K":"V"}
 
@@ -18,9 +17,8 @@ trailingComma: "all"
 exports[`block-comment.json - {"trailingComma":"all"} format 2`] = `
 ====================================options=====================================
 parsers: ["json5"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {/*comment*/"K":"V"}
 
@@ -33,9 +31,8 @@ trailingComma: "all"
 exports[`block-comment.json - {"trailingComma":"all"} format 3`] = `
 ====================================options=====================================
 parsers: ["jsonc"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {/*comment*/"K":"V"}
 
@@ -48,9 +45,8 @@ trailingComma: "all"
 exports[`block-comment.json - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["json"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {/*comment*/"K":"V"}
 
@@ -63,9 +59,8 @@ trailingComma: "es5"
 exports[`block-comment.json - {"trailingComma":"es5"} format 2`] = `
 ====================================options=====================================
 parsers: ["json5"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {/*comment*/"K":"V"}
 
@@ -78,9 +73,8 @@ trailingComma: "es5"
 exports[`block-comment.json - {"trailingComma":"es5"} format 3`] = `
 ====================================options=====================================
 parsers: ["jsonc"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {/*comment*/"K":"V"}
 
@@ -93,9 +87,8 @@ trailingComma: "es5"
 exports[`bottom-block-comment.json - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["json"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 1 /* block-comment */
 
@@ -108,9 +101,8 @@ trailingComma: "all"
 exports[`bottom-block-comment.json - {"trailingComma":"all"} format 2`] = `
 ====================================options=====================================
 parsers: ["json5"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 1 /* block-comment */
 
@@ -123,9 +115,8 @@ trailingComma: "all"
 exports[`bottom-block-comment.json - {"trailingComma":"all"} format 3`] = `
 ====================================options=====================================
 parsers: ["jsonc"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 1 /* block-comment */
 
@@ -138,9 +129,8 @@ trailingComma: "all"
 exports[`bottom-block-comment.json - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["json"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 1 /* block-comment */
 
@@ -153,9 +143,8 @@ trailingComma: "es5"
 exports[`bottom-block-comment.json - {"trailingComma":"es5"} format 2`] = `
 ====================================options=====================================
 parsers: ["json5"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 1 /* block-comment */
 
@@ -168,9 +157,8 @@ trailingComma: "es5"
 exports[`bottom-block-comment.json - {"trailingComma":"es5"} format 3`] = `
 ====================================options=====================================
 parsers: ["jsonc"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 1 /* block-comment */
 
@@ -183,9 +171,8 @@ trailingComma: "es5"
 exports[`bottom-line-comment.json - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["json"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 1 // line-comment
 
@@ -198,9 +185,8 @@ trailingComma: "all"
 exports[`bottom-line-comment.json - {"trailingComma":"all"} format 2`] = `
 ====================================options=====================================
 parsers: ["json5"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 1 // line-comment
 
@@ -213,9 +199,8 @@ trailingComma: "all"
 exports[`bottom-line-comment.json - {"trailingComma":"all"} format 3`] = `
 ====================================options=====================================
 parsers: ["jsonc"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 1 // line-comment
 
@@ -228,9 +213,8 @@ trailingComma: "all"
 exports[`bottom-line-comment.json - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["json"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 1 // line-comment
 
@@ -243,9 +227,8 @@ trailingComma: "es5"
 exports[`bottom-line-comment.json - {"trailingComma":"es5"} format 2`] = `
 ====================================options=====================================
 parsers: ["json5"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 1 // line-comment
 
@@ -258,9 +241,8 @@ trailingComma: "es5"
 exports[`bottom-line-comment.json - {"trailingComma":"es5"} format 3`] = `
 ====================================options=====================================
 parsers: ["jsonc"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 1 // line-comment
 
@@ -273,9 +255,8 @@ trailingComma: "es5"
 exports[`line-comment.json - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["json"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {
   //comment
@@ -294,9 +275,8 @@ trailingComma: "all"
 exports[`line-comment.json - {"trailingComma":"all"} format 2`] = `
 ====================================options=====================================
 parsers: ["json5"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {
   //comment
@@ -315,9 +295,8 @@ trailingComma: "all"
 exports[`line-comment.json - {"trailingComma":"all"} format 3`] = `
 ====================================options=====================================
 parsers: ["jsonc"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {
   //comment
@@ -336,9 +315,8 @@ trailingComma: "all"
 exports[`line-comment.json - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["json"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {
   //comment
@@ -357,9 +335,8 @@ trailingComma: "es5"
 exports[`line-comment.json - {"trailingComma":"es5"} format 2`] = `
 ====================================options=====================================
 parsers: ["json5"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {
   //comment
@@ -378,9 +355,8 @@ trailingComma: "es5"
 exports[`line-comment.json - {"trailingComma":"es5"} format 3`] = `
 ====================================options=====================================
 parsers: ["jsonc"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {
   //comment
@@ -399,9 +375,8 @@ trailingComma: "es5"
 exports[`top-block-comment.json - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["json"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* comment */{
   "foo": "bar"
@@ -418,9 +393,8 @@ trailingComma: "all"
 exports[`top-block-comment.json - {"trailingComma":"all"} format 2`] = `
 ====================================options=====================================
 parsers: ["json5"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* comment */{
   "foo": "bar"
@@ -437,9 +411,8 @@ trailingComma: "all"
 exports[`top-block-comment.json - {"trailingComma":"all"} format 3`] = `
 ====================================options=====================================
 parsers: ["jsonc"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* comment */{
   "foo": "bar"
@@ -456,9 +429,8 @@ trailingComma: "all"
 exports[`top-block-comment.json - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["json"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* comment */{
   "foo": "bar"
@@ -475,9 +447,8 @@ trailingComma: "es5"
 exports[`top-block-comment.json - {"trailingComma":"es5"} format 2`] = `
 ====================================options=====================================
 parsers: ["json5"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* comment */{
   "foo": "bar"
@@ -494,9 +465,8 @@ trailingComma: "es5"
 exports[`top-block-comment.json - {"trailingComma":"es5"} format 3`] = `
 ====================================options=====================================
 parsers: ["jsonc"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* comment */{
   "foo": "bar"
@@ -513,9 +483,8 @@ trailingComma: "es5"
 exports[`top-line-comment.json - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["json"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // comment 1
 // comment 2
@@ -536,9 +505,8 @@ trailingComma: "all"
 exports[`top-line-comment.json - {"trailingComma":"all"} format 2`] = `
 ====================================options=====================================
 parsers: ["json5"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // comment 1
 // comment 2
@@ -559,9 +527,8 @@ trailingComma: "all"
 exports[`top-line-comment.json - {"trailingComma":"all"} format 3`] = `
 ====================================options=====================================
 parsers: ["jsonc"]
-printWidth: 80
 trailingComma: "all"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // comment 1
 // comment 2
@@ -582,9 +549,8 @@ trailingComma: "all"
 exports[`top-line-comment.json - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["json"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // comment 1
 // comment 2
@@ -605,9 +571,8 @@ trailingComma: "es5"
 exports[`top-line-comment.json - {"trailingComma":"es5"} format 2`] = `
 ====================================options=====================================
 parsers: ["json5"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // comment 1
 // comment 2
@@ -628,9 +593,8 @@ trailingComma: "es5"
 exports[`top-line-comment.json - {"trailingComma":"es5"} format 3`] = `
 ====================================options=====================================
 parsers: ["jsonc"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // comment 1
 // comment 2

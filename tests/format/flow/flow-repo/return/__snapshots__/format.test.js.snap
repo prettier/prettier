@@ -3,8 +3,7 @@
 exports[`function_return.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class C {
     foo() { }
@@ -91,8 +90,7 @@ module.exports = C;
 exports[`void.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* This is a regression test. At one point we incorrectly inferred the return
    type of functions that have an explicit \`undefined\` to be only \`undefined\` --

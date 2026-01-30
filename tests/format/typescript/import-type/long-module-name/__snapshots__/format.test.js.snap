@@ -3,8 +3,7 @@
 exports[`long-module-name.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const plugin = {}
 export default plugin as typeof import("@babel/plugin-transform-react-jsx").default;
@@ -19,8 +18,7 @@ export default plugin as typeof import("@babel/plugin-transform-react-jsx").defa
 exports[`long-module-name2.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const plugin = {}
 export default plugin as typeof import(
@@ -40,8 +38,7 @@ export default plugin as typeof import(
 exports[`long-module-name3.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 declare const bit: import("../../../../scripts/babel-plugin-bit-decorator/types.d.ts").BitDecorator<State>;
 
@@ -54,8 +51,7 @@ declare const bit: import("../../../../scripts/babel-plugin-bit-decorator/types.
 exports[`long-module-name4.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 interface RuleMap {
   'arrow-parens': typeof import('./long/long/long/long/long/path/to/rules/arrow-parens');
@@ -125,8 +121,7 @@ interface RuleMap {
 exports[`long-module-name5.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type A = import("./long/long/long/long/long/long/long/long/long/long/path/to/module")
 type B = import("./long/long/long/long/long/long/long/long/long/long/path/to/module",{with:{type:'json'}})

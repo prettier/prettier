@@ -3,8 +3,7 @@
 exports[`broken-html.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!-- 
 #7241, 
@@ -37,8 +36,7 @@ extra space(s)
 exports[`comment.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!--hello world-->
 
@@ -51,8 +49,7 @@ printWidth: 80
 exports[`empty.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 =====================================output=====================================
@@ -63,8 +60,7 @@ printWidth: 80
 exports[`empty-doc.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!doctype html>
 <html>
@@ -85,8 +81,7 @@ printWidth: 80
 exports[`form.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <form>
   <div class="form-group">
@@ -275,8 +270,7 @@ printWidth: 80
 exports[`hello-world.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!DOCTYPE html>
 <html lang="en">
@@ -314,8 +308,7 @@ printWidth: 80
 exports[`html-comments.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!-- htmlhint attr-lowercase: false -->
 <html>
@@ -340,8 +333,7 @@ printWidth: 80
 exports[`html5-boilerplate.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!doctype html>
 <html class="no-js" lang="">
@@ -455,8 +447,7 @@ printWidth: 80
 exports[`issue-9368.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <strong>a</strong>-&gt;<strong>b</strong>-&gt;
 
@@ -469,8 +460,7 @@ printWidth: 80
 exports[`issue-9368-2.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <strong>a</strong>-<strong>b</strong>-
 
@@ -483,8 +473,7 @@ printWidth: 80
 exports[`issue-9368-3.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 a track<strong>pad</strong>, or a <strong>gyro</strong>scope.
 
@@ -497,8 +486,7 @@ a track<strong>pad</strong>, or a <strong>gyro</strong>scope.
 exports[`more-html.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <html>
 <head></head>
@@ -523,8 +511,7 @@ printWidth: 80
 exports[`void-elements.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <html>
 <head>
@@ -549,8 +536,7 @@ printWidth: 80
 exports[`void-elements-2.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <video controls width="250">
     <source src="/media/examples/flower.webm"
@@ -588,8 +574,7 @@ printWidth: 80
 exports[`with-colon.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!-- unknown tag with colon -->
 <div>

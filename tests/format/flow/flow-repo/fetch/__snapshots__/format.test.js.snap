@@ -3,8 +3,7 @@
 exports[`fetch.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* @flow */
 
@@ -63,8 +62,7 @@ const d: Promise<Blob> = fetch("image.png"); // incorrect
 exports[`headers.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* @flow */
 
@@ -139,8 +137,7 @@ e.forEach(() => {}, {}); // correct
 exports[`request.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* @flow */
 const a: Request = new Request(); // incorrect
@@ -277,8 +274,7 @@ new Request("/", { method: null }); // incorrect
 exports[`response.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* @flow */
 const a: Response = new Response(); // correct
@@ -377,8 +373,7 @@ h.arrayBuffer().then((ab: Buffer) => ab); // incorrect
 exports[`urlsearchparams.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* @flow */
 

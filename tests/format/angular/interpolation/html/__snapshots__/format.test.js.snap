@@ -3,8 +3,7 @@
 exports[`17428.html format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 (there is no {{\`\${activityType === '' ? 'activity' : ''}\${activityType === '' && costCenter === '' ? ' or ' : ''}\${costCenter === '' ? 'cost center' : ''}\`}})
 
@@ -20,8 +19,7 @@ printWidth: 80
 exports[`block.html format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 @for (option of availableOwners?.(); track option) {
   <mat-option [value]="option.id">
@@ -42,8 +40,7 @@ printWidth: 80
 exports[`comments.html format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {{a() // comment }}
 
@@ -58,8 +55,7 @@ printWidth: 80
 exports[`non-null-assertion.html format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {{ foo?.bar!.bam }}
 {{ (foo?.bar)!.bam }}

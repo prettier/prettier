@@ -3,8 +3,7 @@
 exports[`array.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @flow
 
@@ -33,8 +32,7 @@ function foo(x: Array<number>): [number, ?number] {
 exports[`optional.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @flow
 
@@ -57,8 +55,7 @@ printWidth: 80
 exports[`spread.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type A = [...S];
 
@@ -75,8 +72,7 @@ type B = [...foo: S];
 exports[`too-few.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* @flow */
 
@@ -97,8 +93,7 @@ foo([{}]); // error, too few elements in array passed to a tuple
 exports[`tuples.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 var a: [] = [];
 var b: [] = [123]; // Error - arity mismatch

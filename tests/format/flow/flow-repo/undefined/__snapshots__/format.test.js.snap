@@ -3,8 +3,7 @@
 exports[`issue-518.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function doSomethingAsync(): Promise<void> {
   return new Promise((resolve, reject) => {
@@ -39,8 +38,7 @@ foo();
 exports[`undefined.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function foo() {
     var x;
@@ -73,8 +71,7 @@ function qux(x?: number, y: string = "", z) {}
 exports[`undefined2.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @flow
 

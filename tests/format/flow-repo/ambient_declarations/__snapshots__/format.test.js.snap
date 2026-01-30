@@ -3,8 +3,7 @@
 exports[`component_namespace.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // Test components in declare namespace
 declare namespace ComponentNamespace {
@@ -47,8 +46,7 @@ Cause: '{' expected in component declaration (4:48)
 exports[`components.js.flow format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @flow
 // Test ambient component declarations in .flow files (implicit ambient context)
@@ -93,8 +91,7 @@ component Button(props: { label: string });
 exports[`implicit_functions.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // Test implicit declare function (function without 'declare' keyword in ambient context)
 declare namespace ImplicitFunctions {
@@ -141,8 +138,7 @@ Cause: '{' expected in function declaration (4:38)
 exports[`namespace.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // Test ambient declarations in declare namespace blocks
 declare namespace MyNamespace {
@@ -213,8 +209,7 @@ Cause: missing initializer in const declaration (4:8)
 exports[`not_ambient.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @flow
 // Test that uninitialized const/var/let is NOT allowed in regular .js files
@@ -237,8 +232,7 @@ var z: boolean; // OK - var can be uninitialized
 exports[`regular_component.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @flow
 // Test that component with body in regular .js file still works
@@ -267,8 +261,7 @@ export { RegularComponent };
 exports[`use_component_namespace.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @flow
 // Test using ambient components from namespace
@@ -309,8 +302,7 @@ const badModal = <ComponentNamespace.Modal isOpen="true" onClose={() => {}} />; 
 exports[`use_components.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @flow
 // Test using ambient component declarations from .flow file
@@ -353,8 +345,7 @@ const badInput = (
 exports[`use_flow_typed.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @flow
 // Test that implicit ambient declarations in flow-typed/lib.js work correctly
@@ -393,8 +384,7 @@ const badZ: number = testModule.getBaz(); // Error: boolean is not compatible wi
 exports[`use_flow_typed_components.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @flow
 // Test using components from flow-typed
@@ -425,8 +415,7 @@ const badButton = <Button label={42} />; // Error: number is not compatible with
 exports[`use_implicit_functions.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // Test using implicit declare functions
 import {ImplicitFunctions} from './implicit_functions';
@@ -467,8 +456,7 @@ ImplicitFunctions.add("a", "b"); // Error: string not assignable to number
 exports[`use_namespace.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @flow
 // Test that MyNamespace implicit ambient declarations work
@@ -527,8 +515,7 @@ const badResult: string = MyNamespace.helper("test"); // Error: number is not co
 exports[`use_variables.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @flow
 // Test that implicit ambient declarations in variables.js.flow work correctly
@@ -589,8 +576,7 @@ const badArr: Array<number> = genericVal; // Error: Array<string> is not compati
 exports[`variables.js.flow format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @flow
 // Test ambient variable declarations in .js.flow files

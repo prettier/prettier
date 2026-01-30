@@ -3,8 +3,7 @@
 exports[`destructuring.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const [one, two = null, three = null] = arr;
 a = ([s=1,]) => 1
@@ -132,8 +131,7 @@ a = ([s=1,]) => 1
 exports[`issue-5988.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const { foo, bar: bazAndSomething, quxIsLong } = someBigFunctionName("foo")("bar");
 

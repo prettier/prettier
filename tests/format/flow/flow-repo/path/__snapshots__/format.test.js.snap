@@ -3,8 +3,7 @@
 exports[`while.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 var x = 1;
 while(typeof x == "number" || typeof x == "string") {

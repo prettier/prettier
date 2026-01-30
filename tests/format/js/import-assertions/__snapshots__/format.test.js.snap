@@ -3,8 +3,7 @@
 exports[`dynamic-import.js format 1`] = `
 ====================================options=====================================
 parsers: ["oxc", "typescript", "hermes"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import("./foo.json", { assert: { type: "json" } });
 
@@ -17,8 +16,7 @@ import("./foo.json", { assert: { type: "json" } });
 exports[`empty.js format 1`] = `
 ====================================options=====================================
 parsers: ["oxc", "typescript", "hermes"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export * as foo from "foo.json"
 export * as bar from "bar.json" assert { }
@@ -66,8 +64,7 @@ export * as bar from "bar.json" assert { }
 exports[`keyword-detect.js format 1`] = `
 ====================================options=====================================
 parsers: ["oxc", "typescript", "hermes"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import "./test.json" /* with */ assert /* with */  { type: "json" }
 import {default as b} from "./test.json" /* with */ assert /* with */  { type: "json" }
@@ -114,8 +111,7 @@ export {default as e} from "./test.json" /* with */ assert /* with */  { type: "
 exports[`multi-types.js format 1`] = `
 ====================================options=====================================
 parsers: ["oxc", "typescript", "hermes"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import json from "./foo.json" assert { type: "json", type: "bar" };
 
@@ -136,8 +132,7 @@ Cause: Unexpected token (1:57)"
 exports[`non-type.js format 1`] = `
 ====================================options=====================================
 parsers: ["oxc", "typescript", "hermes"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import foo from "foo.json" assert { lazy: "true" };
 
@@ -158,8 +153,7 @@ Cause: Missing semicolon. (1:26)"
 exports[`not-import-assertions.js format 1`] = `
 ====================================options=====================================
 parsers: ["oxc", "typescript", "hermes"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import "x"
 assert ({type: 'json'});
@@ -174,8 +168,7 @@ assert({ type: "json" });
 exports[`re-export.js format 1`] = `
 ====================================options=====================================
 parsers: ["oxc", "typescript", "hermes"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export { default as foo2 } from "foo.json" assert { type: "json" };
 export * from "foo.json" assert { type: "json" };
@@ -214,8 +207,7 @@ export { default as foo2 } from "foo.json" assert { type: "json" };
 exports[`static-import.js format 1`] = `
 ====================================options=====================================
 parsers: ["oxc", "typescript", "hermes"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import json from "./foo.json" assert { type: "json" };
 
@@ -236,8 +228,7 @@ Cause: Missing semicolon. (1:29)"
 exports[`without-from.js format 1`] = `
 ====================================options=====================================
 parsers: ["oxc", "typescript", "hermes"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import "foo" assert { type: "json" }
 

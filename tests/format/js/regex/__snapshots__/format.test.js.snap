@@ -3,8 +3,7 @@
 exports[`d-flag.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /./d;
 
@@ -17,8 +16,7 @@ printWidth: 80
 exports[`multiple-flags.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /.*/ms;
 /.*/my;
@@ -33,8 +31,7 @@ printWidth: 80
 exports[`regexp-modifiers.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /(?ims:^[a-z])/u;
 /(?-ims:^[a-z].)(^[a-z].)/uims;
@@ -51,8 +48,7 @@ printWidth: 80
 exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /[/]\\/\\u0aBc/mgi;
 
@@ -65,8 +61,7 @@ printWidth: 80
 exports[`v-flag.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /a/v;
 

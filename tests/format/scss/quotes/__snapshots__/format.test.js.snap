@@ -3,9 +3,8 @@
 exports[`escape-in-string.scss - {"singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
 singleQuote: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 $description: "Lorem ipsum dolor sit \\"amet\\", consectetur adipiscing elit, " +
   "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
@@ -20,8 +19,7 @@ $description: 'Lorem ipsum dolor sit "amet", consectetur adipiscing elit, ' +
 exports[`escape-in-string.scss format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 $description: "Lorem ipsum dolor sit \\"amet\\", consectetur adipiscing elit, " +
   "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
@@ -36,9 +34,8 @@ $description: 'Lorem ipsum dolor sit "amet", consectetur adipiscing elit, ' +
 exports[`forward-with.scss - {"singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
 singleQuote: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 @forward 'foo.scss' with ($components: red);
 
@@ -53,8 +50,7 @@ singleQuote: true
 exports[`forward-with.scss format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 @forward 'foo.scss' with ($components: red);
 
@@ -69,9 +65,8 @@ printWidth: 80
 exports[`quotes.scss - {"singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
 singleQuote: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 @use "library";
 
@@ -128,8 +123,7 @@ singleQuote: true
 exports[`quotes.scss format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 @use "library";
 

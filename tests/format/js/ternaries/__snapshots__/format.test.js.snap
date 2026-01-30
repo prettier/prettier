@@ -4,9 +4,8 @@ exports[`binary.js - {"experimentalTernaries":true,"tabWidth":4} format 1`] = `
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 tabWidth: 4
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const funnelSnapshotCard = (report === MY_OVERVIEW &&
   !ReportGK.xar_metrics_active_capitol_v2) ||
@@ -51,10 +50,9 @@ exports[`binary.js - {"experimentalTernaries":true,"useTabs":true,"tabWidth":4} 
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 tabWidth: 4
 useTabs: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const funnelSnapshotCard = (report === MY_OVERVIEW &&
   !ReportGK.xar_metrics_active_capitol_v2) ||
@@ -99,9 +97,8 @@ exports[`binary.js - {"experimentalTernaries":true,"useTabs":true} format 1`] = 
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 useTabs: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const funnelSnapshotCard = (report === MY_OVERVIEW &&
   !ReportGK.xar_metrics_active_capitol_v2) ||
@@ -146,8 +143,7 @@ exports[`binary.js - {"experimentalTernaries":true} format 1`] = `
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const funnelSnapshotCard = (report === MY_OVERVIEW &&
   !ReportGK.xar_metrics_active_capitol_v2) ||
@@ -191,9 +187,8 @@ room = room.map((row, rowIndex) =>
 exports[`binary.js - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 tabWidth: 4
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const funnelSnapshotCard = (report === MY_OVERVIEW &&
   !ReportGK.xar_metrics_active_capitol_v2) ||
@@ -233,10 +228,9 @@ room = room.map((row, rowIndex) =>
 exports[`binary.js - {"useTabs":true,"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 tabWidth: 4
 useTabs: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const funnelSnapshotCard = (report === MY_OVERVIEW &&
   !ReportGK.xar_metrics_active_capitol_v2) ||
@@ -276,9 +270,8 @@ room = room.map((row, rowIndex) =>
 exports[`binary.js - {"useTabs":true} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 useTabs: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const funnelSnapshotCard = (report === MY_OVERVIEW &&
   !ReportGK.xar_metrics_active_capitol_v2) ||
@@ -318,8 +311,7 @@ room = room.map((row, rowIndex) =>
 exports[`binary.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const funnelSnapshotCard = (report === MY_OVERVIEW &&
   !ReportGK.xar_metrics_active_capitol_v2) ||
@@ -360,9 +352,8 @@ exports[`func-call.js - {"experimentalTernaries":true,"tabWidth":4} format 1`] =
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 tabWidth: 4
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 fn(
   bifornCringerMoshedPerplexSawder,
@@ -394,10 +385,9 @@ exports[`func-call.js - {"experimentalTernaries":true,"useTabs":true,"tabWidth":
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 tabWidth: 4
 useTabs: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 fn(
   bifornCringerMoshedPerplexSawder,
@@ -429,9 +419,8 @@ exports[`func-call.js - {"experimentalTernaries":true,"useTabs":true} format 1`]
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 useTabs: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 fn(
   bifornCringerMoshedPerplexSawder,
@@ -463,8 +452,7 @@ exports[`func-call.js - {"experimentalTernaries":true} format 1`] = `
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 fn(
   bifornCringerMoshedPerplexSawder,
@@ -495,9 +483,8 @@ fn(
 exports[`func-call.js - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 tabWidth: 4
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 fn(
   bifornCringerMoshedPerplexSawder,
@@ -526,10 +513,9 @@ fn(
 exports[`func-call.js - {"useTabs":true,"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 tabWidth: 4
 useTabs: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 fn(
   bifornCringerMoshedPerplexSawder,
@@ -558,9 +544,8 @@ fn(
 exports[`func-call.js - {"useTabs":true} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 useTabs: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 fn(
   bifornCringerMoshedPerplexSawder,
@@ -589,8 +574,7 @@ fn(
 exports[`func-call.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 fn(
   bifornCringerMoshedPerplexSawder,
@@ -620,9 +604,8 @@ exports[`indent.js - {"experimentalTernaries":true,"tabWidth":4} format 1`] = `
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 tabWidth: 4
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 aaaaaaaaaaaaaaa ? bbbbbbbbbbbbbbbbbb : ccccccccccccccc ? ddddddddddddddd : eeeeeeeeeeeeeee ? fffffffffffffff : gggggggggggggggg
 
@@ -954,10 +937,9 @@ exports[`indent.js - {"experimentalTernaries":true,"useTabs":true,"tabWidth":4} 
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 tabWidth: 4
 useTabs: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 aaaaaaaaaaaaaaa ? bbbbbbbbbbbbbbbbbb : ccccccccccccccc ? ddddddddddddddd : eeeeeeeeeeeeeee ? fffffffffffffff : gggggggggggggggg
 
@@ -1289,9 +1271,8 @@ exports[`indent.js - {"experimentalTernaries":true,"useTabs":true} format 1`] = 
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 useTabs: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 aaaaaaaaaaaaaaa ? bbbbbbbbbbbbbbbbbb : ccccccccccccccc ? ddddddddddddddd : eeeeeeeeeeeeeee ? fffffffffffffff : gggggggggggggggg
 
@@ -1623,8 +1604,7 @@ exports[`indent.js - {"experimentalTernaries":true} format 1`] = `
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 aaaaaaaaaaaaaaa ? bbbbbbbbbbbbbbbbbb : ccccccccccccccc ? ddddddddddddddd : eeeeeeeeeeeeeee ? fffffffffffffff : gggggggggggggggg
 
@@ -1955,9 +1935,8 @@ a ?
 exports[`indent.js - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 tabWidth: 4
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 aaaaaaaaaaaaaaa ? bbbbbbbbbbbbbbbbbb : ccccccccccccccc ? ddddddddddddddd : eeeeeeeeeeeeeee ? fffffffffffffff : gggggggggggggggg
 
@@ -2285,10 +2264,9 @@ a
 exports[`indent.js - {"useTabs":true,"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 tabWidth: 4
 useTabs: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 aaaaaaaaaaaaaaa ? bbbbbbbbbbbbbbbbbb : ccccccccccccccc ? ddddddddddddddd : eeeeeeeeeeeeeee ? fffffffffffffff : gggggggggggggggg
 
@@ -2620,9 +2598,8 @@ a
 exports[`indent.js - {"useTabs":true} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 useTabs: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 aaaaaaaaaaaaaaa ? bbbbbbbbbbbbbbbbbb : ccccccccccccccc ? ddddddddddddddd : eeeeeeeeeeeeeee ? fffffffffffffff : gggggggggggggggg
 
@@ -2950,8 +2927,7 @@ a
 exports[`indent.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 aaaaaaaaaaaaaaa ? bbbbbbbbbbbbbbbbbb : ccccccccccccccc ? ddddddddddddddd : eeeeeeeeeeeeeee ? fffffffffffffff : gggggggggggggggg
 
@@ -3280,9 +3256,8 @@ exports[`indent-after-paren.js - {"experimentalTernaries":true,"tabWidth":4} for
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 tabWidth: 4
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 foo7 = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
   ? baaaaaaaaaaaaaaaaaaaaar
@@ -3911,10 +3886,9 @@ exports[`indent-after-paren.js - {"experimentalTernaries":true,"useTabs":true,"t
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 tabWidth: 4
 useTabs: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 foo7 = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
   ? baaaaaaaaaaaaaaaaaaaaar
@@ -4543,9 +4517,8 @@ exports[`indent-after-paren.js - {"experimentalTernaries":true,"useTabs":true} f
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 useTabs: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 foo7 = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
   ? baaaaaaaaaaaaaaaaaaaaar
@@ -5174,8 +5147,7 @@ exports[`indent-after-paren.js - {"experimentalTernaries":true} format 1`] = `
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 foo7 = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
   ? baaaaaaaaaaaaaaaaaaaaar
@@ -5803,9 +5775,8 @@ fn?.[
 exports[`indent-after-paren.js - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 tabWidth: 4
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 foo7 = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
   ? baaaaaaaaaaaaaaaaaaaaar
@@ -6456,10 +6427,9 @@ fn?.[
 exports[`indent-after-paren.js - {"useTabs":true,"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 tabWidth: 4
 useTabs: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 foo7 = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
   ? baaaaaaaaaaaaaaaaaaaaar
@@ -7110,9 +7080,8 @@ fn?.[
 exports[`indent-after-paren.js - {"useTabs":true} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 useTabs: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 foo7 = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
   ? baaaaaaaaaaaaaaaaaaaaar
@@ -7763,8 +7732,7 @@ fn?.[
 exports[`indent-after-paren.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 foo7 = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
   ? baaaaaaaaaaaaaaaaaaaaar
@@ -8416,9 +8384,8 @@ exports[`nested.js - {"experimentalTernaries":true,"tabWidth":4} format 1`] = `
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 tabWidth: 4
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 let icecream = what == "cone"
   ? p => !!p ? \`here's your \${p} cone\` : \`just the empty cone for you\`
@@ -8683,10 +8650,9 @@ exports[`nested.js - {"experimentalTernaries":true,"useTabs":true,"tabWidth":4} 
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 tabWidth: 4
 useTabs: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 let icecream = what == "cone"
   ? p => !!p ? \`here's your \${p} cone\` : \`just the empty cone for you\`
@@ -8951,9 +8917,8 @@ exports[`nested.js - {"experimentalTernaries":true,"useTabs":true} format 1`] = 
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 useTabs: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 let icecream = what == "cone"
   ? p => !!p ? \`here's your \${p} cone\` : \`just the empty cone for you\`
@@ -9218,8 +9183,7 @@ exports[`nested.js - {"experimentalTernaries":true} format 1`] = `
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 let icecream = what == "cone"
   ? p => !!p ? \`here's your \${p} cone\` : \`just the empty cone for you\`
@@ -9483,9 +9447,8 @@ const result =
 exports[`nested.js - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 tabWidth: 4
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 let icecream = what == "cone"
   ? p => !!p ? \`here's your \${p} cone\` : \`just the empty cone for you\`
@@ -9769,10 +9732,9 @@ const result =
 exports[`nested.js - {"useTabs":true,"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 tabWidth: 4
 useTabs: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 let icecream = what == "cone"
   ? p => !!p ? \`here's your \${p} cone\` : \`just the empty cone for you\`
@@ -10056,9 +10018,8 @@ const result =
 exports[`nested.js - {"useTabs":true} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 useTabs: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 let icecream = what == "cone"
   ? p => !!p ? \`here's your \${p} cone\` : \`just the empty cone for you\`
@@ -10342,8 +10303,7 @@ const result =
 exports[`nested.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 let icecream = what == "cone"
   ? p => !!p ? \`here's your \${p} cone\` : \`just the empty cone for you\`
@@ -10628,9 +10588,8 @@ exports[`nested-in-condition.js - {"experimentalTernaries":true,"tabWidth":4} fo
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 tabWidth: 4
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 $var = ($number % 10 >= 2 && ($number % 100 < 10 || $number % 100 >= 20)
 ? kochabCooieGameOnOboleUnweave
@@ -10714,10 +10673,9 @@ exports[`nested-in-condition.js - {"experimentalTernaries":true,"useTabs":true,"
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 tabWidth: 4
 useTabs: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 $var = ($number % 10 >= 2 && ($number % 100 < 10 || $number % 100 >= 20)
 ? kochabCooieGameOnOboleUnweave
@@ -10801,9 +10759,8 @@ exports[`nested-in-condition.js - {"experimentalTernaries":true,"useTabs":true} 
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 useTabs: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 $var = ($number % 10 >= 2 && ($number % 100 < 10 || $number % 100 >= 20)
 ? kochabCooieGameOnOboleUnweave
@@ -10887,8 +10844,7 @@ exports[`nested-in-condition.js - {"experimentalTernaries":true} format 1`] = `
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 $var = ($number % 10 >= 2 && ($number % 100 < 10 || $number % 100 >= 20)
 ? kochabCooieGameOnOboleUnweave
@@ -10971,9 +10927,8 @@ const value =
 exports[`nested-in-condition.js - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 tabWidth: 4
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 $var = ($number % 10 >= 2 && ($number % 100 < 10 || $number % 100 >= 20)
 ? kochabCooieGameOnOboleUnweave
@@ -11060,10 +11015,9 @@ const value = (
 exports[`nested-in-condition.js - {"useTabs":true,"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 tabWidth: 4
 useTabs: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 $var = ($number % 10 >= 2 && ($number % 100 < 10 || $number % 100 >= 20)
 ? kochabCooieGameOnOboleUnweave
@@ -11150,9 +11104,8 @@ const value = (
 exports[`nested-in-condition.js - {"useTabs":true} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 useTabs: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 $var = ($number % 10 >= 2 && ($number % 100 < 10 || $number % 100 >= 20)
 ? kochabCooieGameOnOboleUnweave
@@ -11239,8 +11192,7 @@ const value = (
 exports[`nested-in-condition.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 $var = ($number % 10 >= 2 && ($number % 100 < 10 || $number % 100 >= 20)
 ? kochabCooieGameOnOboleUnweave
@@ -11328,9 +11280,8 @@ exports[`parenthesis.js - {"experimentalTernaries":true,"tabWidth":4} format 1`]
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 tabWidth: 4
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 debug ? this.state.isVisible ? "partially visible" : "hidden" : null;
 debug ? this.state.isVisible && somethingComplex ? "partially visible" : "hidden" : null;
@@ -11370,10 +11321,9 @@ exports[`parenthesis.js - {"experimentalTernaries":true,"useTabs":true,"tabWidth
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 tabWidth: 4
 useTabs: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 debug ? this.state.isVisible ? "partially visible" : "hidden" : null;
 debug ? this.state.isVisible && somethingComplex ? "partially visible" : "hidden" : null;
@@ -11413,9 +11363,8 @@ exports[`parenthesis.js - {"experimentalTernaries":true,"useTabs":true} format 1
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 useTabs: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 debug ? this.state.isVisible ? "partially visible" : "hidden" : null;
 debug ? this.state.isVisible && somethingComplex ? "partially visible" : "hidden" : null;
@@ -11455,8 +11404,7 @@ exports[`parenthesis.js - {"experimentalTernaries":true} format 1`] = `
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 debug ? this.state.isVisible ? "partially visible" : "hidden" : null;
 debug ? this.state.isVisible && somethingComplex ? "partially visible" : "hidden" : null;
@@ -11495,9 +11443,8 @@ debug ?
 exports[`parenthesis.js - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 tabWidth: 4
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 debug ? this.state.isVisible ? "partially visible" : "hidden" : null;
 debug ? this.state.isVisible && somethingComplex ? "partially visible" : "hidden" : null;
@@ -11532,10 +11479,9 @@ debug
 exports[`parenthesis.js - {"useTabs":true,"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 tabWidth: 4
 useTabs: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 debug ? this.state.isVisible ? "partially visible" : "hidden" : null;
 debug ? this.state.isVisible && somethingComplex ? "partially visible" : "hidden" : null;
@@ -11570,9 +11516,8 @@ debug
 exports[`parenthesis.js - {"useTabs":true} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 useTabs: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 debug ? this.state.isVisible ? "partially visible" : "hidden" : null;
 debug ? this.state.isVisible && somethingComplex ? "partially visible" : "hidden" : null;
@@ -11607,8 +11552,7 @@ debug
 exports[`parenthesis.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 debug ? this.state.isVisible ? "partially visible" : "hidden" : null;
 debug ? this.state.isVisible && somethingComplex ? "partially visible" : "hidden" : null;
@@ -11644,9 +11588,8 @@ exports[`test.js - {"experimentalTernaries":true,"tabWidth":4} format 1`] = `
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 tabWidth: 4
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const obj0 = conditionIsTruthy ? shortThing : otherShortThing
 
@@ -11710,10 +11653,9 @@ exports[`test.js - {"experimentalTernaries":true,"useTabs":true,"tabWidth":4} fo
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 tabWidth: 4
 useTabs: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const obj0 = conditionIsTruthy ? shortThing : otherShortThing
 
@@ -11777,9 +11719,8 @@ exports[`test.js - {"experimentalTernaries":true,"useTabs":true} format 1`] = `
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 useTabs: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const obj0 = conditionIsTruthy ? shortThing : otherShortThing
 
@@ -11843,8 +11784,7 @@ exports[`test.js - {"experimentalTernaries":true} format 1`] = `
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const obj0 = conditionIsTruthy ? shortThing : otherShortThing
 
@@ -11907,9 +11847,8 @@ const obj5 =
 exports[`test.js - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 tabWidth: 4
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const obj0 = conditionIsTruthy ? shortThing : otherShortThing
 
@@ -11967,10 +11906,9 @@ const obj5 = conditionIsTruthy
 exports[`test.js - {"useTabs":true,"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 tabWidth: 4
 useTabs: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const obj0 = conditionIsTruthy ? shortThing : otherShortThing
 
@@ -12028,9 +11966,8 @@ const obj5 = conditionIsTruthy
 exports[`test.js - {"useTabs":true} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 useTabs: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const obj0 = conditionIsTruthy ? shortThing : otherShortThing
 
@@ -12088,8 +12025,7 @@ const obj5 = conditionIsTruthy
 exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const obj0 = conditionIsTruthy ? shortThing : otherShortThing
 

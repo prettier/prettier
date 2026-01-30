@@ -3,8 +3,7 @@
 exports[`as-expression.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const a = \`\${(foo + bar) as baz}\`;
 const b = \`\${(veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongFoo + bar) as baz}\`;
@@ -25,8 +24,7 @@ const b = \`\${(veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongFoo + veryVe
 exports[`expressions.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const bar = tag<number>\`but where will prettier wrap such a long tagged template literal? \${foo.bar.baz} long long long long long long long long long long long long long long\`;
 =====================================output=====================================
@@ -38,8 +36,7 @@ const bar = tag<number>\`but where will prettier wrap such a long tagged templat
 exports[`member-expression.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 long1 = \`long \${a//comment
   .b} long longlong \${a.b.c.d.e} long longlong \${a.b.c.d.e} long longlong \${a.b.c.d.e} long long\`;

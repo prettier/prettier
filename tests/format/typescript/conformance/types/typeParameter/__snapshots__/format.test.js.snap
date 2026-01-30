@@ -3,8 +3,7 @@
 exports[`typeParameter.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 interface IObservable<T> {
   n: IObservable<T[]> // fails because of comment

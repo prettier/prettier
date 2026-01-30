@@ -3,8 +3,7 @@
 exports[`assertions.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import("./foo.json", { assert: { type: "json" } });
 
@@ -17,8 +16,7 @@ import("./foo.json", { assert: { type: "json" } });
 exports[`import-phase.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import.source(\`data:text/javascript,
     console.log("RUN");
@@ -97,8 +95,7 @@ Cause: [1:7-1:13]: The only valid meta property for import is 'import.meta'"
 exports[`template-literal.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 module   =   await import(\`data:text/javascript,
     console.log("RUN");
@@ -144,8 +141,7 @@ module   =   await import(\`data:text/javascript,
 exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import("module.js");
 import("module.js").then((a) => a);

@@ -3,8 +3,7 @@
 exports[`type_aliases.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 declare var $React: $Exports<'react'>; // fake import
 // Strawman: revised definition of $jsx (alternatively, React.Element).

@@ -3,7 +3,8 @@ import { CURSOR_PLACEHOLDER } from "./constants.js";
 import visualizeEndOfLine from "./visualize-end-of-line.js";
 import visualizeRange from "./visualize-range.js";
 
-const SEPARATOR_WIDTH = 80;
+const DEFAULT_PRINT_WIDTH = 80;
+const SEPARATOR_WIDTH = DEFAULT_PRINT_WIDTH;
 function printSeparator(description = "") {
   const leftLength = Math.floor((SEPARATOR_WIDTH - description.length) / 2);
   const rightLength = SEPARATOR_WIDTH - leftLength - description.length;
@@ -38,17 +39,38 @@ function printOptions(options) {
     .join("\n");
 }
 
-function printWidthIndicator(printWidth, offset) {
-  if (!Number.isFinite(printWidth) || printWidth < 1) {
+function makeWidthIndicator(printWidth) {
+  const text =
+    printWidth === undefined
+      ? `printWidth: ${DEFAULT_PRINT_WIDTH} (default)`
+      : `printWidth: ${printWidth}`;
+
+  if (printWidth === undefined) {
+    printWidth = DEFAULT_PRINT_WIDTH;
+  }
+
+  return printWidth >= text.length + 2
+    ? (text + " |").padStart(printWidth, " ")
+    : " ".repeat(printWidth) + "| " + text;
+}
+
+const defaultWidthIndicator = makeWidthIndicator();
+function printWidthIndicator(printWidth) {
+  if (
+    !(
+      printWidth === undefined ||
+      (Number.isSafeInteger(printWidth) && printWidth > 0)
+    )
+  ) {
     return "";
   }
 
-  let before = "";
-  if (offset) {
-    before = " ".repeat(offset - 1) + "|";
-  }
+  const widthIndicator =
+    printWidth === undefined
+      ? defaultWidthIndicator
+      : makeWidthIndicator(printWidth);
 
-  return `${before}${" ".repeat(printWidth)}| printWidth`;
+  return widthIndicator;
 }
 
 function createSnapshot(formatResult, { parsers, formatOptions }) {
@@ -83,16 +105,34 @@ function createSnapshot(formatResult, { parsers, formatOptions }) {
 
   return raw(
     [
-      printSeparator("options"),
-      printOptions({ ...options, parsers }),
-      ...(widthIndicator ? [widthIndicator] : []),
-      printSeparator("input"),
+      addOffset(
+        [
+          printSeparator("options"),
+          printOptions({ ...options, parsers }),
+          ...(widthIndicator ? [widthIndicator] : []),
+          printSeparator("input"),
+        ].join("\n"),
+        codeOffset,
+      ),
       input,
-      printSeparator("output"),
-      output,
-      printSeparator(),
+      addOffset(
+        [printSeparator("output"), output, printSeparator()].join("\n"),
+        codeOffset,
+      ),
     ].join("\n"),
   );
+}
+
+function addOffset(text, offset) {
+  if (!offset) {
+    return text;
+  }
+
+  const prefix = " ".repeat(offset - 2) + ":";
+  return text
+    .split("\n")
+    .map((line) => `${prefix}${line ? ` ${line}` : line}`)
+    .join("\n");
 }
 
 export default createSnapshot;

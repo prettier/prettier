@@ -3,9 +3,8 @@
 exports[`template.html - {"singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
-printWidth: 80
 singleQuote: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <script id="entry-template" type="text/x-handlebars-template">
 <div class="entry">
@@ -39,8 +38,7 @@ singleQuote: true
 exports[`template.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <script id="entry-template" type="text/x-handlebars-template">
 <div class="entry">

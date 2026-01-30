@@ -3,8 +3,7 @@
 exports[`10260.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type A = (
     /** @deprecated */
@@ -73,8 +72,7 @@ type D2 =
 exports[`11662.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 foo<a>
   // TEST
@@ -101,8 +99,7 @@ foo<a>
 exports[`15707.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const {
   foo,
@@ -223,8 +220,7 @@ const [
 exports[`16065.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class Foo {
   constructor(
@@ -257,8 +253,7 @@ class Foo {
 exports[`16065-2.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class Foo {
   // PropertyDefinition
@@ -323,8 +318,7 @@ class Foo {
 exports[`16121.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export type IntersectionType =
   & FirstPart
@@ -408,8 +402,7 @@ export type IntersectionType =
 exports[`16207.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class Foo {
   constructor(
@@ -434,8 +427,7 @@ class Foo {
 exports[`16889.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class A {
   @decorator
@@ -575,8 +567,7 @@ class A {
 exports[`abstract_class.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 abstract class AbstractRule {
     /**
@@ -603,8 +594,7 @@ abstract class AbstractRule {
 exports[`abstract_methods.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 abstract class AbstractFoo {
   abstract method1(/* comment */ arg: string);
@@ -637,8 +627,7 @@ abstract class AbstractFoo {
 exports[`after_jsx_generic.tsx format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 let comp = (
   <>
@@ -699,8 +688,7 @@ let comp = (
 exports[`declare_function.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 declare function fn(
   currentRequest: {a: number},
@@ -722,8 +710,7 @@ declare function /* foo */ f(/* baz */ a /* taz */); /* bar */
 exports[`interface.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 interface Foo {
   bar(
@@ -790,8 +777,7 @@ interface Foo {
 exports[`issues.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // Adding a comment stops the pretty printing process and everything is
 // squished in a single line afterward
@@ -868,8 +854,7 @@ export type AsyncExecuteOptions = child_process$execFileOpts & {
 exports[`jsx.tsx format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 var example1 = <div>
 	https://test
@@ -890,8 +875,7 @@ var example2 = <div>/*test*/</div>;
 exports[`location.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function x({
   x,
@@ -977,8 +961,7 @@ export type WrappedFormUtils = {
 exports[`mapped-types.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type A = {
   // commentA
@@ -1151,8 +1134,7 @@ type M7 = {
 exports[`method_types.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 interface foo1 {
   bar3/* foo */ (/* baz */) // bat
@@ -1241,8 +1223,7 @@ abstract class Test {
 exports[`methods.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export class Point {
 /**
@@ -1351,8 +1332,7 @@ export class Point {
 exports[`ts-parameter-proerty.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class A {
   constructor(
@@ -1376,8 +1356,7 @@ class A {
 exports[`type_literals.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type Props1 = // (DispatchProps & StateProps); WHY DON'T YOU WORK FLOW!!!!!!!!!
 {
@@ -1416,8 +1395,7 @@ type Props3 = {
 exports[`type-parameters.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 functionName<A /* A comment */>();
 
@@ -1450,8 +1428,7 @@ interface Foo {
 exports[`types.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 (() => {
   // swallow error and fallback to using directory as path
@@ -1468,8 +1445,7 @@ printWidth: 80
 exports[`union.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type UploadState<E, EM, D>
   // The upload hasnt begun yet

@@ -3,8 +3,7 @@
 exports[`content.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
   div {content: "  test 1/2  ";   content:'  test   1+2';
 }

@@ -3,8 +3,7 @@
 exports[`invalid.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <template>
 <div
@@ -23,8 +22,7 @@ printWidth: 80
 exports[`ts.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <script lang="ts"></script>
 <template>

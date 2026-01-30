@@ -3,8 +3,7 @@
 exports[`array-pattern.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {
   // destructuring binding
@@ -183,8 +182,7 @@ Cause: Array element destructuring pattern expected."
 exports[`basic.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const [void] = [,void] = [void,] = [];
 
@@ -288,8 +286,7 @@ Cause: Array element destructuring pattern expected."
 exports[`discard-binding-arrow-params.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 (void) => {}
 
@@ -365,8 +362,7 @@ Cause: Expression expected."
 exports[`discard-binding-assignment.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 ([void] = []);
 
@@ -442,8 +438,7 @@ Cause: Expression expected."
 exports[`discard-binding-async-arrow-params.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 async (void) => {}
 
@@ -519,8 +514,7 @@ Cause: Expression expected."
 exports[`discard-binding-bindings.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const { p: void } = {};
 
@@ -596,8 +590,7 @@ Cause: Identifier expected. 'void' is a reserved word that cannot be used here."
 exports[`discard-binding-for-await-using-binding.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 async () => {
   for(await using void of []);
@@ -693,8 +686,7 @@ Cause: ';' expected."
 exports[`discard-binding-for-bindings.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 for(const { p: void } of []);
 
@@ -770,8 +762,7 @@ Cause: Identifier expected. 'void' is a reserved word that cannot be used here."
 exports[`discard-binding-for-lhs.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 for({ p: void } of []);
 
@@ -847,8 +838,7 @@ Cause: Expression expected."
 exports[`discard-binding-for-using-binding.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {
   for(using void of []);
@@ -944,8 +934,7 @@ Cause: ';' expected."
 exports[`function-parameter.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {
   // function parameter
@@ -1093,8 +1082,7 @@ Cause: Identifier expected. 'void' is a reserved word that cannot be used here."
 exports[`object-pattern.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {
   // destructuring binding
@@ -1291,8 +1279,7 @@ Cause: Identifier expected. 'void' is a reserved word that cannot be used here."
 exports[`unary-expression-void.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // expr
 void [
@@ -1432,8 +1419,7 @@ Cause: Expression expected."
 exports[`using.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {
   using void = f();
@@ -1543,8 +1529,7 @@ Cause: Unexpected keyword or identifier."
 exports[`using-variable-declarator.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {
   // using 1 declarator

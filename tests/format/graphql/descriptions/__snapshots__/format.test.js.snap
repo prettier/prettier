@@ -3,8 +3,7 @@
 exports[`fragment.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 # https://github.com/graphql/graphql-js/pull/4482
 
@@ -24,8 +23,7 @@ fragment Foo on Bar {
 exports[`fragment-with-variable-description(legacy).graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 # https://github.com/graphql/graphql-js/pull/4482
 
@@ -47,8 +45,7 @@ fragment Foo(
 exports[`nameless-query-with-description.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 # https://github.com/graphql/graphql-js/pull/4482
 
@@ -75,8 +72,7 @@ query {
 exports[`operation-and-variable-definition-descriptions.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 # https://github.com/graphql/graphql-js/pull/4482
 
@@ -111,8 +107,7 @@ query myQuery(
 exports[`variable-definition-with-description-default value-and-directives.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 # https://github.com/graphql/graphql-js/pull/4482
 

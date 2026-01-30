@@ -3,8 +3,7 @@
 exports[`import-defer.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import.defer("./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
 import.defer(
@@ -79,8 +78,7 @@ Cause: [1:7-1:12]: The only valid meta property for import is 'import.meta'"
 exports[`import-expression.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import("./a/long/long/long/long/long/long/long/long/long/long/long/path/to/module")
 import(
@@ -104,8 +102,7 @@ import.meta
 exports[`import-source.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import.source("./a/long/long/long/long/long/long/long/long/long/long/long/long/path/to/module");
 import.source(

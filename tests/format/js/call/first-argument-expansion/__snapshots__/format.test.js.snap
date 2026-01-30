@@ -3,8 +3,7 @@
 exports[`expression-2nd-arg.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 call(
   function() {
@@ -54,8 +53,7 @@ call(
 exports[`issue-2456.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 f(x => { y }, err.message.includes("asd") && err.message.includes("id") &&
   err.message.includes('"1"') && err.message.includes("Model") &&
@@ -81,8 +79,7 @@ f(
 exports[`issue-4401.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export function test() {
   setTimeout(
@@ -107,8 +104,7 @@ export function test() {
 exports[`issue-5172.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 call(
     function() {
@@ -152,8 +148,7 @@ call(
 exports[`issue-12892.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 setTimeout(() => {
   console.log('test');
@@ -183,8 +178,7 @@ setTimeout(
 exports[`issue-13237.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* version 1 */
 
@@ -233,8 +227,7 @@ exportDefaultWhatever(function (
 exports[`issue-14454.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 f(() => {}, scroller.qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq)
 
@@ -250,8 +243,7 @@ f(
 exports[`jsx.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <elem onFlip={wrap(function () {flop('!'); }, arg2)}>content</elem>
 
@@ -270,8 +262,7 @@ printWidth: 80
 exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 setTimeout(function() {
   thing();

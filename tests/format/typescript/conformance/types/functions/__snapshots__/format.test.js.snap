@@ -3,8 +3,7 @@
 exports[`TSFunctionTypeNoUnnecessaryParentheses.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class Foo {
   bar: (() => boolean);
@@ -20,8 +19,7 @@ class Foo {
 exports[`functionImplementationErrors.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @allowUnreachableCode: true
 
@@ -187,8 +185,7 @@ var f13 = () => {
 exports[`functionImplementations.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @allowUnreachableCode: true
 
@@ -535,8 +532,7 @@ var f12: (x: number) => any = (x) => {
 exports[`functionOverloadCompatibilityWithVoid01.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function f(x: string): number;
 function f(x: string): void {
@@ -555,8 +551,7 @@ function f(x: string): void {
 exports[`functionOverloadCompatibilityWithVoid02.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function f(x: string): void;
 function f(x: string): number {
@@ -575,8 +570,7 @@ function f(x: string): number {
 exports[`functionOverloadCompatibilityWithVoid03.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function f(x: string): void;
 function f(x: string): void {
@@ -595,8 +589,7 @@ function f(x: string): void {
 exports[`functionOverloadErrorsSyntax.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 //Function overload signature with optional parameter followed by non-optional parameter
 function fn4a(x?: number, y: string);
@@ -648,8 +641,7 @@ exports[`functionOverloadErrorsSyntax.ts format[oxc-ts] 1`] = `
 exports[`functionTypeTypeParameters.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type FuncWithTypeParameter = <T, P>() => {};
 
@@ -662,8 +654,7 @@ type FuncWithTypeParameter = <T, P>() => {};
 exports[`parameterInitializersForwardReferencing.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function left(a, b = a, c = b) {
     a;

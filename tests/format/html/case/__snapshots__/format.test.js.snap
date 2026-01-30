@@ -3,8 +3,7 @@
 exports[`case.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!DOCTYPE html>
 <HTML CLASS="no-js mY-ClAsS">

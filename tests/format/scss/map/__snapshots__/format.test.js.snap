@@ -3,9 +3,8 @@
 exports[`2554.scss - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 $map: (key: value, other-key: other-value);
 $map: (key: value, other-key: other-value) !default;
@@ -322,9 +321,8 @@ $map: map-merge(
 exports[`2554.scss - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 $map: (key: value, other-key: other-value);
 $map: (key: value, other-key: other-value) !default;
@@ -641,9 +639,8 @@ $map: map-merge(
 exports[`3235.scss - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 a {
   transition-timing-function: func1(
@@ -793,9 +790,8 @@ $map: (
 exports[`3235.scss - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 a {
   transition-timing-function: func1(
@@ -945,9 +941,8 @@ $map: (
 exports[`15193.scss - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 $foo: (
     'property1': (),
@@ -974,9 +969,8 @@ $foo: (
 exports[`15193.scss - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 $foo: (
     'property1': (),
@@ -1003,9 +997,8 @@ $foo: (
 exports[`comment.scss - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 $map: (
   /* comment */
@@ -1066,9 +1059,8 @@ $map: (
 exports[`comment.scss - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 $map: (
   /* comment */
@@ -1129,9 +1121,8 @@ $map: (
 exports[`key-values.scss - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 $map: (
   ('key': 'value', 'key': 'value','key': 'value','key': 'value','key': 'value',):
@@ -1209,9 +1200,8 @@ $map: (
 exports[`key-values.scss - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 $map: (
   ('key': 'value', 'key': 'value','key': 'value','key': 'value','key': 'value',):
@@ -1289,9 +1279,8 @@ $map: (
 exports[`keys.scss - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
 trailingComma: "es5"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 $map: (
   'string': 'hello world',
@@ -1333,9 +1322,8 @@ $map: (
 exports[`keys.scss - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
-printWidth: 80
 trailingComma: "none"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 $map: (
   'string': 'hello world',

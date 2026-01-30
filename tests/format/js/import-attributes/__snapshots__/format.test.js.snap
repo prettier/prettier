@@ -3,8 +3,7 @@
 exports[`dynamic-import.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import("./foo.json", { with: { type: "json" } });
 
@@ -17,8 +16,7 @@ import("./foo.json", { with: { type: "json" } });
 exports[`empty.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export * as foo from "foo.json"
 export * as bar from "bar.json" with { }
@@ -43,8 +41,7 @@ import * as baz from "baz.json" /* comment */ with {};
 exports[`keyword-detect.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import "./test.json" /* assert */ with /* assert */  { type: "json" }
 import a from "./test.json" /* assert */ with /* assert */  { type: "json" }
@@ -67,8 +64,7 @@ export * from "./test.json" /* assert */ /* assert */ with { type: "json" };
 exports[`long-sources.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import a11 from "./aaaaaaaaaa.json" with {
 type: "json" };
@@ -181,8 +177,7 @@ import(
 exports[`multi-types.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import json from "./foo.json" with { type: "json", type: "bar" };
 
@@ -219,8 +214,7 @@ Cause: [1:63-1:64]: Duplicate binding 'type'"
 exports[`multiple.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import syntaxImportAssertions from "@babel/plugin-syntax-import-assertions" with {
   BABEL_8_BREAKING: "false",
@@ -263,8 +257,7 @@ import a4 from "foo" with { BABEL_8_BREAKING: "false" };
 exports[`non-type.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import foo from "foo.json" with { lazy: "true" };
 
@@ -277,8 +270,7 @@ import foo from "foo.json" with { lazy: "true" };
 exports[`re-export.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export { default as foo2 } from "foo.json" with { type: "json" };
 export * from "foo.json" with { type: "json" };
@@ -295,8 +287,7 @@ export * as foo3 from "foo.json" with { type: "json" };
 exports[`static-import.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import json from "./foo.json" with { type: "json" };
 
@@ -309,8 +300,7 @@ import json from "./foo.json" with { type: "json" };
 exports[`without-from.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import "foo" with { type: "json" }
 

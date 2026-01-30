@@ -3,9 +3,8 @@
 exports[`indented.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 - 123
 - 456
@@ -30,9 +29,8 @@ proseWrap: "always"
 exports[`simple.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!-- prettier-ignore -->
 This is a long long long long long long long long long long long long long long long paragraph.
@@ -47,9 +45,8 @@ This is a long long long long long long long long long long long long long long 
 exports[`top-level-range.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <!-- prettier-ignore-start -->
 <!-- some tool start (this should be ignored) -->

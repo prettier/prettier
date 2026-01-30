@@ -4,8 +4,7 @@ exports[`intersection-parens.ts - {"experimentalOperatorPosition":"start"} forma
 ====================================options=====================================
 experimentalOperatorPosition: "start"
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 export type A = (
@@ -221,9 +220,8 @@ type Ctor = (new () => X) & Y;
 exports[`intersection-parens.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 export type A = (
@@ -439,8 +437,7 @@ type Ctor = (new () => X) & Y
 exports[`intersection-parens.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 export type A = (
@@ -657,8 +654,7 @@ exports[`type-arguments.ts - {"experimentalOperatorPosition":"start"} format 1`]
 ====================================options=====================================
 experimentalOperatorPosition: "start"
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // #6988
 
@@ -696,9 +692,8 @@ export const MyLongNamedReactFunctionalComponent3: FunctionComponent<
 exports[`type-arguments.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // #6988
 
@@ -736,8 +731,7 @@ export const MyLongNamedReactFunctionalComponent3: FunctionComponent<
 exports[`type-arguments.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // #6988
 

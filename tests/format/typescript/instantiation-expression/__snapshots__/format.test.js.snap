@@ -3,8 +3,7 @@
 exports[`17714.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 void (<_T extends never>() => {})<never>;
 
@@ -17,8 +16,7 @@ void (<_T extends never>() => {})<never>;
 exports[`basic.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // basic
 const foo = bar<T>;
@@ -33,8 +31,7 @@ const foo = bar<T>;
 exports[`binary-expr.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 new A < B >
 C
@@ -49,8 +46,7 @@ C;
 exports[`inferface-asi.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 interface Example {
   (a: number): typeof a
@@ -71,8 +67,7 @@ interface Example {
 exports[`logical-expr.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export class Foo<T> {
   message: string;
@@ -104,8 +99,7 @@ function sample(error: unknown) {
 exports[`new.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // new
 new A<T>;
@@ -120,8 +114,7 @@ new A<T>();
 exports[`property-access.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 (Array<string>).name;
 (fn1<string>).bind(obj);
@@ -160,8 +153,7 @@ a[(Array<string>).name];
 exports[`typeof.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 let x: typeof y.z<w>;
 

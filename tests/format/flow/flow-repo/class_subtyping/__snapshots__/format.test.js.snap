@@ -3,8 +3,7 @@
 exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* @flow */
 class A {}
@@ -25,8 +24,7 @@ module.exports = { A, B };
 exports[`test2.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* @flow */
 var I = require("./test.js");
@@ -51,8 +49,7 @@ var y: I.B = new C();
 exports[`test3.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class A<X, Y, Z> {}
 class B extends A<string, number, bool> {}
@@ -75,8 +72,7 @@ var a: A<string, number, Array<boolean>> = c; // the third type arg is incorrect
 exports[`test4.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class C<X> { x: X; }
 

@@ -3,8 +3,7 @@
 exports[`in-unary-expression.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 
@@ -179,8 +178,7 @@ const foo = () =>
 exports[`issue-7024.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const radioSelectedAttr =
   (isAnyValueSelected &&
@@ -200,8 +198,7 @@ const radioSelectedAttr =
 exports[`logical-expression-operators.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // Same operators do not require parens
 (foo && bar) && baz;

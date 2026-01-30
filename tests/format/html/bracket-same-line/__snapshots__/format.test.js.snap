@@ -4,8 +4,7 @@ exports[`block.html - {"bracketSameLine":false} format 1`] = `
 ====================================options=====================================
 bracketSameLine: false
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <div long_long_attribute="long_long_long_long_long_long_long_long_long_long_long_value">
 text
@@ -35,8 +34,7 @@ exports[`block.html - {"bracketSameLine":true} format 1`] = `
 ====================================options=====================================
 bracketSameLine: true
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <div long_long_attribute="long_long_long_long_long_long_long_long_long_long_long_value">
 text
@@ -64,8 +62,7 @@ exports[`embed.html - {"bracketSameLine":false} format 1`] = `
 ====================================options=====================================
 bracketSameLine: false
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <script long_long_attribute="long_long_long_long_long_long_long_long_long_long_long_value">
 alert(1)</script>
@@ -105,8 +102,7 @@ exports[`embed.html - {"bracketSameLine":true} format 1`] = `
 ====================================options=====================================
 bracketSameLine: true
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <script long_long_attribute="long_long_long_long_long_long_long_long_long_long_long_value">
 alert(1)</script>
@@ -144,8 +140,7 @@ exports[`inline.html - {"bracketSameLine":false} format 1`] = `
 ====================================options=====================================
 bracketSameLine: false
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 <span long_long_attribute="long_long_long_long_long_long_long_long_long_long_long_value">
@@ -192,8 +187,7 @@ exports[`inline.html - {"bracketSameLine":true} format 1`] = `
 ====================================options=====================================
 bracketSameLine: true
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 <span long_long_attribute="long_long_long_long_long_long_long_long_long_long_long_value">
@@ -236,8 +230,7 @@ exports[`void-elements.html - {"bracketSameLine":false} format 1`] = `
 ====================================options=====================================
 bracketSameLine: false
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <img long_long_attribute="long_long_long_long_long_long_long_long_long_long_long_value" src="./1.jpg"/>
 <img src="./1.jpg"/><img src="./1.jpg"/><img src="./1.jpg"/><img src="./1.jpg"/><img src="./1.jpg"/>
@@ -258,8 +251,7 @@ exports[`void-elements.html - {"bracketSameLine":true} format 1`] = `
 ====================================options=====================================
 bracketSameLine: true
 parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <img long_long_attribute="long_long_long_long_long_long_long_long_long_long_long_value" src="./1.jpg"/>
 <img src="./1.jpg"/><img src="./1.jpg"/><img src="./1.jpg"/><img src="./1.jpg"/><img src="./1.jpg"/>

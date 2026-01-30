@@ -3,8 +3,7 @@
 exports[`overload.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /**
  * tests of overload selection
@@ -117,8 +116,7 @@ var z2:Array<string> = new Dummy().dumber(bar2);
 exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function foo() {
   var output = new FakeUint8Array();
@@ -137,8 +135,7 @@ function foo() {
 exports[`test2.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 declare class Foo {
   bar(x: 'hmm'): number;
@@ -163,8 +160,7 @@ var foo = new Foo();
 exports[`test3.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // passing a union-like thing into an overload is ok
 // if overload handles each branch of union-like thing
@@ -217,8 +213,7 @@ h(x_h.p); // ok
 exports[`union.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function foo<U> (x: $Either<Array<U>,U>): Array<U> { return []; }
 

@@ -3,8 +3,7 @@
 exports[`blowup.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @flow
 
@@ -116,8 +115,7 @@ export class ModOp extends BinaryExpression<
 exports[`fields.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class C {
     x: ?number|string;
@@ -140,8 +138,7 @@ class C {
 exports[`fields2.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class C { }
 
@@ -170,8 +167,7 @@ class D {
 exports[`issue-17.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* @flow */
 
@@ -212,8 +208,7 @@ var l: Array<T> = [
 exports[`issue-198.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 var p = new Promise(function(resolve, reject) {
     resolve(5);
@@ -244,8 +239,7 @@ var p = new Promise(function (resolve, reject) {
 exports[`issue-256.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 declare class Myclass {
     myfun(myarray: Array<Function | string>): any;
@@ -270,8 +264,7 @@ myclass.myfun(["1", "2", "3", "4", "5", "6", "7", function (ar) {}]);
 exports[`issue-323.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 var Foo = require("./issue-323-lib");
 var foo = new Foo();
@@ -288,8 +281,7 @@ var foostr: Foo | string = foo;
 exports[`issue-323-lib.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* @flow */
 class Foo {}
@@ -306,8 +298,7 @@ module.exports = Foo;
 exports[`issue-324.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* @flow */
 class Foo{};
@@ -334,8 +325,7 @@ foostr = barstr;
 exports[`issue-325.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class Tag {
     constructor() {
@@ -374,8 +364,7 @@ class Tag_ {
 exports[`issue-326.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 var numberAndStringArr:Array<number|string> = [1,2];
 var stringArr:Array<string> = ['a','b'];
@@ -394,8 +383,7 @@ var result = numberAndStringArr.concat(stringArr); // no error
 exports[`issue-582.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /***
  * nested unions
@@ -434,8 +422,7 @@ var nested2: FooBarBaz = "baz";
 exports[`issue-963.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /***
  * unions with embedded intersections
@@ -514,8 +501,7 @@ const u3: union2 = {
 exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 var C = require('test-lib');
 
@@ -564,8 +550,7 @@ bar(f);
 exports[`test-lib.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* @providesModule test-lib */
 
@@ -584,8 +569,7 @@ module.exports = C;
 exports[`type-app.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /**
  * @flow
@@ -624,8 +608,7 @@ var b: Iterator<number> | number = 123;
 exports[`union.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function bar(x: Document | string): void { }
 bar(0);
@@ -678,8 +661,7 @@ function corge(b) {
 exports[`yuge.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /**
  * great big union used as type annotation will be flowed into itself.

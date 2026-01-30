@@ -3,8 +3,7 @@
 exports[`backslashes.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <p>\\</p>
 <p>\\\\</p>
@@ -22,8 +21,7 @@ printWidth: 80
 exports[`backslashes-in-attributes.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <p data-attr="backslash \\ in an attribute"></p>
 
@@ -35,8 +33,7 @@ printWidth: 80
 exports[`html-entities.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <p>Some escaped characters: &lt; &gt; &amp;</p>
 =====================================output=====================================
@@ -47,8 +44,7 @@ printWidth: 80
 exports[`mustache.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <div title="foo \\{{"> \\{{ </div>
 <div class=" bar \\{{">\\{{</div>
@@ -62,8 +58,7 @@ printWidth: 80
 exports[`numeric-entities.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <span class="stampFont" style="font-family: 'stampfont'">&#xf000;</span>
 

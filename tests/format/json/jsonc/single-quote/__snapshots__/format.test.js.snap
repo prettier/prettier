@@ -3,9 +3,8 @@
 exports[`test.jsonc - {"singleQuote":false} format 1`] = `
 ====================================options=====================================
 parsers: ["jsonc"]
-printWidth: 80
 singleQuote: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [
   "Should always use double quote",
@@ -28,9 +27,8 @@ singleQuote: false
 exports[`test.jsonc - {"singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["jsonc"]
-printWidth: 80
 singleQuote: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [
   "Should always use double quote",

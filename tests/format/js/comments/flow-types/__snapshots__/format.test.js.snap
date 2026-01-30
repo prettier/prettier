@@ -3,8 +3,7 @@
 exports[`inline.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 btnActions[1] = () => (
   <button> test </button>

@@ -3,8 +3,7 @@
 exports[`export.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 declare function foo(): void;
 export { foo };
@@ -19,8 +18,7 @@ export { foo };
 exports[`implicit.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 declare module "foo" {
   function greet(name: string): string;

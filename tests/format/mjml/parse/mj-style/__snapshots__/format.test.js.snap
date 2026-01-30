@@ -3,8 +3,7 @@
 exports[`invalid-in-html.mjml format 1`] = `
 ====================================options=====================================
 parsers: ["mjml", "html"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <mj-style>
   a::before { content: "</p>";

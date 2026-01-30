@@ -3,8 +3,7 @@
 exports[`block-comments.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 bifornCringerMoshedPerplexSawder
 |> foo1
@@ -70,8 +69,7 @@ exports[`block-comments.js format[oxc] 1`] = `
 exports[`fsharp_style_pipeline_operator.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 promise
   |> await
@@ -208,8 +206,7 @@ exports[`fsharp_style_pipeline_operator.js format[oxc] 1`] = `
 exports[`hack_pipeline_operator.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 a |> await % |> % * 3;
 
@@ -361,8 +358,7 @@ exports[`hack_pipeline_operator.js format[oxc] 1`] = `
 exports[`minimal_pipeline_operator.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 a |> b |> c;
 

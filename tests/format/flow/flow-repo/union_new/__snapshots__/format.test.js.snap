@@ -3,8 +3,7 @@
 exports[`issue-815.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* @flow */
 type T = A|B;
@@ -55,8 +54,7 @@ class VirtualNode {
 exports[`issue-824.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import { B, C } from "./issue-824-helper";
 
@@ -99,8 +97,7 @@ export default class A {
 exports[`issue-824-helper.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import A from "./issue-824";
 
@@ -135,8 +132,7 @@ export class C extends A {
 exports[`issue-1349.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* @flow */
 
@@ -159,8 +155,7 @@ var bar: Array<{ b: ?boolean, c: number } | { b: boolean }> = [
 exports[`issue-1371.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function create(a: any): { type: 'B', data: number } | { type: 'A', data: string }
 {
@@ -186,8 +181,7 @@ function create(
 exports[`issue-1455.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* @flow */
 import type {Foobar} from "./issue-1455-helper"
@@ -215,8 +209,7 @@ function node(content: ?Foobar | String | Array<String>) {
 exports[`issue-1455-helper.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* @flow */
 
@@ -233,8 +226,7 @@ export class Foobar {}
 exports[`issue-1462-i.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type Common = {
 };
@@ -288,8 +280,7 @@ function printAll(val: MyType) {
 exports[`issue-1462-ii.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type Common = {
 };
@@ -352,8 +343,7 @@ function printAll(val: MyType) {
 exports[`issue-1664.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* @flow */
 
@@ -416,8 +406,7 @@ if (data.kind === "system") {
 exports[`issue-1759.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @flow
 
@@ -445,8 +434,7 @@ function hello(x: X): string {
 exports[`issue-2232.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* @flow */
 
@@ -504,8 +492,7 @@ function test(f: Foo | EmptyFoo) {
 exports[`test1.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @noflow
 
@@ -636,8 +623,7 @@ type A6 = B6[];
 exports[`test2.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @noflow
 
@@ -802,8 +788,7 @@ type B6 = string;
 exports[`test3.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @noflow
 
@@ -872,8 +857,7 @@ type B2 = string;
 exports[`test4.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @noflow
 
@@ -962,8 +946,7 @@ type B2 = string;
 exports[`test5.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @noflow
 
@@ -1034,8 +1017,7 @@ function arr_set(x: string, i: number) {
 exports[`test6.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @noflow
 
@@ -1098,8 +1080,7 @@ class C<X> {}
 exports[`test7.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @noflow
 
@@ -1168,8 +1149,7 @@ type PG<X> = { x: X, y?: PG<X> };
 exports[`test8.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @noflow
 
@@ -1226,8 +1206,7 @@ type H2_ = number;
 exports[`test9.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @noflow
 
@@ -1270,8 +1249,7 @@ foo((x): number => square(x));
 exports[`test10.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @noflow
 
@@ -1428,8 +1406,7 @@ check_poly_inst(new P());
 exports[`test11.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @noflow
 
@@ -1475,8 +1452,7 @@ type Cons = { kind: "cons", next: List };
 exports[`test12.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @noflow
 
@@ -1507,8 +1483,7 @@ function rec(x: F<string>): G | H {
 exports[`test13.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @noflow
 
@@ -1543,8 +1518,7 @@ printWidth: 80
 exports[`test14.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @noflow
 
@@ -1581,8 +1555,7 @@ function foo(c: C<number>) {
 exports[`test15.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @noflow
 
@@ -1641,8 +1614,7 @@ bar(() => {});
 exports[`test16.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @noflow
 
@@ -1691,8 +1663,7 @@ x = "";
 exports[`test17.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @noflow
 
@@ -1717,8 +1688,7 @@ printWidth: 80
 exports[`test18.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @noflow
 
@@ -1755,8 +1725,7 @@ new C().m(f());
 exports[`test19.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @noflow
 
@@ -1791,8 +1760,7 @@ declare class D {
 exports[`test20.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @noflow
 
@@ -1828,8 +1796,7 @@ printWidth: 80
 exports[`test21.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @noflow
 
@@ -1880,8 +1847,7 @@ function str() {
 exports[`test22.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @noflow
 
@@ -1934,8 +1900,7 @@ function foo(x: T) {
 exports[`test23.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @noflow
 
@@ -1970,8 +1935,7 @@ function foo(obj: Obj) {
 exports[`test24.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @noflow
 
@@ -2047,8 +2011,7 @@ declare class D extends C {
 exports[`test25.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @noflow
 
@@ -2082,8 +2045,7 @@ function foo(rows: Rows, set: Set<number>) {
 exports[`test26.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @noflow
 
@@ -2134,8 +2096,7 @@ new Record().set("foo", "42");
 exports[`test27.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @noflow
 
@@ -2196,8 +2157,7 @@ function hello4(x: X): string {
 exports[`test29.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @noflow
 
@@ -2264,8 +2224,7 @@ class C {
 exports[`test30.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @noflow
 
@@ -2292,8 +2251,7 @@ type ActionType = { type: "foo", x: number } | { type: "bar", x: number };
 exports[`test30-helper.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @noflow
 
@@ -2316,8 +2274,7 @@ module.exports = {
 exports[`test31.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @noflow
 
@@ -2378,8 +2335,7 @@ function foo(): ImmutableMap<string, boolean> {
 exports[`test32.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @flow
 

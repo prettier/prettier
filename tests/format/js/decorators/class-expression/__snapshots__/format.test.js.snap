@@ -3,9 +3,8 @@
 exports[`arguments.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 console.log(@deco class Foo {})
 console.log(@deco class {})
@@ -63,8 +62,7 @@ console.log(@deco class Foo {})
 exports[`arguments.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 console.log(@deco class Foo {})
 console.log(@deco class {})
@@ -122,9 +120,8 @@ console.log(@deco class Foo {})
 exports[`class-expression.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const a1 = (@deco class Foo {});
 const a2 = (@deco class {});
@@ -221,8 +218,7 @@ const a1 = (@deco class Foo {});
 exports[`class-expression.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const a1 = (@deco class Foo {});
 const a2 = (@deco class {});
@@ -319,9 +315,8 @@ const a1 = (@deco class Foo {});
 exports[`member-expression.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 (@deco class Foo {}).name;
 (@deco class {}).name;
@@ -379,8 +374,7 @@ Cause: unrecognized character '@' (1:1)
 exports[`member-expression.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 (@deco class Foo {}).name;
 (@deco class {}).name;
@@ -438,9 +432,8 @@ Cause: unrecognized character '@' (1:1)
 exports[`super-class.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
 semi: false
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class Foo extends (@deco class Foo {}){}
 
@@ -504,8 +497,7 @@ class Foo extends (@deco class Foo {}){}
 exports[`super-class.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class Foo extends (@deco class Foo {}){}
 

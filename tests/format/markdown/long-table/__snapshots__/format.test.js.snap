@@ -3,9 +3,8 @@
 exports[`long-table.md - {"proseWrap":"never"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "never"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 | Property | Description | Type | Default |
 | -------- | ----------- | ---- | ------- |
@@ -41,8 +40,7 @@ proseWrap: "never"
 exports[`long-table.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 | Property | Description | Type | Default |
 | -------- | ----------- | ---- | ------- |

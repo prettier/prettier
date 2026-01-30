@@ -3,8 +3,7 @@
 exports[`CRLF.less format 1`] = `
 ====================================options=====================================
 parsers: ["less"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 @nice-blue: #5B83AD;
 @light-blue: @nice-blue + #111;
@@ -65,8 +64,7 @@ printWidth: 80
 exports[`between-decl.less format 1`] = `
 ====================================options=====================================
 parsers: ["less"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 selector {
 prop: // comment
@@ -157,8 +155,7 @@ selector {
 exports[`block.less format 1`] = `
 ====================================options=====================================
 parsers: ["less"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // Animation definitions cannot cross the shadow boundary,
 // and thus need to be loaded directly into the atom-text-editor scope.
@@ -181,8 +178,7 @@ printWidth: 80
 exports[`block-2.less format 1`] = `
 ====================================options=====================================
 parsers: ["less"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* Kikoo */
 /**
@@ -201,8 +197,7 @@ printWidth: 80
 exports[`in-value.less format 1`] = `
 ====================================options=====================================
 parsers: ["less"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 .real-world-example {
   background: radial-gradient(
@@ -241,8 +236,7 @@ printWidth: 80
 exports[`issue-8130.less format 1`] = `
 ====================================options=====================================
 parsers: ["less"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 @import "../node_modules/foo/bar.less";
 
@@ -267,8 +261,7 @@ printWidth: 80
 exports[`mixed.less format 1`] = `
 ====================================options=====================================
 parsers: ["less"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* DO NOT ADD EXTRA CODE TO THIS FILE */
 
@@ -297,8 +290,7 @@ printWidth: 80
 exports[`mixed-2.less format 1`] = `
 ====================================options=====================================
 parsers: ["less"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* DO NOT ADD EXTRA CODE TO THIS FILE */
 @import "a";
@@ -321,8 +313,7 @@ printWidth: 80
 exports[`mixed-block.less format 1`] = `
 ====================================options=====================================
 parsers: ["less"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* DO NOT ADD EXTRA CODE TO THIS FILE */
 
@@ -351,8 +342,7 @@ printWidth: 80
 exports[`places.less format 1`] = `
 ====================================options=====================================
 parsers: ["less"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 div {
   // a
@@ -380,8 +370,7 @@ div {
 exports[`prettier-ignore.less format 1`] = `
 ====================================options=====================================
 parsers: ["less"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // prettier-ignore
 @blue:  blue;
@@ -410,8 +399,7 @@ foo {
 exports[`selectors.less format 1`] = `
 ====================================options=====================================
 parsers: ["less"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* custom properties set & @apply rule */
 :root {
@@ -439,8 +427,7 @@ printWidth: 80
 exports[`trailing_star_slash.less format 1`] = `
 ====================================options=====================================
 parsers: ["less"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 @media (max-width: 1) {}
 a {
@@ -460,8 +447,7 @@ a {
 exports[`value-lists.less format 1`] = `
 ====================================options=====================================
 parsers: ["less"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 @test-space-separated: #aaaaaa // Start with A
   #bbbbbb // then some B

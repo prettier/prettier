@@ -4,8 +4,7 @@ exports[`boolean.js - {"experimentalOperatorPosition":"start"} format 1`] = `
 ====================================options=====================================
 experimentalOperatorPosition: "start"
 parsers: ["babel", "typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 a = Boolean(
   a_long_long_long_long_condition || a_long_long_long_long_condition || a_long_long_long_long_condition,
@@ -188,8 +187,7 @@ a = Boolean(
 exports[`boolean.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 a = Boolean(
   a_long_long_long_long_condition || a_long_long_long_long_condition || a_long_long_long_long_condition,

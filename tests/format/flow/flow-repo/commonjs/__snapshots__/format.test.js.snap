@@ -3,8 +3,7 @@
 exports[`Abs.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 function f(x:string) { }
@@ -22,8 +21,7 @@ module.exports = f;
 exports[`Rel.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 var f = require('./Abs');

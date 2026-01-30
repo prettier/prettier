@@ -3,8 +3,7 @@
 exports[`issue-598.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* @flow */
 
@@ -61,8 +60,7 @@ function identity<A>(val: A): Functor<A> {
 exports[`issue-1228.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* @flow */
 
@@ -92,8 +90,7 @@ function id(x: Task<any, any>): Task<any, any> {
 exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class P<X> { x: X; } // this is like Promise
 
@@ -138,8 +135,7 @@ pstar = (new P(): P<P<number>>); // OK
 exports[`test2.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 var a = []; // Array<X> ~> a
 function bar() {
@@ -210,8 +206,7 @@ class C<X> extends B<X> {}
 exports[`test3.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type I<X> = () => I<I<X>>;
 type J<X> = () => J<J<X>>;
@@ -254,8 +249,7 @@ function bar(x: P<number>): () => P<number> {
 exports[`test4.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type T = T // cycle in type alias should not cause non-termination
 
@@ -268,8 +262,7 @@ type T = T; // cycle in type alias should not cause non-termination
 exports[`test5.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* @flow */
 

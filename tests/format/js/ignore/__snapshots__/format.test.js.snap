@@ -3,8 +3,7 @@
 exports[`decorator.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // prettier-ignore
 @decorator
@@ -52,8 +51,7 @@ Cause: unrecognized character '@' (2:0)
 exports[`ignore.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function a() {
   // prettier-ignore
@@ -180,8 +178,7 @@ const response = {
 exports[`issue-9335.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class foo extends
   // prettier-ignore
@@ -198,8 +195,7 @@ class foo
 exports[`issue-9877.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 export default function test() {
   return {
@@ -232,8 +228,7 @@ export default function test() {
 exports[`issue-10661.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 verylongidentifierthatwillwrap123123123123123(
   a.b
@@ -296,8 +291,7 @@ because the prettier-ignore comment is attached as MemberExpression leading comm
 exports[`issue-11077.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function HelloWorld(x) {
 
@@ -343,8 +337,7 @@ function HelloWorld(x) {
 exports[`issue-13737.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 oneArgument(
  // prettier-ignore
@@ -372,8 +365,7 @@ a =
 exports[`issue-14404.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 async function foo() {
 (
@@ -396,8 +388,7 @@ async function foo() {
 exports[`issue-18303.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 let x =
     1

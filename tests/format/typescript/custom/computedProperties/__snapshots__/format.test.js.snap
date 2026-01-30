@@ -3,8 +3,7 @@
 exports[`string.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 interface I {
     "string": "I";
@@ -45,8 +44,7 @@ type B = {
 exports[`symbol.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 interface I {
     [Symbol.toStringTag]: "I";

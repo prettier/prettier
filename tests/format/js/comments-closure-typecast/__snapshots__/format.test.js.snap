@@ -3,8 +3,7 @@
 exports[`array-and-object.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 foo = /** @type A */ ({
   // comment
@@ -41,8 +40,7 @@ foo = /** @type A */ ([
 exports[`binary-expr.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 var a = b || /** @type {string} */
     (c);
@@ -56,8 +54,7 @@ var a = b || /** @type {string} */ (c);
 exports[`closure-compiler-type-cast.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // test to make sure comments are attached correctly
 let inlineComment = /* some comment */ (
@@ -190,8 +187,7 @@ const style2 = /**
 exports[`comment-in-the-middle.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 var a =
 /**
@@ -224,8 +220,7 @@ console.log(a.foo());
 exports[`comment-placement.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const foo1 = /** @type {string} */
   (value);
@@ -269,8 +264,7 @@ const foo5 = /** @type {string} */ (value);
 exports[`extra-spaces-and-asterisks.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const foo1 = /** @type {!Foo} */(bar);
 const foo2 = /** @type {!Foo} **/(bar);
@@ -297,8 +291,7 @@ const foo8 = /** @type {!Foo}    ** *   *   */ (bar);
 exports[`iife.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const helpers1 = /** @type {Helpers} */ ((
   (helpers = {}) => helpers
@@ -335,8 +328,7 @@ const helpers = /** @type {Helpers} */ (
 exports[`iife-issue-5850-isolated.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const a = /** @param {*} b */
 ((b) => {})();
@@ -350,8 +342,7 @@ const a = /** @param {*} b */ ((b) => {})();
 exports[`issue-4124.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /** @type {Object} */(myObject.property).someProp = true;
 (/** @type {Object} */(myObject.property)).someProp = true;
@@ -396,8 +387,7 @@ const foo2 = /** @type (function (*): ?|undefined) */ (foo);
 exports[`issue-8045.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const myLongVariableName = /** @type {ThisIsAVeryLongTypeThatShouldTriggerLineWrapping} */ (fooBarBaz);
 
@@ -459,8 +449,7 @@ function jsdocCastInReturn() {
 exports[`issue-9358.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const fooooba1 = /** @type {Array.<fooo.barr.baaaaaaz>} */ (fooobaarbazzItems || foo);
 const fooooba2 = /** @type {Array.<fooo.barr.baaaaaaz>} */ (fooobaarbazzItems + foo);
@@ -490,8 +479,7 @@ const fooooba4 =
 exports[`member.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 foo = (/** @type {!Baz} */ (baz).bar);
 
@@ -504,8 +492,7 @@ foo = /** @type {!Baz} */ (baz).bar;
 exports[`nested.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 foo = /** @type {!Foo} */ (/** @type {!Baz} */ (baz).bar );
 
@@ -534,8 +521,7 @@ const BarImpl = /** @type {BarConstructor} */ (
 exports[`non-casts.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* @type { } */
 z(x => {
@@ -582,8 +568,7 @@ const w1 = /** @typefoo Foo */ value;
 exports[`object-with-comment.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const objectWithComment = /** @type MyType */ (
   /* comment */
@@ -617,8 +602,7 @@ const objectWithComment2 = /** @type MyType */ (
 exports[`satisfies.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 module.exports = /** @satisfies {Record<string, string>} */ ({
   hello: 1337,
@@ -635,8 +619,7 @@ module.exports = /** @satisfies {Record<string, string>} */ ({
 exports[`styled-components.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const OverlapWrapper =
   /** @type {import('styled-components').ThemedStyledFunction<'div',null,{overlap: boolean}>} */
@@ -667,8 +650,7 @@ const OverlapWrapper =
 exports[`superclass.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class Foo extends /** @type {string} */ (Bar) {}
 
@@ -681,8 +663,7 @@ class Foo extends /** @type {string} */ (Bar) {}
 exports[`ways-to-specify-type.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const curlyBraces = /** @type {string} */ (foo);
 const curlyBraces2 = /**@type {string} */ (foo);

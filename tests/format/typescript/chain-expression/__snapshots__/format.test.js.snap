@@ -3,8 +3,7 @@
 exports[`call-expression.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // Member expressions
 (a?.b)!   ();
@@ -155,8 +154,7 @@ a?.b()!?.();
 exports[`issue-15785-1.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function someFunctionName(
 ) {
@@ -192,8 +190,7 @@ function someFunctionName() {
 exports[`issue-15785-2.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 const theValue = Object.entries(someLongObjectName).filter(
   ([listingId]) => someListToCompareToHere?.includes(listingId),
@@ -222,8 +219,7 @@ const theValue3 = Object.entries(someLongObjectName).filter(([listingId]) =>
 exports[`member-chain.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 bifornCringerMoshedPerplexSawder = (
     glimseGlyphsHazardNoopsTieTie
@@ -318,8 +314,7 @@ bifornCringerMoshedPerplexSawder =
 exports[`member-expression.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // Member expressions
 (a?.b)!   .foo;
@@ -477,8 +472,7 @@ a?.b!?.c;
 exports[`new-expression.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // Member expressions
 new   (a?.b)!   ();
@@ -625,8 +619,7 @@ new ((a?.b)!?.c)();
 exports[`tagged-template-literals.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // Member expressions
 (a?.b)!   \`\`;
@@ -767,8 +760,7 @@ a(b?.c!)\`\`;
 exports[`test.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 (a?.b!).c;
 (a?.()!).b;
@@ -787,8 +779,7 @@ printWidth: 80
 exports[`test2.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {{
     const rotation1 = getTransformHandles(arrow, h.state.zoom, 'mouse')

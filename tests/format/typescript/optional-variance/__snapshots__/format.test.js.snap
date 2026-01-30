@@ -3,8 +3,7 @@
 exports[`basic.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type Covariant<out T> = {
     x: T;
@@ -137,8 +136,7 @@ declare class StateNode<TContext, in out TEvent extends { type: string }> {
 exports[`with-jsx.tsx format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type Covariant<out T> = {
     x: T;

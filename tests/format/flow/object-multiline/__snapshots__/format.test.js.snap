@@ -4,8 +4,7 @@ exports[`multiline.js - {"objectWrap":"collapse"} format 1`] = `
 ====================================options=====================================
 objectWrap: "collapse"
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type A = {
   name1: 'value1',
@@ -70,8 +69,7 @@ const e: E = { name1: "value1", name2: "value2" };
 exports[`multiline.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type A = {
   name1: 'value1',

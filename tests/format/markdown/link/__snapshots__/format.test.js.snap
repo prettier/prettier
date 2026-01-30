@@ -3,10 +3,9 @@
 exports[`autolink.md - {"proseWrap":"always","singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
 singleQuote: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <https://www.example.com>
 
@@ -27,9 +26,8 @@ singleQuote: true
 exports[`autolink.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 <https://www.example.com>
 
@@ -50,10 +48,9 @@ proseWrap: "always"
 exports[`encodedLink.md - {"proseWrap":"always","singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
 singleQuote: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [link](https://www.google.fr/()foo->bar)
 [link](https://www.google.fr/foo->bar)
@@ -89,9 +86,8 @@ https://www.google.fr/foo-%3Cbar
 exports[`encodedLink.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [link](https://www.google.fr/()foo->bar)
 [link](https://www.google.fr/foo->bar)
@@ -127,10 +123,9 @@ https://www.google.fr/foo-%3Cbar
 exports[`entity.md - {"proseWrap":"always","singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
 singleQuote: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [Test](http://localhost:8080/test?language=DE&currency=EUR)
 
@@ -143,9 +138,8 @@ singleQuote: true
 exports[`entity.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [Test](http://localhost:8080/test?language=DE&currency=EUR)
 
@@ -158,10 +152,9 @@ proseWrap: "always"
 exports[`escape-in-link.md - {"proseWrap":"always","singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
 singleQuote: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 "https\\://developer.mozilla.org" x
 
@@ -174,9 +167,8 @@ singleQuote: true
 exports[`escape-in-link.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 "https\\://developer.mozilla.org" x
 
@@ -189,10 +181,9 @@ proseWrap: "always"
 exports[`long.md - {"proseWrap":"always","singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
 singleQuote: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [podium context](https://github.schibsted.io/finn/podium/tree/master/packages/podium-context)
 
@@ -205,9 +196,8 @@ singleQuote: true
 exports[`long.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [podium context](https://github.schibsted.io/finn/podium/tree/master/packages/podium-context)
 
@@ -220,10 +210,9 @@ proseWrap: "always"
 exports[`simple.md - {"proseWrap":"always","singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
 singleQuote: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [hello](#world)
 
@@ -236,9 +225,8 @@ singleQuote: true
 exports[`simple.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [hello](#world)
 
@@ -251,10 +239,9 @@ proseWrap: "always"
 exports[`title.md - {"proseWrap":"always","singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
 singleQuote: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [hello](#world "title")
 [hello](#world 'title')
@@ -315,9 +302,8 @@ singleQuote: true
 exports[`title.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 [hello](#world "title")
 [hello](#world 'title')
@@ -378,10 +364,9 @@ proseWrap: "always"
 exports[`url.md - {"proseWrap":"always","singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
 singleQuote: true
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 https://www.example.com/
 
@@ -394,9 +379,8 @@ https://www.example.com/
 exports[`url.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
-printWidth: 80
 proseWrap: "always"
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 https://www.example.com/
 

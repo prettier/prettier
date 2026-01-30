@@ -51,10 +51,7 @@ function runFormatTest(rawFixtures, explicitParsers, rawOptions) {
     path.dirname(url.fileURLToPath(importMeta.url)),
   );
 
-  let options = {
-    printWidth: 80,
-    ...rawOptions,
-  };
+  let options = { ...rawOptions };
 
   // `IS_ERROR_TEST` mean to watch errors like:
   // - syntax parser hasn't supported yet

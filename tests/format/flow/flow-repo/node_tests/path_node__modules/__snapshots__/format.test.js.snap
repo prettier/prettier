@@ -3,8 +3,7 @@
 exports[`foo.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 var x = require('bar_lib/src/lib/bar');
 console.log(x);

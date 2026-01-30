@@ -3,8 +3,7 @@
 exports[`decorator-auto-accessors-new-line.ts format 1`] = `
 ====================================options=====================================
 parsers: ["babel-ts"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class Foo {
   accessor
@@ -43,8 +42,7 @@ class Foo {
 exports[`parenthesized-decorators-call-expression.ts format 1`] = `
 ====================================options=====================================
 parsers: ["babel-ts"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 @(test().x("global").y())
 class X {}
@@ -59,8 +57,7 @@ class X {}
 exports[`parenthesized-decorators-tagged-template.ts format 1`] = `
 ====================================options=====================================
 parsers: ["babel-ts"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class Test {
   @(foo\`bar\`)

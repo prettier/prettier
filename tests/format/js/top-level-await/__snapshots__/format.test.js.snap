@@ -3,8 +3,7 @@
 exports[`example.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 await something();
 
@@ -17,8 +16,7 @@ await something();
 exports[`in-expression.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 call(
 await something()
@@ -33,8 +31,7 @@ call(await something());
 exports[`test.cjs format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 await(1);
 
@@ -47,8 +44,7 @@ await(1);
 exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 await(1);
 
@@ -61,8 +57,7 @@ await 1;
 exports[`test.mjs format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 await(1);
 

@@ -3,8 +3,7 @@
 exports[`abnormal.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* @flow */
 
@@ -109,8 +108,7 @@ function corge(x: boolean) {
 exports[`abnormal_for_in.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function foo(x: boolean) {
   var obj = { a: 1, b: 2};
@@ -205,8 +203,7 @@ function corge(x: boolean) {
 exports[`abnormal_for_of.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function foo(x: boolean) {
   var arr = [1, 2, 3];

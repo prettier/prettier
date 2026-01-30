@@ -3,8 +3,7 @@
 exports[`comment-before-arrow.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 a = () /* before arrow */ =>
 null;

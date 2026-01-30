@@ -3,8 +3,7 @@
 exports[`constructorDefaultValuesReferencingThis.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class C {
     constructor(x = this) { }
@@ -36,8 +35,7 @@ class E<T> {
 exports[`constructorImplementationWithDefaultValues.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class C {
     constructor(x);
@@ -87,8 +85,7 @@ class E<T extends Date> {
 exports[`constructorImplementationWithDefaultValues2.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class C {
     constructor(x);
@@ -141,8 +138,7 @@ class E<T extends Date> {
 exports[`constructorOverloadsWithDefaultValues.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class C {
     foo: string;
@@ -176,8 +172,7 @@ class D<T> {
 exports[`constructorOverloadsWithOptionalParameters.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class C {
     foo: string;
@@ -211,8 +206,7 @@ class D<T> {
 exports[`constructorParameterProperties.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class C {
     y: string;
@@ -270,8 +264,7 @@ var r4 = d.z; // error
 exports[`constructorParameterProperties2.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class C {
     y: number;
@@ -344,8 +337,7 @@ var r4 = f.y; // error
 exports[`declarationEmitReadonly.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // @declaration: true
 
@@ -365,8 +357,7 @@ class C {
 exports[`readonlyConstructorAssignment.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // Tests that readonly parameter properties behave like regular readonly properties
 
@@ -453,8 +444,7 @@ class E extends D {
 exports[`readonlyInConstructorParameters.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class C {
     constructor(readonly x: number) {}
@@ -502,8 +492,7 @@ Cause: 'public' modifier must precede 'readonly' modifier. (7:25)"
 exports[`readonlyReadonly.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class C {
     readonly readonly x: number;

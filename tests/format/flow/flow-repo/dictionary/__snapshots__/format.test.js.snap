@@ -3,8 +3,7 @@
 exports[`any.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* @flow */
 
@@ -25,8 +24,7 @@ const val: string = dict[k]; // error: number incompatible with string
 exports[`compatible.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* @flow */
 
@@ -70,8 +68,7 @@ function foo2(x: { [key: string]: number }): {
 exports[`dictionary.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* Dictionary types are object types that include an indexer, which specifies a
  * key type and a value type. The presence of an indexer makes the object type
@@ -679,8 +676,7 @@ function subtype_optional_c_to_dict(x: { p?: C }): { [k: string]: B } {
 exports[`incompatible.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* @flow */
 
@@ -810,8 +806,7 @@ function foo8(x: { [key: string]: number }) {
 exports[`issue-1745.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /* @flow */
 
@@ -872,8 +867,7 @@ class B {
 exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 type Params = {count: number; [name: string]: string};
 type QueryFunction = (params: Params) => string;
@@ -904,8 +898,7 @@ module.exports = o;
 exports[`test_client.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 var o = require('./test');
 

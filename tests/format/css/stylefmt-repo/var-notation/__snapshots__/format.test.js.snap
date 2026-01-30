@@ -3,8 +3,7 @@
 exports[`var-notation.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 .foo {margin:var(     --n-gutterSize) 0 var(   --gutterSize ) var( --n-gutterSize );
 }

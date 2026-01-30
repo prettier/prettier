@@ -3,8 +3,7 @@
 exports[`arrow-params.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "babel-flow", "babel-ts"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class C {
   #x = 1;
@@ -66,8 +65,7 @@ exports[`arrow-params.js format[oxc] 1`] = `
 exports[`assignment.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "babel-flow", "babel-ts"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class C {
   #x = 1;
@@ -139,8 +137,7 @@ exports[`assignment.js format[oxc] 1`] = `
 exports[`async-arrow-params.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "babel-flow", "babel-ts"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class C {
   #x = 1;
@@ -202,8 +199,7 @@ exports[`async-arrow-params.js format[oxc] 1`] = `
 exports[`bindings.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "babel-flow", "babel-ts"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class C {
   #x = 1;
@@ -273,8 +269,7 @@ exports[`bindings.js format[oxc] 1`] = `
 exports[`for-lhs.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "babel-flow", "babel-ts"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class C {
   #x = 1;
@@ -346,8 +341,7 @@ exports[`for-lhs.js format[oxc] 1`] = `
 exports[`nested-bindings.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "babel-flow", "babel-ts"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class C {
   #x = 1;
@@ -422,8 +416,7 @@ exports[`nested-bindings.js format[oxc] 1`] = `
 exports[`valid-multiple-bindings.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "babel-flow", "babel-ts"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 class C {
   #x = 1;

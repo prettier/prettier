@@ -3,8 +3,7 @@
 exports[`array.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function excludeFirstFiveResults([first, second, third, fourth, fifth, ...rest]) {
   return rest;
@@ -111,8 +110,7 @@ promise.then(
 exports[`array-and-object.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function StatelessFunctionalComponent1({
   isActive = true,
@@ -167,8 +165,7 @@ function StatelessFunctionalComponent3([
 exports[`object.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 function StatelessFunctionalComponent({
   isActive,
