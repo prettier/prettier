@@ -69,17 +69,8 @@ function handleIfStatementComments({
       locEnd(enclosingNode.consequent),
     );
 
-    if (locEnd(comment) > elseTokenIndex) {
-      addTrailingComment(precedingNode, comment);
-      return true;
-    }
-
     // if comment is positioned between the `else` token and its body
-    if (
-      followingNode.type === "BlockStatement" &&
-      locStart(comment) >= elseTokenIndex &&
-      locEnd(comment) <= locStart(followingNode)
-    ) {
+    if (locStart(comment) >= elseTokenIndex) {
       addLeadingComment(followingNode, comment);
       return true;
     }
@@ -89,10 +80,7 @@ function handleIfStatementComments({
     //
     //   if (cond) a;
     //   else /* foo */ b;
-    if (
-      locStart(comment) < elseTokenIndex ||
-      enclosingNode.alternate.type === "BlockStatement"
-    ) {
+    if (locStart(comment) < elseTokenIndex) {
       if (precedingNode.type === "BlockStatement") {
         addTrailingComment(precedingNode, comment);
         return true;
