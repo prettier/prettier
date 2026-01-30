@@ -12,7 +12,6 @@ const unstableTests = new Map(
     ["js/ignore/semi/head-ignored.js", (options) => options.semi === false],
     "js/comments/return-statement.js",
     "js/comments/tagged-template-literal.js",
-    "js/for/9812-unstable.js",
     [
       "js/multiparser-markdown/codeblock.js",
       (options) => options.proseWrap === "always",

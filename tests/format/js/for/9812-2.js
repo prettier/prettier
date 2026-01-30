@@ -1,11 +1,11 @@
 for(x of y)
-// comment
+// 11
 {bar();}
 
 for(x of y)
-// comment
+// 21
 {}
 
 for(x of y)
-// comment
+// 31
 ;
