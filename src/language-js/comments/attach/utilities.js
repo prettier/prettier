@@ -2,10 +2,22 @@ import {
   addDanglingComment,
   addLeadingComment,
 } from "../../../main/comments/utilities.js";
+import hasNewlineInRange from "../../../utilities/has-newline-in-range.js";
+import { locEnd, locStart } from "../../loc.js";
+import { isLineComment } from "../../utilities/is-line-comment.js";
 
 /**
 @import {Node, Comment, NodeMap} from "../../types/estree.js";
 */
+
+/**
+@param {Comment} comment
+@param {string} text
+@returns {boolean}
+*/
+const isSingleLineComment = (comment, text) =>
+  isLineComment(comment) ||
+  !hasNewlineInRange(text, locStart(comment), locEnd(comment));
 
 /**
  * @param {Node} node
@@ -35,4 +47,8 @@ function addBlockStatementFirstComment(node, comment) {
   }
 }
 
-export { addBlockOrNotComment, addBlockStatementFirstComment };
+export {
+  addBlockOrNotComment,
+  addBlockStatementFirstComment,
+  isSingleLineComment,
+};
