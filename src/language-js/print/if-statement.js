@@ -50,7 +50,7 @@ function printIfStatement(path, options, print) {
     const [firstComment] = danglingComments;
 
     if (isPreviousLineEmpty(firstComment, options)) {
-      parts.push(isConsequentBlockStatement ? hardline : [hardline, hardline]);
+      parts.push(isConsequentBlockStatement ? [hardline, hardline] : hardline);
     } else if (
       hasNewline(options.originalText, locStart(firstComment), {
         backwards: true,
