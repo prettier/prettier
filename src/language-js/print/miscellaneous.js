@@ -121,7 +121,9 @@ function printClause(path, print, property = "body") {
 
   if (
     node.type === "BlockStatement" ||
-    (path.node.type === "IfStatement" && property === "alternate")
+    (node.type === "IfStatement" &&
+      path.node.type === "IfStatement" &&
+      property === "alternate")
   ) {
     return [" ", clause];
   }
