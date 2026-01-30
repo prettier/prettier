@@ -53,13 +53,8 @@ function handleIfStatementComments({
   }
 
   // if comment is positioned between the condition and its body
-  if (
-    followingNode.type === "BlockStatement" &&
-    followingNode === enclosingNode.consequent &&
-    locStart(comment) >= locEnd(precedingNode) &&
-    locEnd(comment) <= locStart(followingNode)
-  ) {
-    addLeadingComment(followingNode, comment);
+  if (followingNode === enclosingNode.consequent) {
+    addBlockOrNotComment(followingNode, comment);
     return true;
   }
 
