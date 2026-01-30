@@ -4,7 +4,6 @@ import {
   addTrailingComment,
 } from "../../../main/comments/utilities.js";
 import getNextNonSpaceNonCommentCharacter from "../../../utilities/get-next-non-space-non-comment-character.js";
-import getNextNonSpaceNonCommentCharacterIndex from "../../../utilities/get-next-non-space-non-comment-character-index.js";
 import hasNewlineInRange from "../../../utilities/has-newline-in-range.js";
 import { locEnd, locStart } from "../../loc.js";
 import { stripComments } from "../../utilities/strip-comments.js";
@@ -65,30 +64,10 @@ function handleIfStatementComments({
     precedingNode === enclosingNode.consequent &&
     followingNode === enclosingNode.alternate
   ) {
-    const start = locStart(enclosingNode);
-    const end = locEnd(enclosingNode);
-    const ifStatementTxt = stripComments(options).slice(start, end);
-    let elseTokenIndex = getNextNonSpaceNonCommentCharacterIndex(
-      ifStatementTxt,
-      locEnd(enclosingNode.consequent) - start,
+    const elseTokenIndex = stripComments(options).indexOf(
+      "else",
+      locEnd(enclosingNode.consequent),
     );
-
-    if (elseTokenIndex !== false && ifStatementTxt[elseTokenIndex] === ";") {
-      elseTokenIndex = getNextNonSpaceNonCommentCharacterIndex(
-        ifStatementTxt,
-        elseTokenIndex + 1,
-      );
-    }
-    const isElseToken =
-      elseTokenIndex !== false &&
-      ifStatementTxt.slice(elseTokenIndex, elseTokenIndex + 4) === "else";
-
-    if (!isElseToken) {
-      addTrailingComment(precedingNode, comment);
-      return true;
-    }
-
-    elseTokenIndex += start;
 
     // if comment is positioned between the `else` token and its body
     if (
