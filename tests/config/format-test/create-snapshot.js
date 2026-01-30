@@ -45,7 +45,9 @@ function makeWidthIndicator(printWidth) {
       ? `printWidth: ${DEFAULT_PRINT_WIDTH} (default)`
       : `printWidth: ${printWidth}`;
 
-  printWidth ??= DEFAULT_PRINT_WIDTH;
+  if (printWidth === undefined) {
+    printWidth = DEFAULT_PRINT_WIDTH;
+  }
 
   return printWidth >= text.length + 2
     ? (text + " |").padStart(printWidth, " ")
