@@ -7,7 +7,7 @@ import {
 function printDoWhileStatement(path, options, print) {
   return [
     group(["do", printClause(path, print)]),
-    path.body.type === "BlockStatement" ? " " : hardline,
+    path.node.body.type === "BlockStatement" ? " " : hardline,
     "while (",
     printDoWhileStatementCondition(path, options, print),
     ")",
