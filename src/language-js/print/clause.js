@@ -32,12 +32,14 @@ function printClause(path, options, print, property = "body") {
       return hasComment(node, CommentCheckFlags.Leading) ? [" ", doc] : doc;
     }
 
+    const isBlockStatement = node.type === "BlockStatement";
+
     if (shouldPrintLeadingHardline(node, options)) {
-      return [hardline, doc];
+      return isBlockStatement ? [hardline, doc] : indent([hardline, doc]);
     }
 
     if (
-      node.type === "BlockStatement" ||
+      isBlockStatement ||
       (node.type === "IfStatement" &&
         path.parent.type === "IfStatement" &&
         path.key === "alternate")
