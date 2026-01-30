@@ -99,10 +99,10 @@ function handleCommentsBetween({
   // - treat as trailing comments of the consequent, if it's a BlockStatement
   // - treat as a dangling comment otherwise
   if (
-    isConsequentBlockStatement ||
-    (isSingleLineComment &&
-      // Comment and `precedingNode` are on same line
-      !hasNewlineInRange(text, locEnd(precedingNode), locStart(comment)))
+    !isConsequentBlockStatement &&
+    isSingleLineComment &&
+    // Comment and `precedingNode` are on same line
+    !hasNewlineInRange(text, locEnd(precedingNode), locStart(comment))
   ) {
     // example:
     //   if (cond1) expr1; // comment A

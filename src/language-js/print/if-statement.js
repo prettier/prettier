@@ -1,5 +1,7 @@
 import { group, hardline } from "../../document/index.js";
 import { printDanglingComments } from "../../main/comments/print.js";
+import hasNewline from "../../utilities/has-newline.js";
+import { locEnd, locStart } from "../loc.js";
 import { isLineComment } from "../utilities/comment-types.js";
 import {
   CommentCheckFlags,
@@ -38,15 +40,7 @@ function printIfStatement(path, options, print) {
   /** @type {Doc[]} */
   const parts = [opening];
   let needSpace = isConsequentBlockStatement;
-  if (
-    !isConsequentBlockStatement ||
-    hasComment(
-      consequent,
-      CommentCheckFlags.Trailing,
-      (comment) =>
-        isLineComment(comment) || isPreviousLineEmpty(comment, options),
-    )
-  ) {
+  if (!isConsequentBlockStatement) {
     parts.push(hardline);
     needSpace = false;
   }
@@ -55,10 +49,24 @@ function printIfStatement(path, options, print) {
   if (danglingComments.length > 0) {
     const [firstComment] = danglingComments;
 
+    if (isPreviousLineEmpty(firstComment, options)) {
+      parts.push(isConsequentBlockStatement ? hardline : [hardline, hardline]);
+    } else if (
+      hasNewline(options.originalText, locStart(firstComment), {
+        backwards: true,
+      })
+    ) {
+      parts.push(isConsequentBlockStatement ? hardline : "");
+    } else {
+      parts.push(" ");
+    }
+
     parts.push(
-      isPreviousLineEmpty(firstComment, options) ? hardline : "",
       printDanglingComments(path, options),
-      needsHardlineAfterDanglingComment(node) ? hardline : " ",
+      needsHardlineAfterDanglingComment(node) ||
+        hasNewline(options.originalText, locEnd(danglingComments.at(-1)))
+        ? hardline
+        : " ",
     );
     needSpace = false;
   }
