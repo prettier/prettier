@@ -38,25 +38,38 @@ function printOptions(options) {
     .join("\n");
 }
 
-const WIDTH_INDICATOR_PARTS = ["printWidth", "|"];
-const WIDTH_INDICATOR_INNER = WIDTH_INDICATOR_PARTS.join(" ");
-const WIDTH_INDICATOR_OUTER = [...WIDTH_INDICATOR_PARTS].reverse().join(" ");
+const DEFAULT_PRINT_WIDTH = 80;
+function makeWidthIndicator(printWidth) {
+  const text =
+    printWidth === undefined
+      ? `printWidth: ${DEFAULT_PRINT_WIDTH} (default)`
+      : `printWidth: ${printWidth}`;
+
+  printWidth ??= DEFAULT_PRINT_WIDTH;
+
+  return printWidth >= text.length + 2
+    ? (text + " |").padStart(printWidth, " ")
+    : " ".repeat(printWidth) + "| " + text;
+}
+
+const defaultWidthIndicator = makeWidthIndicator();
 function printWidthIndicator(printWidth, offset) {
-  if (!Number.isFinite(printWidth) || printWidth < 1) {
+  if (
+    !(
+      printWidth === undefined ||
+      (Number.isSafeInteger(printWidth) && printWidth > 1)
+    )
+  ) {
     return "";
   }
 
-  let before = "";
-  if (offset) {
-    before = " ".repeat(offset - 1) + "|";
-  }
+  const prefix = offset ? " ".repeat(offset - 1) + "|" : "";
+  const widthIndicator =
+    printWidth === undefined
+      ? defaultWidthIndicator
+      : makeWidthIndicator(printWidth);
 
-  const text =
-    printWidth >= WIDTH_INDICATOR_INNER
-      ? WIDTH_INDICATOR_INNER.padStart(printWidth, " ")
-      : " ".repeat(printWidth) + WIDTH_INDICATOR_OUTER;
-
-  return `${before}${text}`;
+  return `${prefix}${widthIndicator}`;
 }
 
 function createSnapshot(formatResult, { parsers, formatOptions }) {
