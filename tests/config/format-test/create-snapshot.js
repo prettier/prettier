@@ -53,7 +53,7 @@ function makeWidthIndicator(printWidth) {
 }
 
 const defaultWidthIndicator = makeWidthIndicator();
-function printWidthIndicator(printWidth, offset) {
+function printWidthIndicator(printWidth) {
   if (
     !(
       printWidth === undefined ||
@@ -63,13 +63,12 @@ function printWidthIndicator(printWidth, offset) {
     return "";
   }
 
-  const prefix = offset ? " ".repeat(offset - 1) + "|" : "";
   const widthIndicator =
     printWidth === undefined
       ? defaultWidthIndicator
       : makeWidthIndicator(printWidth);
 
-  return `${prefix}${widthIndicator}`;
+  return widthIndicator;
 }
 
 function createSnapshot(formatResult, { parsers, formatOptions }) {
@@ -92,7 +91,7 @@ function createSnapshot(formatResult, { parsers, formatOptions }) {
     }
 
     input = visualizeRange(input, { rangeStart, rangeEnd });
-    codeOffset = input.match(/^>?\s+1 \|/)[0].length + 1;
+    codeOffset = input.match(/^>?\s+1 \|/)[0].length;
   }
 
   if ("endOfLine" in formatOptions) {
@@ -104,16 +103,34 @@ function createSnapshot(formatResult, { parsers, formatOptions }) {
 
   return raw(
     [
-      printSeparator("options"),
-      printOptions({ ...options, parsers }),
-      ...(widthIndicator ? [widthIndicator] : []),
-      printSeparator("input"),
+      addOffset(
+        [
+          printSeparator("options"),
+          printOptions({ ...options, parsers }),
+          ...(widthIndicator ? [widthIndicator] : []),
+          printSeparator("input"),
+        ].join("\n"),
+        codeOffset,
+      ),
       input,
-      printSeparator("output"),
-      output,
-      printSeparator(),
+      addOffset(
+        [printSeparator("output"), output, printSeparator()].join("\n"),
+        codeOffset,
+      ),
     ].join("\n"),
   );
+}
+
+function addOffset(text, offset) {
+  if (!offset) {
+    return text;
+  }
+
+  const prefix = " ".repeat(offset - 1) + ":";
+  return text
+    .split("\n")
+    .map((line) => `${prefix}${line ? ` ${line}` : line}`)
+    .join("\n");
 }
 
 export default createSnapshot;

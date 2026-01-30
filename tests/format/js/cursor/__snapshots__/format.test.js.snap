@@ -425,13 +425,13 @@ import {<|>} from "fs";
 `;
 
 exports[`range-0.js format 1`] = `
-====================================options=====================================
-cursorOffset: 56
-parsers: ["babel", "typescript", "flow"]
-rangeEnd: 72
-rangeStart: 31
-     |                                                      printWidth: 80 (default) |
-=====================================input======================================
+    : ====================================options=====================================
+    : cursorOffset: 56
+    : parsers: ["babel", "typescript", "flow"]
+    : rangeEnd: 72
+    : rangeStart: 31
+    :                                                       printWidth: 80 (default) |
+    : =====================================input======================================
   1 | thisWontBeFormatted  ( 1  ,3)
   2 |
 > 3 |     thisWillBeFormatted  <|>  (2  ,3,   )
@@ -441,24 +441,24 @@ rangeStart: 31
 > 5 |     thisWontBeFormatted  (2, 90  ,)
     | ^
   6 |     
-=====================================output=====================================
-thisWontBeFormatted  ( 1  ,3)
-
-    thisWillBeFormatted<|>(2, 3);
-
-    thisWontBeFormatted  (2, 90  ,)
-    
-================================================================================
+    : =====================================output=====================================
+    : thisWontBeFormatted  ( 1  ,3)
+    :
+    :     thisWillBeFormatted<|>(2, 3);
+    :
+    :     thisWontBeFormatted  (2, 90  ,)
+    :     
+    : ================================================================================
 `;
 
 exports[`range-1.js format 1`] = `
-====================================options=====================================
-cursorOffset: 64
-parsers: ["babel", "typescript", "flow"]
-rangeEnd: 72
-rangeStart: 31
-     |                                                      printWidth: 80 (default) |
-=====================================input======================================
+    : ====================================options=====================================
+    : cursorOffset: 64
+    : parsers: ["babel", "typescript", "flow"]
+    : rangeEnd: 72
+    : rangeStart: 31
+    :                                                       printWidth: 80 (default) |
+    : =====================================input======================================
   1 | thisWontBeFormatted  ( 1  ,3)
   2 |
 > 3 |     thisWillBeFormatted    (2  ,3<|>,   )
@@ -468,24 +468,24 @@ rangeStart: 31
 > 5 |     thisWontBeFormatted  (2, 90  ,)
     | ^
   6 |     
-=====================================output=====================================
-thisWontBeFormatted  ( 1  ,3)
-
-    thisWillBeFormatted(2, 3<|>);
-
-    thisWontBeFormatted  (2, 90  ,)
-    
-================================================================================
+    : =====================================output=====================================
+    : thisWontBeFormatted  ( 1  ,3)
+    :
+    :     thisWillBeFormatted(2, 3<|>);
+    :
+    :     thisWontBeFormatted  (2, 90  ,)
+    :     
+    : ================================================================================
 `;
 
 exports[`range-2.js format 1`] = `
-====================================options=====================================
-cursorOffset: 67
-parsers: ["babel", "typescript", "flow"]
-rangeEnd: 72
-rangeStart: 31
-     |                                                      printWidth: 80 (default) |
-=====================================input======================================
+    : ====================================options=====================================
+    : cursorOffset: 67
+    : parsers: ["babel", "typescript", "flow"]
+    : rangeEnd: 72
+    : rangeStart: 31
+    :                                                       printWidth: 80 (default) |
+    : =====================================input======================================
   1 | thisWontBeFormatted  ( 1  ,3)
   2 |
 > 3 |     thisWillBeFormatted    (2  ,3,  <|> )
@@ -495,24 +495,24 @@ rangeStart: 31
 > 5 |     thisWontBeFormatted  (2, 90  ,)
     | ^
   6 |     
-=====================================output=====================================
-thisWontBeFormatted  ( 1  ,3)
-
-    thisWillBeFormatted(2, 3<|>);
-
-    thisWontBeFormatted  (2, 90  ,)
-    
-================================================================================
+    : =====================================output=====================================
+    : thisWontBeFormatted  ( 1  ,3)
+    :
+    :     thisWillBeFormatted(2, 3<|>);
+    :
+    :     thisWontBeFormatted  (2, 90  ,)
+    :     
+    : ================================================================================
 `;
 
 exports[`range-3.js format 1`] = `
-====================================options=====================================
-cursorOffset: 20
-parsers: ["babel", "typescript", "flow"]
-rangeEnd: 72
-rangeStart: 30
-     |                                                      printWidth: 80 (default) |
-=====================================input======================================
+    : ====================================options=====================================
+    : cursorOffset: 20
+    : parsers: ["babel", "typescript", "flow"]
+    : rangeEnd: 72
+    : rangeStart: 30
+    :                                                       printWidth: 80 (default) |
+    : =====================================input======================================
   1 | thisWontBeFormatted <|> ( 1  ,3)
 > 2 |
     | ^
@@ -523,24 +523,24 @@ rangeStart: 30
 > 5 |     thisWontBeFormatted  (2, 90  ,)
     | ^
   6 |     
-=====================================output=====================================
-thisWontBeFormatted <|> ( 1  ,3)
-
-    thisWillBeFormatted(2, 3);
-
-    thisWontBeFormatted  (2, 90  ,)
-    
-================================================================================
+    : =====================================output=====================================
+    : thisWontBeFormatted <|> ( 1  ,3)
+    :
+    :     thisWillBeFormatted(2, 3);
+    :
+    :     thisWontBeFormatted  (2, 90  ,)
+    :     
+    : ================================================================================
 `;
 
 exports[`range-4.js format 1`] = `
-====================================options=====================================
-cursorOffset: 101
-parsers: ["babel", "typescript", "flow"]
-rangeEnd: 75
-rangeStart: 31
-     |                                                      printWidth: 80 (default) |
-=====================================input======================================
+    : ====================================options=====================================
+    : cursorOffset: 101
+    : parsers: ["babel", "typescript", "flow"]
+    : rangeEnd: 75
+    : rangeStart: 31
+    :                                                       printWidth: 80 (default) |
+    : =====================================input======================================
   1 | thisWontBeFormatted  ( 1  ,3)
   2 |
 > 3 |     thisWillBeFormatted    (2  ,3,   )
@@ -550,75 +550,75 @@ rangeStart: 31
 > 5 |     thisWontBeFormatted  (2, 9<|>0  ,)
     | ^^^^
   6 |     
-=====================================output=====================================
-thisWontBeFormatted  ( 1  ,3)
-
-    thisWillBeFormatted(2, 3);
-
-    thisWontBeFormatted  (2, 9<|>0  ,)
-    
-================================================================================
+    : =====================================output=====================================
+    : thisWontBeFormatted  ( 1  ,3)
+    :
+    :     thisWillBeFormatted(2, 3);
+    :
+    :     thisWontBeFormatted  (2, 9<|>0  ,)
+    :     
+    : ================================================================================
 `;
 
 exports[`range-5.js format 1`] = `
-====================================options=====================================
-cursorOffset: 23
-parsers: ["babel", "typescript", "flow"]
-rangeEnd: 23
-rangeStart: 14
-     |                                                      printWidth: 80 (default) |
-=====================================input======================================
+    : ====================================options=====================================
+    : cursorOffset: 23
+    : parsers: ["babel", "typescript", "flow"]
+    : rangeEnd: 23
+    : rangeStart: 14
+    :                                                       printWidth: 80 (default) |
+    : =====================================input======================================
 > 1 | const myVar = aFunction<|>
     |               ^^^^^^^^^
   2 |
-=====================================output=====================================
-const myVar = aFunction<|>;
-
-================================================================================
+    : =====================================output=====================================
+    : const myVar = aFunction<|>;
+    :
+    : ================================================================================
 `;
 
 exports[`range-6.js format 1`] = `
-====================================options=====================================
-cursorOffset: 24
-parsers: ["babel", "typescript", "flow"]
-rangeEnd: 24
-rangeStart: 14
-     |                                                      printWidth: 80 (default) |
-=====================================input======================================
+    : ====================================options=====================================
+    : cursorOffset: 24
+    : parsers: ["babel", "typescript", "flow"]
+    : rangeEnd: 24
+    : rangeStart: 14
+    :                                                       printWidth: 80 (default) |
+    : =====================================input======================================
 > 1 | const myVar = aFunction;<|>
     |               ^^^^^^^^^^
   2 |
-=====================================output=====================================
-const myVar = aFunction;<|>
-
-================================================================================
+    : =====================================output=====================================
+    : const myVar = aFunction;<|>
+    :
+    : ================================================================================
 `;
 
 exports[`range-7.js format 1`] = `
-====================================options=====================================
-cursorOffset: 23
-parsers: ["babel", "typescript", "flow"]
-rangeEnd: 24
-rangeStart: 14
-     |                                                      printWidth: 80 (default) |
-=====================================input======================================
+    : ====================================options=====================================
+    : cursorOffset: 23
+    : parsers: ["babel", "typescript", "flow"]
+    : rangeEnd: 24
+    : rangeStart: 14
+    :                                                       printWidth: 80 (default) |
+    : =====================================input======================================
 > 1 | const myVar = aFunction<|>;
     |               ^^^^^^^^^^^^^
   2 |
-=====================================output=====================================
-const myVar = aFunction<|>;
-
-================================================================================
+    : =====================================output=====================================
+    : const myVar = aFunction<|>;
+    :
+    : ================================================================================
 `;
 
 exports[`range-8.js format 1`] = `
-====================================options=====================================
-cursorOffset: 69
-parsers: ["babel", "typescript", "flow"]
-rangeEnd: 72
-rangeStart: 30
-     |                                                      printWidth: 80 (default) |
-=====================================input======================================
+    : ====================================options=====================================
+    : cursorOffset: 69
+    : parsers: ["babel", "typescript", "flow"]
+    : rangeEnd: 72
+    : rangeStart: 30
+    :                                                       printWidth: 80 (default) |
+    : =====================================input======================================
   1 | thisWontBeFormatted  ( 1  ,3)
 > 2 |
     | ^
@@ -629,12 +629,12 @@ rangeStart: 30
 > 5 |     thisWontBeFormatted  (2, 90  ,)
     | ^
   6 |
-=====================================output=====================================
-thisWontBeFormatted  ( 1  ,3)
-
-    thisWillBeFormatted(2, 3)<|>;
-
-    thisWontBeFormatted  (2, 90  ,)
-
-================================================================================
+    : =====================================output=====================================
+    : thisWontBeFormatted  ( 1  ,3)
+    :
+    :     thisWillBeFormatted(2, 3)<|>;
+    :
+    :     thisWontBeFormatted  (2, 90  ,)
+    :
+    : ================================================================================
 `;

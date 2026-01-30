@@ -1,12 +1,12 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`example.vue format 1`] = `
-====================================options=====================================
-parsers: ["vue"]
-rangeEnd: 145
-rangeStart: 73
-      |                                                      printWidth: 80 (default) |
-=====================================input======================================
+     : ====================================options=====================================
+     : parsers: ["vue"]
+     : rangeEnd: 145
+     : rangeStart: 73
+     :                                                       printWidth: 80 (default) |
+     : =====================================input======================================
    1 | <template>
    2 |   <p>Templates are formatted as well...
    3 |     </p>
@@ -23,21 +23,21 @@ rangeStart: 73
   11 | .and { css: too !important }
   12 | </style>
   13 |
-=====================================output=====================================
-<template>
-  <p>Templates are formatted as well...</p>
-</template>
-
-<script>
-let Prettier = (format) => {
-  your.js("though");
-};
-</script>
-
-<style>
-.and {
-  css: too !important;
-}
-</style>
-================================================================================
+     : =====================================output=====================================
+     : <template>
+     :   <p>Templates are formatted as well...</p>
+     : </template>
+     :
+     : <script>
+     : let Prettier = (format) => {
+     :   your.js("though");
+     : };
+     : </script>
+     :
+     : <style>
+     : .and {
+     :   css: too !important;
+     : }
+     : </style>
+     : ================================================================================
 `;
