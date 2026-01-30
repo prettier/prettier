@@ -265,7 +265,7 @@ function printEstree(path, options, print, args) {
         " in ",
         print("right"),
         ")",
-        printForInStatementBody(path, print),
+        printForInStatementBody(path, options, print),
       ]);
 
     case "ForOfStatement":
@@ -277,7 +277,7 @@ function printEstree(path, options, print, args) {
         " of ",
         print("right"),
         ")",
-        printForOfStatementBody(path, print),
+        printForOfStatementBody(path, options, print),
       ]);
 
     case "DoExpression":

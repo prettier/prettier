@@ -11,7 +11,7 @@ function printWhileStatement(path, options, print) {
     " (",
     printWhileStatementCondition(path, options, print),
     ")",
-    printWhileStatementBody(path, print),
+    printWhileStatementBody(path, options, print),
   ]);
 }
 
