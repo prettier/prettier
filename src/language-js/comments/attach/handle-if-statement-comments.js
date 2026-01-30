@@ -64,44 +64,14 @@ function handleIfStatementComments({
     precedingNode === enclosingNode.consequent &&
     followingNode === enclosingNode.alternate
   ) {
-    const elseTokenIndex = stripComments(options).indexOf(
-      "else",
-      locEnd(enclosingNode.consequent),
-    );
-
-    // if comment is positioned between the `else` token and its body
-    if (locStart(comment) >= elseTokenIndex) {
-      addLeadingComment(followingNode, comment);
-      return true;
-    }
-
-    // With the above conditions alone, this code would also match. This is a false positive.
-    // So, ignore cases where the token "else" appears immediately after the consequent:
-    //
-    //   if (cond) a;
-    //   else /* foo */ b;
-    if (locStart(comment) < elseTokenIndex) {
-      if (precedingNode.type === "BlockStatement") {
-        addTrailingComment(precedingNode, comment);
-        return true;
-      }
-
-      if (
-        isSingleLineComment(comment, text) &&
-        // Comment and `precedingNode` are on same line
-        !hasNewlineInRange(text, locStart(precedingNode), locStart(comment))
-      ) {
-        // example:
-        //   if (cond1) expr1; // comment A
-        //   else if (cond2) expr2; // comment A
-        //   else expr3;
-        addTrailingComment(precedingNode, comment);
-        return true;
-      }
-
-      addDanglingComment(enclosingNode, comment);
-      return true;
-    }
+    return handleCommentsBetween({
+      comment,
+      precedingNode,
+      enclosingNode,
+      followingNode,
+      text,
+      options,
+    });
   }
 
   // For comments positioned after the condition parenthesis in an if statement
@@ -115,6 +85,42 @@ function handleIfStatementComments({
   }
 
   return false;
+}
+
+function handleCommentsBetween({
+  comment,
+  precedingNode,
+  enclosingNode,
+  followingNode,
+  text,
+  options,
+}) {
+  const elseTokenIndex = stripComments(options).indexOf(
+    "else",
+    locEnd(enclosingNode.consequent),
+  );
+
+  // if comment is positioned after the `else` token
+  if (locStart(comment) >= elseTokenIndex) {
+    addLeadingComment(followingNode, comment);
+    return true;
+  }
+
+  if (
+    isSingleLineComment(comment, text) &&
+    // Comment and `precedingNode` are on same line
+    !hasNewlineInRange(text, locStart(precedingNode), locStart(comment))
+  ) {
+    // example:
+    //   if (cond1) expr1; // comment A
+    //   else if (cond2) expr2; // comment A
+    //   else expr3;
+    addTrailingComment(precedingNode, comment);
+    return true;
+  }
+
+  addDanglingComment(enclosingNode, comment);
+  return true;
 }
 
 export { handleIfStatementComments };
