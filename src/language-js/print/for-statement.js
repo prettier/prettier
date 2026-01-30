@@ -6,11 +6,11 @@ import {
   softline,
 } from "../../document/index.js";
 import { printDanglingComments } from "../../main/comments/print.js";
-import { adjustClause } from "./miscellaneous.js";
+import { printClause } from "./miscellaneous.js";
 
 function printForStatement(path, options, print) {
   const { node } = path;
-  const body = adjustClause(node.body, print("body"));
+  const body = printClause(path, print);
 
   // We want to keep dangling comments above the loop to stay consistent.
   // Any comment positioned between the for statement and the parentheses

@@ -1,12 +1,12 @@
 import { group, hardline } from "../../document/index.js";
 import {
-  adjustClause,
+  printClause,
   printDoWhileStatementCondition,
 } from "./miscellaneous.js";
 
 function printDoWhileStatement(path, options, print) {
   const { body } = path.node;
-  const clause = adjustClause(body, print("body"));
+  const clause = printClause(path, print);
   const doBody = group(["do", clause]);
 
   return [

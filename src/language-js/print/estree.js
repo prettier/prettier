@@ -41,7 +41,7 @@ import { printIfStatement } from "./if-statement.js";
 import { printLiteral } from "./literal.js";
 import { printMemberExpression } from "./member.js";
 import {
-  adjustClause,
+  printClause,
   printDefiniteToken,
   printOptionalToken,
 } from "./miscellaneous.js";
@@ -268,7 +268,7 @@ function printEstree(path, options, print, args) {
         " in ",
         print("right"),
         ")",
-        adjustClause(node.body, print("body")),
+        printClause(path, print),
       ]);
 
     case "ForOfStatement":
@@ -280,7 +280,7 @@ function printEstree(path, options, print, args) {
         " of ",
         print("right"),
         ")",
-        adjustClause(node.body, print("body")),
+        printClause(path, print),
       ]);
 
     case "DoExpression":

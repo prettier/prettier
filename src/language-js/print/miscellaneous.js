@@ -111,12 +111,18 @@ function printAbstractToken({ node }) {
   return node.abstract || isTsAbstractNode(node) ? "abstract " : "";
 }
 
-function adjustClause(node, clause, forceSpace) {
+function printClause(path, print, property = "body") {
+  const node = path.node[property];
+  const clause = print(property);
+
   if (node.type === "EmptyStatement") {
     return hasComment(node, CommentCheckFlags.Leading) ? [" ", clause] : clause;
   }
 
-  if (node.type === "BlockStatement" || forceSpace) {
+  if (
+    node.type === "BlockStatement" ||
+    (path.node.type === "IfStatement" && property === "alternate")
+  ) {
     return [" ", clause];
   }
 
@@ -210,8 +216,8 @@ function printTrailingComma(options, level = "es5") {
 }
 
 export {
-  adjustClause,
   printAbstractToken,
+  printClause,
   printDanglingCommentsInList,
   printDeclareToken,
   printDefiniteToken,

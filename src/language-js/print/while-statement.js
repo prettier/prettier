@@ -1,5 +1,5 @@
 import { group } from "../../document/index.js";
-import { adjustClause, printWhileStatementCondition } from "./miscellaneous.js";
+import { printClause, printWhileStatementCondition } from "./miscellaneous.js";
 
 function printWhileStatement(path, options, print) {
   const { node } = path;
@@ -10,7 +10,7 @@ function printWhileStatement(path, options, print) {
     " (",
     printWhileStatementCondition(path, options, print),
     ")",
-    adjustClause(node.body, print("body")),
+    printClause(path, print),
   ]);
 }
 
