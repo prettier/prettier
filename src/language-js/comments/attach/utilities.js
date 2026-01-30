@@ -4,7 +4,7 @@ import {
 } from "../../../main/comments/utilities.js";
 import hasNewlineInRange from "../../../utilities/has-newline-in-range.js";
 import { locEnd, locStart } from "../../loc.js";
-import { isLineComment } from "../../utilities/is-line-comment.js";
+import { isLineComment } from "../../utilities/comment-types.js";
 
 /**
 @import {Node, Comment, NodeMap} from "../../types/estree.js";
