@@ -21,7 +21,7 @@ function handleForXComments({
     );
 
     if (locStart(comment) > closingParenthesisIndex) {
-      addLeadingComment(enclosingNode, comment);
+      addLeadingComment(followingNode, comment);
       return true;
     }
   }
