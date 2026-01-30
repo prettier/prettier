@@ -1,37 +1,37 @@
 for (x
-/*a*/
-in //b
-y) //c
+/*1a*/
+in //1b
+y) //1c
 ;
 
-for (x in /*a*/ //b
-y); //c
+for (x in /*2a*/ //2b
+y); //2c
 
-for (x /*a*/ in y); //b //c
+for (x /*3a*/ in y); //3b //3c
 
 for (x
-//a
+//4a
 in y);
 
 for(x in
-//a
+//5a
 y);
 
 for (x
-/*a*/
-of //b
-y) //c
+/*6a*/
+of //6b
+y) //6c
 ;
 
-for (x of /*a*/ //b
-y); //c
+for (x of /*7a*/ //7b
+y); //7c
 
-for (x /*a*/ of y); //b //c
+for (x /*8a*/ of y); //8b //8c
 
 for (x
-//a
+//9a
 of y);
 
 for(x of
-//a
+//10a
 y);
