@@ -1,7 +1,9 @@
-import { addTrailingComment } from "../../../main/comments/utilities.js";
+import {
+  addLeadingComment,
+  addTrailingComment,
+} from "../../../main/comments/utilities.js";
 import getNextNonSpaceNonCommentCharacter from "../../../utilities/get-next-non-space-non-comment-character.js";
 import { locEnd } from "../../loc.js";
-import { addBlockOrNotComment } from "./utilities.js";
 
 /**
 @import {CommentContext} from "../handle-comments.js"
@@ -42,7 +44,7 @@ function handleWhileLikeComments({
   }
 
   if (enclosingNode.body === followingNode) {
-    addBlockOrNotComment(followingNode, comment);
+    addLeadingComment(followingNode, comment);
     return true;
   }
 
