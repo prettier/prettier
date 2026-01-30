@@ -1,6 +1,12 @@
 import { group, hardline } from "../../document/index.js";
 import { printDanglingComments } from "../../main/comments/print.js";
-import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
+import { locStart } from "../loc.js";
+import {
+  CommentCheckFlags,
+  getComments,
+  hasComment,
+} from "../utilities/comments.js";
+import { isPreviousLineEmpty } from "../utilities/is-previous-line-empty.js";
 import { needsHardlineAfterDanglingComment } from "../utilities/needs-hardline-after-dangling-comment.js";
 import {
   printIfStatementAlternate,
@@ -40,8 +46,13 @@ function printIfStatement(path, options, print) {
     needSpace = false;
   }
 
-  if (hasComment(node, CommentCheckFlags.Dangling)) {
+  const danglingComments = getComments(node, CommentCheckFlags.Dangling);
+  if (danglingComments.length > 0) {
+    const [firstComment] = danglingComments;
+
     parts.push(
+      // There is empty line before
+      isPreviousLineEmpty(firstComment, options) ? hardline : "",
       printDanglingComments(path, options),
       needsHardlineAfterDanglingComment(node) ? hardline : " ",
     );

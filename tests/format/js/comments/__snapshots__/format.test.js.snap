@@ -3019,15 +3019,14 @@ if (1)
   false
 }
 // comment
-else if (2)
-  true
-  // multi
-  // ple
-  // lines
+else if (2) true
+// multi
+// ple
+// lines
 else if (3)
   // existing comment
   true
-  // okay?
+// okay?
 else if (4) {
   // empty with existing comment
 }
@@ -3168,15 +3167,14 @@ if (1)
   false;
 }
 // comment
-else if (2)
-  true;
-  // multi
-  // ple
-  // lines
+else if (2) true;
+// multi
+// ple
+// lines
 else if (3)
   // existing comment
   true;
-  // okay?
+// okay?
 else if (4) {
   // empty with existing comment
 }
