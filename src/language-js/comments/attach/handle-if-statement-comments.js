@@ -98,14 +98,17 @@ function handleCommentsBetween({
   // - treat as a dangling comment otherwise
 
   if (
-    isSingleLineComment(comment, text) &&
-    // Comment and `precedingNode` are on same line
-    !hasNewlineInRange(text, locEnd(precedingNode), locStart(comment))
+    followingNode.type === "BlockStatement" ||
+    followingNode.type === "IfStatement" ||
+    (isSingleLineComment(comment, text) &&
+      // Comment and `precedingNode` are on same line
+      !hasNewlineInRange(text, locEnd(precedingNode), locStart(comment)))
   ) {
     // example:
     //   if (cond1) expr1; // comment A
     //   else if (cond2) expr2; // comment A
     //   else expr3;
+
     addTrailingComment(precedingNode, comment);
     return true;
   }
