@@ -7,7 +7,7 @@ import getNextNonSpaceNonCommentCharacter from "../../../utilities/get-next-non-
 import hasNewlineInRange from "../../../utilities/has-newline-in-range.js";
 import { locEnd, locStart } from "../../loc.js";
 import { stripComments } from "../../utilities/strip-comments.js";
-import { addBlockOrNotComment, isSingleLineComment } from "./utilities.js";
+import { isSingleLineComment } from "./utilities.js";
 
 // There are often comments before the else clause of if statements like
 //
