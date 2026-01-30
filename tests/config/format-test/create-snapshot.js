@@ -38,6 +38,9 @@ function printOptions(options) {
     .join("\n");
 }
 
+const WIDTH_INDICATOR_PARTS = ["printWidth", "|"];
+const WIDTH_INDICATOR_INNER = WIDTH_INDICATOR_PARTS.join(" ");
+const WIDTH_INDICATOR_OUTER = [...WIDTH_INDICATOR_PARTS].reverse().join(" ");
 function printWidthIndicator(printWidth, offset) {
   if (!Number.isFinite(printWidth) || printWidth < 1) {
     return "";
@@ -48,12 +51,10 @@ function printWidthIndicator(printWidth, offset) {
     before = " ".repeat(offset - 1) + "|";
   }
 
-  let text = "printWidth";
-  if (printWidth >= text.length + 2) {
-    text = `${" ".repeat(printWidth - text.length - 2)} ${text} |`;
-  } else {
-    text = `${" ".repeat(printWidth)}| ${text}`;
-  }
+  const text =
+    printWidth >= WIDTH_INDICATOR_INNER
+      ? WIDTH_INDICATOR_INNER.padStart(printWidth, " ")
+      : " ".repeat(printWidth) + WIDTH_INDICATOR_OUTER;
 
   return `${before}${text}`;
 }
