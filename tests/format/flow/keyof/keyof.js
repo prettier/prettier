@@ -1,31 +1,12 @@
 // @flow
 
-// Basic keyof
 type T1 = keyof Foo;
-
-// keyof typeof
 type T2 = keyof typeof obj;
-
-// keyof in array type annotation - needs parens
 type T3 = (keyof Foo)[];
-
-// keyof typeof in array type annotation - needs parens
 type T4 = (keyof typeof obj)[];
-
-// keyof in indexed access type - needs parens
 type T5 = (keyof Foo)['bar'];
-
-// keyof typeof in indexed access type - needs parens
 type T6 = (keyof typeof obj)['bar'];
-
-// keyof with union type
 type T7 = keyof Foo | string;
-
-// keyof with intersection type
 type T8 = keyof Foo & string;
-
-// typeof in array type annotation - needs parens
 type T9 = (typeof obj)[];
-
-// typeof in indexed access type - needs parens
 type T10 = (typeof obj)['bar'];
