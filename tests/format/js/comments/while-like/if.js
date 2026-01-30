@@ -1,23 +1,23 @@
-while(
+if(
     true
     // 1
   ) {}
 
-while(true)// 2
+if(true)// 2
 {}
 
-while(true){}// 3
+if(true){}// 3
 
-while(true)/*4*/{}
+if(true)/*4*/{}
 
-while(
+if(
   true // 5
   && true // 52
   ){}
 
-while(true) {} // 6
+if(true) {} // 6
 
-while(true) /* 7 */ ++x;
+if(true) /* 7 */ ++x;
 
-while(1) // 8
+if(1) // 8
   foo();
