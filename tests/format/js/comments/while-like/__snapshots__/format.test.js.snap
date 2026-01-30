@@ -37,14 +37,15 @@ if (
 ) {
 }
 
-if (true) // 2
-{
+if (true) {
+  // 2
 }
 
 if (true) {
 } // 3
 
-if (true) /*4*/ {
+if (true) {
+  /*4*/
 }
 
 if (
