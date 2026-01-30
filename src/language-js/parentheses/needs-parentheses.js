@@ -463,6 +463,7 @@ function needsParentheses(path, options) {
       );
     // Same as `TSTypeQuery`, but for Flow syntax
     case "TypeofTypeAnnotation":
+    case "KeyofTypeAnnotation":
       return (
         (key === "objectType" &&
           (parent.type === "IndexedAccessType" ||
