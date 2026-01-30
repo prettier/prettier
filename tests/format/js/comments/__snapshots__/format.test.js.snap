@@ -3421,6 +3421,103 @@ export default AspectRatioBox;
 ================================================================================
 `;
 
+exports[`issue-11050.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+test =
+  /* @ts-ignore */
+  (arg1, arg2, arg3, arg4, arg5) => (arg6, art7, arg8, arg9, arg10, arg11, arg12) => 'blah'
+
+test =
+  /* @ts-ignore */
+
+    (arg1, arg2, arg3, arg4, arg5) =>
+    (arg6, art7, arg8, arg9, arg10, arg11, arg12) =>
+      "blah";
+
+testFunction =
+  // @ts-ignore ts-migrate(7031) FIXME: Binding element 'terms' implicitly has an 'any' ty... Remove this comment to see the full error message
+    ({ foo1 }, { foo2 }) =>
+    (foo3, foo4) => {
+      return null;
+    };
+
+=====================================output=====================================
+test =
+  /* @ts-ignore */
+  (arg1, arg2, arg3, arg4, arg5) =>
+    (arg6, art7, arg8, arg9, arg10, arg11, arg12) =>
+      "blah"
+
+test =
+  /* @ts-ignore */
+
+  (arg1, arg2, arg3, arg4, arg5) =>
+    (arg6, art7, arg8, arg9, arg10, arg11, arg12) =>
+      "blah"
+
+testFunction =
+  // @ts-ignore ts-migrate(7031) FIXME: Binding element 'terms' implicitly has an 'any' ty... Remove this comment to see the full error message
+  ({ foo1 }, { foo2 }) =>
+    (foo3, foo4) => {
+      return null
+    }
+
+================================================================================
+`;
+
+exports[`issue-11050.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+test =
+  /* @ts-ignore */
+  (arg1, arg2, arg3, arg4, arg5) => (arg6, art7, arg8, arg9, arg10, arg11, arg12) => 'blah'
+
+test =
+  /* @ts-ignore */
+
+    (arg1, arg2, arg3, arg4, arg5) =>
+    (arg6, art7, arg8, arg9, arg10, arg11, arg12) =>
+      "blah";
+
+testFunction =
+  // @ts-ignore ts-migrate(7031) FIXME: Binding element 'terms' implicitly has an 'any' ty... Remove this comment to see the full error message
+    ({ foo1 }, { foo2 }) =>
+    (foo3, foo4) => {
+      return null;
+    };
+
+=====================================output=====================================
+test =
+  /* @ts-ignore */
+  (arg1, arg2, arg3, arg4, arg5) =>
+    (arg6, art7, arg8, arg9, arg10, arg11, arg12) =>
+      "blah";
+
+test =
+  /* @ts-ignore */
+
+  (arg1, arg2, arg3, arg4, arg5) =>
+    (arg6, art7, arg8, arg9, arg10, arg11, arg12) =>
+      "blah";
+
+testFunction =
+  // @ts-ignore ts-migrate(7031) FIXME: Binding element 'terms' implicitly has an 'any' ty... Remove this comment to see the full error message
+  ({ foo1 }, { foo2 }) =>
+    (foo3, foo4) => {
+      return null;
+    };
+
+================================================================================
+`;
+
 exports[`issues.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
