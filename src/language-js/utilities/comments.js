@@ -54,8 +54,8 @@ const getCommentTestFunction = (flags, fn) => {
 };
 /**
  * @param {Node} node
- * @param {number | function} [flags]
- * @param {function} [fn]
+ * @param {number | ((comment: Comment) => boolean)} [flags]
+ * @param {(comment: Comment) => boolean} [fn]
  * @returns {boolean}
  */
 function hasComment(node, flags, fn) {
@@ -68,8 +68,8 @@ function hasComment(node, flags, fn) {
 
 /**
  * @param {Node} node
- * @param {number | function} [flags]
- * @param {function} [fn]
+ * @param {number | ((comment: Comment) => boolean)} [flags]
+ * @param {(comment: Comment) => boolean} [fn]
  * @returns {Comment[]}
  */
 function getComments(node, flags, fn) {
