@@ -1,8 +1,8 @@
 import { indent, softline } from "../../document/index.js";
 import hasNewline from "../../utilities/has-newline.js";
 import { locEnd, locStart } from "../loc.js";
+import { isBlockComment } from "../utilities/comment-types.js";
 import { hasComment } from "../utilities/comments.js";
-import { isBlockComment } from "../utilities/is-block-comment.js";
 
 function printTryStatement(path, options, print) {
   const { node } = path;

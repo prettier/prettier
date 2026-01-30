@@ -1,10 +1,12 @@
 import * as assert from "#universal/assert";
 import { commentsPropertyInOptions } from "../../../constants.js";
 import { locEnd, locEndWithFullText, locStart } from "../../loc.js";
+import {
+  isBlockComment,
+  isLineComment,
+} from "../../utilities/comment-types.js";
 import { createTypeCheckFunction } from "../../utilities/create-type-check-function.js";
 import { getRaw } from "../../utilities/get-raw.js";
-import { isBlockComment } from "../../utilities/is-block-comment.js";
-import { isLineComment } from "../../utilities/is-line-comment.js";
 import { isTypeCastComment } from "../../utilities/is-type-cast-comment.js";
 import { stripComments } from "../../utilities/strip-comments.js";
 import { mergeNestledJsdocComments } from "./merge-nestled-jsdoc-comments.js";
@@ -252,7 +254,10 @@ function assertComments(comments, text) {
       // Flow
       const closingMark = commentText.endsWith("*-/") ? "*-/" : "*/";
       assert.equal("/*" + comment.value + closingMark, commentText);
+      return;
     }
+
+    throw new Error(`Unknown comment type '${comment.type}'.`);
   }
 }
 

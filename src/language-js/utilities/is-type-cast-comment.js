@@ -1,4 +1,4 @@
-import { isBlockComment } from "./is-block-comment.js";
+import { isBlockComment } from "./comment-types.js";
 
 /**
 @import {Comment} from "../types/estree.js"
