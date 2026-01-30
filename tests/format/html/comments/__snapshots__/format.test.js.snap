@@ -57,6 +57,7 @@ exports[`before-text.html - {"printWidth":1} format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 1
+ | printWidth: 1
 =====================================input======================================
 <!-- hello -->
 
@@ -138,6 +139,7 @@ exports[`bogus.html - {"printWidth":1} format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 1
+ | printWidth: 1
 =====================================input======================================
 <? hello ?>
 <!- world ->
@@ -638,6 +640,7 @@ exports[`conditional.html - {"printWidth":1} format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 1
+ | printWidth: 1
 =====================================input======================================
 <!DOCTYPE html>
 <html>
@@ -1113,6 +1116,7 @@ exports[`for_debugging.html - {"printWidth":1} format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 1
+ | printWidth: 1
 =====================================input======================================
 <!DOCTYPE html>
 <html>
@@ -1310,6 +1314,7 @@ exports[`hidden.html - {"printWidth":1} format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 1
+ | printWidth: 1
 =====================================input======================================
 <!DOCTYPE html>
 <html>
@@ -1808,6 +1813,7 @@ exports[`surrounding-empty-line.html - {"printWidth":1} format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 1
+ | printWidth: 1
 =====================================input======================================
 <ul><!-- 123
 --><li>First</li><!-- 123

@@ -45,6 +45,7 @@ exports[`case-sensitive.html - {"printWidth":1} format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 1
+ | printWidth: 1
 =====================================input======================================
 <CaseSensitive CaseSensitive="true">hello world</CaseSensitive>
 
@@ -197,6 +198,7 @@ exports[`closing-at-start.html - {"printWidth":1} format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 1
+ | printWidth: 1
 =====================================input======================================
 <div>
     aaaaaaaaaa
@@ -326,6 +328,7 @@ exports[`custom-element.html - {"printWidth":1} format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 1
+ | printWidth: 1
 =====================================input======================================
 <app-foo></app-foo>
 <app-bar></app-bar>
@@ -460,6 +463,7 @@ exports[`marquee.html - {"printWidth":1} format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 1
+ | printWidth: 1
 =====================================input======================================
 <marquee>This text will scroll from right to left</marquee>
 
@@ -626,6 +630,7 @@ exports[`menu.html - {"printWidth":1} format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 1
+ | printWidth: 1
 =====================================input======================================
 <menu>
   <li><button onclick="copy()">Copy</button></li>
@@ -882,6 +887,7 @@ exports[`openging-at-end.html - {"printWidth":1} format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 1
+ | printWidth: 1
 =====================================input======================================
 <p
   >Want to write us a letter? Use our<a
@@ -1122,6 +1128,7 @@ exports[`option.html - {"printWidth":1} format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 1
+ | printWidth: 1
 =====================================input======================================
 <select><option>Blue</option><option>Green</option><optgroup label="Darker"><option>Dark Blue</option><option>Dark Green</option></optgroup></select>
 <input list=colors>
@@ -1857,6 +1864,7 @@ exports[`pre.html - {"printWidth":1} format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 1
+ | printWidth: 1
 =====================================input======================================
 <pre>
 --------------------------------------------------------------------------------
@@ -2506,6 +2514,7 @@ exports[`seach.html - {"printWidth":1} format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 1
+ | printWidth: 1
 =====================================input======================================
 <!DOCTYPE html>
 <html lang="en">
@@ -3602,6 +3611,7 @@ exports[`tags.html - {"printWidth":1} format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 1
+ | printWidth: 1
 =====================================input======================================
 <br/>
 <br />
@@ -4659,6 +4669,7 @@ exports[`tags2.html - {"printWidth":1} format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 1
+ | printWidth: 1
 =====================================input======================================
 <div>before<noscript>noscript long long long long long long long long</noscript>after</div>
 
@@ -5039,6 +5050,7 @@ exports[`textarea.html - {"printWidth":1} format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 1
+ | printWidth: 1
 =====================================input======================================
 <div>
   <div>
@@ -5230,6 +5242,7 @@ exports[`unsupported.html - {"printWidth":1} format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 1
+ | printWidth: 1
 =====================================input======================================
 <center></center>
 

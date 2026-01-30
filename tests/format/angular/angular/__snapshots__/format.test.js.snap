@@ -84,6 +84,7 @@ exports[`angularjs.html - {"printWidth":1} format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 1
+ | printWidth: 1
 =====================================input======================================
 <div ng-if="$ctrl .shouldShowWarning&&!$ctrl.loading">Warning!</div>
 
@@ -262,6 +263,7 @@ exports[`attr-name.component.html - {"printWidth":1} format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 1
+ | printWidth: 1
 =====================================input======================================
 <div someDirective itemType="x"></div>
 
@@ -870,6 +872,7 @@ exports[`attributes.component.html - {"printWidth":1} format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 1
+ | printWidth: 1
 =====================================input======================================
 <div
     bindon-target=" a | b : c:d :e "
@@ -2240,6 +2243,7 @@ exports[`first-lf.component.html - {"printWidth":1} format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 1
+ | printWidth: 1
 =====================================input======================================
 <textarea>{{ generatedDiscountCodes }}</textarea>
 <textarea>
@@ -2711,6 +2715,7 @@ exports[`ignore-attribute.component.html - {"printWidth":1} format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 1
+ | printWidth: 1
 =====================================input======================================
 <div
   bindon-target=" a | b : c:d :e "
@@ -3273,6 +3278,7 @@ exports[`interpolation.component.html - {"printWidth":1} format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 1
+ | printWidth: 1
 =====================================input======================================
 <div>{{ a | b : c:d :e }}</div>
 <div>{{  a | pipe    }}</div>
@@ -7184,6 +7190,7 @@ exports[`real-world.component.html - {"printWidth":1} format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 1
+ | printWidth: 1
 =====================================input======================================
 <!-- copied from: https://stackblitz.com/angular/ymdjlgmlavo -->
 
@@ -13678,6 +13685,7 @@ exports[`tag-name.component.html - {"printWidth":1} format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 1
+ | printWidth: 1
 =====================================input======================================
 <Table></Table>
 

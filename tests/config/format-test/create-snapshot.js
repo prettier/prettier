@@ -57,7 +57,7 @@ function printWidthIndicator(printWidth) {
   if (
     !(
       printWidth === undefined ||
-      (Number.isSafeInteger(printWidth) && printWidth > 1)
+      (Number.isSafeInteger(printWidth) && printWidth > 0)
     )
   ) {
     return "";
