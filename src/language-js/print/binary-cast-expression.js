@@ -5,6 +5,7 @@ import {
 } from "../utilities/is-as-const-expression.js";
 import { isGenericType } from "../utilities/is-generic-type.js";
 import {
+  isArrayType,
   isCallOrNewExpression,
   isFunctionType,
   isIntersectionType,
@@ -60,7 +61,8 @@ function shouldInlineBinaryCastExpression(path) {
     isUnionType(typeAnnotation) ||
     isIntersectionType(typeAnnotation) ||
     isGenericType(typeAnnotation) ||
-    isFunctionType(typeAnnotation)
+    isFunctionType(typeAnnotation) ||
+    isArrayType(typeAnnotation)
   ) {
     return true;
   }

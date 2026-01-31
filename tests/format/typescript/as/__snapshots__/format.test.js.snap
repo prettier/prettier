@@ -115,8 +115,11 @@ const value2 = thisIsAnIdentifier as
 const value3 = thisIsAReallyLongIdentifier as
   | SomeInterface
   | SomeOtherInterface;
-const value4 = thisIsAReallyLongIdentifier as
-  { prop1: string; prop2: number; prop3: number }[];
+const value4 = thisIsAReallyLongIdentifier as {
+  prop1: string;
+  prop2: number;
+  prop3: number;
+}[];
 const value5 =
   thisIsAReallyReallyReallyReallyReallyReallyReallyReallyReallyLongIdentifier as
     [string, number];
@@ -451,8 +454,9 @@ foo(
 );
 
 shortcuts = customShortcuts.concat(
-  (isDev ? BASE_DEV_DEV_SHORTCUTS : BASE_PREVIEW_SHORTCUTS) as
-    CLIShortcut<Server>[],
+  (isDev
+    ? BASE_DEV_DEV_SHORTCUTS
+    : BASE_PREVIEW_SHORTCUTS) as CLIShortcut<Server>[],
 );
 
 createFilter = _createFilter as (
@@ -466,8 +470,11 @@ streams = {} as {
   server: { out: string[]; err: string[] };
 };
 
-config = context.options[0] as
-  { message: string; message: string; functions: string[] }[];
+config = context.options[0] as {
+  message: string;
+  message: string;
+  functions: string[];
+}[];
 
 functionArg = a as
   | TSESTree.ArrowFunctionExpression
