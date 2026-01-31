@@ -1,5 +1,10 @@
 import htmlWhitespace from "../../utilities/html-whitespace.js";
-import { getOrderedListItemInfo, mapAst, splitText } from "../utilities.js";
+import {
+  getOrderedListItemInfo,
+  getUnorderedListItemInfo,
+  mapAst,
+  splitText,
+} from "../utilities.js";
 
 // 0x0 ~ 0x10ffff
 const isSingleCharRegex = /^\\?.$/su;
@@ -517,10 +522,18 @@ function markAlignedListLegacy(ast, options) {
   function isAligned(list) {
     if (!list.ordered) {
       /**
+       * aligned:
+       * -   123
+       * -   123
+       *
+       * not aligned:
        * - 123
        * - 123
        */
-      return true;
+      const [firstItem] = list.children;
+      const firstInfo = getUnorderedListItemInfo(firstItem, options);
+      // More than 1 space after the marker means aligned formatting
+      return firstInfo.leadingSpaces.length > 1;
     }
 
     const [firstItem, secondItem] = list.children;
