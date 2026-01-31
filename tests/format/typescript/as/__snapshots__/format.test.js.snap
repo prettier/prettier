@@ -315,8 +315,8 @@ const extraRendererAttrs = ((attrs.rendererAttrs &&
 const annotate = (angular.injector as any).$$annotate as
   (fn: Function) => string[];
 
-const originalPrototype = originalConstructor.prototype as
-    TComponent & InjectionTarget,
+const originalPrototype = originalConstructor.prototype as TComponent &
+    InjectionTarget,
   propertyToServiceName = originalPrototype._inject;
 
 ================================================================================
@@ -419,10 +419,9 @@ cases = [
   expected: string | undefined;
 }>;
 
-newOptions = { ...(options ?? {}), ssr } as
-  T & {
-    ssr?: boolean;
-  };
+newOptions = { ...(options ?? {}), ssr } as T & {
+  ssr?: boolean;
+};
 
 rolldownOptions = merged.rolldownOptions as Exclude<
   DepOptimizationOptions["rolldownOptions"],
@@ -480,17 +479,15 @@ functionArg = a as // comment
   | TSESTree.ArrowFunctionExpression
   | TSESTree.FunctionExpression
   | undefined;
-functionArg = a as
+functionArg = a as TSESTree.ArrowFunctionExpression &
   TSESTree.ArrowFunctionExpression &
-    TSESTree.ArrowFunctionExpression &
-    TSESTree.FunctionExpression &
-    undefined;
-functionArg = a as
-  // comment
+  TSESTree.FunctionExpression &
+  undefined;
+functionArg = a as // comment
+TSESTree.ArrowFunctionExpression &
   TSESTree.ArrowFunctionExpression &
-    TSESTree.ArrowFunctionExpression &
-    TSESTree.FunctionExpression &
-    undefined;
+  TSESTree.FunctionExpression &
+  undefined;
 foo = esBundle.output.find((chunk) => chunk.fileName === "foo.js") as
   | TSESTree.ArrowFunctionExpression
   | TSESTree.ArrowFunctionExpression
