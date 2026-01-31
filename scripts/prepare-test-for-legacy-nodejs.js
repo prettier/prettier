@@ -85,7 +85,7 @@ const jestDependencies = [
   "pretty-format",
 ];
 
-let content = JSON.stringify(
+const content = JSON.stringify(
   {
     ...packageJson,
     resolutions: {
