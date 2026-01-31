@@ -114,7 +114,8 @@ const value1 = thisIsAReallyReallyReallyReallyReallyLongIdentifier as
 const value2 = thisIsAnIdentifier as
   thisIsAReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyLongInterface;
 const value3 = thisIsAReallyLongIdentifier as
-  SomeInterface | SomeOtherInterface;
+  | SomeInterface
+  | SomeOtherInterface;
 const value4 = thisIsAReallyLongIdentifier as
   { prop1: string; prop2: number; prop3: number }[];
 const value5 =
@@ -285,8 +286,9 @@ const originalPrototype = originalConstructor.prototype as TComponent & Injectio
   propertyToServiceName = originalPrototype._inject;
 
 =====================================output=====================================
-const defaultMaskGetter = $parse(attrs[directiveName]) as
-  (scope: ng.IScope) => Mask;
+const defaultMaskGetter = $parse(attrs[directiveName]) as (
+  scope: ng.IScope,
+) => Mask;
 
 (this.configuration as any) =
   (this.editor as any) =
@@ -395,10 +397,14 @@ functionArg = a as TSESTree.ArrowFunctionExpression & TSESTree.ArrowFunctionExpr
 functionArg = a as
   // comment
   TSESTree.ArrowFunctionExpression & TSESTree.ArrowFunctionExpression & TSESTree.FunctionExpression & undefined;
+foo = esBundle.output.find(
+  (chunk) => chunk.fileName === 'foo.js',
+) as TSESTree.ArrowFunctionExpression | TSESTree.ArrowFunctionExpression | TSESTree.FunctionExpression
 
 =====================================output=====================================
-foo = esBundle.output.find((chunk) => chunk.fileName === "foo.js") as
-  OutputChunk;
+foo = esBundle.output.find(
+  (chunk) => chunk.fileName === "foo.js",
+) as OutputChunk;
 
 cases = [
   {
@@ -424,12 +430,13 @@ rolldownOptions = merged.rolldownOptions as
   Exclude<DepOptimizationOptions["rolldownOptions"], undefined>;
 
 environmentPlugins.push(
-  ...((await asyncFlattenasyncFlatten(arraify(applied))).filter(Boolean) as
-    Plugin[]),
+  ...((await asyncFlattenasyncFlatten(arraify(applied))).filter(
+    Boolean,
+  ) as Plugin[]),
 );
 
-scriptNode = node.node.node.childNodes.pop() as
-  DefaultTreeAdapterMap["textNode"];
+scriptNode =
+  node.node.node.childNodes.pop() as DefaultTreeAdapterMap["textNode"];
 
 scriptNode2 = node.childNodes[node.childNodes.length - 1] as
   DefaultTreeAdapterMap["textNode"];
@@ -438,8 +445,9 @@ url_url_url = (typeof urlOrServer === "string" ? urlOrServer : configOrUrl) as
   string;
 
 foo(
-  new Set([...seen].map((mod) => mod._clientModule).filter(Boolean)) as
-    Set<EnvironmentModuleNode>,
+  new Set(
+    [...seen].map((mod) => mod._clientModule).filter(Boolean),
+  ) as Set<EnvironmentModuleNode>,
 );
 
 shortcuts = customShortcuts.concat(
@@ -467,8 +475,7 @@ functionArg = a as
   | TSESTree.ArrowFunctionExpression
   | TSESTree.FunctionExpression
   | undefined;
-functionArg = a as
-  // comment
+functionArg = a as // comment
   | TSESTree.ArrowFunctionExpression
   | TSESTree.ArrowFunctionExpression
   | TSESTree.FunctionExpression
@@ -484,6 +491,10 @@ functionArg = a as
     TSESTree.ArrowFunctionExpression &
     TSESTree.FunctionExpression &
     undefined;
+foo = esBundle.output.find((chunk) => chunk.fileName === "foo.js") as
+  | TSESTree.ArrowFunctionExpression
+  | TSESTree.ArrowFunctionExpression
+  | TSESTree.FunctionExpression;
 
 ================================================================================
 `;

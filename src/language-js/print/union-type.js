@@ -16,7 +16,6 @@ import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
 import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
 import { hasLeadingOwnLineComment } from "../utilities/has-leading-own-line-comment.js";
 import {
-  isBinaryCastExpression,
   isConditionalType,
   isTupleType,
   isTypeAlias,
@@ -47,7 +46,6 @@ function printUnionType(path, options, print) {
     parent.type !== "GenericTypeAnnotation" &&
     parent.type !== "TSTypeReference" &&
     parent.type !== "TSTypeAssertion" &&
-    !isBinaryCastExpression(parent) &&
     !isTupleType(parent) &&
     !(
       parent.type === "FunctionTypeParam" &&

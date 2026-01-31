@@ -8,6 +8,7 @@ import {
   isMemberExpression,
   isObjectType,
   isSatisfiesExpression,
+  isUnionType,
 } from "../utilities/node-types.js";
 
 function printBinaryCastExpression(path, options, print) {
@@ -22,7 +23,7 @@ function printBinaryCastExpression(path, options, print) {
     isSatisfiesExpression(node) ? "satisfies" : "as",
   ];
 
-  if (shouldInline(path)) {
+  if (shouldInlineBinaryCastExpression(path)) {
     parts.push(" ", typeAnnotationDoc);
   } else {
     parts.push(group(indent([line, typeAnnotationDoc])));
@@ -38,19 +39,24 @@ function printBinaryCastExpression(path, options, print) {
   return parts;
 }
 
-function shouldInline(path) {
+function shouldInlineBinaryCastExpression(path) {
   const { node } = path;
   // Don't break `as const`;
   if (isAsConstExpression(node)) {
     return true;
   }
 
+  const { expression } = node;
+  if (isCallOrNewExpression(expression)) {
+    return true;
+  }
+
   const { typeAnnotation } = node;
-  if (isObjectType(typeAnnotation)) {
+  if (isObjectType(typeAnnotation) || isUnionType(typeAnnotation)) {
     return true;
   }
 
   return false;
 }
 
-export { printBinaryCastExpression };
+export { printBinaryCastExpression, shouldInlineBinaryCastExpression };

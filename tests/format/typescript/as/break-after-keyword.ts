@@ -67,3 +67,6 @@ functionArg = a as TSESTree.ArrowFunctionExpression & TSESTree.ArrowFunctionExpr
 functionArg = a as
   // comment
   TSESTree.ArrowFunctionExpression & TSESTree.ArrowFunctionExpression & TSESTree.FunctionExpression & undefined;
+foo = esBundle.output.find(
+  (chunk) => chunk.fileName === 'foo.js',
+) as TSESTree.ArrowFunctionExpression | TSESTree.ArrowFunctionExpression | TSESTree.FunctionExpression
