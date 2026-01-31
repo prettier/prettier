@@ -408,7 +408,7 @@ const t4 = {} /* comment1 */ satisfies /* comment2 */ {};
 ================================================================================
 `;
 
-exports[`comments-unstable.ts - {"semi":false} format 1`] = `
+exports[`comments-2.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 semi: false
@@ -434,7 +434,7 @@ const t1 = {
 ================================================================================
 `;
 
-exports[`comments-unstable.ts format 1`] = `
+exports[`comments-2.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
                                                       printWidth: 80 (default) |

@@ -23,7 +23,6 @@ const unstableTests = new Map(
     "js/for/continue-and-break-comment-without-blocks.js",
     "js/for-of/comments.js",
     "js/sequence-expression/parenthesized.js",
-    "typescript/satisfies-operators/comments-unstable.ts",
     "jsx/comments/in-attributes.js",
     "typescript/union/consistent-with-flow/single-type.ts",
     "typescript/import-type/long-module-name/long-module-name4.ts",
