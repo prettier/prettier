@@ -454,11 +454,10 @@ createFilter = _createFilter as
     options?: { resolve?: string | false | null },
   ) => (id: string | unknown) => boolean;
 
-streams = {} as
-  {
-    build: { out: string[]; err: string[] };
-    server: { out: string[]; err: string[] };
-  };
+streams = {} as {
+  build: { out: string[]; err: string[] };
+  server: { out: string[]; err: string[] };
+};
 
 config = context.options[0] as
   { message: string; message: string; functions: string[] }[];
