@@ -3,6 +3,7 @@ import {
   isAsConstExpression,
   isFlowAsConstExpression,
 } from "../utilities/is-as-const-expression.js";
+import { isGenericType } from "../utilities/is-generic-type.js";
 import {
   isCallOrNewExpression,
   isMemberExpression,
@@ -52,7 +53,11 @@ function shouldInlineBinaryCastExpression(path) {
   }
 
   const { typeAnnotation } = node;
-  if (isObjectType(typeAnnotation) || isUnionType(typeAnnotation)) {
+  if (
+    isObjectType(typeAnnotation) ||
+    isUnionType(typeAnnotation) ||
+    isGenericType(typeAnnotation)
+  ) {
     return true;
   }
 
