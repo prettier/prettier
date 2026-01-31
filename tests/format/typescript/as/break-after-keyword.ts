@@ -60,3 +60,6 @@ streams = {} as {
 config = context.options[0] as { message: string; message: string; functions: string[] }[];
 
 functionArg = a as TSESTree.ArrowFunctionExpression | TSESTree.ArrowFunctionExpression | TSESTree.FunctionExpression | undefined;
+functionArg = a as
+// comment
+TSESTree.ArrowFunctionExpression | TSESTree.ArrowFunctionExpression | TSESTree.FunctionExpression | undefined;
