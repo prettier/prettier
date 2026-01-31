@@ -33,7 +33,6 @@ const excludeVisitorKeys = {
   DeclareOpaqueType: ["impltype"],
 
   // Legacy properties
-  ExportAllDeclaration: ["assertions"],
   ImportDeclaration: ["assertions"],
 
   // Flow node from Babel
