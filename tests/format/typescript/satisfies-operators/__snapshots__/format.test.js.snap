@@ -156,12 +156,11 @@ const extraRendererAttrs = ((attrs.rendererAttrs &&
   this.utils.safeParseJsonString(attrs.rendererAttrs)) ||
   Object.create(null)) satisfies FieldService.RendererAttributes
 
-const annotate = (angular.injector satisfies any).$$annotate satisfies (
-  fn: Function,
-) => string[]
+const annotate = (angular.injector satisfies any).$$annotate satisfies
+  (fn: Function) => string[]
 
-const originalPrototype = originalConstructor.prototype satisfies TComponent &
-    InjectionTarget,
+const originalPrototype = originalConstructor.prototype satisfies
+    TComponent & InjectionTarget,
   propertyToServiceName = originalPrototype._inject
 
 this.previewPlayerHandle = setInterval(async () => {
@@ -210,12 +209,11 @@ const extraRendererAttrs = ((attrs.rendererAttrs &&
   this.utils.safeParseJsonString(attrs.rendererAttrs)) ||
   Object.create(null)) satisfies FieldService.RendererAttributes;
 
-const annotate = (angular.injector satisfies any).$$annotate satisfies (
-  fn: Function,
-) => string[];
+const annotate = (angular.injector satisfies any).$$annotate satisfies
+  (fn: Function) => string[];
 
-const originalPrototype = originalConstructor.prototype satisfies TComponent &
-    InjectionTarget,
+const originalPrototype = originalConstructor.prototype satisfies
+    TComponent & InjectionTarget,
   propertyToServiceName = originalPrototype._inject;
 
 this.previewPlayerHandle = setInterval(async () => {
@@ -429,8 +427,9 @@ const t1 = {
   prop1: 1,
   prop2: 2,
   prop3: 3,
-} satisfies // Comment
-Record<string, number>
+} satisfies
+  // Comment
+  Record<string, number>
 
 ================================================================================
 `;
@@ -453,8 +452,9 @@ const t1 = {
   prop1: 1,
   prop2: 2,
   prop3: 3,
-} satisfies // Comment
-Record<string, number>;
+} satisfies
+  // Comment
+  Record<string, number>;
 
 ================================================================================
 `;
@@ -1118,14 +1118,16 @@ bifornCringerMoshedPerplexSawder =
   askTrovenaBeenaDependsRowans +
   ((glimseGlyphsHazardNoopsTieTie === 0
     ? averredBathersBoxroomBuggyNurl
-    : anodyneCondosMalateOverateRetinol) satisfies AnnularCooeedSplicesWalksWayWay)
+    : anodyneCondosMalateOverateRetinol) satisfies
+    AnnularCooeedSplicesWalksWayWay)
 
 bifornCringerMoshedPerplexSawder =
   askTrovenaBeenaDependsRowans +
   ((glimseGlyphsHazardNoopsTieTie === 0 &&
   kochabCooieGameOnOboleUnweave === Math.PI
     ? averredBathersBoxroomBuggyNurl
-    : anodyneCondosMalateOverateRetinol) satisfies AnnularCooeedSplicesWalksWayWay)
+    : anodyneCondosMalateOverateRetinol) satisfies
+    AnnularCooeedSplicesWalksWayWay)
 
 ================================================================================
 `;
@@ -1219,14 +1221,16 @@ bifornCringerMoshedPerplexSawder =
   askTrovenaBeenaDependsRowans +
   ((glimseGlyphsHazardNoopsTieTie === 0
     ? averredBathersBoxroomBuggyNurl
-    : anodyneCondosMalateOverateRetinol) satisfies AnnularCooeedSplicesWalksWayWay);
+    : anodyneCondosMalateOverateRetinol) satisfies
+    AnnularCooeedSplicesWalksWayWay);
 
 bifornCringerMoshedPerplexSawder =
   askTrovenaBeenaDependsRowans +
   ((glimseGlyphsHazardNoopsTieTie === 0 &&
   kochabCooieGameOnOboleUnweave === Math.PI
     ? averredBathersBoxroomBuggyNurl
-    : anodyneCondosMalateOverateRetinol) satisfies AnnularCooeedSplicesWalksWayWay);
+    : anodyneCondosMalateOverateRetinol) satisfies
+    AnnularCooeedSplicesWalksWayWay);
 
 ================================================================================
 `;
