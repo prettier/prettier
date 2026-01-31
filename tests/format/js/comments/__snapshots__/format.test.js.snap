@@ -3458,6 +3458,137 @@ testFunction =
 ================================================================================
 `;
 
+exports[`issue-18817.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+{
+  foo: (
+    // comment
+    {
+      bar: "baz",
+    }
+  )
+}
+
+{
+  foo: (
+    /* block comment */
+    {
+      bar: "baz",
+    }
+  )
+}
+
+{
+  bar: (
+    // first comment
+    // second comment
+    {
+      baz: "qux",
+    }
+  )
+}
+
+=====================================output=====================================
+{
+  foo: (
+    // comment
+    {
+      bar: "baz",
+    }
+  )
+}
+
+{
+  foo: (
+    /* block comment */
+    {
+      bar: "baz",
+    }
+  )
+}
+
+{
+  bar: (
+    // first comment
+    // second comment
+    {
+      baz: "qux",
+    }
+  )
+}
+
+================================================================================
+`;
+
+exports[`issue-18817.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+{
+  foo: (
+    // comment
+    {
+      bar: "baz",
+    }
+  )
+}
+
+{
+  foo: (
+    /* block comment */
+    {
+      bar: "baz",
+    }
+  )
+}
+
+{
+  bar: (
+    // first comment
+    // second comment
+    {
+      baz: "qux",
+    }
+  )
+}
+
+=====================================output=====================================
+{
+  foo: (
+    // comment
+    {
+      bar: "baz",
+    }
+  );
+}
+
+{
+  foo: (
+    /* block comment */
+    {
+      bar: "baz",
+    }
+  );
+}
+
+{
+  bar: (
+    // first comment
+    // second comment
+    {
+      baz: "qux",
+    }
+  );
+}
+
+================================================================================
+`;
+
 exports[`issues.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]

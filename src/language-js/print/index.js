@@ -1,5 +1,8 @@
 import { group, indent, inheritLabel, softline } from "../../document/index.js";
-import { printComments } from "../../main/comments/print.js";
+import {
+  printComments,
+  printLeadingComments,
+} from "../../main/comments/print.js";
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
 import needsParentheses from "../parentheses/needs-parentheses.js";
 import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
@@ -89,12 +92,41 @@ function print(path, options, print, args) {
     return doc;
   }
 
+  // When parentheses are added for ambiguity (e.g. ObjectExpression at
+  // the start of an ExpressionStatement), leading comments from inside
+  // unwrapped ParenthesizedExpressions should stay inside the parens.
+  // Without this, they'd be placed outside by callPluginPrintFunction.
+  // This is similar to how printCommentsForFunction handles IIFE comments.
+  if (
+    needsParens &&
+    !isIifeCalleeOrTaggedTemplateExpressionTag(path) &&
+    needsCommentsInsideParentheses(node) &&
+    hasComment(node, CommentCheckFlags.Leading)
+  ) {
+    const leadingDoc = printLeadingComments(path, options);
+    doc = [indent([softline, leadingDoc, doc]), softline];
+    // Mark leading comments as printed to prevent double-printing
+    const printedComments = options[Symbol.for("printedComments")];
+    for (const comment of node.comments) {
+      if (comment.leading) {
+        printedComments.add(comment);
+      }
+    }
+  }
+
   return inheritLabel(doc, (doc) => [
     needsParens ? "(" : "",
     decoratorsDoc ? group([decoratorsDoc, doc]) : doc,
     needsParens ? ")" : "",
   ]);
 }
+
+// Node types that may need parentheses for disambiguation at the start of
+// an ExpressionStatement or ArrowFunctionExpression body, where `{` would
+// be ambiguous (block vs object literal).
+const needsCommentsInsideParentheses = createTypeCheckFunction([
+  "ObjectExpression",
+]);
 
 function printCommentsForFunction(path, options, doc) {
   const { node } = path;
