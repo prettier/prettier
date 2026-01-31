@@ -75,6 +75,16 @@ const mainModule = {
           find: "export default lib;",
           replacement: "export default { parse };",
         },
+        {
+          module: require.resolve("@babel/code-frame"),
+          process(text) {
+            text = text.replace(
+              "from 'node:util'",
+              `from ${JSON.stringify(path.join(dirname, "../shims/node-util.js"))}`,
+            );
+            return text;
+          },
+        },
       ],
       addDefaultExport: true,
       reuseDocModule: true,
