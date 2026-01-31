@@ -85,45 +85,6 @@ const mainModule = {
       input: "src/standalone.js",
       umdVariableName: "prettier",
       replaceModule: [
-        {
-          module: require.resolve("@babel/code-frame"),
-          process(text) {
-            text = text.replaceAll(
-              /(?<=\n)let tokenize;\n\{\n.*?\n\}(?=\n)/gs,
-              "",
-            );
-
-            text = text.replaceAll(
-              /(?<=\n)function highlight\(text\) \{\n.*?\n\}(?=\n)/gs,
-              "function highlight(text) {return text}",
-            );
-
-            text = text.replaceAll(
-              /(?<=\n)function getDefs\(enabled\) \{\n.*?\n\}(?=\n)/gs,
-              outdent`
-                function getDefs() {
-                  return new Proxy({}, {get: () => (text) => text})
-                }
-              `,
-            );
-
-            text = text.replaceAll(
-              "const defsOn = buildDefs(picocolors.createColors(true));",
-              "",
-            );
-            text = text.replaceAll(
-              "const defsOff = buildDefs(picocolors.createColors(false));",
-              "",
-            );
-
-            text = text.replaceAll(
-              "const shouldHighlight = opts.forceColor || isColorSupported() && opts.highlightCode;",
-              "const shouldHighlight = false;",
-            );
-
-            return text;
-          },
-        },
         // Smaller size
         {
           module: getPackageFile("picocolors/picocolors.browser.js"),
