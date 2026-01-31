@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`width-calculation.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript", "flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+firstItem_________ = editorPicker.items.find((item) => item.type === 'item') as string | number;
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   79 width
+firstItem_________$ = editorPicker.items.find((item) => item.type === 'item') as string | number;
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  80 width
+firstItem_________$$ = editorPicker.items.find((item) => item.type === 'item') as string | number;
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ 81 width
+
+firstItem_________ = editorPicker.items.find((item) => item.type === 'item') as
+const;
+firstItem_________$ = editorPicker.items.find((item) => item.type === 'item') as
+const;
+firstItem_________$$ = editorPicker.items.find((item) => item.type === 'item') as
+const;
+
+=====================================output=====================================
+firstItem_________ = editorPicker.items.find((item) => item.type === "item") as
+  string | number;
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   79 width
+firstItem_________$ = editorPicker.items.find((item) => item.type === "item") as
+  string | number;
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  80 width
+firstItem_________$$ = editorPicker.items.find(
+  (item) => item.type === "item",
+) as string | number;
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ 81 width
+
+firstItem_________ = editorPicker.items.find(
+  (item) => item.type === "item",
+) as const;
+firstItem_________$ = editorPicker.items.find(
+  (item) => item.type === "item",
+) as const;
+firstItem_________$$ = editorPicker.items.find(
+  (item) => item.type === "item",
+) as const;
+
+================================================================================
+`;
