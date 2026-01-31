@@ -70,4 +70,4 @@ function shouldInlineBinaryCastExpression(path) {
   return false;
 }
 
-export { printBinaryCastExpression, shouldInlineBinaryCastExpression };
+export { printBinaryCastExpression };
