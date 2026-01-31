@@ -1,4 +1,8 @@
-import { group, indent, softline } from "../../document/index.js";
+import { group, indent, line, softline } from "../../document/index.js";
+import {
+  isAsConstExpression,
+  isFlowAsConstExpression,
+} from "../utilities/is-as-const-expression.js";
 import {
   isCallOrNewExpression,
   isMemberExpression,
@@ -7,8 +11,7 @@ import {
 
 function printBinaryCastExpression(path, options, print) {
   const { parent, node, key } = path;
-  const isFlowAsConstExpression = node.type === "AsConstExpression";
-  const typeAnnotationDoc = isFlowAsConstExpression
+  const typeAnnotationDoc = isFlowAsConstExpression(node)
     ? "const"
     : print("typeAnnotation");
 
@@ -16,9 +19,14 @@ function printBinaryCastExpression(path, options, print) {
     print("expression"),
     " ",
     isSatisfiesExpression(node) ? "satisfies" : "as",
-    " ",
-    typeAnnotationDoc,
   ];
+
+  // Don't break `as const`;
+  if (isAsConstExpression(node)) {
+    parts.push(" ", typeAnnotationDoc);
+  } else {
+    parts.push(group(indent([line, typeAnnotationDoc])));
+  }
 
   if (
     (key === "callee" && isCallOrNewExpression(parent)) ||
