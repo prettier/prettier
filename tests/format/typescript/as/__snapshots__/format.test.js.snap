@@ -312,8 +312,9 @@ const extraRendererAttrs = ((attrs.rendererAttrs &&
   this.utils.safeParseJsonString(attrs.rendererAttrs)) ||
   Object.create(null)) as FieldService.RendererAttributes;
 
-const annotate = (angular.injector as any).$$annotate as
-  (fn: Function) => string[];
+const annotate = (angular.injector as any).$$annotate as (
+  fn: Function,
+) => string[];
 
 const originalPrototype = originalConstructor.prototype as TComponent &
     InjectionTarget,
@@ -454,12 +455,11 @@ shortcuts = customShortcuts.concat(
     CLIShortcut<Server>[],
 );
 
-createFilter = _createFilter as
-  (
-    include?: FilterPattern,
-    exclude?: FilterPattern,
-    options?: { resolve?: string | false | null },
-  ) => (id: string | unknown) => boolean;
+createFilter = _createFilter as (
+  include?: FilterPattern,
+  exclude?: FilterPattern,
+  options?: { resolve?: string | false | null },
+) => (id: string | unknown) => boolean;
 
 streams = {} as {
   build: { out: string[]; err: string[] };

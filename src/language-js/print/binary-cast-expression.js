@@ -6,6 +6,7 @@ import {
 import { isGenericType } from "../utilities/is-generic-type.js";
 import {
   isCallOrNewExpression,
+  isFunctionType,
   isIntersectionType,
   isMemberExpression,
   isObjectType,
@@ -58,7 +59,8 @@ function shouldInlineBinaryCastExpression(path) {
     isObjectType(typeAnnotation) ||
     isUnionType(typeAnnotation) ||
     isIntersectionType(typeAnnotation) ||
-    isGenericType(typeAnnotation)
+    isGenericType(typeAnnotation) ||
+    isFunctionType(typeAnnotation)
   ) {
     return true;
   }
