@@ -137,4 +137,9 @@ export const isArrayType = createTypeCheckFunction([
   "ArrayTypeAnnotation",
 ]);
 
+export const isFunctionType = createTypeCheckFunction([
+  "TSFunctionType",
+  "FunctionTypeAnnotation",
+]);
+
 export * from "./literal.js";
