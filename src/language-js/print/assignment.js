@@ -28,6 +28,7 @@ import {
 } from "../utilities/node-types.js";
 import { shouldInlineLogicalExpression } from "./binaryish.js";
 import { printCallExpression } from "./call-expression.js";
+import { shouldHugUnionType } from "./union-type.js";
 
 /**
  * @import AstPath from "../../common/ast-path.js"
@@ -133,9 +134,9 @@ function chooseLayout(path, options, print, leftDoc, rightPropertyName) {
         : "chain-tail";
   }
   const isHeadOfLongChain = !isTail && isAssignment(rightNode.right);
-
   if (
     isHeadOfLongChain ||
+    (isUnionType(rightNode) && !shouldHugUnionType(rightNode)) ||
     hasLeadingOwnLineComment(options.originalText, rightNode)
   ) {
     return "break-after-operator";

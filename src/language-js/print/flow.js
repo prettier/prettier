@@ -1,12 +1,13 @@
 /** @import {Doc} from "../../document/index.js" */
 
 import * as assert from "#universal/assert";
-import { replaceEndOfLine } from "../../document/index.js";
+import { indent, line, replaceEndOfLine } from "../../document/index.js";
 import printNumber from "../../utilities/print-number.js";
 import printString from "../../utilities/print-string.js";
 import { getRaw } from "../utilities/get-raw.js";
 import isFlowKeywordType from "../utilities/is-flow-keyword-type.js";
 import { isMethod } from "../utilities/is-method.js";
+import { isUnionType } from "../utilities/node-types.js";
 import { printArray } from "./array.js";
 import { printArrayType } from "./array-type.js";
 import { printBinaryCastExpression } from "./binary-cast-expression.js";
@@ -53,7 +54,7 @@ import { printTypePredicate } from "./type-predicate.js";
 import { printTypeQuery } from "./type-query.js";
 import { printUnionType } from "./union-type.js";
 
-function printFlow(path, options, print) {
+function printFlow(path, options, print, args) {
   const { node } = path;
 
   if (isFlowKeywordType(node)) {
@@ -117,7 +118,7 @@ function printFlow(path, options, print) {
     case "IntersectionTypeAnnotation":
       return printIntersectionType(path, options, print);
     case "UnionTypeAnnotation":
-      return printUnionType(path, options, print);
+      return printUnionType(path, options, print, args);
     case "ConditionalTypeAnnotation":
       return printTernary(path, options, print);
     case "InferTypeAnnotation":

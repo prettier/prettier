@@ -62,7 +62,8 @@ type A<
 type BufferStreamOrVoid<
   C extends undefined | Buffer | Stream | boolean,
   P extends undefined | Buffer,
-  R extends Buffer | Stream | void = // Inline comment about void.
+  R extends
+    Buffer | Stream | void = // Inline comment about void.
     // Above line comment about exclue.
     Exclude<C, false> extends never
       ? void
@@ -556,13 +557,11 @@ export type OuterType32<
 
 export type OuterType4<
   LongerLongerLongerLongerInnerType extends
-    | LongerLongerLongerLongerLongerLo
-    | ngerLongerLongerOtherType,
+    LongerLongerLongerLongerLongerLo | ngerLongerLongerOtherType,
 > = { a: 1 };
 export type OuterType42<
   LongerLongerLongerLongerInnerType =
-    | LongerLongerLongerLongerLongerLo
-    | ngerLongerLongerOtherType,
+    LongerLongerLongerLongerLongerLo | ngerLongerLongerOtherType,
 > = { a: 1 };
 
 ================================================================================

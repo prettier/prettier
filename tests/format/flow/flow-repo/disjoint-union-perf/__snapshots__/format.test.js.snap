@@ -1015,13 +1015,7 @@ export type BinaryOperator =
   | "..";
 
 export type UnaryOperator =
-  | "-"
-  | "+"
-  | "!"
-  | "~"
-  | "typeof"
-  | "void"
-  | "delete";
+  "-" | "+" | "!" | "~" | "typeof" | "void" | "delete";
 
 export type AssignmentOperator =
   | "="

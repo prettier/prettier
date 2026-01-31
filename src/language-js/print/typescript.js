@@ -45,7 +45,7 @@ import { printTypePredicate } from "./type-predicate.js";
 import { printTypeQuery } from "./type-query.js";
 import { printUnionType } from "./union-type.js";
 
-function printTypescript(path, options, print) {
+function printTypescript(path, options, print, args) {
   const { node } = path;
 
   // TypeScript nodes always starts with `TS`
@@ -186,7 +186,7 @@ function printTypescript(path, options, print) {
     case "TSIntersectionType":
       return printIntersectionType(path, options, print);
     case "TSUnionType":
-      return printUnionType(path, options, print);
+      return printUnionType(path, options, print, args);
     case "TSFunctionType":
     case "TSCallSignatureDeclaration":
     case "TSConstructorType":

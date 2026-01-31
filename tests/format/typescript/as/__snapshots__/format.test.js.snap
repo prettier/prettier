@@ -104,8 +104,7 @@ const value1 =
 const value2 =
   thisIsAnIdentifier as thisIsAReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyLongInterface;
 const value3 = thisIsAReallyLongIdentifier as
-  | SomeInterface
-  | SomeOtherInterface;
+  SomeInterface | SomeOtherInterface;
 const value4 = thisIsAReallyLongIdentifier as {
   prop1: string;
   prop2: number;

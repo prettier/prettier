@@ -137,4 +137,9 @@ export const isArrayType = createTypeCheckFunction([
   "ArrayTypeAnnotation",
 ]);
 
+export const isTypeParameterInstantiation = createTypeCheckFunction([
+  "TSTypeParameterInstantiation",
+  "TypeParameterInstantiation",
+]);
+
 export * from "./literal.js";
