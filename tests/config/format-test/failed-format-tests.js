@@ -23,7 +23,6 @@ const unstableTests = new Map(
     "js/for/continue-and-break-comment-without-blocks.js",
     "js/for-of/comments.js",
     "js/sequence-expression/parenthesized.js",
-    "typescript/satisfies-operators/comments-unstable.ts",
     "jsx/comments/in-attributes.js",
     "typescript/import-type/long-module-name/long-module-name4.ts",
     // Unstable due to lack of indent information
@@ -35,6 +34,8 @@ const unstableTests = new Map(
     "typescript/call/callee-comments.ts",
     "js/arrows/arrow-chain-with-trailing-comments.js",
     "typescript/as/comments/18160.ts",
+    "typescript/as/break-after-keyword.ts",
+    "typescript/satisfies-operators/comments-2.ts",
     "js/arrows/issue-14702.js",
   ].map((fixture) => {
     const [file, isUnstable = () => true] = Array.isArray(fixture)
