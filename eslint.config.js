@@ -35,6 +35,7 @@ website/.docusaurus
 scripts/benchmark/*/
 **/.yarn/**
 **/.pnp.*
+vendors/**
 `
   .split("\n")
   .filter((pattern) => pattern && !pattern.startsWith("#"));

@@ -99,8 +99,4 @@ let content = JSON.stringify(
   2,
 );
 
-if (process.platform === "win32") {
-  content = content.replace("$PWD/", new URL("../", import.meta.url).href);
-}
-
 fs.writeFileSync(packageJsonFile, content);
