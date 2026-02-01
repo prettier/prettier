@@ -82,6 +82,26 @@ type ClassLike________80 = TSESTree.ClassDeclaration | TSESTree.ClassExpression;
 ================================================================================
 `;
 
+exports[`18819.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript", "flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+functionArg = a as
+  // comment
+  TSESTree.ArrowFunctionExpression | TSESTree.ArrowFunctionExpression | TSESTree.FunctionExpression | undefined;
+
+=====================================output=====================================
+functionArg = a as
+  // comment
+  | TSESTree.ArrowFunctionExpression
+  | TSESTree.ArrowFunctionExpression
+  | TSESTree.FunctionExpression
+  | undefined;
+
+================================================================================
+`;
+
 exports[`comment.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow"]
