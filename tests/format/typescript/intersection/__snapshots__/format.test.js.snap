@@ -153,7 +153,7 @@ type State = {
 });
 
 const foo1 = [abc, def, ghi, jkl, mno, pqr, stu, vwx, yz] as
-(string & undefined)[];
+  (string & undefined)[];
 
 const foo2: (AAAAAAAAAAAAAAAAAAAAAA
   & BBBBBBBBBBBBBBBBBBBBBB
@@ -370,7 +370,7 @@ type State = {
 })
 
 const foo1 = [abc, def, ghi, jkl, mno, pqr, stu, vwx, yz] as
-(string & undefined)[]
+  (string & undefined)[]
 
 const foo2: (AAAAAAAAAAAAAAAAAAAAAA &
   BBBBBBBBBBBBBBBBBBBBBB &
@@ -586,7 +586,7 @@ type State = {
 });
 
 const foo1 = [abc, def, ghi, jkl, mno, pqr, stu, vwx, yz] as
-(string & undefined)[];
+  (string & undefined)[];
 
 const foo2: (AAAAAAAAAAAAAAAAAAAAAA &
   BBBBBBBBBBBBBBBBBBBBBB &

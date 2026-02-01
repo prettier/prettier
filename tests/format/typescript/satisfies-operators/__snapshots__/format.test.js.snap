@@ -157,10 +157,10 @@ const extraRendererAttrs = ((attrs.rendererAttrs &&
   Object.create(null)) satisfies FieldService.RendererAttributes
 
 const annotate = (angular.injector satisfies any).$$annotate satisfies
-(fn: Function) => string[]
+  (fn: Function) => string[]
 
 const originalPrototype = originalConstructor.prototype satisfies
-  TComponent & InjectionTarget,
+    TComponent & InjectionTarget,
   propertyToServiceName = originalPrototype._inject
 
 this.previewPlayerHandle = setInterval(async () => {
@@ -210,10 +210,10 @@ const extraRendererAttrs = ((attrs.rendererAttrs &&
   Object.create(null)) satisfies FieldService.RendererAttributes;
 
 const annotate = (angular.injector satisfies any).$$annotate satisfies
-(fn: Function) => string[];
+  (fn: Function) => string[];
 
 const originalPrototype = originalConstructor.prototype satisfies
-  TComponent & InjectionTarget,
+    TComponent & InjectionTarget,
   propertyToServiceName = originalPrototype._inject;
 
 this.previewPlayerHandle = setInterval(async () => {
@@ -428,8 +428,8 @@ const t1 = {
   prop2: 2,
   prop3: 3,
 } satisfies
-// Comment
-Record<string, number>
+  // Comment
+  Record<string, number>
 
 ================================================================================
 `;
@@ -453,8 +453,8 @@ const t1 = {
   prop2: 2,
   prop3: 3,
 } satisfies
-// Comment
-Record<string, number>;
+  // Comment
+  Record<string, number>;
 
 ================================================================================
 `;
@@ -1119,7 +1119,7 @@ bifornCringerMoshedPerplexSawder =
   ((glimseGlyphsHazardNoopsTieTie === 0
     ? averredBathersBoxroomBuggyNurl
     : anodyneCondosMalateOverateRetinol) satisfies
-  AnnularCooeedSplicesWalksWayWay)
+    AnnularCooeedSplicesWalksWayWay)
 
 bifornCringerMoshedPerplexSawder =
   askTrovenaBeenaDependsRowans +
@@ -1127,7 +1127,7 @@ bifornCringerMoshedPerplexSawder =
   kochabCooieGameOnOboleUnweave === Math.PI
     ? averredBathersBoxroomBuggyNurl
     : anodyneCondosMalateOverateRetinol) satisfies
-  AnnularCooeedSplicesWalksWayWay)
+    AnnularCooeedSplicesWalksWayWay)
 
 ================================================================================
 `;
@@ -1222,7 +1222,7 @@ bifornCringerMoshedPerplexSawder =
   ((glimseGlyphsHazardNoopsTieTie === 0
     ? averredBathersBoxroomBuggyNurl
     : anodyneCondosMalateOverateRetinol) satisfies
-  AnnularCooeedSplicesWalksWayWay);
+    AnnularCooeedSplicesWalksWayWay);
 
 bifornCringerMoshedPerplexSawder =
   askTrovenaBeenaDependsRowans +
@@ -1230,7 +1230,7 @@ bifornCringerMoshedPerplexSawder =
   kochabCooieGameOnOboleUnweave === Math.PI
     ? averredBathersBoxroomBuggyNurl
     : anodyneCondosMalateOverateRetinol) satisfies
-  AnnularCooeedSplicesWalksWayWay);
+    AnnularCooeedSplicesWalksWayWay);
 
 ================================================================================
 `;

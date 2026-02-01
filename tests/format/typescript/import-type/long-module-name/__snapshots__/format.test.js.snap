@@ -11,7 +11,7 @@ export default plugin as typeof import("@babel/plugin-transform-react-jsx").defa
 =====================================output=====================================
 const plugin = {};
 export default plugin as
-typeof import("@babel/plugin-transform-react-jsx").default;
+  typeof import("@babel/plugin-transform-react-jsx").default;
 
 ================================================================================
 `;
@@ -29,10 +29,10 @@ export default plugin as typeof import(
 =====================================output=====================================
 const plugin = {};
 export default plugin as
-typeof import(
-  // Comment
-  "@babel/plugin-transform-react-jsx"
-).default;
+  typeof import(
+    // Comment
+    "@babel/plugin-transform-react-jsx"
+  ).default;
 
 ================================================================================
 `;

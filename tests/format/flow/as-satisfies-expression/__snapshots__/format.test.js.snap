@@ -52,7 +52,7 @@ x as any as T;
 const name = (description as Description).name || (description as string);
 this.isTabActionBar((e.target || e.srcElement) as HTMLElement);
 (originalError ? wrappedError(errMsg, originalError) : Error(errMsg)) as
-InjectionError;
+  InjectionError;
 "current" in (props.pagination as { ... });
 ("current" in props.pagination) as { ... };
 start + (yearSelectTotal as number);
@@ -60,7 +60,7 @@ start + (yearSelectTotal as number);
 scrollTop > (visibilityHeight as number);
 (scrollTop > visibilityHeight) as number;
 export default class Column<T> extends (RcTable.Column as
-Long.Thing<ColumnProps<T>, ColumnProps<T>, ColumnProps<T>, ColumnProps<T>>) {}
+  Long.Thing<ColumnProps<T>, ColumnProps<T>, ColumnProps<T>, ColumnProps<T>>) {}
 ({}) as {};
 function* g() {
   const test = (yield "foo") as number;
@@ -78,16 +78,16 @@ const state = JSON.stringify({
 (bValue as boolean) ? 0 : -1;
 
 const value1 = thisIsAReallyReallyReallyReallyReallyLongIdentifier as
-SomeInterface;
+  SomeInterface;
 const value2 = thisIsAnIdentifier as
-thisIsAReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyLongInterface;
+  thisIsAReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyLongInterface;
 const value3 = thisIsAReallyLongIdentifier as
-SomeInterface | SomeOtherInterface;
+  SomeInterface | SomeOtherInterface;
 const value4 = thisIsAReallyLongIdentifier as
-{ prop1: string, prop2: number, prop3: number }[];
+  { prop1: string, prop2: number, prop3: number }[];
 const value5 =
   thisIsAReallyReallyReallyReallyReallyReallyReallyReallyReallyLongIdentifier as
-  [string, number];
+    [string, number];
 
 const iter1 = createIterator(
   this.controller,
@@ -243,19 +243,19 @@ averredBathersBoxroomBuggyNurl(
 // @flow
 
 const bifornCringerMoshedPerplexSawder = askTrovenaBeenaDependsRowans as
-glimseGlyphsHazardNoopsTieTie;
+  glimseGlyphsHazardNoopsTieTie;
 
 averredBathersBoxroomBuggyNurl.anodyneCondosMalateOverateRetinol =
   annularCooeedSplicesWalksWayWay as kochabCooieGameOnOboleUnweave;
 
 averredBathersBoxroomBuggyNurl = {
   anodyneCondosMalateOverateRetinol: annularCooeedSplicesWalksWayWay as
-  kochabCooieGameOnOboleUnweave,
+    kochabCooieGameOnOboleUnweave,
 };
 
 averredBathersBoxroomBuggyNurl(
   anodyneCondosMalateOverateRetinol.annularCooeedSplicesWalksWayWay as
-  kochabCooieGameOnOboleUnweave,
+    kochabCooieGameOnOboleUnweave,
 );
 
 ================================================================================

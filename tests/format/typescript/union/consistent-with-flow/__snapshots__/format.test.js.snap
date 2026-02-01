@@ -141,11 +141,11 @@ functionArg = a as
 
 =====================================output=====================================
 functionArg = a as
-// comment
-| TSESTree.ArrowFunctionExpression
-| TSESTree.ArrowFunctionExpression
-| TSESTree.FunctionExpression
-| undefined;
+  // comment
+  | TSESTree.ArrowFunctionExpression
+  | TSESTree.ArrowFunctionExpression
+  | TSESTree.FunctionExpression
+  | undefined;
 
 ================================================================================
 `;
