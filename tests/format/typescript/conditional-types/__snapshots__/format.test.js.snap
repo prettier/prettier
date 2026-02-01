@@ -88,6 +88,11 @@ T = any instanceof B
     // Multiline comment
     ? B | C
     : D;
+T = any instanceof B
+    ? D
+    // Comment
+    // Multiline comment
+    : B | C;
 
 type T = any extends B
     // Comment
@@ -201,8 +206,8 @@ c */
 type T =
   any extends B ?
     // Comment
-      // Multiline comment
-      B | C
+    // Multiline comment
+    B | C
   : D;
 T =
   any instanceof B ?
@@ -210,11 +215,16 @@ T =
     // Multiline comment
     B | C
   : D;
+T =
+  any instanceof B ? D
+    // Comment
+    // Multiline comment
+  : B | C;
 
 type T =
   any extends B ?
     // Comment
-      B | C
+    B | C
   : D;
 T =
   any instanceof B ?
@@ -225,9 +235,9 @@ T =
 type T =
   any extends B ?
     /**
-       * Comment
-       */
-      B | C
+     * Comment
+     */
+    B | C
   : D;
 T = any instanceof B ?
     /**
@@ -328,6 +338,11 @@ T = any instanceof B
     // Multiline comment
     ? B | C
     : D;
+T = any instanceof B
+    ? D
+    // Comment
+    // Multiline comment
+    : B | C;
 
 type T = any extends B
     // Comment
@@ -441,6 +456,12 @@ T =
       // Multiline comment
       B | C
     : D;
+T =
+  any instanceof B
+    ? D
+    : // Comment
+      // Multiline comment
+      B | C;
 
 type T = any extends B
   ? // Comment

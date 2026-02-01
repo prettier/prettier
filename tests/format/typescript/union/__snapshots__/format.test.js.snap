@@ -1,5 +1,168 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`5849.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+export type TransformedSource = {
+  code: string;
+  map?:
+    // copied from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/363cdf403a74e0372e87bbcd15eb1668f4c5230b/types/babel__core/index.d.ts#L371-L379
+    | {
+        version: number;
+        sources: string[];
+        names: string[];
+        sourceRoot?: string;
+        sourcesContent?: string[];
+        mappings: string;
+        file: string;
+      }
+    | string
+    | null;
+};
+
+export type TransformedSource2 = {
+  code: string,
+  map?: // copied from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/363cdf403a74e0372e87bbcd15eb1668f4c5230b/types/babel__core/index.d.ts#L371-L379
+  | {
+        version: number,
+        sources: string[],
+        names: string[],
+        sourceRoot?: string,
+        sourcesContent?: string[],
+        mappings: string,
+        file: string
+      }
+    | string
+    | null
+};
+
+=====================================output=====================================
+export type TransformedSource = {
+  code: string;
+  map?:
+    // copied from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/363cdf403a74e0372e87bbcd15eb1668f4c5230b/types/babel__core/index.d.ts#L371-L379
+    | {
+        version: number;
+        sources: string[];
+        names: string[];
+        sourceRoot?: string;
+        sourcesContent?: string[];
+        mappings: string;
+        file: string;
+      }
+    | string
+    | null;
+};
+
+export type TransformedSource2 = {
+  code: string;
+  map?:
+    // copied from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/363cdf403a74e0372e87bbcd15eb1668f4c5230b/types/babel__core/index.d.ts#L371-L379
+    | {
+        version: number;
+        sources: string[];
+        names: string[];
+        sourceRoot?: string;
+        sourcesContent?: string[];
+        mappings: string;
+        file: string;
+      }
+    | string
+    | null;
+};
+
+================================================================================
+`;
+
+exports[`7725.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+type T = {
+  prop:
+    // comment
+    | T1
+    // comment
+    | T2
+    // comment
+}
+
+type T2 = (arg:
+  // comment
+  | T1
+  // comment
+  | T2
+  // comment
+) => void
+
+=====================================output=====================================
+type T = {
+  prop:
+    // comment
+    | T1
+    // comment
+    | T2;
+  // comment
+};
+
+type T2 = (
+  arg:
+    // comment
+    | T1
+    // comment
+    | T2,
+  // comment
+) => void;
+
+================================================================================
+`;
+
+exports[`10599.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+export interface ProductStatus {
+  type:
+    // eslint-disable-next-line sonar/max-union-size
+    | 'NotDeployed'
+    | 'InDeployment'
+    | 'Running'
+    | 'DeploymentFailure'
+    | 'RunningAbnormal'
+    | 'Deleting'
+    | 'DeleteFailure'
+    | 'DeploymentSucceed'
+    | 'SystemError'
+    | 'Upgrading';
+  icon: string;
+  text: string;
+}
+
+=====================================output=====================================
+export interface ProductStatus {
+  type:
+    // eslint-disable-next-line sonar/max-union-size
+    | "NotDeployed"
+    | "InDeployment"
+    | "Running"
+    | "DeploymentFailure"
+    | "RunningAbnormal"
+    | "Deleting"
+    | "DeleteFailure"
+    | "DeploymentSucceed"
+    | "SystemError"
+    | "Upgrading";
+  icon: string;
+  text: string;
+}
+
+================================================================================
+`;
+
 exports[`inlining.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
@@ -145,6 +308,32 @@ type T5 = number | ((arg: any) => void);
 type T6 = number | ((arg: any) => void);
 type T7 = number | ((arg: any) => void);
 type T8 = number | ((arg: any) => void);
+
+================================================================================
+`;
+
+exports[`trailing-comment.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+export const CONDITIONAL_AXIS_PROP_INDEX: Record<
+  ConditionalAxisProp,
+  {
+    part: keyof AxisEncode;
+    vgProp: VgEncodeChannel;
+  } | null // null if we need to convert condition to signal
+> = {
+}
+
+=====================================output=====================================
+export const CONDITIONAL_AXIS_PROP_INDEX: Record<
+  ConditionalAxisProp,
+  {
+    part: keyof AxisEncode;
+    vgProp: VgEncodeChannel;
+  } | null // null if we need to convert condition to signal
+> = {};
 
 ================================================================================
 `;
@@ -306,8 +495,7 @@ type State = {
 );
 
 const foo1 = [abc, def, ghi, jkl, mno, pqr, stu, vwx, yz] as (
-  | string
-  | undefined
+  string | undefined
 )[];
 
 const foo2: (

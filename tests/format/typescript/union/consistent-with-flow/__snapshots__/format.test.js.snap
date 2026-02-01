@@ -60,38 +60,92 @@ type ClassLike________80 =
 
 =====================================output=====================================
 export type ButtonColor =
-  | "primary"
-  | "danger"
-  | "warning"
-  | "muted"
-  | "success";
+  "primary" | "danger" | "warning" | "muted" | "success";
 export type Button__80 = "primary" | "danger" | "warning" | "muted" | "success";
 
 export type SupportOptionType =
-  | "int"
-  | "string"
-  | "boolean"
-  | "choice"
-  | "path";
+  "int" | "string" | "boolean" | "choice" | "path";
 export type SupportOption_80 = "int" | "string" | "boolean" | "choice" | "path";
 
 export type RenderContextType =
-  | "data"
-  | "header"
-  | "footer"
-  | "columnsSelector";
+  "data" | "header" | "footer" | "columnsSelector";
 export type RenderContext_80 = "data" | "header" | "footer" | "columnsSelector";
 
 export type PropertyNameNonComputed =
-  | Identifier
-  | NumberLiteral
-  | StringLiteral;
+  Identifier | NumberLiteral | StringLiteral;
 export type PropertyNameNon_____80 = Identifier | NumberLiteral | StringLiteral;
 
 type ClassLikeDeclaration =
-  | TSESTree.ClassDeclaration
-  | TSESTree.ClassExpression;
+  TSESTree.ClassDeclaration | TSESTree.ClassExpression;
 type ClassLike________80 = TSESTree.ClassDeclaration | TSESTree.ClassExpression;
+
+================================================================================
+`;
+
+exports[`18647.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript", "flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+type T = any extends B
+  /**
+  * Comment
+  */
+    ? B | C
+    : D;
+type T2 = any extends B
+    ? B | C
+  /**
+  * Comment
+  */
+    : D;
+T = any instanceof B
+  /**
+  * Comment
+  */
+    ? B | C
+    : D;
+
+=====================================output=====================================
+type T = any extends B
+  ? /**
+     * Comment
+     */
+    B | C
+  : D;
+type T2 = any extends B
+  ? B | C
+  : /**
+     * Comment
+     */
+    D;
+T =
+  any instanceof B
+    ? /**
+       * Comment
+       */
+      B | C
+    : D;
+
+================================================================================
+`;
+
+exports[`18819.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript", "flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+functionArg = a as
+  // comment
+  TSESTree.ArrowFunctionExpression | TSESTree.ArrowFunctionExpression | TSESTree.FunctionExpression | undefined;
+
+=====================================output=====================================
+functionArg = a as
+  // comment
+  | TSESTree.ArrowFunctionExpression
+  | TSESTree.ArrowFunctionExpression
+  | TSESTree.FunctionExpression
+  | undefined;
 
 ================================================================================
 `;
@@ -179,6 +233,26 @@ type A6 = a | /* 1 */ b;
 type B1 = a /* 1 */ /* 2 */ | b;
 type B2 = a /* 1 */ | /* 2 */ b;
 type B3 = a | /* 1 */ /* 2 */ b;
+
+================================================================================
+`;
+
+exports[`conditional.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript", "flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+// https://github.com/excalidraw/excalidraw/blob/f12ae80ba1e1364952c6c6c440ac4212acd06eab/packages/excalidraw/tests/helpers/api.ts#L208C1-L210C15
+type A = T extends "arrow"
+    ? ExcalidrawArrowElement["startBinding"] | ExcalidrawElbowArrowElement["startBinding"]
+    : never;
+
+=====================================output=====================================
+// https://github.com/excalidraw/excalidraw/blob/f12ae80ba1e1364952c6c6c440ac4212acd06eab/packages/excalidraw/tests/helpers/api.ts#L208C1-L210C15
+type A = T extends "arrow"
+  ? | ExcalidrawArrowElement["startBinding"]
+    | ExcalidrawElbowArrowElement["startBinding"]
+  : never;
 
 ================================================================================
 `;
@@ -358,8 +432,8 @@ type A5 =
   | ({ key: string } | { key: string } | { key: string } | { key: string })
   | { key: string }
   | { key: string };
-type A6 = /*1*/
-  | A
+type A6 =
+  /*1*/ | A
   // A comment to force break
   | B;
 

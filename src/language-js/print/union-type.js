@@ -12,13 +12,13 @@ import {
   printCommentsSeparately,
 } from "../../main/comments/print.js";
 import needsParentheses from "../parentheses/needs-parentheses.js";
-import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
+import { hasComment } from "../utilities/comments.js";
 import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
-import { hasLeadingOwnLineComment } from "../utilities/has-leading-own-line-comment.js";
+import { isFlowObjectTypePropertyAFunction } from "../utilities/is-flow-object-type-property-a-function.js";
 import {
   isConditionalType,
   isTupleType,
-  isTypeAlias,
+  isTypeParameterInstantiation,
 } from "../utilities/node-types.js";
 import { shouldUnionTypePrintOwnComments } from "../utilities/should-union-type-print-own-comments.js";
 
@@ -27,7 +27,7 @@ import { shouldUnionTypePrintOwnComments } from "../utilities/should-union-type-
 */
 
 // `TSUnionType` and `UnionTypeAnnotation`
-function printUnionType(path, options, print) {
+function printUnionType(path, options, print, args) {
   const { node } = path;
   // single-line variation
   // A | B | C
@@ -38,33 +38,6 @@ function printUnionType(path, options, print) {
   // | C
 
   const { parent } = path;
-
-  // If there's a leading comment, the parent is doing the indentation
-  const shouldIndent =
-    parent.type !== "TypeParameterInstantiation" &&
-    parent.type !== "TSTypeParameterInstantiation" &&
-    parent.type !== "GenericTypeAnnotation" &&
-    parent.type !== "TSTypeReference" &&
-    parent.type !== "TSTypeAssertion" &&
-    !isTupleType(parent) &&
-    !(
-      parent.type === "FunctionTypeParam" &&
-      !parent.name &&
-      path.grandparent.this !== parent
-    ) &&
-    !(
-      isConditionalType(parent) &&
-      !options.experimentalTernaries &&
-      hasLeadingOwnLineComment(options.originalText, node)
-    ) &&
-    !(
-      (isTypeAlias(parent) || parent.type === "VariableDeclarator") &&
-      hasLeadingOwnLineComment(options.originalText, node)
-    ) &&
-    !(
-      isTypeAlias(parent) &&
-      hasComment(parent.id, CommentCheckFlags.Trailing | CommentCheckFlags.Line)
-    );
 
   // {
   //   a: string
@@ -97,32 +70,65 @@ function printUnionType(path, options, print) {
     return [leading, join(" | ", printed), trailing];
   }
 
-  const shouldAddStartLine =
-    shouldIndent && !hasLeadingOwnLineComment(options.originalText, node);
-
   const mainParts = [
-    ifBreak([shouldAddStartLine ? line : "", "| "]),
-    join([line, "| "], printed),
+    leading,
+    group([ifBreak("| "), join([line, "| "], printed)]),
+    trailing,
   ];
 
   if (needsParentheses(path, options)) {
-    return [leading, group([indent(mainParts), softline]), trailing];
+    return group([indent([softline, mainParts]), softline]);
   }
-
-  const parts = [leading, group(mainParts)];
 
   if (isTupleType(parent) && parent.elementTypes.length > 1) {
     return [
       group([
-        indent([ifBreak(["(", softline]), parts]),
+        indent([ifBreak(["(", softline]), mainParts]),
         softline,
         ifBreak(")"),
       ]),
-      trailing,
     ];
   }
 
-  return [group(shouldIndent ? indent(parts) : parts), trailing];
+  // Already indent in parent
+  if (
+    args?.assignmentLayout === "break-after-operator" ||
+    !shouldIndentUnionType(path)
+  ) {
+    return mainParts;
+  }
+
+  return group(indent([softline, mainParts]));
+}
+
+function shouldIndentUnionType(path) {
+  const { key, parent } = path;
+  if (
+    (key === "typeAnnotation" && parent.type === "TSTypeAssertion") ||
+    (key === "elementTypes" && isTupleType(parent)) ||
+    ((key === "trueType" || key === "falseType") &&
+      isConditionalType(parent)) ||
+    (key === "params" && isTypeParameterInstantiation(parent))
+  ) {
+    return false;
+  }
+
+  if (
+    path.match(
+      undefined,
+      (node, key) =>
+        key === "typeAnnotation" && node.type === "FunctionTypeParam",
+      (node, key) => key === "params" && node.type === "FunctionTypeAnnotation",
+      (node, key) =>
+        key === "value" &&
+        node.type === "ObjectTypeProperty" &&
+        isFlowObjectTypePropertyAFunction(node),
+    )
+  ) {
+    return false;
+  }
+
+  return true;
 }
 
 const isVoidType = createTypeCheckFunction([

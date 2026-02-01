@@ -53,7 +53,7 @@ import { printTypePredicate } from "./type-predicate.js";
 import { printTypeQuery } from "./type-query.js";
 import { printUnionType } from "./union-type.js";
 
-function printFlow(path, options, print) {
+function printFlow(path, options, print, args) {
   const { node } = path;
 
   if (isFlowKeywordType(node)) {
@@ -117,7 +117,7 @@ function printFlow(path, options, print) {
     case "IntersectionTypeAnnotation":
       return printIntersectionType(path, options, print);
     case "UnionTypeAnnotation":
-      return printUnionType(path, options, print);
+      return printUnionType(path, options, print, args);
     case "ConditionalTypeAnnotation":
       return printTernary(path, options, print);
     case "InferTypeAnnotation":

@@ -80,6 +80,11 @@ T = any instanceof B
     // Multiline comment
     ? B | C
     : D;
+T = any instanceof B
+    ? D
+    // Comment
+    // Multiline comment
+    : B | C;
 
 type T = any extends B
     // Comment
