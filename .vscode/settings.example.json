@@ -1,5 +1,5 @@
 {
-  "[javascript][typescript][javascriptreact][typescriptreact][json][jsonc][json5][markdown][yaml][css][html][vue]": {
+  "[javascript][typescript][javascriptreact][typescriptreact][json][jsonc][json5][markdown][yaml][css][html][vue][github-actions-workflow]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true,
   },
