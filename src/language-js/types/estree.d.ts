@@ -30,6 +30,7 @@ type FlowAdditionalNode = {
 type PrettierNode = { type: "JsExpressionRoot"; node: Babel.Expression };
 
 export type Comment = (
+  | Babel.InterpreterDirective
   | Babel.Comment
   | TSESTree.Comment
   | MeriyahESTree.Comment

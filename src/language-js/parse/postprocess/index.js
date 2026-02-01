@@ -13,7 +13,7 @@ import { mergeNestledJsdocComments } from "./merge-nestled-jsdoc-comments.js";
 import visitNode from "./visit-node.js";
 
 /**
-@import {Node, Comment} from "../../types/estree.js"
+@import {Node, Comment, NodeMap} from "../../types/estree.js"
 */
 
 const isNodeWithRaw = createTypeCheckFunction([
@@ -38,11 +38,11 @@ const isNodeWithRaw = createTypeCheckFunction([
 ]);
 
 /**
- * @param {{
- *   text: string,
- *   astType?: "espree" | "flow" | "hermes" | "meriyah" | "oxc-js" | "oxc-ts" | "typescript",
- * }} options
- */
+@param {{
+  text: string,
+  astType?: "espree" | "flow" | "hermes" | "meriyah" | "oxc-js" | "oxc-ts" | "typescript",
+}} options
+*/
 function postprocess(ast, options) {
   const { text, astType } = options;
   const isOxcTs = astType === "oxc-ts";

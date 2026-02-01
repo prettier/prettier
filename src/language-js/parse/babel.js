@@ -14,7 +14,7 @@ import wrapExpression from "./utilities/wrap-expression.js";
 
 const createBabelParser = (options) => createParser(createParse(options));
 
-/** @import {ParserOptions, ParserPlugin} from "@babel/parser" */
+/** @import {ParserOptions, ParserPlugin, ParseError} from "@babel/parser" */
 
 /**
  * @typedef {typeof babelParse | typeof parseExpression} Parse
@@ -39,7 +39,7 @@ const parseOptions = {
     "functionBind",
     "functionSent",
     "throwExpressions",
-    "partialApplication",
+    ["partialApplication", { version: "2018-07" }],
     "decorators",
     "moduleBlocks",
     "asyncDoExpressions",
@@ -59,12 +59,17 @@ const parseOptions = {
 /** @type {ParserPlugin} */
 const v8intrinsicPlugin = "v8intrinsic";
 
-/** @type {Array<ParserPlugin>} */
+/** @type {ParserPlugin[]} */
 const pipelineOperatorPlugins = [
   ["pipelineOperator", { proposal: "hack", topicToken: "%" }],
   ["pipelineOperator", { proposal: "fsharp" }],
 ];
 
+/**
+@param {ParserPlugin[]} plugins
+@param {ParserOptions} options
+@returns {ParserOptions}
+*/
 const appendPlugins = (plugins, options = parseOptions) => ({
   ...options,
   plugins: [...options.plugins, ...plugins],
@@ -104,7 +109,13 @@ function parseWithOptions(parse, text, options) {
   return ast;
 }
 
+/**
+@param {{isExpression: boolean, optionsCombinations: ParserOptions[]}} param0
+*/
 function createParse({ isExpression = false, optionsCombinations }) {
+  /**
+  @param {string} text
+  */
   return (text, options = {}) => {
     let { filepath } = options;
     if (typeof filepath !== "string") {
@@ -177,12 +188,8 @@ function createParse({ isExpression = false, optionsCombinations }) {
   };
 }
 
-// Error codes are defined in
-//  - https://github.com/babel/babel/tree/v7.23.6/packages/babel-parser/src/parse-error
-//  - https://github.com/babel/babel/blob/v7.23.6/packages/babel-parser/src/plugins/typescript/index.ts#L73-L223
-//  - https://github.com/babel/babel/blob/v7.23.6/packages/babel-parser/src/plugins/flow/index.ts#L47-L224
-//  - https://github.com/babel/babel/blob/v7.23.6/packages/babel-parser/src/plugins/jsx/index.ts#L23-L44
-const allowedReasonCodes = new Set([
+/** @type {ParseError["reasonCode"][]} */
+const allowedReasonCodesArray = [
   "StrictNumericEscape",
   "StrictWith",
   "StrictOctalLiteral",
@@ -192,9 +199,7 @@ const allowedReasonCodes = new Set([
   "StrictFunction",
   "ForInOfLoopInitializer",
 
-  "DecoratorExportClass",
   "ParamDupe",
-  "InvalidDecimal",
   "RestTrailingComma",
   "UnsupportedParameterDecorator",
   "UnterminatedJsxContent",
@@ -218,7 +223,8 @@ const allowedReasonCodes = new Set([
   ```
   */
   "DeclarationMissingInitializer",
-]);
+];
+const allowedReasonCodes = new Set(allowedReasonCodesArray);
 
 const babelParserOptionsCombinations = [appendPlugins(["jsx"])];
 const babel = /* @__PURE__ */ createBabelParser({
