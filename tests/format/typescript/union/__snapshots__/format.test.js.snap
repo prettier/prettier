@@ -1,5 +1,49 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`7725.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+type T = {
+  prop:
+    // comment
+    | T1
+    // comment
+    | T2
+    // comment
+}
+
+type T2 = (arg:
+  // comment
+  | T1
+  // comment
+  | T2
+  // comment
+) => void
+
+=====================================output=====================================
+type T = {
+  prop:
+    // comment
+    | T1
+    // comment
+    | T2;
+  // comment
+};
+
+type T2 = (
+  arg:
+    // comment
+    | T1
+    // comment
+    | T2,
+  // comment
+) => void;
+
+================================================================================
+`;
+
 exports[`inlining.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
