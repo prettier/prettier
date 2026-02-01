@@ -25,7 +25,6 @@ const unstableTests = new Map(
     "js/sequence-expression/parenthesized.js",
     "typescript/satisfies-operators/comments-unstable.ts",
     "jsx/comments/in-attributes.js",
-    "typescript/union/consistent-with-flow/single-type.ts",
     "typescript/import-type/long-module-name/long-module-name4.ts",
     // Unstable due to lack of indent information
     "js/multiparser-comments/comment-inside.js",
