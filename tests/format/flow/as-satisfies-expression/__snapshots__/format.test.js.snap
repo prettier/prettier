@@ -59,8 +59,12 @@ start + (yearSelectTotal as number);
 (start + yearSelectTotal) as number;
 scrollTop > (visibilityHeight as number);
 (scrollTop > visibilityHeight) as number;
-export default class Column<T> extends (RcTable.Column as
-  Long.Thing<ColumnProps<T>, ColumnProps<T>, ColumnProps<T>, ColumnProps<T>>) {}
+export default class Column<T> extends (RcTable.Column as Long.Thing<
+  ColumnProps<T>,
+  ColumnProps<T>,
+  ColumnProps<T>,
+  ColumnProps<T>,
+>) {}
 ({}) as {};
 function* g() {
   const test = (yield "foo") as number;
@@ -83,8 +87,11 @@ const value2 = thisIsAnIdentifier as
   thisIsAReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyLongInterface;
 const value3 = thisIsAReallyLongIdentifier as
   SomeInterface | SomeOtherInterface;
-const value4 = thisIsAReallyLongIdentifier as
-  { prop1: string, prop2: number, prop3: number }[];
+const value4 = thisIsAReallyLongIdentifier as {
+  prop1: string,
+  prop2: number,
+  prop3: number,
+}[];
 const value5 =
   thisIsAReallyReallyReallyReallyReallyReallyReallyReallyReallyLongIdentifier as
     [string, number];

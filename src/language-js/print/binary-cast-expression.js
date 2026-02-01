@@ -12,7 +12,6 @@ import {
   isMemberExpression,
   isObjectType,
   isSatisfiesExpression,
-  isUnionType,
 } from "../utilities/node-types.js";
 
 function printBinaryCastExpression(path, options, print) {
@@ -27,17 +26,11 @@ function printBinaryCastExpression(path, options, print) {
     isSatisfiesExpression(node) ? "satisfies" : "as",
   ];
 
-  if (isAsConstExpression(node)) {
+  if (shouldInlineBinaryCastExpression(path)) {
     parts.push(" ", typeAnnotationDoc);
   } else {
     parts.push(group(indent([line, typeAnnotationDoc])));
   }
-
-  // if (shouldInlineBinaryCastExpression(path)) {
-  //   parts.push(" ", typeAnnotationDoc);
-  // } else {
-  //   parts.push(group(indent([line, typeAnnotationDoc])));
-  // }
 
   if (
     (key === "callee" && isCallOrNewExpression(parent)) ||
@@ -64,7 +57,6 @@ function shouldInlineBinaryCastExpression(path) {
   const { typeAnnotation } = node;
   if (
     isObjectType(typeAnnotation) ||
-    isUnionType(typeAnnotation) ||
     isIntersectionType(typeAnnotation) ||
     isGenericType(typeAnnotation) ||
     isFunctionType(typeAnnotation) ||

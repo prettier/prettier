@@ -156,11 +156,12 @@ const extraRendererAttrs = ((attrs.rendererAttrs &&
   this.utils.safeParseJsonString(attrs.rendererAttrs)) ||
   Object.create(null)) satisfies FieldService.RendererAttributes
 
-const annotate = (angular.injector satisfies any).$$annotate satisfies
-  (fn: Function) => string[]
+const annotate = (angular.injector satisfies any).$$annotate satisfies (
+  fn: Function,
+) => string[]
 
-const originalPrototype = originalConstructor.prototype satisfies
-    TComponent & InjectionTarget,
+const originalPrototype = originalConstructor.prototype satisfies TComponent &
+    InjectionTarget,
   propertyToServiceName = originalPrototype._inject
 
 this.previewPlayerHandle = setInterval(async () => {
@@ -209,11 +210,12 @@ const extraRendererAttrs = ((attrs.rendererAttrs &&
   this.utils.safeParseJsonString(attrs.rendererAttrs)) ||
   Object.create(null)) satisfies FieldService.RendererAttributes;
 
-const annotate = (angular.injector satisfies any).$$annotate satisfies
-  (fn: Function) => string[];
+const annotate = (angular.injector satisfies any).$$annotate satisfies (
+  fn: Function,
+) => string[];
 
-const originalPrototype = originalConstructor.prototype satisfies
-    TComponent & InjectionTarget,
+const originalPrototype = originalConstructor.prototype satisfies TComponent &
+    InjectionTarget,
   propertyToServiceName = originalPrototype._inject;
 
 this.previewPlayerHandle = setInterval(async () => {
@@ -427,9 +429,8 @@ const t1 = {
   prop1: 1,
   prop2: 2,
   prop3: 3,
-} satisfies
-  // Comment
-  Record<string, number>
+} satisfies // Comment
+Record<string, number>
 
 ================================================================================
 `;
@@ -452,9 +453,8 @@ const t1 = {
   prop1: 1,
   prop2: 2,
   prop3: 3,
-} satisfies
-  // Comment
-  Record<string, number>;
+} satisfies // Comment
+Record<string, number>;
 
 ================================================================================
 `;
