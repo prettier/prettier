@@ -82,6 +82,54 @@ type ClassLike________80 = TSESTree.ClassDeclaration | TSESTree.ClassExpression;
 ================================================================================
 `;
 
+exports[`18647.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript", "flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+type T = any extends B
+  /**
+  * Comment
+  */
+    ? B | C
+    : D;
+type T2 = any extends B
+    ? B | C
+  /**
+  * Comment
+  */
+    : D;
+T = any instanceof B
+  /**
+  * Comment
+  */
+    ? B | C
+    : D;
+
+=====================================output=====================================
+type T = any extends B
+  ? /**
+     * Comment
+     */
+    B | C
+  : D;
+type T2 = any extends B
+  ? B | C
+  : /**
+     * Comment
+     */
+    D;
+T =
+  any instanceof B
+    ? /**
+       * Comment
+       */
+      B | C
+    : D;
+
+================================================================================
+`;
+
 exports[`18819.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow"]
