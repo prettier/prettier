@@ -495,11 +495,10 @@ TSESTree.ArrowFunctionExpression &
   TSESTree.ArrowFunctionExpression &
   TSESTree.FunctionExpression &
   undefined;
-foo = esBundle.output.find(
-  (chunk) => chunk.fileName === "foo.js",
-) as | TSESTree.ArrowFunctionExpression
-| TSESTree.ArrowFunctionExpression
-| TSESTree.FunctionExpression;
+foo = esBundle.output.find((chunk) => chunk.fileName === "foo.js") as
+  | TSESTree.ArrowFunctionExpression
+  | TSESTree.ArrowFunctionExpression
+  | TSESTree.FunctionExpression;
 
 ================================================================================
 `;

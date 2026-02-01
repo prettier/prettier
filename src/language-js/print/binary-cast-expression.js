@@ -12,6 +12,7 @@ import {
   isMemberExpression,
   isObjectType,
   isSatisfiesExpression,
+  isUnionType,
 } from "../utilities/node-types.js";
 
 function printBinaryCastExpression(path, options, print) {
@@ -48,13 +49,16 @@ function shouldInlineBinaryCastExpression(path) {
   if (isAsConstExpression(node)) {
     return true;
   }
+  const { expression, typeAnnotation } = node;
 
-  const { expression } = node;
+  if (isUnionType(typeAnnotation)) {
+    return false;
+  }
+
   if (isCallOrNewExpression(expression)) {
     return true;
   }
 
-  const { typeAnnotation } = node;
   if (
     isObjectType(typeAnnotation) ||
     isIntersectionType(typeAnnotation) ||
