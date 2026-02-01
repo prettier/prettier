@@ -9,7 +9,7 @@ import isFlowKeywordType from "../utilities/is-flow-keyword-type.js";
 import { isMethod } from "../utilities/is-method.js";
 import { printArray } from "./array.js";
 import { printArrayType } from "./array-type.js";
-import { printBinaryCastExpression } from "./cast-expression.js";
+import { printBinaryCastExpression } from "./binary-cast-expression.js";
 import {
   printClass,
   printClassBody,
