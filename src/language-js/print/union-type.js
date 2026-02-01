@@ -100,7 +100,7 @@ function shouldIndentUnionType(path) {
   if (
     (key === "typeAnnotation" && parent.type === "TSTypeAssertion") ||
     (key === "typeAnnotation" && isBinaryCastExpression(parent)) ||
-    (key === "params" && isTypeParameterInstantiation(parent)) ||
+    (key === "elementTypes" && isTupleType(parent)) ||
     ((key === "trueType" || key === "falseType") &&
       isConditionalType(parent)) ||
     (key === "params" && isTypeParameterInstantiation(parent))
