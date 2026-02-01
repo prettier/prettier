@@ -237,6 +237,26 @@ type B3 = a | /* 1 */ /* 2 */ b;
 ================================================================================
 `;
 
+exports[`conditional.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript", "flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+// https://github.com/excalidraw/excalidraw/blob/f12ae80ba1e1364952c6c6c440ac4212acd06eab/packages/excalidraw/tests/helpers/api.ts#L208C1-L210C15
+type A = T extends "arrow"
+    ? ExcalidrawArrowElement["startBinding"] | ExcalidrawElbowArrowElement["startBinding"]
+    : never;
+
+=====================================output=====================================
+// https://github.com/excalidraw/excalidraw/blob/f12ae80ba1e1364952c6c6c440ac4212acd06eab/packages/excalidraw/tests/helpers/api.ts#L208C1-L210C15
+type A = T extends "arrow"
+  ? | ExcalidrawArrowElement["startBinding"]
+    | ExcalidrawElbowArrowElement["startBinding"]
+  : never;
+
+================================================================================
+`;
+
 exports[`prettier-ignore.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow"]
