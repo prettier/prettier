@@ -31,36 +31,28 @@ const bar1 = [1, 2, 3].reduce(
   (carry, value) => {
     return [...carry, value]
   },
-  [] satisfies
-  unknown satisfies
-  number[],
+  [] satisfies unknown satisfies number[],
 )
 
 const bar2 = [1, 2, 3].reduce(
   (carry, value) => {
     return [...carry, value]
   },
-  [1, 2, 3] satisfies
-  unknown satisfies
-  number[],
+  [1, 2, 3] satisfies unknown satisfies number[],
 )
 
 const bar3 = [1, 2, 3].reduce(
   (carry, value) => {
     return { ...carry, [value]: true }
   },
-  {} satisfies
-  unknown satisfies
-  { [key: number]: boolean },
+  {} satisfies unknown satisfies { [key: number]: boolean },
 )
 
 const bar4 = [1, 2, 3].reduce(
   (carry, value) => {
     return { ...carry, [value]: true }
   },
-  { 1: true } satisfies
-  unknown satisfies
-  { [key: number]: boolean },
+  { 1: true } satisfies unknown satisfies { [key: number]: boolean },
 )
 
 const bar5 = [1, 2, 3].reduce((carry, value) => {
@@ -100,36 +92,28 @@ const bar1 = [1, 2, 3].reduce(
   (carry, value) => {
     return [...carry, value];
   },
-  [] satisfies
-  unknown satisfies
-  number[],
+  [] satisfies unknown satisfies number[],
 );
 
 const bar2 = [1, 2, 3].reduce(
   (carry, value) => {
     return [...carry, value];
   },
-  [1, 2, 3] satisfies
-  unknown satisfies
-  number[],
+  [1, 2, 3] satisfies unknown satisfies number[],
 );
 
 const bar3 = [1, 2, 3].reduce(
   (carry, value) => {
     return { ...carry, [value]: true };
   },
-  {} satisfies
-  unknown satisfies
-  { [key: number]: boolean },
+  {} satisfies unknown satisfies { [key: number]: boolean },
 );
 
 const bar4 = [1, 2, 3].reduce(
   (carry, value) => {
     return { ...carry, [value]: true };
   },
-  { 1: true } satisfies
-  unknown satisfies
-  { [key: number]: boolean },
+  { 1: true } satisfies unknown satisfies { [key: number]: boolean },
 );
 
 const bar5 = [1, 2, 3].reduce((carry, value) => {
@@ -170,8 +154,7 @@ this.intervalID = (setInterval(() => {
 =====================================output=====================================
 const extraRendererAttrs = ((attrs.rendererAttrs &&
   this.utils.safeParseJsonString(attrs.rendererAttrs)) ||
-  Object.create(null)) satisfies
-FieldService.RendererAttributes
+  Object.create(null)) satisfies FieldService.RendererAttributes
 
 const annotate = (angular.injector satisfies any).$$annotate satisfies
 (fn: Function) => string[]
@@ -185,15 +168,11 @@ this.previewPlayerHandle = setInterval(async () => {
     await this.fetchNextPreviews()
     this.currentPreviewIndex++
   }
-}, this.refreshDelay) satisfies
-unknown satisfies
-number
+}, this.refreshDelay) satisfies unknown satisfies number
 
 this.intervalID = setInterval(() => {
   self.step()
-}, 30) satisfies
-unknown satisfies
-number
+}, 30) satisfies unknown satisfies number
 
 ================================================================================
 `;
@@ -228,8 +207,7 @@ this.intervalID = (setInterval(() => {
 =====================================output=====================================
 const extraRendererAttrs = ((attrs.rendererAttrs &&
   this.utils.safeParseJsonString(attrs.rendererAttrs)) ||
-  Object.create(null)) satisfies
-FieldService.RendererAttributes;
+  Object.create(null)) satisfies FieldService.RendererAttributes;
 
 const annotate = (angular.injector satisfies any).$$annotate satisfies
 (fn: Function) => string[];
@@ -243,15 +221,11 @@ this.previewPlayerHandle = setInterval(async () => {
     await this.fetchNextPreviews();
     this.currentPreviewIndex++;
   }
-}, this.refreshDelay) satisfies
-unknown satisfies
-number;
+}, this.refreshDelay) satisfies unknown satisfies number;
 
 this.intervalID = setInterval(() => {
   self.step();
-}, 30) satisfies
-unknown satisfies
-number;
+}, 30) satisfies unknown satisfies number;
 
 ================================================================================
 `;
@@ -306,17 +280,14 @@ let t8 = { a: "test", b: "test" } satisfies A
 const p = {
   isEven: (n) => n % 2 === 0,
   isOdd: (n) => n % 2 === 1,
-} satisfies
-Predicates
+} satisfies Predicates
 
 let obj: { f(s: string): void } & Record<string, unknown> = {
   f(s) {},
   g(s) {},
-} satisfies
-{ g(s: string): void } & Record<string, unknown>
+} satisfies { g(s: string): void } & Record<string, unknown>
 
-;({ f(x) {} }) satisfies
-{ f(s: string): void }
+;({ f(x) {} }) satisfies { f(s: string): void }
 
 const car = {
   start() {},
@@ -324,8 +295,7 @@ const car = {
     // d should be number
   },
   stop() {},
-} satisfies
-Movable & Record<string, unknown>
+} satisfies Movable & Record<string, unknown>
 
 var v = undefined satisfies 1
 
@@ -381,17 +351,14 @@ let t8 = { a: "test", b: "test" } satisfies A;
 const p = {
   isEven: (n) => n % 2 === 0,
   isOdd: (n) => n % 2 === 1,
-} satisfies
-Predicates;
+} satisfies Predicates;
 
 let obj: { f(s: string): void } & Record<string, unknown> = {
   f(s) {},
   g(s) {},
-} satisfies
-{ g(s: string): void } & Record<string, unknown>;
+} satisfies { g(s: string): void } & Record<string, unknown>;
 
-({ f(x) {} }) satisfies
-{ f(s: string): void };
+({ f(x) {} }) satisfies { f(s: string): void };
 
 const car = {
   start() {},
@@ -399,8 +366,7 @@ const car = {
     // d should be number
   },
   stop() {},
-} satisfies
-Movable & Record<string, unknown>;
+} satisfies Movable & Record<string, unknown>;
 
 var v = undefined satisfies 1;
 
@@ -502,8 +468,7 @@ semi: false
 export default (function log() {} satisfies typeof console.log)
 
 =====================================output=====================================
-export default (function log() {} satisfies
-typeof console.log)
+export default (function log() {} satisfies typeof console.log)
 
 ================================================================================
 `;
@@ -516,8 +481,7 @@ parsers: ["typescript"]
 export default (function log() {} satisfies typeof console.log)
 
 =====================================output=====================================
-export default (function log() {} satisfies
-typeof console.log);
+export default (function log() {} satisfies typeof console.log);
 
 ================================================================================
 `;
@@ -579,46 +543,31 @@ const _ = () => {
       return 2
     default:
       // exhaustiveness check idiom
-      ;(type) satisfies
-      never
+      ;(type) satisfies never
       throw new Error("unreachable")
   }
 }
 
 function needParens() {
-  ;(let) satisfies
-  unknown
-  ;(interface) satisfies
-  unknown
-  ;(module) satisfies
-  unknown
-  ;(using) satisfies
-  unknown
-  ;(yield) satisfies
-  unknown
-  ;(await) satisfies
-  unknown
+  ;(let) satisfies unknown
+  ;(interface) satisfies unknown
+  ;(module) satisfies unknown
+  ;(using) satisfies unknown
+  ;(yield) satisfies unknown
+  ;(await) satisfies unknown
 }
 
 function noNeedParens() {
-  async satisfies
-  unknown
-  satisfies satisfies
-  unknown
-  as satisfies
-  unknown
+  async satisfies unknown
+  satisfies satisfies unknown
+  as satisfies unknown
 
-  abc satisfies
-  unknown // not a keyword
+  abc satisfies unknown // not a keyword
 }
 
 function satisfiesChain() {
-  satisfies satisfies
-  satisfies satisfies
-  satisfies
-  ;(type) satisfies
-  never satisfies
-  unknown
+  satisfies satisfies satisfies satisfies satisfies
+  ;(type) satisfies never satisfies unknown
 }
 
 ================================================================================
@@ -680,46 +629,31 @@ const _ = () => {
       return 2;
     default:
       // exhaustiveness check idiom
-      (type) satisfies
-      never;
+      (type) satisfies never;
       throw new Error("unreachable");
   }
 };
 
 function needParens() {
-  (let) satisfies
-  unknown;
-  (interface) satisfies
-  unknown;
-  (module) satisfies
-  unknown;
-  (using) satisfies
-  unknown;
-  (yield) satisfies
-  unknown;
-  (await) satisfies
-  unknown;
+  (let) satisfies unknown;
+  (interface) satisfies unknown;
+  (module) satisfies unknown;
+  (using) satisfies unknown;
+  (yield) satisfies unknown;
+  (await) satisfies unknown;
 }
 
 function noNeedParens() {
-  async satisfies
-  unknown;
-  satisfies satisfies
-  unknown;
-  as satisfies
-  unknown;
+  async satisfies unknown;
+  satisfies satisfies unknown;
+  as satisfies unknown;
 
-  abc satisfies
-  unknown; // not a keyword
+  abc satisfies unknown; // not a keyword
 }
 
 function satisfiesChain() {
-  satisfies satisfies
-  satisfies satisfies
-  satisfies;
-  (type) satisfies
-  never satisfies
-  unknown;
+  satisfies satisfies satisfies satisfies satisfies;
+  (type) satisfies never satisfies unknown;
 }
 
 ================================================================================
@@ -773,8 +707,7 @@ window.postMessage(
 window.postMessage({
   context: item.context,
   topic: item.topic,
-} satisfies
-IActionMessage)
+} satisfies IActionMessage)
 
 ================================================================================
 `;
@@ -795,8 +728,7 @@ window.postMessage(
 window.postMessage({
   context: item.context,
   topic: item.topic,
-} satisfies
-IActionMessage);
+} satisfies IActionMessage);
 
 ================================================================================
 `;
@@ -874,8 +806,7 @@ const getAccountCount = async () =>
     await (
       (await (
         await focusOnSection(BOOKMARKED_PROJECTS_SECTION_NAME)
-      ).findItem("My bookmarks")) satisfies
-      TreeItem
+      ).findItem("My bookmarks")) satisfies TreeItem
     ).getChildren()
   ).length
 
@@ -901,8 +832,7 @@ const getAccountCount = async () =>
     await (
       (await (
         await focusOnSection(BOOKMARKED_PROJECTS_SECTION_NAME)
-      ).findItem("My bookmarks")) satisfies
-      TreeItem
+      ).findItem("My bookmarks")) satisfies TreeItem
     ).getChildren()
   ).length;
 
@@ -974,22 +904,17 @@ foo satisfies unknown as Bar;
 foo as unknown satisfies Bar;
 
 =====================================output=====================================
-;({}) satisfies
-{}
-;({}) satisfies
-X
+;({}) satisfies {}
+;({}) satisfies X
 ;() => ({}) satisfies X
 this.isTabActionBar((e.target || e.srcElement) satisfies HTMLElement)
 
 "current" in (props.pagination satisfies Object)
-;("current" in props.pagination) satisfies
-Object
+;("current" in props.pagination) satisfies Object
 start + (yearSelectTotal satisfies number)
-;(start + yearSelectTotal) satisfies
-number
+;(start + yearSelectTotal) satisfies number
 scrollTop > (visibilityHeight satisfies number)
-;(scrollTop > visibilityHeight) satisfies
-number
+;(scrollTop > visibilityHeight) satisfies number
 ;(bValue satisfies boolean) ? 0 : -1
 
 async function g1() {
@@ -998,15 +923,9 @@ async function g1() {
 
 var x = ((v) => v) satisfies (x: number) => string
 
-foo satisfies
-unknown satisfies
-Bar
-foo satisfies
-unknown as
-Bar
-foo as
-unknown satisfies
-Bar
+foo satisfies unknown satisfies Bar
+foo satisfies unknown as Bar
+foo as unknown satisfies Bar
 
 ================================================================================
 `;
@@ -1040,22 +959,17 @@ foo satisfies unknown as Bar;
 foo as unknown satisfies Bar;
 
 =====================================output=====================================
-({}) satisfies
-{};
-({}) satisfies
-X;
+({}) satisfies {};
+({}) satisfies X;
 () => ({}) satisfies X;
 this.isTabActionBar((e.target || e.srcElement) satisfies HTMLElement);
 
 "current" in (props.pagination satisfies Object);
-("current" in props.pagination) satisfies
-Object;
+("current" in props.pagination) satisfies Object;
 start + (yearSelectTotal satisfies number);
-(start + yearSelectTotal) satisfies
-number;
+(start + yearSelectTotal) satisfies number;
 scrollTop > (visibilityHeight satisfies number);
-(scrollTop > visibilityHeight) satisfies
-number;
+(scrollTop > visibilityHeight) satisfies number;
 (bValue satisfies boolean) ? 0 : -1;
 
 async function g1() {
@@ -1064,15 +978,9 @@ async function g1() {
 
 var x = ((v) => v) satisfies (x: number) => string;
 
-foo satisfies
-unknown satisfies
-Bar;
-foo satisfies
-unknown as
-Bar;
-foo as
-unknown satisfies
-Bar;
+foo satisfies unknown satisfies Bar;
+foo satisfies unknown as Bar;
+foo as unknown satisfies Bar;
 
 ================================================================================
 `;
@@ -1091,23 +999,10 @@ const b = \`\${(veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongFoo + veryVe
 
 =====================================output=====================================
 const a = \`\${(foo + bar) satisfies baz}\`
-const b = \`\${
-  (veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongFoo + bar) satisfies
-  baz
-}\`
-const b = \`\${
-  (foo + veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongBar) satisfies
-  baz
-}\`
-const b = \`\${
-  (foo + bar) satisfies
-  veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongBaz
-}\`
-const b = \`\${
-  (veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongFoo +
-    veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongBar) satisfies
-  veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongBaz
-}\`
+const b = \`\${(veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongFoo + bar) satisfies baz}\`
+const b = \`\${(foo + veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongBar) satisfies baz}\`
+const b = \`\${(foo + bar) satisfies veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongBaz}\`
+const b = \`\${(veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongFoo + veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongBar) satisfies veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongBaz}\`
 
 ================================================================================
 `;
@@ -1125,23 +1020,10 @@ const b = \`\${(veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongFoo + veryVe
 
 =====================================output=====================================
 const a = \`\${(foo + bar) satisfies baz}\`;
-const b = \`\${
-  (veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongFoo + bar) satisfies
-  baz
-}\`;
-const b = \`\${
-  (foo + veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongBar) satisfies
-  baz
-}\`;
-const b = \`\${
-  (foo + bar) satisfies
-  veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongBaz
-}\`;
-const b = \`\${
-  (veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongFoo +
-    veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongBar) satisfies
-  veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongBaz
-}\`;
+const b = \`\${(veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongFoo + bar) satisfies baz}\`;
+const b = \`\${(foo + veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongBar) satisfies baz}\`;
+const b = \`\${(foo + bar) satisfies veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongBaz}\`;
+const b = \`\${(veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongFoo + veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongBar) satisfies veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongBaz}\`;
 
 ================================================================================
 `;
@@ -1198,8 +1080,7 @@ foo = (
   coooooooooooooooooooooooooooooooooooooooooooooooooooond
     ? baaaaaaaaaaaaaaaaaaaaar
     : baaaaaaaaaaaaaaaaaaaaaz
-) satisfies
-Fooooooooooo
+) satisfies Fooooooooooo
 
 foo = (condition ? firstValue : secondValue) satisfies SomeType
 
@@ -1207,16 +1088,14 @@ const foo = (
   coooooooooooooooooooooooooooooooooooooooooooooooooooond
     ? baaaaaaaaaaaaaaaaaaaaar
     : baaaaaaaaaaaaaaaaaaaaaz
-) satisfies
-Fooooooooooo
+) satisfies Fooooooooooo
 
 function foo() {
   return (
     coooooooooooooooooooooooooooooooooooooooooooooooooooond
       ? baaaaaaaaaaaaaaaaaaaaar
       : baaaaaaaaaaaaaaaaaaaaaz
-  ) satisfies
-  Fooooooooooo
+  ) satisfies Fooooooooooo
 }
 
 function foo() {
@@ -1224,8 +1103,7 @@ function foo() {
     coooooooooooooooooooooooooooooooooooooooooooooooooooond
       ? baaaaaaaaaaaaaaaaaaaaar
       : baaaaaaaaaaaaaaaaaaaaaz
-  ) satisfies
-  Fooooooooooo
+  ) satisfies Fooooooooooo
 }
 
 function foo() {
@@ -1233,8 +1111,7 @@ function foo() {
     coooooooooooooooooooooooooooooooooooooooooooooooooooond
       ? baaaaaaaaaaaaaaaaaaaaar
       : baaaaaaaaaaaaaaaaaaaaaz
-  ) satisfies
-  Fooooooooooo)
+  ) satisfies Fooooooooooo)
 }
 
 bifornCringerMoshedPerplexSawder =
@@ -1306,8 +1183,7 @@ foo = (
   coooooooooooooooooooooooooooooooooooooooooooooooooooond
     ? baaaaaaaaaaaaaaaaaaaaar
     : baaaaaaaaaaaaaaaaaaaaaz
-) satisfies
-Fooooooooooo;
+) satisfies Fooooooooooo;
 
 foo = (condition ? firstValue : secondValue) satisfies SomeType;
 
@@ -1315,16 +1191,14 @@ const foo = (
   coooooooooooooooooooooooooooooooooooooooooooooooooooond
     ? baaaaaaaaaaaaaaaaaaaaar
     : baaaaaaaaaaaaaaaaaaaaaz
-) satisfies
-Fooooooooooo;
+) satisfies Fooooooooooo;
 
 function foo() {
   return (
     coooooooooooooooooooooooooooooooooooooooooooooooooooond
       ? baaaaaaaaaaaaaaaaaaaaar
       : baaaaaaaaaaaaaaaaaaaaaz
-  ) satisfies
-  Fooooooooooo;
+  ) satisfies Fooooooooooo;
 }
 
 function foo() {
@@ -1332,8 +1206,7 @@ function foo() {
     coooooooooooooooooooooooooooooooooooooooooooooooooooond
       ? baaaaaaaaaaaaaaaaaaaaar
       : baaaaaaaaaaaaaaaaaaaaaz
-  ) satisfies
-  Fooooooooooo;
+  ) satisfies Fooooooooooo;
 }
 
 function foo() {
@@ -1341,8 +1214,7 @@ function foo() {
     coooooooooooooooooooooooooooooooooooooooooooooooooooond
       ? baaaaaaaaaaaaaaaaaaaaar
       : baaaaaaaaaaaaaaaaaaaaaz
-  ) satisfies
-  Fooooooooooo);
+  ) satisfies Fooooooooooo);
 }
 
 bifornCringerMoshedPerplexSawder =
@@ -1376,8 +1248,7 @@ semi: false
 =====================================output=====================================
 ;(() => {
   // swallow error and fallback to using directory as path
-}) satisfies
-string[]
+}) satisfies string[]
 
 ================================================================================
 `;
@@ -1394,8 +1265,7 @@ parsers: ["typescript"]
 =====================================output=====================================
 (() => {
   // swallow error and fallback to using directory as path
-}) satisfies
-string[];
+}) satisfies string[];
 
 ================================================================================
 `;

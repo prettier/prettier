@@ -11,14 +11,14 @@ const firstItem1 = ______________.items.find((item) => item.type === 'item') as 
 const firstItem_1 = ______________.items.find((item) => item.type === 'item') as const;
 
 // 79 width until \`as\` or \`satisfies\` keyword
-const firstItem2 = ______________.items.find((item) => item.type === 'item') as T;
+const firstItem2 = ______________.items.find((item) => item.type === 'item') as string | number;
 // 80 width until \`as\` or \`satisfies\` keyword
-const firstItem_2 = ______________.items.find((item) => item.type === 'item') as T;
+const firstItem_2 = ______________.items.find((item) => item.type === 'item') as string | number;
 
 // 79 width until \`as\` or \`satisfies\` keyword
-const firstItem3 = _____________.find((item) => item.type === 'item') satisfies T;
+const firstItem3 = _____________.find((item) => item.type === 'item') satisfies string | number;
 // 80 width until \`as\` or \`satisfies\` keyword
-const firstItem_3 = _____________.find((item) => item.type === 'item') satisfies T;
+const firstItem_3 = _____________.find((item) => item.type === 'item') satisfies string | number;
 
 // 79 width until \`as\` or \`satisfies\` keyword
 const firstItem4 = ______________.items.find((item) => item.type === 'item') as not_union;
@@ -44,17 +44,17 @@ const firstItem_1 = ______________.items.find(
 
 // 79 width until \`as\` or \`satisfies\` keyword
 const firstItem2 = ______________.items.find((item) => item.type === "item") as
-T;
+string | number;
 // 80 width until \`as\` or \`satisfies\` keyword
 const firstItem_2 = ______________.items.find((item) => item.type === "item") as
-T;
+string | number;
 
 // 79 width until \`as\` or \`satisfies\` keyword
 const firstItem3 = _____________.find((item) => item.type === "item") satisfies
-T;
+string | number;
 // 80 width until \`as\` or \`satisfies\` keyword
 const firstItem_3 = _____________.find((item) => item.type === "item") satisfies
-T;
+string | number;
 
 // 79 width until \`as\` or \`satisfies\` keyword
 const firstItem4 = ______________.items.find((item) => item.type === "item") as
@@ -81,13 +81,13 @@ exports[`18148.ts format[hermes] 1`] = `
 "';' expected (12:70)
   10 |
   11 | // 79 width until \`as\` or \`satisfies\` keyword
-> 12 | const firstItem3 = _____________.find((item) => item.type === 'item') satisfies T;
+> 12 | const firstItem3 = _____________.find((item) => item.type === 'item') satisfies string | number;
      |                                                                      ^
   13 | // 80 width until \`as\` or \`satisfies\` keyword
-  14 | const firstItem_3 = _____________.find((item) => item.type === 'item') satisfies T;
+  14 | const firstItem_3 = _____________.find((item) => item.type === 'item') satisfies string | number;
   15 |
 Cause: ';' expected (12:70)
-const firstItem3 = _____________.find((item) => item.type === 'item') satisfies T;
+const firstItem3 = _____________.find((item) => item.type === 'item') satisfies string | number;
                                                                       ^"
 `;
 
@@ -96,11 +96,11 @@ exports[`width-calculation.ts format 1`] = `
 parsers: ["typescript", "flow"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
-firstItem_________ = editorPicker.items.find((item) => item.type === 'item') as T;
+firstItem_________ = editorPicker.items.find((item) => item.type === 'item') as string | number;
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   79 width
-firstItem_________$ = editorPicker.items.find((item) => item.type === 'item') as T;
+firstItem_________$ = editorPicker.items.find((item) => item.type === 'item') as string | number;
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  80 width
-firstItem_________$$ = editorPicker.items.find((item) => item.type === 'item') as T;
+firstItem_________$$ = editorPicker.items.find((item) => item.type === 'item') as string | number;
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ 81 width
 
 firstItem_________ = editorPicker.items.find((item) => item.type === 'item') as
@@ -112,15 +112,14 @@ const;
 
 =====================================output=====================================
 firstItem_________ = editorPicker.items.find((item) => item.type === "item") as
-T;
+string | number;
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   79 width
 firstItem_________$ = editorPicker.items.find((item) => item.type === "item") as
-T;
+string | number;
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  80 width
 firstItem_________$$ = editorPicker.items.find(
   (item) => item.type === "item",
-) as
-T;
+) as string | number;
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ 81 width
 
 firstItem_________ = editorPicker.items.find(

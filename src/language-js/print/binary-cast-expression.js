@@ -30,7 +30,7 @@ function printBinaryCastExpression(path, options, print) {
   if (isAsConstExpression(node)) {
     parts.push(" ", typeAnnotationDoc);
   } else {
-    parts.push(line, typeAnnotationDoc);
+    parts.push(group([line, typeAnnotationDoc]));
   }
 
   // if (shouldInlineBinaryCastExpression(path)) {
