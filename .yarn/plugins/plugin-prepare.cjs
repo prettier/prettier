@@ -1,7 +1,7 @@
 const fs = require("node:fs");
 const path = require("node:path");
 
-function setupEditorConfig() {
+function setupVscode() {
   const settingsFile = path.join(__dirname, "../../.vscode/settings.json");
 
   const settingsExampleFile = path.join(
@@ -28,7 +28,7 @@ module.exports = {
   factory: () => ({
     hooks: {
       async afterAllInstalled() {
-        setupEditorConfig();
+        setupVscode();
         await buildBabelCodeFrameForTest();
       },
     },
