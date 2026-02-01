@@ -141,12 +141,11 @@ functionArg = a as
 
 =====================================output=====================================
 functionArg = a as
-
-  // comment
-  | TSESTree.ArrowFunctionExpression
-  | TSESTree.ArrowFunctionExpression
-  | TSESTree.FunctionExpression
-  | undefined;
+// comment
+| TSESTree.ArrowFunctionExpression
+| TSESTree.ArrowFunctionExpression
+| TSESTree.FunctionExpression
+| undefined;
 
 ================================================================================
 `;
@@ -564,39 +563,45 @@ type F = [
 
 =====================================output=====================================
 type A = [
-  | AAAAAAAAAAAAAAAAAAAAAA
-  | BBBBBBBBBBBBBBBBBBBBBB
-  | CCCCCCCCCCCCCCCCCCCCCC
-  | DDDDDDDDDDDDDDDDDDDDDD,
+
+    | AAAAAAAAAAAAAAAAAAAAAA
+    | BBBBBBBBBBBBBBBBBBBBBB
+    | CCCCCCCCCCCCCCCCCCCCCC
+    | DDDDDDDDDDDDDDDDDDDDDD,
 ];
 
 type B = [
-  | AAAAAAAAAAAAAAAAAAAAAA
-  | BBBBBBBBBBBBBBBBBBBBBB
-  | CCCCCCCCCCCCCCCCCCCCCC
-  | DDDDDDDDDDDDDDDDDDDDDD,
+
+    | AAAAAAAAAAAAAAAAAAAAAA
+    | BBBBBBBBBBBBBBBBBBBBBB
+    | CCCCCCCCCCCCCCCCCCCCCC
+    | DDDDDDDDDDDDDDDDDDDDDD,
 ];
 
 type B1 = [
-  | AAAAAAAAAAAAAAAAAAAAAA
-  | BBBBBBBBBBBBBBBBBBBBBB
-  | CCCCCCCCCCCCCCCCCCCCCC
-  | DDDDDDDDDDDDDDDDDDDDDD,
+
+    | AAAAAAAAAAAAAAAAAAAAAA
+    | BBBBBBBBBBBBBBBBBBBBBB
+    | CCCCCCCCCCCCCCCCCCCCCC
+    | DDDDDDDDDDDDDDDDDDDDDD,
 ];
 
 type C = [
-  | [
-      | AAAAAAAAAAAAAAAAAAAAAA
-      | BBBBBBBBBBBBBBBBBBBBBB
-      | CCCCCCCCCCCCCCCCCCCCCC
-      | DDDDDDDDDDDDDDDDDDDDDD,
-    ]
-  | [
-      | AAAAAAAAAAAAAAAAAAAAAA
-      | BBBBBBBBBBBBBBBBBBBBBB
-      | CCCCCCCCCCCCCCCCCCCCCC
-      | DDDDDDDDDDDDDDDDDDDDDD,
-    ],
+
+    | [
+
+          | AAAAAAAAAAAAAAAAAAAAAA
+          | BBBBBBBBBBBBBBBBBBBBBB
+          | CCCCCCCCCCCCCCCCCCCCCC
+          | DDDDDDDDDDDDDDDDDDDDDD,
+      ]
+    | [
+
+          | AAAAAAAAAAAAAAAAAAAAAA
+          | BBBBBBBBBBBBBBBBBBBBBB
+          | CCCCCCCCCCCCCCCCCCCCCC
+          | DDDDDDDDDDDDDDDDDDDDDD,
+      ],
 ];
 
 type D = [

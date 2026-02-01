@@ -65,14 +65,12 @@ not_union;
 
 // 79 width until \`as\` or \`satisfies\` keyword
 const firstItem5 = ______________.items.find((item) => item.type === "item") as
-
-  | a_union_will_break // comments
-  | a_union_will_break2;
+| a_union_will_break // comments
+| a_union_will_break2;
 // 80 width until \`as\` or \`satisfies\` keyword
 const firstItem_5 = ______________.items.find((item) => item.type === "item") as
-
-  | a_union_will_break // comments
-  | a_union_will_break2;
+| a_union_will_break // comments
+| a_union_will_break2;
 
 ================================================================================
 `;

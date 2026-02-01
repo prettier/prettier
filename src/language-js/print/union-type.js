@@ -12,6 +12,7 @@ import needsParentheses from "../parentheses/needs-parentheses.js";
 import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
 import { isFlowObjectTypePropertyAFunction } from "../utilities/is-flow-object-type-property-a-function.js";
 import {
+  isBinaryCastExpression,
   isConditionalType,
   isTupleType,
   isTypeParameterInstantiation,
@@ -98,7 +99,8 @@ function shouldIndentUnionType(path) {
   const { key, parent } = path;
   if (
     (key === "typeAnnotation" && parent.type === "TSTypeAssertion") ||
-    (key === "elementTypes" && isTupleType(parent)) ||
+    (key === "typeAnnotation" && isBinaryCastExpression(parent)) ||
+    (key === "params" && isTypeParameterInstantiation(parent)) ||
     ((key === "trueType" || key === "falseType") &&
       isConditionalType(parent)) ||
     (key === "params" && isTypeParameterInstantiation(parent))
