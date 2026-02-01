@@ -269,6 +269,32 @@ type T8 = number | ((arg: any) => void);
 ================================================================================
 `;
 
+exports[`trailing-comment.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+export const CONDITIONAL_AXIS_PROP_INDEX: Record<
+  ConditionalAxisProp,
+  {
+    part: keyof AxisEncode;
+    vgProp: VgEncodeChannel;
+  } | null // null if we need to convert condition to signal
+> = {
+}
+
+=====================================output=====================================
+export const CONDITIONAL_AXIS_PROP_INDEX: Record<
+  ConditionalAxisProp,
+  {
+    part: keyof AxisEncode;
+    vgProp: VgEncodeChannel;
+  } | null // null if we need to convert condition to signal
+> = {};
+
+================================================================================
+`;
+
 exports[`union-parens.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
