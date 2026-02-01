@@ -98,7 +98,8 @@ class Decorated {
 }
 
 =====================================output=====================================
-@(bind as ClassDecorator)
+@(bind as
+ClassDecorator)
 class Decorated {}
 
 @(<ClassDecorator>bind)

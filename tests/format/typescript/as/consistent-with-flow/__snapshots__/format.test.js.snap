@@ -43,40 +43,34 @@ const firstItem_1 = ______________.items.find(
 ) as const;
 
 // 79 width until \`as\` or \`satisfies\` keyword
-const firstItem2 = ______________.items.find(
-  (item) => item.type === "item",
-) as T;
+const firstItem2 = ______________.items.find((item) => item.type === "item") as
+T;
 // 80 width until \`as\` or \`satisfies\` keyword
-const firstItem_2 = ______________.items.find(
-  (item) => item.type === "item",
-) as T;
+const firstItem_2 = ______________.items.find((item) => item.type === "item") as
+T;
 
 // 79 width until \`as\` or \`satisfies\` keyword
-const firstItem3 = _____________.find(
-  (item) => item.type === "item",
-) satisfies T;
+const firstItem3 = _____________.find((item) => item.type === "item") satisfies
+T;
 // 80 width until \`as\` or \`satisfies\` keyword
-const firstItem_3 = _____________.find(
-  (item) => item.type === "item",
-) satisfies T;
+const firstItem_3 = _____________.find((item) => item.type === "item") satisfies
+T;
 
 // 79 width until \`as\` or \`satisfies\` keyword
-const firstItem4 = ______________.items.find(
-  (item) => item.type === "item",
-) as not_union;
+const firstItem4 = ______________.items.find((item) => item.type === "item") as
+not_union;
 // 80 width until \`as\` or \`satisfies\` keyword
-const firstItem_4 = ______________.items.find(
-  (item) => item.type === "item",
-) as not_union;
+const firstItem_4 = ______________.items.find((item) => item.type === "item") as
+not_union;
 
 // 79 width until \`as\` or \`satisfies\` keyword
 const firstItem5 = ______________.items.find((item) => item.type === "item") as
+
   | a_union_will_break // comments
   | a_union_will_break2;
 // 80 width until \`as\` or \`satisfies\` keyword
-const firstItem_5 = ______________.items.find(
-  (item) => item.type === "item",
-) as
+const firstItem_5 = ______________.items.find((item) => item.type === "item") as
+
   | a_union_will_break // comments
   | a_union_will_break2;
 
@@ -117,17 +111,16 @@ firstItem_________$$ = editorPicker.items.find((item) => item.type === 'item') a
 const;
 
 =====================================output=====================================
-firstItem_________ = editorPicker.items.find(
-  (item) => item.type === "item",
-) as T;
+firstItem_________ = editorPicker.items.find((item) => item.type === "item") as
+T;
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   79 width
-firstItem_________$ = editorPicker.items.find(
-  (item) => item.type === "item",
-) as T;
+firstItem_________$ = editorPicker.items.find((item) => item.type === "item") as
+T;
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  80 width
 firstItem_________$$ = editorPicker.items.find(
   (item) => item.type === "item",
-) as T;
+) as
+T;
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ 81 width
 
 firstItem_________ = editorPicker.items.find(

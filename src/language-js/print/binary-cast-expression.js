@@ -27,11 +27,17 @@ function printBinaryCastExpression(path, options, print) {
     isSatisfiesExpression(node) ? "satisfies" : "as",
   ];
 
-  if (shouldInlineBinaryCastExpression(path)) {
+  if (isAsConstExpression(node)) {
     parts.push(" ", typeAnnotationDoc);
   } else {
-    parts.push(group(indent([line, typeAnnotationDoc])));
+    parts.push(line, typeAnnotationDoc);
   }
+
+  // if (shouldInlineBinaryCastExpression(path)) {
+  //   parts.push(" ", typeAnnotationDoc);
+  // } else {
+  //   parts.push(group(indent([line, typeAnnotationDoc])));
+  // }
 
   if (
     (key === "callee" && isCallOrNewExpression(parent)) ||

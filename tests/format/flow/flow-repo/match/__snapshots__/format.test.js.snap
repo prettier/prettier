@@ -166,7 +166,8 @@ function f2() {
   const out = match (x) {
   };
 
-  out as empty; // OK
+  out as
+  empty; // OK
 }
 
 declare const x: 1 | 2;
@@ -177,8 +178,10 @@ declare const x: 1 | 2;
     2 => false,
   };
 
-  out as boolean; // OK
-  out as empty; // ERROR
+  out as
+  boolean; // OK
+  out as
+  empty; // ERROR
 }
 
 {
@@ -186,8 +189,10 @@ declare const x: 1 | 2;
     1 => true,
     2 => "s",
   };
-  out as boolean | string; // OK
-  out as empty; // ERROR
+  out as
+  boolean | string; // OK
+  out as
+  empty; // ERROR
 }
 
 declare function invariant(boolean): empty;
@@ -197,8 +202,10 @@ declare function invariant(boolean): empty;
     1 => true,
     2 => invariant(false),
   };
-  out as boolean; // OK
-  out as empty; // ERROR
+  out as
+  boolean; // OK
+  out as
+  empty; // ERROR
 }
 
 function f1() {
@@ -215,8 +222,10 @@ function f2() {
     1 if (invariant(false)) => true,
     _ => "s",
   };
-  out as string; // OK
-  out as empty; // ERROR
+  out as
+  string; // OK
+  out as
+  empty; // ERROR
 }
 
 // Nested matches
@@ -229,7 +238,8 @@ function f2() {
       },
   };
 
-  out as number; // OK
+  out as
+  number; // OK
 }
 
 // Guards can refine values which are not the argument
@@ -251,7 +261,8 @@ function f2() {
     2 => (target = true),
   };
 
-  target as string | boolean; // OK
+  target as
+  string | boolean; // OK
 }
 {
   let target;
@@ -260,7 +271,8 @@ function f2() {
   };
   a; // ERROR
 
-  target as "foo"; // OK
+  target as
+  "foo"; // OK
 }
 {
   declare const x: [number] | number;
@@ -271,7 +283,8 @@ function f2() {
   };
   a; // ERROR
 
-  target as string | boolean; // OK
+  target as
+  string | boolean; // OK
 }
 {
   let target;
@@ -280,7 +293,8 @@ function f2() {
     2 => invariant(false),
   };
 
-  target as string; // OK
+  target as
+  string; // OK
 }
 {
   declare const o: { prop: number };
@@ -289,7 +303,8 @@ function f2() {
     2 => (o.prop = 2),
   };
 
-  o.prop as 1 | 2; // OK
+  o.prop as
+  1 | 2; // OK
 }
 {
   const a = [];
@@ -298,7 +313,8 @@ function f2() {
     2 => a.push(2),
   };
 
-  a as Array<number>; // OK
+  a as
+  Array<number>; // OK
 }
 
 // Natural inference hint
@@ -429,7 +445,8 @@ type F = (string) => boolean;
     "a" => [1],
     "b" => [], // Should be \`Array<number>\`
   };
-  out as Array<number>; // OK
+  out as
+  Array<number>; // OK
 }
 
 // Sibling after
@@ -440,7 +457,8 @@ type F = (string) => boolean;
     "a" => [], // Should be \`Array<number>\`
     "b" => [1],
   };
-  out as Array<number>; // OK
+  out as
+  Array<number>; // OK
 }
 
 // Multiple siblings, one valid
@@ -453,7 +471,8 @@ type F = (string) => boolean;
     "c" => [1],
     "d" => [], // Should be \`Array<number>\`
   };
-  out as number | {} | Array<number>; // OK
+  out as
+  number | {} | Array<number>; // OK
 }
 
 // Multiple siblings, multiple valid
@@ -465,7 +484,8 @@ type F = (string) => boolean;
     "b" => [1],
     "c" => [],
   };
-  out as Array<boolean> | Array<number>; // OK
+  out as
+  Array<boolean> | Array<number>; // OK
 }
 {
   declare const x: "a" | "b" | "c";
@@ -1945,8 +1965,10 @@ parsers: ["flow"]
   const out = match (x) {
     const a => a,
   };
-  out as number; // OK
-  out as empty; // ERROR
+  out as
+  number; // OK
+  out as
+  empty; // ERROR
 }
 
 // Binding doesn't leak to outer scope
@@ -1967,8 +1989,10 @@ parsers: ["flow"]
   const out = match (x) {
     [const a] => a,
   };
-  out as number; // OK
-  out as empty; // ERROR
+  out as
+  number; // OK
+  out as
+  empty; // ERROR
 }
 
 // Object pattern
@@ -1979,8 +2003,10 @@ parsers: ["flow"]
     {foo: const a} => a,
   };
 
-  out as number; // OK
-  out as empty; // ERROR
+  out as
+  number; // OK
+  out as
+  empty; // ERROR
 }
 
 // Object shorthand pattern
@@ -1991,8 +2017,10 @@ parsers: ["flow"]
     {const foo} => foo,
   };
 
-  out as number; // OK
-  out as empty; // ERROR
+  out as
+  number; // OK
+  out as
+  empty; // ERROR
 }
 
 // Nested patterns
@@ -2003,14 +2031,18 @@ parsers: ["flow"]
     {foo: [{bar: const a}]} => a,
     _ => 0,
   };
-  out1 as number; // OK
-  out1 as empty; // ERROR
+  out1 as
+  number; // OK
+  out1 as
+  empty; // ERROR
 
   const out2 = match (x) {
     {foo: const a} => a[0].bar,
   };
-  out2 as number; // OK
-  out2 as empty; // ERROR
+  out2 as
+  number; // OK
+  out2 as
+  empty; // ERROR
 }
 
 // Guards
@@ -2458,7 +2490,8 @@ function f2() {
     }
   }
 
-  target as string | boolean; // OK
+  target as
+  string | boolean; // OK
 }
 {
   let target;
@@ -2469,7 +2502,8 @@ function f2() {
   }
   a; // ERROR
 
-  target as "foo"; // OK
+  target as
+  "foo"; // OK
 }
 {
   declare const x: [number] | number;
@@ -2484,7 +2518,8 @@ function f2() {
   }
   a; // ERROR
 
-  target as string | boolean; // OK
+  target as
+  string | boolean; // OK
 }
 {
   let target;
@@ -2497,7 +2532,8 @@ function f2() {
     }
   }
 
-  target as string; // OK
+  target as
+  string; // OK
 }
 {
   declare const o: { prop: number };
@@ -2510,7 +2546,8 @@ function f2() {
     }
   }
 
-  o.prop as 1 | 2; // OK
+  o.prop as
+  1 | 2; // OK
 }
 {
   const a = [];
@@ -2523,7 +2560,8 @@ function f2() {
     }
   }
 
-  a as Array<number>; // OK
+  a as
+  Array<number>; // OK
 }
 
 // Abnormal exits functions

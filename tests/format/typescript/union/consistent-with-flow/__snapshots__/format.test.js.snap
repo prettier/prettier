@@ -141,6 +141,7 @@ functionArg = a as
 
 =====================================output=====================================
 functionArg = a as
+
   // comment
   | TSESTree.ArrowFunctionExpression
   | TSESTree.ArrowFunctionExpression

@@ -23,21 +23,24 @@ new (require("./webpack/plugins/next-trace-entrypoints-plugin")
 =====================================output=====================================
 new (
   require("./webpack/plugins/next-trace-entrypoints-plugin")
-    .TraceEntryPointsPlugin as P
+    .TraceEntryPointsPlugin as
+  P
 )({
   rootDir: dir,
 });
 
 (
   require("./webpack/plugins/next-trace-entrypoints-plugin")
-    .TraceEntryPointsPlugin as P
+    .TraceEntryPointsPlugin as
+  P
 )({
   rootDir: dir,
 });
 
 (
   require("./webpack/plugins/next-trace-entrypoints-plugin")
-    ?.TraceEntryPointsPlugin as P
+    ?.TraceEntryPointsPlugin as
+  P
 )?.({
   rootDir: dir,
 });
@@ -388,7 +391,8 @@ postMessage(<IActionMessage>{
 window.postMessage({
   context: item.context,
   topic: item.topic,
-} as IActionMessage);
+} as
+IActionMessage);
 
 postMessages(<IActionMessage[]>[
   {

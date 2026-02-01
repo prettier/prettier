@@ -17,9 +17,11 @@ function getClassNameFromPrototypeMethod(container) {
   return (
     (
       container // a
-      .left as PropertyAccessExpression
+      .left as
+      PropertyAccessExpression
     ) // b
-    .expression as PropertyAccessExpression
+    .expression as
+    PropertyAccessExpression
   ) // c
   .expression; // d
 }
@@ -96,11 +98,11 @@ Foo;
 comment
 */;
 1 as
-  /*
+/*
 comment
 */ Foo;
 1 satisfies
-  /*
+/*
 comment
 */ Foo;
 
@@ -109,11 +111,11 @@ comment
 comment
 */
 1 as
-  /*
+/*
 comment
 */ Foo;
 1 satisfies
-  /*
+/*
 comment
 */ Foo;
 
@@ -121,34 +123,36 @@ comment
 comment
 */;
 1 as
-  /*
+/*
 comment
 */
-  Foo;
+Foo;
 1 satisfies
-  /*
+/*
 comment
 */
-  Foo;
+Foo;
 
 1 as const;
 /*
 comment
 */
 1 as
-  /*
+/*
 comment
 */
-  Foo;
+Foo;
 1 satisfies
-  /*
+/*
 comment
 */
-  Foo;
+Foo;
 
 1 as const; // comment
-1 as Foo; // comment
-1 satisfies Foo; // comment
+1 as // comment
+Foo;
+1 satisfies // comment
+Foo;
 
 ================================================================================
 `;
