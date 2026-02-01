@@ -102,25 +102,18 @@ function printUnionType(path, options, print, args) {
 }
 
 function shouldIndentUnionType(path) {
+  const { key, parent } = path;
   if (
-    path.match(
-      undefined,
-      (node, key) =>
-        key === "typeAnnotation" && node.type === "TSTypeAssertion",
-    ) ||
-    path.match(
-      undefined,
-      (node, key) => key === "elementTypes" && isTupleType(node),
-    ) ||
-    path.match(
-      undefined,
-      (node, key) =>
-        (key === "trueType" || key === "falseType") && isConditionalType(node),
-    ) ||
-    path.match(
-      undefined,
-      (node, key) => key === "params" && isTypeParameterInstantiation(node),
-    ) ||
+    (key === "typeAnnotation" && parent.type === "TSTypeAssertion") ||
+    (key === "elementTypes" && isTupleType(parent)) ||
+    ((key === "trueType" || key === "falseType") &&
+      isConditionalType(parent)) ||
+    (key === "params" && isTypeParameterInstantiation(parent))
+  ) {
+    return false;
+  }
+
+  if (
     path.match(
       undefined,
       (node, key) =>
