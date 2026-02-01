@@ -21,7 +21,11 @@ async function ensureNoFilesChanged() {
   console.log(changedFiles.map((file) => ` - ${file}`).join("\n"));
   console.log();
 
-  await spawn("git", ["diff", "--exit-code"], { stdio: "inherit" });
+  try {
+    await spawn("git", ["diff", "--exit-code"], { stdio: "inherit" });
+  } catch (error) {
+    process.exitCode = error.exitCode;
+  }
 }
 
 await ensureNoFilesChanged();
