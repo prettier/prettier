@@ -353,7 +353,7 @@ function printClassProperty(path, options, print) {
     node.type === "TSAbstractPropertyDefinition" ||
     node.type === "TSAbstractAccessorProperty";
 
-  return group([
+  return [
     printAssignment(
       path,
       options,
@@ -363,7 +363,7 @@ function printClassProperty(path, options, print) {
       isAbstractProperty ? undefined : "value",
     ),
     options.semi ? ";" : "",
-  ]);
+  ];
 }
 
 export { printClass, printClassMethod, printClassProperty };

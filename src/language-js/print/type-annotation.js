@@ -1,4 +1,3 @@
-import { indent, line } from "../../document/index.js";
 import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
 import { isSimpleType } from "../utilities/is-simple-type.js";
 import { isObjectType, isUnionType } from "../utilities/node-types.js";

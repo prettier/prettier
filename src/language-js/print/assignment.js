@@ -43,7 +43,6 @@ function printAssignment(
   rightPropertyName,
 ) {
   const layout = chooseLayout(path, options, print, leftDoc, rightPropertyName);
-
   const rightDoc = rightPropertyName
     ? print(rightPropertyName, { assignmentLayout: layout })
     : "";

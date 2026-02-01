@@ -1,13 +1,12 @@
 /** @import {Doc} from "../../document/index.js" */
 
 import * as assert from "#universal/assert";
-import { indent, line, replaceEndOfLine } from "../../document/index.js";
+import { replaceEndOfLine } from "../../document/index.js";
 import printNumber from "../../utilities/print-number.js";
 import printString from "../../utilities/print-string.js";
 import { getRaw } from "../utilities/get-raw.js";
 import isFlowKeywordType from "../utilities/is-flow-keyword-type.js";
 import { isMethod } from "../utilities/is-method.js";
-import { isUnionType } from "../utilities/node-types.js";
 import { printArray } from "./array.js";
 import { printArrayType } from "./array-type.js";
 import { printBinaryCastExpression } from "./binary-cast-expression.js";
