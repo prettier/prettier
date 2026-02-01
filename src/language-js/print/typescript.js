@@ -4,7 +4,7 @@ import { printArray } from "./array.js";
 import { printArrayType } from "./array-type.js";
 import { printBlock } from "./block.js";
 import { printCallExpression } from "./call-expression.js";
-import { printBinaryCastExpression } from "./cast-expression.js";
+import { printBinaryCastExpression } from "./binary-cast-expression.js";
 import {
   printClass,
   printClassBody,
