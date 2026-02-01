@@ -722,13 +722,6 @@ exports[`visitor keys estree 1`] = `
   "ParenthesizedExpression": [
     "expression",
   ],
-  "PipelineBareFunction": [
-    "callee",
-  ],
-  "PipelinePrimaryTopicReference": [],
-  "PipelineTopicExpression": [
-    "expression",
-  ],
   "Placeholder": [],
   "PrivateIdentifier": [],
   "PrivateName": [

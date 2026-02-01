@@ -107,5 +107,5 @@ jobs:
       - name: Knip
         run: yarn lint:knip
 
-      - name: Check File Changes
-        run: echo "Listing changed files:" && git diff --name-only --exit-code && echo "No files changed during lint."
+      - name: Ensure not files changed
+        run: node ./scripts/ensure-no-files-changed.js

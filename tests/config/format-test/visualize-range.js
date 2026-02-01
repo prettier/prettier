@@ -1,5 +1,5 @@
-import { codeFrameColumns } from "@babel/code-frame";
 import indexToPosition from "index-to-position";
+import { codeFrameColumns } from "../../../vendors/babel-code-frame-for-test.js";
 const codeFrameColumnsOptions = {
   linesAbove: Number.POSITIVE_INFINITY,
   linesBelow: Number.POSITIVE_INFINITY,
