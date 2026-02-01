@@ -120,6 +120,49 @@ type T2 = (
 ================================================================================
 `;
 
+exports[`10599.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+export interface ProductStatus {
+  type:
+    // eslint-disable-next-line sonar/max-union-size
+    | 'NotDeployed'
+    | 'InDeployment'
+    | 'Running'
+    | 'DeploymentFailure'
+    | 'RunningAbnormal'
+    | 'Deleting'
+    | 'DeleteFailure'
+    | 'DeploymentSucceed'
+    | 'SystemError'
+    | 'Upgrading';
+  icon: string;
+  text: string;
+}
+
+=====================================output=====================================
+export interface ProductStatus {
+  type:
+    // eslint-disable-next-line sonar/max-union-size
+    | "NotDeployed"
+    | "InDeployment"
+    | "Running"
+    | "DeploymentFailure"
+    | "RunningAbnormal"
+    | "Deleting"
+    | "DeleteFailure"
+    | "DeploymentSucceed"
+    | "SystemError"
+    | "Upgrading";
+  icon: string;
+  text: string;
+}
+
+================================================================================
+`;
+
 exports[`inlining.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
