@@ -4,7 +4,10 @@ import browserslistToEsbuild from "browserslist-to-esbuild";
 import esbuild from "esbuild";
 import createEsmUtils from "esm-utils";
 import projectPackageJson from "../../../package.json" with { type: "json" };
-import { PRODUCTION_MINIMAL_NODE_JS_VERSION } from "../../utilities/index.js";
+import {
+  PRODUCTION_MINIMAL_NODE_JS_VERSION,
+  PROJECT_ROOT,
+} from "../../utilities/index.js";
 import esbuildPluginAddDefaultExport from "../esbuild-plugins/add-default-export.js";
 import esbuildPluginEvaluate from "../esbuild-plugins/evaluate.js";
 import esbuildPluginPrimitiveDefine from "../esbuild-plugins/primitive-define.js";
@@ -223,6 +226,7 @@ function getEsbuildOptions({ packageConfig, file, cliOptions, buildOptions }) {
       "class-private-method": true,
     },
     packages: "bundle",
+    absWorkingDir: PROJECT_ROOT,
   };
 
   if (buildOptions.platform === "universal") {
