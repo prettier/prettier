@@ -189,21 +189,6 @@ function massageAstNode(original, cloned, parent) {
   if (original.type === "TemplateLiteral") {
     removeTemplateElementsValue(cloned);
   }
-
-  // https://github.com/babel/babel/issues/17719
-  if (
-    (original.type === "ClassDeclaration" ||
-      original.type === "ClassExpression") &&
-    !original.superTypeArguments &&
-    original.superClass?.type === "TSInstantiationExpression" &&
-    original.superClass.typeArguments
-  ) {
-    const {
-      superClass: { typeArguments, expression },
-    } = cloned;
-    cloned.superTypeArguments = typeArguments;
-    cloned.superClass = expression;
-  }
 }
 
 massageAstNode.ignoredProperties = ignoredProperties;
