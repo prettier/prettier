@@ -29,7 +29,9 @@ module.exports = {
     hooks: {
       async afterAllInstalled() {
         setupVscode();
-        await buildBabelCodeFrameForTest();
+        try {
+          await buildBabelCodeFrameForTest();
+        } catch {}
       },
     },
   }),
