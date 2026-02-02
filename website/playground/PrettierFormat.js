@@ -24,6 +24,7 @@ function setup(props, { slots }) {
   onMounted(componentDidMount);
   watch(() => props.code, format);
   watch(() => props.options, format, { deep: true });
+  watch(() => props.version, format);
 
   // Should not trigger format when these changes
   const ignoredKeys = new Set(["showSidebar", "showInput"]);
@@ -53,6 +54,7 @@ export default {
   props: {
     code: String,
     options: Object,
+    version: String,
   },
   setup,
 };

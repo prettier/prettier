@@ -1,3 +1,12 @@
+export function getSelectedVersion() {
+  const params = new URLSearchParams(window.location.search);
+  if (params.has("version")) {
+    return params.get("version") === "next" ? "next" : "stable";
+  }
+  const docsVersion = localStorage.getItem("docs-preferred-version-default");
+  return docsVersion === "next" ? "next" : "stable";
+}
+
 export function fixPrettierVersion(version) {
   const match = version.match(/^\d+\.\d+\.\d+-pr.(\d+)$/);
   if (match) {

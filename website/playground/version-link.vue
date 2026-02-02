@@ -4,7 +4,6 @@ import { computed, watch, onMounted, ref } from "vue";
 const props = defineProps({
   version: { type: String, required: true },
   selectedVersion: { type: String, default: "stable" },
-  hasNextVersion: { type: Boolean, default: false },
 });
 
 const emit = defineEmits(["update:selectedVersion"]);
@@ -44,7 +43,6 @@ onMounted(updateTitle);
 <template>
   <span class="version-wrapper">
     <select
-      v-if="hasNextVersion"
       class="version-select"
       :value="selectedVersion"
       @click.stop
@@ -53,6 +51,5 @@ onMounted(updateTitle);
       <option value="stable">{{ versionData.stable }}</option>
       <option value="next">{{ versionData.next }}</option>
     </select>
-    <span v-else class="version-label">{{ versionData.stable }}</span>
   </span>
 </template>

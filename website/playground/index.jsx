@@ -4,48 +4,27 @@ import { createApp, onMounted, reactive } from "vue";
 import { worker } from "./composables/prettier-worker.js";
 import Header from "./header.vue";
 import Playground from "./Playground.jsx";
-import { fixPrettierVersion } from "./utilities.js";
-
-function getInitialSelectedVersion() {
-  const params = new URLSearchParams(window.location.search);
-  return params.get("version") === "next" ? "next" : "stable";
-}
-
-async function checkNextVersionAvailable() {
-  try {
-    const response = await fetch("/lib-next/package-manifest.mjs", {
-      method: "HEAD",
-    });
-    return response.ok;
-  } catch {
-    return false;
-  }
-}
+import { fixPrettierVersion, getSelectedVersion } from "./utilities.js";
 
 const App = {
   name: "App",
   setup() {
     const state = reactive({
       loaded: false,
-      selectedVersion: getInitialSelectedVersion(),
-      hasNextVersion: false,
+      selectedVersion: getSelectedVersion(),
     });
 
     const componentDidMount = async () => {
-      const [{ supportInfo, version }, hasNextVersion] = await Promise.all([
-        worker.getMetadata(),
-        checkNextVersionAvailable(),
-      ]);
+      const { supportInfo, version } = await worker.getMetadata();
 
       Object.assign(state, {
         loaded: true,
         availableOptions: supportInfo.options.map(augmentOption),
         version: fixPrettierVersion(version),
-        hasNextVersion,
       });
     };
 
-    const onSelectedVersionChange = (newVersion) => {
+    const onSelectedVersionChange = async (newVersion) => {
       state.selectedVersion = newVersion;
       const url = new URL(window.location);
       if (newVersion === "next") {
@@ -54,17 +33,18 @@ const App = {
         url.searchParams.delete("version");
       }
       window.history.replaceState({}, "", url);
-      window.location.reload();
+
+      worker.switchVersion(newVersion);
+      const { supportInfo, version } = await worker.getMetadata();
+
+      Object.assign(state, {
+        availableOptions: supportInfo.options.map(augmentOption),
+        version: fixPrettierVersion(version),
+      });
     };
 
     const render = () => {
-      const {
-        loaded,
-        availableOptions,
-        version,
-        selectedVersion,
-        hasNextVersion,
-      } = state;
+      const { loaded, availableOptions, version, selectedVersion } = state;
 
       if (!loaded) {
         return "Loading...";
@@ -75,7 +55,6 @@ const App = {
           <Header
             version={version}
             selectedVersion={selectedVersion}
-            hasNextVersion={hasNextVersion}
             onUpdate:selectedVersion={onSelectedVersionChange}
           />
           <Playground availableOptions={availableOptions} version={version} />

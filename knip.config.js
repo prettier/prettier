@@ -47,6 +47,7 @@ const config = {
       ignoreDependencies: [
         "@docusaurus/faster",
         "@docusaurus/plugin-content-docs",
+        "src/theme/**/*.{js,jsx}",
       ],
     },
     "scripts/tools/bundle-test": {},

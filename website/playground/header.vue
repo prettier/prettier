@@ -8,7 +8,6 @@ const logo = "/icon.png";
 defineProps({
   version: { type: String, required: true },
   selectedVersion: { type: String, required: true },
-  hasNextVersion: { type: Boolean, default: false },
 });
 
 const emit = defineEmits(["update:selectedVersion"]);
@@ -24,7 +23,6 @@ const emit = defineEmits(["update:selectedVersion"]);
       <VersionLink
         :version="version"
         :selectedVersion="selectedVersion"
-        :hasNextVersion="hasNextVersion"
         @update:selectedVersion="emit('update:selectedVersion', $event)"
       />
     </div>
