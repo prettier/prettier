@@ -1,4 +1,4 @@
-import * as prettierPluginDocExplorer from "./prettier-plugin-doc-explorer.mjs";
+import { createDocExplorerPlugin } from "./prettier-plugin-doc-explorer.mjs";
 
 /**
 @import {PlaygroundSettings} from "../playground/composables/playground-settings.js"
@@ -18,6 +18,12 @@ const prettierPackageManifest = await import(
   `./${libDir}/package-manifest.mjs`
 ).then((m) => m.default);
 const prettier = await import(`./${libDir}/prettier/standalone.mjs`);
+
+const prettierPluginDocExplorer = createDocExplorerPlugin(
+  prettier,
+  prettierPackageManifest,
+  libDir,
+);
 
 const pluginLoadPromises = new Map();
 async function importPlugin(plugin) {
