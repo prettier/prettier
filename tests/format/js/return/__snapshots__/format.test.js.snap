@@ -119,7 +119,7 @@ fn(function f() {
 
 =====================================output=====================================
 function f() {
-  return /* a */;
+  return; /* a */
 }
 
 function f() {
@@ -127,8 +127,8 @@ function f() {
 }
 
 function f() {
-  return // a
-  /* b */;
+  return; // a
+  /* b */
 }
 
 function f() {

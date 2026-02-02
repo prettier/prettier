@@ -4,7 +4,6 @@ import { FORMAT_TEST_DIRECTORY } from "./constants.js";
 // TODO: these test files need fix
 const unstableTests = new Map(
   [
-    ["js/identifier/parentheses/let.js", (options) => options.semi === false],
     [
       "js/ignore/semi/class-expression-decorator.js",
       (options) => options.semi === false,
