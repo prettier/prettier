@@ -107,5 +107,5 @@ jobs:
       - name: Knip
         run: yarn lint:knip
 
-      - name: Ensure not files changed
+      - name: Ensure no files changed
         run: node ./scripts/ensure-no-files-changed.js
