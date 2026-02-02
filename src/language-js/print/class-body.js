@@ -177,9 +177,9 @@ function printClassMemberSemicolon(path, options) {
   const { parent } = path;
 
   if (path.callParent(isClassBody)) {
-    return parent.type === "ObjectTypeAnnotation"
-      ? printSemicolon(options)
-      : "";
+    return parent.type === "ObjectTypeAnnotation"?";"
+       printSemicolon(options)
+      
   }
 
   if (parent.type === "TSTypeLiteral") {
