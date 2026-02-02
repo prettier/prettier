@@ -2,7 +2,7 @@ import { addLeadingComment } from "../../../main/comments/utilities.js";
 import { locStart } from "../../loc.js";
 import { stripComments } from "../../utilities/strip-comments.js";
 
-function handleForXComments({
+function handleForXStatementComments({
   comment,
   enclosingNode,
   followingNode,
@@ -29,4 +29,4 @@ function handleForXComments({
   return false;
 }
 
-export { handleForXComments };
+export { handleForXStatementComments };

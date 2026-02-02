@@ -281,12 +281,10 @@ function printEstree(path, options, print, args) {
       return printTryStatement(path, options, print);
     case "CatchClause":
       return printCatchClause(path, options, print);
-    // Note: ignoring n.lexical because it has no printing consequences.
     case "SwitchStatement":
       return printSwitchStatement(path, options, print);
     case "SwitchCase":
       return printSwitchCase(path, options, print);
-    // JSX extensions below.
     case "DebuggerStatement":
       return ["debugger", options.semi ? ";" : ""];
 
