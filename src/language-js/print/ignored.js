@@ -2,13 +2,13 @@ import { indent, softline } from "../../document/index.js";
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
 import { locEnd, locStart } from "../loc.js";
 import { shouldExpressionStatementPrintLeadingSemicolon } from "../semicolon/semicolon.js";
-import { printSemicolon } from "./miscellaneous.js";
+
 
 function printIgnored(path, options /* , print*/) {
   const { node } = path;
   let text = options.originalText.slice(locStart(node), locEnd(node));
 
-  if (
+  if (options.semi &&(
     node.type === "BreakStatement" ||
     node.type === "ContinueStatement" ||
     node.type === "DebuggerStatement" ||
@@ -19,9 +19,9 @@ function printIgnored(path, options /* , print*/) {
       node.type === "ExportDefaultDeclaration" ||
       node.type === "ExportNamedDeclaration" ||
       node.type === "ExportAllDeclaration") &&
-      node.__contentEnd)
+      node.__contentEnd))
   ) {
-    text += printSemicolon(options);
+    text += ";";
   } else if (shouldExpressionStatementPrintLeadingSemicolon(path, options)) {
     text = `;${text}`;
   }
