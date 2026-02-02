@@ -52,7 +52,11 @@ async function buildPrettier() {
   }
 }
 
-async function buildPlaygroundFiles(packagesDirectory, libDirectory) {
+async function buildPlaygroundFiles(
+  packagesDirectory,
+  libDirectory,
+  { includeExternalPlugins = false } = {},
+) {
   const pluginFiles = [];
 
   // Builtin plugins
@@ -64,7 +68,7 @@ async function buildPlaygroundFiles(packagesDirectory, libDirectory) {
 
   // TODO: Support stable version
   // External plugins
-  if (IS_PULL_REQUEST) {
+  if (includeExternalPlugins) {
     for (const pluginName of ["plugin-hermes"]) {
       pluginFiles.push(`${pluginName}/index.mjs`);
     }
@@ -135,6 +139,7 @@ if (IS_PULL_REQUEST) {
   await buildPlaygroundFiles(
     DIST_DIR,
     path.join(WEBSITE_DIR, "static/lib-next"),
+    { includeExternalPlugins: true },
   );
 }
 
