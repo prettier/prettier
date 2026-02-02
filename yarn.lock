@@ -1837,10 +1837,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mdn/browser-compat-data@npm:^5.5.35, @mdn/browser-compat-data@npm:^5.6.19":
+"@mdn/browser-compat-data@npm:^5.6.19":
   version: 5.7.6
   resolution: "@mdn/browser-compat-data@npm:5.7.6"
   checksum: 10/c1dbbd41f2a600dec8be0b570131e81e26aa2748e19993a87db9edfafdd53ab55a80aca7471435bf60eee8bb7215f0111f99ba6614afa905ddbf6b0ba0efc83f
+  languageName: node
+  linkType: hard
+
+"@mdn/browser-compat-data@npm:^6.1.1":
+  version: 6.1.5
+  resolution: "@mdn/browser-compat-data@npm:6.1.5"
+  checksum: 10/4fb08f12a8471d9b1b3f10aa0b674c0ab24edc2aa10abf284a4c407c2bd6d55b5ed469e21f465677ecc08eac288c360d751fb02e8147722282609943a2417959
   languageName: node
   linkType: hard
 
@@ -2339,19 +2346,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@stylistic/eslint-plugin@npm:5.7.0":
-  version: 5.7.0
-  resolution: "@stylistic/eslint-plugin@npm:5.7.0"
+"@stylistic/eslint-plugin@npm:5.7.1":
+  version: 5.7.1
+  resolution: "@stylistic/eslint-plugin@npm:5.7.1"
   dependencies:
     "@eslint-community/eslint-utils": "npm:^4.9.1"
-    "@typescript-eslint/types": "npm:^8.52.0"
-    eslint-visitor-keys: "npm:^5.0.0"
-    espree: "npm:^11.0.0"
+    "@typescript-eslint/types": "npm:^8.53.1"
+    eslint-visitor-keys: "npm:^4.2.1"
+    espree: "npm:^10.4.0"
     estraverse: "npm:^5.3.0"
     picomatch: "npm:^4.0.3"
   peerDependencies:
     eslint: ">=9.0.0"
-  checksum: 10/cedc547e50d7d3fec190784881865ffbb76c7a9613c1a070b2c6e923201282837a65f86152cf8270e48fcc34fa22a3dd4c8fcb739f2a622281d685e062f3fea1
+  checksum: 10/df50c60e111e79342c2a677c05fff13b02206a0480e3b3fe17e1faf901147e1a2339994b1106a38cc835d20b7b313f1e3e6c9b111b117128ad15cecc9b107c1c
   languageName: node
   linkType: hard
 
@@ -2645,7 +2652,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/types@npm:8.53.1, @typescript-eslint/types@npm:^8.52.0, @typescript-eslint/types@npm:^8.53.1":
+"@typescript-eslint/types@npm:8.53.1, @typescript-eslint/types@npm:^8.53.1":
   version: 8.53.1
   resolution: "@typescript-eslint/types@npm:8.53.1"
   checksum: 10/9a01aa343329af529c645204070dd20be54556c6fd92bfda3a42b6213c0408f5f2f57084064d88d5de1337a7731e57290f0ec11a0fb181bbb3c3b293ef0dcf4a
@@ -3312,7 +3319,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"browserslist@npm:4.28.1, browserslist@npm:^4.24.0, browserslist@npm:^4.24.2, browserslist@npm:^4.28.0":
+"browserslist@npm:4.28.1, browserslist@npm:^4.24.0, browserslist@npm:^4.25.2, browserslist@npm:^4.28.0":
   version: 4.28.1
   resolution: "browserslist@npm:4.28.1"
   dependencies:
@@ -4448,13 +4455,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-compat@npm:6.0.2":
-  version: 6.0.2
-  resolution: "eslint-plugin-compat@npm:6.0.2"
+"eslint-plugin-compat@npm:6.1.0":
+  version: 6.1.0
+  resolution: "eslint-plugin-compat@npm:6.1.0"
   dependencies:
-    "@mdn/browser-compat-data": "npm:^5.5.35"
+    "@mdn/browser-compat-data": "npm:^6.1.1"
     ast-metadata-inferer: "npm:^0.8.1"
-    browserslist: "npm:^4.24.2"
+    browserslist: "npm:^4.25.2"
     caniuse-lite: "npm:^1.0.30001687"
     find-up: "npm:^5.0.0"
     globals: "npm:^15.7.0"
@@ -4462,7 +4469,7 @@ __metadata:
     semver: "npm:^7.6.2"
   peerDependencies:
     eslint: ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0 || ^9.0.0
-  checksum: 10/7be7c900ee4e460d8ebc2605331b45605f1a0f95280fe46068ff95c4c4bde9242b25a5c9a1492b3e1535e642b5c14aab66df7ca2f8247fe2520d9939e97a337f
+  checksum: 10/147ba93605a2ebfaa68f9d4f40858f95c99728e734196671d4e9a38c8003e4d1307b7e90ce4bd64d59ba57c4cfc4bc04c2e91df17a1a1f9bfa432b1a340cc32b
   languageName: node
   linkType: hard
 
@@ -4660,7 +4667,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"espree@npm:11.1.0, espree@npm:^11.0.0":
+"espree@npm:11.1.0":
   version: 11.1.0
   resolution: "espree@npm:11.1.0"
   dependencies:
@@ -5331,10 +5338,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"globals@npm:17.0.0":
-  version: 17.0.0
-  resolution: "globals@npm:17.0.0"
-  checksum: 10/af6213db9bf5f599b8a609061984c4d5fedb23db336228b866eba70819fe13ea3d11ca507b4799e8afc888331d0f7e5760d01507e38cb988fff9ad3a9635b312
+"globals@npm:17.3.0":
+  version: 17.3.0
+  resolution: "globals@npm:17.3.0"
+  checksum: 10/44ba2b7db93eb6a2531dfba09219845e21f2e724a4f400eb59518b180b7d5bcf7f65580530e3d3023d7dc2bdbacf5d265fd87c393f567deb9a2b0472b51c9d5e
   languageName: node
   linkType: hard
 
@@ -8367,7 +8374,7 @@ __metadata:
     "@prettier/html-event-attributes": "npm:0.0.1"
     "@prettier/html-tags": "npm:2.1.0"
     "@prettier/parse-srcset": "npm:3.1.0"
-    "@stylistic/eslint-plugin": "npm:5.7.0"
+    "@stylistic/eslint-plugin": "npm:5.7.1"
     "@types/jsesc": "npm:3.0.3"
     "@typescript-eslint/eslint-plugin": "npm:8.53.1"
     "@typescript-eslint/parser": "npm:8.53.1"
@@ -8402,7 +8409,7 @@ __metadata:
     eslint: "npm:9.39.2"
     eslint-config-prettier: "npm:10.1.8"
     eslint-formatter-friendly: "npm:7.0.0"
-    eslint-plugin-compat: "npm:6.0.2"
+    eslint-plugin-compat: "npm:6.1.0"
     eslint-plugin-jest: "npm:29.12.1"
     eslint-plugin-n: "npm:17.23.2"
     eslint-plugin-regexp: "npm:3.0.0"
@@ -8419,7 +8426,7 @@ __metadata:
     get-port: "npm:7.1.0"
     get-stdin: "npm:9.0.0"
     gfm-test-suite: "npm:0.0.2"
-    globals: "npm:17.0.0"
+    globals: "npm:17.3.0"
     graphql: "npm:16.12.0"
     hermes-parser: "npm:0.33.3"
     html-element-attributes: "npm:3.5.0"
