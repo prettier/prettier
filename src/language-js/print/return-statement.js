@@ -44,38 +44,19 @@ function printReturnOrThrowArgument(path, options, print) {
 // `ReturnStatement` and `ThrowStatement`
 function printReturnOrThrowStatement(path, options, print) {
   const { node } = path;
-  /** @type {Doc[]} */
-  const parts = [node.type === "ThrowStatement" ? "throw" : "return"];
-
-  if (node.argument) {
-    parts.push(
-      " ",
-      path.call(
-        () => printReturnOrThrowArgument(path, options, print),
-        "argument",
-      ),
-    );
-  }
-
-  const hasDanglingComments = hasComment(node, CommentCheckFlags.Dangling);
-  const shouldPrintSemiBeforeComments =
-    hasDanglingComments &&
-    hasComment(node, CommentCheckFlags.Last | CommentCheckFlags.Line);
-
-  if (shouldPrintSemiBeforeComments) {
-    parts.push(printSemicolon(options));
-  }
-
-  // TODO[@fisker]: should able to remove this after we exclude `;` from range
-  if (hasDanglingComments) {
-    parts.push(" ", printDanglingComments(path, options));
-  }
-
-  if (!shouldPrintSemiBeforeComments) {
-    parts.push(printSemicolon(options));
-  }
-
-  return parts;
+  return [
+    node.type === "ThrowStatement" ? "throw" : "return",
+    node.argument
+      ? [
+          " ",
+          path.call(
+            () => printReturnOrThrowArgument(path, options, print),
+            "argument",
+          ),
+        ]
+      : "",
+    printSemicolon(options),
+  ];
 }
 
 export {
