@@ -378,7 +378,12 @@ function handleMethodNameComments({
     !followingNode &&
     placement === "remaining"
   ) {
-    addTrailingComment(enclosingNode, comment);
+    addTrailingComment(
+      getNextNonSpaceNonCommentCharacter(text, locEnd(comment)) === "("
+        ? precedingNode
+        : enclosingNode,
+      comment,
+    );
     return true;
   }
 
