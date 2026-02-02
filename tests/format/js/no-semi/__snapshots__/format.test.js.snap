@@ -688,7 +688,7 @@ debugger;
 foo;
 
 // prettier-ignore
-debugger
+debugger;
 
 [];
 
