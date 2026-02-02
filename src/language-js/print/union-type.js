@@ -7,8 +7,15 @@ import {
   line,
   softline,
 } from "../../document/index.js";
-import { printComments } from "../../main/comments/print.js";
+import {
+  printComments,
+  printCommentsSeparately,
+} from "../../main/comments/print.js";
+import hasNewlineInRange from "../../utilities/has-newline-in-range.js";
+import { locEnd, locStart } from "../loc.js";
 import needsParentheses from "../parentheses/needs-parentheses.js";
+import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
+import { hasLeadingOwnLineComment } from "../utilities/has-leading-own-line-comment.js";
 import { isFlowObjectTypePropertyAFunction } from "../utilities/is-flow-object-type-property-a-function.js";
 import {
   isConditionalType,
@@ -48,12 +55,21 @@ function printUnionType(path, options, print, args) {
   // | child1
   // // comment
   // | child2
-  let printed = path.map(
-    () => printComments(path, align(2, print()), options),
-    "types",
-  );
+  /** @type {Doc} */
+  let printed = group(
+    path.map(({ isFirst }) => {
+      const bar = isFirst ? ifBreak("| ") : [line, "| "];
+      const typeDoc = print();
+      if (
+        hasLeadingOwnLineComment(options.originalText, path.node) ||
+        hasMultilineLeadingComment(options.originalText, path.node)
+      ) {
+        return [bar, align(2, printComments(path, typeDoc, options))];
+      }
 
-  printed = group([ifBreak("| "), join([line, "| "], printed)]);
+      return [bar, printComments(path, align(2, typeDoc), options)];
+    }, "types"),
+  );
 
   if (shouldUnionTypePrintOwnComments(path)) {
     printed = printComments(path, printed, options);
@@ -85,6 +101,12 @@ function printUnionType(path, options, print, args) {
   }
 
   return group(indent([softline, printed]));
+}
+
+function hasMultilineLeadingComment(text, node) {
+  return hasComment(node, CommentCheckFlags.Leading, (comment) =>
+    hasNewlineInRange(text, locStart(comment), locEnd(comment)),
+  );
 }
 
 function shouldIndentUnionType(path) {
