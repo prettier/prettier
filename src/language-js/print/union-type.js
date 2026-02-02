@@ -33,10 +33,7 @@ function printUnionType(path, options, print, args) {
   // } | null | void
   // should be inlined and not be printed in the multi-line variant
   if (shouldHugUnionType(node)) {
-    return join(
-      " | ",
-      path.map(() => printComments(path, print(), options), "types"),
-    );
+    return join(" | ", path.map(print, "types"));
   }
 
   // single-line variation
@@ -66,8 +63,12 @@ function printUnionType(path, options, print, args) {
     return group([indent([softline, printed]), softline]);
   }
 
-  const { parent } = path;
-  if (isTupleType(parent)) {
+  const { key, parent } = path;
+  if (
+    key === "elementTypes" &&
+    isTupleType(parent) &&
+    parent.elementTypes.length > 1
+  ) {
     return [
       group([
         indent([ifBreak(["(", softline]), printed]),
