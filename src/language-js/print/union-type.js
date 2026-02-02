@@ -69,13 +69,11 @@ function printUnionType(path, options, print, args) {
     isTupleType(parent) &&
     parent.elementTypes.length > 1
   ) {
-    return [
-      group([
-        indent([ifBreak(["(", softline]), printed]),
-        softline,
-        ifBreak(")"),
-      ]),
-    ];
+    return group([
+      indent([ifBreak(["(", softline]), printed]),
+      softline,
+      ifBreak(")"),
+    ]);
   }
 
   // Already indent in parent
