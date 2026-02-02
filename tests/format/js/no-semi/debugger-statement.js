@@ -12,3 +12,5 @@ debugger
 debugger
 
 ;[]
+
+debugger /* comment */ ;

@@ -1,18 +1,19 @@
 function a() {
-return
+  return
 
-// 11
-;[]
+  // 11
+  ;[]
 
-return
+  return
 
-// 21
-;foo
+  // 21
+  ;foo
 
-// prettier-ignore
-return
+  // prettier-ignore
+  return
 
-;[]
+  ;[]
 
+  return /* comment */ ;
 }
 
