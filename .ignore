@@ -1,2 +1,4 @@
 website/static/lib
+website/static/lib-next
+website/static/lib-stable
 dist

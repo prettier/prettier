@@ -18,18 +18,18 @@ import {
 
 const runYarn = (command, args, options) =>
   spawn("yarn", [command, ...args], { stdio: "inherit", ...options });
-const IS_PULL_REQUEST = process.env.PULL_REQUEST === "true";
-const PACKAGES_DIRECTORY = IS_PULL_REQUEST
-  ? DIST_DIR
-  : url.fileURLToPath(new URL("../node_modules", import.meta.url));
-const PLAYGROUND_LIB_DIRECTORY = path.join(WEBSITE_DIR, "static/lib");
 
-async function writeScript(file, code) {
+const IS_PULL_REQUEST = process.env.PULL_REQUEST === "true";
+const NODE_MODULES_DIR = url.fileURLToPath(
+  new URL("../node_modules", import.meta.url),
+);
+
+async function writeScript(libDirectory, file, code) {
   const { code: minified } = await esbuild.transform(code, {
     loader: "js",
     minify: true,
   });
-  await writeFile(path.join(PLAYGROUND_LIB_DIRECTORY, file), minified.trim());
+  await writeFile(path.join(libDirectory, file), minified.trim());
 }
 
 async function buildPrettier() {
@@ -52,12 +52,12 @@ async function buildPrettier() {
   }
 }
 
-async function buildPlaygroundFiles() {
+async function buildPlaygroundFiles(packagesDirectory, libDirectory) {
   const pluginFiles = [];
 
   // Builtin plugins
   for (const fileName of await fastGlob(["plugins/*.mjs"], {
-    cwd: path.join(PACKAGES_DIRECTORY, "prettier"),
+    cwd: path.join(packagesDirectory, "prettier"),
   })) {
     pluginFiles.push(`prettier/${fileName}`);
   }
@@ -82,7 +82,7 @@ async function buildPlaygroundFiles() {
         const plugin = { file };
 
         const pluginModule = await import(
-          url.pathToFileURL(path.join(PACKAGES_DIRECTORY, file))
+          url.pathToFileURL(path.join(packagesDirectory, file))
         );
 
         for (const property of ["languages", "options", "defaultOptions"]) {
@@ -107,24 +107,36 @@ async function buildPlaygroundFiles() {
   await Promise.all([
     ...[packageManifest.prettier, ...packageManifest.plugins].map(({ file }) =>
       copyFile(
-        path.join(PACKAGES_DIRECTORY, file),
-        path.join(PLAYGROUND_LIB_DIRECTORY, file),
+        path.join(packagesDirectory, file),
+        path.join(libDirectory, file),
       ),
     ),
     writeScript(
+      libDirectory,
       "package-manifest.mjs",
       `export default ${serialize(packageManifest, { space: 2 })};`,
     ),
   ]);
 }
 
-if (IS_PULL_REQUEST) {
-  console.log("Building prettier...");
-  await buildPrettier();
-}
+// Build lib-stable (from node_modules)
+console.log("Preparing files for playground (stable)...");
+await buildPlaygroundFiles(
+  NODE_MODULES_DIR,
+  path.join(WEBSITE_DIR, "static/lib-stable"),
+);
 
-console.log("Preparing files for playground...");
-await buildPlaygroundFiles();
+// Build lib-next (from dist)
+if (IS_PULL_REQUEST) {
+  console.log("Building prettier for PR...");
+  await buildPrettier();
+
+  console.log("Preparing files for playground (next)...");
+  await buildPlaygroundFiles(
+    DIST_DIR,
+    path.join(WEBSITE_DIR, "static/lib-next"),
+  );
+}
 
 // --- Site ---
 console.log("Installing website dependencies...");

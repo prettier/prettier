@@ -70,6 +70,12 @@ header a:hover {
 .logo-wrapper {
   display: flex;
   align-items: center;
+
+  a {
+    display: flex;
+    align-items: center;
+    margin-right: 12px;
+  }
 }
 
 .logo {

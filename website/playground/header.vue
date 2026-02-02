@@ -7,15 +7,27 @@ const logo = "/icon.png";
 
 defineProps({
   version: { type: String, required: true },
+  selectedVersion: { type: String, required: true },
+  hasNextVersion: { type: Boolean, default: false },
 });
+
+const emit = defineEmits(["update:selectedVersion"]);
 </script>
 
 <template>
   <header>
-    <a href="/" class="logo-wrapper">
-      <img class="logo" :src="logo" alt="" />
-      <h1>Prettier <VersionLink :version></VersionLink></h1>
-    </a>
+    <div class="logo-wrapper">
+      <a href="/">
+        <img class="logo" :src="logo" alt="" />
+        <h1>Prettier</h1>
+      </a>
+      <VersionLink
+        :version="version"
+        :selectedVersion="selectedVersion"
+        :hasNextVersion="hasNextVersion"
+        @update:selectedVersion="emit('update:selectedVersion', $event)"
+      />
+    </div>
 
     <span class="links">
       <GithubButton

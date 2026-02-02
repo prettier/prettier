@@ -1,17 +1,35 @@
 import "https://cdnjs.cloudflare.com/ajax/libs/sw-toolbox/3.6.0/sw-toolbox.js";
 
-import prettierPackageManifest from "./lib/package-manifest.mjs";
+import prettierPackageManifestStable from "./lib-stable/package-manifest.mjs";
 
 const { toolbox } = self;
-const packageFiles = [
-  prettierPackageManifest.prettier,
-  ...prettierPackageManifest.plugins,
-].map(({ file }) => `./lib/${file}`);
+
+function getPackageFiles(manifest, libDir) {
+  return [manifest.prettier, ...manifest.plugins].map(
+    ({ file }) => `./${libDir}/${file}`,
+  );
+}
+
+const stableFiles = getPackageFiles(
+  prettierPackageManifestStable,
+  "lib-stable",
+);
+
+// lib-next may not exist in non-PR builds
+let nextFiles = [];
+try {
+  const prettierPackageManifestNext =
+    await import("./lib-next/package-manifest.mjs").then((m) => m.default);
+  nextFiles = getPackageFiles(prettierPackageManifestNext, "lib-next");
+} catch {
+  // lib-next not available
+}
 
 toolbox.precache([
   // Scripts
-  "lib/package-manifest.mjs",
-  ...packageFiles,
+  "lib-stable/package-manifest.mjs",
+  ...stableFiles,
+  ...nextFiles,
   "https://cdnjs.cloudflare.com/ajax/libs/sw-toolbox/3.6.0/sw-toolbox.js",
 
   // Images

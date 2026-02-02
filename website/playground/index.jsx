@@ -6,23 +6,65 @@ import Header from "./header.vue";
 import Playground from "./Playground.jsx";
 import { fixPrettierVersion } from "./utilities.js";
 
+function getInitialSelectedVersion() {
+  const params = new URLSearchParams(window.location.search);
+  return params.get("version") === "next" ? "next" : "stable";
+}
+
+async function checkNextVersionAvailable() {
+  try {
+    const response = await fetch("/lib-next/package-manifest.mjs", {
+      method: "HEAD",
+    });
+    return response.ok;
+  } catch {
+    return false;
+  }
+}
+
 const App = {
   name: "App",
   setup() {
-    const state = reactive({ loaded: false });
+    const state = reactive({
+      loaded: false,
+      selectedVersion: getInitialSelectedVersion(),
+      hasNextVersion: false,
+    });
 
     const componentDidMount = async () => {
-      const { supportInfo, version } = await worker.getMetadata();
+      const [{ supportInfo, version }, hasNextVersion] = await Promise.all([
+        worker.getMetadata(),
+        checkNextVersionAvailable(),
+      ]);
 
       Object.assign(state, {
         loaded: true,
         availableOptions: supportInfo.options.map(augmentOption),
         version: fixPrettierVersion(version),
+        hasNextVersion,
       });
     };
 
+    const onSelectedVersionChange = (newVersion) => {
+      state.selectedVersion = newVersion;
+      const url = new URL(window.location);
+      if (newVersion === "next") {
+        url.searchParams.set("version", "next");
+      } else {
+        url.searchParams.delete("version");
+      }
+      window.history.replaceState({}, "", url);
+      window.location.reload();
+    };
+
     const render = () => {
-      const { loaded, availableOptions, version } = state;
+      const {
+        loaded,
+        availableOptions,
+        version,
+        selectedVersion,
+        hasNextVersion,
+      } = state;
 
       if (!loaded) {
         return "Loading...";
@@ -30,7 +72,12 @@ const App = {
 
       return (
         <>
-          <Header version={version}></Header>
+          <Header
+            version={version}
+            selectedVersion={selectedVersion}
+            hasNextVersion={hasNextVersion}
+            onUpdate:selectedVersion={onSelectedVersionChange}
+          />
           <Playground availableOptions={availableOptions} version={version} />
         </>
       );

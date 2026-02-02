@@ -1,5 +1,3 @@
-import prettierPackageManifest from "./lib/package-manifest.mjs";
-import * as prettier from "./lib/prettier/standalone.mjs";
 import * as prettierPluginDocExplorer from "./prettier-plugin-doc-explorer.mjs";
 
 /**
@@ -13,10 +11,18 @@ import * as prettierPluginDocExplorer from "./prettier-plugin-doc-explorer.mjs";
 }} FormatMessage
 */
 
+const workerUrl = new URL(import.meta.url);
+const libDir = workerUrl.searchParams.get("lib") || "lib-stable";
+
+const prettierPackageManifest = await import(
+  `./${libDir}/package-manifest.mjs`
+).then((m) => m.default);
+const prettier = await import(`./${libDir}/prettier/standalone.mjs`);
+
 const pluginLoadPromises = new Map();
 async function importPlugin(plugin) {
   if (!pluginLoadPromises.has(plugin)) {
-    pluginLoadPromises.set(plugin, import(`./lib/${plugin.file}`));
+    pluginLoadPromises.set(plugin, import(`./${libDir}/${plugin.file}`));
   }
 
   try {
@@ -63,6 +69,8 @@ self.onmessage = async function (event) {
     message: await handleMessage(event.data.message),
   });
 };
+
+self.postMessage({ type: "ready" });
 
 function serializeError(error) {
   const serialized = {
@@ -114,7 +122,6 @@ function handleMessage(message) {
 
 async function handleMetaMessage() {
   const supportInfo = await prettier.getSupportInfo({ plugins });
-
   return {
     type: "meta",
     // eslint-disable-next-line unicorn/prefer-structured-clone
