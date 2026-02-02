@@ -39,7 +39,7 @@ type b = {
 };
 
 declare class c {
-  bar(): any /* bat */;
+  bar(): any; /* bat */
 }
 
 // https://github.com/babel/babel/blob/c92c4919771105140015167f25f7bacac77c90d9/scripts/babel-plugin-bit-decorator/types.d.ts#L28-L37
