@@ -18,7 +18,11 @@ import { needsHardlineAfterDanglingComment } from "../utilities/needs-hardline-a
 import { isStringLiteral } from "../utilities/node-types.js";
 import { stripComments } from "../utilities/strip-comments.js";
 import { printDecoratorsBeforeExport } from "./decorators.js";
-import { printDeclareToken, printTrailingComma } from "./miscellaneous.js";
+import {
+  printDeclareToken,
+  printSemicolon,
+  printTrailingComma,
+} from "./miscellaneous.js";
 import { printObject } from "./object.js";
 
 /**
@@ -38,7 +42,7 @@ function printImportDeclaration(path, options, print) {
     printModuleSpecifiers(path, options, print),
     printModuleSource(path, options, print),
     printImportAttributes(path, options, print),
-    options.semi ? ";" : "",
+    printSemicolon(options),
   ];
 }
 
@@ -117,11 +121,10 @@ const shouldOmitSemicolon = createTypeCheckFunction([
 ]);
 function printSemicolonAfterExportDeclaration(node, options) {
   if (
-    options.semi &&
-    (!node.declaration ||
-      (isDefaultExport(node) && !shouldOmitSemicolon(node.declaration)))
+    !node.declaration ||
+    (isDefaultExport(node) && !shouldOmitSemicolon(node.declaration))
   ) {
-    return ";";
+    return printSemicolon(options);
   }
 
   return "";

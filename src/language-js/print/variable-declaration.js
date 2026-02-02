@@ -1,6 +1,6 @@
 import { group, hardline, indent, line } from "../../document/index.js";
 import { hasComment } from "../utilities/comments.js";
-import { printDeclareToken } from "./miscellaneous.js";
+import { printDeclareToken, printSemicolon } from "./miscellaneous.js";
 
 function printVariableDeclaration(path, options, print) {
   const { node } = path;
@@ -34,7 +34,9 @@ function printVariableDeclaration(path, options, print) {
         .slice(1)
         .map((p) => [",", hasValue && !isParentForLoop ? hardline : line, p]),
     ),
-    options.semi && !(isParentForLoop && parentNode.body !== node) ? ";" : "",
+    !(isParentForLoop && parentNode.body !== node)
+      ? printSemicolon(options)
+      : "",
   ]);
 }
 

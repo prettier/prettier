@@ -3,7 +3,7 @@ import {
   printFunctionParameters,
   shouldGroupFunctionParameters,
 } from "./function-parameters.js";
-import { printDeclareToken } from "./miscellaneous.js";
+import { printDeclareToken, printSemicolon } from "./miscellaneous.js";
 
 /**
  * @import AstPath from "../../common/ast-path.js"
@@ -14,18 +14,12 @@ import { printDeclareToken } from "./miscellaneous.js";
 - "DeclareHook"
 */
 function printDeclareHook(path, options, print) {
-  const { node } = path;
-
-  const parts = [printDeclareToken(path), "hook"];
-  if (node.id) {
-    parts.push(" ", print("id"));
-  }
-
-  if (options.semi) {
-    parts.push(";");
-  }
-
-  return parts;
+  return [
+    printDeclareToken(path),
+    "hook",
+    path.node.id ? [" ", print("id")] : "",
+    printSemicolon(options),
+  ];
 }
 
 /*

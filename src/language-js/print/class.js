@@ -29,6 +29,7 @@ import {
   printDeclareToken,
   printDefiniteToken,
   printOptionalToken,
+  printSemicolon,
   printTypeScriptAccessibilityToken,
 } from "./miscellaneous.js";
 import { printTypeAnnotationProperty } from "./type-annotation.js";
@@ -362,7 +363,7 @@ function printClassProperty(path, options, print) {
       " =",
       isAbstractProperty ? undefined : "value",
     ),
-    options.semi ? ";" : "",
+    printSemicolon(options),
   ];
 }
 
