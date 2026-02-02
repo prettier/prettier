@@ -11,7 +11,10 @@ function getPackageFiles(manifest, libDir) {
   );
 }
 
-const stableFiles = getPackageFiles(prettierPackageManifestStable, "lib-stable");
+const stableFiles = getPackageFiles(
+  prettierPackageManifestStable,
+  "lib-stable",
+);
 const nextFiles = getPackageFiles(prettierPackageManifestNext, "lib-next");
 
 toolbox.precache([
