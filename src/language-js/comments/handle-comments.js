@@ -349,6 +349,7 @@ function handleMethodNameComments({
   comment,
   precedingNode,
   enclosingNode,
+  followingNode,
   text,
 }) {
   // This is only needed for estree parsers (flow, typescript) to attach
@@ -369,6 +370,20 @@ function handleMethodNameComments({
     getNextNonSpaceNonCommentCharacter(text, locEnd(precedingNode)) !== ":"
   ) {
     addTrailingComment(precedingNode, comment);
+    return true;
+  }
+
+  if (
+    isPropertyLikeNode(enclosingNode) &&
+    !followingNode &&
+    placement === "remaining"
+  ) {
+    addTrailingComment(
+      getNextNonSpaceNonCommentCharacter(text, locEnd(comment)) === "("
+        ? precedingNode
+        : enclosingNode,
+      comment,
+    );
     return true;
   }
 
