@@ -637,6 +637,8 @@ debugger
 
 ;[]
 
+debugger /* comment */ ;
+
 =====================================output=====================================
 debugger
 
@@ -652,6 +654,8 @@ foo
 debugger
 
 ;[]
+
+debugger /* comment */
 
 ================================================================================
 `;
@@ -676,6 +680,8 @@ debugger
 
 ;[]
 
+debugger /* comment */ ;
+
 =====================================output=====================================
 debugger;
 
@@ -691,6 +697,8 @@ foo;
 debugger;
 
 [];
+
+debugger; /* comment */
 
 ================================================================================
 `;
@@ -1355,21 +1363,22 @@ semi: false
                                                       printWidth: 80 (default) |
 =====================================input======================================
 function a() {
-return
+  return
 
-// 11
-;[]
+  // 11
+  ;[]
 
-return
+  return
 
-// 21
-;foo
+  // 21
+  ;foo
 
-// prettier-ignore
-return
+  // prettier-ignore
+  return
 
-;[]
+  ;[]
 
+  return /* comment */ ;
 }
 
 
@@ -1389,6 +1398,8 @@ function a() {
   return
 
   ;[]
+
+  return /* comment */
 }
 
 ================================================================================
@@ -1400,21 +1411,22 @@ parsers: ["babel", "typescript", "flow"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 function a() {
-return
+  return
 
-// 11
-;[]
+  // 11
+  ;[]
 
-return
+  return
 
-// 21
-;foo
+  // 21
+  ;foo
 
-// prettier-ignore
-return
+  // prettier-ignore
+  return
 
-;[]
+  ;[]
 
+  return /* comment */ ;
 }
 
 
@@ -1434,6 +1446,8 @@ function a() {
   return;
 
   [];
+
+  return; /* comment */
 }
 
 ================================================================================
