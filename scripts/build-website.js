@@ -33,22 +33,25 @@ async function writeScript(libDirectory, file, code) {
 }
 
 async function buildPrettier() {
-  // --- Build prettier for PR ---
   const packageJsonFile = path.join(PROJECT_ROOT, "package.json");
   const packageJsonContent = await fs.readFile(packageJsonFile);
-  const packageJson = JSON.parse(packageJsonContent);
-  await writeJson(packageJsonFile, {
-    ...packageJson,
-    version: `999.999.999-pr.${process.env.REVIEW_ID}`,
-  });
+
+  if (IS_PULL_REQUEST) {
+    const packageJson = JSON.parse(packageJsonContent);
+    await writeJson(packageJsonFile, {
+      ...packageJson,
+      version: `999.999.999-pr.${process.env.REVIEW_ID}`,
+    });
+  }
 
   try {
     await runYarn("build", ["--clean", "--playground"], {
       cwd: PROJECT_ROOT,
     });
   } finally {
-    // restore
-    await writeFile(packageJsonFile, packageJsonContent);
+    if (IS_PULL_REQUEST) {
+      await writeFile(packageJsonFile, packageJsonContent);
+    }
   }
 }
 
@@ -131,17 +134,15 @@ await buildPlaygroundFiles(
 );
 
 // Build lib-next (from dist)
-if (IS_PULL_REQUEST) {
-  console.log("Building prettier for PR...");
-  await buildPrettier();
+console.log("Building prettier...");
+await buildPrettier();
 
-  console.log("Preparing files for playground (next)...");
-  await buildPlaygroundFiles(
-    DIST_DIR,
-    path.join(WEBSITE_DIR, "static/lib-next"),
-    { includeExternalPlugins: true },
-  );
-}
+console.log("Preparing files for playground (next)...");
+await buildPlaygroundFiles(
+  DIST_DIR,
+  path.join(WEBSITE_DIR, "static/lib-next"),
+  { includeExternalPlugins: true },
+);
 
 // --- Site ---
 console.log("Installing website dependencies...");
