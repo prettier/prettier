@@ -12,7 +12,7 @@ function printDoWhileStatement(path, options, print) {
     "while (",
     printDoWhileStatementCondition(path, options, print),
     ")",
-    printSemicolon(),
+    printSemicolon(options),
   ];
 }
 
