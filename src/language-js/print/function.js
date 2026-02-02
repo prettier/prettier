@@ -11,7 +11,7 @@ import {
   shouldGroupFunctionParameters,
 } from "./function-parameters.js";
 import { printKey } from "./key.js";
-import { printDeclareToken } from "./miscellaneous.js";
+import { printDeclareToken, printSemicolon } from "./miscellaneous.js";
 import { printTypeAnnotationProperty } from "./type-annotation.js";
 
 /**
@@ -86,7 +86,7 @@ function printFunction(path, options, print, args) {
     ]),
     node.body ? " " : "",
     print("body"),
-    options.semi && (node.declare || !node.body) ? ";" : "",
+    node.declare || !node.body ? printSemicolon(options) : "",
   ];
 }
 
@@ -168,7 +168,7 @@ function printMethodValue(path, options, print) {
   if (node.body) {
     parts.push(" ", print("body"));
   } else {
-    parts.push(options.semi ? ";" : "");
+    parts.push(printSemicolon(options));
   }
 
   return parts;

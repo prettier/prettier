@@ -41,7 +41,11 @@ import { printHtmlBinding } from "./html-binding.js";
 import { printIfStatement } from "./if-statement.js";
 import { printLiteral } from "./literal.js";
 import { printMemberExpression } from "./member.js";
-import { printDefiniteToken, printOptionalToken } from "./miscellaneous.js";
+import {
+  printDefiniteToken,
+  printOptionalToken,
+  printSemicolon,
+} from "./miscellaneous.js";
 import {
   printExportDeclaration,
   printImportDeclaration,
@@ -218,7 +222,7 @@ function printEstree(path, options, print, args) {
     case "Super":
       return "super";
     case "Directive":
-      return [print("value"), options.semi ? ";" : ""];
+      return [print("value"), printSemicolon(options)];
     case "UnaryExpression": {
       const parts = [node.operator];
 
@@ -269,7 +273,7 @@ function printEstree(path, options, print, args) {
       return [
         node.type === "BreakStatement" ? "break" : "continue",
         node.label ? [" ", print("label")] : "",
-        options.semi ? ";" : "",
+        printSemicolon(options),
       ];
     case "LabeledStatement":
       return [
@@ -286,7 +290,7 @@ function printEstree(path, options, print, args) {
     case "SwitchCase":
       return printSwitchCase(path, options, print);
     case "DebuggerStatement":
-      return ["debugger", options.semi ? ";" : ""];
+      return ["debugger", printSemicolon(options)];
 
     case "ClassDeclaration":
     case "ClassExpression":

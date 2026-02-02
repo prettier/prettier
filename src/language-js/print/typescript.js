@@ -25,6 +25,7 @@ import { printTypeScriptMappedType } from "./mapped-type.js";
 import { printMethodSignature } from "./method-signature.js";
 import {
   printOptionalToken,
+  printSemicolon,
   printTypeScriptAccessibilityToken,
 } from "./miscellaneous.js";
 import { printImportKind } from "./module.js";
@@ -67,7 +68,7 @@ function printTypescript(path, options, print, args) {
     case "TSDeclareFunction":
       return printFunction(path, options, print);
     case "TSExportAssignment":
-      return ["export = ", print("expression"), options.semi ? ";" : ""];
+      return ["export = ", print("expression"), printSemicolon(options)];
     case "TSModuleBlock":
       return printBlock(path, options, print);
     case "TSInterfaceBody":
@@ -156,7 +157,7 @@ function printTypescript(path, options, print, args) {
       return printMethodSignature(path, options, print);
 
     case "TSNamespaceExportDeclaration":
-      return ["export as namespace ", print("id"), options.semi ? ";" : ""];
+      return ["export as namespace ", print("id"), printSemicolon(options)];
     case "TSEnumDeclaration":
       return printEnumDeclaration(path, print);
     case "TSEnumBody":
@@ -171,7 +172,7 @@ function printTypescript(path, options, print, args) {
         print("id"),
         " = ",
         print("moduleReference"),
-        options.semi ? ";" : "",
+        printSemicolon(options),
       ];
     case "TSExternalModuleReference":
       return printCallExpression(path, options, print);

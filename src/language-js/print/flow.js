@@ -35,7 +35,11 @@ import { printKey } from "./key.js";
 import { printBigInt } from "./literal.js";
 import { printFlowMappedTypeProperty } from "./mapped-type.js";
 import { printMatch, printMatchCase, printMatchPattern } from "./match.js";
-import { printDeclareToken, printOptionalToken } from "./miscellaneous.js";
+import {
+  printDeclareToken,
+  printOptionalToken,
+  printSemicolon,
+} from "./miscellaneous.js";
 import { printExportDeclaration } from "./module.js";
 import { printObject } from "./object.js";
 import { printOpaqueType } from "./opaque-type.js";
@@ -82,7 +86,7 @@ function printFlow(path, options, print, args) {
         "function ",
         print("id"),
         print("predicate"),
-        options.semi ? ";" : "",
+        printSemicolon(options),
       ];
     case "DeclareModule":
       return ["declare module ", print("id"), " ", print("body")];
@@ -90,7 +94,7 @@ function printFlow(path, options, print, args) {
       return [
         "declare module.exports",
         printTypeAnnotationProperty(path, print),
-        options.semi ? ";" : "",
+        printSemicolon(options),
       ];
     case "DeclareNamespace":
       return ["declare namespace ", print("id"), " ", print("body")];
@@ -101,7 +105,7 @@ function printFlow(path, options, print, args) {
         node.kind ?? "var",
         " ",
         print("id"),
-        options.semi ? ";" : "",
+        printSemicolon(options),
       ];
     case "DeclareExportDeclaration":
     case "DeclareExportAllDeclaration":

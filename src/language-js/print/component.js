@@ -1,6 +1,6 @@
 import { group } from "../../document/index.js";
 import { printFunctionParameters } from "./function-parameters.js";
-import { printDeclareToken } from "./miscellaneous.js";
+import { printDeclareToken, printSemicolon } from "./miscellaneous.js";
 
 /**
  * @import AstPath from "../../common/ast-path.js"
@@ -33,8 +33,8 @@ function printComponent(path, options, print) {
     parts.push(" ", print("body"));
   }
 
-  if (options.semi && node.type === "DeclareComponent") {
-    parts.push(";");
+  if (node.type === "DeclareComponent") {
+    parts.push(printSemicolon(options));
   }
 
   return parts;

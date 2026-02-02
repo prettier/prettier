@@ -196,6 +196,10 @@ function printTrailingComma(options, level = "es5") {
   return shouldPrintTrailingComma(options, level) ? ifBreak(",") : "";
 }
 
+function printSemicolon(options) {
+  return options.semi ? ";" : "";
+}
+
 export {
   printAbstractToken,
   printDanglingCommentsInList,
@@ -204,6 +208,7 @@ export {
   printIfOrWhileConditionOrWithStatementObject as printDoWhileStatementCondition,
   printIfOrWhileConditionOrWithStatementObject as printIfStatementCondition,
   printOptionalToken,
+  printSemicolon,
   printTrailingComma,
   printTypeScriptAccessibilityToken,
   printIfOrWhileConditionOrWithStatementObject as printWhileStatementCondition,

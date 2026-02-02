@@ -19,7 +19,7 @@ import {
 import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
 import { isNextLineEmpty } from "../utilities/is-next-line-empty.js";
 import { shouldHugTheOnlyParameter } from "./function-parameters.js";
-import { printTrailingComma } from "./miscellaneous.js";
+import { printSemicolon, printTrailingComma } from "./miscellaneous.js";
 
 /*
 - `ClassBody`
@@ -177,7 +177,9 @@ function printClassMemberSemicolon(path, options) {
   const { parent } = path;
 
   if (path.callParent(isClassBody)) {
-    return options.semi || parent.type === "ObjectTypeAnnotation" ? ";" : "";
+    return parent.type === "ObjectTypeAnnotation"
+      ? ";"
+      : printSemicolon(options);
   }
 
   if (parent.type === "TSTypeLiteral") {

@@ -1,5 +1,5 @@
 import { group } from "../../document/index.js";
-import { printDeclareToken } from "./miscellaneous.js";
+import { printDeclareToken, printSemicolon } from "./miscellaneous.js";
 
 function printModuleDeclaration(path, options, print) {
   const { node } = path;
@@ -8,7 +8,7 @@ function printModuleDeclaration(path, options, print) {
     printDeclareToken(path),
     node.kind === "global" ? "" : `${node.kind} `,
     print("id"),
-    node.body ? [" ", group(print("body"))] : options.semi ? ";" : "",
+    node.body ? [" ", group(print("body"))] : printSemicolon(options),
   ];
 }
 

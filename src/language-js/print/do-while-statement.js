@@ -1,6 +1,9 @@
 import { group, hardline } from "../../document/index.js";
 import { printDoWhileStatementBody } from "./clause.js";
-import { printDoWhileStatementCondition } from "./miscellaneous.js";
+import {
+  printDoWhileStatementCondition,
+  printSemicolon,
+} from "./miscellaneous.js";
 
 function printDoWhileStatement(path, options, print) {
   return [
@@ -9,7 +12,7 @@ function printDoWhileStatement(path, options, print) {
     "while (",
     printDoWhileStatementCondition(path, options, print),
     ")",
-    options.semi ? ";" : "",
+    printSemicolon(options),
   ];
 }
 

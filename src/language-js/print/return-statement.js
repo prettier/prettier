@@ -9,6 +9,7 @@ import { printDanglingComments } from "../../main/comments/print.js";
 import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
 import { isBinaryish } from "../utilities/node-types.js";
 import { returnArgumentHasLeadingComment } from "../utilities/return-statement-has-leading-comment.js";
+import { printSemicolon } from "./miscellaneous.js";
 
 /**
 @import {Doc} from "../../document/index.js";
@@ -58,20 +59,20 @@ function printReturnOrThrowStatement(path, options, print) {
 
   const hasDanglingComments = hasComment(node, CommentCheckFlags.Dangling);
   const shouldPrintSemiBeforeComments =
-    options.semi &&
     hasDanglingComments &&
     hasComment(node, CommentCheckFlags.Last | CommentCheckFlags.Line);
 
   if (shouldPrintSemiBeforeComments) {
-    parts.push(";");
+    parts.push(printSemicolon(options));
   }
 
+  // TODO[@fisker]: should able to remove this after we exclude `;` from range
   if (hasDanglingComments) {
     parts.push(" ", printDanglingComments(path, options));
   }
 
-  if (!shouldPrintSemiBeforeComments && options.semi) {
-    parts.push(";");
+  if (!shouldPrintSemiBeforeComments) {
+    parts.push(printSemicolon(options));
   }
 
   return parts;
