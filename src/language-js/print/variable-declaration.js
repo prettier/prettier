@@ -8,12 +8,12 @@ function printVariableDeclaration(path, options, print) {
 
   // We generally want to terminate all variable declarations with a
   // semicolon, except when they in the () part of for loops.
-  const parentNode = path.parent;
 
-  const isParentForLoop =
-    parentNode.type === "ForStatement" ||
-    parentNode.type === "ForInStatement" ||
-    parentNode.type === "ForOfStatement";
+  const isForXInitializer =
+    (path.key === "init" && path.parent.type === "ForStatement") ||
+    (path.key === "left" &&
+      (path.parent.type === "ForInStatement" ||
+        path.parent.type === "ForOfStatement"));
 
   const hasValue = node.declarations.some((decl) => decl.init);
 
@@ -32,11 +32,13 @@ function printVariableDeclaration(path, options, print) {
     indent(
       printed
         .slice(1)
-        .map((p) => [",", hasValue && !isParentForLoop ? hardline : line, p]),
+        .map((doc) => [
+          ",",
+          hasValue && !isForXInitializer ? hardline : line,
+          doc,
+        ]),
     ),
-    !(isParentForLoop && parentNode.body !== node)
-      ? printSemicolon(options)
-      : "",
+    isForXInitializer ? "" : printSemicolon(options),
   ]);
 }
 
