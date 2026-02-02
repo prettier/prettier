@@ -34,6 +34,10 @@ function locEnd(node) {
           (node.type === "BreakStatement" ? "break".length : "continue".length);
   }
 
+  if (node.type === "DebuggerStatement") {
+    return locStart(node) + "debugger".length;
+  }
+
   if (node.type === "VariableDeclaration") {
     const lastDeclaration = node.declarations.at(-1);
     return locEnd(lastDeclaration);

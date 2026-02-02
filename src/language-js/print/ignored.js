@@ -11,6 +11,7 @@ function printIgnored(path, options /* , print*/) {
     options.semi &&
     (node.type === "BreakStatement" ||
       node.type === "ContinueStatement" ||
+      node.type === "DebuggerStatement" ||
       node.type === "VariableDeclaration" ||
       ((node.type === "ExpressionStatement" ||
         node.type === "Directive" ||
