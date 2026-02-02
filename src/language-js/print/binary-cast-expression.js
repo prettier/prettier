@@ -7,6 +7,7 @@ import { isGenericType } from "../utilities/is-generic-type.js";
 import {
   isArrayType,
   isCallOrNewExpression,
+  isConditionalType,
   isFunctionType,
   isIntersectionType,
   isMemberExpression,
@@ -14,6 +15,7 @@ import {
   isSatisfiesExpression,
   isUnionType,
 } from "../utilities/node-types.js";
+import { shouldHugUnionType } from "../utilities/union-type-print.js";
 
 function printBinaryCastExpression(path, options, print) {
   const { parent, node, key } = path;
@@ -51,7 +53,7 @@ function shouldInlineBinaryCastExpression(path) {
   }
   const { expression, typeAnnotation } = node;
 
-  if (isUnionType(typeAnnotation)) {
+  if (isUnionType(typeAnnotation) && !shouldHugUnionType(typeAnnotation)) {
     return false;
   }
 
@@ -64,7 +66,9 @@ function shouldInlineBinaryCastExpression(path) {
     isIntersectionType(typeAnnotation) ||
     isGenericType(typeAnnotation) ||
     isFunctionType(typeAnnotation) ||
-    isArrayType(typeAnnotation)
+    isArrayType(typeAnnotation) ||
+    isConditionalType(typeAnnotation) ||
+    typeAnnotation.type === "TSConstructorType"
   ) {
     return true;
   }

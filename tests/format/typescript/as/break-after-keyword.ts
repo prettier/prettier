@@ -70,3 +70,34 @@ functionArg = a as
 foo = esBundle.output.find(
   (chunk) => chunk.fileName === 'foo.js',
 ) as TSESTree.ArrowFunctionExpression | TSESTree.ArrowFunctionExpression | TSESTree.FunctionExpression
+
+previewableNode = this.signalGraph.graph()?.nodes[selectedNode.previewNode] as DevtoolsSignalNode;
+
+call = (sourceFile.statements[0] as ts.ExpressionStatement).expression as ts.CallExpression;
+
+myStandalonecomponentB = root.componentRef.instance!.routerOutlet!.component as MyStandaloneComponentB;
+
+const [compRef, fooRef] = refs as [DirectiveHostIdentifier, DirectiveHostIdentifier, ...unknown[]];
+
+a = MetadataKey as new (reducer: MetadataReducer<TAcc, TWrite>) => MetadataKey<Signal<TAcc>, TWrite, TAcc>
+
+vdoc = TextDocument.create('test.ts' as DocumentUri, 'typescript', 0, text) as {} as vscode.TextDocument;
+
+a = (elementsMap.get(element.frameId) || null) as null | ExcalidrawFrameLikeElement;
+
+a = {
+    ..._newElementBase<ExcalidrawArrowElement>(opts.type, opts),
+    points: opts.points || [],
+    startBinding: null,
+    endBinding: null,
+    startArrowhead: opts.startArrowhead || null,
+    endArrowhead: opts.endArrowhead || null,
+    elbowed: false,
+  } as T extends true
+    ? NonDeleted<ExcalidrawElbowArrowElement>
+    : NonDeleted<ExcalidrawArrowElement>;
+
+a = null as {
+    element: NonDeletedExcalidrawElement;
+    transformHandleType: MaybeTransformHandleType;
+  } | null;
