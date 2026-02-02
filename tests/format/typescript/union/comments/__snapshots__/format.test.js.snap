@@ -195,16 +195,16 @@ type A4 =
 =====================================output=====================================
 type A1 =
   | /**
-   * octahedralRhinocerosTransformer
-   */
-  a
+     * octahedralRhinocerosTransformer
+     */
+    a
   | (b | c);
 
 type A2 =
   | /**
-   * hippopotamicKangarooMutator
-   */
-  (a | b)
+     * hippopotamicKangarooMutator
+     */
+    (a | b)
   | c;
 
 type A4 =
@@ -214,6 +214,71 @@ type A4 =
     )
   // comment2
   | (A | B);
+
+================================================================================
+`;
+
+exports[`18787.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript", "flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+// TODO[@fisker]: comments not attached correctly after first element
+type A1 =
+  | /**
+   * 11
+   */
+  a
+  | b
+
+type A2 =
+  | /**
+   * 21
+   */ a
+  | b
+
+type A3 =
+  | // 31
+  a
+  |
+  b;
+
+type A4 =
+  |
+// 41
+/**
+   * 42
+   */
+  a
+  | b
+
+=====================================output=====================================
+// TODO[@fisker]: comments not attached correctly after first element
+type A1 =
+  | /**
+     * 11
+     */
+    a
+  | b;
+
+type A2 =
+  | /**
+     * 21
+     */ a
+  | b;
+
+type A3 =
+  | // 31
+    a
+  | b;
+
+type A4 =
+  | // 41
+    /**
+     * 42
+     */
+    a
+  | b;
 
 ================================================================================
 `;

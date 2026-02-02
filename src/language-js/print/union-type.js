@@ -9,6 +9,7 @@ import {
 } from "../../document/index.js";
 import { printComments } from "../../main/comments/print.js";
 import needsParentheses from "../parentheses/needs-parentheses.js";
+import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
 import { isFlowObjectTypePropertyAFunction } from "../utilities/is-flow-object-type-property-a-function.js";
 import {
   isConditionalType,
@@ -48,12 +49,18 @@ function printUnionType(path, options, print, args) {
   // | child1
   // // comment
   // | child2
-  let printed = path.map(
-    () => printComments(path, align(2, print()), options),
-    "types",
-  );
+  /** @type {Doc} */
+  let printed = group(
+    path.map(({ isFirst }) => {
+      const bar = isFirst ? ifBreak("| ") : [line, "| "];
+      const typeDoc = print();
+      if (hasComment(path.node, CommentCheckFlags.Leading)) {
+        return [bar, align(2, printComments(path, typeDoc, options))];
+      }
 
-  printed = group([ifBreak("| "), join([line, "| "], printed)]);
+      return [bar, printComments(path, align(2, typeDoc), options)];
+    }, "types"),
+  );
 
   if (shouldUnionTypePrintOwnComments(path)) {
     printed = printComments(path, printed, options);
