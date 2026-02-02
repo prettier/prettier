@@ -179,6 +179,8 @@ function postprocess(ast, options) {
         case "ExportDefaultDeclaration":
         case "ExportNamedDeclaration":
         case "ExportAllDeclaration":
+        case "ReturnStatement":
+        case "ThrowStatement":
           addNodeContentEnd(node, { comments, text });
           break;
       }
