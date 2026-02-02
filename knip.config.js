@@ -42,12 +42,12 @@ const config = {
       entry: [
         "playground/**/*.{js,jsx}",
         "src/pages/**/*.{js,jsx}",
+        "src/theme/**/*.{js,jsx}",
         "static/**/*.{js,mjs}",
       ],
       ignoreDependencies: [
         "@docusaurus/faster",
         "@docusaurus/plugin-content-docs",
-        "src/theme/**/*.{js,jsx}",
       ],
     },
     "scripts/tools/bundle-test": {},
