@@ -29,7 +29,7 @@ import {
   isUnionType,
 } from "../utilities/node-types.js";
 import { stripComments } from "../utilities/strip-comments.js";
-import { handleForXComments } from "./attach/handle-for-x-statement.js";
+import { handleForXStatementComments } from "./attach/handle-for-x-statement-comments.js";
 import { handleIfStatementComments } from "./attach/handle-if-statement-comments.js";
 import { handleWhileLikeComments } from "./attach/handle-while-like-comments.js";
 import {
@@ -71,7 +71,7 @@ function handleOwnLineComment(context) {
     handleWhileLikeComments,
     handleTryStatementComments,
     handleClassComments,
-    handleForXComments,
+    handleForXStatementComments,
     handleUnionTypeComments,
     handleMatchOrPatternComments,
     handleOnlyComments,
@@ -101,7 +101,7 @@ function handleEndOfLineComment(context) {
     handleWhileLikeComments,
     handleTryStatementComments,
     handleClassComments,
-    handleForXComments,
+    handleForXStatementComments,
     handleLabeledStatementComments,
     handleCallExpressionComments,
     handlePropertyComments,
@@ -127,7 +127,7 @@ function handleRemainingComment(context) {
     handleIgnoreComments,
     handleIfStatementComments,
     handleWhileLikeComments,
-    handleForXComments,
+    handleForXStatementComments,
     handleMethodNameComments,
     handleOnlyComments,
     handleTSMappedTypeComments,
