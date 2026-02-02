@@ -15,12 +15,12 @@ function printVariableDeclaration(path, options, print) {
       (path.parent.type === "ForInStatement" ||
         path.parent.type === "ForOfStatement"));
 
-  const hasValue = node.declarations.some((decl) => decl.init);
+  const hasValue = node.declarations.some((declarator) => declarator.init);
 
   let firstVariable;
   if (printed.length === 1 && !hasComment(node.declarations[0])) {
     firstVariable = printed[0];
-  } else if (printed.length > 0) {
+  } else {
     // Indent first var to comply with eslint one-var rule
     firstVariable = indent(printed[0]);
   }
