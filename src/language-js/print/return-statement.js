@@ -5,8 +5,6 @@ import {
   indent,
   softline,
 } from "../../document/index.js";
-import { printDanglingComments } from "../../main/comments/print.js";
-import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
 import { isBinaryish } from "../utilities/node-types.js";
 import { returnArgumentHasLeadingComment } from "../utilities/return-statement-has-leading-comment.js";
 import { printSemicolon } from "./miscellaneous.js";
