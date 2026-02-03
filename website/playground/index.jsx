@@ -1,21 +1,21 @@
 import "./install-service-worker.js";
 
-import { createApp, onMounted, reactive } from "vue";
+import { createApp, onMounted, reactive, watch } from "vue";
+import { settings } from "./composables/playground-settings.js";
 import { worker } from "./composables/prettier-worker.js";
 import Header from "./header.vue";
 import Playground from "./Playground.jsx";
-import { fixPrettierVersion, getSelectedVersion } from "./utilities.js";
+import { fixPrettierVersion } from "./utilities.js";
 
 const App = {
   name: "App",
   setup() {
     const state = reactive({
       loaded: false,
-      selectedVersion: getSelectedVersion(),
     });
 
-    const componentDidMount = async () => {
-      const { supportInfo, version } = await worker.getMetadata();
+    const updateMetadata = async (channel) => {
+      const { supportInfo, version } = await worker.getMetadata(channel);
 
       Object.assign(state, {
         loaded: true,
@@ -24,27 +24,23 @@ const App = {
       });
     };
 
-    const onSelectedVersionChange = async (newVersion) => {
-      state.selectedVersion = newVersion;
-      const url = new URL(window.location);
-      if (newVersion === "next") {
-        url.searchParams.set("version", "next");
-      } else {
-        url.searchParams.delete("version");
-      }
-      window.history.replaceState({}, "", url);
+    watch(
+      () => settings.releaseChannel,
+      async (newChannel) => {
+        const url = new URL(window.location);
+        if (newChannel === "next") {
+          url.searchParams.set("version", "next");
+        } else {
+          url.searchParams.delete("version");
+        }
+        window.history.replaceState({}, "", url);
 
-      worker.switchVersion(newVersion);
-      const { supportInfo, version } = await worker.getMetadata();
-
-      Object.assign(state, {
-        availableOptions: supportInfo.options.map(augmentOption),
-        version: fixPrettierVersion(version),
-      });
-    };
+        await updateMetadata(newChannel);
+      },
+    );
 
     const render = () => {
-      const { loaded, availableOptions, version, selectedVersion } = state;
+      const { loaded, availableOptions, version } = state;
 
       if (!loaded) {
         return "Loading...";
@@ -52,17 +48,13 @@ const App = {
 
       return (
         <>
-          <Header
-            version={version}
-            selectedVersion={selectedVersion}
-            onUpdate:selectedVersion={onSelectedVersionChange}
-          />
+          <Header version={version} />
           <Playground availableOptions={availableOptions} version={version} />
         </>
       );
     };
 
-    onMounted(componentDidMount);
+    onMounted(() => updateMetadata(settings.releaseChannel));
     return render;
   },
 };

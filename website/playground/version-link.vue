@@ -1,38 +1,22 @@
 <script setup>
-import { computed, watch, onMounted, ref } from "vue";
+import { computed, watch, onMounted } from "vue";
+import { settings } from "./composables/playground-settings.js";
 
 const props = defineProps({
   version: { type: String, required: true },
-  selectedVersion: { type: String, default: "stable" },
 });
 
-const emit = defineEmits(["update:selectedVersion"]);
-
-const versionData = computed(() => {
+const versionLabel = computed(() => {
   const match = props.version.match(/^pr-(\d+)$/);
-
-  if (props.selectedVersion === "next") {
-    return {
-      next: match ? `PR #${match[1]}` : `v${props.version}`,
-      stable: "stable",
-    };
-  } else {
-    return {
-      next: "next",
-      stable: `v${props.version}`,
-    };
-  }
+  return match ? `PR #${match[1]}` : `v${props.version}`;
 });
 
 const updateTitle = () => {
-  document.title = `Prettier ${versionData.value[props.selectedVersion]}`;
+  document.title = `Prettier ${versionLabel.value}`;
 };
 
-function onVersionChange(event) {
-  const newValue = event.target.value;
-  if (newValue !== props.selectedVersion) {
-    emit("update:selectedVersion", newValue);
-  }
+function onReleaseChannelChange(event) {
+  settings.releaseChannel = event.target.value;
 }
 
 watch(() => props.version, updateTitle);
@@ -42,14 +26,35 @@ onMounted(updateTitle);
 
 <template>
   <span class="version-wrapper">
-    <select
-      class="version-select"
-      :value="selectedVersion"
-      @click.stop
-      @change="onVersionChange"
+    <a
+      class="version-link"
+      :href="`https://github.com/prettier/prettier/releases/tag/${version}`"
+      target="_blank"
+      rel="noopener noreferrer"
     >
-      <option value="stable">{{ versionData.stable }}</option>
-      <option value="next">{{ versionData.next }}</option>
+      {{ versionLabel }}
+    </a>
+    <select
+      class="channel-select"
+      :value="settings.releaseChannel"
+      @click.stop
+      @change="onReleaseChannelChange"
+    >
+      <option value="stable">stable</option>
+      <option value="next">next</option>
     </select>
   </span>
 </template>
+
+<style>
+.version-wrapper {
+  display: flex;
+}
+
+.version-link {
+  color: inherit;
+  text-decoration: none;
+  line-height: 0;
+  opacity: 0.5;
+}
+</style>

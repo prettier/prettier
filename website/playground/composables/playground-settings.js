@@ -1,5 +1,6 @@
 import { reactive, watch } from "vue";
 import * as storage from "../storage.js";
+import { getReleaseChannel } from "../utilities.js";
 
 /**
 @typedef {typeof defaultSettings} PlaygroundSettings
@@ -15,6 +16,7 @@ const defaultSettings = {
   showSecondFormat: false,
   showOutput: true,
   rethrowEmbedErrors: false,
+  releaseChannel: getReleaseChannel(),
 };
 
 const togglers = Object.fromEntries(

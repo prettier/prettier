@@ -1,15 +1,28 @@
-import { getSelectedVersion } from "../utilities.js";
-
+/**
+@import {PlaygroundSettings} from "./playground-settings.js"
+@import {FormatMessage, MetaMessage} from "../../static/worker.mjs"
+*/
 class WorkerApi {
   #worker;
   #counter = 0;
   #handlers = {};
   #ready;
 
-  constructor(version) {
+  constructor() {
+    this.#worker = {
+      stable: null,
+      next: null,
+    };
+  }
+
+  #initWorker(version) {
+    if (this.#worker[version]) {
+      return this.#worker[version];
+    }
+
     const libDir = version === "next" ? "lib-next" : "lib-stable";
-    this.#worker = new Worker(`/worker.mjs?lib=${libDir}`, { type: "module" });
-    const worker = this.#worker;
+    const worker = new Worker(`/worker.mjs?lib=${libDir}`, { type: "module" });
+    this.#worker[version] = worker;
     const handlers = this.#handlers;
 
     this.#ready = new Promise((resolve) => {
@@ -38,46 +51,41 @@ class WorkerApi {
         resolve(message);
       }
     });
+
+    return worker;
   }
 
-  async #postMessage(message) {
+  async #postMessage(message, version) {
+    const worker = this.#initWorker(version);
     await this.#ready;
     const uid = ++this.#counter;
-    const worker = this.#worker;
     return new Promise((resolve, reject) => {
       this.#handlers[uid] = [resolve, reject];
       worker.postMessage({ uid, message });
     });
   }
 
-  getMetadata() {
+  /**
+   * @param {string} version
+   */
+  getMetadata(version) {
+    /** @type {MetaMessage} */
     const message = { type: "meta" };
-    return this.#postMessage(message);
+    return this.#postMessage(message, version);
   }
 
+  /**
+   * @param {FormatMessage["code"]} code
+   * @param {FormatMessage["options"]} options
+   * @param {FormatMessage["settings"]} settings
+   */
   format(code, options, settings) {
+    /** @type {FormatMessage} */
     const message = { type: "format", code, options, settings };
-    return this.#postMessage(message);
+    return this.#postMessage(message, settings.releaseChannel);
   }
 }
 
-const workers = {
-  stable: new WorkerApi("stable"),
-  next: new WorkerApi("next"),
-};
-
-let currentVersion = getSelectedVersion();
-
-const worker = {
-  getMetadata() {
-    return workers[currentVersion].getMetadata();
-  },
-  format(code, options, settings) {
-    return workers[currentVersion].format(code, options, settings);
-  },
-  switchVersion(newVersion) {
-    currentVersion = newVersion;
-  },
-};
+const worker = new WorkerApi();
 
 export { worker };

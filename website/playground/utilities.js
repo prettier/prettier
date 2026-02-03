@@ -1,4 +1,4 @@
-export function getSelectedVersion() {
+export function getReleaseChannel() {
   const params = new URLSearchParams(window.location.search);
   if (params.has("version")) {
     return params.get("version") === "next" ? "next" : "stable";

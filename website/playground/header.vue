@@ -7,10 +7,7 @@ const logo = "/icon.png";
 
 defineProps({
   version: { type: String, required: true },
-  selectedVersion: { type: String, required: true },
 });
-
-const emit = defineEmits(["update:selectedVersion"]);
 </script>
 
 <template>
@@ -20,11 +17,7 @@ const emit = defineEmits(["update:selectedVersion"]);
         <img class="logo" :src="logo" alt="" />
         <h1>Prettier</h1>
       </a>
-      <VersionLink
-        :version="version"
-        :selectedVersion="selectedVersion"
-        @update:selectedVersion="emit('update:selectedVersion', $event)"
-      />
+      <VersionLink :version="version" />
     </div>
 
     <span class="links">
