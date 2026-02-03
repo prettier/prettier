@@ -1,10 +1,9 @@
 import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
-import { locEnd } from "./end.js";
 import { locEndWithFullText } from "./end-with-full-text.js";
 import { locStart } from "./start.js";
 
 /**
-@import {Node, NodeMap} from "../types/estree.js";
+@import {Node, Comment, NodeMap} from "../types/estree.js";
 @typedef {typeof locEnd} LocEnd
 */
 
@@ -58,4 +57,25 @@ const shouldAddSemicolonToIgnoredNode = (node) =>
   node.type === "VariableDeclaration" ||
   (shouldAddContentEnd(node) && node.__contentEnd);
 
-export { overrides, shouldAddContentEnd, shouldAddSemicolonToIgnoredNode };
+/**
+@param {Node | Comment} node
+@return {number}
+*/
+function locEnd(node) {
+  const { type } = node;
+
+  // Effected by children
+  // TODO[@fisker]: Add more types
+  if (type === "IfStatement") {
+    return locEnd(node.alternate ?? node.consequent);
+  }
+
+  return (
+    overrides.get(type)?.(
+      // @ts-expect-error -- Comment types
+      node,
+    ) ?? locEndWithFullText(node)
+  );
+}
+
+export { locEnd, shouldAddContentEnd, shouldAddSemicolonToIgnoredNode };
