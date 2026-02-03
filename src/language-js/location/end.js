@@ -18,6 +18,10 @@ function locEnd(node) {
           (node.type === "BreakStatement" ? "break".length : "continue".length);
   }
 
+  if (node.type === "DebuggerStatement") {
+    return locStart(node) + "debugger".length;
+  }
+
   if (node.type === "VariableDeclaration") {
     const lastDeclaration = node.declarations.at(-1);
     return locEnd(lastDeclaration);
@@ -33,7 +37,9 @@ function locEnd(node) {
       node.type === "ImportDeclaration" ||
       node.type === "ExportDefaultDeclaration" ||
       node.type === "ExportNamedDeclaration" ||
-      node.type === "ExportAllDeclaration") &&
+      node.type === "ExportAllDeclaration" ||
+      node.type === "ReturnStatement" ||
+      node.type === "ThrowStatement") &&
     node.__contentEnd
   ) {
     return node.__contentEnd;
