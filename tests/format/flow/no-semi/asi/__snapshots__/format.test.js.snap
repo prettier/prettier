@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`no-semi.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+declare function foo():void;
+
+{
+  foo
+}
+
+declare hook foo(): Foo;
+
+{
+  foo
+}
+
+=====================================output=====================================
+declare function foo(): void
+
+{
+  foo
+}
+
+declare hook foo(): Foo
+
+{
+  foo
+}
+
+================================================================================
+`;

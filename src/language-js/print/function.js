@@ -84,9 +84,7 @@ function printFunction(path, options, print, args) {
       shouldGroupParameters ? group(parametersDoc) : parametersDoc,
       returnTypeDoc,
     ]),
-    node.body ? " " : "",
-    print("body"),
-    node.declare || !node.body ? printSemicolon(options) : "",
+    node.body ? [" ", print("body")] : ";",
   ];
 }
 
