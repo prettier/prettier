@@ -8,3 +8,7 @@ declare function a():void;
 declare function b():void;
 
 [foo()]
+
+
+for(;;) function c();
+{}
