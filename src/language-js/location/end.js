@@ -1,5 +1,5 @@
 import { locEndWithFullText } from "./end-with-full-text.js";
-import { locStart } from "./start.js";
+import { overrides } from "./overrides.js";
 
 /**
 @import {Node, Comment} from "../types/estree.js";
@@ -10,42 +10,21 @@ import { locStart } from "./start.js";
 @return {number}
 */
 function locEnd(node) {
-  if (node.type === "BreakStatement" || node.type === "ContinueStatement") {
-    const start = locStart(node);
-    return node.label
-      ? locEnd(node.label)
-      : start +
-          (node.type === "BreakStatement" ? "break".length : "continue".length);
-  }
+  const { type } = node;
 
-  if (node.type === "DebuggerStatement") {
-    return locStart(node) + "debugger".length;
-  }
-
-  if (node.type === "VariableDeclaration") {
-    const lastDeclaration = node.declarations.at(-1);
-    return locEnd(lastDeclaration);
-  }
-
-  if (node.type === "IfStatement") {
+  // Effected by children
+  // TODO[@fisker]: Add more types
+  if (type === "IfStatement") {
     return locEnd(node.alternate ?? node.consequent);
   }
 
-  if (
-    (node.type === "ExpressionStatement" ||
-      node.type === "Directive" ||
-      node.type === "ImportDeclaration" ||
-      node.type === "ExportDefaultDeclaration" ||
-      node.type === "ExportNamedDeclaration" ||
-      node.type === "ExportAllDeclaration" ||
-      node.type === "ReturnStatement" ||
-      node.type === "ThrowStatement") &&
-    node.__contentEnd
-  ) {
-    return node.__contentEnd;
-  }
-
-  return locEndWithFullText(node);
+  return (
+    overrides.get(type)?.(
+      // @ts-expect-error -- Comment types
+      node,
+      locEnd,
+    ) ?? locEndWithFullText(node)
+  );
 }
 
 export { locEnd };
