@@ -50,7 +50,7 @@ const overrides =
 
 const shouldAddContentEnd = createTypeCheckFunction(nodeTypesWithContentEnd);
 
-const shouldAddSemicolonToIgnoredNode = (node) =>
+const shouldIgnoredNodePrintSemicolon = (node) =>
   node.type === "BreakStatement" ||
   node.type === "ContinueStatement" ||
   node.type === "DebuggerStatement" ||
@@ -78,4 +78,4 @@ function locEnd(node) {
   );
 }
 
-export { locEnd, shouldAddContentEnd, shouldAddSemicolonToIgnoredNode };
+export { locEnd, shouldAddContentEnd, shouldIgnoredNodePrintSemicolon };

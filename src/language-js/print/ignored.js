@@ -3,7 +3,7 @@ import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
 import {
   locEnd,
   locStart,
-  shouldAddSemicolonToIgnoredNode,
+  shouldIgnoredNodePrintSemicolon,
 } from "../location/index.js";
 import { shouldExpressionStatementPrintLeadingSemicolon } from "../semicolon/semicolon.js";
 
@@ -11,7 +11,7 @@ function printIgnored(path, options /* , print*/) {
   const { node } = path;
   let text = options.originalText.slice(locStart(node), locEnd(node));
 
-  if (options.semi && shouldAddSemicolonToIgnoredNode(node)) {
+  if (options.semi && shouldIgnoredNodePrintSemicolon(node)) {
     text += ";";
   } else if (shouldExpressionStatementPrintLeadingSemicolon(path, options)) {
     text = `;${text}`;
