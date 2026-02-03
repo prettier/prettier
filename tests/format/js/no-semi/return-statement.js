@@ -16,4 +16,3 @@ function a() {
 
   return /* comment */ ;
 }
-

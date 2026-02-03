@@ -35,6 +35,7 @@ const nodeTypesWithContentEnd = /** @type {const} */ ([
   "ExportAllDeclaration",
   "ReturnStatement",
   "ThrowStatement",
+  "DoWhileStatement",
 ]);
 
 const overrides =
