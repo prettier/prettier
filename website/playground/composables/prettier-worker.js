@@ -6,7 +6,6 @@ class WorkerApi {
   #worker;
   #counter = 0;
   #handlers = {};
-  #ready;
 
   constructor() {
     this.#worker = {
@@ -24,16 +23,6 @@ class WorkerApi {
     const worker = new Worker(`/worker.mjs?lib=${libDir}`, { type: "module" });
     this.#worker[version] = worker;
     const handlers = this.#handlers;
-
-    this.#ready = new Promise((resolve) => {
-      const onReady = (event) => {
-        if (event.data?.type === "ready") {
-          worker.removeEventListener("message", onReady);
-          resolve();
-        }
-      };
-      worker.addEventListener("message", onReady);
-    });
 
     worker.addEventListener("message", (event) => {
       const { uid, message, error } = event.data;
@@ -55,9 +44,8 @@ class WorkerApi {
     return worker;
   }
 
-  async #postMessage(message, version) {
+  #postMessage(message, version) {
     const worker = this.#initWorker(version);
-    await this.#ready;
     const uid = ++this.#counter;
     return new Promise((resolve, reject) => {
       this.#handlers[uid] = [resolve, reject];

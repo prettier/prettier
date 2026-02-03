@@ -109,6 +109,26 @@ async function getVersion(packagesDirectory) {
   return version;
 }
 
+async function getGitVersion() {
+  const branch = await spawn("git", ["rev-parse", "--abbrev-ref", "HEAD"], {
+    cwd: PROJECT_ROOT,
+  })
+    .stdout.toString()
+    .trim();
+
+  const commit = await spawn("git", ["rev-parse", "--short", "HEAD"], {
+    cwd: PROJECT_ROOT,
+  })
+    .stdout.toString()
+    .trim();
+
+  if (!commit) {
+    return `${branch}-Uncommited`;
+  }
+
+  return `${branch}-${commit}`;
+}
+
 // Build lib-stable (from node_modules)
 console.log("Preparing files for playground (stable)...");
 const stableVersion = await getVersion(NODE_MODULES_DIR);
@@ -127,7 +147,7 @@ await runYarn("build", ["--clean", "--playground"], {
 console.log("Preparing files for playground (next)...");
 const nextVersion = IS_PULL_REQUEST
   ? `999.999.999-pr.${process.env.REVIEW_ID}`
-  : await getVersion(DIST_DIR);
+  : await getGitVersion();
 await buildPlaygroundFiles(
   DIST_DIR,
   path.join(WEBSITE_DIR, "static/lib-next"),

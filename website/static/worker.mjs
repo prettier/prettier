@@ -14,16 +14,51 @@ import { createDocExplorerPlugin } from "./prettier-plugin-doc-explorer.mjs";
 const workerUrl = new URL(import.meta.url);
 const libDir = workerUrl.searchParams.get("lib") || "lib-stable";
 
-const prettierPackageManifest = await import(
-  `./${libDir}/package-manifest.mjs`
-).then((m) => m.default);
-const prettier = await import(`./${libDir}/prettier/standalone.mjs`);
+let prettierCache;
+let prettierPackageManifestCache;
+let prettierPluginDocExplorerCache;
+let pluginsCache;
 
-const prettierPluginDocExplorer = createDocExplorerPlugin(
-  prettier,
-  prettierPackageManifest,
-  libDir,
-);
+async function loadPrettier() {
+  if (!prettierCache) {
+    prettierCache = import(`./${libDir}/prettier/standalone.mjs`);
+  }
+  return await prettierCache;
+}
+
+async function loadPrettierPackageManifest() {
+  if (!prettierPackageManifestCache) {
+    prettierPackageManifestCache = import(
+      `./${libDir}/package-manifest.mjs`
+    ).then((m) => m.default);
+  }
+  return await prettierPackageManifestCache;
+}
+
+async function loadPrettierPluginDocExplorer() {
+  if (!prettierPluginDocExplorerCache) {
+    const prettier = await loadPrettier();
+    const prettierPackageManifest = await loadPrettierPackageManifest();
+    prettierPluginDocExplorerCache = createDocExplorerPlugin(
+      prettier,
+      prettierPackageManifest,
+      libDir,
+    );
+  }
+  return prettierPluginDocExplorerCache;
+}
+
+async function loadPlugins() {
+  if (!pluginsCache) {
+    const prettierPackageManifest = await loadPrettierPackageManifest();
+    const prettierPluginDocExplorer = await loadPrettierPluginDocExplorer();
+    pluginsCache = [
+      ...prettierPackageManifest.plugins.map((plugin) => createPlugin(plugin)),
+      prettierPluginDocExplorer,
+    ];
+  }
+  return pluginsCache;
+}
 
 const pluginLoadPromises = new Map();
 async function importPlugin(plugin) {
@@ -64,19 +99,12 @@ function createPlugin(pluginManifest) {
   return plugin;
 }
 
-const plugins = [
-  ...prettierPackageManifest.plugins.map((plugin) => createPlugin(plugin)),
-  prettierPluginDocExplorer,
-];
-
 self.onmessage = async function (event) {
   self.postMessage({
     uid: event.data.uid,
     message: await handleMessage(event.data.message),
   });
 };
-
-self.postMessage({ type: "ready" });
 
 function serializeError(error) {
   const serialized = {
@@ -127,6 +155,10 @@ function handleMessage(message) {
 }
 
 async function handleMetaMessage() {
+  const prettier = await loadPrettier();
+  const prettierPackageManifest = await loadPrettierPackageManifest();
+
+  const plugins = await loadPlugins();
   const supportInfo = await prettier.getSupportInfo({ plugins });
   return {
     type: "meta",
@@ -140,6 +172,8 @@ async function handleMetaMessage() {
 @param {FormatMessage} message
 */
 async function handleFormatMessage(message) {
+  const prettier = await loadPrettier();
+  const plugins = await loadPlugins();
   let { options, code, settings } = message;
   options = { ...options, plugins };
 
@@ -244,6 +278,7 @@ async function handleFormatMessage(message) {
 @param {PlaygroundSettings} settings
 */
 async function formatCode(text, options, settings = {}) {
+  const prettier = await loadPrettier();
   if (options.parser === "doc-explorer") {
     options = {
       ...options,
