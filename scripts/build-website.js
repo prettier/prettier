@@ -13,7 +13,6 @@ import {
   PROJECT_ROOT,
   WEBSITE_DIR,
   writeFile,
-  writeJson,
 } from "./utilities/index.js";
 
 const runYarn = (command, args, options) =>
@@ -32,33 +31,10 @@ async function writeScript(libDirectory, file, code) {
   await writeFile(path.join(libDirectory, file), minified.trim());
 }
 
-async function buildPrettier() {
-  const packageJsonFile = path.join(PROJECT_ROOT, "package.json");
-  const packageJsonContent = await fs.readFile(packageJsonFile);
-
-  if (IS_PULL_REQUEST) {
-    const packageJson = JSON.parse(packageJsonContent);
-    await writeJson(packageJsonFile, {
-      ...packageJson,
-      version: `999.999.999-pr.${process.env.REVIEW_ID}`,
-    });
-  }
-
-  try {
-    await runYarn("build", ["--clean", "--playground"], {
-      cwd: PROJECT_ROOT,
-    });
-  } finally {
-    if (IS_PULL_REQUEST) {
-      await writeFile(packageJsonFile, packageJsonContent);
-    }
-  }
-}
-
 async function buildPlaygroundFiles(
   packagesDirectory,
   libDirectory,
-  { includeExternalPlugins = false } = {},
+  { includeExternalPlugins = false, version } = {},
 ) {
   const pluginFiles = [];
 
@@ -81,6 +57,7 @@ async function buildPlaygroundFiles(
   }
 
   const packageManifest = {
+    version,
     prettier: {
       file: "prettier/standalone.mjs",
     },
@@ -126,22 +103,35 @@ async function buildPlaygroundFiles(
   ]);
 }
 
+async function getVersion(packagesDirectory) {
+  const packageJsonFile = path.join(packagesDirectory, "prettier/package.json");
+  const { version } = JSON.parse(await fs.readFile(packageJsonFile, "utf8"));
+  return version;
+}
+
 // Build lib-stable (from node_modules)
 console.log("Preparing files for playground (stable)...");
+const stableVersion = await getVersion(NODE_MODULES_DIR);
 await buildPlaygroundFiles(
   NODE_MODULES_DIR,
   path.join(WEBSITE_DIR, "static/lib-stable"),
+  { version: stableVersion },
 );
 
 // Build lib-next (from dist)
 console.log("Building prettier...");
-await buildPrettier();
+await runYarn("build", ["--clean", "--playground"], {
+  cwd: PROJECT_ROOT,
+});
 
 console.log("Preparing files for playground (next)...");
+const nextVersion = IS_PULL_REQUEST
+  ? `999.999.999-pr.${process.env.REVIEW_ID}`
+  : await getVersion(DIST_DIR);
 await buildPlaygroundFiles(
   DIST_DIR,
   path.join(WEBSITE_DIR, "static/lib-next"),
-  { includeExternalPlugins: true },
+  { includeExternalPlugins: true, version: nextVersion },
 );
 
 // --- Site ---

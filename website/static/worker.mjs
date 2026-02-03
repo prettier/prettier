@@ -132,7 +132,7 @@ async function handleMetaMessage() {
     type: "meta",
     // eslint-disable-next-line unicorn/prefer-structured-clone
     supportInfo: JSON.parse(JSON.stringify(supportInfo)),
-    version: prettier.version,
+    version: prettierPackageManifest.version,
   };
 }
 
