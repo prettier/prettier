@@ -22,7 +22,6 @@ function locEnd(node) {
     overrides.get(type)?.(
       // @ts-expect-error -- Comment types
       node,
-      locEnd,
     ) ?? locEndWithFullText(node)
   );
 }

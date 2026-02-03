@@ -1,16 +1,16 @@
 import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
+import { locEnd } from "./end.js";
 import { locEndWithFullText } from "./end-with-full-text.js";
 import { locStart } from "./start.js";
 
 /**
 @import {Node, NodeMap} from "../types/estree.js";
-@import {locEnd} from "./end.js"
 @typedef {typeof locEnd} LocEnd
 */
 
 /**
 @template {Node} [InputNode = Node]
-@typedef {(node: InputNode, locEnd: LocEnd) => number} LocEndOverride
+@typedef {(node: InputNode) => number} LocEndOverride
 */
 
 const BREAK_KEYWORD_LENGTH = "break".length;
@@ -22,7 +22,7 @@ const overrideBreakOrContinueEnd =
   @param {BREAK_KEYWORD_LENGTH | CONTINUE_KEYWORD_LENGTH} keywordLength
   @returns {LocEndOverride<NodeMap["BreakStatement"] | NodeMap["ContinueStatement"]>}
   */
-  (keywordLength) => (node, locEnd) =>
+  (keywordLength) => (node) =>
     node.label ? locEnd(node.label) : locStart(node) + keywordLength;
 /** @type {LocEndOverride} */
 const getContentEnd = (node) => node.__contentEnd ?? locEndWithFullText(node);
@@ -45,7 +45,7 @@ const overrides =
     ["ContinueStatement", overrideBreakOrContinueEnd(CONTINUE_KEYWORD_LENGTH)],
     ["DebuggerStatement", (node) => locStart(node) + DEBUGGER_KEYWORD_LENGTH],
     // @ts-expect-error -- ignore
-    ["VariableDeclaration", (node, locEnd) => locEnd(node.declarations.at(-1))],
+    ["VariableDeclaration", (node) => locEnd(node.declarations.at(-1))],
     ...nodeTypesWithContentEnd.map((type) => [type, getContentEnd]),
   ]);
 
