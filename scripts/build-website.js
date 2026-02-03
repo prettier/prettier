@@ -110,20 +110,17 @@ async function getVersion(packagesDirectory) {
 }
 
 async function getGitVersion() {
-  const branch = await spawn("git", ["rev-parse", "--abbrev-ref", "HEAD"], {
-    cwd: PROJECT_ROOT,
-  })
-    .stdout.toString()
-    .trim();
-
-  const commit = await spawn("git", ["rev-parse", "--short", "HEAD"], {
-    cwd: PROJECT_ROOT,
-  })
-    .stdout.toString()
-    .trim();
+  const [branch, commit] = await Promise.all([
+    spawn("git", ["rev-parse", "--abbrev-ref", "HEAD"], { cwd: PROJECT_ROOT })
+      .stdout.toString()
+      .trim(),
+    spawn("git", ["rev-parse", "--short", "HEAD"], { cwd: PROJECT_ROOT })
+      .stdout.toString()
+      .trim(),
+  ]);
 
   if (!commit) {
-    return `${branch}-Uncommited`;
+    return `${branch}-Uncommitted`;
   }
 
   return `${branch}-${commit}`;
