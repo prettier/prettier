@@ -9,7 +9,7 @@ do;while(1)
 ;foo
 
 // prettier-ignore
-do;while(1)
+do;   while(   1)
 
 ;[]
 
