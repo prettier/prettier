@@ -9,6 +9,7 @@ import { isIndex } from "./is-index.js";
 @return {number}
 */
 function locEndWithFullText(node) {
+  // @ts-expect-error -- safe
   const end = node.range?.[1] ?? node.end;
 
   /* c8 ignore next 3 */

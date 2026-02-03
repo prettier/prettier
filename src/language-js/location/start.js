@@ -9,6 +9,7 @@ import { isIndex } from "./is-index.js";
 @return {number}
 */
 function locStart(node) {
+  // @ts-expect-error -- safe
   const start = node.range?.[0] ?? node.start;
 
   /* c8 ignore next 3 */
@@ -17,6 +18,7 @@ function locStart(node) {
   }
 
   // Handle nodes with decorators. They should start at the first decorator
+  // @ts-expect-error -- safe
   const firstDecorator = (node.declaration?.decorators ?? node.decorators)?.[0];
   if (firstDecorator) {
     return Math.min(locStart(firstDecorator), start);

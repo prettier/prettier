@@ -1,3 +1,6 @@
+import { locEndWithFullText } from "./end-with-full-text.js";
+import { locStart } from "./start.js";
+
 /**
 @import {Node, Comment} from "../types/estree.js";
 */
