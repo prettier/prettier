@@ -1,5 +1,5 @@
-import { locEnd } from "./end.js";
 import { isIndex } from "./is-index.js";
+import { locEnd } from "./overrides.js";
 import { locStart } from "./start.js";
 
 /**

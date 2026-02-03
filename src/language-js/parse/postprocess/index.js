@@ -1,6 +1,11 @@
 import * as assert from "#universal/assert";
 import { commentsPropertyInOptions } from "../../../constants.js";
-import { locEnd, locEndWithFullText, locStart } from "../../location/index.js";
+import {
+  locEnd,
+  locEndWithFullText,
+  locStart,
+  shouldAddContentEnd,
+} from "../../location/index.js";
 import {
   isBlockComment,
   isLineComment,
@@ -77,6 +82,8 @@ function postprocess(ast, options) {
 
   ast = visitNode(ast, {
     onEnter(node) {
+      setContentEnd(node, comments, text);
+
       switch (node.type) {
         case "ParenthesizedExpression": {
           const { expression } = node;
@@ -173,15 +180,6 @@ function postprocess(ast, options) {
             node.attributes = node.assertions;
             delete node.assertions;
           }
-        // fall through
-        case "Directive":
-        case "ExpressionStatement":
-        case "ExportDefaultDeclaration":
-        case "ExportNamedDeclaration":
-        case "ExportAllDeclaration":
-        case "ReturnStatement":
-        case "ThrowStatement":
-          addNodeContentEnd(node, { comments, text });
           break;
       }
     },
@@ -275,9 +273,14 @@ function assertRaw(node, text) {
 
 /**
 @param {Node} node
-@param {{comments: Comment[], text: string}} param1
+@param {Comment[]} comments
+@param {string} originalText
 */
-function addNodeContentEnd(node, { comments, text: originalText }) {
+function setContentEnd(node, comments, originalText) {
+  if (!shouldAddContentEnd(node)) {
+    return;
+  }
+
   let end = locEndWithFullText(node);
   if (originalText[end - 1] !== ";") {
     return;

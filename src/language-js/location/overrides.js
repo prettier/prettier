@@ -1,0 +1,81 @@
+import { createTypeCheckFunction } from "../utilities/create-type-check-function.js";
+import { locEndWithFullText } from "./end-with-full-text.js";
+import { locStart } from "./start.js";
+
+/**
+@import {Node, Comment, NodeMap} from "../types/estree.js";
+@typedef {typeof locEnd} LocEnd
+*/
+
+/**
+@template {Node} [InputNode = Node]
+@typedef {(node: InputNode) => number} LocEndOverride
+*/
+
+const BREAK_KEYWORD_LENGTH = "break".length;
+const CONTINUE_KEYWORD_LENGTH = "continue".length;
+const DEBUGGER_KEYWORD_LENGTH = "debugger".length;
+
+const overrideBreakOrContinueEnd =
+  /**
+  @param {BREAK_KEYWORD_LENGTH | CONTINUE_KEYWORD_LENGTH} keywordLength
+  @returns {LocEndOverride<NodeMap["BreakStatement"] | NodeMap["ContinueStatement"]>}
+  */
+  (keywordLength) => (node) =>
+    node.label ? locEnd(node.label) : locStart(node) + keywordLength;
+/** @type {LocEndOverride} */
+const getContentEnd = (node) => node.__contentEnd ?? locEndWithFullText(node);
+
+const nodeTypesWithContentEnd = /** @type {const} */ ([
+  "ExpressionStatement",
+  "Directive",
+  "ImportDeclaration",
+  "ExportDefaultDeclaration",
+  "ExportNamedDeclaration",
+  "ExportAllDeclaration",
+  "ReturnStatement",
+  "ThrowStatement",
+]);
+
+const overrides =
+  // @ts-expect-error -- Unknown
+  new Map([
+    ["BreakStatement", overrideBreakOrContinueEnd(BREAK_KEYWORD_LENGTH)],
+    ["ContinueStatement", overrideBreakOrContinueEnd(CONTINUE_KEYWORD_LENGTH)],
+    ["DebuggerStatement", (node) => locStart(node) + DEBUGGER_KEYWORD_LENGTH],
+    // @ts-expect-error -- ignore
+    ["VariableDeclaration", (node) => locEnd(node.declarations.at(-1))],
+    ...nodeTypesWithContentEnd.map((type) => [type, getContentEnd]),
+  ]);
+
+const shouldAddContentEnd = createTypeCheckFunction(nodeTypesWithContentEnd);
+
+const shouldIgnoredNodePrintSemicolon = (node) =>
+  node.type === "BreakStatement" ||
+  node.type === "ContinueStatement" ||
+  node.type === "DebuggerStatement" ||
+  node.type === "VariableDeclaration" ||
+  (shouldAddContentEnd(node) && node.__contentEnd);
+
+/**
+@param {Node | Comment} node
+@return {number}
+*/
+function locEnd(node) {
+  const { type } = node;
+
+  // Effected by children
+  // TODO[@fisker]: Add more types
+  if (type === "IfStatement") {
+    return locEnd(node.alternate ?? node.consequent);
+  }
+
+  return (
+    overrides.get(type)?.(
+      // @ts-expect-error -- Comment types
+      node,
+    ) ?? locEndWithFullText(node)
+  );
+}
+
+export { locEnd, shouldAddContentEnd, shouldIgnoredNodePrintSemicolon };
