@@ -1,4 +1,4 @@
-import { locEnd, locStart } from "../loc.js";
+import { locEnd, locStart } from "../location/index.js";
 import { stripComments } from "./strip-comments.js";
 
 /**
@@ -36,7 +36,7 @@ function getCallOrNewExpressionClosingParenthesisIndex(
 
 /**
 @param {CallOrNewExpression} callOrNewExpression
-@returns {number | void}
+@returns {number | undefined}
 */
 function getCallOrNewExpressionOpeningParenthesisIndex(
   callOrNewExpression,

@@ -1,5 +1,5 @@
 import isPreviousLineEmptyBeforeIndex from "../../utilities/is-previous-line-empty.js";
-import { locStart } from "../loc.js";
+import { locStart } from "../location/index.js";
 
 /**
 @import {

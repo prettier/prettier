@@ -1,4 +1,4 @@
-import { hasSameLocStart } from "../loc.js";
+import { hasSameLocStart } from "../location/index.js";
 
 // Hack to differentiate between the following two which have the same ast
 // declare function f(a): void;

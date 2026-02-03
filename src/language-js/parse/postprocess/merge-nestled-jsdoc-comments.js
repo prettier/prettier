@@ -1,4 +1,4 @@
-import { locEnd, locStart } from "../../loc.js";
+import { locEnd, locStart } from "../../location/index.js";
 import {
   isBlockComment,
   isLineComment,

@@ -1,5 +1,5 @@
 import hasNewlineInRange from "../../utilities/has-newline-in-range.js";
-import { locEnd, locStart } from "../loc.js";
+import { locEnd, locStart } from "../location/index.js";
 import { hasLeadingOwnLineComment } from "../utilities/has-leading-own-line-comment.js";
 import { CommentCheckFlags, hasComment } from "./comments.js";
 import { getLeftSide, hasNakedLeftSide } from "./left-side.js";

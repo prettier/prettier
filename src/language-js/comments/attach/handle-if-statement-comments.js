@@ -5,7 +5,7 @@ import {
 } from "../../../main/comments/utilities.js";
 import getNextNonSpaceNonCommentCharacter from "../../../utilities/get-next-non-space-non-comment-character.js";
 import hasNewlineInRange from "../../../utilities/has-newline-in-range.js";
-import { locEnd, locStart } from "../../loc.js";
+import { locEnd, locStart } from "../../location/index.js";
 import { stripComments } from "../../utilities/strip-comments.js";
 import { isSingleLineComment } from "./utilities.js";
 

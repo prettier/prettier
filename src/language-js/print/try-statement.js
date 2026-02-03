@@ -1,6 +1,6 @@
 import { indent, softline } from "../../document/index.js";
 import hasNewline from "../../utilities/has-newline.js";
-import { locEnd, locStart } from "../loc.js";
+import { locEnd, locStart } from "../location/index.js";
 import { isBlockComment } from "../utilities/comment-types.js";
 import { hasComment } from "../utilities/comments.js";
 

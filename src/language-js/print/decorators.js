@@ -7,7 +7,7 @@ import {
 } from "../../document/index.js";
 import hasNewline from "../../utilities/has-newline.js";
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
-import { hasSameLocStart, locEnd } from "../loc.js";
+import { hasSameLocStart, locEnd } from "../location/index.js";
 import isIgnored from "../utilities/is-ignored.js";
 import { isExportDeclaration } from "../utilities/node-types.js";
 

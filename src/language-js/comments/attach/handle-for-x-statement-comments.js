@@ -1,5 +1,5 @@
 import { addLeadingComment } from "../../../main/comments/utilities.js";
-import { locStart } from "../../loc.js";
+import { locStart } from "../../location/index.js";
 import { stripComments } from "../../utilities/strip-comments.js";
 
 function handleForXStatementComments({

@@ -1,5 +1,5 @@
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
-import { locStart } from "../loc.js";
+import { locStart } from "../location/index.js";
 
 /**
 @import AstPath from "../../common/ast-path.js";

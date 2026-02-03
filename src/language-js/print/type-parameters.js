@@ -10,7 +10,7 @@ import {
 } from "../../document/index.js";
 import { printDanglingComments } from "../../main/comments/print.js";
 import hasNewline from "../../utilities/has-newline.js";
-import { locEnd } from "../loc.js";
+import { locEnd } from "../location/index.js";
 import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
 import { getFunctionParameters } from "../utilities/function-parameters.js";
 import { isObjectType } from "../utilities/node-types.js";

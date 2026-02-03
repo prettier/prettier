@@ -11,7 +11,7 @@ import {
 import { printComments } from "../../main/comments/print.js";
 import getNextNonSpaceNonCommentCharacterIndex from "../../utilities/get-next-non-space-non-comment-character-index.js";
 import isNextLineEmptyAfterIndex from "../../utilities/is-next-line-empty.js";
-import { locEnd } from "../loc.js";
+import { locEnd } from "../location/index.js";
 import needsParentheses from "../parentheses/needs-parentheses.js";
 import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
 import { isLongCurriedCallExpression } from "../utilities/is-long-curried-call-expression.js";

@@ -3,7 +3,7 @@ import handleComments from "./comments/handle-comments.js";
 import isGap from "./comments/is-gap.js";
 import willPrintOwnComments from "./comments/will-print-own-comments.js";
 import embed from "./embed/index.js";
-import { locEndWithFullText, locStart } from "./loc.js";
+import { locEndWithFullText, locStart } from "./location/index.js";
 import { massageAstNode } from "./massage-ast/index.js";
 import { insertPragma } from "./pragma.js";
 import { printComment } from "./print/comment.js";

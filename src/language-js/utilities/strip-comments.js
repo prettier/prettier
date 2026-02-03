@@ -1,6 +1,6 @@
 import { commentsPropertyInOptions } from "../../constants.js";
 import replaceNonLineBreaksWithSpace from "../../utilities/replace-non-line-breaks-with-space.js";
-import { locEnd, locStart } from "../loc.js";
+import { locEnd, locStart } from "../location/index.js";
 
 /**
 @import {Node, Comment} from "../types/estree.js"

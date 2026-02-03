@@ -4,7 +4,7 @@ import {
   markAsRoot,
   replaceEndOfLine,
 } from "../../document/index.js";
-import { locEnd, locStart } from "../loc.js";
+import { locEnd, locStart } from "../location/index.js";
 import { isBlockComment, isLineComment } from "../utilities/comment-types.js";
 import isIndentableBlockComment from "../utilities/is-indentable-block-comment.js";
 
