@@ -1,6 +1,6 @@
 import * as assert from "#universal/assert";
 import { commentsPropertyInOptions } from "../../../constants.js";
-import { locEnd, locEndWithFullText, locStart } from "../../loc.js";
+import { locEnd, locEndWithFullText, locStart } from "../../location/index.js";
 import {
   isBlockComment,
   isLineComment,

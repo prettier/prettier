@@ -12,7 +12,7 @@ import hasNewline from "../../utilities/has-newline.js";
 import isNextLineEmptyAfterIndex from "../../utilities/is-next-line-empty.js";
 import skipInlineComment from "../../utilities/skip-inline-comment.js";
 import skipTrailingComment from "../../utilities/skip-trailing-comment.js";
-import { locEnd, locStart } from "../loc.js";
+import { locEnd, locStart } from "../location/index.js";
 import { CommentCheckFlags, hasComment } from "../utilities/comments.js";
 import { isSignedNumericLiteral } from "../utilities/is-signed-numeric-literal.js";
 import {

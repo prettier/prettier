@@ -3,7 +3,7 @@ import {
   addLeadingComment,
 } from "../../../main/comments/utilities.js";
 import hasNewlineInRange from "../../../utilities/has-newline-in-range.js";
-import { locEnd, locStart } from "../../loc.js";
+import { locEnd, locStart } from "../../location/index.js";
 import { isLineComment } from "../../utilities/comment-types.js";
 
 /**

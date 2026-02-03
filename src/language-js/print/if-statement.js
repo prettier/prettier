@@ -1,7 +1,7 @@
 import { group, hardline } from "../../document/index.js";
 import { printDanglingComments } from "../../main/comments/print.js";
 import hasNewline from "../../utilities/has-newline.js";
-import { locEnd, locStart } from "../loc.js";
+import { locEnd, locStart } from "../location/index.js";
 import { CommentCheckFlags, getComments } from "../utilities/comments.js";
 import { isPreviousLineEmpty } from "../utilities/is-previous-line-empty.js";
 import { needsHardlineAfterDanglingComment } from "../utilities/needs-hardline-after-dangling-comment.js";

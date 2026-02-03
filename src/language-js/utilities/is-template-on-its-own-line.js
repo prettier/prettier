@@ -1,5 +1,5 @@
 import hasNewline from "../../utilities/has-newline.js";
-import { locStart } from "../loc.js";
+import { locStart } from "../location/index.js";
 import { templateLiteralHasNewLines } from "./template-literal-has-new-lines.js";
 
 /**

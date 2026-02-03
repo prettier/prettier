@@ -1,5 +1,5 @@
 import hasNewline from "../../utilities/has-newline.js";
-import { locEnd } from "../loc.js";
+import { locEnd } from "../location/index.js";
 import { CommentCheckFlags, hasComment } from "./comments.js";
 import { hasNodeIgnoreComment } from "./has-node-ignore-comment.js";
 import { isJsxElement } from "./node-types.js";

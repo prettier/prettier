@@ -1,5 +1,5 @@
 import { group } from "../../document/index.js";
-import { hasSameLocStart } from "../loc.js";
+import { hasSameLocStart } from "../location/index.js";
 import { isFlowObjectTypePropertyAFunction } from "../utilities/is-flow-object-type-property-a-function.js";
 import { printClassMemberSemicolon } from "./class.js";
 import {

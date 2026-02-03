@@ -9,7 +9,7 @@ import {
 import { printDanglingComments } from "../../main/comments/print.js";
 import hasNewline from "../../utilities/has-newline.js";
 import hasNewlineInRange from "../../utilities/has-newline-in-range.js";
-import { locEnd, locStart } from "../loc.js";
+import { locEnd, locStart } from "../location/index.js";
 import { isLineComment } from "../utilities/comment-types.js";
 import { CommentCheckFlags, getComments } from "../utilities/comments.js";
 import { stripComments } from "../utilities/strip-comments.js";

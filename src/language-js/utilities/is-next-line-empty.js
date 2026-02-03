@@ -1,5 +1,5 @@
 import isNextLineEmptyAfterIndex from "../../utilities/is-next-line-empty.js";
-import { locEnd, locEndWithFullText } from "../loc.js";
+import { locEnd, locEndWithFullText } from "../location/index.js";
 
 /**
 @import {

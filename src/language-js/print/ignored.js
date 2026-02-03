@@ -1,6 +1,6 @@
 import { indent, softline } from "../../document/index.js";
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
-import { locEnd, locStart } from "../loc.js";
+import { locEnd, locStart } from "../location/index.js";
 import { shouldExpressionStatementPrintLeadingSemicolon } from "../semicolon/semicolon.js";
 
 function printIgnored(path, options /* , print*/) {

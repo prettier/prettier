@@ -1,4 +1,4 @@
-import { hasSameLoc } from "../loc.js";
+import { hasSameLoc } from "../location/index.js";
 import { getRaw } from "./get-raw.js";
 import { isStringLiteral } from "./node-types.js";
 

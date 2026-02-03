@@ -8,7 +8,7 @@ import getNextNonSpaceNonCommentCharacterIndex from "../../utilities/get-next-no
 import hasNewline from "../../utilities/has-newline.js";
 import hasNewlineInRange from "../../utilities/has-newline-in-range.js";
 import isNonEmptyArray from "../../utilities/is-non-empty-array.js";
-import { locEnd, locStart } from "../loc.js";
+import { locEnd, locStart } from "../location/index.js";
 import { getCallArguments } from "../utilities/call-arguments.js";
 import { isInsideCallOrNewExpressionParentheses } from "../utilities/call-or-new-expression-parentheses.js";
 import { isBlockComment, isLineComment } from "../utilities/comment-types.js";

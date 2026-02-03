@@ -10,7 +10,7 @@ import {
 } from "../../document/index.js";
 import { printDanglingComments } from "../../main/comments/print.js";
 import hasNewlineInRange from "../../utilities/has-newline-in-range.js";
-import { locEnd, locStart } from "../loc.js";
+import { locEnd, locStart } from "../location/index.js";
 import needsParentheses from "../parentheses/needs-parentheses.js";
 import { isBlockComment } from "../utilities/comment-types.js";
 import {
