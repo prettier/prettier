@@ -36,7 +36,7 @@ function getCallOrNewExpressionClosingParenthesisIndex(
 
 /**
 @param {CallOrNewExpression} callOrNewExpression
-@returns {number | void}
+@returns {number | undefined}
 */
 function getCallOrNewExpressionOpeningParenthesisIndex(
   callOrNewExpression,
