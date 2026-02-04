@@ -45,8 +45,8 @@ class WorkerApi {
     return worker;
   }
 
-  #postMessage(message, version) {
-    const worker = this.#initWorker(version);
+  #postMessage(message) {
+    const worker = this.#initWorker(message.settings.version);
     const uid = ++this.#counter;
     return new Promise((resolve, reject) => {
       this.#handlers[uid] = [resolve, reject];

@@ -36,7 +36,7 @@ const versionData = computed(() => {
   const commit = version.gitTree?.commit;
 
   return {
-    name: commit ?? "uncommitted",
+    text: commit ?? "uncommitted changes",
     title: `Prettier (${commit ?? "uncommitted"})`,
     link: commit
       ? `https://github.com/prettier/prettier/commit/${commit}`

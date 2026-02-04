@@ -2,7 +2,7 @@ import { createDocExplorerPlugin } from "./prettier-plugin-doc-explorer.mjs";
 
 /**
 @import {PlaygroundSettings} from "../playground/composables/playground-settings.js"
-@typedef {{ type: "meta" }} MetaMessage
+@typedef {{ type: "meta", settings: PlaygroundSettings }} MetaMessage
 @typedef {{
   type: "format",
   code: string,
@@ -161,6 +161,7 @@ async function handleMetaMessage() {
 
   const plugins = await loadPlugins();
   const supportInfo = await prettier.getSupportInfo({ plugins });
+
   return {
     type: "meta",
     // eslint-disable-next-line unicorn/prefer-structured-clone
