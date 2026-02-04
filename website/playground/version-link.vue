@@ -1,5 +1,5 @@
 <script setup>
-import { computed, watch, onMounted } from "vue";
+import { watch, onMounted } from "vue";
 import { settings } from "./composables/playground-settings.js";
 
 const props = defineProps({
