@@ -56,7 +56,6 @@ export default {
   props: {
     code: String,
     options: Object,
-    version: Object,
   },
   setup,
 };
