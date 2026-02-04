@@ -1,7 +1,6 @@
 import IconExternalLink from "@theme/Icon/ExternalLink";
 
 export default function PlaygroundLink({ mobile, ...props }) {
-
   const className = mobile ? "menu__link" : "navbar__item navbar__link";
 
   return (
