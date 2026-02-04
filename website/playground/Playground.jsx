@@ -162,7 +162,7 @@ function setup(props) {
 
   const getMarkdown = ({ formatted, reformatted, full, doc }) => {
     const { content, options } = state;
-    const { availableOptions, version } = props;
+    const { availableOptions } = props;
     const orderedOptions = orderOptions(availableOptions, [
       ...ENABLED_OPTIONS,
       "rangeStart",
@@ -176,7 +176,6 @@ function setup(props) {
       output: formatted,
       output2: reformatted,
       doc,
-      version,
       url: window.location.href,
       options,
       cliOptions,
@@ -238,7 +237,7 @@ function setup(props) {
     const { content, options } = state;
 
     return (
-      <PrettierFormat code={content} options={options} version={props.version}>
+      <PrettierFormat code={content} options={options}>
         {({ formatted, debug, cursorOffset }) => {
           const { content, options } = state;
           const fullReport = getMarkdown({
@@ -547,7 +546,6 @@ const Playground = {
   name: "Playground",
   props: {
     availableOptions: { type: Array, required: true },
-    version: { type: String, required: true },
   },
   setup,
 };

@@ -32,15 +32,15 @@ async function writeScript(libDirectory, file, code) {
   await writeFile(path.join(libDirectory, file), minified.trim());
 }
 
-/** @param {"current" | "next"} version */
+/** @param {"stable" | "next"} version */
 async function buildPlaygroundFiles(version) {
-  assert.ok(version === "current" || version === "next");
+  assert.ok(version === "stable" || version === "next");
 
   let packagesDirectory;
   const versionData = { name: version };
   const libDirectory = path.join(WEBSITE_DIR, `static/lib/${version}/`);
 
-  if (version === "current") {
+  if (version === "stable") {
     packagesDirectory = NODE_MODULES_DIR;
     versionData.version = (
       await import(
@@ -144,9 +144,8 @@ async function getGitTreeInformation() {
   return { branch, commit };
 }
 
-// Build lib-stable (from node_modules)
-console.log("Preparing files for playground (current)...");
-await buildPlaygroundFiles("current");
+console.log("Preparing files for playground (stable)...");
+await buildPlaygroundFiles("stable");
 
 console.log("Preparing files for playground (next)...");
 await buildPlaygroundFiles("next");

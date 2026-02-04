@@ -1,11 +1,10 @@
 import "./install-service-worker.js";
 
-import { createApp, onMounted, reactive, watch } from "vue";
+import { createApp, onMounted, reactive, toRaw, watch } from "vue";
 import { settings } from "./composables/playground-settings.js";
 import { worker } from "./composables/prettier-worker.js";
 import Header from "./header.vue";
 import Playground from "./Playground.jsx";
-import { fixPrettierVersion } from "./utilities.js";
 
 const App = {
   name: "App",
@@ -14,28 +13,31 @@ const App = {
       loaded: false,
     });
 
-    const updateMetadata = async (channel) => {
-      const { supportInfo, version } = await worker.getMetadata(channel);
+    const updateMetadata = async () => {
+      const { supportInfo, version } = await worker.getMetadata(
+        toRaw(settings),
+      );
 
       Object.assign(state, {
         loaded: true,
         availableOptions: supportInfo.options.map(augmentOption),
-        version: fixPrettierVersion(version),
+        version,
       });
     };
 
     watch(
-      () => settings.releaseChannel,
-      async (newChannel) => {
+      () => settings.version,
+      async () => {
+        const { version } = settings;
         const url = new URL(window.location);
-        if (newChannel === "next") {
+        if (version === "next") {
           url.searchParams.set("version", "next");
         } else {
           url.searchParams.delete("version");
         }
         window.history.replaceState({}, "", url);
 
-        await updateMetadata(newChannel);
+        await updateMetadata();
       },
     );
 
@@ -49,12 +51,12 @@ const App = {
       return (
         <>
           <Header version={version} />
-          <Playground availableOptions={availableOptions} version={version} />
+          <Playground availableOptions={availableOptions} />
         </>
       );
     };
 
-    onMounted(() => updateMetadata(settings.releaseChannel));
+    onMounted(() => updateMetadata());
     return render;
   },
 };

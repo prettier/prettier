@@ -12,7 +12,8 @@ import { createDocExplorerPlugin } from "./prettier-plugin-doc-explorer.mjs";
 */
 
 const workerUrl = new URL(import.meta.url);
-const libDir = workerUrl.searchParams.get("lib") || "lib-stable";
+const version =
+  workerUrl.searchParams.get("version") === "next" ? "next" : "stable";
 
 let prettierCache;
 let prettierPackageManifestCache;
@@ -21,7 +22,7 @@ let pluginsCache;
 
 async function loadPrettier() {
   if (!prettierCache) {
-    prettierCache = import(`./${libDir}/prettier/standalone.mjs`);
+    prettierCache = import(`./lib/${version}/prettier/standalone.mjs`);
   }
   return await prettierCache;
 }
@@ -29,7 +30,7 @@ async function loadPrettier() {
 async function loadPrettierPackageManifest() {
   if (!prettierPackageManifestCache) {
     prettierPackageManifestCache = import(
-      `./${libDir}/package-manifest.mjs`
+      `./lib/${version}/package-manifest.mjs`
     ).then((m) => m.default);
   }
   return await prettierPackageManifestCache;
@@ -42,7 +43,7 @@ async function loadPrettierPluginDocExplorer() {
     prettierPluginDocExplorerCache = createDocExplorerPlugin(
       prettier,
       prettierPackageManifest,
-      libDir,
+      version,
     );
   }
   return prettierPluginDocExplorerCache;
@@ -63,7 +64,7 @@ async function loadPlugins() {
 const pluginLoadPromises = new Map();
 async function importPlugin(plugin) {
   if (!pluginLoadPromises.has(plugin)) {
-    pluginLoadPromises.set(plugin, import(`./${libDir}/${plugin.file}`));
+    pluginLoadPromises.set(plugin, import(`./lib/${version}/${plugin.file}`));
   }
 
   try {

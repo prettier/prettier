@@ -19,8 +19,9 @@ class WorkerApi {
       return this.#worker[version];
     }
 
-    const libDir = version === "next" ? "lib-next" : "lib-stable";
-    const worker = new Worker(`/worker.mjs?lib=${libDir}`, { type: "module" });
+    const worker = new Worker(`/worker.mjs?version=${version}`, {
+      type: "module",
+    });
     this.#worker[version] = worker;
     const handlers = this.#handlers;
 
@@ -56,10 +57,10 @@ class WorkerApi {
   /**
    * @param {string} version
    */
-  getMetadata(version) {
+  getMetadata(settings) {
     /** @type {MetaMessage} */
-    const message = { type: "meta" };
-    return this.#postMessage(message, version);
+    const message = { type: "meta", settings };
+    return this.#postMessage(message);
   }
 
   /**
@@ -70,7 +71,7 @@ class WorkerApi {
   format(code, options, settings) {
     /** @type {FormatMessage} */
     const message = { type: "format", code, options, settings };
-    return this.#postMessage(message, settings.releaseChannel);
+    return this.#postMessage(message);
   }
 }
 

@@ -63,7 +63,7 @@ function validateNode(node, builderNames) {
 export function createDocExplorerPlugin(
   prettier,
   prettierPackageManifest,
-  libDir,
+  version,
 ) {
   const builderNames = new Set(Object.keys(prettier.doc.builders));
 
@@ -71,7 +71,7 @@ export function createDocExplorerPlugin(
     const plugin = prettierPackageManifest.plugins.find((plugin) =>
       plugin.parsers?.includes(expressionParserName),
     );
-    const pluginModule = await import(`./${libDir}/${plugin.file}`);
+    const pluginModule = await import(`./lib/${version}/${plugin.file}`);
     return pluginModule.parsers[expressionParserName];
   }
 

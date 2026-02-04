@@ -24,7 +24,6 @@ function setup(props, { slots }) {
   onMounted(componentDidMount);
   watch(() => props.code, format);
   watch(() => props.options, format, { deep: true });
-  watch(() => props.version, format);
 
   // Should not trigger format when these changes
   const ignoredKeys = new Set(["showSidebar", "showInput"]);
@@ -35,7 +34,11 @@ function setup(props, { slots }) {
       () => settings[key],
       (newValue, oldValue) => {
         // Always triggers format
-        if (key === "rethrowEmbedErrors" && newValue !== oldValue) {
+        if (
+          key === "rethrowEmbedErrors" ||
+          key === "version" ||
+          newValue !== oldValue
+        ) {
           return format();
         }
         // Only if set to true
@@ -54,7 +57,6 @@ export default {
   props: {
     code: String,
     options: Object,
-    version: String,
   },
   setup,
 };
