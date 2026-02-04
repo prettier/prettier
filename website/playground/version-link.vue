@@ -6,45 +6,15 @@ const props = defineProps({
   version: { type: Object, required: true },
 });
 
-const updateTitle = () => {
-  document.title = versionData.value.title;
-};
-
 function onVersionChange(event) {
   settings.version = event.target.value;
 }
 
-const versionData = computed(() => {
-  const version = props.version;
+const updateTitle = () => {
+  document.title = props.version.title;
+};
 
-  if (version.name === "stable") {
-    return {
-      text: `v${version.version}`,
-      title: `Prettier v${version.version}`,
-      link: `https://github.com/prettier/prettier/releases/tag/${version.version}`,
-    };
-  }
-
-  if (version.name === "next" && version.pr) {
-    return {
-      text: `PR #${version.pr}`,
-      title: `Prettier #${version.pr}`,
-      link: `https://github.com/prettier/prettier/pull/${version.pr}`,
-    };
-  }
-
-  const commit = version.gitTree?.commit;
-
-  return {
-    text: commit ?? "uncommitted changes",
-    title: `Prettier (${commit ?? "uncommitted"})`,
-    link: commit
-      ? `https://github.com/prettier/prettier/commit/${commit}`
-      : "https://github.com/prettier/prettier/",
-  };
-});
-
-watch(() => props.version, updateTitle);
+watch(() => props.version.title, updateTitle);
 
 onMounted(updateTitle);
 </script>
@@ -61,11 +31,11 @@ onMounted(updateTitle);
     </select>
     <a
       class="version-link"
-      :href="versionData.link"
+      :href="version.link"
       target="_blank"
       rel="noopener noreferrer"
     >
-      {{ versionData.text }}
+      {{ version.text }}
     </a>
   </span>
 </template>

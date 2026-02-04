@@ -176,6 +176,7 @@ function setup(props) {
       output: formatted,
       output2: reformatted,
       doc,
+      version: props.version,
       url: window.location.href,
       options,
       cliOptions,
@@ -237,7 +238,7 @@ function setup(props) {
     const { content, options } = state;
 
     return (
-      <PrettierFormat code={content} options={options}>
+      <PrettierFormat code={content} options={options} version={props.version}>
         {({ formatted, debug, cursorOffset }) => {
           const { content, options } = state;
           const fullReport = getMarkdown({
@@ -546,6 +547,7 @@ const Playground = {
   name: "Playground",
   props: {
     availableOptions: { type: Array, required: true },
+    version: { type: Object, required: true },
   },
   setup,
 };

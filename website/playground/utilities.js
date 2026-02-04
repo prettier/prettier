@@ -7,6 +7,34 @@ export function getVersion() {
   return docsVersion === "next" ? "next" : "stable";
 }
 
+export function formatVersion(version) {
+  if (version.name === "stable") {
+    return {
+      text: `v${version.version}`,
+      title: `Prettier v${version.version}`,
+      link: `https://github.com/prettier/prettier/releases/tag/${version.version}`,
+    };
+  }
+
+  if (version.name === "next" && version.pr) {
+    return {
+      text: `PR #${version.pr}`,
+      title: `Prettier #${version.pr}`,
+      link: `https://github.com/prettier/prettier/pull/${version.pr}`,
+    };
+  }
+
+  const commit = version.gitTree?.commit;
+
+  return {
+    text: commit ?? "uncommitted changes",
+    title: `Prettier (${commit ?? "uncommitted"})`,
+    link: commit
+      ? `https://github.com/prettier/prettier/commit/${commit}`
+      : "https://github.com/prettier/prettier/",
+  };
+}
+
 export function getDefaults(availableOptions, optionNames) {
   const defaults = {};
   for (const option of availableOptions) {

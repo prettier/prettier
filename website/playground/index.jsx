@@ -5,6 +5,7 @@ import { settings } from "./composables/playground-settings.js";
 import { worker } from "./composables/prettier-worker.js";
 import Header from "./header.vue";
 import Playground from "./Playground.jsx";
+import { formatVersion } from "./utilities.js";
 
 const App = {
   name: "App",
@@ -21,7 +22,7 @@ const App = {
       Object.assign(state, {
         loaded: true,
         availableOptions: supportInfo.options.map(augmentOption),
-        version,
+        version: formatVersion(version),
       });
     };
 
@@ -51,7 +52,7 @@ const App = {
       return (
         <>
           <Header version={version} />
-          <Playground availableOptions={availableOptions} />
+          <Playground availableOptions={availableOptions} version={version} />
         </>
       );
     };

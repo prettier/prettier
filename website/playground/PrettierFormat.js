@@ -35,8 +35,7 @@ function setup(props, { slots }) {
       (newValue, oldValue) => {
         // Always triggers format
         if (
-          key === "rethrowEmbedErrors" ||
-          key === "version" ||
+          (key === "rethrowEmbedErrors" || key === "version") &&
           newValue !== oldValue
         ) {
           return format();
@@ -57,6 +56,7 @@ export default {
   props: {
     code: String,
     options: Object,
+    version: Object,
   },
   setup,
 };
