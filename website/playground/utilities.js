@@ -1,4 +1,9 @@
 export function getVersion() {
+  // eslint-disable-next-line no-undef
+  if (__IS_PULL_REQUEST__) {
+    return "next";
+  }
+
   const params = new URLSearchParams(window.location.search);
   if (params.has("version")) {
     return params.get("version") === "next" ? "next" : "stable";
