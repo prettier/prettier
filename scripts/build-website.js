@@ -140,7 +140,11 @@ async function getGitTreeInformation() {
     return { branch };
   }
 
-  const { stdout: commit } = spawn("git", ["rev-parse", "--short", "HEAD"]);
+  const { stdout: commit } = await spawn("git", [
+    "rev-parse",
+    "--short",
+    "HEAD",
+  ]);
   return { branch, commit };
 }
 
