@@ -24,12 +24,12 @@ const NODE_MODULES_DIR = url.fileURLToPath(
   new URL("../node_modules", import.meta.url),
 );
 
-async function writeScript(libDirectory, file, code) {
+async function writeScript(file, code) {
   const { code: minified } = await esbuild.transform(code, {
     loader: "js",
     minify: true,
   });
-  await writeFile(path.join(libDirectory, file), minified.trim());
+  await writeFile(file, minified.trim());
 }
 
 /** @param {"stable" | "next"} version */
@@ -116,8 +116,7 @@ async function buildPlaygroundFiles(version) {
       ),
     ),
     writeScript(
-      libDirectory,
-      "package-manifest.mjs",
+      path.join(libDirectory, "package-manifest.mjs"),
       `export default ${serialize(packageManifest, { space: 2 })};`,
     ),
   ]);
