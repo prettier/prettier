@@ -33,7 +33,7 @@ const initialSettings = {
   ...defaultSettings,
   ...storage.get("editor_state"),
   // eslint-disable-next-line no-undef
-  ...((__IS_PULL_REQUEST__) && { version: "next" }),
+  ...(__IS_PULL_REQUEST__ && { version: "next" }),
 };
 
 const settings = reactive(initialSettings);
