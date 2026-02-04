@@ -52,7 +52,6 @@ async function buildPlaygroundFiles(version) {
   }
 
   if (version === "next") {
-    await runYarn("build", ["--clean", "--playground"], { cwd: PROJECT_ROOT });
     packagesDirectory = DIST_DIR;
     versionData.gitTree = await getGitTreeInformation();
     if (IS_PULL_REQUEST) {
@@ -147,6 +146,9 @@ async function getGitTreeInformation() {
   ]);
   return { branch, commit };
 }
+
+console.log("Building prettier...");
+await runYarn("build", ["--clean", "--playground"], { cwd: PROJECT_ROOT });
 
 console.log("Preparing files for playground (stable)...");
 await buildPlaygroundFiles("stable");
