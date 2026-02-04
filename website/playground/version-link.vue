@@ -6,13 +6,8 @@ const props = defineProps({
   version: { type: Object, required: true },
 });
 
-// const versionLabel = computed(() => {
-//   const match = props.version.match(/^pr-(\d+)$/);
-//   return match ? `PR #${match[1]}` : `v${props.version}`;
-// });
-
 const updateTitle = () => {
-  // document.title = `Prettier ${versionLabel.value}`;
+  document.title = versionData.value.title;
 };
 
 function onVersionChange(event) {
@@ -24,19 +19,29 @@ const versionData = computed(() => {
 
   if (version.name === "stable") {
     return {
-      name: `v${version.version}`,
+      text: `v${version.version}`,
+      title: `Prettier v${version.version}`,
       link: `https://github.com/prettier/prettier/releases/tag/${version.version}`,
     };
   }
 
   if (version.name === "next" && version.pr) {
     return {
-      name: `PR #${version.pr}`,
+      text: `PR #${version.pr}`,
+      title: `Prettier #${version.pr}`,
       link: `https://github.com/prettier/prettier/pull/${version.pr}`,
     };
   }
 
-  return version.gitTree?.commit ?? "uncommitted";
+  const commit = version.gitTree?.commit;
+
+  return {
+    name: commit ?? "uncommitted",
+    title: `Prettier (${commit ?? "uncommitted"})`,
+    link: commit
+      ? `https://github.com/prettier/prettier/commit/${commit}`
+      : "https://github.com/prettier/prettier/",
+  };
 });
 
 watch(() => props.version, updateTitle);
@@ -60,7 +65,7 @@ onMounted(updateTitle);
       target="_blank"
       rel="noopener noreferrer"
     >
-      {{ versionData.name }}
+      {{ versionData.text }}
     </a>
   </span>
 </template>
