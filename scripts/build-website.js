@@ -42,13 +42,10 @@ async function buildPlaygroundFiles(version) {
 
   if (version === "stable") {
     packagesDirectory = NODE_MODULES_DIR;
-    versionData.version = (
-      await import(
-        url.pathToFileURL(
-          path.join(packagesDirectory, "prettier/standalone.mjs"),
-        )
-      )
-    ).version;
+    const { version: prettierVersion } = await import(
+      url.pathToFileURL(path.join(packagesDirectory, "prettier/standalone.mjs"))
+    );
+    versionData.version = prettierVersion;
   }
 
   if (version === "next") {
