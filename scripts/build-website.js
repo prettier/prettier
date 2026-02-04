@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+import assert from "node:assert/strict";
 import fs from "node:fs/promises";
 import path from "node:path";
 import url from "node:url";
@@ -31,11 +32,34 @@ async function writeScript(libDirectory, file, code) {
   await writeFile(path.join(libDirectory, file), minified.trim());
 }
 
-async function buildPlaygroundFiles(
-  packagesDirectory,
-  libDirectory,
-  { includeExternalPlugins = false, version } = {},
-) {
+/** @param {"current" | "next"} version */
+async function buildPlaygroundFiles(version) {
+  assert.ok(version === "current" || version === "next");
+
+  let packagesDirectory;
+  const versionData = { name: version };
+  const libDirectory = path.join(WEBSITE_DIR, `static/lib/${version}/`);
+
+  if (version === "current") {
+    packagesDirectory = NODE_MODULES_DIR;
+    versionData.version = (
+      await import(
+        url.pathToFileURL(
+          path.join(packagesDirectory, "prettier/standalone.mjs"),
+        )
+      )
+    ).version;
+  }
+
+  if (version === "next") {
+    await runYarn("build", ["--clean", "--playground"], { cwd: PROJECT_ROOT });
+    packagesDirectory = DIST_DIR;
+    versionData.gitTree = await getGitTreeInformation();
+    if (IS_PULL_REQUEST) {
+      versionData.pr = process.env.REVIEW_ID;
+    }
+  }
+
   const pluginFiles = [];
 
   // Builtin plugins
@@ -47,7 +71,7 @@ async function buildPlaygroundFiles(
 
   // TODO: Support stable version
   // External plugins
-  if (includeExternalPlugins) {
+  if (version === "next") {
     for (const pluginName of ["plugin-hermes"]) {
       pluginFiles.push(`${pluginName}/index.mjs`);
     }
@@ -57,7 +81,7 @@ async function buildPlaygroundFiles(
   }
 
   const packageManifest = {
-    version,
+    version: versionData,
     prettier: {
       file: "prettier/standalone.mjs",
     },
@@ -103,53 +127,29 @@ async function buildPlaygroundFiles(
   ]);
 }
 
-async function getVersion(packagesDirectory) {
-  const packageJsonFile = path.join(packagesDirectory, "prettier/package.json");
-  const { version } = JSON.parse(await fs.readFile(packageJsonFile, "utf8"));
-  return version;
-}
-
-async function getGitVersion() {
-  const [branch, commit] = await Promise.all([
-    spawn("git", ["rev-parse", "--abbrev-ref", "HEAD"], { cwd: PROJECT_ROOT })
-      .stdout.toString()
-      .trim(),
-    spawn("git", ["rev-parse", "--short", "HEAD"], { cwd: PROJECT_ROOT })
-      .stdout.toString()
-      .trim(),
+async function getGitTreeInformation() {
+  const { stdout: branch } = await spawn("git", [
+    "rev-parse",
+    "--abbrev-ref",
+    "HEAD",
   ]);
 
-  if (!commit) {
-    return `${branch}-Uncommitted`;
+  const { stdout: diff } = await spawn("git", ["diff", "--name-only"]);
+
+  if (diff) {
+    return { branch };
   }
 
-  return `${branch}-${commit}`;
+  const { stdout: commit } = spawn("git", ["rev-parse", "--short", "HEAD"]);
+  return { branch, commit };
 }
 
 // Build lib-stable (from node_modules)
-console.log("Preparing files for playground (stable)...");
-const stableVersion = await getVersion(NODE_MODULES_DIR);
-await buildPlaygroundFiles(
-  NODE_MODULES_DIR,
-  path.join(WEBSITE_DIR, "static/lib-stable"),
-  { version: stableVersion },
-);
-
-// Build lib-next (from dist)
-console.log("Building prettier...");
-await runYarn("build", ["--clean", "--playground"], {
-  cwd: PROJECT_ROOT,
-});
+console.log("Preparing files for playground (current)...");
+await buildPlaygroundFiles("current");
 
 console.log("Preparing files for playground (next)...");
-const nextVersion = IS_PULL_REQUEST
-  ? `999.999.999-pr.${process.env.REVIEW_ID}`
-  : await getGitVersion();
-await buildPlaygroundFiles(
-  DIST_DIR,
-  path.join(WEBSITE_DIR, "static/lib-next"),
-  { includeExternalPlugins: true, version: nextVersion },
-);
+await buildPlaygroundFiles("next");
 
 // --- Site ---
 console.log("Installing website dependencies...");
