@@ -1,4 +1,9 @@
 export function getVersion() {
+  const params = new URLSearchParams(window.location.search);
+  if (params.has("version")) {
+    return params.get("version") === "next" ? "next" : "stable";
+  }
+
   const docsVersion = localStorage.getItem("docs-preferred-version-default");
   return docsVersion === "next" ? "next" : "stable";
 }

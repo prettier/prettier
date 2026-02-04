@@ -16,7 +16,6 @@ const defaultSettings = {
   showSecondFormat: false,
   showOutput: true,
   rethrowEmbedErrors: false,
-  version: getVersion(),
 };
 
 const togglers = Object.fromEntries(
@@ -33,7 +32,7 @@ const initialSettings = {
   ...defaultSettings,
   ...storage.get("editor_state"),
   // eslint-disable-next-line no-undef
-  ...(__IS_PULL_REQUEST__ && { version: "next" }),
+  version: __IS_PULL_REQUEST__ ? "next" : getVersion(),
 };
 
 const settings = reactive(initialSettings);
