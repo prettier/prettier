@@ -84,7 +84,11 @@ function printFunction(path, options, print, args) {
       shouldGroupParameters ? group(parametersDoc) : parametersDoc,
       returnTypeDoc,
     ]),
-    node.body ? [" ", print("body")] : ";",
+    node.body
+      ? [" ", print("body")]
+      : // The semicolon not always needed,
+        // but prevent block statement after been parsed as body
+        ";",
   ];
 }
 
