@@ -57,7 +57,9 @@ header {
     padding: 10px;
   }
 
-  .github-button {display: none}
+  .github-button {
+    display: none;
+  }
 }
 
 header a,
@@ -68,7 +70,6 @@ header a:hover {
   color: #fff;
   text-decoration: none;
 }
-
 
 .theme-icon {
   padding-block: 2px;

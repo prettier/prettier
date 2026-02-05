@@ -66,7 +66,6 @@ const props = defineProps({
   align-items: flex-end;
 }
 
-
 .github-button span {
   display: flex;
 }
