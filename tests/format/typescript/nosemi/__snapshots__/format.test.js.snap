@@ -1,5 +1,44 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`functions.ts - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+declare function a():void;
+
+{
+  foo()
+}
+
+
+declare function b():void;
+
+[foo()]
+
+
+for(;;) function c();
+{}
+
+=====================================output=====================================
+declare function a(): void;
+
+{
+  foo()
+}
+
+declare function b(): void;
+
+;[foo()]
+
+for (;;) function c();
+{
+}
+
+================================================================================
+`;
+
 exports[`index-signature.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
@@ -49,6 +88,48 @@ interface InlineMultiple {
   x: string
   y: string
 }
+
+================================================================================
+`;
+
+exports[`module-declaration.ts - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+declare module "foo";
+
+{
+  foo()
+}
+
+declare module "bar" {};
+
+{
+  foo()
+}
+
+declare module "baz";
+
+[foo()]
+
+=====================================output=====================================
+declare module "foo";
+
+{
+  foo()
+}
+
+declare module "bar" {}
+
+{
+  foo()
+}
+
+declare module "baz";
+
+;[foo()]
 
 ================================================================================
 `;
