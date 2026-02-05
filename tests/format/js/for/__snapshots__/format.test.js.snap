@@ -754,47 +754,35 @@ label1: for (;;) continue label1
 ;
 
 =====================================output=====================================
-for (;;)
-  continue;
-  // comment
+for (;;) continue;
 
-for (;;)
-  break;
-  // comment
+// comment
+for (;;) break;
 
-for (const f of [])
-  continue;
-  // comment3
+// comment
+for (const f of []) continue;
 
-for (const f of [])
-  break;
-  // comment4
+// comment3
+for (const f of []) break;
 
-for (const f in {})
-  continue;
-  // comment5
+// comment4
+for (const f in {}) continue;
 
-for (const f in {})
-  break;
-  // comment6
+// comment5
+for (const f in {}) break;
 
-for (;;)
-  continue; // comment
+// comment6
+for (;;) continue; // comment
 
-for (;;)
-  break; // comment
+for (;;) break; // comment
 
-for (const f of [])
-  continue; // comment
+for (const f of []) continue; // comment
 
-for (const f of [])
-  break; // comment
+for (const f of []) break; // comment
 
-for (const f in {})
-  continue; // comment
+for (const f in {}) continue; // comment
 
-for (const f in {})
-  break; // comment
+for (const f in {}) break; // comment
 
 for (;;) continue; /* comment */
 
@@ -808,42 +796,33 @@ for (const f in {}) continue; /* comment */
 
 for (const f in {}) break; /* comment */
 
-for (;;)
-  continue;
-  /* comment */
+for (;;) continue;
 
-for (;;)
-  break;
-  /* comment */
+/* comment */
+for (;;) break;
 
-for (const f of [])
-  continue;
-  /* comment 33 */
+/* comment */
+for (const f of []) continue;
 
-for (const f of [])
-  break;
-  /* comment 34 */
+/* comment 33 */
+for (const f of []) break;
 
-for (const f in {})
-  continue;
-  /* comment 35 */
+/* comment 34 */
+for (const f in {}) continue;
 
-for (const f in {})
-  break;
-  /* comment 36 */
+/* comment 35 */
+for (const f in {}) break;
 
+/* comment 36 */
 label1: for (;;) continue label1; /* comment */
 
-label1: for (;;)
-  continue label1;
-  /* comment */
+label1: for (;;) continue label1;
 
-label1: for (;;)
-  continue label1; // comment
+/* comment */
+label1: for (;;) continue label1; // comment
 
-label1: for (;;)
-  continue label1;
-  // comment
+label1: for (;;) continue label1;
+// comment
 
 ================================================================================
 `;
