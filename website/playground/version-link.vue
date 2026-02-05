@@ -19,7 +19,7 @@ onMounted(updateTitle);
 </script>
 
 <template>
-  <span class="version-wrapper">
+  <div class="version-wrapper">
     <select
       class="channel-select"
       :value="playgroundVersion"
@@ -40,19 +40,18 @@ onMounted(updateTitle);
     >
       {{ version.text }}
     </a>
-  </span>
+  </div>
 </template>
 
 <style>
 .version-wrapper {
   display: flex;
+  align-items: center;
+  gap: 0.5em;
+  flex: 1;
 }
 
 .version-link {
-  color: inherit;
-  text-decoration: none;
-  line-height: 0;
   opacity: 0.5;
-  margin-inline-start: 0.5em;
 }
 </style>
