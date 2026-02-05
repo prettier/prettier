@@ -19,8 +19,6 @@
 /website/i18n
 /website/static/playground
 /website/static/lib
-/website/static/lib-next
-/website/static/lib-stable
 /website/.docusaurus
 .DS_Store
 /coverage
