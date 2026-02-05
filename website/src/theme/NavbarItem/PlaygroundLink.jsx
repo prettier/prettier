@@ -15,7 +15,7 @@ export default function PlaygroundLink({ mobile }) {
           ? "/playground/?version=next"
           : "/playground"
       }
-      target="_blank"
+      target="_self"
       rel="noopener noreferrer"
     >
       Playground
