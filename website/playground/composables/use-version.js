@@ -1,29 +1,43 @@
 import { ref } from "vue";
 
+const ALLOWED_VERSIONS = new Set(["next", "stable"]);
 // eslint-disable-next-line prefer-destructuring
 const DEFAULT_VERSION = import.meta.env.DEFAULT_VERSION;
+const DOCS_VERSION_KEY = "docs-preferred-version-default";
 
 function getVersion() {
-  const params = new URLSearchParams(window.location.search);
-  if (params.has("version")) {
-    return params.get("version") === "next" ? "next" : DEFAULT_VERSION;
+  const versionInUrl = new URLSearchParams(window.location.search).get(
+    "version",
+  );
+  if (ALLOWED_VERSIONS.has(versionInUrl)) {
+    return versionInUrl;
   }
 
-  const docsVersion = localStorage.getItem("docs-preferred-version-default");
-  return docsVersion === "next" ? "next" : DEFAULT_VERSION;
+  const docsVersion = localStorage.getItem(DOCS_VERSION_KEY);
+  if (ALLOWED_VERSIONS.has(docsVersion)) {
+    return docsVersion;
+  }
+
+  return DEFAULT_VERSION;
 }
 
 function setVersion(value) {
   const url = new URL(window.location);
 
+  value = ALLOWED_VERSIONS.has(value) ? value : DEFAULT_VERSION;
+
   if (value === "next") {
-    localStorage.setItem("docs-preferred-version-default", "current");
+    localStorage.setItem(DOCS_VERSION_KEY, "current");
     version.value = "next";
-    url.searchParams.set("version", "next");
   } else {
-    localStorage.removeItem("docs-preferred-version-default");
+    localStorage.removeItem(DOCS_VERSION_KEY);
     version.value = "stable";
+  }
+
+  if (value === DEFAULT_VERSION) {
     url.searchParams.delete("version");
+  } else {
+    url.searchParams.set("version", value);
   }
 
   window.history.replaceState({}, "", url);
