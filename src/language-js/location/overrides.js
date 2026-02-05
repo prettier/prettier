@@ -66,9 +66,19 @@ function locEnd(node) {
   const { type } = node;
 
   // Effected by children
-  // TODO[@fisker]: Add more types
   if (type === "IfStatement") {
     return locEnd(node.alternate ?? node.consequent);
+  }
+
+  if (
+    type === "ForInStatement" ||
+    type === "ForOfStatement" ||
+    type === "ForStatement" ||
+    type === "LabeledStatement" ||
+    type === "WithStatement" ||
+    type === "WhileStatement"
+  ) {
+    return locEnd(node.body);
   }
 
   return (

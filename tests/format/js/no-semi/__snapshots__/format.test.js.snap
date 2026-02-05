@@ -727,22 +727,19 @@ for (   a in   b)   foo (   )
 for (a in b) foo /* comment */ ;
 
 =====================================output=====================================
-for (a in b)
-  foo
+for (a in b) foo
 
-  // 11
+// 11
 ;[]
 
-for (a in b)
-  foo
+for (a in b) foo
 
-  // 21
+// 21
 foo
 
 // prettier-ignore
 for (   a in   b)   foo (   )
 
-;
 ;[]
 
 for (a in b) foo /* comment */
@@ -773,22 +770,19 @@ for (   a in   b)   foo (   )
 for (a in b) foo /* comment */ ;
 
 =====================================output=====================================
-for (a in b)
-  foo;
+for (a in b) foo;
 
-  // 11
+// 11
 [];
 
-for (a in b)
-  foo;
+for (a in b) foo;
 
-  // 21
+// 21
 foo;
 
 // prettier-ignore
 for (   a in   b)   foo (   )
 
-;
 [];
 
 for (a in b) foo; /* comment */
@@ -820,22 +814,19 @@ for (   a of   b)   foo (   )
 for (a of b) foo /* comment */ ;
 
 =====================================output=====================================
-for (a of b)
-  foo
+for (a of b) foo
 
-  // 11
+// 11
 ;[]
 
-for (a of b)
-  foo
+for (a of b) foo
 
-  // 21
+// 21
 foo
 
 // prettier-ignore
 for (   a of   b)   foo (   )
 
-;
 ;[]
 
 for (a of b) foo /* comment */
@@ -866,22 +857,19 @@ for (   a of   b)   foo (   )
 for (a of b) foo /* comment */ ;
 
 =====================================output=====================================
-for (a of b)
-  foo;
+for (a of b) foo;
 
-  // 11
+// 11
 [];
 
-for (a of b)
-  foo;
+for (a of b) foo;
 
-  // 21
+// 21
 foo;
 
 // prettier-ignore
 for (   a of   b)   foo (   )
 
-;
 [];
 
 for (a of b) foo; /* comment */
@@ -913,22 +901,19 @@ for (   ;   ;)   foo (   )
 for (;;) foo /* comment */ ;
 
 =====================================output=====================================
-for (;;)
-  foo
+for (;;) foo
 
-  // 11
+// 11
 ;[]
 
-for (;;)
-  foo
+for (;;) foo
 
-  // 21
+// 21
 foo
 
 // prettier-ignore
 for (   ;   ;)   foo (   )
 
-;
 ;[]
 
 for (;;) foo /* comment */
@@ -959,22 +944,19 @@ for (   ;   ;)   foo (   )
 for (;;) foo /* comment */ ;
 
 =====================================output=====================================
-for (;;)
-  foo;
+for (;;) foo;
 
-  // 11
+// 11
 [];
 
-for (;;)
-  foo;
+for (;;) foo;
 
-  // 21
+// 21
 foo;
 
 // prettier-ignore
 for (   ;   ;)   foo (   )
 
-;
 [];
 
 for (;;) foo; /* comment */
@@ -1416,22 +1398,19 @@ label: while   (   1)   foo (   )
 label: while(1) foo /* comment */ ;
 
 =====================================output=====================================
-label: while (1)
-  foo
+label: while (1) foo
 
-  // 11
+// 11
 ;[]
 
-label: while (1)
-  foo
+label: while (1) foo
 
-  // 21
+// 21
 foo
 
 // prettier-ignore
 label: while   (   1)   foo (   )
 
-;
 ;[]
 
 label: while (1) foo /* comment */
@@ -1462,22 +1441,19 @@ label: while   (   1)   foo (   )
 label: while(1) foo /* comment */ ;
 
 =====================================output=====================================
-label: while (1)
-  foo;
+label: while (1) foo;
 
-  // 11
+// 11
 [];
 
-label: while (1)
-  foo;
+label: while (1) foo;
 
-  // 21
+// 21
 foo;
 
 // prettier-ignore
 label: while   (   1)   foo (   )
 
-;
 [];
 
 label: while (1) foo; /* comment */
@@ -2010,22 +1986,19 @@ while   (   1)   foo (   )
 while(1) foo /* comment */ ;
 
 =====================================output=====================================
-while (1)
-  foo
+while (1) foo
 
-  // 11
+// 11
 ;[]
 
-while (1)
-  foo
+while (1) foo
 
-  // 21
+// 21
 foo
 
 // prettier-ignore
 while   (   1)   foo (   )
 
-;
 ;[]
 
 while (1) foo /* comment */
@@ -2056,22 +2029,19 @@ while   (   1)   foo (   )
 while(1) foo /* comment */ ;
 
 =====================================output=====================================
-while (1)
-  foo;
+while (1) foo;
 
-  // 11
+// 11
 [];
 
-while (1)
-  foo;
+while (1) foo;
 
-  // 21
+// 21
 foo;
 
 // prettier-ignore
 while   (   1)   foo (   )
 
-;
 [];
 
 while (1) foo; /* comment */
@@ -2103,22 +2073,19 @@ with   (   1)   foo (   )
 with(1) foo /* comment */ ;
 
 =====================================output=====================================
-with (1)
-  foo
+with (1) foo
 
-  // 11
+// 11
 ;[]
 
-with (1)
-  foo
+with (1) foo
 
-  // 21
+// 21
 foo
 
 // prettier-ignore
 with   (   1)   foo (   )
 
-;
 ;[]
 
 with (1) foo /* comment */
@@ -2149,22 +2116,19 @@ with   (   1)   foo (   )
 with(1) foo /* comment */ ;
 
 =====================================output=====================================
-with (1)
-  foo;
+with (1) foo;
 
-  // 11
+// 11
 [];
 
-with (1)
-  foo;
+with (1) foo;
 
-  // 21
+// 21
 foo;
 
 // prettier-ignore
 with   (   1)   foo (   )
 
-;
 [];
 
 with (1) foo; /* comment */
