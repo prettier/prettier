@@ -42,7 +42,6 @@ const config = {
       entry: [
         "playground/**/*.{js,jsx}",
         "src/pages/**/*.{js,jsx}",
-        "src/theme/**/*.{js,jsx}",
         "static/**/*.{js,mjs}",
       ],
       ignoreDependencies: [

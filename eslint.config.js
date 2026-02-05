@@ -468,11 +468,7 @@ const configs = [
     },
   },
   {
-    files: [
-      "website/src/pages/**/*.jsx",
-      "website/src/theme/**/*.jsx",
-      "website/playground/**/*.jsx",
-    ],
+    files: ["website/src/pages/**/*.jsx", "website/playground/**/*.jsx"],
     rules: {
       // Doesn't know JSX
       "no-unused-vars": "off",
