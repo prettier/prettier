@@ -56,6 +56,10 @@ header {
   header {
     padding: 10px;
   }
+
+  .github-button {
+    display: none;
+  }
 }
 
 header a,
@@ -65,27 +69,6 @@ header a:active,
 header a:hover {
   color: #fff;
   text-decoration: none;
-}
-
-.logo-wrapper {
-  display: flex;
-  align-items: center;
-}
-
-.logo {
-  height: 34px;
-  margin-right: 10px;
-}
-
-header h1 {
-  font-size: 20px;
-  display: block;
-  font-family: inherit;
-  font-weight: 400;
-  line-height: 18px;
-  position: relative;
-  z-index: 9999;
-  margin: 0;
 }
 
 .theme-icon {

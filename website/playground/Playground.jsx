@@ -162,7 +162,7 @@ function setup(props) {
 
   const getMarkdown = ({ formatted, reformatted, full, doc }) => {
     const { content, options } = state;
-    const { availableOptions, version } = props;
+    const { availableOptions } = props;
     const orderedOptions = orderOptions(availableOptions, [
       ...ENABLED_OPTIONS,
       "rangeStart",
@@ -176,7 +176,7 @@ function setup(props) {
       output: formatted,
       output2: reformatted,
       doc,
-      version,
+      version: props.version,
       url: window.location.href,
       options,
       cliOptions,
@@ -547,7 +547,7 @@ const Playground = {
   name: "Playground",
   props: {
     availableOptions: { type: Array, required: true },
-    version: { type: String, required: true },
+    version: { type: Object, required: true },
   },
   setup,
 };

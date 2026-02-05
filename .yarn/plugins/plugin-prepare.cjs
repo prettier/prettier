@@ -1,6 +1,8 @@
 const fs = require("node:fs");
 const path = require("node:path");
 
+const root = path.join(__dirname, "../../");
+
 function setupVscode() {
   const settingsFile = path.join(__dirname, "../../.vscode/settings.json");
 
@@ -27,7 +29,11 @@ module.exports = {
   name: "plugin-prepare",
   factory: () => ({
     hooks: {
-      async afterAllInstalled() {
+      async afterAllInstalled({ cwd }) {
+        if (cwd !== root) {
+          return;
+        }
+
         setupVscode();
         try {
           await buildBabelCodeFrameForTest();

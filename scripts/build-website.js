@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import fs from "node:fs/promises";
+import assert from "node:assert/strict";
 import path from "node:path";
 import url from "node:url";
 import esbuild from "esbuild";
@@ -13,58 +13,61 @@ import {
   PROJECT_ROOT,
   WEBSITE_DIR,
   writeFile,
-  writeJson,
 } from "./utilities/index.js";
 
 const runYarn = (command, args, options) =>
   spawn("yarn", [command, ...args], { stdio: "inherit", ...options });
+
 const IS_PULL_REQUEST = process.env.PULL_REQUEST === "true";
-const PACKAGES_DIRECTORY = IS_PULL_REQUEST
-  ? DIST_DIR
-  : url.fileURLToPath(new URL("../node_modules", import.meta.url));
-const PLAYGROUND_LIB_DIRECTORY = path.join(WEBSITE_DIR, "static/lib");
+const NODE_MODULES_DIR = url.fileURLToPath(
+  new URL("../node_modules", import.meta.url),
+);
 
 async function writeScript(file, code) {
   const { code: minified } = await esbuild.transform(code, {
     loader: "js",
     minify: true,
   });
-  await writeFile(path.join(PLAYGROUND_LIB_DIRECTORY, file), minified.trim());
+  await writeFile(file, minified.trim());
 }
 
-async function buildPrettier() {
-  // --- Build prettier for PR ---
-  const packageJsonFile = path.join(PROJECT_ROOT, "package.json");
-  const packageJsonContent = await fs.readFile(packageJsonFile);
-  const packageJson = JSON.parse(packageJsonContent);
-  await writeJson(packageJsonFile, {
-    ...packageJson,
-    version: `999.999.999-pr.${process.env.REVIEW_ID}`,
-  });
+/** @param {"stable" | "next"} version */
+async function buildPlaygroundFiles(version) {
+  assert.ok(version === "stable" || version === "next");
 
-  try {
-    await runYarn("build", ["--clean", "--playground"], {
-      cwd: PROJECT_ROOT,
-    });
-  } finally {
-    // restore
-    await writeFile(packageJsonFile, packageJsonContent);
+  let packagesDirectory;
+  const versionData = { name: version };
+  const libDirectory = path.join(WEBSITE_DIR, `static/lib/${version}/`);
+
+  if (version === "stable") {
+    packagesDirectory = NODE_MODULES_DIR;
+    const { version: prettierVersion } = await import(
+      url.pathToFileURL(path.join(packagesDirectory, "prettier/standalone.mjs"))
+    );
+    versionData.version = prettierVersion;
   }
-}
 
-async function buildPlaygroundFiles() {
+  if (version === "next") {
+    packagesDirectory = DIST_DIR;
+    versionData.gitTree = await getGitTreeInformation();
+    if (IS_PULL_REQUEST) {
+      versionData.pr = process.env.REVIEW_ID;
+    }
+  }
+
   const pluginFiles = [];
 
   // Builtin plugins
   for (const fileName of await fastGlob(["plugins/*.mjs"], {
-    cwd: path.join(PACKAGES_DIRECTORY, "prettier"),
+    cwd: path.join(packagesDirectory, "prettier"),
+    ignore: ["plugins/flow*"],
   })) {
     pluginFiles.push(`prettier/${fileName}`);
   }
 
   // TODO: Support stable version
   // External plugins
-  if (IS_PULL_REQUEST) {
+  if (version === "next") {
     for (const pluginName of ["plugin-hermes"]) {
       pluginFiles.push(`${pluginName}/index.mjs`);
     }
@@ -74,6 +77,7 @@ async function buildPlaygroundFiles() {
   }
 
   const packageManifest = {
+    version: versionData,
     prettier: {
       file: "prettier/standalone.mjs",
     },
@@ -82,7 +86,7 @@ async function buildPlaygroundFiles() {
         const plugin = { file };
 
         const pluginModule = await import(
-          url.pathToFileURL(path.join(PACKAGES_DIRECTORY, file))
+          url.pathToFileURL(path.join(packagesDirectory, file))
         );
 
         for (const property of ["languages", "options", "defaultOptions"]) {
@@ -107,24 +111,46 @@ async function buildPlaygroundFiles() {
   await Promise.all([
     ...[packageManifest.prettier, ...packageManifest.plugins].map(({ file }) =>
       copyFile(
-        path.join(PACKAGES_DIRECTORY, file),
-        path.join(PLAYGROUND_LIB_DIRECTORY, file),
+        path.join(packagesDirectory, file),
+        path.join(libDirectory, file),
       ),
     ),
     writeScript(
-      "package-manifest.mjs",
+      path.join(libDirectory, "package-manifest.mjs"),
       `export default ${serialize(packageManifest, { space: 2 })};`,
     ),
   ]);
 }
 
-if (IS_PULL_REQUEST) {
-  console.log("Building prettier...");
-  await buildPrettier();
+async function getGitTreeInformation() {
+  const { stdout: branch } = await spawn("git", [
+    "rev-parse",
+    "--abbrev-ref",
+    "HEAD",
+  ]);
+
+  const { stdout: diff } = await spawn("git", ["diff", "--name-only"]);
+
+  if (diff) {
+    return { branch };
+  }
+
+  const { stdout: commit } = await spawn("git", [
+    "rev-parse",
+    "--short",
+    "HEAD",
+  ]);
+  return { branch, commit };
 }
 
-console.log("Preparing files for playground...");
-await buildPlaygroundFiles();
+console.log("Building prettier...");
+await runYarn("build", ["--clean", "--playground"], { cwd: PROJECT_ROOT });
+
+console.log("Preparing files for playground (stable)...");
+await buildPlaygroundFiles("stable");
+
+console.log("Preparing files for playground (next)...");
+await buildPlaygroundFiles("next");
 
 // --- Site ---
 console.log("Installing website dependencies...");

@@ -1,22 +1,74 @@
-import prettierPackageManifest from "./lib/package-manifest.mjs";
-import * as prettier from "./lib/prettier/standalone.mjs";
-import * as prettierPluginDocExplorer from "./prettier-plugin-doc-explorer.mjs";
+import { createDocExplorerPlugin } from "./prettier-plugin-doc-explorer.mjs";
 
 /**
 @import {PlaygroundSettings} from "../playground/composables/playground-settings.js"
-@typedef {{ type: "meta" }} MetaMessage
+@typedef {{
+  type: "meta",
+  version: "stable" | "next",
+}} MetaMessage
 @typedef {{
   type: "format",
   code: string,
   options: any,
-  settings: PlaygroundSettings
+  settings: PlaygroundSettings,
+  version: "stable" | "next",
 }} FormatMessage
 */
+
+const workerUrl = new URL(import.meta.url);
+const version =
+  workerUrl.searchParams.get("version") === "next" ? "next" : "stable";
+
+let prettierCache;
+let prettierPackageManifestCache;
+let prettierPluginDocExplorerCache;
+let pluginsCache;
+
+async function loadPrettier() {
+  if (!prettierCache) {
+    prettierCache = import(`./lib/${version}/prettier/standalone.mjs`);
+  }
+  return await prettierCache;
+}
+
+async function loadPrettierPackageManifest() {
+  if (!prettierPackageManifestCache) {
+    prettierPackageManifestCache = import(
+      `./lib/${version}/package-manifest.mjs`
+    ).then((m) => m.default);
+  }
+  return await prettierPackageManifestCache;
+}
+
+async function loadPrettierPluginDocExplorer() {
+  if (!prettierPluginDocExplorerCache) {
+    const prettier = await loadPrettier();
+    const prettierPackageManifest = await loadPrettierPackageManifest();
+    prettierPluginDocExplorerCache = createDocExplorerPlugin(
+      prettier,
+      prettierPackageManifest,
+      version,
+    );
+  }
+  return prettierPluginDocExplorerCache;
+}
+
+async function loadPlugins() {
+  if (!pluginsCache) {
+    const prettierPackageManifest = await loadPrettierPackageManifest();
+    const prettierPluginDocExplorer = await loadPrettierPluginDocExplorer();
+    pluginsCache = [
+      ...prettierPackageManifest.plugins.map((plugin) => createPlugin(plugin)),
+      prettierPluginDocExplorer,
+    ];
+  }
+  return pluginsCache;
+}
 
 const pluginLoadPromises = new Map();
 async function importPlugin(plugin) {
   if (!pluginLoadPromises.has(plugin)) {
-    pluginLoadPromises.set(plugin, import(`./lib/${plugin.file}`));
+    pluginLoadPromises.set(plugin, import(`./lib/${version}/${plugin.file}`));
   }
 
   try {
@@ -51,11 +103,6 @@ function createPlugin(pluginManifest) {
 
   return plugin;
 }
-
-const plugins = [
-  ...prettierPackageManifest.plugins.map((plugin) => createPlugin(plugin)),
-  prettierPluginDocExplorer,
-];
 
 self.onmessage = async function (event) {
   self.postMessage({
@@ -113,13 +160,17 @@ function handleMessage(message) {
 }
 
 async function handleMetaMessage() {
+  const prettier = await loadPrettier();
+  const prettierPackageManifest = await loadPrettierPackageManifest();
+
+  const plugins = await loadPlugins();
   const supportInfo = await prettier.getSupportInfo({ plugins });
 
   return {
     type: "meta",
     // eslint-disable-next-line unicorn/prefer-structured-clone
     supportInfo: JSON.parse(JSON.stringify(supportInfo)),
-    version: prettier.version,
+    version: prettierPackageManifest.version,
   };
 }
 
@@ -127,6 +178,8 @@ async function handleMetaMessage() {
 @param {FormatMessage} message
 */
 async function handleFormatMessage(message) {
+  const prettier = await loadPrettier();
+  const plugins = await loadPlugins();
   let { options, code, settings } = message;
   options = { ...options, plugins };
 
@@ -231,6 +284,7 @@ async function handleFormatMessage(message) {
 @param {PlaygroundSettings} settings
 */
 async function formatCode(text, options, settings = {}) {
+  const prettier = await loadPrettier();
   if (options.parser === "doc-explorer") {
     options = {
       ...options,
