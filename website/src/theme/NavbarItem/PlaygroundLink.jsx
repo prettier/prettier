@@ -3,7 +3,7 @@ import IconExternalLink from "@theme/Icon/ExternalLink";
 
 const url =
   process.env.NODE_ENV === "production"
-    ? "/playground/"
+    ? "/playground"
     : "http://localhost:5173/";
 
 export default function PlaygroundLink({ mobile }) {
