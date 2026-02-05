@@ -77,7 +77,6 @@ const config = {
           path: "../docs",
           sidebarCollapsed: false,
           breadcrumbs: false,
-          // In PR environment, default to "current" (next) version to preview changes
           ...(process.env.PULL_REQUEST === "true" && {
             lastVersion: "current",
           }),

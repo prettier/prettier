@@ -3,6 +3,7 @@ export function getVersion() {
   if (__IS_PULL_REQUEST__) {
     const url = new URL(window.location);
     url.searchParams.set("version", "next");
+    window.history.replaceState({}, "", url);
     return "next";
   }
 
