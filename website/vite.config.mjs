@@ -9,10 +9,7 @@ const IS_CI = Boolean(process.env.CI);
 const OUT_DIRECTORY = "./static/playground/";
 const cdnDependencies = {
   file: new URL("./package.json", import.meta.url),
-  exclude: new Set([
-    "@docusaurus/preset-classic",
-    "@docusaurus/plugin-content-docs",
-  ]),
+  exclude: new Set(["@docusaurus/preset-classic"]),
   overrideDependencies: new Map([
     // We don't need deps from `vue`
     ["vue", []],
@@ -45,6 +42,11 @@ export default defineConfig({
   build: {
     outDir: OUT_DIRECTORY,
     minify: IS_CI,
+  },
+  define: {
+    "import.meta.env.DEFAULT_VERSION": process.env.PULL_REQUEST
+      ? "next"
+      : "stable",
   },
 });
 

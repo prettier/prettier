@@ -23,7 +23,6 @@
     "@codemirror/lint": "6.9.3",
     "@codemirror/state": "6.5.4",
     "@codemirror/view": "6.39.12",
-    "@docusaurus/plugin-content-docs": "3.9.2",
     "@docusaurus/preset-classic": "3.9.2",
     "@lezer/highlight": "1.2.3",
     "@mdx-js/react": "3.1.1",

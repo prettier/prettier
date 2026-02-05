@@ -1,13 +1,16 @@
 import { ref } from "vue";
 
+// eslint-disable-next-line prefer-destructuring
+const DEFAULT_VERSION = import.meta.env.DEFAULT_VERSION;
+
 function getVersion() {
   const params = new URLSearchParams(window.location.search);
   if (params.has("version")) {
-    return params.get("version") === "next" ? "next" : "stable";
+    return params.get("version") === "next" ? "next" : DEFAULT_VERSION;
   }
 
   const docsVersion = localStorage.getItem("docs-preferred-version-default");
-  return docsVersion === "next" ? "next" : "stable";
+  return docsVersion === "next" ? "next" : DEFAULT_VERSION;
 }
 
 function setVersion(value) {

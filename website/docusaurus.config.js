@@ -139,8 +139,13 @@ const config = {
             type: "docsVersionDropdown",
           },
           {
-            type: "custom-PlaygroundLink",
+            href:
+              process.env.NODE_ENV === "production"
+                ? "pathname:///playground/"
+                : "http://localhost:5173/",
+            label: "Playground",
             position: "right",
+            target: "_self",
           },
           {
             type: "docSidebar",
