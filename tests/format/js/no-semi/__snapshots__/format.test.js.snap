@@ -874,7 +874,7 @@ for (a in b) foo;
 foo;
 
 // prettier-ignore
-for (   a in   b)   foo (   )
+for (   a in   b)   foo (   );
 
 [];
 
@@ -961,7 +961,7 @@ for (a of b) foo;
 foo;
 
 // prettier-ignore
-for (   a of   b)   foo (   )
+for (   a of   b)   foo (   );
 
 [];
 
@@ -1048,7 +1048,7 @@ for (;;) foo;
 foo;
 
 // prettier-ignore
-for (   ;   ;)   foo (   )
+for (   ;   ;)   foo (   );
 
 [];
 
@@ -1189,7 +1189,7 @@ if (1) foo;
 foo;
 
 // prettier-ignore
-if (   1)    foo
+if (   1)    foo;
 
 [];
 
@@ -1208,7 +1208,7 @@ else foo;
 foo;
 
 // prettier-ignore
-if (   1) ; else    foo
+if (   1) ; else    foo;
 
 [];
 
@@ -1545,7 +1545,7 @@ label: while (1) foo;
 foo;
 
 // prettier-ignore
-label: while   (   1)   foo (   )
+label: while   (   1)   foo (   );
 
 [];
 
@@ -2131,7 +2131,7 @@ while (1) foo;
 foo;
 
 // prettier-ignore
-while   (   1)   foo (   )
+while   (   1)   foo (   );
 
 [];
 
@@ -2218,7 +2218,7 @@ with (1) foo;
 foo;
 
 // prettier-ignore
-with   (   1)   foo (   )
+with   (   1)   foo (   );
 
 [];
 
