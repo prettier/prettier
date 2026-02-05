@@ -1,8 +1,8 @@
 import { ref } from "vue";
 
 const ALLOWED_VERSIONS = new Set(["next", "stable"]);
-// eslint-disable-next-line prefer-destructuring
-const DEFAULT_VERSION = import.meta.env.DEFAULT_VERSION;
+const IS_PULL_REQUEST = import.meta.env.VITE_IS_PR;
+const DEFAULT_VERSION = IS_PULL_REQUEST ? "next" : "stable";
 const DOCS_VERSION_KEY = "docs-preferred-version-default";
 
 function getVersion() {
@@ -17,6 +17,7 @@ function getVersion() {
   if (docsVersion === "current") {
     docsVersion = "next";
   }
+
   if (ALLOWED_VERSIONS.has(docsVersion)) {
     return docsVersion;
   }
@@ -25,19 +26,21 @@ function getVersion() {
 }
 
 function setVersion(value) {
-  const url = new URL(window.location);
-
   value = ALLOWED_VERSIONS.has(value) ? value : DEFAULT_VERSION;
 
+  // Save to localStorage, so the docs can respond to version change
   localStorage.setItem(DOCS_VERSION_KEY, value === "next" ? "current" : value);
-  version.value = value;
-  if (value === DEFAULT_VERSION) {
+
+  const url = new URL(window.location);
+  if (!IS_PULL_REQUEST && value === DEFAULT_VERSION) {
     url.searchParams.delete("version");
   } else {
     url.searchParams.set("version", value);
   }
 
   window.history.replaceState({}, "", url);
+
+  version.value = value;
 }
 
 const version = ref(undefined);
