@@ -45,7 +45,7 @@ export default defineConfig({
   },
   define: {
     "import.meta.env.VITE_IS_PR": JSON.stringify(
-      Boolean(process.env.PULL_REQUEST),
+      process.env.PULL_REQUEST === "true",
     ),
   },
 });
