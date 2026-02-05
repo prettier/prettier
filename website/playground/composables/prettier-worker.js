@@ -55,7 +55,7 @@ class WorkerApi {
   }
 
   /**
-   * @param {"stable" |  "next"} version
+   * @param {MetaMessage["version"]} version
    */
   getMetadata(version) {
     /** @type {MetaMessage} */
