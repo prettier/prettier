@@ -31,8 +31,7 @@ const togglers = Object.fromEntries(
 const initialSettings = {
   ...defaultSettings,
   ...storage.get("editor_state"),
-  // eslint-disable-next-line no-undef
-  version: __IS_PULL_REQUEST__ ? "next" : getVersion(),
+  version: getVersion(),
 };
 
 const settings = reactive(initialSettings);

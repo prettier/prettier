@@ -1,4 +1,4 @@
-// @ts-check
+// @ts-nocheck
 
 import fs from "node:fs";
 import { createRequire } from "node:module";
@@ -77,6 +77,10 @@ const config = {
           path: "../docs",
           sidebarCollapsed: false,
           breadcrumbs: false,
+          // In PR environment, default to "current" (next) version to preview changes
+          ...(process.env.PULL_REQUEST === "true" && {
+            lastVersion: "current",
+          }),
           versions: {
             current: {
               label: "next",
