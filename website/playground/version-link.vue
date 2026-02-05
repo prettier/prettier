@@ -1,14 +1,13 @@
 <script setup>
 import { watch, onMounted } from "vue";
-import { settings } from "./composables/playground-settings.js";
+import {
+  version as playgroundVersion,
+  setVersion as setPlaygroundVersion,
+} from "./composables/use-version.js";
 
 const props = defineProps({
   version: { type: Object, required: true },
 });
-
-function onVersionChange(event) {
-  settings.version = event.target.value;
-}
 
 const updateTitle = () => {
   document.title = props.version.title;
@@ -23,8 +22,12 @@ onMounted(updateTitle);
   <span class="version-wrapper">
     <select
       class="channel-select"
-      :value="settings.version"
-      @change="onVersionChange"
+      :value="playgroundVersion"
+      @change="
+        (event) => {
+          setPlaygroundVersion(event.target.value);
+        }
+      "
     >
       <option value="stable">stable</option>
       <option value="next">next</option>

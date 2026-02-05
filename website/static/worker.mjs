@@ -2,12 +2,16 @@ import { createDocExplorerPlugin } from "./prettier-plugin-doc-explorer.mjs";
 
 /**
 @import {PlaygroundSettings} from "../playground/composables/playground-settings.js"
-@typedef {{ type: "meta", settings: PlaygroundSettings }} MetaMessage
+@typedef {{
+  type: "meta",
+  version: "stable" | "next",
+}} MetaMessage
 @typedef {{
   type: "format",
   code: string,
   options: any,
-  settings: PlaygroundSettings
+  settings: PlaygroundSettings,
+  version: "stable" | "next",
 }} FormatMessage
 */
 

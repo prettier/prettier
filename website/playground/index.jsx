@@ -3,6 +3,7 @@ import "./install-service-worker.js";
 import { createApp, onMounted, reactive, toRaw, watch } from "vue";
 import { settings } from "./composables/playground-settings.js";
 import { worker } from "./composables/prettier-worker.js";
+import { setVersion, version } from "./composables/use-version.js";
 import Header from "./header.vue";
 import Playground from "./Playground.jsx";
 import { formatVersion } from "./utilities.js";
@@ -15,32 +16,18 @@ const App = {
     });
 
     const updateMetadata = async () => {
-      const { supportInfo, version } = await worker.getMetadata(
-        toRaw(settings),
+      const { supportInfo, version: versionData } = await worker.getMetadata(
+        version.value,
       );
 
       Object.assign(state, {
         loaded: true,
         availableOptions: supportInfo.options.map(augmentOption),
-        version: formatVersion(version),
+        version: formatVersion(versionData),
       });
     };
 
-    watch(
-      () => settings.version,
-      async () => {
-        const { version } = settings;
-        const url = new URL(window.location);
-        if (version === "next") {
-          url.searchParams.set("version", "next");
-        } else {
-          url.searchParams.delete("version");
-        }
-        window.history.replaceState({}, "", url);
-
-        await updateMetadata();
-      },
-    );
+    watch(() => version.value, updateMetadata);
 
     const render = () => {
       const { loaded, availableOptions, version } = state;

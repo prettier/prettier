@@ -46,7 +46,7 @@ class WorkerApi {
   }
 
   #postMessage(message) {
-    const worker = this.#initWorker(message.settings.version);
+    const worker = this.#initWorker(message.version);
     const uid = ++this.#counter;
     return new Promise((resolve, reject) => {
       this.#handlers[uid] = [resolve, reject];
@@ -55,11 +55,11 @@ class WorkerApi {
   }
 
   /**
-   * @param {string} version
+   * @param {"stable" |  "next"} version
    */
-  getMetadata(settings) {
+  getMetadata(version) {
     /** @type {MetaMessage} */
-    const message = { type: "meta", settings };
+    const message = { type: "meta", version };
     return this.#postMessage(message);
   }
 
@@ -67,10 +67,11 @@ class WorkerApi {
    * @param {FormatMessage["code"]} code
    * @param {FormatMessage["options"]} options
    * @param {FormatMessage["settings"]} settings
+   * @param {FormatMessage["version"]} version
    */
-  format(code, options, settings) {
+  format(code, options, settings, version) {
     /** @type {FormatMessage} */
-    const message = { type: "format", code, options, settings };
+    const message = { type: "format", version, code, options, settings };
     return this.#postMessage(message);
   }
 }

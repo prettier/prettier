@@ -1,6 +1,5 @@
 import { reactive, watch } from "vue";
 import * as storage from "../storage.js";
-import { getVersion } from "../utilities.js";
 
 /**
 @typedef {typeof defaultSettings} PlaygroundSettings
@@ -31,7 +30,6 @@ const togglers = Object.fromEntries(
 const initialSettings = {
   ...defaultSettings,
   ...storage.get("editor_state"),
-  version: getVersion(),
 };
 
 const settings = reactive(initialSettings);

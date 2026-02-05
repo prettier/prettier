@@ -1,6 +1,7 @@
 import { onMounted, reactive, toRaw, watch } from "vue";
 import { settings } from "./composables/playground-settings.js";
 import { worker } from "./composables/prettier-worker.js";
+import { version } from "./composables/use-version.js";
 
 function setup(props, { slots }) {
   const state = reactive({ formatted: "", debug: {} });
@@ -14,6 +15,7 @@ function setup(props, { slots }) {
       props.code,
       toRaw(props.options),
       toRaw(settings),
+      version.value,
     );
 
     Object.assign(state, result);
@@ -24,6 +26,7 @@ function setup(props, { slots }) {
   onMounted(componentDidMount);
   watch(() => props.code, format);
   watch(() => props.options, format, { deep: true });
+  watch(() => version.value, format);
 
   // Should not trigger format when these changes
   const ignoredKeys = new Set(["showSidebar", "showInput"]);
@@ -34,10 +37,7 @@ function setup(props, { slots }) {
       () => settings[key],
       (newValue, oldValue) => {
         // Always triggers format
-        if (
-          (key === "rethrowEmbedErrors" || key === "version") &&
-          newValue !== oldValue
-        ) {
+        if (key === "rethrowEmbedErrors" && newValue !== oldValue) {
           return format();
         }
         // Only if set to true
