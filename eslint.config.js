@@ -29,9 +29,7 @@ coverage/
 dist*/
 **/node_modules/**
 website/build/
-website/static/lib
-website/static/lib-stable/
-website/static/lib-next/
+website/static/lib/
 website/static/playground/
 website/.docusaurus
 scripts/benchmark/*/
