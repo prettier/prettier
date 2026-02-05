@@ -44,9 +44,9 @@ export default defineConfig({
     minify: IS_CI,
   },
   define: {
-    "import.meta.env.DEFAULT_VERSION": process.env.PULL_REQUEST
-      ? "next"
-      : "stable",
+    "import.meta.env.DEFAULT_VERSION": JSON.stringify(
+      process.env.PULL_REQUEST ? "next" : "stable",
+    ),
   },
 });
 
