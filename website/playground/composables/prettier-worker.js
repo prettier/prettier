@@ -3,26 +3,19 @@
 @import {FormatMessage, MetaMessage} from "../../static/worker.mjs"
 */
 class WorkerApi {
-  #worker;
+  #workers = {};
   #counter = 0;
   #handlers = {};
 
-  constructor() {
-    this.#worker = {
-      stable: null,
-      next: null,
-    };
-  }
-
   #initWorker(version) {
-    if (this.#worker[version]) {
-      return this.#worker[version];
+    if (this.#workers[version]) {
+      return this.#workers[version];
     }
 
     const worker = new Worker(`/worker.mjs?version=${version}`, {
       type: "module",
     });
-    this.#worker[version] = worker;
+    this.#workers[version] = worker;
     const handlers = this.#handlers;
 
     worker.addEventListener("message", (event) => {
