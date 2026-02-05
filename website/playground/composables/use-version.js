@@ -10,11 +10,6 @@ function getVersion() {
     "version",
   );
 
-  // If there is no version in url, switch to `stable` version
-  if (!IS_PULL_REQUEST && !versionInUrl) {
-    return DEFAULT_VERSION;
-  }
-
   if (ALLOWED_VERSIONS.has(versionInUrl)) {
     return versionInUrl;
   }
