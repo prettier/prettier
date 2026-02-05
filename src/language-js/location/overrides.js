@@ -51,12 +51,39 @@ const overrides =
 
 const shouldAddContentEnd = createTypeCheckFunction(nodeTypesWithContentEnd);
 
-const shouldIgnoredNodePrintSemicolon = (node) =>
-  node.type === "BreakStatement" ||
-  node.type === "ContinueStatement" ||
-  node.type === "DebuggerStatement" ||
-  node.type === "VariableDeclaration" ||
-  (shouldAddContentEnd(node) && node.__contentEnd);
+const shouldIgnoredNodePrintSemicolon = (node) => {
+  if (shouldAddContentEnd(node) && node.__contentEnd) {
+    return true;
+  }
+
+  const { type } = node;
+
+  if (
+    type === "BreakStatement" ||
+    type === "ContinueStatement" ||
+    type === "DebuggerStatement" ||
+    type === "VariableDeclaration"
+  ) {
+    return true;
+  }
+
+  if (type === "IfStatement") {
+    return shouldIgnoredNodePrintSemicolon(node.alternate ?? node.consequent);
+  }
+
+  if (
+    type === "ForInStatement" ||
+    type === "ForOfStatement" ||
+    type === "ForStatement" ||
+    type === "LabeledStatement" ||
+    type === "WithStatement" ||
+    type === "WhileStatement"
+  ) {
+    return shouldIgnoredNodePrintSemicolon(node.body);
+  }
+
+  return false;
+};
 
 /**
 @param {Node | Comment} node
@@ -66,9 +93,19 @@ function locEnd(node) {
   const { type } = node;
 
   // Effected by children
-  // TODO[@fisker]: Add more types
   if (type === "IfStatement") {
     return locEnd(node.alternate ?? node.consequent);
+  }
+
+  if (
+    type === "ForInStatement" ||
+    type === "ForOfStatement" ||
+    type === "ForStatement" ||
+    type === "LabeledStatement" ||
+    type === "WithStatement" ||
+    type === "WhileStatement"
+  ) {
+    return locEnd(node.body);
   }
 
   return (

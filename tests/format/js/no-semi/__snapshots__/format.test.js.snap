@@ -796,6 +796,448 @@ while (1); /* comment */
 ================================================================================
 `;
 
+exports[`for-in-statement.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "flow"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+for (a in b) foo
+
+// 11
+;[]
+
+for (a in b) foo
+
+// 21
+;foo
+
+// prettier-ignore
+for (   a in   b)   foo (   )
+
+;[]
+
+for (a in b) foo /* comment */ ;
+
+=====================================output=====================================
+for (a in b) foo
+
+// 11
+;[]
+
+for (a in b) foo
+
+// 21
+foo
+
+// prettier-ignore
+for (   a in   b)   foo (   )
+
+;[]
+
+for (a in b) foo /* comment */
+
+================================================================================
+`;
+
+exports[`for-in-statement.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+for (a in b) foo
+
+// 11
+;[]
+
+for (a in b) foo
+
+// 21
+;foo
+
+// prettier-ignore
+for (   a in   b)   foo (   )
+
+;[]
+
+for (a in b) foo /* comment */ ;
+
+=====================================output=====================================
+for (a in b) foo;
+
+// 11
+[];
+
+for (a in b) foo;
+
+// 21
+foo;
+
+// prettier-ignore
+for (   a in   b)   foo (   );
+
+[];
+
+for (a in b) foo; /* comment */
+
+================================================================================
+`;
+
+exports[`for-of-statement.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "flow"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+for (a of b) foo
+
+// 11
+;[]
+
+for (a of b) foo
+
+// 21
+;foo
+
+// prettier-ignore
+for (   a of   b)   foo (   )
+
+;[]
+
+for (a of b) foo /* comment */ ;
+
+// prettier-ignore
+for (   a of   b) while   (   1)   foo (   )
+
+;[]
+
+=====================================output=====================================
+for (a of b) foo
+
+// 11
+;[]
+
+for (a of b) foo
+
+// 21
+foo
+
+// prettier-ignore
+for (   a of   b)   foo (   )
+
+;[]
+
+for (a of b) foo /* comment */
+
+// prettier-ignore
+for (   a of   b) while   (   1)   foo (   )
+
+;[]
+
+================================================================================
+`;
+
+exports[`for-of-statement.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+for (a of b) foo
+
+// 11
+;[]
+
+for (a of b) foo
+
+// 21
+;foo
+
+// prettier-ignore
+for (   a of   b)   foo (   )
+
+;[]
+
+for (a of b) foo /* comment */ ;
+
+// prettier-ignore
+for (   a of   b) while   (   1)   foo (   )
+
+;[]
+
+=====================================output=====================================
+for (a of b) foo;
+
+// 11
+[];
+
+for (a of b) foo;
+
+// 21
+foo;
+
+// prettier-ignore
+for (   a of   b)   foo (   );
+
+[];
+
+for (a of b) foo; /* comment */
+
+// prettier-ignore
+for (   a of   b) while   (   1)   foo (   );
+
+[];
+
+================================================================================
+`;
+
+exports[`for-statement.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "flow"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+for (;;) foo
+
+// 11
+;[]
+
+for (;;) foo
+
+// 21
+;foo
+
+// prettier-ignore
+for (   ;   ;)   foo (   )
+
+;[]
+
+for (;;) foo /* comment */ ;
+
+=====================================output=====================================
+for (;;) foo
+
+// 11
+;[]
+
+for (;;) foo
+
+// 21
+foo
+
+// prettier-ignore
+for (   ;   ;)   foo (   )
+
+;[]
+
+for (;;) foo /* comment */
+
+================================================================================
+`;
+
+exports[`for-statement.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+for (;;) foo
+
+// 11
+;[]
+
+for (;;) foo
+
+// 21
+;foo
+
+// prettier-ignore
+for (   ;   ;)   foo (   )
+
+;[]
+
+for (;;) foo /* comment */ ;
+
+=====================================output=====================================
+for (;;) foo;
+
+// 11
+[];
+
+for (;;) foo;
+
+// 21
+foo;
+
+// prettier-ignore
+for (   ;   ;)   foo (   );
+
+[];
+
+for (;;) foo; /* comment */
+
+================================================================================
+`;
+
+exports[`if-statement.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "flow"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+if (1) foo
+
+// 11
+;[]
+
+if (1) foo
+
+// 21
+;foo
+
+// prettier-ignore
+if (   1)    foo
+
+;[]
+
+if (1) foo /* comment */ ;
+
+if (1) ; else foo
+
+// 11
+;[]
+
+if (1) ; else foo
+
+// 21
+;foo
+
+// prettier-ignore
+if (   1) ; else    foo
+
+;[]
+
+if (1) ; else foo /* comment */ ;
+
+=====================================output=====================================
+if (1) foo
+
+// 11
+;[]
+
+if (1) foo
+
+// 21
+foo
+
+// prettier-ignore
+if (   1)    foo
+
+;[]
+
+if (1) foo /* comment */
+
+if (1);
+else foo
+
+// 11
+;[]
+
+if (1);
+else foo
+
+// 21
+foo
+
+// prettier-ignore
+if (   1) ; else    foo
+
+;[]
+
+if (1);
+else foo /* comment */
+
+================================================================================
+`;
+
+exports[`if-statement.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+if (1) foo
+
+// 11
+;[]
+
+if (1) foo
+
+// 21
+;foo
+
+// prettier-ignore
+if (   1)    foo
+
+;[]
+
+if (1) foo /* comment */ ;
+
+if (1) ; else foo
+
+// 11
+;[]
+
+if (1) ; else foo
+
+// 21
+;foo
+
+// prettier-ignore
+if (   1) ; else    foo
+
+;[]
+
+if (1) ; else foo /* comment */ ;
+
+=====================================output=====================================
+if (1) foo;
+
+// 11
+[];
+
+if (1) foo;
+
+// 21
+foo;
+
+// prettier-ignore
+if (   1)    foo;
+
+[];
+
+if (1) foo; /* comment */
+
+if (1);
+else foo;
+
+// 11
+[];
+
+if (1);
+else foo;
+
+// 21
+foo;
+
+// prettier-ignore
+if (   1) ; else    foo;
+
+[];
+
+if (1);
+else foo; /* comment */
+
+================================================================================
+`;
+
 exports[`imports.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
@@ -1041,6 +1483,93 @@ switch (n) {
 
 var c = a.e;
 ((i.a += Ga(c.e)), F(i, c.i, 0));
+
+================================================================================
+`;
+
+exports[`labeled-statement.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "flow"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+label: while(1) foo
+
+// 11
+;[]
+
+label: while(1) foo
+
+// 21
+;foo
+
+// prettier-ignore
+label: while   (   1)   foo (   )
+
+;[]
+
+label: while(1) foo /* comment */ ;
+
+=====================================output=====================================
+label: while (1) foo
+
+// 11
+;[]
+
+label: while (1) foo
+
+// 21
+foo
+
+// prettier-ignore
+label: while   (   1)   foo (   )
+
+;[]
+
+label: while (1) foo /* comment */
+
+================================================================================
+`;
+
+exports[`labeled-statement.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+label: while(1) foo
+
+// 11
+;[]
+
+label: while(1) foo
+
+// 21
+;foo
+
+// prettier-ignore
+label: while   (   1)   foo (   )
+
+;[]
+
+label: while(1) foo /* comment */ ;
+
+=====================================output=====================================
+label: while (1) foo;
+
+// 11
+[];
+
+label: while (1) foo;
+
+// 21
+foo;
+
+// prettier-ignore
+label: while   (   1)   foo (   );
+
+[];
+
+label: while (1) foo; /* comment */
 
 ================================================================================
 `;
@@ -1540,6 +2069,180 @@ function a() {
 
   return; /* comment */
 }
+
+================================================================================
+`;
+
+exports[`while-statement.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "flow"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+while(1) foo
+
+// 11
+;[]
+
+while(1) foo
+
+// 21
+;foo
+
+// prettier-ignore
+while   (   1)   foo (   )
+
+;[]
+
+while(1) foo /* comment */ ;
+
+=====================================output=====================================
+while (1) foo
+
+// 11
+;[]
+
+while (1) foo
+
+// 21
+foo
+
+// prettier-ignore
+while   (   1)   foo (   )
+
+;[]
+
+while (1) foo /* comment */
+
+================================================================================
+`;
+
+exports[`while-statement.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+while(1) foo
+
+// 11
+;[]
+
+while(1) foo
+
+// 21
+;foo
+
+// prettier-ignore
+while   (   1)   foo (   )
+
+;[]
+
+while(1) foo /* comment */ ;
+
+=====================================output=====================================
+while (1) foo;
+
+// 11
+[];
+
+while (1) foo;
+
+// 21
+foo;
+
+// prettier-ignore
+while   (   1)   foo (   );
+
+[];
+
+while (1) foo; /* comment */
+
+================================================================================
+`;
+
+exports[`with-statement.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "flow"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+with(1) foo
+
+// 11
+;[]
+
+with(1) foo
+
+// 21
+;foo
+
+// prettier-ignore
+with   (   1)   foo (   )
+
+;[]
+
+with(1) foo /* comment */ ;
+
+=====================================output=====================================
+with (1) foo
+
+// 11
+;[]
+
+with (1) foo
+
+// 21
+foo
+
+// prettier-ignore
+with   (   1)   foo (   )
+
+;[]
+
+with (1) foo /* comment */
+
+================================================================================
+`;
+
+exports[`with-statement.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "flow"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+with(1) foo
+
+// 11
+;[]
+
+with(1) foo
+
+// 21
+;foo
+
+// prettier-ignore
+with   (   1)   foo (   )
+
+;[]
+
+with(1) foo /* comment */ ;
+
+=====================================output=====================================
+with (1) foo;
+
+// 11
+[];
+
+with (1) foo;
+
+// 21
+foo;
+
+// prettier-ignore
+with   (   1)   foo (   );
+
+[];
+
+with (1) foo; /* comment */
 
 ================================================================================
 `;
