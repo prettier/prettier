@@ -13226,6 +13226,7 @@ __metadata:
     "@docusaurus/core": "npm:3.9.2"
     "@docusaurus/faster": "npm:3.9.2"
     "@docusaurus/module-type-aliases": "npm:3.9.2"
+    "@docusaurus/plugin-content-docs": "npm:3.9.2"
     "@docusaurus/preset-classic": "npm:3.9.2"
     "@docusaurus/types": "npm:3.9.2"
     "@lezer/highlight": "npm:1.2.3"
