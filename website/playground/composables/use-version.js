@@ -13,7 +13,10 @@ function getVersion() {
     return versionInUrl;
   }
 
-  const docsVersion = localStorage.getItem(DOCS_VERSION_KEY);
+  let docsVersion = localStorage.getItem(DOCS_VERSION_KEY);
+  if (docsVersion === "current") {
+    docsVersion = "next";
+  }
   if (ALLOWED_VERSIONS.has(docsVersion)) {
     return docsVersion;
   }
