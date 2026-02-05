@@ -5,7 +5,7 @@ title: Ignoring Code
 
 Use `.prettierignore` to ignore (i.e. not reformat) certain files and folders completely.
 
-Use “prettier-ignore” comments to ignore parts of files.
+Use “prettier-ignore” comments, followed by a line break, to ignore parts of files.
 
 ## Ignoring Files: .prettierignore
 
