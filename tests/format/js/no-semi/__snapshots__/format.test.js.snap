@@ -906,6 +906,11 @@ for (   a of   b)   foo (   )
 
 for (a of b) foo /* comment */ ;
 
+// prettier-ignore
+for (   a of   b) while   (   1)   foo (   )
+
+;[]
+
 =====================================output=====================================
 for (a of b) foo
 
@@ -923,6 +928,11 @@ for (   a of   b)   foo (   )
 ;[]
 
 for (a of b) foo /* comment */
+
+// prettier-ignore
+for (   a of   b) while   (   1)   foo (   )
+
+;[]
 
 ================================================================================
 `;
@@ -949,6 +959,11 @@ for (   a of   b)   foo (   )
 
 for (a of b) foo /* comment */ ;
 
+// prettier-ignore
+for (   a of   b) while   (   1)   foo (   )
+
+;[]
+
 =====================================output=====================================
 for (a of b) foo;
 
@@ -966,6 +981,11 @@ for (   a of   b)   foo (   );
 [];
 
 for (a of b) foo; /* comment */
+
+// prettier-ignore
+for (   a of   b) while   (   1)   foo (   );
+
+[];
 
 ================================================================================
 `;
