@@ -29,14 +29,8 @@ function setVersion(value) {
 
   value = ALLOWED_VERSIONS.has(value) ? value : DEFAULT_VERSION;
 
-  if (value === "next") {
-    localStorage.setItem(DOCS_VERSION_KEY, "current");
-    version.value = "next";
-  } else {
-    localStorage.removeItem(DOCS_VERSION_KEY);
-    version.value = "stable";
-  }
-
+  localStorage.setItem(DOCS_VERSION_KEY, value === "next" ? "current" : value);
+  version.value = value;
   if (value === DEFAULT_VERSION) {
     url.searchParams.delete("version");
   } else {
