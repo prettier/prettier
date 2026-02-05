@@ -103,7 +103,7 @@ describe("standalone", () => {
     [
       "graphql",
       {
-        sharedVisitorKeys: false,
+        sharedVisitorKeys: true,
         nodes: [
           { kind: "ObjectTypeExtension" },
           { kind: "InterfaceTypeExtension" },
