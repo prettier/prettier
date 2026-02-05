@@ -703,95 +703,89 @@ debugger; /* comment */
 ================================================================================
 `;
 
-exports[`do-while-statement.js - {"semi":false} format 1`] = `
+exports[`if-statement.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
 semi: false
                                                       printWidth: 80 (default) |
 =====================================input======================================
-do;while(1)
+if (1) foo
 
 // 11
 ;[]
 
-do;while(1)
+if (1) foo
 
 // 21
 ;foo
 
 // prettier-ignore
-do;   while(   1)
+if (1) foo
 
 ;[]
 
-do;while(1) /* comment */ ;
+if (1) foo /* comment */ ;
 
 =====================================output=====================================
-do;
-while (1)
+if (1) foo
 
 // 11
 ;[]
 
-do;
-while (1)
+if (1) foo
 
 // 21
 foo
 
 // prettier-ignore
-do;   while(   1)
+if (1) foo
 
 ;[]
 
-do;
-while (1) /* comment */
+if (1) foo /* comment */
 
 ================================================================================
 `;
 
-exports[`do-while-statement.js format 1`] = `
+exports[`if-statement.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
-do;while(1)
+if (1) foo
 
 // 11
 ;[]
 
-do;while(1)
+if (1) foo
 
 // 21
 ;foo
 
 // prettier-ignore
-do;   while(   1)
+if (1) foo
 
 ;[]
 
-do;while(1) /* comment */ ;
+if (1) foo /* comment */ ;
 
 =====================================output=====================================
-do;
-while (1);
+if (1) foo;
 
 // 11
 [];
 
-do;
-while (1);
+if (1) foo;
 
 // 21
 foo;
 
 // prettier-ignore
-do;   while(   1);
+if (1) foo
 
 [];
 
-do;
-while (1); /* comment */
+if (1) foo; /* comment */
 
 ================================================================================
 `;
@@ -1474,6 +1468,7 @@ function a() {
   return /* comment */ ;
 }
 
+
 =====================================output=====================================
 function a() {
   return
@@ -1520,6 +1515,7 @@ function a() {
 
   return /* comment */ ;
 }
+
 
 =====================================output=====================================
 function a() {
