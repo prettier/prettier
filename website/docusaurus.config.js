@@ -1,4 +1,4 @@
-// @ts-nocheck
+// @ts-check
 
 import fs from "node:fs";
 import { createRequire } from "node:module";
@@ -77,9 +77,8 @@ const config = {
           path: "../docs",
           sidebarCollapsed: false,
           breadcrumbs: false,
-          ...(process.env.PULL_REQUEST === "true" && {
-            lastVersion: "current",
-          }),
+          lastVersion:
+            process.env.PULL_REQUEST === "true" ? "current" : undefined,
           versions: {
             current: {
               label: "next",

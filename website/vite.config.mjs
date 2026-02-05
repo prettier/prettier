@@ -43,9 +43,6 @@ export default defineConfig({
     outDir: OUT_DIRECTORY,
     minify: IS_CI,
   },
-  define: {
-    __IS_PULL_REQUEST__: process.env.PULL_REQUEST ?? false,
-  },
 });
 
 function buildCdnAlias() {
