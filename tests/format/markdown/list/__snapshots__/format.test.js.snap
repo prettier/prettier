@@ -3370,6 +3370,165 @@ proseWrap: "always"
 ================================================================================
 `;
 
+exports[`issue-16929.md - {"proseWrap":"always","tabWidth":0} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 0
+                                                                                | printWidth
+=====================================input======================================
+-   Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+    Lorem Ipsum has been the industry's standard dummy text.
+
+    It is a long established fact that a reader will be distracted by the readable
+    content of a page when looking at its layout.
+
+-   Second item with a second paragraph.
+
+    This is the second paragraph of the second item.
+
+- Minimal spacing item.
+
+  Second paragraph with minimal spacing.
+
+=====================================output=====================================
+- Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+  Lorem Ipsum has been the industry's standard dummy text.
+
+  It is a long established fact that a reader will be distracted by the readable
+  content of a page when looking at its layout.
+
+- Second item with a second paragraph.
+
+  This is the second paragraph of the second item.
+
+- Minimal spacing item.
+
+  Second paragraph with minimal spacing.
+
+================================================================================
+`;
+
+exports[`issue-16929.md - {"proseWrap":"always","tabWidth":4} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 4
+                                                                                | printWidth
+=====================================input======================================
+-   Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+    Lorem Ipsum has been the industry's standard dummy text.
+
+    It is a long established fact that a reader will be distracted by the readable
+    content of a page when looking at its layout.
+
+-   Second item with a second paragraph.
+
+    This is the second paragraph of the second item.
+
+- Minimal spacing item.
+
+  Second paragraph with minimal spacing.
+
+=====================================output=====================================
+- Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+  Lorem Ipsum has been the industry's standard dummy text.
+
+    It is a long established fact that a reader will be distracted by the
+    readable content of a page when looking at its layout.
+
+- Second item with a second paragraph.
+
+    This is the second paragraph of the second item.
+
+- Minimal spacing item.
+
+    Second paragraph with minimal spacing.
+
+================================================================================
+`;
+
+exports[`issue-16929.md - {"proseWrap":"always","tabWidth":999} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 999
+                                                                                | printWidth
+=====================================input======================================
+-   Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+    Lorem Ipsum has been the industry's standard dummy text.
+
+    It is a long established fact that a reader will be distracted by the readable
+    content of a page when looking at its layout.
+
+-   Second item with a second paragraph.
+
+    This is the second paragraph of the second item.
+
+- Minimal spacing item.
+
+  Second paragraph with minimal spacing.
+
+=====================================output=====================================
+- Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+  Lorem Ipsum has been the industry's standard dummy text.
+
+     It is a long established fact that a reader will be distracted by the
+     readable content of a page when looking at its layout.
+
+- Second item with a second paragraph.
+
+     This is the second paragraph of the second item.
+
+- Minimal spacing item.
+
+     Second paragraph with minimal spacing.
+
+================================================================================
+`;
+
+exports[`issue-16929.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+-   Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+    Lorem Ipsum has been the industry's standard dummy text.
+
+    It is a long established fact that a reader will be distracted by the readable
+    content of a page when looking at its layout.
+
+-   Second item with a second paragraph.
+
+    This is the second paragraph of the second item.
+
+- Minimal spacing item.
+
+  Second paragraph with minimal spacing.
+
+=====================================output=====================================
+- Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+  Lorem Ipsum has been the industry's standard dummy text.
+
+  It is a long established fact that a reader will be distracted by the readable
+  content of a page when looking at its layout.
+
+- Second item with a second paragraph.
+
+  This is the second paragraph of the second item.
+
+- Minimal spacing item.
+
+  Second paragraph with minimal spacing.
+
+================================================================================
+`;
+
 exports[`issue-17652.md - {"proseWrap":"always","tabWidth":0} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
