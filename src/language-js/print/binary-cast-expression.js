@@ -1,14 +1,25 @@
-import { group, indent, softline } from "../../document/index.js";
+import { group, indent, line, softline } from "../../document/index.js";
 import {
+  isAsConstExpression,
+  isFlowAsConstExpression,
+} from "../utilities/is-as-const-expression.js";
+import { isGenericType } from "../utilities/is-generic-type.js";
+import {
+  isArrayType,
   isCallOrNewExpression,
+  isConditionalType,
+  isFunctionType,
+  isIntersectionType,
   isMemberExpression,
+  isObjectType,
   isSatisfiesExpression,
+  isUnionType,
 } from "../utilities/node-types.js";
+import { shouldHugUnionType } from "../utilities/union-type-print.js";
 
 function printBinaryCastExpression(path, options, print) {
   const { parent, node, key } = path;
-  const isFlowAsConstExpression = node.type === "AsConstExpression";
-  const typeAnnotationDoc = isFlowAsConstExpression
+  const typeAnnotationDoc = isFlowAsConstExpression(node)
     ? "const"
     : print("typeAnnotation");
 
@@ -16,9 +27,13 @@ function printBinaryCastExpression(path, options, print) {
     print("expression"),
     " ",
     isSatisfiesExpression(node) ? "satisfies" : "as",
-    " ",
-    typeAnnotationDoc,
   ];
+
+  if (shouldInlineBinaryCastExpression(path)) {
+    parts.push(" ", typeAnnotationDoc);
+  } else {
+    parts.push(group(indent([line, typeAnnotationDoc])));
+  }
 
   if (
     (key === "callee" && isCallOrNewExpression(parent)) ||
@@ -28,6 +43,37 @@ function printBinaryCastExpression(path, options, print) {
   }
 
   return parts;
+}
+
+function shouldInlineBinaryCastExpression(path) {
+  const { node } = path;
+  // Don't break `as const`;
+  if (isAsConstExpression(node)) {
+    return true;
+  }
+  const { expression, typeAnnotation } = node;
+
+  if (isUnionType(typeAnnotation) && !shouldHugUnionType(typeAnnotation)) {
+    return false;
+  }
+
+  if (isCallOrNewExpression(expression)) {
+    return true;
+  }
+
+  if (
+    isObjectType(typeAnnotation) ||
+    isIntersectionType(typeAnnotation) ||
+    isGenericType(typeAnnotation) ||
+    isFunctionType(typeAnnotation) ||
+    isArrayType(typeAnnotation) ||
+    isConditionalType(typeAnnotation) ||
+    typeAnnotation.type === "TSConstructorType"
+  ) {
+    return true;
+  }
+
+  return false;
 }
 
 export { printBinaryCastExpression };
