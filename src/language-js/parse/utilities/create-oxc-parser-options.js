@@ -12,9 +12,7 @@ function createOxcParserOptions(options) {
     if (oxcSupportsRawTransfer === undefined) {
       oxcSupportsRawTransfer = rawTransferSupported();
     }
-    if (oxcSupportsRawTransfer) {
-      parserOptions.experimentalRawTransfer = true;
-    }
+    parserOptions.experimentalRawTransfer = oxcSupportsRawTransfer;
   }
 
   return parserOptions;
