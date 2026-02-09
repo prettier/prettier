@@ -75,6 +75,23 @@ async function buildPluginTypes({ packageConfig, file: { input, output } }) {
     );
   }
 
+  // Augument `Options` with plugin-specific options for non-core packages
+  if (packageConfig.packageName === "@prettier/plugin-oxc") {
+    declarations.push(
+      outdent`
+        declare module "prettier" {
+          interface Options {
+            /**
+             * Enable Oxc parser’s raw transfer mode on platforms that support it.
+             * @default false
+             */
+            oxcRawTransferMode?: boolean | undefined;
+          }
+        }
+      `,
+    );
+  }
+
   const code =
     declarations.length === 0
       ? "export {};"
