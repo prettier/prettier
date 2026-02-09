@@ -1,0 +1,31 @@
+#### Introduce the `oxcRawTransferMode` option for `@prettier/plugin-oxc` (#XXXX by @porada)
+
+`@prettier/plugin-oxc` now supports an `oxcRawTransferMode` option that enables the Oxc parser’s raw transfer mode for additional performance gains.
+
+```js
+// prettier.config.mjs
+import * as prettierPluginOxc from "@prettier/plugin-oxc";
+
+/**
+ * @see https://prettier.io/docs/configuration
+ * @type {import("prettier").Config}
+ */
+const config = {
+  overrides: [
+    {
+      files: ["**/*.{js,mjs,cjs,jsx}"],
+      parser: "oxc",
+      plugins: [prettierPluginOxc],
+      oxcRawTransferMode: true,
+    },
+    {
+      files: ["**/*.{ts,mts,cts,tsx}"],
+      parser: "oxc-ts",
+      plugins: [prettierPluginOxc],
+      oxcRawTransferMode: true,
+    },
+  ],
+};
+
+export default config;
+```
