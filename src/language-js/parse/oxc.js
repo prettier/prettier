@@ -3,6 +3,7 @@ import { parseSync as oxcParse } from "oxc-parser";
 import createError from "../../common/parser-create-error.js";
 import { tryCombinationsSync } from "../../utilities/try-combinations.js";
 import postprocess from "./postprocess/index.js";
+import createOxcParserOptions from "./utilities/create-oxc-parser-options.js";
 import createParser from "./utilities/create-parser.js";
 import jsxRegexp from "./utilities/jsx-regexp.evaluate.js";
 import {
@@ -67,6 +68,7 @@ function parseWithOptions(filepath, text, options) {
 function parseJs(text, options) {
   let filepath = options?.filepath;
   const sourceType = getSourceType(filepath);
+  const parserOptions = createOxcParserOptions(options);
 
   if (typeof filepath !== "string") {
     filepath = "prettier.tsx";
@@ -75,7 +77,11 @@ function parseJs(text, options) {
     sourceType ? [sourceType] : SOURCE_TYPE_COMBINATIONS
   ).map(
     (sourceType) => () =>
-      parseWithOptions(filepath, text, { sourceType, lang: "jsx" }),
+      parseWithOptions(filepath, text, {
+        sourceType,
+        lang: "jsx",
+        ...parserOptions,
+      }),
   );
 
   let result;
@@ -121,6 +127,7 @@ function parseTs(text, options) {
 
   const sourceType = getSourceType(filepath);
   const languageCombinations = getLanguageCombinations(text, options);
+  const parserOptions = createOxcParserOptions(options);
 
   if (typeof filepath !== "string") {
     filepath = "prettier.tsx";
@@ -131,7 +138,12 @@ function parseTs(text, options) {
   ).flatMap((sourceType) =>
     languageCombinations.map(
       (lang) => () =>
-        parseWithOptions(filepath, text, { astType: "ts", sourceType, lang }),
+        parseWithOptions(filepath, text, {
+          astType: "ts",
+          sourceType,
+          lang,
+          ...parserOptions,
+        }),
     ),
   );
 

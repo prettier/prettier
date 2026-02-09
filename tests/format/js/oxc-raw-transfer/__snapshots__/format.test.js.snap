@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`test.js - {"oxcRawTransferMode":false} format 1`] = `
+====================================options=====================================
+oxcRawTransferMode: false
+parsers: ["oxc", "oxc-ts"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+const values=[1,2,3].map((value)=>({value}));
+
+=====================================output=====================================
+const values = [1, 2, 3].map((value) => ({ value }));
+
+================================================================================
+`;
+
+exports[`test.js - {"oxcRawTransferMode":true} format 1`] = `
+====================================options=====================================
+oxcRawTransferMode: true
+parsers: ["oxc", "oxc-ts"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+const values=[1,2,3].map((value)=>({value}));
+
+=====================================output=====================================
+const values = [1, 2, 3].map((value) => ({ value }));
+
+================================================================================
+`;
