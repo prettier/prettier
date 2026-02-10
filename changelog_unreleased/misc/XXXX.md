@@ -1,0 +1,15 @@
+#### Open up `oxc-parser` version range for `@prettier/plugin-oxc` (#XXXX by @porada)
+
+The generated `@prettier/plugin-oxc` package now declares `oxc-parser` with a caret range, allowing compatible non-breaking updates.
+
+```jsonc
+// dist/plugin-oxc/package.json (stable)
+"dependencies": {
+  "oxc-parser": "0.112.0"
+}
+
+// dist/plugin-oxc/package.json (main)
+"dependencies": {
+  "oxc-parser": "^0.112.0"
+}
+```
