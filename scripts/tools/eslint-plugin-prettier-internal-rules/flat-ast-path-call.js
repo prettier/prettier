@@ -36,7 +36,7 @@ export default {
     fixable: "code",
   },
   create(context) {
-    const {sourceCode} = context;
+    const { sourceCode } = context;
 
     return {
       [selector](outerCall) {
