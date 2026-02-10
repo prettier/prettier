@@ -21,7 +21,7 @@ export default {
     fixable: "code",
   },
   create(context) {
-    const sourceCode = context.getSourceCode();
+    const { sourceCode } = context;
 
     return {
       [selector](node) {
