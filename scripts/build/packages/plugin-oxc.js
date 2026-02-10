@@ -62,10 +62,15 @@ packageConfig.modules.push(
   mainModule,
   createPackageMetaFilesConfig({
     "package.json"(packageJson, { projectPackageJson }) {
+      const oxcParserVersion = projectPackageJson.dependencies["oxc-parser"];
       return {
         ...packageJson,
         dependencies: {
-          "oxc-parser": projectPackageJson.dependencies["oxc-parser"],
+          "oxc-parser":
+            // Prefix a fixed version number with `^`
+            /^\d/.test(oxcParserVersion)
+              ? `^${oxcParserVersion}`
+              : oxcParserVersion,
         },
       };
     },
