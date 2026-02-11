@@ -57,10 +57,10 @@ export default {
     fixable: "code",
   },
   create(context) {
-    if (path.basename(path.dirname(context.getFilename())) !== "parentheses") {
+    const { physicalFilename: file, sourceCode } = context;
+    if (path.basename(path.dirname(file)) !== "parentheses") {
       return {};
     }
-    const sourceCode = context.getSourceCode();
 
     return {
       [parentPropertyCheckSelector](node) {
