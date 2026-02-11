@@ -176,7 +176,7 @@ export default {
     const { ignoreSingleType = false, onlyTopLevelFunctions = false } = {
       ...context.options[0],
     };
-    const sourceCode = context.getSourceCode();
+    const { sourceCode } = context;
 
     return {
       [functionSelector](functionNode) {
