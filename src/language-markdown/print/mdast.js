@@ -120,6 +120,7 @@ function printMdast(path, options, print) {
         // leading char that may cause different syntax
         next &&
         /^>|^(?:[*+-]|#{1,6}|\d+[).])$/.test(next.value) &&
+        // Avoid https://github.com/prettier/prettier/issues/18861
         !hasFakeWhitespaceAfterNextToken(path)
           ? "never"
           : options.proseWrap;
