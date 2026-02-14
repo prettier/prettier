@@ -317,15 +317,6 @@ function shouldPrintSemicolonAfterInterfaceProperty(
     return true;
   }
 
-  if (!nextNode) {
-    return false;
-  }
-
-  switch (nextNode.type) {
-    case "TSCallSignatureDeclaration":
-      return true;
-  }
-
   return false;
 }
 
