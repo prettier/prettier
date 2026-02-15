@@ -5105,10 +5105,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"flow-parser@npm:0.299.0":
-  version: 0.299.0
-  resolution: "flow-parser@npm:0.299.0"
-  checksum: 10/31518ff216295e1a985a7920531034858cc519c4df51bc5c7643c478c2d2964d68692a6c5862ded6bd9f9c08a93e7babf0b974bd9e7daa168fa8df00a66c675d
+"flow-parser@npm:0.301.0":
+  version: 0.301.0
+  resolution: "flow-parser@npm:0.301.0"
+  checksum: 10/940f41d3b6649a86bb02c4f58c59e07b4fc57f6fafc0ee69fb5da31456a9d734ae3cc20cab59a486308a97dff3309bb9be3faaaedaac4f8cf5176050b6a0eafe
   languageName: node
   linkType: hard
 
@@ -8442,7 +8442,7 @@ __metadata:
     fast-json-stable-stringify: "npm:2.1.0"
     file-entry-cache: "npm:11.1.2"
     find-cache-directory: "npm:6.0.0"
-    flow-parser: "npm:0.299.0"
+    flow-parser: "npm:0.301.0"
     get-east-asian-width: "npm:1.4.0"
     get-port: "npm:7.1.0"
     get-stdin: "npm:9.0.0"
