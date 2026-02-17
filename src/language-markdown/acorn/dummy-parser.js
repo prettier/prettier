@@ -8,15 +8,8 @@ function parse(text, options = {}) {
     end: text.length,
     isProgram: true,
   };
-  const parseResult = {
-    ast: program,
-    comments: [],
-    text,
-  };
 
-  return Object.defineProperty(program, "parseResult", {
-    value: parseResult,
-  });
+  return program;
 }
 
 /**
