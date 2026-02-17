@@ -1,13 +1,13 @@
 import { fromMarkdown } from "mdast-util-from-markdown";
 import { mathFromMarkdown } from "mdast-util-math";
 import { mdxFromMarkdown } from "mdast-util-mdx";
+import { fromMarkdown as wikiLinkFromMarkdown } from "mdast-util-wiki-link";
+import { gfm as gfmSyntax } from "micromark-extension-gfm";
+import { math as mathSyntax } from "micromark-extension-math";
 import { mdxExpression } from "micromark-extension-mdx-expression";
 import { mdxJsx } from "micromark-extension-mdx-jsx";
 import { mdxMd } from "micromark-extension-mdx-md";
 import { mdxjsEsm } from "micromark-extension-mdxjs-esm";
-import { fromMarkdown as wikiLinkFromMarkdown } from "mdast-util-wiki-link";
-import { gfm as gfmSyntax } from "micromark-extension-gfm";
-import { math as mathSyntax } from "micromark-extension-math";
 import { syntax as wikiLinkSyntax } from "micromark-extension-wiki-link";
 import { comment, commentFromMarkdown } from "remark-comment";
 import parseFrontMatter from "../../main/front-matter/parse.js";
